@@ -332,8 +332,9 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 		r.path = { length = length(pts), straight = dist(GOLDSHIRE[1], GOLDSHIRE[2], tx, ty), endGap = dist(pts[#pts].x, pts[#pts].y, tx, ty) }
 		r.left = { walk = N.walk.Left(0, tx, ty), along = length(pts) }
 		r.shown = { text = N.arrow.distText:GetText(), want = Polestar.FormatDistance(floor(a.dist + 0.5)), visible = PolestarNavArrow:IsShown() }
-		-- e: the route lines' walk legs are the engine's path, the player first:
-		-- every path point, in order, along the pieces' points (the mouth between them).
+		-- e: the route lines' walk legs are the arrow's walk: the engine's path points as Follow.Smooth kept them (it
+		-- drops only corners a straight walkable line skips, and adds none), in order, the player first and the mine's
+		-- mouth between the pieces.
 		local g = N.GetRouteGeometry()
 		local along, walks, current = {}, 0, nil
 		for _, leg in ipairs(g.legs) do
@@ -343,12 +344,23 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 				for _, p in ipairs(leg.pts) do along[#along + 1] = p end
 			end
 		end
-		local k, inOrder = 1, true
-		for _, p in ipairs(pts) do
-			while along[k] and not (along[k][1] == 0 and along[k][2] == p.x and along[k][3] == p.y) do k = k + 1 end
-			if not along[k] then inOrder = false break end
+		local last, inOrder, extra, kept = 0, true, 0, 0
+		for _, q in ipairs(along) do
+			local i = nil
+			for j, p in ipairs(pts) do
+				if q[1] == 0 and q[2] == p.x and q[3] == p.y then i = j break end
+			end
+			if not i then
+				extra = extra + 1
+			elseif i < last then
+				inOrder = false
+			else
+				if i > last then kept = kept + 1 end
+				last = i
+			end
 		end
-		r.geometry = { legs = #g.legs, walks = walks, inOrder = inOrder, first = dist(current.pts[1][2], current.pts[1][3], GOLDSHIRE[1], GOLDSHIRE[2]) }
+		r.geometry = { legs = #g.legs, walks = walks, inOrder = inOrder, extra = extra, kept = kept, lastKept = last,
+			first = dist(current.pts[1][2], current.pts[1][3], GOLDSHIRE[1], GOLDSHIRE[2]) }
 		-- f: the journey's legs.
 		local legs, ci = N.GetRoute()
 		local T = N.travel
@@ -384,14 +396,17 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 	assert_eq!(first["step"], "cave");
 	assert_eq!(first["choke"], "Jasperlode Mine");
 	assert!(f(&first["mouth"]) <= MINE_MOUTH[2], "the first piece ends {:.1} yd from the mine's mouth", f(&first["mouth"]));
-	let (len, tail, d) = (f(&path["length"]), f(&first["tail"]), f(&aim["dist"]));
-	assert!((d - (len - tail)).abs() < 0.5, "the arrow shows the path's length to the mouth ({d:.1} vs {len:.1} less {tail:.1} after it)");
-	assert!(len >= f(&path["straight"]), "path {len:.0} yd, straight {:.0} yd", f(&path["straight"]));
-	assert!((f(&out["left"]["walk"]) - len).abs() < 0.5, "Walk.Left is the whole path left");
+	// The arrow's walk is the engine's path straightened once (Follow.Smooth): never longer, and what it measures and
+	// shows is along it.
+	let (raw, tail, d, len) = (f(&path["length"]), f(&first["tail"]), f(&aim["dist"]), f(&out["left"]["walk"]));
+	assert!(len <= raw + 0.5 && len >= f(&path["straight"]), "the walk {len:.1} yd: the engine's path {raw:.1} yd straightened, the straight line {:.0} yd", f(&path["straight"]));
+	assert!((d - (len - tail)).abs() < 0.5, "the arrow shows the walk's length to the mouth ({d:.1} vs {len:.1} less {tail:.1} after it)");
 	assert_eq!(out["shown"]["text"], out["shown"]["want"], "the arrow's distance text is that length");
 	// e
 	assert_eq!(out["geometry"]["walks"], 2, "two walk pieces on the route lines");
-	assert_eq!(out["geometry"]["inOrder"], true, "their points carry the engine's path, point for point, in order");
+	assert_eq!(out["geometry"]["inOrder"], true, "their points are the engine's path's, in order");
+	assert!(f(&out["geometry"]["extra"]) <= 2.0, "no point but the player's place and the mine's mouth is added ({})", out["geometry"]["extra"]);
+	assert!(f(&out["geometry"]["kept"]) >= 2.0 && out["geometry"]["lastKept"] == aim["n"], "the path's end is kept ({} of {})", out["geometry"]["lastKept"], aim["n"]);
 	assert!(f(&out["geometry"]["first"]) < 0.01, "starting where the player stands");
 	// f (K1, K6, K7)
 	assert_eq!(out["finds"], 1);
@@ -405,7 +420,7 @@ fn b_e_f_the_arrow_aims_along_the_engine_path_ahead_of_the_player_the_route_line
 	assert_eq!(journey["finite"], true);
 	assert_eq!(journey["sum"], journey["total"], "K6: the pieces' times add up to the walk's");
 	assert!(journey["progress"].as_array().unwrap().iter().all(|v| v.as_f64().is_some_and(f64::is_finite)), "K7: the walk's progress is finite");
-	assert!((f(&journey["progress"][1]) - (len - tail)).abs() < 0.5, "and measured along the engine's path to the mouth");
+	assert!((f(&journey["progress"][1]) - (len - tail)).abs() < 0.5, "and measured along the walk to the mouth");
 	assert!(f(&journey["remaining"]).is_finite());
 	// f: once the path is in, the whole walk is measured along it (the sum of its pieces), at the planner's 7 yd/s.
 	let (yards, sum) = (f(&journey["yards"]), f(&journey["sum"]));
@@ -592,6 +607,58 @@ fn b_where_the_straight_line_is_blocked_thelsamar_to_the_stonewrought_dam_the_ar
 	assert!(f(&out["endGap"]) < 10.0);
 	// Measured along the path from where the player stands on it (within the passed first segment).
 	assert!(d <= len + 0.5 && d > len - second - 0.5, "the yards shown ({d:.1}) are the detour's ({len:.1})");
+}
+
+// #1650 (Rheuz): from the Suspicious Barrel at the Stonewrought Dam's east end, the walk back west to Chief Engineer
+// Hinderweir VII (Loch Modan, Era 46.05,13.61, his height 310.3). A few yards north-east of the barrel the maps have
+// no surface at the dam's level (the slope's foot), and the nearest surface without a height is the ridge above,
+// which the maps join only to Grim Batol: searched from there with no height, the walk went round through the
+// Wetlands and back in through Dun Algaz (5,600 yd). The walking floor keeps the dam's height over those cells.
+#[test]
+fn the_walk_from_the_suspicious_barrel_to_hinderweir_keeps_the_dams_height_off_its_edge_400_yd_along_the_dam_never_round_by_grim_batol_1650() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		Polestar.Set("nav.travel", false)
+		local _, bx, by = C.MapToWorld(1432, 56.05, 13.24, "e")
+		local _, sx, sy = C.MapToWorld(1432, 57.5, 13, "e")
+		place(1432, bx, by, 0)
+		local function hinderweir()
+			-- A new goal searches at once from where the player stands.
+			N.ClearTarget()
+			stub.advance(0.05)
+			local n0 = #finds
+			N.SetTarget(1432, 46.05, 13.61, "Chief Engineer Hinderweir VII", "e", nil, 310.3)
+			aim()
+			local n = 0
+			while not (#finds > n0 and finds[#finds].done) and n < 400 do stub.advance(0.05); aim(); n = n + 1 end
+			local f = finds[#finds]
+			local north = -math.huge
+			for _, p in ipairs(f.points or {}) do if p.x > north then north = p.x end end
+			return { z = f.from[3], yards = length(f.points or {}), north = north, finds = #finds }
+		end
+		-- At the barrel with the target set a few seconds (the arrow's Walk.Aim reads the floor; the dam's cells
+		-- there hold more than one level, so walking the first steps settles it), then north-east off the dam's edge.
+		hinderweir()
+		for _ = 1, 20 do stub.advance(0.3); aim() end
+		local r = {}
+		local steps = 20
+		for i = 1, steps do
+			place(1432, bx + (sx - bx) * i / steps, by + (sy - by) * i / steps, 0)
+			stub.advance(0.3)
+			aim()
+		end
+		r.edge = hinderweir()
+		r.barrelX = bx
+		emit(r)"#,
+		false,
+	);
+	let ez = &out["edge"]["z"];
+	assert!(ez.is_number(), "off the dam's edge the walk starts at a height, never without one ({ez})");
+	assert!((f(ez) - 308.0).abs() <= 8.0, "the dam's height (302-314), not the ridge's (340): {ez}");
+	let yards = f(&out["edge"]["yards"]);
+	assert!(yards < 600.0, "about 400 yd along the dam, not 5,600 round by Grim Batol ({yards:.0} yd)");
+	assert!(f(&out["edge"]["north"]) < f(&out["barrelX"]) + 100.0, "no point of the walk goes north over the ridge");
 }
 
 #[test]
@@ -1528,6 +1595,38 @@ fn t_234_floor_balanced_at_the_dens_camp_walked_in_from_the_valley_floor_the_wal
 	floor_den("balanced");
 }
 
+// #1784: Silverpine Forest's covered bridge north-east of the Sepulcher (deck 56, the river at 33, the roof and its
+// eaves at 60-64). Walked onto from the south bank (60) along its west side, the floor follow took the eave a yard or
+// two above the bank (nearer than the deck) and climbed the roof; the arrow's walk on from there to the Hardened Tumor
+// (north-east) turned back south to the bank first. Now on a bridge the follow keeps the deck.
+#[test]
+fn t_1784_floor_walked_onto_silverpines_covered_bridge_from_the_south_bank_the_walk_north_starts_on_the_deck_not_the_roof() {
+	skip_unless_ready!();
+	let script = r#"
+		Polestar.Set("nav.travel", false)
+		w.setLevel(17)
+		w.faction = "Horde"
+		local r = {}
+		-- From the bank south of the bridge (one surface, z 60), north along its west side to the middle of the deck.
+		N.SetTarget(1421, 50, 20, "North")
+		place(1421, 818, 1364, 0)
+		stub.advance(3)
+		aim()
+		walkTo(1421, { { 843, 1364 } })
+		local f = walkFor(1421, 991.9, 1043.4, "Hardened Tumor", nil)
+		local south = math.huge
+		for _, p in ipairs(f.points or {}) do if p.x < south then south = p.x end end
+		r.z = f.from[3] or false
+		r.south = south
+		r.top = highest(f, 843, 1364, 15)
+		emit(r)"#;
+	let out = run(&format!("{FLOOR_WALK}{script}"), true);
+	eprintln!("from z {}, southernmost path point {}, highest within 15 yd {}", out["z"], out["south"], out["top"]);
+	assert!((f(&out["z"]) - 56.0).abs() <= 3.0, "the walk starts on the deck ({})", out["z"]);
+	assert!(f(&out["south"]) >= 838.0, "and never turns back south off the bridge ({})", out["south"]);
+	assert!(f(&out["top"]) <= 59.0, "nor stands on the roof ({})", out["top"]);
+}
+
 // The pattern sweep's worst Undercity start (hop|forever/class/rogue/plundering-the-plunderers|17, real z -62.2, its
 // column -62/5/63): a player who rode the south lift down (the floor unknown at a lift) and walked to it along the
 // router's own way, indoors (IsIndoors), keeps the lower level.
@@ -1863,7 +1962,7 @@ fn far_waypoints_from_mulgore_below_thunder_bluff_to_stonetalon_every_walk_leg_f
 		true,
 	);
 	check_shapes(&out, 4);
-	assert!(out.as_array().unwrap().iter().any(|l| l["label"] == "Go to Stonetalon Mountains" && l["handmade"] != true), "the walk on from the Barrens crossing is the engine's");
+	assert!(out.as_array().unwrap().iter().any(|l| l["label"] == "Walk to Stonetalon Mountains" && l["handmade"] != true), "the walk on from the Barrens crossing is the engine's");
 }
 
 #[test]
@@ -2097,6 +2196,41 @@ fn t_234_floor_alliance_in_stormwinds_trade_district_outdoors_the_walk_out_start
 	stormwind_street("Alliance");
 }
 
+// #1970 (GabZ, 0.3.7.2): a level 16 mage in Elwynn (38.79,55.71 on the live map), bound in Stormwind, guided to Jennea
+// Cannon (Stormwind 49.56,85.80 live, her spawn height 29.7) for a turn-in: "Hearthstone to Stormwind: saves 62 min",
+// a few minutes' walk away. Jennea and the other mage trainers stand in the Wizard's Sanctum's chamber, 76 yd under
+// its ground floor, reached only by the tower's portals (classic-db areatrigger_teleport 704 from the top room down,
+// 702 back up), and the walking maps did not join the top room to the street: the walk into her was unreachable and
+// the Hearthstone won. With the tower's stairs joined (pack/joins.json) and the two portals in the travel data, the
+// plan walks: up the tower, through the portal down, to her.
+#[test]
+#[ignore = "needs the release walking-map pack with the tower-stairs join (#2041)"]
+fn issue_1970_a_mage_in_elwynn_bound_in_stormwind_walks_to_jennea_cannon_in_the_wizards_sanctum_no_hearthstone() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(16)
+		w.faction = "Alliance"
+		w.bind("Stormwind City")
+		w.addItem(6948, 1)
+		IsIndoors = function() return nil end
+		local _, sx, sy = C.MapToWorld(1429, 38.79, 55.71)
+		place(1429, sx, sy, nil)
+		for _ = 1, 30 do aim(); stub.advance(0.05) end
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1453, x = 49.56, y = 85.80, z = 29.7, label = "Jennea Cannon", kind = "turnin", r = 5 })
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local route = {}
+		for i = ci or 1, legs and #legs or 0 do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit({ route = route })"#,
+		true,
+	);
+	let route = strs(&out["route"]);
+	assert!(!route.iter().any(|l| l.starts_with("hearth|")), "no Hearthstone for a walk of minutes: {}", route.join(", "));
+	assert!(route.iter().any(|l| l == "portal|Take the portal to Wizard's Sanctum"), "through the tower's portal down: {}", route.join(", "));
+	assert_eq!(route.last().map(String::as_str), Some("walk|Jennea Cannon"), "and the walk to her: {}", route.join(", "));
+}
+
 // Stormwind as Horde (Fitz's trail round the city, 2026-10-23): from the Deeprun Tram's entrance (his mark, Stormwind
 // 68.73,31.27 on the live map) the walk out to the gate took over 6,000 yd over the walls and round the mountains,
 // because every step on the city's guarded ground costs a Horde walk twenty times over, and the shortest way off it is
@@ -2305,6 +2439,29 @@ fn t_989_rutheran_village_to_teldrassil_takes_the_portal_up_and_from_its_landing
 	assert_eq!(f(&down["treeWalks"]), 0.0, "from Darnassus: no walk leg joins Rut'theran to the top of the tree");
 }
 
+/// #1761 (zpectral): on Teldrassil's southern rim (60.2,71.6), bound for Vesprystus, the flight master in Rut'theran
+/// Village (58.4,93.93) at the foot of the tree, the arrow drew a walk straight down the trunk. No walk joins the two
+/// (the walking grid reaches neither from the other) and the fall from the rim kills (recorded descents); the
+/// way down is through Darnassus and its portal. Rut'theran is an area of Teldrassil's map no walk joins to the rest
+/// (crossings.json `areas`): a zone of its own to the planner. From Dolanaar too.
+fn rutheran_flight_master_from(from: (i64, f64, f64)) {
+	skip_unless_ready!();
+	let out = teldrassil_route(from, (1438, 58.4, 93.93, "Vesprystus"));
+	let (kinds, transports) = (strs(&out["kinds"]), strs(&out["transports"]));
+	assert!(transports.iter().any(|t| t == "portal-ruttheran"), "the Darnassus portal down ({}; {})", kinds.join(", "), transports.join(", "));
+	assert_eq!(f(&out["treeWalks"]), 0.0, "no walk leg joins the top of the tree to Rut'theran ({}; {})", kinds.join(", "), transports.join(", "));
+}
+
+#[test]
+fn t_1761_from_teldrassils_rim_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 60.2, 71.6));
+}
+
+#[test]
+fn t_1761_from_dolanaar_to_the_rutheran_flight_master_the_route_takes_the_darnassus_portal_down_never_a_walk_off_the_tree() {
+	rutheran_flight_master_from((1438, 55.9, 59.8));
+}
+
 // Same pattern (controller handover): Dolanaar <-> Auberdine must not walk between the top of Teldrassil and the
 // Rut'theran dock; the way is Darnassus' portal and the boat (or a flight from Rut'theran).
 fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
@@ -2316,36 +2473,37 @@ fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_dolanaar_to_auberdine_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1438, 56.73, 61.9), (1439, 36.8, 44.3, "Auberdine"));
 }
 
 #[test]
-#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1439, 36.8, 44.3), (1438, 55.9, 59.8, "Dolanaar"));
 }
 
-/// #566 (dogoku), Horde, level 24: from Tarren Mill (Hillsbrad 60.79,19.92) to Nurse Neela in Brill (Tirisfal
-/// 61.82,52.83) with no flight path known to Polestar, the route walked 1471 yd through Western Plaguelands (levels
-/// 51-57) and 1399 yd through Alterac Mountains: the planner's straight walks between zone crossings never counted
-/// the zones of their own two ends (Danger.Along), so a walk from one Plaguelands crossing to the next was safe ground.
-#[test]
-fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
-	skip_unless_ready!();
-	let out = run(
-		r#"
+/// A Horde character at `level` with no flight path known walks from Tarren Mill (Hillsbrad 60.79,19.92) to
+/// `to` (uiMapID, x, y, name): the planned legs' kinds and the yards each zone's ground takes of the walk legs
+/// (by uiMapID, the router's own zone field every 20 yd), and Nav.danger.Mult at that level for Alterac Mountains.
+/// `p10`: price every zone from its P10 as before #1490 (Maps.GetZoneLevels without the danger floor).
+fn tarren_mill_walk(level: u32, to: (u32, f64, f64, &str), p10: bool) -> Value {
+	run(
+		&format!(
+			r#"
+		if {p10} then
+			local get = Polestar.Maps.GetZoneLevels
+			Polestar.Maps.GetZoneLevels = function(id) local lo, hi = get(id) return lo, hi, lo end
+		end
 		w.faction = "Horde"
-		w.setLevel(24)
+		w.setLevel({level})
 		local c, wx, wy = C.MapToWorld(1424, 60.79, 19.92, "e")
 		place(1424, wx, wy)
-		Polestar.CharState().flags.taxi = {}
-		N.SetTarget(1420, 61.82, 52.83, "Nurse Neela", "e")
+		Polestar.CharState().flags.taxi = {{}}
+		N.SetTarget({}, {}, {}, "{}", "e")
 		for _ = 1, 600 do stub.advance(0.05); aim() end
 		local legs, ci = N.GetRoute()
-		local kinds, yards = {}, {}
-		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		local kinds, yards = {{}}, {{}}
+		for i = ci or 1, #(legs or {{}}) do kinds[#kinds + 1] = legs[i].kind end
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			if leg.kind == "walk" then
 				local pts = leg.pts
@@ -2362,11 +2520,220 @@ fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_wa
 			end
 		end
 		for z, y in pairs(yards) do yards[z] = floor(y + 0.5) end
-		emit({ kinds = kinds, yards = yards })"#,
+		emit({{ kinds = kinds, yards = yards, alterac = N.danger.Mult({level}, 1416) }})"#,
+			to.0,
+			js(to.1),
+			js(to.2),
+			to.3
+		),
 		true,
-	);
+	)
+}
+
+/// #566 (dogoku), Horde, level 24: from Tarren Mill (Hillsbrad 60.79,19.92) to Nurse Neela in Brill (Tirisfal
+/// 61.82,52.83) with no flight path known to Polestar, the route walked 1471 yd through Western Plaguelands (levels
+/// 51-57) and 1399 yd through Alterac Mountains: the planner's straight walks between zone crossings never counted
+/// the zones of their own two ends (Danger.Along), so a walk from one Plaguelands crossing to the next was safe ground.
+#[test]
+fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
+	skip_unless_ready!();
+	let out = tarren_mill_walk(24, (1420, 61.82, 52.83, "Nurse Neela"), false);
 	let kinds = strs(&out["kinds"]);
 	assert!(!kinds.is_empty() && kinds.iter().all(|k| k == "walk"), "it walks ({})", kinds.join(", "));
 	assert!(out["yards"]["1420"].as_f64().unwrap_or(0.0) > 0.0, "to Tirisfal: {}", out["yards"]);
 	assert_eq!(out["yards"]["1422"].as_f64().unwrap_or(0.0), 0.0, "no yard of Western Plaguelands (51-57): {}", out["yards"]);
+}
+
+// #1728 (PSYzera, 0.3.6, Tauren Shaman 27, ptBR): just landed at Camp Taurajo (Barrens 44.64,58.88), guided to Feegly
+// the Exiled for The Tear of the Moons (Barrens 48.97,86.31, 1,904 yd south). The arrow sent him back to the
+// Crossroads by air and only from there on foot. The walk from where he stood measures 3,162 yd, priced by its ground
+// (cost 5,660); the Crossroads lies 3,786 yd from the target, past the measure's reach (3,000 yd), so its walk kept the
+// straight estimate (x1.25, cost 4,733), and walk + flight + that estimate beat the measured walk. The landing the plan
+// rides to is measured now however far (5,865 yd, cost 7,380), and the plan waits for that measure: he walks south,
+// and no plan along the way shows the flight back.
+#[test]
+fn camp_taurajo_to_feegly_walks_south_never_flies_back_to_the_crossroads_1728() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(27)
+		Polestar.CharState().flags.taxi = { [22] = true, [23] = true, [25] = true, [77] = true }
+		local _, px, py = C.MapToWorld(1413, 44.64, 58.88, "e")
+		place(1413, px, py, 0)
+		N.SetTarget(1413, 48.97, 86.31, "Accept The Tear of the Moons", "e")
+		aim()
+		local function route()
+			local legs, ci = N.GetRoute()
+			local out = {}
+			for i = ci or 1, legs and #legs or 0 do
+				local l = legs[i]
+				out[#out + 1] = l.kind .. "|" .. tostring(l.engine)
+			end
+			return out
+		end
+		local flew = {}
+		local function look()
+			for _, l in ipairs(route()) do if l:find("^fly") then flew[#flew + 1] = table.concat(route(), " ") end end
+		end
+		local tc, tx, ty = N.GetTargetWorld()
+		local by = {}
+		for _, nd in ipairs(N.GetTravelData().taxi) do by[nd.id] = nd end
+		local xr = by[25]
+		local n = 0
+		local function crossroads() local cost = N.walk.Measured(tc, tx, ty, false) return cost and cost(1, xr.wx, xr.wy, false) end
+		while n < 1200 and type(crossroads()) ~= "number" do stub.advance(0.05); aim(); look(); n = n + 1 end
+		for _ = 1, 200 do stub.advance(0.05); aim(); look() end
+		local cost = N.walk.Measured(tc, tx, ty, false)
+		local pc, py_ = cost(1, px, py, true)
+		local xc, xy = cost(1, xr.wx, xr.wy, false)
+		emit({ after = route(), flew = flew, player = { pc, py_ }, crossroads = { xc, xy }, straight = dist(xr.wx, xr.wy, tx, ty) })"#,
+		true,
+	);
+	assert_eq!(out["after"], serde_json::json!(["walk|cost"]), "a walk south, priced by its measure: {out}");
+	assert!(out["flew"].as_array().map_or(out["flew"] == serde_json::json!({}), |a| a.is_empty()), "no plan along the way flies back: {out}");
+	assert!(f(&out["straight"]) > 3000.0, "the Crossroads lies past the measure's own reach: {out}");
+	assert!(f(&out["crossroads"][1]) > f(&out["player"][1]), "the Crossroads' walk in, measured, is the longer: {out}");
+}
+
+// A later walk's own search that finds nothing (its answer kept as `false`) while that walk's sketch
+// (Path.FindCoarse) is still out: the sketch's answer indexed the `false` and raised "attempt to index local
+// 'was' (a boolean value)" (Nav/Walk.lua pumpShapes, found replaying players' walks). The sketch never goes over the
+// walk's own answer, a failed one included.
+#[test]
+fn a_later_walks_failed_search_answered_before_its_sketch_is_kept_and_raises_no_error() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(20)
+		w.faction = "Horde"
+		local held, failed = {}, 0
+		local realFind = E.Find
+		E.FindCoarse = function(map, from, to, callback) held[#held + 1] = callback return { held = true } end
+		E.Find = function(map, from, to, callback, opts)
+			local _, px, py = C.GetPlayerWorldPosition()
+			if math.sqrt((from.x - px) ^ 2 + (from.y - py) ^ 2) < 30 then return realFind(map, from, to, callback, opts) end
+			failed = failed + 1
+			C_Timer.After(0, function() callback(nil) end)
+			return { failed = true }
+		end
+		place(1412, -975, -107, nil)
+		N.SetTarget(1442, 47.5, 61.5, "Stonetalon", "e")
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local errors = {}
+		for _, cb in ipairs(held) do
+			local ok, err = pcall(cb, nil, "none")
+			if not ok then errors[#errors + 1] = tostring(err) end
+		end
+		for _ = 1, 20 do aim(); stub.advance(0.05) end
+		emit({ held = #held, failed = failed, errors = errors })"#,
+		false,
+	);
+	assert!(f(&out["held"]) >= 1.0 && f(&out["failed"]) >= 1.0, "a sketch out and a later walk's search failed: {out}");
+	assert!(out["errors"].as_array().map_or(out["errors"] == serde_json::json!({}), |a| a.is_empty()), "no Lua error: {out}");
+}
+
+/// #1490 (Malifax), replayed: from Tarren Mill to Archmage Modera's image at the Dalaran wall
+/// (Silverpine 68.6,45.2, where 0.3.6 places her) at level 26. Alterac Mountains' lowest level is 24 (the P10,
+/// pulled down by the Lordamere Lake murlocs and the bears on the Hillsbrad border), so from level 21 up the zone
+/// never counted as dangerous while Strahnbrad, the Crushridge ogres and the Syndicate are 30-40. With its danger
+/// floor (30) it costs x3 at 26, and the walk crosses less of it than when priced from the P10.
+#[test]
+fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to_modera_crosses_less_of_it() {
+	skip_unless_ready!();
+	let to = (1421, 68.6, 45.2, "Image of Archmage Modera");
+	let now = tarren_mill_walk(26, to, false);
+	let before = tarren_mill_walk(26, to, true);
+	eprintln!("1490 replay: floor {now}\n             P10 {before}");
+	let alterac = |v: &Value| v["yards"]["1416"].as_f64().unwrap_or(0.0);
+	assert_eq!((now["alterac"].clone(), before["alterac"].clone()), (serde_json::json!(3), serde_json::json!(1)), "x3 from the floor, x1 from the P10");
+	assert!(strs(&now["kinds"]).iter().all(|k| k == "walk"), "it walks ({})", strs(&now["kinds"]).join(", "));
+	assert!(alterac(&now) < alterac(&before), "fewer yards of Alterac Mountains: {} with the floor, {} without", alterac(&now), alterac(&before));
+}
+
+/// #1834 (Konky88, Troll Shaman 35, 0.3.6): in Booty Bay (Stranglethorn 27.11,76.93) on the Stranglethorn Vale step
+/// "Grom'gol", bound for Commander Aggro'gosh (32.17,28.90) with Grom'gol's flight path known and "Use TomTom's arrow"
+/// on, he walked up the coast: Polestar's plan flew from Booty Bay's flight master, but TomTom's arrow, which guides
+/// in its place, was handed only the far target. While TomTom's arrow guides a route, its waypoint is the current
+/// leg's stop: Booty Bay's flight master, then the target once the last walk begins (in Grom'gol).
+#[test]
+fn t_1834_with_tomtom_s_arrow_tomtom_is_handed_booty_bays_flight_master_for_the_flight_to_gromgol_not_the_far_target() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Troll", "Troll"
+		w.setLevel(35)
+		Polestar.CharState().flags.taxi = { [18] = true, [20] = true } -- Booty Bay and Grom'gol (Horde)
+		local adds = {}
+		stub.addonsLoaded.TomTom = true -- TomTom itself, loaded (only TomTom gets the mirror)
+		TomTom = {}
+		function TomTom:AddWaypoint(m, x, y, opts) adds[#adds + 1] = { map = m, x = x * 100, y = y * 100, title = opts.title, crazy = opts.crazy }; return #adds end
+		function TomTom:RemoveWaypoint() end
+		Polestar.Set("nav.tomtom", true)
+		Polestar.Set("nav.useTomTomArrow", true)
+		local _, bx, by = C.MapToWorld(1434, 27.11, 76.93)
+		place(1434, bx, by, 0)
+		N.SetTarget(1434, 32.17, 28.90, "Accept The Defense of Grom'gol")
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local kinds = {}
+		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		local first = adds[1]
+		local last = adds[#adds]
+		-- Landed in Grom'gol: the last walk, to the target itself.
+		local _, gx, gy = C.MapToWorld(1434, 32.51, 29.28)
+		place(1434, gx, gy, 0)
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		for _ = 1, 100 do stub.advance(0.05); aim() end
+		emit({ kinds = kinds, guides = N.TomTomArrowGuides(), atBootyBay = last, first = first, landed = adds[#adds], n = #adds })"#,
+		true,
+	);
+	assert!(strs(&out["kinds"]).iter().any(|k| k == "fly"), "the plan flies ({:?})", out["kinds"]);
+	assert_eq!(out["guides"], true, "TomTom's arrow guides");
+	let at = &out["atBootyBay"];
+	let d = (f(&at["x"]) - 26.82).hypot(f(&at["y"]) - 77.0);
+	assert!(d < 0.3, "TomTom's waypoint is Booty Bay's flight master (26.82,77), not Commander Aggro'gosh: {at}");
+	let landed = &out["landed"];
+	let dl = (f(&landed["x"]) - 32.17).hypot(f(&landed["y"]) - 28.9);
+	assert!(dl < 0.3, "in Grom'gol it is the target: {landed}");
+}
+
+/// #1242 (joshvette001) / #1829 (derschroeb): on the way to the Deeprun Tram in Stormwind, the arrow led up into the
+/// Keep's Royal Gallery. The tram's Stormwind end lies down its building in the Dwarven District, past the door
+/// (66.47,34.03 on the game's map), under the gallery; the walking grid let the walk from the street south of the door
+/// (#1829's spot in the canals, 70.14,47.26) cut across to it, so the arrow pointed at the Keep. An approach chain
+/// (crossings.json `deeprun-tram-stormwind`, from players' recorded walks in) seals the end: the walk goes to the door,
+/// then in.
+#[test]
+fn t_1242_from_the_canals_the_walk_to_the_deeprun_tram_goes_through_its_door_not_across_to_the_end_under_the_keep() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(22)
+		local DOOR = { -8390.0, 568.0 }
+		local _, px, py = C.MapToWorld(1453, 70.14, 47.26)
+		place(1453, px, py, nil)
+		N.SetTarget(1455, 30.0, 62.0, "Ironforge")
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local r = { kinds = {}, viaDoor = false }
+		for i = ci or 1, #(legs or {}) do
+			local l = legs[i]
+			r.kinds[#r.kinds + 1] = l.kind
+			if l.kind == "walk" and l.to and dist(l.to.wx, l.to.wy, DOOR[1], DOOR[2]) < 8 then r.viaDoor = true end
+		end
+		-- The first search: from the canals, it must end at the door, not at the tram's end.
+		local f = finds[1]
+		local last = f and f.points and f.points[#f.points]
+		r.firstTo = last and { floor(last.x), floor(last.y) } or false
+		r.firstToDoor = last and dist(last.x, last.y, DOOR[1], DOOR[2]) or false
+		emit(r)"#,
+		true,
+	);
+	assert!(strs(&out["kinds"]).iter().any(|k| k == "tram"), "the route takes the tram ({:?})", out["kinds"]);
+	assert_eq!(out["viaDoor"], true, "a walk leg ends at the tram building's door: {out}");
+	assert!(f(&out["firstToDoor"]) < 10.0, "the first walk ends at the door: {out}");
 }

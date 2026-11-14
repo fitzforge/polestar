@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Orgrimmar Reputation"] = "奥格瑞玛声望",
 	-- {zone:1411} Durotar · {zone:1448} Felwood · {zone:1447} Azshara · {item:14047} Runecloth
-	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "",
+	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "练级时完成{zone:1411}和十字路口的任务，55级起完成{zone:1448}和{zone:1447}的任务，再交{item:14047}冲到崇拜。",
 	-- {faction:76} Orgrimmar
 	["Exalted with {faction:76}"] = "{faction:76}达到崇拜",
 
@@ -18,12 +18,13 @@ return {
 	["{faction:76}: how it works"] = "{faction:76}：规则说明",
 	-- {faction:76} Orgrimmar · {npc:14726} Rashona Straglash · {quest:7832} Additional Runecloth · {item:14047} Runecloth · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1411} Durotar · {npc:4949} Thrall · {quest:5726} Hidden Enemies
 	["{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward."] = "{faction:76} 声望来自任务和布料。布匹军需官 {npc:14726} 站在暗巷区的布甲与皮甲商店旁。她接受四种各 60 块布的一次性捐献（每种奖励 150 点声望），随后可无限重复 {quest:7832}，每 20 个 {item:14047} 换取 50 点声望。每获得一点 {faction:76} 声望，还会给 {zone:1456}、{zone:1458} 和暗矛巨魔各提供四分之一的声望。升级时，在任务等级与你相差不超过 5 级时完成 {faction:76} 的任务：5 至 12 级做 {zone:1411}，12 至 20 级做十字路口，12 至 16 级做 {npc:4949} 的 {quest:5726}。传承特权外交家可使声望收益最多提高 10%。奖励：尊敬后，奥格瑞玛商人会给你 10% 折扣（经典旧世规则），包括座狼商人；崇拜后，其他种族也可购买座狼：学会骑术后，40 级座狼为 20 金币，60 级迅捷座狼为 200 金币。{faction:76} 没有战袍或其他奖励。",
+	["her donations are handed in from her window and never enter the log"] = "她的捐献任务在她的窗口中直接交还，不会进入任务日志",
 
 	-- Step 2: Valley of Trials (optional hub)
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363}（可选任务点）",
 	-- {area:363} Valley of Trials · {faction:76} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "无限在任何等级都为这些旧任务提供全额奖励。{area:363}的效率最高，约25分钟可获得1,400点{faction:76}和1,400点暗矛巨魔声望。{npc:3143}在巢穴那间大屋内，{npc:10176}在屋外。",
 	-- {npc:3144} Eitrigg · {faction:76} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {faction:76}: {quest:787}, +50"] = "{npc:3144}，位于{faction:76}：{quest:787}，+50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -36,7 +37,7 @@ return {
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}：用 {item:16114} 击中它",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "叫醒{npc:10556}",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den
@@ -61,15 +62,15 @@ return {
 	-- {npc:3145} Zureetha Fargaze
 	["{npc:3145}, in the Den"] = "{npc:3145}，在大兽穴里",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}，+50：完成后才能接取{quest:97225}",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367}（可选任务点）",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {faction:76} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "无限版本中，这些旧任务在任何等级都奖励全额声望。{area:367}和{area:368}：25分钟可获得约700点{faction:76}声望和650点暗矛巨魔声望。{npc:3188}和{npc:3304}在小屋旁，{npc:3194}在水边，{npc:7953}在村庄南边。",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}，+100：需要先完成在大兽穴接取的{quest:805}",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
@@ -93,7 +94,7 @@ return {
 	-- {npc:4949} Thrall · {quest:5726} Hidden Enemies
 	["{npc:4949}: {quest:5726} (optional hub)"] = "{npc:4949}：{quest:5726}（可选任务点）",
 	-- {quest:5726} Hidden Enemies · {faction:76} Orgrimmar · {area:2437} Ragefire Chasm
-	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "",
+	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "在无限版本中，这些旧任务在任何等级都提供全额声望。{quest:5726}：20分钟获得400点{faction:76}声望，需要通关{area:2437}，60级可单刷。",
 
 	-- Step 14: Skull Rock: the Lieutenant's Insignia
 	-- {quest:827} Skull Rock · {item:14544} Lieutenant's Insignia
@@ -128,7 +129,7 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362}（可选任务点）",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {faction:76} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow · {npc:266940} Turroc
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "无限版本中，这些旧任务在任何等级都奖励全额声望。{area:362}和{zone:1411}北部：80分钟可获得约1,800点{faction:76}声望和1,650点暗矛巨魔声望。{npc:3142}和{npc:3139}在镇子中央，{npc:3191}在兵营旁，{npc:3147}和{npc:266940}在镇子边缘。",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}，+100：需要先接取森金村的 {quest:823}",
 
@@ -200,7 +201,7 @@ return {
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "{area:380}（可选任务点）",
 	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "",
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "无限版本中，无论角色等级多少，这些旧任务都提供全额声望。{area:380}：70分钟可获得约1,500点{faction:76}声望，只提供{faction:76}声望。{npc:3338}、{npc:3464}、{npc:3429}、{npc:3449}和{npc:267310}在镇内，{npc:3432}在旅店旁。",
 
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "十字路口周边",
@@ -235,7 +236,7 @@ return {
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819} (optional hub)"] = "{quest:819}（可选任务点）",
 	-- {quest:819} Chen's Empty Keg · {zone:1413} Barrens · {npc:3292} Brewmaster Drohn · {area:392} Ratchet · {faction:76} Orgrimmar
-	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "",
+	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "在无限版本中，这个任务在任何等级都提供全额声望。{quest:819}出现在{zone:1413}中北部若干位置之一的地面上，多数在十字路口周边的路旁；有人拾取后，就会换到另一处出现。{area:392}的{npc:3292}会为酒桶及首次装酒奖励250点{faction:76}声望，此后每次装酒奖励50点，可无限重复。",
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819}: look for it by the roads"] = "{quest:819}：在路旁寻找",
 
@@ -328,7 +329,7 @@ return {
 
 	-- Step 54: Belgrom Rockmaul: Betrayed
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "",
+	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485}站在{object:172958}的{object:173084}外。前两个{quest:3504}任务为53级，60级时也提供全额声望，无限版本中的所有任务都如此。",
 
 	-- Step 55: Valormok
 	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist

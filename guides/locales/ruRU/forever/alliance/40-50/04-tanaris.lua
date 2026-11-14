@@ -7,11 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} находится здесь: {area:439}, на юго-востоке зоны {zone:1441}. {npc:4454} – в лагере гномов у трассы, Замек – у лагеря гоблинов.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
-	["He runs off to keep Rizzle busy"] = "Он убегает отвлечь Риззла",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -156,6 +155,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "Летите в {area:348}. Здесь начинается гайд по зоне {zone:1425}.",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "Идите вдоль побережья на юг к пиратской бухте. Пираты Южных морей заполонили пляж и корабли: двигайтесь по краю и выманивайте по одному. {npc:7883} стоит на дальней стороне; украденный груз ({npc:7881}) лежит в лагере.",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "От причала ({area:1108}) плывите на корабле в Крепость Оперенной Луны и летите в {area:489}, затем езжайте на восток через {zone:1441} к месту {area:2240} ({area:439}). {npc:4454} и {npc:4630} — в лагерях у трассы; {npc:4709} стоит у лагеря гоблинов.",
+	-- ["He runs off to keep Rizzle busy"] = "Он убегает отвлечь Риззла",
 	-- ["Hearth to {area:976}."] = "Используйте Камень возвращения: {area:976}.",
 	-- ["Ride back west to {area:976}."] = "Езжайте обратно на запад в {area:976}.",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "Езжайте обратно на запад к месту {area:976}. По пути дюны занимают бандиты и воры из шайки Скитальцев Пустыни; у любого из них может быть бурдюк с водой.",

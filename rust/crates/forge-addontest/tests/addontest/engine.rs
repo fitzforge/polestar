@@ -289,6 +289,126 @@ fn goto_completes_on_arrival_via_the_ticker_which_runs_only_while_a_goto_is_acti
 	);
 }
 
+#[test]
+fn item_casts_only_finish_the_use_before_a_single_object_collection() {
+	for (source, count, expected) in [("object", 1, "done"), ("object", 2, "active"), ("npc", 1, "active")] {
+		let guides = format!(
+			r#"
+Polestar.RegisterGuide({{ id = "test/item-cast", pack = "test", title = "Item cast", zone = 1429, steps = {{
+	{{ goals = {{
+		{{ t = "use", item = 900001, itemName = "Test item", quest = 7, oi = 1 }},
+		{{ t = "collect", item = 900002, itemName = "Test reward", quest = 7, oi = 1, count = {count}, fromKind = "{source}", from = "Test source" }},
+	}} }},
+}} }})
+"#
+		);
+		let out = run1(Run {
+			guides: &guides,
+			before: r#"C_Item.GetItemSpell = function(id) if id == 900001 then return "Test item spell", 900003 end end"#,
+			script: r#"
+local w = stub.world
+w.onQuest(7, { 1 })
+E.SetGuide("test/item-cast"); flush()
+stub.fire("UNIT_SPELLCAST_SUCCEEDED", "party1", "cast", 900003); flush()
+local other = E.GetStepView(1).goals[1].status
+w.cast(900003); flush()
+emit({ other, E.GetStepView(1).goals[1].status, E.GetStepView(1).goals[2].status })
+"#,
+			..Default::default()
+		});
+		assert_eq!(out, json!(["active", expected, "active"]), "{source}, count {count}");
+	}
+}
+
+#[test]
+fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
+	let fixes: Value = serde_json::from_str(include_str!("../../../../../data/guide-fixes.json")).unwrap();
+	let note = fixes["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap()["goalNote"].as_str().unwrap();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "QoL/QoL.xml"]), Addon::name("Polestar_Guides"), Addon::name("Polestar_Guides_Alliance")],
+		before: r#"
+local w = stub.world
+C_Item.GetItemSpell = function(id) if id == 12347 then return "Purify and Place Food", 16072 end end
+w.level = 18
+w.onQuest(4763, { 1 })
+for _, item in ipairs({12341, 12342, 12343, 12347}) do w.addItem(item, 1) end
+"#
+		.into(),
+		login: true,
+		script: [
+			TEST_PACK,
+			&format!("local followupNote = {}", serde_json::to_string(note).unwrap()),
+			r#"
+local E, w = Polestar.Engine, stub.world
+local guide = assert(Polestar.Guides.Get("forever/alliance/03-darkshore"))
+local camp, useIndex
+for _, step in ipairs(guide.steps) do
+	for i, goal in ipairs(step.goals) do
+		if goal.t == "use" and goal.item == 12347 then camp, useIndex = step, i end
+	end
+end
+camp.goals[useIndex + 1].note = followupNote
+local frame = Polestar.MapFrames.era[1439]
+w.addMap(1439, { name = "Darkshore", c = frame.c, left = frame.left, right = frame.right, top = frame.top, bottom = frame.bottom })
+w.moveTo(1439, 52.5, 33.4)
+Polestar.RegisterGuide({ id = "test/xabraxxis", pack = "test", title = "Blackwood camp", zone = 1439, steps = { assert(camp) } })
+E.SetGuide("test/xabraxxis")
+local function campGoals()
+	stub.advance(1.1)
+	local goals = E.GetStepView(1).goals
+	emit({ goals[useIndex].status, goals[useIndex + 1].status, goals[useIndex + 1].text })
+end
+w.cast(818)
+campGoals()
+local function summon()
+	local button = PolestarQuestItemButton
+	emit(button:IsShown() and button:GetAttribute("item") or false)
+	w.cast(16072)
+	for _, item in ipairs({12341, 12342, 12343, 12347}) do w.removeItem(item) end
+	campGoals()
+	emit(button:IsShown())
+end
+summon()
+for _, compact in ipairs({false, true}) do
+Polestar.Set("ui.compact", compact)
+Polestar.UI.GuideFrame.Render()
+local shown = {}
+for _, row in ipairs(Polestar.UI.GuideFrame.rows) do
+	if row:IsShown() and row.psGoal then
+		shown[#shown + 1] = { row.psGoal.index, row.Text:GetText(), row.Sub:IsShown() and row.Sub:GetText() or "" }
+	end
+end
+emit(shown)
+end
+w.abandon(4763)
+stub.advance(1.1)
+w.accept(4763, { 1 })
+for _, item in ipairs({12341, 12342, 12343, 12347}) do w.addItem(item, 1) end
+campGoals()
+summon()
+w.progress(4763, 1, 1)
+campGoals()
+"#,
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0][0], "active", "an unrelated cast leaves the use open");
+	assert_eq!(out[1], "item:12347");
+	assert_eq!(out[2][0], "done");
+	assert_eq!(out[2][1], "active");
+	assert_eq!(out[3], false, "the button hides when the first bowl is consumed");
+	assert!(out[4].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "{:?}", out[4]);
+	assert!(out[5].as_array().unwrap().iter().any(|row| row[2].as_str().unwrap().contains("kill Xabraxxis")), "compact {:?}", out[5]);
+	assert_eq!(out[6][0], "active", "retaking the quest opens the use again");
+	assert_eq!(out[7], "item:12347", "a replacement bowl can be used from the button");
+	assert_eq!(out[8][0], "done", "the second cast advances the guide again");
+	assert_eq!(out[8][1], "active", "the talisman is still missing after the second cast");
+	assert_eq!(out[9], false, "the button hides when the second bowl is consumed");
+	assert_eq!(out[10][1], "done", "collecting the talisman completes the objective");
+}
+
 // #1120 (Fitz, Undead Warlock, The Binding): "use 6284" (Runes of Summoning) has no quest, so it waited for a tick
 // while the voidwalker was killed and The Binding handed in, and the step never moved on. A quest-less use, click
 // or kill is done once a later quest goal of its step is; before that it holds, and an optional later goal never
@@ -463,7 +583,7 @@ fn several_open_field_goals_the_arrow_and_the_mark_lead_to_the_nearest_the_list_
 }
 
 #[test]
-fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight_and_moves_on_when_it_is_done() {
+fn the_field_route_keeps_the_left_arm_before_heading_right_and_moves_on_when_it_is_done() {
 	let out = run1(Run {
 		guides: FIELD,
 		before: "w.onQuest(7, { 1 }); w.onQuest(8, { 8 }); w.onQuest(9, { 10 }); w.moveTo(1429, 40, 50)",
@@ -476,9 +596,10 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 			local r = { start = E.GetWaypoint().goalIndex }
 			-- 49: the Graverobbers' point 120 yd off, the Doom Weed's area edge 170
 			r.between = at(49)
-			-- 51.5: 195 yd against 95, clearly nearer
+			-- 51.5: the weeds are nearer, but taking them first would force a
+			-- return to the Graverobbers before heading east to Maggot Eye.
 			r.past = at(51.5)
-			-- 50.5: 165 against 125, the Graverobbers not clearly nearer: no flap back
+			-- Ordinary movement keeps the shorter complete trip stable.
 			r.back = at(50.5)
 			-- in a fight beside the Graverobbers the arrow stays, and for 5 s after it (Spots.SETTLE)
 			fighting = true
@@ -494,7 +615,7 @@ fn the_nearest_field_goal_holds_until_another_is_clearly_nearer_never_in_a_fight
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 3, "back": 3, "fight": 3, "settling": 3, "after": 2, "done": 3 }));
+	assert_eq!(out, json!({ "start": 2, "between": 2, "past": 2, "back": 2, "fight": 2, "settling": 2, "after": 2, "done": 3 }));
 }
 
 #[test]
@@ -610,6 +731,31 @@ fn cyclespot_moves_an_area_objective_on_by_hand_to_the_next_spot_or_a_chosen_one
 		..Default::default()
 	});
 	assert_eq!(out, json!({ "next": 2, "afterNext": 40, "held": 40, "chosen": 3, "afterChosen": 80, "none": false }));
+}
+
+// #1616: the target button names the mobs of the spot the arrow takes; SpotIndexOf reads it without moving it.
+#[test]
+fn spotindexof_gives_the_spot_the_arrow_takes_else_the_nearest_and_changes_nothing_1616() {
+	let out = run1(Run {
+		guides: SEARCH,
+		before: "w.onQuest(7, { 12 }); w.moveTo(1429, 20, 50)",
+		script: r#"
+			E.SetGuide("test/search"); flush()
+			local goal = E.GetGuide().steps[1].goals[1]
+			local r = { picked = E.SpotIndexOf(goal) }
+			E.CycleSpot(1, 1, 3)
+			r.chosen = E.SpotIndexOf(goal)
+			r.arrow = E.GetWaypoint().spot
+			-- A goal nothing picked a spot for: the nearest to the player, still unpicked after.
+			local other = { t = "collect", map = 1429, x = 80, y = 50, spots = { { x = 80, y = 50, r = 10 }, { x = 25, y = 50, r = 10 } } }
+			r.nearest = E.SpotIndexOf(other)
+			r.still = E.SpotIndexOf(other)
+			r.none = E.SpotIndexOf({ t = "kill" }) or false
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "picked": 1, "chosen": 3, "arrow": 3, "nearest": 2, "still": 2, "none": false }));
 }
 
 #[test]
@@ -1254,6 +1400,9 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 	assert_eq!(out["trail"], json!(["early-vendor=1", "wrong-npc=1", "talk-open=1", "talk=2", "bind=3", "fp=4", "fly=5", "vendor=6", "buy=7", "collect-2=7", "collect-3=8", "hearth=9", "moved-on=9"]));
 	assert_eq!(out["fp"], json!({ "Stormwind, Elwynn": true }));
 	assert_eq!(out["progress"], json!({ "cur": 2, "max": 3, "kind": "count" }));
+	// The buy and the collect stay done with their items gone (latched): no progress bar shows their count
+	// then, so the text says it. A buy the route passed before the player bought it read "Buy Soothing
+	// Spices" with no count, and the player bought one of three (#1631).
 	assert_eq!(
 		out["texts"],
 		json!([
@@ -1262,8 +1411,8 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 			"Get the flight path at Stormwind",
 			"Fly to Stormwind City",
 			"Sell and repair at Corina Steele",
-			"Buy Refreshing Spring Water",
-			"Collect Tough Wolf Meat",
+			"Buy 5 Refreshing Spring Water",
+			"Collect 3 Tough Wolf Meat",
 			"Hearth to Goldshire",
 		])
 	);
@@ -1705,7 +1854,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			SlashCmdList.POLESTAR("guide test/01-northshire")
 			SlashCmdList.POLESTAR("guide Test/02-Elwynn")
 			emit({ status = status, afterSkip = afterSkip, afterPrev = afterPrev, exact = exact, guide = E.GetGuide().id, msgs = stub.messages,
-				header = BINDING_HEADER_POLESTAR, binding = BINDING_NAME_POLESTAR_NEXT })
+				tag = BINDING_TAG_POLESTAR, binding = BINDING_NAME_POLESTAR_NEXT })
 		"#,
 		..Default::default()
 	});
@@ -1725,7 +1874,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			"|cff4fd1c5Polestar|r: Guide: Elwynn Forest",
 		])
 	);
-	assert_eq!(out["header"], "Polestar");
+	assert_eq!(out["tag"], "Polestar");
 	assert_eq!(out["binding"], "Next step");
 }
 
@@ -2088,3 +2237,259 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	assert_eq!(out["walked"], 2, "arriving in Goldshire on foot checks the hearth off");
 	assert_eq!(out["unknownInn"], json!({ "line": false, "arrow": false }));
 }
+
+// #1753 (doctor-house, 0.3.6, Night Elf Hunter 27, Duskwood's Hushed Bank: "kill these as you meet them"): "63x
+// Engine.lua:2311: attempt to compare nil with number". The player fought at the goal's spot, then took the other
+// spot by hand (here an alternative, spot 2) and went there. No candidate was fresh (the fought-over spot counts as
+// visited, the alternative is no automatic pick), so the pick fell back to the spot visited longest ago, which has
+// no distance key, and that missing key was compared on every poll. The spot the player went to is kept, and no
+// error is raised.
+#[test]
+fn a_spot_picked_by_hand_with_no_other_spot_fresh_is_kept_without_a_lua_error_1753() {
+	let out = run1(Run {
+		guides: r#"
+Polestar.RegisterGuide({ id = "test/hushed", pack = "test", title = "Hushed Bank", zone = 1429, steps = {
+	{ title = "The Hushed Bank: kill these as you meet them", goals = {
+		{ t = "kill", target = "Pygmy Venom Web Spider", npc = 539, count = 15, quest = 245, oi = 1, map = 1429, x = 55, y = 50,
+			spots = { { x = 55, y = 50, r = 10, n = 4 }, { x = 30, y = 50, r = 10, n = 2, alt = true } } },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#,
+		before: "w.onQuest(245, { 15 }); w.moveTo(1429, 55, 50)",
+		script: r#"
+			local w = stub.world
+			local fighting = false
+			function UnitAffectingCombat(unit) return unit == "player" and fighting end
+			E.SetGuide("test/hushed"); flush()
+			local goal = E.GetGuide().steps[1].goals[1]
+			local r = { start = E.SpotIndexOf(goal) }
+			-- A fight at spot 1: its ground counts as worked.
+			fighting = true; stub.advance(2); fighting = false; stub.advance(6)
+			-- Spot 2 by hand (the guide window's spot arrows), then walk there.
+			r.cycled = E.CycleSpot(1, 1, 2)
+			for x = 53, 30, -1 do w.moveTo(1429, x, 50); stub.advance(1) end
+			r.spot = E.SpotIndexOf(goal)
+			-- Polls on: a dwell there with no kill may move on (Spots, "Dwell"), never with an error.
+			for _ = 1, 10 do stub.advance(1) end
+			local errs = {}
+			for _, e in ipairs(Polestar.Errors()) do errs[#errs + 1] = e.count .. "x " .. e.msg end
+			r.errors = errs
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["start"], 1, "{out}");
+	assert_eq!(out["cycled"], 2, "{out}");
+	assert!(out["errors"].as_array().map_or(out["errors"] == json!({}), |a| a.is_empty()), "no Lua error: {out}");
+	assert_eq!(out["spot"], 2, "the spot the player went to is kept on arrival: {out}");
+}
+
+// A step view asks each goal's done state once while it is built (Own.doneMemo): the views are the ones the Engine
+// built before, goal for goal, at every point of the route, and the live check runs once per goal and view.
+#[test]
+fn a_step_view_asks_each_goal_once_and_reads_as_before_at_every_point_of_the_route() {
+	let out = run1(Run {
+		script: r#"
+			local Own
+			for _, fn in pairs(E) do
+				if type(fn) == "function" then
+					for i = 1, 255 do
+						local n, v = debug.getupvalue(fn, i)
+						if not n then break end
+						if n == "Own" and type(v) == "table" then Own = v end
+					end
+				end
+			end
+			local function ser(v, depth)
+				local t = type(v)
+				if t ~= "table" then return t == "string" and string.format("%q", v) or tostring(v) end
+				if depth > 6 then return "{...}" end
+				local keys = {}
+				for k in pairs(v) do keys[#keys + 1] = k end
+				table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+				local parts = {}
+				for _, k in ipairs(keys) do
+					if type(v[k]) ~= "function" then parts[#parts + 1] = tostring(k) .. "=" .. ser(v[k], depth + 1) end
+				end
+				return "{" .. table.concat(parts, ",") .. "}"
+			end
+			local live, calls, most = Own.goalDoneLive, {}, 0
+			Own.goalDoneLive = function(s, g, goal)
+				local k = s .. ":" .. g
+				calls[k] = (calls[k] or 0) + 1
+				if calls[k] > most then most = calls[k] end
+				return live(s, g, goal)
+			end
+			local r = { points = 0, differ = {}, mostWith = 0, mostWithout = 0 }
+			local function check()
+				r.points = r.points + 1
+				for i = 1, E.GetStepCount() do
+					calls, most = {}, 0
+					local without = ser(Own.stepView(i), 0)
+					r.mostWithout = math.max(r.mostWithout, most)
+					calls, most = {}, 0
+					local with = ser(E.GetStepView(i), 0)
+					r.mostWith = math.max(r.mostWith, most)
+					if with ~= without and #r.differ < 5 then r.differ[#r.differ + 1] = r.points .. ":" .. i end
+				end
+			end
+			check()
+			w.accept(783, {}, "A Threat Within"); flush(); check()
+			w.finish(783); flush(); check()
+			w.turnIn(783); flush(); check()
+			w.accept(7, { { required = 10 } }, "Kobold Camp Cleanup"); flush(); check()
+			w.progress(7, 1, 4); flush(); check()
+			w.moveTo(1429, 47.6, 35.1); stub.advance(0.6); check()
+			w.progress(7, 1, 10); flush(); check()
+			w.finish(7); flush(); check()
+			r.memoAfter = Own.doneMemo == nil
+			-- An empty Lua table emits as {}: the differing views as a count and a list.
+			r.differN, r.differ = #r.differ, table.concat(r.differ, " ")
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["differN"], 0, "every view as before: {out}");
+	assert_eq!(out["points"], 9);
+	assert_eq!(out["mostWith"], 1, "each goal asked once per view: {out}");
+	assert!(out["mostWithout"].as_i64().unwrap() > 1, "without the memo a goal is asked more than once: {out}");
+	assert_eq!(out["memoAfter"], true, "the memo goes with the view");
+}
+
+// Readers that only read a step's view share one per moment (Engine.GetStepView(i, true)): within one moment the
+// same table, read as a fresh view reads; a message, a game event, a timer, a change asked of the Engine (a tick:
+// the view shows it at once) or the next frame each give a new one. A plain read is always built afresh.
+#[test]
+fn readers_of_one_moment_share_a_step_view_and_any_change_gives_a_fresh_one() {
+	let out = run1(Run {
+		script: r#"
+			local w = stub.world
+			local function ser(v, depth)
+				local t = type(v)
+				if t ~= "table" then return t == "string" and string.format("%q", v) or tostring(v) end
+				if depth > 6 then return "{...}" end
+				local keys = {}
+				for k in pairs(v) do keys[#keys + 1] = k end
+				table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+				local parts = {}
+				for _, k in ipairs(keys) do
+					if type(v[k]) ~= "function" then parts[#parts + 1] = tostring(k) .. "=" .. ser(v[k], depth + 1) end
+				end
+				return "{" .. table.concat(parts, ",") .. "}"
+			end
+			local r = { differ = 0, points = 0 }
+			local function check()
+				r.points = r.points + 1
+				for i = 1, E.GetStepCount() do
+					if ser(E.GetStepView(i, true), 0) ~= ser(E.GetStepView(i), 0) then r.differ = r.differ + 1 end
+				end
+			end
+			w.accept(783, {}, "A Threat Within"); flush()
+			local a = E.GetStepView(2, true)
+			r.same = E.GetStepView(2, true) == a
+			r.plain = E.GetStepView(2) ~= a and E.GetStepView(2) ~= E.GetStepView(2)
+			Polestar.Fire("SOME_MESSAGE")
+			r.message = E.GetStepView(2, true) ~= a
+			a = E.GetStepView(2, true)
+			stub.fire("PLAYER_TARGET_CHANGED")
+			r.event = E.GetStepView(2, true) ~= a
+			a = E.GetStepView(2, true)
+			E.RequestUpdate()
+			r.request = E.GetStepView(2, true) ~= a
+			a = E.GetStepView(2, true)
+			stub.advance(0.02)
+			r.frame = E.GetStepView(2, true) ~= a
+			-- Two listeners of one message: one view between them.
+			local got = {}
+			Polestar.On("STEP_UPDATED", function(i) got[#got + 1] = E.GetStepView(i, true) end)
+			Polestar.On("STEP_UPDATED", function(i) got[#got + 1] = E.GetStepView(i, true) end)
+			check()
+			w.turnIn(783); flush(); check()
+			w.accept(7, { { required = 10 } }, "Kobold Camp Cleanup"); flush(); check()
+			got = {}
+			w.progress(7, 1, 4); flush(); check()
+			r.listeners = #got >= 2 and got[1] == got[2]
+			local before = E.GetStepView(3, true)
+			E.ToggleGoal(3, 1)
+			local after = E.GetStepView(3, true)
+			r.tick = { before.goals[1].status, after ~= before and after.goals[1].status }
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["same"], true, "one moment, one view: {out}");
+	assert_eq!(out["plain"], true, "a plain read is built afresh: {out}");
+	assert_eq!(out["message"], true, "a message starts a new moment");
+	assert_eq!(out["event"], true, "a game event starts a new moment");
+	assert_eq!(out["request"], true, "a change asked of the Engine starts a new moment");
+	assert_eq!(out["frame"], true, "the next frame starts a new moment");
+	assert_eq!(out["listeners"], true, "two listeners of one message share the view: {out}");
+	assert_eq!(out["differ"], 0, "a shared view reads as a fresh one at every point: {out}");
+	assert_eq!(out["points"], 4);
+	assert_eq!(out["tick"], json!(["active", "done"]), "a tick shows at once in the next shared read: {out}");
+}
+
+// The guide window's progress count without the frame's spike (Engine.ProgressSoon): after a change the count runs
+// over the next frames, 40 steps a frame, and lands with GetProgress's numbers; then it is kept for the evaluation. A
+// change half way starts it again on the new state.
+#[test]
+fn the_progress_count_runs_over_frames_and_lands_with_the_same_numbers() {
+	let out = run1(Run {
+		guides: LONG,
+		script: r#"
+			local w = stub.world
+			local Own
+			for _, fn in pairs(E) do
+				if type(fn) == "function" then
+					for i = 1, 255 do
+						local n, v = debug.getupvalue(fn, i)
+						if not n then break end
+						if n == "Own" and type(v) == "table" then Own = v end
+					end
+				end
+			end
+			E.SetGuide("test/long"); flush()
+			local slices, slice = 0, Own.progressSlice
+			Own.progressSlice = function(...) slices = slices + 1; return slice(...) end
+			local got = {}
+			local function cb(d, t) got[#got + 1] = { d, t } end
+			stub.advance(1)
+			local d0, t0 = E.GetProgress()
+			w.accept(9100, {}, "Q100"); flush()
+			local first = E.ProgressSoon(cb)
+			for _ = 1, 20 do if #got > 0 then break end; stub.advance(0.02) end
+			local d1, t1 = E.GetProgress()
+			local kept = { E.ProgressSoon(cb) }
+			local landed = got[1] or false
+			-- A change half way: the count starts again and lands with the new numbers.
+			w.accept(9110, {}, "Q110"); flush()
+			got, slices = {}, 0
+			E.ProgressSoon(cb)
+			stub.advance(0.02)
+			w.accept(9120, {}, "Q120")
+			for _ = 1, 40 do if #got > 0 then break end; stub.advance(0.02) end
+			local d2, t2 = E.GetProgress()
+			emit({ before = { d0, t0 }, first = first == nil, landed = landed, sync = { d1, t1 }, kept = kept,
+				again = got[1] or false, sync2 = { d2, t2 }, slices = slices, calls = #got })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["first"], true, "no count kept for the new evaluation: {out}");
+	assert_eq!(out["sync"], json!([out["before"][0].as_i64().unwrap() + 1, 120]), "the accept ahead counts done: {out}");
+	assert_eq!(out["landed"], out["sync"], "the count lands with GetProgress's numbers: {out}");
+	assert_eq!(out["kept"], out["sync"], "then it is kept for the evaluation");
+	assert_eq!(out["again"], out["sync2"], "a change half way: the newest numbers: {out}");
+	assert_eq!(out["sync2"][0].as_i64().unwrap(), out["before"][0].as_i64().unwrap() + 3);
+	assert!(out["slices"].as_i64().unwrap() >= 3, "120 steps take three frames at least: {out}");
+	assert_eq!(out["calls"], 1, "each asker called once: {out}");
+}
+
+// 120 steps of one accept each, for the progress count.
+const LONG: &str = r#"
+local steps = {}
+for k = 1, 120 do
+	steps[k] = { title = "Q" .. k, goals = { { t = "accept", quest = 9000 + k, title = "Q" .. k, npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 } } }
+end
+Polestar.RegisterGuide({ id = "test/long", pack = "test", title = "Long", faction = "Alliance", minLevel = 1, maxLevel = 60, zone = 1429, steps = steps })
+"#;

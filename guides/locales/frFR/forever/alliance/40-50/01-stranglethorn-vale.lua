@@ -166,13 +166,13 @@ return {
 	-- {npc:1449} Witch Doctor Unbagwa
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; {npc:1449} sits among them."] = "Chevauchez vers l'intérieur jusqu'aux collines des gorilles de Valbrume. Les Anciens gorilles de Valbrume laissent tomber les abats ; {npc:1449} est assis parmi eux.",
-	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, à l'intérieur de {area:1742}",
 
 	-- Step 50: Unbagwa's ritual
 	["Unbagwa's ritual"] = "Le rituel d'Unbagwa",
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last. Fight at full health."] = "Rendez les crocs et restez : trois vagues de gorilles arrivent, {npc:1514} en dernier. Combattez avec toute votre vie.",
+	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}, à l'intérieur de {area:1742}",
 
 	-- Step 51: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
@@ -220,8 +220,8 @@ return {
 	["{item:4611}; underwater"] = "{item:4611} ; sous l'eau",
 
 	-- Step 60: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 61: Rebel Camp
 	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "",

@@ -34,7 +34,9 @@ stub = {
 	now = 0,
 	epoch = 1791000000,
 	messages = {},
-	cvars = {},
+	-- The client's CVars a test reads; ResampleAlwaysSharpen as the client has it (off), for Quality of Life >
+	-- Game's row (Polestar_Options/QoL/Options.lua). A test clears it for a client without it.
+	cvars = { ResampleAlwaysSharpen = "0" },
 	keys = { shift = false, ctrl = false, alt = false },
 	sounds = {},
 	popups = {},
@@ -130,16 +132,36 @@ function Methods.UnregisterEvent(self, ev) self.events[ev] = nil end
 function Methods.UnregisterAllEvents(self) self.events = {} end
 function Methods.IsEventRegistered(self, ev) return self.events[ev] == true end
 
--- Visibility
+-- Visibility. With stub.cascadeVisibility on, as in the client: showing or
+-- hiding a frame also runs OnShow / OnHide on every shown descendant whose
+-- visibility changed with it (a hidden parent's children are not visible).
+-- Off by default: tests written before it fire only the frame's own.
+local function cascade(self, script, seen)
+	seen = seen or {}
+	for _, c in ipairs(self.children) do
+		if c.parent == self and c.shown and not seen[c] then
+			seen[c] = true
+			RunScript(c, script)
+			cascade(c, script, seen)
+		end
+	end
+end
 function Methods.Show(self)
 	local was = self.shown
 	self.shown = true
-	if not was then RunScript(self, "OnShow") end
+	if not was then
+		RunScript(self, "OnShow")
+		if stub.cascadeVisibility and Methods.IsVisible(self) then cascade(self, "OnShow") end
+	end
 end
 function Methods.Hide(self)
 	local was = self.shown
+	local visible = was and stub.cascadeVisibility and Methods.IsVisible(self)
 	self.shown = false
-	if was then RunScript(self, "OnHide") end
+	if was then
+		RunScript(self, "OnHide")
+		if visible then cascade(self, "OnHide") end
+	end
 end
 function Methods.SetShown(self, v) if v then self:Show() else self:Hide() end end
 function Methods.IsShown(self) return self.shown end
@@ -151,7 +173,16 @@ function Methods.IsVisible(self)
 	end
 	return true
 end
-function Methods.SetAlpha(self, a) self.alpha = a end
+-- As in the client, a texture's (or a line's) alpha and its vertex colour's
+-- alpha are one value: SetAlpha sets the alpha SetVertexColor gave it
+-- (#1684, the transparent window's 20 % shades drawn solid after
+-- SetAlpha(1)). tools/preview/render.js reads it that way.
+function Methods.SetAlpha(self, a)
+	if (self.kind == "Texture" or self.kind == "Line") and self.vertexColor then
+		self.vertexColor[4] = a
+	end
+	self.alpha = a
+end
 function Methods.GetAlpha(self) return self.alpha end
 function Methods.GetEffectiveAlpha(self) return self.alpha end
 
@@ -223,7 +254,10 @@ function Methods.IsMouseOver() return false end
 function Methods.Click(self, button) RunScript(self, "OnClick", button or "LeftButton", false) end
 
 -- Text
-function Methods.SetText(self, t) self.text = t == nil and nil or tostring(t) end
+function Methods.SetText(self, t)
+	self.text = t == nil and nil or tostring(t)
+	self.highlight = nil
+end
 function Methods.GetText(self) return self.text end
 function Methods.SetFormattedText(self, fmt, ...) self.text = string.format(fmt, ...) end
 function Methods.SetFont(self, path, size, flags) self.font = { path, size, flags }; return true end
@@ -236,6 +270,19 @@ function Methods.SetFontObject(self, obj)
 	if type(obj) == "table" and obj.font then self.font = { obj.font[1], obj.font[2], obj.font[3] } end
 end
 function Methods.GetFontObject(self) return self.fontObject end
+-- A font object's face, colours, shadow and justification, copied from
+-- another (by object or name), not linked to it.
+function Methods.CopyFontObject(self, other)
+	if type(other) == "string" then other = _G[other] end
+	if type(other) ~= "table" then return end
+	local function copy(t)
+		if type(t) ~= "table" then return t end
+		local c = {}
+		for k, v in pairs(t) do c[k] = v end
+		return c
+	end
+	for _, key in ipairs({ "font", "textColor", "shadowColor", "shadowOffset", "justifyH", "justifyV", "spacing" }) do self[key] = copy(other[key]) end
+end
 function Methods.SetTextColor(self, r, g, b, a) self.textColor = { r, g, b, a or 1 } end
 function Methods.GetTextColor(self)
 	local c = self.textColor or { 1, 1, 1, 1 }
@@ -340,9 +387,18 @@ function Methods.GetVertexColor(self)
 	return c[1], c[2], c[3], c[4]
 end
 function Methods.SetTexCoord(self, ...) self.texCoord = { ... } end
+-- A texture drawn tiled at its own size across its region (SetTexture with
+-- "REPEAT" wraps, then these), as the game's backdrop tiles are.
+function Methods.SetHorizTile(self, v) self.horizTile = v and true or false end
+function Methods.SetVertTile(self, v) self.vertTile = v and true or false end
+function Methods.GetHorizTile(self) return self.horizTile == true end
+function Methods.GetVertTile(self) return self.vertTile == true end
 function Methods.SetRotation(self, r) self.rotation = r end
 function Methods.GetRotation(self) return self.rotation or 0 end
 function Methods.SetDesaturated(self, v) self.desaturated = v and true or false end
+-- The client's grade of grey (0-1), where it has SetDesaturation.
+function Methods.SetDesaturation(self, v) self.desaturation = v end
+function Methods.GetDesaturation(self) return self.desaturation or 0 end
 function Methods.SetBlendMode(self, m) self.blend = m end
 function Methods.AddMaskTexture(self, m) self.mask = m end
 -- SetVertexOffset(i, x, y): corner i (1 upper left, 2 lower left, 3 upper
@@ -394,6 +450,15 @@ end
 function Methods.SetFocus(self) stub.focus = self end
 function Methods.ClearFocus(self) if stub.focus == self then stub.focus = nil end end
 function Methods.HasFocus(self) return stub.focus == self end
+-- An edit box's selection, as in the client: HighlightText() selects all of
+-- it, (0, 0) none, (s, e) from s to e (-1: the end); new text drops it.
+-- self.highlight = { s, e } or nil.
+function Methods.HighlightText(self, s, e)
+	local n = #(self.text or "")
+	s, e = s or 0, e or n
+	if e < 0 or e > n then e = n end
+	self.highlight = e > s and { s, e } or nil
+end
 function Methods.Insert(self, t) self.text = (self.text or "") .. tostring(t) end
 function Methods.SetVerticalScroll(self, v) self.scroll = v end
 function Methods.GetVerticalScroll(self) return self.scroll or 0 end
@@ -947,6 +1012,44 @@ function CopyTable(t)
 	for k, v in pairs(t) do c[k] = type(v) == "table" and CopyTable(v) or v end
 	return c
 end
+-- The client's string.format takes positional arguments ("%2$s de %1$s"), as translations use to put
+-- a sentence's parts in their own order; PUC Lua 5.1's has none. A format without one goes straight
+-- through; one with them is rewritten to plain specs with the arguments picked in that order (plain
+-- specs mixed in take the arguments in turn). The string library's own table is changed, so
+-- ("..."):format(...), format(...) and SetFormattedText all read it, as in the game.
+do
+	local plainFormat, find, match, sub, concat, unpack, select = string.format, string.find, string.match, string.sub, table.concat, unpack, select
+	function string.format(fmt, ...)
+		if type(fmt) ~= "string" or not find(fmt, "%%%d+%$") then return plainFormat(fmt, ...) end
+		local n, args, parts, picked, turn, at = select("#", ...), { ... }, {}, {}, 0, 1
+		while true do
+			local s = find(fmt, "%", at, true)
+			if not s then
+				parts[#parts + 1] = sub(fmt, at)
+				break
+			end
+			parts[#parts + 1] = sub(fmt, at, s - 1)
+			if sub(fmt, s + 1, s + 1) == "%" then
+				parts[#parts + 1] = "%%"
+				at = s + 2
+			else
+				local pos, spec, after = match(fmt, "^(%d+)%$([-+ #0]*%d*%.?%d*%a)()", s + 1)
+				if not pos then
+					spec, after = match(fmt, "^([-+ #0]*%d*%.?%d*%a)()", s + 1)
+					if not spec then return plainFormat(fmt, ...) end -- Lua's own error for a bad spec
+					turn = turn + 1
+					pos = turn
+				end
+				pos = tonumber(pos)
+				if pos < 1 or pos > n then error(("bad argument #%d to 'format' (no value)"):format(pos + 1), 2) end
+				picked[#picked + 1] = args[pos]
+				parts[#parts + 1] = "%" .. spec
+				at = after
+			end
+		end
+		return plainFormat(concat(parts), unpack(picked, 1, #picked))
+	end
+end
 format = string.format
 strfind, strmatch, strsub, gsub = string.find, string.match, string.sub, string.gsub
 strlower, strupper, strlen, strrep, strbyte, strchar = string.lower, string.upper, string.len, string.rep, string.byte, string.char
@@ -1115,11 +1218,20 @@ function C_AddOns.GetAddOnMetadata(name, field)
 	if field == "Title" and a then return a.title end
 end
 function C_AddOns.GetNumAddOns() return #stub.addons end
--- -> name, title, notes, loadable, reason, security, updateAvailable
+-- -> name, title, notes, loadable, reason, security, updateAvailable. An
+-- addon that loads on demand gives reason "DEMAND_LOADED" before LoadAddOn and
+-- reads as loadable, as the client gives it (none once loaded).
 function C_AddOns.GetAddOnInfo(key)
 	local a = addonEntry(key)
 	if not a then return nil, nil, nil, false, "MISSING", nil, false end
-	return a.name, a.title or a.name, a.notes, a.reason == nil, a.reason, "INSECURE", false
+	local reason = a.reason
+	if reason == "DEMAND_LOADED" and stub.addonsLoaded[a.name] then reason = nil end
+	return a.name, a.title or a.name, a.notes, reason == nil or reason == "DEMAND_LOADED", reason, "INSECURE", false
+end
+-- ## LoadOnDemand: 1 (an entry with demand = true, or reason "DEMAND_LOADED").
+function C_AddOns.IsAddOnLoadOnDemand(name)
+	local a = addonEntry(name)
+	return a ~= nil and (a.demand == true or a.reason == "DEMAND_LOADED")
 end
 function C_AddOns.GetAddOnEnableState(name)
 	local a = addonEntry(name)

@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "Granja de {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "El diario está en la granja, el armario dentro y la letrina detrás. Un {npc:10816} lleva la llave de la letrina; {npc:10836} aparece al abrir la letrina y lleva la llave del armario.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Griseznos malsanos",
@@ -159,15 +155,11 @@ return {
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
 
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "Solo con 5 Plumas de penacho Muertobosque",
-
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "La poza de la luna de {area:1763}",
-	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
-	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "De vuelta al norte a {area:1763}. Llena la cantimplora de {npc:10922} en la poza de la luna corrupta en el centro del campamento sur.",
+	-- {area:1763} Jaedenar
+	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "",
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
@@ -270,6 +262,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De vuelta en {area:1762}, los fúrbolgs Muertobosque (53-54) están cerca del túnel y cada muerte sube tu reputación con los Fauces de Madera.",
+	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "De vuelta al norte a {area:1763}. Llena la cantimplora de {npc:10922} en la poza de la luna corrupta en el centro del campamento sur.",
 	-- ["Diseased Grizzlies"] = "Griseznos malsanos",
 	-- ["Fly to the {area:1497}"] = "Vuela a {area:1497}",
 	-- ["Fly to {area:272}"] = "Vuela a {area:272}",
@@ -281,6 +274,7 @@ return {
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Sal de {area:1497} y cabalga al este por el camino a través de {zone:1420}, pasando {area:152}. La granja de Piedramácula es la primera del camino; {npc:10778} espera en la casa.",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "Solo si cayó una {item:13140}: úsala para iniciar la misión, luego libera a {npc:11018} de su jaula en {area:1770}, la cueva al norte de {area:1763}, y escóltala fuera.",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "Solo si rescataste a {npc:11018}: la súcubo {npc:9518} espera en el centro de {area:1763}, junto a {npc:11020}.",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "Solo con 5 Plumas de penacho Muertobosque",
 	-- ["Radley and Durgen"] = "Radley y Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Vuelve al sureste hasta el Santuario.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Vuelve a {area:1497}, toma el zepelín a {zone:1454} y vuela a {area:431}. Sigue el camino al oeste desde el Puesto del Hachazo y toma el desvío al norte hacia {zone:1448}.",

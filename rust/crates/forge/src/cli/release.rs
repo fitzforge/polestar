@@ -13,8 +13,9 @@ Building and releasing the addon (docs/RELEASING.md):
                      in package.json, guides/pack.json and every addon TOC
   notes <x.y.z>      the version's release notes from CHANGELOG.md: dist/notes-<v>.md (GitHub),
                      dist/notes-curseforge-<v>.md and dist/notes-discord-<v>.txt
-  credits            rewrite addon/Polestar/Core/Credits.lua (the Guiding Stars page) from data/credits.json
-                     and the repository's merged or folded pull requests and its issues (needs the GitHub CLI, gh, logged in)
+  credits            rewrite addon/Polestar/Core/Credits.lua (the Guiding Stars page) from data/credits.json,
+                     the repository's merged or folded pull requests and its issues (needs the GitHub CLI, gh,
+                     logged in), and the locales' translators
 
 forge release <command> --help shows the command's options. The changelog fragments: forge changelog.";
 
@@ -43,9 +44,14 @@ and \"Special thanks to\" in the windows' headers):
                  pull request, a released:* label, a maintainer's comment saying fixed); never a
                  duplicate, not planned, invalid, wontfix, resolution:* or needs-info one, nor a
                  feature request (enhancement without bug).
+  translators    every locale's translators (forge-guide's LOCALES, tools/lib/i18n/locales.js), by
+                 language, the language's name beside each.
+  ideas          data/credits.json \"ideas\": people whose idea shipped though someone else built
+                 it, { \"name\": login or name, \"ref\": the pull request or issue }, in the order
+                 they shipped.
 
 \"exclude\" lists logins and names left out (the maintainer, anyone who asked not to be listed);
-\"names\" maps a login or Discord name to the name shown.
+\"names\" maps a login or Discord name to the name shown. Both apply to every list.
 
 Run it before a release.
   --root <dir>   the checkout (default: the one above here, else above the forge binary)";
@@ -118,7 +124,7 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 	super::check_args(args, &["--root", "--out"], &[], 1).map_err(super::usage)?;
 	let [version] = positional(args, &["--root", "--out"]).try_into().map_err(|_| super::usage("one version"))?;
 	if !forge_release::is_version(&version) {
-		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z or x.y.z-pre)")));
+		return Err(super::usage(format!("\"{version}\" is not a version (x.y.z, x.y.z.hotfix or x.y.z-pre)")));
 	}
 	let root = checkout(opt(args, "--root"))?;
 	let file = root.join("CHANGELOG.md");
@@ -139,18 +145,34 @@ fn notes(args: &[String]) -> Result<(), super::Fail> {
 fn credits(args: &[String]) -> Result<(), super::Fail> {
 	super::check_args(args, &["--root"], &[], 0).map_err(super::usage)?;
 	let root = checkout(opt(args, "--root"))?;
-	use forge_release::credits::{fetch_closed, fetch_issues, fetch_merged, folded, rank_contributors, rank_reporters, read_source, ref_commits, render, OUT, REPO, REPORTERS_SHOWN, SOURCE};
+	use forge_release::credits::{
+		fetch_closed, fetch_issues, fetch_merged, fetch_open, folded, folded_open, ideas, rank_contributors, rank_reporters, read_source, ref_commits, ref_ids, render, translators, OUT, REPO,
+		REPORTERS_SHOWN, SOURCE,
+	};
 	let src = read_source(&root.join(SOURCE))?;
 	// Merged pull requests, plus closed ones whose commits were folded into this checkout's HEAD with
-	// their authorship kept (contributors' PRs carried by cherry-pick into a maintainer's branch).
+	// their authorship kept (contributors' PRs carried by cherry-pick into a maintainer's branch), plus
+	// open ones whose head commit is on HEAD (merged into the release's integration branch, before the
+	// push to next marks them merged).
 	let mut prs = fetch_merged(REPO)?;
 	let folded_in = folded(&fetch_closed(REPO, &src.exclude)?, &ref_commits(&root, "HEAD")?);
-	let n_folded = folded_in.len();
+	let open_in = folded_open(&fetch_open(REPO, &src.exclude)?, &ref_ids(&root, "HEAD")?);
+	let (n_folded, n_open) = (folded_in.len(), open_in.len());
 	prs.extend(folded_in);
+	prs.extend(open_in);
 	let contributors = rank_contributors(&prs, &src);
 	let reporters = rank_reporters(&fetch_issues(REPO)?, &src, REPORTERS_SHOWN);
+	let (translators, ideas) = (translators(&src), ideas(&src));
 	let out = root.join(OUT);
-	std::fs::write(&out, render(&src.supporters, &contributors, &reporters)).map_err(|e| format!("{}: {e}", out.display()))?;
-	println!("credits: {} supporters, {} contributors ({n_folded} folded pull requests counted), {} bug reporters -> {}", src.supporters.len(), contributors.len(), reporters.len(), out.display());
+	std::fs::write(&out, render(&src.supporters, &contributors, &reporters, &translators, &ideas)).map_err(|e| format!("{}: {e}", out.display()))?;
+	println!(
+		"credits: {} supporters, {} contributors ({n_folded} folded closed and {n_open} folded open pull requests counted), {} bug reporters, {} translators, {} ideas -> {}",
+		src.supporters.len(),
+		contributors.len(),
+		reporters.len(),
+		translators.len(),
+		ideas.len(),
+		out.display()
+	);
 	Ok(())
 }

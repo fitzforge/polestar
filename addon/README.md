@@ -12,6 +12,7 @@ page says which part is which.
 |---|---|---|---|---|
 | `Polestar` | The addon: guide engine, waypoint arrow and travel planner, quest markers, gear advice, world map, quality of life, Lookup, Dungeons, Rares, Talents, Characters and every window. | Hand-written, apart from the generated files listed below | yes | yes, in `Polestar-<version>.zip` |
 | `Polestar_Guides` | Polestar's own guide pack (pack id `guides`): every guide under `guides/`, compiled to Lua. Loads with Polestar. | `compile`, from `guides/` | yes (generated) | yes, in `Polestar-<version>.zip` |
+| `Polestar_Experimental` | Polestar's experimental guides (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), from `experimental/`. Loaded on demand: off until the player switches it on under Options > Community guides, then loaded, and at every login while it stays on; never suggested. | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_ItemDB` | Item stats for the gear advice (`Items.lua`) and Forever item stats with quest reward choices (`Forever.lua`). Loaded on demand. | `forge data itemdb`, then `forge data gear` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_<locale>` | One language folder per client language (`deDE` … `zhTW`): Polestar's interface strings in that language (`Interface.lua`, kept by translators and `forge i18n sync`), our guides' texts in that language (`Texts.lua`, from `guides/locales/<locale>/`) and the quest, NPC, object and item names of Polestar's guides, quest database and Codex in it (`Names.lua`, from the client's tables, DingDB and pfQuest: `LICENSE-DATA.txt`, Ding's `CREDITS.md`). Loaded on demand by `Core/Locale.lua` while Polestar loads, only the client's own; none on an English client. Before 0.3.0 these were two folders per language, `Polestar_Guides_<locale>` and `Polestar_Names_<locale>`. | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`); both write the same TOC, which lists `Interface.lua` too | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_QuestDB` | The quest database behind the quest markers, available-quest markers, tooltips and nameplate icons. Loaded on demand. | `forge data questdb`, from `data/forever` | no (gitignored, built locally) | yes, in `Polestar-<version>.zip` when built |
@@ -20,6 +21,7 @@ page says which part is which.
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` | Each continent's map parts of Leffe's maps; Polestar_Nav's router loads the player's continent's the first time it searches there (never in combat). | `forge nav pack --leffe` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Travel` | Zone crossings for the travel planner, from the optional local crossings file `data/local/crossings.json`. Loads with Polestar. | `travel build` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
 | `Polestar_Recorder` | An optional, standalone recorder (no dependency on Polestar): quests, routes, world data and, while Polestar runs, guide progress, as compact records into `PolestarRecorderDB` (schema 2, [docs/RECORDING.md](../docs/RECORDING.md)). Off until turned on (`/psrec on`, or Polestar Client's share flag: sharing is on by default in the client; `/psrec off` always wins). Polestar Client sends it; `forge record import` reads what it wrote. `Ack.lua` is the client's acknowledgement and share flag, shipped empty. | Hand-written | yes | yes, as its own `Polestar_Recorder-<version>.zip`; `install --recorder` |
+| `Polestar_Skin_Example` | The Skin API's example ([docs/SKINS-API.md](../docs/SKINS-API.md)): "Moonlit", a colour scheme and a skin registered from an addon of its own, for skin authors to copy. Depends on Polestar. | Hand-written | yes | no: never packed or installed; copy it into `Interface/AddOns` by hand to try it |
 
 The data addons Polestar can do without: with `Polestar_QuestDB`,
 `Polestar_Codex` or `Polestar_ItemDB` missing, the features that read them say
@@ -83,6 +85,7 @@ never in saved variables.
 | `Guides.lua` | `Guides` | The guide registry: packs, guides and map frames registered at load time, and the queries behind the guide menu (lists, suggestions) |
 | `Search.lua` | `Search` | One search over guides and every Codex entity, for the hub's search box and Lookup |
 | `Engine.lua` | `Engine` | The guide engine: the current step, each goal's status, where the waypoint points; progress recomputed from live client state |
+| `API.lua` | `API` | What other addons may build on, versioned by `API.version` ([docs/API.md](../docs/API.md)); `ReplaceSteps` gives a registered guide new steps in its own tab |
 | `ClassTrainers.lua` | (registers data) | Generated: one class trainer per town and class, for the class-training reminder |
 | `Automation.lua` | `Automation` | Accepts and turns in the quests the guide wants right now |
 | `Commands.lua` | `Bindings` | Guide slash commands and key binding labels |
@@ -125,6 +128,8 @@ never in saved variables.
 | `ItemDB.lua` | `ItemDB` | Reads `Polestar_ItemDB`; entries are parsed on first lookup |
 | `Weights.lua` | `Gear` | Leveling stat weights per class and spec, and what each class can wear |
 | `SpecData.lua` | `Gear` | Generated: stat weight bands per spec and level, racial gear traits |
+| `PawnStats.lua`, `Pawn.lua` | `Gear.Pawn`, `Gear.Scales` | Custom stat weights from Pawn scale strings |
+| `Adjust.lua` | `Gear.Adjust` | The player's own changes to the built-in weights, with Revert to default (#1529) |
 | `Gear.lua` | `Gear` | Upgrade advice: an item's score and whether it is an upgrade |
 | `Tooltip.lua` | `Gear` | Upgrade lines on item tooltips |
 | `Bags.lua` | `Gear.Bags` | The upgrade arrow on bag items, in the game's bags and Baganator |
@@ -193,6 +198,8 @@ never in saved variables.
 | `GuideFrame.lua` | `UI.GuideFrame` | The guide window |
 | `Launcher.lua` | `UI.Launcher` | The optional floating Polestar button: show or hide the window, menu, drag |
 | `GearPick.lua` | `UI.GearPick` | The reward pick under a turn-in goal |
+| `GearScales.lua` | `UI.ShowScales` | The custom stat weights window |
+| `GearAdjust.lua` | `UI.ShowAdjust` | The Adjust weights window |
 | `Picker.lua` | `UI.Picker` | The hub: its section rail, sidebar and search, and its built-in Guides section (the guide menu); defines `UI.RegisterSection` |
 | `QuestLinks.lua` | (local) | Quest log and objective tracker menu entries: open the guide search at that quest, with its matching steps |
 | `Lookup.lua` | `UI.Lookup` | The hub's Lookup section |
@@ -270,6 +277,7 @@ to rebuild in.
 | `Polestar/QoL/Data.lua` | `node tools/polestar.js qol build` |
 | `Polestar/Media/Nav/*.tga`, `Polestar/Media/UI/*.tga` | `node tools/polestar.js media` |
 | `Polestar_Guides/*` (TOC, `Pack.lua`, `MapFrames.lua`, `Guides.lua`, `LICENSE-DATA.txt`) | `forge guide compile` |
+| `Polestar_Experimental/*` (TOC, `Pack.lua`, `MapFrames.lua`, `Guides.lua`, `LICENSE-DATA.txt`) | `forge guide compile experimental` (and `forge release pack`), from `experimental/` |
 | `Polestar_ItemDB/Items.lua` | `forge data itemdb` |
 | `Polestar_ItemDB/Forever.lua`, `Polestar_ItemDB/LICENSE-DATA.txt` | `forge data gear` |
 | `Polestar_ItemDB/Polestar_ItemDB.toc` | `forge data itemdb`, then `forge data gear` adds `Forever.lua` to it |

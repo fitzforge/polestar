@@ -158,8 +158,8 @@ return {
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "{npc:15624}: 25 (und 25 Zirkel des Cenarius)",
 
 	-- Step 26: Keeper Remulos
-	-- {quest:8735} The Nightmare's Corruption · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} verlangt ein Fragment von jedem der vier Portale der Drachen des Alptraums: Elite-Drachkin an den Portalen in {zone:1440}, {zone:1444} und {zone:1425} (je 5%) und der {npc:15625} in {zone:1431}. Schlachtzug-Inhalt.",
+	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "",
 	["10 (and 100 Cenarion Circle)"] = "10 (und 100 Zirkel des Cenarius)",
 
 	-- Step 27: The Ashenvale portal
@@ -202,6 +202,8 @@ return {
 	["Neutral to Friendly is 3,000 reputation. Every trash mob of the {area:16076} (a 40-player raid behind the {area:2737}) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved {item:21230} (1,000, to {npc:15502}) or {item:21229} (500, to {npc:15503}) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to {npc:15502} (shoulders) or {npc:15503} (boots) pay 200 each. The {area:3454} (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted."] = "Von Neutral bis Freundlich sind es 3.000 Ruf. Jeder Trash-Mob im {area:16076} (ein Schlachtzug für 40 Spieler hinter der {area:2737}) gibt 100, die Twin Emperors je 210, bis 2.999 von 3.000 Neutral, einen Punkt vor Freundlich; dort hören sie auf. Gib dann einen aufgesparten {item:21230} (1.000, an {npc:15502}) oder ein {item:21229} (500, an {npc:15503}) ab, um darüberzukommen. Die Schulter- und Stiefeltausche des Tier-Sets des Tempels brauchen keinen Ruf: Die Marke, zwei Idole und zehn Skarabäen an {npc:15502} (Schultern) oder {npc:15503} (Stiefel) zahlen je 200. Die {area:3454} (20 Spieler) geben ein wenig von Bossen: Kurinnaxx, Moam, Buru und Ayamiss je 50, Rajaxx 34, Ossirian 100, bis Ehrfürchtig.",
 	-- {item:21229} Qiraji Lord's Insignia
 	["{item:21229}, Temple bosses"] = "{item:21229}, Bosse des Tempels",
+	-- {npc:15503} Kandrostrasz
+	["{npc:15503}: 500, handed in from his window"] = "{npc:15503}: 500, über sein Fenster abgegeben",
 
 	-- Step 35: The ring at Friendly
 	["The ring at Friendly"] = "Der Ring bei Freundlich",
@@ -255,4 +257,7 @@ return {
 	["At Exalted, {npc:15192} gives the last ring of your path: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker. Bring the Revered ring; 100 reputation."] = "Bei Ehrfürchtig gibt {npc:15192} den letzten Ring deines Pfades: The Protector of Kalimdor, The Qiraji Conqueror oder The Grand Invoker. Bring den Ring für Respektvoll mit; 100 Ruf.",
 	-- {npc:15192} Anachronos
 	["{npc:15192}: the Exalted ring quest of your path"] = "{npc:15192}: die Ring-Quest für Ehrfürchtig deines Pfades",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} verlangt ein Fragment von jedem der vier Portale der Drachen des Alptraums: Elite-Drachkin an den Portalen in {zone:1440}, {zone:1444} und {zone:1425} (je 5%) und der {npc:15625} in {zone:1431}. Schlachtzug-Inhalt.",
 }

@@ -26,6 +26,8 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Troll Charm (6462), Between a Rock and a Thistlefur (216) and Freedom to Ruul (6482) are done on the
 # first Ashenvale visit at 21 (forever/horde/05-stonetalon-mountains), with Vorsha the Lasher (6641); King of the Foulweald (6621)
 # opens with 216's hand-in and is taken here from Karang.
+# Ashenvale Outrunners (6503, level 24) is taken here at the Warsong lumber camp, between Torek's assault and
+# Sharptalon in the same woods (0.3.7): on the first visit at 21-23 the model's players were 1-1.5 levels under it.
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -79,17 +81,6 @@ step Ursangous
   collect 16303
   accept 23 item 16303
 
-step Alonso
-  only Warrior
-  tip Alonso, a Forever addition, stands on the west shore of Mystral Lake with three quick Dragonslayer quests.
-  goto 42.4,70 "Alonso"
-  accept 78132 optional               -- Alonso walks around the Talondeep Path: the map marks where to look
-  turnin 78132
-  accept 78133 optional
-  turnin 78133
-  accept 78134 optional
-  turnin 78134
-
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
   use 16972 quest 6621.1 @56.4,63.5 map 1440
@@ -100,11 +91,23 @@ step Torek's Assault
   accept 6544
   complete 6544
 
+step Warsong lumber camp
+  tip From the Silverwing Outpost head north-east to the Warsong lumber camp on the road: Kuray'bin stands there.
+  accept 6503                         -- Kuray'bin
+
+step Ashenvale Outrunners
+  tip The night elf Ashenvale Outrunners (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them.
+  kill 12856 quest 6503 @72.5,69.5 map 1440
+
 step Sharptalon
   when turnedin 6383
-  tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest.
+  tip Sharptalon, a big nightsaber, prowls the same woods further east, on the way north to Splintertree. Her claw starts the next hunt quest.
   collect 16305
   accept 2 item 16305
+
+step Warsong lumber camp
+  tip Back to Kuray'bin at the lumber camp, on the road north to Splintertree.
+  turnin 6503                         -- Kuray'bin
 
 # Splintertree from the road in: Ertog and Pixel by the gate, Senani, Mastok,
 # then the inn once (Yama and the innkeeper stand inside it together).
@@ -180,9 +183,9 @@ step Sharptalon
 
 step Splintertree Post
   when onquest 2,23,24
-  turnin 23 optional                  -- Senani Thunderheart
-  turnin 2 optional                   -- Senani Thunderheart
-  turnin 24 optional
+  turnin 23                           -- Senani Thunderheart
+  turnin 2                            -- Senani Thunderheart
+  turnin 24
 
 step Splintertree Post
   accept 247                          -- Senani Thunderheart, once all three hunts are in
@@ -340,7 +343,6 @@ step Freewind Post
   accept 5147                         -- The Wanted poster beside Cliffwatcher
   accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
   accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
-  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -354,7 +356,7 @@ step Alien Egg
   collect 12467 quest 4821 @37.6,56.1 map 1441
 
 step Galak centaurs
-  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks between the camps: kill him when you meet him, his note starts a quest for Whitereach Post.
+  tip The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.
   kill 4094 quest 4841.1
   kill 4093 quest 4841.2
   kill 4096 quest 4841.3
@@ -380,6 +382,7 @@ step Freewind Post
   accept 5064
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
+  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles

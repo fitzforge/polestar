@@ -29,15 +29,35 @@ zone Westfall
 #   the Hillsbrad side of Thoradin's Wall (a fallen cart against the wall, about
 #   87.5,47.7 in Hillsbrad Foothills): Forever's quest data and players'
 #   reports, from the local archive, facts only.
-# - Alliance leave the Barrens for Stonetalon by way of 40.2,24.88 (map 1413,
-#   the same in the Era and live frames), dgc1980's safe spot in #563: the
-#   straight arrow from the report's 42.08,32.49 runs through Honor's Stand
-#   (about 39.4,29.7), a Horde post. The walking maps' path passes there too.
+# - Alliance come into Stonetalon from the north (#1813): the Barrens' way in
+#   runs through Honor's Stand (about 39.4,29.7, map 1413), a Horde post, and
+#   on to the hills it passes Malaka'jin and Sun Rock Retreat. Players'
+#   recordings of Stepping Stones (Alliance): about 40 runs, most entering from
+#   the Barrens (Stonetalon 83.5,97), 7 people dead at Honor's Stand and one in
+#   Sun Rock; the runs by the Talondeep Path (Ashenvale 42.4,71.0 to Stonetalon
+#   81.6,30.1) and off the Stonetalon Peak flight lost nobody there.
 # - The way off the dam: players' recordings (2026-11-09 pull). From the
 #   ledge most players drop into the river below the dam (Wetlands); 22
 #   contributors died at its waterfall, about 65.0,77.4 and 66.7,75.1 (map
 #   1437), while those who left it on the west bank (about 67,81 to 61,73)
-#   lived and took the road north over Thandol Span.
+#   lived and took the road north over Thandol Span. The Thoradin's Wall
+#   step's two gotos follow the survivors' tracks out of the river (64.4,79.4
+#   then 62.2,76.8); those who died turned back north-east into the river at
+#   the first of them.
+# - Horde bind at Tarren Mill on the way to Loch Modan (#1994): the wall's
+#   fallen cart (Hillsbrad 87.5,47.7) is a short ride south-east of Tarren Mill
+#   (Innkeeper Shay, 62.8,19.0), while the walk back from the dam runs the
+#   length of the Wetlands, over Thandol Span and across Arathi. Bound there,
+#   the arrow's route to the wall takes the Hearthstone (it does so for any
+#   trip over 3 minutes that it shortens by 2).
+# - Horde's way to Westfall (#1982): players' recordings (2026-11-12 pull) of
+#   the Westfall hand-in by Horde coming from Stranglethorn: 20 people followed
+#   Stranglethorn's west coast north (last seen there about 12.5,12.7) into
+#   Westfall's southern shore, 16 took the jungle road north through Duskwood.
+#   From Grom'gol the coast is the shorter walk on our walking maps too (about
+#   2,870 yards against 3,100), and it stays clear of Stranglethorn's level 30+
+#   jungle and of Duskwood, so Horde get a goto on the coast; it drops once
+#   they are in Westfall.
 # Not play-tested on Forever yet.
 
 step The note in Westfall
@@ -60,6 +80,14 @@ step The note in the Barrens
   level 14
   accept 79007
 
+# Only for a Horde player not yet in Westfall (#1982): from Grom'gol the arrow then follows the coast.
+step Along the coast to Westfall
+  only Horde
+  zone Stranglethorn Vale
+  when !zone "Westfall"
+  tip From Grom'gol follow Stranglethorn's west coast north to Westfall, swimming where the beach runs out. It is shorter than the jungle road north and keeps you clear of Stranglethorn's level 30+ beasts and of Duskwood.
+  goto 12.5,12.7 "Stranglethorn's west coast" r 25
+
 step Its twin in Westfall
   only Horde
   zone Westfall
@@ -67,12 +95,14 @@ step Its twin in Westfall
   turnin 79007
   accept 79192 object 424010
 
-# Only for an Alliance player who is not yet in Stonetalon: once there (on foot or by the Stonetalon Peak flight)
-# the detour round the Horde post serves no purpose (#1496).
-step Round Honor's Stand
+# Only for an Alliance player who is not yet in Stonetalon: once there (by the Talondeep Path or the Stonetalon
+# Peak flight) the step drops (#1496, #1813).
+step Stonetalon from the north
   only Alliance
+  zone Ashenvale
   when !zone "Stonetalon Mountains"
-  goto 40.2,24.88 map 1413 "North of Honor's Stand" r 30 -- The road west runs through Honor's Stand, a Horde post; this way goes round it.
+  tip The Barrens' way into Stonetalon runs through Honor's Stand, and the road on to the hills passes Malaka'jin and Sun Rock Retreat: all Horde posts. Come in from the north instead. With the Stonetalon Peak flight path, fly there and follow the road south. Otherwise fly to Astranaar and walk south-west to the Talondeep Path, the tunnel from Ashenvale into Stonetalon.
+  goto 42.4,71.0 map 1440 "The Talondeep Path" r 25
 
 step Stonetalon Mountains
   zone Stonetalon Mountains
@@ -86,15 +116,30 @@ step A hundred paces north
   turnin 79980
   accept 79974
 
+# Horde only, on the way east through Hillsbrad (#1994); not for a player already past it.
+step Tarren Mill on the way
+  only Horde
+  when !bound "Tarren Mill"
+  when !zone "Loch Modan"
+  when !zone "Wetlands"
+  zone Hillsbrad Foothills
+  tip Passing Tarren Mill on the way to Loch Modan? Set your Hearthstone here: after the dam, it brings you back next to Thoradin's Wall instead of the long walk through the Wetlands and Arathi. Skip this step to keep your Hearthstone where it is.
+  sethome "Tarren Mill" npc 2388      -- Innkeeper Shay
+
 step The dam in Loch Modan
   zone Loch Modan
   tip The figurine is on a ledge just below the top of the Stonewrought Dam, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge.
   turnin 79974
   accept 79975
 
+step Out of the river
+  zone Wetlands
+  tip Careful: off the dam's ledge you land in the river below it, in the Wetlands. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over Thandol Span into Arathi, or hearth if your Hearthstone is set at Tarren Mill.
+  goto 64.4,79.4 map 1437 "West bank, before the waterfall" r 12
+  goto 62.2,76.8 map 1437 "West bank" r 15
+
 step Thoradin's Wall
   zone Hillsbrad Foothills
-  tip Careful: off the dam's ledge you land in the river below it, in the Wetlands. Climb out on its west bank well before the waterfall at about 65,77: the fall kills. Then head north-west to the road and follow it north over Thandol Span into Arathi.
   tip At the gate in Thoradin's Wall between Arathi and Hillsbrad, turn north and follow the wall on the Hillsbrad side to a fallen cart leaning against it. Jump up the cart and its ladder onto the wall, then over the rocks to the hidden camp. Some characters cannot fit under the cargo netting at the camp; another race or a smaller form gets through.
   goto 87.5,47.7 "Fallen cart"
 

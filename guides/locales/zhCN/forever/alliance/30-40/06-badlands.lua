@@ -43,7 +43,7 @@ return {
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
 	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "火烟食人魔在山谷南边不远处扎营；任何一个都会掉落废料。秃鹫在东边的平原上空盘旋。\n破损的骷髅在石窟穴居人营地边缘；杀死阿格蒙德的凶手{quest:739}在石窟断骨者之间游荡。\n小心：火烟领主为44-45级。它们会使用{spell:5242}和{spell:1160}，生命值低于50%时会向15码内的同伴求援。有七个站在{area:340}以南约750码处。",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739}本人（42级）在Bonesnappers之间走动：留到43级、后面的{zone:1418}指南再打他，现在先杀Bonesnappers完成此任务。",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739}本人（42级）在石窟断骨者之间走动：留到43级、后面的{zone:1418}指南再打他，现在先杀石窟断骨者完成此任务。",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -90,11 +90,11 @@ return {
 
 	-- Step 18: Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "",
+	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "向西南进入峡谷：只有那里的巨型石元素才掉落护腕。",
 
 	-- Step 20: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "",
+	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}就在{npc:2921}旁边，可以用锻造制作的{item:2868}与他交换；只有携带一副时才会显示本步骤。",
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
 	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}，在{npc:2921}旁边",
 
@@ -115,7 +115,7 @@ return {
 	-- Step 25: Theramore flight master
 	["Theramore flight master"] = "塞拉摩飞行管理员",
 	-- {area:514} Foothold Citadel
-	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "下船后沿码头前往{area:514}大门旁的飞行管理员Baldruc。",
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "下船后沿码头前往{area:514}大门旁的飞行管理员巴德拉克。",
 
 	-- Step 26: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
@@ -130,8 +130,8 @@ return {
 	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:2407}西南方的{area:596}边缘；{object:176751}散落在骨架之间。",
 
 	-- Step 29: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "一只{npc:217590}在{area:596}里爬行：用{npc:217412}的昆虫学入门工具包中的工具抓住一只。",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 30: Maraudine centaurs
 	["Maraudine centaurs"] = "玛洛迪半人马",
@@ -196,6 +196,7 @@ return {
 	["The next guide starts in Theramore."] = "下一份指南从塞拉摩岛开始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "一只{npc:217590}在{area:596}里爬行：用{npc:217412}的昆虫学入门工具包中的工具抓住一只。",
 	-- ["Follow the road north to {area:608}."] = "沿道路向北到{area:608}。",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "沿道路向西穿过{zone:1443}北部，到{area:2405}的废墟；失事船只的箱子在废墟西边的岸上。",
 	-- ["Greater Rock Elementals"] = "{npc:2736}",

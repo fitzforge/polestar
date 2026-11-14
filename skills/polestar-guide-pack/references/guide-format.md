@@ -73,7 +73,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `abandon <quest> ["Title"]` | Drop a quest from the log; done once it is out, the quest's `accept` stays done (Polestar 0.3.0) | no place modifiers, no `group` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (Polestar 0.3.0) | no place modifiers, no `group` |
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
-| `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest` |
+| `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere` |
 | `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
 | `talk <npc>` | Speak to an NPC; with `quest Q.O` it is that quest objective ("Speak with …"), counted by the quest log | `gossip`, `quest` |
 | `interact <object>` | Click a game object | `quest` |
@@ -103,7 +103,9 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 `nearest`, `train class` and `train <Profession>` pick the NPC or place when
 the step comes up, by the player's faction and position; they take no
 coordinates and no `npc` (except `train <Profession> npc <id>`).
-`collect <item> xN nearest` needs its `xN` and no `quest`.
+`collect <item> xN nearest` needs its `xN` and no `quest`; so does
+`collect <item> xN anywhere`, which takes no place at all (no coordinates,
+`npc` or `nearest`).
 
 ## Modifiers
 
@@ -124,6 +126,7 @@ After the arguments, in any order.
 | `group [N]` | Needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it |
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
+| `anywhere` | On `collect`: a bag count with no place; the arrow never leads to it (cloth a profession guide counts as you loot it while levelling) (Polestar 0.3.7) |
 | `until <N>` | On `craft`: until the profession reaches N |
 | `grind <npc>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area, the step's goto only when the data has none (Polestar 0.3.7) |
 | `criteria <n>` | On `achieve`: one criterion |
@@ -157,12 +160,15 @@ step was completed, not skipped or jumped over; not on a `next` line),
 cooldown aside), `group <quest>` (the player chose to do that group quest;
 unanswered, the route waits and asks; on the accept step, `!group` for a solo
 way; not on `next` or `skipto`), `knows <spell>` (the character knows the
-spell; `!knows` for the step that trains it); `!` in front of any but
+spell; `!knows` for the step that trains it), `taxi "<Flight point>"` (the
+character knows that flight path, named as for `getfp`; one Polestar has not
+seen yet counts as unknown, so make the `!taxi` way work for everyone); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
-`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with
+a `when taxi` predicate, Polestar 0.4.0.
 
 ## Lint errors that come up most
 

@@ -35,6 +35,10 @@ fn lenient_str<'de, D: Deserializer<'de>>(d: D) -> Result<Option<String>, D::Err
 	})
 }
 
+fn lenient_bool<'de, D: Deserializer<'de>>(d: D) -> Result<bool, D::Error> {
+	Ok(Value::deserialize(d)?.as_bool().unwrap_or(false))
+}
+
 /// The route's order, each event knowing its index (`Order::ix`).
 fn indexed_order<'de, D: Deserializer<'de>>(d: D) -> Result<Vec<Order>, D::Error> {
 	let mut order = Vec::<Order>::deserialize(d)?;
@@ -362,6 +366,15 @@ pub struct WQuest {
 	/// The quests before it, as the world has them (a negative id: any one of them).
 	#[serde(default)]
 	pub pre: Option<Vec<i64>>,
+	/// An escort (the world's `escort`): walked from its giver, nothing far between.
+	#[serde(default, deserialize_with = "lenient_bool")]
+	pub escort: bool,
+	/// A timed quest's seconds once taken (the world's `limit`; none: untimed).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub limit: Option<f64>,
+	/// Its targets are elite (the world's `elite`).
+	#[serde(default, deserialize_with = "lenient_bool")]
+	pub elite: bool,
 }
 
 /// One task of a world quest: its work, `[kind, ...]` each (`["buy"]`, `["kill", n, ...]`).
@@ -493,6 +506,9 @@ pub struct Quest {
 	pub repeatable: Option<Value>,
 	#[serde(default, rename = "minLevel", deserialize_with = "lenient_num")]
 	pub min_level: Option<f64>,
+	/// The quest's full XP reward (none: estimated from its level).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub xp: Option<f64>,
 	/// The races that may take it (race bits; Skyborne past 32 bits), None or 0: any.
 	#[serde(default, deserialize_with = "lenient_num")]
 	pub races: Option<f64>,
@@ -516,6 +532,10 @@ pub struct Quest {
 	/// The item the quest gives when taken (Dogran's Pendant for The Binding).
 	#[serde(default, rename = "sourceItem", deserialize_with = "lenient_num")]
 	pub source_item: Option<f64>,
+	/// Handed in on the spot: its giver opens straight on the hand-in window and it never enters the
+	/// log (the server's QuestType 0; Essence of the Exile, the cloth donations).
+	#[serde(default)]
+	pub direct: Option<bool>,
 }
 
 impl Quest {
@@ -541,6 +561,9 @@ impl Quest {
 			Some(Value::String(s)) => !s.is_empty(),
 			Some(_) => true,
 		}
+	}
+	pub fn direct(&self) -> bool {
+		self.direct == Some(true)
 	}
 }
 

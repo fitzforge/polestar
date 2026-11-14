@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "Para personajes de nivel 49 a 50, pero la mayoría de las misiones de aquí son de nivel 51-53: a propósito, por su experiencia. Las bestias del cráter son de nivel 48-55 y los silítidos Gorishi, de 51-54, así que atráelos de uno en uno.",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
@@ -51,8 +54,8 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618} está justo afuera del refugio.",
 
 	-- Step 13: Marshal's Refuge
-	-- {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
+	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, en la entrada del refugio",
 	-- {npc:8737} Linken
@@ -60,7 +63,7 @@ return {
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Termina con {npc:9298} en {zone:1452}: guárdala",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, al fondo de la cueva; bajo tierra",
 
 	-- Step 14: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
@@ -71,7 +74,7 @@ return {
 
 	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, bajo tierra",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Para {npc:7775} en {zone:1444}: guárdala",
 
@@ -90,7 +93,7 @@ return {
 	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
 	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
 	["Pterrordax"] = "Pterrordáctilo",
-	["grind on Pterrordax"] = "",
+	["grind on Pterrordax"] = "sube de nivel con pterrordáctilos",
 
 	-- Step 20: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle

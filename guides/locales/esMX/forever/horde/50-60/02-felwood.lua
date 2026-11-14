@@ -9,7 +9,7 @@ return {
 	-- Step 1: Mulgris Deepriver
 	-- {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["He camps by the {area:202}, south-east of {area:200}."] = "Acampa junto a {area:202}, al sureste de {area:200}.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 2: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River · {zone:1423} Eastern Plaguelands
@@ -38,12 +38,12 @@ return {
 	["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Cabalga de vuelta al oeste cruzando el río y sigue hasta {area:192}; {npc:11610} se esconde en la colina al noreste.",
 
 	-- Step 6: Level 52.63
-	["Level 52.63"] = "",
+	["Level 52.63"] = "Nivel 52.63",
 	-- {area:200} Dalson's Tears · {npc:11610} Kirsta Deepshadow · {quest:6004} Unfinished Business · {area:1417} Sunken Temple · {area:2100} Maraudon
 	-- plural, as words: Scarlet Mages = {npc:1826} Scarlet Mage
-	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Completa aquí hasta el nivel 52.63 antes de las entregas en {area:200}: te llevan al nivel 53. Los magos y caballeros Escarlata de aquí cuentan para {quest:6004} de {npc:11610}. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:2100}.",
 	-- {npc:1826} Scarlet Mage
-	["grind on {npc:1826}"] = "",
+	["grind on {npc:1826}"] = "sube de nivel con {npc:1826}",
 
 	-- Step 7: Diseased Wolves
 	["Diseased Wolves"] = "Lobos malsanos",
@@ -55,17 +55,13 @@ return {
 	["{area:200} farmhouse"] = "Granja de {area:200}",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "El diario está en la granja, el armario está dentro y el retrete está detrás. Un {npc:10816} lleva la llave del retrete; {npc:10836} sale cuando abres el retrete y lleva la llave del armario.",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Osos pardos malsanos",
 	-- {area:202} Writhing Haunt · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Los osos recorren las colinas al norte y al este de {area:202}. Por debajo del nivel 53.02, sigue cazándolos después del octavo: las entregas en {area:202} te llevan al nivel 54. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:1584}.",
 	-- {npc:1816} Diseased Grizzly
-	["grind on {npc:1816}"] = "",
+	["grind on {npc:1816}"] = "sube de nivel con {npc:1816}",
 
 	-- Step 11: Mulgris Deepriver
 	-- {npc:5770} Nara Wildmane · {zone:1456} Thunder Bluff
@@ -76,7 +72,7 @@ return {
 	-- {area:192} Northridge Lumber Camp
 	["Knights and magi work the {area:192}; the medics and hunters camp south of it."] = "Los caballeros y magus trabajan en {area:192}; los médicos y cazadores acampan al sur.",
 	-- {npc:10605} Scarlet Medic
-	["grind on {npc:10605}"] = "",
+	["grind on {npc:10605}"] = "sube de nivel con {npc:10605}",
 
 	-- Step 14: The Bulwark
 	-- {area:152} The Bulwark
@@ -85,14 +81,14 @@ return {
 	["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "Las atalayas de Derrington, la caldera de Vandis y la barrica de {npc:11615} se hacen en una visita posterior: guárdalas.",
 
 	-- Step 15: Level 53.34
-	["Level 53.34"] = "",
+	["Level 53.34"] = "Nivel 53.34",
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Completa aquí hasta el nivel 53.34 antes de las entregas en {area:1763}: te llevan al nivel 54. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:1584}.",
 
 	-- Step 17: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instructor de paladines",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152} en {zone:1420}; {zone:1454} no tiene instructor de paladines",
 
 	-- Step 18: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -100,7 +96,7 @@ return {
 
 	-- Step 19: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 
 	-- Step 20: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -112,13 +108,13 @@ return {
 	["Class trainer"] = "Instructor de clase",
 
 	-- Step 22: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instructor de druidas",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} en {zone:1412}; {zone:1454} no tiene instructor de druidas",
 
 	-- Step 23: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Vuela a {area:431}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
@@ -131,9 +127,9 @@ return {
 
 	-- Step 26: Deadwood Village
 	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "La aldea de los fúrbolgs Muertobosque está justo al sur del Santuario. Cada Muertobosque que matas también sube tu reputación con {area:1769}; guarda las plumas de los tocados. Sigue matándolos hasta el nivel 53.92: las siguientes entregas del Santuario y {area:1763} lo piden. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:1584}.",
 	-- {npc:7153} Deadwood Warrior
-	["grind on {npc:7153}"] = "",
+	["grind on {npc:7153}"] = "sube de nivel con {npc:7153}",
 
 	-- Step 27: Southern Jaedenar
 	-- {area:1763} Jaedenar
@@ -143,38 +139,34 @@ return {
 
 	-- Step 28: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "",
+	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Te salió {item:13140}: úsala para empezar la misión y luego libera a {npc:11018} de su jaula en {area:1770}, la cueva en el extremo norte de {area:1763}.",
 
 	-- Step 29: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
-	["{npc:11016}, below ground"] = "",
+	["{npc:11016}, below ground"] = "{npc:11016}, bajo tierra",
 
 	-- Step 31: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {area:1770} Shadow Hold
-	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "",
+	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "Saca a {npc:11018} de {area:1770} y mantenla con vida hasta que salga de la cueva.",
 	-- {npc:11018} Arko'narin
-	["{npc:11018}, below ground"] = "",
+	["{npc:11018}, below ground"] = "{npc:11018}, bajo tierra",
 
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
-	["Back at the {area:2479}."] = "",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "Solo con 5 plumas de penacho de Muertobosque",
+	["Back at the {area:2479}."] = "De vuelta en {area:2479}.",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "El pozo de la luna de {area:1763}",
-	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
-	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "De vuelta al norte a {area:1763}. Llena la cantimplora de {npc:10922} en el pozo de la luna corrupto en medio del campamento sur.",
+	-- {area:1763} Jaedenar
+	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "",
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
-	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
+	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "La súcubo {npc:9518} espera en el centro de {area:1763}, junto a {npc:11020}.",
 	["Below ground"] = "Bajo tierra",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}, bajo tierra",
 
 	-- Step 38: Bloodvenom Post
 	-- {area:1763} Jaedenar
@@ -192,19 +184,19 @@ return {
 	-- Step 40: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {area:1997} Bloodvenom Post · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Sigue el camino al noreste hasta {area:1767}. Los desolladores y trituradores de musgo Madeguerra del lado este del bosque llevan cada uno {item:11503}; los osos pardos Zarpaira y los devastadores Zarpavil recorren el mismo bosque para Talo. Por debajo del nivel 54.21, sigue cazando osos y devastadores: las entregas en {area:1997} y {area:2479} te llevan al nivel 55. O, en grupo, haz la mazmorra {area:1584} o la mazmorra {area:1417}.",
 	-- {npc:8957} Angerclaw Grizzly
-	["grind on {npc:8957}"] = "",
+	["grind on {npc:8957}"] = "sube de nivel con {npc:8957}",
 
 	-- Step 41: Irontree Woods
 	-- {npc:7101} Warpwood Shredder
-	["grind on {npc:7101}"] = "",
+	["grind on {npc:7101}"] = "sube de nivel con {npc:7101}",
 
 	-- Step 42: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
 	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "La aldea de los fúrbolgs Muertobosque justo al oeste del túnel. {npc:9462} (56) está entre ellos. {npc:11557}, un fúrbolg amistoso, está sentado en el extremo norte de la aldea.",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "",
+	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: guarda 30 {quest:6031} para él; solo comercia si eres Neutral con los Fauces de Madera; bajo tierra",
 
 	-- Step 43: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -212,9 +204,9 @@ return {
 
 	-- Step 44: Felpaw Village
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
-	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
+	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: Los vigías de la guarida son de nivel 53-54; llaman a los aliados cercanos en 25 m al bajar del 50 % de salud y huyen a pedir ayuda por debajo del 15 %.\nPor debajo del nivel 54.54, sigue peleando con los Muertobosque aquí después del conteo de {npc:15395}: las entregas en {area:1769} y {area:2479} te llevan al nivel 55. O, en grupo, haz la mazmorra {area:1584} o la mazmorra {area:1417}.\nSigue matándolos hasta que uno suelte {quest:8470}, más o menos una vez de cada treinta, y haz clic derecho sobre él: {npc:11558} en {area:1769} lo recibe cuando seas Neutral con los Fauces de Madera, ahora si ya lo eres, o cuando la última guía vuelva a pasar por la cueva a nivel 59.",
 	-- {npc:7156} Deadwood Den Watcher
-	["grind on {npc:7156}"] = "",
+	["grind on {npc:7156}"] = "sube de nivel con {npc:7156}",
 
 	-- Step 45: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -222,9 +214,9 @@ return {
 
 	-- Step 46: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Entra a la cueva: {npc:11558} está justo en la entrada.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral; da vueltas por aquí: búscala dentro del círculo del mapa",
 
 	-- Step 47: Emerald Sanctuary
 	-- {zone:1448} Felwood
@@ -239,11 +231,11 @@ return {
 	["Ror stands at the far south end of {area:1761}."] = "Ror está en el extremo sur de {area:1761}.",
 
 	-- Step 50: Level 54.7
-	["Level 54.7"] = "",
+	["Level 54.7"] = "Nivel 54.7",
 	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Completa aquí hasta el nivel 54.7 antes de las entregas en {area:1997}: te llevan al nivel 55. O, en grupo, haz la mazmorra {area:1584} o la mazmorra {area:1417}.",
 	-- {npc:7155} Deadwood Pathfinder
-	["grind on {npc:7155}"] = "",
+	["grind on {npc:7155}"] = "sube de nivel con {npc:7155}",
 
 	-- Step 51: The Jadefire moonwell
 	["The Jadefire moonwell"] = "El pozo de la luna Fuego de Jade",
@@ -262,14 +254,15 @@ return {
 	["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, en el pozo de la luna Fuego de Jade",
 
 	-- Step 55: Level 54.87
-	["Level 54.87"] = "",
+	["Level 54.87"] = "Nivel 54.87",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Completa aquí hasta el nivel 54.87 antes de las entregas en {zone:1452}: te llevan al nivel 55. O, en grupo, haz la mazmorra {area:1584} o la mazmorra {area:1417}.",
 	-- {npc:7125} Jaedenar Hound
-	["grind on {npc:7125}"] = "",
+	["grind on {npc:7125}"] = "sube de nivel con {npc:7125}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De vuelta en {area:1762}, los fúrbolgs Muertobosque (53-54) están cerca del túnel y cada muerte sube tu reputación con los Fauces de Madera.",
+	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "De vuelta al norte a {area:1763}. Llena la cantimplora de {npc:10922} en el pozo de la luna corrupto en medio del campamento sur.",
 	-- ["Diseased Grizzlies"] = "Osos pardos malsanos",
 	-- ["Fly to the {area:1497}"] = "Vuela a {area:1497}",
 	-- ["Fly to {area:272}"] = "Vuela a {area:272}",
@@ -281,6 +274,7 @@ return {
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Sal de {area:1497} y cabalga al este por el camino a través de {zone:1420}, pasando {area:152}. La granja de Piedramácula es la primera granja del camino; {npc:10778} espera en la casa.",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "Solo si cayó una {item:13140}: úsala para iniciar la misión, luego libera a {npc:11018} de su jaula en {area:1770}, la cueva del extremo norte de {area:1763}, y escóltala afuera.",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "Solo si rescataste a {npc:11018}: la súcubo {npc:9518} espera en medio de {area:1763}, junto a {npc:11020}.",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "Solo con 5 plumas de penacho de Muertobosque",
 	-- ["Radley and Durgen"] = "Radley y Durgen",
 	-- ["Ride back south-east to the Sanctuary."] = "Cabalga de vuelta al sureste hasta el Santuario.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Cabalga de vuelta a {area:1497}, toma el zepelín a {zone:1454} y vuela a {area:431}. Sigue el camino al oeste fuera del Puesto del Hachazo y toma el desvío al norte hacia {zone:1448}.",

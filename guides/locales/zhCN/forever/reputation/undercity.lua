@@ -18,12 +18,13 @@ return {
 	["{faction:68}: how it works"] = "{faction:68}：规则说明",
 	-- {faction:68} Undercity · {npc:14729} Ralston Farnsley · {object:36082} Magic Quarter · {quest:7819} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:287} Hillsbrad · {area:272} Tarren Mill · {object:1661} The Undercity
 	["{faction:68} reputation comes from quests and cloth. {npc:14729}, the cloth quartermaster, stands in the {object:36082} beside the tailors. He takes four one-time donations of 60 cloth (150 each) and then {quest:7819}, 20 {item:14047} for 50, as often as you like. Every point you earn with the {faction:68} also gives a quarter as much to {zone:1454}, {zone:1456} and the Darkspear Trolls. While you level, do the {faction:68}'s quests within 5 levels of them: Tirisfal at 1 to 12, Silverpine at 10 to 20, {area:287} and {area:272} at 20 to 33. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the {faction:68}'s merchants sell to you for 10% less (the Classic rule), the horse vendor included; at Exalted other races can buy the skeletal horses: 20 gold for a level 40 horse, 200 gold for a level 60 warhorse, once you have mount training. {object:1661} has no tabard or other reward."] = "{faction:68}声望来自任务和布料。布匹军需官{npc:14729}站在{object:36082}的裁缝旁。他接收4种一次性捐赠，每种60块布（各150声望），然后是可无限重复的{quest:7819}，每20个{item:14047}换50声望。每获得1点{faction:68}声望，{zone:1454}、{zone:1456}和暗矛巨魔也会获得四分之一。练级时，应在与任务相差不超过5级时完成{faction:68}任务：1至12级做提瑞斯法，10至20级做银松森林，20至33级做{area:287}和{area:272}。传承系统特长“外交家”最多增加10%。奖励：尊敬后{faction:68}商人售价降低10%（经典旧世规则），包括马匹商人；崇拜后其他种族也可购买骸骨军马：40级马匹20金币，60级战马200金币，均需先接受坐骑训练。{object:1661}没有战袍或其他奖励。",
+	["his donations are handed in from his window and never enter the log"] = "他的捐献任务在他的窗口中直接交还，不会进入任务日志",
 
 	-- Step 2: Deathknell (optional hub)
 	-- {area:154} Deathknell
 	["{area:154} (optional hub)"] = "{area:154}（可选任务点）",
 	-- {area:154} Deathknell · {faction:68} Undercity · {npc:1661} Novice Elreth · {npc:1570} Executor Arren · {npc:1740} Deathguard Saltain
-	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "",
+	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "无限在任何等级都为这些旧任务提供全额奖励。{area:154}是提瑞斯法林地最西端的被遗忘者起始区，约25分钟可得900点{faction:68}声望。起始区任务不会向其他主城提供共享声望。{npc:1661}、{npc:1570}和{npc:1740}在村庄内。",
 
 	-- Step 3: Deathknell: the next quests
 	-- {area:154} Deathknell
@@ -56,7 +57,7 @@ return {
 	-- {area:159} Brill
 	["{area:159} (optional hub)"] = "{area:159}（可选任务点）",
 	-- {area:159} Brill · {faction:68} Undercity · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren · {npc:1518} Apothecary Johaan · {npc:1496} Deathguard Dillinger · {npc:1500} Coleman Farthing
-	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "",
+	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "无限版本中，这些旧任务在任何等级都奖励全额声望。{area:159}及周边田野：45分钟可获得约1,100点{faction:68}声望。{npc:1515}、{npc:1499}、{npc:1518}、{npc:1496}和{npc:1500}都在镇上。",
 
 	-- Step 9: Around Brill
 	-- {area:159} Brill
@@ -110,7 +111,7 @@ return {
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152}是被遗忘者的营地，位于提瑞斯法林地通往{zone:1422}的道路上。{npc:10837}的任务线会让你处理{zone:1422}的天灾瘟疫之锅，共约820点{faction:68}声望。从他身旁的箱子里拿取{item:12814}；烧毁{area:200}与{area:199}之间血色营地的指挥帐篷，并在旁边插下{item:12807}。",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}，+100（53级）",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -197,7 +198,7 @@ return {
 	-- {quest:2936} The Spider God
 	["{quest:2936} (optional chain)"] = "{quest:2936}（可选任务线）",
 	-- {zone:1425} Hinterlands · {area:272} Tarren Mill · {area:367} Sen'jin Village · {area:978} Zul'Farrak · {faction:68} Undercity · {quest:2937} Summoning Shadra · {quest:2938} Venom to the Undercity · {quest:2933} Venom Bottles
-	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "",
+	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "六个任务横跨{zone:1425}、{area:272}、{area:367}、{area:978}和{faction:68}，共提供600点{faction:68}和225点暗矛声望。{quest:2937}和{quest:2938}是55级任务，60级时仍提供全额的400点声望；前四个任务为43至45级，也提供全额声望。算上赶路，预留约90分钟。{quest:2933}放在{zone:1425}西部枯木村庄的桌上，点击一个即可开始。",
 
 	-- Step 34: Shadra'Alor: an Undamaged Venom Sac
 	-- {area:353} Shadra'Alor · {quest:2934} Undamaged Venom Sac

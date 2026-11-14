@@ -22,8 +22,8 @@ return {
 	["{npc:9998}, at the refuge entrance"] = "야영지 입구의 {npc:9998}",
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "바로 밖의 {npc:9618}",
-	-- {quest:3761} Un'Goro Soil
-	["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "지금부터 지나가는 마력의 수정(파랑, 초록, 빨강, 노랑)과 {quest:3761} 더미를 모두 챙기세요. 흙은 모두 25개로, 하뮬에게 20개, 페슬저그에게 5개입니다.",
+	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -37,6 +37,7 @@ return {
 	["grind on Pterrordax"] = "",
 
 	-- Step 6: Power Crystals and soil
+	-- plural, as words: Power Crystals = {npc:271301} Power Crystal
 	["Power Crystals and soil"] = "마력의 수정과 흙",
 	-- {area:537} Fire Plume Ridge
 	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "수정 무더기는 분화구 곳곳에 있으며 {area:537} 주변에 많습니다. 수정탑용으로 색깔별로 몇 개씩 더 챙기세요.",
@@ -242,8 +243,8 @@ return {
 	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "{zone:1458}을(를) 나와 길을 따라 동쪽으로 {zone:1420}을(를) 지나 경계의 포세이큰 요새인 {area:152}로 가세요.",
-	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
-	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "{quest:5096}을(를) 위해 델링턴 옆 상자에서 {object:176092}을(를) 챙기세요. 돌아오는 길에 완료합니다. {quest:5401}을(를) 착용하세요. 착용 중에만 스컬지석이 나옵니다.",
+	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
+	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "{quest:5096}을(를) 위해 델링턴 옆 상자에서 {object:176092}을(를) 챙기세요. 돌아오는 길에 완료합니다. {quest:5405}을(를) 착용하세요. 착용 중에만 스컬지석이 나옵니다.",
 
 	-- Step 50: Scarlet forward camp
 	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
@@ -273,6 +274,7 @@ return {
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {area:28}을(를) 지나 강을 건너 {area:139}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {zone:1422}을(를) 지나 강을 건너 {zone:1423}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "다로우샤이어 영혼 해방: 말 걸기",
+	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "지금부터 지나가는 마력의 수정(파랑, 초록, 빨강, 노랑)과 {quest:3761} 더미를 모두 챙기세요. 흙은 모두 25개로, 하뮬에게 20개, 페슬저그에게 5개입니다.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "{area:1938}에서 서쪽으로 가 {area:490}(으)로 구불구불 내려가는 긴 비탈길을 타고, 분화구 북쪽 벽을 따라 절벽 동굴 속 야영지인 {area:541}(으)로 가세요. 이곳 주민은 모두 중립입니다.",
 	-- ["Gorillas"] = "고릴라",
 	-- ["Into {area:490}"] = "{area:490}(으)로",
@@ -292,6 +294,7 @@ return {
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "남서쪽, 분화구 한가운데의 화산인 {area:537}(으)로 가세요. 기슭에 칼날가시 붉은꽃잎덩굴손이 자랍니다.",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "서쪽 발굴지로 가세요. {npc:7039} 골렘(53)이 주변을 돌아다니며 조각을 자주 떨어뜨립니다. {quest:4296}은(는) 발굴지 한가운데 타우릿산 드워프들 사이에 있습니다. 베껴 쓰세요.",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "간헐천 남쪽에서 스테고돈이 풀을 뜯습니다. 공룡 뼈는 스테고돈이 떨어뜨리거나 땅에 놓여 있습니다. 근처 디메트로돈은 {npc:9998}이(가) 원하는 비늘을 지니고 있습니다. 라바사우루스는 남서쪽에서 무리 지어 사냥합니다. 발톱은 {npc:8659}에게 가져가며, 가끔 구겨진 일지를 지닌 개체가 있습니다(희귀 획득물: 얻었을 때만 퀘스트를 받으세요). 레벨 57 스테고돈인 그러프는 피하세요.",
+	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "{quest:5096}을(를) 위해 델링턴 옆 상자에서 {object:176092}을(를) 챙기세요. 돌아오는 길에 완료합니다. {quest:5401}을(를) 착용하세요. 착용 중에만 스컬지석이 나옵니다.",
 	-- ["Termite mounds"] = "흰개미집",
 	-- ["Thaurissan dig site"] = "타우릿산 발굴지",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안돌할 시청의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",

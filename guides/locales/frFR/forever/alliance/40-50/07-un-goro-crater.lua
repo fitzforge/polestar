@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "Pour les personnages de niveau 49 à 50, mais la plupart des quêtes ici sont de niveau 51-53 : c'est voulu, pour leur expérience. Les bêtes du cratère sont de niveau 48-55 et les silithides Gorishi 51-54 : attirez-les un par un.",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Prendre un vol pour {area:150}",
@@ -51,8 +54,8 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618} se tient juste devant le refuge.",
 
 	-- Step 13: Marshal's Refuge
-	-- {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Retournez vers l'ouest jusqu'au refuge.\nGardez vos distances avec les diablosaures et les stégodons élites. Ramassez désormais chaque Cristal de puissance et chaque {object:157936} que vous croisez.",
+	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, à l'entrée du refuge",
 	-- {npc:8737} Linken
@@ -186,6 +189,7 @@ return {
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Descendez vers le sud par le côté est. Les Jeunes dimeurtrodons paissent dans la jungle est et les {npc:9165} volent près des falaises est ; les deux laissent tomber les écailles de {npc:9998}.",
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. {item:11316} Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "Chevauchez vers le sud jusqu'à {area:537}, au milieu du cratère, puis vers l'est dans la jungle est. Des amas de cristaux se dressent partout dans le cratère, beaucoup autour de {area:537} : prenez-en quelques-uns de plus de chaque couleur. Les Flagellants et Batteurs {item:11316} laissent tomber les pétales ; la {item:11113} de l'expédition se trouve dans un camp abandonné de la jungle est.",
 	-- ["Ride west back to the refuge."] = "Revenez vers l'ouest jusqu'au refuge.",
+	-- ["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Retournez vers l'ouest jusqu'au refuge.\nGardez vos distances avec les diablosaures et les stégodons élites. Ramassez désormais chaque Cristal de puissance et chaque {object:157936} que vous croisez.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Chevauchez vers l'ouest depuis {npc:9619} : la ruche des silithides occupe le sud du cratère. Utilisez la fiole à prélèvement sur une couveuse, une salle aux larves suspendues. Les guêpes et les ouvriers Gorishi lâchent {quest:3764} ; des Pterreurdactyles nichent sur les falaises du sud s'il vous faut encore des victimes.\nAttention : les silithides Gorishi sont de niveau 51-54 et lancent {spell:8137} ou {spell:14120} au corps à corps ; les Ouvriers Gorishi ont 50 % de chances d'appeler à l'aide dans un rayon de 25 m quand leur vie passe sous 45 %.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Chevauchez vers l'ouest depuis {npc:9619} : la ruche silithide occupe le sud du cratère. Utilisez la Fiole rayée sur un couvoir, une salle où pendent des larves. Les guêpes et ouvriers Gorishi laissent tomber {quest:3764} ; les {npc:9166} nichent sur les falaises sud s'il vous faut encore des victimes.",
 	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Chevauchez vers l'ouest en sortant de {area:976} jusqu'à la longue rampe qui descend dans le {area:490}. {npc:9619} campe au pied de la rampe, dans le coin sud-est du cratère.",

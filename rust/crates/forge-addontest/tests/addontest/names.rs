@@ -163,6 +163,24 @@ emit({ unasked, burst, fired })"#
 }
 
 #[test]
+fn a_burst_of_asked_names_arriving_moves_the_names_revision_once() {
+	// Names.revision: the step browser's skipped cards, whose reasons name quests, draw again when it moves.
+	let out = run(Opts {
+		guide: guide(),
+		script: r#"
+local r0 = N.revision
+N.Quest(176); N.Item(1528)
+stub.fire("QUEST_DATA_LOAD_RESULT", 176, true)
+stub.fire("ITEM_DATA_LOAD_RESULT", 1528, true)
+stub.advance(1)
+emit({ N.revision - r0 })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!([1]));
+}
+
+#[test]
 fn in_combat_the_pack_waits_english_meanwhile_and_loads_once_out_of_it_a_pack_for_another_language_changes_nothing() {
 	let out = run(Opts {
 		before: REFUSED_AT_LOAD.into(),
@@ -286,7 +304,9 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	// A complete install for the stub's Alliance character: our guides' Alliance part too (format 8).
 	let check = |addons: &str| {
 		run(Opts {
-			before: format!(r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}{addons} }}"#),
+			before: format!(
+				r#"stub.addons = {{ {{ name = "Polestar" }}, {{ name = "Polestar_Guides" }}, {{ name = "Polestar_Guides_Alliance" }}, {{ name = "Polestar_Codex" }}, {{ name = "Polestar_Options" }}, {{ name = "Polestar_Looks" }}{addons} }}"#
+			),
 			script: script.into(),
 			..Default::default()
 		})
@@ -295,7 +315,7 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 	assert_eq!(check(""), json!(["", ""]));
 	assert_eq!(check(r#", { name = "Polestar_frFR" }"#), json!(["", ""]));
 	let stale = run(Opts {
-		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
+		before: "stub.addons = { { name = \"Polestar\" }, { name = \"Polestar_Guides\" }, { name = \"Polestar_Guides_Alliance\" }, { name = \"Polestar_Codex\" }, { name = \"Polestar_Options\" }, { name = \"Polestar_Looks\" }, { name = \"Polestar_frFR\" } }\nstub.addonMeta[\"Polestar_frFR\"] = { Version = \"0.0.1\" }".into(),
 		script: script.into(),
 		..Default::default()
 	});

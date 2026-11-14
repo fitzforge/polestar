@@ -41,10 +41,27 @@ function target(goal) {
 	return null;
 }
 
+// The dungeons a played character chose (`when dungeon`, Options' "Dungeons in
+// leveling guides"): null or [] none (the solo route), 'all', or map ids and
+// names ("Wailing Caverns", 36). -> chosen(p) for a compiled `when dungeon`.
+function dungeonPicker(dungeons) {
+	if (dungeons === 'all') return () => true;
+	const norm = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
+	const set = new Set([].concat(dungeons || []).map(norm));
+	return (p) => (p.map != null && set.has(String(p.map))) || (p.name != null && set.has(norm(p.name)));
+}
+
+// A step's `when dungeon` predicates hold for the character (ctx.chosen): a
+// `when dungeon` step only for a chosen dungeon, `when !dungeon` only for one
+// not chosen. Other `when` predicates are the play's (not modelled here).
+function dungeonsHold(step, ctx) {
+	return !(step.when || []).some((p) => p.k === 'dungeon' && ctx.chosen(p) === !!p.neg);
+}
+
 function guideEvents(g, ctx) {
 	const events = [{ t: 'guide', title: g.title, zone: g.zoneName || null, levels: g.minLevel != null ? [g.minLevel, g.maxLevel ?? g.minLevel] : null, id: g.id }];
 	for (const step of g.steps || []) {
-		if (!onlyHolds(step.only, ctx)) continue;
+		if (!onlyHolds(step.only, ctx) || !dungeonsHold(step, ctx)) continue;
 		const seen = new Set();
 		for (const goal of step.goals || []) {
 			if (!onlyHolds(goal.only, ctx)) continue;
@@ -101,7 +118,10 @@ function firstFor(guides, rFile, { anyRace = false } = {}) {
 // default chain comes first (`prefix`, its guide ids): the race's starting
 // guide, then `next` (else the first route choice), up to and including the
 // guide whose maxLevel reaches the pack chain's first level.
-function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, race, cls = null, quests = null, maxPaths = MAX_ENUMERATED, pack = null } = {}) {
+// `dungeons` (dungeonPicker): the dungeons the character chose; their `when
+// dungeon` steps are played and their `when !dungeon` steps left out (none by
+// default: the solo route). Price the runs with the sim's 'dungeons' family.
+function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, race, cls = null, quests = null, maxPaths = MAX_ENUMERATED, pack = null, dungeons = null } = {}) {
 	const rFile = raceFile(race);
 	// A one-side race implies its faction; Skyborne (both sides) needs one given.
 	const sides = Object.keys((RACES[lower(race).replace(/[\s_-]/g, '')] || {}).sides || {});
@@ -119,7 +139,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		guides = [...compiled.guides.filter((g) => !packGuides.has(g.id)), ...p.guides];
 	}
 	const clsFile = cls ? (CLASSES[lower(cls)] || {}).file || String(cls).toUpperCase() : null;
-	const ctx = { faction: fac, race: rFile, cls: clsFile };
+	const ctx = { faction: fac, race: rFile, cls: clsFile, chosen: dungeonPicker(dungeons) };
 
 	const leveling = guides.filter((g) => g.category === 'Leveling' && (!g.faction || g.faction === fac));
 	const byId = new Map(leveling.map((g) => [g.id, g]));

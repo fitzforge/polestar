@@ -25,11 +25,20 @@ Polestar.UI.ZoneArt.RegisterOverlays("test", { [9001] = { 256, 256,
 	{ 100, 100, 50, 300, 503 },
 	{ 64, 64, 0, 0, 504 },
 } })
+-- A frame of Polestar's on the canvas: under it, at any depth (the map's view frame holds the drawings).
+local function onCanvas(f)
+	local p = f.parent
+	while p do
+		if p == m.canvas then return true end
+		p = p.parent
+	end
+	return false
+end
 -- Every shown texture under a Polestar frame on the canvas.
 function revealed()
 	local out = {}
 	for _, f in ipairs(stub.frames) do
-		if f.parent == m.canvas and f.regions and f:IsShown() then
+		if onCanvas(f) and f.regions and f:IsShown() then
 			for _, t in ipairs(f.regions) do
 				if t.IsShown and t:IsShown() and t.texture then
 					local p = t.points[1]
@@ -44,7 +53,11 @@ function revealed()
 end
 -- Frames of Polestar's on the canvas.
 function frameCount()
-	return #m.canvas.children
+	local n = 0
+	for _, f in ipairs(stub.frames) do
+		if onCanvas(f) then n = n + 1 end
+	end
+	return n
 end
 "#;
 
@@ -217,11 +230,11 @@ fn the_minimap_readout_exists_only_once_turned_on_follows_the_player_and_blanks_
 }
 
 #[test]
-fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_right_click_opens_polestar_s_menu_drag_moves_it_around_the_edge() {
+fn the_minimap_button_exists_only_once_turned_on_click_hides_or_shows_polestar_right_click_opens_polestar_s_menu_drag_moves_it_around_the_edge() {
 	let out = run(
 		r#"
 		local fired = {}
-		Polestar.On("TOGGLE_FRAME", function() fired[#fired + 1] = "toggle" end)
+		Polestar.On("POLESTAR_HIDDEN", function(hidden) fired[#fired + 1] = hidden and "hidden" or "shown" end)
 		Polestar.On("SHOW_OPTIONS", function() fired[#fired + 1] = "options" end)
 		local before = stub.frame("PolestarMinimapButton")
 		Polestar.Set("maps.minimapButton", true)
@@ -231,7 +244,7 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 		b:Click("LeftButton")
 		b:Click("RightButton")
 		local menu = Polestar.Widgets.MenuShown(b)
-		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Options" then r:Click() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Settings" then r:Click() end end
 		local picked = not PolestarMenu:IsShown()
 		-- Drag to the right of the minimap's centre (70, 70): east, 0 degrees.
 		stub.cursor = { 200, 70 }
@@ -260,7 +273,7 @@ fn the_minimap_button_exists_only_once_turned_on_click_shows_or_hides_the_guide_
 	assert_eq!(out["start"], json!([true, -53, -53]));
 	assert_eq!(out["menu"], true, "right-click opens Polestar's menu on the button");
 	assert_eq!(out["picked"], true, "picking an item closes the menu");
-	assert_eq!(out["fired"], json!(["toggle", "options"]));
+	assert_eq!(out["fired"], json!(["hidden", "shown", "options"]), "a click hides Polestar; Options from the menu brings it back, then opens");
 	assert_eq!(out["dragging"], json!([true, 75, 0]));
 	assert_eq!(out["saved"], 0);
 	assert_eq!(out["stopped"], true);
@@ -338,7 +351,7 @@ fn a_minimap_button_collector_owns_its_place_once_it_moves_the_button_and_clicks
 	let out = run(
 		r#"
 		local fired = {}
-		Polestar.On("TOGGLE_FRAME", function() fired[#fired + 1] = "toggle" end)
+		Polestar.On("POLESTAR_HIDDEN", function(hidden) fired[#fired + 1] = hidden and "hidden" or "shown" end)
 		local b = stub.frame("PolestarMinimapButton")
 		local collected = b:IsObjectType("Button") and b:GetParent() == Minimap and not b:GetName():match("%d$") and b:GetWidth() >= 20 and b.Icon ~= nil
 		local function at() local p, rel, _, x, y = b:GetPoint(1); return { p, rel == Minimap, x, y } end
@@ -376,7 +389,7 @@ fn a_minimap_button_collector_owns_its_place_once_it_moves_the_button_and_clicks
 	assert_eq!(out["angle"], 180);
 	assert_eq!(out["inFlyout"], json!(["TOPLEFT", false, 4, -4]), "neither a resize nor a new angle moves it out of the grid");
 	assert_eq!(out["onRow"], json!(["BOTTOMRIGHT", true, 0, 30]), "nor off the collector's row");
-	assert_eq!(out["fired"], json!(["toggle"]));
+	assert_eq!(out["fired"], json!(["hidden"]));
 	assert_eq!(out["menu"], true, "right-click still opens Polestar's menu");
 }
 

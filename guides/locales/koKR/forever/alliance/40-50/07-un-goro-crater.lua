@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "49~50레벨 캐릭터용이지만, 여기 퀘스트 대부분은 51-53레벨입니다. 경험치를 위해 일부러 넣었습니다. 분화구의 야수는 48-55레벨, 고리쉬 실리시드는 51-54레벨이니 하나씩 끌어오세요.",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
@@ -51,8 +54,8 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618}은(는) 야영지 바로 바깥에 서 있습니다.",
 
 	-- Step 13: Marshal's Refuge
-	-- {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
+	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, 야영지 입구",
 	-- {npc:8737} Linken

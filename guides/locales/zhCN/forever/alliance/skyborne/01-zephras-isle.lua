@@ -157,7 +157,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "傲爪和疾风陆行鸟",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "傲爪和疾风陆行鸟在村庄周围的草地上游荡。疾风陆行鸟同时掉落蛋和肉：大多数玩家都在村庄西边不远处取得蛋。",
 
 	-- Step 38: Village quests
 	["The bounty board"] = "悬赏布告板",
@@ -301,7 +301,7 @@ return {
 	-- {npc:252800} Aamelia Windfield
 	["{npc:252800} again"] = "再次找{npc:252800}",
 	-- {npc:252800} Aamelia Windfield
-	["Back to {npc:252800} at the farmhouse."] = "",
+	["Back to {npc:252800} at the farmhouse."] = "回到农舍的{npc:252800}处。",
 
 	-- Step 68: Bandit Highwaymen
 	["Bandit Highwaymen"] = "强盗路霸",
@@ -310,7 +310,7 @@ return {
 	-- Step 69: Standing our ground
 	["Standing our ground"] = "坚守阵地",
 	-- {npc:252800} Aamelia Windfield
-	["{npc:252800}, at the farmhouse"] = "",
+	["{npc:252800}, at the farmhouse"] = "{npc:252800}，在农舍旁",
 	-- {npc:252800} Aamelia Windfield
 	["Tell {npc:252800} you're ready"] = "告诉{npc:252800}你准备好了",
 
@@ -409,7 +409,7 @@ return {
 	-- {npc:258130} Jorel Windsinger
 	["Find {npc:258130}"] = "找到{npc:258130}",
 	-- {item:258771} Al'Aketh Cultist's Ear · {npc:254151} Vayn Moongaze
-	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "",
+	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "{item:258771}：{npc:254151}营地周围的奥拉凯斯逐暴者和奥拉凯斯步兵",
 
 	-- Step 90: Elegael Thornpaw, the missive
 	-- {npc:257944} Elegael Thornpaw

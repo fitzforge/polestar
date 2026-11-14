@@ -267,7 +267,7 @@ return {
 
 	-- Step 54: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength (no name in this language: may be words)
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
 	-- Step 55: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength (no name in this language: may be words)

@@ -385,6 +385,44 @@ pub fn clock_message(now: i64) -> String {
 	format!("Your PC's clock looks wrong (it says {}); fix the time and try again.", utc(now))
 }
 
+/// An error with its chain of causes, which reqwest's own text ("error sending request for url
+/// (…)") never names: "client error (Connect): dns error: No such host is known.", "client error
+/// (Connect): tcp connect error: Connection refused", "client error (Connect): invalid peer
+/// certificate: UnknownIssuer", "operation timed out". A reqwest error's own text is left out
+/// (the causes say more) unless it has none, and so is a cause the text above it already holds.
+pub fn cause(e: &(dyn std::error::Error + 'static)) -> String {
+	let mut parts: Vec<String> = Vec::new();
+	let mut cur = if e.is::<reqwest::Error>() { e.source() } else { Some(e) };
+	while let Some(err) = cur {
+		let text = err.to_string();
+		if !parts.last().is_some_and(|p| p.contains(&text)) {
+			parts.push(text);
+		}
+		cur = err.source();
+	}
+	if parts.is_empty() {
+		e.to_string()
+	} else {
+		parts.join(": ")
+	}
+}
+
+/// What a player reads when a request to `name` (the community site, GitHub) got no answer: the
+/// cause, and, when nothing connected, what to try. A certificate the clock makes invalid is
+/// named as a wrong clock.
+pub fn unreachable(e: &reqwest::Error, name: &str) -> String {
+	if clock_wrong(e) {
+		let now = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_secs() as i64);
+		return clock_message(now);
+	}
+	match e.url() {
+		Some(url) if e.is_connect() || e.is_timeout() => {
+			format!("Could not reach {name} from this PC ({}). If your browser opens {url}, a firewall, antivirus, VPN or proxy is probably blocking Polestar Client: allow it there.", cause(e))
+		}
+		_ => format!("Could not reach {name} ({}).", cause(e)),
+	}
+}
+
 /// `YYYY-MM-DD HH:MM UTC`.
 fn utc(secs: i64) -> String {
 	let (days, rem) = (secs.div_euclid(86_400), secs.rem_euclid(86_400));
@@ -673,6 +711,35 @@ mod tests {
 		assert_eq!(cert_error(&std::io::Error::other("connection refused")), None);
 		assert_eq!(clock_message(1_794_226_107), "Your PC's clock looks wrong (it says 2026-11-09 12:08 UTC); fix the time and try again.");
 		assert_eq!(utc(951_782_400), "2000-02-29 00:00 UTC");
+		// The certificate problem is in the cause, read through hyper-rustls's io::Error.
+		assert_eq!(cause(&wrap(C::UnknownIssuer)), "client error (Connect): invalid peer certificate: UnknownIssuer");
+	}
+
+	/// 0.1.6 said only "Could not reach polestar.guide: error sending request for url (…)": reqwest's
+	/// own text, which names no cause, so a player and we could only guess.
+	#[test]
+	fn a_request_that_gets_no_answer_says_why_and_what_to_try() {
+		provider();
+		// Refused: the cause, the address to try in a browser, what may block it.
+		let url = format!("http://{}/api/v1/packs/index.json", dead());
+		let e = block(async { reqwest::Client::new().get(&url).send().await.unwrap_err() });
+		let text = unreachable(&e, "polestar.guide");
+		assert!(text.starts_with("Could not reach polestar.guide from this PC (client error (Connect): tcp connect error: "), "{text}");
+		assert!(text.to_lowercase().contains("refused") && text.contains(&url) && text.contains("firewall, antivirus, VPN or proxy"), "{text}");
+		assert!(!text.contains("error sending request"), "{text}");
+		// Connected, but no answer in time (a listener that never accepts).
+		let silent = TcpListener::bind("127.0.0.1:0").unwrap();
+		let addr = silent.local_addr().unwrap();
+		let client = reqwest::Client::builder().timeout(Duration::from_millis(300)).build().unwrap();
+		let e = block(async { client.get(format!("http://{addr}/")).send().await.unwrap_err() });
+		assert!(e.is_timeout() && cause(&e).contains("timed out"), "{}", cause(&e));
+		assert!(unreachable(&e, "polestar.guide").contains("If your browser opens"), "{}", unreachable(&e, "polestar.guide"));
+		drop(silent);
+		// A name that doesn't resolve (.invalid never does).
+		let e = block(async { reqwest::Client::new().get("http://polestar.invalid/").send().await.unwrap_err() });
+		assert!(cause(&e).contains("dns error"), "{}", cause(&e));
+		// An error without causes is its own text.
+		assert_eq!(cause(&std::io::Error::other("far bigger than expected")), "far bigger than expected");
 	}
 
 	/// Against the real recording server (network needed: `cargo test --lib -- --ignored net::`).

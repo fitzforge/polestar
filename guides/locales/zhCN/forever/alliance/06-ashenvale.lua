@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Kerlonian Evershade
 	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在Arbal旁边。接下他的任务，任务会给你{item:13536}。用号角唤醒他，带他沿路向南走到{zone:1439}南部边缘他的背包处；每当他睡着时，就再吹一次号角。然后继续前往{area:413}找{npc:11219}。\n小心：途中会触发伏击，每波三只怪物。",
+	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在阿尔巴尔旁边。接下他的任务，任务会给你{item:13536}。用号角唤醒他，带他沿路向南走到{zone:1439}南部边缘他的背包处；每当他睡着时，就再吹一次号角。然后继续前往{area:413}找{npc:11219}。\n小心：途中会触发伏击，每波三只怪物。",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "",
+	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "沿路向南护送{npc:11218}到{zone:1439}南缘他的包裹处，然后继续前往{area:413}的{npc:11219}处。",
 
 	-- Step 4: Bathran's Haunt: kill these as you meet them
 	-- {area:411} Bathran's Haunt
@@ -26,7 +26,7 @@ return {
 	-- {npc:3691} Raene Wolfrunner
 	["{npc:3691}, in the inn"] = "{npc:3691}，在旅店里",
 	-- {npc:3691} Raene Wolfrunner · {quest:990} Trek to Ashenvale · {area:442} Auberdine
-	["{npc:3691}: {quest:990}, from {area:442}"] = "",
+	["{npc:3691}: {quest:990}, from {area:442}"] = "{npc:3691}：从{area:442}接取的{quest:990}",
 	-- {npc:3894} Pelturas Whitemoon
 	["{npc:3894}, inside"] = "{npc:3894}：在屋内",
 
@@ -44,14 +44,14 @@ return {
 
 	-- Step 11: Stonetalon Mountains
 	-- {area:421} Mystral Lake · {area:1276} Talondeep Path · {area:461} Windshear Crag · {area:2160} Windshear Mine
-	["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, north of the {area:2160}."] = "",
+	["Head south past {area:421} into the {area:1276} tunnel; it comes out in Stonetalon's {area:461}, north of the {area:2160}."] = "向南经过{area:421}，进入{area:1276}隧道；出口在石爪山的{area:461}，位于{area:2160}北面。",
 
 	-- Step 12: Piznik
 	-- {npc:4276} Piznik · {area:2160} Windshear Mine
-	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "",
+	["{npc:4276}'s defence is hard alone at this level: grouping up is encouraged, look for people to do it with. Skip it if you are alone.\n{npc:4276} mines at the bottom of the {area:2160} at the east end of the crag, past its kobolds (levels 19-23). Talk to him, then keep him alive for five minutes while he mines: a dozen or more kobolds come at him in waves, melee fighters first, then casters, and the mine's own kobolds respawn into the fight. If he dies, the quest fails."] = "在当前等级，独自完成{npc:4276}的防守任务很困难：建议寻找其他玩家组队。如果只有自己，就跳过。\n{npc:4276}在峭壁东端的{area:2160}最深处采矿，需先穿过里面的狗头人（19-23级）。与他交谈后，在他采矿的五分钟内保护他存活：十二只或更多狗头人会分波次袭来，先是近战敌人，再是施法者，矿洞原有的狗头人也会刷新并加入战斗。如果他死亡，任务就会失败。",
 	["Below ground"] = "在地下",
 	-- {npc:4276} Piznik
-	["Keep {npc:4276} alive while he mines, below ground"] = "",
+	["Keep {npc:4276} alive while he mines, below ground"] = "在地下保护{npc:4276}采矿，确保他存活",
 
 	-- Step 13: Windshear Crag
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle · {area:1076} Webwinder Path
@@ -104,11 +104,11 @@ return {
 
 	-- Step 24: Astranaar
 	-- {npc:3987} Dal Bloodclaw · {area:415} Astranaar · {npc:3691} Raene Wolfrunner · {npc:3894} Pelturas Whitemoon
-	["South from {npc:3987}'s camp, {area:415} is on the way west: {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "",
+	["South from {npc:3987}'s camp, {area:415} is on the way west: {npc:3691} in the inn, {npc:3894} inside the building beyond it."] = "从{npc:3987}的营地向南，再向西前往{area:415}：{npc:3691}在旅店里，{npc:3894}在旅店后方的建筑内。",
 
 	-- Step 25: Ilkrud Magthrull
 	-- {area:415} Astranaar · {area:412} Ruins of Ordil'Aran · {npc:3664} Ilkrud Magthrull
-	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "",
+	["From {area:415} head south-west to the {area:412} south of the shrine: {npc:3664} and his voidwalkers hold them. Pull his guards first."] = "从{area:415}向西南前往神殿南边的{area:412}：{npc:3664}和他的虚空行者占据着那里。先引出他的守卫。",
 
 	-- Step 26: The Zoram Strand
 	-- {area:414} Zoram Strand · {npc:3846} Talen
@@ -128,7 +128,7 @@ return {
 
 	-- Step 31: Astranaar
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3845} Shindrell Swiftfire
-	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "",
+	["Follow the road south-east from {area:413} back to {area:415}: {npc:3845} stands by the flight master."] = "从{area:413}沿路向东南返回{area:415}：{npc:3845}站在飞行管理员旁。",
 
 	-- Step 32: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -218,7 +218,7 @@ return {
 	-- Step 47: Menethil
 	["Menethil"] = "米奈希尔港",
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2096} Tarrel Rockweaver · {npc:2111} Sida · {npc:1480} Caitlin Grassman · {npc:2086} Valstag Ironjaw · {npc:2094} James Halloran · {npc:1242} Karl Boran
-	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "",
+	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road into Menethil: {npc:2096} by the road in at the north gate, {npc:2111} and {npc:1480} at the inn, {npc:2086} in the keep, {npc:2094} on the west side by the docks, {npc:1242} on the pier north of the inn."] = "若已在{area:2104}绑定炉石，就用炉石返回{area:150}；否则沿路向西走进米奈希尔港：{npc:2096}在北门进城的路旁，{npc:2111}和{npc:1480}在旅店，{npc:2086}在城堡里，{npc:2094}在西侧码头旁，{npc:1242}在旅店北边的栈桥上。",
 	-- {npc:1480} Caitlin Grassman
 	["{npc:1480}, inside"] = "{npc:1480}：在屋内",
 	-- {npc:2086} Valstag Ironjaw
@@ -237,6 +237,8 @@ return {
 	-- Step 49: Ironforge
 	-- {object:32372} Great Forge · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
 	["The gryphons land in the {object:32372}. {npc:4081} stands in {object:171524}, east of it, by the {area:2257}."] = "狮鹫降落在{object:32372}。{npc:4081}站在其东边的{object:171524}，就在{area:2257}旁。",
+	-- {item:4371} Bronze Tube · {area:42} Darkshire · {npc:5175} Gearcutter Cogspinner · {npc:4081} Lomac Gearstrip
+	["{item:4371}, for Look to the Stars in {area:42}: {npc:5175}, beside {npc:4081}, sometimes has one"] = "{item:4371}，用于{area:42}的“仰望星空”：{npc:4081}旁的{npc:5175}有时会出售",
 	-- {item:5352} Book: The Powers Below · {zone:1439} Darkshore · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["Only with {item:5352} from {zone:1439}: {npc:2786}, the {object:32383}"] = "仅当有来自{zone:1439}的{item:5352}：{npc:2786}，{object:32383}",
 
@@ -258,15 +260,15 @@ return {
 
 	-- Step 54: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "",
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}: {npc:1646} stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)"] = "地铁在{object:28027}停靠；向西走到{object:2098}，{npc:1646}站在广场东侧。（本路线在03-loch-modan末尾已交还他的信；此处供仍带着信的角色交还。）",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}：来自{area:442}的桑迪斯的信",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "",
+	["For {npc:3649}, back in {area:442} (06-wetlands)"] = "回{area:442}交给{npc:3649}（06-wetlands）",
 
 	-- Step 55: Cathedral Square
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:376} High Priestess Laurena
-	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "",
+	["The tram comes in at the {object:28027}; walk west to the {object:2098}. {npc:376} is in the Cathedral of Light."] = "地铁在{object:28027}停靠，向西走到{object:2098}。{npc:376}在光明大教堂里。",
 	-- {npc:376} High Priestess Laurena · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
 	["{npc:376}: {npc:11406} in {zone:1455} takes it, later"] = "{npc:376}：之后交给{zone:1455}的{npc:11406}",
 	-- {npc:376} High Priestess Laurena · {npc:258785} High Priestess Mims · {zone:1455} Ironforge

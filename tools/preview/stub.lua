@@ -45,7 +45,7 @@ end
 function M.SetJustifyH(self, j) self.justifyH = j end
 function M.SetJustifyV(self, j) self.justifyV = j end
 function M.SetWordWrap(self, v) self.wrap = v and true or false end
-function M.SetNonSpaceWrap() end
+function M.SetNonSpaceWrap(self, v) self.nonSpace = v and true or false end
 function M.SetSpacing(self, s) self.spacing = s end
 function M.SetMaxLines(self, n) self.maxLines = n end
 function M.SetShadowOffset(self, x, y) self.shadow = { x, y } end
@@ -74,8 +74,12 @@ end
 -- Text measurement with real metrics
 ---------------------------------------------------------------------------
 
+-- A string with no font set is in the font the stub's GetFont reports for it
+-- (the game font at 12): the addon reads that back (Theme.SetFace keeps a face
+-- it already has), so it is drawn as what the addon believes it set. Without
+-- that face's metrics (no client font loaded) the fallback face, as before.
 local function fontKey(self)
-	local path = self.font and self.font[1] or ""
+	local path = self.font and self.font[1] or "Fonts\\FRIZQT__.TTF"
 	local file = path:match("([^\\/]+)$") or path
 	if preview.metrics[file] then return file end
 	return preview.fallbackFont
@@ -115,6 +119,12 @@ end
 -- punctuation) one by one, as the client wraps between any two of them;
 -- everything else whole.
 local function pieces(word)
+	-- The client also breaks a line after "/" ("0/" then "6", #1684).
+	if word:find("/", 1, true) and not word:find("[\226-\239]") then
+		local out = {}
+		for part in word:gmatch("[^/]*/?") do if part ~= "" then out[#out + 1] = part end end
+		return out
+	end
 	if not word:find("[\226-\239]") then return { word } end
 	local out, run = {}, ""
 	for ch in word:gmatch("[%z\1-\127\192-\247][\128-\191]*") do
@@ -130,13 +140,20 @@ local function pieces(word)
 	return out
 end
 
--- Greedy word wrap, the same rule render.js uses.
-function preview.wrap(file, size, text, width)
+-- Greedy word wrap, the same rule render.js uses. `nonSpace` (SetNonSpaceWrap,
+-- a multi-line edit box): a word wider than the line breaks between characters.
+local function chars(word)
+	local out = {}
+	for ch in word:gmatch("[%z\1-\127\192-\247][\128-\191]*") do out[#out + 1] = ch end
+	return out
+end
+function preview.wrap(file, size, text, width, nonSpace)
 	local lines = {}
 	for para in (text .. "\n"):gmatch("(.-)\n") do
 		local line = ""
 		for word in para:gmatch("%S+") do
-			for i, piece in ipairs(pieces(word)) do
+			local parts = (nonSpace and preview.width(file, size, word) > width + 0.01) and chars(word) or pieces(word)
+			for i, piece in ipairs(parts) do
 				local candidate = line == "" and piece or (line .. (i == 1 and " " or "") .. piece)
 				if line ~= "" and preview.width(file, size, candidate) > width + 0.01 then
 					lines[#lines + 1] = line
@@ -166,7 +183,7 @@ local function lineCount(self)
 	local text = preview.plain(self.text)
 	local n
 	if self.wrap ~= false and (self.width or 0) > 0 then
-		n = #preview.wrap(fontKey(self), size, text, self.width)
+		n = #preview.wrap(fontKey(self), size, text, self.width, self.nonSpace)
 	else
 		n = 1
 		for _ in text:gmatch("\n") do n = n + 1 end
@@ -234,6 +251,7 @@ local function entry(o)
 		texture = (type(o.texture) == "string" or type(o.texture) == "number") and o.texture or nil, color = copy(o.color),
 		vertexColor = copy(o.vertexColor), texCoord = copy(o.texCoord), gradient = o.gradient, desaturation = o.desaturation,
 		rotation = o.rotation, blend = o.blend, vertexOffset = copy(o.vertexOffset),
+		horizTile = o.horizTile or nil, vertTile = o.vertTile or nil,
 	}
 	-- A Line (CreateLine): its two ends, each relative to a point of a frame, and its thickness.
 	if o.kind == "Line" then
@@ -245,7 +263,8 @@ local function entry(o)
 	end
 	if o.kind == "FontString" then
 		e.text = o.text
-		e.font = o.font and { fontKey(o), o.font[2], o.font[3] or "" } or { preview.fallbackFont, 12, "" }
+		e.nonSpace = o.nonSpace or nil
+		e.font = o.font and { fontKey(o), o.font[2], o.font[3] or "" } or { fontKey(o), 12, "" }
 		e.textColor = copy(o.textColor)
 		e.justifyH, e.justifyV = o.justifyH or "CENTER", o.justifyV or "MIDDLE"
 		e.wrap = o.wrap ~= false
@@ -256,10 +275,15 @@ local function entry(o)
 	else
 		e.scrollChild = idOf(o.scrollChild)
 		e.vscroll = o.scroll
+		-- An edit box clips nothing of its own children (a placeholder hint is drawn whole, as in the
+		-- client); its typed text (typedText below) is cut to the box in one line or wraps in several.
 		e.clips = o.clips or o.kind == "ScrollFrame"
 		e.checked = o.checked
 		e.checkedTexture = idOf(o.checkedTexture)
 		e.thumbTexture = idOf(o.thumbTexture)
+		-- A status bar's own fill texture (SetStatusBarTexture): drawn to the
+		-- bar's value by the renderer.
+		e.barTexture = idOf(o.barTexture)
 		e.mask = idOf(o.mask)
 		e.value, e.minValue, e.maxValue = o.value, o.minValue, o.maxValue
 		e.euiSkin = o.euiSkin
@@ -291,7 +315,7 @@ local function typedText(box)
 		{ point = "BOTTOMRIGHT", rel = box, relPoint = "BOTTOMRIGHT", x = -(ins[2] or 0), y = multi and (ins[4] or 0) or 0 },
 	}
 	fs.text, fs.font, fs.textColor = box.text, box.font, box.textColor
-	fs.justifyH, fs.justifyV, fs.wrap = "LEFT", multi and "TOP" or "MIDDLE", multi
+	fs.justifyH, fs.justifyV, fs.wrap, fs.nonSpace = "LEFT", multi and "TOP" or "MIDDLE", multi, multi
 	fs.shadow, fs.shadowColor = box.shadow, box.shadowColor
 	return fs
 end
@@ -344,6 +368,7 @@ function preview.dump(opts)
 			add(o.parent)
 			add(o.scrollChild)
 			add(o.thumbTexture)
+			add(o.barTexture)
 			add(o.checkedTexture)
 		end
 		return out

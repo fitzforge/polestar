@@ -17,7 +17,9 @@
 --   filled softly with a rim in the pin's colour, drawn like area), areaOnly (true: only the
 --   area or hull draws, no pin), backdrop (true: icon pins sit on a dark
 --   Theme "scrim" disc), ring ({ r, g, b, a }: a thin circle around the pin), minimapSize
---   (size on the minimap instead of size).
+--   (size on the minimap instead of size), pulse (with glow: the glow breathes),
+--   grow (a size the player set: the pin's cap on screen grows with it), rimColor
+--   ({ r, g, b }: the Polestar pin's rim), textScale and textColor (its text).
 --   Map marks (icon "map:<name>", Media/Map/icon-<name>, tools/media/map.js): the glyph
 --   sits in the skin's medallion (medal = false: bare, for the target's other spots and
 --   dots); ring2 ({ r, g, b, a }: a dashed circle further out), badge (a number or text in
@@ -28,12 +30,16 @@
 --   Sizes (size, minimapSize, times the layer's scale) are drawn smaller as the view
 --   widens (PIN_ZOOM below), so a medallion matches the game's own marks at the
 --   default zoom; a pin's hit area stays at least its medallion and PIN_ZOOM's hit
---   across.
+--   across. The player's Map pins settings (`look` below) scale, tint and fade
+--   them on each surface; Pins.BuildLook, Pins.ApplyLook and the size functions
+--   (Pins.WorldPinSize, WorldScale, MinimapPinSize) also draw the options' preview.
 --   Pins.SetTrail(runs, opts)          the travel route's dots; runs = { { live = true, point, ... }, ... },
 --                                      point = { c, wx, wy }; opts = { world = true, minimap = true, color }
 --   Pins.ClearTrail()
 --   Pins.MinimapCursor() -> dNorth, dWest | nil   yards from the player to the cursor on the minimap
 --   Pins.MinimapView() -> radius, facing | nil, square   what the minimap shows (facing nil: north-up)
+--   Pins.WatchMinimapView(key, fn | nil)   fn(pc, px, py, radius, facing, square) on each frame the
+--                                      minimap's view changed, from the same sampling as the pins
 --
 -- Positions are converted to world yards once per SetLayer (Era-frame `f = "e"`
 -- included), then to map percent of whatever map the world map shows, and
@@ -43,8 +49,13 @@
 -- Cost model: the minimap is only touched when something it depends on
 -- changed (position, facing on a rotating minimap, zoom, size, layers). A
 -- 10 Hz watcher compares those scalars; while they keep changing a driver
--- frame repositions pins at most 30 times a second and hides itself after
--- 0.3 s of stillness, so standing still costs no per-frame work at all.
+-- frame repositions pins on every rendered frame, as the game redraws the
+-- minimap (a slower rate lags the terrain and jitters), and hides itself
+-- after 0.3 s of stillness, so standing still costs no per-frame work at all.
+-- Other minimap painters (Maps/RouteLines.lua) watch the view through
+-- WatchMinimapView instead of reading it themselves: they redraw in the same
+-- frame as the pins, from the same reads, and the watcher runs for them even
+-- with no pin on the minimap.
 -- Movement events wake the driver at once. Layer changes redraw once on the
 -- next frame however many layers changed in this one. Each layer indexes its
 -- pins by continent and by CELL-yard grid square, so a redraw visits the
@@ -56,13 +67,13 @@
 -- the player's position goes first), anchored to the run's end: a dot every
 -- spacing yards counted back from the destination, so dots keep their place
 -- in the world as the player walks and run on across joints. A continent
--- change breaks a run. Minimap dots sit MM_SPACING apart inside the visible
--- disc (or square); world map dots a WORLD_DIVS-th of the viewed map's width
--- apart (at least WORLD_MIN_SPACING), inside its rectangle, under every pin;
+-- change breaks a run. Minimap dots sit TRAIL.MM_SPACING apart inside the visible
+-- disc (or square); world map dots a TRAIL.WORLD_DIVS-th of the viewed map's width
+-- apart (at least TRAIL.WORLD_MIN_SPACING), inside its rectangle, under every pin;
 -- on OpenMap's stitched map, inside what the view shows, through OpenMap's
 -- placement (see "OpenMap" below).
 -- Segment lengths are measured once per SetTrail. The dots crawl toward the
--- destination, one spacing per TRAIL_PERIOD, from a 20 Hz driver that runs
+-- destination, one spacing per TRAIL.PERIOD, from a 20 Hz driver that runs
 -- only while dots show on a visible minimap or an open world map; with
 -- ui.reduceMotion they hold still and move only with the minimap's redraws.
 
@@ -112,7 +123,6 @@ local PIN_ZOOM = {
 -- full while clear of it, ARROW_FADE once one of the two lies inside the other.
 local ARROW_R, ARROW_FADE = 9, 0.3
 local WATCH_INTERVAL = 0.1
-local DRIVE_INTERVAL = 1 / 30
 local IDLE_AFTER = 0.3
 local MINIMAP_REACH = 1.0 -- fraction of the view radius a non-edge pin may sit at
 local CELL = 500 -- yards per grid square of a layer's minimap index
@@ -122,14 +132,74 @@ local CELL = 500 -- yards per grid square of a layer's minimap index
 local OUTDOOR = { [0] = 466 + 2 / 3, 400, 333 + 1 / 3, 266 + 2 / 3, 200, 133 + 1 / 3 }
 local INDOOR = { [0] = 300, 240, 180, 120, 80, 50 }
 
--- Trail dots (see the header).
-local TRAIL_PERIOD = 1.5             -- seconds for the dots to crawl one spacing
-local TRAIL_INTERVAL = 1 / 20        -- animation rate cap
-local TRAIL_STILL = 0.5              -- phase while ui.reduceMotion holds the dots still
-local TRAIL_ALPHA = 0.85
-local MM_SPACING, MM_DOT, MM_CAP = 40, 5, 40 -- minimap: yards apart, px, most dots
-local WORLD_DIVS, WORLD_MIN_SPACING = 60, 15  -- world map: spacing = map width in yards / 60, at least 15 yd
-local WORLD_DOT, WORLD_CAP = 6, 300
+-- Trail dots (see the header). One table: Lua 5.1 caps a chunk at 200 locals.
+local TRAIL = {
+	PERIOD = 1.5,                    -- seconds for the dots to crawl one spacing
+	INTERVAL = 1 / 20,               -- animation rate cap
+	STILL = 0.5,                     -- phase while ui.reduceMotion holds the dots still
+	ALPHA = 0.85,
+	MM_SPACING = 40, MM_DOT = 5, MM_CAP = 40, -- minimap: yards apart, px, most dots
+	WORLD_DIVS = 60, WORLD_MIN_SPACING = 15,  -- world map: spacing = map width in yards / 60, at least 15 yd
+	WORLD_DOT = 6, WORLD_CAP = 300,
+}
+
+-- The player's look for the marks (Options > Map pins, Nav/PinsOptions.lua),
+-- read into `look` at init and as one of these settings changes
+-- (Pins.ReadLook); a change restyles every pin and the trail (Pins.Restyle):
+--   nav.worldIconSize     every mark on the world map, its cap on screen with it (1)
+--   nav.worldPinAlpha     the world map marks' opacity (1)
+--   nav.minimapPinAlpha   the minimap marks' opacity (1)
+--   nav.minimapArrowFade  a minimap mark over the player's arrow fades (on; ARROW_R)
+--   nav.areaAlpha         an area disc's opacity (AREA_ALPHA); a hull's fill and rim in proportion
+--   nav.areaColor         every area and hull in one colour (false: each in its pin's)
+--   nav.medalColor        a tint over the medallions and the numbered pins' rims (false: none)
+--   nav.pinBacking        the dark disc under icon pins (false: the scheme's scrim)
+--   nav.trailDotSize, nav.trailDotAlpha   the trail's dots (1, TRAIL.ALPHA)
+--   nav.badgeSize         a map mark's count capsule and its text (1: BADGE_H)
+--   nav.pulseSeconds      one breath of a pulsing glow (0.9 s; the target's, nav.targetPulse)
+-- The skin's pin look rides here too (Pins.ReadSkin): skinRim, skinFill
+-- ({ r, g, b } | nil) and the Polestar pin's disc and rim art (fillTex, rimTex).
+local look = { worldSize = 1, worldAlpha = 1, mmAlpha = 1, arrowFade = true, areaAlpha = AREA_ALPHA, areaK = 1, dotSize = 1, dotAlpha = TRAIL.ALPHA,
+	badge = 1, pulse = 0.9, fillTex = MEDIA .. "pin-fill", rimTex = MEDIA .. "pin" }
+Pins.look = look
+ns.RegisterDefaults("nav", { worldIconSize = 1, worldPinAlpha = 1, minimapPinAlpha = 1, minimapArrowFade = true,
+	areaAlpha = AREA_ALPHA, areaColor = false, medalColor = false, pinBacking = false, trailDotSize = 1, trailDotAlpha = TRAIL.ALPHA,
+	badgeSize = 1, pulseSeconds = 0.9 })
+Pins.LOOK_KEYS = {
+	["nav.worldIconSize"] = true, ["nav.worldPinAlpha"] = true, ["nav.minimapPinAlpha"] = true, ["nav.minimapArrowFade"] = true,
+	["nav.areaAlpha"] = true, ["nav.areaColor"] = true, ["nav.medalColor"] = true, ["nav.pinBacking"] = true,
+	["nav.trailDotSize"] = true, ["nav.trailDotAlpha"] = true, ["nav.badgeSize"] = true, ["nav.pulseSeconds"] = true,
+}
+function Pins.ReadLook()
+	local get = ns.Get
+	look.worldSize = tonumber(get("nav.worldIconSize")) or 1
+	look.worldAlpha = tonumber(get("nav.worldPinAlpha")) or 1
+	look.mmAlpha = tonumber(get("nav.minimapPinAlpha")) or 1
+	look.arrowFade = get("nav.minimapArrowFade") ~= false
+	look.areaAlpha = tonumber(get("nav.areaAlpha")) or AREA_ALPHA
+	look.areaK = look.areaAlpha / AREA_ALPHA
+	local c = get("nav.areaColor")
+	look.areaColor = type(c) == "table" and c or nil
+	c = get("nav.medalColor")
+	look.medal = type(c) == "table" and c or nil
+	c = get("nav.pinBacking")
+	look.backing = type(c) == "table" and c or nil
+	look.dotSize = tonumber(get("nav.trailDotSize")) or 1
+	look.dotAlpha = tonumber(get("nav.trailDotAlpha")) or TRAIL.ALPHA
+	look.badge = tonumber(get("nav.badgeSize")) or 1
+	look.pulse = tonumber(get("nav.pulseSeconds")) or 0.9
+end
+
+-- An area's colour for pin p: its pin's (or nav.areaColor) at the area's
+-- opacity; a hull's (hull = true) at its pin's alpha times nav.areaAlpha's
+-- share of the default, which HULL_FILL and HULL_RIM then take.
+function Pins.AreaColor(p, hull)
+	local r, g, b, a = Pins.PinColor(p)
+	local own = look.areaColor
+	if own then r, g, b = own[1] or 1, own[2] or 1, own[3] or 1 end
+	if hull then return r, g, b, a * look.areaK end
+	return r, g, b, a * look.areaAlpha
+end
 
 ---------------------------------------------------------------------------
 -- Layers
@@ -281,15 +351,52 @@ local function iconPath(icon)
 	return MEDIA .. icon
 end
 
+-- The skin in use's own pin look (Skin API 2): its pinRing and pinFill
+-- tokens (the rim and the fill where neither the pin nor the player gives a
+-- colour) and its pinFill / pinRim masks (the Polestar pin's disc and rim
+-- art), read on each restyle (Pins.Restyle: every theme change).
+function Pins.ReadSkin()
+	local T = ns.Theme
+	local token = type(T) == "table" and T.SkinToken
+	local media = type(T) == "table" and T.SkinMedia
+	local r, g, b
+	if token then r, g, b = token("pinRing") end
+	look.skinRim = r and { r, g, b } or nil
+	r, g, b = nil, nil, nil
+	if token then r, g, b = token("pinFill") end
+	look.skinFill = r and { r, g, b } or nil
+	look.fillTex = media and media("pinFill") or (MEDIA .. "pin-fill")
+	look.rimTex = media and media("pinRim") or (MEDIA .. "pin")
+end
+
 local function pinColor(p)
 	local c = p.color
 	if type(c) == "table" then return c[1] or c.r or 1, c[2] or c.g or 1, c[3] or c.b or 1, c[4] or c.a or 1 end
+	local f = look.skinFill
+	if f then return f[1], f[2], f[3], 1 end
 	local T = ns.Theme
 	if type(T) == "table" and type(T.Accent) == "function" then
 		local ok, r, g, b = pcall(T.Accent)
 		if ok and type(r) == "number" then return r, g, b, 1 end
 	end
 	return 0.902, 0.729, 0.4, 1 -- Dusk gold, when Theme is absent
+end
+Pins.PinColor = pinColor
+
+-- Hands pin f to the skin in use (kind "mark": a map mark on its medallion;
+-- "pin": the Polestar pin, an icon pin, a numbered step pin) with its parts
+-- (Skin API 2, "pin.parts": names of the API's own, made the first time a
+-- skin hooks the pin).
+function Pins.SkinHook(f, kind)
+	local T = ns.Theme
+	if not (T and T.SkinHooks and T.SkinHooks("pin")) then return end
+	local p = f.psSkinParts
+	if not p then
+		p = { icon = f.icon, fill = f.fill, rim = f.ring, backdrop = f.back, ring = f.mark, glow = f.glow, edge = f.edge,
+			text = f.text, medallion = f.medal, dashed = f.ring2 }
+		f.psSkinParts = p
+	end
+	T.SkinHook("pin", f, p, kind)
 end
 
 -- Textures of a pin frame: either the Polestar pin (fill tinted + ring) or
@@ -299,6 +406,8 @@ end
 local BACKDROP_ALPHA, BACKDROP_SCALE = 0.55, 1.2
 
 local function backdropColor()
+	local own = look.backing
+	if own then return own[1] or 0, own[2] or 0, own[3] or 0 end
 	local T = ns.Theme
 	if type(T) == "table" and type(T.Color) == "function" then
 		local ok, r, g, b = pcall(T.Color, "scrim")
@@ -382,6 +491,39 @@ local function buildLook(f)
 	if f.badge.text.SetDrawLayer then f.badge.text:SetDrawLayer("OVERLAY", 4) end
 	showBadge(f, false)
 end
+Pins.BuildLook = buildLook
+Pins.IconPath = iconPath
+
+-- A pin's `pulse` (with its glow): the glow breathes, a looping alpha bounce
+-- the client runs (no Lua per frame; nothing runs while the pin is hidden),
+-- stopped under ui.reduceMotion and when the frame shows another pin.
+Pins.PULSE = { from = 1, to = 0.25 }
+function Pins.Pulse(f, on)
+	local ag = f.pulse
+	local A = ns.Anim
+	if on and not (A and A.Reduced and A.Reduced()) then
+		if not ag then
+			if not f.glow.CreateAnimationGroup then return end
+			ag = f.glow:CreateAnimationGroup()
+			ag:SetLooping("BOUNCE")
+			local a = ag:CreateAnimation("Alpha")
+			a:SetFromAlpha(Pins.PULSE.from)
+			a:SetToAlpha(Pins.PULSE.to)
+			f.pulse, f.pulseAnim = ag, a
+		end
+		-- One breath: nav.pulseSeconds (the change restarts it at the new pace).
+		if f.pulseSeconds ~= look.pulse then
+			f.pulseSeconds = look.pulse
+			f.pulseAnim:SetDuration(look.pulse)
+			if ag:IsPlaying() then ag:Stop() end
+		end
+		if not ag:IsPlaying() then ag:Play() end
+		f.pulsing = true
+	elseif ag then
+		if ag:IsPlaying() then ag:Stop() end
+		f.pulsing = nil
+	end
+end
 
 -- The icon pack (nav.mapIcons): the medallion under every map mark
 -- (Media/Map/medallion-<pack>), or "bare" for the glyphs alone. "skin", the
@@ -395,8 +537,23 @@ function Pins.IconPack(v)
 	if v == nil then v = ns.Get and ns.Get("nav.mapIcons") end
 	if MEDALS[v] or v == "bare" then return v end
 	local T = ns.Theme
+	-- A registered skin's own pick first (Theme.SkinMapIcons: "polestar" | "halo" | "hearth" | nil).
+	local own = type(T) == "table" and T.SkinMapIcons and T.SkinMapIcons()
+	if own and MEDALS[own] then return own end
 	local key = type(T) == "table" and type(T.SkinKey) == "function" and T.SkinKey() or "polestar"
 	return MEDALS[key] and key or "hearth"
+end
+-- The medallion texture of an icon pack (the options' picture cards); nil
+-- for "bare". The skin's pack may bring its own art (Theme.SkinMedia), drawn
+-- its medallionScale times the medallion (a game look's, in the client's
+-- own margin). -> path, scale
+function Pins.MedalPath(pack)
+	local resolved = Pins.IconPack(pack)
+	if resolved == "bare" then return nil end
+	local T = ns.Theme
+	local art = not MEDALS[pack] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
+	if type(art) == "string" then return art, tonumber(T.SkinMedia("medallionScale")) or 1 end
+	return MEDALS[resolved], 1
 end
 
 local function themeColor(name, r, g, b)
@@ -426,21 +583,22 @@ local function applyBadge(f, text, medal, a)
 		b.fill[i]:SetVertexColor(r, g, bl, a)
 		b.rim[i]:SetVertexColor(0, 0, 0, a)
 	end
-	local T = ns.Theme
+	local T, k = ns.Theme, look.badge
+	local h = BADGE_H * k
 	if T and T.SetFace then
-		T.SetFace(b.text, (T.FontSpec("body")), 9, "")
+		T.SetFace(b.text, (T.FontSpec("body")), 9 * k, "")
 	elseif not b.text:GetFont() then
 		b.text:SetFontObject("GameFontNormalSmall")
 	end
 	b.text:SetText(tostring(text))
 	b.text:SetTextColor(themeColor("onAccent", 0.04, 0.05, 0.08))
 	b.text:SetAlpha(a)
-	local w = max(BADGE_H, ceil((b.text:GetStringWidth() or 0) + 7))
-	local x, y = medal * 0.22 - BADGE_H / 2, medal / 2 + 2
-	placeSlices(f, b.fill, x, y, w, BADGE_H)
-	placeSlices(f, b.rim, x - 1.5, y + 1.5, w + 3, BADGE_H + 3)
+	local w = max(h, ceil((b.text:GetStringWidth() or 0) + 7 * k))
+	local x, y = medal * 0.22 - h / 2, medal / 2 + 2
+	placeSlices(f, b.fill, x, y, w, h)
+	placeSlices(f, b.rim, x - 1.5, y + 1.5, w + 3, h + 3)
 	b.text:ClearAllPoints()
-	b.text:SetPoint("CENTER", f, "CENTER", x + w / 2, y - BADGE_H / 2 + 0.5)
+	b.text:SetPoint("CENTER", f, "CENTER", x + w / 2, y - h / 2 + 0.5)
 	showBadge(f, true)
 end
 
@@ -466,6 +624,8 @@ local function showParts(f, p, clamped)
 		f.glow:SetShown(not clamped and p.glow and true or false)
 		showBadge(f, not clamped and p.badge ~= nil)
 		f.edge:SetShown(clamped and true or false)
+		f.text:Hide()
+		if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
 		return
 	end
 	local icon = f.hasIcon
@@ -477,6 +637,7 @@ local function showParts(f, p, clamped)
 	f.glow:SetShown(not clamped and p.glow and true or false)
 	f.edge:SetShown(clamped and true or false)
 	f.text:SetShown(not clamped and p.text ~= nil)
+	if p.pulse or f.pulsing then Pins.Pulse(f, not clamped and p.glow and p.pulse) end
 end
 
 -- A map mark (see the header): the glyph, tinted, in the skin's medallion,
@@ -497,9 +658,17 @@ local function applyMark(f, p, size, path)
 	f.bare = p.medal == false or pack == "bare"
 	if p.medal == false then medal = size end
 	f.medalPx, f.sizePx, f.footPx = medal, size, medal
-	f.medal:SetTexture(MEDALS[pack] or MEDALS.polestar)
-	f.medal:SetSize(medal, medal)
-	f.medal:SetVertexColor(1, 1, 1, a)
+	-- The skin's own medallion art, when the pack is the skin's (Theme.SkinMedia):
+	-- a file, or the client's atlas for a game look's (Theme.SetArt), drawn its
+	-- medallionScale times the medallion (the client's art in its own margin).
+	local T = ns.Theme
+	local skinArt = not MEDALS[ns.Get("nav.mapIcons")] and T and T.SkinMedia and T.SkinMedia("medallion") or nil
+	local art = type(skinArt) == "string" and skinArt or MEDALS[pack] or MEDALS.polestar
+	if T and T.SetArt then T.SetArt(f.medal, art) else f.medal:SetTexture(art) end
+	local k = art == skinArt and tonumber(T.SkinMedia("medallionScale")) or 1
+	f.medal:SetSize(medal * k, medal * k)
+	local tint = look.medal or look.skinRim
+	if tint then f.medal:SetVertexColor(tint[1] or 1, tint[2] or 1, tint[3] or 1, a) else f.medal:SetVertexColor(1, 1, 1, a) end
 	local ring = type(p.ring) == "table" and p.ring or nil
 	if p.state == "focus" and not ring then ring = { themeColor("accent", 0.902, 0.729, 0.4) } end
 	f.ringOn = ring ~= nil
@@ -528,9 +697,14 @@ local function applyMark(f, p, size, path)
 	f.edgeReach = medal / 2 + medal * EDGE_H / 2 - 0.5
 	f.clamped = nil
 	showParts(f, p, false)
+	Pins.SkinHook(f, "mark")
 end
 
+-- Pin fields for its own look (Nav/Upcoming.lua's numbered pins): grow (its
+-- size setting: the cap on screen grows with it), rimColor (the Polestar pin's
+-- rim, else nav.medalColor, else white), textScale and textColor (its number).
 local function applyLook(f, p, size)
+	f.grow = tonumber(p.grow) or 1
 	local path, mark = iconPath(p.icon)
 	if mark then return applyMark(f, p, size, path) end
 	if f.mapMark then
@@ -551,13 +725,25 @@ local function applyLook(f, p, size)
 	f:SetSize(size, size)
 	f.sizePx, f.footPx = size, size
 	local r, g, b, a = pinColor(p)
+	-- The disc and rim art: the skin's masks (media.pinFill, media.pinRim) or Polestar's.
+	local fillTex, rimTex = look.fillTex, look.rimTex
+	if f.psFillTex ~= fillTex then
+		f.psFillTex = fillTex
+		f.fill:SetTexture(fillTex)
+		f.back:SetTexture(fillTex)
+	end
+	if f.psRimTex ~= rimTex then
+		f.psRimTex = rimTex
+		f.ring:SetTexture(rimTex)
+	end
 	if path then
 		f.icon:SetTexture(path)
 		f.icon:SetVertexColor(r, g, b, a)
 		f.hasIcon = true
 	else
 		f.fill:SetVertexColor(r, g, b, a)
-		f.ring:SetVertexColor(1, 1, 1, a)
+		local rim = type(p.rimColor) == "table" and p.rimColor or look.medal or look.skinRim
+		if rim then f.ring:SetVertexColor(rim[1] or 1, rim[2] or 1, rim[3] or 1, a) else f.ring:SetVertexColor(1, 1, 1, a) end
 		f.hasIcon = false
 	end
 	local disc = size * BACKDROP_SCALE
@@ -580,17 +766,21 @@ local function applyLook(f, p, size)
 	f.edge:SetVertexColor(r, g, b, a)
 	f.clamped = nil
 	if p.text then
-		local T, height = ns.Theme, math.max(8, size * 0.6)
+		local T, height = ns.Theme, math.max(8, size * 0.6) * (tonumber(p.textScale) or 1)
+		local outline = p.textOutline or "OUTLINE"
 		if T and T.SetFace then
-			T.SetFace(f.text, (T.FontSpec("number")), height, "OUTLINE")
+			T.SetFace(f.text, (T.FontSpec("number")), height, outline)
 		else
-			f.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", height, "OUTLINE")
+			f.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", height, outline)
 		end
 		f.text:SetText(p.text)
-		f.text:SetTextColor(1, 1, 1, a)
+		local tc = p.textColor
+		if type(tc) == "table" then f.text:SetTextColor(tc[1] or 1, tc[2] or 1, tc[3] or 1, a) else f.text:SetTextColor(1, 1, 1, a) end
 	end
 	showParts(f, p, false)
+	Pins.SkinHook(f, "pin")
 end
+Pins.ApplyLook = applyLook
 
 -- The mouse takes f over its medallion (its footprint) and at least `hit`
 -- across, in f's own units: SetHitRectInsets past its edges where it is smaller.
@@ -601,6 +791,36 @@ local function setHit(f, hit)
 		f.hitInset = inset
 		f:SetHitRectInsets(inset, inset, inset, inset)
 	end
+end
+
+-- Sizes, shared by the surfaces and the options' preview (Nav/PinsOptions.lua).
+-- A pin's size on the world map (before its frame's scale): its own, times
+-- its layer's scale and nav.worldIconSize.
+function Pins.WorldPinSize(p, layerScale)
+	return (tonumber(p.size) or WORLD_SIZE) * (layerScale or 1) * look.worldSize
+end
+
+-- A world map pin frame's scale at zoom (0..1, PIN_ZOOM.world): `wide`
+-- zoomed out to `close` zoomed in, its medallion held to the max on screen
+-- (times nav.worldIconSize and the pin's own `grow`).
+function Pins.WorldScale(f, zoom)
+	local z = PIN_ZOOM.world
+	local k = z.wide + (z.close - z.wide) * (zoom or 0)
+	local most = z.max * look.worldSize * (f.grow or 1)
+	if f.footPx * k > most then k = most / f.footPx end
+	return k
+end
+
+-- A pin's size on the minimap at zoom factor zoomK and nav.minimapIconSize
+-- sizeK, its medallion held to PIN_ZOOM.minimap.max (times sizeK and the
+-- pin's `minimapGrow`, else `grow`).
+function Pins.MinimapPinSize(p, layerScale, zoomK, sizeK)
+	local scale = (layerScale or 1) * zoomK * sizeK
+	local size = (tonumber(p.minimapSize) or tonumber(p.size) or MINIMAP_SIZE) * scale
+	local cap = PIN_ZOOM.minimap.max / MEDAL_SCALE * sizeK * (tonumber(p.minimapGrow) or tonumber(p.grow) or 1)
+	if p.state == "focus" then cap = cap / FOCUS_SCALE end
+	if size > cap then size = cap end
+	return size
 end
 
 local function showTooltip(owner, p)
@@ -847,8 +1067,8 @@ end
 -- The dots' phase: the fraction of a spacing between a run's end and its
 -- nearest dot. It falls as time passes, so the dots crawl toward the end.
 local function trailFrac()
-	if stillTrail() then return TRAIL_STILL end
-	return (-GetTime() / TRAIL_PERIOD) % 1
+	if stillTrail() then return TRAIL.STILL end
+	return (-GetTime() / TRAIL.PERIOD) % 1
 end
 
 -- Placement alone (tests): dots along pts = { { x, y }, ... } (yards),
@@ -956,12 +1176,42 @@ end
 ---------------------------------------------------------------------------
 
 -- What the rest of the file reads: the view, the frames drawn (n of each
--- kind), the trail's textures, install, flush and dotsShown.
-local world = { pins = { n = 0 }, areas = { n = 0 }, hulls = { n = 0 } }
+-- kind), the trail's textures, install, flush and dotsShown. One world per
+-- map: the world map's (world) and one for each MapCanvas.Add's map
+-- (worlds: every one, the world map's first), each with frames of its own.
+local world, worlds
 
 do
 	local PIN_LEVEL, BLOB_LEVEL = "PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST", "PIN_FRAME_LEVEL_QUEST_BLOB"
 	local PIN_ZOOMED = 1.25 -- trail dot scale zoomed in (1 zoomed out)
+	local clickFilters = {}
+	function Pins.OnWorldClick(fn) clickFilters[#clickFilters + 1] = fn end
+
+	-- OpenMap's switch: the trail on its map (once, for every world).
+	local omHooked = false
+	local function hookOpenMap(OM)
+		if omHooked then return end
+		omHooked = true
+		if type(OM.RegisterCallback) == "function" then
+			pcall(OM.RegisterCallback, Pins, "OpenMap_StitchedChanged", function() refreshWorld() end)
+		end
+		if type(OM.RegisterMenuToggle) == "function" then
+			pcall(OM.RegisterMenuToggle, ADDON, {
+				id = "trailDots",
+				label = L["Polestar trail dots"],
+				section = "Polestar",
+				icon = MEDIA .. "pin-fill",
+				get = function() return ns.Get("nav.openmapDots") and true or false end,
+				set = function(on) ns.Set("nav.openmapDots", on and true or false) end,
+			})
+		end
+	end
+	ns.On("SETTING_CHANGED", function(path)
+		if path == "nav.openmapDots" or path == "" or path == "nav" then refreshWorld() end
+	end)
+
+	local function newWorld()
+	local world = { pins = { n = 0 }, areas = { n = 0 }, hulls = { n = 0 } }
 
 	local wView              -- the world map's view, once Blizzard_WorldMap is loaded
 	local wDirty = false     -- something to draw on the map's next frame
@@ -971,7 +1221,34 @@ do
 	-- The viewed map (viewMap): its continent, world yards -> percent, and the
 	-- trail's dot spacing (nil continent: no trail or hull can show there).
 	local wC, wLeft, wTop, wKx, wKy, wSpacing
-	local viewMap -- forward
+	local viewMap, drawTrail -- forward
+
+	-- What the map's scroll frame shows of the canvas, in percent of the
+	-- viewed map: x0, y0, x1, y1 (reads only: the canvas and its parent's place);
+	-- the whole map while the frame has no place or size yet.
+	local function viewRect()
+		local v = wView
+		local canvas = v.canvas
+		local frame = canvas.GetParent and canvas:GetParent()
+		local w, h = v.width or 0, v.height or 0
+		if not frame or w <= 0 or h <= 0 then return 0, 0, 100, 100 end
+		local cl, ct, cs = canvas:GetLeft(), canvas:GetTop(), canvas:GetEffectiveScale()
+		local fl, ft, fr, fb, fs = frame:GetLeft(), frame:GetTop(), frame:GetRight(), frame:GetBottom(), frame:GetEffectiveScale()
+		if not (cl and ct and fl and ft and fr and fb and cs and fs and cs > 0) or fr <= fl or ft <= fb then return 0, 0, 100, 100 end
+		local kx, ky = 100 / (w * cs), 100 / (h * cs)
+		return (fl * fs - cl * cs) * kx, (ct * cs - ft * fs) * ky, (fr * fs - cl * cs) * kx, (ct * cs - fb * fs) * ky
+	end
+
+	-- Hulls are drawn only inside a window around what the view shows (#1622):
+	-- the view and half its size again on every side, in percent of the viewed
+	-- map. A pan or zoom out past the window, or a zoom in to a quarter of its
+	-- width, draws them again for the new view (world.hullsStale, on each frame
+	-- and each zoom step), so a zoomed-in map or OpenMap's stitched map (whose
+	-- host map can be a whole continent) lays out and holds only the hulls near
+	-- the screen. world.hullWin = { x0, y0, x1, y1, mapType = the viewed map's,
+	-- any = a hull lies on it }. (On `world`, not locals: the main chunk is at
+	-- Lua's 200 locals.)
+	world.hullWin = { 0, 0, 100, 100 }
 
 	-- Centre frame f on (x, y), percent of the viewed map, at scale s.
 	local function placeAt(f, x, y, s)
@@ -981,14 +1258,11 @@ do
 		f:SetPoint("CENTER", v.canvas, "TOPLEFT", v.width * x / 100 / s, -v.height * y / 100 / s)
 	end
 
-	-- Place pin frame f for view v at its scale on screen (PIN_ZOOM.world:
-	-- from the zoom, its medallion held to the max), the mouse taking it over
-	-- the hit size at least.
+	-- Place pin frame f for view v at its scale on screen (Pins.WorldScale),
+	-- the mouse taking it over the hit size at least.
 	local function placePin(f, v)
-		local z = PIN_ZOOM.world
-		local k = z.wide + (z.close - z.wide) * (v.zoom or 0)
-		if f.footPx * k > z.max then k = z.max / f.footPx end
-		setHit(f, z.hit / k)
+		local k = Pins.WorldScale(f, v.zoom)
+		setHit(f, PIN_ZOOM.world.hit / k)
 		local d = f.data
 		placeAt(f, d.x, d.y, v:PinScale(k, k))
 	end
@@ -1027,8 +1301,6 @@ do
 	-- on a world map pin before the pin's onClick (Nav/Journey.lua: Shift
 	-- lets the target go).
 	local mousePin, pressedPin, pressedButton
-	local clickFilters = {}
-	function Pins.OnWorldClick(fn) clickFilters[#clickFilters + 1] = fn end
 	ns.RegisterEvent("GLOBAL_MOUSE_DOWN", function(_, button)
 		if button == "RightButton" then return end
 		pressedPin, pressedButton = mousePin, button
@@ -1047,7 +1319,7 @@ do
 	local function worldPin(i)
 		local f = wPins[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		buildLook(f)
 		f.data = {}
 		f:EnableMouse(true)
@@ -1069,7 +1341,7 @@ do
 	local function worldArea(i)
 		local f = wAreas[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		f.tex = f:CreateTexture(nil, "BACKGROUND")
 		f.tex:SetTexture(MEDIA .. "area")
 		f.tex:SetAllPoints()
@@ -1090,7 +1362,7 @@ do
 	local function worldHull(i)
 		local f = wHulls[i]
 		if f then return f end
-		f = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		f = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		f.texs, f.used, f.outline = {}, 0, {}
 		f.get = function(k)
 			local t = f.texs[k]
@@ -1117,7 +1389,7 @@ do
 		local xs, ys, x, y = d.xs, d.ys, d.x, d.y
 		for i = 1, d.n do hx[i], hy[i] = (xs[i] - x) / 100 * w, (y - ys[i]) / 100 * h end
 		f.rim = rimWidth()
-		local r, g, b, a = pinColor(d.pin)
+		local r, g, b, a = Pins.AreaColor(d.pin, true)
 		local used, hw, hh, n = layHull(d.n, f.rim, f.get, r, g, b, a)
 		for k = used + 1, f.used do f.texs[k]:Hide() end
 		f.used = used
@@ -1131,6 +1403,7 @@ do
 		for i = from, list.n do
 			local f = list[i]
 			f:Hide()
+			if f.pulsing then Pins.Pulse(f, false) end
 			f.data.pin, f.data.layer = nil, nil
 		end
 	end
@@ -1149,7 +1422,8 @@ do
 	end
 
 	-- A pin's hull in percent of the viewed map (same continent), drawn as the
-	-- count + 1st hull when any of it lies on that map. Returns the new count.
+	-- count + 1st hull when any of it lies on that map inside world.hullWin. Returns
+	-- the new count.
 	local sx, sy = {}, {}
 	local function hullOn(p, layer, i, count, level)
 		local hull, c = p.hull, layer.c[i]
@@ -1166,6 +1440,9 @@ do
 			if y > y1 then y1 = y end
 		end
 		if n < 3 or x1 < 0 or x0 > 100 or y1 < 0 or y0 > 100 then return count end
+		local w = world.hullWin
+		w.any = true
+		if x1 < w[1] or x0 > w[3] or y1 < w[2] or y0 > w[4] then return count end
 		local f = worldHull(count + 1)
 		local d = f.data
 		local xs, ys = d.xs, d.ys
@@ -1176,6 +1453,42 @@ do
 		layoutHull(f)
 		f:Show()
 		return count + 1
+	end
+
+	-- Every shown layer's hulls on the viewed map, inside the window around
+	-- the view as it is now (world.hullWin; mapType: the viewed map's, for minMapType).
+	function world.drawHulls(mapType)
+		local x0, y0, x1, y1 = viewRect()
+		local mx, my = (x1 - x0) * 0.5, (y1 - y0) * 0.5
+		local w = world.hullWin
+		w[1], w[2], w[3], w[4], w.mapType, w.any = x0 - mx, y0 - my, x1 + mx, y1 + my, mapType, false
+		local count = 0
+		if wC then
+			local level = wView:Level(BLOB_LEVEL)
+			for _, name in ipairs(order) do
+				local layer = layers[name]
+				if layer and layer.world and not hidden[name]
+					and (not layer.minMapType or (mapType and mapType >= layer.minMapType)) then
+					if not layer.resolved then resolveLayer(layer) end
+					local pins = layer.pins
+					for i = 1, #pins do
+						local p = pins[i]
+						if type(p.hull) == "table" then count = hullOn(p, layer, i, count, level) end
+					end
+				end
+			end
+		end
+		hideFrom(wHulls, count + 1)
+		wHulls.n = count
+	end
+
+	-- The view has left the hulls' window, or shrunk to a quarter of it,
+	-- while some hull lies on the viewed map.
+	function world.hullsStale()
+		local w = world.hullWin
+		if not (w.any and wC) then return false end
+		local x0, y0, x1, y1 = viewRect()
+		return x0 < w[1] or y0 < w[2] or x1 > w[3] or y1 > w[4] or (x1 - x0) * 4 < w[3] - w[1]
 	end
 
 	-- Higher priority draws last, so it lands on top.
@@ -1224,10 +1537,11 @@ do
 		local v = wView
 		local mapID = v.mapID
 		local C = ns.Compat
-		local n, areas, hulls = 0, 0, 0
+		local n, areas, mapType = 0, 0, nil
 		if mapID then
 			viewMap(mapID)
 			local info = C_Map and C_Map.GetMapInfo and C_Map.GetMapInfo(mapID)
+			mapType = info and info.mapType
 			local pinLevel, blobLevel = v:Level(PIN_LEVEL), v:Level(BLOB_LEVEL)
 			for _, name in ipairs(order) do
 				local layer = layers[name]
@@ -1238,7 +1552,6 @@ do
 					local first = n + 1
 					for i = 1, #pins do
 						local p = pins[i]
-						if type(p.hull) == "table" then hulls = hullOn(p, layer, i, hulls, blobLevel) end
 						if not (p.areaOnly and not p.area) then
 							local x, y
 							if p.map == mapID and p.x and p.y and not p.f then
@@ -1258,8 +1571,7 @@ do
 										local f = worldArea(areas)
 										local d = f.data
 										d.pin, d.layer, d.x, d.y, d.dx = p, layer, x, y, dx
-										local r, g, b, a = pinColor(p)
-										f.tex:SetVertexColor(r, g, b, a * AREA_ALPHA)
+										f.tex:SetVertexColor(Pins.AreaColor(p))
 										f:SetFrameLevel(blobLevel)
 										layoutArea(f)
 										f:Show()
@@ -1288,10 +1600,14 @@ do
 				local f = worldPin(k)
 				local d = f.data
 				d.pin, d.layer, d.x, d.y = qPin[i], qLayer[i], qX[i], qY[i]
-				applyLook(f, d.pin, (tonumber(d.pin.size) or WORLD_SIZE) * d.layer.scale)
+				applyLook(f, d.pin, Pins.WorldPinSize(d.pin, d.layer.scale))
 				stackLook(f, d.pin)
 				f:SetFrameLevel(pinLevel)
 				placePin(f, v)
+				if f.alphaK ~= look.worldAlpha then
+					f.alphaK = look.worldAlpha
+					f:SetAlpha(look.worldAlpha)
+				end
 				f:Show()
 			end
 			for i = 1, n do qPin[i], qLayer[i] = nil, nil end
@@ -1300,25 +1616,32 @@ do
 		end
 		hideFrom(wPins, n + 1)
 		hideFrom(wAreas, areas + 1)
-		hideFrom(wHulls, hulls + 1)
-		wPins.n, wAreas.n, wHulls.n = n, areas, hulls
-		drawTrailWorld(trailFrac())
+		wPins.n, wAreas.n = n, areas
+		world.drawHulls(mapType)
+		drawTrail(trailFrac())
 		updateTrailDriver()
 	end
 
 	-- Zooming: pins grow with the zoom (PIN_ZOOM), dots keep their size on
 	-- screen, hull rims their width (within a quarter); areas and hulls scale
-	-- with the terrain.
+	-- with the terrain. Hulls whose rim must be laid out again, or a zoom out
+	-- of their window, are drawn anew for the view as it is now, so the work
+	-- shrinks with the view as it zooms in.
 	local function rescaleWorld()
 		for i = 1, wPins.n do placePin(wPins[i], wView) end
 		local scale = wView:PinScale(1, PIN_ZOOMED)
 		local rim = rimWidth()
-		for i = 1, wHulls.n do
+		local redraw = world.hullsStale()
+		for i = 1, redraw and 0 or wHulls.n do
 			local f = wHulls[i]
-			if not f.rim or rim > f.rim * 1.25 or rim < f.rim * 0.8 then layoutHull(f) end
+			if not f.rim or rim > f.rim * 1.25 or rim < f.rim * 0.8 then
+				redraw = true
+				break
+			end
 		end
+		if redraw then world.drawHulls(world.hullWin.mapType) end
 		local t = wTrail
-		local size = WORLD_DOT * scale
+		local size = TRAIL.WORLD_DOT * look.dotSize * scale
 		if t and t.size ~= size then
 			t.size = size
 			local dots = t.dots
@@ -1420,10 +1743,10 @@ do
 		end
 	end
 
-	function world.install()
+	function world.install(map)
 		if wView then return true end
 		local M = ns.MapCanvas
-		wView = WorldMapFrame and M and M.Watch(WorldMapFrame, onWorldView) or nil
+		wView = map and M and M.Watch(map, onWorldView) or nil
 		world.view = wView
 		world.openMap() -- OpenMap's menu switch, when it is loaded (an optional dependency: before Polestar)
 		return wView ~= nil
@@ -1431,7 +1754,7 @@ do
 
 	-- Layers and the trail changed: drawn on the open map's next frame (a
 	-- closed map draws everything as it opens).
-	function refreshWorld()
+	function world.refresh()
 		if wView and wView.shown then wDirty = true end
 	end
 
@@ -1453,7 +1776,6 @@ do
 	--   nav.openmapDots   the trail on OpenMap's stitched map (on; its menu's switch)
 	---------------------------------------------------------------------------
 	local OM_MARGIN = 0.04   -- of the view's size: dots placed just past its edges
-	local omHooked = false
 	local omOn = false       -- the last trail draw went through OpenMap
 	local omX0, omY0, omX1, omY1 = 0, 0, 0, 0 -- the view it was drawn for (map percent)
 	local omRefs = {}        -- host map -> { [continent] = { map, left, top, kx, ky } }, measured once
@@ -1518,56 +1840,20 @@ do
 	end
 
 	-- Dot spacing for a view `pct` percent of the host wide, at `perYard`
-	-- percent a yard: a WORLD_DIVS-th of the view, at least
-	-- WORLD_MIN_SPACING, in steps of twice the last, so the dots keep their
+	-- percent a yard: a TRAIL.WORLD_DIVS-th of the view, at least
+	-- TRAIL.WORLD_MIN_SPACING, in steps of twice the last, so the dots keep their
 	-- places while a zoom stays within a step.
 	local LOG2 = math.log(2)
 	local function stitchedSpacing(pct, perYard)
-		local raw = pct / abs(perYard) / WORLD_DIVS
-		if raw <= WORLD_MIN_SPACING then return WORLD_MIN_SPACING end
-		return WORLD_MIN_SPACING * 2 ^ ceil(math.log(raw / WORLD_MIN_SPACING) / LOG2 - 1e-9)
+		local raw = pct / abs(perYard) / TRAIL.WORLD_DIVS
+		if raw <= TRAIL.WORLD_MIN_SPACING then return TRAIL.WORLD_MIN_SPACING end
+		return TRAIL.WORLD_MIN_SPACING * 2 ^ ceil(math.log(raw / TRAIL.WORLD_MIN_SPACING) / LOG2 - 1e-9)
 	end
-
-	-- What the map's scroll frame shows of the canvas, in percent of the
-	-- viewed map: x0, y0, x1, y1 (reads only: the canvas and its parent's place).
-	local function viewRect()
-		local v = wView
-		local canvas = v.canvas
-		local frame = canvas.GetParent and canvas:GetParent()
-		local w, h = v.width or 0, v.height or 0
-		if not frame or w <= 0 or h <= 0 then return 0, 0, 100, 100 end
-		local cl, ct, cs = canvas:GetLeft(), canvas:GetTop(), canvas:GetEffectiveScale()
-		local fl, ft, fr, fb, fs = frame:GetLeft(), frame:GetTop(), frame:GetRight(), frame:GetBottom(), frame:GetEffectiveScale()
-		if not (cl and ct and fl and ft and fr and fb and cs and fs and cs > 0) then return 0, 0, 100, 100 end
-		local kx, ky = 100 / (w * cs), 100 / (h * cs)
-		return (fl * fs - cl * cs) * kx, (ct * cs - ft * fs) * ky, (fr * fs - cl * cs) * kx, (ct * cs - fb * fs) * ky
-	end
-
-	-- OpenMap's switch: the trail on its map.
-	local function hookOpenMap(OM)
-		if omHooked then return end
-		omHooked = true
-		if type(OM.RegisterCallback) == "function" then
-			pcall(OM.RegisterCallback, Pins, "OpenMap_StitchedChanged", function() refreshWorld() end)
-		end
-		if type(OM.RegisterMenuToggle) == "function" then
-			pcall(OM.RegisterMenuToggle, ADDON, {
-				id = "trailDots",
-				label = L["Polestar trail dots"],
-				section = "Polestar",
-				icon = MEDIA .. "pin-fill",
-				get = function() return ns.Get("nav.openmapDots") and true or false end,
-				set = function(on) ns.Set("nav.openmapDots", on and true or false) end,
-			})
-		end
-	end
-	ns.On("SETTING_CHANGED", function(path)
-		if path == "nav.openmapDots" or path == "" or path == "nav" then refreshWorld() end
-	end)
 
 	-- OpenMapAPI while its stitched map shows, else nil.
 	local function openMap()
 		local OM = OpenMapAPI
+		if wView and wView.map ~= WorldMapFrame then return nil end -- it stitches the world map only
 		if type(OM) ~= "table" or OM.major ~= 1 or type(OM.IsStitched) ~= "function"
 			or type(OM.WorldFromMap) ~= "function" or type(OM.MapFromWorld) ~= "function" then
 			return nil
@@ -1595,20 +1881,22 @@ do
 			local fit = fitFor(OM, C, host, run.c)
 			if fit then
 				ua, ub, uc, va, vb, vc = 0, fit.ub, fit.uc, fit.va, 0, fit.vc
-				count = runDots(loadRun(run, pc, px, py), stitchedSpacing(x1 - x0, fit.ub), frac, clipRect, WORLD_CAP, count)
+				count = runDots(loadRun(run, pc, px, py), stitchedSpacing(x1 - x0, fit.ub), frac, clipRect, TRAIL.WORLD_CAP, count)
 			end
 		end
 		return count
 	end
 
-	-- Every frame of the open map: on OpenMap's map a pan or zoom moves the
-	-- view without changing the map, so the trail follows it here.
+	-- Every frame of the open map: a pan or zoom moves the view without
+	-- changing the map (on OpenMap's map, and zooming in on any), so the
+	-- hulls' window and the trail on OpenMap's map follow it here.
 	function world.followView()
+		if world.hullsStale() then world.drawHulls(world.hullWin.mapType) end
 		if not (omOn and trail and trail.world) then return end
 		local x0, y0, x1, y1 = viewRect()
 		local eps = (omX1 - omX0) * 0.002
 		if abs(x0 - omX0) > eps or abs(y0 - omY0) > eps or abs(x1 - omX1) > eps or abs(y1 - omY1) > eps then
-			drawTrailWorld(trailFrac())
+			drawTrail(trailFrac())
 			updateTrailDriver()
 		end
 	end
@@ -1622,14 +1910,14 @@ do
 		if not (c1 and c1 == c2 and top ~= bottom and left ~= right) then return end
 		wC, wLeft, wTop = c1, left, top
 		wKx, wKy = 100 / (right - left), 100 / (bottom - top)
-		wSpacing = max(WORLD_MIN_SPACING, abs(right - left) / WORLD_DIVS)
+		wSpacing = max(TRAIL.WORLD_MIN_SPACING, abs(right - left) / TRAIL.WORLD_DIVS)
 	end
 
 	-- The trail's dots: textures on one frame at the canvas's top left, laid out
-	-- in canvas units; WORLD_DOT on screen like a pin.
+	-- in canvas units; TRAIL.WORLD_DOT on screen like a pin.
 	local function trailHost()
 		if wTrail then return wTrail end
-		local host = ns.CreateFrameUnder("Frame", nil, wView.canvas)
+		local host = ns.CreateFrameUnder("Frame", nil, wView.frame)
 		host:SetPoint("TOPLEFT", wView.canvas, "TOPLEFT", 0, 0)
 		host:SetSize(1, 1)
 		wTrail = { host = host, dots = {}, n = 0 }
@@ -1639,7 +1927,7 @@ do
 
 	-- Place the world map's trail dots, reusing the textures already made and
 	-- hiding the rest (on the map viewMap last measured).
-	function drawTrailWorld(frac)
+	function drawTrail(frac)
 		local count = 0
 		local v = wView
 		omOn = false
@@ -1657,7 +1945,7 @@ do
 				local runs = trail.runs
 				for k = 1, #runs do
 					local run = runs[k]
-					if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, WORLD_CAP, count) end
+					if run.c == wC then count = runDots(loadRun(run, pc, px, py), wSpacing, frac, clipRect, TRAIL.WORLD_CAP, count) end
 				end
 			end
 		end
@@ -1665,7 +1953,7 @@ do
 		if count > 0 then
 			t = trailHost()
 			t.host:SetFrameLevel(v:Level(BLOB_LEVEL))
-			local size = WORLD_DOT * v:PinScale(1, PIN_ZOOMED)
+			local size = TRAIL.WORLD_DOT * look.dotSize * v:PinScale(1, PIN_ZOOMED)
 			local restyle = t.size ~= size or t.version ~= trail.version
 			t.size, t.version = size, trail.version
 			local w, h, dots = v.width, v.height, t.dots
@@ -1678,7 +1966,7 @@ do
 				end
 				if restyle or not dot.styled then
 					dot:SetSize(size, size)
-					dot:SetVertexColor(trail.r, trail.g, trail.b, TRAIL_ALPHA)
+					dot:SetVertexColor(trail.r, trail.g, trail.b, look.dotAlpha)
 					dot.styled = true
 				end
 				if i > t.n then dot:Show() end
@@ -1693,6 +1981,38 @@ do
 			t.n = count
 		end
 	end
+	world.drawTrail = drawTrail
+	return world
+	end
+
+	world = newWorld()
+	worlds = { world }
+
+	function refreshWorld()
+		for i = 1, #worlds do worlds[i].refresh() end
+	end
+
+	-- every: every open map's trail, else only where its dots show.
+	function drawTrailWorld(frac, every)
+		for i = 1, #worlds do
+			local w = worlds[i]
+			if w.dotsShown() or (every and w.view and w.view.shown) then w.drawTrail(frac) end
+		end
+	end
+
+	function worlds.dotsShown()
+		for i = 1, #worlds do
+			if worlds[i].dotsShown() then return true end
+		end
+		return false
+	end
+
+	ns.OnLogin(function()
+		ns.MapCanvas.OnAdd(function(map)
+			local w = newWorld()
+			if w.install(map) then worlds[#worlds + 1] = w end
+		end)
+	end)
 end
 
 ---------------------------------------------------------------------------
@@ -1704,7 +2024,8 @@ local mmFree = {}     -- released frames
 local assigned = {}   -- pin table -> frame
 local gen = 0
 local driver, watcher
-local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK -- last drawn state
+local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK -- last sampled state
+local viewWatch, viewWatchers = {}, 0 -- key -> fn(pc, px, py, radius, facing, square); how many
 local dirty = true
 
 local function viewRadius()
@@ -1728,7 +2049,9 @@ local function isSquare()
 	return GetMinimapShape ~= nil and GetMinimapShape() == "SQUARE"
 end
 
+-- Anything to draw on the minimap: nothing while Polestar is hidden.
 local function hasMinimapPins()
+	if ns.Hidden() then return false end
 	if trail and trail.minimap then return true end
 	for _, name in ipairs(order) do
 		local layer = layers[name]
@@ -1820,6 +2143,7 @@ local function releaseAt(i)
 	mmActive[i] = mmActive[n]
 	mmActive[n] = nil
 	Pins.StopPing(f)
+	if f.pulsing then Pins.Pulse(f, false) end
 	if f.pin then assigned[f.pin] = nil end
 	f.pin, f.layer = nil, nil
 	f:Hide()
@@ -1955,7 +2279,7 @@ local function minimapDot(i)
 	end
 	local t = mmTrail:CreateTexture(nil, "ARTWORK")
 	t:SetTexture(MEDIA .. "pin-fill")
-	t:SetSize(MM_DOT, MM_DOT)
+	t:SetSize(TRAIL.MM_DOT, TRAIL.MM_DOT)
 	mmDots[i] = t
 	return t
 end
@@ -1966,14 +2290,14 @@ local function drawTrailMinimap(frac)
 	local shown = 0
 	if trail and trail.minimap and sPc then
 		local half, radius, square = sHalf, sRadius, sSquare
-		local lim = half - MM_DOT / 2
+		local lim = half - TRAIL.MM_DOT * look.dotSize / 2
 		ua, ub, uc, va, vb, vc = 1, 0, -sPx, 0, 1, -sPy
 		cr2 = radius * radius * (square and 2 or 1) -- a square's corners reach radius * sqrt(2)
 		local count = 0
 		local runs = trail.runs
 		for k = 1, #runs do
 			local run = runs[k]
-			if run.c == sPc then count = runDots(loadRun(run, sPc, sPx, sPy), MM_SPACING, frac, clipCircle, MM_CAP, count) end
+			if run.c == sPc then count = runDots(loadRun(run, sPc, sPx, sPy), TRAIL.MM_SPACING, frac, clipCircle, TRAIL.MM_CAP, count) end
 		end
 		local project, version = Pins.Project, trail.version
 		for i = 1, count do
@@ -1984,7 +2308,8 @@ local function drawTrailMinimap(frac)
 				shown = shown + 1
 				local t = mmDots[shown] or minimapDot(shown)
 				if t.trailVersion ~= version then
-					t:SetVertexColor(trail.r, trail.g, trail.b, TRAIL_ALPHA)
+					t:SetVertexColor(trail.r, trail.g, trail.b, look.dotAlpha)
+					t:SetSize(TRAIL.MM_DOT * look.dotSize, TRAIL.MM_DOT * look.dotSize)
 					t.trailVersion = version
 				end
 				t:ClearAllPoints()
@@ -2051,8 +2376,7 @@ local function placeArea(count, p, layer, dn, dw, area)
 	count = count + 1
 	local t = mmAreas[count] or minimapArea(count)
 	if t.pin ~= p or t.version ~= layer.version then
-		local r, g, b, a = pinColor(p)
-		t:SetVertexColor(r, g, b, a * AREA_ALPHA)
+		t:SetVertexColor(Pins.AreaColor(p))
 		t.pin, t.layer, t.version = p, layer, layer.version
 	end
 	local d = 2 * area * half / radius
@@ -2111,7 +2435,7 @@ local function placeHull(count, p, layer, i, dn, dw)
 			n = n + 1
 			hx[n], hy[n] = project(hull[k] - cx, hull[k + 1] - cy, sFacing, sRadius, sHalf, sRotate, sSquare, nil)
 		end
-		local r, g, b, a = pinColor(p)
+		local r, g, b, a = Pins.AreaColor(p, true)
 		local used, hw, hh
 		used, hw, hh, n = layHull(n, HULL_RIM_WIDTH, rec.get, r, g, b, a)
 		for k = used + 1, rec.used do rec.texs[k]:Hide() end
@@ -2149,6 +2473,7 @@ local function arrowFade(x, y, foot)
 	if covered >= 1 then return ARROW_FADE end
 	return 1 - (1 - ARROW_FADE) * covered
 end
+Pins.ArrowFade = arrowFade
 
 -- Place every visible pin for the current state (sPc, sPx, ...).
 local function drawMinimap()
@@ -2170,8 +2495,8 @@ local function drawMinimap()
 				if not layer.resolved then resolveLayer(layer) end
 				local pins, lx, ly = layer.pins, layer.wx, layer.wy
 				local edge = layer.edge
-				-- A pin's size at this zoom and the player's size, its medallion held to the max.
-				local scale, most = layer.scale * sZoomK * sSizeK, PIN_ZOOM.minimap.max / MEDAL_SCALE * sSizeK
+				-- A pin's size at this zoom and the player's size, its medallion held to the max (Pins.MinimapPinSize).
+				local layerScale = layer.scale
 				local maxArea = layer.maxArea or 0
 				local list, n = nearPins(layer, maxArea > 0 and max(reach, view + maxArea) or reach)
 				stats.visited = stats.visited + n
@@ -2192,9 +2517,7 @@ local function drawMinimap()
 					end
 					if not p.areaOnly and (edge or d2 <= reach2) then
 						local f = assigned[p]
-						local size = (tonumber(p.minimapSize) or tonumber(p.size) or MINIMAP_SIZE) * scale
-						local cap = p.state == "focus" and most / FOCUS_SCALE or most
-						if size > cap then size = cap end
+						local size = Pins.MinimapPinSize(p, layerScale, sZoomK, sSizeK)
 						if not f or f.layer ~= layer or f.version ~= layer.version or f.zoomK ~= sZoomK or f.sizeK ~= sSizeK then
 							if not f then
 								f = acquireMinimap()
@@ -2214,7 +2537,9 @@ local function drawMinimap()
 							edge and (half - inset) or nil)
 						f:ClearAllPoints()
 						f:SetPoint("CENTER", Minimap, "CENTER", x, y)
-						local fade = clamped and 1 or arrowFade(x, y, f.footPx)
+						-- A mark over the player's arrow fades (nav.minimapArrowFade), all at nav.minimapPinAlpha.
+						local fade = (clamped or not look.arrowFade) and 1 or arrowFade(x, y, f.footPx)
+						fade = fade * look.mmAlpha
 						if fade ~= f.fade then
 							f.fade = fade
 							f:SetAlpha(fade)
@@ -2244,20 +2569,20 @@ local function drawMinimap()
 	hideHullsFrom(hulls)
 	drawTrailMinimap(trailFrac())
 	-- Held still, the world map's dots follow the player with these redraws.
-	if world.dotsShown() and stillTrail() then drawTrailWorld(TRAIL_STILL) end
+	if stillTrail() then drawTrailWorld(TRAIL.STILL) end
 	updateTrailDriver()
 end
 
 -- Compare the state the minimap pins depend on; redraw when it changed.
 -- Returns true when something changed.
 local function sample(force)
-	if not Minimap then return false end
+	if not Minimap or ns.Hidden() then return false end
 	local C = ns.Compat
 	local pc, px, py
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local rotate = isRotating()
 	local facing = rotate and C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
-	local radius, half, square = viewRadius(), Minimap:GetWidth() / 2, isSquare()
+	local radius, half, height, square = viewRadius(), Minimap:GetWidth() / 2, Minimap:GetHeight(), isSquare()
 	-- The zoom's factor on pin sizes: `wide` at the widest zoom (0) to `close` at the closest.
 	local zoom, levels = Minimap.GetZoom and Minimap:GetZoom() or 0, Minimap.GetZoomLevels and Minimap:GetZoomLevels() or 6
 	local t = levels > 1 and zoom / (levels - 1) or 0
@@ -2265,39 +2590,41 @@ local function sample(force)
 	local z = PIN_ZOOM.minimap
 	local zoomK = z.wide + (z.close - z.wide) * t
 	local sizeK = tonumber(ns.Get and ns.Get("nav.minimapIconSize")) or 1
-	if not force and not dirty and pc == sPc and px == sPx and py == sPy and facing == sFacing
-		and radius == sRadius and rotate == sRotate and half == sHalf and square == sSquare and zoomK == sZoomK
-		and sizeK == sSizeK then
-		return false
+	local moved = not (pc == sPc and px == sPx and py == sPy and facing == sFacing and radius == sRadius
+		and rotate == sRotate and half == sHalf and height == sHeight and square == sSquare and zoomK == sZoomK
+		and sizeK == sSizeK)
+	local pins = hasMinimapPins()
+	if not force and not moved and not (dirty and pins) then return false end
+	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sHeight, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, height, square, zoomK, sizeK
+	if pins then
+		dirty = false
+		drawMinimap()
 	end
-	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, square, zoomK, sizeK
-	dirty = false
-	drawMinimap()
+	if moved and viewWatchers > 0 then
+		for _, fn in pairs(viewWatch) do fn(pc, px, py, radius, facing, square) end
+	end
 	return true
 end
 
-local idle, accum = 0, 0
+local idle = 0
 
 local function wake()
 	if driver and not driver:IsShown() then
-		idle, accum = 0, 0
+		idle = 0
 		driver:Show()
 	end
 end
 
+-- The drivers hang off Polestar's layer (Core/Init.lua): hidden, they stop.
 local function ensureMinimap()
 	if driver or not Minimap then return end
-	driver = CreateFrame("Frame", nil, UIParent)
+	driver = CreateFrame("Frame", nil, ns.UIParent)
 	driver:Hide()
 	driver:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
-		accum = accum + elapsed
-		if accum < DRIVE_INTERVAL then return end
-		local step = accum
-		accum = 0
 		if sample(false) then
 			idle = 0
 		else
-			idle = idle + step
+			idle = idle + elapsed
 			if idle >= IDLE_AFTER then self:Hide() end
 		end
 	end))
@@ -2305,7 +2632,7 @@ local function ensureMinimap()
 end
 
 local function updateWatcher()
-	local want = hasMinimapPins()
+	local want = viewWatchers > 0 or hasMinimapPins()
 	if want and not watcher and C_Timer and C_Timer.NewTicker then
 		watcher = ns.NewTicker(WATCH_INTERVAL, function()
 			if sample(false) then
@@ -2359,13 +2686,30 @@ function refreshMinimap(layersChanged)
 	redraw(layersChanged)
 end
 
+-- fn(pc, px, py, radius, facing, square) on each frame the minimap's view
+-- changed (the player, the facing, the zoom, its size or shape), after the
+-- pins' own layout and from the same reads; nil stops watching. The watcher
+-- draws the view it is handed when it starts. While anyone watches, the
+-- 10 Hz watcher and the per-frame driver run as for the pins.
+function Pins.WatchMinimapView(key, fn)
+	if not Minimap then return end
+	local added = fn ~= nil and viewWatch[key] == nil
+	if (viewWatch[key] ~= nil) ~= (fn ~= nil) then viewWatchers = viewWatchers + (fn and 1 or -1) end
+	viewWatch[key] = fn
+	ensureMinimap()
+	updateWatcher()
+	if added then wake() end
+end
+
 -- The pin a world map frame of Pins shows: { pin, layer, x, y } (x, y in
 -- percent of the viewed map), or nil for any other frame (Nav/Journey.lua
 -- tells Polestar's pins under the mouse by it).
 function Pins.WorldPinOf(frame)
-	local list = world.pins
-	for i = 1, list.n do
-		if list[i] == frame then return frame.data end
+	for k = 1, #worlds do
+		local list = worlds[k].pins
+		for i = 1, list.n do
+			if list[i] == frame then return frame.data end
+		end
 	end
 	return nil
 end
@@ -2449,7 +2793,7 @@ end
 
 ---------------------------------------------------------------------------
 -- Trail animation: one driver for both surfaces, at most every
--- TRAIL_INTERVAL, awake only while dots show on a visible minimap or an
+-- TRAIL.INTERVAL, awake only while dots show on a visible minimap or an
 -- open world map and motion is not reduced.
 ---------------------------------------------------------------------------
 
@@ -2463,19 +2807,19 @@ end
 
 local function trailTick(self, elapsed)
 	trailAccum = trailAccum + elapsed
-	if trailAccum < TRAIL_INTERVAL then return end
+	if trailAccum < TRAIL.INTERVAL then return end
 	trailAccum = 0
 	local frac = trailFrac()
 	-- The pins' own redraw may have drawn the minimap's dots this frame.
-	if minimapTrailShown() and GetTime() - mmTrailAt >= TRAIL_INTERVAL / 2 then drawTrailMinimap(frac) end
-	if world.dotsShown() then drawTrailWorld(frac) end
+	if minimapTrailShown() and GetTime() - mmTrailAt >= TRAIL.INTERVAL / 2 then drawTrailMinimap(frac) end
+	drawTrailWorld(frac)
 	updateTrailDriver()
 end
 
 function updateTrailDriver()
-	if not stillTrail() and (minimapTrailShown() or world.dotsShown()) then
+	if not stillTrail() and (minimapTrailShown() or worlds.dotsShown()) then
 		if not trailDriver then
-			trailDriver = CreateFrame("Frame", nil, UIParent)
+			trailDriver = CreateFrame("Frame", nil, ns.UIParent)
 			trailDriver:Hide()
 			trailDriver:SetScript("OnUpdate", ns.Safe(trailTick))
 			Pins.trailDriver = trailDriver
@@ -2509,18 +2853,63 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "nav" or path == "nav.minimapIconSize" then refreshMinimap(true) end
 end)
 
+-- Hidden: the minimap's pins, areas and dots go at once (the map's go with
+-- its view frame, Nav/MapCanvas.lua); shown again, they are drawn for where
+-- you are, and a ping announced meanwhile does not play late: news while
+-- hidden is not kept for after.
+ns.On("POLESTAR_HIDDEN", function(gone)
+	if not gone then
+		local played = Pins.PING.played
+		for _, name in ipairs(order) do
+			local layer = layers[name]
+			for _, p in ipairs(layer and layer.pins or {}) do
+				if p.ping then played[p.ping] = true end
+			end
+		end
+	end
+	refreshMinimap(false)
+end)
+
 -- ui.reduceMotion stops or restarts the crawl at once.
 ns.On("SETTING_CHANGED", function(path)
 	if path ~= "" and path ~= "ui" and path ~= "ui.reduceMotion" then return end
 	if not trail then return end
 	local frac = trailFrac()
 	if Minimap then drawTrailMinimap(frac) end
-	if world.view and world.view.shown then drawTrailWorld(frac) end
+	drawTrailWorld(frac, true)
 	updateTrailDriver()
 end)
 
+-- Every pin and the trail drawn again in the current look (a theme or a
+-- Map pins setting changed): their layers' versions move on, so the
+-- minimap's frames take their look again.
+function Pins.Restyle()
+	Pins.ReadSkin()
+	for _, name in ipairs(order) do
+		local layer = layers[name]
+		if layer then layer.version = layer.version + 1 end
+	end
+	if trail then
+		trailVersion = trailVersion + 1
+		trail.version = trailVersion
+	end
+	refreshWorld()
+	refreshMinimap(true)
+end
+
+-- The Map pins settings (Pins.LOOK_KEYS) restyle every pin; so does
+-- ui.reduceMotion (a pulse stops or starts).
+ns.On("SETTING_CHANGED", function(path)
+	if path == "" or path == "nav" or Pins.LOOK_KEYS[path] then
+		Pins.ReadLook()
+		Pins.Restyle()
+	elseif path == "ui" or path == "ui.reduceMotion" then
+		Pins.Restyle()
+	end
+end)
+
 local function moved()
-	if hasMinimapPins() then wake() end
+	if viewWatchers > 0 or hasMinimapPins() then wake() end
 end
 for _, event in ipairs({
 	"PLAYER_STARTED_MOVING", "PLAYER_STARTED_TURNING", "MINIMAP_UPDATE_ZOOM", "CVAR_UPDATE",
@@ -2538,24 +2927,20 @@ local function reresolve()
 	refreshWorld()
 	refreshMinimap(true)
 end
-ns.OnInit(reresolve)
+ns.OnInit(function()
+	Pins.ReadLook()
+	reresolve()
+end)
 
 ns.OnLogin(function()
 	reresolve()
-	if world.install() then return end
+	if world.install(WorldMapFrame) then return end
 	local function onLoaded(_, name)
-		if name == "Blizzard_WorldMap" and world.install() then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
+		if name == "Blizzard_WorldMap" and world.install(WorldMapFrame) then ns.UnregisterEvent("ADDON_LOADED", onLoaded) end
 	end
 	ns.RegisterEvent("ADDON_LOADED", onLoaded)
 end)
 
 if type(ns.Theme) == "table" and type(ns.Theme.OnChanged) == "function" then
-	ns.Theme.OnChanged(function()
-		for _, name in ipairs(order) do
-			local layer = layers[name]
-			if layer then layer.version = layer.version + 1 end
-		end
-		refreshWorld()
-		refreshMinimap(true)
-	end)
+	ns.Theme.OnChanged(Pins.Restyle)
 end

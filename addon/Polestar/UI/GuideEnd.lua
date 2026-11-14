@@ -13,7 +13,10 @@
 -- (1–12)" over "3 steps were left undone." when the route still has open
 -- steps. The body shows the next guide's zone painting (UI.ZoneArt, framed on
 -- where it starts, as the guide menu's details) with "Next: The Barrens
--- (12–16)" on it. The footer holds the buttons, the primary on the right:
+-- (12–16)" on it, then "Carried to later guides": the quests still in the
+-- log that a later guide of the chain hands in (Engine.CarriedQuests), each
+-- with that guide ("Sceptre of Light · Badlands"), so the player keeps them.
+-- The footer holds the buttons, the primary on the right:
 --   next guide     Start The Barrens (Engine.StartNext: in the same tab)
 --                  Not now, or Back to step 13 (the guide stays; the guide
 --                  window then offers the next guide: GuideFrame's banner)
@@ -42,12 +45,15 @@ UI.GuideEnd = GE
 
 local WIDTH = 460
 local PAD = 24
+-- The emblem and the footer; the house look's own (Theme.House "endEmblem",
+-- "dialogFoot", on the 4-point rhythm) read as the window is laid out.
 local EMBLEM = 44
 local EMBLEM_Y = 26 -- the emblem's top below the header's
 local HEAD_BOTTOM = 24 -- under the heading's last line
 local ART_H = 132
 local FOOT_H = 60
 local RISE = 12 -- the entrance's rise, in pixels
+local CARRIED_SHOWN = 6 -- carried quests listed; the rest as "+N more"
 
 local F -- the window
 local shown -- the model on screen
@@ -59,19 +65,12 @@ local function inCombat()
 	return InCombatLockdown and InCombatLockdown() or false
 end
 
--- "Durotar (1–12)"
-local function label(g)
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
-	local title = g.title or g.id
-	return lv and (title .. " (" .. lv .. ")") or title
-end
-
 -- What the window says for GUIDE_END's info, or nil (no such guide).
 function GE.Model(info)
 	local G, E = ns.Guides, Engine()
 	local g = info and info.guideId and G and G.Get(info.guideId)
 	if not g then return nil end
-	local m = { id = g.id, label = label(g), undone = info.undone or 0, live = info.live }
+	local m = { id = g.id, label = UI.GuideLabel(g), undone = info.undone or 0, live = info.live }
 	m.complete = m.live == nil or m.undone == 0
 	local choice = info.choose and E and E.GetRouteChoice and E.GetRouteChoice(g.id)
 	if choice and #choice.options >= 2 then
@@ -80,9 +79,10 @@ function GE.Model(info)
 		local nextGuide = info.next and G.Get(info.next)
 		if nextGuide then
 			m.next = nextGuide
-			m.nextLabel = label(nextGuide)
+			m.nextLabel = UI.GuideLabel(nextGuide)
 		end
 	end
+	m.carried = E and E.CarriedQuests and E.CarriedQuests(g.id) or {}
 	return m
 end
 
@@ -105,7 +105,7 @@ local function paintTitle(fs)
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarGuideEnd", UIParent)
+	F = CreateFrame("Frame", "PolestarGuideEnd", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -130,23 +130,7 @@ local function build()
 		if point then Anim.Anchor(F, point, UIParent, relPoint, x, y) end
 	end)
 	F.Header = head
-	F.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
-	F.Night:SetTexture(Theme.Media("white"))
-	F.Night:SetAllPoints(head)
-	W.Painter(F.Night, function(t)
-		t:SetShown(Theme.SkinKey() == "polestar")
-		local tr, tg, tb = Theme.Color("scrim")
-		local br, bg, bb = Theme.Color("bg")
-		if t.SetGradient and CreateColor then
-			t:SetVertexColor(1, 1, 1, 1)
-			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
-		else
-			t:SetVertexColor(br, bg, bb, 1)
-		end
-	end)
-	if W.Haze then F.Haze = W.Haze(head, { width = WIDTH * 0.8, height = 120, sub = -6 }) end
-	F.Band = Theme.Band(head, "BACKGROUND", -5)
-	F.Band:SetAllPoints(head)
+	F.Night, F.Haze, F.Band = W.Night(head, { width = WIDTH * 0.8, height = 120, sub = -6 })
 	F.HeadRule = W.Divider(head)
 	F.HeadRule:SetPoint("BOTTOMLEFT", head, "BOTTOMLEFT", 0, 0)
 	F.HeadRule:SetPoint("BOTTOMRIGHT", head, "BOTTOMRIGHT", 0, 0)
@@ -177,6 +161,7 @@ local function build()
 	F.Undone:SetPoint("TOP", F.Title, "BOTTOM", 0, -8)
 	F.Close = W.IconButton(head, "close", 28, L["Close"], function() GE.Later() end, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
+	W.FrameClose(F, F.Close)
 
 	-- Body: the next guide's zone painting (a dark hairline round it) with
 	-- its name and levels over the fade, or a line saying what to do.
@@ -216,6 +201,14 @@ local function build()
 	F.Text:SetWidth(WIDTH - PAD * 2)
 	F.Text:SetJustifyH("CENTER")
 	F.Text:SetWordWrap(true)
+	F.CarriedHead = W.Text(F, "label", "text")
+	F.CarriedHead:SetWidth(WIDTH - PAD * 2)
+	F.CarriedHead:SetJustifyH("LEFT")
+	F.Carried = W.Text(F, "note", "textDim")
+	F.Carried:SetWidth(WIDTH - PAD * 2)
+	F.Carried:SetJustifyH("LEFT")
+	F.Carried:SetWordWrap(true)
+	F.Carried:SetSpacing(3)
 
 	-- Footer: the second button, then the primary on the right.
 	local foot = CreateFrame("Frame", nil, F)
@@ -253,6 +246,10 @@ local function build()
 end
 
 local function layout(m)
+	local emblem, footH = Theme.House("endEmblem") or EMBLEM, Theme.House("dialogFoot") or FOOT_H
+	F.Emblem:SetSize(emblem, emblem)
+	F.Glow:SetSize(emblem * 3, emblem * 3)
+	F.Footer:SetHeight(footH)
 	paintTitle(F.Title)
 	if m.complete then
 		F.Undone:Hide()
@@ -260,7 +257,7 @@ local function layout(m)
 		F.Undone:SetText(m.undone == 1 and L["1 step was left undone."] or format(L["%d steps were left undone."], m.undone))
 		F.Undone:Show()
 	end
-	local headH = EMBLEM_Y + EMBLEM + 16 + F.Title:GetStringHeight()
+	local headH = EMBLEM_Y + emblem + 16 + F.Title:GetStringHeight()
 	if F.Undone:IsShown() then headH = headH + 8 + F.Undone:GetStringHeight() end
 	headH = floor(headH + HEAD_BOTTOM + 0.5)
 	F.Header:SetHeight(headH)
@@ -287,6 +284,32 @@ local function layout(m)
 		y = y + F.Text:GetStringHeight()
 	end
 
+	-- The quests a later guide hands in: keep them.
+	local list = m.carried or {}
+	if #list > 0 then
+		local G, lines = ns.Guides, {}
+		for i, c in ipairs(list) do
+			if i > CARRIED_SHOWN then
+				lines[#lines + 1] = format(L["+%d more"], #list - CARRIED_SHOWN)
+				break
+			end
+			local later = G and G.Get(c.guideId)
+			lines[i] = later and format(L["%s · %s"], c.title, UI.GuideLabel(later)) or c.title
+		end
+		F.CarriedHead:SetText(L["Carried to later guides"])
+		F.CarriedHead:ClearAllPoints()
+		F.CarriedHead:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -(y + 16))
+		F.CarriedHead:Show()
+		F.Carried:SetText(table.concat(lines, "\n"))
+		F.Carried:ClearAllPoints()
+		F.Carried:SetPoint("TOPLEFT", F.CarriedHead, "BOTTOMLEFT", 0, -6)
+		F.Carried:Show()
+		y = y + 16 + F.CarriedHead:GetStringHeight() + 6 + F.Carried:GetStringHeight()
+	else
+		F.CarriedHead:Hide()
+		F.Carried:Hide()
+	end
+
 	if m.choose then
 		W.SetButtonText(F.Go, L["Choose where to go next"])
 	elseif m.next then
@@ -304,7 +327,7 @@ local function layout(m)
 		local no = E and E.StepNumberOf and g and (E.StepNumberOf(g, m.live)) or m.live
 		W.SetButtonText(F.Later, format(L["Back to step %d"], no))
 	end
-	F:SetHeight(floor(y + PAD + FOOT_H + 0.5))
+	F:SetHeight(floor(y + PAD + footH + 0.5))
 	if W.LayoutRim then W.LayoutRim(F) end
 end
 
@@ -323,8 +346,8 @@ function GE.Show(info)
 	layout(m)
 	if not F:IsShown() then
 		local C = UI.ClassCard
-		if C and C.GameSoundOn and C.GameSoundOn() and PlaySound then
-			pcall(PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
+		if C and C.GameSoundOn and C.GameSoundOn() then
+			pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 		end
 	end
 	F:Show()

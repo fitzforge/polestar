@@ -17,6 +17,11 @@
 		"Kevin S",
 		"WMX",
 		"Varun",
+		"Magic",
+		"P",
+		"s u p r x m x",
+		"JesusCena",
+		"Undrende",
 		"FurTrade",
 		"hub_by",
 		"Comicus",
@@ -25,13 +30,11 @@
 		"Zhandroid",
 		"Thomas Barre",
 		"ausZNN",
-		"P",
-		"s u p r x m x",
-		"JesusCena",
-		"Undrende",
 		"Wolfstriked",
 		"Saerel",
 		"bitspirit3",
+		"Phoque",
+		"Silverina",
 		"LucaNerlich"
 	],
 	"exclude": [
@@ -46,6 +49,13 @@
 		"Conjure": "c0njure",
 		"tor": "Tor",
 		"defect": "bigdefect",
-		"Deadshot": "Deadshot0330"
-	}
+		"Deadshot": "Deadshot0330",
+		"nepyanbin": "阿言YUI"
+	},
+	"ideas": [
+		{ "name": "PRDesrochers", "ref": 293 },
+		{ "name": "aronjanosch", "ref": 954 },
+		{ "name": "CDVolvik", "ref": 1012 },
+		{ "name": "IgorMagals", "ref": 724 }
+	]
 }

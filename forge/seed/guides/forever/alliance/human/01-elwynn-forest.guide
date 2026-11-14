@@ -110,6 +110,7 @@ step Kelsey Fargo
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
+  tip Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.
   kill 80 quest 21                            -- Kobold Laborer walks around Echo Ridge Mine: look inside the circle on the map
 
 step Inside Echo Ridge Mine
@@ -124,6 +125,7 @@ step Northshire Abbey
   accept 54
   accept 96627
   train class
+  accept 5623 only Priest                     -- Priestess Anetta, the priest trainer: Priestess Josetta in Goldshire takes it
   turnin 3905                                 -- Brother Neals, upstairs
   accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
 
@@ -151,6 +153,8 @@ step Goldshire
   turnin 2158                                 -- Innkeeper Farley, inside
   sethome "Goldshire" npc 295
   accept 60                                   -- William Pestle, inside
+  turnin 5623 only Priest                     -- Priestess Josetta, upstairs
+  accept 5624 only Priest                     -- Priestess Josetta: heal Guard Roberts at Crystal Lake
 
 step Goldshire
   when group 91752
@@ -167,20 +171,63 @@ step Level 5.77
   goto 41.7,78.0 map 1429 "Kobold Miner"
   level 5.77 grind 40                 -- grind on Kobold Miner
 
-step The lake shore
-  tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
+step Sam Sarsaparilla
+  tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire.
   turnin 96627                                -- Sam Sarsaparilla
   accept 95998
   complete 95998 @44.9,63.2                   -- Sit (/sit) by his campfire until you have Boosted Rest
   turnin 95998
   accept 96626
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  accept 97924                                -- Sam Sarsaparilla: for Helene Peltskinner on the lake shore
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  accept 97922                                -- Sam Sarsaparilla: for Adele Fielder on the lake shore
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  accept 97920                                -- Sam Sarsaparilla: for Lee Brown on the lake shore
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  accept 97919                                -- Sam Sarsaparilla: for Michelle Belle in the Lion's Pride Inn
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
+
+step Helene Peltskinner
+  when onquest 97924
+  complete 97924 @46.24,62.24                 -- talk to the trainer
+  turnin 97924                                -- Helene Peltskinner, on the lake shore east of town; inside
+
+step Adele Fielder
+  when onquest 97922
+  complete 97922 @46.38,62.05                 -- talk to the trainer
+  turnin 97922                                -- Adele Fielder, beside Helene
+
+step The lake shore
+  tip Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
   accept 91751 optional                       -- Helene Peltskinner: skinners only, the pelts are skinned; inside
   accept 99127                                -- Jason Mathers
   accept 99143                                -- Lee Brown
 
+step Lee Brown
+  when onquest 97920
+  complete 97920 @47.61,62.32                 -- talk to the trainer
+  turnin 97920                                -- Lee Brown
+
 step Crystal Lake
   tip The Fishing Traps sit along the west shore of the lake.
   collect 286205 quest 99127                  -- Half-Eaten Fish
+
+step Guard Roberts
+  only Priest
+  tip Guard Roberts kneels wounded by a tree on the west shore of Crystal Lake, among the Fishing Traps. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count. He walks off once both land and is back in about 3 minutes.
+  kill 12423 quest 5624.1 "Heal and fortify Guard Roberts"
 
 step Jason Mathers
   turnin 99127
@@ -188,7 +235,7 @@ step Jason Mathers
 
 step Crystal Lake: kill these as you meet them
   zone Elwynn Forest
-  tip Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp.
+  tip Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp. Careful: the murlocs stand close together, so a fight easily pulls two or three at once: pull them one at a time from the edge of the camp, and don't chase one into the next group.
   kill 735 quest 99128                        -- Murloc Streamrunner
   kill 285 quest 99128                        -- Murloc
   collect 286209 quest 99143                  -- Shiny Junk
@@ -206,6 +253,17 @@ step Goldshire
   turnin 99129                                -- Remy "Two Times"
   accept 99130
   train class
+  turnin 5624 reward 16605 only Priest        -- Priestess Josetta, upstairs: Friar's Robes of the Light
+
+step Michelle Belle
+  when onquest 97919
+  complete 97919 @43.39,65.55                 -- talk to the trainer
+  turnin 97919                                -- Michelle Belle, in the Lion's Pride Inn
+
+step Smith Argus
+  when onquest 97916
+  complete 97916 @41.71,65.54                 -- talk to the trainer
+  turnin 97916                                -- Smith Argus, at the smithy across the road
 
 # ---------------------------------------------------------------- The south: Fargodeep and the farms
 
@@ -270,6 +328,7 @@ step The Maclure Vineyards: kill these as you meet them
 
 step Goldtooth
   tip Goldtooth is inside the Fargodeep Mine, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a Westfall Deed now and then: right-click it.
+  tip Careful: Nimsy (6), a kobold deep in the mine, is elite, and Narg the Taskmaster (10, rare) walks the tunnels: pull the kobolds one at a time.
   goto 39.5,82.4 "Fargodeep Mine"
   collect 981 quest 87                        -- Bernice's Necklace; below ground
   collect 1972 x1 optional                    -- Westfall Deed
@@ -395,6 +454,7 @@ step The Jasperlode Mine's entrance
 step Jasperlode Mine: kill these as you meet them
   zone Elwynn Forest
   tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
+  tip Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.
   collect 247816 quest 91732                  -- Mining Tools
   complete 76 @60.2,49.2                      -- Walk into the mine
   kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
@@ -436,8 +496,8 @@ step Goldshire
   turnin 39                                   -- Marshal Dughan, while William brews
   turnin 76
   accept 239
-  accept 114                                  -- William Pestle
-  accept 1097                                 -- Smith Argus, at the smithy: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 1097                                 -- Smith Argus, at the smithy beside Dughan: Grimand Elmore in Stormwind takes it (02-westfall)
+  accept 114                                  -- William Pestle, back in the inn
   accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson

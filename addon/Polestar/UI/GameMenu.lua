@@ -1,5 +1,5 @@
 -- A "Polestar" button in the game menu (Esc), setting ui.gameMenuButton (on
--- by default, under Appearance > Windows > Menus): it closes the menu and
+-- by default, under Settings > Theme > Frames > Menus): it closes the menu and
 -- opens the guide menu (SHOW_PICKER). It works in combat too.
 --
 -- Where: in the addon section near the top (Fitz, 2026-11-09: not under
@@ -52,12 +52,16 @@ local GAP = 4 -- under EllesmereUI's last button, as its two buttons are apart
 local button, spacer, ref -- ref: the menu's button ours follows this opening
 local look -- our flat inset for a skinned menu: { frame, bg, edges, hl }
 
-function GameMenu.Open()
+-- A way in that stays while Polestar is hidden: it brings Polestar back,
+-- then opens the guide menu (or `event`'s window: SHOW_OPTIONS for the
+-- settings).
+function GameMenu.Open(event)
 	local menu = _G.GameMenuFrame
 	if menu and menu:IsShown() and not ns.GamepadUI() then
 		if HideUIPanel then HideUIPanel(menu) else menu:Hide() end
 	end
-	ns.Fire("SHOW_PICKER")
+	ns.SetHidden(false)
+	ns.Fire(event or "SHOW_PICKER")
 end
 
 local function wanted() return ns.Get("ui.gameMenuButton") and not ns.GamepadUI() end
@@ -68,9 +72,12 @@ local function build(menu, template)
 	button:SetParent(menu)
 	button:SetSize(144, 21)
 	button:SetText("Polestar")
-	button:SetScript("OnClick", function()
-		if PlaySound and SOUNDKIT and SOUNDKIT.IG_MAINMENU_OPTION then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION) end
-		GameMenu.Open()
+	-- Left: the guide menu; right: the settings window.
+	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	button:SetScript("OnClick", function(_, which)
+		ns.SetHidden(false)
+		if SOUNDKIT and SOUNDKIT.IG_MAINMENU_OPTION then ns.PlaySound(SOUNDKIT.IG_MAINMENU_OPTION) end
+		GameMenu.Open(which == "RightButton" and "SHOW_OPTIONS" or nil)
 	end)
 	button:Hide()
 	return button

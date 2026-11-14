@@ -26,7 +26,7 @@ return {
 
 	-- Step 3: Swamplight Manor
 	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
-	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
+	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "沿道路向北前往废弃的庄园；加尔住在旁边的棚屋里，松土就在房子的拐角处。加尔需要三份{quest:1218}：如果之前错过了{npc:4897}，先去塞拉摩找她购买。",
 	["with the spices from Theramore"] = "带上从塞拉摩买的香料",
 
 	-- Step 4: "Stinky" Ignatz
@@ -83,7 +83,7 @@ return {
 
 	-- Step 16: Foothold Citadel
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
-	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "",
+	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "船从塞拉摩出发：去码头途中，先到{area:514}顶层向{npc:4944}报到。",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}，位于最顶层",
 	-- {npc:4968} Lady Jaina Proudmoore
@@ -102,7 +102,7 @@ return {
 	-- Step 20: Riding at 40
 	["Riding at 40"] = "40级骑术",
 	-- {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {npc:384} Katie Hunter
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {zone:1429}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4732}在{zone:1429}东部的{area:88}教授人类，旁边是{npc:384}的马。Forever 可能允许任何种族向任何骑术训练师学习（未确认）。收藏指南“坐骑 · 40级”列出了所有颜色。",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {zone:1429}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4732}在{zone:1429}东部的{area:88}教授人类，旁边是{npc:384}的马。无限版本可能允许任何种族向任何骑术训练师学习（未确认）。收藏指南“坐骑 · 40级”列出了所有颜色。",
 	-- {npc:384} Katie Hunter
 	["{npc:384}: other colours, 20g"] = "{npc:384}：其他颜色，20金",
 
@@ -159,20 +159,20 @@ return {
 
 	-- Step 48: Booty Bay
 	-- {quest:604} The Bloodsail Buccaneers
-	["Seahorn now offers {quest:604}: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it."] = "",
+	["Seahorn now offers {quest:604}: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it."] = "舰队指挥官卡拉·海角现在会提供{quest:604}，先不要接。任务中的三名船长为45-48级，周围都有船员；路线会在48级时再次返回这里处理此任务。",
 
 	-- Step 49: Gorilla hills
 	["Gorilla hills"] = "猩猩山丘",
 	-- {npc:1449} Witch Doctor Unbagwa
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
 	["Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; {npc:1449} sits among them."] = "向内陆骑行到迷雾谷猩猩所在的山丘。老迈的迷雾谷猩猩掉落内脏；{npc:1449}坐在它们中间。",
-	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",
 
 	-- Step 50: Unbagwa's ritual
 	["Unbagwa's ritual"] = "安巴格瓦的仪式",
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last. Fight at full health."] = "交还牙齿后留下：会来三波猩猩，最后是{npc:1514}。满血再战。",
+	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，位于{area:1742}内部",
 
 	-- Step 51: Naga Explorers
 	-- plural, as words: Naga Explorers = {npc:1907} Naga Explorer
@@ -209,7 +209,7 @@ return {
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "丛林捕猎者",
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
-	["The Jungle Stalkers roam the slopes west of the mine."] = "",
+	["The Jungle Stalkers roam the slopes west of the mine."] = "丛林捕猎者在矿洞西侧的山坡上游荡。",
 
 	-- Step 57: The north-west coast
 	["The north-west coast"] = "西北海岸",
@@ -220,20 +220,20 @@ return {
 	["{item:4611}; underwater"] = "{item:4611}：在水下",
 
 	-- Step 60: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 61: Rebel Camp
-	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "",
+	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "骑乘向东北经过奈辛瓦里营地，再沿道路向北前往山谷最北端的营地。",
 
 	-- Step 63: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:728}是 40 级精英，多数职业到 42 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",
 
 	-- Step 64: Level 42.16 at Zul'Mamwe
-	["Level 42.16 at Zul'Mamwe"] = "",
+	["Level 42.16 at Zul'Mamwe"] = "在祖玛维废墟升到42.16级",
 	-- {npc:737} Kebok · {area:1517} Uldaman
-	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "单人时跳过奈辛瓦里的三个精英狩猎任务，改在矿洞东边的祖玛维废墟击杀劈颅巨魔补足经验，每次击杀也能收集{npc:737}需要的獠牙。也可组队挑战{area:1517}副本。",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "击杀{npc:667}刷经验",
 
@@ -256,7 +256,7 @@ return {
 	["Level 42.16"] = "等级42.16",
 	-- {area:310} Crystalvein Mine · {area:35} Booty Bay · {area:1517} Uldaman
 	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "完成所选狩猎任务后，还没到42.16级？向南前往{area:35}途中，在{area:310}旁击杀冷眼蜥蜴补足经验。也可组队挑战{area:1517}副本。",
 	-- {npc:690} Cold Eye Basilisk
 	["grind on {npc:690}"] = "反复击杀{npc:690}补足经验",
 
@@ -308,7 +308,7 @@ return {
 
 	-- Step 85: Riding at 40
 	-- {npc:4753} Jartsam · {zone:1457} Darnassus · {npc:4730} Lelanai · {area:17203} Stormwind Harbor · {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
-	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {zone:1429}. Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4753}在{zone:1457}教授暗夜精灵，旁边是{npc:4730}的豹：从{area:17203}乘船前往{area:442}，再飞往{area:702}。Forever 可能允许任何种族向任何骑术训练师学习（未确认），例如{zone:1429}{area:88}的{npc:4732}。收藏指南“坐骑 · 40级”列出了所有颜色。",
+	["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {zone:1429}. Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4753}在{zone:1457}教授暗夜精灵，旁边是{npc:4730}的豹：从{area:17203}乘船前往{area:442}，再飞往{area:702}。无限版本可能允许任何种族向任何骑术训练师学习（未确认），例如{zone:1429}{area:88}的{npc:4732}。收藏指南“坐骑 · 40级”列出了所有颜色。",
 	-- {npc:4730} Lelanai
 	["{npc:4730}: other colours, 20g"] = "{npc:4730}：其他颜色，20金",
 
@@ -400,11 +400,11 @@ return {
 
 	-- Step 112: Loch Modan
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
-	["Ride east out of {zone:1426} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
+	["Ride east out of {zone:1426} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "从{zone:1426}向东骑行，穿过隧道进入{zone:1432}，再沿路前往{area:144}。",
 
 	-- Step 113: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
-	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "",
+	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "{npc:1470}在{area:144}旅店旁的地下。他需要的蘑菇长在{zone:1418}的{area:1517}挖掘场，下一份指南会前往那里，并在返回时经过{area:144}。",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 
@@ -417,6 +417,7 @@ return {
 	["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}独自在挖掘场东南方的{area:1898}扎营。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "奈辛瓦里营地东南边、通往{area:99}的丛林里有{npc:217588}：用{npc:217412}的昆虫学入门工具包里的工具捕捉一只。",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. No Skyborne riding trainer is known; the Forever client files {spell:1285849} under the one Riding skill, so {npc:4732} at {area:88} in eastern {zone:1429}, the nearest trainer to {zone:1453}, should teach it (unconfirmed). The Galestriders are sold by {npc:265756} in {area:16638} on Zephras Isle; Collectibles, Mounts · Level 40 lists them."] = "40级且有100金币时即可学习骑术，学会后会获得一匹坐骑。目前不知道天裔的骑术训练师在哪；Forever 客户端把{spell:1285849}归入同一个骑术技能，所以{zone:1429}东部{area:88}的{npc:4732}（离{zone:1453}最近的训练师）应该能教（未确认）。疾风陆行鸟由泽风岛{area:16638}的{npc:265756}出售；见“收藏品”中的“坐骑 · 40级”。",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4732} teaches Humans at {area:88} in eastern {area:12}, beside {npc:384}'s horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4732}在{area:12}东部的{area:88}教授人类，旁边是{npc:384}的马。无限 可能允许任何种族向任何骑术训练师学习（未确认）。收藏指南“坐骑 · 40级”列出了所有颜色。",
 	-- ["At 40 with 100 gold you can learn to ride, and learning it gives you a mount. {npc:4753} teaches Night Elves in {zone:1457}, beside {npc:4730}'s sabers: the boat from {area:17203} to {area:442}, then the flight to {area:702}. Forever may let any race learn from any riding trainer (unconfirmed), such as {npc:4732} at {area:88} in {area:12}. Collectibles, Mounts · Level 40 lists every colour."] = "40级且有100金时可以学习骑术，学会后会获得一匹坐骑。{npc:4753}在{zone:1457}教授暗夜精灵，旁边是{npc:4730}的豹：从{area:17203}乘船前往{area:442}，再飞往{area:702}。无限 可能允许任何种族向任何骑术训练师学习（未确认），例如{area:12}{area:88}的{npc:4732}。收藏指南“坐骑 · 40级”列出了所有颜色。",

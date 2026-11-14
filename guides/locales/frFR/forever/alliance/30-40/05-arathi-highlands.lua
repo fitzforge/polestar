@@ -28,8 +28,10 @@ return {
 	["Follow the road north to the draenei of the {area:657}."] = "Suivez la route vers le nord jusqu'aux draeneï du {area:657}.",
 
 	-- Step 7: Fallow Sanctuary
-	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One
-	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "Suivez la route vers l'est jusqu'à {area:76}. Les ennemis {npc:256028} laissent tomber les cristaux ; Noboru parcourt les ruines et laisse tomber son gourdin.",
+	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One · {quest:1392} Noboru the Cudgel · {npc:1776} Magtoor
+	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "Suivez la route vers l'est jusqu'à {area:76}. Les ennemis {npc:256028} laissent tomber les cristaux. {quest:1392} parcourt un long chemin à travers les ruines : si vous le croisez, tuez-le, son gourdin lance une quête pour {npc:1776}. Ne l'attendez pas.",
+	-- {quest:1392} Noboru the Cudgel
+	["from {quest:1392}: he walks a path through the ruins"] = "sur {quest:1392} : il parcourt un chemin à travers les ruines",
 
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
@@ -91,8 +93,10 @@ return {
 	["{zone:1455} flight master"] = "Maître de vol de {zone:1455}",
 
 	-- Step 22: Shadowy Assassin
-	-- {npc:2434} Shadowy Assassin · {area:271} Southshore
-	["A {npc:2434} lurks unseen on the edge of {area:271}; kill him and read the contract he carries."] = "Un {npc:2434} rôde, invisible, en bordure d'{area:271} ; tuez-le et lisez le contrat qu'il porte.",
+	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
+	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "Un {npc:2434} rôde, camouflé, en bordure d'{area:271}, et peu de joueurs le trouvent. Si vous le repérez, tuez-le et lisez le contrat qu'il porte : {npc:2276} le prend. Ne l'attendez pas : le reste de cette étape n'a pas besoin de lui.",
+	-- {npc:2434} Shadowy Assassin
+	["{npc:2434}, if you spot him"] = "{npc:2434}, si vous le repérez",
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "{npc:2276}, à l'intérieur",
 
@@ -107,9 +111,9 @@ return {
 	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
 
 	-- Step 27: Hay Weevil
-	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 28: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -119,8 +123,9 @@ return {
 	-- Step 29: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
 	["{area:318}: kill these as you meet them"] = "{area:318} : tuez-les au passage",
-	-- {area:321} Hammerfall
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Les kobolds Sèche-moustache creusent dans la gorge à l'est de {area:321} (Horde) ; contournez la ville par le nord. Ils lâchent à la fois les particules et le minerai de Krazek.\nAttention : chaque type de kobold s'enfuit chercher de l'aide quand sa vie est basse (les Kobolds à 30 %, les Géomètres et les Terrassiers à 15 %), ce qui peut en attirer d'autres.",
+	-- {area:321} Hammerfall · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Les kobolds Sèche-moustache creusent dans la gorge à l'est de {area:321} (Horde) ; contournez la ville par le nord. Ils lâchent les Poussières de Myzrael, pas le minerai de Krazek. Les Gisements de pierre de sang inférieure demandent {skill:186} 75 : minez quatre minerais, achetez-les à l'hôtel des ventes ou demandez à un ami mineur. L'objectif du minerai est facultatif ; continuez avec Myzrael si vous ne pouvez pas l'obtenir. Attention : chaque type de kobold s'enfuit chercher de l'aide quand sa vie est basse (les Kobolds à 30 %, les Géomètres et les Terrassiers à 15 %), ce qui peut en attirer d'autres.",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "",
 
@@ -286,7 +291,9 @@ return {
 	["South-east along the loch to the dig site."] = "Longez le loch vers le sud-est jusqu'au site de fouilles.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:2434} lurks unseen on the edge of {area:271}; kill him and read the contract he carries."] = "Un {npc:2434} rôde, invisible, en bordure d'{area:271} ; tuez-le et lisez le contrat qu'il porte.",
 	-- ["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}."] = "Chaque clé se trouve à l'un des cercles de pierres levées des Hautes-terres : à l'est des éclats, près de {area:320} et à l'ouest. La {object:2702} se dresse à l'ouest de {area:320}.",
+	-- ["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "Suivez la route vers l'est jusqu'à {area:76}. Les ennemis {npc:256028} laissent tomber les cristaux ; Noboru parcourt les ruines et laisse tomber son gourdin.",
 	-- ["Ebenezer Rustlocke"] = "Ebenezer Rustlocke",
 	-- ["Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves."] = "Escortez le professeur jusqu'à la plage au nord de la crique et protégez-le pendant qu'il travaille ; les nagas attaquent par vagues.",
 	-- ["Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves.\nCareful: The ambush is two level 40 water elementals, and they are immune to frost. If the fight happens inside the cave, the professor joins in instead of working and further elementals keep appearing; holding the elementals at the cave entrance, away from him, lets him finish with only the first two to deal with."] = "Escortez le professeur jusqu'à la plage au nord de la crique et protégez-le pendant qu'il travaille ; les nagas attaquent par vagues.\nAttention : l'embuscade se compose de deux élémentaires d'eau de niveau 40, insensibles au givre. Si le combat a lieu dans la grotte, le professeur s'y joint au lieu de travailler et d'autres élémentaires continuent d'apparaître ; retenir les élémentaires à l'entrée de la grotte, loin de lui, lui permet de terminer avec seulement les deux premiers à affronter.",
@@ -306,6 +313,7 @@ return {
 	-- ["Summon Succubus"] = "Invoquez la succube",
 	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "Les ogres Cassecrête tiennent les collines au nord de {area:280}. Plus au nord, un vieux coffre en bois contient le {item:3706} ; {npc:2320}, du {quest:537}, se tient juste à côté.",
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "Les kobolds Sèche-moustache creusent dans la gorge à l'est de {area:321} (Horde) ; contournez la ville par le nord. Ils laissent tomber les particules et le minerai de Krazek.",
+	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Les kobolds Sèche-moustache creusent dans la gorge à l'est de {area:321} (Horde) ; contournez la ville par le nord. Ils lâchent à la fois les particules et le minerai de Krazek.\nAttention : chaque type de kobold s'enfuit chercher de l'aide quand sa vie est basse (les Kobolds à 30 %, les Géomètres et les Terrassiers à 15 %), ce qui peut en attirer d'autres.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "Le Syndicat tient la ferme au nord-ouest de {area:320}. Un {npc:217589} rampe dans la ferme : capturez-en un avec le kit d'entomologie de {npc:217412}, puis cochez-le.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "Le Syndicat tient la ferme au nord-ouest du {area:320}. Un {npc:217589} rampe dans la ferme : attrapez-en un avec le kit d'entomologiste débutant de {npc:217412}, puis cochez-le.\nAttention : les Malandrins du Syndicat sont de niveau 30-31 et peuvent lancer Camouflage hors combat : ils sont souvent furtifs et difficiles à repérer.",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Les trolls Witherbark vivent dans les collines au sud de {area:314} ; les Sorciers-docteurs se tiennent dans le village, les Chasseurs des ombres gardent le fond de la vallée.",

@@ -18,6 +18,7 @@
 --       attune = { A = n, H = n } } }   -- level order, no page decoded
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id)
 --   Dungeons.Get(key) -> { key, name, kind, forever, minLevel, maxLevel, players, map, zone, zoneName, entrance } | nil
+--   Dungeons.ForMap(mapID) -> key | nil   -- the dungeon or raid whose instance map that is (Compat.GetInstanceMapID)
 --   Dungeons.Entrance(key) -> map, x, y, f | nil
 --   Dungeons.BestAt(key) -> level | nil   -- the level it suits best, inside its range: one under the
 --       median level of its encounter bosses, else of all its bosses, else of its quests, else the
@@ -37,6 +38,11 @@
 --         the quest a breadcrumb leads to, its exclusive group),
 --         rewards = { items = { { id, name, quality, choice } }, xp, money, rep = { { faction, name, value } } },
 --         bosses = { names } }
+--   Dungeons.QuestFor(quest) -> who, why | nil   -- who a page, chain or attunement quest is for
+--       (#1730: The Orb of Soran'ruk is the Warlocks'): who = { classes, races } (Lookup.QuestFor
+--       on the Codex quest's masks; the page's `classes` when the Codex has no record), nil when
+--       anyone of its side may take it; why = "class" | "race" when this character may not
+--       (Lookup.QuestBlock, the rule the pick-up guide leaves such a quest out by)
 --   Dungeons.ObjectiveText(quest) -> text | nil   -- its objectives in the client's language, one a line
 --   Dungeons.Bosses(key) -> { { order, name, npc, level, object, role, encounter, quests = { { id, how, item, itemName } } } }
 --       object: a chest boss's object id (npc nil); role: "rare" | "event" | "optional" for the
@@ -45,10 +51,11 @@
 --       how: "kill" (an objective), "item" (drops an objective item), "starts" (drops the item
 --       that starts it), "involved" (DungeonJournal names it for the quest)
 --   Dungeons.Open(key|nil)   -- fires SHOW_DUNGEON(key); the hub section listens
---   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop]) -> ok   (Nav)
+--   Dungeons.GuideTo(key) -> ok ; Dungeons.GuideToPoint(point, label[, stop[, warning[, what]]]) -> ok   (a trip, Nav.StartTrip)
 --   Dungeons.ShowOnMap(key) -> ok   -- the world map on the entrance's zone
 --   Dungeons.Find(text) -> key | nil   -- by name (the client's language or English) or key
---   Dungeons.Register(group, a, b)  -- pack files only
+--   Dungeons.Register(group, a, b)  -- pack files only ("meta", "dungeon", and "marks": the dungeon marks
+--       per side, Dungeons/Mark.lua)
 --   Dungeons.Attunements(key, faction) -> { attunement, ... }   -- faction "A" | "H" | nil (all)
 --       attunement = { id, name, kind = "attunement"|"key"|"item", need = "each"|"one", faction,
 --         item = { id, name, quality }, note, level, any, goal = { questIds }, steps = { step, ... },
@@ -67,7 +74,8 @@
 --   screen cropped square): Dungeons/Art.lua.
 -- Settings: dungeons.enabled, dungeons.headsUp (the heads-up when a
 -- dungeon opens up, UI/DungeonToast.lua); per character, the dungeons run in leveling
--- guides (Dungeons.ROUTE, Engine.ChooseDungeon). Command: /polestar dungeons [name].
+-- guides (Engine.ChooseDungeon; their rows, with Dungeons.ROUTE, are the settings'
+-- addon's: Polestar_Options/Dungeons/Options.lua). Command: /polestar dungeons [name].
 
 local ADDON, ns = ...
 local L = ns.L
@@ -101,6 +109,10 @@ function Dungeons.Register(group, a, b)
 		if type(a) == "table" then for k, v in pairs(a) do summaries[k] = v end end
 		if type(b) == "table" then for k, v in pairs(b) do sources[k] = v end end
 		openKey, openPage, bestAt = nil, nil, {}
+	elseif group == "marks" then
+		-- The dungeon marks per side, as the Codex build wrote them (Dungeons/Mark.lua reads them).
+		if type(a) == "table" then Dungeons.marks = a end
+		if Dungeons.MarksChanged then Dungeons.MarksChanged() end
 	end
 end
 
@@ -298,6 +310,14 @@ function Dungeons.Get(key)
 	return summary(key, s)
 end
 
+function Dungeons.ForMap(mapID)
+	if type(mapID) ~= "number" or not ready() then return nil end
+	for key, s in pairs(summaries) do
+		if s.map == mapID then return key end
+	end
+	return nil
+end
+
 -- The level a dungeon suits best (a player asked why Uldaman, 35-47, was "for
 -- your level" at 35, where most of it suits ~42). The players' side of the
 -- bosses: one level under their median, which lands where a run fits
@@ -380,6 +400,26 @@ function Dungeons.Quest(key, id)
 	if not (p and id) then return nil end
 	for _, q in ipairs(p.quests) do if q.id == id then return q end end
 	return p.chain[id]
+end
+
+local WHO_WHY = { class = true, race = true }
+function Dungeons.QuestFor(q)
+	if type(q) ~= "table" or not q.id then return nil end
+	local Lk, C = ns.Lookup, ns.Codex
+	local rec = C and C.Quest and C.Quest(q.id)
+	local who = rec and Lk and Lk.QuestFor and Lk.QuestFor(rec)
+	if not who and not rec and type(q.classes) == "table" and #q.classes > 0 then who = { classes = q.classes } end
+	if not who then return nil end
+	local p = Lk and Lk.PlayerInfo and Lk.PlayerInfo()
+	local why
+	if rec and p then
+		why = Lk.QuestBlock(rec, p)
+		if not WHO_WHY[why] then why = nil end
+	elseif p and who.classes then
+		why = "class"
+		for _, c in ipairs(who.classes) do if c == p.class then why = nil end end
+	end
+	return who, why
 end
 
 function Dungeons.Bosses(key)
@@ -472,25 +512,32 @@ end
 
 function Dungeons.Open(key)
 	if not enabled() then
-		ns.Print(L["Dungeons are turned off (Options > Discovery > Dungeons)."])
+		ns.Print(L["Dungeons are turned off (Options > Discovery > Lookup)."])
 		return false
 	end
 	ns.Fire("SHOW_DUNGEON", key)
 	return true
 end
 
--- `stop`: Nav.SetTarget's stop kind ("dungeon" for an entrance); `warning`:
--- the line the arrow shows under the label (Dungeons.EnemyEntrance).
-function Dungeons.GuideToPoint(point, label, stop, warning)
+-- The arrow to `point`. `stop`: Nav.SetTarget's stop kind; "dungeon" (an
+-- entrance) makes it a trip (Nav.StartTrip, "Back to the guide" on the way)
+-- that ends through the instance's portal (#1686), labelled `what`
+-- ("Dungeon", "Raid"). `warning`: the line the arrow shows under the label
+-- (Dungeons.EnemyEntrance). Any other point (a giver, a turn-in) stays the
+-- arrow's until the step changes, as a point set on the map does.
+function Dungeons.GuideToPoint(point, label, stop, warning, what)
 	local Nav = ns.Nav
 	if not (type(point) == "table" and point.map and point.x and point.y and Nav and Nav.SetTarget) then return false end
-	return Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning) and true or false
+	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning)
+	if not t then return false end
+	if stop == "dungeon" then Nav.StartTrip(t, label or point.name, what or L["Dungeon"], "instance") end
+	return true
 end
 
 function Dungeons.GuideTo(key)
 	local d = Dungeons.Get(key)
 	if not (d and d.entrance) then return false end
-	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key))
+	return Dungeons.GuideToPoint(d.entrance, d.name, "dungeon", Dungeons.EnemyEntrance(key), d.kind == "raid" and L["Raid"] or L["Dungeon"])
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat
@@ -504,73 +551,3 @@ end
 ns.RegisterCommand("dungeons", function(rest)
 	Dungeons.Open(rest ~= "" and Dungeons.Find(rest) or nil)
 end, L["Dungeon quests, bosses and entrances"])
-
-if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Discovery"], tab = L["Dungeons"], section = ENCOUNTER_JOURNAL,
-		controls = {
-			{ kind = "toggle", key = "dungeons.enabled", label = L["Dungeons"],
-				help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
-			{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], child = true, disabled = function() return not ns.Get("dungeons.enabled") end,
-				help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-
-	-- The dungeons a leveling guide's `when dungeon` steps can be for, one
-	-- toggle each, all off: the solo route is the default. The Classic
-	-- dungeons of the Codex's instances (data/codex/entrances.json), by
-	-- level, as Map id and English name; the name shows in the client's
-	-- language when it has one (Names.Instance). The choice is per character
-	-- (Engine.ChooseDungeon). Only the ones this character's guides have
-	-- steps for are offered (Engine.GuideDungeons, read at login once the
-	-- guides are registered; none: no section); a choice saved for one not
-	-- offered is kept.
-	local ROUTE = {
-		{ 389, "Ragefire Chasm" }, { 43, "Wailing Caverns" }, { 36, "The Deadmines" }, { 33, "Shadowfang Keep" },
-		{ 48, "Blackfathom Deeps" }, { 34, "The Stockade" }, { 90, "Gnomeregan" }, { 47, "Razorfen Kraul" },
-		{ 189, "Scarlet Monastery" }, { 129, "Razorfen Downs" }, { 70, "Uldaman" }, { 209, "Zul'Farrak" },
-		{ 349, "Maraudon" }, { 109, "Sunken Temple" }, { 230, "Blackrock Depths" }, { 229, "Blackrock Spire" },
-		{ 429, "Dire Maul" }, { 289, "Scholomance" }, { 329, "Stratholme" },
-	}
-	Dungeons.ROUTE = ROUTE
-	ns.OnLogin(function()
-		local E = ns.Engine
-		local have = E and E.GuideDungeons and E.GuideDungeons() or {}
-		local controls = {}
-		for _, d in ipairs(ROUTE) do
-			local map, name = d[1], d[2]
-			if have[map] then
-				controls[#controls + 1] = { kind = "toggle",
-					label = function() return ns.Names and ns.Names.Instance and ns.Names.Instance(map) or name end,
-					help = L["Leveling guides take you through this dungeon where they have steps for it. Off: they keep to the solo route. More dungeons join this list as they are added to the guides' route."],
-					get = function() return E.DungeonChosen(map) end,
-					set = function(on) E.ChooseDungeon(map, on) end }
-			end
-		end
-		if #controls == 0 then return end
-		local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Dungeons"], section = L["Dungeons in leveling guides"], controls = controls })
-		if not done and geterrorhandler then geterrorhandler()(why) end
-	end)
-
-	-- The group quests of this character's guides (`when group`), one toggle
-	-- each: on, do it with a group; off, skip it (or not answered yet: the
-	-- guide asks when it gets there). Per character (Engine.AnswerGroup). Read
-	-- at login, once the guides are registered; none: no tab.
-	ns.OnLogin(function()
-		local E = ns.Engine
-		local list = E and E.GroupQuests and E.GroupQuests() or {}
-		if #list == 0 then return end
-		local quests = {}
-		for _, gq in ipairs(list) do
-			local q = gq.quest
-			quests[#quests + 1] = { kind = "toggle",
-				label = function() return ns.Names and ns.Names.Quest and ns.Names.Quest(q) or gq.title or ("#" .. q) end,
-				help = L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."],
-				get = function() return E.GroupAnswer(q) == "do" end,
-				set = function(on) E.AnswerGroup(q, on and "do" or "skip") end }
-		end
-		local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Group quests"], section = L["Group quests in leveling guides"], controls = quests })
-		if not done and geterrorhandler then geterrorhandler()(why) end
-	end)
-end

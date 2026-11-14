@@ -29,6 +29,10 @@ struct Case {
 	route_travel: bool,
 	/// The world's zone crossings (the writer's walks go over them).
 	crossings: Option<forge_world::world::Crossings>,
+	/// The pass-by pickups (pass_by.rs) and nearby flight paths (nearby_fp.rs): on in the writer's
+	/// runs, off here unless a case is about them.
+	pass_by: bool,
+	nearby_fp: bool,
 }
 
 impl Default for Case {
@@ -46,6 +50,8 @@ impl Default for Case {
 			level_fraction: false,
 			route_travel: false,
 			crossings: None,
+			pass_by: false,
+			nearby_fp: false,
 		}
 	}
 }
@@ -103,6 +109,8 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		walks: None,
 		borders: borders.as_ref(),
 		fresh_openers: forge_writer::post::FreshOpeners::Flag,
+		pass_by: c.pass_by,
+		nearby_fp: c.nearby_fp,
 	})
 	.unwrap();
 	Run { out, guides }
@@ -115,6 +123,22 @@ fn pick(lines: &[String], re: &str) -> Vec<String> {
 
 fn idx(lines: &[String], l: &str) -> i64 {
 	lines.iter().position(|x| x == l).map_or(-1, |i| i as i64)
+}
+
+/// The travel-only steps (one `goto`, nothing else to do) into `zone`, in order; each says where it
+/// leads, never just the zone's name (#1450): asserted here.
+fn zone_walks(lines: &[String], zone: &str) -> Vec<i64> {
+	let mut out = Vec::new();
+	for (i, l) in lines.iter().enumerate() {
+		let Some(title) = l.strip_prefix("step ") else { continue };
+		let body: Vec<&String> = lines[i + 1..].iter().take_while(|x| !x.is_empty() && !x.starts_with("step ")).collect();
+		let goals: Vec<&&String> = body.iter().filter(|x| m(x, r"^\s+(accept|turnin|kill|collect|interact|use|complete|goto|talk|fly|getfp|sethome|hearth|level|train|vendor)\b")).collect();
+		if goals.len() == 1 && goals[0].trim_start().starts_with("goto ") && body.iter().any(|x| **x == format!("  zone {zone}")) {
+			assert!(!["", "To ", "Back to "].iter().any(|p| title == format!("{p}{zone}")), "a travel step named just {zone:?}: {lines:#?}");
+			out.push(i as i64);
+		}
+	}
+	out
 }
 
 fn has(lines: &[String], l: &str) -> bool {
@@ -342,7 +366,9 @@ fn zone_move_gets_a_goto_and_item_accept_follows_item() {
 		..Case::default()
 	};
 	let text = run(&c, None).text("a");
-	assert!(m(&text, r#"step The Barrens\n {2}zone The Barrens\n {2}goto 95\.0,95\.0 "The Barrens""#));
+	// (Labelled with where it leads, the step it leads to, never just the zone's name, #1450.)
+	assert!(m(&text, r#"step To Two\n {2}zone The Barrens\n {2}goto 95\.0,95\.0 "To Two""#), "{text}");
+	assert!(!m(&text, r"step The Barrens\n"), "{text}");
 	assert!(m(&text, r"collect 50\n {2}accept 3"));
 }
 
@@ -1929,10 +1955,73 @@ fn inserted_grind_top_up_is_a_step_of_its_own_at_the_camp_before_the_hand_ins() 
 	assert!(
 		m(
 			&text,
-			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill: they take you to level 13\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
+			r#"step Camp\n {2}kill 20 quest 1\.1\n\nstep Level 12\.4\n( {2}zone Durotar\n)? {2}when level<12\.4\n {2}tip Top up here to level 12\.4 before the hand-ins at Razor Hill\.\n {2}goto 75\.0,75\.0 map 1411 "Mottled Boar"\n {2}level 12\.4 grind 20 +-- grind on Mottled Boar\n\nstep Hub again"#
 		),
 		"{text}"
 	);
+}
+
+// Grind or hand in first (fix 2): a top-up before the town keeps the target the route needs after the town's
+// hand-ins, less their XP; one they cover whole is not written; "they take you to level N" is the
+// hand-ins' XP reckoned, not the target's next level.
+#[test]
+fn a_grind_top_up_takes_the_hand_ins_before_the_level_is_needed_off_its_target() {
+	let c = |xp1: f64, order: Vec<Value>| Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 10-20",
+				"zone Durotar",
+				"",
+				"step Hub",
+				"  accept 1",
+				"",
+				"step Camp",
+				"  kill 20 quest 1.1",
+				"",
+				"step Hub again",
+				"  turnin 1",
+				"  accept 2",
+				"  turnin 2",
+				"",
+			],
+		)],
+		route: json!({ "diff": {}, "order": order }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }, { "id": 2, "objs": [] }] }),
+		quests: json!({
+			"1": { "title": "One", "level": 12, "xp": xp1, "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "kill", "id": 20 }] },
+			"2": { "title": "Two", "level": 13, "minLevel": 13, "xp": 12000, "start": { "npc": [8] }, "end": { "npc": [8] } },
+		}),
+		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } }, "20": { "name": "Mottled Boar", "spawns": { "1411": { "f": "e", "pts": [[75, 75]] } } } }),
+		..Case::default()
+	};
+	let head = |target: f64| {
+		vec![
+			json!({ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) }),
+			json!({ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) }),
+			json!({ "t": "level", "lvl": 12.2, "target": target, "pt": 1, "from": "inserted" }),
+			json!({ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) }),
+		]
+	};
+	let tip = |text: &str| text.lines().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default().to_string();
+	let razor = area("Razor Hill", "Durotar", 1411);
+	// (12.2 to 12.4 is 2,020 XP; One gives 1,010: the grind is to 12.3, and One takes the player to 12.4,
+	// not to 13.)
+	let text = run(&c(1010.0, head(12.4)), Some(&razor)).text("a");
+	assert!(m(&text, r"step Level 12\.3\n( {2}zone Durotar\n)? {2}when level<12\.3\n"), "{text}");
+	assert_eq!(tip(&text), "  tip Top up here to level 12.3 before the hand-ins at Razor Hill.", "{text}");
+	// (One's 3,000 cover it whole: no top-up.)
+	let text = run(&c(3000.0, head(12.4)), Some(&razor)).text("a");
+	assert!(!text.contains("step Level"), "{text}");
+	// (Two needs 13: the hand-ins before it count, the grind is to 13; One and Two take a player at 13
+	// to 14.)
+	let mut order = head(13.1);
+	order.push(json!({ "t": "accept", "q": 2, "pt": 0, "from": f("a", 14) }));
+	order.push(json!({ "t": "turnin", "q": 2, "pt": 0, "from": f("a", 15) }));
+	let text = run(&c(1140.0, order), Some(&razor)).text("a");
+	assert_eq!(tip(&text), "  tip Top up here to level 13 before the hand-ins at Razor Hill: they take you to level 14.", "{text}");
 }
 
 // Fitz's grind policy (2026-11-08, final route review): every written grind step keeps its gate and says
@@ -1963,14 +2052,14 @@ fn a_grind_top_up_names_the_dungeons_of_its_level_for_the_routes_faction() {
 		r.read("a").into_iter().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default()
 	};
 	let horde = tip(Some("Horde"), 21.4);
-	assert!(horde.ends_with("they take you to level 22. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
+	assert!(horde.ends_with("before the hand-ins at Razor Hill. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
 	let alliance = tip(Some("Alliance"), 21.4);
 	assert!(alliance.ends_with(" Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."), "{alliance}");
 	let high = tip(Some("Horde"), 28.9);
 	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead."), "{high}");
 	// Below every dungeon's band: no sentence.
 	let low = tip(Some("Horde"), 12.4);
-	assert!(low.ends_with("they take you to level 13."), "{low}");
+	assert!(low.ends_with("before the hand-ins at Razor Hill."), "{low}");
 }
 
 #[test]
@@ -2047,7 +2136,7 @@ fn a_skipped_group_familys_xp_is_ground_back_after_its_step_for_skippers_only() 
 	assert_eq!(route.solo_fallback.len(), 1);
 	assert_eq!(route.order[3].group, Some(2));
 	// A title with quotes (Wanted: "Hogger") is written without them: the pack refused the comma after
-	// the tip's quoted part, C14Plan.
+	// the tip's quoted part, the c14 plan.
 	let hogger = json!([{ "q": 2, "title": "Wanted:  \"Hogger\"", "size": 3, "level": 12, "mobs": [{ "npc": 21, "name": "Ogre Brute", "level": 12, "rank": 1 }], "quests": [2], "why": "faster than grinding" }]);
 	let text = run(&c(json!({ "diff": {}, "order": order, "groups": hogger, "soloFallback": [{ "root": 2, "after": 3, "target": 12.4, "min": 3 }] })), None).text("a");
 	assert!(text.contains("  tip If you skipped Wanted: Hogger, grind here"), "{text}");
@@ -2312,7 +2401,7 @@ fn a_class_detour_comes_back_before_everyones_walk_on() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let (back, walk) = (idx(&g, "step Back to Durotar"), idx(&g, "step The Barrens"));
+	let (back, walk) = (zone_walks(&g, "Durotar").first().copied().unwrap_or(-1), zone_walks(&g, "The Barrens").last().copied().unwrap_or(-1));
 	assert!(back >= 0 && walk > back, "{g:#?}");
 	assert_eq!(g[back as usize + 1], "  only Druid");
 }
@@ -2456,13 +2545,13 @@ fn a_starts_way_onto_the_shared_route_takes_its_waiting_class_steps_on_the_way()
 		..Case::default()
 	};
 	let g = run(&c, None).read("s");
-	let (way, class) = (idx(&g, "step The Barrens"), idx(&g, "step Warrior Quest"));
+	let (way, class) = (zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1), idx(&g, "step Warrior Quest"));
 	assert!(way >= 0 && class > way, "{g:#?}");
 }
 
 #[test]
 fn a_finishing_line_in_a_step_written_before_its_accept_goes_with_its_work() {
-	// C14Plan Human, Elwynn: v1's "Murlocs and the Collector" holds the Prowlers' required `kill 118
+	// The c14 plan, Human, Elwynn: v1's "Murlocs and the Collector" holds the Prowlers' required `kill 118
 	// quest 52` (finishing the optional kills on the way), and Croaky's 91740. The route took 91740
 	// there before accepting 52, so the step came first: a `kill` with no accept before it. The line
 	// goes with 52's work.
@@ -2747,12 +2836,13 @@ fn a_walk_into_another_zone_goes_over_its_zone_crossing() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let (cross, walk) = (idx(&g, "step Into Winterspring"), idx(&g, "step Winterspring"));
+	let ws = zone_walks(&g, "Winterspring");
+	let (cross, walk) = (ws.first().copied().unwrap_or(-1), ws.get(1).copied().unwrap_or(-1));
 	assert!(cross >= 0 && walk > cross, "{g:#?}");
 	assert_eq!(&g[cross as usize + 1..cross as usize + 3], ["  zone Winterspring", "  goto 50.5,90.0 \"Into Winterspring\""], "{g:#?}");
-	// No crossings known: the one goto.
+	// No crossings known: the one goto (labelled where it leads, not just "Winterspring", #1450).
 	let g = run(&Case { crossings: None, ..c }, None).read("a");
-	assert!(idx(&g, "step Into Winterspring") < 0 && idx(&g, "step Winterspring") >= 0, "{g:#?}");
+	assert_eq!(zone_walks(&g, "Winterspring").len(), 1, "{g:#?}");
 }
 
 fn sw_hillsbrad_world() -> (Value, Value) {
@@ -3055,7 +3145,7 @@ fn the_routes_boat_is_the_last_thing_at_the_dock_town() {
 
 #[test]
 fn v1s_travel_step_for_the_routes_ride_goes_with_that_ride() {
-	// Rev15A2 (15): v1's Ratchet step (flight path, boat to Booty Bay) went to the route's earlier
+	// c15 review (15): v1's Ratchet step (flight path, boat to Booty Bay) went to the route's earlier
 	// Barrens pass, before the hearth to Theramore: a walk to Ratchet and a flight back to Theramore,
 	// then a flight to Ratchet again for the route's own boat.
 	let c = Case {
@@ -3405,7 +3495,7 @@ fn a_class_flight_off_is_written_at_the_flight_master_the_route_walks_away_from(
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let walk = idx(&g, "step The Barrens");
+	let walk = zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1);
 	assert!(walk >= 0 && idx(&g, "step Druid trainer") < walk, "{g:#?}");
 }
 
@@ -3432,7 +3522,7 @@ fn the_routes_way_to_a_step_for_other_races_is_its_own_races() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("start");
-	let walk = idx(&g, "step The Barrens");
+	let walk = zone_walks(&g, "The Barrens").first().copied().unwrap_or(-1);
 	assert!(walk >= 0, "{g:#?}");
 	assert_ne!(g[walk as usize + 1], "  only Orc,Skyborne", "{g:#?}");
 }
@@ -3514,6 +3604,70 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 			"  turnin 6"
 		]
 	);
+}
+
+#[test]
+fn a_quest_handed_in_on_the_spot_is_never_accepted_or_tracked() {
+	// #1699: Essence of the Exile (1714) at Bath'rah's Cauldron and the Scourgestones (5510) are handed in
+	// on the spot (quests.json `direct`, the server's QuestType 0): never in the log, so an accept never
+	// ticks and held its step, and the objectives bound to it never counted. The accepts go (a step left
+	// with nothing goes too), the turn-ins are direct (the accept's `only` with them), the objective lines
+	// are plain collects (with the quest's count) and a `complete` becomes the collects of its items.
+	// Ordinary quests keep theirs.
+	let quests: BTreeMap<u32, forge_writer::input::Quest> = serde_json::from_value(json!({
+		"1714": { "title": "Essence of the Exile", "direct": true, "objectives": [{ "type": "item", "id": 4480, "count": 8 }] },
+		"5510": { "title": "Minion's Scourgestones", "direct": true, "repeatable": true },
+		"3804": { "title": "Morrowgrain to Thunder Bluff", "direct": true, "objectives": [{ "type": "item", "id": 11040, "count": 10 }] },
+		"1712": { "title": "Cyclonian", "objectives": [{ "type": "item", "id": 6851, "count": 1 }] }
+	}))
+	.unwrap();
+	let data = Data { quests, ..Data::default() };
+	let mut files = vec![
+		[
+			"step Light's Hope Chapel",
+			"  accept 5510 only Human              -- Argent Officer",
+			"",
+			"step Bath'rah",
+			"  accept 1712",
+			"  accept 1714 object 89931            -- Bath'rah's Cauldron",
+			"",
+			"step The exiles",
+			"  collect 4480 quest 1714.1 optional @50.4,50.8 -- Thundering Charm",
+			"  collect 12840 quest 5510.1",
+			"  collect 6851 quest 1712.3",
+		]
+		.join("\n"),
+		[
+			"step The cauldron",
+			"  accept 5510",
+			"  turnin 5510",
+			"  turnin 1714 object 89931            -- Bath'rah's Cauldron",
+			"  accept 3804 optional",
+			"  complete 3804 optional              -- Bashana",
+			"  turnin 3804 optional",
+			"  turnin 1712",
+		]
+		.join("\n"),
+		["step Nafien", "  when complete 3804", "  when onquest 1714", "  turnin 1712"].join("\n"),
+	];
+	forge_writer::post::direct_hand_ins(&mut files, &data);
+	assert_eq!(
+		files[0].split('\n').collect::<Vec<_>>(),
+		vec!["step Bath'rah", "  accept 1712", "", "step The exiles", "  collect 4480 x8 optional @50.4,50.8 -- Thundering Charm", "  collect 12840", "  collect 6851 quest 1712.3",]
+	);
+	assert_eq!(
+		files[1].split('\n').collect::<Vec<_>>(),
+		vec![
+			"step The cauldron",
+			"  turnin 5510 direct",
+			"  turnin 1714 direct object 89931 -- Bath'rah's Cauldron",
+			"  collect 11040 x10 optional -- Bashana",
+			"  turnin 3804 direct optional",
+			"  turnin 1712",
+		]
+	);
+	// `when complete` reads as the bags holding what it asks for, `when onquest` as the quest being open.
+	assert_eq!(files[2].split('\n').collect::<Vec<_>>(), vec!["step Nafien", "  when has 11040 x10", "  when available 1714", "  turnin 1712"]);
 }
 
 #[test]
@@ -3691,7 +3845,8 @@ fn a_class_way_prices_its_walks_over_the_zone_crossings() {
 	};
 	let g = run(&c, None).read("a");
 	assert!(pick(&g, r"^\s+fly\s").is_empty() && pick(&g, r"flight master").is_empty(), "{g:#?}");
-	let (into, there, takar) = (idx(&g, "step Into The Barrens"), idx(&g, "step The Barrens"), idx(&g, "step Takar the Seer"));
+	let into = idx(&g, "step Into The Barrens");
+	let (there, takar) = (zone_walks(&g, "The Barrens").into_iter().find(|&w| w > into).unwrap_or(-1), idx(&g, "step Takar the Seer"));
 	assert!(into >= 0 && into < there && there < takar, "{g:#?}");
 	assert!(g[into as usize + 1] == "  only Warlock" && g[there as usize + 1] == "  only Warlock", "{g:#?}");
 }
@@ -3918,7 +4073,7 @@ fn a_class_crossing_from_a_dock_out_of_reach_walks_to_its_zone_first() {
 	};
 	let g = run(&c, None).read("a");
 	let z = idx(&g, "step Zeppelin to Undercity");
-	let w = idx(&g, "step Durotar");
+	let w = zone_walks(&g, "Durotar").first().copied().unwrap_or(-1);
 	assert!(w < z && z < idx(&g, "step Tirisfal"), "{g:#?}");
 	assert_eq!(g[w as usize + 1], "  only Paladin", "{g:#?}");
 }
@@ -4452,7 +4607,7 @@ fn a_step_with_nothing_for_everyone_but_some_races_lines_is_theirs() {
 	let g = run(&c, None).read("a");
 	let s = idx(&g, "step To the Undercity") as usize;
 	assert_eq!(g[s + 1], "  only Skyborne", "{g:#?}");
-	assert!(!g.iter().any(|l| m(l, r#"^\s+goto .*"Undercity""#)), "{g:#?}");
+	assert!(!g.iter().any(|l| m(l, r#"^\s+goto .*Undercity""#)), "{g:#?}");
 }
 
 #[test]
@@ -4834,9 +4989,9 @@ fn a_class_with_no_trainer_at_the_stop_trains_at_the_routes_pass_by_its_own() {
 
 #[test]
 fn a_class_is_not_dropped_for_a_later_training_without_its_trainer() {
-	// c14 Horde 40-50 (Rev14H2 B1): Orgrimmar has no Druid trainer, and the route's next training is
+	// c14 Horde 40-50 (c14 review B1): Orgrimmar has no Druid trainer, and the route's next training is
 	// Orgrimmar again eleven levels on; Druids were dropped from both. With the route's pass by one of
-	// theirs within four levels they train there (no trip from Orgrimmar, c15 Rev15H1); with it later,
+	// theirs within four levels they train there (no trip from Orgrimmar, c15 review); with it later,
 	// their own trip from the stop.
 	let mut c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 39-51", "zone Durotar", "", "step Org", "  accept 1", "", "step Later", "  turnin 1", ""])],
@@ -4865,7 +5020,7 @@ fn a_class_is_not_dropped_for_a_later_training_without_its_trainer() {
 	let g = run(&c, None).read("a");
 	let first = g.iter().position(|l| m(l, r"^\s+train class")).unwrap_or_else(|| panic!("{g:#?}"));
 	assert!(!g[first].contains("Druid"), "{g:#?}");
-	// (A step of its own at the Druid trainer, not the stop's, c15 Rev15SkyA.)
+	// (A step of its own at the Druid trainer, not the stop's, c15 review.)
 	let druid = idx(&g, "step Druid trainer");
 	assert!(druid >= 0 && druid < idx(&g, "  turnin 1") && g[druid as usize..].iter().any(|l| m(l, r"^\s+train class only Druid -- Turak")), "{g:#?}");
 	// (Turak is in Durotar too: the note does not say Durotar has none, c15 Mai'ah in Durotar.)
@@ -6214,7 +6369,7 @@ fn an_area_steps_goals_run_nearest_first_with_a_named_higher_level_target_last()
 
 #[test]
 fn a_shared_quests_lines_take_its_accepts_audience() {
-	// RevA (c13 Westfall): Testing the Wells' goals said `only Dwarf,Gnome,Skyborne` while its accept
+	// c13 review, Westfall: Testing the Wells' goals said `only Dwarf,Gnome,Skyborne` while its accept
 	// and hand-in took Night Elves too (R5). The Druids' Principal Source hand-in stays theirs: its
 	// accept is in a Night Elf Druid step.
 	let text = [
@@ -6466,7 +6621,7 @@ fn a_training_stop_where_the_route_stands_reads_the_zone_the_step_before_named()
 
 #[test]
 fn the_routes_buy_item_is_written_at_its_stop_and_the_task_makes_no_trip() {
-	// Rev15H2 (25): the planner buys Jarl's spices at the Orgrimmar training stop (its `buy` item); the
+	// c15 review (25): the planner buys Jarl's spices at the Orgrimmar training stop (its `buy` item); the
 	// writer ignored the item and still sent the player from the quest's task to a vendor and back.
 	let a = vec!["guide t/a", "title A", "levels 1-5", "zone Tirisfal Glades", "", "step Jarl", "  accept 1", "  buy 50 x1", "  turnin 1", "", "step Stop", "  zone The Barrens", "  accept 2", ""];
 	let c = Case {
@@ -6498,7 +6653,7 @@ fn the_routes_buy_item_is_written_at_its_stop_and_the_task_makes_no_trip() {
 
 #[test]
 fn a_task_keyed_to_its_hand_in_line_writes_no_turn_in_ahead_of_the_routes() {
-	// Rev15 dup-trip (Un'Goro, Lost!): the task of finding Ringo is keyed to the hand-in line; the hand-in
+	// c15 review, dup-trip (Un'Goro, Lost!): the task of finding Ringo is keyed to the hand-in line; the hand-in
 	// was written at the task, ahead of the Marshal's Refuge work the route does first, then back to Ringo.
 	let a = vec!["guide t/a", "title A", "levels 1-5", "zone Durotar", "", "step Refuge", "  accept 1", "  accept 2", "", "step Ringo", "  turnin 1", "", "step Camp", "  turnin 2", ""];
 	let c = Case {
@@ -6625,7 +6780,7 @@ fn a_v1_step_that_only_learns_a_flight_path_the_route_does_not_go_for_goes() {
 
 #[test]
 fn an_under_level_class_step_is_not_deferred_into_a_shared_guide() {
-	// RevDwarfGnome3 D1: the Dwarf Paladins' Tome of Divinity (level 12) at 11.6 waited for the route's
+	// Review: the Dwarf Paladins' Tome of Divinity (level 12) at 11.6 waited for the route's
 	// next Ironforge pass, in the shared guides, and was lost with the canonical start's writing of them.
 	let start = lines(&START_OT, &["", "step Hub", "  accept 1", "", "step Tome", "  only Paladin", "  accept 9", "", "step Hub again", "  turnin 1", ""]);
 	let shared = vec!["guide t/shared", "title Shared", "levels 5-15", "zone Durotar", "", "step Hub", "  accept 2", ""];
@@ -7444,7 +7599,7 @@ fn a_held_class_step_is_titled_for_its_giver_in_the_zone() {
 
 #[test]
 fn a_split_steps_second_tip_line_goes_with_its_npcs_piece_too() {
-	// RevUndead3 U2 (#742): only a step's first tip line was read; Simmer's note on the second stayed
+	// Review (#742): only a step's first tip line was read; Simmer's note on the second stayed
 	// with Calvin's duel. Every tip line is read, and a sentence left starts with a capital.
 	let c = Case {
 		files: vec![(
@@ -7495,7 +7650,7 @@ fn a_split_steps_second_tip_line_goes_with_its_npcs_piece_too() {
 
 #[test]
 fn a_class_away_comes_back_to_where_the_route_goes_on() {
-	// RevHuman3 H4: Warlocks back from their Stormwind steps were sent to the route's training stop it
+	// Review: Warlocks back from their Stormwind steps were sent to the route's training stop it
 	// had left (Goldshire), then on to Rainer: they come back to where the route goes on. Here the
 	// Shamans flew to Orgrimmar after the route's Crossroads training; the route goes on nearer
 	// Orgrimmar: no flight back to the Crossroads.
@@ -7539,7 +7694,7 @@ fn a_class_away_comes_back_to_where_the_route_goes_on() {
 
 #[test]
 fn a_piece_holding_only_another_npcs_lines_is_named_for_that_npc() {
-	// RevHuman3 H7: the route split v1's "Eagan Peltskinner" step; the piece with only Deputy Willem's
+	// Review: the route split v1's "Eagan Peltskinner" step; the piece with only Deputy Willem's
 	// accept kept Eagan's name.
 	let c = Case {
 		files: vec![(
@@ -7638,7 +7793,7 @@ fn a_sweep_never_moves_a_goal_over_an_accept_or_hand_in() {
 
 #[test]
 fn no_walk_is_written_to_a_step_of_optional_lines_only() {
-	// RevHuman3 H2: everyone was sent out to The Collector's and Manhunt's steps (all optional, or
+	// Review: everyone was sent out to The Collector's and Manhunt's steps (all optional, or
 	// quests the route does not take) between two route stops.
 	let a = vec![
 		"guide t/a",
@@ -7850,7 +8005,8 @@ fn a_training_stops_way_goes_before_v1s_training_not_after_it() {
 	};
 	let g = pick(&run(&c, None).read("a"), r"^step|^\s+(goto|fly|train|accept)");
 	let t = idx(&g, "step Trainers");
-	let way = g.iter().position(|l| l.contains("\"Orgrimmar\"")).map_or(-1, |i| i as i64);
+	// (The way's goto, whatever it is labelled: "To <town>" or the step it leads to, #1450.)
+	let way = g.iter().position(|l| l.trim_start().starts_with("goto ")).map_or(-1, |i| i as i64);
 	assert!(way >= 0 && way < t, "{g:#?}");
 }
 
@@ -7991,7 +8147,7 @@ fn the_druids_thunder_bluff_training_flies_from_the_routes_orgrimmar_stop_on_to_
 
 #[test]
 fn v1s_training_behind_its_level_line_waits_for_the_routes_training_at_that_level() {
-	// c14 Orc (Rev14H1 A2): the seed's level-20 training, after its `level 20`, was written with the
+	// c14 Orc (c14 review A2): the seed's level-20 training, after its `level 20`, was written with the
 	// route's 19.1 training at 04-the-barrens' head; the route's own 20.2 stop trained only Rogues and
 	// Warlocks. v1's training of the level-20 ranks goes with the route's training at 20.
 	let c = Case {
@@ -8042,7 +8198,7 @@ fn v1s_training_behind_its_level_line_waits_for_the_routes_training_at_that_leve
 
 #[test]
 fn a_class_accept_a_top_up_under_its_level_stays_behind_a_level_line() {
-	// c14 Night Elf (Rev14A1, (16)): the route leaves Darkshore at 19.7; the Druids' Cat Form (min 20)
+	// c14 Night Elf (c14 review, item 16): the route leaves Darkshore at 19.7; the Druids' Cat Form (min 20)
 	// was held to the route's next pass at 20, the Hinterlands at 45. Within a level: written where it
 	// is, behind `level 20 only Druid`.
 	let c = Case {
@@ -8069,7 +8225,7 @@ fn a_class_accept_a_top_up_under_its_level_stays_behind_a_level_line() {
 
 #[test]
 fn rare_start_lines_keep_their_gating_and_place() {
-	// c14 Human Elwynn (Rev14Human B3, seed test #553): v1's lines for the rare Gold Pickup Schedule
+	// c14 Human Elwynn (c14 review B3, seed test #553): v1's lines for the rare Gold Pickup Schedule
 	// (123) and Manhunt (147, `when turnedin 123`) the route leaves out were merged into Forest's Edge
 	// and lost their `when`; the Hunters' 94792 from Josephine in Goldshire came with them.
 	let c = Case {
@@ -8267,7 +8423,7 @@ fn a_waiting_class_step_goes_before_the_routes_crossing_not_after_it() {
 
 #[test]
 fn a_shared_guide_played_on_both_sides_of_the_join_writes_its_own_part_only() {
-	// Night Elves (Rev14NightElf A1): Darkshore's first loop before Westfall, its later quests after it
+	// Night Elves (c14 review A1): Darkshore's first loop before Westfall, its later quests after it
 	// in the shared tail. The start's run writes the first loop (its own copy); the later steps are the
 	// shared guide's, the canonical start's writing.
 	let c = Case {
@@ -8319,7 +8475,7 @@ fn the_own_copy_leaves_a_kept_quests_lines_the_route_plays_after_the_join() {
 
 #[test]
 fn the_own_copy_leaves_a_later_quest_whose_hand_in_is_elsewhere_in_the_tail() {
-	// Rev15NightElf (23): Darkshore's later quests (The Sleeper Has Awakened, 5321, handed in at
+	// c15 review (23): Darkshore's later quests (The Sleeper Has Awakened, 5321, handed in at
 	// Ashenvale) stayed in the Night Elves' own Darkshore at 14: their hand-ins kept them out of the
 	// dropped list.
 	let c = Case {
@@ -8346,7 +8502,7 @@ fn the_own_copy_leaves_a_later_quest_whose_hand_in_is_elsewhere_in_the_tail() {
 
 #[test]
 fn the_own_part_of_a_shared_guide_is_played_before_the_join_where_v1_chains_it_after() {
-	// Rev14 item 5: v1 chains Teldrassil -> Westfall -> Darkshore, the Night Elves' own run played its
+	// c14 review, item 5: v1 chains Teldrassil -> Westfall -> Darkshore, the Night Elves' own run played its
 	// Darkshore part from Stormwind, and the travel repair sent every Night Elf on a boat from Stormwind's
 	// dock to Rut'theran Village at the start of their Darkshore.
 	let c = Case {
@@ -8375,7 +8531,7 @@ fn the_own_part_of_a_shared_guide_is_played_before_the_join_where_v1_chains_it_a
 
 #[test]
 fn a_guide_whose_last_steps_all_fly_to_the_next_ones_start_gets_no_way_there() {
-	// Rev14 item 5: Teldrassil ends with the Druids' flight to Auberdine and everyone else's (`only Druid`,
+	// c14 review, item 5: Teldrassil ends with the Druids' flight to Auberdine and everyone else's (`only Druid`,
 	// `only !Druid`; here two races'); Darkshore began with the route's own flight from Rut'theran Village to Auberdine
 	// again, for a Night Elf standing in Auberdine (between them, Auberdine's accepts for everyone and the
 	// others' flight to Nessa and back; the other starts' Auberdine step first in Darkshore).
@@ -8437,7 +8593,7 @@ fn a_guide_whose_last_steps_all_fly_to_the_next_ones_start_gets_no_way_there() {
 
 #[test]
 fn a_walk_into_riverglades_names_redridge_pass() {
-	// Rev14H2 B11: the walks into Riverglades (to the Steamwheedle boat) gave no hint of the way in.
+	// c14 review B11: the walks into Riverglades (to the Steamwheedle boat) gave no hint of the way in.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 40-45", "zone Swamp of Sorrows", "", "step Stonard", "  accept 1", "", "step Dock", "  zone Riverglades", "  accept 2", ""])],
 		world: json!({ "points": [[0, 0, 0, 0, 1435], [0, 0, 2000, 0, 2001]], "zones": { "1435": "Swamp of Sorrows", "2001": "Riverglades" },
@@ -8456,7 +8612,7 @@ fn a_walk_into_riverglades_names_redridge_pass() {
 
 #[test]
 fn a_walk_out_of_riverglades_names_its_way_out() {
-	// Rev15H2 B12: the walks from Powderfuse Port to the Swamp of Sorrows and to Kargath were bare gotos.
+	// c15 review B12: the walks from Powderfuse Port to the Swamp of Sorrows and to Kargath were bare gotos.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 40-45", "zone Riverglades", "", "step Dock", "  accept 1", "", "step Stonard", "  zone Swamp of Sorrows", "  accept 2", ""])],
 		world: json!({ "points": [[0, 0, 2000, 0, 2001], [0, 0, 0, 0, 1435]], "zones": { "1435": "Swamp of Sorrows", "2001": "Riverglades" },
@@ -8475,7 +8631,7 @@ fn a_walk_out_of_riverglades_names_its_way_out() {
 
 #[test]
 fn the_walk_off_the_boat_at_powderfuse_port_names_its_way_out() {
-	// Rev15H2 B12 (40-50/03-feralas:71-73): the route sails from Tanaris to Powderfuse Port and walks to
+	// c15 review B12 (40-50/03-feralas:71-73): the route sails from Tanaris to Powderfuse Port and walks to
 	// Stonard; the walk leaves Riverglades, not Tanaris where the boat left.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 40-45", "zone Tanaris", "", "step Gadgetzan", "  accept 1", "", "step Stonard", "  zone Swamp of Sorrows", "  accept 2", ""])],
@@ -8498,7 +8654,7 @@ fn the_walk_off_the_boat_at_powderfuse_port_names_its_way_out() {
 
 #[test]
 fn a_top_up_grinds_near_the_player_not_at_a_named_mobs_spot() {
-	// Rev14OrcTroll B3: Orc Durotar's "Level 10" went to the Bloodtalon Matriarch on the Echo Isles (the
+	// c14 review B3: Orc Durotar's "Level 10" went to the Bloodtalon Matriarch on the Echo Isles (the
 	// last objective worked, one named mob's claw) from Razor Hill.
 	let c = Case {
 		files: vec![(
@@ -8586,7 +8742,7 @@ fn a_top_up_goes_to_the_mob_it_names_when_that_mob_is_not_at_the_camp() {
 
 #[test]
 fn a_top_up_with_no_camp_behind_grinds_at_the_next_camp_near_the_player() {
-	// Rev15OrcTroll B3: the Orcs' level 10 was "Grind spot" in the middle of Razor Hill; the Razormane
+	// c15 review B3: the Orcs' level 10 was "Grind spot" in the middle of Razor Hill; the Razormane
 	// huts the route works next are 300 yd west.
 	let c = Case {
 		files: vec![(
@@ -8661,7 +8817,7 @@ fn not_taken_case(dropped: Value, left_out: Value, order: Value) -> Case {
 
 #[test]
 fn a_quest_the_planner_left_out_is_not_written() {
-	// c17 RevA 5: Swelling Forces (98013), which no start's route takes (low XP for its detour, left out
+	// c17 review: Swelling Forces (98013), which no start's route takes (low XP for its detour, left out
 	// before the seed, so the route's diff does not name it; the skip ledger does), was written in the
 	// Night Elves' first Darkshore visit, under level and before its prerequisite, and again on the
 	// second. An optional quest stays (the player's luck); so does one the ledger does not leave out.
@@ -8679,7 +8835,7 @@ fn a_quest_the_planner_left_out_is_not_written() {
 
 #[test]
 fn a_class_hand_in_waits_for_the_city_visit_after_its_work() {
-	// c17 RevA 2: the Warlocks' Binding at Gakin in Stormwind went with the Arathi accept after it in
+	// c17 review: the Warlocks' Binding at Gakin in Stormwind went with the Arathi accept after it in
 	// v1, moved early, to the route's Stormwind stop before the Heartswood in Ashenvale; the hand-in
 	// then followed the Heartswood, a boat to Stormwind and back. It waits for the Stormwind visit
 	// after the Heartswood, as v1 has it.
@@ -8811,7 +8967,7 @@ fn a_class_hand_in_with_no_pass_after_its_work_goes_after_the_work_with_its_run(
 
 #[test]
 fn a_class_run_over_the_sea_starts_before_the_crossing_within_a_top_up() {
-	// c17 RevA 1: the Night Elf and Skyborne Druids' Cat Form run (min level 20) went with the
+	// c17 review: the Night Elf and Skyborne Druids' Cat Form run (min level 20) went with the
 	// Stormwind hand-in after it in v1, as the canonical start is 19.7 at its last Auberdine stop: after
 	// the boat and Stormwind's work, a flight to Rut'theran from Stormwind and two more crossings. It
 	// starts right after the Auberdine step before it, behind a top-up.
@@ -8864,7 +9020,7 @@ fn a_class_run_over_the_sea_starts_before_the_crossing_within_a_top_up() {
 
 #[test]
 fn an_untagged_bag_line_under_a_dropped_quests_accept_goes_with_it() {
-	// c17 RevA 4: the Night Elves' first Darkshore visit had The Blackwood Corrupted's Empty Cleansing
+	// c17 review: the Night Elves' first Darkshore visit had The Blackwood Corrupted's Empty Cleansing
 	// Bowl (`collect 12347` right after its accept) and the Blackwood samples (beside the bowl's use)
 	// though the quest is taken only on the second visit: collects they could not finish there.
 	let order = json!([
@@ -8879,7 +9035,7 @@ fn an_untagged_bag_line_under_a_dropped_quests_accept_goes_with_it() {
 
 #[test]
 fn a_top_up_in_a_city_grinds_at_the_routes_next_hostile_camp() {
-	// c17 RevA 3: top-ups in Stormwind and Ironforge were "Grind spot" in the city's streets, and
+	// c17 review: top-ups in Stormwind and Ironforge were "Grind spot" in the city's streets, and
 	// Winterspring's grind was "on General Marcus Jonathan", a friendly Stormwind NPC a quest has you
 	// kill credit for. The grind goes to the route's next camp of hostile mobs in the field.
 	let c = Case {
@@ -8925,7 +9081,7 @@ fn a_top_up_in_a_city_grinds_at_the_routes_next_hostile_camp() {
 
 #[test]
 fn a_top_up_for_an_accept_names_it() {
-	// Rev15OrcTroll B3: "Top up here to level 10 before the hand-ins at Durotar" when the top-up was for
+	// c15 review B3: "Top up here to level 10 before the hand-ins at Durotar" when the top-up was for
 	// a level 10 quest taken next.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 5-12", "zone Durotar", "", "step Hub", "  turnin 3", "  accept 4", ""])],
@@ -8944,7 +9100,7 @@ fn a_top_up_for_an_accept_names_it() {
 
 #[test]
 fn a_top_up_whose_camp_is_on_the_shore_left_behind_is_done_before_the_crossing() {
-	// Rev14A1 (item 13): Level 20 after the Stormwind training, its camp the Darkshore work before the
+	// c14 review (item 13): Level 20 after the Stormwind training, its camp the Darkshore work before the
 	// boat: two boats there and back for a grind. Done in Darkshore before the boat.
 	let c = Case {
 		files: vec![(
@@ -8992,7 +9148,7 @@ fn a_top_up_whose_camp_is_on_the_shore_left_behind_is_done_before_the_crossing()
 
 #[test]
 fn a_portal_within_one_zone_is_named_by_where_it_lands_with_one_goto() {
-	// Rev14SkyH (item 20): the portal up to the Rohashi Spires, inside Zephras Isle, was "Portal to
+	// c14 review (item 20): the portal up to the Rohashi Spires, inside Zephras Isle, was "Portal to
 	// Zephras Isle", after a walk step to the same spot.
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 5-10", "zone Durotar", "", "step Valanaar", "  accept 1", "", "step Lorthuna", "  turnin 1", ""])],
@@ -9019,7 +9175,7 @@ fn a_portal_within_one_zone_is_named_by_where_it_lands_with_one_goto() {
 
 #[test]
 fn a_training_stop_pulls_no_training_step_away_from_it_and_trains_only_its_trainers_classes() {
-	// c15 Horde 02-the-barrens:362-395 (Rev15H1): the route trains at Razor Hill; v1's "To Orgrimmar"
+	// c15 Horde 02-the-barrens:362-395 (c15 review): the route trains at Razor Hill; v1's "To Orgrimmar"
 	// (getfp and `train class`) was pulled to it, so everyone walked to Razor Hill for `train class only
 	// Paladin,Druid` (no trainer of theirs there), hearthed away and walked back to Orgrimmar. The stop
 	// trains its trainers' classes; the Druids train at the route's pass by theirs.
@@ -9075,7 +9231,7 @@ fn a_training_stop_pulls_no_training_step_away_from_it_and_trains_only_its_train
 
 #[test]
 fn a_riding_step_goes_back_neither_into_an_earlier_guide_by_a_way_piece_nor_under_its_level() {
-	// c15 Undead (Rev15H2, #404 again): the 40-50 Feralas guide's "Riding at 40" in Brill went back to
+	// c15 Undead (c15 review, #404 again): the 40-50 Feralas guide's "Riding at 40" in Brill went back to
 	// the 30-40 guide's Undercity start at 37.4, past the route's own piece there (a way or a training
 	// stop, in no guide). It stays in its guide, at 40 or more.
 	let c = Case {
@@ -9119,7 +9275,7 @@ fn a_riding_step_goes_back_neither_into_an_earlier_guide_by_a_way_piece_nor_unde
 
 #[test]
 fn a_v1_training_step_away_from_the_routes_trainings_goes() {
-	// c15 Alliance 40-50/02-badlands (Rev15A2): seed 04-tanaris' "Ironforge ... Train", pulled to Aerie
+	// c15 Alliance 40-50/02-badlands (c15 review): seed 04-tanaris' "Ironforge ... Train", pulled to Aerie
 	// Peak at 43.1 with the accept it waits for, though the route trained in Stormwind at 42.3 (and passed
 	// through Ironforge after it): a step with no travel between two Aerie Peak steps. It goes; the
 	// Shamans train on the route's Ironforge pass.
@@ -9174,7 +9330,7 @@ fn a_v1_training_step_away_from_the_routes_trainings_goes() {
 
 #[test]
 fn a_v1_step_at_where_the_events_leg_leads_goes_after_the_leg() {
-	// c15 Gnome (Rev15DwarfGnome B3): the Priests' and Warlocks' Ironforge class quests were written before
+	// c15 Gnome (c15 review B3): the Priests' and Warlocks' Ironforge class quests were written before
 	// the route's hearth to Kharanos and walk into Ironforge: a walk into the city, the hearth out, the walk
 	// back. They go after the leg, in Ironforge.
 	let c = Case {
@@ -9217,13 +9373,13 @@ fn a_v1_step_at_where_the_events_leg_leads_goes_after_the_leg() {
 	};
 	let g = pick(&run(&c, None).read("a"), r"^step|^\s+(hearth|accept|turnin|goto)");
 	let a7 = g.iter().position(|l| l.starts_with("  accept 7")).unwrap_or_else(|| panic!("{g:#?}")) as i64;
-	let leg = g.iter().position(|l| l.contains("\"Ironforge\"")).unwrap_or_else(|| panic!("{g:#?}")) as i64;
+	let leg = g.iter().position(|l| m(l, r#"^\s+goto .*Ironforge""#)).unwrap_or_else(|| panic!("{g:#?}")) as i64;
 	assert!(leg < a7 && a7 < idx(&g, "  turnin 1"), "{g:#?}");
 }
 
 #[test]
 fn a_class_run_of_steps_stays_together() {
-	// c15 Alliance 03-darkshore (Rev15A1, Rev15SkyA): the Druids' Cat Form block (Darnassus, Moonglade,
+	// c15 Alliance 03-darkshore (c15 review): the Druids' Cat Form block (Darnassus, Moonglade,
 	// back) was split around the route's Stormwind boat: its first step before, the rest after. The run
 	// stays together at its first step's place.
 	let c = Case {
@@ -9321,7 +9477,7 @@ fn a_class_step_closes_a_town_visit_past_an_in_town_leg() {
 
 #[test]
 fn a_class_step_in_a_zone_the_walk_crosses_is_done_at_the_crossing() {
-	// c15 Alliance 07-thousand-needles (C14Plan): the Warlocks' Takar the Seer in the Barrens, which the
+	// c15 Alliance 07-thousand-needles (the c14 plan): the Warlocks' Takar the Seer in the Barrens, which the
 	// route's walk from Theramore to Thousand Needles crosses, was written as a trip back from the
 	// Mirage Raceway via Stonetalon. It is done on the walk, after its crossing into the Barrens.
 	use forge_world::world::{Crossing, Crossings};
@@ -9431,7 +9587,7 @@ fn a_class_step_in_town_goes_after_the_step_that_leaves_by_tram() {
 
 #[test]
 fn a_class_step_after_the_routes_last_v1_line_stays_before_its_added_quests() {
-	// c15 Alliance 04-redridge (Rev15A1 B1): the Shamans' Ironforge step, v1's right after the Stormwind
+	// c15 Alliance 04-redridge (c15 review B1): the Shamans' Ironforge step, v1's right after the Stormwind
 	// stop, was written after Theocritus in Elwynn, a quest the route adds there: east Elwynn, back to
 	// Stormwind, the tram, Ironforge. It stays right after the Stormwind stop.
 	let c = Case {
@@ -9482,7 +9638,7 @@ fn a_class_step_after_the_routes_last_v1_line_stays_before_its_added_quests() {
 
 #[test]
 fn a_class_off_in_a_city_with_its_trainer_trains_there_not_at_the_routes_stop() {
-	// c15 Alliance 05-duskwood (Rev15A1 B4): the Rogues, off to Shaw in Stormwind, were walked to the
+	// c15 Alliance 05-duskwood (c15 review B4): the Rogues, off to Shaw in Stormwind, were walked to the
 	// route's Goldshire training and back to Stormwind for the boat. A class off in a city with its
 	// trainer trains there; the route's way to its stop and its training line leave it out.
 	let c = Case {
@@ -9590,7 +9746,7 @@ fn a_class_whose_trainer_the_way_to_the_stop_passes_trains_there_before_the_way_
 	};
 	let g = run(&c, None).read("a");
 	let druid = idx(&g, "step Druid trainer");
-	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*"Elwynn Forest""#)).map_or(-1, |i| i as i64);
+	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*Elwynn Forest""#)).map_or(-1, |i| i as i64);
 	let stop = idx(&g, "step Class trainer");
 	assert!(druid >= 0 && into_elwynn > druid && stop > into_elwynn, "{g:#?}");
 	assert!(g[druid as usize..].iter().take_while(|l| !l.is_empty()).any(|l| l == "  zone Stormwind City"), "{g:#?}");
@@ -9645,7 +9801,7 @@ fn a_class_trainer_in_a_citys_live_frame_counts_as_its_nearest() {
 
 #[test]
 fn a_class_step_closing_a_guide_stays_after_its_last_named_step() {
-	// c15 Alliance 50-60 (Rev15A2 A5): the Druids' Darnassus training closing 01-burning-steppes, after
+	// c15 Alliance 50-60 (c15 review A5): the Druids' Darnassus training closing 01-burning-steppes, after
 	// Rut'theran Village, was written in Felwood after the Emerald Sanctuary, at the route's later take of
 	// 02-felwood's first step. It stays at the end of its guide, after Rut'theran.
 	let c = Case {
@@ -9687,7 +9843,7 @@ fn a_class_step_closing_a_guide_stays_after_its_last_named_step() {
 
 #[test]
 fn v1s_training_with_other_quests_taken_elsewhere_trains_at_the_routes_city_for_its_classes() {
-	// c15 Alliance 50-60/05-silithus (Rev15A2 B1): the route trains in Stormwind for v1's "Ironforge – Take
+	// c15 Alliance 50-60/05-silithus (c15 review B1): the route trains in Stormwind for v1's "Ironforge – Take
 	// the Deeprun Tram" step, whose cloth donations it takes at a later Ironforge stop: the step was
 	// written in Ironforge before the Stormwind turn-ins. It is a Stormwind training, without the
 	// Shamans, who have no trainer there.
@@ -10259,4 +10415,262 @@ fn level_fit_judges_the_ground_not_only_the_target() {
 		o.as_object_mut().unwrap().remove("lvl");
 	}
 	assert_eq!(pick(&run(&c, None).read("a"), r"^\s+(accept|turnin|kill)"), vec!["  accept 6", "  accept 8", "  kill 31 quest 6.1", "  turnin 6", "  turnin 8"]);
+}
+
+/// Pass-by pickups (#1959): the Barrens' Dry Hills in small, on 1411's frame. The Crossroads at
+/// (-800, 0), the harpies (0, 0), the raptors (0, 300), Vrang (150, 150), 150 yd off the walk between
+/// the two camps, his lions (250, 250), the hermit Walton (300, 50). The route works the harpies and the
+/// raptors at 17, hands both in at the Crossroads, and walks back to Vrang at 19 for Bruised Pride and
+/// Lion Hides, then The Hermit Tanner to Walton. `edit` changes the world, the quests and the npcs.
+fn dry_hills(edit: impl Fn(&mut Value, &mut Value, &mut Value)) -> Case {
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 16-20",
+		"zone Durotar",
+		"",
+		"step Crossroads",
+		"  accept 2",
+		"  accept 3",
+		"",
+		"step Harpies",
+		"  kill 20 quest 2.1",
+		"",
+		"step Raptors",
+		"  kill 21 quest 3.1",
+		"",
+		"step Crossroads again",
+		"  turnin 2",
+		"  turnin 3",
+		"",
+		"step Vrang",
+		"  accept 1",
+		"",
+		"step Lions",
+		"  kill 30 quest 1.1",
+		"",
+		"step Vrang again",
+		"  turnin 1",
+		"  accept 6",
+		"",
+		"step Walton",
+		"  turnin 6",
+		"",
+	];
+	let mut world = json!({
+		"points": [[1, 1, -800, 0, 1411], [1, 1, 0, 0, 1411], [1, 1, 0, 300, 1411], [1, 1, 150, 150, 1411], [1, 1, 250, 250, 1411], [1, 1, 300, 50, 1411]],
+		"zones": { "1411": "Durotar" },
+		"quests": [
+			{ "id": 1, "giver": 3, "ender": 3, "objs": [{ "oi": 0, "type": "kill", "id": 30, "task": 0 }], "tasks": [{ "work": [["kill", 15, 6, 0, 0, 30]] }] },
+			{ "id": 6, "giver": 3, "ender": 5, "tasks": [] },
+			{ "id": 2, "giver": 0, "ender": 0 }, { "id": 3, "giver": 0, "ender": 0 }
+		]
+	});
+	let mut quests = json!({
+		"1": { "title": "Bruised Pride and Lion Hides", "level": 18, "minLevel": 14 },
+		"6": { "title": "The Hermit Tanner", "level": 18, "minLevel": 14, "pre": [1] },
+		"2": { "title": "Harpy Lieutenants", "level": 17 },
+		"3": { "title": "Raptor Horns", "level": 17 }
+	});
+	// (Map points on 1411's frame: x = (wy + 1000) / 20, y = (1000 - wx) / 20.)
+	let mut npcs = Value::Object(
+		[camp(20, "Witchwing Harpy", 16, 17, 50.0, 50.0, 5), camp(21, "Sunscale Scytheclaw", 16, 17, 65.0, 50.0, 5), camp(30, "Savannah Patriarch", 15, 16, 62.5, 37.5, 5)].into_iter().collect(),
+	);
+	edit(&mut world, &mut quests, &mut npcs);
+	Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Horde", "diff": {}, "order": [
+			{ "t": "accept", "q": 2, "pt": 0, "lvl": 17.0, "from": f("a", 7) }, { "t": "accept", "q": 3, "pt": 0, "lvl": 17.0, "from": f("a", 8) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "lvl": 17.2, "from": f("a", 11) },
+			{ "t": "task", "q": 3, "task": 0, "pt": 2, "lvl": 17.6, "from": f("a", 14) },
+			{ "t": "turnin", "q": 2, "pt": 0, "lvl": 18.0, "from": f("a", 17) }, { "t": "turnin", "q": 3, "pt": 0, "lvl": 18.1, "from": f("a", 18) },
+			{ "t": "accept", "q": 1, "pt": 3, "lvl": 19.0, "from": f("a", 21) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 4, "lvl": 19.2, "from": f("a", 24) },
+			{ "t": "turnin", "q": 1, "pt": 3, "lvl": 19.6, "from": f("a", 27) }, { "t": "accept", "q": 6, "pt": 3, "lvl": 19.6, "from": f("a", 28) },
+			{ "t": "turnin", "q": 6, "pt": 5, "lvl": 19.7, "from": f("a", 31) }
+		] }),
+		world,
+		quests,
+		npcs,
+		pass_by: true,
+		..Case::default()
+	}
+}
+
+/// The Dry Hills route as the route has it: Vrang on a trip of his own after the hand-ins.
+const DRY_HILLS_ROUTE: [&str; 11] =
+	["  accept 2", "  accept 3", "  kill 20 quest 2.1", "  kill 21 quest 3.1", "  turnin 2", "  turnin 3", "  accept 1", "  kill 30 quest 1.1", "  turnin 1", "  accept 6", "  turnin 6"];
+
+#[test]
+fn pass_by_takes_a_giver_the_walk_passes_with_his_work_and_the_next_part() {
+	// #1959: the second Dry Hills trip walks 150 yd past Vrang at 17.6 (minimum 14); his lions are
+	// 141 yd from him at 15-16. Bruised Pride and Lion Hides is taken on that walk, the lions worked and
+	// the hides handed in there; the hand-in stands the player at Vrang, so The Hermit Tanner comes too,
+	// handed in to Walton 180 yd away. No trip of its own back to Vrang.
+	let r = run(&dry_hills(|_, _, _| {}), None);
+	assert_eq!(
+		pick(&r.read("a"), r"^\s+(accept|turnin|kill)"),
+		vec!["  accept 2", "  accept 3", "  kill 20 quest 2.1", "  accept 1", "  kill 30 quest 1.1", "  turnin 1", "  accept 6", "  turnin 6", "  kill 21 quest 3.1", "  turnin 2", "  turnin 3"],
+		"{:#?}",
+		r.out.log
+	);
+	assert!(
+		r.out.log.iter().any(|l| l == "pass-by: Bruised Pride and Lion Hides (1) taken on the walk past its giver (150 yd off) after task harpy lieutenants (2) at level 17.6, its work and hand-in with it; the route took it at 19.0"),
+		"{:#?}",
+		r.out.log
+	);
+	assert!(r.out.log.iter().any(|l| l.starts_with("pass-by: The Hermit Tanner (6) taken at its giver after turnin bruised pride and lion hides (1)")), "{:#?}", r.out.log);
+	// Without the rule the route's own visits stand.
+	let off = run(&Case { pass_by: false, ..dry_hills(|_, _, _| {}) }, None);
+	assert_eq!(pick(&off.read("a"), r"^\s+(accept|turnin|kill)"), DRY_HILLS_ROUTE);
+}
+
+#[test]
+fn pass_by_leaves_a_giver_too_far_under_level_or_waiting_for_a_prerequisite() {
+	type Edit = fn(&mut Value, &mut Value, &mut Value);
+	let cases: [(&str, Edit); 5] = [
+		// Vrang 260 yd off the walk: a stop of his own.
+		("too far", |w, _, _| w["points"][3] = json!([1, 1, 260, 150, 1411])),
+		// The quest's minimum, 18, over the walk's 17.6.
+		("under its minimum", |_, q, _| q["1"]["minLevel"] = json!(18)),
+		// Raptor Horns, handed in after the walk, comes before it.
+		("its prerequisite not handed in", |_, q, _| q["1"]["pre"] = json!([3])),
+		// Lions of 20-21 at 17.6: the work does not fit there (level_fit.rs; it does at 19.2, where the
+		// route has it).
+		("its work over the level", |_, _, n| {
+			n["30"]["level"] = json!(20);
+			n["30"]["levelMax"] = json!(21);
+		}),
+		// The lions 510 yd from Vrang: not on that visit.
+		("its work out of reach", |w, _, n| {
+			w["points"][4] = json!([1, 1, 650, 250, 1411]);
+			n["30"] = camp(30, "Savannah Patriarch", 15, 16, 62.5, 17.5, 5).1;
+		}),
+	];
+	for (why, edit) in cases {
+		let r = run(&dry_hills(edit), None);
+		assert_eq!(pick(&r.read("a"), r"^\s+(accept|turnin|kill)"), DRY_HILLS_ROUTE, "{why}: {:#?}", r.out.log);
+		assert!(!r.out.log.iter().any(|l| l.starts_with("pass-by:")), "{why}: {:#?}", r.out.log);
+	}
+}
+
+#[test]
+fn pass_by_never_takes_an_escort_or_a_timed_quest_earlier() {
+	type Edit = fn(&mut Value, &mut Value, &mut Value);
+	let cases: [(&str, Edit); 2] = [("an escort", |w, _, _| w["quests"][0]["escort"] = json!(true)), ("a timed quest", |w, _, _| w["quests"][0]["limit"] = json!(1800))];
+	for (why, edit) in cases {
+		let r = run(&dry_hills(edit), None);
+		assert_eq!(pick(&r.read("a"), r"^\s+(accept|turnin|kill)"), DRY_HILLS_ROUTE, "{why}: {:#?}", r.out.log);
+	}
+}
+
+/// Nearby flight paths: the Barrens' west in small, on a 6,000 yd frame. The Crossroads (flight master
+/// and inn) at (0, -2000), Seereth (0, -1000), Malaka'jin (0, 0), Sun Rock Retreat's flight master
+/// (0, 1000) and its quest giver 50 yd off, Ziz Fizziks' hut (680, 1000), 680 yd from the master. At 20
+/// the route walks from the Crossroads to Ziz and on to Malaka'jin; at 24 it hearths to the Crossroads
+/// and walks up by Seereth and Malaka'jin to Sun Rock, learning its path there, and back down.
+/// `back_down`: the walk down by Malaka'jin and Seereth (else a hearth back to the Crossroads); `ziz`:
+/// the hut's point.
+fn webwinder(back_down: bool, ziz: [f64; 2]) -> Case {
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"race Orc,Troll,Tauren,Undead,Skyborne",
+		"levels 20-25",
+		"zone Durotar",
+		"",
+		"step Crossroads",
+		"  accept 1",
+		"",
+		"step Ziz",
+		"  kill 50 quest 1.1",
+		"",
+		"step Malaka'jin",
+		"  turnin 1",
+		"",
+		"step Seereth",
+		"  accept 2",
+		"",
+		"step Malaka'jin again",
+		"  accept 3",
+		"",
+		"step Sun Rock",
+		"  accept 4",
+		"  turnin 4",
+		"",
+		"step Malaka'jin down",
+		"  turnin 3",
+		"",
+		"step Seereth down",
+		"  turnin 2",
+		"",
+	];
+	let (down_3, down_2) = if back_down {
+		(json!({ "t": "turnin", "q": 3, "pt": 2, "lvl": 24.8, "from": f("a", 27) }), json!({ "t": "turnin", "q": 2, "pt": 1, "lvl": 25.0, "from": f("a", 30) }))
+	} else {
+		(
+			json!({ "t": "turnin", "q": 3, "pt": 0, "lvl": 24.8, "from": f("a", 27), "items": [{ "t": "hearth", "inn": 0, "to": 0, "innPt": 0 }] }),
+			json!({ "t": "turnin", "q": 2, "pt": 0, "lvl": 25.0, "from": f("a", 30) }),
+		)
+	};
+	Case {
+		files: vec![("a", a)],
+		world: json!({
+			"points": [[1, 1, 0, -2000, 1411], [1, 1, 0, -1000, 1411], [1, 1, 0, 0, 1411], [1, 1, 0, 1000, 1411], [1, 1, 50, 1000, 1411], [1, 1, ziz[0], ziz[1], 1411]],
+			"zones": { "1411": "Durotar" }, "quests": [],
+			"inns": [{ "name": "Crossroads", "pt": 0 }],
+			"nodes": [{ "kind": "fp", "name": "Crossroads", "pt": 0 }, { "kind": "fp", "name": "Sun Rock Retreat", "pt": 3 }]
+		}),
+		frames: json!({ "era": { "1411": { "top": 3000, "bottom": -3000, "left": -3000, "right": 3000, "c": 1 } } }),
+		quests: json!({ "1": { "title": "One" }, "2": { "title": "Two" }, "3": { "title": "Three" }, "4": { "title": "Four" } }),
+		route: json!({ "faction": "Horde", "start": "Orc", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 20.0, "from": f("a", 8), "items": [{ "t": "getfp", "node": 0 }, { "t": "bind", "inn": 0, "pt": 0, "used": true }] },
+			{ "t": "task", "q": 1, "task": 0, "pt": 5, "lvl": 20.2, "from": f("a", 11) },
+			{ "t": "turnin", "q": 1, "pt": 2, "lvl": 20.5, "from": f("a", 14) },
+			{ "t": "accept", "q": 2, "pt": 1, "lvl": 24.0, "from": f("a", 17), "items": [{ "t": "hearth", "inn": 0, "to": 1, "innPt": 0 }] },
+			{ "t": "accept", "q": 3, "pt": 2, "lvl": 24.2, "from": f("a", 20) },
+			{ "t": "accept", "q": 4, "pt": 4, "lvl": 24.4, "from": f("a", 23), "items": [{ "t": "getfp", "node": 1 }] },
+			{ "t": "turnin", "q": 4, "pt": 4, "lvl": 24.6, "from": f("a", 24) },
+			down_3,
+			down_2
+		] }),
+		route_travel: true,
+		nearby_fp: true,
+		..Case::default()
+	}
+}
+
+#[test]
+fn a_flight_master_near_a_stop_is_learnt_when_a_later_walk_up_to_it_and_back_would_fly() {
+	// The Barrens: Ziz Fizziks' hut is 680 yd from Sun Rock Retreat's flight master; four levels on the
+	// route walks 3,000 yd from the Crossroads up to Sun Rock and back down past the same stops. Flying
+	// in from the Crossroads instead gains about 4 minutes, against about a minute's walk to the master
+	// from the hut: the path is learnt there, on the walk out of the hut, and not again at Sun Rock.
+	let r = run(&webwinder(true, [680.0, 1000.0]), None);
+	let g = r.read("a");
+	let fp = idx(&g, "  getfp \"Sun Rock Retreat\"");
+	assert!(fp > idx(&g, "  kill 50 quest 1.1") && fp < idx(&g, "  turnin 1"), "{g:#?}\n{:#?}", r.out.log);
+	assert_eq!(pick(&g, r#"^\s+getfp "Sun Rock Retreat""#).len(), 1, "{g:#?}");
+	assert!(
+		r.out.log.iter().any(
+			|l| l.starts_with("nearby fp: getfp Sun Rock Retreat on the walk out of task one (1) at level 20.2 (680 yd off, 1.1 min more walking): flying from or to it gains about 4.0 min later")
+		),
+		"{:#?}",
+		r.out.log
+	);
+	// Without the rule, the route learns it at Sun Rock.
+	let off = run(&Case { nearby_fp: false, ..webwinder(true, [680.0, 1000.0]) }, None).read("a");
+	assert!(idx(&off, "  getfp \"Sun Rock Retreat\"") > idx(&off, "  accept 3"), "{off:#?}");
+}
+
+#[test]
+fn a_flight_master_is_not_learnt_too_far_off_or_for_a_walk_it_would_not_shorten() {
+	// The hut 900 yd from the master: too far. A route that hearths back down from Sun Rock (Seereth and
+	// Malaka'jin not walked past again): flying in would skip their stops, so nothing gains.
+	for (case, why) in [(webwinder(true, [900.0, 1000.0]), "too far"), (webwinder(false, [680.0, 1000.0]), "no walk back down")] {
+		let r = run(&case, None);
+		let g = r.read("a");
+		assert!(idx(&g, "  getfp \"Sun Rock Retreat\"") > idx(&g, "  accept 3"), "{why}: {g:#?}");
+		assert!(!r.out.log.iter().any(|l| l.starts_with("nearby fp:")), "{why}: {:#?}", r.out.log);
+	}
 }

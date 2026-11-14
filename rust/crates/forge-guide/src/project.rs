@@ -243,6 +243,14 @@ pub fn read_legs_text(text: Option<&str>, file: &str, guides: &[V], data: &Data,
 	stale
 }
 
+/// The leveling guides (legs_races) legs.json's text holds no legs for, in the guides' order: never
+/// baked, so they ship without legs. Empty without the file or with one read_legs_text refuses.
+pub fn unbaked_legs(text: Option<&str>, guides: &[V]) -> Vec<String> {
+	let Some(doc) = text.and_then(|t| crate::js::parse_json(t).ok()).filter(|d| d.get("schema").as_num() == Some(1.0)) else { return Vec::new() };
+	let legs = doc.get("legs");
+	guides.iter().filter(|g| legs_races(g).is_some() && !legs.get(&g.get("id").to_js_string()).truthy()).map(|g| g.get("id").to_js_string()).collect()
+}
+
 /// The race parts a leveling guide's baked legs ship in: its own race part's races (race_part),
 /// else the races its `race` header names, else every race of its faction; None for any other
 /// guide (not leveling, or no faction).
@@ -301,6 +309,279 @@ pub fn faction_part(g: &V) -> Option<&'static str> {
 /// Our guide pack's folder (pack id `guides`).
 pub const OWN_FOLDER: &str = "Polestar_Guides";
 
+/// One of Polestar's own extra guide packs (docs/PACK_FORMAT.md, "Polestar's own extra packs"): built from its
+/// folder in the checkout (pack.json and .guide files, checked as a community pack's, with our guides as
+/// context) into an addon folder of Polestar's that ships in the release zip, with Polestar's TOC
+/// ([`crate::emit::emit_toc`]): its title as written, the AddOns list in every client language, and
+/// `## LoadOnDemand: 1`, so Polestar keeps it off until the player switches it on (Community guides) and loads
+/// it then. Its id is reserved (format.rs RESERVED_IDS): only its own pack.json may give it (manifest.rs
+/// read_extra_manifest), and in game only its own addon may register it.
+pub struct OwnExtra {
+	/// Its folder in the checkout.
+	pub source: &'static str,
+	/// Its pack id.
+	pub id: &'static str,
+	/// Its addon folder.
+	pub folder: &'static str,
+}
+
+/// The extra packs: the experimental guides (Forever's new zones, alpha), never suggested in game.
+pub static OWN_EXTRAS: [OwnExtra; 1] = [OwnExtra { source: "experimental", id: "polestar-experimental", folder: "Polestar_Experimental" }];
+
+/// The extra pack whose addon folder is `folder`.
+pub fn own_extra(folder: &str) -> Option<&'static OwnExtra> {
+	OWN_EXTRAS.iter().find(|e| e.folder == folder)
+}
+
+/// The extra pack (OWN_EXTRAS) a guide id belongs to (`polestar-experimental/...`), if any.
+pub fn extra_of(id: &str) -> Option<&'static str> {
+	OWN_EXTRAS.iter().find(|e| id.strip_prefix(e.id).is_some_and(|rest| rest.starts_with('/'))).map(|e| e.id)
+}
+
+/// The keys of an experimental index entry ([`experimental_index`]), in the order Guides.lua writes them.
+pub const INDEX_KEYS: [&str; 22] = [
+	"id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel", "topLevel", "zone", "zoneName", "pitch", "pros", "cons", "questIds", "joins", "start", "focus", "viaMap", "via",
+	"names", "written",
+];
+
+/// A guide's `next` ids: its route choice's options, else its one `next`.
+fn next_list(g: &V) -> Vec<String> {
+	let nc = g.get("nextChoices");
+	let list = if nc.truthy() {
+		nc.items()
+	} else if g.get("next").truthy() {
+		vec![g.get("next")]
+	} else {
+		Vec::new()
+	};
+	list.iter().map(V::to_js_string).collect()
+}
+
+/// The index of Polestar's experimental guides our route choices offer (docs/PACK_FORMAT.md, "Polestar's own
+/// extra packs"; Core/Guides.lua, Polestar.RegisterExperimental): for every guide of an extra pack that a
+/// `next` line of `ours` names, in id order, its header as a guide registers it (its localised texts, with the
+/// name tokens they use) and its route until it is back on ours ([`index_entry`]). `extras`: the extra packs'
+/// guides, resolved and localised. Each such `next` line is checked: an id the extra pack lacks, another
+/// faction's guide, or the first line (the route's default) is an error on our guide.
+pub fn experimental_index(ours: &[V], extras: &[V], data: &Data, diag: &mut Diagnostics) -> Vec<V> {
+	let by_id: rustc_hash::FxHashMap<String, &V> = extras.iter().map(|g| (g.get("id").to_js_string(), g)).collect();
+	let mut offered: Vec<String> = Vec::new();
+	for g in ours {
+		let ast = g.hidden("_ast");
+		let file = ast.get("file").to_js_string();
+		let lines = ast.get("lines");
+		let line_of = |to: &str| {
+			let of = lines.get("nextOf");
+			let l = if of.truthy() { of.get(to) } else { V::Undef };
+			if l.truthy() {
+				l.num()
+			} else {
+				lines.get("next").num()
+			}
+		};
+		for (i, to) in next_list(g).iter().enumerate() {
+			if extra_of(to).is_none() {
+				continue;
+			}
+			let Some(other) = by_id.get(to) else {
+				diag.error(&file, line_of(to), format!("`next` points to unknown guide \"{to}\""), Some("list guide ids with `polestar find --kind guide <text>`".into()));
+				continue;
+			};
+			let (gf, of) = (g.get("faction"), other.get("faction"));
+			if gf.truthy() && of.truthy() && !of.strict_eq(&gf) {
+				diag.error(&file, line_of(to), format!("`next` offers {} guide \"{to}\" after a {} guide", of.to_js_string(), gf.to_js_string()), None);
+				continue;
+			}
+			if i == 0 {
+				diag.error(
+					&file,
+					line_of(to),
+					format!("`next` offers the experimental guide \"{to}\" first: the first `next` line is the route's default, and an experimental guide is only ever chosen"),
+					Some("put the `next` line of the guide the route goes on to first, and the experimental guide's after it".into()),
+				);
+				continue;
+			}
+			if !offered.contains(to) {
+				offered.push(to.clone());
+			}
+		}
+	}
+	offered.sort_by(|a, b| crate::js::cmp_utf16(a, b));
+	offered.iter().map(|id| index_entry(by_id[id], &by_id, data)).collect()
+}
+
+/// A point of a goal for the index: { map, x, y, f }.
+fn index_point(goal: &V) -> V {
+	let p = Obj::new();
+	for k in ["map", "x", "y", "f"] {
+		let v = goal.get(k);
+		if !v.is_nullish() {
+			p.set(k, v);
+		}
+	}
+	V::Obj(p)
+}
+
+/// The zone a guide's first travel goes through, when it is not its own: the map of its first goal placed
+/// somewhere (a flight's by its taxi node), before its first goal on its own zone's map. -> (uiMapID, name).
+fn via_of(g: &V, data: &Data) -> Option<(V, V)> {
+	let zone = g.get("zone");
+	let nodes = data.flight_nodes().items();
+	for step in g.get("steps").items() {
+		for goal in step.get("goals").items() {
+			let map = if goal.get("map").is_num() {
+				goal.get("map")
+			} else if goal.get("node").is_num() {
+				nodes.iter().find(|n| n.get("id").strict_eq(&goal.get("node"))).map_or(V::Undef, |n| n.get("map"))
+			} else {
+				continue;
+			};
+			if !map.is_num() {
+				continue;
+			}
+			if map.strict_eq(&zone) {
+				return None;
+			}
+			let name = data.zone(&map).get("name");
+			return name.is_str().then_some((map, name));
+		}
+	}
+	None
+}
+
+/// One experimental guide's index entry: its header (title, faction, races, classes, levels, zone, pitch,
+/// pros, cons, localised, with the `names` and `written` those texts use) and its route, walked through the
+/// extra pack's `next` lines until they lead back to ours: the top level (`topLevel`), the quests its accepts
+/// take (`questIds`, each once, none of a dungeon run's), our guides it rejoins (`joins`), where it starts
+/// (`start`: its first located goal; `focus`: its first on its zone's map) and the zone its first travel goes
+/// through when that is not its own (`viaMap`, `via`).
+fn index_entry(g: &V, extras: &rustc_hash::FxHashMap<String, &V>, data: &Data) -> V {
+	let loc = g.hidden("_localised");
+	let text = if loc.truthy() { loc } else { g.clone() };
+	let out = Obj::new();
+	for k in ["id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel"] {
+		let v = text.get(k);
+		if !v.is_nullish() {
+			out.set(k, v);
+		}
+	}
+	let mut top = g.get("maxLevel").as_num().unwrap_or(0.0);
+	let mut quests: Vec<V> = Vec::new();
+	let mut joins: Vec<String> = Vec::new();
+	let mut seen: rustc_hash::FxHashSet<String> = rustc_hash::FxHashSet::default();
+	let mut queue: std::collections::VecDeque<V> = std::collections::VecDeque::from([g.clone()]);
+	// An `only` naming factions keeps a line from the other side: the route's quests are its faction's. A
+	// dungeon run's steps (`when dungeon`, not negated) are left out too: the count is what a character who
+	// skips dungeons takes, so the card reads the same with dungeons off.
+	let faction = g.get("faction");
+	let theirs = |only: &V| faction.is_str() && only.get("factions").is_arr() && !only.get("factions").items().iter().any(|f| f.strict_eq(&faction));
+	let dungeon_run = |step: &V| step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("dungeon") && !p.get("neg").truthy());
+	while let Some(cur) = queue.pop_front() {
+		if !seen.insert(cur.get("id").to_js_string()) {
+			continue;
+		}
+		top = top.max(cur.get("maxLevel").as_num().unwrap_or(0.0));
+		for step in cur.get("steps").items().iter().filter(|s| !theirs(&s.get("only")) && !dungeon_run(s)) {
+			for goal in step.get("goals").items() {
+				let q = goal.get("quest");
+				if goal.get("t").as_str() == Some("accept") && q.is_num() && !theirs(&goal.get("only")) && !quests.iter().any(|x| x.strict_eq(&q)) {
+					quests.push(q);
+				}
+			}
+		}
+		for to in next_list(&cur) {
+			if let Some(n) = extras.get(&to) {
+				queue.push_back((*n).clone());
+			} else if extra_of(&to).is_none() && !joins.contains(&to) {
+				joins.push(to);
+			}
+		}
+	}
+	if top > 0.0 {
+		out.set("topLevel", top);
+	}
+	for k in ["zone", "zoneName", "pitch", "pros", "cons"] {
+		let v = text.get(k);
+		if !v.is_nullish() {
+			out.set(k, v);
+		}
+	}
+	out.set("questIds", quests);
+	out.set("joins", joins.iter().map(|s| V::str(s)).collect::<Vec<V>>());
+	let goals: Vec<V> = g.get("steps").items().iter().flat_map(|s| s.get("goals").items()).collect();
+	let located = |goal: &&V| goal.get("map").is_num() && goal.get("x").is_num() && goal.get("y").is_num();
+	if let Some(start) = goals.iter().find(located) {
+		out.set("start", index_point(start));
+	}
+	if let Some(focus) = goals.iter().filter(located).find(|goal| goal.get("map").strict_eq(&g.get("zone"))) {
+		out.set("focus", index_point(focus));
+	}
+	if let Some((map, name)) = via_of(g, data) {
+		out.set("viaMap", map);
+		out.set("via", name);
+	}
+	// The name tokens the header's texts use, and the author's words of those texts (`written`).
+	let mut texts: Vec<String> = Vec::new();
+	for k in ["title", "pitch"] {
+		if let Some(s) = text.get(k).as_str() {
+			texts.push(s.to_string());
+		}
+	}
+	for k in ["pros", "cons"] {
+		texts.extend(text.get(k).items().iter().filter_map(|v| v.as_str().map(str::to_string)));
+	}
+	let names = text.get("names");
+	let used = Obj::new();
+	for t in &texts {
+		let mut rest = t.as_str();
+		while let Some(open) = rest.find('{') {
+			rest = &rest[open + 1..];
+			let Some(close) = rest.find('}') else { break };
+			let token = &rest[..close];
+			if names.get(token).is_str() {
+				used.set(token, names.get(token));
+			}
+			rest = &rest[close + 1..];
+		}
+	}
+	if !used.is_empty() {
+		out.set("names", V::Obj(used));
+	}
+	let written = text.get("written");
+	let words = Obj::new();
+	for t in &texts {
+		if written.get(t).is_str() {
+			words.set(t, written.get(t));
+		}
+	}
+	if !words.is_empty() {
+		out.set("written", V::Obj(words));
+	}
+	V::Obj(out)
+}
+
+/// Takes `manifest` (the extra's pack.json, read by manifest.rs read_extra_manifest: as a community pack's,
+/// no folder of Polestar's, but its own reserved id) as extra pack `extra`'s and gives it the extra's
+/// folder. Its pack.json must give the extra's id and Polestar as its author, and leave `folder` out. Err: why
+/// not.
+pub fn own_extra_manifest(extra: &OwnExtra, manifest: &V) -> Result<(), String> {
+	let pack = format!("{}/pack.json", extra.source);
+	let id = manifest.get("id").to_js_string();
+	if id != extra.id {
+		return Err(format!("{pack}: id is \"{id}\"; {} holds the pack \"{}\"", extra.folder, extra.id));
+	}
+	let author = manifest.get("author").to_js_string();
+	if author != "Polestar" {
+		return Err(format!("{pack}: author is \"{author}\"; {} is Polestar's own, author \"Polestar\"", extra.folder));
+	}
+	let named = manifest.get("folder").to_js_string();
+	if named != crate::format::default_folder(manifest.get("title").as_str(), Some(&id)) {
+		return Err(format!("{pack}: leave \"folder\" out (\"{named}\"): the build names the folder {}", extra.folder));
+	}
+	manifest.set("folder", extra.folder);
+	Ok(())
+}
+
 /// The texts addon of pack folder `folder` in `locale` (Core/GuideTexts.lua TextsAddon): <folder>_<locale>,
 /// and for our own pack the language folder Polestar_<locale> it shares with the game's names.
 pub fn texts_addon(folder: &str, locale: &str) -> String {
@@ -349,7 +630,9 @@ pub enum FileContent {
 
 /// buildPackFiles: the addon folder as (name, content) in JS object order; `../<addon>/<file>` names the
 /// race parts and texts addons beside it. `iface` is the core TOC's `## Interface:` value; `images` the
-/// pictures' bytes by pack-relative path (native callers read them with images::image_files).
+/// pictures' bytes by pack-relative path (native callers read them with images::image_files). `offers`: our
+/// pack's experimental index ([`experimental_index`]), written after its guides in Guides.lua, with the Era
+/// frames of the maps its points are on in MapFrames.lua; empty for every other pack.
 pub fn build_pack_files(
 	guides: &[V],
 	manifest: &V,
@@ -357,6 +640,7 @@ pub fn build_pack_files(
 	license: Option<&str>,
 	translations: &V,
 	retired: &[String],
+	offers: &[V],
 	iface: &str,
 	images: Vec<(String, Vec<u8>)>,
 ) -> Vec<(String, FileContent)> {
@@ -428,12 +712,23 @@ pub fn build_pack_files(
 	let t = FileContent::Text;
 	files.push((format!("{folder}.toc"), t(crate::emit::emit_toc(manifest, iface, format))));
 	files.push(("Pack.lua".into(), t(crate::emit::emit_pack(manifest, format))));
-	files.push(("MapFrames.lua".into(), t(crate::emit::emit_map_frames(&referenced_frames(guides, data), &id))));
+	let frames = referenced_frames(guides, data);
+	// The experimental index's points too: their routes' travel time and art focus are read before their
+	// pack is in.
+	for p in offers.iter().flat_map(|e| [e.get("start"), e.get("focus")]) {
+		let k = p.get("map").to_js_string();
+		let fr = if p.get("map").is_num() && !frames.get(&k).truthy() { data.era_frame(&p.get("map")) } else { V::Undef };
+		if fr.truthy() {
+			frames.set(&k, obj! { "c" => fr.get("c"), "left" => fr.get("left"), "right" => fr.get("right"), "top" => fr.get("top"), "bottom" => fr.get("bottom") });
+		}
+	}
+	files.push(("MapFrames.lua".into(), t(crate::emit::emit_map_frames(&frames, &id))));
 	let main_entries: Vec<V> = main.iter().map(entry).collect();
 	let mut gl = crate::emit::emit_guides_with(&main_entries, false, ours);
 	if !retired.is_empty() {
 		gl.push_str(&crate::emit::emit_retired(&id, retired));
 	}
+	gl.push_str(&crate::emit::emit_experimental(offers));
 	files.push(("Guides.lua".into(), t(gl)));
 	let license_data = crate::emit::emit_license(&meta, !leg_parts.is_empty());
 	files.push(("LICENSE-DATA.txt".into(), t(license_data.clone())));
@@ -585,6 +880,12 @@ mod native {
 		real(a) == real(b)
 	}
 
+	/// Polestar's own extra pack (OWN_EXTRAS) whose folder in checkout `root` is `dir`, if any (locate.js
+	/// ownExtra): read with manifest.rs read_extra_manifest, built as Polestar's.
+	pub fn own_extra_at(root: &Path, dir: &Path) -> Option<&'static OwnExtra> {
+		OWN_EXTRAS.iter().find(|e| same_path(dir, &root.join(e.source)))
+	}
+
 	/// noReferenceData (pack/build.js): without any core file in `data_dir` every lookup fails, so the
 	/// build stops with this one error instead of one on every line. `context_data`: another pack's
 	/// context data folder (named in the hint when it lacks data too); `no_data_flag`: the command takes
@@ -615,6 +916,8 @@ mod native {
 		pub tokens: V,
 		/// Leveling guides whose baked legs are stale (read_legs_text): they ship without legs.
 		pub stale_legs: Vec<String>,
+		/// Leveling guides legs.json has no legs for (unbaked_legs): they ship without legs too.
+		pub unbaked_legs: Vec<String>,
 	}
 
 	/// compileProject for a pack folder; `context`: our guides, read as context for another pack.
@@ -625,8 +928,10 @@ mod native {
 		let retired_file = pack_dir.join("retired.json");
 		let retired = read_retired_text(pack_text(pack_dir, "retired.json", &mut diag).as_deref(), &retired_file.to_string_lossy(), &c.guides, &mut diag);
 		let legs_file = pack_dir.join("legs.json");
-		let stale_legs = read_legs_text(pack_text(pack_dir, "legs.json", &mut diag).as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
-		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs }
+		let legs_text = pack_text(pack_dir, "legs.json", &mut diag);
+		let stale_legs = read_legs_text(legs_text.as_deref(), &legs_file.to_string_lossy(), &c.guides, data, &mut diag);
+		let unbaked_legs = unbaked_legs(legs_text.as_deref(), &c.guides);
+		Project { guides: c.guides, diag, sources, retired, tokens: c.tokens, stale_legs, unbaked_legs }
 	}
 
 	/// read_pack_file's text of `name` in the pack folder, None without it; a refused one (a link,
@@ -878,13 +1183,34 @@ mod native {
 		pub force: bool,
 	}
 
+	/// The guides of Polestar's own extra packs (OWN_EXTRAS) in checkout `root` (each one's folder with its
+	/// pack.json), resolved with `data` and localised; their own diagnostics are their pack's lint's.
+	pub fn read_extras(root: &Path, data: &Data) -> Vec<V> {
+		let mut out = Vec::new();
+		for e in &OWN_EXTRAS {
+			let dir = root.join(e.source);
+			if !dir.join("pack.json").is_file() {
+				continue;
+			}
+			let sources = read_sources(&dir, &find_guide_files(&dir, false));
+			let guides = resolve_sources(&sources, data, &mut Diagnostics::new(), Some(e.id), Some("Polestar"));
+			localise(&guides, data, &mut Diagnostics::new());
+			out.extend(guides);
+		}
+		out
+	}
+
 	/// buildPack for a pack folder: compile (with our guides as context for another pack), the pack's
 	/// translations (warnings), and, when `force` or there are no errors, the files. `extra` diagnostics
-	/// (pack.json's) are appended.
+	/// (pack.json's) are appended. Our pack also reads the extra packs' guides beside it (read_extras) for
+	/// the experimental index its route choices need ([`experimental_index`]: its checks are our errors).
 	pub fn build_pack(root: &Path, pack_dir: &Path, manifest: &V, extra: Vec<crate::diag::Diag>, data: &Data, data_warnings: Diagnostics, opts: BuildOpts) -> Result<Built, String> {
 		let force = opts.force;
 		let mut project = compile_project(pack_dir, manifest, data, data_warnings, opts.include_drafts, opts.context);
 		project.diag.list.extend(extra);
+		// Read only when a `next` line of ours names an extra pack's guide.
+		let offering = manifest.get("id").as_str() == Some("guides") && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
+		let offers = if offering { experimental_index(&project.guides, &read_extras(root, data), data, &mut project.diag) } else { Vec::new() };
 		let license = read_license(pack_dir, manifest, &mut project.diag);
 		let mut translations = V::obj();
 		if !project.diag.has_errors() || force {
@@ -898,7 +1224,7 @@ mod native {
 		let files = if ok || force {
 			let iface = core_interface(root)?;
 			let images: Vec<(String, Vec<u8>)> = crate::images::image_files(&project.guides).into_iter().map(|(rel, abs): (String, String)| (rel, std::fs::read(&abs).unwrap_or_default())).collect();
-			Some(build_pack_files(&project.guides, manifest, data, license.as_deref(), &translations, &project.retired, &iface, images))
+			Some(build_pack_files(&project.guides, manifest, data, license.as_deref(), &translations, &project.retired, &offers, &iface, images))
 		} else {
 			None
 		};

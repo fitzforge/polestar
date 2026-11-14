@@ -7,11 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4709} Zamek
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} 位于 {zone:1441} 东南部的 {area:439}：{npc:4454} 在赛道旁的侏儒营地内，{npc:4709} 在地精营地旁。",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} 位于 {zone:1441} 东南部的 {area:439}：{npc:4454} 在赛道旁的侏儒营地内，扎米克在地精营地旁。",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，来自 {zone:1418} 的马特克",
-	["He runs off to keep Rizzle busy"] = "他会跑去拖住瑞兹尔·铜栓",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -59,7 +58,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}：在屋内",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "{area:35}的“海狼”马克基雷：路线会在{zone:1425}指南结束时前往那里，先保留任务",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "注意：窃贼会缴械，游荡者会潜行隐藏，刺客会在你生命值降到 20% 或以下时使用斩杀。",
@@ -108,7 +107,7 @@ return {
 
 	-- Step 21: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
-	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "向西骑行返回{area:976}：{npc:11758}就在进城处的镇子东侧。",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 
@@ -156,6 +155,7 @@ return {
 	-- ["Fly to {area:348}. {zone:1425} guide starts here."] = "飞往{area:348}。{zone:1425}指南从这里开始。",
 	-- ["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp."] = "沿海岸向南到落帆海湾。南海海盗挤满了海滩和船：沿着边缘清理，一次拉一个。{npc:7883}站在远端；{npc:7881}被偷的货物在营地里。",
 	-- ["From the {area:1108} dock, boat to Feathermoon and fly to {area:489}, then ride east through {zone:1441} to the {area:2240} on the {area:439}. {npc:4454} and {npc:4630} are in the camps beside the track; {npc:4709} stands by the goblin camp."] = "从{area:1108}码头乘船前往羽月要塞，飞往{area:489}，然后向东骑过{zone:1441}，到{area:439}的{area:2240}。{npc:4454}和{npc:4630}在赛道旁的营地里；{npc:4709}站在地精营地旁。",
+	-- ["He runs off to keep Rizzle busy"] = "他会跑去拖住瑞兹尔·铜栓",
 	-- ["Hearth to {area:976}."] = "用炉石返回{area:976}。",
 	-- ["Ride back west to {area:976}."] = "向西骑回{area:976}。",
 	-- ["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch."] = "向西骑回{area:976}。废土强盗和废土窃贼占据着沿途的沙丘；任何一个都可能带着废土水袋。",
@@ -167,6 +167,7 @@ return {
 	-- ["Rizzle's plans"] = "Rizzle的设计图",
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁的通缉布告",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "更强的废土游荡者、废土暗法师和废土刺客在{area:976}东南方、强盗的南边扎营。把南边营地中间的{npc:7847}留到之后。",
+	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4709} by the goblin camp."] = "{area:2240} 位于 {zone:1441} 东南部的 {area:439}：{npc:4454} 在赛道旁的侏儒营地内，{npc:4709} 在地精营地旁。",
 	-- ["Wastewander bandits"] = "废土强盗",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "{npc:4709}拖住Rizzle说话时，他的设计图就在赛道对面的侏儒营地里，无人看守。",
 	-- ["{npc:11758}, on the east side of town"] = "{npc:11758}，在镇子东侧",

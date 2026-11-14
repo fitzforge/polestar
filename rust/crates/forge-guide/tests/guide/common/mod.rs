@@ -282,7 +282,9 @@ fn quest_like_7(t: &Map<String, Value>, more: Value) -> Value {
 /// open-world spawn. Item 95100 drops only from the Elite Kobold, 95101 also from a normal kobold. Quests 9600
 /// and 9603 (dungeon area, their boss inside) and 9601 (raid area) are instance quests; 9602 has the dungeon's
 /// area but is done outside (a breadcrumb). Area 7001 is the Hollow Deeps, 7002 Molten Core; uiMap 9900 is
-/// drawn on the Hollow Deeps.
+/// drawn on the Hollow Deeps. Object 95200 (Kobold Journal) spawns beside the Elite Kobold and once far off,
+/// 95201 (Kobold Ledger) there and twice far off; item 95102 comes only from the journal; quest 9604 asks for
+/// all three (#1778).
 pub fn group_data() -> Data {
 	use serde_json::json;
 	let mut t = tables();
@@ -293,6 +295,10 @@ pub fn group_data() -> Data {
 	let items = t.get_mut("items").unwrap();
 	items["95100"] = json!({ "id": 95100, "name": "Elite Tusk", "drops": { "npc": { "95003": 60 }, "object": {} }, "vendors": [] });
 	items["95101"] = json!({ "id": 95101, "name": "Kobold Tusk", "drops": { "npc": { "95003": 60, "95002": 10 }, "object": {} }, "vendors": [] });
+	items["95102"] = json!({ "id": 95102, "name": "Kobold Notes", "drops": { "npc": {}, "object": { "95200": 100 } }, "vendors": [] });
+	let objects = t.get_mut("objects").unwrap();
+	objects["95200"] = json!({ "id": 95200, "name": "Kobold Journal", "spawns": { "1429": { "f": "e", "pts": [[62.5, 62.5]], "more": [[20, 80]] } } });
+	objects["95201"] = json!({ "id": 95201, "name": "Kobold Ledger", "spawns": { "1429": { "f": "e", "pts": [[62.5, 62.5], [20, 80], [25, 85]] } } });
 	let boss = |id: u32, name: &str| json!([{ "type": "kill", "id": id, "count": 1, "text": format!("{name} slain") }]);
 	let qs = [
 		(9600, "Into the Hollow", 7001, boss(95040, "Hollow Lord")),
@@ -304,6 +310,13 @@ pub fn group_data() -> Data {
 		let q = quest_like_7(&t, json!({ "id": id, "title": title, "area": area, "pre": [], "objectives": objectives }));
 		t.get_mut("quests").unwrap()[id.to_string()] = q;
 	}
+	let journal = json!([
+		{ "type": "object", "id": 95200, "count": 1, "text": "Kobold Journal read" },
+		{ "type": "object", "id": 95201, "count": 1, "text": "Kobold Ledger read" },
+		{ "type": "item", "id": 95102, "count": 1, "text": "Kobold Notes" }
+	]);
+	let q = quest_like_7(&t, json!({ "id": 9604, "title": "Kobold Records", "pre": [], "objectives": journal }));
+	t.get_mut("quests").unwrap()["9604"] = q;
 	let keep: Map<String, Value> = t.into_iter().filter(|(k, _)| ["quests", "npcs", "objects", "items", "zones", "map-frames", "meta"].contains(&k.as_str())).collect();
 	let instances = json!({ "areas": { "7001": { "kind": "dungeon", "name": "Hollow Deeps" }, "7002": { "kind": "raid", "name": "Molten Core" } }, "maps": { "9900": { "kind": "dungeon", "name": "Hollow Deeps" } } });
 	data_from(&keep, instances, Value::Null)
@@ -357,7 +370,7 @@ pub fn manifest_of(dir: &Path) -> V {
 /// buildPackFiles({ guides, manifest, data }) -> file name -> text (bytes as lossy text).
 pub fn pack_files(guides: &[V], manifest: &V, data: &Data) -> std::collections::BTreeMap<String, String> {
 	let iface = forge_guide::project::core_interface(&repo()).unwrap();
-	forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &iface, Vec::new())
+	forge_guide::project::build_pack_files(guides, manifest, data, None, &V::obj(), &[], &[], &iface, Vec::new())
 		.into_iter()
 		.map(|(k, c)| {
 			let t = match c {

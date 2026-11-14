@@ -31,6 +31,8 @@ const FIXTURE: &str = r#"{
 	[9062] = "16 30 25 2 4 1 spFire10 spFrost10",
 	[9063] = "16 30 25 2 4 1 sp10",
 	[9064] = "16 30 25 2 4 1 spShadow20",
+	[9070] = "13 22 17 2 2 0 agi3 dmin12 dmax22 speed1800",
+	[9071] = "17 22 17 2 2 1 str10 dmin40 dmax60 speed3000",
 }"#;
 
 // Troll by default: a race with no gear trait (racials have their own tests).
@@ -107,6 +109,77 @@ fn client_stats_win_over_itemdb_for_base_stats_itemdb_fills_equip_bonuses_the_cl
 	assert_eq!(out[0], json!({ "str": 12, "sta": 4, "armor": 170, "crit": 1 }));
 	assert_eq!(out[1], json!([{ "str": 3 }, 1, 3]));
 	assert_eq!(out[2], true);
+}
+
+#[test]
+fn combined_client_spell_power_scores_damage_and_healing_but_damage_only_does_not() {
+	let out = run(
+		r#"
+		local _, imported = G.Scales.Import('( Pawn: v1: "Spellcaster": SpellDamage=0.9, Healing=0.5, Armor=0.005 )', "WARRIOR")
+		Polestar.Set("gear.spec.WARRIOR", "custom:" .. imported.scale.id)
+		local cases = {
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13, RESISTANCE0_NAME = 104 },
+			{ ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, RESISTANCE0_NAME = 104 },
+			{ ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 21, RESISTANCE0_NAME = 104 },
+		}
+		for i, stats in ipairs(cases) do
+			local link = "item:" .. (7800 + i)
+			g.defineItem(link, { equipLoc = "INVTYPE_CLOAK", classID = 4, subclassID = 1, stats = stats })
+			emit({ stats = G.GetItemInfo(link).stats, score = G.ScoreItem(link) })
+		end
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0]["stats"], json!({ "sp": 13, "heal": 13, "armor": 104 }));
+	assert_eq!(out[1]["stats"], json!({ "sp": 13, "armor": 104 }));
+	assert_eq!(out[2]["stats"], json!({ "sp": 13, "heal": 21, "armor": 104 }));
+	for (item, expected) in out.iter().zip([18.72, 12.22, 22.72]) {
+		let score = item["score"].as_f64().unwrap();
+		assert!((score - expected).abs() < 1e-9, "expected {expected}, got {score}");
+	}
+}
+
+#[test]
+fn combined_client_spell_power_supplies_healing_before_itemdb_fills_missing_equip_bonuses() {
+	let out = run(
+		r#"
+		-- The ItemDB fixture has sp36 heal36. Live combined power supplies both
+		-- channels, while damage-only still lets ItemDB fill omitted healing.
+		g.defineItem("item:9061:1", { stats = { ITEM_MOD_SPELL_POWER_SHORT = 13 } })
+		g.defineItem("item:9061:2", { stats = { ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13 } })
+		g.defineItem("item:9061:3", { stats = { ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 13, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 21 } })
+		for _, link in ipairs({ "item:9061:1", "item:9061:2", "item:9061:3", "item:9061" }) do
+			local stats = G.GetItemInfo(link).stats
+			emit({ sp = stats.sp, heal = stats.heal })
+		end
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out, vec![json!({ "sp": 13, "heal": 13 }), json!({ "sp": 13, "heal": 36 }), json!({ "sp": 13, "heal": 21 }), json!({ "sp": 36, "heal": 36 })]);
+}
+
+// A damage-only or healing-only bonus is a stat of its own next to combined spell power, so the two add up. The
+// client's item table gives Earthen Silk Slippers (254013) 18 combined and 6 damage, and Atiesh (22631) 120
+// combined and 180 healing: 24 damage and 18 healing, and 120 damage and 300 healing, as their item data says.
+#[test]
+fn combined_spell_power_adds_to_a_damage_only_or_healing_only_bonus() {
+	let out = run(
+		r#"
+		local cases = {
+			{ ITEM_MOD_SPELL_POWER_SHORT = 18, ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 6 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 120, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 180 },
+			{ ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = 16, ITEM_MOD_SPELL_HEALING_DONE_SHORT = 48 },
+			{ ITEM_MOD_SPELL_POWER_SHORT = 13 },
+		}
+		for i, stats in ipairs(cases) do
+			local link = "item:" .. (7800 + i)
+			g.defineItem(link, { equipLoc = "INVTYPE_CLOAK", classID = 4, subclassID = 1, stats = stats })
+			emit(G.GetItemInfo(link).stats)
+		end
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out, vec![json!({ "sp": 24, "heal": 18 }), json!({ "sp": 120, "heal": 300 }), json!({ "sp": 16, "heal": 48 }), json!({ "sp": 13, "heal": 13 })]);
 }
 
 #[test]
@@ -283,6 +356,22 @@ fn a_weapon_the_class_can_train_but_the_character_has_not_learned_is_no_upgrade_
 	assert_eq!(r["after"]["usable"], true);
 	assert_eq!(r["after"]["up"], true);
 	assert!(r["after"]["reason"].is_null());
+}
+
+#[test]
+fn a_rogue_can_upgrade_to_a_one_handed_axe_after_learning_the_skill() {
+	let out = run(
+		r#"
+		w.learnSkill(173, "Daggers", 1, 150)
+		emit(G.IsUpgrade("item:9070"))
+		w.learnSkill(44, "One-Handed Axes", 1, 150)
+		emit(G.IsUpgrade("item:9070"))
+		w.learnSkill(172, "Two-Handed Axes", 1, 150)
+		emit(G.CompareToEquipped("item:9071").reason)
+	"#,
+		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() },
+	);
+	assert_eq!(out, vec![json!(false), json!(true), json!("weapon")]);
 }
 
 #[test]
@@ -503,40 +592,53 @@ fn quest_reward_tooltips_hovering_a_choice_setquestitem_setquestlogitem_shows_th
 
 #[test]
 fn options_the_gear_advice_on_questing_with_the_class_spec_dropdown_registered_once() {
+	// The rows are the settings' addon's (Polestar_Options/Gear/Options.lua), run here as it loads: one section, the
+	// feature's switch in its header, the comparison's threshold and pairing beside the rest.
+	let file = forge_addontest::run::addons_dir().join("Polestar_Options/Gear/Options.lua").to_string_lossy().into_owned();
 	let out = run(
-		r#"
+		&[
+			r#"
 		local seen = {}
-		Polestar.RegisterOptions = function(def) seen[#seen + 1] = def end
-		stub.login()
+		Polestar.RegisterOptions = function(def) seen[#seen + 1] = def; return true end
+		dofile([["#,
+			&file,
+			r#"]])
+		stub.login()"#,
+			r#"
 		local out = {}
 		for _, def in ipairs(seen) do
 			local keys = {}
+			if def.toggle then keys[1] = def.toggle.key .. "=header:" .. (def.toggle.help and "help" or "nohelp") end
 			for _, c in ipairs(def.controls) do keys[#keys + 1] = (c.key or c.label) .. "=" .. c.kind .. ":" .. (c.help and "help" or "nohelp") end
 			out[#out + 1] = { page = def.page, section = def.section, keys = keys,
-				choices = def.controls[2].choices and #def.controls[2].choices() or 0 }
+				choices = def.controls[1].choices and #def.controls[1].choices() or 0 }
 		end
 		emit(out)
 	"#,
+		]
+		.concat(),
 		Opts { login: false, ..Default::default() },
 	);
 	let defs = out[0].as_array().unwrap();
-	assert_eq!(defs.len(), 2);
+	assert_eq!(defs.len(), 1);
 	assert!(defs.iter().all(|d| d["page"] == "Questing"));
 	assert_eq!(
 		defs[0]["keys"],
 		json!([
-			"gear.enabled=toggle:help",
+			"gear.enabled=header:help",
 			"gear.spec.WARRIOR=dropdown:help",
+			"Adjust weights=button:help",
 			"Manage custom weights=button:help",
 			"gear.tooltip=toggle:help",
+			"gear.minUpgrade=slider:help",
 			"gear.bagArrows=toggle:help",
 			"gear.hideForPawn=toggle:help",
+			"gear.useBags=toggle:help",
 			"gear.rewards=toggle:help",
 			"gear.pickTooltip=toggle:help"
 		])
 	);
 	assert_eq!(defs[0]["choices"], 4); // Automatic + three warrior specs
-	assert_eq!(defs[1]["keys"], json!(["gear.minUpgrade=slider:help", "gear.useBags=toggle:help"]));
 }
 
 #[test]
@@ -769,4 +871,37 @@ fn a_custom_scale_with_school_weights_only_keeps_their_value_and_two_schools_cou
 	);
 	assert_eq!(out[0], json!([20, 34]), "Shadow only: +20 Shadow is 20, +34 Fire +34 Shadow is 34");
 	assert_eq!(out[1], json!([20, 34]), "Shadow and Fire: the two bonuses count as the larger one");
+}
+
+#[test]
+fn item_data_arriving_redoes_the_answers_built_from_that_item_and_no_others() {
+	let out = run(
+		r#"
+		g.equip(1, "item:9001")
+		-- Not in the ItemDB: the client's stats only, not loaded yet.
+		g.defineItem("item:8001", { equipLoc = "INVTYPE_HEAD", classID = 4, subclassID = 3, minLevel = 20, cached = false })
+		local fires = {}
+		Polestar.On("GEAR_UPDATED", function(what) fires[#fires + 1] = what end)
+		emit(G.CompareToEquipped("item:8001") == nil)
+		-- Another item's data (a chat link, a vendor page): no answer used it.
+		stub.fire("GET_ITEM_INFO_RECEIVED", 7777, true)
+		emit(#fires)
+		-- Its own data arrives: the answer is built again from it.
+		g.defineItem("item:8001", { equipLoc = "INVTYPE_HEAD", classID = 4, subclassID = 3, minLevel = 20,
+			stats = { ITEM_MOD_STRENGTH_SHORT = 20, ITEM_MOD_STAMINA_SHORT = 10, RESISTANCE0_NAME = 200 } })
+		stub.fire("GET_ITEM_INFO_RECEIVED", 8001, true)
+		emit(fires)
+		local r = G.CompareToEquipped("item:8001")
+		emit(r ~= nil and r.delta ~= nil and r.delta > 0)
+		-- After that wipe, an unrelated arrival is still nothing.
+		stub.fire("GET_ITEM_INFO_RECEIVED", 7778, true)
+		emit(#fires)
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], true, "no stats yet: no answer");
+	assert_eq!(out[1], 0, "another item's data changes no answer, so nothing is redone");
+	assert_eq!(out[2], json!(["items"]), "the item's own data wipes the answers built from it");
+	assert_eq!(out[3], true, "and the answer reads the new stats");
+	assert_eq!(out[4], 1);
 }

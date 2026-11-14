@@ -19,9 +19,10 @@ zone Azeroth
 # turned in at the camps, not gold; its patterns bind when picked up. Tailoring has no
 # specialisation on Forever.
 #
-# Ranks: Journeyman needs character level 10 (Forever's sniffed lists). Expert is taught only by
-# Georgio Bolero (Stormwind) and Josef Gregorian (Undercity), plus the Artisan trainers Timothy
-# Worthington (Theramore, Dustwallow Marsh) and Daryl Stack (Tarren Mill, Hillsbrad).
+# Ranks: Journeyman needs character level 10 (Forever's sniffed lists). Trainers teach by tier and
+# train only from their tier's skill: Journeyman at the city trainers, from skill 50; Expert only at
+# Georgio Bolero (Stormwind) and Josef Gregorian (Undercity), from 125; Artisan only at Timothy
+# Worthington (Theramore, Dustwallow Marsh) and Daryl Stack (Tarren Mill, Hillsbrad), from 200.
 #
 # Route (crafts are expected counts; yellow and green crafts can take more):
 #     1-15  Linen Cloak, about 7 (known): 1 Bolt of Linen Cloth and 1 Coarse Thread each
@@ -59,6 +60,7 @@ zone Azeroth
 # for Apprentice and 10 for Journeyman). In-game check: the level each trainer asks.
 
 # ---------------------------------------------------------------- Apprentice (1-75)
+section Tailoring 1-75
 
 step Learn Tailoring
   tip Apprentice Tailoring lets you craft up to 75 for 10c, at any character level. Any Tailoring trainer of your faction teaches it; the arrow picks the nearest. Keep every Linen Cloth you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 Linen Cloth to gather or buy.
@@ -70,8 +72,8 @@ step Tailoring 1-75: vendor goods
   buy 2320 x72 nearest
 
 step Linen Cloth
-  tip 144 Linen Cloth for Linen Cloak and Linen Belt: humanoids of level 5-20 drop it; or the Auction House. The arrow picks a farm spot for your level and faction.
-  collect 2589 x144 nearest
+  tip 144 Linen Cloth for Linen Cloak and Linen Belt: humanoids of level 5-20 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2589 x144 anywhere
 
 step Linen Cloak to 15
   tip Linen Cloak is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 Bolt of Linen Cloth and 1 Coarse Thread. Make the 7 Bolt of Linen Cloth first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data.
@@ -89,9 +91,10 @@ step Linen Belt to 75
   skill Tailoring 75
 
 # ---------------------------------------------------------------- Journeyman (75-150)
+section Tailoring 75-150
 
 step Journeyman Tailoring
-  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Tailoring 50 and character level 10, so you can take it on any visit from 50. Not every Tailoring trainer teaches it: Alliance Georgio Bolero (Stormwind City), Grarnik Goodstitch (Stranglethorn Vale), Jormund Stonebrow (Ironforge), Me'lynn (Darnassus), Othesia Evengale (Zephras Isle), Sellandus (Stormwind City), Taleen Shimmerthread (Zephras Isle) and Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills), Grarnik Goodstitch (Stranglethorn Vale), Josef Gregorian (Undercity), Magar (Orgrimmar), Mahani (The Barrens), Othesia Evengale (Zephras Isle), Rhiannon Davis (Undercity), Taleen Shimmerthread (Zephras Isle) and Tepa (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Bolt of Woolen Cloth (from 55, 1s) and Woolen Cape (from 55, 2s 50c). Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. The Camping 101: Tailoring quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 Wool Cloth and 204 Silk Cloth to gather or buy.
+  tip Journeyman raises the cap from 75 to 150 for 5s; it needs Tailoring 50 and character level 10, so you can take it on any visit from 50. Not every Tailoring trainer teaches it: Alliance Grarnik Goodstitch (Stranglethorn Vale), Jormund Stonebrow (Ironforge), Me'lynn (Darnassus), Othesia Evengale (Zephras Isle), Sellandus (Stormwind City) and Taleen Shimmerthread (Zephras Isle); Horde Grarnik Goodstitch (Stranglethorn Vale), Magar (Orgrimmar), Mahani (The Barrens), Othesia Evengale (Zephras Isle), Rhiannon Davis (Undercity), Taleen Shimmerthread (Zephras Isle) and Tepa (Thunder Bluff). The arrow picks the nearest of your faction. Learn now: Bolt of Woolen Cloth (from 55, 1s) and Woolen Cape (from 55, 2s 50c). Also learn Faction Banner (1s): Forever's Tailoring camp item, a Bolt of Linen Cloth and a Coarse Thread; each faction has its own. The Camping 101: Tailoring quest from your starting area's camping guide (after The Great Outdoors) sends you to a tailoring trainer who teaches it free. 75-150 takes about 11s of recipes and 1g 65s 50c of vendor goods, plus 567 Wool Cloth and 204 Silk Cloth to gather or buy.
   level 10
   train Tailoring Journeyman
   learn 2964
@@ -105,32 +108,15 @@ step Tailoring 75-150: vendor goods
   buy 2324 x34 nearest
   buy 2604 x98 nearest
 
-step Wool Cloth (Alliance)
-  only Alliance
-  zone Westfall
-  tip 567 Wool Cloth for Woolen Cape and Stylish Red Shirt: humanoids of level 15-30 drop it; or the Auction House. It drops from Riverpaw Taskmaster (level 17-18) here.
-  collect 2592 x567 @59.4,72.8 era
+step Wool Cloth
+  tip 567 Wool Cloth for Woolen Cape and Stylish Red Shirt: humanoids of level 15-30 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 2592 x567 anywhere
 
-step Wool Cloth (Horde)
-  only Horde
-  zone The Barrens
-  tip 567 Wool Cloth for Woolen Cape and Stylish Red Shirt: humanoids of level 15-30 drop it; or the Auction House. It drops from Bristleback Geomancer (level 19-20) here.
-  collect 2592 x567 @40.4,45.4 era
-
-step Silk Cloth (Alliance)
-  only Alliance
-  zone Hillsbrad Foothills
-  tip 204 Silk Cloth for Formal White Shirt: humanoids of level 25-45 drop it; or the Auction House. It drops from Syndicate Footpad (level 32-33) here.
-  collect 4306 x204 @58.3,6.2 era
-
-step Silk Cloth (Horde)
-  only Horde
-  zone Ashenvale
-  tip 204 Silk Cloth for Formal White Shirt: humanoids of level 25-45 drop it; or the Auction House. It drops from Mannoroc Lasher (level 29-30) here.
-  collect 4306 x204 @81.3,79.5 era
+step Silk Cloth
+  tip 204 Silk Cloth for Formal White Shirt: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4306 x204 anywhere
 
 step Woolen Cape to 104
-  zone Azeroth
   tip Woolen Cape is orange at 75 (yellow 80, green 97, grey 115): about 42 crafts to 104. Each takes 1 Bolt of Woolen Cloth and 1 Fine Thread. Make the 42 Bolt of Woolen Cloth first: it gives points too while not grey. Bolt of Woolen Cloth is taught from 55 on Forever.
   craft 2964 x42
   craft 2402 until 104
@@ -156,6 +142,7 @@ step Formal White Shirt to 150
   skill Tailoring 150
 
 # ---------------------------------------------------------------- Expert (150-225)
+section Tailoring 150-225
 
 step Tailoring 150-225: vendor goods
   tip Buy the whole bracket's share in one go: 44 Fine Thread (44s), 90 Silken Thread (4g 50s), 44 Blue Dye (22s) and 80 Heavy Silken Thread (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction (Stormwind City: Alexandra Bolero, Edna Mullby and Jillian Tanner; Orgrimmar: Borya, Felika and Shimra).
@@ -169,24 +156,15 @@ step Pattern: Azure Silk Cloak
   buy 7089 nearest
 
 step Silk Cloth
-  tip 264 Silk Cloth for Azure Silk Cloak: humanoids of level 25-45 drop it; or the Auction House. The arrow picks a farm spot for your level and faction.
-  collect 4306 x264 nearest
+  tip 264 Silk Cloth for Azure Silk Cloak: humanoids of level 25-45 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4306 x264 anywhere
 
-step Mageweave Cloth (Alliance)
-  only Alliance
-  zone The Hinterlands
-  tip 900 Mageweave Cloth for Black Mageweave Vest and Black Mageweave Headband: humanoids of level 35-50 drop it; or the Auction House. It drops from Vilebranch Soothsayer (level 46-47) here.
-  collect 4338 x900 @44.6,65.5 era
-
-step Mageweave Cloth (Horde)
-  only Horde
-  zone Tanaris
-  tip 900 Mageweave Cloth for Black Mageweave Vest and Black Mageweave Headband: humanoids of level 35-50 drop it; or the Auction House. It drops from Dunemaul Enforcer (level 46-47) here.
-  collect 4338 x900 @37.8,56.6 era
+step Mageweave Cloth
+  tip 900 Mageweave Cloth for Black Mageweave Vest and Black Mageweave Headband: humanoids of level 35-50 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 4338 x900 anywhere
 
 step Expert Tailoring
-  zone Azeroth
-  tip Expert raises the cap from 150 to 225; it needs Tailoring 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Georgio Bolero (Stormwind City) and Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills) and Josef Gregorian (Undercity). The arrow picks the nearest of your faction. Learn now: Bolt of Mageweave (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 Silk Cloth and 900 Mageweave Cloth to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Black Mageweave Vest (from 170) and Black Mageweave Headband (from 190), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3.
+  tip Expert raises the cap from 150 to 225; it needs Tailoring 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance Georgio Bolero (Stormwind City); Horde Josef Gregorian (Undercity). The arrow picks the nearest of your faction. Learn now: Bolt of Mageweave (from 140). 150-225 takes about 15s of recipes and 21g 16s of vendor goods, plus 264 Silk Cloth and 900 Mageweave Cloth to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach Black Mageweave Vest (from 170), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 2. Black Mageweave Headband (from 190) takes a second trip, to other trainers (below).
   level 20
   train Tailoring Expert
   learn 3865
@@ -207,8 +185,9 @@ step Black Mageweave Vest to 197
   craft 12048 until 197
 
 step Tailoring recipes at 197
-  tip Still at the Expert trainer: Black Mageweave Headband (from 190).
-  learn 12072
+  tip Black Mageweave Headband (from 190) is taught only by the Artisan trainers: Alliance Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills).
+  learn 12072 npc 11052 only Alliance
+  learn 12072 npc 2399 only Horde map 1424
 
 step Black Mageweave Headband to 225
   tip Black Mageweave Headband is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 Bolt of Mageweave and 2 Heavy Silken Thread. Make the 120 Bolt of Mageweave first. The trainer teaches it, and it is the cheapest way through these points in the data. Tailoring 225 is a Legacy System milestone.
@@ -217,6 +196,7 @@ step Black Mageweave Headband to 225
   skill Tailoring 225
 
 # ---------------------------------------------------------------- Artisan (225-300)
+section Tailoring 225-300
 
 step Artisan Tailoring
   tip Artisan raises the cap from 225 to 300; it needs Tailoring 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Timothy Worthington (Dustwallow Marsh); Horde Daryl Stack (Hillsbrad Foothills). The arrow picks the nearest of your faction. Learn now: Bolt of Runecloth (from 205) and Runecloth Belt (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 Rugged Leather, 3195 Runecloth and 124 Ironweb Spider Silk to gather or buy.
@@ -235,9 +215,9 @@ step Pattern: Runecloth Gloves
 
 step Rugged Leather (Alliance)
   only Alliance
-  zone Western Plaguelands
-  tip 420 Rugged Leather for Runecloth Gloves and Runecloth Shoulders: Skinning: beasts of level 48-60; or the Auction House. Skin Diseased Black Bear, Diseased Grizzly and Diseased Wolf here (level 48-60); the Skinning guide routes this.
-  collect 8170 x420 @34.2,62.1 era
+  zone Eastern Plaguelands
+  tip 420 Rugged Leather for Runecloth Gloves and Runecloth Shoulders: Skinning: beasts of level 48-60; or the Auction House. Skin Frenzied Plaguehound, Plaguehound and Plaguehound Runt here (level 48-60); the Skinning guide routes this.
+  collect 8170 x420 @56,46.8 live
 
 step Rugged Leather (Horde)
   only Horde
@@ -245,17 +225,10 @@ step Rugged Leather (Horde)
   tip 420 Rugged Leather for Runecloth Gloves and Runecloth Shoulders: Skinning: beasts of level 48-60; or the Auction House. Skin Coralshell Tortoise, Mosshoof Stag, Thunderhead Consort, Thunderhead Patriarch, Thunderhead Skystormer and Thunderhead Stagwing here (level 48-60); the Skinning guide routes this.
   collect 8170 x420 @58.8,21.5 era
 
-step Runecloth (Alliance)
-  only Alliance
-  zone Burning Steppes
-  tip 3195 Runecloth for Runecloth Belt, Runecloth Gloves and Runecloth Shoulders: humanoids of level 45-60 drop it; or the Auction House. It drops from Blackrock Slayer (level 56-57) here.
-  collect 14047 x3195 @49.8,54.7 era
-
-step Runecloth (Horde)
-  only Horde
-  zone Silithus
-  tip 3195 Runecloth for Runecloth Belt, Runecloth Gloves and Runecloth Shoulders: humanoids of level 45-60 drop it; or the Auction House. It drops from Twilight Avenger (level 57-59) here.
-  collect 14047 x3195 @23.7,35.5 era
+step Runecloth
+  zone Azeroth
+  tip 3195 Runecloth for Runecloth Belt, Runecloth Gloves and Runecloth Shoulders: humanoids of level 45-60 drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.
+  collect 14047 x3195 anywhere
 
 step Ironweb Spider Silk (Alliance)
   only Alliance

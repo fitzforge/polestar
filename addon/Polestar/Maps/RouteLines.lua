@@ -24,28 +24,43 @@
 -- expanded along their tracks then). The world map frame redraws on map,
 -- zoom, size, route, setting and theme changes, and when the player has
 -- walked past a point of the walk (its own 4 Hz check, which runs only while
--- the map shows it). The minimap redraws from a 10 Hz driver that runs only
--- while there is a route to draw on it, and only when the player, the facing,
--- the zoom or the route changed since the last draw. No draw allocates.
+-- the map shows it). While there is a route to draw on the minimap, it is laid
+-- out again on every rendered frame the minimap's view changes (the player,
+-- the facing, the zoom, its size or shape), as the game redraws the minimap
+-- (a slower rate lags the terrain and jitters): Polestar.Pins reports those
+-- frames (Pins.WatchMinimapView) from its own sampling, so the line reads
+-- nothing more and sleeps with the pins' driver. A 10 Hz driver (20 Hz for
+-- flowing dots, 30 Hz for sparkles) redraws for the route and the animation,
+-- and only when something changed since the last draw. No draw allocates.
 --
 -- nav.routeLines turns the lines on; nav.worldPins and nav.minimapPins pick
 -- the surfaces, as for Nav's pins, and nav.minimapRoute takes the line (not
--- the pin) off the minimap. Polestar.Pins' trail dots (Nav/Layers.lua)
+-- the pin) off the minimap, nav.worldRoute off the world map (the trail
+-- does not stand in there). Polestar.Pins' trail dots (Nav/Layers.lua)
 -- stand in while the lines are off.
 --
 -- nav.dotColor tints the walks one colour (RouteLines.DOT_COLORS) in place of
--- the route colour; the other legs keep theirs. nav.minimapRouteAlpha fades
--- the minimap's line, and each style's own size scales it there
--- (nav.minimapLineSize, nav.minimapDotsSize, nav.minimapSparkleSize: SIZE_KEYS;
--- the window's "Minimap size" slider sets the size of the style in use). The
+-- the route colour; the other legs keep theirs. Each way of travel can take a
+-- colour of the player's own instead (COLOR_KEYS: nav.walkColor, ...; the
+-- walk's wins over nav.dotColor). nav.worldRouteAlpha fades the world map's
+-- line, nav.minimapRouteAlpha the minimap's, and each style's own size scales
+-- it there (nav.minimapLineSize, nav.minimapDotsSize, nav.minimapSparkleSize:
+-- SIZE_KEYS; the Route lines page's "Minimap size" slider sets the size of
+-- the style in use). nav.laterAlpha is how strongly the legs after this one
+-- show, nav.lineOutline how strongly the dark outline (the line's soft
+-- shadow) under every stroke, nav.dotSize and nav.dotSpacing the dots', and
+-- nav.drawIn turns the draw-in off. The Route lines page
+-- (Maps/RouteOptions.lua) sets them all, over a preview drawn by the same
+-- painters (RouteLines.NewCanvas, Paint, Look, MapSparkles, MinimapSparkles). The
 -- minimap's frame sits just above the minimap itself: the game draws its
 -- tracking blips and quest marks into the minimap's own picture, under every
 -- frame laid over it, so no frame level puts the line under them.
 --
 -- nav.lineStyle picks the look: "line" (the default for a new account) draws
 -- each walk as one continuous line nav.lineWidth px thick over a soft
--- shadow, chevrons on the world map and the walked stretch fading behind the
--- player, flights dashed (RouteStrokes); "dots" (Polestar's breadcrumbs, kept
+-- shadow, the walked stretch fading behind the player (nav.walkedFade),
+-- chevrons on the world map with nav.routeChevrons, flights dashed
+-- (nav.flightDash) (RouteStrokes); "dots" (Polestar's breadcrumbs, kept
 -- for every account from before the line: keepDots below); "sparkle" as
 -- below, or the dots while ui.reduceMotion is on.
 --
@@ -74,9 +89,17 @@ ns.RouteLines = RouteLines
 -- the dots at 80 %, the sparkles at 150 %; all at full opacity.
 ns.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = Strokes.LINE_WIDTH, dotColor = "route", minimapRouteAlpha = 1,
 	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5,
-	-- The window's slider's key; it reads and writes the size of the style in
+	-- The Route lines page's "Minimap size" slider's key; it reads and writes the size of the style in
 	-- use. A size saved here before the sizes were per style is moved to all three.
-	minimapRouteSize = 1 })
+	minimapRouteSize = 1,
+	-- The Route lines page (Maps/RouteOptions.lua, 0.3.7): each way of
+	-- travel's own colour (false: the theme's; the tram's colours lifts too),
+	-- the world map line's opacity, the legs after this one, the walked
+	-- stretch's fade, chevrons, dashed flights, the dots' size and spacing,
+	-- the draw-in, and the dark outline (or shadow) under every stroke.
+	walkColor = false, flightColor = false, boatColor = false, zeppelinColor = false, tramColor = false,
+	worldRoute = true, worldRouteAlpha = 1, laterAlpha = Strokes.LATER_ALPHA, walkedFade = true, routeChevrons = false, flightDash = true,
+	dotSize = Strokes.DOT, dotSpacing = Strokes.SPACING, drawIn = true, lineOutline = 1 })
 if Sparkle then ns.RegisterDefaults("nav", Sparkle.DEFAULTS) end
 
 -- The styles, in the order the welcome and Options offer them.
@@ -95,6 +118,15 @@ RouteLines.MINIMAP_LIMITS = {
 -- Each style's minimap size setting (the style drawn: dots stand in for
 -- sparkles under ui.reduceMotion, at the dots' size).
 RouteLines.SIZE_KEYS = { line = "minimapLineSize", dots = "minimapDotsSize", sparkle = "minimapSparkleSize" }
+-- The rest of the look, in range.
+RouteLines.LOOK_LIMITS = {
+	worldRouteAlpha = { 0.2, 1 }, laterAlpha = { 0, 1 }, lineOutline = { 0, 2 },
+	dotSize = Strokes.DOTS, dotSpacing = Strokes.SPACINGS, lineWidth = Strokes.LINE_WIDTHS,
+}
+-- Each leg kind's colour setting (nav.<key>: false for the theme's colour); an airship rides as a zeppelin.
+RouteLines.COLOR_KEYS = { walk = "walkColor", flight = "flightColor", boat = "boatColor", zeppelin = "zeppelinColor", airship = "zeppelinColor",
+	tram = "tramColor", lift = "tramColor" }
+
 
 -- The minimap size saved before the sizes were per style becomes each
 -- style's, where the style has none of its own; then it is gone.
@@ -128,17 +160,24 @@ local LIVE_REACH = 60
 local JUMP = { hearth = true, teleport = true, portal = true }
 
 -- Theme tokens per leg kind (the same as the travel pins': Maps/TravelPins.lua).
-local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", tram = "object", lift = "object" }
+local TOKEN = { walk = "arrow", flight = "success", boat = "npc", zeppelin = "place", airship = "place", tram = "object", lift = "object" }
 local colors = {}
 for kind in pairs(TOKEN) do colors[kind] = { 1, 1, 1 } end
 local under = { 0.02, 0.03, 0.06 }
--- The dots' colours: the route colours, or one of DOT_COLORS for every kind.
+-- The walks' colour: the route colours, or one of DOT_COLORS (a walk colour
+-- of the player's own, nav.walkColor, is in colors itself and wins).
 local single = {}
 local palette = colors
 -- The minimap line's opacity and size, in range.
 local mmAlpha, mmSize = 1, 1
 -- The style drawn (RouteLines.Style) and the line's thickness in px.
 local lineStyle, lineWidth = "dots", Strokes.LINE_WIDTH
+-- The rest of the look (RouteLines.LOOK_LIMITS, restyle): the world map's
+-- opacity, the later legs' strength, the outline's strength, the dots' size
+-- and spacing, the walked stretch's fade, chevrons and dashed flights.
+local worldAlpha, laterAlpha, outlineK = 1, Strokes.LATER_ALPHA, 1
+local dotSize, dotSpacing = Strokes.DOT, Strokes.SPACING
+local tailOn, chevronsOn, dashOn = true, false, true
 
 -- Players from before the line style keep their dots: an account Polestar
 -- knew before (ns.IsNewAccount false) with no style of its own gets "dots"
@@ -182,9 +221,10 @@ local function sparklePhase(now)
 	return phase + (now - phaseAt) * (sparkleStyle and sparkleStyle.flow or 0)
 end
 
+-- Where the lines draw (world map, minimap): nowhere while Polestar is hidden.
 local function surfaces()
-	if not ns.Get("nav.routeLines") then return false, false end
-	return ns.Get("nav.worldPins") and true or false,
+	if not ns.Get("nav.routeLines") or ns.Hidden() then return false, false end
+	return (ns.Get("nav.worldPins") and ns.Get("nav.worldRoute") ~= false) and true or false,
 		(ns.Get("nav.minimapPins") and ns.Get("nav.minimapRoute") ~= false) and true or false
 end
 
@@ -271,15 +311,23 @@ local function sparkleProgress()
 	if along and off <= LIVE_REACH then runFrom[1] = along end
 end
 
-local function limited(key)
-	local range, v = RouteLines.MINIMAP_LIMITS[key], tonumber(ns.Get("nav." .. key))
-	if not v then return 1 end
+-- A number setting in its range (ranges: MINIMAP_LIMITS or LOOK_LIMITS); its
+-- default when it holds no number.
+local function limited(key, ranges)
+	local range, v = (ranges or RouteLines.MINIMAP_LIMITS)[key], tonumber(ns.Get("nav." .. key))
+	if not v then v = tonumber(ns.GetDefault("nav." .. key)) or 1 end
 	return v < range[1] and range[1] or v > range[2] and range[2] or v
+end
+
+-- A colour of the player's own ({ r, g, b }), or nil for the theme's.
+local function ownColor(key)
+	local c = key and ns.Get("nav." .. key)
+	if type(c) == "table" and type(c[1]) == "number" and type(c[2]) == "number" and type(c[3]) == "number" then return c end
 end
 
 local function restyle()
 	mmAlpha = limited("minimapRouteAlpha")
-	local tint = RouteLines.DOT_COLORS[ns.Get("nav.dotColor")]
+	local tint = not ownColor("walkColor") and RouteLines.DOT_COLORS[ns.Get("nav.dotColor")]
 	if tint then
 		-- The walks only: flights, boats and the rest keep their own colours, so a
 		-- walk and a flight never read as one line.
@@ -294,8 +342,11 @@ local function restyle()
 	if style ~= "line" and style ~= "sparkle" then style = "dots" end
 	lineStyle = style
 	mmSize = limited(RouteLines.SIZE_KEYS[style])
-	local w, range = tonumber(ns.Get("nav.lineWidth")) or Strokes.LINE_WIDTH, Strokes.LINE_WIDTHS
-	lineWidth = w < range[1] and range[1] or w > range[2] and range[2] or w
+	local look = RouteLines.LOOK_LIMITS
+	lineWidth = limited("lineWidth", look)
+	worldAlpha, laterAlpha, outlineK = limited("worldRouteAlpha", look), limited("laterAlpha", look), limited("lineOutline", look)
+	dotSize, dotSpacing = limited("dotSize", look), limited("dotSpacing", look)
+	tailOn, chevronsOn, dashOn = ns.Get("nav.walkedFade") ~= false, ns.Get("nav.routeChevrons") == true, ns.Get("nav.flightDash") ~= false
 	sparkling = style == "sparkle"
 	if not sparkling then return end
 	local now = sparkleClock()
@@ -389,17 +440,20 @@ local function drawingIn()
 	return drawInAt ~= nil
 end
 
--- A route to a goal not drawn before starts the draw-in.
+-- A route to a goal not drawn before starts the draw-in (nav.drawIn).
 local function startDrawIn()
 	if goalC == drawnGoalC and goalX == drawnGoalX and goalY == drawnGoalY then return end
 	drawnGoalC, drawnGoalX, drawnGoalY = goalC, goalX, goalY
-	if goalC and not sparkling and not ns.Get("ui.reduceMotion") then drawInAt = sparkleClock() end
+	if goalC and not sparkling and not ns.Get("ui.reduceMotion") and ns.Get("nav.drawIn") ~= false then drawInAt = sparkleClock() end
 end
 
--- owner.opacity (the minimap's nav.minimapRouteAlpha) fades every stroke.
-local function paint(owner, strokes)
+-- owner.opacity (nav.worldRouteAlpha, nav.minimapRouteAlpha) fades every
+-- stroke; nav.lineOutline sets how strongly the outline (or the line's soft
+-- shadow) shows under it, none at 0. count: the strokes to show (default:
+-- the draw-in's share of them).
+local function paint(owner, strokes, count)
 	local lines, outlines, opacity = owner.lines, owner.outlines, owner.opacity or 1
-	local n = drawInto(strokes.n)
+	local n = count or drawInto(strokes.n)
 	for index = 1, n do
 		local line, outline = lines[index], outlines[index]
 		if not line then
@@ -412,8 +466,9 @@ local function paint(owner, strokes)
 		local x1, y1, x2, y2 = strokes.x1[index], strokes.y1[index], strokes.x2[index], strokes.y2[index]
 		local ux, uy, alpha = strokes.ux[index], strokes.uy[index], strokes.alpha[index] * opacity
 		local thickness = strokes.under[index]
-		if thickness > 0 then
-			outline:SetAlpha(alpha * (soft and SOFT_ALPHA or UNDER_ALPHA))
+		if thickness > 0 and outlineK > 0 then
+			local k = (soft and SOFT_ALPHA or UNDER_ALPHA) * outlineK
+			outline:SetAlpha(alpha * (k < 1 and k or 1))
 			outline:SetThickness(thickness)
 			outline:SetStartPoint("TOPLEFT", owner, x1 - ux, y1 - uy)
 			outline:SetEndPoint("TOPLEFT", owner, x2 + ux, y2 + uy)
@@ -444,6 +499,27 @@ local function newOwner(owner)
 	-- route colours change in place with the theme) and whether its halo shows.
 	owner.stars, owner.halos, owner.sparkles, owner.tints, owner.tinted, owner.glows = {}, {}, 0, {}, {}, {}
 	return owner
+end
+
+-- A Strokes view's look as a surface ("world" | "minimap") draws it now:
+-- the colours, the style, the line's thickness, the dots' size and spacing,
+-- the later legs, the walked stretch, dashed flights and (world map only)
+-- chevrons. scale: the surface's screen pixels per unit; the minimap's grows
+-- with the style's minimap size (SIZE_KEYS): the dots, their spacing and the
+-- gaps around the pin grow together, as at a larger UI scale. The live
+-- painters and the Route lines page's preview both draw through it.
+-- -> the opacity of every stroke (nav.worldRouteAlpha, nav.minimapRouteAlpha)
+local function look(v, surface, scale)
+	v.colors, v.style, v.lineWidth = palette, lineStyle == "line" and "line" or nil, lineWidth
+	v.dot, v.spacing, v.laterAlpha, v.tail, v.dash = dotSize, dotSpacing, laterAlpha, tailOn, dashOn
+	if surface == "minimap" then
+		v.scale, v.chevrons = scale / mmSize, false
+		return mmAlpha
+	end
+	-- Chevrons (nav.routeChevrons) are off by default: on a 4 px line they
+	-- read as notches; the draw-in and the fading tail show the way.
+	v.scale, v.chevrons, v.chevronColor = scale, chevronsOn, under
+	return worldAlpha
 end
 
 ---------------------------------------------------------------------------
@@ -507,9 +583,9 @@ local function finishSparkles(owner, used)
 end
 
 -- A run's colour: the style's, or its leg's (the dots' colours), and how
--- strongly it shows (the legs after this one recede, as the dots do).
+-- strongly it shows (the legs after this one recede, nav.laterAlpha, as the dots do).
 local function runLook(run)
-	return sparkleStyle.color or colors[run.kind] or colors.walk, run.later and Strokes.LATER_ALPHA or 1
+	return sparkleStyle.color or colors[run.kind] or colors.walk, run.later and laterAlpha or 1
 end
 
 ---------------------------------------------------------------------------
@@ -518,6 +594,9 @@ end
 
 local worldStrokes = Strokes.New()
 local view, worldPin -- the world map's view; the frame the strokes are painted on
+-- Every map watched (the world map's view first, then MapCanvas.Add's maps):
+-- view -> its frame, which keeps its own strokes and projection.
+local views, worldPins = {}, {}
 local bounds = {} -- uiMapID -> { c, left, top, kx, ky } | false
 
 local mapView = { width = 0, height = 0, scale = 1, small = false, marks = {}, markCount = 0, colors = colors }
@@ -587,7 +666,7 @@ end
 -- What the open map shows as a projector (O: OpenMap's API while it
 -- stitches): project(c, wx, wy) -> canvas fractions u, v or nil; the canvas
 -- units a yard spans near (c, wx, wy); the range of u, v worth drawing in.
-local function projector(O, c, wx, wy, width, height)
+local function projector(O, mapID, c, wx, wy, width, height)
 	if O then
 		local project = function(pc, x, y)
 			local ok, u, v = pcall(O.CanvasFromWorldPos, pc, x, y)
@@ -601,7 +680,7 @@ local function projector(O, c, wx, wy, width, height)
 		if perYard <= 0 then return nil end
 		return project, perYard, -1, 2
 	end
-	local b = view.mapID and boundsOf(view.mapID)
+	local b = mapID and boundsOf(mapID)
 	if not b then return nil end
 	local project = function(pc, x, y)
 		if pc ~= b.c then return nil end
@@ -612,11 +691,10 @@ end
 
 -- The world map's projection and every run's points on it (us[i], vs[i] for
 -- runs[i]), worked out again only when the route, the map, the canvas size
--- or OpenMap's stitching changes, so a 30 Hz draw only reads them.
-local projection = { us = {}, vs = {} }
-
-local function worldProjection(width, height)
-	local P, O = projection, openMap()
+-- or OpenMap's stitching changes, so a 30 Hz draw only reads them (one per frame: pin.projection).
+local function worldProjection(pin, width, height)
+	local view = pin.view
+	local P, O = pin.projection, view.map == WorldMapFrame and openMap() or nil -- OpenMap stitches the world map only
 	if P.project and P.revision == revision and P.O == O and P.mapID == view.mapID and P.width == width and P.height == height then
 		return P
 	end
@@ -624,7 +702,7 @@ local function worldProjection(width, height)
 	P.project = nil
 	local ref = runs[1]
 	if not ref then return nil end
-	local project, perYard, lo, hi = projector(O, ref.c, ref.xs[1], ref.ys[1], width, height)
+	local project, perYard, lo, hi = projector(O, view.mapID, ref.c, ref.xs[1], ref.ys[1], width, height)
 	if not project then return nil end
 	P.revision, P.O, P.mapID, P.width, P.height = revision, O, view.mapID, width, height
 	P.project, P.perYard, P.lo, P.hi = project, perYard, lo, hi
@@ -653,56 +731,67 @@ local function worldSparkle(wx, wy, k, nx, ny, fade)
 	if u and u >= lo and u <= hi and v >= lo and v <= hi then
 		local used = d.used + 1
 		d.used = used
-		sparkle(d.pin, used, u * d.width, -v * d.height, s, alpha, rotation, d.color)
+		sparkle(d.owner, used, u * d.width, -v * d.height, s, alpha, rotation, d.color)
 		if used >= st.max then return false end
 	end
 end
 
-local function drawWorldSparkles(pin)
-	local d = worldDraw
+-- Sparkles along runList (froms[i]: where run i's start, or nil) on a
+-- map-like surface `owner`: P = { us, vs (each run's points as fractions of
+-- the surface), perYard, project, lo, hi }, width x height units; zoom: the
+-- surface's zoom (sizes and spacing hold on screen while it zooms under
+-- them, as the pins' do); alpha over every sparkle. The world map and the
+-- Route lines page's preview both draw through it.
+local function mapSparkles(owner, runList, froms, P, width, height, zoom, alpha)
+	local d, st = worldDraw, sparkleStyle
 	d.used = 0
-	local width, height = view.width or 0, view.height or 0
-	local P = width > 0 and height > 0 and worldProjection(width, height) or nil
-	if P then
-		pin:SetSize(width, height)
-		local level = view:Level("PIN_FRAME_LEVEL_QUEST_BLOB")
-		local O = P.O
-		if O and type(O.ArtTopLevel) == "function" then
-			local ok, top = pcall(O.ArtTopLevel)
-			if ok and type(top) == "number" and top + 1 > level then level = top + 1 end
-		end
-		if pin:GetFrameLevel() ~= level then pin:SetFrameLevel(level) end
-		local st = sparkleStyle
-		local now = sparkleClock()
-		local at = sparklePhase(now)
-		-- Sizes and spacing hold on screen while the canvas zooms under them, as the pins' do.
-		local zoom = view.scale and view.scale > 0 and view.scale or 1
-		d.pin, d.now, d.size, d.perYard, d.project = pin, now, st.size / zoom, P.perYard, P.project
-		d.lo, d.hi, d.width, d.height = P.lo, P.hi, width, height
-		local spacing = st.spacing / zoom / P.perYard
-		-- Only the stretches that reach the canvas, with room for a sparkle's
-		-- jitter off the run (doubled: OpenMap's yards needn't be the same size everywhere).
-		local margin = 2 * st.jitter * 1.2 * d.size + 1
-		local mu, mv = margin / width, margin / height
-		local x1, x2, y1, y2 = P.lo - mu, P.hi + mu, P.lo - mv, P.hi + mv
-		local mapAlpha = view.alpha or 1
-		local budget = SPARKLE_SCAN
-		for i = 1, #runs do
+	local now = sparkleClock()
+	local at = sparklePhase(now)
+	d.owner, d.now, d.size, d.perYard, d.project = owner, now, st.size / zoom, P.perYard, P.project
+	d.lo, d.hi, d.width, d.height = P.lo, P.hi, width, height
+	local spacing = st.spacing / zoom / P.perYard
+	-- Only the stretches that reach the canvas, with room for a sparkle's
+	-- jitter off the run (doubled: OpenMap's yards needn't be the same size everywhere).
+	local margin = 2 * st.jitter * 1.2 * d.size + 1
+	local mu, mv = margin / width, margin / height
+	local x1, x2, y1, y2 = P.lo - mu, P.hi + mu, P.lo - mv, P.hi + mv
+	local budget = SPARKLE_SCAN
+	for i = 1, #runList do
+		if d.used >= st.max or budget <= 0 then break end
+		local run = runList[i]
+		local c, strength = runLook(run)
+		d.color, d.strength, d.c = c, strength * alpha, run.c
+		local from = froms and froms[i] or 0
+		for j = 1, Sparkle.Spans(run, P.us[i], P.vs[i], x1, x2, y1, y2, spans) do
+			budget = budget - Sparkle.Emit(run, from, spacing, at, budget, worldSparkle, spans[j * 2 - 1], spans[j * 2])
 			if d.used >= st.max or budget <= 0 then break end
-			local run = runs[i]
-			local c, strength = runLook(run)
-			d.color, d.strength, d.c = c, strength * mapAlpha, run.c
-			local from = runFrom[i] or 0
-			for j = 1, Sparkle.Spans(run, P.us[i], P.vs[i], x1, x2, y1, y2, spans) do
-				budget = budget - Sparkle.Emit(run, from, spacing, at, budget, worldSparkle, spans[j * 2 - 1], spans[j * 2])
-				if d.used >= st.max or budget <= 0 then break end
-			end
 		end
 	end
-	finishSparkles(pin, d.used)
+	finishSparkles(owner, d.used)
+end
+
+local function drawWorldSparkles(pin)
+	local view = pin.view
+	local width, height = view.width or 0, view.height or 0
+	local P = width > 0 and height > 0 and worldProjection(pin, width, height) or nil
+	if not P then
+		finishSparkles(pin, 0)
+		return
+	end
+	pin:SetSize(width, height)
+	local level = view:Level("PIN_FRAME_LEVEL_QUEST_BLOB")
+	local O = P.O
+	if O and type(O.ArtTopLevel) == "function" then
+		local ok, top = pcall(O.ArtTopLevel)
+		if ok and type(top) == "number" and top + 1 > level then level = top + 1 end
+	end
+	if pin:GetFrameLevel() ~= level then pin:SetFrameLevel(level) end
+	local zoom = view.scale and view.scale > 0 and view.scale or 1
+	mapSparkles(pin, runs, runFrom, P, width, height, zoom, (view.alpha or 1) * worldAlpha)
 end
 
 local function drawWorld(pin)
+	local view, worldStrokes = pin.view, pin.strokes
 	if sparkling then
 		if pin.used > 0 then
 			worldStrokes.n = 0
@@ -725,11 +814,8 @@ local function drawWorld(pin)
 	local zoom = view.scale
 	local v = mapView
 	v.c, v.left, v.top, v.kx, v.ky = b.c, b.left, b.top, b.kx, b.ky
-	v.width, v.height, v.scale, v.small, v.colors = width, height, pin:GetEffectiveScale(), isSmall(mapID), palette
-	-- The line style: its thickness. Chevrons (RouteStrokes' view.chevrons) stay
-	-- off: on a 4 px line they read as notches; the draw-in and the fading
-	-- tail show the way.
-	v.style, v.lineWidth, v.chevrons, v.chevronColor = lineStyle == "line" and "line" or nil, lineWidth, false, under
+	v.width, v.height, v.small = width, height, isSmall(mapID)
+	pin.opacity = look(v, "world", pin:GetEffectiveScale())
 	-- Polestar's pins keep their size on screen while the canvas zooms under them.
 	local vm, n = v.marks, 0
 	for i = 1, markCount * 4, 4 do
@@ -770,7 +856,7 @@ local function worldTick(pin, elapsed)
 	if drawingIn() then
 		if pin.elapsed < SPARKLE_INTERVAL then return end
 		pin.elapsed = 0
-		paint(pin, worldStrokes)
+		paint(pin, pin.strokes)
 		return
 	end
 	if pin.elapsed < WORLD_INTERVAL then return end
@@ -784,40 +870,53 @@ local function worldTick(pin, elapsed)
 end
 
 -- The frame for the strokes: on the canvas at its top left, under every pin,
--- no mouse; its OnUpdate runs only while the map shows it.
-local function ensureWorldPin()
-	if worldPin then return worldPin end
-	local canvas = view.canvas
-	worldPin = newOwner(ns.CreateFrameUnder("Frame", nil, canvas))
-	worldPin:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
-	worldPin:EnableMouse(false)
-	worldPin:SetScript("OnUpdate", ns.Safe(worldTick))
-	return worldPin
+-- no mouse; its OnUpdate runs only while the map shows it (a child of the
+-- map's view frame, as every frame of Polestar's on a map: Nav/MapCanvas.lua).
+local function ensureWorldPin(v)
+	local pin = worldPins[v]
+	if pin then return pin end
+	local canvas = v.canvas
+	pin = newOwner(ns.CreateFrameUnder("Frame", nil, v.frame))
+	pin.view, pin.strokes, pin.projection = v, v == view and worldStrokes or Strokes.New(), { us = {}, vs = {} }
+	pin:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
+	pin:EnableMouse(false)
+	pin:SetScript("OnUpdate", ns.Safe(worldTick))
+	worldPins[v] = pin
+	if v == view then worldPin = pin end
+	return pin
 end
 
 -- The open map shows the strokes when there is a route for it (nothing is
 -- made before then); a closed map draws as it opens.
-local function refreshWorld()
-	if not (view and view.shown) then return end
+local function refreshView(v)
+	if not v.shown then return end
 	local world = surfaces()
+	local pin = worldPins[v]
 	if world and #paths > 0 then
-		local pin = ensureWorldPin()
-		pin:SetFrameLevel(view:Level("PIN_FRAME_LEVEL_QUEST_BLOB"))
+		pin = ensureWorldPin(v)
+		pin:SetFrameLevel(v:Level("PIN_FRAME_LEVEL_QUEST_BLOB"))
 		pin:Show()
 		drawWorld(pin)
-	elseif worldPin then
-		worldStrokes.n = 0
-		paint(worldPin, worldStrokes)
-		worldPin:Hide()
+	elseif pin then
+		pin.strokes.n = 0
+		paint(pin, pin.strokes)
+		pin:Hide()
 	end
+end
+
+local function refreshWorld()
+	for i = 1, #views do refreshView(views[i]) end
+end
+
+local function onView(v, what)
+	if what == "show" or what == "map" or what == "size" or what == "scale" then refreshView(v) end
 end
 
 local function installWorld()
 	if view then return true end
 	local M = ns.MapCanvas
-	view = WorldMapFrame and M and M.Watch(WorldMapFrame, function(_, what)
-		if what == "show" or what == "map" or what == "size" or what == "scale" then refreshWorld() end
-	end) or nil
+	view = WorldMapFrame and M and M.Watch(WorldMapFrame, onView) or nil
+	if view then table.insert(views, 1, view) end
 	return view ~= nil
 end
 
@@ -837,43 +936,48 @@ local minimapDraw = { used = 0 }
 local function minimapSparkle(wx, wy, k, nx, ny, fade)
 	local d, st = minimapDraw, sparkleStyle
 	local alpha, scale, rotation, side = Sparkle.Twinkle(k, d.now, st, fade)
-	alpha = alpha * d.strength * mmAlpha
+	alpha = alpha * d.strength * d.alpha
 	if alpha <= 0.01 then return end
-	local s = st.size * scale * mmSize
+	local s = st.size * scale * d.size
 	local shift = side * st.jitter * s / d.perYard
 	local x, y = Strokes.Project(wx + nx * shift, wy + ny * shift, d.px, d.py, d.radius, d.cosine, d.sine)
 	if Sparkle.OnFace(x, y, d.square, d.inset) then
 		local used = d.used + 1
 		d.used = used
-		sparkle(mm, used, (x + 1) * d.width / 2, (y - 1) * d.height / 2, s, alpha, rotation, d.color)
+		sparkle(d.owner, used, (x + 1) * d.width / 2, (y - 1) * d.height / 2, s, alpha, rotation, d.color)
 		if used >= st.max then return false end
 	end
 end
 
-local function drawMinimapSparkles(pc, px, py, radius, facing, square, width, height)
+-- Sparkles along runList (froms as mapSparkles') on a minimap-like face
+-- `owner`, width x height, centred on the player (pc, px, py) and showing
+-- `radius` yards turned by `facing`; size: the minimap size (SIZE_KEYS),
+-- alpha over every sparkle. The minimap and the page's preview draw through it.
+local function minimapSparkles(owner, runList, froms, pc, px, py, radius, facing, square, width, height, size, alpha)
 	local d = minimapDraw
 	d.used = 0
 	local half = width / 2
-	if pc and radius and radius > 0 and half > 0 and #runs > 0 then
+	if pc and radius and radius > 0 and half > 0 and #runList > 0 then
 		local st = sparkleStyle
 		local now = sparkleClock()
 		local at = sparklePhase(now)
 		local perYard = half / radius
 		local spacing = st.spacing / perYard
+		d.owner, d.size, d.alpha = owner, size, alpha
 		d.now, d.perYard, d.px, d.py, d.radius, d.square, d.width, d.height = now, perYard, px, py, radius, square, width, height
-		d.inset = 1 - st.size * mmSize / 2 / half
+		d.inset = 1 - st.size * size / 2 / half
 		d.cosine, d.sine = cos(facing or 0), sin(facing or 0)
 		-- Only the stretches near the player: the face, turned any way, lies
 		-- within radius * sqrt(2), and a sparkle on it up to its jitter off the run.
-		local reach = radius * 1.415 + st.jitter * 1.2 * st.size * mmSize / perYard + 1
+		local reach = radius * 1.415 + st.jitter * 1.2 * st.size * size / perYard + 1
 		local x1, x2, y1, y2 = px - reach, px + reach, py - reach, py + reach
 		local budget = SPARKLE_SCAN
-		for i = 1, #runs do
-			local run = runs[i]
+		for i = 1, #runList do
+			local run = runList[i]
 			if d.used >= st.max or budget <= 0 then break end
 			if run.c == pc then
 				d.color, d.strength = runLook(run)
-				local from = runFrom[i] or 0
+				local from = froms and froms[i] or 0
 				for j = 1, Sparkle.Spans(run, run.xs, run.ys, x1, x2, y1, y2, spans) do
 					budget = budget - Sparkle.Emit(run, from, spacing, at, budget, minimapSparkle, spans[j * 2 - 1], spans[j * 2])
 					if d.used >= st.max or budget <= 0 then break end
@@ -881,32 +985,38 @@ local function drawMinimapSparkles(pc, px, py, radius, facing, square, width, he
 			end
 		end
 	end
-	finishSparkles(mm, d.used)
+	finishSparkles(owner, d.used)
+end
+
+local function drawMinimapSparkles(pc, px, py, radius, facing, square, width, height)
+	minimapSparkles(mm, runs, runFrom, pc, px, py, radius, facing, square, width, height, mmSize, mmAlpha)
 end
 
 -- The minimap's dots flow toward the goal (RouteStrokes' view.phase) at the
 -- sparkles' default pace: the distance a sparkle drifts a second, in dot
 -- spacings; under ui.reduceMotion they hold still at half a spacing.
 local TRAIL_INTERVAL = 1 / 20 -- flowing dots' redraws a second, at most
-local trailRate
+local trailPace -- px a second
 local function crawling()
 	return lineStyle == "dots" and not ns.Get("ui.reduceMotion")
 end
 local function trailPhase()
 	if lineStyle ~= "dots" then return 0 end
 	if not crawling() then return 0.5 end
-	if not trailRate then
+	if not trailPace then
 		local st = Sparkle and Sparkle.Style(function(key) return Sparkle.DEFAULTS[key] end)
-		trailRate = st and st.flow * st.spacing / Strokes.SPACING or 1 / 1.5
+		trailPace = st and st.flow * st.spacing or Strokes.SPACING / 1.5
 	end
-	return (sparkleClock() * trailRate) % 1
+	return (sparkleClock() * trailPace / dotSpacing) % 1
 end
 
-local function drawMinimap(force)
+-- given: pc .. square come from Pins' sampling of the view (WatchMinimapView).
+local function drawMinimap(force, given, pc, px, py, radius, facing, square)
 	local C = ns.Compat
-	local pc, px, py
-	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
-	local radius, facing, square = ns.Pins.MinimapView()
+	if not given then
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+		radius, facing, square = ns.Pins.MinimapView()
+	end
 	-- An unreadable (secret) position or facing hides the line, with no error (NAV_QA C5).
 	local secret = C and C.IsSecret
 	if secret and (secret(pc) or secret(px) or secret(py) or secret(radius) or secret(facing)) then
@@ -938,15 +1048,15 @@ local function drawMinimap(force)
 	end
 	last.c, last.x, last.y, last.radius, last.facing, last.square = pc, px, py, radius, facing, square
 	last.width, last.height, last.scale, last.revision, last.phase = width, height, scale, revision, phase
-	if advance(pc, px, py) and worldPin and worldPin:IsShown() and view and view.shown then drawWorld(worldPin) end
+	if advance(pc, px, py) then
+		for v, pin in pairs(worldPins) do
+			if pin:IsShown() and v.shown then drawWorld(pin) end
+		end
+	end
 	local v = minimapView
 	v.c, v.x, v.y, v.radius, v.facing, v.square = pc, px, py, radius, facing, square
-	-- The style's minimap size (SIZE_KEYS): the dots, their spacing and the gaps around the pin
-	-- grow together, as at a larger UI scale; nav.minimapRouteAlpha fades them.
-	v.width, v.height, v.scale, v.colors = width, height, scale / mmSize, palette
-	v.style, v.lineWidth = lineStyle == "line" and "line" or nil, lineWidth
-	-- The line at 85 % on the minimap, so its terrain shows through it.
-	mm.opacity = mmAlpha
+	v.width, v.height = width, height
+	mm.opacity = look(v, "minimap", scale)
 	v.goalC, v.goalX, v.goalY, v.goalRadius = goalC, goalX, goalY, MINIMAP_GOAL
 	v.phase = phase
 	v.from, v.fromIndex, v.fromC, v.fromX, v.fromY = live ~= nil, live, liveC, liveX, liveY
@@ -982,6 +1092,14 @@ local function ensureMinimap()
 	return true
 end
 
+-- Each frame the minimap's view changed (Pins.WatchMinimapView). Its own
+-- name: the maps' onView above is the one every map canvas watches.
+local function onMinimapView(pc, px, py, radius, facing, square)
+	if not (mm and mm:IsShown()) then return end
+	elapsedSince = 0
+	drawMinimap(false, true, pc, px, py, radius, facing, square)
+end
+
 local function refreshMinimap()
 	local _, minimap = surfaces()
 	if not (minimap and #paths > 0) then
@@ -990,22 +1108,32 @@ local function refreshMinimap()
 			paint(mm, minimapStrokes)
 			mm:Hide()
 		end
+		ns.Pins.WatchMinimapView("routeLines", nil)
 		return
 	end
 	if not ensureMinimap() then return end
 	mm:Show()
 	drawMinimap(true)
+	ns.Pins.WatchMinimapView("routeLines", onMinimapView)
 end
 
 ---------------------------------------------------------------------------
 -- Wiring
 ---------------------------------------------------------------------------
 
+-- Each leg kind's colour: the player's own (COLOR_KEYS), else the theme's
+-- token for it; the outline under them the theme's scrim.
 local function recolor()
 	local T = ns.Theme
 	for kind, token in pairs(TOKEN) do
-		local c = colors[kind]
-		if T and T.Color then c[1], c[2], c[3] = T.Color(token) end
+		local c, mine = colors[kind], ownColor(RouteLines.COLOR_KEYS[kind])
+		if mine then
+			c[1], c[2], c[3] = mine[1], mine[2], mine[3]
+		elseif T and T.Color then
+			c[1], c[2], c[3] = T.Color(token)
+		else
+			c[1], c[2], c[3] = 1, 1, 1
+		end
 	end
 	if T and T.Color then under[1], under[2], under[3] = T.Color("scrim") end
 end
@@ -1065,12 +1193,69 @@ function RouteLines.ApplySparklePreset(name)
 	return true
 end
 
+-- A leg kind's colour when the player picked none of their own: the walk's
+-- the route colour (nav.dotColor) or the theme's, the others the theme's.
+-- -> r, g, b
+function RouteLines.DefaultColor(kind)
+	local tint = kind == "walk" and RouteLines.DOT_COLORS[ns.Get("nav.dotColor")]
+	if tint then return tint[1], tint[2], tint[3] end
+	local T = ns.Theme
+	if T and T.Color and TOKEN[kind] then return T.Color(TOKEN[kind]) end
+	return 1, 1, 1
+end
+
+---------------------------------------------------------------------------
+-- The painters for a sandbox: the Route lines page's preview
+-- (Maps/RouteOptions.lua) draws its own route on a frame of its own with the
+-- maps' look, strokes and sparkles; never the live surfaces.
+---------------------------------------------------------------------------
+
+-- A frame made ready to paint on, with pools of its own. -> the frame
+RouteLines.NewCanvas = newOwner
+
+-- Strokes (a Strokes.New buffer) onto a canvas, every one (no draw-in);
+-- canvas.opacity fades them, as the maps' surfaces.
+function RouteLines.Paint(owner, strokes)
+	paint(owner, strokes, strokes.n)
+end
+
+-- A Strokes view's look as a surface ("world" | "minimap") draws it now,
+-- scale its screen pixels per unit. -> the strokes' opacity
+RouteLines.Look = look
+
+-- Draw paths (Strokes.Path) as the sparkles' runs, as the maps take them
+-- (nav.sparkleLater); nil while the sparkles are not drawn.
+function RouteLines.SparkleRuns(drawPaths)
+	if not (sparkling and sparkleStyle) then return nil end
+	return Sparkle.Paths(drawPaths, sparkleStyle.later)
+end
+
+-- Sparkles on a canvas, while they are drawn (RouteLines.SparkleRuns):
+-- MapSparkles(canvas, runs, froms, P, width, height, zoom, alpha) and
+-- MinimapSparkles(canvas, runs, froms, c, x, y, radius, facing, square,
+-- width, height, size, alpha), as the maps draw theirs.
+RouteLines.MapSparkles = mapSparkles
+RouteLines.MinimapSparkles = minimapSparkles
+
+-- Hides every sparkle on a canvas.
+function RouteLines.ClearSparkles(owner)
+	finishSparkles(owner, 0)
+end
+
 ns.On("NAV_ROUTE_GEOMETRY", function()
 	if ns.IsLoggedIn() then RouteLines.Refresh() end
 end)
 
+-- Hidden: the minimap's line goes (the map's goes with its view frame);
+-- shown again, both draw afresh.
+ns.On("POLESTAR_HIDDEN", function()
+	if not ns.IsLoggedIn() then return end
+	refreshWorld()
+	refreshMinimap()
+end)
+
 local WATCH = {
-	["nav.routeLines"] = true, ["nav.worldPins"] = true, ["nav.minimapPins"] = true, ["nav.minimapRoute"] = true,
+	["nav.routeLines"] = true, ["nav.worldPins"] = true, ["nav.minimapPins"] = true, ["nav.minimapRoute"] = true, ["nav.worldRoute"] = true,
 	["nav"] = true, [""] = true, ["nav.lineStyle"] = true, ["nav.sparkleLater"] = true,
 	-- Reduce motion turns sparkles into dots.
 	["ui"] = true, ["ui.reduceMotion"] = true,
@@ -1079,12 +1264,17 @@ local WATCH = {
 local LOOK = {
 	["nav.dotColor"] = true, ["nav.minimapRouteAlpha"] = true, ["nav.lineWidth"] = true,
 	["nav.minimapLineSize"] = true, ["nav.minimapDotsSize"] = true, ["nav.minimapSparkleSize"] = true,
+	["nav.worldRouteAlpha"] = true, ["nav.laterAlpha"] = true, ["nav.walkedFade"] = true, ["nav.routeChevrons"] = true,
+	["nav.flightDash"] = true, ["nav.dotSize"] = true, ["nav.dotSpacing"] = true, ["nav.drawIn"] = true, ["nav.lineOutline"] = true,
 }
+for _, key in pairs(RouteLines.COLOR_KEYS) do LOOK["nav." .. key] = true end
 ns.On("SETTING_CHANGED", function(path)
 	if not ns.IsLoggedIn() then return end
 	if WATCH[path] then
+		recolor()
 		RouteLines.Refresh()
 	elseif LOOK[path] then
+		recolor()
 		restyle()
 		revision = revision + 1
 		refreshWorld()
@@ -1107,6 +1297,14 @@ ns.OnLogin(function()
 	end
 	recolor()
 	RouteLines.Refresh()
+	if ns.MapCanvas then
+		ns.MapCanvas.OnAdd(function(map)
+			local v = ns.MapCanvas.Watch(map, onView)
+			if not v then return end
+			views[#views + 1] = v
+			refreshView(v)
+		end)
+	end
 	-- Blizzard_WorldMap may load after login: watch the map when it does,
 	-- as Polestar.Pins does (review P3-8).
 	if view then return end

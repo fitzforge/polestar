@@ -55,10 +55,6 @@ return {
 	["{area:200} farmhouse"] = "{area:200}農舍",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "日記在農舍裡，櫃子在屋內，廁所在屋後。一隻{npc:10816}帶著廁所鑰匙；打開廁所時{npc:10836}會出來，他身上帶著櫃子鑰匙。",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
@@ -159,15 +155,11 @@ return {
 	-- {area:2479} Emerald Sanctuary
 	["Back at the {area:2479}."] = "",
 
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "僅限擁有5根死木頭飾羽毛時",
-
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763}月井",
-	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
-	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南方營地中央的腐化月井裝滿{npc:10922}的水壺。",
+	-- {area:1763} Jaedenar
+	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "",
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
@@ -270,6 +262,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "回到{area:1762}，死木熊怪（53-54級）就在隧道附近，每次擊殺都會提升你的木喉聲望。",
+	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南方營地中央的腐化月井裝滿{npc:10922}的水壺。",
 	-- ["Diseased Grizzlies"] = "生病的灰熊",
 	-- ["Fly to the {area:1497}"] = "飛往{area:1497}",
 	-- ["Fly to {area:272}"] = "飛往{area:272}",
@@ -281,6 +274,7 @@ return {
 	-- ["Leave the {area:1497} and ride east along the road through {zone:1420}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "離開{area:1497}，沿著道路向東穿過{zone:1420}，經過{area:152}。費爾斯通農場是道路旁的第一座農場；{npc:10778}在屋裡等候。",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "只有在掉落了{item:13140}時：用它開始任務，然後到{area:1763}北端的洞穴{area:1770}，釋放籠子裡的{npc:11018}，並護送她出來。",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "僅限你救出了{npc:11018}時：魅魔{npc:9518}在{area:1763}中央，{npc:11020}旁邊等候。",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "僅限擁有5根死木頭飾羽毛時",
 	-- ["Radley and Durgen"] = "萊德雷與杜爾根",
 	-- ["Ride back south-east to the Sanctuary."] = "騎回東南方的聖地。",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "騎回{area:1497}，搭飛艇前往{zone:1454}，再飛往{area:431}。沿著道路向西離開碎木崗哨，在岔路往北進入{zone:1448}。",

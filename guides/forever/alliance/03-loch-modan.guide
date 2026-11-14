@@ -60,6 +60,25 @@ next forever/alliance/03-darkshore-return
 # Solomon's Law (91, level 23; Galardell's Shadowhide gnolls are 23-25, worked at 24), Blackrock Bounty and An Unwelcome Guest (128, 34: levels 24-25),
 # the Wanted posters (elites, 24+), and on the boat into Menethil The Greenwarden, Young Crocolisk
 # Skins and Spoils of War (463, 484, 98197: level 21-22, 3+ over at 18.7; taken at 22-24).
+#
+# The Deadmines (`when dungeon "The Deadmines"`, dungeons in the route): for a character who
+# chose it, Gryan's and Scout Riell's quests are picked up when the Defias chain ends at Sentinel Hill
+# (about level 20; that stop's own step, the hand-in and the flight, is the solo way, behind `when
+# !dungeon`), the run follows, and the hand-ins are Sentinel Hill's tower and Baros Alexston (the Unsent
+# Letter) on the Stormwind stop before the boat (`when dungeon` and `when complete`/`when onquest`, so a
+# run left unfinished passes them). Left out on the route's travel budget (the flow audit
+# measured +2.0 km and +5 hub visits with them, +0 without): Underground Assault (2040,
+# Gnoarn in Ironforge, Shoni in Stormwind's Dwarven District) and Oh Brother... (167, Wilder
+# Thistlenettle there); also Collecting Memories (168: slow drops), Destruction in Deadmines (92753:
+# after Alba Fairmoon's 92749-92752, not on the route), the Paladin's Test of Righteousness (class guide).
+#
+# The Hall of Thanes (`when dungeon "The Hall of Thanes"`, dungeons in the route): for a character who chose
+# it, Thom Filch's Important Heirlooms (96403) and Afadra Dunwall's The Restless Dead (96394) are taken on the
+# Ironforge stop at about 19.5 (level 15 quests, full XP to about 21), the run follows from the hall's door
+# on the city's west side, a short walk past them (Ironforge 28.2,47.7, where players' recordings go in), and
+# both take theirs back at once. King Magni takes Old Ironforge Incursion (96393, Earthseer Farsen's, for a
+# Dwarf or Gnome who carries it from Dun Morogh) and the Treaty of Understanding (98423, an item inside). An
+# Ancient Grudge (96395) starts and ends inside, with the Ghostly Attendant (the run tip names it).
 
 # ---------------------------------------------------------------- To Loch Modan
 
@@ -158,15 +177,20 @@ step Daryl the Youngling
   turnin 257
   accept 258                                  -- 12 minutes
 
-step Elder Mountain Boars, Daggerfang and the loch crocolisks
-  tip The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore: A Hunter's Challenge runs for 12 minutes, so the boars come first. Daggerfang, a crocolisk, patrols the shore below them among the Loch Crocolisks.
+step Elder Mountain Boars
+  tip The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. A Hunter's Challenge runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after.
   kill 1192 quest 258                         -- Elder Mountain Boar
+
+step Daryl the Youngling
+  turnin 258
+
+step Daggerfang and the loch crocolisks
+  tip Back down to the east shore below the boars' hills: Daggerfang, a crocolisk, patrols it among the Loch Crocolisks.
   collect 279591 quest 86758                  -- Marek's Croc-Hunting Knife: Daggerfang
   collect 2924 quest 385                      -- Crocolisk Meat: Loch Crocolisks
   collect 2925 quest 385                      -- Crocolisk Skin
 
 step The Farstrider Lodge
-  turnin 258                                  -- Daryl the Youngling
   turnin 86758                                -- Marek Ironheart, inside
   turnin 385
 
@@ -209,6 +233,49 @@ step Into Ironforge
   when !zone "Ironforge"
   zone Ironforge
   goto 21.6,77.8 "Into Ironforge"
+
+step Thom Filch and Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  zone Ironforge
+  tip For your Hall of Thanes run: Thom Filch and Afadra Dunwall stand a few steps apart on the city's west side, west of the High Seat. The hall's door is a short walk further west.
+  accept 96403                        -- Thom Filch
+  accept 96394                        -- Afadra Dunwall
+
+step The Hall of Thanes
+  when dungeon "The Hall of Thanes"
+  when onquest 96403,96394,96393
+  zone Ironforge
+  tip The Hall of Thanes is a dungeon for a group of five at about level 15 to 16, under Ironforge. Its door is on the west side of the city, a short walk west of Afadra Dunwall.
+  tip Inside: the Enraged Apparitions and Tormented Souls are Afadra's, the Dwarven Heirlooms Thom's, and Durgen Dirgehammer, the Dark Iron commander deep in the vaults, carries the head King Magni wants. A Ghostly Attendant inside gives An Ancient Grudge, for Faldrim Anvilmar, and takes it back there; a Treaty of Understanding found inside starts a quest for King Magni.
+  enter "The Hall of Thanes" @28.2,47.7 live
+  complete 96403 @28.2,47.7 live      -- Important Heirlooms: the heirlooms, inside
+  complete 96394 @28.2,47.7 live      -- The Restless Dead, inside
+  complete 96393 @28.2,47.7 live      -- Old Ironforge Incursion: Durgen Dirgehammer, inside
+
+step Thom Filch
+  when dungeon "The Hall of Thanes"
+  when complete 96403
+  zone Ironforge
+  turnin 96403                        -- Thom Filch
+
+step Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  when complete 96394
+  zone Ironforge
+  turnin 96394                        -- Afadra Dunwall
+
+step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
+  when complete 96393
+  zone Ironforge
+  tip Old Ironforge Incursion: King Magni sits on the High Seat, east of the hall's door.
+  turnin 96393                        -- King Magni Bronzebeard
+
+step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
+  when onquest 98423
+  zone Ironforge
+  turnin 98423                        -- King Magni Bronzebeard: The Treaty of Understanding
 
 step Ironforge
   zone Ironforge
@@ -419,8 +486,50 @@ step The Defias Traitor
   tip Stay with the traitor as he walks south to Moonbrook; he does not stop for fights, so clear what follows him. His walk ends at the Defias hideout below Moonbrook.
   complete 155 @55.7,47.5                     -- The Defias Traitor, at the foot of the tower ramp
 
+step Gryan Stoutmantle
+  when turnedin 65
+  when dungeon "The Deadmines"
+  tip Back north to Gryan Stoutmantle. For your Deadmines run he then sends you after Edwin VanCleef, and Scout Riell, beside him at the top of the tower, wants Red Silk Bandanas. Look for a group now if you have none yet.
+  turnin 155                                  -- Gryan Stoutmantle
+  accept 166                                  -- Gryan Stoutmantle
+  accept 214                                  -- Scout Riell, at the top of the tower
+
+step The Deadmines
+  when turnedin 65
+  when dungeon "The Deadmines"
+  when onquest 214,166
+  zone Westfall
+  tip The Deadmines is a dungeon for a group of five, about levels 17 to 24, and a full run takes about an hour. Its door is the mine below Moonbrook, where the traitor led you: the portal is at the far end of the mine's tunnels.
+  tip Inside: the Defias drop the Red Silk Bandanas, and Edwin VanCleef waits on the ship at the end. Open the Unsent Letter he drops: its quest goes to Stormwind, where this guide hands it in.
+  enter "The Deadmines" @42.5,71.7
+  collect 915 x10 quest 214.1                 -- Red Silk Bandana: the Defias
+  complete 166                                -- The Defias Brotherhood: Edwin VanCleef
+
+step Gryan Stoutmantle
+  when turnedin 65
+  when dungeon "The Deadmines"
+  when complete 166
+  zone Westfall
+  tip Out of the mine and north up the road to Sentinel Hill: Gryan Stoutmantle stands at the top of the tower.
+  turnin 166                                  -- Gryan Stoutmantle
+
+step Scout Riell
+  when turnedin 65
+  when dungeon "The Deadmines"
+  when complete 214
+  zone Westfall
+  tip Scout Riell keeps watch at the top of the Sentinel Hill tower.
+  turnin 214                                  -- Scout Riell
+
+step Fly to Lakeshire
+  when turnedin 65
+  when dungeon "The Deadmines"
+  zone Westfall
+  fly "Lakeshire"
+
 step Sentinel Hill
   when turnedin 65
+  when !dungeon "The Deadmines"
   tip Back north to Gryan Stoutmantle and the gryphons.
   turnin 155                                  -- Gryan Stoutmantle
   fly "Lakeshire"
@@ -471,6 +580,19 @@ step Baros Alexston
   tip Baros Alexston stands at the east side of Cathedral Square, on the way from the Dwarven District to the harbour.
   turnin 97914                                -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
+
+step Baros Alexston
+  when dungeon "The Deadmines"
+  when onquest 373
+  zone Stormwind City
+  tip Baros Alexston, the city architect, is on your way west to the harbour. His next errand, Bazil Thredd, leads into the Stockade: it is for a Stockade run at about 29, so leave it unless you chose that dungeon.
+  turnin 373                                  -- Baros Alexston
+
+step Baros Alexston
+  when dungeon "The Stockade"
+  zone Stormwind City
+  tip For your Stockade run, later in Stormwind: keep it until then.
+  accept 389                                  -- Baros Alexston: for Warden Thelwater, at the Stockade's gate
 
 step Gazin Tenorm
   only Human,Paladin

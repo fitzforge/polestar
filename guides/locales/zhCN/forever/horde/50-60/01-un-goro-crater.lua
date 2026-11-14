@@ -12,7 +12,7 @@ return {
 	-- {area:1938} Broken Pillar · {zone:1449} Un'Goro Crater · {area:541} Marshal's Refuge
 	["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "从{area:1938}向西骑到蜿蜒下降进入{zone:1449}的长坡道，然后沿着环形山的北壁前往{area:541}，那是建在悬崖洞穴里的营地。这里的所有人都是中立的。",
 	-- {npc:9997} Spraggle Frock
-	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
+	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "飞行管理员旁、{npc:9997}身边的木牌：本指南会前往翼手龙活动的区域",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}，位于洞穴深处的地下",
 
@@ -22,8 +22,8 @@ return {
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}，在避难所入口",
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "{npc:9618}，就在外面",
-	-- {quest:3761} Un'Goro Soil
-	["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "从现在起，捡起路过的每一块能量水晶（蓝色、绿色、红色、黄色）和每一堆{quest:3761}：总共25份土壤，20份给哈缪尔，5份给匹斯特苏格。",
+	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -37,6 +37,7 @@ return {
 	["grind on Pterrordax"] = "反复击杀翼手龙补足经验",
 
 	-- Step 6: Power Crystals and soil
+	-- plural, as words: Power Crystals = {npc:271301} Power Crystal
 	["Power Crystals and soil"] = "能量水晶和土壤",
 	-- {area:537} Fire Plume Ridge
 	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "水晶簇遍布整个环形山，{area:537}周围很多。每种颜色多拿几块给水晶塔用。",
@@ -97,7 +98,7 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}，在入口",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}，在飞行管理员旁",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
@@ -127,8 +128,8 @@ return {
 
 	-- Step 25: The Marshlands
 	-- {quest:4061} The Rise of the Machines · {area:340} Kargath · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
-	["grind on Ravasaur"] = "",
+	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "注意：这里有很多暴掠龙游荡，很容易同时引到多只。\n拿到第八只爪子后，如果还没到52级，就继续在这里猎杀暴掠龙：{area:340}的{quest:4061}需要52级，本指南结尾的瘟疫之地任务为55级。也可组队挑战{area:1417}副本或{area:2100}副本。",
+	["grind on Ravasaur"] = "击杀暴掠龙刷经验",
 
 	-- Step 26: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
@@ -161,7 +162,7 @@ return {
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "乘船前往{area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}，在码头旁：交给{area:251}的{quest:4324}，本篇指南稍后会前往",
 
 	-- Step 33: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
@@ -235,15 +236,15 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，在炼金房：瓶子之后在{zone:1447}装满",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}在炼金房，科雷附近",
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}，在{object:36073}",
 
 	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "离开{zone:1458}，沿道路向东穿过{zone:1420}，前往边境上的被遗忘者要塞{area:152}。",
-	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
-	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5401}：只有佩戴它时才会掉落天灾石。",
+	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
+	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5405}：只有佩戴它时才会掉落天灾石。",
 
 	-- Step 50: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字军前线营地",
@@ -275,6 +276,7 @@ return {
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿道路向东穿过{area:28}，过河进入{area:139}；然后离开道路向北前往西北的废墟城镇{area:2627}。{npc:12384}坐在城镇边缘的一间小屋里。",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿道路向东穿过{zone:1422}，过河进入{zone:1423}；然后离开道路向北前往西北的废墟城镇{area:2627}。{npc:12384}坐在城镇边缘的一间小屋里。",
 	-- ["Free Darrowshire Spirits: talk to them"] = "释放达隆郡居民的灵魂：和它们交谈",
+	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "从现在起，捡起路过的每一块能量水晶（蓝色、绿色、红色、黄色）和每一堆{quest:3761}：总共25份土壤，20份给哈缪尔，5份给匹斯特苏格。",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "从{area:152}沿路向东进入{zone:1422}。费尔斯通农场是沿途第一座农场，{npc:10778}在房子里等候。",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "从{area:1938}向西骑到蜿蜒下降进入{area:490}的长坡道，然后沿着环形山的北壁前往{area:541}，那是建在悬崖洞穴里的营地。这里的所有人都是中立的。",
 	-- ["Gorillas"] = "猩猩",
@@ -297,6 +299,7 @@ return {
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "向西南骑往环形山中央的火山{area:537}。血瓣花掠夺者生长在山脚周围。",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "向西骑往挖掘场。{npc:7039}傀儡（53级）在周围走动，经常掉落碎片；{quest:4296}立在挖掘场中央的索瑞森矮人中间。抄录它。",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "在温泉南边，剑龙在吃草，恐龙骨头从它们身上掉落或散落在地上；附近的双帆龙携带{npc:9998}想要的鳞片。暴掠龙在西南成群捕猎：它们的爪子是给{npc:8659}的，偶尔会有一只携带被撕破的日记（稀有掉落：只有拿到了才接它的任务）。避开57级的剑龙格鲁夫。",
+	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5401}：只有佩戴它时才会掉落天灾石。",
 	-- ["Termite mounds"] = "白蚁丘",
 	-- ["Thaurissan dig site"] = "索瑞森挖掘场",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "达隆郡的历史就在安多哈尔市政厅里的发霉的书籍中间；一本本打开，直到找到正确的那本。",

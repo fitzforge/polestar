@@ -34,7 +34,7 @@ return {
 
 	-- Step 8: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
-	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "向北骑过山口进入{zone:1432}，再沿南岸向东前往铁环的营地。",
 
 	-- Step 9: Into Badlands
 	-- {zone:1418} Badlands
@@ -46,7 +46,7 @@ return {
 
 	-- Step 11: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "穿过山口返回：石窟穴居人在{zone:1418}北部边缘、{area:1517}外挖掘。雕花陶罐和洋红色蘑菇簇都在他们的洞穴与隧道中，无需进入副本。",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "{item:8047}：在地下",
 	-- {object:2743} Carved Stone Urn
@@ -61,7 +61,7 @@ return {
 
 	-- Step 14: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride west along the loch to {area:144}."] = "",
+	["Ride west along the loch to {area:144}."] = "沿湖向西骑乘，前往{area:144}。",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 
@@ -99,8 +99,6 @@ return {
 	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "前两个笼子一起在{npc:5634}南边的枯木村庄里；第三个在东边的下一个村庄里。每个枯木巨魔都可能掉落项链。",
 
 	-- Step 21: Aerie Peak
-	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}会继续收购项链：交上多余的",
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}，位于高处飞行管理员旁的屋内",
 	-- {zone:1425} The Hinterlands
@@ -157,4 +155,5 @@ return {
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}的鸡尾酒需要卡利姆多的材料：跳过。",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}，在顶层飞行管理员旁边",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}在地下；上份指南已经在这里绑定炉石，通常会立即标记完成",
+	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}会继续收购项链：交上多余的",
 }

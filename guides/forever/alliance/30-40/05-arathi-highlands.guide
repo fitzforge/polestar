@@ -12,9 +12,20 @@ next forever/alliance/30-40/06-badlands
 # Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe; MacKreel's Moonshine (647),
 # moved from 01-hillsbrad-foothills for its 15-minute limit: taken after Kor'gresh, handed in straight off the Refuge Pointe flight (#1319).
 # My Little Friends (93176) is optional (#1314): nobody has been recorded taking it, and Amaryllis Webb was never seen.
+# Assassin's Contract (522) and Baron's Demise (523) are optional (#1542): the contract drops only from the Shadowy
+# Assassin, a single stealthed mob on Southshore's edge that few players find, so the Southshore step never waits for him.
 # Since the 0.3.7 audit: Refuge Pointe's hand-ins come on the walk from Go'Shek Farm to the Stone of West Binding, and the
 # Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
+#
+# City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it, the Image
+# of Archmage Modera's Starving Arcane and Heart of Disruption (92457, 92458, after An Alarming Request, 92432) are
+# taken where 92432 is handed in, at about 37, and the run follows at once through the sewer grate in Dalaran's
+# western wall, 30 yards from her camp (8.8,59.5, where players' recordings go in; Heart of Disruption brings the
+# Sewer Key); Modera takes both back in the same camp (`when complete`). Left out: A Green Sample and Power
+# Overwhelming (92456, 92489: Shylamiir and High Sorcerer Andromath in Stormwind, whose next visit comes after
+# Dalaran), Friend of the Kirin Tor (92459: 270 XP for a walk to Archmage Celindra) and Unstable Magic (96603,
+# level 60).
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -50,9 +61,9 @@ step The Harborage
   accept 1389                         -- Magtoor
 
 step Fallow Sanctuary
-  tip East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals; Noboru walks the ruins and drops his cudgel.
-  collect 6196 "Noboru's Cudgel"
-  accept 1392
+  tip East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.
+  collect 6196 "Noboru's Cudgel" optional -- from Noboru the Cudgel: he walks a path through the ruins
+  accept 1392 optional
   collect 6071 quest 1389             -- Draenethyst Crystal
 
 step The Lost Caravan
@@ -132,13 +143,13 @@ step Southshore
   accept 500                          -- Marshal Redpath
 
 step Shadowy Assassin
-  tip A Shadowy Assassin lurks unseen on the edge of Southshore; kill him and read the contract he carries.
+  tip A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.
   sethome "Southshore"
-  kill 2434                           -- Shadowy Assassin
-  collect 3668 "Assassin's Contract"
-  accept 522
+  kill 2434 optional                  -- Shadowy Assassin, if you spot him
+  collect 3668 "Assassin's Contract" optional
+  accept 522 optional
   turnin 522                          -- Magistrate Henry Maleb, inside
-  accept 523
+  accept 523 optional
   turnin 525                          -- Magistrate Henry Maleb
   accept 537
 
@@ -182,9 +193,8 @@ step Shards of Myzrael
 
 step Drywhisker Gorge: kill these as you meet them
   zone Arathi Highlands
-  tip The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.
-  tip Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.
-  collect 4278 quest 627              -- Lesser Bloodstone Ore
+  tip The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need Mining 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.
+  collect 4278 quest 627 optional -- Lesser Bloodstone Ore
   collect 4435 quest 642                      -- Mote of Myzrael from Drywhisker Kobold, Drywhisker Surveyor and Drywhisker Digger, by this stop
 
 step Iridescent Shards
@@ -333,7 +343,7 @@ step Ruins of Alterac: kill these as you meet them
   tip Careful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.
   tip The Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up.
   collect 3658 quest 540.1            -- Recovered Tome: Crushridge ogres
-  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase; inside
+  collect 3659 quest 540.2            -- Worn Leather Book: the Weathered Bookcase, beside Muckrake (40, elite): get it with a group, or abandon Preserving Knowledge; inside
 
 step Ruins of Alterac: kill these as you meet them
   when group 543
@@ -368,6 +378,36 @@ step Dalaran
   turnin 92432 "An Alarming Request"  -- Image of Archmage Modera
   turnin 602                          -- Archmage Ansirem Runeweaver
   accept 603                          -- For Catelyn the Blade in Booty Bay: keep it
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  zone Silverpine Forest
+  tip For your City of Dalaran run, next: the Image of Archmage Modera wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. Heart of Disruption brings the Dalaran Sewer Key, which opens the grate.
+  accept 92457                        -- Image of Archmage Modera
+  accept 92458
+
+step City of Dalaran
+  when dungeon "City of Dalaran"
+  when onquest 92457,92458
+  zone Alterac Mountains
+  tip The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.
+  tip Inside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's Starving Arcane; the Arcane Mote for Heart of Disruption drops inside too.
+  enter "City of Dalaran" @8.8,59.5 live
+  complete 92457 @8.8,59.5 live       -- Starving Arcane: the remnants and echoes, inside
+  complete 92458 @8.8,59.5 live       -- Heart of Disruption: the Arcane Mote, inside
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  when complete 92457
+  zone Silverpine Forest
+  tip Back out of the grate to Modera's camp on the lake shore.
+  turnin 92457                        -- Image of Archmage Modera
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  when complete 92458
+  zone Silverpine Forest
+  turnin 92458                        -- Image of Archmage Modera
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills

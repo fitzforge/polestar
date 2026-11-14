@@ -23,6 +23,10 @@ fn read(p: &Path) -> String {
 fn pack_manifest() -> Value {
 	serde_json::from_str(&read(&nav().join("PACK.json"))).unwrap()
 }
+/// An empty list as the Lua side emits it: [] or {}.
+fn empty(v: &Value) -> bool {
+	v.as_array().is_some_and(|a| a.is_empty()) || v.as_object().is_some_and(|o| o.is_empty())
+}
 fn ws(s: &str) -> String {
 	Regex::new(r"\s+").unwrap().replace_all(s, " ").into_owned()
 }
@@ -646,6 +650,45 @@ emit(got)"#,
 	assert!(got["street"]["yards"].as_f64().unwrap() < 1200.0, "through the city ({})", got["street"]);
 }
 
+// #1890: in Stormwind's Dwarven District the cell's base surface (its largest piece) is a roof (z 112) over the street
+// (96, 102, indoor city), and 2 yd under the street lies the ground the city was built over (94, steep, not indoor),
+// joined to the world only far away. A point without a height starts from each surface at a distinct height: the roof
+// and the buried ground, the street within 10 yd of that one, so never tried. A walk to Westfall came out at 19,225
+// yd for a 3,465-yd walk; the same with the end there. In the point's own cell, the street takes the buried ground's
+// place.
+#[test]
+fn issue_1890_a_point_without_a_height_starts_from_the_street_not_the_ground_buried_under_it_the_dwarven_district_walks_to_westfall_through_the_city() {
+	let (_tmp, addon) = keep_ns();
+	let got = run(
+		r#"
+local Path, G = Polestar_NavEngine, stub.navNs.PathGrid
+local DWARVEN, WESTFALL = { x = -8387.6, y = 692.6 }, { x = -11456.8, y = 273.9 }
+local function walk(from, to)
+	local pts = Path.FindSync(0, from, to)
+	local yards = 0
+	for i = 2, #(pts or {}) do yards = yards + math.sqrt((pts[i].x - pts[i - 1].x) ^ 2 + (pts[i].y - pts[i - 1].y) ^ 2) end
+	return pts and math.floor(yards + 0.5) or false
+end
+local out = { from = walk(DWARVEN, WESTFALL), to = walk(WESTFALL, DWARVEN), floors = {} }
+local st = G.State(0)
+local k, lc = G.locate(st, DWARVEN.x, DWARVEN.y)
+local c = G.grid(st, k)
+out.base = G.zOf(c, lc)
+local first, count = G.floorsOf(c, lc)
+for n = first, first + count - 1 do
+	out.floors[#out.floors + 1] = math.floor(G.zOf(c, n) + 0.5) .. ":" .. G.CLS[string.byte(c.kind, n + 1)] % 8
+end
+emit(out)"#,
+		"",
+		vec![addon],
+	);
+	assert_eq!(got["base"], 112, "the cell's base surface: the roof");
+	assert_eq!(got["floors"], json!(["94:3", "96:5", "102:5"]), "the buried ground (steep) 2 yd under the street (indoor city)");
+	let (from, to) = (got["from"].as_f64().unwrap(), got["to"].as_f64().unwrap());
+	assert!(from < 4000.0, "from the Dwarven District to Westfall through the city ({from:.0} yd)");
+	assert!(to < 4000.0, "and back ({to:.0} yd)");
+}
+
 /// The packed graph strings of a map (Nav<map>_*.lua's data.packed.graph[k] blocks: zlib, as base64 or, with the
 /// metadata's `blocks = "zlib"`, as the bytes themselves; in Polestar_Nav/Nav or the map's part addon).
 fn graph_fields(map: u32) -> Vec<(usize, Vec<u8>)> {
@@ -734,4 +777,268 @@ fn the_packed_maps_decode_every_entrance_names_a_cell_of_its_cluster() {
 		}
 		assert!(n > 30000, "map {map}: {n} entrances");
 	}
+}
+
+// A walk inside one cluster, asked again every few steps as the player walks in (Nav/Walk.lua re-asks the arrow's walk
+// from a new start): each ask used to flood the whole cluster from the start for its endpoint tree, 15,000 to 60,000
+// expansions for a quest objective in the Barrens a few yards away (measured in game, 0.3.5). A direct walk under the
+// least any way through the cluster's entrances could cost needs neither: the same walks and costs as the full search
+// (Path.direct = false), a small part of the expansions, from cold caches each way.
+#[test]
+fn a_walk_inside_one_cluster_asked_again_as_the_player_walks_in_is_the_full_search_s_walk_without_its_flood() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local goal = { x = 825.397, y = -2686.950, z = 91.6 } -- a Barrens quest objective, east of the Crossroads
+local away = { x = 800.107, y = -2717.360 } -- where the player came from
+local dx, dy = away.x - goal.x, away.y - goal.y
+local len = math.sqrt(dx * dx + dy * dy)
+local opts = { profile = "Horde", style = "balanced" }
+local function walkIn(direct)
+	Path.ClearCaches() -- (cold: neither run reuses the other's endpoint entries or paths)
+	Path.direct = direct
+	local exp, costs, points = 0, {}, {}
+	for step = 0, 10 do
+		local d = 60 - step * 5
+		local from = { x = goal.x + dx / len * d, y = goal.y + dy / len * d, z = 92 }
+		local got
+		local job = Path.Find(1, from, goal, function(pts, cost) got = { pts = pts, cost = cost } end, opts)
+		drain()
+		exp = exp + job.expansions
+		costs[#costs + 1] = math.floor(got.cost * 1000 + 0.5)
+		points[#points + 1] = #got.pts
+	end
+	return { expansions = exp, costs = costs, points = points }
+end
+local full = walkIn(false)
+local direct = walkIn(true)
+Path.direct = nil
+emit({ full = full, direct = direct })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	let (full, direct) = (&got["full"], &got["direct"]);
+	assert_eq!(direct["costs"], full["costs"], "the same costs as the full search: {got}");
+	assert_eq!(direct["points"], full["points"], "and the same walks: {got}");
+	let (f, d) = (full["expansions"].as_i64().unwrap(), direct["expansions"].as_i64().unwrap());
+	assert!(f > 100_000, "the full search floods the cluster each time: {f}");
+	assert!(d * 5 < f, "the direct walks are a small part of it, the goal's one tree included: {d} against {f}");
+}
+
+// The same across a cluster border: the Crossroads sits where four clusters meet, so most walks round its objectives
+// cross one, and the start's tree still flooded its whole cluster each ask. It now stops at a cost radius that grows
+// only while a cheaper walk could still leave through an entrance beyond it. Three asks the arrow made in game (0.3.5,
+// a Horde level 17) toward one objective, with the costs the full search gave them then, at about 58,800 expansions.
+#[test]
+fn a_walk_across_a_cluster_border_asked_again_as_the_player_moves_floods_only_as_far_as_it_must() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local goal = { x = -406.9, y = -2645.4, z = 96.3 }
+local opts = { profile = "Horde", style = "balanced" }
+local exp, costs = 0, {}
+for _, from in ipairs({ { x = -335.5, y = -2700.4, z = 94 }, { x = -450.5, y = -2669.5, z = 96 }, { x = -475.6, y = -2670.6, z = 96 } }) do
+	local cost
+	local job = Path.Find(1, from, goal, function(_, c) cost = c end, opts)
+	drain()
+	exp = exp + job.expansions
+	costs[#costs + 1] = math.floor(cost * 1000 + 0.5) / 1000
+end
+emit({ expansions = exp, costs = costs })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["costs"], json!([136.544, 70.594, 85.165]), "the full search's walks: {got}");
+	let e = got["expansions"].as_i64().unwrap();
+	assert!(e < 25_000, "not three cluster floods ({e} expansions, about 58,800 before)");
+}
+
+// Searches are sliced and take turns (the arrow's re-ask while a later leg's walk is searched): each job's trees are
+// its own (the scratch pump swaps), so two walks queued together, a small frame budget making them alternate, come
+// back as each does alone. A tree shared between jobs (the bounded start's, once) gave other walks' answers and errors.
+#[test]
+fn walks_queued_together_taking_turns_come_back_as_each_does_alone() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local ticks, STEP = 0, 100
+local function hook() ticks = ticks + STEP end
+local create = coroutine.create
+coroutine.create = function(f) local co = create(f) debug.sethook(co, hook, "", STEP) return co end
+Path.clock = function() return ticks / 100000 end
+Path.budget = 0.3
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local opts = { profile = "Horde", style = "balanced" }
+local walks = {
+	{ { x = -335.5, y = -2700.4, z = 94 }, { x = -406.9, y = -2645.4, z = 96.3 } }, -- across the Crossroads border
+	{ { x = -475.6, y = -2670.6, z = 96 }, { x = -406.9, y = -2645.4, z = 96.3 } },
+	{ { x = 800.1, y = -2717.4, z = 92 }, { x = 825.4, y = -2687.0, z = 91.6 } }, -- inside one cluster
+	{ { x = -450, y = -2650 }, { x = -255, y = -2390 } }, -- no start height
+	{ { x = 1630, y = -4400 }, { x = 920, y = -4040 } }, -- Durotar, long
+}
+local function answer(got) return got and string.format("%.3f/%d", got.cost, got.n) or "none" end
+local alone = {}
+for i, w in ipairs(walks) do
+	Path.ClearCaches()
+	local got
+	Path.Find(1, w[1], w[2], function(pts, cost) if pts then got = { cost = cost, n = #pts } end end, opts)
+	drain()
+	alone[i] = answer(got)
+end
+local bad = {}
+local pairs_ = 0
+for i = 1, #walks do
+	for j = 1, #walks do
+		if i ~= j then
+			Path.ClearCaches()
+			local a, b
+			Path.Find(1, walks[i][1], walks[i][2], function(pts, cost) if pts then a = { cost = cost, n = #pts } end end, opts)
+			Path.Find(1, walks[j][1], walks[j][2], function(pts, cost) if pts then b = { cost = cost, n = #pts } end end, opts)
+			local ok, err = pcall(drain)
+			pairs_ = pairs_ + 1
+			if not ok or answer(a) ~= alone[i] or answer(b) ~= alone[j] then
+				bad[#bad + 1] = string.format("%d+%d: %s %s / %s %s %s", i, j, answer(a), alone[i], answer(b), alone[j], ok and "" or tostring(err))
+			end
+		end
+	end
+end
+emit({ pairs = pairs_, bad = bad, alone = alone })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["pairs"], 20);
+	assert!(empty(&got["bad"]), "each walk as alone: {got}");
+}
+
+// A start without a height stands on every surface at its spot; one may be a rock top whose tree meets no entrance,
+// which its connection moves to a node that does (settle). Walks from such starts, short (bounded) and far (the full
+// tree), cost what the full search gives, and the bound never costs more expansions than it saves.
+#[test]
+fn walks_without_a_start_height_cost_what_the_full_search_gives_and_no_more_work() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local opts = { profile = "Horde", style = "balanced" }
+-- a fixed spread round the Barrens and Durotar: short walks round objectives and long ones
+local seed = 12345
+local function rnd(a, b) seed = (seed * 1103515245 + 12345) % 2147483648 return a + (b - a) * seed / 2147483648 end
+local walks = {}
+while #walks < 24 do
+	local x, y = rnd(-1200, 1200), rnd(-4300, -2200)
+	local d = #walks < 12 and rnd(40, 380) or rnd(450, 1650)
+	local a = rnd(0, 2 * math.pi)
+	walks[#walks + 1] = { { x = x, y = y }, { x = x + math.cos(a) * d, y = y + math.sin(a) * d } }
+end
+local function one(w, direct)
+	Path.ClearCaches()
+	Path.direct = direct
+	local cost
+	local job = Path.Find(1, w[1], w[2], function(pts, c) if pts then cost = c end end, opts)
+	drain()
+	return cost, job.expansions
+end
+local diffs, full, bounded, both = {}, 0, 0, 0
+for i, w in ipairs(walks) do
+	local c0, e0 = one(w, false)
+	local c1, e1 = one(w, nil)
+	if c0 and c1 then
+		both = both + 1
+		full, bounded = full + e0, bounded + e1
+		if math.abs(c0 - c1) > 1e-6 then diffs[#diffs + 1] = string.format("%d: %.3f against %.3f", i, c1, c0) end
+	elseif c0 or c1 then
+		diffs[#diffs + 1] = string.format("%d: %s against %s", i, tostring(c1), tostring(c0))
+	end
+end
+Path.direct = nil
+emit({ diffs = diffs, full = full, bounded = bounded, both = both })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert!(empty(&got["diffs"]), "the full search's costs: {got}");
+	assert!(got["both"].as_i64().unwrap() >= 12, "enough walks on the maps: {got}");
+	let (f, b) = (got["full"].as_i64().unwrap(), got["bounded"].as_i64().unwrap());
+	assert!(b <= f, "no more work than the full search: {b} against {f}");
+}
+
+// A walk searched from a start without a height (the walking floor not known yet) starts from every surface at its
+// spot. Its first point carries the height of the start node the search kept, as every other point carries its own,
+// so the arrow's smoothing (Nav/Follow.lua) can straighten from it: 0.3.7 left it out, and 58% of the paths whose
+// first corner turned more than 45° kept it for that alone. A height given is kept as given.
+#[test]
+fn a_walk_from_a_start_without_a_height_starts_at_the_height_of_the_surface_it_was_searched_from() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local got = {}
+-- the Barrens by the Crossroads: two places players stood, 113 yd apart
+local from, to = { x = -390, y = -2421 }, { x = -395.5, y = -2533.9 }
+Path.Find(1, from, to, function(points) got.n, got.first = points and #points or 0, points and points[1].z end, { profile = "Horde" })
+drain()
+-- the surfaces at the start (its cluster decoded by the search)
+local heights = {}
+local n = Path.SurfacesAt(1, from.x, from.y, heights) or 0
+got.surfaces, got.near = n, false
+for i = 1, n do
+	if type(got.first) == "number" and math.abs(heights[i] - got.first) <= 10 then got.near = true end
+end
+got.wanted = heights[1]
+Path.Find(1, { x = from.x, y = from.y, z = heights[1] }, to, function(points) got.given = points and points[1].z end, { profile = "Horde" })
+drain()
+emit(got)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert!(got["n"].as_i64().unwrap() >= 2, "a walk is found: {got}");
+	assert!(got["first"].is_number(), "the first point has a height: {got}");
+	assert!(got["surfaces"].as_i64().unwrap() >= 1 && got["near"] == true, "within the grid's ZTOL of a surface at the start: {got}");
+	assert_eq!(got["given"], got["wanted"], "a height given is kept: {got}");
+}
+
+// A walk that goes round a town of the other faction says so (job.avoided, display only): across Hillsbrad west to
+// east the straight line meets Southshore; the Horde's path keeps out of it, the Alliance's own town is no detour, and
+// a walk that does enter it lists it as entered (job.hubs), not as avoided.
+#[test]
+fn a_horde_walk_past_southshore_on_the_shipped_maps_reports_the_town_it_goes_round_the_alliance_and_a_walk_in_none() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local got = {}
+local function walk(key, from, to, profile)
+	Path.Find(0, from, to, function(points, cost, job)
+		got[key] = { found = points ~= nil, hubs = job and job.hubs, avoided = job and job.avoided }
+	end, { profile = profile })
+	while #frames > 0 do table.remove(frames, 1)() end
+end
+walk("horde", { x = -500, y = -560 }, { x = -1200, y = -540 }, "Horde")
+walk("alliance", { x = -500, y = -560 }, { x = -1200, y = -540 }, "Alliance")
+walk("into", { x = -500, y = -560 }, { x = -850, y = -540 }, "Horde")
+emit(got)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["horde"]["found"], true);
+	assert_eq!(got["horde"]["hubs"], json!({}), "the path keeps out of the town");
+	let avoided = got["horde"]["avoided"].as_array().unwrap();
+	assert_eq!(avoided.len(), 1);
+	assert_eq!((&avoided[0]["id"], &avoided[0]["name"], &avoided[0]["areaId"]), (&json!("alliance-southshore"), &json!("Southshore"), &json!(271)));
+	assert!(avoided[0]["x"].is_number() && avoided[0]["y"].is_number(), "the town has a place, for the walk piece that passes it");
+	assert_eq!(got["alliance"]["avoided"], json!({}), "the Alliance's own town is no detour");
+	assert_eq!(got["into"]["hubs"], json!([{ "id": "alliance-southshore", "name": "Southshore", "areaId": 271 }]));
+	assert_eq!(got["into"]["avoided"], json!({}), "a town the walk enters is not one it goes round");
 }

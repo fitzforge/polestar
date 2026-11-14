@@ -18,6 +18,8 @@ function C_AddOns.LoadAddOn(name)
 	for _, f in ipairs(files) do
 		local chunk, err = loadfile(f)
 		if not chunk then error(err, 0) end
+		-- Addon code, as the runner's __load marks it (wow_stub.lua's frame guards tell addon frames from the game's).
+		stub.addonSources["@" .. f] = name
 		chunk(name, ns)
 	end
 	stub.packLoads[name] = (stub.packLoads[name] or 0) + 1

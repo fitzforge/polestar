@@ -23,8 +23,6 @@ return {
 	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "Horde : volez jusqu'à {area:272} ; Alliance : jusqu'à {area:271}. Le sentier vers le manoir est difficile à voir : il part derrière le plateau au nord du {area:275}, à l'est de {area:272}, grimpe dans les collines et tourne deux fois jusqu'à un petit tunnel. Un coffre se trouve dans le tunnel : ne l'ouvrez pas. Lancez {spell:1846} près de lui et approchez-vous ; c'est le Rite de la ruse (il revient au bout de 5 minutes). Ouvrir le coffre fait venir Milton, un voleur élite d'environ niveau 32. Au-delà du tunnel se trouve le {area:3486} : {npc:6707} est à l'étage, à l'intérieur. N'attaquez personne au manoir : cela coûte de la réputation auprès de {npc:13936}.",
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "Rite de la ruse : {spell:1846} près du coffre du tunnel",
-	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
-	["{npc:6766}: {quest:6701}, repeatable; take it now, the emblems are quest items"] = "",
 
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems

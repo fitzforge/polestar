@@ -64,30 +64,26 @@ return {
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "留待之後在{zone:1435}的一站",
 
-	-- Step 12: Witch Doctor Unbagwa
-	-- {area:35} Booty Bay · {area:1737} Mistvale Valley
-	["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "沿道路從{area:35}向北出城；巫醫安巴格瓦坐在{area:1737}道路東邊的山丘上。",
-	-- {area:1742} Spirit Den
-	["Inside {area:1742}"] = "",
-
-	-- Step 13: Mistvale gorillas
+	-- Step 12: Mistvale gorillas
 	["Mistvale gorillas"] = "迷霧谷猩猩",
 	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "猩猩在巫醫安巴格瓦周圍的山谷遊蕩。老邁的迷霧谷猩猩會掉落內臟；任何一隻都可能掉落尖牙。",
 
-	-- Step 14: Witch Doctor Unbagwa
+	-- Step 13: Witch Doctor Unbagwa
 	-- {npc:1514} Mokk the Savage
 	["Hand Unbagwa the fangs and stay by him: he calls three waves of gorillas, then {npc:1514}. Fight them one at a time."] = "把尖牙交給巫醫安巴格瓦並待在他身邊：他會召來三波猩猩，然後是{npc:1514}。一次對付一隻。",
+	-- {area:1742} Spirit Den
+	["Inside {area:1742}"] = "",
 
-	-- Step 16: Venture Co. mine
+	-- Step 15: Venture Co. mine
 	["Venture Co. mine"] = "風險投資公司礦坑",
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "",
 
-	-- Step 18: Nesingwary's camp
+	-- Step 17: Nesingwary's camp
 	["Nesingwary's camp"] = "奈辛瓦里的營地",
 	["Head north up the road; the hunters camp on the hill above the river."] = "",
 
-	-- Step 20: Zul'Kunda
+	-- Step 19: Zul'Kunda
 	["Zul'Kunda"] = "祖昆達廢墟",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman · {object:3202} Grom'gol · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "遠征隊營地西邊，血頂酋長{npc:1061}和{npc:1062}一起站在祖昆達廢墟中。先清掉他們的守衛，再把他們拉過來。在這裡持續擊殺血頂食人妖直到41級：接下來在大鍋那裡接的{quest:586}會派你去打41-43級的劈顱食人妖。或者，組隊去打{area:1517}地城。\n在祖昆達廢墟和{object:3202}之間的海岸上，一隻{npc:2635}（38級精英）與普通鱷魚共用重生點：如果牠在就擊殺牠，並為{npc:2495}取下牠的皮。",
@@ -96,7 +92,7 @@ return {
 	-- {quest:586} Speaking with Gan'zulah
 	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "",
 
-	-- Step 21: Grom'gol
+	-- Step 20: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁邊",
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
@@ -106,23 +102,23 @@ return {
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}：洞穴入口在營地西邊的{area:104}底下",
 
-	-- Step 22: The Vile Reef
+	-- Step 21: The Vile Reef
 	-- {quest:95770} Locating the Lost City · {object:3202} Grom'gol · {area:104} Vile Reef
 	["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}：在{object:3202}西邊，游到{area:104}上方，潛到礁石中的洞穴入口；找到時任務就會完成。先別進洞穴：叢林捕獵者在沿海岸往南的地方。",
 	["the Drowned City's entrance, underwater"] = "沉沒之城的入口，在水下",
 
-	-- Step 23: Jungle stalkers
+	-- Step 22: Jungle stalkers
 	["Jungle stalkers"] = "叢林捕獵者",
 	-- {object:3202} Grom'gol
 	["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "叢林捕獵者迅猛龍在{object:3202}南邊的叢林狩獵，一直延伸到西海岸。",
 
-	-- Step 24: The Cape of Stranglethorn: kill these as you meet them
+	-- Step 23: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
 	["{area:1577}: kill these as you meet them"] = "",
 	-- {object:759} Holy Spring
 	["Follow the coast south. The naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them."] = "沿海岸向南。納迦探險者在岸邊涉水，身上帶著蘆葦束；{object:759}就在他們東邊的丘陵中冒泡。",
 
-	-- Step 25: Booty Bay
+	-- Step 24: Booty Bay
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "",
 	-- {npc:6807} Innkeeper Skindle
@@ -136,16 +132,16 @@ return {
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}，在屋內：{item:4105}",
 
-	-- Step 26: Zanzil's camps
+	-- Step 25: Zanzil's camps
 	["Zanzil's camps"] = "贊吉爾的營地",
 	["North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture."] = "在迷霧谷東北方，流亡者贊吉爾的追隨者在叢林中紮營；每一個都可能帶著混合物。",
 
-	-- Step 27: Pirate ghosts
+	-- Step 26: Pirate ghosts
 	["Pirate ghosts"] = "海盜鬼魂",
 	-- {area:35} Booty Bay · {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs"
 	["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "三個海盜鬼魂在{area:35}北邊、贊吉爾營地附近的叢林出沒：{npc:2535}和{npc:2536}站在一起，{npc:2537}在更東邊。",
 
-	-- Step 28: Zul'Mamwe
+	-- Step 27: Zul'Mamwe
 	["Zul'Mamwe"] = "祖瑪維廢墟",
 	-- {npc:1059} Ana'thek the Cruel
 	["Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "",
@@ -154,13 +150,13 @@ return {
 	["{npc:669} walks around here: look inside the circle on the map"] = "",
 	["Below ground"] = "地下",
 
-	-- Step 29: Balia'mah Ruins: kill these as you meet them
+	-- Step 28: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
 	["{area:127}: kill these as you meet them"] = "",
 	-- {object:3202} Grom'gol
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
-	-- Step 30: Grom'gol Base Camp
+	-- Step 29: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "",
 	-- {object:2076} Bubbling Cauldron
@@ -170,7 +166,7 @@ return {
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
 	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "",
 
-	-- Step 32: Booty Bay
+	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "",
 	-- {npc:737} Kebok
@@ -178,50 +174,50 @@ return {
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "",
 
-	-- Step 33: Ironjaw Basilisks
+	-- Step 32: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "鐵齶蜥蜴",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
 	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
 
-	-- Step 34: Grom'gol Base Camp
+	-- Step 33: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
 	["Ride on north to {object:3202}."] = "",
 
-	-- Step 36: Nesingwary's Expedition
+	-- Step 35: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "",
 
-	-- Step 38: Raptor Mastery
+	-- Step 37: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 39: Panther Mastery
+	-- Step 38: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 43: Level 42.68
+	-- Step 42: Level 42.68
 	["Level 42.68"] = "",
 	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
 	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "",
 
-	-- Step 44: Big Game Hunter
+	-- Step 43: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "",
 
-	-- Step 46: Level 42.74
+	-- Step 45: Level 42.74
 	["Level 42.74"] = "",
 	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
 	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
 
-	-- Step 50: Into the Swamp of Sorrows
+	-- Step 49: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "進入{zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
 
-	-- Step 51: Stonard
+	-- Step 50: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "",
 	-- {npc:5591} Dar
@@ -233,29 +229,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
-	-- Step 52: Sawtooth crocolisks
+	-- Step 51: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "鹽齒鱷魚",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "鹽齒鱷魚在{npc:5391}營地周圍和往南到{area:75}的水池中打滾；約四隻有一隻掉落側腹肉。",
 
-	-- Step 53: Noboru the Cudgel
+	-- Step 52: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "木棒諾博魯在{area:76}西南方的空地遊蕩；他的木棒會開啟一個任務。",
 
-	-- Step 54: Draenethyst crystals
+	-- Step 53: Draenethyst crystals
 	["Draenethyst crystals"] = "德萊尼水晶",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Ride north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "向東北騎到{area:76}。水晶沿著通往{npc:5391}籠子的路分布。",
 
-	-- Step 55: Galen's Escape
+	-- Step 54: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}被關在沼澤東北部的{area:76}。釋放他並跟著他出去，擊退追趕他的沼澤生物。",
 
-	-- Step 56: Galen's Strongbox
+	-- Step 55: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "",
 
-	-- Step 57: Harborage
+	-- Step 56: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "",
 
@@ -280,6 +276,7 @@ return {
 	-- ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "沿道路向西騎到{area:657}的德萊尼營地，靠近{zone:1430}的入口。",
 	-- ["Ride west to {object:3202}."] = "向西騎到{object:3202}。",
 	-- ["Sawtooth snappers"] = "鹽齒鉗嘴鱷",
+	-- ["Take the road north out of {area:35}; Unbagwa sits on a hill in {area:1737}, east of the road."] = "沿道路從{area:35}向北出城；巫醫安巴格瓦坐在{area:1737}道路東邊的山丘上。",
 	-- ["The boat lands in {area:35}'s harbour. The quest givers stand on the boardwalks around the harbour and in the inn."] = "船在{area:35}的港口靠岸。任務給予者站在港口周圍的木棧道上和旅店裡。",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "前往{area:35}的船停靠在{area:392}碼頭的盡頭。",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "最後一批顱骨堆在往西不遠的廢墟中，就在返回{object:3202}的路上。",

@@ -7,10 +7,10 @@ const GUILD = '800';
 const BOT = '700';
 const TAGS = [
 	{ id: 't-questing', name: 'Questing' },
-	{ id: 't-tracked', name: 'Tracked' },
-	{ id: 't-fixed', name: 'Fixed' },
-	{ id: 't-wontfix', name: 'Won\u2019t fix' },
-	{ id: 't-dup', name: 'Duplicate' },
+	{ id: 't-tracked', name: 'Tracked', moderated: true },
+	{ id: 't-fixed', name: 'Fixed', moderated: true },
+	{ id: 't-wontfix', name: 'Won\u2019t fix', moderated: true },
+	{ id: 't-dup', name: 'Duplicate', moderated: true },
 ];
 
 function httpError(status) {
@@ -53,9 +53,10 @@ function fakeDiscord() {
 			messages.set(id, [msg]);
 			return msg;
 		},
-		// A message as the gateway gives it: with the author's member roles when they are in `members`.
-		say(thread, { author = 'u1', content = '', attachments = [], bot = false } = {}) {
-			const msg = { id: String(nextId++), channel_id: thread, content, attachments, mentions: [], author: { id: author, username: 'someone', bot } };
+		// A message as the gateway gives it: with the author's member roles
+		// when they are in `members`. `type`: 0 a message, 19 a reply, 4 a rename.
+		say(thread, { author = 'u1', content = '', attachments = [], bot = false, type = 0 } = {}) {
+			const msg = { id: String(nextId++), type, channel_id: thread, content, attachments, mentions: [], author: { id: author, username: 'someone', bot } };
 			if (members.has(author)) msg.member = { roles: [...members.get(author)] };
 			messages.get(thread).push(msg);
 			return msg;
@@ -69,8 +70,10 @@ function fakeDiscord() {
 			if (!m) throw httpError(404);
 			return structuredClone(m);
 		},
-		async getMessages(channel) {
-			return structuredClone([...(messages.get(channel) || [])].reverse());
+		// Newest first, `limit` at a time, older than `before` when given.
+		async getMessages(channel, limit = 50, before = null) {
+			const all = [...(messages.get(channel) || [])].reverse().filter((m) => !before || BigInt(m.id) < BigInt(before));
+			return structuredClone(all.slice(0, limit));
 		},
 		async getMember(guildId, user) {
 			if (guildId !== GUILD || !members.has(user)) throw httpError(404);
@@ -122,6 +125,7 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 	const timelines = new Map(); // issue number -> timeline events
 	const pulls = new Map(); // pull request number -> { merge_commit_sha }
 	const tagCommits = new Map(); // tag -> Set of the commits it holds
+	let commentIds = 0;
 	return {
 		repo,
 		commentsByIssue: comments,
@@ -153,10 +157,16 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 		},
 		async comment(n, body) {
 			if (!comments.has(n)) comments.set(n, []);
-			comments.get(n).push({ body, author_association: 'OWNER', user: { type: 'User' } });
+			comments.get(n).push({ id: ++commentIds, body, author_association: 'OWNER', user: { type: 'User' } });
 		},
 		async comments(n) {
-			return comments.get(n) || [];
+			return structuredClone(comments.get(n) || []);
+		},
+		async editComment(id, body) {
+			const c = [...comments.values()].flat().find((x) => x.id === id);
+			if (!c) throw httpError(404);
+			c.body = body;
+			return c;
 		},
 		async addLabels(n, ls) {
 			issues[n - 1].labels.push(...ls.map((name) => ({ name })));

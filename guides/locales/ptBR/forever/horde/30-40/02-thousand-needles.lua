@@ -34,8 +34,8 @@ return {
 	["{npc:3412}'s workshop is in the {object:172958}. {quest:2841} is {area:133}'s last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later {zone:1454} stop."] = "A oficina de {npc:3412} fica em {object:172958}. {quest:2841} é o último chefe de {area:133}: ótima XP se você for com um grupo. Faça quando o seu grupo estiver pronto; entregue em uma parada posterior em {zone:1454}.",
 
 	-- Step 6: Gnomeregan
-	-- {area:133} Gnomeregan · {npc:7800} Mekgineer Thermaplugg · {item:9153} Rig Blueprints
-	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "Faça {area:133} em grupo quando for conveniente: {npc:7800}, no fim, deixa cair a Combinação do Cofre dele; abra o cofre dele atrás do pilar de bomba do norte para pegar o {item:9153}.",
+	-- {area:133} Gnomeregan · {npc:7800} Mekgineer Thermaplugg · {item:210323} Safe Combination · {item:9153} Rig Blueprints
+	["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his {item:210323}; open his safe behind the northern bomb pillar for the {item:9153}."] = "",
 
 	-- Step 7: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
@@ -151,9 +151,9 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time."] = "Use o {item:13892} de {npc:11596} num Kodo Idoso, Moribundo ou {npc:4702} no cemitério e leve o kodo domado de volta a {npc:11596}. No acampamento dele, fale com o kodo: isso o conta e deixa você domar o próximo. Cinco kodos, um de cada vez.",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "em um Kodo Idoso, Moribundo ou {npc:4702} no cemitério; não o mate",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "o kodo domado, no acampamento de {npc:11596}: fale com ele, cinco vezes",
 
 	-- Step 30: Level 33
 	["Level 33"] = "Nível 33",
@@ -258,6 +258,7 @@ return {
 	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach: each clam you open on the sea floor, and some crawlers, give a {item:15874}. Open each one in your bags for its meat."] = "Siga para o norte pela costa. Mariscos de Casca Mole Gigantes ficam nas águas rasas e os Tiscorais Enfurecidos andam pela praia: cada marisco que você abrir no fundo do mar, e alguns tiscorais, dão {item:15874}. Abra cada um nas bolsas para pegar a carne.",
 	-- ["Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat."] = "Suba a costa para o norte. Os Mariscos de Casca Mole Gigantes ficam na água rasa e os Tiscorais Enfurecidos andam pela praia; abra cada marisco nas bolsas para pegar a carne.",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time."] = "Continue ao norte até {area:598}. Os Mirmidões, Nagas e Feiticeiras Sibilâmina ocupam a praia; puxe-os um de cada vez.",
+	-- ["Run {area:133} with a group when it suits you: {npc:7800} at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the {item:9153}."] = "Faça {area:133} em grupo quando for conveniente: {npc:7800}, no fim, deixa cair a Combinação do Cofre dele; abra o cofre dele atrás do pilar de bomba do norte para pegar o {item:9153}.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first."] = "As nagas Sibilâmina dominam a costa ao norte de {area:2405}. Nade até {area:2406}, no extremo norte, e use {item:15766} no {object:177673}: surge {npc:12369} (38); mate-o para pegar {quest:6027}. Ele está bem acima do seu nível: descanse até ficar com vida cheia antes.",
 	-- ["The Slitherblade naga hold the coast north of {area:2405}; {npc:12369} guards the {quest:6027} at the far northern tip."] = "Os nagas Sibilâmina ocupam a costa ao norte de {area:2405}. {npc:12369} guarda o {quest:6027} na ponta extrema do norte.",
 	-- ["The zeppelin lands at the tower outside {zone:1454}'s main gate. {npc:5639} waits in the Drag; {npc:5640} stands in the {object:172961} on the west side of the city."] = "O zepelim pousa na torre fora do portão principal de {zone:1454}. {npc:5639} espera no Drag; {npc:5640} fica em {object:172961}, no lado oeste da cidade.",

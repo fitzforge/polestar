@@ -133,38 +133,47 @@ step Raan Wildwind
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
   accept 97963                                -- Raan Wildwind: for Nyassa Swiftdraught
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
   accept 97964                                -- Raan Wildwind: for Aedi Thriceforged
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97965                                -- Raan Wildwind: for Naleeia Tattermend
 
 step Camping 101: Fishing
   when skill Fishing 1
+  when !knows 1229745
   accept 97967                                -- Raan Wildwind: for Fenn Fairweather
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97969                                -- Raan Wildwind: for Indari Sunseam
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
   accept 97970                                -- Raan Wildwind: for Messana Crestwind
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97971                                -- Raan Wildwind: for Mendalass Tattermend
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  when !knows 1263425
   accept 97973                                -- Raan Wildwind: for Taleen Shimmerthread
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  when !knows 1230643
   accept 98286                                -- Raan Wildwind: for Nasalanna Windsinger
 
 step Zerril Softbreeze

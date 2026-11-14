@@ -37,8 +37,8 @@ return {
 	["{item:7908}: the {object:123214}, top floor"] = "",
 
 	-- Step 5: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {item:6947} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {item:6947} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "",
+	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "엘윈 숲을 지나 북쪽의 {zone:1453}(으)로 가세요. 마티아스 쇼는 SI:7 위층에 있습니다. 그가 독 조제를 가르쳐 주고 {item:7676} 제조법을 줍니다. 독은 사는 것이 아니라 만드는 것입니다. {spell:8681}을(를) 한 번 만들 때마다 {item:2928}와(과) {item:3371}이(가) 하나씩 필요하며, SI:7 옆 {object:2100}의 {npc:1325}와(과) {npc:1326}이(가) 팝니다. 각각 한 묶음씩 사서 마법책에서 독 조제를 열어 만든 다음, 무기에 독을 바르세요.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "",
 

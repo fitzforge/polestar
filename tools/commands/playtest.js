@@ -65,6 +65,10 @@ options:
   --class <c>           play only this class (e.g. Warrior), in every guide
   --group do|skip       the answer at every group quest (when group): skip
                         (the default, the solo route) or do (with a group)
+  --dungeon <list>      play as a player who chose these dungeons in Options
+                        (\`when dungeon\`): names or map ids, comma-separated
+                        (\`--dungeon "The Deadmines,Wailing Caverns"\`), or all;
+                        none by default (the solo route)
   --learn <list>        play as a player who chose these professions
                         (\`--learn Herbalism,"First Aid"\`): the guide's optional
                         \`train\` of each is taken, then the steps behind
@@ -77,8 +81,14 @@ options:
   --context <dir>       our guides, loaded beside another pack (default guides/)
   --context-data <dir>  reference data for the context (default data/forever/)`;
 
+// --dungeon: "all", or the names and map ids listed (null: none, the solo route).
+function dungeonsArg(v) {
+	if (!v) return null;
+	return v.trim().toLowerCase() === 'all' ? 'all' : v.split(',').map((x) => x.trim()).filter(Boolean);
+}
+
 async function run(argv) {
-	const { opts, positional, error } = parseArgs(argv, { flags: ['--honest'], options: ['--filter', '--class', '--group', '--pack', '--guides', '--data', '--context', '--context-data', '--format', '--kb', '--learn'] });
+	const { opts, positional, error } = parseArgs(argv, { flags: ['--honest'], options: ['--filter', '--class', '--group', '--dungeon', '--pack', '--guides', '--data', '--context', '--context-data', '--format', '--kb', '--learn'] });
 	if (opts.help) {
 		console.log(usage);
 		return 0;
@@ -122,6 +132,7 @@ async function run(argv) {
 		filter: opts.filter || null,
 		classes: cls ? [cls] : null,
 		groups: opts.group || 'skip',
+		dungeons: dungeonsArg(opts.dungeon),
 		dataDir: resolvePath(opts.data, 'data/forever', ROOT),
 		...(pack.official ? {} : { contextDir: pack.contextDir, contextDataDir: pack.contextDataDir }),
 		learn,
@@ -168,6 +179,7 @@ async function runHonest(opts, pack, cls) {
 		filter: opts.filter || null,
 		classes: cls ? [cls] : null,
 		groups: opts.group || 'skip',
+		dungeons: dungeonsArg(opts.dungeon),
 		dataDir: resolvePath(opts.data, 'data/forever', ROOT),
 		...(pack.official ? {} : { contextDir: pack.contextDir, contextDataDir: pack.contextDataDir }),
 		honest: true,

@@ -21,6 +21,7 @@ const { resolveGuide } = require('../lib/dsl/resolve');
 const { loadData } = require('../lib/dsl/data');
 const { findGuideFiles, writePackDir, OFFICIAL_DIR } = require('../lib/dsl/project');
 const { readManifest } = require('../lib/pack/manifest');
+const { ownExtra } = require('../lib/pack/locate');
 const { buildPack, folderIn } = require('../lib/pack/build');
 const { Geo } = require('../lib/planner/geo');
 const { ROOT, DATA, SOURCES } = require('../lib/paths');
@@ -212,7 +213,7 @@ class Workspace extends EventEmitter {
 		const official = samePath(dir, this.officialDir);
 		// A written guide tree in place of ours (`planner --guides`) may hold no pack.json: ours describes it.
 		const manifestDir = official && !fs.existsSync(path.join(dir, 'pack.json')) ? OFFICIAL_DIR : dir;
-		const { manifest, diags } = readManifest(manifestDir, { official });
+		const { manifest, diags } = readManifest(manifestDir, { official, extra: official ? null : ownExtra(dir) });
 		if (!manifest) throw new Error(`${shownFile(dir)}: ${diags.filter((d) => d.severity === 'error').map((d) => d.message).join('; ')}`);
 		if (this.packs.some((p) => p.id === manifest.id)) throw new Error(`two packs with the id "${manifest.id}"`);
 		this.packs.push({ id: manifest.id, title: manifest.title, dir, official, manifest, diags });

@@ -189,7 +189,7 @@ function Nav.BakedLeg(step)
 	end
 	-- The leg's continent: the step's own (its first located goal), as the
 	-- compiler placed it; the follower works in the player's.
-	local view = E.GetStepView and E.GetStepView(step)
+	local view = E.GetStepView and E.GetStepView(step, true)
 	local c
 	for _, gv in ipairs(view and view.goals or {}) do
 		if gv.map and gv.x and gv.y then

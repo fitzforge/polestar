@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Thunder Bluff Reputation"] = "雷霆崖声望",
 	-- {zone:1412} Mulgore · {zone:1452} Winterspring · {item:11040} Morrowgrain · {item:14047} Runecloth
-	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "",
+	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "升级时完成{zone:1412}的任务，从55级起做{zone:1452}的任务并交{item:11040}，之后交{item:14047}直到崇拜。",
 	-- {faction:81} Thunder Bluff
 	["Exalted with {faction:81}"] = "{faction:81}崇拜",
 
@@ -18,12 +18,13 @@ return {
 	["{faction:81}: how it works"] = "{faction:81}：规则说明",
 	-- {faction:81} Thunder Bluff · {item:11040} Morrowgrain · {npc:14728} Rumstag Proudstrider · {quest:7825} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1412} Mulgore · {area:378} Camp Taurajo · {zone:1441} Thousand Needles
 	["{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the Crossroads at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward."] = "{faction:81}声望来自任务、{item:11040}和布料。布匹军需官{npc:14728}站在中央高地的制皮与裁缝帐篷之间。他接收四种一次性捐赠，每种60块布（各150声望），之后可无限重复{quest:7825}，每20块{item:14047}换50声望。每获得一点{faction:81}声望，{zone:1454}、{zone:1458}和暗矛巨魔也会获得四分之一。练级时，应在与任务相差不超过5级时完成{faction:81}的任务：1至12级做{zone:1412}，13至22级做{area:378}和十字路口，25至30级做{zone:1441}。传承特长“外交家”最多增加10%。奖励：尊敬后，雷霆崖商人的售价降低10%（经典旧世规则），包括科多兽商人；崇拜后，其他种族也能购买科多兽：40级科多兽20金币，60级大型科多兽200金币，均需先接受坐骑训练。{faction:81}没有战袍或其他奖励。",
+	["his donations are handed in from his window and never enter the log"] = "他的捐献任务在他的窗口中直接交还，不会进入任务日志",
 
 	-- Step 2: Camp Narache (optional hub)
 	-- {area:221} Camp Narache
 	["{area:221} (optional hub)"] = "{area:221}（可选任务点）",
 	-- {area:221} Camp Narache · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2980} Grull Hawkwind · {npc:2981} Chief Hawkwind · {npc:3209} Brave Windfeather
-	["Forever pays these old quests in full at any level. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "",
+	["Forever pays these old quests in full at any level. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "无限在任何等级都为这些旧任务提供全额奖励。{zone:1412}最南端的{area:221}，约25分钟可得1,100点{faction:81}声望。起始区任务不会向其他主城提供共享声望。{npc:2980}和{npc:2981}在营地内，{npc:3209}在营地边缘。",
 
 	-- Step 3: Greatmother Hawkwind and the plains
 	-- {npc:2991} Greatmother Hawkwind
@@ -61,13 +62,13 @@ return {
 	-- {area:222} Bloodhoof Village
 	["{area:222} (optional hub)"] = "{area:222}（可选任务点）",
 	-- {area:222} Bloodhoof Village · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2993} Baine Bloodhoof · {npc:2947} Harken Windtotem · {npc:2985} Ruul Eagletalon · {npc:3222} Brave Wildrunner · {npc:2988} Morin Cloudstalker
-	["Forever pays these old quests in full at any level. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes. {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "",
+	["Forever pays these old quests in full at any level. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes. {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "无限在任何等级都为这些旧任务提供全额奖励。{area:222}及{zone:1412}东部，约45分钟可得1,000点{faction:81}声望。{npc:2993}在村庄中央，{npc:2947}、{npc:2985}和{npc:3222}就在附近；{npc:2988}在村庄东侧的路旁。",
 
 	-- Step 11: Eastern Mulgore
 	-- {zone:1412} Mulgore
 	["Eastern {zone:1412}"] = "{zone:1412} 东部",
 	-- {quest:99079} Longwalker Malah · {object:2908} Sealed Supply Crate
-	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "",
+	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "{quest:99079}在东部边界旁等候。被劫掠商队的{object:2908}位于村庄东北方，打开即可开始下一个任务。",
 	-- {object:2908} Sealed Supply Crate
 	["the {object:2908}"] = "{object:2908}",
 
@@ -79,21 +80,21 @@ return {
 	["The mine, the centaurs and the plains"] = "矿洞、半人马与平原",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
 	-- plural, as words: Swoops = {npc:2970} Swoop
-	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "",
+	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "返回矿洞对付工人、主官和深处的{quest:765}：他掉落的{item:281031}可触发{quest:98424}，其余书页散落在矿洞内。加拉克半人马和赫拉克在村庄东面扎营。猛鹫在{zone:1412}各处飞翔；风怒鹰身人栖息在村庄东南面，白鬃豺狼人则在村庄西面扎营。",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
-	["{item:281031}, from {quest:765}"] = "",
+	["{item:281031}, from {quest:765}"] = "{item:281031}，从{quest:765}获得",
 	-- {item:281035} Shredder Operation Instructions
-	["{item:281035}, inside the mine"] = "",
+	["{item:281035}, inside the mine"] = "{item:281035}，在矿洞内",
 
 	-- Step 14: Morin Cloudstalker
 	-- {quest:98427} Ceasing Operations · {quest:98424} Fizsprocket's Notes
-	["{quest:98427}, +150: needs {quest:98424}"] = "",
+	["{quest:98427}, +150: needs {quest:98424}"] = "{quest:98427}，+150：需要先完成{quest:98424}",
 
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
-	["{area:360}: the Clearcutter"] = "",
+	["{area:360}: the Clearcutter"] = "{area:360}：Clearcutter",
 	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
+	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "精英伐木机Venture Co. Clearcutter在矿洞深处作业，比菲兹普罗克原先所在的位置更深；它的钥匙用于{quest:98427}。",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
@@ -105,7 +106,7 @@ return {
 	-- {area:17044} Gloomrise
 	["{area:17044} (optional hub)"] = "{area:17044}（可选任务点）",
 	-- {area:17045} Skywatcher Plateau · {faction:81} Thunder Bluff · {zone:1454} Orgrimmar · {npc:259118} Muln Earthfury · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem
-	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "",
+	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "在无限版本中，这些旧任务在任何等级都提供全额声望。{faction:81}西北方{area:17045}上的大地之环营地：20分钟可获得300点{faction:81}声望，另有{zone:1454}和暗矛巨魔各100点，以及大地之环450点。{npc:259118}、{npc:264074}和{npc:264072}站在营地里。",
 	-- {npc:259118} Muln Earthfury · {quest:96259} Defending the Dead · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "{npc:259118}：{quest:96259}，+100（交还后可接{quest:96261}）",
 	-- {npc:264074} Mazu'kon · {quest:96241} Talkin' bout Toxins, Mon
@@ -182,7 +183,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040}（可选）",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
-	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "",
+	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804}每次收取10份{item:11040}，奖励50点声望，可无限次交还，60级时仍提供全额奖励，但速度较慢：{item:11020}每10分钟产出一个常青草药包，平均每个草药包约含一份{item:11040}，因此每次交还约需等待90分钟，消耗18份{quest:3761}及9包种子（90银币）。可以边做其他事边进行，每小时获得略多于30点声望。前置任务链为50级，{npc:6746}会派往{area:1639}找{npc:5769}，他需要20份{quest:3761}。",
 
 	-- Step 32: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain

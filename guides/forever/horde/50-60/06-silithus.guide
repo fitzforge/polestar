@@ -231,7 +231,7 @@ step Tanaris
 step Gadgetzan
   zone Tanaris
   tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
-  turnin 2741
+  turnin 2741 direct
   turnin 4507                         -- Inside
   accept 4509
 
@@ -327,11 +327,15 @@ step The Bulwark
   turnin 5230                         -- Shadow Priestess Vandis
   accept 5231
   turnin 5098                         -- High Executor Derrington
-  accept 105
   accept 838
   turnin 838                          -- Apothecary Dithers
   accept 964
   turnin 6390                         -- Mickey Levine
+
+step High Executor Derrington
+  when group 105
+  tip Alas, Andorhal's shard lies at Araj the Summoner's feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group.
+  accept 105
 
 # ---------------------------------------------------------------- Western Plaguelands
 
@@ -407,7 +411,9 @@ step Western Plaguelands
   goto 45.3,69.2 "Alas, Andorhal"
 
 step Alas, Andorhal
+  when group 105
   zone Western Plaguelands
+  tip Araj the Summoner (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from Araj's Phylactery there.
   collect 17114 quest 105.1 @45.3,69.2 map 1422
 
 step Level 59.14
@@ -429,6 +435,10 @@ step The Bulwark
   turnin 5232
   accept 5233
   turnin 964
+
+step High Executor Derrington
+  when group 105
+  zone Tirisfal Glades
   turnin 105
 
 step Into Eastern Plaguelands
@@ -489,5 +499,4 @@ step The Bulwark
   zone Tirisfal Glades
   tip West to the Bulwark one last time.
   turnin 5236                         -- Shadow Priestess Vandis
-  accept 5238                         -- High Executor Derrington
-  turnin 5238
+  turnin 5238 direct

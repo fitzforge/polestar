@@ -3,7 +3,7 @@
 JS: a checkout of next at eb7b47840 (next pipeline).
 Command: `sh regen.sh $POLESTAR_V1` (`travel build --offline --grid none`, data ../data/expected, everything else from input/).
 Inputs (`node slice.js <data/sources> input` plus hand-written files):
-- sources/wago: Blizzard client table rows: Era TaxiNodes/AreaTrigger whole, TaxiPath/TaxiPathNode for 7 flight masters; Forever TaxiNodes, TaxiPathNode (those paths + Forever-only), TransportAnimation, SpellCastTimes, teleport spells' rows, AreaTable cut.
+- sources/wago: Blizzard client table rows: Era TaxiNodes/AreaTrigger whole, TaxiPath/TaxiPathNode for 7 flight masters; Forever TaxiNodes, TaxiPath (Forever-only), TaxiPathNode (those paths + Forever-only), TransportAnimation, SpellCastTimes, teleport spells' rows, AreaTable cut.
 - sources/cmangos/22b51464f162/transit.json: CMaNGOS classic-db (GPL facts) cached extract, whole.
 - crossings.json: data/crossings.json (ours); local/crossings.json and recordings/: synthetic (ours).
 - package.json: version 0.2.6 = the JS checkout's (Polestar_Travel TOC).
@@ -11,5 +11,15 @@ Inputs (`node slice.js <data/sources> input` plus hand-written files):
 When the shipped crossings file moved out of tools/ to data/crossings.json, expected/travel.json's Carbonite source `use` (which names that path) was updated by hand to the new path, in the Rust and the JS builders alike; nothing else changed.
 
 When the Rust builder's inn list gained Zephras Isle's two inns (Shen'dar Village, Valanaar; 2026-10-27), expected/travel.json's warnings gained their two "not in npcs.json" lines by hand (the slice has neither innkeeper); nothing else changed.
+
+When the Rust builder gained the walk-in portals that are game objects (Zephras Isle's Portal To Rohashi Spires and Portal to Valanaar; #1674, placed on the map's live frame), expected/TravelData.lua and travel.json gained their two portals from the Rust builder (FORGE_GOLDEN_BLESS); the JavaScript builder has no such portals. Nothing else changed.
+
+When the Rust builder gained the flight points the Forever client adds (Rog'mar and Farholde Keep on the Riverglades, the Summit of Eternity and the Tainted Foothills on Mount Hyjal, with their 20 flights), input/sources/wago/1.60.1.70450 gained Forever's TaxiPath, its Forever-only rows (slice.js; the build's TaxiPath equals 1.60.1.70532's), and expected/TravelData.lua, FlightPaths.lua and travel.json gained the four nodes, their flights and tracks, the "no flight master" warnings for them (the data golden has no such NPC) and the Forever tables' `use` from the Rust builder (FORGE_GOLDEN_BLESS); the JavaScript builder has no such nodes. Every Era node and flight is as before.
+
+When the Rust builder's inn list gained the Riverglades' three inns (Powderfuse Port, Rog'mar, Farholde Keep), expected/travel.json's warnings gained their three "not in npcs.json" lines from the Rust builder (FORGE_GOLDEN_BLESS; the slice has none of the innkeepers); nothing else changed.
+
+When the Rust builder's transports gained Zephras Isle's two airships (TaxiPaths 11398 and 11457, both in the slice's Forever TaxiPathNode; 2026-11-09, plan 0.3.7), expected/travel.json and TravelData.lua gained the two transports, their timetables (path-11398, path-11457) and two "npc ... not found" warnings (the slice has neither dockmaster), written by the Rust builder (FORGE_GOLDEN_BLESS); nothing else changed. The JS builder does not know them.
+
+When the Rust builder gained the Wizard's Sanctum's two walk-in portals (area triggers 704 down to the mage trainers' chamber and 702 back up; #1970), input/sources/cmangos/22b51464f162/transit.json gained the two triggers' classic-db teleports (extracted again from the same dump; nothing else in it changed), and expected/TravelData.lua and travel.json gained the two portals from the Rust builder (FORGE_GOLDEN_BLESS); nothing else changed. The JS builder does not know them.
 
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.

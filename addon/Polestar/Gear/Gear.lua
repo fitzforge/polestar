@@ -22,12 +22,17 @@
 --       or more): what the bag arrow adds to IsUpgrade, so a weapon the
 --       weights give no value (a staff for a Druid) still beats a bare hand.
 --   Gear.GetSpec() -> key, label, source ("setting" | "talents" | "default" | "custom")
+--       label "<spec> (adjusted)" while the player has changed its weights
+--       (Adjust.lua; GetWeightsInfo().adjusted is how many)
 --       "custom": an imported Pawn scale (Pawn.lua); key is "custom:<id>", label
 --       "Custom: <name>", and its weights are used as they are, at every level
 --   Gear.GetWeights() -> weights (read-only): the spec's band for this level
---       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table;
+--       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table
+--       (Weights.lua); Forever's own ratings, which no band weighs (haste,
+--       expertise, armorPen), come from the authored table;
 --       a small melee weapon DPS weight is added where the spec has none
---       (Feral's is 14x its attack power weight)
+--       (Feral's is 14x its attack power weight), and the player's own
+--       changes on top (Gear.Adjust, Adjust.lua)
 --   Gear.GetWeightsInfo() -> { source, note, upTo, level } of the weights in use
 --   Gear.GetPlayer() -> { class, classID, level, race, raceID, faction } (read-only)
 --   Gear.GetRacial() -> the racial gear traits in use (Gear.RACIALS by raceID) | nil
@@ -52,7 +57,7 @@ local Gear = ns.Gear or {}
 ns.Gear = Gear
 local L = ns.L
 
-local type, tonumber, tostring, pairs, pcall, next = type, tonumber, tostring, pairs, pcall, next
+local type, tonumber, tostring, pairs, ipairs, pcall, next = type, tonumber, tostring, pairs, ipairs, pcall, next
 local floor = math.floor
 
 local CLASSES, WEIGHTS, PROFICIENCY = Gear.CLASSES, Gear.WEIGHTS, Gear.PROFICIENCY
@@ -257,24 +262,54 @@ local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage
 local DUAL_WIELD_SPELL = 674
 
 -- C_Item.GetItemStats keys -> canonical stat keys. Unknown keys are ignored.
+-- Combined spell power adds to both damage and healing in clientStats.
 local CLIENT_STATS = {
 	ITEM_MOD_STRENGTH_SHORT = "str", ITEM_MOD_AGILITY_SHORT = "agi", ITEM_MOD_STAMINA_SHORT = "sta",
 	ITEM_MOD_INTELLECT_SHORT = "int", ITEM_MOD_SPIRIT_SHORT = "spi", RESISTANCE0_NAME = "armor",
 	ITEM_MOD_HEALTH_SHORT = "health", ITEM_MOD_MANA_SHORT = "mana",
 	ITEM_MOD_DAMAGE_PER_SECOND_SHORT = "dps",
 	ITEM_MOD_ATTACK_POWER_SHORT = "ap", ITEM_MOD_RANGED_ATTACK_POWER_SHORT = "rap",
-	ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = "sp", ITEM_MOD_SPELL_POWER_SHORT = "sp",
+	ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = "sp",
 	ITEM_MOD_SPELL_HEALING_DONE_SHORT = "heal",
 	ITEM_MOD_MANA_REGENERATION_SHORT = "mp5", ITEM_MOD_POWER_REGEN0_SHORT = "mp5",
 	ITEM_MOD_HEALTH_REGEN_SHORT = "hp5", ITEM_MOD_HEALTH_REGENERATION_SHORT = "hp5",
-	ITEM_MOD_CRIT_RATING_SHORT = "crit", ITEM_MOD_CRIT_MELEE_RATING_SHORT = "crit",
-	ITEM_MOD_HIT_RATING_SHORT = "hit", ITEM_MOD_HIT_MELEE_RATING_SHORT = "hit",
-	ITEM_MOD_CRIT_SPELL_RATING_SHORT = "spellCrit", ITEM_MOD_HIT_SPELL_RATING_SHORT = "spellHit",
-	ITEM_MOD_DEFENSE_SKILL_RATING_SHORT = "defense", ITEM_MOD_DODGE_RATING_SHORT = "dodge",
-	ITEM_MOD_PARRY_RATING_SHORT = "parry", ITEM_MOD_BLOCK_RATING_SHORT = "block",
+	ITEM_MOD_DEFENSE_SKILL_RATING_SHORT = "defense", -- 1 rating = 1 defense skill (combatratings)
 	ITEM_MOD_BLOCK_VALUE_SHORT = "blockValue",
 }
 Gear.CLIENT_STATS = CLIENT_STATS
+
+-- Forever's combat ratings: C_Item.GetItemStats gives an item's rating
+-- points ("+14 critical strike rating" is 14), and Polestar's weights are per
+-- 1%, so a rating is divided by the points per 1% of the client's own table
+-- (gametables/combatratings.txt, build 1.60.1.70862: the same at every level).
+-- Forever unifies hit and crit: a plain crit or hit rating counts for spells
+-- too (the item data reads its ratings the same way).
+-- key -> { Polestar keys, rating per 1% }
+local RATINGS = {
+	ITEM_MOD_CRIT_RATING_SHORT = { { "crit", "spellCrit" }, 14 },
+	ITEM_MOD_CRIT_MELEE_RATING_SHORT = { { "crit" }, 14 },
+	ITEM_MOD_CRIT_RANGED_RATING_SHORT = { { "crit" }, 14 },
+	ITEM_MOD_CRIT_SPELL_RATING_SHORT = { { "spellCrit" }, 14 },
+	ITEM_MOD_HIT_RATING_SHORT = { { "hit", "spellHit" }, 10 },
+	ITEM_MOD_HIT_MELEE_RATING_SHORT = { { "hit" }, 10 },
+	ITEM_MOD_HIT_RANGED_RATING_SHORT = { { "hit" }, 10 },
+	ITEM_MOD_HIT_SPELL_RATING_SHORT = { { "spellHit" }, 10 },
+	ITEM_MOD_HASTE_RATING_SHORT = { { "haste" }, 10 },
+	ITEM_MOD_EXPERTISE_RATING_SHORT = { { "expertise" }, 10 },
+	ITEM_MOD_ARMOR_PENETRATION_RATING_SHORT = { { "armorPen" }, 10 },
+	ITEM_MOD_DODGE_RATING_SHORT = { { "dodge" }, 12 },
+	ITEM_MOD_PARRY_RATING_SHORT = { { "parry" }, 15 },
+	ITEM_MOD_BLOCK_RATING_SHORT = { { "block" }, 5 },
+}
+Gear.RATINGS = RATINGS
+
+-- Polestar key -> rating points per 1% (crit 14, ...), for Pawn scales,
+-- whose rating stats are per rating point (Pawn.lua).
+local RATING_RATE = {}
+for _, r in pairs(RATINGS) do
+	for _, to in ipairs(r[1]) do RATING_RATE[to] = r[2] end
+end
+Gear.RATING_RATE = RATING_RATE
 
 -- Stats the client always reports when it reports an item at all; for the
 -- rest (equip bonuses) ItemDB fills what the client left out.
@@ -292,6 +327,12 @@ Gear.ItemID = itemID
 local CACHE_CAP = 400
 local infoCache, infoCount = {}, 0
 local resultCache, resultCount = {}, 0
+-- Item IDs whose client data an answer above was built from, since the
+-- caches were last wiped for item data: GET_ITEM_INFO_RECEIVED for any other
+-- item cannot change an answer (every item read goes through itemInfo).
+-- Past ASKED_CAP the next arrival wipes as before, which starts it afresh.
+local ASKED_CAP = 2000
+local asked, askedCount = {}, 0
 
 local function clientStats(link)
 	if type(link) ~= "string" then return nil end
@@ -299,11 +340,26 @@ local function clientStats(link)
 	if not t or next(t) == nil then return nil end
 	local out
 	for k, v in pairs(t) do
-		local key = CLIENT_STATS[k]
-		if key and type(v) == "number" and readable(v) then
-			out = out or {}
-			out[key] = (out[key] or 0) + v
+		if type(v) == "number" and readable(v) then
+			local key, rating = CLIENT_STATS[k], RATINGS[k]
+			if key then
+				out = out or {}
+				out[key] = (out[key] or 0) + v
+			elseif rating then
+				out = out or {}
+				for _, to in ipairs(rating[1]) do out[to] = (out[to] or 0) + v / rating[2] end
+			end
 		end
+	end
+	-- Combined spell power (damage and healing alike) adds to both. An item
+	-- lists it apart from a damage-only or healing-only bonus, each a stat of
+	-- its own: the client's item table gives Earthen Silk Slippers 18 combined
+	-- and 6 damage, which is the 24 damage and 18 healing of its item data.
+	local combined = t.ITEM_MOD_SPELL_POWER_SHORT
+	if type(combined) == "number" and readable(combined) then
+		out = out or {}
+		out.sp = (out.sp or 0) + combined
+		out.heal = (out.heal or 0) + combined
 	end
 	return out
 end
@@ -312,6 +368,10 @@ end
 local function buildInfo(link)
 	local id = itemID(link)
 	if not id then return nil end
+	if not asked[id] then
+		asked[id] = true
+		askedCount = askedCount + 1
+	end
 	local rec = ns.ItemDB and ns.ItemDB.Get(id)
 	local cstats = clientStats(link)
 	local inv, class, subclass, req, quality
@@ -364,7 +424,7 @@ Gear.GetItemInfo = itemInfo
 ---------------------------------------------------------------------------
 
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
-local specKey, specSource, weights, weightsInfo, customLabel
+local specKey, specSource, weights, weightsInfo, customLabel, adjusted
 local racial
 
 local function refreshPlayer()
@@ -478,11 +538,36 @@ local function withMeleeDps(w, class, key)
 	return c
 end
 
+-- Forever's own ratings (#1529): the Classic and Season of Discovery sims the
+-- bands come from have none, so a band takes the authored table's weight.
+local FOREVER_ONLY = { "haste", "expertise", "armorPen" }
+local withForever = setmetatable({}, { __mode = "k" }) -- band weights -> with Forever's ratings
+
+local function withForeverRatings(w, authored)
+	if not (w and authored) then return w end
+	local c = withForever[w]
+	if c then return c end
+	c = w
+	for _, k in ipairs(FOREVER_ONLY) do
+		if w[k] == nil and authored[k] then
+			if c == w then
+				c = {}
+				for kk, v in pairs(w) do c[kk] = v end
+			end
+			c[k] = authored[k]
+		end
+	end
+	withForever[w] = c
+	return c
+end
+
 -- The spec's weights at a level: the first band whose upTo covers it (the
--- last band past the end), else the authored table; with a melee DPS weight
--- where the spec has none (below).
+-- last band past the end), with Forever's own ratings from the authored
+-- table, else the authored table; with a melee DPS weight where the spec has
+-- none (above).
 -- -> weights, info { source, note, upTo }
 function Gear.WeightsFor(class, key, level)
+	local authored = WEIGHTS[class] and WEIGHTS[class][key]
 	local bands = BANDS[class] and BANDS[class][key]
 	if bands and #bands > 0 then
 		local pick = bands[#bands]
@@ -492,9 +577,9 @@ function Gear.WeightsFor(class, key, level)
 				break
 			end
 		end
-		return withMeleeDps(pick.weights, class, key), pick
+		return withMeleeDps(withForeverRatings(pick.weights, authored), class, key), pick
 	end
-	local w = WEIGHTS[class] and WEIGHTS[class][key]
+	local w = authored
 	return withMeleeDps(w, class, key), w and { source = "polestar", upTo = 60 } or nil
 end
 
@@ -506,7 +591,7 @@ local function resolveSpec()
 		return
 	end
 	local chosen = ns.Get("gear.spec." .. class)
-	customLabel = nil
+	customLabel, adjusted = nil, 0
 	local scale = Gear.Scales.FromSetting(class, chosen)
 	if scale then
 		specKey, specSource, weights = "custom:" .. scale.id, "custom", scale.weights
@@ -520,13 +605,24 @@ local function resolveSpec()
 		specKey, specSource = Gear.DetectSpec(class, player.classID)
 	end
 	weights, weightsInfo = Gear.WeightsFor(class, specKey, player.level)
+	-- The player's own changes on top (Adjust.lua), whichever band is in use.
+	adjusted = Gear.Adjust and Gear.Adjust.Count(class, specKey) or 0
+	if adjusted > 0 and weights then
+		weights = Gear.Adjust.Apply(weights, class, specKey)
+		local info = {}
+		for k, v in pairs(weightsInfo or {}) do info[k] = v end
+		info.adjusted = adjusted
+		weightsInfo = info
+	end
 end
 
 function Gear.GetSpec()
 	if not specSource then resolveSpec() end
 	if specSource == "custom" then return specKey, customLabel, specSource end
 	local spec = specKey and specByKey(player.class, specKey)
-	return specKey, spec and spec.label or nil, specSource
+	local label = spec and spec.label or nil
+	if label and adjusted > 0 then label = (L["%s (adjusted)"]):format(L[label]) end
+	return specKey, label, specSource
 end
 
 function Gear.GetWeights()
@@ -869,6 +965,7 @@ local function invalidate(what)
 	if what == "items" then
 		for k in pairs(infoCache) do infoCache[k] = nil end
 		infoCount = 0
+		asked, askedCount = {}, 0
 	end
 	weaponSkills = nil
 	if what ~= "bags" then eqDirty = true end
@@ -888,7 +985,11 @@ ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() invalidate("equipment") 
 ns.RegisterEvent("BAG_UPDATE_DELAYED", function() invalidate("bags") end)
 ns.RegisterEvent("PLAYER_LEVEL_UP", onLevel)
 ns.RegisterEvent("SKILL_LINES_CHANGED", function() invalidate("skills") end)
-ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function() invalidate("items") end)
+-- Item data arriving changes an answer only for an item one was built from.
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id)
+	id = tonumber(readable(id))
+	if not id or asked[id] or askedCount >= ASKED_CAP then invalidate("items") end
+end)
 for _, ev in ipairs({ "PLAYER_TALENT_UPDATE", "ACTIVE_TALENT_GROUP_CHANGED", "CHARACTER_POINTS_CHANGED", "TRAIT_CONFIG_UPDATED" }) do
 	ns.RegisterEvent(ev, function() invalidate("spec") end)
 end
@@ -943,6 +1044,9 @@ ns.RegisterCommand("gear", function(rest)
 	local sub, arg = rest:match("^(%a+)%s*(.-)%s*$")
 	if sub == "scales" then
 		if ns.UI and ns.UI.ShowScales then ns.UI.ShowScales() else Gear.PrintScales() end
+		return
+	elseif sub == "adjust" then
+		if ns.UI and ns.UI.ShowAdjust then ns.UI.ShowAdjust() end
 		return
 	elseif sub == "import" then
 		if arg ~= "" then

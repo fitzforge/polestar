@@ -261,7 +261,27 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 	let get = |key: &str, id: &str| -> Value { by[key].as_array().unwrap().iter().find(|a| a["id"] == id).unwrap().clone() };
 	assert_eq!(shape(&get("onyxias-lair", "drakefire-h")), "4903 > 4941 > 4974 > 6566 > 6567 > 6568 > 6569 > 6570 > 6582 > 6583 > 6584 > 6585 > 6601 > 6602*");
 	assert_eq!(get("onyxias-lair", "drakefire-h")["steps"][11]["after"], json!([6582, 6583, 6584]), "the three Tests of Skulls before Axtroz");
-	assert_eq!(shape(&get("city-of-dalaran", "sewer-key")), "544 > 545 > 93680 > 92434 > 96984*");
+	// The Horde's sewer key: Prison Break In, Key to the City and Dalaran Patrols, then Blood in the Streets and the
+	// goal. The data builds differ on whether Dalaran Patrols needs Key to the City (545's `pre`), so the first three
+	// follow the loaded data: every quest of the chain comes after each prerequisite the data or the cited links give
+	// it (`pre`) and after one of its `preAny`.
+	let key = get("city-of-dalaran", "sewer-key");
+	let order = quests_of(&key);
+	let mut quests = order.clone();
+	quests.sort_unstable();
+	assert_eq!(quests, vec![544, 545, 92434, 93680, 96984], "{}", shape(&key));
+	assert!(shape(&key).ends_with(" > 92434 > 96984*"), "Blood in the Streets, then the goal: {}", shape(&key));
+	let links = list(&table["attunements"]).into_iter().find(|e| e["id"] == "sewer-key").unwrap()["links"].clone();
+	let ids = |v: &Value| -> Vec<i64> { list(v).iter().filter_map(Value::as_i64).filter(|p| order.contains(p)).collect() };
+	for (i, q) in order.iter().enumerate() {
+		let rec = &real["quests"][q.to_string()];
+		let before = &order[..i];
+		for p in ids(&rec["pre"]).into_iter().chain(ids(&links[q.to_string()]["pre"])) {
+			assert!(before.contains(&p), "{q} comes after its prerequisite {p}: {}", shape(&key));
+		}
+		let any = ids(&rec["preAny"]);
+		assert!(any.is_empty() || any.iter().any(|p| before.contains(p)), "{q} comes after one of {any:?}: {}", shape(&key));
+	}
 	assert_eq!(shape(&get("blackwing-lair", "blackhand")), "drop:18987 > 7761*", "the Quartermaster drops the letter that starts it");
 	assert_eq!(shape(&get("naxxramas", "dread-citadel")), "9121* > 9122* > 9123*");
 	assert!(by["blackrock-spire"].is_null(), "Forever removed the Seal of Ascension");
@@ -503,7 +523,9 @@ emit({ title = def.title, steps = describe(def), goto = { last.goals[2].map, las
 local gid = D.Attune("wailing-caverns", "fang")
 local tabs = {}
 for i, t in ipairs(Polestar.Engine.GetTabs()) do tabs[i] = t.guideId end
-emit({ gid = gid, tabs = tabs })
+local E = Polestar.Engine
+local enter = E.GetStepView(E.GetStepCount()).goals[2]
+emit({ gid = gid, tabs = tabs, enter = enter.text, header = enter.header or false })
 stub.world.complete({ 90002, 90003 })
 local none, why = D.AttuneGuide("wailing-caverns", "fang")
 emit({ none = none == nil, why = why })"#,
@@ -522,9 +544,13 @@ emit({ none = none == nil, why = why })"#,
 	assert_eq!(later["title"], "Wailing Caverns: Fang of the Serpent");
 	let titles: Vec<Value> = list(&later["steps"]).iter().map(|s| s["title"].clone()).collect();
 	assert_eq!(json!(titles), json!(["The Serpent's Trial", "Fang of the Serpent", "Wailing Caverns"]));
-	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Enter Wailing Caverns"]));
+	assert_eq!(later["goto"], json!([1413, 46, 36.4, "Wailing Caverns"]));
 	assert_eq!(later["note"], "Lets you take the serpent's path.");
-	assert_eq!(*opened, json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"] }));
+	assert_eq!(
+		*opened,
+		json!({ "gid": "lookup/attune/wailing-caverns:fang", "tabs": ["lookup/attune/wailing-caverns:fang"], "enter": "Enter Wailing Caverns", "header": false }),
+		"the entrance reads Enter, not Go to Enter, as its own row"
+	);
 	assert_eq!(*finished, json!({ "none": true, "why": "done" }));
 }
 

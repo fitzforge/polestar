@@ -74,7 +74,7 @@ end
 local function answer(job, xy)
 	local points = {}
 	for i = 1, #xy - 1, 2 do points[#points + 1] = { map = job.map, x = xy[i], y = xy[i + 1] } end
-	job.yards, job.hubs = length(points), fake.hubs or {}
+	job.yards, job.hubs, job.avoided = length(points), fake.hubs or {}, fake.avoided or {}
 	job.callback(points, 100, job)
 end
 fake.answerXY = answer
@@ -398,6 +398,171 @@ fn the_look_ahead_never_aims_onto_another_floor_path_heights_or_past_a_split_wal
 	assert!(num(&split["furthest"]) >= -148.0, "the aim never passes the path point before the bridge (y -148; furthest {})", split["furthest"]);
 }
 
+// The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
+const HILLSIDE: &str = r#"
+local pts = { { 0, 0, 0 }, { 0, -100, -10 }, { 60, -180, -20 }, { 60, -400, -30 } }
+local function cut(indoors)
+	nav.indoors = indoors
+	nav.place(0, 0)
+	target(60, -400)
+	N.Sample()
+	answerZ(pts)
+	-- Cutting the corner straight from (0, -60) toward (60, -180), never within 17 yd of it: the worst aim against
+	-- the way walked, and the samples aiming at the corner, once past it.
+	local worst, atCorner = -1, 0
+	local ux, uy = 1 / math.sqrt(5), -2 / math.sqrt(5)
+	for k = 0, 50 do
+		local x, y = 1.2 * k, -60 - 2.4 * k
+		local s = look(x, y, 60, -400)
+		if y < -100 then
+			local l = math.sqrt(s.dx * s.dx + s.dy * s.dy)
+			local back = -(s.dx * ux + s.dy * uy) / l
+			if back > worst then worst = back end
+			if math.abs(x + s.dx) < 1 and math.abs(y + s.dy + 100) < 1 then atCorner = atCorner + 1 end
+		end
+	end
+	return { worst = worst, atCorner = atCorner }
+end
+"#;
+
+#[test]
+fn outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_6_yd_is_still_a_floor() {
+	let outdoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(false))"].concat());
+	// 0.3.6: a corner 6+ yd lower held the projection until the player came within 5 yd of it, so past it the arrow
+	// pointed back at it (Fitz in Desolace, 0.3.7). Outdoors a slope this gentle is no floor.
+	assert!(num(&outdoors["worst"]) < 0.0, "outdoors the arrow never points back against the way walked (worst {})", outdoors["worst"]);
+	assert_eq!(outdoors["atCorner"], 0, "outdoors it never aims at the corner once past it");
+	// Indoors (a building's stairs, the Undercity's levels) every 6 yd is a floor, as before.
+	let indoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(true))"].concat());
+	assert!(num(&indoors["atCorner"]) > 0.0, "indoors the corner 10 yd lower still holds it ({})", indoors["atCorner"]);
+}
+
+// The path for the look ahead on the path: 160 yd straight on, a right-angle corner, then 340 yd on, in open ground
+// with the floor under the player known. The player walks the first piece toward the corner, a yard every 0.3 s (the
+// floor is read every 0.25 s). The path's first 60 yd go by with nothing in sight: past the way onto the road (its
+// first 50 yd, `join`, looked along up to 150 yd), holding no point from there. Then `sight` stands for the walking
+// grid's line check. The aim at 0, -20 (dx, dy from the player) and the line reads over the last 20 yd.
+const CORNER: &str = r#"
+fake.surfaces = function() return { 0 } end
+local function walkToCorner(sight)
+	fake.sight = function() return false end
+	nav.place(0, 100)
+	target(400, -60)
+	N.Sample()
+	answerZ({ { 0, 100, 0 }, { 0, -60, 0 }, { 80, -60, 0 }, { 400, -60, 0 } })
+	local s
+	for y = 100, -20, -1 do
+		if y == 40 then fake.sight = sight end
+		if y == 0 then fake.sights = 0 end
+		nav.place(0, y)
+		stub.advance(0.3)
+		s = look(0, y, 400, -60)
+	end
+	return { dx = s.dx, dy = s.dy, sights = fake.sights }
+end
+"#;
+
+#[test]
+fn on_the_path_in_open_ground_the_arrow_aims_40_yd_along_to_a_point_it_can_walk_to_straight() {
+	// At 0, -20, 40 yd before the corner, with every line clear: the look runs 40 yd along, to the corner.
+	let open = run(&[LOOK, CORNER, "\n\t\temit(walkToCorner(function() return true end))"].concat());
+	// 0.3.7: on the path the corridor's aim stopped 35 yd from the player (aim 0, -35), short of the corner (Fitz,
+	// 0.3.8: "set the arrow's point further away from the player").
+	assert!(num(&open["dy"]) < -38.0 && num(&open["dx"]).abs() < 1.0, "the arrow aims 40 yd along, at the corner (aim {}, {})", open["dx"], open["dy"]);
+	// With no clear line (a wall, a cliff, indoors) the corridor's aim stands, as before.
+	let walled = run(&[LOOK, CORNER, "\n\t\temit(walkToCorner(function() return false end))"].concat());
+	assert!(num(&walled["dy"]) > -36.0 && num(&walled["dx"]).abs() < 1.0, "with nothing further in sight the corridor's aim stands (aim {}, {})", walled["dx"], walled["dy"]);
+	// Cheap: looked for again only after the player moves 2 yd, one line read each in open ground.
+	assert!(num(&open["sights"]) <= 22.0, "{} line reads over 20 yd walked", open["sights"]);
+}
+
+// A path that steps across the walking grid's cells at a slant (10 yd on, 4 yd across, 20 times: what straightening
+// leaves where the straight line crosses costlier ground), to a building's corner, then 220 yd along its side.
+const STAIRS: &str = r#"
+local function stairs(sight)
+	nav.place(0, 0)
+	target(300, -200)
+	N.Sample()
+	local pts = { { 0, 0, 0 } }
+	for i = 1, 20 do
+		pts[#pts + 1] = { 4 * (i - 1), -10 * i, 0 }
+		pts[#pts + 1] = { 4 * i, -10 * i, 0 }
+	end
+	pts[#pts + 1] = { 300, -200, 0 }
+	fake.sight, fake.sights = sight, 0
+	answerZ(pts)
+	local reads = fake.sights
+	local s = look(0, 0, 300, -200)
+	return { left = s.left, reads = reads }
+end
+-- The building: a line into x > 81 while y > -199 is blocked; every other line is clear.
+local function building(x1, y1, z1, x2, y2)
+	for k = 0, 50 do
+		local x, y = x1 + (x2 - x1) * k / 50, y1 + (y2 - y1) * k / 50
+		if x > 81 and y > -199 then return false end
+	end
+	return true
+end
+"#;
+
+#[test]
+fn a_path_stepping_across_the_grid_is_smoothed_once_as_it_lands_to_its_real_bends_a_building_s_corner_stays() {
+	let open = run(&[LOOK, STAIRS, "\n\t\temit(stairs(building))"].concat());
+	// 0.3.7: the path kept all 40 steps (500 yd to walk, the drawn line turning 90° at each). Smoothed: straight to the
+	// building's corner (149 + 66 yd: one line runs 150 yd at most), then along it: 436 yd.
+	assert!(num(&open["left"]) < 440.0, "the stairs are smoothed to straight lines ({} yd left)", open["left"]);
+	// The corner is a real bend: the line across it is blocked, so it stays (cut, 360 yd).
+	assert!(num(&open["left"]) > 430.0, "the building's corner stays ({} yd left)", open["left"]);
+	// Cheap: once per path, a line read per stretch when each first candidate is clear.
+	assert!(num(&open["reads"]) <= 4.0, "{} line reads to smooth it", open["reads"]);
+	// Nothing in sight (walls everywhere, or clusters not decoded): the path as it came.
+	let walled = run(&[LOOK, STAIRS, "\n\t\temit(stairs(function() return false end))"].concat());
+	assert!((num(&walled["left"]) - 500.0).abs() < 1.0, "with no clear line nothing is dropped ({} yd left)", walled["left"]);
+	// Bounded: 64 line reads at most for one path, here 41 points with none clear (about 5 each unbounded).
+	assert!(num(&walled["reads"]) <= 64.0, "{} line reads for 41 points with none clear", walled["reads"]);
+}
+
+#[test]
+fn a_search_landing_100_yd_behind_a_player_running_down_a_steep_slope_is_followed_from_where_they_are_now() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		answerZ({ { 0, 0, 100 }, { 0, -600, -300 } })
+		stub.advance(3)
+		local before = calls()
+		-- 60 yd off the path: asked again from here.
+		look(60, -100, 0, -600)
+		local asked = calls() - before
+		-- Running on down the slope while it is searched (the old path meanwhile, no other search).
+		for y = -110, -200, -10 do look(60, y, 0, -600) end
+		local again = calls() - before
+		-- It lands: from where it was asked, straight down the slope, 12 yd lower every 10 yd (steeper than 45°:
+		-- each corner a floor by the follower's rule even outdoors), then across to the target.
+		local pts = {}
+		for i = 0, 50 do pts[#pts + 1] = { 60, -100 - 10 * i, 100 - 12 * i } end
+		pts[#pts + 1] = { 0, -600, -500 }
+		answerZ(pts)
+		local s = look(60, -200, 0, -600)
+		local later
+		for y = -201, -230, -1 do later = look(60, y, 0, -600) end
+		emit({ asked = asked, again = again, s = s, later = later, urgent = fake.last().urgent == true })"#,
+	]
+	.concat());
+	assert_eq!(out["asked"], 1, "straying asks once");
+	assert_eq!(out["again"], 1, "no second search while the first runs");
+	// 0.3.6: the follower started at the late path's start, 100 yd back up the slope, held there by the first
+	// steep corner, and pointed back until the player stopped (Fitz, 0.3.7).
+	let (dx, dy) = (num(&out["s"]["dx"]), num(&out["s"]["dy"]));
+	assert!(dy < 0.0 && dx.abs() < 1.0, "at once the arrow points on down the slope (aim {dx}, {dy})");
+	let (lx, ly) = (num(&out["later"]["dx"]), num(&out["later"]["dy"]));
+	assert!(ly < 0.0 && lx.abs() < 1.0, "and keeps doing so (aim {lx}, {ly})");
+	assert!(num(&out["s"]["dist"]) < 500.0, "the yards shown are from the player on, not from the search's start (dist {})", out["s"]["dist"]);
+	assert_eq!(out["urgent"], true, "the arrow's own search is urgent (sliced before the later legs')");
+}
+
 #[test]
 fn straying_more_than_25_yards_from_the_path_asks_again_at_most_every_2_seconds_keeping_the_old_path_meanwhile() {
 	let out = run(r#"
@@ -504,6 +669,91 @@ fn nothing_is_searched_in_combat_the_search_follows_once_combat_ends() {
 	assert_eq!(out["fight"], json!(["travel", 600, 0, -600]), "straight meanwhile");
 	assert_eq!(out["inCombat"], 0);
 	assert_eq!(out["after"], 1);
+}
+
+// The skycutter from Zephras Isle to Dalaran carries the player 25 yd a second for about 70 s with no taxi and no
+// speed of their own (Transit.Carried): straying from the walk the whole way, each search (every 2 s before) would
+// start from a point the ship leaves at once, and each floor read had the router decode the cluster under it. Nothing
+// is searched or read while carried; once the player moves on their own, one search from where they are.
+#[test]
+fn carried_by_a_ship_the_game_gives_no_taxi_for_nothing_is_searched_or_read_one_search_once_off() {
+	let out = run(r#"
+		local r = {}
+		-- The arrow's own searches only (the planner, whose later walks are searched too, is off).
+		Polestar.Set("nav.travel", false)
+		-- UnitPosition as Compat reads it (Transit samples it each second), and the player's own speed.
+		Polestar.Compat.GetPlayerUnitPosition = function() local p = nav.player return p.wx, p.wy, nil, p.c end
+		OWN = 0
+		function GetUnitSpeed(unit) if unit == "player" then return OWN, 7, 0, 0 end end
+		fake.surfaces = function() return { 0 } end
+		nav.place(0, 0)
+		target(0, -600)
+		N.Sample()
+		fake.resolve(0, 0, 0, -300, 0, -600)
+		stub.advance(3)
+		aim()
+		local before, reads = calls(), fake.reads or 0
+		-- Aboard: 25 yd a second, for 20 s; along the walk until the ride is seen (two samples), then off it.
+		for t = 1, 20 do
+			if t <= 2 then nav.place(0, -25 * t) else nav.place(25 * (t - 2), -50 - 10 * (t - 2)) end
+			stub.advance(1)
+			aim()
+			if t == 2 then reads = fake.reads or 0 end
+		end
+		r.riding = calls() - before
+		r.reads = (fake.reads or 0) - reads
+		r.carried = Polestar.Transit.Carried()
+		-- Off the ship, walking on.
+		OWN = 7
+		nav.place(507, -200)
+		stub.advance(1)
+		aim()
+		r.off = calls() - before
+		local job = fake.last()
+		r.from = { floor(job.from.x), floor(job.from.y) }
+		emit(r)"#);
+	assert_eq!(out["carried"], true, "the ride is seen");
+	assert_eq!(out["riding"], 0, "no search while carried");
+	assert_eq!(out["reads"], 0, "no floor read while carried");
+	assert_eq!(out["off"], 1, "one search once off");
+	assert_eq!(out["from"], json!([507, -200]));
+}
+
+// A search asked as the ship sets off (two samples before the ride is seen) starts from a point the ride leaves:
+// once the ride is seen it is dropped, so the router stops on it, and asked again from where the player is once off.
+#[test]
+fn carried_a_search_under_way_when_the_ride_is_seen_is_dropped_and_asked_again_once_off() {
+	let out = run(r#"
+		local r = {}
+		Polestar.Set("nav.travel", false)
+		Polestar.Compat.GetPlayerUnitPosition = function() local p = nav.player return p.wx, p.wy, nil, p.c end
+		OWN = 0
+		function GetUnitSpeed(unit) if unit == "player" then return OWN, 7, 0, 0 end end
+		fake.surfaces = function() return { 0 } end
+		nav.place(0, 0)
+		stub.advance(1)
+		target(0, -600)
+		aim()
+		local job, before = fake.last(), calls()
+		for t = 1, 5 do
+			nav.place(25 * t, 0)
+			stub.advance(1)
+			aim()
+		end
+		r.cancelled = job.cancelled == true
+		r.riding = calls() - before
+		OWN = 7
+		nav.place(130, 0)
+		stub.advance(1)
+		aim()
+		r.off = calls() - before
+		local again = fake.last()
+		r.from = { floor(again.from.x), floor(again.from.y) }
+		emit(r)"#);
+	assert_eq!(out["cancelled"], true, "the search from the ride's start is dropped");
+	assert_eq!(out["riding"], 0, "none while carried");
+	assert_eq!(out["off"], 1, "one once off");
+	assert_eq!(out["from"], json!([130, 0]));
 }
 
 #[test]
@@ -1658,6 +1908,51 @@ fn the_player_alone_walked_away_only_the_player_s_walk_is_measured_again_the_pla
 	assert_eq!(out["after"], 2, "planned again from there: no further batch");
 }
 
+// Carried (Transit.Carried, the skycutter to Dalaran), the planner measures nothing from the player: the batch under
+// way when the ride is seen (from the target to where the ship set off) is dropped, the plans on the way start none,
+// and the first plan once off measures.
+#[test]
+fn carried_nothing_is_measured_from_the_player_the_batch_under_way_is_dropped_the_first_plan_once_off_measures() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		Polestar.Compat.GetPlayerUnitPosition = function() local p = nav.player return p.wx, p.wy, nil, p.c end
+		OWN = 0
+		function GetUnitSpeed(unit) if unit == "player" then return OWN, 7, 0, 0 end end
+		nav.place(0, 600)
+		stub.advance(1)
+		target(0, 0)
+		N.Sample()
+		local first = fake.of(true)[1]
+		-- Aboard, 50 yd a second; the plan made again on the way.
+		for t = 1, 6 do
+			nav.place(50 * t, 600 - 33 * t)
+			stub.advance(1)
+			T.Replan()
+		end
+		r.dropped = first.cancelled == true
+		r.carried = Polestar.Transit.Carried()
+		r.riding = #fake.of(true)
+		OWN = 7
+		nav.place(305, 400)
+		stub.advance(1)
+		T.Replan()
+		local many = fake.of(true)
+		r.off = #many
+		r.reverse = many[#many].reverse == true
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["dropped"], true, "the batch under way when the ride is seen is dropped: {out}");
+	assert_eq!(out["carried"], true);
+	assert_eq!(out["riding"], 1, "no batch while carried: {out}");
+	assert_eq!(out["off"], 2, "the first plan once off measures: {out}");
+	assert_eq!(out["reverse"], true);
+}
+
 // Two gates between West Vale and East Vale: North Gate (600, +-20) and South
 // Gate (-600, +-20). The player (0, 500) in West Vale, the target (100, -500)
 // in East Vale: straight, the north gate is nearer; the engine finds the walk
@@ -2307,6 +2602,70 @@ fn hostile_towns_a_walk_whose_path_enters_one_carries_it_leg_hubs_the_arrow_says
 }
 
 #[test]
+fn detours_a_walk_that_goes_round_a_hostile_town_carries_it_as_leg_hubs_avoided_text_for_the_journey_and_no_warning_from_the_arrow() {
+	let out = run_many(
+		&[
+			CROSSING,
+			r#"
+		local r = {}
+		nav.place(900, 800)
+		target(600, -300)
+		N.Sample()
+		fake.settle(fake.of(true)[1], function(x, y) return math.floor(math.sqrt((x - 600) ^ 2 + (y + 300) ^ 2) * 1.1) end)
+		fake.avoided = { { id = 12, name = "Southshore" } }
+		fake.answer(fake.of(false)[1], 900, 800, 900, 900)
+		fake.avoided = nil
+		local legs, ci = N.GetRoute()
+		local leg = legs[ci]
+		r.avoided = leg.hubs and leg.hubs.avoided and leg.hubs.avoided[1].name or false
+		r.entered = leg.hubs and #leg.hubs or false
+		r.hostile = T.HubText(leg) or false
+		r.text = T.AvoidText(leg) or false
+		r.noneElsewhere = legs[ci + 1].hubs == nil
+		stub.advance(0.3)
+		r.said = N.arrow.labelText:GetText()
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["avoided"], "Southshore", "the walk's leg carries the town it goes round");
+	assert_eq!(out["entered"], 0, "it enters none");
+	assert_eq!(out["hostile"], false, "so there is no hostile-town text");
+	assert_eq!(out["text"], "Detour around Southshore");
+	assert_eq!(out["noneElsewhere"], true, "a walk with no detour carries none");
+	assert_eq!(out["said"], "Walk to the flight master", "the arrow says nothing of it: the caption is display only");
+}
+
+#[test]
+fn detours_a_split_walk_shows_the_detour_on_the_one_piece_that_passes_the_town_every_piece_still_carries_the_towns_it_enters() {
+	let out = run(&format!(
+		"{}{}{}",
+		r#"
+		fake.hubs = { { id = 13, name = "Tarren Mill" } }
+		fake.avoided = { { id = 12, name = "Southshore", x = 0, y = -300 } }
+		"#,
+		split(),
+		r#"
+		fake.hubs, fake.avoided = nil, nil
+		local T = N.travel
+		local legs, ci = N.GetRoute()
+		local walks, shown, entered = 0, {}, 0
+		for i = 1, #legs do
+			if legs[i].kind == "walk" then
+				walks = walks + 1
+				if T.AvoidText(legs[i]) then shown[#shown + 1] = i end
+				if T.HubText(legs[i]) then entered = entered + 1 end
+			end
+		end
+		emit({ walks = walks, shown = shown, entered = entered, text = T.AvoidText(legs[shown[1] or 1]) or false, label = shown[1] and legs[shown[1]].label or false })"#
+	));
+	assert_eq!(out["walks"], 4, "the bridge, the cave, the lift's foot and the target");
+	assert_eq!(out["shown"], json!([2]), "once, on the piece from the bridge to the cave mouth, which passes (0, -300)");
+	assert_eq!(out["text"], "Detour around Southshore");
+	assert_eq!(out["entered"], 4, "the town the path enters stays on every piece");
+}
+
+#[test]
 fn hostile_towns_every_piece_of_a_split_walk_carries_them_so_the_step_after_a_chokepoint_still_says_so() {
 	let out = run(&format!(
 		"{}{}{}",
@@ -2597,6 +2956,27 @@ fn zone_danger_x3_from_the_player_s_level_4_x20_above_10_a_zone_without_levels_o
 	assert_eq!(out["table"], json!(["9002=3,9003=3,9004=20", "9002=3,9003=3,9004=20"]), "every zone above 1, and its signature");
 	assert_eq!(out["none"], json!([false, ""]), "none: nil, an empty signature");
 	assert_eq!(out["cached"], true, "kept per level and zone pair");
+}
+
+/// #1490: a zone with a danger floor (Maps.GetZoneLevels' third value: Alterac Mountains, P10 24, floor 30) is
+/// priced from the floor: dangerous from 26 down, far above under 20; the zones without one from their P10.
+#[test]
+fn zone_danger_a_zone_s_danger_floor_prices_it_alterac_at_24_with_floor_30_is_dangerous_from_26_down() {
+	let out = run_many(
+		&[
+			DANGER,
+			r#"
+		local levels = { [9001] = { 24, 39, 30 }, [9002] = { 24, 39 } }
+		Polestar.Maps.GetZoneLevels = function(id) local v = id and levels[id] if v then return v[1], v[2], v[3] or v[1] end end
+		emit({
+			floor = { D.Mult(27, 9001), D.Mult(26, 9001), D.Mult(21, 9001), D.Mult(20, 9001), D.Mult(19, 9001) },
+			plain = { D.Mult(21, 9002), D.Mult(20, 9002), D.Mult(13, 9002) },
+		})"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["floor"], json!([1, 3, 3, 3, 20]), "30 >= L + 4 from 26 down, > L + 10 under 20");
+	assert_eq!(out["plain"], json!([1, 3, 20]), "without a floor its lowest level, 24, as before");
 }
 
 #[test]
@@ -2937,6 +3317,37 @@ fn t_234_floor_climbs_a_ramp_onto_a_bridge_falls_off_its_side_to_the_ground_and_
 	]
 	.concat());
 	assert_eq!(out, json!({ "seed": 40, "bridge": 60, "fell": 40, "under": 40 }));
+}
+
+// #1650: off a ledge's edge onto cells with no surface at the floor's level (a blocked cell at a cliff's foot, then
+// cells whose only surface is a ridge 35 yd above), the floor is kept within 25 yd of where it was last on a
+// surface, so the search starts on the ledge, not on the ridge the router snaps to without a height. Farther on the
+// ridge's cells the floor is lost and seeds on the ridge; back down, it follows the drop to the ledge.
+#[test]
+fn t_1650_floor_kept_over_cells_with_no_surface_at_its_level_within_25_yd_of_the_last_one_farther_lost_and_seeded_again() {
+	let out = run(&[
+		FLOORS,
+		r#"
+		local r = {}
+		fake.surfaces = function(map, x, y)
+			if y <= -20 and y > -24 then return {} end
+			if y <= -24 then return { 75 } end
+			return { 40 }
+		end
+		nav.place(0, 50)
+		r.seed = startZ()
+		walk(0, -22)
+		r.blocked = startZ()
+		walk(0, -40)
+		r.ridgeNear = startZ()
+		walk(0, -60)
+		r.ridgeFar = startZ()
+		walk(0, 0)
+		r.back = startZ()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out, json!({ "seed": 40, "blocked": 40, "ridgeNear": 40, "ridgeFar": 75, "back": 40 }));
 }
 
 #[test]

@@ -91,8 +91,6 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "para {npc:5204} na {zone:1458}, por volta do nível 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} em {zone:1454}, por volta do nível 50",
-	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
-	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "A máquina {object:142071}, no meio da cidade: o ovo fica no sul de {zone:1444}, por volta do nível 50",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -190,6 +188,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "As Aranhas de Lava Abrasadoras vagam pelos platôs e poças de lava no sudoeste da garganta.",
 	-- ["The Steamsmiths' furnaces"] = "As fornalhas dos Vaporistas",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "O navio para {area:35} atraca no píer de {area:392}, abaixo do morro do mestre de voo.",
+	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "A máquina {object:142071}, no meio da cidade: o ovo fica no sul de {zone:1444}, por volta do nível 50",
 	-- ["Use the Model 4711-FTZ Power Source Bilgewhizzle gave you: a two-hour timer starts"] = "Use a Modelo 4711-KTC Fonte de Energia que Silvadágua deu a você: um cronômetro de duas horas começa",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "A oeste do complexo, as criaturas-cacto enchem o vale; só os Coletores de Orvalho levam uma glândula de orvalho. A maioria das criaturas de {zone:1446} pode deixar cair o transmissor de emergência de OOX-17/TN, raramente: guarde-o se aparecer.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "A oeste, os insetos Centiparte enxameiam em volta das colmeias; qualquer um deles deixa cair as peças.",

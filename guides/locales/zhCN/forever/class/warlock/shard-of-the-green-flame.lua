@@ -15,14 +15,14 @@ return {
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
 	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "达到 50 级后，{npc:14469} 和他的小鬼 {npc:14470} 会在 {zone:1448} 中部、{area:1997} 东北不远处的高地等你：从 {area:1765} 的桥向北走，经过几只软泥怪后，他们就在道路东侧。{npc:14469} 会让你去找身旁的 {npc:14470}，后者需要分别来自三处地点的三份无暇的恶魔精华。",
 
-	-- Step 2: Jaedenar
-	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
-	-- plural, as words: Jaedenar Legionnaires = {npc:9862} Jaedenar Legionnaire
-	["{area:1763} lies just south of {area:1997}, west of the road. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "{area:1763}就在{area:1997}南面、道路西侧。两座洞穴中，{area:1770}是更靠北、位置更高的那座；另一座没有军团士兵。{area:1770}的隧道向北延伸到山丘下，加德纳尔军团士兵（55级）位于更深处的大厅，从第一段斜坡一直分布到{npc:9516}的房间；它们会对近战范围内的目标使用上勾拳。精华掉落概率为四分之三，但总共只有约11个刷新点：一路清进去，必要时等5分钟刷新。{area:1763}和{area:1770}的教徒全部敌对。",
-
-	-- Step 3: Azshara
+	-- Step 2: Azshara
 	-- {zone:1447} Azshara
 	["The Legashi satyrs (level 51-53) hold the Legash Encampment on {zone:1447}'s northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly."] = "雷加什萨特（51-53 级）占据 {zone:1447} 北部海岸的雷加什营地。各类萨特的精华掉率都是约四分之三；萨特会燃烧法力，唤魔者会施放火焰之雨，因此要逐个引来击杀。",
+
+	-- Step 3: Jaedenar
+	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post · {area:1770} Shadow Hold · {npc:9516} Lord Banehollow
+	-- plural, as words: Jaedenar Legionnaires = {npc:9862} Jaedenar Legionnaire
+	["{area:1763} lies just south of {area:1997}, west of the road. The guide waits for level 53 first: its Legionnaires are 55. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "{area:1763}就在{area:1997}南面、道路西侧。指南会先等到53级：那里的军团士兵是55级。两座洞穴中，{area:1770}是更靠北、位置更高的那座；另一座没有军团士兵。{area:1770}的隧道向北延伸到山丘下，加德纳尔军团士兵（55级）位于更深处的大厅，从第一段斜坡一直分布到{npc:9516}的房间；它们会对近战范围内的目标使用上钩拳。精华掉落概率为四分之三，但总共只有约11个刷新点：一路清进去，必要时等5分钟刷新。{area:1763}和{area:1770}的教徒全部敌对。",
 
 	-- Step 4: The Dark Portal
 	-- {area:72} The Dark Portal · {zone:1419} Blasted Lands
@@ -47,5 +47,6 @@ return {
 	-- ["The Felguard Sentries around the {area:72}, in southern {zone:1419}, carry its essence."] = "{zone:1419}南部{area:72}周围的地狱卫士斥候身上带着它的精华。",
 	-- ["The Jaedenar Legionnaires, a short way west of {npc:14469}, carry {area:1763}'s essence."] = "{npc:14469}西边不远处的{npc:9862}身上带着{area:1763}的精华。",
 	-- ["The Legashi satyrs of northern {zone:1447} carry {zone:1447}'s essence."] = "{zone:1447}北部的雷加斯萨特身上带着{zone:1447}的精华。",
+	-- ["{area:1763} lies just south of {area:1997}, west of the road. Of its two caves, {area:1770} is the northern one, further up the hill; the other has no Legionnaires. {area:1770}'s tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward {npc:9516}'s chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of {area:1763} and {area:1770} are all hostile."] = "{area:1763}就在{area:1997}南面、道路西侧。两座洞穴中，{area:1770}是更靠北、位置更高的那座；另一座没有军团士兵。{area:1770}的隧道向北延伸到山丘下，加德纳尔军团士兵（55级）位于更深处的大厅，从第一段斜坡一直分布到{npc:9516}的房间；它们会对近战范围内的目标使用上勾拳。精华掉落概率为四分之三，但总共只有约11个刷新点：一路清进去，必要时等5分钟刷新。{area:1763}和{area:1770}的教徒全部敌对。",
 	-- ["{npc:14467}' remains lie in {area:1766}, north of {npc:14469}. Use the {item:18626} beside them and kill the infernal when he wakes. {npc:14467} is elite: grouping up is advised."] = "{npc:14467}的遗骸位于{npc:14469}北边的{area:1766}。在遗骸旁使用{item:18626}，地狱火苏醒后杀死它。{npc:14467}是精英：建议组队。",
 }

@@ -91,8 +91,6 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} en {zone:1454}, hacia el nivel 50",
-	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
-	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "La máquina {object:142071}, en el centro del pueblo: el huevo está en el sur de {zone:1444}, hacia el nivel 50",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -188,6 +186,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "Las Arañas de lava abrasadoras recorren las mesetas y pozas de lava del suroeste de la garganta.",
 	-- ["The Steamsmiths' furnaces"] = "Los hornos de los Vapoherreros",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "El barco a {area:35} atraca en el muelle de {area:392}, bajo la colina del maestro de vuelo.",
+	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "La máquina {object:142071}, en el centro del pueblo: el huevo está en el sur de {zone:1444}, hacia el nivel 50",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "Al oeste de la base, las criaturas cactus llenan el valle; solo los Colectores de rocío Cardizal llevan una glándula de rocío. Casi todos los enemigos de {zone:1446} pueden soltar, rara vez, el Localizador de emergencia OOX-17/TN: guárdalo si te sale uno.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "Al oeste, los insectos Centipaar pululan alrededor de sus colmenas; cualquiera de ellos suelta los trozos.",
 	-- ["the {object:150075} in the square"] = "el {object:150075} de la plaza",

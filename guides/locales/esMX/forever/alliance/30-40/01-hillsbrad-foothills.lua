@@ -88,7 +88,7 @@ return {
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "",
 
 	-- Step 19: Waterlogged Envelope
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 20: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
@@ -109,7 +109,7 @@ return {
 
 	-- Step 24: Menethil Harbor
 	["West along the road to Menethil."] = "Al oeste por el camino hasta Menethil.",
-	["On the top floor"] = "",
+	["On the top floor"] = "En el piso superior",
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears
 	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "",
 
@@ -167,7 +167,7 @@ return {
 
 	-- Step 33: Farren
 	["Farren"] = "Farren",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 34: Murloc heads
 	["Murloc heads"] = "Cabezas de múrloc",
@@ -188,8 +188,9 @@ return {
 
 	-- Step 40: Yeti cave
 	["Yeti cave"] = "Cueva de los yetis",
-	-- {area:271} Southshore
-	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp."] = "",
+	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
+	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
+	["The yetis live in the cave in the hills north of {area:271}, on the way north to the Syndicate camp.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "Los yetis viven en la cueva de las colinas al norte de {area:271}, de camino al norte hacia el campamento de la Hermandad.\nQuédate en {area:277}: la cueva más al norte tiene Yetis monteses y Yetis gigantes (32-34) en parejas y a {npc:13602}, un élite de nivel 36.",
 
 	-- Step 41: Alterac Mountains
 	["Syndicate camp"] = "Campamento de la Hermandad",

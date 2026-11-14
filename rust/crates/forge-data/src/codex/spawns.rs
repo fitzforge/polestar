@@ -4,12 +4,12 @@
 use forge_guide::js::{Obj, V};
 
 use super::util::{hypot, round1};
-use crate::spawns::{reduce_spawns, SpawnOptions, P};
+use crate::maps::Frame;
+use crate::spawns::{more_inner, reduce_spawns, SpawnOptions, P};
 
 const RADIUS: f64 = 3.0;
 const PER_MAP: usize = 5;
 const MAPS: usize = 4;
-const INNER_MAX: f64 = 1500.0;
 // A map seen at FEW points or more drops its stray clusters: STRAY points or
 // fewer, where the biggest cluster holds DWARF times as many or more (#852).
 const FEW: f64 = 10.0;
@@ -95,15 +95,6 @@ fn main_clusters(mut clusters: Vec<Cluster>) -> Vec<Cluster> {
 	clusters
 }
 
-#[derive(Clone, Copy)]
-pub struct Frame {
-	pub c: f64,
-	pub left: f64,
-	pub right: f64,
-	pub top: f64,
-	pub bottom: f64,
-}
-
 /// `frameOf(frames, map, f)`.
 pub fn frame_of(frames: &V, map: f64, era: bool) -> Option<Frame> {
 	let set = frames.get(if era { "era" } else { "forever" });
@@ -113,41 +104,6 @@ pub fn frame_of(frames: &V, map: f64, era: bool) -> Option<Frame> {
 	}
 	let f = Frame { c: fr.get("c").num(), left: fr.get("left").num(), right: fr.get("right").num(), top: fr.get("top").num(), bottom: fr.get("bottom").num() };
 	((f.right - f.left).abs() > 0.0 && (f.bottom - f.top).abs() > 0.0).then_some(f)
-}
-
-#[derive(Clone, Copy)]
-struct BoxW {
-	c: f64,
-	x0: f64,
-	x1: f64,
-	y0: f64,
-	y1: f64,
-}
-
-fn box_of(fr: Option<Frame>) -> Option<BoxW> {
-	fr.map(|f| BoxW { c: f.c, x0: f.left.min(f.right), x1: f.left.max(f.right), y0: f.top.min(f.bottom), y1: f.top.max(f.bottom) })
-}
-
-fn within(b: Option<BoxW>, a: Option<BoxW>) -> bool {
-	let (Some(b), Some(a)) = (b, a) else { return false };
-	if b.c != a.c {
-		return false;
-	}
-	if !(b.x0 >= a.x0 && b.x1 <= a.x1 && b.y0 >= a.y0 && b.y1 <= a.y1) {
-		return false;
-	}
-	(b.x1 - b.x0) * (b.y1 - b.y0) < (a.x1 - a.x0) * (a.y1 - a.y0)
-}
-
-fn enclosed(b: Option<BoxW>) -> bool {
-	b.is_some_and(|b| (b.x1 - b.x0).max(b.y1 - b.y0) <= INNER_MAX)
-}
-
-fn more_inner(b: Option<BoxW>, a: Option<BoxW>) -> bool {
-	if enclosed(b) && !enclosed(a) {
-		return true;
-	}
-	within(b, a)
 }
 
 #[derive(Clone, Copy)]
@@ -175,7 +131,7 @@ struct MapPlaces {
 	n: f64,
 	clusters: Vec<Cluster>,
 	at: Option<World>,
-	bx: Option<BoxW>,
+	fr: Option<Frame>,
 }
 
 /// `spawnsOf(byMap, zones, frames, exact)`. `frames` the map-frames.json value (Undef: none).
@@ -198,7 +154,7 @@ pub fn spawns_of(by_map: &V, zones: &V, frames: &V, exact: bool) -> Vec<Spawn> {
 		}
 		let n = clusters.iter().map(|c| c.n).sum::<f64>();
 		let clusters = if exact { clusters } else { main_clusters(clusters) };
-		maps.push(MapPlaces { map: forge_guide::js::str_to_num(&map), era, n, clusters, at: None, bx: None });
+		maps.push(MapPlaces { map: forge_guide::js::str_to_num(&map), era, n, clusters, at: None, fr: None });
 	}
 	maps.sort_by(|a, b| {
 		let d = b.n - a.n;
@@ -210,12 +166,12 @@ pub fn spawns_of(by_map: &V, zones: &V, frames: &V, exact: bool) -> Vec<Spawn> {
 	if frames.is_object() {
 		for m in maps.iter_mut() {
 			m.at = world_of(frames, m.map, m.era, m.clusters[0].x, m.clusters[0].y);
-			m.bx = box_of(frame_of(frames, m.map, m.era));
+			m.fr = frame_of(frames, m.map, m.era);
 		}
 		for i in 0..maps.len() {
 			let mut inner = i;
 			for j in i + 1..maps.len() {
-				if same_place(maps[i].at, maps[j].at) && more_inner(maps[j].bx, maps[inner].bx) {
+				if same_place(maps[i].at, maps[j].at) && more_inner(maps[j].fr.as_ref(), maps[inner].fr.as_ref()) {
 					inner = j;
 				}
 			}

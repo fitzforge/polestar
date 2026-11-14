@@ -14,7 +14,7 @@ return {
 
 	-- Step 3: Gadgetzan
 	-- {npc:7876} Tran'rek · {area:979} Sandsorrow Watch
-	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
+	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "飞行落点就在{npc:7876}身旁。先接取镇上的任务，再向西骑往{area:979}。",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在双足飞龙管理员旁边",
 
@@ -24,7 +24,7 @@ return {
 
 	-- Step 6: Senior Surveyor Fizzledowser
 	-- {area:976} Gadgetzan · {npc:7771} Marvon Rivetseeker
-	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "",
+	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "向东返回{area:976}西侧，找高级勘探员菲兹杜瑟；{npc:7771}在其南面。",
 
 	-- Step 7: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
@@ -88,11 +88,9 @@ return {
 
 	-- Step 20: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
-	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
+	["for {npc:5204} in the {zone:1458}, around level 52"] = "交给{zone:1458}的{npc:5204}，大约52级时会去",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "交给{zone:1454}的{npc:7010}，大约50级时",
-	-- {object:142071} Egg-O-Matic · {zone:1444} Feralas
-	["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "镇中心的{object:142071}机器：蛋在{zone:1444}南部，大约50级时",
 
 	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -124,24 +122,24 @@ return {
 	["{area:246}'s slavers and golems"] = "{area:246} 的奴隶贩子和傀儡",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "从{area:1446}向南骑入大熔炉：黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶，重型作战傀儡在{npc:8479}下方的坑底巡逻。",
 
 	-- Step 28: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "",
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479}独自站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
 
 	-- Step 31: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427}：沿途击杀以下目标",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Greater Lava Spiders = {npc:5858} Greater Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在{npc:8479}下方的大熔炉巡逻，掉落油；其间游荡的熔岩元素和炽热元素掉落心脏。黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶；奴隶贩子可能掉落{item:11818}，记得保留。\n灼热熔岩蜘蛛在峡谷西南部的高地和熔岩池一带游荡。\n{area:1443}的入口在大熔炉北部。熏火龙在里面的熔岩池中游动，将它们引到池边。秘密计划在矿坑上方的平台上。\n注意：黑铁奴隶贩子（45-46级）被引到时会向15码内的盟友求援，可在最远15码外施放投网，并在近战中使用撕裂。",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}，稀有掉落",
 
 	-- Step 33: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
-	["Ride back north to {area:1446}, just past {npc:8479}."] = "",
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "向北骑行返回{area:1446}，经过{npc:8479}后不远就到。",
 
 	-- Step 34: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "黑铁锻造师的熔炉",
@@ -192,6 +190,7 @@ return {
 	-- ["The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge."] = "灼热熔岩蜘蛛在峡谷西南的高地和熔岩池一带游荡。",
 	-- ["The Steamsmiths' furnaces"] = "黑铁锻造师的熔炉",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "前往{area:35}的船停靠在{area:392}的码头，就在飞行管理员所在山丘的下方。",
+	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "镇中心的{object:142071}机器：蛋在{zone:1444}南部，大约50级时",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "在营地西边，仙人掌生物占满了山谷；只有灌木露水收集者携带露水腺。{zone:1446}的大多数怪物都可能掉落OOX-17/TN定位器，但很少见：如果看到就留着。",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "向西，森提帕尔虫群聚集在它们的巢穴周围；任何一只都会掉落森提帕尔昆虫肢体。",
 	-- ["the {object:150075} in the square"] = "广场上的{object:150075}",

@@ -51,9 +51,12 @@ local function rangeOf(rec)
 	return lo, hi
 end
 
+-- A trip to the entrance (Nav.StartTrip): it ends through the instance's
+-- portal (#1686), as the Dungeons page's "Guide me to the entrance" does.
 local function waypoint(rec)
 	local N, e = ns.Nav, rec.entrance
-	if N and N.SetTarget then N.SetTarget(e.map, e.x, e.y, rec.name, e.f, "dungeon") end
+	if not (N and N.SetTarget) then return end
+	N.StartTrip(N.SetTarget(e.map, e.x, e.y, rec.name, e.f, "dungeon"), rec.name, rec.kind == "raid" and L["Raid"] or L["Dungeon"], "instance")
 end
 
 local function tooltip(rec, page)
@@ -146,12 +149,13 @@ end
 -- The world map's view (Core/MapCanvas.lua) says when it opens; the map is
 -- only read.
 local hooked = false
+local function onView(_, what)
+	if what == "show" then onMapShown() end
+end
 local function hookMap()
 	if hooked then return true end
 	local M = ns.MapCanvas
-	if not (M and WorldMapFrame and M.Watch(WorldMapFrame, function(_, what)
-		if what == "show" then onMapShown() end
-	end)) then
+	if not (M and WorldMapFrame and M.Watch(WorldMapFrame, onView)) then
 		return false
 	end
 	hooked = true
@@ -174,6 +178,7 @@ end)
 
 ns.OnLogin(function()
 	hookMap()
+	if ns.MapCanvas then ns.MapCanvas.OnAdd(function(map) ns.MapCanvas.Watch(map, onView) end) end
 	local T = ns.Theme
 	if T and T.OnChanged then
 		T.OnChanged(function()

@@ -26,6 +26,7 @@ const { blockingPrereqs } = require('../data/prereqs');
 const SOLO = require('../sim/solo');
 const { eliteWork } = require('./group');
 const { PIPE_HINT } = require('../pack/manifest');
+const { OWN_EXTRAS } = require('../pack/format');
 const { MAX_LEVEL, CUM_XP, LEVEL_XP } = require('../game/xp');
 const { checkTimedItems } = require('./timed');
 const { objectiveLabel } = require('./data');
@@ -76,10 +77,17 @@ function eliteTip(target) {
 	return `in a Leveling guide put the goal in a step with \`when group <quest>\` (the player chooses it), not optional there, or make it \`optional\` in a step for everyone, with the tip "${target} is elite: grouping up is advised."`;
 }
 
-// A step the route takes only for a player who chose to do a group quest
-// (a `when group <quest>`, not `!group`).
+// A step the route takes only for a player who chose the group way: a group
+// quest (`when group <quest>`, not `!group`) or a dungeon run (`when dungeon`).
 function groupStep(step) {
-	return (step.when || []).some((p) => p.k === 'group' && !p.neg);
+	return (step.when || []).some((p) => (p.k === 'group' || p.k === 'dungeon') && !p.neg);
+}
+
+// A step that applies only while the player carries the goal's quest (`when
+// onquest`, `when complete`): "hand it in if you have it", never work the solo
+// route asks for (a dungeon quest's hand-in on a later stop).
+function carriedStep(step, quest) {
+	return (step.when || []).some((p) => !p.neg && (p.k === 'onquest' || p.k === 'complete') && [].concat(p.q).includes(quest));
 }
 
 // The quests of g the player takes only by choosing a group quest: every
@@ -96,9 +104,10 @@ function groupQuestsOf(g) {
 }
 
 // A goal for a party, not solo leveling: in a group step, or for a quest the
-// player takes only by choosing a group quest. Elite work belongs there.
+// player takes only by choosing a group quest, or a hand-in of one carried.
+// Elite work belongs there.
 function partyWork(step, goal, chosen) {
-	return groupStep(step) || (goal.quest !== undefined && chosen.has(goal.quest));
+	return groupStep(step) || (goal.quest !== undefined && (chosen.has(goal.quest) || carriedStep(step, goal.quest)));
 }
 
 // Our house rules: errors in our pack, warnings in every other.
@@ -470,10 +479,17 @@ function validateGuides(guides, data, diag) {
 	// Predecessors through `next` and every route choice (`nextChoices`,
 	// conditional options too: any of them can be the route).
 	const preds = new Map();
+	// Polestar's own extra packs (OWN_EXTRAS) with a guide in this compile: a `next` to an unknown id of one of
+	// them is an error; of one compiled elsewhere (an experimental guide our route choice offers) forge checks it
+	// where that pack is read (forge-guide's project.rs experimental_index).
+	const extraOf = (id) => (OWN_EXTRAS.find((e) => id.startsWith(`${e.id}/`)) || {}).id;
+	const extrasIn = new Set([...byId.keys()].map(extraOf).filter(Boolean));
 	for (const g of byId.values()) {
 		const nextLine = (to) => (g._ast.lines.nextOf && g._ast.lines.nextOf[to]) || g._ast.lines.next;
 		for (const to of g.nextChoices || (g.next ? [g.next] : [])) {
 			if (!byId.has(to)) {
+				const extra = extraOf(to);
+				if (extra && !extrasIn.has(extra)) continue;
 				diag.error(g._ast.file, nextLine(to), `\`next\` points to unknown guide "${to}"`, 'list guide ids with `polestar find --kind guide <text>`');
 				continue;
 			}
@@ -588,6 +604,64 @@ function validateGuides(guides, data, diag) {
 		coveredMemo.set(key, out);
 		return out;
 	};
+	// The characters that can follow guide g (its faction, races and classes), cached per guide.
+	const followMemo = new Map();
+	const followers = (g) => {
+		if (!followMemo.has(g.id)) followMemo.set(g.id, characters([guideLayer(g)]));
+		return followMemo.get(g.id);
+	};
+	// Where character k, entering guide h, hands quest q in on every route
+	// from there: the id of the guide, or null when a route never does (it
+	// ends, drops the quest with an abandon, or loops), or two routes hand it
+	// in in different guides. `cut`: the answer met a loop (not cached).
+	const carriedMemo = new Map();
+	const handInFrom = (h, q, k, visiting) => {
+		const mk = `${h.id}|${q}|${k}`;
+		if (carriedMemo.has(mk)) return { to: carriedMemo.get(mk), cut: false };
+		if (visiting.has(h.id)) return { to: null, cut: true };
+		visiting.add(h.id);
+		const end = questGoals(h).find((t) => closes(t.goal) && t.goal.quest === q && t.chars.has(k));
+		const out = end ? { to: end.goal.t === 'turnin' ? h.id : null, cut: false } : handInAfter(h, q, k, visiting);
+		visiting.delete(h.id);
+		if (!out.cut) carriedMemo.set(mk, out.to);
+		return out;
+	};
+	// handInFrom over every guide after h that k can follow (`next` and each route choice).
+	const handInAfter = (h, q, k, visiting) => {
+		let found = null;
+		let cut = false;
+		for (const s of successors(h).filter((s) => followers(s).has(k))) {
+			const r = handInFrom(s, q, k, visiting);
+			cut = cut || r.cut;
+			if (r.to === null || (found !== null && found !== r.to)) return { to: null, cut };
+			found = r.to;
+		}
+		return { to: found, cut };
+	};
+	// Quest work carried to a later guide: each objective or `complete` goal
+	// of a quest this guide does not turn in (or abandon) after it gets
+	// `carriedTo`, the id of the guide after it that hands the quest in, when
+	// that is one and the same guide on every route for every character the
+	// goal applies to. The Engine says to keep it, and lists the quests still
+	// in the log at the guide's end.
+	const markCarried = (g) => {
+		const gl = guideLayer(g);
+		const goals = goalsOf(g);
+		goals.forEach(({ step, goal }, i) => {
+			if (goal.quest === undefined || !(goal.t === 'complete' || OBJECTIVE_VERBS.has(goal.t))) return;
+			if (goals.slice(i + 1).some((later) => closes(later.goal) && later.goal.quest === goal.quest)) return;
+			let to = null;
+			for (const k of characters([gl, step._only, goal._only], data.quest(goal.quest))) {
+				const r = handInAfter(g, goal.quest, k, new Set([g.id])).to;
+				if (r === null || (to !== null && to !== r)) {
+					to = null;
+					break;
+				}
+				to = r;
+			}
+			if (to) goal.carriedTo = to;
+		});
+	};
 
 	for (const g of byId.values()) {
 		const file = g._ast.file;
@@ -597,6 +671,7 @@ function validateGuides(guides, data, diag) {
 		checkBareCompletes(g, data, diag);
 		checkBareUses(g, diag);
 		checkChosenAllOptional(g, diag);
+		markCarried(g);
 		const accepted = new Set();
 		const turnedIn = new Set();
 		const whenOnly = new Set();
@@ -649,7 +724,7 @@ function validateGuides(guides, data, diag) {
 					}
 					// Only blocking prerequisites count (tools/lib/data/prereqs.js): every
 					// one of `all`, one of `any`; breadcrumbs never block.
-					const { all, any } = blockingPrereqs(q, (id) => data.quest(id));
+					const { all, any, parent } = blockingPrereqs(q, (id) => data.quest(id));
 					// A prerequisite these characters cannot take is someone else's variant.
 					const takeable = (p) => {
 						const pq = data.quest(p);
@@ -668,6 +743,17 @@ function validateGuides(guides, data, diag) {
 							diag.warn(file, ln, `quest ${goal.quest} needs ${open[0]} turned in first, but the chain never turns it in`);
 						} else if (open.length > 1) {
 							diag.warn(file, ln, `quest ${goal.quest} needs one of ${open.join(', ')} turned in first, but the chain turns in none of them`);
+						}
+					}
+					// A child quest is offered only while its parent is in the log (Valik
+					// 535 with Infiltration 533): the chain holds it here (taken, not handed
+					// in), or the step applies only with it in the log.
+					if (parent !== undefined && takeable(parent)) {
+						const onParent = (step.when || []).some((p) => !p.neg && p.k === 'onquest' && [].concat(p.q).map(Number).includes(parent));
+						if (!onParent && turnedIn.has(parent)) {
+							diag.warn(file, ln, `quest ${goal.quest} is offered only while ${name(parent)} is in the log, but the chain hands that quest in earlier`);
+						} else if (!onParent && !accepted.has(parent)) {
+							diag.warn(file, ln, `quest ${goal.quest} is offered only while ${name(parent)} is in the log, but the chain never takes that quest before it`);
 						}
 					}
 					// Exclusive quests (`excl`, Questie exclusiveTo): the game does not

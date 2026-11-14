@@ -14,7 +14,14 @@
 -- player's continent; once the path arrives the arrow aims at its next point.
 -- Straying more than STRAY yards from it (asked again at most every ASK_EVERY
 -- seconds, ASK_FAR_EVERY on a walk of more than ASK_FAR yards), or a new goal, asks again (a stale
--- search is cancelled); nothing is asked for in combat. Hand-made walks win:
+-- search is cancelled); nothing is asked for in combat, nor while something
+-- the game gives no taxi for carries the player (Transit.Carried: the
+-- skycutter from Zephras Isle to Dalaran, a search a second would start from
+-- a point the ride has left; one under way when the ride is seen is dropped):
+-- asked once, when the player is off. The arrow's own search
+-- is urgent (sliced before the later legs' searches), and a path that lands
+-- after the player has walked on is followed from their place on it
+-- (Follow.Catch), not from where it was asked. Hand-made walks win:
 -- a crossing, an approach chain past its mouth (Travel's leg.handmade), and a
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
 -- the straight arrow. No engine, nav.navRouting off, no walking data for the
@@ -82,11 +89,23 @@
 --     subzone two levels share, or none, leaves it to movement.
 --   Follow: the surface nearest the floor, never more than RISE (4) yards
 --     above it (a ramp or stairs at mount speed, plus a jump); any drop (a
---     fall). None: unknown.
+--     fall). None (a cell with no surface at or below the floor plus RISE:
+--     a blocked cell at a cliff's foot, or one whose only surface is the
+--     ridge above): the floor is kept while the player is within KEEP (25,
+--     the router's snap reach) yards of where it was last on a surface, so a
+--     search from there starts on the ground walked in on, not on a ridge
+--     the router snaps to without a height (#1650: beside the Stonewrought
+--     Dam that ridge joins only Grim Batol, a 5,600 yd walk through the
+--     Wetlands for 400 along the dam); farther: unknown. On a bridge
+--     (Polestar_Nav's bridge chokepoints: within the radius of the line
+--     between its sides), of the same surfaces the one nearest the deck's
+--     height, not the floor's: a covered bridge's roof or rail a yard or two
+--     above the bank is no floor (#1784, Silverpine's bridge north-east of
+--     the Sepulcher).
 --   Unknown again: another continent; more than JUMP (30) yards since the
 --     last read (a hearth, teleport, landing, loading screen); moving after
 --     more than FRESH (2) seconds without a check; on a taxi, a transport
---     (Transit.Riding) or within LIFT (8) yards of a lift (Transit.LiftNear:
+--     (Transit.Riding, Transit.Carried) or within LIFT (8) yards of a lift (Transit.LiftNear:
 --     it changes level without moving); a ghost state change; a read that
 --     raises an error.
 --   Decoding: the read never decodes. A cell whose cluster is not decoded
@@ -149,7 +168,7 @@
 --   Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ... },
 --     current, choke }, ... } } or nil without a target or while handed off
 --     (Nav.HandedOff); NAV_ROUTE_GEOMETRY on change.
---     kind: walk | flight | boat | zeppelin | tram | portal | hearth | teleport | lift.
+--     kind: walk | flight | boat | zeppelin | airship | tram | portal | hearth | teleport | lift.
 --
 -- Every search goes with opts { waterWalking, profile, style, danger }: the
 -- player's faction (Compat.GetPlayerFaction; none when neutral or unread),
@@ -274,12 +293,26 @@ local job                    -- its Cancel handle
 local sketchJob              -- its shape's (Path.FindCoarse) Cancel handle
 local ptsX, ptsY, ptsZ = {}, {}, {} -- the path, reused (z false where unknown)
 local hubs                   -- the other faction's towns the path enters (Find's job.hubs; nil: none)
+
+-- Find's answer as the walk's hostile-town list: job.hubs, the towns the path enters, with job.avoided, the ones it
+-- goes round, as hubs.avoided (display only; the walk's leg carries both); nil when the walk has neither.
+local function hubsOf(a)
+	if type(a) ~= "table" then return nil end
+	local h, v = a.hubs, a.avoided
+	local entered = type(h) == "table" and #h > 0
+	local avoided = type(v) == "table" and #v > 0
+	if not (entered or avoided) then return nil end
+	h = entered and h or {}
+	if avoided then h.avoided = v end
+	return h
+end
 local left = {}              -- left[i] = yards from point i to the end of the path
 local lastLeft               -- yards left along the path at the last Aim
 local count = 0              -- points in the path (0: none yet)
 local idx = 1                -- the end point of the segment the player is on (Nav/Follow.lua)
 local fstate = {}           -- the follower's state (Nav/Follow.lua's Follow.Step)
 local wanted = false         -- a search is owed (deferred in combat)
+local landX, landY           -- the path just in was searched from here: Walk.Aim catches the follower up to the player (Follow.Catch)
 local askedAt = -huge
 local failed = false
 local failAt, failX, failY = 0, 0, 0
@@ -339,6 +372,7 @@ function Walk.Clear()
 	local had, c, x, y = gc ~= nil, gc, gx, gy
 	cancel()
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
+	landX, landY = nil, nil
 	Nav.follow.Reset(fstate)
 	if had then
 		restore(c, x, y)
@@ -346,7 +380,8 @@ function Walk.Clear()
 	end
 end
 
-local function took(points)
+-- see: the line check (sight, below) to smooth the path with once (Nav/Follow.lua Follow.Smooth), or nil.
+local function took(points, see)
 	local n = 0
 	for i = 1, #points do
 		local p = points[i]
@@ -355,6 +390,7 @@ local function took(points)
 			ptsX[n], ptsY[n], ptsZ[n] = p.x, p.y, type(p.z) == "number" and p.z or false
 		end
 	end
+	if see then n = Nav.follow.Smooth(ptsX, ptsY, ptsZ, n, see, not (IsIndoors and IsIndoors())) end
 	for i = n + 1, count do ptsX[i], ptsY[i], ptsZ[i] = nil, nil, nil end
 	count = n
 	left[n + 1] = nil
@@ -368,6 +404,7 @@ local function took(points)
 	end
 	idx, shape = 1, nil
 	Nav.follow.Reset(fstate)
+	landX, landY = nil, nil
 end
 
 -- The player's height, when the client gives it on this continent (picks the
@@ -393,6 +430,7 @@ local EVERY = 0.25    -- seconds between checks
 local JUMP = 30       -- yards between checks: a hearth, a teleport, a landing, a loading screen
 local FRESH = 2       -- seconds: a floor checked longer ago is not used (and moving after such a gap loses it)
 local NEAR = 5        -- yards from where the floor was read: farther, it is not used
+local KEEP = 25       -- yards from where the floor was last on a surface that it is kept over cells with none to follow (the router's SNAP 6 cells of 4.2 yd)
 local ZTOL = 10       -- Routing/PathGrid.lua's ZTOL: surfaces this close the router stands on alike
 local LIFT = 8        -- yards from a lift (Transit.LiftNear): it changes level without moving
 local INDOOR = 2      -- Path.SURFACE_INDOOR
@@ -405,16 +443,18 @@ local floorZ          -- the floor's height (nil: unknown)
 local cand, candMiss, candN = {}, {}, 0 -- while the floor is unknown and seed cannot tell: the floors the player may be on, and reads each has missed (reused)
 local candIndoor = false  -- the candidates are the indoor surfaces (the client said indoors): the player is on one of them
 local fC, fX, fY, fAt, fGhost = nil, 0, 0, -huge, false -- the last check: continent, point read, time, ghost
+local onX, onY = 0, 0     -- where the known floor was last on a surface of a read (KEEP counts from there)
 local aimAt               -- GetTime of the last Walk.Aim (nil: the reader's cluster released)
 local flatAt              -- GetTime of the last ask sent without a start height (nil: none owed a re-ask)
 local floorAsk = false    -- the floor became known soon after that ask: ask once more with it (Ruling 36b)
 local REASK = 5           -- seconds after a flat ask within which a floor found re-asks
 
--- On a taxi, a transport (Transit.Riding) or at a lift: the floor can change without walking.
+-- On a taxi, a transport (Transit.Riding, or one the game gives no taxi for: Transit.Carried) or at a lift: the floor
+-- can change without walking.
 local function carried(pc, px, py)
 	local C, X = ns.Compat, ns.Transit
 	if C and C.IsOnTaxi and C.IsOnTaxi() then return true end
-	if X and X.Riding and X.Riding() then return true end
+	if X and ((X.Riding and X.Riding()) or (X.Carried and X.Carried())) then return true end
 	return X and X.LiftNear and X.LiftNear(pc, px, py, LIFT) ~= nil or false
 end
 
@@ -450,13 +490,58 @@ local function seed(n)
 	return nil
 end
 
+-- The deck's height when (x, y) on continent c is on a bridge, else nil: a bridge of Polestar_Nav's chokepoints
+-- (PolestarNavChokepoints[c], kind "bridge"), within its radius of the line between its two sides (of its point when
+-- it has no sides). Read in place: nothing is allocated.
+local function bridgeDeck(c, x, y)
+	local list = type(_G.PolestarNavChokepoints) == "table" and _G.PolestarNavChokepoints[c]
+	if type(list) ~= "table" then return nil end
+	for i = 1, #list do
+		local e = list[i]
+		if type(e) == "table" and e.kind == "bridge" and e.wx and e.wy and e.z then
+			local r = e.r or 5
+			local s = e.sides
+			local ax, ay, bx, by = e.wx, e.wy, e.wx, e.wy
+			if type(s) == "table" and s[1] and s[2] and s[1].wx and s[2].wx then
+				ax, ay, bx, by = s[1].wx, s[1].wy, s[2].wx, s[2].wy
+			end
+			local dx, dy = bx - ax, by - ay
+			local len2 = dx * dx + dy * dy
+			local t = len2 > 0 and ((x - ax) * dx + (y - ay) * dy) / len2 or 0
+			if t < 0 then t = 0 elseif t > 1 then t = 1 end
+			local ex, ey = ax + dx * t - x, ay + dy * t - y
+			if ex * ex + ey * ey <= r * r then return e.z end
+		end
+	end
+	return nil
+end
+
 -- A known floor from the n surfaces read: the one nearest it, never more
--- than RISE above it (any drop is a fall); none: unknown.
-local function follow(n)
+-- than RISE above it (any drop is a fall); none: nil (track keeps the floor
+-- within KEEP yards of where it was last on a surface). On a bridge (deck:
+-- its height, bridgeDeck) with a surface the follow may take within RISE of
+-- the deck, the one nearest the deck instead (#1784): a covered bridge's
+-- roof or side rail a yard or two above the bank it is walked onto from is
+-- no floor. Silverpine's bridge north-east of the Sepulcher, walked onto
+-- from the bank at 60: the roof's edge at 62 was nearer than the deck at
+-- 56, and the arrow's walk from the roof turned back to the bank. Under the
+-- bridge (the river, a road), with no such surface, the floor is followed
+-- as anywhere else.
+local function follow(n, deck)
+	local ref = floorZ
+	if deck then
+		for i = 1, n do
+			local z = surf[i]
+			if z <= floorZ + RISE and abs(z - deck) <= RISE then
+				ref = deck
+				break
+			end
+		end
+	end
 	local best, gap = nil, huge
 	for i = 1, n do
 		local z = surf[i]
-		if z <= floorZ + RISE and abs(z - floorZ) < gap then best, gap = z, abs(z - floorZ) end
+		if z <= floorZ + RISE and abs(z - ref) < gap then best, gap = z, abs(z - ref) end
 	end
 	return best
 end
@@ -652,7 +737,10 @@ local function track(P, pc, px, py)
 			floorZ = seed(n)
 			if floorZ == nil then candidates(n) end
 		end
-		if floorZ ~= nil and flatAt and now - flatAt <= REASK then flatAt, floorAsk = nil, true end
+		if floorZ ~= nil then
+			onX, onY = px, py
+			if flatAt and now - flatAt <= REASK then flatAt, floorAsk = nil, true end
+		end
 		-- Still unknown, indoors: a path asked without a height that starts on no candidate floor left (the
 		-- entrance hall over the Trade Quarter, ruled out a few steps on) is asked again from those left.
 		if floorZ == nil and flatAt and candIndoor and count > 1 and type(ptsZ[2]) == "number" then
@@ -664,9 +752,20 @@ local function track(P, pc, px, py)
 		end
 	else
 		-- Known: followed, unless the client's subzone names another floor here (a floor found by elimination on
-		-- the wrong level, or a fall the follow missed).
+		-- the wrong level, or a fall the follow missed). A read with no surface to follow keeps the floor within
+		-- KEEP yards of where it was last on one (a cliff's foot, a ridge-only cell, #1650); farther, unknown.
 		local z = named(P, pc, n)
-		if z ~= nil and abs(z - floorZ) > ZTOL then floorZ = z else floorZ = follow(n) end
+		if z ~= nil and abs(z - floorZ) > ZTOL then
+			floorZ, onX, onY = z, px, py
+		else
+			local f = follow(n, bridgeDeck(pc, px, py))
+			if f ~= nil then
+				floorZ, onX, onY = f, px, py
+			else
+				local ox, oy = px - onX, py - onY
+				if ox * ox + oy * oy > KEEP * KEEP then floorZ = nil end
+			end
+		end
 	end
 end
 
@@ -701,14 +800,16 @@ end
 -- height and on the continent Walk.Aim set (sightC, sightZ)? Path.Sight on
 -- the walking grid, for the player's faction; false on an error, and while the
 -- line crosses a cluster the router has not decoded (nil: it decodes nothing).
--- One function for every Aim, so passing it allocates nothing.
+-- One function for every Aim, so passing it allocates nothing. With z1, from
+-- that height instead: a path point's, when the path is smoothed as it is
+-- taken (Follow.Smooth; sightC set to the path's continent first).
 local sightC, sightZ
 local sightAimC, sightAimX, sightAimY -- the arrow's last aim when it was by sight (Walk.SightAim)
-local function sight(x1, y1, x2, y2, z2)
+local function sight(x1, y1, x2, y2, z2, z1)
 	local P = Nav.Path
 	local C = ns.Compat
 	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
-	local ok, clear = pcall(P.Sight, sightC, x1, y1, sightZ, x2, y2, z2 or nil, profile)
+	local ok, clear = pcall(P.Sight, sightC, x1, y1, z1 or sightZ, x2, y2, z2 or nil, profile)
 	return ok and clear == true
 end
 
@@ -763,6 +864,10 @@ end
 local function ask(P, pc, px, py, flat)
 	wanted = true
 	if inCombat() then return end -- after combat, on the next sample
+	-- Carried (Transit.Carried: the skycutter to Dalaran): no walk from a point the ride leaves at once; on the
+	-- first sample after it.
+	local X = ns.Transit
+	if X and X.Carried and X.Carried() then return end
 	wanted = false
 	askedAt, failed = GetTime(), false
 	cancel()
@@ -799,9 +904,10 @@ local function ask(P, pc, px, py, flat)
 		end
 		if got then
 			failed = false
-			took(points)
-			local h = type(answer) == "table" and answer.hubs
-			hubs = type(h) == "table" and #h > 0 and h or nil
+			sightC = gc
+			took(points, P.Sight and sight or nil)
+			landX, landY = px, py -- searched from here: the player may be well on by now (Walk.Aim catches up)
+			hubs = hubsOf(answer)
 			if Walk.Split then Walk.Split() end
 		else
 			failed, failAt, failX, failY = true, GetTime(), px, py
@@ -824,7 +930,12 @@ local function ask(P, pc, px, py, flat)
 		failed, failAt, failX, failY = true, askedAt, px, py
 		return
 	end
-	if token == mine then job = handle end
+	if token == mine then
+		job = handle
+		-- The walk the arrow is on goes before the later legs' searches (Routing/PathJobs.lua's urgent): while
+		-- the player walks on, every frame it waits is yards it lands behind them.
+		if type(handle) == "table" then handle.urgent = true end
+	end
 	-- No path yet: the walk's shape at once (Path.FindCoarse across clusters), drawn until the path is in.
 	if count == 0 and not shape and P.FindCoarse then
 		local okShape, h = pcall(P.FindCoarse, pc, { x = px, y = py, z = sz }, { x = gx, y = gy, z = z }, function(points)
@@ -874,6 +985,13 @@ local function takeBaked(pc, px, py)
 		m = m + 1
 		ptsX[m], ptsY[m], ptsZ[m] = xs[k], ys[k], zs[k]
 	end
+	-- Smoothed as a searched path is (Follow.Smooth), its jumps, drops, climbs and lifts kept: point j >= 2 is the
+	-- leg's bk + j - 1, its way in the leg's segment bk + j - 2.
+	local P = Nav.Path
+	if P and P.Sight then
+		sightC = pc
+		m = Nav.follow.Smooth(ptsX, ptsY, ptsZ, m, sight, not (IsIndoors and IsIndoors()), leg.cls, bk)
+	end
 	for i = m + 1, count do ptsX[i], ptsY[i], ptsZ[i] = nil, nil, nil end
 	count = m
 	left[m + 1] = nil
@@ -902,6 +1020,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		local had = count > 0 or shape ~= nil
 		cancel()
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
+		landX, landY = nil, nil
 		Nav.follow.Reset(fstate)
 		gzFor, gz = tz, tz or nil
 		askedAt = -huge
@@ -917,13 +1036,19 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		if GetTime() - failAt >= FAIL_RETRY and dx * dx + dy * dy > FAIL_MOVED * FAIL_MOVED then ask(P, pc, px, py) end
 	elseif wanted then
 		ask(P, pc, px, py)
+	elseif token ~= nil and ns.Transit and ns.Transit.Carried and ns.Transit.Carried() then
+		-- Carried, the arrow's own search under way (asked before the ride was seen): from a point the ride has
+		-- left; dropped, so the router stops on it, and owed until the player is off (ask).
+		cancel()
+		wanted = true
 	end
 	if count == 0 then return nil end
 
 	-- Outdoors, the path's first turn near its start (joining a road) may be cut
 	-- (Nav/Follow.lua `join`); indoors every turn is a wall's. Outdoors, with the
 	-- floor under the player known, the follower may aim ahead by sight beside
-	-- the path (open ground; Path.Sight checks the line).
+	-- the path (open ground; Path.Sight checks the line). Outdoors a hillside
+	-- between two corners is no floor change (Follow.lua `hill`).
 	local outdoors = not (IsIndoors and IsIndoors())
 	local join = outdoors and JOIN or nil
 	local look
@@ -931,7 +1056,15 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 		sightZ = startZ(pc, px, py)
 		if sightZ ~= nil then sightC, look = pc, sight end
 	end
-	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look)
+	-- A path just in was searched from where the player stood when it was asked, seconds ago: walking on, they
+	-- may be far along it, past corners the follower would hold behind them (Follow.Catch; 0.3.7, down a slope
+	-- the arrow pointed back at each late path's start until the player stopped).
+	if landX then
+		local mx, my = px - landX, py - landY
+		Nav.follow.Catch(ptsX, ptsY, ptsZ, left, count, fstate, px, py, sqrt(mx * mx + my * my), STRAY, stop, (startZ(pc, px, py)))
+		landX, landY = nil, nil
+	end
+	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look, outdoors)
 	idx = fstate.idx
 	if not ax then
 		lastLeft = nil
@@ -1035,8 +1168,10 @@ end
 --     takes one opts for all its places, so a place inside a dangerous zone
 --     is priced through its own zone (the walk out of it).
 --   One batch at a time; a new target cancels the old one's. None is started
---     in combat (owed until it ends; the engine pauses a running one), with
---     Walk real paths off, or while Shortest Path Forever guides.
+--     in combat (owed until it ends; the engine pauses a running one), nor
+--     while the player is carried (Transit.Carried: one under way is dropped,
+--     the first plan once off measures), with Walk real paths off, or while
+--     Shortest Path Forever guides.
 --   None for a target within MEASURE_NEAR yards of the player: its plan keeps
 --     the straight estimates (as before 0.3.0), and the arrow's own search
 --     still draws the walk. A batch costs about a second of router work and
@@ -1048,6 +1183,7 @@ end
 
 local MEASURE_YARDS = 3000  -- straight yards from the target: places farther keep the estimate
 local MEASURE_MAX = 16      -- places measured, nearest first
+local MEASURE_CHOSEN = 6000 -- straight yards: a place the plan rides to and walks on from is measured up to this far
 local MEASURE_KEEP = 4      -- targets whose measures are kept
 local START_NEAR = 50       -- yards from where the player's walk was measured: its measure holds
 local MEASURE_NEAR = 400    -- straight yards from the player: a nearer target is not measured
@@ -1246,28 +1382,39 @@ end
 -- Measure the walks into the target (c, x, y) from the plan's places (Travel's
 -- p.places), unless they are measured or being measured, or c's walking maps
 -- may not be searched yet (canSearch: the target is on another continent).
+-- A place marked `chosen` (the landing the plan rides to and walks on from,
+-- its walk still the straight estimate) is measured too up to MEASURE_CHOSEN
+-- yards away, past MEASURE_YARDS and MEASURE_MAX: a landing out of reach was
+-- never measured, and its straight estimate beat the player's own measured
+-- walk, priced by its ground (#1728: from Camp Taurajo the plan flew back to
+-- the Crossroads, 3,800 yd from the target, to walk on from there).
+-- -> true while a measure of this target is being taken.
 function Walk.Measure(c, x, y, water, places)
 	water = water or false
 	if measuring and not sameTarget(measuring, c, x, y, water) then cancelMeasure() end
 	local P = engine()
-	if not (P and P.FindMany) or type(places) ~= "table" or not canSearch(P, c) then return end
+	if not (P and P.FindMany) or type(places) ~= "table" or not canSearch(P, c) then return false end
 	-- A near target: the straight estimates (the player's place is the plan's start).
 	for _, p in ipairs(places) do
 		if p.start then
 			local dx, dy = p.wx - x, p.wy - y
 			if dx * dx + dy * dy < MEASURE_NEAR * MEASURE_NEAR then
 				measureOwed = nil
-				return
+				return false
 			end
 			break
 		end
 	end
 	if inCombat() then
 		measureOwed = { c = c, x = x, y = y, water = water, places = places }
-		return
+		return false
 	end
 	measureOwed = nil
-	if measuring then return end
+	-- Carried (Transit.Carried): nothing measured from a point the ride leaves (Walk:Refresh drops a measure under
+	-- way); the first plan once off measures.
+	local X = ns.Transit
+	if X and X.Carried and X.Carried() then return false end
+	if measuring then return true end
 	-- The nearest places within MEASURE_YARDS, nearest first.
 	local pick, far = {}, {}
 	local reach = MEASURE_YARDS * MEASURE_YARDS
@@ -1285,10 +1432,16 @@ function Walk.Measure(c, x, y, water, places)
 			if #pick > MEASURE_MAX then pick[#pick], far[#far] = nil, nil end
 		end
 	end
+	local chosen = MEASURE_CHOSEN * MEASURE_CHOSEN
+	for _, p in ipairs(places) do
+		local dx, dy = p.wx - x, p.wy - y
+		local d = dx * dx + dy * dy
+		if p.chosen and not p.start and d > reach and d <= chosen then pick[#pick + 1] = p end
+	end
 	for _, p in ipairs(pick) do
 		if not p.start then others = true end
 	end
-	if not others then return end
+	if not others then return false end
 	local e = findMeasure(c, x, y, water)
 	if e then
 		local start, other = nil, false
@@ -1302,8 +1455,8 @@ function Walk.Measure(c, x, y, water, places)
 				break
 			end
 		end
-		if not (start or other) then return end
-		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return end
+		if not (start or other) then return false end
+		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return true end
 	end
 	-- The places picked, the player's walk, and those the last measure had.
 	local pts, si = {}, nil
@@ -1326,6 +1479,7 @@ function Walk.Measure(c, x, y, water, places)
 	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = si and pts[si].x, sy = si and pts[si].y }
 	measuring = mine
 	batch(P, mine, targetZ(c, x, y))
+	return measuring == mine
 end
 
 ---------------------------------------------------------------------------
@@ -1463,9 +1617,8 @@ local function searchLeg(P, mine, key, from, to, z, ghost, flat)
 			local xs, ys, n, yards = line(points)
 			if n > 1 then
 				local a = type(answer) == "table" and answer or nil
-				local h = a and a.hubs
 				if a and type(a.yards) == "number" then yards = a.yards end
-				e = { xs = xs, ys = ys, n = n, yards = yards, hubs = type(h) == "table" and #h > 0 and h or nil }
+				e = { xs = xs, ys = ys, n = n, yards = yards, hubs = hubsOf(a) }
 			end
 		end
 		keepLeg(key, e)
@@ -1571,16 +1724,17 @@ pumpShapes = function()
 	local ok, handle = pcall(P.FindCoarse, from.c, { x = from.wx, y = from.wy, z = from.z }, { x = to.wx, y = to.wy, z = z }, function(points, reason, answer)
 		if shapeToken ~= mine then return end
 		shapeToken, shapeJob, shapeKey = nil, nil, nil
-		-- Never over the walk's own path (its search may have answered first).
+		-- Never over the walk's own answer (its search may have answered first):
+		-- its path, or false when it found none (indexing that false raised
+		-- "attempt to index local 'was'"). Only a cluster's sketch is replaced.
 		local was = legPaths[nextKey]
-		if was == nil or was.cluster then
+		if was == nil or (was and was.cluster) then
 			local e = { coarse = true, n = 0, cluster = not whole and reason == "cluster" or nil }
 			if type(points) == "table" then
 				e.xs, e.ys, e.n, e.yards = line(points)
 				local a = type(answer) == "table" and answer or nil
 				if not points.coarse and e.n > 1 and not (z and offFloor(points, z)) then
-					local h = a and a.hubs
-					e.coarse, e.hubs = nil, type(h) == "table" and #h > 0 and h or nil
+					e.coarse, e.hubs = nil, hubsOf(a)
 					if a and type(a.yards) == "number" then e.yards = a.yards end
 				end
 			end
@@ -2070,6 +2224,9 @@ function Walk:Refresh()
 		if shapeToken then cancelShape() end
 		return
 	end
+	-- Carried: the measure under way (asked before the ride was seen) has the player's walk from a point it has left.
+	local X = ns.Transit
+	if measuring and X and X.Carried and X.Carried() then cancelMeasure() end
 	local o = measureOwed
 	if o and not inCombat() then
 		measureOwed = nil

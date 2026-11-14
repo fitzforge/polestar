@@ -188,7 +188,7 @@ impl Planner {
 	}
 
 	/// The spell names the compiler's texts read from the client's SpellName table (native only:
-	/// `tokens::read_spell_names`), as the bundle exported them: JSON [[name, id], ...].
+	/// `tokens::read_spell_names`), as the bundle exported them: JSON [[name, id, classMask], ...].
 	pub fn set_spell_names(&mut self, json: &str) -> Result<(), String> {
 		let v = parse_json(json).map_err(|e| format!("spell names: {e}"))?;
 		self.data.memo.borrow_mut().insert(SPELL_NAMES_MEMO, v);
@@ -289,7 +289,7 @@ impl Planner {
 			return (None, diag.sorted());
 		}
 		let translations = self.pack.translations.as_deref().and_then(|t| parse_json(t).ok()).unwrap_or_else(V::obj);
-		let files = build_pack_files(&guides, &self.manifest, &self.data, self.pack.license.as_deref(), &translations, &retired, &self.pack.iface, Vec::new());
+		let files = build_pack_files(&guides, &self.manifest, &self.data, self.pack.license.as_deref(), &translations, &retired, &[], &self.pack.iface, Vec::new());
 		(Some(files), diag.sorted())
 	}
 

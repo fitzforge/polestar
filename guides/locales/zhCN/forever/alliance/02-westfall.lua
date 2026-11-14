@@ -53,9 +53,9 @@ return {
 	-- Step 9: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54}：沿途击杀以下目标",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "矿洞在豺狼人营地西南方。{item:247816}在入口附近；{npc:476}占据着隧道。",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "矿洞在豺狼人营地西南方。{item:247816}散落在入口附近；隧道里是狗头人地卜师。\n小心：{npc:471}（7-10级）、矿洞蜘蛛（7-9级）和{npc:248474}（7级）都是矿洞深处的精英：在入口附近一次拉一只狗头人，若有精英过来就退出去；有朋友同行会轻松些。",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476}在{area:54}附近走动：在地图上的圆圈里找",
 
@@ -115,7 +115,7 @@ return {
 
 	-- Step 22: Defensive Stance
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:1323} Osric Strang · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
-	["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "",
+	["{npc:5480} trains warriors in {object:2100}, near {npc:1323}'s shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "{npc:5480}在{object:2100}训练战士，就在{npc:1323}的商店附近；从{zone:1455}来的地铁抵达它北边的{object:28027}。{npc:6089}和{npc:6090}一起站在那里的{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。如果{npc:5480}没有提供{quest:1638}，直接去找{npc:6089}：没有该任务他也会给你{quest:1639}。",
 
 	-- Step 23: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
@@ -123,7 +123,7 @@ return {
 
 	-- Step 25: High Priestess Laurena
 	-- {npc:376} High Priestess Laurena · {object:2098} Cathedral Square · {npc:1646} Baros Alexston
-	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "",
+	["{npc:376} is in the Cathedral of Light, across {object:2098} from {npc:1646}."] = "{npc:376}在光明大教堂内，与{npc:1646}隔着{object:2098}相对。",
 
 	-- Step 26: Dungar Longdrink
 	-- {npc:352} Dungar Longdrink
@@ -140,7 +140,7 @@ return {
 	-- Step 29: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Goretusk Livers as you go"] = "顺路收集{item:723}",
-	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
+	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
 	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "{npc:454}在这条路线的每一段游荡：顺路杀掉遇到的，收集馅饼用的肝脏。",
 
 	-- Step 30: Stringy Vulture Meat as you go
@@ -178,7 +178,7 @@ return {
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "{npc:114}",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
-	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "",
+	["{item:814}: keep five for {npc:392} at the {area:115}, later on the route"] = "{item:814}：留五个，路线后面要交给{area:115}的{npc:392}",
 
 	-- Step 35: The gnoll hills
 	["The gnoll hills"] = "豺狼人山丘",
@@ -380,6 +380,7 @@ return {
 	-- ["Stormwind City"] = "暴风城",
 	-- ["The Jansen Stead"] = "詹森农场",
 	-- ["The Jasperlode Mine's entrance"] = "詹戈洛德矿洞入口",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "矿洞在豺狼人营地西南方。{item:247816}在入口附近；{npc:476}占据着隧道。",
 	-- ["The north coast"] = "北部海岸",
 	-- ["The western farms"] = "西部农场",
 	-- ["The {object:95}"] = "东谷伐木场",

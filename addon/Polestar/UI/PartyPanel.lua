@@ -11,7 +11,10 @@
 -- /polestar party (which says why when nothing can show yet; "/polestar
 -- party debug" prints Party.Debug); its place is kept in party.panelPos.
 -- "Sync to my guide" in its header (and /polestar party sync) asks the
--- party to move to your step (Party.RequestSync).
+-- party to move to your step (Party.RequestSync). Its scale, width, opacity,
+-- type, ground and what it does in a fight or an instance are the player's
+-- (trackers.party.*, Options > Trackers; PP.NewPanel/FillRows draw a sandbox
+-- one for its preview).
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -21,6 +24,9 @@ local PP = {}
 UI.PartyPanel = PP
 
 local WIDTH = 260
+-- Its padding and head; the house look's own (Theme.House "sidePad",
+-- "sideHead": the 4-point rhythm, the guide window's strip) read as the rows
+-- are laid out.
 local PAD = 10
 local HEAD_H = 26
 local DOT = "  \194\183  "
@@ -33,15 +39,35 @@ local function hexOf(r, g, b)
 	return ("|cff%02x%02x%02x"):format(math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5))
 end
 
+local function trackers() return UI.Trackers end
+
+-- Its own rules first (Options > Trackers): inside an instance, kept or
+-- hidden; in a fight, shown, faded or hidden as the player set it for the
+-- panel, or as the guide window ("As the guide window": ui.combat "hide"
+-- hides it too). TR.Allowed has no say on a fight under the guide's rule.
+local function rulesHide()
+	local TR = trackers()
+	if TR and not TR.Allowed("party") then return true end
+	local rule = TR and TR.Get("party", "combat") or "guide"
+	return rule == "guide" and inCombat and ns.Get("ui.combat") == "hide"
+end
+
+-- The rows to show (Party.Roster), or false when the panel should not show.
 local function wanted()
 	local P = ns.Party
 	if not (ns.Get("party.panel") and P and P.IsLive and P.IsLive()) then return false end
 	if not ns.GuideShown() then return false end
-	if inCombat and ns.Get("ui.combat") == "hide" then return false end
-	return #P.Roster() > 0
+	if rulesHide() then return false end
+	local list = P.Roster()
+	return #list > 0 and list
 end
 
-local function row(i)
+-- The panel's width: the player's (Options > Trackers), else WIDTH.
+local function width(p)
+	return p and p.psWidth or WIDTH
+end
+
+local function row(F, i)
 	local r = F.rows[i]
 	if r then return r end
 	r = CreateFrame("Button", nil, F)
@@ -66,6 +92,12 @@ local function row(i)
 	r.Needs:SetPoint("RIGHT", r, "RIGHT", 0, 0)
 	r.Needs:SetJustifyH("LEFT")
 	r.Needs:SetWordWrap(true)
+	local TR = trackers()
+	if TR then TR.AddText(F, { r.Name }, { r.Level, r.Step, r.Needs }) end
+	if F.psSandbox then
+		F.rows[i] = r
+		return r
+	end
 	r:SetScript("OnClick", function(self)
 		local P = ns.Party
 		if self.psUnit and P and P.PointAt then P.PointAt(self.psUnit) end
@@ -81,28 +113,53 @@ local function row(i)
 	return r
 end
 
+-- The panel's header on p: the live panel (a Maps.CompactFrame) or a sandbox
+-- one for the options' preview (PP.NewPanel). Its size, type and ground are
+-- the player's (Options > Trackers, UI/Looks/Trackers.lua).
+local function dress(p, sandbox)
+	local noop = function() end
+	p.psSandbox = sandbox or nil
+	p:SetWidth(WIDTH)
+	p.Title = W.Text(p, "small", "textMuted")
+	p.Title:SetPoint("TOPLEFT", p, "TOPLEFT", PAD, -8)
+	p.Title:SetText(L["Party"])
+	p.Close = W.IconButton(p, "close", 18, L["Close"], sandbox and noop or function() ns.Set("party.panel", false) end, 10)
+	p.Close:SetPoint("TOPRIGHT", p, "TOPRIGHT", -4, -4)
+	p.Sync = W.Button(p, "", sandbox and noop or function() ns.Party.RequestSync() end, { ghost = true, height = 18 })
+	p.Sync.psTight = true
+	W.SetButtonText(p.Sync, L["Sync to my guide"])
+	p.Sync.psTip = L["Sync to my guide"]
+	p.Sync.psTipLines = { L["Asks your party to move to your step. Each of them gets a prompt; nothing changes for anyone who declines."] }
+	p.Sync:SetPoint("RIGHT", p.Close, "LEFT", -4, 0)
+	p.rows = {}
+	local TR = trackers()
+	if TR then
+		TR.Attach("party", p, { titles = { p.Title }, sandbox = sandbox,
+			refresh = not sandbox and function() PP.Sync() end or nil,
+			relayout = function(self)
+				if self.psList then PP.FillRows(self, self.psList) elseif self == F then PP.Refresh() end
+			end })
+	end
+	return p
+end
+
 local function build()
 	if F then return end
-	F = ns.Maps.CompactFrame("PolestarPartyPanel", "party.panelPos", "TOPLEFT", 280, -220)
-	F:SetWidth(WIDTH)
-	F.Title = W.Text(F, "small", "textMuted")
-	F.Title:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -8)
-	F.Title:SetText(L["Party"])
-	F.Close = W.IconButton(F, "close", 18, L["Close"], function() ns.Set("party.panel", false) end, 10)
-	F.Close:SetPoint("TOPRIGHT", F, "TOPRIGHT", -4, -4)
-	F.Sync = W.Button(F, "", function() ns.Party.RequestSync() end, { ghost = true, height = 18 })
-	F.Sync.psTight = true
-	W.SetButtonText(F.Sync, L["Sync to my guide"])
-	F.Sync.psTip = L["Sync to my guide"]
-	F.Sync.psTipLines = { L["Asks your party to move to your step. Each of them gets a prompt; nothing changes for anyone who declines."] }
-	F.Sync:SetPoint("RIGHT", F.Close, "LEFT", -4, 0)
-	F.rows = {}
+	F = dress(ns.Maps.CompactFrame("PolestarPartyPanel", "party.panelPos", "TOPLEFT", 280, -220))
 	F:SetScript("OnHide", function()
 		if ticker then
 			ticker:Cancel()
 			ticker = nil
 		end
 	end)
+end
+
+-- A sandbox panel for the options' preview, and its rows for a made-up roster.
+function PP.NewPanel(parent)
+	local p = CreateFrame("Frame", nil, parent)
+	p.psLight = true
+	Theme.Skin(p, "window")
+	return dress(p, true)
 end
 
 -- The row texts of a Party.Roster entry: name (class colour), level line,
@@ -114,6 +171,13 @@ function PP.RowText(e)
 	if r then name = hexOf(r, g, b) .. name .. "|r" end
 	local level = e.level and L["Level %d"]:format(e.level) or ""
 	if e.xp then level = level .. DOT .. L["%d%% XP"]:format(e.xp) end
+	-- Boosted Rest (their "2B|"), unless the player turned the status off.
+	local Q = ns.QoL
+	if e.rest and not (Q and Q.On and not Q.On("boostedRest")) then
+		-- Minutes rounded up, to the millisecond first (a frame clock a hair past the minute adds none).
+		local rest = e.rest == true and L["Boosted Rest"] or L["Boosted Rest %dm"]:format(math.ceil(math.floor(e.rest * 1000 + 0.5) / 60000))
+		level = level ~= "" and (level .. DOT .. rest) or rest
+	end
 	local parts = {}
 	if e.step then
 		parts[#parts + 1] = e.step
@@ -128,47 +192,66 @@ function PP.RowText(e)
 	return name, level, table.concat(parts, DOT), #needs > 0 and L["Still needs: %s"]:format(table.concat(needs, DOT)) or nil
 end
 
--- Repaint the rows from Party.Roster; without a row, the panel hides.
-function PP.Refresh()
-	if not (F and F:IsShown()) then return end
-	local list = ns.Party.Roster()
-	if #list == 0 then return F:Hide() end
-	local y = HEAD_H
+-- Panel p's rows for roster `list` (Party.Roster's entries).
+function PP.FillRows(F, list)
+	if F.psSandbox then F.psList = list end
+	local w = width(F)
+	local pad = Theme.House("sidePad") or PAD
+	local y = Theme.House("sideHead") or HEAD_H
+	F.Title:SetPoint("TOPLEFT", F, "TOPLEFT", pad, -8)
 	for i, e in ipairs(list) do
-		local r = row(i)
+		local r = row(F, i)
 		local name, level, step, needs = PP.RowText(e)
 		r.psUnit, r.psName = e.unit, e.name
 		r.Name:SetText(name)
 		r.Level:SetText(level)
 		r.Step:SetText(step or "")
-		r.Step:SetShown(step ~= nil and step ~= "")
-		r.Needs:SetText(needs or "")
+		local hasStep = step ~= nil and step ~= ""
+		r.Step:SetShown(hasStep)
+		UI.SetCounted(r.Needs, needs or "")
 		r.Needs:SetShown(needs ~= nil)
-		r.Needs:SetWidth(WIDTH - PAD * 2)
+		r.Needs:SetWidth(w - pad * 2)
+		UI.FitCounts(r.Needs)
+		-- The needs line hangs under the step line only while that shows: a
+		-- hidden region still holds its place in an anchor chain, and an empty
+		-- one may keep a line's height, which the row's height below leaves out.
+		r.Needs:SetPoint("TOPLEFT", hasStep and r.Step or r.Name, "BOTTOMLEFT", 0, -2)
 		local h = 6 + r.Name:GetStringHeight()
-		if r.Step:IsShown() then h = h + 2 + r.Step:GetStringHeight() end
+		if hasStep then h = h + 2 + r.Step:GetStringHeight() end
 		if r.Needs:IsShown() then h = h + 2 + r.Needs:GetStringHeight() end
 		h = math.floor(h + 4 + 0.5)
 		r:SetHeight(h)
 		r:ClearAllPoints()
-		r:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -y)
-		r:SetPoint("RIGHT", F, "RIGHT", -PAD, 0)
+		r:SetPoint("TOPLEFT", F, "TOPLEFT", pad, -y)
+		r:SetPoint("RIGHT", F, "RIGHT", -pad, 0)
 		r:Show()
 		y = y + h + 2
 	end
 	for i = #list + 1, #F.rows do F.rows[i]:Hide() end
-	F:SetHeight(math.floor(y + PAD - 2 + 0.5))
+	F:SetHeight(math.floor(y + pad - 2 + 0.5))
 end
 
--- Show or hide as the settings, the group and the guide say.
+-- Repaint the rows from Party.Roster (`list`: one just read); without a row,
+-- the panel hides.
+local function refresh(list)
+	if not (F and F:IsShown()) then return end
+	list = list or ns.Party.Roster()
+	if #list == 0 then return F:Hide() end
+	PP.FillRows(F, list)
+end
+-- The ticker and STEP_CHANGED pass arguments of their own: never a list.
+function PP.Refresh() refresh(nil) end
+
+-- Show or hide as the settings, the group, the guide and a fight say.
 function PP.Sync()
-	if not wanted() then
+	local list = wanted()
+	if not list then
 		if F then F:Hide() end
 		return
 	end
 	build()
 	F:Show()
-	PP.Refresh()
+	refresh(list)
 	if not ticker and C_Timer and C_Timer.NewTicker then ticker = ns.NewTicker(REFRESH, PP.Refresh) end
 end
 
@@ -183,7 +266,13 @@ local function whyNot()
 	if #P.Roster() == 0 then
 		return L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."]
 	end
-	if inCombat and ns.Get("ui.combat") == "hide" then return L["The party panel comes back after combat."] end
+	if rulesHide() then
+		local TR, C = trackers(), ns.Compat
+		if TR and TR.Get("party", "instance") == "hide" and C.IsInInstance and C.IsInInstance() then
+			return L["The party panel is hidden inside instances: Options > Trackers > Party panel."]
+		end
+		return L["The party panel comes back after combat."]
+	end
 	return nil
 end
 
@@ -230,8 +319,10 @@ local function onLive(on)
 end
 
 ns.On("PARTY_LIVE", onLive)
--- A member who speaks Polestar (or leaves) shows or hides the panel.
+-- A member who speaks Polestar (or leaves) shows or hides the panel; a
+-- member's XP alone comes as PARTY_PANEL (Party.lua panelChanged).
 ns.On("PARTY_PROGRESS", PP.Sync)
+ns.On("PARTY_PANEL", PP.Sync)
 ns.On("STEP_CHANGED", PP.Refresh)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "party.panelPos" then

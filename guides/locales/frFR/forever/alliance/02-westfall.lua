@@ -53,9 +53,9 @@ return {
 	-- Step 9: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "{area:54} : tuez-les au passage",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "La mine se trouve au sud-ouest des camps gnolls. Les {item:247816} traînent près de l'entrée ; les Géomanciens kobolds occupent les tunnels.",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "La mine se trouve au sud-ouest des camps gnolls. Les {item:247816} traînent près de l'entrée ; les Géomanciens kobolds occupent les tunnels.\nAttention : {npc:471} (7-10), les Araignées minières (7-9) et {npc:248474} (7) sont des élites au fond de la mine : attirez les kobolds un par un près de l'entrée et ressortez si un élite arrive ; ils sont plus faciles avec un ami.",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} se promène autour de {area:54} : cherchez dans le cercle sur la carte",
 
@@ -140,7 +140,7 @@ return {
 	-- Step 29: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
 	["Goretusk Livers as you go"] = "",
-	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
+	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
 	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "",
 
 	-- Step 30: Stringy Vulture Meat as you go
@@ -365,6 +365,7 @@ return {
 	-- ["Sacks of Oats"] = "Sacs d'avoine",
 	-- ["Stormwind City"] = "Cité de Hurlevent",
 	-- ["The gnoll hills"] = "Les collines des gnolls",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "La mine se trouve au sud-ouest des camps gnolls. Les {item:247816} traînent près de l'entrée ; les Géomanciens kobolds occupent les tunnels.",
 	-- ["The north coast"] = "La côte nord",
 	-- ["The western farms"] = "Les fermes de l'ouest",
 	-- ["West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry."] = "À l'ouest de la ferme des Molsen, vers la côte. Des Mineurs Rivepatte travaillent dans la carrière.",

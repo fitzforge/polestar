@@ -49,10 +49,25 @@ local function foreground(job)
 	return job.notify ~= nil or job.prefetch or (job.targets == nil and not job.costOnly)
 end
 
--- The queue index of the next job to slice: the first foreground one, else the first; and whether another job of
--- the same class stays queued (it then gets half the budget, the rest left for the others).
+-- The queue index of the next job to slice: an answer's callback first (it searches nothing), then an urgent job
+-- (job.urgent, set by the caller on a handle: the walk the arrow is on, Polestar's Nav/Walk.lua) with the whole
+-- budget, then the first foreground one, else the first; and whether another job of the same class stays queued (it
+-- then gets half the budget, the rest left for the others). An urgent search waits for nobody: while the player
+-- walks on, every frame it shares is yards it lands behind them.
 local function nextJob()
-	local first
+	local first, urgent
+	for i = 1, #queue do
+		local job = queue[i]
+		if job.notify then
+			return i, false
+		end
+		if job.urgent and not job.cancelled and not urgent then
+			urgent = i
+		end
+	end
+	if urgent then
+		return urgent, false
+	end
 	for i = 1, #queue do
 		if foreground(queue[i]) then
 			if first then

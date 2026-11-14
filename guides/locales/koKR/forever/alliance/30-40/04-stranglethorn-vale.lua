@@ -51,8 +51,11 @@ return {
 	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "",
 
 	-- Step 13: Rebel Camp
-	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
-	["Take the road north; the camp sits in the hills to the west.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
+	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod
+	-- plural, as words: Kurzen's Agents = {npc:775} Kurzen's Agent
+	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "길을 따라 북쪽으로 가세요. 야영지는 서쪽 언덕에 있습니다.\n{npc:738}은(는) 야영지 밖에 나와 있을 때만 {quest:215}을(를) 줍니다. 그는 30분쯤마다 오솔길을 따라 큰길까지 내려오는데, 그곳에서 쿠르젠의 요원 두 명이 그를 기습합니다. 그를 도와 요원들을 처치하고, 그가 다시 올라가기 전에 바로 퀘스트를 받으세요. 그가 없나요? 그냥 두세요. 가이드는 그 퀘스트에서 이어지는 {quest:200}도 건너뜁니다.",
+	-- {npc:738} Private Thorsen
+	["{npc:738}, at the foot of the path"] = "오솔길 아래쪽 끝의 {npc:738}",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}, 오두막 안",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound

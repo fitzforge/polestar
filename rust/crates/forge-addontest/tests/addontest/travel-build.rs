@@ -95,4 +95,241 @@ fn the_committed_traveldata_lua_has_the_forever_ships_on_their_dock_maps() {
 	}
 }
 
+// The flight points Forever added (`forge data travel`: the Forever client's TaxiNodes rows the Era client lacks,
+// with their TaxiPath flights) leave every Era node and flight as the Era client has them: 63 flight masters and
+// 268 flights between them, the lengths below the committed file's before they came (0.3.7), among them the
+// flights of the Era flight masters the new ones fly to.
+#[test]
+fn the_committed_traveldata_lua_keeps_every_era_flight_master_and_flight_as_it_was() {
+	let out = nav_run(
+		r#"
+			local d = Polestar.Nav.GetTravelData()
+			local forever = { [559] = true, [3203] = true, [3242] = true, [3276] = true }
+			local out = { nodes = 0, flights = 0, legs = {} }
+			for _, n in ipairs(d.taxi) do
+				if not forever[n.id] then out.nodes = out.nodes + 1 end
+			end
+			for from, list in pairs(d.flights) do
+				for i = 1, #list - 1, 2 do
+					if not (forever[from] or forever[list[i]]) then out.flights = out.flights + 1 end
+					out.legs[from .. ">" .. list[i]] = list[i + 1]
+				end
+			end
+			local n = d.taxiById[5]
+			out.lakeshire = { n.c, n.wx, n.wy, n.map, n.x, n.y, n.f, n.faction }
+			emit(out)"#,
+	);
+	assert_eq!((&out["nodes"], &out["flights"]), (&json!(63), &json!(268)));
+	let era = [
+		("2>5", 3368),
+		("5>2", 3374),
+		("5>12", 1812),
+		("5>71", 1825),
+		("71>5", 1884),
+		("6>8", 3037),
+		("8>6", 3266),
+		("8>16", 4902),
+		("17>13", 3493),
+		("11>21", 14630),
+		("21>11", 14918),
+		("21>70", 2593),
+		("70>21", 2994),
+		("56>20", 5646),
+		("20>56", 6151),
+		("56>21", 8555),
+		("52>49", 3639),
+		("53>23", 9115),
+		("23>25", 3304),
+		("25>23", 4252),
+	];
+	for (leg, yards) in era {
+		assert_eq!(out["legs"][leg], yards, "flight {leg}");
+	}
+	assert_eq!(out["lakeshire"], json!([0, -9429.1, -2231.4, 1433, 30.43, 58.99, "e", 1]), "Lakeshire where the Era client has it");
+}
+
+// The Riverglades' Rog'mar (Horde) and Farholde Keep (Alliance), Mount Hyjal's Summit of Eternity and Tainted
+// Foothills (both sides): on maps Forever added, which have no Era frame, so their x, y are on the live frame
+// (the 11th field "l", no `f`) and the client's map turns them into the node's own world point. Their flights'
+// lengths are what players fly: recordings to 2026-11-11 (builds 70862, 70888), at 30 yd/s within a second
+// (Stonard -> Rog'mar 170 s over 5085 yd, Rog'mar -> Kargath 120 s over 3607 yd, Hammerfall -> Rog'mar 326 s over
+// 9767 yd, Lakeshire -> Farholde Keep 132 s over 3962 yd, Morgan's Vigil -> Farholde Keep 131 s over 3936 yd).
+#[test]
+fn the_committed_traveldata_lua_has_the_flight_points_forever_added_on_their_live_maps_with_their_flights() {
+	let out = nav_run(
+		r#"
+			local nav = stub.nav
+			nav.maps[2548] = { c = 0, top = -6466.666, bottom = -9700, left = -1891.666, right = -6741.666, name = "Riverglades" }
+			nav.maps[2482] = { c = 1, top = 6304.166, bottom = 3989.583, left = -922.916, right = -4395.834, name = "Mount Hyjal" }
+			local d = Polestar.Nav.GetTravelData()
+			local out = {}
+			for _, id in ipairs({ 3203, 3276, 559, 3242 }) do
+				local n = Polestar.Nav.GetTaxiNode(id)
+				local to, from = {}, {}
+				local list = d.flights[id] or {}
+				for i = 1, #list - 1, 2 do to[#to + 1] = list[i] .. ":" .. list[i + 1] end
+				for f, l in pairs(d.flights) do
+					for i = 1, #l - 1, 2 do
+						if l[i] == id then from[#from + 1] = f end
+					end
+				end
+				table.sort(to)
+				table.sort(from)
+				local c, wx, wy = nav.Compat.MapToWorld(n.map, n.x, n.y, n.f)
+				local off = c == n.c and math.floor(((wx - n.wx) ^ 2 + (wy - n.wy) ^ 2) ^ 0.5 + 0.5) or false
+				out[tostring(id)] = { n.name, n.map, n.faction, n.f or "live", off, to, from }
+			end
+			emit(out)"#,
+	);
+	assert_eq!(
+		out,
+		json!({
+			"3203": ["Rog'mar, Riverglades", 2548, 2, "live", 0, ["17:9845", "21:3607", "56:4624", "70:3993"], [17, 21, 56, 70]],
+			"3276": ["Farholde Keep, Riverglades", 2548, 1, "live", 0, ["5:3917", "71:3676", "8:5193"], [5, 8, 71]],
+			"559": ["Summit of Eternity, Mount Hyjal", 2482, 3, "live", 0, ["3242:1866"], [3242]],
+			"3242": ["Tainted Foothills, Mount Hyjal", 2482, 3, "live", 0, ["52:3745", "53:3967", "559:1849"], [52, 53, 559]],
+		})
+	);
+}
+
+// A Horde character at Stonard's flight master who knows Rog'mar is flown there (the planner over the committed
+// network), in the 170 s players take.
+#[test]
+fn from_stonard_a_horde_character_who_knows_rog_mar_flies_there() {
+	let out = nav_run(
+		r#"
+			local legs = Polestar.Nav.PlanRoute({ c = 0, wx = -10457, wy = -3279, faction = 2, known = { [56] = true, [3203] = true }, speed = 7,
+				target = { c = 0, wx = -7930, wy = -4800, label = "Rog'mar" } })
+			local out = {}
+			for _, l in ipairs(legs or {}) do
+				out[#out + 1] = { l.kind, l.kind == "fly" and l.stops and l.stops[#l.stops].id or false, math.floor(l.seconds + 0.5) }
+			end
+			emit(out)"#,
+	);
+	let fly: Vec<&Value> = out.as_array().unwrap().iter().filter(|l| l[0] == "fly").collect();
+	assert_eq!(fly.len(), 1, "{out}");
+	assert_eq!(fly[0][1], 3203, "{out}");
+	assert!(fly[0][2].as_f64().is_some_and(|s| (165.0..=180.0).contains(&s)), "{out}");
+}
+
+// The Riverglades' inns (players' recordings to 2026-11-11: binds right after Innkeeper Zizplink's, Innkeeper
+// Toka's and Barracks Master Harlan's windows, the Hearthstone landing there after): on the map's live frame,
+// each with the area of the subzone its innkeeper stands in; and a character bound at one, in Orgrimmar with the
+// Hearthstone ready, is sent there by it.
+#[test]
+fn the_committed_traveldata_lua_has_the_riverglades_inns_and_a_character_bound_at_one_hearths_there() {
+	let rows = nav_run(
+		r#"
+			local out = {}
+			for _, inn in ipairs(Polestar.Nav.GetTravelData().inns) do
+				if inn.map == 2548 then out[#out + 1] = { inn.npc, inn.names[1], inn.area or false, inn.f or false } end
+			end
+			table.sort(out, function(a, b) return a[1] < b[1] end)
+			emit(out)"#,
+	);
+	assert_eq!(rows, json!([[255894, "Powderfuse Port", 16727, "l"], [256675, "Rog'mar", 16743, "l"], [257595, "Farholde Keep", 16724, "l"]]));
+	let hearth = |faction: &str, bind: &str, x: f64, y: f64| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+			login: true,
+			script: format!(
+				r#"
+				local nav = stub.nav
+				nav.maps[2548] = {{ c = 0, top = -6466.666, bottom = -9700, left = -1891.666, right = -6741.666, name = "Riverglades" }}
+				nav.faction, nav.bind = "{faction}", "{bind}"
+				nav.items[6948] = 1
+				nav.place(1806, -4382, 1) -- Orgrimmar
+				Polestar.Nav.SetTarget(2548, {x}, {y}, "{bind}")
+				local legs, ci = Polestar.Nav.GetRoute()
+				local l = legs and legs[ci or 1]
+				emit({{ l and l.kind or false, l and l.to and l.to.npc or false }})"#
+			),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(hearth("Horde", "Rog'mar", 58.3, 45.5), json!(["hearth", 256675]));
+	assert_eq!(hearth("Alliance", "Farholde Keep", 64.4, 83.4), json!(["hearth", 257595]));
+	assert_eq!(hearth("Alliance", "Powderfuse Port", 78.5, 54.4), json!(["hearth", 255894]));
+}
+
+// Zephras Isle's airships (Forever TaxiPaths 11398 and 11457): with nothing else off the isle, an Alliance Skyborne at
+// the Valanaar Skydocks bound for the Kirin Tor camp west of Dalaran rides the skycutter, and a Horde one bound for
+// northern Mulgore the airship. Before, the planner knew no way off the isle (and no Hearthstone here).
+#[test]
+fn from_the_valanaar_skydocks_the_skyborne_ride_the_airships_to_dalaran_and_to_northern_mulgore() {
+	let ride = |faction: &str, map: u32, x: f64, y: f64, f: &str| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+			login: true,
+			script: format!(
+				r#"
+				local nav = stub.nav
+				nav.maps[2521] = {{ c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25, name = "Zephras Isle" }}
+				nav.maps[1412] = {{ c = 1, top = 266.666, bottom = -3835.416, left = 2479.167, right = -3675, name = "Mulgore" }}
+				nav.era[1416] = {{ c = 0, top = 1500, bottom = -366.667, left = 783.333, right = -2016.667, name = "Alterac Mountains" }}
+				nav.faction = "{faction}"
+				local _, wx, wy = nav.Compat.MapToWorld(2521, 61.8, 82.4, "l") -- between the two skydocks
+				nav.place(wx, wy, 2991)
+				Polestar.Nav.SetTarget({map}, {x}, {y}, "There", {f})
+				local legs = Polestar.Nav.GetRoute()
+				local out = {{}}
+				for _, l in ipairs(legs or {{}}) do
+					out[#out + 1] = {{ l.kind, l.transport and l.transport.id or false }}
+				end
+				emit(out)"#
+			),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	let rides = |out: &Value| out.as_array().unwrap().iter().filter(|l| l[0] != "walk").cloned().collect::<Vec<Value>>();
+	let alliance = ride("Alliance", 1416, 13.6, 51.6, "\"e\"");
+	assert_eq!(rides(&alliance), vec![json!(["airship", "airship-zephras-dalaran"])], "{alliance}");
+	let horde = ride("Horde", 1412, 34.8, 26.8, "nil");
+	assert_eq!(rides(&horde), vec![json!(["airship", "airship-zephras-mulgore"])], "{horde}");
+}
+
+// #1674 (Megabite): on the Rohashi Spires after Lorthuna, the next step's turn-in at Elaadrin Evengale in
+// Valanaar said to hearth: the planner knew no way down but walking. The Portal to Valanaar beside her
+// sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) on its
+// live frame (data/forever/map-frames.json), the Hearthstone bound to Valanaar and ready.
+#[test]
+fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Nav/Nav.xml"])],
+		login: true,
+		script: r#"
+			local nav = stub.nav
+			nav.maps[2521] = { c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25, name = "Zephras Isle" }
+			nav.faction = "Alliance"
+			nav.items[6948] = 1
+			nav.bind = "Valanaar"
+			local _, wx, wy = stub.nav.Compat.MapToWorld(2521, 74.87, 53.02, "l")
+			nav.place(wx, wy, 2991)
+			Polestar.Nav.SetTarget(2521, 66.63, 79.94, "Elaadrin Evengale", "l")
+			local legs, ci = Polestar.Nav.GetRoute()
+			local r = { kinds = {}, transports = {} }
+			for i = ci or 1, legs and #legs or 0 do
+				r.kinds[#r.kinds + 1] = legs[i].kind
+				if legs[i].transport then r.transports[#r.transports + 1] = tostring(legs[i].transport.id) end
+			end
+			local ids = {}
+			for _, p in ipairs(Polestar.Nav.GetTravelData().portals) do ids[#ids + 1] = p.id end
+			r.portals = ids
+			emit(r)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	let kinds: Vec<&str> = out["kinds"].as_array().unwrap().iter().filter_map(|v| v.as_str()).collect();
+	assert!(!kinds.contains(&"hearth"), "no Hearthstone off the heights ({})", kinds.join(", "));
+	assert_eq!(out["transports"], json!(["portal-valanaar"]), "the Portal to Valanaar ({})", kinds.join(", "));
+	let portals = out["portals"].as_array().unwrap();
+	assert!(portals.contains(&json!("portal-rohashi-spires")), "the shrine's portal up is known too ({portals:?})");
+}
+
 // KEPT IN JS: a flight master in a city uses its named city, not the surrounding region (#347) | flight masters, flights, transports and inns come from the client tables and spawn data | each inn gets the AreaTable area of its bind location in its own zone, never a Forever copy of the town | learned walking paths follow recorded breadcrumbs, mark zone borders and break at flights | works with no recordings at all | the CLI writes byte-identical travel.json, TravelData.lua and FlightPaths.lua on every run | with --lua and no --flight-lua the CLI writes FlightPaths.lua beside it, never into the addon | generated TravelData.lua loads under Lua 5.1 and the addon planner routes with it | every committed inn's area is named, in English, like one of its bind locations | a Forever ship calling at three docks: one transport per dock pair, following the loop | a ship stop in the water 12 yd off a pier gets a board point on the deck; a stop on dry ground gets none | an end on dry ground gets the floor nearest its source's height: the entrance under a roof, not the roof | every boat end of the committed TravelData.lua is boarded on dry ground within 30 yd of its stop

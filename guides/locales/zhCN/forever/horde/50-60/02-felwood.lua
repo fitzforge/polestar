@@ -55,15 +55,11 @@ return {
 	["{area:200} farmhouse"] = "{area:200}的农舍",
 	-- {npc:10816} Wandering Skeleton · {npc:10836} Farmer Dalson
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "日记在农舍里，柜子在屋里，厕所在屋后。一个{npc:10816}带着厕所钥匙；打开厕所时{npc:10836}会出来，他带着柜子钥匙。",
-	-- {object:175924} Locked Cabinet
-	["{object:175924}, inside"] = "{object:175924}，在室内",
-	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "{quest:5058}：在屋内",
 
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
 	-- {area:202} Writhing Haunt · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "熊在{area:202}北侧和东侧的山丘上游荡。若未到53.02级，击杀八只后继续刷；{area:202}的任务交还后会升到54级。也可以组队刷{area:1417}副本或{area:1584}副本。",
 	-- {npc:1816} Diseased Grizzly
 	["grind on {npc:1816}"] = "击杀{npc:1816}刷经验",
 
@@ -100,7 +96,7 @@ return {
 
 	-- Step 19: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
 	-- Step 20: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -143,7 +139,7 @@ return {
 
 	-- Step 28: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "",
+	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "拾取到{item:13140}后，使用它开始任务，再到{area:1763}北端的洞穴{area:1770}中，将{npc:11018}从笼子里救出。",
 
 	-- Step 29: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
@@ -151,27 +147,23 @@ return {
 
 	-- Step 31: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {area:1770} Shadow Hold
-	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "",
+	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "护送{npc:11018}离开{area:1770}，保护她直到走出洞穴。",
 	-- {npc:11018} Arko'narin
-	["{npc:11018}, below ground"] = "",
+	["{npc:11018}, below ground"] = "{npc:11018}，在地下",
 
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
-	["Back at the {area:2479}."] = "",
-
-	-- Step 34: Emerald Sanctuary
-	-- plural, as words: Deadwood Headdress Feathers = {item:21377} Deadwood Headdress Feather
-	["Only with 5 Deadwood Headdress Feathers"] = "仅当你有5根死木头饰羽毛时",
+	["Back at the {area:2479}."] = "返回{area:2479}。",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763}的月亮井",
-	-- {area:1763} Jaedenar · {npc:10922} Greta Mosshoof
-	["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南部营地中央被腐化的月亮井装满{npc:10922}的水壶。",
+	-- {area:1763} Jaedenar
+	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "",
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
-	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
+	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "魅魔{npc:9518}在{area:1763}中央，位于{npc:11020}旁边。",
 	["Below ground"] = "在地下",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "{npc:11020}：在地下",
@@ -192,7 +184,7 @@ return {
 	-- Step 40: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {area:1997} Bloodvenom Post · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者也在同一片树林里游荡，是塔罗要的目标。若还没到54.21级，就继续击杀灰熊和掠夺者；去{area:1997}和{area:2479}交完任务即可到55级。也可组队挑战{area:1584}副本或{area:1417}副本。",
 	-- {npc:8957} Angerclaw Grizzly
 	["grind on {npc:8957}"] = "击杀{npc:8957}刷经验",
 
@@ -212,7 +204,7 @@ return {
 
 	-- Step 44: Felpaw Village
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
-	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
+	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "注意：死木守卫为53-54级；生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。\n达到{npc:15395}要求的击杀数后，如果还没到54.54级，就继续在这里击杀死木熊怪；去{area:1769}和{area:2479}交还任务后就能升到55级。也可组队挑战{area:1584}副本或{area:1417}副本。\n继续击杀，直到掉落一个{quest:8470}，约每三十只掉一个，然后右键点击：木喉声望达到中立后，就能交给{area:1769}的{npc:11558}；已经中立就现在交，否则等最后一份指南在59级再次经过洞穴时再交。",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "击杀{npc:7156}刷经验",
 
@@ -222,7 +214,7 @@ return {
 
 	-- Step 46: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "走进洞穴：{npc:11558}就在入口内侧。",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}：木喉熊怪只会在声望达到中立后与你交谈；他在附近巡逻，请在地图标示的圆圈内寻找",
 
@@ -264,12 +256,13 @@ return {
 	-- Step 55: Level 54.87
 	["Level 54.87"] = "等级 54.87",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "先在此刷到54.87级，再去{zone:1452}交任务，交完即可到55级。也可组队挑战{area:1584}副本或{area:1417}副本。",
 	-- {npc:7125} Jaedenar Hound
 	["grind on {npc:7125}"] = "反复击杀{npc:7125}补足经验",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "回到{area:1762}，死木熊怪（53-54级）就在隧道附近，每杀一个都会提升你的木喉要塞声望。",
+	-- ["Back north to {area:1763}. Fill {npc:10922}'s canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南部营地中央被腐化的月亮井装满{npc:10922}的水壶。",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "小心：洞穴守卫为 53-54 级，生命值低于 50% 时会呼叫 25 码内的同伴援助，低于 15% 时还会逃跑求援。",
 	-- ["Diseased Grizzlies"] = "生病的灰熊",
 	-- ["Fly to the {area:1497}"] = "飞往{area:1497}",
@@ -287,6 +280,7 @@ return {
 	-- ["Level 54.54"] = "等级 54.54",
 	-- ["Only if a {item:13140} dropped: use it to start the quest, then free {npc:11018} in her cage in {area:1770}, the cave at the north end of {area:1763}, and escort her out."] = "仅当掉落了{item:13140}时：使用它开始任务，然后到{area:1763}北端的洞穴{area:1770}里，把笼子里的{npc:11018}救出来，并护送她出去。",
 	-- ["Only if you rescued {npc:11018}: the succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "仅当你救出了{npc:11018}时：魅魔{npc:9518}在{area:1763}中部，就在{npc:11020}旁边等候。",
+	-- ["Only with 5 Deadwood Headdress Feathers"] = "仅当你有5根死木头饰羽毛时",
 	-- ["Radley and Durgen"] = "莱德雷和杜尔根",
 	-- ["Ride back south-east to the Sanctuary."] = "向东南骑回翡翠圣地。",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "骑回{area:1497}，乘飞艇前往{zone:1454}，飞往{area:431}。沿道路向西离开碎木岗哨，在岔路口向北进入{zone:1448}。",
@@ -326,6 +320,8 @@ return {
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613}站在伐木场东边；{npc:11611}守着{npc:11610}东北、通往{area:190}的道路。",
 	-- ["{npc:9529}, just west of the camp"] = "{npc:9529}，在营地正西",
 	-- ["{object:175894}, beside the house"] = "{object:175894}，在房子旁边",
+	-- ["{object:175924}, inside"] = "{object:175924}，在室内",
+	-- ["{quest:5058}, inside"] = "{quest:5058}：在屋内",
 	-- ["{quest:5210} goes to {area:2268}: keep it for later."] = "{quest:5210}要前往{area:2268}：留到之后。",
 	-- ["{quest:8470}, a rare drop"] = "{quest:8470}，稀有掉落",
 }

@@ -243,3 +243,101 @@ fn a_delivery_ready_at_the_accept_counts_down_from_the_guides_limit_and_its_fail
 	let again = s(&out["again"]);
 	assert!(again.contains("9:59 left") || again.contains("9:58 left"), "taken again, the clock starts afresh: {again}");
 }
+
+// 0.3.7 (Apothecary Zamah, taken with 42:00 left on the Barrens route, which never goes to Thunder Bluff): a
+// timed quest no guide step takes counts down from the quest database's limit (QuestDB.TimeLimit, Polestar_QuestDB's
+// 20th quest field) when the client reports no timer, and the guide window's While-here panel opens with a row for it:
+// "Apothecary Zamah <hourglass> 44:59 left / Thunder Bluff ≈6 min · this guide doesn't go there" (read here with the
+// icon stripped: two spaces). A click points the arrow at
+// the ender with its height (Nav.SetTarget), a right-click hides the row until the timer ends; in combat the row
+// never comes or goes (it catches up when the fight ends). The guide's own timed quest gets no such row.
+const OFF_ROUTE: &str = r#"
+	w.addMap(1456, { name = "Thunder Bluff", c = 1, left = 500, right = -1500, top = 0, bottom = -1300 })
+	C_QuestLog.GetTimeAllowed = function() return 0, 0 end
+	C_QuestLog.IsFailed = function(q) return w.log[q] and w.log[q].failed or false end
+	Polestar.QuestDB.TimeLimit = function(q) return q == 853 and 2700 or nil end
+	Polestar.Codex.Quest = function(q) if q == 853 then return { id = 853, ["end"] = { npc = { 3419 } } } end end
+	Polestar.Lookup.QuestEnd = function(ends)
+		if ends and ends.npc and ends.npc[1] == 3419 then
+			return { npc = 3419, name = "Apothecary Zamah", spawn = { map = 1456, x = 22.81, y = 20.89, f = "e", z = 21.5 } }
+		end
+	end
+	Polestar.Nav.EstimateTravel = function() return 360 end
+	local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("|T.-|t", "")) end
+	-- The While-here panel's rows on screen (a row the panel is fading out with holds no view): "text / subline".
+	function here()
+		local out, h = {}, GF.here
+		if not h:IsShown() then return "" end
+		for _, r in ipairs(h.Rows) do
+			if r:IsShown() and (r.psOff or r.psView) then out[#out + 1] = plain(r.Text:GetText()) .. (r.Sub:IsShown() and (" / " .. plain(r.Sub:GetText())) or "") end
+		end
+		return table.concat(out, " | ")
+	end
+	function click(button) local r = GF.here.Rows[1]; r:GetScript("OnClick")(r, button) end
+"#;
+
+#[test]
+fn a_timed_quest_the_route_never_hands_in_counts_down_from_the_quest_database_and_gets_its_own_while_here_row() {
+	let out = run(
+		600,
+		&format!(
+			"{OFF_ROUTE}{}",
+			r#"
+		local A = Polestar.Nav.arrow
+		local r = {}
+		w.accept(853, {}, "Apothecary Zamah"); stub.advance(1.1)
+		local rec = Polestar.CharState().timedAccepts[853]
+		r.record = rec and rec.limit or false
+		r.left = math.floor((Polestar.Timed.Left(853) or 0) + 0.5)
+		r.arrow = A.timerText:IsShown()
+		r.row = here()
+		r.label = plain(GF.here.Label:GetText())
+		click("LeftButton")
+		local t = Polestar.Nav.GetTarget()
+		r.target = t and { t.map, t.x, t.y, t.z, t.label } or false
+		jump(30); r.later = here()
+		-- In combat the row stays, even once the quest has left the log; after the fight it goes.
+		stub.fire("PLAYER_REGEN_DISABLED")
+		w.abandon(853); stub.advance(1.1)
+		r.combat = here()
+		stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(1.1)
+		r.after = here()
+		-- Taken again, then hidden with a right-click until its timer ends.
+		w.accept(853, {}, "Apothecary Zamah"); stub.advance(1.1)
+		r.again = here()
+		click("RightButton"); stub.advance(1.1)
+		r.muted = { here(), Polestar.Timed.Left(853) ~= nil }
+		emit(r)"#
+		),
+	);
+	assert_eq!(out["record"], 2700, "the quest database's limit starts the clock at the accept");
+	let left = out["left"].as_i64().unwrap();
+	assert!((2697..=2700).contains(&left), "{left}");
+	assert_eq!(out["arrow"], true, "the arrow counts it down too");
+	let row = s(&out["row"]);
+	assert!(row.starts_with("Apothecary Zamah  44:5"), "{row}");
+	assert!(row.contains(" left / Thunder Bluff ≈6 min · this guide doesn't go there"), "{row}");
+	assert_eq!(out["label"], "Timed quest", "only the off-route row: the panel says what it is");
+	assert_eq!(out["target"], serde_json::json!([1456, 22.81, 20.89, 21.5, "Apothecary Zamah"]), "the arrow to Zamah, with his height");
+	assert!(s(&out["later"]).contains("44:2"), "the row counts down: {}", out["later"]);
+	assert!(s(&out["combat"]).starts_with("Apothecary Zamah"), "no row goes in combat: {}", out["combat"]);
+	assert_eq!(out["after"], "", "after the fight the abandoned quest's row goes");
+	assert!(s(&out["again"]).contains("44:5"), "taken again: {}", out["again"]);
+	assert_eq!(out["muted"], serde_json::json!(["", true]), "right-click hides the row; the timer itself runs on");
+}
+
+#[test]
+fn a_timed_quest_the_route_hands_in_gets_no_off_route_row() {
+	let out = run(
+		600,
+		&format!(
+			"{OFF_ROUTE}{}",
+			r#"
+		w.accept(3364, {}, "Scalding Mornbrew Delivery"); stub.advance(1.1)
+		emit({ left = Polestar.Timed.Left(3364) ~= nil, row = here(), off = #Polestar.Timed.OffRoute({}) })"#
+		),
+	);
+	assert_eq!(out["left"], true, "the guide's own timed quest counts down");
+	assert_eq!(out["off"], 0);
+	assert!(!s(&out["row"]).contains("doesn't go there"), "{}", out["row"]);
+}

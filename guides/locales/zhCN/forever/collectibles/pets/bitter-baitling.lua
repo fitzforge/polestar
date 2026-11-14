@@ -7,10 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Riggle Bassbait
-	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {quest:8193} Master Angler · {npc:15077} Riggle Bassbait · {skill:356} Fishing
-	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks when it starts and take {quest:8193} from {npc:15077}. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275}需要一个{item:274026}兑换，后者是赢得荆棘谷钓鱼大赛的奖励。比赛时间为服务器时间每周日下午2点到4点：开始时到{area:35}码头，向{npc:15077}接受{quest:8193}。尽量提高{skill:356}技能并带上鱼饵，避免鱼逃脱；带上坐骑、腾空背包，并将炉石绑定在{area:35}。",
-	-- {npc:15077} Riggle Bassbait
-	["{npc:15077}, during the contest"] = "{npc:15077}，比赛期间",
+	-- {item:276275} Bitter Baitling · {item:274026} Extravagant Extravaganza Coin · {area:35} Booty Bay · {npc:15077} Riggle Bassbait · {quest:8193} Master Angler · {skill:356} Fishing
+	["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks by {npc:15077} when it starts. {quest:8193} is not a quest you take: {npc:15077} takes the fish straight from his window when you bring them. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275}需要一个{item:274026}兑换，后者是赢得荆棘谷钓鱼大赛的奖励。比赛时间为服务器时间每周日下午2点到4点：比赛开始时站在{area:35}码头的{npc:15077}旁边。{quest:8193}不是需要接取的任务：你带着鱼来时，{npc:15077}会直接在他的窗口收下。尽量提高{skill:356}技能并带上鱼饵，避免鱼逃脱；带上坐骑、腾空背包，并将炉石绑定在{area:35}。",
 
 	-- Step 2: Schools of Tastyfish
 	["Schools of Tastyfish"] = "可口鱼群",
@@ -30,6 +28,8 @@ return {
 	["{npc:15078}, {npc:15077}'s apprentice, stands beside him on the {area:35} docks and trades the {item:276275} for the coin."] = "{npc:15077} 的学徒 {npc:15078} 站在他旁边的 {area:35} 码头上，可以用硬币兑换 {item:276275}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {item:276275} costs one {item:274026}, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the {area:35} docks when it starts and take {quest:8193} from {npc:15077}. Bring your best {skill:356} skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in {area:35}."] = "{item:276275}需要一个{item:274026}兑换，后者是赢得荆棘谷钓鱼大赛的奖励。比赛时间为服务器时间每周日下午2点到4点：开始时到{area:35}码头，向{npc:15077}接受{quest:8193}。尽量提高{skill:356}技能并带上鱼饵，避免鱼逃脱；带上坐骑、腾空背包，并将炉石绑定在{area:35}。",
 	-- ["The {item:276275} is a fishing reward: {npc:15078} trades it for one {item:274026}, a reward of the fishing contest {npc:15078} runs in {area:35}. The coin's exact source is not published yet."] = "{item:276275}是钓鱼奖励：{npc:15078}用它交换一枚{item:274026}，那是{npc:15078}在{area:35}举办的钓鱼大赛的奖励。硬币的确切来源尚未公布。",
+	-- ["{npc:15077}, during the contest"] = "{npc:15077}，比赛期间",
 	-- ["{npc:15078} stands on the {area:35} docks."] = "{npc:15078}站在{area:35}的码头上。",
 }

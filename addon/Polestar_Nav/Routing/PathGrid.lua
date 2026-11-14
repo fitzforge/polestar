@@ -231,6 +231,7 @@ local function State(map)
 			decoded = 0,
 			cl = {}, -- [k] = the decoded cluster's strings (decodeGrid), false when the cluster has no data
 			area = {}, -- [k] = the cluster's area field string (maps format 3; nodeArea reads it), kept while it is decoded
+			areaMarks = {}, -- [k] = checkpoints into area[k] (areaMarks), dropped with it
 			graphUsed = {},
 			graphSize = {},
 			nodes = {}, -- [k] = entrance ids (k * 4096 + i); each one's cell, layer and component are read from the graph
@@ -920,7 +921,7 @@ local useClock, decodedKB, decodedCount = 0, 0, 0
 local function evict(st, oldest)
 	decodedKB, decodedCount = decodedKB - st.sizes[oldest], decodedCount - 1
 	st.sizes[oldest], st.used[oldest] = nil, nil
-	st.cl[oldest], st.area[oldest] = nil, nil
+	st.cl[oldest], st.area[oldest], st.areaMarks[oldest] = nil, nil, nil
 	st.decoded = st.decoded - 1
 end
 
@@ -959,7 +960,7 @@ local function grid(st, k)
 		local area = unpackField(st.D, "area", k + 1)
 		local size = (c.bytes + (area and #area or 0)) / 1024
 		trim(st, size)
-		st.cl[k], st.area[k] = c, area or false
+		st.cl[k], st.area[k], st.areaMarks[k] = c, area or false, nil
 		st.sizes[k], st.decoded, decodedKB = size, st.decoded + 1, decodedKB + size
 		decodedCount = decodedCount + 1
 		if st.D.packed then
@@ -1010,9 +1011,55 @@ local function keepRead(st, k)
 	end
 	reader.wantSt, reader.wantK = st, k
 end
+
+-- Checkpoints into a cluster's area field string (nodeArea), so reading a node's area scans from the last checkpoint
+-- before it instead of from the string's start: a city cluster's floor nodes lie tens of thousands of nodes in, and
+-- from the start one read cost up to 40 ms in the Undercity, every quarter second while the player walked indoors
+-- (Walk.lua's floor reads, Path.SurfacesAt with areas). Every AREA_MARK nodes: where the next run starts in the
+-- string, the last node before it and that node's value. Built in one pass over the string: under the job's frame
+-- budget by Path.Prefetch (the reader's cluster, slicing), else at the first read. Kept only while the cluster's
+-- string is (dropped on eviction or a new decode), and only for the string it was built from.
+local AREA_MARK = 256
+local function areaMarks(st, k, s)
+	local m = st.areaMarks[k]
+	if m and m.s == s then
+		return m
+	end
+	local mi, mn, mv, count = {}, {}, {}, 0
+	local i, n, value, last, len = 1, -1, 0, -huge, #s
+	while i <= len do
+		if n - last >= AREA_MARK then
+			count, last = count + 1, n
+			mi[count], mn[count], mv[count] = i, n, value
+			slice()
+		end
+		local a = B64[byte(s, i)]
+		if a < 48 then
+			value, n, i = (a * 64 + B64[byte(s, i + 1)]) * 64 + B64[byte(s, i + 2)], n + 1, i + 3
+		else
+			n, i = n + a - 47, i + 1
+		end
+	end
+	m = { s = s, i = mi, n = mn, v = mv, count = count }
+	-- A slice may have yielded: the cluster's string may be gone or replaced meanwhile.
+	if st.area[k] == s then
+		st.areaMarks[k] = m
+	end
+	return m
+end
+
 -- Path.Prefetch's job: decode cluster k of st (slicing under the job's deadline); the reader's if still read last.
+-- Its area checkpoints are built here too, under the same budget, so the floor reads that follow stay cheap.
 local function prefetch(st, k)
 	if grid(st, k) and reader.wantSt == st and reader.wantK == k then
+		local s = st.area[k]
+		if s then
+			areaMarks(st, k, s)
+			-- Building them may have sliced: still decoded, and still the cluster read last?
+			if not (st.cl[k] and reader.wantSt == st and reader.wantK == k) then
+				return
+			end
+		end
 		keepRead(st, k)
 	end
 end
@@ -1369,14 +1416,29 @@ end
 
 -- The area field (maps format 3; tools/lib/nav/pack.js HEADER): node's WMOAreaTable row id in decoded cluster k (the
 -- client's subzone on that floor), read straight from its string (kept with the cluster's grid: the reader asks a few
--- nodes now and then, so nothing more is decoded); 0 in none, or on a map or cluster without the field.
+-- nodes now and then, so nothing more is decoded), from the last checkpoint before node (areaMarks); 0 in none, or on
+-- a map or cluster without the field.
 local function nodeArea(st, k, node)
 	local s = st.area[k]
 	if not s then
 		return 0
 	end
+	local m = areaMarks(st, k, s)
+	local mn, lo, hi = m.n, 1, m.count
+	while lo < hi do
+		local mid = floor((lo + hi + 1) / 2)
+		if mn[mid] < node then
+			lo = mid
+		else
+			hi = mid - 1
+		end
+	end
 	local i, n, value = 1, -1, 0
-	while i <= #s do
+	if lo >= 1 and mn[lo] and mn[lo] < node then
+		i, n, value = m.i[lo], mn[lo], m.v[lo]
+	end
+	local len = #s
+	while i <= len do
 		local a = B64[byte(s, i)]
 		if a < 48 then
 			value, n, i = (a * 64 + B64[byte(s, i + 1)]) * 64 + B64[byte(s, i + 2)], n + 1, i + 3
@@ -1759,6 +1821,7 @@ ns.PathGrid = {
 	standing = standing,
 	snap = snap,
 	smooth = smooth,
+	unpackField = unpackField,
 	Rest = Rest,
 	Idle = Idle,
 	Reset = Reset,

@@ -257,8 +257,8 @@ fn left_pane_the_rail_holds_the_sections_and_options_the_sidebar_holds_the_categ
 			"home": { "view": "home", "homeOn": true }, "back": { "view": "browse", "category": "Professions", "browseOn": true },
 		})
 	);
-	assert_eq!(out["options"], true);
-	assert_eq!(out["picker"], false);
+	assert_eq!(out["options"], true, "the rail's Options opens the settings window");
+	assert_eq!(out["picker"], true, "a window of its own: the hub stays");
 }
 
 fn is_match_icon(s: &str) -> bool {
@@ -365,7 +365,7 @@ fn the_hub_fits_every_section_on_the_rail_above_the_foot_import_options_every_ca
 }
 
 #[test]
-fn categories_left_out_without_a_guide_for_any_faction_faded_with_a_tip_when_empty_only_for_this_faction() {
+fn categories_left_out_without_a_guide_for_any_faction_muted_with_a_tip_when_empty_only_for_this_faction() {
 	let out = run(r#"
 		-- No Legacy guide at all; the only collectible (Horse) is Alliance only.
 		for i = #uistub.order, 1, -1 do
@@ -377,11 +377,15 @@ fn categories_left_out_without_a_guide_for_any_faction_faded_with_a_tip_when_emp
 		UI.ShowPicker()
 		P.SetCategory("All")
 		local collectibles = nav("Collectibles")
-		emit({ cats = P.categories, legacy = nav("Legacy") ~= nil, collectibles = { collectibles.psTip, collectibles:GetAlpha(), collectibles.Count:IsShown() },
+		-- Empty: the muted text colour alone marks it (no fade on top).
+		local r, g, b = collectibles.Label:GetTextColor()
+		local mr, mg, mb = Polestar.Theme.Color("textMuted")
+		local muted = math.abs(r - mr) < 1e-6 and math.abs(g - mg) < 1e-6 and math.abs(b - mb) < 1e-6
+		emit({ cats = P.categories, legacy = nav("Legacy") ~= nil, collectibles = { collectibles.psTip, collectibles:GetAlpha(), collectibles.Count:IsShown(), muted },
 			leveling = nav("Leveling").psTip or false })"#);
 	assert_eq!(out["cats"], json!(["All", "Leveling", "Professions", "Reputation", "Exploration", "Collectibles", "Favorites"]));
 	assert_eq!(out["legacy"], false);
-	assert_eq!(out["collectibles"], json!(["None for Horde; switch the filter to All.", 0.55, false]));
+	assert_eq!(out["collectibles"], json!(["None for Horde; switch the filter to All.", 1, false, true]));
 	assert_eq!(out["leveling"], false);
 }
 
@@ -663,7 +667,7 @@ fn from_the_guide_window_s_loading_opens_a_new_tab_faction_buttons_write_the_fil
 #[test]
 fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects_a_double_click_continues() {
 	let out = run(r#"
-		uistub.player.level = 10
+		uistub.player.level = 11
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker()
 		local cards = {}
@@ -682,14 +686,31 @@ fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects
 	assert_eq!(out["view"], "home");
 	assert_eq!(out["homeOn"], true);
 	assert_eq!(out["folders"], json!(["Continue 3", "Suggested for you 2"]));
-	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 10 is within
-	// two levels of its follow-up (12).
+	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 11 is one
+	// level below its follow-up (12).
 	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
 	// One row of cards: three tabs leave the third behind "Show all (3)".
 	assert_eq!(out["shown"], 2);
 	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"],]));
 	assert_eq!(out["selected"], json!(["forever/professions/tailoring", "Tailoring 1-300", true]));
 	assert_eq!(out["continued"], json!([["SetGuide", "forever/professions/tailoring"], 2, false]));
+}
+
+// Suggestions come one level before they fit, not several (Fitz, 2026-11-10, Discord feedback: cards and tabs
+// stacked up levels early): an open guide's follow-up joins "Suggested for you" one level below its minimum.
+#[test]
+fn a_follow_up_guide_is_suggested_from_one_level_below_its_minimum() {
+	let out = run(r#"
+		uistub.player.level = 10
+		uistub.openTabs(TABS, 1)
+		UI.ShowPicker()
+		local r = { at10 = lines() }
+		uistub.player.level = 11
+		P.Render()
+		r.at11 = lines()
+		emit(r)"#);
+	assert_eq!(out["at10"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1"]));
+	assert_eq!(out["at11"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
 }
 
 // The Continue cards under a test's eye: the shown ones, in the order they are laid out (top to bottom, left to right).
@@ -938,7 +959,7 @@ fn the_details_art_the_zone_s_painting_from_the_client_around_the_guide_s_focus_
 #[test]
 fn the_next_fact_and_the_suggested_follow_ups_list_only_the_options_offered_now() {
 	let out = run(r#"
-		uistub.player.level = 10
+		uistub.player.level = 11
 		uistub.openTabs(TABS, 1)
 		local desolace, feralas = "forever/alliance/30-40/02-desolace", "forever/alliance/40-50/03-feralas"
 		local offered = {}
@@ -1015,7 +1036,9 @@ fn rail_labels(before: &str) -> Value {
 			UI.ShowOptions()
 			shown(PolestarOptions)
 			stub.advance(0.1)
-			local options = labels(PolestarOptions)
+			local options = #labels(PolestarOptions)
+			-- The settings are a window of their own (no rail): the hub closed and opened again.
+			PolestarPicker:Hide()
 			UI.ShowPicker()
 			shown(PolestarPicker)
 			stub.advance(0.1)
@@ -1043,7 +1066,7 @@ fn every_rail_label_shows_on_the_hub_s_first_show_and_on_the_way_back_from_optio
 			let want = &run["want"];
 			assert!(want.as_array().unwrap().iter().any(|l| l.as_str() == Some(lookup)), "{locale}: {want}");
 			assert_eq!(&run["first"], want, "{locale} {scale}: the hub's first show");
-			assert_eq!(&run["options"], want, "{locale} {scale}: the settings' rail");
+			assert_eq!(run["options"], 0, "{locale} {scale}: the settings window has no rail");
 			assert_eq!(&run["back"], want, "{locale} {scale}: back from the settings");
 		}
 	}

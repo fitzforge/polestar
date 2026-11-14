@@ -28,7 +28,7 @@ const STEP: f64 = 0.05;
 
 fn board_of(kind: &str) -> f64 {
 	match kind {
-		"boat" | "zeppelin" => 10.0,
+		"boat" | "zeppelin" | "airship" => 10.0,
 		"tram" => 5.0,
 		"lift" => 2.0,
 		_ => f64::NAN,
@@ -623,13 +623,89 @@ struct PortalDef {
 	from_area: f64,
 	to: &'static str,
 	to_area: f64,
+	/// The floors of its two ends where our grid has none to give (the Wizard's Sanctum's chamber is no floor of
+	/// ours): each room's floor is where the other portal's teleport puts the player (classic-db's destination).
+	floors: Option<(f64, f64)>,
 }
 
-const PORTALS: [PortalDef; 2] = [
-	PortalDef { trigger: 527, id: "portal-ruttheran", from: "Darnassus", from_area: 1657.0, to: "Rut'theran Village", to_area: 702.0 },
-	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0 },
+// The Wizard's Sanctum in Stormwind (#1970): the mage trainers stand in a chamber 76 yd under its ground floor that
+// no walk reaches; the tower's top room has the portal down (trigger 704) and the chamber the one back up (702).
+const PORTALS: [PortalDef; 4] = [
+	PortalDef { trigger: 527, id: "portal-ruttheran", from: "Darnassus", from_area: 1657.0, to: "Rut'theran Village", to_area: 702.0, floors: None },
+	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0, floors: None },
+	PortalDef { trigger: 704, id: "portal-sanctum-chamber", from: "Wizard's Sanctum tower", from_area: 1519.0, to: "Wizard's Sanctum", to_area: 1519.0, floors: Some((148.6, 29.6)) },
+	PortalDef { trigger: 702, id: "portal-sanctum-tower", from: "Wizard's Sanctum", from_area: 1519.0, to: "Wizard's Sanctum tower", to_area: 1519.0, floors: Some((29.6, 148.6)) },
 ];
 const PORTAL_SECONDS: f64 = 5.0;
+
+/// A walk-in portal that is a game object (a spellcaster the player clicks) rather than an area
+/// trigger. Its teleport spell's target is server-side (no spell_target_position row in either
+/// world DB), so both ends are recorded: `a` the object's spawn (Forever's world DB), `b` where
+/// players' recordings put them one loading screen later. Each end is a point on its zone's map
+/// (uiMap, x, y: the map's live frame where Forever drew it, else its Era frame) and, where known,
+/// the floor height.
+struct ObjectPortalDef {
+	object: i64,
+	id: &'static str,
+	from: &'static str,
+	from_area: f64,
+	a: (i64, f64, f64, Option<f64>),
+	to: &'static str,
+	to_area: f64,
+	b: (i64, f64, f64, Option<f64>),
+	landing: &'static str,
+}
+
+// Zephras Isle (#1674): the shrine's portal up to the Rohashi Spires, and the portal beside
+// Lorthuna's terrace back down to Valanaar. Without them the planner walked or hearthed off the
+// heights the portal leaves in five seconds. Zephras Isle (2521) is a Forever-only map: live frame.
+const OBJECT_PORTALS: [ObjectPortalDef; 2] = [
+	ObjectPortalDef {
+		object: 586726,
+		id: "portal-rohashi-spires",
+		from: "Shrine of Akir",
+		from_area: 16629.0,
+		a: (2521, 65.56, 50.34, Some(844.3)),
+		to: "Rohashi Spires",
+		to_area: 16630.0,
+		b: (2521, 68.4, 50.6, None),
+		landing: "15 recorded arrivals at 2521:68.3-68.5,50.5-50.6 (6 people)",
+	},
+	ObjectPortalDef {
+		object: 617085,
+		id: "portal-valanaar",
+		from: "Rohashi Spires",
+		from_area: 16630.0,
+		a: (2521, 75.08, 53.25, Some(1181.9)),
+		to: "Valanaar",
+		to_area: 16638.0,
+		b: (2521, 66.3, 79.7, Some(658.0)),
+		landing: "recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)",
+	},
+];
+
+/// An object portal's end on its map (live frame first, as spawn_points reads a live spawn), or None
+/// when the data has no frame for the map.
+fn map_end(name: &str, area: f64, (map, x, y, _): (i64, f64, f64, Option<f64>), frames: &Frames, live: &LiveFrames) -> Option<End> {
+	let (b, f) = match live.get(&map) {
+		Some(b) => (*b, "l"),
+		None => (frames.frame(map)?, "e"),
+	};
+	Some(End {
+		name: name.to_string(),
+		area: Some(area),
+		c: b.c,
+		wx: round(b.top + (b.bottom - b.top) * (y / 100.0), 1),
+		wy: round(b.left + (b.right - b.left) * (x / 100.0), 1),
+		map,
+		x: round(x, 2),
+		y: round(y, 2),
+		f,
+		source: None,
+		board: None,
+		z: None,
+	})
+}
 const DEST_HOME: f64 = 9.0;
 const DEST_DB: f64 = 17.0;
 const HEARTHSTONE_SPELL: f64 = 8690.0;
@@ -687,7 +763,10 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 		};
 		let mut a = place(p.from, int(t, "ContinentID"), number(t.get("Pos_0")), number(t.get("Pos_1")), frames, live, Some(p.from_area));
 		let mut b = place(p.to, dest.get("map").num(), dest.get("x").num(), dest.get("y").num(), frames, live, Some(p.to_area));
-		if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
+		if let (Some(a), Some(b), Some((fa, fb))) = (a.as_mut(), b.as_mut(), p.floors) {
+			a.z = Some(fa);
+			b.z = Some(fb);
+		} else if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
 			for (e, z) in [(a, number(t.get("Pos_2"))), (b, dest.get("z").as_num().unwrap_or(f64::NAN))] {
 				match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
 					Some(h) => e.z = Some(h),
@@ -707,6 +786,32 @@ fn build_portals(area_triggers: &Rows, db: &V, frames: &Frames, live: &LiveFrame
 			b,
 			seconds: PORTAL_SECONDS,
 			source: format!("AreaTrigger {} -> classic-db areatrigger_teleport {}", p.trigger, p.trigger),
+		});
+	}
+	for p in &OBJECT_PORTALS {
+		let mut a = map_end(p.from, p.from_area, p.a, frames, live);
+		let mut b = map_end(p.to, p.to_area, p.b, frames, live);
+		if let (Some(a), Some(b), Some(nav)) = (a.as_mut(), b.as_mut(), nav) {
+			for (e, z) in [(a, p.a.3), (b, p.b.3)] {
+				let Some(z) = z else { continue };
+				match end_height(nav, e.c, e.wx, e.wy, Some(z)) {
+					Some(h) => e.z = Some(h),
+					None => warnings.push(format!("{}: the {} end has no walkable surface near its height {}", p.id, e.name, num_str(round(z, 1)))),
+				}
+			}
+		}
+		let (Some(a), Some(b)) = (a, b) else {
+			warnings.push(format!("{}: an end is on no map, skipped", p.id));
+			continue;
+		};
+		out.push(Portal {
+			id: p.id.to_string(),
+			name: p.to.to_string(),
+			area: p.to_area,
+			a,
+			b,
+			seconds: PORTAL_SECONDS,
+			source: format!("gameobject {} spawn (Forever world DB) -> {}", p.object, p.landing),
 		});
 	}
 	out

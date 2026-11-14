@@ -12,7 +12,7 @@
 --
 -- Per account: PolestarDB.whatsNewSeen, the version of the notes last shown.
 -- The notes are about the addon, not one character, so a player with alts
--- reads them once. A fresh install (ns.IsNewAccount) gets the welcome, and
+-- reads them once. A fresh install (ns.IsNewAccount) gets Install, and
 -- the newest notes are marked seen without showing; an account from before
 -- this window (no flag) has updated, so its notes are due. At login they
 -- open while the flag differs from the newest notes' version; opening sets
@@ -39,8 +39,44 @@ end
 
 -- The releases' notes, newest first. Each note: its glyph and colour, its
 -- heading and its line (a function, so the commands it names take the
--- theme's colours when shown).
+-- theme's colours when shown), and the setting it is about when it has one
+-- (`setting`, a settings key: the note opens the settings on it).
 local NOTES = {
+	{
+		version = "0.3.7",
+		notes = {
+			{ glyph = "dart", color = "accent", head = L["A steadier arrow"], text = function()
+				return L["Keeps up on slopes and ledges, takes the faster flight, and no turning back after you land."]
+			end },
+			{ glyph = "bolt", color = "accent", head = L["Smoother indoors"], text = function()
+				return L["No more stutter in the Undercity, buildings and caves; less work in the background."]
+			end },
+			{ glyph = "reload", color = "accent", head = L["Update notice"], setting = "update.card", text = function()
+				return L["At login, a card says when a newer Polestar is out and how to update."]
+			end },
+			{ glyph = "icon-train", color = "accent", head = L["New spells"], setting = "qol.levelUpSpells", text = function()
+				return L["A level-up card lists what to train; %s updates your bars."]:format(cmd(L["Upgrade"]))
+			end },
+			{ glyph = "icon-accept", color = "accent", head = L["Quest helpers"], setting = "qol.questLoot", text = function()
+				return L["Loot that starts a quest glows on the quest item button; timed quests count down."]
+			end },
+			{ glyph = "emblem", color = "accent", head = L["Hide it all"], setting = "maps.minimapButton", text = function()
+				return L["A click on the minimap button hides all of Polestar; another brings it back."]
+			end },
+			{ glyph = "menu", color = "accent", head = L["Browse all steps"], text = function()
+				return L["Click the step number to see every step of the guide (thanks TTik3r and aalejandrofer)."]
+			end },
+			{ glyph = "icon-craft", color = "accent", head = L["Profession guides"], text = function()
+				return L["Rebuilt on Forever's trainers, and they start where your skill is."]
+			end },
+			{ glyph = "icon-talk", color = "accent", head = L["Fully translated"], text = function()
+				return L["All of 0.3.7 in 9 languages, with thanks to our translators."]
+			end },
+			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
+				return L["Routes, trainers, dungeons and more. Found something off? Type %s."]:format(cmd("/polestar report"))
+			end },
+		},
+	},
 	{
 		version = "0.3.6",
 		notes = {
@@ -54,7 +90,7 @@ local NOTES = {
 				return L["Grinds go to the nearest spawns, past emptied camps; Target shows who, pings, marks."]
 			end },
 			{ glyph = "dart", color = "accent", head = L["Route lines your way"], text = function()
-				return L["%s, %s or %s on map and minimap: set on the Welcome page or in Options."]:format(L["Line"], L["Dots"], L["Sparkles"])
+				return L["%s, %s or %s on map and minimap: set in Install or in Settings."]:format(L["Line"], L["Dots"], L["Sparkles"])
 			end },
 			{ glyph = "icon-forever", color = "accent", head = L["New in Forever"], text = function()
 				return L["Quests only Forever has carry a small ∞ mark."]
@@ -119,7 +155,7 @@ end
 
 local function build()
 	local K = UI.Welcome.Kit
-	F = CreateFrame("Frame", "PolestarWhatsNew", UIParent)
+	F = CreateFrame("Frame", "PolestarWhatsNew", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -164,6 +200,7 @@ local function build()
 	F.Close = W.IconButton(F, "close", 28, L["Close"], close, 12)
 	F.Close:SetPoint("TOPRIGHT", F, "TOPRIGHT", -12, -12)
 	F.Close:SetFrameLevel(F:GetFrameLevel() + 40)
+	W.FrameClose(F, F.Close)
 
 	-- The footer: the notes' site on the left, the buttons on the right.
 	local foot = CreateFrame("Frame", nil, F)
@@ -201,6 +238,41 @@ local function build()
 	end
 end
 
+-- A note about a setting leads to it: the whole note answers the pointer
+-- (the hover wash, a chevron on its heading's line) and a click opens the
+-- settings on that setting's row (UI.ShowSetting), What's new closing. A
+-- note with no setting stays text: no wash, no click.
+local function linkNote(p, n, key)
+	n.psSetting = key
+	if not key then
+		if n.Hit then n.Hit:Hide() end
+		if n.Chevron then n.Chevron:Hide() end
+		n.Link = nil
+		return
+	end
+	if not n.Hit then
+		local b = CreateFrame("Button", nil, p)
+		W.Hover(b)
+		b:SetScript("OnClick", function()
+			local k = n.psSetting
+			close()
+			if k and UI.ShowSetting then UI.ShowSetting(k) end
+		end)
+		b:SetScript("OnEnter", function(self)
+			W.Color(n.Chevron, "text")
+			W.Tooltip(self, "ANCHOR_TOP", n.Head:GetText(), { L["Click to open this setting."] })
+		end)
+		b:SetScript("OnLeave", function(self)
+			W.Color(n.Chevron, "textMuted")
+			W.HideTooltip(self)
+		end)
+		n.Hit = b
+		n.Chevron = W.Tex(p, "ARTWORK", "chevron-right", "textMuted")
+		n.Chevron:SetSize(9, 9)
+	end
+	n.Link = n.Chevron
+end
+
 -- Lays the newest notes out; the window takes their height.
 local function render()
 	local K = UI.Welcome.Kit
@@ -211,7 +283,10 @@ local function render()
 	local heroH = max(112, 40 + h.Title:GetStringHeight() + 28)
 	h:SetHeight(heroH)
 
-	for _, n in pairs(p.Notes) do K.layNote(p, n, 0, false) end
+	for _, n in pairs(p.Notes) do
+		K.layNote(p, n, 0, false)
+		if n.Hit then n.Hit:Hide() end
+	end
 	local y = 0
 	for i, note in ipairs(entry.notes) do
 		local n = p.Notes[i]
@@ -221,7 +296,16 @@ local function render()
 		end
 		n.Head:SetText(note.head)
 		n.Text:SetText(note.text())
+		linkNote(p, n, note.setting)
+		local top = y
 		y = K.layNote(p, n, y, true)
+		if note.setting then
+			n.Hit:ClearAllPoints()
+			n.Hit:SetPoint("TOPLEFT", p, "TOPLEFT", 0, -top)
+			n.Hit:SetPoint("TOPRIGHT", p, "TOPRIGHT", 0, -top)
+			n.Hit:SetHeight(max(1, y - top))
+			n.Hit:Show()
+		end
 	end
 	local bodyH = max(1, y - 10)
 	local fixed = 1 + heroH + K.BOTTOM + K.FOOT_H + 1
@@ -240,12 +324,13 @@ end
 
 local try -- forward
 
--- Wait for the route choice to close, then try again.
+-- Wait for the route choice to close (not for Polestar hiding it with the
+-- rest: it stays open then), then try again.
 local function afterRouteChoice()
 	local RC = UI.RouteChoice
 	if not hookedRC and RC and RC.frame then
 		hookedRC = true
-		RC.frame:HookScript("OnHide", function() try() end)
+		RC.frame:HookScript("OnHide", function(self) if not self:IsShown() then try() end end)
 	end
 end
 

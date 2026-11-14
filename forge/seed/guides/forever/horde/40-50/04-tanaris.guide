@@ -4,6 +4,7 @@ faction Horde
 levels 45-48
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
+pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
@@ -15,7 +16,7 @@ next forever/horde/40-50/05-the-hinterlands
 # Scrimshank's gear (OOX-17/TN if you found its beacon) -> hearth Gadgetzan
 # -> (Hunters and Shamans: fly Orgrimmar to train; Druids: Thunder Bluff) ->
 # fly Ratchet -> boat to Booty Bay -> fly Kargath -> the Grimesilt Dig
-# Site -> Thorium Point (flight path) -> Kalaran Windblade and the Cauldron
+# Site -> Thorium Point (flight path) -> Velarok Windblade and the Cauldron
 # -> the Slag Pit -> the lava spiders -> the Lookouts -> Thorium Point,
 # where the next guide flies on to Stonard.
 #
@@ -44,7 +45,9 @@ next forever/horde/40-50/05-the-hinterlands
 #
 # Accepted here, finished later on the route: Sprinkle's Secret Ingredient
 # (2641: the Violet Tragan grows in the Hinterlands), Rise of the Silithid
-# (32, Orgrimmar around 50).
+# (32, Orgrimmar around 50), Return to Apothecary Zinge (864, the Undercity
+# around 52), The Super Egg-O-Matic (2741: the egg in southern Feralas and the
+# hand-in at Gadgetzan, both at the end of forever/horde/40-50/06-azshara).
 #
 # Class training: Hunters and Shamans fly from Gadgetzan to Orgrimmar, and
 # Druids to Thunder Bluff, at about 47, before Ratchet: the next training
@@ -149,6 +152,7 @@ step Gadgetzan
   accept 113
   turnin 113                            -- Senior Surveyor Fizzledowser
   accept 32                             -- for Zilzibin Drumlore in Orgrimmar, around level 50
+  accept 2741                           -- The Egg-O-Matic machine, in the middle of town: the egg is in southern Feralas, around level 50
 
 step Orgrimmar
   only Hunter,Shaman
@@ -187,7 +191,7 @@ step The Grimesilt Dig Site
   collect 4306 quest 4449.2
   turnin 4449 object 173265
 
-# ---------------------------------------------------------------- Thorium Point and Kalaran
+# ---------------------------------------------------------------- Thorium Point and Velarok
 
 step Thorium Point
   tip Ride north-west across the gorge; Thorium Point is the scaffolded camp in the north-west.

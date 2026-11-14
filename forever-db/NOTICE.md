@@ -11,7 +11,9 @@ least one of the independent sources below.
 - **CMaNGOS classic-db** (https://github.com/cmangos/classic-db), GPL-3.0.
 - **VMaNGOS** values (through pfQuest) and **Factoruide** data (https://github.com/Factoruide), GPL-2.0-or-later.
 - **ForeverTDB**, the Forever TrinityCore world database (https://github.com/advocaite/TrinityCore/tree/forever), GPL-2.0.
-- **QuestieDB** (Questie team), credited per its maintainer; Questie is moving to GPL-3.0.
+- **QuestieDB** (Questie team), credited per its maintainer; Questie is moving to GPL-3.0. The quest
+  objective lines in `corrections/quests.json` are the game's words as QuestieDB, EG Link's client
+  data and players' recordings hold them.
 - **World of Warcraft: Forever client tables**, read from the game client.
 - **pfQuest** (https://github.com/shagu/pfQuest), MIT licence:
 
@@ -41,5 +43,6 @@ least one of the independent sources below.
 
 World of Warcraft and Blizzard Entertainment are trademarks or registered trademarks of Blizzard
 Entertainment, Inc. in the U.S. and/or other countries. This data set is not made, endorsed or
-supported by Blizzard Entertainment. Names, ids and numbers describe the game for players; no game
-assets or game text beyond names and titles are included.
+supported by Blizzard Entertainment. Names, ids and numbers describe the game for players. No game
+assets are included. The game's own text is limited to names, titles and the quest objective lines
+the corrections carry; that text is Blizzard's and neither of this data set's licences covers it.

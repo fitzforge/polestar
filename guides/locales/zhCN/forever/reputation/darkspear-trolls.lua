@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Darkspear Trolls Reputation"] = "暗矛巨魔声望",
 	-- {item:14047} Runecloth · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too."] = "",
+	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too."] = "交{item:14047}到崇拜，顺带完成{zone:1411}的旧任务，快速补充声望；这些任务也奖励{zone:1454}声望。",
 	-- {faction:530} Darkspear Trolls
 	["Exalted with the {faction:530}"] = "{faction:530}声望达到崇拜",
 
@@ -18,12 +18,13 @@ return {
 	["{npc:14727}: how it works"] = "{npc:14727}：规则说明",
 	-- {npc:14727} Vehena · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {quest:7837} Additional Runecloth · {item:14047} Runecloth · {faction:530} Darkspear Trolls · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1411} Durotar · {area:414} Zoram Strand · {zone:1440} Ashenvale · {object:3202} Grom'gol
 	["Darkspear reputation comes from quests and cloth. {npc:14727}, the Darkspear cloth quartermaster, stands in {zone:1454}'s {object:172961}. She takes four one-time donations of 60 cloth (150 each) and then {quest:7837}, 20 {item:14047} for 50, as often as you like. Every point you earn with the {faction:530} also gives a quarter as much to {zone:1454}, {zone:1456} and the {zone:1458}. While you level, do the Darkspear quests within 5 levels of them: {zone:1411} at 5 to 12, {area:414} in {zone:1440} at 19 to 27, {object:3202} in Stranglethorn at 34 to 46. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored the Darkspear merchants sell to you for 10% less (the Classic rule), the raptor vendor included; at Exalted other races can buy the raptors: 20 gold for a level 40 raptor, 200 gold for a swift raptor at level 60, once you have mount training. The {faction:530} have no tabard or other reward."] = "暗矛声望来自任务和布料。暗矛布料军需官{npc:14727}站在{zone:1454}的{object:172961}。她先接受四次各60块布的一次性捐献（每次150声望），然后开放{quest:7837}，每20块{item:14047}换50声望，可无限重复。你每获得一点{faction:530}声望，也会向{zone:1454}、{zone:1456}和{zone:1458}各溢出四分之一。练级时，在任务等级与自身相差不超过5级时完成暗矛任务：5到12级做{zone:1411}，19到27级做{zone:1440}的{area:414}，34到46级做荆棘谷的{object:3202}。传承的外交家特长最多增加10%。奖励：尊敬时，暗矛商人的售价降低10%（经典版规则），包括迅猛龙商人；崇拜后其他种族也能购买迅猛龙：学会坐骑骑术后，40级迅猛龙20金币，60级迅捷迅猛龙200金币。{faction:530}没有战袍或其他奖励。",
+	["her donations are handed in from her window and never enter the log"] = "她的捐献任务在她的窗口中直接交还，不会进入任务日志",
 
 	-- Step 2: Valley of Trials (optional hub)
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363}（可选任务点）",
 	-- {area:363} Valley of Trials · {zone:1454} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "在无限版本中，这些旧任务在任何等级都提供全额声望。{area:363}是其中效率最高的任务点：25分钟约获得1,400点{zone:1454}和1,400点暗矛声望。{npc:3143}在大兽穴的大屋里，{npc:10176}站在屋外。",
 	-- {npc:3144} Eitrigg · {zone:1454} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {zone:1454}: {quest:787}, +50"] = "{npc:3144}，位于{zone:1454}：{quest:787}，+50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -36,7 +37,7 @@ return {
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}：用 {item:16114} 击中它",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "叫醒{npc:10556}",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den
@@ -61,15 +62,15 @@ return {
 	-- {npc:3145} Zureetha Fargaze
 	["{npc:3145}, in the Den"] = "{npc:3145}，在大兽穴里",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}，+50：完成后才能接取{quest:97225}",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367}（可选任务点）",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {zone:1454} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "在无限版本中，这些旧任务在任何等级都提供全额声望。{area:367}和{area:368}：25分钟约获得625点{zone:1454}和650点暗矛声望。{npc:3188}和{npc:3304}站在小屋旁，{npc:3194}在水边，{npc:7953}在村庄南侧。",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}，+100：需要先完成在大兽穴接取的{quest:805}",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
@@ -83,7 +84,7 @@ return {
 	-- Step 11: The coast and the road
 	["The coast and the road"] = "海岸与道路",
 	-- {quest:97223} Bloodtalon Matriarch
-	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village."] = "",
+	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village."] = "龙虾人和海浪蟹在森金村东边和南边的海滩上活动。{quest:97223}在村庄东边。",
 
 	-- Step 12: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village
@@ -97,19 +98,19 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362}（可选任务点）",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {zone:1454} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "无限在任何等级都为这些旧任务提供全额奖励。{area:362}及{zone:1411}北部：约80分钟可获得1,650点{zone:1454}和1,650点暗矛巨魔声望。{npc:3142}和{npc:3139}在镇子中央，{npc:3191}在兵营旁，{npc:3147}和图罗克在镇子边缘。",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}，+100：需要先接取森金村的 {quest:823}",
 
 	-- Step 15: Tiragarde Keep
 	-- {area:362} Razor Hill · {npc:3192} Lieutenant Benedict · {object:3239} Benedict's Chest · {item:4881} Aged Envelope · {quest:830} The Admiral's Orders · {item:4870} Canvas Scraps
-	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}."] = "",
+	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}."] = "要塞位于{area:362}南面的海岸。{npc:3192}在要塞唯一的建筑内；他的钥匙能打开屋顶的{object:3239}，里面的{item:4881}可触发{quest:830}。水手和海军陆战队员掉落{item:4870}。",
 
 	-- Step 16: Razormane Grounds and the Echo Isles
 	-- {area:816} Razormane Grounds · {area:368} Echo Isles
 	["{area:816} and the {area:368}"] = "{area:816} 与 {area:368}",
 	-- {area:362} Razor Hill · {area:368} Echo Isles · {object:3240} Taillasher Eggs
-	["The Razormane camps are south-west and west of {area:362}. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "",
+	["The Razormane camps are south-west and west of {area:362}. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "钢鬃营地在{area:362}西南方和西侧。然后前往{area:368}寻找{object:3240}：每个巢穴必定提供一个蛋。",
 
 	-- Step 17: Razor Hill: hand in
 	-- {area:362} Razor Hill
@@ -197,7 +198,7 @@ return {
 	-- Step 33: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "黑石山，组队前往",
 	-- {area:1583} Blackrock Spire · {faction:530} Darkspear Trolls · {area:340} Kargath · {zone:1418} Badlands · {quest:4903} Warlord's Command · {npc:3144} Eitrigg · {zone:1458} Undercity · {area:978} Zul'Farrak · {zone:1425} Hinterlands
-	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "",
+	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "“为部落而战！”（雷德·黑手的头颅，{area:1583}）和 “黑石之王”（奈法利安的头颅）各为所有部落主城提供200点声望，包括{faction:530}。雷德·黑手任务线从{zone:1418}的{area:340}开始：{quest:4903}、{npc:3144}的智慧，然后是 “为部落而战！”。小队前往时就接取这些任务。{zone:1458}指南中的“蜘蛛之神”任务线（{area:978}和{zone:1425}）沿途共提供225点暗矛声望。",
 	-- {npc:9077} Warlord Goretooth · {quest:4903} Warlord's Command
 	["{npc:9077}: {quest:4903}, a group of five"] = "{npc:9077}：{quest:4903}，五人小队。",
 

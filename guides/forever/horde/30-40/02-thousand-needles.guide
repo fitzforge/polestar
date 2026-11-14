@@ -19,8 +19,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 
 # The Shimmering Flats at 33-34, then Desolace's 33-36 quests at 34-35. Desolace's 38-40 quests
 # (Melizza and the ghost-o-plasm, Taiga's portals, the centaur totems) come on a short second
-# visit at 38, from Ratchet, in forever/horde/30-40/04-dustwallow-marsh, as both other orders
-# leave them for a later visit; the Hand of Iruxos and the Book of the Ancients are done here.
+# visit at 38, from Ratchet, in forever/horde/30-40/04-dustwallow-marsh, at the quests' own level
+# (38-40) instead of 3-6 levels above the player; the Hand of Iruxos and the Book of the Ancients are done here.
 #
 # Flow: the Undercity (where the previous guide ends) -> zeppelin to Orgrimmar (Hunter and
 # Shaman training) -> fly to Freewind Post -> Moktar Krin -> the Mirage
@@ -86,16 +86,6 @@ step Searn Firewarder
   zone Orgrimmar
   tip Searn Firewarder stands in the Valley of Wisdom.
   accept 1531                         -- Searn Firewarder: for Prate Cloudseer by Freewind Post, later in this guide
-
-step Nogg
-  when dungeon "Gnomeregan"
-  zone Orgrimmar
-  tip Nogg's workshop is in the Valley of Honor. Rig Wars is Gnomeregan's last boss: great XP if you run it with a group. Run it whenever your group is ready; hand it in on a later Orgrimmar stop.
-  accept 2841                         -- Nogg
-
-step Gnomeregan
-  when dungeon "Gnomeregan"
-  note Run Gnomeregan with a group when it suits you: Mekgineer Thermaplugg at the end drops his Safe Combination; open his safe behind the northern bomb pillar for the Rig Blueprints.
 
 step Orgrimmar flight master
   zone Orgrimmar
@@ -292,7 +282,7 @@ step Ethel Rethor
 step Thunder Axe Fortress
   zone Desolace
   tip Head east to Thunder Axe Fortress. Beat a Burning Blade cultist down, then use the Burning Gem on it before it dies to fill one Infused Burning Gem. The Burning Blade Seer stands on the fortress's top floor with the Sceptre. The cultists also drop a Flayed Demon Skin now and then (1-5%); if one drops, read it. Hand of Iruxos: clear the middle of the largest building, then use the Demon Pick on the red Hand of Iruxos Crystal there. A Demon Spirit (37) comes out: kill it for the Demon Box.
-  collect 6435 quest 1435
+  collect 6435 quest 1435 @55.0,26.5
   collect 15750 quest 5741 @55.2,30.1 -- On the top floor
   use 14523 quest 5381.1 @55.0,26.7 map 1443 -- Demon Pick, on the Hand of Iruxos Crystal
   collect 13542 quest 5381

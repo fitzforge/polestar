@@ -42,6 +42,14 @@ step Orgrimmar trainers
   tip Train while you are in the city.
   train class
 
+step Ratchet
+  zone The Barrens
+  tip Gazlowe waits upstairs in the house by the flight master; Wharfmaster Dizzywig stands on the docks, beside the boat.
+  turnin 1178                         -- Gazlowe, upstairs
+  accept 1180                         -- Gazlowe: for Wharfmaster Lozgil in Booty Bay, where the boat goes
+  turnin 1111                         -- Wharfmaster Dizzywig, on the docks
+  note Dizzywig's parts go back to Kravel in the Shimmering Flats, off the route: leave them.
+
 step Zeppelin to Grom'gol
   zone Durotar
   goto 50.7,12.9 "Zeppelin to Grom'gol"
@@ -60,14 +68,16 @@ step Grom'gol
 # re-order; before it, it came straight after Desolace and Hillsbrad).
 #
 # Flow: Shadowprey Village (where the previous guide ends) -> fly to Orgrimmar (Alliance
-# Relations, training) -> zeppelin to Grom'gol (flight path) -> Nesingwary's camp -> young
-# tigers and panthers and the Bloodscalp trolls -> the road south to Booty Bay (flight path)
-# -> fly to Grom'gol -> the river camp (Krazek's investigation) -> Nesingwary -> tigers,
-# panthers and the Venture Co. geologists -> Nesingwary -> elder tigers -> Nesingwary -> the
-# basilisks, raptors and Bloodscalp village -> Nesingwary -> Lashtail raptors -> Grom'gol -> fly
-# to Booty Bay -> fly to Grom'gol -> the Vile Reef and the Bloodscalp ruins -> Grom'gol ->
-# Shadowmaw, the tigresses and the Snapjaw river -> the Mosh'Ogg camp -> Grom'gol, where the
-# next guide takes the zeppelin to Orgrimmar.
+# Relations, training) -> fly to Ratchet (Gazlowe, Dizzywig) -> boat to Booty Bay (flight
+# path, the vale's quests) -> the road north to Grom'gol (flight path) -> Nesingwary's camp,
+# the river (Krazek's investigation) -> young tigers and panthers and the Bloodscalp trolls ->
+# Nesingwary -> tigers, panthers, the Venture Co. geologists and Cozzle's footlocker ->
+# Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors and Bloodscalp village ->
+# Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol -> the Vile
+# Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
+# the Mosh'Ogg camp -> Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
+# Before 0.3.6's last pass the guide came in by zeppelin and walked from Nesingwary's camp all
+# the way down the vale to Booty Bay for its quests and flight path (2,900 yd), then flew back.
 #
 # Optional extras:
 # - Crystal in the Mountains (635) starts from the Pendant of Myzrael, a 0.01-0.08% drop from
@@ -92,7 +102,7 @@ step Grom'gol
 
 step Nesingwary's camp
   zone Stranglethorn Vale
-  tip Follow the road north out of Grom'gol; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of The Green Hills of Stranglethorn you loot: Barnil takes them on your next Stranglethorn visit.
+  tip Follow the road north out of Grom'gol; Nesingwary's hunting camp sits on the hill north-east of the river. Krazek wants it investigated: walk among its tents. From here on, keep every page of The Green Hills of Stranglethorn you loot: Barnil takes them on your next Stranglethorn visit.
   accept 583                          -- Barnil Stonepot
   turnin 583                          -- Hemet Nesingwary
   turnin 5762
@@ -152,6 +162,13 @@ step Stranglethorn Vale: kill these as you meet them
   kill 682 quest 186
   collect 4106 quest 213
   kill 736 quest 191
+
+step Cozzle's Footlocker
+  zone Stranglethorn Vale
+  when onquest 1182
+  tip Foreman Cozzle (38) is inside the Venture Co. house on Lake Nazferiti's west shore, among the geologists: his key opens Cozzle's Footlocker in the same house, which holds the blueprints for Baron Revilgaz.
+  collect 5851 x1 "Cozzle's Key" @42.6,18.4 map 1434 -- from Foreman Cozzle
+  collect 5852 quest 1182 @43.3,20.3 map 1434 -- Fuel Regulator Blueprints, in Cozzle's Footlocker
 
 step Nesingwary's camp
   turnin 191                          -- Sir S. J. Erlgadin
@@ -278,7 +295,6 @@ step Green Hills pages
 step Mosh'Ogg camp
   tip The Mosh'Ogg ogres camp in the hills just east of Grom'gol, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time.
   kill 1142 quest 569.1
-  kill 1144 quest 569.2
 
 step Grom'gol
   tip Back to Grom'gol.

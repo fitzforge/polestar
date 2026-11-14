@@ -20,7 +20,7 @@ next forever/horde/06-hillsbrad-foothills
 # -> west across Ashenvale, Va'xug Firefure's ravine on the way -> Zoram'gar Outpost (flight path,
 # naga heads) -> Thistlefur Village and Hold -> Zoram'gar, Vorsha the Lasher ->
 # fly to Splintertree
-# (Ruul's hand-in) -> the lumber camp south of it (Ashenvale Outrunners) -> fly to Orgrimmar
+# (Ruul's hand-in) -> fly to Orgrimmar
 # (training) -> zeppelin to Tirisfal Glades -> the Sepulcher (Allister's two
 # road quests, Journey to Hillsbrad) -> the roads around Ambermill and Beren's Peril (the
 # Offering Stone) -> Southpoint Tower for forever/horde/06-hillsbrad-foothills.
@@ -30,9 +30,9 @@ next forever/horde/06-hillsbrad-foothills
 # Hillsbrad to the 27 visit). The Sapphires, Torek, Pixel and Senani's hunt
 # targets are level 23-27 and wait for the second visit at 26; none is taken now and carried.
 #
-# Ashenvale Outrunners (level 24, Outrunners 23-24) waits for the way back from Thistlefur, after
-# Ruul's hand-in at Splintertree, where the route has the character at 22-23: taken at the lumber
-# camp on the way in at 21, it put the pace line's "Behind" in front of every start but Skyborne.
+# Ashenvale Outrunners (level 24, Outrunners 23-24) waits for the second Ashenvale visit at 26
+# (forever/horde/07-ashenvale), with Torek and Sharptalon by the same lumber camp: taken on the way
+# back from Thistlefur at 22-23, the model's players were still 1-1.5 levels under it (0.3.7).
 #
 # The Undercity flight path is learned at the end of forever/horde/03-silverpine-forest; the way
 # to Tarren Mill without its flight path is the road through Silverpine, which passes Deathstalker
@@ -54,6 +54,22 @@ next forever/horde/06-hillsbrad-foothills
 # Carried on, finished: Beren's Peril and Watching the Roads (Allister, next guide).
 # Undead: Return to Podrig (6324, Gordon's Crate from the Undercity stop of
 # forever/horde/03-silverpine-forest) goes to Deathguard Podrig on the Sepulcher stop.
+#
+# Shadowfang Keep (`when dungeon "Shadowfang Keep"`): High Executor Hadrec's Deathstalkers in Shadowfang
+# (1098, level 25) is taken on the Sepulcher stop here, at about 22.8; the run is at the end of
+# forever/horde/06-hillsbrad-foothills.
+#
+# Ruins of Lordaeron (`when dungeon "Ruins of Lordaeron"`, dungeons in the route): for a character who
+# chose it, the zeppelin from Orgrimmar lands beside the ruins at about 22.5: Morbin Lightbane's Light's
+# Justice (92421) is taken in the Undercity below, the run follows in the ruins (the portal, Tirisfal
+# 63.2,67.5, is where players' recordings go in), and Morbin takes the limbs on the Undercity stop at the
+# end of forever/horde/06-hillsbrad-foothills (`when complete`), with the Abominable Head's Unending
+# Torment (97288, from The Baron inside) for Faranell and the Crest of Lordaeron (95204, found inside) for
+# Oran Snakewrithe (`when onquest`). Left out: A Frightened Request (92401: Tabitha Heartweaver at the
+# Sepulcher, after the ruins, and the route is not back there with the quest done), The Wrath of
+# Rath'mael (92422: Deathguard Kristof offers it after Rear Guard Patrol, 99156, which the route does not
+# take), The New Plague (95216: Theodore Griffs offers it after A Recipe For Death, 451, left out of the
+# Silverpine guide) and the rest of Unending Torment (97289-97292, Faranell's errands in the Undercity).
 #
 # Class quests: Rogues take Deep Cover (2458, from Shenthul in Orgrimmar at 20) to Taskmaster Fizzule
 # by the Venture Co. tower north of the Sludge Fen on the way north, a short walk east of the road to
@@ -87,11 +103,10 @@ step Into Ashenvale
   goto 71.1,68.1 "The road north to Splintertree Post"
 
 step Splintertree Post
-  tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors. Kuray'bin at the lumber camp offers Ashenvale Outrunners: leave it for the way back, at 22.
+  tip Splintertree Post is just north up the road. Coming in from the south, the flight master and Senani Thunderheart's hunt board at Night Run come first, then the vendors. Kuray'bin at the lumber camp offers Ashenvale Outrunners: leave it for the next Ashenvale visit, at 26.
   getfp "Splintertree Post"
   turnin 6382                         -- Senani Thunderheart
-  accept 6383
-  turnin 6383
+  turnin 6383 direct
   note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 26.
   vendor nearest
 
@@ -156,16 +171,9 @@ step Splintertree Post
   fly "Splintertree Post"
   turnin 6482                         -- Yama Snowhoof, inside the inn
 
-step Ashenvale Outrunners
-  zone Ashenvale
-  tip Out of the inn and south down the road to the lumber camp: Kuray'bin stands there. The night elf Outrunners (23-24) stalk the woods south-east of it; they stealth, so watch for them.
-  accept 6503
-  kill 12856 quest 6503 @72.5,69.5 map 1440
-  turnin 6503
-
 step Fly to Orgrimmar
   zone Ashenvale
-  tip Back north up the road to the Splintertree Post flight master and fly to Orgrimmar.
+  tip Out of the inn to the Splintertree Post flight master and fly to Orgrimmar.
   goto 73.26,61.67 "Splintertree Post flight master"
   fly "Orgrimmar"
   zone Orgrimmar
@@ -208,10 +216,32 @@ step Brill
   tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
   train class
 
+step Morbin Lightbane
+  when dungeon "Ruins of Lordaeron"
+  zone Undercity
+  tip For your Ruins of Lordaeron run: the zeppelin lands beside the ruins. Walk into the Undercity through them and down to the Royal Quarter: Morbin Lightbane stands there, near Lady Sylvanas Windrunner.
+  accept 92421                        -- Morbin Lightbane
+
+step Ruins of Lordaeron
+  when dungeon "Ruins of Lordaeron"
+  when onquest 92421
+  zone Tirisfal Glades
+  tip The Ruins of Lordaeron is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
+  tip Inside: every undead can drop Intact Limbs for Morbin, so clear as you go. The Baron can drop an Abominable Head, which starts a quest for Master Apothecary Faranell, and a Crest of Lordaeron found inside starts one for Oran Snakewrithe: both are in the Undercity, on this route's next stop there.
+  enter "Ruins of Lordaeron" @63.2,67.5 live
+  complete 92421 @63.2,67.5 live      -- Light's Justice: the Intact Limbs, inside
+
 # ---------------------------------------------------------------- Silverpine Forest
 
+step The Sepulcher
+  when dungeon "Ruins of Lordaeron"
+  when !onquest 30
+  zone Silverpine Forest
+  tip Out of the ruins, take the road south through Tirisfal into Silverpine Forest and on to the Sepulcher.
+  goto 44.0,40.9 "The Sepulcher"
+
 step Strange Lockbox
-  only Tauren,Druid
+  only Tauren,Skyborne,Druid
   zone Silverpine Forest
   when onquest 30
   tip From the zeppelin towers, run south into Silverpine and west past the Dead Field to the coast: the Strange Lockbox lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the Half Pendant of Aquatic Endurance for Trial of the Sea Lion. Then on to the Sepulcher.
@@ -230,6 +260,12 @@ step Deathguard Podrig
   when onquest 6324
   tip Deathguard Podrig stands just west of the crypt entrance: hand him Gordon's Crate from the Undercity.
   turnin 6324                         -- Deathguard Podrig
+
+step High Executor Hadrec
+  when dungeon "Shadowfang Keep"
+  zone Silverpine Forest
+  tip For your Shadowfang Keep run, at the end of the Hillsbrad guide: High Executor Hadrec stands below ground in the crypt.
+  accept 1098                         -- High Executor Hadrec, below ground
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest

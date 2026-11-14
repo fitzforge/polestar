@@ -28,12 +28,12 @@ return {
 	["The adult tigers prowl the hills just south and west of the camp."] = "成年猛虎在营地南边和西边的山丘上徘徊。",
 
 	-- Step 9: Level 33.2
-	["Level 33.2"] = "",
+	["Level 33.2"] = "33.2级",
 	-- {area:796} Scarlet Monastery
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
-	["The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "",
+	["The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the {area:796} dungeon (Library) instead."] = "从这里起，丛林里的任务等级逐渐升至37级：还没到33.2级？继续击杀营地正南方和西侧山丘上的荆棘谷猛虎，直到33.2级。也可组队挑战{area:796}副本的图书馆。",
 	-- {npc:682} Stranglethorn Tiger
-	["grind on {npc:682}"] = "",
+	["grind on {npc:682}"] = "击杀{npc:682}刷经验",
 
 	-- Step 10: Ajeck Rouack
 	-- {area:99} Rebel Camp
@@ -48,36 +48,39 @@ return {
 
 	-- Step 12: Sir S. J. Erlgadin
 	-- {area:99} Rebel Camp
-	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "",
+	["Back east to Nesingwary's camp on the way north to the {area:99}."] = "向东返回奈辛瓦里的营地，再向北前往{area:99}。",
 
 	-- Step 13: Rebel Camp
-	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
-	["Take the road north; the camp sits in the hills to the west.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
+	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod
+	-- plural, as words: Kurzen's Agents = {npc:775} Kurzen's Agent
+	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "沿道路向北；营地在西边的山丘中。\n{npc:738}只有在营地外时才会提供{quest:215}：他大约每半小时沿小路走到大路上，两名库尔森的密探会在那里伏击他。帮他杀掉他们，并在他走回去之前立刻接下任务。他不在？那就算了：指南也会跳过由此引出的{quest:200}。",
+	-- {npc:738} Private Thorsen
+	["{npc:738}, at the foot of the path"] = "{npc:738}，在小路下端",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}，在小屋里",
 	-- {npc:469} Lieutenant Doren · {quest:200} Bookie Herod · {area:101} Kurzen's Compound
-	["{npc:469}: {quest:200}'s records lie at the edge of {area:101}, next"] = "",
+	["{npc:469}: {quest:200}'s records lie at the edge of {area:101}, next"] = "{npc:469}：{quest:200}的记录在{area:101}边缘，下一步就去",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "",
+	["{npc:770}: for {npc:773} in {area:35}, later in this guide"] = "{npc:770}：带给{area:35}的{npc:773}，本指南稍后会到那里",
 
 	-- Step 14: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "{area:101}：沿途击杀以下目标",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
-	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side."] = "",
+	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side."] = "库尔森叛军占据{area:99}东边的营地；在外围击杀库尔森丛林战士和库尔森药草师，并拾取帐篷旁的补给箱。{quest:200}所需的记录在营地西侧的小屋内。",
 	-- {object:287} Bookie Herod's Records
-	["{object:287}, in the hut"] = "",
-	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "",
+	["{object:287}, in the hut"] = "{object:287}，在小屋里",
+	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "保险箱在更深处的洞穴旁，北部环线（04b）会去取",
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
 	["{item:2634}, from a {object:263} crate"] = "{item:2634}，来自{object:263}箱子",
 
 	-- Step 15: Level 33.6
-	["Level 33.6"] = "",
+	["Level 33.6"] = "33.6级",
 	-- {area:796} Scarlet Monastery
 	-- plural, as words: Kurzen Jungle Fighters = {npc:937} Kurzen Jungle Fighter
-	["Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the {area:796} dungeon (Library) instead."] = "",
+	["Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the {area:796} dungeon (Library) instead."] = "还没到33.6级？继续击杀营地外围的库尔森丛林战士和库尔森药草师，直到33.6级。也可组队挑战{area:796}副本（图书馆）。",
 	-- {npc:937} Kurzen Jungle Fighter
-	["grind on {npc:937}"] = "",
+	["grind on {npc:937}"] = "击杀{npc:937}刷经验",
 
 	-- Step 17: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
@@ -118,7 +121,7 @@ return {
 	-- {npc:773} Krazek
 	["{npc:773}, in the tavern; upstairs"] = "{npc:773}，位于旅店楼上",
 	-- {npc:773} Krazek · {npc:770} Corporal Kaleb
-	["{npc:773}, from {npc:770}"] = "",
+	["{npc:773}, from {npc:770}"] = "{npc:773}：{npc:770}交代的任务",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}，在旅店里",
 	-- {npc:737} Kebok
@@ -149,7 +152,7 @@ return {
 
 	-- Step 26: Private Thorsen
 	-- {npc:738} Private Thorsen · {area:99} Rebel Camp
-	["{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "",
+	["{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "{npc:738}大部分时间在{area:99}坡道顶端的小屋旁，偶尔会沿坡道走到大路上再返回（约八分钟）。箭头处找不到他时，沿这条坡道寻找。",
 
 	-- Step 27: Nesingwary's Expedition
 	-- {quest:201} Investigate the Camp
@@ -174,7 +177,7 @@ return {
 
 	-- Step 31: Collin Mauren
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
-	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "",
+	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "{npc:4078}在{object:2101}的{object:2164}里。",
 
 	-- Step 32: Druid training
 	["Druid training"] = "德鲁伊训练",
@@ -195,7 +198,7 @@ return {
 
 	-- Step 36: Stonetalon Mountains
 	-- {area:608} Nijel's Point
-	["The road to {area:608}"] = "",
+	["The road to {area:608}"] = "通往{area:608}的道路",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bloodscalp trolls"] = "血顶巨魔",

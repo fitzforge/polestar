@@ -268,11 +268,11 @@ return {
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交給{area:415}的{npc:3961}",
 
 	-- Step 50: Satyrnaar
-	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
+	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "從湖泊向北前往{area:2358}西邊的{area:430}薩特營地：{object:19901}就在營地裡，庫洛瑟的背包放在它旁邊，裡面有{item:281014}。\n小心：{area:428}的魔麝盜賊經常處於潛行狀態，而{area:430}有薩特施法者。",
-	-- {item:281014} Vine-Wrapped Scroll
-	["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}，來自庫洛瑟爾的背包",
+	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
+	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
+	["{item:281014}, from {object:673431}"] = "",
 
 	-- Step 51: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
@@ -384,9 +384,11 @@ return {
 	["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and Kurothel's Knapsack lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "從湖泊向北前往{area:2358}西邊的{area:430}薩特營地：{object:19901}就在營地裡，庫洛瑟的背包放在它旁邊，裡面有{item:281014}。\n小心：{area:428}的魔麝盜賊經常處於潛行狀態，而{area:430}有薩特施法者。",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "文物就在挖掘場裡。{npc:1353}是一隻大型刺喉龍，在挖掘場西邊的迅猛龍山谷徘徊。",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358}是道路東端的夜精靈前哨：{npc:3848}站在那裡。",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合成兩半",
+	-- ["{item:281014}, from Kurothel's Knapsack"] = "{item:281014}，來自庫洛瑟爾的背包",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}，在旅店裡",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "未受腐化的熊怪{npc:3897}坐在{area:421}下方的道路南邊。",
 }

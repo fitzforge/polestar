@@ -37,8 +37,8 @@ return {
 	["{item:7908}: the {object:123214}, top floor"] = "{item:7908}：顶层的 {object:123214}",
 
 	-- Step 5: Master Mathias Shaw
-	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {item:6947} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {item:6947} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "穿过艾尔文森林北上前往 {zone:1453}；马迪亚斯·肖尔在军情七处楼上。他会教你毒药技能，并给你 {item:7676} 配方。毒药需要制作，不能直接购买：每批 {item:6947} 需要一份 {item:2928} 和一个 {item:3371}，军情七处旁 {object:2100} 的 {npc:1325} 和 {npc:1326} 都有出售。各买一组，从法术书中打开毒药界面制作，再将毒药涂在武器上。",
+	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {spell:8681} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "穿过艾尔文森林北上前往 {zone:1453}；马迪亚斯·肖尔在军情七处楼上。他会教你毒药技能，并给你 {item:7676} 配方。毒药需要制作，不能直接购买：每批 {spell:8681} 需要一份 {item:2928} 和一个 {item:3371}，军情七处旁 {object:2100} 的 {npc:1325} 和 {npc:1326} 都有出售。各买一组，从法术书中打开毒药界面制作，再将毒药涂在武器上。",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}: Poisons"] = "{npc:332}：毒药",
 
@@ -50,9 +50,9 @@ return {
 	-- Step 7: The cure's ingredients
 	["The cure's ingredients"] = "解药的材料",
 	-- {zone:1453} Stormwind · {item:3421} Simple Wildflowers · {npc:1303} Felicia Gump · {object:2096} Trade District · {item:3372} Leaded Vial · {npc:1257} Keldric Boucher · {npc:1325} Jasper Fel · {item:4371} Bronze Tube · {item:8431} Spool of Light Chartreuse Silk Thread · {object:2177} The Finest Thread (no name in this language: may be words) · {item:6452} Anti-Venom · {skill:129} First Aid · {spell:526} Cure Poison · {spell:9810} Touch of Zanzil
-	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: the Auction House in the {object:2096}; the engineering suppliers keep only one and are nearly always sold out, and an engineer can make one. The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "",
+	["All four are in {zone:1453}. {item:3421}: Bernard or {npc:1303}'s flower shop by the {object:2096} canal. A {item:3372}: many general goods and alchemy vendors ({npc:1257}, {npc:1325} and others). A {item:4371}: the Auction House in the {object:2096}; the engineering suppliers keep only one and are nearly always sold out, and an engineer can make one. The {item:8431} lies on the floor beside the left end of the counter in {object:2177}, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an {item:6452} ({skill:129}) or a druid's {spell:526} also clears the {spell:9810}."] = "四样东西都在{zone:1453}。{item:3421}：到{object:2096}运河旁伯纳德·加姆或{npc:1303}的花店购买。一个{item:3372}：许多杂货商和炼金商人都有售，如{npc:1257}、{npc:1325}等。一个{item:4371}：到{object:2096}的拍卖行购买；工程学供应商只备一个，几乎总是售罄，也可找工程师制作。{item:8431}在运河旁裁缝店{object:2177}的柜台左端旁的地板上，只有接到本任务后才能拾取。若跳过解药任务，{item:6452}（{skill:129}）或德鲁伊的{spell:526}也能移除{spell:9810}。",
 	-- {item:4371} Bronze Tube
-	["{item:4371}: the Auction House"] = "",
+	["{item:4371}: the Auction House"] = "{item:4371}：拍卖行",
 
 	-- Step 8: Back to Doc Mixilpixil
 	-- {npc:7207} Doc Mixilpixil
@@ -64,6 +64,7 @@ return {
 	-- ["At 20 {npc:332} at SI:7 in {object:2100} sends you to {npc:7024} in {zone:1436}."] = "20级时，{object:2100}军情七处的{npc:332}会让你去找{zone:1436}的{npc:7024}。",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "所有东西都在{zone:1453}：加姆一家出售{item:3421}，{item:8431}在城里某处，最近的商人出售{item:3372}和{item:4371}。",
 	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever 通过这条任务线而不是训练师教授{spell:2842}；同时获得{item:7676}的配方。",
+	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the {item:7676} recipe. Poisons are made, not bought: each batch of {item:6947} takes a {item:2928} and an {item:3371}, which {npc:1325} and {npc:1326} sell in {object:2100} next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon."] = "穿过艾尔文森林北上前往 {zone:1453}；马迪亚斯·肖尔在军情七处楼上。他会教你毒药技能，并给你 {item:7676} 配方。毒药需要制作，不能直接购买：每批 {item:6947} 需要一份 {item:2928} 和一个 {item:3371}，军情七处旁 {object:2100} 的 {npc:1325} 和 {npc:1326} 都有出售。各买一组，从法术书中打开毒药界面制作，再将毒药涂在武器上。",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北穿过艾尔文森林前往{zone:1453}；马迪亚斯·肖尔在{object:2100}的军情七处。",
 	-- ["{item:7908}, in the {object:123214}"] = "{item:7908}，在{object:123214}里",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024}在{zone:1436}最东边、靠近{zone:1431}边界的山丘上监视{npc:7053}的塔楼。守卫塔楼的{npc:7051}（23级）身上有钥匙；克拉文的日记在塔顶的箱子里。",

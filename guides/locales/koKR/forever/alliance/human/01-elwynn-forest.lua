@@ -84,7 +84,7 @@ return {
 	["Inside {area:34}"] = "{area:34} 안",
 	-- {npc:248362} Shinyfinder Narf
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "코볼트 일꾼이 광산 안 터널에서 일합니다. {npc:248362}은(는) 두 번째 오른쪽 굽이 아래에서 기다립니다.",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "코볼트 일꾼이 광산 안 터널에서 일합니다. {npc:248362}은(는) 두 번째 오른쪽 굽이 아래에서 기다립니다.\n주의: {npc:248362}(3)은(는) 정예입니다. 친구가 없으면 그냥 두세요.",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "",
 
@@ -254,9 +254,9 @@ return {
 	["Fun with Elementals: {npc:248464}"] = "그림책: 정령과 놀기: {npc:248464}",
 
 	-- Step 50: Goldtooth
-	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed
+	-- {quest:87} Goldtooth · {area:57} Fargodeep Mine · {item:1972} Westfall Deed · {npc:248464} Nimsy · {npc:79} Narg the Taskmaster
 	-- plural, as words: Defias Bandits = {npc:116} Defias Bandit
-	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87}은(는) 언덕 위가 아니라 {area:57} 안에 있습니다. 입구로 들어가 왼쪽을 따라 광산 바닥 안쪽까지 가십시오. 위층 계단은 오르지 마십시오. 포도밭 주변의 데피아즈단 좀도둑이 가끔 {item:1972}을(를) 떨어뜨리니 오른쪽 클릭하십시오.",
+	["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it.\nCareful: {npc:248464} (6), a kobold deep in the mine, is elite, and {npc:79} (10, rare) walks the tunnels: pull the kobolds one at a time."] = "{quest:87}은(는) 언덕 위가 아니라 {area:57} 안에 있습니다. 입구로 들어가 왼쪽을 따라 광산 바닥 안쪽까지 가세요. 위층 계단은 오르지 마세요. 포도밭 주변의 데피아즈단 좀도둑이 가끔 {item:1972}을(를) 떨어뜨리니 오른쪽 클릭하세요.\n주의: 광산 깊은 곳의 코볼트 {npc:248464}(6)은(는) 정예이고, {npc:79}(10, 희귀)이(가) 터널을 돌아다닙니다. 코볼트를 하나씩 끌어오세요.",
 	-- {item:981} Bernice's Necklace
 	["{item:981}; below ground"] = "",
 
@@ -353,9 +353,9 @@ return {
 	-- Step 71: Jasperlode Mine: kill these as you meet them
 	-- {area:54} Jasperlode Mine
 	["{area:54}: kill these as you meet them"] = "",
-	-- {item:247816} Mining Tools
-	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있으며, 코볼트 흙점쟁이가 터널을 차지하고 있습니다.",
+	-- {item:247816} Mining Tools · {npc:471} Mother Fang · {npc:248474} Geosculptor Yip
+	-- plural, as words: Kobold Geomancers = {npc:476} Kobold Geomancer · Mine Spiders = {npc:43} Mine Spider
+	["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels.\nCareful: {npc:471} (7-10), the Mine Spiders (7-9) and {npc:248474} (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있고, 터널은 코볼트 흙점쟁이가 지키고 있습니다.\n주의: {npc:471}(7-10), 굴거미(7-9), {npc:248474}(7)은(는) 광산 깊숙한 곳의 정예입니다. 입구 근처에서 코볼트를 하나씩 끌어오고, 정예가 다가오면 물러나세요. 친구와 함께하면 더 쉽습니다.",
 	["Walk into the mine"] = "광산 안으로 걸어가기",
 	-- {npc:476} Kobold Geomancer · {area:54} Jasperlode Mine
 	["{npc:476} walks around {area:54}: look inside the circle on the map"] = "",
@@ -493,6 +493,7 @@ return {
 	-- ["From the {quest:2998} he gives you"] = "그가 주는 {quest:2998}에서",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "{area:87}을 통해 돌아 나와 동쪽 {area:86}으로 가세요. {npc:6172}이 호수 남쪽에 있습니다: {item:6866}을 그에게 사용하세요. 주변의 디파이어스 불량 마법사들이 {item:6846}을 가지고 있습니다.",
 	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "들판을 가로질러 북서쪽, {area:120} 북쪽의 {quest:91736}(으)로 가십시오. 윤기나는 빨간 사과 네 개를 넣으면 {item:247824}이(가) 나옵니다.",
+	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "코볼트 일꾼이 광산 안 터널에서 일합니다. {npc:248362}은(는) 두 번째 오른쪽 굽이 아래에서 기다립니다.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오. {npc:248278}도 멀록 해안을 돌아다닙니다: 떨어뜨리는 머리를 오른쪽 클릭하십시오. {npc:248278}은(는) 정예입니다: 파티를 권장합니다.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "멀록과 멀록 길잡이가 동쪽 기슭을 차지하고 있으며, 잡동사니 더미는 그들의 야영지에 있습니다.",
@@ -505,6 +506,7 @@ return {
 	-- ["Speak with {npc:1430}"] = "{npc:1430}와(과) 대화",
 	-- ["Stonetusk Boars graze between the vineyards and the farm."] = "돌엄니멧돼지가 포도밭과 농장 사이에서 풀을 뜯습니다.",
 	-- ["The Stonefield farm is west of the mine. Ma and \"Auntie\" Bernice stand by the house."] = "스톤필드 농장은 광산 서쪽에 있습니다. 스톤필드 부인과 버니스 \"아줌마\"가 집 옆에 있습니다.",
+	-- ["The mine is south-west of the gnoll camps. {item:247816} lie near the entrance; Kobold Geomancers hold the tunnels."] = "광산은 놀 야영지 남서쪽에 있습니다. {item:247816}은(는) 입구 근처에 있으며, 코볼트 흙점쟁이가 터널을 차지하고 있습니다.",
 	-- ["The murloc camp"] = "멀록 야영지",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "{item:247813}, 도끼, 연장통은 다리 남쪽 강에 있습니다. 큰 멧돼지인 {npc:330}은(는) 강 서쪽 {area:62}에서 {npc:390}와(과) 함께 땅을 파헤칩니다. 새끼 돼지부터 떼어 내십시오. 가는 길에 굶주린 늑대와 새끼 숲곰을 처치하십시오.",
 	-- ["Torn Murloc Fins"] = "찢어진 멀록 지느러미",
@@ -536,4 +538,5 @@ return {
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: {zone:1453}의 {npc:6171}이(가) 받습니다",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: {item:247824}을(를) 원합니다",
 	-- ["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood."] = "{object:694855}은(는) 포도밭과 스톤필드 농장 주변 밭에서 자라며, 주변의 돌엄니멧돼지가 피를 줍니다.",
+	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87}은(는) 언덕 위가 아니라 {area:57} 안에 있습니다. 입구로 들어가 왼쪽을 따라 광산 바닥 안쪽까지 가십시오. 위층 계단은 오르지 마십시오. 포도밭 주변의 데피아즈단 좀도둑이 가끔 {item:1972}을(를) 떨어뜨리니 오른쪽 클릭하십시오.",
 }

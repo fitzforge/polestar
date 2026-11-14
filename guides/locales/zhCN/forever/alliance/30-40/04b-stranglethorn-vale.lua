@@ -6,9 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {quest:205} Troll Witchery
+	["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "适合35到36级的角色，但这里有几个任务是37-41级：这是有意安排的，为了它们的经验值。{quest:205}的劈颅巨魔为39-42级，所以一次拉一只。",
+
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
-	["In the {object:2164}, if you still carry it"] = "",
+	["In the {object:2164}, if you still carry it"] = "在{object:2164}里，如果还带着它",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -41,7 +45,7 @@ return {
 	-- Step 7: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "库尔森精神医师在营地深处；库尔森特种兵潜行在营地周围及洞内，赫罗德的保险箱在洞口旁。掉落Green Hills书页时记得拾取。\n小心：库尔森特种兵为34-35级，非精英，出现时经常处于潜行状态；濒死时会使用{spell:7964}。",
+	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "库尔森精神医师在营地深处；库尔森特种兵潜行在营地周围及洞内，赫罗德的保险箱在洞口旁。掉落《荆棘谷的青山》书页时记得拾取。\n小心：库尔森特种兵为34-35级，非精英，出现时经常处于潜行状态；濒死时会使用{spell:7964}。",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "{npc:941}：在地下",
 	-- {object:288} Bookie Herod's Strongbox
@@ -65,7 +69,7 @@ return {
 	-- Step 11: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
-	["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿海岸向北前往山丘上的废墟：最后两块石板就在那里。掉落Green Hills书页时记得拾取。",
+	["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿海岸向北前往山丘上的废墟：最后两块石板就在那里。掉落《荆棘谷的青山》书页时记得拾取。",
 
 	-- Step 12: Rebel Camp
 	-- {area:99} Rebel Camp
@@ -101,8 +105,9 @@ return {
 	["For Archmage Ansirem in {zone:1416}"] = "交给{zone:1416}的大法师安斯雷姆",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "{npc:773}：在楼上",
-	-- {npc:773} Krazek · {zone:1417} Arathi Highlands
-	["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}：矿石由接下来{zone:1417}的枯须狗头人掉落",
+	-- {npc:773} Krazek · {item:4278} Lesser Bloodstone Ore · {zone:1417} Arathi Highlands · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["{npc:773}, upstairs: this optional quest needs four {item:4278}. Mine Lesser Bloodstone Deposits in {zone:1417} with {skill:186} 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore."] = "{npc:773}在楼上：这个可选任务需要四块{item:4278}。在{zone:1417}用{skill:186} 75开采次级血石矿脉，或在拍卖行购买矿石，或请会采矿的朋友帮忙。狗头人不会掉落它；拿不到矿石就跳过这个任务。",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}：在屋内",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
@@ -112,5 +117,6 @@ return {
 	-- ["Herod's records lie in a hut on the west side of {area:101}, east of the {area:99}."] = "赫罗德的档案在{area:101}西侧的一间小屋中，位于{area:99}以东。",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "绕行北部和中部的巨魔废墟：每处都有一块记载巨魔传说的石板。深喉猎豹潜行在周围的丛林中；{area:37}的风险投资公司营地携带打磨过的水晶。",
 	-- ["Mauren, from Stonetalon"] = "Mauren，从石爪山脉来的任务",
+	-- ["{npc:773}: the ore drops from Drywhisker kobolds in {zone:1417}, next"] = "{npc:773}：矿石由接下来{zone:1417}的枯须狗头人掉落",
 	-- ["{zone:1434}: kill these as you meet them"] = "{zone:1434}：沿途击杀以下目标",
 }

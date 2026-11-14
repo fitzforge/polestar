@@ -19,7 +19,7 @@ local HEAD_H = 56
 local F
 
 local function build()
-	F = CreateFrame("Frame", "PolestarCopy", UIParent)
+	F = CreateFrame("Frame", "PolestarCopy", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -47,6 +47,7 @@ local function build()
 	W.Rim(F, { width = WIDTH * 0.7 })
 	F.Close = W.IconButton(head, "close", 28, L["Close"], function() F:Hide() end, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -14)
+	W.FrameClose(F, F.Close)
 	F.Icon = head:CreateTexture(nil, "ARTWORK")
 	F.Icon:SetSize(28, 28)
 	F.Icon:SetPoint("LEFT", head, "LEFT", PAD - 2, 0)
@@ -113,8 +114,7 @@ function UI.ShowCopy(title, text, opts)
 	F:SetHeight(HEAD_H + 12 + F.Hint:GetStringHeight() + 10 + b:GetHeight() + PAD)
 	F:Show()
 	F:Raise()
-	b:SetFocus()
-	b:HighlightText()
+	W.SelectCopy(b)
 end
 
 ns.On("SHOW_COPY", function(title, text) UI.ShowCopy(title, text) end)

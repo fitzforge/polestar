@@ -5,6 +5,16 @@
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
+	<Script file="GuideFrameTabs.lua"/>
+	<Script file="GuideFrameBanner.lua"/>
+	<Script file="GuideFrameHere.lua"/>
+	<Script file="GuideFrameLayout.lua"/>
+	<Script file="GuideFrameLook.lua"/>
+	<Script file="GuideFrameMenu.lua"/>
+	<Script file="GuideFrameWindow.lua"/>
+	<Script file="GuideFrameStatus.lua"/>
+	<Script file="StepList.lua"/>
+	<Script file="QuickSettings.lua"/>
 	<Script file="Launcher.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="WhileHere.lua"/>
@@ -14,6 +24,8 @@
 	<Script file="ClassCard.lua"/>
 	<Script file="ClassToast.lua"/>
 	<Script file="DungeonToast.lua"/>
+	<Script file="SpellCards.lua"/>
+	<Script file="UpdateCard.lua"/>
 	<Script file="JourneyPanel.lua"/>
 	<Script file="GamepadGuide.lua"/>
 	<Script file="GearPick.lua"/>
@@ -29,11 +41,14 @@
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
 	<Script file="GearScales.lua"/>
+	<Script file="GearAdjust.lua"/>
 	<Script file="Report.lua"/>
 	<Script file="Packs.lua"/>
 	<Script file="Import.lua"/>
 	<Script file="Thanks.lua"/>
-	<Script file="Options.lua"/>
-	<Script file="LineStyle.lua"/>
+	<Script file="OptionsLoader.lua"/>
+	<Script file="Toasts.lua"/>
+	<Script file="Trackers.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
+	<Script file="Movers.lua"/>
 </Ui>

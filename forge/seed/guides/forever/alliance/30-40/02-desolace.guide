@@ -9,10 +9,12 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Vahlarriel's Vengeance (97284), on the Thunder Axe Fortress visit.
+# Added here: Vahlarriel's Vengeance (97284), on the Thunder Axe Fortress visit; The Karnitol Shipwreck (1454, 1455) and the
+# satchel's errand (1456), whose chest lies by Azore's tower on the way to the fortress; Carved Centaur Totems (93224),
+# whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06 keeps it for a player who loads it fresh).
 # Left out: Bodyguard for Hire (5821).
 # Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
-# the end of 30-40/06 (38-39), and The Karnitol Shipwreck (39) is taken there.
+# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast.
 
 # ---------------------------------------------------------------- Getting there
 
@@ -23,9 +25,10 @@ step Nijel's Point
   sethome "Nijel's Point" npc 11103   -- Innkeeper Lyshaerya
   turnin 1453                         -- Kreldig Ungor
   accept 1458
+  accept 1454                         -- Kreldig Ungor: the wreck's chest lies below Azore's tower, on the way to Thunder Axe Fortress
   accept 1387                         -- Corporal Melkins
+  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
   accept 1437                         -- Vahlarriel Demonslayer
-  accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
 
 step Malem chest
   tip The chest lies in the ruins south-west of Nijel's Point.
@@ -50,12 +53,18 @@ step Nijel's Point
   zone Desolace
   turnin 1465
   accept 1438
+  accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
 
 # ---------------------------------------------------------------- Thunder Axe Fortress
 
 step Azore Aldamort
   tip Azore's tower stands on the hill west of Thunder Axe Fortress: take his quest first, the sceptre he wants is in the fortress.
   accept 5741
+
+step Karnitol's Chest
+  tip The wrecked ship lies just south-west of Azore's tower; its chest sits beside Rackmore's Log.
+  turnin 1454                         -- Karnitol's Chest
+  accept 1455                         -- For Kreldig Ungor, at the end of this guide
 
 step Dalinda Malem
   tip Dalinda hides inside the Burning Blade's fortress south-west of Nijel's Point.
@@ -97,6 +106,7 @@ step Smeed Scrabblescrew
 step Kolkar Village
   tip The Kolkar roam the plains around Kolkar Village; their ears are for Corporal Melkins.
   collect 6067 quest 1387             -- Centaur Ear
+  collect 254432 quest 93224.1        -- Carved Centaur Totem
 
 # ---------------------------------------------------------------- Nijel's Point
 
@@ -104,7 +114,10 @@ step Nijel's Point
   turnin 1440                         -- Vahlarriel Demonslayer
   turnin 97284
   turnin 1387                         -- Corporal Melkins
+  turnin 93224                        -- Captain Pentigast
   turnin 1459                         -- Kreldig Ungor
+  turnin 1455
+  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it
 
 # ---------------------------------------------------------------- To Stormwind
 

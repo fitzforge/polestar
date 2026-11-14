@@ -117,9 +117,14 @@ stub.login(); stub.advance(0.25)
 {open}
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
 local g = E.GetGuide()
+-- The steps that apply to him up to the first Tarren Mill stop that does (the catch-up on Battle of Hillsbrad and
+-- The Rescue before it, #1660, is for characters without those quests; he handed them in).
 local st = {{}}
 for i, step in ipairs(g.steps) do
-	if E.Applies(i) and i <= 19 then st[#st + 1] = step.title .. "=" .. E.GetStepView(i).status end
+	if E.Applies(i) then
+		st[#st + 1] = step.title .. "=" .. E.GetStepView(i).status
+		if step.title == "Tarren Mill" then break end
+	end
 end
 local korran
 for i, step in ipairs(g.steps) do if step.title == "Korran" then korran = i end end
@@ -132,7 +137,7 @@ emit({{ live = g.steps[E.GetLiveStep()].title, steps = st, korran = E.GetStepVie
 
 #[test]
 fn tincho_at_28_7_loading_hillsbrad_keeps_orgrimmar_training_and_the_undercity_only_korran_waits() {
-	// The first load, and a reload of the saved tab (SkipAheadSweep: the same placement runs again).
+	// The first load, and a reload of the saved tab (the skip-ahead sweep: the same placement runs again).
 	for reload in [false, true] {
 		let out = tincho(reload);
 		assert_eq!(out["live"], "Fly to the Crossroads", "reload {reload}: {out}");
@@ -140,5 +145,56 @@ fn tincho_at_28_7_loading_hillsbrad_keeps_orgrimmar_training_and_the_undercity_o
 		for s in ["Fly to Orgrimmar=upcoming", "Train=upcoming", "Zeppelin to Undercity=upcoming", "The Undercity=upcoming", "Tarren Mill=upcoming"] {
 			assert!(out["steps"].as_array().unwrap().iter().any(|v| v == s), "reload {reload}, {s}: {out}");
 		}
+		for s in ["High Executor Darthalia", "Krusk", "Hillsbrad Fields", "Hillsbrad Peasants", "Durnholde Keep", "The smithy"] {
+			let catch_up = out["steps"].as_array().unwrap().iter().any(|v| v.as_str().is_some_and(|v| v.starts_with(&format!("{s}="))));
+			assert!(!catch_up, "reload {reload}: the #1660 catch-up ({s}) is not his, he handed those quests in: {out}");
+		}
 	}
+}
+
+// Discord (2026-11-09): a Rogue at 21 at Taskmaster Fizzule (Horde 05-stonetalon-mountains) read "Level 24
+// quest" for Mission: Possible But Not Probable (2478, level 24, an optional accept: Gallywix is a 23 elite). Taking a
+// quest is no work: the optional accept gives the step no quest-level line, and the pace line names no hard quest for it.
+#[test]
+fn a_rogue_at_21_at_fizzule_sees_no_level_line_for_the_optional_mission_possible() {
+	let dir = forge_addontest::run::addons_dir();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: r#"local w = stub.world
+w.race, w.faction, w.class, w.className, w.level = "Orc", "Horde", "ROGUE", "Rogue", 21
+w.setXP(20000, 50000)
+w.onQuest(2458, { 0 })"#
+			.to_string(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: r#"
+E = Polestar.Engine
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+E.SetGuide("forever/horde/05-stonetalon-mountains"); stub.advance(0.25)
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
+local g = E.GetGuide()
+local at
+for i, step in ipairs(g.steps) do if step.title == "Taskmaster Fizzule" and E.Applies(i) then at = i break end end
+local sk = {}
+for i = 1, at - 1 do sk[i] = true end
+Polestar.CharState().skipped["forever/horde/05-stonetalon-mountains"] = sk
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(1)
+local v, accept = E.GetStepView(at), nil
+for k, gv in ipairs(v.goals) do
+	local goal = g.steps[at].goals[k]
+	if goal.t == "accept" and goal.quest == 2478 then accept = { optional = goal.optional == true, status = gv.status } end
+end
+local h = Polestar.Levels.StepHint(at)
+local pace = Polestar.Levels.Pace()
+local hard = pace and pace.hard and pace.hard.quest or false
+emit({ live = E.GetLiveStep(), at = at, accept = accept or false, hint = h and h.level or false, hard = hard })"#
+			.to_string(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], out["at"], "the player is at Fizzule: {out}");
+	assert_eq!(out["accept"]["optional"], true, "Mission: Possible is an optional accept on the step: {out}");
+	assert_eq!(out["hint"], false, "no \"Level 24 quest\" line for taking it: {out}");
+	assert_ne!(out["hard"], 2478, "the pace line names no hard quest for the optional accept: {out}");
 }

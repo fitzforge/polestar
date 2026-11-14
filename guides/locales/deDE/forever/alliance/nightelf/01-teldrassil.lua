@@ -18,7 +18,7 @@ return {
 	-- {area:188} Shadowglen
 	["{area:188}: kill these as you meet them"] = "",
 	-- {area:256} Aldrassil · {item:3297} Fel Moss
-	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Gnarlpine Totems = {item:279082} Gnarlpine Totem
+	-- plural, as words: Young Nightsabers = {npc:2031} Young Nightsaber · Young Thistle Boars = {npc:1984} Young Thistle Boar · Grells = {npc:1988} Grell · Gnarlpine Totems = {item:279082} Gnarlpine Totem
 	["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "Junge Nachtsäbler und Junge Disteleber streifen um {area:256} herum. Grells tragen {item:3297} in den Wäldern westlich des Baums, wo die Totems der Knarzklauen stehen.",
 
 	-- Step 3: Back at Aldrassil
@@ -62,8 +62,9 @@ return {
 	-- {quest:917} Webwood Egg
 	["{quest:917} and the antidote"] = "{quest:917} und das Gegengift",
 	-- {object:4406} Webwood Eggs · {area:257} Shadowthread Cave · {area:256} Aldrassil
-	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom
+	-- plural, as words: Hyacinth Mushrooms = {item:10639} Hyacinth Mushroom · Grells = {npc:1988} Grell
 	["The {object:4406} lie at the back of {area:257}: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of {area:256}."] = "Die {object:4406} liegen hinten in der {area:257}: Nimm den mittleren Pfad, dann links an der Gabelung, hinauf zum hohen Felsvorsprung. Hyazinth-Pilze lassen Grells fallen, Mondblütenlilien wachsen an den Teichen nördlich von {area:256}.",
+	-- plural, as words: Grells = {npc:1988} Grell
 	["Grells"] = "",
 
 	-- Step 8: Shadowglen
@@ -382,8 +383,6 @@ return {
 	-- {npc:2080} Denalan
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
 	["South-east of Dolanaar, to {npc:2080}. Lasher Sproutlings wander around him on the shore."] = "Südöstlich von Dolanaar, zu {npc:2080}. Wildschlagsetzlinge wandern am Ufer um ihn herum.",
-	-- {object:7510} Sprouted Frond
-	["{object:7510}, beside him"] = "{object:7510}, neben ihm",
 
 	-- Step 63: Dolanaar again
 	-- {area:186} Dolanaar
@@ -577,6 +576,7 @@ return {
 	-- ["{npc:6094}, in the inn: Camping 101, {skill:129}"] = "{npc:6094}, im Gasthaus: Camping 101, {skill:129}",
 	-- ["{npc:6287}, camped beside the road before Shayla: Camping 101, skinners"] = "{npc:6287}, lagert an der Straße vor Shayla: Camping 101, Kürschner",
 	-- ["{npc:7318}, in the den"] = "{npc:7318}, im Bau",
+	-- ["{object:7510}, beside him"] = "{object:7510}, neben ihm",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} und der Mondbrunnen von Starbreeze",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: Wirke {spell:1259799} und {spell:20580}, dann gib sie bei {npc:3595} ab",
 }

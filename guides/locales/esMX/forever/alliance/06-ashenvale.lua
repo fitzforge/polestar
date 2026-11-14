@@ -61,7 +61,7 @@ return {
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle
 	["His hut stands just north of {npc:4080} and {npc:4077}."] = "",
 	-- {npc:4201} Ziz Fizziks
-	["{npc:4201}, inside"] = "",
+	["{npc:4201}, inside"] = "{npc:4201}, adentro",
 
 	-- Step 16: Windshear Crag: kill these as you meet them
 	-- {area:461} Windshear Crag
@@ -70,7 +70,7 @@ return {
 	["The Venture Co. clear the forest of {area:461}. Loggers and Deforesters work all over it; the Operators run the shredders and one carries the blueprints."] = "Ventura y Cía. tala el bosque de {area:461}. Madereros y Deforestadores trabajan por todas partes; los Operadores manejan las trituradoras y uno lleva los planos.",
 
 	-- Step 17: Webwinder Path
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 18: The Ruins of Stardust
 	-- {area:1276} Talondeep Path · {area:421} Mystral Lake
@@ -84,7 +84,7 @@ return {
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:210995} Alonso
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}; {npc:210995} camps on its west shore. Befouled Water Elementals wade in the lake between them."] = "{npc:3885} está en {area:420}, en la orilla este de {area:421}; {npc:210995} acampa en la orilla oeste. Los Elementales de agua podrida ({npc:3917}) vadean el lago entre ambos.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Mata a los elementales hasta tener 5 Brazales elementales intactos ({item:12220}) y luego usa el {item:5456}",
@@ -237,24 +237,26 @@ return {
 	-- Step 49: Ironforge
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4081} Lomac Gearstrip · {object:171524} Tinker Town · {area:2257} Deeprun Tram
 	["The gryphons land in the {object:32372}. {npc:4081} stands in {object:171524}, east of it, by the {area:2257}."] = "",
+	-- {item:4371} Bronze Tube · {area:42} Darkshire · {npc:5175} Gearcutter Cogspinner · {npc:4081} Lomac Gearstrip
+	["{item:4371}, for Look to the Stars in {area:42}: {npc:5175}, beside {npc:4081}, sometimes has one"] = "",
 	-- {item:5352} Book: The Powers Below · {zone:1439} Darkshore · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
 	["Only with {item:5352} from {zone:1439}: {npc:2786}, the {object:32383}"] = "Solo con {item:5352} de {zone:1439}: {npc:2786}, {object:32383}",
 
 	-- Step 50: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende {spell:197} con {npc:11865} ({object:32359}, 10 de plata); con armas de dos manos un guerrero sube de nivel más rápido.",
 
 	-- Step 51: Buliwyf Stonehand
 	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Ya que estás aquí: aprende {spell:199} con {npc:11865} ({object:32359}, 10 de plata); con armas de dos manos un guerrero sube de nivel más rápido.",
 
 	-- Step 52: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "Ya que estás aquí: aprende {spell:197} con {npc:11865} ({object:32359}, 10 de plata); con armas de dos manos un paladín sube de nivel más rápido.",
 
 	-- Step 53: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 
 	-- Step 54: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston

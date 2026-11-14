@@ -115,14 +115,18 @@ function threadUrl(guild, thread, message) {
 }
 
 // A post's title as an issue title. A player who pasted the report into the
-// title box gets their words alone: no bold lead-in, nothing from the code block on.
+// title box gets their words alone: no bold lead-in, nothing from the code
+// block on, their first line only, cut at 80 characters (never inside one).
 function issueTitle(name) {
-	const t = String(name || '')
+	const words = String(name || '')
 		.replace(/```[\s\S]*$/, '')
 		.replace(/^\s*\*\*[^*\n]{1,60}[:：]\*\*\s*/, '')
+		.trim()
+		.split('\n')[0]
 		.replace(/\s+/g, ' ')
-		.trim() || 'Bug report from Discord';
-	return t.length > 200 ? t.slice(0, 197) + '...' : t;
+		.trim();
+	const t = Array.from(words || 'Bug report from Discord');
+	return t.length > 80 ? t.slice(0, 77).join('').trimEnd() + '...' : t.join('');
 }
 
 // The report's text is the player's, so a label is made from it only when it
@@ -167,8 +171,30 @@ function summaryTable(d) {
 	}
 	if (d.zone) rows.push(['Where', d.zone + (d.map ? ` · map ${d.map}` : '')]);
 	if (d.routes) rows.push(['Routes', d.routes]);
+	if (d.settings) rows.push(['Settings', settingsSummary(d.settings)]);
 	rows.push(['Errors', d.errors.length ? d.errors.map((e) => `${e.count}x ${e.message}`).join(' / ') : 'none']);
 	return ['| | |', '|---|---|', ...rows.map(([k, v]) => `| ${k} | ${cell(v)} |`)].join('\n');
+}
+
+// "23 changed · profile Raid (character)", or "all defaults · ...".
+function settingsSummary(s) {
+	const what = s.count ? `${s.count} changed` : 'all defaults';
+	return s.profile ? `${what} · profile ${s.profile} (${s.source})` : what;
+}
+
+// The settings the player changed, unfolded under the summary: one a line,
+// "key = value (default d)", in the report's order (what most often changes
+// what Polestar does first, the looks last), then what the report could not
+// carry. Null when every setting is at its default.
+function settingsSection(s) {
+	if (!s || (!s.entries.length && !s.looks)) return null;
+	const lines = s.entries.map((e) => `${e.key} = ${e.value}` + (e.default != null ? ` (default ${e.default})` : ''));
+	if (!s.unfolded) {
+		if (s.looks) lines.push(`looks: ${s.looks}`);
+		if (s.more) lines.push(`+${s.more} more the report had no room for (#${s.hash})`);
+		if (s.damaged) lines.push('(the packed settings line did not unfold: damaged or cut short)');
+	}
+	return [`<details><summary>Settings: ${inert(settingsSummary(s)).replace(/\s+/g, ' ')}</summary>`, '', fence(lines.join('\n')), '', '</details>'].join('\n');
 }
 
 function mediaSection(files) {
@@ -190,6 +216,8 @@ function issueBody(post) {
 	out.push(report.description ? quote(report.description) : '_No description._', '');
 	if (report.details) {
 		out.push(summaryTable(report.details), '');
+		const settings = settingsSection(report.details.settings);
+		if (settings) out.push(settings, '');
 		out.push('<details><summary>Full report</summary>', '', fence(report.block), '', '</details>', '');
 	}
 	if (files.length) out.push('### Screenshots', '', mediaSection(files), '');
@@ -208,6 +236,20 @@ function followUpComment(msg) {
 	if (files.length) out.push(mediaSection(files), '');
 	out.push(FOLLOWUP_MARK);
 	return out.join('\n');
+}
+
+// The Discord message a follow-up comment was copied from, or null: read
+// from the comment's first line (the bot's own, before any player text) and
+// only when the comment ends in the follow-up mark and links `thread`.
+// `login`: the bot's GitHub account (BOT_GITHUB_LOGIN), checked against the
+// comment's author when set, as for the issue marker.
+const FOLLOWUP_HEAD = /^\*\*.*\*\* (?:\(the reporter\) added|commented) on \[Discord\]\(https:\/\/discord\.com\/channels\/\d+\/(\d+)\/(\d+)\):$/;
+function followUpMessage(comment, thread, login = (process.env.BOT_GITHUB_LOGIN || '').trim() || null) {
+	if (!comment || (login && !(comment.user && comment.user.login === login))) return null;
+	const text = String(comment.body || '').trimEnd();
+	if (!text.endsWith(FOLLOWUP_MARK)) return null;
+	const m = FOLLOWUP_HEAD.exec(text.split('\n', 1)[0]);
+	return m && m[1] === thread ? m[2] : null;
 }
 
 // The bot's reply in the thread once the issue exists, and that reply read back.
@@ -244,6 +286,7 @@ module.exports = {
 	labelInfo,
 	issueBody,
 	followUpComment,
+	followUpMessage,
 	trackedReply,
 	readTrackedReply,
 	heldReply,

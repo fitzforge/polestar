@@ -11,30 +11,30 @@ return {
 	["Learn {skill:356}"] = "Aprende {skill:356}",
 	-- {skill:356} Fishing · {item:6256} Fishing Pole · {spell:1229745} Fish Bowl
 	-- plural, as words: Shiny Baubles = {item:6529} Shiny Bauble
-	["Any {skill:356} trainer of your faction teaches Apprentice {skill:356} (character level 5, 1s); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a {item:6256} (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each): a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:356}, handed in to the fishing trainer it names at skill 20 for the {spell:1229745} recipe."] = "",
+	["Any {skill:356} trainer of your faction teaches Apprentice {skill:356} at any character level (1s); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a {item:6256} (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each): a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:356}, handed in to the fishing trainer it names at skill 20 for the {spell:1229745} recipe."] = "Cualquier instructor de {skill:356} de tu facción enseña Aprendiz de {skill:356} a cualquier nivel de personaje (1s); la flecha elige el más cercano, y cada zona inicial tiene uno en su lago u orilla. Compra una {item:6256} (23c) a un mercader de mercancías o de pesca y equípala (solo puedes pescar con una caña en las manos), y dos o tres Adornos lustrosos (+25, 50c cada uno): un señuelo suma su bonificación a tu habilidad por diez minutos, así que al principio se escapan menos peces. Si te sentaste junto a la hoguera de tu zona inicial para “Bendita naturaleza”, el guía de campamento de ahí también ofrece “Campamento básico: {skill:356}”, que se entrega al instructor de pesca que indica, con habilidad 20, a cambio de la receta de {spell:1229745}.",
 
 	-- Step 2: Fishing: Elwynn Forest (1-50)
 	-- {skill:356} Fishing · {skill:185} Cooking
-	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "",
+	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "Pesca aquí hasta habilidad 50, unas 50 capturas: por debajo de 75 cada captura sube la habilidad. Lanza {skill:356} desde tu libro de hechizos y haz clic en el corcho cuando salpique. Guarda los peces: son tus primeros ingredientes de {skill:185}. Aquí los peces se escapan por debajo de habilidad 25; un cebo en la caña suma a tu habilidad durante diez minutos y cierra la diferencia.",
 
 	-- Step 5: Fishing: Zephras Isle (1-50)
 	-- {skill:356} Fishing · {skill:185} Cooking
-	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients."] = "",
+	["Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast {skill:356} from your spellbook, click the bobber when it splashes. Keep the fish: they are your first {skill:185} ingredients."] = "Pesca aquí hasta habilidad 50, unas 50 capturas: por debajo de 75 cada captura sube la habilidad. Lanza {skill:356} desde tu libro de hechizos y haz clic en el corcho cuando salpique. Guarda los peces: son tus primeros ingredientes de {skill:185}.",
 	-- {area:16638} Valanaar
-	["{area:16638} shore"] = "",
+	["{area:16638} shore"] = "Orilla de {area:16638}",
 
 	-- Step 6: Fishing: Durotar (1-50)
-	["Sen'jin coast"] = "",
+	["Sen'jin coast"] = "Costa de Sen'jin",
 
 	-- Step 10: Journeyman Fishing
 	-- {skill:356} Fishing
 	["Journeyman {skill:356}"] = "{skill:356} de oficial",
 	-- {skill:356} Fishing · {spell:1229745} Fish Bowl · {item:6291} Raw Brilliant Smallfish · {item:3371} Empty Vial
-	["Journeyman {skill:356} raises the cap to 150; it needs skill 50 and character level 10 (Forever's sniffed trainer lists ask for that level), and costs 5s. The arrow picks the nearest {skill:356} trainer of your faction. {spell:1229745}, Forever's camping item for {skill:356} (from skill 20, 1s or free from Camping 101: {skill:356}), is a {item:6291} in an {item:3371}: it gives no skill, but placed beside a campfire it gives everyone at the camp a buff for an hour."] = "",
+	["Journeyman {skill:356} raises the cap to 150; it needs skill 50 and character level 10 (Forever's sniffed trainer lists ask for that level), and costs 5s. The arrow picks the nearest {skill:356} trainer of your faction. {spell:1229745}, Forever's camping item for {skill:356} (from skill 20, 1s or free from Camping 101: {skill:356}), is a {item:6291} in an {item:3371}: it gives no skill, but placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Oficial de {skill:356} sube el límite a 150; requiere habilidad 50 y nivel de personaje 10 (las listas de instructores de Forever capturadas piden ese nivel), y cuesta 5s. La flecha elige el instructor de {skill:356} más cercano de tu facción. {spell:1229745}, el objeto de campamento de Forever para {skill:356} (desde habilidad 20, 1s o gratis con “Campamento básico: {skill:356}”), es un {item:6291} en un {item:3371}: no da habilidad, pero colocado junto a una hoguera da a todos en el campamento un beneficio durante una hora.",
 
 	-- Step 11: Fishing: Westfall (50-125)
 	-- {item:6530} Nightcrawlers · {item:6529} Shiny Bauble · {item:6365} Strong Fishing Pole
-	["Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. {item:6530} (+50 from skill 50, 1s each) are twice as strong as a {item:6529}. The {item:6365} (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "",
+	["Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. {item:6530} (+50 from skill 50, 1s each) are twice as strong as a {item:6529}. The {item:6365} (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "Pesca en los bancos y en aguas abiertas aquí hasta habilidad 125, unas 120 capturas: desde 75 una captura sube la habilidad con menos frecuencia (más o menos una de cada dos a 100, una de cada tres a 125). Los bancos (restos flotantes, bancos de peces) también dan botín extra. {item:6530} (+50 desde habilidad 50, 1s cada uno) es el doble de fuerte que un {item:6529}. La {item:6365} (+5 desde habilidad 10, 9s 1c) tiene existencias limitadas en los mercaderes de pesca: cómprala cuando la veas. Aquí los peces se escapan por debajo de habilidad 75; un cebo en la caña suma a tu habilidad durante diez minutos y cierra la diferencia.",
 	-- {zone:1436} Westfall
 	["{zone:1436} coast"] = "Costa de {zone:1436}",
 
@@ -50,13 +50,13 @@ return {
 	-- {skill:356} Fishing
 	["Expert {skill:356}"] = "Experto de {skill:356}",
 	-- {skill:356} Fishing · {npc:2626} Old Man Heming · {item:16083} Expert Fishing - The Bass and You · {area:35} Booty Bay · {zone:1434} Stranglethorn Vale · {area:392} Ratchet · {zone:1413} The Barrens · {item:6532} Bright Baubles
-	["Expert {skill:356} (cap 225) is a book, not a trainer rank: {npc:2626} sells {item:16083} (1g) on the lowest dock of {area:35}, at the south tip of {zone:1434}, to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way in is the boat from {area:392} in {zone:1413}, not the road through Stranglethorn. He also sells {item:6532} (+75 from skill 100, 2s 50c each), the lure for the rest of the way."] = "",
+	["Expert {skill:356} (cap 225) is a book, not a trainer rank: {npc:2626} sells {item:16083} (1g) on the lowest dock of {area:35}, at the south tip of {zone:1434}, to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way in is the boat from {area:392} in {zone:1413}, not the road through Stranglethorn. He also sells {item:6532} (+75 from skill 100, 2s 50c each), the lure for the rest of the way."] = "Experto de {skill:356} (límite 225) es un libro, no un rango de instructor: {npc:2626} vende {item:16083} (1g) en el muelle más bajo de {area:35}, en la punta sur de {zone:1434}, a ambas facciones. Cómpralo y léelo; requiere habilidad 125 y nivel 20. A nivel 20, la forma segura de llegar es el barco desde {area:392} en {zone:1413}, no el camino por Tuercespina. También vende {item:6532} (+75 desde habilidad 100, 2s 50c cada uno), el cebo para el resto del camino.",
 	-- {item:16083} Expert Fishing - The Bass and You · {skill:356} Fishing
 	["Buy and read {item:16083} (Expert {skill:356})"] = "Compra y lee {item:16083} (Experto de {skill:356})",
 
 	-- Step 17: Fishing: Wetlands (125-225)
 	-- {item:279965} Fishing Rack · {area:2797} Blackfathom Deeps
-	["Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the {item:279965} (from skill 140), is a blueprint that drops from Gelihast in {area:2797}. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "",
+	["Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the {item:279965} (from skill 140), is a blueprint that drops from Gelihast in {area:2797}. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap."] = "Pesca en los bancos aquí hasta habilidad 225, unas 500 capturas: una de cada tres sube la habilidad a 125, una de cada siete a 225, así que este es el tramo largo. El segundo objeto de campamento de Forever, {item:279965} (desde habilidad 140), es un plano que suelta Gelihast en {area:2797}. Aquí los peces se escapan por debajo de habilidad 150; un cebo en la caña suma a tu habilidad durante diez minutos y cierra la diferencia.",
 	-- {zone:1437} Wetlands
 	["{zone:1437} coast"] = "Costa de {zone:1437}",
 
@@ -78,23 +78,23 @@ return {
 
 	-- Step 23: Nat Pagle
 	-- {npc:12919} Nat Pagle
-	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "",
+	["{npc:12919} fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast."] = "{npc:12919} pesca desde la orilla de una islita frente a la costa este, al sur de Theramore; cruza nadando desde la costa.",
 
 	-- Step 24: Sar'theris Striker
 	-- {zone:1443} Desolace · {area:598} Sar'theris Strand · {area:2408} Shadowprey Village · {item:16968} Sar'theris Striker
-	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the coast of {zone:1443} ({area:598} in the north-west, or the shore west of {area:2408}) until you catch a {item:16968}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de la costa de {zone:1443} ({area:598} en el noroeste, o la orilla al oeste de {area:2408}) hasta sacar {item:16968}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
 
 	-- Step 26: Feralas Ahi
 	-- {area:2521} Verdantis River · {zone:1444} Feralas · {area:2577} Dire Maul · {item:16967} Feralas Ahi · {item:6532} Bright Baubles
-	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "",
+	["Fish along the {area:2521} in {zone:1444} (south-east of {area:2577}) until you catch a {item:16967}: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put {item:6532} (+75) on the pole first."] = "Pesca a lo largo de {area:2521} en {zone:1444} (al sureste de {area:2577}) hasta sacar {item:16967}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. En esta agua se escapan peces por debajo de habilidad 300: a 225 se escapan la mayoría, así que pon primero {item:6532} (+75) en la caña.",
 
 	-- Step 27: Savage Coast Blue Sailfin
 	-- {zone:1434} Stranglethorn Vale · {area:301} Savage Coast · {item:16969} Savage Coast Blue Sailfin
-	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along {zone:1434}'s {area:301} (the west shore) until you catch a {item:16969}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de {area:301} de {zone:1434} (la orilla oeste) hasta sacar {item:16969}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
 
 	-- Step 29: Misty Reed Mahi Mahi
 	-- {area:300} Misty Reed Strand · {zone:1435} Swamp of Sorrows · {item:16970} Misty Reed Mahi Mahi
-	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "",
+	["Fish along the {area:300} (the east shore of {zone:1435}) until you catch a {item:16970}: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here."] = "Pesca a lo largo de {area:300} (la orilla este de {zone:1435}) hasta sacar {item:16970}: más o menos una de cada cinco capturas allí lo trae, y no pica en ningún otro lugar. Con habilidad 225 aquí no se escapa nada.",
 
 	-- Step 30: Nat Pagle
 	-- {skill:356} Fishing
@@ -102,7 +102,7 @@ return {
 
 	-- Step 31: Fishing: Stranglethorn Vale (225-300)
 	-- {item:6533} Aquadynamic Fish Attractor · {item:6532} Bright Baubles
-	["Fish the pools along the coast here (eels, snappers, wreckage) until skill 300, about 650 catches (one in seven raises the skill at 225, one in ten by 300). Harder water levels no faster: a catch counts the same anywhere. From skill 225 this water loses no fish, so no lure is needed. The {item:6533} (+100 from skill 100, 2s 50c) and {item:6532} are for harder water and rare fish, not for skill."] = "",
+	["Fish the pools along the coast here (eels, snappers, wreckage) until skill 300, about 650 catches (one in seven raises the skill at 225, one in ten by 300). Harder water levels no faster: a catch counts the same anywhere. From skill 225 this water loses no fish, so no lure is needed. The {item:6533} (+100 from skill 100, 2s 50c) and {item:6532} are for harder water and rare fish, not for skill."] = "Pesca en los bancos a lo largo de la costa aquí (anguilas, tortugas mordedoras, restos) hasta habilidad 300, unas 650 capturas (una de cada siete sube la habilidad a 225, una de cada diez a 300). Las aguas más difíciles no suben más rápido: una captura cuenta igual en cualquier lugar. Desde habilidad 225 en esta agua no se escapa ningún pez, así que no hace falta cebo. El {item:6533} (+100 desde habilidad 100, 2s 50c) y {item:6532} son para aguas más difíciles y peces raros, no para la habilidad.",
 	-- {area:35} Booty Bay
 	["{area:35} coast"] = "Costa de {area:35}",
 

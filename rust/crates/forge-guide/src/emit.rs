@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 28] = [
+pub const GUIDE_KEYS: [&str; 29] = [
 	"id",
 	"pack",
 	"title",
@@ -67,19 +67,21 @@ pub const GUIDE_KEYS: [&str; 28] = [
 	"group",
 	"names",
 	"written",
+	"sections",
 	"steps",
 ];
-/// `image` follows note, so a step without one is emitted as before.
-pub const STEP_KEYS: [&str; 9] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "goals"];
+/// `image` follows note, so a step without one is emitted as before; so does `section`.
+pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "when", "along", "skipto", "section", "goals"];
 /// A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
-/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-pub const WHEN_KEYS: [&str; 17] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy"];
+/// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
+/// `taxi` predicate's flight master, sits where no other predicate has a value).
+pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 76] = [
+pub const GOAL_KEYS: [&str; 84] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -113,6 +115,9 @@ pub const GOAL_KEYS: [&str; 76] = [
 	"grind",
 	"money",
 	"untilSkill",
+	// A `craft … until` goal's skill-up colours (the engine's crafts still to make).
+	"yellow",
+	"grey",
 	"reagents",
 	"location",
 	"minLevel",
@@ -123,6 +128,14 @@ pub const GOAL_KEYS: [&str; 76] = [
 	"pre",
 	"preAll",
 	"closedBy",
+	// On an accept something closes for good: the NPCs the quest is handed in to and its XP (the data's), for the
+	// missable-quest line (Core/Closes.lua).
+	"endNpcs",
+	"xp",
+	// A child quest's parent (the data's `parent`): its giver offers it only while the parent is in the log (#1661).
+	"parent",
+	// An accept's breadcrumbs: the game holds the quest back while one is in the log, until it is handed in.
+	"crumbs",
 	"preTitles",
 	"text",
 	"node",
@@ -151,6 +164,8 @@ pub const GOAL_KEYS: [&str; 76] = [
 	"fromId",
 	"fromAlsoId",
 	"fromNpcs",
+	// Per spot, the places in `fromNpcs` of the sources spawning there, where the spots hold more than it named (#1616).
+	"fromNpcsAt",
 	"candidates",
 	"rewards",
 	"group",
@@ -163,6 +178,8 @@ pub const GOAL_KEYS: [&str; 76] = [
 	"objs",
 	"startItem",
 	"startItemName",
+	// Quest work handed in only by a later guide of the chain: that guide's id (validate.rs, Ctx::mark_carried).
+	"carriedTo",
 ];
 const REAGENT_KEYS: [&str; 3] = ["item", "itemName", "count"];
 /// A `complete` goal's `objs`: each objective's text and count.
@@ -180,6 +197,8 @@ const SPOT_KEYS: [&str; 7] = ["x", "y", "z", "r", "n", "alt", "lvl"];
 const REWARD_KEYS: [&str; 3] = ["item", "itemName", "quality"];
 /// A guide's `reward = { ... }`: an item (`choice` when one of several), a spell or words.
 const GUIDE_REWARD_KEYS: [&str; 7] = ["item", "itemName", "quality", "choice", "spell", "spellName", "text"];
+/// A profession guide's `sections` (`section <Profession> <from>-<to>`): its skill-range headings.
+const SECTION_KEYS: [&str; 4] = ["skill", "skillLine", "from", "to"];
 
 /// LIST_DECIMALS[k]: farm-spot rates (items per kill) need three decimals; coordinates are already rounded to two.
 fn list_decimals(k: &str) -> usize {
@@ -201,6 +220,7 @@ pub fn list_keys(k: &str) -> Option<&'static [&'static str]> {
 		"items" => &REWARD_KEYS,
 		"choices" => &REWARD_KEYS,
 		"reward" => &GUIDE_REWARD_KEYS,
+		"sections" => &SECTION_KEYS,
 		_ => return None,
 	})
 }
@@ -458,7 +478,8 @@ struct Shared {
 /// as `1`, an absent value empty and trailing empty values dropped; spots
 /// separated by `;`. Core/Guides.lua (Own.unpackSpots) builds the same tables
 /// from it when the goal's `spots` is first read: a table per spot costs
-/// about 250 bytes in the client, its text about 16.
+/// about 250 bytes in the client, its text about 16; an exact point (`r` 0,
+/// "43.41,14.62,,0") is built as a smaller table, about 110 bytes.
 pub fn pack_spots(spots: &V) -> String {
 	let dec = list_decimals("spots");
 	let records: Vec<String> = spots
@@ -817,24 +838,40 @@ fn needs_str(format: u32) -> String {
 /// Every pack sits in Polestar's group there, under Polestar's own entry;
 /// Polestar's menus show the plain title (Pack.lua). A title
 /// already carrying that prefix or the legacy "Polestar Pack: " is kept.
+/// One of Polestar's own extra packs (project.rs OWN_EXTRAS, by its folder,
+/// which a community pack.json cannot name) reads as ours, and loads on
+/// demand: Polestar loads it once the player switches it on.
 /// (JS default format: FORMAT.)
 pub fn emit_toc(manifest: &V, iface: &str, format: u32) -> String {
 	let ours = manifest.get("id").as_str() == Some("guides");
+	let folder = manifest.get("folder").to_js_string();
+	let extra = crate::project::own_extra(&folder).is_some();
 	let m_title = manifest.get("title").to_js_string();
 	let prefixed = [TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX].iter().any(|p| m_title.starts_with(p));
-	let title = if ours || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
+	let title = if ours || extra || prefixed { m_title.clone() } else { format!("{TOC_TITLE_PREFIX}{m_title}") };
 	let author = manifest.get("author").to_js_string();
 	let notes = manifest.get("notes");
-	let notes = if notes.truthy() { notes.to_js_string() } else { format!("Community addon for Polestar by {author}") };
+	let notes = if notes.truthy() {
+		notes.to_js_string()
+	} else if extra {
+		"Part of Polestar.".to_string()
+	} else {
+		format!("Community addon for Polestar by {author}")
+	};
 	let mut lines = vec![format!("## Interface: {iface}"), format!("## Title: {title}"), format!("## Notes: {notes}")];
-	// Polestar's own pack: the AddOns list in the client's language too.
+	// Polestar's own packs: the AddOns list in the client's language too.
 	if ours {
 		lines.extend(crate::toc::toc_lines("Polestar_Guides"));
+	} else if extra {
+		lines.extend(crate::toc::toc_lines(&folder));
 	}
 	lines.push(format!("## Author: {author}"));
 	lines.push(format!("## Version: {}", manifest.get("version").to_js_string()));
 	lines.push("## Category: Polestar".into());
 	lines.push("## Group: Polestar".into());
+	if extra {
+		lines.push("## LoadOnDemand: 1".into());
+	}
 	lines.push("## Dependencies: Polestar".into());
 	lines.push(format!("## X-Polestar-Pack: {}", manifest.get("id").to_js_string()));
 	lines.push(format!("## X-Polestar-Format: {format}"));
@@ -951,6 +988,41 @@ pub fn emit_faction_toc(manifest: &V, faction: &str, iface: &str) -> String {
 pub fn emit_retired(pack_id: &str, ids: &[String]) -> String {
 	let lines: Vec<String> = ids.iter().map(|id| format!("\t{},", lua_string(id))).collect();
 	format!("\nPolestar.RetireGuides({}, {{\n{}\n}})\n", lua_string(pack_id), lines.join("\n"))
+}
+
+/// A point of an experimental index entry (`start`, `focus`).
+const POINT_KEYS: [&str; 4] = ["map", "x", "y", "f"];
+
+/// Polestar_Guides' experimental index (project.rs experimental_index), after the guides in Guides.lua: one
+/// Polestar.RegisterExperimental call (Core/Guides.lua) with an entry per experimental guide our route
+/// choices offer, its keys in project.rs INDEX_KEYS order. Nothing without entries.
+pub fn emit_experimental(entries: &[V]) -> String {
+	if entries.is_empty() {
+		return String::new();
+	}
+	let mut out = vec![String::new(), "Polestar.RegisterExperimental({".to_string()];
+	for e in entries {
+		out.push("\t{".into());
+		for k in crate::project::INDEX_KEYS {
+			let v = e.get(k);
+			if v.is_nullish() {
+				continue;
+			}
+			let value = match k {
+				"names" | "written" => {
+					let parts: Vec<String> = sorted_keys(&v).iter().map(|t| format!("[{}] = {}", lua_string(t), lua_str_v(&v.get(t)))).collect();
+					format!("{{ {} }}", parts.join(", "))
+				}
+				"start" | "focus" => inline(&v, &Keys::Fixed(&POINT_KEYS), 2),
+				_ if v.is_arr() => list(&v, None, 2),
+				_ => scalar(&v, 2),
+			};
+			out.push(format!("\t\t{k} = {value},"));
+		}
+		out.push("\t},".into());
+	}
+	out.push("})".into());
+	format!("{}\n", out.join("\n"))
 }
 
 /// A pack's texts addon for one language (docs/TRANSLATING.md, "Guide

@@ -190,7 +190,7 @@ step Hermit Ortell
   accept 8279
 
 step Bronzebeard's Encampment
-  tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand just south-east of the camp.
+  tip Ride south-west to the dwarves' camp near the southern mountains and question Frankal Stonebridge and Rutgar Glyphshaper. Noggle's satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away.
   collect 20379 quest 8282.1          -- Noggle's Satchel
   talk 15171 quest 8304.1
   talk 15170 quest 8304.2
@@ -339,17 +339,16 @@ step Donova Snowden
 
 step Salfa
   turnin 8464
-  accept 8469
 
 step Winterspring: kill these as you meet them
   zone Winterspring
   tip The western Winterfall furbolgs drop the beads.
   tip Careful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with Feign Death, and they then gather by the lake so you can take the next quest.
-  collect 21383 quest 8469.1
+  collect 21383 x5
   collect 12829 quest 5087.1 @27.9,34.5 map 1452
 
 step Salfa
-  turnin 8469
+  turnin 8469 direct
 
 step Donova Snowden
   when onquest 5087
@@ -373,8 +372,7 @@ step Rabine Saturna
   turnin 6845
 
 step Umber
-  accept 1185                         -- Umber walks around Nighthaven: look inside the circle on the map
-  turnin 1185
+  turnin 1185 direct
 
 step Nighthaven
   zone Moonglade
@@ -441,15 +439,14 @@ step Stormwind
   zone Stormwind City
   tip Clavicus takes sixty Silk, sixty Mageweave and sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
-  collect 4306 x60 quest 7793.1 optional @61.2,71.3 map 1453 live -- Silk Cloth, from your bags
-  collect 4338 x60 quest 7794.1 optional @61.2,71.3 map 1453 live -- Mageweave Cloth, from your bags
-  turnin 7793 optional                -- Clavicus Knavingham, in the Trade District
-  turnin 7794 optional
-  collect 2592 x60 quest 7791.1 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags
-  turnin 7791 optional
-  accept 7795 optional
-  collect 14047 x60 quest 7795.1 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
-  turnin 7795 optional
+  collect 4306 x60 optional @61.2,71.3 map 1453 live -- Silk Cloth, from your bags
+  collect 4338 x60 optional @61.2,71.3 map 1453 live -- Mageweave Cloth, from your bags
+  turnin 7793 direct optional -- Clavicus Knavingham, in the Trade District
+  turnin 7794 direct optional
+  collect 2592 x60 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags
+  turnin 7791 direct optional
+  collect 14047 x60 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
+  turnin 7795 direct optional
 
 step Tram to Ironforge
   zone Stormwind City
@@ -459,24 +456,22 @@ step Ironforge
   zone Ironforge
   tip Take the Deeprun Tram to Ironforge. Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   turnin 4513                         -- Laris Geardawdle
-  collect 2592 x60 quest 7807.1 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
-  collect 4306 x60 quest 7808.1 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
-  collect 4338 x60 quest 7809.1 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
-  turnin 7807 optional                -- Bubulo Acerbus
-  turnin 7808 optional
-  turnin 7809 optional
-  accept 7811 optional
-  collect 14047 x60 quest 7811.1 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
-  turnin 7811 optional
-  collect 2592 x60 quest 7802.1 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
-  collect 4306 x60 quest 7803.1 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
-  collect 4338 x60 quest 7804.1 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
-  turnin 7802 optional                -- Mistina Steelshield
-  turnin 7803 optional
-  turnin 7804 optional
-  accept 7805 optional
-  collect 14047 x60 quest 7805.1 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
-  turnin 7805 optional
+  collect 2592 x60 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
+  collect 4306 x60 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
+  collect 4338 x60 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
+  turnin 7807 direct optional -- Bubulo Acerbus
+  turnin 7808 direct optional
+  turnin 7809 direct optional
+  collect 14047 x60 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
+  turnin 7811 direct optional
+  collect 2592 x60 optional @24.2,74.7 map 1455 -- Wool Cloth, from your bags
+  collect 4306 x60 optional @24.2,74.7 map 1455 -- Silk Cloth, from your bags
+  collect 4338 x60 optional @24.2,74.7 map 1455 -- Mageweave Cloth, from your bags
+  turnin 7802 direct optional -- Mistina Steelshield
+  turnin 7803 direct optional
+  turnin 7804 direct optional
+  collect 14047 x60 optional @24.2,74.7 map 1455 -- Runecloth, from your bags
+  turnin 7805 direct optional
   train class only Shaman             -- Stormwind has no shaman trainer
 
 # ---------------------------------------------------------------- To the Plaguelands
@@ -543,7 +538,7 @@ step Of Lost Honor
 
 step Tirion Fordring
   zone Eastern Plaguelands
-  turnin 5845 optional
+  turnin 5845                         -- Of Lost Honor: the route takes it and fetches the Symbol, so its hand-in holds
   accept 5846
 
 step Egan
@@ -587,5 +582,4 @@ step Chillwind Camp
   turnin 6185                         -- Flint Shadowmore
   note Flint's next task goes to Stormwind: you are level 60 now, skip it.
   turnin 5803 optional                -- Alchemist Arbington
-  accept 5505 optional
-  turnin 5505 optional
+  turnin 5505 direct optional

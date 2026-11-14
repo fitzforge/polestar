@@ -21,18 +21,29 @@ const { blockingPrereqs, closedByOf } = require('../data/prereqs');
 const { clusterPoints, scaleOf } = require('../questdb/cluster');
 const { groupOf, isElite, isRare, hostileTo, dungeonNamed } = require('./group');
 const { escortOf } = require('./escort');
-const { goalHeight, spotHeight } = require('./heights');
+const { goalHeight, spotHeight, gotoHeights } = require('./heights');
 const { goalArea, goalNode, goalInnkeeper, goalFlightMaster } = require('./places');
 const { areaNamed } = require('../data/areas');
 const { levelRange } = require('./when');
+const { taughtSpellName } = require('./tokens');
 
 // A collect's sources are named only for an item that few creatures or
 // objects drop (at 2% or more, with spawns); past this it drops everywhere.
 const MAX_NAMED_SOURCES = 8;
 
+// An item only one or two located sources of one kind drop is named after
+// them when each drops it at this percentage or more (#1556); under it, or at
+// an unknown chance (0), the data's drop list is no guide to where to farm it.
+const FEW_SOURCES_BAR = 20;
+
 // `fromNpcs` on a collect: the mobs its point and spots belong to, for the
 // target button, which cycles at most this many names.
 const MAX_SOURCE_NPCS = 5;
+// With `fromNpcsAt` (spotNpcs), `fromNpcs` goes on up to the import string's
+// cap (pack/importstring.js LIMITS.fromNpcs), and the string stays under its
+// text cap (LIMITS.text).
+const MAX_SPOT_NPCS = 32;
+const MAX_SPOT_NPCS_TEXT = 4096;
 
 // A collect's droppers this many levels or more above its quest (by their
 // lowest level) do not set the likely-dropper bar where they would crowd out
@@ -187,6 +198,101 @@ function sourceNpcs(data, first, sources) {
 		seen.add(s.id);
 		const rec = data.npc(s.id);
 		if (rec && rec.name) out.push({ npc: s.id, npcName: String(rec.name) });
+	}
+	return out.length ? out : undefined;
+}
+
+// Which of a collect's NPC sources spawn at each of its spots (#1616).
+// Centaur Bounty's ears drop from every centaur tribe in Desolace and its
+// spots run through all their camps, while `fromNpcs` names the five of the
+// goal's point: at a Magram camp the target button named Kolkar. Only when
+// some spot holds a source `fromNpcs` leaves out: those follow in `fromNpcs`
+// (the most spawns at the spots first, up to MAX_SPOT_NPCS), and `fromNpcsAt`
+// gives, per spot in `spots` order, the 1-based places in `fromNpcs` of the
+// sources spawning there (within its radius and a yard), most spawns first:
+// "1,2;3,4;;5". Left out when that string would pass MAX_SPOT_NPCS_TEXT.
+function spotNpcs(data, goal, sources, map, f) {
+	const spots = goal.spots || [];
+	if (spots.length < 2 || !data.mapSize(map)) return;
+	const mobs = [];
+	for (const s of sources || []) {
+		if (!s || s.kind !== 'npc') continue;
+		const name = nameOf(data, 'npc', s.id);
+		const pts = spawnPointsOf(data, [s], map, f);
+		if (name && pts.length) mobs.push({ id: s.id, name, pts });
+	}
+	const at = spots.map((spot) => {
+		const here = [];
+		mobs.forEach((m, i) => {
+			const n = m.pts.filter((p) => distance(data, map, p[0], p[1], spot.x, spot.y) <= spot.r + 1).length;
+			if (n > 0) here.push([i, n]);
+		});
+		return here.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
+	});
+	const list = [...(goal.fromNpcs || [])];
+	const ids = list.map((n) => n.npc);
+	const total = mobs.map(() => 0);
+	for (const here of at) for (const [i, n] of here) total[i] += n;
+	const left = mobs.map((_, i) => i).filter((i) => total[i] > 0 && !ids.includes(mobs[i].id));
+	if (!left.length) return;
+	left.sort((a, b) => total[b] - total[a] || a - b);
+	for (const i of left) {
+		if (list.length >= MAX_SPOT_NPCS) break;
+		list.push({ npc: mobs[i].id, npcName: mobs[i].name });
+		ids.push(mobs[i].id);
+	}
+	const packed = at.map((here) => here.map(([i]) => ids.indexOf(mobs[i].id)).filter((k) => k >= 0).map((k) => k + 1).join(',')).join(';');
+	if (packed.length > MAX_SPOT_NPCS_TEXT) return;
+	goal.fromNpcs = list;
+	goal.fromNpcsAt = packed;
+}
+
+// The quests that hand item `item` over when taken (their `sourceItem`), by
+// quest id; the index is built once per data object.
+const handedOver = new WeakMap();
+function questsHandingOver(data, item) {
+	let by = handedOver.get(data);
+	if (!by) {
+		by = new Map();
+		for (const [id, q] of Object.entries(data.quests)) {
+			if (q && typeof q.sourceItem === 'number') {
+				if (!by.has(q.sourceItem)) by.set(q.sourceItem, []);
+				by.get(q.sourceItem).push(Number(id));
+			}
+		}
+		handedOver.set(data, by);
+	}
+	return by.get(item) || [];
+}
+
+// The creatures a `kill` or `use` goal's quest objective credits when the
+// data lists several (#1614): Kodo Roundup counts a tamed Aged, Dying or
+// Ancient Kodo, and the Kodo Kombobulator the quest hands over works on all
+// three. A `kill` bound to such an objective, or a `use` bound to one or of
+// the item such a quest hands over (its `sourceItem`), gets them as
+// `fromNpcs`, the goal's own creature first, so the target button names
+// each. -> [{ npc, npcName }] | undefined
+function creditNpcs(data, goal) {
+	const credited = (quest, oi) => {
+		const q = data.quest(quest);
+		const objs = (q && Array.isArray(q.objectives) && q.objectives) || [];
+		const picked = oi === undefined ? objs : Number.isInteger(oi) && oi >= 1 && objs[oi - 1] ? [objs[oi - 1]] : [];
+		return picked.filter((o) => o && o.type === 'kill' && Array.isArray(o.credit) && o.credit.length > 1).flatMap((o) => o.credit);
+	};
+	let ids = [];
+	if (goal.t === 'kill' && goal.quest !== undefined && goal.oi !== undefined) ids = credited(goal.quest, goal.oi);
+	else if (goal.t === 'use' && goal.quest !== undefined) ids = credited(goal.quest, goal.oi);
+	else if (goal.t === 'use' && goal.item !== undefined) ids = questsHandingOver(data, goal.item).flatMap((q) => credited(q, undefined));
+	if (!ids.length) return undefined;
+	const order = ids.includes(goal.npc) ? [goal.npc, ...ids] : ids;
+	const seen = new Set();
+	const out = [];
+	for (const id of order) {
+		if (out.length >= MAX_SOURCE_NPCS) break;
+		if (seen.has(id)) continue;
+		seen.add(id);
+		const name = nameOf(data, 'npc', id);
+		if (name) out.push({ npc: id, npcName: name });
 	}
 	return out.length ? out : undefined;
 }
@@ -580,7 +686,7 @@ function applyLoop(step, s, data, err) {
 	if (gotos.some((g) => g.f !== first.f)) return err(ln, '`loop` points must all be in one map frame: all Era, or all `live`');
 	const own = gotos.find((g) => g.only || g.optional);
 	if (own) return err(own._line, 'a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it');
-	const targets = step.goals.filter((g, i) => LOOP_VERBS.has(g.t) && !s.goals[i].explicitCoords && !g.candidates);
+	const targets = step.goals.filter((g, i) => LOOP_VERBS.has(g.t) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
 	if (!targets.length) {
 		return err(ln, '`loop` needs a kill, collect or interact goal without its own `@x,y`', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
 	}
@@ -703,6 +809,8 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		const lastStep = ast.steps[ast.steps.length - 1];
 		const lastGoal = lastStep && lastStep.goals[lastStep.goals.length - 1];
 		const endZone = resolveZone((lastStep && lastStep.zone) || (lastGoal && lastGoal.zone)) || hz;
+		// The factions the guide is for, narrowed by its races (a `taxi` predicate's flight master), when asked.
+		const guideSides = () => smartSides(sidesFor([h.faction ? [h.faction] : null]), applicable([{ factions: h.faction ? [h.faction] : null, races: h.races || null, classes: h.classes || null }]));
 		guide.nextWhen = {};
 		for (const id of h.next) {
 			const p = h.nextWhen[id];
@@ -710,7 +818,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			// `done` names a step of the guide being played; the options are also listed from other guides.
 			if (p.k === 'done') err(p.line, '`done` checks a step of the guide being played: it cannot decide a `next` option', 'use a predicate on the character, such as `turnedin <quest>`');
 			else if (p.k === 'group') err(p.line, '`group` asks the player at a step of the guide: it cannot decide a `next` option', 'put `when group <quest>` on the steps of that quest');
-			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn);
+			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn, guideSides);
 		}
 	}
 	setIf(guide, 'pitch', h.pitch);
@@ -720,6 +828,29 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	// pack.json); ours when no pack author is given.
 	guide.author = h.author || opts.author || 'Polestar';
 	guide.version = h.version !== undefined ? h.version : 1;
+	// `section <Profession> <from>-<to>`: { skill, skillLine, from, to } per heading (a step's `section`
+	// is its index, 1-based); the engine starts a profession guide at the section the player's skill is in.
+	if (ast.sections) {
+		let prev = null;
+		guide.sections = ast.sections.map((sec) => {
+			const out = {};
+			const p = data.professionNamed(sec.skill);
+			if (p) {
+				out.skill = String(p.name);
+				out.skillLine = p.id;
+			} else if (sec.skillQuoted) {
+				out.skill = sec.skill;
+				warn(sec.line, `profession "${sec.skill}" is not in data${data.hasProfessions ? '' : ' (professions.json missing)'}; using the explicit name (new Forever content?)`);
+			} else {
+				err(sec.line, `unknown profession "${sec.skill}"; quote the name to use it anyway: \`section "${sec.skill}" ${sec.from}-${sec.to}\``);
+			}
+			if (prev && (prev.skill !== sec.skill || sec.from < prev.from)) warn(sec.line, `section ${sec.skill} ${sec.from}-${sec.to} comes after ${prev.skill} ${prev.from}-${prev.to}: a guide's sections are one profession's skill ranges in rising order`);
+			prev = sec;
+			out.from = sec.from;
+			out.to = sec.to;
+			return out;
+		});
+	}
 	guide.steps = [];
 	hidden(guide, '_ast', ast);
 
@@ -733,12 +864,19 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 	}
 
-	let prev = null;
-	const usedMaps = []; // most recent first
-	const use = (m) => {
-		const i = usedMaps.indexOf(m);
-		if (i >= 0) usedMaps.splice(i, 1);
-		usedMaps.unshift(m);
+	// Where the next goal's spawn is picked from: the last goal with coordinates (`prev`) and the maps used, most
+	// recent first. Two cursors: the dungeon runner's takes in every step, the solo route's leaves out a dungeon's
+	// steps (`when dungeon "<Name>"`), which a character who skips the dungeon never walks. A step for the runners
+	// is placed from the runner's cursor and every other step from the solo route's, so the solo route compiles as
+	// it would without the dungeon steps (Skip keeps the solo route's steps).
+	const runner = { prev: null, usedMaps: [] };
+	const solo = { prev: null, usedMaps: [] };
+	const use = (cursors, m) => {
+		for (const c of cursors) {
+			const i = c.usedMaps.indexOf(m);
+			if (i >= 0) c.usedMaps.splice(i, 1);
+			c.usedMaps.unshift(m);
+		}
 	};
 	// A `zone` line holds for the steps after it, also when its step is for
 	// some characters only: a Druid trip's `zone Moonglade` would hold for the
@@ -781,27 +919,33 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 		setIf(step, 'only', onlyOf(s.only));
 		const stepZone = resolveZone(s.zone || (s.goals[0] && s.goals[0].zone));
-		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn));
+		// The factions the step is for, narrowed by its races as a goal's (a `taxi` predicate's flight master), when asked.
+		const stepSides = () => smartSides(sidesFor([h.faction ? [h.faction] : null, s.only && s.only.factions]), applicable([headLayer, s.only]));
+		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn, stepSides));
 		setIf(step, 'label', s.label);
 		setIf(step, 'along', s.along);
+		setIf(step, 'section', s.section);
 		// `skipto <label> when <predicate>`: { to, when } in the step's order, `when` one predicate.
-		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn)[0] }));
+		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn, stepSides)[0] }));
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
+		const forRunners = (step.when || []).some((p) => p.k === 'dungeon' && !p.neg);
+		const at = forRunners ? runner : solo;
+		const moves = forRunners ? [runner] : [runner, solo];
 		for (const g of s.goals) {
 			const zone = resolveZone(g.zone);
 			const zoneId = zone ? zone.id : null;
 			const ctx = {
 				sides: sidesFor([h.faction ? [h.faction] : null, s.only && s.only.factions, g.only && g.only.factions]),
-				usedMaps,
+				usedMaps: at.usedMaps,
 				frame: g.frame ? { frame: g.frame, explicit: true } : frameDefault,
 				layers: [{ factions: h.faction ? [h.faction] : null, races: h.races || null, classes: h.classes || null }, s.only, g.only],
 				prof: profProgress,
 				zoneId,
 				loop: !!s.loop,
 			};
-			const goal = resolveGoal(g, zoneId, prev, data, err, warn, ctx);
+			const goal = resolveGoal(g, zoneId, at.prev, data, err, warn, ctx);
 			hidden(goal, '_line', g.line);
 			hidden(goal, '_only', g.only || null);
 			step.goals.push(goal);
@@ -839,23 +983,24 @@ function resolveGuide(ast, data, diag, opts = {}) {
 					`add \`zone ${other.there.name}\` to this step (or to the first step after the ${who} ones), or \`map ${other.there.id}\` to the goal`,
 				);
 			}
-			if (zoneId !== null) use(zoneId);
+			if (zoneId !== null) use(moves, zoneId);
 			if (goal.x !== undefined) {
-				prev = { map: goal.map, x: goal.x, y: goal.y };
-				use(goal.map);
+				const here = { map: goal.map, x: goal.x, y: goal.y };
+				for (const c of moves) c.prev = here;
+				use(moves, goal.map);
 			}
 		}
 		if (s.loop) {
 			applyLoop(step, s, data, err);
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
-			if (last) prev = { map: last.map, x: last.x, y: last.y };
+			if (last) for (const c of moves) c.prev = { map: last.map, x: last.x, y: last.y };
 		}
 		guide.steps.push(step);
 	}
 	// The guide menu's "Group" chip (#1358): some goal on the route every player follows needs a group:
 	// not an `optional` one, not one in a step only the group way follows (`when group`, `when dungeon`)
 	// or of a quest accepted only in one, not a dungeon or raid quest's turn-in (the run was the group
-	// content).
+	// content), not an object's work among elites (`near`: a warning on the step, #1778).
 	const optIn = (s) => (s.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
 	const onlyOptIn = new Map();
 	for (const s of guide.steps) {
@@ -867,8 +1012,10 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		goal.group &&
 		!goal.optional &&
 		!(goal.quest !== undefined && onlyOptIn.get(goal.quest) === true) &&
-		!(goal.t === 'turnin' && (goal.group.kind === 'dungeon' || goal.group.kind === 'raid'));
+		!(goal.t === 'turnin' && (goal.group.kind === 'dungeon' || goal.group.kind === 'raid')) &&
+		!goal.group.near;
 	if (guide.steps.some((s) => !optIn(s) && s.goals.some(needs))) guide.group = true;
+	gotoHeights(data, guide.steps);
 	checkLabels(ast.steps, err);
 	checkAlongGoals(guide.steps, warn);
 	checkBackground(ast.steps, guide.steps, err);
@@ -960,17 +1107,22 @@ function checkBackground(steps, compiled, err) {
 // them suffices, `preAll` = every one is needed), the quests that close it
 // for good once taken or done (closedByOf: the quest a breadcrumb leads to,
 // also when only that quest's `breadcrumbs` name it, and its exclusive group:
-// another race's or class's version of the same chain), and their titles for
-// the engine's "needs <quest> first" / "you took <quest>" text.
+// another race's or class's version of the same chain), its `parent` (a child
+// quest, offered only while the parent is in the log, #1661), and their
+// titles for the engine's "needs <quest> first" / "you took <quest>" text.
 function acceptGate(q, id, data) {
 	const out = {};
-	const { all, any } = blockingPrereqs(q, (p) => data.quest(p));
+	const { all, any, parent: parentId } = blockingPrereqs(q, (p) => data.quest(p));
 	if (any.length) out.pre = any;
 	if (all.length) out.preAll = all;
 	const closedBy = closedByOf(id, data.quests || {});
 	if (closedBy.length) out.closedBy = closedBy;
+	// The parent as blockingPrereqs gives it: not the quest itself, one
+	// exclusive with it, or one nobody can start.
+	const parent = parentId !== undefined ? [parentId] : [];
+	if (parent.length) out.parent = parent[0];
 	const titles = {};
-	for (const p of [...all, ...any, ...closedBy]) {
+	for (const p of [...all, ...any, ...closedBy, ...parent]) {
 		const pq = data.quest(p);
 		if (pq && pq.title) titles[p] = String(pq.title);
 	}
@@ -998,9 +1150,11 @@ function nonEmpty(o) {
 // (places.js, "Places by ID"), the subzone looked up in the step's zone; a
 // dungeon with its Map.csv id (group.js dungeonNamed), the key of the
 // player's choice; a profession with its skill line (`skill`); a `cooldown`
-// item checked against the data; a `group` quest checked as one. `levels`: the
+// item checked against the data; a `group` quest checked as one; a flight
+// point (`taxi`) checked as a getfp's, with its taxi node for the factions
+// `sides()` gives (places.js goalNode). `levels`: the
 // guide's [min, max], to warn about a step no character in that range sees.
-function resolveWhen(list, zoneId, levels, data, warn) {
+function resolveWhen(list, zoneId, levels, data, warn, sides) {
 	if (!list || !list.length) return undefined;
 	const haveQuests = nonEmpty(data.quests);
 	const haveItems = nonEmpty(data.items);
@@ -1034,6 +1188,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 					setIf(w, 'pre', gate.pre);
 					setIf(w, 'preAll', gate.preAll);
 					setIf(w, 'closedBy', gate.closedBy);
+					setIf(w, 'parent', gate.parent);
 				}
 				break;
 			}
@@ -1088,6 +1243,15 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 				else if (data.instances) warn(p.line, `dungeon "${p.name}" is not a dungeon in the client's instance tables: no character can choose it, so \`when dungeon\` never holds and \`when !dungeon\` always does`, 'write the dungeon as the game names it, as the guide window\'s "Dungeon:" line shows it ("Ragefire Chasm")');
 				break;
 			}
+			case 'taxi': {
+				// A flight point named as for `getfp`: its taxi node for the step's factions, else the name alone.
+				w.name = p.name;
+				const bad = checkLocation(data, 'getfp', p.name);
+				if (bad) warn(p.line, `taxi "${p.name}": no flight point has that name, so Polestar never counts its flight path as known`, bad.hint);
+				const node = goalNode(data, { t: 'getfp', location: p.name }, sides ? sides() : []);
+				if (node !== undefined) w.node = node;
+				break;
+			}
 			default: {
 				// bound
 				w.name = p.name;
@@ -1114,7 +1278,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 	const key = (p) => JSON.stringify({ ...p, neg: undefined, line: undefined });
 	for (const p of list) {
 		if (p.k !== 'level' && list.some((o) => o !== p && !!o.neg !== !!p.neg && key(o) === key(p))) {
-			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : p.k === 'knows' ? 'spell' : 'place'}: no character sees it`);
+			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : p.k === 'knows' ? 'spell' : p.k === 'taxi' ? 'flight path' : 'place'}: no character sees it`);
 			break;
 		}
 	}
@@ -1204,15 +1368,30 @@ function trainProfession(g, goal, data, ctx, err, warn, smart) {
 		}
 	};
 	let what = `${p.name} ${RANK_NAMES[rank - 1]} trainer`;
-	if (rk.trainers) addSides(rk.trainers);
-	else if (rk.book && rk.book.vendors) {
+	if (rk.trainers) {
+		addSides(rk.trainers);
+		trainsAt(full, entries, minSkill(rank));
+	} else if (rk.book && rk.book.vendors) {
 		addSides(rk.book.vendors);
 		what = `vendor of the ${p.name} ${RANK_NAMES[rank - 1]} book`;
 	} else if (rk.quest && rk.quest.npcs) {
 		addSides(rk.quest.npcs);
 		what = `${p.name} ${RANK_NAMES[rank - 1]} quest giver`;
-	} else addSides(full.trainers);
+	} else {
+		addSides(full.trainers);
+		trainsAt(full, entries, minSkill(rank));
+	}
 	smart(goal, entries, `${what}${data.hasProfessions ? '' : ' (professions.json missing)'}`);
+}
+
+// Leaves out the trainers who don't train at `skill` yet: professions.json's `trainerSkill`
+// (creature -> the skill its "Train me." option asks for; Doctor Herbert Halsey trains Alchemy from
+// 125, so Journeyman, taken at 50, is Doctor Marsh's: #1708).
+function trainsAt(prof, entries, skill) {
+	const gates = prof && prof.trainerSkill;
+	if (!gates) return;
+	const keep = entries.filter((e) => gates[e.npc] === undefined || Number(gates[e.npc]) <= skill);
+	entries.splice(0, entries.length, ...keep);
 }
 
 // Factions a goal can apply to, from the guide faction and step/goal conditions.
@@ -1372,6 +1551,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// the current zone and on maps the guide already uses, then the likely sources
 			// on that map (see pickSpawn), nearest first. Vendors are not sources here:
 			// `buy … nearest` is the vendor path.
+			// `anywhere`: a bag count with no place (cloth a profession guide counts as you
+			// loot it while levelling): no source is picked, so the arrow never leads to one
+			// dropper of hundreds; the step's tip says where it comes from.
+			if (g.anywhere) {
+				if (g.quest !== undefined) err(ln, '`collect … anywhere` is a bag count; drop `quest` (quest objectives use the quest’s own targets)');
+				if (g.count === undefined) err(ln, '`collect … anywhere` needs a count: `collect <item> xN anywhere`');
+				if (g.nearest || g.explicitCoords || g.npc !== undefined) err(ln, '`collect … anywhere` has no place: drop `nearest`, `npc` or the coordinates');
+				break;
+			}
 			if (g.nearest) {
 				// Farm spots: the engine picks one by level, safety and travel time.
 				if (g.quest !== undefined) err(ln, '`collect … nearest` farms by bag count; drop `quest` (quest objectives use the quest’s own targets)');
@@ -1421,7 +1609,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// game objective only says "Fel Moss: 0/8", so quest objectives get
 			// them too. Named only when a single located source has it or one
 			// drops it at 50% or more; a second of the same kind at 50% or more
-			// is named beside it (`fromAlso`). Not for an item that drops all
+			// is named beside it (`fromAlso`). An item that only one or two
+			// located sources of one kind drop, each at FEW_SOURCES_BAR% or more,
+			// names them whatever their chance: they are where it comes from
+			// (the Wooden Key, 44% from the Crazed and 45% from the Withered
+			// Ancients, #1556); one or two creatures that are its only sources
+			// (no object, no vendor) are named at any chance (Kron's Amulet, 10%
+			// from two crocolisks) when they spawn on a map in common and their
+			// chances are all known or all unknown (an unknown one beside a known
+			// one is a stray record, often in another zone). Not for an item that drops all
 			// over the world (cloth: hundreds of droppers, where a guard's 100%
 			// says nothing about where to farm it). `fromFaction` lets the
 			// engine tell an enemy from a friend of the character's faction.
@@ -1437,7 +1633,12 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const normal = split ? split.normal : candidates;
 			const level = levelSplit(data, normal, dropLevel);
 			const named = level ? level.near : normal;
-			if (!widespread && named.length && (candidates.length === 1 || named[0].chance >= 50)) {
+			const mapsOf = (s) => data.spawns('npc', s.id).map((sp) => sp.map);
+			const known = sources.filter((s) => s.chance > 0).length;
+			const only = sources.length > 0 && sources.length <= 2 && candidates.length === sources.length && sources.every((s) => s.kind === 'npc') && !((it && it.vendors) || []).length
+				&& (known === 0 || known === sources.length) && mapsOf(sources[0]).some((m) => sources.every((s) => mapsOf(s).includes(m)));
+			const few = candidates.length <= 2 && named.length === candidates.length && named.every((c) => c.kind === named[0].kind && (only || c.chance >= FEW_SOURCES_BAR));
+			if (!widespread && named.length && (candidates.length === 1 || named[0].chance >= 50 || few)) {
 				const top = named[0];
 				const rec = top.kind === 'npc' ? data.npc(top.id) : data.object(top.id);
 				if (rec && rec.name) {
@@ -1449,7 +1650,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 						if (['A', 'H', 'AH'].includes(rec.faction)) goal.fromFaction = rec.faction;
 					}
 					const next = named[1];
-					const nrec = next && next.kind === top.kind && next.chance >= 50 && (next.kind === 'npc' ? data.npc(next.id) : data.object(next.id));
+					const nrec = next && next.kind === top.kind && (next.chance >= 50 || few) && (next.kind === 'npc' ? data.npc(next.id) : data.object(next.id));
 					if (nrec && nrec.name && String(nrec.name) !== goal.from) {
 						goal.fromAlso = String(nrec.name);
 						goal.fromAlsoId = next.id;
@@ -1627,11 +1828,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		case 'craft': {
 			const found = data.recipe(g.spell);
 			const r = found ? found.recipe : null;
+			// A learn is checked in the spellbook, so a spell no recipe has that a
+			// skill line of the client teaches (a class spell) is known, by its
+			// client name. A craft needs the recipe: its item and reagents.
+			const taught = !found && v === 'learn' ? taughtSpellName(data, g.spell) : null;
 			const where = data.hasProfessions ? '' : ' (professions.json missing)';
 			goal.spell = g.spell;
-			const name = g.spellName || (r && r.name ? String(r.name) : null);
+			const name = g.spellName || (r && r.name ? String(r.name) : null) || taught;
 			if (!name) err(ln, `spell ${g.spell} is not in data${where}; give its name: \`${v} ${g.spell} "Name"\``);
-			else if (!found) warn(ln, `spell ${g.spell} is not in data${where}; using the explicit name (new Forever content?)`);
+			else if (!found && !taught) warn(ln, `spell ${g.spell} is not in data${where}; using the explicit name (new Forever content?)`);
 			goal.spellName = name || undefined;
 			if (found) goal.skillLine = found.profession.id;
 			if (v === 'learn') {
@@ -1658,6 +1863,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 						const tag = side === 'Alliance' ? 'A' : side === 'Horde' ? 'H' : undefined;
 						for (const id of Array.isArray(bySide[side]) ? bySide[side] : []) entries.push({ npc: Number(id), side: tag });
 					}
+					trainsAt(prof, entries, at);
 					smart(goal, entries, `${prof.name}${rank && rank.name ? ` ${rank.name}` : ''} trainer`);
 				} else if (g.nearest && recipeItem !== undefined) {
 					const it = data.item(recipeItem);
@@ -1680,6 +1886,13 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 						warn(ln, `\`until\` needs the recipe's profession, but spell ${g.spell} is not in professions.json; the engine cannot check the skill`);
 					} else if (Number(r.grey) > 0 && g.untilSkill > Number(r.grey)) {
 						warn(ln, `${goal.spellName} turns grey at ${r.grey}; crafting it gives no skill up to ${g.untilSkill}`);
+					}
+					// Its skill-up colours: the engine counts the crafts still to make from the player's
+					// skill (Classic chance (grey - skill) / (grey - yellow)), so a section's materials
+					// shrink as the skill rises.
+					if (found && Number(r.yellow) > 0 && Number(r.grey) > Number(r.yellow)) {
+						goal.yellow = Number(r.yellow);
+						goal.grey = Number(r.grey);
 					}
 				}
 				if (r && Array.isArray(r.reagents) && r.reagents.length) {
@@ -1894,7 +2107,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 				}
 			}
 			// An authored `npc` already names the one creature to target.
-			if (v === 'collect' && goal.npc === undefined) setIf(goal, 'fromNpcs', sourceNpcs(data, c, picked.sources));
+			if (v === 'collect' && goal.npc === undefined) {
+				setIf(goal, 'fromNpcs', sourceNpcs(data, c, picked.sources));
+				// A `loop` step's goals take its gotos as their spots (applyLoop).
+				if (!ctx.loop) spotNpcs(data, goal, area ? picked.sources || [c] : [c], picked.map, picked.f);
+			}
 		} else if (g.explicitCoords && goal.x !== undefined) {
 			// Hand-placed: the sources known to give the item (a drop chance, or a
 			// gathering node; not loot of unknown odds). A mob or object spawns
@@ -1925,6 +2142,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			if (v === 'collect' && goal.npc === undefined) {
 				const own = pointSources(data, sources, goal.map, goal.f, goal.x, goal.y, near);
 				setIf(goal, 'fromNpcs', sourceNpcs(data, own[0], own));
+				spotNpcs(data, goal, sources, goal.map, goal.f);
 			}
 		}
 	}
@@ -1937,6 +2155,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
 		if (q && Number(q.level) > 0) goal.qlvl = Number(q.level);
 	}
+	// A kill's or use's credited creatures (#1614).
+	if ((v === 'kill' || v === 'use') && goal.fromNpcs === undefined) setIf(goal, 'fromNpcs', creditNpcs(data, goal));
 	// Group content (group.js): the author's `group [N]`, else derived.
 	setIf(goal, 'group', groupOf(goal, g.group, ctx.sides, data));
 	// An escort quest's accept and objectives (escort.js).
@@ -1953,7 +2173,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'node', goalNode(data, goal, smartSides(ctx.sides, applicable(ctx.layers || []))));
 
 	// A `loop` step's gotos place its kill, collect and interact goals (applyLoop).
-	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !(ctx.loop && LOOP_VERBS.has(v))) {
+	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && LOOP_VERBS.has(v))) {
 		warn(ln, `\`${v}\` has no coordinates (no known spawns; add @x,y)`, 'add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there');
 	}
 	if (goal.grind !== undefined && goal.x === undefined) warn(ln, `\`grind ${goal.grind}\` has no known spawns here: the arrow keeps the step's goto`);

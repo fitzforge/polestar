@@ -1,5 +1,6 @@
 //! The forge-guide integration tests, one binary: one module per test file (they used to be one
 //! test binary each, which cost a link per file).
+mod class_spell_tokens;
 mod common;
 mod compile_pack;
 mod dsl_abandon_destroy;
@@ -20,6 +21,7 @@ mod dsl_next_when;
 mod dsl_parse;
 mod dsl_place_ids;
 mod dsl_resolve;
+mod dsl_section;
 mod dsl_shared_candidates;
 mod dsl_skipto;
 mod dsl_smart;
@@ -32,7 +34,10 @@ mod dsl_when_dungeon;
 mod dsl_when_group;
 mod dsl_when_knows;
 mod dsl_when_skill;
+mod dsl_when_taxi;
 mod dsl_when_upgrade;
+mod exact_points;
+mod experimental_index;
 mod guidecheck;
 mod hand_spots;
 mod lint_flights;
@@ -44,3 +49,4 @@ mod pack_memory;
 mod pack_race_parts;
 mod places;
 mod radius;
+mod recorded_areas;

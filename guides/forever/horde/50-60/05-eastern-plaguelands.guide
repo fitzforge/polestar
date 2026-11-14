@@ -15,7 +15,7 @@ next forever/horde/50-60/06-silithus
 # Added here (0.3.6 flow pass, from 50-60/01, where the guide was about 52.4 among level 54-57 mobs): Light's Hope
 # Chapel's flight path and bind, Pamela's doll (5149), Zaeldarr (6021), Uncle Carlin (5241) and Defenders of
 # Darrowshire (5211), and the Marlene/Chromie chain (5152, 5153, 5154) to Brother Carlin (5210). Brother Carlin opens
-# Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first, as in our comparison at 56-58.
+# Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first.
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
@@ -28,7 +28,6 @@ step Light's Hope Chapel
   accept 5281                         -- Caretaker Alen
   accept 6021                         -- Caretaker Alen
   turnin 6030                         -- Duke Nicholas Zverenhoff
-  accept 5510 optional
 
 step Pamela Redpath
   tip Pamela's ghost stands in the ruins of Darrowshire, in the south-west.
@@ -53,14 +52,14 @@ step Zaeldarr the Outcast
 
 step Pestilent Scar
   tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
-  collect 12840 quest 5510 optional
+  collect 12840 x20 optional
 
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen
   turnin 5241                         -- Carlin Redpath
   accept 5211
   note Defenders of Darrowshire's spirits come with the Corin's Crossing stop later in this guide: keep it.
-  turnin 5510 optional
+  turnin 5510 direct optional
 
 # ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie
 

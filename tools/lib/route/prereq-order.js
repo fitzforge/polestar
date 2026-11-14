@@ -13,9 +13,18 @@
 // A giver doesn't offer a Human's quest because a Night Elf's start handed in its
 // prerequisite, so here each path and character is played alone.
 //
-//   const { prereqOrder } = require('./prereq-order');
-//   prereqOrder(guides, data)
-//   // -> [{ guide, file, line, quest, title, missing: [ids], any, optional, path: [guide ids], race, cls, groups }]
+// `recorded` (optional, `recordedPrereqs(data/recorded/quests.json, corrections)`):
+// the prerequisites players' recordings teach (`forge record learn`: refusal-
+// backed, the ones Lookup's chains show). Such an accept also needs one of them,
+// or one of the data's own prerequisites, handed in first: the data can lack
+// the prerequisite altogether (#1299: This Land Was Their Land named none, so
+// this check could not see its accept before Defeat Nek'rosh). They only widen
+// the data's own, so they never make the check stricter where the data names
+// a prerequisite.
+//
+//   const { prereqOrder, recordedPrereqs } = require('./prereq-order');
+//   prereqOrder(guides, data, { recorded: recordedPrereqs(learned, corrections) })
+//   // -> [{ guide, file, line, quest, title, missing: [ids], any, optional, path: [guide ids], race, cls, groups, recorded }]
 //   //    one per accept line and missing set (the first path and character it shows on)
 
 const { blockingPrereqs } = require('../data/prereqs');
@@ -56,7 +65,7 @@ function paths(guides) {
 	return out;
 }
 
-function playPath(path, data, persona, groups, report) {
+function playPath(path, data, persona, groups, report, recorded) {
 	const rbit = raceBit(persona.race, {}, persona.faction);
 	const open = (id) => {
 		const q = data.quests[id];
@@ -82,7 +91,17 @@ function playPath(path, data, persona, groups, report) {
 						const missing = all.filter((p) => !w.done.has(p) && open(p));
 						const anyOpen = any.filter(open);
 						const anyMissing = any.length && !any.some((p) => w.done.has(p)) && anyOpen.length;
-						if (missing.length || anyMissing) report(g, lines[gi] || (astSteps[si] && astSteps[si].line) || 0, x, anyMissing ? [...missing, ...anyOpen] : missing, !!anyMissing && !missing.length);
+						const line = lines[gi] || (astSteps[si] && astSteps[si].line) || 0;
+						if (missing.length || anyMissing) report(g, line, x, anyMissing ? [...missing, ...anyOpen] : missing, !!anyMissing && !missing.length, false);
+						// The recorded prerequisites go through the data's filter (a breadcrumb, the quest's
+						// parent or an exclusive quest never blocks; a breadcrumb drops the group) and widen the
+						// data's own: one of either, handed in first.
+						const rec = recorded[x.quest];
+						const after = rec ? blockingPrereqs({ ...q, preAll: [], preAny: rec }, questOf).any : [];
+						if (after.length && !missing.length && !anyMissing) {
+							const unlocks = [...new Set([...after, ...all, ...any])].filter(open);
+							if (unlocks.length && !unlocks.some((p) => w.done.has(p))) report(g, line, x, unlocks, true, true);
+						}
 					}
 					if (direct) w.done.add(x.quest);
 					else log.add(x.quest);
@@ -95,7 +114,24 @@ function playPath(path, data, persona, groups, report) {
 	}
 }
 
-function prereqOrder(guides, data) {
+// data/recorded/quests.json (`learned`) -> { quest: [ids] }: the recorded prerequisites the check
+// takes, the ones Lookup's chains show (trusted, provisional or stale), less those of a quest whose
+// prerequisites a correction sets (`corrections`: the quest corrections' records): corrections win.
+function recordedPrereqs(learned, corrections = {}) {
+	const out = {};
+	for (const [id, r] of Object.entries(learned || {})) {
+		const set = (corrections[id] && corrections[id].set) || {};
+		if (['pre', 'preAll', 'preAny'].some((k) => k in set)) continue;
+		const ids = (Array.isArray(r && r.pre) ? r.pre : [])
+			.filter((f) => f && ['trusted', 'gap', 'stale'].includes(f.status))
+			.map((f) => Number(f.value))
+			.filter((n) => Number.isInteger(n) && n > 0);
+		if (ids.length) out[id] = ids;
+	}
+	return out;
+}
+
+function prereqOrder(guides, data, { recorded = {} } = {}) {
 	const out = new Map();
 	for (const path of paths(guides)) {
 		const start = path[0];
@@ -105,12 +141,12 @@ function prereqOrder(guides, data) {
 			for (const cls of classes.length ? classes : [null]) {
 				const persona = { race, faction: start.faction, cls };
 				for (const groups of ['skip', 'do']) {
-					playPath(path, data, persona, groups, (g, line, x, missing, any) => {
+					playPath(path, data, persona, groups, (g, line, x, missing, any, fromRecording) => {
 						const file = (g._ast && g._ast.file) || g.id;
 						const k = `${file}:${line}:${x.quest}:${missing.join(',')}`;
 						if (out.has(k)) return;
-						out.set(k, { guide: g.id, file, line, quest: x.quest, title: (data.quests[x.quest] || {}).title || '', missing, any, optional: !!x.optional, path: path.map((p) => p.id), race, cls, groups });
-					});
+						out.set(k, { guide: g.id, file, line, quest: x.quest, title: (data.quests[x.quest] || {}).title || '', missing, any, optional: !!x.optional, path: path.map((p) => p.id), race, cls, groups, recorded: fromRecording });
+					}, recorded);
 				}
 			}
 		}
@@ -118,4 +154,4 @@ function prereqOrder(guides, data) {
 	return [...out.values()].sort((a, b) => (a.file < b.file ? -1 : a.file > b.file ? 1 : a.line - b.line));
 }
 
-module.exports = { prereqOrder, paths };
+module.exports = { prereqOrder, paths, recordedPrereqs };

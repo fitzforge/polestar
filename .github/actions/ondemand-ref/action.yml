@@ -1,0 +1,78 @@
+name: On-demand ref
+description: >-
+  Pins the code an on-demand run tests: `ref` and `base` must name a branch or tag of this
+  repository (never a pull request's ref or a bare commit, which could be a fork's), resolved once to
+  their commits so every job of the run tests the same code even if the branch moves. A run called
+  from ondemand-batch.yml passes the commits the batch already resolved (`sha`, `base-sha`).
+
+inputs:
+  ref:
+    description: Branch or tag to test (refs/heads/... accepted)
+    default: ""
+  base:
+    description: Branch or tag to compare with (empty = none)
+    default: ""
+  sha:
+    description: The commit to test, resolved by the calling batch run (then ref is not read)
+    default: ""
+  base-sha:
+    description: The base's commit, resolved by the calling batch run
+    default: ""
+
+outputs:
+  sha:
+    description: The commit under test
+    value: ${{ steps.ref.outputs.sha }}
+  base:
+    description: The base's commit (empty without a base)
+    value: ${{ steps.ref.outputs.base }}
+
+runs:
+  using: composite
+  steps:
+    - name: Resolve
+      id: ref
+      shell: bash
+      env:
+        REF: ${{ inputs.ref }}
+        BASE: ${{ inputs.base }}
+        SHA: ${{ inputs.sha }}
+        BASE_SHA: ${{ inputs.base-sha }}
+        REPO: ${{ github.server_url }}/${{ github.repository }}
+      run: |
+        resolve() { # <name> <what>
+          local r=${1#refs/heads/} sha
+          r=${r#refs/tags/}
+          case "$r" in
+            ''|-*|*..*|*[!A-Za-z0-9._/-]*) echo "::error::$2 '$1' is not a branch or tag name" >&2; return 1 ;;
+          esac
+          # A branch first, then a tag's commit (an annotated tag's ^{} line), then a light tag.
+          sha=$(git ls-remote "$REPO" "refs/heads/$r" "refs/tags/$r^{}" "refs/tags/$r" | awk -v h="refs/heads/$r" '
+            $2 == h { b = $1 } $2 ~ /\^\{\}$/ { p = $1 } { f = $1 } END { print b ? b : (p ? p : f) }')
+          if [ -z "$sha" ]; then echo "::error::$2 '$1' is no branch or tag of this repository" >&2; return 1; fi
+          echo "$sha"
+        }
+        commit() { # <sha> <what>: a commit the batch resolved
+          case "$1" in
+            *[!0-9a-f]*) echo "::error::$2 '$1' is not a commit id" >&2; return 1 ;;
+          esac
+          if [ ${#1} -ne 40 ]; then echo "::error::$2 '$1' is not a full commit id" >&2; return 1; fi
+          echo "$1"
+        }
+        if [ -n "$SHA" ]; then
+          sha=$(commit "$SHA" sha)
+          base=""
+          if [ -n "$BASE_SHA" ]; then base=$(commit "$BASE_SHA" base); fi
+        else
+          sha=$(resolve "$REF" ref)
+          base=""
+          if [ -n "$BASE" ]; then base=$(resolve "$BASE" base); fi
+        fi
+        {
+          echo "sha=$sha"
+          echo "base=$base"
+        } >> "$GITHUB_OUTPUT"
+        {
+          echo "code: ${REF:-$SHA} at $sha"
+          if [ -n "$base" ]; then echo "base: ${BASE:-$BASE_SHA} at $base"; fi
+        } >> "$GITHUB_STEP_SUMMARY"

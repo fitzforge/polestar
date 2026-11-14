@@ -1223,6 +1223,8 @@ function mergeCodex(inputs) {
 			};
 			// Its full XP reward (quests.json), for what a guide or dungeon is worth in levels.
 			if (int(q.xp) > 0) quests[id].xp = int(q.xp);
+			// The profession it needs (Badlands Reagent Run II 2501: Alchemy 210, #1913): skill line and rank.
+			if (int(q.skill) > 0) Object.assign(quests[id], { skill: int(q.skill), skillLevel: int(q.skillLevel) > 0 ? int(q.skillLevel) : null });
 			// The standing its rewards need (questRep): an unmet one blocks its reward row.
 			const gate = questRep(q);
 			if (gate) Object.assign(quests[id], { repFaction: gate.faction, repStanding: gate.standing });
@@ -1446,13 +1448,13 @@ function sourcesMeta(inputs) {
 		if (n || listed) out.push({ name: `The web quest database's Forever pages: NPC and object pages, item tooltips${listed ? ', NPC list levels' : ''}`, version: `${n} entities${listed ? `, ${listed} listed NPCs` : ''}; cache data/sources/web/codex`, licence: 'Public web pages; facts only (levels, classification, positions, drop counts, requirements)' });
 	}
 	const ne = Object.keys(inputs.entranceTable || {}).length;
-	if (ne && !inputs.atlasloot) out.push({ name: 'Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages)', version: `${ne} entrances`, licence: 'Facts only (coordinates), each entry with its source' });
+	if (ne && !inputs.atlasloot) out.push({ name: 'Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages), Polestar Recorder sessions', version: `${ne} entrances`, licence: 'Facts only (coordinates), each entry with its source' });
 	const nr = Object.keys(inputs.repTable || {}).length;
 	if (nr) out.push({ name: "Curated reputation gates (data/codex/repgates.json): warcraft.wiki.gg, the web quest database's Classic reputation guides, QuestieDB", version: `${nr} items`, licence: 'Facts only (standings), each row with its source' });
 	const na = (inputs.attunementTable || require('./attunements').loadAttunementTable()).attunements.length;
 	if (na) out.push({ name: 'Curated attunement goals (data/codex/attunements.json): the web quest database (Forever pages), warcraft.wiki.gg', version: `${na} attunements`, licence: 'Facts only (quest and item ids), each entry with its sources' });
 	const nj = (inputs.journalQuests || require('./journal').loadJournalQuests()).length;
-	if (nj) out.push({ name: 'Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages)', version: `${nj} quests`, licence: 'Facts only (quest ids and instances), each row with its source' });
+	if (nj) out.push({ name: 'Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages), Polestar Recorder sessions', version: `${nj} quests`, licence: 'Facts only (quest ids and instances), each row with its source' });
 	if (inputs.client) out.push({ name: 'World of Warcraft: Forever client tables via wago.tools', version: inputs.client.build, licence: 'Blizzard Entertainment game data, facts only' });
 	if (inputs.client && inputs.client.eraBuild) out.push({ name: 'World of Warcraft Classic Era client item tables via wago.tools (items missing from the Forever tables)', version: inputs.client.eraBuild, licence: 'Blizzard Entertainment game data, facts only' });
 	return out;

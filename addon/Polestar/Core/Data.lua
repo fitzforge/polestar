@@ -102,14 +102,18 @@ function Data.Info(name)
 	return info
 end
 
--- Folders the release zip puts beside Polestar. The first two must be there;
--- the walking routes (Polestar_Nav), quest and item packs and the language
--- folder of the client's language (Names.PackName(), none in English) are optional
--- (the arrow falls back to straight lines, the interface, names and guide texts to English; a source
+-- Folders the release zip puts beside Polestar. The first four must be
+-- there (the settings window, Polestar_Options, and the game's looks with
+-- Hearth, Polestar_Looks, load on demand but are part of every release); the
+-- walking routes (Polestar_Nav), the Skin API's checks (Polestar_SkinAPI:
+-- only another addon's skin needs them, and says so when they are missing),
+-- quest and item packs and the language folder of the client's language
+-- (Names.PackName(), none in English) are optional (the arrow falls back to
+-- straight lines, the interface, names and guide texts to English; a source
 -- install may not build the packs), but when present they must be the same
 -- version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Nav", "Polestar_QuestDB", "Polestar_ItemDB" }
-local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_QuestDB", "Polestar_ItemDB" }
+local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true, Polestar_Looks = true }
 
 local function installed(name)
 	local A = C_AddOns
@@ -165,13 +169,16 @@ local function retiredLocales()
 end
 
 -- Not ours to compare: the Recorder ships in a zip of its own and is updated
--- on its own.
+-- on its own, and so does a skin addon (Polestar_Skin_*, docs/SKINS-API.md:
+-- the repository's example and any skin named after it).
 local SEPARATE = { Polestar_Recorder = true }
 
 -- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
 -- for the other races and faction, the other languages, the walking maps'
--- continents. Community addons are never named Polestar_* (pack.json refuses
--- the prefix); the old language folders have a line of their own.
+-- continents, the experimental guides (Polestar_Experimental, off until
+-- switched on). Community addons are never named Polestar_* (pack.json
+-- refuses the prefix) but a skin may be; the old language folders have a
+-- line of their own.
 local function listed()
 	local out = {}
 	local A = C_AddOns or {}
@@ -187,7 +194,7 @@ local function listed()
 	for i = 1, n do
 		local got, name = pcall(info, i)
 		name = got and readable(name) or nil
-		if type(name) == "string" and name:find("^Polestar_") and not SEPARATE[name] and not retired[name] then out[#out + 1] = name end
+		if type(name) == "string" and name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not SEPARATE[name] and not retired[name] then out[#out + 1] = name end
 	end
 	return out
 end

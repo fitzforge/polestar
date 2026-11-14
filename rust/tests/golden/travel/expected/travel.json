@@ -26,12 +26,16 @@
 			"name": "WoW Forever client tables (wago.tools)",
 			"build": "1.60.1.70450",
 			"tables": [
+				"TaxiNodes",
+				"TaxiPath",
 				"TaxiPathNode"
 			],
 			"urls": {
+				"TaxiNodes": "https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70450",
+				"TaxiPath": "https://wago.tools/db2/TaxiPath/csv?build=1.60.1.70450",
 				"TaxiPathNode": "https://wago.tools/db2/TaxiPathNode/csv?build=1.60.1.70450"
 			},
-			"use": "ship loops Forever added"
+			"use": "flight points and ship loops Forever added"
 		},
 		{
 			"name": "WoW Forever client tables (wago.tools)",
@@ -101,16 +105,16 @@
 		}
 	],
 	"counts": {
-		"taxiNodes": 63,
-		"flights": 14,
-		"transports": 6,
+		"taxiNodes": 67,
+		"flights": 34,
+		"transports": 8,
 		"inns": 2,
 		"pathNodes": 10,
 		"pathEdges": 5,
 		"recordedCrossings": 0,
 		"shippedCrossings": 54,
-		"timetables": 13,
-		"portals": 2,
+		"timetables": 15,
+		"portals": 6,
 		"teleports": 8
 	},
 	"taxi": {
@@ -998,6 +1002,66 @@
 				"faction": 3,
 				"npc": null,
 				"npcName": null
+			},
+			{
+				"id": 559,
+				"name": "Summit of Eternity, Mount Hyjal",
+				"short": "Summit of Eternity",
+				"c": 1,
+				"wx": 5283.2,
+				"wy": -3306.7,
+				"map": 2482,
+				"x": 68.64,
+				"y": 44.11,
+				"faction": 3,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
+			},
+			{
+				"id": 3203,
+				"name": "Rog'mar, Riverglades",
+				"short": "Rog'mar",
+				"c": 0,
+				"wx": -7923.7,
+				"wy": -4783,
+				"map": 2548,
+				"x": 59.61,
+				"y": 45.06,
+				"faction": 2,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
+			},
+			{
+				"id": 3242,
+				"name": "Tainted Foothills, Mount Hyjal",
+				"short": "Tainted Foothills",
+				"c": 1,
+				"wx": 4393.5,
+				"wy": -2836.4,
+				"map": 2482,
+				"x": 55.1,
+				"y": 82.55,
+				"faction": 3,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
+			},
+			{
+				"id": 3276,
+				"name": "Farholde Keep, Riverglades",
+				"short": "Farholde Keep",
+				"c": 0,
+				"wx": -9104.1,
+				"wy": -4830.5,
+				"map": 2548,
+				"x": 60.59,
+				"y": 81.57,
+				"faction": 1,
+				"npc": null,
+				"npcName": null,
+				"f": "l"
 			}
 		],
 		"legs": [
@@ -1051,11 +1115,39 @@
 				"cost": 110
 			},
 			{
+				"path": 11585,
+				"from": 5,
+				"to": 3276,
+				"yards": 3962,
+				"cost": 630
+			},
+			{
 				"path": 12,
 				"from": 6,
 				"to": 2,
 				"yards": 6307,
 				"cost": 50
+			},
+			{
+				"path": 11589,
+				"from": 8,
+				"to": 3276,
+				"yards": 5531,
+				"cost": 630
+			},
+			{
+				"path": 11581,
+				"from": 17,
+				"to": 3203,
+				"yards": 9767,
+				"cost": 830
+			},
+			{
+				"path": 11577,
+				"from": 21,
+				"to": 3203,
+				"yards": 3821,
+				"cost": 630
 			},
 			{
 				"path": 387,
@@ -1098,6 +1190,118 @@
 				"to": 23,
 				"yards": 4252,
 				"cost": 110
+			},
+			{
+				"path": 11530,
+				"from": 52,
+				"to": 3242,
+				"yards": 4057,
+				"cost": 330
+			},
+			{
+				"path": 11525,
+				"from": 53,
+				"to": 3242,
+				"yards": 4078,
+				"cost": 330
+			},
+			{
+				"path": 11575,
+				"from": 56,
+				"to": 3203,
+				"yards": 5085,
+				"cost": 630
+			},
+			{
+				"path": 11579,
+				"from": 70,
+				"to": 3203,
+				"yards": 4113,
+				"cost": 630
+			},
+			{
+				"path": 11587,
+				"from": 71,
+				"to": 3276,
+				"yards": 3936,
+				"cost": 630
+			},
+			{
+				"path": 11524,
+				"from": 559,
+				"to": 3242,
+				"yards": 1866,
+				"cost": 510
+			},
+			{
+				"path": 11580,
+				"from": 3203,
+				"to": 17,
+				"yards": 9845,
+				"cost": 830
+			},
+			{
+				"path": 11576,
+				"from": 3203,
+				"to": 21,
+				"yards": 3607,
+				"cost": 630
+			},
+			{
+				"path": 11574,
+				"from": 3203,
+				"to": 56,
+				"yards": 4624,
+				"cost": 630
+			},
+			{
+				"path": 11578,
+				"from": 3203,
+				"to": 70,
+				"yards": 3993,
+				"cost": 630
+			},
+			{
+				"path": 11529,
+				"from": 3242,
+				"to": 52,
+				"yards": 3745,
+				"cost": 1020
+			},
+			{
+				"path": 11526,
+				"from": 3242,
+				"to": 53,
+				"yards": 3967,
+				"cost": 1020
+			},
+			{
+				"path": 11528,
+				"from": 3242,
+				"to": 559,
+				"yards": 1849,
+				"cost": 510
+			},
+			{
+				"path": 11584,
+				"from": 3276,
+				"to": 5,
+				"yards": 3917,
+				"cost": 630
+			},
+			{
+				"path": 11588,
+				"from": 3276,
+				"to": 8,
+				"yards": 5193,
+				"cost": 630
+			},
+			{
+				"path": 11586,
+				"from": 3276,
+				"to": 71,
+				"yards": 3676,
+				"cost": 630
 			}
 		]
 	},
@@ -1339,6 +1543,102 @@
 					"c": 0,
 					"wx": -8232.298828125,
 					"wy": -5800.7880859375
+				}
+			}
+		},
+		{
+			"id": "airship-zephras-dalaran",
+			"kind": "airship",
+			"faction": 1,
+			"a": {
+				"name": "Valanaar Skydocks",
+				"area": 16628,
+				"c": 2991,
+				"wx": 1848.3,
+				"wy": 569.1,
+				"map": 2521,
+				"x": 65.84,
+				"y": 83.81,
+				"f": "l",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Dalaran",
+				"area": 279,
+				"c": 0,
+				"wx": 544.8,
+				"wy": 424.2,
+				"map": 1416,
+				"x": 12.83,
+				"y": 51.17,
+				"f": "e",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 131,
+			"ba": 108,
+			"waitA": 189,
+			"waitB": 189,
+			"source": "TaxiPath 11398 (WoW Forever client 1.60.1.70450): 3314 yd / 2727 yd between stops, 120 s docked per loop, speed 30 yd/s (estimate); timetable: path-11398 (CMaNGOS transport model, sniffed periods)",
+			"path": 11398,
+			"client": "forever",
+			"stops": {
+				"a": {
+					"c": 2991,
+					"wx": 1848.2847900391,
+					"wy": 569.14929199219
+				},
+				"b": {
+					"c": 0,
+					"wx": 544.80035400391,
+					"wy": 424.21008300781
+				}
+			}
+		},
+		{
+			"id": "airship-zephras-mulgore",
+			"kind": "airship",
+			"faction": 2,
+			"a": {
+				"name": "Valanaar Skydocks",
+				"area": 16628,
+				"c": 2991,
+				"wx": 1952.5,
+				"wy": 1019.1,
+				"map": 2521,
+				"x": 57.75,
+				"y": 81,
+				"f": "l",
+				"source": "TaxiPathNode stop"
+			},
+			"b": {
+				"name": "Mulgore",
+				"area": 215,
+				"c": 1,
+				"wx": -802,
+				"wy": 366.5,
+				"map": 1412,
+				"x": 34.33,
+				"y": 26.05,
+				"f": "l",
+				"source": "TaxiPathNode stop"
+			},
+			"ab": 147,
+			"ba": 84,
+			"waitA": 170,
+			"waitB": 170,
+			"source": "TaxiPath 11457 (WoW Forever client 1.60.1.70450): 3790 yd / 2213 yd between stops, 90 s docked per loop, speed 30 yd/s (estimate); timetable: path-11457 (CMaNGOS transport model, sniffed periods)",
+			"path": 11457,
+			"client": "forever",
+			"stops": {
+				"a": {
+					"c": 2991,
+					"wx": 1952.5416259766,
+					"wy": 1019.132019043
+				},
+				"b": {
+					"c": 1,
+					"wx": -802.02954101563,
+					"wy": 366.52258300781
 				}
 			}
 		},
@@ -4589,6 +4889,532 @@
 					]
 				]
 			},
+			"path-11398": {
+				"kind": "airship",
+				"period": 358532,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						85069,
+						145069,
+						0,
+						544.8,
+						424.2
+					],
+					[
+						252538,
+						312538,
+						2991,
+						1848.3,
+						569.1
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						0,
+						-969.2,
+						-354.3,
+						0
+					],
+					[
+						5352,
+						5352,
+						0,
+						-808.6,
+						-351.7,
+						0
+					],
+					[
+						9566,
+						9566,
+						0,
+						-682.2,
+						-350.7,
+						0
+					],
+					[
+						18534,
+						18534,
+						0,
+						-413.5,
+						-364.2,
+						0
+					],
+					[
+						23673,
+						23673,
+						0,
+						-259.8,
+						-376.1,
+						0
+					],
+					[
+						28389,
+						28389,
+						0,
+						-118.7,
+						-385.3,
+						0
+					],
+					[
+						33255,
+						33255,
+						0,
+						27.2,
+						-383.7,
+						0
+					],
+					[
+						36902,
+						36902,
+						0,
+						128.4,
+						-348.2,
+						0
+					],
+					[
+						41550,
+						41550,
+						0,
+						179.7,
+						-219.1,
+						0
+					],
+					[
+						45833,
+						45833,
+						0,
+						253.1,
+						-116.6,
+						0
+					],
+					[
+						55417,
+						55417,
+						0,
+						466.3,
+						63.7,
+						0
+					],
+					[
+						64338,
+						64338,
+						0,
+						616.3,
+						224.6,
+						0
+					],
+					[
+						85069,
+						145069,
+						0,
+						544.8,
+						424.2,
+						0
+					],
+					[
+						162203,
+						162203,
+						0,
+						487.6,
+						558.7,
+						0
+					],
+					[
+						168738,
+						168738,
+						0,
+						403.4,
+						639.5,
+						0
+					],
+					[
+						175618,
+						175618,
+						0,
+						222.5,
+						674.9,
+						0
+					],
+					[
+						184147,
+						184147,
+						0,
+						-10.6,
+						778.6,
+						0
+					],
+					[
+						193622,
+						193622,
+						0,
+						-220.2,
+						960.5,
+						1
+					],
+					[
+						193622,
+						193622,
+						2991,
+						1285.7,
+						544.5,
+						0
+					],
+					[
+						198689,
+						198689,
+						2991,
+						1413.4,
+						626.1,
+						0
+					],
+					[
+						202551,
+						202551,
+						2991,
+						1525.1,
+						624.3,
+						0
+					],
+					[
+						211254,
+						211254,
+						2991,
+						1741.9,
+						480.4,
+						0
+					],
+					[
+						216909,
+						216909,
+						2991,
+						1802.4,
+						327.3,
+						0
+					],
+					[
+						220618,
+						220618,
+						2991,
+						1881.7,
+						255,
+						0
+					],
+					[
+						224107,
+						224107,
+						2991,
+						1982.5,
+						254.4,
+						0
+					],
+					[
+						227088,
+						227088,
+						2991,
+						2028.5,
+						315.1,
+						0
+					],
+					[
+						229844,
+						229844,
+						2991,
+						1999.8,
+						370.3,
+						0
+					],
+					[
+						234613,
+						234613,
+						2991,
+						1925.8,
+						428.8,
+						0
+					],
+					[
+						252538,
+						312538,
+						2991,
+						1848.3,
+						569.1,
+						0
+					],
+					[
+						323474,
+						323474,
+						2991,
+						1815.5,
+						618.3,
+						0
+					],
+					[
+						327727,
+						327727,
+						2991,
+						1822.1,
+						668,
+						0
+					],
+					[
+						334631,
+						334631,
+						2991,
+						1871.7,
+						773.7,
+						0
+					],
+					[
+						338507,
+						338507,
+						2991,
+						1827.3,
+						847.8,
+						0
+					],
+					[
+						341893,
+						341893,
+						2991,
+						1735.6,
+						849,
+						0
+					],
+					[
+						345895,
+						345895,
+						2991,
+						1633.3,
+						788.6,
+						0
+					],
+					[
+						358532,
+						358532,
+						2991,
+						1342.5,
+						545.7,
+						1
+					]
+				]
+			},
+			"path-11457": {
+				"kind": "airship",
+				"period": 320292,
+				"fit": {
+					"samples": 10,
+					"span": 30000,
+					"speed": 12
+				},
+				"stops": [
+					[
+						78382,
+						138382,
+						1,
+						-802,
+						366.5
+					],
+					[
+						222110,
+						252110,
+						2991,
+						1952.5,
+						1019.1
+					]
+				],
+				"frames": [
+					[
+						0,
+						0,
+						1,
+						-1593.3,
+						-828,
+						0
+					],
+					[
+						16345,
+						16345,
+						1,
+						-1113.8,
+						-855.8,
+						0
+					],
+					[
+						32369,
+						32369,
+						1,
+						-778.3,
+						-527.9,
+						0
+					],
+					[
+						54130,
+						54130,
+						1,
+						-704.7,
+						97.9,
+						0
+					],
+					[
+						78382,
+						138382,
+						1,
+						-802,
+						366.5,
+						0
+					],
+					[
+						162554,
+						162554,
+						1,
+						-1034.2,
+						518.3,
+						0
+					],
+					[
+						174014,
+						174014,
+						1,
+						-1292.8,
+						323.4,
+						1
+					],
+					[
+						174014,
+						174014,
+						2991,
+						1122.5,
+						535.9,
+						0
+					],
+					[
+						174976,
+						174976,
+						2991,
+						1148,
+						549,
+						0
+					],
+					[
+						176042,
+						176042,
+						2991,
+						1179,
+						554.6,
+						0
+					],
+					[
+						181322,
+						181322,
+						2991,
+						1332.3,
+						593.2,
+						0
+					],
+					[
+						190636,
+						190636,
+						2991,
+						1582.3,
+						716.8,
+						0
+					],
+					[
+						198058,
+						198058,
+						2991,
+						1757.3,
+						822.9,
+						0
+					],
+					[
+						208373,
+						208373,
+						2991,
+						1903.2,
+						942.8,
+						0
+					],
+					[
+						222110,
+						252110,
+						2991,
+						1952.5,
+						1019.1,
+						0
+					],
+					[
+						267474,
+						267474,
+						2991,
+						1982.3,
+						1132.2,
+						0
+					],
+					[
+						274150,
+						274150,
+						2991,
+						2086.4,
+						1188.7,
+						0
+					],
+					[
+						279033,
+						279033,
+						2991,
+						2185,
+						1142.4,
+						0
+					],
+					[
+						284756,
+						284756,
+						2991,
+						2226.2,
+						985.7,
+						0
+					],
+					[
+						290496,
+						290496,
+						2991,
+						2125.8,
+						851.6,
+						0
+					],
+					[
+						297524,
+						297524,
+						2991,
+						1927.8,
+						780.9,
+						0
+					],
+					[
+						302934,
+						302934,
+						2991,
+						1779.6,
+						717.9,
+						0
+					],
+					[
+						320292,
+						320292,
+						2991,
+						1321.3,
+						475.5,
+						1
+					]
+				]
+			},
 			"path-11616": {
 				"kind": "boat",
 				"period": 246985,
@@ -5758,6 +6584,74 @@
 			}
 		},
 		"services": {
+			"airship-zephras-dalaran": {
+				"kind": "airship",
+				"name": "Valanaar Skydocks - Dalaran",
+				"ends": [
+					"Valanaar Skydocks",
+					"Dalaran"
+				],
+				"areas": [
+					16628,
+					279
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-11398",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 189.3,
+					"b": 189.3
+				},
+				"ride": {
+					"a": 131.1,
+					"b": 107.5
+				}
+			},
+			"airship-zephras-mulgore": {
+				"kind": "airship",
+				"name": "Valanaar Skydocks - Mulgore",
+				"ends": [
+					"Valanaar Skydocks",
+					"Mulgore"
+				],
+				"areas": [
+					16628,
+					215
+				],
+				"board": 10,
+				"pre": 0,
+				"post": 0,
+				"routes": [
+					{
+						"route": "path-11457",
+						"a": [
+							1
+						],
+						"b": [
+							0
+						]
+					}
+				],
+				"wait": {
+					"a": 170.1,
+					"b": 170.1
+				},
+				"ride": {
+					"a": 146.6,
+					"b": 83.7
+				}
+			},
 			"boat-menethil-auberdine": {
 				"kind": "boat",
 				"name": "Menethil Harbor - Auberdine",
@@ -6282,6 +7176,126 @@
 				},
 				"seconds": 5,
 				"source": "AreaTrigger 542 -> classic-db areatrigger_teleport 542"
+			},
+			{
+				"id": "portal-sanctum-chamber",
+				"name": "Wizard's Sanctum",
+				"area": 1519,
+				"a": {
+					"name": "Wizard's Sanctum tower",
+					"area": 1519,
+					"c": 0,
+					"wx": -9020.1,
+					"wy": 880.5,
+					"map": 1453,
+					"x": 48.48,
+					"y": 88.42,
+					"f": "l",
+					"z": 148.6
+				},
+				"b": {
+					"name": "Wizard's Sanctum",
+					"area": 1519,
+					"c": 0,
+					"wx": -9017.5,
+					"wy": 885.9,
+					"map": 1453,
+					"x": 48.17,
+					"y": 88.2,
+					"f": "l",
+					"z": 29.6
+				},
+				"seconds": 5,
+				"source": "AreaTrigger 704 -> classic-db areatrigger_teleport 704"
+			},
+			{
+				"id": "portal-sanctum-tower",
+				"name": "Wizard's Sanctum tower",
+				"area": 1519,
+				"a": {
+					"name": "Wizard's Sanctum",
+					"area": 1519,
+					"c": 0,
+					"wx": -9023.3,
+					"wy": 892.4,
+					"map": 1453,
+					"x": 47.8,
+					"y": 88.7,
+					"f": "l",
+					"z": 29.6
+				},
+				"b": {
+					"name": "Wizard's Sanctum tower",
+					"area": 1519,
+					"c": 0,
+					"wx": -9014.9,
+					"wy": 873.3,
+					"map": 1453,
+					"x": 48.9,
+					"y": 87.98,
+					"f": "l",
+					"z": 148.6
+				},
+				"seconds": 5,
+				"source": "AreaTrigger 702 -> classic-db areatrigger_teleport 702"
+			},
+			{
+				"id": "portal-rohashi-spires",
+				"name": "Rohashi Spires",
+				"area": 16630,
+				"a": {
+					"name": "Shrine of Akir",
+					"area": 16629,
+					"c": 2991,
+					"wx": 3089.5,
+					"wy": 584.5,
+					"map": 2521,
+					"x": 65.56,
+					"y": 50.34,
+					"f": "l"
+				},
+				"b": {
+					"name": "Rohashi Spires",
+					"area": 16630,
+					"c": 2991,
+					"wx": 3079.8,
+					"wy": 426.5,
+					"map": 2521,
+					"x": 68.4,
+					"y": 50.6,
+					"f": "l"
+				},
+				"seconds": 5,
+				"source": "gameobject 586726 spawn (Forever world DB) -> 15 recorded arrivals at 2521:68.3-68.5,50.5-50.6 (6 people)"
+			},
+			{
+				"id": "portal-valanaar",
+				"name": "Valanaar",
+				"area": 16638,
+				"a": {
+					"name": "Rohashi Spires",
+					"area": 16630,
+					"c": 2991,
+					"wx": 2981.6,
+					"wy": 54.9,
+					"map": 2521,
+					"x": 75.08,
+					"y": 53.25,
+					"f": "l"
+				},
+				"b": {
+					"name": "Valanaar",
+					"area": 16638,
+					"c": 2991,
+					"wx": 2000.7,
+					"wy": 543.3,
+					"map": 2521,
+					"x": 66.3,
+					"y": 79.7,
+					"f": "l"
+				},
+				"seconds": 5,
+				"source": "gameobject 617085 spawn (Forever world DB) -> recorded arrivals at 2521:66.3,79.7 beside Elaadrin Evengale (3 people)"
 			}
 		],
 		"teleports": [
@@ -6493,6 +7507,10 @@
 		"taxi node 77 \"Camp Taurajo, The Barrens\": no flight master NPC within 60 yd",
 		"taxi node 79 \"Marshal's Refuge, Un'Goro Crater\": no flight master NPC within 60 yd",
 		"taxi node 80 \"Ratchet, The Barrens\": no flight master NPC within 60 yd",
+		"taxi node 559 \"Summit of Eternity, Mount Hyjal\": no flight master NPC within 60 yd",
+		"taxi node 3203 \"Rog'mar, Riverglades\": no flight master NPC within 60 yd",
+		"taxi node 3242 \"Tainted Foothills, Mount Hyjal\": no flight master NPC within 60 yd",
+		"taxi node 3276 \"Farholde Keep, Riverglades\": no flight master NPC within 60 yd",
 		"no navigation grid: the transports and portals get no board points or heights (`nav build`, or --grid)",
 		"boat-bootybay-ratchet: TaxiPath 241 has no points, skipped",
 		"boat-menethil-theramore: TaxiPath 292 has no points, skipped",
@@ -6505,6 +7523,8 @@
 		"zeppelin-orgrimmar-undercity: TaxiPath 302 has no points, skipped",
 		"zeppelin-orgrimmar-gromgol: TaxiPath 285 has no points, skipped",
 		"zeppelin-undercity-gromgol: TaxiPath 301 has no points, skipped",
+		"airship-zephras-dalaran: npc \"High Order Dockmaster\" not found",
+		"airship-zephras-mulgore: npc \"Windshapers Dockmaster\" not found",
 		"teleport Teleport: Dalaran (1297659): no destination on a mapped continent, skipped",
 		"inn Thunderbrew Distillery: innkeeper 1247 not in npcs.json",
 		"inn Deepwater Tavern: innkeeper 1464 not in npcs.json",
@@ -6550,6 +7570,9 @@
 		"inn Light's Hope Chapel: innkeeper 16256 not in npcs.json",
 		"inn Stonetalon Peak: innkeeper 16458 not in npcs.json",
 		"inn Shen'dar Village: innkeeper 254089 not in npcs.json",
-		"inn Valanaar: innkeeper 255940 not in npcs.json"
+		"inn Valanaar: innkeeper 255940 not in npcs.json",
+		"inn Powderfuse Port: innkeeper 255894 not in npcs.json",
+		"inn Rog'mar: innkeeper 256675 not in npcs.json",
+		"inn Farholde Keep: innkeeper 257595 not in npcs.json"
 	]
 }

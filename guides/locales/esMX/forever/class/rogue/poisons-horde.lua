@@ -7,20 +7,20 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Poisons (Horde)"] = "",
+	["Poisons (Horde)"] = "Venenos (Horda)",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever enseña Venenos con esta cadena, no con el instructor; la receta de {item:7676} viene con ella.",
 
 	-- Step 1: Lockpicking practice
-	["Lockpicking practice"] = "",
+	["Lockpicking practice"] = "Práctica de Forzar cerraduras",
 	-- {object:129127} Gallywix's Lockbox · {spell:1804} Pick Lock · {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {item:5060} Thieves' Tools · {area:392} Ratchet
-	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "",
-	["Tide Razor"] = "",
-	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "",
+	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "{object:129127}, al final del trabajo de la torre, necesita unos 70-75 de Forzar cerraduras. Entrena {spell:1804} con Gest o {npc:3401} en {object:172960} si no la tienes, lleva {item:5060} y fuerza las cajas fuertes de bucanero de la cubierta del medio del Navaja de la Marea, el barco pirata varado al sur de {area:392}: vuelven rápido. Tu tope sube 5 por nivel.",
+	["Tide Razor"] = "Navaja de la Marea",
+	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "Forzar cerraduras a unos 75: fuerza las cajas fuertes de bucanero del Navaja de la Marea",
 
 	-- Step 2: The Shattered Salute
 	-- {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
-	["{npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Take the quest and wait: he speaks three lines and salutes you. After his third line, target him and type /salute. If it does not count, abandon the quest and take it again. The tower job ahead is built around Ambush, which needs a dagger: if you have none, Kareth, the blade merchant in the {object:172960}, sells a Jambiya."] = "",
+	["{npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Take the quest and wait: he speaks three lines and salutes you. After his third line, target him and type /salute. If it does not count, abandon the quest and take it again. The tower job ahead is built around Ambush, which needs a dagger: if you have none, Kareth, the blade merchant in the {object:172960}, sells a Jambiya."] = "{npc:3401} está en {object:172960}, el cañón debajo de {object:172982}. Toma la misión y espera: dice tres líneas y te saluda. Después de su tercera línea, selecciónalo y escribe /salute. Si no cuenta, abandona la misión y vuelve a tomarla. El trabajo de la torre que viene se basa en Emboscada, que necesita una daga: si no tienes, Kareth, la vendedora de hojas en {object:172960}, vende un Jambiya.",
 	-- {npc:3401} Shenthul
 	["/salute {npc:3401}"] = "/salute a {npc:3401}",
 	-- {quest:2458} Deep Cover · {item:8051} Flare Gun
@@ -28,39 +28,39 @@ return {
 
 	-- Step 3: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun · {npc:3401} Shenthul
-	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "",
+	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "Vuela al Cruce y ve al norte hasta la torre de Ventura y Cía. sobre {area:382}. Fizzule está debajo de un árbol al este de la torre, afuera, y es hostil hasta que le hagas la señal. Selecciónalo desde unos 50 m y dispara {item:8051} dos veces, luego camina hasta ponerte frente a él y haz /salute. En cualquier otro orden te ataca. ¿Perdiste {item:8051}? Abandona y vuelve a tomarla con {npc:3401}.",
 	-- {item:8051} Flare Gun
-	["{item:8051}, twice, at Fizzule"] = "",
+	["{item:8051}, twice, at Fizzule"] = "{item:8051}, dos veces, hacia Fizzule",
 
 	-- Step 4: Silixiz's Tower Key
 	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
-	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
+	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "Lleva {item:8066} en tus bolsas y úsalo sobre él cada vez que te acerques, o se vuelve hostil. {npc:7287} (nivel 22) camina junto a la torre: pégate a la pared, ponte en sigilo detrás de él y róbale la llave con {spell:921}. Matarlo no te la da; si tiene los bolsillos vacíos, mátalo y espera 4 minutos y medio a que vuelva.",
 	-- {item:8072} Silixiz's Tower Key
-	["Pick Pocket Foreman Silixiz for {item:8072}"] = "",
+	["Pick Pocket Foreman Silixiz for {item:8072}"] = "Roba al capataz Silixiz para {item:8072}",
 
 	-- Step 5: The Venture Co. tower
-	["The Venture Co. tower"] = "",
+	["The Venture Co. tower"] = "La torre de Ventura y Cía.",
 	-- {spell:1943} Rupture · {spell:2098} Eviscerate · {npc:7288} Grand Foreman Puzik Gallywix · {spell:1776} Gouge · {spell:5277} Evasion · {item:7676} Thistle Tea · {object:129127} Gallywix's Lockbox · {spell:9810} Touch of Zanzil · {npc:2391} Serge Hinott
 	-- plural, as words: Mutated Venture Co. Drones = {npc:7310} Mutated Venture Co. Drone
-	["Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "",
+	["Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point {spell:1943}; the Lookouts on the open third floor from a one-point {spell:2098}. {npc:7288} waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then {spell:1776}, {spell:5277}, a healing potion and {item:7676}; a friend makes it easy. One head per kill. Then pick {object:129127} beside him for the cache: it poisons you with the {spell:9810}, which weakens your stealth and agility until {npc:2391} cures it."] = "Adentro, piso por piso (todo vuelve a los 4 minutos y medio): los zánganos mutados de Ventura y Cía. (nivel 25) de la planta baja mueren con una Emboscada con daga; los patrulleros del segundo piso pierden la mitad de su salud con una {spell:1943} de un punto; los vigías del tercer piso abierto, con un {spell:2098} de un punto. {npc:7288} espera en el último piso: un élite de nivel 23 que vuelve 10 minutos después de morir. Empieza con Emboscada (más o menos la mitad de su salud), luego {spell:1776}, {spell:5277}, una poción de curación y {item:7676}; con un amigo es fácil. Una cabeza por muerte. Luego fuerza {object:129127}, a su lado, para el alijo: te envenena con {spell:9810}, que debilita tu sigilo y agilidad hasta que {npc:2391} te cura.",
 	-- {item:8074} Gallywix's Head · {npc:7288} Grand Foreman Puzik Gallywix
 	["{item:8074}: {npc:7288} (elite)"] = "{item:8074}: {npc:7288} (élite)",
 
 	-- Step 6: Back to Shenthul
 	-- {npc:3401} Shenthul
 	["Back to {npc:3401}"] = "Vuelve con {npc:3401}",
-	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {item:8072} Silixiz's Tower Key · {area:263} Cleft · {item:2928} Dust of Decay · {item:6947} Instant Poison
+	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {item:8072} Silixiz's Tower Key · {area:263} Cleft · {item:2928} Dust of Decay · {spell:8681} Instant Poison
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {item:6947} takes one of each."] = "",
+	["Fly back to {zone:1454} ({area:392} or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep {item:8072} afterwards. Before you leave the {area:263}, buy {item:2928} and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of {spell:8681} takes one of each."] = "Vuela de regreso a {zone:1454} (desde {area:392} o el Cruce; es más rápido morir en la torre y volver al Cruce con el Ángel de la Resurrección). Guarda {item:8072} después. Antes de salir de {area:263}, compra {item:2928} y Viales vacíos a Rekkul: cuando Hinott te enseñe Venenos, cada tanda de {spell:8681} lleva uno de cada.",
 
 	-- Step 7: Serge Hinott
-	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {area:272} Tarren Mill · {npc:2391} Serge Hinott · {npc:2216} Apothecary Lydon · {npc:3401} Shenthul · {item:6947} Instant Poison
-	["Take the zeppelin from {zone:1454} to the {zone:1458} and follow the road south through {zone:1421} into {area:287}, to {area:272}. {npc:2391} works in the building next to the flight path, beside {npc:2216}, a wagon outside. If you lost the Sample of Zanzil's Mixture, abandon and retake from {npc:3401}. Stay beside him for about a minute while he brews the cure; if it never finishes, abandon and retake from him. Then open Poisons from your spellbook to make {item:6947} from Rekkul's dust and vials, and use it on your weapon."] = "",
+	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {area:272} Tarren Mill · {npc:2391} Serge Hinott · {npc:2216} Apothecary Lydon · {npc:3401} Shenthul · {spell:8681} Instant Poison
+	["Take the zeppelin from {zone:1454} to the {zone:1458} and follow the road south through {zone:1421} into {area:287}, to {area:272}. {npc:2391} works in the building next to the flight path, beside {npc:2216}, a wagon outside. If you lost the Sample of Zanzil's Mixture, abandon and retake from {npc:3401}. Stay beside him for about a minute while he brews the cure; if it never finishes, abandon and retake from him. Then open Poisons from your spellbook to make {spell:8681} from Rekkul's dust and vials, and use it on your weapon."] = "Toma el zepelín de {zone:1454} a {zone:1458} y sigue el camino al sur por {zone:1421} hasta {area:287}, a {area:272}. {npc:2391} trabaja en el edificio junto a la ruta de vuelo, al lado de {npc:2216}, con un carro afuera. Si perdiste la muestra de la Mezcla de Zanzil, abandona la misión y vuelve a tomarla de {npc:3401}. Quédate a su lado alrededor de un minuto mientras prepara la cura; si nunca termina, abandona y vuelve a tomarla de él. Luego abre Venenos desde tu libro de hechizos para fabricar {spell:8681} con el polvo y los viales de Rekkul, y aplícalo a tu arma.",
 	["Wait for the cure"] = "Espera la cura",
 	-- {npc:2391} Serge Hinott
 	["{npc:2391}: Poisons"] = "{npc:2391}: Venenos",
 	-- {item:8095} Hinott's Oil · {spell:9810} Touch of Zanzil
-	["{item:8095}: clears the {spell:9810}"] = "",
+	["{item:8095}: clears the {spell:9810}"] = "{item:8095}: quita {spell:9810}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:3401} stands in the {object:172960}, the canyon under the {object:172982}. Target him and type /salute."] = "A nivel 20, {npc:3401} está en {object:172960}, el cañón bajo {object:172982}. Selecciónalo y escribe /salute.",

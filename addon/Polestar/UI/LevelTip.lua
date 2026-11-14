@@ -46,12 +46,101 @@ function LevelTip.Text(levels)
 	return format(L["+%d%% of a level"], max(1, floor(levels * 100 + 0.5)))
 end
 
+-- The breakdown's rows, in this order (Dungeons.QuestXP's groups).
+local GROUPS = { "ready", "level", "chain" }
+
+-- What each group adds, in the headline's own unit (1% of a level, or 0.1
+-- level from +1.0 levels on), split by its share of the quest XP so the rows
+-- add up to the headline exactly (largest remainder). -> { { group, n, need,
+-- text }, ... } in GROUPS order, groups with no quest left out; nil without groups.
+function LevelTip.Shares(s)
+	local g = s and s.groups
+	if not g or (s.questXP or 0) <= 0 then return nil end
+	local whole = s.levels >= 0.995
+	local units = whole and floor(s.levels * 10 + 0.5) or max(1, floor(s.levels * 100 + 0.5))
+	local rows, given = {}, 0
+	for _, name in ipairs(GROUPS) do
+		local x = g[name]
+		if x and x.n > 0 then
+			local exact = units * x.xp / s.questXP
+			local r = { group = name, n = x.n, need = x.need, units = floor(exact), rest = exact - floor(exact) }
+			given = given + r.units
+			rows[#rows + 1] = r
+		end
+	end
+	if #rows == 0 then return nil end
+	local order = {}
+	for i = 1, #rows do order[i] = i end
+	table.sort(order, function(a, b)
+		if rows[a].rest ~= rows[b].rest then return rows[a].rest > rows[b].rest end
+		return a < b
+	end)
+	for k = 1, units - given do
+		local r = rows[order[(k - 1) % #rows + 1]]
+		r.units = r.units + 1
+	end
+	for _, r in ipairs(rows) do
+		if whole then
+			r.text = format(L["+%s levels"], format("%.1f", r.units / 10))
+		elseif r.units < 1 then
+			r.text = L["<1%"]
+		else
+			r.text = format(L["+%d%%"], r.units)
+		end
+	end
+	return rows
+end
+
 local function percentOf(t)
 	return t.need > 0 and floor(t.xp / t.need * 100) or 0
 end
 
+-- "Now: 82% into level 30" over "After: 47% into level 31": the ready quests alone (summary.ready).
+local function readyLine(s)
+	local r = s.ready
+	if not r then return nil end
+	local now = format(L["Now: %d%% into level %d"], percentOf(r.from), r.from.level)
+	local after
+	if r.to.level >= ns.Levels.MAX_LEVEL then
+		after = format(L["After: level %d"], r.to.level)
+	else
+		after = format(L["After: %d%% into level %d"], percentOf(r.to), r.to.level)
+	end
+	return now, after
+end
+
+local function rowLabel(r)
+	local label
+	if r.group == "level" then
+		label = format(L["Need level %d first"], r.need or 0)
+	elseif r.group == "chain" then
+		label = L["Need a quest chain first"]
+	else
+		label = L["Ready to take and hand in"]
+	end
+	return format(L["%s · %s"], label, r.n == 1 and L["1 quest"] or format(L["%d quests"], r.n))
+end
+
+-- "Not counted: 2 not for your class, 1 other faction, ...": what a dungeon's sum left out.
+local function leftOut(s)
+	local lf, parts = s.left or {}, {}
+	local function add(n, one, many)
+		if (n or 0) > 0 then parts[#parts + 1] = n == 1 and one or format(many, n) end
+	end
+	add(lf.class, L["1 not for your class"], L["%d not for your class"])
+	add(lf.race, L["1 not for your race"], L["%d not for your race"])
+	add(lf.faction, L["1 for the other faction"], L["%d for the other faction"])
+	add(lf.closed, L["1 closed by a quest you took"], L["%d closed by a quest you took"])
+	add(lf.alt, L["1 alternative to another quest"], L["%d alternatives to other quests"])
+	add(s.done, L["1 already done"], L["%d already done"])
+	add(s.unknown, L["1 with no XP known"], L["%d with no XP known"])
+	if #parts == 0 then return nil end
+	return format(L["Not counted: %s"], concat(parts, ", "))
+end
+
+
 local function build()
-	local t = CreateFrame("Frame", nil, UIParent)
+	local t = CreateFrame("Frame", nil, ns.UIParent)
 	t:SetFrameStrata("TOOLTIP")
 	t:SetClampedToScreen(true)
 	t:SetWidth(TIP_W)
@@ -110,6 +199,16 @@ local function build()
 	t.ThenSw, t.Then = legend("accent")
 	t.Rule = W.Divider(t)
 	t.Rule:SetPoint("RIGHT", t, "RIGHT", -TIP_PAD, 0)
+	-- The breakdown (a dungeon's: summary.groups): a label on the left, its share on the right.
+	t.RowL, t.RowR = {}, {}
+	for i = 1, #GROUPS do
+		t.RowL[i] = W.Text(t, "small", "textDim")
+		t.RowR[i] = W.Text(t, "number", "accent")
+		t.RowR[i]:SetJustifyH("RIGHT")
+	end
+	-- Under the ready row: where those quests alone take you, from now.
+	t.ReadyNow = W.Text(t, "small", "textMuted")
+	t.ReadyThen = W.Text(t, "small", "textMuted")
 	t.Notes = W.Text(t, "note", "textDim")
 	t.Notes:SetWordWrap(true)
 	t.Notes:SetJustifyV("TOP")
@@ -167,7 +266,17 @@ local function paintBar(t, s, barW)
 	return t.Marks[1]:GetStringHeight()
 end
 
-local function notesOf(s)
+local function notesOf(s, rows)
+	if rows then
+		-- The rows say how many count; the notes, what gives less and what was left out.
+		local notes = {}
+		if s.reduced > 0 then
+			notes[#notes + 1] = s.reduced == 1 and L["1 gives less XP: by then you are 6 or more levels above it."]
+				or format(L["%d give less XP: by then you are 6 or more levels above them."], s.reduced)
+		end
+		notes[#notes + 1] = leftOut(s)
+		return concat(notes, "\n")
+	end
 	local notes = { s.quests == 1 and L["1 quest for you, not done yet."] or format(L["%d quests for you, not done yet."], s.quests) }
 	if s.kills > 0 then
 		notes[#notes + 1] = format(L["%s XP from quests, about %s from %d kills the guide asks for."], thousands(s.questXP), thousands(s.killXP), s.kills)
@@ -206,7 +315,28 @@ local function layout(t, chip)
 	else
 		t.Then:SetText(format(L["After: %d%% into level %d"], percentOf(s.to), s.to.level))
 	end
+	-- The breakdown's texts first: its widest row widens the panel.
+	local rows = LevelTip.Shares(s)
+	local rowW = 0
+	for i = 1, #GROUPS do
+		local row = rows and rows[i]
+		if row then
+			t.RowL[i]:SetText(rowLabel(row))
+			t.RowR[i]:SetText(row.text)
+			rowW = max(rowW, t.RowL[i]:GetStringWidth() + 24 + t.RowR[i]:GetStringWidth())
+		end
+	end
+	local subNow, subThen
+	-- Only beside other rows: alone, the ready quests' Now and After are the legend's own.
+	if rows and #rows > 1 and rows[1].group == "ready" then subNow, subThen = readyLine(s) end
+	local sub = subNow ~= nil
+	t.ReadyNow:SetText(subNow or "")
+	t.ReadyThen:SetText(subThen or "")
+	t.ReadyNow:SetShown(sub)
+	t.ReadyThen:SetShown(sub)
+	if sub then rowW = max(rowW, t.ReadyNow:GetStringWidth(), t.ReadyThen:GetStringWidth()) end
 	local width = max(TIP_W,
+		rowW + TIP_PAD * 2,
 		t.Levels:GetStringWidth() + 24 + t.XP:GetStringWidth() + TIP_PAD * 2,
 		t.Head:GetStringWidth() + TIP_PAD * 2,
 		max(t.Now:GetStringWidth(), t.Then:GetStringWidth()) + 14 + TIP_PAD * 2)
@@ -238,14 +368,43 @@ local function layout(t, chip)
 	t.Rule:ClearAllPoints()
 	t.Rule:SetPoint("TOPLEFT", t.Then, "BOTTOMLEFT", -14, -12)
 	t.Rule:SetPoint("RIGHT", t, "RIGHT", -TIP_PAD, 0)
+	-- The breakdown rows under the rule, each a label and its share.
+	local rowsH, above = 0, t.Rule
+	for i = 1, #GROUPS do
+		local l, r = t.RowL[i], t.RowR[i]
+		local row = rows and rows[i]
+		l:SetShown(row ~= nil)
+		r:SetShown(row ~= nil)
+		if row then
+			l:ClearAllPoints()
+			l:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, i == 1 and -10 or -6)
+			r:ClearAllPoints()
+			r:SetPoint("TOP", l, "TOP", 0, 0)
+			r:SetPoint("RIGHT", t, "RIGHT", -TIP_PAD, 0)
+			local rh = max(l:GetStringHeight(), r:GetStringHeight())
+			rowsH = rowsH + (i == 1 and 10 or 6) + rh
+			above = l
+			if i == 1 and sub then
+				t.ReadyNow:ClearAllPoints()
+				t.ReadyNow:SetPoint("TOPLEFT", l, "BOTTOMLEFT", 0, -3)
+				t.ReadyThen:ClearAllPoints()
+				t.ReadyThen:SetPoint("TOPLEFT", t.ReadyNow, "BOTTOMLEFT", 0, -2)
+				rowsH = rowsH + 3 + t.ReadyNow:GetStringHeight() + 2 + t.ReadyThen:GetStringHeight()
+				above = t.ReadyThen
+			end
+		end
+	end
+	local notes = notesOf(s, rows)
 	t.Notes:SetWidth(inner)
-	t.Notes:SetText(notesOf(s))
+	t.Notes:SetText(notes)
+	t.Notes:SetShown(notes ~= "")
 	t.Notes:ClearAllPoints()
-	t.Notes:SetPoint("TOPLEFT", t.Rule, "BOTTOMLEFT", 0, -10)
+	t.Notes:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, rows and -12 or -10)
+	local notesH = notes ~= "" and ((rows and 12 or 10) + t.Notes:GetStringHeight()) or 0
 	-- Top to bottom: the head, the levels, the bar, its marks, the legend's
-	-- two lines, the rule, the notes.
+	-- two lines, the rule, the breakdown, the notes.
 	local h = TIP_PAD + t.Head:GetStringHeight() + 6 + needH + t.Levels:GetStringHeight() + 12 + BAR_H
-		+ 5 + markH + 10 + lineH + 2 + lineH + 12 + 1 + 10 + t.Notes:GetStringHeight() + TIP_PAD
+		+ 5 + markH + 10 + lineH + 2 + lineH + 12 + 1 + rowsH + notesH + TIP_PAD
 	t:SetHeight(floor(h + 0.5))
 end
 

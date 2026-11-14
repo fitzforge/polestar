@@ -31,29 +31,10 @@ local MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
 -- Palette data
 ---------------------------------------------------------------------------
 
--- Polestar gold: the accent of every scheme.
-local DEFAULT_ACCENT = { 0.9, 0.73, 0.4 }
-
--- Status and subject colours: one set for every scheme (all schemes are
--- night grounds), so a quest is the same gold everywhere.
-local SHARED = {
-	success = { 0.42, 0.85, 0.6, 1 },
-	warning = { 0.98, 0.75, 0.3, 1 },
-	danger = { 0.96, 0.45, 0.45, 1 },
-	quest = { 1, 0.84, 0.45, 1 },
-	npc = { 0.58, 0.79, 1, 1 },
-	item = { 0.78, 0.68, 1, 1 },
-	place = { 0.96, 0.68, 0.52, 1 },
-	object = { 0.86, 0.79, 0.66, 1 },
-	level = { 0.96, 0.97, 0.99, 1 },
-	skill = { 0.6, 0.88, 0.46, 1 },
-	spell = { 0.47, 0.86, 0.93, 1 },
-	faction = { 0.97, 0.6, 0.79, 1 },
-	area = { 0.93, 0.75, 0.6, 1 },
-	achievement = { 1, 0.64, 0.32, 1 },
-	dungeon = { 0.64, 0.52, 1, 1 }, -- dungeon and raid entrances (portal violet)
-	rare = { 1, 0.5, 0.32, 1 }, -- rare NPCs (ember; treasures keep object)
-}
+-- The house look's data (Theme/House.lua, loaded first): Polestar gold, the
+-- status and subject colours every look starts from, the colour schemes and
+-- the type ladder; its painters below (HOUSE_PAINT).
+local DEFAULT_ACCENT, SHARED = ns.House.DEFAULT_ACCENT, ns.House.SHARED
 
 -- Tints laid on the game's own art (the world map), and light laid over
 -- a Polestar ground (the night header's haze), never under text: the same
@@ -72,68 +53,7 @@ local BRAND = {
 	discord = { 0.345, 0.396, 0.949, 1 },
 }
 
--- A scheme: the grounds (bg window, panel raised panels and popups, panelAlt
--- controls, sidebar, footer, sky the top of the header band), the text
--- ladder (100/70/50, tinted toward the ground so secondary text stays in the
--- world), ink (the colour of hairlines and washes), shade (wells, text
--- shadows, art fades), scrim (dark grounds for text on zone art), onAccent
--- (text and glyphs on an accent fill) and shadow (window drop shadow).
-local SCHEMES = {
-	-- The default: Night lifted to dusk, still navy, clearly lighter.
-	dusk = {
-		bg = { 0.095, 0.115, 0.178, 0.97 },
-		panel = { 0.11, 0.133, 0.203, 0.98 },
-		panelAlt = { 0.139, 0.166, 0.249, 1 },
-		sidebar = { 0.072, 0.088, 0.14, 1 },
-		footer = { 0.08, 0.097, 0.151, 1 },
-		sky = { 0.156, 0.196, 0.329, 1 },
-		text = { 0.967, 0.974, 0.991, 1 },
-		textDim = { 0.765, 0.793, 0.868, 1 },
-		textMuted = { 0.606, 0.637, 0.726, 1 },
-		ink = { 1, 1, 1, 1 },
-		star = { 1, 1, 1, 1 },
-		shade = { 0, 0, 0.02, 1 },
-		scrim = { 0.02, 0.03, 0.06, 1 },
-		onAccent = { 0.04, 0.05, 0.08, 1 },
-		shadow = { 0, 0, 0.02, 0.6 },
-	},
-	-- The original deep night navy-black, unchanged.
-	night = {
-		bg = { 0.039, 0.051, 0.086, 0.97 },
-		panel = { 0.051, 0.066, 0.11, 0.98 },
-		panelAlt = { 0.075, 0.094, 0.149, 1 },
-		sidebar = { 0.027, 0.035, 0.063, 1 },
-		footer = { 0.031, 0.04, 0.071, 1 },
-		sky = { 0.075, 0.106, 0.2, 1 },
-		text = { 0.96, 0.97, 0.99, 1 },
-		textDim = { 0.69, 0.72, 0.8, 1 },
-		textMuted = { 0.5, 0.54, 0.63, 1 },
-		ink = { 1, 1, 1, 1 },
-		star = { 1, 1, 1, 1 },
-		shade = { 0, 0, 0.02, 1 },
-		scrim = { 0.02, 0.03, 0.06, 1 },
-		onAccent = { 0.04, 0.05, 0.08, 1 },
-		shadow = { 0, 0, 0.02, 0.6 },
-	},
-	-- Neutral and lighter: slate grey, the faintest cool cast.
-	graphite = {
-		bg = { 0.131, 0.137, 0.146, 0.97 },
-		panel = { 0.15, 0.156, 0.165, 0.98 },
-		panelAlt = { 0.182, 0.19, 0.202, 1 },
-		sidebar = { 0.104, 0.109, 0.116, 1 },
-		footer = { 0.113, 0.118, 0.125, 1 },
-		sky = { 0.2, 0.215, 0.239, 1 },
-		text = { 0.974, 0.974, 0.974, 1 },
-		textDim = { 0.793, 0.801, 0.813, 1 },
-		textMuted = { 0.635, 0.646, 0.663, 1 },
-		ink = { 1, 1, 1, 1 },
-		star = { 1, 1, 1, 1 },
-		shade = { 0, 0, 0, 1 },
-		scrim = { 0.03, 0.03, 0.035, 1 },
-		onAccent = { 0.05, 0.05, 0.06, 1 },
-		shadow = { 0, 0, 0, 0.6 },
-	},
-}
+local SCHEMES = ns.House.SCHEMES
 Theme.SCHEMES = SCHEMES
 Theme.SCHEME_ORDER = { "dusk", "night", "graphite" }
 
@@ -149,12 +69,12 @@ Theme.HexColor = hex
 -- (docs/ARCHITECTURE.md, "Skins"):
 --   "halo"      Forever · Halo: no frame, a dark veil with soft edges under
 --               the text, an off-white ladder, the game's gold, Fira Sans
---   "hearth"    Forever · Hearth: Polestar in warm game colours, a brown
---               gradient window, the client's red buttons, font and text
---               colours
+--   "hearth"    Forever · Hearth: an inn by the fire. Walnut grounds lit
+--               from above, parchment text, copper hairlines and an ember
+--               accent, drawn in Polestar's own art (no client textures)
 --   "forever", "blizzard", "classic"   the client's own art: WoW Forever's,
 --               the retail art (Blizzard Style) and the vanilla files
---               (Theme/GameSkins.lua draws them)
+--               (Polestar_Looks/GameSkins.lua draws them)
 -- A skin brings its whole palette, its fonts, its frame paints and its sizes.
 -- The colour scheme, ground colour and brightness belong to the house style;
 -- the player's own accent, window border and arrow colours win in every skin.
@@ -169,7 +89,7 @@ local SKIN_PALETTES = {
 		title = hex("F4EFE6"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("080604"), onAccent = hex("17130E"), shadow = hex("080604", 0.72),
 		accent = hex("FFD100"),
-		veil = hex("080604", 0.6), veilWindow = hex("080604", 0.84), menuBg = hex("120E0A", 0.97),
+		veil = hex("080604", 0.6), veilWindow = hex("080604", 0.84), menuBg = hex("120E0A"),
 		inputBg = hex("000000", 0.35), control = hex("FFFFFF", 0.06),
 		accentLine = hex("FFD100", 0.35), padSelect = hex("FFD100", 0.12), chipAccent = hex("FFD100", 0.16),
 		separator = hex("FFFFFF", 0.12), rowLine = hex("FFFFFF", 0.08),
@@ -185,13 +105,52 @@ local SKIN_PALETTES = {
 		rare = hex("FF8052"), dungeon = hex("A385FF"), discord = hex("5865F2"),
 	},
 	hearth = {
+		-- Grounds: the window a walnut board, lit at the top (bg) and in
+		-- shadow at its foot (bgBottom); sky/skyBottom the lit mantel band
+		-- under the tabs; panel the menus and detail panes; panelAlt the
+		-- controls' plank; the rail and footer the darkest wood.
+		bg = hex("2A1A0F", 0.95), bgBottom = hex("160D07", 0.95), panel = hex("2C1A0F", 0.97), panelAlt = hex("3B2616"),
+		sidebar = hex("1C1109"), footer = hex("1A1009"), sky = hex("432814"), skyBottom = hex("2A1A0F"),
+		-- Parchment: the text ladder is cream, not white; headings, the
+		-- person's name and the active tab take the firelit gold.
+		text = hex("F5E9D3"), textDim = hex("D2BE9C"), textMuted = hex("B39D79"), textOff = hex("85705A"),
+		title = hex("FFD9A0"), ink = hex("FFF4E0"), star = hex("FFFFFF", 0), shade = hex("140A04"),
+		scrim = hex("1A0F08"), onAccent = hex("1F120A"), shadow = hex("0D0704", 0.7),
+		-- Ember: the accent (controls, the lit goal, the progress bar) and the
+		-- light that falls on every window's top edge (SKIN_PAINT.hearth).
+		accent = hex("FF9440"), ember = hex("FF7A2E"),
+		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("2C1A0F"),
+		inputBg = hex("140A04", 0.55), control = hex("3B2616"),
+		accentLine = hex("FF9440", 0.5), padSelect = hex("FF9440", 0.14), chipAccent = hex("FF9440", 0.18),
+		-- Copper: every hairline, edge and rule.
+		separator = hex("C8905A", 0.35), rowLine = hex("FFE0B0", 0.06),
+		border = hex("8A5A2B", 0.55), windowEdge = hex("7A4A22"), divider = hex("C8905A", 0.22), hover = hex("FFB070", 0.1),
+		selected = hex("FF9440", 0.12), toggle = hex("FFE0B0", 0.14), track = hex("FFE0B0", 0.14),
+		progress = hex("FFE0B0", 0.13), chip = hex("FFE0B0", 0.08), box = hex("B07A3C"),
+		thumb = hex("C8905A", 0.6), swatch = hex("FFFFFF", 0.25), watermark = hex("FFD9A0", 0.035), mover = hex("FF9440", 0.12),
+		frameEdge = hex("B07A3C"), frameEdgeDark = hex("5A3618"), titleLine = hex("9A6430"),
+		-- Status, warmed to the wood: a leaf green, amber, a coal red.
+		success = hex("8FD66E"), arrive = hex("8FD66E"), todo = hex("FF9440"), warning = hex("FFB84D"),
+		later = hex("FFB84D"), danger = hex("FF7A5C"), manual = hex("D6A6FF"), skipped = hex("7FD0E0"),
+		icon = hex("D2BE9C"), iconHover = hex("FFD9A0"), buttonText = hex("F5E9D3"), personName = hex("FFD9A0"), tabRest = hex("B39D79"),
+		rowLabel = hex("F5E9D3"), navRest = hex("D2BE9C"),
+		link = hex("FFB070"), discord = hex("5865F2"),
+	},
+}
+
+-- The game's looks start from the game's own colours (white text, gold
+-- titles, the client's quality greens and oranges, the options list's blue
+-- selection) with their own grounds, glyph tints and rules.
+local gamePalette
+do
+	local GAME_BASE = {
 		bg = hex("1E170D", 0.95), bgBottom = hex("090704", 0.95), panel = hex("000000", 0.92), panelAlt = hex("000000"),
 		sidebar = hex("000000", 0.3), footer = hex("000000", 0), sky = hex("2C200C"), skyBottom = hex("150F06"),
 		text = hex("FFFFFF"), textDim = hex("CCCCCC"), textMuted = hex("9D9D9D"), textOff = hex("808080"),
 		title = hex("FFD100"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("000000"), onAccent = hex("17130E"), shadow = hex("000000", 0.7),
 		accent = hex("FFD100"),
-		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("000000", 0.92),
+		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("000000"),
 		inputBg = hex("000000"), control = hex("000000"),
 		accentLine = hex("9A7A34", 0.6), padSelect = hex("FFD100", 0.14), chipAccent = hex("FFD100", 0.16),
 		separator = hex("9A7A34", 0.45), rowLine = hex("FFFFFF", 0.06),
@@ -205,17 +164,13 @@ local SKIN_PALETTES = {
 		icon = hex("FFD100"), iconHover = hex("FFD100"), buttonText = hex("FFD100"), personName = hex("FFD100"), tabRest = hex("A38D58"),
 		rowLabel = hex("FFFFFF"), navRest = hex("CCCCCC"),
 		link = hex("FFD100"), npc = hex("FFFFFF"), discord = hex("5865F2"),
-	},
-}
-
--- The game's looks start from Hearth's game colours (white text, gold
--- titles, the client's quality greens and oranges) with their own grounds,
--- glyph tints and rules.
-local function gamePalette(over)
-	local p = {}
-	for k, v in pairs(SKIN_PALETTES.hearth) do p[k] = v end
-	for k, v in pairs(over) do p[k] = v end
-	return p
+	}
+	function gamePalette(over)
+		local p = {}
+		for k, v in pairs(GAME_BASE) do p[k] = v end
+		for k, v in pairs(over) do p[k] = v end
+		return p
+	end
 end
 SKIN_PALETTES.forever = gamePalette({
 	bg = hex("000000", 0.96), bgBottom = hex("000000", 0.96), sidebar = hex("000000", 0.25),
@@ -224,18 +179,34 @@ SKIN_PALETTES.forever = gamePalette({
 	rowLabel = hex("FFD100"), navRest = hex("FFD100"),
 	separator = hex("AE9D81", 0.35), divider = hex("AE9D81", 0.35), accentLine = hex("AE9D81", 0.5),
 	border = hex("5C4A30"), windowEdge = hex("5C4A30"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
+	-- A mechanic's violet (an escort's line) a step lighter, to read on the
+	-- lit goal's gold card as well as on black.
+	dungeon = hex("BBA6FF"),
 })
+-- Blizzard Style: the damage meter's greys. Its parts are parted by 1px
+-- grey hairlines (#3a3a3a), the selection a flat grey row (GameSkins'
+-- rowFlat), the accent (the focus's bar, a tab's glyph, a tick) the
+-- meter's light grey, the resting tabs a grey label; gold is left to the
+-- titles (the active tab's, the windows') and the progress bar.
 SKIN_PALETTES.blizzard = gamePalette({
 	bg = hex("000000", 0.96), bgBottom = hex("000000", 0.96), sidebar = hex("000000", 0.25),
-	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("FFD100"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
-	separator = hex("FFD100", 0.35), divider = hex("FFFFFF", 0.15), accentLine = hex("FFD100", 0.45),
-	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
+	accent = hex("D9D9D9"), accentLine = hex("D9D9D9", 0.45), padSelect = hex("FFFFFF", 0.1), chipAccent = hex("FFFFFF", 0.12),
+	mover = hex("FFFFFF", 0.08),
+	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("A8A8A8"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	separator = hex("3A3A3A"), divider = hex("3A3A3A"),
+	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFFFFF", 0.1),
 })
+-- Classic: the game's tooltip colour (TOOLTIP_DEFAULT_BACKGROUND_COLOR,
+-- 0.09 0.09 0.19, as its grey tile draws it) under the guide window and the
+-- toasts, the dialog box's black over it on the big windows; gold labels
+-- (GameFontNormal), the quest log's gold title highlight for selection and
+-- its silver one under the cursor; the resting chat tab's muted gold.
 SKIN_PALETTES.classic = gamePalette({
-	bg = hex("101010", 0.85), bgBottom = hex("101010", 0.85), sidebar = hex("000000", 0),
-	icon = hex("FFD100"), iconHover = hex("FFFFFF"), tabRest = hex("FFD100"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
-	separator = hex("969696", 0.45), divider = hex("969696", 0.45), accentLine = hex("969696", 0.6),
-	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
+	bg = hex("0D0D1C", 0.92), bgBottom = hex("0D0D1C", 0.92), panel = hex("171730", 0.95), menuBg = hex("171730"), sidebar = hex("000000", 0),
+	icon = hex("FFD100"), iconHover = hex("FFFFFF"), tabRest = hex("B8A14F"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	separator = hex("969696", 0.35), divider = hex("969696", 0.25), accentLine = hex("969696", 0.6),
+	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
+	control = hex("000000", 0.4), inputBg = hex("000000", 0.6), chip = hex("000000", 0.5),
 })
 Theme.SKIN_PALETTES = SKIN_PALETTES
 Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "classic" }
@@ -248,9 +219,24 @@ Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "class
 local HIDDEN_SKINS = {}
 -- Tests may set Theme._testShowHidden = true to render hidden skins directly.
 Theme._testShowHidden = false
--- The skins drawn in game colours and controls (the client's check boxes,
--- sliders, red buttons, the game font with its hard shadow).
-local GAME_SKINS = { hearth = true, forever = true, blizzard = true, classic = true }
+-- The skins drawn in the game's own colours and controls (Polestar_Looks/GameSkins.lua:
+-- the client's check boxes, sliders, red buttons, its font and hard shadow).
+local GAME_SKINS = { forever = true, blizzard = true, classic = true }
+-- The Skin API's registries (Theme.RegisterSkin / Theme.RegisterScheme at the
+-- end of this file, docs/SKINS-API.md): skin id -> its spec as registered
+-- (the built-in six too), scheme id -> its name, addon and accent, and the
+-- skins whose painters failed this session (id -> error).
+local SKINS, SCHEME_INFO, FAILED = {}, {}, {}
+-- The player's context a registered skin's resolver is asked with
+-- (spec.resolve, Skin API 2): faction ("Alliance" | "Horde"), class (the
+-- client's class file), the continent and the zone (uiMapIDs, with the
+-- continent's name); kept current by the events at the end of this file.
+local CTX = {}
+-- Families a skin's resolver handed over (font files): looked up after the
+-- bundled ones (FAMILIES below).
+local EXTRA_FAMILIES = {}
+-- Defined in the Skin API section at the end of this file.
+local readTokens, readFont, failSkin
 Theme.GROUNDS = { "bg", "panel", "panelAlt", "sidebar", "footer", "sky" }
 
 -- Alphas of the ink washes, by role.
@@ -329,6 +315,9 @@ local function shifted(c, dL, k)
 	local r, g, bb = fromLab(L, a * k, b * k)
 	return { r, g, bb, c[4] or 1 }
 end
+-- `c` with its OKLab lightness moved by dL, for the modules' own skin
+-- paints (Hearth's lit tab in UI/GuideFrame.lua). -> { r, g, b, a }
+Theme.Shifted = shifted
 
 -- Grounds around one colour (a custom ground, EllesmereUI's panel colour):
 -- the same lightness steps Dusk takes around its window ground.
@@ -363,17 +352,33 @@ local function legibility(P)
 end
 Theme.Legibility = legibility
 
--- Darken every ground together, by the least lightness that makes all text
--- legible again.
-local function keepLegible(P)
-	if legibility(P) >= 1 then return P end
+-- Whether a palette is a light one: its text darker than its window ground
+-- (a parchment scheme or skin), so the guard below lifts its grounds instead.
+local function isLight(P)
+	local t, g = P.text, P.bg
+	return Theme.Luminance(t[1], t[2], t[3]) < Theme.Luminance(g[1], g[2], g[3])
+end
+Theme.IsLightPalette = isLight
+
+-- Move every ground together, by the least lightness that makes all text
+-- legible again: darker under light text, lighter under dark text (a light
+-- palette), so the player's brightness or ground colour can never take a
+-- light palette's grounds down to its text, nor a dark one's up to it.
+-- `light` says which way (default: as P stands now); `need`, the legibility
+-- to reach (default 1: the floor; a registered skin's, the look it extends
+-- where that look sits under the floor, so its own tokens are held to it).
+local function keepLegible(P, light, need)
+	need = need or 1
+	if legibility(P) >= need then return P end
 	local base = {}
 	for _, gname in ipairs(Theme.GROUNDS) do base[gname] = P[gname] end
-	local lo, hi = -1, 0 -- lightness shift: lo is legible, hi is not
+	if light == nil then light = isLight(P) end
+	local far = light and 1 or -1
+	local lo, hi = far, 0 -- lightness shift: lo is legible, hi is not
 	for _ = 1, 14 do
 		local mid = (lo + hi) / 2
 		for _, gname in ipairs(Theme.GROUNDS) do P[gname] = shifted(base[gname], mid) end
-		if legibility(P) >= 1 then lo = mid else hi = mid end
+		if legibility(P) >= need then lo = mid else hi = mid end
 	end
 	for _, gname in ipairs(Theme.GROUNDS) do P[gname] = shifted(base[gname], lo) end
 	return P
@@ -383,7 +388,14 @@ end
 -- Resolution: the user's own value > Match EllesmereUI > scheme
 ---------------------------------------------------------------------------
 
-local S -- EllesmereUI's primitive table, once its callback ran
+local S -- EllesmereUI's (or ErgoBars') primitive table, once its callback ran
+local provider -- "EllesmereUI" or "ErgoBars": whose skinning API registered us
+
+-- The name of the UI suite whose skinning contract Polestar registered with
+-- (both offer the same one), or nil: known from the load on, before its
+-- callback hands the primitives over at login, so a settings page built
+-- early names it too.
+function Theme.SkinProvider() return provider end
 
 function Theme.IsEllesmere()
 	return S ~= nil
@@ -419,14 +431,20 @@ function Theme.SchemeKey()
 	return SCHEMES[k] and k or "dusk"
 end
 
--- The scheme choices for the options dropdown.
+-- The scheme choices for the options: the built-in schemes, EllesmereUI's
+-- while it is there, then the schemes other addons registered (Skin API,
+-- docs/SKINS-API.md), each with its addon. -> { { value, text, addon? } }
 function Theme.SchemeChoices()
-	local out = {
-		{ value = "dusk", text = ns.L["Dusk"] },
-		{ value = "night", text = ns.L["Night"] },
-		{ value = "graphite", text = ns.L["Graphite"] },
-	}
-	if S then out[#out + 1] = { value = "ellesmere", text = "EllesmereUI" } end
+	local out = {}
+	for _, id in ipairs(Theme.SCHEME_ORDER) do
+		local info = SCHEME_INFO[id]
+		if info and info.builtin then out[#out + 1] = { value = id, text = info.label() } end
+	end
+	if S then out[#out + 1] = { value = "ellesmere", text = provider or "EllesmereUI" } end
+	for _, id in ipairs(Theme.SCHEME_ORDER) do
+		local info = SCHEME_INFO[id]
+		if info and not info.builtin then out[#out + 1] = { value = id, text = info.name, addon = info.addon, desc = info.desc, author = info.author } end
+	end
 	return out
 end
 
@@ -507,31 +525,114 @@ local function lightestOf(pal)
 	return { p[1] + (w[1] - p[1]) * a, p[2] + (w[2] - p[2]) * a, p[3] + (w[3] - p[3]) * a }
 end
 
+-- The subject and status colours a player may set their own of
+-- (ui.colors.<name>), in the order the options list them.
+Theme.SUBJECTS = { "npc", "quest", "item", "place", "object", "area", "dungeon", "rare", "skill", "spell", "faction",
+	"achievement", "level", "success", "warning", "danger" }
+
+-- The text ladder's own colours, each held to its floor (Theme.LEGIBLE).
+local OWN_TEXT = { { "text", "ui.textColor" }, { "textDim", "ui.textDimColor" }, { "textMuted", "ui.textMutedColor" } }
+
+-- c moved toward t until it reads at `floorRatio` on every ground (a nearly
+-- clear one, such as Halo's white wash over its window, is no ground).
+-- -> { r, g, b, 1 }
+local function liftAll(out, t, c, floorRatio)
+	local r, g, b = c[1], c[2], c[3]
+	for _ = 1, 24 do
+		local ok = true
+		for _, gname in ipairs(Theme.GROUNDS) do
+			local gc = out[gname]
+			if gc and (gc[4] or 1) >= 0.5 and Theme.Contrast({ r, g, b }, gc) < floorRatio then
+				ok = false
+				break
+			end
+		end
+		if ok then break end
+		r, g, b = r + (t[1] - r) * 0.15, g + (t[2] - g) * 0.15, b + (t[3] - b) * 0.15
+	end
+	return { r, g, b, 1 }
+end
+
+-- The player's own text and subject colours over a palette (any skin), the
+-- legibility guard kept: a pick too dark for its floor is moved toward the
+-- text colour until it reads (the ladder on every ground, a subject at
+-- 4.5:1 on the lightest place a name sits, as Theme.Legible).
+local function ownColours(out)
+	local base = copy(out.text)
+	for _, own in ipairs(OWN_TEXT) do
+		local c = get(own[2])
+		if isColor(c) then out[own[1]] = liftAll(out, own[1] == "text" and base or out.text, c, Theme.LEGIBLE[own[1]]) end
+	end
+	local lightest = lightestOf(out)
+	for _, name in ipairs(Theme.SUBJECTS) do
+		local c = get("ui.colors." .. name)
+		if isColor(c) then
+			out[name] = { liftTo(lightest, out.text, c) }
+			out[name][4] = 1
+		end
+	end
+	-- A skin's name of the person to talk to is its NPC colour.
+	if out.personName and isColor(get("ui.colors.npc")) then out.personName = copy(out.npc) end
+end
+
+-- Depth and light, in any skin: hairlines' opacity (ui.hairlineOpacity, a
+-- multiple of the skin's), the window shadow's strength (ui.shadowStrength),
+-- the band's stars (ui.starAlpha) and the header haze (ui.haze).
+local HAIRLINES = { "border", "divider", "separator", "rowLine" }
+local function ownDepth(out)
+	local k = tonumber(get("ui.hairlineOpacity")) or 1
+	if k ~= 1 then
+		for _, name in ipairs(HAIRLINES) do
+			local c = out[name]
+			if c then c[4] = math.max(0, math.min(1, (c[4] or 1) * k)) end
+		end
+	end
+	local s = tonumber(get("ui.shadowStrength")) or 1
+	if s ~= 1 and out.shadow then out.shadow[4] = math.max(0, math.min(1, out.shadow[4] * s)) end
+	local st = tonumber(get("ui.starAlpha")) or 1
+	if st ~= 1 and out.star then out.star[4] = math.max(0, math.min(1, (out.star[4] or 1) * st)) end
+	if get("ui.haze") == false and out.haze then out.haze[4] = 0 end
+end
+
 local P -- the resolved palette; rebuilt on the next read after a change
+-- A skin drawn on a picker card while another is in use (the settings'
+-- Polestar_Options/Theme/SkinPicker.lua): its id and palette answer for the
+-- live ones while the card is painted; nothing is switched, saved or
+-- repainted.
+local drawing = {}
 
--- The skin in use (ui.skin); an unknown value (an older or newer build) or
--- a hidden skin is the house style (the raw saved value is kept so the
--- player's choice restores when a hidden skin returns).
-function Theme.SkinKey()
+-- The skin chosen (ui.skin) as it is drawn: a registered skin (built in or
+-- added by another addon through the Skin API, docs/SKINS-API.md) that has
+-- not failed this session. An unknown value (an older or newer build, a
+-- skin whose addon is gone or not loaded yet) or a hidden skin is the house
+-- style; the raw saved value is kept, so the choice comes back when the skin
+-- returns or its addon registers it later in the session.
+function Theme.SkinId()
+	if drawing.id then return drawing.id end
 	local k = get("ui.skin")
-	return (SKIN_PALETTES[k] and (Theme._testShowHidden or not HIDDEN_SKINS[k])) and k or "polestar"
+	if SKINS[k] and not FAILED[k] and (Theme._testShowHidden or not HIDDEN_SKINS[k]) then return k end
+	return "polestar"
 end
 
--- Whether the skin in use (or `key`) is drawn in the game's colours and
--- controls: Hearth and the game's own looks.
-function Theme.GameSkin(key)
-	return GAME_SKINS[key or Theme.SkinKey()] or false
-end
 
+-- The skin choices for the options: the built-in skins, then the skins other
+-- addons registered, each with its addon. Installed skin addons that load
+-- on demand load first (Theme.LoadInstalledSkins, Theme/SkinApi.lua), so
+-- every skin the player has is listed. -> { { value, text, addon?, desc?, author? } }
 function Theme.SkinChoices()
-	return {
-		{ value = "polestar", text = ns.L["Polestar"] },
-		{ value = "halo", text = ns.L["Halo"] },
-		{ value = "hearth", text = ns.L["Hearth"] },
-		{ value = "forever", text = ns.L["WoW Forever"] },
-		{ value = "blizzard", text = ns.L["Blizzard"] },
-		{ value = "classic", text = ns.L["Classic"] },
-	}
+	if Theme.LoadInstalledSkins then Theme.LoadInstalledSkins() end
+	local out = {}
+	for _, id in ipairs(Theme.SKIN_ORDER) do
+		local s = SKINS[id]
+		if s and (Theme._testShowHidden or not HIDDEN_SKINS[id]) then
+			if s.builtin then
+				out[#out + 1] = { value = id, text = s.label() }
+			else
+				out[#out + 1] = { value = id, text = s.name, addon = s.addon, desc = s.desc, author = s.author }
+			end
+		end
+	end
+	return out
 end
 
 -- The tokens the skins added, in the house style: what each one stands for
@@ -541,16 +642,199 @@ local HOUSE_EXTRA = {
 	manual = "item", skipped = "spell", separator = "divider", rowLine = "divider", veil = "bg", veilWindow = "bg",
 	menuBg = "panel", control = "panelAlt", icon = "textDim", iconHover = "text", buttonText = "text",
 	personName = "npc", tabRest = "textDim", rowLabel = "text", navRest = "textDim",
+	-- A close square a skin shows on the guide window's title (the guideTitle hook).
+	closeFill = "danger", closeEdge = "border", closeGlyph = "text",
 }
+-- Those a non-house skin falls back on too.
+local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
+
+-- Menus and popups open over other frames (a panel marked psMenu: the
+-- dropdown menus, a setting's cog, Quick settings; the tooltip too): their
+-- ground, menuBg, is never see-through, so the text under them stays out of
+-- sight. On the Polestar base it is the panel colour at full opacity
+-- whatever the panels' own; a look's or a skin's own is held at MENU_ALPHA
+-- at least.
+local MENU_ALPHA = 0.97
+local function solidMenu(out, own)
+	local c = out.menuBg
+	if c then c[4] = own and math.max(c[4] or 1, MENU_ALPHA) or 1 end
+end
+
+-- The variant of registered skin `s` in use (spec.variants, Skin API 2):
+-- the player's pick (ui.skinVariants.<id>) while the skin has it, else the
+-- skin's default; nil for a skin without variants.
+local previewing = {} -- skin id -> a variant drawn on its card (Theme.DrawSkinCard)
+local function variantOf(s)
+	if not s.variants then return nil end
+	local v = previewing[s.id]
+	if v ~= nil and s.variantBy[v] then return v end
+	v = get("ui.skinVariants." .. s.id)
+	if v ~= nil and s.variantBy[v] then return v end
+	return s.defaultVariant
+end
+
+-- A field of registered skin `s` with its variant's over it (base, scheme,
+-- arrow, preset, artTint, shadow...).
+local function field(s, k)
+	local v = s.variants and s.variantBy[variantOf(s)]
+	if v and v[k] ~= nil then return v[k] end
+	return s[k]
+end
+
+-- The built-in look skin `s` is drawn from now (its variant may pick another).
+local function baseOf(s)
+	if s.builtin then return s.base end
+	return field(s, "base")
+end
+
+-- The built-in look the skin in use is drawn from: the skin itself for the
+-- six built in, the look a registered skin extends (its base, or its
+-- variant's). Modules that vary their own art by skin key it by this. The
+-- game's looks and Hearth are drawn by their part (Polestar_Looks): with the
+-- part missing or disabled, Polestar's own look stands in, whole (not the
+-- look's sizes and controls on Polestar's frames).
+function Theme.SkinKey()
+	local s = SKINS[Theme.SkinId()]
+	local key = s and baseOf(s) or "polestar"
+	if (GAME_SKINS[key] or key == "hearth") and Theme.LoadLooks and not Theme.LoadLooks(key) then return "polestar" end
+	return key
+end
+
+-- Whether the skin in use (or the built-in look `key`) is drawn in the
+-- game's colours and controls: Hearth and the game's own looks (and skins
+-- built on them).
+function Theme.GameSkin(key)
+	return GAME_SKINS[key or Theme.SkinKey()] or false
+end
+
+-- The player's context (CTX), read when a resolver first asks and again on
+-- each new zone (the events at the end of this file).
+local ctxRead = false
+local function readContext()
+	local C = ns.Compat
+	ctxRead = true
+	if not C then return end
+	CTX.faction = C.GetPlayerFaction and C.GetPlayerFaction() or nil
+	if UnitClass then
+		local _, class = UnitClass("player")
+		CTX.class = class
+	end
+	local zone = C.GetUnitZone and C.GetUnitZone("player") or nil
+	local continent = zone and C.GetContinentMap and C.GetContinentMap(zone) or nil
+	CTX.zone, CTX.continent = zone, continent
+	CTX.continentName = continent and C.GetMapName and C.GetMapName(continent) or nil
+end
+
+-- The context a resolver is asked with (spec.resolve).
+local function contextFor(s)
+	if not ctxRead then readContext() end
+	local cr, cg, cb = classColor(CTX.class)
+	return { zone = CTX.zone, continent = CTX.continent, continentName = CTX.continentName, faction = CTX.faction,
+		class = CTX.class, classColor = cr and { cr, cg, cb } or nil, variant = variantOf(s),
+		elvui = type(ElvUI) == "table" and type(ElvUI[1]) == "table" and ElvUI[1] or nil }
+end
+
+-- A resolver's font as a font key: one of Polestar's, or the files it gave
+-- (kept as the skin's resolved family). -> key | nil
+local resolvedFont = {} -- skin id -> font key from its resolver, for this palette
+
+-- A resolver's answer as a string, to tell whether a new zone changed it
+-- (the palette is built again only then): its tokens, sorted, and its font.
+local answered = {} -- skin id -> the answer the palette was built with
+local function flat(v)
+	if type(v) ~= "table" then return tostring(v) end
+	local keys = {}
+	for k in pairs(v) do keys[#keys + 1] = tostring(k) end
+	table.sort(keys)
+	for i, k in ipairs(keys) do
+		local x = v[k]
+		if x == nil then x = v[tonumber(k)] end
+		keys[i] = k .. "=" .. (type(x) == "table" and flat(x) or tostring(x))
+	end
+	return "{" .. table.concat(keys, ",") .. "}"
+end
+local function answerKey(tokens, font)
+	return flat(tokens) .. "|" .. flat(font)
+end
+
+-- Registered skin `s`'s tokens and media now: its own, its variant's over
+-- them, then its resolver's tokens (asked on every palette build). A resolver
+-- that raises or answers what a spec could not say fails the skin.
+-- -> tokens | nil, media | nil, failed
+local function effective(s)
+	local v = s.variants and s.variantBy[variantOf(s)]
+	local t, m = s.tokens, s.media
+	if v and (v.tokens or v.media) then
+		t, m = {}, {}
+		for k, c in pairs(s.tokens or {}) do t[k] = c end
+		for k, p in pairs(s.media or {}) do m[k] = p end
+		for k, c in pairs(v.tokens or {}) do t[k] = c end
+		for k, p in pairs(v.media or {}) do m[k] = p end
+	end
+	resolvedFont[s.id] = nil
+	if not s.resolve then return t, m end
+	local ok, rt, rf = pcall(s.resolve, contextFor(s))
+	answered[s.id] = ok and answerKey(rt, rf) or nil
+	local why
+	if not ok then
+		why = tostring(rt)
+	else
+		if rt ~= nil then
+			local own
+			own, why = readTokens(rt, "the resolver's tokens")
+			if own and next(own) then
+				local merged = {}
+				for k, c in pairs(t or {}) do merged[k] = c end
+				for k, c in pairs(own) do merged[k] = c end
+				t = merged
+			end
+		end
+		if not why and rf ~= nil then
+			local fok, key, family = readFont(rf, s.id .. ":resolved")
+			if not fok then
+				why = "the resolver's font: " .. tostring(key)
+			else
+				if family then EXTRA_FAMILIES[key] = family end
+				resolvedFont[s.id] = key
+			end
+		end
+	end
+	if why then
+		failSkin(s.id, "resolve: " .. why, true)
+		return t, m, true
+	end
+	return t, m
+end
+
+-- The tokens a registered skin set (its own, its variant's, its resolver's)
+-- for each palette built with it (Theme.SkinToken).
+local givenBy = setmetatable({}, { __mode = "k" })
 
 -- A skin's palette, with the player's own accent, window border and arrow
--- colours over it.
+-- colours over it. A registered skin's tokens (with its variant and
+-- resolver) lie over the look it extends, and its grounds stay legible
+-- however they combine.
 local function resolveSkin(skin)
+	local s = SKINS[skin]
 	local out = {}
 	for name, c in pairs(SHARED) do out[name] = copy(c) end
 	for name, c in pairs(ART) do out[name] = copy(c) end
 	for name, c in pairs(BRAND) do out[name] = copy(c) end
-	for name, c in pairs(SKIN_PALETTES[skin]) do out[name] = copy(c) end
+	local stoks
+	if s and not s.builtin then
+		local _media, failed
+		stoks, _media, failed = effective(s)
+		if failed then return nil end
+		givenBy[out] = stoks
+		for name, c in pairs(SKIN_PALETTES[baseOf(s)]) do out[name] = copy(c) end
+		local need = math.min(1, legibility(out))
+		for name, c in pairs(stoks or {}) do out[name] = copy(c) end
+		keepLegible(out, isLight(out), need)
+	else
+		for name, c in pairs(SKIN_PALETTES[skin]) do out[name] = copy(c) end
+	end
+	ownColours(out)
+	ownDepth(out)
 	local r, g, b
 	local own = get("ui.accent")
 	if isColor(own) then
@@ -562,33 +846,67 @@ local function resolveSkin(skin)
 	end
 	if r then out.accent = { r, g, b, 1 } end
 	r, g, b = out.accent[1], out.accent[2], out.accent[3]
-	out.scheme, out.skin = skin, skin
+	out.scheme, out.skin, out.skinId = skin, s and baseOf(s) or skin, skin
+	-- The window border: the player's own colour > the accent > the skin's
+	-- own windowBorder token > the look's edge.
 	local edge = get("ui.borderColor")
 	if isColor(edge) then
 		out.windowBorder = { edge[1], edge[2], edge[3], 1 }
 	elseif get("ui.borderAccent") then
 		out.windowBorder = { r, g, b, 0.8 }
 	else
-		out.windowBorder = copy(out.windowEdge or out.border)
+		out.windowBorder = copy(stoks and stoks.windowBorder or out.windowEdge or out.border)
 	end
+	for _, name in ipairs(SKIN_EXTRA) do
+		if not out[name] then out[name] = copy(out[HOUSE_EXTRA[name]] or out.text) end
+	end
+	solidMenu(out, true)
+	-- The second accent (a duotone skin's; else the accent) and the arrival
+	-- glow (its glow token; else the arrival colour).
+	if not (stoks and stoks.accent2) then out.accent2 = copy(out.accent) end
 	local far, near = get("nav.arrowColor"), get("nav.arrowNearColor")
 	out.arrow = isColor(far) and { far[1], far[2], far[3], 1 } or copy(out.accent)
 	out.arrowNear = isColor(near) and { near[1], near[2], near[3], 1 } or copy(out.arrive)
 	out.arrowText = copy(out.arrow)
 	out.arrowNearText = copy(out.arrowNear)
+	out.arrowGlow = copy(stoks and stoks.glow or out.arrowNear)
 	return out
 end
 
-local function resolve()
-	local skin = Theme.SkinKey()
-	if skin ~= "polestar" then return resolveSkin(skin) end
-	local key = Theme.SchemeKey()
-	local src = SCHEMES[key == "ellesmere" and "graphite" or key]
+-- The palette of skin `id` (the one in use when nil); `schemeKey` stands for
+-- the player's scheme (a scheme card's preview).
+local function resolve(id, schemeKey)
+	id = id or Theme.SkinId()
+	local s = SKINS[id]
+	if s and baseOf(s) ~= "polestar" then
+		-- A resolver that failed: the house style for the rest of the session.
+		return resolveSkin(id) or resolve("polestar", schemeKey)
+	end
+	-- A skin on the house style may bring its own scheme (spec.scheme).
+	local own = s and not s.builtin and field(s, "scheme")
+	local key = schemeKey or (own and SCHEMES[own] and own) or Theme.SchemeKey()
+	local src = SCHEMES[key == "ellesmere" and "graphite" or key] or SCHEMES.dusk
 	local out = {}
 	for name, c in pairs(SHARED) do out[name] = copy(c) end
 	for name, c in pairs(ART) do out[name] = copy(c) end
 	for name, c in pairs(BRAND) do out[name] = copy(c) end
 	for name, c in pairs(src) do out[name] = copy(c) end
+	-- A registered skin's own tokens (with its variant and resolver) over the
+	-- scheme, under the player's own colours; its accent stands in for
+	-- Polestar gold.
+	local skinAccent, stoks
+	if s and not s.builtin then
+		local _media, failed
+		stoks, _media, failed = effective(s)
+		if failed then return resolve("polestar", schemeKey) end
+		givenBy[out] = stoks
+		for name, c in pairs(stoks or {}) do
+			if name == "accent" then skinAccent = c else out[name] = copy(c) end
+		end
+	end
+	-- Light or dark as the scheme (or skin) gives it, before the player's own
+	-- ground and brightness: the way the guard moves the grounds.
+	local light = isLight(out)
 	if key == "ellesmere" then
 		local panel = euiPanel()
 		if panel then
@@ -598,11 +916,16 @@ local function resolve()
 	end
 	local custom = get("ui.bgColor")
 	if isColor(custom) then deriveGrounds(out, custom) end
+	-- The panels' and the sidebar's own grounds (alpha optional).
+	for _, gname in ipairs({ "panel", "sidebar" }) do
+		local c = get("ui." .. gname .. "Color")
+		if isColor(c) then out[gname] = { c[1], c[2], c[3], type(c[4]) == "number" and c[4] or out[gname][4] } end
+	end
 	local bright = get("ui.brightness")
 	if type(bright) == "number" and bright ~= 0 then
 		for _, gname in ipairs(Theme.GROUNDS) do out[gname] = shifted(out[gname], bright * 0.2) end
 	end
-	keepLegible(out)
+	keepLegible(out, light)
 	local r, g, b
 	local own = get("ui.accent")
 	if isColor(own) then
@@ -612,7 +935,10 @@ local function resolve()
 	elseif Theme.FollowsEllesmereAccent() then
 		r, g, b = euiAccent()
 	end
-	if not r then r, g, b = DEFAULT_ACCENT[1], DEFAULT_ACCENT[2], DEFAULT_ACCENT[3] end
+	if not r then
+		local a = skinAccent or SCHEME_INFO[key] and SCHEME_INFO[key].accent or DEFAULT_ACCENT
+		r, g, b = a[1], a[2], a[3]
+	end
 	out.accent = { r, g, b, 1 }
 	-- Text on an accent fill: the scheme's dark ink, or the light text when
 	-- the accent is too dark to carry dark text.
@@ -623,15 +949,18 @@ local function resolve()
 	for name, a in pairs(WASH) do
 		if not out[name] then out[name] = { out.ink[1], out.ink[2], out.ink[3], (own and own[name]) or a } end
 	end
+	ownColours(out)
+	ownDepth(out)
 	-- The window border: the player's own colour > the accent
-	-- (ui.borderAccent, at the focus ring's 80%) > the scheme's hairline.
+	-- (ui.borderAccent, at the focus ring's 80%) > a skin's own windowBorder
+	-- token > the scheme's hairline.
 	local edge = get("ui.borderColor")
 	if isColor(edge) then
 		out.windowBorder = { edge[1], edge[2], edge[3], 1 }
 	elseif get("ui.borderAccent") then
 		out.windowBorder = { r, g, b, 0.8 }
 	else
-		out.windowBorder = copy(out.border)
+		out.windowBorder = copy(stoks and stoks.windowBorder or out.border)
 	end
 	-- The waypoint arrow, its route stops and the map's target pin: the
 	-- player's own colour > the accent while far; the player's own > success
@@ -648,16 +977,22 @@ local function resolve()
 	for name, from in pairs(HOUSE_EXTRA) do
 		if not out[name] then out[name] = copy(out[from]) end
 	end
-	out.accentLine = { r, g, b, 0.35 }
-	out.padSelect = { r, g, b, 0.12 }
-	out.chipAccent = { r, g, b, 0.16 }
-	out.inputBg = { out.shade[1], out.shade[2], out.shade[3], 0.35 }
-	out.skin = "polestar"
+	solidMenu(out, stoks ~= nil and stoks.menuBg ~= nil)
+	-- Derived from the accent and the shade unless a skin gives its own.
+	local function derived(name, c) if not (stoks and stoks[name]) then out[name] = c end end
+	derived("accentLine", { r, g, b, 0.35 })
+	derived("padSelect", { r, g, b, 0.12 })
+	derived("chipAccent", { r, g, b, 0.16 })
+	derived("inputBg", { out.shade[1], out.shade[2], out.shade[3], 0.35 })
+	derived("accent2", { r, g, b, 1 })
+	out.arrowGlow = copy(stoks and stoks.glow or out.arrowNear)
+	out.skin, out.skinId = "polestar", id
 	return out
 end
 
 -- The whole resolved palette (read-only), e.g. for tests and the options.
 function Theme.Palette()
+	if drawing.pal then return drawing.pal end
 	if not P then P = resolve() end
 	return P
 end
@@ -694,10 +1029,13 @@ end
 
 -- A colour from outside the palette (an item quality, a quest difficulty)
 -- moved toward the text colour until it reads at 4.5:1 on the lightest
--- ground (the subject colours' floor). -> r, g, b
+-- ground (the subject colours' floor), and on the darker of the window and
+-- panel grounds too, where a light skin's dark text reads worst. -> r, g, b
 function Theme.Legible(r, g, b)
 	local pal = Theme.Palette()
-	return liftTo(lightestOf(pal), pal.text, { r, g, b })
+	r, g, b = liftTo(lightestOf(pal), pal.text, { r, g, b })
+	local bg, panel, black = pal.bg, pal.panel, { 0, 0, 0 }
+	return liftTo(Theme.Contrast(bg, black) <= Theme.Contrast(panel, black) and bg or panel, pal.text, { r, g, b })
 end
 
 -- A ground tinted by the accent: `share` of the accent mixed into the
@@ -730,6 +1068,11 @@ function Theme.ShowsBand()
 	return get("ui.band") ~= false
 end
 
+-- Whether the accent rim and its thrown light top Polestar's windows (ui.rim).
+function Theme.ShowsRim()
+	return get("ui.rim") ~= false
+end
+
 -- The window ground's opacity (ui.bgOpacity, every Polestar window).
 function Theme.GroundAlpha()
 	local a = get("ui.bgOpacity")
@@ -741,9 +1084,46 @@ end
 -- Media
 ---------------------------------------------------------------------------
 
+-- A texture under Media/UI by name; a full path (a skin's own glyph, Theme.Icon)
+-- is returned as it is.
 function Theme.Media(name)
 	if name == "icon-skull" then return "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" end
+	if type(name) == "string" and name:find("[\\/]") then return name end
 	return MEDIA .. "UI\\" .. name
+end
+
+-- A texture the skin in use brings in place of Polestar's (its media, or
+-- its variant's: "band", "bandStars", "medallion", the arrow's and the
+-- pins' parts), or nil for Polestar's own. The game's looks bring their
+-- arrow and map pins from the client's own art (Polestar_Looks/Parts.lua;
+-- their "dartArt": the dart in its own colours, without Polestar's edge).
+function Theme.SkinMedia(name)
+	local s = SKINS[Theme.SkinId()]
+	if not s then return nil end
+	local v = s.variants and s.variantBy[variantOf(s)]
+	local p = v and v.media and v.media[name]
+	if p then return p end
+	return s.media and s.media[name] or nil
+end
+
+-- A part's art on texture `t`: a file, or an atlas of the client's
+-- ("atlas:<name>": the game's looks' own parts).
+function Theme.SetArt(t, art)
+	if type(art) == "string" and art:sub(1, 6) == "atlas:" then return t:SetAtlas(art:sub(7)) end
+	t:SetTexture(art)
+	t:SetTexCoord(0, 1, 0, 1)
+end
+
+-- A colour token the skin in use gives itself (its tokens, its variant's or
+-- its resolver's), or nil when it leaves it to Polestar (a module's own
+-- default, e.g. the pins' rim: pinRing, pinFill; the arrow's glow). The
+-- colour is the palette's, as resolved. -> r, g, b, a | nil
+function Theme.SkinToken(name)
+	local pal = Theme.Palette()
+	local given = givenBy[pal]
+	local c = given and given[name] and pal[name] or nil
+	if not c then return nil end
+	return c[1], c[2], c[3], c[4] or 1
 end
 
 -- Glyphs a skin draws its own way (DIRECTION_B_HALO.md §7: the report flag
@@ -751,10 +1131,16 @@ end
 local GAME_ICON = { bug = "flag", ["icon-goto"] = "house" }
 local SKIN_ICON = { halo = GAME_ICON, hearth = GAME_ICON, forever = GAME_ICON, blizzard = GAME_ICON, classic = GAME_ICON }
 
--- A glyph's name in the skin in use.
+-- A glyph's name (or a skin's own texture path) in the skin in use: a
+-- registered skin's own pick, else the look it is drawn from.
 function Theme.Icon(name)
-	local own = SKIN_ICON[Theme.SkinKey()]
-	return own and own[name] or name
+	local own = SKIN_ICON[Theme.SkinId()]
+	local v = own and own[name]
+	if v == nil then
+		local base = SKIN_ICON[Theme.SkinKey()]
+		v = base and base[name]
+	end
+	return v or name
 end
 
 -- The night-sky band is drawn 1024x128 at 1:1. A header shows the top-left
@@ -779,6 +1165,8 @@ local bands = setmetatable({}, { __mode = "k" }) -- sky texture -> true
 
 local function paintBand(sky)
 	local on = sky.psArt or Theme.ShowsBand()
+	sky:SetTexture(Theme.SkinMedia("band") or Theme.Media("band"))
+	sky.psStars:SetTexture(Theme.SkinMedia("bandStars") or Theme.Media("band-stars"))
 	local r, g, b = Theme.Color("sky")
 	sky:SetVertexColor(r, g, b, on and 1 or 0)
 	local sr, sg, sb, sa = Theme.Color("star")
@@ -832,22 +1220,7 @@ local FACES = {
 	semibold = MEDIA .. "Fonts\\Inter-SemiBold.ttf",
 }
 
--- The size ladder, read at arm's length over a busy game world.
-local ROLES = {
-	hero = { "semibold", 26 },     -- shell page titles
-	display = { "semibold", 18 },  -- the guide's step title, empty-state titles
-	title = { "semibold", 15 },    -- window and guide titles
-	heading = { "semibold", 13 },  -- section headers
-	body = { "medium", 13 },       -- goal lines, row labels
-	label = { "medium", 12 },      -- controls
-	note = { "regular", 12 },      -- tips and descriptions
-	small = { "medium", 11 },      -- secondary lines
-	number = { "semibold", 12 },   -- counters
-	caption = { "semibold", 11 },  -- pills and chips
-	goal = { "medium", 14 },        -- the guide window's goal lines
-	name = { "semibold", 15 },     -- the person to talk to now
-	mono = { "medium", 12 },
-}
+local ROLES = ns.House.ROLES -- the size ladder (Theme/House.lua)
 
 -- Fira Sans (SIL OFL 1.1), the Halo skin's face: Latin, Greek and Cyrillic.
 local FIRA = {
@@ -861,7 +1234,7 @@ local OPEN_SANS = {
 	medium = OPEN_SANS_REGULAR,
 	semibold = MEDIA .. "Fonts\\OpenSans-Bold.ttf",
 }
-local FAMILIES = { opensans = OPEN_SANS, inter = FACES, fira = FIRA }
+local FAMILIES = setmetatable({ opensans = OPEN_SANS, inter = FACES, fira = FIRA }, { __index = EXTRA_FAMILIES })
 
 -- The font a skin starts with (ui.font "skin", the default): the house
 -- style and the others use the game's, Halo uses Fira Sans.
@@ -886,30 +1259,27 @@ local METRICS = {
 		row = 34, menuRow = 26, menuPad = 6, menuWidth = 260, servicesWidth = 290,
 		buttonH = 28, buttonPad = 14, dropdownW = 166, dropdownH = 26, chevron = 10, chevronInset = 8,
 		sliderW = 112, valueW = 56, checkbox = 16,
-		shellW = 930, shellH = 690, shellSidebar = 200, shellTabs = 32, shellPad = 28, shellFooter = 56,
+		shellW = 930, shellH = 690, shellTabs = 32, shellPad = 28, shellFooter = 56,
 		pickerW = 1100, pickerH = 640, pickerDetail = 380, pickerSidebar = 230,
 		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 22, guideNavIcon = 12,
 		guideIconBtnW = 24, guideIconBtnH = 22, guideIcon = 13, guideRow = 22, guideCheck = 16,
 		guideProgress = 3, guideGrip = 8, guideFoot = 17, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 2,
 	},
+	-- Hearth: planks a touch roomier than the game's rows, the house's slim
+	-- footer and progress line (in the ember accent).
 	hearth = {
-		row = 28, menuRow = 22, menuPad = 6, menuWidth = 260, servicesWidth = 290,
-		buttonH = 22, buttonPad = 14, dropdownW = 170, dropdownH = 24, chevron = 10, chevronInset = 6,
-		sliderW = 120, valueW = 56, checkbox = 18,
-		shellW = 930, shellH = 690, shellSidebar = 200, shellTabs = 32, shellPad = 28, shellFooter = 56,
+		row = 32, menuRow = 24, menuPad = 6, menuWidth = 260, servicesWidth = 290,
+		buttonH = 26, buttonPad = 14, dropdownW = 170, dropdownH = 26, chevron = 10, chevronInset = 8,
+		sliderW = 120, valueW = 56, checkbox = 16,
+		shellW = 930, shellH = 690, shellTabs = 32, shellPad = 28, shellFooter = 56,
 		pickerW = 1100, pickerH = 640, pickerDetail = 380, pickerSidebar = 230,
-		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 20, guideNavIcon = 12,
-		guideIconBtnW = 20, guideIconBtnH = 20, guideIcon = 11, guideRow = 22, guideCheck = 15,
-		guideProgress = 14, guideGrip = 8, guideFoot = 28, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
+		guidePad = 12, guideIconGap = 9, guideTabs = 28, guideNav = 32, guideNavBtn = 22, guideNavIcon = 12,
+		guideIconBtnW = 24, guideIconBtnH = 22, guideIcon = 12, guideRow = 22, guideCheck = 15,
+		guideProgress = 3, guideGrip = 8, guideFoot = 20, guideUpRow = 20, guideUpToggle = 26, guideNavGap = 4,
 	},
 }
--- The game's looks take Hearth's sizes and type; WoW Forever's guide window
--- keeps its rows and the lit goal clear of its bronze border (#306).
-for _, k in ipairs({ "forever", "blizzard", "classic" }) do
-	METRICS[k] = METRICS.hearth
-	SKIN_ROLES[k] = SKIN_ROLES.hearth
-end
-METRICS.forever = setmetatable({ guidePad = 18, guideLitInset = 10, guideRowPad = 4, guideCheckIn = 10, guideCheckMiddle = true }, { __index = METRICS.hearth })
+-- The game's looks bring their own sizes and type ladder with their part
+-- (Polestar_Looks/Parts.lua), which loads before Theme.SkinKey names one.
 Theme.METRICS = METRICS
 
 function Theme.Metric(key, house)
@@ -927,11 +1297,18 @@ local function gameFont()
 	return STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF"
 end
 
+-- The face the skin in use starts with: a registered skin's resolver's, its
+-- own, else the look it is drawn from.
+local function skinFace()
+	local id = Theme.SkinId()
+	if SKINS[id] and not SKINS[id].builtin then Theme.Palette() end -- the resolver's font, asked with the palette
+	return resolvedFont[id] or SKIN_FONT[id] or SKIN_FONT[Theme.SkinKey()] or "game"
+end
+
 -- The face in use (ui.font; "skin" follows the skin).
 function Theme.FontKey()
 	local f = get("ui.font")
-	local skin = Theme.SkinKey()
-	if f == nil or f == "skin" or not (f == "game" or FAMILIES[f]) then f = SKIN_FONT[skin] end
+	if f == nil or f == "skin" or not (f == "game" or FAMILIES[f]) then f = skinFace() end
 	return f
 end
 
@@ -972,27 +1349,81 @@ local function scopeOf(region)
 	return key
 end
 
+-- The roles each size nudge moves (ui.headingSize, ui.smallSize, on top of
+-- ui.textSize), and the roles drawn in the heading face (ui.headingFont).
+local HEADING_ROLES = { hero = true, display = true, title = true, heading = true }
+local SMALL_ROLES = { small = true, caption = true, number = true }
+
+local function nudge(key)
+	local v = tonumber(get(key)) or 1
+	return math.max(0.7, math.min(1.6, v))
+end
+
+-- The outline every Polestar string is drawn with (ui.fontOutline: "none",
+-- "outline", "thick") as font flags: "" | "OUTLINE" | "THICKOUTLINE".
+local OUTLINE_FLAGS = { outline = "OUTLINE", thick = "THICKOUTLINE" }
+function Theme.OutlineFlags()
+	return OUTLINE_FLAGS[get("ui.fontOutline")] or ""
+end
+
+-- A face key as a setting holds it ("skin" or unknown: the skin's own).
+local function resolveFace(v)
+	if v == nil or v == "skin" or not (v == "game" or FAMILIES[v]) then return skinFace() end
+	return v
+end
+
+-- A family's file at a weight ("regular", "medium", "semibold"); the game's
+-- font for "game" and on clients the bundled faces cannot draw.
+local function facePath(face, weight)
+	local locale = GetLocale and GetLocale()
+	local fam = FAMILIES[face]
+	if not fam or CJK[locale] then return gameFont() end
+	return fam[weight or "medium"] or fam.medium
+end
+
+-- The file of a face as the font settings name it ("skin" resolves).
+function Theme.FacePath(family, weight)
+	return facePath(resolveFace(family), weight)
+end
+
+-- The faces the font settings offer, each with its file so a picker can
+-- draw the name in it: { { value, label, font }, ... }.
+function Theme.FontChoices()
+	local L = ns.L
+	return {
+		{ value = "skin", label = L["The skin's font"], font = Theme.FacePath("skin") },
+		{ value = "opensans", label = "Open Sans", font = facePath("opensans") },
+		{ value = "game", label = L["Game font"], font = gameFont() },
+		{ value = "inter", label = "Inter", font = facePath("inter") },
+		{ value = "fira", label = "Fira Sans", font = facePath("fira") },
+	}
+end
+
 -- `scale` (optional): the text size to use instead of ui.textSize's.
 function Theme.FontSpec(role, scale)
-	local own = SKIN_ROLES[Theme.SkinKey()]
-	local spec = (own and own[role]) or ROLES[role] or ROLES.body
-	local size = math.floor(spec[2] * (scale or Theme.TextScale()) * 2 + 0.5) / 2
-	if Theme.FollowsEllesmereFont() and S.GetFont then
+	local own, base = SKIN_ROLES[Theme.SkinId()], SKIN_ROLES[Theme.SkinKey()]
+	local spec = (own and own[role]) or (base and base[role]) or ROLES[role] or ROLES.body
+	local k = scale or Theme.TextScale()
+	if HEADING_ROLES[role] then k = k * nudge("ui.headingSize") elseif SMALL_ROLES[role] then k = k * nudge("ui.smallSize") end
+	local size = math.floor(spec[2] * k * 2 + 0.5) / 2
+	local outline = Theme.OutlineFlags()
+	-- Headings may take a face of their own; "body" (the default) is the
+	-- body's, EllesmereUI's included.
+	local heading = HEADING_ROLES[role] and get("ui.headingFont")
+	if heading == "body" then heading = nil end
+	if not heading and Theme.FollowsEllesmereFont() and S.GetFont then
 		local ok, path, flag = pcall(S.GetFont)
-		if ok and type(path) == "string" then return path, size, flag or "" end
+		if ok and type(path) == "string" then return path, size, outline ~= "" and outline or flag or "" end
 	end
 	local locale = GetLocale and GetLocale()
-	local face = Theme.FontKey()
+	local face = heading and resolveFace(heading) or Theme.FontKey()
 	-- The ruRU client font (FRIZQT___CYR) has no middle dot, which the UI and
 	-- guide text use as a separator, and Open Sans has no arrow (U+2192), which
 	-- the Russian guide texts use; Fira Sans has both and covers Cyrillic.
 	-- Only when the skin picks the face: a font the player chose stays.
-	local f = get("ui.font")
+	local f = heading or get("ui.font")
 	if (face == "game" or face == "opensans") and locale == "ruRU" and (f == nil or f == "skin") then face = "fira" end
-	if face == "game" or CJK[locale] then
-		return gameFont(), size, ""
-	end
-	return FAMILIES[face][spec[1]], size, ""
+	return facePath(face, spec[1]), size, outline
 end
 
 -- Polestar's faces, and a Latin or Cyrillic client's own font, have no
@@ -1018,9 +1449,59 @@ function Theme.ScriptFont(text)
 	return script.path
 end
 
+-- The sign for "about" before a time or count (#1906): "≈" where the face
+-- has it, else "~". The game font draws "~" level with the digits' tops
+-- ("Stormwind ~0:38"); its "≈" sits mid-height. Precomputed from each file's
+-- cmap: Polestar's faces and the bundled skins' (tests/approx-sign.test.js
+-- checks them), and the client fonts that have it. The ruRU, zhTW and koKR
+-- client fonts have no "≈", nor does a face another addon brings: "~".
+local APPROX_FACES = {}
+for _, file in ipairs({
+	"inter-regular.ttf", "inter-medium.ttf", "inter-semibold.ttf",
+	"firasans-regular.ttf", "firasans-medium.ttf", "firasans-semibold.ttf",
+	"opensans-regular.ttf", "opensans-bold.ttf",
+	"barlowsemicondensed-light.ttf", "barlowsemicondensed-regular.ttf", "barlowsemicondensed-medium.ttf",
+	"frizqt__.ttf", "arialn.ttf", "morpheus.ttf", "morpheus_cyr.ttf", "nim_____.ttf",
+	"arkai_t.ttf", "arkai_c.ttf", "arhei.ttf",
+}) do APPROX_FACES[file] = true end
+Theme.APPROX_FACES = APPROX_FACES
+
+-- -> "≈" | "~" for the font file `face` (a path; nil: the face Polestar's text
+-- is drawn in now).
+function Theme.Approx(face)
+	if face == nil then face = Theme.FontSpec("body") end
+	local file = type(face) == "string" and face:match("([^\\/]+)$")
+	return file and APPROX_FACES[file:lower()] and "\226\137\136" or "~"
+end
+
+-- An edit box made without a template draws with a font object it shares
+-- (the chat box's, as #1896's report has it), and its font calls can write
+-- through to that object: Polestar's text size then sized the text being
+-- typed in chat. Each box first gets a font object of its own, a copy of
+-- the one it draws with, so its face, size, colour and shadow stay its own.
+-- Theme.SetFace and W.Color do it before their first call on a box; a box's
+-- own font calls (SetJustifyH, SetSpacing) come after its Theme.Font.
+local ownFonts = setmetatable({}, { __mode = "k" }) -- edit box -> its font object
+local ownFontCount = 0
+function Theme.OwnFont(region)
+	if ownFonts[region] or not region.SetTextInsets or region:GetObjectType() ~= "EditBox" or not CreateFont then return end
+	ownFontCount = ownFontCount + 1
+	local font = CreateFont("PolestarBoxFont" .. ownFontCount)
+	local shared = region:GetFontObject()
+	if shared then
+		font:CopyFontObject(shared)
+	else
+		local path, size, flags = region:GetFont()
+		if path then font:SetFont(path, size, flags or "") end
+	end
+	region:SetFontObject(font)
+	ownFonts[region] = font
+end
+
 -- Keep a widget's typography when the face already matches (e.g. a colour
 -- refresh or a reused map pin). A missing font may return false or raise.
 function Theme.SetFace(fs, path, size, flags)
+	Theme.OwnFont(fs)
 	local current, height, outline = fs:GetFont()
 	if current == path and height == size and (outline or "") == flags then return end
 	local fallback = gameFont()
@@ -1032,19 +1513,30 @@ function Theme.SetFace(fs, path, size, flags)
 end
 
 local fonted = setmetatable({}, { __mode = "k" }) -- fontString -> role
-local outlined = setmetatable({}, { __mode = "k" }) -- fontString -> true
+local outlined = setmetatable({}, { __mode = "k" }) -- fontString -> true | "thick"
+local scaled = setmetatable({}, { __mode = "k" }) -- fontString -> its own size against its role's
 local flat = setmetatable({}, { __mode = "k" }) -- fontString -> true: no drop shadow
 local scripted = setmetatable({}, { __mode = "k" }) -- fontString -> its text's script font, or false
 
--- Text shadows: the house style's soft 1, -1; Halo's 1 down at 90 % black
--- (DIRECTION_B_HALO.md §2); Blizzard's hard 1, -1 black, as the game's.
+-- Text shadows: the house style's soft 1, -1 in the scheme's shade (Hearth
+-- too, in its warm shade); Halo's 1 down at 90 % black (DIRECTION_B_HALO.md
+-- §2); the game's looks' hard 1, -1 black, as the game's.
 local HARD = { 1, -1, 1 }
-local SKIN_SHADOW = { halo = { 0, -1, 0.9 }, hearth = HARD, forever = HARD, blizzard = HARD, classic = HARD }
+local SKIN_SHADOW = { halo = { 0, -1, 0.9 }, forever = HARD, blizzard = HARD, classic = HARD }
 
+-- ui.textShadow: "skin" (the default: the skin's own), "soft", "hard" or
+-- "none" for every Polestar string.
 local function paintShadow(fs)
 	if not fs.SetShadowOffset then return end
+	local mode = get("ui.textShadow")
+	if mode == "none" then
+		fs:SetShadowColor(0, 0, 0, 0)
+		return
+	end
 	local r, g, b = Theme.Color("shade")
-	local own = SKIN_SHADOW[Theme.SkinKey()]
+	local own = SKIN_SHADOW[Theme.SkinId()]
+	if own == nil then own = SKIN_SHADOW[Theme.SkinKey()] end
+	if mode == "hard" then own = HARD elseif mode == "soft" then own = nil end
 	if own then
 		fs:SetShadowOffset(own[1], own[2])
 		fs:SetShadowColor(0, 0, 0, flat[fs] and 0 or own[3])
@@ -1055,8 +1547,11 @@ local function paintShadow(fs)
 end
 
 -- Forever leaves a string blank after a new font until its text changes
--- (the options' values and tiles after a skin change): set it again.
+-- (the options' values and tiles after a skin change): set it again. Not an
+-- edit box the player is in: setting its text again drops their cursor and
+-- selection (#1753: the report box selected for Ctrl+C).
 local function textAgain(fs)
+	if fs.HasFocus and fs:HasFocus() then return end
 	local text = fs.GetText and fs:GetText()
 	if text and text ~= "" then
 		fs:SetText(text .. " ")
@@ -1073,7 +1568,8 @@ local function paintFont(fs, role)
 	local script = Theme.ScriptFont(text)
 	scripted[fs] = script or false
 	if script then path = script end
-	if outlined[fs] then flags = "OUTLINE" end
+	if scaled[fs] then size = math.floor(size * scaled[fs] * 2 + 0.5) / 2 end
+	if outlined[fs] then flags = (outlined[fs] == "thick" or flags == "THICKOUTLINE") and "THICKOUTLINE" or "OUTLINE" end
 	-- Dark ink on an accent fill takes no outline either: a font that follows
 	-- EllesmereUI's brings its OUTLINE, and black round dark glyphs on a
 	-- bright accent smears them (#521). MONOCHROME and the like stay.
@@ -1103,9 +1599,17 @@ function Theme.Font(fs, role)
 end
 
 -- Outlined text with a hard shadow, legible over any terrain (the guide
--- window's transparent mode). Survives theme changes.
+-- window's transparent mode); on = "thick" for the thick outline. Survives
+-- theme changes.
 function Theme.SetOutline(fs, on)
-	outlined[fs] = on and true or nil
+	outlined[fs] = on == "thick" and "thick" or (on and true or nil)
+	if fonted[fs] then paintFont(fs, fonted[fs]) end
+end
+
+-- One string's own size against its role's (a surface's text size setting),
+-- kept through theme changes; nil or 1 for the role's.
+function Theme.SetFontScale(fs, k)
+	scaled[fs] = (type(k) == "number" and k > 0 and k ~= 1) and k or nil
 	if fonted[fs] then paintFont(fs, fonted[fs]) end
 end
 
@@ -1210,15 +1714,24 @@ end
 local SHADOW_OUT = 16
 local SHADOW_DROP = 4
 local SLICE = 20 / 64
-local function shadowFor(frame)
+-- `out` and `drop` (a skin's shadow.size and shadow.drop) default to the
+-- house's; a frame's shadow takes new ones in place.
+local function shadowFor(frame, out, drop)
+	out, drop = out or SHADOW_OUT, drop or SHADOW_DROP
 	local s = frame.psShadow
-	if s then return s end
-	s = CreateFrame("Frame", nil, frame)
-	s:SetFrameLevel(math.max(0, frame:GetFrameLevel() - 1))
-	s:SetPoint("TOPLEFT", frame, "TOPLEFT", -SHADOW_OUT, SHADOW_OUT - SHADOW_DROP)
-	s:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", SHADOW_OUT, -SHADOW_OUT - SHADOW_DROP)
-	s.parts = softBox(s, SHADOW_OUT + 6, SLICE)
-	frame.psShadow = s
+	if not s then
+		s = CreateFrame("Frame", nil, frame)
+		s:SetFrameLevel(math.max(0, frame:GetFrameLevel() - 1))
+		s.parts = softBox(s, SHADOW_OUT + 6, SLICE)
+		frame.psShadow = s
+	end
+	if s.psOut ~= out or s.psDrop ~= drop then
+		s:ClearAllPoints()
+		s:SetPoint("TOPLEFT", frame, "TOPLEFT", -out, out - drop)
+		s:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", out, -out - drop)
+		for i = 1, 4 do s.parts[i]:SetSize(out + 6, out + 6) end
+		s.psOut, s.psDrop = out, drop
+	end
 	return s
 end
 
@@ -1281,7 +1794,9 @@ function Theme.TextShade(parent, fx, fy)
 	return { parts = { mid, tl, tr, bl, br, top, bottom, left, right } }
 end
 
--- The scheme's scrim colour at `alpha`.
+-- The scheme's scrim colour at `alpha`. The alpha is the parts' vertex
+-- alpha: in the client a texture's SetAlpha sets that same value, so a part
+-- is never SetAlpha'd (fold any fade into `alpha`, #1684).
 function Theme.PaintScrim(s, alpha)
 	local r, g, b = Theme.Color("scrim")
 	for i = 1, #s.parts do s.parts[i]:SetVertexColor(r, g, b, alpha) end
@@ -1338,142 +1853,13 @@ local function bare(f)
 	if d.nine then for _, n in pairs(d.nine) do if n then n:Hide() end end end
 end
 
-local HOUSE_PAINT = {
-	-- Every window: the ground at the player's opacity, the window border
-	-- (Theme.WindowBorder: on or off, its colour and thickness) and the
-	-- drop shadow unless the player turned it off.
-	window = function(f)
-		if f.psBare then return bare(f) end
-		local r, g, b = Theme.Color("bg")
-		local alpha = f.psBgAlpha or Theme.GroundAlpha()
-		fill(f):SetVertexColor(r, g, b, alpha)
-		local shown, size = Theme.WindowBorder()
-		if shown then
-			local br, bg, bb, ba = Theme.Color("windowBorder")
-			Theme.Border(f, br, bg, bb, ba, nil, size)
-		else
-			hideBorder(f)
-		end
-		if get("ui.shadow") == false then
-			if f.psShadow then f.psShadow:Hide() end
-			return
-		end
-		local s = shadowFor(f)
-		local sr, sg, sb, sa = Theme.Color("shadow")
-		for i = 1, #s.parts do s.parts[i]:SetVertexColor(sr, sg, sb, sa * math.min(1, alpha + 0.1)) end
-		s:Show()
-	end,
-	panel = function(f)
-		if f.psBare then return bare(f) end
-		fill(f):SetVertexColor(Theme.Color("panel"))
-		Theme.Border(f, Theme.Color("border"))
-	end,
-	sidebar = function(f)
-		fill(f):SetVertexColor(Theme.Color("sidebar"))
-	end,
-	inset = function(f)
-		local r, g, b = Theme.Color("shade")
-		fill(f):SetVertexColor(r, g, b, 0.25)
-		hideBorder(f)
-	end,
-	button = function(f)
-		fill(f):SetVertexColor(Theme.Color("panelAlt"))
-		Theme.Border(f, Theme.Color("border"))
-		hoverWash(f)
-	end,
-	dropdown = function(f)
-		fill(f):SetVertexColor(Theme.Color("panelAlt"))
-		Theme.Border(f, Theme.Color("border"))
-		hoverWash(f)
-	end,
-	-- An action tile (W.ActionTile): a button's ground in the house style.
-	tile = function(f)
-		fill(f):SetVertexColor(Theme.Color("panelAlt"))
-		Theme.Border(f, Theme.Color("border"))
-		hoverWash(f)
-	end,
-	editbox = function(f)
-		local r, g, b = Theme.Color("shade")
-		fill(f):SetVertexColor(r, g, b, 0.35)
-		if f.psFocused then
-			local r, g, b = Theme.Accent()
-			Theme.Border(f, r, g, b, 0.8)
-		else
-			Theme.Border(f, Theme.Color("border"))
-		end
-	end,
-	checkbox = function(f)
-		local d = f.psSkin
-		if not d.box then
-			d.box = CreateFrame("Frame", nil, f)
-			d.box:SetPoint("CENTER", f, "CENTER", 0, 0)
-			d.box:SetSize(14, 14)
-			d.box.psSkin = {}
-			if f.SetCheckedTexture then
-				local check = f:CreateTexture(nil, "OVERLAY")
-				check:SetTexture(Theme.Media("check"))
-				check:SetSize(12, 12)
-				check:SetPoint("CENTER", f, "CENTER", 0, 0)
-				f:SetCheckedTexture(check)
-				d.check = check
-			end
-		end
-		-- psOnWorld (the transparent guide window's tick boxes): the scrim
-		-- inside and an ink edge, so the box holds over bright ground.
-		if f.psOnWorld then
-			local r, g, b = Theme.Color("scrim")
-			fill(d.box):SetVertexColor(r, g, b, 0.6)
-			local tr, tg, tb = Theme.Color("textDim")
-			Theme.Border(d.box, tr, tg, tb, 0.7)
-		else
-			local r, g, b = Theme.Color("shade")
-			fill(d.box):SetVertexColor(r, g, b, 0.35)
-			Theme.Border(d.box, Theme.Wash("box"))
-		end
-		if d.check then d.check:SetVertexColor(Theme.Accent()) end
-		d.box:Show()
-		hoverWash(f)
-	end,
-	tab = function(f)
-		local d = f.psSkin
-		if not d.bar then
-			d.bar = f:CreateTexture(nil, "OVERLAY")
-			d.bar:SetTexture(Theme.Media("white"))
-			d.bar:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 0, 0)
-			d.bar:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
-		end
-		d.bar:SetHeight(2)
-		d.bar:SetVertexColor(Theme.Accent())
-		d.bar:SetShown(f.psSelected and true or false)
-		hoverWash(f)
-		-- Back from a game look's tab, whose label sat on its art.
-		local label = rawget(f, "Label")
-		if f.psKitLabel and label then
-			label:ClearAllPoints()
-			label:SetPoint("CENTER", f, "CENTER", 0, 0)
-			f.psKitLabel = nil
-		end
-	end,
-	close = function(f)
-		glyph(f, "close", 14):SetVertexColor(Theme.Color("textDim"))
-		hoverWash(f):SetVertexColor(Theme.Wash("hover"))
-	end,
-	scrollbar = function(f)
-		-- Back from a game look's scroll bar (Theme/GameSkins.lua): the slim
-		-- white thumb over the whole bar.
-		local thumb = f.thumb or f.psThumb
-		if f.psInset then
-			f.psInset = nil
-			f:SetWidth(6)
-			if thumb and thumb.SetTexture then
-				thumb:SetTexture(Theme.Media("white"))
-				thumb:SetTexCoord(0, 1, 0, 1)
-				thumb:SetWidth(2)
-			end
-		end
-		if thumb and thumb.SetVertexColor then thumb:SetVertexColor(Theme.Wash("thumb")) end
-	end,
-}
+-- The house look's painters (Theme/House.lua), handed the helpers above.
+-- Everything of the house look is taken now: its table goes, so the move
+-- costs the login nothing.
+ns.House.Bind({ Theme = Theme, fill = fill, hoverWash = hoverWash, glyph = glyph, bare = bare, hideBorder = hideBorder,
+	shadowFor = shadowFor, isColor = isColor, get = get })
+local HOUSE_PAINT = ns.House.PAINT
+ns.House = nil
 
 ---------------------------------------------------------------------------
 -- Halo and Blizzard paints (DIRECTION_B_HALO.md §4 and §7,
@@ -1521,22 +1907,28 @@ local function veilFor(frame)
 	return v
 end
 
-local function showVeil(frame, token, alpha)
+local function showVeil(frame, token, alpha, own)
 	local v = veilFor(frame)
 	local r, g, b, a = Theme.Color(token)
+	if isColor(own) then r, g, b = own[1], own[2], own[3] end
 	a = alpha or a
 	for i = 1, #v.parts do v.parts[i]:SetVertexColor(r, g, b, a) end
 	v:Show()
 	return v
 end
 
--- A vertical two-colour fill (top, bottom), the gradients of Blizzard's
--- frames and buttons where the client has no texture of the exact tint.
-local function gradientFill(frame, top, bottom, layer, sub)
+-- A two-colour fill: vertical (top, bottom), the gradients of Blizzard's
+-- frames and buttons where the client has no texture of the exact tint, or
+-- horizontal (`orient` "HORIZONTAL": left, right).
+local function gradientFill(frame, top, bottom, layer, sub, orient)
 	local t = fill(frame, layer, sub)
 	t:SetVertexColor(1, 1, 1, 1)
 	if t.SetGradient and CreateColor then
-		t:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], bottom[4] or 1), CreateColor(top[1], top[2], top[3], top[4] or 1))
+		if orient == "HORIZONTAL" then
+			t:SetGradient("HORIZONTAL", CreateColor(top[1], top[2], top[3], top[4] or 1), CreateColor(bottom[1], bottom[2], bottom[3], bottom[4] or 1))
+		else
+			t:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], bottom[4] or 1), CreateColor(top[1], top[2], top[3], top[4] or 1))
+		end
 	else
 		t:SetVertexColor(top[1], top[2], top[3], top[4] or 1)
 	end
@@ -1585,8 +1977,25 @@ local function hideAll(v)
 	for _, x in pairs(v) do hideAll(x) end
 end
 
+-- A texture's own desaturation (0-1), where the client can only switch it.
+local function desaturate(t, d)
+	if t.SetDesaturation then t:SetDesaturation(d) elseif t.SetDesaturated then t:SetDesaturated(d >= 0.5) end
+end
+
+-- Put back the game art a skin's artTint coloured (kit.tintArt).
+local function untint(d)
+	if not d.tinted then return end
+	for t, rec in pairs(d.tinted) do
+		local o = rec.orig
+		t:SetVertexColor(o[1], o[2], o[3], o[4] or 1)
+		desaturate(t, 0)
+	end
+	d.tinted = nil
+end
+
 local function clearSkin(f)
 	local d = f.psSkin
+	untint(d)
 	if d.bg then d.bg:Hide() end
 	if d.bg and d.kitFill then
 		-- A game look drew its own art in the fill: back to the house fill,
@@ -1604,8 +2013,10 @@ local function clearSkin(f)
 	if d.nine then for _, n in pairs(d.nine) do if n then n:Hide() end end end
 	if d.red then for i = 1, 3 do d.red[i]:Hide() end; d.red.hl:Hide() end
 	if d.line then d.line:Hide() end
+	-- The house look's window edges (Theme/House.lua).
+	if d.edge then hideAll(d.edge) end
 	if d.hover then d.hover:SetVertexColor(1, 1, 1, 0) end
-	-- The game's looks (Theme/GameSkins.lua) keep their pieces here.
+	-- The game's looks (Polestar_Looks/GameSkins.lua) keep their pieces here.
 	if d.kit then hideAll(d.kit) end
 end
 
@@ -1631,15 +2042,58 @@ local function veilAlpha(f, token)
 	return math.min(1, a * scale)
 end
 
+-- The game's looks (WoW Forever, Blizzard, Classic: their kits and painters)
+-- and Hearth's painters live in their own part, Polestar_Looks (load on
+-- demand), loaded the first time one of them is painted: a player on the
+-- house look never pays for them at login. Until then Theme.Kit is nil and
+-- the Theme.Kit* calls draw nothing; the part replaces them as it loads
+-- (Polestar_Looks/GameSkins.lua, Hearth.lua).
+local loadLooks
+do
+	local LOOKS, BASES = "Polestar_Looks", { hearth = true, forever = true, blizzard = true, classic = true }
+	local tried = false
+	-- Loads the part when `base` is one of its looks (once: a part that is
+	-- missing or disabled leaves the house look standing). -> whether it is in
+	function loadLooks(base)
+		if Theme.KITS then return true end
+		if not BASES[base] or tried then return false end
+		tried = true
+		local A = C_AddOns
+		local load = A and A.LoadAddOn or LoadAddOn
+		if load then pcall(load, LOOKS) end
+		return Theme.KITS ~= nil
+	end
+	Theme.LoadLooks = loadLooks
+	-- The kit of the skin in use, or nil (the house style, Halo, Hearth).
+	function Theme.Kit()
+		local key = Theme.SkinKey()
+		if not GAME_SKINS[key] or not loadLooks(key) then return nil end
+		return Theme.KITS[key]
+	end
+	-- The kit calls the guide window and the widgets make, in the house
+	-- look: nothing drawn, until a game look brings the part in.
+	for _, name in ipairs({ "KitTab", "KitRowLit", "KitHeader", "KitStrip", "KitStatus", "KitCheck", "KitSlider",
+		"KitDropArrow", "KitIconButton", "KitHide" }) do
+		local standIn
+		standIn = function(...)
+			if loadLooks(Theme.SkinKey()) and Theme[name] ~= standIn then return Theme[name](...) end
+			return false
+		end
+		Theme[name] = standIn
+	end
+end
+
 local SKIN_PAINT = {
 	halo = {
 		window = function(f)
 			if f.psBare then return bare(f) end
 			local token = f.psGuide and "veil" or "veilWindow"
-			showVeil(f, token, veilAlpha(f, token))
+			showVeil(f, token, veilAlpha(f, token), f.psBgColor)
 			local shown, size = Theme.WindowBorder()
-			if shown and (isColor(get("ui.borderColor")) or get("ui.borderAccent")) then
+			if shown and not f.psNoBorder and (isColor(get("ui.borderColor")) or get("ui.borderAccent")) then
 				Theme.Border(f, Theme.Color("windowBorder"))
+			else
+				hideBorder(f)
 			end
 		end,
 		panel = function(f)
@@ -1684,88 +2138,392 @@ local SKIN_PAINT = {
 			Theme.Border(d.box, Theme.Color("box"))
 		end,
 	},
-	hearth = {
-		-- Flat windows (Yendi, after playing it): the handoff's brown gradient
-		-- without the game's metal frame, edged by the window border setting
-		-- in a brown hairline (#5C4518) unless the player picked their own.
-		window = function(f)
-			if f.psBare then return bare(f) end
-			local a = veilAlpha(f, "bg")
-			local top, bottom = { Theme.Color("bg") }, { Theme.Color("bgBottom") }
-			top[4], bottom[4] = a, a
-			gradientFill(f, top, bottom)
-			local shown, size = Theme.WindowBorder()
-			if shown then
-				local br, bg, bb, ba = Theme.Color("windowBorder")
-				Theme.Border(f, br, bg, bb, ba, nil, size)
-			else
-				hideBorder(f)
-			end
-		end,
-		panel = function(f)
-			if f.psBare then return bare(f) end
-			local top, bottom = { Theme.Color("bg") }, { Theme.Color("bgBottom") }
-			top[4], bottom[4] = 0.97, 0.97
-			gradientFill(f, top, bottom)
-			Theme.Border(f, Theme.Color("frameEdgeDark"))
-		end,
-		tile = function(f)
-			fill(f):SetVertexColor(0, 0, 0, 0.4)
-			Theme.Border(f, Theme.Color("titleLine"))
-			hoverWash(f)
-		end,
-		sidebar = function(f)
-			fill(f):SetVertexColor(Theme.Color("sidebar"))
-		end,
-		inset = function(f)
-			fill(f):SetVertexColor(0, 0, 0, 0.45)
-		end,
-		-- The game's red button for text buttons (W.Button) alone; anything
-		-- else painted as a button (cards, rows, tiles) is a dark well edged
-		-- in brown.
-		button = function(f)
-			if f.psTextButton then return redButton(f) end
-			fill(f):SetVertexColor(0, 0, 0, 0.4)
-			Theme.Border(f, Theme.Color("titleLine"))
-			hoverWash(f)
-		end,
-		dropdown = function(f)
-			fill(f):SetVertexColor(Theme.Color("control"))
-			Theme.Border(f, Theme.Color("border"))
-			hoverWash(f)
-		end,
-		editbox = function(f)
-			fill(f):SetVertexColor(Theme.Color("inputBg"))
-			if f.psFocused then
-				local r, g, b = Theme.Accent()
-				Theme.Border(f, r, g, b, 0.8)
-			else
-				Theme.Border(f, Theme.Color("border"))
-			end
-		end,
-		checkbox = function(f)
-			HOUSE_PAINT.checkbox(f)
-			local d = f.psSkin
-			d.box:SetSize(15, 15)
-			gradientFill(d.box, { 0, 0, 0, 1 }, { 0.11, 0.11, 0.11, 1 })
-			Theme.Border(d.box, Theme.Color("box"))
-		end,
-	},
 }
 Theme.SKIN_PAINT = SKIN_PAINT
--- The paint helpers Theme/GameSkins.lua builds the game's looks from.
+-- The paint helpers the game's looks and Hearth build from (Polestar_Looks).
 Theme.Paint = { fill = fill, hoverWash = hoverWash, bare = bare, hideBorder = hideBorder, redButton = redButton, house = HOUSE_PAINT }
+
+-- What a registered skin's painters and hooks may build with
+-- (docs/skins/reference.md, "The paint kit"): the house fills, borders and
+-- washes, and store(f), a table on the frame for the skin's own pieces, one
+-- per skin. A painted frame's are hidden whenever another look paints it; a
+-- hooked frame's (the arrow, a pin, a button, a toast's parts...) as the skin
+-- in use changes (switchSkin).
+local hookKits = setmetatable({}, { __mode = "k" }) -- frame (not painted) -> its kit
+local function skinStore(f)
+	local kit
+	if skinned[f] then
+		local d = f.psSkin
+		kit = d.kit
+		if not kit then kit = {}; d.kit = kit end
+	else
+		kit = hookKits[f]
+		if not kit then kit = {}; hookKits[f] = kit end
+	end
+	local api = kit.api
+	if not api then api = {}; kit.api = api end
+	local id = Theme.SkinId()
+	local own = api[id]
+	if not own then own = {}; api[id] = own end
+	return own
+end
+
+-- A colour as a kit option gives it: a token name or { r, g, b[, a] }.
+-- -> r, g, b, a
+local function kitColor(c, default)
+	if type(c) == "string" then return Theme.Color(c) end
+	if type(c) == "table" and type(c[1]) == "number" then return c[1], c[2], c[3], c[4] or 1 end
+	if default then return kitColor(default) end
+	return 1, 1, 1, 1
+end
+
+-- Whether the player asked for less motion (ui.reduceMotion): a crossfade
+-- or a pulse is then instant or still.
+function Theme.ReduceMotion()
+	return get("ui.reduceMotion") and true or false
+end
+
+-- kit.glow: a soft light (Media/UI/glow) at a point of the frame, kept in
+-- the frame's skin store under opts.key or the point. -> texture
+local function kitGlow(f, o)
+	o = o or {}
+	local st = skinStore(f)
+	local key = "glow:" .. tostring(o.key or o.point or "CENTER")
+	local t = st[key]
+	if not t then
+		t = f:CreateTexture(nil, o.layer or "BACKGROUND", nil, o.sub or -5)
+		t:SetTexture(Theme.Media("glow"))
+		st[key] = t
+	end
+	t:SetBlendMode(o.blend or "ADD")
+	local w, h = 96, 96
+	if type(o.size) == "number" then w, h = o.size, o.size elseif type(o.size) == "table" then w, h = o.size[1] or w, o.size[2] or h end
+	t:SetSize(w, h)
+	local off = type(o.offset) == "table" and o.offset or {}
+	t:ClearAllPoints()
+	t:SetPoint("CENTER", f, o.point or "CENTER", off[1] or 0, off[2] or 0)
+	t:SetVertexColor(kitColor(o.color, "accent"))
+	t:Show()
+	return t
+end
+
+-- kit.gameArt: one of the client's own pictures (a loading screen, journal
+-- art) laid behind the frame's content, under its text, cropped to cover
+-- the frame (or stretched), desaturated, tinted and faded. Kept in the
+-- frame's skin store under opts.key; laid out again when the frame resizes.
+-- -> texture (its .psArt the record kit.crossfade uses)
+-- The store holds only the textures (another skin hides them all); the
+-- frame and the options each record was laid out for are kept beside it.
+local ART_FADES = { bottom = true, top = true, both = true, none = true, left = true, right = true }
+local ARTINFO = setmetatable({}, { __mode = "k" }) -- record -> { frame, opts, file, fading }
+local function artLayout(tex, twin, info)
+	local o, f = info.opts, info.frame
+	local w = o.width or f:GetWidth() or 0
+	local h = o.height or f:GetHeight() or 0
+	local c = type(o.coords) == "table" and o.coords or { 0, 1, 0, 1 }
+	local l, r, t, b = c[1] or 0, c[2] or 1, c[3] or 0, c[4] or 1
+	if o.crop ~= "stretch" and w > 0 and h > 0 then
+		local aspect = tonumber(o.aspect) or 4 / 3
+		local fa = w / h
+		if fa > aspect then -- wider than the art: crop its top and bottom
+			local keep = (b - t) * aspect / fa
+			local mid = t + (b - t) * (tonumber(o.focus) or 0.5)
+			local top0, bottom0 = t, b
+			t, b = mid - keep / 2, mid + keep / 2
+			if t < top0 then t, b = top0, top0 + keep elseif b > bottom0 then t, b = bottom0 - keep, bottom0 end
+		else -- taller: crop its sides
+			local keep = (r - l) * fa / aspect
+			local mid = (l + r) / 2
+			l, r = mid - keep / 2, mid + keep / 2
+		end
+	end
+	local tr, tg, tb = kitColor(o.tint, { 1, 1, 1, 1 })
+	local alpha = math.max(0, math.min(0.35, tonumber(o.alpha) or 0.2))
+	local function place(tx, part)
+		tx:ClearAllPoints()
+		local fade = o.fade or "bottom"
+		local tt, bb = t, b
+		if part then
+			-- Two halves ("both"), each fading to its outer edge.
+			local half = h / 2
+			tx:SetPoint("TOPLEFT", f, "TOPLEFT", 0, part == "top" and 0 or -half)
+			tx:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, part == "top" and 0 or -half)
+			tx:SetHeight(half)
+			if part == "top" then bb = (t + b) / 2 else tt = (t + b) / 2 end
+			fade = part
+		else
+			local anchors = o.anchors
+			if type(anchors) == "table" and #anchors > 0 then
+				for _, p in ipairs(anchors) do tx:SetPoint(p[1], p[2] or f, p[3] or p[1], p[4] or 0, p[5] or 0) end
+			else
+				tx:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+				tx:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+				if o.height then tx:SetHeight(o.height) else tx:SetPoint("BOTTOM", f, "BOTTOM", 0, 0) end
+			end
+		end
+		tx:SetTexCoord(l, r, tt, bb)
+		desaturate(tx, math.max(0, math.min(1, tonumber(o.desaturate) or 0.7)))
+		if fade ~= "none" and tx.SetGradient and CreateColor then
+			local on, off = CreateColor(tr, tg, tb, alpha), CreateColor(tr, tg, tb, 0)
+			if fade == "bottom" then tx:SetGradient("VERTICAL", off, on)
+			elseif fade == "top" then tx:SetGradient("VERTICAL", on, off)
+			elseif fade == "left" then tx:SetGradient("HORIZONTAL", off, on)
+			else tx:SetGradient("HORIZONTAL", on, off) end
+		else
+			tx:SetVertexColor(tr, tg, tb, alpha)
+		end
+	end
+	local both = (o.fade == "both")
+	place(tex, both and "top" or nil)
+	if both then place(twin, "bottom"); twin:Show() else twin:Hide() end
+end
+
+local function kitGameArt(f, o)
+	if type(o) ~= "table" or (o.file == nil) then error("kit.gameArt needs { file = path or fileID, ... }", 2) end
+	if o.fade ~= nil and not ART_FADES[o.fade] then error("kit.gameArt: fade must be bottom, top, both, left, right or none", 2) end
+	local st = skinStore(f)
+	local key = "gameArt:" .. tostring(o.key or "art")
+	local a = st[key]
+	if not a then
+		local layer, sub = o.layer or "BACKGROUND", o.sub or -6
+		a = { tex = f:CreateTexture(nil, layer, nil, sub), twin = f:CreateTexture(nil, layer, nil, sub) }
+		a.tex.psArt = a
+		st[key] = a
+		ARTINFO[a] = { frame = f }
+		if f.HookScript then
+			f:HookScript("OnSizeChanged", function()
+				local info = ARTINFO[a]
+				if info and info.opts and a.tex:IsShown() then artLayout(a.tex, a.twin, info) end
+			end)
+		end
+	end
+	local info = ARTINFO[a]
+	info.opts = o
+	if info.file ~= o.file and not info.fading then
+		info.file = o.file
+		a.tex:SetTexture(o.file)
+		a.twin:SetTexture(o.file)
+	end
+	a.tex:Show()
+	artLayout(a.tex, a.twin, info)
+	return a.tex
+end
+
+-- kit.crossfade: the picture of a kit.gameArt texture changed to `file`,
+-- fading over `seconds` (0.6 by default; at once with Reduce motion or while
+-- hidden).
+local function kitCrossfade(tex, file, seconds)
+	local a = type(tex) == "table" and tex.psArt
+	local info = a and ARTINFO[a]
+	if not info then
+		if type(tex) == "table" and tex.SetTexture then tex:SetTexture(file) end
+		return
+	end
+	if info.file == file then return end
+	local A = ns.Anim
+	if Theme.ReduceMotion() or not (A and A.To) or not a.tex:IsVisible() then
+		info.file = file
+		a.tex:SetTexture(file)
+		a.twin:SetTexture(file)
+		return
+	end
+	local f = info.frame
+	if not a.ntex then
+		local layer, sub = a.tex:GetDrawLayer()
+		a.ntex, a.ntwin = f:CreateTexture(nil, layer, nil, sub), f:CreateTexture(nil, layer, nil, sub)
+	end
+	a.ntex:SetTexture(file)
+	a.ntwin:SetTexture(file)
+	artLayout(a.ntex, a.ntwin, info)
+	a.ntex:Show()
+	local dur = tonumber(seconds) or 0.6
+	info.fading = true
+	a.ntex:SetAlpha(0); a.ntwin:SetAlpha(0)
+	A.To(a.ntex, "alpha", 0, 1, dur, "linear")
+	A.To(a.ntwin, "alpha", 0, 1, dur, "linear")
+	A.To(a.twin, "alpha", 1, 0, dur, "linear")
+	A.To(a.tex, "alpha", 1, 0, dur, "linear", function()
+		info.file, info.fading = file, nil
+		a.tex:SetTexture(file); a.twin:SetTexture(file)
+		a.tex:SetAlpha(1); a.twin:SetAlpha(1)
+		a.ntex:Hide(); a.ntwin:Hide()
+	end)
+end
+
+-- kit.tintArt: the game art a base look drew on the frame (Polestar_Looks/GameSkins.lua:
+-- its nine-slices, plates and the red buttons), desaturated (0-1), brighter
+-- or darker (brightness -1..1) and tinted. What the base sets again on its
+-- next paint is tinted again from there; another skin puts it all back.
+local function kitTintArt(f, o)
+	local d = f.psSkin
+	if not (d and o) then return end
+	d.tinted = d.tinted or {}
+	local tr, tg, tb = kitColor(o.tint, { 1, 1, 1, 1 })
+	local k = 1 + math.max(-1, math.min(1, tonumber(o.brightness) or 0))
+	tr, tg, tb = math.min(1, tr * k), math.min(1, tg * k), math.min(1, tb * k)
+	local desat = math.max(0, math.min(1, tonumber(o.desaturate) or 0))
+	local function each(t, depth)
+		if type(t) ~= "table" or depth > 6 then return end
+		if t.GetObjectType then
+			-- Art the base drew through Theme.TintArt is tinted already.
+			if t.SetVertexColor and t:GetObjectType() == "Texture" and not t.psArtTinted then
+				local rec = d.tinted[t]
+				local cr, cg, cb, ca = t:GetVertexColor()
+				-- What the base set since our last tint is the new original.
+				if not rec or not (rec.set and math.abs(cr - rec.set[1]) < 1e-3 and math.abs(cg - rec.set[2]) < 1e-3 and math.abs(cb - rec.set[3]) < 1e-3) then
+					rec = { orig = { cr, cg, cb, ca or 1 } }
+					d.tinted[t] = rec
+				end
+				local o0 = rec.orig
+				rec.set = { o0[1] * tr, o0[2] * tg, o0[3] * tb }
+				t:SetVertexColor(rec.set[1], rec.set[2], rec.set[3], o0[4])
+				desaturate(t, desat)
+			end
+			return
+		end
+		for key, x in pairs(t) do
+			if key ~= "api" then each(x, depth + 1) end
+		end
+	end
+	each(d.kit, 0)
+	each(d.red, 0)
+	each(d.nine, 0)
+	if d.kitFill and d.bg then each(d.bg, 0) end
+end
+
+local KIT = {
+	fill = fill, hoverWash = hoverWash, hideBorder = hideBorder, store = skinStore,
+	-- (frame, from, to, layer, sub, orient): from is the top (vertical) or the left ("HORIZONTAL").
+	gradient = gradientFill,
+	border = function(f, r, g, b, a, layer, size) return Theme.Border(f, r, g, b, a, layer, size) end,
+	bare = function(f)
+		bare(f)
+		hideAll(skinStore(f))
+	end,
+	glow = kitGlow, gameArt = kitGameArt, crossfade = kitCrossfade, tintArt = kitTintArt,
+	color = kitColor,
+}
+Theme.SkinKit = KIT
+
+-- A registered skin's own painter for a frame of `kind`: the guide window
+-- and the toasts (windows marked psGuide, psLight) may have their own.
+local function ownPainter(s, frame, kind)
+	local own = s.paint
+	if not own then return nil end
+	if kind == "window" then
+		if frame.psGuide and own.guide then return own.guide end
+		if frame.psLight and own.toast then return own.toast end
+	end
+	return own[kind]
+end
+
+-- A registered skin whose painter, hook or resolver raised: noted once, off
+-- for the rest of the session (the saved ui.skin stays), everything
+-- repainted in the house style. Inside Theme.Refresh's loop the repaint waits
+-- for its end; `deferred` (a resolver, asked while the palette is built)
+-- waits for the next frame.
+local refreshing, refreshAgain = false, false
+failSkin = function(id, err, deferred)
+	local s = SKINS[id]
+	if FAILED[id] or not s or s.builtin then return end
+	FAILED[id] = tostring(err)
+	local who = s.addon or "?"
+	if ns.NoteError then ns.NoteError(format("skin %s (%s): %s", id, who, tostring(err))) end
+	if ns.Print and ns.L then
+		ns.Print(format(ns.L["The skin %s (from %s) ran into an error, so Polestar's own look stands in until you reload. Its addon may need an update."], s.name or id, who))
+	end
+	if refreshing then
+		refreshAgain = true
+	elseif deferred then
+		if ns.After then ns.After(0, function() Theme.Refresh() end) end
+	elseif Theme.Refresh then
+		Theme.Refresh()
+	end
+end
+
+-- The base look's art a skin built on the game's art may tint.
+local ART_BASES = { hearth = true, forever = true, blizzard = true, classic = true }
+
+-- The art tint of the skin in use (its artTint, or its variant's) while it
+-- is drawn from a game look's art, else nil.
+local function artTintNow()
+	local s = SKINS[Theme.SkinId()]
+	if not s or s.builtin or not ART_BASES[baseOf(s)] then return nil end
+	return field(s, "artTint")
+end
+
+-- A piece of the base look's art in colour r, g, b, a (white when nil), with
+-- the skin in use's artTint over it (spec.artTint: tinted, brighter or
+-- darker, desaturated); without one, as given and fully saturated. The game
+-- looks draw every piece of their art through this (Polestar_Looks/GameSkins.lua), so
+-- the tint reaches it all and goes when the skin does.
+function Theme.TintArt(t, r, g, b, a)
+	r, g, b, a = r or 1, g or 1, b or 1, a or 1
+	local o = artTintNow()
+	local desat = 0
+	if o then
+		local tr, tg, tb = kitColor(o.tint, { 1, 1, 1, 1 })
+		local k = 1 + math.max(-1, math.min(1, tonumber(o.brightness) or 0))
+		r, g, b = math.min(1, r * tr * k), math.min(1, g * tg * k), math.min(1, b * tb * k)
+		desat = math.max(0, math.min(1, tonumber(o.desaturate) or 0))
+	end
+	t:SetVertexColor(r, g, b, a)
+	desaturate(t, desat)
+	t.psArtTinted = o and true or nil
+end
+
+-- After a frame's painter: a registered skin's own window shadow
+-- (spec.shadow) and its tint of the base look's art (spec.artTint).
+local function finishPaint(s, frame, kind, base)
+	if kind == "window" then
+		local sh = field(s, "shadow")
+		if sh == false or (sh and (frame.psBare or get("ui.shadow") == false)) then
+			if frame.psShadow then frame.psShadow:Hide() end
+		elseif sh then
+			local sd = shadowFor(frame, sh.size, sh.drop)
+			local r, g, b = kitColor(sh.color, "shadow")
+			local strength = tonumber(get("ui.shadowStrength")) or 1
+			local ground = frame.psBgAlpha or Theme.GroundAlpha()
+			local a = math.min(1, sh.alpha * strength) * math.min(1, ground + 0.1)
+			for i = 1, #sd.parts do sd.parts[i]:SetVertexColor(r, g, b, a) end
+			sd:Show()
+		end
+	end
+	local tint = ART_BASES[base] and field(s, "artTint")
+	if tint then kitTintArt(frame, tint) end
+end
 
 local function paint(frame, kind)
 	frame.psSkin = frame.psSkin or {}
-	local skin = Theme.SkinKey()
-	if frame.psSkin.skin ~= skin then
+	local id = Theme.SkinId()
+	local s = SKINS[id]
+	local base = s and baseOf(s) or "polestar"
+	-- A skin, and the look it is drawn from (a variant may change it).
+	local look = id == base and id or (id .. "/" .. base)
+	if frame.psSkin.skin ~= look then
 		if frame.psSkin.skin then clearSkin(frame) end
-		frame.psSkin.skin = skin
+		frame.psSkin.skin = look
 	end
-	local own = SKIN_PAINT[skin]
+	if not SKIN_PAINT[base] then loadLooks(base) end
+	local own = SKIN_PAINT[base]
 	local fn = (own and own[kind]) or HOUSE_PAINT[kind] or HOUSE_PAINT.panel
-	fn(frame)
+	local registered = s and not s.builtin
+	local mine = registered and ownPainter(s, frame, kind)
+	local ok, err = true, nil
+	if mine then
+		ok, err = pcall(mine, frame, fn, KIT)
+	else
+		fn(frame)
+	end
+	if ok and registered then ok, err = pcall(finishPaint, s, frame, kind, base) end
+	if not ok then
+		-- On a picker card the skin is only drawn: the base look's paint
+		-- stands in there, and the skin is judged where it is in use.
+		if drawing.id then return pcall(fn, frame) end
+		failSkin(id, err)
+		-- Outside a refresh, failSkin's own refresh has repainted the frame.
+		if refreshing then paint(frame, kind) end
+	end
 end
 
 function Theme.Skin(frame, kind)
@@ -1804,12 +2562,41 @@ function Theme.OnChanged(fn)
 	if type(fn) == "function" then handlers[#handlers + 1] = fn end
 end
 
+-- A registered skin's onApply / onLeave, as the skin in use changes.
+local applied -- the skin id last applied
+local function switchSkin()
+	local id = Theme.SkinId()
+	if id == applied then return end
+	local was = applied and SKINS[applied]
+	applied = id
+	-- The Skin API's hook table follows the skin in use (Theme/SkinApi.lua).
+	local internal = ns.ThemeInternal
+	if internal and internal.onSwitch then internal.onSwitch(id) end
+	-- The skin that leaves takes its own pieces off the frames it was handed.
+	for _, kit in pairs(hookKits) do hideAll(kit) end
+	for _, step in ipairs({ { was, "onLeave" }, { SKINS[id], "onApply" } }) do
+		local s, name = step[1], step[2]
+		if s and type(s[name]) == "function" then
+			local ok, err = pcall(s[name], s.id)
+			if not ok then failSkin(s.id, err) end
+		end
+	end
+end
+
 -- Repaint everything we skinned or fonted, then tell the listeners.
 function Theme.Refresh()
 	P = nil
+	refreshing = true
+	switchSkin()
 	for sky in pairs(bands) do paintBand(sky) end
 	for frame, kind in pairs(skinned) do paint(frame, kind) end
 	for fs, role in pairs(fonted) do paintFont(fs, role) end
+	refreshing = false
+	-- A registered skin failed while painting: everything again in the house style.
+	if refreshAgain then
+		refreshAgain = false
+		return Theme.Refresh()
+	end
 	-- EllesmereUI's font is handed over at login, in the frame the window is
 	-- first drawn: a string set again in that frame can stay blank, so once more
 	-- a frame later.
@@ -1860,8 +2647,37 @@ local LOOKS = {
 	["ui.brightness"] = true, ["ui.matchAccent"] = true, ["ui.classAccent"] = true, ["ui.matchFont"] = true,
 	["ui.border"] = true, ["ui.borderColor"] = true, ["ui.borderAccent"] = true, ["ui.borderSize"] = true,
 	["ui.band"] = true, ["ui.shadow"] = true, ["nav.arrowColor"] = true, ["nav.arrowNearColor"] = true, ["nav.mapIcons"] = true,
+	["ui.fontOutline"] = true, ["ui.textShadow"] = true, ["ui.headingFont"] = true, ["ui.headingSize"] = true, ["ui.smallSize"] = true,
+	["ui.textColor"] = true, ["ui.textDimColor"] = true, ["ui.textMutedColor"] = true, ["ui.panelColor"] = true, ["ui.sidebarColor"] = true,
+	["ui.hairlineOpacity"] = true, ["ui.shadowStrength"] = true, ["ui.starAlpha"] = true, ["ui.haze"] = true, ["ui.rim"] = true,
+	["ui.colors"] = true,
 	["ui"] = true, ["nav"] = true, [""] = true,
 }
+for _, name in ipairs(Theme.SUBJECTS) do LOOKS["ui.colors." .. name] = true end
+
+-- The theme-wide look settings (the Theme options page, UI/Looks/Theme.lua);
+-- the older ones are UI.lua's.
+if ns.RegisterDefaults then
+	local colors = {}
+	for _, name in ipairs(Theme.SUBJECTS) do colors[name] = false end
+	ns.RegisterDefaults("ui", {
+		fontOutline = "none", -- "none" | "outline" | "thick": every Polestar string (Theme.OutlineFlags)
+		textShadow = "skin", -- "skin" (the skin's own) | "soft" | "hard" | "none"
+		headingFont = "body", -- "body" (the body's face) | "skin" | "opensans" | "game" | "inter" | "fira": hero, display, title, heading
+		headingSize = 1, -- 0.7..1.6 on top of textSize: the heading roles
+		smallSize = 1, -- 0.7..1.6 on top of textSize: small, caption, number
+		textColor = false, textDimColor = false, textMutedColor = false, -- false: the skin's; { r, g, b }: your own, held legible
+		colors = colors, -- name -> false | { r, g, b }: the subject and status colours (Theme.SUBJECTS), held legible
+		panelColor = false, sidebarColor = false, -- house style: false: derived; { r, g, b[, a] }: your own
+		hairlineOpacity = 1, -- 0..3: the hairlines' opacity against the skin's
+		shadowStrength = 1, -- 0..2: the window drop shadow's opacity against the skin's
+		starAlpha = 1, -- 0..1: the starlit band's stars
+		haze = true, -- the blue haze under a night header
+		rim = true, -- the accent rim and its light on the top edge of windows (Theme.ShowsRim)
+		animSpeed = 1, -- 0.5..2: every Polestar.Anim tween runs this much faster
+		skinVariants = {}, -- skin id -> the variant picked (Theme.SkinVariants); none: the skin's default
+	})
+end
 
 -- Settings that hold a colour ({ r, g, b }, or false for none of your own).
 local COLOURS = { ["ui.accent"] = true, ["ui.borderColor"] = true }
@@ -1888,6 +2704,9 @@ local RIVALS = {
 	["ui.borderAccent"] = { "ui.borderColor" },
 }
 
+-- A skin's preset applies many settings at once (Theme.ApplySkinPreset):
+-- the palette is repainted once at its end, not once per setting.
+local batching, batchRefresh = false, false
 if ns.On then
 	ns.On("SETTING_CHANGED", function(path, value)
 		local rivals = RIVALS[path]
@@ -1897,8 +2716,28 @@ if ns.On then
 			-- Each change above already repainted through its own event.
 			if changed then return end
 		end
-		if LOOKS[path] then Theme.Refresh() end
+		-- A variant picked for the skin in use (ui.skinVariants.<id>), or all of them reset.
+		local look = LOOKS[path] or path == "ui.skinVariants" or path:sub(1, 16) == "ui.skinVariants." and path:sub(17) == Theme.SkinId()
+		if look then
+			if batching then batchRefresh = true else Theme.Refresh() end
+		end
 	end)
+end
+
+-- A new zone: a skin with a resolver (spec.resolve) is asked again, and the
+-- palette built again only when its answer changed (one keyed to the
+-- continent repaints on a new continent, not at every zone border).
+if ns.RegisterEvent then
+	local function moved()
+		ctxRead = false
+		local s = SKINS[Theme.SkinId()]
+		if not (s and s.resolve and not FAILED[s.id]) then return end
+		readContext()
+		local ok, rt, rf = pcall(s.resolve, contextFor(s))
+		if not ok or answerKey(rt, rf) ~= answered[s.id] then Theme.Refresh() end
+	end
+	ns.RegisterEvent("PLAYER_ENTERING_WORLD", moved)
+	ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", moved)
 end
 
 -- Settings from before colour schemes: a stored accent equal to Polestar
@@ -1946,7 +2785,13 @@ local function onSkin(primitives)
 end
 
 if EllesmereUI and EllesmereUI.RegisterSkin then
+	provider = "EllesmereUI"
 	pcall(EllesmereUI.RegisterSkin, ADDON, onSkin)
+-- ErgoBars (a whole UI for Forever) offers the same contract as ErgoBarsLooks: RegisterSkin(addon, fn),
+-- fn(S) with S.GetAccentColor, S.GetPanelColor, S.GetFont and S.OnLooksChanged. EllesmereUI wins when both are on.
+elseif ErgoBarsLooks and ErgoBarsLooks.RegisterSkin then
+	provider = "ErgoBars"
+	pcall(ErgoBarsLooks.RegisterSkin, ADDON, onSkin)
 end
 
 -- Keep the shadow and border crisp when the pixel grid moves.
@@ -1954,3 +2799,68 @@ if ns.RegisterEvent then
 	ns.RegisterEvent("UI_SCALE_CHANGED", function() Theme.Refresh() end)
 	ns.RegisterEvent("DISPLAY_SIZE_CHANGED", function() Theme.Refresh() end)
 end
+
+-- Settings written together (a skin's preset and its undo, Theme/SkinApi.lua):
+-- the palette is repainted once at the end, not once per setting. -> pcall's
+-- ok, err
+local function batch(fn)
+	batching, batchRefresh = true, false
+	local ok, err = pcall(fn)
+	batching = false
+	if batchRefresh then
+		batchRefresh = false
+		Theme.Refresh()
+	end
+	return ok, err
+end
+
+-- For Theme/SkinApi.lua (the Skin API), which loads right after this file and
+-- takes these as its own locals; it hands back the readers the resolver code
+-- above calls (readTokens, readFont).
+ns.ThemeInternal = {
+	ART = ART,
+	BRAND = BRAND,
+	FAILED = FAILED,
+	FAMILIES = FAMILIES,
+	HOUSE_EXTRA = HOUSE_EXTRA,
+	RIVALS = RIVALS,
+	ROLES = ROLES,
+	SCHEMES = SCHEMES,
+	SCHEME_INFO = SCHEME_INFO,
+	SCHEME_WASH = SCHEME_WASH,
+	SHARED = SHARED,
+	SKINS = SKINS,
+	SKIN_FONT = SKIN_FONT,
+	SKIN_ICON = SKIN_ICON,
+	SKIN_PALETTES = SKIN_PALETTES,
+	SKIN_ROLES = SKIN_ROLES,
+	SKIN_SHADOW = SKIN_SHADOW,
+	WASH = WASH,
+	copy = copy,
+	failSkin = failSkin,
+	floor = floor,
+	format = format,
+	get = get,
+	ipairs = ipairs,
+	isColor = isColor,
+	isLight = isLight,
+	pairs = pairs,
+	pcall = pcall,
+	resolve = resolve,
+	shifted = shifted,
+	shadowFor = shadowFor,
+	veilAlpha = veilAlpha,
+	switchSkin = switchSkin,
+	type = type,
+	batch = batch,
+	field = field,
+	variantOf = variantOf,
+	previewing = previewing,
+	-- A picker card's skin (SkinPicker.lua): drawing.id / .pal answer for the
+	-- live ones while the card is painted with these, which keep no frame
+	-- or string for the live repaint.
+	drawing = drawing,
+	paint = paint,
+	paintFont = paintFont,
+	provide = function(tokens, font) readTokens, readFont = tokens, font end,
+}

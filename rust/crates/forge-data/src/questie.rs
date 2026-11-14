@@ -412,8 +412,11 @@ fn read_entities(meta: &FxHashMap<String, String>, schema: &Schema) -> Result<En
 
 // ---------------------------------------------------------------- support data
 
-const SUPPORT_FILES: [&str; 7] = [
+/// Loaded in this order into one state: QuestieDB 1.0.13's player-trace XP rows
+/// (`xpDB-traces.lua`, `QuestXP.db[id] = {level, xp}`) come after the classic table and win.
+const SUPPORT_FILES: [&str; 8] = [
 	"support/Forever/QuestXP/xpDB-classic.lua",
+	"support/Forever/QuestXP/xpDB-traces.lua",
 	"support/Forever/DropTables/classicItemDrops.lua",
 	"support/Forever/DropTables/itemDropCorrections.lua",
 	"support/Forever/FactionTemplates/factionTemplateClassic.lua",
@@ -532,6 +535,8 @@ pub struct Questie {
 	pub ui_map_to_area: IndexMap<i64, f64>,
 	pub era_to_forever: EraToForever,
 	pub objective_first: FxHashMap<&'static str, FxHashSet<i64>>,
+	/// What the faction/class Dynamic Corrections changed in the entities above.
+	pub dynamic: Dynamic,
 }
 
 fn read_era_to_forever(file: &Path) -> EraToForever {
@@ -659,29 +664,360 @@ fn read_objective_first(qdir: &Path) -> FxHashMap<&'static str, FxHashSet<i64>> 
 	out
 }
 
+// ---------------------------------------------------------------- Dynamic Corrections
+
+/// QuestieDB applies its Dynamic Corrections at query time, per character (faction, class): the
+/// baked store doesn't hold them. The stand-ins the providers call; the driver sets the globals.
+const DYNAMIC_PRELUDE: &str = r#"
+__faction, __class = "Horde", "WARRIOR"
+function UnitFactionGroup() return __faction, __faction end
+function UnitClassBase() return __class end
+function UnitClass() return __class, __class end
+"#;
+
+/// Loads config, enums and metas the way src/corrections/compat.lua builds its module stand-ins,
+/// then every Dynamic provider the config declares for the Forever flavor (in config order: a
+/// later provider overrides an earlier one per field, as at query time), and calls each once per
+/// faction and playable class. Rows come back as lists, so ids and field indices stay numbers.
+const DYNAMIC_EXPR: &str = r#"
+local root = %ROOT%
+local ns = {}
+local function run(rel)
+  local ok, res = __polestar_loaddata(root .. "/" .. rel, "QuestieDB", ns)
+  if not ok then error("QuestieDB " .. rel .. ": " .. tostring(res), 0) end
+  return res
+end
+run("src/config.lua")
+local config = ns.config
+local flavor = config.flavorByName.Forever
+local specs = {}
+for _, spec in ipairs(config.ownedCorrections or {}) do
+  if spec.dynamic and config.correctionApplies(spec, flavor) then specs[#specs + 1] = spec end
+end
+if #specs == 0 then return { runs = {} } end
+for _, f in ipairs(config.enumFiles) do run(f) end
+local C = ns.Enum
+local active = { classKeys = true, npcFlags = true }
+local function pick(name)
+  local shared = (not active[name]) and C[name] or nil
+  if shared ~= nil then return shared end
+  local by = C.byExpansion
+  local v = by[flavor.expansion] and by[flavor.expansion][name]
+  if v == nil and flavor.rules then v = by[flavor.rules][name] end
+  if v == nil then error("QuestieDB: unknown constant " .. name, 0) end
+  return v
+end
+local DB = {}
+local captured = {}
+for _, et in ipairs(config.entityTypes) do
+  local m = run("src/meta/" .. et.name:sub(1, 1):lower() .. et.name:sub(2) .. "Meta.lua")
+  local k = {}
+  for index, name in pairs(m.names) do
+    k[name] = index
+    k[name .. "_add"] = index + 1000
+    k[name .. "_remove"] = index - 1000
+  end
+  DB[et.keysField] = k
+  local r = {}
+  for name, index in pairs(k) do r[index] = name end
+  DB[et.keysField .. "Reversed"] = r
+  local t = {}
+  DB[et.dataField] = t
+  captured[et.name] = t
+end
+for _, n in ipairs({ "raceKeys", "classKeys", "sortKeys", "specialFlags", "factionIDs", "questFlags", "npcFlags", "itemClasses", "waypointPresets" }) do
+  DB[n] = pick(n)
+end
+local order = config.expansionOrder
+local modules = {
+  QuestieDB = DB,
+  ZoneDB = { zoneIDs = pick("zoneIDs") },
+  QuestieProfessions = { professionKeys = pick("professionKeys"), specializationKeys = pick("specializationKeys"), rankNames = pick("rankNames") },
+  QuestieCorrections = { killCreditObjectiveFirst = {}, objectObjectiveFirst = {}, itemObjectiveFirst = {}, eventObjectiveFirst = {}, spellObjectiveFirst = {} },
+  Phasing = { phases = pick("phases") },
+  l10n = setmetatable({}, { __call = function(_, text) return text end }),
+  Expansions = { Era = order.Classic, Classic = order.Classic, Tbc = order.TBC, Wotlk = order.Wotlk, Cata = order.Cata, MoP = order.MoP, Current = order[flavor.rules or flavor.expansion] },
+}
+local function module(_, name) modules[name] = modules[name] or {} return modules[name] end
+QuestieLoader = { ImportModule = module, CreateModule = module }
+Questie = {}
+for k, v in pairs(C.iconTypes or {}) do Questie[k] = v end
+local providers = {}
+for _, spec in ipairs(specs) do
+  run("src/corrections/" .. spec.file)
+  for _, fn in ipairs(spec.dynamic) do providers[#providers + 1] = { spec = spec, fn = fn } end
+end
+local classKeys = pick("classKeys")
+local all = classKeys.ALL_CLASSES
+local classes = {}
+for name, bit in pairs(classKeys) do
+  local b = bit
+  while b > 1 and b % 2 == 0 do b = b / 2 end
+  if bit > 0 and b == 1 and (all == nil or math.floor(all / bit) % 2 == 1) then classes[#classes + 1] = { name = name, bit = bit } end
+end
+table.sort(classes, function(a, b) return a.bit < b.bit end)
+local function sorted(t)
+  local ks, other = {}, 0
+  for k in pairs(t) do if type(k) == "number" then ks[#ks + 1] = k else other = other + 1 end end
+  table.sort(ks)
+  return ks, other
+end
+local runs = {}
+for _, faction in ipairs({ "Horde", "Alliance" }) do
+  for _, c in ipairs(classes) do
+    __faction, __class = faction, c.name
+    local layers = {}
+    for _, p in ipairs(providers) do
+      for _, t in pairs(captured) do for id in pairs(t) do t[id] = nil end end
+      local m = modules[p.spec.module]
+      local f = m and m[p.fn]
+      if type(f) ~= "function" then error("QuestieDB " .. p.spec.file .. ": no " .. p.spec.module .. ":" .. p.fn, 0) end
+      local result = f(m) or {}
+      local ids, skipped = sorted(result)
+      local rows = {}
+      for _, id in ipairs(ids) do
+        local fields = result[id]
+        local list = {}
+        if type(fields) == "table" then
+          local idx, other = sorted(fields)
+          skipped = skipped + other
+          for _, i in ipairs(idx) do list[#list + 1] = { i, fields[i] } end
+        else
+          skipped = skipped + 1
+        end
+        rows[#rows + 1] = { id, list }
+      end
+      for _, t in pairs(captured) do for _ in pairs(t) do skipped = skipped + 1 end end
+      layers[#layers + 1] = { provider = p.spec.file .. ":" .. p.fn, datatype = p.spec.datatype, rows = rows, skipped = skipped }
+    end
+    runs[#runs + 1] = { faction = faction, class = c.name, layers = layers }
+  end
+end
+return { runs = runs }
+"#;
+
+/// What the Dynamic Corrections changed in the store (logged, and listed in meta.json).
+#[derive(Default)]
+pub struct Dynamic {
+	/// `<file>:<function>` of each provider, in apply order.
+	pub providers: Vec<String>,
+	/// The class tokens evaluated, once per faction.
+	pub classes: Vec<String>,
+	/// Giver/ender lists widened to the union of every character's list: (entity, id, field).
+	pub unioned: Vec<(&'static str, i64, String)>,
+	/// Fields every character reads alike, differently from the store: taken.
+	pub agreed: Vec<(&'static str, i64, String)>,
+	/// Fields characters read differently: kept as the store has them (last: only classes differ
+	/// within a faction).
+	pub kept: Vec<(&'static str, i64, String, bool)>,
+	/// Writes not applied: operation keys (`<field>_add`/`_remove`), unknown or constant fields,
+	/// tables in scalar fields, non-numeric ids, direct `QuestieDB.<x>Data` writes.
+	pub skipped: usize,
+}
+
+/// A Lua string literal for `s` (every byte outside printable ASCII escaped).
+fn lua_str(s: &str) -> String {
+	let mut out = String::from("\"");
+	for b in s.bytes() {
+		match b {
+			b'"' | b'\\' => {
+				out.push('\\');
+				out.push(b as char);
+			}
+			0x20..=0x7e => out.push(b as char),
+			_ => out.push_str(&format!("\\{b}")),
+		}
+	}
+	out.push('"');
+	out
+}
+
+/// A value's identity for comparing characters' reads: object keys sorted, empty tables alike.
+fn canon(v: &V) -> String {
+	match v {
+		V::Undef | V::Null => "null".into(),
+		V::Bool(b) => b.to_string(),
+		V::Num(n) => num_str(*n),
+		V::Str(s) => forge_guide::js::stringify(&V::Str(s.clone()), None),
+		V::Arr(a) => format!("[{}]", a.to_vec().iter().map(canon).collect::<Vec<_>>().join(",")),
+		V::Obj(o) => {
+			let mut e: Vec<(String, String)> = o.entries().into_iter().filter(|(_, x)| !x.is_nullish()).map(|(k, x)| (k.to_string(), canon(&x))).collect();
+			if e.is_empty() {
+				return "[]".into();
+			}
+			e.sort_by(|a, b| match (a.0.parse::<f64>(), b.0.parse::<f64>()) {
+				(Ok(x), Ok(y)) => x.total_cmp(&y),
+				_ => a.0.cmp(&b.0),
+			});
+			format!("{{{}}}", e.into_iter().map(|(k, x)| format!("{k}:{x}")).collect::<Vec<_>>().join(","))
+		}
+	}
+}
+
+fn is_empty_table(v: &V) -> bool {
+	matches!(v, V::Arr(a) if a.is_empty()) || matches!(v, V::Obj(o) if o.is_empty())
+}
+
+/// `{{npcs}, {objects}, {items}}` slot by slot: the store's ids some character still reads
+/// first, then every other id in run order.
+fn union_givers(store: &V, reads: &[V]) -> V {
+	let ids = |v: &V, slot: i64| -> Vec<f64> { lua_list(&lua_get_i(v, slot)).iter().map(V::num).filter(|n| n.is_finite()).collect() };
+	let mut slots: Vec<Vec<f64>> = Vec::new();
+	for slot in 1..=3 {
+		let read: Vec<Vec<f64>> = reads.iter().map(|r| ids(r, slot)).collect();
+		let mut l: Vec<f64> = ids(store, slot).into_iter().filter(|x| read.iter().any(|r| r.contains(x))).collect();
+		for x in read.into_iter().flatten() {
+			if !l.contains(&x) {
+				l.push(x);
+			}
+		}
+		slots.push(l);
+	}
+	while slots.last().is_some_and(Vec::is_empty) {
+		slots.pop();
+	}
+	V::Arr(Arr::from_vec(slots.into_iter().map(|l| V::Arr(Arr::from_vec(l.into_iter().map(V::Num).collect()))).collect()))
+}
+
+/// Runs QuestieDB's Dynamic Corrections for every faction and class and folds them into the
+/// store's entities: giver/ender lists become the union of what every character reads (Polestar
+/// filters givers by the NPC's faction); any other field changes only when every character reads
+/// the same value.
+fn apply_dynamic(qdir: &Path, metas: &[Schema], ents: &mut [&mut Entities; 4]) -> Result<Dynamic, String> {
+	let expr = DYNAMIC_EXPR.replace("%ROOT%", &lua_str(&qdir.to_string_lossy()));
+	let raw = lua_to_value(&[], DYNAMIC_PRELUDE, &expr)?;
+	let runs = lua_list(&raw.get("runs"));
+	let mut out = Dynamic::default();
+	let factions: Vec<String> = runs.iter().map(|r| r.get("faction").to_js_string()).collect();
+	if let Some(first) = runs.first() {
+		out.providers = lua_list(&first.get("layers")).iter().map(|l| l.get("provider").to_js_string()).collect();
+	}
+	out.classes = runs.iter().filter(|r| r.get("faction").to_js_string() == factions[0]).map(|r| r.get("class").to_js_string()).collect();
+	// per run, per entity type: id -> field index -> what that character reads
+	type Reads = FxHashMap<i64, FxHashMap<usize, V>>;
+	let mut reads: Vec<[Reads; 4]> = Vec::with_capacity(runs.len());
+	for run in &runs {
+		let mut r: [Reads; 4] = Default::default();
+		for layer in lua_list(&run.get("layers")) {
+			let dt = layer.get("datatype").to_js_string();
+			let d = ENTITIES.iter().position(|(e, _)| *e == dt).ok_or_else(|| format!("QuestieDB: Dynamic Correction {} for unknown entity {dt}", layer.get("provider").to_js_string()))?;
+			out.skipped += layer.get("skipped").num() as usize;
+			for row in lua_list(&layer.get("rows")) {
+				let id = lua_get_i(&row, 1).num() as i64;
+				for pair in lua_list(&lua_get_i(&row, 2)) {
+					let idx = lua_get_i(&pair, 1).num();
+					let value = lua_get_i(&pair, 2);
+					let Some(f) = (idx >= 1.0 && idx.fract() == 0.0).then(|| metas[d].fields.get(idx as usize - 1)).flatten() else {
+						out.skipped += 1;
+						continue;
+					};
+					if !f.constant.is_undef() || (f.kind.as_deref() != Some("table") && !is_empty_table(&value) && (value.is_arr() || value.is_obj())) {
+						out.skipped += 1;
+						continue;
+					}
+					// `[key] = {}` deletes: the field reads its default
+					let value = if is_empty_table(&value) { field_default(f) } else { value };
+					r[d].entry(id).or_default().insert(f.index, value);
+				}
+			}
+		}
+		reads.push(r);
+	}
+	for (d, (entity, _)) in ENTITIES.iter().enumerate() {
+		let ids: std::collections::BTreeSet<i64> = reads.iter().flat_map(|r| r[d].keys().copied()).collect();
+		for id in ids {
+			let exists = ents[d].contains_key(&id);
+			// an entity only some characters' corrections create exists for those characters only
+			let part: Vec<usize> = (0..runs.len()).filter(|&r| exists || reads[r][d].contains_key(&id)).collect();
+			let rec = ents[d]
+				.entry(id)
+				.or_insert_with(|| {
+					let o = Obj::new();
+					o.set("id", id as f64);
+					for f in &metas[d].fields {
+						o.set(&f.name, field_default(f));
+					}
+					o
+				})
+				.clone();
+			let fields: std::collections::BTreeSet<usize> = part.iter().filter_map(|&r| reads[r][d].get(&id)).flat_map(|m| m.keys().copied()).collect();
+			for idx in fields {
+				let f = &metas[d].fields[idx - 1];
+				let store = rec.get(&f.name);
+				let finals: Vec<V> = part.iter().map(|&r| reads[r][d].get(&id).and_then(|m| m.get(&idx)).cloned().unwrap_or_else(|| store.clone())).collect();
+				let keys: Vec<String> = finals.iter().map(canon).collect();
+				if keys.iter().all(|k| *k == keys[0]) {
+					if keys[0] != canon(&store) {
+						rec.set(&f.name, finals[0].clone());
+						out.agreed.push((entity, id, f.name.clone()));
+					}
+				} else if f.structure.as_deref() == Some("questgivers") {
+					let u = union_givers(&store, &finals);
+					if canon(&u) != canon(&store) {
+						rec.set(&f.name, u);
+						out.unioned.push((entity, id, f.name.clone()));
+					}
+				} else {
+					let by_class = factions.iter().all(|fac| {
+						let mut k = part.iter().zip(&keys).filter(|(&r, _)| factions[r] == *fac).map(|(_, k)| k);
+						let first = k.next();
+						k.all(|x| Some(x) == first)
+					});
+					out.kept.push((entity, id, f.name.clone(), !by_class));
+				}
+			}
+		}
+	}
+	Ok(out)
+}
+
+fn log_dynamic(d: &Dynamic, log: &dyn Fn(&str)) {
+	let class_only = d.kept.iter().filter(|k| k.3).count();
+	log(&format!(
+		"QuestieDB Dynamic Corrections: {} providers run as Horde and Alliance × {} classes; {} giver/ender lists unioned, {} fields every character reads alike taken, {} fields kept from the store ({} differ only by class), {} writes skipped",
+		d.providers.len(),
+		d.classes.len(),
+		d.unioned.len(),
+		d.agreed.len(),
+		d.kept.len(),
+		class_only,
+		d.skipped
+	));
+	let list = |l: &mut dyn Iterator<Item = String>| l.collect::<Vec<_>>().join(" ");
+	if !d.unioned.is_empty() {
+		log(&format!("  unioned: {}", list(&mut d.unioned.iter().map(|(e, id, f)| format!("{e} {id} {f}")))));
+	}
+	if !d.agreed.is_empty() {
+		log(&format!("  taken: {}", list(&mut d.agreed.iter().map(|(e, id, f)| format!("{e} {id} {f}")))));
+	}
+}
+
 /// The QuestieDB folder for `dir`: itself or `<dir>/QuestieDB`.
 pub fn questie_db_dir(dir: &Path) -> Option<PathBuf> {
 	[dir.to_path_buf(), dir.join("QuestieDB")].into_iter().find(|d| d.join(TOC).exists())
 }
 
 pub fn read_questie(dir: &Path, log: &dyn Fn(&str)) -> Result<Questie, String> {
-	let qdir = questie_db_dir(dir).ok_or_else(|| format!("QuestieDB: no {TOC} under {}", dir.display()))?;
+	let qdir =
+		questie_db_dir(dir).ok_or_else(|| format!("QuestieDB: no {TOC} under {}: use a QuestieDB release (its baked store holds the Static Corrections), not a repository checkout", dir.display()))?;
 	let toc = qdir.join(TOC);
 	log(&format!("reading QuestieDB store {}", toc.display()));
 	let meta = parse_toc(&std::fs::read_to_string(&toc).map_err(|e| format!("{}: {e}", toc.display()))?);
 	let mode = meta.get("X-Mode").cloned().unwrap_or_else(|| "undefined".into());
 	if mode != "baked" {
-		return Err(format!("QuestieDB: {TOC} is not a baked store (X-Mode {mode})"));
+		return Err(format!("QuestieDB: {TOC} is not a baked store (X-Mode {mode}): use a QuestieDB release (its baked store holds the Static Corrections), not a repository checkout"));
 	}
 	let flavor = meta.get("X-Flavor").cloned();
 	if flavor.as_deref() != Some("Forever") {
 		return Err(format!("QuestieDB: {TOC} is flavor {}, not Forever", flavor.as_deref().unwrap_or("undefined")));
 	}
 	let metas = load_metas(&qdir)?;
-	let quests = read_entities(&meta, &metas[0])?;
-	let npcs = read_entities(&meta, &metas[1])?;
-	let objects = read_entities(&meta, &metas[2])?;
-	let items = read_entities(&meta, &metas[3])?;
+	let mut quests = read_entities(&meta, &metas[0])?;
+	let mut npcs = read_entities(&meta, &metas[1])?;
+	let mut objects = read_entities(&meta, &metas[2])?;
+	let mut items = read_entities(&meta, &metas[3])?;
+	let dynamic = apply_dynamic(&qdir, &metas, &mut [&mut quests, &mut npcs, &mut objects, &mut items])?;
+	log_dynamic(&dynamic, log);
 	let parent = qdir.parent().unwrap_or(&qdir);
 	let questie = toc_info(&parent.join("Questie").join("Questie_Camelot.toc")).or_else(|| toc_info(&parent.join("Questie").join("Questie.toc")));
 	let info = toc_info(&toc).unwrap_or(Info { title: None, version: None, author: None, build_commit: None, build_time: None });
@@ -703,6 +1039,7 @@ pub fn read_questie(dir: &Path, log: &dyn Fn(&str)) -> Result<Questie, String> {
 		faction_templates,
 		area_to_ui_map,
 		ui_map_to_area,
+		dynamic,
 	})
 }
 
@@ -937,6 +1274,176 @@ mod tests {
 		for d in [h, h2, h3] {
 			let _ = std::fs::remove_dir_all(d);
 		}
+	}
+
+	/// A QuestieDB release's correction surface in miniature: config, one enum file, the four
+	/// metas, a legacy faction provider (one class-dependent field) and a Forever one over it.
+	fn dynamic_fixture() -> PathBuf {
+		let d = std::env::temp_dir().join(format!("forge-questie-dynamic-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&d);
+		let w = |rel: &str, text: &str| {
+			let p = d.join(rel);
+			std::fs::create_dir_all(p.parent().unwrap()).unwrap();
+			std::fs::write(p, text).unwrap();
+		};
+		w(
+			"src/config.lua",
+			r#"local _, LibQuestieDB = ...
+local config = {}
+config.expansionOrder = { Classic = 1 }
+config.flavorByName = { Forever = { name = "Forever", expansion = "Forever", rules = "Classic" } }
+config.entityTypes = {
+  { name = "Quest", keysField = "questKeys", dataField = "questData" }, { name = "Npc", keysField = "npcKeys", dataField = "npcData" },
+  { name = "Item", keysField = "itemKeys", dataField = "itemData" }, { name = "Object", keysField = "objectKeys", dataField = "objectData" },
+}
+config.enumFiles = { "src/corrections/enum/constants.lua" }
+config.ownedCorrections = {
+  { owned = "Forever", file = "Forever/legacy/legacyQuestFixes.lua", module = "LegacyQuestFixes", datatype = "Quest", static = {"Load"}, dynamic = {"LoadFactionFixes"} },
+  { owned = "Forever", file = "Forever/foreverQuestFixes.lua", module = "ForeverQuestFixes", datatype = "Quest", static = {"Load"}, dynamic = {"LoadDynamic"} },
+  { owned = "Vanilla", file = "Era/notShipped.lua", module = "Other", datatype = "Quest", dynamic = {"LoadFactionFixes"} },
+}
+function config.correctionApplies(spec, flavor) return spec.owned == flavor.name end
+if LibQuestieDB then LibQuestieDB.config = config end
+return config
+"#,
+		);
+		w(
+			"src/corrections/enum/constants.lua",
+			r#"local _, LibQuestieDB = ...
+local C = {}
+LibQuestieDB.Enum = C
+for _, n in ipairs({ "raceKeys", "sortKeys", "specialFlags", "factionIDs", "questFlags", "itemClasses", "waypointPresets", "professionKeys", "specializationKeys", "rankNames", "phases" }) do C[n] = {} end
+C.zoneIDs = { UNDERCITY = 1497, STORMWIND_CITY = 1519 }
+C.byExpansion = { Classic = { classKeys = { NONE = 0, WARRIOR = 1, PALADIN = 2, DEATH_KNIGHT = 32, DRUID = 1024, ALL_CLASSES = 1027 }, npcFlags = {} }, Forever = {} }
+"#,
+		);
+		let meta = |entity: &str, fields: &[(&str, &str, &str)]| {
+			let keys: Vec<String> = fields.iter().enumerate().map(|(i, f)| format!("{} = {}", f.0, i + 1)).collect();
+			let names: Vec<String> = fields.iter().map(|f| format!("'{}'", f.0)).collect();
+			let types: Vec<String> = fields.iter().map(|f| format!("'{}'", f.1)).collect();
+			let structures: Vec<String> = fields.iter().enumerate().filter(|(_, f)| !f.2.is_empty()).map(|(i, f)| format!("[{}] = '{}'", i + 1, f.2)).collect();
+			format!(
+				"local _, LibQuestieDB = ...\nlocal meta = {{ entity = '{entity}', metaPrefix = '{entity}-', fieldCount = {}, keys = {{ {} }}, names = {{ {} }}, types = {{ {} }}, structures = {{ {} }} }}\nreturn meta\n",
+				fields.len(),
+				keys.join(", "),
+				names.join(", "),
+				types.join(", "),
+				structures.join(", ")
+			)
+		};
+		let quest = [
+			("name", "string", ""),
+			("startedBy", "table", "questgivers"),
+			("finishedBy", "table", "questgivers"),
+			("objectivesText", "table", "stringarray"),
+			("zoneOrSort", "number", ""),
+			("nextQuestInChain", "number", ""),
+			("requiredRaces", "number", ""),
+		];
+		w("src/meta/questMeta.lua", &meta("Quest", &quest));
+		for (file, entity) in [("npcMeta.lua", "Npc"), ("objectMeta.lua", "Object"), ("itemMeta.lua", "Item")] {
+			w(&format!("src/meta/{file}"), &meta(entity, &[("name", "string", "")]));
+		}
+		w(
+			"src/corrections/Forever/legacy/legacyQuestFixes.lua",
+			r#"local L = QuestieLoader:CreateModule("LegacyQuestFixes")
+local QuestieDB = QuestieLoader:ImportModule("QuestieDB")
+QuestieLoader:ImportModule("QuestieCorrections").itemObjectiveFirst[5] = true
+function L:LoadFactionFixes()
+  local questKeys = QuestieDB.questKeys
+  local playerClass = UnitClassBase("player")
+  local byClass = ({ WARRIOR = 7, PALADIN = 8, DRUID = 9 })[playerClass]
+  local horde = {
+    [100] = { [questKeys.startedBy] = {{3045, 6018}} },
+    [101] = { [questKeys.nextQuestInChain] = byClass },
+    [102] = { [questKeys.zoneOrSort] = 1497 },
+    [200] = { [questKeys.finishedBy] = {{999}} },
+  }
+  local alliance = {
+    [100] = { [questKeys.startedBy] = {{918, 4163}} },
+    [101] = { [questKeys.nextQuestInChain] = byClass },
+    [102] = { [questKeys.zoneOrSort] = 1519 },
+    [200] = { [questKeys.finishedBy] = {{999}} },
+  }
+  if UnitFactionGroup("Player") == "Horde" then return horde else return alliance end
+end
+"#,
+		);
+		w(
+			"src/corrections/Forever/foreverQuestFixes.lua",
+			r#"local F = QuestieLoader:CreateModule("ForeverQuestFixes")
+local QuestieDB = QuestieLoader:ImportModule("QuestieDB")
+local ZoneDB = QuestieLoader:ImportModule("ZoneDB")
+function F:LoadDynamic()
+  local questKeys = QuestieDB.questKeys
+  local zoneIDs = ZoneDB.zoneIDs
+  local horde = {
+    [102] = { [questKeys.requiredRaces] = {} },
+    [200] = { [questKeys.finishedBy] = {{211022}}, [questKeys.objectivesText] = {"Bring it to Owen."}, [questKeys.zoneOrSort] = zoneIDs.UNDERCITY },
+    [300] = { [questKeys.name] = "Horde only", [questKeys.startedBy] = {{5}} },
+    [103] = { [questKeys.zoneOrSort] = {1, 2} },
+    [104] = { [questKeys.startedBy_add] = {{9}} },
+  }
+  local alliance = {
+    [102] = { [questKeys.requiredRaces] = {} },
+    [200] = { [questKeys.finishedBy] = {{211033}}, [questKeys.objectivesText] = {"Bring it to Jennea."}, [questKeys.zoneOrSort] = zoneIDs.STORMWIND_CITY },
+  }
+  if UnitFactionGroup("Player") == "Horde" then return horde else return alliance end
+end
+"#,
+		);
+		d
+	}
+
+	#[test]
+	fn dynamic_corrections_union_givers_and_keep_what_characters_read_differently() {
+		let d = dynamic_fixture();
+		let metas = load_metas(&d).unwrap();
+		let rec = |id: i64, set: &[(&str, V)]| {
+			let o = Obj::new();
+			o.set("id", id as f64);
+			for f in &metas[0].fields {
+				o.set(&f.name, set.iter().find(|s| s.0 == f.name).map(|s| s.1.clone()).unwrap_or_else(|| field_default(f)));
+			}
+			o
+		};
+		let j = |s: &str| forge_guide::js::parse_json(s).unwrap();
+		let mut quests: Entities = IndexMap::new();
+		quests.insert(100, rec(100, &[("startedBy", j("[[3328,4583]]"))]));
+		quests.insert(101, rec(101, &[]));
+		quests.insert(102, rec(102, &[("zoneOrSort", V::Num(17.0)), ("requiredRaces", V::Num(178.0))]));
+		quests.insert(200, rec(200, &[("finishedBy", j("[[211033]]")), ("zoneOrSort", V::Num(1519.0))]));
+		let (mut npcs, mut objects, mut items) = (IndexMap::new(), IndexMap::new(), IndexMap::new());
+		let dy = apply_dynamic(&d, &metas, &mut [&mut quests, &mut npcs, &mut objects, &mut items]).unwrap();
+		let _ = std::fs::remove_dir_all(&d);
+		let get = |id: i64, f: &str| forge_guide::js::stringify(&quests[&id].get(f), None);
+
+		assert_eq!(dy.providers, ["Forever/legacy/legacyQuestFixes.lua:LoadFactionFixes", "Forever/foreverQuestFixes.lua:LoadDynamic"]);
+		assert_eq!(dy.classes, ["WARRIOR", "PALADIN", "DRUID"], "playable classes only, by class bit");
+		// each faction's givers replace the store's; the record holds both factions'
+		assert_eq!(get(100, "startedBy"), "[[3045,6018,918,4163]]");
+		// Forever's provider overrides the legacy one; the store's ender stays first
+		assert_eq!(get(200, "finishedBy"), "[[211033,211022]]");
+		// scalars the factions read differently stay as the store has them
+		assert_eq!(get(200, "zoneOrSort"), "1519");
+		assert!(quests[&200].get("objectivesText").is_undef());
+		assert_eq!(get(102, "zoneOrSort"), "17");
+		assert_eq!(get(101, "nextQuestInChain"), "0");
+		// both factions delete it (`{}`): the default
+		assert_eq!(get(102, "requiredRaces"), "0");
+		// an entity only Horde characters get, read alike by all of them
+		assert_eq!(get(300, "name"), "\"Horde only\"");
+		assert_eq!(get(300, "startedBy"), "[[5]]");
+		let mut kept: Vec<String> = dy.kept.iter().map(|k| format!("{} {} {}", k.1, k.2, k.3)).collect();
+		kept.sort();
+		assert_eq!(kept, ["101 nextQuestInChain true", "102 zoneOrSort false", "200 objectivesText false", "200 zoneOrSort false"]);
+		assert_eq!(dy.unioned.len(), 2);
+		let mut taken: Vec<String> = dy.agreed.iter().map(|k| format!("{} {}", k.1, k.2)).collect();
+		taken.sort();
+		assert_eq!(taken, ["102 requiredRaces", "300 name", "300 startedBy"]);
+		// a table in a number field and an operation key, for each of the three Horde characters
+		assert_eq!(dy.skipped, 6);
+		assert!(!quests.contains_key(&103) && !quests.contains_key(&104), "skipped writes create nothing");
 	}
 
 	#[test]

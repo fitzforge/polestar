@@ -131,7 +131,9 @@ fn a_while_you_re_here_hand_in_of_a_forever_quest_carries_the_mark_on_its_row_to
 		emit({ H.Rows[1].Text:GetText(), H.Rows[2].Text:GetText() })
 		emit(tipLines(H.Rows[1]))
 		Polestar.UI.WhileHereToast.Show(list[1])
-		emit(PolestarWhileHereToast.Text:GetText())
+		-- The line as shown: the house look's band over the card.
+		local toast = PolestarWhileHereToast
+		emit(((toast.psHouse and toast.psHouse:IsShown()) and toast.psHouse or toast).Text:GetText())
 		Polestar.Set("ui.newInForever", false)
 		emit(UI.HereText(list[1]))"#);
 	let rows = strs(&out[0]);
@@ -152,6 +154,7 @@ fn the_option_sits_with_what_the_guide_window_shows_on_by_default() {
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Quests/NewQuests.lua", "UI/UI.xml"])],
 		script: r#"uistub.install()
 stub.login()
+Polestar.UI.LoadOptions()
 local UI, O = Polestar.UI, Polestar.UI.Options
 UI.ShowOptions("guide")
 local c = O.Controls("guide")["ui.newInForever"]

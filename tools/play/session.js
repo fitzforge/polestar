@@ -28,7 +28,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const { findLua } = require('../lib/lua');
-const { tocFiles, dirFiles } = require('../../tests/helpers/lua');
+const { tocFiles, dirFiles, ADDONS } = require('../../tests/helpers/lua');
 const { localPacks } = require('../../tests/helpers/profile');
 const { SIMULATE, HOME, luaValue } = require('../lib/playtest');
 const { Font } = require('../preview/font');
@@ -212,9 +212,13 @@ function hitMap(layout) {
 const ADVANCE = { hover: 0.25, leave: 0.25, dragMove: 0.05, dragStart: 0.05, render: 0, default: 0.4 };
 
 class Session {
-	constructor({ dataDir, artDir = null, config = {}, packs = [], timeoutMs = 60000, log = () => {} }) {
+	// stubs: more client stubs (file names in tests/lua, or absolute paths),
+	// loaded after the world's, before the addons (tools/studio: the party,
+	// Quick Keybind Mode).
+	constructor({ dataDir, artDir = null, config = {}, packs = [], stubs = [], timeoutMs = 60000, log = () => {} }) {
 		this.dataDir = dataDir;
 		this.packs = packs;
+		this.stubs = stubs;
 		this.artDir = artDir && fs.existsSync(path.join(artDir, 'maps.json')) ? artDir : null;
 		this.config = config;
 		this.timeoutMs = timeoutMs;
@@ -257,6 +261,7 @@ class Session {
 		lines.push(`package.path = ${luaString(STUBS + '/?.lua;')} .. package.path`);
 		// stub_encoding.lua: C_EncodingUtil, which Polestar_Nav's packed walking maps are decoded with.
 		for (const s of ['wow_stub.lua', 'stub_world.lua', 'stub_encoding.lua', ...packs.stubs]) dof(path.join(STUBS, s));
+		for (const s of this.stubs) dof(path.isAbsolute(s) ? s : path.join(STUBS, s));
 		lines.push('local w = stub.world', d.mapsLua);
 		if (this.artDir) {
 			const entries = Object.entries(this.art).map(([id, m]) => `[${id}] = ${luaValue(m)}`);
@@ -274,6 +279,43 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		// Polestar_Nav loads on demand, as in the client: Data.Pack loads it at login (Nav/Walk.lua).
 		if (fs.existsSync(path.join(ROOT, 'addon', 'Polestar_Nav', 'Polestar_Nav.toc'))) {
 			lines.push(`stub.packs.Polestar_Nav = { ${tocFiles('Polestar_Nav').map(luaString).join(', ')} }`);
+		}
+		// Polestar's own load-on-demand addons, where the addon has them, load from their TOC when Polestar
+		// asks (C_AddOns.LoadAddOn), as in the client and forge-addontest's run.rs: the settings window
+		// (Polestar_Options, UI/OptionsLoader.lua), the Skin API's checks (Polestar_SkinAPI, with the first
+		// skin or scheme another addon registers) and the game looks with Hearth (Polestar_Looks,
+		// Theme.LoadLooks, the first time one is painted). Without them a game look draws as Polestar's own.
+		for (const part of ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks']) {
+			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
+		}
+		// The skins in the download (addon/Polestar_Skin_*), installed as in the client: listed with their TOC's
+		// `X-Polestar-Skin` (Theme/SkinApi.lua finds them by it), loaded on demand when picked under Theme.
+		for (const part of fs.readdirSync(ADDONS).filter((n) => /^Polestar_Skin_/.test(n) && n !== 'Polestar_Skin_Example').sort()) {
+			const toc = path.join(ADDONS, part, `${part}.toc`);
+			if (!fs.existsSync(toc)) continue;
+			const meta = {};
+			for (const line of fs.readFileSync(toc, 'utf8').split(/\r?\n/)) {
+				const m = /^## ([A-Za-z-]+):\s*(.*)$/.exec(line);
+				if (m) meta[m[1]] = m[2].trim();
+			}
+			lines.push(`stub.addons[#stub.addons + 1] = { name = ${luaString(part)}, title = ${luaString(meta.Title || part)}, reason = "DEMAND_LOADED" }`);
+			lines.push(`stub.addonMeta[${luaString(part)}] = { ["X-Polestar-Skin"] = ${luaString(meta['X-Polestar-Skin'] || '')}, Title = ${luaString(meta.Title || part)}, Version = ${luaString(meta.Version || '')} }`);
+			lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
+		}
+		// Our other folders in the AddOns list too, each with its TOC's version, as the client lists them: once the
+		// list is not empty, Polestar's install check (Core/Data.lua) reads it, and a folder missing from it or of
+		// another version would read as a mixed install.
+		for (const part of fs.readdirSync(ADDONS).filter((n) => /^Polestar/.test(n) && !/^Polestar_Skin_/.test(n)).sort()) {
+			const toc = path.join(ADDONS, part, `${part}.toc`);
+			if (!fs.existsSync(toc)) continue;
+			const meta = {};
+			for (const line of fs.readFileSync(toc, 'utf8').split(/\r?\n/)) {
+				const m = /^## ([A-Za-z-]+):\s*(.*)$/.exec(line);
+				if (m) meta[m[1]] = m[2].trim();
+			}
+			const demand = meta.LoadOnDemand === '1' ? ', reason = "DEMAND_LOADED"' : '';
+			lines.push(`stub.addons[#stub.addons + 1] = { name = ${luaString(part)}, title = ${luaString(meta.Title || part)}${demand} }`);
+			lines.push(`stub.addonMeta[${luaString(part)}] = { Version = ${luaString(meta.Version || '')}, Title = ${luaString(meta.Title || part)} }`);
 		}
 		lines.push(d.metrics);
 		dof(path.join(ROOT, 'tools', 'preview', 'stub.lua'));

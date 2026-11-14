@@ -313,8 +313,12 @@ local function span(s)
 end
 Maps.FormatSpan = span
 
-local function paint()
-	local st = Maps.GetInstanceStatus()
+local function trackers() return ns.UI and ns.UI.Trackers end
+
+-- The tracker's lines on f (the live one or a sandbox one) for status st
+-- (Maps.GetInstanceStatus's); its height follows the player's type sizes.
+local function fill(f, st)
+	local frame = f
 	frame.Count:SetText(format(L["%d/%d this hour"], st.inHour, st.perHour))
 	local W = ns.Widgets
 	if st.wait > 0 then
@@ -331,17 +335,34 @@ local function paint()
 		frame.RunInfo:SetText(format("%s · %s %s", Maps.FormatTime(Maps.RunSeconds(st.run, st.now)), digits(st.run.xp), L["XP"]))
 		frame.Run:Show()
 		frame.RunInfo:Show()
-		frame:SetHeight(52)
 	else
 		frame.Run:Hide()
 		frame.RunInfo:Hide()
-		frame:SetHeight(30)
 	end
+	-- The player's larger type (frame.psTextK, Options > Trackers) makes room for itself.
+	local k = math.max(1, frame.psTextK or 1)
+	local top = math.floor(14 * k + 0.5)
+	frame.Run:ClearAllPoints()
+	frame.Run:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -(16 + top))
+	frame.RunInfo:ClearAllPoints()
+	frame.RunInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -(16 + top))
+	frame.Run:SetPoint("RIGHT", frame.RunInfo, "LEFT", -8, 0)
+	local h = 16 + top
+	if st.run then h = h + 22 * k end
+	frame:SetHeight(math.floor(h + 0.5))
 	return st
 end
 
+local function paint()
+	return fill(frame, Maps.GetInstanceStatus())
+end
+
+-- Not while Polestar is hidden: the frame goes with it and its ticker stops.
 local function wanted()
-	if not (ns.Get("maps.instances") and ns.Get("maps.instanceDisplay")) then return false end
+	if not (ns.Get("maps.instances") and ns.Get("maps.instanceDisplay")) or ns.Hidden() then return false end
+	-- In a fight or inside an instance, as the player asked (Options > Trackers).
+	local TR = trackers()
+	if TR and not TR.Allowed("instances") then return false end
 	if active then return true end
 	local h = Maps.InstanceWindow(entries(), serverTime(), 1, 0)
 	return h > 0
@@ -370,25 +391,51 @@ function refreshDisplay()
 	end
 end
 
+-- The tracker's parts on f: the live frame (a Maps.CompactFrame) or a sandbox
+-- one for the options' preview (Maps.NewInstanceTracker). Its size, type and
+-- ground are the player's (Options > Trackers, UI/Looks/Trackers.lua).
+local function dress(f, sandbox)
+	local W = ns.Widgets
+	f:SetSize(230, 30)
+	local icon = W.Tex(f, "ARTWORK", "lock", "accent")
+	icon:SetSize(14, 14)
+	icon:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -8)
+	f.Count = W.Text(f, "number", "text")
+	f.Count:SetPoint("LEFT", icon, "RIGHT", 7, 0)
+	f.Wait = W.Text(f, "small", "textMuted")
+	f.Wait:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -9)
+	f.Wait:SetJustifyH("RIGHT")
+	f.Run = W.Text(f, "small", "textDim")
+	f.Run:SetPoint("TOPLEFT", f, "TOPLEFT", 10, -30)
+	f.RunInfo = W.Text(f, "small", "text")
+	f.RunInfo:SetPoint("TOPRIGHT", f, "TOPRIGHT", -10, -30)
+	f.RunInfo:SetJustifyH("RIGHT")
+	f.Run:SetPoint("RIGHT", f.RunInfo, "LEFT", -8, 0)
+	local TR = trackers()
+	if TR then
+		TR.Attach("instances", f, { titles = { f.Count }, bodies = { f.Wait, f.Run, f.RunInfo }, sandbox = sandbox,
+			refresh = not sandbox and function() refreshDisplay() end or nil,
+			relayout = function(self) if self.psStatus then fill(self, self.psStatus) elseif self == frame and self:IsShown() then paint() end end })
+	end
+	return f
+end
+
+-- A sandbox tracker for the options' preview, filled from a made-up status.
+function Maps.NewInstanceTracker(parent)
+	local f = CreateFrame("Frame", nil, parent)
+	f.psLight = true
+	ns.Theme.Skin(f, "window")
+	return dress(f, true)
+end
+function Maps.FillInstanceTracker(f, st)
+	f.psStatus = st
+	fill(f, st)
+end
+
 local function buildFrame()
 	if frame or not ns.Widgets then return end
 	local W = ns.Widgets
-	frame = Maps.CompactFrame("PolestarInstanceTracker", "maps.trackerPos", "TOPRIGHT", -220, -220)
-	frame:SetSize(230, 30)
-	local icon = W.Tex(frame, "ARTWORK", "lock", "accent")
-	icon:SetSize(14, 14)
-	icon:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -8)
-	frame.Count = W.Text(frame, "number", "text")
-	frame.Count:SetPoint("LEFT", icon, "RIGHT", 7, 0)
-	frame.Wait = W.Text(frame, "small", "textMuted")
-	frame.Wait:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -9)
-	frame.Wait:SetJustifyH("RIGHT")
-	frame.Run = W.Text(frame, "small", "textDim")
-	frame.Run:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -30)
-	frame.RunInfo = W.Text(frame, "small", "text")
-	frame.RunInfo:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -30)
-	frame.RunInfo:SetJustifyH("RIGHT")
-	frame.Run:SetPoint("RIGHT", frame.RunInfo, "LEFT", -8, 0)
+	frame = dress(Maps.CompactFrame("PolestarInstanceTracker", "maps.trackerPos", "TOPRIGHT", -220, -220))
 	frame:SetScript("OnEnter", function(self)
 		W.Tooltip(self, "ANCHOR_BOTTOMLEFT", L["Instances"], {
 			L["New instances you entered on this account in the last hour. Re-entering an instance you have not reset does not count."],
@@ -398,6 +445,8 @@ local function buildFrame()
 	frame:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	frame:SetScript("OnHide", stopTicker)
 end
+
+ns.On("POLESTAR_HIDDEN", function() refreshDisplay() end)
 
 ---------------------------------------------------------------------------
 -- Slash command: /pole instances [clear]
@@ -442,7 +491,7 @@ ns.RegisterCommand("instances", function(rest)
 		Client.RequestRaidInfo()
 		report()
 	end
-end, L["Instance limits, runs and lockouts (instances clear: forget them)"])
+end, L["Instance limits, runs and lockouts (instances clear: forget them)"], true)
 
 ---------------------------------------------------------------------------
 -- Events

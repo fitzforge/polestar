@@ -55,11 +55,12 @@ function duplicateComment(comments) {
 }
 
 // A maintainer's explanation on a duplicate: their newest comment that is
-// more than the bare `Duplicate of #M` line, without that line.
+// more than the bare `Duplicate of #M` line, without that line, and that
+// comment: { text, comment }, or null.
 function duplicateNote(comments) {
 	for (const c of maintainerComments(comments)) {
 		const text = c.body.replace(/^[ \t]*duplicate of #\d+[ \t]*\.?[ \t]*$/gim, '').trim();
-		if (text) return text;
+		if (text) return { text, comment: c };
 	}
 	return null;
 }
@@ -130,8 +131,9 @@ function duplicateLead(repo, of, target) {
 
 // The message and status for an issue's close or reopen. duplicate, for a
 // close as a duplicate: { of, target, note } (duplicateTarget's M, its
-// duplicateStatus, the maintainer's explanation).
-function issueMessage({ repo, issue, action, owner, comments, duplicate = null }) {
+// duplicateStatus, the maintainer's explanation). released, for a fix that
+// is out already: { tag, release } (releasedIn's).
+function issueMessage({ repo, issue, action, owner, comments, duplicate = null, released = null }) {
 	const ping = owner ? `<@${owner}> ` : '';
 	const link = issueLink(repo, issue.number);
 	if (action === 'reopened') {
@@ -151,7 +153,33 @@ function issueMessage({ repo, issue, action, owner, comments, duplicate = null }
 		content += `\nThanks for the report! (${link})`;
 		return { role: 'wontfix', locked: true, content };
 	}
+	if (released) {
+		const name = released.release ? released.release.name || released.release.tag_name : `Polestar ${released.tag.replace(/^v/, '')}`;
+		const notes = released.release && released.release.html_url ? `[release notes](<${released.release.html_url}>), ` : '';
+		return { role: 'fixed', locked: true, content: `${ping}This is fixed, and the fix is out in **${name}**: update Polestar to get it. Thanks for the report! (${notes}${link})` };
+	}
 	return { role: 'fixed', locked: true, content: `${ping}This is fixed and will ship in the next Polestar update. Thanks for the report! (${link})` };
+}
+
+// The published release a fix closed as completed is already out in, or
+// null when it ships in the next one: { tag, release, labelled }. Its
+// released:<tag> label says so (a sweep after a release labels the fixes it
+// shipped before closing them); else its milestone names a full release
+// published before the issue closed (the milestone is the update's list, and
+// a late close after the release run would otherwise be told "next update"
+// and announced again with the next release).
+async function releasedIn(github, issue) {
+	const label = labelNames(issue).find(isReleased);
+	const releases = await github.releases();
+	if (label) {
+		const tag = label.slice('released:'.length);
+		return { tag, release: releases.find((r) => r.tag_name === tag) || null, labelled: true };
+	}
+	const title = issue.milestone && issue.milestone.title;
+	if (!title) return null;
+	const closed = Date.parse(issue.closed_at);
+	const release = releases.find((r) => (r.tag_name === `v${title}` || r.tag_name === title) && !r.draft && isAddonRelease(r) && !isPrerelease(r) && Date.parse(r.published_at) < closed);
+	return release ? { tag: release.tag_name, release, labelled: false } : null;
 }
 
 // "The fix is out"; of, for a duplicate, the issue whose fix it is.
@@ -193,10 +221,118 @@ async function postIn(discord, thread, content, users) {
 // reporter answers in the thread, and the bot carries the answer back.
 function questionMessage({ repo, issue, owner, note }) {
 	const ping = owner ? `<@${owner}> ` : '';
+	if (note === null) return `${ping}We need a little more to go on with this one: please answer the question above here in the thread. (${issueLink(repo, issue.number)})`;
 	return `${ping}We need a little more to go on with this one:\n${quote(clip(note, MAX_REASON))}\nPlease answer here in the thread. (${issueLink(repo, issue.number)})`;
 }
 
-async function onIssue({ discord, github, event, forumId, log = console }) {
+// A maintainer's reply relayed to the thread: a maintainer's comment that is
+// not one the bots write (a copied Discord follow-up, a pull request list)
+// nor a bare `Duplicate of #M` (the close says that).
+function isReply(c) {
+	if (!c || !maintainerComments([c]).length || c.body.includes('<!-- polestar-bot')) return false;
+	return Boolean(c.body.replace(/<!--[\s\S]*?-->/g, '').replace(/^[ \t]*duplicate of #\d+[ \t]*\.?[ \t]*$/gim, '').trim());
+}
+
+// A comment's link: what its relayed message carries, and how the bot
+// finds that message again.
+const commentUrl = (repo, issue, c) => c.html_url || `https://github.com/${repo}/issues/${issue.number}#issuecomment-${c.id}`;
+const commentKey = (c) => `#issuecomment-${c.id}>`;
+
+// GitHub Markdown as Discord shows it: HTML comments and tags dropped,
+// headings bold, images and links as links without previews, #N linked to
+// the issue; bullets, bold, quotes and code kept (code blocks untouched).
+function discordText(repo, markdown) {
+	const prose = (t) => t
+		.replace(/<br\s*\/?>/gi, '\n')
+		.replace(/<\/?(?:details|summary|p|div|span|sub|sup|kbd|b|strong|i|em|ins|del|picture|source)\b[^>]*>/gi, '')
+		.replace(/<img\b[^>]*\bsrc="([^"]+)"[^>]*>/gi, '[image](<$1>)')
+		.replace(/!\[([^\]]*)\]\(<?([^)\s>]+)>?(?:\s+"[^"]*")?\)/g, (_, alt, url) => `[image${alt ? `: ${alt}` : ''}](<${url}>)`)
+		.replace(/(^|[^!\]])\[([^\]\n]+)\]\(([^)<\s]+)(?:\s+"[^"]*")?\)/g, '$1[$2](<$3>)')
+		.replace(/^#{1,6}[ \t]+(.+?)[ \t]*#*[ \t]*$/gm, '**$1**')
+		.replace(/(^|[\s(])(https?:\/\/[^\s<>)]+)/g, '$1<$2>')
+		.replace(/(^|[\s(])#(\d+)\b/g, (_, pre, n) => `${pre}[#${n}](<https://github.com/${repo}/issues/${n}>)`);
+	return String(markdown || '')
+		.replace(/\r\n/g, '\n')
+		.replace(/<!--[\s\S]*?-->/g, '')
+		.split(/(```[\s\S]*?```|`[^`\n]+`)/)
+		.map((part, i) => (i % 2 ? part : prose(part)))
+		.join('')
+		.replace(/\n{3,}/g, '\n\n')
+		.trim();
+}
+
+// A relayed reply as the thread shows it (with or without the reporter's ping).
+const REPLY_HEAD = /^(?:<@[^>\s]+> )?Reply on GitHub \(/;
+
+// A maintainer's reply as the thread hears it, under Discord's 2000
+// characters: cut at a line or word, a code block closed, and the link to
+// the full reply.
+function replyMessage({ repo, issue, comment, owner }) {
+	const url = commentUrl(repo, issue, comment);
+	const head = `${owner ? `<@${owner}> ` : ''}Reply on GitHub ([#${issue.number}](<${url}>)):\n`;
+	let text = discordText(repo, comment.body);
+	if (head.length + text.length > MAX_MESSAGE) {
+		const tail = `\n… full reply: <${url}>`;
+		const room = MAX_MESSAGE - head.length - tail.length - 4;
+		let cut = text.slice(0, room);
+		const at = Math.max(cut.lastIndexOf('\n'), cut.lastIndexOf(' '));
+		if (at > room * 0.6) cut = cut.slice(0, at);
+		cut = cut.trimEnd();
+		if ((cut.match(/```/g) || []).length % 2) cut += '\n```';
+		text = cut + tail;
+	}
+	return head + text;
+}
+
+// The ids of the comments already relayed to a thread (its newest 100 messages).
+async function relayedIn(discord, thread) {
+	const out = new Set();
+	for (const m of await discord.getMessages(thread.id, 100)) {
+		if (!m.author || !m.author.bot) continue;
+		for (const [, id] of String(m.content || '').matchAll(/#issuecomment-(\d+)>/g)) out.add(id);
+	}
+	return out;
+}
+
+// A maintainer's comment on an issue filed from Discord: posted in its
+// thread, pinging the reporter; edited there when the comment is edited.
+// Only maintainers' (author_association), never the bots' own; a re-run or
+// an edit of a comment never relayed posts nothing new. A comment a close or
+// needs-info notice quoted already (it carries the comment's link) is not
+// posted again, and its edits leave that notice alone.
+async function onComment({ discord, github, event, forumId, log = console }) {
+	const { action, issue, comment } = event;
+	if ((action !== 'created' && action !== 'edited') || !issue || issue.pull_request || !isReply(comment)) return false;
+	const thread = await threadOf(discord, issue, forumId, log);
+	if (!thread) return false;
+	const content = replyMessage({ repo: github.repo, issue, comment, owner: thread.owner_id });
+	const key = commentKey(comment);
+	const posted = (await discord.getMessages(thread.id, 100)).find((m) => m.author && m.author.bot && String(m.content || '').includes(key));
+	if (posted) {
+		if (action !== 'edited' || posted.content === content || !REPLY_HEAD.test(posted.content)) return false;
+		if (thread.thread_metadata && thread.thread_metadata.archived) await discord.editThread(thread.id, { archived: false });
+		await discord.editMessage(thread.id, posted.id, content);
+		log.info(`#${issue.number}: reply ${comment.id} edited in thread ${thread.id}`);
+		return true;
+	}
+	if (action === 'edited') return false;
+	await postIn(discord, thread, content, thread.owner_id ? [thread.owner_id] : []);
+	log.info(`#${issue.number}: reply ${comment.id} posted in thread ${thread.id}`);
+	return true;
+}
+
+// A notice that quotes a comment carries the comment's link, so the reply
+// relay knows the thread has it.
+function citing(content, repo, issue, comment) {
+	return comment ? content.replace(/\)$/, `, [comment](<${commentUrl(repo, issue, comment)}>))`) : content;
+}
+
+// A comment made with the close (the same action, or a moment before) has
+// its relay run racing this one: how long to give it, and how recent counts.
+const RELAY_WAIT_MS = 20 * 1000;
+const RELAY_RECENT_MS = 2 * 60 * 1000;
+
+async function onIssue({ discord, github, event, forumId, log = console, sleep = (ms) => new Promise((r) => setTimeout(r, ms)), now = Date.now }) {
 	const issue = event.issue;
 	const action = event.action;
 	const asking = action === 'labeled' && event.label && event.label.name === 'needs-info';
@@ -205,23 +341,43 @@ async function onIssue({ discord, github, event, forumId, log = console }) {
 	if (!thread) return false;
 	const comments = action === 'reopened' ? [] : await github.comments(issue.number);
 	const users = thread.owner_id ? [thread.owner_id] : [];
+	// The maintainer's last word, unless the thread has it already as a relayed
+	// reply. Just written, its relay may be on its way: give it a moment.
+	const last = maintainerComments(comments)[0];
+	const relayed = async () => (await relayedIn(discord, thread)).has(String(last.id));
+	let fresh = !last || !(await relayed());
+	if (fresh && last && isReply(last) && now() - Date.parse(last.created_at) < RELAY_RECENT_MS) {
+		await sleep(RELAY_WAIT_MS);
+		fresh = !(await relayed());
+	}
 	if (asking) {
 		const note = maintainerNote(comments);
 		if (!note) {
 			log.info(`#${issue.number}: needs-info with no maintainer comment to relay`);
 			return false;
 		}
-		await postIn(discord, thread, questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note }), users);
+		const content = questionMessage({ repo: github.repo, issue, owner: thread.owner_id, note: fresh ? note : null });
+		await postIn(discord, thread, fresh ? citing(content, github.repo, issue, last) : content, users);
 		log.info(`#${issue.number} needs-info: asked in thread ${thread.id}`);
 		return true;
 	}
 	const dup = action === 'closed' ? await duplicateTarget(github, issue, comments) : null;
-	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: duplicateNote(comments) };
-	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments, duplicate });
-	await postIn(discord, thread, msg.content, users);
+	const dupNote = dup && fresh ? duplicateNote(comments) : null;
+	const duplicate = dup && { of: dup.of, target: dup.of ? await duplicateStatus(github, dup.of) : null, note: dupNote ? dupNote.text : null };
+	const released = action === 'closed' && !dup && issue.state_reason === 'completed' ? await releasedIn(github, issue) : null;
+	const msg = issueMessage({ repo: github.repo, issue, action, owner: thread.owner_id, comments: fresh ? comments : [], duplicate, released });
+	// The comment the notice quotes, if any (a not-planned close's reason, a duplicate's explanation).
+	const quoted = dup ? dupNote && dupNote.comment : issue.state_reason === 'not_planned' && fresh ? last : null;
+	await postIn(discord, thread, citing(msg.content, github.repo, issue, quoted), users);
 	const forum = await discord.getChannel(thread.parent_id);
 	await discord.editThread(thread.id, { applied_tags: withStatus(thread.applied_tags, statusTags(forum), msg.role), locked: msg.locked });
-	log.info(`#${issue.number} ${action} (${issue.state_reason || 'reopened'}): told thread ${thread.id}`);
+	// Told it is out: the release run must not tell it again.
+	if (released && !released.labelled) {
+		const label = `released:${released.tag}`;
+		await github.ensureLabels([label], I.labelInfo);
+		await github.addLabels(issue.number, [label]);
+	}
+	log.info(`#${issue.number} ${action} (${issue.state_reason || 'reopened'}${released ? `, out in ${released.tag}` : ''}): told thread ${thread.id}`);
 	return true;
 }
 
@@ -423,7 +579,33 @@ async function announceCandidate({ discord, github, release, forumId, testers, l
 	return true;
 }
 
-async function onRelease({ discord, github, event, forumId, testers = null, log = console }) {
+// The issues a manual run names as shipped by the release (closed after its
+// run, so the run missed them): those filed from Discord, closed as
+// completed and not told about a release yet, whatever their close time.
+async function listedIssues(github, numbers, log) {
+	const out = [];
+	for (const n of numbers) {
+		let issue;
+		try {
+			issue = await github.getIssue(n);
+		} catch (err) {
+			if (err.status !== 404) throw err;
+			log.warn(`#${n}: no such issue, skipped`);
+			continue;
+		}
+		const labels = labelNames(issue);
+		if (issue.pull_request || !labels.includes('discord')) log.warn(`#${n}: not filed from Discord, skipped`);
+		else if (issue.state !== 'closed' || issue.state_reason !== 'completed') log.warn(`#${n}: not closed as completed, skipped`);
+		else if (labels.some(isReleased)) log.info(`#${n}: told about a release already, skipped`);
+		else out.push(issue);
+	}
+	return out;
+}
+
+// A release published: its fixes' threads told. `issues` (a manual run's
+// list of numbers) names exactly what it ships instead, for issues closed
+// after the release run; their duplicates are told with them.
+async function onRelease({ discord, github, event, forumId, testers = null, issues: listed = null, log = console }) {
 	const release = event.release;
 	if (!release || release.draft || !isAddonRelease(release)) return { told: 0, failed: 0 };
 	if (isPrerelease(release)) {
@@ -431,8 +613,9 @@ async function onRelease({ discord, github, event, forumId, testers = null, log 
 		return { told: 0, failed: 0 };
 	}
 	const label = `released:${release.tag_name}`;
-	const ships = await shipCheck(github, release);
-	const issues = await shippedBy(github, release, ships);
+	const named = listed && listed.length ? new Set(listed) : null;
+	const ships = named ? async (i) => named.has(i.number) : await shipCheck(github, release);
+	const issues = named ? await listedIssues(github, named, log) : await shippedBy(github, release, ships);
 	let told = 0;
 	let failed = 0;
 	// Tells an issue's thread and labels the issue, so no run tells it again.
@@ -473,4 +656,4 @@ async function onRelease({ discord, github, event, forumId, testers = null, log 
 	return { told, failed };
 }
 
-module.exports = { onIssue, onRelease, onProgress, issueMessage, releaseMessage, progressMessage, candidateMessage, shippedBy, shipCheck, isPrerelease, isAddonRelease, maintainerNote, threadOf, postIn };
+module.exports = { onIssue, onComment, onRelease, onProgress, issueMessage, releaseMessage, replyMessage, discordText, isReply, relayedIn, progressMessage, candidateMessage, shippedBy, shipCheck, isPrerelease, isAddonRelease, maintainerNote, threadOf, postIn };

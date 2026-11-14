@@ -12,7 +12,8 @@
 //! Our house rules (required elite work, the solo filter, flights with nothing to do between) are errors in
 //! our pack (`guides`) and warnings in every other.
 //!
-//! validate_guides(guides, data, diag) — guides are resolver output (resolve.rs).
+//! validate_guides(guides, data, diag) — guides are resolver output (resolve.rs). It also writes `carriedTo`
+//! on quest work handed in only by a later guide of the chain (Ctx::mark_carried).
 //! validate_solo_policy(guides, excluded, diag) — lint only: leveling goals on quests the simulator's solo
 //! filter excludes (solo.rs). `excluded`: V object keyed by faction, each a V object keyed by quest id.
 //! validate_pack_frames(guides, data, ours, our_data, diag) — another pack's map frames that differ from
@@ -208,9 +209,21 @@ fn elite_tip(target: &str) -> String {
 	format!("in a Leveling guide put the goal in a step with `when group <quest>` (the player chooses it), not optional there, or make it `optional` in a step for everyone, with the tip \"{target} is elite: grouping up is advised.\"")
 }
 
-/// A step the route takes only for a player who chose to do a group quest.
+/// A step the route takes only for a player who chose the group way: a group quest (`when group <quest>`)
+/// or a dungeon run (`when dungeon "<Name>"`), as resolve.rs's opt-in steps.
 fn group_step(step: &V) -> bool {
-	step.get("when").items().iter().any(|p| p.get("k").as_str() == Some("group") && !p.get("neg").truthy())
+	step.get("when").items().iter().any(|p| matches!(p.get("k").as_str(), Some("group") | Some("dungeon")) && !p.get("neg").truthy())
+}
+
+/// A step that applies only while the player carries the goal's quest (`when onquest <quest>`, `when complete
+/// <quest>`): "hand it in if you have it", never work the solo route asks for (a dungeon quest's hand-in on a
+/// later stop).
+fn carried_step(step: &V, quest: &V) -> bool {
+	step.get("when").items().iter().any(|p| {
+		let q = p.get("q");
+		let qs = if q.is_arr() { q.items() } else { vec![q] };
+		!p.get("neg").truthy() && matches!(p.get("k").as_str(), Some("onquest") | Some("complete")) && qs.iter().any(|x| key(x) == key(quest))
+	})
 }
 
 /// A step only players who chose the group way follow (`when group <quest>`, `when dungeon "<Name>"`)
@@ -249,7 +262,8 @@ fn group_quests_of(g: &V) -> FxHashSet<Key> {
 
 /// A goal for a party, not solo leveling.
 fn party_work(step: &V, goal: &V, chosen: &FxHashSet<Key>) -> bool {
-	group_step(step) || (!goal.get("quest").is_undef() && chosen.contains(&key(&goal.get("quest"))))
+	let quest = goal.get("quest");
+	group_step(step) || (!quest.is_undef() && (chosen.contains(&key(&quest)) || carried_step(step, &quest)))
 }
 
 /// Our house rules: errors in our pack, warnings in every other.
@@ -836,6 +850,9 @@ struct Ctx<'a> {
 	exit_memo: RefCell<FxHashMap<Key, f64>>,
 	quest_goal_memo: RefCell<FxHashMap<Key, Rc<Vec<QuestGoal>>>>,
 	covered_memo: RefCell<FxHashMap<String, Option<Rc<CharSet>>>>,
+	// Ctx::followers, Ctx::hand_in_from.
+	follow_memo: RefCell<FxHashMap<Key, Rc<CharSet>>>,
+	carried_memo: RefCell<FxHashMap<String, Option<V>>>,
 }
 
 impl Ctx<'_> {
@@ -977,6 +994,99 @@ impl Ctx<'_> {
 		self.covered_memo.borrow_mut().insert(k, out.clone());
 		out
 	}
+
+	// The characters that can follow guide g (its faction, races and classes), cached per guide.
+	fn followers(&self, g: &V) -> Rc<CharSet> {
+		let id = key(&g.get("id"));
+		if let Some(c) = self.follow_memo.borrow().get(&id) {
+			return c.clone();
+		}
+		let c = Rc::new(characters(&[guide_layer(g)], &V::Undef));
+		self.follow_memo.borrow_mut().insert(id, c.clone());
+		c
+	}
+
+	// Where character k, entering guide h, hands quest q in on every route from there: the id of the guide, or
+	// None when a route never does (it ends, drops the quest with an abandon, or loops), or two routes hand it in
+	// in different guides. `.1`: the answer met a loop (not cached).
+	fn hand_in_from(&self, h: &V, q: &V, k: &str, visiting: &mut FxHashSet<Key>) -> (Option<V>, bool) {
+		let mk = format!("{}|{}|{k}", ts(&h.get("id")), ts(q));
+		if let Some(r) = self.carried_memo.borrow().get(&mk) {
+			return (r.clone(), false);
+		}
+		let hid = key(&h.get("id"));
+		if !visiting.insert(hid.clone()) {
+			return (None, true);
+		}
+		let end = self.quest_goals(h).iter().find(|t| closes(&t.goal) && t.goal.get("quest").strict_eq(q) && t.chars.contains(k)).map(|t| t_of(&t.goal));
+		let out = match end.as_deref() {
+			Some("turnin") => (Some(h.get("id")), false),
+			Some(_) => (None, false),
+			None => self.hand_in_after(h, q, k, visiting),
+		};
+		visiting.remove(&hid);
+		if !out.1 {
+			self.carried_memo.borrow_mut().insert(mk, out.0.clone());
+		}
+		out
+	}
+
+	// hand_in_from over every guide after h that k can follow (`next` and each route choice).
+	fn hand_in_after(&self, h: &V, q: &V, k: &str, visiting: &mut FxHashSet<Key>) -> (Option<V>, bool) {
+		let next: Vec<V> = self.successors(h).into_iter().filter(|s| self.followers(s).contains(k)).collect();
+		let mut found: Option<V> = None;
+		let mut cut = false;
+		for s in &next {
+			let (r, c) = self.hand_in_from(s, q, k, visiting);
+			cut |= c;
+			match (r, &found) {
+				(None, _) => return (None, cut),
+				(Some(id), Some(f)) if !f.strict_eq(&id) => return (None, cut),
+				(Some(id), None) => found = Some(id),
+				_ => {}
+			}
+		}
+		(found, cut)
+	}
+
+	// Quest work carried to a later guide: each objective or `complete` goal of a quest this guide does not turn
+	// in (or abandon) after it gets `carriedTo`, the id of the guide after it that hands the quest in, when that
+	// is one and the same guide on every route for every character the goal applies to (Ctx::hand_in_after). The
+	// Engine says to keep it, and lists the quests still in the log at the guide's end.
+	fn mark_carried(&self, g: &V) {
+		let gl = guide_layer(g);
+		let goals = goals_of(g);
+		for (i, (step, goal)) in goals.iter().enumerate() {
+			let t = t_of(goal);
+			let q = goal.get("quest");
+			if q.is_undef() || !(t == "complete" || OBJECTIVE_VERBS.contains(&t.as_str())) {
+				continue;
+			}
+			if goals[i + 1..].iter().any(|(_, later)| closes(later) && later.get("quest").strict_eq(&q)) {
+				continue;
+			}
+			let chars = characters(&[gl.clone(), step.hidden("_only"), goal.hidden("_only")], &self.data.quest(&q));
+			let mut to: Option<V> = None;
+			for k in &chars {
+				let mut visiting: FxHashSet<Key> = FxHashSet::default();
+				visiting.insert(key(&g.get("id")));
+				match (self.hand_in_after(g, &q, k, &mut visiting).0, &to) {
+					(None, _) => {
+						to = None;
+						break;
+					}
+					(Some(id), Some(f)) if !f.strict_eq(&id) => {
+						to = None;
+						break;
+					}
+					(Some(id), _) => to = Some(id),
+				}
+			}
+			if let Some(to) = to {
+				goal.set("carriedTo", to);
+			}
+		}
+	}
 }
 
 pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
@@ -993,6 +1103,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		by_id.insert(id, g.clone());
 		order.push(g.clone());
 	}
+	// Polestar's own extra packs (project.rs OWN_EXTRAS) with a guide in this compile: a `next` to an unknown id
+	// of one of them is an error; of one compiled elsewhere it is checked there (project.rs experimental_index).
+	let extras_in: Vec<&str> = crate::project::OWN_EXTRAS.iter().filter(|e| order.iter().any(|g| crate::project::extra_of(&ts(&g.get("id"))) == Some(e.id))).map(|e| e.id).collect();
 	// Predecessors through `next` and every route choice.
 	let mut preds: FxHashMap<Key, Vec<V>> = FxHashMap::default();
 	for g in &order {
@@ -1006,6 +1119,11 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		};
 		for to in next_ids(g) {
 			let Some(other) = by_id.get(&key(&to)).cloned() else {
+				// A guide of one of Polestar's own extra packs (an experimental guide offered as a route choice)
+				// compiled without that pack: project.rs experimental_index checks it where the pack is read.
+				if crate::project::extra_of(&ts(&to)).is_some_and(|e| !extras_in.contains(&e)) {
+					continue;
+				}
 				diag.error(&file, next_line(&to), format!("`next` points to unknown guide \"{}\"", ts(&to)), Some("list guide ids with `polestar find --kind guide <text>`".into()));
 				continue;
 			};
@@ -1036,7 +1154,16 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		}
 	}
 
-	let ctx = Ctx { data, by_id, preds, exit_memo: RefCell::new(FxHashMap::default()), quest_goal_memo: RefCell::new(FxHashMap::default()), covered_memo: RefCell::new(FxHashMap::default()) };
+	let ctx = Ctx {
+		data,
+		by_id,
+		preds,
+		exit_memo: RefCell::new(FxHashMap::default()),
+		quest_goal_memo: RefCell::new(FxHashMap::default()),
+		covered_memo: RefCell::new(FxHashMap::default()),
+		follow_memo: RefCell::new(FxHashMap::default()),
+		carried_memo: RefCell::new(FxHashMap::default()),
+	};
 
 	for g in &order {
 		let file = ast_file(g);
@@ -1047,10 +1174,13 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_bare_completes(g, data, diag);
 		check_bare_uses(g, diag);
 		check_chosen_all_optional(g, diag);
+		ctx.mark_carried(g);
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
 		let mut when_only: FxHashSet<Key> = FxHashSet::default();
 		let mut learned: FxHashSet<Key> = FxHashSet::default();
+		// Quests abandoned on the path and not taken again since (a breadcrumb abandoned holds nothing back).
+		let mut abandoned: FxHashSet<Key> = FxHashSet::default();
 		// Quests accepted or turned in earlier on the path -> their character sets.
 		let mut taken: FxHashMap<Key, Vec<Rc<CharSet>>> = FxHashMap::default();
 		fn take(taken: &mut FxHashMap<Key, Vec<Rc<CharSet>>>, t: &QuestGoal) {
@@ -1061,9 +1191,13 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				match t_of(&goal).as_str() {
 					"accept" => {
 						accepted.insert(key(&goal.get("quest")));
+						abandoned.remove(&key(&goal.get("quest")));
 					}
 					"turnin" => {
 						turned_in.insert(key(&goal.get("quest")));
+					}
+					"abandon" => {
+						abandoned.insert(key(&goal.get("quest")));
 					}
 					"learn" => {
 						learned.insert(key(&goal.get("spell")));
@@ -1097,6 +1231,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			let qk = key(&quest);
 			let t = t_of(&goal);
 			let q = if !quest.is_undef() { data.quest(&quest) } else { V::Null };
+			if t == "abandon" {
+				abandoned.insert(qk.clone());
+			}
 			let layers = [gl.clone(), step.hidden("_only"), goal.hidden("_only")];
 			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) {
 				if let Some(elite) = elite_goal(&goal, &applicable(&layers).get("factions"), data) {
@@ -1149,6 +1286,21 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 							diag.warn(&file, ln, format!("quest {} needs one of {} turned in first, but the chain turns in none of them", ts(&quest), open.join(", ")), None);
 						}
 					}
+					// A child quest is offered only while its parent is in the log (Valik 535 with Infiltration 533):
+					// the chain holds it here (taken, not handed in), or the step applies only with it in the log.
+					let parent = bp.get("parent");
+					if !parent.is_undef() && takeable(&parent) {
+						let pk = key(&parent);
+						let on_parent = step.get("when").items().iter().any(|p| {
+							let pq = p.get("q");
+							!p.get("neg").truthy() && p.get("k").as_str() == Some("onquest") && if pq.is_arr() { pq.items().iter().any(|x| key(x) == pk) } else { key(&pq) == pk }
+						});
+						if !on_parent && turned_in.contains(&pk) {
+							diag.warn(&file, ln, format!("quest {} is offered only while {} is in the log, but the chain hands that quest in earlier", ts(&quest), name(&parent)), None);
+						} else if !on_parent && !accepted.contains(&pk) {
+							diag.warn(&file, ln, format!("quest {} is offered only while {} is in the log, but the chain never takes that quest before it", ts(&quest), name(&parent)), None);
+						}
+					}
 					// Exclusive quests: the game does not offer this one while one of them is in the log or done.
 					let mine = &qg[own[&key(&goal)]];
 					for e in q.get("excl").items() {
@@ -1160,6 +1312,22 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 									"quest {} is not offered once {} is in the log or done, and the chain takes that quest earlier",
 									quest_name(data, &quest, &goal.get("title")),
 									quest_name(data, &e, &V::Undef)
+								),
+								None,
+							);
+						}
+					}
+					// A breadcrumb in the log holds this quest back until it is handed in (or abandoned).
+					for c in crate::prereqs::crumbs_of(&quest, &data.quests) {
+						let ck = key(&V::Num(c));
+						if !turned_in.contains(&ck) && !abandoned.contains(&ck) && taken.get(&ck).is_some_and(|l| l.iter().any(|chars| meets(chars, &mine.chars))) {
+							diag.warn(
+								&file,
+								ln,
+								format!(
+									"quest {} is not offered while its breadcrumb {} is in the log, and the chain takes that breadcrumb earlier without handing it in: hand it in first",
+									quest_name(data, &quest, &goal.get("title")),
+									quest_name(data, &V::Num(c), &V::Undef)
 								),
 								None,
 							);
@@ -1181,6 +1349,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 						when_only.remove(&qk);
 					}
 					accepted.insert(qk.clone());
+					abandoned.remove(&qk);
 				}
 				if let Some(&i) = own.get(&key(&goal)) {
 					take(&mut taken, &qg[i]);

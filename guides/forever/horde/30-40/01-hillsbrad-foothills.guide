@@ -5,6 +5,7 @@ faction Horde
 levels 29-33
 zone Hillsbrad Foothills
 next forever/horde/30-40/02-thousand-needles
+pitch For characters of 29 to 33, but most quests here are level 32-34, a few up to 36: on purpose, for their experience. The Syndicate, Dalaran's guards and the Boulderfist ogres are 31-35, so pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -19,12 +20,26 @@ next forever/horde/30-40/02-thousand-needles
 # guide topped up to 32-33 at Sargeron and the coast.
 #
 # Flow: Freewind Post (where the previous guide ends) -> fly to the Crossroads (Korran) ->
-# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> Valik and the Syndicate camps -> the yeti caves ->
+# Orgrimmar (Alliance Relations, Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill (bind) -> the yeti caves ->
 # Hillsbrad's town hall -> Tarren Mill -> the Foothill Caverns' flames -> the Dalaran crater ->
-# the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Tarren
-# Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
+# the Azurelode Mine -> Southshore's graveyard (and the coast, for Elixir of Agony) -> Valik and
+# the Syndicate camp north of Tarren Mill -> Tarren Mill -> east into Arathi: the Boulderfist camp, Hammerfall (flight path) -> raptors, spiders
 # and the Witherbark trolls -> Hammerfall -> fly to the Undercity (training), where the next
 # guide takes the Orgrimmar zeppelin.
+#
+# Infiltration (533, level 34; Syndicate 32-34) is accepted on the first Tarren Mill stop and
+# worked on the way back from Southshore at about 31-32, Valik's missive handed to Krusk with the
+# Dalaran hand-ins (#1466; at the start of the visit, at 30, the pace line called it hard).
+#
+# Catch-up (#1660): a character who skipped forever/horde/06-hillsbrad-foothills arrives without
+# Darthalia's first Battle of Hillsbrad parts (527-529) and Krusk's The Rescue (498), and then
+# without Battle of Hillsbrad 532, 539 and 541 and Infiltration (533, with Valik), which need them.
+# For that character the guide does them first, from Tarren Mill, in the 22-25 guide's order: the
+# fields, Tarren Mill, the peasants, Tarren Mill, Durnholde Keep, Hillsbrad's smithy, Tarren Mill.
+# Each of those steps is shown only until its chain's last quest (529, 498) is handed in, so a
+# character who did the 22-25 guide sees none of them. A Dangerous! (567) carried from the 22-25
+# guide gets Farmer Kalaba with the peasants and Citizen Wilkes at the smithy, as there (#1776);
+# the clerk and the miner are in the town hall and the mine on this guide's own visits.
 #
 # Saved for the 38-39 visit (forever/horde/30-40/05-arathi-highlands): Gol'dir and the
 # Perenolde chain (503-508), Dalaran Patrols and Bracers of Binding (545, 557: accepted here), Foul Magics
@@ -36,6 +51,16 @@ next forever/horde/30-40/02-thousand-needles
 # Left out: To Steal From Thieves (1164): Genavie Callow offers it in the Undercity at 30, three
 # levels before the Dabyrie family (33-35) fit, and the route does not come back to the
 # Undercity after the 38-39 Arathi visit.
+#
+# City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it,
+# Melisara's The Grave Knight (96986) is taken with Voidglare's quests on the Tarren Mill stop at about 30.5,
+# the run follows the Dalaran crater stop at about 31, through the sewer pipe north-west of the crater
+# (Alterac 12.8,62.2, where players' recordings go in, Horde characters without the Dalaran Sewer Key
+# among them: the key comes only with Heart of Disruption, 96984, after Dalaran Patrols on the 38-39
+# visit), and Melisara takes it back on the next Tarren Mill stop (`when dungeon`, `when complete`). Rexxie Copperclutch's
+# Opportunistic Education (96987) starts and ends inside (the run tip names it). Left out: Source of Power
+# (96988: Doctor Martin Felben in the Undercity, level 33, 3.5 levels over on the Undercity stop at 29.5)
+# and Heart of Disruption (96984: after Blood in the Streets, 92434, on the 38-39 visit).
 #
 # Optional extras:
 # - Elixir of Agony (515, 517, 524): needs a Lesser Troll's Blood Elixir (item 3388; the quest
@@ -175,6 +200,76 @@ step Fly to Tarren Mill
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
+# ---------------------------------------------------------------- Catch-up: the Battle of Hillsbrad and The Rescue
+
+step High Executor Darthalia
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip You missed Darthalia's first errands, from the 22-25 Hillsbrad guide: they come first now. They are a few levels below you and quick, and they open the rest of the Battle of Hillsbrad in this guide.
+  accept 527                          -- High Executor Darthalia
+
+step Krusk
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip Krusk wants his two scouts freed from Durnholde Keep before he trusts you with Infiltration.
+  accept 498                          -- Krusk, inside
+
+step Hillsbrad Fields
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip West past the hills to the farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere.
+  kill 2266 quest 527.1
+  kill 2360 quest 527.2
+  kill 232 quest 527.3
+  kill 2403 quest 527.4
+
+step Tarren Mill
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip Back east to Tarren Mill.
+  turnin 527                          -- High Executor Darthalia
+  accept 528
+
+step Hillsbrad Peasants
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip Back to the fields: the Peasants work south of the farmhouses. Careful: A fleeing peasant that reaches the town hall can bring back adds; snares or roots keep them from escaping.
+  kill 2267 quest 528.1
+  kill 2451 quest 567.4
+
+step Tarren Mill
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  turnin 528                          -- High Executor Darthalia
+  accept 529
+
+step Durnholde Keep
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip South-east of Tarren Mill. Drull and Tog'thar are chained in the keep's courtyard buildings: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.
+  interact 1721 quest 498.1           -- Drull's ball and chain
+  interact 1722 quest 498.2           -- Tog'thar's ball and chain
+
+step The smithy
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  tip West across the foothills to Hillsbrad town: the smithy stands in the middle of it. Blacksmith Verringtan and his apprentices work at the forge; the Shipment of Iron is stacked beside it.
+  kill 2404 quest 529.1
+  kill 2265 quest 529.2
+  collect 3564 quest 529.3            -- Inside
+  kill 2449 quest 567.2
+
+step Krusk
+  when !turnedin 498
+  zone Hillsbrad Foothills
+  tip Back to Tarren Mill.
+  turnin 498                          -- Krusk, inside
+
+step High Executor Darthalia
+  when !turnedin 529
+  zone Hillsbrad Foothills
+  turnin 529                          -- High Executor Darthalia
+
 # ---------------------------------------------------------------- Tarren Mill
 
 step Tarren Mill
@@ -185,30 +280,12 @@ step Tarren Mill
   sethome "Tarren Mill"
   buy 3703 x1 npc 2388                -- Southshore Stout, for Henchman Valik
 
-# ---------------------------------------------------------------- Valik and the Syndicate
-
-step Henchman Valik
-  when onquest 533
-  zone Alterac Mountains
-  tip Follow the road north out of Tarren Mill into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants.
-  accept 535
-  turnin 535
-
-step Syndicate missives
-  zone Alterac Mountains
-  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.
-  collect 3601 quest 533
-
 # ---------------------------------------------------------------- Yetis and the town hall
-
-step Hillsbrad Foothills
-  zone Hillsbrad Foothills
-  goto 61.5,20.9 "Tarren Mill"
 
 step Helcular's Rod
   zone Hillsbrad Foothills
-  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod.
-  collect 3708 quest 552
+  tip South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs.
+  collect 3708 quest 552 @44.5,29.4
 
 step Level 30
   when level<30
@@ -231,13 +308,18 @@ step Tarren Mill
   tip Back east to Tarren Mill.
   turnin 532                          -- High Executor Darthalia
   accept 539
-  turnin 533                          -- Krusk, inside
   turnin 552                          -- Novice Thaivand
   accept 553
   accept 544                          -- Magus Wordeen Voidglare, inside: offered from level 30
   accept 93680                        -- Magus Wordeen Voidglare: Key to the City, the Grimy Key is by the traitors
   accept 556                          -- Keeper Bel'varil, inside: offered from level 30
   accept 676                          -- Tallow: for Drum Fel in Hammerfall, later in this guide (from level 30)
+
+step Melisara
+  when dungeon "City of Dalaran"
+  zone Hillsbrad Foothills
+  tip For your City of Dalaran run, later in this guide: Melisara stands in Tarren Mill, a short walk east of Magus Wordeen Voidglare.
+  accept 96986                        -- Melisara
 
 # ---------------------------------------------------------------- The flames, Dalaran, the mine
 
@@ -250,6 +332,7 @@ step Foothill Caverns
 step Flame of Uzel
   zone Hillsbrad Foothills
   tip The third flame burns in the smaller cave up in the hills north of the caverns.
+  tip Careful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in.
   use 3710 quest 553.3 @41.7,6.4 map 1424 -- Flame of Uzel
 
 step Alterac Mountains
@@ -265,6 +348,15 @@ step The Dalaran crater
   collect 3688 quest 544.4            -- Kegan Darkmar
   collect 279469 quest 93680.1 @16.4,89.3 map 1416 -- Grimy Key: an object to loot, by the traitors
   collect 3714 quest 556
+
+step City of Dalaran
+  when dungeon "City of Dalaran"
+  when onquest 96986
+  zone Alterac Mountains
+  tip The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the Dalaran Sewer Key, go in through the sewer pipe north-west of the crater: the arrow leads there.
+  tip Inside: Atrexis the Grave Knight is Melisara's. Rexxie Copperclutch, in the sewer, gives Opportunistic Education and takes it back there.
+  enter "City of Dalaran" @12.8,62.2 live
+  complete 96986 @12.8,62.2 live      -- The Grave Knight: Atrexis, inside
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills
@@ -286,7 +378,8 @@ step Torn Fin murlocs
 
 step Helcular's Grave
   zone Hillsbrad Foothills
-  tip Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north and keep away from the town's guards.
+  tip Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came.
+  goto 53.4,48.8 map 1424 "North of Southshore's graveyard" r 15
   turnin 553 @52.8,53.4 map 1424     -- Helcular's Grave
 
 step Daggerspine naga
@@ -296,9 +389,25 @@ step Daggerspine naga
   goto 53.0,65.0 "Daggerspine shore"
   collect 3509 quest 515.2 optional
 
+# ---------------------------------------------------------------- Valik and the Syndicate
+
+step Henchman Valik
+  when onquest 533
+  when !complete 533
+  zone Alterac Mountains
+  tip From Southshore head north past Tarren Mill and follow the road on into the Alterac foothills. Valik waits by the Syndicate camp. He offers his errand only while you carry Krusk's Infiltration: hand him the stout at once, and his reward is the Syndicate Missive Krusk wants. A missive from the Syndicate here does the same: with one in your bags the guide passes Valik.
+  accept 535
+  turnin 535
+
+step Syndicate missives
+  zone Alterac Mountains
+  tip Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge.
+  collect 3601 quest 533
+
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip Head back north to Tarren Mill, east of Southshore.
+  tip Head back south down the road to Tarren Mill.
+  turnin 533                          -- Krusk, inside
   turnin 539                          -- High Executor Darthalia
   turnin 567
   turnin 556                          -- Keeper Bel'varil, inside
@@ -308,6 +417,13 @@ step Tarren Mill
   accept 545                          -- Magus Wordeen Voidglare: for the 38-39 visit to Alterac
   note Krusk now offers Gol'dir (level 36): leave it for the 38-39 visit.
   turnin 515 optional                 -- Apothecary Lydon, inside
+
+step Melisara
+  when dungeon "City of Dalaran"
+  when complete 96986
+  zone Hillsbrad Foothills
+  tip The Grave Knight from your City of Dalaran run: Melisara, a short walk east of Magus Wordeen Voidglare.
+  turnin 96986                        -- Melisara
 
 step Elixir of Agony with a group
   when group 517
@@ -390,8 +506,7 @@ step Hammerfall
   tip Rutherford Twing offers the Defiler's Basic Care Package only once you are Friendly with the Defilers (Arathi Basin): skip it if he doesn't offer it.
   accept 655                          -- Gor'mul, by the gate
   getfp "Hammerfall"
-  accept 8263 optional                -- Rutherford Twing
-  turnin 8263 optional
+  turnin 8263 direct optional
   turnin 676                          -- Drum Fel
   accept 677
   turnin 655                          -- Tor'gan

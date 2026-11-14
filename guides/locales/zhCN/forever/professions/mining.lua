@@ -26,11 +26,9 @@ return {
 	-- {zone:1426} Dun Morogh
 	["Copper & Poor Copper: {zone:1426} (1-50)"] = "铜矿与贫瘠铜矿：{zone:1426}（1—50）",
 
-	-- Step 4: Copper: Darkshore (1-50)
-	-- {zone:1439} Darkshore
-	["Copper: {zone:1439} (1-50)"] = "铜矿：{zone:1439}（1-50）",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 60 nodes for these 49 points."] = "开采沿途每个铜矿（1，橙色）矿点，沿路径点循环，直到 {skill:186} 达到50。背包满时到熔炉旁熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级10—20。提升这49点预计需开采约60个矿点。",
+	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
+	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "开采沿途所有琥珀块（1，橙色）和大琥珀块（1，橙色），沿路径点循环，直到{skill:186}50。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。这49点预计需开采约60处矿点。",
 
 	-- Step 5: Copper: Zephras Isle (1-50)
 	-- {zone:2521} Zephras Isle
@@ -46,7 +44,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (1-50)"] = "铜矿：{zone:1412}（1-50）",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "开采沿途所有铜矿（1，橙色），沿路径点循环，直到{skill:186}50。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。这49点预计需开采约60处矿点。",
+	["Mine every Copper (1, orange), Poor Copper (1, orange, rare) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "开采沿途所有铜矿（1，橙色）和贫瘠铜矿（1，橙色，稀有），沿路径点循环，直到{skill:186}50。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。这49点预计需开采约60处矿点。",
 
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -69,11 +67,11 @@ return {
 	-- {zone:1426} Dun Morogh
 	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "铜矿与贫瘠铜矿：{zone:1426}（50—65），续",
 
-	-- Step 12: Copper: Darkshore (50-65) cont.
-	-- {zone:1439} Darkshore
-	["Copper: {zone:1439} (50-65) cont."] = "铜矿：{zone:1439}（50-65）续",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 80 nodes for these 15 points."] = "开采沿途所有铜矿（技能 1，黄色），沿路径点循环采矿，直到 {skill:186} 达到 65。背包满时到熔炉熔炼：{spell:2657}（25 前为橙色，70 变灰）也能提升技能。地区等级为 10-20 级。提升这 15 点预计需要开采约 80 个矿点。",
+	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {zone:1438} Teldrassil
+	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "琥珀块和大琥珀块：{zone:1438}（50-65）续",
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
+	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "开采沿途每个琥珀块（1，黄色）和大琥珀块（1，黄色）矿点，沿路径点循环，直到{skill:186}达到65。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。提升这15点预计需开采约80个矿点。",
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.
 	-- {zone:2521} Zephras Isle
@@ -89,7 +87,7 @@ return {
 	-- {zone:1412} Mulgore
 	["Copper: {zone:1412} (50-65) cont."] = "铜矿：{zone:1412}（50-65）续",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
-	["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "开采沿途每个铜矿（1，黄色）矿点，沿路径点循环，直到 {skill:186} 达到65。背包满时到熔炉旁熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1—10。提升这15点预计需开采约80个矿点。",
+	["Mine every Copper (1, yellow), Poor Copper (1, yellow, rare) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "开采沿途每个铜矿（1，黄色）和贫瘠铜矿（1，黄色，稀有）矿点，沿路径点循环，直到{skill:186}达到65。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。提升这15点预计需开采约80个矿点。",
 
 	-- Step 16: Copper & Poor Copper: Tirisfal Glades (50-65) cont.
 	-- {zone:1420} Tirisfal Glades
@@ -112,7 +110,6 @@ return {
 	["Tin: {zone:1440} (65-125)"] = "锡矿：{zone:1440}（65—125）",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "开采沿途每个铜矿（1，绿色）、锡矿（65，橙色）和银矿（75起，稀有），沿路径点循环，直到{skill:186}125。背包满时到熔炉熔炼：{spell:2657}（25前为橙色，70变灰）、{spell:3304}（75变灰）、{spell:2659}（115变灰）也能提升技能。每次{spell:2659}需要一个{item:2840}和一个{item:3576}：保留之前熔炼的锭。地区等级18-30。提升这60点预计需要约130个矿点。{spell:2658}（2银；100前为橙色，125变灰）75起可学：路过{skill:186}训练师时可以学，不值得专程跑一趟。",
-	["Tin, Silver"] = "锡矿、银矿",
 	["Tin"] = "锡矿",
 
 	-- Step 20: Copper & Tin: The Barrens (65-125)
@@ -140,14 +137,13 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "开采沿途所有锡矿（65，绿色）、次级血石矿（75，绿色）、银矿（75，绿色，稀有）和铁矿（125，橙色），沿路径点循环，直到{skill:186}155。背包满时去熔炉熔炼：{spell:3307}（130前为橙色，140变灰）也能提升技能。地区等级30-40。这30点预计需开采约50处矿点。",
 	["Iron, Tin"] = "铁矿、锡矿",
-	["Lesser Bloodstone, Silver"] = "次级血石矿、银矿",
+	["Lesser Bloodstone"] = "次级血石",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
 	["Iron: {zone:1417} (155-175)"] = "铁矿：{zone:1417}（155—175）",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node you pass and circle the waypoints until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 30-40. Expect about 40 nodes for these 20 points. {spell:3308} (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "开采沿途每个锡矿（65，绿色）、次级血石矿（75，绿色）、银矿（75，绿色，稀有）、铁矿（125，黄色）、金矿（155，橙色，稀有）矿点，沿路径点循环，直到 {skill:186} 达到175。背包满时到熔炉旁熔炼：{spell:3308}（170前为橙色，185变灰）也能提升技能。地区等级30—40。提升这20点预计需开采约40个矿点。{spell:3308}（25银币；170前为橙色，185变灰）在155点起可学：路过 {skill:186} 训练师时可以学习，不值得专程跑一趟。",
-	["Lesser Bloodstone, Gold"] = "次级血石、金矿",
 
 	-- Step 25: Mithril: Badlands (175-200)
 	-- {zone:1418} Badlands
@@ -204,6 +200,8 @@ return {
 	-- ["Copper: {zone:1420} (50-65) cont."] = "铜矿：{zone:1420}（50-65）续",
 	-- ["Copper: {zone:1426} (1-50)"] = "铜矿：{zone:1426}（1-50）",
 	-- ["Copper: {zone:1426} (50-65) cont."] = "铜矿：{zone:1426}（50-65）续",
+	-- ["Copper: {zone:1439} (1-50)"] = "铜矿：{zone:1439}（1-50）",
+	-- ["Copper: {zone:1439} (50-65) cont."] = "铜矿：{zone:1439}（50-65）续",
 	-- ["Expert {skill:186} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:186} trainer of your faction."] = "高级{skill:186}将上限提升到225；需要技能125和角色等级20。箭头会指向本阵营最近的{skill:186}训练师。",
 	-- ["Gold"] = "金矿石",
 	-- ["Gold & Mithril: {zone:1435} (175-200)"] = "金矿石和秘银矿脉：{zone:1435}（175-200）",
@@ -215,12 +213,18 @@ return {
 	-- ["Iron: {zone:1416} (125-155)"] = "铁矿石：{zone:1416}（125-155）",
 	-- ["Iron: {zone:1431} (125-155)"] = "铁矿石：{zone:1431}（125-155）",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "中级{skill:186}将上限提升到150；需要技能50和角色等级10。箭头会指向本阵营最近的{skill:186}训练师。",
+	-- ["Lesser Bloodstone, Gold"] = "次级血石、金矿",
+	-- ["Lesser Bloodstone, Silver"] = "次级血石矿、银矿",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "开采沿途所有铜矿（1，绿色）、锡矿（65，橙色）、银矿（75起），绕着路径点循环，直到{skill:186}达到125。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-20。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "开采沿途所有铜矿（1，绿色）、锡矿（65，橙色）、银矿（75起），绕着路径点循环，直到{skill:186}达到125。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-25。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "开采沿途所有铜矿（1，绿色）、锡矿（65，橙色）、银矿（75起），绕着路径点循环，直到{skill:186}达到125。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级15-25。",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "开采沿途所有铜矿（1，绿色）、锡矿（65，橙色）、银矿（75起），绕着路径点循环，直到{skill:186}达到125。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级20-30。",
+	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "开采沿途所有铜矿（1，橙色），沿路径点循环，直到{skill:186}50。背包满时去熔炉熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1-10。这49点预计需开采约60处矿点。",
+	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 60 nodes for these 49 points."] = "开采沿途每个铜矿（1，橙色）矿点，沿路径点循环，直到 {skill:186} 达到50。背包满时到熔炉旁熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级10—20。提升这49点预计需开采约60个矿点。",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "开采沿途所有铜矿（1，橙色），绕着路径点循环，直到{skill:186}达到50。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级1-10。",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "开采沿途所有铜矿（1，橙色），绕着路径点循环，直到{skill:186}达到50。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-20。",
+	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "开采沿途每个铜矿（1，黄色）矿点，沿路径点循环，直到 {skill:186} 达到65。背包满时到熔炉旁熔炼：{spell:2657}（25前为橙色，70变灰）也能提升技能。地区等级1—10。提升这15点预计需开采约80个矿点。",
+	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 80 nodes for these 15 points."] = "开采沿途所有铜矿（技能 1，黄色），沿路径点循环采矿，直到 {skill:186} 达到 65。背包满时到熔炉熔炼：{spell:2657}（25 前为橙色，70 变灰）也能提升技能。地区等级为 10-20 级。提升这 15 点预计需要开采约 80 个矿点。",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "开采沿途所有铜矿（1，黄色），绕着路径点循环，直到{skill:186}达到65。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级1-10。",
 	-- ["Mine every Copper (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "开采沿途所有铜矿（1，黄色），绕着路径点循环，直到{skill:186}达到65。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级10-20。",
 	-- ["Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until {skill:186} 275. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 45-55."] = "开采沿途所有金矿石（155，绿色）、秘银矿脉（175，绿色）、真银矿石（230，橙色）、瑟银矿脉（245，橙色），绕着路径点循环，直到{skill:186}达到275。背包满了就到熔炉熔炼矿石：熔炼也能提升{skill:186}。地区等级45-55。",
@@ -237,6 +241,7 @@ return {
 	-- ["Tin & Silver: {zone:1424} (65-125)"] = "锡矿和银矿：{zone:1424}（65-125）",
 	-- ["Tin & Silver: {zone:1433} (65-125)"] = "锡矿和银矿：{zone:1433}（65-125）",
 	-- ["Tin & Silver: {zone:1439} (65-125)"] = "锡矿和银矿：{zone:1439}（65-125）",
+	-- ["Tin, Silver"] = "锡矿、银矿",
 	-- ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "真银矿石和瑟银矿脉：{zone:1419}（245-275）",
 	-- ["Truesilver, {object:147516}"] = "真银矿石、{object:147516}",
 	-- ["{object:147516} & Truesilver: {zone:1427} (230-245)"] = "{object:147516}和真银矿石：{zone:1427}（230-245）",

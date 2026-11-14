@@ -2,7 +2,7 @@
 -- (docs/DESIGN.md, "Intent" and "The Guide Window"). From the top:
 --
 --   tab strip      one tab per open guide, + opens another
---   navigator      prev, "8 / 29", next, Skip, the bug (UI/Report.lua), menu
+--   navigator      prev, "8 / 29", next, Skip, Nearby, the bug, Lookup, menu
 --   banner         why the guide skipped a quest / out-levelled / training due
 --   focus          the person to talk to now: icon, name in NPC colour, where;
 --                  under it that person's open goals, one line each, the
@@ -29,6 +29,28 @@
 -- and `focus`, docs/ARCHITECTURE.md "Focus: one person at a time"); without
 -- groups the whole step is one group.
 --
+-- One window's code, any number of windows. Every GuideFrame*.lua file adds
+-- its part with GF.Part(fn) as UI.xml loads it, and fn(GF) builds that part
+-- into the window table GF: at once for the live window (UI.GuideFrame,
+-- GF.live), then again, part by part in the same order, for each copy
+-- GF.Copy(parent, content) makes (the settings preview's, UI/Looks/
+-- GuideWindow.lua). A copy is unnamed, in `parent`, takes no clicks, wheel or
+-- tooltip (only the pointer's hover, for the look the window has under it),
+-- has no event, message, setting or hook of its own, and none of the frames
+-- other modules put in the live window (the class card, the journey, the step
+-- browser, name targets, gear picks), nor its banner, timers or party line.
+-- Its host draws it with copy.Draw() and places copy.frame.
+--
+-- What a window draws is one small interface (GF.CONTENT): the Engine's read
+-- API it draws a step from (GetGuide, GetTabs, GetStepIndex, GetLiveStep,
+-- GetStepCount, GetStepView, StepNumber, StepTotal, GetProgress, GetAlong,
+-- GetWhileHereList; a gate, notice or action it lacks is nothing to show or
+-- do) and the lines other modules work out from it: StepHint(i) and Pace()
+-- (Core/Levels.lua), XPStats() and RestParts() (QoL), Target() (where the
+-- arrow points: Nav, else the Engine's waypoint). The live window reads the
+-- Engine and those modules straight (GF.Engine(), GF.Derived()); a copy, its
+-- host's provider of the whole interface (copy.content).
+--
 -- Styles (ui.style): "standard" draws the night ground (Theme.GroundAlpha,
 -- ui.bgOpacity, like every Polestar window), hairline border and the
 -- night-sky band behind the tabs and navigator. "transparent" draws no fills
@@ -47,278 +69,497 @@
 -- the arrow's target mark, the current goal's glyph, primary buttons, the
 -- progress fill). Other glyphs sit in textDim, counters in text (success
 -- once complete; UI.GoalLine), tooltip ids in textMuted. No colour literals:
--- everything reads Theme tokens and repaints on a scheme change.
+-- everything reads Theme tokens and repaints on a scheme change. The player
+-- may give the target mark and the progress fill colours of their own, and
+-- this window its own ground and border (GF.LOOK, Options > Guide window).
 --
 -- Rows are pooled and filled in place, so STEP_UPDATED (a kill, a loot)
 -- repaints existing rows instead of rebuilding anything. Nothing runs per
 -- frame except a short tween (Polestar.Anim), a goal folding away (one
 -- driver for every fold, stopped when none is left), an active drag-resize,
--- the name-target hitbox position watch, or the transparent window's hover
--- watch.
+-- the name-target hitbox position watch, or the hover watch while the cursor
+-- is on a transparent window or one that fades when it leaves
+-- (guideWindow.idleAlpha).
 
 local ADDON, ns = ...
-local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
-local L = ns.L
-local floor, max, min, abs, type, ipairs = math.floor, math.max, math.min, math.abs, type, ipairs
 
--- The window's sizes: the house style's here, a skin's from Theme.Metric
--- (readMetrics, on build and on a skin change).
-local PAD = 14
-local TAB_H = 28
-local NAV_H = 34
-local PROG_H = 26
-local ICON = 15
-local TEXT_X = PAD + ICON + 10
-local ROW_MIN = 24
-local CHECK = 18
--- A goal row's extra room above and below its lines, and its tick box's
--- extra inset from the edge (a skin with a framed lit goal: WoW Forever).
-local ROW_PAD = 0
-local CHECK_IN = 0
-local CHECK_MID = false -- the tick box on the row's middle, not its first line
-local UP_ROW = 24
-local UP_TOGGLE = 30
-local COMBAT_ALPHA = 0.35
--- A step's picture in the opened tip: never taller than this, and drawn
--- 2:1 when its pack gave no size (512x256, a common screenshot texture).
-local PICTURE_MAX_H = 160
-local PICTURE_ASPECT = 2
-
--- A goal row's tick box: at the right of its first line, or (CHECK_MID) of
--- its middle.
-local function placeCheck(r)
-	r.Check:ClearAllPoints()
-	if CHECK_MID then
-		r.Check:SetPoint("RIGHT", r, "RIGHT", -(PAD - 3 + CHECK_IN), 0)
-	else
-		r.Check:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(PAD - 3 + CHECK_IN), -3 - ROW_PAD)
-	end
+-- The live window's table, and every file's part in load order.
+local GF, partsOf = { live = true }, {}
+ns.UI.GuideFrame = GF
+function GF.Part(fn)
+	partsOf[#partsOf + 1] = fn
+	fn(GF)
+end
+-- A copy of the window, unnamed, in `parent`, drawing `content` (a provider
+-- of GF.CONTENT): built, not drawn. -> its table (copy.frame, copy.parts,
+-- copy.rows, ... as the live window's)
+function GF.Copy(parent, content)
+	local copy = { live = false, parent = parent, content = content }
+	for _, fn in ipairs(partsOf) do fn(copy) end
+	copy.Build()
+	return copy
 end
 
-local function readMetrics()
-	PAD = Theme.Metric("guidePad", 14)
-	TAB_H = Theme.Metric("guideTabs", 28)
-	NAV_H = Theme.Metric("guideNav", 34)
-	PROG_H = Theme.Metric("guideFoot", 26)
-	TEXT_X = PAD + ICON + Theme.Metric("guideIconGap", 10)
-	ROW_MIN = Theme.Metric("guideRow", 24)
-	CHECK = Theme.Metric("guideCheck", 18)
-	ROW_PAD = Theme.Metric("guideRowPad", 0)
-	CHECK_IN = Theme.Metric("guideCheckIn", 0)
-	CHECK_MID = Theme.Metric("guideCheckMiddle", false) and true or false
-	UP_ROW = Theme.Metric("guideUpRow", 24)
-	UP_TOGGLE = Theme.Metric("guideUpToggle", 30)
-end
-local TAB_MAX_W = 150
+GF.Part(function(GF)
+	local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
+	local L = ns.L
+	local floor, max, min, abs, type, ipairs = math.floor, math.max, math.min, math.abs, type, ipairs
 
-local GF = {}
-UI.GuideFrame = GF
+	-- The window's sizes: the house style's here, a skin's from Theme.Metric
+	-- (readMetrics, on build and on a skin change).
+	local PAD = 14
+	local TAB_H = 28
+	local NAV_H = 34
+	local PROG_H = 26
+	local ICON = 15
+	local TEXT_X = PAD + ICON + 10
+	local ROW_MIN = 24
+	local CHECK = 18
+	-- A goal row's extra room above and below its lines, and its tick box's
+	-- extra inset from the edge (a skin with a framed lit goal: WoW Forever).
+	local ROW_PAD = 0
+	local CHECK_IN = 0
+	local CHECK_MID = false -- the tick box on the row's middle, not its first line
+	local UP_ROW = 24
+	local UP_TOGGLE = 30
+	-- A step's picture in the opened tip: never taller than this, and drawn
+	-- 2:1 when its pack gave no size (512x256, a common screenshot texture).
+	local PICTURE_MAX_H = 160
+	local PICTURE_ASPECT = 2
 
-local F, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot, goals
-local rows, upRows, alongRows, tabButtons, lines = {}, {}, {}, {}, {}
-GF.rows, GF.upRows, GF.alongRows, GF.tabs, GF.lines = rows, upRows, alongRows, tabButtons, lines -- the pools, for inspection (tests, preview)
-local view -- the step view on screen
-local focusGroup -- the group on screen
-local shownIndex, shownGuide, shownFocus -- what the card shows, to tell a change from an update
-local tipOpen = false
-local inCombat = false
-local inInstance, openInside = false, false -- in a dungeon or raid; opened there by the player
-local shownOnEntry = false -- ui.shown when this visit began
-local state = "none" -- "steps" | "noguides" | "noguide" | "notyet" | "away" | "complete" | "skippedout"
-local texts = {} -- every string the window draws, for transparent-mode outlines
-local chrome = {} -- frames that hide in transparent mode until hovered
-
-local function Engine() return ns.Engine end
-local function compact() return ns.Get("ui.compact") and true or false end
-local function transparent() return ns.Get("ui.style") == "transparent" end
-
--- A string that follows the window's style (outlined when transparent).
-local function T(parent, role, color, layer)
-	local fs = W.Text(parent, role, color, layer)
-	texts[#texts + 1] = fs
-	if F and transparent() then Theme.SetOutline(fs, true) end
-	return fs
-end
-GF.Text = T -- for the panels other files place in the window (UI/JourneyPanel.lua)
-
----------------------------------------------------------------------------
--- Targets and tooltips
----------------------------------------------------------------------------
-
--- Where the arrow points. With Nav loaded its answer is final: nil means the
--- player dismissed the target, so nothing is marked. Only without Nav does
--- the Engine's waypoint stand in.
-local function targetOf()
-	local nav = ns.Nav
-	if nav and nav.GetTarget then return nav.GetTarget() end
-	local E = Engine()
-	return E and E.GetWaypoint and E.GetWaypoint() or nil
-end
-
-local function isTarget(p, t)
-	if not (t and p and p.x and p.map) then return false end
-	return t.map == p.map and abs((t.x or -1) - p.x) < 0.05 and abs((t.y or -1) - p.y) < 0.05
-end
-
-local function tooltipAnchor()
-	local x = F:GetCenter()
-	local sw = UIParent:GetWidth()
-	return (x and sw and x * F:GetEffectiveScale() > sw * UIParent:GetEffectiveScale() / 2) and "ANCHOR_LEFT" or "ANCHOR_RIGHT"
-end
-GF.TooltipAnchor = tooltipAnchor
-
-local function goalTooltip(row)
-	local goal = row.psGoal
-	if not goal then return end
-	local lines = {}
-	local id = "  |c" .. Theme.Hex("textMuted") .. "#"
-	local detail = UI.GoalDetail(goal)
-	if detail then lines[#lines + 1] = detail end
-	if goal.quest then
-		local title = UI.QuestTitle(goal.quest) or (goal.subjectKind == "quest" and goal.subject) or nil
-		lines[#lines + 1] = { left = L["Quest"], right = title and (title .. id .. goal.quest .. "|r") or ("#" .. goal.quest) }
-		local new = ns.NewQuests and ns.NewQuests.TooltipText(goal.quest)
-		if new then lines[#lines + 1] = { new, Theme.Accent() } end
-	end
-	if goal.npc then
-		local name = goal.subjectKind == "npc" and goal.subject or goal.npcName
-		lines[#lines + 1] = { left = L["NPC"], right = name and (name .. id .. goal.npc .. "|r") or ("#" .. goal.npc) }
-	end
-	if goal.item then
-		local name = goal.subjectKind == "item" and goal.subject or nil
-		lines[#lines + 1] = { left = L["Item"], right = name and (name .. id .. goal.item .. "|r") or ("#" .. goal.item) }
-	end
-	if goal.map and goal.x then
-		lines[#lines + 1] = { left = L["Location"], right = string.format("%s  %.1f, %.1f", UI.MapName(goal.map) or "", goal.x, goal.y) }
-	end
-	-- An accept: the level the quest needs (red while the character is below
-	-- it) and the prerequisites not handed in yet (Engine.AcceptGate, #1247).
-	local E = Engine()
-	local gate = goal.t == "accept" and view and E and E.AcceptGate and E.AcceptGate(view.index, goal.index)
-	if gate then
-		if gate.level then
-			local text = L["Requires level %d"]:format(gate.level)
-			lines[#lines + 1] = { left = L["Level"], right = gate.short and ("|c" .. Theme.Hex("danger") .. text .. "|r") or text }
-		end
-		if #gate.needs > 0 then
-			lines[#lines + 1] = { left = L["Needs"], right = "|c" .. Theme.Hex("danger") .. table.concat(gate.needs, ", ") .. "|r" }
+	-- A goal row's tick box: at the right of its first line, or (CHECK_MID) of
+	-- its middle.
+	local function placeCheck(r)
+		r.Check:ClearAllPoints()
+		if CHECK_MID then
+			r.Check:SetPoint("RIGHT", r, "RIGHT", -(PAD - 3 + CHECK_IN), 0)
+		else
+			r.Check:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(PAD - 3 + CHECK_IN), -3 - ROW_PAD)
 		end
 	end
-	local rewards = UI.GoalRewards(goal)
-	if rewards then lines[#lines + 1] = { left = L["Reward"], right = rewards } end
-	-- What the quest opens up: what skipping it gives up (UI.UnlockLines).
-	if goal.quest and not (goal.t == "turnin" and goal.status == "done") then UI.UnlockLines(goal.quest, lines) end
-	if goal.skippedWith then lines[#lines + 1] = L["Left out because you skipped %s"]:format(ns.Quoted(goal.skippedWith)) end
-	local p = goal.progress
-	if type(p) == "table" and p.kind == "skill" and p.max then
-		lines[#lines + 1] = { left = L["Skill"], right = string.format("%s%d/%d", p.label and (p.label .. "  ") or "", p.cur or 0, p.max) }
-	elseif type(p) == "table" and p.kind == "rep" and p.max then
-		local right = string.format("%s%d/%d", p.label and (p.label .. "  ") or "", p.cur or 0, p.max)
-		if goal.standingName then right = right .. "  \226\128\186  " .. goal.standingName end
-		lines[#lines + 1] = { left = L["Reputation"], right = right }
-	else
-		local text = UI.GoalProgress(goal)
-		if text then lines[#lines + 1] = { left = L["Progress"], right = text } end
+
+	-- The skin's sizes, then the player's own on top of them (Options > Guide
+	-- window, UI/Looks/GuideWindow.lua: guideWindow.*; at their defaults the
+	-- skin's sizes stand as they are).
+	local function readMetrics()
+		local function k(key) return tonumber(ns.Get("guideWindow." .. key)) or 1 end
+		local function px(key) return tonumber(ns.Get("guideWindow." .. key)) or 0 end
+		PAD = max(4, Theme.Metric("guidePad", 14) + px("padding"))
+		TAB_H = floor(Theme.Metric("guideTabs", 28) * k("tabHeight") + 0.5)
+		NAV_H = floor(Theme.Metric("guideNav", 34) * k("navHeight") + 0.5)
+		PROG_H = Theme.Metric("guideFoot", 26)
+		ICON = floor(15 * k("glyphSize") + 0.5)
+		TEXT_X = PAD + ICON + Theme.Metric("guideIconGap", 10)
+		ROW_MIN = Theme.Metric("guideRow", 24)
+		CHECK = floor(Theme.Metric("guideCheck", 18) * k("checkSize") + 0.5)
+		ROW_PAD = Theme.Metric("guideRowPad", 0) + px("rowSpacing")
+		CHECK_IN = Theme.Metric("guideCheckIn", 0)
+		CHECK_MID = Theme.Metric("guideCheckMiddle", false) and true or false
+		UP_ROW = floor(Theme.Metric("guideUpRow", 24) * k("upSize") + 0.5)
+		UP_TOGGLE = floor(Theme.Metric("guideUpToggle", 30) * k("upSize") + 0.5)
 	end
-	if goal.spell then lines[#lines + 1] = { left = L["Spell"], right = "#" .. goal.spell } end
-	if goal.achievement then
-		lines[#lines + 1] = { left = L["Achievement"], right = "#" .. goal.achievement .. (goal.criteria and ("  \194\183  " .. L["criterion"] .. " " .. goal.criteria) or "") }
+	local TAB_MAX_W = 150
+
+	-- The XP row's height, what its Boosted Rest line adds below a gap, and
+	-- its icon's offset beside the first of two lines.
+	GF.XPROW = { h = 28, restH = 16, gap = 3, iconY = 6 }
+
+	local F, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot, goals
+	local rows, upRows, alongRows, tabButtons, lines = {}, {}, {}, {}, {}
+	GF.rows, GF.upRows, GF.alongRows, GF.tabs, GF.lines = rows, upRows, alongRows, tabButtons, lines -- the pools, for inspection (tests, preview)
+	local view -- the step view on screen
+	local focusGroup -- the group on screen
+	local shownIndex, shownGuide, shownFocus -- what the card shows, to tell a change from an update
+	local tipOpen = false
+	local state = "none" -- "steps" | "noguides" | "noguide" | "notyet" | "away" | "complete" | "skippedout"
+	local texts = {} -- every string the window draws, for transparent-mode outlines
+	local chrome = {} -- frames that hide in transparent mode until hovered
+
+	-- The other GuideFrame*.lua files (UI.xml loads them after this one) keep
+	-- the window's parts and sizes as their own locals: GF.Bind(fn) calls
+	-- fn(parts, sizes) when the file binds, once the parts exist (build) and
+	-- again whenever a skin changes the sizes (GF.ReadMetrics).
+	local bound, handed = {}, { parts = {}, sizes = {} }
+	local function current()
+		local p, m = handed.parts, handed.sizes
+		p.F, p.strip, p.nav, p.body, p.card, p.person = F, strip, nav, body, card, person
+		p.after, p.along, p.upnext, p.empty, p.grip, p.band = after, along, upnext, empty, grip, band
+		p.banner, p.foot, p.goals = banner, foot, goals
+		m.PAD, m.TAB_H, m.NAV_H, m.PROG_H, m.ICON, m.TEXT_X = PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X
+		m.ROW_MIN, m.CHECK, m.ROW_PAD, m.CHECK_IN, m.CHECK_MID, m.UP_ROW = ROW_MIN, CHECK, ROW_PAD, CHECK_IN, CHECK_MID, UP_ROW
+		m.UP_TOGGLE, m.PICTURE_MAX_H, m.PICTURE_ASPECT, m.TAB_MAX_W = UP_TOGGLE, PICTURE_MAX_H, PICTURE_ASPECT, TAB_MAX_W
+		return p, m
 	end
-	if type(goal.alternatives) == "number" and goal.alternatives > 0 then
-		lines[#lines + 1] = goal.alternatives == 1 and L["1 other nearby; the arrow button switches to it."]
-			or string.format(L["%d others nearby; the arrow button switches to the next."], goal.alternatives)
-	elseif type(goal.spots) == "number" and goal.spots > 1 then
-		lines[#lines + 1] = string.format(L["%d spawn spots; the arrow button (or a click on the arrow) moves to the next."], goal.spots)
+	local function handOver()
+		local p, m = current()
+		for i = 1, #bound do bound[i](p, m) end
 	end
-	local ar, ag, ab = Theme.Accent()
-	if goal.x and goal.map and ns.Nav and ns.Nav.SetTarget then
-		lines[#lines + 1] = { L["Click to point the arrow here"], ar, ag, ab }
+	-- fn has the parts and sizes as they are now at once, as every file had
+	-- before the split (the house sizes until a skin's are read).
+	function GF.Bind(fn)
+		bound[#bound + 1] = fn
+		fn(current())
 	end
-	if goal.unavailable == "skipped" then
-		lines[#lines + 1] = { L["Right-click to bring this quest back"], ar, ag, ab }
-	elseif goal.quest and goal.status ~= "done" then
-		lines[#lines + 1] = { L["Right-click to tick it done or skip this quest"], ar, ag, ab }
-	elseif goal.tickable and goal.status ~= "skipped" then
-		if goal.ticked then
-			lines[#lines + 1] = { L["Right-click to untick"], ar, ag, ab }
-		elseif goal.status ~= "done" then
-			lines[#lines + 1] = { L["Right-click to tick it done"], ar, ag, ab }
+
+	-- The window's content (the top of this file). The live window asks the
+	-- Engine as it is when asked (a test may stand another in its place) and,
+	-- for the five lines worked out from it, their modules (DERIVED), straight:
+	-- its step change pays nothing for the interface. A copy reads its host's
+	-- provider for both (copy.content). A host may hand the live window a
+	-- provider too (GF.UseContent(content); nil: the Engine again).
+	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
+		"GetProgress", "GetAlong", "GetWhileHereList", "StepHint", "Pace", "XPStats", "RestParts", "Target" }
+	local DERIVED = GF.live and {
+		StepHint = function(i)
+			local Lv = ns.Levels
+			return Lv and Lv.StepHint and Lv.StepHint(i) or nil
+		end,
+		Pace = function()
+			local Lv = ns.Levels
+			return Lv and Lv.Pace and Lv.Pace() or nil
+		end,
+		XPStats = function()
+			local Q = ns.QoL
+			if not (Q and Q.GetXPStats) then return nil end
+			local ok, stats = pcall(Q.GetXPStats)
+			return ok and stats or nil
+		end,
+		RestParts = function()
+			local Q = ns.QoL
+			return Q and Q.Rest and Q.Rest.Parts and Q.Rest.Parts() or nil
+		end,
+		-- Where the arrow points. With Nav loaded its answer is final: nil
+		-- means the player dismissed the target, so nothing is marked. Only
+		-- without Nav does the Engine's waypoint stand in.
+		Target = function()
+			local nav, E = ns.Nav, ns.Engine
+			if nav and nav.GetTarget then return nav.GetTarget() end
+			return E and E.GetWaypoint and E.GetWaypoint() or nil
+		end,
+	} or nil
+	local provider = GF.content
+	local function Engine() return provider or ns.Engine end
+	local function Derived() return provider or DERIVED end
+	function GF.UseContent(c)
+		provider, GF.content = c, c
+	end
+	local function compact() return ns.Get("ui.compact") and true or false end
+	local function transparent() return ns.Get("ui.style") == "transparent" end
+
+	-- A string that follows the window's style (outlined when transparent).
+	local function T(parent, role, color, layer)
+		local fs = W.Text(parent, role, color, layer)
+		texts[#texts + 1] = fs
+		if F and transparent() then Theme.SetOutline(fs, GF.Outline()) end
+		return fs
+	end
+	GF.Text = T -- for the panels other files place in the window (UI/JourneyPanel.lua)
+
+	---------------------------------------------------------------------------
+	-- The player's look for this window (Options > Guide window, UI/Looks/
+	-- GuideWindow.lua): sizes (readMetrics), text sizes per element, the
+	-- transparent style's outline, the target bar, the progress line, its own
+	-- ground and border, fading while the cursor is away, motion. Every default
+	-- leaves the window exactly as the skin draws it.
+	---------------------------------------------------------------------------
+
+	GF.LOOK = {
+		tabs = true, tabHeight = 1, navHeight = 1, stepCount = true, guideTitle = true, skipButton = true, reportButton = true,
+		barTextSize = 1, titleSize = 1, goalSize = 1, detailSize = 1, noteSize = 1, upSize = 1,
+		outline = "outline", padding = 0, rowSpacing = 0, lineSpacing = 0, glyphSize = 1, checkSize = 1,
+		targetBar = true, targetBarColor = false, targetBarWidth = 2,
+		progress = true, progressPct = true, progressHeight = 3, progressColor = false,
+		bgColor = false, bgOpacity = false, border = true, idleAlpha = 1, combatAlpha = 0.35, veil = 0.68, shade = 0.2,
+		stepAnim = true, animSpeed = 1, foldAnim = true, rules = true, hideTaxi = false,
+	}
+	if GF.live then ns.RegisterDefaults("guideWindow", GF.LOOK) end
+
+	function GF.On(key) return ns.Get("guideWindow." .. key) ~= false end
+	function GF.Num(key) return tonumber(ns.Get("guideWindow." .. key)) or GF.LOOK[key] end
+	-- A colour setting: r, g, b, or nil to follow the theme.
+	function GF.Rgb(key)
+		local c = ns.Get("guideWindow." .. key)
+		if type(c) == "table" and type(c[1]) == "number" then return c[1], c[2], c[3] end
+		return nil
+	end
+
+	-- The transparent style's outline (guideWindow.outline): true (thin),
+	-- "thick", or false (the drop shadow alone).
+	function GF.Outline()
+		local o = ns.Get("guideWindow.outline")
+		if o == "thick" then return "thick" end
+		return o ~= "shadow"
+	end
+
+	-- Strings the player sizes by element: group -> its setting. GF.sized:
+	-- fontString -> group; GF.spaced: fontString -> its own line spacing (wrapped
+	-- lines, guideWindow.lineSpacing on top); GF.sizedAt: what was applied, so an
+	-- untouched string is never painted again.
+	GF.SIZE_KEYS = { title = "titleSize", goal = "goalSize", detail = "detailSize", note = "noteSize", up = "upSize", bar = "barTextSize" }
+	GF.sized = setmetatable({}, { __mode = "k" })
+	GF.spaced = setmetatable({}, { __mode = "k" })
+	GF.sizedAt = setmetatable({}, { __mode = "k" })
+
+	function GF.SizeOne(fs)
+		local group = GF.sized[fs]
+		local k = group and GF.Num(GF.SIZE_KEYS[group]) or 1
+		local gap = GF.Num("lineSpacing")
+		local at = GF.sizedAt[fs]
+		if (at and (at[1] ~= k or at[2] ~= gap)) or (not at and (k ~= 1 or gap ~= 0)) then
+			if Theme.SetFontScale then Theme.SetFontScale(fs, k) end
+			local base = GF.spaced[fs]
+			if base and fs.SetSpacing then fs:SetSpacing(base + gap) end
+			GF.sizedAt[fs] = { k, gap }
 		end
 	end
-	if goal.optional and goal.status ~= "done" then
-		lines[#lines + 1] = goal.dismissed and L["Skipped. Undo brings it back."] or L["Optional: not needed for the route. Skip it if you pass on it."]
+
+	-- fs sized as `group`; `spacing`: its own line spacing when its lines wrap.
+	function GF.SizeAs(fs, group, spacing)
+		GF.sized[fs] = group
+		if spacing then GF.spaced[fs] = spacing end
+		GF.SizeOne(fs)
+		return fs
 	end
-	W.Tooltip(row, tooltipAnchor(), goal.text or "", lines)
-end
 
--- `p`: a goal's or group's place from the step view, its height `z` included.
-local function pointAt(p, label)
-	local nav = ns.Nav
-	if p and p.x and p.map and nav and nav.SetTarget then
-		nav.SetTarget(p.map, p.x, p.y, label, p.f, nil, p.z)
-		GF.UpdateTargets()
+	function GF.ApplyFonts()
+		for fs in pairs(GF.sized) do GF.SizeOne(fs) end
 	end
-end
 
----------------------------------------------------------------------------
--- Goal rows
----------------------------------------------------------------------------
+	-- The arrow's target on a goal or the person: a bar at the row's edge in
+	-- the accent (or the player's colour), guideWindow.targetBarWidth wide;
+	-- turned off it stays laid out, unseen. In the house look the row is lit as
+	-- well (t.psLit, GF.ShowMark): the bar's colour at the house's `lit` share,
+	-- fading out across the row; off with the bar and in the transparent style,
+	-- which draws no fills.
+	function GF.PaintMark(t)
+		local r, g, b = GF.Rgb("targetBarColor")
+		if r then t:SetVertexColor(r, g, b, 1) else t:SetVertexColor(Theme.Color("accent")) end
+		t:SetWidth(GF.Num("targetBarWidth"))
+		t:SetAlpha(GF.On("targetBar") and 1 or 0)
+		local lit = t.psLit
+		if not lit then return end
+		if not r then r, g, b = Theme.Color("accent") end
+		local a = GF.On("targetBar") and not transparent() and Theme.House("lit") or 0
+		if lit.SetGradient and CreateColor then
+			lit:SetVertexColor(1, 1, 1, 1)
+			lit:SetGradient("HORIZONTAL", CreateColor(r, g, b, a), CreateColor(r, g, b, 0))
+		else
+			lit:SetVertexColor(r, g, b, a * 0.6)
+		end
+	end
 
--- Tick the row's goal done, or untick it (any goal but a note).
-local function toggleGoal(row)
-	local E, goal = Engine(), row.psGoal
-	if E and E.ToggleGoal and goal and goal.tickable and view then E.ToggleGoal(view.index, goal.index) end
-end
+	-- Shows or hides row r's (or the person's) target bar, and its light in the
+	-- house look, made on the first mark there (not at login), over the bar's
+	-- height to the row's right edge.
+	function GF.ShowMark(r, on)
+		on = on and true or false
+		local mark = r.Mark
+		mark:SetShown(on)
+		local lit = mark.psLit
+		if on and not lit and Theme.House("lit") then
+			lit = r:CreateTexture(nil, "BACKGROUND", nil, 1)
+			lit:SetTexture(Theme.Media("white"))
+			local _, _, _, _, top = mark:GetPoint(1)
+			local _, _, _, _, bottom = mark:GetPoint(2)
+			lit:SetPoint("TOPLEFT", r, "TOPLEFT", 0, top)
+			lit:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", 0, bottom)
+			mark.psLit = lit
+			GF.PaintMark(mark)
+		end
+		if lit then lit:SetShown(on) end
+	end
 
--- Skip an optional goal, or bring it back; a quest the player skipped comes
--- back (its accept's Undo).
-local function skipGoal(row)
-	local E, goal = Engine(), row.psGoal
-	if not (E and goal and view) then return end
-	if goal.unavailable == "skipped" and E.SkipQuest then return E.SkipQuest(goal.quest, false) end
-	if E.SkipGoal and goal.optional then E.SkipGoal(view.index, goal.index) end
-end
+	-- The guide's progress fill: the accent, or the player's colour.
+	function GF.PaintProgressFill(t)
+		local r, g, b = GF.Rgb("progressColor")
+		if r then t:SetVertexColor(r, g, b, 1) else t:SetVertexColor(Theme.Color("accent")) end
+	end
 
--- A quest's line, right-clicked: tick this goal done (or untick it), or skip
--- the whole quest and what follows from it (Engine.SkipQuest), or bring a
--- skipped quest back.
-local function rowMenu(row)
-	local E, goal = Engine(), row.psGoal
-	if not (E and goal and goal.quest and E.SkipQuest) then return false end
-	if goal.unavailable == "skipped" then
-		E.SkipQuest(goal.quest, false)
+	-- The goal glyph's centre below a row's top: on the first line of its text,
+	-- which grows with guideWindow.goalSize (14 at 100 %).
+	function GF.GlyphY()
+		return 12 + ROW_PAD + floor((GF.Num("goalSize") - 1) * 7 + 0.5)
+	end
+
+	-- How long a transition of `d` seconds takes at guideWindow.animSpeed.
+	function GF.Dur(d)
+		return d / max(0.25, GF.Num("animSpeed"))
+	end
+
+	---------------------------------------------------------------------------
+	-- Targets and tooltips
+	---------------------------------------------------------------------------
+
+	-- Where the arrow points, as the window's content says (its Target line).
+	local function targetOf()
+		local d = Derived()
+		return d.Target and d.Target() or nil
+	end
+
+	local function isTarget(p, t)
+		if not (t and p and p.x and p.map) then return false end
+		return t.map == p.map and abs((t.x or -1) - p.x) < 0.05 and abs((t.y or -1) - p.y) < 0.05
+	end
+
+	local function tooltipAnchor()
+		local x = F:GetCenter()
+		local sw = UIParent:GetWidth()
+		return (x and sw and x * F:GetEffectiveScale() > sw * UIParent:GetEffectiveScale() / 2) and "ANCHOR_LEFT" or "ANCHOR_RIGHT"
+	end
+	GF.TooltipAnchor = tooltipAnchor
+
+	local function goalTooltip(row)
+		local goal = row.psGoal
+		if not goal then return end
+		local lines = {}
+		local id = "  |c" .. Theme.Hex("textMuted") .. "#"
+		local detail = UI.GoalDetail(goal)
+		if detail then lines[#lines + 1] = detail end
+		if goal.quest then
+			local title = UI.QuestTitle(goal.quest) or (goal.subjectKind == "quest" and goal.subject) or nil
+			lines[#lines + 1] = { left = L["Quest"], right = title and (title .. id .. goal.quest .. "|r") or ("#" .. goal.quest) }
+			local new = ns.NewQuests and ns.NewQuests.TooltipText(goal.quest)
+			if new then lines[#lines + 1] = { new, Theme.Accent() } end
+			-- A dungeon's quest, or one of the nearest prerequisites before one (Dungeons/Mark.lua).
+			local dungeon = ns.Dungeons and ns.Dungeons.MarkTooltip and ns.Dungeons.MarkTooltip(goal.quest)
+			if dungeon then lines[#lines + 1] = { dungeon, Theme.Accent() } end
+		end
+		if goal.npc then
+			local name = goal.subjectKind == "npc" and goal.subject or goal.npcName
+			lines[#lines + 1] = { left = L["NPC"], right = name and (name .. id .. goal.npc .. "|r") or ("#" .. goal.npc) }
+		end
+		if goal.item then
+			local name = goal.subjectKind == "item" and goal.subject or nil
+			lines[#lines + 1] = { left = L["Item"], right = name and (name .. id .. goal.item .. "|r") or ("#" .. goal.item) }
+		end
+		if goal.map and goal.x then
+			lines[#lines + 1] = { left = L["Location"], right = string.format("%s  %.1f, %.1f", UI.MapName(goal.map) or "", goal.x, goal.y) }
+		end
+		-- An accept: the level the quest needs (red while the character is below
+		-- it) and the prerequisites not handed in yet (Engine.AcceptGate, #1247).
+		local E = Engine()
+		local gate = goal.t == "accept" and view and E and E.AcceptGate and E.AcceptGate(view.index, goal.index)
+		if gate then
+			if gate.level then
+				local text = L["Requires level %d"]:format(gate.level)
+				lines[#lines + 1] = { left = L["Level"], right = gate.short and ("|c" .. Theme.Hex("danger") .. text .. "|r") or text }
+			end
+			if #gate.needs > 0 then
+				lines[#lines + 1] = { left = L["Needs"], right = "|c" .. Theme.Hex("danger") .. table.concat(gate.needs, ", ") .. "|r" }
+			end
+		end
+		local rewards = UI.GoalRewards(goal)
+		if rewards then lines[#lines + 1] = { left = L["Reward"], right = rewards } end
+		-- What the quest opens up: what skipping it gives up (UI.UnlockLines).
+		if goal.quest and not (goal.t == "turnin" and goal.status == "done") then UI.UnlockLines(goal.quest, lines) end
+		if goal.skippedWith then lines[#lines + 1] = L["Left out because you skipped %s"]:format(ns.Quoted(goal.skippedWith)) end
+		local p = goal.progress
+		if type(p) == "table" and p.kind == "skill" and p.max then
+			lines[#lines + 1] = { left = L["Skill"], right = string.format("%s%d/%d", p.label and (p.label .. "  ") or "", p.cur or 0, p.max) }
+		elseif type(p) == "table" and p.kind == "rep" and p.max then
+			local right = string.format("%s%d/%d", p.label and (p.label .. "  ") or "", p.cur or 0, p.max)
+			if goal.standingName then right = right .. "  \226\128\186  " .. goal.standingName end
+			lines[#lines + 1] = { left = L["Reputation"], right = right }
+		else
+			local text = UI.GoalProgress(goal)
+			if text then lines[#lines + 1] = { left = L["Progress"], right = text } end
+		end
+		if goal.spell then lines[#lines + 1] = { left = L["Spell"], right = "#" .. goal.spell } end
+		if goal.achievement then
+			lines[#lines + 1] = { left = L["Achievement"], right = "#" .. goal.achievement .. (goal.criteria and ("  \194\183  " .. L["criterion"] .. " " .. goal.criteria) or "") }
+		end
+		if type(goal.alternatives) == "number" and goal.alternatives > 0 then
+			lines[#lines + 1] = goal.alternatives == 1 and L["1 other nearby; the arrow button switches to it."]
+				or string.format(L["%d others nearby; the arrow button switches to the next."], goal.alternatives)
+		elseif type(goal.spots) == "number" and goal.spots > 1 then
+			lines[#lines + 1] = string.format(L["%d spawn spots; the arrow button (or a click on the arrow) moves to the next."], goal.spots)
+		end
+		local ar, ag, ab = Theme.Accent()
+		if goal.x and goal.map and ns.Nav and ns.Nav.SetTarget then
+			lines[#lines + 1] = { L["Click to point the arrow here"], ar, ag, ab }
+		end
+		if goal.unavailable == "skipped" then
+			lines[#lines + 1] = { L["Right-click to bring this quest back"], ar, ag, ab }
+		elseif goal.quest and goal.status ~= "done" then
+			lines[#lines + 1] = { L["Right-click to tick it done or skip this quest"], ar, ag, ab }
+		elseif goal.tickable and goal.status ~= "skipped" then
+			if goal.ticked then
+				lines[#lines + 1] = { L["Right-click to untick"], ar, ag, ab }
+			elseif goal.status ~= "done" then
+				lines[#lines + 1] = { L["Right-click to tick it done"], ar, ag, ab }
+			end
+		end
+		if goal.optional and goal.status ~= "done" then
+			lines[#lines + 1] = goal.dismissed and L["Skipped. Undo brings it back."] or L["Optional: not needed for the route. Skip it if you pass on it."]
+		end
+		W.Tooltip(row, tooltipAnchor(), goal.text or "", lines)
+	end
+
+	-- `p`: a goal's or group's place from the step view, its height `z` included.
+	local function pointAt(p, label)
+		local nav = ns.Nav
+		if p and p.x and p.map and nav and nav.SetTarget then
+			nav.SetTarget(p.map, p.x, p.y, label, p.f, nil, p.z)
+			GF.UpdateTargets()
+		end
+	end
+
+	---------------------------------------------------------------------------
+	-- Goal rows
+	---------------------------------------------------------------------------
+
+	-- Tick the row's goal done, or untick it (any goal but a note).
+	local function toggleGoal(row)
+		local E, goal = Engine(), row.psGoal
+		if E and E.ToggleGoal and goal and goal.tickable and view then E.ToggleGoal(view.index, goal.index) end
+	end
+
+	-- Skip an optional goal, or bring it back; a quest the player skipped comes
+	-- back (its accept's Undo).
+	local function skipGoal(row)
+		local E, goal = Engine(), row.psGoal
+		if not (E and goal and view) then return end
+		if goal.unavailable == "skipped" and E.SkipQuest then return E.SkipQuest(goal.quest, false) end
+		if E.SkipGoal and goal.optional then E.SkipGoal(view.index, goal.index) end
+	end
+
+	-- A quest's line, right-clicked: tick this goal done (or untick it), open
+	-- the game's quest log at its quest (ns.QuestLogMenuItem), or skip the whole
+	-- quest and what follows from it (Engine.SkipQuest), or bring a skipped
+	-- quest back.
+	local function rowMenu(row)
+		local E, goal = Engine(), row.psGoal
+		if not (E and goal and goal.quest and E.SkipQuest) then return false end
+		if goal.unavailable == "skipped" then
+			E.SkipQuest(goal.quest, false)
+			return true
+		end
+		local items = {}
+		if goal.tickable and goal.status ~= "done" or goal.ticked then
+			items[#items + 1] = { text = goal.ticked and L["Untick"] or L["Tick it done"], icon = "check", onClick = function() toggleGoal(row) end }
+		end
+		local show = ns.QuestLogMenuItem and ns.QuestLogMenuItem(goal.quest)
+		if show then items[#items + 1] = show end
+		-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
+		local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
+		local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
+		if loses then tip = tip .. " " .. loses end
+		items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
+			onClick = function() E.SkipQuest(goal.quest, true) end }
+		W.ShowMenu(row, items)
 		return true
 	end
-	local items = {}
-	if goal.tickable and goal.status ~= "done" or goal.ticked then
-		items[#items + 1] = { text = goal.ticked and L["Untick"] or L["Tick it done"], icon = "check", onClick = function() toggleGoal(row) end }
-	end
-	-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
-	local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
-	local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
-	if loses then tip = tip .. " " .. loses end
-	items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
-		onClick = function() E.SkipQuest(goal.quest, true) end }
-	W.ShowMenu(row, items)
-	return true
-end
 
-local function rowClick(row, button)
-	local goal = row.psGoal
-	if not goal then return end
-	if button == "RightButton" then
-		if not rowMenu(row) then toggleGoal(row) end
-		return
-	end
 	-- A goal of the step the guide is on: the Engine leads the arrow there
-	-- (its spawn areas and spots too) and drops any point picked by hand;
-	-- a goal whose quest is not taken yet leaves the arrow on the accept and
-	-- says so (#1385). Anywhere else, a plain point.
-	local E, nav = Engine(), ns.Nav
-	local onStep = view and E and E.AimGoal and E.GetStepIndex and E.GetStepIndex() == view.index
-	local aimed, why, title
-	if onStep then aimed, why, title = E.AimGoal(view.index, goal.index) end
-	if aimed or why == "accept" then
+	-- (its spawn areas and spots too, which a click on the arrow moves on
+	-- through) and drops any point picked by hand; a goal whose quest is not
+	-- taken yet leaves the arrow on the accept and says so (#1385). False for a
+	-- goal anywhere else.
+	function GF.AimGoal(goal)
+		local E, nav = Engine(), ns.Nav
+		if not (goal and goal.index and view and E and E.AimGoal and E.GetStepIndex and E.GetStepIndex() == view.index) then return false end
+		local aimed, why, title = E.AimGoal(view.index, goal.index)
+		if not (aimed or why == "accept") then return false end
 		if nav and nav.ReleaseTarget then nav.ReleaseTarget() end
 		GF.UpdateTargets()
 		if why == "accept" then
@@ -329,5058 +570,2804 @@ local function rowClick(row, button)
 				ns.Print(message)
 			end
 		end
-	else
-		pointAt(goal, goal.text)
+		return true
 	end
-end
 
-local function rowEnter(row)
-	local goal = row.psGoal
-	if goal and ((goal.x and goal.map) or goal.tickable) then row.Hover:Show() end
-	goalTooltip(row)
-	GF.HoverIn()
-	GF.BarWake()
-end
-
-local function rowLeave(row)
-	row.Hover:Hide()
-	W.HideTooltip(row)
-end
-
-local function goalRow(i)
-	local r = rows[i]
-	if r then return r end
-	r = CreateFrame("Button", nil, goals.Child)
-	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	r.Hover = r:CreateTexture(nil, "BACKGROUND")
-	r.Hover:SetTexture(Theme.Media("white"))
-	r.Hover:SetAllPoints(r)
-	W.Painter(r.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
-	r.Hover:Hide()
-	-- The arrow's current target: a 2px accent rule at the row's edge (the
-	-- selection bar used across Polestar).
-	r.Mark = r:CreateTexture(nil, "ARTWORK")
-	r.Mark:SetTexture(Theme.Media("white"))
-	r.Mark:SetWidth(2)
-	r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
-	r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
-	W.Color(r.Mark, "accent")
-	r.Mark:Hide()
-	r.Icon = r:CreateTexture(nil, "ARTWORK")
-	r.Icon:SetSize(ICON, ICON)
-	r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
-	r.Text = T(r, "goal", "text")
-	r.Text:SetWordWrap(true)
-	r.Text:SetJustifyV("TOP")
-	r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
-	r.Sub = T(r, "small", "textMuted")
-	r.Sub:SetWordWrap(true)
-	r.Sub:SetJustifyV("TOP")
-	r.Check = W.Checkbox(r, function(c)
-		-- The click already flipped the box; the Engine's view is the truth,
-		-- so put it back and let STEP_UPDATED repaint it.
-		c:SetChecked(c.psChecked)
-		toggleGoal(r)
-	end)
-	if transparent() then
-		r.Check.psOnWorld = true
-		Theme.Repaint(r.Check)
-	end
-	r.Check:SetScript("OnEnter", function(c)
-		local goal = r.psGoal
-		local tip = not goal and "" or (goal.ticked and L["Untick"]) or (goal.status == "done" and L["Done"]) or L["Tick it done"]
-		W.Tooltip(c, "ANCHOR_TOP", tip, goal and goal.status == "done" and not goal.ticked and { L["The game counts this one itself."] } or nil)
-		GF.HoverIn()
-	end)
-	r.Check:SetScript("OnLeave", function(c) W.HideTooltip(c) end)
-	-- An optional goal's one-click skip ("Skip"), and its undo ("Undo").
-	r.Skip = CreateFrame("Button", nil, r)
-	r.Skip:SetHeight(18)
-	W.Hover(r.Skip, 0.7)
-	r.Skip.Label = T(r.Skip, "small", "textDim")
-	r.Skip.Label:SetPoint("CENTER", r.Skip, "CENTER", 0, 0)
-	r.Skip:SetScript("OnClick", function() skipGoal(r) end)
-	r.Skip:SetScript("OnEnter", function(b)
-		W.Color(b.Label, "text")
-		local goal = r.psGoal
-		local back = goal and (goal.dismissed or goal.unavailable == "skipped")
-		W.Tooltip(b, "ANCHOR_TOP", back and L["Bring it back"] or L["Skip this optional goal"],
-			{ back and L["It leads the arrow again."] or L["The arrow moves on; Undo brings it back."] })
-		GF.HoverIn()
-	end)
-	r.Skip:SetScript("OnLeave", function(b)
-		W.Color(b.Label, "textDim")
-		W.HideTooltip(b)
-	end)
-	r.Skip:Hide()
-	-- "Share": the goal's quest, for party members who lack it and can take
-	-- it (Party.ShareFor); the game's own share, with its rules.
-	r.Share = CreateFrame("Button", nil, r)
-	r.Share:SetHeight(18)
-	W.Hover(r.Share, 0.7)
-	r.Share.Label = T(r.Share, "small", "accent")
-	r.Share.Label:SetPoint("CENTER", r.Share, "CENTER", 0, 0)
-	r.Share:SetScript("OnClick", function(b)
-		local P, goal = ns.Party, r.psGoal
-		if P and goal and goal.quest then P.Share(goal.quest) end
-	end)
-	r.Share:SetScript("OnEnter", function(b)
-		W.Color(b.Label, "text")
-		W.Tooltip(b, "ANCHOR_TOP", L["Share with your party"], { L["Not on it: %s"]:format(table.concat(b.psNames or {}, ", ")) })
-		GF.HoverIn()
-	end)
-	r.Share:SetScript("OnLeave", function(b)
-		W.Color(b.Label, "accent")
-		W.HideTooltip(b)
-	end)
-	r.Share:Hide()
-	placeCheck(r)
-	-- "Other": the next-nearest trainer, vendor, inn or farm spot; for a goal
-	-- with spawn areas, the next spot. The arrow follows the goal there: the
-	-- Engine aims at it, and a point picked by hand gives way.
-	r.Alt = W.IconButton(r, "reload", 20, nil, function()
-		local E, goal = Engine(), r.psGoal
-		if not (E and goal and view) then return end
-		if type(goal.alternatives) == "number" and goal.alternatives > 0 then
-			if E.CycleCandidate then E.CycleCandidate(view.index, goal.index) end
-		elseif E.CycleSpot then
-			E.CycleSpot(view.index, goal.index)
+	local function rowClick(row, button)
+		local goal = row.psGoal
+		if not goal then return end
+		if button == "RightButton" then
+			if not rowMenu(row) then toggleGoal(row) end
+			return
 		end
-		local nav = ns.Nav
-		if nav and nav.ReleaseTarget and E.GetStepIndex and E.GetStepIndex() == view.index then
-			nav.ReleaseTarget()
-			GF.UpdateTargets()
-		end
-	end, 11)
-	r.Alt.psOnEnter = function(b)
-		local goal = r.psGoal
-		if goal and not (type(goal.alternatives) == "number" and goal.alternatives > 0) and type(goal.spots) == "number" then
-			W.Tooltip(b, "ANCHOR_TOP", L["Next spot"], { string.format(L["%d spots in this area"], goal.spots) })
-		else
-			local n = goal and goal.alternatives or 0
-			W.Tooltip(b, "ANCHOR_TOP", L["Choose another"], { n == 1 and L["1 other nearby"] or string.format(L["%d others nearby"], n) })
-		end
+		-- Anywhere else than the step the guide is on, a plain point.
+		if not GF.AimGoal(goal) then pointAt(goal, goal.text) end
+	end
+
+	local function rowEnter(row)
+		local goal = row.psGoal
+		if goal and ((goal.x and goal.map) or goal.tickable) then row.Hover:Show() end
+		goalTooltip(row)
 		GF.HoverIn()
+		GF.BarWake()
 	end
-	r.Alt:Hide()
-	r:SetScript("OnClick", rowClick)
-	r:SetScript("OnEnter", rowEnter)
-	r:SetScript("OnLeave", rowLeave)
-	rows[i] = r
-	return r
-end
 
--- The slim progress bar under a goal (skill ranks, reputation, achievement
--- criteria): a label, a 3px track and its fill; kept with the row.
-local BAR_ROW, BAR_THICK = 13, 3
+	local function rowLeave(row)
+		row.Hover:Hide()
+		W.HideTooltip(row)
+	end
 
-local function rowBar(r)
-	local b = r.psBar
-	if b then return b end
-	b = CreateFrame("Frame", nil, r)
-	b:SetHeight(BAR_ROW)
-	b.Label = T(b, "small", "textDim")
-	b.Label:SetPoint("LEFT", b, "LEFT", 0, 0)
-	b.Track = b:CreateTexture(nil, "ARTWORK")
-	b.Track:SetTexture(Theme.Media("white"))
-	b.Track:SetHeight(BAR_THICK)
-	b.Track:SetPoint("RIGHT", b, "RIGHT", 0, 0)
-	W.Painter(b.Track, function(t) t:SetVertexColor(Theme.Wash("track")) end)
-	b.Fill = b:CreateTexture(nil, "OVERLAY")
-	b.Fill:SetTexture(Theme.Media("white"))
-	b.Fill:SetHeight(BAR_THICK)
-	b.Fill:SetPoint("LEFT", b.Track, "LEFT", 0, 0)
-	b.Fill:SetWidth(0.01)
-	r.psBar = b
-	return b
-end
-
--- Paint a row from its goal. pop = the goal just turned done: the check
--- lands with a short back-out pop (scale only; reduced motion skips it).
--- current = the first open goal of the focus: its glyph alone takes the
--- accent; the others sit in textDim.
--- `noParty`: a row above already says the group line (UI.GoalSubline);
--- `noMissing`: one already names who in the party lacks the goal's quest.
--- `noEscort`: one already says the escort line.
--- `who`: the person a goal of another group is done with (rowWho), said
--- first on its line; `aside`: a goal outside the focus, open goals step back.
--- `questHex`: the quest name's colour (the class-quest card's class colour).
-local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noEscort, who, aside, questHex)
-	local sameGoal = sameStep and r.psGoal and r.psGoal.index == goal.index and r.psGoal.t == goal.t
-	r.psGoal = goal
-	local status = goal.status
-	local done = status == "done"
-	local skipped = status == "skipped"
-	r.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
-	if skipped then
-		W.Color(r.Icon, "textMuted", 0.8)
-	else
-		local gold = Theme.GameSkin() and (goal.t == "accept" or goal.t == "turnin")
-		W.Color(r.Icon, done and "success" or ((current or gold) and "accent" or "textDim"))
-	end
-	-- The game's looks light the goal to do now with their own art.
-	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
-	r.Text:SetText(UI.GoalLine(goal, questHex))
-	-- White while it is to be done; done and skipped goals step back. The
-	-- turn-in of a quest whose objectives are still open, pinned (#644),
-	-- ticked by hand (#1135) or worked along the way (#853): the warning
-	-- colour, and its line says so.
-	local warn = goal.pinOpen and not done and not skipped
-	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (aside and "textDim" or "text")))
-	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort)
-	if warn then
-		local open = goal.pinOpen == "along" and L["Its objectives are still open."]
-			or goal.pinOpen == "ticked" and L["Ticked by you, but the game still counts its objectives open: finish them first."]
-			or L["Pinned: its objectives are still open."]
-		sub = sub and (open .. "\n" .. sub) or open
-	end
-	-- An unavailable quest's reason names its giver already.
-	if who and not goal.unavailable then sub = sub and (who .. "  \194\183  " .. sub) or who end
-	r.Sub:SetText(sub or "")
-	r.Sub:SetShown(sub ~= nil)
-	-- An unavailable quest's reason, or an accept's notice, is the point of the line: keep it readable.
-	W.Color(r.Sub, (goal.unavailable or goal.noticeText) and "textDim" or "textMuted")
-	if UI.GearPick then UI.GearPick.Paint(r, goal) end
-	local alts = type(goal.alternatives) == "number" and goal.alternatives > 0 and Engine() and Engine().CycleCandidate
-	local spots = type(goal.spots) == "number" and goal.spots > 1 and Engine() and Engine().CycleSpot
-	r.Alt:SetShown((alts or spots) and not done and not skipped and true or false)
-	local frac, label = UI.GoalBar(goal)
-	if frac and not skipped then
-		local b = rowBar(r)
-		b.Label:SetText(label or "")
-		b.Label:SetShown(label ~= nil)
-		W.Color(b.Fill, done and "success" or "accent", status == "pending" and 0.6 or 1)
-		-- Fill from where it was when the same goal moved on (a rank, a
-		-- reputation tick); jump when the row now shows a different goal.
-		b.psFrom = (sameGoal and b:IsShown() and b.psFrac ~= frac) and b.psFrac or nil
-		b.psFrac = frac
-		b:Show()
-	elseif r.psBar then
-		r.psBar:Hide()
-	end
-	-- Every goal ticks (a note never); a goal the game itself counts done
-	-- shows its check but has nothing to undo.
-	r.Check:SetShown(goal.tickable and not skipped and true or false)
-	r.Check.psChecked = done
-	r.Check:SetChecked(done)
-	local locked = done and not goal.ticked
-	if locked then r.Check:Disable() else r.Check:Enable() end
-	r.Check:SetAlpha(locked and 0.45 or 1)
-	-- An open optional goal skips in one click; a skipped one comes back.
-	local questSkipped = goal.unavailable == "skipped" and goal.t == "accept"
-	local canSkip = questSkipped or goal.optional and (goal.dismissed or (not done and not skipped)) and Engine() and Engine().SkipGoal
-	r.Skip:SetShown(canSkip and true or false)
-	if canSkip then
-		r.Skip.Label:SetText((goal.dismissed or questSkipped) and L["Undo"] or L["Skip"])
-		r.Skip:SetWidth(floor(r.Skip.Label:GetStringWidth() + 12 + 0.5))
-	end
-	-- Party members lack the quest and can take it: Share, once per card.
-	local shareTo = not noMissing and ns.Party and ns.Party.ShareFor and ns.Party.ShareFor(goal) or nil
-	r.Share.psNames = shareTo
-	r.Share:SetShown(shareTo ~= nil)
-	if shareTo then
-		r.Share.Label:SetText(L["Share"])
-		r.Share:SetWidth(floor(r.Share.Label:GetStringWidth() + 12 + 0.5))
-	end
-	if pop then
-		Anim.To(r.Icon, "size", ICON * 0.55, ICON, Anim.BASE, "back")
-		Anim.To(r.Icon, "alpha", 0.2, 1, Anim.FAST, "out")
-	elseif not Anim.IsRunning(r.Icon, "size") then
+	local function goalRow(i)
+		local r = rows[i]
+		if r then return r end
+		r = CreateFrame("Button", nil, goals.Child)
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r.Hover = r:CreateTexture(nil, "BACKGROUND")
+		r.Hover:SetTexture(Theme.Media("white"))
+		r.Hover:SetAllPoints(r)
+		W.Painter(r.Hover, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
+		r.Hover:Hide()
+		-- The arrow's current target: a 2px accent rule at the row's edge (the
+		-- selection bar used across Polestar).
+		r.Mark = r:CreateTexture(nil, "ARTWORK")
+		r.Mark:SetTexture(Theme.Media("white"))
+		r.Mark:SetWidth(2)
+		r.Mark:SetPoint("TOPLEFT", r, "TOPLEFT", 0, -3)
+		r.Mark:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 3)
+		W.Painter(r.Mark, GF.PaintMark)
+		r.Mark:Hide()
+		r.Icon = r:CreateTexture(nil, "ARTWORK")
 		r.Icon:SetSize(ICON, ICON)
-	end
-	r.psStatus = status
-end
-
-local function layoutBar(b, tw)
-	local lw = 0
-	if b.Label:IsShown() then lw = floor(b.Label:GetStringWidth() + 8 + 0.5) end
-	local trackW = max(24, tw - lw)
-	b:SetWidth(tw)
-	b.Track:SetWidth(trackW)
-	local w = max(0.01, trackW * b.psFrac)
-	if b.psFrom then
-		Anim.To(b.Fill, "width", max(0.01, trackW * b.psFrom), w, Anim.SLOW, "out")
-		b.psFrom = nil
-	elseif not Anim.IsRunning(b.Fill, "width") then
-		b.Fill:SetWidth(w)
-	end
-end
-
--- Measure a row at a width; returns its height.
-local function measureRow(r, width)
-	-- Right edge, outside in: the tick, an optional goal's Skip, "Other".
-	local right = PAD
-	if r.Check:IsShown() then right = right + CHECK + 4 + CHECK_IN end
-	if r.Skip:IsShown() then
-		r.Skip:ClearAllPoints()
-		r.Skip:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
-		right = right + r.Skip:GetWidth() + 2
-	end
-	if r.Share:IsShown() then
-		r.Share:ClearAllPoints()
-		r.Share:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
-		right = right + r.Share:GetWidth() + 2
-	end
-	if r.Alt:IsShown() then
-		r.Alt:ClearAllPoints()
-		r.Alt:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -2 - ROW_PAD)
-		right = right + 20
-	end
-	local tw = max(40, width - TEXT_X - right)
-	r.Text:SetWidth(tw)
-	local h = 4 + r.Text:GetStringHeight()
-	local above = r.Text
-	local b = r.psBar
-	if b and b:IsShown() then
-		b:ClearAllPoints()
-		b:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -5)
-		layoutBar(b, tw)
-		h = h + 5 + BAR_ROW
-		above = b
-	end
-	if UI.GearPick then h, above = UI.GearPick.Measure(r, tw, h, above) end
-	if r.Sub:IsShown() then
-		r.Sub:SetWidth(tw)
-		r.Sub:ClearAllPoints()
-		r.Sub:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
-		h = h + 3 + r.Sub:GetStringHeight()
-	end
-	return max(ROW_MIN, floor(h + 6 + ROW_PAD * 2 + 0.5))
-end
-
----------------------------------------------------------------------------
--- The goals area: the focus's rows, a summary line for each other person
--- of the step, "✓ 3 done", the folding of finished goals, the height cap's
--- scroll
----------------------------------------------------------------------------
-
--- A goal turning done: its check pops (paintRow), it holds `hold` seconds so
--- the player sees it, then its row folds shut over `time` (ease-out) while
--- its text and glyph fade in the first `fade` share of that, the rows below
--- gliding up; then "✓ N done" counts it, the line's text glowing from the
--- accent back to textDim over `glow`. Goals done together (a turn-in batch)
--- start `stagger` apart, so they close as one movement. Reduced motion: the
--- hold, a fade of `reducedFade`, then the row is gone and the count changes.
-local CARD = {
-	hold = 0.75, stagger = 0.08, time = 0.3, fade = 0.6, reducedFade = 0.2, glow = 0.6,
-	lineH = 24, -- a summary line
-	minView = 72, -- the goals area under the cap: never shorter than three lines
-	ahead = 3, -- summary lines after the focus before the rest share a "+ N more people" line
-	scrollStep = 48, -- one wheel notch
-	barIdle = 1.5, -- seconds the scroll bar stays after the last scroll
-}
-GF.CARD = CARD
-
--- Look-ahead text (the card's summary lines, Along the way, Up next) wraps
--- to two lines (SetWordWrap, SetMaxLines 2) and only past them ends in "…";
--- its row grows by the second line. -> the text's top inset in a row `rowH`
--- tall for one line (one line sits in its middle), and the row's height.
-local function twoLines(fs, rowH)
-	local inset = max(0, (rowH - fs:GetLineHeight()) / 2)
-	return inset, max(rowH, floor(fs:GetStringHeight() + inset * 2 + 0.5))
-end
-
--- What the card keeps for one guide, step and focus (cleared when any of
--- them moves): the goals folded into the done line, each goal's status at
--- the last fill (a goal turning done folds; one already done when the focus
--- came is folded from the start), the groups a click opened (`before`: the
--- persons done), whether the done line is opened, and its count.
-local model = { folded = {}, last = {}, open = {}, doneOpen = false, doneN = 0 }
-
--- The goals area's contents, top to bottom (goal rows and lines; f.psAt is
--- the place), and their heights at full size (`h`, layoutCard). A folding
--- row's f.psK (1 open .. 0 shut) scales its height; each sits under the one
--- before, so a fold moves the rows below without placing them.
-local area = { items = {}, h = {}, n = 0 }
-
--- The window around the goals area (Layout): the card without it (`fixed`),
--- the card's y in the body (`top`), the frames under the card (`below`,
--- their y from its bottom in `rel`, `n` of them, `h` tall), the strip,
--- navigator and foot (`outer`), and the room the cap leaves the goals
--- (`room`, math.huge while the window fits). `from`: the card's bottom
--- while Layout stacks the frames under it. `limit`: with ui.growUp, the
--- height to the top of the screen (roomAbove; nil without Grow upward).
-local fit = { fixed = 0, top = 0, outer = 0, room = math.huge, below = {}, rel = {}, n = 0, h = 0 }
-
--- The window's height for a body `y` tall under the bars (`fit.outer`).
--- With Grow upward the game keeps a window on the screen by moving it
--- down, which would move the bottom edge Grow upward keeps still (#666), so
--- the window never passes `fit.limit`: past it, the body clips its lower
--- lines at the bars; at least MIN_BODY_H of it stays.
-local MIN_BODY_H = 40
-local function sizeWindow(y)
-	local natural = floor(fit.outer + y + 0.5)
-	local height, limit = natural, fit.limit
-	if limit and natural > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
-	local cut = height < natural
-	if body.SetClipsChildren then body:SetClipsChildren(cut) end
-	body:SetHeight(max(1, cut and height - fit.outer or y))
-	F:SetHeight(height)
-end
-
--- The goals folding now: one record per goal (pooled: `pool`), its
--- collapse's start `at` (after the hold), its height share `k` and alpha
--- `a` as last drawn, the row showing it (fillCard sets it; rows are
--- reassigned on every fill). `of`: goal index -> record; `last`: the latest
--- start, for the stagger; `grow`: the done line growing in with the first
--- fold; `glow`, `glowAt`: the done line whose count just went up.
-local fold = { list = {}, n = 0, of = {}, pool = {}, last = 0, serial = 0, glowAt = 0, driver = CreateFrame("Frame") }
-
-local wholeStep, resetModel, contentHeight, fitGoals, followCurrent, inSight, cardLine, goalsWheel
-do
-	function wholeStep() return ns.Get("ui.wholeStep") and true or false end
-
-	local function refreshTargets()
-		if UI.NameTargets then UI.NameTargets.Refresh() end
+		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -GF.GlyphY())
+		r.Text = GF.SizeAs(T(r, "goal", "text"), "goal", 0)
+		r.Text:SetWordWrap(true)
+		r.Text:SetJustifyV("TOP")
+		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
+		r.Sub = GF.SizeAs(T(r, "small", "textMuted"), "detail", 0)
+		r.Sub:SetWordWrap(true)
+		r.Sub:SetJustifyV("TOP")
+		r.Check = W.Checkbox(r, function(c)
+			-- The click already flipped the box; the Engine's view is the truth,
+			-- so put it back and let STEP_UPDATED repaint it.
+			c:SetChecked(c.psChecked)
+			toggleGoal(r)
+		end)
+		if transparent() then
+			r.Check.psOnWorld = true
+			Theme.Repaint(r.Check)
+		end
+		r.Check:SetScript("OnEnter", function(c)
+			local goal = r.psGoal
+			local tip = not goal and "" or (goal.ticked and L["Untick"]) or (goal.status == "done" and L["Done"]) or L["Tick it done"]
+			W.Tooltip(c, "ANCHOR_TOP", tip, goal and goal.status == "done" and not goal.ticked and { L["The game counts this one itself."] } or nil)
+			GF.HoverIn()
+		end)
+		r.Check:SetScript("OnLeave", function(c) W.HideTooltip(c) end)
+		-- An optional goal's one-click skip ("Skip"), and its undo ("Undo").
+		r.Skip = CreateFrame("Button", nil, r)
+		r.Skip:SetHeight(18)
+		W.Hover(r.Skip, 0.7)
+		r.Skip.Label = T(r.Skip, "small", "textDim")
+		r.Skip.Label:SetPoint("CENTER", r.Skip, "CENTER", 0, 0)
+		r.Skip:SetScript("OnClick", function() skipGoal(r) end)
+		r.Skip:SetScript("OnEnter", function(b)
+			W.Color(b.Label, "text")
+			local goal = r.psGoal
+			local back = goal and (goal.dismissed or goal.unavailable == "skipped")
+			W.Tooltip(b, "ANCHOR_TOP", back and L["Bring it back"] or L["Skip this optional goal"],
+				{ back and L["It leads the arrow again."] or L["The arrow moves on; Undo brings it back."] })
+			GF.HoverIn()
+		end)
+		r.Skip:SetScript("OnLeave", function(b)
+			W.Color(b.Label, "textDim")
+			W.HideTooltip(b)
+		end)
+		r.Skip:Hide()
+		-- "Share": the goal's quest, for party members who lack it and can take
+		-- it (Party.ShareFor); the game's own share, with its rules.
+		r.Share = CreateFrame("Button", nil, r)
+		r.Share:SetHeight(18)
+		W.Hover(r.Share, 0.7)
+		r.Share.Label = T(r.Share, "small", "accent")
+		r.Share.Label:SetPoint("CENTER", r.Share, "CENTER", 0, 0)
+		r.Share:SetScript("OnClick", function(b)
+			local P, goal = ns.Party, r.psGoal
+			if P and goal and goal.quest then P.Share(goal.quest) end
+		end)
+		r.Share:SetScript("OnEnter", function(b)
+			W.Color(b.Label, "text")
+			W.Tooltip(b, "ANCHOR_TOP", L["Share with your party"], { L["Not on it: %s"]:format(table.concat(b.psNames or {}, ", ")) })
+			GF.HoverIn()
+		end)
+		r.Share:SetScript("OnLeave", function(b)
+			W.Color(b.Label, "accent")
+			W.HideTooltip(b)
+		end)
+		r.Share:Hide()
+		placeCheck(r)
+		-- "Other": the next-nearest trainer, vendor, inn or farm spot; for a goal
+		-- with spawn areas, the next spot. The arrow follows the goal there: the
+		-- Engine aims at it, and a point picked by hand gives way.
+		r.Alt = W.IconButton(r, "reload", 20, nil, function()
+			local E, goal = Engine(), r.psGoal
+			if not (E and goal and view) then return end
+			if type(goal.alternatives) == "number" and goal.alternatives > 0 then
+				if E.CycleCandidate then E.CycleCandidate(view.index, goal.index) end
+			elseif E.CycleSpot then
+				E.CycleSpot(view.index, goal.index)
+			end
+			local nav = ns.Nav
+			if nav and nav.ReleaseTarget and E.GetStepIndex and E.GetStepIndex() == view.index then
+				nav.ReleaseTarget()
+				GF.UpdateTargets()
+			end
+		end, 11)
+		r.Alt.psOnEnter = function(b)
+			local goal = r.psGoal
+			if goal and not (type(goal.alternatives) == "number" and goal.alternatives > 0) and type(goal.spots) == "number" then
+				W.Tooltip(b, "ANCHOR_TOP", L["Next spot"], { string.format(L["%d spots in this area"], goal.spots) })
+			else
+				local n = goal and goal.alternatives or 0
+				W.Tooltip(b, "ANCHOR_TOP", L["Choose another"], { n == 1 and L["1 other nearby"] or string.format(L["%d others nearby"], n) })
+			end
+			GF.HoverIn()
+		end
+		r.Alt:Hide()
+		r:SetScript("OnClick", rowClick)
+		r:SetScript("OnEnter", rowEnter)
+		r:SetScript("OnLeave", rowLeave)
+		rows[i] = r
+		return r
 	end
 
-	function contentHeight()
-		local h, items, hs = 0, area.items, area.h
-		for i = 1, area.n do h = h + hs[i] * (items[i].psK or 1) end
-		return h
+	-- The slim progress bar under a goal (skill ranks, reputation, achievement
+	-- criteria): a label, a 3px track and its fill; kept with the row.
+	local BAR_ROW, BAR_THICK = 13, 3
+
+	local function rowBar(r)
+		local b = r.psBar
+		if b then return b end
+		b = CreateFrame("Frame", nil, r)
+		b:SetHeight(BAR_ROW)
+		b.Label = T(b, "small", "textDim")
+		b.Label:SetPoint("LEFT", b, "LEFT", 0, 0)
+		b.Track = b:CreateTexture(nil, "ARTWORK")
+		b.Track:SetTexture(Theme.Media("white"))
+		b.Track:SetHeight(BAR_THICK)
+		b.Track:SetPoint("RIGHT", b, "RIGHT", 0, 0)
+		W.Painter(b.Track, function(t) t:SetVertexColor(Theme.Wash("track")) end)
+		b.Fill = b:CreateTexture(nil, "OVERLAY")
+		b.Fill:SetTexture(Theme.Media("white"))
+		b.Fill:SetHeight(BAR_THICK)
+		b.Fill:SetPoint("LEFT", b.Track, "LEFT", 0, 0)
+		b.Fill:SetWidth(0.01)
+		r.psBar = b
+		return b
 	end
 
-	-- The y of item `f` from the top of the goals area; nil when not listed.
-	local function itemTop(f)
-		local y, items, hs = 0, area.items, area.h
-		for i = 1, area.n do
-			local o = items[i]
-			if o == f then return y end
-			y = y + hs[i] * (o.psK or 1)
+	-- Paint a row from its goal. pop = the goal just turned done: the check
+	-- lands with a short back-out pop (scale only; reduced motion skips it).
+	-- current = the first open goal of the focus: its glyph alone takes the
+	-- accent; the others sit in textDim.
+	-- `noParty`: a row above already says the group line (UI.GoalSubline);
+	-- `noMissing`: one already names who in the party lacks the goal's quest.
+	-- `noEscort`: one already says the escort line; `noFinder`: the group
+	-- finder line (UI.FinderLine).
+	-- `who`: the person a goal of another group is done with (rowWho), said
+	-- first on its line; `aside`: a goal outside the focus, open goals step back.
+	-- `questHex`: the quest name's colour (the class-quest card's class colour).
+	local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noEscort, who, aside, questHex, noFinder)
+		local sameGoal = sameStep and r.psGoal and r.psGoal.index == goal.index and r.psGoal.t == goal.t
+		r.psGoal = goal
+		local status = goal.status
+		local done = status == "done"
+		local skipped = status == "skipped"
+		r.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
+		if skipped then
+			W.Color(r.Icon, "textMuted", 0.8)
+		else
+			local gold = Theme.GameSkin() and (goal.t == "accept" or goal.t == "turnin")
+			W.Color(r.Icon, done and "success" or ((current or gold) and "accent" or "textDim"))
+		end
+		-- The game's looks light the goal to do now with their own art.
+		Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
+		UI.SetCounted(r.Text, UI.GoalLine(goal, questHex, true))
+		-- White while it is to be done; done and skipped goals step back. The
+		-- turn-in of a quest whose objectives are still open, pinned (#644),
+		-- ticked by hand (#1135) or worked along the way (#853): the warning
+		-- colour, and its line says so. A goal marked `accent` (a pick-up
+		-- guide's "Comes back at level N") takes the look's accent.
+		local warn = goal.pinOpen and not done and not skipped
+		W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (goal.accent and "accent") or (aside and "textDim" or "text")))
+		local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort, noFinder)
+		if warn then
+			local open = goal.pinOpen == "along" and L["Its objectives are still open."]
+				or goal.pinOpen == "ticked" and L["Ticked by you, but the game still counts its objectives open: finish them first."]
+				or L["Pinned: its objectives are still open."]
+			sub = sub and (open .. "\n" .. sub) or open
+		end
+		-- An unavailable quest's reason names its giver already.
+		if who and not goal.unavailable then sub = sub and (who .. "  \194\183  " .. sub) or who end
+		UI.SetCounted(r.Sub, sub or "")
+		r.Sub:SetShown(sub ~= nil)
+		-- An unavailable quest's reason, or an accept's notice, is the point of the line: keep it readable.
+		W.Color(r.Sub, (goal.unavailable or goal.noticeText) and "textDim" or "textMuted")
+		if GF.live and UI.GearPick then UI.GearPick.Paint(r, goal) end
+		local alts = type(goal.alternatives) == "number" and goal.alternatives > 0 and Engine() and Engine().CycleCandidate
+		local spots = type(goal.spots) == "number" and goal.spots > 1 and Engine() and Engine().CycleSpot
+		r.Alt:SetShown((alts or spots) and not done and not skipped and true or false)
+		local frac, label = UI.GoalBar(goal)
+		if frac and not skipped then
+			local b = rowBar(r)
+			b.Label:SetText(label or "")
+			b.Label:SetShown(label ~= nil)
+			W.Color(b.Fill, done and "success" or "accent", status == "pending" and 0.6 or 1)
+			-- Fill from where it was when the same goal moved on (a rank, a
+			-- reputation tick); jump when the row now shows a different goal.
+			b.psFrom = (sameGoal and b:IsShown() and b.psFrac ~= frac) and b.psFrac or nil
+			b.psFrac = frac
+			b:Show()
+		elseif r.psBar then
+			r.psBar:Hide()
+		end
+		-- Every goal ticks (a note never); a goal the game itself counts done
+		-- shows its check but has nothing to undo.
+		r.Check:SetShown(goal.tickable and not skipped and true or false)
+		r.Check.psChecked = done
+		r.Check:SetChecked(done)
+		local locked = done and not goal.ticked
+		if locked then r.Check:Disable() else r.Check:Enable() end
+		r.Check:SetAlpha(locked and 0.45 or 1)
+		-- An open optional goal skips in one click; a skipped one comes back.
+		local questSkipped = goal.unavailable == "skipped" and goal.t == "accept"
+		local canSkip = questSkipped or goal.optional and (goal.dismissed or (not done and not skipped)) and Engine() and Engine().SkipGoal
+		r.Skip:SetShown(canSkip and true or false)
+		if canSkip then
+			r.Skip.Label:SetText((goal.dismissed or questSkipped) and L["Undo"] or L["Skip"])
+			r.Skip:SetWidth(floor(r.Skip.Label:GetStringWidth() + 12 + 0.5))
+		end
+		-- Party members lack the quest and can take it: Share, once per card.
+		local shareTo = GF.live and not noMissing and ns.Party and ns.Party.ShareFor and ns.Party.ShareFor(goal) or nil
+		r.Share.psNames = shareTo
+		r.Share:SetShown(shareTo ~= nil)
+		if shareTo then
+			r.Share.Label:SetText(L["Share"])
+			r.Share:SetWidth(floor(r.Share.Label:GetStringWidth() + 12 + 0.5))
+		end
+		if pop then
+			Anim.To(r.Icon, "size", ICON * 0.55, ICON, Anim.BASE, "back")
+			Anim.To(r.Icon, "alpha", 0.2, 1, Anim.FAST, "out")
+		elseif not Anim.IsRunning(r.Icon, "size") then
+			r.Icon:SetSize(ICON, ICON)
+		end
+		r.psStatus = status
+		-- A skin's own dress for the row (Skin API 2, hooks.guideRow): after the
+		-- house painted it; r.psRowInfo, the row's own table, says what it shows.
+		local info = r.psRowInfo
+		if not info then
+			info = {}
+			r.psRowInfo = info
+		end
+		info.current, info.done, info.skipped = current and true or false, done, skipped
+		Theme.SkinHook("guideRow", r, goal, info)
+	end
+
+	local function layoutBar(b, tw)
+		local lw = 0
+		if b.Label:IsShown() then lw = floor(b.Label:GetStringWidth() + 8 + 0.5) end
+		local trackW = max(24, tw - lw)
+		b:SetWidth(tw)
+		b.Track:SetWidth(trackW)
+		local w = max(0.01, trackW * b.psFrac)
+		if b.psFrom then
+			Anim.To(b.Fill, "width", max(0.01, trackW * b.psFrom), w, Anim.SLOW, "out")
+			b.psFrom = nil
+		elseif not Anim.IsRunning(b.Fill, "width") then
+			b.Fill:SetWidth(w)
+		end
+	end
+
+	-- Measure a row at a width; returns its height.
+	local function measureRow(r, width)
+		-- Right edge, outside in: the tick, an optional goal's Skip, "Other".
+		local right = PAD
+		if r.Check:IsShown() then right = right + CHECK + 4 + CHECK_IN end
+		if r.Skip:IsShown() then
+			r.Skip:ClearAllPoints()
+			r.Skip:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
+			right = right + r.Skip:GetWidth() + 2
+		end
+		if r.Share:IsShown() then
+			r.Share:ClearAllPoints()
+			r.Share:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
+			right = right + r.Share:GetWidth() + 2
+		end
+		if r.Alt:IsShown() then
+			r.Alt:ClearAllPoints()
+			r.Alt:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -2 - ROW_PAD)
+			right = right + 20
+		end
+		local tw = max(40, width - TEXT_X - right)
+		r.Text:SetWidth(tw)
+		UI.FitCounts(r.Text)
+		local h = 4 + r.Text:GetStringHeight()
+		local above = r.Text
+		local b = r.psBar
+		if b and b:IsShown() then
+			b:ClearAllPoints()
+			b:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -5)
+			layoutBar(b, tw)
+			h = h + 5 + BAR_ROW
+			above = b
+		end
+		if GF.live and UI.GearPick then h, above = UI.GearPick.Measure(r, tw, h, above) end
+		if r.Sub:IsShown() then
+			r.Sub:SetWidth(tw)
+			UI.FitCounts(r.Sub)
+			r.Sub:ClearAllPoints()
+			r.Sub:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
+			h = h + 3 + r.Sub:GetStringHeight()
+		end
+		return max(ROW_MIN, floor(h + 6 + ROW_PAD * 2 + 0.5))
+	end
+
+	---------------------------------------------------------------------------
+	-- The goals area: the focus's rows, a summary line for each other person
+	-- of the step, "✓ 3 done", the folding of finished goals, the height cap's
+	-- scroll
+	---------------------------------------------------------------------------
+
+	-- A goal turning done: its check pops (paintRow), it holds `hold` seconds so
+	-- the player sees it, then its row folds shut over `time` (ease-out) while
+	-- its text and glyph fade in the first `fade` share of that, the rows below
+	-- gliding up; then "✓ N done" counts it, the line's text glowing from the
+	-- accent back to textDim over `glow`. Goals done together (a turn-in batch)
+	-- start `stagger` apart, so they close as one movement. Reduced motion: the
+	-- hold, a fade of `reducedFade`, then the row is gone and the count changes.
+	local CARD = {
+		hold = 0.75, stagger = 0.08, time = 0.3, fade = 0.6, reducedFade = 0.2, glow = 0.6,
+		lineH = 24, -- a summary line
+		minView = 72, -- the goals area under the cap: never shorter than three lines
+		ahead = 3, -- summary lines after the focus before the rest share a "+ N more people" line
+		scrollStep = 48, -- one wheel notch
+		barIdle = 1.5, -- seconds the scroll bar stays after the last scroll
+	}
+	GF.CARD = CARD
+
+	-- Look-ahead text (the card's summary lines, Along the way, Up next) wraps
+	-- to two lines (SetWordWrap, SetMaxLines 2) and only past them ends in "…";
+	-- its row grows by the second line. -> the text's top inset in a row `rowH`
+	-- tall for one line (one line sits in its middle), and the row's height.
+	local function twoLines(fs, rowH)
+		local inset = max(0, (rowH - fs:GetLineHeight()) / 2)
+		return inset, max(rowH, floor(fs:GetStringHeight() + inset * 2 + 0.5))
+	end
+
+	-- What the card keeps for one guide, step and focus (cleared when any of
+	-- them moves): the goals folded into the done line, each goal's status at
+	-- the last fill (a goal turning done folds; one already done when the focus
+	-- came is folded from the start), the groups a click opened (`before`: the
+	-- persons done), whether the done line is opened, and its count.
+	local model = { folded = {}, last = {}, open = {}, doneOpen = false, doneN = 0 }
+
+	-- The goals area's contents, top to bottom (goal rows and lines; f.psAt is
+	-- the place), and their heights at full size (`h`, layoutCard). A folding
+	-- row's f.psK (1 open .. 0 shut) scales its height; each sits under the one
+	-- before, so a fold moves the rows below without placing them.
+	local area = { items = {}, h = {}, n = 0 }
+
+	-- The window around the goals area (Layout): the card without it (`fixed`),
+	-- the card's y in the body (`top`), the frames under the card (`below`,
+	-- their y from its bottom in `rel`, `n` of them, `h` tall), the strip,
+	-- navigator and foot (`outer`), and the room the cap leaves the goals
+	-- (`room`, math.huge while the window fits). `from`: the card's bottom
+	-- while Layout stacks the frames under it. `limit`: with ui.growUp, the
+	-- height to the top of the screen (roomAbove; nil without Grow upward).
+	local fit = { fixed = 0, top = 0, outer = 0, room = math.huge, below = {}, rel = {}, n = 0, h = 0 }
+
+	-- The window's height for a body `y` tall under the bars (`fit.outer`).
+	-- With Grow upward the game keeps a window on the screen by moving it
+	-- down, which would move the bottom edge Grow upward keeps still (#666), so
+	-- the window never passes `fit.limit`: past it, the body clips its lower
+	-- lines at the bars; at least MIN_BODY_H of it stays.
+	local MIN_BODY_H = 40
+	GF.MIN_BODY_H = MIN_BODY_H -- the step browser keeps it too (GuideFrameLayout.lua)
+	local function sizeWindow(y)
+		local natural = floor(fit.outer + y + 0.5)
+		local height, limit = natural, fit.limit
+		if limit and natural > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
+		local cut = height < natural
+		if body.SetClipsChildren then body:SetClipsChildren(cut) end
+		body:SetHeight(max(1, cut and height - fit.outer or y))
+		F:SetHeight(height)
+	end
+
+	-- The goals folding now: one record per goal (pooled: `pool`), its
+	-- collapse's start `at` (after the hold), its height share `k` and alpha
+	-- `a` as last drawn, the row showing it (fillCard sets it; rows are
+	-- reassigned on every fill). `of`: goal index -> record; `last`: the latest
+	-- start, for the stagger; `grow`: the done line growing in with the first
+	-- fold; `glow`, `glowAt`: the done line whose count just went up.
+	local fold = { list = {}, n = 0, of = {}, pool = {}, last = 0, serial = 0, glowAt = 0, driver = CreateFrame("Frame") }
+
+	local wholeStep, resetModel, contentHeight, fitGoals, followCurrent, inSight, cardLine, goalsWheel
+	do
+		function wholeStep() return ns.Get("ui.wholeStep") and true or false end
+
+		local function refreshTargets()
+			if GF.live and UI.NameTargets then UI.NameTargets.Refresh() end
+		end
+
+		function contentHeight()
+			local h, items, hs = 0, area.items, area.h
+			for i = 1, area.n do h = h + hs[i] * (items[i].psK or 1) end
+			return h
+		end
+
+		-- The y of item `f` from the top of the goals area; nil when not listed.
+		local function itemTop(f)
+			local y, items, hs = 0, area.items, area.h
+			for i = 1, area.n do
+				local o = items[i]
+				if o == f then return y end
+				y = y + hs[i] * (o.psK or 1)
+			end
+			return nil
+		end
+		GF.ItemTop = itemTop
+
+		-- The goals area's items, top to bottom (tests, preview).
+		function GF.CardItems()
+			local out = {}
+			for i = 1, area.n do out[i] = area.items[i] end
+			return out
+		end
+
+		-- The scroll bar shows while there is more to scroll, and fades
+		-- CARD.barIdle after the last wheel, scroll or the cursor on a goal.
+		local barIdleAt = 0
+		local function barFade()
+			local bar = goals.Bar
+			if GetTime() + 0.01 < barIdleAt or (bar.IsMouseOver and bar:IsMouseOver()) then return end
+			Anim.To(bar, "alpha", bar:GetAlpha(), 0, 0.4, "out")
+		end
+		local function barWake()
+			if not goals.psOver then return end
+			local bar = goals.Bar
+			if bar:GetAlpha() < 1 then Anim.To(bar, "alpha", bar:GetAlpha(), 1, Anim.FAST, "out") end
+			barIdleAt = GetTime() + CARD.barIdle
+			ns.After(CARD.barIdle, barFade)
+		end
+		GF.BarWake = barWake
+
+		-- The goals area's height past the cap `limit`: whole items from the top,
+		-- so the cap never cuts a line in half (a wrapped goal's second line
+		-- half hidden under the tip, the window looking finished while a goal
+		-- is out of sight). The bottom of the last item that fits; when that is
+		-- under CARD.minView, the floor (which already outranks the cap) grows to
+		-- the bottom of the item the cap cuts, unless that passes the cap by more
+		-- than the floor itself: then the cap stays and the item scrolls.
+		local function wholeItems(limit)
+			local y, down, items, hs = 0, 0, area.items, area.h
+			for i = 1, area.n do
+				y = y + hs[i] * (items[i].psK or 1)
+				if y > limit + 0.5 then
+					if down >= CARD.minView - 0.5 then return down end
+					return y <= limit + CARD.minView and y or limit
+				end
+				down = y
+			end
+			return limit
+		end
+
+		-- Size the goals area to its contents within the cap, then the card, the
+		-- frames under it and the window to that. Runs every frame a row folds,
+		-- so it only sets sizes and points. Past the cap the area ends on a whole
+		-- item (wholeItems); while goals fold it keeps that height, shrinking
+		-- only to the content, and settles on the next layout after the folds.
+		function fitGoals()
+			local content = contentHeight()
+			local limit = max(CARD.minView, fit.room)
+			local viewH = min(content, limit)
+			if fold.n > 0 and goals.psWhole then
+				viewH = min(content, goals.psViewH)
+			else
+				goals.psWhole = content > limit + 0.5
+				if goals.psWhole then viewH = wholeItems(limit) end
+			end
+			goals:SetHeight(max(0.01, viewH))
+			goals.psContentH, goals.psViewH = content, viewH
+			W.SetScrollContent(goals, content, viewH)
+			local over = content > viewH + 0.5
+			if over ~= goals.psOver then
+				goals.psOver = over
+				-- Without more to see, the wheel stays the camera's.
+				goals:EnableMouseWheel(over)
+				barWake()
+			end
+			local cardH = fit.fixed + viewH
+			card:SetHeight(cardH)
+			local y = fit.top + cardH
+			local below, rel = fit.below, fit.rel
+			for i = 1, fit.n do
+				local f, at = below[i], -(y + rel[i])
+				f:SetPoint("TOPLEFT", body, "TOPLEFT", 0, at)
+				f:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, at)
+			end
+			y = y + fit.h
+			sizeWindow(y)
+		end
+
+		-- Scroll the goals area to `to` (clamped), gliding there unless `snap`.
+		local function scrollTo(to, snap)
+			local cur = goals:GetVerticalScroll()
+			to = min(max(0, (goals.psContentH or 0) - (goals.psViewH or 0)), max(0, to))
+			if abs(to - cur) < 0.5 then return end
+			barWake()
+			if snap then
+				Anim.Stop(goals, "value")
+				W.ScrollTo(goals, to)
+				refreshTargets()
+			else
+				Anim.To(goals, "value", cur, to, Anim.BASE, "out", refreshTargets)
+			end
+		end
+
+		function goalsWheel(self, delta)
+			Anim.Stop(self, "value")
+			scrollTo(self:GetVerticalScroll() - delta * CARD.scrollStep, true)
+		end
+
+		-- Keep the current goal in sight: from the top for a new focus, else
+		-- scrolled just far enough to show its row whole.
+		function followCurrent(top)
+			if not goals.psOver then
+				if goals:GetVerticalScroll() ~= 0 then W.ScrollTo(goals, 0) end
+				return
+			end
+			if top then
+				Anim.Stop(goals, "value")
+				W.ScrollTo(goals, 0)
+			end
+			local to = goals:GetVerticalScroll()
+			for i = 1, area.n do
+				local o = area.items[i]
+				if o.psGoal and view and o.psGoal.index == view.current and not o.psFold then
+					local y, h, viewH = itemTop(o), area.h[i], goals.psViewH
+					if y < to then
+						to = y
+					elseif y + h > to + viewH then
+						to = y + h - viewH
+					end
+					break
+				end
+			end
+			scrollTo(to, false)
+		end
+
+		-- Whether item `f` shows whole in the goals area (scrolled into sight).
+		function inSight(f)
+			if not goals.psOver then return true end
+			local y = itemTop(f)
+			if not y then return false end
+			local top = goals:GetVerticalScroll()
+			return y >= top - 0.5 and y + area.h[f.psAt] <= top + goals.psViewH + 0.5
+		end
+
+		-- Summary lines: a person of the step other than the focus, the persons
+		-- done ("before") or the focus's finished goals ("done"); a click opens
+		-- or closes the goals it stands for in place.
+		local function lineClick(self)
+			local key = self.psKey
+			if key == "done" then
+				model.doneOpen = not model.doneOpen
+			else
+				model.open[key] = (not model.open[key]) or nil
+			end
+			W.HideTooltip(self)
+			GF.Refill()
+		end
+
+		local function lineEnter(self)
+			local tips, list = {}, self.psGoals
+			for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
+			local open = (self.psKey == "done" and model.doneOpen) or (self.psKey ~= "done" and model.open[self.psKey])
+			tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
+			W.Tooltip(self, tooltipAnchor(), self.psTitle or "", tips)
+			GF.HoverIn()
+			barWake()
+		end
+
+		local function lineLeave(self) W.HideTooltip(self) end
+
+		function cardLine(i)
+			local l = lines[i]
+			if l then return l end
+			local lh = CARD.lineH
+			l = CreateFrame("Button", nil, goals.Child)
+			l:SetHeight(lh)
+			l.psLine = true
+			W.Hover(l, 0.7)
+			l.Icon = l:CreateTexture(nil, "ARTWORK")
+			l.Icon:SetSize(13, 13)
+			l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
+			l.Text = GF.SizeAs(T(l, "label", "textDim"), "detail")
+			l.Text:SetWordWrap(true)
+			l.Text:SetMaxLines(2)
+			l.Text:SetJustifyH("LEFT")
+			l.Text:SetPoint("TOPLEFT", l, "TOPLEFT", TEXT_X, -twoLines(l.Text, lh))
+			l.Chevron = l:CreateTexture(nil, "ARTWORK")
+			l.Chevron:SetSize(10, 10)
+			l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
+			W.Color(l.Chevron, "textMuted")
+			l:SetScript("OnClick", lineClick)
+			l:SetScript("OnEnter", lineEnter)
+			l:SetScript("OnLeave", lineLeave)
+			lines[i] = l
+			return l
+		end
+
+		local EASE_OUT = Anim.EASE.out
+
+		-- One frame of every fold and of the done line's glow; the window's
+		-- sizes follow (fitGoals). A fold that lands refills the card once,
+		-- which drops its row and counts it.
+		function fold.step()
+			local now = GetTime()
+			-- guideWindow.foldAnim off: the row fades and goes, as with reduced motion.
+			local reduced = Anim.Reduced() or not GF.On("foldAnim")
+			local dur = reduced and CARD.reducedFade or GF.Dur(CARD.time)
+			local list = fold.list
+			local moved, landed = false, false
+			local i = 1
+			while i <= fold.n do
+				local rec = list[i]
+				local r = rec.row
+				if r and r.psFold ~= rec then r = nil end
+				local t = now - rec.at
+				if t >= dur then
+					list[i] = list[fold.n]
+					list[fold.n] = nil
+					fold.n = fold.n - 1
+					fold.of[rec.goal] = nil
+					model.folded[rec.goal] = true
+					if r then
+						r:SetAlpha(0)
+						r.psFold = nil
+					end
+					rec.row = nil
+					fold.pool[#fold.pool + 1] = rec
+					landed = true
+				else
+					if t > 0 and r then
+						local p = t / dur
+						if reduced then
+							rec.a = 1 - p
+							r:SetAlpha(rec.a)
+						else
+							-- Cubic ease-out: a calmer start than the house quart.
+							local u = 1 - p
+							local k = u * u * u
+							rec.k, rec.a = k, max(0, 1 - p / CARD.fade)
+							r:SetAlpha(rec.a)
+							r.psK = k
+							r:SetHeight(max(0.01, area.h[r.psAt] * k))
+							local g = fold.grow
+							if rec.grow and g then
+								g.psK = 1 - k
+								g:SetHeight(max(0.01, CARD.lineH * (1 - k)))
+								g:SetAlpha(1 - k)
+							end
+							moved = true
+						end
+					end
+					i = i + 1
+				end
+			end
+			local gl = fold.glow
+			if gl then
+				local p = (now - fold.glowAt) / CARD.glow
+				if p >= 1 then
+					W.Color(gl.Text, "textDim")
+					fold.glow = nil
+				else
+					local e = EASE_OUT(p)
+					local ar, ag, ab = Theme.Accent()
+					local dr, dg, db = Theme.Color("textDim")
+					gl.Text:SetTextColor(ar + (dr - ar) * e, ag + (dg - ag) * e, ab + (db - ab) * e)
+				end
+			end
+			-- A fold on the hidden card must not resize the step browser.
+			if moved and card:IsShown() then fitGoals() end
+			if landed then GF.Refill() end
+			if fold.n == 0 and not fold.glow then fold.driver:SetScript("OnUpdate", nil) end
+		end
+
+		function fold.run()
+			fold.tick = fold.tick or ns.Safe(fold.step)
+			if fold.driver:GetScript("OnUpdate") ~= fold.tick then fold.driver:SetScript("OnUpdate", fold.tick) end
+		end
+
+		-- Goal gi just turned done: its fold, after the hold and behind any
+		-- fold already waiting. -> the record
+		function fold.start(gi)
+			local pool = fold.pool
+			local rec = pool[#pool]
+			if rec then pool[#pool] = nil else rec = {} end
+			local at = max(GetTime() + CARD.hold, fold.last + CARD.stagger)
+			fold.last = at
+			rec.goal, rec.at, rec.row, rec.grow, rec.k, rec.a, rec.pop = gi, at, nil, nil, nil, nil, true
+			fold.n = fold.n + 1
+			fold.list[fold.n] = rec
+			fold.of[gi] = rec
+			fold.run()
+			return rec
+		end
+
+		-- A folding goal open again (unticked), gone from the card, or the
+		-- card moving on: its row back to full.
+		function fold.drop(rec)
+			local r = rec.row
+			if r and r.psFold == rec then
+				r.psFold, r.psK = nil, nil
+				r:SetAlpha(1)
+			end
+			rec.row = nil
+			fold.of[rec.goal] = nil
+			local list = fold.list
+			for i = 1, fold.n do
+				if list[i] == rec then
+					list[i] = list[fold.n]
+					list[fold.n] = nil
+					fold.n = fold.n - 1
+					break
+				end
+			end
+			fold.pool[#fold.pool + 1] = rec
+		end
+
+		-- Whether the fold driver runs (tests: it stops once nothing moves).
+		function GF.Folding() return fold.driver:GetScript("OnUpdate") ~= nil end
+
+		local function wipe(t) for k in pairs(t) do t[k] = nil end end
+
+		-- A new guide, step or focus: nothing folded, opened or folding.
+		function resetModel()
+			while fold.n > 0 do fold.drop(fold.list[fold.n]) end
+			wipe(model.folded)
+			wipe(model.last)
+			wipe(model.open)
+			model.doneOpen, model.doneN = false, 0
+			fold.grow, fold.last = nil, 0
+			if fold.glow then W.Color(fold.glow.Text, "textDim") end
+			fold.glow = nil
+		end
+	end
+
+	---------------------------------------------------------------------------
+	-- The focus header: who to talk to now (or the field step's title)
+	---------------------------------------------------------------------------
+
+	-- A group's place: its own position, else its first located goal.
+	local function groupPlace(group)
+		if group.map and group.x then return group end
+		for _, gi in ipairs(group.goals or {}) do
+			local g = view.goals[gi]
+			if g and g.map and g.x and g.status ~= "na" then return g end
 		end
 		return nil
 	end
-	GF.ItemTop = itemTop
 
-	-- The goals area's items, top to bottom (tests, preview).
-	function GF.CardItems()
-		local out = {}
-		for i = 1, area.n do out[i] = area.items[i] end
-		return out
+	-- A person speaks, an object is used, a field group is a place.
+	local GROUP_VERB = { npc = "talk", object = "interact", here = "goto" }
+
+	-- The arrow on the header: on its person, or on the "Go to" it stands for
+	-- (a field step's own place, `person.psHeaderGoal`, shown as the header).
+	local function personMarked(t)
+		if person.psPerson and isTarget(person.psPlace, t) then return true end
+		local hg = person.psHeaderGoal
+		return hg ~= nil and hg.status ~= "done" and hg.status ~= "skipped" and isTarget(hg, t)
 	end
 
-	-- The scroll bar shows while there is more to scroll, and fades
-	-- CARD.barIdle after the last wheel, scroll or the cursor on a goal.
-	local barIdleAt = 0
-	local function barFade()
-		local bar = goals.Bar
-		if GetTime() + 0.01 < barIdleAt or (bar.IsMouseOver and bar:IsMouseOver()) then return end
-		Anim.To(bar, "alpha", bar:GetAlpha(), 0, 0.4, "out")
+	local function paintPerson(group)
+		local kind = group.kind or "here"
+		local verb = GROUP_VERB[kind] or "goto"
+		person.Icon:SetTexture(Theme.VerbIcon(verb))
+		W.Color(person.Icon, "textDim")
+		person.Name:SetText(UI.GroupName(view, group))
+		W.Color(person.Name, kind == "here" and "text" or (kind == "object" and "object" or "npc"))
+		local place = groupPlace(group)
+		local where = place and UI.MapName(place.map) or nil
+		person.Where:SetText(where or "")
+		person.Where:SetShown(where ~= nil)
+		person.psPlace = place
+		person.psLabel = UI.GroupName(view, group)
+		person.psGroup = group
+		-- The arrow on this person marks the header; a field group's goals carry
+		-- their own marks, except the "Go to" the header stands for.
+		person.psPerson = kind ~= "here"
+		GF.ShowMark(person, personMarked(targetOf()))
 	end
-	local function barWake()
-		if not goals.psOver then return end
-		local bar = goals.Bar
-		if bar:GetAlpha() < 1 then Anim.To(bar, "alpha", bar:GetAlpha(), 1, Anim.FAST, "out") end
-		barIdleAt = GetTime() + CARD.barIdle
-		ns.After(CARD.barIdle, barFade)
-	end
-	GF.BarWake = barWake
 
-	-- Size the goals area to its contents within the cap, then the card, the
-	-- frames under it and the window to that. Runs every frame a row folds,
-	-- so it only sets sizes and points.
-	function fitGoals()
-		local content = contentHeight()
-		local viewH = min(content, max(CARD.minView, fit.room))
-		goals:SetHeight(max(0.01, viewH))
-		goals.psContentH, goals.psViewH = content, viewH
-		W.SetScrollContent(goals, content, viewH)
-		local over = content > viewH + 0.5
-		if over ~= goals.psOver then
-			goals.psOver = over
-			-- Without more to see, the wheel stays the camera's.
-			goals:EnableMouseWheel(over)
-			barWake()
+	local function personEnter(self)
+		self.Hover:Show()
+		local lines = {}
+		if self.psPlace then
+			lines[#lines + 1] = { left = L["Location"], right = string.format("%s  %.1f, %.1f", UI.MapName(self.psPlace.map) or "", self.psPlace.x, self.psPlace.y) }
+			local r, g, b = Theme.Accent()
+			lines[#lines + 1] = { L["Click to point the arrow here"], r, g, b }
 		end
-		local cardH = fit.fixed + viewH
-		card:SetHeight(cardH)
-		local y = fit.top + cardH
-		local below, rel = fit.below, fit.rel
-		for i = 1, fit.n do
-			local f, at = below[i], -(y + rel[i])
-			f:SetPoint("TOPLEFT", body, "TOPLEFT", 0, at)
-			f:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, at)
-		end
-		y = y + fit.h
-		sizeWindow(y)
+		if view and view.title and view.title ~= self.psLabel then lines[#lines + 1] = view.title end
+		W.Tooltip(self, tooltipAnchor(), self.psLabel or "", lines)
+		GF.HoverIn()
 	end
 
-	-- Scroll the goals area to `to` (clamped), gliding there unless `snap`.
-	local function scrollTo(to, snap)
-		local cur = goals:GetVerticalScroll()
-		to = min(max(0, (goals.psContentH or 0) - (goals.psViewH or 0)), max(0, to))
-		if abs(to - cur) < 0.5 then return end
-		barWake()
-		if snap then
-			Anim.Stop(goals, "value")
-			W.ScrollTo(goals, to)
-			refreshTargets()
-		else
-			Anim.To(goals, "value", cur, to, Anim.BASE, "out", refreshTargets)
-		end
-	end
-
-	function goalsWheel(self, delta)
-		Anim.Stop(self, "value")
-		scrollTo(self:GetVerticalScroll() - delta * CARD.scrollStep, true)
-	end
-
-	-- Keep the current goal in sight: from the top for a new focus, else
-	-- scrolled just far enough to show its row whole.
-	function followCurrent(top)
-		if not goals.psOver then
-			if goals:GetVerticalScroll() ~= 0 then W.ScrollTo(goals, 0) end
-			return
-		end
-		if top then
-			Anim.Stop(goals, "value")
-			W.ScrollTo(goals, 0)
-		end
-		local to = goals:GetVerticalScroll()
-		for i = 1, area.n do
-			local o = area.items[i]
-			if o.psGoal and view and o.psGoal.index == view.current and not o.psFold then
-				local y, h, viewH = itemTop(o), area.h[i], goals.psViewH
-				if y < to then
-					to = y
-				elseif y + h > to + viewH then
-					to = y + h - viewH
-				end
-				break
-			end
-		end
-		scrollTo(to, false)
-	end
-
-	-- Whether item `f` shows whole in the goals area (scrolled into sight).
-	function inSight(f)
-		if not goals.psOver then return true end
-		local y = itemTop(f)
-		if not y then return false end
-		local top = goals:GetVerticalScroll()
-		return y >= top - 0.5 and y + area.h[f.psAt] <= top + goals.psViewH + 0.5
-	end
-
-	-- Summary lines: a person of the step other than the focus, the persons
-	-- done ("before") or the focus's finished goals ("done"); a click opens
-	-- or closes the goals it stands for in place.
-	local function lineClick(self)
-		local key = self.psKey
-		if key == "done" then
-			model.doneOpen = not model.doneOpen
-		else
-			model.open[key] = (not model.open[key]) or nil
-		end
+	local function personLeave(self)
+		self.Hover:Hide()
 		W.HideTooltip(self)
-		GF.Refill()
 	end
 
-	local function lineEnter(self)
-		local tips, list = {}, self.psGoals
-		for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
-		local open = (self.psKey == "done" and model.doneOpen) or (self.psKey ~= "done" and model.open[self.psKey])
-		tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
-		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", tips)
-		GF.HoverIn()
-		barWake()
+	---------------------------------------------------------------------------
+	-- Upcoming steps (off by default; collapsed when on)
+	---------------------------------------------------------------------------
+
+	local function upRow(i)
+		local r = upRows[i]
+		if r then return r end
+		r = CreateFrame("Button", nil, upnext)
+		r:SetHeight(UP_ROW)
+		W.Hover(r)
+		r.Num = GF.SizeAs(T(r, "number", "textMuted"), "up")
+		r.Num:SetJustifyH("RIGHT")
+		r.Num:SetWidth(22)
+		r.Icon = r:CreateTexture(nil, "ARTWORK")
+		r.Icon:SetSize(13, 13)
+		W.Color(r.Icon, "textMuted")
+		r.Text = GF.SizeAs(T(r, "label", "textDim"), "up")
+		r.Text:SetWordWrap(true)
+		r.Text:SetMaxLines(2)
+		r:SetScript("OnClick", function(self)
+			local E = Engine()
+			if E and E.Goto and self.psIndex then E.Goto(self.psIndex) end
+		end)
+		r:SetScript("OnEnter", function(self)
+			W.Tooltip(self, tooltipAnchor(), self.psSummary or "", { { L["Click to jump to this step"], Theme.Accent() } })
+			GF.HoverIn()
+		end)
+		r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+		upRows[i] = r
+		return r
 	end
 
-	local function lineLeave(self) W.HideTooltip(self) end
+	local function upcomingOpen() return ns.Get("ui.upcomingOpen") and true or false end
 
-	function cardLine(i)
-		local l = lines[i]
-		if l then return l end
-		local lh = CARD.lineH
-		l = CreateFrame("Button", nil, goals.Child)
-		l:SetHeight(lh)
-		l.psLine = true
-		W.Hover(l, 0.7)
-		l.Icon = l:CreateTexture(nil, "ARTWORK")
-		l.Icon:SetSize(13, 13)
-		l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
-		l.Text = T(l, "label", "textDim")
-		l.Text:SetWordWrap(true)
-		l.Text:SetMaxLines(2)
-		l.Text:SetJustifyH("LEFT")
-		l.Text:SetPoint("TOPLEFT", l, "TOPLEFT", TEXT_X, -twoLines(l.Text, lh))
-		l.Chevron = l:CreateTexture(nil, "ARTWORK")
-		l.Chevron:SetSize(10, 10)
-		l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
-		W.Color(l.Chevron, "textMuted")
-		l:SetScript("OnClick", lineClick)
-		l:SetScript("OnEnter", lineEnter)
-		l:SetScript("OnLeave", lineLeave)
-		lines[i] = l
-		return l
-	end
+	---------------------------------------------------------------------------
+	-- Along the way: open goals of `along` steps the route has passed
+	-- (Engine.GetAlong), under the card until they are done
+	---------------------------------------------------------------------------
 
-	local EASE_OUT = Anim.EASE.out
+	local ALONG_MAX = 6
 
-	-- One frame of every fold and of the done line's glow; the window's
-	-- sizes follow (fitGoals). A fold that lands refills the card once,
-	-- which drops its row and counts it.
-	function fold.step()
-		local now = GetTime()
-		local reduced = Anim.Reduced()
-		local dur = reduced and CARD.reducedFade or CARD.time
-		local list = fold.list
-		local moved, landed = false, false
-		local i = 1
-		while i <= fold.n do
-			local rec = list[i]
-			local r = rec.row
-			if r and r.psFold ~= rec then r = nil end
-			local t = now - rec.at
-			if t >= dur then
-				list[i] = list[fold.n]
-				list[fold.n] = nil
-				fold.n = fold.n - 1
-				fold.of[rec.goal] = nil
-				model.folded[rec.goal] = true
-				if r then
-					r:SetAlpha(0)
-					r.psFold = nil
-				end
-				rec.row = nil
-				fold.pool[#fold.pool + 1] = rec
-				landed = true
-			else
-				if t > 0 and r then
-					local p = t / dur
-					if reduced then
-						rec.a = 1 - p
-						r:SetAlpha(rec.a)
-					else
-						-- Cubic ease-out: a calmer start than the house quart.
-						local u = 1 - p
-						local k = u * u * u
-						rec.k, rec.a = k, max(0, 1 - p / CARD.fade)
-						r:SetAlpha(rec.a)
-						r.psK = k
-						r:SetHeight(max(0.01, area.h[r.psAt] * k))
-						local g = fold.grow
-						if rec.grow and g then
-							g.psK = 1 - k
-							g:SetHeight(max(0.01, CARD.lineH * (1 - k)))
-							g:SetAlpha(1 - k)
-						end
-						moved = true
-					end
-				end
-				i = i + 1
-			end
-		end
-		local gl = fold.glow
-		if gl then
-			local p = (now - fold.glowAt) / CARD.glow
-			if p >= 1 then
-				W.Color(gl.Text, "textDim")
-				fold.glow = nil
-			else
-				local e = EASE_OUT(p)
-				local ar, ag, ab = Theme.Accent()
-				local dr, dg, db = Theme.Color("textDim")
-				gl.Text:SetTextColor(ar + (dr - ar) * e, ag + (dg - ag) * e, ab + (db - ab) * e)
-			end
-		end
-		if moved then fitGoals() end
-		if landed then GF.Refill() end
-		if fold.n == 0 and not fold.glow then fold.driver:SetScript("OnUpdate", nil) end
-	end
-
-	function fold.run()
-		fold.tick = fold.tick or ns.Safe(fold.step)
-		if fold.driver:GetScript("OnUpdate") ~= fold.tick then fold.driver:SetScript("OnUpdate", fold.tick) end
-	end
-
-	-- Goal gi just turned done: its fold, after the hold and behind any
-	-- fold already waiting. -> the record
-	function fold.start(gi)
-		local pool = fold.pool
-		local rec = pool[#pool]
-		if rec then pool[#pool] = nil else rec = {} end
-		local at = max(GetTime() + CARD.hold, fold.last + CARD.stagger)
-		fold.last = at
-		rec.goal, rec.at, rec.row, rec.grow, rec.k, rec.a, rec.pop = gi, at, nil, nil, nil, nil, true
-		fold.n = fold.n + 1
-		fold.list[fold.n] = rec
-		fold.of[gi] = rec
-		fold.run()
-		return rec
-	end
-
-	-- A folding goal open again (unticked), gone from the card, or the
-	-- card moving on: its row back to full.
-	function fold.drop(rec)
-		local r = rec.row
-		if r and r.psFold == rec then
-			r.psFold, r.psK = nil, nil
-			r:SetAlpha(1)
-		end
-		rec.row = nil
-		fold.of[rec.goal] = nil
-		local list = fold.list
-		for i = 1, fold.n do
-			if list[i] == rec then
-				list[i] = list[fold.n]
-				list[fold.n] = nil
-				fold.n = fold.n - 1
-				break
-			end
-		end
-		fold.pool[#fold.pool + 1] = rec
-	end
-
-	-- Whether the fold driver runs (tests: it stops once nothing moves).
-	function GF.Folding() return fold.driver:GetScript("OnUpdate") ~= nil end
-
-	local function wipe(t) for k in pairs(t) do t[k] = nil end end
-
-	-- A new guide, step or focus: nothing folded, opened or folding.
-	function resetModel()
-		while fold.n > 0 do fold.drop(fold.list[fold.n]) end
-		wipe(model.folded)
-		wipe(model.last)
-		wipe(model.open)
-		model.doneOpen, model.doneN = false, 0
-		fold.grow, fold.last = nil, 0
-		if fold.glow then W.Color(fold.glow.Text, "textDim") end
-		fold.glow = nil
-	end
-end
-
----------------------------------------------------------------------------
--- The focus header: who to talk to now (or the field step's title)
----------------------------------------------------------------------------
-
--- A group's place: its own position, else its first located goal.
-local function groupPlace(group)
-	if group.map and group.x then return group end
-	for _, gi in ipairs(group.goals or {}) do
-		local g = view.goals[gi]
-		if g and g.map and g.x and g.status ~= "na" then return g end
-	end
-	return nil
-end
-
--- A person speaks, an object is used, a field group is a place.
-local GROUP_VERB = { npc = "talk", object = "interact", here = "goto" }
-
--- The arrow on the header: on its person, or on the "Go to" it stands for
--- (a field step's own place, `person.psHeaderGoal`, shown as the header).
-local function personMarked(t)
-	if person.psPerson and isTarget(person.psPlace, t) then return true end
-	local hg = person.psHeaderGoal
-	return hg ~= nil and hg.status ~= "done" and hg.status ~= "skipped" and isTarget(hg, t)
-end
-
-local function paintPerson(group)
-	local kind = group.kind or "here"
-	local verb = GROUP_VERB[kind] or "goto"
-	person.Icon:SetTexture(Theme.VerbIcon(verb))
-	W.Color(person.Icon, "textDim")
-	person.Name:SetText(UI.GroupName(view, group))
-	W.Color(person.Name, kind == "here" and "text" or (kind == "object" and "object" or "npc"))
-	local place = groupPlace(group)
-	local where = place and UI.MapName(place.map) or nil
-	person.Where:SetText(where or "")
-	person.Where:SetShown(where ~= nil)
-	person.psPlace = place
-	person.psLabel = UI.GroupName(view, group)
-	-- The arrow on this person marks the header; a field group's goals carry
-	-- their own marks, except the "Go to" the header stands for.
-	person.psPerson = kind ~= "here"
-	person.Mark:SetShown(personMarked(targetOf()))
-end
-
-local function personEnter(self)
-	self.Hover:Show()
-	local lines = {}
-	if self.psPlace then
-		lines[#lines + 1] = { left = L["Location"], right = string.format("%s  %.1f, %.1f", UI.MapName(self.psPlace.map) or "", self.psPlace.x, self.psPlace.y) }
-		local r, g, b = Theme.Accent()
-		lines[#lines + 1] = { L["Click to point the arrow here"], r, g, b }
-	end
-	if view and view.title and view.title ~= self.psLabel then lines[#lines + 1] = view.title end
-	W.Tooltip(self, tooltipAnchor(), self.psLabel or "", lines)
-	GF.HoverIn()
-end
-
-local function personLeave(self)
-	self.Hover:Hide()
-	W.HideTooltip(self)
-end
-
----------------------------------------------------------------------------
--- Upcoming steps (off by default; collapsed when on)
----------------------------------------------------------------------------
-
-local function upRow(i)
-	local r = upRows[i]
-	if r then return r end
-	r = CreateFrame("Button", nil, upnext)
-	r:SetHeight(UP_ROW)
-	W.Hover(r)
-	r.Num = T(r, "number", "textMuted")
-	r.Num:SetJustifyH("RIGHT")
-	r.Num:SetWidth(22)
-	r.Icon = r:CreateTexture(nil, "ARTWORK")
-	r.Icon:SetSize(13, 13)
-	W.Color(r.Icon, "textMuted")
-	r.Text = T(r, "label", "textDim")
-	r.Text:SetWordWrap(true)
-	r.Text:SetMaxLines(2)
-	r:SetScript("OnClick", function(self)
-		local E = Engine()
-		if E and E.Goto and self.psIndex then E.Goto(self.psIndex) end
-	end)
-	r:SetScript("OnEnter", function(self)
-		W.Tooltip(self, tooltipAnchor(), self.psSummary or "", { { L["Click to jump to this step"], Theme.Accent() } })
-		GF.HoverIn()
-	end)
-	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	upRows[i] = r
-	return r
-end
-
-local function upcomingOpen() return ns.Get("ui.upcomingOpen") and true or false end
-
----------------------------------------------------------------------------
--- Along the way: open goals of `along` steps the route has passed
--- (Engine.GetAlong), under the card until they are done
----------------------------------------------------------------------------
-
-local ALONG_MAX = 6
-
-local function alongRow(i)
-	local r = alongRows[i]
-	if r then return r end
-	r = CreateFrame("Button", nil, along)
-	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	r:SetHeight(UP_ROW)
-	W.Hover(r)
-	r.Icon = r:CreateTexture(nil, "ARTWORK")
-	r.Icon:SetSize(13, 13)
-	W.Color(r.Icon, "textMuted")
-	r.Text = T(r, "label", "textDim")
-	r.Text:SetWordWrap(true)
-	r.Text:SetMaxLines(2)
-	r:SetScript("OnClick", function(self, button)
-		local E = Engine()
-		-- A quest an update left behind the player (Engine.GetBehind): the
-		-- arrow on a click, Skip or Abandon on a right-click.
-		local q = self.psBehind
-		if q and E then
-			if button ~= "RightButton" then
-				if E.AimBehind then E.AimBehind(q) end
+	local function alongRow(i)
+		local r = alongRows[i]
+		if r then return r end
+		r = CreateFrame("Button", nil, along)
+		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		r:SetHeight(UP_ROW)
+		W.Hover(r)
+		r.Icon = r:CreateTexture(nil, "ARTWORK")
+		r.Icon:SetSize(13, 13)
+		W.Color(r.Icon, "textMuted")
+		r.Text = GF.SizeAs(T(r, "label", "textDim"), "up")
+		r.Text:SetWordWrap(true)
+		r.Text:SetMaxLines(2)
+		r:SetScript("OnClick", function(self, button)
+			local E = Engine()
+			-- The finished quests no open route hands in (RoutePlan.Carried):
+			-- their list, with who takes each and a hand-in guide.
+			if self.psCarried then
+				if UI.ShowQuestRoom then UI.ShowQuestRoom("carried") end
 				return
 			end
-			W.ShowMenu(self, {
-				{ text = L["Skip this quest"], icon = "skip", onClick = function() E.SkipBehind(q) end },
-				{ text = L["Abandon"], icon = "close", onClick = function() ns.Compat.AskAbandonQuest(q) end },
-			})
-			return
-		end
-		-- A pinned quest's row unpins it on a right-click (#644).
-		if button == "RightButton" then
-			if self.psPin and E and E.PinQuest then E.PinQuest(self.psPin, false) end
-			return
-		end
-		if E and E.AimAlong and self.psStep then E.AimAlong(self.psStep, self.psGoal) end
-	end)
-	r:SetScript("OnEnter", function(self)
-		local lines = {}
-		if self.psPlace then lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() } end
-		if self.psPin then lines[#lines + 1] = { L["Pinned by you. Right-click to unpin."], Theme.Color("textDim") } end
-		if self.psBehind then
-			lines[#lines + 1] = { L["You carry this quest; the update moved what is left of it before your place in the guide."], Theme.Color("textDim") }
-			lines[#lines + 1] = { L["Right-click to skip or abandon it."], Theme.Color("textDim") }
-		end
-		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
-		GF.HoverIn()
-	end)
-	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	alongRows[i] = r
-	return r
-end
-
----------------------------------------------------------------------------
--- Tab strip
----------------------------------------------------------------------------
-
-local function tabsOf(E)
-	if not (E and E.GetTabs) then return nil, nil end
-	local ok, tabs, active = pcall(E.GetTabs)
-	if not ok or type(tabs) ~= "table" then return nil, nil end
-	return tabs, active
-end
-
-local function tabMenu(self)
-	local E = Engine()
-	local i = self.psIndex
-	local tabs = tabsOf(E) or {}
-	local items = {
-		-- The picker loads into the active tab, so this tab becomes the active one first.
-		{ text = L["Choose guide"], icon = "search", onClick = function()
-			if E.SelectTab and not self.psActive then E.SelectTab(i) end
-			UI.ShowPicker()
-		end },
-		{ text = L["Close tab"], icon = "close", onClick = function() E.CloseTab(i) end },
-		{ text = L["Move left"], icon = "chevron-left", disabled = i <= 1, onClick = function() E.MoveTab(i, i - 1) end },
-		{ text = L["Move right"], icon = "chevron-right", disabled = i >= #tabs, onClick = function() E.MoveTab(i, i + 1) end },
-	}
-	local reopen = GF.ReopenItem()
-	if reopen then table.insert(items, 3, reopen) end
-	W.ShowMenu(self, items, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = 0, y = -2 })
-end
-
--- A tab's label: the title, then its level range in a dimmer string. The
--- range tells same-named guides apart, so it keeps its width and the title
--- truncates, clear of the close button at the right (TAB_CLOSE_PAD).
--- Too narrow for even the range, the tab is its glyph alone.
-local TAB_TEXT_X = 27 -- the label's left edge: the glyph's inset, width and gap
-local TAB_RANGE_GAP = 4
-local TAB_CLOSE_PAD = 20
--- The close button at rest: faint, so players find it; in full under the pointer.
-local TAB_CLOSE_REST = 0.35
-local function layoutTab(b)
-	local room = b:GetWidth() - TAB_TEXT_X - TAB_CLOSE_PAD
-	local rangeW = b.psRange and (floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP) or 0
-	local fits = rangeW <= room
-	local titleW = fits and min(b.psTitleW, room - rangeW) or 0
-	b.Label:SetShown(titleW >= 1)
-	if titleW >= 1 then b.Label:SetWidth(titleW) end
-	b.Range:SetShown(b.psRange and fits or false)
-	b.Range:ClearAllPoints()
-	b.Range:SetPoint("LEFT", b.Icon, "RIGHT", 6 + (titleW >= 1 and titleW + TAB_RANGE_GAP or 0), 0)
-end
-
--- With ui.growUp and ui.barsBottom the tab strip and navigator sit at the
--- bottom, by the edge the window is pinned to, with the progress foot above
--- the navigator. Otherwise the order runs strip, navigator, body, foot.
-local function barsBottom()
-	return ns.Get("ui.growUp") and ns.Get("ui.barsBottom") and true or false
-end
-
-local function tabButton(i)
-	local b = tabButtons[i]
-	if b then return b end
-	b = CreateFrame("Button", nil, strip)
-	b:SetHeight(TAB_H)
-	b:RegisterForClicks("LeftButtonUp", "RightButtonUp", "MiddleButtonUp")
-	b.Selected = b:CreateTexture(nil, "BACKGROUND")
-	b.Selected:SetTexture(Theme.Media("white"))
-	b.Selected:SetAllPoints(b)
-	W.Painter(b.Selected, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
-	W.Hover(b, 0.7)
-	b.Bar = b:CreateTexture(nil, "OVERLAY")
-	b.Bar:SetTexture(Theme.Media("white"))
-	b.Bar:SetHeight(2)
-	local edge = barsBottom() and "TOP" or "BOTTOM"
-	b.Bar:SetPoint(edge .. "LEFT", b, edge .. "LEFT", 0, 0)
-	b.Bar:SetPoint(edge .. "RIGHT", b, edge .. "RIGHT", 0, 0)
-	W.Color(b.Bar, "accent")
-	b.Icon = b:CreateTexture(nil, "ARTWORK")
-	b.Icon:SetSize(12, 12)
-	b.Icon:SetPoint("LEFT", b, "LEFT", 9, 0)
-	b.Label = T(b, "small", "textDim")
-	b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 6, 0)
-	b.Range = T(b, "small", "textMuted")
-	b.Close = W.IconButton(b, "close", 16, L["Close tab"], function(self)
-		local E = Engine()
-		if E and E.CloseTab then E.CloseTab(self:GetParent().psIndex) end
-	end, 9)
-	b.Close:SetPoint("RIGHT", b, "RIGHT", -3, 0)
-	b.Close:SetAlpha(TAB_CLOSE_REST)
-	b.Close.psOnEnter = function(c) c:SetAlpha(1) end
-	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(TAB_CLOSE_REST) end end
-	b:SetScript("OnClick", function(self, button)
-		local E = Engine()
-		if not E then return end
-		if button == "RightButton" then return tabMenu(self) end
-		if button == "MiddleButton" and E.CloseTab then return E.CloseTab(self.psIndex) end
-		if E.SelectTab and not self.psActive then E.SelectTab(self.psIndex) end
-	end)
-	b:SetScript("OnEnter", function(self)
-		self.Close:SetAlpha(1)
-		local lines = {}
-		if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
-		if self.psProgress then lines[#lines + 1] = self.psProgress end
-		lines[#lines + 1] = { L["Right-click for tab options"], Theme.Accent() }
-		W.Tooltip(self, "ANCHOR_TOP", self.psTitle or "", lines)
-		GF.HoverIn()
-	end)
-	b:SetScript("OnLeave", function(self)
-		if not self.Close:IsMouseOver() then self.Close:SetAlpha(TAB_CLOSE_REST) end
-		W.HideTooltip(self)
-	end)
-	tabButtons[i] = b
-	return b
-end
-
-local CATEGORY_ICON = {
-	Leveling = "icon-level", Class = "icon-train", Professions = "icon-craft", Reputation = "icon-rep", Legacy = "icon-achieve",
-	Exploration = "icon-explore", Collectibles = "star", Miscellaneous = "icon-treasure", Dungeons = "icon-kill",
-}
-GF.CATEGORY_ICON = CATEGORY_ICON
-
-function GF.RenderTabs()
-	if not F then return end
-	local tabs, active = tabsOf(Engine())
-	local n = tabs and #tabs or 0
-	strip.psCount = n
-	local avail = F:GetWidth() - 2 - 30
-	-- The active tab gets the room to read its title; the rest share the remainder.
-	local share = n > 0 and floor(avail / n) or 0
-	local activeW, otherW = share, share
-	if n >= 2 and active then
-		activeW = min(TAB_MAX_W, max(share, floor(avail * (n == 2 and 0.55 or 0.42))))
-		otherW = floor((avail - activeW) / (n - 1))
-	end
-	activeW, otherW = min(TAB_MAX_W, activeW), min(TAB_MAX_W, otherW)
-	local G = ns.Guides
-	local x = 1
-	for i = 1, n do
-		local t = tabs[i]
-		local b = tabButton(i)
-		b.psIndex = i
-		b.psActive = i == active
-		b.psTitle = t.title or t.guideId
-		local guide = G and G.Get and G.Get(t.guideId)
-		b.psMeta = guide and UI.GuideMeta(guide) or nil
-		local total = t.total or t.stepCount
-		b.psProgress = (t.done and total and total > 0) and string.format(L["%d of %d steps done"], t.done, total) or nil
-		b.Label:SetText(b.psTitle)
-		b.Label:SetWidth(0) -- unbound, to measure the whole title
-		b.psTitleW = floor(b.Label:GetStringWidth() + 1)
-		local lv = guide and UI.LevelRange(guide.minLevel, guide.maxLevel)
-		b.psRange = lv and ("(" .. lv .. ")") or nil
-		b.Range:SetText(b.psRange or "")
-		b.Icon:SetTexture(Theme.Media(CATEGORY_ICON[t.category] or "icon-level"))
-		W.Color(b.Label, b.psActive and "text" or "textMuted")
-		W.Color(b.Range, b.psActive and "textDim" or "textMuted")
-		W.Color(b.Icon, b.psActive and "accent" or "textMuted")
-		b.Selected:SetShown(b.psActive)
-		b.Bar:SetShown(b.psActive)
-		GF.PaintTab(b)
-		local w = b.psActive and activeW or otherW
-		b:SetWidth(w)
-		layoutTab(b)
-		b:ClearAllPoints()
-		b:SetPoint("BOTTOMLEFT", strip, "BOTTOMLEFT", x, 0)
-		x = x + w
-		b:Show()
-	end
-	for i = n + 1, #tabButtons do tabButtons[i]:Hide() end
-	strip.Add:ClearAllPoints()
-	strip.Add:SetPoint("LEFT", strip, "BOTTOMLEFT", x + 2, TAB_H / 2)
-	local full = n >= 6
-	W.SetIconState(strip.Add, false, not full)
-	strip.Add.psTip = full and L["Six tabs is the limit"] or L["Open a guide in a new tab"]
-end
-
----------------------------------------------------------------------------
--- Banners: the tab the player just closed, with its Reopen (for
--- GF.CLOSED_SECONDS, shown even with no tab left); "Continue automatically"
--- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
--- quest the live step waits on
--- (`when group`: Skip it, the default, or Do it with a group; it cannot be
--- dismissed); the step the player just skipped, with its undo; why the guide
--- just moved past a quest (while that step's guide and next step are on
--- screen); the step on screen when it is not the live one (skipped: unskip
--- it; looked at with ‹ ›: back to the live step); then the end of a leveling
--- guide reached with steps still open (Start the next guide, GF.EndOffer),
--- then the out-levelled offer
--- (while its guide is active), then the training reminder, the riding one,
--- then a Class guide that just opened (QoL/ClassQuests.lua), then the bags
--- nearly full while the step collects (QoL/Space.lua: delete the cheapest
--- junk, two clicks), then gear worth wearing from loot or a merchant
--- (QoL/Wear.lua: Wear it, Not this one). Taking or dismissing one lets the
--- next through.
----------------------------------------------------------------------------
-
-local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil }
-GF.notices = notices
-
--- The step on screen when it is not the live step: { guideId, index, live,
--- skipped }, or nil. Dismissed per step (notices.away holds the key).
-local function awayNotice(E, g)
-	if not (E.GetLiveStep and view and g) then return nil end
-	local index, live = E.GetStepIndex(), E.GetLiveStep()
-	if not index or index ~= view.index or index == live then return nil end
-	if not view.skipped and not live then return nil end
-	local a = { guideId = g.id, index = index, live = live, skipped = view.skipped and true or false }
-	if notices.away == g.id .. ":" .. index then return nil end
-	return a
-end
-
-local function nearbyTrip()
-	local Nearby = ns.Nav and ns.Nav.nearby
-	return Nearby and Nearby.Trip and Nearby.Trip() or nil
-end
-
--- The end of the active leveling guide reached while steps are still open
--- (Engine.GuideEnded; the guide-end window's "Back to step N", UI/GuideEnd.lua):
--- what to start from here, { guideId, label = "The Barrens (12–16)" } or
--- { guideId, choose = true } for a route choice; nil with nothing to start,
--- on a finished guide (its complete page offers the next one) or once
--- dismissed (notices.endSeen, for the session).
-function GF.EndOffer(E, g)
-	if not (g and E and E.GuideEnded and E.GetLiveStep and E.GetLiveStep() ~= nil) then return nil end
-	if notices.endSeen == g.id or not E.GuideEnded(g.id) then return nil end
-	local G = ns.Guides
-	local nextId = E.NextGuide and E.NextGuide(g.id)
-	local nextGuide = nextId and G and G.Get and G.Get(nextId)
-	if nextGuide then
-		local lv = UI.LevelRange(nextGuide.minLevel, nextGuide.maxLevel)
-		return { guideId = g.id, label = (nextGuide.title or nextId) .. (lv and (" (" .. lv .. ")") or "") }
-	end
-	local choice = E.GetRouteChoice and E.GetRouteChoice(g.id)
-	if choice and #choice.options >= 2 then return { guideId = g.id, choose = true } end
-	return nil
-end
-
-local function bannerNotice()
-	local E = Engine()
-	local g = E and E.GetGuide and E.GetGuide()
-	-- On the way to a nearby service (Nav/Nearby.lua): the way back first.
-	local t = nearbyTrip()
-	if t then return "trip", t end
-	-- The tab just closed, until it is open again.
-	local ct = notices.closedTab
-	if ct and not (E and E.TabIds and E.TabIds()[ct.guideId]) then return "closedTab", ct end
-	if notices.questSkip then return "questSkip", notices.questSkip end
-	-- "Continue automatically" moved on from a finished leveling guide.
-	local c = notices.continued
-	if c and g ~= nil and g.id == c.to then return "continued", c end
-	-- A quest the route had passed left the log: the guide holds and asks.
-	local lq, ltitle
-	if E and E.LostQuestion then lq, ltitle = E.LostQuestion() end
-	if lq then return "lost", { quest = lq, title = ltitle } end
-	local gq, gtitle
-	if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
-	if gq then return "group", { quest = gq, title = gtitle } end
-	local k = notices.stepSkip
-	if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
-	local s = notices.skipped
-	if s and g ~= nil and g.id == s.guideId and E.GetStepIndex() == s.to then return "skipped", s end
-	local a = E and awayNotice(E, g)
-	if a then return "away", a end
-	-- The live step's accepts would not fit in the quest log (Core/RoutePlan.lua).
-	local lo = g ~= nil and view and E.GetLiveStep and view.index == E.GetLiveStep() and ns.RoutePlan and ns.RoutePlan.LogOverflow()
-	if lo and notices.logSeen ~= g.id .. ":" .. view.index then
-		lo.key = g.id .. ":" .. view.index
-		return "log", lo
-	end
-	local en = GF.EndOffer(E, g)
-	if en then return "ended", en end
-	local o = notices.outlevel
-	if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
-	if notices.train then return "train", notices.train end
-	if notices.riding then return "riding", notices.riding end
-	if notices.classQuest then return "classQuest", notices.classQuest end
-	local Q = ns.QoL
-	local bags = Q and Q.Space and Q.Space.Banner and Q.Space.Banner()
-	if bags then return "bags", bags end
-	local wear = Q and Q.Wear and Q.Wear.Offer and Q.Wear.Offer()
-	if wear then return "wear", wear end
-	return nil
-end
-GF.BannerNotice = bannerNotice
-
--- Skip the step on screen (the navigator's Skip, the menu).
-function GF.SkipStep()
-	local E = Engine()
-	if E and E.Skip and E.GetGuide and E.GetGuide() then E.Skip() end
-end
-
--- Look at step i through Prev and Next, which change nothing (Goto would
--- un-skip a skipped step). Steps not for this character are passed over, so
--- it stops at the nearest one it can reach.
-function GF.LookAt(i)
-	local E = Engine()
-	if not (E and E.GetStepIndex and E.Next and E.Prev and type(i) == "number") then return end
-	for _ = 1, E.GetStepCount() do
-		local at = E.GetStepIndex()
-		if not at or at == i then return end
-		if at < i then E.Next() else E.Prev() end
-		if E.GetStepIndex() == at then return end
-	end
-end
-
--- The wheel over the step number: each notch looks one step back (up) or on
--- (down), ten with Shift, changing nothing. SCRUB_BACK seconds after the
--- last notch the window is back on the live step, unless the player has
--- moved on from where the wheel left it, or has been doing that step's work
--- meanwhile (a goal done or counted up, a quest taken): then it stays, as
--- after Next. In combat it waits until the fight is over.
-local SCRUB_BACK = 4
-local scrubAt -- { step, mark }: the last notch's, until it is settled
-
--- What has been done on step i so far, as one string (GF.Scrub compares it).
--- (On GF: the main chunk is at Lua's 200 locals.)
-function GF.ScrubMark(E, i)
-	local v = E.GetStepView(i)
-	if not v then return "" end
-	local parts = { tostring(v.status) }
-	for g, goal in ipairs(v.goals or {}) do
-		parts[#parts + 1] = g .. ":" .. tostring(goal.status) .. ":" .. tostring(goal.progress and goal.progress.cur or "")
-	end
-	return table.concat(parts, ",")
-end
-
-function GF.Scrub(delta)
-	local E = Engine()
-	if not (E and E.GetStepIndex and E.GetLiveStep and E.GetStepIndex()) then return end
-	local n = ns.Compat.IsShiftKeyDown() and 10 or 1
-	GF.LookAt(math.max(1, math.min(E.GetStepCount(), E.GetStepIndex() + (delta > 0 and -n or n))))
-	local at = E.GetStepIndex()
-	local mine = { step = at, mark = GF.ScrubMark(E, at) }
-	scrubAt = mine
-	local function back()
-		if scrubAt ~= mine then return end
-		local live = E.GetLiveStep()
-		if E.GetStepIndex() ~= at or not live or at == live or GF.ScrubMark(E, at) ~= mine.mark then
-			scrubAt = nil
-			return
-		end
-		if ns.Compat.InCombat() then
-			ns.After(SCRUB_BACK, back)
-			return
-		end
-		scrubAt = nil
-		GF.LookAt(live)
-	end
-	ns.After(SCRUB_BACK, back)
-end
-
--- A click on the step number: the steps around the one on screen, done ones
--- dimmed and ticked, the live one marked; a click looks at that step.
-local OVERVIEW_BEFORE, OVERVIEW_AFTER = 5, 10
-function GF.ShowOverview(anchor)
-	local E = Engine()
-	local at = E and E.GetStepIndex and E.GetStepIndex()
-	if not at then return end
-	scrubAt = nil
-	local live, count, items = E.GetLiveStep(), E.GetStepCount(), {}
-	for i = math.max(1, at - OVERVIEW_BEFORE), math.min(count, at + OVERVIEW_AFTER) do
-		local v = not UI.StepHidden(i) and E.GetStepView(i)
-		if v and v.status ~= "na" then
-			local no = UI.StepNo(i)
-			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
-			items[#items + 1] = {
-				text = no .. "  " .. title,
-				icon = i == live and "chevron-right" or nil,
-				checked = v.status == "done" or nil,
-				color = (v.status == "done" or v.status == "skipped") and "textMuted" or (i == at and "accent" or nil),
-				onClick = function() GF.LookAt(i) end,
-			}
-		end
-	end
-	if #items > 0 then W.ShowMenu(anchor, items, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", minWidth = 260 }) end
-end
-
--- PLAYER_SKIPPED_STEP(guideId, step): from the window or /polestar skip, the
--- banner offers the undo for SKIPPED_SECONDS.
-ns.On("PLAYER_SKIPPED_STEP", function(guideId, step)
-	if not F or type(step) ~= "number" then return end
-	local G = ns.Guides
-	local g = G and G.Get and G.Get(guideId)
-	local st = g and g.steps and g.steps[step]
-	local notice = { guideId = guideId, step = step, title = st and st.title }
-	notices.stepSkip = notice
-	if ns.IsLoggedIn() then GF.Layout() end
-	ns.After(SKIPPED_SECONDS, function()
-		if notices.stepSkip == notice then
-			notices.stepSkip = nil
-			if F and ns.IsLoggedIn() then GF.Layout() end
-		end
-	end)
-end)
-
--- PLAYER_SKIPPED_QUEST(questID, title): a quest skipped from its line's
--- menu; the card has moved on, so the banner offers the undo for
--- SKIPPED_SECONDS (the quest's accept keeps its own Undo).
-ns.On("PLAYER_SKIPPED_QUEST", function(questID, title)
-	if not F or type(questID) ~= "number" then return end
-	local notice = { quest = questID, title = title }
-	notices.questSkip = notice
-	if ns.IsLoggedIn() then GF.Layout() end
-	ns.After(SKIPPED_SECONDS, function()
-		if notices.questSkip == notice then
-			notices.questSkip = nil
-			if F and ns.IsLoggedIn() then GF.Layout() end
-		end
-	end)
-end)
-
--- TAB_CLOSED(guideId): the player closed a tab; the banner offers to reopen
--- it for GF.CLOSED_SECONDS (later: the guide list's Recently closed, the
--- menus' Reopen closed tab, /polestar reopen, its key binding).
-GF.CLOSED_SECONDS = 10
-ns.On("TAB_CLOSED", function(guideId)
-	if not F or type(guideId) ~= "string" then return end
-	local G = ns.Guides
-	local g = G and G.Get and G.Get(guideId)
-	local notice = { guideId = guideId, title = g and g.title or guideId }
-	notices.closedTab = notice
-	if ns.IsLoggedIn() then GF.Layout() end
-	ns.After(GF.CLOSED_SECONDS, function()
-		if notices.closedTab == notice then
-			notices.closedTab = nil
-			if F and ns.IsLoggedIn() then GF.Layout() end
-		end
-	end)
-end)
-
-local function trainerPlace(t)
-	local zone = t.map and UI.MapName(t.map) or nil
-	if t.npcName and zone then return t.npcName .. ", " .. zone end
-	return t.npcName or zone
-end
-
--- One link-style action in the banner (label, chevron).
-local function placeLink(link, text, x, y)
-	link.Label:SetText(text)
-	link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
-	link:ClearAllPoints()
-	link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
-	link:Show()
-	return link:GetWidth()
-end
-
-function GF.LayoutBanner(width)
-	local kind, n = bannerNotice()
-	banner.psKind = kind
-	banner.Jump.psDefault = (kind == "group" or kind == "lost") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
-	banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
-	banner.Later:Hide()
-	if kind == "skipped" then
-		banner.Icon:SetTexture(Theme.Media("skip"))
-		local lines = {}
-		for i, k in ipairs(n.skips) do
-			lines[i] = string.format(L["Skipped %s"], ns.Quoted(k.title) or "") .. (k.text and ("  \194\183  " .. k.text) or "")
-		end
-		banner.Text:SetText(table.concat(lines, "\n"))
-		banner.Jump:Hide()
-		banner.Close:Show()
-		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
-		banner:SetHeight(h)
-		return h
-	elseif kind == "continued" then
-		-- "Durotar complete — continuing with The Barrens", for SKIPPED_SECONDS.
-		banner.Icon:SetTexture(Theme.Media("check"))
-		banner.Text:SetText(string.format(L["%s complete \226\128\148 continuing with %s"], n.fromTitle, n.toTitle))
-		banner.Jump:Hide()
-		banner.Close:Show()
-		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
-		banner:SetHeight(h)
-		return h
-	elseif kind == "closedTab" then
-		banner.Icon:SetTexture(Theme.Media("close"))
-		banner.Text:SetText(string.format(L["Closed %s"], n.title))
-		placeLink(banner.Jump, L["Reopen"], 0, -4)
-		banner.Close:Show()
-	elseif kind == "questSkip" then
-		banner.Icon:SetTexture(Theme.Media("skip"))
-		banner.Text:SetText(string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
-		placeLink(banner.Jump, L["Undo"], 0, -4)
-		banner.Close:Show()
-	elseif kind == "lost" then
-		banner.Icon:SetTexture(Theme.Media("icon-accept"))
-		banner.Text:SetText(string.format(L["%s is no longer in your quest log."], ns.Quoted(n.title) or L["the quest"]) .. "\n" .. L["The guide stays here until you choose."])
-		local w = placeLink(banner.Jump, L["Go back for it"], 0, -4)
-		placeLink(banner.Later, L["Skip it and what follows"], w + 10, -4)
-		banner.Close:Hide()
-	elseif kind == "log" then
-		banner.Icon:SetTexture(Theme.Media("icon-accept"))
-		local text = string.format(L["Quest log full: this step takes %d, and there is room for %d."], n.take, n.free)
-		local names = {}
-		for i, d in ipairs(n.drop) do names[i] = ns.Quoted(d.title) or ("#" .. d.quest) end
-		if #names > 0 then text = text .. "\n" .. string.format(L["Room to make: %s"], table.concat(names, ", ")) end
-		banner.Text:SetText(text)
-		placeLink(banner.Jump, L["Make room"], 0, -4)
-		banner.Close:Show()
-	elseif kind == "group" then
-		banner.Icon:SetTexture(Theme.Media("icon-kill"))
-		banner.Text:SetText(string.format(L["Group quest: %s"], ns.Quoted(n.title) or "") .. "\n" .. L["It needs a group. Skip it and the guide keeps to the solo route."])
-		-- Skip is the default answer: the accent link, the banner's main action.
-		local w = placeLink(banner.Jump, L["Skip it"], 0, -4)
-		placeLink(banner.Later, L["Do it with a group"], w + 10, -4)
-		banner.Close:Hide()
-	elseif kind == "stepSkip" then
-		banner.Icon:SetTexture(Theme.Media("skip"))
-		local what = string.format(L["Step %d"], UI.StepNo(n.step))
-		if n.title and n.title ~= "" then what = what .. "  \194\183  " .. n.title end
-		banner.Text:SetText(string.format(L["Skipped %s"], what))
-		placeLink(banner.Jump, L["Undo"], 0, -4)
-		banner.Close:Show()
-	elseif kind == "away" then
-		banner.Icon:SetTexture(Theme.Media(n.skipped and "skip" or (n.live and n.index > n.live and "chevron-right" or "chevron-left")))
-		if n.skipped then
-			banner.Text:SetText(L["You skipped this step."])
-			placeLink(banner.Jump, L["Unskip it"], 0, -4)
-		else
-			local live = UI.StepNo(n.live)
-			banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
-				or L["Looking back. The guide is at step %d."], live))
-			placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
-		end
-		banner.Close:Show()
-	elseif kind == "trip" then
-		banner.Icon:SetTexture(Theme.Media("icon-goto"))
-		banner.Text:SetText(string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
-		placeLink(banner.Jump, L["Back to the guide"], 0, -4)
-		banner.Close:Hide()
-	elseif kind == "ended" then
-		-- The end reached with steps still open: the next guide, when the player wants it.
-		banner.Icon:SetTexture(Theme.Media("check"))
-		banner.Text:SetText(L["You've reached the end of this guide."])
-		placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
-		banner.Close:Show()
-	elseif kind == "outlevel" then
-		banner.Icon:SetTexture(Theme.Media("icon-level"))
-		banner.Text:SetText(L["You have outlevelled this guide."])
-		-- The suggested guide is one of a route choice: offer the choice.
-		local E = Engine()
-		n.choiceFrom = n.to and E and E.RouteChoiceFor and E.RouteChoiceFor(n.to) or nil
-		placeLink(banner.Jump, n.choiceFrom and L["Choose where to level next"] or string.format(L["Jump to %s"], n.title or ""), 0, -4)
-		banner.Close:Show()
-	elseif kind == "train" then
-		banner.Icon:SetTexture(Theme.Media("icon-train"))
-		local class = UI.PlayerClass and UI.PlayerClass() or nil
-		local parts = { string.format(L["Level %d"], n.level or 0),
-			class and string.format(L["new %s skills"], class) or L["new class skills"] }
-		local place = n.trainer and trainerPlace(n.trainer)
-		if place then parts[#parts + 1] = place end
-		local text = table.concat(parts, "  \194\183  ")
-		-- How far the guide's own training stop is, from the live step (#668);
-		-- on that step itself, the step says it.
-		local E = Engine()
-		local steps, title
-		if E and E.GuideTrainStop then steps, title = E.GuideTrainStop() end
-		if steps == false then
-			text = text .. "\n" .. L["The guide has no class training ahead."]
-		elseif steps and steps > 1 then
-			text = text .. "\n" .. string.format(L["The guide trains you in %d steps"], steps)
-				.. (title and title ~= "" and (" (" .. title .. ")") or "") .. "."
-		end
-		banner.Text:SetText(text)
-		local w = placeLink(banner.Jump, L["Show"], 0, -4)
-		placeLink(banner.Later, L["Later"], w + 10, -4)
-		banner.Close:Hide()
-	elseif kind == "riding" then
-		banner.Icon:SetTexture(Theme.Media("icon-mount"))
-		local copper = GetMoney and GetMoney() or 0
-		-- Affordability from pre-computed cost in the notice (class mounts are free).
-		local cost = n.cost or 0
-		local canAfford = n.classKind ~= nil or copper >= cost
-		local DOT = "  \194\183  "
-		local title, body
-		if n.classKind == "WARLOCK" then
-			title = L["Level 40: class mount (Warlock)"]
-			body  = L["Summon Felsteed quest chain (Strahad Farsan, Ratchet); riding trainer otherwise."]
-		elseif n.classKind == "PALADIN" then
-			title = L["Level 40: class mount (Paladin)"]
-			body  = L["Tome of Nobility quest chain (Lord Grayson Shadowbreaker, Stormwind); riding trainer otherwise."]
-		else
-			title = n.tier == 1 and L["Level 40: you can learn to ride"] or L["Level 60: Journeyman Riding"]
-			local tierName = n.tier == 1 and L["Apprentice Riding"] or L["Journeyman Riding"]
-			local baseGold = n.tier == 1 and L["100 g"] or L["1,000 g"]
-			local bodyParts = { tierName .. DOT .. baseGold }
-			-- Discount: always mention; "Honored: Xg" when standing is confirmed.
-			local C = ns.Compat
-			local standing = n.factionID and C and C.GetFactionStanding and C.GetFactionStanding(n.factionID)
-			if standing and standing >= 5 then
-				-- Discounted gold: tier 1 = 90 g, tier 2 = 900 g.
-				local discountedGold = n.tier == 1 and 90 or 900
-				bodyParts[#bodyParts + 1] = string.format(L["Honored: %d g"], discountedGold)
-			else
-				bodyParts[#bodyParts + 1] = L["10% off at Honored"]
+			-- A quest an update left behind the player (Engine.GetBehind): the
+			-- arrow on a click, Skip or Abandon on a right-click.
+			local q = self.psBehind
+			if q and E then
+				if button ~= "RightButton" then
+					if E.AimBehind then E.AimBehind(q) end
+					return
+				end
+				W.ShowMenu(self, {
+					{ text = L["Skip this quest"], icon = "skip", onClick = function() E.SkipBehind(q) end },
+					{ text = L["Abandon"], icon = "close", onClick = function() ns.Compat.AskAbandonQuest(q) end },
+				})
+				return
 			end
-			-- Balance: gold-only to match "100 g" / "1,000 g" style.
-			bodyParts[#bodyParts + 1] = string.format(L["You have %d g."], floor(copper / 10000))
-			body = table.concat(bodyParts, DOT)
-		end
-		banner.Text:SetText(title .. "\n" .. body)
-		if canAfford then
-			placeLink(banner.Jump, L["Take me there"], 0, -4)
-		else
-			banner.Jump:Hide()
-		end
-		banner.Later:Hide()
-		banner.Close:Show()
-	elseif kind == "classQuest" then
-		banner.Icon:SetTexture(Theme.Media("icon-train"))
-		local title = string.format(L["Class quest ready: %s"], n.title or "")
-		local lines = { title }
-		if n.heads then lines[#lines + 1] = n.heads end
-		if n.why then lines[#lines + 1] = n.why end
-		banner.Text:SetText(table.concat(lines, "\n"))
-		local w = placeLink(banner.Jump, L["Open in a tab"], 0, -4)
-		placeLink(banner.Later, L["Later"], w + 10, -4)
-		banner.Close:Show()
-	elseif kind == "bags" then
-		banner.Icon:SetTexture(Theme.Media("icon-collect"))
-		local title = n.free == 0 and L["Your bags are full."]
-			or string.format(n.free == 1 and L["Bags nearly full: %d slot left."] or L["Bags nearly full: %d slots left."], n.free)
-		local j, Q = n.junk, ns.QoL
-		if j then
-			local worth = j.value < math.huge and Q.Money(j.value) or "?"
-			banner.Text:SetText(title .. "\n" .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
-			placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
-		else
-			banner.Text:SetText(title .. "\n" .. L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."])
-			banner.Jump:Hide()
-		end
-		banner.Close:Show()
-	elseif kind == "wear" then
-		banner.Icon:SetTexture(Theme.Media("icon-use"))
-		local G = ns.Gear
-		local parts = { string.format(L["Upgrade: %s"], n.link or "") }
-		local gain = n.pct and G and G.GainText and G.GainText(n.pct)
-		if gain then parts[#parts + 1] = gain end
-		local slot = G and G.SlotName and G.SlotName(n.slot)
-		if slot then parts[#parts + 1] = slot end
-		banner.Text:SetText(table.concat(parts, "  \194\183  "))
-		local w = placeLink(banner.Jump, L["Wear it"], 0, -4)
-		placeLink(banner.Later, L["Not this one"], w + 10, -4)
-		banner.Close:Show()
-	end
-	local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
-	banner:SetHeight(h)
-	return h
-end
-
--- The banner's main action: undo the skip, unskip the step on screen or go
--- back to the live step, load the suggested guide into the current tab, or
--- point the arrow at the trainer (until the step changes).
-function GF.TakeBanner()
-	local kind, n = bannerNotice()
-	local E = Engine()
-	if kind == "trip" then
-		ns.Nav.nearby.EndTrip()
-	elseif kind == "closedTab" then
-		notices.closedTab = nil
-		if E and E.ReopenClosedTab then E.ReopenClosedTab(n.guideId) end
-	elseif kind == "questSkip" then
-		notices.questSkip = nil
-		if E and E.SkipQuest then E.SkipQuest(n.quest, false) end
-	elseif kind == "lost" then
-		if E and E.AnswerLost then E.AnswerLost(n.quest, "back") end
-	elseif kind == "log" then
-		if UI.ShowQuestRoom then UI.ShowQuestRoom() end
-	elseif kind == "group" then
-		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
-	elseif kind == "stepSkip" then
-		notices.stepSkip = nil
-		if E and E.Unskip then E.Unskip(n.step) end
-	elseif kind == "away" then
-		if n.skipped then
-			if E and E.Unskip then E.Unskip(n.index) end
-		elseif E and E.Goto and n.live then
-			E.Goto(n.live)
-		end
-	elseif kind == "ended" then
-		if n.choose then
-			UI.ShowRouteChoice(n.guideId)
-		elseif E and E.StartNext then
-			E.StartNext(n.guideId)
-		end
-	elseif kind == "outlevel" then
-		notices.outlevel = nil
-		-- A route choice opens the choice window, which loads the zone picked.
-		if not (n.choiceFrom and UI.ShowRouteChoice(n.choiceFrom)) and E and E.SetGuide and n.to then
-			E.SetGuide(n.to)
-		end
-	elseif kind == "train" then
-		notices.train = nil
-		local t, nav2 = n.trainer, ns.Nav
-		if t and t.map and t.x and nav2 and nav2.SetTarget then
-			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Class trainer"], t.f, "trainer", t.z)
-		end
-	elseif kind == "riding" then
-		notices.riding = nil
-		local t, nav2 = n.trainer, ns.Nav
-		if t and t.map and t.x and nav2 and nav2.SetTarget then
-			nav2.SetTarget(t.map, t.x, t.y, t.npcName or L["Riding trainer"], t.f, "trainer")
-		end
-		local R = ns.QoL and ns.QoL.Riding
-		if R and R.OnResolve then R.OnResolve(n.tier) end
-	elseif kind == "classQuest" then
-		notices.classQuest = nil
-		if E and E.OpenTab then E.OpenTab(n.guideId) end
-		local CQ = ns.QoL and ns.QoL.ClassQuests
-		if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
-	elseif kind == "bags" then
-		-- The first click arms the item, the second deletes it.
-		ns.QoL.Space.Press()
-	elseif kind == "wear" then
-		ns.QoL.Wear.Take()
-	end
-	GF.Layout()
-end
-
--- The banner's second action: Do it with a group for a group quest, Not
--- this one for a gear offer (remembered), else Later (dismiss; a Class
--- guide: until a higher level).
-function GF.LaterBanner()
-	local kind, n = bannerNotice()
-	local E = Engine()
-	if kind == "group" then
-		if E and E.AnswerGroup then E.AnswerGroup(n.quest, "do") end
-		GF.Layout()
-	elseif kind == "lost" then
-		if E and E.AnswerLost then E.AnswerLost(n.quest, "skip") end
-		GF.Layout()
-	elseif kind == "wear" then
-		ns.QoL.Wear.Decline()
-		GF.Layout()
-	else
-		GF.DismissBanner(true)
-	end
-end
-
--- Dismiss the visible notice (training: until the next due level; a step on
--- screen that is not the live one: until another step is; a Class guide: for
--- good, or with `later` (the Later link) until a higher level; the bags:
--- until they have room again; a gear offer: that copy only).
-function GF.DismissBanner(later)
-	local kind, n = bannerNotice()
-	if kind == "trip" then
-		ns.Nav.nearby.EndTrip()
-	elseif kind == "away" then
-		-- Looking ahead or back: closed for this step (awayNotice), another step has its own
-		notices.away = n.guideId .. ":" .. n.index
-	elseif kind == "group" or kind == "lost" then
-		-- a group quest or a lost one is answered, never dismissed
-	elseif kind == "log" then
-		notices.logSeen = n.key
-	elseif kind == "riding" then
-		local R = ns.QoL and ns.QoL.Riding
-		if R and R.OnResolve then R.OnResolve(n.tier) end
-		notices.riding = nil
-	elseif kind == "classQuest" then
-		notices.classQuest = nil
-		local CQ = ns.QoL and ns.QoL.ClassQuests
-		if CQ and CQ.Resolve then CQ.Resolve(n.guideId, later == true) end
-	elseif kind == "bags" then
-		ns.QoL.Space.Dismiss()
-	elseif kind == "wear" then
-		ns.QoL.Wear.Dismiss()
-	elseif kind == "ended" then
-		notices.endSeen = n.guideId
-	elseif kind then
-		notices[kind] = nil
-	end
-	GF.Layout()
-end
-
----------------------------------------------------------------------------
--- Layout: positions and heights from the current content and width. Called
--- on render and on every step of a drag-resize, so it only measures and
--- anchors; it never fetches views or builds strings.
----------------------------------------------------------------------------
-
-local function stripShown()
-	return strip.psHasTabs and not compact()
-end
-
--- Measure and place the card's parts; the goals area's own height is left
--- to fitGoals (its contents, within the cap). -> the card's height without
--- the goals area
-local function layoutCard(width)
-	local y = 0
-	local cw = width - PAD * 2
-	-- The class-quest card (UI/ClassCard.lua) above the person and the goals.
-	local CC = UI.ClassCard
-	if CC then y = CC.Layout(width) end
-	if person:IsShown() then
-		local nameW = cw - ICON - 10
-		person.Name:SetWidth(nameW)
-		person.Where:SetWidth(nameW)
-		person.Why:SetWidth(nameW)
-		person.Level:SetWidth(nameW)
-		local h = 10 + person.Name:GetStringHeight()
-		local above = person.Where:IsShown() and person.Where or person.Name
-		if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
-		if person.Why:IsShown() then
-			person.Why:ClearAllPoints()
-			person.Why:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
-			h = h + 3 + person.Why:GetStringHeight()
-			above = person.Why
-		end
-		if person.Level:IsShown() then
-			person.Level:ClearAllPoints()
-			person.Level:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
-			h = h + 3 + person.Level:GetStringHeight()
-		end
-		h = floor(h + 8 + 0.5)
-		person:SetHeight(h)
-		person:ClearAllPoints()
-		person:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
-		person:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
-		y = y + h
-	end
-	-- The goals area: its rows and lines, each under the one before.
-	goals:ClearAllPoints()
-	goals:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
-	goals:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
-	goals.Child:SetWidth(width)
-	local prev = goals.Child
-	for i = 1, area.n do
-		local f = area.items[i]
-		local h
-		if f.psLine then
-			f.Text:SetWidth(max(40, width - TEXT_X - PAD - 18))
-			local inset
-			inset, h = twoLines(f.Text, CARD.lineH)
-			f.Text:SetPoint("TOPLEFT", f, "TOPLEFT", TEXT_X, -inset)
-		else
-			h = measureRow(f, width)
-		end
-		area.h[i] = h
-		f:SetHeight(max(0.01, h * (f.psK or 1)))
-		f:ClearAllPoints()
-		local edge = prev == goals.Child and "TOP" or "BOTTOM"
-		f:SetPoint("TOPLEFT", prev, edge .. "LEFT", 0, 0)
-		f:SetPoint("TOPRIGHT", prev, edge .. "RIGHT", 0, 0)
-		prev = f
-	end
-	local tip = card.Tip
-	if tip:IsShown() then
-		tip.Text:SetWidth(cw - 18)
-		tip.Text:SetWordWrap(tipOpen)
-		tip.psOpen = tipOpen
-		local th = tipOpen and tip.Text:GetStringHeight() or min(tip.Text:GetStringHeight(), tip.Text:GetLineHeight())
-		local h = floor(6 + th + 6 + 0.5)
-		-- The step's picture, under the opened tip: as wide as the text
-		-- column, its aspect kept, no taller than PICTURE_MAX_H.
-		local pic = tipOpen and tip.psImage or nil
-		if pic then
-			local aspect = (pic.w and pic.h) and pic.w / pic.h or PICTURE_ASPECT
-			local iw = max(1, width - TEXT_X - PAD)
-			local ih = iw / aspect
-			if ih > PICTURE_MAX_H then ih, iw = PICTURE_MAX_H, PICTURE_MAX_H * aspect end
-			iw, ih = floor(iw + 0.5), floor(ih + 0.5)
-			tip.Image:SetSize(iw, ih)
-			tip.Image:ClearAllPoints()
-			tip.Image:SetPoint("TOPLEFT", tip, "TOPLEFT", TEXT_X, -h)
-			tip.Image:Show()
-			h = h + ih + 6
-		else
-			tip.Image:Hide()
-		end
-		tip:SetHeight(h)
-		tip:ClearAllPoints()
-		tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -2)
-		tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -2)
-		y = y + 2 + h
-	end
-	return y + 6
-end
-
--- "Then: <next step's person>": a long name wraps to a second line, the
--- line growing by it (twoLines), its text and count kept in the middle.
-local function layoutAfter(width)
-	after.Text:SetWidth(width - PAD * 2 - after.Count:GetStringWidth() - 12)
-	local _, h = twoLines(after.Text, 28)
-	after:SetHeight(h)
-	return h
-end
-
--- The "While you're here" panel (GF.BuildHere), `width` wide: its label,
--- then its rows (GF.HereRow) as the step's goal rows lay out (the glyph on
--- the first line, the text from TEXT_X, wrapping, never cut), each row's step
--- under its text, its distance and close button on its first line's right.
--- -> its height. (On GF: the main chunk is at Lua's 200 locals.)
-GF.HERE_H = 28
--- The panel's ground: HERE_TINT of the accent in the window ground
--- (Theme.AccentGround); in the transparent style, which has no ground, the
--- accent alone at HERE_CLEAR, a light tint over the world (the text there is
--- outlined, GF.ApplyStyle). Painted again on a look or style change.
-GF.HERE_TINT = 0.22
-GF.HERE_CLEAR = 0.18
-function GF.PaintHerePanel(t)
-	if transparent() then
-		local r, g, b = Theme.Accent()
-		t:SetVertexColor(r, g, b, GF.HERE_CLEAR)
-	else
-		t:SetVertexColor(Theme.AccentGround(GF.HERE_TINT))
-	end
-end
-function GF.LayoutHere(width)
-	local here = GF.here
-	local hb = here.Body
-	local top = 3 + 6
-	here.Label:ClearAllPoints()
-	here.Label:SetPoint("TOPLEFT", hb, "TOPLEFT", PAD, -top)
-	local y = top + floor(here.Label:GetStringHeight() + 0.5) + ROW_PAD
-	for _, r in ipairs(here.Rows) do
-		if r:IsShown() then
-			local closeW = r.Close:GetWidth()
-			local right = PAD - 4 + closeW + 4 + floor(r.Dist:GetStringWidth() + 1) + 8
-			r.Icon:ClearAllPoints()
-			r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -16)
-			r.Close:ClearAllPoints()
-			r.Close:SetPoint("CENTER", r, "TOPRIGHT", -(PAD - 4 + closeW / 2), -16)
-			r.Dist:ClearAllPoints()
-			r.Dist:SetPoint("RIGHT", r.Close, "LEFT", -4, 0)
-			r.Text:ClearAllPoints()
-			r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -8)
-			local tw = max(40, width - TEXT_X - right)
-			r.Text:SetWidth(tw)
-			r.Sub:ClearAllPoints()
-			r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -2)
-			r.Sub:SetWidth(tw)
-			local h = 8 + max(16, floor(r.Text:GetStringHeight() + 0.5)) + 4
-			if r.Sub:IsShown() then h = h + 2 + floor(r.Sub:GetStringHeight() + 0.5) end
-			r:ClearAllPoints()
-			r:SetPoint("TOPLEFT", hb, "TOPLEFT", 0, -y)
-			r:SetSize(width, h)
-			y = y + h
-		end
-	end
-	local h = max(GF.HERE_H, y + 3 + 3)
-	hb:SetSize(width, h)
-	here:SetHeight(h)
-	return h
-end
-
-local layoutUpnext, layoutAlong
-do
-	-- An Up next or Along the way row at y in its frame, `width` wide: its
-	-- number (Up next) and glyph on the first line, the text wrapping. -> its height
-	local function placeRow(r, parent, y, width)
-		if parent == upnext then r.Num:SetPoint("LEFT", r, "TOPLEFT", PAD - 10, -UP_ROW / 2) end
-		r.Icon:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2, -UP_ROW / 2)
-		r.Text:SetWidth(width - TEXT_X - 14 - PAD)
-		local inset, h = twoLines(r.Text, UP_ROW)
-		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X - 2 + 13 + 9, -inset)
-		r:SetHeight(h)
-		r:ClearAllPoints()
-		r:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, y)
-		r:SetPoint("TOPRIGHT", parent, "TOPRIGHT", 0, y)
-		return h
-	end
-
-	function layoutUpnext(width)
-		upnext.Toggle:ClearAllPoints()
-		upnext.Toggle:SetPoint("TOPLEFT", upnext, "TOPLEFT", 0, 0)
-		upnext.Toggle:SetPoint("TOPRIGHT", upnext, "TOPRIGHT", 0, 0)
-		local y = -UP_TOGGLE
-		if upcomingOpen() then
-			for i = 1, #upRows do
-				local r = upRows[i]
-				if r:IsShown() then y = y - placeRow(r, upnext, y, width) end
+			-- A pinned quest's row unpins it on a right-click (#644).
+			if button == "RightButton" then
+				if self.psPin and E and E.PinQuest then E.PinQuest(self.psPin, false) end
+				return
 			end
-			y = y - 6
+			if E and E.AimAlong and self.psStep then E.AimAlong(self.psStep, self.psGoal) end
+		end)
+		r:SetScript("OnEnter", function(self)
+			local lines = {}
+			if self.psPlace then lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() } end
+			if self.psPin then lines[#lines + 1] = { L["Pinned by you. Right-click to unpin."], Theme.Color("textDim") } end
+			if self.psBehind then
+				lines[#lines + 1] = { L["You carry this quest; the update moved what is left of it before your place in the guide."], Theme.Color("textDim") }
+				lines[#lines + 1] = { L["Right-click to skip or abandon it."], Theme.Color("textDim") }
+			end
+			if self.psCarried then
+				lines[#lines + 1] = { L["The route ahead never hands these in. Click to see who takes each, with a guide there."], Theme.Color("textDim") }
+			end
+			W.Tooltip(self, tooltipAnchor(), self.psTitle or "", lines)
+			GF.HoverIn()
+		end)
+		r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+		alongRows[i] = r
+		return r
+	end
+
+	---------------------------------------------------------------------------
+	-- Render
+	---------------------------------------------------------------------------
+
+	-- A finished dungeon pick-up guide whose dungeon has quests in the log ->
+	-- the dungeon's key | nil.
+	local function pickupKey(guide)
+		local lk, Dg = guide and guide.lookup, ns.Dungeons
+		if not (lk and lk.kind == "pickup" and Dg and Dg.HandinPlan and UI.DungeonsSection) then return nil end
+		local plan = Dg.HandinPlan(lk.id)
+		if not plan or #plan.hand + #plan.unfinished + #plan.inside + #plan.unplaced == 0 then return nil end
+		return lk.id
+	end
+
+	-- The tab a class guide was opened from by the class quest heads-up
+	-- (UI/ClassToast.lua, CharState().classReturn), while that guide is still
+	-- open in another tab. -> { id, title, tab } | nil
+	function GF.ClassReturn(id)
+		local E = Engine()
+		local st = ns.CharState()
+		local from = st.classReturn and st.classReturn[id]
+		if not (from and E and E.GetTabs) then return nil end
+		local list = E.GetTabs()
+		for i, t in ipairs(list or {}) do
+			if t.guideId == from then return { id = from, title = t.title or from, tab = i } end
 		end
-		upnext:SetHeight(-y)
-		return -y
+		return nil
 	end
 
-	function layoutAlong(width)
-		local y = -UP_TOGGLE
-		for i = 1, #alongRows do
-			local r = alongRows[i]
-			if r:IsShown() then y = y - placeRow(r, along, y, width) end
-		end
-		y = y - 6
-		along:SetHeight(-y)
-		return -y
+	-- Close the finished class guide's tab and show the guide it came from.
+	function GF.CloseAndReturn(id)
+		local E = Engine()
+		local back = GF.ClassReturn(id)
+		if not (back and E and E.GetTabs and E.CloseTab) then return end
+		local list, active = E.GetTabs()
+		local mine = list and list[active] and list[active].guideId == id and active
+		ns.CharState().classReturn[id] = nil
+		if mine then E.CloseTab(mine, true) end
+		if E.SetGuide then E.SetGuide(back.id) end
 	end
-end
 
-local function layoutEmpty(width)
-	local cw = width - PAD * 4
-	local y = -26
-	empty.Glyph:ClearAllPoints()
-	empty.Glyph:SetPoint("TOP", empty, "TOP", 0, y)
-	y = y - 36 - 14
-	empty.Title:SetWidth(cw)
-	empty.Title:ClearAllPoints()
-	empty.Title:SetPoint("TOP", empty, "TOP", 0, y)
-	y = y - empty.Title:GetStringHeight() - 8
-	empty.Text:SetWidth(cw)
-	empty.Text:ClearAllPoints()
-	empty.Text:SetPoint("TOP", empty, "TOP", 0, y)
-	y = y - empty.Text:GetStringHeight() - 18
-	if empty.Primary:IsShown() then
-		empty.Primary:ClearAllPoints()
-		empty.Primary:SetPoint("TOP", empty, "TOP", 0, y)
-		y = y - empty.Primary:GetHeight() - 8
-	end
-	if empty.Secondary:IsShown() then
-		empty.Secondary:ClearAllPoints()
-		empty.Secondary:SetPoint("TOP", empty, "TOP", 0, y)
-		y = y - empty.Secondary:GetHeight()
-	end
-	y = y - 24
-	empty:SetHeight(-y)
-	return -y
-end
-
--- Place `frame` in the body at y; returns the new y. Under the card (while
--- Layout sets fit.from) the frame is kept for fitGoals to move.
-local function stack(frame, y, h)
-	frame:ClearAllPoints()
-	frame:SetPoint("TOPLEFT", body, "TOPLEFT", 0, -y)
-	frame:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, -y)
-	if fit.from then
-		fit.n = fit.n + 1
-		fit.below[fit.n], fit.rel[fit.n] = frame, y - fit.from
-	end
-	return y + h
-end
-
--- The tallest the window may be: ui.maxHeight of the screen's height, in
--- the window's own units (its scale and the game's UI scale applied).
-local function capHeight()
-	local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
-	local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
-	return screen * share / max(0.01, F:GetEffectiveScale())
-end
-GF.CapHeight = function() return F and capHeight() or nil end
-
--- The journey (UI/JourneyPanel.lua) right under the focus it leads to;
--- never in compact mode. Returns the new y.
-local function stackJourney(y, width)
-	local J = UI.JourneyPanel
-	local jf = J and J.frame
-	if not jf then return y end
-	if jf.psHas and not compact() then
-		jf:Show()
-		return stack(jf, y, J.Layout(width))
-	end
-	jf:Hide()
-	return y
-end
-
-local function placeBars(showFoot)
-	local flip = barsBottom()
-	strip:ClearAllPoints()
-	nav:ClearAllPoints()
-	body:ClearAllPoints()
-	foot:ClearAllPoints()
-	band:ClearAllPoints()
-	strip.Rule:ClearAllPoints()
-	nav.Rule:ClearAllPoints()
-	local edge = flip and "TOP" or "BOTTOM"
-	strip.Rule:SetPoint(edge .. "LEFT", strip, edge .. "LEFT", 0, 0)
-	strip.Rule:SetPoint(edge .. "RIGHT", strip, edge .. "RIGHT", 0, 0)
-	nav.Rule:SetPoint(edge .. "LEFT", nav, edge .. "LEFT", 0, 0)
-	nav.Rule:SetPoint(edge .. "RIGHT", nav, edge .. "RIGHT", 0, 0)
-	if flip then
-		strip:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
-		strip:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
-		nav:SetPoint("BOTTOMLEFT", strip, "TOPLEFT", 0, 0)
-		nav:SetPoint("BOTTOMRIGHT", strip, "TOPRIGHT", 0, 0)
-		foot:SetPoint("BOTTOMLEFT", nav, "TOPLEFT", 0, 0)
-		foot:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 0, 0)
-		body:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
-		body:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
-		band:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 1, 1)
-		band:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
-	else
-		strip:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
-		strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
-		nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
-		nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
-		body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
-		body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
-		foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
-		foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
-		band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
-		band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
-	end
-	for _, b in ipairs(tabButtons) do
-		b.Bar:ClearAllPoints()
-		b.Bar:SetPoint(edge .. "LEFT", b, edge .. "LEFT", 0, 0)
-		b.Bar:SetPoint(edge .. "RIGHT", b, edge .. "RIGHT", 0, 0)
-	end
-	-- The backing (GF.VEIL): 14 past the window's sides, so it is solid under
-	-- text running to the window's padding, and 8 past its top and bottom;
-	-- over the navigator's inner edge the two scrims overlap so that one rises
-	-- as the other falls over the same band (Theme.Scrim), centred on that edge.
-	local v, bv = GF.veil, band.Veil
-	local o = (GF.VEIL_FEATHER + v.psClear) / 2
-	v:ClearAllPoints()
-	bv:ClearAllPoints()
-	if flip then
-		v:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
-		v:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 14, -o)
-		bv:SetPoint("TOPLEFT", nav, "TOPLEFT", -14, o)
-		bv:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
-	else
-		v:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", -14, o)
-		v:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
-		bv:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
-		bv:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 14, -o)
-	end
-end
-
--- With ui.growUp, the height from the window's pinned bottom edge to the top
--- of the screen, in the window's scale (nil without Grow upward): the
--- window is never taller (fit.limit, #666).
-local function roomAbove()
-	if not ns.Get("ui.growUp") then return nil end
-	local top = UIParent:GetTop()
-	local scale, uiScale = F:GetEffectiveScale(), UIParent:GetEffectiveScale()
-	if not (top and scale and uiScale and scale > 0) then return nil end
-	-- The pinned corner (GF.ApplyPosition), not where the game may have moved it.
-	local point, rel, relPoint, _, bottom = F:GetPoint(1)
-	if not (rel == UIParent and type(point) == "string" and point:find("^BOTTOM") and type(relPoint) == "string" and relPoint:find("^BOTTOM")) then
-		bottom = F:GetBottom()
-	end
-	if type(bottom) ~= "number" then return nil end
-	return top * uiScale / scale - bottom
-end
-
-function GF.Layout()
-	if not F then return end
-	local width = F:GetWidth()
-	local isCompact = compact()
-	local showStrip = stripShown()
-	strip:SetShown(showStrip)
-	strip:SetHeight(showStrip and TAB_H or 0.01)
-	-- The guide's title sits in the navigator only when no tab names it.
-	local steps = nav.Steps:IsShown()
-	nav.Title:SetShown((not showStrip or not steps) and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "")
-	local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
-	local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
-	local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
-	nav.Title:SetWidth(max(40, width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - skipW - reportW - nearbyW))
-	card:SetWidth(width)
-
-	local y = 0
-	-- With no guide open, only the tab just closed (its Reopen) shows.
-	local kind = bannerNotice()
-	if kind and ((state ~= "noguide" and state ~= "noguides") or kind == "closedTab") then
-		y = stack(banner, y, GF.LayoutBanner(width))
-		banner:Show()
-	else
-		banner:Hide()
-		banner.Jump.psDefault = nil
-	end
-	fit.n = 0
-	local content = 0
-	if state == "steps" then
-		fit.fixed = layoutCard(width)
-		fit.top = y
-		-- The card animates its own offset; keep its anchor's base in step.
-		if Anim.IsRunning(card, "offset") then
-			card.psAnchor[5] = -y
-		else
-			Anim.Anchor(card, "TOPLEFT", body, "TOPLEFT", 0, -y)
-		end
-		content = contentHeight()
-		y = y + fit.fixed + content
-		fit.from = y
-		y = stackJourney(y, width)
-		-- "While you're here": between the step's goals and "Then:".
-		if GF.here:IsShown() then y = stack(GF.here, y, GF.LayoutHere(width)) end
-		if after:IsShown() then y = stack(after, y, layoutAfter(width)) end
-		if along:IsShown() then y = stack(along, y, layoutAlong(width)) end
-		if upnext:IsShown() then y = stack(upnext, y, layoutUpnext(width)) end
-	else
-		y = stack(empty, y, layoutEmpty(width))
-		y = stackJourney(y, width)
-	end
-	if GF.party.psText and not isCompact and state == "steps" then
-		GF.party:Show()
-		y = stack(GF.party, y, GF.party:GetHeight())
-	else
-		GF.party:Hide()
-	end
-	if GF.xp.psHas and not isCompact and state == "steps" then
-		GF.xp:Show()
-		y = stack(GF.xp, y, GF.xp:GetHeight())
-	else
-		GF.xp:Hide()
-	end
-	local showFoot = state == "steps" or state == "complete" or state == "skippedout"
-	foot:SetShown(showFoot)
-	local stripH = showStrip and TAB_H or 0
-	fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
-	fit.limit = roomAbove()
-	if fit.from then
-		-- Past the cap (or the top of the screen with Grow upward), the goals
-		-- area gives up the difference and scrolls.
-		fit.h = y - fit.from
-		fit.from = nil
-		fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
-		fitGoals()
-	else
-		sizeWindow(y)
-	end
-	placeBars(showFoot)
-	band:SetHeight(stripH + NAV_H)
-	local x0, x1, y0, y1 = Theme.BandCoords(width - 2, stripH + NAV_H, 30)
-	if barsBottom() then y0, y1 = y1, y0 end
-	band:SetTexCoord(x0, x1, y0, y1)
-	if showStrip then GF.RenderTabs() end
-	GF.PaintProgress(false)
-	if UI.NameTargets then UI.NameTargets.Refresh() end
-	GF.PaintShades()
-end
-
----------------------------------------------------------------------------
--- Progress
----------------------------------------------------------------------------
-
-local function progress()
-	local E = Engine()
-	if not (E and E.GetProgress and E.GetGuide and E.GetGuide()) then return 0, 0 end
-	local done, total = E.GetProgress()
-	return done or 0, total or 0
-end
-
-function GF.PaintProgress(animate)
-	local done, total = progress()
-	local frac = total > 0 and min(1, done / total) or 0
-	foot.Pct:SetText(floor(frac * 100 + 0.5) .. "%")
-	local w = F:GetWidth() - PAD * 2 - 44
-	foot.Line:SetWidth(max(1, w))
-	W.SetProgress(foot.Line, frac, w, animate)
-	GF.PaintStatus(frac, foot.Pct:GetText())
-	foot.psDone, foot.psTotal = done, total
-end
-
----------------------------------------------------------------------------
--- Render
----------------------------------------------------------------------------
-
--- A finished dungeon pick-up guide whose dungeon has quests in the log ->
--- the dungeon's key | nil.
-local function pickupKey(guide)
-	local lk, Dg = guide and guide.lookup, ns.Dungeons
-	if not (lk and lk.kind == "pickup" and Dg and Dg.HandinPlan and UI.DungeonsSection) then return nil end
-	local plan = Dg.HandinPlan(lk.id)
-	if not plan or #plan.hand + #plan.unfinished + #plan.inside + #plan.unplaced == 0 then return nil end
-	return lk.id
-end
-
--- The tab a class guide was opened from by the class quest heads-up
--- (UI/ClassToast.lua, CharState().classReturn), while that guide is still
--- open in another tab. -> { id, title, tab } | nil
-function GF.ClassReturn(id)
-	local E = Engine()
-	local st = ns.CharState()
-	local from = st.classReturn and st.classReturn[id]
-	if not (from and E and E.GetTabs) then return nil end
-	local list = E.GetTabs()
-	for i, t in ipairs(list or {}) do
-		if t.guideId == from then return { id = from, title = t.title or from, tab = i } end
-	end
-	return nil
-end
-
--- Close the finished class guide's tab and show the guide it came from.
-function GF.CloseAndReturn(id)
-	local E = Engine()
-	local back = GF.ClassReturn(id)
-	if not (back and E and E.GetTabs and E.CloseTab) then return end
-	local list, active = E.GetTabs()
-	local mine = list and list[active] and list[active].guideId == id and active
-	ns.CharState().classReturn[id] = nil
-	if mine then E.CloseTab(mine, true) end
-	if E.SetGuide then E.SetGuide(back.id) end
-end
-
-local function setEmpty(kind)
-	state = kind
-	local E, G = Engine(), ns.Guides
-	empty.Primary:Hide()
-	empty.Secondary:Hide()
-	local glyph, color = "emblem", "accent"
-	if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
-		-- Our own guides switched off on the Community guides page: one
-		-- click turns them back on.
-		empty.Title:SetText(L["No guides shown"])
-		empty.Text:SetText(L["Polestar's own guides are switched off on the Community guides page (/polestar packs)."])
-		W.SetButtonText(empty.Primary, L["Show Polestar's guides"])
-		empty.Primary.psAction = function()
-			if G and G.SetPackShown then G.SetPackShown("guides", true) end
-		end
-		empty.Primary:Show()
-		W.SetButtonText(empty.Secondary, L["Community guides"])
-		empty.Secondary.psAction = function() UI.ShowOptions("guidepacks") end
-		empty.Secondary:Show()
-	elseif kind == "noguides" and UI.Packs and UI.Packs.AnySwitchedOff() then
-		-- Installed but switched off on the Community guides page.
-		empty.Title:SetText(L["No guides shown"])
-		empty.Text:SetText(L["The community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."])
-		W.SetButtonText(empty.Primary, L["Community guides"])
-		empty.Primary.psAction = function() UI.ShowOptions("guidepacks") end
-		empty.Primary:Show()
-	elseif kind == "noguides" then
-		empty.Title:SetText(L["No guides installed"])
-		empty.Text:SetText(L["Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload."])
-	elseif kind == "noguide" then
-		local id = E and E.StartingGuide and E.StartingGuide() or (G and G.Suggest and G.Suggest())
-		local suggested = id and G.Get(id)
-		empty.Title:SetText(L["No guide open"])
-		if suggested then
-			empty.Text:SetText(L["Suggested for you"] .. ": |c" .. Theme.Hex("text") .. suggested.title .. "|r")
-			W.SetButtonText(empty.Primary, L["Start guide"])
+	local function setEmpty(kind)
+		state = kind
+		local E, G = Engine(), ns.Guides
+		empty.Primary:Hide()
+		empty.Secondary:Hide()
+		local glyph, color = "emblem", "accent"
+		if kind == "noguides" and UI.Packs and UI.Packs.OursSwitchedOff() then
+			-- Our own guides switched off on the Community guides page: one
+			-- click turns them back on.
+			empty.Title:SetText(L["No guides shown"])
+			empty.Text:SetText(L["Polestar's own guides are switched off on the Community guides page (/polestar packs)."])
+			W.SetButtonText(empty.Primary, L["Show Polestar's guides"])
 			empty.Primary.psAction = function()
-				if E and E.StartGuide then E.StartGuide() elseif E and E.OpenTab then E.OpenTab(id) elseif E and E.SetGuide then E.SetGuide(id) end
+				if G and G.SetPackShown then G.SetPackShown("guides", true) end
 			end
 			empty.Primary:Show()
-			W.SetButtonText(empty.Secondary, L["Browse guides"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
+			W.SetButtonText(empty.Secondary, L["Community guides"])
+			empty.Secondary.psAction = function() UI.ShowOptions("guidepacks") end
 			empty.Secondary:Show()
-		else
-			empty.Text:SetText(L["Pick a guide to start."])
+		elseif kind == "noguides" and UI.Packs and UI.Packs.OwnGuidesOff() then
+			-- Polestar Guides installed but unticked in the AddOns list: one
+			-- click turns it on (with its parts) and reloads.
+			empty.Title:SetText(L["Polestar Guides is turned off"])
+			empty.Text:SetText(L["It is installed but unticked in the game's AddOns list, so Polestar has no guides to show."])
+			W.SetButtonText(empty.Primary, L["Turn on Polestar Guides and reload"])
+			empty.Primary:SetWidth(math.max(168, math.floor(empty.Primary.Label:GetStringWidth() + 32.5)))
+			empty.Primary.psAction = function() UI.Packs.TurnOnOwnGuides() end
+			empty.Primary:Show()
+		elseif kind == "noguides" and UI.Packs and UI.Packs.AnySwitchedOff() then
+			-- Installed but switched off on the Community guides page.
+			empty.Title:SetText(L["No guides shown"])
+			empty.Text:SetText(L["The community addons are switched off. Turn one on under Options, Community guides (/polestar packs)."])
+			W.SetButtonText(empty.Primary, L["Community guides"])
+			empty.Primary.psAction = function() UI.ShowOptions("guidepacks") end
+			empty.Primary:Show()
+		elseif kind == "noguides" then
+			empty.Title:SetText(L["No guides installed"])
+			empty.Text:SetText(L["Enable Polestar Guides or a community addon in the AddOns list on the character screen, then reload."])
+		elseif kind == "noguide" then
+			local id = E and E.StartingGuide and E.StartingGuide() or (G and G.Suggest and G.Suggest())
+			local suggested = id and G.Get(id)
+			empty.Title:SetText(L["No guide open"])
+			if suggested then
+				empty.Text:SetText(L["Suggested for you"] .. ": |c" .. Theme.Hex("text") .. suggested.title .. "|r")
+				W.SetButtonText(empty.Primary, L["Start guide"])
+				empty.Primary.psAction = function()
+					if E and E.StartGuide then E.StartGuide() elseif E and E.OpenTab then E.OpenTab(id) elseif E and E.SetGuide then E.SetGuide(id) end
+				end
+				empty.Primary:Show()
+				W.SetButtonText(empty.Secondary, L["Browse guides"])
+				empty.Secondary.psAction = function() UI.ShowPicker() end
+				empty.Secondary:Show()
+			else
+				empty.Text:SetText(L["Pick a guide to start."])
+				W.SetButtonText(empty.Primary, L["Choose a guide"])
+				empty.Primary.psAction = function() UI.ShowPicker() end
+				empty.Primary:Show()
+			end
+		elseif kind == "notyet" then
+			-- A Class guide the character cannot start yet (Engine.StartGate):
+			-- when it opens, who starts it; the guide picks up by itself.
+			glyph = "icon-level"
+			local guide = E and E.GetGuide and E.GetGuide()
+			local gate = guide and E.StartGate and E.StartGate(guide.id) or {}
+			local lines = {}
+			if gate.giver then
+				local zone = gate.map and UI.MapName(gate.map) or nil
+				lines[1] = string.format(L["%s starts it."], zone and (gate.giver .. ", " .. zone) or gate.giver)
+			end
+			if gate.level then
+				empty.Title:SetText(string.format(L["Available from level %d"], gate.level))
+				lines[#lines + 1] = string.format(L["Come back at level %d: the guide picks up by itself then."], gate.level)
+			else
+				empty.Title:SetText(L["Not available yet"])
+				lines[#lines + 1] = string.format(L["Finish %s first: the guide picks up by itself then."], ns.Quoted(gate.preTitle) or "")
+			end
+			empty.Text:SetText(table.concat(lines, "\n"))
 			W.SetButtonText(empty.Primary, L["Choose a guide"])
 			empty.Primary.psAction = function() UI.ShowPicker() end
 			empty.Primary:Show()
-		end
-	elseif kind == "notyet" then
-		-- A Class guide the character cannot start yet (Engine.StartGate):
-		-- when it opens, who starts it; the guide picks up by itself.
-		glyph = "icon-level"
-		local guide = E and E.GetGuide and E.GetGuide()
-		local gate = guide and E.StartGate and E.StartGate(guide.id) or {}
-		local lines = {}
-		if gate.giver then
-			local zone = gate.map and UI.MapName(gate.map) or nil
-			lines[1] = string.format(L["%s starts it."], zone and (gate.giver .. ", " .. zone) or gate.giver)
-		end
-		if gate.level then
-			empty.Title:SetText(string.format(L["Available from level %d"], gate.level))
-			lines[#lines + 1] = string.format(L["Come back at level %d: the guide picks up by itself then."], gate.level)
-		else
-			empty.Title:SetText(L["Not available yet"])
-			lines[#lines + 1] = string.format(L["Finish %s first: the guide picks up by itself then."], ns.Quoted(gate.preTitle) or "")
-		end
-		empty.Text:SetText(table.concat(lines, "\n"))
-		W.SetButtonText(empty.Primary, L["Choose a guide"])
-		empty.Primary.psAction = function() UI.ShowPicker() end
-		empty.Primary:Show()
-	elseif kind == "away" then
-		-- Another race's starting zone the player has not reached
-		-- (Engine.AwayStart): Polestar does not lead them there; the guide
-		-- picks up when they arrive. Its class steps are the guide race's
-		-- classes', so the trainer may be elsewhere.
-		glyph = "icon-goto"
-		local guide = E and E.GetGuide and E.GetGuide()
-		local away = guide and E.AwayStart and E.AwayStart(guide.id) or {}
-		local zone = (away.zone and UI.MapName(away.zone)) or away.zoneName or ""
-		empty.Title:SetText(L["Another race's starting zone"])
-		empty.Text:SetText(string.format(L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."],
-			UI.RaceList(away.races) or "", zone) .. "\n" .. L["Your class trainer may be elsewhere (check your capital)."])
-		W.SetButtonText(empty.Primary, L["Choose a guide"])
-		empty.Primary.psAction = function() UI.ShowPicker() end
-		empty.Primary:Show()
-	elseif kind == "skippedout" then
-		-- The player's skip of a step left every later one without its
-		-- quest (Engine.SkippedOut): the guide is not done; the undo brings
-		-- the step back, and taking its quests by hand brings the rest.
-		glyph = "skip"
-		local out = E and E.SkippedOut and E.SkippedOut() or {}
-		empty.Title:SetText(L["The rest of this guide follows from a skipped step"])
-		empty.Text:SetText(string.format(L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."],
-			"|c" .. Theme.Hex("text") .. (out.title or "") .. "|r"))
-		W.SetButtonText(empty.Primary, L["Undo the skip"])
-		empty.Primary.psAction = function()
-			if out.step and E.Unskip then E.Unskip(out.step) end
-		end
-		empty.Primary:Show()
-		W.SetButtonText(empty.Secondary, L["Choose a guide"])
-		empty.Secondary.psAction = function() UI.ShowPicker() end
-		empty.Secondary:Show()
-	elseif kind == "complete" then
-		glyph, color = "check", "success"
-		local guide = E and E.GetGuide and E.GetGuide()
-		-- Where the hand-off goes now: the remembered or only option offered (an
-		-- option with `when` only while it holds), nil with none.
-		local nextId = guide and (E.NextGuide and E.NextGuide(guide.id) or not E.NextGuide and guide.next)
-		local nextGuide = nextId and G and G.Get and G.Get(nextId)
-		local choiceFrom = guide and E.PendingRouteChoice and E.PendingRouteChoice()
-		local afterRun = not choiceFrom and pickupKey(guide)
-		-- A class guide opened from the class quest heads-up (UI/ClassToast.lua)
-		-- in a tab of its own: close it and go back to the guide it came from.
-		local back = guide and not choiceFrom and not afterRun and GF.ClassReturn(guide.id)
-		empty.Title:SetText(L["Guide complete"])
-		if back then
-			empty.Text:SetText(string.format(L["Your class quest is done. Back to %s."], "|c" .. Theme.Hex("text") .. back.title .. "|r"))
-			W.SetButtonText(empty.Primary, L["Close and return"])
-			empty.Primary.psAction = function() GF.CloseAndReturn(guide.id) end
+		elseif kind == "away" then
+			-- Another race's starting zone the player has not reached
+			-- (Engine.AwayStart): Polestar does not lead them there; the guide
+			-- picks up when they arrive. Its class steps are the guide race's
+			-- classes', so the trainer may be elsewhere.
+			glyph = "icon-goto"
+			local guide = E and E.GetGuide and E.GetGuide()
+			local away = guide and E.AwayStart and E.AwayStart(guide.id) or {}
+			local zone = (away.zone and UI.MapName(away.zone)) or away.zoneName or ""
+			empty.Title:SetText(L["Another race's starting zone"])
+			empty.Text:SetText(string.format(L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."],
+				UI.RaceList(away.races) or "", zone) .. "\n" .. L["Your class trainer may be elsewhere (check your capital)."])
+			W.SetButtonText(empty.Primary, L["Choose a guide"])
+			empty.Primary.psAction = function() UI.ShowPicker() end
 			empty.Primary:Show()
-			W.SetButtonText(empty.Secondary, L["Browse guides"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
-			empty.Secondary:Show()
-		elseif choiceFrom then
-			-- Several zones to continue in: the player picks (UI.RouteChoice).
-			empty.Text:SetText(L["Choose where to level next."])
-			W.SetButtonText(empty.Primary, L["Choose your path"])
-			empty.Primary.psAction = function() UI.ShowRouteChoice(choiceFrom) end
-			empty.Primary:Show()
-			W.SetButtonText(empty.Secondary, L["Browse guides"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
-			empty.Secondary:Show()
-		elseif afterRun then
-			-- A dungeon's pick-up guide ends at the entrance; after the run
-			-- its quests are handed in (Dungeons/Handin.lua).
-			empty.Text:SetText(L["After the run: a guide to where this dungeon's quests are turned in, and the follow-ups there."])
-			W.SetButtonText(empty.Primary, L["Hand in the quests"])
-			empty.Primary.psAction = function() UI.DungeonsSection.HandIn(afterRun) end
+		elseif kind == "skippedout" then
+			-- The player's skip of a step left every later one without its
+			-- quest (Engine.SkippedOut): the guide is not done; the undo brings
+			-- the step back, and taking its quests by hand brings the rest.
+			glyph = "skip"
+			local out = E and E.SkippedOut and E.SkippedOut() or {}
+			empty.Title:SetText(L["The rest of this guide follows from a skipped step"])
+			empty.Text:SetText(string.format(L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."],
+				"|c" .. Theme.Hex("text") .. (out.title or "") .. "|r"))
+			W.SetButtonText(empty.Primary, L["Undo the skip"])
+			empty.Primary.psAction = function()
+				if out.step and E.Unskip then E.Unskip(out.step) end
+			end
 			empty.Primary:Show()
 			W.SetButtonText(empty.Secondary, L["Choose a guide"])
 			empty.Secondary.psAction = function() UI.ShowPicker() end
 			empty.Secondary:Show()
-		elseif nextGuide then
-			empty.Text:SetText(L["Up next"] .. ": |c" .. Theme.Hex("text") .. nextGuide.title .. "|r")
-			W.SetButtonText(empty.Primary, L["Continue"])
-			empty.Primary.psAction = function() E.SetGuide(nextGuide.id) end
-			empty.Primary:Show()
-			W.SetButtonText(empty.Secondary, L["Browse guides"])
-			empty.Secondary.psAction = function() UI.ShowPicker() end
-			empty.Secondary:Show()
-		else
-			empty.Text:SetText(L["Nice work. Pick your next guide to keep going."])
-			W.SetButtonText(empty.Primary, L["Choose a guide"])
-			empty.Primary.psAction = function() UI.ShowPicker() end
-			empty.Primary:Show()
-		end
-	end
-	empty.Glyph:SetTexture(Theme.Media(glyph))
-	W.Color(empty.Glyph, color)
-	empty.Glyph:SetSize(36, 36)
-	W.Color(empty.Glyph.Glow, color, 0.16)
-end
-
--- The navigator's Skip, beside the menu: skips the step on screen for good
--- (the banner offers the undo). Shown with a guide; off on a finished guide
--- and on a step already skipped.
-function GF.PaintSkip(shown, enabled)
-	local b = nav.Skip
-	b:SetShown(shown and true or false)
-	if enabled then b:Enable() else b:Disable() end
-	local a = enabled and 1 or 0.35
-	W.Color(b.Icon, "textDim", a)
-	W.Color(b.Label, "textDim", a)
-end
-
--- Skip sits left of the Nearby services button, or of the bug when that
--- button is off (nav.nearbyButton).
-local function anchorSkip()
-	nav.Skip:ClearAllPoints()
-	nav.Skip:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report, "LEFT", -2, 0)
-end
-
-local function navigatorFor(guide, index)
-	local count = guide and UI.StepTotal() or 0
-	if guide then
-		-- While the catch-up shows the guides passed whole, the count and title
-		-- are its (GF.PlayCatchUp). The numbers leave out the steps hidden
-		-- from the character (UI.StepNo, #942).
-		if GF.catchingUp ~= "guides" then
-			nav.Steps.Count:SetText(string.format("%d / %d", index and UI.StepNo(index) or count, count))
-			nav.Title:SetText(guide.title or guide.id)
-		end
-		nav.psMeta = UI.GuideMeta(guide)
-	else
-		nav.Steps.Count:SetText("")
-		nav.Title:SetText(L["Polestar"])
-		nav.psMeta = nil
-	end
-	W.SetIconState(nav.Prev, false, guide ~= nil)
-	W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
-	GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
-	nav.Report:SetShown(guide ~= nil)
-	nav.Nearby:ClearAllPoints()
-	nav.Nearby:SetPoint("RIGHT", guide and nav.Report or nav.Menu, "LEFT", 0, 0)
-	anchorSkip()
-	-- No guide: no steps to walk; the navigator names the addon instead.
-	nav.Steps:SetShown(guide ~= nil)
-	nav.Title:ClearAllPoints()
-	if guide then
-		nav.Title:SetPoint("LEFT", nav.Steps, "RIGHT", 8, 0)
-	else
-		nav.Title:SetPoint("LEFT", nav, "LEFT", PAD, 0)
-	end
-	if GF.catchingUp == "guides" then return end
-	local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), 40)
-	nav.Steps.Count:SetWidth(cw)
-	nav.Steps:SetWidth(24 + cw + 24)
-end
-
-local function fillUpcoming(E, index)
-	for i = 1, #upRows do upRows[i]:Hide() end
-	local want = compact() and 0 or (ns.Get("ui.upcoming") or 0)
-	local n, count = 0, E.GetStepCount and E.GetStepCount() or 0
-	local i = index + 1
-	while n < want and i <= count do
-		local v = E.GetStepView(i)
-		if v and v.status ~= "na" and not v.along and not UI.StepHidden(i) then
-			n = n + 1
-			local r = upRow(n)
-			r.psIndex = i
-			r.psSummary = UI.StepSummary(v)
-			-- It turns in a quest still open, pinned (#644), ticked by hand (#1135) or worked along the way (#853): warning colour, and says so.
-			local warn = false
-			for _, gv in ipairs(v.goals) do
-				if gv.pinOpen then warn = warn == true or gv.pinOpen end
+		elseif kind == "complete" then
+			glyph, color = "check", "success"
+			local guide = E and E.GetGuide and E.GetGuide()
+			-- Where the hand-off goes now: the remembered or only option offered (an
+			-- option with `when` only while it holds), nil with none.
+			local nextId = guide and (E.NextGuide and E.NextGuide(guide.id) or not E.NextGuide and guide.next)
+			local nextGuide = nextId and G and G.Get and G.Get(nextId)
+			local choiceFrom = guide and E.PendingRouteChoice and E.PendingRouteChoice()
+			local afterRun = not choiceFrom and pickupKey(guide)
+			-- A class guide opened from the class quest heads-up (UI/ClassToast.lua)
+			-- in a tab of its own: close it and go back to the guide it came from.
+			local back = guide and not choiceFrom and not afterRun and GF.ClassReturn(guide.id)
+			empty.Title:SetText(L["Guide complete"])
+			if back then
+				empty.Text:SetText(string.format(L["Your class quest is done. Back to %s."], "|c" .. Theme.Hex("text") .. back.title .. "|r"))
+				W.SetButtonText(empty.Primary, L["Close and return"])
+				empty.Primary.psAction = function() GF.CloseAndReturn(guide.id) end
+				empty.Primary:Show()
+				W.SetButtonText(empty.Secondary, L["Browse guides"])
+				empty.Secondary.psAction = function() UI.ShowPicker() end
+				empty.Secondary:Show()
+			elseif choiceFrom then
+				-- Several zones to continue in: the player picks (UI.RouteChoice).
+				empty.Text:SetText(L["Choose where to level next."])
+				W.SetButtonText(empty.Primary, L["Choose your path"])
+				empty.Primary.psAction = function() UI.ShowRouteChoice(choiceFrom) end
+				empty.Primary:Show()
+				W.SetButtonText(empty.Secondary, L["Browse guides"])
+				empty.Secondary.psAction = function() UI.ShowPicker() end
+				empty.Secondary:Show()
+			elseif afterRun then
+				-- A dungeon's pick-up guide ends at the entrance; after the run
+				-- its quests are handed in (Dungeons/Handin.lua).
+				empty.Text:SetText(L["After the run: a guide to where this dungeon's quests are turned in, and the follow-ups there."])
+				W.SetButtonText(empty.Primary, L["Hand in the quests"])
+				empty.Primary.psAction = function() UI.DungeonsSection.HandIn(afterRun) end
+				empty.Primary:Show()
+				W.SetButtonText(empty.Secondary, L["Choose a guide"])
+				empty.Secondary.psAction = function() UI.ShowPicker() end
+				empty.Secondary:Show()
+			elseif nextGuide then
+				empty.Text:SetText(L["Up next"] .. ": |c" .. Theme.Hex("text") .. nextGuide.title .. "|r")
+				W.SetButtonText(empty.Primary, L["Continue"])
+				empty.Primary.psAction = function() E.SetGuide(nextGuide.id) end
+				empty.Primary:Show()
+				W.SetButtonText(empty.Secondary, L["Browse guides"])
+				empty.Secondary.psAction = function() UI.ShowPicker() end
+				empty.Secondary:Show()
+			else
+				empty.Text:SetText(L["Nice work. Pick your next guide to keep going."])
+				W.SetButtonText(empty.Primary, L["Choose a guide"])
+				empty.Primary.psAction = function() UI.ShowPicker() end
+				empty.Primary:Show()
 			end
-			if warn then r.psSummary = r.psSummary .. " (" .. (warn == true and L["pinned, still open"] or L["still open"]) .. ")" end
-			r.Num:SetText(UI.StepNo(i))
-			r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
-			r.Text:SetText(r.psSummary)
-			W.Color(r.Text, warn and "warning" or "textDim")
-			r:SetShown(upcomingOpen())
 		end
-		i = i + 1
+		empty.Glyph:SetTexture(Theme.Media(glyph))
+		W.Color(empty.Glyph, color)
+		empty.Glyph:SetSize(36, 36)
+		W.Color(empty.Glyph.Glow, color, 0.16)
 	end
-	upnext.psCount = n
-	local open = upcomingOpen()
-	upnext.Toggle.Label:SetText(n == 1 and L["Up next \194\183 1 step"] or string.format(L["Up next \194\183 %d steps"], n))
-	upnext.Toggle.Icon:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
-	upnext:SetShown(n > 0)
-end
 
--- What comes after the focus: the next open group in this step, else the
--- first group of the next applicable step. -> name, kind | nil
-local function nextOf(E, index, groups, focus)
-	for gi = (focus or 0) + 1, #groups do
-		local g = groups[gi]
-		if not g.done then return UI.GroupName(view, g), g.kind end
+	-- The navigator's Skip, beside the menu: skips the step on screen for good
+	-- (the banner offers the undo). Shown with a guide; off on a finished guide
+	-- and on a step already skipped.
+	function GF.PaintSkip(shown, enabled)
+		local b = nav.Skip
+		b:SetShown(shown and GF.On("skipButton") and true or false)
+		if enabled then b:Enable() else b:Disable() end
+		local a = enabled and 1 or 0.35
+		W.Color(b.Icon, "textDim", a)
+		W.Color(b.Label, "textDim", a)
 	end
-	local count = E.GetStepCount and E.GetStepCount() or 0
-	for s = index + 1, count do
-		local v = E.GetStepView(s)
-		-- An along step never holds the route: "Then:" names the next step that does.
-		if v and v.status ~= "na" and not v.along and not UI.StepHidden(s) then
-			local gs, f = UI.StepGroups(v)
-			local g = gs[f or 1] or gs[1]
-			if g then return UI.GroupName(v, g), g.kind end
-			return nil
+
+	-- Skip sits left of the Nearby services button, or of the bug when that
+	-- button is off (nav.nearbyButton).
+	local function anchorSkip()
+		nav.Skip:ClearAllPoints()
+		nav.Skip:SetPoint("RIGHT", (nav.Nearby:IsShown() and nav.Nearby) or (nav.Report:IsShown() and nav.Report) or nav.Menu, "LEFT", -2, 0)
+	end
+
+	local function navigatorFor(guide, index)
+		local E = Engine()
+		local count = guide and UI.StepTotal(E) or 0
+		if guide then
+			-- While the catch-up shows the guides passed whole, the count and title
+			-- are its (GF.PlayCatchUp). The numbers leave out the steps hidden
+			-- from the character (UI.StepNo, #942).
+			if GF.catchingUp ~= "guides" then
+				nav.Steps.Count:SetText(string.format("%d / %d", index and UI.StepNo(index, E) or count, count))
+				nav.Title:SetText(guide.title or guide.id)
+			end
+			nav.psMeta = UI.GuideMeta(guide)
+		else
+			nav.Steps.Count:SetText("")
+			nav.Title:SetText(L["Polestar"])
+			nav.psMeta = nil
 		end
-	end
-	return nil
-end
-
--- A goal's identities for Along the way: its quest objective, and its verb
--- with its mob, item or object for that quest. -> key, key (either nil)
-local function alongKeys(g)
-	local a = g.quest and g.oi and ("q" .. g.quest .. ":" .. g.oi) or nil
-	local id = g.npc or g.item or g.object
-	local b = id and ((g.t or "") .. ":" .. id .. ":" .. (g.quest or "")) or nil
-	return a, b
-end
-
--- The open goals of along steps behind the live step (Engine.GetAlong), up to
--- ALONG_MAX rows, hidden in the compact window. A goal the step on screen
--- lists itself (the same quest objective, or the same kill or item for the
--- same quest) is not said twice. When every row is of `along until` steps
--- ending at one step, the heading says so: "Along the way, until step 30"
--- (#942: an along step has no card of its own).
-local function fillAlong(E)
-	for i = 1, #alongRows do alongRows[i]:Hide() end
-	if compact() or not E.GetAlong then
-		along:Hide()
-		return
-	end
-	local inStep = {}
-	for _, g in ipairs(view and view.goals or {}) do
-		if g.status ~= "na" then
-			local a, b = alongKeys(g)
-			if a then inStep[a] = true end
-			if b then inStep[b] = true end
+		W.SetIconState(nav.Prev, false, guide ~= nil)
+		W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
+		GF.PaintSkip(guide ~= nil, guide ~= nil and index ~= nil)
+		nav.Report:SetShown(guide ~= nil and GF.On("reportButton"))
+		nav.Nearby:ClearAllPoints()
+		nav.Nearby:SetPoint("RIGHT", nav.Report:IsShown() and nav.Report or nav.Lookup, "LEFT", 0, 0)
+		anchorSkip()
+		-- No guide: no steps to walk; the navigator names the addon instead.
+		nav.Steps:SetShown(guide ~= nil and GF.On("stepCount"))
+		nav.Title:ClearAllPoints()
+		if guide and nav.Steps:IsShown() then
+			nav.Title:SetPoint("LEFT", nav.Steps, "RIGHT", 8, 0)
+		else
+			nav.Title:SetPoint("LEFT", nav, "LEFT", PAD, 0)
 		end
+		if GF.catchingUp == "guides" then return end
+		local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), 40)
+		nav.Steps.Count:SetWidth(cw)
+		nav.Steps:SetWidth(24 + cw + 24)
 	end
-	local n, untilStep, mixed = 0, nil, false
-	-- First the quests an update left behind the player (Engine.GetBehind):
-	-- "Still to do: <quest>, back in <zone>, 240 yd".
-	local back = 0
-	for _, b in ipairs(E.GetBehind and E.GetBehind() or {}) do
-		if n < ALONG_MAX then
+
+	local function fillUpcoming(E, index)
+		for i = 1, #upRows do upRows[i]:Hide() end
+		local want = compact() and 0 or (ns.Get("ui.upcoming") or 0)
+		local n, count = 0, E.GetStepCount and E.GetStepCount() or 0
+		local i = index + 1
+		while n < want and i <= count do
+			local v = E.GetStepView(i)
+			if v and v.status ~= "na" and not v.along and not UI.StepHidden(i, E) then
+				n = n + 1
+				local r = upRow(n)
+				r.psIndex = i
+				r.psSummary = UI.StepSummary(v)
+				-- It turns in a quest still open, pinned (#644), ticked by hand (#1135) or worked along the way (#853): warning colour, and says so.
+				local warn = false
+				for _, gv in ipairs(v.goals) do
+					if gv.pinOpen then warn = warn == true or gv.pinOpen end
+				end
+				if warn then r.psSummary = r.psSummary .. " (" .. (warn == true and L["pinned, still open"] or L["still open"]) .. ")" end
+				r.Num:SetText(UI.StepNo(i, E))
+				r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
+				r.Text:SetText(r.psSummary)
+				W.Color(r.Text, warn and "warning" or "textDim")
+				r:SetShown(upcomingOpen())
+			end
+			i = i + 1
+		end
+		upnext.psCount = n
+		local open = upcomingOpen()
+		upnext.Toggle.Label:SetText(n == 1 and L["Up next \194\183 1 step"] or string.format(L["Up next \194\183 %d steps"], n))
+		upnext.Toggle.Icon:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
+		upnext:SetShown(n > 0)
+	end
+
+	-- What comes after the focus: the next open group in this step, else the
+	-- first group of the next applicable step. -> name, kind | nil
+	local function nextOf(E, index, groups, focus)
+		for gi = (focus or 0) + 1, #groups do
+			local g = groups[gi]
+			if not g.done then return UI.GroupName(view, g), g.kind end
+		end
+		local count = E.GetStepCount and E.GetStepCount() or 0
+		for s = index + 1, count do
+			local v = E.GetStepView(s)
+			-- An along step never holds the route: "Then:" names the next step that does.
+			if v and v.status ~= "na" and not v.along and not UI.StepHidden(s, E) then
+				local gs, f = UI.StepGroups(v)
+				local g = gs[f or 1] or gs[1]
+				if g then return UI.GroupName(v, g), g.kind end
+				return nil
+			end
+		end
+		return nil
+	end
+
+	-- A goal's identities for Along the way: its quest objective, and its verb
+	-- with its mob, item or object for that quest. -> key, key (either nil)
+	local function alongKeys(g)
+		local a = g.quest and g.oi and ("q" .. g.quest .. ":" .. g.oi) or nil
+		local id = g.npc or g.item or g.object
+		local b = id and ((g.t or "") .. ":" .. id .. ":" .. (g.quest or "")) or nil
+		return a, b
+	end
+
+	-- The open goals of along steps behind the live step (Engine.GetAlong), up to
+	-- ALONG_MAX rows, hidden in the compact window. A goal the step on screen
+	-- lists itself (the same quest objective, or the same kill or item for the
+	-- same quest) is not said twice. An objective that several along steps or a
+	-- pinned quest list with the same count is one row: the first, which takes a
+	-- later one's pin, and its step, goal and place when it has no place itself.
+	-- When every row is of `along until` steps ending at one step, the heading
+	-- says so: "Along the way, until step 30" (#942: an along step has no card
+	-- of its own).
+	local function fillAlong(E)
+		for i = 1, #alongRows do alongRows[i]:Hide() end
+		if compact() or not E.GetAlong then
+			along:Hide()
+			return
+		end
+		local inStep = {}
+		for _, g in ipairs(view and view.goals or {}) do
+			if g.status ~= "na" then
+				local a, b = alongKeys(g)
+				if a then inStep[a] = true end
+				if b then inStep[b] = true end
+			end
+		end
+		local n, untilStep, mixed = 0, nil, false
+		-- First the quests an update left behind the player (Engine.GetBehind):
+		-- "Still to do: <quest>, back in <zone>, 240 yd".
+		local back = 0
+		for _, b in ipairs(E.GetBehind and E.GetBehind() or {}) do
+			if n < ALONG_MAX then
+				n, back = n + 1, back + 1
+				local r = alongRow(n)
+				local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
+				local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
+				r.psPlace, r.psCarried = true, nil
+				r.Icon:SetTexture(Theme.VerbIcon("turnin"))
+				r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
+				r:Show()
+			end
+		end
+		-- Then, in one row, the finished quests no open route hands in
+		-- (RoutePlan.Carried): "3 finished quests to hand in elsewhere (410 XP)";
+		-- a click lists them (UI/QuestRoom.lua, "carried"). The player's own
+		-- quest log: the live window's row only.
+		local carried = GF.live and ns.RoutePlan and ns.RoutePlan.Carried()
+		if carried and #carried > 0 and n < ALONG_MAX then
 			n, back = n + 1, back + 1
-			local r = alongRow(n)
-			local where = b.zone and (b.yards and string.format(L["back in %s, %s"], b.zone, ns.FormatDistance(b.yards)) or string.format(L["back in %s"], b.zone)) or nil
-			local quest = ns.Quoted(b.title or (L["Quest"] .. " " .. b.quest))
-			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, b.title, nil, b.quest
-			r.psPlace = true
+			local r, xp = alongRow(n), 0
+			for _, c in ipairs(carried) do xp = xp + (c.xp or 0) end
+			r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = nil, nil, L["Finished quests you're still carrying"], nil, nil
+			r.psPlace, r.psCarried = nil, true
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
-			r.Text:SetText(where and string.format(L["Still to do: %s, %s"], quest, where) or string.format(L["Still to do: %s"], quest))
+			local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
+			r.Text:SetText(xp > 0 and string.format(L["%s (%d XP)"], text, xp) or text)
 			r:Show()
 		end
-	end
-	for _, s in ipairs(E.GetAlong()) do
-		for _, gv in ipairs(s.goals) do
-			local a, b = alongKeys(gv)
-			if n < ALONG_MAX and not ((a and inStep[a]) or (b and inStep[b])) then
+		local list, byKey = {}, {}
+		for _, s in ipairs(E.GetAlong()) do
+			for _, gv in ipairs(s.goals) do
+				local a, b = alongKeys(gv)
+				if not ((a and inStep[a]) or (b and inStep[b])) then
+					local key = a or b
+					key = key and (key .. ":" .. (gv.progress and gv.progress.max or "")) or nil
+					local place = gv.map and gv.x and gv.y and true or nil
+					local kept = key and byKey[key]
+					if kept then
+						kept.pin = kept.pin or s.pin
+						if place and not kept.place then
+							kept.gv, kept.step, kept.place = gv, gv.step or s.index, place
+						end
+					else
+						kept = { s = s, gv = gv, step = gv.step or s.index, place = place, pin = s.pin }
+						list[#list + 1] = kept
+						if key then byKey[key] = kept end
+					end
+				end
+			end
+		end
+		for _, e in ipairs(list) do
+			if n < ALONG_MAX then
+				local s, gv = e.s, e.gv
 				n = n + 1
 				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
 				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
-				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin, nil
-				r.psPlace = gv.map and gv.x and gv.y and true or nil
+				r.psStep, r.psGoal, r.psTitle, r.psPin, r.psBehind = e.step, gv.index, s.title or UI.GoalLine(gv), e.pin, nil
+				r.psPlace, r.psCarried = e.place, nil
 				r.Icon:SetTexture(Theme.VerbIcon(gv.t))
-				r.Text:SetText(UI.GoalLine(gv))
+				UI.SetCounted(r.Text, UI.GoalLine(gv))
 				r:Show()
 			end
 		end
+		along.Label:SetText(back == n and L["Still to do"] or (untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep, E)) or L["Along the way"])
+		along:SetShown(n > 0)
 	end
-	along.Label:SetText(back == n and L["Still to do"] or (untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
-	along:SetShown(n > 0)
-end
 
--- "While you're here" (Engine.GetWhileHereList): quick objectives of later
--- steps close by, in their own panel under the step's goals (GF.BuildHere),
--- in every window mode and style; the toast (UI/WhileHere.lua) says them only
--- while the window is hidden. One row each, read as the step's goal rows
--- ("Collect Fungal Spores 0/1", the target in its colour; a hand-in as the
--- game words it), its step under it (not in the compact window). The panel
--- slides in from the left as it fades in (Anim.BASE, strong ease-out) and
--- slides back out faster (Anim.FAST) before the window closes the gap. Under
--- ui.reduceMotion it only fades (Anim). psKey: the rows' "<step>:<goal>" on
--- screen, nil while none is. (On GF: the main chunk is at Lua's 200 locals.)
-GF.HERE_DIST = { round = 5 }
-
-function GF.FillHere(E)
-	local list = E.GetWhileHereList()
-	local tight = compact()
-	local here = GF.here
-	local body = here.Body
-	if not (list and list[1]) then
-		local was = here.psKey
-		here.psKey = nil
-		for _, r in ipairs(here.Rows) do r.psView = nil end
-		if was and here:IsShown() and F:IsVisible() and not GF.catchingUp then
-			Anim.To(body, "offsetX", 0, -6, Anim.FAST, "out")
-			Anim.To(body, "alpha", body:GetAlpha(), 0, Anim.FAST, "out", function()
-				if not here.psKey then
-					here:Hide()
-					GF.Layout()
-				end
-			end)
-		elseif not Anim.IsRunning(body, "alpha") then
-			here:Hide()
+	-- "Then: Gazrog": the next step's first person, once this step has no one
+	-- else open (its summary lines name the persons still to come). With "Show
+	-- the whole step" it names the next person of this step too, and "Person 2
+	-- of 8" counts them.
+	local function fillAfter(E, index, groups, focus)
+		if compact() then
+			after:Hide()
+			return
 		end
-		return
-	end
-	local keys = {}
-	for i, v in ipairs(list) do
-		local r = GF.HereRow(i)
-		r.psView = v
-		keys[i] = v.step .. ":" .. v.index
-		r.Icon:SetTexture(Theme.VerbIcon(v.here == "turnin" and "turnin" or v.t))
-		r.Text:SetText((v.here == "turnin" or v.here == "take") and UI.HereText(v) or UI.GoalLine(v))
-		r.Sub:SetText(string.format(v.later and L["Step %d, later in this guide"] or L["Step %d"], UI.StepNo(v.step)))
-		r.Sub:SetShown(not tight)
-		r.Dist:SetText(v.yards and ns.FormatDistance(v.yards, GF.HERE_DIST) or "")
-		r:Show()
-	end
-	for i = #list + 1, #here.Rows do
-		here.Rows[i].psView = nil
-		here.Rows[i]:Hide()
-	end
-	-- The panel slides in when it comes; rows coming and going inside it do not.
-	local fresh = here.psKey == nil
-	local wasShown = here:IsShown()
-	here.psKey = table.concat(keys, " ")
-	here:Show()
-	if fresh and F:IsVisible() and not GF.catchingUp then
-		Anim.To(body, "alpha", wasShown and body:GetAlpha() or 0, 1, Anim.BASE, "out")
-		Anim.To(body, "offsetX", -8, 0, Anim.BASE, "out")
-	elseif not Anim.IsRunning(body, "alpha") then
-		body:SetAlpha(1)
-		Anim.Anchor(body, "TOPLEFT", here, "TOPLEFT", 0, 0)
-	end
-end
-
--- WHILE_HERE_CHANGED: the line came, changed or went.
-function GF.HereChanged()
-	if not F or state ~= "steps" or not view then return end
-	GF.FillHere(Engine())
-	GF.Layout()
-end
-
--- WHILE_HERE_MOVED (yards, i): only row i's distance changed.
-function GF.HereMoved(yards, i)
-	local here = GF.here
-	local r = here and here.Rows[i or 1]
-	if not (F and r and r.psView and type(yards) == "number") then return end
-	r.Dist:SetText(ns.FormatDistance(yards, GF.HERE_DIST))
-	-- A wider distance can wrap the text onto another line: lay the window out.
-	if here:IsShown() then
-		local was = here:GetHeight()
-		if GF.LayoutHere(F:GetWidth()) ~= was then GF.Layout() end
-	end
-end
-
--- "Then: Gazrog": the next step's first person, once this step has no one
--- else open (its summary lines name the persons still to come). With "Show
--- the whole step" it names the next person of this step too, and "Person 2
--- of 8" counts them.
-local function fillAfter(E, index, groups, focus)
-	if compact() then
-		after:Hide()
-		return
-	end
-	local whole = wholeStep() or not focus
-	if not whole then
-		for gi = focus + 1, #groups do
-			if not groups[gi].done then
-				after:Hide()
-				return
-			end
-		end
-	end
-	local persons, at = 0, nil
-	for gi, g in ipairs(groups) do
-		if g.kind ~= "here" then
-			persons = persons + 1
-			if gi == focus then at = persons end
-		end
-	end
-	if not whole then at = nil end
-	local name, kind = nextOf(E, index, groups, focus)
-	if name and name ~= "" then
-		local hex = Theme.Hex(kind == "npc" and "npc" or (kind == "object" and "object" or "textDim"))
-		after.Text:SetText(L["Then:"] .. " |c" .. hex .. name .. "|r")
-	else
-		after.Text:SetText("")
-	end
-	if at and persons > 1 then
-		after.Count:SetText(string.format(L["Person %d of %d"], at, persons))
-	else
-		after.Count:SetText("")
-	end
-	after:SetShown((name and name ~= "") or (at and persons > 1) and true or false)
-end
-
--- The group the card shows: the focus. A done step (no focus: one viewed with
--- Prev or Goto) shows all its goals under the step title, so it reads as done
--- and no optional leftover is hidden; the Engine points the arrow at nothing
--- there.
-local function shownGroup(v, groups, focus)
-	if focus and groups[focus] then return groups[focus] end
-	local all = {}
-	for i in ipairs(v.goals) do all[#all + 1] = i end
-	return { kind = "here", goals = all, done = true }
-end
-
--- The goals a group shows as rows, as painted (UI.ReadingGoal): never one
--- that does not apply or is folded into another (a quest started by an item
--- is one row); a "Go to" naming the step's own place (`header`) only when
--- nothing else shows, since the header already says it.
--- -> rows (goal views), the hidden header goal
-local function shownGoals(v, group)
-	local list, others = {}, 0
-	for _, gi in ipairs(group.goals or {}) do
-		local goal = v.goals[gi]
-		if goal and goal.status ~= "na" and not goal.folded then
-			list[#list + 1] = UI.ReadingGoal(v, goal)
-			if not goal.header then others = others + 1 end
-		end
-	end
-	if others == 0 then return list, nil end
-	local out, header = {}, nil
-	for _, goal in ipairs(list) do
-		if goal.header then header = header or goal else out[#out + 1] = goal end
-	end
-	return out, header
-end
-
--- The rows the card lists: every goal of the step in written order, the
--- focus person's and everyone else's, done, skipped (with its reason) or
--- open, never one that does not apply or is folded into another. A hub step
--- reads person by person in the header, the arrow and "Then:", but a quest
--- taken, handed in or not offered stays on the card when the focus moves to
--- the next person (#741, #739: such a row vanished with its person, which read
--- as the guide ticking or losing it). The focus's own "Go to" header stays
--- folded into the header (shownGoals).
--- -> rows (goal views), the hidden header goal
-local function cardGoals(v, groups, focus)
-	local _, header = shownGoals(v, shownGroup(v, groups, focus))
-	-- A class quest's accept reads inside the class card (UI/ClassCard.lua).
-	local CC, E = UI.ClassCard, Engine()
-	local fold = CC and E and E.GetGuide and CC.Fold(E.GetGuide(), v)
-	local list = {}
-	for gi, goal in ipairs(v.goals) do
-		if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi) then
-			list[#list + 1] = UI.ReadingGoal(v, goal)
-		end
-	end
-	return list, header
-end
-
--- The name a row of another person's goal carries (the focus's are under
--- the header already), in the NPC's or object's colour; nil for field work.
-local function rowWho(goal, groups, focus)
-	local grp = focus and goal.group ~= focus and groups[goal.group]
-	if not grp or not grp.name or grp.name == "" or (grp.kind ~= "npc" and grp.kind ~= "object") then return nil end
-	return "|c" .. Theme.Hex(grp.kind) .. grp.name .. "|r"
-end
-
--- What a summary line says for a group's open goals, by kind in the order
--- they first come: "1 hand-in, 2 quests" at a person; out here "7 kills and
--- items", "3 kills", "2 items" or "4 goals" (a "Go to" counts only when
--- nothing else is open). nil when none is open.
-local function countsOf(list, here)
-	if here then
-		local kills, items, other, gotos = 0, 0, 0, 0
-		for _, g in ipairs(list) do
-			if g.status ~= "done" and g.status ~= "skipped" then
-				if g.t == "kill" then
-					kills = kills + 1
-				elseif g.t == "collect" then
-					items = items + 1
-				elseif g.t == "goto" then
-					gotos = gotos + 1
-				else
-					other = other + 1
-				end
-			end
-		end
-		local all = kills + items + other
-		if all == 0 then all = gotos end
-		if all == 0 then return nil end
-		if other > 0 or kills + items == 0 then return all == 1 and L["1 goal"] or string.format(L["%d goals"], all) end
-		if items == 0 then return kills == 1 and L["1 kill"] or string.format(L["%d kills"], kills) end
-		if kills == 0 then return items == 1 and L["1 item"] or string.format(L["%d items"], items) end
-		return string.format(L["%d kills and items"], all)
-	end
-	local n, kinds = { quest = 0, handin = 0, task = 0 }, {}
-	for _, g in ipairs(list) do
-		if g.status ~= "done" and g.status ~= "skipped" then
-			local k = (g.t == "accept" and "quest") or (g.t == "turnin" and "handin") or "task"
-			if n[k] == 0 then kinds[#kinds + 1] = k end
-			n[k] = n[k] + 1
-		end
-	end
-	if #kinds == 0 then return nil end
-	for i, k in ipairs(kinds) do
-		local c = n[k]
-		if k == "quest" then
-			kinds[i] = c == 1 and L["1 quest"] or string.format(L["%d quests"], c)
-		elseif k == "handin" then
-			kinds[i] = c == 1 and L["1 hand-in"] or string.format(L["%d hand-ins"], c)
-		else
-			kinds[i] = c == 1 and L["1 task"] or string.format(L["%d tasks"], c)
-		end
-	end
-	return table.concat(kinds, ", ")
-end
-
--- Paint a summary line: `icon` a verb glyph or "check"; `list` the goals
--- its tooltip names; `open` whether its goals are listed under it.
-local function paintLine(l, key, icon, iconColor, text, list, title, open)
-	l.psKey, l.psGoals, l.psTitle = key, list, title
-	l.Icon:SetTexture(icon == "check" and Theme.Media("check") or Theme.VerbIcon(icon))
-	W.Color(l.Icon, iconColor)
-	l.Text:SetText(text)
-	if l ~= fold.glow then W.Color(l.Text, "textDim") end
-	l.Chevron:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
-	l.psK = nil
-	l:SetAlpha(1)
-	l:Show()
-end
-
-local DOT = "  \194\183  "
-
--- A level as the window shows the character's: whole, or cut (not rounded)
--- to one place, so 19.96 still reads 19.9. (A field: this file's main chunk
--- is at Lua 5.1's 200 locals.)
-function GF.LevelText(v)
-	if v % 1 == 0 then return string.format("%d", v) end
-	return string.format("%.1f", floor(v * 10) / 10)
-end
-
--- Fill the card from `view`: the focus group's header, its goals under
--- "✓ N done", a summary line for every other person of the step, the tip
--- (with "Show the whole step", or on a done step, every goal as written).
--- sameFocus = repaint in place; a goal that just turned done pops and folds.
-local function fillCard(sameFocus)
-	local groups, focus = UI.StepGroups(view)
-	local g = shownGroup(view, groups, focus)
-	focusGroup = g
-	if not sameFocus then resetModel() end
-	local _, header = shownGoals(view, g)
-	person.psHeaderGoal = header
-	paintPerson(g)
-	-- Under the header: why a step that depends on what the player does
-	-- holds nothing for them now (the Engine's `why`, #942).
-	local why = view.why
-	person.Why:SetText(why or "")
-	person.Why:SetShown(why ~= nil)
-	-- Work on the step for a quest 3 or more levels above the character
-	-- (Levels.StepHint; never an accept): "Level 25 quest: you're 19.7", in a
-	-- calm colour (Fitz, 0.3.6: players read red as being behind).
-	local Lv = ns.Levels
-	local hint = Lv and Lv.StepHint and Lv.StepHint(view.index)
-	if hint then
-		person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
-		W.Color(person.Level, "textDim")
-	end
-	person.Level:SetShown(hint ~= nil)
-	person:Show()
-	-- A class quest's step: the class card, its colour on the step's quest names.
-	local CC, E = UI.ClassCard, Engine()
-	local guide = E and E.GetGuide and E.GetGuide()
-	local step = guide and guide.steps and guide.steps[view.index]
-	local classHex = CC and CC.Fill(guide, view.index, view) or nil
-	-- A class quest's accept reads inside the class card (UI/ClassCard.lua).
-	local classFold = CC and guide and CC.Fold(guide, view)
-	local t = targetOf()
-	local n, m = 0, 0
-	area.n = 0
-	-- A group line ("Dungeon: Dire Maul") reads once, on the first open
-	-- goal that carries it, not under every goal of the same run.
-	local partySaid = {}
-	local missingSaid = {} -- quest -> a row already names who lacks it
-	local escortSaid = false -- a row already says the escort line
-	-- The current goal (the Engine's `current`: the first open blocking goal
-	-- of the focus, else its first open optional one) takes the accent; it
-	-- is the goal the arrow leads to. The header stands for its "Go to".
-	-- `rec`: the goal's fold, while it folds.
-	local function addRow(goal, who, aside, rec)
-		n = n + 1
-		local r = goalRow(n)
-		local last = model.last[goal.index]
-		local pop = (rec and rec.pop) or (not rec and sameFocus and goal.status == "done" and last ~= nil and last ~= "done")
-		if rec then rec.pop = nil end
-		local isCurrent = view.current ~= nil and goal.index == view.current and goal.status == "active"
-		local party = UI.GroupLine(goal)
-		local escort = UI.EscortLine(goal) ~= nil
-		local raw = classHex and step and step.goals[goal.index]
-		local hex = raw and CC.Colours(raw) and classHex or nil
-		paintRow(r, goal, pop and true or false, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest], escort and escortSaid, who, aside, hex)
-		if party then partySaid[party] = true end
-		if escort then escortSaid = true end
-		if goal.quest and goal.oi and goal.status ~= "skipped" then missingSaid[goal.quest] = true end
-		r.Mark:SetShown(goal.status ~= "done" and goal.status ~= "skipped" and isTarget(goal, t) and not person.Mark:IsShown())
-		r.psFold = rec
-		if rec then
-			rec.row = r
-			r.psK = rec.k
-			r:SetAlpha(rec.a or 1)
-		else
-			r.psK = nil
-			r:SetAlpha(1)
-		end
-		r:Show()
-		area.n = area.n + 1
-		area.items[area.n], r.psAt = r, area.n
-	end
-	local function addLine(key, icon, iconColor, text, list, title, open)
-		m = m + 1
-		local l = cardLine(m)
-		paintLine(l, key, icon, iconColor, text, list, title, open)
-		area.n = area.n + 1
-		area.items[area.n], l.psAt = l, area.n
-		return l
-	end
-	-- A group's rows as painted (shownGoals), the class card's accept left out.
-	local function goalsOf(grp)
-		local list = shownGoals(view, grp)
-		if classFold then
-			for i = #list, 1, -1 do
-				if list[i].index == classFold then table.remove(list, i) end
-			end
-		end
-		return list
-	end
-	local function nameHex(grp)
-		return Theme.Hex((grp.kind == "npc" or grp.kind == "object") and grp.kind or "text")
-	end
-	-- Who a group is done with, so one person reads on one summary line even
-	-- when another person's goal splits their goals (Thundris Windweaver, a
-	-- vendor, Thundris again); nil for field work, which never merges.
-	local function personOf(grp)
-		if grp.kind == "npc" and grp.npc then return "npc:" .. grp.npc end
-		if grp.kind == "object" and grp.object then return "object:" .. grp.object end
-		return nil
-	end
-	fold.grow = nil
-	if wholeStep() or not focus then
-		-- Every goal of the step in written order, the other persons' named
-		-- on their rows and stepped back while open.
-		for _, goal in ipairs(cardGoals(view, groups, focus)) do
-			addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
-		end
-	else
-		-- The focus person's other groups on the same visit (Thundris
-		-- Windweaver, a vendor, Thundris again: only persons between, no
-		-- field work) read with the focus, in written order: the player is in
-		-- front of them now (#942). Every other person after the focus, in the
-		-- order they first come: all their groups share one entry, read as
-		-- one summary line below.
-		local me, mine = personOf(g), {}
-		if me then
+		local whole = wholeStep() or not focus
+		if not whole then
 			for gi = focus + 1, #groups do
-				local who = personOf(groups[gi])
-				if not who then break end
-				if who == me then mine[gi] = true end
-			end
-			for gi = focus - 1, 1, -1 do
-				local who = personOf(groups[gi])
-				if not who then break end
-				if who == me then mine[gi] = true end
-			end
-		end
-		local mineBefore, mineAfter = {}, {}
-		local later, laterOf = {}, {}
-		for gi = focus + 1, #groups do
-			local grp = groups[gi]
-			local list2 = goalsOf(grp)
-			if #list2 > 0 then
-				local who = personOf(grp)
-				local e = who and laterOf[who]
-				if mine[gi] then
-					for _, goal in ipairs(list2) do mineAfter[#mineAfter + 1] = goal end
-				elseif e then
-					for _, goal in ipairs(list2) do e.list[#e.list + 1] = goal end
-				else
-					e = { gi = gi, list = list2, prev = groups[gi - 1].kind }
-					later[#later + 1] = e
-					if who then laterOf[who] = e end
+				if not groups[gi].done then
+					after:Hide()
+					return
 				end
 			end
 		end
-		-- The persons done before the focus: one line naming them. A person
-		-- still to come after the focus reads on their own line instead, with
-		-- these goals first; the focus person's read with the focus.
-		local before, names, named, early = {}, {}, {}, {}
-		for gi = 1, focus - 1 do
-			local grp = groups[gi]
-			local list = goalsOf(grp)
-			local who = personOf(grp)
-			local e = who and laterOf[who]
-			if #list > 0 and mine[gi] then
-				for _, goal in ipairs(list) do mineBefore[#mineBefore + 1] = goal end
-			elseif #list > 0 and e then
-				local into = early[e]
-				if not into then
-					into = {}
-					early[e] = into
-				end
-				for _, goal in ipairs(list) do into[#into + 1] = goal end
-			elseif #list > 0 then
-				for _, goal in ipairs(list) do before[#before + 1] = goal end
-				if not (who and named[who]) then
-					names[#names + 1] = "|c" .. nameHex(grp) .. UI.GroupName(view, grp) .. "|r"
-					if who then named[who] = true end
-				end
+		local persons, at = 0, nil
+		for gi, g in ipairs(groups) do
+			if g.kind ~= "here" then
+				persons = persons + 1
+				if gi == focus then at = persons end
 			end
 		end
-		for e, into in pairs(early) do
-			for _, goal in ipairs(e.list) do into[#into + 1] = goal end
-			e.list = into
+		if not whole then at = nil end
+		local name, kind = nextOf(E, index, groups, focus)
+		if name and name ~= "" then
+			local hex = Theme.Hex(kind == "npc" and "npc" or (kind == "object" and "object" or "textDim"))
+			after.Text:SetText(L["Then:"] .. " |c" .. hex .. name .. "|r")
+		else
+			after.Text:SetText("")
 		end
-		if #before > 0 then
-			addLine("before", "check", "success", table.concat(names, ", "), before, L["Done"], model.open.before)
-			if model.open.before then
-				for _, goal in ipairs(before) do addRow(goal, rowWho(goal, groups, focus), true) end
+		if at and persons > 1 then
+			after.Count:SetText(string.format(L["Person %d of %d"], at, persons))
+		else
+			after.Count:SetText("")
+		end
+		after:SetShown((name and name ~= "") or (at and persons > 1) and true or false)
+	end
+
+	-- The group the card shows: the focus. A done step (no focus: one viewed with
+	-- Prev or Goto) shows all its goals under the step title, so it reads as done
+	-- and no optional leftover is hidden; the Engine points the arrow at nothing
+	-- there.
+	local function shownGroup(v, groups, focus)
+		if focus and groups[focus] then return groups[focus] end
+		local all = {}
+		for i in ipairs(v.goals) do all[#all + 1] = i end
+		return { kind = "here", goals = all, done = true }
+	end
+
+	-- The goals a group shows as rows, as painted (UI.ReadingGoal): never one
+	-- that does not apply or is folded into another (a quest started by an item
+	-- is one row); a "Go to" naming the step's own place (`header`) only when
+	-- nothing else shows, since the header already says it.
+	-- -> rows (goal views), the hidden header goal
+	local function shownGoals(v, group)
+		local list, others = {}, 0
+		for _, gi in ipairs(group.goals or {}) do
+			local goal = v.goals[gi]
+			if goal and goal.status ~= "na" and not goal.folded then
+				list[#list + 1] = UI.ReadingGoal(v, goal)
+				if not goal.header then others = others + 1 end
 			end
 		end
-		-- The focus: its finished goals folded into "✓ N done", the rest as rows.
-		fold.serial = fold.serial + 1
-		local list = mineBefore
-		for _, goal in ipairs(goalsOf(g)) do list[#list + 1] = goal end
-		for _, goal in ipairs(mineAfter) do list[#list + 1] = goal end
-		local kept, doneList, first = {}, {}, nil
-		for i, goal in ipairs(list) do
-			local gi = goal.index
-			local rec = fold.of[gi]
-			if goal.status == "done" then
-				if not rec and not model.folded[gi] then
-					local last = model.last[gi]
-					if sameFocus and last and last ~= "done" then
-						rec = fold.start(gi)
+		if others == 0 then return list, nil end
+		local out, header = {}, nil
+		for _, goal in ipairs(list) do
+			if goal.header then header = header or goal else out[#out + 1] = goal end
+		end
+		return out, header
+	end
+
+	-- The rows the card lists: every goal of the step in written order, the
+	-- focus person's and everyone else's, done, skipped (with its reason) or
+	-- open, never one that does not apply or is folded into another. A hub step
+	-- reads person by person in the header, the arrow and "Then:", but a quest
+	-- taken, handed in or not offered stays on the card when the focus moves to
+	-- the next person (#741, #739: such a row vanished with its person, which read
+	-- as the guide ticking or losing it). The focus's own "Go to" header stays
+	-- folded into the header (shownGoals).
+	-- -> rows (goal views), the hidden header goal
+	local function cardGoals(v, groups, focus)
+		local _, header = shownGoals(v, shownGroup(v, groups, focus))
+		-- A class quest's accept reads inside the class card (UI/ClassCard.lua;
+		-- the live window's alone).
+		local CC, E = GF.live and UI.ClassCard or nil, Engine()
+		local fold = CC and E and E.GetGuide and CC.Fold(E.GetGuide(), v)
+		local list = {}
+		for gi, goal in ipairs(v.goals) do
+			if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi) then
+				list[#list + 1] = UI.ReadingGoal(v, goal)
+			end
+		end
+		return list, header
+	end
+
+	-- The name a row of another person's goal carries (the focus's are under
+	-- the header already), in the NPC's or object's colour; nil for field work.
+	local function rowWho(goal, groups, focus)
+		local grp = focus and goal.group ~= focus and groups[goal.group]
+		if not grp or not grp.name or grp.name == "" or (grp.kind ~= "npc" and grp.kind ~= "object") then return nil end
+		return "|c" .. Theme.Hex(grp.kind) .. grp.name .. "|r"
+	end
+
+	-- What a summary line says for a group's open goals, by kind in the order
+	-- they first come: "1 hand-in, 2 quests" at a person; out here "7 kills and
+	-- items", "3 kills", "2 items" or "4 goals" (a "Go to" counts only when
+	-- nothing else is open). nil when none is open.
+	local function countsOf(list, here)
+		if here then
+			local kills, items, other, gotos = 0, 0, 0, 0
+			for _, g in ipairs(list) do
+				if g.status ~= "done" and g.status ~= "skipped" then
+					if g.t == "kill" then
+						kills = kills + 1
+					elseif g.t == "collect" then
+						items = items + 1
+					elseif g.t == "goto" then
+						gotos = gotos + 1
 					else
-						model.folded[gi] = true
+						other = other + 1
 					end
 				end
-				if rec then
-					rec.seen = fold.serial
-					if not first or rec.at < first.at then first = rec end
+			end
+			local all = kills + items + other
+			if all == 0 then all = gotos end
+			if all == 0 then return nil end
+			if other > 0 or kills + items == 0 then return all == 1 and L["1 goal"] or string.format(L["%d goals"], all) end
+			if items == 0 then return kills == 1 and L["1 kill"] or string.format(L["%d kills"], kills) end
+			if kills == 0 then return items == 1 and L["1 item"] or string.format(L["%d items"], items) end
+			return string.format(L["%d kills and items"], all)
+		end
+		local n, kinds = { quest = 0, handin = 0, task = 0 }, {}
+		for _, g in ipairs(list) do
+			if g.status ~= "done" and g.status ~= "skipped" then
+				local k = (g.t == "accept" and "quest") or (g.t == "turnin" and "handin") or "task"
+				if n[k] == 0 then kinds[#kinds + 1] = k end
+				n[k] = n[k] + 1
+			end
+		end
+		if #kinds == 0 then return nil end
+		for i, k in ipairs(kinds) do
+			local c = n[k]
+			if k == "quest" then
+				kinds[i] = c == 1 and L["1 quest"] or string.format(L["%d quests"], c)
+			elseif k == "handin" then
+				kinds[i] = c == 1 and L["1 hand-in"] or string.format(L["%d hand-ins"], c)
+			else
+				kinds[i] = c == 1 and L["1 task"] or string.format(L["%d tasks"], c)
+			end
+		end
+		return table.concat(kinds, ", ")
+	end
+
+	-- Paint a summary line: `icon` a verb glyph or "check"; `list` the goals
+	-- its tooltip names; `open` whether its goals are listed under it.
+	local function paintLine(l, key, icon, iconColor, text, list, title, open)
+		l.psKey, l.psGoals, l.psTitle = key, list, title
+		l.Icon:SetTexture(icon == "check" and Theme.Media("check") or Theme.VerbIcon(icon))
+		W.Color(l.Icon, iconColor)
+		l.Text:SetText(text)
+		if l ~= fold.glow then W.Color(l.Text, "textDim") end
+		l.Chevron:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
+		l.psK = nil
+		l:SetAlpha(1)
+		l:Show()
+	end
+
+	local DOT = "  \194\183  "
+
+	-- A level as the window shows the character's: whole, or cut (not rounded)
+	-- to one place, so 19.96 still reads 19.9.
+	function GF.LevelText(v)
+		if v % 1 == 0 then return string.format("%d", v) end
+		return string.format("%.1f", floor(v * 10) / 10)
+	end
+
+	-- Fill the card from `view`: the focus group's header, its goals under
+	-- "✓ N done", a summary line for every other person of the step, the tip
+	-- (with "Show the whole step", or on a done step, every goal as written).
+	-- sameFocus = repaint in place; a goal that just turned done pops and folds.
+	local function fillCard(sameFocus)
+		local groups, focus = UI.StepGroups(view)
+		local g = shownGroup(view, groups, focus)
+		focusGroup = g
+		if not sameFocus then resetModel() end
+		local _, header = shownGoals(view, g)
+		person.psHeaderGoal = header
+		paintPerson(g)
+		-- Under the header: why a step that depends on what the player does
+		-- holds nothing for them now (the Engine's `why`, #942).
+		local why = view.why
+		person.Why:SetText(why or "")
+		person.Why:SetShown(why ~= nil)
+		-- Work on the step for a quest 3 or more levels above the character
+		-- (the window's StepHint line, Levels.StepHint; never an accept): "Level
+		-- 25 quest: you're 19.7", in a calm colour (Fitz, 0.3.6: players read red
+		-- as being behind).
+		local E, d = Engine(), Derived()
+		local hint = d.StepHint and d.StepHint(view.index)
+		if hint then
+			person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
+			W.Color(person.Level, "textDim")
+		end
+		person.Level:SetShown(hint ~= nil)
+		-- A profession guide's section: its skill range as the heading over the
+		-- step ("First Aid 1-40"), in the accent colour while the player's skill
+		-- is in it (Engine.GetSection).
+		local sv = view.section
+		card.Section:SetText(sv and sv.title or "")
+		if sv then W.Color(card.Section, sv.state == "current" and "accent" or "textDim") end
+		card.Section:SetShown(sv ~= nil)
+		person:Show()
+		-- A class quest's step: the class card, its colour on the step's quest
+		-- names (the live window's alone).
+		local CC = GF.live and UI.ClassCard or nil
+		local guide = E.GetGuide and E.GetGuide()
+		local step = guide and guide.steps and guide.steps[view.index]
+		local classHex = CC and CC.Fill(guide, view.index, view) or nil
+		-- A class quest's accept reads inside the class card (UI/ClassCard.lua).
+		local classFold = CC and guide and CC.Fold(guide, view)
+		local t = targetOf()
+		local n, m = 0, 0
+		area.n = 0
+		-- A group line ("Dungeon: Dire Maul") reads once, on the first open
+		-- goal that carries it, not under every goal of the same run.
+		local partySaid = {}
+		local missingSaid = {} -- quest -> a row already names who lacks it
+		local escortSaid = false -- a row already says the escort line
+		local finderSaid = false -- and the group finder line
+		-- The current goal (the Engine's `current`: the first open blocking goal
+		-- of the focus, else its first open optional one) takes the accent; it
+		-- is the goal the arrow leads to. The header stands for its "Go to".
+		-- `rec`: the goal's fold, while it folds.
+		local function addRow(goal, who, aside, rec)
+			n = n + 1
+			local r = goalRow(n)
+			local last = model.last[goal.index]
+			local pop = (rec and rec.pop) or (not rec and sameFocus and goal.status == "done" and last ~= nil and last ~= "done")
+			if rec then rec.pop = nil end
+			local isCurrent = view.current ~= nil and goal.index == view.current and goal.status == "active"
+			local party = UI.GroupLine(goal)
+			local escort = UI.EscortLine(goal) ~= nil
+			local finder = UI.FinderLine(goal) ~= nil
+			local raw = classHex and step and step.goals[goal.index]
+			local hex = raw and CC.Colours(raw) and classHex or nil
+			paintRow(r, goal, pop and true or false, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest], escort and escortSaid, who, aside, hex, finder and finderSaid)
+			if party then partySaid[party] = true end
+			if escort then escortSaid = true end
+			if finder then finderSaid = true end
+			if goal.quest and goal.oi and goal.status ~= "skipped" then missingSaid[goal.quest] = true end
+			GF.ShowMark(r, goal.status ~= "done" and goal.status ~= "skipped" and isTarget(goal, t) and not person.Mark:IsShown())
+			r.psFold = rec
+			if rec then
+				rec.row = r
+				r.psK = rec.k
+				r:SetAlpha(rec.a or 1)
+			else
+				r.psK = nil
+				r:SetAlpha(1)
+			end
+			r:Show()
+			area.n = area.n + 1
+			area.items[area.n], r.psAt = r, area.n
+		end
+		local function addLine(key, icon, iconColor, text, list, title, open)
+			m = m + 1
+			local l = cardLine(m)
+			paintLine(l, key, icon, iconColor, text, list, title, open)
+			area.n = area.n + 1
+			area.items[area.n], l.psAt = l, area.n
+			return l
+		end
+		-- A group's rows as painted (shownGoals), the class card's accept left out.
+		local function goalsOf(grp)
+			local list = shownGoals(view, grp)
+			if classFold then
+				for i = #list, 1, -1 do
+					if list[i].index == classFold then table.remove(list, i) end
+				end
+			end
+			return list
+		end
+		local function nameHex(grp)
+			return Theme.Hex((grp.kind == "npc" or grp.kind == "object") and grp.kind or "text")
+		end
+		-- Who a group is done with, so one person reads on one summary line even
+		-- when another person's goal splits their goals (Thundris Windweaver, a
+		-- vendor, Thundris again); nil for field work, which never merges.
+		local function personOf(grp)
+			if grp.kind == "npc" and grp.npc then return "npc:" .. grp.npc end
+			if grp.kind == "object" and grp.object then return "object:" .. grp.object end
+			return nil
+		end
+		fold.grow = nil
+		if wholeStep() or not focus then
+			-- Every goal of the step in written order, the other persons' named
+			-- on their rows and stepped back while open.
+			for _, goal in ipairs(cardGoals(view, groups, focus)) do
+				addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
+			end
+		else
+			-- The focus person's other groups on the same visit (Thundris
+			-- Windweaver, a vendor, Thundris again: only persons between, no
+			-- field work) read with the focus, in written order: the player is in
+			-- front of them now (#942). Every other person after the focus, in the
+			-- order they first come: all their groups share one entry, read as
+			-- one summary line below.
+			local me, mine = personOf(g), {}
+			if me then
+				for gi = focus + 1, #groups do
+					local who = personOf(groups[gi])
+					if not who then break end
+					if who == me then mine[gi] = true end
+				end
+				for gi = focus - 1, 1, -1 do
+					local who = personOf(groups[gi])
+					if not who then break end
+					if who == me then mine[gi] = true end
+				end
+			end
+			local mineBefore, mineAfter = {}, {}
+			local later, laterOf = {}, {}
+			for gi = focus + 1, #groups do
+				local grp = groups[gi]
+				local list2 = goalsOf(grp)
+				if #list2 > 0 then
+					local who = personOf(grp)
+					local e = who and laterOf[who]
+					if mine[gi] then
+						for _, goal in ipairs(list2) do mineAfter[#mineAfter + 1] = goal end
+					elseif e then
+						for _, goal in ipairs(list2) do e.list[#e.list + 1] = goal end
+					else
+						e = { gi = gi, list = list2, prev = groups[gi - 1].kind }
+						later[#later + 1] = e
+						if who then laterOf[who] = e end
+					end
+				end
+			end
+			-- The persons done before the focus: one line naming them. A person
+			-- still to come after the focus reads on their own line instead, with
+			-- these goals first; the focus person's read with the focus.
+			local before, names, named, early = {}, {}, {}, {}
+			for gi = 1, focus - 1 do
+				local grp = groups[gi]
+				local list = goalsOf(grp)
+				local who = personOf(grp)
+				local e = who and laterOf[who]
+				if #list > 0 and mine[gi] then
+					for _, goal in ipairs(list) do mineBefore[#mineBefore + 1] = goal end
+				elseif #list > 0 and e then
+					local into = early[e]
+					if not into then
+						into = {}
+						early[e] = into
+					end
+					for _, goal in ipairs(list) do into[#into + 1] = goal end
+				elseif #list > 0 then
+					for _, goal in ipairs(list) do before[#before + 1] = goal end
+					if not (who and named[who]) then
+						names[#names + 1] = "|c" .. nameHex(grp) .. UI.GroupName(view, grp) .. "|r"
+						if who then named[who] = true end
+					end
+				end
+			end
+			for e, into in pairs(early) do
+				for _, goal in ipairs(e.list) do into[#into + 1] = goal end
+				e.list = into
+			end
+			if #before > 0 then
+				addLine("before", "check", "success", table.concat(names, ", "), before, L["Done"], model.open.before)
+				if model.open.before then
+					for _, goal in ipairs(before) do addRow(goal, rowWho(goal, groups, focus), true) end
+				end
+			end
+			-- The focus: its finished goals folded into "✓ N done", the rest as rows.
+			fold.serial = fold.serial + 1
+			local list = mineBefore
+			for _, goal in ipairs(goalsOf(g)) do list[#list + 1] = goal end
+			for _, goal in ipairs(mineAfter) do list[#list + 1] = goal end
+			local kept, doneList, first = {}, {}, nil
+			for i, goal in ipairs(list) do
+				local gi = goal.index
+				local rec = fold.of[gi]
+				if goal.status == "done" then
+					if not rec and not model.folded[gi] then
+						local last = model.last[gi]
+						if sameFocus and last and last ~= "done" then
+							rec = fold.start(gi)
+						else
+							model.folded[gi] = true
+						end
+					end
+					if rec then
+						rec.seen = fold.serial
+						if not first or rec.at < first.at then first = rec end
+					else
+						doneList[#doneList + 1] = goal
+					end
+					kept[i] = rec or false
 				else
-					doneList[#doneList + 1] = goal
-				end
-				kept[i] = rec or false
-			else
-				model.folded[gi] = nil
-				if rec then fold.drop(rec) end
-				kept[i] = true
-			end
-		end
-		for i = fold.n, 1, -1 do
-			if fold.list[i].seen ~= fold.serial then fold.drop(fold.list[i]) end
-		end
-		local done = #doneList
-		if done > 0 or first then
-			local l = addLine("done", "check", "success", string.format(L["%d done"], max(done, 1)), doneList, L["Done"], model.doneOpen)
-			for i = 1, fold.n do fold.list[i].grow = nil end
-			if done == 0 then
-				-- The first goal to fold: the line grows in as its row shuts.
-				fold.grow = l
-				first.grow = true
-				local k = first.k or 1
-				l.psK = 1 - k
-				l:SetAlpha(1 - k)
-			elseif sameFocus and done > model.doneN and not Anim.Reduced() then
-				fold.glow, fold.glowAt = l, GetTime()
-				W.Color(l.Text, "accent")
-				fold.run()
-			end
-		end
-		model.doneN = done
-		for i, goal in ipairs(list) do
-			local k = kept[i]
-			if k == true then
-				addRow(goal, nil, false)
-			elseif k then
-				addRow(goal, nil, false, k)
-			elseif model.doneOpen then
-				addRow(goal, nil, false)
-			end
-		end
-		-- Every person after the focus: one line, their goals in place once
-		-- opened. Past CARD.ahead lines the rest share one "+ N more people"
-		-- line, which opens them in place.
-		local shown = #later > CARD.ahead + 1 and CARD.ahead or #later
-		-- One or two goals left: the line names them ("Accept Bitter Rivals",
-		-- the quest in its colour, a "Go to" only when nothing else is open);
-		-- three or more: counts. The line wraps to two lines, then ends in "…".
-		-- Opened, it is only the person or "Then out here": its goals are the
-		-- rows right under it.
-		local function namesOf(list2)
-			local open, places = {}, {}
-			for _, goal in ipairs(list2) do
-				if goal.status ~= "done" and goal.status ~= "skipped" then
-					local into = goal.t == "goto" and places or open
-					into[#into + 1] = goal
+					model.folded[gi] = nil
+					if rec then fold.drop(rec) end
+					kept[i] = true
 				end
 			end
-			if #open == 0 then open = places end
-			if #open == 0 or #open > 2 then return nil end
-			local said = UI.GoalText(open[1])
-			if open[2] then said = said .. ", " .. UI.GoalText(open[2]) end
-			return said
+			for i = fold.n, 1, -1 do
+				if fold.list[i].seen ~= fold.serial then fold.drop(fold.list[i]) end
+			end
+			local done = #doneList
+			if done > 0 or first then
+				local l = addLine("done", "check", "success", string.format(L["%d done"], max(done, 1)), doneList, L["Done"], model.doneOpen)
+				for i = 1, fold.n do fold.list[i].grow = nil end
+				if done == 0 then
+					-- The first goal to fold: the line grows in as its row shuts.
+					fold.grow = l
+					first.grow = true
+					local k = first.k or 1
+					l.psK = 1 - k
+					l:SetAlpha(1 - k)
+				elseif sameFocus and done > model.doneN and not Anim.Reduced() then
+					fold.glow, fold.glowAt = l, GetTime()
+					W.Color(l.Text, "accent")
+					fold.run()
+				end
+			end
+			model.doneN = done
+			for i, goal in ipairs(list) do
+				local k = kept[i]
+				if k == true then
+					addRow(goal, nil, false)
+				elseif k then
+					addRow(goal, nil, false, k)
+				elseif model.doneOpen then
+					addRow(goal, nil, false)
+				end
+			end
+			-- Every person after the focus: one line, their goals in place once
+			-- opened. Past CARD.ahead lines the rest share one "+ N more people"
+			-- line, which opens them in place.
+			local shown = #later > CARD.ahead + 1 and CARD.ahead or #later
+			-- One or two goals left: the line names them ("Accept Bitter Rivals",
+			-- the quest in its colour, a "Go to" only when nothing else is open);
+			-- three or more: counts. The line wraps to two lines, then ends in "…".
+			-- Opened, it is only the person or "Then out here": its goals are the
+			-- rows right under it.
+			local function namesOf(list2)
+				local open, places = {}, {}
+				for _, goal in ipairs(list2) do
+					if goal.status ~= "done" and goal.status ~= "skipped" then
+						local into = goal.t == "goto" and places or open
+						into[#into + 1] = goal
+					end
+				end
+				if #open == 0 then open = places end
+				if #open == 0 or #open > 2 then return nil end
+				local said = UI.GoalText(open[1])
+				if open[2] then said = said .. ", " .. UI.GoalText(open[2]) end
+				return said
+			end
+			local function groupLine(e)
+				local gi, grp, list2 = e.gi, groups[e.gi], e.list
+				local open = model.open[gi]
+				local here = grp.kind ~= "npc" and grp.kind ~= "object"
+				local counts = countsOf(list2, here)
+				local said = counts and namesOf(list2)
+				local name = UI.GroupName(view, grp)
+				local muted = Theme.Hex("textMuted")
+				if counts and here then
+					local prev = e.prev == "npc" or e.prev == "object"
+					local label = open and (prev and L["Then out here"] or L["Out here"])
+						or ((prev and L["Then out here:"] or L["Out here:"]) .. " " .. (said or counts))
+					addLine(gi, "goto", "textDim", label, list2, name, open)
+				elseif counts then
+					local tail = said and ("|c" .. muted .. DOT .. "|r" .. said) or ("|c" .. muted .. DOT .. counts .. "|r")
+					addLine(gi, GROUP_VERB[grp.kind], "textDim", L["Then:"] .. " |c" .. nameHex(grp) .. name .. "|r" .. (open and "" or tail), list2, name, open)
+				else
+					addLine(gi, "check", "success", "|c" .. nameHex(grp) .. name .. "|r", list2, name, open)
+				end
+				if open then
+					for _, goal in ipairs(list2) do addRow(goal, nil, true) end
+				end
+			end
+			for i = 1, shown do groupLine(later[i]) end
+			if shown < #later then
+				local rest = {}
+				for i = shown + 1, #later do
+					for _, goal in ipairs(later[i].list) do rest[#rest + 1] = goal end
+				end
+				local counts = countsOf(rest, false)
+				local text = string.format(L["+ %d more people"], #later - shown)
+				if counts then text = text .. "|c" .. Theme.Hex("textMuted") .. DOT .. counts .. "|r" end
+				addLine("more", "talk", "textDim", text, rest, L["Later in this step"], model.open.more)
+				if model.open.more then
+					for i = shown + 1, #later do groupLine(later[i]) end
+				end
+			end
 		end
-		local function groupLine(e)
-			local gi, grp, list2 = e.gi, groups[e.gi], e.list
-			local open = model.open[gi]
-			local here = grp.kind ~= "npc" and grp.kind ~= "object"
-			local counts = countsOf(list2, here)
-			local said = counts and namesOf(list2)
-			local name = UI.GroupName(view, grp)
-			local muted = Theme.Hex("textMuted")
-			if counts and here then
-				local prev = e.prev == "npc" or e.prev == "object"
-				local label = open and (prev and L["Then out here"] or L["Out here"])
-					or ((prev and L["Then out here:"] or L["Out here:"]) .. " " .. (said or counts))
-				addLine(gi, "goto", "textDim", label, list2, name, open)
-			elseif counts then
-				local tail = said and ("|c" .. muted .. DOT .. "|r" .. said) or ("|c" .. muted .. DOT .. counts .. "|r")
-				addLine(gi, GROUP_VERB[grp.kind], "textDim", L["Then:"] .. " |c" .. nameHex(grp) .. name .. "|r" .. (open and "" or tail), list2, name, open)
-			else
-				addLine(gi, "check", "success", "|c" .. nameHex(grp) .. name .. "|r", list2, name, open)
-			end
-			if open then
-				for _, goal in ipairs(list2) do addRow(goal, nil, true) end
-			end
+		for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
+		for i = n + 1, #rows do
+			local r = rows[i]
+			r:Hide()
+			r.psGoal, r.psStatus, r.psFold, r.psK = nil, nil, nil, nil
 		end
-		for i = 1, shown do groupLine(later[i]) end
-		if shown < #later then
-			local rest = {}
-			for i = shown + 1, #later do
-				for _, goal in ipairs(later[i].list) do rest[#rest + 1] = goal end
-			end
-			local counts = countsOf(rest, false)
-			local text = string.format(L["+ %d more people"], #later - shown)
-			if counts then text = text .. "|c" .. Theme.Hex("textMuted") .. DOT .. counts .. "|r" end
-			addLine("more", "talk", "textDim", text, rest, L["Later in this step"], model.open.more)
-			if model.open.more then
-				for i = shown + 1, #later do groupLine(later[i]) end
-			end
+		for i = m + 1, #lines do lines[i]:Hide() end
+		local i = area.n + 1
+		while area.items[i] do
+			area.items[i] = nil
+			i = i + 1
 		end
+		local shown = ns.Get("ui.showNotes") and not compact()
+		local note = shown and view.note or nil
+		if note == "" then note = nil end
+		-- The step's picture (a file in its pack's addon folder, Guides.lua): one
+		-- the client cannot load leaves the tip as it was without one.
+		local pic = shown and view.image and view.image.texture and view.image or nil
+		if pic and not card.Tip.Image:SetTexture(pic.texture) then pic = nil end
+		if not pic then card.Tip.Image:SetTexture(nil) end
+		card.Tip.psImage = pic
+		card.Tip.Text:SetText(note or (pic and L["Picture of this spot"]) or "")
+		card.Tip:SetShown(note ~= nil or pic ~= nil)
+		W.SetIcon(card.Tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
+		return groups, focus
 	end
-	for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
-	for i = n + 1, #rows do
-		local r = rows[i]
-		r:Hide()
-		r.psGoal, r.psStatus, r.psFold, r.psK = nil, nil, nil, nil
-	end
-	for i = m + 1, #lines do lines[i]:Hide() end
-	local i = area.n + 1
-	while area.items[i] do
-		area.items[i] = nil
-		i = i + 1
-	end
-	local shown = ns.Get("ui.showNotes") and not compact()
-	local note = shown and view.note or nil
-	if note == "" then note = nil end
-	-- The step's picture (a file in its pack's addon folder, Guides.lua): one
-	-- the client cannot load leaves the tip as it was without one.
-	local pic = shown and view.image and view.image.texture and view.image or nil
-	if pic and not card.Tip.Image:SetTexture(pic.texture) then pic = nil end
-	if not pic then card.Tip.Image:SetTexture(nil) end
-	card.Tip.psImage = pic
-	card.Tip.Text:SetText(note or (pic and L["Picture of this spot"]) or "")
-	card.Tip:SetShown(note ~= nil or pic ~= nil)
-	W.SetIcon(card.Tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
-	return groups, focus
-end
 
-local function showSteps(show)
-	card:SetShown(show)
-	after:SetShown(show and after:IsShown())
-	along:SetShown(show and along:IsShown())
-	GF.here:SetShown(show and GF.here:IsShown())
-	upnext:SetShown(show and upnext:IsShown())
-	empty:SetShown(not show)
-end
+	local function showSteps(show)
+		card:SetShown(show)
+		after:SetShown(show and after:IsShown())
+		along:SetShown(show and along:IsShown())
+		GF.here:SetShown(show and GF.here:IsShown())
+		upnext:SetShown(show and upnext:IsShown())
+		empty:SetShown(not show)
+	end
 
-function GF.Render()
-	if not F or not ns.IsLoggedIn() then return end
-	local E, G = Engine(), ns.Guides
-	strip.psHasTabs = GF.TabsOf(E) ~= nil
-	local guide = E and E.GetGuide and E.GetGuide()
-	local list = G and G.List and G.List()
-	if not guide then
-		navigatorFor(nil)
-		view, shownIndex, shownGuide, shownFocus = nil, nil, nil, nil
-		setEmpty((list and #list > 0) and "noguide" or "noguides")
-		showSteps(false)
+	local function render()
+		if not F or not ns.IsLoggedIn() then return end
+		local E, G = Engine(), ns.Guides
+		strip.psHasTabs = GF.TabsOf(E) ~= nil
+		local guide = E and E.GetGuide and E.GetGuide()
+		local list = G and G.List and G.List()
+		if not guide then
+			navigatorFor(nil)
+			view, shownIndex, shownGuide, shownFocus = nil, nil, nil, nil
+			setEmpty((list and #list > 0) and "noguide" or "noguides")
+			showSteps(false)
+			GF.Layout()
+			return
+		end
+		local index = GF.catchUpIndex or (E.GetStepIndex and E.GetStepIndex())
+		navigatorFor(guide, index)
+		-- The undo goes once the step is no longer skipped (undone elsewhere).
+		local k = GF.notices.stepSkip
+		if k and k.guideId == guide.id then
+			local sv = E.GetStepView(k.step)
+			if not (sv and sv.skipped) then GF.notices.stepSkip = nil end
+		end
+		local v = index and E.GetStepView(index)
+		if not v then
+			view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
+			-- No live step only because a step skip left the rest out (#1372):
+			-- not "Guide complete", but the skip and its undo.
+			setEmpty(E.SkippedOut and E.SkippedOut() and "skippedout" or "complete")
+			showSteps(false)
+			GF.Layout()
+			GF.PaintProgress(true)
+			return
+		end
+		-- A Class guide the character cannot start yet, or another race's
+		-- starting zone the player has not reached: its notice on the live step;
+		-- Next still looks at the steps ahead.
+		local live = index == (E.GetLiveStep and E.GetLiveStep())
+		local notice = live and ((E.StartGate and E.StartGate(guide.id) and "notyet") or (E.AwayStart and E.AwayStart(guide.id) and "away"))
+		if notice then
+			view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
+			setEmpty(notice)
+			showSteps(false)
+			GF.Layout()
+			return
+		end
+		local stepChanged = shownGuide ~= guide.id or shownIndex ~= index
+		if stepChanged then tipOpen = ns.Get("ui.notesOpen") and true or false end
+		view = v
+		if v.skipped then GF.PaintSkip(true, false) end
+		state = "steps"
+		local _, f0 = UI.StepGroups(v)
+		local focusChanged = stepChanged or shownFocus ~= f0
+		local groups, focus = fillCard(not focusChanged)
+		fillAfter(E, index, groups, focus)
+		fillAlong(E)
+		GF.FillHere(E)
+		fillUpcoming(E, index)
+		showSteps(true)
 		GF.Layout()
-		return
+		followCurrent(focusChanged)
+		GF.PaintProgress(shownGuide == guide.id)
+		if focusChanged and GF.live and F:IsVisible() and not GF.catchingUp and GF.On("stepAnim") then
+			-- The next person (or step) slides up 6px into place as it fades in
+			-- (guideWindow.stepAnim, at guideWindow.animSpeed). A copy shows its
+			-- step as it stands: nobody moved to it.
+			Anim.To(card, "alpha", 0, 1, GF.Dur(Anim.BASE), "out")
+			Anim.To(card, "offset", -6, 0, GF.Dur(Anim.BASE), "out")
+		end
+		-- A class chain's card, the first time it shows: its shine and chime.
+		if GF.live and F:IsVisible() and not GF.catchingUp and UI.ClassCard then UI.ClassCard.Celebrate() end
+		shownIndex, shownGuide, shownFocus = index, guide.id, focus
 	end
-	local index = GF.catchUpIndex or (E.GetStepIndex and E.GetStepIndex())
-	navigatorFor(guide, index)
-	-- The undo goes once the step is no longer skipped (undone elsewhere).
-	local k = notices.stepSkip
-	if k and k.guideId == guide.id then
-		local sv = E.GetStepView(k.step)
-		if not (sv and sv.skipped) then notices.stepSkip = nil end
+
+	-- Render, then a skin's own (Skin API 2, hooks.guideRender(view, parts)):
+	-- the step on screen, nil when there is none.
+	function GF.Render()
+		render()
+		if F then Theme.SkinHook("guideRender", state == "steps" and view or nil, GF.SkinParts()) end
 	end
-	local v = index and E.GetStepView(index)
-	if not v then
-		view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
-		-- No live step only because a step skip left the rest out (#1372):
-		-- not "Guide complete", but the skip and its undo.
-		setEmpty(E.SkippedOut and E.SkippedOut() and "skippedout" or "complete")
-		showSteps(false)
+
+	-- The step the window shows (the catch-up's while it goes over the steps).
+	function GF.ShownStep() return shownIndex end
+
+	-- STEP_UPDATED: same step, new goal status/progress. When the focus moved
+	-- to the next person this re-renders (with the slide); otherwise the card is
+	-- refilled in place (a goal turning done folds).
+	function GF.Update()
+		if not F or state ~= "steps" or not view then return GF.Render() end
+		local E = Engine()
+		local index = E.GetStepIndex and E.GetStepIndex()
+		if index ~= shownIndex then return GF.Render() end
+		local v = E.GetStepView(index)
+		if not v then return GF.Render() end
+		local groups, focus = UI.StepGroups(v)
+		if focus ~= shownFocus then return GF.Render() end
+		view = v
+		fillCard(true)
+		fillAfter(E, index, groups, focus)
+		fillAlong(E)
+		GF.FillHere(E)
 		GF.Layout()
 		GF.PaintProgress(true)
-		return
+		followCurrent(false)
 	end
-	-- A Class guide the character cannot start yet, or another race's
-	-- starting zone the player has not reached: its notice on the live step;
-	-- Next still looks at the steps ahead.
-	local live = index == (E.GetLiveStep and E.GetLiveStep())
-	local notice = live and ((E.StartGate and E.StartGate(guide.id) and "notyet") or (E.AwayStart and E.AwayStart(guide.id) and "away"))
-	if notice then
-		view, shownIndex, shownGuide, shownFocus = nil, nil, guide.id, nil
-		setEmpty(notice)
-		showSteps(false)
+
+	-- The card again from the view it shows: a summary line opened or closed,
+	-- a fold that landed.
+	function GF.Refill()
+		if not F or state ~= "steps" or not view then return end
+		fillCard(true)
 		GF.Layout()
-		return
+		followCurrent(false)
 	end
-	local stepChanged = shownGuide ~= guide.id or shownIndex ~= index
-	if stepChanged then tipOpen = ns.Get("ui.notesOpen") and true or false end
-	view = v
-	if v.skipped then GF.PaintSkip(true, false) end
-	state = "steps"
-	local _, f0 = UI.StepGroups(v)
-	local focusChanged = stepChanged or shownFocus ~= f0
-	local groups, focus = fillCard(not focusChanged)
-	fillAfter(E, index, groups, focus)
-	fillAlong(E)
-	GF.FillHere(E)
-	fillUpcoming(E, index)
-	showSteps(true)
-	GF.Layout()
-	followCurrent(focusChanged)
-	GF.PaintProgress(shownGuide == guide.id)
-	if focusChanged and F:IsVisible() and not GF.catchingUp then
-		-- The next person (or step) slides up 6px into place as it fades in.
-		Anim.To(card, "alpha", 0, 1, Anim.BASE, "out")
-		Anim.To(card, "offset", -6, 0, Anim.BASE, "out")
+
+	-- QUEST_TIMER (Quests/Timed.lua, each second a quest's timer runs): the
+	-- countdowns on the card and the While-here lines move. Only while shown.
+	function GF.TimerTick()
+		if not F or state ~= "steps" or not view or not F:IsVisible() then return end
+		fillCard(true)
+		GF.FillHere(Engine())
+		GF.Layout()
+		followCurrent(false)
 	end
-	-- A class chain's card, the first time it shows: its shine and chime.
-	if F:IsVisible() and not GF.catchingUp and UI.ClassCard then UI.ClassCard.Celebrate() end
-	shownIndex, shownGuide, shownFocus = index, guide.id, focus
-end
 
--- The step the window shows (the catch-up's while it goes over the steps).
-function GF.ShownStep() return shownIndex end
-
--- STEP_UPDATED: same step, new goal status/progress. When the focus moved
--- to the next person this re-renders (with the slide); otherwise the card is
--- refilled in place (a goal turning done folds).
-function GF.Update()
-	if not F or state ~= "steps" or not view then return GF.Render() end
-	local E = Engine()
-	local index = E.GetStepIndex and E.GetStepIndex()
-	if index ~= shownIndex then return GF.Render() end
-	local v = E.GetStepView(index)
-	if not v then return GF.Render() end
-	local groups, focus = UI.StepGroups(v)
-	if focus ~= shownFocus then return GF.Render() end
-	view = v
-	fillCard(true)
-	fillAfter(E, index, groups, focus)
-	fillAlong(E)
-	GF.FillHere(E)
-	GF.Layout()
-	GF.PaintProgress(true)
-	followCurrent(false)
-end
-
--- The card again from the view it shows: a summary line opened or closed,
--- a fold that landed.
-function GF.Refill()
-	if not F or state ~= "steps" or not view then return end
-	fillCard(true)
-	GF.Layout()
-	followCurrent(false)
-end
-
--- QUEST_TIMER (Quests/Timed.lua, each second a quest's timer runs): the
--- countdowns on the card and the While-here lines move. Only while shown.
-function GF.TimerTick()
-	if not F or state ~= "steps" or not view or not F:IsVisible() then return end
-	fillCard(true)
-	GF.FillHere(Engine())
-	GF.Layout()
-	followCurrent(false)
-end
-
-function GF.UpdateTargets()
-	if not F or state ~= "steps" or not focusGroup then return end
-	local t = targetOf()
-	person.Mark:SetShown(personMarked(t))
-	for i = 1, #rows do
-		local r = rows[i]
-		if r:IsShown() and r.psGoal then
-			r.Mark:SetShown(r.psGoal.status ~= "done" and r.psGoal.status ~= "skipped" and isTarget(r.psGoal, t) and not person.Mark:IsShown())
-		end
-	end
-end
-
-function GF.TabsOf(E) return tabsOf(E) end
-
----------------------------------------------------------------------------
--- Transparent mode: chrome on hover
----------------------------------------------------------------------------
-
-local watcher = CreateFrame("Frame")
-local hovering = false
-
--- ui.barShown keeps a transparent window's tabs and step bar on screen (not the grip).
-local function chromeAlpha(c)
-	if not transparent() or hovering then return 1 end
-	return (ns.Get("ui.barShown") and c ~= grip) and 1 or 0
-end
-
-local function fadeChrome(to)
-	for i = 1, #chrome do
-		local c = chrome[i]
-		if to == 1 then
-			Anim.To(c, "alpha", c:GetAlpha(), 1, Anim.FAST, "out")
-		else
-			Anim.To(c, "alpha", c:GetAlpha(), chromeAlpha(c), Anim.BASE, "out")
-		end
-	end
-end
-
-local function watch()
-	if F:IsMouseOver(4, -4, -4, 4) then return end
-	hovering = false
-	watcher:SetScript("OnUpdate", nil)
-	if transparent() then fadeChrome(0) end
-end
-
--- The cursor reached the window (or one of its parts).
-function GF.HoverIn()
-	if not F or hovering then return end
-	hovering = true
-	if transparent() then
-		fadeChrome(1)
-		watcher:SetScript("OnUpdate", ns.Safe(watch))
-	end
-end
-
-function GF.IsHovering() return hovering end
-
--- The guide's progress track: the house wash on the night ground; over the
--- world (transparent) a stronger ink line, so the fill still reads as a
--- share of a whole.
-local function paintTrack(t)
-	local r, g, b, a = Theme.Wash("progress")
-	t:SetVertexColor(r, g, b, transparent() and 0.15 or a)
-end
-
--- The transparent style's backing (ui.backing). "dark": a scrim with no edge
--- behind the body (GF.veil) and one behind the tabs and the navigator
--- (band.Veil) that comes and goes with them, at GF.VEIL; both feather over
--- GF.VEIL_FEATHER and cross-fade where they meet (placeBars), so the shown
--- bar never leaves a seam. "soft" (the default): no box, only a light shade
--- behind each string on screen (GF.PaintShades), the world showing between
--- and around the lines. "none": the outlined text alone on the world. (On
--- GF: the main chunk is at Lua's 200 locals.)
-GF.VEIL = { dark = 0.68 }
-GF.VEIL_FEATHER = 20
-function GF.Backing()
-	return transparent() and GF.VEIL[ns.Get("ui.backing")] or nil
-end
-function GF.PaintVeil(s)
-	Theme.PaintScrim(s, GF.Backing() or 0)
-end
-
--- The soft backing: Theme.TextShade behind each string (on its parent, under
--- it), its solid middle the text's own size at GF.SHADE and feathering out
--- over GF.SHADE_FEATHER: wide to the sides, short above and below (inside
--- the gap to the next line, clear of the scrolling goals' clipped edges).
--- Sized again on a layout and, a frame
--- later (GF.QueueShades: one OnUpdate, then none), when a string's text,
--- width or shown state changes; a string's own alpha (the chrome's fade, a
--- dimmed label) carries to its shade. GF.shades: string -> its shade.
-GF.SHADE = 0.2
-GF.SHADE_FEATHER = { x = 30, y = 12 }
-GF.SHADE_INSET = { x = 10, y = 6 }
-GF.shades, GF.shadeHooked = {}, {}
-GF.shadeFrame = CreateFrame("Frame")
-function GF.SoftShade() return transparent() and ns.Get("ui.backing") == "soft" end
-
-function GF.ShadeText(fs, on)
-	local s = GF.shades[fs]
-	local text = fs:GetText()
-	if not (on and fs:IsShown() and text and text ~= "") then
-		if s and s.shown then
-			s.shown = false
-			for _, p in ipairs(s.parts) do p:Hide() end
-		end
-		return
-	end
-	if not s then
-		s = Theme.TextShade(fs:GetParent(), GF.SHADE_FEATHER.x, GF.SHADE_FEATHER.y)
-		GF.shades[fs] = s
-	end
-	-- The solid middle is the text less GF.SHADE_INSET on each side: the rise
-	-- begins inside the text, so no edge of the shade shows as a line.
-	local w, fw = fs:GetStringWidth(), fs:GetWidth()
-	if fw and fw > 0 then w = min(w, fw) end
-	local ix, iy = GF.SHADE_INSET.x, GF.SHADE_INSET.y
-	local m = s.parts[1]
-	m:ClearAllPoints()
-	m:SetSize(max(1, w - 2 * ix), max(1, fs:GetStringHeight() - 2 * iy))
-	local jh = fs.GetJustifyH and fs:GetJustifyH()
-	local jv = fs.GetJustifyV and fs:GetJustifyV()
-	local x = (jh == "RIGHT" and "RIGHT") or (jh == "CENTER" and "") or "LEFT"
-	local y = (jv == "TOP" and "TOP") or (jv == "BOTTOM" and "BOTTOM") or ""
-	local point = (y .. x ~= "") and (y .. x) or "CENTER"
-	m:SetPoint(point, fs, point, x == "LEFT" and ix or x == "RIGHT" and -ix or 0, y == "TOP" and -iy or y == "BOTTOM" and iy or 0)
-	Theme.PaintScrim(s, GF.SHADE)
-	local a = fs:GetAlpha() or 1
-	s.shown = true
-	for _, p in ipairs(s.parts) do
-		p:SetAlpha(a)
-		p:Show()
-	end
-end
-
-function GF.QueueShades()
-	if GF.shadesQueued or not (GF.shadesOn or GF.SoftShade()) then return end
-	GF.shadesQueued = true
-	GF.shadeFrame:SetScript("OnUpdate", function(self)
-		self:SetScript("OnUpdate", nil)
-		GF.shadesQueued = nil
-		GF.PaintShades()
-	end)
-end
-
-function GF.ShadeAlpha(fs, a)
-	local s = GF.shades[fs]
-	if s and s.shown then for _, p in ipairs(s.parts) do p:SetAlpha(a or 1) end end
-end
-
-function GF.PaintShades()
-	local on = GF.SoftShade()
-	if not (on or GF.shadesOn) then return end
-	GF.shadesOn = on
-	for i = 1, #texts do
-		local fs = texts[i]
-		if on and not GF.shadeHooked[fs] then
-			GF.shadeHooked[fs] = true
-			for _, m in ipairs({ "SetText", "SetFormattedText", "SetWidth", "Show", "Hide", "SetShown" }) do
-				if fs[m] then hooksecurefunc(fs, m, GF.QueueShades) end
+	function GF.UpdateTargets()
+		if not F or state ~= "steps" or not focusGroup then return end
+		local t = targetOf()
+		GF.ShowMark(person, personMarked(t))
+		for i = 1, #rows do
+			local r = rows[i]
+			if r:IsShown() and r.psGoal then
+				GF.ShowMark(r, r.psGoal.status ~= "done" and r.psGoal.status ~= "skipped" and isTarget(r.psGoal, t) and not person.Mark:IsShown())
 			end
-			hooksecurefunc(fs, "SetAlpha", GF.ShadeAlpha)
 		end
-		GF.ShadeText(fs, on)
 	end
-end
 
--- The ground's opacity is Theme.GroundAlpha (ui.bgOpacity), read by the
--- window skin itself; ui.bgOpacity changes land here to repaint it.
-function GF.ApplyStyle()
-	if not F then return end
-	local clear = transparent()
-	F.psBare = clear
-	Theme.Repaint(F)
-	local skin = Theme.SkinKey()
-	band:SetShown(not clear and skin == "polestar")
-	local backing = GF.Backing() and true or false
-	GF.veil:SetShown(backing)
-	band.Veil:SetShown(backing)
-	W.Painter(GF.veil, GF.PaintVeil)
-	W.Painter(band.Veil, GF.PaintVeil)
-	nav.TitleBar:SetShown(not clear and skin == "hearth")
-	-- Blizzard's damage meter header bar under the tabs.
-	Theme.KitStrip(strip, not clear)
-	-- The quest tracker's header behind the focus (Forever, Blizzard).
-	Theme.KitHeader(person, not clear)
-	strip.Rule:SetShown(not clear)
-	nav.Rule:SetShown(not clear)
-	W.Painter(foot.Line.Track, paintTrack)
-	if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
-	for i = 1, #texts do Theme.SetOutline(texts[i], clear) end
-	-- Tick boxes on the world: a scrim inside and an ink edge.
-	for _, r in ipairs(rows) do
-		r.Check.psOnWorld = clear
-		Theme.Repaint(r.Check)
+	-- The window's sizes as the skin and the player's settings make them now,
+	-- for the settings window's preset pictures (UI/Looks/GuideWindow.lua),
+	-- drawn by the same numbers.
+	function GF.Metrics()
+		readMetrics()
+		return { pad = PAD, tabH = TAB_H, navH = NAV_H, progH = PROG_H, icon = ICON, textX = TEXT_X, rowMin = ROW_MIN,
+			check = CHECK, rowPad = ROW_PAD, checkIn = CHECK_IN, upRow = UP_ROW, upToggle = UP_TOGGLE, glyphY = GF.GlyphY(), lineH = CARD.lineH }
 	end
-	if not clear then
-		watcher:SetScript("OnUpdate", nil)
-		hovering = false
+
+	---------------------------------------------------------------------------
+	-- Build
+	---------------------------------------------------------------------------
+
+	-- A part that takes the pointer keeps the window's hover look (GF.HoverIn);
+	-- the bars and the foot move the window. A copy takes neither: its frame
+	-- alone sees the pointer, for that look.
+	local function hoverable(frame)
+		if GF.live then frame:HookScript("OnEnter", function() GF.HoverIn() end) end
+		return frame
 	end
-	for i = 1, #chrome do
-		Anim.Stop(chrome[i], "alpha")
-		chrome[i]:SetAlpha(chromeAlpha(chrome[i]))
+
+	local function draggable(frame)
+		if not GF.live then return frame end
+		frame:EnableMouse(true)
+		frame:RegisterForDrag("LeftButton")
+		frame:SetScript("OnDragStart", GF.DragStart)
+		frame:SetScript("OnDragStop", GF.DragStop)
+		return hoverable(frame)
 	end
-	GF.Layout()
-end
 
----------------------------------------------------------------------------
--- Window state from settings
----------------------------------------------------------------------------
-
-local function targetAlpha()
-	local a = ns.Get("ui.opacity") or 1
-	if inCombat and ns.Get("ui.combat") == "fade" then a = a * COMBAT_ALPHA end
-	return a
-end
-
--- With ui.instance "hide" (the default), the window waits out a dungeon,
--- raid, battleground or arena until the player opens it there. Like combat
--- it never writes ui.shown, so leaving brings back what the player had.
--- Unlike combat it takes what goes with the guide along (ns.GuideShown).
-local function hiddenInside()
-	return inInstance and not openInside and ns.Get("ui.instance") == "hide"
-end
-
--- What the window's own rules hide now: a fight (ui.combat "hide") and an
--- instance it waits out (ui.instance "hide"). The floating launcher
--- (UI/Launcher.lua) follows them; GUIDE_VISIBILITY says they may have changed.
-function GF.RulesHide()
-	return (inCombat and ns.Get("ui.combat") == "hide") or hiddenInside()
-end
-
-function GF.ApplyVisibility()
-	ns.SetGuideAwayInside(hiddenInside() and ns.Get("ui.shown"))
-	ns.Fire("GUIDE_VISIBILITY")
-	if not F then return end
-	local show = ns.Get("ui.shown") and not GF.RulesHide()
-	F:SetShown(show and true or false)
-end
-
--- The toggle (/polestar, the key binding, the minimap button) inside, with
--- ui.instance "hide" and the window on, now and on the way in: opens or
--- closes it for this visit, ui.shown untouched. -> true when it did. A
--- window that was off on the way in toggles ui.shown as anywhere else, so
--- closing it there keeps it off after leaving.
-function GF.ToggleInside()
-	if not (inInstance and shownOnEntry and ns.Get("ui.instance") == "hide" and ns.Get("ui.shown")) then return false end
-	openInside = not openInside
-	GF.ApplyVisibility()
-	return true
-end
-
-function GF.ApplyAlpha(animate)
-	if not F then return end
-	if animate then
-		Anim.To(F, "alpha", F:GetAlpha(), targetAlpha(), Anim.SLOW, "out")
-	else
-		Anim.Stop(F, "alpha")
-		F:SetAlpha(targetAlpha())
-	end
-end
-
--- The corner the window is pinned by and that corner's y: the bottom-left
--- with ui.growUp (a longer step pushes the top edge up), else the top-left
--- (it pushes the bottom edge down). ui.pos holds that corner.
-local function pinCorner()
-	if ns.Get("ui.growUp") then return "BOTTOMLEFT", F:GetBottom() end
-	return "TOPLEFT", F:GetTop()
-end
-
-function GF.ApplyPosition()
-	if not F then return end
-	local pos = ns.Get("ui.pos")
-	F:ClearAllPoints()
-	if type(pos) == "table" and type(pos[1]) == "number" and type(pos[2]) == "number" then
-		F:SetPoint(ns.Get("ui.growUp") and "BOTTOMLEFT" or "TOPLEFT", UIParent, "BOTTOMLEFT", pos[1], pos[2])
-	elseif ns.Get("ui.growUp") then
-		F:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -64, 240)
-	else
-		F:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -64, -240)
-	end
-end
-
-function GF.SavePosition()
-	if not F then return end
-	local l = F:GetLeft()
-	local _, y = pinCorner()
-	if l and y then ns.Set("ui.pos", { floor(l + 0.5), floor(y + 0.5) }) end
-end
-
-function GF.ApplyLock()
-	if not F then return end
-	grip:SetShown(not ns.Get("ui.locked"))
-end
-
-function GF.ApplyWidth()
-	if not F then return end
-	local w = ns.Get("ui.width") or 340
-	F:SetWidth(min(UI.MAX_WIDTH, max(UI.MIN_WIDTH, w)))
-	GF.Layout()
-end
-
-function GF.ApplyCompact()
-	if not F then return end
-	GF.Render()
-	GF.Layout()
-end
-
--- Scale about the pinned corner, so the window stays where the user put
--- it, then repaint so 1px lines land on the new pixel grid.
-function GF.ApplyScale()
-	local new = ns.Get("ui.scale") or 1
-	local old = F:GetScale()
-	if old == new then return end
-	local l = F:GetLeft()
-	local corner, y = pinCorner()
-	F:SetScale(new)
-	if l and y and type(ns.Get("ui.pos")) == "table" then
-		F:ClearAllPoints()
-		F:SetPoint(corner, UIParent, "BOTTOMLEFT", l * old / new, y * old / new)
-		ns.Set("ui.pos", { floor(l * old / new + 0.5), floor(y * old / new + 0.5) })
-	end
-	Theme.Refresh()
-end
-
-local APPLY = {
-	-- Shown inside (a guide picked, /polestar show, the switch): open for the visit.
-	["ui.shown"] = function()
-		if inInstance and ns.Get("ui.shown") then openInside = true end
-		GF.ApplyVisibility()
-	end,
-	["ui.instance"] = function() GF.ApplyVisibility() end,
-	["ui.scale"] = function() GF.ApplyScale() end,
-	["ui.opacity"] = function() GF.ApplyAlpha(false) end,
-	["ui.bgOpacity"] = function() GF.ApplyStyle() end,
-	["ui.style"] = function() GF.ApplyStyle() end,
-	["ui.barShown"] = function() GF.ApplyStyle() end,
-	["ui.backing"] = function() GF.ApplyStyle() end,
-	["ui.locked"] = function() GF.ApplyLock() end,
-	["ui.compact"] = function() GF.ApplyCompact() end,
-	["ui.width"] = function() GF.ApplyWidth() end,
-	-- With Grow upward the room above the bottom edge sets the window's height.
-	["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") then GF.Layout() end end,
-	-- Re-pin by the other corner where the window stands now, so it does not jump.
-	["ui.growUp"] = function() GF.SavePosition(); GF.Layout() end,
-	["ui.barsBottom"] = function() GF.Layout() end,
-	["ui.upcoming"] = function() GF.Render() end,
-	["ui.upcomingOpen"] = function() GF.Render() end,
-	["ui.showNotes"] = function() GF.Render() end,
-	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
-	["ui.newInForever"] = function() GF.Render() end,
-	["ui.maxHeight"] = function() GF.Layout() end,
-	-- Another way of reading the card: nothing kept from the one before.
-	["ui.wholeStep"] = function() resetModel(); GF.Render() end,
-	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
-	["ui.font"] = function() GF.Layout() end,
-	["nav.nearbyButton"] = function()
-		nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
-		anchorSkip()
-		GF.Layout()
-	end,
-}
-
----------------------------------------------------------------------------
--- Skins (Polestar.Theme, "Skins"): Halo and Blizzard take the handoff's
--- sizes (DIRECTION_B_HALO.md §3) and their own parts: Halo's gold rule under
--- the navigator, Blizzard's title bar, framed tabs and the game's status bar.
----------------------------------------------------------------------------
-
-local skinShown
-
--- Hearth's tab: framed, gold on the active one (DIRECTION_A_BLIZZARD.md §3);
--- the game's looks: their kit's tab art.
-function GF.PaintTab(b)
-	local kit = Theme.KitTab(b, b.psActive, nil, true)
-	local bliz = Theme.SkinKey() == "hearth"
-	local f = rawget(b, "psFrameTex")
-	if bliz and not f then
-		f = b:CreateTexture(nil, "BACKGROUND", nil, -7)
-		f:SetTexture(Theme.Media("white"))
-		b.psFrameTex = f
-	end
-	if f then
-		f:SetShown(bliz)
-		f:ClearAllPoints()
-		f:SetPoint("BOTTOMLEFT", b, "BOTTOMLEFT", 0, 0)
-		f:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 0, 0)
-		f:SetHeight(b.psActive and 24 or 21)
-		local top = b.psActive and { 0.231, 0.176, 0.078 } or { 0.122, 0.094, 0.047 }
-		local bottom = b.psActive and { 0.09, 0.067, 0.039 } or { 0.051, 0.039, 0.02 }
-		if f.SetGradient and CreateColor then
-			f:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], 1), CreateColor(top[1], top[2], top[3], 1))
+	local function build()
+		readMetrics()
+		handOver()
+		F = CreateFrame("Frame", GF.live and "PolestarGuideFrame" or nil, GF.live and ns.UIParent or GF.parent)
+		-- Its text follows the guide window's own size (Guide window > Window),
+		-- the live window's and every copy's (the settings' preview).
+		Theme.TextScope(F, "ui.guideTextSize")
+		if GF.live then
+			F:SetFrameStrata("MEDIUM")
+			F:SetClampedToScreen(true)
+			F:SetMovable(true)
+			F:EnableMouse(true)
 		else
-			f:SetVertexColor(top[1], top[2], top[3], 1)
+			-- The pointer's hover, never a click (GF.MouseOff keeps it so).
+			F:EnableMouse(true)
+			if F.SetMouseClickEnabled then F:SetMouseClickEnabled(false) end
 		end
-	end
-	if bliz or kit then
-		b.Selected:Hide()
-		b.Bar:Hide()
-		W.Color(b.Label, b.psActive and "title" or "tabRest")
-	end
-end
+		F:SetSize(ns.Get("ui.width") or 340, 200)
+		-- The guide window's own frame in the game's looks from its first paint
+		-- (Polestar_Looks/GameSkins.lua GUIDE): painted before the flag, it took
+		-- the big windows' title bar and drag strip, which lay over the card above
+		-- it (#1802). psGuideWindow: this window itself, live or a copy, not a
+		-- card painted as it (a skin may dress the two apart).
+		F.psGuide, F.psGuideWindow = true, true
+		Theme.Skin(F, "window")
+		F:SetScript("OnEnter", function() GF.HoverIn() end)
+		GF.frame = F
 
--- The progress bar: the house and Halo's slim line with its percent right of
--- it, or Blizzard's game status bar (Interface\TargetingFrame\UI-StatusBar),
--- 14 high, the percent centred in it.
-local STATUS_BAR = "Interface\\TargetingFrame\\UI-StatusBar"
-local function footBar()
-	local b = rawget(foot, "Status")
-	if b then return b end
-	b = CreateFrame("StatusBar", nil, foot)
-	b:SetStatusBarTexture(STATUS_BAR)
-	b:SetMinMaxValues(0, 1)
-	b.Bg = b:CreateTexture(nil, "BACKGROUND")
-	b.Bg:SetTexture(Theme.Media("white"))
-	b.Bg:SetAllPoints(b)
-	b.Bg:SetVertexColor(0, 0, 0, 0.75)
-	Theme.Border(b, 0.42, 0.329, 0.125, 1)
-	b.Pct = b:CreateFontString(nil, "OVERLAY")
-	Theme.Font(b.Pct, "small")
-	b.Pct:SetPoint("CENTER", b, "CENTER", 0, 0)
-	b.Pct:SetTextColor(1, 1, 1, 1)
-	foot.Status = b
-	return b
-end
+		-- The night-sky band behind the tab strip and navigator (standard style).
+		band = Theme.Band(F, "BACKGROUND", -5)
+		band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
+		band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
+		-- The transparent style's backing (GF.PaintVeil, placed by placeBars):
+		-- under the body, and under the tabs and navigator, fading with them.
+		GF.veil = Theme.Scrim(F, GF.VEIL_FEATHER)
+		band.Veil = Theme.Scrim(F, GF.VEIL_FEATHER)
+		GF.veil:Hide()
+		band.Veil:Hide()
+		chrome[#chrome + 1] = band.Veil
 
--- Fill Blizzard's bar (GF.Layout sets the house line; this follows it).
-function GF.PaintStatus(frac, pctText)
-	local b = rawget(foot, "Status")
-	if not b or not b:IsShown() then return end
-	b:SetValue(frac or 0)
-	local t = b:GetStatusBarTexture()
-	if Theme.Kit() then
-		-- The game's looks colour their own fill (Theme.KitStatus).
-	elseif t and t.SetGradient and CreateColor then
-		t:SetGradient("VERTICAL", CreateColor(0.478, 0.345, 0, 1), CreateColor(0.91, 0.722, 0, 1))
-	elseif t then
-		t:SetVertexColor(0.91, 0.722, 0, 1)
-	end
-	b.Pct:SetText(pctText or "")
-end
+		-- Tab strip
+		strip = CreateFrame("Frame", nil, F)
+		strip:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
+		strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
+		strip:SetHeight(TAB_H)
+		draggable(strip)
+		strip.Rule = W.Divider(strip)
+		strip.Rule:SetPoint("BOTTOMLEFT", strip, "BOTTOMLEFT", 0, 0)
+		strip.Rule:SetPoint("BOTTOMRIGHT", strip, "BOTTOMRIGHT", 0, 0)
+		strip.Add = W.IconButton(strip, "plus", 24, L["Open a guide in a new tab"], function()
+			UI.ShowPicker({ newTab = true })
+		end, 12)
+		hoverable(strip.Add)
+		chrome[#chrome + 1] = strip
+		-- The Forever skin positions its border below the tab strip; expose the strip.
+		F.psStrip = strip
 
-function GF.ApplySkin()
-	if not F then return end
-	readMetrics()
-	local skin = Theme.SkinKey()
-	skinShown = skin
-	F.psGuide = true
-	Theme.Repaint(F)
-	strip:SetHeight(TAB_H)
-	nav:SetHeight(NAV_H)
-	foot:SetHeight(PROG_H)
-	-- The navigator: ‹ › and the icon buttons at the skin's sizes.
-	local nb, ni = Theme.Metric("guideNavBtn", 24), Theme.Metric("guideNavIcon", 14)
-	for _, b in ipairs({ nav.Prev, nav.Next }) do
-		b:SetSize(nb, nb)
-		b.Icon:SetSize(ni, ni)
-		W.SetFramed(b, "red")
-	end
-	-- Room between ‹ › and "28 / 36": Halo's 2, Blizzard's framed squares 4.
-	local gap = Theme.Metric("guideNavGap", 0)
-	nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", gap, 0)
-	nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", gap, 0)
-	local iw, ih, ig = Theme.Metric("guideIconBtnW", 24), Theme.Metric("guideIconBtnH", 24), Theme.Metric("guideIcon", 14)
-	-- The icon buttons right of Skip: the bug, the menu and, where it is built,
-	-- the Nearby services button.
-	for _, key in ipairs({ "Menu", "Report", "Nearby" }) do
-		local b = rawget(nav, key)
-		if b then
-			b:SetSize(iw, ih)
-			b.Icon:SetSize(ig, ig)
-			W.SetFramed(b, "icon")
-		end
-	end
-	nav.Skip:SetHeight(nb)
-	nav.Steps:SetHeight(nb)
-	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
-	-- Rules: Halo's gold one under the navigator; Hearth's title bar line; the
-	-- game's looks their separator.
-	W.Painter(nav.Rule, function(t)
-		local k = Theme.SkinKey()
-		if k == "halo" then
-			t:SetVertexColor(Theme.Color("accentLine"))
-		elseif k == "hearth" then
-			t:SetVertexColor(Theme.Color("titleLine"))
-		elseif Theme.Kit() then
-			t:SetVertexColor(Theme.Color("separator"))
-		else
-			t:SetVertexColor(Theme.Wash("divider"))
-		end
-		t:SetHeight(Theme.Pixel(nav))
-	end)
-	-- Hearth: the person's name over a gold separator.
-	person.Rule:SetShown(skin == "hearth")
-	-- The focus parts at the skin's paddings.
-	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -11)
-	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
-	card.Tip.Text:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", TEXT_X, -6)
-	card.Tip.Toggle:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", PAD - 2, -3)
-	for _, part in ipairs({ after, upnext.Toggle, GF.xp }) do
-		part.Rule:SetPoint("TOPLEFT", part, "TOPLEFT", PAD, 0)
-		part.Rule:SetPoint("TOPRIGHT", part, "TOPRIGHT", -PAD, 0)
-	end
-	after.Text:SetPoint("LEFT", after, "LEFT", PAD, 0)
-	after.Count:SetPoint("RIGHT", after, "RIGHT", -PAD, 0)
-	upnext.Toggle:SetHeight(UP_TOGGLE)
-	upnext.Toggle.Label:SetPoint("LEFT", upnext.Toggle, "LEFT", PAD, 0)
-	upnext.Toggle.Icon:SetPoint("RIGHT", upnext.Toggle, "RIGHT", -PAD, 0)
-	GF.xp.Icon:SetPoint("LEFT", GF.xp, "LEFT", PAD, -1)
-	GF.party.Icon:SetPoint("LEFT", GF.party, "LEFT", PAD, -1)
-	banner.Icon:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD, -10)
-	banner.Text:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD + 21, -9)
-	for _, l in ipairs(lines) do
-		local lh = CARD.lineH
-		l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
-		l.Text:SetPoint("TOPLEFT", l, "TOPLEFT", TEXT_X, -twoLines(l.Text, lh))
-		l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
-	end
-	for _, r in ipairs(rows) do
-		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
-		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
-		r.Check:SetSize(CHECK, CHECK)
-		placeCheck(r)
-		Theme.Repaint(r.Check)
-	end
-	-- The progress bar: the game's status bar in Hearth and the game's looks.
-	local bliz = Theme.GameSkin()
-	foot.Line:SetHeight(3)
-	foot.Line:SetPoint("LEFT", foot, "LEFT", PAD, 0)
-	foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -PAD, 0)
-	foot.Line:SetShown(not bliz)
-	foot.Pct:SetShown(not bliz)
-	if bliz then
-		local b = footBar()
-		b:ClearAllPoints()
-		local inset = Theme.Kit() and 10 or 0
-		b:SetPoint("LEFT", foot, "LEFT", PAD + inset, 0)
-		b:SetPoint("RIGHT", foot, "RIGHT", -PAD - inset, 0)
-		b:SetHeight(Theme.Kit() and 12 or 14)
-		b:Show()
-		if Theme.KitStatus(b) then
-			b.psKitDrawn = true
-		elseif b.psKitDrawn then
-			-- Back from a game look: Hearth's bar as footBar made it.
-			b:SetStatusBarTexture(STATUS_BAR)
-			b:GetStatusBarTexture():SetTexCoord(0, 1, 0, 1)
-			b.Bg:SetTexture(Theme.Media("white"))
-			b.Bg:SetTexCoord(0, 1, 0, 1)
-			b.Bg:SetVertexColor(0, 0, 0, 0.75)
-			Theme.Border(b, 0.42, 0.329, 0.125, 1)
-			b.psKitDrawn = nil
-		end
-	elseif rawget(foot, "Status") then
-		foot.Status:Hide()
-	end
-	-- The tabs, painted again in the skin.
-	for _, b in ipairs(tabButtons) do
-		b:SetHeight(TAB_H)
-		GF.PaintTab(b)
-	end
-end
-
--- A skin chosen while the window shows: its sizes, then a fresh layout.
-Theme.OnChanged(function()
-	if F and skinShown and skinShown ~= Theme.SkinKey() then
-		GF.ApplySkin()
-		GF.ApplyStyle()
-	end
-end)
-
-local function applyAll()
-	GF.ApplySkin()
-	F:SetScale(ns.Get("ui.scale") or 1)
-	GF.ApplyPosition()
-	GF.ApplyLock()
-	GF.ApplyWidth()
-	GF.ApplyAlpha(false)
-	GF.ApplyStyle()
-	GF.ApplyCompact()
-	GF.ApplyVisibility()
-end
-
----------------------------------------------------------------------------
--- Move and resize
----------------------------------------------------------------------------
-
-local savePosition = GF.SavePosition
-
-local function dragStart()
-	if ns.Get("ui.locked") then return end
-	F:StartMoving()
-end
-
-local function dragStop()
-	F:StopMovingOrSizing()
-	savePosition()
-	-- The class quest card on the window flips below it when there is no room above.
-	if UI.ClassToast and UI.ClassToast.Place then UI.ClassToast.Place(false) end
-end
-
-local function resizeUpdate(self)
-	local x = GetCursorPosition() / F:GetEffectiveScale()
-	local w = min(UI.MAX_WIDTH, max(UI.MIN_WIDTH, floor(self.psStartW + (x - self.psStartX) + 0.5)))
-	if w ~= floor(F:GetWidth() + 0.5) then
-		F:SetWidth(w)
-		GF.Layout()
-	end
-end
-
-local function resizeStart(self)
-	if ns.Get("ui.locked") then return end
-	-- Grow from the left edge: pin the window by its left corner first.
-	local l = F:GetLeft()
-	local corner, y = pinCorner()
-	if l and y then
-		F:ClearAllPoints()
-		F:SetPoint(corner, UIParent, "BOTTOMLEFT", l, y)
-	end
-	self.psStartX = GetCursorPosition() / F:GetEffectiveScale()
-	self.psStartW = F:GetWidth()
-	self:SetScript("OnUpdate", ns.Safe(resizeUpdate))
-end
-
-local function resizeStop(self)
-	if not self:GetScript("OnUpdate") then return end
-	self:SetScript("OnUpdate", nil)
-	ns.Set("ui.width", floor(F:GetWidth() + 0.5))
-	savePosition()
-end
-
----------------------------------------------------------------------------
--- Menu
----------------------------------------------------------------------------
-
-local function openMenu(button)
-	if W.MenuShown(button) then return W.HideMenu() end
-	local E = Engine()
-	local hasGuide = E and E.GetGuide and E.GetGuide()
-	local clear = transparent()
-	local items = {
-		{ text = L["Choose guide"], icon = "search", onClick = function() UI.ShowPicker() end },
-		{ text = L["Open in new tab"], icon = "plus", disabled = not (E and E.OpenTab), onClick = function() UI.ShowPicker({ newTab = true }) end },
-		-- No step on screen (a finished guide): nothing to skip, as with the navigator's Skip.
-		{ text = L["Skip this step"], icon = "skip", disabled = not (hasGuide and E.GetStepIndex and E.GetStepIndex()), onClick = function() GF.SkipStep() end },
-		{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
-		{ separator = true },
-	}
-	-- Pin the shown step's quests in the log as along the way, or unpin them (#644).
-	local pins = GF.PinItems(view)
-	for _, it in ipairs(pins) do items[#items + 1] = it end
-	if #pins > 0 then items[#items + 1] = { separator = true } end
-	-- The quest log cleanup (UI/QuestRoom.lua), while it has quests to list.
-	local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
-	if unneeded and #unneeded > 0 then
-		table.insert(items, 5, { text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
-	end
-	for _, it in ipairs({
-		{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
-		{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
-		{ text = L["Lock window"], icon = "lock", checked = ns.Get("ui.locked") and true or false, onClick = function() ns.Set("ui.locked", not ns.Get("ui.locked")) end },
-		{ separator = true },
-		{ text = L["Reset guide progress"], icon = "reset", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps for this guide."],
-			onClick = function() if E and E.ResetProgress then E.ResetProgress() end end },
-		{ text = L["Options"], icon = "gear", onClick = function() UI.ShowOptions() end },
-		{ text = L["Hide window"], icon = "close", onClick = function()
+		-- Navigator: prev, "8 / 29", next on the left; Skip, the bug (report a
+		-- problem) and the menu on the right.
+		nav = CreateFrame("Frame", nil, F)
+		nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
+		nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
+		nav:SetHeight(NAV_H)
+		draggable(nav)
+		nav.Rule = W.Divider(nav)
+		nav.Rule:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", 0, 0)
+		nav.Rule:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 0, 0)
+		-- Hearth's mantel: the lit band under the tabs (sky to skyBottom) the
+		-- navigator stands on, edged below by nav.Rule in the copper titleLine.
+		nav.TitleBar = nav:CreateTexture(nil, "BACKGROUND", nil, -4)
+		nav.TitleBar:SetTexture(Theme.Media("white"))
+		nav.TitleBar:SetPoint("TOPLEFT", nav, "TOPLEFT", 0, 0)
+		nav.TitleBar:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 0, 1)
+		W.Painter(nav.TitleBar, function(t)
+			local top, bottom = { Theme.Color("sky") }, { Theme.Color("skyBottom") }
+			if t.SetGradient and CreateColor then
+				t:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], 1), CreateColor(top[1], top[2], top[3], 1))
+			else
+				t:SetVertexColor(top[1], top[2], top[3], 1)
+			end
+		end)
+		nav.TitleBar:Hide()
+		-- A skin's close square at the title bar's right (the guideTitle hook shows it).
+		nav.Close = CreateFrame("Button", nil, nav)
+		nav.Close:SetSize(18, 18)
+		nav.Close:SetPoint("RIGHT", nav, "RIGHT", -5, 0)
+		W.Fill(nav.Close, "closeFill", "BACKGROUND", -3)
+		local closeGlyph = W.Tex(nav.Close, "ARTWORK", "close", "closeGlyph")
+		closeGlyph:SetSize(10, 10)
+		closeGlyph:SetPoint("CENTER", nav.Close, "CENTER", 0, 0)
+		W.Painter(nav.Close, function(b) Theme.Border(b, Theme.Color("closeEdge")) end)
+		nav.Close:SetScript("OnEnter", function(self) W.Tooltip(self, tooltipAnchor(), L["Hide window"]) end)
+		nav.Close:SetScript("OnLeave", function() if GameTooltip then GameTooltip:Hide() end end)
+		nav.Close:SetScript("OnClick", function()
 			ns.Set("ui.shown", false)
 			ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
-		end },
-	}) do items[#items + 1] = it end
-	-- The Recorder's window, while the Recorder addon is loaded.
-	if type(PolestarRecorder_Command) == "function" then
-		table.insert(items, 5, { text = L["Recorder window"], icon = "record", onClick = function() PolestarRecorder_Command("ui") end })
-	end
-	local reopen = GF.ReopenItem()
-	if reopen then table.insert(items, 3, reopen) end
-	W.ShowMenu(button, items)
-end
-
--- "Reopen closed tab", the last tab closed (Engine.ClosedTabs) back as it
--- was, for the window's menu and the tab strip's: nil with none closed.
-function GF.ReopenItem()
-	local E = Engine()
-	local list = E and E.ClosedTabs and E.ClosedTabs()
-	local last = list and list[1]
-	if not last then return nil end
-	local tabs = tabsOf(E) or {}
-	return { text = L["Reopen closed tab"], icon = "reset", tip = last.title, disabled = #tabs >= (E.MAX_TABS or 6),
-		onClick = function() E.ReopenClosedTab() end }
-end
-
--- Menu entries pinning the quests of step view `v` that are in the log with
--- objectives open as along the way, or unpinning those pinned (#644).
-function GF.PinItems(v)
-	local E, C, out, seen = Engine(), ns.Compat, {}, {}
-	if not (v and v.goals and E and E.PinQuest) then return out end
-	for _, gv in ipairs(v.goals) do
-		local q = gv.quest
-		if q and not seen[q] and C.IsOnQuest(q) and (E.IsPinned(q) or not C.IsQuestReadyForTurnIn(q)) then
-			seen[q] = true
-			local title = ns.Quoted(C.GetQuestTitle(q) or (L["Quest"] .. " " .. q))
-			local pinned = E.IsPinned(q)
-			out[#out + 1] = { text = string.format(pinned and L["Unpin %s"] or L["Pin %s as along the way"], title), icon = "pin",
-				checked = pinned, onClick = function() E.PinQuest(q, not pinned) end }
-		end
-	end
-	return out
-end
-
--- The quest log's menu on a quest (right-click its title): pin it as along
--- the way, or unpin it (#644). Not with the gamepad interface (ns.GamepadUI),
--- as Nav/Nearby.lua's map menus.
-ns.OnLogin(function()
-	if ns.GamepadUI() or not (Menu and Menu.ModifyMenu) then return end
-	Menu.ModifyMenu("MENU_QUEST_MAP_LOG_TITLE", function(owner, root)
-		local q = owner and owner.questID
-		local E = Engine()
-		if type(q) ~= "number" or not (E and E.PinQuest) then return end
-		local pinned = E.IsPinned(q)
-		root:CreateDivider()
-		root:CreateButton(pinned and L["Unpin from along the way"] or L["Pin as along the way"], function() E.PinQuest(q, not pinned) end)
-	end)
-end)
-
--- Nearby services (Nav/Nearby.lua): the nearest vendor, repair, inn, flight
--- master or trainer, as the arrow's target. Looked up after combat only.
-local openNearby
-
--- The weapon master's page of the menu: the weapons to learn, each to the
--- nearest master who teaches it; a weapon already known, or not yet at this
--- level, says so and is off. Back returns to the services.
-local function openWeapons(button, entry)
-	local Nearby = ns.Nav.nearby
-	local fight = InCombatLockdown and InCombatLockdown()
-	local items = {
-		{ text = L["Back"], icon = "chevron-left", onClick = function() openNearby(button) end },
-		{ separator = true },
-	}
-	for _, w in ipairs(entry.weapons) do
-		local text, off = w.label, fight
-		if w.known then
-			text, off = string.format(L["%s (known)"], w.label), true
-		elseif w.level then
-			text, off = string.format(L["%s (from level %d)"], w.label, w.level), true
-		end
-		local line = w.line
-		items[#items + 1] = { text = text, disabled = off, onClick = function() Nearby.Go("weapon", line) end }
-	end
-	W.ShowMenu(button, items)
-end
-
--- The vendor's page: the nearest vendor, or one that sells food and drink,
--- arrows, bullets, bows and guns (Nearby.VendorPage). Back returns to the
--- services.
-local function openPage(button, entry)
-	local Nearby = ns.Nav.nearby
-	local fight = InCombatLockdown and InCombatLockdown()
-	local items = {
-		{ text = L["Back"], icon = "chevron-left", onClick = function() openNearby(button) end },
-		{ separator = true },
-	}
-	for _, p in ipairs(entry.page) do
-		local key = p.key
-		items[#items + 1] = { text = p.label, disabled = fight, onClick = function() Nearby.Go(key) end }
-	end
-	W.ShowMenu(button, items)
-end
-
-function openNearby(button)
-	if W.MenuShown(button) then return W.HideMenu() end
-	local Nearby = ns.Nav and ns.Nav.nearby
-	if not (Nearby and Nearby.MenuItems) then return end
-	local fight = InCombatLockdown and InCombatLockdown()
-	local items = {}
-	if Nearby.Trip and Nearby.Trip() then
-		items[1] = { text = L["Back to the guide"], icon = "chevron-left", onClick = function() Nearby.EndTrip() end }
-		items[2] = { separator = true }
-	end
-	for _, e in ipairs(Nearby.MenuItems()) do
-		if e.separator then
-			items[#items + 1] = e
-		elseif e.page then
-			-- A page of its own: what to buy.
-			items[#items + 1] = { text = e.label .. "  \226\128\186", icon = e.icon, disabled = fight,
-				onClick = function() openPage(button, e) end }
-		elseif e.weapons then
-			-- A page of its own: which weapon to learn.
-			items[#items + 1] = { text = e.label .. "  \226\128\186", icon = e.icon, disabled = fight,
-				onClick = function() openWeapons(button, e) end }
-		else
-			local key, line = e.key, e.line
-			items[#items + 1] = { text = e.label, icon = e.icon, disabled = fight,
-				onClick = function() Nearby.Go(key, line) end }
-		end
-	end
-	W.ShowMenu(button, items)
-end
-
----------------------------------------------------------------------------
--- Build
----------------------------------------------------------------------------
-
-local function hoverable(frame)
-	frame:HookScript("OnEnter", function() GF.HoverIn() end)
-	return frame
-end
-
-local function draggable(frame)
-	frame:EnableMouse(true)
-	frame:RegisterForDrag("LeftButton")
-	frame:SetScript("OnDragStart", dragStart)
-	frame:SetScript("OnDragStop", dragStop)
-	return hoverable(frame)
-end
-
--- A row of the While you're here panel (GF.BuildHere), one per suggestion:
--- the verb's glyph, the goal's line with its coloured target and count,
--- wrapping like the step's own rows; its step under it; the distance and a
--- close button on the right. Left-click leads the arrow there, right-click
--- (or the close button) dismisses it around here (Engine.DismissWhileHere:
--- twice, for the rest of the zone). psAt: its place in
--- Engine.GetWhileHereList.
-function GF.HereRow(i)
-	local here = GF.here
-	local r = here.Rows[i]
-	if r then return r end
-	r = CreateFrame("Button", nil, here.Body)
-	r.psAt = i
-	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	W.Hover(r)
-	r.Icon = r:CreateTexture(nil, "ARTWORK")
-	r.Icon:SetSize(ICON, ICON)
-	W.Color(r.Icon, "accent")
-	r.Close = W.IconButton(r, "close", 18, L["Not now (right-click)"], function()
-		local E = Engine()
-		if E then E.DismissWhileHere(r.psAt) end
-	end)
-	r.Dist = T(r, "small", "textMuted")
-	r.Dist:SetJustifyH("RIGHT")
-	r.Text = T(r, "goal", "text")
-	r.Text:SetWordWrap(true)
-	r.Text:SetJustifyV("TOP")
-	r.Sub = T(r, "small", "textMuted")
-	r:SetScript("OnClick", function(self, button)
-		local E = Engine()
-		if not E then return end
-		if button == "RightButton" then E.DismissWhileHere(self.psAt) else E.AimWhileHere(self.psAt) end
-	end)
-	r:SetScript("OnEnter", function(self)
-		local v = self.psView
-		if not v then return end
-		local lines = {
-			string.format(L["Step %d does this later; done now, that step is shorter or skipped when you get there."], UI.StepNo(v.step)),
-		}
-		local new = (v.here == "turnin" or v.here == "take") and ns.NewQuests and ns.NewQuests.TooltipText(v.quest)
-		if new then lines[#lines + 1] = { new, Theme.Accent() } end
-		lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() }
-		lines[#lines + 1] = { L["Right-click: not now, around here (twice: for the rest of this zone)."], Theme.Color("textDim") }
-		W.Tooltip(self, tooltipAnchor(), L["While you're here:"] .. " " .. UI.HereText(v), lines)
-		GF.HoverIn()
-	end)
-	r:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	here.Rows[i] = r
-	return r
-end
-
-function GF.BuildHere()
-	-- While you're here (fillHere): its own section under the step's goals,
-	-- a panel in the player's accent, dulled (GF.PaintHerePanel: painted
-	-- again when the accent or the window style changes), with the accent edge
-	-- and a small "While you're here" label, then one row per suggestion
-	-- (GF.HereRow). `Body` carries what moves.
-	local here = CreateFrame("Frame", nil, body)
-	GF.here = here
-	here.Rows = {}
-	here:SetHeight(GF.HERE_H)
-	local hb = CreateFrame("Frame", nil, here)
-	hb:SetSize(300, GF.HERE_H)
-	Anim.Anchor(hb, "TOPLEFT", here, "TOPLEFT", 0, 0)
-	here.Body = hb
-	here.Panel = hb:CreateTexture(nil, "BACKGROUND", nil, -6)
-	here.Panel:SetTexture(Theme.Media("white"))
-	W.Painter(here.Panel, GF.PaintHerePanel)
-	here.Panel:SetPoint("TOPLEFT", hb, "TOPLEFT", PAD - 6, -3)
-	here.Panel:SetPoint("BOTTOMRIGHT", hb, "BOTTOMRIGHT", -(PAD - 6), 3)
-	here.Edge = hb:CreateTexture(nil, "ARTWORK")
-	here.Edge:SetTexture(Theme.Media("white"))
-	W.Color(here.Edge, "accent", 0.9)
-	here.Edge:SetPoint("TOPLEFT", here.Panel, "TOPLEFT", 0, 0)
-	here.Edge:SetPoint("BOTTOMLEFT", here.Panel, "BOTTOMLEFT", 0, 0)
-	here.Edge:SetWidth(2)
-	here.Label = T(hb, "small", "accent")
-	here.Label:SetText(L["While you're here"])
-	here:Hide()
-end
-
-local function build()
-	readMetrics()
-	F = CreateFrame("Frame", "PolestarGuideFrame", UIParent)
-	-- Its text follows the guide window's own size (Windows > Guide window).
-	Theme.TextScope(F, "ui.guideTextSize")
-	F:SetFrameStrata("MEDIUM")
-	F:SetClampedToScreen(true)
-	F:SetMovable(true)
-	F:EnableMouse(true)
-	F:SetSize(ns.Get("ui.width") or 340, 200)
-	Theme.Skin(F, "window")
-	F:SetScript("OnEnter", function() GF.HoverIn() end)
-	GF.frame = F
-
-	-- The night-sky band behind the tab strip and navigator (standard style).
-	band = Theme.Band(F, "BACKGROUND", -5)
-	band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
-	band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
-	-- The transparent style's backing (GF.PaintVeil, placed by placeBars):
-	-- under the body, and under the tabs and navigator, fading with them.
-	GF.veil = Theme.Scrim(F, GF.VEIL_FEATHER)
-	band.Veil = Theme.Scrim(F, GF.VEIL_FEATHER)
-	GF.veil:Hide()
-	band.Veil:Hide()
-	chrome[#chrome + 1] = band.Veil
-
-	-- Tab strip
-	strip = CreateFrame("Frame", nil, F)
-	strip:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
-	strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
-	strip:SetHeight(TAB_H)
-	draggable(strip)
-	strip.Rule = W.Divider(strip)
-	strip.Rule:SetPoint("BOTTOMLEFT", strip, "BOTTOMLEFT", 0, 0)
-	strip.Rule:SetPoint("BOTTOMRIGHT", strip, "BOTTOMRIGHT", 0, 0)
-	strip.Add = W.IconButton(strip, "plus", 24, L["Open a guide in a new tab"], function()
-		UI.ShowPicker({ newTab = true })
-	end, 12)
-	hoverable(strip.Add)
-	chrome[#chrome + 1] = strip
-	-- The Forever skin positions its border below the tab strip; expose the strip.
-	F.psStrip = strip
-
-	-- Navigator: prev, "8 / 29", next on the left; Skip, the bug (report a
-	-- problem) and the menu on the right.
-	nav = CreateFrame("Frame", nil, F)
-	nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
-	nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
-	nav:SetHeight(NAV_H)
-	draggable(nav)
-	nav.Rule = W.Divider(nav)
-	nav.Rule:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", 0, 0)
-	nav.Rule:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 0, 0)
-	-- Blizzard's title bar: #2C200C to #150F06, 4 in from the frame.
-	nav.TitleBar = nav:CreateTexture(nil, "BACKGROUND", nil, -4)
-	nav.TitleBar:SetTexture(Theme.Media("white"))
-	nav.TitleBar:SetPoint("TOPLEFT", nav, "TOPLEFT", 4, 0)
-	nav.TitleBar:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", -4, 1)
-	W.Painter(nav.TitleBar, function(t)
-		local top, bottom = { Theme.Color("sky") }, { Theme.Color("skyBottom") }
-		if t.SetGradient and CreateColor then
-			t:SetGradient("VERTICAL", CreateColor(bottom[1], bottom[2], bottom[3], 1), CreateColor(top[1], top[2], top[3], 1))
-		else
-			t:SetVertexColor(top[1], top[2], top[3], 1)
-		end
-	end)
-	nav.TitleBar:Hide()
-	nav.Steps = CreateFrame("Frame", nil, nav)
-	nav.Steps:SetSize(100, 24)
-	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
-	nav.Prev = W.IconButton(nav.Steps, "chevron-left", 24, L["Previous step"], function()
-		local E = Engine()
-		if E and E.Prev then E.Prev() end
-	end)
-	nav.Prev.psTipLines = { L["A look back: nothing changes."] }
-	nav.Prev:SetPoint("LEFT", nav.Steps, "LEFT", 0, 0)
-	nav.Steps.Count = T(nav.Steps, "number", "text")
-	nav.Steps.Count:SetJustifyH("CENTER")
-	nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", 0, 0)
-	nav.Next = W.IconButton(nav.Steps, "chevron-right", 24, L["Next step"], function()
-		local E = Engine()
-		if E and E.Next then E.Next() end
-	end)
-	nav.Next.psTipLines = { L["A look ahead: nothing is skipped. Skip moves on for good."] }
-	nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", 0, 0)
-	nav.Menu = W.IconButton(nav, "menu", 24, L["Menu"], openMenu)
-	nav.Menu:SetPoint("RIGHT", nav, "RIGHT", -8, 0)
-	GF.menuButton = nav.Menu
-	-- Report a problem with the step on screen (UI/Report.lua): the bug, left
-	-- of the menu.
-	nav.Report = W.IconButton(nav, "bug", 24, L["Report a problem"], function() UI.ShowReport() end)
-	nav.Report.psTipLines = { L["Write what went wrong, copy the report and paste it on the Polestar Discord."] }
-	nav.Report:SetPoint("RIGHT", nav.Menu, "LEFT", 0, 0)
-	nav.Report:Hide()
-	-- Nearby services: left of the bug, right of Skip.
-	nav.Nearby = W.IconButton(nav, "icon-goto", 24, L["Nearby services"], openNearby)
-	nav.Nearby.psTipLines = { L["Points the arrow at the nearest vendor, repair, inn, flight master or trainer."] }
-	nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
-	nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
-	GF.nearbyButton = nav.Nearby
-	-- Skip: the 11px skip glyph and a Small label, a ghost button left of the
-	-- bug.
-	local skip = CreateFrame("Button", nil, nav)
-	skip:SetHeight(24)
-	W.Hover(skip, 0.7)
-	skip.Icon = W.Tex(skip, "ARTWORK", "skip", "textDim")
-	skip.Icon:SetSize(11, 11)
-	skip.Icon:SetPoint("LEFT", skip, "LEFT", 7, 0)
-	skip.Label = T(skip, "small", "textDim")
-	skip.Label:SetPoint("LEFT", skip.Icon, "RIGHT", 5, 0)
-	skip.Label:SetText(L["Skip"])
-	skip:SetWidth(floor(7 + 11 + 5 + skip.Label:GetStringWidth() + 8 + 0.5))
-	skip:SetScript("OnClick", function() GF.SkipStep() end)
-	skip:SetScript("OnEnter", function(self)
-		if self:IsEnabled() then
-			W.Color(self.Icon, "text")
-			W.Color(self.Label, "text")
-		end
-		local lines = { L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] }
-		-- The later quests this guide leaves out with the step (Engine.SkipLoses).
-		local E = Engine()
-		local loses = self:IsEnabled() and E and E.SkipLoses and UI.SkipLosesText(E.SkipLoses())
-		if loses then lines[#lines + 1] = { loses, Theme.Color("text") } end
-		W.Tooltip(self, "ANCHOR_BOTTOM", L["Skip this step"], lines)
-		GF.HoverIn()
-	end)
-	skip:SetScript("OnLeave", function(self)
-		GF.PaintSkip(self:IsShown(), self:IsEnabled())
-		W.HideTooltip(self)
-	end)
-	skip:Hide()
-	nav.Skip = skip
-	anchorSkip()
-	nav.Title = T(nav, "small", "textDim")
-	-- The step's own title and the guide's facts, on the step number.
-	local countHit = CreateFrame("Frame", nil, nav.Steps)
-	countHit:SetAllPoints(nav.Steps.Count)
-	countHit:EnableMouse(true)
-	countHit:SetScript("OnEnter", function(self)
-		local lines = {}
-		if view and view.title and view.title ~= "" then lines[#lines + 1] = view.title end
-		if nav.psMeta and nav.psMeta ~= "" then lines[#lines + 1] = nav.psMeta end
-		W.Tooltip(self, tooltipAnchor(), nav.Title:GetText() or "", lines)
-		GF.HoverIn()
-	end)
-	countHit:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	-- The wheel over the step number scrubs through the steps (GF.Scrub); a
-	-- click opens the steps around it (GF.ShowOverview).
-	nav.Steps.Hit = countHit
-	countHit:EnableMouseWheel(true)
-	countHit:SetScript("OnMouseWheel", function(_, delta) GF.Scrub(delta) end)
-	countHit:SetScript("OnMouseUp", function(self, button)
-		if button == "LeftButton" then GF.ShowOverview(self) end
-	end)
-	for _, b in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
-	-- Transparent chrome: the step number fades with its chevrons (nav.Steps
-	-- holds all three) and the title with them; a lone "3 / 8" over the world
-	-- would read as a stray number. Progress stays readable in the foot.
-	for _, c in ipairs({ nav.Menu, nav.Report, nav.Nearby, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
-
-	-- Body
-	body = CreateFrame("Frame", nil, F)
-	body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
-	body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
-	body:SetHeight(100)
-
-	card = CreateFrame("Frame", nil, body)
-	Anim.Anchor(card, "TOPLEFT", body, "TOPLEFT", 0, 0)
-
-	-- The goals: rows and summary lines in a scroll area that grows with
-	-- them up to the cap (fitGoals); its bar shows only while there is more.
-	goals = W.Scroll(card)
-	goals:SetHeight(0.01)
-	goals:EnableMouseWheel(false)
-	goals:SetScript("OnMouseWheel", goalsWheel)
-	goals.psOnValue = W.ScrollTo
-	goals.Bar:SetAlpha(0)
-	goals.Bar:HookScript("OnEnter", function() GF.BarWake() end)
-	goals.Bar:HookScript("OnLeave", function() GF.BarWake() end)
-
-	-- The focus header: who (or what) the goals below belong to.
-	person = CreateFrame("Button", nil, card)
-	person:RegisterForClicks("LeftButtonUp")
-	-- Ordinary texture: the name-target overlay forwards enter/leave, which
-	-- cannot activate a native HIGHLIGHT on the header underneath it.
-	person.Hover = person:CreateTexture(nil, "BACKGROUND")
-	person.Hover:SetTexture(Theme.Media("white"))
-	person.Hover:SetAllPoints(person)
-	W.Painter(person.Hover, function(t)
-		local r, g, b, a = Theme.Wash("hover")
-		t:SetVertexColor(r, g, b, a * 0.7)
-	end)
-	person.Hover:Hide()
-	-- The arrow on this person: the 2px accent selection bar.
-	person.Mark = person:CreateTexture(nil, "ARTWORK")
-	person.Mark:SetTexture(Theme.Media("white"))
-	person.Mark:SetWidth(2)
-	person.Mark:SetPoint("TOPLEFT", person, "TOPLEFT", 0, -6)
-	person.Mark:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", 0, 4)
-	W.Color(person.Mark, "accent")
-	person.Mark:Hide()
-	person.Icon = person:CreateTexture(nil, "ARTWORK")
-	person.Icon:SetSize(ICON + 1, ICON + 1)
-	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -11)
-	person.Name = T(person, "name", "personName")
-	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
-	person.Where = T(person, "small", "textDim")
-	person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
-	-- Why a step that depends on what the player does holds nothing now (fillCard).
-	person.Why = T(person, "small", "textDim")
-	person.Why:SetJustifyH("LEFT")
-	person.Why:SetWordWrap(true)
-	person.Why:Hide()
-	-- A quest on the step well above the character's level (fillCard).
-	person.Level = T(person, "small", "warning")
-	person.Level:SetJustifyH("LEFT")
-	person.Level:SetWordWrap(true)
-	person.Level:Hide()
-	-- Blizzard: a gold separator under the person, above the goals.
-	person.Rule = person:CreateTexture(nil, "ARTWORK")
-	person.Rule:SetTexture(Theme.Media("white"))
-	person.Rule:SetHeight(1)
-	person.Rule:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", PAD, 0)
-	person.Rule:SetPoint("BOTTOMRIGHT", person, "BOTTOMRIGHT", -PAD, 0)
-	W.Color(person.Rule, "separator")
-	person.Rule:Hide()
-	person:SetScript("OnClick", function(self) pointAt(self.psPlace, self.psLabel) end)
-	person:SetScript("OnEnter", personEnter)
-	person:SetScript("OnLeave", personLeave)
-	person:SetScript("OnHide", personLeave)
-
-	-- The author's tip, one line until opened.
-	local tip = CreateFrame("Button", nil, card)
-	W.Hover(tip, 0.6)
-	tip.Text = T(tip, "note", "textDim")
-	tip.Text:SetJustifyV("TOP")
-	tip.Text:SetSpacing(3)
-	tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", TEXT_X, -6)
-	tip.Toggle = W.IconButton(tip, "chevron-down", 18, nil, nil, 10)
-	-- The step's picture, shown while the tip is open (layoutCard).
-	tip.Image = tip:CreateTexture(nil, "ARTWORK")
-	tip.Image:Hide()
-	tip.Toggle:EnableMouse(false)
-	tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", PAD - 2, -3)
-	tip:SetScript("OnClick", function()
-		tipOpen = not tipOpen
-		W.SetIcon(tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
-		GF.Layout()
-	end)
-	tip:SetScript("OnEnter", function() GF.HoverIn() end)
-	card.Tip = tip
-
-	-- "Then: Gazrog" on the left, "Person 2 of 8" on the right.
-	after = CreateFrame("Frame", nil, body)
-	after:SetHeight(28)
-	after.Rule = W.Divider(after)
-	after.Rule:SetPoint("TOPLEFT", after, "TOPLEFT", PAD, 0)
-	after.Rule:SetPoint("TOPRIGHT", after, "TOPRIGHT", -PAD, 0)
-	after.Text = T(after, "label", "textDim")
-	after.Text:SetWordWrap(true)
-	after.Text:SetMaxLines(2)
-	after.Text:SetPoint("LEFT", after, "LEFT", PAD, 0)
-	after.Count = T(after, "small", "textMuted")
-	after.Count:SetJustifyH("RIGHT")
-	after.Count:SetPoint("RIGHT", after, "RIGHT", -PAD, 0)
-
-	-- Along the way: goals of along steps the route has passed. Shown only
-	-- while one is open (fillAlong).
-	along = CreateFrame("Frame", nil, body)
-	along.Rule = W.Divider(along)
-	along.Rule:SetPoint("TOPLEFT", along, "TOPLEFT", PAD, 0)
-	along.Rule:SetPoint("TOPRIGHT", along, "TOPRIGHT", -PAD, 0)
-	along.Label = T(along, "small", "textMuted")
-	along.Label:SetPoint("LEFT", along, "TOPLEFT", PAD, -UP_TOGGLE / 2)
-	along:Hide()
-	GF.BuildHere()
-
-	upnext = CreateFrame("Frame", nil, body)
-	local toggle = CreateFrame("Button", nil, upnext)
-	toggle:SetHeight(UP_TOGGLE)
-	W.Hover(toggle, 0.7)
-	toggle.Rule = W.Divider(toggle)
-	toggle.Rule:SetPoint("TOPLEFT", toggle, "TOPLEFT", PAD, 0)
-	toggle.Rule:SetPoint("TOPRIGHT", toggle, "TOPRIGHT", -PAD, 0)
-	toggle.Label = T(toggle, "small", "textMuted")
-	toggle.Label:SetPoint("LEFT", toggle, "LEFT", PAD, 0)
-	toggle.Icon = toggle:CreateTexture(nil, "ARTWORK")
-	toggle.Icon:SetSize(12, 12)
-	toggle.Icon:SetPoint("RIGHT", toggle, "RIGHT", -PAD, 0)
-	toggle.Icon:SetTexture(Theme.Media("chevron-down"))
-	W.Color(toggle.Icon, "textMuted")
-	toggle:SetScript("OnClick", function() ns.Set("ui.upcomingOpen", not upcomingOpen()) end)
-	toggle:SetScript("OnEnter", function(self) W.Color(self.Label, "textDim"); GF.HoverIn() end)
-	toggle:SetScript("OnLeave", function(self) W.Color(self.Label, "textMuted") end)
-	upnext.Toggle = toggle
-
-	-- XP pace (QoL module): "3.4k XP/h · 1h 05m to level", full summary on hover.
-	local xp = CreateFrame("Frame", nil, body)
-	xp:SetHeight(28)
-	xp:EnableMouse(true)
-	xp.Rule = W.Divider(xp)
-	xp.Rule:SetPoint("TOPLEFT", xp, "TOPLEFT", PAD, 0)
-	xp.Rule:SetPoint("TOPRIGHT", xp, "TOPRIGHT", -PAD, 0)
-	xp.Icon = W.Tex(xp, "ARTWORK", "icon-level", "textMuted")
-	xp.Icon:SetSize(11, 11)
-	xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, -1)
-	xp.Text = T(xp, "small", "textDim")
-	xp.Text:SetPoint("LEFT", xp.Icon, "RIGHT", 7, 0)
-	-- (A narrow window cuts the line with "..."; the hover shows all of it.)
-	xp.Text:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
-	xp.Text:SetJustifyH("LEFT")
-	xp.Text:SetWordWrap(false)
-	xp:SetScript("OnEnter", function(self)
-		if self.psSummary or self.psLine then W.Tooltip(self, tooltipAnchor(), L["Experience"], { self.psLine, self.psSummary }) end
-		GF.HoverIn()
-	end)
-	xp:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	xp:Hide()
-	GF.xp = xp
-
-	-- The party's place on this guide and the group's wait (Quests/Party.lua,
-	-- Party.StepLine); a click shows or hides the party panel. While the
-	-- group waits on the step: "Go on without them" (Party.GoOn).
-	local party = CreateFrame("Button", nil, body)
-	party:SetHeight(28)
-	party.Rule = W.Divider(party)
-	party.Rule:SetPoint("TOPLEFT", party, "TOPLEFT", PAD, 0)
-	party.Rule:SetPoint("TOPRIGHT", party, "TOPRIGHT", -PAD, 0)
-	party.Icon = W.Tex(party, "ARTWORK", "icon-talk", "textMuted")
-	party.Icon:SetSize(11, 11)
-	party.Icon:SetPoint("LEFT", party, "LEFT", PAD, -1)
-	party.GoOn = W.Link(party, L["Go on without them"], function()
-		if ns.Party and ns.Party.GoOn then ns.Party.GoOn() end
-	end, { role = "small" })
-	party.GoOn.psTip = L["The step stops waiting for the party and moves on as usual."]
-	party.GoOn:SetPoint("RIGHT", party, "RIGHT", -PAD, -1)
-	party.GoOn:Hide()
-	party.Text = T(party, "small", "textDim")
-	party.Text:SetPoint("LEFT", party.Icon, "RIGHT", 7, 0)
-	party.Text:SetPoint("RIGHT", party, "RIGHT", -PAD, 0)
-	party.Text:SetJustifyH("LEFT")
-	party.Text:SetWordWrap(false)
-	party:SetScript("OnClick", function()
-		if UI.PartyPanel then UI.PartyPanel.Toggle() end
-	end)
-	party:SetScript("OnEnter", function(self)
-		W.Tooltip(self, tooltipAnchor(), L["Party"], { L["Click to show or hide the party panel."] })
-		GF.HoverIn()
-	end)
-	party:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	party:Hide()
-	GF.party = party
-
-	-- Banner: out-levelled offer or training reminder.
-	banner = CreateFrame("Frame", nil, body)
-	banner.Fill = banner:CreateTexture(nil, "BACKGROUND")
-	banner.Fill:SetTexture(Theme.Media("white"))
-	banner.Fill:SetAllPoints(banner)
-	W.Painter(banner.Fill, function(t) local r, g, b = Theme.Accent(); t:SetVertexColor(r, g, b, 0.1) end)
-	banner.Rule = W.Divider(banner)
-	banner.Rule:SetPoint("BOTTOMLEFT", banner, "BOTTOMLEFT", 0, 0)
-	banner.Rule:SetPoint("BOTTOMRIGHT", banner, "BOTTOMRIGHT", 0, 0)
-	banner.Icon = W.Tex(banner, "ARTWORK", "icon-level", "accent")
-	banner.Icon:SetSize(13, 13)
-	banner.Icon:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD, -10)
-	banner.Text = T(banner, "label", "text")
-	banner.Text:SetWordWrap(true)
-	banner.Text:SetJustifyV("TOP")
-	banner.Text:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD + 21, -9)
-	banner.Jump = CreateFrame("Button", nil, banner)
-	banner.Jump:SetHeight(18)
-	banner.Jump.Label = T(banner.Jump, "label", "accent")
-	banner.Jump.Label:SetPoint("LEFT", banner.Jump, "LEFT", 0, 0)
-	banner.Jump.Arrow = W.Tex(banner.Jump, "ARTWORK", "chevron-right", "accent")
-	banner.Jump.Arrow:SetSize(11, 11)
-	banner.Jump.Arrow:SetPoint("LEFT", banner.Jump.Label, "RIGHT", 3, 0)
-	banner.Jump:SetScript("OnClick", function() GF.TakeBanner() end)
-	banner.Jump:SetScript("OnEnter", function(self) W.Color(self.Label, "text"); GF.HoverIn() end)
-	banner.Jump:SetScript("OnLeave", function(self) W.Color(self.Label, "accent") end)
-	banner.Later = CreateFrame("Button", nil, banner)
-	banner.Later:SetHeight(18)
-	banner.Later.Label = T(banner.Later, "label", "textDim")
-	banner.Later.Label:SetPoint("LEFT", banner.Later, "LEFT", 0, 0)
-	banner.Later:SetScript("OnClick", function() GF.LaterBanner() end)
-	banner.Later:SetScript("OnEnter", function(self) W.Color(self.Label, "text"); GF.HoverIn() end)
-	banner.Later:SetScript("OnLeave", function(self) W.Color(self.Label, "textDim") end)
-	-- A 12px glyph in a 24px target, centred where the old 18px one sat.
-	banner.Close = W.IconButton(banner, "close", 24, L["Dismiss"], function() GF.DismissBanner() end, 12)
-	banner.Close:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -5, -3)
-	banner:Hide()
-
-	empty = CreateFrame("Frame", nil, body)
-	empty.Glyph = empty:CreateTexture(nil, "ARTWORK")
-	empty.Glyph:SetSize(36, 36)
-	empty.Glyph.Glow = empty:CreateTexture(nil, "BACKGROUND")
-	empty.Glyph.Glow:SetTexture(Theme.Media("glow"))
-	empty.Glyph.Glow:SetSize(84, 84)
-	empty.Glyph.Glow:SetPoint("CENTER", empty.Glyph, "CENTER", 0, 0)
-	empty.Title = T(empty, "display", "text")
-	empty.Title:SetJustifyH("CENTER")
-	empty.Text = T(empty, "note", "textDim")
-	empty.Text:SetJustifyH("CENTER")
-	empty.Text:SetWordWrap(true)
-	empty.Text:SetSpacing(3)
-	local function act(b) if b.psAction then b.psAction() end end
-	empty.Primary = W.Button(empty, "", act, { primary = true, width = 168 })
-	empty.Secondary = W.Button(empty, "", act, { width = 168 })
-
-	-- The guide's progress with its percent, at the bottom.
-	foot = CreateFrame("Frame", nil, F)
-	foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
-	foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
-	foot:SetHeight(PROG_H)
-	draggable(foot)
-	foot.Line = W.ProgressLine(foot, 3)
-	foot.Line:SetPoint("LEFT", foot, "LEFT", PAD, 0)
-	foot.Pct = T(foot, "number", "textDim")
-	foot.Pct:SetJustifyH("RIGHT")
-	foot.Pct:SetWidth(40)
-	foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -PAD, 0)
-	foot:SetScript("OnEnter", function(self)
-		if self.psTotal and self.psTotal > 0 then
-			W.Tooltip(self, tooltipAnchor(), L["Guide progress"], { string.format(L["%d of %d steps done"], self.psDone or 0, self.psTotal) })
-		end
-		GF.HoverIn()
-	end)
-	foot:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-
-	-- Width grip
-	grip = CreateFrame("Button", nil, F)
-	grip:SetSize(16, 16)
-	grip:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
-	grip:SetFrameLevel(F:GetFrameLevel() + 10)
-	grip.Icon = grip:CreateTexture(nil, "OVERLAY")
-	grip.Icon:SetTexture(Theme.Media("resize"))
-	grip.Icon:SetSize(10, 10)
-	grip.Icon:SetPoint("BOTTOMRIGHT", grip, "BOTTOMRIGHT", -1, 1)
-	W.Color(grip.Icon, "textMuted", 0.6)
-	grip:SetScript("OnEnter", function(self) W.Color(self.Icon, "text"); GF.HoverIn() end)
-	grip:SetScript("OnLeave", function(self) W.Color(self.Icon, "textMuted", 0.6) end)
-	grip:SetScript("OnMouseDown", resizeStart)
-	grip:SetScript("OnMouseUp", resizeStop)
-	grip:SetScript("OnHide", resizeStop)
-	GF.grip = grip
-	chrome[#chrome + 1] = grip
-
-	GF.parts = {
-		strip = strip, nav = nav, body = body, card = card, person = person, tip = tip, after = after,
-		along = along, upnext = upnext, empty = empty, band = band, banner = banner, foot = foot, line = foot.Line, here = GF.here,
-		goals = goals,
-	}
-	GF.chrome = chrome
-
-	F:SetScript("OnShow", function()
-		GF.UpdateXP()
-		GF.Render()
-	end)
-	if UI.NameTargets then
-		UI.NameTargets.Bind(F, function()
-			local entries = {}
-			if state ~= "steps" or not view then return entries end
-			if person:IsShown() and focusGroup and focusGroup.kind == "npc" then
-				entries[#entries + 1] = { owner = person, region = person.Name,
-					goal = { t = "talk", npc = focusGroup.npc, npcName = focusGroup.name } }
-			end
+		end)
+		nav.Close:Hide()
+		nav.Steps = CreateFrame("Frame", nil, nav)
+		nav.Steps:SetSize(100, 24)
+		nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
+		nav.Prev = W.IconButton(nav.Steps, "chevron-left", 24, L["Previous step"], function()
 			local E = Engine()
-			local g = E and E.GetGuide and E.GetGuide()
-			local raw = g and g.steps and g.steps[view.index]
-			for _, row in ipairs(rows) do
-				-- Not a row scrolled out of sight (a folding row keeps its
-				-- target until the fold lands and the card refills).
-				if row:IsShown() and row.psGoal and inSight(row) then
-					entries[#entries + 1] = { owner = row, region = row, wholeRow = true, goal = row.psGoal, right = true,
-						controls = { row.Check, row.Skip, row.Alt, row.psGearPick },
-						raw = raw and raw.goals and raw.goals[row.psGoal.index] }
+			if E and E.Prev then E.Prev() end
+		end)
+		nav.Prev.psTipLines = { L["A look back: nothing changes."] }
+		nav.Prev:SetPoint("LEFT", nav.Steps, "LEFT", 0, 0)
+		nav.Steps.Count = GF.SizeAs(T(nav.Steps, "number", "text"), "bar")
+		nav.Steps.Count:SetJustifyH("CENTER")
+		nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", 0, 0)
+		nav.Next = W.IconButton(nav.Steps, "chevron-right", 24, L["Next step"], function()
+			local E = Engine()
+			if E and E.Next then E.Next() end
+		end)
+		nav.Next.psTipLines = { L["A look ahead: nothing is skipped. Skip moves on for good."] }
+		nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", 0, 0)
+		nav.Menu = W.IconButton(nav, "menu", 24, L["Menu"], GF.OpenMenu)
+		nav.Menu:SetPoint("RIGHT", nav, "RIGHT", -8, 0)
+		GF.menuButton = nav.Menu
+		-- Lookup opens the existing search section without changing the guide.
+		nav.Lookup = W.IconButton(nav, "search", 24, L["Lookup"], function() UI.ShowLookup() end)
+		nav.Lookup.psTipLines = { L["Search quests, NPCs, items, mounts and guides."] }
+		nav.Lookup:SetPoint("RIGHT", nav.Menu, "LEFT", 0, 0)
+		-- Report a problem with the step on screen (UI/Report.lua): the bug, left
+		-- of Lookup.
+		nav.Report = W.IconButton(nav, "bug", 24, L["Report a problem"], function() UI.ShowReport() end)
+		nav.Report.psTipLines = { L["Write what went wrong, copy the report and paste it on the Polestar Discord."] }
+		nav.Report:SetPoint("RIGHT", nav.Lookup, "LEFT", 0, 0)
+		nav.Report:Hide()
+		-- Nearby services: left of the bug, right of Skip.
+		nav.Nearby = W.IconButton(nav, "icon-goto", 24, L["Nearby services"], GF.OpenNearby)
+		nav.Nearby.psTipLines = { L["Points the arrow at the nearest vendor, repair, inn, flight master or trainer."] }
+		nav.Nearby:SetPoint("RIGHT", nav.Report, "LEFT", 0, 0)
+		nav.Nearby:SetShown(ns.Get("nav.nearbyButton") ~= false)
+		GF.nearbyButton = nav.Nearby
+		-- Skip: the 11px skip glyph and a Small label, a ghost button left of the
+		-- bug.
+		local skip = CreateFrame("Button", nil, nav)
+		skip:SetHeight(24)
+		W.Hover(skip, 0.7)
+		skip.Icon = W.Tex(skip, "ARTWORK", "skip", "textDim")
+		skip.Icon:SetSize(11, 11)
+		skip.Icon:SetPoint("LEFT", skip, "LEFT", 7, 0)
+		skip.Label = GF.SizeAs(T(skip, "small", "textDim"), "bar")
+		skip.Label:SetPoint("LEFT", skip.Icon, "RIGHT", 5, 0)
+		skip.Label:SetText(L["Skip"])
+		skip:SetWidth(floor(7 + 11 + 5 + skip.Label:GetStringWidth() + 8 + 0.5))
+		skip:SetScript("OnClick", function() GF.SkipStep() end)
+		skip:SetScript("OnEnter", function(self)
+			if self:IsEnabled() then
+				W.Color(self.Icon, "text")
+				W.Color(self.Label, "text")
+			end
+			local lines = { L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] }
+			-- The later quests this guide leaves out with the step (Engine.SkipLoses).
+			local E = Engine()
+			local loses = self:IsEnabled() and E and E.SkipLoses and UI.SkipLosesText(E.SkipLoses())
+			if loses then lines[#lines + 1] = { loses, Theme.Color("text") } end
+			W.Tooltip(self, "ANCHOR_BOTTOM", L["Skip this step"], lines)
+			GF.HoverIn()
+		end)
+		skip:SetScript("OnLeave", function(self)
+			GF.PaintSkip(self:IsShown(), self:IsEnabled())
+			W.HideTooltip(self)
+		end)
+		skip:Hide()
+		nav.Skip = skip
+		anchorSkip()
+		nav.Title = GF.SizeAs(T(nav, "small", "textDim"), "bar")
+		-- The step's own title and the guide's facts, on the step number.
+		local countHit = CreateFrame("Frame", nil, nav.Steps)
+		countHit:SetAllPoints(nav.Steps.Count)
+		countHit:EnableMouse(true)
+		countHit:SetScript("OnEnter", function(self)
+			local lines = {}
+			if view and view.title and view.title ~= "" then lines[#lines + 1] = view.title end
+			if nav.psMeta and nav.psMeta ~= "" then lines[#lines + 1] = nav.psMeta end
+			W.Tooltip(self, tooltipAnchor(), nav.Title:GetText() or "", lines)
+			GF.HoverIn()
+		end)
+		countHit:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+		-- The wheel over the step number scrubs through the steps (GF.Scrub); a
+		-- click opens and closes the step browser (UI/StepList.lua).
+		nav.Steps.Hit = countHit
+		countHit:EnableMouseWheel(true)
+		countHit:SetScript("OnMouseWheel", function(_, delta) GF.Scrub(delta) end)
+		countHit:SetScript("OnMouseUp", function(_, button)
+			if button ~= "LeftButton" or not UI.StepList then return end
+			GF.ScrubDone()
+			UI.StepList.Toggle()
+		end)
+		for _, b in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.Next, nav.Prev, nav.Skip }) do hoverable(b) end
+		-- Transparent chrome: the step number fades with its chevrons (nav.Steps
+		-- holds all three) and the title with them; a lone "3 / 8" over the world
+		-- would read as a stray number. Progress stays readable in the foot.
+		for _, c in ipairs({ nav.Menu, nav.Lookup, nav.Report, nav.Nearby, nav.Skip, nav.Steps, nav.Title }) do chrome[#chrome + 1] = c end
+
+		-- Body
+		body = CreateFrame("Frame", nil, F)
+		body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
+		body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
+		body:SetHeight(100)
+
+		card = CreateFrame("Frame", nil, body)
+		Anim.Anchor(card, "TOPLEFT", body, "TOPLEFT", 0, 0)
+
+		-- The goals: rows and summary lines in a scroll area that grows with
+		-- them up to the cap (fitGoals); its bar shows only while there is more.
+		goals = W.Scroll(card)
+		goals:SetHeight(0.01)
+		goals:EnableMouseWheel(false)
+		goals:SetScript("OnMouseWheel", goalsWheel)
+		goals.psOnValue = W.ScrollTo
+		goals.Bar:SetAlpha(0)
+		goals.Bar:HookScript("OnEnter", function() GF.BarWake() end)
+		goals.Bar:HookScript("OnLeave", function() GF.BarWake() end)
+
+		-- The focus header: who (or what) the goals below belong to.
+		person = CreateFrame("Button", nil, card)
+		person:RegisterForClicks("LeftButtonUp")
+		-- Ordinary texture: the name-target overlay forwards enter/leave, which
+		-- cannot activate a native HIGHLIGHT on the header underneath it.
+		person.Hover = person:CreateTexture(nil, "BACKGROUND")
+		person.Hover:SetTexture(Theme.Media("white"))
+		person.Hover:SetAllPoints(person)
+		W.Painter(person.Hover, function(t)
+			local r, g, b, a = Theme.Wash("hover")
+			t:SetVertexColor(r, g, b, a * 0.7)
+		end)
+		person.Hover:Hide()
+		-- The arrow on this person: the accent selection bar (GF.PaintMark).
+		person.Mark = person:CreateTexture(nil, "ARTWORK")
+		person.Mark:SetTexture(Theme.Media("white"))
+		person.Mark:SetPoint("TOPLEFT", person, "TOPLEFT", 0, -6)
+		person.Mark:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", 0, 4)
+		W.Painter(person.Mark, GF.PaintMark)
+		person.Mark:Hide()
+		person.Icon = person:CreateTexture(nil, "ARTWORK")
+		person.Icon:SetSize(ICON + 1, ICON + 1)
+		person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -11)
+		person.Name = GF.SizeAs(T(person, "name", "personName"), "title")
+		person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
+		person.Where = GF.SizeAs(T(person, "small", "textDim"), "detail")
+		person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
+		-- Why a step that depends on what the player does holds nothing now (fillCard).
+		person.Why = GF.SizeAs(T(person, "small", "textDim"), "detail", 0)
+		person.Why:SetJustifyH("LEFT")
+		person.Why:SetWordWrap(true)
+		person.Why:Hide()
+		-- A quest on the step well above the character's level (fillCard).
+		person.Level = GF.SizeAs(T(person, "small", "warning"), "detail", 0)
+		person.Level:SetJustifyH("LEFT")
+		person.Level:SetWordWrap(true)
+		person.Level:Hide()
+		-- A profession guide's skill-range heading over the person (fillCard).
+		card.Section = T(card, "label", "accent")
+		card.Section:SetJustifyH("LEFT")
+		card.Section:SetWordWrap(false)
+		card.Section:Hide()
+		-- Blizzard: a gold separator under the person, above the goals.
+		person.Rule = person:CreateTexture(nil, "ARTWORK")
+		person.Rule:SetTexture(Theme.Media("white"))
+		person.Rule:SetHeight(1)
+		person.Rule:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", PAD, 0)
+		person.Rule:SetPoint("BOTTOMRIGHT", person, "BOTTOMRIGHT", -PAD, 0)
+		W.Color(person.Rule, "separator")
+		person.Rule:Hide()
+		-- The header of the step the guide is on leads the arrow to its group's
+		-- first open goal as a click on that goal's line does, so the arrow keeps
+		-- moving on through the goal's spots (#1653: a point picked by hand there
+		-- held the arrow on one spot); anywhere else, a plain point.
+		person:SetScript("OnClick", function(self)
+			local group, goal = self.psGroup, nil
+			for _, gi in ipairs(group and view and group.goals or {}) do
+				local g = view.goals[gi]
+				if g and g.map and g.x and (g.status == "active" or g.status == "pending") then
+					goal = g
+					break
 				end
 			end
-			return entries
+			if not GF.AimGoal(goal) then pointAt(self.psPlace, self.psLabel) end
+		end)
+		person:SetScript("OnEnter", personEnter)
+		person:SetScript("OnLeave", personLeave)
+		person:SetScript("OnHide", personLeave)
+
+		-- The author's tip, one line until opened.
+		local tip = CreateFrame("Button", nil, card)
+		W.Hover(tip, 0.6)
+		tip.Text = T(tip, "note", "textDim")
+		tip.Text:SetJustifyV("TOP")
+		tip.Text:SetSpacing(3)
+		GF.SizeAs(tip.Text, "note", 3)
+		tip.Text:SetPoint("TOPLEFT", tip, "TOPLEFT", TEXT_X, -6)
+		tip.Toggle = W.IconButton(tip, "chevron-down", 18, nil, nil, 10)
+		-- The step's picture, shown while the tip is open (layoutCard).
+		tip.Image = tip:CreateTexture(nil, "ARTWORK")
+		tip.Image:Hide()
+		tip.Toggle:EnableMouse(false)
+		tip.Toggle:SetPoint("TOPLEFT", tip, "TOPLEFT", PAD - 2, -3)
+		tip:SetScript("OnClick", function()
+			tipOpen = not tipOpen
+			W.SetIcon(tip.Toggle, tipOpen and "chevron-up" or "chevron-down")
+			GF.Layout()
+		end)
+		tip:SetScript("OnEnter", function() GF.HoverIn() end)
+		card.Tip = tip
+
+		-- "Then: Gazrog" on the left, "Person 2 of 8" on the right.
+		after = CreateFrame("Frame", nil, body)
+		after:SetHeight(28)
+		after.Rule = W.Divider(after)
+		after.Rule:SetPoint("TOPLEFT", after, "TOPLEFT", PAD, 0)
+		after.Rule:SetPoint("TOPRIGHT", after, "TOPRIGHT", -PAD, 0)
+		after.Text = GF.SizeAs(T(after, "label", "textDim"), "detail")
+		after.Text:SetWordWrap(true)
+		after.Text:SetMaxLines(2)
+		after.Text:SetPoint("LEFT", after, "LEFT", PAD, 0)
+		after.Count = GF.SizeAs(T(after, "small", "textMuted"), "detail")
+		after.Count:SetJustifyH("RIGHT")
+		after.Count:SetPoint("RIGHT", after, "RIGHT", -PAD, 0)
+
+		-- Along the way: goals of along steps the route has passed. Shown only
+		-- while one is open (fillAlong).
+		along = CreateFrame("Frame", nil, body)
+		along.Rule = W.Divider(along)
+		along.Rule:SetPoint("TOPLEFT", along, "TOPLEFT", PAD, 0)
+		along.Rule:SetPoint("TOPRIGHT", along, "TOPRIGHT", -PAD, 0)
+		along.Label = GF.SizeAs(T(along, "small", "textMuted"), "up")
+		along.Label:SetPoint("LEFT", along, "TOPLEFT", PAD, -UP_TOGGLE / 2)
+		along:Hide()
+		handOver()
+		GF.BuildHere()
+
+		upnext = CreateFrame("Frame", nil, body)
+		local toggle = CreateFrame("Button", nil, upnext)
+		toggle:SetHeight(UP_TOGGLE)
+		W.Hover(toggle, 0.7)
+		toggle.Rule = W.Divider(toggle)
+		toggle.Rule:SetPoint("TOPLEFT", toggle, "TOPLEFT", PAD, 0)
+		toggle.Rule:SetPoint("TOPRIGHT", toggle, "TOPRIGHT", -PAD, 0)
+		toggle.Label = GF.SizeAs(T(toggle, "small", "textMuted"), "up")
+		toggle.Label:SetPoint("LEFT", toggle, "LEFT", PAD, 0)
+		toggle.Icon = toggle:CreateTexture(nil, "ARTWORK")
+		toggle.Icon:SetSize(12, 12)
+		toggle.Icon:SetPoint("RIGHT", toggle, "RIGHT", -PAD, 0)
+		toggle.Icon:SetTexture(Theme.Media("chevron-down"))
+		W.Color(toggle.Icon, "textMuted")
+		toggle:SetScript("OnClick", function() ns.Set("ui.upcomingOpen", not upcomingOpen()) end)
+		toggle:SetScript("OnEnter", function(self) W.Color(self.Label, "textDim"); GF.HoverIn() end)
+		toggle:SetScript("OnLeave", function(self) W.Color(self.Label, "textMuted") end)
+		upnext.Toggle = toggle
+
+		-- XP pace (QoL module): "3.4k XP/h · 1h 05m to level", full summary on hover.
+		local xp = CreateFrame("Frame", nil, body)
+		xp:SetHeight(GF.XPROW.h)
+		xp:EnableMouse(true)
+		xp.Rule = W.Divider(xp)
+		xp.Rule:SetPoint("TOPLEFT", xp, "TOPLEFT", PAD, 0)
+		xp.Rule:SetPoint("TOPRIGHT", xp, "TOPRIGHT", -PAD, 0)
+		xp.Icon = W.Tex(xp, "ARTWORK", "icon-level", "textMuted")
+		xp.Icon:SetSize(11, 11)
+		xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, -1)
+		xp.Text = T(xp, "small", "textDim")
+		xp.Text:SetPoint("LEFT", xp.Icon, "RIGHT", 7, 0)
+		-- (A narrow window cuts the line with "..."; the hover shows all of it.)
+		xp.Text:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
+		xp.Text:SetJustifyH("LEFT")
+		xp.Text:SetWordWrap(false)
+		-- Boosted Rest and the sleeping bag (QoL/Rest.lua) on a short line of
+		-- their own under it, so the pace text never pushes them out of sight.
+		xp.Rest = T(xp, "small", "textDim")
+		xp.Rest:SetPoint("TOPLEFT", xp.Text, "BOTTOMLEFT", 0, -GF.XPROW.gap)
+		xp.Rest:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
+		xp.Rest:SetJustifyH("LEFT")
+		xp.Rest:SetWordWrap(false)
+		xp.Rest:Hide()
+		xp:SetScript("OnEnter", function(self)
+			if self.psSummary or self.psLine then
+				local lines = {}
+				for _, l in ipairs({ self.psLine or false, self.psRest or false, self.psSummary or false }) do
+					if l then lines[#lines + 1] = l end
+				end
+				W.Tooltip(self, tooltipAnchor(), L["Experience"], lines)
+			end
+			GF.HoverIn()
+		end)
+		xp:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+		xp:Hide()
+		GF.xp = xp
+
+		-- The party's place on this guide and the group's wait (Quests/Party.lua,
+		-- Party.StepLine); a click shows or hides the party panel. While the
+		-- group waits on the step: "Go on without them" (Party.GoOn).
+		local party = CreateFrame("Button", nil, body)
+		party:SetHeight(28)
+		party.Rule = W.Divider(party)
+		party.Rule:SetPoint("TOPLEFT", party, "TOPLEFT", PAD, 0)
+		party.Rule:SetPoint("TOPRIGHT", party, "TOPRIGHT", -PAD, 0)
+		party.Icon = W.Tex(party, "ARTWORK", "icon-talk", "textMuted")
+		party.Icon:SetSize(11, 11)
+		party.Icon:SetPoint("LEFT", party, "LEFT", PAD, -1)
+		party.GoOn = W.Link(party, L["Go on without them"], function()
+			if ns.Party and ns.Party.GoOn then ns.Party.GoOn() end
+		end, { role = "small" })
+		party.GoOn.psTip = L["The step stops waiting for the party and moves on as usual."]
+		party.GoOn:SetPoint("RIGHT", party, "RIGHT", -PAD, -1)
+		party.GoOn:Hide()
+		party.Text = T(party, "small", "textDim")
+		party.Text:SetPoint("LEFT", party.Icon, "RIGHT", 7, 0)
+		party.Text:SetPoint("RIGHT", party, "RIGHT", -PAD, 0)
+		party.Text:SetJustifyH("LEFT")
+		party.Text:SetWordWrap(false)
+		party:SetScript("OnClick", function()
+			if UI.PartyPanel then UI.PartyPanel.Toggle() end
+		end)
+		party:SetScript("OnEnter", function(self)
+			W.Tooltip(self, tooltipAnchor(), L["Party"], { L["Click to show or hide the party panel."] })
+			GF.HoverIn()
+		end)
+		party:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+		party:Hide()
+		GF.party = party
+
+		-- Banner: out-levelled offer or training reminder.
+		banner = CreateFrame("Frame", nil, body)
+		banner.Fill = banner:CreateTexture(nil, "BACKGROUND")
+		banner.Fill:SetTexture(Theme.Media("white"))
+		banner.Fill:SetAllPoints(banner)
+		W.Painter(banner.Fill, function(t) local r, g, b = Theme.Accent(); t:SetVertexColor(r, g, b, 0.1) end)
+		banner.Rule = W.Divider(banner)
+		banner.Rule:SetPoint("BOTTOMLEFT", banner, "BOTTOMLEFT", 0, 0)
+		banner.Rule:SetPoint("BOTTOMRIGHT", banner, "BOTTOMRIGHT", 0, 0)
+		banner.Icon = W.Tex(banner, "ARTWORK", "icon-level", "accent")
+		banner.Icon:SetSize(13, 13)
+		banner.Icon:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD, -10)
+		banner.Text = T(banner, "label", "text")
+		banner.Text:SetWordWrap(true)
+		banner.Text:SetJustifyV("TOP")
+		banner.Text:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD + 21, -9)
+		banner.Jump = CreateFrame("Button", nil, banner)
+		banner.Jump:SetHeight(18)
+		banner.Jump.Label = T(banner.Jump, "label", "accent")
+		banner.Jump.Label:SetPoint("LEFT", banner.Jump, "LEFT", 0, 0)
+		banner.Jump.Arrow = W.Tex(banner.Jump, "ARTWORK", "chevron-right", "accent")
+		banner.Jump.Arrow:SetSize(11, 11)
+		banner.Jump.Arrow:SetPoint("LEFT", banner.Jump.Label, "RIGHT", 3, 0)
+		banner.Jump:SetScript("OnClick", function() GF.TakeBanner() end)
+		banner.Jump:SetScript("OnEnter", function(self) W.Color(self.Label, "text"); GF.HoverIn() end)
+		banner.Jump:SetScript("OnLeave", function(self) W.Color(self.Label, "accent") end)
+		banner.Later = CreateFrame("Button", nil, banner)
+		banner.Later:SetHeight(18)
+		banner.Later.Label = T(banner.Later, "label", "textDim")
+		banner.Later.Label:SetPoint("LEFT", banner.Later, "LEFT", 0, 0)
+		banner.Later:SetScript("OnClick", function() GF.LaterBanner() end)
+		banner.Later:SetScript("OnEnter", function(self) W.Color(self.Label, "text"); GF.HoverIn() end)
+		banner.Later:SetScript("OnLeave", function(self) W.Color(self.Label, "textDim") end)
+		-- A 12px glyph in a 24px target, centred where the old 18px one sat.
+		banner.Close = W.IconButton(banner, "close", 24, L["Dismiss"], function() GF.DismissBanner() end, 12)
+		banner.Close:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -5, -3)
+		banner:Hide()
+
+		empty = CreateFrame("Frame", nil, body)
+		empty.Glyph = empty:CreateTexture(nil, "ARTWORK")
+		empty.Glyph:SetSize(36, 36)
+		empty.Glyph.Glow = empty:CreateTexture(nil, "BACKGROUND")
+		empty.Glyph.Glow:SetTexture(Theme.Media("glow"))
+		empty.Glyph.Glow:SetSize(84, 84)
+		empty.Glyph.Glow:SetPoint("CENTER", empty.Glyph, "CENTER", 0, 0)
+		empty.Title = T(empty, "display", "text")
+		empty.Title:SetJustifyH("CENTER")
+		empty.Text = T(empty, "note", "textDim")
+		empty.Text:SetJustifyH("CENTER")
+		empty.Text:SetWordWrap(true)
+		empty.Text:SetSpacing(3)
+		local function act(b) if b.psAction then b.psAction() end end
+		empty.Primary = W.Button(empty, "", act, { primary = true, width = 168 })
+		empty.Secondary = W.Button(empty, "", act, { width = 168 })
+
+		-- The guide's progress with its percent, at the bottom.
+		foot = CreateFrame("Frame", nil, F)
+		foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
+		foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
+		foot:SetHeight(PROG_H)
+		draggable(foot)
+		foot.Line = W.ProgressLine(foot, 3)
+		W.Uncolor(foot.Line.Fill)
+		W.Painter(foot.Line.Fill, GF.PaintProgressFill)
+		foot.Line:SetPoint("LEFT", foot, "LEFT", PAD, 0)
+		foot.Pct = GF.SizeAs(T(foot, "number", "textDim"), "bar")
+		foot.Pct:SetJustifyH("RIGHT")
+		foot.Pct:SetWidth(40)
+		foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -PAD, 0)
+		foot:SetScript("OnEnter", function(self)
+			if self.psTotal and self.psTotal > 0 then
+				W.Tooltip(self, tooltipAnchor(), L["Guide progress"], { string.format(L["%d of %d steps done"], self.psDone or 0, self.psTotal) })
+			end
+			GF.HoverIn()
+		end)
+		foot:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
+
+		-- Width grip
+		grip = CreateFrame("Button", nil, F)
+		grip:SetSize(16, 16)
+		grip:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
+		grip:SetFrameLevel(F:GetFrameLevel() + 10)
+		grip.Icon = grip:CreateTexture(nil, "OVERLAY")
+		grip.Icon:SetTexture(Theme.Media("resize"))
+		grip.Icon:SetSize(10, 10)
+		grip.Icon:SetPoint("BOTTOMRIGHT", grip, "BOTTOMRIGHT", -1, 1)
+		W.Color(grip.Icon, "textMuted", 0.6)
+		grip:SetScript("OnEnter", function(self) W.Color(self.Icon, "text"); GF.HoverIn() end)
+		grip:SetScript("OnLeave", function(self) W.Color(self.Icon, "textMuted", 0.6) end)
+		grip:SetScript("OnMouseDown", GF.ResizeStart)
+		grip:SetScript("OnMouseUp", GF.ResizeStop)
+		grip:SetScript("OnHide", GF.ResizeStop)
+		GF.grip = grip
+		chrome[#chrome + 1] = grip
+
+		GF.parts = {
+			strip = strip, nav = nav, body = body, card = card, person = person, tip = tip, after = after,
+			along = along, upnext = upnext, empty = empty, band = band, banner = banner, foot = foot, line = foot.Line, here = GF.here,
+			goals = goals,
+		}
+		GF.chrome = chrome
+		-- The parts a skin's hooks get (Skin API 2; Theme.GuideParts hands out
+		-- the live window's): this window's, its frame and goal rows with them.
+		local skinParts = { window = F, rows = rows }
+		for k, v in pairs(GF.parts) do skinParts[k] = v end
+		function GF.SkinParts() return skinParts end
+		handOver()
+
+		-- The rest is the live window's: a copy's host draws it (GF.Draw), and
+		-- it is no one's to hide, name targets on or follow the theme for.
+		if not GF.live then return end
+		F:SetScript("OnShow", function()
+			GF.UpdateXP()
+			GF.Render()
+		end)
+		-- Another addon taking the window out of sight is told once
+		-- (ns.WatchSight). After the OnShow above: SetScript drops a hooked script.
+		ns.WatchSight(F, "window")
+		if UI.NameTargets then
+			UI.NameTargets.Bind(F, function()
+				local entries = {}
+				if state ~= "steps" or not view then return entries end
+				if person:IsShown() and focusGroup and focusGroup.kind == "npc" then
+					entries[#entries + 1] = { owner = person, region = person.Name,
+						goal = { t = "talk", npc = focusGroup.npc, npcName = focusGroup.name } }
+				end
+				local E = Engine()
+				local g = E and E.GetGuide and E.GetGuide()
+				local raw = g and g.steps and g.steps[view.index]
+				for _, row in ipairs(rows) do
+					-- Not a row scrolled out of sight (a folding row keeps its
+					-- target until the fold lands and the card refills).
+					if row:IsShown() and row.psGoal and inSight(row) then
+						entries[#entries + 1] = { owner = row, region = row, wholeRow = true, goal = row.psGoal, right = true,
+							controls = { row.Check, row.Skip, row.Alt, row.psGearPick },
+							raw = raw and raw.goals and raw.goals[row.psGoal.index] }
+					end
+				end
+				return entries
+			end)
+		end
+		Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end)
+	end
+
+	---------------------------------------------------------------------------
+	-- The catch-up, flights
+	---------------------------------------------------------------------------
+
+	-- A hidden window does no work: its OnShow renders it afresh.
+	local function whenReady(fn)
+		return function(...)
+			if F and F:IsShown() and ns.IsLoggedIn() then fn(...) end
+		end
+	end
+
+	-- The catch-up (GUIDE_PLACED): once a guide just opened is placed, the
+	-- window goes over the steps before the one it resumes at, each shown in
+	-- full (the card, the journey, what follows) one after another faster and
+	-- faster, then the step placed. Guides passed whole go by first, by title.
+	-- It plays when a guide is opened (by the player, the login's pick, a guide
+	-- chained to), from step 1; a guide a login or /reload brings back is placed
+	-- without it (the Engine fires GUIDE_PLACED for opened guides only). Not
+	-- with reduced motion, the window hidden, or a single step to go over. A
+	-- guide placed before the world is entered waits for it. Only the window
+	-- moves: the Engine's step, the arrow and the automation stay on the step
+	-- placed.
+	local CATCH_GUIDE = 0.35 -- seconds per guide passed whole (at most 1.2 in all)
+	GF.catchUpState = { entered = false }
+
+	local function catchUpDone()
+		GF.catchingUp, GF.catchUpIndex = nil, nil
+		ns.Fire("CATCH_UP", false)
+		GF.Render()
+	end
+
+	function GF.PlayCatchUp(guideId, step, chain)
+		local cs = GF.catchUpState
+		if not cs.entered then
+			cs.queued = { guideId, step, chain }
+			return
+		end
+		local passed = chain and #chain or 0
+		if not (F and F:IsShown() and ns.IsLoggedIn()) or Anim.Reduced() then return end
+		-- A single step passed is no catch-up (the player's own first step).
+		if not step or (step <= 2 and passed == 0) then return end
+		local Count = nav.Steps.Count
+		-- CATCH_UP(true|false): the arrow shows an hourglass meanwhile (Nav/Arrow.lua).
+		ns.Fire("CATCH_UP", true)
+		local function roll()
+			GF.catchingUp = "steps"
+			local shown
+			Count.psOnValue = function(_, v)
+				local i = max(1, min(step - 1, floor(v)))
+				-- A step hidden from the character (#942) is not shown on the way.
+				if i ~= shown and not UI.StepHidden(i, Engine()) then
+					shown = i
+					GF.catchUpIndex = i
+					GF.Render()
+				end
+			end
+			-- Slow at first, then faster: about 0.06 s a step, 2.5 s at most.
+			local dur = min(2.5, 0.5 + 0.06 * (step - 1))
+			Anim.To(Count, "value", 1, step - 0.001, dur, "in", catchUpDone)
+		end
+		if passed == 0 then return roll() end
+		-- The guides passed whole, each shown done.
+		GF.catchingUp = "guides"
+		local titles = {}
+		for i, id in ipairs(chain) do
+			local g = ns.Guides.Get(id)
+			titles[i] = { g and (g.title or g.id) or id, g and #g.steps or 0 }
+		end
+		Count.psOnValue = function(o, v)
+			local t = titles[min(passed, floor(v) + 1)]
+			nav.Title:SetText(t[1])
+			o:SetText(string.format("%d / %d", t[2], t[2]))
+		end
+		Anim.To(Count, "value", 0, passed - 0.001, min(1.2, CATCH_GUIDE * passed), "linear", function()
+			if step > 1 then return roll() end
+			catchUpDone()
 		end)
 	end
-	Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end)
-end
 
----------------------------------------------------------------------------
--- Wiring
----------------------------------------------------------------------------
-
--- A hidden window does no work: its OnShow renders it afresh.
-local function whenReady(fn)
-	return function(...)
-		if F and F:IsShown() and ns.IsLoggedIn() then fn(...) end
+	-- A flight begins or ends (guideWindow.hideTaxi): the client says the
+	-- player is on a taxi a moment after control is lost, so look again then.
+	function GF.TaxiChanged()
+		if not ns.Get("guideWindow.hideTaxi") then return end
+		GF.ApplyVisibility()
+		ns.After(0.5, GF.ApplyVisibility)
 	end
-end
 
-ns.OnInit(function()
-	build()
-	applyAll()
-end)
+	---------------------------------------------------------------------------
+	-- Wiring: the live window's (a copy hears nothing; its host draws it)
+	---------------------------------------------------------------------------
 
--- The combat events may have fired before a /reload or reconnect.
-local function combatNow()
-	local C = ns.Compat
-	if C and C.InCombat then
-		local ok, v = pcall(C.InCombat)
-		if ok then return v and true or false end
-	end
-	return InCombatLockdown and InCombatLockdown() and true or false
-end
+	if GF.live then
+		ns.OnInit(function()
+			build()
+			GF.ApplyAll()
+		end)
 
-ns.OnLogin(function()
-	inCombat = combatNow()
-	applyAll()
-	GF.Render()
-end)
+		ns.On("GUIDE_CHANGED", whenReady(GF.Render))
+		ns.On("STEP_CHANGED", whenReady(GF.Render))
+		ns.On("STEP_UPDATED", whenReady(GF.Update))
+		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
+		ns.On("GUIDES_REGISTERED", whenReady(GF.Render))
+		ns.On("PACKS_CHANGED", whenReady(GF.Render))
+		ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
+		ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
+		ns.On("QUEST_TIMER", whenReady(GF.TimerTick))
+		-- The screen's height changed (resolution, the game's UI scale): the
+		-- height cap follows.
+		ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))
+		ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 
-ns.On("GUIDE_CHANGED", whenReady(GF.Render))
-ns.On("STEP_CHANGED", whenReady(GF.Render))
-ns.On("STEP_UPDATED", whenReady(GF.Update))
-ns.On("PARTY_PROGRESS", whenReady(GF.Update))
-ns.On("GUIDES_REGISTERED", whenReady(GF.Render))
-ns.On("PACKS_CHANGED", whenReady(GF.Render))
-ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
-ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
-ns.On("WHILE_HERE_CHANGED", whenReady(GF.HereChanged))
-ns.On("WHILE_HERE_MOVED", whenReady(GF.HereMoved))
-ns.On("QUEST_TIMER", whenReady(GF.TimerTick))
--- The screen's height changed (resolution, the game's UI scale): the
--- height cap follows.
-ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))
-ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
-
--- Where the character stands against the guide (Core/Levels.lua, Levels.Pace),
--- in one line; stats: the QoL tracker's, whose XP an hour turns XP short into
--- grinding time. "Behind" only past GF.PACE_SLACK levels short of the route's
--- target (Fitz, 0.3.6: a few bars short read as a warning and players thought
--- they were behind); within it, on pace. On pace: "On pace for level 14 by
--- step 32"; at the guide's end, the level the route gets you to ("level 22.4
--- by step 97"). Behind, with a `level` goal ahead that grinds it: "Behind by
--- 2.4 levels: step 32 grinds to level 14 (~12m)", said plainly. Behind with
--- none, in the warning colour: "Behind by 2.4 levels for level 24 by step 21:
--- grind ~1h 10m before then" (or "and no grind step ahead"). A quest 3+
--- levels over the character (pace.hard) is named only on the step where it is
--- fought, calmly: "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
--- you're 21.3; reach 22 first", or the "Behind:" form past the slack. nil
--- without a target ahead or the Codex.
-GF.PACE_SLACK = 1
-function GF.PaceText(stats)
-	local Lv = ns.Levels
-	local pace = Lv and Lv.Pace and Lv.Pace()
-	if not pace then return nil end
-	local Q = ns.QoL
-	local rate = type(stats) == "table" and type(stats.rate) == "number" and stats.rate > 0 and stats.rate or nil
-	local function grind(xp)
-		if not (rate and type(xp) == "number" and xp > 0 and Q and Q.Duration) then return nil end
-		return Q.Duration(xp / rate * 3600)
-	end
-	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
-	local stepNo = UI.StepNo(pace.step)
-	local behind = (pace.short or 0) > GF.PACE_SLACK
-	local h = pace.hard
-	if h and h.step ~= pace.live then h = nil end
-	if h then
-		local name, at, you, time = ns.Quoted(h.title) or L["Quest"], UI.StepNo(h.step), GF.LevelText(h.reach), grind(h.xp)
-		if not behind then
-			return time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind ~%s first"], name, h.level, at, you, time)
-				or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
-		end
-		local text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind ~%s first"], name, h.level, at, you, time)
-			or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
-		return "|c" .. Theme.Hex("warning") .. text .. "|r"
-	end
-	if not behind then
-		-- At a guide's end there is no goal to meet, only the level the route
-		-- gets you to: say that one, which a character already at the guide's
-		-- top passes (15-21 at 21: "level 22.4", never "level 21").
-		if pace.kind == "end" and type(pace.reach) == "number" and pace.reach > pace.target then level = GF.LevelText(pace.reach) end
-		return string.format(L["On pace for level %s by step %d"], level, stepNo)
-	end
-	local by = string.format(L["%s levels"], string.format("%.1f", pace.short))
-	local time = grind(pace.xp)
-	if pace.kind == "goal" then
-		-- The guide grinds it at that step: said plainly, not as a warning.
-		return time and string.format(L["Behind by %s: step %d grinds to level %s (~%s)"], by, stepNo, level, time)
-			or string.format(L["Behind by %s: step %d grinds to level %s"], by, stepNo, level)
-	end
-	local text = time and string.format(L["Behind by %s for level %s by step %d: grind ~%s before then"], by, level, stepNo, time)
-		or string.format(L["Behind by %s for level %s by step %d, and no grind step ahead"], by, level, stepNo)
-	return "|c" .. Theme.Hex("warning") .. text .. "|r"
-end
-
--- XP pace from the QoL tracker and the route's pace (GF.PaceText). Hidden
--- when both are off, at max level, or before there is anything to show.
-function GF.UpdateXP(stats)
-	if not GF.xp then return end
-	local Q = ns.QoL
-	if stats == nil and Q and Q.GetXPStats then
-		local ok, s = pcall(Q.GetXPStats)
-		stats = ok and s or nil
-	end
-	local parts = {}
-	if type(stats) == "table" and not stats.maxed and Q then
-		local short = Q.XP and Q.XP.Short
-		if type(stats.rate) == "number" and stats.rate > 0 and short then
-			parts[#parts + 1] = string.format(L["%s XP/h"], short(stats.rate))
-		end
-		if type(stats.timeToLevel) == "number" and Q.Duration then
-			parts[#parts + 1] = string.format(L["%s to level"], Q.Duration(stats.timeToLevel))
-		end
-	end
-	if not (type(stats) == "table" and stats.maxed) then
-		local pace = GF.PaceText(stats)
-		if pace then parts[#parts + 1] = pace end
-	end
-	local had = GF.xp.psHas
-	GF.xp.psHas = #parts > 0
-	if GF.xp.psHas then
-		local line = table.concat(parts, "  \194\183  ")
-		GF.xp.Text:SetText(line)
-		GF.xp.psLine = line
-		local ok, summary = pcall(function() return Q.XP and Q.XP.Summary and Q.XP.Summary(stats) end)
-		GF.xp.psSummary = ok and summary or nil
-	end
-	if had ~= GF.xp.psHas then GF.Layout() end
-end
-
-ns.On("QOL_XP_UPDATED", whenReady(function(stats) GF.UpdateXP(stats) end))
-ns.OnLogin(function() GF.UpdateXP() end)
-ns.On("STEP_CHANGED", whenReady(function() GF.UpdateXP() end))
-
--- The party line (Quests/Party.lua, Party.StepLine): hidden without one;
--- "Go on without them" at its end while the group waits on the step.
-function GF.UpdateParty()
-	if not GF.party then return end
-	local P = ns.Party
-	local text, holding
-	if P and P.StepLine then text, holding = P.StepLine() end
-	local had = GF.party.psText ~= nil
-	GF.party.psText, GF.party.psHolding = text, holding and true or false
-	if text then GF.party.Text:SetText(text) end
-	local goOn = GF.party.GoOn
-	goOn:SetShown(holding and true or false)
-	GF.party.Text:SetPoint("RIGHT", holding and goOn or GF.party, holding and "LEFT" or "RIGHT", holding and -8 or -PAD, 0)
-	if had ~= (text ~= nil) then GF.Layout() end
-end
-for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do
-	ns.On(msg, whenReady(function() GF.UpdateParty() end))
-end
-
--- The tabs changed (a step moved on, a tab opened or closed): their titles
--- and progress are redrawn. The window is laid out again only when the
--- strip itself comes or goes; a step change already laid it out (Render).
-ns.On("TABS_CHANGED", whenReady(function()
-	local has = tabsOf(Engine()) ~= nil
-	if has ~= strip.psHasTabs then
-		strip.psHasTabs = has
-		GF.Layout()
-	elseif stripShown() then
-		GF.RenderTabs()
-	end
-end))
-
--- STEP_SKIPPED(fromStep, toStep, skips): the guide moved past quests the
--- giver does not offer (or no longer can). Says why in the banner until the
--- step changes again, dismissed, or SKIPPED_SECONDS pass; in chat when the
--- window is hidden. Fires before STEP_CHANGED, whose render shows it.
-ns.On("STEP_SKIPPED", function(_, to, skips)
-	if not F or type(skips) ~= "table" or #skips == 0 then return end
-	local E = Engine()
-	local g = E and E.GetGuide and E.GetGuide()
-	if not g then return end
-	local n = { guideId = g.id, to = to, skips = skips }
-	notices.skipped = n
-	if not F:IsShown() then
-		for _, k in ipairs(skips) do
-			ns.Print(string.format(L["Skipped %s"], ns.Quoted(k.title) or "") .. (k.text and (": " .. k.text) or ""))
-		end
-	end
-	ns.After(SKIPPED_SECONDS, function()
-		if notices.skipped ~= n then return end
-		notices.skipped = nil
-		if F:IsShown() and ns.IsLoggedIn() then GF.Layout() end
-	end)
-end)
-
--- The catch-up (GUIDE_PLACED): once a guide just opened is placed, the
--- window goes over the steps before the one it resumes at, each shown in
--- full (the card, the journey, what follows) one after another faster and
--- faster, then the step placed. Guides passed whole go by first, by title.
--- It plays when a guide is opened (by the player, the login's pick, a guide
--- chained to), from step 1; a guide a login or /reload brings back is placed
--- without it (the Engine fires GUIDE_PLACED for opened guides only). Not
--- with reduced motion, the window hidden, or a single step to go over. A
--- guide placed before the world is entered waits for it. Only the window
--- moves: the Engine's step, the arrow and the automation stay on the step
--- placed.
-local CATCH_GUIDE = 0.35 -- seconds per guide passed whole (at most 1.2 in all)
-GF.catchUpState = { entered = false }
-
-local function catchUpDone()
-	GF.catchingUp, GF.catchUpIndex = nil, nil
-	ns.Fire("CATCH_UP", false)
-	GF.Render()
-end
-
-function GF.PlayCatchUp(guideId, step, chain)
-	local cs = GF.catchUpState
-	if not cs.entered then
-		cs.queued = { guideId, step, chain }
-		return
-	end
-	local passed = chain and #chain or 0
-	if not (F and F:IsShown() and ns.IsLoggedIn()) or Anim.Reduced() then return end
-	-- A single step passed is no catch-up (the player's own first step).
-	if not step or (step <= 2 and passed == 0) then return end
-	local Count = nav.Steps.Count
-	-- CATCH_UP(true|false): the arrow shows an hourglass meanwhile (Nav/Arrow.lua).
-	ns.Fire("CATCH_UP", true)
-	local function roll()
-		GF.catchingUp = "steps"
-		local shown
-		Count.psOnValue = function(_, v)
-			local i = max(1, min(step - 1, floor(v)))
-			-- A step hidden from the character (#942) is not shown on the way.
-			if i ~= shown and not UI.StepHidden(i) then
-				shown = i
-				GF.catchUpIndex = i
-				GF.Render()
+		-- The tabs changed (a step moved on, a tab opened or closed): their titles
+		-- and progress are redrawn. The window is laid out again only when the
+		-- strip itself comes or goes; a step change already laid it out (Render).
+		ns.On("TABS_CHANGED", whenReady(function()
+			local has = GF.TabsOf(Engine()) ~= nil
+			if has ~= strip.psHasTabs then
+				strip.psHasTabs = has
+				GF.Layout()
+			elseif GF.StripShown() then
+				GF.RenderTabs()
 			end
-		end
-		-- Slow at first, then faster: about 0.06 s a step, 2.5 s at most.
-		local dur = min(2.5, 0.5 + 0.06 * (step - 1))
-		Anim.To(Count, "value", 1, step - 0.001, dur, "in", catchUpDone)
+		end))
+
+		ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
+			local cs = GF.catchUpState
+			if cs.entered then return end
+			cs.entered = true
+			local q = cs.queued
+			cs.queued = nil
+			if q and F then GF.PlayCatchUp(q[1], q[2], q[3]) end
+		end)
+		ns.On("GUIDE_PLACED", function(guideId, step, chain)
+			if F then GF.PlayCatchUp(guideId, step, chain) end
+		end)
+
+		ns.RegisterEvent("PLAYER_CONTROL_LOST", function() GF.TaxiChanged() end)
+		ns.RegisterEvent("PLAYER_CONTROL_GAINED", function() GF.TaxiChanged() end)
 	end
-	if passed == 0 then return roll() end
-	-- The guides passed whole, each shown done.
-	GF.catchingUp = "guides"
-	local titles = {}
-	for i, id in ipairs(chain) do
-		local g = ns.Guides.Get(id)
-		titles[i] = { g and (g.title or g.id) or id, g and #g.steps or 0 }
+	-- A copy builds its window once every part is in (GF.Copy); the live
+	-- window, at init.
+	if not GF.live then GF.Build = build end
+
+	-- For the other GuideFrame*.lua files, which take these as their own locals
+	-- when they load (GF.Bind hands over the parts and sizes).
+	GF.Engine, GF.Derived, GF.Compact, GF.Transparent, GF.PlaceCheck = Engine, Derived, compact, transparent, placeCheck
+	GF.TwoLines, GF.MeasureRow, GF.UpcomingOpen = twoLines, measureRow, upcomingOpen
+	GF.ContentHeight, GF.FitGoals, GF.SizeWindow, GF.ResetModel = contentHeight, fitGoals, sizeWindow, resetModel
+	GF.AnchorSkip, GF.WhenReady = anchorSkip, whenReady
+	GF.area, GF.fit, GF.texts, GF.chrome = area, fit, texts, chrome
+	function GF.ReadMetrics()
+		readMetrics()
+		handOver()
 	end
-	Count.psOnValue = function(o, v)
-		local t = titles[min(passed, floor(v) + 1)]
-		nav.Title:SetText(t[1])
-		o:SetText(string.format("%d / %d", t[2], t[2]))
-	end
-	Anim.To(Count, "value", 0, passed - 0.001, min(1.2, CATCH_GUIDE * passed), "linear", function()
-		if step > 1 then return roll() end
-		catchUpDone()
-	end)
-end
-
-ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
-	local cs = GF.catchUpState
-	if cs.entered then return end
-	cs.entered = true
-	local q = cs.queued
-	cs.queued = nil
-	if q and F then GF.PlayCatchUp(q[1], q[2], q[3]) end
+	-- What the window shows: the step view on screen, the window's state
+	-- ("steps", "noguide", ...) and whether the step's tip is opened.
+	function GF.View() return view end
+	function GF.State() return state end
+	function GF.TipOpen() return tipOpen end
+	function GF.SetTipOpen(open) tipOpen = open end
 end)
-
-ns.On("GUIDE_PLACED", function(guideId, step, chain)
-	if F then GF.PlayCatchUp(guideId, step, chain) end
-end)
-
--- GUIDE_OUTLEVELED(guideId, suggestedId): the player has outgrown the guide
--- in the active tab; offer the suggested one until dismissed or taken.
-ns.On("GUIDE_OUTLEVELED", function(guideId, suggestedId)
-	if not F then return end
-	local G = ns.Guides
-	local target = suggestedId and G and G.Get and G.Get(suggestedId)
-	if not target then return end
-	notices.outlevel = { guideId = guideId, to = suggestedId, title = target.title or suggestedId }
-	if ns.IsLoggedIn() then GF.Layout() end
-end)
-
--- GUIDE_CONTINUED(fromId, toId): with "Continue automatically" a finished
--- leveling guide handed off by itself. Said in the banner for
--- SKIPPED_SECONDS, in chat while the window is hidden.
-ns.On("GUIDE_CONTINUED", function(fromId, toId)
-	local G = ns.Guides
-	local from, to = G and G.Get and G.Get(fromId), G and G.Get and G.Get(toId)
-	if not (from and to) then return end
-	local n = { to = toId, fromTitle = from.title or fromId, toTitle = to.title or toId }
-	if not (F and F:IsShown()) then
-		ns.Print(string.format(L["%s complete \226\128\148 continuing with %s"], n.fromTitle, n.toTitle))
-	end
-	if not F then return end
-	notices.continued = n
-	if ns.IsLoggedIn() then GF.Layout() end
-	ns.After(SKIPPED_SECONDS, function()
-		if notices.continued ~= n then return end
-		notices.continued = nil
-		if F:IsShown() and ns.IsLoggedIn() then GF.Layout() end
-	end)
-end)
-
--- TRAIN_DUE(level, trainer): new class skills are waiting. A later level's
--- reminder replaces an older one.
-ns.On("TRAIN_DUE", function(level, trainer)
-	if not F then return end
-	notices.train = { level = level, trainer = type(trainer) == "table" and trainer or nil }
-	if ns.IsLoggedIn() then GF.Layout() end
-end)
-
--- RIDING_DUE(notice): player can learn riding; show the banner until resolved.
-ns.On("RIDING_DUE", function(notice)
-	if not F then return end
-	notices.riding = notice
-	if ns.IsLoggedIn() then GF.Layout() end
-end)
-
--- CLASS_QUEST_READY(notice): a Class guide this character can start now;
--- offer it in a tab until taken or dismissed.
-ns.On("CLASS_QUEST_READY", function(notice)
-	if not F then return end
-	notices.classQuest = notice
-	if ns.IsLoggedIn() then GF.Layout() end
-end)
-
--- RIDING_MONEY: player's gold changed while a riding banner is pending; re-render
--- so the "Take me there" button appears/disappears based on affordability.
-ns.On("RIDING_MONEY", function()
-	if F and notices.riding and ns.IsLoggedIn() then GF.Layout() end
-end)
-
--- CLASS_TRAINED(level): the character visited their class trainer; the
--- reminder has done its job.
-ns.On("CLASS_TRAINED", function()
-	if not F or not notices.train then return end
-	notices.train = nil
-	if ns.IsLoggedIn() then GF.Layout() end
-end)
-
--- A trip to a nearby service began or ended: its banner shows or goes.
-ns.On("NEARBY_TRIP", function()
-	if F and ns.IsLoggedIn() then GF.Layout() end
-end)
-
--- The bags' free slots or their cheapest junk changed (QoL/Space.lua), or
--- the gear offer did (QoL/Wear.lua): their banners come, change or go.
-ns.On("BAG_SPACE", function()
-	if F and ns.IsLoggedIn() then GF.Layout() end
-end)
-ns.On("WEAR_OFFER", function()
-	if F and ns.IsLoggedIn() then GF.Layout() end
-end)
-
-ns.On("SETTING_CHANGED", function(path)
-	if not F then return end
-	local fn = APPLY[path]
-	if fn then
-		fn()
-	elseif path == "" or path == "ui" then
-		applyAll()
-	end
-end)
-
-ns.RegisterEvent("PLAYER_REGEN_DISABLED", function()
-	inCombat = true
-	W.HideMenu()
-	GF.ApplyVisibility()
-	GF.ApplyAlpha(true)
-end)
-
-ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
-	inCombat = false
-	GF.ApplyVisibility()
-	GF.ApplyAlpha(true)
-end)
-
--- Dungeons, raids, battlegrounds and arenas: not scenarios.
-local INSTANCE_KINDS = { party = true, raid = true, pvp = true, arena = true }
-local function instanceNow()
-	local C = ns.Compat
-	if not (C and C.IsInInstance) then return false end
-	local ok, inside, kind = pcall(C.IsInInstance)
-	return (ok and inside and INSTANCE_KINDS[kind]) and true or false
-end
-
--- How to bring the window back inside: the minimap button (when on), the
--- toggle's key binding (when bound, named as the client names it: "Ctrl-P"),
--- else /polestar (never with the gamepad interface, which has no slash
--- commands).
-function GF.HowToShow()
-	local button = ns.Get("maps.minimapButton")
-	local key = GetBindingKey and GetBindingKey("POLESTAR_TOGGLE")
-	if key == "" then key = nil end
-	local named = key and GetBindingText and GetBindingText(key)
-	if type(named) == "string" and named ~= "" then key = named end
-	if button and key then return L["Click the minimap button or press %s to show it."]:format(key) end
-	if button then return L["Click the minimap button to show it."] end
-	if ns.GamepadUI() then
-		if key then return L["Press %s to show it."]:format(key) end
-		return L["Turn on the minimap button or bind a key to show it."]
-	end
-	if key then return L["Press %s or type /polestar to show it."]:format(key) end
-	return L["Type /polestar to show it."]
-end
-
--- The first time on this account the window hides itself on the way in, a
--- notice at the top of the screen (Nav/Alerts.lua) says how to bring it
--- back for 12 seconds, and one chat line says where the setting is.
--- Accounts told before by the chat line alone (instanceHideTold) see the
--- notice once too. (This chunk is at Lua 5.1's 200 locals: no new ones.)
-local function hintHiddenOnce()
-	local db = ns.DB()
-	if db.instanceHint then return end
-	db.instanceHint = true
-	db.instanceHideTold = nil
-	local howTo = GF.HowToShow()
-	local alerts = ns.Nav and ns.Nav.alerts
-	if alerts and alerts.ShowNotice then alerts.ShowNotice(L["Polestar is hidden here"], howTo, 12) end
-	ns.Print(L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."]:format(howTo))
-end
-
--- The notice goes as soon as the window is back.
-ns.On("GUIDE_SHOWN", function(shown)
-	local alerts = ns.Nav and ns.Nav.alerts
-	if shown and alerts and alerts.HideNotice then alerts.HideNotice() end
-end)
-
--- Every way in or out passes a loading screen, a /reload included. Going in
--- or out ends a visit, so the next one starts hidden again.
-local function checkInstance()
-	local now = instanceNow()
-	local entered = now and not inInstance
-	if now ~= inInstance then
-		openInside = false
-		shownOnEntry = ns.Get("ui.shown") and true or false
-	end
-	inInstance = now
-	GF.ApplyVisibility()
-	if entered and hiddenInside() and ns.Get("ui.shown") then hintHiddenOnce() end
-end
-ns.RegisterEvent("PLAYER_ENTERING_WORLD", checkInstance)
-ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)

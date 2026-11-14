@@ -116,11 +116,12 @@ The data builders, one at a time (forge build's data stage runs the ones it need
   check-corrections  check an edit of forever-db/corrections, mechanics-public.json or route-fixes.json
                 [--root --data --corrections --mechanics --route-fixes --json]
   trainers      trainers.json and Core/ClassTrainers.lua  [--data --guides --recordings --out --lua]
+  classspells   QoL/ClassSpells.lua: each class's trainer spells per level  [--sources --forever-build --lua]
   dungeons      dungeons.json from the installed dungeon journal addon  [--source --data --out]
   travel        travel.json, TravelData.lua, FlightPaths.lua  [--root --data --recordings --sources --grid <dir>|none
                 --crossings --build --forever-build --json --lua --flight-lua --travel-addon]
   codex         data/forever/codex and the Polestar_Codex pack  [--root --data --sources --addons --build --out --pack
-                --local-extras --recordings <dir> (rewrites data/codex/recorded.json first)]
+                --local-extras --recordings <dir> (rewrites data/codex/recorded.json first) --verdicts <verdict.json>]
   gear          Forever.lua, SpecData.lua and gear/report.json  [--root --addons --wowsims --built-at]
   professions   professions.json  [--root --data --sources --build --out]
   sim-inputs    the sources the simulator's world reads (Map, AreaTable, QuestXP, object facts...)  --out <dir>
@@ -142,7 +143,9 @@ describes it (TOC, Pack.lua, MapFrames.lua, Guides.lua, LICENSE-DATA.txt, and LI
 lint: every compile check without writing anything; with a cached simulator world also the solo policy.
 The pack is the one in <dir> (or --pack), else the nearest folder holding a pack.json (this one or a
 parent), else our guides/. Another pack is checked with our guides as context and written to
-<pack>/dist/<folder>/; ours to <checkout>/addon/<folder>/. Nothing is written when there are errors (unless
+<pack>/dist/<folder>/; ours to <checkout>/addon/<folder>/, and so is Polestar's own experimental pack
+(experimental/, checked with our guides as context, into addon/Polestar_Experimental/: load on demand,
+docs/PACK_FORMAT.md \"Polestar's own extra packs\"). Nothing is written when there are errors (unless
 --force), nor without reference data: the command then stops with one error, unless --no-data.
 
 options (compile and lint):

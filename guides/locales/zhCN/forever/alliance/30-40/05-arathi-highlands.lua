@@ -14,7 +14,7 @@ return {
 
 	-- Step 3: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
-	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "",
+	["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him.\n{npc:217412} may not be here on Forever: if {npc:217412} doesn't offer {quest:93176}, skip it."] = "{npc:5476}守在沼泽西侧的道路交汇处，{npc:217412}就在他北侧不远处。\n在无限版本中，{npc:217412}可能不在这里：如果{npc:217412}不提供{quest:93176}，就跳过。",
 	-- {npc:217412} Amaryllis Webb · {zone:1443} Desolace
 	["{npc:217412}: three critters to catch in Arathi, {zone:1443} and Stranglethorn"] = "{npc:217412}：在阿拉希、{zone:1443}和荆棘谷各捕捉一只小动物",
 
@@ -28,8 +28,10 @@ return {
 	["Follow the road north to the draenei of the {area:657}."] = "沿道路向北前往{area:657}的德莱尼人处。",
 
 	-- Step 7: Fallow Sanctuary
-	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One
-	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "沿道路向东前往{area:76}。{npc:256028}怪物掉落水晶；木棒诺博鲁在废墟中游走，会掉落他的木棒。",
+	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One · {quest:1392} Noboru the Cudgel · {npc:1776} Magtoor
+	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "沿道路向东前往{area:76}。{npc:256028}怪物掉落水晶。{quest:1392}会沿一条很长的路线穿过废墟游走：如果遇到他，就杀了他，他的木棒可以开始一个交给{npc:1776}的任务。不要专门等他。",
+	-- {quest:1392} Noboru the Cudgel
+	["from {quest:1392}: he walks a path through the ruins"] = "来自{quest:1392}：他沿一条路线穿过废墟游走",
 
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
@@ -42,13 +44,13 @@ return {
 
 	-- Step 10: The Harborage
 	-- {npc:5391} Galen Goodward · {area:657} The Harborage
-	["West along the road from {npc:5391}'s strongbox to the {area:657}."] = "",
+	["West along the road from {npc:5391}'s strongbox to the {area:657}."] = "从{npc:5391}的保险箱处沿道路向西，前往{area:657}。",
 	-- {npc:1776} Magtoor
-	["{npc:1776}: Noboru's cudgel"] = "",
+	["{npc:1776}: Noboru's cudgel"] = "{npc:1776}：诺博鲁的木棒",
 
 	-- Step 11: Watcher Biggs
 	-- {npc:5476} Watcher Biggs
-	["South down the road to {npc:5476}, on the way west out of the swamp."] = "",
+	["South down the road to {npc:5476}, on the way west out of the swamp."] = "沿路向南找{npc:5476}，他在向西离开沼泽的路上。",
 
 	-- Step 13: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -64,7 +66,7 @@ return {
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122}在{object:2101}{object:2164}的地下室等候。在那里的召唤法阵使用{item:6913}，击败召来的魅魔。如果你接了{quest:65602}，也把{item:190309}交给他，放在同一个法阵上，然后击败梦魇。",
 	-- {npc:5677} Summoned Succubus
-	["{npc:5677}, at the summoning circle"] = "",
+	["{npc:5677}, at the summoning circle"] = "{npc:5677}，在召唤法阵旁",
 	-- {quest:65602} What Is Love?
 	["{quest:65602}, if you took it"] = "{quest:65602}，如果你接了",
 	-- {npc:185335} Summoned Incubus
@@ -91,8 +93,10 @@ return {
 	["{zone:1455} flight master"] = "{zone:1455}飞行管理员",
 
 	-- Step 22: Shadowy Assassin
-	-- {npc:2434} Shadowy Assassin · {area:271} Southshore
-	["A {npc:2434} lurks unseen on the edge of {area:271}; kill him and read the contract he carries."] = "一名{npc:2434}隐身潜伏在{area:271}边缘；杀死他并阅读他携带的合同。",
+	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
+	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "一名{npc:2434}隐身潜伏在{area:271}边缘，很少有玩家能找到他。如果发现他，杀死他并阅读他携带的合同：{npc:2276}会收下它。不要专门等他：这一步的其余部分不需要他。",
+	-- {npc:2434} Shadowy Assassin
+	["{npc:2434}, if you spot him"] = "{npc:2434}，如果你发现他",
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "{npc:2276}：在屋内",
 
@@ -104,12 +108,12 @@ return {
 
 	-- Step 26: Northfold Manor
 	-- {area:320} Refuge Pointe
-	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
+	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "辛迪加占据{area:320}西北侧的农场。\n注意：辛迪加路霸为30-31级，非战斗状态下会使用潜行，因此经常隐身，很难发现。",
 
 	-- Step 27: Hay Weevil
-	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 28: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -119,8 +123,9 @@ return {
 	-- Step 29: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
 	["{area:318}: kill these as you meet them"] = "{area:318}：沿途击杀以下目标",
-	-- {area:321} Hammerfall
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "枯须狗头人在部落城镇{area:321}以东峡谷采掘，从城镇北侧绕过。它们会掉落微粒和克拉兹克所需的矿石。\n注意：各种狗头人低血量时都会逃跑求援：普通狗头人于 30%，勘测员和掘地工于 15% 生命值逃跑，可能引来更多敌人。",
+	-- {area:321} Hammerfall · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "枯须狗头人在部落城镇{area:321}以东的峡谷里采掘，从城镇北侧绕过去。它们掉落密斯莱尔之尘，不掉克拉兹克要的矿石。次级血石矿脉需要{skill:186} 75：开采四块矿石、在拍卖行购买，或请会采矿的朋友帮忙。矿石目标是可选的；拿不到就继续做密斯莱尔的任务。小心：每种狗头人在低血量时都会逃跑求援（枯须狗头人30%，勘探员和掘地工15%），可能引来更多敌人。",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "从这一站附近的{npc:2572}、{npc:2573}和{npc:2574}身上获取{item:4435}",
 
@@ -164,9 +169,9 @@ return {
 
 	-- Step 39: Refuge Pointe
 	-- {area:320} Refuge Pointe · {object:2689} Stone of West Binding
-	["West along the road to {area:320}, on the way to the {object:2689}."] = "",
+	["West along the road to {area:320}, on the way to the {object:2689}."] = "沿道路向西前往{area:320}，再继续去{object:2689}。",
 	-- {npc:2789} Skuerto · {npc:2793} Kor'gresh Coldrage · {area:327} Faldir's Cove
-	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "",
+	["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}：{npc:2793}的洞穴安排在{area:327}之后",
 
 	-- Step 41: Faldir's Cove
 	["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "沿西海岸向南，前往地精的海湾；哨兵鲁鲁在海湾上方的岩石上放哨。",
@@ -200,13 +205,13 @@ return {
 
 	-- Step 46: Kor'gresh Coldrage
 	-- {area:327} Faldir's Cove · {npc:2793} Kor'gresh Coldrage
-	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "",
+	["East from {area:327} through the southern hills: {npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "从{area:327}穿过南边的丘陵向东走：食人魔法师{npc:2793}占据着枯木巨魔山谷南端的洞穴。",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "{item:4525}：在地下",
 
 	-- Step 47: Foggy MacKreel
 	-- {npc:2793} Kor'gresh Coldrage · {area:880} Thandol Span · {npc:2696} Foggy MacKreel · {quest:647} MacKreel's Moonshine · {npc:2705} Brewmeister Bilger · {area:271} Southshore · {area:320} Refuge Pointe
-	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "",
+	["South-west from {npc:2793}'s cave to the {area:880}: {npc:2696} stands on a broken section of the bridge; jump down to him from its north end. {quest:647} must reach {npc:2705} in {area:271} within 15 minutes: go straight back to {area:320} and fly to {area:271}."] = "从{npc:2793}的洞穴向西南前往{area:880}：{npc:2696}站在断裂的桥段上，从北端跳下去找他。{quest:647}必须在15分钟内交给{area:271}的{npc:2705}：直接返回{area:320}，飞往{area:271}。",
 
 	-- Step 49: Fly to Southshore
 	-- {area:320} Refuge Pointe
@@ -214,7 +219,7 @@ return {
 
 	-- Step 50: Brewmeister Bilger
 	-- {area:271} Southshore
-	["Off the flight, straight to the {area:271} inn."] = "",
+	["Off the flight, straight to the {area:271} inn."] = "落地后直接前往{area:271}的旅店。",
 	-- {npc:2705} Brewmeister Bilger
 	["{npc:2705}, below ground"] = "{npc:2705}，在地下",
 
@@ -227,7 +232,7 @@ return {
 	["{area:281}: kill these as you meet them"] = "{area:281}：沿途击杀以下目标",
 	-- {area:280} Strahnbrad
 	-- plural, as words: Argus Shadow Mages = {npc:2318} Argus Shadow Mage · Crushridge Warmongers = {npc:2287} Crushridge Warmonger · Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "",
+	["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and carry the tomes too: pull one at a time, or group up."] = "书籍位于{area:280}以西的城堡废墟内，由暗影大法师占据。\n注意：破碎岭好战者生命值低于一半时，会召唤15码内的盟友支援。\n破碎岭虐待者、破碎岭法师、破碎岭执行者和破碎岭好战者（36-39级）是精英；破碎岭食人魔和破碎岭蛮兵（34-35级）不是精英，也携带这些书籍：逐个拉怪，或组队。",
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}：破碎岭食人魔",
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
@@ -247,7 +252,7 @@ return {
 	["Crushridge ogres"] = "破碎岭食人魔",
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	-- plural, as words: Crushridge Maulers = {npc:2254} Crushridge Mauler · Crushridge Ogres = {npc:2252} Crushridge Ogre
-	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "",
+	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it.\nThe Crushridge Maulers, Mages, Enforcers and Warmongers (36-39) are elite; the Crushridge Ogres and Brutes (34-35) are not and drop the knucklebones too: pull one at a time, or group up."] = "破碎岭食人魔占据着{area:280}以北的山丘。再往北，一个破旧的木箱里装着{item:3706}；{quest:537}的{npc:2320}就站在旁边。\n破碎岭虐待者、破碎岭法师、破碎岭执行者和破碎岭好战者（36-39级）是精英；破碎岭食人魔和破碎岭蛮兵（34-35级）不是精英，也会掉落指骨：逐个拉怪，或组队。",
 	["Inside"] = "在里面",
 
 	-- Step 58: Dalaran
@@ -260,13 +265,13 @@ return {
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "交给{zone:1453}的{npc:1440}：保留它",
 	-- {npc:2277} Loremaster Dibbs
-	["{npc:2277}: the parchment"] = "",
+	["{npc:2277}: the parchment"] = "{npc:2277}：羊皮纸",
 
 	-- Step 61: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance · {item:2321} Fine Thread
-	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "",
+	["{npc:2438} stands between the flight master and the inn; {npc:2381} beside him sells {item:2321} if you have none."] = "{npc:2438}站在飞行管理员与旅店之间；如果没有{item:2321}，可向他身旁的{npc:2381}购买。",
 	-- {item:2321} Fine Thread · {npc:2381} Micha Yance
-	["{item:2321}, from {npc:2381}"] = "",
+	["{item:2321}, from {npc:2381}"] = "{item:2321}，向{npc:2381}购买",
 
 	-- Step 64: Ironforge
 	-- {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {npc:1344} Prospector Ironband · {zone:1432} Loch Modan
@@ -274,7 +279,7 @@ return {
 
 	-- Step 65: To Thelsamar
 	-- {area:144} Thelsamar
-	["To {area:144}"] = "",
+	["To {area:144}"] = "前往{area:144}",
 
 	-- Step 66: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
@@ -286,7 +291,9 @@ return {
 	["South-east along the loch to the dig site."] = "沿湖向东南前往挖掘场（铁环挖掘场）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:2434} lurks unseen on the edge of {area:271}; kill him and read the contract he carries."] = "一名{npc:2434}隐身潜伏在{area:271}边缘；杀死他并阅读他携带的合同。",
 	-- ["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}."] = "每把钥匙都在高地的一处石圈：碎片以东、{area:320}附近和西部。{object:2702}在{area:320}以西。",
+	-- ["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "沿道路向东前往{area:76}。{npc:256028}怪物掉落水晶；木棒诺博鲁在废墟中游走，会掉落他的木棒。",
 	-- ["East to the Witherbark trolls in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk."] = "向东前往{area:314}以南山丘中的枯木巨魔处；枯木巫医在村子里，枯木暗影猎手守在山谷尽头。这里的每个巨魔都可能掉落獠牙。",
 	-- ["Ebenezer Rustlocke"] = "伊贝尼瑟的尸体",
 	-- ["Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves."] = "护送教授到海湾北边的海滩，在他工作时保护他；纳迦会一波波来袭。",
@@ -295,6 +302,7 @@ return {
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "从{area:42}沿道路向东穿过{zone:1430}进入{zone:1435}；卫兵比格斯守在刚进入的岔路口。{npc:217412}站在他北边不远处。",
 	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "从{zone:1455}出发，穿过{zone:1426}向东的隧道进入{area:38}，沿道路前往{area:144}。",
 	-- ["Gyll, {area:35}"] = "盖尔，{area:35}",
+	-- ["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "干草象鼻虫在{quest:681}农场的北端爬行：用{npc:217412}的昆虫学入门工具包中的工具捕捉一只。",
 	-- ["Head back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "向东北返回，经过{area:320}；{npc:2712}和{npc:2713}在{area:314}北侧山丘扎营。",
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "从东边的石环向南返回；{npc:2712}和{npc:2713}在{area:314}北侧不远的山丘扎营。",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "向北经过{area:314}；碎片在{area:333}旁的山丘上闪闪发光。",
@@ -307,6 +315,7 @@ return {
 	-- ["Summon Succubus"] = "召唤魅魔",
 	-- ["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "破碎岭食人魔占据着{area:280}以北的山丘。再往北，一个破旧的木箱里装着{item:3706}；{quest:537}的{npc:2320}就站在旁边。",
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "枯须狗头人在{area:321}（部落）以东的峡谷里挖掘；从北边绕过镇子。它们会掉落微粒和克拉兹克要的矿石。",
+	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "枯须狗头人在部落城镇{area:321}以东峡谷采掘，从城镇北侧绕过。它们会掉落微粒和克拉兹克所需的矿石。\n注意：各种狗头人低血量时都会逃跑求援：普通狗头人于 30%，勘测员和掘地工于 15% 生命值逃跑，可能引来更多敌人。",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "辛迪加占据着{area:320}西北的农场。一只{npc:217589}在农场里爬来爬去：用{npc:217412}的昆虫学入门套装捕捉一只，然后勾掉此项。",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "辛迪加占据{area:320}西北侧农场。{npc:217589}在农场内爬行，用{npc:217412}的昆虫学入门工具包捕捉一只，再勾选完成。\n注意：辛迪加路霸为 30–31 级，非战斗状态下能施放潜行，常常很难发现。",
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "枯木巨魔住在{area:314}以南的山丘；枯木巫医在村子里，枯木暗影猎手守在山谷尽头。",

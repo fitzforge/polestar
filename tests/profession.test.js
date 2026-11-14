@@ -160,6 +160,17 @@ test('planner: a vendor recipe whose only seller has no faction is left out (Pex
 	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
 });
 
+test('planner: a faction-less vendor Classic knows serves both sides (Kania\'s Formula: Lesser Mana Oil in Cenarion Hold)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 1, 70, 90, 10, { source: 'vendor', recipeItem: 50, cost: 100 })]);
+	prof.materials[50] = { name: 'Formula: Oil', buy: 100, buyCount: 1, sell: 25, quality: 1, vendors: { Alliance: [9], Horde: [9] } };
+	// The data carries no side for a neutral town's NPC; pfQuest knows it, so it is a Classic one.
+	data.npcs = { 9: { id: 9, name: 'Kania', faction: null, source: ['pfquest', 'questie-forever'] } };
+	assert.ok(!planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2));
+	// A Forever-new NPC with no side still counts for neither (Pexmit).
+	data.npcs[9].source = ['questie-forever'];
+	assert.ok(planProfession(prof, data, { to: 75 }).excluded.some((e) => e.spell === 2 && /one faction only/.test(e.why)));
+});
+
 test('planner and draft: a quest-reward plan is usable from the quest\'s skill and costs its hand-in (Derotain\'s Imperial Plate plans)', () => {
 	const { prof, data } = smallProfession([rec(1, 1, 40, 60, 10), rec(2, 30, 70, 90, 10, { source: 'item', recipeItem: 77 })]);
 	prof.materials[77] = { name: 'Plans: Boots', sell: 1, buy: 4, quality: 2, bop: true };
@@ -224,11 +235,17 @@ test('materials: a smelted bar is worth at least what goes into it (Steel Bar: a
 
 test('materials: disenchanted, fished, cloth and other professions\' goods are valued above their sell price', () => {
 	const ctx = { professions: { 171: { name: 'Alchemy', recipes: [{ spell: 3171, name: 'Elixir of Wisdom', reagents: [] }] } }, npcs: {}, objects: {}, zones: {}, self: 197 };
-	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', ctx).cost, 800);
-	// Strange Dust sold at 8s stays a disenchanting material (worth 5s); a cheaper vendor wins.
-	const dust = (buy) => sourceOf(1, { name: 'Strange Dust', sell: 1, buy, quality: 1, vendors: { Alliance: [7] } }, 'Alliance', ctx);
+	const enchanter = { ...ctx, self: 333 };
+	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', enchanter).cost, 800);
+	// Strange Dust sold at 8s stays a disenchanting material to an enchanter (worth 5s); a cheaper vendor wins.
+	const dust = (buy, c = enchanter) => sourceOf(1, { name: 'Strange Dust', sell: 1, buy, quality: 1, vendors: { Alliance: [7] } }, 'Alliance', c);
 	assert.deepEqual([dust(800).kind, dust(800).cost], ['disenchant', 500]);
 	assert.deepEqual([dust(100).kind, dust(100).cost], ['vendor', 100]);
+	// To any other profession they are an enchanter's goods (a friend or the Auction House), six times
+	// that: the 8s vendor wins, and a leatherworker's 2 Soul Dust a craft lose to plain leather.
+	assert.equal(sourceOf(1, { name: 'Lesser Magic Essence', sell: 0, buy: 0, quality: 1 }, 'Alliance', ctx).cost, 800 * 6);
+	assert.deepEqual([dust(800, ctx).kind, dust(800, ctx).cost], ['vendor', 800]);
+	assert.deepEqual([dust(4000, ctx).kind, dust(4000, ctx).cost], ['disenchant', 500 * 6]);
 	assert.equal(sourceOf(1, { name: 'Raw Fish', sell: 1, quality: 1, gather: { fishing: [1] } }, 'Alliance', ctx).cost, 400);
 	assert.ok(Math.abs(sourceOf(1, { name: 'Wool Cloth', sell: 33, quality: 1, dropCount: 50, drops: [{ npc: 1, chance: 20 }] }, 'Alliance', ctx).cost - 100 * Math.sqrt(0.33) * 4 * 3) < 1e-9);
 	const elixir = sourceOf(1, { name: 'Elixir of Wisdom', sell: 25, quality: 1, madeBy: [{ skillLine: 171, spell: 3171 }] }, 'Alliance', ctx);
@@ -373,6 +390,24 @@ test('draft: a learn pinned to a later rank\'s trainers keeps its own trip after
 	assert.match(text, /\n {2}learn 3 npc 7 only Alliance\n {2}learn 3 npc 8 only Horde\n/);
 });
 
+test('draft: a pinned trainer the data spawns at one spot on two maps is pinned to the map the tip names (Drakk Stonehand, also on Hillsbrad\'s corner)', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 140, 170, 10), rec(2, 160, 190, 200, 10), rec(3, 195, 220, 240, 10)]);
+	const at = (map, x) => ({ [map]: { f: 'e', pts: [[x, 50]] } });
+	data.npcs = { 3: { id: 3, name: 'Jay', faction: 'A', spawns: at(1453, 40) }, 4: { id: 4, name: 'Kay', faction: 'H', spawns: at(1454, 40) }, 5: { id: 5, name: 'Telonis', faction: 'A', spawns: at(1457, 40) }, 6: { id: 6, name: 'Una', faction: 'H', spawns: at(1456, 40) }, 8: { id: 8, name: 'Hahrana', faction: 'H', spawns: at(1444, 40) } };
+	// Aerie Peak, and the same spot on Hillsbrad Foothills' map, whose lower map id the compiler would take.
+	data.npcs[7] = { id: 7, name: 'Drakk', faction: 'A', spawns: { 1424: { f: 'e', pts: [[98.7, 2.3]] }, 1425: { f: 'e', pts: [[13.4, 43.5]] } } };
+	data.zones = { 1453: { name: 'Stormwind City' }, 1454: { name: 'Orgrimmar' }, 1457: { name: 'Darnassus' }, 1456: { name: 'Thunder Bluff' }, 1424: { name: 'Hillsbrad Foothills' }, 1425: { name: 'The Hinterlands' }, 1444: { name: 'Feralas' } };
+	prof.ranks = [
+		{ name: 'Apprentice', max: 75, minSkill: 0, minLevel: 1, trainers: { Alliance: [3, 5, 7], Horde: [4, 6, 8] } },
+		{ name: 'Journeyman', max: 150, minSkill: 50, minLevel: 10, trainers: { Alliance: [3, 5, 7], Horde: [4, 6, 8] } },
+		{ name: 'Expert', max: 225, minSkill: 125, minLevel: 20, trainers: { Alliance: [5, 7], Horde: [6, 8] } },
+		{ name: 'Artisan', max: 300, minSkill: 200, minLevel: 35, trainers: { Alliance: [7], Horde: [8] } },
+	];
+	const { text } = draftGuide('Tailoring', data, { to: 225, spec: { taughtBy: { 3: 'Artisan' } } });
+	assert.match(text, /R3 \(from 195\) is taught only by the Artisan trainers: Alliance Drakk \(The Hinterlands\); Horde Hahrana \(Feralas\)\./);
+	assert.match(text, /\n {2}learn 3 npc 7 only Alliance map 1425\n {2}learn 3 npc 8 only Horde\n/);
+});
+
 test('planner: a recipe held back to a skill neither levels nor makes an intermediate before it (Tailoring\'s Runecloth to Artisan)', () => {
 	// R2 makes item 902, R3 takes it; both wait for 50.
 	const R3 = rec(3, 1, 70, 90, 902);
@@ -509,6 +544,27 @@ test('farm spots weigh the zone side, not where service NPCs happen to be listed
 	assert.equal(farmSpot(2452, 'herb', 'Alliance', 1, data).map, 1439);
 });
 
+test('farm spots skip a mob\'s spawns seen over a zone border: Sand Skitterers on Un\'Goro Crater\'s edge are Silithus\' (#246)', () => {
+	const pts = (n, x, y) => Array.from({ length: n }, (_, i) => [x + (i % 5), y + Math.floor(i / 5)]);
+	// Un'Goro Crater's map starts 100 yards before Silithus' ends: a spot in that strip is on both maps.
+	const frames = { 1451: { c: 1, left: 0, right: 1000, top: 0, bottom: 1000 }, 1449: { c: 1, left: 900, right: 1900, top: 0, bottom: 1000 } };
+	const border = pts(25, 93, 40);
+	const npc = (spawns) => ({ 1: { id: 1, name: 'Sand Skitterer', level: 55, levelMax: 56, faction: null, spawns } });
+	const data = {
+		items: { 14227: { id: 14227, name: 'Ironweb Spider Silk', drops: { npc: { 1: 12 }, object: {} } } },
+		npcs: npc({ 1451: { f: 'e', pts: [...pts(10, 40, 40), ...border] }, 1449: { f: 'e', pts: border.map(([x, y]) => [x - 90, y]) } }),
+		objects: {},
+		zones: { 1449: { name: "Un'Goro Crater", type: 3 }, 1451: { name: 'Silithus', type: 3 } },
+		mapFrames: { era: frames },
+	};
+	const spot = farmSpot(14227, 'drop', 'Horde', 1, data);
+	assert.equal(spot.map, 1451, 'the border strip seen from Un\'Goro Crater, the lower-level zone, is no spot of its own');
+	assert.equal(spot.label, 'Sand Skitterer');
+	// Spawns of Un'Goro's own (not a copy of Silithus' spots) still count there.
+	data.npcs = npc({ 1451: { f: 'e', pts: [...pts(10, 40, 40), ...border] }, 1449: { f: 'e', pts: pts(25, 50, 40) } });
+	assert.equal(farmSpot(14227, 'drop', 'Horde', 1, data).map, 1449);
+});
+
 test('vein and herb spots count the nodes a zone keeps up at once, from the lowest-skill node, and the tip names the marked zone', () => {
 	const pts = (n, x) => Array.from({ length: n }, (_, i) => [x + (i % 5), 40 + Math.floor(i / 5)]);
 	const spawns = (...maps) => Object.fromEntries(maps.map((m, i) => [m, { f: 'e', pts: pts(20, 10 + 10 * i) }]));
@@ -554,6 +610,18 @@ test('an NPC listed on two maps stands on its interior map; a capital beats its 
 	const ainethil = { spawns: { 1438: { f: 'e', pts: [[28.6, 51.9]] }, 1457: { f: 'e', pts: [[54.9, 24]] } } };
 	assert.equal(homeMap(ainethil), 1457);
 	assert.equal(homeMap({ spawns: {} }), null);
+});
+
+test('draft: cloth is counted in the bags, from humanoids as you level or the Auction House, never a farm trip', () => {
+	const { prof, data } = smallProfession([rec(1, 1, 70, 90, 2589)]);
+	prof.materials[2589] = { name: 'Linen Cloth', buy: 55, buyCount: 1, sell: 13, quality: 1, dropCount: 40, drops: [{ npc: 3, chance: 30 }] };
+	data.npcs = { 3: { id: 3, name: 'Defias Thug', level: 9, faction: null, spawns: { 1429: { f: 'e', pts: [[50, 40]] } } } };
+	data.zones = { 1429: { name: 'Elwynn Forest', type: 3 } };
+	data.mapFrames = { era: { 1429: { c: 0 } } };
+	data.items = {};
+	const { text } = draftGuide('Tailoring', { ...data, farmable: () => ({ Alliance: 9, Horde: 9 }) }, { to: 75, spec: {} });
+	assert.match(text, /\n {2}tip \d+ Linen Cloth for [^\n]*: humanoids of level 5-20 drop it\. Keep what you loot as you level, take it from your bank, or buy it at the Auction House\.\n {2}collect 2589 x\d+ anywhere\n/);
+	assert.doesNotMatch(text, /collect 2589 x\d+ (nearest|@)/);
 });
 
 test('draft: mob drops the compiler can place become one `collect … nearest` step', async () => {

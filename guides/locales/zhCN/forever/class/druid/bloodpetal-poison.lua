@@ -28,11 +28,11 @@ return {
 	-- Step 5: Toxic Test
 	-- {npc:6498} Devilsaur · {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
 	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur · Devilsaurs = {npc:6498} Devilsaur
-	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
+	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任意{npc:6498}都算，铁皮魔暴龙和霸王魔暴龙也可以。它们是54-55级精英，会使用{spell:14099}，跑得比旅行形态更快。建议组队，但德鲁伊也能单独完成：远距离用休眠或{spell:339}控制它，再用{item:22432}刺中它（倒钩不会打破{spell:2637}），然后离开。倒钩命中的瞬间就会计入进度，之后即使死亡也不影响。箭头指向西部和北部的普通魔暴龙；另有一只{npc:6499}在环形山南部中段游荡，离{npc:9619}更近。",
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
 	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺它",
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["Stab a {npc:6498} with the {item:22432}"] = "",
+	["Stab a {npc:6498} with the {item:22432}"] = "用{item:22432}刺中一只{npc:6498}",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple

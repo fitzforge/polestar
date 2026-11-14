@@ -8,8 +8,11 @@
 -- Before the offer, the heads-up (ClassQuests.Heads, from the compiled
 -- guide): how long the chain is, escorts, and its objectives' mobs. A chain
 -- whose objectives are elites is offered only from 2 levels below the
--- highest of them (the elites' `group.lvl`); any other chain as soon as it
--- opens.
+-- highest of them (the elites' `group.lvl`). Every chain waits for one level
+-- below its first quest's level (Fitz, 2026-11-10): the game often offers a
+-- class quest 3-5 levels before its level (The Eye of Bhossca, level 35, at
+-- 30), and cards stacked up there. The guide still opens early from the
+-- guide list, as soon as Engine.StartGate allows.
 --
 -- Per-character state in CharState().flags.classOffered (guide id ->):
 --   true    offered and taken, or dismissed: never again
@@ -34,6 +37,8 @@ local max, tonumber, gmatch, match = math.max, tonumber, string.gmatch, string.m
 
 -- An elite chain is offered from this many levels below its highest elite.
 ClassQuests.ELITE_MARGIN = 2
+-- Any chain is offered from this many levels below its first quest's level.
+ClassQuests.QUEST_MARGIN = 1
 -- A chain this long (quests, or zones, or two continents) is called long.
 local LONG_QUESTS, LONG_ZONES = 5, 3
 -- Non-elite mobs this many levels above the chain's start are named.
@@ -85,8 +90,9 @@ end
 
 -- The chain's facts for this character (its steps and goals that apply,
 -- optional ones aside): { quests, zones, continents, escort, eliteMin,
--- eliteMax, mobMax }. eliteMin/eliteMax: its elite objectives' highest levels
--- (nil: none, or none known); mobMax: the highest objective mob level (0: none known).
+-- eliteMax, mobMax, firstLevel }. eliteMin/eliteMax: its elite objectives' highest levels
+-- (nil: none, or none known); mobMax: the highest objective mob level (0: none known);
+-- firstLevel: the level of its first quest (nil: not known).
 function ClassQuests.Heads(g, player)
 	local quests, maps, conts = {}, {}, {}
 	local h = { quests = 0, zones = 0, continents = 0, escort = false, mobMax = 0 }
@@ -98,6 +104,10 @@ function ClassQuests.Heads(g, player)
 					if goal.t == "accept" and goal.quest and not quests[goal.quest] then
 						quests[goal.quest] = true
 						h.quests = h.quests + 1
+						if h.quests == 1 then
+							local Lv = ns.Levels
+							h.firstLevel = tonumber(goal.qlvl) or (Lv and Lv.QuestLevel and Lv.QuestLevel(goal.quest, g)) or nil
+						end
 					end
 					local m = tonumber(goal.map)
 					if m and not maps[m] then
@@ -152,8 +162,10 @@ function ClassQuests.HeadsLine(h, g)
 	return table.concat(parts, " \194\183 ")
 end
 
--- Whether an elite chain is still too hard to offer at this level.
+-- Whether an elite chain is still too hard to offer at this level, or the
+-- chain's first quest more than one level above it.
 local function tooHard(h, level)
+	if h.firstLevel and level < h.firstLevel - ClassQuests.QUEST_MARGIN then return true end
 	return h.eliteMax ~= nil and level < h.eliteMax - ClassQuests.ELITE_MARGIN
 end
 

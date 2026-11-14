@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "",
+	["Starts now at 20 at your trainer; four armor pieces at 30 (hauberk, helm, gauntlets, legguards), a shield on the way."] = "现在20级即可从训练师处开始；30级获得四件护甲（胸甲、头盔、护手、腿甲），途中还会获得一面盾牌。",
 
 	-- Step 1: Speak with Ruga (Orgrimmar)
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo
@@ -36,30 +36,30 @@ return {
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill · {quest:1838} Brutal Armor · {item:7587} Thun'grim's Instructions
 	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads: climb the broad ridge on the north or east side. {quest:1838} is a level 30 quest; take it now and gather on the way. {item:7587} list where each material comes from."] = "{npc:5878}的小屋在十字路口东边的{area:1699}顶部：从北侧或东侧宽阔的山脊爬上去。{quest:1838}是30级任务；现在先接取，沿途收集。{item:7587}列出了各项材料的来源。",
 
-	-- Step 7: Roogug in Razorfen Kraul
-	-- {area:1717} Razorfen Kraul
-	["Roogug in {area:1717}"] = "{area:1717}中的鲁古格",
-	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
-	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "鲁古格是 {area:1717} 内的一名精英野猪人（28 级），该地下城位于 {zone:1413} 最南端；这是五人地下城，需要五人小队，他的守卫会一起进入战斗。进去后第一个岔路走左边，跨过猪圈上方的藤桥，经过有大锅的房间：他在右侧房间里等着。他会施放 {spell:403}，并召唤地行者。药瓶必定掉落。",
-	-- {item:6841} Vial of Phlogiston
-	["{item:6841}, from Roogug"] = "{item:6841}，来自鲁古格",
-
-	-- Step 8: Windshear Mine
+	-- Step 7: Windshear Mine
 	-- {area:2160} Windshear Mine · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {spell:116} Frostbolt
 	-- plural, as words: Smoky Iron Ingots = {item:7126} Smoky Iron Ingot
 	["You need 15 Smoky Iron Ingots. The {area:2160} lies at the east end of {area:461}, east of {area:460}; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast {spell:116}."] = "需要15块烟雾铁锭。{area:2160} 位于 {area:461} 东端、{area:460} 以东；所有风剪狗头人（19—23级）都有约五分之四的概率掉落一块锭。切石者、地卜师和监工生命值低时会逃跑求援；地卜师会施放 {spell:116}。",
 	-- {item:7126} Smoky Iron Ingot
 	["{item:7126}, from the Windshear kobolds"] = "{item:7126}，由风剪狗头人掉落",
 
-	-- Step 9: Hillsbrad Miners
+	-- Step 8: Hillsbrad Miners
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["Hillsbrad Miners"] = "{npc:2269}",
 	-- {item:7127} Powdered Azurite · {area:271} Southshore · {spell:71} Defensive Stance · {area:272} Tarren Mill
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
-	["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "你需要 10 个 {item:7127}。希尔斯布莱德矿工（26-27 级）在 {area:271} 西边山中的矿洞工作，碧蓝石掉率约为五分之四；它们以 {spell:71} 战斗，会破甲，并在生命值降到 30% 时逃跑求援。飞到 {area:272} 后向西南走。",
+	["You need 10 {item:7127}. The guide waits for level 25 first. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "你需要 10 个 {item:7127}。指南会先等到 25 级。希尔斯布莱德矿工（26-27 级）在 {area:271} 西边山中的矿洞工作，碧蓝石掉率约为五分之四；它们以 {spell:71} 战斗，会破甲，并在生命值降到 30% 时逃跑求援。飞到 {area:272} 后向西南走。",
 	-- {item:7127} Powdered Azurite
 	-- plural, as words: Hillsbrad Miners = {npc:2269} Hillsbrad Miner
 	["{item:7127}, from the Hillsbrad Miners"] = "{item:7127}，由希尔斯布莱德矿工掉落",
+
+	-- Step 9: Roogug in Razorfen Kraul
+	-- {area:1717} Razorfen Kraul
+	["Roogug in {area:1717}"] = "{area:1717}中的鲁古格",
+	-- {area:1717} Razorfen Kraul · {zone:1413} Barrens · {spell:403} Lightning Bolt
+	["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. The guide waits for level 26 first. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "鲁古格是 {area:1717} 内的一名精英野猪人（28 级），该地下城位于 {zone:1413} 最南端；这是五人地下城，需要五人小队，他的守卫会一起进入战斗。指南会先等到 26 级。进去后第一个岔路走左边，跨过猪圈上方的藤桥，经过有大锅的房间：他在右侧房间里等着。他会施放 {spell:403}，并召唤地行者。药瓶必定掉落。",
+	-- {item:6841} Vial of Phlogiston
+	["{item:6841}, from Roogug"] = "{item:6841}，来自鲁古格",
 
 	-- Step 10: Iron Bars
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
@@ -109,6 +109,7 @@ return {
 	-- ["Fly to {area:378}. South of the camp the Silithid Mounds dot the {area:390}: the silithid there carry the Twitching Antennae."] = "飞往{area:378}。营地以南的{area:390}散布着异种蝎土丘：那里的异种蝎携带颤抖的触角。",
 	-- ["Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield on the way."] = "30级的四件护甲（锁甲、头盔、护手、护腿），途中还有一面盾牌。",
 	-- ["Miners smelt Iron Bars from {item:2772} ({skill:186} 125); everyone else buys them at the auction house in {zone:1454}."] = "矿工用{item:2772}熔炼铁锭（{skill:186} 125）；其他人在{zone:1454}的拍卖行购买。",
+	-- ["Roogug is an elite quilboar (level 28) inside {area:1717}, the dungeon at the south end of the {zone:1413}; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts {spell:403} and calls Earth Rumblers. The vial always drops."] = "鲁古格是 {area:1717} 内的一名精英野猪人（28 级），该地下城位于 {zone:1413} 最南端；这是五人地下城，需要五人小队，他的守卫会一起进入战斗。进去后第一个岔路走左边，跨过猪圈上方的藤桥，经过有大锅的房间：他在右侧房间里等着。他会施放 {spell:403}，并召唤地行者。药瓶必定掉落。",
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "鲁古格是{area:1717}中的精英野猪人，那是{zone:1413}南端的地下城；他掉落{item:6841}。{area:1717}是地下城：建议组队。",
 	-- ["Smoky Iron Ingots from the Windshear kobolds"] = "从风剪狗头人身上获得烟雾铁锭",
 	-- ["Sturdy Dragonmaw Shinbones"] = "{item:7134}",
@@ -122,6 +123,7 @@ return {
 	-- ["The {npc:6167} roams the south-west of Stonetalon near the Fledgling and Young Chimaeras; she drops the {item:6840}."] = "{npc:6167}在石爪山脉西南部的奇美拉雏兽和奇美拉幼崽附近游荡；她掉落{item:6840}。",
 	-- ["Twitching Antennae from the silithid"] = "从异种蝎身上获得颤抖的触角",
 	-- ["Uncloven {quest:1842}"] = "完整的{quest:1842}",
+	-- ["You need 10 {item:7127}. The Hillsbrad Miners (level 26-27) work the mine in the hills west of {area:271} and drop the azurite four kills in five; they fight in {spell:71}, sunder your armor and run for help at 30% health. Fly to {area:272} and head south-west."] = "你需要 10 个 {item:7127}。希尔斯布莱德矿工（26-27 级）在 {area:271} 西边山中的矿洞工作，碧蓝石掉率约为五分之四；它们以 {spell:71} 战斗，会破甲，并在生命值降到 30% 时逃跑求援。飞到 {area:272} 后向西南走。",
 	-- ["{area:287} Miners"] = "希尔斯布莱德矿工（{area:287}）",
 	-- ["{item:6840} from the {npc:6167}"] = "从{npc:6167}身上获得{item:6840}",
 	-- ["{item:7127} from the Hillsbrad Miners"] = "{item:7127}，来自{npc:2269}",

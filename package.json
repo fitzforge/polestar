@@ -1,6 +1,6 @@
 {
   "name": "polestar",
-  "version": "0.3.6",
+  "version": "0.3.7.2",
   "private": true,
   "description": "Leveling guides for World of Warcraft: Forever: the addon, its data pipeline and the authoring toolchain",
   "bin": {
@@ -27,7 +27,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "test": "node --test \"tests/**/*.test.js\"",
+    "test": "node --test --test-timeout=900000 \"tests/**/*.test.js\"",
     "test:changed": "node tools/testsel.js --run",
     "i18n:check": "cargo run --manifest-path rust/Cargo.toml --locked -q -p forge -- i18n check",
     "i18n:status": "cargo run --manifest-path rust/Cargo.toml --locked -q -p forge -- i18n status"

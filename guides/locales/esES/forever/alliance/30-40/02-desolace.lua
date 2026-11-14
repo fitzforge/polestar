@@ -11,8 +11,8 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Sigue el camino hacia el oeste pasando {area:460} (Horda) y al suroeste por {area:465} hasta {zone:1443}; {area:608} está en lo alto del paso.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: el cofre del naufragio está bajo la torre de {npc:11863}, de camino a {area:599}",
-	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, junto a {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Cofre de Malem",
@@ -23,6 +23,10 @@ return {
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
 	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+
+	-- Step 5: Nijel's Point
+	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress

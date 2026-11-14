@@ -87,51 +87,47 @@ return {
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 18: Gregan Brewspewer
-	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache · {item:11243} Videre Elixir · {item:11242} Evoroot
-	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "{npc:7775}, ein Zwerg, lagert in {area:1137} nordwestlich vom {area:1099}. Er braut das {item:11243} nur aus einer {item:11242}, die du ihm bringst.",
-
-	-- Step 19: Evoroot
+	-- Step 18: Evoroot
 	-- {item:11242} Evoroot · {npc:7775} Gregan Brewspewer · {area:1114} Ruins of Ravenwind
 	["The {item:11242} grows inside a ruined building north of {npc:7775}'s camp, east of the harpies' {area:1114}: climb in through the broken part of its wall."] = "Die {item:11242} wächst in einem zerfallenen Gebäude nördlich von {npc:7775}s Lager, östlich von {area:1114} der Harpyien: Kletter durch das zerbrochene Stück der Wand hinein.",
 
-	-- Step 20: The Videre Elixir
+	-- Step 19: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:976} Gadgetzan
 	["Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later."] = "Zurück nach Süden zu {npc:7775}. Behalte das Elixier und trink es noch nicht: Es tötet dich, und so triffst du später Gaeriyan bei {area:976}.",
 	-- {item:11243} Videre Elixir · {npc:7775} Gregan Brewspewer
 	["{item:11243}, {npc:7775}'s reward"] = "{item:11243}, die Belohnung von {npc:7775}",
 
-	-- Step 22: Fly to Thunder Bluff
+	-- Step 21: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Flieg nach {area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Flugmeister: {area:2408}",
 
-	-- Step 23: Bluff Runner Windstrider
+	-- Step 22: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
 	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 24: Elder Rise
+	-- Step 23: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} auf der {area:1639}; {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} wartet in {zone:1450}: Behalte sie für später.",
 
-	-- Step 25: Bashana Runetotem
+	-- Step 24: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
 
-	-- Step 26: Fly to Orgrimmar
+	-- Step 25: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 27: Vehena
+	-- Step 26: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 28: Rashona Straglash
+	-- Step 27: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "Im {object:172958}.",
 	-- {item:14047} Runecloth
@@ -159,6 +155,7 @@ return {
 	-- ["{npc:10307}, beside him"] = "{npc:10307}, neben ihm",
 	-- ["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",
 	-- ["{npc:11556} stands by the {zone:1452} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} steht am Ausgang des Tunnels der {area:1769} nach {zone:1452}, nördlich der heißen Quellen.",
+	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}. He brews the {item:11243} only from an {item:11242} you bring him."] = "{npc:7775}, ein Zwerg, lagert in {area:1137} nordwestlich vom {area:1099}. Er braut das {item:11243} nur aus einer {item:11242}, die du ihm bringst.",
 	-- ["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "{npc:7775}, ein Zwerg, lagert in {area:1137} nordwestlich vom {area:1099}; er hat das Elixier.",
 	-- ["{npc:9087} buys {item:11040} grown from your {quest:3761}."] = "{npc:9087} kauft {item:11040}, das aus deiner {quest:3761} gewachsen ist.",
 	-- ["{npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "{npc:9298} lagert zwischen den dampfenden Becken von {area:2246}, im Westen des Tals.",

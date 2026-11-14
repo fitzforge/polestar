@@ -8,6 +8,8 @@
 --   Hooks.ObjectLines(owner, fn(tooltip, objectID, name)) -- game object tooltips (GameTooltip);
 --       objectID and name may each be nil (never both)
 --   Hooks.ItemClick(owner, fn(link, itemID))            -- modified clicks on item links, bag and loot items
+--   Hooks.HoveredItem() -> link, itemID | nil            -- the item GameTooltip shows (under the cursor)
+--   Hooks.RefreshItem(itemID)                            -- GameTooltip again, when it shows that item
 --   Hooks.AddLine(tooltip, left, right?, r, g, b, rr, rg, rb)
 --
 -- One entry per owner (registering again replaces it in place, nil removes
@@ -137,7 +139,9 @@ local function clearAdded(tooltip)
 	added[tooltip] = nil
 end
 
+-- While Polestar is hidden (ns.Hidden) no module adds a line.
 local function decorate(kind, tooltip, key, ...)
+	if ns.Hidden() then return 0 end
 	if not clearChecked[tooltip] then
 		-- Check once, including failures: repeated post-calls must not retry.
 		-- Missing APIs or explicit lack of support keep the line-count fallback.
@@ -196,6 +200,41 @@ local function itemTooltip(tooltip, data)
 	return decorate("item", tooltip, link or id, link, id)
 end
 Hooks.OnItemTooltip = itemTooltip
+
+-- The item under the cursor, for a key pressed over it (QoL/Marks.lua): the
+-- one GameTooltip shows while it is shown (a bag or loot slot, a merchant's,
+-- worn gear, a quest reward). Where tooltips carry their type
+-- (TooltipDataHandler.lua IsTooltipType, as TooltipUtil.GetDisplayedItem
+-- checks it), only an Item tooltip counts: a unit's or a spell's may still
+-- answer GetItem with the item shown before it. -> link, itemID | nil
+function Hooks.HoveredItem()
+	local tooltip = GameTooltip
+	if not tooltip or forbidden(tooltip) then return nil end
+	local ok, shown = pcall(tooltip.IsShown, tooltip)
+	if not (ok and shown) then return nil end
+	local T = Enum and Enum.TooltipDataType
+	if tooltip.IsTooltipType and T and T.Item ~= nil then
+		local okType, isItem = pcall(tooltip.IsTooltipType, tooltip, T.Item)
+		if not okType or secret(isItem) or not isItem then return nil end
+	end
+	local link = linkOf(tooltip)
+	local id = idOfLink(link)
+	if not id then return nil end
+	return link, id
+end
+
+-- After item id's lines changed (a mark set by a key or a click), GameTooltip
+-- shows them again when it is showing that item: TooltipDataHandler.lua
+-- RefreshData rebuilds it and runs the post-calls, so Hooks decorates it
+-- anew. Clients without RefreshData show the change on the next hover.
+function Hooks.RefreshItem(id)
+	local tooltip = GameTooltip
+	if id == nil or not tooltip or not tooltip.RefreshData then return end
+	local _, shown = Hooks.HoveredItem()
+	if shown ~= id then return end
+	added[tooltip] = nil
+	pcall(tooltip.RefreshData, tooltip)
+end
 
 local function unitOf(tooltip, data)
 	local guid = data and data.guid
@@ -293,8 +332,9 @@ end
 -- Modified clicks on items
 ---------------------------------------------------------------------------
 
+-- While Polestar is hidden a modified click opens nothing of Polestar's.
 local function itemClick(link)
-	if type(link) ~= "string" or secret(link) then return end
+	if type(link) ~= "string" or secret(link) or ns.Hidden() then return end
 	local id = idOfLink(link)
 	if not id then return end
 	run("click", link, id)

@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {npc:6266} Menara Voidrender
-	["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30多級用的稀有布甲長袍，由{npc:6266}用你帶來的材料製作。",
+	["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "30多級用的稀有布甲長袍，由{npc:6266}製作；最後幾樣材料要等到35級和37級。",
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -51,36 +51,42 @@ return {
 	-- {npc:6266} Menara Voidrender · {zone:1443} Desolace
 	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "",
 
-	-- Step 9: Desolace demons
-	-- {zone:1443} Desolace
-	["{zone:1443} demons"] = "{zone:1443}的惡魔",
-	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point · {area:602} Mannoroc Coven · {spell:686} Shadow Bolt
-	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
-	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25. The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south, drop the stone half the time; they resist fire, so use {spell:686} and Corruption."] = "",
+	-- Step 9: Hatefury satyrs
+	["Hatefury satyrs"] = "怨怒薩特",
+	-- {area:603} Sargeron · {zone:1443} Desolace · {area:608} Nijel's Point
+	["The Hatefury satyrs (level 31-32) hold {area:603} in the far north-east of {zone:1443}, past {area:608}: two kills in five give a vial, so plan on about 25."] = "怨怒薩特（31-32級）盤踞在{zone:1443}最東北端、{area:608}再過去的{area:603}：大約每擊殺五隻掉兩瓶，預計要殺25隻左右。",
 	["Vials of Hatefury Blood"] = "怨怒薩特之血",
 
-	-- Step 10: Menara Voidrender again
+	-- Step 10: Mannoroc Coven
+	-- {area:602} Mannoroc Coven · {zone:1443} Desolace · {spell:686} Shadow Bolt
+	-- plural, as words: Lesser Infernals = {npc:4676} Lesser Infernal · Demon Portal Guardians = {npc:11937} Demon Portal Guardian
+	["The Lesser Infernals (36-37) and Demon Portal Guardians (38) of {area:602}, in the south of {zone:1443}, drop the stone half the time. The guide waits for level 35 first: at 31 they are too strong to solo. They resist fire, so use {spell:686} and Corruption."] = "{zone:1443}南部{area:602}的次級地獄火（36-37級）和惡魔之門的衛士（38級）有一半機率掉落石頭。指南會先等到35級：31級時牠們太強，無法單刷。牠們有火焰抗性，所以使用{spell:686}和腐蝕術。",
+
+	-- Step 11: Menara Voidrender again
 	-- {npc:6266} Menara Voidrender
 	["{npc:6266} again"] = "再次找{npc:6266}",
 
-	-- Step 11: Fine Gold Thread
+	-- Step 12: Fine Gold Thread
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
 	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "",
+	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
+	["{npc:2670}: {quest:4785}, handed straight back"] = "{npc:2670}：{quest:4785}，當場繳交",
 
-	-- Step 12: Smoldering Coal
+	-- Step 13: Smoldering Coal
 	-- {area:334} Circle of West Binding · {zone:1417} Arathi Highlands · {spell:686} Shadow Bolt · {area:321} Hammerfall · {item:6265} Soul Shard · {spell:1120} Drain Soul
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
-	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. They resist fire: {spell:686} and Corruption. Below 38 they hit hard; the Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "",
+	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 37 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "烈焰流放者（38-39級）是{zone:1417}西部{area:334}的火元素，煤炭掉落率約三分之一。指南會先等到37級：低於這個等級時牠們打得太痛，無法單刷。牠們抵抗火焰：使用{spell:686}和腐蝕術。先把牠打傷，再用{area:321}附近水浪流放者掉落的海浪符咒就能解決牠。途中用{spell:1120}製作一個{item:6265}。",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
 	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
 
-	-- Step 13: The Completed Robe
+	-- Step 14: The Completed Robe
 	-- {npc:6266} Menara Voidrender · {item:6265} Soul Shard
 	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30多級用的稀有布甲長袍，由{npc:6266}用你帶來的材料製作。",
 	-- ["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "31級時，{object:172960}的{npc:3326}會派你去找{area:392}的{npc:6266}。",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "31級時，{object:36082}的{npc:4563}會派你去找{area:392}的{npc:6266}。從{zone:1420}出發的飛艇飛往{zone:1411}。",
 	-- ["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "31級時，{object:2101}{object:2164}的{npc:461}會派你去找{area:392}的{npc:6266}。",
@@ -94,4 +100,5 @@ return {
 	-- ["{npc:2670} in {area:35} has the thread for you."] = "{area:35}的{npc:2670}有你要的線。",
 	-- ["{npc:2670} sells tailoring supplies in {area:35}. Bring him the {item:3577}."] = "{npc:2670}在{area:35}出售裁縫用品。把{item:3577}交給他。",
 	-- ["{npc:6266} stands in the tower on the hill above {area:392}, beside {npc:6251}."] = "{npc:6266}站在{area:392}上方山丘的塔裡，{npc:6251}旁邊。",
+	-- ["{zone:1443} demons"] = "{zone:1443}的惡魔",
 }

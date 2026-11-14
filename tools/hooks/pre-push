@@ -1,0 +1,7 @@
+#!/bin/sh
+# Polestar's pre-push hook: refuses a push whose branch name or new commit messages break the public-text
+# rule (CONTRIBUTING.md, "Commits and pull requests"), for commits made before the commit-msg hook was on or
+# without it. Turn both on once per clone:
+#
+#   git config core.hooksPath tools/hooks
+exec node "$(git rev-parse --show-toplevel)/tools/public-text.js" --pre-push

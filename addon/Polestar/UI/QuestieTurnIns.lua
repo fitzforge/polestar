@@ -24,8 +24,9 @@ local function readyQuest(id, completed)
 	return ready
 end
 
+-- No caption while Polestar is hidden (POLESTAR_HIDDEN rebuilds the tracker's rows).
 local function captionFor(line, completed)
-	if ns.Get("routePlan.questie") ~= true or line.mode ~= "quest" or type(line.Quest) ~= "table"
+	if ns.Get("routePlan.questie") ~= true or ns.Hidden() or line.mode ~= "quest" or type(line.Quest) ~= "table"
 		or not ns.Engine.GetGuide() then return nil end
 	local id = line.Quest.Id
 	if type(id) ~= "number" or not readyQuest(id, completed) then return nil end
@@ -154,7 +155,7 @@ function Integration.Refresh()
 	ns.After(0.2, function() rebuild(false) end)
 end
 
-for _, event in ipairs({ "GUIDE_CHANGED", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_COMPLETED", "GUIDES_REGISTERED", "PACKS_CHANGED", "ROUTE_CHOSEN", "STEP_SKIPPED" }) do
+for _, event in ipairs({ "GUIDE_CHANGED", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_COMPLETED", "GUIDES_REGISTERED", "PACKS_CHANGED", "ROUTE_CHOSEN", "STEP_SKIPPED", "POLESTAR_HIDDEN" }) do
 	ns.On(event, Integration.Refresh)
 end
 ns.On("SETTING_CHANGED", function(path)
@@ -167,12 +168,3 @@ for _, event in ipairs({ "ADDON_LOADED", "QUEST_LOG_UPDATE", "PLAYER_REGEN_ENABL
 	ns.RegisterEvent(event, onEvent)
 end
 ns.OnLogin(Integration.Refresh)
-
--- Options > Integrations > Questie, there only while Questie is installed.
-if ns.RegisterOptions then
-	ns.RegisterOptions({ page = L["Integrations"], section = "Questie", controls = {
-		{ kind = "toggle", key = "routePlan.questie", label = L["Show planned turn-ins in Questie"],
-			help = L["Completed quests in Questie's tracker show their Polestar turn-in step. Earlier, skipped and unplanned hand-ins are flagged."],
-			needs = function() return ns.Compat.AddOnPresent("Questie") end },
-	} })
-end

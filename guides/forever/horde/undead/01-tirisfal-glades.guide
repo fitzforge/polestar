@@ -190,42 +190,52 @@ step Eleanor Shackleton
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  when !knows 1230117
   accept 97955                        -- Eleanor: for Nurse Neela
 
 step Camping 101: Enchanting
   when skill Enchanting 1
+  when !knows 1230643
   accept 97953                        -- Eleanor: for Vance Undergloom
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  when !knows 1229705
   accept 97957                        -- Eleanor: for Faruza
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  when !knows 1230564
   accept 97951                        -- Eleanor: for Carolai Anise
 
 step Camping 101: Skinning
   when skill Skinning 1
+  when !knows 1229517
   accept 97960                        -- Eleanor: for Rand Rhobart
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  when !knows 1229432
   accept 97958                        -- Eleanor: for Shelene Rhobart
 
 step Camping 101: Tailoring
   when skill Tailoring 1
+  when !knows 1229504
   accept 97961                        -- Eleanor: for Bowen Brisboise
 
 step Camping 101: Mining
   when skill Mining 1
+  when !knows 1230161
   accept 97959                        -- Eleanor: for Brom Killian
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  when !knows 1230171
   accept 97952                        -- Eleanor: for Basil Frye
 
 step Camping 101: Engineering
   when skill Engineering 1
+  when !knows 1230656
   accept 97954                        -- Eleanor: for Graham Van Talen
 
 step Brill
@@ -453,6 +463,7 @@ step Brill
   accept 355
   turnin 361 optional                 -- Yvette Farthing, in the inn
   accept 1881 only Mage               -- Cain Firesong: Anastasia Hartwell in the Undercity takes it
+  accept 1478 only Warlock            -- Ageron Kargal: Carendin Halgar in the Undercity takes it
   train class
   turnin 355                          -- Magistrate Sevren, in the town hall
   accept 96895                        -- Deathguard Terrence, if you were below 10 on the last Brill visit
@@ -469,6 +480,7 @@ step Carendin Halgar
   only Warlock
   zone Undercity
   tip Walk south from Brill to the Ruins of Lordaeron and down into the Undercity. Carendin Halgar stands in the Magic Quarter. The Scarlet camp is just west of the ruins.
+  turnin 1478                         -- Carendin Halgar: he offers Creature of the Void only once this is handed in
   accept 1473                         -- Carendin Halgar
 
 step Anastasia Hartwell
@@ -563,7 +575,7 @@ step Leonid Barthalomew the Revered
 # Vile Fin lake (13-19,50-61) is on the way down to Shadowvale. c15 wrote the
 # keep as a Paladin-only trip of its own from Brill after the west loop and
 # back east to the Scarlet camp (about 2,300 yd), then went back to the same
-# spot for Leonid (RevUndead c15 read). An Undead Paladin's report (stress
+# spot for Leonid (c15 review). An Undead Paladin's report (stress
 # test): Shadowvale at 8-9 gets you killed; here it is done at 12.
 step Paladin: Bandarion Keep
   only Paladin
@@ -582,7 +594,7 @@ step Paladin: Murlocs at the Gates
 # ground above it: Onrevax's report (#392), and players' notes on quests
 # 95314 and 99152 in Forever's quest data put the way down at 12.9,65.7. The
 # step goes to the stairs first, so the arrow does not circle the ruins
-# overhead. Done after Leonid (RevUndead c13 read): at 9-10 on the west loop
+# overhead. Done after Leonid (c13 review): at 9-10 on the west loop
 # the Mystics were a risk for every class, and the loop's leg there and back
 # was longer than this one from the Whispering Forest.
 step Shadowvale
@@ -610,7 +622,7 @@ step Paladin: Bandarion Keep
 # The last Undercity stop comes between the hearth and the Brill hand-ins:
 # a class step waits for the next step the route names, so the trainers and
 # the class turn-ins come here, before the walk south into Silverpine Forest
-# (RevUndead c14 read).
+# (c14 review).
 step The Undercity
   only Warlock,Priest,Mage
   zone Undercity
@@ -620,8 +632,7 @@ step The Undercity
   use 6284 @86.6,27.1 only Warlock    -- Runes of Summoning
   kill 5676 quest 1471.1 only Warlock
   turnin 1471 only Warlock            -- Carendin Halgar: Summon Voidwalker
-  accept 5658 only Priest             -- Aelthalyste
-  turnin 5658 only Priest             -- Aelthalyste: Touch of Weakness
+  turnin 5658 direct only Priest -- Aelthalyste: Touch of Weakness
   turnin 1882 only Mage choose 9514 7507 -- Anastasia Hartwell: The Balnir Farmstead
 
 step Back to Tirisfal Glades

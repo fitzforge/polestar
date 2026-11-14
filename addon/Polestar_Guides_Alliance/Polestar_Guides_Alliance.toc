@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 指南（聯盟）
 ## Notes-zhTW: Polestar 的聯盟角色指南。按需載入。
 ## Author: Polestar
-## Version: 0.3.6
+## Version: 0.3.7.2
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

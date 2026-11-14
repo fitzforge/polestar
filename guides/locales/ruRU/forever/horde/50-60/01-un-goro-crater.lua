@@ -22,8 +22,8 @@ return {
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, у входа в лагерь",
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "{npc:9618}, сразу снаружи",
-	-- {quest:3761} Un'Goro Soil
-	["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все кристаллы силы (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
+	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -37,6 +37,7 @@ return {
 	["grind on Pterrordax"] = "",
 
 	-- Step 6: Power Crystals and soil
+	-- plural, as words: Power Crystals = {npc:271301} Power Crystal
 	["Power Crystals and soil"] = "Кристаллы силы и земля",
 	-- {area:537} Fire Plume Ridge
 	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "Кристаллы растут по всему кратеру, много – вокруг места {area:537}. Возьмите по несколько лишних каждого цвета для пилонов.",
@@ -242,8 +243,8 @@ return {
 	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Покиньте город {zone:1458} и езжайте на восток по дороге через край {zone:1420} к {area:152} – форту Отрекшихся на границе.",
-	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
-	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5401}: камни Плети падают, только пока он надет.",
+	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
+	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5405}: камни Плети падают, только пока он надет.",
 
 	-- Step 50: Scarlet forward camp
 	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
@@ -273,6 +274,7 @@ return {
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {area:28} и за реку в край {area:139}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {zone:1422} и за реку в край {zone:1423}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
+	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все кристаллы силы (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "От места {area:1938} езжайте на запад к длинному извилистому спуску в край {area:490}, затем вдоль северной стены кратера сюда: {area:541} – лагерь в пещерах скалы. Все здесь нейтральны.",
 	-- ["Gorillas"] = "Гориллы",
 	-- ["Into {area:490}"] = "В край {area:490}",
@@ -292,6 +294,7 @@ return {
 	-- ["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot."] = "Езжайте на юго-запад сюда: {area:537} – вулкан в центре кратера. У его подножия растут кровоцветы-живодеры.",
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it."] = "Езжайте на запад к раскопкам. Големы ({npc:7039}, 53) топчутся вокруг, осколки с них падают часто; табличка ({quest:4296}) стоит в центре среди дворфов Тауриссана. Скопируйте ее.",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "К югу от горячих источников пасутся стегодоны; кости динозавров падают с них или лежат на земле; у деметродонов рядом – чешуя для персонажа {npc:9998}. Равазавры охотятся стаями на юго-западе: их когти – для персонажа {npc:8659}, а иногда с них падает истрепанный дневник (редкая добыча: берите задание, только если он выпадет). Избегайте Граффа – стегодона 57-го уровня.",
+	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Возьмите {object:176092} из ящика рядом с Деррингтоном для задания {quest:5096} – выполните его на обратном пути. Наденьте {quest:5401}: камни Плети падают, только пока он надет.",
 	-- ["Termite mounds"] = "Термитники",
 	-- ["Thaurissan dig site"] = "Раскопки Тауриссана",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",

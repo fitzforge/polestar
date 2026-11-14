@@ -39,85 +39,80 @@ return {
 	-- {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {zone:1448} Felwood
 	["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "Заданию {npc:9116} «Серебряное сердце» нужен {item:11173} с севера зоны {zone:1448} и поездка обратно сюда. Пропустите.",
 
-	-- Step 9: Maybess Riverbreeze
-	-- {npc:9529} Maybess Riverbreeze · {area:1763} Jaedenar · {quest:4102} Cleansing Felwood · {quest:5887} Salve via Hunting · {area:1770} Shadow Hold · {npc:10922} Greta Mosshoof
-	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
-	["{npc:9529} stands on the west side of the Sanctuary, the way out to {area:1763}. With {quest:4102} done, her {quest:5887} asks for six Corrupted Soul Shards: the Shadow Council cultists in {area:1763} and {area:1770} drop them about one kill in three, and you fight dozens of them for {npc:10922}."] = "{npc:9529} стоит на западной стороне Святилища, у выхода к месту {area:1763}. После выполнения задания «{quest:4102}» ее задание «{quest:5887}» требует шесть оскверненных осколков души: культисты Совета Теней в местах {area:1763} и {area:1770} роняют их примерно с каждого третьего, а для {npc:10922} вам все равно придется убить их десятки.",
-
-	-- Step 10: Dousing the Flames of Protection
+	-- Step 9: Dousing the Flames of Protection
 	-- {area:1763} Jaedenar
 	["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "",
 	["Below ground"] = "Под землей",
 
-	-- Step 11: Greta Mosshoof
+	-- Step 10: Greta Mosshoof
 	["Back south to the Sanctuary, a short ride."] = "Обратно на юг к Святилищу, недалеко.",
 
-	-- Step 12: Bloodvenom Post
+	-- Step 11: Bloodvenom Post
 	-- {area:1763} Jaedenar · {area:1997} Bloodvenom Post
 	["Ride north along the road, past {area:1763}, to {area:1997}."] = "Езжайте на север по дороге мимо места {area:1763} в {area:1997}.",
 	-- {npc:10306} Trull Failbane · {quest:4741} Wild Guardians · {zone:1452} Winterspring
 	["{npc:10306}'s next {quest:4741} would bring you back here from {zone:1452}. Skip it."] = "Следующее задание {npc:10306} «{quest:4741}» вернуло бы вас сюда из зоны {zone:1452}. Пропустите.",
 
-	-- Step 13: A Final Blow
+	-- Step 12: A Final Blow
 	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar
 	["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "",
 	-- {quest:5887} Salve via Hunting
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, {quest:5887}"] = "Оскверненные осколки души с культистов, «{quest:5887}»",
 
-	-- Step 14: Maybess Riverbreeze
-	-- {npc:10922} Greta Mosshoof · {npc:9529} Maybess Riverbreeze
-	["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "По пути обратно на юг к {npc:10922} отдайте осколки: {npc:9529} стоит на западной стороне Святилища.",
+	-- Step 13: Maybess Riverbreeze
+	-- {npc:9529} Maybess Riverbreeze
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
 
-	-- Step 15: Greta Mosshoof
+	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "Еще раз на юг к Святилищу.",
 
-	-- Step 16: Toxic Horrors
+	-- Step 15: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "",
 
-	-- Step 18: Umber
+	-- Step 17: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Через туннель Древобрюхов в {zone:1450}. {npc:11939} читает в доме здесь: {area:2361}.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
 	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
 
-	-- Step 20: Class trainer
+	-- Step 19: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
 
-	-- Step 21: Rabine Saturna
+	-- Step 20: Rabine Saturna
 	-- {npc:11801} Rabine Saturna · {area:2577} Dire Maul
 	["{npc:11801}'s Shards of the Felvine needs {area:2577}. Skip it."] = "Заданию {npc:11801} «Осколки сквернита» нужно подземелье {area:2577}. Пропустите.",
 
-	-- Step 24: Donova Snowden
+	-- Step 23: Donova Snowden
 	-- {zone:1452} Winterspring · {npc:9298} Donova Snowden
 	["Back into the Timbermaw tunnel and take the {zone:1452} exit; {npc:9298} camps by the hot springs just outside."] = "Обратно в туннель Древобрюхов, выход: {zone:1452}; {npc:9298} стоит лагерем у горячих источников сразу снаружи.",
 	["From Krakle in Un'Goro"] = "От Кракла из Ун'Горо",
 
-	-- Step 25: Winterfall Runners
+	-- Step 24: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
 
-	-- Step 27: Beads for Salfa
+	-- Step 26: Beads for Salfa
 	-- {npc:11556} Salfa
 	["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "Бусы может нести любой фурболг Зимней Спячки; ближайшие лагеря – чуть к югу от персонажа {npc:11556}.",
 	["Frostfire Winterfall camp"] = "Лагерь Зимней Спячки у источников",
 
-	-- Step 29: Meilosh
+	-- Step 28: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
 	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "",
 
-	-- Step 30: Kernda
+	-- Step 29: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 32: Darkwhisper Gorge
+	-- Step 31: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge
 	["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Езжайте на восток, затем на юг через место {area:2249}. Великаны ледяного молота там – элита 59-го уровня: держитесь середины и не останавливайтесь. Странный источник – у входа сюда: {area:2256}, в южном конце.",
 
-	-- Step 33: Level 59.9
+	-- Step 32: Level 59.9
 	["Level 59.9"] = "",
 	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -125,27 +120,27 @@ return {
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "",
 
-	-- Step 34: Donova Snowden
+	-- Step 33: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
 	["Ride back west to {area:2246}."] = "Возвращайтесь на запад сюда: {area:2246}.",
 	-- {npc:9298} Donova Snowden · {npc:10738} High Chief Winterfall
 	["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "Затем {npc:9298} отправляет вас за NPC {npc:10738}, элитой в его пещере. Пропустите.",
 
-	-- Step 35: Are We There, Yeti?
+	-- Step 34: Are We There, Yeti?
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
 	["Scare {npc:10978} with {npc:10980}"] = "",
 
-	-- Step 36: Everlook
+	-- Step 35: Everlook
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "Езжайте на восток по дороге в {area:2255}.",
 
-	-- Step 37: Dungeon instead of grinding
+	-- Step 36: Dungeon instead of grinding
 	["Dungeon instead of grinding"] = "Подземелье вместо гринда",
 	-- {area:2279} Stratholme · {area:2057} Scholomance · {area:1584} Blackrock Depths
 	["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "Необязательно. Прохождение подземелий {area:2279}, {area:2057}, нижняя часть пика Черной горы или {area:1584} в группе вместо гринда быстрее.",
 	["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "Необязательно: с группой подземелье 55-60 заменяет гринд ниже.",
 
-	-- Step 38: Grind to 60
+	-- Step 37: Grind to 60
 	["Grind to 60"] = "Гринд до 60",
 	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -161,6 +156,7 @@ return {
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "Обратно в туннель Древобрюхов, выход: {area:618}; {npc:9298} стоит лагерем у горячих источников сразу снаружи.",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "Летите в {area:431} и езжайте на северо-запад по дороге из зоны {zone:1440} в {area:361}. {area:2479} — лагерь друидов сразу за границей.",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "Из города {zone:1458} летите на дирижабле от башни у города в {zone:1454}.",
+	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "По пути обратно на юг к {npc:10922} отдайте осколки: {npc:9529} стоит на западной стороне Святилища.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Только если у вас есть задание «{quest:5087}»: гонцы небольшими группами идут по дороге от места {area:1769} к месту {area:2244}; ждите у дороги рядом с {npc:9298} и убивайте их, когда они проходят. У каждого есть ящик.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Только если {npc:9298} дала вам задание «{quest:5086}»: езжайте на север по дороге зоны {area:361} в {area:1767}; цели ({quest:5086}) ползают между деревьями.",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Только с 30 шт. «{quest:6031}» и только при нейтральной репутации у Древобрюхов: идите по дороге на север в {area:1769}; {npc:11557} торгует сразу за входом.",
@@ -171,5 +167,6 @@ return {
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "гринд: {npc:7446}, {area:2249}, {area:618}",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "Следующее задание {npc:10306} «{quest:4741}» вернуло бы вас сюда из зоны {area:618}. Пропустите.",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "Заданию {npc:9116} «Серебряное сердце» нужен {item:11173} с севера зоны {area:361} и поездка обратно сюда. Пропустите.",
+	-- ["{npc:9529} stands on the west side of the Sanctuary, the way out to {area:1763}. With {quest:4102} done, her {quest:5887} asks for six Corrupted Soul Shards: the Shadow Council cultists in {area:1763} and {area:1770} drop them about one kill in three, and you fight dozens of them for {npc:10922}."] = "{npc:9529} стоит на западной стороне Святилища, у выхода к месту {area:1763}. После выполнения задания «{quest:4102}» ее задание «{quest:5887}» требует шесть оскверненных осколков души: культисты Совета Теней в местах {area:1763} и {area:1770} роняют их примерно с каждого третьего, а для {npc:10922} вам все равно придется убить их десятки.",
 	-- ["{npc:9861}, {npc:9860} and {npc:9517} wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go."] = "{npc:9861}, {npc:9860} и {npc:9517} ждут в глубине пещеры {area:1770} на севере места {area:1763}. Зачищайте туннель по пути.",
 }

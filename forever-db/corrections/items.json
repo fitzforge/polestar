@@ -51,5 +51,570 @@
 			}
 		],
 		"note": "Harvester Gyrostabilizer (Harvesting the Harvesters, 92909) drops from the Harvest Watcher (114). The merged data also listed the Harvest Golem (36) and the level 17-18 Harvest Reaper (115), which sent the arrow to the Reapers (Erá, Discord, #827)."
+	},
+	"254432": {
+		"addDrops": {
+			"npc": [
+				4632,
+				4633,
+				4634,
+				4635,
+				4636,
+				4637,
+				4638,
+				4639,
+				4640,
+				4641,
+				4642,
+				4643,
+				4645
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "loot events of item 254432 (build 70862): 41 drops in 7 sessions of 5 contributors, none excluded, from Kolkar Centaur, Scout, Mauler, Windchaser, Battle Lord and Destroyer (4632-4637) and Magram Scout, Outrunner, Wrangler, Windchaser, Stormer, Pack Runner and Mauler (4638-4643, 4645); some loots came with Carved Centaur Totems (93224) not in the log"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1602 (rockzors: take Carved Centaur Totems with Centaur Bounty)"
+			}
+		],
+		"note": "Carved Centaur Totem (Carved Centaur Totems, 93224 Alliance / 93225 Horde) drops from the Kolkar and Magram centaurs too, not only the Maraudine (4654-4659) the merged data lists from QuestieDB's Forever store. Gelkis centaurs: no recorded loot yet, so not added."
+	},
+	"2511": {
+		"removeVendors": [
+			5814
+		],
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "npc_vendor: Innkeeper Thulbek (5814) sells 21 items: food, drink and fish, plus three Love is in the Air gifts; Hunter's Boomstick (2511) is sold by 16 other NPCs, not him"
+			},
+			{
+				"kind": "recording",
+				"ref": "merchant windows of npc 5814 (builds 70862 and 70888): 4 people, 5 windows, 18 items, all food, drink and fish, no Hunter's Boomstick"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.14 lists no vendor for item 2511"
+			}
+		],
+		"note": "Innkeeper Thulbek at Grom'gol sells food, drink and fish only. Only pfQuest lists him as a vendor of Hunter's Boomstick, so Nearby services' \"Bows & guns\" sent hunters to him (#1820); Uthok, also at Grom'gol, sells the arrows and bullets."
+	},
+	"7228": {
+		"removeVendors": [
+			14480,
+			14481,
+			15353,
+			15354
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Tigule's Strawberry Ice Cream: off the lists of its world-event vendors (14480, 14481, 15353, 15354), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"9312": {
+		"removeVendors": [
+			15011,
+			15012
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Blue Firework: off the lists of its world-event vendors (15011, 15012), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"9313": {
+		"removeVendors": [
+			15011,
+			15012
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Green Firework: off the lists of its world-event vendors (15011, 15012), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"9314": {
+		"removeVendors": [
+			15011,
+			15012
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Red Streaks Firework: off the lists of its world-event vendors (15011, 15012), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"9315": {
+		"removeVendors": [
+			15011,
+			15012
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Yellow Rose Firework: off the lists of its world-event vendors (15011, 15012), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"9318": {
+		"removeVendors": [
+			15011,
+			15012
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Red Firework: off the lists of its world-event vendors (15011, 15012), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17194": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Holiday Spices: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17195": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Fake Mistletoe: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17196": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Holiday Spirits: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17200": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Recipe: Gingerbread Cookie: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17201": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Recipe: Egg Nog: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17202": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Snowball: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17303": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Blue Ribboned Wrapping Paper: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17304": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Green Ribboned Wrapping Paper: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17307": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Purple Ribboned Wrapping Paper: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17344": {
+		"removeVendors": [
+			13420,
+			13429,
+			13432,
+			13433,
+			13435
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Candy Cane: off the lists of its world-event vendors (13420, 13429, 13432, 13433, 13435), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17402": {
+		"removeVendors": [
+			13418,
+			13430,
+			13434,
+			13436
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Greatfather's Winter Ale: off the lists of its world-event vendors (13418, 13430, 13434, 13436), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17403": {
+		"removeVendors": [
+			13418,
+			13430,
+			13434,
+			13436
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Steamwheedle Fizzy Spirits: off the lists of its world-event vendors (13418, 13430, 13434, 13436), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17404": {
+		"removeVendors": [
+			13418,
+			13430,
+			13434,
+			13436
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Blended Bean Brew: off the lists of its world-event vendors (13418, 13430, 13434, 13436), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17405": {
+		"removeVendors": [
+			13418,
+			13430,
+			13434,
+			13436
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Green Garden Tea: off the lists of its world-event vendors (13418, 13430, 13434, 13436), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17406": {
+		"removeVendors": [
+			13418,
+			13430,
+			13434,
+			13436
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Holiday Cheesewheel: off the lists of its world-event vendors (13418, 13430, 13434, 13436), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17407": {
+		"removeVendors": [
+			13418,
+			13430,
+			13434,
+			13436
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Graccu's Homemade Meat Pie: off the lists of its world-event vendors (13418, 13430, 13434, 13436), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"17408": {
+		"removeVendors": [
+			13418,
+			13430,
+			13434,
+			13436
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Spicy Beefstick: off the lists of its world-event vendors (13418, 13430, 13434, 13436), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"18632": {
+		"removeVendors": [
+			14480,
+			14481,
+			15353,
+			15354
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Moonbrook Riot Taffy: off the lists of its world-event vendors (14480, 14481, 15353, 15354), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"18633": {
+		"removeVendors": [
+			14480,
+			14481,
+			15353,
+			15354
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Styleen's Sour Suckerpop: off the lists of its world-event vendors (14480, 14481, 15353, 15354), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"18635": {
+		"removeVendors": [
+			14480,
+			14481,
+			15353,
+			15354
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Bellara's Nutterbar: off the lists of its world-event vendors (14480, 14481, 15353, 15354), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"20387": {
+		"removeVendors": [
+			15197
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Forsaken Stink Bomb Cluster: off the lists of its world-event vendors (15197), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"20557": {
+		"removeVendors": [
+			15353,
+			15354
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Hallow's End Pumpkin Treat: off the lists of its world-event vendors (15353, 15354), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"20604": {
+		"removeVendors": [
+			15199
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Stink Bomb Cleaner: off the lists of its world-event vendors (15199), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21557": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Small Red Rocket: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21558": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Small Blue Rocket: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21559": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Small Green Rocket: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21571": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Blue Rocket Cluster: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21574": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Green Rocket Cluster: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21576": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Red Rocket Cluster: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21721": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Moonglow: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"21747": {
+		"removeVendors": [
+			15898
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Festival Firecracker: off the lists of its world-event vendors (15898), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233217": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Tunneler's Incense: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233197": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Argent Training Manual: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233198": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Horn of the Dawn: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233200": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Songflower Seed: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233209": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Firewater Cauldron: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"233250": {
+		"removeVendors": [
+			15734,
+			15736
+		],
+		"source": {
+			"kind": "cmangos",
+			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
+		},
+		"note": "Ancient Branch: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
 	}
 }

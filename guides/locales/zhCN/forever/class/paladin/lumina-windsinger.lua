@@ -48,7 +48,7 @@ return {
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}，{area:228}",
 	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "",
+	["{npc:259620}: hear her story to the end"] = "{npc:259620}：听完她的故事",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -67,7 +67,7 @@ return {
 	-- Step 9: Whitestone Oak Lumber
 	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall · {zone:1458} Undercity · {object:3202} Grom'gol · {zone:1434} Stranglethorn Vale · {zone:1431} Duskwood
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
+	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581}位于联盟领地{zone:1436}的{area:20}下方，适合约17-24级的五人小队。从{zone:1458}乘飞艇前往{zone:1434}的{object:3202}，向北穿过{zone:1431}进入{zone:1436}。入口在{area:20}的矿洞内。斯尼德的桅杆房间中的地精木匠（精英，18-19级）必定掉落木材。",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}，在{area:20}的矿洞里",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
@@ -75,7 +75,7 @@ return {
 
 	-- Step 10: Ulric Frostveil
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
-	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
+	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649}在{zone:1440}西海岸的{area:2897}。从{object:3202}（或{zone:1458}）乘飞艇前往{zone:1454}，再向北穿过{zone:1413}进入{zone:1440}，沿道路向西走。先找前哨站的双足飞龙管理员安德鲁克开通飞行点，下次就不用步行了。猎杀纳迦前先接取{npc:259649}的任务；接到任务后才会掉落科尔宝石。",
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
@@ -97,7 +97,7 @@ return {
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "武器锻造师 {npc:3539} 位于 {zone:1424} 的 {area:272} 正南边。接受 {quest:95125} 后，他就会开始锻造：退开一些，在附近等他完成。",
 	-- {npc:3539} Ott
-	["Watch {npc:3539} forge the blade"] = "",
+	["Watch {npc:3539} forge the blade"] = "观看{npc:3539}锻造剑刃",
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "{npc:3539} 会给你 {quest:95125}",
 
@@ -111,7 +111,7 @@ return {
 
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "装备 {item:268484}。巨型狼人 {quest:95140} 在 {area:228} 南侧、通往 {area:17065} 大门方向的林地游荡。他是精英（25 级）：建议组队；有玩家需要再找一人帮忙，也有玩家在 25 级时独自击败了他。你用这把剑第一次击中他前，他会受到紫色护盾保护；护盾破裂时会出现提示。",
+	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "装备 {item:268484}。巨型狼人 {quest:95140} 在 {area:228} 南侧、通往 {area:17065} 大门方向的林地游荡。他是精英（25 级）：指南会先等到 22 级，并建议组队；玩家从 22 级起就击杀过他，有人需要再找一人帮忙，也有人在 25 级时独自击败了他。你用这把剑第一次击中他前，他会受到紫色护盾保护；护盾破裂时会出现提示。",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "装备 {item:268484} 后，对付 {quest:95140}",
 
@@ -120,6 +120,7 @@ return {
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "带着 {item:268484} 回到 {area:228} 找 {npc:259620}（任务要求携带它）：她会收下，用她族人的魔法祝福它，使其变成 {item:267369}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): grouping up is encouraged; one player needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "装备 {item:268484}。巨型狼人 {quest:95140} 在 {area:228} 南侧、通往 {area:17065} 大门方向的林地游荡。他是精英（25 级）：建议组队；有玩家需要再找一人帮忙，也有玩家在 25 级时独自击败了他。你用这把剑第一次击中他前，他会受到紫色护盾保护；护盾破裂时会出现提示。",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "用钥匙放她出来，然后在她杀出要塞时紧跟着她。",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "暂无物品：一段被遗忘者圣骑士的营救故事；其续篇{item:268484}目前还无法完成。",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "离开{area:235}后，卢米娜会在{area:228}等你。再次与她交谈，听听路上到底发生了什么。",

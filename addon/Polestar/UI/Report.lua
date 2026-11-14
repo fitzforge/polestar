@@ -3,8 +3,11 @@
 -- The player says what went wrong; the report sets that above everything a
 -- fix needs, taken when the window opens: the guide and the step on screen
 -- with every goal's state, ids and position, the arrow, where the player
--- stands, the versions, other packs and addons and the errors Polestar
--- caught. "Mark the right spot" adds where the step should have sent the
+-- stands, the versions, other packs and addons, the settings the player
+-- changed from their defaults and the errors Polestar caught. On an old
+-- Polestar (Core/Update.lua knows a newer release) a line
+-- at the top asks to update first, and the version says "(outdated: latest
+-- 0.3.7)". "Mark the right spot" adds where the step should have sent the
 -- player, marked from a bar while the window steps aside. Then the way to
 -- send it, the Polestar Discord's #bugs, whose bot files each post as a
 -- GitHub issue: "Copy report" shows the report, selected, sized to stay
@@ -28,11 +31,12 @@ local floor, max, min, ipairs, pairs, tostring, type, pcall = math.floor, math.m
 local R = {}
 UI.Report = R
 
--- A Discord message holds 2000 characters. The description, the detail
--- lines and the number of goals and errors are capped; when the report is
--- still longer, R.Text shortens its Addons line, which the Discord bot
--- quotes but does not read.
-R.DESC_MAX = 250
+-- A Discord message holds 2000 characters. The detail lines and the
+-- number of goals and errors are capped; the description, up to DESC_MAX
+-- letters, is always kept whole. When the report is still longer, R.Text
+-- gives up details in a fixed order (cutOrder) and says so on the
+-- block's last line.
+R.DESC_MAX = 1000
 -- Fewer letters than this say nothing a fix can go on: the report waits.
 R.DESC_MIN = 5
 R.TEXT_MAX = 2000
@@ -64,6 +68,14 @@ end
 -- s on one line, for a field GitHub shows as one.
 local function oneLine(s)
 	return (s:gsub("%s+", " "))
+end
+
+-- Characters as Discord counts them, like JavaScript: one each, two past
+-- U+FFFF. Not bytes: a Chinese report of 1200 characters is 2500 bytes.
+local function length(s)
+	local _, chars = s:gsub("[^\128-\191]", "")
+	local _, astral = s:gsub("[\240-\247]", "")
+	return chars + astral
 end
 
 -- A position as a guide writes it: the map, then `@x,y`, marked `live`
@@ -101,8 +113,11 @@ local function goalLine(gv, raw, mark, wp)
 	return cut(table.concat(parts, SEP))
 end
 
+-- The version, its stage, and " (outdated: latest 0.3.7)" when a newer
+-- release is known (Core/Update.lua), so triage sees it.
 local function polestarVersion()
-	return tostring(ns.version or "dev") .. (ns.stage and (" " .. ns.stage) or "")
+	local U = ns.Update
+	return tostring(ns.version or "dev") .. (ns.stage and (" " .. ns.stage) or "") .. (U and U.Outdated() or "")
 end
 
 local function versions()
@@ -149,35 +164,43 @@ local function context(on)
 	return table.concat(parts, UI_SEP)
 end
 
+-- The line `line` of kind `kind` (what cutOrder trims by) at the end of
+-- the details; nothing for nil.
+local function add(d, kind, line)
+	if not line then return end
+	local n = #d.lines + 1
+	d.lines[n], d.kinds[n] = line, kind
+end
+
 local function guideLines(d, on)
 	local out, E, guide, index, view = d.lines, ns.Engine, on.guide, on.index, on.view
 	if not guide then
-		out[#out + 1] = L["Guide: none open"]
+		add(d, "guide", L["Guide: none open"])
 		return
 	end
 	local G = ns.Guides
 	local pack = guide.pack and G and G.Pack and G.Pack(guide.pack)
 	local line = (L["Guide: %s (%s)"]):format(on.title, plain(tostring(guide.id)))
 	if pack then line = line .. SEP .. (L["pack %s"]):format(plain(pack.title or pack.id) .. (pack.version and (" " .. plain(pack.version)) or "")) end
-	out[#out + 1] = cut(line)
+	add(d, "guide", cut(line))
 	-- The steps the Engine planned for the character (#1353), for triage only:
 	-- the guide window shows none of this.
 	if guide.fromBase then
-		out[#out + 1] = cut("[planned: " .. (guide.feeders or 0) .. " feeder steps, ~" .. floor((guide.feedCost or 0) / 60 + 0.5) .. " min]")
+		add(d, "planned", cut("[planned: " .. (guide.feeders or 0) .. " feeder steps, ~" .. floor((guide.feedCost or 0) / 60 + 0.5) .. " min]"))
 		local hidden = {}
 		for q, h in pairs(guide.hidden or {}) do hidden[#hidden + 1] = { q = q, h = h } end
 		table.sort(hidden, function(a, b) return a.q < b.q end)
 		for i, e in ipairs(hidden) do
 			if i > 8 then
-				out[#out + 1] = "[hidden: " .. (#hidden - 8) .. " more]"
+				add(d, "planned", "[hidden: " .. (#hidden - 8) .. " more]")
 				break
 			end
 			local h = e.h
-			out[#out + 1] = (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]")
+			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(h.needTitle or ("#" .. tostring(h.need))) .. " from " .. plain(h.from or "?") .. "]"))
 		end
 	end
 	if not view then
-		out[#out + 1] = L["Step: none, the guide is complete"]
+		add(d, "step", L["Step: none, the guide is complete"])
 		return
 	end
 	-- The guide's own step index too, which maintainers find the step by.
@@ -194,7 +217,7 @@ local function guideLines(d, on)
 	elseif E.GetLiveStep and not live then
 		step = step .. SEP .. L["the guide is complete"]
 	end
-	out[#out + 1] = cut(step)
+	add(d, "step", cut(step))
 	local wp = E.GetWaypoint and E.GetWaypoint()
 	-- The arrow's goal on this step, when the player picked one other than
 	-- the window's current goal.
@@ -205,10 +228,11 @@ local function guideLines(d, on)
 	d.goals = { first = #out + 1, last = #out + shown, more = #goals - shown }
 	for g = 1, shown do
 		if view.current == g then d.goals.current = #out + 1 end
+		if picked == g then d.goals.arrow = #out + 1 end
 		local mark = (view.current == g and CURRENT) or (picked == g and ARROW) or nil
-		out[#out + 1] = goalLine(goals[g], raws[g], mark, wp)
+		add(d, "goal", goalLine(goals[g], raws[g], mark, wp))
 	end
-	if d.goals.more > 0 then out[#out + 1] = (L["... %d more goals"]):format(d.goals.more) end
+	if d.goals.more > 0 then add(d, "more", (L["... %d more goals"]):format(d.goals.more)) end
 end
 
 local function arrowLine()
@@ -243,9 +267,10 @@ end
 -- How the arrow is set to route, so a pathing report says which router and
 -- style it came from: the route style (nav.routeStyle) as its setting's own
 -- word, then only the settings that differ from the defaults (walking maps
--- off, the travel planner off, guiding handed to Shortest Path Forever). The
--- words stay English, like "yd": whoever fixes the bug reads them. After the
--- Where line, so the bug bot still finds Arrow and Where by position.
+-- off, the travel planner off, guiding handed to Shortest Path Forever,
+-- paused, "armed" or "inside"). The words stay English, like "yd":
+-- whoever fixes the bug reads them. After the Where line, so the bug bot
+-- still finds Arrow and Where by position.
 local function routesLine()
 	local style = ns.Get("nav.routeStyle")
 	local parts = { (style == "fastest" or style == "roads") and style or "balanced" }
@@ -253,6 +278,9 @@ local function routesLine()
 	if ns.Get("nav.travel") == false then parts[#parts + 1] = "travel planner off" end
 	local N = ns.Nav
 	if N and N.HandedOff and N.HandedOff() then parts[#parts + 1] = "handed to Shortest Path Forever" end
+	-- Paused (Core/Init.lua): the arrow drops the guide's waypoint meanwhile.
+	local paused = ns.Paused and ns.Paused()
+	if paused then parts[#parts + 1] = "paused " .. paused end
 	return cut((L["Routes: %s"]):format(table.concat(parts, SEP)))
 end
 
@@ -266,7 +294,10 @@ local function whileHereLine()
 	local E = ns.Engine
 	local st = E and E.WhileHereState and E.WhileHereState()
 	if not st then return nil end
-	local function step(s) return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s) end
+	local function step(s)
+		if type(s) == "number" and s < 1 then return "flight path" end -- the Engine's FLY_STEP: a "Learn the flight path" line
+		return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s)
+	end
 	if not st.on then return cut((L["While here: %s"]):format("off")) end
 	local parts = {}
 	if st.shown then
@@ -357,15 +388,15 @@ end
 -- from the AddOns folder, a blocked call by the Polestar addon blamed and
 -- when it last came. Polestar's own say which came last (seq); !BugGrabber's,
 -- whose order against them is unknown, count as the newest.
-local function errorLines(out)
+local function errorLines(d)
 	local list, seen = {}, {}
-	local function add(msg, count, seq)
+	local function caught(msg, count, seq)
 		msg = tostring(msg):match("^[^\n]*"):gsub("^Interface[/\\]AddOns[/\\]", "")
 		if seen[msg] then return end
 		seen[msg] = true
 		list[#list + 1] = { text = msg, count = count or 1, seq = seq or math.huge }
 	end
-	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do add(e.msg, e.count, e.seq) end
+	for _, e in ipairs(ns.Errors and ns.Errors() or {}) do caught(e.msg, e.count, e.seq) end
 	for _, b in ipairs(ns.Blocked and ns.Blocked() or {}) do
 		local fn = plain(b.fn) .. (b.where and (" " .. b.where) or "")
 		list[#list + 1] = { text = L["blocked in %s: %s (%s)"]:format(b.addon, fn, b.at), count = b.count, seq = b.seq }
@@ -378,13 +409,13 @@ local function errorLines(out)
 			for _, e in ipairs(db) do
 				if type(e) == "table" and type(e.message) == "string" and e.message:find("AddOns[/\\]Polestar")
 					and (session == nil or e.session == session) then
-					add(e.message, e.counter)
+					caught(e.message, e.counter)
 				end
 			end
 		end
 	end
 	if #list == 0 then
-		out[#out + 1] = L["Errors: none"]
+		add(d, "errors", L["Errors: none"])
 		return
 	end
 	-- Sorted by seq; !BugGrabber's (no seq) keep the order they were added in.
@@ -393,9 +424,9 @@ local function errorLines(out)
 		if a.seq ~= b.seq then return a.seq < b.seq end
 		return a.i < b.i
 	end)
-	out[#out + 1] = L["Errors:"]
+	add(d, "errors", L["Errors:"])
 	for i = max(1, #list - ERRORS_MAX + 1), #list do
-		out[#out + 1] = cut(("  %dx %s"):format(list[i].count, list[i].text))
+		add(d, "error", cut(("  %dx %s"):format(list[i].count, list[i].text)))
 	end
 end
 
@@ -420,25 +451,347 @@ local function questLogLine()
 	return cut(L["Quest log %d/%d: %s"]:format(#ids, cap, table.concat(parts, ", ")), LINE_MAX * 2)
 end
 
--- The settings the player changed from their defaults, path=value, cut to
--- two lines' worth; nil when none is.
-local function settingsLine()
-	local changed = {}
-	local function walk(node, path)
-		for k, v in pairs(node) do
-			local p = path and (path .. "." .. tostring(k)) or tostring(k)
-			if type(v) == "table" then
-				walk(v, p)
-			elseif v ~= ns.GetDefault(p) then
-				changed[#changed + 1] = p .. "=" .. tostring(v)
+---------------------------------------------------------------------------
+-- Settings: what the player changed, so a report tells a setting they
+-- turned from a bug of ours. The profile in use (Core/Profiles.lua) and
+-- whose choice it is (the character's own, its class's or the account's),
+-- then each setting off its default, by its key, never its label:
+--
+--   Settings: profile Default (account) · 23 changed
+--   behavior.autoAccept=off behavior.whileHereRadius=180->400 nav.routeStyle=balanced->fastest
+--   gear.minUpgrade=1->5 qol.sellJunk=off
+--   looks: skin=hearth scheme=night · 12 positions moved · 4 other looks
+--   +9 more #3fa2c1d0
+--   !PSR1!3fa2c1d0!eJxL...
+--
+-- A switch reads on or off (its default is the other one); anything else
+-- reads its default, "->" and its value: a number to two places, a
+-- choice's id, a place's numbers, a colour as #rrggbb. What most often
+-- changes what Polestar does comes first (the guide and its automation,
+-- navigation, quests and dungeons, targeting and the quest buttons, gear,
+-- quality of life, then the rest); pure looks (where frames sit, sizes,
+-- colours, fonts, the skin's picks) make the one looks line. Past
+-- R.SETTINGS_MAX characters the list keeps the settings that rank first
+-- and ends with how many more there are and the Adler-32 of them all (the
+-- list's order, then the looks, one a line); the packed line then carries
+-- the rest (the settings the list left out, then every look), each as the
+-- list writes it, a line each, in Core/Import.lua's envelope under
+-- R.SETTINGS_PREFIX: with the list it is every setting, which the Discord
+-- bot unfolds on the issue. "all defaults" when nothing changed.
+-- Settings only: no character's name, chat, account or realm (a profile
+-- named after a character or realm on the account reads "custom"). The
+-- words stay English, like Routes, under the client's label.
+---------------------------------------------------------------------------
+
+R.SETTINGS_MAX = 600
+R.SETTINGS_PREFIX = "!PSR1!"
+-- Between a setting's default and its value: ASCII, as the game's fonts and
+-- Open Sans have no arrow, and no value holds a ">".
+local TO = "->"
+
+-- Rank in the list: 1 the guide and its automation, 2 navigation and
+-- travel, 3 quests and dungeons, 4 targeting and the quest buttons, 5 gear,
+-- 6 quality of life, 7 the rest. By key, else by section.
+local RANK_SECTION = { behavior = 1, routePlan = 1, nav = 2, dungeons = 3, party = 3, gear = 5, qol = 6 }
+local RANK_KEY = {}
+for rank, keys in ipairs({
+	{ "qol.stepGossip", "qol.skipGossip", "qol.stepInteract", "qol.autoBind", "qol.flightAutoOpen", "qol.flightAutoTake",
+		"qol.buyGoals", "qol.restock", "qol.rewardAutoPick", "qol.rewardEquip", "qol.instantQuestText" },
+	{},
+	{ "qol.questDB", "qol.availableQuests", "qol.lowLevelQuests", "qol.questLevelWindow", "qol.turnInMarkers",
+		"qol.mapObjectives", "qol.minimapObjectives", "qol.objectiveSpots", "qol.questTooltips", "qol.questSellWarning",
+		"qol.questBagMarks", "qol.questLevels", "qol.questTimerAlerts", "qol.instanceTrack", "qol.hideQuestTracker",
+		"qol.guideHighlight", "qol.guideDim", "qol.nameplateIcons", "ui.newInForever" },
+	{ "qol.targetButton", "qol.targetPlate", "qol.targetAnnounce", "qol.guideNameTarget", "qol.markTarget", "qol.pingTarget",
+		"qol.markMob", "qol.markNpc", "qol.itemButton", "qol.questLoot", "qol.bagGlow", "qol.rareButton", "qol.hearthButton" },
+	{ "qol.wearOffer", "qol.rewardHighlight" },
+}) do
+	for _, k in ipairs(keys) do RANK_KEY[k] = rank end
+end
+
+local function rankOf(path)
+	return RANK_KEY[path] or RANK_SECTION[path:match("^[^.]+")] or 7
+end
+
+-- Pure looks, in the looks line and never the list: the sections of the
+-- Look pages' own settings, a setting whose name ends in a place, a colour,
+-- a size, an opacity, a font, an outline or shadow, a backing or an icon
+-- (LOOK_ENDS, on the name in lower case), LOOK_KEYS and the settings under
+-- LOOK_UNDER. A switch that turns something off or on is no look unless it
+-- is named here: it can be why something seems broken.
+local LOOK_SECTIONS = { guideWindow = true, toasts = true, trackers = true, buttons = true, movers = true }
+local LOOK_ENDS = { "pos$", "point$", "colou?r$", "size$", "scale$", "width$", "height$", "spacing$", "padding$",
+	"alpha$", "opacity$", "strength$", "font$", "outline$", "shadow$", "backing$", "icon$" }
+local LOOK_UNDER = { "^ui%.colors%.", "^ui%.skinVariants%.", "^nav%.sparkle" }
+local LOOK_KEYS = {}
+for _, k in ipairs({ "ui.skin", "ui.scheme", "ui.style", "ui.accent", "ui.brightness", "ui.band", "ui.haze", "ui.rim",
+	"ui.border", "ui.borderAccent", "ui.matchAccent", "ui.classAccent", "ui.matchFont", "ui.animSpeed", "ui.reduceMotion",
+	"ui.compact", "ui.growUp", "ui.barsBottom", "ui.barShown", "ui.launcherBack", "ui.notesOpen", "ui.upcomingOpen",
+	"ui.pickerCollapsed", "nav.arrowStyle", "nav.lineStyle", "nav.mapIcons", "nav.arrowTurn", "nav.arrowNoTarget",
+	"nav.arrowLabelLines", "nav.arrowNearRange", "nav.arrowGlow", "nav.arrowPulse", "nav.targetGlow", "nav.targetPulse",
+	"nav.pulseSeconds", "nav.stepFadeTo", "nav.stepColorMode", "nav.routeChevrons", "nav.flightDash", "nav.drawIn",
+	"nav.walkedFade", "nav.minimapArrowFade", "nav.journeyOpen", "maps.minimapButtonAngle", "qol.buttonTextSide",
+	"qol.nameplateIconSide" }) do
+	LOOK_KEYS[k] = true
+end
+
+local function lastName(path) return (path:match("([^.]+)$") or path):lower() end
+
+local function isLook(path)
+	if LOOK_KEYS[path] or LOOK_SECTIONS[path:match("^[^.]+")] then return true end
+	for _, p in ipairs(LOOK_UNDER) do
+		if path:find(p) then return true end
+	end
+	local name = lastName(path)
+	for _, e in ipairs(LOOK_ENDS) do
+		if name:find(e) then return true end
+	end
+	return false
+end
+
+-- A look that says where a frame was dragged to.
+local function isPlace(path, v)
+	local name = lastName(path)
+	return type(v) == "table" and (name:find("pos$") or name:find("point$")) ~= nil
+end
+
+-- { r, g, b[, a] } in 0-1.
+local function isColour(v)
+	if type(v) ~= "table" then return false end
+	local n, count = #v, 0
+	for _ in pairs(v) do count = count + 1 end
+	if (n ~= 3 and n ~= 4) or count ~= n then return false end
+	for i = 1, n do
+		if type(v[i]) ~= "number" or v[i] < 0 or v[i] > 1 then return false end
+	end
+	return true
+end
+
+local function same(a, b)
+	if type(a) == "table" and type(b) == "table" then
+		for k, v in pairs(a) do
+			if not same(v, b[k]) then return false end
+		end
+		for k in pairs(b) do
+			if a[k] == nil then return false end
+		end
+		return true
+	end
+	return a == b
+end
+
+local function number(v)
+	if v ~= v or v == math.huge or v == -math.huge then return "?" end
+	if v == floor(v) and v > -1e9 and v < 1e9 then return ("%d"):format(v) end
+	local s = ("%.2f"):format(v):gsub("0+$", ""):gsub("%.$", "")
+	return s == "-0" and "0" or s
+end
+
+-- A value as the list writes it: on/off, a number to two places, a choice's
+-- id (letters, digits and . _ - + / # : , kept, anything else as _), a
+-- colour as #rrggbb[aa], a list or a place as its parts joined by commas,
+-- any other table as {n} (its entries), nothing as "none".
+local function valueText(v, inner)
+	local t = type(v)
+	if t == "boolean" then return v and "on" or "off" end
+	if t == "number" then return number(v) end
+	if t == "string" then return cut((v:gsub("[^%w%._%-%+/#:,]", "_")), 24) end
+	if t ~= "table" then return "none" end
+	if isColour(v) then
+		local s = ("#%02x%02x%02x"):format(floor(v[1] * 255 + 0.5), floor(v[2] * 255 + 0.5), floor(v[3] * 255 + 0.5))
+		if v[4] and v[4] < 1 then s = s .. ("%02x"):format(floor(v[4] * 255 + 0.5)) end
+		return s
+	end
+	local parts = {}
+	if not inner then
+		if v[1] ~= nil then
+			for i = 1, #v do parts[i] = valueText(v[i], true) end
+		elseif v.x ~= nil and v.y ~= nil then
+			for _, k in ipairs({ "point", "relPoint", "x", "y" }) do
+				if v[k] ~= nil then parts[#parts + 1] = valueText(v[k], true) end
+			end
+		end
+	end
+	if #parts > 0 then return table.concat(parts, ",") end
+	local n = 0
+	for _ in pairs(v) do n = n + 1 end
+	return "{" .. n .. "}"
+end
+
+-- One setting as the list writes it: "key=off", or "key=default->value".
+local function settingText(e)
+	local key = e.path:gsub("[^%w%._%-]", "_")
+	if type(e.v) == "boolean" and type(e.d) == "boolean" then return key .. "=" .. valueText(e.v) end
+	return key .. "=" .. valueText(e.d) .. TO .. valueText(e.v)
+end
+
+-- Every setting of the profile in use off its default: { path, v, d }. A
+-- table default that is no colour (a record such as maps.serviceFilters)
+-- is walked into; a colour or a place is one value. A setting with no
+-- default is left out (one this Polestar no longer reads, or a window's own
+-- state) unless it is a look.
+local function changedSettings()
+	local out = {}
+	local function walk(prefix, t, depth)
+		for k, v in pairs(t) do
+			if type(k) == "string" or type(k) == "number" then
+				local path = prefix .. "." .. tostring(k)
+				local d = ns.GetDefault(path)
+				if type(v) == "table" and type(d) == "table" and not isColour(d) and depth < 4 then
+					walk(path, v, depth + 1)
+				elseif not same(v, d) and (d ~= nil or isLook(path)) then
+					out[#out + 1] = { path = path, v = v, d = d }
+				end
 			end
 		end
 	end
 	local db = ns.DB and ns.DB()
-	if type(db) == "table" and type(db.settings) == "table" then walk(db.settings, nil) end
-	table.sort(changed)
-	if #changed == 0 then return nil end
-	return cut(L["Settings: %s"]:format(table.concat(changed, ", ")), LINE_MAX * 2)
+	local settings = type(db) == "table" and db.settings
+	if type(settings) == "table" then
+		for section, t in pairs(settings) do
+			if type(section) == "string" and type(t) == "table" then walk(section, t, 1) end
+		end
+	end
+	return out
+end
+
+-- The profile in use by its name ("Default"), unless the name holds this
+-- character's name or realm, or another character's on the account (the
+-- Characters page's list, Alts/Snapshot.lua): then "custom".
+local function profileName(P)
+	local name = P.Active()
+	if name == P.DEFAULT then return "Default" end
+	local low, names = name:lower(), {}
+	if UnitName then names[#names + 1] = UnitName("player") end
+	if GetRealmName then names[#names + 1] = GetRealmName() end
+	local db = ns.DB()
+	local alts = type(db.alts) == "table" and type(db.alts.chars) == "table" and db.alts.chars or {}
+	for key, e in pairs(alts) do
+		if type(key) == "string" then
+			for part in key:gmatch("[^%-]+") do names[#names + 1] = part end
+		end
+		if type(e) == "table" then
+			names[#names + 1] = e.name
+			names[#names + 1] = e.realm
+		end
+	end
+	for _, n in ipairs(names) do
+		if type(n) == "string" and #n >= 2 and low:find(n:lower(), 1, true) then return "custom" end
+	end
+	return cut(oneLine(plain(name)):gsub(SEP, " "), 24)
+end
+
+-- "Settings: profile Raid (character) · 23 changed"; nothing changed on
+-- the account's Default profile is just "Settings: all defaults".
+local function settingsHead(n)
+	local P, parts = ns.Profiles, {}
+	if P and P.Active and P.Source and (n > 0 or P.Active() ~= P.DEFAULT or P.Source() ~= "account") then
+		parts[1] = ("profile %s (%s)"):format(profileName(P), P.Source())
+	end
+	parts[#parts + 1] = n == 0 and "all defaults" or ("%d changed"):format(n)
+	return L["Settings: %s"]:format(table.concat(parts, SEP))
+end
+
+-- The looks in one line: the skin's picks by name, then how many frames
+-- were moved and how many other looks changed.
+local PICKS = { { "ui.skin", "skin" }, { "ui.scheme", "scheme" }, { "ui.style", "style" }, { "ui.font", "font" }, { "ui.scale", "scale" } }
+
+local function looksLine(looks)
+	local by, picked, named, places, other = {}, {}, {}, 0, 0
+	for _, e in ipairs(looks) do by[e.path] = e end
+	for _, p in ipairs(PICKS) do
+		local e = by[p[1]]
+		if e then
+			picked[#picked + 1] = p[2] .. "=" .. valueText(e.v)
+			named[p[1]] = true
+		end
+	end
+	for _, e in ipairs(looks) do
+		if isPlace(e.path, e.v) then
+			places = places + 1
+		elseif not named[e.path] then
+			other = other + 1
+		end
+	end
+	local parts = {}
+	if #picked > 0 then parts[1] = table.concat(picked, " ") end
+	if places > 0 then parts[#parts + 1] = ("%d position%s moved"):format(places, places == 1 and "" or "s") end
+	if other > 0 then parts[#parts + 1] = ("%d other look%s"):format(other, other == 1 and "" or "s") end
+	return "looks: " .. table.concat(parts, SEP)
+end
+
+-- The section's lines at the end of the details, and d.settings for
+-- keptLines and cutOrder (R.Details).
+local function settingsSection(d)
+	local list, looks = {}, {}
+	for _, e in ipairs(changedSettings()) do
+		e.text = settingText(e)
+		if isLook(e.path) then
+			looks[#looks + 1] = e
+		else
+			e.rank = rankOf(e.path)
+			list[#list + 1] = e
+		end
+	end
+	table.sort(list, function(a, b)
+		if a.rank ~= b.rank then return a.rank < b.rank end
+		return a.path < b.path
+	end)
+	table.sort(looks, function(a, b) return a.path < b.path end)
+	local head = settingsHead(#list + #looks)
+	add(d, "settings", head)
+	local s = { head = #d.lines, at = #d.lines, counts = {}, more = 0 }
+	d.settings = s
+	if #list + #looks == 0 then return end
+	-- Every setting, the list's order then the looks: what the hash is of.
+	local all = {}
+	for i, e in ipairs(list) do all[i] = e.text end
+	for _, e in ipairs(looks) do all[#all + 1] = e.text end
+	local Import = ns.Import
+	s.hash = Import and Import.Adler32 and Import.Adler32(table.concat(all, "\n")) or "?"
+	local look = #looks > 0 and looksLine(looks) or nil
+	local fixed = length(head) + 1 + (look and length(look) + 1 or 0)
+	local function more(n) return ("+%d more #%s"):format(n, s.hash) end
+	-- Each setting takes its characters and a space or a line break.
+	local total = fixed
+	for _, e in ipairs(list) do total = total + length(e.text) + 1 end
+	local shown = #list
+	if total > R.SETTINGS_MAX then
+		local room, used = R.SETTINGS_MAX - fixed - length(more(#list)) - 1, 0
+		shown = 0
+		for i, e in ipairs(list) do
+			used = used + length(e.text) + 1
+			if used > room then break end
+			shown = i
+		end
+	end
+	s.more = #list - shown
+	local line, count = nil, 0
+	local function flush()
+		if not line then return end
+		add(d, "settinglist", line)
+		s.counts[#d.lines] = count
+	end
+	for i = 1, shown do
+		local t = list[i].text
+		if line and length(line) + 1 + length(t) <= LINE_MAX then
+			line, count = line .. " " .. t, count + 1
+		else
+			flush()
+			line, count = t, 1
+		end
+	end
+	flush()
+	if look then add(d, "settinglooks", look) end
+	s.at = #d.lines
+	if s.more > 0 then
+		add(d, "settingmore", more(s.more))
+		-- The packed line: what the list leaves out (its last settings, then
+		-- every look), so with the list it holds them all.
+		if Import and Import.Envelope then
+			add(d, "settingcode", Import.Envelope(R.SETTINGS_PREFIX, table.concat(all, "\n", shown + 1)))
+		end
+	end
 end
 
 -- The rolling debug log's last lines (ns.DebugLog), each cut to a line.
@@ -453,30 +806,37 @@ end
 -- and the report for Discord are made from them alone, so they say the
 -- same whatever the guide does while the window is open.
 --   lines     one fact each, in the order the Discord bot reads them
+--   kinds     each line's kind, by its index: what cutOrder trims by
 --   key       the guide and the step, to tell a report on another step
 --   context   the line under the window's title
 --   goals     where the step's goal lines sit in `lines`: first, last, the
---             window's current goal (current), and how many more were not listed
+--             window's current goal (current), the arrow's when it is
+--             another (arrow), and how many more were not listed
 --   names     the other addons' names, for the report's Addons line
 --   addons    the other addons with their versions, for the issue's field
 --   issue     on a step, the facts a "Wrong step" issue names: the guide's
 --             title, the step's index and title, the character
+--   settings  the Settings section (settingsSection): its first line (head),
+--             the line "+N more" comes after (at), the list's lines -> the
+--             settings on each (counts), the settings left out of the list
+--             (more) and the Adler-32 of them all (hash)
 function R.Details()
 	local on = onScreen()
 	local who = character()
-	local d = { lines = { versions(), who }, context = context(on), names = otherAddons(), addons = otherAddons(true),
+	local d = { lines = {}, kinds = {}, context = context(on), names = otherAddons(), addons = otherAddons(true),
 		key = tostring(on.guide and on.guide.id) .. ":" .. tostring(on.index) }
-	local out = d.lines
+	add(d, "versions", versions())
+	add(d, "character", who)
 	guideLines(d, on)
-	out[#out + 1] = arrowLine()
-	out[#out + 1] = playerLine()
-	out[#out + 1] = routesLine()
-	out[#out + 1] = whileHereLine()
-	out[#out + 1] = packsLine()
-	out[#out + 1] = installLine()
-	errorLines(out)
-	out[#out + 1] = questLogLine()
-	out[#out + 1] = settingsLine()
+	add(d, "arrow", arrowLine())
+	add(d, "where", playerLine())
+	add(d, "routes", routesLine())
+	add(d, "whilehere", whileHereLine())
+	add(d, "packs", packsLine())
+	add(d, "install", installLine())
+	errorLines(d)
+	add(d, "questlog", questLogLine())
+	settingsSection(d)
 	d.tail = logTail()
 	if on.view then
 		d.issue = { guide = oneLine(on.title), index = on.index, step = oneLine(plain(on.view.title or "")), character = who }
@@ -515,8 +875,9 @@ end
 -- layout back (tools/discord-bot/lib/report.js): everything above the code
 -- block is the description it quotes in the issue; in the block, the first
 -- line's shape, the guide line's "(id)", the order of the lines. The
--- rolling log's tail (`tail`) closes the block, under "Log:".
-local function text(description, lines, spot, names, tail)
+-- rolling log's tail (`tail`) follows, under "Log:"; `note`, when given,
+-- closes the block (what was left out to fit).
+local function text(description, lines, spot, names, tail, note)
 	local out = { bold(L["What went wrong:"], described(description)) }
 	if spot then out[#out + 1] = bold(L["Right spot:"], cut(table.concat(spot, SEP))) end
 	if names then out[#out + 1] = bold(L["Addons:"], names) end
@@ -526,38 +887,119 @@ local function text(description, lines, spot, names, tail)
 		out[#out + 1] = L["Log:"]
 		for _, line in ipairs(tail) do out[#out + 1] = "> " .. line end
 	end
+	if note then out[#out + 1] = note end
 	out[#out + 1] = "```"
 	return table.concat(out, "\n")
 end
 
--- Characters as Discord counts them, like JavaScript: one each, two past
--- U+FFFF. Not bytes: a Chinese report of 1200 characters is 2500 bytes.
-local function length(s)
-	local _, chars = s:gsub("[^\128-\191]", "")
-	local _, astral = s:gsub("[\240-\247]", "")
-	return chars + astral
+-- The detail lines a report too long for its place gives up, by index, in
+-- the order they go: the packed settings, the goals other than the
+-- window's current one, the two after it and the arrow's (the furthest
+-- after it first, then the ones before it), the looks line, the settings
+-- list (its last line first), the Packs line, the quest log, the errors but
+-- the newest; then, so even the longest description fits, the planned and
+-- hidden lines, While here, Install, Routes, the Settings line and the
+-- newest error. Never the versions, the character, the guide and the step,
+-- the current goal, Arrow, Where or the Errors header: the lines the
+-- Discord bot finds the rest by and a fix starts from.
+local function cutOrder(details)
+	local kinds, order = details.kinds, {}
+	local function all(kind, from, to, step)
+		local list = {}
+		for i = 1, #details.lines do if kinds[i] == kind then list[#list + 1] = i end end
+		from, to = from or 1, to or #list
+		if from < 0 then from = #list + from + 1 end
+		if to < 0 then to = #list + to + 1 end
+		for j = from, to, step or 1 do order[#order + 1] = list[j] end
+	end
+	all("settingcode")
+	local g = details.goals
+	if g and g.last >= g.first then
+		local live = g.current or g.first
+		local keep = { [live] = true, [live + 1] = true, [live + 2] = true }
+		if g.arrow then keep[g.arrow] = true end
+		for i = g.last, live + 1, -1 do if not keep[i] then order[#order + 1] = i end end
+		for i = g.first, live - 1 do if not keep[i] then order[#order + 1] = i end end
+	end
+	all("settinglooks")
+	all("settinglist", -1, 1, -1)
+	all("packs")
+	all("questlog")
+	all("error", 1, -2)
+	all("planned", -1, 1, -1)
+	all("whilehere")
+	all("install")
+	all("routes")
+	all("settings")
+	all("error", -1, -1)
+	return order
 end
 
--- With no other addons there is no Addons line. The line names every addon
--- while the report fits one Discord message; past it the log's oldest lines
--- go first, then the Addons line is shortened.
+-- The detail lines without the ones in `gone`; goals left out are counted
+-- on one line after the goals, with the ones never listed, and settings
+-- left out of the list with the ones never listed in "+N more #hash" (its
+-- own line follows the section's last kept line, while its first stays).
+local function keptLines(details, gone)
+	local g, s, out, goals, more = details.goals, details.settings, {}, 0, 0
+	if g then
+		for i = g.first, g.last do if gone[i] then goals = goals + 1 end end
+	end
+	if s then
+		more = s.more
+		for i, n in pairs(s.counts) do if gone[i] then more = more + n end end
+	end
+	for i, line in ipairs(details.lines) do
+		local kind = details.kinds[i]
+		if not gone[i] and kind ~= "settingmore" and not (goals > 0 and kind == "more") then out[#out + 1] = line end
+		if goals > 0 and i == g.last then out[#out + 1] = (L["... %d more goals"]):format(goals + g.more) end
+		if s and i == s.at and more > 0 and not gone[s.head] then out[#out + 1] = ("+%d more #%s"):format(more, s.hash) end
+	end
+	return out
+end
+
+-- Fits the report in `fits`: gives up the log's oldest lines (`tail`,
+-- when given), then shortens the Addons line (`names`, when given), then
+-- gives up the detail lines in cutOrder's order, adding `note` as the
+-- block's last line once anything went. The description is never cut.
+local function fitted(description, details, spot, names, tail, note, fits)
+	local lines, n, cutAny = details.lines, names and #names or 0, false
+	local function build()
+		return text(description, lines, spot, n > 0 and cut(names, n) or nil, tail, cutAny and note or nil)
+	end
+	local report = build()
+	while not fits(report) and tail and #tail > 0 do
+		table.remove(tail, 1)
+		cutAny = true
+		report = build()
+	end
+	while not fits(report) and n > 0 do
+		n = n - (length(report) - R.TEXT_MAX)
+		-- Shorter than 20 bytes it names hardly an addon: the line goes.
+		if n < 20 then n = 0 end
+		cutAny = true
+		report = build()
+	end
+	local order, gone = cutOrder(details), {}
+	for k = 1, #order do
+		if fits(report) then break end
+		gone[order[k]] = true
+		cutAny = true
+		lines = keptLines(details, gone)
+		report = build()
+	end
+	return report
+end
+
+-- With no other addons there is no Addons line. The report fits one
+-- Discord message (R.TEXT_MAX): past it the log's oldest lines go first,
+-- then the Addons line is shortened, then the details go in cutOrder's
+-- order, and the block's last line says the report was trimmed.
 function R.Text(description, details, spot)
 	local names = #details.names > 0 and table.concat(details.names, ", ") or nil
 	local tail = {}
 	for i, line in ipairs(details.tail or {}) do tail[i] = line end
-	local report = text(description, details.lines, spot, names, tail)
-	while length(report) > R.TEXT_MAX and #tail > 0 do
-		table.remove(tail, 1)
-		report = text(description, details.lines, spot, names, tail)
-	end
-	local n = names and #names or 0
-	while length(report) > R.TEXT_MAX and n > 0 do
-		n = n - (length(report) - R.TEXT_MAX)
-		-- Shorter than 20 bytes it names hardly an addon: the line goes.
-		if n < 20 then n = 0 end
-		report = text(description, details.lines, spot, n > 0 and cut(names, n) or nil)
-	end
-	return report
+	return fitted(description, details, spot, names, tail, L["(trimmed to fit Discord)"],
+		function(report) return length(report) <= R.TEXT_MAX end)
 end
 
 local function encode(s)
@@ -603,35 +1045,17 @@ local function fitEncoded(s, room)
 	return (s:sub(1, n):gsub("[\192-\255][\128-\191]*$", ""))
 end
 
--- The details without the last n goals other than the arrow's, and one line
--- that counts every goal not listed.
-local function withoutGoals(details, n)
-	local g, out, gone, left = details.goals, {}, {}, n
-	for i = g.last, g.first, -1 do
-		if left == 0 then break end
-		if i ~= g.current then gone[i], left = true, left - 1 end
-	end
-	local moreAt = g.more > 0 and g.last + 1
-	for i, line in ipairs(details.lines) do
-		if not gone[i] and i ~= moreAt then out[#out + 1] = line end
-		if i == g.last then out[#out + 1] = ("... %d goals left out to fit the link"):format(n + g.more) end
-	end
-	return out
-end
-
 -- The report for the issue's own field, encoded, in `room` characters of
 -- the link. A CJK report encodes to three times the characters of an
--- English one, so goals after the arrow's go first, then the report is cut
--- with its code block still closed.
+-- English one, so the details go as in the report for Discord (cutOrder);
+-- when even that is too long, the report is cut from its end with its
+-- code block still closed: the details' last lines go, the description
+-- only when it alone is longer than the link holds (a long one in a
+-- non-Latin script, whose every letter encodes to 6 or 9 characters).
 -- The addons have their own field: in the body they would only take room.
 local function bodyField(description, details, spot, room)
-	local report = text(description, details.lines, spot)
-	local g = details.goals
-	local droppable = g and (g.last - g.first + 1 - (g.current and 1 or 0)) or 0
-	for n = 1, droppable do
-		if #encode(report) <= room then break end
-		report = text(description, withoutGoals(details, n), spot)
-	end
+	local report = fitted(description, details, spot, nil, nil, "(trimmed to fit the link)",
+		function(r) return #encode(r) <= room end)
 	if #encode(report) > room then
 		local close = "...\n```"
 		report = fitEncoded(report:sub(1, -5), room - #encode(close)) .. close
@@ -689,7 +1113,13 @@ local WIDTH = 440
 local PAD = 24
 local HEAD_H = 56
 local BOX_W = WIDTH - PAD * 2
-local DESC_LINES = 3
+-- The description's well: as tall as its text, from DESC_LINES lines up to
+-- DESC_LINES_MAX; past that the text scrolls in it.
+local DESC_LINES, DESC_LINES_MAX, LINE_H = 3, 7, 16
+-- The window stays inside a 720-unit screen (UIParent is 768 high at UI
+-- scale 1): the report box under Copy report is a view of at most what is
+-- left, never under BOX_VIEW_MIN, and the report scrolls in it (#1753).
+local WINDOW_MAX, BOX_VIEW_MIN = 720, 96
 local LOGO = 32
 local TEXT_X = PAD + LOGO + 12 -- the Discord block's text column
 
@@ -700,14 +1130,41 @@ local function put(obj, x, y)
 	obj:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
 end
 
+-- The report box and its well, shown or hidden together; the note on the
+-- report's settings stands in their place while they are hidden.
+local function showBox(on)
+	F.BoxWell:SetShown(on)
+	F.Box:SetShown(on)
+	F.CopyHint:SetShown(on)
+	F.SettingsNote:SetShown(not on)
+end
+
+-- The well as tall as the text, between its least and most lines, and the
+-- box in it as tall as the whole text, for the well to scroll through.
+local function sizeDesc()
+	local e = F.Desc
+	-- A last empty line, after a typed newline, counts too.
+	F.DescMeasure:SetText(((e:GetText() or ""):gsub("\n$", "\n ")))
+	local textH = F.DescMeasure:GetStringHeight()
+	local view = min(max(textH, DESC_LINES * LINE_H), DESC_LINES_MAX * LINE_H) + 16
+	local content = max(view, floor(textH + 16 + 0.5))
+	F.DescWell:SetHeight(view)
+	e:SetHeight(content)
+	W.SetScrollContent(F.DescScroll, content, view)
+end
+
 local function layout()
 	local y = HEAD_H + 12
+	if F.Outdated:IsShown() then
+		put(F.Outdated, PAD, y)
+		y = y + F.Outdated:GetStringHeight() + 12
+	end
 	put(F.Context, PAD, y)
 	y = y + F.Context:GetStringHeight() + 16
 	put(F.DescLabel, PAD, y)
 	y = y + F.DescLabel:GetStringHeight() + 6
-	put(F.Desc, PAD, y)
-	y = y + F.Desc:GetHeight() + 12
+	put(F.DescWell, PAD, y)
+	y = y + F.DescWell:GetHeight() + 12
 	put(F.SpotNote, PAD, y)
 	y = y + F.SpotNote:GetStringHeight() + 8
 	put(F.Mark, PAD, y)
@@ -726,19 +1183,31 @@ local function layout()
 	F.Invite:ClearAllPoints()
 	F.Invite:SetPoint("LEFT", F.Copy, "RIGHT", 8, 0)
 	y = y + F.Copy:GetHeight()
-	if F.Box:IsShown() then
+	-- What goes under the box: its gap, the GitHub rule and row, the edge.
+	local bw = F.GitHub:GetWidth()
+	F.GitHubNote:SetWidth(BOX_W - bw - 12)
+	local nh, bh = F.GitHubNote:GetStringHeight(), F.GitHub:GetHeight()
+	local row = max(nh, bh)
+	if F.BoxWell:IsShown() then
 		y = y + 12
-		put(F.Box, PAD, y)
-		y = y + F.Box:GetHeight()
+		put(F.CopyHint, PAD, y)
+		y = y + F.CopyHint:GetStringHeight() + 6
+		put(F.BoxWell, PAD, y)
+		local content = F.Box:GetHeight()
+		local room = WINDOW_MAX - y - (16 + 1 + 12 + row + PAD)
+		local view = min(content, max(BOX_VIEW_MIN, floor(room)))
+		F.BoxWell:SetHeight(view)
+		W.SetScrollContent(F.BoxScroll, content, view)
+		y = y + view
+	else
+		y = y + 10
+		put(F.SettingsNote, TEXT_X, y)
+		y = y + F.SettingsNote:GetStringHeight()
 	end
 	y = y + 16
 	put(F.GitHubRule, PAD, y)
 	y = y + 1 + 12
 	-- One row: the note beside its button, centred on each other.
-	local bw = F.GitHub:GetWidth()
-	F.GitHubNote:SetWidth(BOX_W - bw - 12)
-	local nh, bh = F.GitHubNote:GetStringHeight(), F.GitHub:GetHeight()
-	local row = max(nh, bh)
 	put(F.GitHubNote, PAD, y + floor((row - nh) / 2 + 0.5))
 	put(F.GitHub, WIDTH - PAD - bw, y + floor((row - bh) / 2 + 0.5))
 	y = y + row
@@ -773,29 +1242,34 @@ local function gate()
 		b.psTip = not ok and L["Say what went wrong first."] or nil
 		if ok then W.HideTooltip(b) end
 	end
-	if not ok then F.Box:Hide() end
+	if not ok then showBox(false) end
 	return ok
 end
 
--- The report box is as tall as its text, so it is read whole and copied
--- whole: measured in its own font at its inner width.
+-- The report box is as tall as its text, measured in its own font at its
+-- inner width (never under a line per line of the report), so it is copied
+-- whole; it scrolls in its well (layout). The box, its height and its
+-- scroll are touched only when the report changed: a compose for anything
+-- else (the description's box, the spot) leaves a selection in it alone.
 local function compose()
 	showSpot()
 	gate()
 	local report = R.Text(F.Desc:GetText(), F.details, F.spot)
-	W.SetCopyText(F.Box, report)
-	F.Measure:SetText(report)
-	F.Box:SetHeight(floor(F.Measure:GetStringHeight() + 16 + 0.5))
+	if W.SetCopyText(F.Box, report) then
+		F.Measure:SetText(report)
+		local _, breaks = report:gsub("\n", "")
+		F.Box:SetHeight(floor(max(F.Measure:GetStringHeight(), (breaks + 1) * 12) + 16 + 0.5))
+		W.ScrollTo(F.BoxScroll, 0)
+	end
 	layout()
 end
 
 -- The report for Discord, shown under its buttons only when asked for.
 local function copyReport()
 	if not gate() then return end
-	F.Box:Show()
+	showBox(true)
 	layout()
-	F.Box:SetFocus()
-	F.Box:HighlightText()
+	W.SelectCopy(F.Box)
 end
 
 local function openGitHub()
@@ -832,7 +1306,7 @@ local function markHere()
 end
 
 local function buildMark()
-	M = CreateFrame("Frame", "PolestarMark", UIParent)
+	M = CreateFrame("Frame", "PolestarMark", ns.UIParent)
 	M:SetFrameStrata("DIALOG")
 	M:SetToplevel(true)
 	M:SetClampedToScreen(true)
@@ -870,37 +1344,71 @@ local function startMark()
 	M:Raise()
 end
 
--- The description: the copy box's well and border, editable, its
--- placeholder in textMuted until the player types.
+-- The description: the copy box's well and border (F.DescWell), editable,
+-- its placeholder in textMuted until the player types. The well grows with
+-- the text from DESC_LINES to DESC_LINES_MAX lines; a longer text scrolls
+-- in it (F.DescScroll), following the cursor, so all DESC_MAX letters can
+-- be typed and read back without the window outgrowing the screen.
 local function textArea()
-	local e = CreateFrame("EditBox", nil, F)
+	local well = CreateFrame("Frame", nil, F)
+	well:SetWidth(BOX_W)
+	well:SetHeight(DESC_LINES * LINE_H + 16)
+	Theme.Skin(well, "editbox")
+	F.DescWell = well
+	local sf = W.Scroll(well)
+	sf:SetAllPoints(well)
+	F.DescScroll = sf
+	-- The box is the view's scroll child, as the report box (W.ScrollChild);
+	-- a click anywhere on the well puts the cursor in it.
+	local e = W.ScrollChild(sf, CreateFrame("EditBox", nil, sf))
+	well:EnableMouse(true)
+	well:SetScript("OnMouseUp", function() e:SetFocus() end)
 	e:SetAutoFocus(false)
 	e:SetMultiLine(true)
 	e:SetMaxLetters(R.DESC_MAX)
 	Theme.Font(e, "label")
 	W.Color(e, "text")
 	e:SetWidth(BOX_W)
-	e:SetHeight(DESC_LINES * 16 + 16)
+	e:SetHeight(DESC_LINES * LINE_H + 16)
 	e:SetTextInsets(10, 10, 8, 8)
-	Theme.Skin(e, "editbox")
+	-- The text in the box's font at its inner width: what the well's height
+	-- is measured on. Hidden, never alpha 0 (F.Measure, #1753).
+	F.DescMeasure = W.Text(F, "label", "text")
+	F.DescMeasure:SetWidth(BOX_W - 20)
+	F.DescMeasure:SetJustifyH("LEFT")
+	F.DescMeasure:SetWordWrap(true)
+	F.DescMeasure:SetNonSpaceWrap(true)
+	F.DescMeasure:Hide()
 	e.Placeholder = W.Text(e, "label", "textMuted")
 	e.Placeholder:SetPoint("TOPLEFT", e, "TOPLEFT", 10, -8)
 	e.Placeholder:SetWidth(BOX_W - 20)
 	e.Placeholder:SetJustifyH("LEFT")
 	e.Placeholder:SetWordWrap(true)
 	e.Placeholder:SetText(L["What the guide said, and what you found in the game."])
-	e:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
-	e:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
+	e:SetScript("OnEditFocusGained", function() Theme.SetFocused(well, true) end)
+	e:SetScript("OnEditFocusLost", function() Theme.SetFocused(well, false) end)
 	e:SetScript("OnEscapePressed", function(self) self:ClearFocus() end)
+	-- The line being typed stays in view: y is the cursor's offset down
+	-- from the box's top, h its height.
+	e:SetScript("OnCursorChanged", function(_, _, y, _, h)
+		local view, at = well:GetHeight(), sf:GetVerticalScroll()
+		local top, bottom = -(y or 0), -(y or 0) + (h or LINE_H) + 8
+		if top < at then
+			W.ScrollTo(sf, top)
+		elseif bottom > at + view then
+			W.ScrollTo(sf, bottom - view)
+		end
+	end)
 	e:SetScript("OnTextChanged", function(self)
 		self.Placeholder:SetShown((self:GetText() or "") == "")
+		sizeDesc()
 		if F.details then compose() end
 	end)
 	return e
 end
 
 local function build()
-	F = CreateFrame("Frame", "PolestarReport", UIParent)
+	F = CreateFrame("Frame", "PolestarReport", ns.UIParent)
 	F:SetFrameStrata("DIALOG")
 	F:SetToplevel(true)
 	F:SetClampedToScreen(true)
@@ -927,6 +1435,7 @@ local function build()
 	W.Rim(F, { width = WIDTH * 0.7 })
 	F.Close = W.IconButton(head, "close", 28, L["Close"], function() F:Hide() end, 14)
 	F.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -14)
+	W.FrameClose(F, F.Close)
 	F.Title = W.Text(head, "title", "text")
 	F.Title:SetPoint("LEFT", head, "LEFT", PAD, 0)
 	F.Title:SetPoint("RIGHT", F.Close, "LEFT", -8, 0)
@@ -938,6 +1447,12 @@ local function build()
 	F.Context:SetWidth(BOX_W)
 	F.Context:SetJustifyH("LEFT")
 	F.Context:SetWordWrap(false)
+	-- An old Polestar: update first, the problem may be fixed already.
+	F.Outdated = W.Text(F, "note", "warning")
+	F.Outdated:SetWidth(BOX_W)
+	F.Outdated:SetJustifyH("LEFT")
+	F.Outdated:SetWordWrap(true)
+	F.Outdated:Hide()
 
 	F.DescLabel = W.Text(F, "label", "text")
 	F.DescLabel:SetText(L["What went wrong?"])
@@ -953,20 +1468,45 @@ local function build()
 	end)
 	F.Clear:Hide()
 
-	F.Box = W.CopyBox(F, { lines = 2 })
-	F.Box:Hide()
+	-- The report for Discord: its well, a view the report scrolls in (#1753:
+	-- a long report drawn past its box, over the form), and the box itself,
+	-- the view's scroll child. A click anywhere on the well selects it all.
+	F.BoxWell = CreateFrame("Frame", nil, F)
+	F.BoxWell:SetWidth(BOX_W)
+	F.BoxScroll = W.Scroll(F.BoxWell)
+	F.BoxScroll:SetAllPoints(F.BoxWell)
+	F.Box = W.ScrollChild(F.BoxScroll, W.CopyBox(F.BoxScroll, { lines = 2, well = F.BoxWell }))
 	Theme.Font(F.Box, "small")
 	F.Box:SetWidth(BOX_W)
 	F.Box:SetScript("OnTabPressed", function() F.Desc:SetFocus() end)
-	-- The report's text in the box's font at its inner width, never seen:
-	-- what the box's height is measured on.
+	F.BoxWell:EnableMouse(true)
+	F.BoxWell:SetScript("OnMouseUp", function() W.SelectCopy(F.Box) end)
+	-- Over the box while it shows (Copy report shows it selected): how to
+	-- copy it, as the game gives addons no clipboard (#1826).
+	F.CopyHint = W.Text(F, "note", "success")
+	F.CopyHint:SetWidth(BOX_W)
+	F.CopyHint:SetJustifyH("LEFT")
+	F.CopyHint:SetWordWrap(true)
+	F.CopyHint:SetText(W.CopyHintText())
+	-- Under the buttons while the report is hidden: what its Settings lines
+	-- hold (settingsSection), settings alone. The copy hint and the box
+	-- take its place once the report shows.
+	F.SettingsNote = W.Text(F, "note", "textDim")
+	F.SettingsNote:SetWidth(WIDTH - TEXT_X - PAD)
+	F.SettingsNote:SetJustifyH("LEFT")
+	F.SettingsNote:SetWordWrap(true)
+	F.SettingsNote:SetText(L["The report lists the settings you changed and your profile's name: no character names, chat, account or realm."])
+	showBox(false)
+	-- The report's text in the box's font at its inner width: what the box's
+	-- height is measured on. Hidden, never alpha 0: a theme repaint gives a
+	-- string its colour's alpha back, and this one then drew the whole report
+	-- over the window (#1753).
 	F.Measure = W.Text(F, "small", "text")
-	F.Measure:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, 0)
 	F.Measure:SetWidth(BOX_W - 20)
 	F.Measure:SetJustifyH("LEFT")
 	F.Measure:SetWordWrap(true)
 	F.Measure:SetNonSpaceWrap(true)
-	F.Measure:SetAlpha(0)
+	F.Measure:Hide()
 
 	F.Rule = W.Divider(F)
 	F.Rule:SetWidth(BOX_W)
@@ -1036,7 +1576,10 @@ function UI.ShowReport()
 	F.key = F.details.key
 	F.Desc.Placeholder:SetShown((F.Desc:GetText() or "") == "")
 	F.Context:SetText(F.details.context)
-	F.Box:Hide()
+	local note = ns.Update and ns.Update.ReportNote()
+	F.Outdated:SetText(note or "")
+	F.Outdated:SetShown(note ~= nil)
+	showBox(false)
 	compose()
 	F:Show()
 	F:Raise()

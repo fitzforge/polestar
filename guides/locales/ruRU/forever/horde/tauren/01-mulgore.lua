@@ -34,21 +34,23 @@ return {
 	["Inside"] = "Внутри",
 
 	-- Step 5: The Hunt Continues
-	-- {npc:6775} Antur Fallow · {npc:2980} Grull Hawkwind
+	-- {npc:6775} Antur Fallow
 	-- plural, as words: Mountain Cougars = {npc:2961} Mountain Cougar
-	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} стоит в западной части лагеря, у северо-западного угла холмов, где бродят горные пумы: возьмите его задание, охотьтесь на пум оттуда к югу и востоку, затем вернитесь к {npc:2980}.",
+	["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, then hunt the cougars south through the hills towards the Seer's tent at their foot."] = "{npc:6775} стоит в западной части лагеря, у северо-западного угла холмов, где бродят горные пумы: возьмите его задание, затем охотьтесь на пум, двигаясь на юг по холмам к шатру провидца у их подножия.",
 
-	-- Step 6: Grull Hawkwind
-	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
-	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "",
+	-- Step 6: Seer Graytongue
+	["The Seer's tent stands at the foot of the cougars' hills."] = "Шатер провидца стоит у подножия холмов, где водятся пумы.",
 
-	-- Step 7: Seer Graytongue
-	["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Идите по тропе на юг из лагеря к шатру провидца у подножия холмов.",
-
-	-- Step 8: The shrine of An'she and Mu'sha
+	-- Step 7: The shrine of An'she and Mu'sha
 	["The shrine of An'she and Mu'sha"] = "Святилище Ан'ше и Му'ши",
 	-- {object:660739} Ritual Fire
 	["The incense burns out in ten minutes: run straight east along the southern hills to the {object:660739}."] = "Благовония сгорают за десять минут: бегите прямо на восток вдоль южных холмов сюда: {object:660739}.",
+
+	-- Step 8: Grull Hawkwind
+	-- {area:221} Camp Narache
+	["Back north-west up to {area:221}."] = "Назад на северо-запад, наверх сюда: {area:221}.",
+	-- {npc:3209} Brave Windfeather · {npc:2980} Grull Hawkwind · {area:221} Camp Narache
+	["{npc:3209}, next to {npc:2980}; walks around {area:221}: look inside the circle on the map"] = "",
 
 	-- Step 9: Red Cloud Mesa: kill these as you meet them
 	-- {area:220} Red Cloud Mesa
@@ -351,6 +353,8 @@ return {
 	["{npc:3418} stands at {area:378}, where the road from {zone:1412} meets the {area:458} north to the Crossroads."] = "{npc:3418} стоит здесь: {area:378} – там, где дорога из края {zone:1412} выходит на тракт {area:458}, ведущий на север к Перекрестку.",
 	-- {npc:3418} Kirge Sternhorn · {npc:3429} Thork
 	["{npc:3418}: for {npc:3429} at the Crossroads"] = "{npc:3418}: для персонажа {npc:3429} на Перекрестке",
+	-- {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
+	["{npc:10378}, beside {npc:3418}"] = "{npc:10378} – рядом с NPC {npc:3418}",
 
 	-- Step 83: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
@@ -385,6 +389,7 @@ return {
 	-- ["Class turn-ins in {area:1638}"] = "Сдача классовых заданий: {area:1638}",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "Доберите сердце волка, бедро пумы, чешую долгонога и желудок перепелятника на равнинах вокруг деревни.",
 	-- ["Flatland Prowlers roam the plains around {area:225}"] = "Хищники плоскогорья бродят по равнинам вокруг места {area:225}",
+	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Идите по тропе на юг из лагеря к шатру провидца у подножия холмов.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Идите по дороге на север от места {area:220}. {npc:265810} ждет на дороге чуть к югу от места {area:222}; /sit у ее костра, пока не получите {spell:1229451}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Кентавры Галак и могучие волки прерий",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "Камень возвращения: {area:222}, затем езжайте на север сюда: {area:1639}.",
@@ -422,5 +427,6 @@ return {
 	-- ["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}: для задания {quest:860} ({area:380})",
 	-- ["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}: для персонажа {npc:3448} ({area:380})",
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746} на центральном холме отправляет вас к NPC {npc:3033} ({area:1639}).",
+	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} стоит в западной части лагеря, у северо-западного угла холмов, где бродят горные пумы: возьмите его задание, охотьтесь на пум оттуда к югу и востоку, затем вернитесь к {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} и {quest:756}",
 }

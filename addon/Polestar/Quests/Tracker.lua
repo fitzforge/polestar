@@ -879,6 +879,10 @@ local function buildRegions()
 	end
 end
 
+-- Inside a dungeon (QoL/InstanceTrack.lua, qol.instanceTrack): only these
+-- quests' objective and turn-in markers ({ [questID] = true }), else nil.
+local tracked
+
 -- Quests in ID order, so the pins (and the refs a shared pin lists) come
 -- out in the same order whatever order pairs() walks the log in: overlapping
 -- markers stack the same way in every session.
@@ -896,7 +900,10 @@ local function rebuildObjectiveMarkers()
 	end
 	for i = #rebuildIDs, n + 1, -1 do rebuildIDs[i] = nil end
 	table.sort(rebuildIDs)
-	for i = 1, n do objectivePins(entries[rebuildIDs[i]], byKey) end
+	for i = 1, n do
+		local q = rebuildIDs[i]
+		if not tracked or tracked[q] then objectivePins(entries[q], byKey) end
+	end
 	prune(LAYER_OBJECTIVES)
 	prune(LAYER_TURNIN)
 	regionsDirty = true
@@ -1284,6 +1291,16 @@ local function schedule()
 	ns.After(THROTTLE, flush)
 end
 
+-- The tracker watches only the quests in set ({ [questID] = true }), or nil
+-- for every quest in the log again (QoL/InstanceTrack.lua inside a dungeon).
+function Q.SetTracked(set)
+	tracked = type(set) == "table" and set or nil
+	if not running then return end
+	markersDirty, dirtyPublish = true, true
+	schedule()
+end
+function Q.Tracked() return tracked end
+
 local function onLogEvent(event, arg)
 	if event == "UNIT_QUEST_LOG_CHANGED" and arg ~= "player" then return end
 	if event == "QUEST_ACCEPTED" and type(arg) == "number" then
@@ -1401,7 +1418,7 @@ end
 -- Settings that need the database (Q.IsWanted), filter available quests,
 -- or only change how layers are published.
 local WANT = { ["qol.questDB"] = true, ["qol.mapObjectives"] = true, ["qol.minimapObjectives"] = true, ["qol.availableQuests"] = true,
-	["qol.turnInMarkers"] = true, ["qol.questTooltips"] = true, ["qol.questBagMarks"] = true, ["qol.questSellWarning"] = true, ["qol.nameplateIcons"] = true }
+	["qol.turnInMarkers"] = true, ["qol.questTooltips"] = true, ["qol.questBagMarks"] = true, ["qol.questSellWarning"] = true, ["qol.nameplateIcons"] = true, ["qol.questLoot"] = true }
 local FILTER = { ["qol.availableQuests"] = true, ["qol.lowLevelQuests"] = true, ["qol.questLevelWindow"] = true }
 local LOOK = { ["qol.mapObjectives"] = true, ["qol.minimapObjectives"] = true, ["qol.availableQuests"] = true,
 	["qol.turnInMarkers"] = true, ["qol.objectiveSpots"] = true, ["qol.objectiveAreaAlpha"] = true, ["qol.questMarkerSize"] = true,

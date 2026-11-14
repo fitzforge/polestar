@@ -28,8 +28,10 @@ return {
 	["Follow the road north to the draenei of the {area:657}."] = "길을 따라 북쪽으로 {area:657}의 드레나이에게 가세요.",
 
 	-- Step 7: Fallow Sanctuary
-	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One
-	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "길을 따라 동쪽으로 {area:76}까지 가세요. {npc:256028} 몹이 수정을 떨어뜨리고, 노보루는 폐허를 돌아다니며 곤봉을 떨어뜨립니다.",
+	-- {area:76} Fallow Sanctuary · {npc:256028} The Lost One · {quest:1392} Noboru the Cudgel · {npc:1776} Magtoor
+	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals. {quest:1392} walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for {npc:1776}. Don't wait for him."] = "길을 따라 동쪽으로 {area:76}까지 가세요. {npc:256028} 몹이 수정을 떨어뜨립니다. {quest:1392}은(는) 폐허를 지나는 긴 길을 돌아다닙니다. 마주치면 처치하세요. 그의 곤봉으로 {npc:1776}의 퀘스트가 시작됩니다. 그를 기다리지는 마세요.",
+	-- {quest:1392} Noboru the Cudgel
+	["from {quest:1392}: he walks a path through the ruins"] = "{quest:1392}에게서: 폐허를 지나는 길을 돌아다닙니다",
 
 	-- Step 8: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
@@ -91,8 +93,10 @@ return {
 	["{zone:1455} flight master"] = "",
 
 	-- Step 22: Shadowy Assassin
-	-- {npc:2434} Shadowy Assassin · {area:271} Southshore
-	["A {npc:2434} lurks unseen on the edge of {area:271}; kill him and read the contract he carries."] = "{npc:2434}이(가) {area:271} 외곽에 보이지 않게 숨어 있습니다. 그를 처치하고 그가 지닌 계약서를 읽으세요.",
+	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
+	["A {npc:2434} lurks stealthed on the edge of {area:271}, and few players find him. If you spot him, kill him and read the contract he carries: {npc:2276} takes it. Don't wait for him: the rest of this step doesn't need him."] = "{npc:2434}이(가) {area:271} 외곽에 은신한 채 숨어 있어 그를 찾는 플레이어는 드뭅니다. 발견하면 처치하고 그가 지닌 계약서를 읽으세요. {npc:2276}이(가) 받습니다. 그를 기다리지는 마세요. 이 단계의 나머지는 그가 없어도 됩니다.",
+	-- {npc:2434} Shadowy Assassin
+	["{npc:2434}, if you spot him"] = "{npc:2434}, 발견한 경우",
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside"] = "",
 
@@ -107,9 +111,9 @@ return {
 	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
 
 	-- Step 27: Hay Weevil
-	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
 
 	-- Step 28: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -119,8 +123,9 @@ return {
 	-- Step 29: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
 	["{area:318}: kill these as you meet them"] = "",
-	-- {area:321} Hammerfall
-	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
+	-- {area:321} Hammerfall · {skill:186} Mining
+	-- plural, as words: Lesser Bloodstone Deposits = {object:2653} Lesser Bloodstone Deposit
+	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop the Motes of Myzrael, not Krazek's ore. Lesser Bloodstone Deposits need {skill:186} 75: mine four ore, buy them at the Auction House, or ask a miner friend. The ore goal is optional; continue with Myzrael if you cannot get it. Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "마른수염 코볼트는 {area:321}(호드) 동쪽 협곡에서 땅을 팝니다. 마을은 북쪽으로 돌아가세요. 이들은 미즈라엘의 결정 파편을 떨어뜨리지만, 크라제크의 광석은 떨어뜨리지 않습니다. 저급 혈석 광맥은 {skill:186} 75가 필요합니다. 광석 4개를 캐거나, 경매장에서 사거나, 채광하는 친구에게 부탁하세요. 광석 목표는 선택 사항입니다. 구할 수 없으면 미즈라엘 퀘스트를 계속하세요. 주의: 모든 코볼트는 생명력이 낮아지면 도움을 청하러 도망가므로(코볼트는 30%, 흙점쟁이와 채굴꾼은 15%) 더 많이 끌려올 수 있습니다.",
 	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
 	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "",
 
@@ -286,7 +291,9 @@ return {
 	["South-east along the loch to the dig site."] = "호수를 따라 남동쪽으로 발굴 현장까지 가세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:2434} lurks unseen on the edge of {area:271}; kill him and read the contract he carries."] = "{npc:2434}이(가) {area:271} 외곽에 보이지 않게 숨어 있습니다. 그를 처치하고 그가 지닌 계약서를 읽으세요.",
 	-- ["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}."] = "각 열쇠는 아라시 고원의 선돌 원 중 하나에 있습니다. 파편 동쪽, {area:320} 근처, 그리고 서쪽입니다. {object:2702}은(는) {area:320} 서쪽에 서 있습니다.",
+	-- ["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "길을 따라 동쪽으로 {area:76}까지 가세요. {npc:256028} 몹이 수정을 떨어뜨리고, 노보루는 폐허를 돌아다니며 곤봉을 떨어뜨립니다.",
 	-- ["Ebenezer Rustlocke"] = "에벤에셀 러스트로크",
 	-- ["Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves."] = "학자를 만 북쪽 해변까지 호위하고 그가 작업하는 동안 지키세요. 나가가 여러 차례 공격해 옵니다.",
 	-- ["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings, and {npc:2306} walks the manor grounds on the north side of town."] = "길을 따라 북쪽으로 {area:271}을(를) 나가 산으로 들어가세요. 산사자가 비탈을 돌아다니고, {area:280}의 비밀결사대가 인장 반지를 끼고 있으며, {npc:2306}은(는) 마을 북쪽 저택 부지를 돌아다닙니다.",

@@ -287,11 +287,11 @@ end
 local generation = 0
 Rewards.best, Rewards.reason = nil, nil
 
--- Draw the marks on the shown reward panel. -> whether the best choice is
--- marked, or nil when there is no best to mark.
+-- Draw the marks on the shown reward panel (none while Polestar is hidden).
+-- -> whether the best choice is marked, or nil when there is no best to mark.
 function Rewards.Mark()
 	Rewards.HideMarks()
-	if not QoL.On("rewardHighlight") then return nil end
+	if not QoL.On("rewardHighlight") or ns.Hidden() then return nil end
 	local frame = rewardsFrame()
 	if not frame then return nil end
 	local fromLog = QuestInfoFrame and QuestInfoFrame.questLog and true or false
@@ -355,7 +355,8 @@ end
 
 -- Whether auto-pick may take a reward from the panel of `quest` now.
 local function mayTake(gen, quest)
-	return gen == generation and quest and questID() == quest and QoL.On("rewardAutoPick") and not QoL.Shift()
+	-- Not while the pause holds the quest automation (pause.automation).
+	return gen == generation and quest and questID() == quest and QoL.On("rewardAutoPick") and not QoL.Shift() and not ns.PauseHides("automation")
 end
 
 local function evaluate(gen, tries, quest)
@@ -394,7 +395,7 @@ local function evaluate(gen, tries, quest)
 			return
 		end
 	end
-	if QoL.On("rewardHighlight") and Rewards.Mark() ~= true then
+	if QoL.On("rewardHighlight") and not ns.Hidden() and Rewards.Mark() ~= true then
 		ns.Print(format(L["Best reward: %s (%s)."], choices[best].link or ("#" .. best), why))
 	end
 end
@@ -444,6 +445,7 @@ ns.On("SETTING_CHANGED", function(path)
 		schedule()
 	end
 end)
+ns.On("POLESTAR_HIDDEN", function() if shown() then schedule() end end)
 if ns.Theme and ns.Theme.OnChanged then
 	ns.Theme.OnChanged(function()
 		for _, m in pairs(marks) do

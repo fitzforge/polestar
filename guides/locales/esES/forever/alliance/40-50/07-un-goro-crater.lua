@@ -6,6 +6,9 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "Para personajes de nivel 49 a 50, pero la mayoría de las misiones de aquí son de nivel 51-53: a propósito, por su experiencia. Las bestias del cráter son de nivel 48-55 y los silítidos Gorishi, de 51-54, así que atráelos de uno en uno.",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
@@ -51,8 +54,8 @@ return {
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618} está justo fuera del refugio.",
 
 	-- Step 13: Marshal's Refuge
-	-- {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
+	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, en la entrada del refugio",
 	-- {npc:8737} Linken

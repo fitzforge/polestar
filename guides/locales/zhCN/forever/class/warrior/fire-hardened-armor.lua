@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "淬火护甲",
-	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "现在20级即可开始，先获得盾牌；28级获得胸甲，再从三位铁匠处获得头盔、护腿和护手。",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -48,7 +48,7 @@ return {
 	["Charred and Galvanized Horns"] = "烧焦的奇美拉角和{item:6840}",
 	-- {area:460} Sun Rock Retreat · {area:465} Charred Vale · {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch · {spell:3396} Corrosive Poison · {spell:403} Lightning Bolt · {area:467} Stonetalon Peak
 	-- plural, as words: Charred Horns = {item:6839} Charred Horn · Young Chimaeras = {npc:4032} Young Chimaera
-	["The chimaeras live south-west of {area:460} in the {area:465}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "奇美拉生活在{area:460}西南方的{area:465}：你需要从奇美拉雏兽（25-27级）和奇美拉幼崽（23-25级）身上取得12个烧焦的奇美拉角，掉率为五只出四个；还需要从{npc:6167}（28级，体型最大的那只）身上取得{item:6840}，掉率同样为五只出四个。那里只有三只奇美拉雏兽、两只幼崽和一只雌兽，每只五分钟刷新，因此要做好等待的准备。奇美拉雏兽和雌兽会喷吐{spell:3396}，幼崽会施放{spell:403}。联盟：飞往{area:467}后向南走。",
+	["The chimaeras live south-west of {area:460} in the {area:465}; the guide waits for level 26 first. You need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "奇美拉生活在{area:460}西南方的{area:465}；指南会先等到26级。你需要从奇美拉雏兽（25-27级）和奇美拉幼崽（23-25级）身上取得12个烧焦的奇美拉角，掉率为五只出四个；还需要从{npc:6167}（28级，体型最大的那只）身上取得{item:6840}，掉率同样为五只出四个。那里只有三只奇美拉雏兽、两只幼崽和一只雌兽，每只五分钟刷新，因此要做好等待的准备。奇美拉雏兽和雌兽会喷吐{spell:3396}，幼崽会施放{spell:403}。联盟：飞往{area:467}后向南走。",
 	-- {item:6839} Charred Horn
 	["{item:6839}, from the young chimaeras"] = "{item:6839}，由奇美拉幼崽掉落",
 	-- {item:6840} Galvanized Horn · {npc:6167} Chimaera Matriarch
@@ -71,29 +71,33 @@ return {
 	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "{npc:1416}在{object:28027}西北部经营武器店，离{npc:5413}只有几步路。他需要20个{quest:1705}和{item:6845}。",
 
 	-- Step 12: Burning Blood
-	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {spell:3427} Infected Wound
-	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. {npc:6170} (level 32, not elite) carries the {item:6845} (also four in five): he walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. {npc:6170} and the Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "{zone:1431} 的 {area:42} 南边和西边分布着夜行狼人（黑暗奔跑者、邪齿狼人、暗影编织者、狼人和堕落狼人，26-31 级），约每五次击杀有四次掉落 {quest:1705}。{npc:6170}（32 级，非精英）携带 {item:6845}（掉率同样约五分之四）：他在 {area:42} 东南的 {area:2161} 矿洞内与洞口之间巡逻，可在入口等候，把他引到外面。{npc:6170} 和堕落狼人会下毒和嚎叫；邪齿狼人会造成 {spell:3427}。",
+	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
+	["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. The Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "{zone:1431} 的 {area:42} 南边和西边分布着夜行狼人（夜行黑暗狼人、夜行邪齿狼人、夜行织影狼人、夜行狼人和夜行堕落狼人，26-31 级），约每五次击杀有四次掉落 {quest:1705}。夜行堕落狼人会下毒和嚎叫；夜行邪齿狼人会造成 {spell:3427}。",
 	-- {quest:1705} Burning Blood
 	["{quest:1705}, from the Nightbane worgen"] = "从夜行狼人处获取 {quest:1705}。",
+
+	-- Step 13: Gutspill
+	-- {npc:6170} Gutspill · {item:6845} Burning Rock · {area:2161} Roland's Doom · {area:42} Darkshire
+	["{npc:6170} (level 32, not elite) carries the {item:6845}, four kills in five; the guide waits for level 30 first. He walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. He poisons and howls."] = "{npc:6170}（32 级，非精英）携带 {item:6845}，约每五次击杀有四次掉落；指南会先等到 30 级。他在 {area:42} 东南的 {area:2161} 矿洞内与洞口之间巡逻，可在入口等候，把他引到外面。他会下毒和嚎叫。",
 	-- {item:6845} Burning Rock · {npc:6170} Gutspill
 	["{item:6845}, from {npc:6170}"] = "{item:6845}，由{npc:6170}掉落",
 
-	-- Step 14: Mathiel
+	-- Step 15: Mathiel
 	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
 	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "{quest:1703} 在 {zone:1457} 的 {area:1660} 南侧工作。他需要20份 {quest:1710}。",
 
-	-- Step 15: Sunscorched Shells
+	-- Step 16: Sunscorched Shells
 	-- {area:482} Highperch · {zone:1441} Thousand Needles
 	-- plural, as words: Highperch Wyverns = {npc:4107} Highperch Wyvern
 	["The shells lie on the ground under the wyvern nests at {area:482} in western {zone:1441}, deeper into the gorge. Only nine exist and each returns 3 minutes after you pick it, so you will wait; some shell-like things there cannot be looted. Highperch Wyverns (level 28-31) guard them and sometimes come several at once."] = "蛋壳散落在 {zone:1441} 西部 {area:482} 的双足飞龙巢穴下方地面，位置在峡谷更深处。总共只有九个，每个拾取后三分钟刷新，因此需要等待；那里一些看起来像蛋壳的东西无法拾取。风巢双足飞龙（28—31级）守护着蛋壳，有时会同时引来好几只。",
 
-	-- Step 17: Klockmort Spannerspan
+	-- Step 18: Klockmort Spannerspan
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
 	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "搭乘{area:2257}从{zone:1453}前往{zone:1455}。侏儒铁匠{quest:1704}在{object:171524}工作，靠近工程学训练师。他需要20个{item:6848}。",
 
-	-- Step 18: Iron Coral
+	-- Step 19: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "{quest:1708} 生长在 {area:150} 正南方的海底，靠近鱼人小屋和一艘破船：那里有八株，港口东南方另有两株，每株3分钟刷新，因此凑齐20个需要等刷新。鱼人会在水下用网困住你：留意呼吸，使用 {item:5996} 可以消除溺水风险。",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "{item:6848}，来自{quest:1708}",
 
@@ -106,7 +110,9 @@ return {
 	-- ["Roogug is an elite quilboar inside {area:1717}, the dungeon at the south end of the {zone:1413}; he drops the {item:6841}. {area:1717} is a dungeon: grouping up is advised."] = "鲁古格是{area:1717}里的精英野猪人，这个地下城位于{zone:1413}南端；他掉落{item:6841}。{area:1717}是地下城：建议组队。",
 	-- ["The Fledgling and Young Chimaeras roam the south-west of Stonetalon, with the {npc:6167} among them: the young ones drop the {item:6839}, the Matriarch the {item:6840}."] = "奇美拉雏兽和{npc:4032}在石爪山脉西南部游荡，{npc:6167}也在其中：幼年奇美拉掉落{item:6839}，奇美拉主母掉落{item:6840}。",
 	-- ["The Leech Stalkers and Cave Stalkers crawl around 46,61 in the middle of the {zone:1437}; they drop the {item:6838}."] = "{npc:1111}和{npc:4040}在{zone:1437}中部46,61附近爬行；它们掉落{item:6838}。",
+	-- ["The Nightbane worgen of {zone:1431} (Dark Runners, Vile Fangs, Shadow Weavers, Worgen and Tainted Ones, level 26-31) south and west of {area:42} drop the {quest:1705} four kills in five. {npc:6170} (level 32, not elite) carries the {item:6845} (also four in five): he walks between the inside and the mouth of the {area:2161} mine south-east of {area:42}, so wait at the entrance and pull him outside. {npc:6170} and the Tainted Ones poison and howl; Vile Fangs cause {spell:3427}."] = "{zone:1431} 的 {area:42} 南边和西边分布着夜行狼人（黑暗奔跑者、邪齿狼人、暗影编织者、狼人和堕落狼人，26-31 级），约每五次击杀有四次掉落 {quest:1705}。{npc:6170}（32 级，非精英）携带 {item:6845}（掉率同样约五分之四）：他在 {area:42} 东南的 {area:2161} 矿洞内与洞口之间巡逻，可在入口等候，把他引到外面。{npc:6170} 和堕落狼人会下毒和嚎叫；邪齿狼人会造成 {spell:3427}。",
 	-- ["The Nightbane worgen of {zone:1431} drop the {quest:1705}. {npc:6170} walks in the far south-east of {zone:1431} and carries the {item:6845}."] = "{zone:1431}的夜行狼人掉落{quest:1705}。{npc:6170}在{zone:1431}的最东南端游荡，身上带着{item:6845}。",
+	-- ["The chimaeras live south-west of {area:460} in the {area:465}: you need 12 Charred Horns from the Fledgling (level 25-27) and Young Chimaeras (23-25), four kills in five, and the {item:6840} from the {npc:6167} (28, the big one), also four in five. Only three Fledglings, two Young and one Matriarch live there, each back in 5 minutes, so expect to wait. Fledglings and the Matriarch spit {spell:3396}, the Young cast {spell:403}. Alliance: fly to {area:467} and head south."] = "奇美拉生活在{area:460}西南方的{area:465}：你需要从奇美拉雏兽（25-27级）和奇美拉幼崽（23-25级）身上取得12个烧焦的奇美拉角，掉率为五只出四个；还需要从{npc:6167}（28级，体型最大的那只）身上取得{item:6840}，掉率同样为五只出四个。那里只有三只奇美拉雏兽、两只幼崽和一只雌兽，每只五分钟刷新，因此要做好等待的准备。奇美拉雏兽和雌兽会喷吐{spell:3396}，幼崽会施放{spell:403}。联盟：飞往{area:467}后向南走。",
 	-- ["The {quest:1708} grows along the {zone:1437}' west coast, south of {area:150}."] = "{quest:1708}生长在{zone:1437}西海岸、{area:150}南边。",
 	-- ["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and an Elixir of Water Breathing removes the risk."] = "{quest:1708}生长在{area:150}正南方的海底，靠近鱼人小屋和一艘破船：那里有八株，港口东南方另有两株，每株3分钟刷新，因此凑齐20个需要等刷新。鱼人会在水下用网困住你：留意呼吸，使用水下呼吸饮剂可以消除溺水风险。",
 	-- ["The {quest:1710} lie along the western edge of {zone:1441}."] = "{quest:1710}散布在{zone:1441}的西部边缘。",

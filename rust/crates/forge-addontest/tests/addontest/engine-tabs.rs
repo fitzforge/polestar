@@ -121,7 +121,7 @@ fn saved_tabs_reopen_at_login_with_their_own_step_state_a_guide_not_registered_s
 		"stub.world.onQuest(783, {})",
 		Some(r#"PolestarCharDB = { schema = 1, tabs = { "test/warrior", "gone", "test/lvl" }, activeTab = 3, guide = "test/lvl" }"#),
 		r#"
-			local list, active = E.GetTabs()
+			local list, active = E.GetTabs(true)
 			emit({ ids = ids(), guide = E.GetGuide().id, step = E.GetStepIndex(),
 				tabs = { { list[1].guideId, list[1].stepIndex, list[1].done, list[1].total, list[1].complete },
 					{ list[2].guideId, list[2].stepIndex, list[2].done, list[2].total, list[2].complete } },
@@ -364,7 +364,7 @@ fn a_tab_whose_guide_an_update_reworked_follows_the_quests_in_the_log_to_their_g
 	assert_eq!(json!([open["tabs"], open["said"]]), json!([["test/zone05", "test/zone04"], ""]), "never a second tab of a guide");
 }
 
-// The fresh-start sweep (EngineReview036, 0.3.6): a /reload with no update moved an Alliance 35 tab from
+// The fresh-start sweep (0.3.6): a /reload with no update moved an Alliance 35 tab from
 // Stranglethorn Vale to Arathi Highlands ("changed in this update"). The saved shape and step keys are the
 // guide as planned for the character (feeders in, quests waiting on earlier guides left out: other step keys),
 // so against the guide as registered they read reworked. A save stamped with the pack's own version saw no

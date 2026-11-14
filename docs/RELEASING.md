@@ -38,7 +38,7 @@ forge release version 0.2.0      # set package.json, guides/pack.json and every 
 ```
 
 Data addons rebuilt later take the version from `package.json`. Versions
-follow `x.y.z`; `0.x` releases are betas.
+follow `x.y.z`, with an optional fourth number for urgent hotfixes; `0.x` releases are betas.
 
 ## What a release holds
 
@@ -81,6 +81,73 @@ Run `regen` once per merge or batch, then push the regenerated files on
 `next`. You do not need to run it before every commit, only before pushing
 a batch to `next` or starting the release steps below.
 
+## On-demand runs on GitHub
+
+A batch of work (an integration branch, a triage round) gets its full
+suites, guide compile and playtests, and gates once, on GitHub's runners,
+before it goes to `next`: the on-demand workflows, described in
+[CI.md](CI.md). Start one run per batch, not per item, on the pushed
+branch:
+
+```sh
+git push origin <branch>
+gh workflow run ondemand-batch.yml --ref <branch> -f base=next   # everything, compared with next
+gh workflow run ondemand-guides.yml --ref <branch> -f base=next -f groups=horde/30-40 -f classes=Warrior,Mage
+gh workflow run ondemand-suites.yml --ref <branch>               # suites only (-f addontest=false ...)
+gh workflow run ondemand-gates.yml --ref <branch> -f base=next   # gates only
+gh run list --workflow ondemand-batch.yml --branch <branch> -L 3
+gh run watch <id>; gh run view <id> --log-failed; gh run download <id> -p 'logs-*'
+```
+
+`--ref` is the branch whose code (and whose copy of the workflow) runs; it
+must hold the workflow files, which every branch made from `next` does.
+`workflow_dispatch` only offers workflows that are on the default branch
+(`next`); until they are there, or to test a branch that predates them,
+push the branch as `ci/<name>` instead: a push to `ci/**` runs the whole
+batch on it, compared with `next` (`git push origin <branch>:ci/<name>`,
+then delete `ci/<name>` when done). The `ref` input tests another branch or
+tag of this repository with the workflow of the branch the run started
+on.
+
+Read the summary of each job first (findings new against the base), then
+the `logs-*` artifacts for the full output. A finding that also shows on the
+base is not the batch's. What the public reference data lacks, and what
+stays local, is in [CI.md](CI.md#what-stays-local): the release data's gates,
+the skip-ahead sweep and the upgrade harness still run locally before a
+release.
+
+### Security rules for the on-demand workflows
+
+The repository is public and these workflows run code from branches, so
+every one of them keeps these rules (a change to them is reviewed against
+this list):
+
+- Started only by `workflow_dispatch` (people with write access), by
+  `workflow_call` from `ondemand-batch.yml`, and by a push to `ci/**` (also
+  write access only). Never `pull_request_target`, never a fork's code: the
+  code under test must be a branch or tag of this repository
+  (`.github/actions/ondemand-ref` refuses pull request refs and bare
+  commits) and is pinned to its commit once per run.
+- `permissions: {}` at the top of each workflow and `contents: read` on
+  each job, the minimum a checkout needs; no job asks for more.
+- No secrets: none is read, and every checkout sets
+  `persist-credentials: false`, so the code under test never holds the
+  run's token.
+- GitHub-hosted runners only (`ubuntu-latest`), never self-hosted.
+- Every third-party action is pinned to a full commit SHA (the tag in a
+  comment). The QuestieDB download is pinned by version and SHA-256.
+- Caches: the Rust caches are written only by these runs (on branches of
+  this repository, so a fork's pull request can neither write nor read them
+  where these runs restore them); the client tables cache is restore-only
+  (`wago-cache.yml` on `next` writes it); the forge binary and the public
+  data pass from a run's first job to its others through one entry keyed by
+  the run's id and attempt, read back by that exact key and never by a
+  prefix.
+- Artifacts hold logs only (test, compile, playtest and gate output), kept
+  14 days: no data, no tokens, no environment dumps.
+- Concurrency groups per workflow and branch: a new start waits for the
+  running one (and replaces an older waiting one), so runs cannot pile up.
+
 ## Steps
 
 These are the steps of a feature release. Replace `0.2.0` with the new
@@ -100,16 +167,44 @@ version throughout.
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
-   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh)
+   forge release credits                     # Guiding Stars: data/credits.json + merged or folded PRs + issues (needs gh) + translators
    forge guide lint
    forge guide compile
+   forge guide lint experimental && forge guide compile experimental   # Polestar Experimental (alpha guides)
    ```
+
+   `experimental/` holds Polestar Experimental: guides for Forever's new
+   zones in testing, a pack of Polestar's own that ships in the zip as
+   `Polestar_Experimental`, loaded on demand and off until a player chooses
+   one of its guides at a route choice or switches it on under Options >
+   Community guides (PACK_FORMAT.md, "Polestar's own extra packs"). `forge
+   release version` sets its `pack.json` with `guides/pack.json`, and `forge
+   release pack` builds it again and stops on an error in it. `forge guide
+   compile` reads it too: Polestar_Guides carries the index of the
+   experimental guides our route choices offer, so compile both after an
+   edit to either.
 
    `Polestar_QuestDB` is not in the repository (it is ignored, like the
    Codex): build it with `forge data questdb` on every release machine
    before `forge release pack`, or the zip goes out without it. The language
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
    their names with `forge data names` when the data changed.
+
+   Compile after `forge release version`, never before: `forge release
+   version` writes the TOCs, but the guide pack's version in
+   `Polestar_Guides/Pack.lua` comes from the compile. The Engine maps a save
+   to changed guides (steps added behind the player, moved steps) only when
+   the save's pack version differs from the pack's, so a pack still carrying
+   the last release's version skips that mapping for every save made on it.
+   Check before packing, and on the zip: `Pack.lua`'s `version` and every
+   `Polestar_Guides*` TOC equal the release version (a test build carries
+   its `x.y.z-rcN` the same way).
+
+   Don't regenerate `addon/Polestar/Nav/TravelData.lua` (`forge data
+   travel`) on a release build unless its output keeps every portal and
+   every flight point of the committed file (the Forever ones need the
+   Forever build's TaxiNodes and TaxiPath in `data/sources`: `forge data
+   sources --only builders`): check `git diff` before committing.
 
    Pass `--questie` explicitly on a release build. Without it the build
    picks the first QuestieDB it finds among the installed clients, so a
@@ -120,6 +215,16 @@ version throughout.
    `Polestar_Codex/Meta.lua`, unless the release moves to a newer one on
    purpose; the data build's statistics check stops a build whose QuestieDB
    changed underneath it.
+
+   A newer QuestieDB can narrow quests' races: its generated Forever quest
+   base takes a web-database scrape's race lists, which can leave out races
+   that take the quest in game (1.0.14 narrowed 75 quests; corrections set
+   them back). Before a release moves to one, build it once into a copy of
+   `data/forever` (`--out <copy>`), lint every guide on that build, and read
+   the statistics report's `quests.races.*` lines. Build into a copy, never
+   an empty folder: the knowledge base adds the Forever world database's
+   class trainers to the `trainers.json` it finds in the output folder, and
+   the statistics check compiles the guides with the files already there.
 
    `forge i18n guides sync` and `forge guide compile` read the client's
    AreaTable from `data/sources/wago/<build>/AreaTable.csv`, found beside
@@ -134,7 +239,12 @@ version throughout.
    with the last release's: a large drop means translations went missing.
 
    Before `credits`, add new Ko-fi supporters to `data/credits.json`
-   (names only, highest total first; amounts are never stored). The bug
+   (names only, highest total first; amounts are never stored), and anyone
+   whose idea shipped though someone else built it to its `ideas`
+   (`{ "name": "<login>", "ref": <pull request or issue> }`; the changelog's
+   "idea by" and "idea first proposed by" credits are the list to check). The
+   translators come from the locales' `translators` (rust/crates/forge-guide/
+   src/locales.rs and tools/lib/i18n/locales.js). The bug
    reporters column counts a reporter's useful reports from the issues: the
    Discord name the bot filed it under ("**Reported by <name> on
    [Discord](...)**"), else the GitHub login that opened it. A report counts
@@ -159,9 +269,9 @@ version throughout.
 4. Pack and check the archives:
 
    ```sh
-   rm -rf dist && forge release pack     # stops naming any guide whose legs are stale; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
+   rm -rf dist && forge release pack     # stops naming any leveling guide whose legs are stale or missing; add --bake --grid <canon grid> --leffe <Leffe's maps> to bake them
    (cd dist && sha256sum -c SHA256SUMS)
-   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, and Polestar_Nav/ with its LICENSE and CREDITS.md, are listed
+   unzip -l dist/Polestar-0.2.0.zip      # Polestar_Codex/ with its LICENSE-DATA.txt, Polestar_Nav/ with its LICENSE and CREDITS.md, and Polestar_Experimental/ are listed
    forge nav check                       # Polestar_Nav's walking maps match its PACK.json
    ```
 
@@ -219,12 +329,18 @@ version throughout.
 
    ```sh
    forge changelog build 0.2.0     # writes "## 0.2.0 (<today>)", deletes the fragments
-   git add CHANGELOG.md changes package.json guides/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
+   git add CHANGELOG.md changes package.json guides/pack.json experimental/pack.json addon/Polestar addon/Polestar_Guides addon/Polestar_Experimental addon/Polestar_ItemDB addon/Polestar_Nav addon/Polestar_Recorder
    git commit -m "Release: 0.2.0"
    git switch main && git merge --ff-only next && git switch next
    git tag -a v0.2.0 -m "Polestar 0.2.0" main
    git push origin main next v0.2.0
    ```
+
+   These pushes of `next`, `main` and the tag go past the branch rules on
+   the maintainer's admin bypass, and only with the maintainer's go for that
+   release; git prints "Bypassed rule violations" for them. Any other push
+   that prints it (a branch, a tag deletion) is a mistake: stop and ask
+   before going on.
 
 8. Write the release notes. `forge release notes` drafts all three from the
    version's CHANGELOG.md section into `dist/` (not committed), each
@@ -236,15 +352,43 @@ version throughout.
    ```
 
    It writes `notes-0.2.0.md` (GitHub), `notes-curseforge-0.2.0.md` and
-   `notes-discord-0.2.0.txt` (posts of at most 2,000 characters). Each
-   starts with a `[[REPLACE ...]]` line: write the opening paragraph there.
-   The drafts carry every player and author entry word for word; cut them
+   `notes-discord-0.2.0.txt`. Each starts with a `[[REPLACE ...]]` line:
+   write the opening paragraph there, saying what changes for players. The
+   drafts carry every player and author entry word for word; cut them
    down to what changed for players first (guides, routes, features,
    fixes), then for guide authors, and add the special thanks by hand.
    Hours to 60 are the simulator's model estimates and are written as such,
-   with the world they come from.
+   with the world they come from; any other speed claim says "in our
+   testing". Never "our biggest update yet", "biggest ever", "massive
+   update" or any other size or hype claim, in any of the texts. Promise
+   only what works in the zip that ships, data packs included.
 
-9. Publish the release with the three files from step 4:
+   Then the two Discord texts, built from the final notes (not the
+   fragments), each post under 3,900 characters, covering the addon and
+   the Polestar Client and Recorder together:
+
+   - `dist/discord-announcement-0.2.0.md`: ONE post for the announcements
+     channel: a plain "Polestar 0.2.0 is out" headline, an opening on what
+     changes for players, every player-facing feature in grouped bullets
+     (Routes, Guide window, Arrow and travel, Play together, Quality of
+     life, Polestar Client and Recorder), how to update and where the full
+     notes are.
+   - `dist/notes-discord-0.2.0.txt`: the patch notes in as few posts as
+     fit: post 1 "# Polestar 0.2.0 Patch Notes", the date, the notes'
+     first sentence in bold, the rest of the opening and "## How to
+     update"; then "## For players" over as many posts as it takes; the
+     last post the thanks. Leave out the contributor section.
+
+9. Close the issues the release fixes (its issue list and the milestone's
+   closed-by-PR issues still open) BEFORE publishing: the Discord release
+   notifier tells only the issues already closed when the release is
+   published, and an issue closed afterwards is told "will ship in the next
+   update" and announced again with the next release. Then publish the
+   release with the three files from step 4. The release script
+   (`GO-<version>.sh`) runs these in that order and refuses to publish when
+   the notes, the CurseForge text or the Discord texts contain "biggest
+   update", "biggest ever" or "massive update" (any case), next to its
+   check for other addons' names:
 
    ```sh
    gh release create v0.2.0 --verify-tag --title "Polestar 0.2.0" \

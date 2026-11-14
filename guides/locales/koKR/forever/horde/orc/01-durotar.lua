@@ -256,7 +256,7 @@ return {
 	["{area:369}: kill these as you meet them"] = "",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly."] = "",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "천둥도마뱀과 번개도마뱀은 {npc:3293} 바로 서쪽과 남서쪽의 {area:369}에서 풀을 뜯습니다.\n피즐은 {area:362} 북서쪽 {area:369}의 불타는칼날단 야영지를 차지하고 있습니다. 사냥꾼: 가는 길에 {item:15908}(으)로 {npc:3099}을(를) 길들이세요.\n주의: 불타는칼날단 이교도들이 피즐을 둘러싸고 있으며, 일부는 연결되어 있어 두 마리씩 덤비고, 빨리 다시 나타납니다.\n주의: 12레벨 정예 할리코르가 도마뱀들 사이로 {area:369}을(를) 돌아다닙니다. 끌어오기 전에 그를 살피세요.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "{item:15908}(으)로 길들이세요",
 
@@ -348,7 +348,7 @@ return {
 	["Thunder lizards on the way north"] = "",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
-	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}."] = "",
+	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "천둥도마뱀과 번개도마뱀은 {zone:1454}(으)로 가는 북쪽 길가의 {area:369}에서 풀을 뜯으며, 어느 것이든 {item:6486}을(를) 떨어뜨릴 수 있습니다. 다음 가이드가 {area:379}을(를) 지날 때 {npc:5810}이(가) 받습니다.\n주의: 12레벨 정예 할리코르가 도마뱀들 사이로 {area:369}을(를) 돌아다닙니다. 끌어오기 전에 그를 살피세요.",
 
 	-- Step 87: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor

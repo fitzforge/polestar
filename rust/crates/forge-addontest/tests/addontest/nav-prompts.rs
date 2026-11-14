@@ -195,6 +195,125 @@ fn travel_button_issues_c1_a_route_cleared_or_replaced_while_a_change_waits_on_c
 	assert_eq!(out[2], out[1]);
 }
 
+// A small layout of the client's for the travel button's spot: frames held by one point of a 1920 x 1080
+// UIParent, resolved in UIParent's units. The arrow's measured rectangle (GetCenter, GetBottom) comes from the
+// same layout once the client has laid it out (`arrow.laidOut`); before that it is nil, as right after a reload.
+// `under()` is the button's top against the arrow's foot: { 0, -6 } is just under it.
+const LAYOUT: &str = r#"
+UIParent:SetSize(1920, 1080)
+local function frac(p)
+	return p:find("LEFT") and 0 or p:find("RIGHT") and 1 or 0.5, p:find("TOP") and 1 or p:find("BOTTOM") and 0 or 0.5
+end
+local function own(f) return f:GetEffectiveScale() / UIParent:GetEffectiveScale() end
+local function spot(f, which)
+	local point, rel, relPoint, x, y = f:GetPoint(1)
+	assert(f:GetNumPoints() == 1 and rel == UIParent, "held by one point of UIParent")
+	local k = own(f)
+	local rx, ry = frac(relPoint)
+	local px, py = frac(point)
+	local wx, wy = frac(which)
+	return rx * UIParent:GetWidth() + x * k + (wx - px) * f:GetWidth() * k,
+		ry * UIParent:GetHeight() + y * k + (wy - py) * f:GetHeight() * k
+end
+local arrow = N.arrow.frame
+arrow.laidOut = true
+function arrow:GetCenter()
+	if not self.laidOut then return nil end
+	local x, y = spot(self, "CENTER")
+	return x / own(self), y / own(self)
+end
+function arrow:GetBottom()
+	if not self.laidOut then return nil end
+	local _, y = spot(self, "BOTTOM")
+	return y / own(self)
+end
+local function r(v) return math.floor(v * 1000 + 0.5) / 1000 end
+local function under()
+	local bx, by = spot(btn(), "TOP")
+	local ax, ay = spot(arrow, "BOTTOM")
+	return { r(bx - ax), r(by - ay) }
+end
+arrow:ClearAllPoints()
+arrow:SetPoint("TOP", UIParent, "TOP", 0, -140)
+nav.items[6948] = 1
+"#;
+
+#[test]
+fn travel_button_issues_1821_after_a_reload_the_arrow_taking_its_saved_scale_and_spot_or_a_new_size_takes_the_button_with_it() {
+	let out = run_nav(&format!(
+		"{LAYOUT}{}",
+		r#"
+		-- the reload: the cast leg puts the button out while the arrow is still at its default spot
+		arrow:Show()
+		setRoute({ HEARTH, WALK })
+		emit(under())
+		-- then the arrow takes its saved scale and spot, as its settings put them
+		arrow:SetScale(1.4)
+		arrow:ClearAllPoints()
+		arrow:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 300, -500)
+		emit(under())
+		-- a taller arrow
+		local w, h = arrow:GetSize()
+		arrow:SetSize(w, h + 40)
+		stub.RunScript(arrow, "OnSizeChanged", w, h + 40)
+		emit(under())
+	"#
+	));
+	assert_eq!(out[0], json!([0, -6]), "under the arrow's default spot");
+	assert_eq!(out[1], json!([0, -6]), "under its saved spot and scale");
+	assert_eq!(out[2], json!([0, -6]), "under the taller arrow");
+}
+
+#[test]
+fn travel_button_issues_1821_placed_while_the_arrow_is_hidden_or_not_laid_out_yet_it_is_under_the_arrow_s_own_spot_not_the_fallback() {
+	let out = run_nav(&format!(
+		"{LAYOUT}{}",
+		r#"
+		arrow:SetScale(0.8)
+		arrow:ClearAllPoints()
+		arrow:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -400, 300)
+		-- hidden when the button comes, then shown
+		arrow:Hide()
+		setRoute({ HEARTH, WALK })
+		emit(under())
+		arrow:Show()
+		emit(under())
+		-- shown, but the client hasn't laid it out yet (the moment after a reload)
+		setRoute(nil)
+		arrow.laidOut = false
+		setRoute({ HEARTH, WALK })
+		emit({ state().shown, under() })
+	"#
+	));
+	assert_eq!(out[0], json!([0, -6]), "under the hidden arrow's spot");
+	assert_eq!(out[1], json!([0, -6]), "still under it once shown");
+	assert_eq!(out[2], json!([true, [0, -6]]), "under the arrow before its first layout");
+}
+
+#[test]
+fn travel_button_issues_1821_the_arrow_moved_in_combat_takes_the_button_with_it_once_combat_ends() {
+	let out = run_nav(&format!(
+		"{LAYOUT}{}",
+		r#"
+		arrow:Show()
+		setRoute({ HEARTH, WALK })
+		local function at() return { btn():GetPoint(1) } end
+		local was = at()
+		-- the arrow moves and rescales mid-fight: the secure button stays put (a change would be refused)
+		combat(true)
+		arrow:SetScale(1.25)
+		arrow:ClearAllPoints()
+		arrow:SetPoint("TOP", UIParent, "TOP", -200, -320)
+		local now = at()
+		emit(was[1] == now[1] and was[3] == now[3] and was[4] == now[4] and was[5] == now[5])
+		combat(false)
+		emit({ state().shown, under() })
+	"#
+	));
+	assert_eq!(out[0], true, "not moved in combat");
+	assert_eq!(out[1], json!([true, [0, -6]]), "under the arrow once combat ends");
+}
+
 #[test]
 fn travel_button_a_teleport_leg_casts_its_spell_when_known_an_item_leg_uses_its_item() {
 	let out = run_nav(
@@ -376,7 +495,7 @@ fn alerts_a_notice_wraps_its_line_grows_the_banner_and_goes_on_hide_a_transport_
 		out[0]["notice"],
 		json!({ "shown": true, "title": "Polestar is hidden here", "line": "Click the minimap button or press Ctrl-Shift-P to show it. It comes back when you leave.",
 			"wraps": true, "multi": true, "grown": true, "glyph": true, "tint": [1, 1, 1, 1] }),
-		"the emblem in its own colours, not the boat glyph's tint (RegressVisual V2)"
+		"the emblem in its own colours, not the boat glyph's tint (visual regression check)"
 	);
 	assert_eq!(out[0]["still"], true, "a fixed line, no countdown");
 	assert_eq!(out[0]["gone"], true, "gone after its time, without the transport's linger");

@@ -5,10 +5,14 @@
 --   Lookup.Sources(kind, id[, direct]) -> list, entity
 --     direct: true = straight-line travel only, never the route planner (tooltips)
 --     kind: "item" | "mount" | "pet" | "recipe" | "tabard" (item IDs), "npc" | "rare",
---           "quest", "instance" (key), "object" | "treasure", "zone" (no rows)
+--           "quest", "instance" (key), "object" | "treasure", "zone" (its flight
+--           masters and inns, else its middle: types "flight", "inn", "middle")
 --     list[i] = { type, src, label, detail, zone, map, x, y, f, travel, effort, cost,
 --                 available, why, whyText, chance, price, standing, guideable }
 --   Lookup.IsMount(record) -> bool   -- a Codex item or spell record is a mount
+--   Lookup.QuestFor(quest) -> { classes, races } | nil   -- who a quest's masks
+--       are for (class and race files); nil: anyone of its side
+--   Lookup.QuestForText(quest) -> "Warlock only" | nil   -- the same in words
 --
 -- Ranking: available rows first (faction, race, class, level, professions,
 -- reputation), then cost = travel + effort in seconds. Travel is
@@ -37,7 +41,7 @@ ns.Lookup = Lookup
 
 local L = ns.L
 local type, pairs, ipairs, tostring, tonumber = type, pairs, ipairs, tostring, tonumber
-local floor = math.floor
+local floor, format = math.floor, string.format
 
 local ITEM_KINDS = { item = true, mount = true, pet = true, recipe = true, tabard = true }
 Lookup.ITEM_KINDS = ITEM_KINDS
@@ -131,6 +135,64 @@ local function maskBlocks(mask, bits, key)
 	local b = bits[key]
 	if not b then return false end
 	return not hasBit(mask, b)
+end
+
+-- Who a quest is for, by its masks -> { classes = { file, ... } | nil,
+-- races = { file, ... } | nil } | nil (anyone of its side).
+-- classes: the classes its class mask names, nil when it names all or none.
+-- races: the races its race mask names when they are not whole sides (the
+-- faction says those), with Skyborne when its side's bit is set (2^32 the
+-- Alliance's, 2^33 the Horde's). A mask without Skyborne's bit is a Classic
+-- side mask, not a Skyborne lock: a quest whose Era races are whole sides
+-- names none.
+local CLASS_ORDER = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+local SIDE_RACES = { { "Human", "Dwarf", "NightElf", "Gnome", sky = 2 ^ 32 }, { "Orc", "Scourge", "Tauren", "Troll", sky = 2 ^ 33 } }
+function Lookup.QuestFor(q)
+	if type(q) ~= "table" then return nil end
+	local classes, races
+	local cm = q.classes
+	if type(cm) == "number" and cm > 0 then
+		local list = {}
+		for _, c in ipairs(CLASS_ORDER) do
+			if hasBit(cm, CLASS_BIT[c]) then list[#list + 1] = c end
+		end
+		if #list > 0 and #list < #CLASS_ORDER then classes = list end
+	end
+	local rm = q.races
+	if type(rm) == "number" and rm > 0 then
+		local list, partial = {}, false
+		for _, side in ipairs(SIDE_RACES) do
+			local n = 0
+			for _, r in ipairs(side) do
+				if hasBit(rm, RACE_BIT[r]) then
+					n = n + 1
+					list[#list + 1] = r
+				end
+			end
+			if hasBit(rm, side.sky) then list[#list + 1] = "Skyborne" end
+			if n > 0 and n < #side then partial = true end
+		end
+		if partial then races = list end
+	end
+	if not (classes or races) then return nil end
+	return { classes = classes, races = races }
+end
+
+-- "Warlock only", "Human and Dwarf only", "Gnome Mage only": who a quest is
+-- for (Lookup.QuestFor) in the client's names, or nil.
+function Lookup.QuestForText(q)
+	local who = Lookup.QuestFor(q)
+	if not who then return nil end
+	local UI = ns.UI
+	local function names(list, one)
+		if not list then return nil end
+		local out = {}
+		for i, f in ipairs(list) do out[i] = (UI and one and UI[one](f)) or f end
+		if #out == 2 then return format(L["%s and %s"], out[1], out[2]) end
+		return table.concat(out, ", ")
+	end
+	local r, c = names(who.races, "RaceName"), names(who.classes, "ClassName")
+	return format(L["%s only"], (r and c) and (r .. " " .. c) or r or c)
 end
 
 ---------------------------------------------------------------------------
@@ -293,12 +355,13 @@ local function questSide(q)
 end
 Lookup.QuestSide = questSide
 
--- Quest availability for this character: why, text | nil
+-- Quest availability for this character: why, text | nil. A race or class
+-- lock says who it is for ("Warlock only", Lookup.QuestForText, #1730).
 local function questBlock(q, p)
 	local side = questSide(q)
 	if side and not sideOK(side, p) then return "faction", sideText(side) end
-	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", L["Not for your race"] end
-	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", L["Not for your class"] end
+	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", Lookup.QuestForText(q) or L["Not for your race"] end
+	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", Lookup.QuestForText(q) or L["Not for your class"] end
 	if q.minLevel and q.minLevel > p.level then return "level", levelText(q.minLevel) end
 	if ns.Compat.IsQuestCompleted(q.id) then return "done", L["Already done"] end
 	return nil
@@ -662,7 +725,19 @@ local function spawnRows(entity, kind, p, from, levelGate, direct)
 		place(r, s, travel(from, s, direct))
 		r.detail = r.zone
 		if entity.level then r.detail = detail(r.zone or "", L["Level"] .. " " .. entity.level) end
-		if levelGate and entity.level and entity.level - p.level > MOB_LEVEL_GAP then
+		-- Only creatures you fight are out of reach by level: an NPC friendly to the
+		-- character's side (innkeeper, vendor, trainer, quest giver) is open at any level,
+		-- and so is a factionless one with a service role (the goblin towns' bankers and
+		-- trainers have no faction in Forever's data).
+		local friendly
+		if entity.faction then
+			friendly = sideOK(entity.faction, p)
+		else
+			for _, role in ipairs(entity.roles or {}) do
+				if role ~= "rare" then friendly = true break end
+			end
+		end
+		if levelGate and not friendly and entity.level and entity.level - p.level > MOB_LEVEL_GAP then
 			block(r, "level", L["Level"] .. " " .. entity.level)
 		end
 		if entity.faction and not sideOK(entity.faction, p) then r.hostile = true end
@@ -699,6 +774,51 @@ local function questRows(q, p, from, direct)
 		r.effort = r.effort + QUEST_BASE
 		r.guideable = giver ~= nil or (q.start and q.start.item and #q.start.item > 0) or false
 		list[#list + 1] = r
+	end
+	return list
+end
+
+-- A zone's places a guide takes you to (#1743): its flight masters (a
+-- class's own, the Druids' Nighthaven, only for that class) and its inns,
+-- from Nav's travel data, the other side's listed but not open; with none
+-- open to the character (the other side's towns), also the middle of the
+-- zone (Nav.ZoneMiddle: the walking data's zones, cities and open zones). A
+-- continent or a battleground has none of them: no rows.
+local TAXI_SIDE = { "A", "H", "AH" }
+local function zoneRows(zone, p, from, direct)
+	local list = {}
+	local N = ns.Nav
+	local data = N and N.GetTravelData and N.GetTravelData()
+	if not data then return list end
+	local T = N.travel
+	local function add(kind, label, what, pt, side)
+		local r = newRow(nil, kind)
+		r.label = label
+		place(r, pt, travel(from, pt, direct))
+		r.detail = detail(what, r.zone)
+		if side and not sideOK(side, p) then block(r, "faction", sideText(side)) end
+		r.guideable = located(r)
+		list[#list + 1] = r
+	end
+	for _, node in ipairs(data.taxi or {}) do
+		if node.map == zone.id and (not node.class or node.class == p.class) then
+			add("flight", (T and T.TaxiName and T.TaxiName(node, true)) or node.name, L["Flight master"], node, TAXI_SIDE[node.faction])
+		end
+	end
+	local C = Codex()
+	for _, inn in ipairs(data.inns or {}) do
+		if inn.map == zone.id then
+			local keeper = inn.npc and C.Npc(inn.npc)
+			add("inn", (T and T.PlaceName and T.PlaceName(inn)) or inn.name, L["Innkeeper"], inn, keeper and keeper.faction)
+		end
+	end
+	local open = false
+	for _, r in ipairs(list) do open = open or r.available end
+	if not open and N.ZoneMiddle then
+		local c, wx, wy = N.ZoneMiddle(zone.id)
+		local x, y
+		if c then x, y = ns.Compat.WorldToMap(c, wx, wy, zone.id) end
+		if x then add("middle", zone.name, L["Zone"], { map = zone.id, x = x, y = y }) end
 	end
 	return list
 end
@@ -742,6 +862,7 @@ function Lookup.Sources(kind, id, direct)
 		end
 	elseif kind == "zone" then
 		entity = C.Zone(id)
+		if entity then list = zoneRows(entity, p, from, direct) end
 	end
 	rank(list)
 	cache[key] = { at = now(), level = p.level, list = list, entity = entity }

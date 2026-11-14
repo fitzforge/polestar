@@ -26,7 +26,10 @@
 -- gained) and what was counted.
 --   Quests: one panel per quest: the name in its difficulty colour (lifted
 --   to 4.5:1 on the ground) above a rule, this character's
---   state (done, in the log, ready, too low), level and requirement,
+--   state (done, in the log, ready, too low, not for your class or race:
+--   muted, as the pick-up guide leaves it out), level and requirement, who
+--   it is for ("Warlock only" in the class colour, races too: #1730, also on
+--   chain lines, their hover and attunement quest rows),
 --   faction, shareable, picked up inside; a label column with the
 --   objective, where it starts and ends (each with a pin that sets the
 --   arrow; the whole Starts line is a link to the giver, or to the first
@@ -360,7 +363,9 @@ local function entries(key, plevel, f)
 	return out
 end
 
--- Quest state for this character: "done", "ready", "log", "low", "open".
+-- Quest state for this character: "done", "ready", "log", "class" / "race"
+-- (not for this character's class or race: Dungeons.QuestFor, the rule the
+-- pick-up guide leaves it out by), "low", "open".
 local function questState(q, plevel)
 	local C = ns.Compat
 	if C and q.id then
@@ -370,12 +375,15 @@ local function questState(q, plevel)
 			return "log"
 		end
 	end
+	local _, why = D().QuestFor(q)
+	if why then return why end
 	if q.minLevel and plevel < q.minLevel then return "low" end
 	return "open"
 end
 
 local STATE_GLYPH = {
 	done = { "check", "success" }, ready = { "icon-turnin", "success" }, log = { "icon-turnin", "quest" },
+	class = { "lock", "textMuted" }, race = { "lock", "textMuted" },
 	low = { "lock", "warning" }, open = { "icon-accept", "quest" },
 }
 
@@ -383,8 +391,31 @@ local function stateChip(state, q)
 	if state == "done" then return L["Done"], "success" end
 	if state == "ready" then return L["Ready to turn in"], "success" end
 	if state == "log" then return L["In your log"], "neutral" end
+	if state == "class" then return L["Not for your class"], "neutral" end
+	if state == "race" then return L["Not for your race"], "neutral" end
 	if state == "low" then return format(L["From level %d"], q.minLevel), "warning" end
 	return nil
+end
+
+-- Who a quest is for (Dungeons.QuestFor), "Warlock only" with each class in
+-- its colour, "Dwarf and Gnome only"; nil when anyone of its side may take it.
+local function whoText(q)
+	local who = D().QuestFor(q)
+	if not who then return nil end
+	local function names(list, name, colour)
+		if not list then return nil end
+		local out = {}
+		for i, f in ipairs(list) do
+			local text = name(f)
+			local r, g, b
+			if colour then r, g, b = Theme.ClassColor(f) end
+			out[i] = r and format("|cff%02x%02x%02x%s|r", floor(r * 255 + 0.5), floor(g * 255 + 0.5), floor(b * 255 + 0.5), text) or text
+		end
+		if #out == 2 then return format(L["%s and %s"], out[1], out[2]) end
+		return concat(out, ", ")
+	end
+	local r, c = names(who.races, UI.RaceName), names(who.classes, UI.ClassName, true)
+	return format(L["%s only"], (r and c) and (r .. " " .. c) or r or c)
 end
 
 local POINT_COLOR = { npc = "npc", object = "object", item = "item" }
@@ -535,6 +566,8 @@ local function chainEnter(self)
 	local meta = {}
 	if q.level then meta[#meta + 1] = format(L["Level %d"], q.level) end
 	if q.minLevel then meta[#meta + 1] = format(L["Requires level %d"], q.minLevel) end
+	local who = whoText(q)
+	if who then meta[#meta + 1] = who end
 	if #meta > 0 then lines[#lines + 1] = concat(meta, DOT) end
 	local stateText, kind = stateChip(questState(q, self.psLevel or 1), q)
 	if stateText then
@@ -841,10 +874,22 @@ local function scrim(parent)
 	return t
 end
 
+-- The hub's title and subtitle, veiled over a dungeon's zone art or back:
+-- by their colour's alpha (W.Color's psVeiled), which a theme repaint keeps.
+-- A bare SetAlpha(0) did not: the repaint (a UI scale or display size
+-- change) set their colour back on, and in the client a string's colour
+-- alpha is its alpha, so they drew over the art (#1753's pattern).
+local function veilHeader(veiled)
+	for _, fs in ipairs({ hub.Title, hub.Subtitle }) do
+		fs.psVeiled = veiled or nil
+		fs:SetAlpha(veiled and 0 or 1)
+		W.Recolor(fs)
+	end
+end
+
 local function restoreHeader()
 	if not hub then return end
-	hub.Title:SetAlpha(1)
-	hub.Subtitle:SetAlpha(1)
+	veilHeader(false)
 	hub.Band:Show()
 end
 
@@ -992,7 +1037,10 @@ function DS.Build(parent, shell)
 		segs[i] = b
 	end
 
-	root:SetScript("OnHide", function()
+	-- The picker hides the section parent when leaving Dungeons. Hiding the
+	-- whole hub leaves that parent's shown state intact, so its page can resume.
+	root:SetScript("OnHide", function(self)
+		if self:IsShown() and parent:IsShown() then return end
 		restoreHeader()
 		UI.LevelTip.Hide()
 		for _, b in ipairs(segs) do b:Hide() end
@@ -1233,8 +1281,7 @@ local function pageHeader(d)
 	end
 	art:Show()
 	hub.Band:Hide()
-	hub.Title:SetAlpha(0)
-	hub.Subtitle:SetAlpha(0)
+	veilHeader(true)
 	hub.Close:SetFrameLevel(pg.Over:GetFrameLevel() + 2)
 	local facts = {}
 	local lv = UI.LevelRange(d.minLevel, d.maxLevel)
@@ -1535,9 +1582,10 @@ local function paintQuest(b, q, p, top, plevel, key)
 	b.Glyph:SetTexture(Theme.Media(g[1]))
 	W.Color(b.Glyph, g[2])
 	b.Title:SetText(q.title or (L["Quest"] .. " " .. tostring(q.id)))
-	-- Done: the muted text colour (held legible), its chip says so; else the
-	-- quest's difficulty colour, as on the Attunement tab and in the quest log.
-	if state == "done" then W.Color(b.Title, "textMuted") else paintRGB(b.Title, difficulty(q.level, plevel)) end
+	-- Done, or not for this character's class or race: the muted text colour
+	-- (held legible), its chip says why; else the quest's difficulty colour,
+	-- as on the Attunement tab and in the quest log.
+	if state == "done" or state == "class" or state == "race" then W.Color(b.Title, "textMuted") else paintRGB(b.Title, difficulty(q.level, plevel)) end
 	-- Right of the title line: the state, then the faction mark.
 	local right = PAD
 	local text, kind = stateChip(state, q)
@@ -1562,7 +1610,9 @@ local function paintQuest(b, q, p, top, plevel, key)
 	local meta = {}
 	if q.level then meta[#meta + 1] = format(L["Level %d"], q.level) end
 	if q.minLevel then meta[#meta + 1] = format(L["Requires level %d"], q.minLevel) end
-	if q.classes and #q.classes > 0 then meta[#meta + 1] = format(L["%s only"], UI.ClassList(q.classes)) end
+	-- Who it is for: "Warlock only" in the class colour (#1730), races too.
+	local who = whoText(q)
+	if who then meta[#meta + 1] = who end
 	-- An item that starts it: where it drops decides (dropsOf), else the page.
 	local drops, insideOnly = dropsOf(q, key)
 	if (drops and insideOnly) or (not drops and q.inside) then meta[#meta + 1] = L["Picked up inside the dungeon"] end
@@ -1663,6 +1713,8 @@ local function paintQuest(b, q, p, top, plevel, key)
 			if cs == "done" then W.Color(r.Title, "textMuted") else paintRGB(r.Title, difficulty(cq.level, plevel)) end
 			local sub = {}
 			if cq.level then sub[#sub + 1] = format(L["Level %d"], cq.level) end
+			local cw = whoText(cq)
+			if cw then sub[#sub + 1] = cw end
 			local st = startOf(cq, ns.PlayerPoint())
 			if st and st.name then
 				local z = st.inside and L["inside the dungeon"] or mapName(st.map)
@@ -1924,7 +1976,8 @@ local function stepLine(s, plevel)
 	return "", nil
 end
 
--- The words after a step: its state, then where (a quest's giver, a drop's chance and instance).
+-- The words after a step: its state, who a quest is for (whoText), then
+-- where (a quest's giver, a drop's chance and instance).
 local function stepSub(s, state)
 	local t = {}
 	if state == "done" then t[#t + 1] = L["Done"]
@@ -1934,6 +1987,10 @@ local function stepSub(s, state)
 	elseif state == "level" then t[#t + 1] = format(L["From level %d"], s.minLevel or 0)
 	elseif state == "rep" and s.rep then t[#t + 1] = format(L["Needs %s with %s"], standingName(s.rep.standing), factionName(s.rep.faction, s.rep.name) or L["Not known"])
 	elseif state == "skip" then t[#t + 1] = L["Not needed"]
+	end
+	if s.kind == "quest" then
+		local who = whoText(s)
+		if who then t[#t + 1] = who end
 	end
 	if s.kind == "quest" and s.start then
 		t[#t + 1] = pointText(s.start)
@@ -2173,7 +2230,7 @@ local function renderEmpty(reason)
 	home.Watermark:Show()
 	local text
 	if reason == "off" then
-		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Dungeons."]
+		text = L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lookup."]
 	else
 		local LK = UI.Lookup
 		text = REASON[reason] or (LK and LK.ReasonText and LK.ReasonText(reason)) or tostring(reason)

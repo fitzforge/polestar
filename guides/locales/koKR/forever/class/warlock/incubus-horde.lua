@@ -47,7 +47,7 @@ return {
 	-- Step 8: Fallen Sky Lake
 	-- {area:422} Fallen Sky Lake · {zone:1440} Ashenvale · {area:431} Splintertree Post · {item:190232} Withered Scarf · {npc:3931} Shadethicket Oracle
 	-- plural, as words: Shadethicket Stone Movers = {npc:3782} Shadethicket Stone Mover
-	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-26) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so come at 25 or later (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "",
+	["{area:422} lies in southern {zone:1440}, south-west of {area:431}. The Shadethicket Stone Movers and Bark Rippers (level 25-27) around the lake drop the {item:190232} about one time in twenty, and the lone {npc:3931} (30) can drop it too: plan on a good number of kills, so the guide waits for level 24 first (Forever made this quest level 27); with the succubus already bound you can leave it for your 20s leveling in {zone:1440}. They respawn in five minutes."] = "{area:422}은(는) {zone:1440} 남쪽, {area:431} 남서쪽에 있습니다. 호수 주변의 그늘덤불 암석늪괴물과 그늘덤불 껍질늪괴물(25-27레벨)은 대략 스무 번에 한 번 {item:190232}을(를) 떨어뜨리고, 홀로 있는 {npc:3931}(30)도 떨어뜨릴 수 있습니다. 꽤 많이 잡아야 하므로 가이드는 먼저 24레벨까지 기다립니다(Forever에서 이 퀘스트는 27레벨이 되었습니다). 서큐버스를 이미 얻었다면 {zone:1440}에서 20레벨대를 보낼 때로 미뤄도 됩니다. 5분마다 다시 나타납니다.",
 
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar

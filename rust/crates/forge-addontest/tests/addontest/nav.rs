@@ -195,6 +195,235 @@ fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn
 	}
 }
 
+// The 3D arrow is a sheet of 100 frames 3.6 degrees apart. It is drawn between two of them: the nearest whole and,
+// over it, the one on the heading's other side at the share of the way the heading lies toward it (half at most), so
+// where both are solid the arrow is their blend and never shows through; the highlight sheets (added light) blend
+// exactly, 1 - share and share. Nav.ArrowBlend gives the pair and the share, frame 99 next to frame 0. A still arrow
+// re-points nothing.
+#[test]
+fn the_3d_arrow_cross_fades_the_two_frames_either_side_of_its_heading_by_where_the_heading_lies_between_them() {
+	let out = run(r#"
+		local step = 2 * math.pi / 100
+		local function r3(x) return math.floor(x * 1000 + 0.5) / 1000 end
+		local function blend(k) local f, g, w = N.ArrowBlend(k * step); return { f, g, r3(w) } end
+		local r = { on = blend(10), quarter = blend(10.25), back = blend(9.75), nearHalf = blend(10.499), right = blend(-0.25),
+			top = blend(99.75), last = blend(99.3), turn = blend(110.25) }
+		-- The live arrow, settled a quarter of the way from frame 10 to frame 11.
+		local a = 10.25 * step
+		target(100 * math.cos(a), 100 * math.sin(a))
+		stub.advance(1.5)
+		local function coords(t) return t.texCoord end -- the stub keeps SetTexCoord's left, right, top, bottom
+		local function rgba(t) local cr, cg, cb, ca = t:GetVertexColor(); return { cr, cg, cb, ca } end
+		local _, _, share = N.ArrowBlend(A.GetAngle())
+		local l, rr, tt, b = N.ArrowFrameCoords(11)
+		r.live = { frame = A.GetFrame(), at = A.GetAngle() / step, share = share, other = coords(A.sheet2), want = { l, rr, tt, b },
+			body = rgba(A.sheet), over = rgba(A.sheet2), spec = rgba(A.sheetSpec), spec2 = rgba(A.sheetSpec2),
+			shown = { A.sheet:IsShown(), A.sheet2:IsShown(), A.sheetSpec:IsShown(), A.sheetSpec2:IsShown() } }
+		-- Still: nothing is re-pointed.
+		local calls = 0
+		for _, t in ipairs({ A.sheet, A.sheet2, A.sheetSpec, A.sheetSpec2 }) do
+			t.SetTexCoord = function(self, ...) calls = calls + 1; return stub.Methods.SetTexCoord(self, ...) end
+		end
+		stub.advance(1)
+		r.stillCalls = calls
+		Polestar.Set("nav.arrowStyle", "flat")
+		r.flat = { A.sheet:IsShown(), A.sheet2:IsShown(), A.sheetSpec:IsShown(), A.sheetSpec2:IsShown() }
+		emit(r)"#);
+	assert_eq!(out["on"], json!([10, 11, 0]), "on a frame: that frame alone");
+	assert_eq!(out["quarter"], json!([10, 11, 0.25]));
+	assert_eq!(out["back"], json!([10, 9, 0.25]));
+	assert_eq!(out["nearHalf"], json!([10, 11, 0.499]));
+	assert_eq!(out["right"], json!([0, 99, 0.25]), "frame 99 lies next to frame 0");
+	assert_eq!(out["top"], json!([0, 99, 0.25]));
+	assert_eq!(out["last"], json!([99, 0, 0.3]));
+	assert_eq!(out["turn"], json!([10, 11, 0.25]), "a heading a whole turn on is the same");
+	let live = &out["live"];
+	assert_eq!(live["frame"], 10);
+	near(num(&live["at"]), 10.25, 0.01, "settled a quarter of the way to frame 11");
+	assert_eq!(live["other"], live["want"], "the second sheet shows frame 11");
+	let share = num(&live["share"]);
+	near(share, 0.25, 0.01, "its share");
+	near(num(&live["over"][3]), share, 1.0 / 512.0, "frame 11 over frame 10 at its share");
+	assert_eq!(live["body"][3], json!(1), "frame 10 whole");
+	for i in 0..3 {
+		assert_eq!(live["body"][i], live["over"][i], "both tinted alike");
+	}
+	near(num(&live["spec"][3]), 1.0 - share, 1.0 / 512.0, "the nearest frame's highlight");
+	near(num(&live["spec2"][3]), share, 1.0 / 512.0, "the other frame's highlight: the two add up to one");
+	assert_eq!(live["shown"], json!([true, true, true, true]));
+	assert_eq!(out["stillCalls"], 0, "a still arrow re-points nothing");
+	assert_eq!(out["flat"], json!([false, false, false, false]), "the flat dart hides both sheets");
+}
+
+// Turning, the 3D arrow is drawn at the heading it has reached, between frames, never snapped to the nearest frame
+// (up to 1.8 degrees off): every frame of a turn the two frames on screen (the nearest whole, the other at its share)
+// stand at the arrow's heading to a hundredth of a degree.
+#[test]
+fn turning_the_3d_arrow_draws_each_heading_between_its_frames_not_the_nearest_frame() {
+	let out = run(r#"
+		local step = 2 * math.pi / 100
+		target(100, 0)
+		stub.advance(1)
+		local function frameOf(t)
+			local l, top = t.texCoord[1], t.texCoord[3] -- the stub keeps SetTexCoord's left, right, top, bottom
+			return math.floor(top * 1024 / 102 + 0.5) * 10 + math.floor(l * 1024 / 102 + 0.5)
+		end
+		nav.place(0, 30) -- the target 16.7 degrees to the right
+		local worst, between, moved = 0, 0, 0
+		local was = A.GetAngle()
+		for _ = 1, 30 do
+			stub.advance(0.05)
+			local f, g = A.GetFrame(), frameOf(A.sheet2)
+			local w = select(4, A.sheet2:GetVertexColor())
+			local dir = (g - f) % 100 == 1 and 1 or -1
+			local drawn = (f + dir * w) % 100
+			local want = (A.GetAngle() % (2 * math.pi)) / step
+			local off = math.abs((drawn - want + 50) % 100 - 50) * 3.6
+			if off > worst then worst = off end
+			if A.GetAngle() ~= was and w > 0.02 and w < 0.48 then between = between + 1 end
+			if A.GetAngle() ~= was then moved = moved + 1 end
+			was = A.GetAngle()
+		end
+		emit({ worst = worst, between = between, moved = moved, final = A.GetAngle() })"#);
+	assert!(num(&out["worst"]) < 0.01, "the drawn heading is the arrow's to {:.4} degrees", num(&out["worst"]));
+	assert!(num(&out["between"]) >= 2.0, "turning, {} of {} frames are drawn between two sheet frames", out["between"], out["moved"]);
+	near(num(&out["final"]), -(30.0f64).atan2(100.0), 1e-3, "settled on the target");
+}
+
+// The turn (Arrow.TurnStep at nav.arrowTurn's rate, Arrow.Turns): a critically damped spring solved exactly over each
+// frame. From rest toward a new bearing it gathers speed and slows into it, never past it and never back; it moves the
+// same at 30, 60 and 144 frames a second (at every common instant: to rounding while it swings under MAX_TURN, until
+// it comes to rest within 0.0001 rad; within a degree while the cap holds it, which a low frame rate reaches a few
+// milliseconds sooner). Against 0.3.x's first-order ease at half its rate (cur += angle left x (1 - e^(-12 dt)), at
+// most MAX_TURN): it starts slowly where that started at its fastest, takes a new bearing sooner, and trails a turning
+// aim by the same lag.
+#[test]
+fn the_turn_eases_in_and_out_never_passes_the_new_bearing_keeps_up_with_a_turning_aim_and_moves_the_same_at_any_frame_rate() {
+	let out = run(r#"
+		local S = A.Turns.smooth
+		-- 0.3.x's ease, to measure the turn against.
+		local function old(cur, vel, goal, dt)
+			local diff = goal - cur
+			local step = diff * (1 - math.exp(-12 * dt))
+			local cap = 3.5 * dt
+			if step > cap then step = cap elseif step < -cap then step = -cap end
+			return cur + step, 0
+		end
+		local function new(cur, vel, goal, dt) return A.TurnStep(cur, vel, goal, dt, S) end
+		local function swing(fps, goal, step)
+			local dt, cur, vel = 1 / fps, 0, 0
+			local at, over, back, first, peak, settled = {}, 0, 0, nil, 0, nil
+			for i = 1, math.floor(fps * 1.5 + 0.5) do
+				local was = cur
+				cur, vel = step(cur, vel, goal, dt)
+				local speed = (cur - was) / dt
+				first = first or speed
+				if speed > peak then peak = speed end
+				if cur > goal + 1e-12 then over = over + 1 end
+				if cur < was - 1e-12 then back = back + 1 end
+				if not settled and goal - cur < 0.1 * goal then settled = i * dt end
+				if i % (fps / 6) == 0 then at[#at + 1] = cur end -- every sixth of a second: 5, 10, 24 frames
+			end
+			return { at = at, over = over, back = back, first = first, peak = peak, final = cur, settled = settled }
+		end
+		-- An aim turning at 1 rad/s, followed for 2 s at 60 fps: how far behind it the arrow runs.
+		local function lag(step)
+			local cur, vel, goal = 0, 0, 0
+			for _ = 1, 120 do
+				goal = goal + 1 / 60
+				cur, vel = step(cur, vel, goal, 1 / 60)
+			end
+			return goal - cur
+		end
+		local r = {}
+		for _, deg in ipairs({ 20, 90 }) do
+			local goal = math.rad(deg)
+			r["d" .. deg] = { swing(30, goal, new), swing(60, goal, new), swing(144, goal, new) }
+		end
+		r.old = swing(60, math.rad(20), old)
+		r.lag, r.oldLag = lag(new), lag(old)
+		r.allocated = (function()
+			collectgarbage("collect"); collectgarbage("stop")
+			local before = collectgarbage("count")
+			local cur, vel = 0, 0
+			for i = 1, 5000 do
+				cur, vel = A.TurnStep(cur, vel, (i % 40 < 20) and 1 or -1, 1 / 60, S)
+				N.ArrowBlend(cur)
+			end
+			local grew = collectgarbage("count") - before
+			collectgarbage("restart")
+			return grew
+		end)()
+		emit(r)"#);
+	for deg in [20.0f64, 90.0] {
+		let runs = out[format!("d{deg}")].as_array().unwrap();
+		let goal = deg.to_radians();
+		for r in runs {
+			assert_eq!(r["over"], 0, "{deg} degrees: never past the new bearing");
+			assert_eq!(r["back"], 0, "{deg} degrees: never swings back");
+			near(num(&r["final"]), goal, 1e-4, &format!("{deg} degrees: settled"));
+		}
+		let (a30, a60, a144) = (runs[0]["at"].as_array().unwrap(), runs[1]["at"].as_array().unwrap(), runs[2]["at"].as_array().unwrap());
+		assert_eq!(a30.len(), a144.len());
+		for (k, ((x, y), z)) in a30.iter().zip(a60).zip(a144).enumerate() {
+			// Below the cap the motion is exact until the turn comes to rest within 0.0001 rad (after 0.45 s).
+			let tol = if deg >= 30.0 {
+				1f64.to_radians()
+			} else if k < 2 {
+				1e-9
+			} else {
+				2e-4
+			};
+			assert!((num(x) - num(z)).abs() <= tol && (num(y) - num(z)).abs() <= tol, "{deg} degrees: 30, 60 and 144 fps agree ({x}, {y}, {z})");
+		}
+	}
+	let (g, o) = (&out["d20"][1], &out["old"]);
+	assert!(num(&g["first"]) < num(&g["peak"]) / 2.0, "it starts slowly: {} rad/s in its first frame, {} at its fastest", g["first"], g["peak"]);
+	assert!(num(&o["first"]) >= num(&o["peak"]) - 1e-9, "0.3.x's ease was at its fastest in its first frame");
+	assert!(num(&g["settled"]) < num(&o["settled"]), "90% of the way in {} s, sooner than 0.3.x's {} s", g["settled"], o["settled"]);
+	let (lag, old_lag) = (num(&out["lag"]), num(&out["oldLag"]));
+	assert!((lag / old_lag - 1.0).abs() < 0.05, "it trails a turning aim as closely: {lag:.4} rad against {old_lag:.4}");
+	assert!(num(&out["allocated"]) < 1.0, "the turn and the cross-fade allocate nothing ({} KiB)", out["allocated"]);
+}
+
+// The turn on the live arrow, at 60 frames a second: a new bearing 20 degrees to the right is taken without a jolt
+// (it gathers speed over its first frames, then slows into the bearing), never past it, settled within half a second;
+// turning the camera still moves the arrow at once.
+#[test]
+fn turning_gathers_speed_into_a_new_bearing_and_slows_into_it_never_past_it_the_camera_still_turns_it_at_once() {
+	let out = run(r#"
+		local function frame(dt)
+			stub.now = stub.now + dt
+			for _, fr in ipairs(stub.frames) do
+				if fr.scripts.OnUpdate and stub.Methods.IsVisible(fr) then stub.RunScript(fr, "OnUpdate", dt) end
+			end
+			stub.frameTimers()
+		end
+		target(100, 0)
+		stub.advance(1)
+		local goal = -math.atan2(100 * math.tan(math.rad(20)), 100)
+		nav.place(0, 100 * math.tan(math.rad(20))) -- the target now 20 degrees to the right
+		local speeds, past, was = {}, 0, A.GetAngle()
+		for i = 1, 30 do
+			frame(1 / 60)
+			local a = A.GetAngle()
+			speeds[i] = (was - a) * 60
+			if a < goal - 1e-9 then past = past + 1 end
+			was = a
+		end
+		local settled = A.GetAngle()
+		nav.facing = goal
+		frame(1 / 60)
+		emit({ speeds = speeds, past = past, settled = settled, goal = goal, faced = A.GetAngle() })"#);
+	let speeds: Vec<f64> = out["speeds"].as_array().unwrap().iter().map(num).collect();
+	let peak = speeds.iter().cloned().fold(0.0, f64::max);
+	let first = speeds.iter().position(|&s| s > 1e-9).unwrap();
+	assert!(speeds[first] < peak / 2.0, "it starts slowly ({:.3} rad/s, then up to {peak:.3}): {speeds:?}", speeds[first]);
+	assert_eq!(out["past"], 0, "never past the new bearing: {speeds:?}");
+	near(num(&out["settled"]), num(&out["goal"]), 1e-3, "settled within half a second");
+	near(num(&out["faced"]), 0.0, 1e-3, "turning the camera: straight ahead within one frame");
+}
+
 #[test]
 fn switching_nav_arrowstyle_live_keeps_heading_colour_and_the_arrived_state() {
 	let out = run(r#"
@@ -308,6 +537,31 @@ fn reaching_the_target_switches_to_the_arrived_state_with_hysteresis_one_chime_a
 	assert_eq!(out, json!([["travel", "20 yd", 0], ["arrived", "Arrived", 1, true, false], ["arrived", 1], ["travel", "20 yd", false], ["arrived", 1], 2]));
 }
 
+// A player report (Discord): following a party member, the arrival chime played over and over while you kept up
+// with them, since each look at where they were set a new target and a new target re-arms the arrival. A target
+// that moves (Nav.MoveTarget) stays the same target: one arrival, one chime, while you stay by it.
+#[test]
+fn a_moving_target_keeps_its_arrival_one_chime_while_you_keep_up_a_new_target_chimes_again() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(20, 0)
+		local t = N.SetTarget(m, x, y, "Party: Ana")
+		nav.place(15, 0)
+		stub.advance(0.2)
+		local first = #stub.sounds
+		for i = 1, 3 do                    -- she walks on, you keep up
+			nav.place(15 + 3 * i, 0)
+			m, x, y = nav.mapPoint(20 + 3 * i, 0)
+			N.MoveTarget(t, m, x, y)
+			stub.advance(0.2)
+		end
+		local moved = { #stub.sounds, N.GetTarget() == t, A.GetMode(), N.GetTarget().label }
+		m, x, y = nav.mapPoint(31, 0)
+		N.SetTarget(m, x, y, "Party: Ana")
+		stub.advance(0.2)
+		emit({ first = first, moved = moved, renewed = #stub.sounds, refused = N.MoveTarget(t, m, x, y) })"#);
+	assert_eq!(out, json!({ "first": 1, "moved": [1, true, "arrived", "Party: Ana"], "renewed": 2, "refused": false }));
+}
+
 #[test]
 fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_down_until_you_are_on_its_floor() {
 	let out = run(r#"
@@ -357,7 +611,7 @@ fn during_the_catch_up_the_arrow_shows_an_hourglass_turning_over_then_comes_back
 }
 
 #[test]
-fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_within_40_m_hearth_s_baked_gold_then_the_ring_and_the_check() {
+fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_within_40_m_hearth_s_ember_the_game_looks_their_own_then_the_ring_and_the_check() {
 	let out = run_themed(
 		r#"
 		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
@@ -376,6 +630,13 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 		nav.place(300, 0)
 		stub.advance(0.2)
 		out.bliz = { style = A.GetStyle(), tex = tex(A.dart), tint = rgb(A.dart), edge = rgb(A.dartEdge) }
+		-- The game's looks draw Hearth's design with their own dart (WoW Forever's: its quest arrow), in its own colours.
+		Polestar.Theme._testShowHidden = true
+		Polestar.Set("ui.skin", "forever")
+		stub.advance(0.2)
+		out.lookFar = { style = A.GetStyle(), atlas = A.dart:GetAtlas(), tint = rgb(A.dart), edge = A.dartEdge:IsShown() }
+		Polestar.Set("ui.skin", "hearth")
+		stub.advance(0.2)
 		nav.place(300, 360)
 		stub.advance(0.2)
 		out.blizNear = { tex = tex(A.dart), tint = rgb(A.dart) }
@@ -388,7 +649,6 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 		out.flat = A.GetStyle()
 		Polestar.Set("nav.arrowStyle", "skin")
 		out.looks = {}
-		Polestar.Theme._testShowHidden = true
 		for _, k in ipairs({ "forever", "blizzard", "classic" }) do
 			Polestar.Set("ui.skin", k)
 			out.looks[#out.looks + 1] = A.GetStyle()
@@ -405,12 +665,219 @@ fn the_skins_darts_the_skin_s_arrow_by_default_accent_far_and_arrival_green_with
 	let mut bliz = out["bliz"].clone();
 	bliz["tint"] = r3(&out["bliz"]["tint"]);
 	bliz["edge"] = r3(&out["bliz"]["edge"]);
-	assert_eq!(bliz, json!({ "style": "hearth", "tex": "dart-gold", "tint": [1, 1, 1], "edge": [0.165, 0.102, 0] }), "Hearth: the baked gold gradient, edged #2A1A00");
-	assert_eq!(json!({ "tex": out["blizNear"]["tex"], "tint": r3(&out["blizNear"]["tint"]) }), json!({ "tex": "dart", "tint": [0.345, 0.753, 0.29] }), "up close: #58C04A");
+	assert_eq!(bliz, json!({ "style": "hearth", "tex": "dart", "tint": [1, 0.58, 0.251], "edge": [0.165, 0.102, 0] }), "Hearth: its own dart in the ember accent #FF9440, edged #2A1A00");
+	assert_eq!(
+		json!({ "style": out["lookFar"]["style"], "atlas": out["lookFar"]["atlas"], "tint": r3(&out["lookFar"]["tint"]), "edge": out["lookFar"]["edge"] }),
+		json!({ "style": "hearth", "atlas": "Minimap-QuestArrow", "tint": [1, 1, 1], "edge": false }),
+		"the game's looks: their own dart, in its own colours, no edge"
+	);
+	assert_eq!(
+		json!({ "tex": out["blizNear"]["tex"], "tint": r3(&out["blizNear"]["tint"]) }),
+		json!({ "tex": "dart", "tint": [0.561, 0.839, 0.431] }),
+		"up close: Hearth's arrival leaf green #8FD66E"
+	);
 	assert_eq!(out["arrived"], json!({ "mode": "arrived", "ring": true, "houseRing": false, "check": false, "dart": false }));
 	assert_eq!(out["checked"], true, "the check follows the ring");
 	assert_eq!(out["flat"], "flat", "a style picked by hand stays");
-	assert_eq!(out["looks"], json!(["hearth", "hearth", "hearth"]), "the game's looks take Hearth's gold dart");
+	assert_eq!(out["looks"], json!(["hearth", "hearth", "hearth"]), "the game's looks draw Hearth's design");
+}
+
+// Skin API 2: a skin's own dart and its edge (media.dart, media.dartEdge) stand in for Polestar's in the skin
+// arrow styles, tinted like the house dart (never the baked gold, even on a game look's base); the next skin's dart
+// is its own again (WoW Forever's quest arrow, with no edge).
+#[test]
+fn a_skin_s_own_dart_and_edge_stand_in_for_polestar_s_tinted_never_the_baked_gold() {
+	let out = run_themed(
+		r#"
+		local function rgb(t) local r, g, b = t:GetVertexColor() return { r, g, b } end
+		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
+		local ok, why = Polestar.Theme.RegisterSkin("darts", { name = "Darts", addon = "Test", base = "forever",
+			media = { dart = "Interface\\AddOns\\Test\\my-dart", dartEdge = "Interface\\AddOns\\Test\\my-edge" } })
+		target(300, 400)
+		stub.advance(0.2)
+		Polestar.Set("ui.skin", "darts")
+		nav.place(300, 0)
+		stub.advance(0.2)
+		local far = { ok = ok, style = A.GetStyle(), tex = tex(A.dart), edge = tex(A.dartEdge), white = table.concat(rgb(A.dart), ",") == "1,1,1" }
+		Polestar.Set("ui.skin", "forever")
+		stub.advance(0.2)
+		emit({ far = far, back = { atlas = A.dart:GetAtlas(), edge = A.dartEdge:IsShown() } })"#,
+	);
+	assert_eq!(out["far"], json!({ "ok": true, "style": "hearth", "tex": "my-dart", "edge": "my-edge", "white": false }));
+	assert_eq!(out["back"], json!({ "atlas": "Minimap-QuestArrow", "edge": false }));
+}
+
+// The game's looks draw their own waypoint arrow and map pins, through the parts a skin addon gives (Skin API 2's
+// media, read by Theme.SkinMedia; Polestar_Looks/Parts.lua): Classic the world map's arrow (the vanilla silver arrow,
+// the client's sharpest) and the minimap's dark disc, WoW Forever its quest arrow and the campaign quest's shield,
+// Blizzard Polestar's own dart in the damage meter's light grey (its accent), edged in its black, and the quest
+// marker. The client's darts show in their own colours with no edge while far; every dart is tinted up close and in
+// the player's own arrow colour. Every look's dart points straight up, as Polestar's does, so each turns by the
+// heading alone, with no offset of its own (up, a quarter right, right). The client's art sits in a margin of its
+// own, so each of its parts is drawn larger than its square to show at Polestar's size. Polestar's own look, Hearth
+// and a skin addon keep theirs: a skin on a game look's base draws its own parts, or Polestar's where it brings none.
+#[test]
+fn each_game_look_draws_its_own_arrow_and_map_pins_from_the_client_s_art_and_polestar_hearth_and_skin_addons_keep_theirs() {
+	let out = run_themed(
+		r#"
+		local function rgb(t) local r, g, b = t:GetVertexColor() return string.format("%.2f,%.2f,%.2f", r, g, b) end
+		local function file(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
+		local function art(t) return t:GetAtlas() or file(t) end
+		local function look()
+			local pin = targetPin()
+			local w, h = A.dart:GetSize()
+			local mw = pin.medal:GetSize()
+			return { style = A.GetStyle(), dart = file(A.dart), dartAtlas = A.dart:GetAtlas() or false, tint = rgb(A.dart),
+				edge = A.dartEdge:IsShown(), edgeTint = rgb(A.dartEdge), medal = file(pin.medal), medalAtlas = pin.medal:GetAtlas() or false,
+				size = string.format("%.1fx%.1f", w, h), medalScale = string.format("%.2f", mw / pin.medalPx) }
+		end
+		local out = {}
+		target(300, 400)
+		stub.advance(0.2)
+		out.polestar = look()
+		Polestar.Theme._testShowHidden = true
+		for _, k in ipairs({ "hearth", "blizzard", "classic", "forever" }) do -- the files first: see the turn below
+			Polestar.Set("ui.skin", k)
+			stub.advance(0.2)
+			out[k] = look()
+		end
+		nav.place(300, 360) -- inside 40 m
+		stub.advance(0.2)
+		out.near = look()
+		nav.place(300, 0)
+		Polestar.Set("nav.arrowColor", { 0.2, 0.6, 1 })
+		stub.advance(0.2)
+		out.own = look()
+		Polestar.Set("nav.arrowColor", nil)
+		-- The turn: a sandbox dial (the arrow's own paint, on the arrow's own frame) at three headings, each look's
+		-- dart against Polestar's (the files first: the stub's SetTexture leaves an atlas set before it standing).
+		local d, lk = A.BuildDial(PolestarNavArrow), A.ReadLook({})
+		out.turn = {}
+		for _, k in ipairs({ "polestar", "blizzard", "classic", "forever" }) do
+			Polestar.Set("ui.skin", k)
+			stub.advance(0.2)
+			A.ReadSkin()
+			local off = {}
+			for _, a in ipairs({ 0, -math.pi / 4, -math.pi / 2 }) do
+				A.PaintDial(d, lk, "hearth", "travel", a, 500)
+				off[#off + 1] = string.format("%.4f", d.dart:GetRotation() - a)
+			end
+			out.turn[k] = art(d.dart) .. " " .. table.concat(off, " ")
+		end
+		local T = Polestar.Theme
+		local ok1 = T.RegisterSkin("darts", { name = "Darts", addon = "Test", base = "classic", media = { dart = "Interface\\AddOns\\Test\\my-dart" } })
+		local ok2 = T.RegisterSkin("plain", { name = "Plain", addon = "Test", base = "blizzard" })
+		out.ok = { ok1, ok2 }
+		for _, k in ipairs({ "darts", "plain", "polestar" }) do
+			Polestar.Set("ui.skin", k)
+			stub.advance(0.2)
+			out[k .. "After"] = look()
+		end
+		emit(out)"#,
+	);
+	let pick = |k: &str, keys: &[&str]| -> Value { keys.iter().map(|f| ((*f).to_string(), out[k][*f].clone())).collect::<serde_json::Map<_, _>>().into() };
+	const WHITE: &str = "1.00,1.00,1.00";
+	assert_eq!(pick("polestar", &["style", "medal", "medalScale"]), json!({ "style": "3d", "medal": "medallion-polestar", "medalScale": "1.00" }), "Polestar's own look");
+	assert_eq!(
+		pick("hearth", &["style", "dart", "tint", "edge", "edgeTint", "medal", "size", "medalScale"]),
+		json!({ "style": "hearth", "dart": "dart", "tint": "1.00,0.58,0.25", "edge": true, "edgeTint": "0.17,0.10,0.00", "medal": "medallion-hearth", "size": "54.0x54.0", "medalScale": "1.00" }),
+		"Hearth keeps its ember dart, its brown edge and its own medallion"
+	);
+	assert_eq!(
+		pick("classic", &["style", "dartAtlas", "tint", "edge", "medal", "size", "medalScale"]),
+		json!({ "style": "hearth", "dartAtlas": "UI-WorldMapArrow", "tint": WHITE, "edge": false, "medal": "UI-Minimap-Background", "size": "59.4x59.4", "medalScale": "1.00" }),
+		"Classic: the world map's arrow at 64 px (1.1 times the square) and the minimap's dark disc"
+	);
+	assert_eq!(
+		pick("forever", &["dartAtlas", "tint", "edge", "medalAtlas", "size", "medalScale"]),
+		json!({ "dartAtlas": "Minimap-QuestArrow", "tint": WHITE, "edge": false, "medalAtlas": "UI-QuestPoiCampaign-QuestNumber", "size": "70.2x70.2", "medalScale": "1.35" }),
+		"WoW Forever: its quest arrow and the campaign quest's shield, both drawn larger"
+	);
+	assert_eq!(
+		pick("blizzard", &["style", "dart", "tint", "edge", "edgeTint", "medalAtlas", "size", "medalScale"]),
+		json!({ "style": "hearth", "dart": "dart", "tint": "0.85,0.85,0.85", "edge": true, "edgeTint": "0.08,0.08,0.08", "medalAtlas": "UI-QuestPoi-QuestNumber", "size": "54.0x54.0", "medalScale": "1.55" }),
+		"Blizzard: Polestar's dart in the meter's light grey, edged in its black, at its own size, and the quest marker, drawn larger"
+	);
+	assert_eq!(
+		out["turn"],
+		json!({
+			"polestar": "dart-gold 0.0000 0.0000 0.0000",
+			"blizzard": "dart 0.0000 0.0000 0.0000",
+			"classic": "UI-WorldMapArrow 0.0000 0.0000 0.0000",
+			"forever": "Minimap-QuestArrow 0.0000 0.0000 0.0000"
+		}),
+		"each look's dart turns by the heading alone, as Polestar's: no offset of its own"
+	);
+	assert_eq!(out["near"]["dartAtlas"], "Minimap-QuestArrow");
+	assert_ne!(out["near"]["tint"], WHITE, "up close the client's dart takes the arrival colour");
+	assert_eq!(out["own"]["tint"], "0.20,0.60,1.00", "and the player's own arrow colour");
+	assert_eq!(out["ok"], json!([true, true]));
+	assert_eq!(
+		pick("dartsAfter", &["dart", "edge", "medal", "size"]),
+		json!({ "dart": "my-dart", "edge": true, "medal": "medallion-hearth", "size": "54.0x54.0" }),
+		"a skin addon on Classic's base: its own dart in the square, tinted, edged"
+	);
+	assert_ne!(out["dartsAfter"]["tint"], WHITE);
+	assert_eq!(
+		pick("plainAfter", &["dart", "tint", "edge", "edgeTint", "medal", "size", "medalScale"]),
+		json!({ "dart": "dart-gold", "tint": WHITE, "edge": true, "edgeTint": "0.17,0.10,0.00", "medal": "medallion-hearth", "size": "54.0x54.0", "medalScale": "1.00" }),
+		"one bringing none on Blizzard's base: Polestar's gold dart, its edge and medallion at their own size, as before"
+	);
+	assert_eq!(pick("polestarAfter", &["style", "medal", "medalScale"]), json!({ "style": "3d", "medal": "medallion-polestar", "medalScale": "1.00" }));
+}
+
+// Skin API 2's arrow and pin tokens and masks: a skin's glow token lights the flat arrow's glow and the arrival
+// halo (the player's own ring colour still wins there); its pinRing and pinFill colour the Polestar pin's rim and
+// fill where neither the pin nor the player gives one (nav.medalColor still wins), and its pinFill / pinRim masks
+// stand in for the pin's disc and rim art; Polestar's own look takes them all back.
+#[test]
+fn a_skin_s_glow_and_pin_tokens_and_masks_reach_the_arrow_and_the_pins_under_the_player_s_own_colours() {
+	let out = run_themed(
+		r##"
+		local T = Polestar.Theme
+		local function hex(r, g, b) return string.format("%02x%02x%02x", math.floor(r * 255 + 0.5), math.floor(g * 255 + 0.5), math.floor(b * 255 + 0.5)) end
+		local function rgb(t) return hex(t:GetVertexColor()) end
+		local function tex(t) return (t:GetTexture() or ""):match("([^\\]+)$") end
+		local ok, why = T.RegisterSkin("lamp", { name = "Lamp", addon = "Test", base = "polestar",
+			tokens = { glow = "#ff8000", pinRing = "#00ff00", pinFill = "#0000ff" },
+			media = { pinFill = "Interface\\AddOns\\Test\\square-fill", pinRim = "Interface\\AddOns\\Test\\square-rim" } })
+		Polestar.Set("nav.arrowStyle", "flat")
+		target(300, 400)
+		stub.advance(0.2)
+		Polestar.Set("ui.skin", "lamp")
+		stub.advance(0.2)
+		local f = CreateFrame("Frame")
+		Pins.BuildLook(f)
+		local function look() Pins.ApplyLook(f, { text = "2" }, 16) end
+		look()
+		local lamp = { ok = ok, why = why or false, glow = rgb(A.glow), fill = rgb(f.fill), rim = rgb(f.ring), fillTex = tex(f.fill),
+			backTex = tex(f.back), rimTex = tex(f.ring) }
+		Polestar.Set("nav.medalColor", { 1, 1, 1 })
+		look()
+		lamp.ownRim = rgb(f.ring)
+		Polestar.Set("nav.medalColor", false)
+		nav.place(299, 399)
+		stub.advance(0.2)
+		lamp.halo = rgb(A.halo)
+		nav.place(300, 0)
+		stub.advance(0.2)
+		Polestar.Set("ui.skin", "polestar")
+		stub.advance(0.2)
+		look()
+		emit({ lamp = lamp, back = { fill = rgb(f.fill), rim = rgb(f.ring), fillTex = tex(f.fill), rimTex = tex(f.ring),
+			glowSkin = T.SkinToken("glow") ~= nil }, accent = hex(T.Accent()) })"##,
+	);
+	let lamp = &out["lamp"];
+	assert_eq!(lamp["ok"], true, "{}", lamp["why"]);
+	assert_eq!(lamp["glow"], "ff8000", "the flat arrow's glow in the skin's glow");
+	assert_eq!(lamp["halo"], "ff8000", "the arrival halo too");
+	assert_eq!((lamp["fill"].as_str(), lamp["rim"].as_str()), (Some("0000ff"), Some("00ff00")), "the pin's fill and rim in the skin's");
+	assert_eq!((lamp["fillTex"].as_str(), lamp["backTex"].as_str(), lamp["rimTex"].as_str()), (Some("square-fill"), Some("square-fill"), Some("square-rim")));
+	assert_eq!(lamp["ownRim"], "ffffff", "the player's medallion colour wins");
+	let back = &out["back"];
+	assert_eq!(back["fill"], out["accent"], "Polestar's pin in the accent again");
+	assert_eq!((back["rim"].as_str(), back["fillTex"].as_str(), back["rimTex"].as_str()), (Some("ffffff"), Some("pin-fill"), Some("pin")));
+	assert_eq!(back["glowSkin"], false);
 }
 
 #[test]
@@ -630,6 +1097,65 @@ fn the_other_places_a_target_spawns_are_marked_fainter_and_smaller_and_say_so() 
 	assert_eq!(json!([camp[0], camp[1]]), json!(["Spot 2 of 3", "Click to search here next"]));
 	assert_eq!(json!([alt[0], alt[1]]), json!(["Spot 3 of 3", "It also spawns here"]));
 	assert!(num(&alt[2]) < num(&camp[2]), "the alt mark is smaller ({} vs {})", alt[2], camp[2]);
+}
+
+// Exact points (#1944): the waypoint of a goal whose spots are its target's known points (radius 0, the
+// compiler's for an object's spawns) carries `exact`. The maps mark every other point, one mark each, on the
+// world map and on the minimap too, a point checked lately faintest and saying so, and shade no region for
+// it; the step's other goal of points is marked point by point too, fainter, on the world map only.
+#[test]
+fn a_target_of_exact_points_marks_every_point_once_on_both_maps_checked_ones_fainter_1944() {
+	let out = run(r#"
+		local function points(at)
+			local list = {}
+			for i, p in ipairs(at) do
+				local _, x, y = nav.mapPoint(p[1], p[2])
+				list[i] = { x = x, y = y, r = 0 }
+			end
+			return list
+		end
+		local traps = points({ { 60, 0 }, { 0, 90 }, { -60, 0 }, { 0, -90 } })
+		local kegs = points({ { 150, 150 }, { -150, -150 } })
+		local guide = { steps = { { goals = { { t = "collect", map = 9000, spots = traps }, { t = "collect", map = 9000, spots = kegs } } } } }
+		function nav.Engine.GetGuide() return guide end
+		function nav.Engine.SpotsExact(goal) return true end
+		function nav.Engine.SpotChecked(s) return s == traps[3] end
+		nav.engine.views[1] = { index = 1, goals = {
+			{ index = 1, status = "active", text = "Collect Trapped Game", map = 9000, x = traps[1].x, y = traps[1].y },
+			{ index = 2, status = "active", text = "Collect Chen's Empty Keg", map = 9000, x = kegs[1].x, y = kegs[1].y },
+		} }
+		nav.setWaypoint({ map = 9000, x = traps[1].x, y = traps[1].y, label = "Collect Trapped Game", stepIndex = 1, goalIndex = 1, kind = "collect",
+			r = 8, area = 0, search = true, spots = traps, spot = 1, exact = true })
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		local r = { traps = {}, kegs = 0 }
+		for _, f in ipairs(nav.pins()) do
+			local p, layer = f.data.pin, f.data.layer.name
+			if layer == "nav.spots" then
+				local at
+				for k, s in ipairs(traps) do if s.x == p.x and s.y == p.y then at = k end end
+				local tip = nav.tooltipOf(f)
+				r.traps[#r.traps + 1] = { at, math.floor(p.color[4] * 100 + 0.5), tip[2], tip[3] }
+			elseif layer == "nav.goalAreas" then
+				r.kegs = r.kegs + 1
+			end
+		end
+		table.sort(r.traps, function(a, b) return a[1] < b[1] end)
+		r.minimap = #Pins.GetMinimapFrames("nav.spots")
+		r.regions = { Pins.GetLayer("nav.areas") == nil, #nav.pins("hulls") }
+		Polestar.Set("nav.worldPins", false)
+		stub.advance(0.3)
+		r.minimapOnly = { #Pins.GetMinimapFrames("nav.spots"), #nav.pins() }
+		emit(r)"#);
+	assert_eq!(
+		out["traps"],
+		json!([[2, 80, "Spot 2 of 4", "Click to search here next"], [3, 35, "Spot 3 of 4", "Checked recently"], [4, 80, "Spot 4 of 4", "Click to search here next"]]),
+		"a mark for each point but the one the arrow leads to (the target's own pin), the checked one faintest"
+	);
+	assert_eq!(out["minimap"], 3, "the same marks on the minimap");
+	assert_eq!(out["regions"], json!([true, 0]), "no shaded region for points");
+	assert_eq!(out["kegs"], 2, "the step's other goal of points: a mark per point");
+	assert_eq!(out["minimapOnly"], json!([3, 0]), "world map pins off: the minimap keeps its marks");
 }
 
 #[test]
@@ -911,6 +1437,24 @@ fn without_a_player_position_the_arrow_says_so_keeps_the_label_and_points_again_
 	);
 }
 
+// #1581: the label under the arrow is as wide as the distance line's longer texts ("Hearth to The Crossroads:
+// saves 3 min"), so "Accept “The Power to Destroy...”" no longer breaks onto a second line; a longer one still
+// wraps to two. The stub draws each character half the font size wide (12: 6 px).
+#[test]
+fn the_arrow_label_keeps_a_long_quest_name_on_one_line_and_wraps_a_longer_one_to_two_1581() {
+	let out = run(r#"
+		local seen = {}
+		local function snap(label)
+			target(100, 0, label)
+			stub.advance(0.1)
+			seen[#seen + 1] = { A.labelText:GetText(), A.labelText:GetNumLines(), A.labelText:IsTruncated() }
+		end
+		snap("Accept “The Power to Destroy...” · Varimathras ok") -- 49 characters: 294 px (two lines at the old 200)
+		snap("Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter") -- 69: 414 px
+		emit(seen)"#);
+	assert_eq!(out, json!([["Accept “The Power to Destroy...” · Varimathras ok", 1, false], ["Turn in “The Power to Destroy...” to Varimathras in the Royal Quarter", 2, false]]));
+}
+
 #[test]
 fn releasetarget_drops_only_the_override_and_guides_to_the_engine_waypoint_again() {
 	let out = run(r#"
@@ -1094,6 +1638,21 @@ fn tomtom_mirrors_the_target_one_waypoint_replaced_on_change_removed_when_cleare
 	assert_eq!(out["calls"][0]["world"], false);
 	assert_eq!(out["arrowWithTomTom"], false, "TomTom arrow replaces ours");
 	assert_eq!(out["arrowAfter"], true, "ours returns when the bridge is off");
+}
+
+// Another addon's TomTom-compatible global with TomTom itself not installed: some waypoint addons answer TomTom's
+// calls with their own arrow and make a waypoint their arrow's when it has none, whatever `crazy` says. No mirror
+// and no TomTom arrow there, so no second arrow on Polestar's target; only TomTom itself gets them (Shortest Path
+// Forever's stand-in and Polestar's own never did, #306).
+#[test]
+fn a_tomtom_compatible_global_without_tomtom_installed_gets_no_mirror_and_never_takes_the_arrow() {
+	let out = run(r#"
+		local adds = 0
+		TomTom = { AddWaypoint = function() adds = adds + 1; return {} end, RemoveWaypoint = function() end }
+		target(100, 0, "First")
+		Polestar.Set("nav.useTomTomArrow", true)
+		emit({ adds = adds, arrow = A.frame:IsShown(), usingTomTom = N.UsingTomTomArrow() })"#);
+	assert_eq!(out, json!({ "adds": 0, "arrow": true, "usingTomTom": false }));
 }
 
 // #1325: TomTom's arrow hides itself for a waypoint on another continent (it measures no distance there), so
@@ -1534,6 +2093,56 @@ fn world_map_pins_target_and_open_goals_on_the_viewed_map_with_tooltip_and_click
 	assert_eq!(out["after"], 2, "pins rebuilt around the new target");
 	assert_eq!(out["off"], 0);
 	assert_eq!(out["otherMap"], 1, "only the goal on the viewed map");
+}
+
+// #1653: a click on the pin of one of the step's goals leads the arrow there through the Engine (Engine.AimGoal), as
+// a click on its line in the guide window does, so a click on the arrow still moves on through the goal's spots; a
+// point picked by hand there held the arrow on one place. A goal whose quest waits for its accept leaves the arrow on
+// the accept and says so (#1385). An Along the way goal's pin still sets a point.
+#[test]
+fn a_click_on_a_step_goal_s_map_pin_aims_the_engine_so_the_arrow_still_moves_on_through_its_spots() {
+	let out = run(r#"
+		local m, x, y = nav.mapPoint(100, 0)
+		nav.engine.views[1] = { index = 1, goals = {
+			{ index = 1, status = "active", text = "Target goal", map = m, x = x, y = y },
+			{ index = 2, status = "active", text = "Accept Silver of the Waves", map = 9000, x = 60, y = 60 },
+		} }
+		function nav.Engine.GetAlong() return { { goals = { { index = 1, status = "active", text = "Along goal", map = 9000, x = 30, y = 30 } } } } end
+		local aimed, cycled, answer = {}, nil, true
+		function nav.Engine.AimGoal(s, g)
+			aimed[#aimed + 1] = { s, g }
+			if answer ~= true then return false, "accept", "Silver of the Waves" end
+			local _, sx, sy = nav.mapPoint(-100, 0)
+			nav.setWaypoint({ map = 9000, x = 60, y = 60, label = "Accept Silver of the Waves", stepIndex = 1, goalIndex = 2, kind = "accept", r = 8,
+				area = 15, spots = { { x = 60, y = 60, r = 15 }, { x = sx, y = sy, r = 15 } }, spot = 1 })
+			return true
+		end
+		function nav.Engine.CycleSpot(s, g, i) cycled = { s, g, i or 0 }; return 2 end
+		local said = {}
+		function UIErrorsFrame.AddMessage(_, message) said[#said + 1] = message end
+		local function pinFor(label)
+			for _, pin in ipairs(nav.pins()) do
+				if pin.data.layer.name == "nav.goals" and nav.tooltipOf(pin)[1] == label then return pin end
+			end
+		end
+		nav.setWaypoint(wp(100, 0, "Target goal"))
+		nav.showWorldMap(9000)
+		local r = {}
+		nav.click(pinFor("Accept Silver of the Waves"), "LeftButton")
+		r.aimed = { aimed[1], N.IsOverride(), N.GetTarget().goalIndex }
+		r.next = { N.NextSpot(), cycled }
+		nav.setWaypoint(wp(100, 0, "Target goal"))
+		nav.click(pinFor("Along goal"), "LeftButton")
+		r.along = { #aimed, N.IsOverride(), N.GetTarget().label }
+		N.ReleaseTarget()
+		answer = false
+		nav.click(pinFor("Accept Silver of the Waves"), "LeftButton")
+		r.accept = { aimed[#aimed], N.IsOverride(), said[1] or false }
+		emit(r)"#);
+	assert_eq!(out["aimed"], json!([[1, 2], false, 2]), "the Engine's waypoint, not a point by hand");
+	assert_eq!(out["next"], json!([true, [1, 2, 0]]), "a click on the arrow moves on to the goal's next spot");
+	assert_eq!(out["along"], json!([1, true, "Along goal"]), "an Along the way goal: a point, the Engine not asked");
+	assert_eq!(out["accept"], json!([[1, 2], false, "Take “Silver of the Waves” first"]));
 }
 
 #[test]

@@ -28,6 +28,7 @@
 const { planProfession, CAPS } = require('./plan');
 const { homeMap } = require('./materials');
 const { ZONES } = require('./gathering/tables');
+const { byBanners } = require('./sections');
 const { BEASTS } = require('./gathering/skinning');
 const { RACE_GROUPS, TWO_SIDED, raceCondition, maxZoneLevel } = require('./gathering/groups');
 const { header } = require('../generated');
@@ -88,6 +89,12 @@ const PROTECTED_MOBS = new Set([6184, 6185, 6186, 6187, 6188, 6189, 6651, 11516,
 // this many levels outside it is a different player's farm (Mageweave went
 // to the Shadowsworn Adepts of the Blasted Lands, level 52-53).
 const CLOTH_SLACK = 2;
+// The data spawns a creature at one spot on every map whose frame covers it:
+// the Sand Skitterers of Silithus' north-east also stand on Un'Goro Crater's
+// west edge. A map's copy whose every point lies this close (yards) to a
+// point of another copy is that spot seen from the neighbouring zone (see
+// overlapCopies).
+const DUP_YARDS = 30;
 
 function slug(name) {
 	return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -154,6 +161,37 @@ function zoneFriendly(map, side) {
 	return !!(z && z.side && z.side.includes(side === 'Alliance' ? 'A' : 'H'));
 }
 
+// The maps (ids) where an entity's spawns are only another map's copy, seen
+// over the zone border: each point lies within DUP_YARDS of a point of the
+// other copy, and its spot is nearer its map's edges (homeMap's measure: the
+// most inland point's distance to the edge), as the overlap of two maps is at
+// their edges. A step there would name the neighbouring zone, and the arrow
+// would lead through the zone crossing to the creatures beside it. Live-frame
+// copies (no Era frame to compare in) are kept.
+function overlapCopies(entity, frames) {
+	const copies = [];
+	for (const [map, s] of Object.entries((entity && entity.spawns) || {})) {
+		const fr = frames[map];
+		const pts = [...((s && s.pts) || []), ...((s && s.more) || [])];
+		if (!fr || s.f === 'l' || !pts.length) continue;
+		const world = pts.map((p) => [fr.top + ((fr.bottom - fr.top) * p[1]) / 100, fr.left + ((fr.right - fr.left) * p[0]) / 100]);
+		const edge = Math.max(...pts.map((p) => Math.min(p[0], 100 - p[0], p[1], 100 - p[1])));
+		copies.push({ map: Number(map), c: fr.c, world, edge });
+	}
+	const out = new Set();
+	for (const a of copies) {
+		for (const b of copies) {
+			if (a === b || a.c !== b.c || out.has(b.map)) continue;
+			const nearer = a.edge < b.edge || (a.edge === b.edge && a.map > b.map);
+			if (nearer && a.world.every((p) => b.world.some((q) => Math.hypot(p[0] - q[0], p[1] - q[1]) <= DUP_YARDS))) {
+				out.add(a.map);
+				break;
+			}
+		}
+	}
+	return out;
+}
+
 // Where a faction farms a material: the herb/ore/fishing node, or the hostile
 // non-elite mob outside towns or the clickable object (Giant Clams for pearls),
 // whose (drop chance x how many there are) is highest on an outdoor zone,
@@ -177,9 +215,10 @@ function farmSpot(itemId, kind, side, home, data, minChance = 0, opts = {}) {
 	const frames = (data.mapFrames && data.mapFrames.era) || {};
 	const cands = [];
 	const consider = (entity, chance, label, level, mob, node = false) => {
+		const copy = overlapCopies(entity, frames);
 		for (const [map, s] of Object.entries(entity.spawns || {})) {
 			const z = zones[map];
-			if (!z || z.type !== 3 || !s.pts || !s.pts.length) continue;
+			if (!z || z.type !== 3 || !s.pts || !s.pts.length || copy.has(Number(map))) continue;
 			if (opts.maps && !opts.maps.has(Number(map))) continue;
 			const pts = mob ? outsideTowns(s.pts, Number(map), data) : s.pts;
 			if (!pts.length || (opts.minPts && pts.length < opts.minPts)) continue;
@@ -554,7 +593,7 @@ function draftGuide(name, data, opts = {}) {
 		// to another rank's trainers (spec.taughtBy: Rugged Leather at Drakk
 		// Stonehand or Hahrana Ironhide) keeps its own trip, when it comes after the
 		// bracket's other learns.
-		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s)).every((l) => l.length && l.length <= 4);
+		const few = rankIdx >= 2 && SIDES.map((s) => D.rankTrainers(data, rank, s, prof)).every((l) => l.length && l.length <= 4);
 		const lateAll = [];
 		for (const seg of b.segments) for (const r of needs(seg)) if (r.source === 'trainer' && !learned.has(r.spell) && !firstLearn.includes(r) && !lateAll.includes(r)) lateAll.push(r);
 		const teachesHere = (r) => {
@@ -589,7 +628,7 @@ function draftGuide(name, data, opts = {}) {
 		if (trainRank) {
 			const who = (() => {
 				if (fixed) return TRAINER_NOTES[(npcs[fixed] || {}).name] || `${D.npcPlace(data, fixed)} teaches it`;
-				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s));
+				const lists = SIDES.map((s) => D.rankTrainers(data, rank, s, prof));
 				if (rankIdx >= 2 && lists.every((l) => l.length && l.length <= 4)) return `Only a few trainers teach it: Alliance ${D.list(lists[0])}; Horde ${D.list(lists[1])}. The arrow picks the nearest of your faction`;
 				// Journeyman: the starting-town trainers (Smith Argus, Dwukk) teach Apprentice only.
 				const all = SIDES.map((s) => new Set(((prof.trainers || {})[s]) || []));
@@ -713,6 +752,20 @@ function draftGuide(name, data, opts = {}) {
 			const need = SIDES.filter((side, i) => kinds[i] !== 'vendor');
 			const ahead = (t.ahead || []).map((a) => `${a.count} of them for ${a.from}-${a.cap}`);
 			const forWhat = `${t.count} ${matName(t.item)} for ${D.list(t.uses)}${ahead.length ? ` (${D.list(ahead)}: pick them all now)` : ''}`;
+			// Cloth: counted in the bags, from humanoids of its band as the character
+			// levels, or the Auction House. No farm spot: a trip to a named camp is a
+			// long journey for what the player loots anyway; `anywhere` keeps the
+			// compiler from placing the count at one dropper of hundreds.
+			if (need.every((side) => t.src[side].kind === 'cloth')) {
+				const lv = D.CLOTH_LEVELS[matName(t.item)];
+				line('');
+				line(`step ${matName(t.item)}`);
+				world();
+				if (need.length === 1) line(`  only ${need[0]}`);
+				line(`  tip ${forWhat}: humanoids${lv ? ` of level ${lv[0]}-${lv[1]}` : ''} drop it. Keep what you loot as you level, take it from your bank, or buy it at the Auction House.`);
+				line(`  collect ${t.item} x${t.count} anywhere`);
+				continue;
+			}
 			// The engine skips spots whose mobs are 3+ levels above the player; the
 			// player is at least at the last `level` gate here.
 			const ok = data.farmable ? data.farmable(t.item) : null;
@@ -855,17 +908,22 @@ function draftGuide(name, data, opts = {}) {
 				let offer = null;
 				for (const r of pinned) {
 					const { idx, rank } = onlyAt(r);
-					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s))}`).join('; ');
+					const who = SIDES.map((s) => `${s} ${D.list(D.rankTrainers(data, rank, s, prof))}`).join('; ');
 					parts.push(`${learnWhen(r)} is taught only by the ${rank.name} trainers: ${who}.`);
 					if (idx > rankIdx && seg.from >= rank.minSkill && (!offer || offer.idx < idx)) offer = { idx, rank };
 				}
 				if (offer) parts.push(`You can train ${offer.rank.name} there now if you are level ${offer.rank.minLevel} (it needs ${P} ${offer.rank.minSkill}), which saves the trip at ${CAPS[offer.idx - 1]}.`);
 				line(`  tip ${parts.join(' ')}${camp ? ` ${campTip(seg.from)}` : ''}`);
 				for (const r of anywhere) line(`  learn ${r.spell}${pin(r, fx)}`);
+				// A trainer the data spawns on two maps (Drakk Stonehand at Aerie Peak,
+				// also on Hillsbrad Foothills' corner: one spot over a zone border) is
+				// pinned to the map the tip names (homeMap), else the compiler takes the
+				// first map and the arrow leads through the zone crossing.
+				const mapPin = (id) => (Object.keys((npcs[id] || {}).spawns || {}).length > 1 && homeMap(npcs[id]) != null ? ` map ${homeMap(npcs[id])}` : '');
 				for (const r of pinned) {
 					const { rank } = onlyAt(r);
 					const ids = SIDES.map((s) => (rank.trainers && rank.trainers[s]) || []);
-					if (ids.every((l) => l.length === 1)) SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}`));
+					if (ids.every((l) => l.length === 1)) SIDES.forEach((s, i) => line(`  learn ${r.spell} npc ${ids[i][0]} only ${s}${mapPin(ids[i][0])}`));
 					else line(`  learn ${r.spell}`);
 				}
 				if (offer) line(`  train ${pq} ${offer.rank.name} optional`);
@@ -967,7 +1025,8 @@ function draftGuide(name, data, opts = {}) {
 		line(`  tip ${spec.last || `On Forever no recipe a trainer teaches or both factions' vendors sell gives ${P} points past ${plan.reach}, so Polestar has no route for the last points.${names.length ? ` Recipes that still do: ${names.join(', ')}.` : ''}`}`);
 		line(`  skill ${pq} ${goal}`);
 	}
-	return { text: `${out.join('\n')}\n`, plan };
+	// Each bracket's range is a section (the guide window's heading; the guide starts at the player's skill).
+	return { text: `${byBanners(out.join('\n'), P)}\n`, plan };
 }
 
 module.exports = { draftGuide, farmSpot, skinSpot, money: D.money, slug };

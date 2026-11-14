@@ -8,5 +8,6 @@ a third party: the quests, NPCs, objects and items are invented.
 - `sources/wago/1.15.9.11111/`: client tables in the CSV layout of the source cache (UiMap,
   UiMapAssignment, AreaTable, Faction), rows written by hand.
 - `recordings/`: four recorder sessions.
+- `corrections/`: the fixture builds' corrections, empty on purpose (its README says why).
 
 Edit by hand; there is nothing to regenerate.

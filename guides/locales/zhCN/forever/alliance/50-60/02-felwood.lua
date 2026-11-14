@@ -36,14 +36,13 @@ return {
 	-- Step 6: Level 52.58
 	["Level 52.58"] = "等级 52.58",
 	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "如果跳过了The Horn of the Beast或{item:9328}，就在这里刷到52.58级，以跟上路线进度。也可以组队去{area:1417}副本或{area:2100}副本。",
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "如果跳过了玛尔戈的巨角或{item:9328}，就在这里刷到52.58级，以跟上路线进度。也可以组队去{area:1417}副本或{area:2100}副本。",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "反复击杀{npc:7153}补足经验",
 
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
 	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395}在{zone:1448}北端等候",
-	["Five feathers buy a little Timbermaw reputation"] = "五根羽毛换少量木喉熊怪声望",
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "等级 52.69",
@@ -61,7 +60,7 @@ return {
 
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "",
+	["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是谷地北面的神殿废墟。",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}：被污染的软泥怪在{area:1763}的邪能池中滑行",
@@ -91,7 +90,7 @@ return {
 
 	-- Step 17: Felpaw Village
 	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "{area:1762}的死木熊怪遍布洞穴西侧的山丘。持续击杀，直到掉落{quest:8470}，平均每击杀三十只掉落一个，然后右键点击。木喉熊怪声望达到中立后，即可交给{area:1769}的{npc:11558}；若已中立，现在就能交还，否则等最后一篇指南在58级再次经过洞穴时交还。\n注意：死木守卫为53-54级，生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。",
 
 	-- Step 18: Nafien
 	-- {zone:1452} Winterspring
@@ -99,7 +98,7 @@ return {
 
 	-- Step 20: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "走进洞穴：{npc:11558}就在入口内侧。",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}：木喉熊怪只会在声望达到中立后与你交谈；他在附近巡逻，请在地图标示的圆圈内寻找",
 
@@ -113,7 +112,7 @@ return {
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "再次前往{area:1763}",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
-	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
+	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "在{area:1763}中央被腐化的月亮井使用{item:12922}。",
 
 	-- Step 23: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
@@ -126,6 +125,7 @@ return {
 	["Ends in the {zone:1413}: keep it"] = "在{zone:1413}结束：留着",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Five feathers buy a little Timbermaw reputation"] = "五根羽毛换少量木喉熊怪声望",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "从{area:1998}飞往道路上避难所那一端，或沿路向南骑行。",
 	-- ["Keep her alive until she is out of the cave"] = "保护她直到离开洞穴",
 	-- ["Oozes"] = "软泥怪",

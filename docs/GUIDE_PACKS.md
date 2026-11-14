@@ -36,8 +36,8 @@ menu, with the arrow, the map markers and everything else Polestar does.
 | **Where to report a problem** | the [Polestar Discord](https://discord.gg/polestar) or GitHub | the addon's author, where they publish it |
 
 A community addon only adds guides: it never replaces Polestar's own or
-another community addon's. Polestar does not ship, host or recommend any;
-you only see one if you install it yourself.
+another community addon's. Polestar hosts them, but doesn't review or
+recommend any; you only see one if you install it yourself.
 
 ### Install one
 
@@ -77,6 +77,30 @@ addon you have installed, with its author, version, licence and website.
 - **To remove one for good**, delete its folder or uninstall it in your
   addon app.
 
+### Polestar Experimental
+
+Polestar comes with one more set of guides, off until you want it:
+**Polestar Experimental**, guides for Forever's new zones while they are
+still being written and tested (alpha): Riverglades, Shen'dralas and Mount
+Hyjal. Nothing of them loads until you want them, and there is nothing to
+install.
+
+- **Choose one on your route.** Where a leveling guide ends at one of these
+  zones, "Choose your path" offers it beside the usual zone, marked
+  experimental and never recommended. Choosing it switches the experimental
+  guides on and opens the zone's guide; its last part hands you back to the
+  usual route.
+- **Turn them on by hand** under **Options > Community guides** (`/polestar packs`):
+  switch on **Polestar Experimental**. Its guides come in at once, with no
+  reload, and stay on for all your characters until you switch them off.
+- **Open one** from the guide menu (`/polestar guides`), under **Community
+  guides** > Polestar Experimental. Polestar never suggests them and never
+  puts them in your route by itself: you choose when to follow one.
+- **Turn them off** with the same switch: its guides leave the guide menu,
+  and from your next login nothing of them loads.
+- They are Polestar's own, so report what you find in them on the
+  [Polestar Discord](https://discord.gg/polestar) or GitHub.
+
 ### When something is wrong
 
 Report wrong steps and other problems in a community addon to **its
@@ -106,8 +130,8 @@ side.
 
 - **Polestar's own addons** are Polestar Guides and the addons that carry
   Polestar's data (Polestar Quest Database, Polestar Item Data, Polestar
-  Codex), plus Polestar Recorder for guide authors. Each lists Polestar as
-  its author.
+  Codex), plus Polestar Experimental (off until you choose one of its zones or switch it on, above)
+  and Polestar Recorder for guide authors. Each lists Polestar as its author.
 - **A community addon** built with Polestar's tools is titled
   "Polestar Community:" and its own name, such as
   "Polestar Community: Emberway Routes". Point at it and the tooltip shows

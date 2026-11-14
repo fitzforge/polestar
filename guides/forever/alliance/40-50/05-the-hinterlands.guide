@@ -25,7 +25,7 @@ step Skulk Rock
   kill 2656 quest 2877                -- Jade Ooze
 
 step Aerie Peak
-  turnin 2881 optional                -- Inside
+  turnin 2881 direct optional -- Inside
   turnin 2877                         -- Fraggar Thundermantle
   turnin 2989                         -- Gryphon Master Talonaxe, inside
   accept 2990                         -- for Thadius Grimshade at Nethergarde Keep, later
@@ -112,6 +112,7 @@ step Temple of the Moon
   turnin 162                          -- Gracina Spiritmight, beside her
 
 step Thyn'tel Bladeweaver
+  when onquest 1037
   turnin 1037
 
 step Craftsmen's Terrace

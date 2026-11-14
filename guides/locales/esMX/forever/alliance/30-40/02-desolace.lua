@@ -11,8 +11,8 @@ return {
 	["Follow the road west past {area:460} (Horde) and south-west through the {area:465} into {zone:1443}; {area:608} stands at the top of the pass."] = "Sigue el camino hacia el oeste pasando por {area:460} (Horda) y hacia el suroeste por {area:465} hasta {zone:1443}; {area:608} está en lo alto del paso.",
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:5638}: the wreck's chest lies below {npc:11863}'s tower, on the way to {area:599}"] = "{npc:5638}: el cofre del naufragio está debajo de la torre de {npc:11863}, de camino a {area:599}",
-	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
+	["{npc:5396}, beside {npc:5752}"] = "{npc:5396}, junto a {npc:5752}",
 
 	-- Step 2: Malem chest
 	["Malem chest"] = "Cofre de los Malem",
@@ -23,6 +23,10 @@ return {
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
 	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+
+	-- Step 5: Nijel's Point
+	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -37,7 +41,7 @@ return {
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se esconde dentro de la fortaleza del Filo Ardiente, al suroeste de {area:608}.",
-	["Inside"] = "",
+	["Inside"] = "Adentro",
 
 	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
@@ -87,7 +91,7 @@ return {
 
 	-- Step 17: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Barco al {area:17203}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Escort the caravan"] = "Escolta la caravana",

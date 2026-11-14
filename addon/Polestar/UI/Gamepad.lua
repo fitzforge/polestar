@@ -332,9 +332,16 @@ end
 
 ---------------------------------------------------------------------------
 -- Saved bindings. As the game's own Key Bindings do it: a binding goes in
--- the action's binding context when the client has one, a new gamepad
--- button replaces the action's gamepad buttons and chord, a new key its
--- keys; the other kind stays (a key and a button for the same action).
+-- the action's binding context when the client has one, into the binding
+-- set in use (the account's or the character's, GetCurrentBindingSet), a
+-- new gamepad button replaces the action's gamepad buttons and chord, a new
+-- key its keys; the other kind stays (a key and a button for the same
+-- action). While Forever's gamepad interface is on, its own binding context
+-- is active (Enum.BindingContext.GamepadModeInGameCore, turned on by
+-- Blizzard_Gamepad's Core.lua) and what it binds on a button runs in place
+-- of the default context's binding: a gamepad button is bound, read and
+-- unbound there then, and the default context's gamepad buttons (the
+-- keyboard and mouse interface's) are left as they are.
 ---------------------------------------------------------------------------
 
 -- Polestar's actions, in the order the Key bindings tab lists them. `run`:
@@ -347,6 +354,8 @@ G.ACTIONS = {
 	{ action = "POLESTAR_PREV_WAYPOINT", section = "guide", label = L["Previous waypoint"], run = "PrevWaypoint" },
 	{ action = "POLESTAR_FOCUS", section = "guide", label = L["Browse the guide with the gamepad"], run = "Focus" },
 	{ action = "POLESTAR_TOGGLE", section = "guide", label = L["Toggle guide window"], run = "Toggle" },
+	{ action = "POLESTAR_HIDE", section = "guide", label = L["Hide/show Polestar"], run = "Hide" },
+	{ action = "POLESTAR_PAUSE", section = "guide", label = L["Pause the guide"], run = "Pause" },
 	{ action = "POLESTAR_REOPEN_TAB", section = "guide", label = L["Reopen closed tab"], run = "ReopenTab" },
 	{ action = "POLESTAR_MENU", section = "windows", label = L["Open the guide menu"], run = "Menu" },
 	{ action = "POLESTAR_OPTIONS", section = "windows", label = L["Open Polestar options"], run = "Options" },
@@ -370,13 +379,32 @@ local function contextOf(action)
 	return ok and type(context) == "number" and context or nil
 end
 
--- The game's gamepad interface keeps its buttons in a binding context of
--- its own while it is on (Enum.BindingContext.GamepadModeInGameCore).
+-- The gamepad interface's binding context while it is active, or nil.
 local function gamepadContext()
 	local context = Enum and Enum.BindingContext and Enum.BindingContext.GamepadModeInGameCore
 	if type(context) ~= "number" or not (C_KeyBindings and C_KeyBindings.IsBindingContextActive) then return nil end
 	local ok, active = pcall(C_KeyBindings.IsBindingContextActive, context)
 	return ok and active == true and context or nil
+end
+
+local function actionAt(key, checkOverride, context)
+	if type(GetBindingAction) ~= "function" then return "" end
+	local ok, action
+	if context then ok, action = pcall(GetBindingAction, key, checkOverride, context) else ok, action = pcall(GetBindingAction, key, checkOverride) end
+	return ok and type(action) == "string" and action or ""
+end
+
+-- The context `key` goes in for `action`: the gamepad interface's for a
+-- gamepad button while it is active, else the action's own.
+local function bindContext(action, key)
+	return G.IsPadKey(key) and gamepadContext() or contextOf(action)
+end
+
+-- The context `key` runs `action` from now.
+local function boundContext(action, key)
+	local pad = gamepadContext()
+	if pad and actionAt(key, false, pad) == action then return pad end
+	return contextOf(action)
 end
 
 local function setBinding(key, action, context)
@@ -404,21 +432,32 @@ local function setKey(key, action, context)
 	return true
 end
 
--- Every key bound to `action`: its chord first, then the game's keys.
+-- The game's keys of `action` in `context` onto `list`; with `pad` (the
+-- gamepad interface's context, read first), only those it leaves free.
+local function gameKeys(list, action, context, pad)
+	local ok, keys = pcall(function()
+		if context then return { GetBindingKey(action, nil, context) } end
+		return { GetBindingKey(action) }
+	end)
+	if not ok then return end
+	for _, key in ipairs(keys) do
+		if type(key) == "string" and key ~= "" then
+			local taken = pad and actionAt(key, false, pad)
+			if not taken or taken == "" then list[#list + 1] = key end
+		end
+	end
+end
+
+-- Every key that runs `action`: its chord first, then the game's keys (the
+-- gamepad interface's buttons first while it is active).
 function G.BindingKeys(action)
 	local list = {}
 	local chord = store().chords[action]
 	if chord then list[1] = chord end
 	if type(GetBindingKey) ~= "function" then return list end
-	local context = contextOf(action)
-	local ok, keys = pcall(function()
-		if context then return { GetBindingKey(action, nil, context) } end
-		return { GetBindingKey(action) }
-	end)
-	if not ok then return list end
-	for _, key in ipairs(keys) do
-		if type(key) == "string" and key ~= "" then list[#list + 1] = key end
-	end
+	local context, pad = contextOf(action), gamepadContext()
+	if pad and pad ~= context then gameKeys(list, action, pad) end
+	gameKeys(list, action, context, pad ~= context and pad or nil)
 	return list
 end
 
@@ -446,26 +485,25 @@ local function bindingsChanged()
 	ns.Fire("GAMEPAD_BINDINGS_CHANGED")
 end
 
--- Unbinds what a binding row shows: its gamepad buttons, or its keys.
--- False in a fight: bindings change only out of combat.
+-- Unbinds what a binding row shows: its gamepad buttons, or its keys, each
+-- where it is bound. False in a fight: bindings change only out of combat.
 function G.Unbind(action, pad)
 	if combat() then return false end
-	local context = contextOf(action)
-	for _, key in ipairs(G.ShownKeys(action, pad)) do setKey(key, nil, context) end
+	for _, key in ipairs(G.ShownKeys(action, pad)) do setKey(key, nil, boundContext(action, key)) end
 	saveBindings()
 	bindingsChanged()
 	return true
 end
 
 -- Binds `key` (a key, a button, a chord) to `action` in place of the
--- action's keys of the same kind, and saves. False when the game refuses
--- it, or in a fight: the action keeps what it had.
+-- action's keys of the same kind in the same context, and saves. False when
+-- the game refuses it, or in a fight: the action keeps what it had.
 function G.Bind(action, key)
 	if combat() then return false end
-	local context = contextOf(action)
+	local context = bindContext(action, key)
 	local pad, removed = G.IsPadKey(key), {}
 	for _, old in ipairs(G.BindingKeys(action)) do
-		if old ~= key and G.IsPadKey(old) == pad then
+		if old ~= key and G.IsPadKey(old) == pad and (chordParts(old) or boundContext(action, old) == context) then
 			setKey(old, nil, context)
 			removed[#removed + 1] = old
 		end
@@ -491,13 +529,6 @@ local function bindingName(action)
 	if type(name) == "string" and name ~= "" then return name end
 	for _, a in ipairs(G.ACTIONS) do if a.action == action then return a.label end end
 	return nil
-end
-
-local function actionAt(key, checkOverride, context)
-	if type(GetBindingAction) ~= "function" then return "" end
-	local ok, action
-	if context then ok, action = pcall(GetBindingAction, key, checkOverride, context) else ok, action = pcall(GetBindingAction, key, checkOverride) end
-	return ok and type(action) == "string" and action or ""
 end
 
 local function addonOf(action)
@@ -570,6 +601,13 @@ function G.WhoUses(action, key)
 	end
 	local context = gamepadContext()
 	local own = context and actionAt(key, false, context) or ""
+	if context and G.IsPadKey(key) then
+		-- The button is bound in the gamepad interface's context: the default
+		-- context's binding of it stays.
+		if own == "" or own == action then return nil end
+		local kind = contextOf(own) == context and "gamepad" or "binding"
+		return { kind = kind, name = bindingName(own) or own, action = own }
+	end
 	if own ~= "" and own ~= saved and own ~= action then
 		return { kind = "gamepad", name = bindingName(own) or own, action = own }
 	end
