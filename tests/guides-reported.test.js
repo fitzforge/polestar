@@ -25,6 +25,7 @@ const { runAddon } = require('./helpers/lua');
 const { writeTestPack } = require('./helpers/dsl');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
+const { tokeniseGuides } = require('../tools/lib/dsl/tokens');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
 
@@ -88,6 +89,19 @@ const TIRISFAL = 'forever/horde/undead/01-tirisfal-glades.guide';
 const STONETALON = 'forever/horde/05-stonetalon-mountains.guide';
 const ASHENVALE = 'forever/alliance/06-ashenvale.guide';
 const ASHENVALE_HORDE = 'forever/horde/07-ashenvale.guide';
+
+// Found in the translation review: the Skyborne Alliance start's notes for a warlock name Briarthorn, Ironforge's
+// warlock trainer (NPC 5172). The name alone took the token of the herb Briarthorn (item 2450), so a German client
+// read "Wilddornrose in Eisenschmiede"; the notes carry the trainer's own token.
+test("Zephras Isle (Alliance): the warlock's training notes name the trainer Briarthorn, not the herb", { skip }, () => {
+	const guide = compiled('forever/alliance/skyborne/01-zephras-isle.guide');
+	const notes = tokeniseGuides([guide], data)
+		.guides[0].steps.flatMap((step) => step.goals)
+		.map((goal) => goal.note || '')
+		.filter((note) => note.includes('has no warlock trainer'));
+	assert.equal(notes.length, 2, 'both villages\' notes');
+	for (const note of notes) assert.match(note, /^\{npc:5172\} in \{zone:1455\}; /, note);
+});
 
 let data;
 const memo = new Map();

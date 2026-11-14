@@ -303,7 +303,7 @@ step Shaman trainer
 
 step Warlock trainer
   only Warlock
-  train class only Warlock -- Briarthorn in Ironforge; Shen'dar Village has no warlock trainer
+  train class only Warlock -- {npc:5172} in Ironforge; Shen'dar Village has no warlock trainer
 
 step Falaath Village
   tip Missionary Jasaan waits at the entrance to Falaath Village, south of Shen'dar. The Mark of Akir lets you walk in among the faithful.
@@ -573,7 +573,7 @@ step Shaman trainer
 
 step Warlock trainer
   only Warlock
-  train class only Warlock -- Briarthorn in Ironforge; Valanaar has no warlock trainer
+  train class only Warlock -- {npc:5172} in Ironforge; Valanaar has no warlock trainer
 
 step Desperate times
   talk 253844 quest 93065.1 @61.18,70.95      -- Meet Valennia at the gate
