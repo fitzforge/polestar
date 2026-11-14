@@ -298,9 +298,13 @@ says so.
 ```lua
 Polestar.Profiles.List() / Active() / Switch(name) / New(name, copyFrom?) / Copy(from, to) / Rename(old, new) / Delete(name)
 Polestar.Profiles.UseForCharacter(on) / UseForClass(on) / Source()   -- "character" | "class" | "account"
-Polestar.Profiles.Export(name?, { areas = { look, guiding, positions } } | { look = true }) -> string, count
+Polestar.Profiles.CATEGORIES                              -- { { id, label, help }, ... }: the parts a string carries one by one
+Polestar.Profiles.Export(name?, { categories = { id = true, ... } }?) -> string, count   -- every category when nil
 Polestar.Profiles.Import(text) -> preview | nil, why     -- nothing changes until Apply
-Polestar.Profiles.Apply(preview, name, areas?)           -- name = Active(): into the profile in use; else a new profile
+Polestar.Profiles.Changes(preview, pick?) -> { { path, category, label, theirs, reset }, ... }
+Polestar.Profiles.Apply(preview, name, pick?) -> true, undo   -- name = Active(): into the profile in use; else a new profile
+Polestar.Profiles.Undo(undo) -> true | nil, why           -- an Apply taken back
+Polestar.Profiles.CategoryOf(path) -> id, how             -- how: "position" | "own" | "page" | "hidden" | "fallback"
 Polestar.Profiles.RegisterPosition(path, shape)          -- a position setting a string may carry ("xy" | "pxy" | "ppxy" | "anchor")
 Polestar.RegisterMigration(id, fn(settings))             -- at file load: runs once per id over every profile
 ```
@@ -324,19 +328,61 @@ is not deleted. `/polestar profile <name>` switches.
 
 A profile string is `!PSS1!<Adler-32>!<base64 of zlib of JSON>` (the guide
 import string's envelope, its JSON reader and checksum), the JSON
-`{ format = 1, name, scope = "look"?, areas, screen = { w, h, scale }, migrations, settings = { ["section.key"] = value } }`,
+`{ format = 1, name, categories = { id, ... }, screen = { w, h, scale }, migrations, settings = { ["section.key"] = value } }`,
 written by the client's encoder when it has one, else as stored zlib blocks in
 plain Lua. Data only: each setting needs a registered default and a value of
 its type (a colour `{ r, g, b[, a] }` in 0–1; a position of its registered
 shape; in a slider's range or among a dropdown's choices when an Options
 control says so); `ui.shown` never travels; anything else is dropped and
-named; caps on length, payload, settings, texts and names. The areas: `look`
-(controls on the Look pages: a page's `group = "look"` or order 20–29),
-`positions`, `guiding` (the rest). A string from before a migration is
-migrated as it is read. The strings' code is the settings' addon's
-(`Polestar_Options/Core/ProfileStrings.lua`), never in memory at login: core's
-`Export`, `Import`, `Apply`, `Portable`, `FreeName`, `Pack`, `AreaOf` and
-`Same` load it on their first call (`UI.LoadOptions`; in a fight they answer
+named; caps on length, payload, settings, texts and names. A string from
+before a migration is migrated as it is read.
+
+A string carries the categories ticked on Make a string (`P.CATEGORIES`)
+and names them, so a setting it leaves out of one is at its default there:
+taken into the profile in use, a category becomes the sender's, the
+receiver's own changes in it going back to their defaults (`P.Changes`
+lists them, `reset = true`), while a category not taken stays as it is. A
+string from before 0.4.0 has `areas` (`look`, `guiding`, `positions`) and
+maybe `scope = "look"` instead, which a reader passes over: it holds the
+categories its settings fall in, and only the settings it carries change.
+Older readers pass over `categories` the same way. A setting's category
+comes from where it lives, so a setting added to a page falls in with the
+rest of its page or section: its home on the settings pages (the first
+page in the sidebar's order that shows it, `O.AllControls`), its page's
+category, else its tab's or section's as `PAGES` in `ProfileStrings.lua`
+says. Before that, a position (`RegisterPosition`) is Window positions and a
+few settings go with another part than the section they sit in (`OWN`, by
+key or the start of one); a setting no page shows goes by the start of its
+key (`HIDDEN`), and one no rule names goes with Quests & automation rather
+than out of the string (`how = "fallback"`). Profiles carry no key bindings:
+the bindings are the game's, and a profile's own key is the account's.
+`forge-addontest`'s `profiles.rs` fails on a setting of Polestar's that falls
+back and on a control whose category is not its page's.
+
+| Category (`id`) | Its settings |
+|---|---|
+| Skin & colours (`skin`) | Theme: Colour, Names and Frames (the skin, its variant `ui.skinVariants.*`, the accent, backgrounds, names' colours, frames and motion); EllesmereUI's accent |
+| Fonts & text size (`fonts`) | Theme: Text (fonts, sizes, outline, shadow, text colours); EllesmereUI's font (`ui.matchFont`) |
+| Guide window (`window`) | The Guide window page; Guide > Window but Dynamic Questing (what it shows, show and hide, pause, lock and growth); Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
+| Arrow & map pins (`arrow`) | The Arrow and Map pins pages; Guide > Arrow & routes > Arrow and Other waypoints; the Map page (guide pins, quest markers, rares', dungeons' and travel's pins, NPC services, zones and coordinates); TomTom |
+| Route lines & travel (`routes`) | The Route lines page; Guide > Arrow & routes > Routes, Along the route, Getting around; Quality of Life > Travel; Trackers > Travel (flight timer, journey); Alerts & toasts > Transport alert; Shortest Path Forever |
+| Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > Window > Dynamic Questing; Questing > Quests; Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
+| Buttons, alerts & trackers (`hud`) | Buttons > Action buttons; Questing > Buttons; Alerts & toasts (Rare alert, Heads-up card, Class quest card); Trackers > Instances & XP, Party panel; Discovery > Rares; Quality of Life > Trackers & map |
+| Gear & rewards (`gear`) | Questing > Rewards & gear (and Talents); Quality of Life > Vendors (merchants, restock, bags, trainers); `talents.*` |
+| Dungeons & lookup (`dungeons`) | Discovery > Lookup and Dungeons; Dungeons in my route (`behavior.dungeons`) and Group quests (`behavior.groupQuests`); `dungeons.*` |
+| Window positions (`positions`) | Every registered position (the guide window, the arrow, the floating button, the alerts, the trackers, the party panel); Move frames' snap and grid (`movers.*`); the minimap button's angle; the settings window's size |
+
+`P.Apply` into the profile in use writes what `P.Changes` lists through
+`ns.Set` (the look repainted once, `ThemeInternal.batch`) and answers an
+undo, `{ profile, was = { { path, value }, ... } }`; as a new profile it
+writes the string's settings of the categories picked over the defaults and
+answers `{ made, from }`. `P.Undo` puts the profile's values back (through
+`ns.Set` while it is in use, else into its table), or switches back to
+`from` and deletes the profile made. The strings' code is the settings'
+addon's (`Polestar_Options/Core/ProfileStrings.lua`), never in memory at
+login: core's `Export`, `Import`, `Changes`, `Apply`, `Undo`, `Portable`,
+`FreeName`, `Pack`, `CategoryOf`, `LabelOf`, `ValueText` and `Same` load it
+on their first call (`UI.LoadOptions`; in a fight they answer
 `nil, "combat"`) and it takes their place; `RegisterPosition` keeps a shape
 for it until then.
 
@@ -361,11 +407,19 @@ account's, one profile a key, following renames and gone with the profile),
 set by `P.ApplyKeys()` at login and on each change as override bindings of
 the hidden button `PolestarProfileKey` (never in a fight: it waits). The
 footer's profile menu shows each profile's key in its tooltip. **Share**:
-the parts to put in a string and the profile it is
-made of, the string selected for copying; a pasted string's preview (whose,
-how many settings, how many differ, the parts it holds, each switched on or
-off, what is left out), then Import as new (named, and switched to) or
-Apply to current (after a dialog).
+Make a string (the profile it is made of; a checklist of the categories, each
+row its box, its name, how many of the profile's settings off their defaults
+it holds and a chevron opening the list of them; every one ticked but
+Window positions to start with, and a line saying why while it is not; the
+string selected for copying) and Import (a pasted string's preview: whose,
+how many settings, how many differ; a checklist of the categories it holds,
+each with its changes, its list giving the setting, yours and theirs, a
+category that changes nothing and carries nothing greyed; Window positions
+unticked when the string was made on another screen or UI scale; what is
+left out), then Import as new (named, and switched to) or Apply to current
+(after a dialog), and an Undo on the line it leaves. Each card's header
+has the quick picks (All, None, Skin only, Skin & fonts); one list is
+open at a time.
 
 ### Commands
 

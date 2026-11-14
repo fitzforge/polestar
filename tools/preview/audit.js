@@ -48,6 +48,8 @@ const { resolve, readTGA } = require('./render');
 const { buildProgram, parseEmitted } = require('../../tests/helpers/lua');
 const { findLua } = require('../lib/lua');
 const { ROOT } = require('../lib/paths');
+// The Share tab's profile in use and a friend's string, as the studio draws them.
+const SHARE = require('../studio/scenarios/profile-share');
 
 const DRIVER = path.join(ROOT, 'tools', 'play', 'driver.lua');
 const AUDIT_LUA = path.join(__dirname, 'audit.lua');
@@ -164,6 +166,27 @@ Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in
 	{ key: 'settings-theme', title: 'the settings window: Colour', ...scene('settings-theme.svg', 0) },
 	{ key: 'settings-guidewindow', title: 'the settings window: Window', ...scene('settings-guidewindow.svg', 0) },
 	{ key: 'settings-alerts', title: 'the settings window: Alerts', ...scene('settings-alerts.svg', 0) },
+	// The Profiles page's Share tab: Make a string's checklist with the Guide
+	// window's list open (the string made is left out: one long word in a
+	// copy box, which fit.js measures unbroken); a friend's string pasted, its
+	// changes open (yours, theirs).
+	{
+		key: 'settings-share', title: "the settings window: Profiles, Share (Make a string's checklist, a category's list open)", roots: ['PolestarOptions'],
+		script: `${SHARE.MINE}
+Polestar.UI.ShowOptions("profiles")
+Polestar.UI.Options.Select("profiles", Polestar.L["Share"])
+Polestar.UI.Profiles.Open("export", "window")`,
+	},
+	{
+		key: 'settings-share-import', title: "the settings window: Profiles, Share (a friend's string pasted, a category's changes open)", roots: ['PolestarOptions'],
+		script: `${SHARE.MINE}
+Polestar.UI.ShowOptions("profiles")
+Polestar.UI.Options.Select("profiles", Polestar.L["Share"])
+local PV = Polestar.UI.Profiles
+PV.Check(Polestar.Profiles.Pack(${JSON.stringify(SHARE.FRIEND)}))
+PV.Open("import", "window")
+Polestar.Widgets.ScrollTo(PolestarOptions.Scroll, math.max(0, (PV.views[Polestar.L["Share"]].ImportCard.psTop or 0) - 16))`,
+	},
 ];
 
 const q = (s) => JSON.stringify(String(s));

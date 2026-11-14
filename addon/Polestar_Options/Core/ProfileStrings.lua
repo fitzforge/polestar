@@ -1,10 +1,11 @@
 -- Profile strings: a profile as one line of text to share, and a pasted one
 -- read back as a preview before anything changes (P.Export, P.Import,
--- P.Apply and their helpers; the string's format is in the header of
--- Polestar/Core/Profiles.lua). Part of the settings' addon, loaded with the
--- settings window or the first time a string is asked for (core's P.Export
--- and the others load it, then this takes their place): nothing of it is
--- in memory at login.
+-- P.Changes, P.Apply, P.Undo and their helpers; the string's format is in
+-- the header of Polestar/Core/Profiles.lua), each by categories a player
+-- names ("just the skin": P.CATEGORIES, below). Part of the settings'
+-- addon, loaded with the settings window or the first time a string is
+-- asked for (core's P.Export and the others load it, then this takes their
+-- place): nothing of it is in memory at login.
 
 local ns = Polestar
 local L = ns.L
@@ -13,7 +14,7 @@ local P = ns.Profiles
 -- string to make or read.
 if not (P and P.Parts) then return end
 
-local type, pairs, ipairs, next, tostring, tonumber, pcall, select = type, pairs, ipairs, next, tostring, tonumber, pcall, select
+local type, pairs, ipairs, next, tostring, tonumber, pcall = type, pairs, ipairs, next, tostring, tonumber, pcall
 local format, sub, gsub, find, lower = string.format, string.sub, string.gsub, string.find, string.lower
 local concat, sort, floor, huge, abs = table.concat, table.sort, math.floor, math.huge, math.abs
 
@@ -103,52 +104,146 @@ local function same(a, b)
 end
 P.Same = same
 
--- The controls on the Options pages: key -> control, and the keys on the
--- Look pages (a page's `group = "look"`, or its order 20-29). The Look pages
--- and the built-in ones are the settings window's addon (Polestar_Options):
--- loaded here when it is not yet (not in combat: then the core modules'
--- registrations alone).
-local function controls()
-	local index, look = {}, {}
+---------------------------------------------------------------------------
+-- Categories: the parts of a profile a string carries and an import takes,
+-- each on its own. A setting's category follows where it lives: its home
+-- on the settings pages (the first page in the sidebar's order that shows
+-- it), by its page, else its tab or section as PAGES says, so a setting
+-- added to a page falls in with the rest of it. A few belong with another
+-- part than the section they sit in (OWN, by key or the start of one), a
+-- position is always Window positions, and a setting no page shows goes by
+-- the start of its key (HIDDEN). Key bindings are the game's, and a
+-- profile's own key is the account's, so no category holds one.
+-- docs/ARCHITECTURE.md, "Profiles", has the table.
+---------------------------------------------------------------------------
+
+P.CATEGORIES = {
+	{ id = "skin", label = L["Skin & colours"], help = L["The skin and its variant, the accent, the backgrounds, the colours of names, the frames and motion (Theme: Colour, Names, Frames)."] },
+	{ id = "fonts", label = L["Fonts & text size"], help = L["The fonts, text sizes, outline, shadow and text colours (Theme: Text)."] },
+	{ id = "window", label = L["Guide window"], help = L["The guide window's layout, size, parts and behaviour, compact mode and what it shows, the floating and minimap buttons, the guide menu and the gamepad."] },
+	{ id = "arrow", label = L["Arrow & map pins"], help = L["The arrow's look and text, the map pins and icons, and what the world map and minimap show."] },
+	{ id = "routes", label = L["Route lines & travel"], help = L["The route lines, travel routes, flights and hearth, the transport alert, the flight timer and the journey."] },
+	{ id = "quests", label = L["Quests & automation"], help = L["Quest automation, Dynamic Questing, how guides go on, the quest log and tooltips, group, party chat and invitations."] },
+	{ id = "hud", label = L["Buttons, alerts & trackers"], help = L["The quest and target buttons, rares and their alert, the heads-up cards, the experience and instance trackers and the party panel."] },
+	{ id = "gear", label = L["Gear & rewards"], help = L["Quest rewards, gear advice, talents, merchants, bags and trainers."] },
+	{ id = "dungeons", label = L["Dungeons & lookup"], help = L["Dungeons in your route, group quests, the dungeon journal, Lookup and your characters."] },
+	{ id = "positions", label = L["Window positions"], help = L["Where you dragged the guide window, the arrow, the buttons, the alerts and the trackers, and Move frames' grid. Another screen may need them moved again."] },
+}
+local CATEGORY = {}
+for i, c in ipairs(P.CATEGORIES) do CATEGORY[c.id] = i end
+
+-- By page key: a category, or { category, tabs = { [tab] = category },
+-- sections = { [section] = category } } (a section's over its tab's, a
+-- tab's over its page's), the names as the pages register them.
+local PAGES = {
+	guide = { "window", tabs = { [L["Arrow & routes"]] = "routes", [L["Automation"]] = "quests" },
+		sections = { [L["Dynamic Questing"]] = "quests", [L["Arrow"]] = "arrow", [L["Other waypoints"]] = "arrow" } },
+	theme = { "skin", tabs = { [L["Text"]] = "fonts" } },
+	guidewindow = "window",
+	arrow = "arrow",
+	mappins = "arrow",
+	routelines = "routes",
+	buttons = { "hud", tabs = { [L["Launcher & minimap"]] = "window" } },
+	alerts = { "hud", tabs = { [L["Transport alert"]] = "routes" } },
+	trackers = { "hud", tabs = { [L["Travel"]] = "routes" } },
+	map = "arrow",
+	questing = { "quests", tabs = { [L["Rewards & gear"]] = "gear", [L["Talents"]] = "gear", [L["Buttons"]] = "hud" } },
+	discovery = { "dungeons", tabs = { [L["Rares"]] = "hud" } },
+	qualityoflife = { "quests", tabs = { [L["Travel"]] = "routes", [L["Vendors"]] = "gear", [L["Trackers & map"]] = "hud" } },
+	-- A section per addon Polestar works with.
+	integrations = { "quests", sections = { EllesmereUI = "skin", TomTom = "arrow", ["Shortest Path Forever"] = "routes" } },
+	gamepad = "window",
+}
+
+-- Settings that go with another part than the section they sit in.
+local OWN = {
+	movers = "positions", dungeons = "dungeons", ["behavior.dungeons"] = "dungeons", ["behavior.groupQuests"] = "dungeons",
+	["ui.matchFont"] = "fonts",
+}
+
+-- Settings no page shows (state kept as the player uses a window).
+local HIDDEN = {
+	["ui.skinVariants"] = "skin", ["ui.optionsSize"] = "positions", ["maps.minimapButtonAngle"] = "positions", ["nav.openmapDots"] = "arrow",
+	ui = "window", guideWindow = "window", pause = "window", update = "window", gamepad = "window",
+	nav = "routes", maps = "arrow", buttons = "hud", toasts = "hud", trackers = "hud", rares = "hud",
+	behavior = "quests", qol = "quests", party = "quests", routePlan = "quests",
+	gear = "gear", talents = "gear", dungeons = "dungeons", alts = "dungeons", lookup = "dungeons", movers = "positions",
+}
+
+-- t[path], else t[path less its last part], and so on.
+local function nearest(t, path)
+	local p = path
+	while p do
+		local v = t[p]
+		if v ~= nil then return v end
+		p = p:match("^(.+)%.[^.]+$")
+	end
+	return nil
+end
+
+local function pageRule(page, tab, section)
+	local r = page and PAGES[page]
+	if type(r) ~= "table" then return r end
+	return section and r.sections and r.sections[section] or tab and r.tabs and r.tabs[tab] or r[1]
+end
+
+-- The controls on the Options pages: key -> its control (its home), and
+-- key -> its home's category. The pages are the settings window's addon
+-- (Polestar_Options), loaded here when they are not yet (not in combat:
+-- then the registrations as they came). Kept until a page registers more
+-- (a module's page, a dungeon's rows at login).
+local built
+local function index()
+	if built then return built end
 	if ns.UI and ns.UI.LoadOptions then ns.UI.LoadOptions() end
-	local W = ns.Widgets
-	local registry = W and W.OptionsRegistry or {}
-	local group = {}
-	for _, spec in ipairs(registry) do
-		if type(spec) == "table" and spec.page and group[spec.page] == nil then
-			if spec.group then
-				group[spec.page] = spec.group
-			elseif type(spec.order) == "number" then
-				group[spec.page] = (spec.order >= 20 and spec.order < 30) and "look" or "other"
-			end
-		end
-	end
-	local function add(c, isLook)
-		if type(c) ~= "table" or type(c.key) ~= "string" or c.kind == "button" or c.kind == "binding" then return end
-		if index[c.key] == nil then index[c.key] = c end
-		if isLook then look[c.key] = true end
-	end
-	for _, spec in ipairs(registry) do
-		if type(spec) == "table" and type(spec.controls) == "table" then
-			local isLook = group[spec.page] == "look"
-			for _, c in ipairs(spec.controls) do add(c, isLook) end
-		end
+	local control, home = {}, {}
+	local function add(c, page, tab, section)
+		if type(c) ~= "table" or type(c.key) ~= "string" or c.kind == "button" or c.kind == "binding" or control[c.key] ~= nil then return end
+		control[c.key] = c
+		home[c.key] = pageRule(page, tab, section)
 	end
 	local O = ns.UI and ns.UI.Options
-	if O and type(O.AllControls) == "function" then
-		local ok, list = pcall(O.AllControls)
-		if ok and type(list) == "table" then
-			-- Built-in pages too; each control knows its page (its group, or its order).
-			for _, c in ipairs(list) do
-				local pg = type(c) == "table" and type(c.page) == "table" and c.page or nil
-				local isLook = pg ~= nil and (pg.group == "look"
-					or (pg.group == nil and type(pg.order) == "number" and pg.order >= 20 and pg.order < 30))
-				add(c, isLook)
+	local ok, list = false, nil
+	if O and type(O.AllControls) == "function" then ok, list = pcall(O.AllControls) end
+	if ok and type(list) == "table" then
+		-- Every home in the sidebar's order, each knowing its page, tab and section.
+		for _, c in ipairs(list) do
+			if type(c) == "table" and type(c.page) == "table" then add(c, c.page.key, c.tab, c.section) end
+		end
+	else
+		local registry = ns.Widgets and ns.Widgets.OptionsRegistry or {}
+		local keyOf = {}
+		for _, spec in ipairs(registry) do
+			if type(spec) == "table" and type(spec.page) == "string" and type(spec.key) == "string" and not keyOf[spec.page] then keyOf[spec.page] = spec.key end
+		end
+		for _, spec in ipairs(registry) do
+			if type(spec) == "table" and type(spec.page) == "string" and type(spec.controls) == "table" then
+				local page = keyOf[spec.page] or gsub(lower(spec.page), "[^%w]+", "")
+				if spec.toggle then add(spec.toggle, page, spec.tab, spec.section) end
+				for _, c in ipairs(spec.controls) do add(c, page, spec.tab, spec.section) end
 			end
 		end
 	end
-	return index, look
+	built = { control = control, home = home }
+	return built
 end
+if ns.Widgets and ns.Widgets.OnOptionsRegistered then ns.Widgets.OnOptionsRegistered(function() built = nil end) end
+
+-- -> the category's id and how it was found: "position", "own", "page",
+-- "hidden" (no page shows it), or "fallback": no rule names it (none of
+-- Polestar's own, profiles.rs holds them to that), so it goes with what
+-- Polestar does rather than out of the string.
+local function categoryOf(path, ix)
+	if positions[path] then return "positions", "position" end
+	local id = nearest(OWN, path)
+	if id then return id, "own" end
+	id = ix.home[path]
+	if id then return id, "page" end
+	id = nearest(HIDDEN, path)
+	if id then return id, "hidden" end
+	return "quests", "fallback"
+end
+P.CategoryOf = function(path) return categoryOf(path, index()) end
 
 local function choicesOf(c)
 	local list = c.choices
@@ -291,36 +386,21 @@ local function migrationIds()
 	return ids
 end
 
--- The parts of a profile a string may carry on its own: "look" (the
--- settings on the Look pages), "positions" (where things were dragged to),
--- "guiding" (everything else: what Polestar does and shows).
-P.AREAS = { "look", "guiding", "positions" }
-
-local function areaOf(path, look)
-	if positions[path] then return "positions" end
-	if look[path] then return "look" end
-	return "guiding"
-end
-P.AreaOf = function(path) return areaOf(path, select(2, controls())) end
-
--- opts.areas = { look = true, ... } (every area when nil); opts.look: the look alone.
-local function areasOf(opts)
-	if opts and opts.look then return { look = true } end
-	return opts and opts.areas or nil
-end
-
 -- The settings of profile `name` (the one in use when nil) that a string
--- carries: path -> value, only those off their default and valid. -> settings, count
+-- carries: path -> value, only those off their default and valid, in the
+-- categories opts.categories names ({ id = true, ... }; every one when
+-- nil). -> settings, count
 function P.Portable(name, opts)
 	name = name or P.Active()
 	local src = data(name)
 	if not src then return nil, missing(name) end
-	local index, look = controls()
-	local areas = areasOf(opts)
+	local ix = index()
+	local only = opts and opts.categories
 	local out, n = {}, 0
 	for path, v in pairs(leaves(src)) do
-		if not areas or areas[areaOf(path, look)] then
-			local fitted = fit(path, v, index[path])
+		local id = categoryOf(path, ix)
+		if id and (not only or only[id]) then
+			local fitted = fit(path, v, ix.control[path])
 			if fitted ~= nil and not same(fitted, ns.GetDefault(path)) then
 				out[path] = fitted
 				n = n + 1
@@ -338,9 +418,17 @@ local function screen()
 	return { w = tonumber(w) or 0, h = tonumber(h) or 0, scale = floor((tonumber(scale) or 1) * 1000 + 0.5) / 1000 }
 end
 
--- -> string, the number of settings in it | nil, why
+-- opts.categories = { id = true, ... }: the categories to put in (every one
+-- when nil); the string names them, so what it leaves out of one is at its
+-- default there. -> string, the number of settings in it | nil, why
 function P.Export(name, opts)
 	name = name or P.Active()
+	local only = opts and opts.categories
+	local list = {}
+	for _, c in ipairs(P.CATEGORIES) do
+		if not only or only[c.id] then list[#list + 1] = jstr(c.id) end
+	end
+	if #list == 0 then return nil, L["Tick at least one part to put in the string."] end
 	local settings, n = P.Portable(name, opts)
 	if not settings then return nil, n end
 	local keys = {}
@@ -350,14 +438,8 @@ function P.Export(name, opts)
 	for i, path in ipairs(keys) do parts[i] = jstr(path) .. ":" .. jvalue(settings[path]) end
 	local ids = {}
 	for i, id in ipairs(migrationIds()) do ids[i] = jstr(id) end
-	local areas = areasOf(opts)
-	local list = {}
-	for _, a in ipairs(P.AREAS) do
-		if not areas or areas[a] then list[#list + 1] = jstr(a) end
-	end
-	local only = areas and areas.look and not areas.guiding and not areas.positions
-	local json = format('{"format":%d,"name":%s,%s"areas":[%s],"screen":%s,"migrations":[%s],"settings":{%s}}', FORMAT, jstr(name),
-		only and '"scope":"look",' or "", concat(list, ","), jvalue(screen()), concat(ids, ","), concat(parts, ","))
+	local json = format('{"format":%d,"name":%s,"categories":[%s],"screen":%s,"migrations":[%s],"settings":{%s}}', FORMAT, jstr(name),
+		concat(list, ","), jvalue(screen()), concat(ids, ","), concat(parts, ","))
 	return P.Pack(json), n
 end
 
@@ -385,20 +467,96 @@ local function unpack(s)
 	return raw
 end
 
--- A setting's label on the Options pages, else its path.
+-- A skin's variant setting (ui.skinVariants.<skin>): the skin's id.
+local function variantSkin(path) return path:match("^ui%.skinVariants%.([%w_%-]+)$") end
+
+-- A setting's label on the Options pages; a frame's place, the frame's name
+-- (Move frames'); a skin's variant, "Variant (the skin)"; else its path.
 local function labelOf(path, c)
 	local l = c and c.label
 	if type(l) == "function" then
 		local ok, s = pcall(l)
 		l = ok and s or nil
 	end
-	return type(l) == "string" and l or path
+	if type(l) == "string" then return l end
+	local M = ns.Movers
+	l = positions[path] and M and M.KeyLabel and M.KeyLabel(path)
+	if type(l) == "string" then return l end
+	local skin = variantSkin(path)
+	if skin then
+		local info = ns.Theme and ns.Theme.SkinInfo and ns.Theme.SkinInfo(skin)
+		return (L["%s (%s)"]):format(L["Variant"], info and info.name or skin)
+	end
+	return path
+end
+
+-- A setting's label and where it sits, what tells two "Scale" rows apart:
+-- its section, or its tab where the section is a card's own. -> label, place | nil
+function P.LabelOf(path)
+	local c = index().control[path]
+	local place = c and (c.section ~= L["Card"] and c.section or c.tab) or nil
+	return labelOf(path, c), type(place) == "string" and place ~= "" and place or nil
+end
+
+-- A position's numbers, the way its shape holds them.
+local function placeText(v)
+	local x, y = v.x, v.y
+	if x == nil then
+		local n = #v
+		x, y = v[n - 1], v[n]
+	end
+	if not (finite(x) and finite(y)) then return L["Moved"] end
+	return format("%d, %d", floor(x + 0.5), floor(y + 0.5))
+end
+
+-- A value as the Options pages show it: On or Off, a choice's name, a
+-- slider's text, a colour's hex; a position's numbers, or Not moved.
+function P.ValueText(path, v)
+	local c = index().control[path]
+	if positions[path] then return type(v) == "table" and placeText(v) or L["Not moved"] end
+	local skin = type(v) == "string" and variantSkin(path)
+	for _, var in ipairs(skin and ns.Theme and ns.Theme.SkinVariants and ns.Theme.SkinVariants(skin) or {}) do
+		if var.id == v and type(var.name) == "string" then return var.name end
+	end
+	local t = type(v)
+	if t == "boolean" then
+		if not v and ((c and c.kind == "color") or slotName(path)) then return L["From the look"] end
+		return v and L["On"] or L["Off"]
+	end
+	if t == "table" then
+		local col = colour(v)
+		if not col then return "?" end
+		local hex = format("#%02X%02X%02X", floor(col[1] * 255 + 0.5), floor(col[2] * 255 + 0.5), floor(col[3] * 255 + 0.5))
+		if col[4] and col[4] < 1 then hex = format("%s %d%%", hex, floor(col[4] * 100 + 0.5)) end
+		return hex
+	end
+	local choices = c and (c.kind == "dropdown" or c.kind == "cards" or c.kind == "font") and choicesOf(c)
+	for _, ch in ipairs(choices or {}) do
+		local l = type(ch) == "table" and ch.value == v and (ch.label or ch.text)
+		if type(l) == "string" then return l end
+	end
+	if t == "number" then
+		local fmt = c and c.kind == "slider" and c.format
+		local ok, s = false, nil
+		if type(fmt) == "function" then
+			ok, s = pcall(fmt, v)
+		elseif type(fmt) == "string" then
+			ok, s = pcall(format, fmt, v)
+		end
+		if ok and type(s) == "string" then return s end
+		return (gsub(format("%.2f", v), "%.?0+$", ""))
+	end
+	return ns.EscapeText(tostring(v))
 end
 
 -- Text pasted on the Profiles page. -> preview | nil, why
---   preview = { name, look, count, settings = { path -> value }, keys = { path, ... },
---               labels = { path -> label }, changes = { path, ... } (differ from the profile in use),
---               dropped = { path, ... } }
+--   preview = { name, count, settings = { path -> value }, keys = { path, ... } (by label),
+--               labels = { path -> label }, category = { path -> id }, held = { id -> its settings },
+--               holds = { id -> true }, order = { id, ... } (the categories it holds, in order),
+--               exact (it names its categories: what it leaves out of one is at its default there),
+--               changes = { path, ... } (what differs from the profile in use), dropped = { path, ... },
+--               otherScreen }
+-- Nothing changes; P.Changes(preview) says what applying it would now.
 function P.Import(text)
 	if type(text) ~= "string" then return nil, L["Paste a profile string."] end
 	local s = gsub(text, "%s+", "")
@@ -454,39 +612,87 @@ function P.Import(text)
 	for _, id in ipairs(migrationOrder) do
 		if not applied[id] then ns.SafeCall(migrations[id], nested) end
 	end
-	local index, look = controls()
-	local preview = { settings = {}, keys = {}, labels = {}, area = {}, areas = { look = 0, guiding = 0, positions = 0 },
-		changes = {}, dropped = dropped, look = tree.scope == "look" }
+	local ix = index()
+	local preview = { settings = {}, keys = {}, labels = {}, category = {}, held = {}, holds = {}, order = {}, dropped = dropped }
 	for path, v in pairs(leaves(nested)) do
-		local fitted = fit(path, v, index[path])
-		if fitted == nil then
+		local c = ix.control[path]
+		local fitted = fit(path, v, c)
+		local id = fitted ~= nil and categoryOf(path, ix) or nil
+		if id == nil then
 			dropped[#dropped + 1] = ns.EscapeText(path)
 		else
-			local area = areaOf(path, look)
 			preview.settings[path] = fitted
 			preview.keys[#preview.keys + 1] = path
-			preview.labels[path] = labelOf(path, index[path])
-			preview.area[path] = area
-			preview.areas[area] = preview.areas[area] + 1
-			if not same(fitted, ns.Get(path)) then preview.changes[#preview.changes + 1] = path end
+			preview.labels[path] = labelOf(path, c)
+			preview.category[path] = id
+			preview.held[id] = (preview.held[id] or 0) + 1
+			preview.holds[id] = true
 		end
 	end
+	-- A string from 0.4.0 on names the categories it holds, settings in
+	-- them or not; an older one holds those its settings are in.
+	if type(tree.categories) == "table" then
+		preview.exact = true
+		for i, id in ipairs(tree.categories) do
+			if i > LIMITS.migrations then break end
+			if type(id) == "string" and CATEGORY[id] then preview.holds[id] = true end
+		end
+	end
+	for _, c in ipairs(P.CATEGORIES) do
+		if preview.holds[c.id] then preview.order[#preview.order + 1] = c.id end
+	end
 	preview.count = #preview.keys
-	local byLabel = function(a, b)
+	sort(preview.keys, function(a, b)
 		local la, lb = preview.labels[a], preview.labels[b]
 		if la ~= lb then return la < lb end
 		return a < b
-	end
-	sort(preview.keys, byLabel)
-	sort(preview.changes, byLabel)
+	end)
 	sort(dropped)
+	preview.changes = {}
+	for i, ch in ipairs(P.Changes(preview)) do preview.changes[i] = ch.path end
 	preview.name = type(tree.name) == "string" and cleanName(tree.name) or nil
 	-- Positions made on another screen or at another UI scale may sit off.
 	local from, here = tree.screen, screen()
-	if preview.areas.positions > 0 and type(from) == "table" and finite(from.w) and finite(from.h) and finite(from.scale) then
+	if (preview.held.positions or 0) > 0 and type(from) == "table" and finite(from.w) and finite(from.h) and finite(from.scale) then
 		preview.otherScreen = from.w ~= here.w or from.h ~= here.h or abs(from.scale - here.scale) > 0.01
 	end
 	return preview
+end
+
+-- What applying `preview` into the profile in use would change, in the
+-- categories `pick` names ({ id = true, ... }; every one it holds when
+-- nil): each setting it carries that differs from yours and, a string
+-- that names its categories, each of yours off its default it leaves out
+-- of one it holds, back to the default.
+-- -> { { path, category, label, theirs, reset }, ... } in the categories' order, then by label
+function P.Changes(preview, pick)
+	local out = {}
+	if type(preview) ~= "table" or type(preview.settings) ~= "table" or type(preview.holds) ~= "table" then return out end
+	local function wanted(id) return id ~= nil and preview.holds[id] and (not pick or pick[id]) end
+	for path, v in pairs(preview.settings) do
+		local id = preview.category[path]
+		if wanted(id) and not same(v, ns.Get(path)) then
+			out[#out + 1] = { path = path, category = id, label = preview.labels[path] or path, theirs = v }
+		end
+	end
+	if preview.exact then
+		local ix = index()
+		for path, v in pairs(leaves(ns.DB().settings)) do
+			if preview.settings[path] == nil then
+				local c = ix.control[path]
+				local id = categoryOf(path, ix)
+				if wanted(id) and fit(path, v, c) ~= nil and not same(v, ns.GetDefault(path)) then
+					out[#out + 1] = { path = path, category = id, label = labelOf(path, c), theirs = ns.GetDefault(path), reset = true }
+				end
+			end
+		end
+	end
+	sort(out, function(a, b)
+		if a.category ~= b.category then return CATEGORY[a.category] < CATEGORY[b.category] end
+		if a.label ~= b.label then return a.label < b.label end
+		return a.path < b.path
+	end)
+	return out
 end
 
 -- A name for an imported profile that is not taken: the string's, else
@@ -502,38 +708,105 @@ function P.FreeName(base)
 	return nil
 end
 
--- The preview's settings into the profile in use (name = P.Active(): each
--- through ns.Set, the rest kept) or as the new profile `name` (every other
--- setting at its default). areas: { look = true, ... } to take only those
--- (all when nil). -> true | nil, why
-function P.Apply(preview, name, areas)
-	if type(preview) ~= "table" or type(preview.settings) ~= "table" or type(preview.keys) ~= "table" then return nil, damaged() end
+-- Settings written together: the look repaints once, at the end.
+local function batch(fn)
+	local I = ns.ThemeInternal
+	if not (I and I.batch) then return fn() end
+	local ok, err = I.batch(fn)
+	if not ok and geterrorhandler then geterrorhandler()(err) end
+end
+
+-- value at `path` in a profile's settings table (nil: the default).
+local function setPath(t, path, value)
 	local keys = {}
-	for _, path in ipairs(preview.keys) do
-		if not areas or areas[preview.area and preview.area[path] or "guiding"] then keys[#keys + 1] = path end
+	for k in path:gmatch("[^.]+") do keys[#keys + 1] = k end
+	local node = t
+	for i = 1, #keys - 1 do
+		if type(node[keys[i]]) ~= "table" then
+			if value == nil then return end
+			node[keys[i]] = {}
+		end
+		node = node[keys[i]]
 	end
-	if #keys == 0 then return nil, L["Nothing to apply: every part of the string is unticked."] end
+	node[keys[#keys]] = value
+end
+
+-- The preview into the profile in use (name = P.Active(): what P.Changes
+-- says, each through ns.Set) or as the new profile `name` (its settings in
+-- the categories picked, every other setting at its default). pick =
+-- { id = true, ... }: the categories to take (every one it holds when
+-- nil). -> true, undo (for P.Undo; .count: the settings taken) | nil, why
+function P.Apply(preview, name, pick)
+	if type(preview) ~= "table" or type(preview.settings) ~= "table" or type(preview.keys) ~= "table" or type(preview.holds) ~= "table" then
+		return nil, damaged()
+	end
+	local any = false
+	for id in pairs(preview.holds) do
+		if not pick or pick[id] then any = true end
+	end
+	if not any then return nil, L["Nothing to apply: every part of the string is unticked."] end
 	if name == nil or name == P.Active() then
-		for _, path in ipairs(keys) do ns.Set(path, deepCopy(preview.settings[path])) end
+		local list = P.Changes(preview, pick)
+		if #list == 0 then return nil, L["Nothing to apply: the parts ticked are the same as yours."] end
+		-- Every setting the profile held, so the Undo also takes back what
+		-- the settings written changed in turn (picking one accent source
+		-- turns the others off).
+		local before = leaves(deepCopy(ns.DB().settings))
+		batch(function()
+			for _, ch in ipairs(list) do
+				if ch.reset then ns.Set(ch.path, nil) else ns.Set(ch.path, deepCopy(ch.theirs)) end
+			end
+		end)
+		local after, was = leaves(ns.DB().settings), {}
+		for path, v in pairs(before) do
+			if not same(v, after[path]) then was[#was + 1] = { path = path, value = v } end
+		end
+		for path in pairs(after) do
+			if before[path] == nil then was[#was + 1] = { path = path } end
+		end
 		ns.Fire("PROFILES_CHANGED")
-		return true
+		return true, { profile = P.Active(), was = was, count = #list }
 	end
+	local from = P.Active()
 	local made, why = P.New(name)
 	if not made then return nil, why end
 	local t = store()[made]
-	for _, path in ipairs(keys) do
+	for _, path in ipairs(preview.keys) do
 		local v = preview.settings[path]
-		if not same(v, ns.GetDefault(path)) then
-			local node = t
-			local keys = {}
-			for k in path:gmatch("[^.]+") do keys[#keys + 1] = k end
-			for i = 1, #keys - 1 do
-				if type(node[keys[i]]) ~= "table" then node[keys[i]] = {} end
-				node = node[keys[i]]
-			end
-			node[keys[#keys]] = deepCopy(v)
-		end
+		if (not pick or pick[preview.category[path]]) and not same(v, ns.GetDefault(path)) then setPath(t, path, deepCopy(v)) end
 	end
+	return true, { made = made, from = from }
+end
+
+-- Takes back what P.Apply did (its undo): every setting of the profile it
+-- changed as it was (through ns.Set while the profile is in use, a second
+-- round for what a setting changed in turn; else in its own table), or the
+-- profile it made gone and the one in use before it back. -> true | nil, why
+function P.Undo(u)
+	if type(u) ~= "table" then return nil, damaged() end
+	if u.made then
+		if not P.Exists(u.made) then return nil, missing(u.made) end
+		if P.Active() == u.made then
+			local ok, why = P.Switch(P.Exists(u.from) and u.from or P.DEFAULT)
+			if not ok then return nil, why end
+		end
+		return P.Delete(u.made)
+	end
+	if type(u.was) ~= "table" then return nil, damaged() end
+	if not P.Exists(u.profile) then return nil, missing(u.profile) end
+	if u.profile == P.Active() then
+		batch(function()
+			for _ = 1, 2 do
+				for _, w in ipairs(u.was) do
+					if not same(ns.GetStored(w.path), w.value) then ns.Set(w.path, deepCopy(w.value)) end
+				end
+			end
+		end)
+	else
+		local t = data(u.profile)
+		for _, w in ipairs(u.was) do setPath(t, w.path, deepCopy(w.value)) end
+	end
+	ns.Fire("PROFILES_CHANGED")
 	return true
 end
 
