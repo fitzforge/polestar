@@ -100,7 +100,13 @@ fn the_route_lists_carried_quests_and_the_ones_no_guide_of_the_route_uses_the_du
 		r.off = {}
 		for _, c in ipairs(P.OffRoute("test/a")) do r.off[#r.off + 1] = { c.quest, c.title, c.ready } end
 		table.sort(r.off, function(a, b) return a[1] < b[1] end)
-		-- "Dungeons in my route": Run them makes the Deadmines quest the route's.
+		-- Dungeons in the route held back (Core/Init.lua's switch off, as it ships): Run them saved changes nothing,
+		-- the Deadmines quest stays off the route.
+		Polestar.Set("behavior.dungeons", "run")
+		r.held = ids(P.OffRoute("test/a"))
+		Polestar.Set("behavior.dungeons", "skip")
+		-- With the switch on, "Dungeons in my route": Run them makes the Deadmines quest the route's.
+		Polestar.dungeonRoute = true
 		Polestar.Set("behavior.dungeons", "run")
 		r.run = ids(P.OffRoute("test/a"))
 		Polestar.Set("behavior.dungeons", "skip")
@@ -116,6 +122,7 @@ fn the_route_lists_carried_quests_and_the_ones_no_guide_of_the_route_uses_the_du
 		json!([[19, "Tharil'zun", false], [33, "Wolves Across the Border", false], [60, "Deadmines Errand", false], [304, "A Grim Task", true]]),
 		"44 (test/b), 50 (carried) and 70 (`when onquest`) are the route's; 33 is a Mage's; Deadmines skipped: {out}"
 	);
+	assert_eq!(out["held"], json!([19, 33, 60, 304]), "held back: the saved answer is no run; {out}");
 	assert_eq!(out["run"], json!([19, 33, 304]), "{out}");
 	assert_eq!(out["answered"], json!([19, 33, 60, 304]), "{out}");
 }
