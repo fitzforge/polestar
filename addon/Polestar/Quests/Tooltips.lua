@@ -167,6 +167,44 @@ function Q.AddObjectLines(tt, objectID, name)
 	return addObjectiveLines(tt, list, 3, objectID, name)
 end
 
+-- The client's own quest rows. On a mob or object of a quest in the log the
+-- client names the quest itself: a title row, then its objectives. With
+-- Polestar's lines under them every objective reads twice. With
+-- qol.questTooltipsReplace the client's rows for a quest Polestar's lines name
+-- there are left out (Hooks.QuestRows), by the title row's quest id or its
+-- text. The rows of a quest Polestar does not name stay, and
+-- in a group all of them: they carry the party's progress.
+local hidingRows = false -- the rows under the title last seen are left out too
+
+local function hideQuestRow(_, kind, id, name, row, rowType)
+	if not (tooltipsOn() and ns.Get("qol.questTooltipsReplace")) or (IsInGroup and IsInGroup()) then
+		hidingRows = false
+		return false
+	end
+	if rowType ~= "QuestTitle" then return hidingRows end
+	hidingRows = false
+	local list
+	if kind == "unit" then
+		list = Q.ObjectivesForNpc(id)
+	else
+		list = id and Q.ObjectivesForObject(id)
+		if not list and name then list = Q.ObjectivesForObjectName(name) end
+	end
+	if not list then return false end
+	local secret = ns.Compat.IsSecret
+	local quest, title = row.id, row.leftText
+	if secret(quest) or type(quest) ~= "number" then quest = nil end
+	if secret(title) or type(title) ~= "string" then title = nil end
+	for i = 1, #list do
+		local o = list[i]
+		if (quest and o.q == quest) or (title and o.entry.title == title) then
+			hidingRows = true
+			break
+		end
+	end
+	return hidingRows
+end
+
 local OWNER = "quests"
 
 local function onUnit(tt, unit)
@@ -192,6 +230,7 @@ local function refreshHooks()
 	H.UnitLines(OWNER, want and onUnit or nil)
 	H.ItemLines(OWNER, want and onItem or nil)
 	if H.ObjectLines then H.ObjectLines(OWNER, want and onObject or nil) end
+	if H.QuestRows then H.QuestRows(OWNER, want and hideQuestRow or nil) end
 end
 
 ---------------------------------------------------------------------------

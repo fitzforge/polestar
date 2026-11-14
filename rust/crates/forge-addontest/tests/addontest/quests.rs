@@ -671,6 +671,63 @@ emit(sq.hoverUnit(6))
 	assert_eq!(out[6], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10", "Kobold Candles: | Large Candle 8/8"]), "nothing left to drop for: no chance");
 }
 
+// qol.questTooltipsReplace (off by default): the client names a mob's quests itself (a title row, then its
+// objectives), so with Polestar's lines each objective reads twice. On, the client's rows for a quest Polestar's
+// lines name are left out, by the title row's quest id or its text; the rows of a quest Polestar does not name
+// stay, as do all of them in a group, on a tooltip whose data is secret, and while quest tooltips are off.
+#[test]
+fn the_client_s_own_quest_rows_step_aside_for_the_quests_polestar_s_lines_name_once_asked_to() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+w.accept(18, { { text = "Bundle of Wood: 0/1", type = "object", required = 1 } })
+stub.advance(0.3)
+local function rows()
+	return {
+		{ type = "QuestTitle", id = 7, leftText = "Kobold Camp Cleanup" },
+		{ type = "QuestObjective", leftText = "0/10 Kobold Vermin slain" },
+		{ type = "QuestTitle", id = 999, leftText = "Someone Else's Quest" },
+		{ type = "QuestObjective", leftText = "0/1 Something" },
+	}
+end
+emit(Polestar.Get("qol.questTooltipsReplace"))
+emit(sq.hoverUnit(6, nil, rows()))
+Polestar.Set("qol.questTooltipsReplace", true)
+emit(sq.hoverUnit(6, nil, rows()))
+-- A title row without a quest id is matched by its text; a party member's row under it goes with it.
+emit(sq.hoverUnit(6, nil, { { type = "QuestTitle", leftText = "Kobold Camp Cleanup" }, { type = "QuestPlayer", leftText = "Friend" }, { type = "QuestObjective", leftText = "0/10 Kobold Vermin slain" } }))
+emit(sq.hoverObject(55, "Bundle of Wood", { { type = "QuestTitle", id = 18, leftText = "Gathering Wood" }, { type = "QuestObjective", leftText = "0/1 Bundle of Wood" } }))
+emit(sq.hoverUnit(99, nil, rows()))                                  -- a mob Polestar names no quest on
+local grouped = true
+IsInGroup = function() return grouped end
+emit(#sq.hoverUnit(6, nil, rows()))
+grouped = false
+Polestar.Set("qol.questTooltips", false)
+emit(#sq.hoverUnit(6, nil, rows()))
+Polestar.Set("qol.questTooltips", true)
+stub.advance(0.3)
+emit(sq.hoverUnit(6, true, rows()))                                  -- secret GUID (combat): the client's rows stay
+"#,
+		"",
+	);
+	let both = json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]);
+	assert_eq!(out[0], false);
+	assert_eq!(out[1], both, "off: the client's rows and Polestar's line");
+	assert_eq!(
+		out[2],
+		json!(["?", "Someone Else's Quest", "0/1 Something", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]),
+		"the quest Polestar names shows once; the other keeps the client's rows"
+	);
+	assert_eq!(out[3], json!(["?", "Kobold Camp Cleanup: | Kill Kobold Vermin 0/10"]));
+	assert_eq!(out[4], json!(["?", "Gathering Wood: | Not done"]), "objects too");
+	assert_eq!(out[5], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "nothing of Polestar's to show: nothing left out");
+	assert_eq!(out[6], 6, "in a group the client's rows carry the party's progress: all stay");
+	assert_eq!(out[7], 5, "quest tooltips off: the client's rows alone");
+	assert_eq!(out[8], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "unreadable data: the client's rows stay and Polestar adds none");
+}
+
 // The "New in Forever" mark (Quests/NewQuests.lua): a quest Forever added carries its ∞ after its name on the quest
 // lines of a mob's and an item's tooltip ("Starts a quest" too); ui.newInForever off takes it away. Kobold Camp
 // Cleanup (7) and A Strange Note (1972's) stand in for Forever's quests here.

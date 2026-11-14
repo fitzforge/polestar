@@ -7,6 +7,11 @@
 --   Hooks.UnitLines(owner, fn(tooltip, unit))           -- unit tooltips (GameTooltip)
 --   Hooks.ObjectLines(owner, fn(tooltip, objectID, name)) -- game object tooltips (GameTooltip);
 --       objectID and name may each be nil (never both)
+--   Hooks.QuestRows(owner, fn(tooltip, kind, id, name, row, rowType) -> true to leave it out)
+--       the client's own quest rows on a unit or object tooltip (GameTooltip), each before it is
+--       drawn: kind "unit" (id the NPC's) or "object" (id and name as ObjectLines); row the client's
+--       line data ({ leftText, id: a title's quest }, fields may be secret); rowType "QuestTitle",
+--       "QuestObjective" or "QuestPlayer"
 --   Hooks.ItemClick(owner, fn(link, itemID))            -- modified clicks on item links, bag and loot items
 --   Hooks.AddLine(tooltip, left, right?, r, g, b, rr, rg, rb)
 --
@@ -25,6 +30,10 @@
 --     tooltipData.id or the id field of its GameObject GUID, its name the
 --     first line's leftText. Clients without TooltipDataProcessor fall back to
 --     OnTooltipSetItem / OnTooltipSetUnit (objects have no such script).
+--   * The client's quest rows: TooltipDataProcessor.AddLinePreCall(Enum.TooltipDataLineType.QuestTitle /
+--     .QuestObjective / .QuestPlayer, fn(tooltip, lineData)) (TooltipDataHandler.lua: a pre-call
+--     returning true leaves the line out); the tooltip's data is tooltip.processingInfo.tooltipData
+--     while its lines are processed. Clients without it draw their rows as before.
 --   * Item clicks: bag buttons (Blizzard_UIPanels_Game/Mainline/ContainerFrame.lua,
 --     ContainerFrameItemButtonMixin:OnModifiedClick), loot buttons (LootFrame.lua)
 --     and chat links (ItemRef.lua SetItemRef: the item link handler in
@@ -51,7 +60,7 @@ local function report(err)
 end
 
 -- owner -> fn lists, in registration order: { { owner = ..., fn = ... }, ... }
-local lists = { item = {}, unit = {}, object = {}, click = {} }
+local lists = { item = {}, unit = {}, object = {}, click = {}, row = {} }
 
 local installers = {}
 
@@ -82,6 +91,7 @@ function Hooks.ItemLines(owner, fn) return register("item", owner, fn) end
 function Hooks.UnitLines(owner, fn) return register("unit", owner, fn) end
 function Hooks.ObjectLines(owner, fn) return register("object", owner, fn) end
 function Hooks.ItemClick(owner, fn) return register("click", owner, fn) end
+function Hooks.QuestRows(owner, fn) return register("row", owner, fn) end
 
 -- Runs every callback of a kind; returns how many ran without error.
 local function run(kind, ...)
@@ -222,16 +232,21 @@ local function unitTooltip(tooltip, data)
 end
 Hooks.OnUnitTooltip = unitTooltip
 
--- "GameObject-0-4372-0-17-2843-0000123456" -> 2843
-local function objectIdOfGUID(guid)
+-- "GameObject-0-4372-0-17-2843-0000123456" -> "GameObject", 2843
+local function idOfGUID(guid)
 	if type(guid) ~= "string" or secret(guid) then return nil end
 	local kind, id = guid:match("^(%a+)%-%d+%-%d+%-%d+%-%d+%-(%d+)%-")
-	if kind ~= "GameObject" then return nil end
-	return tonumber(id)
+	return kind, tonumber(id)
 end
 
-local function objectTooltip(tooltip, data)
-	if tooltip ~= GameTooltip or forbidden(tooltip) or #lists.object == 0 or type(data) ~= "table" then return 0 end
+local function objectIdOfGUID(guid)
+	local kind, id = idOfGUID(guid)
+	if kind ~= "GameObject" then return nil end
+	return id
+end
+
+-- An object tooltip's id and name (each may be nil).
+local function objectOf(data)
 	local id = data.id
 	if secret(id) or type(id) ~= "number" then id = objectIdOfGUID(data.guid) end
 	local name
@@ -243,10 +258,47 @@ local function objectTooltip(tooltip, data)
 			if type(text) == "string" and not secret(text) and text ~= "" then name = text end
 		end
 	end
+	return id, name
+end
+
+local function objectTooltip(tooltip, data)
+	if tooltip ~= GameTooltip or forbidden(tooltip) or #lists.object == 0 or type(data) ~= "table" then return 0 end
+	local id, name = objectOf(data)
 	if not (id or name) then return 0 end
 	return decorate("object", tooltip, id or name, id, name)
 end
 Hooks.OnObjectTooltip = objectTooltip
+
+-- One of the client's quest rows, before it is drawn: true leaves it out. A
+-- tooltip whose data cannot be read (secret values) keeps its rows.
+local ROW_TYPES = { "QuestTitle", "QuestObjective", "QuestPlayer" }
+local function questRow(tooltip, row, rowType)
+	if tooltip ~= GameTooltip or forbidden(tooltip) or #lists.row == 0 then return nil end
+	if type(row) ~= "table" or secret(row) then return nil end
+	local info = tooltip.processingInfo
+	local data = type(info) == "table" and not secret(info) and info.tooltipData
+	if type(data) ~= "table" or secret(data) then return nil end
+	local T = Enum and Enum.TooltipDataType
+	local dataType = data.type
+	if not T or secret(dataType) then return nil end
+	local kind, id, name
+	if dataType == T.Unit then
+		local guidKind, npc = idOfGUID(data.guid)
+		if guidKind == "Creature" or guidKind == "Vehicle" then kind, id = "unit", npc end
+	elseif dataType == T.Object then
+		kind = "object"
+		id, name = objectOf(data)
+	end
+	if not (kind and (id or name)) then return nil end
+	local hide
+	local list = lists.row
+	for i = 1, #list do
+		local ok, res = pcall(list[i].fn, tooltip, kind, id, name, row, rowType)
+		if not ok then report(res) elseif res == true then hide = true end
+	end
+	return hide
+end
+Hooks.OnQuestRow = questRow
 
 local function postCalls()
 	local P = TooltipDataProcessor
@@ -288,6 +340,17 @@ installers.object = function()
 	local P, T = postCalls()
 	if P and T.Object then
 		P.AddTooltipPostCall(T.Object, function(tooltip, data) objectTooltip(tooltip, data) end)
+	end
+end
+
+installers.row = function()
+	local P = TooltipDataProcessor
+	local types = Enum and Enum.TooltipDataLineType
+	if not (P and P.AddLinePreCall and types) then return end
+	for _, rowType in ipairs(ROW_TYPES) do
+		if types[rowType] then
+			P.AddLinePreCall(types[rowType], function(tooltip, row) return questRow(tooltip, row, rowType) end)
+		end
 	end
 end
 

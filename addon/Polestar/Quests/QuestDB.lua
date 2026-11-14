@@ -27,6 +27,7 @@ ns.RegisterDefaults("qol", {
 	questLevelWindow = 5, -- available quests up to this many levels above yours (10: any)
 	questTooltips = true, -- quest lines on unit, item and object tooltips
 	questDropChance = false, -- ... with how often a mob drops the quest item, on that mob
+	questTooltipsReplace = false, -- ... in place of the client's own rows for the same quests
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
