@@ -112,6 +112,7 @@ step Dolanaar
   label dn-dolanaar
   zone Teldrassil
   tip Optional: the village on the road to Darnassus, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.
+  tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
   turnin 2159
   accept 475
   accept 2438
@@ -141,6 +142,7 @@ step Dolanaar: the woods around the village
 
 step Dolanaar: first hand-in
   when done dn-dolanaar
+  tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
   turnin 918
   turnin 919
   turnin 476

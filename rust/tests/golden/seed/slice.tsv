@@ -5,6 +5,7 @@ ok	#246: no NPC or object goal is on a neighbouring zone's map where the two map
 ok	#286: a typed coordinate is near its target's spawns in its own map frame, not only in the other one
 ok	#289: a quest item picked up from objects is collected at one of the objects' spawns
 not ok	#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides
+not ok	Alonso's Dragonslayer quests are left out of both Ashenvale guides: each needs an item a leveling route never gets (#383, #1117, QuestieDB 1.0.14)
 not ok	Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit
 not ok	Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone
 not ok	Bill's report (#1004): a town's bind never sends you back to the giver you just left
@@ -30,11 +31,10 @@ not ok	Sato's report: the Skysight and Read Ley Line objectives tell you to cast
 not ok	Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll
 not ok	Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides
 not ok	Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to
-not ok	Zerkness's and Ioney's reports (#383, #396): every player is led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides
 not ok	a Priest's report: an event or escort objective holds its step until the quest is complete
 not ok	a quest with objectives is completed or collected between its accept and its turn-in
 ok	every step with a quest objective to do has a goal the arrow can lead to
-not ok	forever/alliance/02-westfall.guide: Alba Fairmoon's chain is not given to Humans (#144)
+not ok	forever/alliance/02-westfall.guide: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)
 not ok	forever/alliance/02-westfall.guide: Pynte's report (#416): the farm quests and Report to Gryan Stoutmantle are taken on the road in, before Sentinel Hill
 not ok	forever/alliance/02-westfall.guide: Smuve's report (#298): the Molsen Farm step does not wait for the Precessive Autocognition Assembly; with one, it is handed in at Saldean's
 not ok	forever/alliance/02-westfall.guide: Xaden Ryan's report (#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in
@@ -47,7 +47,7 @@ not ok	forever/alliance/03-darkshore.guide: XooVe's report (#302): The Blackwood
 not ok	forever/alliance/03-darkshore.guide: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)
 not ok	forever/alliance/03-loch-modan.guide: Avtom's report (#280): Iron Pike and Iron Rivet lead to the gnolls that drop them, not to the rare Ribchaser's camp among the Mongrels
 not ok	forever/alliance/04-redridge-mountains.guide: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill
-not ok	forever/alliance/04-redridge-mountains.guide: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step
+not ok	forever/alliance/04-redridge-mountains.guide: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional
 not ok	forever/alliance/06-ashenvale.guide: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat
 not ok	forever/alliance/06-ashenvale.guide: Ioney's report (#614): Sida's Bag is searched for at Ironbeard's Tomb, not at the oozes across the Wetlands
 not ok	forever/alliance/06-wetlands.guide: Ioney's report (#617): Pilot Longbeard (level 28) is taken after the Wetlands hand-ins, a top-up to 28 only between them, and the 20-24 guide has no grind for it
@@ -82,7 +82,7 @@ not ok	forever/alliance/human/01-elwynn-forest.guide: Syfin's report (#221): Cro
 not ok	forever/alliance/human/01-elwynn-forest.guide: Tom's report: the arrow reaches the Jasperlode Mine through its mouth at 61.6,54.1
 not ok	forever/alliance/human/01-elwynn-forest.guide: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from McBride before Brother Paxton, with nobody between
 ok	forever/alliance/human/01-elwynn-forest.guide: the arrow reaches the target through the cave mouth at 39.5,82.4
-not ok	forever/alliance/human/01-elwynn-forest.guide: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt follow only the Schedule
+not ok	forever/alliance/human/01-elwynn-forest.guide: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out
 not ok	forever/alliance/nightelf/01-teldrassil.guide: #555: Soft Saber Pelts accept comes before Zenn's Bidding turn-in, so both Nightsaber quests share the first east loop
 not ok	forever/alliance/nightelf/01-teldrassil.guide: #619: the Gnarlpine Necklace is looted from Ferocitas before the jewel is collected
 not ok	forever/alliance/nightelf/01-teldrassil.guide: #619: the necklace and the jewel are collected where Ferocitas is killed, before any turn-in
@@ -136,7 +136,7 @@ not ok	forever/horde/undead/01-tirisfal-glades.guide: an Undead Paladin's report
 not ok	forever/horde/undead/01-tirisfal-glades.guide: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in the Darkness is taken from Aramis once The Damned is handed in, for every class, and not at Sarvis
 not ok	forever/horde/undead/01-tirisfal-glades.guide: an3vilmonk3y's report (#345): the class letter is taken at Sarvis with Rattling the Rattlecages, and a Warlock's skulls are collected in the Rattlecage step
 not ok	forever/horde/undead/01-tirisfal-glades.guide: the arrow reaches the target through the cave mouth at 12.9,65.7
-not ok	forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Alliance go round Honor's Stand on the way to Stonetalon, Horde go straight
+not ok	forever/miscellaneous/cozy-sleeping-bag.guide: dgc1980's report (#563): Alliance keep out of Honor's Stand on the way to Stonetalon, Horde go straight
 ok	forever/professions: Schpune's report (#620): Skinning, Mining and Herbalism are learned at level 1, from the Junior trainers in the starting zones too
 not ok	legacy-challenges: Return to Bodley is turned in before Back to the Beginning is taken
 not ok	the cloth the guides tell you to buy leads to the Auction House: the capitals' cloth donations and Grimand's Runecloth

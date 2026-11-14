@@ -53,8 +53,8 @@ return {
 	["{npc:8584}, outside the spider cave"] = "{npc:8584}, do lado de fora da caverna das aranhas",
 
 	-- Step 7: Dolanaar
-	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Opcional: a vila na estrada para {faction:69}, cerca de 1.250 de reputação em 45 minutos no 60. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.",
+	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "Opcional: a vila na estrada para {faction:69}, cerca de 1.250 de reputação em 45 minutos no 60. O Forever paga estas missões antigas por inteiro em qualquer nível. Pule este passo para pular o polo.\n{npc:2151} patrulha a estrada a oeste da aldeia: se ela não estiver na seta, siga a estrada até encontrá-la.",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
@@ -72,6 +72,8 @@ return {
 	-- Step 10: Dolanaar: first hand-in
 	-- {area:186} Dolanaar
 	["{area:186}: first hand-in"] = "{area:186}: primeira entrega",
+	-- {npc:2151} Moon Priestess Amara
+	["{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "{npc:2151} patrulha a estrada a oeste da aldeia: se ela não estiver na seta, siga a estrada até encontrá-la.",
 
 	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den

@@ -25,6 +25,10 @@ const LOCH_MODAN: &str = "forever/alliance/03-loch-modan.guide";
 const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
 const BADLANDS: &str = "forever/alliance/30-40/06-badlands.guide";
 const STONETALON: &str = "forever/horde/05-stonetalon-mountains.guide";
+const DUROTAR_ORC: &str = "forever/horde/orc/01-durotar.guide";
+const DUROTAR_TROLL: &str = "forever/horde/troll/01-durotar.guide";
+const ASHENVALE: &str = "forever/alliance/06-ashenvale.guide";
+const ASHENVALE_HORDE: &str = "forever/horde/07-ashenvale.guide";
 const STRANGLETHORN_HORDE: &str = "forever/horde/30-40/03-stranglethorn-vale.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const UN_GORO_ALLIANCE: &str = "forever/alliance/40-50/07-un-goro-crater.guide";
@@ -200,7 +204,7 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(&[TIRISFAL], 99156, &[356], true),
 		(&[LOCH_MODAN, REDRIDGE], 98386, &[89], false),
 		(&[WESTFALL], 92745, &[92742, 92744], false),
-		(&[WESTFALL], 92747, &[92745, 92744], false),
+		(&[WESTFALL, LOCH_MODAN], 92747, &[92745, 92744], false),
 		(&[HILLSBRAD_HORDE], 98094, &[528], false),
 		(&[SILVERPINE], 91920, &[430], false),
 		(&[SILVERPINE], 91921, &[91920], true),
@@ -213,13 +217,45 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(&[SILVERPINE], 425, &[91921], false),
 		(&[SILVERPINE], 98298, &[99], true),
 		(&[WESTFALL], 92911, &[92910], true),
+		// Lou-Saydus (#225): Forever puts From the Ashes before Nek'rosh's Gambit.
 		(&[WETLANDS], 465, &[98221], false),
-		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
-		(&[STONETALON], 95981, &[482], false),
+		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren offers The Adventurer once Night Web's
+		// Hollow is handed in.
+		(&[TIRISFAL], 96656, &[382], false),
+		// Livnthedream (#800): Holland offers Tomb Weed once Doom Weed is handed in; Sarvis gives the Paladin's
+		// A Difficult Path only after The Mindless Ones.
+		(&[TIRISFAL], 99142, &[5482], false),
+		(&[TIRISFAL], 98601, &[364], false),
+		// kieran1188 (#796): Master Vornal offers Forgotten Loa Idols once Report to Sen'jin Village is handed
+		// in. Rohkin (#807): Rezlak offers Stormy Potential once A Simmering Storm is handed in (optional).
+		(&[DUROTAR_ORC], 97225, &[805], false),
+		(&[DUROTAR_TROLL], 97225, &[805], false),
+		(&[DUROTAR_ORC], 97282, &[97281], true),
+		(&[DUROTAR_TROLL], 97282, &[97281], true),
+		(&["forever/reputation/orgrimmar.guide"], 97282, &[97281], true),
+		(&["forever/reputation/darkspear-trolls.guide"], 97282, &[97281], true),
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
 		(&[SILVERPINE], 97275, &[97242], false),
+		// The #872 sweep: James Halloran's Crocs of the Sky after Apprentice's Duties; Lord Grayson
+		// Shadowbreaker's The Shamed Lieutenant after A Friend of the Family.
+		(&[WETLANDS], 98072, &[471], true),
+		(&[WETLANDS], 98072, &[471], false),
+		(&[WETLANDS], 98219, &[98191], false),
+		// Bennistrov (#1354): Bolvar offers his A Friend of the Family once Captain Stoutfist's is handed in.
+		(&[WETLANDS], 98191, &[98190], false),
 		// soockee (#1002), jiskim (#984): Va'xug Firefure offers A Void Path once Never Coming Back is handed in.
 		(&[STONETALON], 98252, &[98251], false),
+		// The offer audit of players' recordings (2026-11-07): Karl Boran's Return the Statuette after the old
+		// one (#1113, #1118); Muln Earthfury's The Broodmother after Defending the Dead (#1083); Thrall's
+		// Skyborne Journey to the Crossroads after Welcome to Azeroth.
+		(&[WETLANDS], 98189, &[286], false),
+		(&[ASHENVALE_HORDE], 96261, &[96259], false),
+		(&["forever/reputation/thunder-bluff.guide"], 96261, &[96259], false),
+		(&[SILVERPINE], 98024, &[95350], false),
+		(&[SILVERPINE], 93739, &[95350], true),
+		// #1134: James Halloran offers Crimson Crate Delivery only after Crocs of the Sky (left out by the route).
+		(&[ASHENVALE], 98240, &[98072], true),
+		(&[HILLSBRAD_ALLIANCE], 98240, &[98072], true),
 	];
 	for &(guides, quest, after, optional) in cases {
 		let guide = guides.join(" + ");
@@ -260,6 +296,8 @@ fn lou_saydus(ctx: &Ctx, c: &mut Check) {
 	c.ok(lit < b, "before the Tattered Spellbook");
 }
 
+/// #144, lifted 2026-11-08: Alba Fairmoon's Toxic Soil chain is for every Alliance race, Humans included (players'
+/// recordings show Humans taking and handing it in; the server's race mask in players' caches has Human).
 fn alba(ctx: &Ctx, c: &mut Check) {
 	let chain = [92742.0, 92744.0, 92745.0, 92747.0, 92748.0];
 	let list: Vec<Row> = ctx.goals(WESTFALL).into_iter().filter(|r| num(&r.goal, "quest").is_some_and(|q| chain.contains(&q))).collect();
@@ -268,10 +306,7 @@ fn alba(ctx: &Ctx, c: &mut Check) {
 	}
 	for r in &list {
 		let races: Vec<V> = [r.step.get("only"), r.goal.get("only")].iter().filter(|o| o.truthy()).flat_map(|o| o.get("races").items()).collect();
-		if !c.ok(
-			!races.is_empty() && !races.iter().any(|x| x.as_str() == Some("Human")),
-			&format!("{} {} is for its races only, not Humans", r.goal.get("t").to_js_string(), r.goal.get("quest").to_js_string()),
-		) {
+		if !c.ok(races.is_empty() || races.iter().any(|x| x.as_str() == Some("Human")), &format!("{} {} is open to Humans", r.goal.get("t").to_js_string(), r.goal.get("quest").to_js_string())) {
 			return;
 		}
 	}
@@ -398,15 +433,20 @@ fn escaping_banethil(ctx: &Ctx, c: &mut Check) {
 	c.ok(escort < k, "taken before the walk out");
 }
 
+/// nikilok (#1792): the Darkshire buy sent players to Herble Baubbletump, who never had a tube in players' recordings.
+/// Darkshire has no buy now; the tube comes from the Stormwind Auction House or, on the way, from Gearcutter Cogspinner
+/// in Tinker Town, on 06-ashenvale's Ironforge stop beside Lomac Gearstrip (tests/guides-reported.test.js, the same case).
 fn bronze_tube(ctx: &Ctx, c: &mut Check) {
-	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
-	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-07).
-	let list = ctx.goals(REDRIDGE);
-	let give = at!(c, list, "turnin 174 (Look to the Stars)", is("turnin", 174));
-	let buy = at!(c, list, "buy 4371 (Bronze Tube)", item_goal("buy", 4371));
-	c.ok(buy < give && list[buy].s == list[give].s, "bought on the same stop, before the turn-in");
-	c.eq(num(&list[buy].goal, "npc"), Some(3133.0), "from Herble Baubbletump, beside Viktori");
-	c.ok(list[buy].goal.get("optional").strict_eq(&V::Bool(true)), "the buy is optional");
+	let red = ctx.goals(REDRIDGE);
+	c.ok(!red.iter().any(|r| item_goal("buy", 4371)(&r.goal)), "no buy in 04-redridge-mountains");
+	let take = at!(c, red, "accept 174 (Look to the Stars)", is("accept", 174));
+	c.ok(red[take].step.get("note").to_js_string().contains("Without one, right-click the quest in the guide window and skip it"), "the Darkshire step says to skip the quest without a tube");
+	let ash = ctx.goals("forever/alliance/06-ashenvale.guide");
+	let buy = at!(c, ash, "buy 4371 (Bronze Tube)", item_goal("buy", 4371));
+	c.eq(num(&ash[buy].goal, "npc"), Some(5175.0), "from Gearcutter Cogspinner");
+	c.ok(ash[buy].goal.get("optional").strict_eq(&V::Bool(true)), "optional: often sold out, and a player with a tube is not held");
+	let lomac = at!(c, ash, "turnin 1072 (Lomac Gearstrip)", is("turnin", 1072));
+	c.eq(ash[buy].s, ash[lomac].s, "on the Tinker Town stop with Lomac Gearstrip");
 }
 
 /// Bill (#1004): a town's bind never sends you back to the giver you just left (Ratchet's Raptor
@@ -414,7 +454,7 @@ fn bronze_tube(ctx: &Ctx, c: &mut Check) {
 fn bind_after_givers(ctx: &Ctx, c: &mut Check) {
 	let cases: &[(&str, &str, &[i64])] = &[
 		(BARRENS_12, "Ratchet", &[865]),
-		(BARRENS_12, "The Crossroads", &[4921, 899]),
+		(BARRENS_12, "The Crossroads", &[903, 881]),
 		("forever/horde/04-the-barrens.guide", "Sun Rock Retreat", &[86576, 5881]),
 		(HILLSBRAD_HORDE, "Tarren Mill", &[496, 493]),
 	];
@@ -458,7 +498,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t("Forever follow-ups are taken only once the quests before them are handed in".into(), follow_ups),
 		t("Rupert's and Wyatt R's reports: no guide sends you to Dalar Dawnweaver or the refugees for Stop the Spread (#229, #161)".into(), stop_the_spread),
 		t(format!("{HILLSBRAD_ALLIANCE}: Lou-Saydus's report: Nek'rosh's Gambit, taken after From the Ashes in {WETLANDS}, is handed in on the Wetlands loop (#225)"), lou_saydus),
-		t(format!("{WESTFALL}: Alba Fairmoon's chain is not given to Humans (#144)"), alba),
+		t(format!("{WESTFALL}: Alba Fairmoon's chain is given to Humans too (#144 lifted by players' recordings)"), alba),
 		t(format!("{DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is taken on the walk from Asterion to Buzzbox 411 (#213)"), xoove_beached),
 		t(format!("{TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (#89)"), pynte_zenn),
 		t(format!("{BADLANDS}: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it"), badlands),
@@ -467,7 +507,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(format!("{TELDRASSIL}: Pynte's report: Conservator Ilthalaine's quest is taken before Melithar's"), ilthalaine),
 		t(format!("{TELDRASSIL}: Pynte's report: each class's sigil is handed to its trainer at the training stop after Shadowthread Cave"), sigils),
 		t(format!("{TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)"), escaping_banethil),
-		t(format!("{REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step"), bronze_tube),
+		t(format!("{REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional"), bronze_tube),
 		t("Bill's report (#1004): a town's bind never sends you back to the giver you just left".into(), bind_after_givers),
 	]
 }
