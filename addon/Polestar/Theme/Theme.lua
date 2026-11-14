@@ -1077,7 +1077,9 @@ end
 -- every colour loses its hue (the row fades it too), so a switch turned off
 -- by another setting is grey, never a darkened accent. `contact` is the
 -- track where the knob's shadow meets the knob's edge (about half its
--- strength there): what the knob is seen against when on.
+-- strength there): what the knob is seen against when on. On a light
+-- accent (Halo's yellow, a player's pale one) the shadow deepens until the
+-- knob reads at 3:1 against it.
 -- -> { track, edge, knob, contact = { r, g, b }, shadow = { r, g, b, a } }
 local function mix(a, b, k)
 	return { a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k, a[3] + (b[3] - a[3]) * k }
@@ -1088,13 +1090,17 @@ function Theme.SwitchColors(on, hover, enabled)
 	local ground, light = pal.panel, isLight(pal)
 	local track, edge, knob, shadowA
 	if on then
-		track = pal.accent
-		if hover then track = shifted(track, 0.04) end
-		track = { track[1], track[2], track[3] }
-		edge = track
 		local t, p = pal.text, pal.panel
 		local lighter = Theme.Luminance(t[1], t[2], t[3]) >= Theme.Luminance(p[1], p[2], p[3]) and t or p
 		knob = mix(lighter, { 1, 1, 1 }, 0.3)
+		track = pal.accent
+		if hover then
+			-- A touch lighter, or darker on an accent that would pass the knob.
+			local up = shifted(track, 0.04)
+			track = Theme.Luminance(up[1], up[2], up[3]) < Theme.Luminance(knob[1], knob[2], knob[3]) and up or shifted(track, -0.04)
+		end
+		track = { track[1], track[2], track[3] }
+		edge = track
 		shadowA = light and 0.45 or 0.7
 	else
 		track = light and shifted(ground, -0.07) or mix(ground, pal.shade, 0.55)
@@ -1104,11 +1110,16 @@ function Theme.SwitchColors(on, hover, enabled)
 		knob = { pal.textDim[1], pal.textDim[2], pal.textDim[3] }
 		shadowA = light and 0.25 or 0.5
 	end
+	local s = pal.shade
+	if on and enabled then
+		while shadowA < 1 and Theme.Contrast(knob, mix(track, s, shadowA * Theme.SWITCH_SHADOW_EDGE)) < 3 do
+			shadowA = math.min(1, shadowA + 0.05)
+		end
+	end
 	if not enabled then
 		track, edge, knob = shifted(track, 0, 0.12), shifted(edge, 0, 0.12), shifted(knob, 0, 0.12)
 		shadowA = shadowA * 0.5
 	end
-	local s = pal.shade
 	return {
 		track = { track[1], track[2], track[3] }, edge = { edge[1], edge[2], edge[3] }, knob = { knob[1], knob[2], knob[3] },
 		shadow = { s[1], s[2], s[3], shadowA }, contact = mix(track, s, shadowA * Theme.SWITCH_SHADOW_EDGE),

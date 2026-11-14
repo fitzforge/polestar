@@ -49,7 +49,7 @@ fn run(script: &str, skins: bool) -> Value {
 }
 
 // The switch as a player sees it, in every look the house switch is drawn in (the house look in each colour
-// scheme, Halo, Hearth and every bundled skin in each of its variants; the game's looks draw their own check
+// scheme and with a player's pale accent, Halo, Hearth and every bundled skin in each of its variants; the game's looks draw their own check
 // box): off, its knob reads at 3:1 against its track; on, at 3:1 against the track where the knob's shadow meets
 // it; at rest and under the cursor alike. On, the accent track reads at 3:1 on the card's ground, and the knob
 // is the lighter of the two ends.
@@ -78,6 +78,10 @@ for _, s in ipairs(T.SCHEME_ORDER) do
 	Polestar.Set("ui.scheme", s)
 	take("polestar/" .. s)
 end
+-- A player's own pale accent: the knob's shadow deepens to hold its edge.
+Polestar.Set("ui.accent", {{ 1, 0.95, 0.6 }})
+take("polestar/pale accent")
+Polestar.Set("ui.accent", false)
 for _, id in ipairs({{ "halo", "hearth" }}) do
 	Polestar.Set("ui.skin", id)
 	take(id)
@@ -99,7 +103,10 @@ emit(out)"#
 	let mut bad = vec![];
 	for l in looks {
 		let key = l["key"].as_str().unwrap();
-		assert_eq!(l["game"], false, "{key}: the house switch's look");
+		// A variant on the game's looks (Umbra's) draws their kit's check box, not this switch.
+		if l["game"] == true {
+			continue;
+		}
 		for state in ["off", "offHover"] {
 			let c = contrast(&l[state]["knob"], &l[state]["track"]);
 			if c < 3.0 {
@@ -131,7 +138,7 @@ fn a_disabled_switch_that_is_on_is_grey_never_a_darkened_accent() {
 		r#"
 Polestar.Set("ui.skin", "polestar")
 Polestar.Set("ui.accent", { 0.91, 0.65, 0.44 })
-local host = CreateFrame("Frame", nil, UIParent)
+local host = Polestar.UI.GuideFrame.frame
 host:SetSize(400, 40)
 Polestar.Set("ui.shadow", true)
 local t = W.Toggle(host, "Switch", "ui.shadow", "desc")
@@ -163,7 +170,7 @@ fn hover_lightens_press_widens_focus_rings_and_a_flip_slides_with_its_colours_or
 		r#"
 Polestar.Set("ui.skin", "polestar")
 Polestar.Set("ui.reduceMotion", false)
-local host = CreateFrame("Frame", nil, UIParent)
+local host = Polestar.UI.GuideFrame.frame
 host:SetSize(400, 40)
 Polestar.Set("ui.shadow", false)
 local t = W.Toggle(host, "Switch", "ui.shadow", "desc")
