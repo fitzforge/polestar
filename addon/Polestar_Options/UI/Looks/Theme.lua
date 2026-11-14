@@ -381,7 +381,7 @@ local CARD_ART = { 220, 124 }
 -- knobs sit behind the row's cog (more).
 local SPECS = {
 	-- Colour
-	-- general: the settings of every Polestar window, before a module's own among equal search matches.
+	-- general: the settings of every Polestar window, before a module's of the same label in a search.
 	{ page = PAGE, key = "theme", icon = "palette", order = 20, group = "look", general = true, tab = L["Colour"], section = L["Skin & accent"],
 		preview = buildPreview,
 		subtitle = L["The look every Polestar window shares: skin, colours, type, frames and motion."],
