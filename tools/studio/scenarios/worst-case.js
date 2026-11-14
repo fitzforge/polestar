@@ -99,6 +99,13 @@ studio.clearHeadsUps()
 Polestar.UI.GuideFrame.Layout()
 stub.advance(0.5)`;
 
+// The Whirlwind Weapon's class guide on its first accept, The Islander (1718): the class card above the goals.
+const CLASS_CARD = `Polestar.Engine.SetGuide("forever/class/warrior/whirlwind-weapon")
+stub.advance(1)
+${step('accept', 1718)}
+local F = Polestar.UI.ClassCard.frame
+return { shown = F ~= nil and F:IsVisible(), head = F and F.Head:GetText() or false }`;
+
 // Searing Gorge at 47: Thorium Point's quests in the log, the Dark Iron step half done.
 const DARK_IRON = `local w = stub.world
 ${TITLE}
@@ -292,7 +299,10 @@ return { notice = (Polestar.UI.GuideFrame.BannerNotice()), guide = E.GetGuide().
 			capture: ['PolestarNavArrow'],
 			lua: DEATH({ level: 40, map: 1445, x: 63.62, y: 42.42, inst: 2994, gmap: 1445, gx: 63.62, gy: 42.42, zone: 'Dustwallow Marsh' }),
 		},
+		// The class card over a class quest's step: the Whirlwind Weapon's first accept (The Islander), its class line
+		// beside the badge ("ВОИН · УРОВЕНЬ 30" in Russian goes under it).
+		'class-card': { title: 'The Whirlwind Weapon class card at 34', lua: `${screen(1920, 1080, 1)}\n${CLASS_CARD}` },
 	},
 	// The Lua pieces, for scenarios that draw these cases on other surfaces (worst-case-looks).
-	lua: { screen, fill, room, log34, log47, ALTS },
+	lua: { screen, fill, room, log34, log47, ALTS, CLASS_CARD },
 };
