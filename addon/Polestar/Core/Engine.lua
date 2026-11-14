@@ -9522,10 +9522,14 @@ end
 -- the planner on, to the landing as travel: its arrow and its goal read "Go
 -- to", the route walks, sails or takes the flights the character knows, and
 -- the goal is done on arriving there or once that flight path is learned
--- (Own.unknownLanding, Own.landingReached). A landing it may have though
--- Polestar doesn't know it (Nav.TaxiMaybe: no flight map opened on that
--- continent yet, #1795) stays a flight: the planner flies there at a cost.
--- With the planner off the guide's steps hold as written.
+-- (Own.unknownLanding, Own.landingReached); so too with no arrow at all
+-- (nav.arrow off, Own.travelsToLanding: #2260, "Fly to Astranaar" at
+-- Auberdine's flight master with no flight path there and no way on said).
+-- A landing it may have though Polestar doesn't know it (Nav.TaxiMaybe: no
+-- flight map opened on that continent yet, #1795) stays a flight: the
+-- planner flies there at a cost. With the planner off the guide's steps hold
+-- as written, and with TomTom's arrow or a hand-off a landing not known does
+-- too (#1756).
 ---------------------------------------------------------------------------
 
 Own.FLY_MARGIN, Own.FLY_SHARE = 60, 0.1 -- seconds, and share of the trip via the flight's end
@@ -9535,8 +9539,15 @@ Own.flyVerdicts = setmetatable({}, { __mode = "k" }) -- guide -> { [step] = { pa
 -- the flight master", "Fly to ...") show only there. TomTom's arrow and the
 -- hand-off to Shortest Path Forever get the target alone.
 function Own.plannerFlies()
+	return ns.Get("nav.arrow") ~= false and Own.travelsToLanding()
+end
+
+-- A flight step to a landing the character has no flight path to leads there
+-- as travel (Own.unknownLanding): the planner on, and neither TomTom's arrow
+-- nor a hand-off leading; Polestar's own arrow on (Own.plannerFlies) or off.
+function Own.travelsToLanding()
 	local nav = ns.Nav
-	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and ns.Get("nav.travel") and ns.Get("nav.arrow") ~= false) then return false end
+	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and ns.Get("nav.travel")) then return false end
 	if nav.UsingTomTomArrow and nav.UsingTomTomArrow() then return false end
 	return not (nav.HandedOff and nav.HandedOff())
 end
@@ -9578,9 +9589,10 @@ function Own.knownLanding(goal)
 end
 
 -- The landing node of a `fly` goal the character does not know and may not
--- have (Nav.TaxiMaybe), while the planner leads (see above); else nil.
+-- have (Nav.TaxiMaybe), while it is led to as travel (Own.travelsToLanding);
+-- else nil.
 function Own.unknownLanding(goal)
-	if not (goal and goal.t == "fly" and goal.node and Own.plannerFlies()) then return nil end
+	if not (goal and goal.t == "fly" and goal.node and Own.travelsToLanding()) then return nil end
 	local nav = ns.Nav
 	if nav.GetKnownTaxiNodes()[goal.node] or (nav.TaxiMaybe and nav.TaxiMaybe(goal.node)) then return nil end
 	local node = nav.GetTaxiNode(goal.node)
@@ -9842,9 +9854,15 @@ end
 -- Flight step s's flight the arrow leads to the end of (see above): its goal,
 -- index and landing node; nil to lead as written.
 function Own.flyAimed(s)
-	if not (Own.plannerFlies() and Own.transitKind(s) == "fly") then return nil end
+	if not (Own.travelsToLanding() and Own.transitKind(s) == "fly") then return nil end
 	local goal, g = Own.flyGoal(s)
-	local node = Own.knownLanding(goal) or Own.maybeLanding(goal) or Own.unknownLanding(goal)
+	-- With Polestar's arrow off only a landing not known is led to (as travel); the others hold as written.
+	local node
+	if Own.plannerFlies() then
+		node = Own.knownLanding(goal) or Own.maybeLanding(goal) or Own.unknownLanding(goal)
+	else
+		node = Own.unknownLanding(goal)
+	end
 	if not (node and node.map and node.x and node.y) then return nil end
 	return goal, g, node
 end

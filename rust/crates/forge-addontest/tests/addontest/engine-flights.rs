@@ -365,6 +365,47 @@ fn a_flight_to_a_landing_the_character_never_learned_leads_there_as_travel_and_i
 	);
 }
 
+// With Polestar's arrow off the step read "Fly to Astranaar" at Auberdine's flight master, a flight path the character
+// never learned, with no way on said (#2260). A flight to a landing the character does not know leads there as travel
+// with the arrow off too: "Go to", the waypoint at the landing, done on arriving there; a known landing holds as
+// written, the walk to the named flight master first.
+#[test]
+fn with_the_arrow_off_a_flight_to_a_landing_never_learned_reads_go_to_and_is_done_on_arrival_2260() {
+	let out = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			Polestar.Set("nav.arrow", false)
+			KNOWN = {{ [2] = true }}
+			E.SetGuide("test/menethil"); flush()
+			local r = {{ unknown = at() }}
+			stub.world.moveTo(1437, 9.5, 59.7); stub.advance(1)
+			r.arrived = at()
+			emit(r)
+			"#
+		),
+	);
+	assert_eq!(
+		out,
+		json!({
+			"unknown": [1, 1437, "fly", "Go to Menethil Harbor"],
+			"arrived": [2, 1437, "getfp", "Get the flight path at Menethil Harbor"],
+		})
+	);
+	let known = run(
+		MENETHIL,
+		&format!(
+			r#"{MENETHIL_NAV}
+			Polestar.Set("nav.arrow", false)
+			KNOWN = {{ [2] = true, [7] = true }}
+			E.SetGuide("test/menethil"); flush()
+			emit(at())
+			"#
+		),
+	);
+	assert_eq!(known, json!([1, 1453, "goto", "Go to Stormwind flight master"]), "a known landing holds as written with the arrow off");
+}
+
 // #1795: a landing the character may have though Polestar doesn't know it (Nav.TaxiMaybe: no flight map opened on that
 // continent yet) stays a flight: "Fly to Menethil Harbor", led to its end like a known one, for the planner to fly
 // there at a cost; landing there ends the step, as a known landing does (#1530); the first flight map settles it.
