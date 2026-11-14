@@ -49,8 +49,11 @@ zone Moonglade
 # behind the wall (#1338). Each step to him comes after a goto at the building's door on its south
 # side, 35.8,11.6, where players' recordings walk in; from there the arrow points straight at him.
 
+# Keep each entrance for upstairs Mathrengyl until its quest visit is done.
 step Cenarion Enclave
   only NightElf
+  when !onquest 6121
+  when !turnedin 6121
   zone Darnassus
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
   level 14
@@ -65,6 +68,8 @@ step Lessons Anew
 
 step Cenarion Enclave
   only Skyborne,Alliance
+  when !onquest 6121
+  when !turnedin 6121
   zone Darnassus
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave; Alfina Nightgaze by the Skyborne Portal does not give this quest. Cast Teleport: Moonglade and take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed), then the portal up. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
   level 14
@@ -125,6 +130,7 @@ step Curing the Sick
 
 step Cenarion Enclave
   only NightElf,Skyborne,Alliance
+  when !turnedin 6125
   zone Darnassus
   tip Mathrengyl Bearwalker, upstairs in the Cenarion Enclave, teaches you Cure Poison.
   goto 35.8,11.6 "Cenarion Enclave"
