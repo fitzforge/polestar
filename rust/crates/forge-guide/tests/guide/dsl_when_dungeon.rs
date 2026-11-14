@@ -133,3 +133,113 @@ fn a_dungeons_steps_leave_the_solo_routes_placing_alone_and_the_runners_steps_fo
 	// A `when !dungeon` step is the solo route's own: the steps after it are placed from it.
 	assert_eq!(kill_at(&["step One", "  goto 45,34", "step Alone", "  when !dungeon \"Ragefire Chasm\"", "  goto 52,27", "step Two", "  kill 6"]), json!([52.3, 26.8]));
 }
+
+/// The fixture data with Razorfen Kraul in the instance tables (map 47) and its floor in a built Codex: 30.9,
+/// where players who killed a boss there entered (`Data::dungeon_floors`, from the Codex journal's page).
+fn floor_data() -> Data {
+	let instances = json!({ "areas": { "7104": { "kind": "dungeon", "name": "Razorfen Kraul", "map": 47 } }, "maps": {} });
+	let mut a = areas(&[(7104, "Razorfen Kraul", 0)]);
+	a["byId"]["7104"]["c"] = json!(47);
+	a["byName"]["razorfen kraul"][0]["c"] = json!(47);
+	let t: serde_json::Map<_, _> = tables().into_iter().filter(|(k, _)| ["quests", "npcs", "objects", "items", "zones", "map-frames", "meta"].contains(&k.as_str())).collect();
+	let mut d = data_from(&t, instances, a);
+	let journal = json!({ "dungeons": {
+		"razorfen-kraul": { "key": "razorfen-kraul", "kind": "dungeon", "name": "Razorfen Kraul", "map": 47, "minLevel": 29, "maxLevel": 38, "floor": 30.9 },
+		"molten-core": { "key": "molten-core", "kind": "raid", "name": "Molten Core", "map": 409, "minLevel": 60, "maxLevel": 60, "floor": 60 },
+	} });
+	d.dungeon_floors = forge_guide::data::dungeon_floors_of(&forge_guide::js::parse_json(&journal.to_string()).unwrap());
+	d
+}
+
+/// Fitz, 2026-11-13: never send a player to a dungeon too low. A dungeon's run (its `when dungeon` step with an
+/// `enter`) is gated at the dungeon's floor from the Codex: no gate, or one under the floor (Razorfen Kraul gated
+/// 30 against its 30.9), is an error at the `enter`; 30.9 or more is clean. A `when !dungeon` step, a pick-up and a
+/// hand-in aren't the run (a pick-up's gate is the floor less the levels the route plans before the run), and a
+/// Codex built before floors gives nothing to check.
+#[test]
+fn a_dungeon_run_gated_under_its_codex_floor_is_an_error_at_its_enter() {
+	let run = |gate: &[&str]| {
+		let mut l = vec!["step Razorfen Kraul", "  when dungeon \"Razorfen Kraul\""];
+		l.extend_from_slice(gate);
+		l.push("  enter \"Razorfen Kraul\" @42.9,90.2");
+		guide_text(&l)
+	};
+	let erred = |text: &str| compile_with(text, &floor_data()).erred("floor");
+	let ungated = run(&[]);
+	assert_eq!(
+		erred(&ungated),
+		vec![format!(
+			"test.guide:{}: this Razorfen Kraul run applies at any level, under the dungeon's floor of 30.9 (the Codex: the Group Finder's minimum or where players who killed a boss there entered): gate it `when level>=30.9`",
+			line_of(&ungated, "enter \"Razorfen Kraul\" @42.9,90.2")
+		)]
+	);
+	assert_eq!(erred(&run(&["  when level>=30"])).len(), 1, "gated 30, under 30.9");
+	assert!(erred(&run(&["  when level>=30"]))[0].contains("applies from level 30,"), "{:?}", erred(&run(&["  when level>=30"])));
+	assert!(erred(&run(&["  when level>=30.9"])).is_empty(), "gated at the floor");
+	assert!(erred(&run(&["  when level>30"])).is_empty(), "level>30 applies from 31");
+	assert!(erred(&run(&["  when level>=31", "  when level<40"])).is_empty(), "the highest lower bound counts, an upper bound none");
+	// Not runs: the solo way, a pick-up, a hand-in.
+	let others = guide_text(&[
+		"step Solo",
+		"  when !dungeon \"Razorfen Kraul\"",
+		"  enter \"Razorfen Kraul\" @42.9,90.2",
+		"step Pick-up",
+		"  when dungeon \"Razorfen Kraul\"",
+		"  accept 783",
+		"step Hand-in",
+		"  when dungeon \"Razorfen Kraul\"",
+		"  turnin 783",
+	]);
+	assert!(erred(&others).is_empty(), "{:?}", erred(&others));
+	// No floor in the Codex (built before floors, or no Codex): nothing to check.
+	assert!(compile_with(&ungated, &dungeon_data()).erred("floor").is_empty());
+}
+
+// `when dungeon "<Name>" all`: a step of the dungeon's every-quest route (the quests off the way), which the engine
+// takes while the dungeon runs unless the player chose only the quests on the way. `!dungeon` takes no `all`.
+#[test]
+fn when_dungeon_all_marks_a_step_of_the_every_quest_route_and_takes_no_bang() {
+	let text = guide_text(&["step Extra", "  when dungeon \"Ragefire Chasm\" all", "  accept 783", "step Bare", "  when dungeon Ragefire Chasm ALL", "  accept 7"]);
+	let (ast, errors) = parse(&text);
+	assert!(errors.is_empty(), "{errors:?}");
+	let s = plain(&ast)["steps"].clone();
+	assert_eq!(s[0]["when"], json!([{ "k": "dungeon", "all": true, "name": "Ragefire Chasm", "line": line_of(&text, "when dungeon \"Ragefire Chasm\" all") }]));
+	assert_eq!(s[1]["when"][0]["name"], "Ragefire Chasm", "a bare name takes `all` too");
+	assert_eq!(s[1]["when"][0]["all"], true);
+	let bang = guide_text(&["step One", "  when !dungeon \"Ragefire Chasm\" all", "  accept 783"]);
+	let (_, errors) = parse(&bang);
+	assert_eq!(
+		errors,
+		vec![format!(
+			"{}: `!dungeon` takes no `all`: `all` marks a step of the dungeon's every-quest route, and a player who skips the dungeon takes none of them",
+			line_of(&bang, "when !dungeon \"Ragefire Chasm\" all")
+		)]
+	);
+}
+
+#[test]
+fn the_emitted_every_quest_predicate_carries_all_after_the_map_id() {
+	let r = compile_with(&guide_text(&["step One", "  when dungeon \"Ragefire Chasm\" all", "  accept 783"]), &dungeon_data());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(r.steps()[0]["when"], json!([{ "k": "dungeon", "name": "Ragefire Chasm", "map": 389, "all": true }]));
+	assert_match(&emit(&r.guides), r#"\n\t\t\t\t\twhen = \{ \{ k = "dungeon", name = "Ragefire Chasm", map = 389, all = true \} \},\n"#);
+}
+
+// The guide that holds a dungeon's run carries what that dungeon's every-quest steps add, from the run's record in
+// data/dungeon-runs.json (`allQuests`: their minutes and XP), by the instance's map id: the guide window's "Only
+// quests on my way" says what it saves. A run without `allQuests`, or another guide's, adds nothing.
+#[test]
+fn the_guide_holding_a_run_carries_its_every_quest_minutes_and_xp_from_the_dungeon_runs_record() {
+	let mut data = dungeon_data();
+	data.dungeon_runs = v(&json!({ "runs": [
+		{ "dungeon": "Ragefire Chasm", "faction": "Horde", "run": { "guide": "t/main" }, "allQuests": { "minutes": 14, "xp": 23100, "quests": [5723, 5725] } },
+		{ "dungeon": "The Deadmines", "faction": "Alliance", "run": { "guide": "t/main" } },
+		{ "dungeon": "Ragefire Chasm", "faction": "Horde", "run": { "guide": "t/other" }, "allQuests": { "minutes": 9, "xp": 4000 } },
+	] }));
+	let r = compile_with(&guide_text(&["step One", "  when dungeon \"Ragefire Chasm\"", "  accept 783"]), &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(plain(&r.guides[0].get("dungeonAll")), json!({ "389": { "minutes": 14, "xp": 23100 } }));
+	assert_match(&emit(&r.guides), r#"\n\t\t\tdungeonAll = \{ \[389\] = \{ minutes = 14, xp = 23100 \} \},\n"#);
+	let none = compile_with(&guide_text(&["step One", "  accept 783"]), &dungeon_data());
+	assert!(none.guides[0].get("dungeonAll").is_nullish(), "no record read: no dungeonAll");
+}

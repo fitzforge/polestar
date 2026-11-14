@@ -446,6 +446,14 @@ local BUILTIN = {
 			choices = { { value = "skip", label = L["Skip them"] }, { value = "ask", label = L["Ask me"] }, { value = "run", label = L["Run them"] } },
 			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
 			needs = function() local E = ns.Engine; return E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
+		-- For a dungeon the route runs: every quest of it (`when dungeon "<Name>" all` steps too) or only the ones on
+		-- the way (Own.wayOnly); a dungeon's own choice in Dungeons on your way wins. Off while dungeons are skipped.
+		{ kind = "dropdown", key = "behavior.dungeonQuests", label = L["Dungeon quests"], new = "0.4.0", child = true,
+			help = L["Every dungeon quest: be ready for more travelling. Dungeon quests are scattered across the world, so the route takes extra trips to pick them up and hand them in. Only quests on my way: the ones on stops the route makes anyway. Dungeons on your way, in the guide window's menu, changes one dungeon."],
+			choices = { { value = "all", label = L["Every quest"] }, { value = "way", label = L["Only quests on my way"] } },
+			search = "dungeon quests, every quest, quests on my way, detour",
+			disabled = function() return ns.Get("behavior.dungeons") == "skip" end,
+			needs = function() local E = ns.Engine; return E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },

@@ -15,6 +15,8 @@
 	<Script file="GuideFrameStatus.lua"/>
 	<Script file="StepList.lua"/>
 	<Script file="QuickSettings.lua"/>
+	<Script file="DungeonRoute.lua"/>
+	<Script file="FindGroup.lua"/>
 	<Script file="Launcher.lua"/>
 	<Script file="GameMenu.lua"/>
 	<Script file="WhileHere.lua"/>

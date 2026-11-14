@@ -7,7 +7,8 @@
 //! parse_when(rest) -> Ok(value) | Err(WhenError { error, hint })
 //!   rest: the line after `when`, as written. One predicate per `when` line
 //!   (see the JS source for the list).
-//! value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label? }; `q` is a list for onquest.
+//! value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label?, all? }; `q` is a list for onquest; `all` on
+//! `dungeon "<Name>" all` (a step of the dungeon's every-quest route, beyond the quests on the way).
 
 use crate::js::{str_to_num, V};
 use crate::lexer::{is_js_space, js_trim, RE_DOT, RE_NWS, RE_WS};
@@ -21,7 +22,7 @@ pub const KINDS: [&str; 18] =
 const QUEST_ONE: [&str; 4] = ["complete", "turnedin", "available", "group"];
 /// The predicates that name a place.
 pub const PLACE: [&str; 3] = ["zone", "subzone", "bound"];
-const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi \"<Flight point>\"";
+const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", dungeon \"<Name>\" all, [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi \"<Flight point>\"";
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct WhenError {
@@ -213,7 +214,18 @@ pub fn parse_when(rest: &str) -> Result<V, WhenError> {
 		value.set("spell", str_to_num(args));
 		return Ok(V::Obj(value));
 	}
-	// zone, subzone, bound, dungeon, taxi
+	// zone, subzone, bound, dungeon, taxi. A dungeon's step of its every-quest route (the quests off the way, taken
+	// unless the player chose only the quests on the way): `dungeon "<Name>" all`.
+	let mut args = args;
+	if kind == "dungeon" {
+		if let Some(a) = re!(r"^(.*?){RE_WS}+(?i:all)$").captures(args) {
+			if neg {
+				return fail("`!dungeon` takes no `all`: `all` marks a step of the dungeon's every-quest route, and a player who skips the dungeon takes none of them");
+			}
+			value.set("all", true);
+			args = a.get(1).map_or("", |m| m.as_str());
+		}
+	}
 	let Some(name) = name_of(args).filter(|n| !n.is_empty()) else {
 		let what = match kind.as_str() {
 			"bound" => "Location",

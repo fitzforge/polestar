@@ -1240,7 +1240,10 @@ function resolveWhen(list, zoneId, levels, data, warn, sides) {
 				w.name = p.name;
 				const run = dungeonNamed(data, p.name);
 				if (run) w.map = run.map;
-				else if (data.instances) warn(p.line, `dungeon "${p.name}" is not a dungeon in the client's instance tables: no character can choose it, so \`when dungeon\` never holds and \`when !dungeon\` always does`, 'write the dungeon as the game names it, as the guide window\'s "Dungeon:" line shows it ("Ragefire Chasm")');
+				// A step of the dungeon's every-quest route (the quests off the way): the engine takes it while the
+				// dungeon runs and the player has not chosen only the quests on the way.
+				if (p.all) w.all = true;
+				if (!run && data.instances) warn(p.line, `dungeon "${p.name}" is not a dungeon in the client's instance tables: no character can choose it, so \`when dungeon\` never holds and \`when !dungeon\` always does`, 'write the dungeon as the game names it, as the guide window\'s "Dungeon:" line shows it ("Ragefire Chasm")');
 				break;
 			}
 			case 'taxi': {

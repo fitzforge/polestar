@@ -259,6 +259,7 @@ step Back to Gornek
 | `subzone "<Name>"` | the subzone text reads so |
 | `bound "<Location>"` | the hearthstone is bound there (a bind location, as for `sethome`) |
 | `dungeon "<Name>"` | the character runs that dungeon: its answer for it, else its answer for every dungeon (see "Dungeon steps" below) |
+| `dungeon "<Name>" all` | a step of that dungeon's every-quest route (the quests off the way): the character runs it and has not chosen only the quests on the way for it; no `!` (see "Dungeon steps") |
 | `done <label>` | the step carrying `label <label>` in this guide was completed: it applies, its goals are done, and it was not skipped by the player, a failed `when` or a `skipto` jump (see "Jumps"); not on a `next` line |
 | `skill <Profession> <N>` | the character's rank in that profession is N (1 or more) or higher, the profession named as for the `skill` goal (`when skill Cooking 50`, `when skill "First Aid" 1`); one not learned counts as rank 0, so `!skill Herbalism 1` holds while the character has no Herbalism. A weapon skill works the same, by its skill name or its trainer spell's (`when !skill "Two-Handed Axes" 1` while the character has not learned it; `Swords` or `"One-Handed Swords"`) |
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
@@ -308,7 +309,19 @@ accept) or the run asks; the dungeon's other steps follow the answer, and with
 none yet the solo route. An answer changes only the steps still ahead: like
 any `when`, a step the route has passed keeps its outcome. A step of a dungeon
 the character skips (and a `when !dungeon` step of one they run) has no step
-number, so the solo route's numbers stay as they are.
+number, so the solo route's numbers stay as they are. A city dungeon is its
+faction's only (Ragefire Chasm and the Ruins of Lordaeron the Horde's, The
+Hall of Thanes and the Stockade the Alliance's): for the other faction its
+steps never apply, whatever the answers, so its guides never carry them.
+A dungeon's quests the
+route would not take on its way (a detour, a flight, another hub) go in steps
+with `when dungeon "<Name>" all`: a character who runs the dungeon takes them
+too, unless they take only the quests on the way ("Dungeon quests",
+`behavior.dungeonQuests`, or that dungeon's own choice in Dungeons on your
+way, which wins); plain `when dungeon` steps are the quests on the way, which every
+runner takes. The run's record in data/dungeon-runs.json (`allQuests`: the
+minutes and XP those steps add) goes into the guide that holds the run, so the
+guide window can say what the opt-out saves.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also
@@ -318,9 +331,13 @@ first (the arrow leads to the door) and the quests' objectives (`optional`
 for the slow or rare ones); the hand-ins come on the next stops, each in a
 step with `when dungeon "<Name>"` and `when complete <quest>` (or `when
 onquest <quest>` for one with no objectives), so a run left unfinished passes
-them and a later guide can hand in what is still carried. Every step of the
-run is behind `when dungeon`: a character who skips it keeps the solo route's
-steps. The compiler places a `when dungeon` step from the dungeon route's last
+them and a later guide can hand in what is still carried. A hand-in of a
+quest the character has finished comes whatever the answer for the dungeon
+(Skip this one at the door after a quest got done, the dungeon turned off
+mid-run); an unfinished one's never does, and the quest room lists that quest
+as room to make. Every other step of the run is behind `when dungeon`: a
+character who skips it keeps the solo route's steps. The compiler places a
+`when dungeon` step from the dungeon route's last
 goal and every other step from the solo route's (the spawn nearest the goal
 before it, the trainer, the order of the spots), so the solo route compiles as
 it does without the dungeon's steps. Where the run shares a stop with the solo
@@ -331,15 +348,29 @@ the data knows: name it in the run's tip and write only its hand-in, behind
 `when dungeon` and `when onquest`. A step of `note`s only never holds (see
 "Errands"): the run needs goals of its own.
 
+Gate a run and its pick-ups by level, so the guide never sends a player to a
+dungeon too low. The run carries `when level>=<floor>`. The floor is the
+dungeon's in the Codex: the highest of the in-game Group Finder's minimum, the
+client's own minimum and the level players entered at when they went on to kill
+a boss there, to a tenth of a level. Each pick-up carries the floor less the
+levels the route plans between it and the run (a pick-up at the run's own
+stop, the floor). Below its gate a step doesn't apply: Ask doesn't ask, the
+pick-up isn't taken, and the run is passed, so the route keeps the solo path.
+`forge guide lint` errors on a run gated under its floor (with a built Codex),
+and `forge judge doors` checks the walk from the stop before the run to its
+door against the gate.
+
 ```
 step Gryan Stoutmantle
   when dungeon "The Deadmines"
+  when level>=19.4
   accept 166
 
 step The Deadmines
   when dungeon "The Deadmines"
   when onquest 166
-  tip A dungeon for a group of five, about levels 17 to 24.
+  when level>=19.4
+  tip A dungeon for a group of five, levels 17 to 26.
   enter "The Deadmines" @42.5,71.7
   complete 166
 

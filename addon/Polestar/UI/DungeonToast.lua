@@ -5,7 +5,10 @@
 -- in its ring the dungeon's own picture (Dungeons/Art.lua: its loading
 -- screen), or the dungeon glyph for one without;
 -- "Pick up the quests" opens the dungeon's pickup guide in a new tab
--- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
+-- (Dungeons.PickUp), so the leveling guide keeps its own; for a dungeon the
+-- leveling route can still take (Engine.DungeonsAhead) "Add to my route"
+-- leads instead (Engine.ChooseDungeon: the route picks its quests up on the
+-- way and runs it), and once the route runs it the card says so; "Open in
 -- Dungeons" opens the dungeon's page in the hub's Dungeons section
 -- (Dungeons.Open); "Later" and the close button dismiss it; "Turn these off"
 -- sets dungeons.headsUp off (also under Options > Discovery > Lookup).
@@ -18,7 +21,8 @@
 -- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
 -- at or past the level it suits best (Dungeons.BestAt; the Dungeons window
 -- still picks its quests up from the range's start) and inside its range,
--- with quests for the character's faction, not told before
+-- with quests for the character's faction, not a city dungeon of the other
+-- faction (Dungeons.EnemyCapital), not told before
 -- (CharState().dungeonToastSeen: key -> true, told for good, or "later",
 -- back once at best-at), whose
 -- pickup plan by the offer rule (Dungeons.PickupPlan(key, true): a quest is
@@ -147,9 +151,13 @@ function DT.Candidates(level, mode, questId)
 	if #list > 0 then upgradeSeen(level) end
 	local told, out = seen(), {}
 	for _, d in ipairs(list) do
-		local min, max = d.minLevel, d.maxLevel
-		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and (Dg.BestAt(d.key) or min)
+		-- From the dungeon's floor (Dungeons.List), as the hub's "For your level": never the card for a
+		-- dungeon the route would still hold back (Fitz, 2026-11-13), nor for a city dungeon of the other
+		-- faction (Dungeons.EnemyCapital: the Ruins of Lordaeron has Alliance quests, but it is the Undercity's).
+		local min, max, from = d.minLevel, d.maxLevel, d.floor or d.minLevel
+		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and from and level >= from and (not max or level <= max)
+			and (d.quests[side] or 0) > 0 and not (Dg.EnemyCapital and Dg.EnemyCapital(d.key, side))
+			and (mode ~= "turnin" or onPage(d.key, questId)) and math.max(Dg.BestAt(d.key) or from, from)
 		if best and level >= best and (mode ~= "login" or recent(d, level, best)) then
 			local plan = Dg.PickupPlan(d.key, true)
 			local take = plan and #plan.take or 0
@@ -200,11 +208,47 @@ function DT.Model(c)
 	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key, c.all) end }
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
+	-- A dungeon this character's leveling route can still take (DT.RouteEntry):
+	-- not run yet, Add to my route leads (the guide then picks its quests up on
+	-- the way and runs it; the guide window says what changes) and its page
+	-- follows; already run, the card says so and leads with the page instead
+	-- of a second pick-up guide.
+	local route = DT.RouteEntry(c.key)
+	if route and route.answer ~= true then
+		m.act, m.more = { label = L["Add to my route"], run = function() return DT.AddToRoute(route.map) end }, page
+	elseif route then
+		m.giver = m.giver .. "\n" .. L["On your route: the guide picks its quests up on your way."]
+		m.act, m.more = page, nil
+	end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
 	-- Later below the dungeon's best-at level: back once at best-at.
 	local best = c.best or (Dg.BestAt and Dg.BestAt(c.key))
 	m.later = { label = L["Later"], run = function(shown) if best and c.level < best then shown.backAtBest = true end end }
 	return m
+end
+
+-- The route's entry for dungeon `key` (Engine.DungeonsAhead: its run still
+-- ahead and takeable on this character's route), or nil.
+function DT.RouteEntry(key)
+	local Dg, E = D(), ns.Engine
+	local d = Dg and Dg.Get and Dg.Get(key)
+	if not (d and type(d.map) == "number" and E and E.DungeonsAhead) then return nil end
+	-- A city dungeon is its faction's only: never Add to my route for the other's.
+	if E.EnemyCityDungeon and E.EnemyCityDungeon(d.map) then return nil end
+	for _, r in ipairs(E.DungeonsAhead(8)) do
+		if r.map == d.map then return r end
+	end
+	return nil
+end
+
+-- "Add to my route": this dungeon runs in the leveling route (its own answer,
+-- Engine.ChooseDungeon; "Dungeons in my route" stays as it is).
+function DT.AddToRoute(map)
+	local E = ns.Engine
+	if not (E and E.ChooseDungeon) then return false end
+	E.ChooseDungeon(map, true)
+	CT().Hide()
+	return true
 end
 
 -- A card that waits for the hidden guide window (UI.ClassToast keeps it as

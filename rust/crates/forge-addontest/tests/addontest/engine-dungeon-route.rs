@@ -24,9 +24,10 @@ w.titles[15] = "Investigate Echo Ridge"
 
 // The injection pattern on a small route: (1) a pick-up on a stop the route makes, (2, 3) solo steps, (4) the
 // run's own stop repeating the pick-ups, (5) the guarded run, (6) the hand-in behind `when dungeon` and `when
-// complete`, (7) solo. A second guide shares a stop with the solo route, after an escort that finishes its
-// prerequisite (Loch Modan's traitor and Sentinel Hill): the dungeon's step hands that quest in and takes the
-// dungeon's, the solo way of that stop is behind `when !dungeon`.
+// complete`, (7) solo; Oh Brother (167) is handed in by a later guide, beyond the route (`carriedTo`). A second
+// guide shares a stop with the solo route, after an escort that finishes its prerequisite (Loch Modan's traitor and
+// Sentinel Hill): the dungeon's step hands that quest in and takes the dungeon's, the solo way of that stop is behind
+// `when !dungeon`.
 const GUIDE: &str = r#"
 local DM = { k = "dungeon", name = "The Deadmines", map = 36 }
 Polestar.RegisterGuide({
@@ -43,7 +44,7 @@ Polestar.RegisterGuide({
 		} },
 		{ title = "Sentinel Hill", when = { DM }, goals = {
 			{ t = "accept", quest = 214, title = "Red Silk Bandanas", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
-			{ t = "accept", quest = 167, title = "Oh Brother. . .", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
+			{ t = "accept", quest = 167, title = "Oh Brother. . .", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0, carriedTo = "test/later" },
 		} },
 		{ title = "The Deadmines", when = { DM, { k = "onquest", q = { 214, 167 } } }, goals = {
 			{ t = "enter", location = "The Deadmines", map = 1429, x = 42.0, y = 70.0 },
@@ -69,6 +70,39 @@ Polestar.RegisterGuide({
 		} },
 		{ title = "Sentinel Hill", when = { { k = "dungeon", name = "The Deadmines", map = 36, neg = true } }, goals = {
 			{ t = "turnin", quest = 155, title = "The Defias Brotherhood", npc = 234, npcName = "Gryan Stoutmantle", map = 1429, x = 48.0, y = 42.0 },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "goto", map = 1429, x = 42.1, y = 65.9, label = "Goldshire" },
+		} },
+	},
+})
+Polestar.RegisterGuide({
+	id = "test/gated", pack = "test", title = "Gated", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "Scout Riell", when = { DM, { k = "level", op = ">=", n = 12 } }, goals = {
+			{ t = "accept", quest = 214, title = "Red Silk Bandanas", npc = 6670, npcName = "Scout Riell", map = 1429, x = 48.0, y = 42.0 },
+		} },
+		{ title = "Marshal McBride", goals = {
+			{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "The Deadmines", when = { DM, { k = "onquest", q = { 214 } }, { k = "level", op = ">=", n = 13, frac = 0.5 } }, goals = {
+			{ t = "enter", location = "The Deadmines", map = 1429, x = 42.0, y = 70.0 },
+			{ t = "complete", quest = 214, title = "Red Silk Bandanas" },
+		} },
+		{ title = "Goldshire", goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+	},
+})
+local RFC = { k = "dungeon", name = "Ragefire Chasm", map = 389 }
+Polestar.RegisterGuide({
+	id = "test/city", pack = "test", title = "City", minLevel = 1, maxLevel = 30,
+	steps = {
+		{ title = "Orgrimmar", when = { RFC }, goals = {
+			{ t = "accept", quest = 5761, title = "Slaying the Beast", npc = 3216, npcName = "Neeru Fireblade", map = 1429, x = 50.0, y = 50.0 },
+		} },
+		{ title = "Ragefire Chasm", when = { RFC, { k = "onquest", q = { 5761 } } }, goals = {
+			{ t = "enter", location = "Ragefire Chasm", map = 1429, x = 51.0, y = 51.0 },
 		} },
 		{ title = "Goldshire", goals = {
 			{ t = "goto", map = 1429, x = 42.1, y = 65.9, label = "Goldshire" },
@@ -296,4 +330,82 @@ fn dungeon_route_a_stop_shared_with_the_solo_route_asks_before_the_prerequisite_
 	assert_eq!(skip[1], json!({ "at": 3, "asked": false, "total": 3, "s2": "skipped", "s3": "current" }));
 	let go = run_with(escort, saved("run"), script);
 	assert_eq!(go[1], json!({ "at": 2, "asked": false, "total": 3, "s2": "current", "s3": "na" }));
+}
+
+/// Fitz, 2026-11-13: never send a player to a dungeon too low. A dungeon's steps carry its floor (`when
+/// level>=`, a point inside a level allowed): below it a pick-up doesn't apply and Ask doesn't ask, and the run
+/// is passed for the solo route, in Run mode too (Own.dungeonOpenNow reads the step's own conditions first).
+#[test]
+fn dungeon_route_a_level_gate_holds_back_the_pick_up_the_question_and_the_run() {
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/gated", "_route": route }));
+	let low = run(saved("ask"), "emit({ at = at(), asked = asked(), s1 = st(1) })");
+	assert_eq!(low[0], json!({ "at": 2, "asked": false, "s1": "skipped" }), "level 10 under the pick-up's 12: nothing asked, the solo step is live");
+	let at_gate = run_with("w.setLevel(12)", saved("ask"), "emit({ at = at(), asked = asked() })");
+	assert_eq!(at_gate[0]["at"], 1, "at the gate the pick-up holds the route");
+	assert_eq!(at_gate[0]["asked"]["map"], 36, "and asks");
+	let run_low = run_with("w.setLevel(13); w.setXP(100, 1000); w.onQuest(214, { 1 })", saved("run"), r#"take(7); emit({ at = at(), s3 = st(3) })"#);
+	assert_eq!(run_low[0], json!({ "at": 4, "s3": "skipped" }), "Run mode, 13.1 under the run's 13.5: the run is passed for the solo route");
+	let run_at = run_with("w.setLevel(13); w.setXP(600, 1000); w.onQuest(214, { 1 })", saved("run"), r#"take(7); emit({ at = at(), s3 = st(3) })"#);
+	assert_eq!(run_at[0], json!({ "at": 3, "s3": "current" }), "13.6: the run applies");
+}
+
+// A run left part done: "No group? Skip it" at the door (or dungeons turned off) after one of its quests got done.
+// The finished quest's hand-in still comes (Core/Engine.lua dungeonHandIn: a dungeon's hand-in of a quest carried
+// finished holds whatever the answer), and the route plan says so (Core/RoutePlan.lua: "now"). An unfinished one's
+// hand-in passes, and the plan never promises it: it is no hand-in of the route, so the quest room lists it as room to
+// make (Plan.Unneeded), not "Turn in at step 6". The same for a quest a later guide hands in (`carriedTo`, beyond the
+// plan): "later" only once it is finished.
+#[test]
+fn dungeon_route_skipped_after_a_quest_got_done_that_quest_is_still_handed_in_an_unfinished_one_is_room_to_make() {
+	let script = |finish: &str| {
+		format!(
+			r#"
+		take(214); take(7); take(15); take(167)
+		{finish}
+		local kept = E.SkipDungeon(36); flush(); mark()
+		local RP, room, room167 = Polestar.RoutePlan, false, false
+		for _, u in ipairs(RP.Unneeded() or {{}}) do
+			if u.quest == 214 then room = true end
+			if u.quest == 167 then room167 = true end
+		end
+		emit({{ at = at(), s5 = st(5), s6 = st(6), plan = RP.GetTurnIn(214).status, room = room, plan167 = RP.GetTurnIn(167).status, room167 = room167, trace = trace }})"#
+		)
+	};
+	let done = run(char("run"), &script("w.finish(214); w.finish(167); flush()"));
+	assert_eq!(done[0]["at"], 6, "the hand-in of the quest done in the run comes next");
+	assert_eq!(done[0]["s5"], "skipped", "the run itself is dropped");
+	assert_eq!(done[0]["s6"], "current");
+	assert_eq!(done[0]["plan"], "now");
+	assert_eq!(done[0]["room"], false, "a quest the route hands in is no room to make");
+	assert_eq!((done[0]["plan167"].clone(), done[0]["room167"].clone()), (json!("later"), json!(false)), "finished: the later guide hands it in");
+	non_decreasing(&done[0]["trace"]);
+	let open = run(char("run"), &script(""));
+	assert_eq!(open[0]["at"], 7, "unfinished: its hand-in passes");
+	assert_eq!(open[0]["s6"], "skipped");
+	assert_eq!(open[0]["plan"], "unplanned", "no hand-in promised that the route will not make");
+	assert_eq!(open[0]["room"], true, "the quest room lists it as room to make");
+	assert_eq!((open[0]["plan167"].clone(), open[0]["room167"].clone()), (json!("unplanned"), json!(true)), "unfinished: no later hand-in promised");
+}
+
+// Fitz, 2026-11-14: a city dungeon is its faction's only (Engine.EnemyCityDungeon). The stub's Human Warrior
+// (Alliance) on a guide with Ragefire Chasm's steps (Orgrimmar's): on Run them nothing of it applies, on Ask me
+// nothing is asked, Run it for it is refused, Dungeons in my route never lists it and a party's run of it is never
+// joinable (Party.DungeonOffer); the Stockade (Stormwind's) is the Alliance's own.
+#[test]
+fn dungeon_route_a_city_dungeon_of_the_other_faction_is_never_run_asked_listed_or_offered() {
+	let saved = |route: &str| Some(json!({ "schema": 1, "guide": "test/city", "_route": route }));
+	let script = r#"
+		local before = { at = at(), asked = asked(), answer = E.DungeonAnswer(389), joinable = E.DungeonJoinable(389, 2) or false,
+			listed = E.GuideDungeons()[389] or false, enemy = E.EnemyCityDungeon(389), own = E.EnemyCityDungeon(34), key = E.EnemyCityDungeon("ragefire-chasm") }
+		E.ChooseDungeon(389, true); flush()
+		emit({ before = before, chosen = E.DungeonChosen(389), at = at() })"#;
+	let run_them = run(saved("run"), script);
+	assert_eq!(
+		run_them[0]["before"],
+		json!({ "at": 3, "asked": false, "answer": false, "joinable": false, "listed": false, "enemy": true, "own": false, "key": true }),
+		"Run them: none of Ragefire Chasm's steps applies, nothing is asked, listed or joinable"
+	);
+	assert_eq!((run_them[0]["chosen"].clone(), run_them[0]["at"].clone()), (json!(false), json!(3)), "Run it for it is refused");
+	let ask = run(saved("ask"), "emit({ at = at(), asked = asked() })");
+	assert_eq!(ask[0], json!({ "at": 3, "asked": false }), "Ask me never asks about it");
 }

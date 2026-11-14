@@ -35,3 +35,14 @@ test("a dungeon's steps leave the solo route's placing alone, and the runners' s
 		'a `when !dungeon` step is the solo route\'s own: the steps after it are placed from it',
 	);
 });
+
+test('`when dungeon "<Name>" all` marks a step of the every-quest route; `!dungeon` takes no `all`', () => {
+	const r = compile(guideText(['step Extra', '  when dungeon "Ragefire Chasm" all', '  accept 783']));
+	assert.deepEqual(r.errors, []);
+	const when = plain(r.guides[0].steps)[0].when;
+	assert.equal(when[0].k, 'dungeon');
+	assert.equal(when[0].name, 'Ragefire Chasm');
+	assert.equal(when[0].all, true);
+	const bad = compile(guideText(['step One', '  when !dungeon "Ragefire Chasm" all', '  accept 783']));
+	assert.ok(JSON.stringify(bad.errors).includes('`!dungeon` takes no `all`'), JSON.stringify(bad.errors));
+});

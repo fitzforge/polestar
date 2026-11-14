@@ -124,6 +124,34 @@ fn set_if(obj: &V, key: &str, value: V) {
 	}
 }
 
+/// The runs of data/dungeon-runs.json that guide `id` holds and that carry `allQuests` (what the dungeon's
+/// every-quest steps, `when dungeon "<Name>" all`, add to its route): the instance's map id -> { minutes, xp }, or
+/// Undef with none (no record read, or no such run).
+fn dungeon_all(data: &Data, id: &V) -> V {
+	let out = V::obj();
+	let mut any = false;
+	for run in data.dungeon_runs.get("runs").items() {
+		let all = run.get("allQuests");
+		if !all.truthy() || !run.get("run").get("guide").strict_eq(id) {
+			continue;
+		}
+		let d = crate::group::dungeon_named(data, &run.get("dungeon"));
+		if !d.truthy() {
+			continue;
+		}
+		let e = V::obj();
+		set_if(&e, "minutes", all.get("minutes"));
+		set_if(&e, "xp", all.get("xp"));
+		out.set(&d.get("map").to_js_string(), e);
+		any = true;
+	}
+	if any {
+		out
+	} else {
+		V::Undef
+	}
+}
+
 fn opt_str(s: Option<String>) -> V {
 	s.map(V::from).unwrap_or(V::Null)
 }
@@ -1462,6 +1490,10 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 		guide.set("zone", hz.get("id"));
 		set_if(&guide, "zoneName", hz.get("name"));
 	}
+	// The every-quest route of each dungeon this guide runs (data/dungeon-runs.json, a run's `allQuests`: what its
+	// `when dungeon "<Name>" all` steps add), for the guide window's "Only quests on my way": the minutes it saves
+	// and the XP it gives up, by the instance's map id.
+	set_if(&guide, "dungeonAll", dungeon_all(data, &guide.get("id")));
 	let next = h.get("next");
 	if next.truthy() && !next.is_empty() {
 		guide.set("next", next.at(0));
@@ -2141,7 +2173,13 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn F
 				let run = crate::group::dungeon_named(data, &p.get("name"));
 				if run.truthy() {
 					w.set("map", run.get("map"));
-				} else if data.instances.truthy() {
+				}
+				// A step of the dungeon's every-quest route (the quests off the way): the engine takes it while the
+				// dungeon runs and the player has not chosen only the quests on the way.
+				if p.get("all").truthy() {
+					w.set("all", true);
+				}
+				if !run.truthy() && data.instances.truthy() {
 					r.warn(
 						&ln,
 						format!(

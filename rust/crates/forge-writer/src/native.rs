@@ -34,6 +34,9 @@ pub struct PathInputs {
 pub const PLACES: &str = "data/places.json";
 /// The guide fixes file of a checkout.
 pub const GUIDE_FIXES: &str = "data/guide-fixes.json";
+/// The dungeons in the route (`when dungeon` runs and where each is run): the grind tips name a dungeon
+/// only when its run is near (apply.rs `dungeons_near`).
+pub const DUNGEON_RUNS: &str = "data/dungeon-runs.json";
 
 /// A record file of the checkout: None when it is absent, an error when it does not parse.
 pub fn read_records(file: &Path) -> Result<Option<serde_json::Value>, String> {
@@ -178,6 +181,7 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	}
 	let places = read_records(&checkout.join(PLACES))?;
 	let guide_fixes = read_records(&checkout.join(GUIDE_FIXES))?;
+	let dungeon_runs = read_records(&checkout.join(DUNGEON_RUNS))?;
 	// One shared route per faction (shared.rs): the faction's routes beside this one, when the route
 	// has a shared tail; its own run on the faction's shared order, the shared guides from the
 	// canonical start's.
@@ -238,6 +242,7 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 		heights: heights.as_ref(),
 		notes: notes.as_ref(),
 		records,
+		dungeon_runs: dungeon_runs.as_ref(),
 	};
 	tm.lap(&scope, "load");
 	let canon_name = crate::shared::canonical(&route).unwrap_or_default();

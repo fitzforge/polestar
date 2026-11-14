@@ -76,24 +76,33 @@ local function build(active)
 	-- carried: quest -> the later guide that hands it in, from the compiled
 	-- `carriedTo` on the route's quest work: known even where the plan
 	-- cannot reach that guide (not loaded, a choice to make, another race's).
-	local index, carried = {}, {}
+	-- A hand-in in a step of a dungeon the character skips (Engine.
+	-- DungeonLeftOut) is marked `dungeon`: it counts only for a quest
+	-- finished, as the Engine hands it in then (turnIn). So is a quest
+	-- carried from such a step (carriedDungeon): its later hand-in is the
+	-- dungeon's too.
+	local E = ns.Engine
+	local index, carried, carriedDungeon = {}, {}, {}
 	for chapter, g in ipairs(route) do
 		for si, step in ipairs(g.steps or {}) do
 			if G.Matches(step.only, player) then
+				local skipped = step.when and E and E.DungeonLeftOut and E.DungeonLeftOut(step) or nil
 				for gi, goal in ipairs(step.goals or {}) do
 					if goal.t == "turnin" and goal.quest and G.Matches(goal.only, player) then
 						local entries = index[goal.quest] or {}
 						index[goal.quest] = entries
 						entries[#entries + 1] = { guide = g.id, title = g.title, step = si, goal = gi,
-							chapter = chapter, optional = goal.optional or step.optional or false }
+							chapter = chapter, optional = goal.optional or step.optional or false, dungeon = skipped }
 					elseif goal.carriedTo and goal.quest and not carried[goal.quest] and G.Matches(goal.only, player) then
 						carried[goal.quest] = goal.carriedTo
+						carriedDungeon[goal.quest] = skipped
 					end
 				end
 			end
 		end
 	end
-	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, pending = pending, missing = missing }
+	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, carriedDungeon = carriedDungeon,
+		pending = pending, missing = missing }
 end
 
 local function planOf(g)
@@ -115,26 +124,33 @@ local function copy(entry, status)
 end
 
 -- One route's answer for questId, its guide's live step `step` (nil: that
--- chapter is complete).
+-- chapter is complete). A hand-in of a dungeon the character skips is the
+-- quest's only once it is finished (build's `dungeon`): unfinished, the
+-- route never hands it in.
 local function turnIn(plan, questId, step)
 	step = step or math.huge
-	local past, skipped
+	local past, skipped, ready
 	local flags = ns.CharState().skipped or {}
 	for _, entry in ipairs(plan.index[questId] or {}) do
-		local s = flags[entry.guide] or {}
-		local isSkipped = s[entry.step] or s[entry.step .. ":" .. entry.goal]
-		local behind = entry.chapter < plan.chapter or (entry.chapter == plan.chapter and entry.step < step)
-		if isSkipped then skipped = entry
-		elseif behind then past = entry
-		else
-			return copy(entry, entry.chapter > plan.chapter and "later" or (entry.step == step and "now" or "future"))
+		if entry.dungeon and ready == nil then ready = ns.Compat.IsQuestReadyForTurnIn(questId) and true or false end
+		if not entry.dungeon or ready then
+			local s = flags[entry.guide] or {}
+			local isSkipped = s[entry.step] or s[entry.step .. ":" .. entry.goal]
+			local behind = entry.chapter < plan.chapter or (entry.chapter == plan.chapter and entry.step < step)
+			if isSkipped then skipped = entry
+			elseif behind then past = entry
+			else
+				return copy(entry, entry.chapter > plan.chapter and "later" or (entry.step == step and "now" or "future"))
+			end
 		end
 	end
 	local entry = past or skipped
 	if entry then return copy(entry, past and "missed" or "skipped") end
 	-- Handed in by a later guide the plan does not reach: said as such, never
-	-- as "no turn-in" (prefer keeping a quest to calling it unneeded).
+	-- as "no turn-in" (prefer keeping a quest to calling it unneeded); a
+	-- skipped dungeon's quest only once it is finished (build's carriedDungeon).
 	local to = plan.carried[questId]
+	if to and plan.carriedDungeon[questId] and not ns.Compat.IsQuestReadyForTurnIn(questId) then to = nil end
 	if to then
 		local later = ns.Guides.Get(to)
 		return { status = "later", guide = to, title = later and later.title or nil, carried = true }
@@ -427,6 +443,10 @@ function Plan.Ender(q)
 	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f, zone = ns.Compat.MapName(s.map) }
 end
 
-for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED", "CODEX_LOADED" }) do
+-- A dungeon's answer changes which of its hand-ins are the route's (build's `dungeon`).
+for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
 	ns.On(event, Plan.Invalidate)
 end
+ns.On("SETTING_CHANGED", function(path)
+	if path == "" or path == "behavior" or path == "behavior.dungeons" or path == "behavior.dungeonQuests" then Plan.Invalidate() end
+end)

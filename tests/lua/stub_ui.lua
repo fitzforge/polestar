@@ -533,6 +533,12 @@ function Engine.TrainingAdvice()
 	end
 	return { steps = steps, title = title, trainer = uistub.plannerTrainer }
 end
+-- The real rule (Core/Engine.lua Engine.EnemyCityDungeon: a city dungeon is its
+-- faction's only), which the Dungeons window and the dungeon heads-up read.
+function Engine.EnemyCityDungeon(id, side)
+	local E = uistub.realEngine
+	return E and E.EnemyCityDungeon and E.EnemyCityDungeon(id, side) or false
+end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end
 function Engine.Goto(i) record("Goto", i); if guide and guide.steps[i] then move(i) end end
 -- Any goal but a note ticks done and back.
@@ -642,6 +648,7 @@ function Engine.DungeonChosen(map) return Engine.DungeonAnswer(map) == true end
 function Engine.ChooseDungeon(map, answer)
 	record("ChooseDungeon", map, answer)
 	Polestar.CharState().dungeons[map] = answer
+	Polestar.Fire("DUNGEON_ANSWERED", map, answer)
 end
 uistub.dungeonQuestion, uistub.dungeonRun, uistub.dungeonSoon, uistub.dungeonKept = nil, nil, nil, {}
 function Engine.DungeonQuestion()
@@ -664,6 +671,47 @@ end
 -- steps for ({ [map] = true }, Engine.GuideDungeons).
 uistub.guideDungeons = {}
 function Engine.GuideDungeons() return uistub.guideDungeons end
+-- uistub.dungeonsAhead: the dungeons ahead on the route, in route order
+-- (Engine.DungeonsAhead's rows: { map, name, level, runMap, pickMap,
+-- pickMaps, picks, inLog, here, allQuests }; the answer and Only quests on my
+-- way are read live). uistub.dungeonQuestsInLog: what
+-- Engine.DungeonQuestsInLog answers ({ { quest, title, ready } }; nil: no
+-- such list, as an engine without it).
+uistub.dungeonsAhead, uistub.dungeonQuestsInLog = {}, nil
+function Engine.DungeonsAhead(limit)
+	local out = {}
+	for i, d in ipairs(uistub.dungeonsAhead) do
+		if i > (limit or 5) then break end
+		local c = {}
+		for k, v in pairs(d) do c[k] = v end
+		c.answer = Engine.DungeonAnswer(d.map)
+		c.wayOnly = Engine.DungeonWayOnly(d.map)
+		out[i] = c
+	end
+	return out
+end
+-- "Only quests on my way" per dungeon: its own choice (CharState().dungeonsAll[map]: true every quest), else
+-- "Dungeon quests" (behavior.dungeonQuests); a choice is told as an answer.
+function Engine.DungeonWayOnly(map)
+	local own = Polestar.CharState().dungeonsAll[map]
+	if own ~= nil then return own == false end
+	return Polestar.Get("behavior.dungeonQuests") == "way"
+end
+function Engine.ChooseDungeonWayOnly(map, on)
+	record("ChooseDungeonWayOnly", map, on)
+	Polestar.CharState().dungeonsAll[map] = not on
+	Polestar.Fire("DUNGEON_ANSWERED", map, Engine.DungeonAnswer(map))
+end
+function Engine.DungeonQuestsInLog(map)
+	record("DungeonQuestsInLog", map)
+	return uistub.dungeonQuestsInLog
+end
+function Engine.DungeonName(map)
+	for _, d in ipairs(uistub.dungeonsAhead) do
+		if d.map == map then return d.name end
+	end
+	return nil
+end
 -- Group quests (`when group`): uistub.groupQuestion = { quest, title } is the
 -- one the live step waits on until answered; answers per character
 -- (CharState().groupQuests). uistub.groupQuests: the character's guides'
@@ -818,6 +866,7 @@ function uistub.install(opts)
 	if opts.noTabs then
 		for _, k in ipairs({ "GetTabs", "OpenTab", "CloseTab", "SelectTab", "MoveTab", "GetGuideState" }) do Engine[k] = nil end
 	end
+	if Polestar.Engine ~= Engine then uistub.realEngine = Polestar.Engine end
 	Polestar.Engine = Engine
 	-- The real registry stays reachable for pages that show its records
 	-- (the Community guides page): Polestar.Guides = uistub.realGuides.

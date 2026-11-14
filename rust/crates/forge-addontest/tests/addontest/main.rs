@@ -51,6 +51,10 @@ mod dsl_smart;
 mod dsl_verbs;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-e2e.rs"]
+mod dungeons_e2e;
+#[path = "dungeons-onboarding.rs"]
+mod dungeons_onboarding;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]
@@ -308,6 +312,8 @@ mod packs_visibility;
 mod party;
 #[path = "party-chat.rs"]
 mod party_chat;
+#[path = "party-dungeons.rs"]
+mod party_dungeons;
 #[path = "party-group.rs"]
 mod party_group;
 #[path = "party-pair.rs"]

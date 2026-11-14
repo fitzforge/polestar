@@ -1531,12 +1531,24 @@ PAGES[#PAGES + 1] = {
 		F.Dungeons = optionGroup(p, { title = L["Dungeons in my route"],
 			note = L["For a group of five: the guide picks up a dungeon's quests on its way, sends you to the door at the right level and hands them in after."],
 			get = function() return oneOf("behavior.dungeons", { "skip", "ask", "run" }, "skip") end,
-			set = function(v) ns.Set("behavior.dungeons", v) end,
+			-- Dungeon quests shows only while dungeons aren't skipped: the page lays out again.
+			set = function(v) ns.Set("behavior.dungeons", v); if F.Render then F.Render() end end,
 			choices = function()
 				return {
 					{ value = "skip", name = L["Skip them"], desc = L["The solo route."] },
 					{ value = "ask", name = L["Ask me"], desc = L["The guide asks at each dungeon."] },
 					{ value = "run", name = L["Run them"], desc = L["Every dungeon on your way."] },
+				}
+			end })
+		-- For a dungeon the route runs: every quest of it, or only the ones on the way (behavior.dungeonQuests).
+		F.DungeonQuests = optionGroup(p, { title = L["Dungeon quests"],
+			note = L["For each dungeon the route runs."],
+			get = function() return oneOf("behavior.dungeonQuests", { "all", "way" }, "all") end,
+			set = function(v) ns.Set("behavior.dungeonQuests", v) end,
+			choices = function()
+				return {
+					{ value = "all", name = L["Every quest"], desc = L["Be ready for more travelling: the quests are scattered across the world, so the route takes extra trips for them."] },
+					{ value = "way", name = L["Only quests on my way"], desc = L["Only the ones on stops the route makes anyway."] },
 				}
 			end })
 		F.GroupQuests = optionGroup(p, { title = L["Group quests"],
@@ -1556,7 +1568,9 @@ PAGES[#PAGES + 1] = {
 		local heroH = layoutCompactHero(P.Hero)
 		local p = P.Body
 		local dungeons, quests = dungeonsShown(), groupQuestsShown()
+		local style = dungeons and ns.GetDefault("behavior.dungeonQuests") ~= nil and ns.Get("behavior.dungeons") ~= "skip"
 		local y = layGroup(F.Dungeons, 0, dungeons)
+		y = layGroup(F.DungeonQuests, style and y + 18 or y, style)
 		y = layGroup(F.GroupQuests, (dungeons and quests) and y + 18 or y, quests) + 14
 		place(p.Keep, 0, y)
 		return heroH, y + p.Keep:GetStringHeight()
@@ -2691,6 +2705,7 @@ end
 -- gathers over the footer) and shows the current one; `from`: the page
 -- left, faded out. The look page's looks load as it first shows.
 function render(from)
+	F.Render = render
 	local list = pageList()
 	local at
 	for i, pg in ipairs(list) do if pg.key == current then at = i end end
