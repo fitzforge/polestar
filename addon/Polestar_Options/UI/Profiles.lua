@@ -1474,7 +1474,7 @@ local function layoutMake(v, P, x, y, width)
 	local card = v.MakeCard
 	y = openCard(card, nil, nil, x, y)
 	placePicks(card, v.ExportPicks, true)
-	y = halves(v, card.Split, { v.From, false }, x, y, width)
+	y = halves(v, card.Split, { v.From }, x, y, width)
 	local mine = P.Portable(source()) or {}
 	local by = {}
 	for path in pairs(mine) do
