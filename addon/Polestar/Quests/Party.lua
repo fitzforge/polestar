@@ -37,6 +37,10 @@
 -- steps you and the member both have (a Warrior-only step between a
 -- Warrior and a Mage does not count). A member who sends only "1P|"
 -- (0.3.5) is compared by its number, on the same guide and pack version.
+-- After it goes "2R|<s|a|r>|<map>:<1|0>,..." (Dungeons in my route, then
+-- each dungeon answered one by one), which every older decoder drops: a
+-- dungeon's steps for the one who skips it, and the solo way for the one
+-- who runs it, count as steps only one of you has.
 --
 -- Sync to my guide: "2G|<step key>|<guide id>" asks the party
 -- to move to your step; each member gets an accept/decline prompt, never
@@ -44,6 +48,12 @@
 -- no such guide or step for them, already there). Accepting opens the guide
 -- (another tab when needed) and skips the steps up to it (Engine.SkipUpTo);
 -- ticks and skips the member had stay. Once per SYNC_GAP seconds each way.
+-- Onto a dungeon's step the member skips, the prompt asks whether they run
+-- it with you (Run it this time / Not now); "x" below its floor.
+--
+-- Your party running a dungeon you skip (a member who runs it, at one of
+-- its steps on your guide): the guide window offers once a session "Your
+-- party is running <dungeon>: run it with them?" (Party.DungeonOffer).
 --
 -- Who you are: "2U|<level>|<XP %>|<class id>|<race id>|<Polestar
 -- version>", version 2, which every version-1 decoder (Decode, DecodePos)
@@ -333,6 +343,55 @@ function Party.DecodeRest(text)
 	return n > 0 and n or false
 end
 
+-- Dungeons in my route: "2R|<s|a|r>|<map>:<1|0>,...", the answer for every
+-- dungeon (behavior.dungeons: Skip them, Ask me, Run them), then each dungeon
+-- the character answered one by one (Engine.ChooseDungeon: 1 runs it, 0
+-- skips it), version 2, which every older decoder drops. Sent after "2P|"
+-- when it changed and with every snapshot. A member's tells which dungeon
+-- steps of the guide are theirs (Engine.StepHiddenFor), so "N steps ahead"
+-- counts only the steps you both have, and that the dungeon they stand at
+-- is one they run (Party.DungeonOffer). What follows the list is ignored.
+local ROUTE = { letter = { skip = "s", ask = "a", run = "r" }, all = { s = "skip", a = "ask", r = "run" } }
+
+-- r = { all = "skip" | "ask" | "run", maps = { [map] = true | false } } ->
+-- the "2R|" message, as many answers as fit MAX_BYTES; nil without r.
+function Party.EncodeRoute(r)
+	if type(r) ~= "table" then return nil end
+	local maps, answers = {}, type(r.maps) == "table" and r.maps or {}
+	for map, a in pairs(answers) do
+		if type(map) == "number" and map > 0 and map % 1 == 0 and type(a) == "boolean" then maps[#maps + 1] = map end
+	end
+	table.sort(maps)
+	local parts, size = {}, #UNIT_VERSION + 4
+	for _, map in ipairs(maps) do
+		local part = map .. ":" .. (answers[map] and "1" or "0")
+		size = size + #part + 1
+		if size > Party.MAX_BYTES then break end
+		parts[#parts + 1] = part
+	end
+	return UNIT_VERSION .. "R|" .. (ROUTE.letter[r.all] or "s") .. "|" .. concat(parts, ",")
+end
+
+-- The "2R|" message -> { all, maps }, or nil for anything else.
+function Party.DecodeRoute(text)
+	if type(text) ~= "string" then return nil end
+	local all, list, rest = text:match("^" .. UNIT_VERSION .. "R|([sar])|([%d:,]*)(.*)$")
+	if not all or (rest ~= "" and rest:sub(1, 1) ~= "|") then return nil end
+	local maps = {}
+	for map, a in list:gmatch("(%d+):([01])") do maps[tonumber(map)] = a == "1" end
+	return { all = ROUTE.all[all], maps = maps }
+end
+
+-- Your dungeon answers as "2R|" carries them: { all, maps }.
+function Party.MyRoute()
+	local st, maps = ns.CharState and ns.CharState(), {}
+	for map, a in pairs(st and type(st.dungeons) == "table" and st.dungeons or {}) do
+		if type(map) == "number" and type(a) == "boolean" then maps[map] = a end
+	end
+	local all = ns.Get("behavior.dungeons")
+	return { all = (all == "run" or all == "ask") and all or "skip", maps = maps }
+end
+
 ---------------------------------------------------------------------------
 -- Step identity: a step by what it holds, the same on every client with
 -- the same guide whatever its class, race or language
@@ -596,7 +655,8 @@ end
 
 -- Our position to the party, unless it already has this one (`force`: with
 -- a snapshot, which a member who just joined needs): "1P|", then "2P|" when
--- the live step has a key, then what we did ("2D|") when that changed.
+-- the live step has a key, then our dungeon answers ("2R|"), then what we did
+-- ("2D|") when that changed.
 local function sendPos(force)
 	posPending = false
 	if force then doneSent = nil end
@@ -604,7 +664,9 @@ local function sendPos(force)
 	local pos = Party.MyPos()
 	local text = Party.EncodePos(pos)
 	if not text then return end
-	local msgs = { text, Party.EncodeAt(pos) }
+	local msgs = { text }
+	msgs[#msgs + 1] = Party.EncodeAt(pos)
+	msgs[#msgs + 1] = Party.EncodeRoute(Party.MyRoute())
 	local all = concat(msgs, "\n")
 	if all ~= posSent or force then
 		if send(msgs) ~= #msgs then return end
@@ -798,9 +860,11 @@ end
 
 -- Sync to my guide: when we last asked and whom (answers count from them
 -- for ANSWER_WINDOW seconds), when each member last asked us, and the
--- request on our prompt ({ key, name, at }).
+-- request on our prompt ({ key, name, at, who, dungeon }). A request onto a
+-- dungeon's step you skip has its own prompt (DUNGEON_POPUP: Run it this
+-- time / Not now).
 local sync = { asked = {}, heardAt = {} }
-local SYNC_POPUP = "POLESTAR_PARTY_SYNC"
+local SYNC_POPUP, DUNGEON_POPUP = "POLESTAR_PARTY_SYNC", "POLESTAR_PARTY_DUNGEON"
 
 local function forgetAll()
 	local had = next(members) ~= nil or next(roster) ~= nil or next(gone) ~= nil
@@ -808,8 +872,9 @@ local function forgetAll()
 	gone, units, released, spoken, helloOwed, helloTries = {}, {}, {}, {}, false, 0
 	sync.asked, sync.heardAt = {}, {}
 	if sync.pending then
+		local which = sync.pending.dungeon and DUNGEON_POPUP or SYNC_POPUP
 		sync.pending = nil
-		if StaticPopup_Hide then StaticPopup_Hide(SYNC_POPUP) end
+		if StaticPopup_Hide then StaticPopup_Hide(which) end
 	end
 	if wantLive then wantLive() end
 	if had then progressChanged() end
@@ -997,12 +1062,13 @@ local function answer(code)
 end
 
 -- The member under roster key `key` as Engine.StepHiddenFor takes them:
--- their class and race (the client's, else their "2U|"), else yours, and
--- your faction.
+-- their class and race (the client's, else their "2U|"), else yours, your
+-- faction, and their dungeon answers when they sent them ("2R|").
 local function memberWho(key)
 	local me = ns.Compat.GetPlayerInfo()
 	local info = Party.UnitInfo(units[key], key)
-	return { class = info.class or me.class, race = info.race or me.race, faction = me.faction }
+	local m = members[key] or (gone[key] and gone[key].m)
+	return { class = info.class or me.class, race = info.race or me.race, faction = me.faction, dungeons = m and m.route or nil }
 end
 
 -- Goals' quests as a prompt names them, NOTE_MAX at most.
@@ -1098,10 +1164,13 @@ function Party.SyncOffer(at, who)
 	return offer
 end
 
--- The prompt's text for a request from `name` (Party.SyncOffer's offer).
-function Party.SyncPrompt(name, offer)
+-- The prompt's text for a request from `name` (Party.SyncOffer's offer);
+-- `dungeon` ({ map, name }, Engine.DungeonAt): their step is that dungeon's,
+-- one you skip, and the prompt asks whether you run it with them.
+function Party.SyncPrompt(name, offer, dungeon)
 	local L, E = ns.L, ns.Engine
 	local lines = { L["%s asks you to sync to their guide."]:format(name) }
+	if dungeon then lines[#lines + 1] = L["Your party is running %s: run it with them?"]:format(dungeon.name or "") end
 	if offer.switch then lines[#lines + 1] = L["You'll switch to %s."]:format(offer.guide.title or offer.guide.id) end
 	local step = offer.guide.steps[offer.step]
 	local title = step and step.title
@@ -1115,12 +1184,15 @@ function Party.SyncPrompt(name, offer)
 	return concat(lines, "\n\n")
 end
 
+-- The prompt: Accept / Decline, or onto a dungeon's step you skip
+-- (`req.dungeon`) Run it this time / Not now.
 local function showPrompt(text, req)
 	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) then return false end
-	StaticPopupDialogs[SYNC_POPUP] = StaticPopupDialogs[SYNC_POPUP] or {
+	local which = req.dungeon and DUNGEON_POPUP or SYNC_POPUP
+	StaticPopupDialogs[which] = StaticPopupDialogs[which] or {
 		text = "%s",
-		button1 = ACCEPT or YES,
-		button2 = DECLINE or NO,
+		button1 = req.dungeon and ns.L["Run it this time"] or ACCEPT or YES,
+		button2 = req.dungeon and ns.L["Not now"] or DECLINE or NO,
 		OnAccept = function(_, data) Party.AcceptSync(data) end,
 		-- "override": a newer request took the prompt; that one is still open.
 		OnCancel = function(_, data, reason) if reason ~= "override" then Party.DeclineSync(data) end end,
@@ -1129,7 +1201,7 @@ local function showPrompt(text, req)
 		hideOnEscape = true,
 		preferredIndex = 3,
 	}
-	StaticPopup_Show(SYNC_POPUP, text, nil, req)
+	StaticPopup_Show(which, text, nil, req)
 	return true
 end
 
@@ -1137,7 +1209,10 @@ end
 -- automatic move); "x" back when you cannot follow it, "=" when you are on
 -- that step already. A newer request takes the prompt over. With the
 -- gamepad interface (its focus owns the game's dialogs) no prompt shows:
--- chat says so and the answer is "n".
+-- chat says so and the answer is "n". Their step a dungeon's you skip, on
+-- the guide you have open: the prompt asks whether you run it with them
+-- (Party.DungeonOffer's question); with your route past its run or your
+-- character under its floor (Engine.DungeonJoinable) you cannot follow.
 local function onSyncRequest(key, name, at)
 	local now = GetTime()
 	local last = sync.heardAt[key]
@@ -1152,8 +1227,18 @@ local function onSyncRequest(key, name, at)
 	end
 	if offer.same then return answer("=") end
 	local req = { key = key, name = name, at = at, who = who }
+	local E = ns.Engine
+	local dungeon = not offer.switch and not offer.ahead and E.DungeonAt and E.DungeonAt(offer.guide, offer.step)
+	if dungeon and E.DungeonAnswer(dungeon.map) ~= true then
+		if not E.DungeonJoinable(dungeon.map, offer.step) then
+			answer("x")
+			ns.Print(ns.L["%s asked you to sync to their run of %s, but your route has passed it or your character is below its level."]:format(name, dungeon.name or ""))
+			return
+		end
+		req.dungeon = dungeon
+	end
 	sync.pending = req
-	if not showPrompt(Party.SyncPrompt(name, offer), req) then
+	if not showPrompt(Party.SyncPrompt(name, offer, req.dungeon), req) then
 		sync.pending = nil
 		answer("n")
 		ns.Print(ns.L["%s asked you to sync to their guide; that prompt can't show with the gamepad interface."]:format(name))
@@ -1163,8 +1248,10 @@ end
 -- The request on the prompt (or `req`, the prompt's own), accepted: its
 -- guide active (opened in another tab when needed), then the steps up to
 -- theirs skipped (Engine.SkipUpTo; your ticks and skips stay). Answers
--- "y" (or "n" with every tab taken, "x" when the guide is gone). True when
--- it synced.
+-- "y" (or "n" with every tab taken, "x" when the guide is gone). Onto a
+-- dungeon's step (`req.dungeon`): Run it this time first
+-- (Party.AnswerDungeonOffer), so their step is yours too. True when it
+-- synced.
 function Party.AcceptSync(req)
 	req = req or sync.pending
 	if not req or req ~= sync.pending then return false end
@@ -1181,18 +1268,21 @@ function Party.AcceptSync(req)
 		answer("n")
 		return false
 	end
+	if req.dungeon then Party.AnswerDungeonOffer(req.dungeon.map, true) end
 	local t = Party.StepAt(E.GetGuide(), req.at.key)
-	-- The steps they do not have (your class's own) stay yours.
+	-- The steps they do not have (your class's own, the solo way of a dungeon they run) stay yours.
 	if t then E.SkipUpTo(t, function(step) return E.StepHiddenFor(step, req.who) end) end
 	answer("y")
 	return true
 end
 
 -- The request on the prompt (or `req`), declined: nothing changes; "n".
+-- Onto a dungeon's step: Not now, which answers the dungeon's offer too.
 function Party.DeclineSync(req)
 	req = req or sync.pending
 	if not req or req ~= sync.pending then return false end
 	sync.pending = nil
+	if req.dungeon then Party.AnswerDungeonOffer(req.dungeon.map, false) end
 	answer("n")
 	return true
 end
@@ -1311,6 +1401,14 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	if code then
 		heard(key, false)
 		return onSyncAnswer(key, short, code)
+	end
+	local route = Party.DecodeRoute(text)
+	if route then
+		heard(key, false)
+		if not ns.Get("party.show") then return end
+		memberFor(key, short).route = route
+		progressChanged()
+		return
 	end
 	local done = Party.DecodeDone(text)
 	if done then
@@ -1839,9 +1937,11 @@ ns.On("SETTING_CHANGED", function(path)
 	if type(path) == "string" and (path == "" or path == "party" or path:sub(1, 6) == "party.") and ns.IsLoggedIn() then
 		Party.Apply()
 	end
+	-- "Dungeons in my route" changed: the party's "2R|" (debounced, only a change).
+	if path == "" or path == "behavior" or path == "behavior.dungeons" then onStep() end
 end)
--- Our live step or guide changed: tell the party (debounced, only a change).
-for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do ns.On(msg, onStep) end
+-- Our live step or guide changed, or a dungeon's answer: tell the party (debounced, only a change).
+for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED", "DUNGEON_ANSWERED" }) do ns.On(msg, onStep) end
 
 ---------------------------------------------------------------------------
 -- What the guide shows
@@ -1978,6 +2078,59 @@ function Party.StepLine()
 	end
 	if #parts == 0 then return nil end
 	return concat(parts, DOT), holding
+end
+
+---------------------------------------------------------------------------
+-- Your party is running a dungeon you skip (the guide window's banner,
+-- UI/GuideFrameBanner.lua)
+---------------------------------------------------------------------------
+
+local dungeonAsked = {} -- map -> true: offered this session and answered either way
+
+-- "Your party is running <dungeon>: run it with them?": a member who runs a
+-- dungeon (their "2R|") stands at one of its steps on your guide (their
+-- "2P|"), a dungeon you skip (Engine.DungeonAnswer false: Skip them, or Skip
+-- it for this one), and your route can still take you on its run at your
+-- level (Engine.DungeonJoinable: its run ahead, its floor's level gates
+-- holding). Once a session per dungeon. -> { map, name, names = { member
+-- names at it, sorted } } | nil
+function Party.DungeonOffer()
+	if not ns.Get("party.show") or not grouped() then return nil end
+	local E = ns.Engine
+	local g = E and E.GetGuide and E.GetGuide()
+	local mine = g and E.DungeonAt and Party.MyPos()
+	if not (mine and mine.step) then return nil end
+	local keys, offer = {}, nil
+	for key in pairs(members) do keys[#keys + 1] = key end
+	table.sort(keys)
+	for _, key in ipairs(keys) do
+		local m = members[key]
+		local i = m.route and theirStep(m, g, mine)
+		local d = i and E.DungeonAt(g, i)
+		if d and not dungeonAsked[d.map] and (not offer or offer.map == d.map) and E.DungeonAnswer(d.map) == false
+			and E.DungeonAnswerOf(m.route, d.map) == true and E.DungeonJoinable(d.map, i) then
+			offer = offer or { map = d.map, name = d.name, names = {} }
+			offer.names[#offer.names + 1] = m.name
+		end
+	end
+	if offer then table.sort(offer.names) end
+	return offer
+end
+
+-- The offer answered (the banner, or a sync onto the dungeon's step):
+-- `run`, Run it this time: this dungeon is Run for you (Engine.ChooseDungeon;
+-- "Dungeons in my route" stays as it is), its pick-ups still ahead come with
+-- it and its run needs none of its quests this session (Engine.PartyRun).
+-- Not now: your route stays as it is.
+function Party.AnswerDungeonOffer(map, run)
+	if type(map) ~= "number" then return end
+	dungeonAsked[map] = true
+	local E = ns.Engine
+	if run and E and E.ChooseDungeon then
+		E.ChooseDungeon(map, true)
+		if E.PartyRun then E.PartyRun(map) end
+	end
+	progressChanged()
 end
 
 ---------------------------------------------------------------------------

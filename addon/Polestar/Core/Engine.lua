@@ -976,9 +976,9 @@ end
 -- after a quest got done, dungeons turned off mid-run, a quest finished in a
 -- run the route did not make) still hands in what was done; the step's other
 -- predicates (`when complete`) still decide. Skip's solo route never carries
--- one: its quests are taken only in the dungeon's own steps. A file local:
--- Own is at its table size's edge, and one key more doubles it (about 20 KiB
--- at login).
+-- one: its quests are taken only in the dungeon's own steps. A file local,
+-- as are partyRuns and partyRunGuard: Own is at its table size's edge, and
+-- one key more doubles it (about 20 KiB at login).
 local function dungeonHandIn(step)
 	if Own.dungeonAsks(step) then return false end
 	local C = Compat()
@@ -988,12 +988,26 @@ local function dungeonHandIn(step)
 	return false
 end
 
+-- The dungeons the player runs with the party this session (Engine.PartyRun):
+-- { [map] = true }.
+local partyRuns = {}
+
+-- Whether `step` is the run of a dungeon the player runs with the party
+-- (Engine.PartyRun) and has chosen: its quest guard is no condition then.
+local function partyRunGuard(step)
+	if next(partyRuns) == nil then return false end
+	local r = Own.dungeonRunOf(step)
+	return r ~= nil and partyRuns[r.map] == true and Own.dungeonAnswer(r.map) == true
+end
+
 -- The first predicate of a step's `when` that does not hold now, or nil. A
 -- `when dungeon` of a dungeon not answered yet holds while the step asks and
 -- has something to do now (Own.dungeonAsks, Own.dungeonOpen): the route stops
 -- there and asks; any other step of it waits for the answer, as for Skip. A
 -- dungeon's hand-in of a quest the character carries finished holds it
--- whatever the answer (dungeonHandIn).
+-- whatever the answer (dungeonHandIn). The run of a dungeon the party runs
+-- with the player (Engine.PartyRun) needs none of its quests: its `when
+-- onquest` guard holds (partyRunGuard).
 function Own.whenFails(step)
 	for _, p in ipairs(step.when or NONE) do
 		local dungeon = p.k == "dungeon" and not p.neg
@@ -1001,7 +1015,7 @@ function Own.whenFails(step)
 			-- holds: the dungeon's finished work is handed in on the way, run or not
 		elseif dungeon and Own.dungeonAnswer(p.map) == nil then
 			if not (Own.dungeonAsks(step) and Own.dungeonOpen(step)) then return p end
-		elseif not Own.predicateHolds(p) then
+		elseif not Own.predicateHolds(p) and not (p.k == "onquest" and not p.neg and partyRunGuard(step)) then
 			return p
 		end
 	end
@@ -9231,6 +9245,61 @@ function Engine.SkipDungeon(map)
 	return kept
 end
 
+-- Step i of guide g as a dungeon's step (`when dungeon`, not negated): { map,
+-- name (the client's language when it has one) }, else nil. Party sync reads
+-- it for the step a party member stands at (Party.DungeonOffer).
+function Engine.DungeonAt(g, i)
+	local step = type(g) == "table" and type(g.steps) == "table" and g.steps[i]
+	if type(step) ~= "table" then return nil end
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "dungeon" and not p.neg and type(p.map) == "number" then
+			local N = ns.Names
+			return { map = p.map, name = (N and N.Instance and N.Instance(p.map)) or p.name }
+		end
+	end
+	return nil
+end
+
+-- Whether the loaded guide can still take the character on dungeon `map`'s
+-- run with their party (Party.DungeonOffer: a member stands at step `at`, one
+-- of its steps): the dungeon's run step from the live step on (else `at`
+-- itself when the run is in a later guide), not skipped, whose level gates
+-- hold now (`when level`: the dungeon's floor in the route; below it the
+-- party's run is no offer). -> that step's index, or nil.
+function Engine.DungeonJoinable(map, at)
+	if not (guide and computed) or type(map) ~= "number" then return nil end
+	if not player then refreshPlayer() end
+	local steps, target = guide.steps, nil
+	for s = computed, #steps do
+		local r = Own.dungeonRunOf(steps[s])
+		if r and r.map == map and Guides.Matches(steps[s].only, player) then
+			if isSkipped(s) then return nil end
+			target = s
+			break
+		end
+	end
+	if not target then
+		if type(at) ~= "number" or at < computed or not steps[at] then return nil end
+		target = at
+	end
+	for _, p in ipairs(steps[target].when or NONE) do
+		if p.k == "level" and not Own.predicateHolds(p) then return nil end
+	end
+	return target
+end
+
+-- "Run it this time" with the party (Quests/Party.lua): dungeon `map`'s run
+-- applies without its quests in the log, this session, so a character who
+-- passed its pick-ups still goes to the door with the group (the run's `when
+-- onquest` guard holds: partyRunGuard). The answer itself is
+-- Engine.ChooseDungeon's; a step the route passed keeps its outcome.
+function Engine.PartyRun(map)
+	if type(map) ~= "number" or partyRuns[map] then return end
+	partyRuns[map] = true
+	Own.dungeonGen = Own.dungeonGen + 1
+	requestUpdate()
+end
+
 -- The dungeons the guides for this character have `when dungeon` steps for
 -- (not negated): { [map] = true }. For the Options list, which offers only
 -- these. A guide whose steps are not read yet is searched in its source
@@ -9906,23 +9975,47 @@ function Own.hiddenStep(step, who)
 	return true
 end
 
--- Whether `step` (of any guide) is no step of its own (Own.hiddenStep) for
--- `who` = { class, race, faction } (Party: a member's; nil: the player's).
+-- Whether `step` (of any guide) is no step of its own for `who` = { class,
+-- race, faction, dungeons } (Party: a member's; nil: the player's): one for
+-- another class, race or faction (Own.hiddenStep), or one their dungeon
+-- answers leave out (Own.dungeonHidden: a step of a dungeon they skip, the
+-- solo way of one they run). `dungeons`: a member's answers as their "2R|"
+-- gives them ({ all, maps }, Engine.DungeonAnswerOf); without it they are not
+-- known and no step is left out for them by a dungeon.
 function Engine.StepHiddenFor(step, who)
 	if type(step) ~= "table" or type(step.goals) ~= "table" then return true end
 	if not player then refreshPlayer() end
-	return Own.hiddenStep(step, who) and true or false
+	if Own.hiddenStep(step, who) then return true end
+	if who == nil then return Own.dungeonHidden(step) end
+	local d = who.dungeons
+	if type(d) ~= "table" then return false end
+	return Own.dungeonHidden(step, function(map) return Engine.DungeonAnswerOf(d, map) end)
+end
+
+-- Another character's answer for dungeon `map` from their answers
+-- `d` = { all = "skip" | "ask" | "run", maps = { [map] = true | false } } (a
+-- party member's "2R|", Quests/Party.lua), read as Own.dungeonAnswer reads
+-- the player's: true runs it, false skips it, nil asks.
+function Engine.DungeonAnswerOf(d, map)
+	if type(d) ~= "table" or type(map) ~= "number" then return false end
+	local a
+	if type(d.maps) == "table" then a = d.maps[map] end
+	if a ~= nil then return a == true end
+	if d.all == "run" then return true elseif d.all == "ask" then return nil end
+	return false
 end
 
 -- A step that cannot apply for the character's dungeon answers: one of a
 -- dungeon they skip (`when dungeon`), or the solo way of one they run (`when
 -- !dungeon`). Not answered (Ask me), it may still apply and keeps its number.
 -- Skip is the default, so the injected steps of a dungeon route leave the
--- solo route's numbers and totals as they were.
-function Own.dungeonHidden(step)
+-- solo route's numbers and totals as they were. `answerOf(map)`: another
+-- character's answers (Engine.StepHiddenFor); the player's by default.
+function Own.dungeonHidden(step, answerOf)
+	answerOf = answerOf or Own.dungeonAnswer
 	for _, p in ipairs(step.when or NONE) do
 		if p.k == "dungeon" then
-			local a = Own.dungeonAnswer(p.map)
+			local a = answerOf(p.map)
 			if (a == false and not p.neg) or (a == true and p.neg) then return true end
 		end
 	end

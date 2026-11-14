@@ -310,6 +310,8 @@ mod packs_visibility;
 mod party;
 #[path = "party-chat.rs"]
 mod party_chat;
+#[path = "party-dungeons.rs"]
+mod party_dungeons;
 #[path = "party-group.rs"]
 mod party_group;
 #[path = "party-pair.rs"]

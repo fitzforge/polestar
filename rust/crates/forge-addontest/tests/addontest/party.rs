@@ -955,7 +955,8 @@ step = 6; Polestar.Fire("STEP_CHANGED", 6); stub.advance(2.5)
 emit({ first = first, same = same, moved = texts() })"#
 	)));
 	let first = out[0]["first"].as_array().unwrap();
-	assert!(first.len() == 2 && is_match(first[1].as_str().unwrap(), r"^1P\|5\|[^|]*\|test\|3\|test/g$"), "{first:?}");
+	assert!(first.len() == 3 && is_match(first[1].as_str().unwrap(), r"^1P\|5\|[^|]*\|test\|3\|test/g$"), "{first:?}");
+	assert_eq!(first[2], "2R|s|", "then the dungeon answers: Skip them, none answered one by one");
 	assert_eq!(out[0]["same"], 0);
 	assert!(is_match(out[0]["moved"][0].as_str().unwrap(), r"^1P\|6\|"));
 }
@@ -1161,7 +1162,7 @@ emit({ waiting = P.Waiting(goal) or false, holds = P.HoldsQuest(33), roster = #P
 		"a member without Polestar: one hello, nothing shown"
 	);
 	let answered = &out[1];
-	assert_eq!(answered["sent"], json!(["1S|33:7/8", "1P|5|0.1.0-test|test|3|test/g"]), "she answered: our snapshot and place");
+	assert_eq!(answered["sent"], json!(["1S|33:7/8", "1P|5|0.1.0-test|test|3|test/g", "2R|s|"]), "she answered: our snapshot, place and dungeon answers");
 	assert_eq!(answered["missing"], 1, "now she counts as lacking quest 33");
 	assert_eq!(answered["roster"], 1);
 	assert_eq!(answered["panel"], true);

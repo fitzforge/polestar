@@ -649,6 +649,9 @@ L["%s is on Polestar %s: your guides can differ."] = "%s 使用的是 Polestar %
 L["Party sync is on: you and your party see each other's quest progress. Turn it off in Options."] = "小队同步已开启：你和小队成员可以看到彼此的任务进度。可在选项中关闭。"
 L["Ask other players' Polestar which version it is"] = "询问其他玩家的 Polestar 版本"
 L["Up to 10 hidden addon whispers a session, to players of your faction you target or mouse over outside cities, combat and dungeons, and an answer to theirs: only the version number, so Polestar can tell you when a newer one is out. Off: none sent or answered."] = "每次登录最多发送 10 条隐藏的插件密语，对象是你在主城、战斗和地下城之外选中或鼠标指向的同阵营玩家，并回复他们发来的询问：只包含版本号，以便 Polestar 在有新版本时告诉你。关闭：不发送也不回复。"
+-- L["Your party is running %s: run it with them?"] = ""
+-- L["Run it this time"] = ""
+-- L["%s asked you to sync to their run of %s, but your route has passed it or your character is below its level."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -4318,6 +4321,7 @@ L["Part of the %s quests"] = "%s任务之一"
 -- L["%d finished quests here first"] = ""
 -- L["Jump anyway? They stay in your log, and the guide lists who takes each in."] = ""
 -- L["Jump anyway"] = ""
+-- L["Not now keeps your route as it is."] = ""
 
 -- Core/Pause.lua
 -- L["Press %s to resume, or open the guide window."] = ""

@@ -2461,6 +2461,47 @@ fn dungeon_route_ask_banner_offers_run_it_or_skip_it_and_cannot_be_dismissed() {
 	assert_eq!(skip, json!({ "call": ["ChooseDungeon", 36, false], "after": false }));
 }
 
+// Party sync, a dungeon the party runs that this character skips (Party.DungeonOffer): the banner asks "Your party
+// is running Wailing Caverns: run it with them?", Run it this time (the main link, the gamepad's first focus) or Not
+// now; it cannot be dismissed otherwise. Each answer goes to Party.AnswerDungeonOffer for that dungeon.
+const PARTY_DUNGEON: &str = r#"
+		local answered = {}
+		-- Party sync is not loaded here: every other Party call the window makes answers nothing.
+		Polestar.Party = setmetatable({
+			DungeonOffer = function() if answered.map then return nil end return { map = 43, name = "Wailing Caverns", names = { "Ana" } } end,
+			AnswerDungeonOffer = function(map, run) answered.map, answered.run = map, run end,
+		}, { __index = function() return function() return nil end end })
+		uistub.openTabs(TABS, 1)
+		local B = GF.parts.banner
+		local shown = { B:IsShown(), B.Text:GetText(), B.Jump.Label:GetText(), B.Later:IsShown() and B.Later.Label:GetText(), B.Close:IsShown(), B.Jump.psDefault == true }
+		GF.DismissBanner()
+		local kept = B:IsShown()"#;
+
+#[test]
+fn party_dungeon_banner_offers_run_it_this_time_or_not_now_and_cannot_be_dismissed() {
+	let run_it = run(&[
+		PARTY_DUNGEON,
+		r#"
+		B.Jump:Click()
+		emit({ shown = shown, kept = kept, answered = answered, after = B:IsShown() })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(run_it["shown"], json!([true, "Your party is running Wailing Caverns: run it with them?\nNot now keeps your route as it is.", "Run it this time", "Not now", false, true]));
+	assert_eq!(run_it["kept"], true, "dismissing does not answer");
+	assert_eq!(run_it["answered"], json!({ "map": 43, "run": true }));
+	assert_eq!(run_it["after"], false);
+	let not_now = run(&[
+		PARTY_DUNGEON,
+		r#"
+		B.Later:Click()
+		emit({ answered = answered, after = B:IsShown() })"#,
+	]
+	.concat())
+	.remove(0);
+	assert_eq!(not_now, json!({ "answered": { "map": 43, "run": false }, "after": false }));
+}
+
 // At a chosen dungeon's run, outside it (Engine.DungeonRun), the banner's link is "No group? Skip it"
 // (Engine.SkipDungeon); the quests kept in the log are named once after, until closed. Inside the instance the
 // link is gone. A few steps before a run (Engine.DungeonSoon) the window says to start looking for a group, until
