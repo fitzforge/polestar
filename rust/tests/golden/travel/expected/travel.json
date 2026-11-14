@@ -7180,10 +7180,9 @@
 			{
 				"id": "portal-sanctum-chamber",
 				"name": "Wizard's Sanctum",
-				"area": 1519,
+				"area": 0,
 				"a": {
 					"name": "Wizard's Sanctum tower",
-					"area": 1519,
 					"c": 0,
 					"wx": -9020.1,
 					"wy": 880.5,
@@ -7195,7 +7194,6 @@
 				},
 				"b": {
 					"name": "Wizard's Sanctum",
-					"area": 1519,
 					"c": 0,
 					"wx": -9017.5,
 					"wy": 885.9,
@@ -7211,10 +7209,9 @@
 			{
 				"id": "portal-sanctum-tower",
 				"name": "Wizard's Sanctum tower",
-				"area": 1519,
+				"area": 0,
 				"a": {
 					"name": "Wizard's Sanctum",
-					"area": 1519,
 					"c": 0,
 					"wx": -9023.3,
 					"wy": 892.4,
@@ -7226,7 +7223,6 @@
 				},
 				"b": {
 					"name": "Wizard's Sanctum tower",
-					"area": 1519,
 					"c": 0,
 					"wx": -9014.9,
 					"wy": 873.3,

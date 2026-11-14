@@ -5384,7 +5384,30 @@ walk stays inside one zone; between zones it goes only through
   the foot of the tree: the walking grid joins neither part to the other, and
   the fall from the rim kills, so a walk from the top down to its flight master
   or dock goes through Darnassus and the portal (#1761), and one up takes the
-  portal back (#989).
+  portal back (#989). An area with a height range (`z`: min, max; TravelData's
+  `zmin`, `zmax`) holds only the points with a height in it: a place only the
+  portals that land in it reach, under or over other ground on the same map,
+  which the walking maps have no floor in (`Travel.places`). The mage
+  trainers' chamber under the Wizard's Sanctum, `wizards-sanctum-chamber`
+  (heights 10 to 50), is one: no walking map (nor Polestar's walking grid) has
+  its floor, so a goal there landed on the terrain buried under the Mage
+  Quarter, which the maps join to the inn's buried ground (225 yd) and to
+  Elwynn only by a way round of 26 km: the plan hearthed ("saves 62 min"), or
+  walked over it (#1970). In the place a target, a portal end or the player
+  (below) is in no other zone, so the zone rules leave only its portals: the
+  walk up the tower (the chain `wizards-sanctum-tower`, from the stairs' top,
+  where the walking maps end, to the portal in the top room), the portal down
+  and a walk to the goal. The place's walks are drawn straight and never
+  measured. Forever's client gives no height and the place has no floor to
+  follow, so the player is in it only after the portal's own step was seen:
+  `Travel.Placed` takes a jump of 3 yd or more between two of the arrow's
+  samples, faster than 40 yd/s, onto a portal's landing (within 2 yd) as the
+  way in (or, for a portal out of the place, out); walking out of its box
+  ends it. The ride into or out of such a place ends only so, never by the
+  yards to its landing (the Sanctum's lies 6 yd from its entrance on the map),
+  so the arrow stays on the portal ("Take the portal") until the player is
+  through; the player's floor is not read there (`Nav.Sample`'s floor hint,
+  `offFloor`). A reload inside leaves the player outside until the next portal.
 
 One exception, the near walk: the live route walks the start straight to a
 target within 400 yd over a closed zone border (#1543) once the walking engine
@@ -5534,7 +5557,9 @@ The crossings file (schema 1, Era map percent):
                 "nodes": [ { "map": 1413, "x": 45.9, "y": 36.2, "radius": 20, "caption": "Enter the cave" },
                            { "map": 1413, "x": 46.2, "y": 34.9, "radius": 15, "caption": "Follow the path", "back": "Climb out" } ] } ],
   "areas": [ { "id": "rutheran-village", "name": "Rut'theran Village", "map": 1438,
-               "box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 } } ] }
+               "box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 } },
+             { "id": "wizards-sanctum-chamber", "name": "Wizard's Sanctum", "map": 1453,
+               "box": { "x1": 35.78, "y1": 77.67, "x2": 40.24, "y2": 83.8 }, "z": { "min": 10, "max": 50 } } ] }
 ```
 
 Validation (every error names its entry, e.g. `crossings[3] (id).a: radius
@@ -5543,7 +5568,7 @@ crossings, chains and areas; maps with an Era frame; x, y in 0-100 unless the po
 says `"offMap": true` (then -50-150); radius 3-100 yd; a crossing's ends on one
 continent, in different zones, at most 1000 yd apart; open pairs distinct,
 on one continent, not repeated; chains of 2+ nodes on one continent with hops
-of at most 600 yd; an area's box x1 < x2 and y1 < y2 in 0-100; captions plain text of at most 160 characters (no `|`
+of at most 600 yd; an area's box x1 < x2 and y1 < y2 in 0-100, its height range (when given) min < max; captions plain text of at most 160 characters (no `|`
 escape codes). `travel route` runs the addon planner and includes
 Polestar_Travel when it is built (`--crossings-lua none` leaves it out).
 

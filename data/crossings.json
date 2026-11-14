@@ -1096,6 +1096,16 @@
 			]
 		},
 		{
+			"id": "wizards-sanctum-tower",
+			"name": "Wizard's Sanctum",
+			"open": "mouth",
+			"note": "The Wizard's Sanctum's portal down to the mage trainers' chamber (area trigger 704) stands in the tower's top room: the walking maps climb the tower's stairs to their top (height 147, 164 yd from the ground floor) but have no floor in the room (148.6), so the walk to the portal ended on another floor (#1970). The mouth is the stairs' top; the second node is the portal (the trigger's place, on the room's floor), and the portal back up lands beside it.",
+			"nodes": [
+				{ "map": 1453, "x": 38.18, "y": 81.5, "z": 147, "radius": 5 },
+				{ "map": 1453, "x": 37.23, "y": 82.7, "z": 148.6, "radius": 5 }
+			]
+		},
+		{
 			"id": "deeprun-tram-stormwind",
 			"name": "Deeprun Tram",
 			"open": "mouth",
@@ -1227,6 +1237,14 @@
 			"map": 1438,
 			"box": { "x1": 45, "y1": 81.5, "x2": 68, "y2": 100 },
 			"note": "At the foot of Teldrassil, on the tree's map: no walk joins it to the top, only the Darnassus portals, the boats and the flight master do; the fall from the rim kills (recorded descents, #1761). The box holds only ground Polestar's walking grid reaches from the flight master and none it reaches from Dolanaar (sampled every map percent of Teldrassil 44-68 x 76-100, every half percent along the rim)"
+		},
+		{
+			"id": "wizards-sanctum-chamber",
+			"name": "Wizard's Sanctum",
+			"map": 1453,
+			"box": { "x1": 35.78, "y1": 77.67, "x2": 40.24, "y2": 83.8 },
+			"z": { "min": 10, "max": 50 },
+			"note": "The mage trainers' chamber under the Wizard's Sanctum (Jennea Cannon, Maginor Dumas, Elsharin, Larimaine Purdue, Garion Wendell and the High Order Mage stand at heights 29.6 to 30.7): neither walking map, nor Polestar's walking grid, has its floor, so a goal there landed on the terrain buried under the Mage Quarter and the plan hearthed, or walked over it (#1970). Reached only by the tower's portal down (area trigger 704) and left by the one back up (702), whose ends in the chamber it holds. The height range keeps out the tower's floors above it (106 to 177) and the buried terrain (60)."
 		}
 	]
 }

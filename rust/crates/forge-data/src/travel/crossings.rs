@@ -28,7 +28,8 @@ const KEYS_OPEN: &[&str] = &["a", "b", "oneWay", "source"];
 const KEYS_CHAIN: &[&str] = &["id", "name", "open", "note", "nodes"];
 const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "alone", "offMap"];
 /// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap.)
-const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "note", "source"];
+/// (`z`: min and max, a height range: a place only the portals that land in it reach.)
+const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "z", "note", "source"];
 
 /// A checked point: map percent, radius, world position (and a chain node's captions).
 #[derive(Clone, Debug)]
@@ -80,7 +81,9 @@ pub struct Chain {
 
 /// A part of a zone no walk joins to the rest of it (Rut'theran Village at the foot of Teldrassil): the
 /// planner treats it as a zone of its own, reached only by crossings, portals, ships and flights.
-/// World box: top/bottom (wx), left/right (wy), as a zone frame.
+/// World box: top/bottom (wx), left/right (wy), as a zone frame. With a height range (zmin, zmax) it holds only the
+/// points at those heights: a place the walking maps have no floor in, under or over others on its map, reached only
+/// by the portals that land in it (the Wizard's Sanctum's chamber under its tower, #1970).
 #[derive(Clone, Debug)]
 pub struct Area {
 	pub id: String,
@@ -91,6 +94,7 @@ pub struct Area {
 	pub bottom: f64,
 	pub left: f64,
 	pub right: f64,
+	pub z: Option<(f64, f64)>,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -412,9 +416,21 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 			errors.push(format!("{at}: box x1 < x2 and y1 < y2"));
 			continue;
 		}
+		let zr = e.get("z");
+		let z = if zr.is_undef() {
+			None
+		} else {
+			match (zr.get("min").as_num().filter(|v| v.is_finite()), zr.get("max").as_num().filter(|v| v.is_finite())) {
+				(Some(lo), Some(hi)) if is_obj(&zr) && lo < hi => Some((lo, hi)),
+				_ => {
+					errors.push(format!("{at}: z must give min < max (yards)"));
+					continue;
+				}
+			}
+		};
 		let Some(map) = map else { continue };
-		let (Some(a), Some(z)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
-		out.areas.push(Area { id: e.get("id").to_js_string(), name: name.to_js_string(), map, c: a.c, top: round(a.wx, 1), bottom: round(z.wx, 1), left: round(a.wy, 1), right: round(z.wy, 1) });
+		let (Some(a), Some(b)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
+		out.areas.push(Area { id: e.get("id").to_js_string(), name: name.to_js_string(), map, c: a.c, top: round(a.wx, 1), bottom: round(b.wx, 1), left: round(a.wy, 1), right: round(b.wy, 1), z });
 	}
 	(errors, out)
 }
@@ -620,11 +636,13 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		l.push("\t},".into());
 	}
 	if !set.areas.is_empty() {
-		l.push("\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy)".into());
+		l.push("\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy),".into());
+		l.push("\t-- with a height range (zmin, zmax) a place only the portals that land in it reach".into());
 		l.push("\tareas = {".into());
 		for a in &set.areas {
+			let z = a.z.map_or(String::new(), |(lo, hi)| format!(", zmin = {}, zmax = {}", num_str(lo), num_str(hi)));
 			l.push(format!(
-				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {} }},",
+				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {}{z} }},",
 				lua_str(&a.id),
 				lua_str(&a.name),
 				num_str(a.map),
@@ -756,5 +774,21 @@ mod tests {
 		.unwrap();
 		let (errors, _) = validate_crossings(&bad, &frames());
 		assert_eq!(errors, vec!["chains[0] (hall).nodes[1]: alone must be true or false".to_string()]);
+	}
+
+	// #1970: the Wizard's Sanctum's chamber, under its tower on the same map: an area with a height range holds only
+	// the points at those heights, a place only the portals that land in it reach.
+	#[test]
+	fn an_area_with_a_height_range_is_checked_and_written_with_it_1970() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "areas": [ { "id": "chamber", "name": "Chamber", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 10, "max": 50 } },
+				{ "id": "bad-z", "name": "Bad", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 50, "max": 10 } } ] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert_eq!(errors, vec!["areas[1] (bad-z): z must give min < max (yards)".to_string()]);
+		assert_eq!(set.areas.iter().map(|a| (a.id.as_str(), a.z)).collect::<Vec<_>>(), vec![("chamber", Some((10.0, 50.0)))]);
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("\t\t{ id = \"chamber\", name = \"Chamber\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1, zmin = 10, zmax = 50 },"), "{lua}");
 	}
 }
