@@ -974,7 +974,8 @@
 				}
 			],
 			"leftOut": {
-				"1740": "The Orb of Soran'ruk (Warlock): its Large Soran'ruk Fragment drops in Shadowfang Keep, which the Alliance route doesn't run"
+				"1740": "The Orb of Soran'ruk (Warlock): its Large Soran'ruk Fragment drops in Shadowfang Keep, which the Alliance route doesn't run",
+				"78916": "The Heart of the Void: no giver or starting item in the data and no experience (a choice of Void Pearls): not a leveling quest"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 06-ashenvale +0.8 km, +15.0 min (Ruuzel's shore to the ruins' pit, ~420 yd, the run and back); 03-loch-modan +0.3 km, +0.9 min, hub visits +0.4 (Gerrig Bonegrip in the Forlorn Cavern); 03-darkshore-return +0.1 km, +0.4 min (1275 in Auberdine); 04-redridge-mountains -0.1 km, -0.2 min; the run's XP takes 13 min off 40-50/01-stranglethorn-vale's written grind"
@@ -1340,6 +1341,27 @@
 					},
 					"note": "High Sorcerer Andromath, the same stop",
 					"gate": 29.3
+				},
+				{
+					"quest": 96609,
+					"after": {
+						"step": "Fly to Southshore",
+						"guide": "forever/alliance/40-50/04-tanaris"
+					},
+					"note": "Arille Azuregaze at Dalaran's edge, a walk from Southshore on the way to the Hinterlands (~47.3): the gryphon from Aerie Peak to Southshore and back for a player who flew there; Silvermoon Shimmerwine from Azshara's blood elves",
+					"all": true,
+					"gate": 44
+				},
+				{
+					"quest": 96812,
+					"after": {
+						"quest": 1425,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/05-the-hinterlands"
+					},
+					"note": "Sergeant Danneth, just north of Nethergarde Keep (~47.6): a word for Orphan Matron Aria in Dalaran",
+					"all": true,
+					"gate": 45
 				}
 			],
 			"run": {
@@ -1415,6 +1437,25 @@
 					"when": "onquest",
 					"all": true,
 					"note": "Archmage Celindra at Dalaran's western edge, on the way east to the Hillsbrad Fields (players' recordings: 25 hand-ins to her at 30-33)"
+				},
+				{
+					"quest": 96609,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": {
+						"step": "Fly to Southshore"
+					},
+					"all": true,
+					"note": "Arille Azuregaze, on the ride from Southshore north to Chillwind Camp (~50.9), the wine from the blood elves at Kim'jael's camp earlier in the guide"
+				},
+				{
+					"quest": 96812,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": {
+						"step": "Fly to Southshore"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Orphan Matron Aria, a short walk south of Arille, the same ride"
 				}
 			],
 			"leftOut": {
@@ -1451,9 +1492,11 @@
 			],
 			"allQuests": {
 				"minutes": null,
-				"xp": 270,
+				"xp": 10820,
 				"quests": [
-					92459
+					92459,
+					96609,
+					96812
 				]
 			},
 			"wayOnly": {
@@ -1464,7 +1507,31 @@
 					92458,
 					92432
 				]
-			}
+			},
+			"travel": [
+				{
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"to": "Dalaran",
+					"when": "level>=44; the gryphon from Aerie Peak for a player who flew there",
+					"all": true,
+					"note": "Fly to Southshore, Arille Azuregaze at Dalaran's edge, and the gryphon back to Aerie Peak (`when taxi \"Aerie Peak\"`), or the ride on to it"
+				},
+				{
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"to": "Dalaran",
+					"when": "complete 96609 or onquest 96812",
+					"all": true,
+					"note": "Arille and Orphan Matron Aria at Dalaran's edge, on the ride from Southshore to Chillwind Camp"
+				}
+			],
+			"outside": [
+				{
+					"quest": 96609,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"all": true,
+					"note": "ten Silvermoon Shimmerwine from the blood elves at Kim'jael's camp, where the route already is"
+				}
+			]
 		},
 		{
 			"dungeon": "Uldaman",
@@ -1489,6 +1556,82 @@
 					},
 					"note": "Krom Stoutarm, the same hall",
 					"gate": 42.4
+				},
+				{
+					"quest": 721,
+					"after": {
+						"quest": 720,
+						"goal": "turnin",
+						"guide": "forever/alliance/30-40/06-badlands"
+					},
+					"note": "Prospector Ryedol at Hammertoe's Digsite, as Crumpled Map goes in (~38.2): Hammertoe Grez is at the dig by Uldaman's door",
+					"all": true,
+					"gate": 37.9
+				},
+				{
+					"quest": 2418,
+					"after": {
+						"quest": 705,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/02-badlands"
+					},
+					"note": "Rigglefuzz in the Valley of Fangs (~42.8): the stones from the Shadowforge dwarves at the dig and inside",
+					"all": true,
+					"gate": 42.4
+				},
+				{
+					"quest": 722,
+					"after": {
+						"quest": 721,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/02-badlands"
+					},
+					"note": "Hammertoe Grez at the dig, before the door (~42.8): his amulet from Magregan Deepshadow (level 38 elite) at the dig's south end, with the run's group",
+					"all": true,
+					"gate": 42.5
+				},
+				{
+					"quest": 1953,
+					"after": {
+						"quest": 6141,
+						"goal": "accept",
+						"guide": "forever/alliance/30-40/05-arathi-highlands"
+					},
+					"note": "Mage: Jennea Cannon in the Wizard's Sanctum on the Stormwind stop (~36.6), the start of the Celestial Orb chain",
+					"all": true,
+					"gate": 36.3
+				},
+				{
+					"quest": 1954,
+					"after": {
+						"step": "Boat to Theramore",
+						"guide": "forever/alliance/30-40/06b-desolace"
+					},
+					"note": "Mage: Tabetha, a walk from the Theramore dock before the flight to Nijel's Point (~39.3, read from 06-badlands' end: the level model has no rows for 06b); the orb from a Burning Blade Summoner at the Mannoroc Coven on the guide's south loop",
+					"all": true,
+					"gate": 39
+				},
+				{
+					"quest": 1955,
+					"after": {
+						"quest": 1954,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+					},
+					"note": "Mage: Tabetha on the Dustwallow walk, between Mudcrush Durtfeet and Balos Jacken (~39.7): the Demon of the Orb (level 40 elite) in her garden",
+					"all": true,
+					"gate": 39.5
+				},
+				{
+					"quest": 1956,
+					"after": {
+						"quest": 1955,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+					},
+					"note": "Mage: Tabetha, the same stop: the Obsidian Sentinel inside",
+					"all": true,
+					"gate": 39.5
 				}
 			],
 			"run": {
@@ -1505,7 +1648,9 @@
 				},
 				"objectives": [
 					2398,
-					1360
+					1360,
+					2418,
+					1956
 				],
 				"insideEnds": [
 					{
@@ -1524,7 +1669,7 @@
 						"item": 7666
 					}
 				],
-				"guard": "onquest 2398,1360",
+				"guard": "onquest 2398,1360,2418,1956",
 				"gate": 42.5
 			},
 			"handins": [
@@ -1571,10 +1716,80 @@
 					},
 					"when": "onquest",
 					"note": "Talvash del Kissel, the Mystic Ward"
+				},
+				{
+					"quest": 721,
+					"guide": "forever/alliance/40-50/02-badlands",
+					"after": {
+						"quest": 704,
+						"goal": "collect"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Hammertoe Grez at the dig's northern tunnel, west of the door"
+				},
+				{
+					"quest": 722,
+					"guide": "forever/alliance/40-50/02-badlands",
+					"after": {
+						"quest": 721,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Hammertoe Grez, back from Magregan, before the run"
+				},
+				{
+					"quest": 2418,
+					"guide": "forever/alliance/40-50/02-badlands",
+					"after": "run",
+					"all": true,
+					"note": "Rigglefuzz in the Valley of Fangs, a ride south from the door and back north to the pass (~4 min)"
+				},
+				{
+					"quest": 1953,
+					"guide": "forever/alliance/30-40/06b-desolace",
+					"after": {
+						"step": "Boat to Theramore"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Mage: Tabetha, the walk from the dock"
+				},
+				{
+					"quest": 1954,
+					"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+					"after": {
+						"quest": 1177,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Mage: Tabetha on the Dustwallow walk"
+				},
+				{
+					"quest": 1955,
+					"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+					"after": {
+						"quest": 1954,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Mage: Tabetha, the same stop, once the demon is dead (a 3 minute timer)"
+				},
+				{
+					"quest": 1956,
+					"guide": "forever/alliance/40-50/02-badlands",
+					"after": {
+						"quest": 2846,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Mage: Tabetha on the walk west from Theramore (~43.2), where the Zul'Farrak route meets her too"
 				}
 			],
 			"leftOut": {
-				"2199": "Lore for a Price and the necklace chain after it (2200-2204, 2361, 3375): five Silver Bars, then a second Uldaman run for the paladin's remains and the gems; the route runs Uldaman once, before the necklace is handed in"
+				"2199": "Lore for a Price and the necklace chain after it (2200-2204, 2361, 3375): five Silver Bars, then a second Uldaman run for the paladin's remains and the gems; the route runs Uldaman once, before the necklace is handed in",
+				"1139": "The Lost Tablets of Will: Hammertoe's chain after his amulet (723-726, Ironforge; 762, Ambassador Infernus, a level 42 elite in Angor Fortress) opens it only after the dig, so the tablet needs a second Uldaman run",
+				"1192": "Indurium Ore: no experience in the Codex, and its Shimmering Flats chain (1104-1194) is off the route"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 40-50/02-badlands +2.1 min, backtracks +1.0 (the dig to the door, ~185 yd east, and back; Baelog takes The Lost Dwarves inside); 40-50/01-stranglethorn-vale +0.1 km, +0.6 min, hub visits +1.0 (Stormpike and Krom in the Hall of Explorers); 40-50/05-the-hinterlands +0.3 km, +0.8 min, hub visits +1.0 (the Ironforge hand-ins); the run's XP takes 3.5 and 7.3 min off the written grinds of 40-50/03-feralas and 40-50/07-un-goro-crater"
@@ -1596,6 +1811,75 @@
 					},
 					"gate": 39,
 					"note": "Murdaloc from the Battered Dwarven Skeleton as Agmond's Fate's first part (738) goes in: level 42, taken from 39 (a quest at most three levels over); the dungeons' experience puts runners there, while the solo route takes it after the ogres and buzzards, walking back to the skeleton"
+				}
+			],
+			"travel": [
+				{
+					"guide": "forever/alliance/40-50/02-badlands",
+					"to": "Rigglefuzz",
+					"when": "complete 2418",
+					"all": true,
+					"note": "Rigglefuzz in the Valley of Fangs after the run, then the pass to Loch Modan"
+				},
+				{
+					"guide": "forever/alliance/30-40/06b-desolace",
+					"to": "Tabetha",
+					"when": "onquest 1953; Mage",
+					"all": true,
+					"note": "Tabetha's cottage west of Theramore, from the dock and back to the flight master"
+				},
+				{
+					"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+					"to": "Tabetha",
+					"when": "complete 1954; Mage",
+					"all": true,
+					"note": "Tabetha's cottage, between Mudcrush Durtfeet and Balos Jacken"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 7600,
+				"quests": [
+					721,
+					722,
+					2418,
+					1953,
+					1954,
+					1955,
+					1956
+				],
+				"classXp": {
+					"Mage": 8920
+				}
+			},
+			"wayOnly": {
+				"quests": [
+					2398,
+					1360,
+					2240,
+					2279,
+					2439,
+					2198
+				]
+			},
+			"outside": [
+				{
+					"quest": 1954,
+					"guide": "forever/alliance/30-40/06b-desolace",
+					"all": true,
+					"note": "Mage: the Infernal Orb from a Burning Blade Summoner at the Mannoroc Coven, on the guide's south loop"
+				},
+				{
+					"quest": 1955,
+					"guide": "forever/alliance/40-50/01-stranglethorn-vale",
+					"all": true,
+					"note": "Mage: the Demon of the Orb (level 40 elite), called into Tabetha's garden by the quest"
+				},
+				{
+					"quest": 722,
+					"guide": "forever/alliance/40-50/02-badlands",
+					"all": true,
+					"note": "Magregan Deepshadow (level 38 elite) at the dig's south end, before the door"
 				}
 			]
 		},
@@ -1635,6 +1919,168 @@
 					"when": "has 10589",
 					"all": true,
 					"gate": 50
+				},
+				{
+					"quest": 3445,
+					"after": {
+						"step": "Level 49.79",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Angelas Moonbreeze at Feathermoon: the solo route's own quest (50-60/04, after the run), taken before it on a trip from Marshal's Refuge (~50.6)",
+					"all": true,
+					"gate": 48.1
+				},
+				{
+					"quest": 4143,
+					"after": {
+						"quest": 4142,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Gregan Brewspewer across the ferry from Feathermoon, the same trip: Muigin's Bloodpetal (4142, the solo route's) goes to him before the run, and he gives Haze of Evil",
+					"all": true,
+					"gate": 48.1
+				},
+				{
+					"quest": 3444,
+					"after": {
+						"quest": 3445,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Marvon Rivetseeker at the Broken Pillar, the same trip: the Stone Circle is in his chest in Ratchet (the solo route takes it after the run)",
+					"all": true,
+					"gate": 48.1
+				},
+				{
+					"quest": 3446,
+					"after": {
+						"quest": 3444,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Marvon again, back from Ratchet: answered at the Altar of Hakkar inside",
+					"all": true,
+					"gate": 48.1
+				},
+				{
+					"quest": 3447,
+					"after": {
+						"quest": 3444,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Marvon, the same stop: answered at the Idol of Hakkar inside",
+					"all": true,
+					"gate": 48.1
+				},
+				{
+					"quest": 8151,
+					"after": {
+						"step": "Fly to Astranaar",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Hunter: Dorion in Darnassus at 50, a hop from the Astranaar landing before Azshara",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8233,
+					"after": {
+						"step": "Fly to Astranaar",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Rogue: Hulfdan Blackbeard in Ironforge at 50, by hearth from the Astranaar landing; Lord Jorach Ravenholdt from Southshore, then back to Astranaar",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8234,
+					"after": {
+						"quest": 8233,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/07-un-goro-crater"
+					},
+					"note": "Rogue: Lord Jorach Ravenholdt, the Sealed Azure Bag from a Timbermaw Shaman in Azshara",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8153,
+					"after": {
+						"quest": 8151,
+						"goal": "turnin",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Hunter: Ogtinc at the Bear's Head, two Perfect Courser Antlers",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8231,
+					"after": {
+						"quest": 8153,
+						"goal": "turnin",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Hunter: Ogtinc, six Wavethrasher Scales from the east coast",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8232,
+					"after": {
+						"quest": 8231,
+						"goal": "turnin",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Hunter: Ogtinc, Morphaz' tooth inside",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8235,
+					"after": {
+						"quest": 8234,
+						"goal": "turnin",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Rogue: Archmage Xylem, ten Encoded Fragments from the Forest Oozes",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8236,
+					"after": {
+						"quest": 8235,
+						"goal": "turnin",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Rogue: Xylem, the Azure Key from Morphaz inside",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8253,
+					"after": {
+						"quest": 8252,
+						"goal": "turnin",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Mage: Archmage Xylem's last task, as his chain on the solo route ends (~50.9)",
+					"all": true,
+					"gate": 50
+				},
+				{
+					"quest": 8257,
+					"after": {
+						"quest": 8256,
+						"goal": "turnin",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Priest: Ogtinc's last task, as his chain on the solo route ends (~51)",
+					"all": true,
+					"gate": 50
 				}
 			],
 			"run": {
@@ -1651,13 +2097,30 @@
 				},
 				"objectives": [
 					1475,
-					1446
+					1446,
+					3446,
+					3447,
+					4143,
+					8253,
+					8257,
+					8232,
+					8236
 				],
 				"insideQuests": [
 					3373
 				],
-				"guard": "onquest 1475,1446",
-				"gate": 50
+				"guard": "onquest 1475,1446,3446,3447,4143,8253,8257,8232,8236",
+				"gate": 50,
+				"insideEnds": [
+					{
+						"quest": 3446,
+						"object": 148836
+					},
+					{
+						"quest": 3447,
+						"object": 148838
+					}
+				]
 			},
 			"handins": [
 				{
@@ -1686,9 +2149,152 @@
 					"when": "onquest",
 					"all": true,
 					"note": "Itharius, the same stop"
+				},
+				{
+					"quest": 3445,
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"after": {
+						"quest": 3445,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Marvon Rivetseeker at the Broken Pillar, the trip from Marshal's Refuge"
+				},
+				{
+					"quest": 4142,
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"after": {
+						"quest": 3445,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Gregan Brewspewer, across the ferry from Feathermoon, the same trip (the solo route's hand-in on 50-60/04 is then done)"
+				},
+				{
+					"quest": 3444,
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"after": {
+						"quest": 10556,
+						"goal": "collect"
+					},
+					"all": true,
+					"note": "Marvon, back from Ratchet's chest, the same trip"
+				},
+				{
+					"quest": 8151,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": {
+						"quest": 8255,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Hunter: Ogtinc, after the Priest's steps there"
+				},
+				{
+					"quest": 8153,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": {
+						"quest": 8153,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Hunter: Ogtinc, with the antlers"
+				},
+				{
+					"quest": 8231,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": {
+						"quest": 8231,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Hunter: Ogtinc, with the scales"
+				},
+				{
+					"quest": 8234,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": {
+						"quest": 8252,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Rogue: Archmage Xylem, through Sanath Lim-yo's teleport, with the bag"
+				},
+				{
+					"quest": 8235,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": {
+						"quest": 8235,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Rogue: Xylem, with the fragments"
+				},
+				{
+					"quest": 8233,
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"after": {
+						"quest": 8233,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Rogue: Lord Jorach Ravenholdt, from Southshore"
+				},
+				{
+					"quest": 8257,
+					"guide": "forever/alliance/50-60/02-felwood",
+					"after": {
+						"quest": 5155,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Priest: Greta Mosshoof on the first Emerald Sanctuary stop (~52.7)"
+				},
+				{
+					"quest": 4143,
+					"guide": "forever/alliance/50-60/04-western-plaguelands",
+					"after": {
+						"quest": 4501,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Muigin at Marshal's Refuge, the landing stop (~56.5)"
+				},
+				{
+					"quest": 8253,
+					"guide": "forever/alliance/50-60/06-silithus",
+					"after": {
+						"step": "Fly to Talrendis Point"
+					},
+					"all": true,
+					"note": "Mage: Archmage Xylem, through Sanath Lim-yo's teleport, from the Talrendis Point landing (~57.9)"
+				},
+				{
+					"quest": 8232,
+					"guide": "forever/alliance/50-60/06-silithus",
+					"after": {
+						"step": "Fly to Talrendis Point"
+					},
+					"all": true,
+					"note": "Hunter: Ogtinc, from the same landing"
+				},
+				{
+					"quest": 8236,
+					"guide": "forever/alliance/50-60/06-silithus",
+					"after": {
+						"step": "Fly to Southshore"
+					},
+					"all": true,
+					"note": "Rogue: Lord Jorach Ravenholdt, from the Southshore landing (~59.6)"
 				}
 			],
-			"leftOut": {},
+			"leftOut": {
+				"9053": "A Better Ingredient (Druid) and its chain (9063, 9052, 9051): Toxic Test has the druid stab a Devilsaur, a level 54 elite, which the route's danger rule (a goal waits until its mobs are at most 2 over) puts at 52; the route is in Un'Goro at about 49-50.6, before the run, and at 56.5, after it",
+				"8733": "Eranikus, Tyrant of the Dream: level 60, the Ahn'Qiraj war chain",
+				"3528": "The God Hakkar and its The Ancient Egg (4787): the egg lies among the Vilebranch Aman'zasi Guards (level 50 elites) and Hitah'ya the Keeper (51) at the Hinterlands' southern edge, where the route is at about 47.5 before the run; the route's danger rule holds such a goal until 49, and after the run The God Hakkar would need a second one"
+			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/01-burning-steppes +1.4 km, +5.2 min (the Fallen Hero's camp to the door in the Pool of Tears, ~840 yd, and back); 40-50/05-the-hinterlands +0.2 min (Brohann's pick-up); 50-60/06-silithus hub visits +0.4 (Brohann's hand-in on the Stormwind stop); the run's XP takes 3 and 2 min off the written grinds of 50-60/02-felwood and 50-60/06-silithus"
 			},
@@ -1706,6 +2312,41 @@
 					"when": "has 10455",
 					"all": true,
 					"note": "speak with Itharius in his cave at the swamp's western edge, between the temple's door and the Blasted Lands"
+				},
+				{
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"to": "Feathermoon, Tanaris and Ratchet",
+					"when": "level>=48.2",
+					"all": true,
+					"note": "from Marshal's Refuge: Feathermoon (Angelas; the ferry to Gregan), Gadgetzan and the Broken Pillar (Marvon), Ratchet's chest (`taxi \"Ratchet\"`, else Theramore and the ride), Marvon again, and the gryphon back to the refuge (all but Priests and Mages, who hearth on from Tanaris): +43 min by the travel planner"
+				},
+				{
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"to": "Darnassus",
+					"when": "level>=50; Hunter",
+					"all": true,
+					"note": "Dorion in Darnassus from the Astranaar landing, and back"
+				},
+				{
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"to": "Ironforge and Ravenholdt",
+					"when": "level>=50; Rogue",
+					"all": true,
+					"note": "the hearth to Ironforge (Hulfdan Blackbeard), the gryphon to Southshore, Ravenholdt Manor, then Menethil, the boat and the hippogryph back to Astranaar"
+				},
+				{
+					"guide": "forever/alliance/50-60/06-silithus",
+					"to": "Xylem and Ogtinc",
+					"when": "complete 8253 (Mage) or 8232 (Hunter)",
+					"all": true,
+					"note": "from the Talrendis Point landing, then on into Felwood"
+				},
+				{
+					"guide": "forever/alliance/50-60/06-silithus",
+					"to": "Ravenholdt",
+					"when": "complete 8236; Rogue",
+					"all": true,
+					"note": "Ravenholdt Manor from the Southshore landing"
 				}
 			],
 			"checks": [
@@ -1718,18 +2359,72 @@
 			],
 			"allQuests": {
 				"minutes": null,
-				"xp": 7100,
+				"xp": 25160,
 				"quests": [
 					1446,
-					3374
-				]
+					3374,
+					3445,
+					3444,
+					4142,
+					4143,
+					3446,
+					3447,
+					8253,
+					8257,
+					8151,
+					8153,
+					8231,
+					8232,
+					8233,
+					8234,
+					8235,
+					8236
+				],
+				"classXp": {
+					"Hunter": 17050,
+					"Mage": 6350,
+					"Priest": 6350,
+					"Rogue": 14510
+				}
 			},
 			"wayOnly": {
 				"quests": [
 					1475,
 					3373
 				]
-			}
+			},
+			"outside": [
+				{
+					"quest": 3444,
+					"guide": "forever/alliance/40-50/07-un-goro-crater",
+					"all": true,
+					"note": "the Stone Circle in Marvon's chest in Ratchet, on the trip from Marshal's Refuge"
+				},
+				{
+					"quest": 8153,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"all": true,
+					"note": "Hunter: two Perfect Courser Antlers from the Mosshoof Coursers near Ogtinc"
+				},
+				{
+					"quest": 8231,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"all": true,
+					"note": "Hunter: six Wavethrasher Scales on the east coast by the Tower of Eldara"
+				},
+				{
+					"quest": 8234,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"all": true,
+					"note": "Rogue: the Sealed Azure Bag from a Timbermaw Shaman in northern Azshara"
+				},
+				{
+					"quest": 8235,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"all": true,
+					"note": "Rogue: ten Encoded Fragments from the Forest Oozes"
+				}
+			]
 		},
 		{
 			"dungeon": "Stratholme",
@@ -1764,7 +2459,30 @@
 					"note": "back to Egan, right after the run"
 				}
 			],
-			"leftOut": {},
+			"leftOut": {
+				"5212": "The Flesh Does Not Lie (and The Active Agent, 5213): Betina Bigglezink at Light's Hope, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5213": "The Active Agent: after 5212, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5214": "The Great Fras Siabi: Smokey LaRue at Light's Hope, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5243": "Houses of the Holy: Leonid Barthalomew at Light's Hope, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5251": "The Archivist (and 5262, 5263): Duke Nicholas Zverenhoff at Light's Hope, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5262": "The Truth Comes Crashing Down: after 5251, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5263": "Above and Beyond: after 5262, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5305": "Sweet Serenity: Lilith the Lithe in Winterspring, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60; the route doesn't go back to Winterspring after it",
+				"5307": "Corruption: Seril Scourgebane in Winterspring, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60; the route doesn't go back to Winterspring after it",
+				"8869": "Sweet Serenity: no giver in the data, and level 60",
+				"5122": "The Medallion of Faith: Aurius, inside; its Aurius' Reckoning (5125) ends inside at the run's end, when the route reaches 60",
+				"5125": "Aurius' Reckoning: given and ended inside, at the run's end, when the route reaches 60",
+				"5463": "Menethil's Gift (and 5464): the end of Scholomance's chain from 5382, which opens only after the route's Scholomance run",
+				"5464": "Menethil's Gift: after 5463",
+				"5848": "Of Love and Family: the end of a long Plaguelands chain (5542-5846) the route doesn't take; level 60",
+				"5063": "Cap of the Scarlet Savant: a crafting quest of Malyfous Darkhammer in Winterspring, no experience",
+				"5067": "Leggings of Arcana: a crafting quest of Malyfous Darkhammer, no experience",
+				"5068": "Breastplate of Bloodthirst: a crafting quest of Malyfous Darkhammer, no experience",
+				"5166": "Breastplate of the Chromatic Flight: Jeziba's crafting chain (5160-5164), level 60",
+				"84330": "A Wee Bit O' Necromancy: no experience in the Codex",
+				"8829": "The Ultimate Deception: level 60, the Ahn'Qiraj war's briefing",
+				"8905": "An Earnest Proposition (8905-8909, 84147) and the Tier 0.5 chain after it (8921-8958, 8945, 8968-8991): level 60 armor upgrades"
+			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/06-silithus +1.4 km, backtracks +1.0 (Egan in Terrordale to the main gate, ~800 yd, and back), the guide 7.6 min shorter all told (the run's XP shortens its written top-up)"
 			},
@@ -1810,7 +2528,20 @@
 					"note": "back to Eva, right after the run"
 				}
 			],
-			"leftOut": {},
+			"leftOut": {
+				"5529": "Plagued Hatchlings (and its Healthy Dragon Scale, 5582): Betina Bigglezink at Light's Hope, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5582": "Healthy Dragon Scale: after 5529, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"5343": "Barov Family Fortune: Weldon Barov at Chillwind Camp, level 60, handed in after the run, which the route makes last, at about 59.8 by the level model: its experience comes at 60",
+				"4771": "Dawn's Gambit: the end of Betina's chain (4726-5531), level 60",
+				"5531": "Betina Bigglezink: a step of the same chain, level 60",
+				"5384": "Kirtonos the Herald (and Krastinov's Bag of Horrors, 5515): Eva Sarkhoff gives them after the run's own 5382 is handed in, so they need a second run",
+				"5515": "Krastinov's Bag of Horrors: after 5382, a second run",
+				"5466": "The Lich, Ras Frostwhisper: the end of Eva Sarkhoff's chain after 5382, a second run",
+				"5167": "Legplates of the Chromatic Defier: Jeziba's crafting chain, level 60",
+				"7629": "Imp Delivery: the Warlock mount chain, level 60",
+				"7647": "Judgment and Redemption: the Paladin mount chain, level 60",
+				"8999": "Saving the Best for Last (8999-9006): the Tier 0.5 chain, level 60"
+			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/06-silithus +0.4 km, +3.4 min (Eva Sarkhoff and the door, beside Artist Renfray's stop)"
 			},
@@ -1905,6 +2636,17 @@
 					"when": "turnedin 3520",
 					"all": true,
 					"gate": 46.2
+				},
+				{
+					"quest": 82084,
+					"after": {
+						"quest": 2861,
+						"goal": "accept",
+						"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+					},
+					"note": "Mage: Garion Wendell, a step from Jennea Cannon in the Wizard's Sanctum (~42.4): Zukk'ash Resin at 40-50/03's Writhing Deep, Farraki Papyrus in the run, a Pristine Owlbeast Quill in the Hinterlands",
+					"all": true,
+					"gate": 42.5
 				}
 			],
 			"run": {
@@ -1924,9 +2666,10 @@
 					2768,
 					3042,
 					3527,
-					2846
+					2846,
+					82084
 				],
-				"guard": "onquest 2865,2768,3042,3527,2846",
+				"guard": "onquest 2865,2768,3042,3527,2846,82084",
 				"gate": 46.2
 			},
 			"handins": [
@@ -1995,12 +2738,23 @@
 					},
 					"all": true,
 					"note": "Tabetha: a flight to Theramore before the flight to Auberdine, which then leaves from Theramore (~47.3)"
+				},
+				{
+					"quest": 82084,
+					"guide": "forever/alliance/40-50/05-the-hinterlands",
+					"after": {
+						"quest": 1475,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Mage: Garion Wendell on the Stormwind stop (~47.6)"
 				}
 			],
 			"leftOut": {
 				"2770": "Gahz'rilla: he is called with the Mallet of Zul'Farrak, made from the Sacred Mallet of Qiaga the Keeper, a level 50 elite on the Altar of Zul in the Hinterlands; the route is there only at about 43, before Wizzle Brassbolts gives the quest, and 7 levels under her",
 				"2991": "Nekrum's Medallion: Thadius Grimshade gives it at Nethergarde Keep after The Altar of Zul, which the route does at about 47.5, after its only Zul'Farrak run",
-				"351": "Find OOX-17/TN!: its beacon is a rare drop of Tanaris' wildlife, not the dungeon's"
+				"351": "Find OOX-17/TN!: its beacon is a rare drop of Tanaris' wildlife, not the dungeon's",
+				"96770": "The Witch Doctor's Head: no experience in the Codex (a reward-only quest), from Archmage Lan'dalock in Dalaran"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, off vs this dungeon): 40-50/04-tanaris +1.1 km (the pool to the gate and back), backtracks +1, hub visits +0; the guide 29 min shorter (its grind to 47 shortened by the run's XP)"
@@ -2028,8 +2782,12 @@
 					2861,
 					2846,
 					3520,
-					3527
-				]
+					3527,
+					82084
+				],
+				"classXp": {
+					"Mage": 3900
+				}
 			},
 			"wayOnly": {
 				"quests": [
@@ -2037,7 +2795,21 @@
 					2768,
 					3042
 				]
-			}
+			},
+			"outside": [
+				{
+					"quest": 82084,
+					"guide": "forever/alliance/40-50/03-feralas",
+					"all": true,
+					"note": "Mage: Zukk'ash Resin at the Writhing Deep, where the route frees Raschal"
+				},
+				{
+					"quest": 82084,
+					"guide": "forever/alliance/40-50/05-the-hinterlands",
+					"all": true,
+					"note": "Mage: a Pristine Owlbeast Quill from the owlbeasts between the Altar of Zul and Skulk Rock"
+				}
+			]
 		},
 		{
 			"dungeon": "Zul'Farrak",

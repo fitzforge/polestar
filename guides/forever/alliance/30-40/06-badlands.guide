@@ -16,7 +16,9 @@ next forever/alliance/30-40/06b-desolace
 # last part hands back to 40-50/03-feralas (43+) or 40-50/01-stranglethorn-vale at Theramore.
 # Uldaman (`when dungeon "Uldaman"`, dungeons in the route; the run is in 40-50/02-badlands): a runner, past level 39
 # at Agmond's End thanks to the dungeons' experience, takes Murdaloc (739) from the skeleton as 738 goes in, instead
-# of walking back to it after the ogres and buzzards; the solo route takes it there once its level allows.
+# of walking back to it after the ogres and buzzards; the solo route takes it there once its level allows. Its
+# every-quest route (`when dungeon "Uldaman" all`) takes Ryedol's A Sign of Hope (721) as Crumpled Map (720) goes in:
+# Hammertoe Grez is at the dig by Uldaman's door, on the way to the run.
 
 step Into Badlands
   zone Badlands
@@ -52,6 +54,14 @@ step Hammertoe's Digsite
   accept 733
   turnin 720
   turnin 719                          -- Prospector Ryedol
+
+step Prospector Ryedol
+  when dungeon "Uldaman" all
+  when turnedin 720
+  when level>=37.9
+  zone Badlands
+  tip For your Uldaman run, later at about 43, take Ryedol's errand after all: Hammertoe Grez is alive, at the dig beside Uldaman's door, which the route passes on the way in.
+  accept 721                          -- Prospector Ryedol
 
 # ---------------------------------------------------------------- The middle
 

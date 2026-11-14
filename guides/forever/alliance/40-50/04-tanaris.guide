@@ -28,6 +28,9 @@ next forever/alliance/40-50/05-the-hinterlands
 # is only at about 43, before Wizzle Brassbolts gives the quest here), Nekrum's Medallion (2991: Thadius Grimshade
 # gives it at Nethergarde Keep after The Altar of Zul, on 40-50/05-the-hinterlands, after the run), Find
 # OOX-17/TN! (351: its beacon is a rare drop of Tanaris' wildlife, not the dungeon's).
+# City of Dalaran (`when dungeon "City of Dalaran" all`): Arille Azuregaze's A Taste of Home (96609) on the way to the
+# Hinterlands (from Southshore, a gryphon away from Aerie Peak); the wine is from Azshara's blood elves on the Burning
+# Steppes guide's Kim'jael stop, and it goes back to her from that guide's Southshore landing.
 
 step Thousand Needles
   zone Thousand Needles
@@ -40,7 +43,6 @@ step Mirage Raceway
   tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Zamek by the goblin camp.
   turnin 2769
   turnin 1137                         -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
-
 
 step Tanaris
   zone Tanaris
@@ -188,17 +190,18 @@ step The pool by Sandsorrow Watch
 
 step Zul'Farrak
   when dungeon "Zul'Farrak"
-  when onquest 2865,2768,3042,3527,2846
+  when onquest 2865,2768,3042,3527,2846,82084
   when level>=46.2
   zone Tanaris
   tip Zul'Farrak is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.
-  tip Inside: the Scarabs drop the shells, every Sandfury troll can drop Troll Temper, and Sergeant Bly carries the Divino-matic Rod.
+  tip Inside: the Scarabs drop the shells, every Sandfury troll can drop Troll Temper, and Sergeant Bly carries the Divino-matic Rod. A Mage finds Garion Wendell's Farraki Papyrus on the zombies and in the shallow graves of the troll graveyard, unless you chose only the quests on your way.
   enter "Zul'Farrak" @38.7,20.1
   complete 2865 @38.7,20.1            -- Scarab Shells: the Scarabs, inside
   complete 3042 @38.7,20.1            -- Troll Temper: the Sandfury trolls, inside
   complete 2768 @38.7,20.1            -- Divino-matic Rod: Sergeant Bly, inside
   complete 3527 @38.7,20.1            -- The Prophecy of Mosh'aru: the tablets of Theka the Martyr and Hydromancer Velratha, inside
   complete 2846 @38.7,20.1            -- Tiara of the Deep: Hydromancer Velratha, inside
+  collect 221360 quest 82084.3 @38.7,20.1 only Mage -- A Lesson in Literacy: Farraki Papyrus, the graveyard's zombies and graves, inside
 
 step Gadgetzan
   turnin 992                          -- Senior Surveyor Fizzledowser
@@ -452,6 +455,33 @@ step Fly to Southshore
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Southshore"
   zone Hillsbrad Foothills
+
+step Fly to Southshore
+  when dungeon "City of Dalaran" all
+  when level>=44
+  when zone "The Hinterlands"
+  zone The Hinterlands
+  tip For a Dalaran quest: Arille Azuregaze, at the city's edge north-west of Southshore, gives A Taste of Home. The gryphon to Southshore, the walk there and back.
+  goto 11.1,46.1 "Aerie Peak flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
+
+step Arille Azuregaze
+  when dungeon "City of Dalaran" all
+  when level>=44
+  zone Alterac Mountains
+  tip Arille Azuregaze stands at Dalaran's edge, up the road north-west of Southshore. She wants ten bottles of Silvermoon Shimmerwine from Azshara's blood elves, at Kim'jael's camp in the Burning Steppes guide.
+  accept 96609                        -- Arille Azuregaze
+
+step Fly to Aerie Peak
+  when dungeon "City of Dalaran" all
+  when level>=44
+  when taxi "Aerie Peak"
+  when !zone "The Hinterlands"
+  zone Hillsbrad Foothills
+  goto 49.4,52.1 "Southshore flight master"
+  fly "Aerie Peak"
+  zone The Hinterlands
 
 step The Hinterlands
   when !taxi "Aerie Peak"

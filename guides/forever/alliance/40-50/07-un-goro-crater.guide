@@ -11,6 +11,14 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Noggenfogger Elixir (2662), straight after Delivery for Marin.
+# Sunken Temple (`when dungeon "Sunken Temple" all`, the run at the end of 50-60/01-burning-steppes): before the
+# flight on from Marshal's Refuge, one trip takes Marvon Rivetseeker's two temple quests, Into the Depths and Secret of
+# the Circle (3446, 3447), which the solo route's later Feralas and Tanaris stops reach only after the run: Angelas
+# Moonbreeze's The Sunken Temple (3445) at Feathermoon, Muigin's Bloodpetal to Gregan Brewspewer for Haze of Evil
+# (4142, 4143) across the ferry, Marvon at the Broken Pillar for The Stone Circle (3444), its circle in Marvon's chest in
+# Ratchet, and Marvon again; then back to the refuge. Hunters and Rogues take their class quest for Morphaz in the
+# temple (8151 from Dorion in Darnassus, a hop from Astranaar; 8233 from Hulfdan Blackbeard in Ironforge, with Lord
+# Jorach Ravenholdt's Sealed Azure Bag from Southshore) before Azshara.
 
 step Fly to Menethil Harbor
   zone Ironforge
@@ -175,6 +183,123 @@ step Level 49.79
   goto 57.0,10.2 map 1449 "Pterrordax"
   level 49.79 grind 9166               -- grind on Pterrordax
 
+step Fly to Feathermoon
+  when dungeon "Sunken Temple" all
+  when level>=48.1
+  zone Un'Goro Crater
+  tip For your Sunken Temple run, at about 52: Marvon Rivetseeker's temple quests start with Angelas Moonbreeze at Feathermoon Stronghold, and Muigin's Bloodpetal goes to Gregan Brewspewer across the ferry. One trip: Feathermoon, then Marvon in Tanaris, his chest in Ratchet, Marvon again, and back to this refuge.
+  goto 45.3,6.0 "Marshal's Refuge flight master"
+  fly "Feathermoon"
+  zone Feralas
+
+step Angelas Moonbreeze
+  when dungeon "Sunken Temple" all
+  when level>=48.1
+  zone Feralas
+  tip Angelas Moonbreeze, in Feathermoon Stronghold, sends you to Marvon Rivetseeker in Tanaris.
+  accept 3445                         -- Angelas Moonbreeze
+
+step Boat to The Forgotten Coast
+  when dungeon "Sunken Temple" all
+  when onquest 4142
+  when level>=48.1
+  zone Feralas
+  goto 31.0,39.8 "Boat to The Forgotten Coast"
+
+step Gregan Brewspewer
+  when dungeon "Sunken Temple" all
+  when onquest 4142
+  when level>=48.1
+  zone Feralas
+  tip Gregan's camp lies north of the Twin Colossals. He wants Atal'ai Haze from the temple's oozes and lurkers, for Muigin.
+  turnin 4142                         -- Gregan Brewspewer
+  accept 4143
+
+step Fly to Gadgetzan
+  when dungeon "Sunken Temple" all
+  when onquest 3445
+  zone Feralas
+  tip Back over to the stronghold and the gryphon to Gadgetzan.
+  goto 30.3,43.3 "Feathermoon flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Marvon Rivetseeker
+  when dungeon "Sunken Temple" all
+  when onquest 3445
+  when level>=48.1
+  zone Tanaris
+  tip Ride south-west to Marvon Rivetseeker's camp at the Broken Pillar. The Stone Circle he wants is in his chest in Ratchet.
+  turnin 3445                         -- Marvon Rivetseeker
+  accept 3444
+
+step Fly to Ratchet
+  when dungeon "Sunken Temple" all
+  when onquest 3444
+  when taxi "Ratchet"
+  zone Tanaris
+  goto 51.0,29.3 "Gadgetzan flight master"
+  fly "Ratchet"
+  zone The Barrens
+
+step Fly to Theramore
+  when dungeon "Sunken Temple" all
+  when onquest 3444
+  when !taxi "Ratchet"
+  zone Tanaris
+  goto 51.0,29.3 "Gadgetzan flight master"
+  fly "Theramore"
+  zone Dustwallow Marsh
+
+step Ratchet
+  when dungeon "Sunken Temple" all
+  when onquest 3444
+  zone The Barrens
+  tip Marvon's chest stands in his workshop by Ratchet's docks.
+  getfp "Ratchet"
+  collect 10556 quest 3444.1 @62.5,38.5 -- Stone Circle
+
+step Fly to Gadgetzan
+  when dungeon "Sunken Temple" all
+  when complete 3444
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Marvon Rivetseeker
+  when dungeon "Sunken Temple" all
+  when complete 3444
+  when level>=48.1
+  zone Tanaris
+  tip Back to Marvon at the Broken Pillar. Into the Depths and Secret of the Circle are both answered inside the temple, at the Altar of Hakkar and the Idol of Hakkar.
+  turnin 3444                         -- Marvon Rivetseeker
+  accept 3446
+  accept 3447
+
+step Abandon The Sunken Temple
+  when dungeon "Sunken Temple" all
+  when onquest 3445
+  tip The Sunken Temple is still in your log: the route takes it again at Feathermoon later, so abandon it now.
+  abandon 3445                        -- The Sunken Temple
+
+step Abandon The Stone Circle
+  when dungeon "Sunken Temple" all
+  when onquest 3444
+  when !complete 3444
+  tip The Stone Circle is still unfinished: Marvon gives it again later on the route, so abandon it now.
+  abandon 3444                        -- The Stone Circle
+
+step Fly to Marshal's Refuge
+  when dungeon "Sunken Temple" all
+  when zone "Tanaris"
+  only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid
+  zone Tanaris
+  tip Back to the refuge for the flight on.
+  goto 51.0,29.3 "Gadgetzan flight master"
+  fly "Marshal's Refuge"
+  zone Un'Goro Crater
+
 step Fly to Astranaar
   only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid
   zone Un'Goro Crater
@@ -211,6 +336,100 @@ step Fly to Astranaar
   zone Darkshore
   goto 36.4,45.6 "Auberdine flight master"
   fly "Astranaar"
+
+step Fly to Rut'theran Village
+  when dungeon "Sunken Temple" all
+  when level>=50
+  only Hunter
+  zone Ashenvale
+  tip For your Sunken Temple run: at 50 the hunter trainers give The Hunter's Charm, for Ogtinc in Azshara, whose last task is a tooth of Morphaz, a drake in the temple. Dorion is in Darnassus, a short flight away.
+  goto 34.4,48.0 "Astranaar flight master"
+  fly "Rut'theran Village"
+  zone Teldrassil
+
+step Dorion
+  when dungeon "Sunken Temple" all
+  when level>=50
+  only Hunter
+  zone Darnassus
+  tip Through the portal to Darnassus: Dorion is a hunter trainer in the Cenarion Enclave.
+  accept 8151 npc 4205                -- Dorion
+
+step Fly to Astranaar
+  when dungeon "Sunken Temple" all
+  when zone "Darnassus"
+  only Hunter
+  zone Teldrassil
+  tip Back through the portal and the hippogryph to Astranaar.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  fly "Astranaar"
+  zone Ashenvale
+
+step To Ironforge
+  when dungeon "Sunken Temple" all
+  when level>=50
+  only Rogue
+  zone Ironforge
+  tip For your Sunken Temple run: at 50 the rogue trainers give A Simple Request, to Lord Jorach Ravenholdt, whose chain ends with the Azure Key from Morphaz, a drake in the temple. Hearth to Ironforge for Hulfdan Blackbeard.
+  goto 18.15,51.45 "Stonefire Tavern"
+
+step Hulfdan Blackbeard
+  when dungeon "Sunken Temple" all
+  when level>=50
+  only Rogue
+  zone Ironforge
+  accept 8233 npc 5165                -- Hulfdan Blackbeard
+
+step Fly to Southshore
+  when dungeon "Sunken Temple" all
+  when onquest 8233
+  only Rogue
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
+
+step Lord Jorach Ravenholdt
+  when dungeon "Sunken Temple" all
+  when onquest 8233
+  when level>=50
+  only Rogue
+  zone Alterac Mountains
+  tip Ravenholdt Manor hides in the hills east of Tarren Mill. The trail starts behind the plateau north of Durnholde Keep, climbs into the hills and runs through a small tunnel into the Alterac Mountains; Lord Jorach is inside the manor. Don't attack anyone there: lost Ravenholdt reputation makes him refuse to speak to you. His Sealed Azure Bag is on a Timbermaw Shaman in Azshara.
+  turnin 8233                         -- Lord Jorach Ravenholdt
+  accept 8234
+
+step Abandon A Simple Request
+  when dungeon "Sunken Temple" all
+  when onquest 8233
+  only Rogue
+  tip A Simple Request is still in your log: the route doesn't come back to Ravenholdt before Azshara, so abandon it.
+  abandon 8233                        -- A Simple Request
+
+step Fly to Menethil Harbor
+  when dungeon "Sunken Temple" all
+  when turnedin 8233
+  only Rogue
+  zone Hillsbrad Foothills
+  goto 49.4,52.1 "Southshore flight master"
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Boat to Auberdine
+  when dungeon "Sunken Temple" all
+  when turnedin 8233
+  only Rogue
+  zone Wetlands
+  goto 4.5,56.7 "Boat to Auberdine"
+
+step Fly to Astranaar
+  when dungeon "Sunken Temple" all
+  when turnedin 8233
+  only Rogue
+  zone Darkshore
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Astranaar"
+  zone Ashenvale
 
 step Level 50.4
   zone Azshara

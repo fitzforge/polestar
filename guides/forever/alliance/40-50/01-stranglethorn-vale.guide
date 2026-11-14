@@ -22,6 +22,11 @@ next forever/alliance/40-50/02-badlands
 # Zul'Farrak (run in forever/alliance/40-50/04-tanaris): its every-quest route (`when dungeon "Zul'Farrak" all`)
 # takes Jennea Cannon's Tabetha's Task (2861) on the Stormwind stop, in the Wizard's Sanctum beside High Sorcerer
 # Andromath: Tabetha, on 40-50/02-badlands' walk west from Theramore, takes it and gives Tiara of the Deep (2846).
+# A Mage's Celestial Orb chain (Uldaman, `when dungeon "Uldaman" all`): the Infernal Orb goes back to Tabetha on the
+# Dustwallow walk, between Mudcrush Durtfeet and Balos Jacken, for The Exorcism (1955, the Demon of the Orb in her
+# garden) and Power in Uldaman (1956, the Obsidian Sentinel inside the run). A Mage also takes Garion Wendell's A Lesson
+# in Literacy (82084, Zul'Farrak) beside Jennea Cannon: the resin in Feralas, the papyrus in the run, the quill in the
+# Hinterlands, and Garion again on 40-50/05-the-hinterlands' Stormwind stop.
 
 # ---------------------------------------------------------------- Theramore
 
@@ -109,6 +114,49 @@ step Swamplight Manor
 
 step Mudcrush Durtfeet
   turnin 1177
+
+step Tabetha
+  when dungeon "Uldaman" all
+  when complete 1954
+  only Mage
+  zone Dustwallow Marsh
+  tip For Power in Uldaman: Tabetha's cottage is south-east of Mudcrush, north of the Stonemaul Ruins.
+  turnin 1954 npc 6546                -- Tabetha
+
+step The Exorcism
+  when dungeon "Uldaman" all
+  when turnedin 1954
+  when level>=39.5
+  only Mage
+  zone Dustwallow Marsh
+  tip Accepting The Exorcism starts a 3 minute timer and calls the Demon of the Orb into Tabetha's garden, a level 40 elite that resists many spells, roots and slows: kill the critters around the cottage first, pull it from range from the dock, and hand the quest in straight away. Power in Uldaman then wants the Obsidian Sentinel's power source, inside the run.
+  accept 1955 npc 6546                -- Tabetha
+  kill 6549 quest 1955.1              -- Demon of the Orb (elite, 40)
+
+step Tabetha
+  when dungeon "Uldaman" all
+  when complete 1955
+  when level>=39.5
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1955 npc 6546                -- Tabetha
+  accept 1956
+
+step Abandon The Infernal Orb
+  when dungeon "Uldaman" all
+  when onquest 1954
+  when !complete 1954
+  only Mage
+  tip The Infernal Orb is still unfinished: the route doesn't come back to the Mannoroc Coven, so abandon it.
+  abandon 1954                        -- The Infernal Orb
+
+step Abandon The Exorcism
+  when dungeon "Uldaman" all
+  when onquest 1955
+  when !complete 1955
+  only Mage
+  tip The Exorcism is still unfinished: without the demon now, the route doesn't come back to Tabetha before your Uldaman run, so abandon it.
+  abandon 1955                        -- The Exorcism
 
 step Balos Jacken
   tip The deserters camp south of the road, west of Mudcrush's hut.
@@ -412,6 +460,14 @@ step Jennea Cannon
   zone Stormwind City
   tip For your Zul'Farrak run in Tanaris, at about 46: Jennea Cannon, a mage trainer in the Wizard's Sanctum, the Mage Quarter's violet tower, sends anyone to Tabetha in Dustwallow Marsh, on the next guide's walk west from Theramore.
   accept 2861 npc 5497                -- Jennea Cannon
+
+step Garion Wendell
+  when dungeon "Zul'Farrak" all
+  when level>=42.5
+  only Mage
+  zone Stormwind City
+  tip For your Zul'Farrak run: Garion Wendell, a few steps from Jennea, wants three spellbook materials: Zukk'ash Resin from the Zukk'ash wasps of Feralas, Farraki Papyrus from Zul'Farrak's zombies and graves, and a Pristine Owlbeast Quill from the Hinterlands' owlbeasts.
+  accept 82084 npc 211033             -- Garion Wendell
 
 step Stormwind
   zone Stormwind City

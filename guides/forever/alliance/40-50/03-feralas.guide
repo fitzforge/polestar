@@ -11,6 +11,8 @@ next forever/alliance/40-50/04-tanaris
 # into this file.
 # Added here: Rise of the Silithid (4267).
 # Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
+# Zul'Farrak (`when dungeon "Zul'Farrak" all`, the run in 40-50/04-tanaris): a Mage carrying Garion Wendell's A Lesson
+# in Literacy (82084, from 40-50/01-stranglethorn-vale's Stormwind stop) takes the Zukk'ash Resin at the Writhing Deep.
 
 step Into The Barrens
   zone The Barrens
@@ -141,6 +143,13 @@ step The Writhing Deep
   turnin 4135                         -- Zukk'ash Pod, inside
   accept 4265
   complete 4265
+
+step Zukk'ash Resin
+  when dungeon "Zul'Farrak" all
+  when onquest 82084
+  only Mage
+  tip For Garion Wendell: the hive's Zukk'ash wasps, stingers, workers and tunnelers carry Zukk'ash Resin.
+  collect 221361 quest 82084.2        -- Zukk'ash Resin
 
 # ---------------------------------------------------------------- Level 45, then the Rage Scar yetis
 

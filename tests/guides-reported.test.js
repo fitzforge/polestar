@@ -11933,7 +11933,7 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 			const name = dungeonKey(m[1]);
 			const ok = runs.some((r) => r.faction === faction && dungeonKey(r.dungeon) === name &&
 				[r.run.guide, ...(r.pickups || []).map((p) => (p.after && p.after.guide) || p.guide), ...(r.handins || []).map((h) => h.guide),
-					...(r.takenEarlier || []).map((t) => t.guide)].includes(id));
+					...(r.takenEarlier || []).map((t) => t.guide), ...(r.outside || []).map((o) => o.guide), ...(r.travel || []).map((t) => t.guide)].includes(id));
 			if (!ok) bad.push(`${id}: ${m[1]}`);
 		}
 	}

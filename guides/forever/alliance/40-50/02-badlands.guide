@@ -19,7 +19,12 @@ next forever/alliance/40-50/03-feralas
 # then Dinita Stonemantle, and Talvash del Kissel) are on the Ironforge stop of
 # forever/alliance/40-50/05-the-hinterlands (`when complete`/`when onquest`). Left out: Talvash's chain after the
 # necklace (2199-2204: five Silver Bars, then a second Uldaman run for the paladin's remains and the gems; the route
-# runs Uldaman once). Solution to Doom (709) is on 30-40/06-badlands, behind `when group 709`.
+# runs Uldaman once). Solution to Doom (709) is on 30-40/06-badlands, behind `when group 709`. The every-quest route
+# (`when dungeon "Uldaman" all`) takes Rigglefuzz's Power Stones (2418) in the Valley of Fangs, back to him after the
+# run; hands Ryedol's A Sign of Hope (721, from 30-40/06) to Hammertoe Grez at the dig and takes his Amulet of Secrets
+# (722, Magregan Deepshadow at the dig's south end) before the door; and hands a Mage's Power in Uldaman (1956) to
+# Tabetha on the walk west from Theramore. Left out: Hammertoe's chain on to The Lost Tablets of Will (723-726, 762,
+# 1139: Ironforge and Angor Fortress, then a second Uldaman run).
 # Zul'Farrak (run in forever/alliance/40-50/04-tanaris): its every-quest route (`when dungeon "Zul'Farrak" all`)
 # hands Tabetha's Task (2861, from 40-50/01's Stormwind stop) to Tabetha on the walk west from Theramore and takes
 # her Tiara of the Deep (2846) there.
@@ -32,6 +37,13 @@ step Agmond's End
 step Valley of Fangs
   turnin 705                          -- Rigglefuzz: Blue Pearls from Stranglethorn
   note Rigglefuzz's next quest pays no experience: skip it.
+
+step Rigglefuzz
+  when dungeon "Uldaman" all
+  when level>=42.4
+  zone Badlands
+  tip For your Uldaman run, later in this guide: Rigglefuzz also wants Power Stones, eight Dentrium and eight An'Alleum, from the Shadowforge dwarves at the dig by Uldaman's door and inside.
+  accept 2418                         -- Rigglefuzz
 
 step Boss Tho'grun
   tip Boss Tho'grun does not stay at Camp Boff: he walks a long loop around the Badlands with his guards, from the camp in the west along the south of the zone to about 61,69, north to about 49,49 and back west to the camp. The arrow follows his loop west from here until you meet him.
@@ -89,22 +101,80 @@ step The Uldaman dig
   collect 8047 quest 17               -- Magenta Fungus Cap; below ground
   collect 4610 quest 704              -- Carved Stone Urn; below ground
 
+step Hammertoe Grez
+  when dungeon "Uldaman" all
+  when onquest 721
+  zone Badlands
+  tip For your Uldaman run: Hammertoe Grez is at the dig's north end, west of the door.
+  turnin 721 npc 2909                 -- Hammertoe Grez
+
+step Hammertoe Grez
+  when dungeon "Uldaman" all
+  when turnedin 721
+  when level>=42.5
+  zone Badlands
+  tip Hammertoe wants his amulet back from Magregan Deepshadow, a level 38 elite at the dig's south end: a short fight for the run's group.
+  accept 722 npc 2909                 -- Hammertoe Grez
+
+step Magregan Deepshadow
+  when dungeon "Uldaman" all
+  when onquest 722
+  zone Badlands
+  collect 4635 quest 722.1            -- Hammertoe's Amulet: Magregan Deepshadow (elite, 38)
+
+step Hammertoe Grez
+  when dungeon "Uldaman" all
+  when complete 722
+  zone Badlands
+  note Hammertoe then offers Prospect of Faith, whose chain needs a second Uldaman run: skip it.
+  turnin 722                          -- Hammertoe Grez
+
+step Abandon A Sign of Hope
+  when dungeon "Uldaman" all
+  when onquest 721
+  tip A Sign of Hope is still in your log: the route doesn't come back to Hammertoe Grez, so abandon it.
+  abandon 721                         -- A Sign of Hope
+
+step Abandon Amulet of Secrets
+  when dungeon "Uldaman" all
+  when onquest 722
+  when !complete 722
+  tip Amulet of Secrets is still unfinished: the route doesn't come back to the dig, so abandon it.
+  abandon 722                         -- Amulet of Secrets
+
 step Uldaman
   when dungeon "Uldaman"
-  when onquest 2398,1360
+  when onquest 2398,1360,2418,1956
   when level>=42.5
   zone Badlands
   tip Uldaman is a dungeon for a group of five, levels 41 to 51. Its door is a short way east of the dig.
-  tip Inside: Baelog, one of the lost dwarves, takes The Lost Dwarves and gives The Hidden Chamber, for Prospector Stormpike; a chest holds Krom Stoutarm's Reclaimed Treasures. Deeper in, the Discs of Norgannon start The Platinum Discs, which go to High Explorer Magellas, and a Shattered Necklace, a drop inside, starts a quest for Talvash del Kissel in Ironforge.
+  tip Inside: Baelog, one of the lost dwarves, takes The Lost Dwarves and gives The Hidden Chamber, for Prospector Stormpike; a chest holds Krom Stoutarm's Reclaimed Treasures. Deeper in, the Discs of Norgannon start The Platinum Discs, which go to High Explorer Magellas, and a Shattered Necklace, a drop inside, starts a quest for Talvash del Kissel in Ironforge. The Shadowforge dwarves at the dig and inside drop Rigglefuzz's Power Stones, and the Obsidian Sentinel a Mage's Obsidian Power Source, unless you chose only the quests on your way.
   enter "Uldaman" @44.6,12.1
   turnin 2398 npc 6906 @44.6,12.1     -- Baelog, inside
   complete 1360 @44.6,12.1            -- Reclaimed Treasures: Krom's chest, inside
+  collect 8009 x8 quest 2418.1        -- Power Stones: Dentrium, the Shadowforge dwarves
+  collect 8052 x8 quest 2418.2        -- An'Alleum, the same dwarves
+  collect 8053 quest 1956.1 @44.6,12.1 only Mage -- Power in Uldaman: the Obsidian Sentinel, inside
 
 step Abandon The Lost Dwarves
   when dungeon "Uldaman"
   when onquest 2398
   tip The Lost Dwarves is still in your log: without an Uldaman run at its level the route doesn't come back for it, so abandon it.
   abandon 2398                        -- The Lost Dwarves
+
+step Rigglefuzz
+  when dungeon "Uldaman" all
+  when complete 2418
+  zone Badlands
+  tip The Power Stones from your Uldaman run: Rigglefuzz, south in the Valley of Fangs, then back north to the pass.
+  turnin 2418 @42.4,52.9              -- Rigglefuzz
+
+step Abandon Power Stones
+  when dungeon "Uldaman" all
+  when onquest 2418
+  when !complete 2418
+  tip Power Stones is still unfinished: without an Uldaman run at its level the route doesn't come back for it, so abandon it.
+  abandon 2418                        -- Power Stones
 
 step Back to Loch Modan
   zone Badlands
@@ -209,6 +279,22 @@ step Tabetha
   zone Dustwallow Marsh
   tip For your Zul'Farrak run in Tanaris, at about 46: Tabetha wants the Tiara of the Deep from Hydromancer Velratha, inside.
   accept 2846                         -- Tabetha
+
+step Tabetha
+  when dungeon "Uldaman" all
+  when complete 1956
+  only Mage
+  zone Dustwallow Marsh
+  tip The Obsidian Power Source from your Uldaman run: Tabetha, in the marsh west of Theramore. Her next quest, Mana Surges, is the Celestial Orb guide's.
+  turnin 1956 npc 6546                -- Tabetha
+
+step Abandon Power in Uldaman
+  when dungeon "Uldaman" all
+  when onquest 1956
+  when !complete 1956
+  only Mage
+  tip Power in Uldaman is still unfinished: the route doesn't come back to Uldaman, so abandon it.
+  abandon 1956                        -- Power in Uldaman
 
 step Cortello's Riddle
   when onquest 625

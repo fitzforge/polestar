@@ -17,6 +17,10 @@ pitch For characters of 36 to 38, but Faldir's Cove and the Alterac Syndicate qu
 # Assassin, a single stealthed mob on Southshore's edge that few players find, so the Southshore step never waits for him.
 # Since the 0.3.7 audit: Refuge Pointe's hand-ins come on the walk from Go'Shek Farm to the Stone of West Binding, and the
 # Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
+# Uldaman (`when dungeon "Uldaman" all`, dungeons in the route; the run is in 40-50/02-badlands): a Mage takes Jennea
+# Cannon's Return to the Marsh (1953) on the Stormwind stop, the start of the chain to Power in Uldaman (1956):
+# Tabetha from 30-40/06b-desolace's Theramore landing, the Infernal Orb at the Mannoroc Coven there, The Exorcism on
+# 40-50/01-stranglethorn-vale's Dustwallow walk.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
 
 # ---------------------------------------------------------------- Swamp of Sorrows
@@ -109,6 +113,14 @@ step Stormwind
   zone Stormwind City
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   accept 6141                         -- Brother Crowley, Cathedral of Light
+
+step Jennea Cannon
+  when dungeon "Uldaman" all
+  when level>=36.3
+  only Mage
+  zone Stormwind City
+  tip For your Uldaman run in the Badlands, at about 43: Jennea Cannon, at the top of the Wizard's Sanctum in the Mage Quarter, sends you back to Tabetha in Dustwallow Marsh. Her chain's Power in Uldaman is in the run.
+  accept 1953 npc 5497                -- Jennea Cannon
 
 step Count Remington Ridgewell
   when group 543

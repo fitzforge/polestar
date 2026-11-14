@@ -9,6 +9,8 @@ next forever/alliance/50-60/03-winterspring
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
+# Sunken Temple (`when dungeon "Sunken Temple" all`, the run at the end of 50-60/01-burning-steppes): a Priest hands
+# Ogtinc's Blood of Morphaz (8257) to Greta Mosshoof on the first Emerald Sanctuary stop.
 
 step Fly to Astranaar
   zone Teldrassil
@@ -26,6 +28,22 @@ step The Emerald Sanctuary
   accept 4421                         -- Eridan Bluewind, inside
   accept 5156                         -- Taronn Redfeather
   accept 5155                         -- Greta Mosshoof
+
+step Greta Mosshoof
+  when dungeon "Sunken Temple" all
+  when complete 8257
+  only Priest
+  zone Felwood
+  tip The Blood of Morphaz from your Sunken Temple run: Greta Mosshoof, at the Emerald Sanctuary.
+  turnin 8257                         -- Greta Mosshoof
+
+step Abandon Blood of Morphaz
+  when dungeon "Sunken Temple" all
+  when onquest 8257
+  when !complete 8257
+  only Priest
+  tip Blood of Morphaz is still unfinished: the route doesn't come back to the Sunken Temple, so abandon it.
+  abandon 8257                        -- Blood of Morphaz
 
 # ---------------------------------------------------------------- Getting there
 

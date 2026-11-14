@@ -20,7 +20,9 @@ pitch The main route to 60: Silithus, Felwood, Winterspring and the Plaguelands,
 # Eva takes it back. Its door needs the Skeleton Key, which this route's Chillwind Camp chain gives only at the end
 # of the guide: the run's tip says so. Sunken Temple (run in forever/alliance/50-60/01-burning-steppes): Brohann
 # Caskbelly takes Into The Temple of Atal'Hakkar (1475) on the Stormwind stop, on the way to the tram (`when
-# complete`).
+# complete`). Its every-quest route (`when dungeon "Sunken Temple" all`) hands the class quests for Morphaz in: a
+# Mage's Destroy Morphaz (8253) to Archmage Xylem and a Hunter's The Green Drake (8232) to Ogtinc from the Talrendis
+# Point landing, and a Rogue's The Azure Key (8236) to Lord Jorach Ravenholdt from the Southshore landing.
 
 # ---------------------------------------------------------------- Ratchet
 
@@ -36,6 +38,45 @@ step Fly to Talrendis Point
   goto 63.1,37.1 "Ratchet flight master"
   fly "Talrendis Point"
   zone Azshara
+
+step Sanath Lim-yo
+  when dungeon "Sunken Temple" all
+  when complete 8253
+  only Mage
+  zone Azshara
+  tip The Arcane Shard from your Sunken Temple run: ride east to Sanath Lim-yo's camp and get off your mount; he teleports you up to Archmage Xylem.
+  goto 28.1,50.1 "Sanath Lim-yo"
+
+step Archmage Xylem
+  when dungeon "Sunken Temple" all
+  when complete 8253
+  only Mage
+  zone Azshara
+  turnin 8253                         -- Archmage Xylem
+
+step Abandon Destroy Morphaz
+  when dungeon "Sunken Temple" all
+  when onquest 8253
+  when !complete 8253
+  only Mage
+  tip Destroy Morphaz is still unfinished: the route doesn't come back to the Sunken Temple, so abandon it.
+  abandon 8253                        -- Destroy Morphaz
+
+step Ogtinc
+  when dungeon "Sunken Temple" all
+  when complete 8232
+  only Hunter
+  zone Azshara
+  tip The Tooth of Morphaz from your Sunken Temple run: Ogtinc camps at the Bear's Head, in the hills north-east of the Ruins of Eldarath.
+  turnin 8232                         -- Ogtinc
+
+step Abandon The Green Drake
+  when dungeon "Sunken Temple" all
+  when onquest 8232
+  when !complete 8232
+  only Hunter
+  tip The Green Drake is still unfinished: the route doesn't come back to the Sunken Temple, so abandon it.
+  abandon 8232                        -- The Green Drake
 
 step Felwood
   zone Felwood
@@ -553,6 +594,22 @@ step Fly to Southshore
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Southshore"
+
+step Lord Jorach Ravenholdt
+  when dungeon "Sunken Temple" all
+  when complete 8236
+  only Rogue
+  zone Alterac Mountains
+  tip The Azure Key from your Sunken Temple run: Ravenholdt Manor, in the hills east of Tarren Mill, by the trail behind the plateau north of Durnholde Keep.
+  turnin 8236                         -- Lord Jorach Ravenholdt
+
+step Abandon The Azure Key
+  when dungeon "Sunken Temple" all
+  when onquest 8236
+  when !complete 8236
+  only Rogue
+  tip The Azure Key is still unfinished: the route doesn't come back to the Sunken Temple, so abandon it.
+  abandon 8236                        -- The Azure Key
 
 step Alterac Mountains
   zone Alterac Mountains

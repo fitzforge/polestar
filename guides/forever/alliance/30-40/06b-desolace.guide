@@ -16,6 +16,10 @@ next forever/alliance/40-50/01-stranglethorn-vale
 # Nijel's Point is visited once at the end instead of in the middle of the loop as well.
 # Since 2026-11-07 Theramore's first quests are handed in on the Dustwallow Marsh crossing at 33-34 (30-40/03): the
 # boat lands in Theramore only for the flight to Nijel's Point.
+# Uldaman (`when dungeon "Uldaman" all`, dungeons in the route; the run is in 40-50/02-badlands): a Mage carrying
+# Return to the Marsh (1953, from 30-40/05-arathi-highlands' Stormwind stop) walks to Tabetha off the boat, before the
+# flight to Nijel's Point, for The Infernal Orb (1954): a Burning Blade Summoner's orb at the Mannoroc Coven, on the
+# south loop. The orb goes back to her on 40-50/01-stranglethorn-vale's Dustwallow walk.
 
 # ---------------------------------------------------------------- To Theramore
 
@@ -28,6 +32,23 @@ step Fly to Menethil Harbor
 step Boat to Theramore
   zone Wetlands
   goto 5.13,63.61 "Boat to Theramore"
+
+step Tabetha
+  when dungeon "Uldaman" all
+  when onquest 1953
+  when level>=39
+  only Mage
+  zone Dustwallow Marsh
+  tip For Power in Uldaman: Tabetha's cottage is deep in the marsh west of Theramore, just north of the Stonemaul Ruins; come in from the west road, as elites roam its east side. She wants an Infernal Orb from the Mannoroc Coven, on this guide's south loop. Then back to the flight master.
+  turnin 1953 npc 6546                -- Tabetha
+  accept 1954
+
+step Abandon Return to the Marsh
+  when dungeon "Uldaman" all
+  when onquest 1953
+  only Mage
+  tip Return to the Marsh is still in your log: the Infernal Orb is on this guide's loop, so without Tabetha now the route doesn't come back for her chain before your Uldaman run. Abandon it.
+  abandon 1953                        -- Return to the Marsh
 
 step Theramore flight master
   zone Dustwallow Marsh
@@ -75,6 +96,13 @@ step Mannoroc Coven
   tip Careful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs.
   collect 6251 quest 1466             -- Nether Wing
   collect 6252 quest 1466             -- Doomwarder Blood
+
+step Burning Blade Summoners
+  when dungeon "Uldaman" all
+  when onquest 1954
+  only Mage
+  tip For Tabetha: the Burning Blade Summoners (level 38-39) work the coven beside its pillared ruin, and every one carries an Infernal Orb. They cast Shadow Bolt from range and run for help at low health.
+  collect 7291 quest 1954.1           -- Infernal Orb: Burning Blade Summoner
 
 step The Valley of Bones
   tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them.

@@ -14,7 +14,9 @@ next polestar-experimental/hyjal-1
 # Left out: Felstone Field Cauldron (5218), Dalson's Tears Cauldron (5221), Writhing Haunt Cauldron (5224).
 # Sunken Temple (run in forever/alliance/50-60/01-burning-steppes): its every-quest route (`when dungeon "Sunken
 # Temple" all`) hands Jammal'an the Prophet (1446) to the Atal'ai Exile in the Hinterlands on the way in: the
-# gryphon to Aerie Peak, the Exile, then the gryphon to Chillwind Camp.
+# gryphon to Aerie Peak, the Exile, then the gryphon to Chillwind Camp. On the Un'Goro stop it hands Haze of Evil
+# (4143) to Muigin at Marshal's Refuge; Muigin's Bloodpetal (4142) went to Gregan before the run, so the Feralas stop's
+# hand-in is done.
 
 step Fly to Aerie Peak
   when dungeon "Sunken Temple" all
@@ -553,6 +555,20 @@ step Linken
   tip Spraggle's friend Ringo has gone missing.
   accept 4492
   accept 4501                         -- The wooden sign beside Spraggle Frock
+
+step Muigin
+  when dungeon "Sunken Temple" all
+  when complete 4143
+  zone Un'Goro Crater
+  tip The Atal'ai Haze from your Sunken Temple run: Muigin, at the refuge.
+  turnin 4143 npc 9119                -- Muigin
+
+step Abandon Haze of Evil
+  when dungeon "Sunken Temple" all
+  when onquest 4143
+  when !complete 4143
+  tip Haze of Evil is still unfinished: the route doesn't come back to the Sunken Temple, so abandon it.
+  abandon 4143                        -- Haze of Evil
 
 # ---------------------------------------------------------------- Lost!
 

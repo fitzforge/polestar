@@ -23,7 +23,20 @@ next forever/alliance/50-60/02-felwood
 # taken in forever/alliance/40-50/05-the-hinterlands, back to him at the start of 50-60/04-western-plaguelands) and,
 # for a runner holding 3373's Chained Essence of Eranikus, its second part (3374) at Itharius, between the temple
 # and the Blasted Lands.
-# Left out: Dark Iron Legacy (3801).
+# The every-quest route also takes, in the run: Marvon Rivetseeker's Into the Depths and Secret of the Circle (3446,
+# 3447, from 40-50/07-un-goro-crater; both answered inside), Gregan Brewspewer's Haze of Evil (4143, back to Muigin on
+# 50-60/04's Marshal's Refuge stop), and the class quests for Morphaz: Xylem's Destroy Morphaz (8253, Mage) and
+# Ogtinc's Blood of Morphaz (8257, Priest) as their chains end here, a Hunter's chain at Ogtinc (8151, 8153, 8231 to
+# The Green Drake, 8232) and a Rogue's at Xylem (8234, 8235 to The Azure Key, 8236), each taken in Azshara before the
+# run.
+# City of Dalaran (`when dungeon "City of Dalaran" all`): Arille Azuregaze's Silvermoon Shimmerwine from the blood elves
+# at Kim'jael's camp, and A Taste of Home (96609) and Thicker Than Water (96812) handed in at Dalaran's edge on the ride
+# from Southshore to Chillwind Camp.
+# Left out: Dark Iron Legacy (3801). Yeh'kinya's The God Hakkar (3528) and its The Ancient Egg (4787): the egg lies
+# among the Vilebranch Aman'zasi Guards (level 50 elites) and Hitah'ya the Keeper (51) at the Hinterlands' southern
+# edge, where the route is at about 47.5, before the run; the route's danger rule holds such a goal until 49. The
+# Druid's A Better Ingredient (9053): its Toxic Test stabs a Devilsaur (level 54 elite), held until 52, and the route
+# is in Un'Goro at about 50 before the run.
 
 # ---------------------------------------------------------------- Azshara
 
@@ -78,6 +91,74 @@ step Ogtinc
   turnin 8255                         -- Ogtinc
   accept 8256
 
+step Ogtinc
+  when dungeon "Sunken Temple" all
+  when onquest 8151
+  when level>=50
+  only Hunter
+  zone Azshara
+  tip For your Sunken Temple run: ride north-east from the shrine. Ogtinc camps at the Bear's Head, in the hills above the road.
+  turnin 8151 npc 8405                -- Ogtinc
+  accept 8153
+
+step Mosshoof Coursers
+  when dungeon "Sunken Temple" all
+  when onquest 8153
+  only Hunter
+  zone Azshara
+  tip Two Perfect Courser Antlers: a Mosshoof Courser drops one about one kill in twelve, so expect two dozen kills. The nearest graze the hills north-east of the Bear's Head, toward the Legashi Encampment; a larger herd roams the open ground to the south. They enrage at 30% health.
+  collect 20017 x2 quest 8153.1       -- Perfect Courser Antler
+
+step Ogtinc
+  when dungeon "Sunken Temple" all
+  when complete 8153
+  when level>=50
+  only Hunter
+  zone Azshara
+  turnin 8153                         -- Ogtinc
+  accept 8231
+
+step Wavethrashers
+  when dungeon "Sunken Temple" all
+  when onquest 8231
+  only Hunter
+  zone Azshara
+  tip Six Wavethrasher Scales: the Wavethrashers on the coast east of Ogtinc drop one about one kill in three. A few walk the beach; the rest are underwater, so fight them where you can breathe.
+  collect 20087 x6 quest 8231.1       -- Wavethrasher Scales
+
+step Ogtinc
+  when dungeon "Sunken Temple" all
+  when complete 8231
+  when level>=50
+  only Hunter
+  zone Azshara
+  tip The Green Drake: Morphaz' tooth, inside the temple at the end of this guide.
+  turnin 8231                         -- Ogtinc
+  accept 8232
+
+step Abandon Courser Antlers
+  when dungeon "Sunken Temple" all
+  when onquest 8153
+  when !complete 8153
+  only Hunter
+  tip Courser Antlers is still unfinished: the route leaves Azshara now, so abandon it.
+  abandon 8153                        -- Courser Antlers
+
+step Abandon Wavethrashing
+  when dungeon "Sunken Temple" all
+  when onquest 8231
+  when !complete 8231
+  only Hunter
+  tip Wavethrashing is still unfinished: the route leaves Azshara now, so abandon it.
+  abandon 8231                        -- Wavethrashing
+
+step Abandon The Hunter's Charm
+  when dungeon "Sunken Temple" all
+  when onquest 8151
+  only Hunter
+  tip The Hunter's Charm is still in your log: the route leaves Azshara now, so abandon it.
+  abandon 8151                        -- The Hunter's Charm
+
 step Sanath Lim-yo
   zone Azshara
   tip Sanath Lim-yo wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one.
@@ -109,6 +190,13 @@ step Kim'jael
   turnin 3601
   accept 5534
   level 50.65 grind 6196               -- grind on Spitelash Myrmidon
+
+step Thalassian Base Camp
+  when dungeon "City of Dalaran" all
+  when onquest 96609
+  zone Azshara
+  tip For Arille Azuregaze: the blood elves of the Thalassian Base Camp, around Kim'jael's equipment, carry Silvermoon Shimmerwine.
+  collect 274966 x10 quest 96609.1    -- Silvermoon Shimmerwine
 
 step The Ruins of Eldarath
   tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's four runes stand among the ruins: use his Drawing Kit on each.
@@ -157,9 +245,94 @@ step Archmage Xylem
   turnin 8252
   note Xylem's last task, Destroy Morphaz, is in the Sunken Temple: skip it.
 
+step Archmage Xylem
+  when dungeon "Sunken Temple" all
+  when turnedin 8252
+  when level>=50
+  only Mage
+  zone Azshara
+  tip For your Sunken Temple run at the end of this guide, take Xylem's last task after all: the Arcane Shard of Morphaz, a drake inside.
+  accept 8253                         -- Archmage Xylem
+
+step Timbermaw Shamans
+  when dungeon "Sunken Temple" all
+  when onquest 8234
+  only Rogue
+  zone Azshara
+  tip For Lord Jorach: only the level 50-51 Timbermaw Shamans in the furbolg hills of northern Azshara carry the Sealed Azure Bag, about one kill in thirty. Pick Pocket them instead and you lose no Timbermaw reputation. They cast Lightning Bolt and Lightning Cloud, heal each other and run at low health.
+  collect 19775 quest 8234.1          -- Sealed Azure Bag: Timbermaw Shaman
+
+step Sanath Lim-yo
+  when dungeon "Sunken Temple" all
+  when complete 8234
+  only Rogue
+  zone Azshara
+  tip Ride back to Sanath's camp and get off your mount: he teleports you up to Archmage Xylem.
+  goto 28.1,50.1 "Sanath Lim-yo"
+
+step Archmage Xylem
+  when dungeon "Sunken Temple" all
+  when complete 8234
+  when level>=50
+  only Rogue
+  zone Azshara
+  turnin 8234                         -- Archmage Xylem
+  accept 8235
+
+step Forest Oozes
+  when dungeon "Sunken Temple" all
+  when onquest 8235
+  only Rogue
+  zone Azshara
+  tip Ten Encoded Fragments: the Forest Oozes (level 52-53) drop one four times in five. Pick their pockets before the kill for an extra fragment or two.
+  collect 20023 x10 quest 8235.1      -- Encoded Fragment: Forest Ooze
+
+step Sanath Lim-yo
+  when dungeon "Sunken Temple" all
+  when complete 8235
+  only Rogue
+  zone Azshara
+  tip Back to Sanath's camp: he teleports you up to Xylem again.
+  goto 28.1,50.1 "Sanath Lim-yo"
+
+step Archmage Xylem
+  when dungeon "Sunken Temple" all
+  when complete 8235
+  when level>=50
+  only Rogue
+  zone Azshara
+  tip The Azure Key: Morphaz carries it, inside the temple at the end of this guide.
+  turnin 8235                         -- Archmage Xylem
+  accept 8236
+
+step Abandon Sealed Azure Bag
+  when dungeon "Sunken Temple" all
+  when onquest 8234
+  when !complete 8234
+  only Rogue
+  tip Sealed Azure Bag is still unfinished: the route leaves Azshara now, so abandon it.
+  abandon 8234                        -- Sealed Azure Bag
+
+step Abandon Encoded Fragments
+  when dungeon "Sunken Temple" all
+  when onquest 8235
+  when !complete 8235
+  only Rogue
+  tip Encoded Fragments is still unfinished: the route leaves Azshara now, so abandon it.
+  abandon 8235                        -- Encoded Fragments
+
 step Ogtinc
   only Priest
   turnin 8256 only Priest -- Ogtinc
+
+step Ogtinc
+  when dungeon "Sunken Temple" all
+  when turnedin 8256
+  when level>=50
+  only Priest
+  zone Azshara
+  tip For your Sunken Temple run at the end of this guide: Ogtinc's last task is the blood of Morphaz, a drake inside, for Greta Mosshoof at the Emerald Sanctuary in Felwood.
+  accept 8257                         -- Ogtinc
 
 step Ravencrest Monument
   tip Swim to the small island off the southern tip of Azshara. If Pilot Xiggs Fuselighter isn't there, fire your Standard Issue Flare Gun to signal him, and wait for him to land.
@@ -214,6 +387,27 @@ step Fly to Southshore
   goto 11.1,46.1 "Aerie Peak flight master"
   fly "Southshore"
   zone Hillsbrad Foothills
+
+step Arille Azuregaze
+  when dungeon "City of Dalaran" all
+  when complete 96609
+  zone Alterac Mountains
+  tip The Silvermoon Shimmerwine: Arille Azuregaze, at Dalaran's edge north-west of Southshore, on the way north to the Western Plaguelands.
+  turnin 96609 npc 29049              -- Arille Azuregaze
+
+step Orphan Matron Aria
+  when dungeon "City of Dalaran" all
+  when onquest 96812
+  zone Alterac Mountains
+  tip Sergeant Danneth's word: Orphan Matron Aria stands a short walk south-east of Arille.
+  turnin 96812 npc 34365              -- Orphan Matron Aria
+
+step Abandon A Taste of Home
+  when dungeon "City of Dalaran" all
+  when onquest 96609
+  when !complete 96609
+  tip A Taste of Home is still unfinished: the route doesn't come back to Azshara's blood elves, so abandon it.
+  abandon 96609                       -- A Taste of Home
 
 step Western Plaguelands
   zone Western Plaguelands
@@ -409,14 +603,33 @@ step Fallen Hero of the Horde
 
 step The Sunken Temple
   when dungeon "Sunken Temple"
-  when onquest 1475,1446
+  when onquest 1475,1446,3446,3447,4143,8253,8257,8232,8236
   when level>=50
   zone Swamp of Sorrows
   tip The Sunken Temple is a dungeon for a group of five, levels 50 to 60. Its door is in the sunken temple in the eastern lake, the Pool of Tears, east of the Fallen Hero: keep clear of Stonard on the way.
-  tip Inside: the Atal'ai Tablets for Brohann Caskbelly. The Essence of Eranikus, a drop inside, starts a quest of its own.
+  tip Inside: the Atal'ai Tablets for Brohann Caskbelly. The Essence of Eranikus, a drop inside, starts a quest of its own. Unless you chose only the quests on your way: Marvon's two quests end at the Altar of Hakkar and the Idol of Hakkar, the oozes and lurkers drop Gregan's Atal'ai Haze, and Morphaz, the drake after Jammal'an, carries a Mage's, Priest's, Hunter's or Rogue's class quest item.
   enter "Sunken Temple" @69.9,53.5
   complete 1475 @69.9,53.5            -- Into The Temple of Atal'Hakkar: ten Atal'ai Tablets, inside
   complete 1446 @69.9,53.5            -- Jammal'an the Prophet: his head, inside
+  turnin 3446 object 148836 @69.9,53.5 -- Into the Depths: the Altar of Hakkar, inside
+  turnin 3447 object 148838 @69.9,53.5 -- Secret of the Circle: the Idol of Hakkar, by the circle of statues, inside
+  collect 11318 x5 quest 4143.1 @69.9,53.5 -- Haze of Evil: Atal'ai Haze, the oozes, worms and lurkers inside
+  collect 20085 quest 8253.1 @69.9,53.5 only Mage -- Destroy Morphaz: the Arcane Shard
+  collect 20025 quest 8257.1 @69.9,53.5 only Priest -- Blood of Morphaz
+  collect 20019 quest 8232.1 @69.9,53.5 only Hunter -- The Green Drake: the Tooth of Morphaz
+  collect 20022 quest 8236.1 @69.9,53.5 only Rogue -- The Azure Key: Morphaz
+
+step Abandon Into the Depths
+  when dungeon "Sunken Temple" all
+  when onquest 3446
+  tip Into the Depths is still in your log: the route doesn't come back to the Sunken Temple, so abandon it.
+  abandon 3446                        -- Into the Depths
+
+step Abandon Secret of the Circle
+  when dungeon "Sunken Temple" all
+  when onquest 3447
+  tip Secret of the Circle is still in your log: the route doesn't come back to the Sunken Temple, so abandon it.
+  abandon 3447                        -- Secret of the Circle
 
 step Itharius
   when dungeon "Sunken Temple" all
