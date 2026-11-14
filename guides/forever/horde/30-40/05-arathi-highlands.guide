@@ -55,6 +55,13 @@ step Master Apothecary Faranell
   tip The Kraul Guano from your Razorfen Kraul run: Faranell is in the Apothecarium.
   turnin 1109                         -- Master Apothecary Faranell
 
+step Abandon Going, Going, Guano!
+  when dungeon "Razorfen Kraul"
+  when onquest 1109
+  when !complete 1109
+  tip Going, Going, Guano! is still unfinished: without a Razorfen Kraul run at its level the route doesn't come back for the guano, so abandon it.
+  abandon 1109                        -- Going, Going, Guano!
+
 step Varimathras
   when dungeon "Razorfen Kraul"
   when onquest 6522

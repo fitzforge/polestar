@@ -12479,6 +12479,14 @@ for (const run of fs.existsSync(path.join(__dirname, '..', 'data', 'dungeon-runs
 				for (const g of on) assert.ok(gates.has(g), `${guide}: the pick-up of ${quest} is gated \`when level>=${g}\`, which its record doesn't give (${[...gates].join(', ')})`);
 				for (const g of gates) assert.ok(on.includes(g), `${guide}: no pick-up of ${quest} is gated \`when level>=${g}\`, as its record says`);
 			}
+			// And never under the level its quests ask for: the game refuses an accept under its quest's minimum, and the
+			// route comes back to the step once the character gets there (the Ruins of Lordaeron's Silverpine pick-up).
+			for (const guide of new Set(pickups.map(([, g]) => g))) {
+				for (const s of steps(guide).filter((x) => whenDungeonOf(x, run.dungeon) && x.goals.some((g) => g.t === 'accept'))) {
+					const asks = Math.max(0, ...s.goals.filter((g) => g.t === 'accept' && g.minLevel).map((g) => g.minLevel));
+					assert.ok(lowestLevel(s) >= asks, `${guide}: "${s.title}" is gated \`when level>=${lowestLevel(s)}\`, under the level its quests ask for (${asks})`);
+				}
+			}
 		}
 	});
 }
@@ -12881,6 +12889,23 @@ test('dungeons in the route: a quest handed in inside a dungeon is turned in on 
 		for (const { quest, npc } of r.run.insideEnds) {
 			const g = at[0].goals.find(is('turnin', quest));
 			assert.ok(g && g.npc === npc && g.x != null, `${r.dungeon} (${r.faction}): the run step turns ${quest} in to ${npc}, at a place`);
+		}
+	}
+});
+
+// Nothing left in the log at 60: a quest a run's record picks up before the run, gated under the run's own gate (a
+// player on the model's pace is asked; one who falls behind reaches the door under the floor and the run passes), is
+// abandoned after its last hand-in by a character who still carries it (played with every dungeon chosen, two Horde
+// characters reached the Wailing Caverns run at 19.9-20.05, under its 20.3, and kept Smart Drinks to 60).
+test('dungeons in the route: a quest picked up under its run\'s gate is abandoned after its last hand-in', { skip }, () => {
+	for (const r of DUNGEON_RUNS().filter((x) => x.run.gate != null)) {
+		for (const q of new Set((r.pickups || []).filter((p) => p.gate != null && p.gate < r.run.gate).map((p) => p.quest))) {
+			const guide = (r.handins || []).filter((h) => h.quest === q).map((h) => h.guide).pop() || r.run.guide;
+			const steps = compiled(`${guide}.guide`).steps;
+			const last = steps.map((s, i) => (s.goals.some(is('turnin', q)) ? i : -1)).filter((i) => i >= 0).pop();
+			assert.ok(last != null, `${guide}: ${q} is handed in`);
+			const drop = steps.slice(last + 1).find((s) => s.goals.some((g) => g.t === 'abandon' && g.quest === q));
+			assert.ok(drop && whenDungeonOf(drop, r.dungeon) && whenQuestOf(drop, ['onquest'], q), `${guide}: ${q} (${r.dungeon}, ${r.faction}) is abandoned after its last hand-in, behind \`when dungeon\` and \`when onquest ${q}\``);
 		}
 	}
 });
