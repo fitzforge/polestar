@@ -648,6 +648,7 @@ step Auberdine
   accept 958
   accept 984                                  -- Terenthis
   accept 2118                                 -- Tharnariun Treetender
+  accept 4811                                 -- Sentinel Glynda Nal'Shea
 
 step Gubber Blump
   zone Darkshore
