@@ -65,8 +65,9 @@ next forever/horde/06-hillsbrad-foothills
 # 63.2,67.5, is where players' recordings go in), and Morbin takes the limbs on the Undercity stop at the
 # end of forever/horde/06-hillsbrad-foothills (`when complete`), with the Abominable Head's Unending
 # Torment (97288, from The Baron inside) for Faranell and the Crest of Lordaeron (95204, found inside) for
-# Oran Snakewrithe (`when onquest`). Left out: A Frightened Request (92401: Tabitha Heartweaver at the
-# Sepulcher, after the ruins, and the route is not back there with the quest done), The Wrath of
+# Oran Snakewrithe (`when onquest`). Tabitha Heartweaver's A Frightened Request (92401) is taken on the last
+# Sepulcher stop of forever/horde/03-silverpine-forest (at about 16.6, from level 15), worked in the run, and
+# handed back on this guide's Sepulcher stop right after it (`when complete`). Left out: The Wrath of
 # Rath'mael (92422: Deathguard Kristof offers it after Rear Guard Patrol, 99156, which the route does not
 # take), The New Plague (95216: Theodore Griffs offers it after A Recipe For Death, 451, left out of the
 # Silverpine guide) and the rest of Unending Torment (97289-97292, Faranell's errands in the Undercity).
@@ -218,18 +219,21 @@ step Brill
 
 step Morbin Lightbane
   when dungeon "Ruins of Lordaeron"
+  when level>=17.9
   zone Undercity
   tip For your Ruins of Lordaeron run: the zeppelin lands beside the ruins. Walk into the Undercity through them and down to the Royal Quarter: Morbin Lightbane stands there, near Lady Sylvanas Windrunner.
   accept 92421                        -- Morbin Lightbane
 
 step Ruins of Lordaeron
   when dungeon "Ruins of Lordaeron"
-  when onquest 92421
+  when onquest 92421,92401
+  when level>=17.9
   zone Tirisfal Glades
-  tip The Ruins of Lordaeron is a dungeon for a group of five, about levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
+  tip The Ruins of Lordaeron is a dungeon for a group of five, levels 15 to 22, in the ruined city above the Undercity: its portal is in the ruins you walked through.
   tip Inside: every undead can drop Intact Limbs for Morbin, so clear as you go. The Baron can drop an Abominable Head, which starts a quest for Master Apothecary Faranell, and a Crest of Lordaeron found inside starts one for Oran Snakewrithe: both are in the Undercity, on this route's next stop there.
   enter "Ruins of Lordaeron" @63.2,67.5 live
   complete 92421 @63.2,67.5 live      -- Light's Justice: the Intact Limbs, inside
+  complete 92401 @63.2,67.5 live      -- A Frightened Request: Edward Heartweaver's fate, inside
 
 # ---------------------------------------------------------------- Silverpine Forest
 
@@ -254,6 +258,20 @@ step The Sepulcher
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, south-east of Ambermill
 
+step Tabitha Heartweaver
+  when dungeon "Ruins of Lordaeron"
+  when complete 92401
+  zone Silverpine Forest
+  tip What you learned of Edward Heartweaver in the ruins: Tabitha stands a short walk from the crypt.
+  turnin 92401                        -- Tabitha Heartweaver
+
+step Abandon A Frightened Request
+  when dungeon "Ruins of Lordaeron"
+  when onquest 92401
+  when !complete 92401
+  tip A Frightened Request is still unfinished: without a Ruins of Lordaeron run at its level the route doesn't come back to the ruins, so abandon it.
+  abandon 92401                       -- A Frightened Request
+
 step Deathguard Podrig
   only Undead
   zone Silverpine Forest
@@ -263,13 +281,14 @@ step Deathguard Podrig
 
 step High Executor Hadrec
   when dungeon "Shadowfang Keep"
+  when level>=20.7
   zone Silverpine Forest
   tip For your Shadowfang Keep run, at the end of the Hillsbrad guide: High Executor Hadrec stands below ground in the crypt.
   accept 1098                         -- High Executor Hadrec, below ground
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest
-  tip South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around Ambermill, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest.
+  tip South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around Ambermill, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them.
   kill 1889 quest 95981.2
   kill 1888 quest 95981.1
   kill 1973 quest 516.2               -- Below ground

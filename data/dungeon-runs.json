@@ -1,5 +1,5 @@
 {
-	"about": "Record kind for dungeons injected into the leveling route. Each run: pick-ups as `when dungeon` steps after (or before) an anchored route goal; `runStop`: the pick-ups repeated at the run's own stop (the cheap, local catch-up for a player who opts in after the earlier pick-ups); the run step after `run.after`, guarded by `when dungeon` + `when onquest <run.objectives>`; each hand-in as a `when dungeon` + `when complete`/`when onquest` step after its anchor (every step of a run is behind `when dungeon`, so a character who skips it keeps the solo route's steps and numbers); `soloWay`: a solo step of a stop the run shares, behind `when !dungeon`; `budget`: the measured cost vs the solo route (flow audit dynamic + level model). A Forge writer rule or a check reproduces the hand edits from these.",
+	"about": "Record kind for dungeons injected into the leveling route. Each run: pick-ups as `when dungeon` steps after (or before) an anchored route goal; `runStop`: the pick-ups repeated at the run's own stop (the cheap, local catch-up for a player who opts in after the earlier pick-ups); the run step after `run.after`, guarded by `when dungeon` + `when onquest <run.objectives>`; each hand-in as a `when dungeon` + `when complete`/`when onquest` step after its anchor (every step of a run is behind `when dungeon`, so a character who skips it keeps the solo route's steps and numbers); `soloWay`: a solo step of a stop the run shares, behind `when !dungeon`; `run.insideEnds`: a pick-up's quest handed in inside the dungeon, to an NPC with no place in the data: the run step turns it in at the door's place (`turnin <quest> npc <npc> @<entrance>`), so it leaves the log with the run; `run.insideQuests`: quests given and taken inside, named in the run tip; `run.itemStarts`: quests an item found inside starts, handed in after the run behind `when onquest`; `budget`: the measured cost vs the solo route (flow audit dynamic + level model). A Forge writer rule or a check reproduces the hand edits from these. Gates (Fitz, 2026-11-13: never a dungeon too low): `run.gate` is the `when level>=` the run step carries, the dungeon's floor in the Codex (data/forever/codex/journal.json: the client's Group Finder minimum, its fixed minimum or players' recorded entry level, whichever is highest; forge guide lint errors on a run gated under it); a pick-up's `gate` is that floor less the levels the calibrated level model plans between the pick-up and the run, or the level its quests ask for when that is higher (forge judge doors --levels checks it), so a player on pace is asked and one far behind is not; a `runStop` pick-up carries the run's gate. The travel steps of a branch that leaves the solo route's way (the runner's trip out to the door and back) carry the run's gate too, and a runner's step that shares a goal with a `soloWay` step keeps that goal in an ungated step of its own, so a runner under the gate still has it. Every quest: a run's quests off the way are steps of its every-quest route, `when dungeon \"<Name>\" all`, which a player who chose only the quests on the way doesn't get; their `pickups`/`handins` entries carry `all: true`, and the run's `allQuests` ({minutes, xp, quests}) says what they add over its way-only set (the flow audit's extra minutes, their XP at the levels they are handed in, their ids), `wayOnly` ({quests}) the quests the plain `when dungeon` steps take. A quest taken before its run and not finished by it (the run under its gate, an objective missed) is dropped with `abandon` at its last hand-in, so none is left in the log. `checks`: the facts a run's steps rest on that wait for an in-game check (`status` `needs-ingame`; `at` the step, `pickup`, `run` or `handin`; `quest` where it is one quest's; `what` to look at).",
 	"runs": [
 		{
 			"dungeon": "The Deadmines",
@@ -203,7 +203,8 @@
 						"goal": "turnin"
 					},
 					"when": "turnedin 865",
-					"note": "each Raptor Horns hand-in stop"
+					"note": "each Raptor Horns hand-in stop",
+					"gate": 16.5
 				},
 				{
 					"quest": 1491,
@@ -212,7 +213,8 @@
 						"quest": 896,
 						"goal": "turnin"
 					},
-					"note": "catch-up, Ratchet after Orgrimmar"
+					"note": "catch-up, Ratchet after Orgrimmar",
+					"gate": 20.3
 				},
 				{
 					"quest": 959,
@@ -221,7 +223,8 @@
 						"quest": 896,
 						"goal": "turnin"
 					},
-					"note": "Ratchet after Orgrimmar (~20): level 18, 3+ levels over earlier"
+					"note": "Ratchet after Orgrimmar (~20): level 18, 3+ levels over earlier",
+					"gate": 20.3
 				}
 			],
 			"run": {
@@ -246,7 +249,8 @@
 					1486,
 					959
 				],
-				"guard": "onquest 1486,1487,1491,959"
+				"guard": "onquest 1486,1487,1491,959",
+				"gate": 20.3
 			},
 			"handins": [
 				{
@@ -261,17 +265,39 @@
 				},
 				{
 					"quest": 1491,
+					"guide": "forever/horde/02-the-barrens",
+					"after": {
+						"quest": 868,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"note": "the Crossroads-Ratchet hop from the Crossroads stop after the Camp Taurajo return (~22.6): 2,650 XP in full, half (the 50% floor from 8 levels over) on 04-the-barrens' Ratchet stop at ~26.6"
+				},
+				{
+					"quest": 959,
+					"guide": "forever/horde/02-the-barrens",
+					"after": {
+						"quest": 868,
+						"goal": "turnin"
+					},
+					"when": "complete",
+					"note": "the same hop; both hand-ins only in Ratchet (`when subzone`), so a runner with this one done and Smart Drinks not takes it on 04-the-barrens' Ratchet stop"
+				},
+				{
+					"quest": 1491,
 					"guide": "forever/horde/04-the-barrens",
 					"after": {
 						"step": "Fly to Ratchet"
-					}
+					},
+					"note": "the fallback for a character still carrying it after the hop"
 				},
 				{
 					"quest": 959,
 					"guide": "forever/horde/04-the-barrens",
 					"after": {
 						"step": "Fly to Ratchet"
-					}
+					},
+					"note": "the fallback for a character still carrying it after the hop"
 				}
 			],
 			"leftOut": {
@@ -284,9 +310,24 @@
 				1487
 			],
 			"budget": {
-				"flow": "02-the-barrens walk +0.8 km (the Hezrul shore <-> door trip and Nalpak climb), hub visits +0; 04-the-barrens +0.1 km, +1 hub (Ratchet hand-ins on its own Ratchet stop)"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 02-the-barrens +1.0 km, +11.5 min, hub visits +1.0 (the run from Hezrul's shore and the Crossroads-Ratchet hop for Mebok and Bigglefuzz), passed givers near +3.2; the run's XP takes 22 and 21 min off the written grinds of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh",
+				"hop": "the Crossroads-Ratchet hop on 02-the-barrens: two flights and ~0.2 km on foot at Ratchet (the two NPCs are side by side by the flight master), for 2 x 1,325 XP more than the fallback pays; two log slots freed before 05/06"
 			},
-			"pickupRule": "first stop that offers it with quest level <= player level + 2 (the level sweep's 3-over rule)"
+			"pickupRule": "first stop that offers it with quest level <= player level + 2 (the level sweep's 3-over rule)",
+			"travel": [
+				{
+					"guide": "forever/horde/02-the-barrens",
+					"to": "Ratchet",
+					"when": "complete 1491",
+					"note": "the hop out: a flight from the Crossroads"
+				},
+				{
+					"guide": "forever/horde/02-the-barrens",
+					"to": "The Crossroads",
+					"when": "subzone Ratchet",
+					"note": "and back, on to the Crossroads stop's next step"
+				}
+			]
 		},
 		{
 			"dungeon": "Blackfathom Deeps",
@@ -299,7 +340,8 @@
 						"quest": 6563,
 						"goal": "accept"
 					},
-					"note": "first Zoram'gar stop"
+					"note": "first Zoram'gar stop",
+					"gate": 24.5
 				}
 			],
 			"run": {
@@ -327,7 +369,8 @@
 						"item": 16790
 					}
 				],
-				"guard": "onquest 6921"
+				"guard": "onquest 6921",
+				"gate": 24.5
 			},
 			"handins": [
 				{
@@ -389,7 +432,8 @@
 				"objectives": [
 					5761
 				],
-				"guard": "onquest 5761"
+				"guard": "onquest 5761",
+				"gate": 13.8
 			},
 			"handins": [
 				{
@@ -399,10 +443,10 @@
 				}
 			],
 			"leftOut": {
-				"5726": "Hidden Enemies (5726-5730): Thrall's Lieutenant's Insignia from Skull Rock's cultists, then three walks between Thrall and Neeru Fireblade",
-				"5725": "The Power to Destroy...: Varimathras in the Royal Quarter, off this guide's Apothecarium stop; the route's next Undercity stop is at ~25",
-				"5722": "Searching for the Lost Satchel (with 5724): Rahauro in Thunder Bluff, first on the route at 27",
-				"5723": "Testing an Enemy's Strength: Rahauro in Thunder Bluff, first on the route at 27"
+				"5726": "Hidden Enemies (5726-5730): Thrall, in Grommash Hold, is on the route before the run only for Skyborne (Orcs and Trolls pass 21 yd off at Nazgrel, Tauren 106 yd, the Undead 308 yd), and after it only for Skyborne at ~29; the Lieutenant's Insignia drops at Skull Rock only while 5726 is held, and after the Thrall stop the route passes Skull Rock no nearer than 109 yd, at the zeppelin tower; the chain then adds five walks between Thrall and Neeru Fireblade, 276 yd apart",
+				"5725": "The Power to Destroy...: Varimathras, in the Royal Quarter, is 148 yd off this guide's Undercity stop before the run (Skyborne pass him at Sylvanas, 17 yd); after it the route's first stop at him is 30-40/01-hillsbrad-foothills' at ~31.7, 15 levels over the quest, and 06-hillsbrad-foothills' Undercity stop at ~25 is 163 yd off",
+				"5722": "Searching for the Lost Satchel (with 5724): Rahauro in Thunder Bluff; before the run only Tauren and Skyborne pass Thunder Bluff, 68 yd off him at the closest (the Druids' Turak Runetotem), and after it the route's first stop at him is 40-50/06-azshara's at ~50",
+				"5723": "Testing an Enemy's Strength: Rahauro in Thunder Bluff, as 5722"
 			},
 			"budget": {
 				"flow": "off -> on (flow audit, Warrior every start, dynamic 037, straight lines): 03-silverpine-forest +0.2 km (Orgrimmar: the Cleft of Shadow), +2.8 min, hub visits +0; passed givers hub +0.2 (Neeru at 12 on the first Orgrimmar stop: level 16 is 3+ over there, the level rule wins); other guides only level-lead effects; solo route identical (65/65)"
@@ -411,7 +455,18 @@
 		{
 			"dungeon": "Ruins of Lordaeron",
 			"faction": "Horde",
-			"pickups": [],
+			"pickups": [
+				{
+					"quest": 92401,
+					"after": {
+						"guide": "forever/horde/03-silverpine-forest",
+						"quest": 440,
+						"goal": "accept"
+					},
+					"note": "Tabitha Heartweaver, a short walk from the crypt on the last Sepulcher stop (~16.6; level 22 from 15): a carry to the run at ~23; gated at 15, the level the quest asks for (the floor less the levels planned gives 10.1)",
+					"gate": 15
+				}
+			],
 			"runStop": [
 				92421
 			],
@@ -429,7 +484,8 @@
 					"source": "players' recordings: 106 of 121 entries"
 				},
 				"objectives": [
-					92421
+					92421,
+					92401
 				],
 				"itemStarts": [
 					{
@@ -441,7 +497,8 @@
 						"item": 275521
 					}
 				],
-				"guard": "onquest 92421"
+				"guard": "onquest 92421,92401",
+				"gate": 17.9
 			},
 			"handins": [
 				{
@@ -472,16 +529,24 @@
 						"goal": "turnin"
 					},
 					"when": "onquest"
+				},
+				{
+					"quest": 92401,
+					"guide": "forever/horde/05-stonetalon-mountains",
+					"after": {
+						"quest": 95981,
+						"goal": "accept"
+					},
+					"note": "the Sepulcher step right after the run (Tabitha ~95 yd from Renferrel)"
 				}
 			],
 			"leftOut": {
-				"92401": "A Frightened Request: Tabitha Heartweaver at the Sepulcher, after the ruins; the route is not back there with it done",
 				"92422": "The Wrath of Rath'mael: Deathguard Kristof offers it after Rear Guard Patrol (99156), which the route does not take",
 				"95216": "The New Plague: Theodore Griffs offers it after A Recipe For Death (451), left out of 03-silverpine-forest",
 				"97289": "Unending Torment parts 2-5 (97289-97292): Faranell's chain in the Undercity after the Head, not on the route"
 			},
 			"budget": {
-				"flow": "05-stonetalon-mountains +2.5 km, +8.0 min, hub visits +1 (the Undercity), all of it the run's own trip (landing -> Morbin in the Royal Quarter -> the ruins -> on to the Sepulcher); 06-hillsbrad-foothills +0.3 km (Morbin's hand-in); no avoidable backtracks or hub revisits (Oran Snakewrithe's Crest hand-in, 95204, added after this measurement: re-measure)"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 05-stonetalon-mountains +2.4 km, +10.2 min, hub visits +1.0 (the Undercity: Morbin, the ruins, the walk on to the Sepulcher); 03-silverpine-forest +0.1 km (Tabitha's pick-up); 06-hillsbrad-foothills +0.3 km (the Undercity hand-ins); the run's XP takes 18 and 21 min off the written grinds of 30-40/02-thousand-needles and 30-40/04-dustwallow-marsh"
 			},
 			"travel": [
 				{
@@ -503,7 +568,8 @@
 						"quest": 516,
 						"goal": "accept"
 					},
-					"note": "the Sepulcher at ~22.8 (level 25, 2.2 over); the flow audit flagged Hadrec as a passed giver there (5/5 branches) without it"
+					"note": "the Sepulcher at ~22.8 (level 25, 2.2 over); the flow audit flagged Hadrec as a passed giver there (5/5 branches) without it",
+					"gate": 20.7
 				}
 			],
 			"runStop": [
@@ -532,7 +598,8 @@
 						"npc": 4444
 					}
 				],
-				"guard": "onquest 1098,1014"
+				"guard": "onquest 1098,1014",
+				"gate": 22.8
 			},
 			"handins": [
 				{
@@ -547,62 +614,6 @@
 			},
 			"budget": {
 				"flow": "06-hillsbrad-foothills +1.6 km, +6.2 min, hub visits +1 (the Sepulcher after the run), the Sepulcher <-> keep trip of the run; backtracks +1, avoidable 0; 05-stonetalon-mountains passed givers +0.2 (Dalar's 1014 at 22.8 on one branch: 3+ over, the level rule wins)"
-			}
-		},
-		{
-			"dungeon": "Razorfen Kraul",
-			"faction": "Horde",
-			"pickups": [
-				{
-					"quest": 1221,
-					"after": {
-						"guide": "forever/horde/04-the-barrens",
-						"step": "Crane Operator Bigglefuzz"
-					},
-					"note": "Ratchet at the end (~26.6); the Ratchet stops of 02-the-barrens are 3+ levels over"
-				}
-			],
-			"run": {
-				"guide": "forever/horde/07-ashenvale",
-				"after": {
-					"quest": 857,
-					"goal": "turnin",
-					"note": "the road south to the Great Lift (~28); the entrance ~190 yd west of the lift"
-				},
-				"entrance": {
-					"map": 1413,
-					"x": 42.9,
-					"y": 90.2
-				},
-				"objectives": [
-					1221
-				],
-				"insideQuests": [
-					1144
-				],
-				"guard": "onquest 1221"
-			},
-			"handins": [
-				{
-					"quest": 1221,
-					"guide": "forever/horde/30-40/04-dustwallow-marsh",
-					"after": {
-						"step": "Ratchet",
-						"quest": 1270,
-						"goal": "turnin"
-					},
-					"note": "the next Ratchet stop for everyone (~37); a flight back from 07-ashenvale is over the travel budget"
-				}
-			],
-			"leftOut": {
-				"1109": "Going, Going, Guano!: level 33, 3+ levels over at 28",
-				"79360": "Elemental Aid: level 33, 3+ levels over at 28",
-				"1102": "A Vengeful Fate: level 34, Thunder Bluff, 3+ levels over at 28",
-				"1838": "Brutal Armor: Warrior class chain",
-				"6522": "An Unholy Alliance: a Small Scroll from inside, for Varimathras in the Undercity"
-			},
-			"budget": {
-				"flow": "04-the-barrens +0.1 km, hub visits +1 (Mebok on the Ratchet stop); 07-ashenvale +0.2 km (the entrance ~190 yd off the Great Lift road); 30-40/04-dustwallow-marsh +0.2 km (Mebok's hand-in); no avoidable backtracks or hub revisits"
 			}
 		},
 		{
@@ -1010,10 +1021,33 @@
 					"quest": 2865,
 					"after": {
 						"guide": "forever/horde/40-50/02-feralas",
+						"quest": 1707,
+						"goal": "accept",
+						"when": "taxi \"Gadgetzan\""
+					},
+					"note": "Tran'rek on the Gadgetzan landing stop of a character who flies in (the twin of the stop on the road, after the Mirage Raceway)",
+					"gate": 42.8
+				},
+				{
+					"quest": 3042,
+					"after": {
+						"guide": "forever/horde/40-50/02-feralas",
+						"quest": 1707,
+						"goal": "accept",
+						"when": "taxi \"Gadgetzan\""
+					},
+					"note": "Trenton Lighthammer on the Gadgetzan landing stop of a character who flies in (the twin of the stop on the road, after the Mirage Raceway)",
+					"gate": 42.8
+				},
+				{
+					"quest": 2865,
+					"after": {
+						"guide": "forever/horde/40-50/02-feralas",
 						"quest": 2864,
 						"goal": "turnin"
 					},
-					"note": "Tran'rek, the Gadgetzan stop (~44), where Tran'rek (2864) is handed in"
+					"note": "Tran'rek, the Gadgetzan stop (~44), where Tran'rek (2864) is handed in",
+					"gate": 42.8
 				},
 				{
 					"quest": 3042,
@@ -1022,7 +1056,8 @@
 						"quest": 2864,
 						"goal": "turnin"
 					},
-					"note": "Trenton Lighthammer, the same stop, a short walk from the flight master"
+					"note": "Trenton Lighthammer, the same stop, a short walk from the flight master",
+					"gate": 42.8
 				},
 				{
 					"quest": 2768,
@@ -1031,7 +1066,8 @@
 						"quest": 2605,
 						"goal": "accept"
 					},
-					"note": "Chief Engineer Bilgewhizzle, Gadgetzan's first stop of 04-tanaris (~46): level 47, 3 over on 02-feralas's stop"
+					"note": "Chief Engineer Bilgewhizzle, Gadgetzan's first stop of 04-tanaris (~46): level 47, 3 over on 02-feralas's stop",
+					"gate": 46.2
 				}
 			],
 			"runStop": [
@@ -1055,7 +1091,8 @@
 					2768,
 					3042
 				],
-				"guard": "onquest 2865,2768,3042"
+				"guard": "onquest 2865,2768,3042",
+				"gate": 46.2
 			},
 			"handins": [
 				{
@@ -1106,7 +1143,8 @@
 						"quest": 676,
 						"goal": "accept"
 					},
-					"note": "Melisara, the Tarren Mill stop (~30.5), a short walk east of Magus Wordeen Voidglare"
+					"note": "Melisara, the Tarren Mill stop (~30.5), a short walk east of Magus Wordeen Voidglare",
+					"gate": 31.0
 				}
 			],
 			"run": {
@@ -1129,7 +1167,8 @@
 				"insideQuests": [
 					96987
 				],
-				"guard": "onquest 96986"
+				"guard": "onquest 96986",
+				"gate": 31
 			},
 			"handins": [
 				{
@@ -1161,7 +1200,8 @@
 						"quest": 4061,
 						"goal": "accept"
 					},
-					"note": "the WANTED poster, the first Kargath stop (~51)"
+					"note": "the WANTED poster, the first Kargath stop (~51)",
+					"gate": 52.0
 				}
 			],
 			"run": {
@@ -1184,7 +1224,8 @@
 					4295,
 					7604
 				],
-				"guard": "onquest 4081"
+				"guard": "onquest 4081",
+				"gate": 52
 			},
 			"handins": [
 				{
@@ -1208,6 +1249,255 @@
 			"budget": {
 				"flow": "flow audit (dynamic 037, off vs this dungeon): 50-60/01-un-goro-crater +0.1 km, +2.7 min, backtracks +1, hub visits +0; 50-60/02-felwood 13 min shorter"
 			}
+		},
+		{
+			"dungeon": "Razorfen Kraul",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 1109,
+					"after": {
+						"guide": "forever/horde/30-40/01-hillsbrad-foothills",
+						"quest": 550,
+						"goal": "turnin"
+					},
+					"note": "Master Apothecary Faranell in the Apothecarium, on the closing Undercity stop (~33; level 33, from 30)",
+					"gate": 31.0
+				}
+			],
+			"run": {
+				"guide": "forever/horde/30-40/02-thousand-needles",
+				"after": {
+					"step": "Fly to Freewind Post",
+					"note": "the start of the guide, from Freewind Post: a flight to Camp Taurajo, the ride south to the kraul, the Great Lift and back up to Freewind"
+				},
+				"entrance": {
+					"map": 1413,
+					"x": 42.9,
+					"y": 90.2
+				},
+				"objectives": [
+					1109
+				],
+				"insideQuests": [
+					1144
+				],
+				"itemStarts": [
+					{
+						"quest": 6522,
+						"item": 17008
+					}
+				],
+				"guard": "onquest 1109",
+				"gate": 31.1
+			},
+			"handins": [
+				{
+					"quest": 1109,
+					"guide": "forever/horde/30-40/05-arathi-highlands",
+					"after": {
+						"step": "Zeppelin to Undercity"
+					},
+					"note": "Faranell, on the Undercity stop at the start (~39: 80% of its XP)"
+				},
+				{
+					"quest": 6522,
+					"guide": "forever/horde/30-40/05-arathi-highlands",
+					"after": {
+						"step": "Zeppelin to Undercity"
+					},
+					"when": "onquest",
+					"note": "Varimathras, the same stop: the Small Scroll from inside"
+				},
+				{
+					"quest": 1221,
+					"guide": "forever/horde/30-40/04-dustwallow-marsh",
+					"after": {
+						"step": "Ratchet",
+						"quest": 1270,
+						"goal": "turnin"
+					},
+					"note": "Mebok, for anyone still carrying Blueleaf Tubers (no longer picked up: Ratchet at ~26.5 is 6 levels before the run, and it pays half by then)"
+				}
+			],
+			"leftOut": {
+				"1221": "Blueleaf Tubers: Mebok's only Ratchet stop before the run is at ~26.5, 6 levels before it; by the hand-in it pays half",
+				"79360": "Elemental Aid: Rau Cliffrunner's Shaman chain (forever/class/shaman)",
+				"1102": "A Vengeful Fate: Auld Stonespire in Thunder Bluff, off the route at 33",
+				"1838": "Brutal Armor: Warrior class chain",
+				"1113": "Hearts of Zeal: Faranell's follow-up, a Scarlet Monastery quest"
+			},
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 30-40/02-thousand-needles +3.3 km, +10.4 min, backtracks +1.0 (the flight to Camp Taurajo, the ride to the kraul, the Great Lift and the ride back up to Freewind Post); 30-40/01-hillsbrad-foothills +0.2 km, hub visits +1.0 (Faranell in the Apothecarium); 30-40/05-arathi-highlands +0.1 km, hub visits +1.0 (the Undercity hand-ins); the run's XP takes 16 min off 40-50/01-stranglethorn-vale's written grind"
+			}
+		},
+		{
+			"dungeon": "The Drowned City",
+			"faction": "Horde",
+			"pickups": [],
+			"runStop": [
+				95775
+			],
+			"run": {
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"after": {
+					"quest": 95770,
+					"goal": "turnin",
+					"note": "Kin'weelay's Grom'gol stop (~42); the way in is ~680 yd west, under the Vile Reef"
+				},
+				"entrance": {
+					"map": 1434,
+					"x": 21.6,
+					"y": 27.7
+				},
+				"objectives": [
+					95775
+				],
+				"guard": "onquest 95775",
+				"gate": 37.1
+			},
+			"handins": [
+				{
+					"quest": 95775,
+					"guide": "forever/horde/40-50/01-stranglethorn-vale",
+					"after": {
+						"quest": 589,
+						"goal": "turnin"
+					},
+					"note": "Kin'weelay, on the Grom'gol stop after the Booty Bay flight and the basilisks: no extra visit"
+				}
+			],
+			"leftOut": {},
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 40-50/01-stranglethorn-vale +1.5 km, +5.8 min, hub visits +1.0, backtracks +2.0 (the swim from Grom'gol to Sunken Hollow and back); the run's XP takes 16 min off 40-50/05-the-hinterlands' written grind"
+			}
+		},
+		{
+			"dungeon": "Sunken Temple",
+			"faction": "Horde",
+			"pickups": [
+				{
+					"quest": 1445,
+					"after": {
+						"guide": "forever/horde/40-50/05-the-hinterlands",
+						"quest": 1444,
+						"goal": "turnin"
+					},
+					"note": "Fel'zerul in Stonard, where Return to Fel'Zerul is handed in (~49.5); carried through 40-50/06",
+					"gate": 46.7
+				}
+			],
+			"run": {
+				"guide": "forever/horde/50-60/01-un-goro-crater",
+				"after": {
+					"quest": 4081,
+					"goal": "turnin",
+					"note": "the last Kargath stop (~52): a flight to Stonard, the ride east to the temple and back, the hand-in, a flight from Stonard to the Undercity, where the route goes on (05's Stonard stop at ~49.5 is under the temple's floor, 50)"
+				},
+				"entrance": {
+					"map": 1435,
+					"x": 69.9,
+					"y": 53.5
+				},
+				"objectives": [
+					1445
+				],
+				"insideQuests": [
+					3373
+				],
+				"guard": "onquest 1445",
+				"gate": 50
+			},
+			"handins": [
+				{
+					"quest": 1445,
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"after": "run",
+					"note": "Fel'zerul in Stonard, right after the run"
+				}
+			],
+			"leftOut": {
+				"3374": "The Essence of Eranikus, its second part: Itharius in the Swamp of Sorrows, off every route stop",
+				"1446": "Jammal'an the Prophet: given and taken in the Hinterlands"
+			},
+			"travel": [
+				{
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"to": "Stonard",
+					"when": "onquest 1445",
+					"note": "from Kargath, after Goretooth"
+				},
+				{
+					"guide": "forever/horde/50-60/01-un-goro-crater",
+					"to": "Undercity",
+					"when": "zone Swamp of Sorrows",
+					"note": "from Stonard to the solo route's Undercity stop; the Kargath flight there is passed on landing"
+				}
+			],
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/01-un-goro-crater +1.1 km, +21.3 min, hub visits +1.0, backtracks +1.0 (the flights from Kargath to Stonard and on to the Undercity, the ride to the temple and back to Fel'zerul); the run's XP takes 14 min off 50-60/02-felwood's written grind"
+			},
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "run",
+					"quest": 1445,
+					"what": "the Fetishes of Hakkar drop inside the temple"
+				}
+			]
+		},
+		{
+			"dungeon": "Scholomance",
+			"faction": "Horde",
+			"pickups": [],
+			"runStop": [
+				5382
+			],
+			"run": {
+				"guide": "forever/horde/50-60/06-silithus",
+				"after": {
+					"quest": 5846,
+					"goal": "turnin",
+					"note": "Artist Renfray's stop (~59); Eva Sarkhoff stands ~200 yd east of Renfray, the door ~180 yd away"
+				},
+				"entrance": {
+					"map": 1422,
+					"x": 69.7,
+					"y": 73.2
+				},
+				"objectives": [
+					5382
+				],
+				"guard": "onquest 5382",
+				"gate": 58
+			},
+			"handins": [
+				{
+					"quest": 5382,
+					"guide": "forever/horde/50-60/06-silithus",
+					"after": "run",
+					"note": "back to Eva, right after the run"
+				}
+			],
+			"leftOut": {
+				"5511": "The Key to Scholomance: the end of Apothecary Dithers' chain (5802, 5804 before it), which the route doesn't take: the run tip says someone in the group needs the Skeleton Key"
+			},
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/06-silithus +0.4 km, +3.3 min, backtracks -1.0 (Eva Sarkhoff and the door, beside Artist Renfray's stop)"
+			},
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "pickup",
+					"quest": 5382,
+					"what": "Eva Sarkhoff offers it to both sides at 58-59"
+				},
+				{
+					"status": "needs-ingame",
+					"at": "run",
+					"what": "the door needs the Skeleton Key, which the run tip asks one of the group to bring"
+				}
+			]
 		}
 	],
 	"notInRoute": [
@@ -1224,7 +1514,7 @@
 		{
 			"dungeon": "Uldaman",
 			"faction": "Horde",
-			"why": "No quest of the dungeon itself can be taken in its window on the route: the necklace chain starts with Dran Droffers in Orgrimmar, whose route visit (43-45) comes after the only Badlands visit (39-40); the quests the Badlands visit meets (Solution to Doom, Power Stones, the reagent runs) are done outside the dungeon, and Jarkal Mossmeld offers Uldaman Reagent Run only at the end of the visit. A run would have no quest to guard it."
+			"why": "The route's Badlands visits are at 39-40 (30-40/06) and 51-53 (50-60/01's Kargath stops, above the dungeon's quests); Dran Droffers' necklace chain is offered in Orgrimmar at 43-45, after the only Badlands visit in its window, and Patrick Garrett's Reclaimed Treasures is 3+ levels over on the Undercity stop at ~38."
 		},
 		{
 			"dungeon": "Blackrock Depths",
@@ -1239,7 +1529,7 @@
 		{
 			"dungeon": "Excavation Site: Wetlands",
 			"faction": "Horde",
-			"why": "The route never enters the Wetlands in the dungeon's window; its one giver on the route, Zaruk in Hammerfall (Dragonmaw Rumors, 30-33), sends you 2,956 yd across the Thandol Span to the dig and its other givers are off the route."
+			"why": "The route never enters the Wetlands in the dungeon's window; its one giver on the route, Zaruk in Hammerfall (Dragonmaw Rumors, 30-33), sends you 2,956 yd across the Thandol Span to the dig and its other givers are off the route; the route crosses the Wetlands only on 30-40/06's walk from Faldir's Cove at 39-40, 11 levels above the dungeon."
 		},
 		{
 			"dungeon": "Scarlet Monastery",
@@ -1249,7 +1539,7 @@
 		{
 			"dungeon": "Scarlet Monastery",
 			"faction": "Horde",
-			"why": "The route's only Tirisfal point in the window is the zeppelin tower at 32-34, 1,244 yd from the door; Varimathras' quest is level 42 there (8 over) and the other givers are off the route (Thunder Bluff, the Undercity's Parqual Fintallas chain)."
+			"why": "The route's Tirisfal points are the Undercity and its zeppelin tower (1,244 yd from the door) at ~33 (30-40/01's end) and ~39 (30-40/05's start). At 33 no Scarlet Monastery quest is in reach: Varimathras' Into the Scarlet Monastery is 42, and Test of Lore and Compendium of the Fallen start off the route; at 39 Into the Scarlet Monastery is 3 levels over, and Faranell's Hearts of Zeal (33) comes only for a Razorfen Kraul runner."
 		},
 		{
 			"dungeon": "Razorfen Downs",
@@ -1269,7 +1559,7 @@
 		{
 			"dungeon": "Maraudon",
 			"faction": "Horde",
-			"why": "The route is in Desolace only at 32-34, below the dungeon (42-51) and its quests (minimum 39 to 45)."
+			"why": "The route is in Desolace only at 32-34, below the dungeon (the Group Finder's 46-55); its 43-47 Feralas visits are a Desolace crossing (about 2 km) from the door, and Uthel'nay's Shadowshard Fragments is in Orgrimmar."
 		},
 		{
 			"dungeon": "Sunken Temple",
@@ -1277,29 +1567,14 @@
 			"why": "The route passes the temple at 40-43, below its quests (level 50-53, minimum 41-50), and does not come back to the Swamp of Sorrows later."
 		},
 		{
-			"dungeon": "Sunken Temple",
-			"faction": "Horde",
-			"why": "The route passes the temple at 45-47, below its quests (level 50-53, minimum 46-50), and does not come back to the Swamp of Sorrows later."
-		},
-		{
 			"dungeon": "The Drowned City",
 			"faction": "Alliance",
 			"why": "Its givers on the route are Loremaster Dibbs in Southshore at 30-33 (level 40, 7 over) and Krazek's two quests, which give no experience."
 		},
 		{
-			"dungeon": "The Drowned City",
-			"faction": "Horde",
-			"why": "Kin'weelay offers The Drowned City in Grom'gol only once Locating the Lost City is handed in, after the route has already been at the entrance; a run would be a 681 yd trip back to the Vile Reef and a second Grom'gol visit for the hand-in. Commander Aggro'gosh's The Only Good Brinescale needs Enemies in the Water, which the route does not take."
-		},
-		{
 			"dungeon": "Krol'dok Stronghold",
 			"faction": "Alliance",
 			"why": "No entrance in our data and its one quest (Tome of Twilight, no experience) is off the route."
-		},
-		{
-			"dungeon": "Krol'dok Stronghold",
-			"faction": "Horde",
-			"why": "No entrance in our data and its one quest's giver, Tran'gul, is off the route."
 		},
 		{
 			"dungeon": "Alcaz Prison",
@@ -1315,6 +1590,21 @@
 			"dungeon": "The Shaper's Terrace",
 			"faction": "Both",
 			"why": "A level 60 dungeon: its quests give no experience."
+		},
+		{
+			"dungeon": "Stratholme",
+			"faction": "Horde",
+			"why": "Egan's The Restless Souls comes at 56.3 (level 60, 3.7 over), and Light's Hope's Stratholme quests are 3+ levels over on 50-60/05's visits; 50-60/06's single Light's Hope visit (~58) has no return to their givers after a run."
+		},
+		{
+			"dungeon": "Blackrock Spire",
+			"faction": "Horde",
+			"why": "No route visit to Blackrock Mountain at 55 or more (its floor, the Group Finder's): the Kargath stops are at 51-53, below its bosses and its quests (Warlord's Command and the others, from 55)."
+		},
+		{
+			"dungeon": "Dire Maul",
+			"faction": "Horde",
+			"why": "50-60/03's Camp Mojache stop (~55.3) is 1,061 yd from the gate, with Elven Legends 4.7 levels over; Lethtendris's Web needs Harbinger Balthazad's Camp Mojache (7492, minimum 54), whom the route meets on its Undercity stop at ~52."
 		}
 	],
 	"aboutNotInRoute": "Dungeons measured for the route and left out, with why (the 30-60 batch, 0.4.0): their pick-up and run rules as for `runs`. The Dungeons window's pick-up and hand-in guides cover them."

@@ -12,13 +12,18 @@ next forever/horde/40-50/03-feralas
 # Added here: A Threat in Feralas (2981), News for Fizzle (1137), Keeping Pace (1190), Zamek's Distraction (1191),
 # Rizzle's Schematics (1194).
 
-step Swamp of Sorrows
-  zone Swamp of Sorrows
-  goto 46.1,54.7 "Stonard"
-
 step Fly to Grom'gol
+  when zone "Swamp of Sorrows"
   zone Swamp of Sorrows
   goto 46.1,54.7 "Stonard flight master"
+  fly "Grom'gol"
+  zone Stranglethorn Vale
+
+step Fly to Grom'gol
+  when zone "Badlands"
+  zone Badlands
+  tip Coming from the Riverglades: Kargath's flight master stands at the foot of the fortress.
+  goto 4.1,44.9 "Kargath flight master"
   fly "Grom'gol"
   zone Stranglethorn Vale
 
@@ -160,18 +165,37 @@ step Riding at 40
 
 step Fly to Freewind Post
   only Druid,Paladin
+  when !taxi "Gadgetzan"
   zone Thunder Bluff
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Druid,Paladin
+  when taxi "Gadgetzan"
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when !taxi "Gadgetzan"
   zone Thunder Bluff
   when level>=40
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Freewind Post"
   zone Thousand Needles
+
+step Fly to Gadgetzan
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when taxi "Gadgetzan"
+  zone Thunder Bluff
+  when level>=40
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Gadgetzan"
+  zone Tanaris
 
 step Ratchet for the Felsteed
   only Warlock
@@ -186,28 +210,75 @@ step Ratchet for the Felsteed
 
 step Fly to Freewind Post
   only Warlock
+  when !taxi "Gadgetzan"
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Warlock
+  when taxi "Gadgetzan"
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Fly to Freewind Post
   only Orc,Troll,Undead,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when !taxi "Gadgetzan"
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Orc,Troll,Undead,Skyborne,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when taxi "Gadgetzan"
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
 step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when !taxi "Gadgetzan"
   zone Orgrimmar
   when level<40
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
 
+step Fly to Gadgetzan
+  only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
+  when taxi "Gadgetzan"
+  zone Orgrimmar
+  when level<40
+  goto 45.3,63.7 "Orgrimmar flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Gadgetzan
+  when taxi "Gadgetzan"
+  zone Tanaris
+  tip Flown in: Gadgetzan's quests first, by the flight master, then the Mirage Raceway is a short ride north over the Tanaris border.
+  accept 992                            -- Senior Surveyor Fizzledowser
+  turnin 2864                           -- Tran'rek
+  accept 1690                           -- Chief Engineer Bilgewhizzle
+  accept 1707                           -- Spigot Operator Luglunket
+
+step Gadgetzan
+  when taxi "Gadgetzan"
+  when dungeon "Zul'Farrak"
+  when level>=42.8
+  zone Tanaris
+  tip For your Zul'Farrak run, in the next guide: Tran'rek wants scarab shells, and Trenton Lighthammer, a short walk from the flight master, Troll Temper from the Sandfury trolls.
+  accept 2865                           -- Tran'rek
+  accept 3042                           -- Trenton Lighthammer
+
 step Mirage Raceway
   zone Thousand Needles
+  tip Flown in to Gadgetzan: the raceway is a short ride north over the Tanaris border.
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1190                           -- Pozzik
@@ -220,6 +291,7 @@ step Mirage Raceway
   turnin 1194                           -- Pozzik
 
 step To Gadgetzan
+  when !taxi "Gadgetzan"
   zone Tanaris
   goto 50.2,27.5 "Gadgetzan"
 
@@ -234,6 +306,7 @@ step Gadgetzan
 
 step Gadgetzan
   when dungeon "Zul'Farrak"
+  when level>=42.8
   zone Tanaris
   tip For your Zul'Farrak run, in the next guide: Tran'rek wants scarab shells, and Trenton Lighthammer, a short walk from the flight master, Troll Temper from the Sandfury trolls.
   accept 2865                           -- Tran'rek
@@ -318,7 +391,6 @@ step Feralas
 step Camp Mojache
   zone Feralas
   getfp "Camp Mojache"
-  sethome "Camp Mojache"
   accept 2987                           -- Orwin Gizzmick
   turnin 2981                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   accept 2975                           -- Rok Orhan
@@ -332,6 +404,7 @@ step Camp Mojache
 
 step Gordunni Outpost
   tip North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.
+  tip Careful: Ohk'zi (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.
   use 9466 quest 2987.1 @74.5,30.2 map 1444
   collect 9463 quest 2987.1
   kill 5229 quest 2975.1
@@ -373,6 +446,7 @@ step Camp Mojache
 
 step Grimtotem camp
   tip The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.
+  tip Careful: Namida Grimtotem (level 43, elite) stands in the camp: pull the raiders and shamans away from her.
   collect 9460 quest 2974.1
 
 step Woodpaw battle map

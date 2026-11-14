@@ -646,6 +646,19 @@
 		],
 		"note": "James Hyal (Connor Rivers, Stormwind) is not offered once They Call Him Smiling Jim (1282) is handed in: the world DB offers 1301 only while 1282 is not rewarded, and a player who had handed in 1282 found Connor Rivers without it. Both roads end in Theramore's Foothold Citadel, and the game's data puts 1282 and James Hyal's second part (1302) in one exclusive group. The merged data had no exclusion on 1301, so the guide still asked for it."
 	},
+	"1420": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: Neeka Bloodscar (5394) at Kargath offered Report to Helgrum (1420) to 7 people (7 characters, Polestar 0.3.4-0.3.7.2), none of whom took or handed in Neeka Bloodscar (1418) in any recording; two of them are recorded from level 1"
+			}
+		],
+		"note": "Report to Helgrum (1420) has no prerequisite on Forever: Neeka Bloodscar offers it at Kargath without Neeka Bloodscar (1418), Helgrum's errand from Stonard that sends you to her. 1418 is only a breadcrumb for it, which the data already lists. The Badlands guide takes 1420 there for every character."
+	},
 	"1471": {
 		"set": {
 			"races": 146

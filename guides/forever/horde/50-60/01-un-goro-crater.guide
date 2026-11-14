@@ -73,7 +73,8 @@ step Un'Goro Crater
 #   Undercity, Harbinger Balthazad beside the bat master first.
 #
 # Blackrock Depths (`when dungeon "Blackrock Depths"`, dungeons in the route): for a character who runs it,
-# Kargath's WANTED poster gives KILL ON SIGHT: Dark Iron Dwarves (4081) on the first Kargath stop, at about 51; the
+# Kargath's WANTED poster gives KILL ON SIGHT: Dark Iron Dwarves (4081) on the first Kargath stop, at 52 (the grind
+# in the crater ends there); the
 # run follows on the way through Blackrock Mountain to the Burning Steppes (the portal is down the walkways from
 # the bridge the route crosses), and Warlord Goretooth takes it on the last Kargath stop (`when complete`). Left
 # out: its follow-up poster (4082, offered once 4081 is handed in), Thunderheart's quests (3906 first: Overmaster
@@ -81,6 +82,14 @@ step Un'Goro Crater
 # 4133, not taken), The Heart of the Mountain and Ribbly Screwspigot (4123, 4136: Maxwort Uberglint and Yuka
 # Screwspigot at Flame Crest, after the mountain), The Rise of the Machines (4063: after 4062, dropped above) and
 # the quests that start inside.
+#
+# Sunken Temple (`when dungeon "Sunken Temple"`, dungeons in the route): a character who took Fel'zerul's The Temple
+# of Atal'Hakkar (1445) in forever/horde/40-50/05-the-hinterlands runs the temple from the last Kargath stop, at
+# about 52 (its Group Finder minimum is 50): a flight to Stonard, the ride east to the temple's door and back, the
+# hand-in to Fel'zerul, and a flight from Stonard to the Undercity, where the route goes on. A character without
+# the quest flies from Kargath with everyone. The Essence of Eranikus (3373) starts with a drop inside and ends at
+# the Essence Font inside (the run's tip names it). Left out: its second part (3374: Itharius in the Swamp of
+# Sorrows, off the route) and Jammal'an the Prophet (1446, given and taken in the Hinterlands).
 #
 # Left open for later guides: The New Springs (980) and It's a Secret to
 # Everybody (3908, Donova Snowden), Marvon's Workshop (4147), Felnok
@@ -251,7 +260,7 @@ step Eastern Pylon
 
 step The Marshlands
   tip Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.
-  tip Below level 52, keep hunting the ravasaurs here after the eighth claw: The Rise of the Machines at Kargath needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip Below level 52, keep hunting the ravasaurs here after the eighth claw: The Rise of the Machines at Kargath needs level 52, and the Plaguelands quests at the end of this guide are level 55.
   collect 11477 quest 4300
   level 52 grind 6505                 -- grind on Ravasaur
 
@@ -313,6 +322,7 @@ step Kargath
 
 step The WANTED poster
   when dungeon "Blackrock Depths"
+  when level>=52
   zone Badlands
   tip For your Blackrock Depths run, next, on the way through Blackrock Mountain: the WANTED poster in Kargath wants the Anvilrage dwarves inside thinned out.
   accept 4081 object 164867           -- WANTED
@@ -325,8 +335,9 @@ step Into the Searing Gorge
 step Blackrock Depths
   when dungeon "Blackrock Depths"
   when onquest 4081
+  when level>=52
   zone Searing Gorge
-  tip Blackrock Depths is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
+  tip Blackrock Depths is a dungeon for a group of five, levels 52 to 60, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
   tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
   enter "Blackrock Depths" @34.8,85.3
   complete 4081 @34.8,85.3            -- KILL ON SIGHT: Dark Iron Dwarves: the Anvilrage dwarves, inside
@@ -380,18 +391,51 @@ step Warlord Goretooth
   tip The Anvilrage dwarves of your Blackrock Depths run: Warlord Goretooth, in Kargath.
   turnin 4081                         -- Warlord Goretooth
 
-step Fly to Tarren Mill
+step Fly to Stonard
+  when dungeon "Sunken Temple"
+  when onquest 1445
+  when level>=50
   zone Badlands
+  tip Your Sunken Temple run: fly to Stonard. The temple stands in the swamp's eastern lake, a short ride east of Stonard.
   goto 4.1,44.9 "Kargath flight master"
-  fly "Tarren Mill"
-  zone Hillsbrad Foothills
+  fly "Stonard"
 
-step Apothecary Lydon
-  turnin 2933                         -- Inside
+step The Sunken Temple
+  when dungeon "Sunken Temple"
+  when onquest 1445
+  when level>=50
+  zone Swamp of Sorrows
+  tip The Sunken Temple is a dungeon for a group of five, levels 50 to 60. Its door is in the sunken temple in the eastern lake, the Pool of Tears.
+  tip Inside: the trolls carry the Fetishes of Hakkar for Fel'zerul. The Essence of Eranikus, a drop inside, starts a quest of its own.
+  enter "Sunken Temple" @69.9,53.5
+  complete 1445 @69.9,53.5            -- The Temple of Atal'Hakkar: twenty Fetishes of Hakkar, inside
+
+step Fel'zerul
+  when dungeon "Sunken Temple"
+  when complete 1445
+  zone Swamp of Sorrows
+  tip The Fetishes of Hakkar from your Sunken Temple run: back to Fel'zerul in Stonard.
+  turnin 1445                         -- Fel'zerul
+
+step Abandon The Temple of Atal'Hakkar
+  when dungeon "Sunken Temple"
+  when onquest 1445
+  when !complete 1445
+  tip The Temple of Atal'Hakkar is still unfinished: without a Sunken Temple run at its level the route doesn't come back for the fetishes, so abandon it.
+  abandon 1445                        -- The Temple of Atal'Hakkar
 
 step Fly to Undercity
-  zone Hillsbrad Foothills
-  goto 60.2,18.8 "Tarren Mill flight master"
+  when dungeon "Sunken Temple"
+  when zone "Swamp of Sorrows"
+  when level>=50
+  zone Swamp of Sorrows
+  goto 46.1,54.7 "Stonard flight master"
+  fly "Undercity"
+  zone Undercity
+
+step Fly to Undercity
+  zone Badlands
+  goto 4.1,44.9 "Kargath flight master"
   fly "Undercity"
   zone Undercity
 # ---------------------------------------------------------------- Undercity

@@ -48,7 +48,7 @@ step Kirsta Deepshadow
 step Level 52.63
   zone Western Plaguelands
   when level<52.63
-  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Scarlet Mages and Knights here count for Kirsta's Unfinished Business. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Scarlet Mages and Knights here count for Kirsta's Unfinished Business.
   goto 53.1,37.3 map 1422 "Scarlet Mage"
   level 52.63 grind 1826               -- grind on Scarlet Mage
 
@@ -72,7 +72,7 @@ step Mulgris Deepriver
   accept 4985
 
 step Diseased Grizzlies
-  tip The bears roam the hills north and east of the Writhing Haunt. Below level 53.02, keep hunting them after the eighth: the hand-ins at the Writhing Haunt take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  tip The bears roam the hills north and east of the Writhing Haunt. Below level 53.02, keep hunting them after the eighth: the hand-ins at the Writhing Haunt take you to level 54.
   kill 1816 quest 4985
   level 53.02 grind 1816               -- grind on Diseased Grizzly
 
@@ -110,7 +110,7 @@ step The Bulwark
 step Level 53.34
   zone Western Plaguelands
   when level<53.34
-  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54.
   goto 40.5,51.8 map 1422 "Scarlet Medic"
   level 53.34 grind 10605              -- grind on Scarlet Medic
 
@@ -120,6 +120,7 @@ step Tirisfal Glades
 
 step Paladin trainer
   only Paladin
+  when level>=54
   zone Tirisfal Glades
   train class only Paladin -- Shari Stilwell in Tirisfal Glades; Orgrimmar has no paladin trainer
 
@@ -139,10 +140,12 @@ step Jes'rimon
 
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when level>=54
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Druid trainer
   only Druid
+  when level>=54
   train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
 
 step Fly to Splintertree Post
@@ -168,7 +171,7 @@ step Emerald Sanctuary
   accept 4102                         -- Maybess Riverbreeze, on the west side of the camp
 
 step Deadwood Village
-  tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it.
   kill 7153 quest 8460.1
   kill 7154 quest 8460.3
   level 53.92 grind 7153               -- grind on Deadwood Warrior
@@ -249,7 +252,7 @@ step Shatter Scar Vale
   kill 9879 quest 5156.2
 
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55.
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
   level 54.21 grind 8957               -- grind on Angerclaw Grizzly
@@ -269,7 +272,7 @@ step Nafien
 
 step Felpaw Village
   tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
-  tip Below level 54.54, keep fighting the Deadwood here after Nafien's count: the hand-ins at Timbermaw Hold and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Below level 54.54, keep fighting the Deadwood here after Nafien's count: the hand-ins at Timbermaw Hold and the Emerald Sanctuary take you to level 55.
   tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59.
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
@@ -308,7 +311,7 @@ step Overlord Ror
 
 step Level 54.7
   when level<54.7
-  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
   level 54.7 grind 7155               -- grind on Deadwood Pathfinder
 
@@ -335,6 +338,6 @@ step Winna Hazzard
 
 step Level 54.87
   when level<54.87
-  tip Top up here to level 54.87 before the hand-ins in Winterspring: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Top up here to level 54.87 before the hand-ins in Winterspring: they take you to level 55.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
   level 54.87 grind 7125               -- grind on Jaedenar Hound

@@ -50,6 +50,40 @@
 			"issue": 1575
 		},
 		{
+			"id": "danger-desolace-centaur-totems-valley-of-spears",
+			"quest": 93225,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 33.0,
+				"y": 54.0,
+				"frame": "era"
+			},
+			"note": "Carved Centaur Totems (93225): every Desolace centaur clan drops the totem, so the goal pointed at the Magram's village in the south-east, among Magram Necromancers (42-43) and Guardians (39-41), at a route level of 37. The step is the Valley of Spears west of Ghost Walker Post, whose Maraudine (36-39) drop it as well: the arrow points at the valley's eastern camps (where players' recordings show the totems collected), clear of the elite Rock Borers and Worms and the rare Cursed Centaur (40-43) at its south-western end.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "items 254432 droppers include the Maraudine Scout, Mauler, Windchaser and Wrangler; npcs.json Maraudine spawns at Desolace 30-34, 50-62"
+			}
+		},
+		{
+			"id": "danger-desolace-ghost-magnets-east-of-the-elites",
+			"quest": 6134,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1443,
+				"x": 64.4,
+				"y": 91.7,
+				"frame": "era"
+			},
+			"note": "Ghost-o-plasm Round Up (6134): the Valley of Bones is now part of Shen'dralas, and the old point (Desolace 63.5,91.6) put the Crate of Ghost Magnets among Magram Necrokhans and Corpsefeeders (45, elite) at a route level of 37; players' recordings show 8 deaths there. The crate works anywhere on the bone fields: players used it at this spot (Shen'dralas 33.6,28.9 on the zone's own map), on the valley's eastern side, kept on Desolace's map where the quest data places the spectres, with no elite or mob 3 levels over within 40 yd.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings: Ghost-o-plasm objective ticks of 8 people on Shen'dralas, one of them at 33.6,28.9; danger gate recordings: 5 and 3 deaths at the old point"
+			}
+		},
+		{
 			"id": "610-wetlands-fen-creepers",
 			"quest": 275,
 			"objective": 1,
@@ -2085,6 +2119,69 @@
 					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
 				}
 			]
+		},
+		{
+			"id": "azshara-3505-surveyors-east",
+			"quest": 3505,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1447,
+				"x": 56.2,
+				"y": 29.9,
+				"frame": "era"
+			},
+			"note": "Betrayed (3505): the arrow for the Blood Elf Surveyors points at the camp's east side (four surveyors within 40 yd, no elite), away from the one Blackmaw Thrall (level 55-57 elite) that stands at the camp's west edge. Danger-at-the-spot gate (#1575): the surveyor spawn beside him flagged an elite 3.6 levels over the route there.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 6198 Blood Elf Surveyor spawns in Azshara 55.4-58.8,26.5-31.2; 250023 Blackmaw Thrall (55-57, elite) at 54.81,26.03"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "winterspring-4741-moontouched-north",
+			"quest": 4741,
+			"objective": 1,
+			"at": {
+				"map": 1452,
+				"x": 64.9,
+				"y": 17.8,
+				"frame": "era"
+			},
+			"faction": "Horde",
+			"note": "Wild Guardians (4741): the arrow for the Moontouched Owlbeasts points at the slopes north of Everlook, where the step's tip sends players, not at their southern spawns beside the Hailspite (level 60 elites) south-east of town. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7453 Moontouched Owlbeast: 12 spawns at 62-68,15-25 and more at 59-68,57-63; 269213 Hailspite (60, elite) at 65.6-67.9,54.6-59.4"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "felwood-5086-toxic-horrors-north-tip",
+			"quest": 5086,
+			"objective": 1,
+			"at": {
+				"map": 1448,
+				"x": 50.6,
+				"y": 22.4,
+				"frame": "era"
+			},
+			"note": "Toxic Horrors (5086), both factions: the arrow points at the Toxic Horror farthest from the Ancient Irontree Walkers (level 59 elites), at the north tip of Irontree Woods (about 63 yd from the nearest walker). Their spawns overlap the Horrors' almost exactly, and one recorded player died there on each faction's route. Danger-at-the-spot gate (#1575).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7132 Toxic Horror spawns at 48.1-51.1,22.5-27.4; 235912 Ancient Irontree Walker (59, elite) at 47.0-50.3,23.9-28.8; 14524 Vartrus the Ancient (63, elite) at 47.78,24.08"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index (danger recordings): 1 death within 60 yd of the Toxic Horrors goal on each faction's route"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }
