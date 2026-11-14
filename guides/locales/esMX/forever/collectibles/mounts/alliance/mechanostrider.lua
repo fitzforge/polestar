@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
 	-- {area:189} Steelgrill's Depot · {area:131} Kharanos · {npc:7954} Binjy Featherwhistle · {npc:7955} Milli Featherwhistle · {skill:762} Riding · {faction:54} Gnomeregan Exiles
-	["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} to Gnomes for 100g (10% less at Honored with {faction:54}), and it comes with a mechanostrider. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} to Gnomes for 100g (10% less at Honored with {faction:54}), and it comes with a mechanostrider. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{area:189} está justo al este de {area:131}; {npc:7954} está junto a los mecazancudos de {npc:7955}. A nivel 40 {npc:7954} enseña {skill:762} a los gnomos por 100 de oro (10% menos en Honorable con {faction:54}), y viene con un mecazancudo. Las demás razas aprenden {skill:762}, con su propia primera montura, con el instructor de equitación de su raza.",
 	-- {npc:7954} Binjy Featherwhistle
 	["{npc:7954}, riding trainer"] = "{npc:7954}, instructor de equitación",
 
 	-- Step 2: Mechanostrider Piloting for other races
 	-- {spell:10907} Mechanostrider Piloting
-	["{spell:10907} for other races"] = "",
+	["{spell:10907} for other races"] = "{spell:10907} para otras razas",
 	-- {spell:10907} Mechanostrider Piloting · {skill:762} Riding · {npc:7954} Binjy Featherwhistle · {faction:54} Gnomeregan Exiles
-	["Any Alliance race can buy these mechanostriders, but riding one also takes {spell:10907}, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "",
+	["Any Alliance race can buy these mechanostriders, but riding one also takes {spell:10907}, which only Gnomes get with {skill:762}. {npc:7954} teaches it to other races once they are Exalted with {faction:54} (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character."] = "Cualquier raza de la Alianza puede comprar estos mecazancudos, pero para montar uno también hace falta {spell:10907}, que solo los gnomos reciben con {skill:762}. {npc:7954} se la enseña a las demás razas una vez que están en Exaltado con {faction:54} (la guía de reputación de los Exiliados de Gnomeregan muestra el camino). Hasta entonces, no le compres un mecazancudo a este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",
@@ -35,7 +35,7 @@ return {
 	-- {item:13322} Unpainted Mechanostrider
 	["{item:13322}, 20g"] = "{item:13322}, 20 o",
 	-- {spell:10907} Mechanostrider Piloting
-	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "",
+	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "En Classic solo los enanos y los gnomos podían montar mecazancudos; en Forever todas las razas de la Alianza pueden aprender {spell:10907}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Era let only Dwarves and Gnomes ride mechanostriders; the Forever client allows every Alliance race."] = "En Era solo los enanos y los gnomos podían montar mecazancudos; el cliente de Forever lo permite a todas las razas de la Alianza.",
