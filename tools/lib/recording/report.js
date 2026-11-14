@@ -176,7 +176,10 @@ function sessionItems(s, xpModel) {
 			default:
 				break;
 		}
-		if (typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
+		// These positions can come from an earlier dialog or item use. Keep
+		// the event's facts and timing, but leave the walking anchor unchanged.
+		const dialogPosition = e.e === 'accept' || e.e === 'turnin' || (e.e === 'detail' && num(e.item) > 0);
+		if (!dialogPosition && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
 			if (lastPos && lastPos.map === e.map && cur) {
 				const [w, h] = mapSize(s.maps, e.map);
 				const d = Math.hypot(((e.x - lastPos.x) * w) / 100, ((e.y - lastPos.y) * h) / 100);

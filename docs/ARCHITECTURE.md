@@ -8608,6 +8608,14 @@ XP/hr. Then three lists: slowest steps by XP/hr; steps at least twice and
 estimate to compare against); detours, steps with 600+ yd of median travel and
 no XP or a third of the guide's XP per yard.
 
+Accept/turn-in coordinates and item-giver detail coordinates can be cached
+from when a quest dialog opened. They remain quest location facts, but the
+report does not use them as timestamped player movement samples or replace
+the previous movement position with them. Time, XP and quest counts still
+include those events. The recording has no marker distinguishing cached
+coordinates from fresh fallback coordinates, so fresh samples of these kinds
+are omitted too; ordinary NPC/object detail and offer positions still count.
+
 ### Route planner (`planner`)
 
 `node tools/polestar.js planner [<pack dir>...] [--port 8078] [--nav <dir>] [--guides <dir>]` serves a local
