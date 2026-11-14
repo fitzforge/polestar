@@ -1053,17 +1053,34 @@ end)
 -- first opened.
 ---------------------------------------------------------------------------
 
--- Is version a newer than b ("0.3.10" > "0.3.7"; nil is oldest)?
+-- Is version a newer than b ("0.3.10" > "0.3.7"; nil is oldest)? Each pair
+-- is worked out once (the sidebar asks for every setting on each change).
+local newerOf = {} -- a -> b -> boolean
 local function newer(a, b)
 	if type(a) ~= "string" then return false end
 	if type(b) ~= "string" then return true end
+	local row = newerOf[a]
+	if not row then
+		row = {}
+		newerOf[a] = row
+	end
+	local known = row[b]
+	if known ~= nil then return known end
 	local ia, ib = a:gmatch("%d+"), b:gmatch("%d+")
 	while true do
 		local x, y = ia(), ib()
-		if not x and not y then return false end
+		if not x and not y then
+			known = false
+			break
+		end
 		x, y = tonumber(x) or 0, tonumber(y) or 0
-		if x ~= y then return x > y end
+		if x ~= y then
+			known = x > y
+			break
+		end
 	end
+	row[b] = known
+	return known
 end
 O.Newer = newer
 
@@ -1148,15 +1165,68 @@ local function homeSettings(s)
 	return out
 end
 
+-- Whether setting spec x is off its default: one with a value of its own
+-- stored (a value at its default is never stored: the rest read theirs).
+local function offDefault(x)
+	return x.key ~= nil and x.kind ~= "button" and x.kind ~= "binding" and ns.GetStored(x.key) ~= nil and W.Modified(x.key)
+end
+
 -- The settings of a list that are off their default. -> count
 local function modifiedCount(controls)
 	local n = 0
 	for _, c in ipairs(controls) do
-		if c.key and c.kind ~= "button" and c.kind ~= "binding" and W.Modified(c.key) then n = n + 1 end
+		if offDefault(c) then n = n + 1 end
 	end
 	return n
 end
 O.ModifiedCount = modifiedCount
+
+-- Whether c's extras or what its cog holds, each while available, hold a
+-- setting off its default (the stored value asked first, availability last).
+local function heldOff(c)
+	local ex = c.extras
+	if ex then
+		for _, e in ipairs(ex) do
+			if offDefault(e) and available(e) then return true end
+		end
+	end
+	local more = c.more
+	if more then
+		for _, m in ipairs(more) do
+			if (offDefault(m) and available(m)) or heldOff(m) then return true end
+		end
+	end
+	return false
+end
+
+-- Whether a section holds a setting off its default, as
+-- modifiedCount(sectionSettings(s)) > 0 says, without making the lists.
+local function sectionOff(s)
+	local t = s.toggle
+	if t and offDefault(t) and available(t) then return true end
+	for _, c in ipairs(s.controls) do
+		if (offDefault(c) or heldOff(c)) and available(c) then return true end
+	end
+	return false
+end
+
+-- Whether c or anything it holds, available or not, is off its default.
+local function anyOff(c)
+	if offDefault(c) then return true end
+	local ex = c.extras
+	if ex then
+		for _, e in ipairs(ex) do
+			if offDefault(e) then return true end
+		end
+	end
+	local more = c.more
+	if more then
+		for _, m in ipairs(more) do
+			if anyOff(m) then return true end
+		end
+	end
+	return false
+end
 
 -- The footer's Undo for what a reset changed (filled in further down).
 local Undo = {}
@@ -1585,9 +1655,14 @@ local function markSections(view)
 	for c, cog in pairs(view.cogs or {}) do
 		-- A cog pointed out (its first-use cue) keeps its dot while it pulses.
 		if cog:IsVisible() and not rawget(cog, "psPulsing") then
-			local list = {}
-			for _, m in ipairs(c.more) do eachSetting(m, function(x) list[#list + 1] = x end) end
-			W.SetCogDot(cog, modifiedCount(list) > 0)
+			local off = false
+			for _, m in ipairs(c.more) do
+				if anyOff(m) then
+					off = true
+					break
+				end
+			end
+			W.SetCogDot(cog, off)
 		end
 	end
 end
@@ -1794,10 +1869,12 @@ O.LabelOf = labelOf
 function O.PreviewHotspot(frame, region, key) return UI.Preview.Hotspot(frame, region, key) end
 
 -- Lay the shown tab's preview out across the main column and pin it.
-local function placePreview(view, t)
+-- fresh: a setting's change, after which a band shown has laid itself out
+-- already (its watch, the theme's refresh): placed as it stands.
+local function placePreview(view, t, fresh)
 	local width = win.psMainW or (win.BodyWidth + SH.pad * 2)
 	local room = win:GetHeight() - SH.header - SH.tabs - SH.footer
-	UI.Preview.Place(win, view, t, width, room)
+	UI.Preview.Place(win, view, t, width, room, fresh)
 end
 
 -- The first open's one line under the header: how the rows work (hover,
@@ -2776,14 +2853,33 @@ local function navState()
 	return db.optionsNav
 end
 
+-- How many of c and what it holds (homeSettings': references aside) are new
+-- since `seen` and available.
+local function newIn(c, seen)
+	local n = (not rawget(c, "ref") and c.new and newer(c.new, seen) and available(c)) and 1 or 0
+	local ex = c.extras
+	if ex then
+		for _, e in ipairs(ex) do
+			if not rawget(e, "ref") and e.new and newer(e.new, seen) and available(e) then n = n + 1 end
+		end
+	end
+	local more = c.more
+	if more then
+		for _, m in ipairs(more) do n = n + newIn(m, seen) end
+	end
+	return n
+end
+
 -- The page's settings new since the player last opened it. -> count
 local function pageNew(p)
 	local seenNow = seenTable()[p.key]
 	local n = 0
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(homeSettings(s)) do
-				if c.new and newer(c.new, seenNow) and available(c) then n = n + 1 end
+			local tg = s.toggle
+			if tg and not rawget(tg, "ref") and tg.new and newer(tg.new, seenNow) and available(tg) then n = n + 1 end
+			for _, c in ipairs(s.controls) do
+				if not rawget(c, "ref") then n = n + newIn(c, seenNow) end
 			end
 		end
 	end
@@ -2811,7 +2907,7 @@ end
 local function pageChanged(p)
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			if modifiedCount(sectionSettings(s)) > 0 then return true end
+			if sectionOff(s) then return true end
 		end
 	end
 	return false
@@ -3782,7 +3878,7 @@ local function refreshMarks()
 		W.ShellNav(win, items, query == "" and current and current.key or nil, navSelect)
 	end
 	if query == "" and O.view and O.view:IsShown() and O.view.psTab and O.view.psTab.preview then
-		placePreview(O.view, O.view.psTab)
+		placePreview(O.view, O.view.psTab, true)
 	end
 	local _, active = profileNames()
 	if active ~= footerProfile then renderFooter(query == "" and current or nil) end
@@ -3910,6 +4006,9 @@ local function build()
 	end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
+		-- A live change (a slider dragged) settles with a plain one: the marks, the
+		-- sections' shown() and the window's size wait for it.
+		if ns.SettingLive() then return end
 		if path == "ui.optionsSize" or path == "ui.menuScale" or path == "" or path == "ui" then
 			if applySize() then relayout() end
 		end

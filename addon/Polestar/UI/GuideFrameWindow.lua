@@ -299,8 +299,16 @@ ns.UI.GuideFrame.Part(function(GF)
 			applyAll()
 			GF.Render()
 		end)
+		-- A live change (a slider dragged) of the window's own ground: that alone,
+		-- the restyle and its layout when the change settles. The theme's live
+		-- repaint paints the ground's every-window opacity and colours itself.
+		local LIVE = { ["guideWindow.bgOpacity"] = true, ["guideWindow.bgColor"] = true }
 		ns.On("SETTING_CHANGED", function(path)
 			if not F then return end
+			if ns.SettingLive() then
+				if LIVE[path] then return GF.ApplyGround() end
+				if Theme.LivePaints(path) then return end
+			end
 			local fn = APPLY[path]
 			if fn then
 				fn()

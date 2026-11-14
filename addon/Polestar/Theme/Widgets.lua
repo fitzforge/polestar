@@ -86,14 +86,33 @@ function W.HoldColorAlpha(tex)
 	return tex
 end
 
--- Run fn(obj) now and on every theme change.
-function W.Painter(obj, fn)
+-- Painters that lay something out (W.Painter's full): object -> true.
+local fullPainters = setmetatable({}, { __mode = "k" })
+
+-- Run fn(obj) now and on every theme change. full: fn lays something out (a
+-- preview's band), so a live repaint (Theme.LiveChanged: a slider dragged)
+-- leaves it to the full refresh the change settles with.
+function W.Painter(obj, fn, full)
 	painters[obj] = fn
+	fullPainters[obj] = full and true or nil
 	fn(obj)
 	return obj
 end
 
 Theme.OnChanged(function()
+	local changed = Theme.LiveChanged and Theme.LiveChanged()
+	if changed then
+		-- A live repaint: the regions in a colour it changed (a name the
+		-- palette lacks reads its text colour), the painters of what shows.
+		local pal = Theme.Palette()
+		for region, name in pairs(colored) do
+			if changed[name] or (pal[name] == nil and changed.text) then W.Color(region, name, region.psAlpha) end
+		end
+		for obj, fn in pairs(painters) do
+			if not fullPainters[obj] and (not obj.IsVisible or obj:IsVisible()) then fn(obj) end
+		end
+		return
+	end
 	for region, name in pairs(colored) do W.Color(region, name, region.psAlpha) end
 	for obj, fn in pairs(painters) do fn(obj) end
 end)
@@ -465,10 +484,12 @@ function W.IconButton(parent, icon, size, tip, onClick, glyphSize)
 	b.Icon = g
 	W.Color(g, "icon")
 	b.psTip = tip
+	-- Its glyph and the plate a look frames it with: the skin's, so not on a
+	-- live repaint (colours alone: its glyph's is W.Color's).
 	W.Painter(b, function(self)
 		self.Icon:SetTexture(Theme.Media(Theme.Icon(self.psIconName)))
 		iconFrame(self)
-	end)
+	end, true)
 	b:SetScript("OnEnter", function(self)
 		if self:IsEnabled() then W.Color(self.Icon, self.psActive and "accent" or "iconHover") end
 		simpleTip(self)
@@ -849,12 +870,18 @@ ns.On("SETTING_CHANGED", function(path)
 		end
 		return
 	end
+	-- A live change (a drag) settles with a plain one: the rows bound to it
+	-- and those it may grey out wait for that (the dragged slider paints
+	-- its own thumb and value as it moves).
+	if ns.SettingLive and ns.SettingLive() then return end
 	refreshList(bound[path])
 	refreshList(dependents[path])
 	for control in pairs(conditional) do control:Refresh() end
 end)
 
-Theme.OnChanged(W.RefreshAll)
+-- Every row again after a full refresh (a live repaint's colours reach
+-- theirs through W.Color).
+Theme.OnChanged(W.RefreshAll, true)
 
 -- fn() after the font changes (ui.font, EllesmereUI's font): text that
 -- sized its row, column or control measures differently, so a window shown
@@ -872,7 +899,7 @@ Theme.OnChanged(function()
 	if key == fontKey then return end
 	fontKey = key
 	for _, fn in ipairs(fontHandlers) do fn() end
-end)
+end, true)
 
 -- A grid row: label left, bound by the control and wrapping onto more lines
 -- rather than cut, a faint hairline underneath, the description as the
@@ -1032,21 +1059,23 @@ local function muteText(region, off)
 	end
 end
 
+-- A compact half's children at `alpha`, but its value box, swatch parts and
+-- dropdown (muteText keeps those legible) and inline extras.
+local function dimChildren(row, alpha, dropdown, ...)
+	local hit, hex, a = rawget(row, "ValueHit"), rawget(row, "Hex"), rawget(row, "Alpha")
+	for i = 1, select("#", ...) do
+		local child = select(i, ...)
+		if child ~= hit and child ~= hex and child ~= a and child ~= dropdown and not rawget(child, "psInline") then child:SetAlpha(alpha) end
+	end
+end
+
 -- An off compact half: its marks (track, slider, chip, box) at 40%, its
 -- texts (label, value, hex) in textMuted at full alpha, legible (4.5:1).
 local function dimCompact(row, enabled)
 	row:SetAlpha(1)
 	row.psOff = not enabled or nil
 	local dropdown = row.psChoices ~= nil and not rawget(row, "psCardBy") and rawget(row, "Button") or nil
-	local keep = {}
-	for _, k in ipairs({ "ValueHit", "Hex", "Alpha" }) do
-		local f = rawget(row, k)
-		if f then keep[f] = true end
-	end
-	if dropdown then keep[dropdown] = true end
-	for _, child in ipairs({ row:GetChildren() }) do
-		if not keep[child] and not rawget(child, "psInline") then child:SetAlpha(enabled and 1 or 0.4) end
-	end
+	dimChildren(row, enabled and 1 or 0.4, dropdown, row:GetChildren())
 	muteText(rawget(row, "Value"), not enabled)
 	muteText(dropdown and dropdown.Label, not enabled)
 	muteText(rawget(row, "Hex"), not enabled)
@@ -1505,13 +1534,30 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 		end
 		sliderPaint(row, value)
 		if userInput and not row.psRefreshing and W.Enabled(row) and sliderValue(row) ~= value then
-			if opts and opts.release then row.psPending = value else sliderWrite(row, value) end
+			if opts and opts.release then
+				row.psPending = value
+			elseif row.psDragging then
+				-- Each value of a drag is written live: what it changes shows
+				-- at once, the layouts and marks wait for the drag's end.
+				row.psLive = true
+				ns.Live(sliderWrite, row, value)
+			else
+				sliderWrite(row, value)
+			end
 		end
 	end)
-	s:HookScript("OnMouseDown", function() row.psDragging = true end)
-	s:HookScript("OnHide", function() row.psDragging = nil end)
-	s:SetScript("OnMouseUp", function()
+	-- The drag over: what it wrote live settles (ns.SettleLive).
+	local function dragEnd()
 		row.psDragging = nil
+		if row.psLive then
+			row.psLive = nil
+			ns.SettleLive()
+		end
+	end
+	s:HookScript("OnMouseDown", function() row.psDragging = true end)
+	s:HookScript("OnHide", dragEnd)
+	s:SetScript("OnMouseUp", function()
+		dragEnd()
 		if row.psPending ~= nil then
 			local v = row.psPending
 			row.psPending = nil

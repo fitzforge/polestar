@@ -866,6 +866,23 @@ function ns.GetStored(path)
 	return lookup(DB().settings, keysOf(path))
 end
 
+---------------------------------------------------------------------------
+-- Live changes. A control the player drags (a slider's thumb, the colour
+-- picker's wheel) writes each value it passes through ns.Live(write): the
+-- setting is stored and SETTING_CHANGED fires as for any change, but while
+-- ns.SettingLive() reads true a listener may do only what shows the value
+-- (a repaint) and leave the rest (layouts, marks, redraws) for the settle.
+-- ns.SettleLive(), which the control calls when the drag ends, fires
+-- SETTING_CHANGED once more, as a plain change, for each setting written
+-- live since, so every listener ends where one plain change leaves it. A
+-- drag that never says it ended (the colour picker's wheel) settles by
+-- itself SETTLE seconds after its last value.
+---------------------------------------------------------------------------
+
+local SETTLE = 0.25
+local liveDepth, liveAt, settleQueued = 0, 0, false
+local livePaths, liveOrder = {}, {}
+
 function ns.Set(path, value)
 	local keys = keysOf(path)
 	local node = DB().settings
@@ -876,7 +893,45 @@ function ns.Set(path, value)
 	end
 	if value == lookup(defaults, keys) then value = nil end
 	node[keys[#keys]] = value
+	if liveDepth > 0 and not livePaths[path] then
+		livePaths[path] = true
+		liveOrder[#liveOrder + 1] = path
+	end
 	ns.Fire("SETTING_CHANGED", path, ns.Get(path))
+end
+
+function ns.SettingLive() return liveDepth > 0 end
+
+function ns.SettleLive()
+	if #liveOrder == 0 then return end
+	local list = liveOrder
+	livePaths, liveOrder = {}, {}
+	for i = 1, #list do ns.Fire("SETTING_CHANGED", list[i], ns.Get(list[i])) end
+end
+
+local function settleIdle()
+	settleQueued = false
+	if #liveOrder == 0 then return end
+	local wait = liveAt + SETTLE - GetTime()
+	if wait > 0.01 then
+		settleQueued = true
+		ns.After(wait, settleIdle)
+	else
+		ns.SettleLive()
+	end
+end
+
+-- fn(...) with what it sets written live.
+function ns.Live(fn, ...)
+	liveDepth = liveDepth + 1
+	local ok, err = pcall(fn, ...)
+	liveDepth = liveDepth - 1
+	liveAt = GetTime()
+	if #liveOrder > 0 and not settleQueued then
+		settleQueued = true
+		ns.After(SETTLE, settleIdle)
+	end
+	if not ok then error(err, 0) end
 end
 
 -- The arrow, the action buttons and the timers: with ui.lockHud on, a drag

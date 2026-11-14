@@ -178,19 +178,26 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 	end
 
+	-- This window's own ground (guideWindow.bgColor, bgOpacity) painted again;
+	-- unset, it follows every Polestar window's. GF.ApplyStyle's first part,
+	-- alone for a live change (a slider dragged): no layout.
+	function GF.ApplyGround()
+		if not F then return end
+		local r, g, b = GF.Rgb("bgColor")
+		F.psBgColor = r and { r, g, b } or nil
+		F.psBgAlpha = tonumber(ns.Get("guideWindow.bgOpacity"))
+		Theme.Repaint(F)
+	end
+
 	-- The ground's opacity is Theme.GroundAlpha (ui.bgOpacity), read by the
 	-- window skin itself; ui.bgOpacity changes land here to repaint it.
 	function GF.ApplyStyle()
 		if not F then return end
 		local clear = transparent()
 		F.psBare = clear
-		-- This window's own ground and border (guideWindow.bgColor, bgOpacity,
-		-- border); unset, it follows every Polestar window's.
-		local r, g, b = GF.Rgb("bgColor")
-		F.psBgColor = r and { r, g, b } or nil
-		F.psBgAlpha = tonumber(ns.Get("guideWindow.bgOpacity"))
+		-- This window's own ground and border (guideWindow.border).
 		F.psNoBorder = not GF.On("border") or nil
-		Theme.Repaint(F)
+		GF.ApplyGround()
 		local skin = Theme.SkinKey()
 		band:SetShown(not clear and skin == "polestar")
 		local backing = GF.Backing() and true or false

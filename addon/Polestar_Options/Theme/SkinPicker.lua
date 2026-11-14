@@ -604,7 +604,9 @@ end
 
 -- After every live repaint (a setting, the skin, a variant, the UI scale):
 -- the cards on screen paint again in their own skins, each on its own (one
--- that fails leaves the others drawn), the others when they next show.
+-- that fails leaves the others drawn), the others when they next show. A
+-- dragged slider's repaints leave them to the refresh its end brings
+-- (Theme.OnChanged's full).
 Theme.OnChanged(function()
 	local failed
 	for art in pairs(drawn) do
@@ -616,7 +618,7 @@ Theme.OnChanged(function()
 		end
 	end
 	if failed then error(failed, 0) end
-end)
+end, true)
 
 -- The skin picker's card (UI/Looks/Theme.lua): skin `id` drawn on `card` as
 -- it draws itself, the player's own colours over it; the live skin is left

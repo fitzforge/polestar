@@ -1484,16 +1484,18 @@ end
 
 -- Keep a widget's typography when the face already matches (e.g. a colour
 -- refresh or a reused map pin). A missing font may return false or raise.
+-- -> true when the string took a new font
 function Theme.SetFace(fs, path, size, flags)
 	Theme.OwnFont(fs)
 	local current, height, outline = fs:GetFont()
-	if current == path and height == size and (outline or "") == flags then return end
+	if current == path and height == size and (outline or "") == (flags or "") then return false end
 	local fallback = gameFont()
 	if path ~= fallback then
 		local ok, loaded = pcall(fs.SetFont, fs, path, size, flags)
-		if ok and loaded then return end
+		if ok and loaded then return true end
 	end
 	fs:SetFont(fallback, size, flags)
+	return true
 end
 
 local fonted = setmetatable({}, { __mode = "k" }) -- fontString -> role
@@ -1508,19 +1510,32 @@ local scripted = setmetatable({}, { __mode = "k" }) -- fontString -> its text's 
 local HARD = { 1, -1, 1 }
 local SKIN_SHADOW = { halo = { 0, -1, 0.9 }, forever = HARD, blizzard = HARD, classic = HARD }
 
+-- What a repaint of every string reads alike for each (Theme.Refresh sets
+-- it while its loop runs; nothing it reads changes meanwhile): the font
+-- spec per role (faces) and the shadow's mode, colour and the skin's own.
+local memo
+
 -- ui.textShadow: "skin" (the default: the skin's own), "soft", "hard" or
--- "none" for every Polestar string.
-local function paintShadow(fs)
-	if not fs.SetShadowOffset then return end
+-- "none" for every Polestar string. -> mode, r, g, b (the shade), own
+-- ({ x, y, alpha } or nil: the soft one in the shade)
+local function shadowSpec()
+	if memo and memo.shadow then return memo.mode, memo.r, memo.g, memo.b, memo.own end
 	local mode = get("ui.textShadow")
-	if mode == "none" then
-		fs:SetShadowColor(0, 0, 0, 0)
-		return
-	end
 	local r, g, b = Theme.Color("shade")
 	local own = SKIN_SHADOW[Theme.SkinId()]
 	if own == nil then own = SKIN_SHADOW[Theme.SkinKey()] end
 	if mode == "hard" then own = HARD elseif mode == "soft" then own = nil end
+	if memo then memo.shadow, memo.mode, memo.r, memo.g, memo.b, memo.own = true, mode, r, g, b, own end
+	return mode, r, g, b, own
+end
+
+local function paintShadow(fs)
+	if not fs.SetShadowOffset then return end
+	local mode, r, g, b, own = shadowSpec()
+	if mode == "none" then
+		fs:SetShadowColor(0, 0, 0, 0)
+		return
+	end
 	if own then
 		fs:SetShadowOffset(own[1], own[2])
 		fs:SetShadowColor(0, 0, 0, flat[fs] and 0 or own[3])
@@ -1528,6 +1543,16 @@ local function paintShadow(fs)
 	end
 	fs:SetShadowOffset(1, -1)
 	fs:SetShadowColor(r, g, b, flat[fs] and 0 or (outlined[fs] and 1 or 0.6))
+end
+
+local function fontSpec(role)
+	if not memo then return Theme.FontSpec(role) end
+	local s = memo.faces[role]
+	if not s then
+		s = { Theme.FontSpec(role) }
+		memo.faces[role] = s
+	end
+	return s[1], s[2], s[3]
 end
 
 -- Forever leaves a string blank after a new font until its text changes
@@ -1546,7 +1571,7 @@ end
 local retextQueued = false
 
 local function paintFont(fs, role)
-	local path, size, flags = Theme.FontSpec(role)
+	local path, size, flags = fontSpec(role)
 	local text = fs.GetText and fs:GetText()
 	local script = Theme.ScriptFont(text)
 	scripted[fs] = script or false
@@ -1557,9 +1582,10 @@ local function paintFont(fs, role)
 	-- EllesmereUI's brings its OUTLINE, and black round dark glyphs on a
 	-- bright accent smears them (#521). MONOCHROME and the like stay.
 	if flat[fs] and flags then flags = flags:gsub("THICKOUTLINE", ""):gsub("OUTLINE", ""):gsub("^,+", ""):gsub(",+$", ""):gsub(",,+", ",") end
-	Theme.SetFace(fs, path, size, flags)
+	local changed = Theme.SetFace(fs, path, size, flags)
 	paintShadow(fs)
-	textAgain(fs)
+	-- Its text again only after a new font (the string it drew stays as it was otherwise).
+	if changed then textAgain(fs) end
 end
 
 -- New text in another script than the font drawn (a name in Chinese, #353):
@@ -2547,9 +2573,16 @@ end
 ---------------------------------------------------------------------------
 
 local handlers = {}
+local fullOnly = {} -- handler -> true: told after a full refresh alone
 
-function Theme.OnChanged(fn)
-	if type(fn) == "function" then handlers[#handlers + 1] = fn end
+-- fn() after every repaint of the theme. full: only after a full one (fn
+-- lays something out or draws it anew), not after a live repaint, which
+-- changes colours and opacities alone and is followed by a full refresh
+-- when the change settles (Theme.LivePaints).
+function Theme.OnChanged(fn, full)
+	if type(fn) ~= "function" then return end
+	handlers[#handlers + 1] = fn
+	if full then fullOnly[fn] = true end
 end
 
 -- A registered skin's onApply / onLeave, as the skin in use changes.
@@ -2573,14 +2606,30 @@ local function switchSkin()
 	end
 end
 
+local function tell(live)
+	for i = 1, #handlers do
+		local fn = handlers[i]
+		if not (live and fullOnly[fn]) then
+			local ok, err = pcall(fn)
+			if not ok and geterrorhandler then geterrorhandler()(err) end
+		end
+	end
+end
+
+local livePending, liveFrame, liveRun = false, nil, nil
+local liveChanged -- the palette names the live repaint running changed
+
 -- Repaint everything we skinned or fonted, then tell the listeners.
 function Theme.Refresh()
 	P = nil
+	livePending = false
 	refreshing = true
+	memo = { faces = {} }
 	switchSkin()
 	for sky in pairs(bands) do paintBand(sky) end
 	for frame, kind in pairs(skinned) do paint(frame, kind) end
 	for fs, role in pairs(fonted) do paintFont(fs, role) end
+	memo = nil
 	refreshing = false
 	-- A registered skin failed while painting: everything again in the house style.
 	if refreshAgain then
@@ -2597,10 +2646,80 @@ function Theme.Refresh()
 			for fs in pairs(fonted) do textAgain(fs) end
 		end)
 	end
-	for i = 1, #handlers do
-		local ok, err = pcall(handlers[i])
-		if not ok and geterrorhandler then geterrorhandler()(err) end
+	tell(false)
+end
+
+-- Whether two palette entries hold the same colour (or value).
+local function sameEntry(a, b)
+	if a == b then return true end
+	if type(a) ~= "table" or type(b) ~= "table" then return false end
+	for k, v in pairs(a) do if b[k] ~= v then return false end end
+	for k in pairs(b) do if a[k] == nil then return false end end
+	return true
+end
+
+-- A live change of a setting the palette alone holds (LIVE, while
+-- ns.SettingLive: a slider dragged, the colour picker's wheel): the palette
+-- built again and what shows painted from it, the listeners told but those
+-- that lay out or draw anew (Theme.OnChanged's full); no font, size or
+-- layout. What is hidden waits for the full refresh the change settles with.
+local function liveRepaint()
+	local was = P
+	P = nil
+	local pal = Theme.Palette()
+	local changed = {}
+	for name, c in pairs(pal) do
+		if not (was and sameEntry(was[name], c)) then changed[name] = true end
 	end
+	if was then
+		for name in pairs(was) do
+			if pal[name] == nil then changed[name] = true end
+		end
+	end
+	refreshing = true
+	memo = { faces = {} }
+	for sky in pairs(bands) do
+		if sky:IsVisible() then paintBand(sky) end
+	end
+	for frame, kind in pairs(skinned) do
+		if frame:IsVisible() then paint(frame, kind) end
+	end
+	if changed.shade then
+		for fs in pairs(fonted) do
+			if fs:IsVisible() then paintShadow(fs) end
+		end
+	end
+	memo = nil
+	refreshing = false
+	if refreshAgain then
+		refreshAgain = false
+		return Theme.Refresh()
+	end
+	liveChanged = changed
+	tell(true)
+	liveChanged = nil
+end
+
+-- While listeners hear a live repaint: { [palette name] = true } for the
+-- colours it changed (W.Color's regions of the others stay as they are);
+-- nil after a full refresh, where every colour is painted again.
+function Theme.LiveChanged() return liveChanged end
+
+-- A live change's repaint waits for the next frame update, so the changes
+-- made within one frame repaint once; a full refresh before it stands in.
+local function runLive(self)
+	self:SetScript("OnUpdate", nil)
+	if not livePending then return end
+	livePending = false
+	liveRepaint()
+end
+local function queueLive()
+	livePending = true
+	if not liveFrame then
+		liveFrame = CreateFrame("Frame")
+		liveRun = ns.Safe and ns.Safe(runLive) or runLive
+	end
+	liveFrame:SetScript("OnUpdate", liveRun)
 end
 
 -- A window's strings, set again a frame after it shows or changes scale. On a
@@ -2644,6 +2763,30 @@ local LOOKS = {
 	["ui"] = true, ["nav"] = true, [""] = true,
 }
 for _, name in ipairs(Theme.SUBJECTS) do LOOKS["ui.colors." .. name] = true end
+
+-- The look settings the palette alone holds: a live change of one (a slider
+-- dragged, the colour picker's wheel) repaints colours and opacities alone
+-- (liveRepaint), the full refresh waiting for the change to settle.
+local LIVE = {
+	["ui.accent"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true, ["ui.brightness"] = true,
+	["ui.panelColor"] = true, ["ui.sidebarColor"] = true, ["ui.borderColor"] = true,
+	["ui.textColor"] = true, ["ui.textDimColor"] = true, ["ui.textMutedColor"] = true,
+	["ui.hairlineOpacity"] = true, ["ui.shadowStrength"] = true, ["ui.starAlpha"] = true,
+	["nav.arrowColor"] = true, ["nav.arrowNearColor"] = true,
+}
+for _, name in ipairs(Theme.SUBJECTS) do LIVE["ui.colors." .. name] = true end
+
+-- Whether a live change of `path` is the theme's live repaint alone (what it
+-- shows takes nothing more until the change settles).
+function Theme.LivePaints(path) return LIVE[path] == true end
+
+-- Whether a change of `path` repaints the theme: a look setting, or a
+-- variant picked for the skin in use (ui.skinVariants.<id>), or all of them
+-- reset.
+function Theme.IsLook(path)
+	if LOOKS[path] or path == "ui.skinVariants" then return true end
+	return path:sub(1, 16) == "ui.skinVariants." and path:sub(17) == Theme.SkinId()
+end
 
 -- The theme-wide look settings (the Theme options page, UI/Looks/Theme.lua);
 -- the older ones are UI.lua's.
@@ -2706,10 +2849,14 @@ if ns.On then
 			-- Each change above already repainted through its own event.
 			if changed then return end
 		end
-		-- A variant picked for the skin in use (ui.skinVariants.<id>), or all of them reset.
-		local look = LOOKS[path] or path == "ui.skinVariants" or path:sub(1, 16) == "ui.skinVariants." and path:sub(17) == Theme.SkinId()
-		if look then
-			if batching then batchRefresh = true else Theme.Refresh() end
+		if Theme.IsLook(path) then
+			if batching then
+				batchRefresh = true
+			elseif LIVE[path] and ns.SettingLive and ns.SettingLive() then
+				queueLive()
+			else
+				Theme.Refresh()
+			end
 		end
 	end)
 end
