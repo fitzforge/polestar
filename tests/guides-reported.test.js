@@ -15,7 +15,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { needs } = require('./helpers/data');
 const { compileSources, compileProject, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
-const { loadData } = require('../tools/lib/dsl/data');
+const { loadData, Data } = require('../tools/lib/dsl/data');
 const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
 const { loadCorrections } = require('../tools/lib/data/corrections');
@@ -27,6 +27,79 @@ const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
+
+// These approaches contain only explicit coordinates and quest-state predicates, so
+// exercise their actual source without the optional reference data. The task after
+// each approach makes its applicability observable without the later chain's work.
+for (const [verb, quest] of [['accept', 98393], ['turnin', 98397]]) {
+	test(`Cat Form: the entrance before ${verb} ${quest} is needed only until that visit is done (#2294)`, async (t) => {
+		const file = path.join(OFFICIAL_DIR, 'forever/class/druid/cat-form.guide');
+		const text = fs.readFileSync(file, 'utf8');
+		const diag = new Diagnostics();
+		const ast = parseGuide(text, file, diag);
+		assert.deepEqual(diag.errors, []);
+		const isVisit = (s) => s.goals.some((g) => g.verb === verb && g.quest === quest);
+		assert.equal(ast.steps.filter(isVisit).length, 1, 'the visit is unambiguous');
+		const visit = ast.steps.findIndex(isVisit);
+		assert.ok(visit > 0, `the ${quest} visit has an approach`);
+		const lines = text.split('\n');
+		const source = [
+			...lines.slice(0, ast.steps[0].line - 1),
+			...lines.slice(ast.steps[visit - 1].line - 1, ast.steps[visit].line - 1),
+			'step Continue after the visit', '  task "Continue"',
+		].join('\n');
+		const maps = new Data({ zones: {
+			1450: { id: 1450, name: 'Moonglade', type: 3 },
+			1457: { id: 1457, name: 'Darnassus', type: 3 },
+		} });
+		const compiled = compileSources([{ file, text: source }], maps);
+		assert.deepEqual(compiled.diag.list, []);
+		const approach = compiled.guides[0].steps[0];
+		const door = approach.goals.find((g) => g.t === 'goto');
+		assert.ok(door, 'keep the entrance needed to reach the upstairs trainer (#1338)');
+		assert.deepEqual([door.map, door.x, door.y], [1457, 35.8, 11.6]);
+		if (verb === 'accept') assert.ok(approach.goals.some((g) => g.t === 'level' && g.level === 20));
+		const pack = writeTestPack(compiled.guides, maps);
+		try {
+			const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+			const states = ['untaken', 'held', 'turnedIn'].map((state) => ({ state, level: 20 }));
+			if (verb === 'accept') states.push({ state: 'untaken', level: 19 });
+			for (const race of ['NightElf', 'Skyborne']) {
+				for (const { state, level } of states) {
+					await t.test(`${race}, ${state}, level ${level}`, () => {
+						const [out] = runAddon({
+							stubs: ['stub_world.lua'],
+							before: `local w = stub.world
+								w.race, w.raceName, w.faction, w.class, w.className = "${race}", "${race}", "Alliance", "DRUID", "Druid"
+								w.level = ${level}
+								w.addMap(1450, {name="Moonglade", c=1, left=-1381.25, right=-3689.583, top=8491.666, bottom=6952.083})
+								w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+								w.moveTo(1450, 40, 60)`,
+							addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+							saved: { Polestar: 'PolestarDB = {schema=1, settings={behavior={autoSelectGuide=false}}}' },
+							script: `do local ns = {}
+								${loads}
+								end
+								local w = stub.world
+								${state !== 'untaken' ? `w.accept(${quest}, {})` : ''}
+								${state === 'turnedIn' ? `w.turnIn(${quest})` : ''}
+								stub.login(); stub.advance(0.5)
+								local E = Polestar.Engine
+								E.SetGuide("forever/class/druid/cat-form"); stub.advance(0.5)
+								emit({step=E.GetStepIndex(), point=E.GetWaypoint(), firstDone=E.GetStepView(1).goals[1].status=="done"})`,
+						}).emitted;
+						const completed = state === 'turnedIn' || (verb === 'accept' && state === 'held');
+						assert.equal(out.step, completed ? 2 : 1, 'only completed work makes this visit unnecessary');
+						if (!completed && level === 20) assert.deepEqual([out.point.map, out.point.x, out.point.y], [1457, 35.8, 11.6]);
+						if (level === 19) assert.equal(out.firstDone, false, 'the level goal still holds the approach');
+					});
+				}
+			}
+		} finally {
+			fs.rmSync(pack.dir, { recursive: true, force: true });
+		}
+	});
+}
 
 test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, from the Forever TDB when classic-db lacks him (#855)", { skip: skip || needs('spawnz.json') }, () => {
 	const list = goals('forever/class/paladin/tyrs-watch.guide');
