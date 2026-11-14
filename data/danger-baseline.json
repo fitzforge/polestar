@@ -13234,6 +13234,21 @@
 			],
 			"reason": "the walkers share the Toxic Horrors' ground in Irontree Woods; the arrow points at the Horror farthest from them (north tip) and the step's tip names them; at 59.5 the walkers are the player's level",
 			"evidence": "route level 59.5; Ancient Irontree Walker 59 (8 spawns at Felwood 47.0-50.3,23.9-28.8, rank elite) among the Toxic Horrors (48.1-51.1,22.5-27.4); the arrow's Horror at 50.6,22.4 is about 63 yd from the nearest walker; recordings (2026-11-13): 1 death within 60 yd on the route before this fix; guide-fixes 1575-felwood-irontree-walkers, places felwood-5086-toxic-horrors-north-tip"
+		},
+		{
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|level 30 grind 2248|grind",
+			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
+			"goal": "level 30 grind 2248",
+			"kind": "grind",
+			"title": "Level 30",
+			"level": 29.4,
+			"mobs": [
+				"Cave Yeti 30-31 x37 (the grind mob)",
+				"Ferocious Yeti 31-32 x43",
+				"Mountain Lion 32-33 x3"
+			],
+			"reason": "the caves' own yetis, where Helcular's Rod drops: the route grinds its last 0.6 level to 30 there for Tarren Mill's level-30 quests, on the outer caves' Cave Yetis (30-31), and the tip keeps players out of the Ferocious Yetis (31-32) deeper in and the Mountain and Giant Yetis outside; players are there at a median of 31.6 and no camp of 30 or under stands near",
+			"evidence": "route level 29.4 to 30; Cave Yeti 30-31 x37 (the grind mob), Ferocious Yeti 31-32 x43, Mountain Lion 32-33 x3; recordings (2026-11-14): Helcular's Rod (552.1) done by 36 people at 29-35 (median 31.6), 3 people died within 60 yd of the grind's point (at 31-33)"
 		}
 	]
 }
