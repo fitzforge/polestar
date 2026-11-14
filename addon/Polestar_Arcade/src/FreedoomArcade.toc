@@ -1,0 +1,25 @@
+## Interface: 16001, 120100
+## Title: Freedoom Arcade
+## Notes: Play Freedoom, a free Doom-engine game, in a window inside the game. Type /arcade or /doom
+## Author: petllama
+## Version: 0.3.0
+## SavedVariables: FreedoomArcadeDB
+## IconTexture: Interface\AddOns\FreedoomArcade\tex\icon
+## AddonCompartmentFunc: FreedoomArcade_OnAddonCompartmentClick
+
+src\core.lua
+data\info.lua
+data\assets.lua
+src\level.lua
+src\draw.lua
+src\render.lua
+src\p_mobj.lua
+src\p_enemy.lua
+src\p_player.lua
+src\p_spec.lua
+src\game.lua
+src\automap.lua
+src\savegame.lua
+src\sound.lua
+src\main.lua
+src\minimap.lua
