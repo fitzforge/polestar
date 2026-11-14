@@ -49,3 +49,4 @@ src\savegame.lua
 src\sound.lua
 src\main.lua
 src\minimap.lua
+src\api.lua

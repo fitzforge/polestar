@@ -304,7 +304,14 @@ local function createFrame()
 	applySize()
 	applyDetail()
 	R.Init()
+	frame.bg, frame.bar, frame.title, frame.fps, frame.close, frame.view = bg, bar, title, fpsText, close, view
+	for _, fn in ipairs(UI.windowHooks) do pcall(fn, frame) end
 end
+
+-- Called with the window once it is made (FreedoomArcadeAPI.OnWindow).
+UI.windowHooks = {}
+function UI.Window() return frame end
+function UI.IsOpen() return frame ~= nil and frame:IsShown() end
 
 function UI.Open()
 	if not frame then createFrame() end
@@ -316,6 +323,19 @@ end
 
 function UI.Close()
 	if frame then frame:Hide() end
+end
+
+-- Quick-save (in a level), pause until P and close: the keyboard goes back to the character.
+-- Returns whether it saved.
+function UI.SuspendAndClose()
+	local saved = false
+	if G.state == "level" then
+		saved = UI.QuickSave(true) and true or false
+		G.paused = true
+		G.keepPaused = true
+	end
+	UI.Close()
+	return saved
 end
 
 function UI.Toggle()
@@ -398,13 +418,7 @@ end
 function UI.OnAggro()
 	if not db or not db.aggroPause then return end
 	if not frame or not frame:IsShown() then return end
-	local saved = false
-	if G.state == "level" then
-		saved = UI.QuickSave(true)
-		G.paused = true
-		G.keepPaused = true
-	end
-	UI.Close()
+	local saved = UI.SuspendAndClose()
 	if PlaySound and SOUNDKIT and SOUNDKIT.RAID_WARNING then PlaySound(SOUNDKIT.RAID_WARNING, "Master") end
 	if RaidNotice_AddMessage and RaidWarningFrame then
 		RaidNotice_AddMessage(RaidWarningFrame, "Freedoom Arcade paused - you have aggro!", ChatTypeInfo and ChatTypeInfo["RAID_WARNING"] or { r = 1, g = 0.2, b = 0.2 })
