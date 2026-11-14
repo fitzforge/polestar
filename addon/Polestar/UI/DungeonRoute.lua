@@ -27,7 +27,7 @@
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
 local L = ns.L
-local floor, ipairs = math.floor, ipairs
+local floor, max, ipairs = math.floor, math.max, ipairs
 
 local DR = {}
 UI.DungeonRoute = DR
@@ -100,7 +100,12 @@ local function row(i)
 	r:SetSize(WIDTH, DUNGEON_H)
 	r.Name = W.Text(r, "body", "text")
 	r.Name:SetPoint("TOPLEFT", r, "TOPLEFT", PAD, -6)
+	-- The second line wraps to two lines ("7 quests in The Barrens and Thunder
+	-- Bluff" in a long locale) and the row grows by the second (DR.Fill).
 	r.Sub = W.Text(r, "small", "textDim")
+	r.Sub:SetWordWrap(true)
+	r.Sub:SetMaxLines(2)
+	r.Sub:SetJustifyV("TOP")
 	r.Sub:SetPoint("TOPLEFT", r.Name, "BOTTOMLEFT", 0, -3)
 	r.Switch = W.Switch(r, function() return r.psOn end, function(on)
 		local E = Engine()
@@ -115,11 +120,13 @@ local function row(i)
 	-- Only quests on my way, under it while it runs and has quests off the way.
 	local way = CreateFrame("Frame", nil, r)
 	way:SetSize(WIDTH - INDENT, WAY_H)
-	way:SetPoint("TOPLEFT", r, "TOPLEFT", INDENT, -DUNGEON_H + 6)
 	way.Label = W.Text(way, "label", "text")
 	way.Label:SetPoint("TOPLEFT", way, "TOPLEFT", 0, -4)
 	way.Label:SetText(L["Only quests on my way"])
 	way.Note = W.Text(way, "small", "textDim")
+	way.Note:SetWordWrap(true)
+	way.Note:SetMaxLines(2)
+	way.Note:SetJustifyV("TOP")
 	way.Note:SetPoint("TOPLEFT", way.Label, "BOTTOMLEFT", 0, -3)
 	way.Switch = W.Switch(way, function() return way.psOn end, function(on)
 		local E, map = Engine(), r.psMap
@@ -141,6 +148,11 @@ local function row(i)
 	r.Rule:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -PAD, 0)
 	rows[i] = r
 	return r
+end
+
+-- The extra height of a two-line string over one line.
+local function extra(fs)
+	return max(0, floor(fs:GetStringHeight() - fs:GetLineHeight() + 0.5))
 end
 
 -- The dungeon rows and the popover's height, from the route as it is now:
@@ -166,17 +178,21 @@ function DR.Fill()
 	shown = 0
 	for i, d in ipairs(list) do
 		local wayShown = d.allQuests ~= nil and d.answer ~= false
-		local h = DUNGEON_H + (wayShown and WAY_H or 0)
-		if i > 1 and y + h + FOOT_H > room then break end
 		local r = row(i)
 		r.psMap, r.psOn = d.map, d.answer == true
 		r.Name:SetText(d.name or "")
 		r.Sub:SetText(subline(d))
-		r.Switch:Refresh()
 		local way = r.Way
 		way.psOn = d.wayOnly and true or false
+		if wayShown then way.Note:SetText(saves(d.allQuests)) end
+		local dunH = DUNGEON_H + extra(r.Sub)
+		local h = dunH + (wayShown and WAY_H + extra(way.Note) or 0)
+		if i > 1 and y + h + FOOT_H > room then break end
+		r.Switch:Refresh()
+		way:ClearAllPoints()
+		way:SetPoint("TOPLEFT", r, "TOPLEFT", INDENT, -dunH + 6)
 		if wayShown then
-			way.Note:SetText(saves(d.allQuests))
+			way:SetHeight(h - dunH)
 			way.Switch:Refresh()
 		end
 		way:SetShown(wayShown)

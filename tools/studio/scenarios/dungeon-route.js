@@ -73,7 +73,8 @@ E.DungeonRun = function() return { map = 43, name = "Wailing Caverns" } end`,
 	party: `Polestar.Party.DungeonOffer = function() return { map = 43, name = "Wailing Caverns", names = { "Ana" } } end`,
 	changed: `${AHEAD}
 Polestar.Set("behavior.dungeons", "run")`,
-	far: `local E = Polestar.Engine
+	far: `Polestar.DB().dungeonQuestsWarned = true
+local E = Polestar.Engine
 E.DungeonsAhead = function() return { { map = 209, name = "Zul'Farrak", level = 46.2, runMap = 1446, pickMap = 1444, pickMaps = { 1444, 1446 }, picks = 5, inLog = 0, here = false, answer = true } } end
 Polestar.Set("behavior.dungeons", "run")`,
 	off: `${AHEAD}

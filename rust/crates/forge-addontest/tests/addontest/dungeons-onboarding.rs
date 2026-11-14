@@ -326,6 +326,9 @@ fn the_guide_menu_opens_dungeons_on_your_way_with_the_next_dungeons_and_a_switch
 			return out
 		end
 		local opened, before = DR.Shown(), rows()
+		-- A long second line wraps to two lines and its row grows by the second, never cut short.
+		local zf = DR.Rows()[2]
+		local wrap = { lines = zf.Sub:GetNumLines(), cut = zf.Sub:IsTruncated(), grew = zf:GetHeight() - 46 - zf.Sub:GetLineHeight() }
 		DR.Rows()[1].Switch:Click()
 		local call, after = lastCall("ChooseDungeon"), rows()
 		DR.Rows()[1].Way.Switch:Click()
@@ -335,7 +338,7 @@ fn the_guide_menu_opens_dungeons_on_your_way_with_the_next_dungeons_and_a_switch
 		local opts
 		UI.ShowOptions = function(page) opts = page end
 		PolestarDungeonRoute.All:Click()
-		emit({ without = without, with = with, opened = opened, before = before, call = call, after = after, wayCall = wayCall, wayOnly = wayOnly, off = off,
+		emit({ without = without, with = with, opened = opened, before = before, wrap = wrap, call = call, after = after, wayCall = wayCall, wayOnly = wayOnly, off = off,
 			opts = opts or false, closed = DR.Shown() })"#);
 	let without: Vec<String> = serde_json::from_value(out["without"].clone()).unwrap();
 	let with: Vec<String> = serde_json::from_value(out["with"].clone()).unwrap();
@@ -351,6 +354,7 @@ fn the_guide_menu_opens_dungeons_on_your_way_with_the_next_dungeons_and_a_switch
 		]),
 		"every quest by default; the opt-out only where some are off the way"
 	);
+	assert_eq!(out["wrap"], json!({ "lines": 2, "cut": false, "grew": 0 }), "Zul'Farrak's second line: two lines, the row one line taller");
 	assert_eq!(out["call"], json!(["ChooseDungeon", 43, true]));
 	assert_eq!(out["after"][0], json!(["Wailing Caverns", "About level 21  ·  3 quests in The Barrens", true, ["Only quests on my way", "Saves about 14 min, 23,100 XP less", false]]));
 	assert_eq!(out["wayCall"], json!(["ChooseDungeonWayOnly", 43, true]));
