@@ -193,7 +193,7 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 // Ironforge, under "For your level"): a dungeon is for your level from its recommended start. Fitz, 2026-11-14:
 // a city dungeon (its way in inside a capital, or under it: the Ruins of Lordaeron, the Undercity's) is its
 // faction's only, so never under the other faction's filter, nor under All for a player of the other faction
-// (the stub's player is Alliance).
+// (SETUP's player is a Horde Tauren).
 #[test]
 fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
 	let f = fixture("dungeons.json");
@@ -227,7 +227,7 @@ fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside
 	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
 	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
 	assert_eq!(out["a15"], json!(["The Hall of Thanes"]), "not the Ruins of Lordaeron (the Undercity's) for the Alliance");
-	assert_eq!(out["all13"], json!(["The Hall of Thanes"]), "All: never the Alliance player's other faction's city dungeon (Ragefire Chasm)");
+	assert_eq!(out["all13"], json!(["Ragefire Chasm"]), "All: never the Horde player's other faction's city dungeon (The Hall of Thanes)");
 }
 
 // A player asked why Uldaman (35-47) showed under "For your level" at 35, where most of it suits ~42. It still
