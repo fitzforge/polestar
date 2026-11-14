@@ -209,6 +209,7 @@ local engineWp    -- last waypoint announced by the Engine
 local override    -- point picked with Nav.SetTarget, kept until the step changes
 local dismissed   -- engine waypoint hidden by ClearTarget until the Engine moves on
 local hold        -- point held with Nav.Hold (the way back to your corpse), over everything until Nav.Unhold
+local NOTHING = {} -- the hold of Nav.HoldNothing: no target at all until Nav.Unhold
 local target      -- what we guide to: hold, else override, else engine waypoint
 local tC, tX, tY  -- target in world space (nil until resolvable)
 local tZ         -- its height: the target's `z` (a guide goal, candidate or spawn area at an NPC or object), else nil
@@ -259,6 +260,7 @@ end
 
 local function apply(shouldAnnounce)
 	local new = hold or override or engineTarget() or nil
+	if new == NOTHING then new = nil end
 	-- Held: a step, the guide's waypoint or a picked point changing under the
 	-- hold changes nothing shown (no replan, no second chime) until Nav.Unhold.
 	if hold and new == target then return end
@@ -325,6 +327,15 @@ end
 
 function Nav.IsHeld()
 	return hold ~= nil
+end
+
+-- The arrow held on nothing (QoL/Death.lua: a corpse inside a dungeon whose
+-- entrance is not known, where no point is the way back): no arrow until
+-- Nav.Unhold, the guide's targets going on underneath as under Nav.Hold.
+function Nav.HoldNothing()
+	hold = NOTHING
+	apply(true)
+	return hold
 end
 
 -- Drops the override; the engine's waypoint stays dismissed until the Engine

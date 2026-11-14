@@ -875,6 +875,14 @@ function Nav.Hold(map, x, y, label, f)
 	table.insert(q.nav.sets, t)
 	return t
 end
+-- Nav.HoldNothing (a corpse inside a dungeon whose entrance is not known):
+-- no target until Nav.Unhold, which brings back the one from before.
+local NOTHING = { nothing = true }
+function Nav.HoldNothing()
+	if not q.nav.held then q.nav.under = q.nav.target end
+	q.nav.held, q.nav.target = NOTHING, nil
+	return NOTHING
+end
 function Nav.Unhold()
 	if not q.nav.held then return end
 	q.nav.unholds = q.nav.unholds + 1

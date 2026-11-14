@@ -26,7 +26,8 @@
 -- instance is never weighed against the Spirit Healer. Where that entrance is
 -- not known (one of Forever's own dungeons the Codex has no entrance for, or
 -- Lookup off with the Codex not loaded), the advice says the corpse is inside
--- that instance and to run back in through its entrance, and holds no arrow.
+-- that instance and to run back in through its entrance, and the arrow shows
+-- nothing (Nav.HoldNothing) until the character is alive again.
 --
 -- Client: UnitIsGhost, C_DeathInfo.GetCorpseMapPosition, GetUnitSpeed,
 -- C_UnitAuras.GetPlayerAuraBySpellID (AuraData.duration), IsInInstance,
@@ -280,17 +281,17 @@ local function pins(a)
 end
 
 -- The corpse in a dungeon or raid whose entrance is not known (`name`, the
--- client's), or on another continent: the run back into it, said once; the
--- arrow is let go (nothing points at a place nobody knows) and no Spirit
--- Healer is offered.
+-- client's), or on another continent: the run back into it, said once; no
+-- arrow (Nav.HoldNothing: nothing points at a place nobody knows, and the
+-- guide's own target, which would lead the ghost away, waits under the hold)
+-- and no Spirit Healer.
 local function insideAdvice(name)
 	for k in pairs(advice) do advice[k] = nil end
 	advice.choice, advice.via = "inside", name
 	advice.note = format(L["Your corpse is inside %s: run back in through its entrance."], name)
 	local changed = current ~= "inside"
 	local Nav = ns.Nav
-	if mine and Nav and Nav.Unhold then Nav.Unhold() end
-	mine = nil
+	if (changed or not mine) and Nav and Nav.HoldNothing then mine = Nav.HoldNothing() end
 	if ns.Pins and ns.Pins.ClearLayer then ns.Pins.ClearLayer(LAYER) end
 	pinned.choice, pinned.hx, pinned.cx = nil, nil, nil
 	current = "inside"

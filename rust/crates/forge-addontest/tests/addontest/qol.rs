@@ -4720,6 +4720,8 @@ fn death_in_a_dungeon_is_the_run_back_in_never_the_spirit_healer_entrance_known_
 		q.player = { c = 0, wx = 0, wy = 0 }
 		q.level = 40
 		local function die(name, map)
+			-- The guide's goal the arrow showed before: under the hold while a ghost, back once alive.
+			q.nav.target = { map = 9000, x = 10, y = 10, label = "The guide's step" }
 			IsInInstance = function() return true, "party" end
 			GetInstanceInfo = function() return name, "party", 1, "Normal", 5, 0, false, map end
 			stub.fire("PLAYER_DEAD")
@@ -4729,9 +4731,10 @@ fn death_in_a_dungeon_is_the_run_back_in_never_the_spirit_healer_entrance_known_
 			stub.fire("PLAYER_ALIVE")
 			local a = QoL.GetDeathAdvice()
 			local out = { choice = a and a.choice, note = a and a.note, held = q.nav.held ~= nil, label = q.nav.held and q.nav.held.label or false,
-				pins = q.pins["qol.death"] and #q.pins["qol.death"] or 0 }
+				arrow = q.nav.target ~= nil, pins = q.pins["qol.death"] and #q.pins["qol.death"] or 0 }
 			q.ghost = false
 			stub.fire("PLAYER_UNGHOST")
+			out.after = q.nav.target and q.nav.target.label or false
 			return out
 		end
 		-- The Codex has the instance, not its entrance.
@@ -4751,8 +4754,10 @@ fn death_in_a_dungeon_is_the_run_back_in_never_the_spirit_healer_entrance_known_
 	for (i, name) in [(0, "Alcaz Prison"), (2, "Zul'Gurub")] {
 		assert_eq!(out[i]["choice"], "inside", "{out:?}");
 		assert_eq!(out[i]["note"], format!("Your corpse is inside {name}: run back in through its entrance."), "{out:?}");
-		assert_eq!(out[i]["held"], false, "nothing holds the arrow: {out:?}");
+		assert_eq!(out[i]["held"], true, "the arrow held on nothing: {out:?}");
+		assert_eq!(out[i]["arrow"], false, "no arrow, not the guide's step leading the ghost away: {out:?}");
 		assert_eq!(out[i]["pins"], 0, "{out:?}");
+		assert_eq!(out[i]["after"], "The guide's step", "alive again, the guide's target: {out:?}");
 	}
 	assert_eq!(out[1]["choice"], "corpse", "{out:?}");
 	assert_eq!(out[1]["label"], "The Deadmines (your corpse is inside)", "{out:?}");

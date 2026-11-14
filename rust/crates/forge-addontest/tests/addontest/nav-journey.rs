@@ -1244,3 +1244,25 @@ fn hold_nothing_takes_the_arrow_off_the_corpse_once_it_lets_go_what_is_underneat
 	assert_eq!(out[3], "Your corpse", "a step change while a ghost");
 	assert_eq!(out[4], "Step two", "alive again: the step's target; the point picked on step one went with that step");
 }
+
+// A corpse inside a dungeon whose entrance is not known (QoL/Death.lua): the arrow held on nothing, no target while
+// the guide's goals go on underneath (Report says "Arrow: none"); Nav.Unhold brings the step's target back.
+#[test]
+fn hold_on_nothing_takes_the_arrow_away_until_unhold_then_the_step_s_target_shows() {
+	let out = run(r#"
+		local function wp(i, x, l) return { map = 9000, x = x, y = 80, label = l, stepIndex = i, goalIndex = 1, kind = "goto", r = 8 } end
+		nav.changeStep(1, wp(1, 50, "Step one"))
+		stub.runTimers()
+		local before = label()
+		N.HoldNothing()
+		emit({ before = before, target = N.GetTarget() ~= nil, held = N.IsHeld() })
+		nav.setWaypoint(wp(1, 55, "Goal two"))
+		stub.runTimers()
+		emit(N.GetTarget() ~= nil)
+		N.Unhold()
+		emit({ label = label(), held = N.IsHeld() })
+	"#);
+	assert_eq!(out[0], json!({ "before": "Step one", "target": false, "held": true }));
+	assert_eq!(out[1], json!(false), "the guide's next goal waits under the hold");
+	assert_eq!(out[2], json!({ "label": "Goal two", "held": false }));
+}
