@@ -332,7 +332,7 @@ step with `when dungeon "<Name>"` and `when complete <quest>` (or `when
 onquest <quest>` for one with no objectives), so a run left unfinished passes
 them and a later guide can hand in what is still carried. A hand-in of a
 quest the character has finished comes whatever the answer for the dungeon
-(No group? Skip it at the door after a quest got done, the dungeon turned off
+(Skip this one at the door after a quest got done, the dungeon turned off
 mid-run); an unfinished one's never does, and the quest room lists that quest
 as room to make. Every other step of the run is behind `when dungeon`: a
 character who skips it keeps the solo route's steps. The compiler places a

@@ -7,7 +7,7 @@ section: players
   dungeons). With Ask me, the guide stops at a dungeon's first quest on your
   way and asks Run it or Skip it, remembered for that dungeon. A few steps
   before a run the guide window says to start looking for a group, and at
-  the door "No group? Skip it" drops the dungeon and goes on with the solo
+  the door "Skip this one" drops the dungeon and goes on with the solo
   route: its quests stay in your log and nothing waits on them. A skipped
   dungeon leaves the route's steps and step numbers as they are, and
   changing your mind mid-guide never sends you back for a pick-up you

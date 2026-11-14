@@ -62,6 +62,16 @@ ns.UI.GuideFrame.Part(function(GF)
 				end
 			end
 		end
+		-- The dungeons of this character's route (UI/DungeonRoute.lua), while its guides have any: before Quick settings.
+		local DR = UI.DungeonRoute
+		if DR and E and E.GuideDungeons and next(E.GuideDungeons() or {}) ~= nil then
+			for i, it in ipairs(items) do
+				if it.icon == "sliders" or it.icon == "gear" then
+					table.insert(items, i, { text = L["Dungeons on your way"], icon = "icon-dungeon", onClick = function() DR.Show(button) end })
+					break
+				end
+			end
+		end
 		-- A skin's own entries (Skin API 2, hooks.guideMenu(items, button)): it
 		-- may add, remove or reorder them; the list is made anew at each opening.
 		ns.Theme.SkinHook("guideMenu", items, button)
