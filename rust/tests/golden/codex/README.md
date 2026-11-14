@@ -12,13 +12,13 @@ Command: `node regen.js <that JS tree>`. It calls `buildCodex` the way `codex bu
 `builtAt` is the world slice's meta.json value.
 
 Inputs:
-- `sources/wago/1.60.1.70450` (the 16 tables the Codex reads) and `sources/wago/1.15.9.70003` (Item, ItemSparse, ItemEffect, Map): Blizzard client table rows, verbatim. `node slice.js <data/sources> input` cut them:
-  - whole: SkillLine, Map, DungeonEncounter, LFGDungeons, MapDifficulty, ContentTuning, Mount, BattlePetSpecies;
+- `sources/wago/1.60.1.70450` (the 17 tables the Codex reads) and `sources/wago/1.15.9.70003` (Item, ItemSparse, ItemEffect, Map): Blizzard client table rows, verbatim. `node slice.js <data/sources> input` cut them:
+  - whole: SkillLine, Map, DungeonEncounter, LFGDungeons, MapDifficulty, ContentTuning, Mount, BattlePetSpecies, GroupFinderActivity;
   - AreaTable: the top-level areas plus the slice zones' sub-areas;
   - SkillLineAbility: First Aid, riding and companions;
   - items: the world slice's, the items of the gear golden's synthetic item list (from when the Codex read it), and the items that teach the first 10 mounts and pets and those skills' spells;
   - the spell rows those need.
-- `root/data/codex/*.json`: copies of this checkout's curated tables (attunements, entrances, journal quests, rep gates). The Rust build reads them from its root; regen.js checks that they match the JS tree's.
+- `root/data/codex/*.json`: copies of this checkout's curated tables (attunements, entrances, journal quests, dungeon levels, rep gates). The Rust build reads them from its root; regen.js checks that they match the JS tree's.
 - There is no web quest database cache (`sources/web`).
 
 expected/: `codex/*.json`, `Polestar_Codex/*` and `warnings.txt`. Files over 64 KiB are gzipped (`<name>.gz`).
@@ -36,3 +36,5 @@ Spawn heights (#1024, blessed the same way): NPC and object places in `codex/npc
 Elites at objects (#1778): four objectives in `codex/quests.json` (an object to use or an item only objects give, among hostile elites in the world slice) gained `elites`, their Quests1 records the `w` fields, and `meta.json`'s pack bytes grew by those 49 bytes; nothing else changed.
 
 Dungeon marks (0.3.8): `Polestar_Codex/Dungeons1.lua` gained its `D.Register("marks", …)` line and `codex/journal.json` its `marks` (the slice's three page quests and the nearest prerequisites of each, per side: `journal.rs` `marks_of`), and `meta.json`'s pack bytes grew by the line's 371 bytes; nothing else changed.
+
+Dungeon levels and group sizes (0.4.0, blessed the same way): `GroupFinderActivity.csv` (build 1.60.1.70450, verbatim: that build's Group Finder lists every dungeon of the slice; its five newest Forever rows came later) and `root/data/codex/levels.json` joined the inputs. Each dungeon page in `codex/journal.json` and its `Polestar_Codex/Dungeons1.lua` summary takes its range and group size from the Group Finder (`players`, and `playersMax` for Blackrock Spire's two wings) and gains `floor` (`journal.rs` `levels_of`; the slice has no recorded entries, so each floor is its range's bottom); The Hall of Thanes' top is levels.json's 18; `meta.json`'s pack bytes and sources follow.

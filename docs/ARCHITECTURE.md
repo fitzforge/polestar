@@ -1872,7 +1872,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   (`Engine.DungeonChosen(map)`: the answer for that dungeon, `CharState().dungeons[map]`
   true or false through `Engine.ChooseDungeon(map, answer)`, else the setting `behavior.dungeons`,
   Skip by default; with "ask" a `when dungeon` step holds while it has work now, `Own.whenFails` and
-  `Own.dungeonPending`; a predicate without `map` never holds),
+  `Own.dungeonPending`; a predicate without `map` never holds, nor one of a city dungeon of the other
+  faction, whatever the answers: `Engine.EnemyCityDungeon(map or Codex key)`, Ragefire Chasm and the Ruins
+  of Lordaeron the Horde's, The Hall of Thanes and the Stockade the Alliance's, which also keeps such a
+  dungeon out of `Engine.ChooseDungeon`'s Run, `Engine.GuideDungeons`, the hub's For your level
+  (`Dungeons.EnemyCapital`) and the dungeon heads-up (`UI.DungeonToast.Candidates`)),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
@@ -10137,15 +10141,27 @@ was already built without it.
   `SkillLineAbility`, `Mount` and `BattlePetSpecies` (the summon spells that
   make an item a mount or a companion), and for the dungeons `Map`,
   `AreaTable`, `DungeonEncounter`, `LFGDungeons`, `MapDifficulty`,
-  `ContentTuning`; the Classic Era `Item`, `ItemSparse`, `ItemEffect` and `Map`
-  fill items Forever's tables lack and tell Forever's own instances apart.
+  `ContentTuning`, `GroupFinderActivity`; the Classic Era `Item`, `ItemSparse`,
+  `ItemEffect` and `Map` fill items Forever's tables lack and tell Forever's
+  own instances apart.
 - Dungeons and raids (`tools/lib/codex/instances.js`, release build): every
   `Map` instance that Forever's dungeon finder (`LFGDungeons`) names, or that
   belongs to the original game (map id below 1000) and has `DungeonEncounter`
   rows; Season of Discovery maps the client also carries stay out. `forever`
   = absent from the Era client's `Map`. Levels `[entry, min, max]`: the
   `MapDifficulty` "at least level N" message, the `ContentTuning` minimum of
-  its dungeon-finder entries, the highest boss level (at most 60). Bosses:
+  its dungeon-finder entries, the highest boss level (at most 60). A dungeon's
+  journal page (`codex/journal.rs` `levels_of`) takes its range from the
+  in-game Group Finder (`GroupFinderActivity`, category Dungeons, the span of
+  its wings), never under that minimum, and its group size from it too
+  (`players`; `playersMax` 10 for Upper Blackrock Spire; raids keep the `Map`
+  table's, whose 10 for the old dungeons was their instance cap). Its `floor`,
+  the level the guides' dungeon steps and the hub's "For your level" start
+  at, is the highest of the Group Finder's minimum, the client's minimum and
+  players' 25th percentile entry level where 5 or more people with a boss
+  kill were recorded (`data/codex/recorded.json` `dungeons`), to a tenth of a
+  level. The named exceptions are the cited rows of `data/codex/levels.json`
+  (The Hall of Thanes' top of 18, Krol'dok Stronghold's floor of 43). Bosses:
   the `DungeonEncounter` rows of the normal difficulty in `OrderIndex` order,
   each matched to `npcs.json` (a recorded encounter's NPCs, else the same name
   among NPCs placed in the instance, else the same name preferring elites

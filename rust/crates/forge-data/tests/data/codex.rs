@@ -116,3 +116,65 @@ fn a_quest_carries_the_profession_it_needs() {
 	assert_eq!(pack.matches(";l164,210").count(), 1, "2751's pack record");
 	assert_eq!(pack.matches(";l185,").count(), 4, "the four Cooking quests (862, 6611, 8763, 8799), no rank");
 }
+
+/// A dungeon key as data/codex/levels.json writes it (`the-hall-of-thanes`, `kroldok-stronghold`) for a client
+/// map name ("Hall of Thanes", "Krol'dok Stronghold"): lowercase words joined by `-`, apostrophes dropped.
+fn level_key(name: &str) -> String {
+	let s: String = name.to_lowercase().chars().filter(|c| *c != '\'').map(|c| if c.is_ascii_alphanumeric() { c } else { ' ' }).collect();
+	s.split_whitespace().collect::<Vec<_>>().join("-")
+}
+
+/// Fitz, 2026-11-13: every dungeon's floor is the highest of the client's Group Finder minimum, its own fixed
+/// minimum and players' 25th percentile entry level (5 people with a boss kill or more), and its top the Group
+/// Finder's, but for the two named rows of data/codex/levels.json: The Hall of Thanes' top of 18 and Krol'dok
+/// Stronghold's floor of 43, so a third exception can't get in uncited. And where 5 or more people were recorded,
+/// the Group Finder's minimum is at or under their 25th percentile and their 90th percentile at most 3 over the
+/// top: a broken join or a wrong client row shows. On the newest Forever client tables with the Group Finder in
+/// the source cache (FORGE_SOURCES, else <repo>/data/sources) and this checkout's data/codex/recorded.json and
+/// levels.json; a fresh clone has no client tables and skips.
+#[test]
+fn dungeon_levels_follow_the_group_finder_and_players_recorded_entries() {
+	use forge_data::codex::{client, journal};
+	use forge_guide::js::V;
+	const TABLES: [&str; 7] = ["Map", "AreaTable", "DungeonEncounter", "LFGDungeons", "MapDifficulty", "ContentTuning", "GroupFinderActivity"];
+	let repo = super::fixture_build::repo();
+	let sources = std::env::var_os("FORGE_SOURCES").map(PathBuf::from).unwrap_or_else(|| repo.join("data/sources"));
+	let Ok(build) = client::newest_forever_build(&sources, &TABLES) else {
+		eprintln!("skipped: no cached Forever client tables with GroupFinderActivity under {}", sources.display());
+		return;
+	};
+	let tables = client::load_tables(&sources, &build, &TABLES, &repo).unwrap();
+	let mut facts = client::instance_facts(&tables, None);
+	client::attach_finder(&mut facts.maps, tables.get("GroupFinderActivity").map(Vec::as_slice).unwrap_or(&[]));
+	let read = |f: &str| std::fs::read_to_string(repo.join("data/codex").join(f)).unwrap();
+	let recorded = forge_guide::js::parse_json(&read("recorded.json")).unwrap().get("dungeons");
+	let levels = journal::load_levels_table(&read("levels.json")).unwrap();
+	let (mut exceptions, mut checked, mut problems) = (Vec::new(), 0, Vec::new());
+	for m in facts.maps.iter().filter(|m| !m.raid) {
+		let Some(f) = m.finder.as_ref() else { continue };
+		let fixed = facts.rec_min.get(&(m.id as i64)).map_or(V::Null, |n| V::Num(*n));
+		let rec = recorded.get(&(m.id as i64).to_string());
+		let key = level_key(&m.name);
+		let curated = [key.clone(), format!("the-{key}")].iter().map(|k| levels.get(k)).find(V::truthy).unwrap_or_else(V::obj);
+		let named = journal::levels_of(fixed.clone(), V::Null, Some(f), &rec, &curated);
+		let rule = journal::levels_of(fixed.clone(), V::Null, Some(f), &rec, &V::obj());
+		// The rule itself, spelled out: the highest of the three, the recorded one to a tenth of a level.
+		let p25 = rec.get("p25").as_num().filter(|_| rec.get("people").as_num().is_some_and(|n| n >= journal::FLOOR_PEOPLE));
+		let want = [Some(f.min), fixed.as_num(), p25.map(|p| (p * 10.0).round() / 10.0)].into_iter().flatten().fold(f64::MIN, f64::max);
+		assert_eq!((rule.floor.num(), rule.max.num()), (want, f.max), "{}: the rule's floor and top", m.name);
+		if named.floor.num() != rule.floor.num() {
+			exceptions.push(format!("{}: floor {}", m.name, named.floor.num()));
+		}
+		if named.max.num() != rule.max.num() {
+			exceptions.push(format!("{}: top {}", m.name, named.max.num()));
+		}
+		if p25.is_some() {
+			checked += 1;
+		}
+		problems.extend(journal::recorded_check(&m.name, Some(f), &named.max, &rec));
+	}
+	exceptions.sort();
+	assert_eq!(exceptions, ["Krol'dok Stronghold: floor 43", "The Hall of Thanes: top 18"], "the named exceptions, and only those (client build {build})");
+	assert!(checked >= 15, "{checked} dungeons with 5 or more people recorded: data/codex/recorded.json has its dungeons block");
+	assert!(problems.is_empty(), "{problems:?}");
+}

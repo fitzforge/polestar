@@ -33,6 +33,12 @@ fn instance_map(m: &Value) -> InstanceMap {
 		inner: list("inner"),
 		zones: list("zones"),
 		corpse: m["corpse"].as_object().map(|c| Corpse { c: c["c"].as_f64().unwrap(), x: c["x"].as_f64().unwrap(), y: c["y"].as_f64().unwrap() }),
+		finder: m["finder"].as_object().map(|f| forge_data::codex::client::Finder {
+			min: f["min"].as_f64().unwrap_or(0.0),
+			max: f["max"].as_f64().unwrap_or(0.0),
+			players: f["players"].as_f64().unwrap_or(5.0),
+			players_max: f.get("playersMax").and_then(Value::as_f64).or(f["players"].as_f64()).unwrap_or(5.0),
+		}),
 	}
 }
 
@@ -68,6 +74,8 @@ fn pack_of(codex: &Value, inputs: &Value) -> CodexPack {
 			journal_quests: &[],
 			attunement_table: &attunements,
 			store_xp: &Default::default(),
+			recorded_dungeons: &v(&inputs["recordedDungeons"]),
+			levels_table: &v(&inputs["levelsTable"]),
 		},
 		&c,
 	);
@@ -182,9 +190,10 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 }
 
 // Fitz, 2026-11-08 (a level 13 Horde Warlock saw the Ruins of Lordaeron, 15-22, and The Hall of Thanes, in
-// Ironforge, under "For your level"): a dungeon is for your level from its recommended start, and
-// one whose way in lies inside the other faction's capital is not under that faction's filter. The Ruins,
-// outside the Undercity, can be reached by both.
+// Ironforge, under "For your level"): a dungeon is for your level from its recommended start. Fitz, 2026-11-14:
+// a city dungeon (its way in inside a capital, or under it: the Ruins of Lordaeron, the Undercity's) is its
+// faction's only, so never under the other faction's filter, nor under All for a player of the other faction
+// (SETUP's player is a Horde Tauren).
 #[test]
 fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
 	let f = fixture("dungeons.json");
@@ -217,8 +226,8 @@ fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside
 	assert_eq!(out["h15"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
 	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
 	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
-	assert_eq!(out["a15"], json!(["Ruins of Lordaeron", "The Hall of Thanes"]), "the Ruins lie outside the Undercity: the Alliance can get there");
-	assert_eq!(out["all13"], json!(["Ragefire Chasm", "The Hall of Thanes"]), "All shows both sides'");
+	assert_eq!(out["a15"], json!(["The Hall of Thanes"]), "not the Ruins of Lordaeron (the Undercity's) for the Alliance");
+	assert_eq!(out["all13"], json!(["Ragefire Chasm"]), "All: never the Horde player's other faction's city dungeon (The Hall of Thanes)");
 }
 
 // A player asked why Uldaman (35-47) showed under "For your level" at 35, where most of it suits ~42. It still
@@ -1587,6 +1596,49 @@ fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for
 	assert_eq!(out[1], json!({ "alliance": [["deadmines", 1], ["wailing-caverns", 2]] }), "Leaders of the Fang is not the Alliance's");
 }
 
+// Fitz, 2026-11-14 (#2026): a city dungeon is its faction's only, so the heads-up never tells the other faction one
+// is open, though its page has quests for them (the Ruins of Lordaeron has Alliance quests; The Hall of Thanes has one
+// for both sides). The fixture's Wailing Caverns (quests for both sides) under each city dungeon's key in turn: the
+// card is the owners' only, and the Deadmines (the Alliance's quest) stays as it was.
+#[test]
+fn the_dungeon_heads_up_never_tells_the_other_faction_about_a_city_dungeon() {
+	let as_key = |key: &str| {
+		let f = fixture("dungeons.json");
+		let (mut codex, mut inputs) = (f["codex"].clone(), f["inputs"].clone());
+		let mut wc = codex["instances"].as_object_mut().unwrap().remove("wailing-caverns").unwrap();
+		wc["key"] = json!(key);
+		codex["instances"][key] = wc;
+		for d in inputs["forever"]["dungeons"]["dungeons"].as_array_mut().unwrap() {
+			if d["key"] == "wailing-caverns" {
+				d["key"] = json!(key);
+			}
+		}
+		pack_of(&codex, &inputs)
+	};
+	let script = format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		uistub.player.level = 21
+		local function list()
+			local t = {{}}
+			for _, c in ipairs(DT.Candidates(21, "any")) do t[#t + 1] = c.key end
+			table.sort(t)
+			return t
+		end
+		emit({{ horde = list() }})
+		uistub.player.race, uistub.player.class, uistub.player.faction = "Human", "WARRIOR", "Alliance"
+		UnitRace = function() return "Human", "Human", 1 end
+		UnitFactionGroup = function() return "Alliance", "Alliance" end
+		emit({{ alliance = list() }})"#
+	);
+	let rol = run_pack(&script, Some(as_key("ruins-of-lordaeron")));
+	assert_eq!(rol[0], json!({ "horde": ["ruins-of-lordaeron"] }), "the Undercity's dungeon is the Horde's");
+	assert_eq!(rol[1], json!({ "alliance": ["deadmines"] }), "never the Ruins of Lordaeron for the Alliance");
+	let hot = run_pack(&script, Some(as_key("the-hall-of-thanes")));
+	assert_eq!(hot[0], json!({ "horde": {} }), "never The Hall of Thanes (Ironforge) for the Horde");
+	assert_eq!(hot[1], json!({ "alliance": ["deadmines", "the-hall-of-thanes"] }), "Ironforge's dungeon is the Alliance's");
+}
+
 // "Pick up the quests" builds the dungeon's real pick-up guide and opens it in a new tab beside the leveling guide.
 #[test]
 fn pick_up_the_quests_opens_the_dungeons_pick_up_guide_in_a_new_tab() {
@@ -1729,4 +1781,73 @@ fn a_quest_only_some_classes_or_races_may_take_says_who_it_is_for_and_one_not_fo
 	assert_eq!(warlock["lookup"], false);
 	assert_eq!(orc["docks"]["state"], "Not for your race");
 	assert_eq!(orc["lookup"], "Tauren only");
+}
+
+// Fitz, 2026-11-13: never offer a dungeon too low. "For your level" starts at a dungeon's floor (the level its
+// run in the route starts at: its range's bottom or where players who killed a boss there entered, whichever is
+// higher), not its range's bottom, and the page's group size is the Group Finder's: 5 for the Deadmines and
+// Sunken Temple (the old Map table's 10 and 20 were caps), 5-10 for Blackrock Spire's two wings.
+#[test]
+fn for_your_level_starts_at_the_floor_and_the_page_shows_the_group_finders_size() {
+	let out = run(r#"
+		Polestar.Dungeons.Load()
+		Polestar.Dungeons.Register("dungeon", {
+			deadmines = { name = "Deadmines", kind = "dungeon", minLevel = 17, maxLevel = 26, floor = 19.6, players = 5, zoneName = "Westfall" },
+			["sunken-temple"] = { name = "Sunken Temple", kind = "dungeon", minLevel = 50, maxLevel = 60, floor = 50, players = 5, zoneName = "Swamp of Sorrows" },
+			["blackrock-spire"] = { name = "Blackrock Spire", kind = "dungeon", minLevel = 55, maxLevel = 60, floor = 55, players = 5, playersMax = 10, zoneName = "Searing Gorge" },
+		}, { deadmines = "return {}", ["sunken-temple"] = "return {}", ["blackrock-spire"] = "return {}" })
+		local function at(level)
+			uistub.player.level = level
+			Polestar.Dungeons.Open()
+			DS.SetFaction("All")
+			DS.SetBand("level")
+			return cardNames()
+		end
+		local function sub(key)
+			Polestar.Dungeons.Open(key)
+			local _, _, pg = DS.Frames()
+			return pg.Sub:GetText()
+		end
+		emit({ at19 = at(19), at20 = at(20), dm = sub("deadmines"), st = sub("sunken-temple"), brs = sub("blackrock-spire"),
+			floor = Polestar.Dungeons.Get("deadmines").floor, best = Polestar.Dungeons.BestAt("deadmines") })"#);
+	let out = &out[0];
+	assert!(!strs(&out["at19"]).iter().any(|n| n == "Deadmines"), "19 is in the Deadmines' 17-26 but under its floor 19.6: {}", out["at19"]);
+	assert!(strs(&out["at20"]).iter().any(|n| n == "Deadmines"), "from the floor up: {}", out["at20"]);
+	assert_eq!(out["floor"], 19.6);
+	assert!(out["best"].as_i64().unwrap() >= 20, "best at never under the floor: {}", out["best"]);
+	assert!(out["dm"].as_str().unwrap().contains("5 players"), "{}", out["dm"]);
+	assert!(out["st"].as_str().unwrap().contains("5 players"), "{}", out["st"]);
+	assert!(out["brs"].as_str().unwrap().contains("5\u{2013}10 players") || out["brs"].as_str().unwrap().contains("5-10 players"), "{}", out["brs"]);
+}
+
+// Fitz, 2026-11-13: never offer a dungeon too low. With players' recorded entries setting Wailing Caverns' floor at
+// 20.3 (71 people with a boss kill, a quarter of them under 20.3: the Codex's `levels_of`), a level 20 character, inside
+// its 17-24 range but under the floor, sees it neither in "For your level" nor on the card that says it is open; the
+// card comes at its best-at level, which never sits under the floor.
+#[test]
+fn between_the_range_and_the_floor_players_recorded_entries_set_neither_the_hub_nor_the_card_offers_the_dungeon() {
+	let f = fixture("dungeons.json");
+	let mut inputs = f["inputs"].clone();
+	inputs["recordedDungeons"] = json!({ "43": { "people": 71, "p25": 20.3, "p90": 25.6 } });
+	let out = run_pack(
+		&format!(
+			r#"{HEADS_UP}
+		local function keys(list) local t = {{}} for _, c in ipairs(list) do t[#t + 1] = c.key end return t end
+		Polestar.Dungeons.Load()
+		local best = Polestar.Dungeons.BestAt("wailing-caverns")
+		uistub.player.level = 20
+		Polestar.Dungeons.Open()
+		DS.SetFaction("All")
+		DS.SetBand("level")
+		emit({{ floor = Polestar.Dungeons.Get("wailing-caverns").floor, best = best, hub20 = cardNames(),
+			card20 = keys(DT.Candidates(20, "any")), cardBest = keys(DT.Candidates(best, "any")) }})"#
+		),
+		Some(pack_of(&f["codex"], &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!(out["floor"], 20.3);
+	assert!(out["best"].as_f64().unwrap() >= 21.0, "best at never under the floor: {}", out["best"]);
+	assert!(!strs(&out["hub20"]).iter().any(|n| n == "Wailing Caverns"), "level 20, under the floor 20.3: not for your level: {}", out["hub20"]);
+	assert!(!strs(&out["card20"]).iter().any(|k| k == "wailing-caverns"), "and no card: {}", out["card20"]);
+	assert!(strs(&out["cardBest"]).iter().any(|k| k == "wailing-caverns"), "the card at its best-at level: {}", out["cardBest"]);
 }

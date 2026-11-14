@@ -790,8 +790,9 @@ fn every_control_has_an_effect_check() {
 		script: format!(
 			r#"
 			stub.advance(1)
-			-- Guides with steps for every dungeon: each one's row on Discovery > Dungeons is a control too.
-			Polestar.Engine.GuideDungeons = function() return setmetatable({{}}, {{ __index = function() return true end }}) end
+			-- Guides with steps for every dungeon this character may run (never a city dungeon of the other faction,
+			-- Engine.EnemyCityDungeon): each one's row on Discovery > Dungeons is a control too.
+			Polestar.Engine.GuideDungeons = function() return setmetatable({{}}, {{ __index = function(_, map) return not Polestar.Engine.EnemyCityDungeon(map) end }}) end
 			assert(Polestar.UI.LoadOptions())
 			{pending}
 			local O = Polestar.UI.Options

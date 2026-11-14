@@ -33,6 +33,8 @@ struct Case {
 	/// runs, off here unless a case is about them.
 	pass_by: bool,
 	nearby_fp: bool,
+	/// data/dungeon-runs.json's records (the grind tips' dungeon runs); none unless a case is about them.
+	dungeon_runs: Option<Value>,
 }
 
 impl Default for Case {
@@ -52,6 +54,7 @@ impl Default for Case {
 			crossings: None,
 			pass_by: false,
 			nearby_fp: false,
+			dungeon_runs: None,
 		}
 	}
 }
@@ -111,6 +114,7 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		fresh_openers: forge_writer::post::FreshOpeners::Flag,
 		pass_by: c.pass_by,
 		nearby_fp: c.nearby_fp,
+		dungeon_runs: c.dungeon_runs.as_ref(),
 	})
 	.unwrap();
 	Run { out, guides }
@@ -2024,41 +2028,48 @@ fn a_grind_top_up_takes_the_hand_ins_before_the_level_is_needed_off_its_target()
 	assert_eq!(tip(&text), "  tip Top up here to level 13 before the hand-ins at Razor Hill: they take you to level 14.", "{text}");
 }
 
-// Fitz's grind policy (2026-11-08, final route review): every written grind step keeps its gate and says
-// plainly that a dungeon of the player's level will do instead, by faction and level band.
+// Fitz's grind policy (2026-11-08, final route review; the dungeons, 2026-11-13): every written grind step keeps
+// its gate and says plainly that a dungeon will do instead, when one is run near it: a run of the route's faction in
+// the guide or the one it leads to (data/dungeon-runs.json), its way in on the grind's continent, its range (the
+// Group Finder's) holding the grind's level.
 #[test]
-fn a_grind_top_up_names_the_dungeons_of_its_level_for_the_routes_faction() {
-	let c = |faction: Option<&str>, target: f64| Case {
+fn a_grind_top_up_names_the_dungeons_run_near_it_in_its_level_for_the_routes_faction() {
+	let c = |faction: &str, target: f64, runs: Value| Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 10-30", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  kill 20 quest 1.1", "", "step Hub again", "  turnin 1", ""])],
-		route: {
-			let mut r = json!({ "diff": {}, "order": [
-				{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
-				{ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) },
-				{ "t": "level", "lvl": target - 0.2, "target": target, "pt": 1, "from": "inserted" },
-				{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) },
-			] });
-			if let Some(fc) = faction {
-				r["faction"] = json!(fc);
-			}
-			r
-		},
-		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }] }),
+		route: json!({ "diff": {}, "faction": faction, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) },
+			{ "t": "level", "lvl": target - 0.2, "target": target, "pt": 1, "from": "inserted" },
+			{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) },
+		] }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411], [1, 1, -900, 900, 1413], [0, 0, 0, 0, 1436]], "zones": { "1411": "Durotar", "1413": "The Barrens", "1436": "Westfall" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }] }),
 		quests: json!({ "1": { "title": "One", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "kill", "id": 20 }] } }),
 		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } }, "20": { "name": "Mottled Boar", "spawns": { "1411": { "f": "e", "pts": [[75, 75]] } } } }),
+		dungeon_runs: Some(json!({ "runs": runs })),
 		..Case::default()
 	};
-	let tip = |faction: Option<&str>, target: f64| {
-		let r = run(&c(faction, target), Some(&area("Razor Hill", "Durotar", 1411)));
+	let tip = |faction: &str, target: f64, runs: Value| {
+		let r = run(&c(faction, target, runs), Some(&area("Razor Hill", "Durotar", 1411)));
 		r.read("a").into_iter().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default()
 	};
-	let horde = tip(Some("Horde"), 21.4);
+	let at = |dungeon: &str, faction: &str, guide: &str, map: u32| json!({ "dungeon": dungeon, "faction": faction, "run": { "guide": guide, "entrance": { "map": map } } });
+	let wc = |faction: &str| at("Wailing Caverns", faction, "forever/a", 1413);
+	let horde = tip("Horde", 21.4, json!([wc("Horde")]));
 	assert!(horde.ends_with("before the hand-ins at Razor Hill. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
-	let alliance = tip(Some("Alliance"), 21.4);
+	// The other faction's run is no alternative; one a guide away from this one's chain neither.
+	let none = tip("Horde", 21.4, json!([wc("Alliance"), at("Wailing Caverns", "Horde", "forever/z", 1413)]));
+	assert!(none.ends_with("before the hand-ins at Razor Hill."), "{none}");
+	// Two near, nearest range middle first (a tie to the older dungeon).
+	let alliance = tip("Alliance", 21.4, json!([at("The Deadmines", "Alliance", "forever/a", 1413), wc("Both")]));
 	assert!(alliance.ends_with(" Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."), "{alliance}");
-	let high = tip(Some("Horde"), 28.9);
-	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead."), "{high}");
+	// Across the sea: the Deadmines' way in is on another continent than the grind's.
+	let sea = tip("Alliance", 21.4, json!([at("The Deadmines", "Alliance", "forever/a", 1436)]));
+	assert!(sea.ends_with("before the hand-ins at Razor Hill."), "{sea}");
+	// Out of its range: Razorfen Kraul starts at 29 (the Group Finder's), so at 28.9 only Blackfathom Deeps.
+	let high = tip("Horde", 28.9, json!([at("Razorfen Kraul", "Horde", "forever/a", 1413), at("Blackfathom Deeps", "Horde", "forever/a", 1413)]));
+	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon instead."), "{high}");
 	// Below every dungeon's band: no sentence.
-	let low = tip(Some("Horde"), 12.4);
+	let low = tip("Horde", 12.4, json!([wc("Horde")]));
 	assert!(low.ends_with("before the hand-ins at Razor Hill."), "{low}");
 }
 

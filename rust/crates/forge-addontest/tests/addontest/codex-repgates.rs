@@ -90,6 +90,7 @@ fn inputs(rows: &Value) -> Result<Inputs, String> {
 		curated_vendors: V::Null,
 		entrances: Vec::new(),
 		entrance_table: V::Null,
+		levels_table: V::obj(),
 		rep_table,
 		attunement_table: V::Null,
 		store_xp: Default::default(),

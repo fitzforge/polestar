@@ -319,6 +319,7 @@ fn the_codex_takes_recorded_prerequisites_and_objective_spots() {
 		curated_vendors: V::Null,
 		entrances: Vec::new(),
 		entrance_table: V::Null,
+		levels_table: V::obj(),
 		rep_table: V::obj(),
 		attunement_table: V::Null,
 		store_xp: Default::default(),

@@ -237,6 +237,7 @@ forge judge check --help
 forge judge seed-tests --help
 forge judge route-status --help
 forge judge feedback --help
+forge judge doors --help
 ```
 
 ### One pack: `forge judge`
@@ -395,6 +396,35 @@ given. Specs the reader does not understand are listed as manual, and issues
 no feedback row cites as untriaged; neither is guessed. `--out` is
 `data/route-fixes.json` with those overrides added; point the sim at it with
 `POLESTAR_ROUTE_FIXES`.
+
+### Dungeon runs against their floors: `forge judge doors`
+
+```sh
+forge judge doors --sim data/sim
+forge judge doors --sim data/sim --levels levels/Alliance.json,levels/Horde.json
+```
+
+Reads every leveling guide's dungeon runs (a `when dungeon "<Name>"` step,
+not negated, with an `enter` goal) and checks them against their floors in
+the Codex (`data/forever/codex/journal.json`: the client's Group Finder
+minimum, its fixed minimum or where players who killed a boss there
+entered, whichever is highest; `forge guide lint` already errors on a run
+gated under it). For each run it follows the guide from the stop before it
+(the last goal that does something where it stands) through its walks and
+flights to the door. A **blocker** (`door-danger`) is a zone the walk crosses
+or ends in, or a flight lands in, whose danger level (the world's: its
+lowest level, or its danger floor) is 4 or more over the run's `when
+level>=` gate: a player at the gate would walk among mobs 4 levels over
+them, the in-game planner's mark. The stop's own zone isn't counted, and a
+flight crosses nothing.
+
+With `--levels` (the calibrated level model's output per faction, the files
+the danger gate reads) it also warns of each run the model reaches under its
+floor (`under-floor`: the gate would hide the run for most players) and each
+pick-up whose gate isn't the floor less the levels the model plans between it
+and the run (`pickup-gate`, more than half a level off). These are warnings:
+a borderline run would flap with each model update. The command exits 1 when
+there is a blocker.
 
 ## Reading report.md and report.json
 

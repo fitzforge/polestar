@@ -706,6 +706,7 @@ fn inputs(s: Synth) -> Inputs {
 		curated_vendors: V::obj(),
 		entrances: Vec::new(),
 		entrance_table: V::obj(),
+		levels_table: V::obj(),
 		rep_table: V::obj(),
 		attunement_table: V::obj(),
 		store_xp: Default::default(),

@@ -1,0 +1,110 @@
+FullName_lang,ShortName_lang,ID,GroupFinderCategoryID,OrderIndex,GroupFinderActivityGrpID,Flags,MinGearLevelSuggestion,PlayerConditionID,MapID,DifficultyID,AreaID,ExpansionID,MaxPlayers,DisplayType,Field_11_0_7_57361_013,Field_11_0_7_57361_014,MinLevel,MaxLevelSuggestion,OverrideContentTuningID,MapChallengeModeID
+"Wailing Caverns","Wailing Caverns",796,2,0,285,66,0,0,43,1,0,0,5,1,0,0,15,24,0,0
+Scholomance,Scholomance,797,2,0,285,66,0,0,289,1,0,0,5,1,0,0,58,60,0,0
+"Ragefire Chasm","Ragefire Chasm",798,2,0,285,66,0,923,389,1,0,0,5,1,0,0,13,18,0,0
+Deadmines,Deadmines,799,2,0,285,66,0,0,36,1,0,0,5,1,0,0,17,26,0,0
+"Shadowfang Keep","Shadowfang Keep",800,2,0,285,66,0,0,33,1,0,0,5,1,0,0,20,30,0,0
+"Blackfathom Deeps","Blackfathom Deeps",801,2,0,285,66,0,116976,48,1,0,0,5,1,0,0,24,32,0,0
+"Stormwind Stockades","Stormwind Stockades",802,2,0,285,66,0,924,34,1,0,0,5,1,0,0,24,32,0,0
+Gnomeregan,Gnomeregan,803,2,0,285,66,0,116976,90,1,0,0,5,1,0,0,29,38,0,0
+"Razorfen Kraul","Razorfen Kraul",804,2,0,285,66,0,0,47,1,0,0,5,1,0,0,29,38,0,0
+"Scarlet Monastery - Graveyard","Scarlet Graveyard",805,2,0,285,66,0,0,189,1,0,0,5,1,0,0,30,38,0,0
+"Razorfen Downs","Razorfen Downs",806,2,0,285,66,0,0,129,1,0,0,5,1,0,0,37,46,0,0
+Uldaman,Uldaman,807,2,0,285,66,0,0,70,1,0,0,5,1,0,0,41,51,0,0
+Zul'Farrak,Zul'Farrak,808,2,0,285,66,0,0,209,1,0,0,5,1,0,0,44,54,0,0
+Maraudon,Maraudon,809,2,0,285,66,0,67461,349,1,0,0,5,1,0,0,46,55,0,0
+"Sunken Temple","Sunken Temple",810,2,0,285,66,0,116976,109,1,0,0,5,1,0,0,50,60,0,0
+"Blackrock Depths","Blackrock Depths",811,2,0,285,66,0,0,230,1,0,0,5,1,0,0,52,60,0,0
+"Lower Blackrock Spire","Lower Blackrock Spire",812,2,0,285,66,0,0,229,1,0,0,5,1,0,0,55,60,0,0
+"Dire Maul (East)","Dire Maul (East)",813,2,0,285,66,0,67462,429,1,0,0,5,1,0,0,54,60,0,0
+"Dire Maul (West)","Dire Maul (West)",814,2,0,285,66,0,67462,429,1,0,0,5,1,0,0,56,60,0,0
+"Dire Maul (North)","Dire Maul (North)",815,2,0,285,66,0,67462,429,1,0,0,5,1,0,0,56,60,0,0
+"Stratholme (Main Gate)","Stratholme (Main Gate)",816,2,0,285,66,0,0,329,1,0,0,5,1,0,0,58,60,0,0
+"Scarlet Monastery - Armory","Scarlet Armory",827,2,0,285,66,0,0,189,1,0,0,5,1,0,0,36,44,0,0
+"Scarlet Monastery - Cathedral","Scarlet Cathedral",828,2,0,285,66,0,0,189,1,0,0,5,1,0,0,38,46,0,0
+"Scarlet Monastery - Library","Scarlet Library",829,2,0,285,66,0,0,189,1,0,0,5,1,0,0,33,41,0,0
+Zul'Gurub,Zul'Gurub,836,114,2,290,2,0,68265,309,148,0,0,20,0,0,0,60,60,0,0
+"Upper Blackrock Spire","Upper Blackrock Spire",837,2,0,285,2,0,0,229,1,0,0,10,0,0,0,59,60,0,0
+"Onyxia's Lair","Onyxia's Lair",838,114,1,290,2,0,131774,249,9,0,0,40,0,0,0,60,60,0,0
+"Molten Core","Molten Core",839,114,0,290,2,0,131773,409,9,0,0,40,0,0,0,60,60,0,0
+"Blackwing Lair","Blackwing Lair",840,114,2,290,2,0,68237,469,9,0,0,40,0,0,0,60,60,0,0
+Naxxramas,Naxxramas,841,114,4,290,2,0,68242,533,9,0,0,40,0,0,0,60,60,0,0
+"Ahn'Qiraj Ruins","Ahn'Qiraj Ruins",842,114,3,290,2,0,132311,509,148,0,0,20,0,0,0,60,60,0,0
+"Ahn'Qiraj Temple","Ahn'Qiraj Temple",843,114,3,290,2,0,132311,531,9,0,0,40,0,0,0,60,60,0,0
+"Elwynn Forest","Elwynn Forest",853,116,0,295,2,0,0,0,0,0,0,0,4,0,0,1,14,0,0
+Westfall,Westfall,854,116,0,295,2,0,0,0,0,0,0,0,4,0,0,8,24,0,0
+Duskwood,Duskwood,855,116,0,295,2,0,0,0,0,0,0,0,4,0,0,18,34,0,0
+"Dun Morogh","Dun Morogh",856,116,0,295,2,0,0,0,0,0,0,0,4,0,0,1,14,0,0
+"Loch Modan","Loch Modan",857,116,0,295,2,0,0,0,0,0,0,0,4,0,0,8,24,0,0
+Wetlands,Wetlands,858,116,0,295,2,0,0,0,0,0,0,0,4,0,0,18,34,0,0
+"Stranglethorn Vale","Stranglethorn Vale",859,116,0,295,2,0,0,0,0,0,0,0,4,0,0,28,50,0,0
+"Blasted Lands","Blasted Lands",860,116,0,295,2,0,0,0,0,0,0,0,4,0,0,43,60,0,0
+"Swamp of Sorrows","Swamp of Sorrows",861,116,0,295,2,0,0,0,0,0,0,0,4,0,0,33,50,0,0
+"Redridge Mountains","Redridge Mountains",862,116,0,295,2,0,0,0,0,0,0,0,4,0,0,13,30,0,0
+"Burning Steppes","Burning Steppes",863,116,0,295,2,0,0,0,0,0,0,0,4,0,0,48,60,0,0
+"Searing Gorge","Searing Gorge",864,116,0,295,2,0,0,0,0,0,0,0,4,0,0,43,60,0,0
+Badlands,Badlands,865,116,0,295,2,0,0,0,0,0,0,0,4,0,0,33,50,0,0
+"Arathi Highlands","Arathi Highlands",866,116,0,295,2,0,0,0,0,0,0,0,4,0,0,28,44,0,0
+"Hillsbrad Foothills","Hillsbrad Foothills",867,116,0,295,2,0,0,0,0,0,0,0,4,0,0,18,34,0,0
+Hinterlands,Hinterlands,868,116,0,295,2,0,0,0,0,0,0,0,4,0,0,38,54,0,0
+"Western Plaguelands","Western Plaguelands",869,116,0,295,2,0,0,0,0,0,0,0,4,0,0,48,60,0,0
+"Eastern Plaguelands","Eastern Plaguelands",870,116,0,295,2,0,0,0,0,0,0,0,4,0,0,53,63,0,0
+"Tirisfal Glades","Tirisfal Glades",871,116,0,295,2,0,0,0,0,0,0,0,4,0,0,1,14,0,0
+"Silverpine Forest","Silverpine Forest",872,116,0,295,2,0,0,0,0,0,0,0,4,0,0,8,24,0,0
+"Alterac Mountains","Alterac Mountains",873,116,0,295,2,0,0,0,0,0,0,0,4,0,0,28,44,0,0
+Durotar,Durotar,874,116,0,296,2,0,0,1,0,0,0,0,4,0,0,1,14,0,0
+Mulgore,Mulgore,875,116,0,296,2,0,0,1,0,0,0,0,4,0,0,1,14,0,0
+"The Barrens","The Barrens",876,116,0,296,2,0,0,1,0,0,0,0,4,0,0,8,30,0,0
+"Stonetalon Mountains","Stonetalon Mountains",877,116,0,296,2,0,0,1,0,0,0,0,4,0,0,13,32,0,0
+"Thousand Needles","Thousand Needles",878,116,0,296,2,0,0,1,0,0,0,0,4,0,0,23,40,0,0
+Desolace,Desolace,879,116,0,296,2,0,0,1,0,0,0,0,4,0,0,28,44,0,0
+Feralas,Feralas,880,116,0,296,2,0,0,1,0,0,0,0,4,0,0,38,54,0,0
+"Dustwallow Marsh","Dustwallow Marsh",881,116,0,296,2,0,0,1,0,0,0,0,4,0,0,33,50,0,0
+Tanaris,Tanaris,882,116,0,296,2,0,0,1,0,0,0,0,4,0,0,38,54,0,0
+"Un'Goro Crater","Un'Goro Crater",883,116,0,296,2,0,0,1,0,0,0,0,4,0,0,45,60,0,0
+Silithus,Silithus,884,116,0,296,2,0,0,1,0,0,0,0,4,0,0,53,60,0,0
+Teldrassil,Teldrassil,885,116,0,296,2,0,0,1,0,0,0,0,4,0,0,1,14,0,0
+Darkshore,Darkshore,886,116,0,296,2,0,0,1,0,0,0,0,4,0,0,8,24,0,0
+Ashenvale,Ashenvale,887,116,0,296,2,0,0,1,0,0,0,0,4,0,0,18,34,0,0
+Felwood,Felwood,888,116,0,296,2,0,0,1,0,0,0,0,4,0,0,46,60,0,0
+Azshara,Azshara,889,116,0,296,2,0,0,1,0,0,0,0,4,0,0,43,60,0,0
+Winterspring,Winterspring,890,116,0,296,2,0,0,1,0,0,0,0,4,0,0,53,63,0,0
+"Warsong Gulch","Warsong Gulch",919,118,0,300,4,0,69758,489,0,0,0,10,4,10,19,10,19,0,0
+"Warsong Gulch","Warsong Gulch",920,118,0,300,4,0,69758,489,0,0,0,10,4,20,29,20,29,0,0
+"Warsong Gulch","Warsong Gulch",921,118,0,300,4,0,69758,489,0,0,0,10,4,30,39,30,39,0,0
+"Warsong Gulch","Warsong Gulch",922,118,0,300,4,0,69758,489,0,0,0,10,4,40,49,40,49,0,0
+"Warsong Gulch","Warsong Gulch",923,118,0,300,4,0,69758,489,0,0,0,10,4,50,59,50,59,0,0
+"Warsong Gulch","Warsong Gulch",924,118,0,300,4,0,69758,489,0,0,0,10,4,60,0,60,60,0,0
+"Arathi Basin","Arathi Basin",926,118,0,300,4,0,68238,529,0,0,0,15,4,20,29,20,29,0,0
+"Arathi Basin","Arathi Basin",927,118,0,300,4,0,68238,529,0,0,0,15,4,30,39,30,39,0,0
+"Arathi Basin","Arathi Basin",928,118,0,300,4,0,68238,529,0,0,0,15,4,40,49,40,49,0,0
+"Arathi Basin","Arathi Basin",929,118,0,300,4,0,68238,529,0,0,0,15,4,50,59,50,59,0,0
+"Arathi Basin","Arathi Basin",930,118,0,300,4,0,68238,529,0,0,0,15,4,60,0,60,60,0,0
+"Alterac Valley","Alterac Valley",932,118,0,300,4,0,68236,30,0,0,0,5,4,51,60,51,60,0,0
+Custom,Custom,1064,120,0,0,2,0,0,0,0,0,0,0,5,0,0,0,0,0,0
+"Stratholme (Service Gate)","Stratholme (Service Gate)",1603,2,0,285,66,0,0,329,1,0,0,5,1,0,0,58,60,0,0
+"Blackfathom Deeps","Blackfathom Deeps",1604,114,0,290,2,0,116306,48,197,0,0,10,0,0,0,25,32,0,0
+Gnomeregan,Gnomeregan,1605,114,0,290,2,0,116908,90,197,0,0,10,0,0,0,40,49,0,0
+"Sunken Temple","Sunken Temple",1606,114,0,290,2,0,119041,109,215,0,0,20,0,0,0,50,60,0,0
+"Demon Fall Canyon","Demon Fall Canyon",1607,2,0,285,66,0,127624,2784,1,0,0,5,1,0,0,60,60,0,0
+"Storm Cliffs","Storm Cliffs",1608,114,1,290,2,0,133278,2791,9,0,0,40,0,0,0,60,60,0,0
+"The Tainted Scar","The Tainted Scar",1609,114,1,290,2,0,133279,2789,9,0,0,40,0,0,0,60,60,0,0
+"Nightmare Grove","Nightmare Grove",1610,114,3,290,2,0,133280,2832,9,0,0,40,0,0,0,60,60,0,0
+"The Crystal Vale","The Crystal Vale",1611,114,2,290,2,0,116909,2804,185,0,0,40,0,0,0,60,60,0,0
+"Onyxia's Lair","Onyxia's Lair",1612,114,1,290,2,0,133281,249,186,0,0,40,0,0,0,60,60,0,0
+"Molten Core","Molten Core",1613,114,1,290,2,0,125885,409,226,0,0,40,0,0,0,60,60,0,0
+"Ahn'Qiraj Temple","Ahn'Qiraj Temple",1614,114,3,290,2,0,132313,531,186,0,0,25,0,0,0,60,60,0,0
+"Ahn'Qiraj Ruins","Ahn'Qiraj Ruins",1615,114,3,290,2,0,132313,509,185,0,0,15,0,0,0,60,60,0,0
+"Karazhan Crypts","Karazhan Crypts",1693,2,0,285,66,0,134794,2875,1,0,0,5,1,0,0,60,60,0,0
+"Scarlet Enclave","Scarlet Enclave",1710,114,5,290,2,0,134073,2856,215,0,0,40,0,0,0,60,60,0,0
+"Excavation Site: Wetlands","Excavation Site: Wetlands",1981,2,0,285,66,0,0,2998,1,0,0,5,1,0,0,26,33,0,0
+"Ruins of Lordaeron","Ruins of Lordaeron",1982,2,0,285,66,0,0,2999,1,0,0,5,1,0,0,15,22,0,0
+"City of Dalaran","City of Dalaran",1983,2,0,285,66,0,0,2959,1,0,0,5,1,0,0,28,35,0,0
+"Hall of Thanes","Hall of Thanes",1984,2,0,285,66,0,0,3065,1,0,0,5,1,0,0,13,20,0,0
+Riverglades,Riverglades,1989,116,0,295,2,0,0,0,0,0,0,0,4,0,0,33,54,0,0
+"Zephras Isle","Zephras Isle",1990,116,0,428,2,0,149551,2991,0,0,0,0,4,0,0,1,14,0,0
+"Mount Hyjal",Hyjal,1991,116,0,296,2,0,0,1,0,0,0,0,4,0,0,55,60,0,0
+"Darkspear Islands","Darkspear Islands",1992,118,0,300,4,0,0,2997,0,0,0,15,4,60,60,60,60,0,0
+"Darkspear Islands","Darkspear Islands",1995,118,0,300,4,0,0,2997,0,0,0,15,4,30,39,30,39,0,0
+"Darkspear Islands","Darkspear Islands",1996,118,0,300,4,0,0,2997,0,0,0,15,4,40,49,40,49,0,0
+"Darkspear Islands","Darkspear Islands",1997,118,0,300,4,0,0,2997,0,0,0,15,4,50,59,50,59,0,0

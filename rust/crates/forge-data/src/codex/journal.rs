@@ -294,6 +294,90 @@ pub struct JournalInputs<'a> {
 	pub attunement_table: &'a V,
 	/// The XP forever-db gives each quest (`load_store_xp`): what the pages show first.
 	pub store_xp: &'a FxHashMap<i64, f64>,
+	/// recorded.json's `dungeons`: per instance map, players' entries with a boss kill (`levels_of`).
+	pub recorded_dungeons: &'a V,
+	/// data/codex/levels.json rows by dungeon key (`load_levels_table`): the named exceptions.
+	pub levels_table: &'a V,
+}
+
+/// People with a boss kill a dungeon needs before their entries set its floor.
+pub const FLOOR_PEOPLE: f64 = 5.0;
+/// How far players' 90th percentile entry may sit over a dungeon's top before the build warns.
+pub const CHECK_SLACK: f64 = 3.0;
+
+/// A dungeon's range and floor (journal pages' `minLevel`, `maxLevel`, `floor`).
+#[derive(Clone, Debug, PartialEq)]
+pub struct Levels {
+	pub min: V,
+	pub max: V,
+	pub floor: V,
+}
+
+/// A dungeon's range and floor. With a Group Finder row (a dungeon the client's finder lists): the
+/// range is the finder's, its bottom never under the client's own minimum (`min`, MinLevelSquish);
+/// without one (raids) the range stays the client's minimum and the bosses' top (`max`). A curated
+/// `max` (levels.json) overrides the top. The floor, the level a guide's dungeon steps start at and
+/// the hub's "For your level" starts at, is the bottom or players' 25th percentile entry where
+/// [`FLOOR_PEOPLE`] people with a boss kill were recorded, whichever is higher, to a tenth of a level
+/// (the point a guide's `when level>=` gate takes); a curated `floor` overrides it.
+pub fn levels_of(min: V, max: V, finder: Option<&super::client::Finder>, rec: &V, curated: &V) -> Levels {
+	let (min, max) = match finder {
+		Some(f) => (V::Num(if min.is_num() { min.num().max(f.min) } else { f.min }), V::Num(f.max)),
+		None => (min, max),
+	};
+	let max = if curated.get("max").is_num() { curated.get("max") } else { max };
+	let p25 = rec.get("p25");
+	let floor = if curated.get("floor").is_num() {
+		curated.get("floor")
+	} else if min.is_num() {
+		let recorded = rec.get("people").as_num().is_some_and(|n| n >= FLOOR_PEOPLE) && p25.is_num();
+		V::Num(if recorded { ((p25.num() * 10.0).round() / 10.0).max(min.num()) } else { min.num() })
+	} else {
+		V::Null
+	};
+	Levels { min, max, floor }
+}
+
+/// The build's check of a Group Finder range against players' recorded entries ([`FLOOR_PEOPLE`]
+/// people with a boss kill or more): their 25th percentile is not under the finder's minimum, and
+/// their 90th is not more than [`CHECK_SLACK`] over the top. A broken join or a client row gone
+/// wrong (a 60 top, a placeholder boss level) shows up here.
+pub fn recorded_check(name: &str, finder: Option<&super::client::Finder>, top: &V, rec: &V) -> Vec<String> {
+	let mut out = Vec::new();
+	let Some(f) = finder else { return out };
+	if !rec.get("people").as_num().is_some_and(|n| n >= FLOOR_PEOPLE) {
+		return out;
+	}
+	let (p25, p90) = (rec.get("p25"), rec.get("p90"));
+	if p25.is_num() && p25.num() < f.min {
+		out.push(format!("{name}: players' 25th percentile entry level ({}) is under the Group Finder's minimum ({})", p25.num(), f.min));
+	}
+	if p90.is_num() && top.is_num() && p90.num() > top.num() + CHECK_SLACK {
+		out.push(format!("{name}: players' 90th percentile entry level ({}) is more than {CHECK_SLACK} over the top ({})", p90.num(), top.num()));
+	}
+	out
+}
+
+/// `data/codex/levels.json`: the named exceptions to a dungeon's range and floor, by dungeon key.
+/// Each row has a `key`, a `max` or a `floor`, a `source` cited the corrections' way
+/// (`super::is_source_citation`) and a `note`; a malformed row throws.
+pub fn load_levels_table(text: &str) -> Result<V, String> {
+	let out = Obj::new();
+	for r in forge_guide::js::parse_json(text)?.get("levels").items() {
+		let key = r.get("key");
+		let level = |f: &str| r.get(f).is_undef() || (r.get(f).is_num() && r.get(f).num() >= 1.0 && r.get(f).num() <= 60.0);
+		let ok = key.as_str().is_some_and(|k| !k.is_empty())
+			&& (r.get("max").is_num() || r.get("floor").is_num())
+			&& level("max")
+			&& level("floor")
+			&& super::is_source_citation(&r.get("source"))
+			&& r.get("note").as_str().is_some_and(|n| !n.is_empty());
+		if !ok || out.get(&key.to_js_string()).truthy() {
+			return Err(format!("levels.json: bad row {}", forge_guide::js::stringify(&r, None)));
+		}
+		out.set(&key.to_js_string(), r);
+	}
+	Ok(V::Obj(out))
 }
 
 fn match_map<'a>(inst: &V, maps: &'a [InstanceMap]) -> Option<&'a InstanceMap> {
@@ -1087,7 +1171,8 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		page.set("name", if iname.truthy() { iname } else { V::str(&k) });
 		let imap = inst.get("map");
 		page.set("map", if !imap.is_nullish() { imap } else { m.map(|m| V::Num(m.id)).unwrap_or(V::Null) });
-		page.set("kind", if inst.get("kind").as_str() == Some("raid") || m.is_some_and(|m| m.raid) { "raid" } else { "dungeon" });
+		let raid = inst.get("kind").as_str() == Some("raid") || m.is_some_and(|m| m.raid);
+		page.set("kind", if raid { "raid" } else { "dungeon" });
 		page.set("forever", inst.get("forever").truthy());
 		let min_level = if lv.truthy() { first_nn(&[lv.at(1), lv.at(0)]) } else { V::Null };
 		let mut max_level = if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null };
@@ -1100,9 +1185,28 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				max_level = V::Num(top);
 			}
 		}
-		page.set("minLevel", min_level);
-		page.set("maxLevel", max_level);
-		page.set("players", m.and_then(|m| m.players).map(V::Num).unwrap_or(V::Null));
+		// The client's Group Finder for a dungeon it lists, the named exceptions over it, players'
+		// recorded entries for the floor (`levels_of`).
+		let finder = m.and_then(|m| m.finder.as_ref()).filter(|_| !raid);
+		let rec = inp.recorded_dungeons.get(&kstr(&page.get("map")));
+		let levels = levels_of(min_level, max_level, finder, &rec, &inp.levels_table.get(&k));
+		warnings.extend(recorded_check(&page.get("name").to_js_string(), finder, &levels.max, &rec));
+		page.set("minLevel", levels.min);
+		page.set("maxLevel", levels.max);
+		page.set("floor", levels.floor);
+		// The group size: the Group Finder's (the smallest wing's, and the largest where they differ:
+		// the Blackrock Spires), else the Map table's (raids; its 10 for the old 5-player dungeons was
+		// their instance cap, not the party).
+		match finder {
+			Some(f) => {
+				page.set("players", f.players);
+				page.set("playersMax", if f.players_max > f.players { V::Num(f.players_max) } else { V::Null });
+			}
+			None => {
+				page.set("players", m.and_then(|m| m.players).map(V::Num).unwrap_or(V::Null));
+				page.set("playersMax", V::Null);
+			}
+		}
 		page.set("zone", zone);
 		page.set("zoneName", zname);
 		page.set("entrance", entrance);
@@ -1218,7 +1322,9 @@ fn summary_of(p: &V) -> V {
 	o.set("forever", if p.get("forever").truthy() { p.get("forever") } else { V::Null });
 	o.set("minLevel", p.get("minLevel"));
 	o.set("maxLevel", p.get("maxLevel"));
+	o.set("floor", p.get("floor"));
 	o.set("players", p.get("players"));
+	o.set("playersMax", p.get("playersMax"));
 	o.set("zone", p.get("zone"));
 	o.set("zoneName", p.get("zoneName"));
 	o.set("entrance", p.get("entrance"));
@@ -1455,5 +1561,81 @@ mod tests {
 		const _: () = assert!(CHAIN_MAX < 30);
 		let (a, _) = marks_of(&dungeons, &cq, &fq);
 		assert_eq!(a, "200:deep;300:deep;400:deep;129:deep:200;128:deep:200;127:deep:200;301:deep:300;302:deep:300;303:deep:300;403:deep:400;401:deep:400:b");
+	}
+
+	fn finder(min: f64, max: f64) -> super::super::client::Finder {
+		super::super::client::Finder { min, max, players: 5.0, players_max: 5.0 }
+	}
+
+	fn rec(people: f64, p25: f64, p90: f64) -> V {
+		parse_json(&format!(r#"{{ "people": {people}, "p25": {p25}, "p90": {p90} }}"#)).unwrap()
+	}
+
+	/// Fitz, 2026-11-13: a dungeon's range is the client's Group Finder's (never under the client's own
+	/// minimum), its floor the bottom or players' recorded 25th percentile entry where 5 people with a boss kill
+	/// were recorded, whichever is higher; levels.json's rows override a top or a floor; raids keep theirs.
+	#[test]
+	fn levels_take_the_group_finder_range_and_the_recorded_floor_named_exceptions_win() {
+		let none = V::obj();
+		// Razorfen Kraul: client 25, finder 29-38, 61 people at 30.9.
+		let rfk = levels_of(V::Num(25.0), V::Num(33.0), Some(&finder(29.0, 38.0)), &rec(61.0, 30.9, 35.4), &none);
+		assert_eq!((rfk.min.num(), rfk.max.num(), rfk.floor.num()), (29.0, 38.0, 30.9));
+		// Wailing Caverns: the finder's 15 is under the client's 17.
+		assert_eq!(levels_of(V::Num(17.0), V::Num(22.0), Some(&finder(15.0, 24.0)), &none, &none).min.num(), 17.0);
+		// Sunken Temple: one recorded person sets nothing; the finder's 50 is the floor.
+		let st = levels_of(V::Num(45.0), V::Num(55.0), Some(&finder(50.0, 60.0)), &rec(1.0, 51.9, 51.9), &none);
+		assert_eq!((st.min.num(), st.floor.num()), (50.0, 50.0));
+		// Ragefire Chasm: 71 people at 13.78, the floor to a tenth of a level (a guide's gate is written that way).
+		assert_eq!(levels_of(V::Num(13.0), V::Num(16.0), Some(&finder(13.0, 18.0)), &rec(71.0, 13.78, 19.0), &none).floor.num(), 13.8);
+		// The named exceptions: a top (The Hall of Thanes 18) and a floor (Krol'dok Stronghold 43).
+		let hot = levels_of(V::Num(13.0), V::Num(16.0), Some(&finder(13.0, 20.0)), &rec(53.0, 14.4, 17.8), &parse_json(r#"{ "max": 18 }"#).unwrap());
+		assert_eq!((hot.max.num(), hot.floor.num()), (18.0, 14.4));
+		let krol = levels_of(V::Num(40.0), V::Num(44.0), Some(&finder(40.0, 47.0)), &rec(16.0, 43.6, 45.7), &parse_json(r#"{ "floor": 43 }"#).unwrap());
+		assert_eq!((krol.max.num(), krol.floor.num()), (47.0, 43.0));
+		// A raid (no finder row) keeps the client's minimum and its bosses' top.
+		let mc = levels_of(V::Num(60.0), V::Num(60.0), None, &none, &none);
+		assert_eq!((mc.min.num(), mc.max.num(), mc.floor.num()), (60.0, 60.0, 60.0));
+	}
+
+	#[test]
+	fn the_recorded_check_warns_on_a_finder_range_players_entries_contradict() {
+		let f = finder(15.0, 22.0);
+		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(75.0, 17.9, 24.9)).is_empty(), "p90 2.9 over the top: inside the slack");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(60.0), &rec(75.0, 14.0, 24.9)).len(), 1, "a p25 under the finder's minimum");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(20.0), &rec(75.0, 17.9, 24.9)).len(), 1, "a p90 more than 3 over the top");
+		assert!(recorded_check("Sunken Temple", Some(&f), &V::Num(20.0), &rec(4.0, 10.0, 40.0)).is_empty(), "under 5 people: no check");
+		assert!(recorded_check("Molten Core", None, &V::Num(60.0), &rec(40.0, 10.0, 40.0)).is_empty(), "no finder row: no check");
+	}
+
+	#[test]
+	fn a_levels_row_needs_a_key_a_level_a_cited_source_and_a_note() {
+		let row = |body: &str| format!(r#"{{ "levels": [ {body} ] }}"#);
+		let ok = r#"{ "key": "the-hall-of-thanes", "max": 18, "source": { "kind": "in-game-check", "ref": "Fitz, 2026-11-13" }, "note": "n" }"#;
+		assert!(load_levels_table(&row(ok)).unwrap().get("the-hall-of-thanes").get("max").num() == 18.0);
+		for bad in [
+			r#"{ "key": "x", "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" }"#,
+			r#"{ "key": "x", "max": 70, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" }"#,
+			r#"{ "key": "x", "max": 18, "source": "https://example.org", "note": "n" }"#,
+			r#"{ "key": "x", "max": 18, "source": { "kind": "in-game-check", "ref": "r" } }"#,
+		] {
+			assert!(load_levels_table(&row(bad)).is_err(), "{bad}");
+		}
+		assert!(load_levels_table(&row(&format!("{ok}, {ok}"))).is_err(), "one row per dungeon");
+	}
+
+	/// The named exceptions Fitz approved, and nothing else: The Hall of Thanes' top of 18 (his in-game check)
+	/// is the only top override, Krol'dok Stronghold's floor of 43 (its only slot in the guides sits at players'
+	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason.
+	#[test]
+	fn levels_json_holds_exactly_the_two_named_exceptions() {
+		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/levels.json")).unwrap();
+		let t = load_levels_table(&text).unwrap();
+		let mut keys: Vec<String> = t.keys().iter().map(|k| k.to_string()).collect();
+		keys.sort();
+		assert_eq!(keys, ["kroldok-stronghold", "the-hall-of-thanes"]);
+		let hot = t.get("the-hall-of-thanes");
+		assert_eq!((hot.get("max").num(), hot.get("floor").is_undef()), (18.0, true), "the only top override");
+		let krol = t.get("kroldok-stronghold");
+		assert_eq!((krol.get("floor").num(), krol.get("max").is_undef()), (43.0, true), "the only floor exception");
 	}
 }
