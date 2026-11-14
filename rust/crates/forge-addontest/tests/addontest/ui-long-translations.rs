@@ -40,7 +40,9 @@ fn the_in_use_chip_sits_on_the_picture_and_leaves_the_profile_its_whole_name() {
 		local _, rel = chip:GetPoint(1)
 		local k = c.Check
 		local apart = chip:GetRight() <= k:GetLeft() or chip:GetLeft() >= k:GetRight() or chip:GetBottom() >= k:GetTop() or chip:GetTop() <= k:GetBottom()
-		emit({ name = c.Name:GetWidth(), card = c:GetWidth(), onArt = rel == c.Art, shown = chip:IsShown(), apart = apart })"#,
+		emit({ name = c.Name:GetWidth(), card = c:GetWidth(), onArt = rel == c.Art, shown = chip:IsShown(), apart = apart,
+			chip = { chip:GetLeft(), chip:GetBottom(), chip:GetRight(), chip:GetTop() }, check = { k:GetLeft(), k:GetBottom(), k:GetRight(), k:GetTop() },
+			art = { c.Art:GetLeft(), c.Art:GetBottom(), c.Art:GetRight(), c.Art:GetTop() } })"#,
 	);
 	assert_eq!(out["shown"], true, "{out}");
 	assert_eq!(out["onArt"], true, "the chip on the picture: {out}");
