@@ -248,9 +248,9 @@ fn target_list_the_set_s_screen_clamp_covers_the_rows_on_their_side_and_the_lowe
 	// Five rows of 30 with 2 between end 158 under the target button's top
 	// (-26): the rare button's centre goes to -26 - 158 - 8 - 18 = -210, and
 	// the clamp reaches its foot (-228, 18 under the holder's: -210); sideways
-	// it covers the 180-wide rows and the 8 spacing.
-	assert_eq!(out[1], json!([5, [0, 188, 44, -210]]));
-	assert_eq!(out[2], json!([-188, 0, 44, -210]));
+	// it covers the 208-wide rows and the 8 spacing.
+	assert_eq!(out[1], json!([5, [0, 216, 44, -210]]));
+	assert_eq!(out[2], json!([-216, 0, 44, -210]));
 	assert_eq!(out[3], json!(-210));
 }
 
@@ -1316,11 +1316,11 @@ fn target_list_in_a_row_the_rows_hang_under_the_target_button_and_the_rare_butto
 		r#"stub.Methods.SetClampRectInsets = function(self, ...) self.clamp = { ... } end"#,
 	);
 	// Row: the target button 44 right of the quest item button. Three rows (94 tall) from its left edge, 8 under
-	// it; the rare button's centre past their right end (44 - 18 + 180), 8 + 18 further: 232. Clamp: the
+	// it; the rare button's centre past their right end (44 - 18 + 208), 8 + 18 further: 260. Clamp: the
 	// Hearthstone slot at -44 on the left, the rare button on the right, the rows' foot (-26 - 8 - 94 = -128, 18
 	// under the holder's: -102) below.
-	assert_eq!(out[0], json!([["TOPLEFT", "BOTTOMLEFT", 0, -8, true], ["TOPLEFT", "TOPLEFT", 0, 0, true], [232, 0], [-44, 232, 0, -102]]));
-	assert_eq!(out[1], json!([["TOPRIGHT", "BOTTOMRIGHT", 0, -8, true], ["TOPRIGHT", "TOPRIGHT", 0, 0, true], [-232, 0], [-232, 44, 0, -102]]), "reversed: the other way");
+	assert_eq!(out[0], json!([["TOPLEFT", "BOTTOMLEFT", 0, -8, true], ["TOPLEFT", "TOPLEFT", 0, 0, true], [260, 0], [-44, 260, 0, -102]]));
+	assert_eq!(out[1], json!([["TOPRIGHT", "BOTTOMRIGHT", 0, -8, true], ["TOPRIGHT", "TOPRIGHT", 0, 0, true], [-260, 0], [-260, 44, 0, -102]]), "reversed: the other way");
 	assert_eq!(out[2], json!([-88, 0]), "back in its slot once the rows go");
 }
 

@@ -474,9 +474,9 @@ fn move_frames_box_for_the_quest_buttons_covers_the_target_list_s_rows_while_the
 	);
 	assert_eq!(out["rows"], 2);
 	let d = |i: usize| out["with"][i].as_f64().unwrap() - out["before"][i].as_f64().unwrap();
-	// Two rows (30 + 2 + 30) beside the target button add the 8 spacing and their 180 to the column's right; they
+	// Two rows (30 + 2 + 30) beside the target button add the 8 spacing and their 208 to the column's right; they
 	// end 62 under its top (-26), so the rare button goes to -88 - 8 - 18 = -114, its foot 26 under its slot's.
-	assert_eq!(d(0), 188.0, "{out}");
+	assert_eq!(d(0), 216.0, "{out}");
 	assert_eq!(d(1), 26.0, "{out}");
 }
 
