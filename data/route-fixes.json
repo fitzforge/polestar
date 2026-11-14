@@ -6868,6 +6868,20 @@
 				],
 				"faction": "Horde",
 				"why": "#1241 (Bonesavv77, Orc Warrior 24): Sun Rock Retreat is walked from Tsunaman and Maggran in the south, north to Tammra Windfield, then west to Braelyn Firehand outside the gate and the flight master beside her, on the way out. The guide took Braelyn and the flight path first and walked back east to Tammra."
+			},
+			{
+				"a": [
+					"task",
+					4906,
+					0
+				],
+				"b": [
+					"task",
+					939,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Alliance Felwood (0.4.0 route-feel audit): Jadefire Felbind drops from every Jadefire satyr (about one in four) and most often from Alshirr Banebreath in Jadefire Glen, far to the south. Collected after Further Corruption's Tricksters, Betrayers and Hellcallers in Jadefire Run, it comes with those kills; listed before them, the walk rode about 2.4k yd south for it and back north for the kills."
 			}
 		],
 		"stay": [
