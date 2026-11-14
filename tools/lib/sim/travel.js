@@ -68,9 +68,9 @@ class Travel {
 		// Flight-path bit -> node.
 		this.fpNode = [];
 		for (let n = 0; n < run.N; n++) if (run.fpBit[n] >= 0) this.fpNode[run.fpBit[n]] = n;
-		// Taxi edges by node.
+		// Taxi edges by node: [b, seconds], the path's yards at flightSpeed (each flight's overhead comes on top).
 		this.taxiFrom = Array.from({ length: run.N }, () => []);
-		for (const [a, b, sec] of run.taxi) this.taxiFrom[a].push([b, sec]);
+		for (const [a, b, yd] of run.taxi) this.taxiFrom[a].push([b, yd / this.t.p.flightSpeed]);
 		// Walking yards between nodes and from each point to its near nodes:
 		// routed where known, else the straight line × detour.
 		const N = run.N;
