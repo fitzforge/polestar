@@ -12851,6 +12851,22 @@ test('dungeons in the route: the Horde branches to Razorfen Kraul and the Sunken
 	}
 });
 
+// A quest a run's pick-up sends to someone inside the dungeon (Deathstalkers in Shadowfang to Deathstalker Vincent):
+// the run step turns it in, at the door's place (the data has none inside), so it leaves the quest log with the run
+// instead of staying there behind a tip (played with every dungeon chosen, each Horde character still carried it at 60).
+test('dungeons in the route: a quest handed in inside a dungeon is turned in on its run step', { skip }, () => {
+	const runs = DUNGEON_RUNS().filter((r) => (r.run.insideEnds || []).length);
+	assert.ok(runs.length >= 1, 'runs with a hand-in inside');
+	for (const r of runs) {
+		const at = compiled(`${r.run.guide}.guide`).steps.filter((s) => whenDungeonOf(s, r.dungeon) && s.goals.some((g) => g.t === 'enter'));
+		assert.equal(at.length, 1, `${r.dungeon} (${r.faction}): one run step`);
+		for (const { quest, npc } of r.run.insideEnds) {
+			const g = at[0].goals.find(is('turnin', quest));
+			assert.ok(g && g.npc === npc && g.x != null, `${r.dungeon} (${r.faction}): the run step turns ${quest} in to ${npc}, at a place`);
+		}
+	}
+});
+
 // Krol'dok Stronghold for the Horde (Fitz, 2026-11-13): the Riverglades guides' dungeon, for a group of five, run at the
 // end of part 4 from its door north of Sunnyglade (37.2,43.9, where players' recordings go in), behind `when dungeon`
 // and its floor of 43 (the named exception in data/codex/levels.json). Each pick-up is gated at the floor less the

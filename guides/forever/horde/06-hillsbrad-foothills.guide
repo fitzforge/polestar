@@ -30,8 +30,8 @@ next forever/horde/04-the-barrens
 # 27: 3+ levels over on the Sepulcher stop of forever/horde/05-stonetalon-mountains, where High Executor
 # Hadrec's Deathstalkers in Shadowfang, 1098, is taken; he offers it again here), the run follows from
 # there, down the road south to the keep, and Dalar takes Arugal's head back at the Sepulcher before the
-# flight to the Undercity. Deathstalkers in Shadowfang is handed in
-# inside, to Deathstalker Vincent in the courtyard (the run tip names him). Left out: The Book of Ur
+# flight to the Undercity. Deathstalkers in Shadowfang is handed in inside, to Deathstalker Vincent in the
+# courtyard: the run step turns it in at the gate's place (the data has none inside). Left out: The Book of Ur
 # (1013: Keeper Bel'dugur in the Undercity, on the stop after the run) and the Warlock's Orb of
 # Soran'ruk (1740, class guide).
 #
@@ -208,6 +208,7 @@ step Shadowfang Keep
   tip Shadowfang Keep is a dungeon for a group of five, levels 20 to 30, and a full run takes about an hour. Follow the road south from the Sepulcher: the keep stands on the hill above Pyrewood Village, its gate at the top of the path.
   tip Inside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and Deathstalker Vincent lies just inside the courtyard, to the right: hand Deathstalkers in Shadowfang in to him there. Then Razorclaw the Butcher, Baron Silverlaine, Commander Springvale, Odo the Blindwatcher, Fenrus the Devourer and Wolf Master Nandos; Archmage Arugal at the top drops his head for Dalar.
   enter "Shadowfang Keep" @44.8,67.8
+  turnin 1098 npc 4444 @44.8,67.8     -- Deathstalker Vincent, inside: the courtyard
   complete 1014                       -- Arugal Must Die: the Head of Arugal
 
 step Dalar Dawnweaver
