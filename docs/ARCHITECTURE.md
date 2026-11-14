@@ -8608,6 +8608,14 @@ XP/hr. Then three lists: slowest steps by XP/hr; steps at least twice and
 estimate to compare against); detours, steps with 600+ yd of median travel and
 no XP or a third of the guide's XP per yard.
 
+Instance-entry (`enter`) coordinates are excluded from travel distance: they
+are the recorder's cached last outdoor position, which may precede newer
+player samples when the loading screen has no usable position. The event's
+timestamp still counts for play time, and it does not replace or clear the
+last player-position anchor. Fresh and stale entrance coordinates are
+indistinguishable, so sparse recordings can undercount travel to a portal
+when no other fresh sample records that movement.
+
 ### Route planner (`planner`)
 
 `node tools/polestar.js planner [<pack dir>...] [--port 8078] [--nav <dir>] [--guides <dir>]` serves a local
