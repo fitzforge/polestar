@@ -3533,7 +3533,7 @@ L["%s · this guide doesn't go there"] = "%s · 이 가이드는 그곳에 가�
 L["Timed quest"] = "시간 제한 퀘스트"
 L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "이 가이드의 경로는 이 퀘스트를 완료하지 않습니다: 시간이 다 되기 전에 직접 가거나 포기하세요."
 L["Right-click: hide this until the timer ends."] = "오른쪽 클릭: 타이머가 끝날 때까지 숨기기."
--- L["%s ~%s · go now, the route gets there too late"] = ""
+-- L["%s %s · go now, the route gets there too late"] = ""
 
 -- Core/Update.lua
 L["(outdated: latest %s)"] = "(구버전: 최신 %s)"

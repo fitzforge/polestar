@@ -3534,7 +3534,7 @@ L["%s · this guide doesn't go there"] = "%s · ce guide n'y va pas"
 L["Timed quest"] = "Quête à durée limitée"
 L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "L'itinéraire de ce guide ne rend pas cette quête : allez-y vous-même avant la fin du temps, ou laissez-la."
 L["Right-click: hide this until the timer ends."] = "Clic droit : masquer jusqu'à la fin du minuteur."
--- L["%s ~%s · go now, the route gets there too late"] = ""
+-- L["%s %s · go now, the route gets there too late"] = ""
 
 -- Core/Update.lua
 L["(outdated: latest %s)"] = "(obsolète : dernière %s)"

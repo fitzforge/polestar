@@ -400,7 +400,7 @@ fn a_timed_hand_in_the_route_would_reach_too_late_is_pulled_forward_ahead_of_the
 	assert_eq!(pulled["aim"], "3:1", "the arrow leads to Durnan's hand-in now: {pulled}");
 	let row = s(&pulled["row"]);
 	assert!(row.starts_with("Scalding Mornbrew Delivery"), "{row}");
-	assert!(row.contains(" left / Durnan Furcutter ~3 min · go now, the route gets there too late"), "{row}");
+	assert!(row.contains(" left / Durnan Furcutter ≈3 min · go now, the route gets there too late"), "{row}");
 	assert_eq!(pulled["muted"], serde_json::json!(["2:1", ""]), "a right-click lets the route be: the farm again, no row");
 	let roomy = pull(900, 150, true);
 	assert_eq!(serde_json::json!([&roomy["aim"], &roomy["row"]]), serde_json::json!(["2:1", ""]), "15 minutes: time for the route");
