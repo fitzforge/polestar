@@ -452,8 +452,11 @@ step The quarry troggs
 step Gol'Bolar Quarry
   turnin 432                                  -- Foreman Stonebrow
   turnin 433                                  -- Senator Mehr Stonehallow
-  turnin 95213 optional                       -- Quarrymaster Thesten
-  accept 95214 optional
+
+step Quarrymaster Thesten
+  when onquest 95213
+  turnin 95213                                -- Quarrymaster Thesten
+  accept 95214
 
 step Helm's Bed Lake
   tip Rockjaw Ambushers by Helm's Bed Lake, north of the quarry, and Rockjaw Backbreakers further east drop the Stolen Blasting Powder. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the Dark Iron Map.
