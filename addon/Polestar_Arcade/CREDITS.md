@@ -16,7 +16,7 @@ this folder.
 ## What is here
 
 - **The engine**, `src/`: Freedoom Arcade v0.3.0 (commit
-  [5c157e0](https://github.com/petllama/FreedoomArcade/commit/5c157e065246e52f468a5632fbcc3187e2400e9b)),
+  [c27b559](https://github.com/petllama/FreedoomArcade/commit/c27b5591715f1ec363723fca53d1582f6e0bcf3f)),
   brought in with its history (`git subtree`), so his commits keep his name.
   Copyright (C) 2026 petllama; derived from id Software's linuxdoom-1.10,
   Copyright (C) 1993-1996 id Software, Inc., released under the GNU GPL.
