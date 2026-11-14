@@ -3266,6 +3266,9 @@ Polestar.Theme.Color(name) -> r, g, b, a
 Polestar.Theme.Wash(role) -> r, g, b, a     -- ink at the role's alpha: "border","divider","hover",
    -- "selected","progress","track","toggle","box","thumb","swatch","chip","watermark","mover"
 Polestar.Theme.Hex(name) -> "ffrrggbb"     -- for |c escapes
+Polestar.Theme.TipColor(name) -> r, g, b   -- name's colour for a line on the game's tooltip: as it is where it reads
+   -- at 4.5:1 on the tooltip's dark ground (Theme.TIP_GROUND), else (a light look's ink) moved toward the look's
+   -- paper until it does; W.Tooltip's lines and Gear's item tooltip lines take it
 Polestar.Theme.Palette() -> { name = { r, g, b, a }, ..., scheme = key }  -- resolved, read-only
 Polestar.Theme.SchemeKey() -> "dusk" | "night" | "graphite" | "ellesmere"
 Polestar.Theme.Band(parent, layer, sub) -> sky texture  -- the night-sky band (sky mask + stars)

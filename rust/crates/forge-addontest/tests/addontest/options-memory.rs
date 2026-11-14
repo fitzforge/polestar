@@ -60,6 +60,9 @@ const LOGIN_BASE: f64 = 11003.0;
 /// the auction house buys (2026-11-13), 418 over the base. Raised to that figure and about 5 % (Fitz, 2026-11-12: a
 /// memory budget new content pushes over goes to the measured figure plus about 5 %; compression and the login
 /// review come once 0.4.0's content is final).
+/// Theme.TipColor and the tooltip lines that take it (#2032) add 1 KiB: measured 11,200 KiB on 2026-11-13 (11,199 on
+/// the same tree without it). CI's runner measures this tree 4 KiB higher (11,204), which already left dev-040 at the
+/// edge of the budget there: 10 KiB more covers both.
 const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile

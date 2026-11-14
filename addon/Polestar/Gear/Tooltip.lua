@@ -45,10 +45,11 @@ function Gear.SlotName(slot)
 	return nil
 end
 
+-- A palette colour as it reads on the game's tooltip (Theme.TipColor).
 local function color(name, fr, fg, fb)
 	local T = ns.Theme
-	if T and T.Color then
-		local r, g, b = T.Color(name)
+	if T and T.TipColor then
+		local r, g, b = T.TipColor(name)
 		if r then return r, g, b end
 	end
 	return fr, fg, fb

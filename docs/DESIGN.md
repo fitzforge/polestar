@@ -431,6 +431,8 @@ The subject colours. A thing's name wears its kind's colour, the same in every s
 
 A colour from outside the palette (item quality, quest difficulty) is moved toward the text colour until it reads at 4.5:1 on the lightest ground a name sits on (`Theme.Legible`); the raw client colour survives only as a border, such as a reward tile's quality frame.
 
+A line Polestar adds to the game's tooltip (a hint under a Polestar button, the gear advice on an item) sits on the tooltip's own dark ground in every look, never on the look's: it takes `Theme.TipColor`, the palette colour where it reads at 4.5:1 there, else (a light look's ink) moved toward the look's paper until it does.
+
 ### Brand
 - **Discord Blurple** (#5865F2, `discord`): Discord's own mark, wherever Polestar links the Polestar Discord (the report window, the invite's copy window, the welcome's start page, the foot of the sidebar), as Discord's brand guidelines give it. A logo, never text, so it sits outside the legibility guard; nothing else wears it.
 
@@ -731,6 +733,7 @@ The Client (`apps/client/src/lib/motion.ts`, the `--ease`, `--easeMove` and dura
 - **Do** keep the accent for action and position (primary buttons, toggles that are on, the 2px selection bar, the active tab, the current goal, focused fields, progress fills) and for the one chip that decides a choice.
 - **Do** colour a thing's name by its kind (npc, quest, item, place…) and leave verbs and counters in text.
 - **Do** lift any colour from outside the palette with `Theme.Legible` before it carries text.
+- **Do** colour a line on the game's tooltip with `Theme.TipColor`, never the palette colour as it is.
 - **Do** lay every new section on the shell grid: the 112 band, the 152 hairline, the 24 and 32 edges, state glyphs in the gutter.
 - **Do** build settings as label-left, control-right halves of 36px rows in a section card (its title, on/off, Reset and New pill in a 36px header), controls in fixed columns, the help in the tooltip, related settings inline or behind the cog, right-click to reset.
 - **Do** draw new icons into the glyph family (24-unit grid, 2.25 stroke, white at 32px, tinted at runtime) and new art in code at power-of-two sizes.

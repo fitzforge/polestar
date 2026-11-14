@@ -184,6 +184,107 @@ emit(out)
 	}
 }
 
+// Polestar's lines on the game's tooltip sit on the tooltip's own dark ground (the client's
+// TOOLTIP_DEFAULT_BACKGROUND_COLOR, 0.09 0.09 0.19) whatever the look: Vellum's dim ink read there at 1.5:1, so its
+// lines on an item (the upgrade line, the reward pick) and the hint under every Polestar button were all but gone.
+// Theme.TipColor lifts a light look's ink toward its paper until it reads, as the arrow's lines over the world are.
+// In every look (the built-in ones, each colour scheme, every bundled skin and variant), W.Tooltip's lines and Gear's
+// lines on an item tooltip (every kind of upgrade line, both kinds of reward pick) read at 4.5:1 there.
+#[test]
+fn every_look_s_lines_on_the_game_s_tooltip_read_at_4_5_1_on_its_dark_ground() {
+	let skins = SKINS
+		.iter()
+		.map(|(id, _, variants)| {
+			let v = variants.iter().map(|v| format!("{v:?}")).collect::<Vec<_>>().join(", ");
+			format!("{{ id = {id:?}, variants = {{ {v} }} }}")
+		})
+		.collect::<Vec<_>>()
+		.join(",\n");
+	let script = format!(
+		r#"
+local T, W, G = Polestar.Theme, Polestar.Widgets, Polestar.Gear
+local GROUND = {{ 0.09, 0.09, 0.19 }}
+Polestar.Set("gear.enabled", true)
+Polestar.Set("gear.tooltip", true)
+Polestar.Set("gear.pickTooltip", true)
+-- Every kind of upgrade line: an upgrade, a downgrade, the same, one for a later level, an empty slot, one the
+-- character can't use; the best pick and another reward pick.
+local CMP = {{
+	{{ usable = true, delta = 1, pct = 12, slot = 1 }}, {{ usable = true, delta = -1, pct = -8, slot = 1 }},
+	{{ usable = true, delta = 0, pct = 0, slot = 1 }}, {{ usable = true, delta = 1, pct = 5, slot = 1, minLevel = 99 }},
+	{{ usable = true, delta = 1, empty = true, slot = 1 }}, {{ usable = false, reason = "class" }},
+}}
+G.CompareToEquipped = function(link) return CMP[G.ItemID(link)] end
+G.ChoiceOf = function(id)
+	if id <= 2 then return {{ pick = {{ upgrade = true, entry = {{ id = 1 }} }}, isPick = id == 1, quest = {{ name = "Quest", id = 9 }} }} end
+end
+local seen
+local add, add2 = GameTooltip.AddLine, GameTooltip.AddDoubleLine
+GameTooltip.AddLine = function(self, text, r, g, b, ...)
+	seen[#seen + 1] = {{ tostring(text), r, g, b }}
+	return add(self, text, r, g, b, ...)
+end
+GameTooltip.AddDoubleLine = function(self, l, rt, lr, lg, lb, rr, rg, rb, ...)
+	seen[#seen + 1] = {{ tostring(l), lr, lg, lb }}
+	seen[#seen + 1] = {{ tostring(rt), rr, rg, rb }}
+	return add2(self, l, rt, lr, lg, lb, rr, rg, rb, ...)
+end
+local function worst(key, id)
+	seen = {{}}
+	W.Tooltip(UIParent, "ANCHOR_RIGHT", "A button", {{ "What a click does", {{ left = "Left", right = "Right" }} }})
+	for i = 1, #CMP do
+		for _, l in ipairs(G.TooltipLines("item:" .. i)) do
+			seen[#seen + 1] = {{ l[1], l[3], l[4], l[5] }}
+			if l[2] then seen[#seen + 1] = {{ l[2], l[6], l[7], l[8] }} end
+		end
+	end
+	local low, at = math.huge, nil
+	for _, l in ipairs(seen) do
+		local c = T.Contrast({{ l[2], l[3], l[4] }}, GROUND)
+		if c < low then low, at = c, l[1] end
+	end
+	return {{ key = key, inUse = T.SkinId() == id, light = T.IsLightPalette(T.Palette()), lines = #seen,
+		worst = math.floor(low * 100) / 100, at = at }}
+end
+local out = {{}}
+for _, id in ipairs(T.SKIN_ORDER) do
+	Polestar.Set("ui.skin", id)
+	stub.advance(0.1)
+	out[#out + 1] = worst(id, id)
+end
+Polestar.Set("ui.skin", "polestar")
+for _, key in ipairs(T.SCHEME_ORDER) do
+	Polestar.Set("ui.scheme", key)
+	stub.advance(0.1)
+	out[#out + 1] = worst("polestar/" .. key, "polestar")
+end
+Polestar.Set("ui.scheme", nil)
+for _, s in ipairs({{ {skins} }}) do
+	for _, v in ipairs(#s.variants > 0 and s.variants or {{ false }}) do
+		if v then Polestar.Set("ui.skinVariants." .. s.id, v) end
+		Polestar.Set("ui.skin", s.id)
+		stub.advance(0.1)
+		out[#out + 1] = worst(s.id .. (v and ("/" .. v) or ""), s.id)
+	end
+end
+emit(out)
+"#
+	);
+	let mut addons = vec![Addon::name("Polestar")];
+	addons.extend(SKINS.iter().map(|(_, addon, _)| Addon::name(addon)));
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], addons, login: true, script, ..Default::default() }).remove(0);
+	let looks = out.as_array().unwrap();
+	let runs: usize = SKINS.iter().map(|(_, _, v)| v.len().max(1)).sum();
+	assert!(looks.len() >= 6 + 3 + runs, "every look: {}", looks.len());
+	for l in looks {
+		let key = l["key"].as_str().unwrap();
+		assert_eq!(l["inUse"], true, "{key}: in use");
+		assert!(l["lines"].as_u64().unwrap() >= 19, "{key}: every line read: {l}");
+		assert!(l["worst"].as_f64().unwrap() >= 4.5, "{key}: {} reads at {}:1 on the game's tooltip", l["at"], l["worst"]);
+	}
+	assert!(looks.iter().any(|l| l["key"] == "vellum" && l["light"] == true), "Vellum, a light look, is among them");
+}
+
 // Vellum's check boxes are printed boxes: ruled in its ink on the paper, not the grey square Polestar's own fill of
 // shade drew there. The box's inside stays clear: its ground lies over the tick, and a light one paled the tick to a
 // faint pink, so a done goal read as barely ticked. The tick is the sealing-wax accent at full strength.
