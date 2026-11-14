@@ -36,8 +36,18 @@ const LOGIN_BASE: f64 = 11003.0;
 /// and the looks' picker) adds about 60 KiB of code at login: measured 11,136 KiB on 2026-11-13. The 0.4.0 work
 /// merged with it (dungeons in the route's notices, the stranded-quest row and banner, Show in quest log and the
 /// out-of-sight notice, the guide window's shared step view, the breadcrumb and parent-quest rules) adds about
-/// 60 KiB more: measured 11,198 KiB on 2026-11-13.
-const LOGIN: f64 = LOGIN_BASE + 200.0;
+/// 60 KiB more: measured 11,198 KiB on 2026-11-13. The travel lane (#2029) adds 72 KiB: measured 11,268 KiB on
+/// 2026-11-14 against dev-040's 11,196. 60 KiB of it is code (each file's compiled chunk against dev-040's): Nav/Travel.lua
+/// +27 (flights from and to flight masters the character may have, #1795; the Hearthstone's cooldown and its hold,
+/// #1915; Astral Recall; the roads through high zones, #1972; crossings walked through and zone changes, #1543),
+/// Nav/Walk.lua +7 and Nav/Follow.lua +5 (the arrow on the walking engine's path, #1543), Core/Engine.lua +6 (flight
+/// steps landing where the character may have the flight path; the timed hand-in pulled forward, with
+/// Quests/Timed.lua +5), UI/GuideFrameBanner.lua +5 (the flight map notice, #2189), Nav/Danger.lua +3 (the roads),
+/// UI/Report.lua +2 (the travel plan in the bug report), Core/Compat.lua +1 (the Hearthstone's and Astral Recall's
+/// cooldowns), Maps/TravelPins.lua and Maps/RouteLines.lua +1 (the map's flight masters it may have, the minimap line
+/// to where the arrow points); the rest is what that code keeps at login. Not moved to load later: the planner runs as
+/// soon as a guide step has a target.
+const LOGIN: f64 = LOGIN_BASE + 275.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
