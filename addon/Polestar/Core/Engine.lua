@@ -42,6 +42,7 @@ ns.RegisterDefaults("behavior", {
 	offerClassQuests = true, -- offer a Class guide in a tab when it opens for the character (QoL/ClassQuests.lua)
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
 	dungeons = "skip", -- "skip" | "ask" | "run": "Dungeons in my route", the answer for a dungeon (`when dungeon`) the character has not answered one by one (Own.dungeonAnswer)
+	dungeonQuests = "all", -- "all" | "way": "Dungeon quests", for a dungeon the route runs: every one of its quests (its `when dungeon "<Name>" all` steps too) or only the ones on the way; a dungeon's own choice wins (Own.wayOnly)
 	lostQuests = "ask", -- "ask" | "back" | "skip": a quest the route had passed that leaves the log (abandoned, failed): the window asks, or the guide goes back for it or skips it at once (Own.holdLost)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
@@ -9156,22 +9157,28 @@ end
 -- true (run it), false (skip it) or nil (ask), as the route reads it.
 function Engine.DungeonAnswer(map) return Own.dungeonAnswer(map) end
 
--- "Only quests on my way" for dungeon `map` (CharState().dungeonsWayOnly):
--- the route leaves out its every-quest steps (`when dungeon "<Name>" all`:
--- the quests off the way, a detour, a flight or another hub for them); none
--- chosen, a dungeon run takes every quest (Fitz, 2026-11-14).
+-- "Only quests on my way" for dungeon `map`: the route leaves out its
+-- every-quest steps (`when dungeon "<Name>" all`: the quests off the way, a
+-- detour, a flight or another hub for them). The dungeon's own choice
+-- (CharState().dungeonsAll[map]: true every quest, false only the ones on
+-- the way; Dungeons on your way) wins; else "Dungeon quests"
+-- (behavior.dungeonQuests: "all", the default, or "way").
 function Own.wayOnly(map)
-	return type(map) == "number" and ns.CharState().dungeonsWayOnly[map] == true
+	if type(map) ~= "number" then return false end
+	local own = ns.CharState().dungeonsAll[map]
+	if own ~= nil then return own == false end
+	return ns.Get("behavior.dungeonQuests") == "way"
 end
 
 function Engine.DungeonWayOnly(map) return Own.wayOnly(map) end
 
--- Set or clear "Only quests on my way" for dungeon `map`. A change
+-- Dungeon `map`'s own choice: only the quests on the way (`on`), or every
+-- quest; it wins over "Dungeon quests" for that dungeon. A change
 -- re-evaluates the route at once (steps passed keep their outcome) and is
 -- told as an answer for that dungeon (DUNGEON_ANSWERED).
 function Engine.ChooseDungeonWayOnly(map, on)
 	if type(map) ~= "number" then return end
-	ns.CharState().dungeonsWayOnly[map] = on and true or nil
+	ns.CharState().dungeonsAll[map] = not on
 	Own.dungeonGen = Own.dungeonGen + 1
 	ns.Fire("DUNGEON_ANSWERED", map, Own.dungeonAnswer(map))
 	requestUpdate()
@@ -13806,7 +13813,7 @@ ns.On("PARTY_PROGRESS", onUpdateEvent)
 -- answer for every dungeon (behavior.dungeons, Own.dungeonAnswer; a profile
 -- switch changes every setting) counts the step numbers afresh too.
 ns.On("SETTING_CHANGED", function(path)
-	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then
+	if path == "behavior.dungeons" or path == "behavior.dungeonQuests" or path == "behavior" or path == nil or path == "" then
 		Own.dungeonGen = Own.dungeonGen + 1
 		requestUpdate()
 	end

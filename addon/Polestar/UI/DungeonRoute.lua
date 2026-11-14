@@ -2,7 +2,9 @@
 -- its notice after dungeons are turned on (UI/GuideFrameBanner.lua), so a
 -- player sets the dungeons of their route where they are, without the
 -- settings window. "Every dungeon" ("Dungeons in my route", behavior.dungeons:
--- Skip them, Ask me, Run them), then the next dungeons on this character's route
+-- Skip them, Ask me, Run them) and while they aren't skipped "Dungeon quests"
+-- (behavior.dungeonQuests: Every quest, Only quests on my way), then the next
+-- dungeons on this character's route
 -- (Engine.DungeonsAhead: from the live step through the guides that follow),
 -- each with about the level its run comes at, how many quests the route
 -- picks up for it and where, and a switch: on runs it, off skips it (that
@@ -124,7 +126,18 @@ function DR.Fill()
 	local E = Engine()
 	local list = E and E.DungeonsAhead and E.DungeonsAhead(LIMIT) or {}
 	local room = UIParent:GetHeight() - 2 * PAD -- in the popover's units: Polestar's layer is the screen's size
-	local y = pop.listTop
+	local y = pop.top
+	local style = ns.Get("behavior.dungeons") ~= "skip"
+	pop.Quests:SetShown(style)
+	if style then
+		pop.Quests:ClearAllPoints()
+		pop.Quests:SetPoint("TOPLEFT", pop, "TOPLEFT", 0, -y)
+		pop.Quests:Refresh()
+		y = y + pop.questsH
+	end
+	pop.Head:ClearAllPoints()
+	pop.Head:SetPoint("TOPLEFT", pop, "TOPLEFT", PAD, -(y + 12))
+	y = y + 30
 	shown = 0
 	for i, d in ipairs(list) do
 		local wayShown = d.allQuests ~= nil and d.answer ~= false
@@ -188,10 +201,17 @@ local function build()
 	all:SetPoint("TOPLEFT", pop, "TOPLEFT", 0, -y)
 	y = y + W.LayoutRow(all, WIDTH)
 	pop.AllDungeons = all
+	pop.top = y
+	-- "Dungeon quests" (behavior.dungeonQuests), while dungeons aren't skipped: every quest of a dungeon that runs,
+	-- or only the ones on the way; a dungeon's own switch below wins.
+	local quests = W.Dropdown(pop, L["Dungeon quests"], "behavior.dungeonQuests", {
+		{ value = "all", text = L["Every quest"] }, { value = "way", text = L["Only quests on my way"] },
+	}, L["For a dungeon the route runs: every one of its quests, the ones off the way too, or only the quests on your way."])
+	W.CompactRow(quests, { height = ROW_H })
+	pop.questsH = W.LayoutRow(quests, WIDTH)
+	pop.Quests = quests
 	pop.Head = W.Text(pop, "small", "textDim")
 	pop.Head:SetText(L["Next on your route"])
-	pop.Head:SetPoint("TOPLEFT", pop, "TOPLEFT", PAD, -(y + 12))
-	pop.listTop = y + 30
 	pop.Empty = W.Text(pop, "note", "textDim")
 	pop.Empty:SetWordWrap(true)
 	pop.Empty:SetWidth(WIDTH - PAD * 2)
@@ -218,7 +238,7 @@ local function build()
 	end
 	-- "Dungeons in my route" changed here or elsewhere: the switches follow.
 	ns.On("SETTING_CHANGED", function(path)
-		if pop:IsShown() and (path == "behavior.dungeons" or path == "behavior" or path == "") then DR.Fill() end
+		if pop:IsShown() and (path == "behavior.dungeons" or path == "behavior.dungeonQuests" or path == "behavior" or path == "") then DR.Fill() end
 	end)
 	ns.On("DUNGEON_ANSWERED", function() if pop:IsShown() then DR.Fill() end end)
 end

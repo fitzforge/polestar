@@ -905,7 +905,7 @@ function ns.CharState()
 	-- Map id -> true (run it) | false (skip it): the player's answer for a dungeon in leveling guides (`when dungeon`; Engine.ChooseDungeon); none: behavior.dungeons answers ("Dungeons in my route").
 	if type(s.dungeons) ~= "table" then s.dungeons = {} end
 	-- Map id -> true: "Only quests on my way" for that dungeon, so its every-quest steps (`when dungeon "<Name>" all`) are left out; none: every quest of a dungeon run is taken (Engine.ChooseDungeonWayOnly).
-	if type(s.dungeonsWayOnly) ~= "table" then s.dungeonsWayOnly = {} end
+	if type(s.dungeonsAll) ~= "table" then s.dungeonsAll = {} end
 	-- Quest id -> "do" | "skip": the player's answer at a group quest in leveling guides (`when group`; Engine.AnswerGroup).
 	if type(s.groupQuests) ~= "table" then s.groupQuests = {} end
 	if type(s.flags) ~= "table" then s.flags = {} end

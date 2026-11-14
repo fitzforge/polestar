@@ -622,3 +622,24 @@ fn dungeons_on_your_way_never_lists_a_city_dungeon_of_the_other_faction() {
 	let out = engine("test/city", "run", "", "emit({ ahead = #E.DungeonsAhead(), at = at() })");
 	assert_eq!(out, json!({ "ahead": 0, "at": 3 }));
 }
+
+// Fitz, 2026-11-14: three styles. Dungeons off (the solo route), or on with "Dungeon quests" (behavior.dungeonQuests):
+// every quest of each dungeon the route runs (the default) or only the ones on the way. A dungeon's own choice
+// (Dungeons on your way, CharState().dungeonsAll) wins either way.
+#[test]
+fn dungeon_quests_takes_every_quest_or_only_the_ones_on_the_way_and_a_dungeons_own_choice_wins() {
+	let style = |quests: &str, own: &str| {
+		engine(
+			"test/every",
+			"run",
+			"",
+			&format!(r#"Polestar.Set("behavior.dungeonQuests", "{quests}"); {own} flush(); take(214); take(7); emit({{ at = at(), wayOnly = E.DungeonWayOnly(36) }})"#),
+		)
+	};
+	assert_eq!(style("all", ""), json!({ "at": 3, "wayOnly": false }), "every quest: the one off the way comes next");
+	assert_eq!(style("way", ""), json!({ "at": 4, "wayOnly": true }), "only the ones on the way: on to the run");
+	assert_eq!(style("way", "E.ChooseDungeonWayOnly(36, false)"), json!({ "at": 3, "wayOnly": false }), "its own choice wins: every quest");
+	assert_eq!(style("all", "E.ChooseDungeonWayOnly(36, true)"), json!({ "at": 4, "wayOnly": true }), "its own choice wins: only on the way");
+	let off = engine("test/every", "skip", "", r#"take(7); emit({ s1 = st(1), s3 = st(3), s4 = st(4) })"#);
+	assert_eq!(off, json!({ "s1": "na", "s3": "na", "s4": "na" }), "dungeons off: none of its steps");
+}

@@ -213,8 +213,9 @@ version probe's players, name -> when, at most 300), `heard` (players' answers t
 at }`, at most 50, 7 days).
 `dungeons` (per character) holds this character's answer per dungeon in leveling
 guides, by the instance's Map id: true runs it, false skips it (`Engine.ChooseDungeon`, `when dungeon`);
-`dungeonsWayOnly` (per character) marks a dungeon run with "Only quests on my way": its every-quest steps
-(`when dungeon "<Name>" all`) are left out (`Engine.ChooseDungeonWayOnly`; none: every quest is taken);
+`dungeonsAll` (per character) holds a dungeon's own "Dungeon quests" choice, by its Map id: true every quest,
+false only the quests on the way, whose every-quest steps (`when dungeon "<Name>" all`) are left out
+(`Engine.ChooseDungeonWayOnly`); none: `behavior.dungeonQuests` ("all", the default, or "way");
 the setting `behavior.dungeons` ("skip", the default, the solo route; "ask"; "run") answers the rest
 ("Dungeons in my route", Options, Guide, Automation). Unanswered with "ask", the first
 `when dungeon` step with work now holds the route (`Engine.DungeonQuestion`); `Engine.DungeonSoon` is a chosen

@@ -4,9 +4,11 @@ section: players
 - Turning dungeons on is easy to follow. The guide window's menu has
   Dungeons on your way: Skip them, Ask me or Run them, and the next dungeons
   on your route with about the level each comes at and how many of its
-  quests are picked up where, each with its own switch. A dungeon you run
-  takes every one of its quests; where some are off the way, "Only quests on
-  my way" leaves those out and says how much time that saves.
+  quests are picked up where, each with its own switch.
+- Dungeon quests (in the settings, the install's Groups and dungeons page
+  and Dungeons on your way): a dungeon you run takes every one of its quests,
+  or only the ones on your way. One dungeon can differ: its own "Only quests
+  on my way" switch says how much time that saves.
 - Whatever you change, there or in the settings, the guide window says at
   once what it means ("Dungeons on: next is Wailing Caverns, at about level
   21. Its 7 quests are picked up on your way through The Barrens and Thunder

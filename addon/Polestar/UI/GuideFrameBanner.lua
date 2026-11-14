@@ -1075,6 +1075,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			elseif path == "behavior.dungeons" and value ~= lastAll then
 				lastAll = value
 				dungeonsChanged(nil)
+			elseif path == "behavior.dungeonQuests" and ns.Get("behavior.dungeons") ~= "skip" then
+				-- Every quest or only the ones on the way: the next dungeon's quests, counted again.
+				dungeonsChanged(nil)
 			end
 		end)
 		ns.On("DUNGEON_ANSWERED", function(map)

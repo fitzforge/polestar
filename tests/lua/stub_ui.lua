@@ -690,11 +690,16 @@ function Engine.DungeonsAhead(limit)
 	end
 	return out
 end
--- "Only quests on my way" per dungeon (CharState().dungeonsWayOnly), told as an answer.
-function Engine.DungeonWayOnly(map) return Polestar.CharState().dungeonsWayOnly[map] == true end
+-- "Only quests on my way" per dungeon: its own choice (CharState().dungeonsAll[map]: true every quest), else
+-- "Dungeon quests" (behavior.dungeonQuests); a choice is told as an answer.
+function Engine.DungeonWayOnly(map)
+	local own = Polestar.CharState().dungeonsAll[map]
+	if own ~= nil then return own == false end
+	return Polestar.Get("behavior.dungeonQuests") == "way"
+end
 function Engine.ChooseDungeonWayOnly(map, on)
 	record("ChooseDungeonWayOnly", map, on)
-	Polestar.CharState().dungeonsWayOnly[map] = on and true or nil
+	Polestar.CharState().dungeonsAll[map] = not on
 	Polestar.Fire("DUNGEON_ANSWERED", map, Engine.DungeonAnswer(map))
 end
 function Engine.DungeonQuestsInLog(map)

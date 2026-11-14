@@ -1968,6 +1968,7 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
 -- L["Match ErgoBars font"] = ""
 -- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
+-- L["For a dungeon the route runs: every one of its quests, the ones off the way too, or only the quests on your way. Dungeons on your way, in the guide window's menu, changes one dungeon."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -2319,6 +2320,9 @@ L["Route line"] = "Línea de ruta"
 -- L["The square button with a name beside it, on its own on your screen. Click it, or press its key, to target the next mob or NPC your step names."] = ""
 -- L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."] = ""
 -- L["The step key targets the same names without the button. Move frames, in Settings, moves the button."] = ""
+-- L["For each dungeon the route runs."] = ""
+-- L["Its quests off the way too: a few detours, more XP."] = ""
+-- L["Only the ones on stops the route makes anyway."] = ""
 
 -- Nav/Transit.lua
 L["top"] = "arriba"
@@ -4398,6 +4402,10 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 -- L["Saves about %d min"] = ""
 -- L["Only quests on my way"] = ""
 -- L["On: the guide takes only this dungeon's quests on your way and leaves out the rest. Off: every quest of it."] = ""
+-- L["Every dungeon"] = ""
+-- L["Dungeon quests"] = ""
+-- L["Every quest"] = ""
+-- L["For a dungeon the route runs: every one of its quests, the ones off the way too, or only the quests on your way."] = ""
 
 -- UI/FindGroup.lua
 -- L["Press %s for the group finder."] = ""

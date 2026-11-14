@@ -316,8 +316,9 @@ steps never apply, whatever the answers, so its guides never carry them.
 A dungeon's quests the
 route would not take on its way (a detour, a flight, another hub) go in steps
 with `when dungeon "<Name>" all`: a character who runs the dungeon takes them
-too, unless they chose "Only quests on my way" for it (one answer per
-dungeon); plain `when dungeon` steps are the quests on the way, which every
+too, unless they take only the quests on the way ("Dungeon quests",
+`behavior.dungeonQuests`, or that dungeon's own choice in Dungeons on your
+way, which wins); plain `when dungeon` steps are the quests on the way, which every
 runner takes. The run's record in data/dungeon-runs.json (`allQuests`: the
 minutes and XP those steps add) goes into the guide that holds the run, so the
 guide window can say what the opt-out saves.

@@ -448,5 +448,5 @@ for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", 
 	ns.On(event, Plan.Invalidate)
 end
 ns.On("SETTING_CHANGED", function(path)
-	if path == "" or path == "behavior" or path == "behavior.dungeons" then Plan.Invalidate() end
+	if path == "" or path == "behavior" or path == "behavior.dungeons" or path == "behavior.dungeonQuests" then Plan.Invalidate() end
 end)
