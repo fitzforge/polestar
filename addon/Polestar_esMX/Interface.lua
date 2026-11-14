@@ -1968,6 +1968,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
 -- L["Match ErgoBars font"] = ""
 -- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
+L["play Freedoom Arcade by petllama"] = "jugar Freedoom Arcade de petllama"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "Freedoom Arcade de petllama (GPL-2.0 o posterior) juega tres niveles de Freedoom, del proyecto Freedoom (licencia BSD), desde la carpeta Polestar_Arcade."
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -4255,6 +4257,8 @@ L["Class quest chime"] = "Timbre de misión de clase"
 -- L["Zones and coordinates"] = ""
 -- L["Trackers & map"] = ""
 -- L["Minimap and coordinates"] = ""
+L["Offer Freedoom Arcade on flights"] = "Ofrecer Freedoom Arcade en los vuelos"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "En un vuelo al que le quede un minuto o más, Polestar te pregunta si quieres jugar Freedoom Arcade de petllama mientras esperas: tres niveles de Freedoom, o el juego completo si tienes instalado el addon Freedoom Arcade. 10 segundos antes de aterrizar, el juego se guarda, se pausa y se cierra. /polestar arcade lo abre cuando quieras."
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
@@ -4351,6 +4355,20 @@ L["Part of the %s quests"] = "Parte de las misiones de %s"
 -- L["Adjust stat weights"] = ""
 -- L["Put back 1 weight."] = ""
 -- L["Put back %d weights."] = ""
+
+-- Maps/Arcade.lua
+L["a game: Play"] = "Jugar"
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade no puede abrirse: falta su carpeta Polestar_Arcade o está desactivada."
+L["Freedoom Arcade opens after the fight."] = "Freedoom Arcade se abrirá después del combate."
+L["Play Freedoom Arcade"] = "Jugar Freedoom Arcade"
+L["Freedoom Arcade by petllama"] = "Freedoom Arcade de petllama"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "3 niveles de Freedoom Phase 1. Esc: menú, P: pausa, F6/F9: guardar/cargar."
+L["Do you want to play Doom while waiting?"] = "¿Quieres jugar Doom mientras esperas?"
+L["Don't ask again"] = "No volver a preguntar"
+L["Landing in 10 seconds"] = "Aterrizaje en 10 segundos"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade está guardado y en pausa."
+L["Close Freedoom Arcade to get your keys back."] = "Cierra Freedoom Arcade para recuperar tus teclas."
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Aterrizaste. Freedoom Arcade está guardado y en pausa: escribe %s para continuar."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

@@ -2379,6 +2379,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
 -- L["Match ErgoBars font"] = ""
 -- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
+L["play Freedoom Arcade by petllama"] = "玩 petllama 的 Freedoom Arcade"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama 的 Freedoom Arcade（GPL-2.0 或更新版本）從 Polestar_Arcade 資料夾執行 Freedoom 專案的三個 Freedoom 關卡（BSD 授權）。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -4256,6 +4258,8 @@ L["Class quest chime"] = "職業任務提示音"
 -- L["Zones and coordinates"] = ""
 -- L["Trackers & map"] = ""
 -- L["Minimap and coordinates"] = ""
+L["Offer Freedoom Arcade on flights"] = "飛行時提供 Freedoom Arcade"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "飛行剩餘一分鐘或更久時，Polestar 會詢問你是否想在等待時玩 petllama 的 Freedoom Arcade：Freedoom 的三個關卡，若已安裝 Freedoom Arcade 插件則是完整遊戲。降落前 10 秒，遊戲會存檔、暫停並關閉。隨時可用 /polestar arcade 開啟。"
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
@@ -4352,6 +4356,20 @@ L["Part of the %s quests"] = "%s任務之一"
 -- L["Adjust stat weights"] = ""
 -- L["Put back 1 weight."] = ""
 -- L["Put back %d weights."] = ""
+
+-- Maps/Arcade.lua
+L["a game: Play"] = "開始遊戲"
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "無法開啟 Freedoom Arcade：它的資料夾 Polestar_Arcade 遺失或已停用。"
+L["Freedoom Arcade opens after the fight."] = "戰鬥結束後再開啟 Freedoom Arcade。"
+L["Play Freedoom Arcade"] = "玩 Freedoom Arcade"
+L["Freedoom Arcade by petllama"] = "Freedoom Arcade，作者 petllama"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "Freedoom Phase 1 的 3 個關卡。Esc：選單，P：暫停，F6/F9：存檔/讀檔。"
+L["Do you want to play Doom while waiting?"] = "等待時想玩 Doom 嗎？"
+L["Don't ask again"] = "不再詢問"
+L["Landing in 10 seconds"] = "10 秒後降落"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade 已存檔並暫停。"
+L["Close Freedoom Arcade to get your keys back."] = "關閉 Freedoom Arcade 以恢復按鍵操作。"
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降落。Freedoom Arcade 已存檔並暫停：輸入 %s 繼續。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
