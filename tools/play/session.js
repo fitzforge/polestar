@@ -288,6 +288,12 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		for (const part of ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks']) {
 			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
+		// Freedoom Arcade (Polestar_Arcade), installed as in the client, loaded on demand by the first Play
+		// (Maps/Arcade.lua).
+		if (fs.existsSync(path.join(ADDONS, 'Polestar_Arcade', 'Polestar_Arcade.toc'))) {
+			lines.push(`stub.packs.Polestar_Arcade = stub.packs.Polestar_Arcade or { ${tocFiles('Polestar_Arcade').map(luaString).join(', ')} }`);
+			lines.push('stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }');
+		}
 		// The skins in the download (addon/Polestar_Skin_*), installed as in the client: listed with their TOC's
 		// `X-Polestar-Skin` (Theme/SkinApi.lua finds them by it), loaded on demand when picked under Theme.
 		for (const part of fs.readdirSync(ADDONS).filter((n) => /^Polestar_Skin_/.test(n) && n !== 'Polestar_Skin_Example').sort()) {

@@ -150,6 +150,21 @@ T.Show({ t = "kill", here = "goal", verb = "Kill", subject = "Kobold Vermin", ya
 		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("1:42"); Polestar.Widgets.SetProgress(f.Progress, 0.4); f:Show()',
 	},
 	{
+		// Freedoom Arcade on a flight (Maps/Arcade.lua): the card asking to play, under the timer.
+		key: 'hud-arcade-ask', title: 'the flight timer and the card asking to play Freedoom Arcade (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("ask")',
+	},
+	{
+		key: 'hud-arcade-row', title: 'the flight timer and its Play Freedoom Arcade row (0.4.0)', family: 'guide', roots: ['PolestarFlightTimer'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: 'local f = PolestarFlightTimer; f.Dest:SetText("Stormwind"); f.Time:SetText("4:12"); Polestar.Widgets.SetProgress(f.Progress, 0.25); f:Show(); Polestar.Arcade.ShowCard("row")',
+	},
+	{
+		// Polestar_Arcade's window, loaded on demand as the first Play loads it, in the look's frame.
+		key: 'arcade-window', title: "Freedoom Arcade's window from Polestar_Arcade (0.4.0)", roots: ['Polestar_ArcadeFrame'], files: P.MODULE_FILES, needs: 'Polestar.Arcade',
+		script: `stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }
+assert(Polestar.Arcade.Open(), "the game did not open")`,
+	},
+	{
 		key: 'dialog-confirm', title: 'the confirm dialog', roots: ['PolestarModal'],
 		script: `${TABS}
 Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in this guide are cleared.", action = "Reset", danger = true, onAccept = function() end })`,
