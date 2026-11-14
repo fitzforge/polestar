@@ -530,8 +530,13 @@ local function DrawMenu()
 	end
 	local skull = (floor(G.gametic / 8) % 2 == 0) and "M_SKULL1" or "M_SKULL2"
 	Draw.Patch(HUD + 21, m.x - 32, m.y - 5 + (G.menu.item - 1) * 16, GfxTex(skull))
+	-- Under the page's items, on a dark band (the title picture's own lines stay clear).
 	local note = G.SelectionNote()
-	if note then G.DrawText(HUD + 21, (320 - G.TextWidth(note)) / 2, 186, note) end
+	if note then
+		local y = m.y + #m.items * 16 + 12
+		Draw.Rect(HUD + 21, 0, y - 3, 320, y + 10, 0, 0, 0, 0.7)
+		G.DrawText(HUD + 22, (320 - G.TextWidth(note)) / 2, y, note)
+	end
 end
 
 ------------------------------------------------------------------------ intermission / finale
