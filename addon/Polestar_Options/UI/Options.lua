@@ -538,6 +538,22 @@ add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trai
 add({ page = L["Integrations"], key = "integrations", icon = "plug", order = 65,
 	subtitle = L["Settings for other addons Polestar works with, shown when they are installed."],
 	empty = L["None of the addons Polestar works with is installed."] }, true)
+add({ page = L["Integrations"], section = L["Quest Tracker"], controls = {
+	{ kind = "toggle", key = "ui.trackerDock", label = L["Dock guide into the quest tracker"], wide = true,
+		help = L["Adds a Polestar tab to the quest tracker. Supports Questie, EllesmereUI and the default tracker. Reload to apply changes. Older versions of Polestar Tracker Dock manage docking instead; updated versions defer to this option."]
+			.. " " .. L["Unavailable with the gamepad interface."],
+		notice = function()
+			local text = L["Reload required"]
+			if ns.Get("qol.hideQuestTracker") then
+				text = text .. "\n" .. L["Docking is unavailable while the quest tracker is hidden."]
+			end
+			return text
+		end,
+		disabled = function()
+			return ns.Get("qol.hideQuestTracker") or ns.GamepadUI() or (UI.TrackerDock and UI.TrackerDock.StandaloneOwnsDock())
+		end,
+		search = "dock, tracker, quests, EllesmereUI, FTA" },
+} }, true)
 -- EllesmereUI's skinning contract, or ErgoBars' under its own name
 -- (Theme.SkinProvider): the section and its two switches name the suite
 -- (EllesmereUI's strings kept as they were, so their translations stay).
@@ -1331,6 +1347,7 @@ local function rowOf(view, c)
 	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
 	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog or move,
 		height = view.psRowH, bare = bare })
+	if c.notice then W.RowNotice(w, c.notice) end
 	-- The pointer on the row, an extra or the cog: the tab's preview lights
 	-- the parts that setting changes and may show the part it draws
 	-- (f:Focus(key), optional); off them, the lights go out.

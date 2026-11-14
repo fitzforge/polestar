@@ -84,8 +84,9 @@ function C.rewardEquip()
 end
 function C.hideQuestTracker()
 	return { kind = "toggle", key = "qol.hideQuestTracker", label = L["Hide the game's quest tracker"],
-		help = L["Hides the game's tracker on the right of the screen, with its quests, achievements and professions, as Questie can. Not with the gamepad interface."],
-		search = "tracker, objectives, objective tracker, quest watch, watch frame" }
+		help = L["Hides the game's tracker on the right of the screen, with its quests, achievements and professions, as Questie can. Not with the gamepad interface."]
+			.. " " .. L["If guide docking is active, reload to hide the tracker and return the guide to its floating window."],
+		search = "hide tracker, turn off quest tracker, tracker, objectives, objective tracker, quest watch, watch frame" }
 end
 function C.itemButton()
 	return { kind = "toggle", key = "qol.itemButton", label = L["Quest item button"],

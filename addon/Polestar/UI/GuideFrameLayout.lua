@@ -267,6 +267,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The tallest the window may be: ui.maxHeight of the screen's height, in
 	-- the window's own units (its scale and the game's UI scale applied).
 	local function capHeight()
+		if GF.dock and GF.dock.available then
+			return GF.dock.available * GF.dock.holder:GetEffectiveScale() / F:GetEffectiveScale()
+		end
 		local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
 		local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
 		return screen * share / max(0.01, screenScale())
@@ -354,7 +357,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- of the screen, in the window's scale (nil without Grow upward): the
 	-- window is never taller (fit.limit, #666). A copy is pinned nowhere.
 	local function roomAbove()
-		if not (GF.live and ns.Get("ui.growUp")) then return nil end
+		if GF.dock or not (GF.live and ns.Get("ui.growUp")) then return nil end
 		local top = UIParent:GetTop()
 		local scale, uiScale = F:GetEffectiveScale(), UIParent:GetEffectiveScale()
 		if not (top and scale and uiScale and scale > 0) then return nil end

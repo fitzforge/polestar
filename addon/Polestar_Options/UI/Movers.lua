@@ -449,6 +449,19 @@ local function layoutText(b)
 		b.Size:SetPoint("BOTTOM", b, "TOP", 0, 4)
 		b.Label:SetPoint("BOTTOM", b.Size, "TOP", 0, 2)
 	end
+	local spec = specs[b.psKey]
+	local note = spec.note and spec.note()
+	if note and not rawget(b, "Note") then
+		b.Note = W.Text(b, "small", "textDim")
+		b.Note:SetWordWrap(true)
+		b.Note:SetJustifyH("CENTER")
+		b.Note:SetPoint("TOP", b.Size, "BOTTOM", 0, -8)
+	end
+	if rawget(b, "Note") then
+		b.Note:SetWidth(max(1, min(300, b.psW - 24)))
+		b.Note:SetText(note or "")
+		b.Note:SetShown(note ~= nil)
+	end
 end
 
 local function selectBox(b)
@@ -598,7 +611,8 @@ local function beginDrag(b)
 	b.psGrab = { cx - b.psLeft, cy - b.psBottom }
 	b.psStartLeft, b.psStartBottom, b.psMoved = b.psLeft, b.psBottom, false
 	b.psFrame = nil
-	local f = frameOf(specs[b.psKey])
+	local spec = specs[b.psKey]
+	local f = (not spec.preview or spec.preview()) and frameOf(spec)
 	if f and f:IsShown() and f:GetNumPoints() >= 1 then
 		local p, rel, rp, x, y = f:GetPoint(1)
 		if p then b.psFrame = { p, rel, rp, x or 0, y or 0, f = f, s = M.Ratio(f) } end
@@ -1354,9 +1368,26 @@ end
 -- upward) from the screen's bottom-left; unset, UI/GuideFrame.lua pins it by
 -- its top-right (bottom-right) corner 64 in, 240 down (up).
 local guideFrame = G("PolestarGuideFrame")
-local function guideScale() return M.Ratio(guideFrame(), ns.Get("ui.scale") or 1) end
+local function guideScale()
+	local guide = ns.UI and ns.UI.GuideFrame
+	-- ui.pos is in floating-window units, independent of the dock's fit scale.
+	if guide and guide.dock then return ns.Get("ui.scale") or 1 end
+	return M.Ratio(guideFrame(), ns.Get("ui.scale") or 1)
+end
 M.Register({
 	key = "guide", label = L["Guide window"], frame = guideFrame, settings = "ui.scale",
+	-- Keep the real frame for mover geometry, but only preview a drag on it
+	-- when floating. The drop still saves ui.pos in either mode.
+	preview = function()
+		local guide = ns.UI and ns.UI.GuideFrame
+		return not (guide and guide.dock)
+	end,
+	note = function()
+		local guide = ns.UI and ns.UI.GuideFrame
+		if guide and guide.dock then
+			return L["Currently docked to the quest tracker. Move this box to set the guide's undocked position. To move the docked guide, move the quest tracker in Edit Mode."]
+		end
+	end,
 	size = function()
 		local k = guideScale()
 		return (ns.Get("ui.width") or 340) * k, 200 * k

@@ -2,6 +2,7 @@
 
 | Component | Used for | Licence | Where |
 |---|---|---|---|
+| MidnightChores by okarr | Quest tracker docking layout reference, tab measurements and visible tracker bounds | MIT | `addon/Polestar/LICENSE-midnightchores.txt`; docking in `addon/Polestar/UI/TrackerDock.lua` |
 | [pfQuest](https://github.com/shagu/pfQuest) database by Shagu | Era-baseline quest, NPC, object and item facts used by the data pipeline and resolved into the guides | MIT | `data/forever/meta.json` records the exact revision; the notice ships as `addon/Polestar_Guides/LICENSE-DATA.txt` |
 | Blizzard client data tables (`UiMap`, `UiMapAssignment`, `AreaTable`, `Faction`; from the Forever client also `ChrRaces`, `ChrClasses`, `CharBaseInfo`, `Map` and `ItemSparse`) via [wago.tools](https://wago.tools) | Zone names, AreaID→UiMap mapping, Era and Forever map world bounds, the faction hierarchy, races and classes, dungeon and raid areas (`forge data build`); how long timed quest items last, for the timed-item lint | Game data © Blizzard Entertainment; used as facts for interoperability | `data/sources/wago/` (cache, not distributed) |
 | [Inter](https://github.com/rsms/inter) by Rasmus Andersson | UI typeface | SIL Open Font License 1.1 | `addon/Polestar/Media/Fonts/` (licence text alongside) |

@@ -76,7 +76,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- bottom, by the edge the window is pinned to, with the progress foot above
 	-- the navigator. Otherwise the order runs strip, navigator, body, foot.
 	local function barsBottom()
-		return ns.Get("ui.growUp") and ns.Get("ui.barsBottom") and true or false
+		return not GF.dock and ns.Get("ui.growUp") and ns.Get("ui.barsBottom") and true or false
 	end
 
 	local function tabButton(i)

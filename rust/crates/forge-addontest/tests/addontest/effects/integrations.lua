@@ -66,6 +66,10 @@ return {
 	end,
 	settle = 0.3,
 	probes = {
+		-- Docking is latched at login; changing the option requires a reload.
+		["ui.trackerDock"] = { login = true, probe = function()
+			return Polestar.UI.TrackerDock.Enabled()
+		end },
 		-- EllesmereUI's accent (0.05, 0.82, 0.62) on Polestar's accent-coloured elements: the progress line.
 		["ui.matchAccent"] = function() return { accent = { T.Accent() }, fill = rgb(GF.parts.line.Fill) } end,
 		["ui.matchFont"] = function() return { body:GetFont() } end,

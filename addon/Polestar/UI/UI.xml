@@ -13,6 +13,10 @@
 	<Script file="GuideFrameMenu.lua"/>
 	<Script file="GuideFrameWindow.lua"/>
 	<Script file="GuideFrameStatus.lua"/>
+	<Script file="TrackerDock.lua"/>
+	<Script file="TrackerDockSizing.lua"/>
+	<Script file="TrackerDockForever.lua"/>
+	<Script file="TrackerDockGuide.lua"/>
 	<Script file="StepList.lua"/>
 	<Script file="QuickSettings.lua"/>
 	<Script file="Launcher.lua"/>

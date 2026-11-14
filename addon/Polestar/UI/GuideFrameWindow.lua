@@ -88,6 +88,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	function GF.ApplyPosition()
 		if not F then return end
+		if GF.dock then return GF.dock:Place() end
 		local pos = ns.Get("ui.pos")
 		F:ClearAllPoints()
 		if type(pos) == "table" and type(pos[1]) == "number" and type(pos[2]) == "number" then
@@ -102,7 +103,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The corner exactly where the window stands: rounded, the re-pin would move
 	-- it by part of a pixel on the drop and its text would shift on the grid.
 	function GF.SavePosition()
-		if not F then return end
+		if not F or GF.dock then return end
 		local l = F:GetLeft()
 		local _, y = pinCorner()
 		if l and y then ns.Set("ui.pos", { l, y }) end
@@ -110,7 +111,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	function GF.ApplyLock()
 		if not F then return end
-		grip:SetShown(not ns.Get("ui.locked"))
+		grip:SetShown(not GF.dock and not ns.Get("ui.locked"))
 	end
 
 	function GF.ApplyWidth()
@@ -132,6 +133,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- the window out of sight at a scale far below a pixel (ns.OutOfSight), and a
 	-- place worked out from that would land in the corner of the screen.
 	function GF.ApplyScale()
+		if GF.dock then return GF.dock:Place() end
 		local new = ns.Get("ui.scale") or 1
 		local old = GF.scale or F:GetScale()
 		if old == new then return end
@@ -242,7 +244,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local savePosition = GF.SavePosition
 
 	local function dragStart()
-		if ns.Get("ui.locked") then return end
+		if GF.dock or ns.Get("ui.locked") then return end
 		F:StartMoving()
 	end
 
@@ -263,7 +265,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	local function resizeStart(self)
-		if ns.Get("ui.locked") then return end
+		if GF.dock or ns.Get("ui.locked") then return end
 		-- Grow from the left edge: pin the window by its left corner first.
 		local l = F:GetLeft()
 		local corner, y = pinCorner()

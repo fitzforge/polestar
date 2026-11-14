@@ -20,6 +20,29 @@ local choicesOf, valueOf = P.choicesOf, P.valueOf
 local HALF_PAD, COMPACT_CHIP = P.HALF_PAD, P.COMPACT_CHIP
 local textWidth = W.TextWidth
 
+-- Optional emphasis below a settings row, owned by the load-on-demand
+-- options addon. Evaluate it during layout so conditional notices stay live.
+function W.RowNotice(row, notice)
+	local original = row.psBelow
+	row.psBelow = function(self, width, y)
+		local height = original and original(self, width, y) or 0
+		local message = type(notice) == "function" and notice() or notice
+		if not rawget(self, "HelpNotice") then
+			self.HelpNotice = W.Text(self, "number", "text")
+			self.HelpNotice:SetWordWrap(true)
+			self.HelpNotice:SetJustifyV("TOP")
+		end
+		local text = self.HelpNotice
+		text:SetText(message or "")
+		text:SetShown(message ~= nil and message ~= "")
+		if not message or message == "" then return height end
+		text:ClearAllPoints()
+		text:SetPoint("TOPLEFT", self, "TOPLEFT", HALF_PAD, -(y + height + 2))
+		text:SetWidth(width)
+		return height + 2 + math.ceil(text:GetStringHeight())
+	end
+end
+
 ---------------------------------------------------------------------------
 -- Colour swatch: opens the game's colour picker; right-click restores the
 -- default. Always editable. Beside the chip: the colour as hex, which takes

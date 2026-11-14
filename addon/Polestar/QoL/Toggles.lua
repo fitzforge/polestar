@@ -198,6 +198,11 @@ local trackerHidden, trackerHooked = false, false
 local function applyTracker()
 	local f = ObjectiveTrackerFrame
 	if not (f and f.Hide) then return end
+	-- The active dock owns the tracker's visibility until reload. Hiding it
+	-- immediately would also hide the docked guide and its tab row. On the
+	-- next load TrackerDock.Enabled() sees hideQuestTracker and stays floating.
+	local dock = ns.UI and ns.UI.TrackerDock
+	if dock and dock.Enabled() then return end
 	-- Not with the gamepad interface (ns.GamepadUI): its HUD navigation starts
 	-- at the tracker (Blizzard_Gamepad GamepadHudMode.lua).
 	if QoL.On("hideQuestTracker") and not ns.GamepadUI() then
