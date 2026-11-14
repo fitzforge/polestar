@@ -42,7 +42,7 @@ return {
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 	-- {zone:1453} Stormwind City
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 
@@ -243,7 +243,7 @@ return {
 	-- {npc:3693} Terenthis
 	["{npc:3693} stands by the flight master."] = "",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
-	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "",
+	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "{npc:3693}: сопровождение Волкора в конце гайда по зоне {zone:1439}",
 
 	-- Step 43: Gershala Nightwhisper
 	-- {area:2797} Blackfathom Deeps · {npc:8997} Gershala Nightwhisper · {npc:3693} Terenthis
@@ -393,7 +393,7 @@ return {
 
 	-- Step 76: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
@@ -417,7 +417,7 @@ return {
 
 	-- Step 82: Tram to Stormwind City
 	-- {zone:1453} Stormwind City
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Поезд до {zone:1453}",
 
 	-- Step 83: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square

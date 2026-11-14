@@ -203,7 +203,7 @@ return {
 	["Giant Softshell Clams, on the sea floor"] = "",
 	-- {item:15874} Soft-shelled Clam
 	["{item:15874}: open it in your bags"] = "",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878} – с сухощелких крабов",
 

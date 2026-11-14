@@ -221,7 +221,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "{area:976}(으)로 날아가기",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 
 	-- Step 60: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg

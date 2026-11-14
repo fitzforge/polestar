@@ -265,7 +265,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Лететь в {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Распорядитель полетов: {area:144}",
 
 	-- Step 70: Royal Historian Archesonus
 	-- {object:171709} High Seat
@@ -273,7 +273,7 @@ return {
 
 	-- Step 71: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Летите сюда: {area:150}",
 
 	-- Step 73: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village

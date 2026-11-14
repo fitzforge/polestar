@@ -31,7 +31,7 @@ return {
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "Скелет черепахи",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289} – на пляже к западу от пристани; под водой",
 
 	-- Step 6: Buzzbox 827
 	-- {quest:983} Buzzbox 827

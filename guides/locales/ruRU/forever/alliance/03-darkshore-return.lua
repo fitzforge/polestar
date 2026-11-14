@@ -96,7 +96,7 @@ return {
 	-- {npc:6667} Gelkak Gyromast
 	-- plural, as words: Giant Foreststriders = {npc:2323} Giant Foreststrider · Raging Reef Crawlers = {npc:2236} Raging Reef Crawler
 	["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667} прячется на островке у руин. Части ключа падают с гигантских лесных долгоногов (верх), мурлоков из племени Серой Мглы (середина) и гневных рифовых крабов (низ).",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 
 	-- Step 17: Strange Lockbox
 	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox

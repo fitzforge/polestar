@@ -343,7 +343,7 @@ return {
 
 	-- Step 77: Fly to Auberdine
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Распорядитель полетов: {area:702}",
 
 	-- Step 79: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -421,7 +421,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 95: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 
 	-- Step 96: Light's Hope Chapel
 	["Ride south-east from the lake to the chapel."] = "Езжайте на юго-восток от озера к часовне.",

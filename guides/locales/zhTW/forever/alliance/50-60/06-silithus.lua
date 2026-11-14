@@ -120,7 +120,7 @@ return {
 
 	-- Step 19: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "飛往{area:150}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
@@ -343,7 +343,7 @@ return {
 
 	-- Step 77: Fly to Auberdine
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "{area:702}飛行管理員",
 
 	-- Step 79: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -421,7 +421,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 95: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 
 	-- Step 96: Light's Hope Chapel
 	["Ride south-east from the lake to the chapel."] = "從湖向東南騎到禮拜堂。",

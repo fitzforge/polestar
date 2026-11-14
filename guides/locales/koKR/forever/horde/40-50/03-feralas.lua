@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
 
 	-- Step 2: Apothecary Zinge
 	-- {npc:2934} Keeper Bel'dugur
@@ -23,7 +23,7 @@ return {
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "40레벨 탈것 타기",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "탈것 타기는 40레벨이 필요하며 100골드가 듭니다. 배우면 탈것도 하나 받습니다. 각 종족은 자기 종족의 상급자에게서 배웁니다. 당신의 상급자는 비행선 탑에서 북쪽으로 조금 가면 나오는 {area:159}의 {npc:4773}이며, 그 옆에 {npc:4731}의 해골마(각 20골드)가 있습니다. {object:3202}행 비행선을 타려면 탑으로 돌아가십시오.",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, 탈것 상급자",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
@@ -77,7 +77,7 @@ return {
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 
 	-- Step 15: Murlocs of the Misty Reed
 	["Murlocs of the Misty Reed"] = "안개갈대 멀록",
@@ -104,7 +104,7 @@ return {
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "{area:1099}의 비행 조련사",
 
 	-- Step 23: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog

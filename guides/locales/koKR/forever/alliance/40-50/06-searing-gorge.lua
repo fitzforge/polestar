@@ -140,7 +140,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "",
+	["{area:1446} flight master"] = "{area:1446}의 비행 조련사",
 
 	-- Step 39: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood

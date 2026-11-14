@@ -120,7 +120,7 @@ return {
 	-- Step 27: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Los Elementales de agua podrida flotan por las orillas del lago; el cenador está en la isla, frente a la avanzada de la Alianza.",
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 	["Gazebo"] = "Cenador",
 
 	-- Step 28: Ursangous

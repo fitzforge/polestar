@@ -61,7 +61,7 @@ return {
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle
 	["His hut stands just north of {npc:4080} and {npc:4077}."] = "",
 	-- {npc:4201} Ziz Fizziks
-	["{npc:4201}, inside"] = "",
+	["{npc:4201}, inside"] = "{npc:4201}，在裡面",
 
 	-- Step 15: Ziz Fizziks
 	-- {quest:1483} Ziz Fizziks
@@ -84,7 +84,7 @@ return {
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885}站在{area:421}東岸的{area:420}。污濁的水元素在湖中涉水。小心：27級水元素{npc:12759}在牠們之間的湖中走動；她也會掉落護腕，但以你現在的等級，打小元素比較安全。",
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "擊殺元素取得5個完整的元素護腕，然後使用{item:5456}",
@@ -140,7 +140,7 @@ return {
 
 	-- Step 32: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
@@ -273,7 +273,7 @@ return {
 
 	-- Step 54: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "搭地鐵前往{zone:1453}",
 
 	-- Step 55: Sprite Jumpsprocket
 	-- {quest:92748} Explosive Consultation · {zone:1432} Loch Modan · {object:28027} Dwarven District · {npc:11026} Sprite Jumpsprocket

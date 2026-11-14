@@ -46,7 +46,7 @@ return {
 
 	-- Step 8: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Поезд до {zone:1453}",
 
 	-- Step 10: Fly to Darkshire
 	-- {area:42} Darkshire

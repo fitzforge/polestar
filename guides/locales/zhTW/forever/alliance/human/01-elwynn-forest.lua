@@ -290,7 +290,7 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "",
 
 	-- Step 56: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "德魯伊訓練師",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
 

@@ -10,7 +10,7 @@ return {
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Распорядитель полетов: {area:702}",
 
 	-- Step 2: Felwood
 	-- {area:2479} Emerald Sanctuary

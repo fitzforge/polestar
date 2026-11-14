@@ -85,7 +85,7 @@ return {
 
 	-- Step 16: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "",
 

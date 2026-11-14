@@ -16,7 +16,7 @@ return {
 	-- {area:1497} Undercity · {area:340} Kargath · {object:3202} Grom'gol
 	["Your level 40 training is in the {area:1497}: fly there from {area:340}, train, and take the zeppelin from the towers outside the city to {object:3202}."] = "40레벨 훈련은 {area:1497}에서 합니다. {area:340}에서 그곳으로 날아가 훈련한 뒤, 도시 밖 탑에서 비행선을 타고 {object:3202}(으)로 가십시오.",
 	-- {area:340} Kargath
-	["{area:340} flight master"] = "",
+	["{area:340} flight master"] = "{area:340} 비행 조련사",
 
 	-- Step 2: Undercity trainers
 	-- {area:1497} Undercity

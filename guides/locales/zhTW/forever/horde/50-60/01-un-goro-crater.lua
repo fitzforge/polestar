@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "木筏在東南方湖泊的岸邊；小包就在旁邊的水裡。",
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 
 	-- Step 18: Lashers and Threshers
 	["Lashers and Threshers"] = "血瓣花鞭笞者與猛擊者",
@@ -229,7 +229,7 @@ return {
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:340} Kargath
-	["{area:340} flight master"] = "",
+	["{area:340} flight master"] = "{area:340}飛行管理員",
 
 	-- Step 46: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter

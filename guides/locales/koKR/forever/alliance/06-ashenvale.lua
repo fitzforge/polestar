@@ -61,7 +61,7 @@ return {
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle
 	["His hut stands just north of {npc:4080} and {npc:4077}."] = "",
 	-- {npc:4201} Ziz Fizziks
-	["{npc:4201}, inside"] = "",
+	["{npc:4201}, inside"] = "{npc:4201}, 내부",
 
 	-- Step 15: Ziz Fizziks
 	-- {quest:1483} Ziz Fizziks
@@ -84,7 +84,7 @@ return {
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885}은(는) {area:421} 동쪽 기슭의 {area:420}에 서 있습니다. 타락한 물의 정령이 호수를 걸어다닙니다. 주의: 27레벨 물의 정령인 {npc:12759}이(가) 그들 사이로 호수를 걸어다닙니다. 그녀도 팔보호구를 떨어뜨리지만, 이 레벨에서는 작은 정령을 처치하는 편이 더 안전합니다.",
-	["Underwater"] = "",
+	["Underwater"] = "물속",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "정령을 처치해 {item:12220} 5개를 모은 뒤 {item:5456}을(를) 사용하세요",
@@ -140,7 +140,7 @@ return {
 
 	-- Step 32: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "{area:442}(으)로 비행",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
@@ -273,7 +273,7 @@ return {
 
 	-- Step 54: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "지하철을 타고 {zone:1453}(으)로",
 
 	-- Step 55: Sprite Jumpsprocket
 	-- {quest:92748} Explosive Consultation · {zone:1432} Loch Modan · {object:28027} Dwarven District · {npc:11026} Sprite Jumpsprocket

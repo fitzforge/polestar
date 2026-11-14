@@ -159,7 +159,7 @@ return {
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
 	["{zone:1457} first, while you are on this side of the sea: Troyas' answer, {npc:7763}'s crate, Tyrande and the soil errand, then the boat from {area:442} to {area:150} and the gryphon to {area:348}."] = "趁你還在海的這一側，先去{zone:1457}：特洛亞斯的回覆、{npc:7763}的箱子、泰蘭妲和土壤的差事，然後從{area:442}搭船到{area:150}，再搭獅鷲前往{area:348}。",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "{area:976}飛行管理員",
 
 	-- Step 31: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
@@ -223,7 +223,7 @@ return {
 	["{npc:7884}, inside"] = "",
 
 	-- Step 50: Sprinkle's Secret Ingredient
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly from {area:976} to Theramore, take the boat to {area:150} and fly to {area:1537}. Train."] = "從{area:976}飛往塞拉摩，搭船前往{area:150}，再飛往{area:1537}。訓練。",

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",
 
 	-- Step 2: Undercity trainers
 	-- {zone:1458} Undercity
@@ -185,7 +185,7 @@ return {
 	["{area:328}: kill these as you meet them"] = "",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "在海灣西邊，刺脊襲擊者和刺脊巫師（38-40級）佔據海岸：一次拉一隻。兩艘沉船在外海的淺水中，海圖和航海日誌在船裡；寶石散落在沉船周圍的海底。",
-	["Underwater"] = "",
+	["Underwater"] = "在水下",
 
 	-- Step 38: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay

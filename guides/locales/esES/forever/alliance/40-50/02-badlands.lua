@@ -104,7 +104,7 @@ return {
 
 	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
@@ -124,7 +124,7 @@ return {
 	["Inside {area:498}"] = "",
 
 	-- Step 26: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Maestro de vuelo de Theramore",
 
 	-- Step 28: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed

@@ -61,7 +61,7 @@ return {
 	-- {npc:4080} Kaela Shadowspear · {npc:4077} Gaxim Rustfizzle
 	["His hut stands just north of {npc:4080} and {npc:4077}."] = "",
 	-- {npc:4201} Ziz Fizziks
-	["{npc:4201}, inside"] = "",
+	["{npc:4201}, inside"] = "{npc:4201}, внутри",
 
 	-- Step 15: Ziz Fizziks
 	-- {quest:1483} Ziz Fizziks
@@ -84,7 +84,7 @@ return {
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals wade in the lake. Careful: {npc:12759}, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level."] = "{npc:3885} стоит здесь: {area:420}, на восточном берегу места {area:421}. В озере бродят злобные элементали воды. Осторожно: среди них по озеру ходит {npc:12759}, элементаль воды 27-го уровня; с нее тоже падают наручи, но на этом уровне безопаснее убивать маленьких элементалей.",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Убивайте элементалей ради 5 неповрежденных браслетов элементаля, затем используйте {item:5456}",
@@ -140,7 +140,7 @@ return {
 
 	-- Step 32: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:415} Astranaar
 	["{area:415} flight master"] = "",
 
@@ -273,7 +273,7 @@ return {
 
 	-- Step 54: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Поезд до {zone:1453}",
 
 	-- Step 55: Sprite Jumpsprocket
 	-- {quest:92748} Explosive Consultation · {zone:1432} Loch Modan · {object:28027} Dwarven District · {npc:11026} Sprite Jumpsprocket

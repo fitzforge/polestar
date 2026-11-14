@@ -27,7 +27,7 @@ return {
 
 	-- Step 5: Violet Tragan
 	["East of the village, the violet flower grows in the hills."] = "К востоку от деревни на холмах растет фиолетовый цветок.",
-	["Underwater"] = "",
+	["Underwater"] = "Под водой",
 
 	-- Step 6: Revantusk Village
 	-- {zone:1425} The Hinterlands

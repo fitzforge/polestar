@@ -120,9 +120,9 @@ return {
 
 	-- Step 19: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Vuela a {area:150}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maestro de vuelo de {zone:1455}",
 
 	-- Step 21: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -343,7 +343,7 @@ return {
 
 	-- Step 77: Fly to Auberdine
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Maestro de vuelo de {area:702}",
 
 	-- Step 79: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -421,7 +421,7 @@ return {
 	["The lake for {quest:5845}"] = "",
 
 	-- Step 95: Of Lost Honor
-	["Underwater"] = "",
+	["Underwater"] = "Bajo el agua",
 
 	-- Step 96: Light's Hope Chapel
 	["Ride south-east from the lake to the chapel."] = "Cabalga al sureste desde el lago hasta la capilla.",
