@@ -387,3 +387,138 @@ test('completion without an XP snapshot does not borrow XP from the next session
 	assert.equal(stepRow(r, G, 1).xp, 50);
 	assert.equal(stepRow(r, G, 1).totalTime, 60);
 });
+
+const travelPos = (t, x, map = 1) => ({ t, e: 'pos', map, x, y: 50 });
+const travelStep = (t, n, x, extra = {}) => ({ ...travelPos(t, x), e: 'step', reason: 'step', guide: G, step: n, lvl: 1, xp: 0, xpMax: 400, ...extra });
+const travelStart = (kind, t, x) => kind === 'taxi' ? { t, e: 'taxi', fromNode: 1, toNode: 2 } : { ...travelPos(t, x), e: 'ride', on: true };
+const travelEnd = (kind, t, x, map = 1) => ({ ...travelPos(t, x, map), ...(kind === 'taxi' ? { e: 'land', node: 2 } : { e: 'ride', on: false }) });
+function travelSession(events, extra = {}) {
+	return {
+		...session('Travel', 1791000000, events), schema: 2,
+		maps: { 1: { left: 0, right: 1000, top: 0, bottom: 1000 }, 2: { left: 0, right: 1000, top: 0, bottom: 1000 } },
+		...extra,
+	};
+}
+const travelRow = (events, extra) => stepRow(buildReport([travelSession(events, extra)]), G, 1);
+
+for (const kind of ['ride', 'taxi']) {
+	test('completed ' + kind + ' transport excludes breadcrumbs while retaining walking, time, XP and turn-ins', () => {
+		// Ten yards walked on either side; all transport positions are below 40 yd/s.
+		// Ride positions are normal breadcrumbs; taxi positions can come from trail mode.
+		const events = [
+			travelStep(0, 1, 10), travelPos(10, 11), travelStart(kind, 20, 11),
+			{ ...travelPos(30, 12), trail: kind === 'taxi' }, { t: 30, e: 'combat', on: true },
+			travelPos(40, 13), { t: 50, e: 'combat', on: false }, travelEnd(kind, 60, 14),
+			travelPos(70, 15), { t: 80, e: 'turnin', q: 7 }, travelStep(90, 2, 15, { xp: 100 }),
+		];
+		const row = travelRow(events);
+		assert.equal(row.medianYards, 20);
+		assert.deepEqual(
+			[row.medianTime, row.xp, row.turnins, row.combatShare],
+			[90, 100, 1, 20 / 90],
+		);
+		assert.equal(travelRow([...events].reverse()).medianYards, 20, 'the report orders records by their timestamps');
+	});
+
+	test('completed ' + kind + ' transport spans normal chunk rotation but never a known missing chunk', () => {
+		const events = [
+			{ t: 0, e: 'session' }, travelStep(0, 1, 10), travelPos(10, 11), travelStart(kind, 20, 11),
+			travelPos(30, 12), { t: 40, e: 'session' }, travelPos(50, 13), travelEnd(kind, 60, 14),
+			travelPos(70, 15), travelStep(80, 2, 15),
+		];
+		assert.equal(travelRow(events, { chunks: [1, 2] }).medianYards, 20);
+		assert.equal(travelRow(events, { chunks: [1, 3] }).medianYards, kind === 'taxi' ? 40 : 50, 'an unobserved middle chunk cannot complete a known interval');
+		assert.equal(travelRow(events).medianYards, 20, 'legacy sessions need no chunk metadata');
+	});
+
+	test('unmatched, mismatched and replaced ' + kind + ' transport starts keep their ordinary estimates', () => {
+		const other = kind === 'taxi' ? 'ride' : 'taxi';
+		const prefix = [travelStep(0, 1, 10), travelStart(kind, 10, 10), travelPos(20, 11), travelPos(30, 12)];
+		assert.equal(
+			travelRow([...prefix, travelEnd(other, 40, 12), travelPos(50, 13), travelStep(60, 2, 13)]).medianYards,
+			kind === 'taxi' ? 20 : 30,
+			'the other transport kind cannot close this start',
+		);
+		assert.equal(
+			travelRow([...prefix, { t: 40, e: 'session' }, travelPos(50, 13), travelStep(60, 2, 13)], { chunks: [1, 2] }).medianYards,
+			kind === 'taxi' ? 20 : 30,
+			'recording off/on can omit the end; subsequent walking must remain',
+		);
+		assert.equal(
+			travelRow([...prefix, travelStart(kind, 40, 12), travelPos(50, 13), travelPos(60, 14), travelEnd(kind, 70, 15), travelPos(80, 16), travelStep(90, 2, 16)]).medianYards,
+			kind === 'taxi' ? 20 : 30,
+			'a repeated start completes only the later trip',
+		);
+	});
+
+	test('a ' + kind + ' transport endpoint in a different session cannot pair with an earlier start', () => {
+		const first = travelSession([travelStep(0, 1, 10), travelStart(kind, 10, 10), travelPos(20, 11)]);
+		const second = travelSession(
+			[travelStep(0, 1, 20), travelPos(10, 21), travelEnd(kind, 20, 22), travelPos(30, 23), travelStep(40, 2, 23)],
+			{ session: 'later', started: first.started + 3600 },
+		);
+		const row = stepRow(buildReport([first, second]), G, 1);
+		assert.equal(row.medianYards, kind === 'taxi' ? 30 : 40);
+		assert.equal(row.medianTime, 60);
+	});
+}
+
+test('overlapping completed transports form one interval and retain walking between later trips', () => {
+	const row = travelRow([
+		travelStep(0, 1, 10), travelStart('ride', 10, 10), travelPos(20, 11), travelStart('taxi', 30, 11),
+		travelEnd('ride', 40, 12), travelPos(50, 13), travelEnd('taxi', 60, 14),
+		travelPos(70, 15), travelStart('ride', 80, 15), travelPos(90, 16), travelEnd('ride', 100, 17),
+		travelPos(110, 18), travelStep(120, 2, 18),
+	]);
+	assert.equal(row.medianYards, 20);
+	assert.equal(row.medianTime, 120);
+});
+
+test('transport positions and step snapshots do not move distance into another step', () => {
+	const r = buildReport([travelSession([
+		travelStep(0, 1, 10), travelPos(10, 11), travelStart('taxi', 20, 11),
+		travelStep(30, 2, 12, { xp: 100 }), travelPos(40, 13), travelEnd('taxi', 50, 14),
+		travelPos(60, 15), travelStep(70, 3, 15, { xp: 200 }),
+	])]);
+	assert.deepEqual([1, 2].map((i) => stepRow(r, G, i).medianYards), [10, 10]);
+	assert.deepEqual([1, 2].map((i) => stepRow(r, G, i).medianTime), [30, 40]);
+	assert.deepEqual([1, 2].map((i) => stepRow(r, G, i).xp), [100, 100]);
+});
+
+test('transport end positions start a new map trail; absent coordinates never bridge a trip', () => {
+	for (const map of [1, 2]) for (const positioned of [true, false]) {
+		const end = positioned ? travelEnd('taxi', 40, 14, map) : { t: 40, e: 'land' };
+		const row = travelRow([
+			travelStep(0, 1, 10), travelPos(10, 11), travelStart('taxi', 20, 11), travelPos(30, 12),
+			end, travelPos(50, 14, map), travelPos(60, 15, map), travelStep(70, 2, 15, { map }),
+		]);
+		assert.equal(row.medianYards, 20);
+	}
+});
+
+test('transport matching leaves an unlocatable chunk gap under the existing distance estimate', () => {
+	const events = [
+		travelStep(0, 1, 10), travelPos(10, 11), travelStart('ride', 20, 11), travelPos(30, 12),
+		{ t: 40, e: 'session' }, travelPos(50, 13), travelEnd('ride', 60, 14), travelPos(70, 15), travelStep(80, 2, 15),
+	];
+	assert.equal(travelRow(events, { chunks: [1, 3] }).medianYards, 50, 'one header cannot identify the boundary between two chunks');
+});
+
+test('a delayed transport start cannot reopen an interval across a known chunk gap after sorting', () => {
+	const events = [
+		{ t: 0, e: 'session' }, travelStep(0, 1, 10), travelPos(4, 11), travelStart('taxi', 5.2, 11),
+		// Recorder chunk epochs can overlap: this header sorts before the preceding chunk's takeoff.
+		{ t: 5, e: 'session' }, travelPos(5.3, 12), travelEnd('taxi', 6, 13), travelPos(7, 14), travelStep(8, 2, 14),
+	];
+	assert.equal(travelRow(events, { chunks: [1, 3] }).medianYards, 30, 'preserve the incomplete estimate across missing data');
+	assert.equal(travelRow(events, { chunks: [1, 2] }).medianYards, 20, 'a normal adjacent rotation still completes the trip');
+});
+
+test('a completed ride start is not a fresh position at its delayed detection time', () => {
+	// World.lua detects a ride after two moving ticks and records its earlier origin.
+	const row = travelRow([
+		travelStep(0, 1, 10), travelPos(10, 11), travelStart('ride', 20, 10),
+		travelPos(30, 12), travelEnd('ride', 40, 13), travelPos(50, 14), travelStep(60, 2, 14),
+	]);
+	assert.equal(row.medianYards, 20, 'do not add a walk back to the cached ride origin');
+});
