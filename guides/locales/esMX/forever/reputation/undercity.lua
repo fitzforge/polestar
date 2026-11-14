@@ -129,7 +129,7 @@ return {
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
 	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "",
 	-- {object:176361} Scourge Cauldron
-	["the {object:176361}"] = "",
+	["the {object:176361}"] = "el {object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["{npc:10902}: use the {item:12815} at the door"] = "",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -145,7 +145,7 @@ return {
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["{npc:11077} guards the cauldron at {area:200}."] = "",
 	-- {object:177289} Scourge Cauldron
-	["the {object:177289}"] = "",
+	["the {object:177289}"] = "el {object:177289}",
 
 	-- Step 23: Bulwark: the Writhing Haunt
 	-- {area:152} Bulwark · {area:202} Writhing Haunt
@@ -155,13 +155,13 @@ return {
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt
 	["{npc:11076} guards the cauldron at the {area:202}."] = "",
 	-- {object:176393} Scourge Cauldron
-	["the {object:176393}"] = "",
+	["the {object:176393}"] = "el {object:176393}",
 
 	-- Step 26: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
 	["{npc:11078} guards the cauldron at {area:201}."] = "",
 	-- {object:176392} Scourge Cauldron
-	["the {object:176392}"] = "",
+	["the {object:176392}"] = "el {object:176392}",
 
 	-- Step 27: Bulwark: done
 	-- {area:152} Bulwark
