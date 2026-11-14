@@ -102,6 +102,37 @@ fn guides_sync_writes_every_text_with_its_names_and_check_fails_on_a_lost_token_
 	let _ = std::fs::remove_dir_all(&dir);
 }
 
+/// `guides sync` on reference data read from a Forever client build whose tables are not in the sources
+/// beside it: the texts would name spells as words and places without their area, and every good
+/// translation of them would move out as stale. It stops with one error and writes nothing.
+#[test]
+fn guides_sync_refuses_data_whose_client_build_tables_are_not_beside_it() {
+	let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("i18n-pinned-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	let pack = dir.join("pack");
+	std::fs::create_dir_all(pack.join("guides")).unwrap();
+	std::fs::write(pack.join("pack.json"), r#"{"id":"texts","title":"Texts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Texts"}"#).unwrap();
+	std::fs::write(pack.join("guides/main.guide"), GUIDE).unwrap();
+	let data = dir.join("forever");
+	std::fs::create_dir_all(&data).unwrap();
+	for e in std::fs::read_dir(root().join("tests/fixtures/dsl/data")).unwrap().flatten() {
+		std::fs::copy(e.path(), data.join(e.file_name())).unwrap();
+	}
+	let mut meta: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(data.join("meta.json")).unwrap()).unwrap();
+	meta["sources"].as_array_mut().unwrap().push(serde_json::json!({
+		"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, SpellName) read from the installed client",
+		"revision": "wowf 1.60.1.7",
+	}));
+	std::fs::write(data.join("meta.json"), meta.to_string()).unwrap();
+	let (d, p) = (data.to_string_lossy().into_owned(), pack.to_string_lossy().into_owned());
+	let sync = forge(&["guides", "sync", "frFR", "--pack", &p, "--data", &d]);
+	assert_eq!(sync.status, 1, "{}", sync.stdout);
+	assert!(sync.stderr.contains("forge i18n: the reference data was built from Forever client build 1.60.1.7, but "), "{}", sync.stderr);
+	assert!(sync.stderr.contains("sources/wago/1.60.1.7 lacks SpellName.csv, SkillLineAbility.csv, AreaTable.csv"), "{}", sync.stderr);
+	assert!(!pack.join("locales").exists(), "nothing written");
+	let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// `i18n audit` (tests/i18n-audit.test.js, the command): no finding is exit 0 with a JSON document;
 /// no client tables is exit 1 with the reason.
 #[test]

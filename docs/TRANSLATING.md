@@ -387,6 +387,16 @@ writes.
   need words, with their words and characters, in all and per guide folder,
   and how many names the compiler made tokens.
 
+The three commands compile the pack on the reference data. When that data was
+read from a Forever client build (its `meta.json` names it), they need that
+build's client tables in the sources beside it (`data/sources/wago/<build>`:
+SpellName and SkillLineAbility when the data has the build's spell names, and
+AreaTable), and stop when they are missing: with another build's tables, or
+none, spell names would stay words and places would lose their area, and every
+good translation of those texts would read as stale. `forge guide compile` and
+`lint` stop the same way, and so does every node tool or test that loads the
+data (`tools/lib/data/pinned.js`).
+
 ## Adding a language
 
 Add it to `LOCALES` in `rust/crates/forge-guide/src/locales.rs` and `tools/lib/i18n/locales.js` with its status and

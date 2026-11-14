@@ -9746,6 +9746,14 @@ the compiler reads it, against its last good statistics (exit 1 on a shift; `--a
 blesses them). Run in a copy without `data/sources`, it names `sources.areas` 1375 → 0,
 `tokens.area` 4385 → 0 and `tokens.object` 790 → 1518.
 
+Guide compiles do not wait for those statistics: data read from a Forever client build
+(`meta.json` names it) is not compiled without that build's SpellName, SkillLineAbility and
+AreaTable in `data/sources/wago/<build>`. `forge guide compile` and `lint`, `forge i18n guides`
+and every node tool or test that loads the data (`loadData`) stop with the build and the
+folder named (forge-guide `tokens.rs` `check_pinned_tables`, `tools/lib/data/pinned.js`).
+`data build` and `data check` compile with the sources they are given and report shifts as
+above.
+
 #### Sources and precedence
 
 `data build` reads, lowest precedence first:

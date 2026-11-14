@@ -37,6 +37,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { parseCsv } = require('../data/csv');
+const { pinnedBuild, buildDir } = require('../data/pinned');
 const { CLASS_BY_FILE } = require('../game/races');
 
 const KINDS = ['npc', 'object', 'item', 'quest', 'zone', 'area', 'spell', 'faction', 'skill'];
@@ -498,14 +499,13 @@ function npcsOf(goals, data) {
 }
 
 // The Forever client build the data was built from (meta.json's "World of
-// Warcraft: Forever client tables" source), as its cache folder beside the
-// data, when it holds every file of `files`; else null: the same data
-// compiles the same guides whatever else is cached.
+// Warcraft: Forever client tables" source, data/pinned.js), as its cache
+// folder beside the data, when it holds every file of `files`; else null: the
+// same data compiles the same guides whatever else is cached.
 function pinnedBuildDir(data, files) {
-	const src = ((data.meta && data.meta.sources) || []).find((x) => x && /^World of Warcraft: Forever client tables/.test(String(x.name)));
-	const m = src && /(\d+\.\d+\.\d+\.\d+)/.exec(String(src.revision || ''));
-	if (!m) return null;
-	const dir = path.join(data.dir, '..', 'sources', 'wago', m[1]);
+	const pin = pinnedBuild(data.meta);
+	if (!pin) return null;
+	const dir = buildDir(data.dir, pin.build);
 	return files.every((f) => fs.existsSync(path.join(dir, f))) ? dir : null;
 }
 
