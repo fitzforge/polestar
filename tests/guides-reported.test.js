@@ -13968,3 +13968,17 @@ test(`${REDRIDGE}: Acrylic's report (#2243): Look to the Stars is a step of its 
 		assert.ok(st.length >= 1 && st.every((s) => / (skipped|na)$/.test(s)), `${guide}: ${q} drops out without the chain: ${st.join(', ')}`);
 	}
 });
+
+// Silverpine Forest (Horde 12-15) ends in the Valley of Wisdom: Zor Lonetree's The Spirits of Stonetalon (1061, from
+// level 13) stood after Thra and Migi as the guide's last step, so the end waited on an accept a character below 13
+// cannot take. Zor stands on the walk from the Drag to Thra and Migi, so he comes first.
+test('Silverpine Forest (Horde): Zor Lonetree on the way to the Valley of Wisdom, which ends the guide', () => {
+	const list = goals('forever/horde/03-silverpine-forest.guide');
+	const zor = at(list, 'accept 1061', is('accept', 1061));
+	// (The guide's first Valley of Wisdom stop hands Favorite Food in for the races that start there; the last one is
+	// the end's.)
+	const migi = list.findLastIndex(({ goal }) => is('turnin', 97249)(goal));
+	assert.ok(migi >= 0 && zor < migi, 'Zor before Thra and Migi on the last Valley of Wisdom stop');
+	const steps = compiled('forever/horde/03-silverpine-forest.guide').steps;
+	assert.equal(steps[steps.length - 1].title, 'Valley of Wisdom', 'the guide ends in the Valley of Wisdom');
+});

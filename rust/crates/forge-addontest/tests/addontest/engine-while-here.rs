@@ -298,10 +298,10 @@ fn shown_rows_keep_their_places_until_one_is_30_yards_nearer() {
 	assert_eq!(out, vec![json!("2:1:10 3:1:30"), json!("2:1:30 3:1:10"), json!("3:1:0 2:1:40")]);
 }
 
-// Fitz, 0.3.5 preview: an Undead Warlock, level 13, on The Barrens guide's Razormane camp step (15), Fungal Spores
+// Fitz, 0.3.5 preview: an Undead Warlock, level 13, on The Barrens guide's Razormane camp step (16), Fungal Spores
 // (848) in the log at 0/1, chasing plainstriders and raptors for the slow beak and head drops (background goals)
 // out to the Stagnant Oasis, the arrow 946 yd off on the camp. The spores' Laden Mushrooms grow there, yet no line
-// came: the spores' step (39, after the flight back from Ratchet and the trips to Durotar for other classes) lay
+// came: the spores' step (27, after the flight back from Ratchet; 39 before the 0.4.0 route audit) lay
 // past where the scan stopped at the flight. The Zhevra (845) are a candidate too; no runner spawns within reach of
 // the oasis, and at a runner camp they show. The guide as shipped (guides/forever/horde/02-the-barrens.guide,
 // compiled with data/forever; skipped with a note without it).
@@ -353,8 +353,8 @@ stub.login()
 stub.fire("QUEST_LOG_UPDATE")
 {HELPERS}
 E.SetGuide("forever/horde/02-the-barrens"); flush()
--- The Crossroads step's flight path (step 12) is the only thing between: skip it as he had it.
-for _ = 1, 3 do if E.GetLiveStep() < 15 then E.Skip(); flush() end end
+-- The Crossroads step's flight path (step 13) is the only thing between: skip it as he had it.
+for _ = 1, 3 do if E.GetLiveStep() < 16 then E.Skip(); flush() end end
 w.moveTo(1413, 55.08, 41.61); stub.advance(0.6); stub.advance(0.6)
 local v, x = E.GetWhileHere(), E.GetWaypoint()
 local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
@@ -365,7 +365,7 @@ local function report()
 end
 emit({{ live = E.GetLiveStep(), arrow = x.stepIndex, arrowYards = wc == c and math.floor(((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5) or false,
 	step = v and v.step or false, index = v and v.index or false, text = v and v.hereText or false, yards = v and v.yards or false,
-	zhevra = cands():find("18:1:work", 1, true) ~= nil, report = report() }})
+	zhevra = cands():find("19:1:work", 1, true) ~= nil, report = report() }})
 -- At the oasis' north edge both show at once: the hooves first (the route's next steps), then the spores.
 w.moveTo(1413, 55.0, 40.5); stub.advance(0.6); stub.advance(0.6)
 emit(lines())
@@ -381,11 +381,11 @@ local function rowOf(step)
 	return nil
 end
 local before = chimes()
-E.DismissWhileHere(rowOf(39)); flush()
-local gone = rowOf(39) == nil
+E.DismissWhileHere(rowOf(27)); flush()
+local gone = rowOf(27) == nil
 w.moveTo(1413, 55.0, 38.7); stub.advance(0.6); stub.advance(121)
 w.moveTo(1413, 55.0, 40.5); stub.advance(0.6); stub.advance(0.6)
-emit({{ gone = gone, back = rowOf(39) ~= nil, chimed = chimes() > before }})
+emit({{ gone = gone, back = rowOf(27) ~= nil, chimed = chimes() > before }})
 -- Fitz on 0.3.5 at 60 yd: among four Zhevra Runners just north of the oasis, no line. Their camp there is an
 -- alternative spot (54.5,38, 59 yd across) 33 yd off; the nearest of the guide's picked spots is 94 yd off.
 Polestar.Set("behavior.whileHereRadius", 60); flush()
@@ -401,11 +401,11 @@ emit({{ here(), report() }})
 -- 393 yd: the row measured to a zone-wide area's edge. Now the row, the reach and the arrow use the spot's centre.
 Polestar.Set("behavior.whileHereRadius", 180); flush()
 local function zhevra()
-	for i, v in ipairs(E.GetWhileHereList()) do if v.step == 18 then return i, v end end
+	for i, v in ipairs(E.GetWhileHereList()) do if v.step == 19 then return i, v end end
 	return nil
 end
 local function nearest()
-	local goal = E.AlongGoal(18, 1)
+	local goal = E.AlongGoal(19, 1)
 	local c, px, py = Polestar.Compat.GetPlayerWorldPosition()
 	local best
 	for _, s in ipairs(goal.spots) do
@@ -433,21 +433,21 @@ emit({{ nearest = math.floor(nearest()), row = row, after = after and after.yard
 		loads.join("\n")
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() });
-	assert_eq!(out[0]["live"], 15, "the Razormane camp step is live");
-	assert_eq!(out[0]["arrow"], 15, "the arrow stays on the live step");
+	assert_eq!(out[0]["live"], 16, "the Razormane camp step is live");
+	assert_eq!(out[0]["arrow"], 16, "the arrow stays on the live step");
 	assert!(out[0]["arrowYards"].as_f64().unwrap() > 500.0, "the camp is far off: {}", out[0]);
-	assert_eq!(out[0]["step"], 39, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
+	assert_eq!(out[0]["step"], 27, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
 	assert_eq!(out[0]["text"], "Collect Fungal Spores from Laden Mushroom, 1 more", "{}", out[0]);
 	assert_eq!(out[0]["yards"], 55, "to the centre of the mushrooms' spawn spot at the oasis: {}", out[0]);
 	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too; the spores, found in fewer places, come first: {}", out[0]);
 	let shown = out[0]["report"].as_str().unwrap();
-	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 39) · 55 yd"), "{shown}");
+	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 27) · 55 yd"), "{shown}");
 	assert!(shown.contains(" · radius 180 yd · "), "{shown}");
 	let both = out[1].as_str().unwrap();
-	assert!(both.starts_with("18:1:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("39:3:")), "hooves (the route's next steps) then spores (later in the guide) at the oasis edge: {both}");
+	assert!(both.starts_with("19:1:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("27:3:")), "hooves (the route's next steps) then spores (later in the guide) at the oasis edge: {both}");
 	assert_eq!(out[2], json!({ "gone": true, "back": true, "chimed": true }), "dismissed, 120 yd off, back at the same pool after two minutes: {}", out[2]);
-	assert_eq!(out[3], json!("18:1 Collect Zhevra Hooves, 4 more 35"), "Fitz among the runners north of the oasis, their camp's centre 33 yd off");
-	assert_eq!(out[4], json!("18:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
+	assert_eq!(out[3], json!("19:1 Collect Zhevra Hooves, 4 more 35"), "Fitz among the runners north of the oasis, their camp's centre 33 yd off");
+	assert_eq!(out[4], json!("19:1 Collect Zhevra Hooves, 4 more 0"), "at a runner camp the zhevra show");
 	assert_eq!(out[5][0], json!("none"), "ready to hand in: no line");
 	let none = out[5][1].as_str().unwrap();
 	assert!(none.starts_with("While here: none · radius 60 yd · ") && none.contains("nearest quest 845, step ") && none.ends_with("out of radius"), "{none}");
@@ -455,7 +455,7 @@ emit({{ nearest = math.floor(nearest()), row = row, after = after and after.yard
 	assert!(camp["nearest"].as_f64().unwrap() > 180.0, "no Zhevra spot within 180 yd of the camp: {camp}");
 	assert_eq!(camp["shown"], false, "so no hooves row at the camp: {camp}");
 	let road = &out[7];
-	assert_eq!(road["step"], 18, "the arrow leads to the hooves: {road}");
+	assert_eq!(road["step"], 19, "the arrow leads to the hooves: {road}");
 	let (row, after, arrow) = (road["row"].as_f64().unwrap(), road["after"].as_f64().unwrap(), road["arrow"].as_f64().unwrap());
 	assert!((row - arrow).abs() <= 5.0 && (after - arrow).abs() <= 5.0, "the row and the arrow say the same yards: {road}");
 }
@@ -918,9 +918,9 @@ emit({{ seer = seer, camp = camp, report = report, calls = table.concat(calls, "
 }
 
 // The Barrens as shipped: an Orc Warrior at 14, in from Far Watch Post on the road west, 60 yd past Thun'grim Firegaze
-// (5878) with his breadcrumb (1502, "Thun'grim Firegaze") ready, while the guide's step 3 sends him 449 yd on to the
-// Crossroads and step 4 brings him back east. The whole visit shows, and the quest named after its NPC is not said
-// twice ("… to them"). At his window 1502 is handed in and Forged Steel (1503) taken ahead; step 4 reads done.
+// (5878) with his breadcrumb (1502, "Thun'grim Firegaze") ready, while the guide's step 4 sends him 449 yd on to the
+// Crossroads and step 5 brings him back east. The whole visit shows, and the quest named after its NPC is not said
+// twice ("… to them"). At his window 1502 is handed in and Forged Steel (1503) taken ahead; step 5 reads done.
 #[test]
 fn barrens_thungrim_firegaze_a_quest_named_after_its_npc_is_handed_in_to_them() {
 	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
@@ -964,8 +964,8 @@ w.moveTo(1413, 56.64, 30.42); stub.advance(0.6); stub.advance(0.6)
 local rows = {{}}
 for _, v in ipairs(E.GetWhileHereList()) do rows[#rows + 1] = v.step .. ":" .. v.index .. " " .. v.hereText end
 local live = E.GetLiveStep()
--- The guide window's row for step 4's hand-in: the quest, no "at Thun'grim Firegaze" after it.
-local g4 = E.GetStepView(4).goals[1]
+-- The guide window's row for step 5's hand-in: the quest, no "at Thun'grim Firegaze" after it.
+local g4 = E.GetStepView(5).goals[1]
 local row4 = {{ verb = g4.verb, subject = g4.subject, detail = g4.detail or false }}
 w.moveTo(1413, 57.2, 30.35); stub.advance(0.6); stub.advance(0.6)
 w.calls = {{}}
@@ -973,16 +973,16 @@ w.questProgress(5878, 1502); flush()
 w.questDetail(5878, 1503); flush()
 local calls = {{}}
 for _, x in ipairs(w.calls) do if x[1] == "AcceptQuest" or x[1] == "GetQuestReward" then calls[#calls + 1] = x[1] .. " " .. tostring(x[2]) end end
-emit({{ live = live, rows = rows, row4 = row4, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(4, 1), E.GoalDone(4, 2) }} }})
+emit({{ live = live, rows = rows, row4 = row4, calls = table.concat(calls, ", "), after = E.GetLiveStep(), done = {{ E.GoalDone(5, 1), E.GoalDone(5, 2) }} }})
 "#,
 		loads.join("\n")
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() }).remove(0);
-	assert_eq!(out["live"], 3, "the Crossroads step is live: {out}");
-	let visit = "4:1 Hand in “Thun'grim Firegaze” to them, then take “Forged Steel”: saves a trip back";
+	assert_eq!(out["live"], 4, "the Crossroads step is live: {out}");
+	let visit = "5:1 Hand in “Thun'grim Firegaze” to them, then take “Forged Steel”: saves a trip back";
 	assert!(out["rows"].as_array().unwrap().iter().any(|r| r == visit), "{out}");
 	assert_eq!(out["calls"], "GetQuestReward 1502, AcceptQuest 1503", "{out}");
-	assert_eq!(out["after"], 3, "{out}");
+	assert_eq!(out["after"], 4, "{out}");
 	assert_eq!(out["done"], json!([true, true]), "{out}");
 	assert_eq!(out["row4"], json!({ "verb": "Turn in", "subject": "Thun'grim Firegaze", "detail": false }), "{out}");
 }
@@ -1201,7 +1201,7 @@ local after = { rows = rows(), live = E.GetLiveStep(), crossDone = E.GoalDone(cr
 -- 872's objectives at the Razormane camp's western half, the crates (the live step) further east.
 go(56.8, 24.6)
 local camp = rows()
--- The crates found: the route goes to Thork for their hand-in (17), and on past it once handed in.
+-- The crates found: the route goes to Thork for their hand-in (18), and on past it once handed in.
 w.progress(5041, 1, 1); flush(); stub.advance(0.6)
 local atCross = E.GetLiveStep()
 w.turnIn(5041); flush(); stub.advance(0.6)
@@ -1215,15 +1215,15 @@ fn barrens_walking_up_to_thork_the_disruption_ends_is_a_pick_up_line_with_auto_a
 		let Some(out) = thork("871", "", &THORK_TAKE.replace("AUTO", if auto { "true" } else { "false" })) else { return };
 		let take = format!("{}:", out["cross"]);
 		let is_take = |l: &Value| l.as_str().is_some_and(|l| l.starts_with(&take) && l.contains("Take “The Disruption Ends” from Thork: saves a trip back"));
-		assert_eq!(out["live"], 15, "the Razormane camp step is live: {out}");
+		assert_eq!(out["live"], 16, "the Razormane camp step is live: {out}");
 		assert!(!list(&out["far"]).iter().any(is_take), "450 yd east: no pick-up: {out}");
 		assert!(list(&out["near"]).iter().any(is_take), "at Thork, auto-accept {auto}: the pick-up line: {out}");
 		assert_eq!(out["arrow"], format!("{}:{}", out["cross"], 5), "a click points the arrow at Thork's accept: {out}");
 		let after = &out["after"];
 		assert_eq!(after["on872"], true, "taken: {out}");
 		assert!(!list(&after["rows"]).iter().any(is_take), "the line goes once it is taken: {out}");
-		assert_eq!(after["live"], 15, "the live step stays: {out}");
-		assert_eq!(after["crossDone"], true, "step 17's accept reads done: {out}");
+		assert_eq!(after["live"], 16, "the live step stays: {out}");
+		assert_eq!(after["crossDone"], true, "step 18's accept reads done: {out}");
 		assert_eq!(after["handinDone"], false, "the hand-in stays where the guide has it: {out}");
 		assert!(out["handin"].as_u64().unwrap() > out["cross"].as_u64().unwrap() + 5, "{out}");
 		assert!(list(&out["camp"]).iter().any(|l| l.as_str().is_some_and(|l| l.contains("Razormane Geomancer") || l.contains("Razormane Defender"))), "872's kills come up at the camp: {out}");
