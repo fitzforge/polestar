@@ -1393,14 +1393,16 @@ function Nav.GetKnownTaxiNodes()
 end
 
 -- The flight masters on continent c this character may fly from (its
--- faction's or neutral, its class's) whose flight path it has not learned
--- (the Engine's "Learn the flight path" lines): their nodes into `out`
--- (cleared first, reused). -> out
+-- faction's or neutral) whose flight path it has not learned (the Engine's
+-- "Learn the flight path" lines): their nodes into `out` (cleared first,
+-- reused). Never a class's own flight (the Druids' at Nighthaven, node.class):
+-- its master flies the class from the gossip and has no flight path to learn
+-- (#2079), and the planner counts it known already.
 function Nav.UnknownTaxiOn(c, out)
 	if playerFaction == 0 then refreshFaction() end
 	local known, n = knownNodes(), 0
 	for _, node in ipairs(taxiList) do
-		if node.c == c and not known[node.id] and allowed(node.faction, playerFaction, node.class) then
+		if node.c == c and not node.class and not known[node.id] and allowed(node.faction, playerFaction, node.class) then
 			n = n + 1
 			out[n] = node
 		end

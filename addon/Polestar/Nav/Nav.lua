@@ -301,13 +301,15 @@ end
 -- the Spirit Healer) over every other target until Nav.Unhold: the guide's
 -- step and waypoint changes, and points picked by hand or set by other
 -- addons, go on underneath and show again once it lets go (a picked point
--- only while the step is the same, as always). Returns the held target, or
--- nil for a bad point.
-function Nav.Hold(map, x, y, label, f)
+-- only while the step is the same, as always). `z`: the floor's height there,
+-- optional (a corpse in a basement, #2106), so the walk ends on it. Returns
+-- the held target, or nil for a bad point.
+function Nav.Hold(map, x, y, label, f, z)
 	map, x, y = tonumber(map), tonumber(x), tonumber(y)
 	if not (map and x and y) then return nil end
 	hold = {
 		map = map, x = x, y = y, f = f,
+		z = type(z) == "number" and z or nil,
 		label = (label and label ~= "") and label or L["Waypoint"],
 		kind = "manual",
 		r = Nav.DEFAULT_RADIUS,

@@ -345,6 +345,30 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	assert_eq!(warrior["row"], "Accept “|cffffd673The Great Cat Spirit|r”");
 }
 
+// Discord (a Rogue on The Horn of Xelthos, 78261): the card read "ROGUE · LEVEL 1". The quest is level 23 and any
+// level may take it (minLevel 1); the head showed the minimum. It shows the quest's own level, and the minimum only
+// when there is no level and the minimum is one (above 1).
+#[test]
+fn the_class_card_shows_the_quest_s_level_not_a_minimum_of_1_horn_of_xelthos() {
+	let out = run_card(
+		r#"
+		local function horn(fields)
+			local accept = { verb = "Accept", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, objName = "Dead Drop", map = 1421, x = 46.5, y = 73.5, status = "active" }
+			for k, v in pairs(fields) do accept[k] = v end
+			uistub.guides["test/horn"] = { id = "test/horn", pack = "guides", title = "The Horn of Xelthos", minLevel = 23, maxLevel = 26,
+				category = "Class", zone = 1421, zoneName = "Silverpine Forest", author = "Polestar", version = 1, steps = {
+				{ title = "C's dead drop", goals = { G("accept", accept) } },
+				{ title = "Back", goals = { G("turnin", { verb = "Turn in", subject = "The Horn of Xelthos", subjectKind = "quest", quest = 78261, object = 410369, map = 1421, x = 46.5, y = 73.5, status = "pending" }) } },
+			} }
+			uistub.setGuide("test/horn", 1)
+			return card().head
+		end
+		uistub.player.class, uistub.player.race, uistub.player.level = "ROGUE", "Human", 23
+		emit({ quest = horn({ minLevel = 1, qlvl = 23 }), noLevel = horn({ minLevel = 1 }), minOnly = horn({ minLevel = 20 }) })"#,
+	);
+	assert_eq!(out[0], json!({ "quest": "ROGUE · LEVEL 23", "noLevel": "ROGUE", "minOnly": "ROGUE · LEVEL 20" }));
+}
+
 // Only the quest data makes a class quest (UI/ClassRewards.lua's class mask), never a line's
 // `only`: Michael's report (#812) had `only !Paladin` lines taken for the reader's own class quest
 // (a Mage told to learn Redemption at Tirisfal's 99152, Warriors in Durotar carded for Vile

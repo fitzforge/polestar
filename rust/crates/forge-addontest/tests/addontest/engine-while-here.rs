@@ -1896,6 +1896,33 @@ fn t_2003_the_live_step_s_own_flight_path_is_no_while_you_re_here_line() {
 	assert_eq!(out[1], json!([[1, -2, 4, "getfp", "Learn the flight path at Neutral Post", "Flight path"]]));
 }
 
+// #2079 (DexeeXI, a Skyborne Druid in Moonglade): While you're here asked a Druid to learn the flight path at
+// Nighthaven, where Bunthen Plainswind flies Druids to Thunder Bluff from his gossip: a class's own flight master has
+// no flight path to learn, so the line never went. A Druid beside the Druids' grove sees no line for it;
+// Goldshire's, 49 yd off, still shows.
+#[test]
+fn t_2079_a_class_s_own_flight_master_is_never_a_flight_path_to_learn_even_for_that_class() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}w.class, w.className, w.classID = \"DRUID\", \"Druid\", 11\n"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml"])],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/fly" }"#.into())],
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			FLY_GUIDE,
+			HELPERS,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			FLY_NODES,
+			"at(48.4, 40.4) -- 14 yd from the Druids' grove\nemit(fly())",
+		]
+		.join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out, vec![json!([[1, -2, 2, "getfp", "Learn the flight path at Goldshire", "Step 2"]])], "Goldshire's, never the grove's");
+}
+
 // Fitz-style, on the addon's own travel data (Nav/TravelData.lua): a Dwarf walking through Thelsamar on Loch Modan's
 // way in, its flight path not learned, sees "Learn the flight path at Thelsamar", the guide's later getfp step under
 // it; a Tauren passing Sun Rock Retreat in Stonetalon sees Sun Rock's; neither sees the other side's. The maps'

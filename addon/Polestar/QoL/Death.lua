@@ -6,8 +6,9 @@
 -- (#1382). A point picked before dying (a map click, /way, another addon's)
 -- comes back once alive, if the guide is still on the same step. The arrow's
 -- route to either is planned like any target (Nav/Travel.lua walks a ghost
--- there on foot), and it shows even while the guide window is hidden with the
--- arrow (Nav.HiddenWithGuide).
+-- there on foot), the corpse on the floor the character died on (a basement
+-- or a cave below the ground at its point, #2106), and it shows even while
+-- the guide window is hidden with the arrow (Nav.HiddenWithGuide).
 --
 -- Cost of each choice in seconds: the run (ghost run speed) and, for the
 -- Spirit Healer, resurrection sickness. That is the length the game last gave
@@ -168,12 +169,31 @@ end
 
 -- Where the character died, when in a dungeon or raid (QoL.State().diedIn =
 -- { map }), kept until alive: once released outside, the corpse is on no map
--- the client answers for, so the run back is to the instance's entrance.
+-- the client answers for, so the run back is to the instance's entrance. And
+-- the floor it died on (QoL.State().diedAt = { c, wx, wy, z }: Walk.Floor,
+-- the client's height, else the floor the arrow followed): a corpse in a
+-- basement or cave lies below the ground at its point, and without its
+-- floor the way back ended on the hill above it (#2106).
 local function noteDeathPlace()
 	local C = ns.Compat
 	local inside, kind = C.IsInInstance()
 	local map = inside and (kind == "party" or kind == "raid") and C.GetInstanceMapID and C.GetInstanceMapID() or nil
-	QoL.State().diedIn = map and { map = map } or nil
+	local state = QoL.State()
+	state.diedIn = map and { map = map } or nil
+	local pc, px, py = C.GetPlayerWorldPosition()
+	local W = ns.Nav and ns.Nav.walk
+	local z = pc and W and W.Floor and W.Floor(pc, px, py)
+	state.diedAt = type(z) == "number" and { c = pc, wx = px, wy = py, z = z } or nil
+end
+
+-- The floor under a corpse at (c, wx, wy): the one the character died on,
+-- when the corpse lies where it died (within CORPSE_YARDS); else nil.
+local CORPSE_YARDS = 10
+local function corpseFloor(c, wx, wy)
+	local at = QoL.State().diedAt
+	if type(at) ~= "table" or at.c ~= c or type(at.z) ~= "number" or not (wx and wy and at.wx and at.wy) then return nil end
+	if (wx - at.wx) ^ 2 + (wy - at.wy) ^ 2 > CORPSE_YARDS * CORPSE_YARDS then return nil end
+	return at.z
 end
 
 ---------------------------------------------------------------------------
@@ -233,7 +253,7 @@ local function point(a)
 	if mine and a.choice == current then return end
 	local C = ns.Compat
 	if a.choice == "corpse" then
-		mine = Nav.Hold(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"])
+		mine = Nav.Hold(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"], nil, a.corpseZ)
 	else
 		-- Live percent on the healer's own map; Era frame if the client cannot convert.
 		local x, y = C.WorldToMap(a.healerC, a.healerWX, a.healerWY, a.healerMap)
@@ -299,6 +319,7 @@ function Death.Update()
 	advice.healerYards, advice.healerSeconds = healerYards, hs
 	advice.corpseC, advice.corpseWX, advice.corpseWY = corpseYards and cc, cwx, cwy
 	advice.corpseMap, advice.corpseX, advice.corpseY, advice.via = cmap, cx, cy, via
+	advice.corpseZ = not via and cc and corpseFloor(cc, cwx, cwy) or nil
 	advice.healerC, advice.healerWX, advice.healerWY = hc, hwx, hwy
 	advice.healerMap, advice.healerEX, advice.healerEY = hmap, hx, hy
 	advice.note = noteFor(advice)
@@ -345,7 +366,10 @@ Death.Check = check
 -- length, again a second later in case it lands after the event.
 local function alive()
 	check()
-	if not isGhost() and not readable(UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then QoL.State().diedIn = nil end
+	if not isGhost() and not readable(UnitIsDeadOrGhost and UnitIsDeadOrGhost("player")) then
+		local state = QoL.State()
+		state.diedIn, state.diedAt = nil, nil
+	end
 	if not QoL.On("deathHelper") or isGhost() then return end
 	readSickness()
 	if C_Timer and C_Timer.After then ns.After(1, readSickness) end

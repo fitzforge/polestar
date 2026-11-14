@@ -115,3 +115,30 @@ fn a_ghost_s_arrow_once_alive_after_a_step_change_is_the_new_step_s_not_a_point_
 	"#);
 	assert_eq!(out, vec![json!("Your corpse"), json!("Your corpse"), json!("Accept “Q2”")]);
 }
+
+// #2106 (Agentringmuskel, the basement under Shadowvale's ruined house): the way back led over the hill above the
+// basement, where the corpse lay below ground: the corpse point carried no floor. The floor the character died on
+// (Walk.Floor: the client's height here, else the floor the arrow followed) goes with the corpse, so the walk ends
+// on it; a corpse the client places away from where the character died gets none.
+#[test]
+fn the_way_back_to_a_corpse_below_ground_carries_the_floor_the_character_died_on_2106() {
+	let out = run(r#"
+		zNow = -42.5
+		function UnitPosition(unit) if unit == "player" and zNow then return 0, 0, zNow, 1415 end end
+		corpseAt = { 40, 60 } -- where the character stands
+		dead = true; stub.fire("PLAYER_DEAD"); flush()
+		zNow = 31.0
+		dead, ghost = false, true; stub.world.moveTo(1429, 30, 70); stub.fire("PLAYER_ALIVE"); flush()
+		local t = Nav.GetTarget()
+		emit({ label = t and t.label or false, z = t and t.z or false })
+		ghost, corpseAt = false, nil; stub.fire("PLAYER_UNGHOST"); flush()
+		zNow = -42.5
+		corpseAt = { 46, 46 } -- placed far from where it died
+		dead = true; stub.fire("PLAYER_DEAD"); flush()
+		dead, ghost = false, true; stub.fire("PLAYER_ALIVE"); flush()
+		t = Nav.GetTarget()
+		emit({ label = t and t.label or false, z = t and t.z or false })
+	"#);
+	assert_eq!(out[0], json!({ "label": "Your corpse", "z": -42.5 }), "the floor it died on");
+	assert_eq!(out[1], json!({ "label": "Your corpse", "z": false }), "a corpse away from the death spot: no floor");
+}

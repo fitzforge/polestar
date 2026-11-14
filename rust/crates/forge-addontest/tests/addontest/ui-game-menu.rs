@@ -460,6 +460,72 @@ fn with_ellesmereuis_skin_the_button_mirrors_its_neighbours_flat_dark_look_in_co
 	assert_eq!(out["kept"], true);
 }
 
+/// ClassicUI Forever's game menu (its Options/GameMenu.lua, read for this test, not copied): when the menu shows it
+/// fades each pooled button's three slices, sets its own red 1.x panel button as the button's state textures, sizes
+/// it 144 by 23 and lays the menu out again; the first time it also hooks InitButtons to do the same, and does it
+/// once more right then.
+const CLASSIC_SKIN: &str = r#"
+local function classic(b)
+	for _, k in ipairs({ "Left", "Middle", "Right" }) do b[k]:SetAlpha(0) end
+	b:SetNormalTexture("Interface\\Buttons\\UI-Panel-Button-Up")
+	b:SetPushedTexture("Interface\\Buttons\\UI-Panel-Button-Down")
+	b:SetHighlightTexture("Interface\\Buttons\\UI-Panel-Button-Highlight")
+	b:SetSize(144, 23)
+end
+local function skinAll(menu)
+	for b in menu.buttonPool:EnumerateActive() do classic(b) end
+	menu:Layout()
+end
+local hooked = false
+GameMenuFrame:HookScript("OnShow", function(menu)
+	if not hooked then
+		hooked = true
+		hooksecurefunc(menu, "InitButtons", skinAll)
+		skinAll(menu)
+	end
+	skinAll(menu)
+end)
+"#;
+
+// Rovouko (#2109, with ClassicUI Forever): on the first opening of the game menu ours was a wide dark box among
+// ClassicUI's small red buttons; closed and opened again it was right. It kept the size the menu's buttons had
+// before the skin sized them, and took the faded slices for EllesmereUI's flat skin. Now it follows the skin's
+// size each time the menu is laid out and takes the skin's own button art: on the first opening too.
+#[test]
+fn with_classicui_the_button_takes_its_red_art_and_size_on_the_first_opening_2109() {
+	let out = run_look(
+		CLASSIC_SKIN,
+		r#"
+local function look(b)
+	local slices = {}
+	for _, k in ipairs({ "Left", "Middle", "Right" }) do slices[#slices + 1] = b[k] and b[k]:GetAlpha() or "none" end
+	local inset = false
+	for _, c in ipairs(b.children) do if c:IsShown() and c.kind == "Frame" then inset = true end end
+	local n, p = b:GetNormalTexture(), b:GetPushedTexture()
+	return { slices = table.concat(slices, " "), normal = n and n:GetTexture() or false, pushed = p and p:GetTexture() or false,
+		size = { b:GetWidth(), b:GetHeight() }, inset = inset }
+end
+local function shop()
+	for b in GameMenuFrame.buttonPool:EnumerateActive() do if b:GetText() == "Shop" then return b end end
+end
+GameMenuFrame:Show()
+local first = { polestar = look(PolestarGameMenuButton), shop = look(shop()), order = stub.order() }
+GameMenuFrame:Hide() GameMenuFrame:Show()
+local again = look(PolestarGameMenuButton)
+emit({ first = first, again = again, order = stub.order(), touched = table.concat(stub.menuTouched, " "), kept = stub.pooledKept() })
+"#,
+	);
+	let want = json!({ "slices": "0 0 0", "normal": "Interface\\Buttons\\UI-Panel-Button-Up", "pushed": "Interface\\Buttons\\UI-Panel-Button-Down", "size": [144, 23], "inset": false });
+	assert_eq!(out["first"]["shop"], want, "the stub skinned Shop");
+	assert_eq!(out["first"]["polestar"], want, "ours as Shop on the first opening");
+	assert_eq!(out["again"], want, "and on the next");
+	let order = "Options, Shop, Polestar +20, AddOns +20, Edit Mode, Support, Macros, Log Out +20, Exit Game, Return to Game +20";
+	assert_eq!(out["first"]["order"], order, "laid out at the skin's size on the first opening");
+	assert_eq!(out["order"], order, "and on the next");
+	assert_eq!(out["touched"], "", "nothing of the menu's is laid out or restyled from addon code");
+	assert_eq!(out["kept"], true);
+}
+
 // Architecture v3: a left click opens the guide menu, a right click the settings window (and closes the game menu).
 #[test]
 fn a_right_click_on_the_polestar_button_opens_the_settings_window() {

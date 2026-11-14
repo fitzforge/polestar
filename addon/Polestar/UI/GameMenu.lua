@@ -18,11 +18,14 @@
 -- GameMenuFrameButtonTemplate: the plain client's red three-slice button),
 -- so it looks like its neighbours. A skin that restyles the menu's pooled
 -- buttons (EllesmereUI's flat dark buttons) never reaches ours, so each time
--- the menu opens ours mirrors the button it follows, read only: a template
--- texture hidden there is hidden on ours, the label takes its font and
--- colour, and a skinned neighbour (its three slices hidden) gets a flat
--- inset of ours behind the label in the skin's colour and border (when
--- EllesmereUI is loaded, through its own border function on our frame).
+-- the menu opens, and each time it is laid out again (a skin that resizes its
+-- buttons lays it out after), ours mirrors the button it follows, read only:
+-- its size, a template texture hidden there is hidden on ours, the label
+-- takes its font and colour, and a skinned neighbour (its three slices
+-- hidden) gets the skin's own button art when it set one (ClassicUI
+-- Forever's red 1.x button, #2109), else a flat inset of ours behind the
+-- label in the skin's colour and border (when EllesmereUI is loaded, through
+-- its own border function on our frame).
 --
 -- Taint: nothing of Blizzard's is written or moved. Our frames are made
 -- under UIParent and then set under the menu; the hook after InitButtons
@@ -117,10 +120,14 @@ local function ellesmereLast()
 	return nil
 end
 
+-- The template's three slices (BigRedThreeSlice names its middle Center; the
+-- older templates Middle).
+local SLICES = { "Left", "Middle", "Center", "Right" }
+
 -- A skinned menu button: its three-slice parts are there and hidden.
 local function skinned(r)
 	local parts = 0
-	for _, k in ipairs({ "Left", "Middle", "Right" }) do
+	for _, k in ipairs(SLICES) do
 		local t = r[k]
 		if type(t) == "table" and t.GetAlpha then
 			if (t:GetAlpha() or 1) > 0 then return false end
@@ -164,11 +171,62 @@ local function flatLook(b)
 	return look
 end
 
+-- The state art a skin set on the menu's button r over its faded slices
+-- (ClassicUI Forever's red 1.x button): r has a normal texture of its own.
+local STATES = { "Normal", "Pushed", "Highlight", "Disabled" }
+local function skinArt(r)
+	local n = type(r.GetNormalTexture) == "function" and r:GetNormalTexture()
+	return n and type(n.GetTexture) == "function" and n:GetTexture() ~= nil or false
+end
+
+-- Ours takes r's state textures (file, coordinates, blend mode).
+local function copyArt(b, r)
+	for _, s in ipairs(STATES) do
+		local get, set, mineOf = r["Get" .. s .. "Texture"], b["Set" .. s .. "Texture"], b["Get" .. s .. "Texture"]
+		local t = type(get) == "function" and get(r)
+		local file = t and type(t.GetTexture) == "function" and t:GetTexture()
+		if file and type(set) == "function" then
+			set(b, file)
+			local mine = type(mineOf) == "function" and mineOf(b)
+			if mine then
+				local c = type(t.GetTexCoord) == "function" and { t:GetTexCoord() } or {}
+				if #c == 8 then mine:SetTexCoord(unpack(c)) end
+				local blend = type(t.GetBlendMode) == "function" and t:GetBlendMode()
+				if blend then mine:SetBlendMode(blend) end
+			end
+		end
+	end
+end
+
+local function copyFont(b, r)
+	local mine, other = b:GetFontString(), r.GetFontString and r:GetFontString()
+	if mine and other then
+		local path, size, flags = other:GetFont()
+		if path then mine:SetFont(path, size, flags or "") end
+		local cr, cg, cb, ca = other:GetTextColor()
+		if cr then mine:SetTextColor(cr, cg, cb, ca or 1) end
+	end
+end
+
 -- Ours takes the look of the menu's button r (read only).
 function GameMenu.Mirror(b, r)
 	b, r = b or button, r or ref
 	if not (b and r) then return end
+	-- Its size: a skin may size the menu's buttons after the menu made them
+	-- (ClassicUI Forever: 144 by 23, #2109).
+	local w, h = r:GetWidth(), r:GetHeight()
+	if w and w > 0 and h and h > 0 and (w ~= b:GetWidth() or h ~= b:GetHeight()) then b:SetSize(w, h) end
 	local skin = skinned(r)
+	if skin and skinArt(r) then
+		for _, k in ipairs(SLICES) do
+			local t = b[k]
+			if type(t) == "table" and t.SetAlpha then t:SetAlpha(0) end
+		end
+		copyArt(b, r)
+		copyFont(b, r)
+		if look then look.frame:Hide(); look.hl:Hide() end
+		return
+	end
 	local theirs, n = textures(r), 0
 	for _, t in ipairs(textures(b)) do
 		if not (look and (t == look.hl)) then
@@ -177,13 +235,7 @@ function GameMenu.Mirror(b, r)
 			t:SetAlpha(skin and other and (other:GetAlpha() or 1) or 1)
 		end
 	end
-	local mine, other = b:GetFontString(), r.GetFontString and r:GetFontString()
-	if mine and other then
-		local path, size, flags = other:GetFont()
-		if path then mine:SetFont(path, size, flags or "") end
-		local cr, cg, cb, ca = other:GetTextColor()
-		if cr then mine:SetTextColor(cr, cg, cb, ca or 1) end
-	end
+	copyFont(b, r)
 	if not skin then
 		if look then look.frame:Hide(); look.hl:Hide() end
 		return
@@ -271,6 +323,11 @@ local function hook()
 		GameMenu.managed = true
 		hooksecurefunc(menu, "InitButtons", place)
 		menu:HookScript("OnShow", function() if button and button:IsShown() then GameMenu.Mirror() end end)
+		-- A skin that resizes the menu's buttons lays the menu out again
+		-- (ClassicUI Forever): ours follows them then.
+		if type(menu.Layout) == "function" then
+			hooksecurefunc(menu, "Layout", function() if button and button:IsShown() then GameMenu.Mirror() end end)
+		end
 		return
 	end
 	menu:HookScript("OnShow", GameMenu.Refresh)
