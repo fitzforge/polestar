@@ -2842,35 +2842,55 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				if q.truthy() && q.get("level").num() > 0.0 {
 					drop_level = q.get("level").num();
 				}
-				let split = elite_split(data, &candidates, &ctx.sides, pass_rares);
-				let normal = match &split {
-					Some((n, _)) => n.clone(),
-					None => candidates.clone(),
+				// The sources the goal names (`from`, `fromAlso`) among `cands` (located) and `srcs` (all the item's):
+				// (top, the second named beside it).
+				let pick_names = |cands: &[V], srcs: &[V]| -> Option<(V, Option<V>)> {
+					let widespread = cands.iter().filter(|s| num(s, "chance") >= 2.0).count() > MAX_NAMED_SOURCES;
+					let split = elite_split(data, cands, &ctx.sides, pass_rares);
+					let normal = match &split {
+						Some((n, _)) => n.clone(),
+						None => cands.to_vec(),
+					};
+					let named = match level_split(data, &normal, drop_level) {
+						Some((near, _)) => near,
+						None => normal,
+					};
+					// One or two located sources of one kind, each at FEW_SOURCES_BAR% or more, are where the item comes
+					// from whatever their chance: both are named (the Wooden Key, 44% and 45% from two Ancients, #1556).
+					// One or two creatures that are the item's only sources (every dropper located, no object, no
+					// vendor) are named at any chance: Kron's Amulet (10% from two crocolisks), Rackmore's Silver Key.
+					// Only when they spawn on a map in common, and their chances are all known or all unknown: an unknown
+					// one beside a known one is a stray record, often in another zone (a Loch Modan Seer beside Durotar's
+					// Burning Blade Cultists for the Reagent Pouch).
+					let maps_of = |s: &V| -> Vec<V> { data.spawns("npc", &s.get("id")).iter().map(|sp| sp.get("map")).collect() };
+					let known = srcs.iter().filter(|s| num(s, "chance") > 0.0).count();
+					let only = !srcs.is_empty()
+						&& srcs.len() <= 2
+						&& cands.len() == srcs.len()
+						&& srcs.iter().all(|s| s.get("kind").as_str() == Some("npc"))
+						&& vendors_of(&it).is_empty()
+						&& (known == 0 || known == srcs.len())
+						&& maps_of(&srcs[0]).iter().any(|m| srcs.iter().all(|s| maps_of(s).iter().any(|n| n.strict_eq(m))));
+					let few = cands.len() <= 2 && named.len() == cands.len() && named.iter().all(|c| c.get("kind").strict_eq(&named[0].get("kind")) && (only || num(c, "chance") >= FEW_SOURCES_BAR));
+					if widespread || named.is_empty() || !(cands.len() == 1 || num(&named[0], "chance") >= 50.0 || few) {
+						return None;
+					}
+					let next = named.get(1).filter(|n| n.get("kind").strict_eq(&named[0].get("kind")) && (num(n, "chance") >= 50.0 || few)).cloned();
+					Some((named[0].clone(), next))
 				};
-				let named = match level_split(data, &normal, drop_level) {
-					Some((near, _)) => near,
-					None => normal,
-				};
-				// One or two located sources of one kind, each at FEW_SOURCES_BAR% or more, are where the item comes
-				// from whatever their chance: both are named (the Wooden Key, 44% and 45% from two Ancients, #1556).
-				// One or two creatures that are the item's only sources (every dropper located, no object, no
-				// vendor) are named at any chance: Kron's Amulet (10% from two crocolisks), Rackmore's Silver Key.
-				// Only when they spawn on a map in common, and their chances are all known or all unknown: an unknown
-				// one beside a known one is a stray record, often in another zone (a Loch Modan Seer beside Durotar's
-				// Burning Blade Cultists for the Reagent Pouch).
-				let maps_of = |s: &V| -> Vec<V> { data.spawns("npc", &s.get("id")).iter().map(|sp| sp.get("map")).collect() };
-				let known = sources.iter().filter(|s| num(s, "chance") > 0.0).count();
-				let only = !sources.is_empty()
-					&& sources.len() <= 2
-					&& candidates.len() == sources.len()
-					&& sources.iter().all(|s| s.get("kind").as_str() == Some("npc"))
-					&& vendors_of(&it).is_empty()
-					&& (known == 0 || known == sources.len())
-					&& maps_of(&sources[0]).iter().any(|m| sources.iter().all(|s| maps_of(s).iter().any(|n| n.strict_eq(m))));
-				let few =
-					candidates.len() <= 2 && named.len() == candidates.len() && named.iter().all(|c| c.get("kind").strict_eq(&named[0].get("kind")) && (only || num(c, "chance") >= FEW_SOURCES_BAR));
-				if !widespread && !named.is_empty() && (candidates.len() == 1 || num(&named[0], "chance") >= 50.0 || few) {
-					let top = &named[0];
+				// The goal is placed on the step's map when a source spawns there (pick_spawn), so a better dropper
+				// elsewhere is not one it sends the player to: then the names come from the sources there (#2275: Call
+				// of Fire's Fire Tar in Loch Modan read "Kill Razormane Water Seeker or Razormane Thornweaver", the
+				// Barrens' droppers at 75%, over Loch Modan's Tunnel Rat Geomancers).
+				let zmap = if !g.get("coordMap").is_undef() { g.get("coordMap") } else { zone_map.clone() };
+				let on_zmap = |s: &V| !zmap.is_nullish() && data.spawns(&s.get("kind").to_js_string(), &s.get("id")).iter().any(|sp| sp.get("map").strict_eq(&zmap));
+				let mut names = pick_names(&candidates, &sources);
+				if names.as_ref().is_some_and(|(top, _)| !on_zmap(top)) && candidates.iter().any(&on_zmap) {
+					let here: Vec<V> = candidates.iter().filter(|s| on_zmap(s)).cloned().collect();
+					let here_srcs: Vec<V> = sources.iter().filter(|s| on_zmap(s)).cloned().collect();
+					names = pick_names(&here, &here_srcs);
+				}
+				if let Some((top, next)) = names {
 					let rec = if top.get("kind").as_str() == Some("npc") { data.npc(&top.get("id")) } else { data.object(&top.get("id")) };
 					if rec.truthy() && rec.get("name").truthy() {
 						goal.set("from", rec.get("name").to_js_string());
@@ -2884,13 +2904,11 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 								goal.set("fromFaction", rec.get("faction"));
 							}
 						}
-						if let Some(next) = named.get(1) {
-							if next.get("kind").strict_eq(&top.get("kind")) && (num(next, "chance") >= 50.0 || few) {
-								let nrec = if next.get("kind").as_str() == Some("npc") { data.npc(&next.get("id")) } else { data.object(&next.get("id")) };
-								if nrec.truthy() && nrec.get("name").truthy() && nrec.get("name").to_js_string() != goal.get("from").to_js_string() {
-									goal.set("fromAlso", nrec.get("name").to_js_string());
-									goal.set("fromAlsoId", next.get("id"));
-								}
+						if let Some(next) = next {
+							let nrec = if next.get("kind").as_str() == Some("npc") { data.npc(&next.get("id")) } else { data.object(&next.get("id")) };
+							if nrec.truthy() && nrec.get("name").truthy() && nrec.get("name").to_js_string() != goal.get("from").to_js_string() {
+								goal.set("fromAlso", nrec.get("name").to_js_string());
+								goal.set("fromAlsoId", next.get("id"));
 							}
 						}
 					}

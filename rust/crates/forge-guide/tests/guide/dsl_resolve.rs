@@ -198,6 +198,28 @@ fn an_item_whose_only_sources_are_two_mobs_names_both_at_any_chance() {
 	assert!(last_goal(&data, &["  collect 95125 x2"]).get("from").is_none(), "one chance known, one not: the 20% bar holds");
 }
 
+// #2275 (thmastin, Dwarf Shaman 12, Call of Fire in Loch Modan): the step read "Kill Razormane Water Seeker or
+// Razormane Thornweaver for Fire Tar", the Barrens' droppers at 75%, though the goal stood among Loch Modan's Tunnel
+// Rat Geomancers, the item's droppers there (the data has no chance for them). The goal is placed on the step's map
+// when a source spawns there, so its names come from the sources there; with none there, as before.
+#[test]
+fn a_collect_names_its_sources_on_the_step_s_map_not_better_droppers_elsewhere_2275() {
+	let t = core_with(|t| {
+		let npcs = t.get_mut("npcs").unwrap();
+		npcs["95070"] = json!({ "id": 95070, "name": "Razormane Water Seeker", "level": 10, "faction": null, "spawns": { "1411": { "f": "e", "pts": camp(50.0, 50.0) } } });
+		npcs["95071"] = json!({ "id": 95071, "name": "Razormane Thornweaver", "level": 10, "faction": null, "spawns": { "1411": { "f": "e", "pts": camp(52.0, 51.0) } } });
+		npcs["95072"] = json!({ "id": 95072, "name": "Tunnel Rat Geomancer", "level": 12, "faction": null, "spawns": { "1429": { "f": "e", "pts": camp(60.0, 60.0) } } });
+		let items = t.get_mut("items").unwrap();
+		items["95130"] = item(95130, "Fire Tar", json!({ "95070": 75, "95071": 75, "95072": null }));
+		items["95131"] = item(95131, "Razormane Charm", json!({ "95070": 75, "95071": 75 }));
+	});
+	let data = data_from(&t, Value::Null, Value::Null);
+	let tar = last_goal(&data, &["  collect 95130"]);
+	assert_eq!(json!([tar["from"], tar["fromId"], tar["fromAlso"], tar["map"]]), json!(["Tunnel Rat Geomancer", 95072, null, 1429]), "the step's own map's dropper: {tar}");
+	let charm = last_goal(&data, &["  collect 95131"]);
+	assert_eq!(json!([charm["from"], charm["fromAlso"]]), json!(["Razormane Water Seeker", "Razormane Thornweaver"]), "none on the step's map: {charm}");
+}
+
 fn camp(x: f64, y: f64) -> Value {
 	json!([[x, y], [x + 0.3, y + 0.2], [x - 0.2, y + 0.3]])
 }
