@@ -198,7 +198,7 @@
 				387
 			],
 			"budget": {
-				"flow": "Stormwind +0.14 km, hub visits +2 (Thelwater at the gate, before and after the run), 04-redridge-mountains +0.2 km (Millstipe in Darkshire), no avoidable revisit"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 05-duskwood +0.9 km, +8.5 min, hub visits +1.0 (Warden Thelwater's gate on the closing Stormwind visit, the run and back); 04-redridge-mountains +0.3 km, +0.8 min, backtracks +1.0 (377's pick-up); 07-thousand-needles +0.2 min (377's hand-in); 06-wetlands -0.5 km, -1.4 min; the run's XP takes 18 min off 40-50/01-stranglethorn-vale's written grind; elsewhere only passed-giver counts move (at most 1.0)"
 			}
 		},
 		{
@@ -686,7 +686,7 @@
 				"1740": "Warlock class chain (class guide)"
 			},
 			"budget": {
-				"flow": "03-darkshore-return +0.1 km; 06-ashenvale +1.0 km, +6.2 min, hub visits +0 (Ruuzel <-> the ruins' pit, the run's own trip); 06-wetlands +0 km (Gershala beside Terenthis); no new passed enders (a hand-in on 06-ashenvale's way to the boat added one: moved)"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 06-ashenvale +0.8 km, +15.0 min (Ruuzel's shore to the ruins' pit, ~420 yd, the run and back); 03-loch-modan +0.3 km, +0.9 min, hub visits +0.4 (Gerrig Bonegrip in the Forlorn Cavern); 03-darkshore-return +0.1 km, +0.4 min (1275 in Auberdine); 04-redridge-mountains -0.1 km, -0.2 min; the run's XP takes 13 min off 40-50/01-stranglethorn-vale's written grind"
 			}
 		},
 		{
@@ -803,7 +803,7 @@
 				"95795": "Fallen in the Fen: for Dorin Songblade in Redridge, off the route after the run"
 			},
 			"budget": {
-				"flow": "06-wetlands +0.5 km, +4.5 min, hub visits +0; 30-40/01-hillsbrad-foothills +0.6 km (Rethiel, Whelgar), backtracks +1, avoidable 0; 06-ashenvale passed givers +1 (Halloran's 98815 at 24.85: 3.2 over, the level rule wins). Whelgar on the walk west and Magellas on the Ironforge stops came after this measurement: re-measure"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 06-wetlands +0.3 km, +5.2 min (the entrance ~130 yd off the road back west, Whelgar's dig on the way); 30-40/01-hillsbrad-foothills +0.5 km, +1.6 min, backtracks +1.0 (Rethiel's hand-in, Whelgar's and Magellas' for whoever still carries them); 06-ashenvale passed givers +1.0 (Halloran's 98815 at ~24.9: 3+ levels over, the level rule wins); the run's XP takes 14 min off 40-50/01-stranglethorn-vale's written grind"
 			},
 			"followUps": [
 				{
@@ -879,7 +879,7 @@
 				"96395": "An Ancient Grudge: starts and ends inside (the run tip names it)"
 			},
 			"budget": {
-				"flow": "02-westfall: moved from 03-loch-modan's Ironforge stop (~21) to the level players run it (0.4.0 route audit); the tram round trip from the Dwarven District for the non-Shaman classes is the added travel, re-measure with the flow audit"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 02-westfall +0.9 km, +16.6 min, hub visits +1.2 (the Deeprun Tram to Ironforge from the last Stormwind stop, the run and its hand-ins, the tram back; Shamans are in Ironforge already), avoidable backtracks +0.2; the run's XP takes 5 min off 40-50/01-stranglethorn-vale's written grind; elsewhere only passed-giver and hub-visit counts move (at most 1.2)"
 			}
 		},
 		{
@@ -976,7 +976,7 @@
 				"96603": "Unstable Magic: level 60"
 			},
 			"budget": {
-				"flow": "flow audit (dynamic 037, off vs this dungeon): 30-40/05-arathi-highlands +0.4 km, +5.5 min (the walk to the grate and back, the four steps), backtracks +1, hub visits +0; the run's XP takes 43 min off 40-50/01-stranglethorn-vale's written grind"
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 30-40/01-hillsbrad-foothills +2.6 km, +15.5 min (from the Syndicate camp west past the dome to Modera's camp, 1,427 yd, the grate and back), backtracks -3.0; 06-wetlands +0.5 km, +1.4 min, hub visits +1.0 (Shylamiir and High Sorcerer Andromath on the Stormwind stop); 30-40/04-stranglethorn-vale passed givers +3.0; the run's XP takes 69 min off 40-50/01-stranglethorn-vale's written grind"
 			},
 			"runStop": [
 				92457,
@@ -1094,7 +1094,9 @@
 				"2199": "Lore for a Price: Talvash's chain after the necklace (2199-2204), more trips into Uldaman",
 				"709": "Solution to Doom: Theldurin the Lost in the southern Badlands, off the route"
 			},
-			"budget": {},
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 40-50/02-badlands +2.0 min, backtracks +1.0 (the dig to the door, ~185 yd east, and back); 40-50/01-stranglethorn-vale +0.1 km, +0.6 min, hub visits +1.0 (Stormpike and Krom in the Hall of Explorers); 40-50/05-the-hinterlands +0.3 km, +0.8 min, hub visits +1.0 (the Ironforge hand-ins); the run's XP takes 3 and 7 min off the written grinds of 40-50/03-feralas and 40-50/07-un-goro-crater"
+			},
 			"checks": [
 				{
 					"status": "needs-ingame",
@@ -1154,7 +1156,9 @@
 				"3374": "The Essence of Eranikus, its second part: Itharius in the Swamp of Sorrows, off every route stop",
 				"1446": "Jammal'an the Prophet: the Atal'ai Exile in the Hinterlands, given and taken there"
 			},
-			"budget": {}
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/01-burning-steppes +1.4 km, +5.2 min (the Fallen Hero's camp to the door in the Pool of Tears, ~840 yd, and back); 40-50/05-the-hinterlands +0.2 min (Brohann's pick-up); 50-60/06-silithus hub visits +0.4 (Brohann's hand-in on the Stormwind stop); the run's XP takes 3 and 2 min off the written grinds of 50-60/02-felwood and 50-60/06-silithus"
+			}
 		},
 		{
 			"dungeon": "Stratholme",
@@ -1190,7 +1194,9 @@
 				}
 			],
 			"leftOut": {},
-			"budget": {},
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/06-silithus +1.4 km, backtracks +1.0 (Egan in Terrordale to the main gate, ~800 yd, and back), the guide 7.6 min shorter all told (the run's XP shortens its written top-up)"
+			},
 			"checks": [
 				{
 					"status": "needs-ingame",
@@ -1236,7 +1242,9 @@
 			"leftOut": {
 				"5505": "The Key to Scholomance: the end of Alchemist Arbington's chain, which this route finishes only at the end of the guide: the run tip says someone in the group needs the Skeleton Key"
 			},
-			"budget": {},
+			"budget": {
+				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/06-silithus +0.4 km, +3.4 min (Eva Sarkhoff and the door, beside Artist Renfray's stop)"
+			},
 			"checks": [
 				{
 					"status": "needs-ingame",
