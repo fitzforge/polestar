@@ -2260,7 +2260,6 @@ L["Glyphs only"] = "문양만"
 L["Use deathskips"] = "죽음 이동 사용"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "일부러 죽어서 영혼의 치유사에게 부활하는 편이 더 빠른 곳에서는 가이드가 그 단계를 표시합니다. 내구도가 줄고, 레벨 11부터는 부활 후유증이 생깁니다. 하드코어 캐릭터에서는 항상 꺼져 있습니다."
 L["Text size"] = "글자 크기"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."
 L["Numbered pins for the steps ahead"] = "앞 단계 번호 핀"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "다음 단계들이 안내하는 곳마다 단계 번호가 적힌 작은 핀을 표시하며, 멀수록 흐려집니다. 다음 목록에 표시되는 수만큼, 없으면 다섯 개."
 L["When a leveling guide ends"] = "레벨업 가이드가 끝나면"
@@ -3927,6 +3926,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Colour & frames"] = ""
 -- L["Text shadow"] = ""
 -- L["Shadow strength"] = ""
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
@@ -4026,6 +4026,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Stonefield Farm"] = ""
 -- L["Jasperlode Mine"] = ""
 -- L["Eastvale Logging Camp"] = ""
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 -- L["Alert line"] = ""
@@ -4532,3 +4533,4 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["Preview"] = "미리보기"
 -- L["Brill"] = "브릴"
 -- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "모든 Polestar 설정이 기본값으로 돌아갑니다. 가이드와 진행 상황은 유지됩니다."
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."

@@ -2261,7 +2261,6 @@ L["Glyphs only"] = "Glyphes seuls"
 L["Use deathskips"] = "Mourir pour gagner du temps"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "Là où mourir exprès et ressusciter auprès de l'esprit guérisseur vous y mène plus vite, le guide affiche une étape pour cela. Cela coûte de la durabilité et, à partir du niveau 11, du mal de résurrection. Toujours désactivé sur les personnages Hardcore."
 L["Text size"] = "Taille du texte"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "La taille du texte de Polestar, indépendamment de l'échelle de la fenêtre. S'applique aussitôt. Clic droit pour réinitialiser."
 L["Numbered pins for the steps ahead"] = "Repères numérotés des étapes à venir"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "Un petit repère avec son numéro d'étape là où chacune des étapes suivantes vous mène, plus pâle à mesure qu'elle est lointaine. Autant que À suivre en affiche, sinon cinq."
 L["%d KiB"] = "%d Kio"
@@ -3928,6 +3927,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Colour & frames"] = ""
 -- L["Text shadow"] = ""
 -- L["Shadow strength"] = ""
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
@@ -4027,6 +4027,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Stonefield Farm"] = ""
 -- L["Jasperlode Mine"] = ""
 -- L["Eastvale Logging Camp"] = ""
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 -- L["Alert line"] = ""
@@ -4580,3 +4581,4 @@ L["Part of the %s quests"] = "Fait partie des quêtes de %s"
 -- L["Preview"] = "Aperçu"
 -- L["Brill"] = "Brill"
 -- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "Chaque réglage de Polestar revient à sa valeur par défaut. Vos guides et votre progression sont conservés."
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "La taille du texte de Polestar, indépendamment de l'échelle de la fenêtre. S'applique aussitôt. Clic droit pour réinitialiser."

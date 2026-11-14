@@ -2260,7 +2260,6 @@ L["Glyphs only"] = "仅符号"
 L["Use deathskips"] = "使用死亡跳跃"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "如果故意死亡并接受灵魂医者的复活能更快到达，指南会为此显示一个步骤。这会损失耐久度，11级起还会有复活虚弱。专家模式角色始终关闭。"
 L["Text size"] = "文字大小"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"
 L["Numbered pins for the steps ahead"] = "为后续步骤显示编号图钉"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "在接下来每个步骤要去的地方显示带步骤编号的小图钉，越靠后越淡。数量与“接下来”显示的相同，否则为五个。"
 L["When a leveling guide ends"] = "练级指南结束时"
@@ -3927,6 +3926,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Colour & frames"] = ""
 -- L["Text shadow"] = ""
 -- L["Shadow strength"] = ""
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
@@ -4026,6 +4026,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Stonefield Farm"] = ""
 -- L["Jasperlode Mine"] = ""
 -- L["Eastvale Logging Camp"] = ""
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 -- L["Alert line"] = ""
@@ -4541,3 +4542,4 @@ L["Part of the %s quests"] = "%s任务之一"
 -- L["Preview"] = "预览"
 -- L["Brill"] = "布瑞尔"
 -- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "Polestar 的所有设置都将恢复默认。你的指南和进度会保留。"
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"

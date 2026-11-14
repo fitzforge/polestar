@@ -2260,7 +2260,6 @@ L["Glyphs only"] = "僅符號"
 L["Use deathskips"] = "使用死亡跑點"
 L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."] = "當故意死亡並接受靈魂醫者復活能更快抵達時，指南會顯示對應步驟。這會損耗耐久度，且從 11 級起會有復活虛弱。專家模式角色一律關閉。"
 L["Text size"] = "文字大小"
-L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
 L["Numbered pins for the steps ahead"] = "後續步驟的編號標記"
 L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = "在接下來每個步驟會帶你前往的地點顯示一個附步驟編號的小標記，越後面越淡。數量與「接下來」顯示的相同，否則為五個。"
 L["When a leveling guide ends"] = "升級指南結束時"
@@ -3927,6 +3926,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Colour & frames"] = ""
 -- L["Text shadow"] = ""
 -- L["Shadow strength"] = ""
+-- L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/GuideWindow.lua
 -- L["Kobold Vermin"] = ""
@@ -4026,6 +4026,7 @@ L["The quest item, Hearthstone, target and rare buttons, the travel button under
 -- L["Stonefield Farm"] = ""
 -- L["Jasperlode Mine"] = ""
 -- L["Eastvale Logging Camp"] = ""
+-- L["The size of the guide window's text, apart from its scale and the rest of Polestar's text (Theme > Text). The class quest card keeps that general size. Changes at once. Right-click to reset."] = ""
 
 -- UI/Looks/Toasts.lua
 -- L["Alert line"] = ""
@@ -4532,3 +4533,4 @@ L["Part of the %s quests"] = "%s任務之一"
 -- L["Preview"] = "預覽"
 -- L["Brill"] = "布瑞爾"
 -- L["Every Polestar setting goes back to its default. Your guides and progress are kept."] = "所有 Polestar 設定都會恢復預設值。你的指南與進度會保留。"
+-- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
