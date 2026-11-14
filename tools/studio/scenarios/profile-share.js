@@ -2,15 +2,15 @@
 // The Profiles page's Share tab (Polestar_Options/UI/Profiles.lua) in every
 // look at the game's UI scales 0.64, 1.0 and 1.5. Make a string: the
 // checklist of categories (every one ticked but Window positions, and the
-// line saying why), the Guide window's list open under its row, the string
-// made. Import: a pasted string's checklist, Window positions unticked as it
-// was made on another screen, the Guide window's list open (yours, then
-// theirs). The profile in use has settings off their defaults in most
-// categories; the string is a friend's, written here. The looks are the
-// built-in six and the skin addons in the download (skins.js's list,
-// without its variants), each picked as skins.js picks it. Shots:
-// <look>-export-<scale> and <look>-import-<scale> (studio
-// profile-share/hearth-import-0.64 ...); the close-up is the settings window.
+// line saying why), the Guide window's list open under its row. Import: a
+// pasted string's checklist, Window positions unticked as it was made on
+// another screen, the Guide window's list open (yours, then theirs). The
+// profile in use has settings off their defaults in most categories; the
+// string is a friend's, written here. The looks are the built-in six and the
+// skin addons in the download (skins.js's list, without its variants), each
+// picked as skins.js picks it. Shots: <look>-export-<scale> and
+// <look>-import-<scale> (studio profile-share/hearth-import-0.64 ...); the
+// close-up is the settings window.
 //
 // The UI scale: UIParent at that scale, its size in UI units the screen's
 // 1920 x 1080 over it, as the client has it (the settings window keeps its
@@ -64,11 +64,13 @@ stub.advance(1)
 local O, PV = Polestar.UI.Options, Polestar.UI.Profiles
 O.Select("profiles", Polestar.L["Share"])
 stub.advance(0.5)
-${part === 'export' ? `PV.Open("export", "window")
-PV.Export()` : `PV.Check(Polestar.Profiles.Pack(${luaStr(FRIEND)}))
+${part === 'export' ? 'PV.Open("export", "window")' : `local text = Polestar.Profiles.Pack(${luaStr(FRIEND)})
+PV.Check(text)
 PV.Open("import", "window")
 stub.advance(0.3)
 local v = PV.views[Polestar.L["Share"]]
+-- The box as a paste leaves it: the string's start and its size.
+v.PasteBox:SetText(text:sub(1, 40) .. "\\226\\128\\166 (" .. math.ceil(#text / 1024) .. " KB)")
 Polestar.Widgets.ScrollTo(PolestarOptions.Scroll, math.max(0, (v.ImportCard.psTop or 0) - 16))`}
 stub.advance(0.5)
 return PV.Shown()`;
