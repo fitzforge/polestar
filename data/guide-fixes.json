@@ -9415,6 +9415,55 @@
 				}
 			],
 			"issue": 2268
+		},
+		{
+			"id": "2243-look-to-the-stars-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 174,
+				"goal": "accept",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"split": {
+				"title": "Viktori Prism'Antras",
+				"tip": "Viktori Prism'Antras is in her house at the east end of town. Look to the Stars needs a Bronze Tube, so this step shows only while you carry one: without a tube the guide passes Viktori and her chain."
+			},
+			"note": "#2243 (Acrylic and one more player): Look to the Stars (174) needs a Bronze Tube, and players without one were held on its hand-in on 04-redridge-mountains' first Darkshire stop, which told them to skip it by hand; Herble Baubbletump, the town's vendor, had none in 44 merchant windows of 28 people (#1792) and the Stormwind Auction House buy before it is optional. 174's accept and hand-in are a step of their own, shown `when has 4371` (the item 174 asks for), and 175's accept a step `when turnedin 174`; both gates are lines of the seed's steps, which the writer keeps. This record keeps 174 off the main Darkshire step if a route round merges them; Blind Mary's and Viktori's later hand-ins (175, 177, 181) drop out on their own for a player who never took the chain (the engine's orphaned turn-ins, the accepts' prerequisites).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Herble Baubbletump had no Bronze Tube in 44 merchant windows of 28 people (#1792)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2243 and one more player: held on Look to the Stars' hand-in without a Bronze Tube"
+				}
+			],
+			"issue": 2243
+		},
+		{
+			"id": "2243-look-to-the-stars-part-2-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 175,
+				"goal": "accept",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"split": {
+				"title": "Viktori Prism'Antras"
+			},
+			"note": "#2243: Look to the Stars part 2 (175) is taken from Viktori after 174's hand-in, on a step of its own (`when turnedin 174` in the seed), since the Bronze Tube that gates 174's step is spent on its hand-in.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Herble Baubbletump had no Bronze Tube in 44 merchant windows of 28 people (#1792)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2243 and one more player: held on Look to the Stars' hand-in without a Bronze Tube"
+				}
+			],
+			"issue": 2243
 		}
 	]
 }

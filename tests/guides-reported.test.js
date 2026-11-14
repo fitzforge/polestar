@@ -2585,9 +2585,9 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 test(`${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional`, { skip }, () => {
 	const red = goals(REDRIDGE);
 	assert.ok(!red.some(({ goal }) => goal.t === 'buy' && goal.item === 4371), 'no buy in 04-redridge-mountains');
+	// (#2243: without a tube the guide passes Viktori's step on its own; see Acrylic's report below.)
 	const take = at(red, 'accept 174 (Look to the Stars)', is('accept', 174));
-	const darkshire = red[take].step;
-	assert.match(darkshire.note || '', /Without one, right-click the quest in the guide window and skip it/, 'the Darkshire step says to skip the quest without a tube');
+	assert.ok((red[take].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 4371), "Viktori's step only with a Bronze Tube");
 	const ash = goals('forever/alliance/06-ashenvale.guide');
 	const buy = at(ash, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
 	assert.equal(ash[buy].goal.npc, 5175, 'from Gearcutter Cogspinner');
@@ -5452,8 +5452,10 @@ test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, 
 	const stepIn = (l, what, t, q) => l[at(l, what, is(t, q))].s;
 	const stepOf = (what, t, q) => stepIn(list, what, t, q);
 	const first = stepIn(one, 'accept 101', 'accept', 101);
-	assert.equal(stepIn(one, 'turnin 174', 'turnin', 174), first, 'Look to the Stars handed in on the first Darkshire visit');
-	assert.equal(stepIn(one, 'accept 175', 'accept', 175), first, 'and its second part taken there');
+	// (#2243: Viktori's goals are steps of their own right after the main Darkshire step, gated on the Bronze Tube.)
+	const viktori = stepIn(one, 'turnin 174', 'turnin', 174);
+	assert.equal(viktori, first + 1, 'Look to the Stars handed in on the first Darkshire visit, right after its main step');
+	assert.equal(stepIn(one, 'accept 175', 'accept', 175), viktori + 1, 'and its second part taken there');
 	assert.equal(stepOf('turnin 175', 'turnin', 175), stepOf('turnin 149', 'turnin', 149), '175 handed to Blind Mary with Ghost Hair Thread');
 	const big = stepIn(one, 'turnin 101', 'turnin', 101);
 	assert.equal(stepIn(one, 'turnin 56', 'turnin', 56), big - 1, 'The Night Watch handed in on the Darkshire visit with the Totem of Infliction (the town hall, then Madame Eva)');
@@ -12801,5 +12803,29 @@ test('#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg\'s quest b
 		assert.ok(!list[give].goal.optional && !list[take].goal.optional, `${guide}: the hand-in and the follow-up hold the step`);
 		assert.equal(list[take].step, step, `${guide}: 95214 taken on the same step`);
 		assert.ok(take < at(list, 'powder at the lake', (g) => g.t === 'collect' && g.item === 267415), `${guide}: before Helm's Bed Lake`);
+	}
+});
+
+// Acrylic (#2243, Gnome Warlock 26) and one more player: 04-redridge-mountains' first Darkshire stop held them on Look
+// to the Stars' hand-in (174, a Bronze Tube) and told them to skip it by hand; Herble had no tube in 44 merchant windows
+// of 28 people (#1792) and the Auction House buy before Darkshire is optional. Viktori's goals are a step of their own,
+// shown only with a tube (174) or once 174 is handed in (175); without it the chain's later goals in 05-duskwood and
+// 07-thousand-needles don't hold either.
+test(`${REDRIDGE}: Acrylic's report (#2243): Look to the Stars is a step of its own, only with a Bronze Tube; the chain drops out without one`, { skip }, () => {
+	const red = goals(REDRIDGE);
+	const take = at(red, 'accept 174', is('accept', 174));
+	const part2 = at(red, 'accept 175', is('accept', 175));
+	assert.notEqual(red[take].s, red[at(red, 'accept 163', is('accept', 163))].s, "not on the main Darkshire step");
+	assert.ok((red[take].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 4371), 'only with a Bronze Tube');
+	assert.equal(red[at(red, 'turnin 174', is('turnin', 174))].s, red[take].s, 'handed in on the same step');
+	assert.ok((red[part2].step.when || []).some((p) => p.k === 'turnedin' && !p.neg), '175 only once 174 is handed in');
+	const warlock = { race: 'Gnome', raceName: 'Gnome', faction: 'Alliance', cls: 'WARLOCK', className: 'Warlock', level: 26 };
+	const without = questGoalStatus(REDRIDGE, 174, warlock);
+	assert.ok(without.length >= 2 && without.every((s) => / (skipped|na)$/.test(s)), `without a tube 174 is passed: ${without.join(', ')}`);
+	const withTube = questGoalStatus(REDRIDGE, 174, warlock, { skills: 'w.addItem(4371, 1)' });
+	assert.ok(withTube.every((s) => !/ (skipped|na)$/.test(s)), `with a tube 174 is open: ${withTube.join(', ')}`);
+	for (const [guide, q] of [['forever/alliance/05-duskwood.guide', 175], ['forever/alliance/05-duskwood.guide', 177], [THOUSAND_NEEDLES, 177], [THOUSAND_NEEDLES, 181]]) {
+		const st = questGoalStatus(guide, q, { ...warlock, level: q === 181 ? 30 : 27 });
+		assert.ok(st.length >= 1 && st.every((s) => / (skipped|na)$/.test(s)), `${guide}: ${q} drops out without the chain: ${st.join(', ')}`);
 	}
 });
