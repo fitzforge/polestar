@@ -26,6 +26,7 @@
 	<Script file="DungeonToast.lua"/>
 	<Script file="SpellCards.lua"/>
 	<Script file="UpdateCard.lua"/>
+	<Script file="AuctionBuys.lua"/>
 	<Script file="JourneyPanel.lua"/>
 	<Script file="GamepadGuide.lua"/>
 	<Script file="GearPick.lua"/>
@@ -40,6 +41,7 @@
 	<Script file="WhatsNew.lua"/>
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>
+	<Script file="Materials.lua"/>
 	<Script file="GearScales.lua"/>
 	<Script file="GearAdjust.lua"/>
 	<Script file="Report.lua"/>

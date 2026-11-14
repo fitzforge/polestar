@@ -93,7 +93,7 @@ step Rebel Camp
 
 step Kurzen's Compound: kill these as you meet them
   zone Stranglethorn Vale
-  tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side.
+  tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side.
   turnin 200                          -- Bookie Herod's Records, in the hut
   accept 328                          -- The strongbox is deeper in, by the cave: on the northern loop (04b)
   collect 2633 quest 204.1            -- Jungle Remedy
@@ -216,11 +216,10 @@ step Collin Mauren
   tip Collin Mauren is in the Slaughtered Lamb, in the Mage Quarter.
   turnin 1078
 
-step Druid training
-  only Druid
+step Class training
   zone Stormwind City
-  tip Sheldras Moontree, the druid trainer, stands in Stormwind, north-west of the Mage Quarter.
-  train class
+  tip Your level 34 ranks: the class trainers stand around the Trade District, Old Town, the Cathedral and the Mage Quarter; Sheldras Moontree, the druid trainer, stands north-west of the Mage Quarter. Shamans train in Ironforge, later in 30-40.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
 
 step Boat to Auberdine
   zone Stormwind City

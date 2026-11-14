@@ -147,7 +147,8 @@ step Greta Mosshoof
 
 step Toxic Horrors
   tip Ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees, and most of them drop a droplet.
-  collect 12822 quest 5086.1
+  tip Careful: Ancient Irontree Walkers, level 59 elites, walk among the Toxic Horrors, and Vartrus the Ancient (63, elite) roams the woods: work the Horrors at the north tip of Irontree Woods, one at a time.
+  collect 12822 quest 5086.1 @50.6,22.4
 
 step Moonglade
   zone Moonglade
@@ -195,7 +196,8 @@ step Winterfall Runners
   collect 12829 quest 5087.1
 
 step Salfa
-  turnin 8464
+  when complete 8464
+  turnin 8464                         -- only if still carried: the Eastern Plaguelands guide hands it in on its way through
 
 step Beads for Salfa
   tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.
@@ -249,10 +251,6 @@ step Everlook
   turnin 5163                         -- Umi Rumplesnicker
 
 # ---------------------------------------------------------------- Level 60
-
-step Dungeon instead of grinding
-  tip Optional. Running Stratholme, Scholomance, Lower Blackrock Spire or Blackrock Depths with a group instead of grinding gets you there faster.
-  note Optional: with a group, a 55-60 dungeon replaces the grind below.
 
 step Grind to 60
   tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.

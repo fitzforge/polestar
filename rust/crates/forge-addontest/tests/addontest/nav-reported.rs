@@ -152,6 +152,88 @@ fn undercity_the_walk_from_the_apothecarium_to_varimathras_stays_in_the_city_420
 	assert!(top < -30.0, "it stays under the ground, never higher than {:.1}", top);
 }
 
+// The surfaces at (c, x, y) on the shipped maps: { height, the row's English name, its name in the client's language
+// from the language folder's Subzones.lua, loaded as Core/Locale.lua loads the folder } each.
+const SUBZONES_AT: &str = r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local z, areas = {}, {}
+Path.SurfacesAt(@C, @X, @Y, z, areas)
+while #frames > 0 do table.remove(frames, 1)() end
+local n = Path.SurfacesAt(@C, @X, @Y, z, areas)
+local out = {}
+for i = 1, n do
+	out[i] = { z[i], Path.AreaName(@C, areas[i]) or false, Polestar.Names.Get("subzone", areas[i]) or false }
+end
+emit(out)"#;
+
+// #2244 (Reaperwest), the Undercity, on a Spanish (Latin America) client: in the Apothecarium (1458 50.7,71.0) the
+// walk to the bat handler started from a floor above the player and the arrow pointed at the wall. The client gives
+// no height: there the floor is the surface the client's subzone names, and the walking maps name their areas in
+// English, so "El Apothecarium" named none. The language folders name them as each language's client does
+// (Subzones.lua, `forge data subzones`): at the Apothecarium and on the canal by the auction house (1628, 305: the
+// canal, the walkway over it, the Ruins above), the subzone of every surface names, in each language, the surfaces
+// its English name names on an English client, and the Apothecarium's name its one floor.
+fn undercity_subzones_name_the_english_floors(locale: &str, apothecarium: &str) {
+	forge_addontest::needs!("map-frames.json");
+	let folder = forge_guide::toc::language_addon(locale);
+	for (spot, at) in [("the Apothecarium", world(1458, 50.7, 71.0)), ("the canal by the auction house", Pt { c: 0, x: 1628.02, y: 305.49, z: None })] {
+		let script = SUBZONES_AT.replace("@C", &at.c.to_string()).replace("@X", &at.x.to_string()).replace("@Y", &at.y.to_string());
+		let got = emitted(&RunAddon {
+			stubs: vec!["stub_encoding.lua"],
+			before: format!("function GetLocale() return \"{locale}\" end"),
+			addons: vec![Addon::name("Polestar_Nav"), Addon::files("Polestar", &["Core/Init.lua", "Core/LuaChunks.lua", "Core/Names.lua"]), Addon::files(&folder, &["Subzones.lua"])],
+			script,
+			..Default::default()
+		})
+		.remove(0);
+		// (height, English name, name in the language: the folder's, else the English one)
+		let surfaces: Vec<(f64, String, String)> = got
+			.as_array()
+			.unwrap()
+			.iter()
+			.map(|s| {
+				let en = s[1].as_str().unwrap_or("").to_string();
+				(s[0].as_f64().unwrap(), en.clone(), s[2].as_str().map_or(en, str::to_string))
+			})
+			.collect();
+		eprintln!("{locale}, {spot}: {surfaces:?}");
+		assert!(surfaces.iter().filter(|s| !s.1.is_empty()).count() >= 2, "{locale}, {spot}: floors with areas there: {surfaces:?}");
+		for (_, en, local) in surfaces.iter().filter(|s| !s.1.is_empty()) {
+			let by_en: Vec<f64> = surfaces.iter().filter(|s| s.1 == *en).map(|s| s.0).collect();
+			let by_local: Vec<f64> = surfaces.iter().filter(|s| s.2 == *local).map(|s| s.0).collect();
+			assert_eq!(by_local, by_en, "{locale}, {spot}: \"{local}\" names the surfaces \"{en}\" names in English: {surfaces:?}");
+		}
+		if spot == "the Apothecarium" {
+			let named: Vec<f64> = surfaces.iter().filter(|s| s.2 == apothecarium).map(|s| s.0).collect();
+			assert!(!named.is_empty() && surfaces.iter().any(|s| s.1 == "The Apothecarium" && s.2 == apothecarium), "{locale}: \"{apothecarium}\" names the Apothecarium: {surfaces:?}");
+			let (lo, hi) = named.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), z| (lo.min(*z), hi.max(*z)));
+			assert!(hi - lo <= 10.0, "{locale}: one floor (Walk.lua's ZTOL): {named:?}");
+		}
+	}
+}
+
+#[test]
+fn undercity_on_a_spanish_latin_america_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("esMX", "El Apothecarium");
+}
+
+#[test]
+fn undercity_on_a_german_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("deDE", "Das Apothekarium");
+}
+
+#[test]
+fn undercity_on_a_russian_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("ruRU", "Квартал аптекарей");
+}
+
+#[test]
+fn undercity_on_a_simplified_chinese_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("zhCN", "炼金房");
+}
+
 // #541 (Deadshot), Stormwind, Alliance: from the Trade District (1453 68.48,75.35 live, street height 107) to
 // Jennea Cannon in the Wizard's Sanctum (the guide's goal: 49.56,85.80 live, z 29.7) the arrow ran a straight
 // line along the city walls, 369 yd. The client gives no height for the player, so the walk may start on any
@@ -263,10 +345,9 @@ fn teldrassil_the_walk_from_42_10_56_59_to_the_sleeping_druid_does_not_climb_the
 // #314 (Tac), Stormwind, Alliance: from the shore north-west of the city (1415 41.08,62.23) to Grimand Elmore
 // in the Dwarven District (1453 59.73,33.78, his spawn; the report cut the target's coordinates short) the walk
 // crossed the cliffs and rocky ground just north-west of the walls, which the player could not climb. The maps
-// cross them above the city's map (1453 30 to 52 across, -16 to 6 down): up from 70 to 162 yd at 50 to 59
-// degrees, then 24 yd down at 58 degrees into the city. Open, one of #98's slopes.
+// crossed them above the city's map (1453 30 to 52 across, -16 to 6 down): up from 70 to 162 yd at 50 to 59
+// degrees, then 24 yd down at 58 degrees into the city. The walking maps from Leffe's navigation maps go round them.
 #[test]
-#[ignore = "open: the maps still cross the cliffs (#98)"]
 fn stormwind_the_walk_from_the_shore_north_west_of_the_city_to_grimand_elmore_does_not_cross_the_cliffs_north_west_of_the_walls_314() {
 	forge_addontest::needs!("map-frames.json");
 	let from = world(1415, 41.08, 62.23);
@@ -289,4 +370,129 @@ fn stormwind_the_walk_from_the_shore_north_west_of_the_city_to_grimand_elmore_do
 			assert!(!inside(x, y), "the leg from {:.1},{:.1} to {:.1},{:.1} crosses the cliffs ({} points, {} yd)", ax, ay, bx, by, pts.len(), yards_of(&pts).round());
 		}
 	}
+}
+
+// A walk between two world points (z where given) is found, both ways, and each ends within 10 yd of its goal and,
+// for a goal with a height, within 5 yd of it: the walking maps join the two places.
+fn joined_both_ways(a: Pt, b: Pt, profile: Option<&str>, what: &str) {
+	for (from, to) in [(a, b), (b, a)] {
+		let got = walk(from, to, profile);
+		assert!(truthy(&got), "{what}: the engine finds a walk from {:.1},{:.1} to {:.1},{:.1}", from.x, from.y, to.x, to.y);
+		let pts = points(&got);
+		let last = pts[pts.len() - 1];
+		let gap = (last.0 - to.x).hypot(last.1 - to.y);
+		assert!(gap < 10.0, "{what}: the walk to {:.1},{:.1} ends {gap:.1} yd from it", to.x, to.y);
+		if let (Some(z), Some(lz)) = (to.z, last.2) {
+			assert!((lz - z).abs() < 5.0, "{what}: the walk to {:.1},{:.1} ends at height {lz:.1}, the goal's is {z:.1}", to.x, to.y);
+		}
+	}
+}
+
+// #1875 (Megabite), Loch Modan, "Filthy Paws": the arrow pointed at the Miners' League crates over the hill above the
+// Silver Stream Mine. The walking maps joined the mine to the world nowhere: no walk from Mountaineer Stormpike to the
+// crates inside, at their height or without one. Our grid's way in through the mine's mouth is a grid join now.
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn loch_modan_the_walk_from_mountaineer_stormpike_into_the_silver_stream_mine_is_found_both_ways_1875() {
+	let stormpike = Pt { c: 0, x: -4826.0, y: -2676.7, z: Some(341.2) };
+	let crates = Pt { c: 0, x: -4943.2, y: -2993.9, z: Some(319.9) };
+	joined_both_ways(stormpike, crates, Some("Alliance"), "Silver Stream Mine");
+}
+
+// The Jasperlode Mine (Elwynn Forest): its deeper tunnels, where Westfall's and Elwynn's kobolds stand, were walked
+// 600 yd round from the mouth on the walking maps, where the way in is 161 yd. A grid join takes the short way.
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn elwynn_the_walk_from_the_jasperlode_mines_mouth_to_its_deep_tunnels_is_no_detour() {
+	let mouth = Pt { c: 0, x: -9154.7, y: -564.4, z: None };
+	let deep = Pt { c: 0, x: -9078.9, y: -582.3, z: Some(62.2) };
+	joined_both_ways(mouth, deep, Some("Alliance"), "Jasperlode Mine");
+	let got = walk(mouth, deep, Some("Alliance"));
+	let yards = yards_of(&points(&got));
+	assert!(yards < 300.0, "the walk in is {yards:.0} yd (our grid's way: 161)");
+}
+
+// #1766: four pairs of places players walk between that the walking maps could not join. Felwood's road between
+// Bloodvenom Post's and Talonbranch Glade's flight masters, Shadowprey Village's inn and flight master, and Brill's
+// inn and the Orgrimmar zeppelin's platform at the top of the Undercity's tower are grid joins now (the Rohashi Spires
+// pair is one neither map walks).
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn felwood_the_walk_between_bloodvenom_post_and_talonbranch_glade_flight_masters_is_found_both_ways_1766() {
+	joined_both_ways(Pt { c: 1, x: 5068.3, y: -337.5, z: None }, Pt { c: 1, x: 6206.0, y: -1949.8, z: None }, Some("Horde"), "Felwood's road");
+}
+
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn desolace_the_walk_between_shadowprey_villages_inn_and_flight_master_is_found_both_ways_1766() {
+	joined_both_ways(Pt { c: 1, x: -1592.8, y: 3150.3, z: None }, Pt { c: 1, x: -1767.6, y: 3264.0, z: None }, Some("Horde"), "Shadowprey Village");
+}
+
+// #1969 (Yeeshak), Desolace, Horde: in Shadowprey Village the route was one straight line over the mountains, with
+// any route setting; a report from inside the inn showed the same. The inn's floor was joined to the rest of Desolace
+// nowhere, so every walk from it failed (to the middle of Desolace too); with the village's grid join it is found.
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn desolace_the_walk_from_shadowprey_villages_inn_to_the_middle_of_desolace_is_found_1969() {
+	let inn = Pt { c: 1, x: -1592.8, y: 3150.3, z: None }; // 24.09,68.21
+	let middle = Pt { c: 1, x: -1196.8, y: 1985.4, z: None }; // 50,55
+	let got = walk(inn, middle, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from Shadowprey Village's inn to Desolace 50,55");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	let gap = (last.0 - middle.x).hypot(last.1 - middle.y);
+	assert!(gap < 10.0, "the walk ends {gap:.1} yd from Desolace 50,55");
+}
+
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn tirisfal_the_walk_from_brills_inn_to_the_orgrimmar_zeppelins_platform_is_found_both_ways_1766() {
+	joined_both_ways(Pt { c: 0, x: 2269.5, y: 244.4, z: None }, Pt { c: 0, x: 2064.0, y: 288.6, z: Some(98.3) }, Some("Horde"), "Brill's zeppelin tower");
+}
+
+// #1919 (Jaesais), Moonglade: the Stormrage Barrow Dens were joined to the world nowhere on the walking maps, so the
+// arrow pointed through the den's wall at the next goal outside. Our grid's way down the ramp and the tunnel to the
+// Relic of the Fang is a grid join now (and the den's approach chains lead the planner out, nav-e2e t_1919).
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn moonglade_the_walk_from_the_stormrage_barrow_dens_mouth_to_the_relic_of_the_fang_is_found_both_ways_1919() {
+	let mouth = Pt { c: 1, x: 7540.2, y: -3024.8, z: Some(464.0) };
+	let fang = Pt { c: 1, x: 7475.5, y: -3052.5, z: Some(429.0) };
+	joined_both_ways(mouth, fang, Some("Alliance"), "Stormrage Barrow Dens");
+}
+
+// #1936, Thousand Needles, Horde (Arnak Grimtotem, 0.3.7): from Freewind Post the arrow took the lift down, walked
+// the canyon to the Great Lift, rode it up and came round by the Barrens' rim to Darkcloud Pinnacle (2,580 yd from
+// beside the lift's top). Players ride the lift down, walk the canyon, go up the ramp below Darkcloud Pinnacle and
+// over its rope bridges; the walking maps lacked the bridges. The ramp-and-bridges way is a grid join now: about
+// 1,830 yd, and never up on the rim north of the mesas.
+#[test]
+#[ignore = "needs the release walking-map pack with the grid joins (#2041)"]
+fn thousand_needles_the_walk_from_freewind_post_to_arnak_grimtotem_goes_over_darkcloud_pinnacles_bridges_1936() {
+	let freewind = Pt { c: 1, x: -5365.3, y: -2483.7, z: Some(89.0) }; // beside the lift's top, 46.60,47.68
+	let arnak = Pt { c: 1, x: -4755.7, y: -2109.7, z: Some(83.3) };
+	let got = walk(freewind, arnak, Some("Horde"));
+	assert!(truthy(&got), "the engine finds a walk from Freewind Post to Arnak Grimtotem");
+	let pts = points(&got);
+	let yards = yards_of(&pts);
+	assert!(yards < 2100.0, "the walk is {yards:.0} yd (by the ramp and the bridges: about 1,830; round by the Great Lift: 2,580)");
+	let north = pts.iter().map(|p| p.0).fold(f64::NEG_INFINITY, f64::max);
+	assert!(north < -4700.0, "the walk goes {north:.0} yd north, up on the Barrens' rim (Arnak stands at -4756)");
+}
+
+// #1945 (dloyd), Duskwood, Alliance: bound for Zzarc' Vul (the Ogre's Monocle, below ground in the Vul'Gol Ogre
+// Mound) the arrow led straight over the hill above the cave. The goal has the cave floor's height now (Zzarc' Vul's
+// spawn, tests/guides-caves.test.js), and with it the walk from where the player stood (35.37,77.94) goes in by the
+// entrance the player marked (34.08,76.91) and ends on the cave's floor.
+#[test]
+fn duskwood_the_walk_to_zzarc_vul_goes_in_by_the_vulgol_ogre_mounds_entrance_1945() {
+	let player = Pt { c: 0, x: -11119.6, y: -121.7, z: Some(48.0) }; // 35.37,77.94, on the hill over the cave
+	let monocle = Pt { c: 0, x: -11156.7, y: -192.7, z: Some(13.7) }; // the Ogre's Monocle's goal, 38.0,80.0
+	let entrance = Pt { c: 0, x: -11101.0, y: -86.8, z: None };
+	joined_both_ways(player, monocle, Some("Alliance"), "Vul'Gol Ogre Mound");
+	let pts = points(&walk(player, monocle, Some("Alliance")));
+	let off = off_path(&pts, entrance);
+	assert!(off < 15.0, "the walk passes {off:.0} yd from the mound's entrance");
+	let yards = yards_of(&pts);
+	assert!(yards < 350.0, "the walk in is {yards:.0} yd");
 }

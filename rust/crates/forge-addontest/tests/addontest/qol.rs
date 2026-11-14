@@ -367,6 +367,7 @@ fn quest_item_button_range_tint_and_cooldown_follow_the_item() {
 #[test]
 fn target_button_kill_targets_and_questdb_droppers_preferred_name_first_each_click_cycles() {
 	let out = run(r#"
+		set("targetSimple", true) -- the single button; the list keeps its order (qol-target-list.rs)
 		local t = PolestarTargetButton
 		q.step({
 			{ t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 },
@@ -406,6 +407,7 @@ fn target_button_kill_targets_and_questdb_droppers_preferred_name_first_each_cli
 #[test]
 fn target_button_a_collect_names_the_mobs_the_arrow_leads_to_first_356_then_the_item_s_droppers() {
 	let out = run(r#"
+		set("targetSimple", true) -- the name beside the single button
 		local B = Polestar.QoL.Buttons
 		local t = PolestarTargetButton
 		local function names()
@@ -457,6 +459,7 @@ fn target_button_a_collect_names_the_mobs_the_arrow_leads_to_first_356_then_the_
 #[test]
 fn target_button_names_what_a_use_goal_s_item_works_on_and_every_creature_a_kill_s_objective_credits_1614() {
 	let out = run(r#"
+		set("targetSimple", true) -- the name beside the single button
 		local B = Polestar.QoL.Buttons
 		local t = PolestarTargetButton
 		local function names()
@@ -493,6 +496,7 @@ fn target_button_names_what_a_use_goal_s_item_works_on_and_every_creature_a_kill
 #[test]
 fn target_button_names_the_mobs_at_the_spot_the_arrow_takes_when_a_collect_s_spots_hold_other_camps_1616() {
 	let out = run(r#"
+		set("targetSimple", true) -- the name beside the single button
 		local B = Polestar.QoL.Buttons
 		local t = PolestarTargetButton
 		local function names()
@@ -1188,6 +1192,7 @@ fn mark_target_a_group_change_in_combat_leaves_the_macros_alone_and_applies_once
 fn mark_target_the_target_button_tooltip_says_what_a_press_marks_while_marking_is_on() {
 	let out = run_group(
 		r#"
+		set("targetSimple", true) -- the single button's tooltip
 		local t = PolestarTargetButton
 		local function hint()
 			stub.RunScript(t, "OnEnter")
@@ -1710,6 +1715,7 @@ fn action_buttons_with_the_lock_on_only_a_shift_drag_moves_the_set_a_plain_drag_
 	let out = run(&[
 		ACTS,
 		r#"
+		Polestar.Set("qol.targetSimple", true) -- the single target button, dragged and hovered
 		q.items[900] = { name = "Torch" }
 		q.addItem(0, 1, 900, 1)
 		q.step({ { t = "use", item = 900, quest = 7 }, { t = "kill", target = "Wolf" } })
@@ -1886,6 +1892,7 @@ fn bag_button_an_above_name_stacks_over_it_only_while_it_stands_in_its_old_slot(
 // The target button shows who it targets (qol.targetPlate, #1387): its icon the action of the name the next click
 // targets, the name in its kind's colour, the names after it as small icons, faces of elites and NPCs once seen.
 const LOOK: &str = r#"
+set("targetSimple", true) -- the single button's look; the list hides it (qol-target-list.rs)
 local B, t = Polestar.QoL.Buttons, PolestarTargetButton
 local function base(tex) local p = tex:GetTexture(); return p and p:match("([^\\/]+)$") end
 local TONES = { "danger", "success", "quest", "textDim" }
@@ -4166,6 +4173,83 @@ fn rewards_marking_off_clears_an_open_panel_both_settings_off_do_nothing() {
 	assert_eq!(*msgs, 0);
 }
 
+// #2035: with an upgrade arrow on the panel, a line at the right of its Rewards heading says what the arrows were
+// scored for, in the panel's own text colour (the choose line's: the quest material's), clear of the heading's text;
+// hovering says where the weights came from and what a click does; a click opens Stat weights. No upgrade among the
+// choices, the marks off, or a panel without the heading (the map's quest details): no line.
+#[test]
+fn rewards_a_line_beside_the_heading_says_what_the_upgrade_arrows_were_scored_for_and_opens_stat_weights() {
+	let out = run(r#"
+		local opened = 0
+		Polestar.Gear = { IsEnabled = function() return true end, CompareToEquipped = function() return { usable = true } end,
+			IsUpgrade = function(link) return link:find("item:11") ~= nil, 4 end,
+			ScoredFor = function(short) return short and "Scored for Arcane" or "Scored for Arcane, from your talents" end,
+			ShowWeightsSetting = function() opened = opened + 1 end }
+		local F = QuestInfoRewardsFrame
+		q.items[11] = { name = "Cloak", price = 120 }
+		q.items[12] = { name = "Ring", price = 400 }
+		q.choices = { { id = 11 }, { id = 12 } }
+		q.questComplete(); stub.runTimers()
+		local line = QoL.Rewards.ScoredLine()
+		local r, g, b = line.Text:GetTextColor()
+		-- The line ends at the heading's right edge, the heading spans the panel: its width is what the heading's
+		-- text leaves, with a gap.
+		local point, rel, relPoint, x = line:GetPoint(1)
+		emit({ shown = line:IsShown(), text = line.Text:GetText(), color = { r, g, b }, point = point, onHeading = rel == F.Header,
+			relPoint = relPoint, x = x, clear = line:GetWidth() + F.Header:GetStringWidth() + 12 <= F.Header:GetWidth() + 0.5,
+			whole = line.Text:GetWidth() >= line.Text:GetUnboundedStringWidth() - 0.5 })
+		stub.RunScript(line, "OnEnter")
+		emit(GameTooltip.lines)
+		line:Click()
+		emit(opened)
+		q.choices = { { id = 12 }, { id = 13 } }
+		q.items[13] = { name = "Belt", price = 50 }
+		q.questComplete(); stub.runTimers()
+		emit(line:IsShown())
+		q.choices = { { id = 11 }, { id = 12 } }
+		q.questComplete(); stub.runTimers()
+		set("rewardHighlight", false)
+		emit(line:IsShown())
+		set("rewardHighlight", true)
+		F.Header:Hide()
+		q.questComplete(); stub.runTimers()
+		emit(line:IsShown())
+		-- The map's quest details (MapQuestInfoRewardsFrame): their Header is an anchor-only frame, not a heading.
+		local heading = F.Header
+		F.Header = CreateFrame("Frame", nil, F)
+		local ok = pcall(QoL.Rewards.Mark)
+		emit({ ok = ok, shown = line:IsShown() })
+		F.Header = heading
+		-- A panel with neither field (a stand-in, another addon's; the stub answers a function there): no line, no
+		-- error. With the heading but no choose line: the line, in the look's text colour.
+		F.Header = nil
+		ok = pcall(QoL.Rewards.Mark)
+		emit({ ok = ok, shown = line:IsShown() })
+		F.Header = heading
+		F.Header:Show()
+		local choose = F.ItemChooseText
+		F.ItemChooseText = nil
+		ok = pcall(QoL.Rewards.Mark)
+		emit({ ok = ok, shown = line:IsShown() })
+		F.ItemChooseText = choose
+	"#);
+	let first = &out[0];
+	assert_eq!(first["shown"], true, "{first}");
+	assert_eq!(first["text"], "Scored for Arcane");
+	assert_eq!(first["color"], json!([0.18, 0.1, 0.03]), "the panel's own text colour");
+	assert_eq!((first["point"].clone(), first["onHeading"].clone(), first["relPoint"].clone(), first["x"].clone()), (json!("RIGHT"), json!(true), json!("RIGHT"), json!(0)));
+	assert_eq!(first["clear"], true, "clear of the heading's text: {first}");
+	assert_eq!(first["whole"], true, "the text fits whole in the room left: {first}");
+	assert_eq!(out[1], json!(["Scored for Arcane, from your talents", "Click: choose the stat weights"]));
+	assert_eq!(out[2], 1, "a click opens Stat weights");
+	assert_eq!(out[3], false, "no upgrade arrow: no line");
+	assert_eq!(out[4], false, "the marks off: no line");
+	assert_eq!(out[5], false, "no heading: no line");
+	assert_eq!(out[6], json!({ "ok": true, "shown": false }), "the map's anchor-only Header: no line, no error");
+	assert_eq!(out[7], json!({ "ok": true, "shown": false }), "no Header at all: no line, no error");
+	assert_eq!(out[8], json!({ "ok": true, "shown": true }), "no choose line: the line, in the look's colour");
+}
+
 // ---------------------------------------------------------------------------
 // Flight masters
 // ---------------------------------------------------------------------------
@@ -4707,6 +4791,62 @@ fn death_released_outside_the_dungeon_you_died_in_the_arrow_runs_to_its_entrance
 	assert!((out[0]["yards"].as_f64().unwrap() - 400.0).abs() < 1e-6);
 	assert!(is_match(text(&out[0]["note"]), r"^Run back to The Deadmines, your corpse is inside"));
 	assert_eq!(out[1], true);
+}
+
+// A corpse inside a dungeon or raid is never weighed against the Spirit Healer. One of Forever's own dungeons whose
+// entrance the Codex lacks (Alcaz Prison), or a Codex that never loads (Lookup off): the corpse is in there all the
+// same, and the advice says so, with nothing holding the arrow. A known entrance 5,000 yd away (a long run against
+// ten minutes of sickness) is still the run back in.
+#[test]
+fn death_in_a_dungeon_is_the_run_back_in_never_the_spirit_healer_entrance_known_or_not() {
+	let out = run(r#"
+		QoL.SetData({ spiritHealers = { { 0, 20, 0, 9000, 50, 49 } }, flightMasters = {} })
+		q.player = { c = 0, wx = 0, wy = 0 }
+		q.level = 40
+		local function die(name, map)
+			-- The guide's goal the arrow showed before: under the hold while a ghost, back once alive.
+			q.nav.target = { map = 9000, x = 10, y = 10, label = "The guide's step" }
+			IsInInstance = function() return true, "party" end
+			GetInstanceInfo = function() return name, "party", 1, "Normal", 5, 0, false, map end
+			stub.fire("PLAYER_DEAD")
+			IsInInstance = function() return false, "none" end
+			q.corpse = nil
+			q.ghost = true
+			stub.fire("PLAYER_ALIVE")
+			local a = QoL.GetDeathAdvice()
+			local out = { choice = a and a.choice, note = a and a.note, held = q.nav.held ~= nil, label = q.nav.held and q.nav.held.label or false,
+				arrow = q.nav.target ~= nil, pins = q.pins["qol.death"] and #q.pins["qol.death"] or 0 }
+			q.ghost = false
+			stub.fire("PLAYER_UNGHOST")
+			out.after = q.nav.target and q.nav.target.label or false
+			return out
+		end
+		-- The Codex has the instance, not its entrance.
+		Polestar.Codex = { IsLoaded = function() return true end, Each = function(_, fn) fn("alcaz-prison") end,
+			Instance = function(key) return { key = key, name = "Alcaz Prison", map = 2994 } end }
+		emit(die("Alcaz Prison", 2994))
+		-- The Deadmines' entrance known, 5,000 yd away.
+		Polestar.Codex = { IsLoaded = function() return true end, Each = function(_, fn) fn("deadmines") end,
+			Instance = function(key) return { key = key, name = "The Deadmines", map = 36, entrance = { map = 9000, x = 50, y = 500 } } end }
+		emit(die("The Deadmines", 36))
+		-- Lookup off and the Codex not loaded: a raid's entrance is out of reach.
+		Polestar.Set("lookup.enabled", false)
+		Polestar.Codex = { IsLoaded = function() return false end, Load = function() return true end, Each = function(_, fn) fn("zg") end,
+			Instance = function(key) return { key = key, name = "Zul'Gurub", map = 309, entrance = { map = 9000, x = 50, y = 30 } } end }
+		emit(die("Zul'Gurub", 309))
+	"#);
+	for (i, name) in [(0, "Alcaz Prison"), (2, "Zul'Gurub")] {
+		assert_eq!(out[i]["choice"], "inside", "{out:?}");
+		assert_eq!(out[i]["note"], format!("Your corpse is inside {name}: run back in through its entrance."), "{out:?}");
+		assert_eq!(out[i]["held"], true, "the arrow held on nothing: {out:?}");
+		assert_eq!(out[i]["arrow"], false, "no arrow, not the guide's step leading the ghost away: {out:?}");
+		assert_eq!(out[i]["pins"], 0, "{out:?}");
+		assert_eq!(out[i]["after"], "The guide's step", "alive again, the guide's target: {out:?}");
+	}
+	assert_eq!(out[1]["choice"], "corpse", "{out:?}");
+	assert_eq!(out[1]["label"], "The Deadmines (your corpse is inside)", "{out:?}");
+	assert!(is_match(text(&out[1]["note"]), r"^Run back to The Deadmines, your corpse is inside"), "{out:?}");
+	assert_eq!(out[1]["pins"], 1, "the entrance alone, no Spirit Healer: {out:?}");
 }
 
 // ---------------------------------------------------------------------------

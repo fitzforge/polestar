@@ -138,7 +138,6 @@ House.ROLES = ROLES
 --   edgeKey      its contact line just outside, with the shadow: shade at
 --                this share
 --   openSections the guide window's body sections go without hairlines
---   loneTab      a lone guide tab takes the room its title needs
 --   well         a tick box's well: shade at this share
 --   rareEmber    the rare button's glyph and name in Rare Ember, outlined
 --   dialogFoot   a dialog's and the guide end's footer height (the 4-point
@@ -161,7 +160,6 @@ local TOKENS = {
 	edgeLight = 0.07,
 	edgeKey = 0.42,
 	openSections = true,
-	loneTab = true,
 	well = 0.12,
 	rareEmber = true,
 	dialogFoot = 56,

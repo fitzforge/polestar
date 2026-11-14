@@ -128,6 +128,103 @@
 			"issue": 1575
 		},
 		{
+			"id": "h01-1575-skull-rock",
+			"faction": "Horde",
+			"at": {
+				"quest": 827,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: voidwalkers fight beside the Burning Blade cultists in Skull Rock and Gazz'uz (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The Eye of Burning Shadow is optional: leave Gazz'uz unless you are 13 or have a friend.",
+			"note": "Danger at the spot (#1575), Horde start audit (0.4.0): Skull Rock is where most Orc and Troll players die in Durotar. Players' recordings (0.3.5+): 9 people turned in the Searing Collars and 9 people died inside Skull Rock, 37 deaths, 29 of them at level 12: Voidwalker Minion 16, Burning Blade Fanatic 8, Burning Blade Apprentice 4, Gazz'uz (14) 3. The collars come from any cultist; Gazz'uz's Eye of Burning Shadow is now optional.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): deaths inside Skull Rock (Durotar 50-57, 6-15) by killer and level"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json Gazz'uz level 14 at Skull Rock; Voidwalker Minion levels 10-14"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-skull-rock-eye-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 832,
+				"goal": "accept"
+			},
+			"optional": true,
+			"note": "Danger at the spot (#1575): Burning Shadows (832) starts from the Eye of Burning Shadow, which only Gazz'uz (14, with a voidwalker) drops at the back of Skull Rock; players arrive at 12.0-12.6 and 3 people died to him. Optional, so a player who leaves him still finishes the step; the hand-in to Neeru Fireblade holds for whoever took it.",
+			"source": {
+				"kind": "recording",
+				"ref": "AuditH01 index of players' recordings (0.3.5+): 832 accepted at 12.1-12.6; 3 deaths to Gazz'uz at 12"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-durotar-ukorsbane",
+			"faction": "Horde",
+			"at": {
+				"quest": 96821,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of Razor Hill: pull the spiders away from him.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0): Ukorsbane (8, elite) walks the camp south of Razor Hill among the Ridgeshade Creepers and Lurkers that Legging It (96821) asks for at about 6. Players' recordings: 41 people did the objective (median 5.9), 1 died to Ukorsbane.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 266851 Ukorsbane 8 rank elite, spawn points at Durotar 49-51,54-57"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-13: 96821.2 done by 41 people; 1 death with killer 266851"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-tirisfal-riptear",
+			"faction": "Horde",
+			"at": {
+				"quest": 371,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0): Riptear (13, elite) prowls Tirisfal 72-76,48-55, between the Balnir Farmstead and the Scarlet Friars' camp (76-78,55-57) that At War With The Scarlet Crusade (371) sends players of about 11 into. Players' recordings: 36 people did the objective (median 11.65), 2 died to Riptear.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 276020 Riptear 13 rank elite, spawn points at Tirisfal 72-76,48-55"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index 2026-11-13: 371.2 done by 36 people; 2 deaths with killer 276020"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "h01-1575-durotar-the-binding",
+			"faction": "Horde",
+			"at": {
+				"quest": 1504,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in Orgrimmar: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one.",
+			"note": "Danger at the spot (#1575, the danger gate's new flag on 0.4.0, The Binding in the Cleft of Shadow): players' recordings show 16 people died within 60 yd of the summoning circle, 13 of them Warlocks at 13-17, with no killer recorded (a summoned demon); the flag's own mobs, the Summoned Incubus beside the warlock trainers, are not what kills them. The step now says what the fight asks for.",
+			"source": {
+				"kind": "recording",
+				"ref": "rec index 2026-11-13: 25 deaths of 16 people within 4 map percent of Orgrimmar 49.3,50.0, 13 Warlocks; killer unrecorded"
+			},
+			"issue": 1575
+		},
+		{
 			"id": "1575-barrens-razormane-elites-crates",
 			"faction": "Horde",
 			"at": { "quest": 5041, "goal": "objective", "objective": 1 },
@@ -143,13 +240,76 @@
 			"id": "1575-barrens-razormane-elites-kreenig",
 			"faction": "Horde",
 			"at": { "quest": 872, "goal": "objective", "objective": 1 },
-			"tip": "Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig: pull Kreenig and the quilboar away from them one at a time.",
-			"note": "Danger-at-the-spot sweep (#1575): The Disruption Ends sends players of about 16 back among the camp's level 18-19 elites; Kreenig's tusk is taken at 58.5,27.0, beside the Flesheaters. Players' recordings: 7 people died within 60 yd of the step's goals at about level 15, a Flesheater (elite) among what they fought.",
+			"tip": "Back to the Razormane camp. Geomancers and Defenders hold its eastern half; Kreenig Snarlsnout walks among them. Careful: Razormane Flesheaters and Berserkers (18-19) are elites in the camp's north-east, near Kreenig and the supply crates, and Chol'aruk (20, elite) lies in the cave under Thorn Hill beside them: pull Kreenig and the quilboar away from them one at a time, and leave the cave alone unless you are in a group.",
+			"note": "Danger-at-the-spot sweep (#1575): The Disruption Ends sends players of about 16 back among the camp's level 18-19 elites; Kreenig's tusk is taken at 58.5,27.0, beside the Flesheaters. Players' recordings: 7 people died within 60 yd of the step's goals at about level 15, a Flesheater (elite) among what they fought. 0.4.0 audit: the tip also names Chol'aruk (267307, level 20, elite), who lies in the Thorn Hill cave beside the supply crates (danger-at-the-spot gate; players' recordings for the crates' objective: 53 people did it, 8 deaths, 9 abandons), and the step keeps one tip.",
 			"source": [
 				{ "kind": "pfquest", "ref": "npcs.json 267308 Razormane Flesheater 18-19 and 267314 Razormane Berserker 18-19, rank elite, The Barrens 56.5-58,22.5-27.3" },
 				{ "kind": "recording", "ref": "rec index 2026-11-11: 7 people died within 60 yd of 872's goals (median level 15); foe 267308 recorded as elite" }
 			],
 			"issue": 1575
+		},
+		{
+			"id": "2025-barrens-barrow-dens-terrans",
+			"faction": "Horde",
+			"at": {
+				"quest": 98342,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Tauren: the Great Cat Spirit waits on the southern hill above the bridge. Skyborne: the Avatar of Saeyleenan stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the Relic of the Silent Shadow lies at the foot of the white cat statue. Careful: the spirits are Territorial Terrans (level 60) that kill whoever they see: stay off their paths, and click the statue again before the stealth runs out.",
+			"note": "0.4.0 audit (danger-at-the-spot gate): the 'spirits' in the Stormrage Barrow Dens are Territorial Terrans (230558, level 60), standing over the relics (72-76,63-67). The tip names them and says to renew the statue's stealth before it runs out. Players' recordings on the Cat Form chain's relic objectives: 6 people did it, 3-5 died there.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: deaths on the 98342/98404 relic objectives in the Barrow Dens; npcs.json 230558 spawns"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "2025-silverpine-dalaran-crate-apprentices",
+			"faction": "Horde",
+			"at": {
+				"quest": 477,
+				"goal": "turnin"
+			},
+			"tip": "Follow the road south. The Dalaran Crate sits beside it, north of Pyrewood. Careful: Dalaran Apprentices (13) stand around the crate: pull them one at a time before you open it.",
+			"note": "0.4.0 audit: ten of the 24 Dalaran Apprentices (1867, level 13) stand within a few yards of the Dalaran Crate (49.9,60.3). Players' recordings, Polestar 0.3.6 and later: 5 of 17 people died on the step that follows the crate, 2 of them to Dalaran Apprentices (median level 13.9).",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: deaths while on 03-silverpine-forest's Dead Field step, killer npc 1867; npcs.json 1867 spawns"
+			},
+			"issue": 1980
+		},
+		{
+			"id": "1980-silverpine-nightlash-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 437,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North of the Sepulcher. Nightlash haunts the Dead Field: kill it, then walk across the field. Careful: Nightlash (14) rises once you have killed rot hide gnolls in the field: fight her with full health.",
+			"note": "#1980: a level 13.5 Paladin died to Nightlash (1983, level 14), who appears after the rot hide gnolls in the field are killed (the quest's own text). Players reach the Dead Field at a median 14.3 (17 people, 0.3.6+); 55 people killed Nightlash, 1 died to her. The tip gives her level and says when she comes.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: Nightlash kills and deaths, step levels on 03-silverpine-forest (#1980)"
+			},
+			"issue": 1980
+		},
+		{
+			"id": "2025-silverpine-ambermill-mages-serpents",
+			"faction": "Horde",
+			"at": {
+				"quest": 479,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
+			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-13: deaths on 03-silverpine-forest's Ambermill step, killers 1914, 2540, 1912; npcs.json levels"
+			},
+			"issue": 2025
 		},
 		{
 			"id": "1575-darkshore-althalaxx-voidcallers",
@@ -189,8 +349,8 @@
 			"id": "horde-thousand-needles-galak-messenger-roams",
 			"faction": "Horde",
 			"at": { "quest": 4841, "goal": "objective", "objective": 1 },
-			"tip": "The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him.",
-			"note": "Discord question (2026-11-09): the Galak Messenger (10617), whose note (12564) starts Assassination Plot (4881), walks a waypoint path of about 1,300 yd between the camps. The note and the accept are optional (route-fixes deliberate.optional 4881); the tip says not to wait for him. Kanati Greycloud's hand-in has its own step for whoever carries the plot.",
+			"tip": "The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone Galak Messenger walks a long path between the camps: if you meet him, kill him, his note starts a quest for Whitereach Post. Don't wait for him. Careful: storm elementals roam the canyon floor around the camps: Stormheart (30), the Ravaging Tempests (40) and Ailgrha Splittusk (38), all elite. Keep clear of them.",
+			"note": "Discord question (2026-11-09): the Galak Messenger (10617), whose note (12564) starts Assassination Plot (4881), walks a waypoint path of about 1,300 yd between the camps. The note and the accept are optional (route-fixes deliberate.optional 4881); the tip says not to wait for him. Kanati Greycloud's hand-in has its own step for whoever carries the plot. Horde 21-30 audit (0.4.0, danger gate #1575): Forever's spawn data puts elite storm elementals (Stormheart 270094 level 30, Ravaging Tempest 216474 level 40, Ailgrha Splittusk 216463 level 38) on the canyon floor around the Galak camps; the tip names them. Players' recordings: 44 people did the step, 1 died within 60 yd; the 13 people who died around the camps were killed by Grimtotem and Galak where the killer is known.",
 			"source": [
 				{ "kind": "tdb", "ref": "creature 10617: MovementType 2, waypoint path 810106170 (66 nodes, 487 x 1215 yd)" }
 			]
@@ -212,8 +372,8 @@
 			"id": "1089-auberdine-selarin-respawns",
 			"faction": "Alliance",
 			"at": { "quest": 990, "goal": "accept" },
-			"tip": "From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.",
-			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master; the reporter found her missing, then she respawned (#1089). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45, Terenthis's spot), so the tip says to wait instead of moving the point.",
+			"tip": "From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.",
+			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master; the reporter found her missing, then she respawned (#1089). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45, Terenthis's spot), so the tip says to wait instead of moving the point. Since 0.4.0 03-loch-modan's gryphon to Stormwind and boat are skipped by a player who hearths to Auberdine (bound there on the first Darkshore visit), so the tip names the inn as well as the dock.",
 			"source": [
 				{ "kind": "in-game-check", "ref": "#1089: missing, then respawned" },
 				{ "kind": "recording", "ref": "npc 3694 windows: 29 people at Darkshore 38-40,43-45" }
@@ -1847,8 +2007,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks.",
-			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913).",
+			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip.",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -3637,8 +3797,8 @@
 				"objective": 1
 			},
 			"faction": "Horde",
-			"tip": "On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp.",
-			"note": "Field to Clear: its Hecklefang Stalkers (44,76.5) and Stormhide (44.2,76.5) are on the plain between Blackthorn Ridge and Gann, worked on the walk back from the ridge (final route review).",
+			"tip": "On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth.",
+			"note": "Field to Clear: its Hecklefang Stalkers (44,76.5) and Stormhide (44.2,76.5) are on the plain between Blackthorn Ridge and Gann, worked on the walk back from the ridge (final route review). Horde 21-30 audit (0.4.0, danger gate #1575): with the southern Barrens first in this guide (about a level earlier), the Qiraji Lieutenants (15806, level 28, elite) on the plain flag at the spot; the tip names them. Players' recordings: 29 people did it; the 1 who died there fought a Razormane Pathfinder.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -3698,6 +3858,183 @@
 				}
 			],
 			"pr": 1175
+		},
+		{
+			"id": "2025-h21-hillsbrad-fields-kirin-tor-guards",
+			"faction": "Horde",
+			"at": {
+				"quest": 527,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere. Farmer Kalaba tends the field south of the farms. Careful: Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): Forever's spawn data puts Kirin Tor Guards (246848, level 55) at the northern edge of Hillsbrad Fields (27-33,22-36), within 40 yd of the Hillsbrad Farmers Battle of Hillsbrad asks for, at a route level of 22.9. Players' recordings: 26 Horde people met them as hostile there, around 30,27, north of the farms (29-37,34-47); the 11 people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were all at the Dalaran crater in Alterac). The tip says where they stand.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 246848 spawns, Hillsbrad 27-33,22-36"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-charred-vale-level-27",
+			"faction": "Horde",
+			"at": {
+				"quest": 6393,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges.",
+			"note": "Horde 21-30 audit (0.4.0): the Charred Vale is the band's main death spot. Players' recordings (0.3.7+): 16 deaths by 4 of the 7 people recorded on the step, at 25.1-28.4, to Burning Destroyers and Scorched Basilisks (27), Bloodfury Storm Witches (27) and a Blackened Ancient (28). The tip names them and says to pull one at a time.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-baeldun-fortress-twinbraid",
+			"faction": "Horde",
+			"at": {
+				"quest": 846,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. General Twinbraid (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): General Twinbraid (3414, level 30) stands on the Bael'dun fortress's bottom floor; with the southern Barrens about a level earlier in this guide he is 3.8 levels over the route at Revenge of Gann's spot. The tip keeps players on the upper levels. Players' recordings: 27 people did it; the 4 who died there fought Bael'dun Riflemen.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 3414 spawn Barrens 49.19,84.21"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-king-of-the-foulweald-heads-up",
+			"faction": "Horde",
+			"at": {
+				"quest": 6621,
+				"goal": "accept"
+			},
+			"goalNote": "Karang Amakkar: a banner defence in the Foulweald, east of Mystral Lake: furbolg waves, then Chief Murgut",
+			"note": "Horde 21-30 audit (0.4.0, #2025's heads-up row for the Ashenvale hard quests): King of the Foulweald is a banner defence (Karang's Banner on the Foulweald Totem Mound, furbolg waves, then Chief Murgut), and its accept said only the giver's name. Players' recordings: 3 people took it, 2 handed it in; 5 deaths by 1 person on its step at 28.1.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 6621 objectives"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-felmusk-stealth",
+			"faction": "Horde",
+			"at": {
+				"quest": 6441,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns. Careful: Felmusk Rogues and Shadowstalkers move in stealth and join fights without warning.",
+			"note": "Horde 21-30 audit (0.4.0): Satyr Horns' Felmusk camp is the band's second death spot in Ashenvale: players' recordings, 5 deaths by 2 people at 28-29, to Felmusk Rogues and Shadowstalkers (26), which stealth, and a Felsworn. The tip warns of them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-gloomrise-broodmother-elite",
+			"faction": "Horde",
+			"at": {
+				"quest": 96260,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx (30, elite) sits at the north end: leave her unless you do The Broodmother with a group; her Bloody Parchment starts A Darker Truth.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): Broodmother Valraxx (264082, level 30, elite) sits at Gloomrise's north end beside the spiders the Earthen Ring's three quests ask for (route level 27.5). The tip gives her level and says to leave her unless doing The Broodmother (96261, a group choice). Players' recordings: 44 people did the step, 1 died within 60 yd.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-ambermill-high-order-mages",
+			"faction": "Horde",
+			"at": {
+				"quest": 95981,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around Ambermill, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them.",
+			"note": "Horde 21-30 audit (0.4.0, danger gate #1575): Forever's spawn data puts High Order Mages (265675, level 30) along the Ambermill road, within 40 yd of the Dalaran Watchers and Wizards Watching the Roads asks for, at a route level of 22.7. The tip names them. Players' recordings: 29 people did the step; none of the 30 people who died on that road was killed by a High Order Mage (Dalaran Mages, Wizards, Serpents and Conjurors of 14-20 where the killer is known).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				},
+				{
+					"kind": "questie",
+					"ref": "npc 265675 spawns, Silverpine 59-69,41-67"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-h21-sharptalon-level-31",
+			"faction": "Horde",
+			"at": {
+				"quest": 2,
+				"goal": "accept"
+			},
+			"tip": "On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest. Careful: Sharptalon is a level 31 nightsaber and hits hard: pull her alone, away from the Outrunners.",
+			"note": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon (12676) a level 31 nightsaber. Players' recordings: 51 people killed her, most at 27, 3 died near her; 0.3.7+ players took the claw at a median 28.4. The tip gives her level.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, 2026-11-13): deaths and killers at the spot"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2013-h21-thunder-bluff-not-from-the-barrens",
+			"faction": "Horde",
+			"at": {
+				"quest": 93739,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"when": "onquest 1195,97538",
+			"note": "thadude3's report (#2013, Orc Warlock 28): at Camp Taurajo with nothing to do in Thunder Bluff, the guide sent him up to the central rise for its flight path and flew him straight back to Camp Taurajo. The walk to the central rise and its flight-path step (the walk has no quest goal to anchor on and carries the same line by hand) now show only to a player carrying The Sacred Flame (1195) or Pigments for Paints (97538), whose hand-ins are beside the rise; everyone else learned Thunder Bluff's flight path on the Barrens & Stonetalon guide's opener, and the next step's flight to Camp Taurajo is done for a player already there (Engine: a fly goal is done in its place) or leads to Tal from the Earthen Ring.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2013: the reporter's step and location line (The Barrens, Camp Taurajo, step 40 Thunder Bluff)"
+				}
+			],
+			"issue": 2013
 		},
 		{
 			"id": "1175-needles-rokalim-back-west",
@@ -3958,7 +4295,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp.",
+			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: their camps are crowded, with Venture Co. Agents (39) among the geologists (36-38): pull from the camps' edges, one at a time.",
 			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp.",
 			"source": [
 				{
@@ -4993,7 +5330,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp.",
+			"tip": "Head west along the foot of the mountains to the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together inside the crater's eastern rim, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp. Arcane Sentries (55, elite) and Kirin Tor Guards (55) stand around the violet dome itself: keep to the camp below the rim.",
 			"note": "Horde 30-40 audit (2026-11-09): Dalaran Shield Guard 2271 is 31-32 and Theurgist 2272 32-33 (the tip said 31-32); the step's own warning about linked guards is kept in the same tip.",
 			"source": {
 				"kind": "pfquest",
@@ -5071,7 +5408,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards.",
+			"tip": "South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of Agmond's End; each one drops a slab. Every rock elemental can drop Jarkal's Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too.",
 			"note": "Horde 30-40 audit (2026-11-09): the Rock Elementals (92, level 39) that drop the Large Stone Slabs (100%) stand at 12-17,32-36 and 35-46,74-88; the route takes the group beside Agmond's End. The tip put them on the slopes north-west of the Dustbowl.",
 			"source": {
 				"kind": "pfquest",
@@ -6586,6 +6923,60 @@
 			]
 		},
 		{
+			"id": "horde-3040-dun-garok-group-only",
+			"faction": "Horde",
+			"at": {
+				"quest": 539,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"goalNote": "High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group",
+			"note": "Battle of Hillsbrad (541) and Humbert's Sword (547) are offered at this Tarren Mill stop and their steps are group-only, but players take them on the spot and drop them later: players' recordings show 547 abandoned by 5 people and 541 by 3 on this guide. The hand-in that opens 541 now says so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, 0.3.5 and later: abandons on 30-40/01-hillsbrad-foothills, 547 by 5 people, 541 by 3"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-elixir-of-agony-undercity-with-the-elixir",
+			"faction": "Horde",
+			"at": {
+				"quest": 515,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"split": {
+				"title": "Master Apothecary Faranell",
+				"tip": "With a Lesser Troll's Blood Elixir in your bags, Master Apothecary Faranell offers Elixir of Agony in the Apothecarium; Apothecary Lydon takes the elixir in Tarren Mill."
+			},
+			"note": "Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy item no vendor sells. Hillsbrad 30-40's opening Undercity stop offers it in a step of its own, shown only to a character carrying one (the step's `when has 3388`, a guide line no record form carries); the Hillsbrad 22-25 guide no longer takes it (route-fixes pair 1145 -> 515).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 515 objective: item 3388 Lesser Troll's Blood Elixir; no vendor in items.json"
+				}
+			]
+		},
+		{
+			"id": "horde-3040-elixir-of-agony-undercity-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 515,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"optional": true,
+			"note": "Elixir of Agony's accept on Hillsbrad 30-40's Undercity stop never holds the route: only a character carrying a Lesser Troll's Blood Elixir takes it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 515 objective: item 3388 Lesser Troll's Blood Elixir; no vendor in items.json"
+				}
+			]
+		},
+		{
 			"id": "levels-alliance-wetlands-hillsbrad-top-33",
 			"faction": "Alliance",
 			"at": {
@@ -7823,6 +8214,1685 @@
 			"issue": 1867
 		},
 		{
+			"id": "1952-camping-96044-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96044,
+				"goal": "turnin"
+			},
+			"when": "complete 96044",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Tognus Flintfire takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96044-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96044,
+				"goal": "accept"
+			},
+			"tip": "Tognus Flintfire takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Blacksmithing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96046-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96046,
+				"goal": "turnin"
+			},
+			"when": "complete 96046",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Yarr Hammerstone takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96046-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96046,
+				"goal": "accept"
+			},
+			"tip": "Yarr Hammerstone takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96047-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96047,
+				"goal": "turnin"
+			},
+			"when": "complete 96047",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Thamner Pol takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96047-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96047,
+				"goal": "accept"
+			},
+			"tip": "Thamner Pol takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96058-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96058,
+				"goal": "turnin"
+			},
+			"when": "complete 96058",
+			"note": "#1952: Camping 101: Engineering asks for Engineering at 20 before Bronk Guzzlegear takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96058-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96058,
+				"goal": "accept"
+			},
+			"tip": "Bronk Guzzlegear takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Engineering 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97916-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97916,
+				"goal": "turnin"
+			},
+			"when": "complete 97916",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Smith Argus takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97916-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97916,
+				"goal": "accept"
+			},
+			"tip": "Smith Argus takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Blacksmithing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97919-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97919,
+				"goal": "turnin"
+			},
+			"when": "complete 97919",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Michelle Belle takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97919-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97919,
+				"goal": "accept"
+			},
+			"tip": "Michelle Belle takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97920-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97920,
+				"goal": "turnin"
+			},
+			"when": "complete 97920",
+			"note": "#1952: Camping 101: Fishing asks for Fishing at 20 before Lee Brown takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97920-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97920,
+				"goal": "accept"
+			},
+			"tip": "Lee Brown takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Fishing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97922-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97922,
+				"goal": "turnin"
+			},
+			"when": "complete 97922",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Adele Fielder takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97922-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97922,
+				"goal": "accept"
+			},
+			"tip": "Adele Fielder takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97924-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97924,
+				"goal": "turnin"
+			},
+			"when": "complete 97924",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Helene Peltskinner takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97924-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97924,
+				"goal": "accept"
+			},
+			"tip": "Helene Peltskinner takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97938-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97938,
+				"goal": "turnin"
+			},
+			"when": "complete 97938",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Cyndra Kindwhisper takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97938-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97938,
+				"goal": "accept"
+			},
+			"tip": "Cyndra Kindwhisper takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97942-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97942,
+				"goal": "turnin"
+			},
+			"when": "complete 97942",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Byancie takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97942-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97942,
+				"goal": "accept"
+			},
+			"tip": "Byancie takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97944-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97944,
+				"goal": "turnin"
+			},
+			"when": "complete 97944",
+			"note": "#1952: Camping 101: Herbalism asks for Herbalism at 20 before Malorne Bladeleaf takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97944-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97944,
+				"goal": "accept"
+			},
+			"tip": "Malorne Bladeleaf takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Herbalism 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97946-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97946,
+				"goal": "turnin"
+			},
+			"when": "complete 97946",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Nadyia Maneweaver takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97946-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97946,
+				"goal": "accept"
+			},
+			"tip": "Nadyia Maneweaver takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97949-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97949,
+				"goal": "turnin"
+			},
+			"when": "complete 97949",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Radnaal Maneweaver takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97949-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97949,
+				"goal": "accept"
+			},
+			"tip": "Radnaal Maneweaver takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97963-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97963,
+				"goal": "turnin"
+			},
+			"when": "complete 97963",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Nyassa Swiftdraught takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97963-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97963,
+				"goal": "accept"
+			},
+			"tip": "Nyassa Swiftdraught takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97964-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97964,
+				"goal": "turnin"
+			},
+			"when": "complete 97964",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Aedi Thriceforged takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97964-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97964,
+				"goal": "accept"
+			},
+			"tip": "Aedi Thriceforged takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Blacksmithing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97965-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97965,
+				"goal": "turnin"
+			},
+			"when": "complete 97965",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Naleeia Tattermend takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97965-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97965,
+				"goal": "accept"
+			},
+			"tip": "Naleeia Tattermend takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97967-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97967,
+				"goal": "turnin"
+			},
+			"when": "complete 97967",
+			"note": "#1952: Camping 101: Fishing asks for Fishing at 20 before Fenn Fairweather takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97967-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97967,
+				"goal": "accept"
+			},
+			"tip": "Fenn Fairweather takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Fishing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97969-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97969,
+				"goal": "turnin"
+			},
+			"when": "complete 97969",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Indari Sunseam takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97969-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97969,
+				"goal": "accept"
+			},
+			"tip": "Indari Sunseam takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97970-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97970,
+				"goal": "turnin"
+			},
+			"when": "complete 97970",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Messana Crestwind takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97970-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97970,
+				"goal": "accept"
+			},
+			"tip": "Messana Crestwind takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97971-turnin-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97971,
+				"goal": "turnin"
+			},
+			"when": "complete 97971",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Mendalass Tattermend takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97971-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97971,
+				"goal": "accept"
+			},
+			"tip": "Mendalass Tattermend takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97973-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97973,
+				"goal": "turnin"
+			},
+			"when": "complete 97973",
+			"note": "#1952: Camping 101: Tailoring asks for Tailoring at 20 before Taleen Shimmerthread takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97973-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97973,
+				"goal": "accept"
+			},
+			"tip": "Taleen Shimmerthread takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Tailoring 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-98286-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98286,
+				"goal": "turnin"
+			},
+			"when": "complete 98286",
+			"note": "#1952: Camping 101: Enchanting asks for Enchanting at 20 before Nasalanna Windsinger takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-98286-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98286,
+				"goal": "accept"
+			},
+			"tip": "Nasalanna Windsinger takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Enchanting 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "h01-840-far-watch-warriors-orc",
+			"faction": "Horde",
+			"at": {
+				"quest": 840,
+				"goal": "turnin",
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"when": "onquest 1505",
+			"note": "Horde start audit (0.4.0, agreed with the Silverpine/Barrens slice): the last walk of Durotar went Razor Hill -> Far Watch Post -> Orgrimmar (+1,160 yd) only to hand Conscript of the Horde (840) to Kargal Battlescar, who stands at the Barrens guide's first stop anyway, where Crossroads Conscription (842) follows from him. Only Warriors, who hand Veteran Uzzek (1505) to Uzzek beside him and gather the Singed Scales on the road north, make the walk now; everyone else hands 840 in on that first Barrens stop.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): 5 of 9 people who reached Margoz walked to Far Watch Post before Orgrimmar for 840; 4 handed it in later or never"
+				},
+				{
+					"kind": "client",
+					"ref": "Kargal Battlescar (3337) 62.26,19.38 and Uzzek (5810) 61.38,21.12, Barrens; Razor Hill -> Far Watch -> Orgrimmar gate 2,285 yd vs 1,129 yd straight (map frames)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "h01-840-far-watch-warriors-troll",
+			"faction": "Horde",
+			"at": {
+				"quest": 840,
+				"goal": "turnin",
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"when": "onquest 1505",
+			"note": "Horde start audit (0.4.0, agreed with the Silverpine/Barrens slice): the last walk of Durotar went Razor Hill -> Far Watch Post -> Orgrimmar (+1,160 yd) only to hand Conscript of the Horde (840) to Kargal Battlescar, who stands at the Barrens guide's first stop anyway, where Crossroads Conscription (842) follows from him. Only Warriors, who hand Veteran Uzzek (1505) to Uzzek beside him and gather the Singed Scales on the road north, make the walk now; everyone else hands 840 in on that first Barrens stop.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "AuditH01 index of players' recordings (0.3.5+): 5 of 9 people who reached Margoz walked to Far Watch Post before Orgrimmar for 840; 4 handed it in later or never"
+				},
+				{
+					"kind": "client",
+					"ref": "Kargal Battlescar (3337) 62.26,19.38 and Uzzek (5810) 61.38,21.12, Barrens; Razor Hill -> Far Watch -> Orgrimmar gate 2,285 yd vs 1,129 yd straight (map frames)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "1952-camping-97902-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97902,
+				"goal": "turnin"
+			},
+			"when": "complete 97902",
+			"note": "#1952: Camping 101: Engineering asks for Engineering at 20 before Mukdrak takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97902-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97902,
+				"goal": "accept"
+			},
+			"tip": "Mukdrak takes it once your Engineering skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Engineering 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97903-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97903,
+				"goal": "turnin"
+			},
+			"when": "complete 97903",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Rawrk takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97903-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97903,
+				"goal": "accept"
+			},
+			"tip": "Rawrk takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97907-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97907,
+				"goal": "turnin"
+			},
+			"when": "complete 97907",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Krunn takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97907-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97907,
+				"goal": "accept"
+			},
+			"tip": "Krunn takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97927-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97927,
+				"goal": "turnin"
+			},
+			"when": "complete 97927",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Kray takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97927-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97927,
+				"goal": "accept"
+			},
+			"tip": "Kray takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97928-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97928,
+				"goal": "turnin"
+			},
+			"when": "complete 97928",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Thrag Stonehoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97928-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97928,
+				"goal": "accept"
+			},
+			"tip": "Thrag Stonehoof takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Blacksmithing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97929-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97929,
+				"goal": "turnin"
+			},
+			"when": "complete 97929",
+			"note": "#1952: Camping 101: Enchanting asks for Enchanting at 20 before Mot Dawnstrider takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97929-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97929,
+				"goal": "accept"
+			},
+			"tip": "Mot Dawnstrider takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Enchanting 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97931-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97931,
+				"goal": "turnin"
+			},
+			"when": "complete 97931",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Vira Younghoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97931-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97931,
+				"goal": "accept"
+			},
+			"tip": "Vira Younghoof takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97932-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97932,
+				"goal": "turnin"
+			},
+			"when": "complete 97932",
+			"note": "#1952: Camping 101: Fishing asks for Fishing at 20 before Uthan Stillwater takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97932-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97932,
+				"goal": "accept"
+			},
+			"tip": "Uthan Stillwater takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Fishing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97933-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97933,
+				"goal": "turnin"
+			},
+			"when": "complete 97933",
+			"note": "#1952: Camping 101: Herbalism asks for Herbalism at 20 before Komin Winterhoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97933-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97933,
+				"goal": "accept"
+			},
+			"tip": "Komin Winterhoof takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Herbalism 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97934-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97934,
+				"goal": "turnin"
+			},
+			"when": "complete 97934",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Chaw Stronghide takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97934-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97934,
+				"goal": "accept"
+			},
+			"tip": "Chaw Stronghide takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97935-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97935,
+				"goal": "turnin"
+			},
+			"when": "complete 97935",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Brek Stonehoof takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97935-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97935,
+				"goal": "accept"
+			},
+			"tip": "Brek Stonehoof takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97936-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97936,
+				"goal": "turnin"
+			},
+			"when": "complete 97936",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Yonn Deepcut takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97936-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97936,
+				"goal": "accept"
+			},
+			"tip": "Yonn Deepcut takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97937-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97937,
+				"goal": "turnin"
+			},
+			"when": "complete 97937",
+			"note": "#1952: Camping 101: Tailoring asks for Tailoring at 20 before Vhan takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97937-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97937,
+				"goal": "accept"
+			},
+			"tip": "Vhan takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Tailoring 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97951-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97951,
+				"goal": "turnin"
+			},
+			"when": "complete 97951",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Carolai Anise takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97951-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97951,
+				"goal": "accept"
+			},
+			"tip": "Carolai Anise takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97953-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97953,
+				"goal": "turnin"
+			},
+			"when": "complete 97953",
+			"note": "#1952: Camping 101: Enchanting asks for Enchanting at 20 before Vance Undergloom takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97953-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97953,
+				"goal": "accept"
+			},
+			"tip": "Vance Undergloom takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Enchanting 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97955-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97955,
+				"goal": "turnin"
+			},
+			"when": "complete 97955",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Nurse Neela takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97955-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97955,
+				"goal": "accept"
+			},
+			"tip": "Nurse Neela takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97957-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97957,
+				"goal": "turnin"
+			},
+			"when": "complete 97957",
+			"note": "#1952: Camping 101: Herbalism asks for Herbalism at 20 before Faruza takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97957-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97957,
+				"goal": "accept"
+			},
+			"tip": "Faruza takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Herbalism 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97958-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97958,
+				"goal": "turnin"
+			},
+			"when": "complete 97958",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Shelene Rhobart takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97958-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97958,
+				"goal": "accept"
+			},
+			"tip": "Shelene Rhobart takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97960-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97960,
+				"goal": "turnin"
+			},
+			"when": "complete 97960",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Rand Rhobart takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97960-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97960,
+				"goal": "accept"
+			},
+			"tip": "Rand Rhobart takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97961-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97961,
+				"goal": "turnin"
+			},
+			"when": "complete 97961",
+			"note": "#1952: Camping 101: Tailoring asks for Tailoring at 20 before Bowen Brisboise takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97961-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97961,
+				"goal": "accept"
+			},
+			"tip": "Bowen Brisboise takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Tailoring 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97963-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97963,
+				"goal": "turnin"
+			},
+			"when": "complete 97963",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Nyassa Swiftdraught takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97963-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97963,
+				"goal": "accept"
+			},
+			"tip": "Nyassa Swiftdraught takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Alchemy 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97964-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97964,
+				"goal": "turnin"
+			},
+			"when": "complete 97964",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Aedi Thriceforged takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97964-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97964,
+				"goal": "accept"
+			},
+			"tip": "Aedi Thriceforged takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Blacksmithing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97965-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97965,
+				"goal": "turnin"
+			},
+			"when": "complete 97965",
+			"note": "#1952: Camping 101: First Aid asks for First Aid at 20 before Naleeia Tattermend takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97965-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97965,
+				"goal": "accept"
+			},
+			"tip": "Naleeia Tattermend takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for First Aid 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97967-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97967,
+				"goal": "turnin"
+			},
+			"when": "complete 97967",
+			"note": "#1952: Camping 101: Fishing asks for Fishing at 20 before Fenn Fairweather takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97967-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97967,
+				"goal": "accept"
+			},
+			"tip": "Fenn Fairweather takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Fishing 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97969-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97969,
+				"goal": "turnin"
+			},
+			"when": "complete 97969",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Indari Sunseam takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97969-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97969,
+				"goal": "accept"
+			},
+			"tip": "Indari Sunseam takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Leatherworking 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97970-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97970,
+				"goal": "turnin"
+			},
+			"when": "complete 97970",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Messana Crestwind takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97970-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97970,
+				"goal": "accept"
+			},
+			"tip": "Messana Crestwind takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Mining 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97971-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97971,
+				"goal": "turnin"
+			},
+			"when": "complete 97971",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Mendalass Tattermend takes it; at skill 1-5 the trainer step waited for an objective the player could not finish there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97971-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 97971,
+				"goal": "accept"
+			},
+			"tip": "Mendalass Tattermend takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.",
+			"note": "#1952: says up front that the hand-in waits for Skinning 20.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97905-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97905,
+				"goal": "turnin"
+			},
+			"when": "complete 97905",
+			"note": "#1952: Camping 101: Herbalism asks for Herbalism at 20 before Jandi takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97901-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97901,
+				"goal": "turnin"
+			},
+			"when": "complete 97901",
+			"note": "#1952: Camping 101: Enchanting asks for Enchanting at 20 before Jhag takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97908-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97908,
+				"goal": "turnin"
+			},
+			"when": "complete 97908",
+			"note": "#1952: Camping 101: Skinning asks for Skinning at 20 before Thuwd takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97906-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97906,
+				"goal": "turnin"
+			},
+			"when": "complete 97906",
+			"note": "#1952: Camping 101: Leatherworking asks for Leatherworking at 20 before Karolek takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-96102-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 96102,
+				"goal": "turnin"
+			},
+			"when": "complete 96102",
+			"note": "#1952: Camping 101: Tailoring asks for Tailoring at 20 before Snang takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97899-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97899,
+				"goal": "turnin"
+			},
+			"when": "complete 97899",
+			"note": "#1952: Camping 101: Alchemy asks for Alchemy at 20 before Whuut takes it; Silverpine Forest's Orgrimmar stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97959-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97959,
+				"goal": "turnin"
+			},
+			"when": "complete 97959",
+			"note": "#1952: Camping 101: Mining asks for Mining at 20 before Brom Killian takes it; Silverpine Forest's the Undercity stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97952-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97952,
+				"goal": "turnin"
+			},
+			"when": "complete 97952",
+			"note": "#1952: Camping 101: Blacksmithing asks for Blacksmithing at 20 before Basil Frye takes it; Silverpine Forest's the Undercity stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
+			"id": "1952-camping-97954-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97954,
+				"goal": "turnin"
+			},
+			"when": "complete 97954",
+			"note": "#1952: Camping 101: Engineering asks for Engineering at 20 before Graham Van Talen takes it; Silverpine Forest's the Undercity stop sent the player to the trainer whatever the skill, so a player under 20 waited at a step that could not complete there. The step now shows only once the quest is complete, and While you're here offers the hand-in on a later pass.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: the quest log lists one objective at the accept, \"Raise your <profession> skill to 20\" (#1952; forever-db corrections of the Camping 101 quests)"
+			},
+			"issue": 1952
+		},
+		{
 			"id": "stranded-1037-carried-copies",
 			"faction": "Alliance",
 			"at": {
@@ -8044,6 +10114,918 @@
 				"ref": "players' in-game recordings to 2026-11-13: Black Shield (1322) objective ticks after kills of npc 4411, 4414, 4413 and 4415 (#1985)"
 			},
 			"issue": 1985
+		},
+		{
+			"id": "2025-a01-frostmane-hold-hideskinners",
+			"faction": "Alliance",
+			"at": {
+				"quest": 287,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): Frostmane Hold's walk to the far end (287) comes at about 8-9 in the Dun Morogh guides, and the Hold's Frostmane Hideskinners (1122) are level 9-10. In players' recordings (Polestar 0.3.5 and later), 7 of the 14 people who went in died there (11 deaths) at levels 8-9, 5 of them to Hideskinners.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings (Polestar 0.3.5 and later, to 2026-11-12): deaths in Frostmane Hold (Dun Morogh 20-26, 50-56) on the Dun Morogh guides: 7 of 14 people, 11 deaths at levels 8.0-9.2; killers Frostmane Hideskinner (1122, 9-10) 5, Frostmane Snowstrider (1121) 2, Frostmane Shadowcaster (1124) 1"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "2025-a01-loch-modan-headsplitter",
+			"faction": "Alliance",
+			"at": {
+				"quest": 224,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Headsplitter, a level 15 trogg, walks Stonesplinter Valley among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): the Dun Morogh guides' Loch Modan loop works the Stonesplinter troggs and scouts (224, 267) at about 12-13, where Headsplitter (269185, level 15) walks the valley. Players' recordings: 23 people did it at a median of 13.3, 1 died there, 2 abandoned.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 269185 Headsplitter, level 15, Loch Modan 27.8-28.6, 63-87"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-12: In Defense of the King's Lands (224) and The Trogg Threat (267) done by 23 people at 11-15 (median 13.3), 1 died within 60 yd, 2 abandoned"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-a01-teldrassil-banethil-furbolgs",
+			"faction": "Alliance",
+			"at": {
+				"quest": 483,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the barrow's Gnarlpine Defenders, Augurs and Shamans (7-9) stand in threes in the narrow tunnels: pull each group back toward the entrance before you go deeper.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): Ban'ethil Barrow Den (483's relics, Oben Rageclaw, Lynessa's escort) comes at about 9 in Teldrassil. In players' recordings (Polestar 0.3.5 and later), 5 of the 8 people who went in died there (7 deaths) at levels 8-10, to Gnarlpine Defenders, Augurs and Shamans.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' in-game recordings (Polestar 0.3.5 and later, to 2026-11-12): deaths in Ban'ethil Barrow Den (Teldrassil 43-47, 57-63): 5 of 8 people, 7 deaths at levels 8.1-10.5; killers Gnarlpine Defender (2010) 3, Gnarlpine Augur (2011) 2, Gnarlpine Shaman (2009) 2"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "2025-a01-elwynn-elder-finseer",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91751,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Elder Finseer, a level 11 rare murloc, walks the river by Guard Thomas' bridge, east of the Prowlers' woods: leave him be.",
+			"note": "Danger at the spot (#1575), Alliance 1-12 audit (0.4.0): Rough Wolf Pelts (91751) takes Prowlers' pelts east of Crystal Lake at about 8-9, where Elder Finseer (276180, a level 11 rare murloc) walks the river by the bridge. Players' recordings: 15 people did it at a median of 8.8, 2 died within 60 yd.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 276180 Elder Finseer, level 11, rare, Elwynn Forest 75-77, 42-61"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-12: Rough Wolf Pelts (91751) done by 15 people (median 8.8), 2 died within 60 yd, 1 abandoned"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "1506-rugelfuss-bunker-door",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "turnin"
+			},
+			"tip": "Captain Rugelfuss is inside the bunker at the tunnel post: go in by its door on the south-east side.",
+			"note": "Banner of the Fallen (86585): Captain Rugelfuss (1092, 23.23,73.68) stands inside Algaz Station, the dwarven bunker by the tunnel. The walking maps have no way into it from anywhere in Loch Modan, so the arrow drew a straight line from the trogg site; the guide's goto at the bunker's door (23.5,75.6, forge/seed) leads in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#1506: the reporter's arrow at Stonesplinter Valley (31.69,71.84) drew a straight line to Rugelfuss instead of routing out of the trogg site"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-08: 16 people walked into the bunker 45 times, outside at 23.33,75.75 -> inside at 23.33,74.55 (median), subzone Algaz Station / South Gate Pass"
+				}
+			],
+			"issue": 1506
+		},
+		{
+			"id": "2025-ylva-stonevault-cave-hunters",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the Badlands: stay by the banner and don't chase troggs south.",
+			"note": "Danger at the spot (#1575, 0.4.0 route audit): Mountaineer Ylva's banner (86585) is raised at the mouth of the trogg cave south of Thelsamar (Ylva 31.78,86.33); Stonevault Cave Hunters (4856, level 36, elite) spawn in the pass just south of it (32.2-33.8, 88.9-96.0, 16 spawns), against players doing the banner at a median of 21.0. Players' recordings: 21 people did the objective, 3 deaths around the spot.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-13: 21 people ticked 86585.1 (median level 21.0); deaths at 31.75,86.97 and 32.89,87.94, south of the banner"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "a2130-mystral-lake-tideress",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1016,
+				"goal": "accept"
+			},
+			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025): Elemental Bracers (1016, quest level 24) is worked at about 23-24 on 06-ashenvale's Mystral Lake stop. Tideress (npc 12759, level 27) walks the lake among the Befouled Water Elementals (npc 3917, level 23) and drops the Intact Elemental Bracer as they do (items.json 12220: npcs 3917 and 12759), so players attack her. Players' recordings (addon 0.3.5 and later): Tideress killed 4 people (5 deaths) there and the Befouled Water Elementals 5 (6 deaths), at about 23.3. The step's tip named neither; the tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): deaths on 06-ashenvale with killer npc 12759 and npc 3917"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "items.json 12220; npcs.json 12759 (level 27), 3917 (level 23)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-fresh-start-28",
+			"faction": "Alliance",
+			"at": {
+				"quest": 469,
+				"goal": "turnin"
+			},
+			"level": 28,
+			"after": true,
+			"note": "Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 fresh-start pace plan): a character who loads 06-wetlands without 06-ashenvale's Wetlands and Ashenvale chains (the catch-up hides 23 of its quests: Claws from the Deep's and Young Crocolisk Skins' follow-ups, Raene's Cleansing, Ormer's Revenge, Fire Taboo) left the guide a level lower than the route player in the calibrated level model (28.2 against 29.2, Human Warrior). The gate holds only that character at 28 after Daily Delivery's hand-in, the last goal before the boat to Auberdine and Ashenvale's level 28-32 quests: every route player is past it (players' recordings: 06-wetlands entered at 28.4, p25-p75 27.0-29.1, 39 people, addon 0.3.5 and later; model 28.2-28.7 at that point). The written step tops up on the Bluegill Raiders (npc 1418, level 28) on the coast just south of Menethil.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest levels in Forever's quest data (1021, 1031: level 32; 1035: level 30); npcs.json 1418 (level 28)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): 06-wetlands entry levels"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-rotheap-spoils",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98197,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Timber and iron piles lie around the keep and along the harbor's walls. Careful: Nightveiled Rotheap, a level 31 elite, roams the Wetlands' shores and roads: if it comes by, give it room.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Nightveiled Rotheap (npc 270589, level 31, elite) roams the whole Wetlands (its spawn points run from Menethil's walls to the Green Belt); 06-ashenvale's Menethil and east-Wetlands steps are done at about 24-27. Nobody died to it in players' recordings (13 people killed it), so the steps warn of it instead of moving. The tip keeps the step's old tip, the sentence added.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Nightveiled Rotheap (npc 270589, level 31, elite) killed by 13 people across the Wetlands, none killed by it; npcs.json 270589 spawns over the whole zone"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-thelgen-rock-highland-elites",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98282,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Thelgen Rock holds Forever's Highland Lurkers and Horrors (npcs 260804, 260808, level 28, elite) among the Cave and Leech Stalkers that drop the glands; 06-ashenvale does Alchemical Hazards there at about 25-27. The tip keeps the step's old tip, the sentence added.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Alchemical Hazards (98282) done by 32 people (median 26.8), 2 died in the cave, 10 abandoned it; Highland Lurkers killed by 31 people and Highland Horrors by 21 at Thelgen Rock (51,61); npcs.json 260804 and 260808 (level 28, elite): 22 and 8 of their 24 spawn points in the cave"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-mathystra-baron-marinous",
+			"faction": "Alliance",
+			"at": {
+				"quest": 951,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore. Careful: Baron Marinous, an elite naga (21), walks the ruins among them: pull the naga away from him, or fight him at full health.",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Baron Marinous (npc 270294, level 21, elite) walks the Ruins of Mathystra among the Stormscale naga that 03-darkshore-return's naga leg works at about 22-23. The tip keeps the step's old tip, the sentence added.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Mathystra Relics and Swelling Forces done by 27-28 people (median 21.4-21.9), none died there; Baron Marinous (npc 270294, level 21, elite) killed by 10 people at Darkshore 59,23"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-rotheap-raptors",
+			"faction": "Alliance",
+			"at": {
+				"quest": 294,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Mottled Screecher; careful: Nightveiled Rotheap, a level 31 elite, roams these hills",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Nightveiled Rotheap (npc 270589, level 31, elite) roams the whole Wetlands; this step has its own two tips, so the warning is the goal's inline note.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Nightveiled Rotheap (npc 270589, level 31, elite) killed by 13 people across the Wetlands, none killed by it; npcs.json 270589 spawns over the whole zone"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "a2130-wetlands-rotheap-lost-fleet",
+			"faction": "Alliance",
+			"at": {
+				"quest": 289,
+				"goal": "objective",
+				"objective": 1
+			},
+			"goalNote": "Cursed Marine; careful: Nightveiled Rotheap, a level 31 elite, roams this coast",
+			"note": "Alliance 20-30 audit (0.4.0, #2025; danger at the spot, #1575): Nightveiled Rotheap (npc 270589, level 31, elite) roams the whole Wetlands; this step has its own two tips, so the warning is the goal's inline note.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings (addon 0.3.5 to 0.3.7.2): Nightveiled Rotheap (npc 270589, level 31, elite) killed by 13 people across the Wetlands, none killed by it; npcs.json 270589 spawns over the whole zone"
+			},
+			"issue": 2025
+		},
+		{
+			"id": "2025-great-lift-wait",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1135,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills.",
+			"note": "0.4.0 route audit (Refs #2025): the step sent players down the Great Lift with no word on it. The step's earlier tip (the lift, the cliffs, the venom sacs) is kept in this one.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, to 2026-11-13): 11 deaths of 3 people at The Great Lift while on this guide's way down to Highperch, none with an attacker recorded (falls); 16 deaths of 6 Alliance people there over every guide"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-kurzen-compound-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 203,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"tip": "The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. Bookie Herod's records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side.",
+			"note": "0.4.0 route audit (Refs #2025): the step's quest mobs (Kurzen Jungle Fighters and Medicine Men, 32) stand on the compound's west side, the Elites and Witch Doctors (36) on its east side, and the step gave no warning. The step's earlier tip is kept in this one.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns: Kurzen Jungle Fighter (937) and Medicine Man (940), level 32, at 43.6-47.1,7.1-12.6; Kurzen Elite (939) and Witch Doctor (942), level 36, at 46.7-49.7,5.7-8.7"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (shared index, to 2026-11-13): on this step, 3 people killed 5 times by Kurzen Elites (36-37) and a Kurzen Witch Doctor (37) at 48.5-49.6,7.9-9.0, at about level 33.4"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "2025-valley-of-bones-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 261,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"tip": "Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them.",
+			"note": "0.4.0 route audit (Refs #2025, danger at the spot #1575): the Undead Ravagers (37) and the Ghost Magnets' spot lie on the bone fields at 58-65,81-92, where Magram Necrokhans and Corpsefeeders (45, elite) and Magram Necromancers (42) of Shen'dralas walk the same ground; the step gave no warning. The arrows (places 1575-desolace-alliance-undead-ravagers-west and -ghost-magnets-east) lead to the fields' clear western edge and to the magnet spot players used in the east; the tip says so and warns of the elites between. The step's earlier tip is kept in this one.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns: Undead Ravager (11561, 37) Desolace 58.3-65.2,81.5-92.1; on Shen'dralas (map 2652), over the bone fields at Desolace 59.6-65.9,85.1-94.2: Magram Necrokhan (253274, 45, elite) 10 spawns, Corpsefeeder (253394, 45, elite) 3, Magram Necromancer (253272, 42) 6"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (danger census, to 2026-11-12): Ghost-o-plasm Round Up (6134) on this step done by 8 people at a median level of 39.6; deaths within 60 yd: 5 around its Ghost Magnets goal and 3 around its Ghost-o-plasm goal; nobody died around the Ravagers (261, 18 people)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "1999-feralas-rage-scar-heads-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7733,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time.",
+			"note": "Bennistrov's report (#1999): the High Wilderness step ground to 44.5 on the Rage Scar yetis (46-48) at 43-44. The level-45 grind now comes first, on the Feral Scar yetis (43-45; record 1999-feralas-level-45-before-rage-scar), and the Rage Scar hides after it, with this heads-up on their level.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar Yeti 5297 level 47, Elder Rage Scar Yeti 5299 level 48; Feral Scar Yeti 5292 level 43, 5295 level 44, 5293 level 45"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature_loot_template: Pristine Yeti Hide (18969) about 3% from the Rage Scar yetis only"
+				}
+			],
+			"issue": 1999
+		},
+		{
+			"id": "stv-40-bloodsail-camp-heads-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 610,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Bloodsail Mages and Warlocks here are level 40-43 and cast from range: pull one at a time and fight with your back to the open beach.",
+			"note": "0.4.0 route audit (F5): 40-50/01's first Booty Bay loop runs at about 40 (calibrated level model 39.9-40.8) against 40-43 Bloodsail casters; players died there (4 people, 9 deaths). A heads-up where Catelyn's blade is taken.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, Alliance 40-42 on 40-50/01's Bloodsail camp and Wild Shore steps: 4 people died 9 times, killed by Bloodsail Mages (40-41), Warlocks (42-43) and Swashbucklers (42)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Bloodsail Mage 1562 from 39 (40-41 in the recordings), Bloodsail Warlock 1564 and Bloodsail Swashbuckler 1563 from 41 (41-43 on the danger gate)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "stv-40-wild-shore-heads-up",
+			"faction": "Alliance",
+			"at": {
+				"quest": 604,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Wild Shore camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge.",
+			"note": "0.4.0 route audit (F5): the Wild Shore step (charts, orders, Snuff, Dizzy's eye) is worked at about 40-42 against 41-43 Bloodsail Warlocks and Swashbucklers; it is on the danger gate's borderline list with deaths in players' recordings. A heads-up on the step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, Alliance 40-42 on 40-50/01's Bloodsail camp and Wild Shore steps: 4 people died 9 times, killed by Bloodsail Mages (40-41), Warlocks (42-43) and Swashbucklers (42)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Bloodsail Mage 1562 from 39 (40-41 in the recordings), Bloodsail Warlock 1564 and Bloodsail Swashbuckler 1563 from 41 (41-43 on the danger gate)"
+				}
+			],
+			"issue": 2025
+		},
+		{
+			"id": "danger-hinterlands-43-witch-doctor-tiik",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2880,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.",
+			"note": "Danger at the spot (0.4.0 audit): the necklaces drop from every Witherbark troll (43-45); Witch Doctor Ti'ik (49) and 18 Hexed Larva spawns (45) sit in the western village's huts, which the arrow can point at. A heads-up; the gate's flags reviewed into data/danger-baseline.json.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 270772 Witch Doctor Ti'ik level 49, 6 spawns around 24.6-25.4,62.6-66.0; npc 270807 Hexed Larva level 45, 18 spawns at the same huts"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "danger-feralas-44-namida-grimtotem",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2970,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Namida Grimtotem, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her.",
+			"note": "Danger at the spot (0.4.0 audit): Namida Grimtotem, an elite of 43, stands among the Grimtotem tauren the quest asks for. A heads-up; the gate's flags reviewed into data/danger-baseline.json.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 222286 Namida Grimtotem level 43 elite, 3 spawns at 66.8-68.3,38.6-39.3; players met her (14 sightings)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "danger-blasted-lands-48-elites",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2581,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: two elites roam here: Calefactus the Unleashed (50) in the middle of the zone around 44,34, and Vek'zol (55) on the ridge around 39,32. When you see one, hunt somewhere else.",
+			"note": "Danger at the spot (0.4.0 audit): the bloodmages' parts drop zone-wide, and two elites roam the same hills: Calefactus the Unleashed (50, met by players) and Vek'zol (55). A heads-up; the gate's flags reviewed into data/danger-baseline.json.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 221740 Calefactus the Unleashed level 50 elite, 24 spawns around 43.7-44.9,31.9-36.2; npc 247015 Vek'zol level 55 elite, around 39.1-39.2,32.4-33.0"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings (to 2026-11-13): the unit census around the step"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-burning-steppes-dreadmaul-core-hounds",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3823,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of Dreadmaul Rock: pull the ogres on the rock itself and look around before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Escaped Core Hounds (level 60, not elite) roam the whole Burning Steppes; some of their spawns sit on the slopes west and south of Dreadmaul Rock, beside the Firegut Ogres a level 51 player kills here. No recorded deaths yet (1 person did the step).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 227746 Escaped Core Hound 60: 24 spawns across the Burning Steppes, incl. 72.4,32.6 / 72.4,37.0 / 74.2,29.8 / 74.8,58.6 beside Dreadmaul Rock's ogres (7033, 74-87,37-56)"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-burning-steppes-blackrock-firesworn",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3824,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Firesworn (level 60, not elite) wander the Burning Steppes, two of their spawns between the Blackrock camps (40.2,45.2 and 41.2,34.8) where a level 52 player hunts Gor'tesh and the medallions.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 228725 Firesworn 60: 24 spawns across the Burning Steppes, incl. 40.2,45.2 / 41.2,34.8 / 43.8,40.0 by the Blackrock Slayers, Warlocks and Battlemasters (7027-7029, 39-42,32-36)"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-burning-steppes-broodling-reaver",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4726,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the Broodling Essence point moved to the Black Broodling spawn at 81.0,28.2 (places record 1575-burning-steppes-broodling-essence). A Malfunctioning Reaver (56, rare) spawns about 65 yd from it (79.2,29.7), and elite Black Dragonspawn (52) and Wyrmkin (53) stand around both broodling spawns nearest Flame Crest (81.0,28.2 and 81.4,26.5); the spawns clear of both lie about 370 yd further east, so the point stays and the step warns.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 8981 Malfunctioning Reaver 56 rare at Burning Steppes 79.2,29.7 / 88.1,31.8 / 90.0,46.0 / 85.8,57.1 / 88.6,57.4; 7047 Black Broodling spawns 81.0-91.9,26.5-62.1; Black Dragonspawn (52) and Black Wyrmkin (53), rank elite, among them"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-blasted-lands-vekzol",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3501,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Vek'zol (level 55, elite) stands at 49.9,35.5, beside Kum'isha's hill (52.0,35.7), and at 39.0-39.2,32.4-33.0 to the west, where a level 52 player collects Imperfect Draenethyst Fragments from the Blasted Lands mobs.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 247015 Vek'zol 55 rank elite: spawns in the Blasted Lands at 39.0,32.4 / 39.2,33.0 / 49.9,35.5"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-felwood-irontree-walkers-stompers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4084,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: Ancient Irontree Walkers, level 59 elites, stand among the treants in the middle of Irontree Woods: take the Stompers on the north side (about 48,21).",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): eight Ancient Irontree Walkers (level 59, elite) stand among the Irontree Stompers (7139, 46-49,19-30) in the middle of Irontree Woods; the Stompers on the north side (48.5,21.1 / 48.8,19.4) are clear of them.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 235912 Ancient Irontree Walker 59 rank elite: spawns in Felwood at 47.0-50.3,23.9-28.8"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-felwood-toxic-horrors-walkers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5086,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Ancient Irontree Walkers, level 59 elites, stand among the Toxic Horrors: work the Horrors at the camp's north-east tip (about 50.6,22.4), one at a time, and look for a walker before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the same Ancient Irontree Walkers (level 59, elite) stand among the Toxic Horrors (7132, 48.1-50.6,22.4-27.4); the Horror at 50.6,22.4 is the farthest from any walker, where the arrow now points (places.json, both factions). Players' recordings: 1 person died near the step's goal.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 235912 Ancient Irontree Walker 59 rank elite at Felwood 47.0-50.3,23.9-28.8; 7132 Toxic Horror 12 spawns at 48.1-50.6,22.4-27.4"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec index danger recordings (2026-11-13): 1 person died within 60 yd of the Toxic Horrors goal"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1999-feralas-level-45-before-rage-scar",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7733,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=45",
+			"note": "Bennistrov's report (#1999): at 43-44 the guide sent players to grind the Rage Scar yetis (46-48) of the High Wilderness. The level-45 grind on the Feral Scar yetis (43-45, Feral Scar Vale, the same mainland loop) now comes first (the seed's order), and the Rage Scar hides' step shows only from 45, so the player meets the yetis at 45. Calibrated level model, every Alliance race and class: +1.4 min to 60 against the guide before the fix.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar 5299 level 47, Elder Rage Scar 5297 level 48; Feral Scar Yeti 5292 level 43"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1999: Bennistrov, NightElf Druid 43, on the High Wilderness step"
+				}
+			],
+			"issue": 1999
+		},
+		{
+			"id": "1999-feralas-pristine-yeti-hide-from-45",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7735,
+				"goal": "accept"
+			},
+			"when": "level>=45",
+			"note": "Bennistrov's report (#1999): the Pristine Yeti Hide drops only from the Rage Scar yetis (46-48); its step shows only from 45, after the level-45 grind on the Feral Scar yetis, like the Rage Scar hides' step (1999-feralas-level-45-before-rage-scar).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc levels: Rage Scar Yeti 5296 level 46, Ferocious Rage Scar 5299 level 47, Elder Rage Scar 5297 level 48"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1999: Bennistrov, NightElf Druid 43, on the High Wilderness step"
+				}
+			],
+			"issue": 1999
+		},
+		{
+			"id": "2207-tanaris-dunemaul-grind-why",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5863,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Why the grind to 47: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes.",
+			"note": "Bennistrov's and Visur's report (#2207): the Dunemaul Compound step grinds to 47.06, almost a level for a player at 46.1. The gate stays: lowering it to 46.7 (enough for Fandral's level-47 errand in Darnassus) let the calibrated level model take the Thistleshrub Valley's level-50 quests at about 46.5 and added 15 accepts three or more levels over (Tanaris and the Searing Gorge). The tip says why; the written grind itself is on the level 45-46 Ogres at the compound's south end (the danger gate's grind check flagged the 46-48 Brutes).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings at the compound (6 people): Dunemaul Brute 47-48, Enforcer 46-47, Ogre 45-46, Ogre Mage 46-47, Warlock 47-48, Gor'marok 49"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npc 5471 Dunemaul Ogre spawns at 39.1-39.6,72.6-74.9 (the compound's south end); Thistleshrub Rootshaper 5485 and Gnarled Thistleshrub 5490 48-50"
+				}
+			],
+			"issue": 2207
+		},
+		{
+			"id": "2253-galens-escape-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1393,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/05-arathi-highlands"
+			},
+			"tip": "Galen is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on Galen: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage.",
+			"note": "Player report #2253 (Human Paladin 38): the escort pulls the Fallow Sanctuary's Lost One Riftseekers (37-38) and their pets onto Galen, too hard alone at 38; a level 43 warrior barely did it. The step gave no warning. Players' recordings agree it is a hard escort but one most finish: the step warns, says how to keep the attackers on the player, and that a failed escort is taken again at the cage.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2253 (chiboman, 0.3.7.2): the escort aggroes the camp's warlock Lost Ones with their pets onto Galen"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings of Galen's Escape (1393): 20 people, 19 tried it (accepted at 36-44); 11 finished on the first try, 8 failed the first escort at 36-39, 5 of them finished on a retry and 3 gave up"
+				},
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json spawns within 150 yd of Galen's cage (Swamp of Sorrows 65.5,18.2): Lost One Riftseeker (37-38), Seer (37-38), Muckdweller (36-37), Hunter (36-37), Cook (37), Chieftain (39)"
+				}
+			],
+			"issue": 2253
+		},
+		{
+			"id": "2268-dun-morogh-thesten-split",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95213,
+				"goal": "turnin"
+			},
+			"split": {
+				"title": "Quarrymaster Thesten"
+			},
+			"note": "#2268: Dun Morogh (Dwarf and Gnome). The Empty Powder Keg's quest (95213) was handed in on the quarry stop with Those Blasted Troggs! and The Public Servant, as optional lines: once those two were in, nothing held the step, so a player carrying the keg's quest was sent on to Helm's Bed Lake without Thesten's follow-up (95214), whose powder then showed n/a. The keg's hand-in and the follow-up's accept get a step of their own (this record), shown only while the keg's quest is carried (2268-dun-morogh-thesten-when).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268: a Dwarf Shaman at level 11 stood beside Quarrymaster Thesten with Stolen Blasting Powder (95213) complete in the log; the guide's window had moved on to Helm's Bed Lake, where the follow-up's powder showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 95213 started by the Empty Powder Keg (268548), ended by Quarrymaster Thesten (1256); 95214 started and ended by him, after 95213"
+				}
+			],
+			"issue": 2268
+		},
+		{
+			"id": "2268-dun-morogh-thesten-when",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95213,
+				"goal": "turnin"
+			},
+			"when": "onquest 95213",
+			"note": "#2268: the Quarrymaster Thesten step (2268-dun-morogh-thesten-split) shows only while Stolen Blasting Powder (95213) is in the log; there its hand-in and the follow-up's accept hold the route before Helm's Bed Lake. A player without the keg never sees it.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268: a Dwarf Shaman at level 11 stood beside Quarrymaster Thesten with Stolen Blasting Powder (95213) complete in the log; the guide's window had moved on to Helm's Bed Lake, where the follow-up's powder showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 95213 started by the Empty Powder Keg (268548), ended by Quarrymaster Thesten (1256); 95214 started and ended by him, after 95213"
+				}
+			],
+			"issue": 2268
+		},
+		{
+			"id": "2243-look-to-the-stars-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 174,
+				"goal": "accept",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"split": {
+				"title": "Viktori Prism'Antras",
+				"tip": "Viktori Prism'Antras is in her house at the east end of town. Look to the Stars needs a Bronze Tube, so this step shows only while you carry one: without a tube the guide passes Viktori and her chain."
+			},
+			"note": "#2243 (Acrylic and one more player): Look to the Stars (174) needs a Bronze Tube, and players without one were held on its hand-in on 04-redridge-mountains' first Darkshire stop, which told them to skip it by hand; Herble Baubbletump, the town's vendor, had none in 44 merchant windows of 28 people (#1792) and the Stormwind Auction House buy before it is optional. 174's accept and hand-in are a step of their own, shown `when has 4371` (the item 174 asks for), and 175's accept a step `when turnedin 174`; both gates are lines of the seed's steps, which the writer keeps. This record keeps 174 off the main Darkshire step if a route round merges them; Blind Mary's and Viktori's later hand-ins (175, 177, 181) drop out on their own for a player who never took the chain (the engine's orphaned turn-ins, the accepts' prerequisites).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Herble Baubbletump had no Bronze Tube in 44 merchant windows of 28 people (#1792)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2243 and one more player: held on Look to the Stars' hand-in without a Bronze Tube"
+				}
+			],
+			"issue": 2243
+		},
+		{
+			"id": "2243-look-to-the-stars-part-2-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 175,
+				"goal": "accept",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"split": {
+				"title": "Viktori Prism'Antras"
+			},
+			"note": "#2243: Look to the Stars part 2 (175) is taken from Viktori after 174's hand-in, on a step of its own (`when turnedin 174` in the seed), since the Bronze Tube that gates 174's step is spent on its hand-in.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Herble Baubbletump had no Bronze Tube in 44 merchant windows of 28 people (#1792)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2243 and one more player: held on Look to the Stars' hand-in without a Bronze Tube"
+				}
+			],
+			"issue": 2243
+		},
+		{
+			"id": "h4050-danger-tip-2975",
+			"faction": "Horde",
+			"at": {
+				"quest": 2975,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Ohk'zi (level 43, elite) stands in the outpost: pull the ogres out to you, away from him.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): Ohk'zi (level 43, elite, npc 222233) stands in the Gordunni Outpost: players' recordings saw him hostile at 75,25-26 (2 killed him, 0 died there); the danger gate flags The Ogres of Feralas (2975) there at the route's 43.9. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
+		},
+		{
+			"id": "h4050-danger-tip-2974",
+			"faction": "Horde",
+			"at": {
+				"quest": 2974,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Namida Grimtotem (level 43, elite) stands in the camp: pull the raiders and shamans away from her.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): Namida Grimtotem (level 43, elite, npc 222286) stands in the Grimtotem camp: recordings saw her hostile at 67,38-39 (4 killed her, 0 died there); the danger gate flags A Grim Discovery (2974) there at the route's 44.2. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
+		},
+		{
+			"id": "h4050-danger-tip-699",
+			"faction": "Horde",
+			"at": {
+				"quest": 699,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: a Methuselah Crab (level 60) walks the south-east strand: give it a wide berth.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): A level 60 Methuselah Crab (npc 272377, hostile) walks the Swamp of Sorrows' south-east strand: 13 recorded sightings at 79-80,90-94, none fought, 0 deaths; the danger gate flags Lack of Surplus (699), Fresh Meat (1430) and Threat From the Sea (1426) there. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
+		},
+		{
+			"id": "h4050-danger-tip-3128",
+			"faction": "Horde",
+			"at": {
+				"quest": 3128,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: a Vale Screamer (level 60) flies over the forest west of the camp: keep clear of it.",
+			"note": "Horde 40-50 route audit (0.4.0), danger at the spot (#1575): A level 60 Vale Screamer (npc 272401, hostile) flies over Feralas west of Camp Mojache: 23 recorded sightings at 46-54,38-51, one kill, 0 deaths; the danger gate flags Natural Materials (3128) there. The flag is reviewed into data/danger-baseline.json; the tip warns the player.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: unit, kill and death events of the named creature"
+			}
+		},
+		{
+			"id": "1575-azshara-blackmaw-thrall",
+			"faction": "Horde",
+			"at": {
+				"quest": 3505,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Careful: a Blackmaw Thrall, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side.",
+			"note": "Danger-at-the-spot gate (#1575, 0.4.0 base): one Blackmaw Thrall (level 55-57, elite) stands at 54.8,26.0, on the west edge of the Thalassian Base Camp, beside one of the Blood Elf Surveyors the route sends players to at about 55.4. The arrow now points at the camp's east side (places.json azshara-3505-surveyors-east); the tip names him.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 250023 Blackmaw Thrall 55-57, rank elite, spawn at Azshara 54.81,26.03; 6198 Blood Elf Surveyor spawns 55.4-58.8,26.5-31.2"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "1575-winterspring-hailspite",
+			"faction": "Horde",
+			"at": {
+				"quest": 4741,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Hailspite, level 60 elites, gather in the snowfields south-east of Everlook, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town.",
+			"note": "Danger-at-the-spot gate (#1575, 0.4.0 base): two Hailspite (level 60, elite) stand within 40 yd of one of the Moontouched Owlbeasts' southern spawns, south-east of Everlook, at the route's 56.5. The arrow now points north of town (places.json winterspring-4741-moontouched-north); the tip names them.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 269213 Hailspite 60, rank elite, spawns at Winterspring 65.6-67.9,54.6-59.4; 7453 Moontouched Owlbeast spawns 59-68,15-63"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "1575-felwood-irontree-walkers",
+			"faction": "Horde",
+			"at": {
+				"quest": 5086,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Ancient Irontree Walkers, level 59 elites, walk among the Toxic Horrors, and Vartrus the Ancient (63, elite) roams the woods: work the Horrors at the north tip of Irontree Woods, one at a time.",
+			"note": "Danger-at-the-spot gate (#1575, 0.4.0 base): eight Ancient Irontree Walkers (59, elite) share the Toxic Horrors' ground in Irontree Woods, and Vartrus the Ancient (63, elite) stands among them; the route is there at about 59.5, and one recorded player died within 60 yd. The arrow now points at the Horror farthest from the walkers (places.json felwood-5086-toxic-horrors-north-tip); the tip names them. The Alliance's own tip is a separate record.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 235912 Ancient Irontree Walker 59, rank elite, spawns at Felwood 47.0-50.3,23.9-28.8; 14524 Vartrus the Ancient 63 at 47.78,24.08; 7132 Toxic Horror 48.1-51.1,22.5-27.4"
+			},
+			"issue": 1575
+		},
+		{
+			"id": "durotar-rezlak-storm-orb-split",
+			"faction": "Horde",
+			"at": {
+				"quest": 97281,
+				"goal": "turnin"
+			},
+			"split": {
+				"title": "Rezlak"
+			},
+			"note": "Durotar (Orc and Troll): A Simmering Storm (97281), from the Dull Storm Orb the Dustwind harpies drop, was handed in to Rezlak on the stop that hands in Securing the Lines (835), with the follow-up's accept (97282), both as optional lines: once 835 was in, nothing held the step, so a player with the orb's quest walked on to Thunder Ridge, where Stormy Potential's organs showed n/a. The hand-in and the accept get a step of their own right after that stop (shown only while 97281 is carried: durotar-rezlak-storm-orb-when), where the hand-in holds the route; Stormy Potential's accept stays optional there, an extra after a chance drop (#807).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268's pattern, in the Durotar guides: Rezlak's hand-in of A Simmering Storm (97281, from the Dull Storm Orb) and the accept of Stormy Potential (97282) were optional lines on the stop that hands in Securing the Lines (835); once 835 was in, nothing held the step, and Thunder Ridge's Charged Thunder Lizard Organs (97282.1) showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 97281 started by the Dull Storm Orb (277661), ended by Rezlak (3293); 97282 started and ended by Rezlak, after 97281"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-14: A Simmering Storm in 39 recordings, Stormy Potential in 49"
+				}
+			]
+		},
+		{
+			"id": "durotar-rezlak-storm-orb-when",
+			"faction": "Horde",
+			"at": {
+				"quest": 97281,
+				"goal": "turnin"
+			},
+			"when": "onquest 97281",
+			"note": "Durotar (Orc and Troll): the Rezlak step of durotar-rezlak-storm-orb-split shows only while A Simmering Storm (97281) is in the log; there its hand-in holds the route before Thunder Ridge, with Stormy Potential's accept (97282) offered beside it, optional (#807). A player who never got the orb does not see it.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268's pattern, in the Durotar guides: Rezlak's hand-in of A Simmering Storm (97281, from the Dull Storm Orb) and the accept of Stormy Potential (97282) were optional lines on the stop that hands in Securing the Lines (835); once 835 was in, nothing held the step, and Thunder Ridge's Charged Thunder Lizard Organs (97282.1) showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 97281 started by the Dull Storm Orb (277661), ended by Rezlak (3293); 97282 started and ended by Rezlak, after 97281"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-14: A Simmering Storm in 39 recordings, Stormy Potential in 49"
+				}
+			]
+		},
+		{
+			"id": "durotar-rezlak-stormy-potential-when",
+			"faction": "Horde",
+			"at": {
+				"quest": 97282,
+				"goal": "turnin"
+			},
+			"when": "onquest 97282",
+			"note": "Durotar (Orc and Troll): Stormy Potential (97282) is offered only on the Rezlak step of a player carrying A Simmering Storm (durotar-rezlak-storm-orb-when), so its hand-in to Rezlak after Thunder Ridge waits for the quest in the log, as the guide check asks of a turn-in whose accept has a `when`.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268's pattern, in the Durotar guides: Rezlak's hand-in of A Simmering Storm (97281, from the Dull Storm Orb) and the accept of Stormy Potential (97282) were optional lines on the stop that hands in Securing the Lines (835); once 835 was in, nothing held the step, and Thunder Ridge's Charged Thunder Lizard Organs (97282.1) showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 97281 started by the Dull Storm Orb (277661), ended by Rezlak (3293); 97282 started and ended by Rezlak, after 97281"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-14: A Simmering Storm in 39 recordings, Stormy Potential in 49"
+				}
+			]
 		}
 	]
 }

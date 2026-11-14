@@ -2601,5 +2601,57 @@
 			}
 		],
 		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
+	},
+	"278863": {
+		"set": {
+			"spawns": {}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-12: no sighting of npc 278863 and no death to it, while 337 people on foot logged other creatures within 40 yd of its points (danger gate census)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever world DB of 2026-10-14: no creature_template 278863"
+			}
+		],
+		"note": "Infernal (npc 278863, a level 30 elite) is nowhere players go: the quest data puts it at 133 points in Durotar, Elwynn Forest, Teldrassil, Thunder Bluff, Mulgore, Stormwind City and Zephras Isle, and no player has met it or died to it there. Those points made the danger gate flag the starting zones' quests, and would mark For Honor and An Enticing Offer \"Elite: group advised\" (#1575)."
+	},
+	"5858": {
+		"set": {
+			"name": "Searing Lava Spider"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Fiery Menace! (7724) reads \"Searing Lava Spider slain\" in the quest log, and each of its 40 recorded ticks came with a kill of npc 5858 credited to it (3 people)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2199: the reporter, at 10 of 20 on Fiery Menace!, found the spiders it counts named Searing Lava Spider"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 5858: name \"Searing Lava Spider\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 5858, the level 47-49 spiders of western Searing Gorge that Fiery Menace! counts, is the Searing Lava Spider in Forever; the merged data still had its Classic name, Greater Lava Spider, so the guides and the quest's step named a spider the game does not show (#2199)."
+	},
+	"8479": {
+		"set": {
+			"name": "Velarok Windblade"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-13: Divine Retribution (3441), taken from and handed in to npc 8479, reads \"Velarok Story\" in the quest log (3 people)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide npc 8479: name \"Velarok Windblade\", from the game client's creature cache"
+			}
+		],
+		"note": "NPC 8479 at the Cauldron's rim in Searing Gorge, who gives Divine Retribution, The Flawless Flame, Forging the Shaft and The Torch of Retribution, is Velarok Windblade in Forever; the merged data still had his Classic name, Kalaran Windblade, which the guides showed on his goals under steps and tips that already say Velarok (#2199 sweep: names of quest NPCs the game shows otherwise)."
 	}
 }

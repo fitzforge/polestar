@@ -365,8 +365,10 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
 
   `tools/hooks/commit-msg` then refuses a message that breaks the rule and
   names the line and rule; `tools/hooks/pre-push` checks the branch name and
-  every commit a push would publish. `node tools/public-text.js <file>`
-  checks any text the same way.
+  every commit a push would publish that isn't on `origin` yet (commits a
+  rebase or merge brings in from `origin` are public already and aren't
+  checked again). `node tools/public-text.js <file>` checks any text the same
+  way.
 - Behaviour changes come with tests that show the behaviour.
 - Each change brings its changelog entry as a file of its own in
   `changes/` (a fragment), not an edit to CHANGELOG.md: with many pull

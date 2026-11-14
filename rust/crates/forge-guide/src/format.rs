@@ -11,8 +11,8 @@ use crate::js::V;
 // `when`, `label` and `along`, a level goal's `frac` and a `next` option's
 // `when` (`nextWhen`); format 5 adds the `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals, the
 // `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates and a step's `skipto`;
-// format 10 adds the `taxi` when predicate; a pack is written in the first format its guides
-// need (format_for): a pack without any stays readable by Polestar 0.2.5.
+// format 10 adds the `taxi` when predicate, the `auction` goal and a collect's `gather`; a pack is written in the
+// first format its guides need (format_for): a pack without any stays readable by Polestar 0.2.5.
 pub const FORMAT: u32 = 3;
 pub const WHEN_FORMAT: u32 = 4;
 pub const MONEY_TASK_FORMAT: u32 = 5;
@@ -25,9 +25,11 @@ pub const PACKED_FORMAT: u32 = 8;
 /// Format 9: the `wait` goal (a countdown in the step). An older Polestar refuses the pack as too new
 /// instead of refusing each guide with "unknown verb".
 pub const WAIT_FORMAT: u32 = 9;
-/// Format 10: the `taxi` when predicate (a flight path the character knows). An older Polestar refuses the
-/// pack as too new instead of refusing each guide with "bad when".
+/// Format 10, read by Polestar 0.4.0: the `taxi` when predicate (a flight path the character knows), and the
+/// `auction` goal and a collect's `gather` (a profession guide's materials, gathered or bought: Core/Materials.lua).
+/// An older Polestar refuses the pack as too new instead of refusing each guide with "bad when" or "unknown verb".
 pub const TAXI_FORMAT: u32 = 10;
+pub const MATERIALS_FORMAT: u32 = 10;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -89,12 +91,17 @@ fn uses_taxi(g: &V) -> bool {
 		|| g.get("nextWhen").values().iter().any(|list| list.items().iter().any(taxi))
 }
 
+/// An `auction` goal or a `gather` collect needs format 10 too (MATERIALS_FORMAT).
+fn uses_materials(g: &V) -> bool {
+	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("auction") || goal.get("gather").truthy()))
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
 
-/// The format a pack's compiled guides need: TAXI_FORMAT when a guide has a `taxi` predicate,
-/// WAIT_FORMAT when a guide has a `wait` goal,
+/// The format a pack's compiled guides need: format 10 (TAXI_FORMAT, MATERIALS_FORMAT) when a guide has a `taxi`
+/// predicate, an `auction` goal or a `gather` collect, WAIT_FORMAT when a guide has a `wait` goal,
 /// MONEY_TASK_FORMAT when a guide
 /// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 /// `skipto`, WHEN_FORMAT when a step
@@ -102,7 +109,7 @@ fn has_keys(v: &V) -> bool {
 /// option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 /// LEGS_FORMAT (project.rs build_pack_files).
 pub fn format_for(guides: &[V]) -> u32 {
-	if guides.iter().any(uses_taxi) {
+	if guides.iter().any(|g| uses_taxi(g) || uses_materials(g)) {
 		return TAXI_FORMAT;
 	}
 	if guides.iter().any(uses_wait) {

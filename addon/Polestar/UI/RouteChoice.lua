@@ -115,15 +115,21 @@ local function tripText(seconds)
 	return numbered(L["%d min"], Theme.Approx() .. m)
 end
 
--- The facts of option o a card shows: { glyph, its colour, text } for the
--- levels, the trip and the quests that are known.
+-- The facts of option o a card shows: { glyph, its colour, text, short } for
+-- the levels, the trip and the quests that are known; `short`, where there
+-- is one, stands in when the facts do not fit: the quests' number alone
+-- beside their glyph, where the language writes the number after the word
+-- ("заданий: 11" cut would lose it; "11 quests" cut keeps it).
 local function facts(o)
 	local out = {}
 	local lv = levelsText(o)
 	if lv then out[#out + 1] = { "icon-level", "icon", lv } end
 	local trip = tripText(o.seconds)
 	if trip then out[#out + 1] = { "icon-clock", "icon", trip } end
-	if o.quests and o.quests > 0 then out[#out + 1] = { "icon-accept", "quest", numbered(L["%d quests"], o.quests) } end
+	if o.quests and o.quests > 0 then
+		local quests = L["%d quests"]
+		out[#out + 1] = { "icon-accept", "quest", numbered(quests, o.quests), not quests:find("^%%d") and numbered("%d", o.quests) or nil }
+	end
 	return out
 end
 
@@ -334,9 +340,10 @@ local function placePin(c, o)
 end
 
 -- The facts spread across the card: each a glyph, 5 apart its text, a
--- hairline midway between two. Where they do not fit, the widest give way
--- first (cut with an ellipsis; the tooltip has them whole). Rebuilt on a
--- theme change, since the numbers' colours are escapes.
+-- hairline midway between two. Where they do not fit, the ones with a short
+-- form take it first; then the widest give way (cut with an ellipsis; the
+-- tooltip has them whole). Rebuilt on a theme change, since the numbers'
+-- colours are escapes.
 local function paintStats(s)
 	local o = s.psOption
 	if not o then return end
@@ -355,6 +362,16 @@ local function paintStats(s)
 		end
 	end
 	local room, cap = INNER - max(0, n - 1) * STAT_GAP, math.huge
+	if total > room then
+		for i = 1, n do
+			local e = list[i]
+			if e[4] then
+				total = total - natural[i]
+				natural[i] = STAT_GLYPH + 5 + ceil(W.TextWidth(s.Cells[i].Text, e[4]))
+				total = total + natural[i]
+			end
+		end
+	end
 	if total > room then
 		local sorted = {}
 		for i = 1, n do sorted[i] = natural[i] end

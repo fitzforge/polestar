@@ -71,6 +71,18 @@ test('a recorded prerequisite that is the quest\'s breadcrumb never blocks it', 
 	assert.deepEqual(check({ 'pools.guide': g }, { 870: [886] }), []);
 });
 
+// A `when taxi` step (fly where the flight path is known, else walk) is played with the flight paths the character
+// knows on that path: its race's from character creation (Dwarves know Ironforge's) and every getfp or flight
+// before the step. The check used to stop at the first such step (`w.node is not a function`).
+test('`when taxi` holds with the flight paths the character knows on the path: its race\'s and the getfp lines before', { skip }, () => {
+	const steps = 'step Fly to Ironforge\n  when taxi "Ironforge"\n  fly "Ironforge"\n  accept 279\n  turnin 279\n\n' +
+		'step Walk to Ironforge\n  when !taxi "Ironforge"\n  goto 21.6,77.8\n\nstep Karl Boran\n  accept 281\n';
+	const g = head('t/taxi', 'race Dwarf,Human') + steps;
+	assert.deepEqual(check({ 'taxi.guide': g }), ['taxi.guide:18 281<-279 Human t/taxi'], 'a Human has never learnt Ironforge\'s flight path');
+	const learnt = head('t/learnt', 'race Human') + 'step Gryth Thurden\n  getfp "Ironforge"\n\n' + steps;
+	assert.deepEqual(check({ 'learnt.guide': learnt }), [], 'the getfp line before the step teaches it');
+});
+
 test('the check takes the recorded prerequisites Lookup shows, and none of a quest whose prerequisites a correction sets', () => {
 	const { recordedPrereqs } = require('../tools/lib/route/prereq-order');
 	const fact = (value, status) => ({ value, voters: 3, counted: 2, status, builds: [70862, 70888], beats: null });

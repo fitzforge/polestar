@@ -47,7 +47,7 @@ local BUILD = {
 		f.Fill = function(self)
 			local now = ns.Compat and ns.Compat.Now and ns.Compat.Now() or 0
 			M.FillInstanceTracker(self, { inHour = 3, perHour = 5, inDay = 3, perDay = 30, wait = 0, clears = 1530, now = now,
-				run = { name = L["The Deadmines"], time = 1520, xp = 18450 } })
+				run = { name = ns.Names.Or("map", 36, "The Deadmines"), time = 1520, xp = 18450 } })
 		end
 		return f
 	end,

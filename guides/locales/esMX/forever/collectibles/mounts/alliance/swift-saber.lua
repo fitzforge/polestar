@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} de oficial",
 	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "",
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "Los sables de {npc:4753} y {npc:4730} están en el campo de equitación de {area:1658}, en {faction:69}. A nivel 60 {npc:4753} enseña {skill:762} de oficial a los elfos de la noche por 1.000 de oro (10% menos en Honorable con {faction:69}); Blizzard dice que viene con una montura. Las demás razas la entrenan con el instructor de equitación de su raza. Cada sable veloz cuesta 200 de oro aquí.",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "{npc:4753}, instructor de equitación",
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "{spell:828} para otras razas",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Cualquier raza de la Alianza puede comprar estos sables, pero para montar uno también hace falta {spell:828}, que solo los elfos de la noche reciben con {skill:762}. {npc:4753} se la enseña a las demás razas una vez que están en Exaltado con {faction:69} (la guía de reputación de Darnassus muestra el camino). Hasta entonces, no le compres un sable a este personaje.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",

@@ -130,7 +130,7 @@ test('a report pasted with trailing NULs, or into the title, still reads', () =>
 	assert.equal(I.issueTitle('**What went wrong:** Watcher Dodds not here! ``` Polestar 0.2.3 Beta · client'), 'Watcher Dodds not here!');
 });
 
-test('a 1,000-character description of several lines reads whole, inside the bold line and after it; the issue title is its first line, cut at 80', () => {
+test('a 1,000-character description of several lines reads whole, inside the bold line and after it; the issue title is its whole first line', () => {
 	const first = 'The arrow points into the lake at Goldshire and never moves on to the next goal at all.';
 	const rest = ('I walked round the lake twice, reloaded, and the step stayed where it was. '.repeat(13)).trim();
 	const desc = `${first}\n\n${rest}`.slice(0, 1000);
@@ -158,12 +158,11 @@ test('a 1,000-character description of several lines reads whole, inside the bol
 	assert.equal(r.details.arrow, 'Arrow: Kill Kobold Vermin · 42 yd', 'the trimmed goals\' count line is passed over');
 	assert.deepEqual(r.details.errors, [{ count: 2, message: 'Polestar/Nav/Arrow.lua:40: bad argument' }]);
 	assert.ok(I.issueBody({ report: r, reporter: 'x', guild: '1', thread: '2' }).includes(`> ${rest.slice(0, 200)}`), 'the issue quotes it');
-	// Pasted into the title box, a long first line is cut at 80 characters.
-	const title = I.issueTitle(`**What went wrong:** ${desc} \`\`\` Polestar 0.3.7`);
-	assert.equal(title, `${first.slice(0, 77).trimEnd()}...`);
-	assert.ok(Array.from(title).length <= 80);
+	// Pasted into the title box, the first line is the title, whole.
+	assert.equal(I.issueTitle(`**What went wrong:** ${desc} \`\`\` Polestar 0.3.7`), first);
 	assert.equal(I.issueTitle('Arrow broken\nsecond line'), 'Arrow broken', 'the first line only');
-	assert.equal(I.issueTitle('箭'.repeat(100)), '箭'.repeat(77) + '...', 'cut between characters');
+	assert.equal(I.issueTitle('箭'.repeat(100)), '箭'.repeat(100), "Discord's longest title whole");
+	assert.equal(I.issueTitle('箭'.repeat(300)), '箭'.repeat(253) + '...', "GitHub's limit, cut between characters");
 	// The description continued after the block (pasted below it) is kept too.
 	const after = parseReport(`**What went wrong:** ${first}\n\`\`\`\nPolestar 0.3.7 · client 1.60.1 (70532) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n\`\`\`\n${rest}`);
 	assert.equal(after.description, `${first}\n\n${rest}`);
@@ -1329,3 +1328,139 @@ test('/close and /reopen with an issue number act only on issues filed from Disc
 	assert.equal(github.issues[0].state, 'closed');
 });
 
+
+// The update reply (lib/update.js): a report from an older Polestar than the
+// latest full release is asked, once, to update first.
+const U = require('../tools/discord-bot/lib/update');
+const { maintainerNote } = require('../tools/discord-bot/lib/notify');
+
+const full = (tag, published_at, extra = {}) => ({ tag_name: tag, html_url: `https://github.com/fitzforge/polestar/releases/tag/${tag}`, published_at, ...extra });
+const reportOn = (version) => `It broke.\n\`\`\`\nPolestar ${version} Beta · client 1.60.1 (70888) · enUS\nGuide: none open\nArrow: none\nWhere: Stormwind City · no position\nErrors: none\n\`\`\``;
+const UPDATE_037 = "You're on 0.3.6, 0.3.7 is out. Please update and tell us if it still happens.";
+
+test('a title with a link is filed whole, the link kept as text (#1817)', () => {
+	const title = 'Miss one quest on excavation to complete : https://example.com/forever/fr/quest=98824/prisme-pr%C3%A9historique';
+	assert.equal(I.issueTitle(title), title, 'not cut before or inside the link');
+	assert.equal(I.issueTitle('Wrong ender for [Prisme](<https://example.com/quest=98824>) here'), 'Wrong ender for Prisme (https://example.com/quest=98824) here');
+	assert.equal(I.issueTitle('See <https://example.com/quest=98824> please'), 'See https://example.com/quest=98824 please');
+});
+
+test('versions order as releases do; a build from source or words is no version', () => {
+	const v = (s) => U.parseVersion(s);
+	assert.equal(v('dev'), null);
+	assert.equal(v('0.3.7 Beta'), null);
+	assert.equal(v('v0.3.7').text, '0.3.7');
+	const order = ['0.3.6', '0.3.7-rc.1', '0.3.7-rc.2', '0.3.7', '0.3.8-test.1', '0.3.10'].map(v);
+	for (let i = 1; i < order.length; i++) assert.equal(U.compareVersions(order[i - 1], order[i]), -1, `${order[i - 1].text} < ${order[i].text}`);
+	const latest = { version: v('v0.3.7') };
+	assert.equal(U.updateText('0.3.6', latest), UPDATE_037);
+	assert.equal(U.updateText('0.3.7-rc.2', latest), "You're on 0.3.7-rc.2, 0.3.7 is out. Please update and tell us if it still happens.");
+	for (const current of ['0.3.7', '0.3.8-rc.1', 'dev', '', undefined]) assert.equal(U.updateText(current, latest), null, `${current}: nothing to say`);
+	assert.equal(U.updateText('0.3.6', null), null, 'no release known: nothing to say');
+});
+
+test("the latest full release is GitHub's latest, or the newest addon release when that is another release (drafts, prereleases and the Client's ignored)", async () => {
+	const github = fakeGitHub();
+	github.releasesList.push(full('v0.3.6', '2026-11-10T00:00:00Z'), full('v0.3.7', '2026-11-11T17:00:00Z'), full('client-v0.1.7', '2026-11-11T18:00:00Z'), full('v0.3.8-rc.1', '2026-11-12T00:00:00Z', { prerelease: true }), full('v0.3.9', '2026-11-13T00:00:00Z', { draft: true }));
+	github.latest = full('client-v0.1.7', '2026-11-11T18:00:00Z');
+	assert.equal((await U.latestFullRelease(github)).tag, 'v0.3.7');
+	github.latest = full('v0.3.7', '2026-11-11T17:00:00Z');
+	assert.equal((await U.latestFullRelease(github)).version.text, '0.3.7');
+	github.latest = null;
+	github.releasesList.length = 0;
+	assert.equal(await U.latestFullRelease(github), null);
+});
+
+test('the bot asks GitHub for the latest release at most once in ten minutes, and keeps the last answer when GitHub fails', async () => {
+	const github = fakeGitHub();
+	let calls = 0;
+	let fail = false;
+	github.latestRelease = async () => {
+		calls++;
+		if (fail) throw new Error('GitHub down');
+		return full('v0.3.7', '2026-11-11T17:00:00Z');
+	};
+	let t = 0;
+	const latest = U.cachedLatest(github, { now: () => t, log: quietLog });
+	assert.equal((await latest()).tag, 'v0.3.7');
+	t = 9 * 60 * 1000;
+	await latest();
+	assert.equal(calls, 1);
+	t = 11 * 60 * 1000;
+	fail = true;
+	assert.equal((await latest()).tag, 'v0.3.7');
+	assert.equal(calls, 2);
+});
+
+test('a post from an older Polestar is told at once, in its thread and on the issue, once; a current or dev one is not', async () => {
+	const { discord, github, sync } = setup();
+	github.releasesList.push(full('v0.3.7', '2026-11-11T17:00:00Z'));
+	discord.post('1001', { content: reportOn('0.3.6') });
+	await sync.newPost('1001');
+	assert.deepEqual(discord.sent.map((m) => m.content), [I.trackedReply(github.repo, 1), `${UPDATE_037} Download it from CurseForge: <https://www.curseforge.com/wow/addons/polestar>`]);
+	assert.deepEqual(discord.sent[1].users, [], 'no ping');
+	const [comment] = github.commentsByIssue.get(1);
+	assert.equal(comment.body, `${UPDATE_037}\n\nDownload it from CurseForge: https://www.curseforge.com/wow/addons/polestar\n\n${U.UPDATE_MARK}`);
+	// Not a maintainer's word: a needs-info question or a close never quotes it.
+	assert.equal(maintainerNote([comment]), null);
+
+	// After a restart, the filed post is told nothing again.
+	const again = createSync({ discord, github, media: fakeMedia(), config: { forumId: FORUM, botId: BOT }, log: quietLog });
+	await again.loadIndex();
+	await again.backfill();
+	await again.newPost('1001');
+	assert.equal(discord.sent.length, 2);
+	assert.equal(github.commentsByIssue.get(1).length, 1);
+
+	for (const [id, version] of [['1002', '0.3.7'], ['1003', 'dev'], ['1004', '0.3.8-rc.1']]) {
+		discord.post(id, { content: reportOn(version) });
+		await sync.newPost(id);
+	}
+	assert.equal(discord.sent.length, 5, 'only the three tracked replies');
+	assert.equal(github.commentsByIssue.size, 1);
+});
+
+test('a GitHub failure reading the release or writing the reply never stops the filing', async () => {
+	const { discord, github, sync } = setup();
+	github.latestRelease = async () => {
+		throw new Error('GitHub down');
+	};
+	discord.post('1001', { content: reportOn('0.3.6') });
+	assert.equal(await sync.newPost('1001'), 1);
+	assert.equal(discord.sent.length, 1);
+
+	const other = setup();
+	other.github.releasesList.push(full('v0.3.7', '2026-11-11T17:00:00Z'));
+	other.github.comment = async () => {
+		throw new Error('GitHub down');
+	};
+	other.discord.post('1001', { content: reportOn('0.3.6') });
+	assert.equal(await other.sync.newPost('1001'), 1);
+	assert.equal(other.discord.sent.length, 2, 'the thread is told all the same');
+});
+
+test("an issue opened with a bug form on an old version is told on GitHub once; a Discord one, a current one or a dev build is not", async () => {
+	const github = fakeGitHub();
+	github.releasesList.push(full('v0.3.7', '2026-11-11T17:00:00Z'));
+	const form = (version) => `### What went wrong\n\nThe arrow spins.\n\n### Polestar version\n\n${version}\n\n### Other addons\n\n_No response_`;
+	github.issues.push({ number: 1, title: 'Arrow spins', body: form('0.3.6 Beta'), labels: [{ name: 'bug' }], state: 'open' });
+	const event = { action: 'opened', issue: github.issues[0] };
+	assert.equal(await U.onOpened({ github, event, log: quietLog }), true);
+	assert.equal(github.commentsByIssue.get(1)[0].body, `${UPDATE_037}\n\nDownload it from CurseForge: https://www.curseforge.com/wow/addons/polestar\n\n${U.UPDATE_MARK}`);
+	assert.equal(await U.onOpened({ github, event, log: quietLog }), false, 'a re-run finds the reply');
+	assert.equal(github.commentsByIssue.get(1).length, 1);
+
+	assert.equal(U.formVersion(form('v0.3.6')), 'v0.3.6');
+	assert.equal(U.formVersion(form('Polestar 0.3.5 (from CurseForge)')), '0.3.5');
+	for (const v of ['dev', '_No response_', 'latest']) assert.equal(U.formVersion(form(v)), null, v);
+	for (const [n, issue] of [
+		[2, { body: form('0.3.7'), labels: [] }],
+		[3, { body: form('dev'), labels: [] }],
+		[4, { body: form('0.3.6'), labels: [{ name: 'discord' }] }],
+		[5, { body: form('0.3.6'), labels: [], pull_request: {} }],
+	]) {
+		github.issues.push({ number: n, title: 'x', state: 'open', ...issue });
+		assert.equal(await U.onOpened({ github, event: { action: 'opened', issue: github.issues[n - 1] }, log: quietLog }), false, `#${n}`);
+	}
+	assert.equal(github.commentsByIssue.size, 1);
+});

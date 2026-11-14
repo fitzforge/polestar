@@ -606,6 +606,7 @@ Guide keys (the compiler writes them in this order):
 | `written` | no | format 3: `{ ["Back to {npc:3649}"] = "Back to Dendrite", ... }`, a text whose names its tokens' English in `names` would spell otherwise, with the author's words an English client reads |
 | `legsGrid`, `legs` | no | format 6 (read, no longer written): the navigation grid the legs were baked on, and `{ [<step>] = "<leg>" }`, one baked walk into each step ([Format 6](#format-6)); format 7 carries them in the race parts ([Format 7](#format-7)) |
 | `sections` | no | a profession guide's skill-range headings (`section <Profession> <from>-<to>`, GUIDE_FORMAT.md "Sections"): `{ { skill = "First Aid", skillLine = 129, from = 1, to = 40 }, ... }`, `skill` or `skillLine` (or both) and `from` < `to`; a step's `section` is its index. Polestar 0.3.7 and later start the guide at the range the player's skill is in, ask only for the materials still needed in it and show the range as a heading; older Polestar ignores them and plays the steps from the start, so they do not change the format |
+| `fresh` | no | written by the compiler, never by hand: `{ from = "<guide id>", share = <percent>, xp = <XP>, needs = { <quest ids> } }`, on a leveling guide that other leveling guides lead to, when at least 10% of its quest XP (`xp`, each quest it hands in once) hinges on quests earlier guides take: `share` that percentage, `from` the earlier guide holding most of it, `needs` up to 8 of those quests, most XP first ([GUIDE_FORMAT.md](GUIDE_FORMAT.md), "Fresh starts"). Polestar 0.4.0 and later show a character who opens the guide without those quests a note with a button to `from`, and rank the guide lower in "Suggested for you"; older Polestar ignores it, so it does not change the format |
 | `steps` | yes | list of steps, at least one |
 
 Step keys: `title` (optional), `note` (optional, player-facing), `image`
@@ -637,7 +638,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `abandon` | `quest`, `title` (format 5) | — |
 | `destroy` | `item`, `itemName` (format 5) | — |
 | `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread`, `fromNpcs`, `carriedTo` |
-| `collect` | `item`, `itemName` | `title`, `count`, `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `fromNpcsAt`, `npc`, `npcName`, `candidates`, `carriedTo` |
+| `collect` | `item`, `itemName` | `title`, `count`, `gather` (format 10), `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `fromNpcsAt`, `npc`, `npcName`, `candidates`, `carriedTo` |
 | `goto` | `map`, `x`, `y` | `text`, `r`, `area` |
 | `talk` | `npc`, `npcName` | `gossip` |
 | `interact` | `object`, `objName` | `title`, `quest`, `oi`, `spread`, `carriedTo` |
@@ -651,6 +652,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `cast` | `spell`, `spellName` (format 5) | `map`, `x`, `y` |
 | `train` | — | `npc`, `npcName`, `class`, `zone`, `skill`, `skillLine`, `rank`, `rankMax`, `candidates`, `gossip` |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName`, `candidates` |
+| `auction` | `item`, `itemName` (format 10) | `count`, `candidates` |
 | `vendor` | — | `npc`, `npcName`, `candidates`, `gossip` |
 | `level` | `level` | `frac` (format 4), `grind` with `npcName`, `map`, `x`, `y`, `f`, `spots`, `spread`, `lvl` |
 | `money` | `money`: copper (format 5) | — |
@@ -671,6 +673,7 @@ The fields:
 | `quest`, `npc`, `object`, `item`, `spell`, `faction`, `achievement` | numeric ids |
 | `title`, `npcName`, `objName`, `itemName`, `spellName`, `factionName`, `achievementName`, `target` | names |
 | `count` | number to collect, kill or buy; on `craft`, the number of items to make |
+| `gather` | on a `collect` (format 10): the goal is its item's gather way in a profession guide, beside an `auction` goal that buys the same item; Polestar applies one of them per item, by what the player chose (gather, buy or mix: [Format 10](#format-10)). `true`, or what the way takes: `{ skill, skillLine, rank }` a profession at that rank, `{ min, max }` the levels of the mobs it drops from as the player levels |
 | `oi` | 1-based quest objective index (`C_QuestLog.GetQuestObjectives`) |
 | `minLevel` | the level an `accept` needs; `qlvl` the quest's level (number or string) |
 | `limit` | on an `accept` of a timed quest: the seconds it allows once taken (Dynamic Questing takes it early only when the walk to it still fits). Polestar 0.3.6 and later also say under the accept how long it allows, and count down from the accept with it when the client reports no timer (a delivery quest) |
@@ -827,9 +830,11 @@ changes, read by Polestar 0.3.0 and later:
 ## Format 10
 
 The **`taxi`** `when` predicate (on a step, a `skipto` or a `next` option)
-beside everything the earlier formats have, read by Polestar 0.4.0 and later.
-The compiler writes a pack in format 10 only when its guides use it; an older
-Polestar refuses the pack as too new rather than each guide as "bad when".
+and a profession guide's materials, gathered or bought (the **`auction`**
+goal and a collect's **`gather`**), beside everything the earlier formats
+have, read by Polestar 0.4.0 and later. The compiler writes a pack in format
+10 only when its guides use one of them; an older Polestar refuses the pack
+as too new rather than each guide as "bad when" or "unknown verb auction".
 
 `taxi` when predicate: `{ k = "taxi", name = "<Flight point>", node = <id> }`.
 Holds while the character knows the flight path, checked as a `getfp` goal
@@ -842,6 +847,21 @@ names); without it, `name` against the flight maps the character has opened
 (their node's name, or its part before the first comma). A flight path
 Polestar has not seen yet counts as unknown. Learning one evaluates the guide
 again.
+
+A profession guide's materials (GUIDE_FORMAT.md, "Materials"):
+
+- **`auction`**: buy `count` of the item at the Auction House. Its
+  `candidates` are auctioneers (the compiler's: those of the guide's
+  factions; the neutral houses are left out). A bag count like `buy`, and
+  under a guide's `sections` its count shrinks as `collect` and `buy` do.
+- **`gather`** on a `collect`: that collect is the item's gather way.
+- Per item, Polestar applies either its `gather` collects or its `auction`
+  goals, never both: an item with only one of them always takes that one; for
+  the others the player's choice for the guide (gather, buy, or mix: per item,
+  by what the character can gather at its level and with its professions,
+  from `gather`'s `skill`/`skillLine`/`rank` and `min`/`max`) and their own
+  pick per item decide. A goal that does not apply is skipped like any goal
+  for another character.
 
 ## Import strings
 
@@ -870,7 +890,7 @@ wrap it). The payload is JSON:
 
 | Key | Required | Value |
 |---|---|---|
-| `format` | yes | the guide data's format (above): 10 when the guide has a `taxi` when predicate, 5 when it uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
+| `format` | yes | the guide data's format (above): 10 when the guide has a `taxi` when predicate, an `auction` goal or a `gather` collect, 5 when it uses `money`/`task`/`enter`/`cast`/`abandon`/`destroy` goals or a `money` when predicate, 4 when a step has `when`, `along` or `label` or a `level` goal has `frac`, else 3; Polestar refuses a format it does not read |
 | `license` | yes | the licence of the guide, from the pack's `pack.json` |
 | `guide` | yes | one guide exactly as `RegisterGuide(def)` takes it, without `pack`: the keys above, numbers rounded as `Guides.lua` writes them, `preTitles` with the quest ids as the object's keys |
 | `frames` | no | `RegisterMapFrames`'s `era` table for the maps its goals use, by uiMapID. Polestar takes a frame only for a map the guide's goals or their smart targets stand on, and only where no one (Polestar, a community addon, an earlier import) has registered one |
@@ -923,7 +943,7 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   (baked legs in the race parts) and format 8 (packed spawn spots and
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
   (the `wait` goal) by 0.3.0 and later, and format 10 (the `taxi` when
-  predicate) by 0.4.0 and later.
+  predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

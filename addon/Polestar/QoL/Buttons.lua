@@ -43,6 +43,17 @@
 --     in them with the free slot count; a press arms it, a second press
 --     within a few seconds deletes it. It has no secure action: the delete
 --     runs in its PostClick, on the press itself.
+--   Target list (unless qol.targetSimple): a row beside the target button
+--     for each of its names, with the creature's portrait and what it drops
+--     for the step; a click on a row targets that one, with the target
+--     button's mark and ping for its kind. The button then keeps the list's
+--     order instead of moving the next name to the front, and a small
+--     Polestar mark stands in its slot. There is no setting of its own: it
+--     shows with qol.targetButton. The rows sit beside the target button in a
+--     column, under it in a row (buttons.layout), and the rare button moves
+--     along the set to clear them (Buttons.Offsets, Buttons.ListRect); they
+--     take the Buttons page's look like the buttons (kinds "targetRow" and
+--     "targetMark" for a skin's actionButton hook).
 --   Step key: no button on screen, only a binding: the first open goal it can
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
@@ -54,7 +65,7 @@
 --     live step, it takes the marked flight instead (QoL/Flight.lua,
 --     Flight.Take). Independent of
 --     the buttons' settings.
---   Mark target (off by default): the target button and the step key clear
+--   Mark target (on by default): the target button and the step key clear
 --     the target first (out of combat) and end their macro with /tm, an icon
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
 --     one each press (Buttons.MarkLine). The rare card's Target button
@@ -71,10 +82,11 @@
 --
 -- The quest item, Hearthstone, target and rare buttons hang off one holder:
 -- the hearth above the item, target and rare below (or in a row:
--- buttons.layout). A left-drag on any of them moves the set (out of combat;
--- with ui.lockHud on, only a Shift-drag); the position is per character, so
--- the Hearthstone button, shown only for hearth goals, appears in its slot of
--- the moved set. The bag button stands on its own: the same drag moves only
+-- buttons.layout). A left-drag on any of them (or on the target list and its
+-- Polestar mark) moves the set (out of combat; with ui.lockHud on, only a
+-- Shift-drag); the position is per character, so the Hearthstone button,
+-- shown only for hearth goals, appears in its slot of the moved set (the
+-- rare button further out while the target list shows). The bag button stands on its own: the same drag moves only
 -- it, to its own saved spot (by default two slots above the item, where it
 -- sat in the set).
 --
@@ -103,6 +115,18 @@ local MACRO_LIMIT = 255
 local MINI = 14
 local MINI_GAP = 3
 local PORTRAIT_CAP = 16
+-- The target list (TL: one table, as this file is at Lua's limit of 200
+-- locals): up to TL.MAX rows, qol.targetRows of them (default MAX_NAMES);
+-- a row's size, the gap between rows and the portrait's size; the small
+-- Polestar mark that stands in for the target button beside the list; a
+-- row's green wash while one is close (alpha over the panel) and the brighter
+-- flash it starts with, so a row turning green is seen from the corner of
+-- the eye. TL.rows: the rows (one per name, made as a list first needs them:
+-- applyRows); TL.anchor: the mark (the set's handle and the way to its
+-- settings). TL.info, cap, keep, progress, item: what TargetNames collects
+-- for the rows (Buttons.TargetInfo).
+local TL = { MAX = 8, W = 180, H = 30, GAP = 2, FACE = 26, ANCHOR = 22, NEAR = 0.3, FLASH = 0.7,
+	rows = {}, info = {}, cap = MAX_NAMES }
 
 local Buttons = {}
 QoL.Buttons = Buttons
@@ -172,9 +196,11 @@ end
 -- qol.buttonScale: the slots walk out from it, each its own size plus the
 -- spacing from the last. Column: bag and Hearthstone up, target and rare
 -- down; row: bag and Hearthstone left, target and rare right; rowReverse
--- the other way round. -> { kind = { x, y } } (reused)
+-- the other way round. rows: how many rows the target list shows beside the
+-- target button (Buttons.ListRect); the rare button moves along the set to
+-- clear them. -> { kind = { x, y } } (reused)
 local offsets = { bag = {}, hearth = {}, item = { 0, 0 }, target = {}, rare = {} }
-function Buttons.Offsets()
+function Buttons.Offsets(rows)
 	local gap = num("buttons.spacing", 0, 40, 8)
 	local layout = ns.Get("buttons.layout")
 	local sx, sy = 0, 1
@@ -192,6 +218,17 @@ function Buttons.Offsets()
 	end
 	walk({ "hearth", "bag" }, 1)
 	walk({ "target", "rare" }, -1)
+	local x0, x1, y0 = Buttons.ListRect(rows)
+	if x0 then
+		local t, r, h = offsets.target, offsets.rare, Buttons.Size("rare") / 2
+		if layout == "row" then
+			r[1] = math.max(r[1], t[1] + x1 + gap + h)
+		elseif layout == "rowReverse" then
+			r[1] = math.min(r[1], t[1] + x0 - gap - h)
+		else
+			r[2] = math.min(r[2], t[2] + y0 - gap - h)
+		end
+	end
 	return offsets
 end
 
@@ -236,6 +273,14 @@ local function paintBorder(b, hover)
 		end
 		return
 	end
+	if b.closeUnit or b.psNear then
+		-- A target list row with one close enough to target (psNear: a
+		-- preview's): a green edge, thicker than the border, with the border
+		-- off too.
+		local r, g, bl = T.Color("success")
+		T.Border(b, r, g, bl, 1, nil, math.max(2, size))
+		return
+	end
 	local own = ns.Get("buttons.borderColor")
 	if not ns.Get("buttons.border") then
 		T.Border(b, 0, 0, 0, 0, nil, size)
@@ -255,6 +300,81 @@ end
 -- placed again (placeLabel), once they exist.
 local holder, set, bag, relabel
 local placeLabel
+-- How many of the target list's rows show (TL.rows with a name).
+function TL.count()
+	local n = 0
+	for i = 1, #TL.rows do
+		if TL.rows[i].applied then n = n + 1 end
+	end
+	return n
+end
+
+-- Which way the target list goes from the target button: in a column
+-- beside it, on the side its name would take ("left", else "right"); in a
+-- row (buttons.layout) under it, reaching away from the quest item button
+-- ("below": rightwards, "belowLeft": leftwards in a reversed row).
+function TL.side()
+	local l = ns.Get("buttons.layout")
+	if l == "row" then return "below" elseif l == "rowReverse" then return "belowLeft" end
+	return ns.Get("qol.buttonTextSide") == "left" and "left" or "right"
+end
+
+-- The rows' box for n rows from the target button's centre, in button
+-- pixels before qol.buttonScale (y up): x0, x1, y0, y1; nil for none. The
+-- gap to the button is the set's spacing (buttons.spacing). side: TL.side()'s.
+function Buttons.ListRect(n, side)
+	n = tonumber(n) or 0
+	if n < 1 then return nil end
+	side = side or TL.side()
+	local h, w, g = Buttons.Size("target") / 2, TL.W, num("buttons.spacing", 0, 40, 8)
+	local tall = n * TL.H + (n - 1) * TL.GAP
+	if side == "right" then return h + g, h + g + w, h - tall, h end
+	if side == "left" then return -h - g - w, -h - g, h - tall, h end
+	if side == "below" then return -h, w - h, -h - g - tall, -h - g end
+	return h - w, h, -h - g - tall, -h - g
+end
+
+-- The Polestar mark and the rows on target button t (the live one, hidden,
+-- or a preview's face): the mark in t's corner on the rows' side, the first
+-- row where Buttons.ListRect puts it, each next one under the last. scale:
+-- theirs (the live set's), else left as it is; side: TL.side()'s.
+function Buttons.PlaceList(t, mark, rows, scale, side)
+	if not t then return end
+	side = side or TL.side()
+	local g = num("buttons.spacing", 0, 40, 8)
+	local right = side == "right" or side == "belowLeft"
+	if mark then
+		if scale then mark:SetScale(scale) end
+		local m = math.min(TL.ANCHOR, Buttons.Size("target"))
+		mark:SetSize(m, m)
+		mark:ClearAllPoints()
+		mark:SetPoint(right and "TOPRIGHT" or "TOPLEFT", t, right and "TOPRIGHT" or "TOPLEFT", 0, 0)
+		-- Quick Keybind Mode's key name: away from the rows.
+		local l = mark.Label
+		if l then
+			l:ClearAllPoints()
+			if side == "right" then l:SetPoint("RIGHT", mark, "LEFT", -8, 0)
+			elseif side == "left" then l:SetPoint("LEFT", mark, "RIGHT", 8, 0)
+			else l:SetPoint("BOTTOM", mark, "TOP", 0, 4) end
+		end
+	end
+	for i = 1, #rows do
+		local r = rows[i]
+		if scale then r:SetScale(scale) end
+		r:ClearAllPoints()
+		if i > 1 then
+			r:SetPoint("TOP", rows[i - 1], "BOTTOM", 0, -TL.GAP)
+		elseif side == "right" then
+			r:SetPoint("TOPLEFT", t, "TOPRIGHT", g, 0)
+		elseif side == "left" then
+			r:SetPoint("TOPRIGHT", t, "TOPLEFT", -g, 0)
+		elseif side == "below" then
+			r:SetPoint("TOPLEFT", t, "BOTTOMLEFT", 0, -g)
+		else
+			r:SetPoint("TOPRIGHT", t, "BOTTOMRIGHT", 0, -g)
+		end
+	end
+end
 
 local function savedPos()
 	local p = QoL.State().buttonPos
@@ -283,43 +403,59 @@ end
 -- Holder position and scale, and the buttons at their sizes in their slots
 -- (Buttons.Offsets). The holder takes the button scale too, so the saved
 -- offsets and the slot spacing scale with the buttons; its clamp covers
--- every slot of the set. The bag button on its own spot, at its size and the
--- same scale.
+-- every slot of the set and the target list's rows. The bag button on its
+-- own spot, at its size and the same scale; the target list's mark and rows
+-- beside the target button (Buttons.PlaceList). Secure: run it through
+-- QoL.Secure (place), or from code that already is.
+local function placeNow()
+	local p, s = savedPos(), ns.Get("qol.buttonScale") or 1
+	local n = TL.count()
+	local at, item = Buttons.Offsets(n), Buttons.Size("item")
+	local half = item / 2
+	local left, right, top, bottom = 0, 0, 0, 0
+	-- A box (x0, x1, y0, y1 from the quest item button's centre) into the clamp.
+	local function cover(x0, x1, y0, y1)
+		left, right = math.min(left, x0 + half), math.max(right, x1 - half)
+		top, bottom = math.max(top, y1 - half), math.min(bottom, y0 + half)
+	end
+	for kind, o in pairs(at) do
+		if kind ~= "bag" then
+			local h = Buttons.Size(kind) / 2
+			cover(o[1] - h, o[1] + h, o[2] - h, o[2] + h)
+		end
+	end
+	-- And the target list's rows beside the target button.
+	local x0, x1, y0, y1 = Buttons.ListRect(n)
+	if x0 then
+		local t = at.target
+		cover(t[1] + x0, t[1] + x1, t[2] + y0, t[2] + y1)
+	end
+	holder:SetScale(s)
+	holder:SetSize(item, item)
+	holder:SetClampRectInsets(left, right, top, bottom)
+	holder:ClearAllPoints()
+	holder:SetPoint(p[1], UIParent, p[2], p[3], p[4])
+	for i = 1, #set do
+		local b = set[i]
+		if b ~= bag then
+			local o, size = at[b.psKind], Buttons.Size(b.psKind)
+			b:SetScale(s)
+			b:SetSize(size, size)
+			b:ClearAllPoints()
+			b:SetPoint("CENTER", holder, "CENTER", o[1], o[2])
+		end
+	end
+	local bp, size = savedBagPos(), Buttons.Size("bag")
+	bag:SetScale(s)
+	bag:SetSize(size, size)
+	bag:ClearAllPoints()
+	bag:SetPoint(bp[1], UIParent, bp[2], bp[3], bp[4])
+	for i = 1, #set do placeLabel(set[i]) end
+	Buttons.PlaceList(Buttons.target, TL.anchor, TL.rows, s)
+end
+
 local function place()
-	QoL.Secure("place", function()
-		local p, s = savedPos(), ns.Get("qol.buttonScale") or 1
-		local at, item = Buttons.Offsets(), Buttons.Size("item")
-		local half = item / 2
-		local left, right, top, bottom = 0, 0, 0, 0
-		for kind, o in pairs(at) do
-			if kind ~= "bag" then
-				local h = Buttons.Size(kind) / 2
-				left, right = math.min(left, o[1] - h + half), math.max(right, o[1] + h - half)
-				top, bottom = math.max(top, o[2] + h - half), math.min(bottom, o[2] - h + half)
-			end
-		end
-		holder:SetScale(s)
-		holder:SetSize(item, item)
-		holder:SetClampRectInsets(left, right, top, bottom)
-		holder:ClearAllPoints()
-		holder:SetPoint(p[1], UIParent, p[2], p[3], p[4])
-		for i = 1, #set do
-			local b = set[i]
-			if b ~= bag then
-				local o, size = at[b.psKind], Buttons.Size(b.psKind)
-				b:SetScale(s)
-				b:SetSize(size, size)
-				b:ClearAllPoints()
-				b:SetPoint("CENTER", holder, "CENTER", o[1], o[2])
-			end
-		end
-		local bp, size = savedBagPos(), Buttons.Size("bag")
-		bag:SetScale(s)
-		bag:SetSize(size, size)
-		bag:ClearAllPoints()
-		bag:SetPoint(bp[1], UIParent, bp[2], bp[3], bp[4])
-		for i = 1, #set do placeLabel(set[i]) end
-	end)
+	QoL.Secure("place", placeNow)
 	-- An Above name follows whether the bag button stands over the set.
 	if relabel then relabel() end
 end
@@ -734,6 +870,37 @@ function Buttons.NewFace(parent, kind)
 	return b
 end
 
+-- Hover (border, skin, opacity, tooltip), drag and press handling shared by
+-- the buttons and the target list's rows and mark.
+local function wire(b, onEnter)
+	b:SetScript("OnEnter", function(self)
+		self.psHover = true
+		-- The game's Quick Keybind Mode takes the hover (QoL/QuickBind.lua).
+		if QoL.QuickBind.Hover(self) then return end
+		paintBorder(self, true)
+		if self.psKind then skinHook(self) end
+		applyAlpha(self)
+		hoverStart(self)
+		if GameTooltip and onEnter then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			onEnter(self, GameTooltip)
+			GameTooltip:Show()
+		end
+	end)
+	b:SetScript("OnLeave", function(self)
+		self.psHover = nil
+		paintBorder(self, false)
+		if self.psKind then skinHook(self) end
+		applyAlpha(self)
+		hoverEnd(self)
+		if GameTooltip and GameTooltip:GetOwner() == self then GameTooltip:Hide() end
+	end)
+	b:SetScript("OnDragStart", onDragStart)
+	b:SetScript("OnDragStop", onDragStop)
+	-- A step that ends mid-drag hides the button the drag started on.
+	b:SetScript("OnHide", function(self) if self.dragging then onDragStop(self) end end)
+end
+
 local function newButton(name, kind, onEnter)
 	local b = CreateFrame("Button", name, UIParent, "SecureActionButtonTemplate")
 	b.psLive = true
@@ -749,32 +916,7 @@ local function newButton(name, kind, onEnter)
 	local T = Theme()
 	if T and T.OnChanged then T.OnChanged(function() paintFace(b) end) end
 
-	b:SetScript("OnEnter", function(self)
-		self.psHover = true
-		-- The game's Quick Keybind Mode takes the hover (QoL/QuickBind.lua).
-		if QoL.QuickBind.Hover(self) then return end
-		paintBorder(self, true)
-		skinHook(self)
-		applyAlpha(self)
-		hoverStart(self)
-		if GameTooltip and onEnter then
-			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-			onEnter(self, GameTooltip)
-			GameTooltip:Show()
-		end
-	end)
-	b:SetScript("OnLeave", function(self)
-		self.psHover = nil
-		paintBorder(self, false)
-		skinHook(self)
-		applyAlpha(self)
-		hoverEnd(self)
-		if GameTooltip and GameTooltip:GetOwner() == self then GameTooltip:Hide() end
-	end)
-	b:SetScript("OnDragStart", onDragStart)
-	b:SetScript("OnDragStop", onDragStop)
-	-- A step that ends mid-drag hides the button the drag started on.
-	b:SetScript("OnHide", function(self) if self.dragging then onDragStop(self) end end)
+	wire(b, onEnter)
 
 	refreshHotkey(b)
 	applyAlpha(b)
@@ -998,13 +1140,13 @@ end
 
 -- Goals done with an NPC: the target button names their NPCs on a step with
 -- no mob to target, and the step key targets them by name.
-local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, vendor = true, buy = true, sethome = true, getfp = true, learn = true }
+local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, vendor = true, buy = true, auction = true, sethome = true, getfp = true, learn = true }
 
 -- The picture of what you do with a name: its goal's verb glyph (Media/UI).
 -- An elite, rare or boss mob wears the skull instead (Buttons.TargetLook).
 local VERB_ICON = {
 	kill = "icon-kill", collect = "icon-collect", use = "icon-use", accept = "icon-accept", turnin = "icon-turnin", talk = "icon-talk",
-	train = "icon-train", vendor = "icon-vendor", buy = "icon-buy", sethome = "icon-sethome", getfp = "icon-getfp", learn = "icon-learn",
+	train = "icon-train", vendor = "icon-vendor", buy = "icon-buy", auction = "icon-buy", sethome = "icon-sethome", getfp = "icon-getfp", learn = "icon-learn",
 }
 
 -- The names (reused), and for each its goal's verb, its NPC id (nil when
@@ -1013,6 +1155,10 @@ local names, nameVerb, nameNpc, nameSpecial, nameSeen = {}, {}, {}, {}, {}
 -- Each open goal's names, in its own order, with their ids and marks, the
 -- goal's verb, step and index, and how far each has been taken (reused).
 local goalNames, goalIds, goalMarks, goalVerb, goalStep, goalIndex, goalPos, goalCount = {}, {}, {}, {}, {}, {}, {}, 0
+-- TL.info: what the target list shows beside each name (reused; the first
+-- goal that names it fills it in, later ones only what it lacks): { npc =
+-- creature id, item = item name, chance = %, progress = its goal's have/need
+-- count }.
 
 -- A name the button may put after "/targetexact": a string with no control
 -- characters. Names come from guide packs, which anyone can write, and a line
@@ -1021,7 +1167,13 @@ function Buttons.MacroSafeName(n)
 	return type(n) == "string" and n ~= "" and not n:find("%c")
 end
 
+-- TL.progress, TL.item: the goal being read's have/need count ({ cur, max })
+-- and the item it collects, for TL.info; TL.keep: only the refresh's
+-- TargetNames fills TL.info in. TL.cap: how many names TargetNames gives (the
+-- target list asks for more).
+
 local function newGoal(verb, s, g)
+	TL.progress, TL.item = nil, nil
 	goalCount = goalCount + 1
 	goalNames[goalCount] = wipe(goalNames[goalCount] or {})
 	goalIds[goalCount] = wipe(goalIds[goalCount] or {})
@@ -1029,13 +1181,25 @@ local function newGoal(verb, s, g)
 	goalVerb[goalCount], goalStep[goalCount], goalIndex[goalCount], goalPos[goalCount] = verb, s, g, 1
 end
 
-local function addName(n, id, special)
+local function addName(n, id, special, chance)
 	if not Buttons.MacroSafeName(n) then return end
 	local list = goalNames[goalCount]
 	local k = #list + 1
 	list[k] = n
 	goalIds[goalCount][k] = id or false
 	goalMarks[goalCount][k] = special and true or false
+	if not TL.keep then return end
+	local info = TL.info[n]
+	if not info then
+		TL.info[n] = { npc = id, item = TL.item, chance = chance, progress = TL.progress }
+		return
+	end
+	-- A later source of the same mob fills in what the first one lacked: a
+	-- kill target that also drops the step's item shows the item.
+	if not info.npc then info.npc = id end
+	if not info.progress then info.progress = TL.progress end
+	if not info.item and TL.item then info.item, info.chance = TL.item, chance
+	elseif not info.chance and info.item == TL.item then info.chance = chance end
 end
 
 -- A collect's dominant source (`fromId`) with its rank (`fromRank`: 1 elite,
@@ -1044,11 +1208,18 @@ local function rankedSource(rg, id)
 	return id ~= nil and (tonumber(rg.fromRank) or 0) > 0 and rg.fromId == id
 end
 
-local function addDroppers(list, rg)
+-- Droppers as { id, name, chance } records, or as names with the records
+-- beside them in meta (QuestDB.GetObjectiveMobs).
+local function addDroppers(list, rg, meta)
 	if type(list) ~= "table" then return end
 	for i = 1, #list do
 		local e = list[i]
-		if type(e) == "table" then addName(e.name, e.id, rankedSource(rg, e.id)) else addName(e) end
+		if type(e) == "table" then
+			addName(e.name, e.id, rankedSource(rg, e.id), e.chance)
+		else
+			local m = type(meta) == "table" and meta[i] or nil
+			addName(e, m and m.id, rankedSource(rg, m and m.id), m and m.chance)
+		end
 	end
 end
 
@@ -1112,6 +1283,8 @@ end
 local function addGoalNames(gv, rg, qdb)
 	local N = ns.Names
 	local src = rg.fromNpcs or gv.fromNpcs
+	local p = gv.progress
+	TL.progress = type(p) == "table" and p.kind == "count" and p or nil
 	if gv.t == "kill" then
 		-- /targetexact needs the name as the client writes it. Elite
 		-- work (compiled `group`) marks the mob.
@@ -1128,6 +1301,8 @@ local function addGoalNames(gv, rg, qdb)
 		for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 		return
 	end
+	-- The item a row shows, in the client's language where Polestar.Names has it.
+	TL.item = (N and N.Item and N.Item(gv.item or rg.item)) or gv.itemName or rg.itemName
 	-- The mobs the arrow leads to come first: the farm spot the engine
 	-- chose (`collect … nearest`), then the guide's own sources for this
 	-- point (`fromNpcs`). The item's droppers follow, and stand alone for
@@ -1149,7 +1324,8 @@ local function addGoalNames(gv, rg, qdb)
 	for i = 1, type(src) == "table" and #src or 0 do addSource(src[i], rg) end
 	if qdb then
 		if gv.quest and rg.oi and qdb.GetObjectiveMobs then
-			addDroppers(qdb.GetObjectiveMobs(gv.quest, rg.oi), rg)
+			local mobs, meta = qdb.GetObjectiveMobs(gv.quest, rg.oi)
+			addDroppers(mobs, rg, meta)
 		elseif (gv.item or rg.item) and qdb.GetItemDroppers then
 			addDroppers(qdb.GetItemDroppers(gv.item or rg.item), rg)
 		end
@@ -1163,15 +1339,15 @@ end
 
 -- The goals from `from` on into out (with their verbs, ids and marks, by
 -- index): one name from each in order, then the next from each, up to
--- MAX_NAMES in all, never a name in seen.
+-- nameCap in all, never a name in seen.
 local function interleave(from, out, verbs, ids, marks, seen)
 	local more = true
-	while more and #out < MAX_NAMES do
+	while more and #out < TL.cap do
 		more = false
 		for i = from, goalCount do
 			local list, p = goalNames[i], goalPos[i]
 			while list[p] and seen[list[p]] do p = p + 1 end
-			if list[p] and #out < MAX_NAMES then
+			if list[p] and #out < TL.cap then
 				seen[list[p]] = true
 				local k = #out + 1
 				out[k], verbs[k], ids[k], marks[k] = list[p], goalVerb[i], goalIds[i][p] or nil, goalMarks[i][p]
@@ -1277,9 +1453,15 @@ local function moveBehind(k, n, ...)
 	reverse(1, n, ...)
 end
 
+-- What the list shows beside name (the last TargetNames call with info), or nil.
+function Buttons.TargetInfo(name)
+	return TL.info[name]
+end
+
 -- Names for the target button (reused lists): one from each open goal in
--- guide order, the arrow's goal first, then the next from each, up to
--- MAX_NAMES, so a goal with many mobs (five creatures drop the Nightsaber
+-- guide order, the arrow's goal first, then the next from each, up to cap
+-- (default MAX_NAMES; the target list asks for qol.targetRows, at most
+-- TL.MAX), so a goal with many mobs (five creatures drop the Nightsaber
 -- Fang) cannot crowd out the goals after it. view, raw: QoL.CurrentStep()'s,
 -- when the caller has them. npcs: on a step with no mob to name, the step's
 -- own NPC goals' NPCs (the target button; the step key and its loot check
@@ -1291,16 +1473,24 @@ end
 -- arrow points at (the player clicked it) comes before the step's own goals:
 -- the player chose to go and do it (#2011). -> names,
 -- verbs, npc ids (nil: not known), marks (true: elite, rare or boss by the
--- guide's data), all by index.
-function Buttons.TargetNames(view, raw, npcs, here)
+-- guide's data), all by index. info: the target list's own call (the
+-- refresh); only it sets what Buttons.TargetInfo has for each name, so the
+-- step key's and the interact stage's calls leave the rows' records be.
+function Buttons.TargetNames(view, raw, npcs, here, cap, info)
+	TL.cap = math.max(1, math.min(TL.MAX, math.floor(tonumber(cap) or MAX_NAMES)))
+	TL.keep = info and true or false
 	wipe(names)
 	wipe(nameVerb)
 	wipe(nameNpc)
 	wipe(nameSpecial)
 	wipe(nameSeen)
+	if TL.keep then wipe(TL.info) end
 	goalCount = 0
 	if not view then view, raw = QoL.CurrentStep() end
-	if not view then return names, nameVerb, nameNpc, nameSpecial end
+	if not view then
+		TL.keep = false
+		return names, nameVerb, nameNpc, nameSpecial
+	end
 	local qdb = loadedQuestDB()
 	local E = ns.Engine
 	local stepIndex = view.index or (E and E.GetStepIndex and E.GetStepIndex())
@@ -1367,6 +1557,7 @@ function Buttons.TargetNames(view, raw, npcs, here)
 			if farWatch then moveBehind(before, #names, names, nameVerb, nameNpc, nameSpecial) end
 		end
 	end
+	TL.keep = false
 	return names, nameVerb, nameNpc, nameSpecial
 end
 
@@ -1379,6 +1570,7 @@ function Buttons.HereNames()
 	wipe(hereNpc)
 	wipe(hereSpecial)
 	wipe(hereSeen)
+	TL.keep, TL.cap = false, MAX_NAMES
 	goalCount = 0
 	addHereGoals(loadedQuestDB())
 	arrowFirst(1)
@@ -1436,18 +1628,31 @@ end
 -- any). "cycle" puts the next icon on at each press, skipping the one the
 -- other kind keeps, always with "~": a unit that already has an icon keeps
 -- it. In combat the macro cannot change, so until the fight ends each press
--- puts on the same icon.
-function Buttons.MarkLine(kind)
+-- puts on the same icon. unit: the line's conditions (MARK_UNIT[kind] for
+-- Buttons.MarkLine).
+local function markLine(kind, unit)
 	if not kind or not QoL.On("markTarget") then return nil end
 	local right = Buttons.MarkRight()
 	if not right then return nil end
 	local icon = markSetting(kind)
-	if icon ~= "cycle" then return "/tm " .. MARK_UNIT[kind] .. (right == "set" and " !" or " ~") .. icon end
+	if icon ~= "cycle" then return "/tm " .. unit .. (right == "set" and " !" or " ~") .. icon end
 	local other, icons = markSetting(OTHER[kind]), {}
 	for i = 1, 8 do
 		if i ~= other then icons[#icons + 1] = i end
 	end
-	return "/tm " .. MARK_UNIT[kind] .. " ~" .. icons[presses % #icons + 1]
+	return "/tm " .. unit .. " ~" .. icons[presses % #icons + 1]
+end
+function Buttons.MarkLine(kind) return markLine(kind, MARK_UNIT[kind]) end
+
+-- The /tm lines for a macro that may target either kind (a folded target
+-- list holding a step's NPC and the While you're here mobs, #1623): the mob's
+-- line, then the NPC's on a target that cannot be attacked alone. The two
+-- never both match, so a hostile result gets the mob's icon and a friendly
+-- one the NPC's; a neutral NPC, which can be attacked, gets the mob's. nil
+-- while marking is off or not allowed.
+function Buttons.MixedMarkLines()
+	local mob = Buttons.MarkLine("mob")
+	return mob and (mob .. "\n" .. markLine("npc", "[@target,noharm,nodead]"))
 end
 
 -- After a press with kind's mark: true when the next press puts on a new icon.
@@ -1524,14 +1729,20 @@ function Buttons.RareCardMacro(name)
 end
 
 -- list, verbs, ids, marks: the names and what Buttons.TargetNames says of
--- each (copies); namesSig: the names alone, for the chat note.
-local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSig = "", cycle = 1 }
+-- each (copies); namesSig: the names alone, for the chat note; info: name
+-- -> the record Buttons.TargetInfo had for it; foldFirst: the name a
+-- folded row's macro tries first (one that came close); rowsFolded: the fold
+-- the rows last took (applyRows).
+local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSig = "", cycle = 1, info = {}, foldFirst = nil }
 
 -- The mark and ping the target button's name i (default: the one the next
 -- click tries first) takes: "npc" for an NPC goal's name, else "mob".
 local function targetKind(i)
 	return NPC_VERBS[target.verbs[i or target.cycle]] and "npc" or "mob"
 end
+
+-- The single button that cycles (qol.targetSimple) instead of the list.
+local function simple() return QoL.On("targetSimple") end
 
 -- Names seen in the world (the target, the mouseover, a nameplate) as an
 -- elite, rare or boss this session, and the faces of the names seen: one
@@ -1589,7 +1800,8 @@ function paintTarget(b)
 	local list, cycle = b.aList, b.aCycle or 1
 	local n = list and #list or 0
 	local name = list and list[cycle]
-	b.Label:SetText(name or "")
+	-- Beside the list the rows show the names, not the button.
+	b.Label:SetText((simple() or not b.psLive) and name or "")
 	if b.psLive then
 		for _, tex in pairs(portraits) do tex:Hide() end
 	end
@@ -1646,19 +1858,653 @@ function paintTarget(b)
 	placeLabel(b)
 end
 
-local function applyTarget(b)
-	QoL.Secure("target", function()
-		local list = target.list
-		-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13).
-		local kind = targetKind()
-		local text = Buttons.TargetMacro(list, target.cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
-		b:SetAttribute("type", text and "macro" or nil)
-		b:SetAttribute("macrotext", text)
-		b.applied = list[target.cycle]
-		b.aList, b.aVerbs, b.aIds, b.aMarks, b.aCycle = list, target.verbs, target.ids, target.marks, target.cycle
-		paintTarget(b)
-		if text then b:Show() else b:Hide() end
+
+-- applyTarget: the target button and the list (secure: it runs through
+-- QoL.Secure), defined with the rows.
+local applyTarget
+
+-- The target list's rows and mark, in a block of their own: this file is at
+-- Lua's limit of 200 locals. What the rest of the file uses of them is on TL.
+do
+	-- The list folded to one row (the Polestar mark's left-click), per character.
+	local function folded() return QoL.State().targetFolded and true or false end
+
+	-- Defined with the rows below; the faces repaint a folded row's text.
+	local paintText, paintCounts
+
+	---------------------------------------------------------------------------
+	-- Target list: a row per name beside the target button
+	---------------------------------------------------------------------------
+
+	-- The row's second line: the item the mob drops for the step; withChance
+	-- (the row's tooltip) adds its drop chance when the data has one.
+	local function rowNote(info, withChance)
+		if not (info and info.item) then return nil end
+		local c = withChance and info.chance
+		if type(c) ~= "number" or c <= 0 then return info.item end
+		local pct = c >= 10 and string.format("%d%%", math.floor(c + 0.5)) or (string.format("%.1f", c):gsub("%.0$", "") .. "%")
+		return L["%s · %s"]:format(info.item, pct)
+	end
+
+	-- A row's colours: its name in its kind's colour as the simple button's
+	-- plate has it (Buttons.TargetLook: success for an NPC, quest gold for an
+	-- elite, rare or boss, danger for a mob; r.looks, set with the macro, read
+	-- each paint so a mob seen to be elite turns gold at once); the
+	-- crosshair green while one is close (r.closeUnit; a preview's r.psNear),
+	-- else danger for a mob and textDim for an NPC, who is not hostile; the
+	-- count in success once complete.
+	local function paintTones(r)
+		local look = r.looks and r.applied and r.looks[r.applied]
+		local tone = look and select(2, Buttons.TargetLook(look[1], r.applied, look[2], look[3])) or "danger"
+		color(r.Name, tone)
+		color(r.Note, "textDim")
+		color(r.Mark, (r.closeUnit or r.psNear) and "success" or (tone == "success" and "textDim" or "danger"))
+		local p = r.info and r.info.progress
+		local cur, max = p and tonumber(p.cur), p and tonumber(p.max)
+		color(r.Count, cur and max and max > 0 and cur >= max and "success" or "text")
+	end
+
+	-- Faces: a close living mob's own portrait (the target, or a mob with a
+	-- nameplate), else the creature's model by id, else the crosshair. Plain
+	-- textures and a model, so they change in combat too.
+	local FACE_UNITS = { "target" }
+	for i = 1, 40 do FACE_UNITS[#FACE_UNITS + 1] = "nameplate" .. i end
+	local closeByName = {}
+
+	-- Close living mobs by name (reused); a unit the client keeps secret is
+	-- passed over. Every value is checked with IsSecret before any test on it:
+	-- testing a secret one throws.
+	local function closeUnits()
+		wipe(closeByName)
+		-- A client or harness without these just has no close mob.
+		if not (UnitExists and UnitIsDead and UnitIsPlayer and UnitName) then return closeByName end
+		local secret = ns.Compat.IsSecret
+		for _, unit in ipairs(FACE_UNITS) do
+			local exists = UnitExists(unit)
+			if not secret(exists) and exists then
+				local dead, player, name = UnitIsDead(unit), UnitIsPlayer(unit), UnitName(unit)
+				if not (secret(dead) or secret(player) or secret(name)) and not dead and not player
+					and name and not closeByName[name] then
+					closeByName[name] = unit
+				end
+			end
+		end
+		return closeByName
+	end
+
+	-- A row's green state (near): the wash, the green edge (paintBorder) and,
+	-- turning green with flash set, one flash, unless motion is reduced.
+	local function setNear(r, near, flash)
+		if near then
+			r.Near:Show()
+			if flash and r.psPulse and not ns.Get("ui.reduceMotion") then
+				r.Flash:Show()
+				r.psPulse:Stop()
+				r.psPulse:Play()
+			end
+		else
+			r.Near:Hide()
+			if r.psPulse then r.psPulse:Stop() end
+			r.Flash:Hide()
+		end
+		paintBorder(r, r.psHover)
+	end
+
+	local function paintRowFace(r, units)
+		local unit = units[r.applied]
+		local m = r.Model
+		-- The unit that makes the row close, so its death repaints it.
+		r.closeUnit = unit
+		-- The crosshair behind the face: green while a living one is close
+		-- enough to target (paintTones).
+		paintTones(r)
+		local near = unit ~= nil
+		if near ~= (r.near == true) then
+			r.near = near
+			setNear(r, near, true)
+		end
+		if r.npc and m.SetCreature then
+			r.Face:SetTexture(nil)
+			-- A model that was hidden is loaded again: the client may drop it.
+			if m.npc ~= r.npc or not m:IsShown() then
+				m:Show()
+				m.npc = r.npc
+				m:SetCreature(r.npc)
+				if m.SetPortraitZoom then m:SetPortraitZoom(1) end
+			end
+			r.face = "model"
+		elseif unit and SetPortraitTexture then
+			-- No id for a model: the close mob's own portrait.
+			m:Hide()
+			r.face = unit
+			SetPortraitTexture(r.Face, unit, true)
+			r.Face:SetVertexColor(1, 1, 1, 1)
+		else
+			m:Hide()
+			r.face = nil
+			r.Face:SetTexture(nil)
+		end
+	end
+
+	-- A folded row's macro holds only the names that fit in a macro. The first
+	-- of the list that comes close is put first in a new macro, so the click
+	-- targets the one the row shows; out of combat (a frame later, never from
+	-- inside a secure run), in a fight once it ends.
+	local refold = QoL.Coalesce(function() if Buttons.target then applyTarget(Buttons.target) end end)
+
+	local function paintFaces()
+		if not (TL.rows[1] and TL.rows[1].applied) then return end
+		local units = closeUnits()
+		-- A folded row shows the first of its macro's names that is close, else
+		-- its first: plain text and textures, so it follows in combat too.
+		local r1 = TL.rows[1]
+		if r1.names then
+			local close
+			for k = 1, #r1.all do
+				if units[r1.all[k]] then
+					close = r1.all[k]
+					break
+				end
+			end
+			if close then
+				if r1.names[1] ~= close and target.foldFirst ~= close then
+					target.foldFirst = close
+					refold()
+				end
+			elseif target.foldFirst then
+				-- None close any more: back to the list's own order.
+				target.foldFirst = nil
+				refold()
+			end
+			local pick = r1.names[1]
+			for k = 1, #r1.names do
+				if units[r1.names[k]] then
+					pick = r1.names[k]
+					break
+				end
+			end
+			if pick ~= r1.applied then
+				r1.applied, r1.info = pick, r1.infos[pick]
+				paintText(r1)
+				paintCounts()
+			end
+		end
+		for i = 1, #TL.rows do
+			if TL.rows[i].applied then paintRowFace(TL.rows[i], units) end
+		end
+	end
+	local paintFacesSoon = QoL.Coalesce(paintFaces)
+	for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED", "UNIT_NAME_UPDATE" }) do
+		ns.RegisterEvent(event, paintFacesSoon)
+	end
+	-- A mob that dies stays the target (or keeps its nameplate a moment), and no
+	-- event above says so; its health does. Only for a unit that makes a row close.
+	ns.RegisterEvent("UNIT_HEALTH", function(_, unit)
+		unit = ns.Compat.Readable(unit)
+		if not unit then return end
+		for i = 1, #TL.rows do
+			if TL.rows[i].applied and TL.rows[i].closeUnit == unit then return paintFacesSoon() end
+		end
 	end)
+
+	-- A goal's have/need count ("3/8"), or nil.
+	local function countText(info)
+		local p = info and info.progress
+		local cur, max = p and tonumber(p.cur), p and tonumber(p.max)
+		if not (cur and max and max > 0) then return nil end
+		return cur .. "/" .. max
+	end
+
+	-- The rows' counts, with the name and the item line stopping short of them.
+	-- Plain text: it follows every kill and loot, in combat too.
+	-- A row's name and item line from r.applied and r.info.
+	paintText = function(r)
+		local note = rowNote(r.info)
+		-- The id the list holds for the name (r.looks), else the name's record's.
+		local look = r.looks and r.applied and r.looks[r.applied]
+		r.npc = (look and look[2]) or (r.info and r.info.npc) or nil
+		r.Name:SetText(r.applied or "")
+		r.Note:SetText(note or "")
+		paintTones(r)
+		r.Name:ClearAllPoints()
+		if note then
+			r.Name:SetPoint("BOTTOMLEFT", r.Face, "RIGHT", 6, 1)
+		else
+			r.Name:SetPoint("LEFT", r.Face, "RIGHT", 6, 0)
+		end
+	end
+
+	local function paintCount(r)
+		local text = r.applied and countText(r.info)
+		r.Count:SetText(text or "")
+		paintTones(r)
+		if text then
+			r.Name:SetPoint("RIGHT", r.Count, "LEFT", -6, 0)
+			r.Note:SetPoint("RIGHT", r.Count, "LEFT", -6, 0)
+		else
+			r.Name:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+			r.Note:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+		end
+	end
+
+	paintCounts = function()
+		for i = 1, #TL.rows do paintCount(TL.rows[i]) end
+	end
+
+	-- The rows' names, macros and visibility from the target list (secure:
+	-- callers run it through QoL.Secure). Each row targets its own name, with
+	-- the target button's mark and ping for its kind (#2036: a skull on a mob,
+	-- a star on an NPC goal's NPC with qol.markTarget, on by default; the ping
+	-- with qol.pingTarget, off by default, on both).
+	-- Defined below; the rows are made when a list first needs them.
+	local newRow
+
+	local function applyRows()
+		local list = simple() and {} or target.list
+		-- The fold the rows took: in a fight the mark's click changes the
+		-- setting at once, the rows only after it.
+		target.rowsFolded = folded()
+		-- Made here (out of combat, in the button's secure run) as the list first
+		-- needs them, so a player who never sees the list, or only a short one,
+		-- never carries the rest.
+		for i = #TL.rows + 1, math.min(#list, TL.MAX) do TL.rows[i] = newRow(i) end
+		-- Each name takes its own kind's mark and ping (targetKind).
+		local function markPing(k)
+			local kind = targetKind(k)
+			return kind, Buttons.MarkLine(kind), Buttons.QuestPingLine()
+		end
+		local fold = folded() and #list > 1
+		for i = 1, #TL.rows do
+			local r, name, text, kind, mixed = TL.rows[i], list[i], nil, nil, false
+			r.names, r.all, r.infos, r.looks = nil, nil, nil, {}
+			if fold then
+				-- Folded: the first row tries the names in the list's order, as the
+				-- target button does, from one that came close (target.foldFirst),
+				-- and keeps the names its macro holds (a macro fits about four).
+				if i == 1 then
+					local first = 1
+					for k = 1, #list do
+						if list[k] == target.foldFirst then first = k end
+					end
+					local mark, ping
+					kind, mark, ping = markPing(first)
+					text = Buttons.TargetMacro(list, first, mark, ping)
+					-- Names of both kinds in the macro: the mark of the kind it
+					-- targets (Buttons.MixedMarkLines), not the first name's.
+					local held = text and select(2, text:gsub("/targetexact", "")) or 0
+					for k = 2, held do
+						mixed = mixed or targetKind((first - 2 + k) % #list + 1) ~= kind
+					end
+					if mixed and mark then text = Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping) end
+					if text and #text > MACRO_LIMIT then text = nil end
+					if text then
+						local n = select(2, text:gsub("/targetexact", ""))
+						r.names, r.all, r.infos = {}, {}, {}
+						for k = 1, #list do
+							r.all[k] = list[k]
+							r.infos[list[k]] = target.info[list[k]]
+						end
+						for k = 1, n do
+							local at = (first - 2 + k) % #list + 1
+							r.names[k] = list[at]
+							r.looks[list[at]] = { target.verbs[at], target.ids[at], target.marks[at] }
+						end
+						name = r.names[1]
+					end
+				end
+			elseif name then
+				local mark, ping
+				kind, mark, ping = markPing(i)
+				r.looks[name] = { target.verbs[i], target.ids[i], target.marks[i] }
+				text = Buttons.TargetMacro({ name }, 1, mark, ping)
+				if text and #text > MACRO_LIMIT then text = nil end
+			end
+			r:SetAttribute("type", text and "macro" or nil)
+			r:SetAttribute("macrotext", text)
+			r.applied = text and name or nil
+			-- The mark the row's click puts on (Buttons.AdvanceMark).
+			r.kind = r.applied and kind or nil
+			r.mixed = r.applied and mixed or nil
+			-- The row keeps the record of the name it targets: in a fight the list
+			-- can move on while the row still targets the old name.
+			r.info = r.applied and target.info[name] or nil
+			paintText(r)
+			if r.applied then r:Show() else r:Hide() end
+		end
+		paintCounts()
+		paintFaces()
+		-- The rare button moves to clear the rows (in place's own secure run, as
+		-- a nested QoL.Secure would change its queue while it is being run).
+		placeNow()
+	end
+
+	local function rowTooltip(r, tip)
+		tip:SetText(r.applied or "")
+		local info = r.info
+		local note = rowNote(info, true)
+		local count = countText(info)
+		if note and count then note = L["%s · %s"]:format(note, count) end
+		if note or count then tip:AddLine(note or count, 1, 1, 1) end
+		if r.all and #r.all > 1 then
+			tip:AddLine(L["Folded: targets the first of %d names that is close. Left-click the Polestar mark to show them all."]:format(#r.all), 1, 1, 1, true)
+		end
+		tip:AddLine(ns.Get("ui.lockHud") and L["Click to target it. Shift-drag to move."]
+			or L["Click to target it. Drag to move."], 0.6, 0.6, 0.6)
+	end
+
+	-- A row's face: ground, the green wash and its flash, the crosshair, the
+	-- portrait (and, live, the creature's model over it), the hover wash, the
+	-- name, the count and the item line. Regions only, on any Button: the
+	-- live secure rows and the settings previews' plain ones
+	-- (Buttons.NewListFaces) are drawn by the same code. plain: no model.
+	local function buildRow(r, plain)
+		r.psKind = "targetRow"
+		r:SetSize(TL.W, TL.H)
+		local bg = r:CreateTexture(nil, "BACKGROUND")
+		bg:SetTexture(media("white"))
+		bg:SetAllPoints(r)
+		r.Bg = bg
+
+		-- A green wash over the row while one is close enough to target.
+		local near = r:CreateTexture(nil, "BACKGROUND", nil, 1)
+		near:SetTexture(media("white"))
+		near:SetAllPoints(r)
+		near:Hide()
+		r.Near = near
+
+		-- The flash a row starts green with: bright, then fading into the wash.
+		local flash = r:CreateTexture(nil, "BACKGROUND", nil, 2)
+		flash:SetTexture(media("white"))
+		flash:SetAllPoints(r)
+		flash:Hide()
+		r.Flash = flash
+		if flash.CreateAnimationGroup and not plain then
+			-- Two blinks, then the flash fades into the wash.
+			local pulse = flash:CreateAnimationGroup()
+			local function step(order, from, to, seconds)
+				local a = pulse:CreateAnimation("Alpha")
+				a:SetOrder(order)
+				a:SetFromAlpha(from)
+				a:SetToAlpha(to)
+				a:SetDuration(seconds)
+			end
+			step(1, 1, 0.15, 0.25)
+			step(2, 0.15, 1, 0.2)
+			step(3, 1, 0, 0.6)
+			pulse:SetScript("OnFinished", function() flash:Hide() end)
+			flash.Pulse, r.psPulse = pulse, pulse
+		end
+
+		local mark = r:CreateTexture(nil, "ARTWORK", nil, -1)
+		mark:SetSize(TL.FACE, TL.FACE)
+		mark:SetPoint("LEFT", r, "LEFT", 2, 0)
+		mark:SetTexture(media("qol-target"))
+		r.Mark = mark
+
+		local face = r:CreateTexture(nil, "ARTWORK")
+		face:SetSize(TL.FACE, TL.FACE)
+		face:SetPoint("LEFT", r, "LEFT", 2, 0)
+		r.Face = face
+
+		-- Over the crosshair: a creature whose model is not loaded yet leaves it seen.
+		if not plain then
+			local model = CreateFrame("PlayerModel", nil, r)
+			model:SetAllPoints(face)
+			model:Hide()
+			r.Model = model
+		end
+
+		local hl = r:CreateTexture(nil, "HIGHLIGHT")
+		hl:SetTexture(media("white"))
+		hl:SetAllPoints(r)
+		r.Hl = hl
+
+		local name = r:CreateFontString(nil, "OVERLAY")
+		font(name, "body")
+		name:SetJustifyH("LEFT")
+		if name.SetWordWrap then name:SetWordWrap(false) end
+		r.Name = name
+
+		-- The goal's have/need count, at the row's right edge.
+		local count = r:CreateFontString(nil, "OVERLAY")
+		font(count, "number")
+		count:SetJustifyH("RIGHT")
+		count:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+		r.Count = count
+
+		local note = r:CreateFontString(nil, "OVERLAY")
+		font(note, "small")
+		note:SetJustifyH("LEFT")
+		if note.SetWordWrap then note:SetWordWrap(false) end
+		note:SetPoint("TOPLEFT", face, "RIGHT", 6, -1)
+		note:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+		r.Note = note
+		-- What a skin's actionButton hook gets (Skin API 2; skinParts).
+		r.psSkinParts = { ground = bg, icon = face, highlight = hl, label = name, count = count, note = note,
+			crosshair = mark, wash = near, flash = flash }
+	end
+
+	-- The Polestar mark's face: ground, the logo, the hover wash, and the key
+	-- name Quick Keybind Mode writes. Regions only, as buildRow's.
+	local function buildMark(a)
+		a.psKind = "targetMark"
+		local bg = a:CreateTexture(nil, "BACKGROUND")
+		bg:SetTexture(media("white"))
+		bg:SetAllPoints(a)
+		a.Bg = bg
+
+		local logo = a:CreateTexture(nil, "ARTWORK")
+		logo:SetTexture(media("logo"))
+		logo:SetPoint("TOPLEFT", a, "TOPLEFT", 3, -3)
+		logo:SetPoint("BOTTOMRIGHT", a, "BOTTOMRIGHT", -3, 3)
+		a.Icon = logo
+
+		local hl = a:CreateTexture(nil, "HIGHLIGHT")
+		hl:SetTexture(media("white"))
+		hl:SetAllPoints(logo)
+		a.Hl = hl
+
+		-- Empty but in Quick Keybind Mode, which writes the binding's name there
+		-- while it shows the mark for binding (Buttons.PlaceList lays it out).
+		local label = a:CreateFontString(nil, "OVERLAY")
+		font(label, "small")
+		a.Label = label
+		a.psSkinParts = { ground = bg, icon = logo, highlight = hl, label = label }
+	end
+
+	-- The Buttons page's look on a row or the mark, as paintFace puts it on a
+	-- button: the ground (buttons.backing, backingColor), the hover wash, the
+	-- edge (paintBorder: buttons.border, borderColor, borderSize, hoverColor;
+	-- green while one is close), the opacity (buttons.idleAlpha, alpha), the
+	-- row's green wash, flash and colours; then the skin's actionButton hook
+	-- (kind "targetRow" or "targetMark"). Plain regions: at any time, in
+	-- combat too.
+	local function paintLook(r)
+		local T = Theme()
+		local bg, backing, own = r.Bg, ns.Get("buttons.backing"), ns.Get("buttons.backingColor")
+		if backing == "none" then
+			bg:Hide()
+		else
+			bg:Show()
+			if isColor(own) then bg:SetVertexColor(own[1], own[2], own[3], own[4] or 1) else color(bg, backing == "dark" and "scrim" or "panel") end
+		end
+		if T and T.Wash then r.Hl:SetVertexColor(T.Wash("hover")) else r.Hl:SetVertexColor(1, 1, 1, 0.07) end
+		if r.psKind == "targetRow" then
+			color(r.Near, "success", TL.NEAR)
+			color(r.Flash, "success", TL.FLASH)
+			color(r.Note, "textDim")
+			paintTones(r)
+		else
+			color(r.Label, "textDim")
+		end
+		paintBorder(r, r.psHover)
+		if r.psLive then applyAlpha(r) end
+		skinHook(r)
+	end
+
+	newRow = function(i)
+		local r = CreateFrame("Button", "PolestarTargetRow" .. i, UIParent, "SecureActionButtonTemplate")
+		r.psLive = true
+		r:SetFrameStrata("MEDIUM")
+		r:RegisterForClicks("AnyUp", "AnyDown")
+		r:RegisterForDrag("LeftButton")
+		-- Made in a secure run (applyRows), which shows it once it has a name.
+		r:Hide()
+		buildRow(r)
+		paintLook(r)
+		local T = Theme()
+		if T and T.OnChanged then T.OnChanged(function() paintLook(r) end) end
+		wire(r, rowTooltip)
+		r:HookScript("PostClick", function(self, _, down)
+			if down or self.dragging then return end
+			-- A macro of both kinds: the mark of the kind it targeted.
+			local kind = self.kind or "mob"
+			if self.mixed then
+				local hostile = flag(UnitCanAttack, "player", "target")
+				if hostile then
+					kind = "mob"
+				elseif hostile == false and flag(UnitExists, "target") then
+					kind = "npc"
+				end
+			end
+			Buttons.AdvanceMark(kind)
+		end)
+		return r
+	end
+
+	local function anchorTooltip(a, tip)
+		tip:SetText(L["Target list"])
+		local key = bindingText(Buttons.target)
+		if key then
+			tip:AddLine(L["%s targets the first name in the list that is close."]:format(key), 1, 1, 1, true)
+		else
+			tip:AddLine(L["Bind a key to the target button (Options > Keybindings > Polestar, or hover this mark in Quick Keybind Mode) to target the first name in the list that is close."], 1, 1, 1, true)
+		end
+		if folded() ~= (target.rowsFolded or false) then
+			-- Clicked in a fight: the rows follow when it ends.
+			tip:AddLine(folded() and L["The list folds to one row after this fight."] or L["The whole list shows after this fight."], 1, 1, 1, true)
+		else
+			tip:AddLine(folded() and L["Left-click to show the whole list."] or L["Left-click to fold the list to one row."], 1, 1, 1, true)
+		end
+		tip:AddLine(ns.Get("ui.lockHud") and L["Right-click for its settings. Shift-drag to move."]
+			or L["Right-click for its settings. Drag to move."], 0.6, 0.6, 0.6)
+	end
+
+	-- Not secure: it only moves the set and opens the settings.
+	local function newAnchor()
+		local a = CreateFrame("Button", "PolestarTargetAnchor", UIParent)
+		a.psLive = true
+		a:SetSize(TL.ANCHOR, TL.ANCHOR)
+		a:SetFrameStrata("MEDIUM")
+		-- A left-click folds the list to one row or opens it again; only a
+		-- right-click opens the settings, so a click meant for a mob (or one in a
+		-- fight) never does.
+		a:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		a:RegisterForDrag("LeftButton")
+		a:Hide()
+		buildMark(a)
+		paintLook(a)
+		local T = Theme()
+		if T and T.OnChanged then T.OnChanged(function() paintLook(a) end) end
+
+		wire(a, anchorTooltip)
+		a:SetScript("OnClick", function(self, which)
+			if self.dragging then return end
+			if which == "LeftButton" then
+				-- The rows change only out of combat: in a fight the fold waits.
+				QoL.State().targetFolded = not folded() or nil
+				if Buttons.target then applyTarget(Buttons.target) end
+				if GameTooltip and GameTooltip:GetOwner() == self then
+					GameTooltip:ClearLines()
+					anchorTooltip(self, GameTooltip)
+					GameTooltip:Show()
+				end
+				return
+			end
+			if which ~= "RightButton" then return end
+			if GameTooltip and GameTooltip:GetOwner() == self then GameTooltip:Hide() end
+			-- Settings > Questing > Buttons, where Targeting is.
+			ns.Fire("SHOW_OPTIONS", "targeting")
+		end)
+		return a
+	end
+
+	-- The target list on plain frames for the settings' previews (the Buttons
+	-- page, Install's Targeting page): the Polestar mark and n rows, drawn by
+	-- the live list's own code (buildRow, buildMark, paintLook); never a
+	-- secure template, no scripts, nothing the clicks or the bindings see.
+	-- -> { mark = frame, rows = { frame, ... } }
+	function Buttons.NewListFaces(parent, n)
+		local f = { mark = CreateFrame("Button", nil, parent), rows = {} }
+		buildMark(f.mark)
+		for i = 1, n or 3 do
+			f.rows[i] = CreateFrame("Button", nil, parent)
+			buildRow(f.rows[i], true)
+		end
+		return f
+	end
+
+	-- Paint faces f (Buttons.NewListFaces) as the live list would show
+	-- entries[i] = { name, verb, id, elite, item, cur, max, near } and lay them
+	-- out beside the target face t (Buttons.PlaceList; side: its, else the
+	-- settings'). A row without an entry hides.
+	function Buttons.PaintListFaces(f, t, entries, side)
+		for i, r in ipairs(f.rows) do
+			local e = entries[i]
+			if e then
+				r.applied = e.name
+				r.looks = { [e.name] = { e.verb, e.id, e.elite } }
+				r.info = { item = e.item, progress = e.max and { cur = e.cur or 0, max = e.max } or nil }
+				r.psNear = e.near and true or nil
+				paintText(r)
+				paintCount(r)
+				setNear(r, r.psNear, false)
+				paintLook(r)
+				r:Show()
+			else
+				r:Hide()
+			end
+		end
+		paintLook(f.mark)
+		Buttons.PlaceList(t, f.mark, f.rows, nil, side)
+	end
+
+	-- Every live row's and the mark's look again (a buttons.* setting, the
+	-- opacity as a fight starts or ends).
+	function TL.paintLooks()
+		for i = 1, #TL.rows do paintLook(TL.rows[i]) end
+		if TL.anchor then paintLook(TL.anchor) end
+	end
+
+	applyTarget = function(b)
+		-- The Polestar mark is not secure: hidden with Polestar (or the guide) at
+		-- once, in a fight too; the rows follow once it ends.
+		if TL.anchor and not ns.GuideShown() then TL.anchor:Hide() end
+		QoL.Secure("target", function()
+			local list = target.list
+			-- The list keeps its order: only the single button cycles.
+			local cycle = simple() and target.cycle or 1
+			-- A mob and an NPC goal's NPC are both pinged for the group (Fitz, 2026-11-13).
+			local kind = targetKind(cycle)
+			local text = Buttons.TargetMacro(list, cycle, Buttons.MarkLine(kind), Buttons.QuestPingLine())
+			b:SetAttribute("type", text and "macro" or nil)
+			b:SetAttribute("macrotext", text)
+			b.applied = list[cycle]
+			b.aList, b.aVerbs, b.aIds, b.aMarks, b.aCycle = list, target.verbs, target.ids, target.marks, cycle
+			paintTarget(b)
+			-- Beside the list the small Polestar mark takes the button's place;
+			-- hidden, the button still answers its key binding, like the step key.
+			if text and simple() then b:Show() else b:Hide() end
+			if TL.anchor then
+				-- Quick Keybind Mode reads it (QuickBind's `wanted`).
+				TL.anchor.wanted = text ~= nil and not simple()
+				if TL.anchor.wanted then TL.anchor:Show() else TL.anchor:Hide() end
+			end
+			applyRows()
+		end)
+	end
+
+	TL.newAnchor, TL.paintTones, TL.rowNote, TL.paintCounts = newAnchor, paintTones, rowNote, paintCounts
 end
 
 -- A unit in the world (the target, the mouseover, a nameplate) named like
@@ -1675,7 +2521,8 @@ end
 
 local function seeUnit(unit)
 	local b = Buttons.target
-	if not (b and (target.list[1] or (b.aList and b.aList[1])) and QoL.On("targetPlate")) then return end
+	-- The plate's look, or the list's colours (beside the list the plate is off).
+	if not (b and (target.list[1] or (b.aList and b.aList[1])) and (QoL.On("targetPlate") or not simple())) then return end
 	local C = ns.Compat
 	if not C.Readable(UnitExists and UnitExists(unit)) or C.Readable(UnitIsPlayer and UnitIsPlayer(unit)) ~= false then return end
 	local name = C.Readable(UnitName and UnitName(unit))
@@ -1689,7 +2536,10 @@ local function seeUnit(unit)
 		SetPortraitTexture(portraitFor(b, name), unit)
 		changed = true
 	end
-	if changed then paintTarget(b) end
+	if changed then
+		paintTarget(b)
+		for i = 1, #TL.rows do TL.paintTones(TL.rows[i]) end
+	end
 end
 Buttons.SeeUnit = seeUnit
 
@@ -1711,6 +2561,12 @@ ns.RegisterEvent("NAME_PLATE_UNIT_ADDED", function(_, unit) if type(unit) == "st
 
 local function targetTooltip(b, tip)
 	tip:SetText(L["Target"])
+	local locked = ns.Get("ui.lockHud")
+	if not simple() then
+		tip:AddLine(L["Targets the first name in the list that is close. Click a name to target that one."], 1, 1, 1, true)
+		tip:AddLine(locked and L["Shift-drag to move."] or L["Drag to move."], 0.6, 0.6, 0.6)
+		return
+	end
 	local T = Theme()
 	local plate = QoL.On("targetPlate")
 	for i = 1, #target.list do
@@ -1733,7 +2589,7 @@ local function targetTooltip(b, tip)
 			tip:AddLine(L["Marks nothing: in a raid only the leader and assistants set icons."], 0.6, 0.6, 0.6, true)
 		end
 	end
-	tip:AddLine(ns.Get("ui.lockHud") and L["Click again for the next name. Shift-drag to move."]
+	tip:AddLine(locked and L["Click again for the next name. Shift-drag to move."]
 		or L["Click again for the next name. Drag to move."], 0.6, 0.6, 0.6)
 end
 
@@ -2105,20 +2961,35 @@ local function refresh()
 	applyItem(itemButton, item or loot, loot)
 	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
+	-- The list shows qol.targetRows names; the single button, the step key
+	-- and the interact stage keep MAX_NAMES.
+	local cap = not simple() and ns.Get("qol.targetRows") or MAX_NAMES
 	local list, verbs, ids, marks
-	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true) else list = {} end
+	if QoL.On("targetButton") and guideShown and view then list, verbs, ids, marks = Buttons.TargetNames(view, raw, true, true, cap, true) else list = {} end
 	-- The mark settings and who may mark (Buttons.MarkRight) are part of both
 	-- signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. " " .. tostring(Buttons.MarkRight()) .. "\n") or ""
 	-- And the ping (Buttons.QuestPingLine), on or off.
 	mark = mark .. (Buttons.QuestPingLine() or "") .. "\n"
 	local namesSig = concat(list, "\n")
-	local sig = mark .. namesSig
+	-- The list's portraits and notes too, so new data re-applies.
+	local parts = { simple() and "simple" or "list", mark }
+	for i = 1, #list do
+		local info = Buttons.TargetInfo(list[i])
+		-- Its verb, mark and id too: a name that turns from an NPC goal's into a
+		-- mob's (or an elite) takes the other mark, ping and colour.
+		parts[#parts + 1] = list[i] .. "\t" .. tostring(info and info.npc) .. "\t" .. tostring(TL.rowNote(info))
+			.. "\t" .. tostring(verbs and verbs[i]) .. "\t" .. tostring(marks and marks[i]) .. "\t" .. tostring(ids and ids[i])
+	end
+	local sig = concat(parts, "\n")
 	if sig ~= target.sig then
 		target.sig = sig
-		local copy, cv, ci, cm = {}, {}, {}, {}
-		for i = 1, #list do copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i] end
-		target.list, target.verbs, target.ids, target.marks = copy, cv, ci, cm
+		local copy, cv, ci, cm, info = {}, {}, {}, {}, {}
+		for i = 1, #list do
+			copy[i], cv[i], ci[i], cm[i] = list[i], verbs[i], ids[i], marks[i]
+			info[list[i]] = Buttons.TargetInfo(list[i])
+		end
+		target.list, target.verbs, target.ids, target.marks, target.info = copy, cv, ci, cm, info
 		target.cycle = 1
 		-- The optional chat note, once per new set of names (not for a mark setting).
 		if namesSig ~= target.namesSig then
@@ -2128,6 +2999,17 @@ local function refresh()
 		applyTarget(targetButton)
 		seeAll()
 	end
+	-- Counts change with every kill and loot, and a drop chance can arrive
+	-- with the QuestDB after the rows: not in the signature (the count is
+	-- painted in combat too, the chance read by the tooltip).
+	-- The list's own records: a row shares its name's record while it shows
+	-- this list (applyRows), and keeps an older one while a fight holds it on
+	-- an earlier step, so that one is left as it was.
+	for name, info in pairs(target.info) do
+		local fresh = Buttons.TargetInfo(name)
+		if fresh then info.progress, info.chance = fresh.progress, fresh.chance end
+	end
+	TL.paintCounts()
 
 	-- Not tied to the step: a rare can turn up on any of them.
 	local R = ns.Rares
@@ -2198,7 +3080,8 @@ local function create()
 	targetButton = newButton("PolestarTargetButton", "target", targetTooltip)
 	targetButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
-		local n = #target.list
+		-- Only the single button moves to the next name; the list keeps its order.
+		local n = simple() and #target.list or 0
 		local kind = targetKind()
 		if n > 1 then target.cycle = target.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark(kind)
@@ -2213,6 +3096,7 @@ local function create()
 			applyRare(rareButton)
 		end
 	end)
+	TL.anchor = TL.newAnchor()
 	bagButton = newButton("PolestarBagButton", "bag", bagTooltip)
 	bagButton:HookScript("PostClick", function(self, _, down)
 		if down or self.dragging then return end
@@ -2248,6 +3132,7 @@ local function create()
 		if names and not marked then applyStep(self) end
 	end)
 	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step, Buttons.bag = itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton
+	Buttons.rows, Buttons.anchor = TL.rows, TL.anchor
 	set = { bagButton, hearthButton, itemButton, targetButton, rareButton }
 	-- Bindable from the game's Quick Keybind Mode, shown there while hidden
 	-- (the step key has no button on screen: Options > Keybindings binds it).
@@ -2256,7 +3141,11 @@ local function create()
 	QB.Add(itemButton, { force = true, enabled = function() return QoL.On("itemButton") end, icon = useIcon })
 	QB.Add(hearthButton, { force = true, enabled = function() return QoL.On("hearthButton") end,
 		icon = function() return Client.ItemIcon(Client.HEARTHSTONE) or media("icon-hearth") end })
-	QB.Add(targetButton, { force = true, enabled = function() return QoL.On("targetButton") end })
+	-- Beside the list the button is hidden and the Polestar mark in its slot
+	-- binds the button's key (the first name in the list that is close).
+	QB.Add(targetButton, { force = true, enabled = function() return QoL.On("targetButton") and simple() end })
+	QB.Add(TL.anchor, { force = true, enabled = function() return QoL.On("targetButton") and not simple() end,
+		command = "CLICK PolestarTargetButton:LeftButton", wanted = function(a) return a.wanted == true end })
 	QB.Add(rareButton, { force = true, enabled = function() return QoL.On("rareButton") end })
 	QB.Add(bagButton, { force = true, enabled = function() return QoL.On("bagSpace") end,
 		wanted = function(b) return b.junk ~= nil end, icon = useIcon })
@@ -2281,6 +3170,8 @@ local function combat(on)
 	fighting = on
 	if not set then return end
 	for i = 1, #set do applyAlpha(set[i]) end
+	-- The target list's rows and mark with them.
+	TL.paintLooks()
 end
 ns.RegisterEvent("PLAYER_REGEN_DISABLED", function() combat(true) end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() combat(false) end)
@@ -2330,7 +3221,7 @@ ns.On("WAYPOINT_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end
 	local all = path == ""
-	if PLACE_KEYS[path] or path == "qol" or path == "buttons" or all then
+	if PLACE_KEYS[path] or path == "qol.buttonTextSide" or path == "qol" or path == "buttons" or all then
 		place()
 	end
 	if path:sub(1, 8) == "buttons." or path == "buttons" or path == "ui.reduceMotion" or path == "ui" or all then
@@ -2338,6 +3229,7 @@ ns.On("SETTING_CHANGED", function(path)
 			paintFace(set[i])
 			applyAlpha(set[i])
 		end
+		TL.paintLooks()
 	end
 	if path == "qol.buttonTextSide" or path == "qol" or path == "" then
 		for i = 1, #set do placeLabel(set[i]) end
@@ -2362,6 +3254,9 @@ end
 -- made), its spot { point, relPoint, x, y } in its own units, and a new spot
 -- (nil: the default) applied as a drag's would be.
 function Buttons.Holder() return holder end
+-- How many of the target list's rows show beside the target button now
+-- (Buttons.Offsets and Buttons.ListRect take it), for Unlock mode's box.
+function Buttons.ListRows() return TL.count() end
 function Buttons.SavedPos() return savedPos() end
 function Buttons.SetPosition(p)
 	QoL.State().buttonPos = type(p) == "table" and p or nil

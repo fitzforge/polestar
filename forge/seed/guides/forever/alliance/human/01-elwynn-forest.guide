@@ -181,31 +181,38 @@ step Sam Sarsaparilla
 
 step Camping 101: Skinning
   when skill Skinning 1
+  tip Helene Peltskinner takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97924                                -- Sam Sarsaparilla: for Helene Peltskinner on the lake shore
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  tip Adele Fielder takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97922                                -- Sam Sarsaparilla: for Adele Fielder on the lake shore
 
 step Camping 101: Fishing
   when skill Fishing 1
+  tip Lee Brown takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97920                                -- Sam Sarsaparilla: for Lee Brown on the lake shore
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  tip Michelle Belle takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97919                                -- Sam Sarsaparilla: for Michelle Belle in the Lion's Pride Inn
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
+  tip Smith Argus takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97916                                -- Sam Sarsaparilla: for Smith Argus at the Goldshire smithy
 
 step Helene Peltskinner
   when onquest 97924
+  when complete 97924
   complete 97924 @46.24,62.24                 -- talk to the trainer
   turnin 97924                                -- Helene Peltskinner, on the lake shore east of town; inside
 
 step Adele Fielder
   when onquest 97922
+  when complete 97922
   complete 97922 @46.38,62.05                 -- talk to the trainer
   turnin 97922                                -- Adele Fielder, beside Helene
 
@@ -217,6 +224,7 @@ step The lake shore
 
 step Lee Brown
   when onquest 97920
+  when complete 97920
   complete 97920 @47.61,62.32                 -- talk to the trainer
   turnin 97920                                -- Lee Brown
 
@@ -257,11 +265,13 @@ step Goldshire
 
 step Michelle Belle
   when onquest 97919
+  when complete 97919
   complete 97919 @43.39,65.55                 -- talk to the trainer
   turnin 97919                                -- Michelle Belle, in the Lion's Pride Inn
 
 step Smith Argus
   when onquest 97916
+  when complete 97916
   complete 97916 @41.71,65.54                 -- talk to the trainer
   turnin 97916                                -- Smith Argus, at the smithy across the road
 

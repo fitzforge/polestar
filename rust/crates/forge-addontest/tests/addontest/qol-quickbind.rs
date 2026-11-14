@@ -17,6 +17,7 @@ local TARGET = "CLICK PolestarTargetButton:LeftButton"
 _G["BINDING_NAME_" .. TARGET] = "Target quest mob"
 local function set(key, v) Polestar.Set("qol." .. key, v); stub.runTimers() end
 local function look(b) return { shown = b:IsShown(), alpha = b:GetAlpha() or 1, label = b.Label and b.Label:GetText() or "" } end
+set("targetSimple", true) -- the single target button; the list's Polestar mark: qol-target-list.rs
 "#;
 
 fn run(script: &str) -> Vec<Value> {
@@ -165,11 +166,12 @@ fn quick_keybind_outside_the_mode_nothing_changes() {
 }
 
 // Options > Keybindings: every Polestar binding (the Recorder's too) in a "Polestar" section of its own, after AddOns
-// as the game lists new categories, found by the settings search through its tag (the search reads names and search
-// tags, never the section), with a name that fits the list's ~22-character column. The category is a plain string
-// (not a global string's name: `Polestar` is the addon's table, so the game shows the string itself).
+// as the game lists new categories, with a name that fits the list's ~22-character column. The category is a plain
+// string (not a global string's name: `Polestar` is the addon's table, so the game shows the string itself). No
+// binding has search tags: the game reads a tag's global outside securecallfunction when it builds the Options
+// search, so a global of ours there taints every search (options-search.rs, #2207).
 #[test]
-fn key_bindings_sit_in_a_polestar_section_with_the_search_tag_and_short_names() {
+fn key_bindings_sit_in_a_polestar_section_with_short_names_and_no_search_tags() {
 	let re = regex::Regex::new(r#"<Binding name="([^"]+)"([^>]*)>"#).unwrap();
 	let mut names = Vec::new();
 	for addon in ["Polestar", "Polestar_Recorder"] {
@@ -177,7 +179,7 @@ fn key_bindings_sit_in_a_polestar_section_with_the_search_tag_and_short_names() 
 		for m in re.captures_iter(&xml) {
 			let attrs = &m[2];
 			assert!(attrs.contains(r#"category="Polestar""#), "{addon} {}: {attrs}", &m[1]);
-			assert!(attrs.contains(r#"searchTags="BINDING_TAG_POLESTAR""#), "{addon} {}: {attrs}", &m[1]);
+			assert!(!attrs.contains("searchTags="), "{addon} {}: a tag's global taints the Options search: {attrs}", &m[1]);
 			assert!(!attrs.contains("header="), "{addon} {}: the section is the header", &m[1]);
 			if addon == "Polestar" {
 				names.push(m[1].to_string());
@@ -192,12 +194,12 @@ fn key_bindings_sit_in_a_polestar_section_with_the_search_tag_and_short_names() 
 		script: r#"
 			local labels = {}
 			for _, n in ipairs({ __NAMES__ }) do labels[n] = _G["BINDING_NAME_" .. n] or false end
-			emit({ labels = labels, tag = BINDING_TAG_POLESTAR })
+			emit({ labels = labels, tag = BINDING_TAG_POLESTAR or false })
 		"#
 		.replace("__NAMES__", &list),
 		..Default::default()
 	});
-	assert_eq!(out[0]["tag"], "Polestar");
+	assert_eq!(out[0]["tag"], false, "no tag global");
 	for n in &names {
 		let label = out[0]["labels"][n.as_str()].as_str().unwrap_or_else(|| panic!("{n} has no name"));
 		assert!(label.chars().count() <= 22, "{n}: '{label}' is cut in the list");

@@ -96,14 +96,13 @@ end
 local attached = setmetatable({}, { __mode = "k" }) -- frame -> kind
 local dirty = setmetatable({}, { __mode = "k" }) -- sandbox frames to repaint when they show
 
--- The ground at the player's opacity (a share of the windows' own), their
--- colour over the scheme's, and a border of their colour and thickness.
--- get(prop): the surface's bgAlpha, bg, border and borderSize (the trackers
--- use it too, UI/Looks/Trackers.lua).
-function TS.PaintGround(frame, get)
-	local k = min(1, max(0, tonumber(get("bgAlpha")) or 1))
-	frame.psBgAlpha = k ~= 1 and Theme.GroundAlpha() * k or nil
-	Theme.Repaint(frame)
+-- The surface's own colour over the scheme's ground and its own border:
+-- painted after every paint of the frame (Theme's frame.psAfterPaint), so a
+-- repaint (the house edge as the card first shows, a skin switch) keeps
+-- them.
+local function ownGround(frame)
+	local get = frame.psOwnGround
+	if not get then return end
 	local d = frame.psSkin
 	local r, g, b = rgba(get("bg"))
 	if r and d and d.bg and d.bg:IsShown() then d.bg:SetVertexColor(r, g, b, frame.psBgAlpha or Theme.GroundAlpha()) end
@@ -118,6 +117,19 @@ function TS.PaintGround(frame, get)
 		Theme.Border(frame, br, bg, bb, ba or 1, nil, size)
 		for _, e in ipairs(frame.psBorder or {}) do e:Show() end
 	end
+end
+
+-- The ground at the player's opacity (a share of the windows' own), their
+-- colour over the scheme's, and a border of their colour and thickness.
+-- get(prop): the surface's bgAlpha, bg, border and borderSize (the trackers
+-- use it too, UI/Looks/Trackers.lua).
+function TS.PaintGround(frame, get)
+	local k = min(1, max(0, tonumber(get("bgAlpha")) or 1))
+	frame.psBgAlpha = k ~= 1 and Theme.GroundAlpha() * k or nil
+	frame.psOwnGround, frame.psAfterPaint = get, ownGround
+	Theme.Repaint(frame)
+	-- A frame no skin paints: its own border all the same.
+	if not frame.psSkin then ownGround(frame) end
 end
 
 local function paintGround(frame, kind)

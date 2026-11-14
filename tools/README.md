@@ -51,12 +51,22 @@ polestar studio list                                  # scenarios and shots
 polestar studio party-sync --checkout ../lodestar-x   # every shot of one, from another branch's worktree
 polestar studio levelup-spells/card-hover             # one shot
 polestar studio --serve quest-loot                    # http://127.0.0.1:4848, re-renders on every Lua change
+polestar studio worst-case --locale deDE --fit        # in a German client, listing the text its frames cut
 polestar studio art import <old cache>                # client art: status | pull <fileID|atlas|path> | import <dir>
 ```
 
 Renders go to `data/local/studio/` (`--out` elsewhere): `<scenario>-<shot>.svg`,
 `.png` and `-closeup.png` (2x; PNGs need `rsvg-convert`). `--world <image>`
-puts one of your own screenshots behind the UI.
+puts one of your own screenshots behind the UI. `--locale <code>` plays the
+shot in that client language (its `Polestar_<code>` folder loads as the
+client loads it; the files end in `-<code>`), and `--fit` lists the text the
+shot's frames cut or let cross their edges, as `i18n fit` does. The preview's
+faces have no CJK or Hangul: those are measured 1em wide and drawn as gaps.
+The `worst-case` scenario plays the realistic limits (a messy or full quest
+log, the longest names the guides show, the screens players use) through
+the stub world, never by changing the addon's frames; `worst-case-looks`
+draws its Quest room, Characters, Profiles and class card in every look at
+UI scales 0.64, 1.0 and 1.5.
 
 Client art (icons, atlases, the game font FRIZQT__.TTF, client tables) lives
 in a local cache, `$POLESTAR_STUDIO_ART` or `~/.cache/polestar-art`, filled

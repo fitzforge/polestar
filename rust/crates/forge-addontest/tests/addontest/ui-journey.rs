@@ -440,3 +440,28 @@ fn a_walk_through_a_hostile_town_keeps_a_row_of_its_own() {
 	);
 	assert_eq!(out[0]["rows"][2]["sub"], "Hostile town: Crossroads");
 }
+
+// A departure line too long for the panel's width wraps, and its row makes room for it, never cut short: in German,
+// "durchschnittliche Wartezeit 0:15 · Fahrt 0:10" in a 300-wide window (the translations' fit check: cut by 16 px).
+// In English it stays one line.
+#[test]
+fn a_departure_line_too_long_for_the_width_wraps_and_its_row_grows_never_cut_short() {
+	let out = run(r#"
+		local L = Polestar.L
+		local function row()
+			local r = JP.rows[2]
+			return { lines = r.Sub:GetNumLines(), cut = r.Sub:IsTruncated(), h = r:GetHeight(), sub = r.Sub:GetText() }
+		end
+		PolestarGuideFrame:SetWidth(300); GF.Layout(); stub.advance(0.1)
+		local en = row()
+		L["average wait %s"] = "durchschnittliche Wartezeit %s"
+		L["%s \194\183 ride %s"] = "%s \194\183 Fahrt %s"
+		JP.Refresh(true); stub.advance(0.1)
+		emit({ en = en, de = row(), lift = JP.rows[1]:GetHeight() })"#);
+	let s = &out[0];
+	assert_eq!(s["en"]["lines"], 1, "{s}");
+	assert_eq!(s["de"]["sub"], "durchschnittliche Wartezeit 0:15 \u{b7} Fahrt 0:10", "{s}");
+	assert_eq!(s["de"]["cut"], false, "{s}");
+	assert_eq!(s["de"]["lines"], 2, "{s}");
+	assert!(num(&s["de"]["h"]) > num(&s["en"]["h"]), "the row makes room for the second line: {s}");
+}

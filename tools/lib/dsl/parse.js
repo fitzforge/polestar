@@ -60,7 +60,9 @@ const MODS = {
 	abandon: ['text', 'optional', 'only'],
 	destroy: ['text', 'optional', 'only'],
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
-	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere'],
+	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
+	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
+	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere', 'gather'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
 	talk: [...COMMON, ...COORDS, 'gossip', 'quest'],
 	interact: [...COMMON, ...COORDS, 'quest'],
@@ -75,6 +77,9 @@ const MODS = {
 	enter: [...COMMON, ...COORDS],
 	train: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	buy: [...COMMON, ...COORDS, 'npc', 'count', 'nearest'],
+	// `auction <item> xN`: buy it at the Auction House (the arrow: the nearest auctioneer of the player's faction);
+	// applies while the player gets the item by buying it (Core/Materials.lua).
+	auction: ['text', 'optional', 'only', 'count'],
 	vendor: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
 	level: [...COMMON, 'grind'],
@@ -95,7 +100,7 @@ const MODS = {
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'gather', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -677,7 +682,8 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 		case 'collect':
 		case 'use':
 		case 'destroy':
-		case 'buy': {
+		case 'buy':
+		case 'auction': {
 			if (!t) return err(ln, `\`${verb}\` needs an item id`), -1;
 			goal.item = parseId(t, 'item', ln, err);
 			if (goal.item === null) return -1;
@@ -1073,6 +1079,34 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				goal.anywhere = true;
 				i++;
 				continue;
+			case 'gather': {
+				if (!use('gather')) return null;
+				goal.gather = true;
+				i++;
+				// What the gather way takes: `gather <Profession> <rank>` (Herbalism for a herb, Mining to smelt a
+				// bar, Skinning for leather, Enchanting for dust) and `gather levels <min>-<max>` (the mobs it drops
+				// from as the player levels: cloth, meat). Either, both (the profession first) or neither.
+				const p = toks[i];
+				const rk = toks[i + 1];
+				if (p && rk && !rk.quoted && INT_RE.test(rk.text) && (p.quoted || !isModifierToken(p))) {
+					if (Number(rk.text) <= 0) return err(ln, `malformed skill rank "${rk.text}" after \`gather ${p.text}\``), null;
+					goal.gatherSkill = p.text;
+					if (p.quoted) goal.gatherSkillQuoted = true;
+					goal.gatherRank = Number(rk.text);
+					i += 2;
+				}
+				if (toks[i] && !toks[i].quoted && toks[i].text.toLowerCase() === 'levels') {
+					const tk = toks[i + 1];
+					const m = tk && !tk.quoted ? /^(\d+)-(\d+)$/.exec(tk.text) : null;
+					if (!m || Number(m[1]) < 1 || Number(m[2]) <= Number(m[1])) {
+						return err(ln, `malformed level range "${tk ? tk.text : ''}" (write \`gather levels <min>-<max>\`, e.g. \`gather levels 15-30\`)`), null;
+					}
+					goal.gatherMin = Number(m[1]);
+					goal.gatherMax = Number(m[2]);
+					i += 2;
+				}
+				continue;
+			}
 			case 'optional':
 				if (!use('optional')) return null;
 				goal.optional = true;

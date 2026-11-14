@@ -560,6 +560,7 @@ impl Layout {
 	fn stage(&self, o: &BuildOpts) -> Result<(), String> {
 		let r = &self.stage_root;
 		symlink(&self.data, &r.join("data/forever"))?;
+		self.link_sources(&o.root)?;
 		for sub in ["data/sources", "data/rules.json", "data/corrections.json", "addon"] {
 			symlink(&o.root.join(sub), &r.join(sub))?;
 		}
@@ -591,6 +592,14 @@ impl Layout {
 		}
 		symlink(&o.root.join("data/sim/params.json"), &self.sim.join("params.json"))?;
 		Ok(())
+	}
+
+	/// The data folder as a checkout has it: `<out>/data/sources` beside `<out>/data/forever`, a link to
+	/// `root`'s data/sources, where the guide compiler reads the AreaTable and the instances from
+	/// (`<data>/../sources`). Without it the writer's pack check had no areas: every `{area:N}` token in
+	/// the tree failed it (Tyr's Watch's Bandarion Keep, the 0.4.0 round).
+	fn link_sources(&self, root: &Path) -> Result<(), String> {
+		symlink(&root.join("data/sources"), &self.data.with_file_name("sources"))
 	}
 }
 
@@ -849,19 +858,28 @@ pub fn v1_goals(guides: &Path, data_dir: &Path, faction: Faction, race: &str) ->
 	let proj = forge_core::Projector::new(&frames);
 	let ctx = Ctx::new(faction.name(), race, None)?;
 	let chain = resolve_chain(&compiled, Chain::Routes, &ctx)?;
-	// Goal files relative to the guides folder's parent ("guides/forever/..."), as v1chain.js.
-	let base = guides.parent().unwrap_or(guides).to_path_buf();
-	let file_of = |g: &forge_guide::js::V| {
-		let f = PathBuf::from(g.hidden("_ast").get("file").to_js_string());
-		let f = if f.is_absolute() { f } else { std::env::current_dir().unwrap_or_default().join(f) };
-		f.strip_prefix(&base).map(|p| p.to_string_lossy().into_owned()).unwrap_or_else(|_| f.to_string_lossy().into_owned())
-	};
+	let file_of = |g: &forge_guide::js::V| chain_file(guides, Path::new(&g.hidden("_ast").get("file").to_js_string()));
 	let (goals, _) = chain_goals(&compiled, &file_of, &chain, &ctx, &proj, true)?;
 	let goals: Vec<Value> = goals
         .iter()
         .map(|g| json!({ "i": g.i, "guide": g.guide, "file": g.file, "line": g.line, "t": g.t, "q": g.q, "oi": g.oi, "level": g.level, "npc": g.npc, "class": (g.t == "train").then_some(g.class), "step": g.step, "map": g.map, "w": g.w.map(|w| json!({ "c": w.c, "wx": w.wx, "wy": w.wy })), "spots": g.spots.iter().map(|w| json!({ "c": w.c, "wx": w.wx, "wy": w.wy })).collect::<Vec<_>>(), "title": g.title }))
         .collect();
 	Ok(json!({ "faction": faction.name(), "race": race, "goals": goals }))
+}
+
+/// A v1 goal's file as the route names it (`from`, the stream's `file`): `guides/` and its path under
+/// the guides folder, v1chain.js's form, whatever that folder is called. A build with a seed reads a
+/// copy, `.forge/input-guides`, and the writer looks each line up by that path less `guides/`: named
+/// from the copy's parent, the files read `input-guides/forever/...` and the routes stage stopped at
+/// its first written check ("apply-route: no guide input-guides/..."). A file outside the folder keeps
+/// its whole path.
+pub fn chain_file(guides: &Path, file: &Path) -> String {
+	let abs = |p: &Path| if p.is_absolute() { p.to_path_buf() } else { std::env::current_dir().unwrap_or_default().join(p) };
+	let (guides, file) = (abs(guides), abs(file));
+	match file.strip_prefix(&guides) {
+		Ok(rel) => format!("guides/{}", rel.to_string_lossy().replace('\\', "/")),
+		Err(_) => file.to_string_lossy().into_owned(),
+	}
 }
 
 /// Leffe's navigation maps: `explicit` (--leffe), else `$POLESTAR_LEFFE_NAV`; the first of them that
@@ -1621,16 +1639,22 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		let flow = |routes: &Path, names: &[String]| -> Result<Vec<forge_sim::flow::Finding>, String> {
 			use rayon::prelude::*;
 			let shared = forge_writer::native::SharedCache::default();
-			let per: Vec<Vec<forge_sim::flow::Finding>> = start_pool.install(|| {
+			// (Every start written and judged when one fails: the error names each start the writer
+			// refused, each one's errors in full in <name>.pack-errors.txt beside its tree.)
+			let per: Vec<Result<Vec<forge_sim::flow::Finding>, String>> = start_pool.install(|| {
 				names
 					.par_iter()
 					.map(|name| {
 						flow_write(routes, name, &shared)?;
 						flow_judge(routes, name)
 					})
-					.collect::<Result<_, String>>()
-			})?;
-			Ok(per.into_iter().flatten().collect())
+					.collect()
+			});
+			let failed: Vec<&str> = per.iter().filter_map(|r| r.as_ref().err()).map(String::as_str).collect();
+			if !failed.is_empty() {
+				return Err(failed.join("\n"));
+			}
+			Ok(per.into_iter().filter_map(Result::ok).flatten().collect())
 		};
 		let mut grown = 0;
 		runs.push(stage(&cache, "routes", k_routes.clone(), log, |log| {
@@ -1877,5 +1901,49 @@ mod tests {
 		symlink(&b, &stage.join("data/forever")).unwrap();
 		assert_eq!(std::fs::read_link(stage.join("data/forever")).unwrap(), b, "a link to another target is replaced");
 		std::fs::remove_dir_all(&dir).ok();
+	}
+
+	/// The guide compiler reads the AreaTable from `<data>/../sources`: the build's data folder
+	/// (`<out>/data/forever`) has the checkout's sources beside it, so an `{area:N}` token resolves in
+	/// the trees the build writes and checks (Tyr's Watch's {area:16602}, the 0.4.0 round's written
+	/// check refused every start's tree on it).
+	#[test]
+	fn the_build_s_data_folder_reads_the_checkout_s_area_table() {
+		let dir = std::env::temp_dir().join(format!("forge-data-sources-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		let (root, out) = (dir.join("co"), dir.join("out"));
+		let wago = root.join("data/sources/wago/1.60.1.70888");
+		std::fs::create_dir_all(&wago).unwrap();
+		std::fs::write(wago.join("AreaTable.csv"), "ID,AreaName_lang,ContinentID,ParentAreaID\n16602,Bandarion Keep,0,0\n").unwrap();
+		let l = Layout {
+			data: out.join("data/forever"),
+			world: out.join("world"),
+			walks: out.join("walks"),
+			routes: out.join("routes"),
+			guides: out.join("guides"),
+			stage_root: out.join(".forge/root"),
+			sim: out.join(".forge/sim"),
+			grid: dir.join("grid"),
+			out: out.clone(),
+		};
+		std::fs::create_dir_all(&l.data).unwrap();
+		let area = |l: &Layout| forge_guide::tokens::data_name(&forge_guide::data::load_data(&l.data).unwrap(), "area", &forge_guide::js::V::Num(16602.0));
+		assert_eq!(area(&l), None, "no sources beside the data folder: no areas");
+		l.link_sources(&root).unwrap();
+		assert_eq!(area(&l).as_deref(), Some("Bandarion Keep"));
+		std::fs::remove_dir_all(&dir).ok();
+	}
+
+	#[test]
+	fn chain_files_read_guides_slash_whatever_the_guides_folder_is_called() {
+		let co = Path::new("/co");
+		assert_eq!(chain_file(&co.join("guides"), &co.join("guides/forever/horde/orc/01-durotar.guide")), "guides/forever/horde/orc/01-durotar.guide");
+		let input = co.join("out/.forge/input-guides");
+		assert_eq!(
+			chain_file(&input, &input.join("forever/alliance/nightelf/01-teldrassil.guide")),
+			"guides/forever/alliance/nightelf/01-teldrassil.guide",
+			"the build's seeded copy names its files as guides/ too, so the writer finds them"
+		);
+		assert_eq!(chain_file(&input, Path::new("/elsewhere/x.guide")), "/elsewhere/x.guide", "a file outside the folder keeps its path");
 	}
 }

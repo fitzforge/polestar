@@ -18,7 +18,8 @@
 -- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
 -- at or past the level it suits best (Dungeons.BestAt; the Dungeons window
 -- still picks its quests up from the range's start) and inside its range,
--- with quests for the character's faction, not told before
+-- with quests for the character's faction, not a city dungeon of the other
+-- faction (Dungeons.EnemyCapital), not told before
 -- (CharState().dungeonToastSeen: key -> true, told for good, or "later",
 -- back once at best-at), whose
 -- pickup plan by the offer rule (Dungeons.PickupPlan(key, true): a quest is
@@ -147,9 +148,13 @@ function DT.Candidates(level, mode, questId)
 	if #list > 0 then upgradeSeen(level) end
 	local told, out = seen(), {}
 	for _, d in ipairs(list) do
-		local min, max = d.minLevel, d.maxLevel
-		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "turnin" or onPage(d.key, questId)) and (Dg.BestAt(d.key) or min)
+		-- From the dungeon's floor (Dungeons.List), as the hub's "For your level": never the card for a
+		-- dungeon the route would still hold back (Fitz, 2026-11-13), nor for a city dungeon of the other
+		-- faction (Dungeons.EnemyCapital: the Ruins of Lordaeron has Alliance quests, but it is the Undercity's).
+		local min, max, from = d.minLevel, d.maxLevel, d.floor or d.minLevel
+		local best = d.kind == "dungeon" and (mode == "any" or told[d.key] ~= true) and from and level >= from and (not max or level <= max)
+			and (d.quests[side] or 0) > 0 and not (Dg.EnemyCapital and Dg.EnemyCapital(d.key, side))
+			and (mode ~= "turnin" or onPage(d.key, questId)) and math.max(Dg.BestAt(d.key) or from, from)
 		if best and level >= best and (mode ~= "login" or recent(d, level, best)) then
 			local plan = Dg.PickupPlan(d.key, true)
 			local take = plan and #plan.take or 0
@@ -196,7 +201,7 @@ function DT.Model(c)
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
 	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
-	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
+	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = ns.Upper(LT.Text(xs.levels)) end
 	local pick = { label = c.pickLabel or L["Pick up the quests"], run = function() return DT.PickUp(c.key, c.all) end }
 	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end

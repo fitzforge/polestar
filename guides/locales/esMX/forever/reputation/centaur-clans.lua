@@ -7,21 +7,21 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Gelkis and Magram Centaur Reputation"] = "",
+	["Gelkis and Magram Centaur Reputation"] = "Reputación con los centauros Gelkis y Magram",
 	-- {zone:1443} Desolace
-	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "",
+	["{zone:1443}'s feuding clans, reworked in Forever: pick one, buy its friendship, and trade totems for recipes."] = "Los clanes enfrentados de {zone:1443}, renovados en Forever: elige uno, compra su amistad y cambia tótems por recetas.",
 	-- {quest:93224} Carved Centaur Totems
 	["12 recipes for {quest:93224} at the clan quartermasters, no standing needed"] = "12 recetas por {quest:93224} con los intendentes de los clanes, sin necesidad de reputación",
 	-- {npc:5601} Khan Jehn
-	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "",
+	["{npc:5601}'s quest: a clan title and a choice of three rare level 35 weapons"] = "La misión de {npc:5601}: un título de clan y a elegir entre tres armas raras de nivel 35",
 
 	-- Step 1: Pick your clan
-	["Pick your clan"] = "",
+	["Pick your clan"] = "Elige tu clan",
 	-- {zone:1443} Desolace · {npc:5396} Captain Pentigast · {area:608} Nijel's Point · {quest:1382} Strange Alliance · {quest:1385} Brutal Politics · {npc:5412} Gurda Wildmane · {quest:1368} Gelkis Alliance · {quest:1367} Magram Alliance · {quest:93224} Carved Centaur Totems
 	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, and every quest of one clan costs the other five times what it pays (Buying Friendship: 3,000 for yours, 15,000 off the other), so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "",
 	-- {quest:1382} Strange Alliance
-	["{quest:1382}: Gelkis"] = "",
-	["Take the quests of one clan"] = "",
+	["{quest:1382}: Gelkis"] = "{quest:1382}: Gelkis",
+	["Take the quests of one clan"] = "Toma las misiones de un solo clan",
 
 	-- Step 2: Carved Centaur Totems
 	-- {area:608} Nijel's Point
@@ -40,42 +40,42 @@ return {
 
 	-- Step 5: Gelkis Village: Uthek the Wise and Molkar
 	-- {area:606} Gelkis Village · {npc:5397} Uthek the Wise · {npc:253140} Molkar
-	["{area:606}: {npc:5397} and {npc:253140}"] = "",
+	["{area:606}: {npc:5397} and {npc:253140}"] = "{area:606}: {npc:5397} y {npc:253140}",
 	-- {area:606} Gelkis Village · {zone:1443} Desolace · {npc:5397} Uthek the Wise · {npc:253140} Molkar
-	["{area:606} sits in the hills of south-west {zone:1443}; {npc:5397} stands at its heart. {npc:253140}, the Gelkis quartermaster, is at the south end of the village. Buying Friendship alone takes you from Neutral to Friendly."] = "",
+	["{area:606} sits in the hills of south-west {zone:1443}; {npc:5397} stands at its heart. {npc:253140}, the Gelkis quartermaster, is at the south end of the village. Buying Friendship alone takes you from Neutral to Friendly."] = "{area:606} está en las colinas del suroeste de {zone:1443}; {npc:5397} está en su centro. {npc:253140}, el intendente Gelkis, está en el extremo sur de la aldea. Comprar amistad por sí sola te lleva de Neutral a Amistoso.",
 
 	-- Step 6: Gelkis: the Kolkar camps
-	["Gelkis: the Kolkar camps"] = "",
+	["Gelkis: the Kolkar camps"] = "Gelkis: los campamentos Kolkar",
 	-- {area:608} Nijel's Point · {item:6079} Crude Charm
-	["The Kolkar centaurs (level 30-33) hold the camps south of {area:608}, along the eastern road. About one in four drops a {item:6079}."] = "",
+	["The Kolkar centaurs (level 30-33) hold the camps south of {area:608}, along the eastern road. About one in four drops a {item:6079}."] = "Los centauros Kolkar (nivel 30-33) ocupan los campamentos al sur de {area:608}, a lo largo del camino del este. Más o menos uno de cada cuatro suelta un {item:6079}.",
 	-- {item:6079} Crude Charm
-	["{item:6079}: Kolkar centaurs"] = "",
+	["{item:6079}: Kolkar centaurs"] = "{item:6079}: centauros Kolkar",
 
 	-- Step 7: Gelkis: Magram Village
 	-- {area:604} Magram Village
-	["Gelkis: {area:604}"] = "",
+	["Gelkis: {area:604}"] = "Gelkis: {area:604}",
 	-- {area:604} Magram Village
-	["The Sacks of Meat lie about {area:604}, in the south-east. Every Magram you kill on the way pays the Gelkis 20."] = "",
+	["The Sacks of Meat lie about {area:604}, in the south-east. Every Magram you kill on the way pays the Gelkis 20."] = "Los sacos de carne están por {area:604}, en el sureste. Cada Magram que mates por el camino paga 20 a los Gelkis.",
 	-- {item:6069} Crudely Dried Meat
-	["{item:6069}: Sacks of Meat"] = "",
+	["{item:6069}: Sacks of Meat"] = "{item:6069}: sacos de carne",
 	-- {npc:4640} Magram Wrangler
-	["{npc:4640}: 20 Gelkis"] = "",
+	["{npc:4640}: 20 Gelkis"] = "{npc:4640}: 20 Gelkis",
 	-- {npc:4641} Magram Windchaser
-	["{npc:4641}: 20 Gelkis"] = "",
+	["{npc:4641}: 20 Gelkis"] = "{npc:4641}: 20 Gelkis",
 
 	-- Step 8: Gelkis: Ongeku
 	-- {quest:1373} Ongeku
-	["Gelkis: {quest:1373}"] = "",
+	["Gelkis: {quest:1373}"] = "Gelkis: {quest:1373}",
 	-- {npc:5397} Uthek the Wise · {zone:1435} Swamp of Sorrows · {quest:1373} Ongeku · {area:76} Fallow Sanctuary · {area:75} Stonard
-	["Back to {npc:5397}, then east to the {zone:1435}: {quest:1373} (level 37) waits by a black cauldron in {area:76}, north-east of {area:75}."] = "",
+	["Back to {npc:5397}, then east to the {zone:1435}: {quest:1373} (level 37) waits by a black cauldron in {area:76}, north-east of {area:75}."] = "De vuelta con {npc:5397}, y luego al este a {zone:1435}: {quest:1373} (nivel 37) espera junto a un caldero negro en {area:76}, al noreste de {area:75}.",
 
 	-- Step 9: Gelkis: totems and kills to Honored
-	["Gelkis: totems and kills to Honored"] = "",
+	["Gelkis: totems and kills to Honored"] = "Gelkis: tótems y muertes hasta Honorable",
 	-- {npc:253140} Molkar · {quest:92812} Economic Warfare · {quest:93224} Carved Centaur Totems · {zone:1443} Desolace · {item:10008} White Bandit Mask · {item:5739} Barbaric Harness
 	-- plural, as words: Greater Mystic Essences = {item:11135} Greater Mystic Essence
 	["Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. {npc:253140}'s {quest:92812} takes 5 {quest:93224} for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western {zone:1443} drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, {npc:253140} a {item:10008} (tailoring) and Talra a {item:5739} (leatherworking). Legacy Diplomat adds up to 10%."] = "De Amistoso a Honorable hay 6000; después de las misiones del clan llevas unos 4000, así que faltan 2000. {quest:92812} de {npc:253140} pide 5 {quest:93224} por 750, una y otra vez: tres entregas, 15 tótems. Los centauros Maraudine (nivel 36-40) del oeste de {zone:1443} los sueltan; los tótems no se ligan, así que la casa de subastas es la otra fuente. Las muertes de Magram suman 20 cada una, pero los datos de muertes de Forever las detienen al final de Amistoso, a 1 de Honorable. En Amistoso, el poblado también tiene tres encargos de fabricación de 1000 cada uno: Halea quiere 3 Esencias místicas superiores, {npc:253140} una {item:10008} (sastrería) y Talra un {item:5739} (peletería). Diplomático, del Legado, añade hasta un 10%.",
 	-- {item:254432} Carved Centaur Totem
-	["{item:254432}: Maraudine centaurs"] = "",
+	["{item:254432}: Maraudine centaurs"] = "{item:254432}: centauros Maraudine",
 
 	-- Step 10: Gelkis: Uthek the Wise sends you to the valley
 	-- {npc:5397} Uthek the Wise
@@ -160,15 +160,15 @@ return {
 
 	-- Step 21: Gelkis: Khan Jehn
 	-- {npc:5601} Khan Jehn
-	["Gelkis: {npc:5601}"] = "",
+	["Gelkis: {npc:5601}"] = "Gelkis: {npc:5601}",
 	-- {npc:5601} Khan Jehn · {area:604} Magram Village · {npc:253177} Nerlokh · {npc:5397} Uthek the Wise · {item:271801} Abandoned Ferocity · {item:271802} Bludgeon of Betrayed Virtues · {item:271805} Thrice-Damned Effigy
 	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "",
 
 	-- Step 22: Gelkis: totems to Exalted
-	["Gelkis: totems to Exalted"] = "",
+	["Gelkis: totems to Exalted"] = "Gelkis: tótems hasta Exaltado",
 	-- {quest:92812} Economic Warfare
-	["From Revered on only {quest:92812} is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems. Nothing is sold for standing; the recipes below need only totems."] = "",
+	["From Revered on only {quest:92812} is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems. Nothing is sold for standing; the recipes below need only totems."] = "Desde Reverenciado solo queda {quest:92812}: de Reverenciado a Exaltado son 21.000, 28 entregas, 140 tótems. No se vende nada por reputación; las recetas de abajo solo piden tótems.",
 
 	-- Step 23: Gelkis done
 	["Gelkis done"] = "Gelkis completado",
@@ -176,37 +176,37 @@ return {
 
 	-- Step 24: Magram Village: Warug and Gorhak
 	-- {area:604} Magram Village · {npc:5398} Warug · {npc:253139} Gorhak
-	["{area:604}: {npc:5398} and {npc:253139}"] = "",
+	["{area:604}: {npc:5398} and {npc:253139}"] = "{area:604}: {npc:5398} y {npc:253139}",
 	-- {area:604} Magram Village · {zone:1443} Desolace · {npc:5398} Warug · {npc:253139} Gorhak
-	["{area:604} fills the valley of south-east {zone:1443}; {npc:5398} stands on its north side, {npc:253139}, the Magram quartermaster, near the lake. Buying Friendship alone takes you from Neutral to Friendly."] = "",
+	["{area:604} fills the valley of south-east {zone:1443}; {npc:5398} stands on its north side, {npc:253139}, the Magram quartermaster, near the lake. Buying Friendship alone takes you from Neutral to Friendly."] = "{area:604} llena el valle del sureste de {zone:1443}; {npc:5398} está en su lado norte, y {npc:253139}, el intendente Magram, cerca del lago. Comprar amistad por sí sola te lleva de Neutral a Amistoso.",
 
 	-- Step 25: Magram: the Kolkar camps
-	["Magram: the Kolkar camps"] = "",
+	["Magram: the Kolkar camps"] = "Magram: los campamentos Kolkar",
 	-- {area:608} Nijel's Point
-	["The Kolkar centaurs (level 30-33) hold the camps south of {area:608}."] = "",
+	["The Kolkar centaurs (level 30-33) hold the camps south of {area:608}."] = "Los centauros Kolkar (nivel 30-33) ocupan los campamentos al sur de {area:608}.",
 
 	-- Step 26: Magram: Broken Tears
 	-- {quest:1369} Broken Tears
-	["Magram: {quest:1369}"] = "",
+	["Magram: {quest:1369}"] = "Magram: {quest:1369}",
 	-- {area:606} Gelkis Village
-	["The Tears of Theradras are crystals in the cave behind {area:606}, in the south-west. Every Gelkis you kill on the way pays the Magram 20."] = "",
+	["The Tears of Theradras are crystals in the cave behind {area:606}, in the south-west. Every Gelkis you kill on the way pays the Magram 20."] = "Las Lágrimas de Theradras son cristales en la cueva detrás de {area:606}, en el suroeste. Cada Gelkis que mates por el camino paga 20 a los Magram.",
 	-- {quest:1369} Broken Tears · {object:22246} Tear of Theradras
-	["{quest:1369}: the {object:22246} crystals"] = "",
+	["{quest:1369}: the {object:22246} crystals"] = "{quest:1369}: los cristales {object:22246}",
 	-- {npc:4648} Gelkis Stamper
-	["{npc:4648}: 20 Magram"] = "",
+	["{npc:4648}: 20 Magram"] = "{npc:4648}: 20 Magram",
 	-- {npc:4649} Gelkis Windchaser
-	["{npc:4649}: 20 Magram"] = "",
+	["{npc:4649}: 20 Magram"] = "{npc:4649}: 20 Magram",
 
 	-- Step 27: Magram: Gizmo for Warug
 	-- {quest:1371} Gizmo for Warug
-	["Magram: {quest:1371}"] = "",
+	["Magram: {quest:1371}"] = "Magram: {quest:1371}",
 	-- {npc:5398} Warug · {item:4392} Advanced Target Dummy · {item:4234} Heavy Leather · {item:4389} Gyrochronatom · {item:4382} Bronze Framework · {item:4387} Iron Strut · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
-	["{npc:5398} wants an {item:4392}: engineers make it (4 {item:4234}, a {item:4389}, a {item:4382} and an {item:4387}); others buy one. It pays 1,000 and a choice of two engineering schematics, the {item:269900} or the {item:269902}."] = "",
+	["{npc:5398} wants an {item:4392}: engineers make it (4 {item:4234}, a {item:4389}, a {item:4382} and an {item:4387}); others buy one. It pays 1,000 and a choice of two engineering schematics, the {item:269900} or the {item:269902}."] = "{npc:5398} quiere un {item:4392}: lo fabrican los ingenieros (4 {item:4234}, un {item:4389}, un {item:4382} y un {item:4387}); los demás lo compran. Paga 1.000 y a elegir entre dos esquemas de ingeniería, el {item:269900} o el {item:269902}.",
 	-- {item:4392} Advanced Target Dummy
-	["{item:4392}: made by engineers, or bought"] = "",
+	["{item:4392}: made by engineers, or bought"] = "{item:4392}: hecho por ingenieros, o comprado",
 
 	-- Step 28: Magram: totems and kills to Honored
-	["Magram: totems and kills to Honored"] = "",
+	["Magram: totems and kills to Honored"] = "Magram: tótems y muertes hasta Honorable",
 	-- {quest:1371} Gizmo for Warug · {npc:253139} Gorhak · {quest:92811} Economic Warfare · {quest:93224} Carved Centaur Totems · {zone:1443} Desolace · {npc:5398} Warug · {quest:92743} A Conqueror's Crown · {item:254392} Conqueror's Helm · {zone:1418} Badlands · {quest:92841} Valley of Bones
 	-- plural, as words: Greater Shadow Protection Potions = {item:13459} Greater Shadow Protection Potion · Massive Iron Axes = {item:3855} Massive Iron Axe
 	["Friendly to Honored is 6,000; after the clan's quests you are about 3,000 into it (4,000 with {quest:1371}), so 2,000 to 3,000 to go. {npc:253139}'s {quest:92811} takes 5 {quest:93224} for 750, again and again; the Maraudine centaurs (level 36-40) of western {zone:1443} drop them, and the totems do not bind, so the auction house is the other source. Gelkis kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village has two craft orders for 1,000 each: Mirda's 3 Greater Shadow Protection Potions and Grolkar's 2 Massive Iron Axes (blacksmithing). {npc:5398}'s {quest:92743} (1,000) is no craft order: he wants a {item:254392} from a crypt in the {zone:1418}, and Forever's quest pages put it in his chain before the {quest:92841}, so bring it before you reach Honored. Legacy Diplomat adds up to 10%."] = "De Amistoso a Honorable hay 6000; después de las misiones del clan llevas unos 3000 (4000 con {quest:1371}), así que faltan de 2000 a 3000. {quest:92811} de {npc:253139} pide 5 {quest:93224} por 750, una y otra vez; los centauros Maraudine (nivel 36-40) del oeste de {zone:1443} los sueltan, y los tótems no se ligan, así que la casa de subastas es la otra fuente. Las muertes de Gelkis suman 20 cada una, pero los datos de muertes de Forever las detienen al final de Amistoso, a 1 de Honorable. En Amistoso, el poblado tiene dos encargos de fabricación de 1000 cada uno: las 3 Pociones de Protección contra las Sombras superiores de Mirda y las 2 Hachas de hierro macizo de Grolkar (herrería). {quest:92743} de {npc:5398} (1000) no es un encargo de fabricación: quiere un {item:254392} de una cripta de {zone:1418}, y las páginas de misiones de Forever lo ponen en su cadena antes de {quest:92841}, así que llévaselo antes de llegar a Honorable. Diplomático, del Legado, añade hasta un 10%.",
@@ -301,22 +301,28 @@ return {
 
 	-- Step 42: Magram: Khan Jehn
 	-- {quest:93196} Khan Jehn
-	["Magram: {quest:93196}"] = "",
+	["Magram: {quest:93196}"] = "Magram: {quest:93196}",
 	-- {item:257517} Ultimate Necromancy Staff · {area:604} Magram Village · {quest:93196} Khan Jehn · {item:271800} Scavenged Magram Armament · {item:271803} Greatstaff of the Necrokhans · {item:271804} Soulsplatter Mace
 	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "",
 	-- {quest:93196} Khan Jehn
 	["raise {quest:93196} at the tent by the lake"] = "",
 
 	-- Step 43: Magram: totems to Exalted
-	["Magram: totems to Exalted"] = "",
+	["Magram: totems to Exalted"] = "Magram: tótems hasta Exaltado",
 	-- {quest:92811} Economic Warfare
-	["From Revered on only {quest:92811} is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems."] = "",
+	["From Revered on only {quest:92811} is left: Revered to Exalted is 21,000, 28 turn-ins, 140 totems."] = "Desde Reverenciado solo queda {quest:92811}: de Reverenciado a Exaltado son 21.000, 28 entregas, 140 tótems.",
 
 	-- Step 44: The totem recipes
-	["The totem recipes"] = "",
+	["The totem recipes"] = "Las recetas de tótems",
 	-- {quest:93224} Carved Centaur Totems · {item:273613} Enchant Bracer - Lesser Agility · {item:250941} Greater Frenzy Potion · {item:250538} Hard Gold Gauntlet · {item:250606} Iron Morningstar · {item:252462} Mystic Thick Armor Kit · {item:253973} Silk Reagent Bag · {item:10011} Stormcloth Gloves · {item:274490} Centaur Hoofwarmers · {item:269900} Centaur Banner Deployment Device · {item:269902} Hoof-Shaped Foot Pedal
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "Ambos intendentes venden las mismas 12 recetas por {quest:93224}, sin necesidad de reputación: {item:273613} y poder de sanación inferior; Hechicería explosiva superior y {item:250941}; diseños de {item:250538} y {item:250606}; patrones de {item:252462}, {item:253973}, {item:10011} y {item:274490}; los esquemas de {item:269900} y {item:269902}. Guarda los tótems que necesites para ellas antes de entregar el resto.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At Honored, and after {quest:92743}, {npc:5398} sends you to {npc:253136} at the northern entrance of the {quest:92841}, in {zone:2652}. {npc:253136}'s quests (500 each: {quest:92844}, {quest:92846}, Corrupting Tears, Proof of Concept, No Mercy for the Weak, Bone Raising) and Hagiak's at the {area:16675} ({area:16677}, Long-Term Solutions, Threat of Starvation, Return to {npc:253136}) end with {npc:5601}: raise the dead khan with {npc:253136}'s staff at the tent by the lake in {area:604}, for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 11,000 of it, two {quest:92811} turn-ins the rest."] = "En Honorable, y después de {quest:92743}, {npc:5398} te manda con {npc:253136}, en la entrada norte de {quest:92841}, en {zone:2652}. Las misiones de {npc:253136} (500 cada una: {quest:92844}, {quest:92846}, Lágrimas corruptoras, Prueba de concepto, Sin piedad para los débiles, Levantar huesos) y las de Hagiak en {area:16675} ({area:16677}, Soluciones a largo plazo, Amenaza de hambruna, Regreso con {npc:253136}) terminan con {npc:5601}: levanta al kan muerto con el bastón de {npc:253136} en la tienda junto al lago de {area:604}, por 6.000, un título y un arma rara de nivel 35. Todas piden que sigas en Honorable o más. De Honorable a Reverenciado son 12.000: las misiones del valle pagan unos 11.000, y dos entregas de {quest:92811} el resto.",
+	-- ["At Honored, {npc:5397} sends you east to {npc:253177} at the southern entrance of the {quest:93034}, in {zone:2652}. {npc:253177}'s quests (500 each) take you among the undead and the outcasts there: {quest:93035}, {quest:93037} and {quest:93041}, then A Cleansing Cry from {npc:5397}, and a second line (Saving Our Own, Bone Burying, Checking Things Out) that ends with {npc:5601}: kill the Magram khan in his own village for 6,000, a title and a rare level 35 weapon. They all ask you to stay Honored or better. Honored to Revered is 12,000: the valley's quests pay about 10,600 of it, two or three {quest:92811} turn-ins the rest."] = "En Honorable, {npc:5397} te manda al este con {npc:253177}, en la entrada sur de {quest:93034}, en {zone:2652}. Las misiones de {npc:253177} (500 cada una) te llevan entre los no-muertos y los proscritos de ahí: {quest:93035}, {quest:93037} y {quest:93041}, luego Un grito purificador de {npc:5397}, y una segunda línea (Salvar a los nuestros, Enterrar huesos, Echar un vistazo) que termina con {npc:5601}: mata al kan Magram en su propia aldea por 6.000, un título y un arma rara de nivel 35. Todas piden que sigas en Honorable o más. De Honorable a Reverenciado son 12.000: las misiones del valle pagan unos 10.600, y dos o tres entregas de {quest:92811} el resto.",
+	-- ["Gelkis: the {quest:93034}"] = "Gelkis: {quest:93034}",
+	-- ["Magram: the {quest:92841}"] = "Magram: {quest:92841}",
 	-- ["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "Los Gelkis (suroeste de {zone:1443}) y los Magram (sureste) están en guerra: cada muerte de un clan da 20 al otro y le cuesta 100 a su propio clan, así que solo puedes subir con uno. Ambos empiezan en Neutral. Las misiones de Forever ahora valen mucho más que las muertes, y las misiones de elección ya no le cuestan nada al otro clan. Alianza: {npc:5396}, en {area:608}, ofrece {quest:1382} (Gelkis) y {quest:1385} (Magram). Horda: {npc:5412} ofrece {quest:1368} y {quest:1367}. Toma la de tu clan y {quest:93224}: la “Buying Friendship” de cada clan (3000) se ofrece cuando traes los tótems. Después marca la tarea. La guía sigue con los Gelkis; toma en su lugar las misiones de los Magram y pasará a la mitad de los Magram. Forever paga estas misiones completas a cualquier nivel.",
+	-- ["The ritual site is a tent by the lake in the middle of {area:604}. {npc:253136} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit)."] = "El lugar del ritual es una tienda junto al lago, en medio de {area:604}. {npc:253136} paga 6.000, un título y a elegir entre tres armas raras de nivel 35: {item:271800} (arma de asta: Aguante, poder de ataque, Agilidad), {item:271803} (bastón: Intelecto, Aguante, Espíritu) o {item:271804} (maza de mano derecha: Intelecto, Aguante, Espíritu).",
+	-- ["{npc:5601} (level 37) leads the Magram from the west side of {area:604}, with his bodyguards. The kill costs the Magram 500. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina)."] = "{npc:5601} (nivel 37) dirige a los Magram desde el lado oeste de {area:604}, con sus guardaespaldas. Matarlo cuesta 500 con los Magram. {npc:5397} paga 6.000, un título y a elegir entre tres armas raras de nivel 35: {item:271801} (hacha a dos manos: Fuerza, Aguante, Agilidad), {item:271802} (maza a una mano: Fuerza, Aguante, Agilidad) o {item:271805} (mano izquierda: Espíritu, Intelecto, Aguante).",
 }

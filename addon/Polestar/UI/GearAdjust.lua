@@ -198,6 +198,8 @@ function relist()
 	local hint = L["A change is kept as a share of the default, so it carries over when Polestar's defaults change."]
 	if source == "custom" then
 		hint = hint .. " " .. L["A custom scale is in use: these apply once you choose a built-in spec again."]
+	elseif G.UsesFLB and G.UsesFLB(2) then
+		hint = hint .. " " .. L["Forever Leveling BiS scores your items now: these apply once it is off in Settings or Stat weights names a spec."]
 	end
 	F.Hint:SetText(hint)
 	local rows = G.Adjust.Rows(class, spec, lv)

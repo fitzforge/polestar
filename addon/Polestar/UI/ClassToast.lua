@@ -309,7 +309,7 @@ function CT.Model(q)
 	local reward = e[3] > 0 and d.rewards[e[3]] or nil
 	local name = C.RewardName(reward)
 	local m = { quest = q, reward = reward, class = p.class, level = s[1] }
-	m.head = format(L["LEVEL %d · %s"], s[1], UI.ClassName(p.class):upper())
+	m.head = format(L["LEVEL %d · %s"], s[1], ns.Upper(UI.ClassName(p.class)))
 	m.facts = format(L["Level %d · %s"], s[1], UI.ClassName(p.class))
 	m.title = name and format(L["%s ready"], CT.ShortName(name)) or UI.ClassName(p.class)
 	local where, who = giver[2] and UI.MapName(giver[2]), giverName(q, giver)
@@ -486,6 +486,12 @@ local function build()
 		w:HookScript("OnShow", function() if CT.current then CT.Place(true) end end)
 		w:HookScript("OnSizeChanged", function() if f:IsShown() then CT.Place(false) end end)
 	end
+	-- The gamepad (UI/Gamepad.lua): a card shows on its own, so it waits for
+	-- the focus binding before it takes the gamepad; then the D-pad walks its
+	-- buttons and icons, A presses one, B is Later.
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(f, { unasked = function() return true end, back = function() CT.Later() end })
+	end
 end
 
 -- class: the class colour's stripe, ring and header (or facts); nil (another heads-up)
@@ -561,7 +567,9 @@ local function compactLayout(f, width)
 	f:SetWidth(width)
 	sizeRing(f, CRING / RING)
 	f.Stripe:SetShown(stripe > 0)
-	for _, p in ipairs({ f.Head, f.Giver, f.Route, f.Badge, f.Rule, f.Later, f.More, f.Off }) do p:Hide() end
+	for _, p in ipairs({ f.Head, f.Giver, f.Route, f.Badge, f.Rule, f.Later, f.More, f.Off, f.SpellMore }) do p:Hide() end
+	-- The row of icons is the full card's: its spells and items are in the tooltip's lines.
+	for _, b in ipairs(f.SpellRow) do b:Hide() end
 	local act = (m.act and f.Act) or (m.guideId and f.Open) or f.ShowMe
 	for _, b in ipairs({ f.Act, f.Open, f.ShowMe }) do b:SetShown(b == act) end
 	f.Extra:SetShown(m.more ~= nil or m.off ~= nil)
@@ -590,6 +598,10 @@ end
 function layout(f, width)
 	if compactOn() then return compactLayout(f, width) end
 	if f.psModel then showParts(f, f.psModel) end
+	-- The icons back from the compact card: those holding a spell or an item.
+	for _, b in ipairs(f.SpellRow) do b:SetShown(b.spell ~= nil) end
+	local spells = f.psModel and f.psModel.spells
+	f.SpellMore:SetShown(spells ~= nil and #spells > SPELLS_MAX)
 	sizeRing(f, 1)
 	f:SetWidth(width)
 	-- The house look: the title first, then the facts with the chip, no stripe.
@@ -696,11 +708,14 @@ function layout(f, width)
 	-- ("Open in Dungeons"), Later and its "stop these". When they don't all
 	-- fit in the card's width, Later and the rest start a row of their own,
 	-- and a button that still doesn't fit starts the next row. A heads-up
-	-- with nothing to do (m.noAct) starts with Later.
+	-- with nothing to do (m.noAct) starts with Later. A question with three
+	-- answers (m.answers: UI/Materials.lua's Mix, Gather and Buy) keeps its
+	-- third one (`off`) beside the others, before Later.
 	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or (f.ShowMe:IsShown() and f.ShowMe) or nil
 	local row = { act }
 	local avail, total = width - 2 * PAD - stripe, act and act:GetWidth() or 0
-	for _, b in ipairs({ f.More, f.Later, f.Off }) do
+	local m = f.psModel
+	for _, b in ipairs(m and m.answers and { f.More, f.Off, f.Later } or { f.More, f.Later, f.Off }) do
 		if b:IsShown() then
 			if #row > 0 then total = total + (row[#row] == act and 8 or 4) end
 			total = total + b:GetWidth()
@@ -736,11 +751,86 @@ function CT.PlaceSetting()
 	return (v == "below" or v == "free") and v or "above"
 end
 
+-- How far a frame's own drawing reaches past each of its edges, in its
+-- units: a soft shadow (the house look's, 12 over the top and 20 under the
+-- bottom), a skin's border, glow or corner marks, a part hung outside it.
+-- Read off the anchors that tie its regions and its children to it (up to
+-- REACH_ANCHORED: Umbra's deep shadow reaches 58 under the window), and off
+-- where they and their children's regions stand (up to REACH_SEEN, past
+-- which what stands there is content hung away from the frame, not its
+-- drawing).
+local REACH_ANCHORED, REACH_SEEN = 128, 48
+local function reach(o)
+	local r = { top = 0, bottom = 0, left = 0, right = 0 }
+	local function grow(side, d, most)
+		if d > r[side] and d <= (most or REACH_SEEN) then r[side] = d end
+	end
+	local function byPoints(x)
+		for i = 1, (x.GetNumPoints and x:GetNumPoints() or 0) do
+			local p, rel, rp, dx, dy = x:GetPoint(i)
+			if rel == o and type(p) == "string" and type(rp) == "string" then
+				dx, dy = tonumber(dx) or 0, tonumber(dy) or 0
+				local xh, xw = x:GetHeight() or 0, x:GetWidth() or 0
+				-- An edge past the frame's own (a shadow's), or a part standing on its far side.
+				if rp:find("TOP") then grow("top", p:find("TOP") and dy or p:find("BOTTOM") and dy + xh or 0, REACH_ANCHORED) end
+				if rp:find("BOTTOM") then grow("bottom", p:find("BOTTOM") and -dy or p:find("TOP") and xh - dy or 0, REACH_ANCHORED) end
+				if rp:find("LEFT") then grow("left", p:find("LEFT") and -dx or p:find("RIGHT") and xw - dx or 0, REACH_ANCHORED) end
+				if rp:find("RIGHT") then grow("right", p:find("RIGHT") and dx or p:find("LEFT") and dx + xw or 0, REACH_ANCHORED) end
+			end
+		end
+	end
+	local ol, ob, orr, ot = o:GetLeft(), o:GetBottom(), o:GetRight(), o:GetTop()
+	local oe = o:GetEffectiveScale() or 1
+	-- x's rectangle in o's units (e: the scale x's coordinates are in).
+	local function byRect(x, e)
+		if not (ol and ob and orr and ot) then return end
+		local l, b, rr, t = x:GetLeft(), x:GetBottom(), x:GetRight(), x:GetTop()
+		if not (l and b and rr and t) then return end
+		local q = (e or oe) / oe
+		l, b, rr, t = l * q, b * q, rr * q, t * q
+		if rr <= l or t <= b then return end
+		if rr > ol and l < orr then
+			grow("top", t - ot)
+			grow("bottom", ob - b)
+		end
+		if t > ob and b < ot then
+			grow("left", ol - l)
+			grow("right", rr - orr)
+		end
+	end
+	local function shown(x) return x.IsShown == nil or x:IsShown() end
+	for _, x in ipairs({ o:GetRegions() }) do
+		if shown(x) then
+			byPoints(x)
+			byRect(x, oe)
+		end
+	end
+	for _, c in ipairs({ o:GetChildren() }) do
+		if shown(c) then
+			byPoints(c)
+			local ce = c:GetEffectiveScale() or oe
+			byRect(c, ce)
+			for _, x in ipairs({ c:GetRegions() }) do
+				if shown(x) then byRect(x, ce) end
+			end
+		end
+	end
+	return r
+end
+CT.Reach = reach
+
+-- The room between the card and the window's drawing.
+local GAP = 4
+
 -- Put the card on the window: above its top edge, or under its bottom one
 -- when the screen has no room above (toasts.headsup.place "below": under it,
--- over it when there is no room below), or on its own spot ("free":
--- toasts.headsup.pos, Move frames). animate: slide out from behind the edge
--- it sits on, or in from above on its own spot (a fade under ui.reduceMotion).
+-- over it when there is no room below), beside it where neither has room
+-- (the side facing the middle of the screen when both do), or on its own
+-- spot ("free": toasts.headsup.pos, Move frames). Clear of the window and
+-- of what its look draws past its edges (CT.Reach): touching it, the card
+-- sat under a shadow, border or corner marks drawn over it. animate: slide
+-- out from behind the edge it sits on, or in from above beside the window
+-- and on its own spot (a fade under ui.reduceMotion).
 function CT.Place(animate)
 	local w = window()
 	if not (f and w and CT.current) then return end
@@ -777,21 +867,48 @@ function CT.Place(animate)
 		-- hooks.guideAnchor) is the edge the card sits on instead.
 		local ran, own = Theme.SkinHookValue("guideAnchor")
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
-		local top, bottom, room = edge:GetTop(), edge:GetBottom(), UIParent:GetTop()
+		-- The gaps in the edge's units; the card's anchors take them in its own (k).
+		local r = reach(edge)
+		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
+		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
-		local fitsAbove = not (top and room) or (top + h * k) * s <= room * us
-		local above = fitsAbove
-		if place == "below" then
-			local fitsBelow = not bottom or (bottom - h * k) * s >= 0
-			above = not fitsBelow and fitsAbove
+		local sw, sh = UIParent:GetRight(), UIParent:GetTop()
+		local cw = f:GetWidth() * k
+		local fits = {
+			above = not (top and sh) or (top + gap.above + h * k) * s <= sh * us,
+			below = not bottom or (bottom - gap.below - h * k) * s >= 0,
+			left = left ~= nil and (left - gap.left - cw) * s >= 0,
+			right = right ~= nil and sw ~= nil and (right + gap.right + cw) * s <= sw * us,
+		}
+		local side
+		for _, o in ipairs(place == "below" and { "below", "above" } or { "above", "below" }) do
+			if not side and fits[o] then side = o end
 		end
-		CT.side = above and "above" or "below"
-		if above then
-			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, -1)
+		if not side and (fits.left or fits.right) then
+			local cx, mid = edge:GetCenter(), UIParent:GetCenter()
+			local towardLeft = cx and mid and cx * s > mid * us
+			side = ((towardLeft and fits.left) or not fits.right) and "left" or "right"
+		end
+		side = side or "below"
+		CT.side = side
+		-- Beside the window, nothing of it is under the card however the screen
+		-- moves it, so the screen keeps the card whole (a window reaching past
+		-- the screen's top would take a top-aligned card with it).
+		f:SetClampedToScreen(side == "left" or side == "right")
+		local g = gap[side] / k
+		if side == "above" then
+			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, g)
+			dy = -(h + g)
+		elseif side == "below" then
+			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, -g)
+			dy = h + g
+		elseif side == "left" then
+			Anim.Anchor(f, "TOPRIGHT", edge, "TOPLEFT", -g, 0)
+			dy = 18
 		else
-			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, 1)
+			Anim.Anchor(f, "TOPLEFT", edge, "TOPRIGHT", g, 0)
+			dy = 18
 		end
-		dy = above and -h or h
 	end
 	local wasShown = f:IsShown()
 	f:Show()
@@ -923,9 +1040,11 @@ end
 -- cropped to those texture coordinates, filling the ring, lifted by lift
 -- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
 -- small on the disc, and an untinted one a full-colour icon. spells = { { id,
--- icon? } }: a row of icons under the lines (SPELLS_MAX, then "+N
--- more"), each with the game's spell tooltip, spellTip(tooltip, spell) adding
--- lines to it, spellRight(spell) run on a right-click.
+-- icon? } | { item, count? } }: a row of icons under the lines (SPELLS_MAX,
+-- then "+N more"), each with the game's spell or item tooltip, spellTip(tooltip,
+-- spell) adding lines to a spell's, spellRight(spell) run on a right-click; an
+-- item's shows its count over its corner when above 1, and a modified click is
+-- the bags' (W.ItemClick: Shift links it).
 -- hideAfter: seconds on screen before it hides itself (not while the
 -- pointer is on it); quiet: no chime; noAct: no action button (Later
 -- leads the row). Without hideAfter, toasts.headsup.seconds (Alerts &
@@ -976,18 +1095,31 @@ function CT.SpellButton(i, c)
 	b:SetScript("OnEnter", function(self)
 		local m, s = c.psModel, self.spell
 		if not (m and s) then return end
-		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil, function(tip) CT.PlaceTip(tip, c) end)
+		local place = function(tip) CT.PlaceTip(tip, c) end
+		if s.item then return W.ItemTip(self, s.item, nil, place) end
+		W.SpellTip(self, s.id, m.spellTip and function(tip) m.spellTip(tip, s) end or nil, place)
 	end)
 	b:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
 	b:SetScript("OnClick", function(self, button)
 		local m, s = c.psModel, self.spell
 		if c ~= f or not (m and s) then return end
-		if button == "RightButton" then
+		if s.item then
+			W.ItemClick(s.item)
+		elseif button == "RightButton" then
 			if m.spellRight then m.spellRight(s) end
 		else
 			W.SpellClick(s.id)
 		end
 	end)
+	-- An item's count, over its corner in white as on a bag slot: it sits on
+	-- the game's icon art, whatever the look's own colours.
+	b.Count = b:CreateFontString(nil, "OVERLAY")
+	Theme.Font(b.Count, "number")
+	b.Count:SetPoint("BOTTOMRIGHT", b, "BOTTOMRIGHT", 1, 0)
+	b.Count:SetJustifyH("RIGHT")
+	b.Count:SetTextColor(1, 1, 1, 1)
+	b.Count:SetShadowColor(0, 0, 0, 1)
+	b.Count:SetShadowOffset(1, -1)
 	c.SpellRow[i] = b
 	return b
 end
@@ -1018,7 +1150,13 @@ function CT.SetSpells(list, c)
 	for i = 1, shown do
 		local b, s = CT.SpellButton(i, c), list[i]
 		b.spell = s
-		b.Icon:SetTexture(s.icon or ns.Compat.SpellIcon(s.id) or 134400)
+		local C = ns.Compat
+		if s.item then
+			b.Icon:SetTexture(C.ItemIcon(s.item) or 134400)
+		else
+			b.Icon:SetTexture(s.icon or C.SpellIcon(s.id) or 134400)
+		end
+		b.Count:SetText(s.item and (s.count or 1) > 1 and tostring(s.count) or "")
 		b:Show()
 	end
 	for i = shown + 1, #c.SpellRow do

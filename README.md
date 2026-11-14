@@ -190,10 +190,12 @@ up to date ([Community guides](#community-guides)). Each new character's
 first login opens **Install**, a short setup a page at a time: a hello and
 what Polestar does; on the account's first character, Questing (quest
 automation, grey quests, the guide at login, the stat weights gear advice
-uses), Targeting (the target button, the square button with a name beside it
-that targets your step's mobs and NPCs, who it targets, its mark and ping),
-Groups and dungeons (dungeons in your route, group quests), Your route (Fastest, Balanced or Roads, and the
-route line) and Your look (Polestar's looks, the game's and the skins, with a
+uses), Targeting (the target button, which lists your step's mobs and NPCs
+so a click targets one, the list following the button with no switch of its
+own; Simple target button for the single square button and who it targets;
+its mark and ping),
+Groups (group quests), Your route (Fastest, Balanced or Roads, and the route
+line) and Your look (Polestar's looks, the game's and the skins, with a
 preview, and the colour scheme); a later character gets only its own choice,
 its class's stat weights. Every choice works the moment you make it, Skip
 install keeps everything as it is, and the last page names the guide
@@ -683,20 +685,32 @@ guides you there instead.
   vendors, bankers, profession trainers, weapon masters and the rest one
   click away. A click sets the arrow there.
 - **A world map without fog of war**, with coordinates and zone level ranges.
-- **The step's item glows in your bags** (and in Baganator): the carcass, the
+- **The step's item glows in your bags** (and in Baganator and BagSmith): the carcass, the
   seeds or the horn the step uses or has you collect.
 - **Hide the game's quest tracker** (Options, Questing; off by default).
-- **The Target button** (Options, Questing, Buttons; bindable): targets the
-  step's mobs by name, or the NPCs it sends you to when it has no mob, the
-  arrow's goal first and the next name on each click. Its icon shows what
-  you do with the one it targets next (a speech bubble, ! or ? for an NPC, a
-  sword or a bag for a mob, a skull for an elite, rare or boss, or their face
-  once you have seen them), with the name beside it in green, red or gold
-  and small icons for the names after it.
-- **Mark what they target** (Options, Questing, Buttons; off by default): the
-  target button and the step key put a raid icon on the mob or NPC they
-  target — a skull and a star by default, configurable — and pressing again
-  never takes an icon off. Either can be set to "A new one each press", so the
+- **The target list** shows the step's mobs (or, with no mob, the NPCs it
+  sends you to) with their portraits, what they drop for the step and your
+  progress on its goal (3/8); click a name to target that one, or press the
+  target button's key binding for the first one close by. A row's click marks
+  and pings as the target button does. A row turns green while its mob is
+  close. The list goes with the target button: it shows while the target
+  button is on (Settings, Questing, Buttons, Targeting, or the Install's
+  Targeting page) and has no switch of its own. It stands beside the target
+  button, or under it when the buttons line up in a row, and takes the
+  Buttons page's look. The small Polestar mark in the button's place moves the
+  buttons; left-click it to fold the list to one row showing the mob that is
+  close, right-click it for its settings; in Quick Keybind Mode, hover it to
+  bind the target button's key. **Simple target button** (Settings, Questing,
+  Buttons, Targeting) keeps only the button, which moves to the next name on
+  each click. Its icon shows what you do with the one it targets next (a
+  speech bubble, ! or ? for an NPC, a sword or a bag for a mob, a skull for an
+  elite, rare or boss, or their face once you have seen them), with the name
+  beside it in green, red or gold and small icons for the names after it.
+- **Mark what they target** (Options, Questing, Buttons; on by default): the
+  target button, a target list row's click and the step key put a raid icon
+  on the mob or NPC they target — a skull on an enemy and a star on a friendly
+  NPC by default, configurable — and pressing again never takes an icon off.
+  Pinging it for your group is a separate switch, off by default. Either can be set to "A new one each press", so the
   last few targets keep theirs. Your party sees the icons. In a party you
   don't lead, only a mob or NPC with no icon yet gets one, so a mark someone
   else placed stays; in a raid it marks only when you lead or assist.
@@ -712,8 +726,8 @@ guides you there instead.
   again when it closes. The window's Okay keeps the keys (for this character
   only if you tick its box), Cancel drops them. Nothing changes in a fight.
 - **Key bindings** (Options > Keybindings): all of Polestar's, the
-  Recorder's included, have a **Polestar** section of their own, and
-  searching "polestar" there finds them.
+  Recorder's included, have a **Polestar** section of their own, and the
+  Options search finds each one by its name.
 
 </details>
 
@@ -803,16 +817,27 @@ runs solo or in a raid.
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
   for your spec at your level, from stat weights per spec (detected from your
-  talent points) and level band, checked against Forever's own stat
-  conversions. Forever's
-  ratings (crit, hit, haste, expertise, armor penetration, dodge, parry,
-  block) count at the game's rating per 1%.
+  talent points) and level band, with health, mana, haste, expertise and
+  armor penetration worked out from the game's formulas at your level
+  ([how each weight is made](docs/gear-weights.md)). Forever's ratings (crit,
+  hit, haste, expertise, armor penetration, dodge, parry, block) count at the
+  game's rating per 1%. The line under it says which weights it scored with
+  and where they came from ("Scored for Arcane, from your talents"). Click a
+  turn-in step's reward pick, or the line beside the game's reward panel
+  heading, to choose other weights (Settings > Questing > Rewards & gear >
+  Stat weights); `/polestar gear spec` shows how Automatic read your talents.
+- **With Forever Leveling BiS installed**, gear advice takes its answers
+  through its public API while Stat weights is on Automatic: from its version
+  1.2.9 its gains (in its own score points, "+6.1 (+8%) upgrade"), scores and
+  the spec it scores for ("Scored by Forever Leveling BiS (Arms)"); before
+  that, its upgrade arrows in your bags. Turn it off under Gear advice ("Use
+  Forever Leveling BiS when installed").
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
   most. Turn-in goals name the best reward, and a quest you are about to accept
   shows its reward when it is an upgrade.
 - **In your bags** every item that is an upgrade gets the same green arrow,
-  in the game's bags, in Baganator and in EllesmereUI Bags. With Pawn
+  in the game's bags, in Baganator, BagSmith and EllesmereUI Bags. With Pawn
   installed, "Leave bag arrows to Pawn" hides Polestar's.
 - **Your own stat weights**: paste a Pawn scale string (Options, Questing,
   Rewards & gear, or `/polestar gear import`) and choose it under Stat weights
@@ -1060,6 +1085,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `hide` | Hide everything Polestar shows, or bring it back, as a click on the minimap button does; `hide arrow` turns **Keep the arrow when hidden** on or off |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
+| `ask <question>` | Open the settings on the answer to a question in your own words (`/ps ask how do I hide the arrow?`): the question in the search box and the settings it finds under it |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
 | `skip` | Skip the step shown, for good (the window offers Undo) |
 | `status` | Current guide and step |

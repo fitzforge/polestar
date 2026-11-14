@@ -59,7 +59,6 @@ step Shadowfang Keep
   collect 210183 quest 78261.1 @44.8,67.8 live -- Horn of Xelthos, inside Shadowfang Keep
 
 step Back to the dead drop
-  tip Place the horn in the Dead Drop near Pyrewood. The payment may not appear immediately: check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for the reward quest. Do not repeat the dungeon just because the payment is not yet offered.
+  tip Open the Dead Drop again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered.
   turnin 78261 object 410369                  -- Dead Drop
-  accept 78307 object 410369
-  turnin 78307 object 410369 reward 277210    -- Pyrewood Signet Ring
+  turnin 78307 object 410369 direct reward 277210 -- Pyrewood Signet Ring

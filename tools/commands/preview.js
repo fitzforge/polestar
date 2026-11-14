@@ -517,13 +517,15 @@ const MODULE_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Quests/Quests.xml', '
 // The target button over the world: a step's goals fed straight to the
 // buttons (QoL.CurrentStep), and a frame around the button and its name
 // plate so the picture takes the plate in (the roots' box is the button's).
-function targetScene(goals, { side = 'right', extra = '' } = {}) {
+function targetScene(goals, { side = 'right', extra = '', list = false } = {}) {
 	const area = side === 'left' ? '"RIGHT", PolestarTargetButton, "RIGHT", 4, 0' : '"LEFT", PolestarTargetButton, "LEFT", -4, 0';
-	return `Polestar.Set("qol.buttonTextSide", "${side}")
+	// The single button unless the scene shows the list (qol.targetSimple).
+	return `Polestar.Set("qol.targetSimple", ${list ? 'false' : 'true'})
+Polestar.Set("qol.buttonTextSide", "${side}")
 ${extra}
 local raw = ${goals}
 local view = { index = 1, status = "current", goals = {} }
-for i, g in ipairs(raw) do view.goals[i] = { index = i, t = g.t, status = "active", subject = g.target, quest = g.quest, npc = g.npc, npcName = g.npcName } end
+for i, g in ipairs(raw) do view.goals[i] = { index = i, t = g.t, status = "active", subject = g.target, quest = g.quest, npc = g.npc, npcName = g.npcName, progress = g.progress } end
 Polestar.QoL.CurrentStep = function() return view, raw end
 Polestar.QoL.Buttons.Refresh()
 local area = CreateFrame("Frame", "PolestarPreviewTargetArea", UIParent)
@@ -534,6 +536,12 @@ const TIGERS = '{ { t = "kill", target = "Elder Stranglethorn Tiger", group = { 
 const KOBOLDS = '{ { t = "kill", target = "Kobold Vermin" }, { t = "collect", item = 950, itemName = "Candle", npc = 300, npcName = "Kobold Laborer" } }';
 const GIVERS = '{ { t = "turnin", quest = 9, npc = 240, npcName = "Sir S. J. Erlgadin" }, { t = "accept", quest = 10, npc = 241, npcName = "Gryan Stoutmantle" }, { t = "talk", npc = 242, npcName = "Marshal Dughan" } }';
 const TARGET = ['PolestarTargetButton', 'PolestarPreviewTargetArea'];
+// The target list: the Polestar mark and its rows.
+const TARGET_LIST = ['PolestarTargetAnchor', 'PolestarTargetRow1', 'PolestarTargetRow2', 'PolestarTargetRow3', 'PolestarTargetRow4', 'PolestarTargetRow5', 'PolestarPreviewTargetArea'];
+// A kill and a collect with their counts, the Candle's dropper with its item.
+const KOBOLD_COUNTS = '{ { t = "kill", target = "Kobold Vermin", progress = { cur = 3, max = 10, kind = "count" } }, { t = "collect", item = 950, itemName = "Candle", npc = 300, npcName = "Kobold Laborer", progress = { cur = 8, max = 8, kind = "count" } } }';
+// A Stranglethorn Tiger alive on nameplate1: its row turns green.
+const TIGER_CLOSE = 'local exists, unitName = UnitExists, UnitName; UnitExists = function(u) if u == "nameplate1" then return true end return exists and exists(u) end; UnitIsDead = function() return false end; UnitIsPlayer = function(u) return u == "player" end; UnitName = function(u) if u == "nameplate1" then return "Stranglethorn Tiger" end return unitName(u) end';
 // Six more pages from third-party modules, in the game font: the list
 // scrolls in its own area, clear of the version and the stage chip.
 const MANY_PAGES = `Polestar.Set("ui.font", "game")
@@ -2059,6 +2067,18 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { side: 'left' }) },
 			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { extra: 'local exists, unitName = UnitExists, UnitName; UnitExists = function(u) if u == "target" then return true end return exists and exists(u) end; UnitIsPlayer = function(u) return u == "player" end; UnitName = function(u) if u == "target" then return "Elder Stranglethorn Tiger" end return unitName(u) end; UnitClassification = function() return "elite" end; SetPortraitTexture = function(tex) tex:SetTexture(Polestar.Theme.Media("emblem")) end' }) },
 			{ files: MODULE_FILES, roots: TARGET, script: targetScene(TIGERS, { extra: 'Polestar.Set("qol.targetPlate", false)' }) },
+		],
+	},
+	{
+		file: 'target-list.svg',
+		title: "The target list (with the target button on, beside it): a row per name with what it drops for the step and the goal's count; a tiger close by turns its row green; a step with no mob lists its NPCs; folded to one row by a click on the Polestar mark; with the buttons in a row, the list under the target button",
+		backdrop: 'terrain',
+		panels: [
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(KOBOLD_COUNTS, { list: true }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: TIGER_CLOSE }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(GIVERS, { list: true }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: 'PolestarTargetAnchor:Click("LeftButton")' }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: `Polestar.Set("buttons.layout", "row"); ${TIGER_CLOSE}` }) },
 		],
 	},
 ];

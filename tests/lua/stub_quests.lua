@@ -151,8 +151,8 @@ function sq.removePlate(unit)
 end
 
 ---------------------------------------------------------------------------
--- Polestar.Pins fake (contract: SetLayer / ClearLayer / SetLayerVisible; a pin at map, x, y or
--- at the additive world position c, wx, wy)
+-- Polestar.Pins fake (contract: SetLayer / ClearLayer / SetLayerVisible / WatchMinimapView; a pin at map, x, y
+-- or at the additive world position c, wx, wy)
 ---------------------------------------------------------------------------
 
 local pins = { layers = {}, calls = {}, visible = {} }
@@ -182,6 +182,12 @@ end
 function pins.SetLayerVisible(layer, visible)
 	pins.visible[layer] = visible and true or false
 	table.insert(pins.calls, { "SetLayerVisible", layer, visible and true or false })
+end
+
+-- The minimap view's watchers (Maps/RouteLines.lua's route line asks for one): kept, never called.
+function pins.WatchMinimapView(key, fn)
+	pins.watchers = pins.watchers or {}
+	pins.watchers[key] = fn
 end
 
 function sq.installPins()

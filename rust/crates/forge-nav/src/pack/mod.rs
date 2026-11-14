@@ -19,6 +19,8 @@ pub mod drops;
 pub mod encode;
 pub mod fixture;
 pub mod hpa;
+pub mod ingame;
+pub mod joins;
 pub mod layers;
 pub mod leffe;
 pub mod reach;
@@ -395,13 +397,23 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 					None
 				};
 				let extras = leffe::Extras { places: i.places, drops: drops.as_ref(), spawns: i.spawns };
-				let (maps, used, s) = leffe::leffe_maps(dir, c, &cg, &extras)?;
+				let hubs = i.layers.join("hubs.json");
+				let ways = joins::ways(i.grid, c, hubs.is_file().then_some(hubs.as_path()), log)?;
+				let (maps, used, s, j) = leffe::leffe_maps(dir, c, &cg, &extras, &ways, log)?;
 				log(&format!(
 					"Leffe's maps {c}: {} clusters, floors {} ({} no walk can use dropped), entrances {}, edges {} ({} past 63 dropped), jumps {}, drops {}, climbs {} -> {} arcs, {} steep steps closed, {} surfaces with an area of ours",
 					s.clusters, s.floors, s.dropped_floors, s.entrances, s.edges, s.dropped, s.jumps, s.drops, s.climbs, s.arcs, s.closed, s.areas
 				));
+				log(&format!(
+					"grid joins {c}: {} ways ({} his maps make already, {} refused, {} with a fall that hurts kept, his maps making no other way), {} floors, {} arcs, {} entrances, {} edges, {} components joined, in {} clusters",
+					j.ways, j.walkable, j.refused, j.falls, j.floors, j.arcs, j.entrances, j.edges, j.merged, j.clusters
+				));
 				cg.areas = used;
 				let mut lj = json!({ "floors": s.floors, "droppedFloors": s.dropped_floors, "jumps": s.jumps, "drops": s.drops, "climbs": s.climbs, "arcs": s.arcs, "droppedEdges": s.dropped, "closedSteps": s.closed, "areaSurfaces": s.areas });
+				if !ways.is_empty() {
+					lj["joins"] =
+						json!({ "ways": j.ways, "refused": j.refused, "falls": j.falls, "floors": j.floors, "arcs": j.arcs, "entrances": j.entrances, "edges": j.edges, "components": j.merged });
+				}
 				if i.places.is_some() {
 					log(&format!(
 						"Leffe's maps {c}: {} fixed places ({} on no surface), ground no walk from one reaches: {} floors dropped, {} base cells left without a surface, {} entrances gone",
@@ -424,7 +436,7 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 					lj.as_object_mut().unwrap().insert("spawnHeights".into(), json!(s.spawn_heights));
 				}
 				m.insert("leffe".into(), lj);
-				(maps, s.entrances, s.edges - s.dropped)
+				(maps, s.entrances, s.edges - s.dropped + j.edges)
 			}
 			None => {
 				let h = hpa::build_hpa(&cg);

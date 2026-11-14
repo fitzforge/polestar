@@ -188,11 +188,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			b.Bar:SetShown(b.psActive)
 			GF.PaintTab(b)
 			local w = b.psActive and activeW or otherW
-			-- A lone tab in the house look takes the room its title and range need,
-			-- up to the strip (Theme.House "loneTab"), never "The Barre…" beside an
-			-- empty strip.
-			if n == 1 and Theme.House("loneTab") then
-				local need = TAB_TEXT_X + b.psTitleW + (b.psRange and floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP or 0) + TAB_CLOSE_PAD
+			-- A lone tab takes the room its title and range need, up to the strip,
+			-- in every look: never "The Barre…" beside an empty strip.
+			if n == 1 then
+				local need = TAB_TEXT_X + b.psTitleW + (b.psRange and floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP or 0)
+					+ Theme.Metric("guideTabClosePad", TAB_CLOSE_PAD) + Theme.Metric("guideTabInset", 0)
 				w = min(avail, max(w, need))
 			end
 			b:SetWidth(w)

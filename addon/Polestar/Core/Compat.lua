@@ -222,6 +222,27 @@ function Compat.GetSpellCooldown(spellID)
 	return start, duration
 end
 
+-- A spell's full cooldown in seconds as the client tells it (its base
+-- cooldown, cooling down now or not), or nil when it tells none.
+function Compat.GetSpellBaseCooldown(spellID)
+	local fn = GetSpellBaseCooldown
+	if not fn then return nil end
+	local ok, ms = pcall(fn, spellID)
+	ms = ok and readable(ms) or nil
+	if type(ms) == "number" and ms > 0 then return ms / 1000 end
+	return nil
+end
+
+-- An item's full cooldown in seconds: its use spell's
+-- (Compat.GetSpellBaseCooldown), or nil.
+function Compat.GetItemBaseCooldown(itemID)
+	local fn = (C_Item and C_Item.GetItemSpell) or GetItemSpell
+	if not fn then return nil end
+	local ok, _, spellID = pcall(fn, itemID)
+	if ok and type(spellID) == "number" then return Compat.GetSpellBaseCooldown(spellID) end
+	return nil
+end
+
 -- An item's cooldown, as Compat.GetSpellCooldown.
 function Compat.GetItemCooldown(itemID)
 	local fn = (C_Container and C_Container.GetItemCooldown) or GetItemCooldown
@@ -300,6 +321,39 @@ function Compat.AddOnPresent(name)
 	if A.IsAddOnLoaded and A.IsAddOnLoaded(name) then return true end
 	if not (A.DoesAddOnExist and A.GetAddOnInfo) or not A.DoesAddOnExist(name) then return false end
 	return select(4, A.GetAddOnInfo(name)) and true or false
+end
+
+-- The trait configs that can hold the player's talents, most trusted first:
+-- the active spec group's combat config, the one Forever's talent frame
+-- shows (Blizzard_PlayerSpells Camelot, ClassTalentsFrameMixin:SetTab), then
+-- C_ClassTalents.GetActiveConfigID, which that frame only starts from and
+-- falls back past when it is nil (ClassTalentsFrameMixin:RefreshConfigID).
+-- -> { configID, ... } (distinct; empty while the client has none), the
+-- active spec group, that group's config, the active config (each nil when
+-- the client gives none)
+function Compat.TalentConfigs()
+	local out, group, groupConfig, activeConfig = {}, nil, nil, nil
+	local S = C_SpecializationInfo
+	if S and S.GetActiveSpecGroup and S.GetCombatConfigIDForSpecGroup then
+		local ok, g = pcall(S.GetActiveSpecGroup)
+		g = ok and readable(g) or nil
+		if type(g) == "number" then
+			group = g
+			local ok2, c = pcall(S.GetCombatConfigIDForSpecGroup, g)
+			c = ok2 and readable(c) or nil
+			if type(c) == "number" then groupConfig, out[1] = c, c end
+		end
+	end
+	local CT = C_ClassTalents
+	if CT and CT.GetActiveConfigID then
+		local ok, c = pcall(CT.GetActiveConfigID)
+		c = ok and readable(c) or nil
+		if type(c) == "number" then
+			activeConfig = c
+			if c ~= groupConfig then out[#out + 1] = c end
+		end
+	end
+	return out, group, groupConfig, activeConfig
 end
 
 ---------------------------------------------------------------------------
@@ -708,6 +762,27 @@ function Compat.ItemLink(itemID)
 	local ok, _, link = pcall(fn, itemID)
 	if ok and type(link) == "string" and not isSecret(link) then return link end
 	return nil
+end
+
+-- An item's class and subclass (C_Item.GetItemInfoInstant: the client knows
+-- them without the item being cached), or nil when it does not know the item.
+function Compat.ItemKind(itemID)
+	local fn = type(itemID) == "number" and C_Item and C_Item.GetItemInfoInstant
+	if not fn then return nil end
+	local ok, id, _, _, _, _, classID, subclassID = pcall(fn, itemID)
+	if not (ok and id) then return nil end
+	return classID, subclassID
+end
+
+-- How an item binds (C_Item.GetItemInfo's bindType: 0 not at all, 1 when
+-- picked up, 2 when equipped, 3 when used, 4 as a quest item), or nil while
+-- the item is not cached (RequestItem asks for it).
+function Compat.ItemBinding(itemID)
+	local fn = type(itemID) == "number" and ((C_Item and C_Item.GetItemInfo) or GetItemInfo)
+	if not fn then return nil end
+	local ok, name, _, _, _, _, _, _, _, _, _, _, _, _, bind = pcall(fn, itemID)
+	if not (ok and name) then return nil end
+	return tonumber(bind) or 0
 end
 
 -- true when the item is in the client's cache; otherwise asks the server for

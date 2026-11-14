@@ -226,7 +226,7 @@ step Deathguard Podrig
 
 step Silverpine Forest: kill these as you meet them
   zone Silverpine Forest
-  tip South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around Ambermill, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest.
+  tip South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around Ambermill, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of Beren's Peril in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them.
   kill 1889 quest 95981.2
   kill 1888 quest 95981.1
   kill 1973 quest 516.2               -- Below ground

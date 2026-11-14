@@ -24,7 +24,7 @@ step Eastern Plaguelands
 step Light's Hope Chapel
   tip Follow the road east from the Western Plaguelands, over the river and across the whole Eastern Plaguelands, to the Argent Dawn's chapel in the far east.
   getfp "Light's Hope Chapel"
-  sethome "Light's Hope Chapel"
+  sethome "Light's Hope Chapel" only Mage
   accept 5281                         -- Caretaker Alen
   accept 6021                         -- Caretaker Alen
   turnin 6030                         -- Duke Nicholas Zverenhoff
@@ -145,6 +145,11 @@ step Light's Hope Chapel
 #   and open the next guide.
 # - Dropped: A Donation of Runecloth for Thunder Bluff (7823): the route
 #   never hands it in.
+# - Binds (0.4.0, travel model): only Mages bind at Light's Hope Chapel. Everyone
+#   else keeps the Orgrimmar bind from the Azshara guide and hearths there after
+#   Carlin, instead of the flight to the Undercity and the zeppelin (about 4
+#   minutes saved per character; a Mage teleports to Orgrimmar anyway and keeps
+#   the chapel's hearths).
 #
 # Left open for later guides: Heroes of Darrowshire (5168), Tirion's hunts
 # (5542-5544), Wild Guardians (4741), Toxic Horrors (5086), A Reliquary of
@@ -236,21 +241,19 @@ step Carlin Redpath
   turnin 5181
   turnin 5211
 
-# ---------------------------------------------------------------- Eastern Plaguelands
+# ---------------------------------------------------------------- Orgrimmar
 
-step Fly to Undercity
-  zone Eastern Plaguelands
-  goto 80.1,57.0 "Light's Hope Chapel flight master"
-  fly "Undercity"
-  zone Undercity
-
-step Zeppelin to Orgrimmar
-  zone Tirisfal Glades
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
+step Class trainer
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  when level>=56
+  zone Orgrimmar
+  tip Hearth to Orgrimmar: the Hearthstone is still bound there from the Azshara guide (Mages teleport). Train before the flight.
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Fly to Bloodvenom Post
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
+  tip Hearth to Orgrimmar: the Hearthstone is still bound there from the Azshara guide (Mages teleport). Then the flight master.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Bloodvenom Post"
   zone Felwood
@@ -260,6 +263,7 @@ step Fly to Bloodvenom Post
 step Fly to Thunder Bluff
   only Druid,Paladin
   zone Orgrimmar
+  tip Hearth to Orgrimmar: the Hearthstone is still bound there from the Azshara guide. Then the flight master.
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Thunder Bluff"
   zone Thunder Bluff
@@ -302,15 +306,17 @@ step Rabine Saturna
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
   accept 5527
 
-step Class trainer
-  only Druid
-  train class only Druid
-
 step Rabine Saturna
   zone Moonglade
   turnin 1123
   accept 1124
   note Both quests lead to Silithus: keep them.
+
+step Salfa
+  zone Winterspring
+  when complete 8464
+  tip Back through the tunnel and take the Winterspring exit: Salfa stands right where it comes out.
+  turnin 8464
 
 step Winterspring
   zone Winterspring
@@ -320,7 +326,7 @@ step Winterspring
 
 step Donova Snowden
   zone Winterspring
-  tip Back through the tunnel and take the Winterspring exit, then ride south to Frostfire Hot Springs.
+  tip From the tunnel's Winterspring exit, ride south to Frostfire Hot Springs.
   turnin 5085
   accept 5086
   turnin 3909
@@ -329,7 +335,8 @@ step Donova Snowden
 
 step Moontouched Owlbeasts
   tip Ride east to Everlook and north out of it; the Moontouched Owlbeasts roam the hills of Frostsaber Rock's southern slopes. Pull them one at a time.
-  kill 7453 quest 4741
+  tip Careful: Hailspite, level 60 elites, gather in the snowfields south-east of Everlook, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town.
+  kill 7453 quest 4741 @64.9,17.8
 
 step Winterspring
   zone Winterspring

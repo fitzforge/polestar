@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { flip } from 'svelte/animate';
 	import { crossfade } from 'svelte/transition';
+	import { updateAllCount } from '../lib/addons';
 	import { app } from '../lib/app.svelte';
 	import { api, message } from '../lib/backend';
 	import { ago } from '../lib/format';
@@ -35,10 +36,7 @@
 	let done = $state<Record<string, AddonAction>>({});
 
 	const addons = $derived(snapshot.addons);
-	const updates = $derived(addons.products.filter((p) => p.status === 'update'));
-	/** Community packs with an update the game can take: Update all does them too. */
-	const packUpdates = $derived(snapshot.community.packs.filter((p) => p.status === 'update' && !p.blocked).length);
-	const pending = $derived(updates.length + packUpdates);
+	const pending = $derived(updateAllCount(snapshot));
 	const installed = $derived(addons.products.filter((p) => p.installed));
 	const available = $derived(addons.products.filter((p) => !p.installed));
 	const spinning = $derived(checking || addons.checking);
@@ -196,7 +194,7 @@
 		{:else if addons.gameRunning}
 			<div class="banner" in:rise>
 				<Glyph name="info" color="var(--warning)" />
-				<p class="note">World of Warcraft is running. Close it before updating: the game only loads addons when it starts, and it may hold their files open.</p>
+				<p class="note">World of Warcraft is running. Addons you install or update load after /reload or the next start.</p>
 			</div>
 		{/if}
 

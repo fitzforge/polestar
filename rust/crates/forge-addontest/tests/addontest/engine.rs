@@ -201,6 +201,44 @@ fn an_alt_with_quests_already_done_starts_at_the_first_step_that_is_not_done() {
 	);
 }
 
+// A route whose second quest is offered from level 5: its accept and its turn-in wait on the level.
+const LEVEL_GATED: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/level-gated", pack = "test", title = "Level gated",
+	faction = "Alliance", minLevel = 1, maxLevel = 6, zone = 1429,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "William Pestle", goals = {
+			{ t = "accept", quest = 60, title = "Kobold Candles", minLevel = 5, npc = 253, npcName = "William Pestle", map = 1429, x = 43.0, y = 65.0 },
+		} },
+		{ title = "Back to William", goals = {
+			{ t = "turnin", quest = 60, title = "Kobold Candles", npc = 253, npcName = "William Pestle", map = 1429, x = 43.0, y = 65.0 },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn progress_does_not_count_a_later_step_done_while_its_quest_waits_on_the_level() {
+	// #2257: a fresh character's bar counted every later step whose quests were above its level as done.
+	let out = run1(Run {
+		guides: LEVEL_GATED,
+		before: "w.level = 1",
+		script: r#"
+			E.SetGuide("test/level-gated"); flush()
+			local d1, t1 = E.GetProgress()
+			local at1 = E.GetStepIndex()
+			stub.world.setLevel(5); flush()
+			local d5, t5 = E.GetProgress()
+			emit({ at1 = at1, level1 = { d1, t1 }, at5 = E.GetStepIndex(), level5 = { d5, t5 } })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "at1": 1, "level1": [0, 3], "at5": 1, "level5": [0, 3] }));
+}
+
 #[test]
 fn only_on_steps_and_goals_filters_by_class_and_race() {
 	let out = run1(Run {
@@ -443,6 +481,105 @@ Polestar.RegisterGuide({ id = "test/binding", pack = "test", title = "Binding", 
 		..Default::default()
 	});
 	assert_eq!(out, json!({ "before": { "index": 2, "use": "active" }, "killed": "done", "after": 3 }));
+}
+
+// #2099 (Corey, a Tauren Druid in The Barrens): Trial of the Lake's step collects a Shrine Bauble and uses it at the
+// shrine, neither tied to the quest. For a Druid who had done the trial the collect stayed open (no bauble in the
+// bags), so the step, and the trip to Moonglade before it, never passed. An untied collect of an item that a later
+// goal of its step uses is done once that use is; before that it counts the bags as ever.
+#[test]
+fn an_untied_collect_of_an_item_its_step_then_uses_is_done_once_the_use_is_2099_shrine_bauble() {
+	const TRIAL: &str = r#"
+Polestar.RegisterGuide({ id = "test/trial", pack = "test", title = "Trial", zone = 1429, steps = {
+	{ title = "Dendrite", goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 } } },
+	{ title = "Trial of the Lake", goals = {
+		{ t = "collect", item = 15877, itemName = "Shrine Bauble", count = 1, map = 1429, x = 47.6, y = 35.1 },
+		{ t = "use", item = 15877, itemName = "Shrine Bauble", map = 1429, x = 47.0, y = 36.0 },
+		{ t = "complete", quest = 7, title = "Kobold Camp Cleanup" },
+		{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, map = 1429, x = 48.9, y = 41.6 },
+	} },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+	let done = run1(Run {
+		guides: TRIAL,
+		before: "w.complete({ 7 })",
+		script: r#"E.SetGuide("test/trial"); flush(); emit({ index = E.GetStepIndex(), collect = E.GetStepView(2).goals[1].status })"#,
+		..Default::default()
+	});
+	assert_eq!(done, json!({ "index": 3, "collect": "done" }), "the trial handed in before: nothing holds the step");
+	let doing = run1(Run {
+		guides: TRIAL,
+		before: "w.onQuest(7, { 1 })",
+		script: r#"
+			E.SetGuide("test/trial"); flush()
+			local before = { index = E.GetStepIndex(), collect = E.GetStepView(2).goals[1].status }
+			stub.world.addItem(15877, 1); flush()
+			emit({ before = before, looted = E.GetStepView(2).goals[1].status })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(doing, json!({ "before": { "index": 2, "collect": "active" }, "looted": "done" }), "on the trial: the bags count");
+}
+
+// #2099 on the shipped guide (addon/Polestar_Guides_Horde), Corey's state: a level 19 Tauren Druid at the Crossroads
+// who had done the aquatic form chain (27, 28, 30, 31) and Lessons Anew (6126, 6127) before The Barrens' Druid
+// block, every flight path in the guide known. Quests the guide hands in up to Trial of the Lake are done; those
+// taken by then and handed in later are in the log with nothing done yet (he carried 16), so his progress stands
+// before the Druid block. The guide stood on "Moonglade" (cast Teleport: Moonglade) with Trial of the Lake's Shrine
+// Bauble still open. With the collect done, the trip there and back passes and the route goes on.
+#[test]
+fn a_druid_who_did_the_aquatic_chain_is_not_sent_to_moonglade_on_the_shipped_barrens_2099() {
+	let dir = forge_addontest::run::addons_dir();
+	let before = r#"local w = stub.world
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Tauren", "Tauren", "Horde", "DRUID", "Druid", 19
+w.money = 500000"#;
+	let script = r#"
+E = Polestar.Engine
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+E.SetGuide("forever/horde/02-the-barrens"); stub.advance(0.25)
+local g = E.GetGuide()
+local moon
+for i, step in ipairs(g.steps) do
+	local goal = step.goals[1]
+	if not moon and #step.goals == 1 and goal.t == "goto" and goal.map == 1450 then moon = i end
+end
+local flags, acceptAt, turninAt = Polestar.CharState().flags, {}, {}
+flags.taxi = {}
+for i, step in ipairs(g.steps) do
+	for _, x in ipairs(step.goals) do
+		if x.quest and x.t == "accept" then acceptAt[x.quest] = acceptAt[x.quest] or i end
+		if x.quest and x.t == "turnin" then turninAt[x.quest] = i end
+		if x.node then flags.taxi[x.node] = true end
+	end
+end
+local done = { 31 }
+for q, i in pairs(turninAt) do if i <= moon + 1 then done[#done + 1] = q end end
+for q, i in pairs(acceptAt) do
+	if i <= moon + 1 and not turninAt[q] then done[#done + 1] = q end
+	if i <= moon + 1 and (turninAt[q] or 0) > moon + 1 then stub.world.onQuest(q, { { required = 1, fulfilled = 0 } }) end
+end
+stub.world.complete(done)
+stub.world.moveTo(1413, 52.02, 30.69); stub.world.setZone("The Barrens", "The Crossroads")
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+if E.GetStepIndex() < moon then E.SkipUpTo(moon); stub.advance(0.25) end
+local wp = E.GetWaypoint()
+emit({ moon = moon, trial = g.steps[moon + 1].goals[5].item, at = E.GetStepIndex(), title = g.steps[E.GetStepIndex()].title, map = wp and wp.map or false })
+"#;
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before.to_string(),
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script: script.to_string(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["trial"], 15877, "the step after Moonglade is Trial of the Lake: {out}");
+	let (moon, at) = (out["moon"].as_u64().expect("the Moonglade step"), out["at"].as_u64().unwrap_or(0));
+	assert!(at > moon + 1, "past Moonglade and Trial of the Lake: {out}");
+	assert_ne!(out["map"], 1450, "the arrow is not on Moonglade: {out}");
 }
 
 #[test]
@@ -1693,6 +1830,109 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 	assert_eq!(out["unknown"], json!({ "line": "Hearthstone ready in 10 min", "arrow": false }));
 }
 
+// A Shaman's Astral Recall does a hearth step as the Hearthstone does (players asked on Discord, 2026-11-13): while the
+// Hearthstone waits, or is not in the bags, and Astral Recall is ready, the step says "Cast Astral Recall" and the arrow
+// does not walk to the inn; with Astral Recall cooling down too, the Hearthstone's wait as before.
+#[test]
+fn a_hearth_step_while_the_hearthstone_waits_and_astral_recall_is_ready_names_the_spell_and_walks_nowhere() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-recall", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL = Polestar.QoL or {}
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav = Polestar.Nav or {}
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local recall = { spell = 556, name = "Astral Recall", cast = 10, ready = 0, bind = true }
+			Polestar.Transit = Polestar.Transit or {}
+			Polestar.Transit.Teleports = function() return { recall } end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false }
+			end
+			E.SetGuide("test/hearth-recall"); flush()
+			local r = { recall = state() }
+			recall.ready = 300; changed()
+			r.bothWait = state()
+			recall.ready = 0; hs.have = false; changed()
+			r.noStone = state()
+			hs.have, hs.remaining = true, 0; changed()
+			r.stoneReady = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["recall"], json!({ "line": "Cast Astral Recall", "arrow": false }));
+	assert_eq!(out["bothWait"], json!({ "line": "Hearthstone ready in 23 min: walk to the inn, or wait for it", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"] }));
+	assert_eq!(out["noStone"], json!({ "line": "Cast Astral Recall", "arrow": false }));
+	assert_eq!(out["stoneReady"], json!({ "line": false, "arrow": false }), "the Hearthstone ready: the hearth step as before");
+}
+
+// Astral Recall is a Shaman's spell and never shows for another class: a hearth step reads it (Own.bindRecall) only from
+// Nav/Transit.lua's Teleports, which lists a spell only when the client's spell book has it (Core/Compat.lua's
+// IsSpellKnown), whatever the class. With the whole addon (the real Transit and the travel data's Astral Recall): a
+// Warrior whose spell book the stub says nothing about, and a Shaman who has not learned it yet, with the Hearthstone
+// waiting or not in the bags, get the Hearthstone's own line and the walk to the inn, never "Cast Astral Recall"; the
+// Shaman who has learned it gets the spell, so the spell book is what keeps it from the others.
+#[test]
+fn a_hearth_step_never_offers_astral_recall_to_another_class_or_a_shaman_who_has_not_learned_it_only_once_the_spell_book_has_it() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-class", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		full: true,
+		script: r#"
+			local w = stub.world
+			local hs = { have = true, remaining = 23 * 60 - 20 }
+			Polestar.QoL.GetHearth = function() return hs end
+			Polestar.Nav.FindInn = function(npc, name)
+				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
+			end
+			local function changed() Polestar.Fire("QOL_HEARTH_CHANGED"); flush() end
+			local function state()
+				local g, wp = E.GetStepView(E.GetStepIndex()).goals[1], E.GetWaypoint()
+				local listed = {}
+				for _, t in ipairs(Polestar.Transit.Teleports()) do listed[#listed + 1] = t.name end
+				return { line = g.hearthText or false, arrow = wp and { wp.map, wp.x, wp.y, wp.label } or false, listed = table.concat(listed, ",") }
+			end
+			E.SetGuide("test/hearth-class"); flush()
+			local r = { warrior = state() }
+			hs.have = false; changed()
+			r.warriorNoStone = state()
+			w.class, w.className, w.classID = "SHAMAN", "Shaman", 7
+			hs.have = true; changed()
+			r.shaman = state()
+			hs.have = false; changed()
+			r.shamanNoStone = state()
+			w.learnSpell(556)
+			hs.have = true; changed()
+			r.learned = state()
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	let wait = json!({ "line": "Hearthstone ready in 23 min, sooner than the 28 min trip: wait for it", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"], "listed": "" });
+	let no_stone = json!({ "line": "No Hearthstone in your bags: walk to the inn", "arrow": [1429, 43.8, 65.8, "Walk to Goldshire"], "listed": "" });
+	assert_eq!(out["warrior"], wait, "a Warrior, the stub saying nothing about the spell: the Hearthstone's wait");
+	assert_eq!(out["warriorNoStone"], no_stone, "a Warrior without a Hearthstone: the walk to the inn");
+	assert_eq!(out["shaman"], wait, "a Shaman who has not learned it: the Hearthstone's wait");
+	assert_eq!(out["shamanNoStone"], no_stone, "a Shaman who has not learned it, without a Hearthstone: the walk to the inn");
+	assert_eq!(out["learned"], json!({ "line": "Cast Astral Recall", "arrow": false, "listed": "Astral Recall" }), "learned: the spell");
+}
+
 #[test]
 fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_longer_wait_when_it_is_sooner_travel_when_the_inn_is_close() {
 	let out = run1(Run {
@@ -1854,7 +2094,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			SlashCmdList.POLESTAR("guide test/01-northshire")
 			SlashCmdList.POLESTAR("guide Test/02-Elwynn")
 			emit({ status = status, afterSkip = afterSkip, afterPrev = afterPrev, exact = exact, guide = E.GetGuide().id, msgs = stub.messages,
-				tag = BINDING_TAG_POLESTAR, binding = BINDING_NAME_POLESTAR_NEXT })
+				binding = BINDING_NAME_POLESTAR_NEXT })
 		"#,
 		..Default::default()
 	});
@@ -1874,7 +2114,6 @@ fn slash_commands_drive_the_engine_and_report_status() {
 			"|cff4fd1c5Polestar|r: Guide: Elwynn Forest",
 		])
 	);
-	assert_eq!(out["tag"], "Polestar");
 	assert_eq!(out["binding"], "Next step");
 }
 

@@ -22,15 +22,15 @@ const STANDING_NAMES = Object.keys(STANDINGS);
 const cap = (w) => w.charAt(0).toUpperCase() + w.slice(1);
 
 // Fields the parser derives from how a line is written; a caller may leave them out.
-const DERIVED = ['explicitCoords', 'npcExplicit', 'objectExplicit', 'itemExplicit', 'skillQuoted', 'factionQuoted'];
-const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank'];
+const DERIVED = ['explicitCoords', 'npcExplicit', 'objectExplicit', 'itemExplicit', 'skillQuoted', 'factionQuoted', 'gatherSkillQuoted'];
+const NUMERIC = ['quest', 'oi', 'npc', 'object', 'item', 'x', 'y', 'coordMap', 'r', 'count', 'minLevel', 'untilSkill', 'criteria', 'rewardXp', 'rewardMoney', 'level', 'frac', 'levelXp', 'grind', 'spell', 'factionId', 'standing', 'achievement', 'rank', 'gatherRank', 'gatherMin', 'gatherMax'];
 const NUM_TEXT = /^-?\d+(?:\.\d+)?$/;
 
 // Verbs whose positional arguments include the key (written there unless `<key>Explicit`).
 const POSITIONAL_ID = {
 	npc: ['kill', 'talk', 'train', 'vendor'],
 	object: ['interact'],
-	item: ['collect', 'use', 'destroy', 'buy'],
+	item: ['collect', 'use', 'destroy', 'buy', 'auction'],
 };
 const QUEST_POSITIONAL = ['accept', 'turnin', 'complete', 'abandon'];
 const XY_POSITIONAL = ['goto', 'explore'];
@@ -137,6 +137,7 @@ function normalizeFields(fields) {
 		if (out[`${k}Explicit`] && (out[k] === undefined || (mods && !mods.includes(k)))) delete out[`${k}Explicit`];
 	}
 	if (out.skillQuoted && out.skill === undefined) delete out.skillQuoted;
+	if (out.gatherSkillQuoted && out.gatherSkill === undefined) delete out.gatherSkillQuoted;
 	if (out.factionQuoted && (out.factionName === undefined || out.factionId !== undefined)) delete out.factionQuoted;
 	return out;
 }
@@ -185,6 +186,7 @@ function positionalTokens(verb, f) {
 		case 'use':
 		case 'destroy':
 		case 'buy':
+		case 'auction':
 			id('item');
 			name('itemName');
 			break;
@@ -271,7 +273,7 @@ function positionalTokens(verb, f) {
 // key]): a "text" label written there would read as that name.
 const NAME_SLOT = {
 	accept: ['quest', 'title'], turnin: ['quest', 'title'], complete: ['quest', 'title'], kill: ['npc', 'target'],
-	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], talk: ['npc', 'npcName'],
+	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], auction: ['item', 'itemName'], talk: ['npc', 'npcName'],
 	interact: ['object', 'objName'], train: ['npc', 'npcName'], vendor: ['npc', 'npcName'], learn: ['spell', 'spellName'],
 	craft: ['spell', 'spellName'], achieve: ['achievement', 'achievementName'],
 };
@@ -305,6 +307,17 @@ function formatGoal(fields) {
 	if (f.criteria !== undefined) push('criteria', `criteria ${f.criteria}`);
 	if (f.nearest && verb !== 'sethome' && verb !== 'vendor') push('nearest', 'nearest');
 	if (f.anywhere && verb === 'collect') push('anywhere', 'anywhere');
+	// A collect's gather way: `gather [<Profession> <rank>] [levels <min>-<max>]` (a profession of more than one word,
+	// or one that reads as another word of the line, quoted).
+	if (f.gather && verb === 'collect') {
+		let g = 'gather';
+		if (f.gatherSkill !== undefined) {
+			const bare = f.gatherSkillQuoted ? null : bareWords(String(f.gatherSkill), (toks) => toks.length === 1 && !/^[@"]|^x\d+$|^\d|^levels$/i.test(toks[0].text) && !MOD_WORD_SET.has(toks[0].text.toLowerCase()));
+			g += ` ${bare === null ? quote(f.gatherSkill) : bare} ${f.gatherRank}`;
+		}
+		if (f.gatherMin !== undefined) g += ` levels ${f.gatherMin}-${f.gatherMax}`;
+		push('gather', g);
+	}
 	if (f.rewardChoices) push('choose', rewardText('choose', f.rewardChoices));
 	if (f.rewardItems) push('reward', rewardText('reward', f.rewardItems));
 	if (f.rewardXp !== undefined) push('xp', `xp ${f.rewardXp}`);
@@ -416,6 +429,7 @@ POSITIONAL.use = POSITIONAL.collect;
 POSITIONAL.destroy = POSITIONAL.collect;
 POSITIONAL.abandon = POSITIONAL.accept;
 POSITIONAL.buy = POSITIONAL.collect;
+POSITIONAL.auction = POSITIONAL.collect;
 POSITIONAL.explore = POSITIONAL.goto;
 POSITIONAL.craft = POSITIONAL.learn;
 POSITIONAL.cast = POSITIONAL.learn;
@@ -436,6 +450,13 @@ const MODIFIER_FIELDS = {
 	criteria: [fld('criteria', 'int', 'Criterion')],
 	nearest: [fld('nearest', 'bool', 'Nearest')],
 	anywhere: [fld('anywhere', 'bool', 'Bag count, no place')],
+	gather: [
+		fld('gather', 'bool', 'The gather way'),
+		fld('gatherSkill', 'text', 'Gathered with (profession)'),
+		fld('gatherRank', 'int', 'At skill'),
+		fld('gatherMin', 'int', 'Mobs from level'),
+		fld('gatherMax', 'int', 'Mobs to level'),
+	],
 	choose: [fld('rewardChoices', 'items', 'Reward choices')],
 	reward: [fld('rewardItems', 'items', 'Rewards')],
 	xp: [fld('rewardXp', 'int', 'XP')],
@@ -447,7 +468,7 @@ const MODIFIER_FIELDS = {
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'gather', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
 
 function verbSchema() {
 	const verbs = {};

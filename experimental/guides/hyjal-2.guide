@@ -17,6 +17,9 @@ next polestar-experimental/hyjal-3
 # berries, then the elders) with the Deadwood camps around it, Elderwild (the Alliance and Horde outposts stand
 # side by side) with Mourning's Rest and the overlook west of it, then east into the Cradle of Tranquility: the
 # wild gods' errands, Johun's camp (Alliance) and back west to Marrosis and Shalla'kal.
+# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
+# The veteran's Anywhere But Here is taken after Mourning's Rest, on the way west to the overlook, and the
+# breadcrumbs for part 3 (A Clever Creature, Trail Assist) wait for part 3's way through the Cradle.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): Heading Up the
 # Mountain after The Capricious Corvid; Fenwick's quests one at a time; Of Friend and Fur after Balance Through
 # Strength (Brerufa's window held nothing else before that hand-in, which also lifted Barkskin standing from
@@ -154,10 +157,9 @@ step Moonveil Moss
   goto 13.3,54.8
   collect 262802 x12 quest 93825.1      -- Moonveil Moss
 
-step Eluneth and the veteran
-  tip South-east to Eluneth on the slope above Mourning's Rest, then to the ghostly Veteran of the Third War at its western edge, where the recording met him.
+step Eluneth
+  tip South-east to Eluneth on the slope above Mourning's Rest.
   accept 90865                          -- Eluneth: Eyes of the Watchers
-  accept 92100 @21.6,57.5               -- Veteran of the Third War: Anywhere But Here
 
 step Owl feathers
   tip The Hyjal Owls roost on the slopes between Eluneth and Barkskin Burrow: their feathers are for Elderwild.
@@ -180,8 +182,10 @@ step Mourning's Rest
   collect 268573 quest 92591.1 only Alliance @28.0,57.7  -- Reanimator's Amulet
   collect 268573 quest 92592.1 only Horde @28.0,57.7
 
-step Eluneth
+step Eluneth and the veteran
+  tip Back to Eluneth, then the ghostly Veteran of the Third War at Mourning's Rest's western edge, where the recording met him, on your way west.
   turnin 90865
+  accept 92100 @21.6,57.5               -- Veteran of the Third War: Anywhere But Here
 
 step Elderwild
   only Alliance
@@ -233,7 +237,6 @@ step Jereman
   tip North to the old bridge over the Cradle: touch the crow effigy on it and Jereman, the crow wild god, appears.
   turnin 96931                          -- Jereman
   accept 96939                          -- The Balance of Life and Death
-  accept 96964                          -- A Clever Creature: for Renalard in Dae'gun, part 3; keep it
   accept 96978                          -- Violent Venison
 
 step The falls and the first kitten
@@ -309,4 +312,3 @@ step Shalla'kal and Galvinquam
   tip North to Shalla'kal, then Galvinquam in the ruins south of her.
   turnin 93615                          -- Shalla'kal
   turnin 96979                          -- Galvinquam Leafsyre
-  accept 96991                          -- Trail Assist: for Marn Euhorn at the Summit of Eternity, part 3; keep it

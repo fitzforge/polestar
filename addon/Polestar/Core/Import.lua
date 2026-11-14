@@ -228,6 +228,8 @@ local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
 	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
+	-- A collect's `gather` (format 10): true, or what its gather way takes.
+	gather = { bool = true, rec = { skill = S, skillLine = N, rank = N, min = N, max = N } },
 	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N, yellow = N, grey = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
 	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, crumbs = LN, endNpcs = LN, xp = N, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
@@ -253,7 +255,8 @@ local GUIDE = rec({
 	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
 	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
-	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })), steps = list(STEP),
+	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })),
+	fresh = rec({ from = S, share = N, xp = N, needs = LN }), steps = list(STEP),
 })
 local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })
 
@@ -268,7 +271,8 @@ Import.KEYS = {
 	guide = keysOf(GUIDE), step = keysOf(STEP), goal = keysOf(GOAL), only = keysOf(ONLY),
 	reagents = keysOf(GOAL.rec.reagents.list), candidates = keysOf(GOAL.rec.candidates.list), spots = keysOf(GOAL.rec.spots.list),
 	fromNpcs = keysOf(GOAL.rec.fromNpcs.list),
-	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), sections = keysOf(GUIDE.rec.sections.list), when = keysOf(WHEN), image = keysOf(IMAGE),
+	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), sections = keysOf(GUIDE.rec.sections.list), fresh = keysOf(GUIDE.rec.fresh),
+	when = keysOf(WHEN), image = keysOf(IMAGE),
 }
 
 local function finite(v) return type(v) == "number" and v == v and v ~= huge and v ~= -huge end
@@ -276,6 +280,8 @@ local function finite(v) return type(v) == "number" and v == v and v ~= huge and
 -- v shaped by spec -> a fresh copy; raises { field = where } at the first
 -- key or value that does not fit.
 local function build(v, spec, where)
+	-- `{ bool = true, rec = ... }`: true/false or that record (a collect's `gather`).
+	if type(v) == "boolean" and type(spec) == "table" and spec.bool then return v end
 	if type(v) == "string" and #v > LIMITS.text and (spec == S or spec == NS or spec == BS) then error({ field = where, long = true }, 0) end
 	if type(v) == "string" and #v > LIMITS.names and spec == SM then error({ field = where, long = true }, 0) end
 	if spec == S or spec == SM then

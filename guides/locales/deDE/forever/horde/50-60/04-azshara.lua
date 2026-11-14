@@ -12,7 +12,7 @@ return {
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957}: Behalte sie für {zone:1451}",
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist · {area:1237} Valormok
-	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "",
+	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "{npc:4485}, {object:172958}: vom ersten Besuch in {zone:1447} mitgebracht, sonst nimm sie hier an, für {npc:8576} in {area:1237}",
 
 	-- Step 2: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -23,7 +23,7 @@ return {
 	-- Step 3: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "Livs Werkstatt ist am Nordende der Docks von {area:392}; {object:149036} steht darin.",
-	["Inside"] = "",
+	["Inside"] = "Drinnen",
 
 	-- Step 4: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -35,12 +35,12 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "Kisten von {npc:256386}",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Reite die Straße nach Norden zum Wegekreuz; dort steht {npc:256386}. Öffne jede Kiste, die sie dir gibt, und bring zurück, was darin ist. Flieg vom Wegekreuz weiter nach {area:1237}.",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Flieg nach {area:1237}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Flugmeister des Wegekreuzes",
 
 	-- Step 8: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Reite nach Osten zu den Ruinen an der Küste. Füll Cuelys vier Phiolen an den Gezeitentümpeln am Ufer; Naga der Grollflossen patrouillieren dazwischen.",
@@ -53,7 +53,7 @@ return {
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Lager von {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Rimtoris Lager liegt am Ostende des Basislagers. Lies dort {object:151286} und töte dann den Magus.\nVorsicht: Welcher Kristall mit Rimtori verbunden ist, ist zufällig. Jeder der anderen beiden beschwört stattdessen eine feindliche Höllenbestie.",
 
 	-- Step 11: Ag'tor Bloodfist
 	-- {area:1237} Valormok
@@ -63,16 +63,16 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Flugmeister in {area:1237}",
 
 	-- Step 13: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Paladinlehrer",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} in {zone:1456}; in {zone:1454} gibt es keinen Paladin-Lehrer",
 
 	-- Step 14: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454} and train."] = "",
+	["Fly to {zone:1454} and train."] = "Flieg nach {zone:1454} und lerne bei den Lehrern.",
 
 	-- Step 15: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: Into Durotar
 	-- {zone:1411} Durotar
-	["Into {zone:1411}"] = "",
+	["Into {zone:1411}"] = "Nach {zone:1411}",
 
 	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -88,7 +88,7 @@ return {
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
-	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} und {npc:8393} arbeiten im Apothecarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, neben ihm",
 
@@ -111,15 +111,15 @@ return {
 
 	-- Step 26: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Reite von {zone:1458} die Straße nach Osten; {area:152} bewacht den Weg nach {zone:1422}.",
 
 	-- Step 28: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "Die Farm von {npc:10778} ist die erste östlich von {area:152}. Jabbering Ghouls auf der Farm tragen die andere Hälfte ihres Amuletts; {npc:11075} bewacht den Kessel auf dem Feld.\nVorsicht: Ein oder zwei Untote kämpfen meist an seiner Seite, und nachdem du den Kessel benutzt hast, können weitere Cauldron Lords angreifen.",
 
 	-- Step 29: Janice Felstone
-	["Upstairs"] = "",
+	["Upstairs"] = "Oben",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Beide Spenden von {item:14047} gibst du später auf der Route ab: Fang an, {item:14047} zu sammeln.",

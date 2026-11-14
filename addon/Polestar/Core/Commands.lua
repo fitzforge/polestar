@@ -10,10 +10,13 @@ local Engine = ns.Engine
 
 -- Options > Keybindings lists them in a "Polestar" section of their own
 -- (Bindings.xml's category, the Recorder's too), whose rows are only ~22
--- characters wide: short names. The settings search matches a binding's
--- name and its search tags, never its section, so each carries the tag
--- BINDING_TAG_POLESTAR: "polestar" finds them all.
-BINDING_TAG_POLESTAR = "Polestar"
+-- characters wide: short names. None has searchTags: after login the game
+-- builds the Options search's list of bindings and reads each tag's global
+-- outside securecallfunction (Blizzard_SettingsDefinitions_Frame/
+-- Keybindings.lua, CreateSearchableSettings), so a tag global of ours
+-- tainted every search, and the game blocked the Discord sign-in row's
+-- C_Discord.IsUserOAuthed() in its results, blaming Polestar or the
+-- Recorder (#1996, #2207). The search finds a binding by its name.
 BINDING_NAME_POLESTAR_TOGGLE = L["Toggle guide window"]
 BINDING_NAME_POLESTAR_HIDE = L["Hide/show Polestar"]
 BINDING_NAME_POLESTAR_NEXT = L["Next step"]
@@ -88,6 +91,9 @@ ns.RegisterCommand("hide", function(rest)
 end, L["Hide or show everything Polestar shows (hide arrow: keep the arrow when hidden)"], true)
 ns.RegisterCommand("guides", function() ns.Fire("SHOW_PICKER") end, L["Choose a guide"])
 ns.RegisterCommand("options", function(rest) ns.Fire("SHOW_OPTIONS", rest ~= "" and rest or nil) end, L["Open settings"])
+-- A question in the player's own words: the settings open with it in their
+-- search box and its dropdown on the settings it finds (/ps ask too).
+ns.RegisterCommand("ask", function(rest) ns.Fire("SHOW_OPTIONS", nil, rest or "") end, L["Find a setting by asking, such as: how do I hide the arrow?"])
 ns.RegisterCommand("debug", function()
 	ns.debug = not ns.debug
 	ns.Print(L["Debug output"], ns.debug and L["on"] or L["off"])

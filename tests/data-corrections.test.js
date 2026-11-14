@@ -275,6 +275,15 @@ test('Daniel Stitchsong stands at the reported Three Corners spot in live coordi
 	}, 'replace the old Redridge point rather than keeping it as another destination');
 });
 
+// rockzors (#1235), JonnyDisco (#1250): Image of Archmage Modera offers Heart of Disruption only once the level 30 lead-in
+// is handed in to her: An Alarming Request (92432) for the Alliance, Blood in the Streets (92434) for the Horde. The data
+// had the lead-ins as optional, so the City of Dalaran pick-up guide sent level 28 characters to Silverpine for nothing.
+test('Heart of Disruption waits for An Alarming Request (Alliance) and Blood in the Streets (Horde) (#1235, #1250)', () => {
+	const blocks = (id) => blockingPrereqs({ id, start: { npc: [269127] }, ...corrections.quests[id].set });
+	assert.deepEqual(blocks(92458), { all: [], any: [92432] }, 'Alliance: after An Alarming Request');
+	assert.deepEqual(blocks(96984), { all: [], any: [92434] }, 'Horde: after Blood in the Streets');
+});
+
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
 	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
 	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
@@ -477,4 +486,22 @@ test('every stable master by title has the stable master role (#2010)', () => {
 		assert.ok(corrections.npcs[id] && corrections.npcs[id].set.roles.includes('stablemaster'), `npc ${id}`);
 	}
 	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
+});
+
+// #2199: Fiery Menace! counts npc 5858, which the game calls the Searing Lava Spider ("Searing Lava Spider slain" in the
+// quest log, each tick a kill of 5858); the merged data kept its Classic name, Greater Lava Spider, so the step named a
+// spider no one sees. Sweep (the names of quest NPCs where the client's own name differs from the data's): Velarok
+// Windblade (8479), whose Divine Retribution reads "Velarok Story", was still Kalaran Windblade on his goals.
+test('the Searing Lava Spider and Velarok Windblade have the names the game shows (#2199)', () => {
+	assert.equal(corrections.npcs[5858].set.name, 'Searing Lava Spider');
+	assert.equal(corrections.npcs[8479].set.name, 'Velarok Windblade');
+	assert.ok(!corrections.npcs[5857], 'npc 5857 keeps its own name');
+});
+
+// #1575 (danger gate census): QuestieDB places Infernal 278863, a level 30 elite, at 133 points in the starting zones
+// and capitals. No player has met it or died to it there, while 337 people's recordings logged other creatures within
+// 40 yd of those points; the danger gate flagged the starting zones' quests, and the compiler's "Elite: group advised"
+// (an object's work among hostile elites) would mark For Honor and An Enticing Offer. It stands nowhere.
+test('Infernal 278863 stands nowhere players go: no spawns (#1575)', () => {
+	assert.deepEqual(corrections.npcs[278863].set, { spawns: {} });
 });

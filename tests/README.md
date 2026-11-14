@@ -31,6 +31,15 @@ mapping. A changed file no rule maps to a test is listed as unmapped
 not the gate: `npm test` (every file) is what CI runs, so run it before you
 push.
 
+`npm run test:reported` runs the reported-problems gate (`tools/reported-gate.js`,
+a release gate): for every confirmed player report that was fixed, the tests
+`reported-gate.json` names (node files and forge crates' tests), with the
+whole of `guides-reported.test.js`, the judge's player-report seeds on the
+shipped guides and the danger gate (`--levels`, the release candidate's
+calibrated level model), then the reports whose tests fail. A fix for a
+report adds the report and its test to `reported-gate.json`;
+`reported-gate.test.js` checks that every test named there exists.
+
 CI (`.github/workflows/ci.yml`, on pushes to main and next and on pull
 requests) installs Lua 5.1, runs `npm test`, the translations check and
 `forge changelog check`, then rebuilds the UI renders with

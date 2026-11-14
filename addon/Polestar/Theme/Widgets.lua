@@ -145,7 +145,9 @@ end
 -- Tooltips (the game tooltip; EllesmereUI skins it when present)
 ---------------------------------------------------------------------------
 
--- lines: strings, or { left = , right = } pairs, or { text, r, g, b }.
+-- lines: strings, or { left = , right = } pairs, or { text, r, g, b }. The
+-- strings and left halves are in the dim text as it reads on the tooltip's
+-- dark ground (Theme.TipColor: a light look's ink lifted toward its paper).
 function W.Tooltip(owner, anchor, title, lines)
 	if not GameTooltip then return end
 	GameTooltip:SetOwner(owner, anchor or "ANCHOR_RIGHT")
@@ -155,13 +157,13 @@ function W.Tooltip(owner, anchor, title, lines)
 			local l = lines[i]
 			if type(l) == "table" then
 				if l.right ~= nil then
-					local r, g, b = Theme.Color("textDim")
+					local r, g, b = Theme.TipColor("textDim")
 					GameTooltip:AddDoubleLine(l.left, l.right, r, g, b, 1, 1, 1)
 				else
 					GameTooltip:AddLine(l[1], l[2], l[3], l[4], true)
 				end
 			else
-				local r, g, b = Theme.Color("textDim")
+				local r, g, b = Theme.TipColor("textDim")
 				GameTooltip:AddLine(l, r, g, b, true)
 			end
 		end
@@ -3020,7 +3022,7 @@ function W.SetStageChip(c)
 		c:Hide()
 		return 0
 	end
-	return W.SetChip(c, string.upper(L[ns.stage]), "warning")
+	return W.SetChip(c, ns.Upper(L[ns.stage]), "warning")
 end
 
 -- The version line and its stage chip, kept inside the sidebar and clear of

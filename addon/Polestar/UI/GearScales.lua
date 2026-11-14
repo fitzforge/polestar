@@ -89,7 +89,7 @@ local STAT_LABEL = {
 	str = L["Strength"], agi = L["Agility"], sta = L["Stamina"], int = L["Intellect"], spi = L["Spirit"],
 	armor = L["Armor"], health = L["Health"], mana = L["Mana"],
 	ap = L["Attack power"], rap = L["Ranged attack power"],
-	dps = L["Weapon DPS (melee)"], rdps = L["Weapon DPS (ranged)"],
+	dps = L["Weapon DPS (melee)"], ohDps = L["Weapon DPS (off hand)"], rdps = L["Weapon DPS (ranged)"],
 	sp = L["Spell damage (all schools)"], heal = L["Healing"],
 	spArcane = L["Arcane spell damage"], spFire = L["Fire spell damage"], spFrost = L["Frost spell damage"],
 	spHoly = L["Holy spell damage"], spNature = L["Nature spell damage"], spShadow = L["Shadow spell damage"],

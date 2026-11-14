@@ -72,8 +72,9 @@ return {
 		q.bindings["CLICK PolestarStepButton:LeftButton"] = { "F" }
 		-- The player's own instant quest text (off), which the setting turns on.
 		stub.cvars.instantQuestText = "0"
+		local was = Polestar.GetStored("qol.instantQuestText")
 		Polestar.Set("qol.instantQuestText", false)
-		Polestar.Set("qol.instantQuestText", nil)
+		Polestar.Set("qol.instantQuestText", was)
 		-- The game's objective tracker (qol.rs's TRACKER).
 		local f = CreateFrame("Frame", "ObjectiveTrackerFrame", UIParent)
 		f.updates, f.hasContents, f.protected = 0, true, false
@@ -104,12 +105,15 @@ return {
 			return calls("LootSlot")
 		end,
 		["qol.hideErrors"] = function() return BLACK_LISTED_MESSAGE_TYPES[LE_GAME_ERR_OUT_OF_RAGE] or false end,
-		["qol.hideQuestTracker"] = function() return ObjectiveTrackerFrame:IsShown() and true or false end,
+		-- The game's tracker is made here after the login (setup), which a reload cannot have before it (qol.rs plays
+		-- the login with the tracker there).
+		["qol.hideQuestTracker"] = { reload = false, probe = function() return ObjectiveTrackerFrame:IsShown() and true or false end },
 		-- The reward panel: a cloak and five potions (worth more).
 		["qol.rewardHighlight"] = function() panel(); local m = marks(); stub.fire("QUEST_FINISHED"); return m end,
 		["qol.rewardAutoPick"] = function() panel(); local n = calls("GetQuestReward"); stub.fire("QUEST_FINISHED"); return n end,
 		-- A turn-in giving the boots, an upgrade: worn once they reach the bags.
-		["qol.rewardEquip"] = { prepare = withGear, cleanup = noGear, probe = function()
+		-- (once: the boots worn after its first read, no reads over a profile switch beside the runner's three.)
+		["qol.rewardEquip"] = { once = true, prepare = withGear, cleanup = noGear, probe = function()
 			q.landRewards = true
 			q.choices, q.rewards = { { id = 11 }, { id = 12 } }, {}
 			q.calls = {}

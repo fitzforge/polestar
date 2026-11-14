@@ -1038,6 +1038,19 @@ function Theme.Legible(r, g, b)
 	return liftTo(Theme.Contrast(bg, black) <= Theme.Contrast(panel, black) and bg or panel, pal.text, { r, g, b })
 end
 
+-- The game's tooltip keeps its own dark ground in every look (the client's
+-- TOOLTIP_DEFAULT_BACKGROUND_COLOR), so a palette colour may not read there:
+-- a light look's ink (Vellum's) all but vanishes on it. Polestar's lines on
+-- the game's tooltip (W.Tooltip's, Gear's) take this: the palette's colour
+-- where it reads at 4.5:1 on that ground, else moved toward the look's paper
+-- (a light look's panel, a dark look's text) until it does, as Nav's lines
+-- over the world are. -> r, g, b
+Theme.TIP_GROUND = { 0.09, 0.09, 0.19 }
+function Theme.TipColor(name)
+	local pal = Theme.Palette()
+	return liftTo(Theme.TIP_GROUND, isLight(pal) and pal.panel or pal.text, pal[name] or pal.text)
+end
+
 -- A ground tinted by the accent: `share` of the accent mixed into the
 -- palette's window ground (bg), less where the text would no longer read at
 -- 7:1 on it (a bright accent on a light skin). Follows the accent: call it
@@ -1204,6 +1217,8 @@ for _, v in ipairs({ "accept", "turnin", "complete", "kill", "collect", "goto", 
 end
 VERB_ICON.enter = VERB_ICON.goto
 VERB_ICON.cast = VERB_ICON.use
+VERB_ICON.auction = VERB_ICON.buy
+VERB_ICON.gather = VERB_ICON.collect
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)
@@ -2491,7 +2506,14 @@ local function paint(frame, kind)
 		failSkin(id, err)
 		-- Outside a refresh, failSkin's own refresh has repainted the frame.
 		if refreshing then paint(frame, kind) end
+		return
 	end
+	-- A frame's own look over the skin's (frame.psAfterPaint: a toast's or a
+	-- tracker's own ground and border, UI/Toasts.lua), after every paint, so
+	-- no repaint (a skin switch, the house edge on its first showing) takes
+	-- it away.
+	local after = frame.psAfterPaint
+	if after then after(frame) end
 end
 
 function Theme.Skin(frame, kind)

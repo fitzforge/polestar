@@ -209,6 +209,7 @@ local engineWp    -- last waypoint announced by the Engine
 local override    -- point picked with Nav.SetTarget, kept until the step changes
 local dismissed   -- engine waypoint hidden by ClearTarget until the Engine moves on
 local hold        -- point held with Nav.Hold (the way back to your corpse), over everything until Nav.Unhold
+local NOTHING = {} -- the hold of Nav.HoldNothing: no target at all until Nav.Unhold
 local target      -- what we guide to: hold, else override, else engine waypoint
 local tC, tX, tY  -- target in world space (nil until resolvable)
 local tZ         -- its height: the target's `z` (a guide goal, candidate or spawn area at an NPC or object), else nil
@@ -259,6 +260,7 @@ end
 
 local function apply(shouldAnnounce)
 	local new = hold or override or engineTarget() or nil
+	if new == NOTHING then new = nil end
 	-- Held: a step, the guide's waypoint or a picked point changing under the
 	-- hold changes nothing shown (no replan, no second chime) until Nav.Unhold.
 	if hold and new == target then return end
@@ -301,13 +303,15 @@ end
 -- the Spirit Healer) over every other target until Nav.Unhold: the guide's
 -- step and waypoint changes, and points picked by hand or set by other
 -- addons, go on underneath and show again once it lets go (a picked point
--- only while the step is the same, as always). Returns the held target, or
--- nil for a bad point.
-function Nav.Hold(map, x, y, label, f)
+-- only while the step is the same, as always). `z`: the floor's height there,
+-- optional (a corpse in a basement, #2106), so the walk ends on it. Returns
+-- the held target, or nil for a bad point.
+function Nav.Hold(map, x, y, label, f, z)
 	map, x, y = tonumber(map), tonumber(x), tonumber(y)
 	if not (map and x and y) then return nil end
 	hold = {
 		map = map, x = x, y = y, f = f,
+		z = type(z) == "number" and z or nil,
 		label = (label and label ~= "") and label or L["Waypoint"],
 		kind = "manual",
 		r = Nav.DEFAULT_RADIUS,
@@ -325,6 +329,15 @@ end
 
 function Nav.IsHeld()
 	return hold ~= nil
+end
+
+-- The arrow held on nothing (QoL/Death.lua: a corpse inside a dungeon whose
+-- entrance is not known, where no point is the way back): no arrow until
+-- Nav.Unhold, the guide's targets going on underneath as under Nav.Hold.
+function Nav.HoldNothing()
+	hold = NOTHING
+	apply(true)
+	return hold
 end
 
 -- Drops the override; the engine's waypoint stays dismissed until the Engine
@@ -537,8 +550,9 @@ function Nav.Sample()
 	local r = target.r or Nav.DEFAULT_RADIUS
 	-- Near the target, the player's floor against its height: not arrived
 	-- while a floor apart (Undercity's levels, caves, towers), and the arrow
-	-- says up or down (Nav.FloorHint).
-	if tZ and dist <= max(r * 2, 20) then
+	-- says up or down (Nav.FloorHint). Not in a place only portals reach (the
+	-- walking maps have no floor there: the Wizard's Sanctum's chamber, #1970).
+	if tZ and dist <= max(r * 2, 20) and not (T and T.place) then
 		local W = Nav.walk
 		local z = W and W.Floor and W.Floor(pc, px, py)
 		if z and abs(z - tZ) > FLOOR_GAP then floorHint = z < tZ and "up" or "down" end

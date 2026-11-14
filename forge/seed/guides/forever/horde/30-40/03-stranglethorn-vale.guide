@@ -83,8 +83,9 @@ step Grom'gol
 # - Crystal in the Mountains (635) starts from the Pendant of Myzrael, a 0.01-0.08% drop from
 #   the trolls; take it only if one drops (it ends in Arathi).
 # - The Green Hills of Stranglethorn (338-342): its pages drop at about 1% each from the
-#   vale's trolls (or buy them). The chapters are accepted at Nesingwary's camp and turned in
-#   on the next Stranglethorn visit (forever/horde/40-50/01-stranglethorn-vale) if you have them.
+#   vale's trolls (or buy them). Keep every page: the chapters are accepted and turned in together
+#   at Nesingwary's camp on the next Stranglethorn visit (forever/horde/40-50/01-stranglethorn-vale),
+#   so they don't take five quest log slots from 35 to 40.
 #
 # Some Assembly Required (577) is accepted and its skins gathered here, and handed in on the
 # Booty Bay stop of forever/horde/40-50/01-stranglethorn-vale.
@@ -166,7 +167,7 @@ step Stranglethorn Vale: kill these as you meet them
 step Cozzle's Footlocker
   zone Stranglethorn Vale
   when onquest 1182
-  tip Foreman Cozzle (38) is inside the Venture Co. house on Lake Nazferiti's west shore, among the geologists: his key opens Cozzle's Footlocker in the same house, which holds the blueprints for Baron Revilgaz.
+  tip Foreman Cozzle (38) is inside the Venture Co. house on Lake Nazferiti's west shore, among the geologists: his key opens Cozzle's Footlocker in the same house, which holds the blueprints for Baron Revilgaz. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in.
   collect 5851 x1 "Cozzle's Key" @42.6,18.4 map 1434 -- from Foreman Cozzle
   collect 5852 quest 1182 @43.3,20.3 map 1434 -- Fuel Regulator Blueprints, in Cozzle's Footlocker
 
@@ -175,11 +176,6 @@ step Nesingwary's camp
   accept 192                          -- The Shadowmaw Panthers come much later, by Grom'gol
   turnin 186                          -- Ajeck Rouack
   accept 187
-  accept 338 optional                 -- Barnil Stonepot
-  accept 339 optional
-  accept 340 optional
-  accept 341 optional
-  accept 342 optional
 
 step Elder Stranglethorn Tigers
   tip The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.
@@ -221,7 +217,7 @@ step Grom'gol
 step Level 35
   when level<35
   zone Stranglethorn Vale
-  tip Booty Bay's and Grom'gol's next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of Grom'gol: kill them until level 35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
+  tip Booty Bay's and Grom'gol's next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of Grom'gol: kill them until level 35.
   goto 32.4,24.6 map 1434 "Lashtail Raptors"
   level 35 grind 686                  -- grind on Lashtail Raptor
 
@@ -274,24 +270,6 @@ step Stranglethorn Vale: kill these as you meet them
   kill 684 quest 192 @41.3,34.8 map 1434
   collect 4104 quest 577 @39.9,28.4
 
-step Green Hills pages
-  tip Pages of The Green Hills of Stranglethorn drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. Barnil takes the chapters on your next Stranglethorn visit, at about 40.
-  collect 2725 quest 339.1 optional
-  collect 2728 quest 339.2 optional
-  collect 2730 quest 339.3 optional
-  collect 2732 quest 339.4 optional
-  collect 2734 quest 340.1 optional
-  collect 2735 quest 340.2 optional
-  collect 2738 quest 340.3 optional
-  collect 2740 quest 340.4 optional
-  collect 2742 quest 341.1 optional
-  collect 2744 quest 341.2 optional
-  collect 2745 quest 341.3 optional
-  collect 2748 quest 341.4 optional
-  collect 2749 quest 342.1 optional
-  collect 2750 quest 342.2 optional
-  collect 2751 quest 342.3 optional
-
 step Mosh'Ogg camp
   tip The Mosh'Ogg ogres camp in the hills just east of Grom'gol, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time.
   kill 1142 quest 569.1
@@ -307,6 +285,6 @@ step Grom'gol
 step Level 36
   when level<36
   zone Stranglethorn Vale
-  tip Dustwallow's quests are 35-38. Still below 36 after Grom'gol's hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
+  tip Dustwallow's quests are 35-38. Still below 36 after Grom'gol's hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower.
   goto 36.7,31.9 map 1434 "Mosh'Ogg camp"
   level 36 grind 1142                 -- grind on Mosh'Ogg Brute

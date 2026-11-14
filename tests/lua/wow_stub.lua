@@ -270,6 +270,9 @@ function Methods.SetFontObject(self, obj)
 	if type(obj) == "table" and obj.font then self.font = { obj.font[1], obj.font[2], obj.font[3] } end
 end
 function Methods.GetFontObject(self) return self.fontObject end
+-- A font string's line spacing (between its wrapped lines).
+function Methods.SetSpacing(self, s) self.spacing = s end
+function Methods.GetSpacing(self) return self.spacing or 0 end
 -- A font object's face, colours, shadow and justification, copied from
 -- another (by object or name), not linked to it.
 function Methods.CopyFontObject(self, other)

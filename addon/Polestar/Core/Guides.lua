@@ -171,6 +171,8 @@ local REQUIRED = {
 	enter = { location = isStr },
 	train = {},
 	buy = { item = isNum, itemName = isStr },
+	-- Bought at the Auction House (format 10): applies while the player buys the item (Core/Materials.lua).
+	auction = { item = isNum, itemName = isStr },
 	vendor = {},
 	level = { level = isNum },
 	money = { money = isNum },
@@ -463,6 +465,13 @@ local function checkGoal(goal)
 	if goal.r ~= nil and not (isNum(goal.r) and goal.r > 0) then return "bad radius" end
 	if goal.oi ~= nil and not (isNum(goal.oi) and goal.oi >= 1) then return "bad objective index" end
 	if goal.count ~= nil and not isNum(goal.count) then return "bad count" end
+	-- A `collect … gather` (format 10): true, or what its gather way takes (Core/Materials.lua).
+	local w = goal.gather
+	if w ~= nil and (goal.t ~= "collect" or not (w == true or (type(w) == "table" and (w.skill == nil or isStr(w.skill))
+		and (w.skillLine == nil or isNum(w.skillLine)) and (w.rank == nil or isNum(w.rank)) and (w.min == nil or isNum(w.min))
+		and (w.max == nil or isNum(w.max))))) then
+		return "bad gather"
+	end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
 	if goal.t == "level" and goal.frac ~= nil and not isFrac(goal.frac) then return "bad frac" end
@@ -1801,7 +1810,12 @@ local function rank(packId, player, here, zone)
 					local cost = ns.TravelCost(here, start)
 					if cost then band = math.floor(cost / TRAVEL_TIE) end
 				end
-				fitting[#fitting + 1] = { id = g.id, key = { inZone, band, specific, hi - lo, lo, i } }
+				-- Much of its quest XP follows on from an earlier guide this
+				-- character has not done (Engine.FreshFor): after the others of
+				-- its zone and travel band, so it never sends anyone further.
+				local E = ns.Engine
+				local fresh = E and E.FreshFor and E.FreshFor(g) and 1 or 0
+				fitting[#fitting + 1] = { id = g.id, key = { inZone, band, fresh, specific, hi - lo, lo, i } }
 			elseif #fitting == 0 then
 				local key = lo > level and { 1, lo - level, hi - lo, i } or { 2, level - hi, hi - lo, i }
 				if not bestKey or less(key, bestKey) then best, bestKey = g.id, key end
@@ -1819,10 +1833,12 @@ end
 -- source (SuggestSource); where it has nothing for the player, ours fill in.
 -- Faction/race/class must match. Every guide whose level range contains the
 -- player's level, in this order: the player's current zone first, then the
--- nearest by travel (in 2-minute bands), then race- or class-specific (the
--- race's own chain), then the narrowest range, the lowest minLevel and
--- registration order. If none contains the level: the nearest upcoming
--- guide, else the highest one below, alone. -> { id, ... }
+-- nearest by travel (in 2-minute bands), then one whose quest XP mostly
+-- follows on from an earlier guide the player has not done last
+-- (Engine.FreshFor), then race- or class-specific (the race's own chain),
+-- then the narrowest range, the lowest minLevel and registration order. If
+-- none contains the level: the nearest upcoming guide, else the highest one
+-- below, alone. -> { id, ... }
 function Guides.Suggestions()
 	local player = ns.Compat.GetPlayerInfo()
 	local here = ns.PlayerPoint()

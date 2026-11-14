@@ -5,8 +5,9 @@
 //! failure (no engine, no data, unreachable, an error, the option off) is today's straight arrow. Runs the
 //! real Core/Init.lua + Nav/Nav.xml against tests/lua/stub_nav.lua.
 
+use forge_addontest::names::language_pack;
 use forge_addontest::run::addons_dir;
-use forge_addontest::{emitted, is_match, truthy, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, lua_string, truthy, Addon, RunAddon};
 use serde_json::{json, Value};
 
 // The fake engine, installed before the addon loads (Polestar_Nav's API.lua sets the same global).
@@ -395,7 +396,234 @@ fn the_look_ahead_never_aims_onto_another_floor_path_heights_or_past_a_split_wal
 	]
 	.concat());
 	assert_eq!(split["leg"], "bridge", "the first piece ends at the bridge (y -150)");
-	assert!(num(&split["furthest"]) >= -148.0, "the aim never passes the path point before the bridge (y -148; furthest {})", split["furthest"]);
+	assert!(num(&split["furthest"]) >= -150.0, "the aim never passes the bridge's spot on the path (y -150; furthest {})", split["furthest"]);
+}
+
+// A split walk's chokepoint far along a piece of a sparse path (0.3.8's border sweep, an Ashenvale pass 40 yd past the
+// path's point before it): once past that point, or standing on it, the piece aims on to the chokepoint's spot on the
+// path, never beyond it; held at the point, the piece's end was out of reach, and a player who walked to the point and
+// stood a hair short of it had the arrow at their feet (0.4.0's border sweep: starts that had arrived stopped there).
+// A pass 5 yd off a path of three points (0, 0), (0, -100), (0, -300): its spot (0, -160), 60 yd past the middle point.
+#[test]
+fn a_split_walk_s_piece_aims_on_to_its_chokepoint_far_along_a_piece_of_a_sparse_path_once_on_or_past_the_point_before_it() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = { [0] = { { wx = 5, wy = -160, r = 10, kind = "pass", name = "Hollow Pass", zone = "Testshire" } } }
+		nav.place(0, 0)
+		target(0, -300)
+		N.Sample()
+		answerZ({ { 0, 0 }, { 0, -100 }, { 0, -300 } })
+		local legs, ci = N.GetRoute()
+		local first = legs[ci].choke and legs[ci].choke.kind
+		local hair = look(0, -100 + 1e-7, 0, -300)
+		local past = look(0, -100 - 1e-3, 0, -300)
+		local on = look(0, -140, 0, -300)
+		emit({ first = first, hair = hair, past = past, on = on })"#,
+	]
+	.concat());
+	assert_eq!(out["first"], "pass", "the walk is split at the pass");
+	assert!(num(&out["hair"]["dy"]) < -20.0, "a hair short of the middle point: on toward the pass, not at the player's feet ({} yd)", out["hair"]["dy"]);
+	assert!(num(&out["past"]["dy"]) < -20.0, "just past the middle point: on along the path toward the pass ({} yd)", out["past"]["dy"]);
+	assert!(-140.0 + num(&out["on"]["dy"]) >= -160.0 - 1e-6, "20 yd short of it: the aim stops at the pass's spot ({} yd on)", out["on"]["dy"]);
+	assert!(num(&out["on"]["dy"]) < -15.0, "and reaches it ({} yd on)", out["on"]["dy"]);
+}
+
+// Until the player is past the path's point before the chokepoint (or on it), the piece's aim stops at that point, as
+// at any stop, even within a few yards of it: let on sooner, it cut the corner there (0.4.0's border sweep: off the
+// ramp down into Un'Goro Crater, onto a ledge). A path (0, 0), (0, -100), (20, -140), (20, -300) with a corner at
+// (0, -100): a pass halfway along the next piece, at (10, -120), and one at the corner's far point (20, -140), where
+// the chokepoint lies at the end of the piece before it.
+#[test]
+fn a_split_walk_s_piece_stops_at_the_point_before_its_chokepoint_until_the_player_is_past_it_never_cutting_the_corner() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.useTravelWorld()
+		local function walk(px, py)
+			PolestarNavChokepoints = { [0] = { { wx = px, wy = py, r = 10, kind = "pass", name = "Hollow Pass", zone = "Testshire" } } }
+			N.ClearTarget()
+			nav.place(0, 0)
+			target(20, -300)
+			N.Sample()
+			answerZ({ { 0, 0 }, { 0, -100 }, { 20, -140 }, { 20, -300 } })
+			local legs, ci = N.GetRoute()
+			return { first = legs[ci].choke and legs[ci].choke.kind or false, back = look(0, -90, 20, -300), near = look(0, -97, 20, -300),
+				on = look(0, -100 + 1e-7, 20, -300), past = look(1, -102, 20, -300) }
+		end
+		emit({ mid = walk(10, -120), far = walk(20, -140) })"#,
+	]
+	.concat());
+	for (name, case) in [("halfway along the next piece", &out["mid"]), ("at the next point", &out["far"])] {
+		assert_eq!(case["first"], "pass", "{name}: the walk is split at the pass");
+		assert!(num(&case["back"]["dx"]).abs() < 0.5, "{name}: 10 yd before the corner the aim holds at it (dx {})", case["back"]["dx"]);
+		assert!(num(&case["near"]["dx"]).abs() < 0.5, "{name}: 3 yd before it too (dx {})", case["near"]["dx"]);
+		assert!(num(&case["on"]["dx"]) > 1.0, "{name}: on the corner it goes on toward the pass, not at the player's feet (dx {})", case["on"]["dx"]);
+		assert!(num(&case["past"]["dx"]) > 1.0, "{name}: past the corner it goes on toward the pass (dx {})", case["past"]["dx"]);
+	}
+}
+
+// Outdoors a floor change the player came within REACH of stays passed for the path (0.4.0's border sweep: a dip 9
+// yd deep right after a walk's start, walked by at its edge toward an aim beyond it; once 5 yd past it the place on
+// the path stayed behind it for good and the arrow pointed at the player's feet). A path (0, 0, 0), (0, -8, -9) (the
+// dip: steeper than 45 degrees, a floor), (0, -29, 0), (0, -200, 0): 1 yd short of the dip's point, then 6 yd past it.
+#[test]
+fn outdoors_a_dip_walked_by_at_its_edge_stays_passed_the_player_s_place_on_the_path_moves_on() {
+	let out = run(&[
+		LOOK,
+		r#"
+		local function walk(indoors)
+			nav.indoors = indoors
+			N.ClearTarget()
+			nav.place(0, 0)
+			target(0, -200)
+			N.Sample()
+			answerZ({ { 0, 0, 0 }, { 0, -8, -9 }, { 0, -29, 0 }, { 0, -200, 0 } })
+			local c = N.GetTargetWorld()
+			look(0.5, -7, 0, -200)
+			local near = N.walk.Progress(c, 0, -200)
+			look(0.5, -14, 0, -200)
+			return { near = near and math.floor(near + 0.5) or -1, past = (N.walk.Progress(c, 0, -200) or -1) }
+		end
+		emit({ outdoors = walk(false), indoors = walk(true) })"#,
+	]
+	.concat());
+	assert_eq!(out["outdoors"]["near"], 7, "1 yd short of the dip: 7 yd along ({})", out["outdoors"]);
+	assert!(num(&out["outdoors"]["past"]) > 13.0, "6 yd past it: on along the path beyond it ({})", out["outdoors"]);
+	// Indoors (stairs, the Undercity's levels) a floor still holds until the player is within REACH of it.
+	assert!(num(&out["indoors"]["past"]) <= 8.5, "indoors the place stays at the floor's point ({})", out["indoors"]);
+}
+
+// A drop at the end of the player's own segment, a point they have not reached, stops the aim there (0.4.0's border
+// sweep: below Thunder Bluff, a walk to a lift that dropped into a hollow first). Measured from the drop's own floor,
+// the path beyond it lay on the aim's floor, so the aim ran on past the drop, the player walked to it along the top,
+// and their place on the path stayed behind the drop with the arrow at their feet. A path (0, 0, 0), (0, -12, -20)
+// (a drop steeper than 45 degrees), (0, -60, -20), (0, -200, -20): from the start the aim holds at the drop's point;
+// within REACH of it, on down the path.
+#[test]
+fn the_aim_stops_at_a_drop_that_ends_the_player_s_own_segment_until_they_reach_it() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.place(0, 0)
+		target(0, -200)
+		N.Sample()
+		answerZ({ { 0, 0, 0 }, { 0, -12, -20 }, { 0, -60, -20 }, { 0, -200, -20 } })
+		emit({ start = look(0, 0, 0, -200), near = look(0, -8, 0, -200) })"#,
+	]
+	.concat());
+	assert!(num(&out["start"]["dy"]) >= -12.0 - 1e-6, "from the start the aim holds at the drop's point ({} yd on)", out["start"]["dy"]);
+	assert!(num(&out["near"]["dy"]) < -20.0, "within REACH of it, on down the path ({} yd on)", out["near"]["dy"]);
+}
+
+// A pass the walk has passed stays passed when the walk is searched again from beside it (0.4.0's border sweep: the
+// route's step went from the target to the pass and back as the pass, a few yards ahead on the new path, was
+// reached at once). The pass of the case above, on a path (0, 0), (0, -100), (0, -300), passed at (0, -170); the
+// player then strays 40 yd off it, and the walk searched again from there goes back past the pass, 73 yd on: no
+// step to it again. Out past AGAIN (100 yd on) it would be one.
+#[test]
+fn a_pass_the_walk_has_passed_stays_passed_when_the_walk_is_searched_again_beside_it() {
+	let out = run(&[
+		LOOK,
+		r#"
+		nav.useTravelWorld()
+		PolestarNavChokepoints = { [0] = { { wx = 5, wy = -160, r = 10, kind = "pass", name = "Hollow Pass", zone = "Testshire" } } }
+		nav.place(0, 0)
+		target(0, -300)
+		N.Sample()
+		answerZ({ { 0, 0 }, { 0, -100 }, { 0, -300 } })
+		local function step()
+			local legs, ci = N.GetRoute()
+			return { n = #legs - ci, pass = legs[ci].choke and legs[ci].choke.kind or false }
+		end
+		local r = { first = step() }
+		look(0, -170, 0, -300)                         -- past the pass: on to the target
+		r.past = step()
+		local asked = #fake.calls
+		stub.advance(3)
+		look(40, -175, 0, -300)                        -- 40 yd off the path: searched again from here
+		r.asked = #fake.calls > asked
+		answerZ({ { 40, -175 }, { 0, -140 }, { 0, -300 } })
+		r.again = step()
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["first"], json!({ "n": 1, "pass": "pass" }), "the walk is split at the pass");
+	assert_eq!(out["past"], json!({ "n": 0, "pass": false }), "past it, on to the target");
+	assert_eq!(out["asked"], true, "straying searches the walk again");
+	assert_eq!(out["again"], json!({ "n": 0, "pass": false }), "the new path goes back past the pass: no step to it again");
+}
+
+// The two zones and the gate the zone replan cases walk through: West Vale and East Vale, joined by a gate at
+// (600, +-20); from (-500, 500) in West Vale to Kobolds at (-500, -500) in East Vale. walk(gate, direct): the walk to
+// the gate is answered with the path `gate` (from the start), which dips into East Vale at (0, -10); there a zone
+// change plans again (the target walked to straight: it saves minutes), the walk to the target is answered with
+// `direct` (from (0, -10)), and a step back into West Vale at (-3, 4), beside that walk, plans again. -> the route's
+// labels before, in East Vale and back in West Vale.
+const ZONE_REPLAN: &str = r#"
+N.RegisterCrossings({ complete = true,
+	zones = {
+		[9002] = { name = "West Vale", c = 0, top = 1000, bottom = -1000, left = 1000, right = 0 },
+		[9003] = { name = "East Vale", c = 0, top = 1000, bottom = -1000, left = 0, right = -1000 },
+	},
+	crossings = { { id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 20, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 },
+		ab = "Through the gate to East Vale" } } })
+local function route()
+	local legs, ci = N.GetRoute()
+	local out = {}
+	for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].label end
+	return out
+end
+local function walk(gate, direct)
+	local r = {}
+	nav.place(-500, 500)
+	target(-500, -500, "Kobolds")
+	aim()
+	fake.resolve(unpack(gate))
+	r.west = route()
+	nav.place(-250, 245)
+	aim()
+	nav.place(0, -10)                              -- in East Vale, on the walk
+	aim()
+	stub.fire("ZONE_CHANGED")
+	r.east = route()
+	aim()
+	fake.resolve(unpack(direct))
+	aim()
+	nav.place(-3, 4)                               -- a step back into West Vale, beside that walk
+	aim()
+	stub.fire("ZONE_CHANGED")
+	r.back = route()
+	return r
+end
+"#;
+
+// Planned again for a zone change, the route goes another way only when that saves time (Travel.Replan's soft
+// replan, keepLive): planned from each side of a zone border the player's walk crosses, the two ways differed only
+// in the zone the plan started in, and the arrow turned back at every step across it (0.4.0's border sweep: from
+// Stonetalon Mountains into the Barrens, up to 118 times in 4 minutes). With straight walks: in East Vale the target
+// is walked to straight (it saves minutes: taken); a step back over the border, the way through the gate is planned
+// again from West Vale, and the walk the player is on stays.
+#[test]
+fn a_zone_change_on_the_walk_keeps_the_route_unless_the_fresh_plan_saves_time() {
+	let out = run(&[ZONE_REPLAN, r#"emit(walk({ -500, 500, 0, -10, 600, 20 }, { 0, -10, -500, -500 }))"#].concat());
+	assert_eq!(out["west"], json!(["Through the gate to East Vale", "Through the gate to East Vale", "Kobolds"]), "{out}");
+	assert_eq!(out["east"], json!(["Kobolds"]), "in East Vale the target is walked to straight: it saves minutes");
+	assert_eq!(out["back"], json!(["Kobolds"]), "a step back over the border keeps the walk the player is on");
+}
+
+// A fresh plan prices a walk it has not searched by its straight line, the live one by its path. With winding walks
+// (the walk to the gate 1,410 yd on from (0, -10), the walk to the target 2,526 yd): the way through the gate, left
+// for the straight walk in East Vale, is planned again from West Vale at its straight-line 329 s, against the 363 s
+// along the path the player is on, and would be taken back; it costs what its walk had left when it was left (421 s),
+// so the walk the player is on stays (0.4.0's border sweep: from Stonetalon Mountains into the Barrens, a walk through
+// a pass 351 s along its path but 60 s by its straight line, against the walk to the crossing).
+#[test]
+fn a_way_the_route_left_costs_what_its_walk_had_left_when_a_zone_change_plans_it_again() {
+	let out = run(&[ZONE_REPLAN, r#"emit(walk({ -500, 500, 0, -10, 0, -400, 600, -400, 600, 20 }, { 0, -10, 0, -950, -950, -950, -500, -500 }))"#].concat());
+	assert_eq!(out["east"], json!(["Kobolds"]), "in East Vale the target is walked to straight: {out}");
+	assert_eq!(out["back"], json!(["Kobolds"]), "the way through the gate costs what its walk had left: the walk the player is on stays");
 }
 
 // The path for the hillside cases: a corner 100 yd on and 10 yd lower (a hillside, not a floor), then on round it.
@@ -426,15 +654,49 @@ end
 "#;
 
 #[test]
-fn outdoors_a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_indoors_6_yd_is_still_a_floor() {
+fn a_hillside_corner_cut_wide_never_holds_the_arrow_back_on_it_outdoors_or_indoors() {
 	let outdoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(false))"].concat());
 	// 0.3.6: a corner 6+ yd lower held the projection until the player came within 5 yd of it, so past it the arrow
 	// pointed back at it (Fitz in Desolace, 0.3.7). Outdoors a slope this gentle is no floor.
 	assert!(num(&outdoors["worst"]) < 0.0, "outdoors the arrow never points back against the way walked (worst {})", outdoors["worst"]);
 	assert_eq!(outdoors["atCorner"], 0, "outdoors it never aims at the corner once past it");
-	// Indoors (a building's stairs, the Undercity's levels) every 6 yd is a floor, as before.
+	// 0.3.8 (the arrow replay): indoors too, a gentle slope that runs on is no floor (a tunnel's or a mine's corner, a
+	// city's ramp: 772 such places on the baked legs held it; Follow.Mark finds no part of this path above another).
 	let indoors = run(&[LOOK, HILLSIDE, "\n\t\temit(cut(true))"].concat());
-	assert!(num(&indoors["atCorner"]) > 0.0, "indoors the corner 10 yd lower still holds it ({})", indoors["atCorner"]);
+	assert!(num(&indoors["worst"]) < 0.0, "indoors the arrow never points back against the way walked (worst {})", indoors["worst"]);
+	assert_eq!(indoors["atCorner"], 0, "indoors it never aims at the corner once past it");
+}
+
+// Indoors where the path doubles back over itself, any 6 yd is still a floor (Follow.Mark): a switchback ramp down 7
+// yd over 30 yd south, 8 yd east across the turn and back north 7 yd lower (a spiral stair, the Undercity's ramps).
+// Walking down the upper ramp and drifting east to its edge, 1 yd from the lower one and 7 yd from its own line, the
+// player's place stays on the upper ramp: the lower one is never taken for it (it would be with 45° at every point
+// indoors: nothing then holds the place at the ramp's turn).
+const SWITCHBACK: &str = r#"
+local pts = { { 0, 0, 0 }, { 0, -30, -7 }, { 8, -30, -7.5 }, { 8, 0, -14 }, { 8, 40, -14 } }
+local function down(indoors)
+	nav.indoors = indoors
+	nav.place(0, 0)
+	target(8, 40)
+	N.Sample()
+	answerZ(pts)
+	look(0, 0, 8, 40)
+	local c = N.GetTargetWorld()
+	local out = {}
+	for k = 1, 6 do
+		look(math.min(7, 1.5 * k), -3 * k, 8, 40)
+		local along = N.walk.Progress(c, 8, 40)
+		out[#out + 1] = along and math.floor(along + 0.5) or -1
+	end
+	return out
+end
+"#;
+
+#[test]
+fn indoors_where_the_path_doubles_back_over_itself_the_player_s_place_never_jumps_to_the_ramp_below() {
+	let out = run(&[LOOK, SWITCHBACK, "\n\t\temit(down(true))"].concat());
+	let along: Vec<f64> = out.as_array().unwrap().iter().map(num).collect();
+	assert!(along.iter().all(|a| (0.0..=30.0).contains(a)), "on the upper ramp (0-30 yd along), never the lower (38 yd on): {along:?}");
 }
 
 // The path for the look ahead on the path: 160 yd straight on, a right-angle corner, then 340 yd on, in open ground
@@ -3628,6 +3890,115 @@ fn t_234_floor_on_a_map_with_areas_the_floor_is_the_surface_the_client_s_subzone
 	assert_eq!(out["corrected"], -45, "the subzone names the ring: the floor followed on the hall's level is corrected");
 }
 
+// Reaperwest in the Apothecarium on a Spanish (Latin America) client (#2244): the client names the subzone in its
+// own language ("El Apothecarium") and the walking maps name their areas in English, so on every other language no
+// floor matched and the walk started from a floor above. The language folder's Subzones.lua (`forge data
+// subzones`) names each area as that language's client does; a row it does not name is named as in English. The
+// rows and names are the Undercity's, as the Forever client's tables give them.
+const UNDERCITY: &str = r#"
+nav.indoors = true
+SUB = ""
+Polestar.Compat.GetZoneText = function() return "Undercity", SUB ~= "" and SUB or nil end
+-- The Apothecarium's floor, the canal ring's walkway over it, the Ruins' hall, and a row the language folder does
+-- not name (its name in that language is the English one).
+fake.areaNames = { [141154] = "The Apothecarium", [141153] = "Canals", [141070] = "Ruins of Lordaeron", [9001] = "Bandit Hideout" }
+fake.surfaces = function() return { -85, -64, 62, 80, [-1] = 2, [-2] = 2, [-3] = 2, [-4] = 2, area = { 141154, 141153, 141070, 9001 } } end
+local function fresh(sub)
+	SUB = sub
+	nav.place(0, 300)
+	stub.advance(3)
+	N.Sample()
+	nav.place(0, 50)
+	stub.advance(0.3)
+	N.Sample()
+	return startZ()
+end
+"#;
+
+/// `script` on a client in `locale` whose language folder names the Undercity's rows (the Apothecarium, Canals,
+/// Ruins of Lordaeron) `names`, with Core/Names.lua in; the script loads the folder (Core/Locale.lua at startup).
+fn run_in(locale: &str, names: [&str; 3], script: &str) -> Value {
+	let pack = language_pack(locale, &[], &[(141154, names[0]), (141153, names[1]), (141070, names[2])]);
+	emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		before: format!("{ENGINE}\nfunction GetLocale() return {} end\n{}", lua_string(locale), pack.stub_lua),
+		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/LuaChunks.lua", "Core/Names.lua", "Nav/Nav.xml"])],
+		login: true,
+		script: format!("{PRELUDE}\n{FLOORS}\n{UNDERCITY}\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+/// On a client in `locale` whose folder names the Apothecarium, Canals and Ruins of Lordaeron `names`: the floor each
+/// subzone in that language names at once, the English name of a translated row naming none, a row the folder does
+/// not name by its English name.
+fn floors_named_in(locale: &str, names: [&str; 3]) {
+	let out = run_in(
+		locale,
+		names,
+		&format!(
+			r#"
+			C_AddOns.LoadAddOn(Polestar.Names.PackName())
+			local r = {{}}
+			r.apothecarium = fresh({})
+			r.canal = fresh({})
+			r.ruins = fresh({})
+			r.english = fresh("The Apothecarium")
+			r.same = fresh("Bandit Hideout")
+			r.none = fresh("")
+			emit(r)"#,
+			lua_string(names[0]),
+			lua_string(names[1]),
+			lua_string(names[2])
+		),
+	);
+	assert_eq!(out["apothecarium"], -85, "{locale}: the Apothecarium's floor at once");
+	assert_eq!(out["canal"], -64, "{locale}: the canal ring's walkway");
+	assert_eq!(out["ruins"], 62, "{locale}: the Ruins' hall");
+	assert_eq!(out["english"], "none", "{locale}: a row named in this language is no longer named in English");
+	assert_eq!(out["same"], 80, "{locale}: a row the folder does not name keeps its English name");
+	assert_eq!(out["none"], "none", "{locale}: no subzone: unknown");
+}
+
+#[test]
+fn t_2244_floor_on_a_spanish_latin_america_client_its_subzone_names_the_floor() {
+	floors_named_in("esMX", ["El Apothecarium", "Canales", "Ruinas de Lordaeron"]);
+}
+
+#[test]
+fn t_2244_floor_on_a_german_client_its_subzone_names_the_floor() {
+	floors_named_in("deDE", ["Das Apothekarium", "Die Kanäle", "Die Ruinen von Lordaeron"]);
+}
+
+#[test]
+fn t_2244_floor_on_a_russian_client_its_subzone_names_the_floor() {
+	floors_named_in("ruRU", ["Квартал аптекарей", "Каналы", "Руины Лордерона"]);
+}
+
+#[test]
+fn t_2244_floor_on_a_simplified_chinese_client_its_subzone_names_the_floor() {
+	floors_named_in("zhCN", ["炼金房", "运河", "洛丹伦废墟"]);
+}
+
+#[test]
+fn t_2244_floor_the_language_folder_refused_in_combat_leaves_the_floor_to_movement_until_it_loads_never_keeping_the_english_names() {
+	let out = run_in(
+		"esMX",
+		["El Apothecarium", "Canales", "Ruinas de Lordaeron"],
+		r#"
+		Polestar.Data = { Pack = function() return false, "combat" end }
+		local r = {}
+		r.pending = fresh("El Apothecarium")
+		Polestar.Data.Pack = function(name) return C_AddOns.LoadAddOn(name) end
+		stub.fire("PLAYER_REGEN_ENABLED")
+		r.loaded = fresh("El Apothecarium")
+		emit(r)"#,
+	);
+	assert_eq!(out["pending"], "none", "the folder not in: the rows' English names, no match");
+	assert_eq!(out["loaded"], -85, "once it is in, its names: the English ones read meanwhile were not kept");
+}
+
 #[test]
 fn t_234_floor_the_router_may_drop_the_floor_s_cluster_when_the_target_is_cleared_or_the_arrow_has_not_updated_for_2_s() {
 	let out = run(&[
@@ -4142,4 +4513,165 @@ fn a15_following_the_arrow_over_a_bend_with_a_wobble_the_yards_never_count_up() 
 		let up = counted_up(&out);
 		assert!(up <= 1.0, "wobble {j} yd: the yards counted up {up:.1} yd");
 	}
+}
+
+// #1543's near walk over a closed zone border, probed first (Walk.Probe, Travel.NearWalk). The target 200 yd east of
+// the player in West Vale, over its border with East Vale; the gate 1100 yd north.
+const NEAR: &str = r#"
+local T = N.travel
+N.RegisterCrossings({ complete = true,
+	zones = {
+		[9002] = { name = "West Vale", c = 0, top = 1000, bottom = -1000, left = 1000, right = 0 },
+		[9003] = { name = "East Vale", c = 0, top = 1000, bottom = -1000, left = 0, right = -1000 },
+	},
+	crossings = { { id = "gate", a = { map = 9002, c = 0, wx = 600, wy = 20, r = 15 }, b = { map = 9003, c = 0, wx = 600, wy = -20, r = 15 },
+		ab = "Through the gate to East Vale" } } })
+local function route()
+	local legs, ci = N.GetRoute()
+	local out = {}
+	for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+	return out
+end
+-- Every field of a value, nested tables included (keys sorted, five levels deep), as one string.
+local function dump(v, depth)
+	if type(v) ~= "table" then return tostring(v) end
+	depth = depth or 0
+	if depth > 4 then return "{...}" end
+	local keys = {}
+	for k in pairs(v) do keys[#keys + 1] = k end
+	table.sort(keys, function(a, b) return tostring(a) < tostring(b) end)
+	local out = {}
+	for i, k in ipairs(keys) do out[i] = tostring(k) .. "=" .. dump(v[k], depth + 1) end
+	return "{" .. table.concat(out, ",") .. "}"
+end
+-- The engine's latest search for the near walk: to the target, not the arrow's own (urgent).
+local function probe()
+	for i = #fake.calls, 1, -1 do
+		local job = fake.calls[i]
+		if not job.urgent and job.to and floor(job.to.x + 0.5) == -500 and floor(job.to.y + 0.5) == -100 then return job end
+	end
+end
+-- From (-500, 100) to `label` at (-500, -100): the route's legs, every field of them, and the route's version.
+local function start(label)
+	N.ClearTarget()
+	nav.place(-500, 100)
+	target(-500, -100, label)
+	aim()
+	local legs = N.GetRoute()
+	return legs, dump(legs), T.version
+end
+local SHORT = { -500, 100, -520, 0, -500, -100 }                -- 204 yd
+local LONG = { -500, 100, 600, 20, 600, -20, -500, -100 }       -- round by the gate, 2246 yd
+"#;
+
+// The plan is the gate's way while the engine is asked, apart from the arrow's own search, for the walk to the target.
+// A short path plans the near walk, one leg, which later plans keep, out to 700 yd from the target (where the planner
+// alone would take the gate); a long one or none changes nothing (the same legs, untouched, no new route), and later
+// plans keep the gate's way.
+#[test]
+fn the_near_walk_over_a_closed_zone_border_is_planned_only_once_the_engine_finds_it_short_1543() {
+	let out = run(&format!(
+		"{NEAR}{}",
+		r#"
+		local function try(label, answer)
+			local legs, before, version = start(label)
+			local res = { planned = route(), probed = probe() ~= nil }
+			answer(probe())
+			aim()
+			local after = N.GetRoute()
+			res.after = route()
+			res.untouched = rawequal(after, legs) and dump(after) == before and T.version == version
+			T.Replan()
+			res.again = route()
+			return res
+		end
+		local r = {}
+		r.short = try("Short", function(job) fake.answerXY(job, SHORT) end)
+		nav.place(-500, 450)
+		T.Replan()
+		r.hold = route()
+		r.long = try("Long", function(job) fake.answerXY(job, LONG) end)
+		r.none = try("None", function(job) job.callback(nil, "unreachable", job) end)
+		emit(r)"#
+	));
+	let gate = |label: &str| json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", format!("walk|{label}")]);
+	assert_eq!(out["short"]["planned"], gate("Short"), "planned the gate's way");
+	assert_eq!(out["short"]["probed"], true, "the engine is asked for the walk to the target");
+	assert_eq!(out["short"]["after"], json!(["walk|Short"]), "a 204 yd path: the near walk, one leg");
+	assert_eq!(out["short"]["again"], json!(["walk|Short"]), "and planned again");
+	assert_eq!(out["hold"], json!(["walk|Short"]), "550 yd off, past 400: the walk found short holds");
+	for (k, label) in [("long", "Long"), ("none", "None")] {
+		assert_eq!(out[k]["planned"], gate(label), "{k}: planned the gate's way");
+		assert_eq!(out[k]["probed"], true, "{k}: the engine asked");
+		assert_eq!(out[k]["after"], gate(label), "{k}: still the gate's way");
+		assert_eq!(out[k]["untouched"], true, "{k}: the same legs, every field as it was, no new route");
+		assert_eq!(out[k]["again"], gate(label), "{k}: and the next plan keeps it");
+	}
+}
+
+// A near walk longer than 1.5 x straight + 100 yd but never out of the hold (at most 2 x 700 less the straight yards)
+// is weighed against the way without it, whose last walk (from the gate's far end) the engine is asked for too: from
+// 1,100 yd west of the gate, the 1,000 yd walk round the hill beats the gate's way (1,100 yd to the gate, its far
+// end 1,100 yd from the target) and is planned; 100 yd from the gate, the gate's way (130 yd there, 130 yd on) beats
+// the same walk and stays, untouched. Darkcloud Pinnacle's plateau walk is the real case (nav-e2e).
+#[test]
+fn a_longer_near_walk_that_stays_within_the_hold_is_planned_only_when_the_way_without_it_measures_longer_still_1543() {
+	let out = run(&format!(
+		"{NEAR}{}",
+		r#"
+		local function probeTo(x, y, after)
+			for i = #fake.calls, (after or 0) + 1, -1 do
+				local job = fake.calls[i]
+				if not job.urgent and job.to and floor(job.to.x + 0.5) == x and floor(job.to.y + 0.5) == y then return job, i end
+			end
+		end
+		local function try(sx, label, ty, path, rest)
+			N.ClearTarget()
+			nav.place(sx, 100)
+			target(sx, ty, label)
+			aim()
+			local legs, before = N.GetRoute(), nil
+			before = dump(legs)
+			local first, at = probeTo(sx, ty)
+			fake.answerXY(first, path)
+			aim()
+			local second = probeTo(sx, ty, at)
+			if second then fake.answerXY(second, rest) end
+			aim()
+			local after = N.GetRoute()
+			return { asked = second ~= nil, after = route(), untouched = rawequal(after, legs) and dump(after) == before }
+		end
+		emit({
+			far = try(-500, "Far", -100, { -500, 100, -100, 100, -100, -100, -500, -100 }, { 600, -20, -500, -100 }),
+			near = try(500, "Near", -100, { 500, 100, 100, 100, 100, -100, 500, -100 }, { 600, -20, 500, -100 }),
+		})"#
+	));
+	assert_eq!(out["far"]["asked"], true, "the gate's last walk is measured");
+	assert_eq!(out["far"]["after"], json!(["walk|Far"]), "1,000 yd round the hill beats the gate's 2,200: the near walk");
+	assert_eq!(out["near"]["asked"], true, "the gate's last walk is measured");
+	assert_eq!(out["near"]["after"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Near"]), "the gate's 300 yd beat 1,000: the gate's way");
+	assert_eq!(out["near"]["untouched"], true, "the same legs, every field as it was, no new route");
+}
+
+// A near walk the engine finds long leaves the plan byte for byte the one made with no near walk at all (no engine to
+// ask): every field of every leg, before the answer and after it.
+#[test]
+fn a_dropped_near_walk_leaves_the_plan_byte_identical_to_the_one_without_it_1543() {
+	let script = format!(
+		"{NEAR}{}",
+		r#"
+		local legs, before, version = start("Kobolds")
+		local job = probe()
+		if job then fake.answerXY(job, LONG) end
+		aim()
+		local after = N.GetRoute()
+		emit({ probed = job ~= nil, route = route(), before = before, after = dump(after), untouched = rawequal(after, legs) and T.version == version })"#
+	);
+	let with = run(&script);
+	let without = run_with(&script, false, false);
+	assert_eq!((with["probed"].clone(), without["probed"].clone()), (json!(true), json!(false)), "the engine asked only when there is one");
+	assert_eq!(with["route"], json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]));
+	assert_eq!(with["before"], without["before"], "planned: every field of every leg as with no near walk at all");
+	assert_eq!(with["after"], without["after"], "after the long answer: still");
+	assert_eq!(with["untouched"], true, "the same legs, no new route");
 }

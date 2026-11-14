@@ -1,16 +1,16 @@
 'use strict';
 // Quests a later guide hands in (#1683): the guide window's "Keep this: you
-// hand it in later in Badlands" under a goal (UI.CarriedLine, a goal's
+// hand it in later in Desolace" under a goal (UI.CarriedLine, a goal's
 // `carriedTo`), and the guide-end window's "Carried to later guides" list
 // (UI/GuideEnd.lua, Engine.CarriedQuests). A level 35 Human Warrior on the
 // shipped Desolace guide (alliance 30-40/02) at "Tyranis and the Seer", the
 // Sceptre of Light (quest 5741) in the log. The compiled guides predate the
 // writer's `carriedTo`, so the shot puts it on 5741's goals as forge
-// emits it (forever/alliance/30-40/06-badlands); the list's quests are set
+// emits it (forever/alliance/30-40/06b-desolace, the south loop); the list's quests are set
 // by the shot. Needs a checkout with UI.CarriedLine (--checkout <worktree>).
 
 const GUIDE = 'forever/alliance/30-40/02-desolace';
-const BADLANDS = 'forever/alliance/30-40/06-badlands';
+const SOUTH_LOOP = 'forever/alliance/30-40/06b-desolace';
 
 const STEP = (title, extra = '') => `local E = Polestar.Engine
 -- The quest first: taking it can move steps in the engine's route plan.
@@ -21,7 +21,7 @@ local g = E.GetGuide()
 local at
 for i, st in ipairs(g.steps) do
 	for _, goal in ipairs(st.goals) do
-		if goal.quest == 5741 then goal.carriedTo = "${BADLANDS}" end
+		if goal.quest == 5741 then goal.carriedTo = "${SOUTH_LOOP}" end
 	end
 end
 -- The step's place as the engine orders them (its route plan may move steps).
@@ -38,12 +38,12 @@ Polestar.UI.GuideFrame.Layout()
 stub.advance(0.5)`;
 
 const QUESTS = [
-	[5741, 'The Sceptre of Light', BADLANDS],
+	[5741, 'The Sceptre of Light', SOUTH_LOOP],
 	[1455, 'The Third Fleet', 'forever/alliance/30-40/05-arathi-highlands'],
 	[1439, 'Search for Tyranis', 'forever/alliance/30-40/04b-stranglethorn-vale'],
-	[1462, 'Kodo Roundup', BADLANDS],
+	[1462, 'Kodo Roundup', SOUTH_LOOP],
 	[5381, 'Hand of Iruxos', 'forever/alliance/30-40/05-arathi-highlands'],
-	[1484, 'The Corrupter', BADLANDS],
+	[1484, 'The Corrupter', SOUTH_LOOP],
 	[6142, 'Clam Bait', 'forever/alliance/30-40/04-stranglethorn-vale'],
 	[1437, 'Vahlarriel\'s Search', 'forever/alliance/30-40/06-badlands'],
 ];

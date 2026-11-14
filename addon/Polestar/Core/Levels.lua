@@ -54,7 +54,7 @@
 --   Levels.QuestLevel(qid[, g]) -> level | nil  -- guide g's own (an accept's
 --       qlvl), else the Codex's while loaded, else the client's
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
---   Levels.Share(playerLevel, questLevel) -> 1, 0.8, 0.6, 0.4, 0.2 or 0.1
+--   Levels.Share(playerLevel, questLevel) -> 1, 0.8, 0.6 or 0.5
 --   Levels.MobXP(playerLevel, mobLevel, elite) -> XP for one kill
 --
 -- The rules are the tools' (tools/lib/game/xp.js; tests/levels.test.js keeps
@@ -83,12 +83,13 @@ local MAX_LEVEL = 60
 Levels.LEVEL_XP, Levels.MAX_LEVEL = LEVEL_XP, MAX_LEVEL
 
 -- Share of a quest's reward by player level - quest level: full up to 5
--- levels above it, then 80/60/40/20%, and 10% from 10 above.
-local SHARE = { 0.8, 0.6, 0.4, 0.2 }
+-- levels above it, 80% at 6, 60% at 7, and half from 8 above on (what
+-- Forever pays, from players' recordings).
+local SHARE = { 0.8, 0.6 }
 local function share(plevel, qlevel)
 	local d = plevel - (qlevel or plevel)
 	if d <= 5 then return 1 end
-	if d >= 10 then return 0.1 end
+	if d >= 8 then return 0.5 end
 	return SHARE[d - 5]
 end
 Levels.Share = share

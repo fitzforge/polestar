@@ -341,3 +341,71 @@ fn a_timed_quest_the_route_hands_in_gets_no_off_route_row() {
 	assert_eq!(out["off"], 0);
 	assert!(!s(&out["row"]).contains("doesn't go there"), "{}", out["row"]);
 }
+
+// 3F-C7 (0.3.8): Nori's delivery, with a walk out to the farm (80,80) on the route before Durnan's hand-in (20,60). The
+// route's way to Durnan (to the farm first: about 9 minutes) gets in after a 5-minute timer runs out while the way
+// straight there (2:30) makes it: the hand-in is pulled forward, the arrow leads to Durnan ahead of the farm, and the
+// While-here panel opens with the quest's row saying why. With time for the route (15 minutes), with the way straight
+// there too long as well, or with the quest not ready to hand in, the arrow stays on the step; a right-click on the row
+// lets the route be.
+const PULL: &str = r#"
+Polestar.RegisterGuide({ id = "test/pull", pack = "test", title = "Pull", minLevel = 1, maxLevel = 10, steps = {
+	{ title = "Nori", goals = {
+		{ t = "accept", quest = 3364, title = "Scalding Mornbrew Delivery", npc = 12738, npcName = "Nori Pridedrift", minLevel = 4, qlvl = 5, limit = LIMIT,
+			map = 1429, x = 47.6, y = 45.1 },
+	} },
+	{ title = "Farm", goals = { { t = "goto", map = 1429, x = 80.0, y = 80.0, label = "The farm" } } },
+	{ title = "Durnan", goals = {
+		{ t = "turnin", quest = 3364, title = "Scalding Mornbrew Delivery", npc = 836, npcName = "Durnan Furcutter", map = 1429, x = 20.0, y = 60.0 },
+	} },
+} })
+"#;
+
+fn run_pull(limit: u32, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::name("Polestar")],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/pull" }"#.into())],
+		script: [TEST_PACK, TEST_SOURCE, &PULL.replace("LIMIT", &limit.to_string()), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, OFF_ROUTE, script].join("\n"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const PULL_SCRIPT: &str = r#"
+	local way = WAY
+	Polestar.Nav.EstimateTravel = function() return way end
+	local function aim() local wp = E.GetWaypoint(); return wp and (wp.stepIndex .. ":" .. wp.goalIndex) or false end
+	w.accept(3364, OBJECTIVES, "Scalding Mornbrew Delivery"); stub.advance(1.1)
+	jump(6)
+	local T = Polestar.Timed
+	local r = { live = E.GetLiveStep(), aim = aim(), row = here(), pulling = T.Pulling() or false, way = T.Way(3364) or false,
+		left = math.floor((T.Left(3364) or -1) + 0.5), route = math.floor((E.RouteSeconds(3364) or -1) + 0.5) }
+	if GF.here.Rows[1] then click("RightButton") end
+	jump(6)
+	r.muted = { aim(), here() }
+	emit(r)
+"#;
+
+fn pull(limit: u32, way: u32, ready: bool) -> Value {
+	let objectives = if ready { "{}" } else { "{ 5 }" };
+	run_pull(limit, &PULL_SCRIPT.replace("WAY", &way.to_string()).replace("OBJECTIVES", objectives))
+}
+
+#[test]
+fn a_timed_hand_in_the_route_would_reach_too_late_is_pulled_forward_ahead_of_the_steps_errands_3f_c7() {
+	let pulled = pull(300, 150, true);
+	assert_eq!(pulled["live"], 2, "the live step stays the farm");
+	assert_eq!(pulled["aim"], "3:1", "the arrow leads to Durnan's hand-in now: {pulled}");
+	let row = s(&pulled["row"]);
+	assert!(row.starts_with("Scalding Mornbrew Delivery"), "{row}");
+	assert!(row.contains(" left / Durnan Furcutter ≈3 min · go now, the route gets there too late"), "{row}");
+	assert_eq!(pulled["muted"], serde_json::json!(["2:1", ""]), "a right-click lets the route be: the farm again, no row");
+	let roomy = pull(900, 150, true);
+	assert_eq!(serde_json::json!([&roomy["aim"], &roomy["row"]]), serde_json::json!(["2:1", ""]), "15 minutes: time for the route");
+	let hopeless = pull(300, 400, true);
+	assert_eq!(hopeless["aim"], "2:1", "the way straight there is too long too: nothing to win, the route as before");
+	let unready = pull(300, 150, false);
+	assert_eq!(unready["aim"], "2:1", "not ready to hand in: nothing to pull");
+}

@@ -14,7 +14,7 @@ page says which part is which.
 | `Polestar_Guides` | Polestar's own guide pack (pack id `guides`): every guide under `guides/`, compiled to Lua. Loads with Polestar. | `compile`, from `guides/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_Experimental` | Polestar's experimental guides (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha), from `experimental/`. Loaded on demand: off until the player switches it on under Options > Community guides, then loaded, and at every login while it stays on; never suggested. | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_ItemDB` | Item stats for the gear advice (`Items.lua`) and Forever item stats with quest reward choices (`Forever.lua`). Loaded on demand. | `forge data itemdb`, then `forge data gear` | yes (generated) | yes, in `Polestar-<version>.zip` |
-| `Polestar_<locale>` | One language folder per client language (`deDE` … `zhTW`): Polestar's interface strings in that language (`Interface.lua`, kept by translators and `forge i18n sync`), our guides' texts in that language (`Texts.lua`, from `guides/locales/<locale>/`) and the quest, NPC, object and item names of Polestar's guides, quest database and Codex in it (`Names.lua`, from the client's tables, DingDB and pfQuest: `LICENSE-DATA.txt`, Ding's `CREDITS.md`). Loaded on demand by `Core/Locale.lua` while Polestar loads, only the client's own; none on an English client. Before 0.3.0 these were two folders per language, `Polestar_Guides_<locale>` and `Polestar_Names_<locale>`. | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`); both write the same TOC, which lists `Interface.lua` too | yes (generated) | yes, in `Polestar-<version>.zip` |
+| `Polestar_<locale>` | One language folder per client language (`deDE` … `zhTW`): Polestar's interface strings in that language (`Interface.lua`, kept by translators and `forge i18n sync`), our guides' texts in that language (`Texts.lua`, from `guides/locales/<locale>/`) the quest, NPC, object and item names of Polestar's guides, quest database and Codex in it (`Names.lua`, from the client's tables, DingDB and pfQuest: `LICENSE-DATA.txt`, Ding's `CREDITS.md`) and the walking maps' areas named as the client names the subzone there (`Subzones.lua`, from the client's tables, for the arrow's floor by subzone). Loaded on demand by `Core/Locale.lua` while Polestar loads, only the client's own; none on an English client. Before 0.3.0 these were two folders per language, `Polestar_Guides_<locale>` and `Polestar_Names_<locale>`. | `forge guide compile` (`Texts.lua`), `forge data names` (`Names.lua`) and `forge data subzones` (`Subzones.lua`); each writes the same TOC, which lists `Interface.lua` too | yes (generated) | yes, in `Polestar-<version>.zip` |
 | `Polestar_QuestDB` | The quest database behind the quest markers, available-quest markers, tooltips and nameplate icons. Loaded on demand. | `forge data questdb`, from `data/forever` | no (gitignored, built locally) | yes, in `Polestar-<version>.zip` when built |
 | `Polestar_Codex` | Lookup's Codex: items, mounts, pets, recipes, NPCs, rares, quests, zones, dungeons and treasures with where each comes from; also the Dungeons and Rares data. Loaded on demand. | `forge data codex` | no (gitignored, built locally) | no: `install` copies it when built, `pack` never packages it |
 | `Polestar_Nav` | The arrow's walking routes: Polestar's walking router (`Routing/`, started from [Shortest Path Forever](https://github.com/cjber/shortest-path-forever)'s by Cillian Berragan, GPL-3.0-or-later, used with his permission, and Polestar's since 2026-10-16; `CREDITS.md`), pricing each step by its ground class and the player's faction (`Routing/Costs.lua`), on the walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 5: Leffe's navigation maps, with the walk's chokepoints and our floors' area names; format 3 from our grid without `--leffe`). `API.lua` hands the engine to Polestar as `Polestar_NavEngine`; it reads only its own maps (`PolestarPathData`), also with Shortest Path Forever installed. Loaded on demand at login. | the router hand-written; `forge nav pack --leffe` (the maps and `Chokepoints.lua`, `PACK.json`); the maps never edited by hand | yes (the maps generated) | yes, in `Polestar-<version>.zip` |
@@ -80,12 +80,15 @@ never in saved variables.
 | `Compat.lua` | `Compat` | Every quest, map and unit client call, in one place, so tests can swap it for a fake; also the one copy of the client helpers every module shares: `IsSecret` and `Readable` (secret values from combat-restricted APIs), `Now` (the server clock) and `MapName` (the client's map name, else the Codex zone's) |
 | `Data.lua` | `Data` | Loads the load-on-demand data addons (`Data.Pack(name)`) |
 | `Locale.lua` | – | Loads the client's language folder `Polestar_<locale>` (interface strings, names, guide texts) right after `GuideTexts.lua`, before any file reads `L` at load; nothing on an English client, English when the folder is missing |
-| `Names.lua` | `Names` | Quest, NPC, object and item names in the client's language: the client's own, else its language folder `Polestar_<locale>`'s `Names.lua`, loaded on demand; nil (English) on an English client |
+| `Names.lua` | `Names` | Quest, NPC, object and item names in the client's language: the client's own, else its language folder `Polestar_<locale>`'s `Names.lua`, loaded on demand; the walking maps' areas as the client names the subzone there (kind `subzone`, the folder's `Subzones.lua`); nil (English) on an English client |
 | `Hooks.lua` | `Hooks` | The one owner of the tooltip and item-click hooks; modules add lines and handle clicks through it |
 | `Guides.lua` | `Guides` | The guide registry: packs, guides and map frames registered at load time, and the queries behind the guide menu (lists, suggestions) |
 | `Search.lua` | `Search` | One search over guides and every Codex entity, for the hub's search box and Lookup |
 | `Engine.lua` | `Engine` | The guide engine: the current step, each goal's status, where the waypoint points; progress recomputed from live client state |
 | `API.lua` | `API` | What other addons may build on, versioned by `API.version` ([docs/API.md](../docs/API.md)); `ReplaceSteps` gives a registered guide new steps in its own tab |
+| `Materials.lua` | `Materials` | A profession guide's materials gathered or bought, one way at a time (Gather, Buy or Mix per character and guide), what the character holds (bags, bank, mail, purchases on their way, other characters), prices, and the Auction House search |
+| `Gather.lua` | `Gather` | While you're here's gathering spots: where each herb, ore vein and fishing pool the character gathers can spawn, the minimap's tracking and the Interact Key's pick |
+| `GatherData.lua` | (registers data) | Generated: each gathering node kind's spots and the skill it asks |
 | `ClassTrainers.lua` | (registers data) | Generated: one class trainer per town and class, for the class-training reminder |
 | `Automation.lua` | `Automation` | Accepts and turns in the quests the guide wants right now |
 | `Commands.lua` | `Bindings` | Guide slash commands and key binding labels |
@@ -119,6 +122,7 @@ never in saved variables.
 | `Tracker.lua` | `QuestDB` | Quest markers on the map: objectives, turn-ins and quest givers with quests available now |
 | `Tooltips.lua` | `QuestDB` | Quest lines on unit, item and object tooltips; quest icons on nameplates |
 | `QuestLevels.lua` | (local) | Quest levels before quest titles wherever the client draws a title without one |
+| `AuctionBuys.lua` | `AuctionBuys` | Which quest items of the running guide and the quest log an auction house can sell: tradeable, sold by no merchant, a long farm or dropped by nothing |
 | `Options.lua` | `QuestDB.OPTIONS` | The quest settings and the `/polestar questdb` command |
 
 ### Gear
@@ -130,6 +134,7 @@ never in saved variables.
 | `SpecData.lua` | `Gear` | Generated: stat weight bands per spec and level, racial gear traits |
 | `PawnStats.lua`, `Pawn.lua` | `Gear.Pawn`, `Gear.Scales` | Custom stat weights from Pawn scale strings |
 | `Adjust.lua` | `Gear.Adjust` | The player's own changes to the built-in weights, with Revert to default (#1529) |
+| `FLB.lua` | `Gear.FLB` | Forever Leveling BiS's public API when it is installed (its bag arrows; from its version 2 its gains, scores, weights and spec), every call guarded |
 | `Gear.lua` | `Gear` | Upgrade advice: an item's score and whether it is an upgrade |
 | `Tooltip.lua` | `Gear` | Upgrade lines on item tooltips |
 | `Bags.lua` | `Gear.Bags` | The upgrade arrow on bag items, in the game's bags and Baganator |
@@ -208,6 +213,8 @@ never in saved variables.
 | `Welcome.lua` | `UI.Welcome` | The welcome a character sees the first time Polestar meets it |
 | `WhatsNew.lua` | `UI.WhatsNew` | What's new: the release's notes, once per account on the first login after an update |
 | `Copy.lua` | `UI.ShowCopy` | A small window holding text to copy |
+| `AuctionBuys.lua` | `UI.AuctionBuys` | Auction house buys on screen: the card when a guide opens, the reminder in a town with an auction house, the list (`/polestar ah`, the guide window's menu) with the profession guide's materials, beside the Auction House while it is open |
+| `Materials.lua` | `UI.Materials` | Gather, buy or mix on screen: the card a profession guide shows once, the Materials window (`/polestar materials`), the guide window's menu rows |
 | `Report.lua` | `UI.Report` | "Report a problem" (the guide window's bug button, `/polestar report`): a report on the step on screen to copy for the Polestar Discord; `UI.ShowDiscord`, the invite on its own |
 | `Packs.lua` | `UI.Packs` | The Community guides page of the options window |
 | `Options.lua` | `UI.Options` | The options window: pages, tabs, sections, settings search |
@@ -282,8 +289,9 @@ to rebuild in.
 | `Polestar_ItemDB/Forever.lua`, `Polestar_ItemDB/LICENSE-DATA.txt` | `forge data gear` |
 | `Polestar_ItemDB/Polestar_ItemDB.toc` | `forge data itemdb`, then `forge data gear` adds `Forever.lua` to it |
 | `Polestar_<locale>/Names.lua`, `LICENSE-DATA.txt`, `CREDITS.md` | `forge data names` |
+| `Polestar_<locale>/Subzones.lua` | `forge data subzones` |
 | `Polestar_<locale>/Texts.lua` | `forge guide compile` |
-| `Polestar_<locale>/Polestar_<locale>.toc` | either of the two, alike |
+| `Polestar_<locale>/Polestar_<locale>.toc` | any of the three, alike |
 | `Polestar_QuestDB/*` (local) | `forge data questdb` |
 | `Polestar_Codex/*` (local) | `forge data codex` |
 | `Polestar_Travel/*` (local) | `node tools/polestar.js travel build` |

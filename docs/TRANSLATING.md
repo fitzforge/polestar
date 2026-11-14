@@ -263,8 +263,10 @@ them (quest titles, item names) and from Polestar's names of its
 language (`Names.lua` in the language folder `Polestar_<locale>`), loaded only on that client. A name no
 source has stays English. The client is the truth: a name it shows in play
 (an NPC targeted, moused over or talked to, a quest-giving object opened) is
-kept, per language, and shown from then on. docs/ARCHITECTURE.md, "Names",
-has the details.
+kept, per language, and shown from then on. The subzone names the arrow
+tells a city's floors apart by (the Undercity's quarters) are the client's
+own too (`Subzones.lua` in the language folder, `forge data subzones`).
+docs/ARCHITECTURE.md, "Names", has the details.
 
 - `forge data names [<locale>...]` rebuilds the addons. Per
   id the first source with a name wins: the client's own tables in that
@@ -278,7 +280,8 @@ has the details.
   quest database (`forge data questdb`, or `--questdb <dir>`), the Codex's data
   (`forge data codex`, or `--codex <dir>`) and the travel data name. A name equal
   to the English one is not stored (a later source's translation wins), nor
-  is one marking unused content (`[PH]`, `(DNT)`...). The client tables
+  is one marking unused content (`[PH]`, `(DNT)`...), nor a Korean, Chinese
+  or Russian one written in Latin letters alone (another language's). The client tables
   come from the newest build that has them all in English and every
   language; without one the build stops (`--no-tables` leaves them out on
   purpose). The web names are read from the cache in
@@ -386,6 +389,16 @@ writes.
 - `forge i18n guides stats` sizes the work: the texts that
   need words, with their words and characters, in all and per guide folder,
   and how many names the compiler made tokens.
+
+The three commands compile the pack on the reference data. When that data was
+read from a Forever client build (its `meta.json` names it), they need that
+build's client tables in the sources beside it (`data/sources/wago/<build>`:
+SpellName and SkillLineAbility when the data has the build's spell names, and
+AreaTable), and stop when they are missing: with another build's tables, or
+none, spell names would stay words and places would lose their area, and every
+good translation of those texts would read as stale. `forge guide compile` and
+`lint` stop the same way, and so does every node tool or test that loads the
+data (`tools/lib/data/pinned.js`).
 
 ## Adding a language
 

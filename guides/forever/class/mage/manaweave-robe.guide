@@ -69,7 +69,7 @@ step Back to Jennea Cannon
 
 step Linen Cloth
   tip Any humanoid drops Linen Cloth, and the Tunnel Rats in the Silver Stream Mine drop it while you gather the gems; the Auction House in the Trade District sells it. You hand in ten.
-  collect 2589 x10 quest 1921.1               -- Linen Cloth
+  collect 2589 x10 quest 1921.1 @61.2,71.3 map 1453 live -- Linen Cloth: humanoids, or the Auction House
 
 step The Silver Stream Mine
   zone Loch Modan

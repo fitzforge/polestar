@@ -79,6 +79,7 @@ pub fn compile_sources(sources: &[Source], data: &Data, diag: &mut Diagnostics, 
 	lap.at("parse+resolve");
 	let Some(ctx) = &opts.context else {
 		crate::validate::validate_guides(&guides, data, diag);
+		crate::fresh::fresh_guides(&guides, data);
 		lap.at("validate");
 		let tokens = localise(&guides, data, diag);
 		lap.at("tokens");
@@ -95,6 +96,7 @@ pub fn compile_sources(sources: &[Source], data: &Data, diag: &mut Diagnostics, 
 		}
 	}
 	crate::validate::validate_pack_frames(&guides, data, &ours, ctx.data, diag);
+	crate::fresh::fresh_guides(&guides, data);
 	let tokens = localise(&guides, data, diag);
 	Compiled { guides, tokens }
 }
@@ -132,16 +134,28 @@ pub fn lint_sources(sources: &[Source], data: &Data, excluded: &V) -> Vec<crate:
 /// `sources` compiled, or their errors as `the pack has errors:` and the first five, one
 /// `<file>:<line> <message>` a line.
 pub fn compile_checked(sources: &[Source], data: &Data, opts: &CompileOpts) -> Result<Compiled, String> {
+	compile_checked_all(sources, data, opts).map_err(|errors| pack_refusal(&errors))
+}
+
+/// The pack check with every error it finds: `sources` compiled, or all their errors, one
+/// `<file>:<line> <message>` each, in the order [`compile_checked`] names its first five.
+pub fn compile_checked_all(sources: &[Source], data: &Data, opts: &CompileOpts) -> Result<Compiled, Vec<String>> {
 	let mut diag = Diagnostics::new();
 	let compiled = compile_sources(sources, data, &mut diag, opts);
 	if diag.has_errors() {
-		let first: Vec<String> = diag.errors().iter().take(5).map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect();
-		return Err(format!("the pack has errors:\n{}", first.join("\n")));
+		return Err(diag.errors().iter().map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect());
 	}
 	Ok(compiled)
 }
 
-/// localise: gives each guide `_localised` (its prose with name tokens); -> tokens.js's stats.
+/// The pack check's refusal of a pack with `errors`: `the pack has errors:` and the first five.
+pub fn pack_refusal(errors: &[String]) -> String {
+	format!("the pack has errors:\n{}", errors.iter().take(5).cloned().collect::<Vec<_>>().join("\n"))
+}
+
+/// localise: gives each guide `_localised` (its prose with name tokens); a token its author wrote that the data does
+/// not know is an error, a step title's object of the step's own goals before a lower-case word a warning; ->
+/// tokens.js's stats.
 pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 	let r = crate::tokens::tokenise_guides(guides, data);
 	let loc = r.get("guides");
@@ -155,6 +169,9 @@ pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 			p.get("message").to_js_string(),
 			Some("write a name token as {kind:id}, kind one of npc object item quest zone area spell faction skill, with an id the data has".into()),
 		);
+	}
+	for t in r.get("titleObjects").items() {
+		diag.warn(&t.get("guide").hidden("_ast").get("file").to_js_string(), t.get("line").num(), t.get("message").to_js_string(), Some(t.get("hint").to_js_string()));
 	}
 	r.get("stats")
 }
@@ -852,9 +869,14 @@ mod native {
 	/// The pack check ([`compile_checked`]) on every guide of a folder, as `playtest --honest` and the
 	/// report compile a whole pack.
 	pub fn check_tree(dir: &Path, data: &Data) -> Result<(), String> {
+		check_tree_all(dir, data).map_err(|errors| pack_refusal(&errors))
+	}
+
+	/// [`check_tree`] with every error the pack check finds ([`compile_checked_all`]).
+	pub fn check_tree_all(dir: &Path, data: &Data) -> Result<(), Vec<String>> {
 		let shown = shown(dir);
 		let sources: Vec<Source> = read_sources(dir, &find_guide_files(dir, false)).into_iter().map(|s| Source { file: format!("{shown}/{}", s.source), ..s }).collect();
-		compile_checked(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).map(|_| ())
+		compile_checked_all(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).map(|_| ())
 	}
 
 	/// loadProjectData: a missing folder or core file is a warning.
@@ -1126,9 +1148,9 @@ mod native {
 			}
 			std::fs::write(&file, content(c)).map_err(|e| io(e, &file))?;
 		}
-		// Our pack's texts share the language folder with the game's names (`forge data names`) and the
-		// interface strings: only the texts' own files are written or removed there, and the folder goes
-		// once it holds neither.
+		// Our pack's texts share the language folder with the game's names (`forge data names`, `forge data
+		// subzones`) and the interface strings: only the texts' own files are written or removed there, and
+		// the folder goes once it holds none of the others.
 		let shared = base == OWN_FOLDER;
 		for folder in texts.iter().chain(parts.iter()).chain(factions.iter()) {
 			let dir = parent.join(folder);
@@ -1137,7 +1159,7 @@ mod native {
 				None if language => {
 					if refusal(folder).is_none() {
 						let _ = std::fs::remove_file(dir.join("Texts.lua"));
-						if entries(&dir).is_some_and(|l| !l.iter().any(|e| e.file_name() == "Names.lua" || e.file_name() == crate::toc::INTERFACE_FILE)) {
+						if entries(&dir).is_some_and(|l| !l.iter().any(|e| crate::toc::LANGUAGE_FILES.iter().any(|f| e.file_name() == *f))) {
 							let _ = std::fs::remove_dir_all(&dir);
 						}
 					}

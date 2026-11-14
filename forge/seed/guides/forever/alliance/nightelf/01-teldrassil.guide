@@ -138,22 +138,27 @@ step The Great Outdoors
 
 step Camping 101: Alchemy
   when skill Alchemy 1
+  tip Cyndra Kindwhisper takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97938                                -- Lyreena Duskblade: for Cyndra Kindwhisper, beside Zarrin
 
 step Camping 101: Herbalism
   when skill Herbalism 1
+  tip Malorne Bladeleaf takes it once your Herbalism skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97944                                -- Lyreena Duskblade: for Malorne Bladeleaf, beside Zarrin
 
 step Camping 101: First Aid
   when skill "First Aid" 1
+  tip Byancie takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97942                                -- Lyreena Duskblade: for Byancie in the inn
 
 step Camping 101: Skinning
   when skill Skinning 1
+  tip Radnaal Maneweaver takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97949                                -- Lyreena Duskblade: for Radnaal Maneweaver, by the road west
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
+  tip Nadyia Maneweaver takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97946                                -- Lyreena Duskblade: for Nadyia Maneweaver, by the road west
 
 step Zarrin
@@ -164,16 +169,19 @@ step Zarrin
 
 step Cyndra Kindwhisper
   when onquest 97938
+  when complete 97938
   complete 97938 @57.64,60.8                  -- talk to the trainer
   turnin 97938                                -- Cyndra Kindwhisper, beside Zarrin
 
 step Malorne Bladeleaf
   when onquest 97944
+  when complete 97944
   complete 97944 @57.72,60.64                 -- talk to the trainer
   turnin 97944                                -- Malorne Bladeleaf, beside Zarrin
 
 step Byancie
   when onquest 97942
+  when complete 97942
   complete 97942 @55.29,56.82                 -- talk to the trainer
   turnin 97942                                -- Byancie, in the inn
 
@@ -270,11 +278,13 @@ step The road to Darnassus
 
 step Radnaal Maneweaver
   when onquest 97949
+  when complete 97949
   complete 97949 @42.09,49.96                 -- talk to the trainer
   turnin 97949                                -- Radnaal Maneweaver, camped beside the road before Shayla
 
 step Nadyia Maneweaver
   when onquest 97946
+  when complete 97946
   complete 97946 @41.88,49.44                 -- talk to the trainer
   turnin 97946                                -- Nadyia Maneweaver, beside Radnaal
 
@@ -510,6 +520,13 @@ step Darnassus
   accept 6344 only !Warrior                   -- Mydrannul
   use 279378 quest 98067.3 @66.46,15.35       -- Lunar Pendant: the inn on the Craftsmen's Terrace
 
+step Warrior trainer
+  only Warrior
+  zone Darnassus
+  when level>=12
+  tip Level 12 spells while you're on the Warrior's Terrace: the warrior trainers stand beside Elanaria.
+  train class only Warrior
+
 # Fandral and Mathrengyl stand upstairs in the druids' building of the Cenarion Enclave, and the
 # walking maps have no way up inside it: the arrow led onto a ledge outside, behind the wall (#1338).
 # Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players'
@@ -528,6 +545,13 @@ step Cenarion Enclave
   zone Darnassus
   accept 98046
   turnin 6103 only Hunter                     -- Jocaste, in the Cenarion Enclave: Beast Training
+
+step Cenarion Enclave trainers
+  only Hunter,Rogue,Druid
+  zone Darnassus
+  when level>=12
+  tip Level 12 spells while you're in the Cenarion Enclave: the hunter, rogue and druid trainers all stand in it.
+  train class only Hunter,Rogue,Druid
 
 step Cenarion Enclave
   only Druid
@@ -549,6 +573,13 @@ step Cenarion Enclave
   turnin 2520                                 -- Priestess A'moora
   turnin 98067                                -- Sentinel Dalia Sunblade
   turnin 5629 only Priest                     -- Priestess Alathea, in the Temple of the Moon: Starshards
+
+step Priest trainer
+  only Priest
+  zone Darnassus
+  when level>=12
+  tip Level 12 spells while you're in the Temple of the Moon: the priest trainers stand beside Priestess Alathea.
+  train class only Priest
 
 step Ilyenia Moonfire
   only Hunter
@@ -588,6 +619,7 @@ step Auberdine
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
   accept 3524                                 -- Gwennyth Bly'Leggonde
   accept 98025                                -- The WANTED poster outside the inn
+  accept 4811                                 -- Sentinel Glynda Nal'Shea
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart
   getfp "Auberdine"
 # ---------------------------------------------------------------- Auberdine

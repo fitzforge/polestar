@@ -15,7 +15,9 @@
 --       take: quests that apply (faction, race, class), not done, not in the log,
 --       not closed for good (one of the page's `closedBy` done or in the log:
 --       a breadcrumb whose quest is taken, as Klockmort's Essentials once
---       Essential Artificials is; counted in `done`),
+--       Essential Artificials is; counted in `done`), not one handed in at one
+--       talk and never in the log (the page's `direct`: Pozzik's Indurium Ore,
+--       #2241; the hand-in guide hands it in),
 --       open now or by the dungeon's lowest level (its prerequisites too:
 --       one above that level puts it off as `later`, #1076; `waiting` lists
 --       those, with the level each opens at and the prerequisite it waits on),
@@ -62,6 +64,7 @@
 --       the quest from it. Each accept carries the page's `closedBy`, so the
 --       Engine passes it once taken on the way.
 --   Dungeons.OfferLevel(pq, rec) -> level   -- the level the heads-up offers page quest pq from
+--   Dungeons.PreDone(rec) -> bool   -- every prerequisite of Codex quest rec done (all of `pre`, one of `preAny`)
 --   Dungeons.PickupGuide(key) -> def | nil, reason   -- "nothing" when there is nothing to take;
 --       the offer rule when the heads-up opened it (CharState().pickupOffer[key])
 --   Dungeons.PickUp(key, offer) -> guideId | nil, reason    -- builds, registers and opens it in a new tab
@@ -426,7 +429,7 @@ local function startsAt(r, ends)
 end
 
 -- Whether every prerequisite of record r is done (all of `pre`, one of
--- `preAny`).
+-- `preAny`). Dungeons.PreDone: the hand-in guide's direct hand-ins ask it too.
 local function preDone(r)
 	for _, id in ipairs(r.pre or {}) do
 		if not done(id) then return false end
@@ -438,6 +441,7 @@ local function preDone(r)
 	end
 	return false
 end
+Dungeons.PreDone = preDone
 
 -- Whether a chain quest is a delivery an item starts that drops outside
 -- (Dungeons.DropPoint), turned in outside by an NPC or object this
@@ -699,6 +703,22 @@ function Dungeons.OfferLevel(pq, rec)
 	return max(qlvl - Dungeons.OFFER_MARGIN, (rec and rec.minLevel) or pq.minLevel or 1)
 end
 
+-- A page quest whose only reward is money, with no experience and no item:
+-- a repeatable hand-in such as Indurium Ore's six silver, which the Uldaman
+-- pick-up guide reached through seven quests before it (#2092). The page's
+-- rewards (Dungeons.Quest: rewards = { items, xp, money }) and the Codex
+-- record's say so; a quest whose rewards the data does not know (no money
+-- either: a Forever quest without a reward row) is not one.
+local function moneyOnly(pq, rec)
+	local r = type(pq.rewards) == "table" and pq.rewards or nil
+	local money = r and tonumber(r.money)
+	if not (money and money > 0) then return false end
+	if tonumber(r.xp) or (rec and tonumber(rec.xp)) then return false end
+	if type(r.items) == "table" and #r.items > 0 then return false end
+	if rec and ((type(rec.rewards) == "table" and #rec.rewards > 0) or (type(rec.choices) == "table" and #rec.choices > 0)) then return false end
+	return true
+end
+
 function Dungeons.PickupPlan(key, offer)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
@@ -749,6 +769,13 @@ function Dungeons.PickupPlan(key, offer)
 				plan.carried[#plan.carried + 1] = pq
 			elseif closed(pq) then
 				plan.done = plan.done + 1
+			elseif moneyOnly(pq, rec) then
+				-- Nothing to gain but a few silver: never a pick-up of its
+				-- own, nor a trip through its prerequisites (#2092).
+			elseif pq.direct then
+				-- Handed in at one talk and never in the log (Pozzik's
+				-- Indurium Ore, #2241): nothing to pick up; the hand-in
+				-- guide hands it in once the bags hold what it asks.
 			elseif ((rec and rec.minLevel) or pq.minLevel or 1) > reach then
 				-- One that starts inside (no giver out here, no drop outside)
 				-- never comes to the pick-up guide: it does not wait for it.

@@ -27,13 +27,17 @@
 --      the stat weights the gear advice scores rewards with
 --      (gear.spec.<CLASS>: Automatic or one of the class's specs) as option
 --      cards, while Gear knows the class;
---   3. targeting (with QoL loaded): the target button (qol.targetButton),
---      a preview of its face and name plate (Buttons.NewFace) over the
---      switches for it, who it targets (qol.targetPlate, its child), its
---      mark and its ping (qol.markTarget, qol.pingTarget), and a line that
---      the step key targets the same without it and Move frames moves it;
+--   3. targeting (with QoL loaded): the target button (qol.targetButton)
+--      and its target list, a preview of the list (Buttons.NewListFaces) or,
+--      with Simple target button, of the single button's face and name plate
+--      (Buttons.NewFace) over the switches for it, the single button
+--      (qol.targetSimple, its child) and who it targets (qol.targetPlate, the
+--      single button's), its mark and its ping (qol.markTarget,
+--      qol.pingTarget), and a line that the step key targets the same without
+--      it and Move frames moves it;
 --   4. groups: dungeons in the route (behavior.dungeons: Skip them, Ask me,
---      Run them; once that setting exists and the character's guides have
+--      Run them; once that setting exists, dungeons in the route are not
+--      held back (ns.dungeonRoute) and the character's guides have
 --      dungeons) and group quests (behavior.groupQuests: Ask me at each, Do
 --      them with a group, Skip them; while the guides have any) as option
 --      cards;
@@ -585,7 +589,10 @@ local function card(p, title, desc)
 end
 
 -- The guide window's miniature: a goal row with the accent bar, its count
--- and the progress line under it.
+-- and the progress line under it. A long name (a real goal: "Young
+-- Stranglethorn Tiger", a German one) takes a second line, as the guide
+-- window's rows do, and the box grows down to it.
+local MINI_NAME_X = 12 + 11 + 6 -- the name's left edge: the glyph's inset, width and gap
 local function goalMini(m)
 	local box = CreateFrame("Frame", nil, m)
 	box:SetPoint("TOPLEFT", m, "TOPLEFT", 10, -14)
@@ -604,10 +611,9 @@ local function goalMini(m)
 	box.Count = W.Text(box, "caption", "success")
 	box.Count:SetPoint("RIGHT", box, "TOPRIGHT", -8, -13)
 	box.Name = W.Text(box, "small", "item")
-	box.Name:SetPoint("LEFT", box.Glyph, "RIGHT", 6, 0)
-	box.Name:SetPoint("RIGHT", box.Count, "LEFT", -6, 0)
 	box.Name:SetJustifyH("LEFT")
-	box.Name:SetWordWrap(false)
+	box.Name:SetWordWrap(true)
+	box.Name:SetMaxLines(2)
 	box.Line = CreateFrame("Frame", nil, box)
 	box.Line:SetPoint("TOPLEFT", box, "TOPLEFT", 12, -24)
 	box.Line:SetPoint("TOPRIGHT", box, "TOPRIGHT", -8, -24)
@@ -630,6 +636,15 @@ local function paintGoalMini(box, g)
 	box.Name:SetText(name)
 	W.Color(box.Name, kind == "kill" and "npc" or "item")
 	box.Count:SetText(cur .. "/" .. n)
+	-- The name between the glyph and the count, its first line level with them.
+	box.Name:SetWidth(max(30, CARD_W - 12 - 20 - MINI_NAME_X - 8 - W.TextWidth(box.Count) - 6))
+	local one = box.Name:GetLineHeight()
+	local extra = max(0, floor(box.Name:GetStringHeight() - one + 0.5))
+	box.Name:ClearAllPoints()
+	box.Name:SetPoint("TOPLEFT", box, "TOPLEFT", MINI_NAME_X, -(13 - floor(one / 2 + 0.5)))
+	box:SetHeight(34 + extra)
+	box.Line:SetPoint("TOPLEFT", box, "TOPLEFT", 12, -(24 + extra))
+	box.Line:SetPoint("TOPRIGHT", box, "TOPRIGHT", -8, -(24 + extra))
 	box.Line.Fill:SetWidth(max(1, (CARD_W - 12 - 20 - 20) * cur / n))
 end
 
@@ -644,7 +659,9 @@ local function arrowMini(m)
 	a.Yd = W.Text(a, "display", "text")
 	a.Yd:SetText((L["%d yd"]):format(412)) -- an illustration of the arrow's readout
 	a.To = W.Text(a, "small", "textDim")
-	a.To:SetWordWrap(false)
+	-- A long place ("Geh zu The Savage Coast") takes a second line.
+	a.To:SetWordWrap(true)
+	a.To:SetMaxLines(2)
 	return a
 end
 
@@ -1432,18 +1449,36 @@ do
 	-- The preview's names: the settings' Buttons page's.
 	local DEMO = { L["Rot Hide Mongrel"], L["Scarlet Warrior"] }
 
-	-- The preview: the button's own face (Buttons.NewFace: a plain Button,
-	-- no secure template, no clicks) on a patch of the world, its plate as
-	-- qol.targetPlate has it, faint while the button is off.
-	-- (psFace: the face, made only with QoL loaded.)
+	-- The target list's rows in the preview: the first close (green).
+	local LIST = { { name = DEMO[1], verb = "kill", cur = 3, max = 8, near = true }, { name = DEMO[2], verb = "kill", cur = 0, max = 5 } }
+
+	-- The preview: the target list as it stands beside the button (the live
+	-- rows' own code on plain frames: Buttons.NewListFaces), or with Simple
+	-- target button the button's own face (Buttons.NewFace: a plain Button,
+	-- no secure template, no clicks) with its plate as qol.targetPlate has
+	-- it; on a patch of the world, faint while the button is off.
+	-- (psFace, psList: the faces, made only with QoL loaded.)
 	local function paintStage(stage)
 		paintOutline(stage, Theme.Wash("border"))
 		local r, g, b = Theme.Color("scrim")
 		stage.Ground:SetVertexColor(r, g, b, 1)
-		local face, B = stage.psFace, ns.QoL and ns.QoL.Buttons
+		local face, list, B = stage.psFace, stage.psList, ns.QoL and ns.QoL.Buttons
 		if face and B then
+			local alpha = ns.Get("qol.targetButton") and 1 or 0.35
+			local simple = ns.Get("qol.targetSimple") or not list
 			B.Paint(face)
-			face:SetAlpha(ns.Get("qol.targetButton") and 1 or 0.35)
+			face:SetAlpha(alpha)
+			face:SetShown(simple and true or false)
+			if list then
+				if simple then
+					for _, row in ipairs(list.rows) do row:Hide() end
+				else
+					B.PaintListFaces(list, face, LIST, "right")
+					for _, row in ipairs(list.rows) do row:SetAlpha(alpha) end
+				end
+				list.mark:SetShown(not simple)
+				list.mark:SetAlpha(alpha)
+			end
 		end
 	end
 
@@ -1452,7 +1487,7 @@ do
 		shown = function() return full and targetShown() end,
 		build = function(P)
 			compactHero(P.Hero, L["Targeting"],
-				L["One button finds the mobs and NPCs of your step: click it, or press its key, and you target the next name."])
+				L["A list beside the target button names the mobs and NPCs of your step: click a name to target it, or press the button's key for the first one close by."])
 			local p = P.Body
 			local stage = CreateFrame("Frame", nil, p)
 			stage:SetSize(CW, STAGE_H)
@@ -1466,16 +1501,27 @@ do
 				face:SetPoint("LEFT", stage, "LEFT", 20, 0)
 				face:EnableMouse(false)
 				stage.psFace = face
+				if B.NewListFaces then
+					stage.psList = B.NewListFaces(stage, #LIST)
+					stage.psList.mark:EnableMouse(false)
+					for _, row in ipairs(stage.psList.rows) do row:EnableMouse(false) end
+				end
 			end
 			stage.Refresh = paintStage
 			W.Painter(stage, paintStage)
 			W.Bind(stage, "qol.targetPlate", "qol.targetButton")
+			W.Bind(stage, "qol.targetSimple")
 			p.Stage = stage
 			F.TargetButton = toggleRow(p, L["Show a button that targets the step's mobs and NPCs"], "qol.targetButton",
-				L["The square button with a name beside it, on its own on your screen. Click it, or press its key, to target the next mob or NPC your step names."])
+				L["A row for each mob or NPC your step names, with its face and what it drops, beside a small Polestar mark. Click a row, or press the target button's key for the first one close by."])
+			-- The single button instead of the list; who it targets is its own.
+			F.TargetSimple = toggleRow(p, L["Simple target button"], "qol.targetSimple",
+				L["One square button instead of the list: each click, or a press of its key, targets the next name."],
+				{ depends = "qol.targetButton", child = true })
 			F.TargetPlate = toggleRow(p, L["Show who it targets"], "qol.targetPlate",
 				L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."],
 				{ depends = "qol.targetButton", child = true })
+			W.SetDisabledWhen(F.TargetPlate, function() return not ns.Get("qol.targetSimple") end)
 			F.MarkTarget = toggleRow(p, L["Mark what the target button finds"], "qol.markTarget",
 				L["A skull on the enemy, a star on the friendly NPC. In a group it never takes another player's icon."])
 			F.PingTarget = toggleRow(p, L["Ping it for my group"], "qol.pingTarget",
@@ -1489,7 +1535,7 @@ do
 			local p = P.Body
 			place(p.Stage, 0, 0)
 			paintStage(p.Stage)
-			local y = layRows({ F.TargetButton, F.TargetPlate, F.MarkTarget, F.PingTarget }, STAGE_H + 8) + 10
+			local y = layRows({ F.TargetButton, F.TargetSimple, F.TargetPlate, F.MarkTarget, F.PingTarget }, STAGE_H + 8) + 10
 			place(p.StepKey, 0, y)
 			y = y + p.StepKey:GetStringHeight() + 14
 			place(p.Keep, 0, y)
@@ -1503,10 +1549,12 @@ end
 
 -- Dungeons in the route (behavior.dungeons; Engine's Own.dungeonAnswer):
 -- once the setting exists and the character's guides have dungeons
--- (Engine.GuideDungeons), as Options offers it.
+-- (Engine.GuideDungeons, none while dungeons in the route are held back:
+-- ns.dungeonRoute), as Options offers it. Held back, the page is about group
+-- quests only and says nothing of dungeons.
 local function dungeonsShown()
 	local E = ns.Engine
-	return ns.GetDefault("behavior.dungeons") ~= nil and E ~= nil and E.GuideDungeons ~= nil and next(E.GuideDungeons() or {}) ~= nil
+	return ns.dungeonRoute and ns.GetDefault("behavior.dungeons") ~= nil and E ~= nil and E.GuideDungeons ~= nil and next(E.GuideDungeons() or {}) ~= nil
 end
 
 -- Group quests (behavior.groupQuests; Own.groupAnswer): while the guides have any.
@@ -1521,12 +1569,19 @@ local function oneOf(path, list, default)
 	return default
 end
 
+-- The hero's words, read again at each layout: held back (ns.dungeonRoute), they name no dungeon.
+local function groupsHero()
+	if ns.dungeonRoute then
+		return L["Groups and dungeons"], L["Leveling guides can take you through dungeons and group quests on your way. Choose how much of that you want."]
+	end
+	return L["Groups"], L["Leveling guides mark some elite and escort quests for a group. Choose what the guide does at them."]
+end
+
 PAGES[#PAGES + 1] = {
 	key = "groups",
 	shown = function() return full and (dungeonsShown() or groupQuestsShown()) end,
 	build = function(P)
-		compactHero(P.Hero, L["Groups and dungeons"],
-			L["Leveling guides can take you through dungeons and group quests on your way. Choose how much of that you want."])
+		compactHero(P.Hero, groupsHero())
 		local p = P.Body
 		F.Dungeons = optionGroup(p, { title = L["Dungeons in my route"],
 			note = L["For a group of five: the guide picks up a dungeon's quests on its way, sends you to the door at the right level and hands them in after."],
@@ -1553,6 +1608,9 @@ PAGES[#PAGES + 1] = {
 		p.Keep = keepLine(p)
 	end,
 	layout = function(P)
+		local title, sub = groupsHero()
+		P.Hero.Title:SetText(title)
+		P.Hero.Sub:SetText(sub)
 		local heroH = layoutCompactHero(P.Hero)
 		local p = P.Body
 		local dungeons, quests = dungeonsShown(), groupQuestsShown()
@@ -2400,7 +2458,7 @@ PAGES[#PAGES + 1] = {
 		local beta = ns.routesBeta and true or false
 		p.Beta.Text:SetText((L["Played to the end in tests, but not yet by players. If a step is wrong, press %s in the guide window and tell us on Discord."]):format(cmd(L["Skip"])))
 		y = layNote(p, p.Beta, y, beta)
-		if beta then W.SetChip(p.Beta.Chip, string.upper(L["Beta"]), "warning") else p.Beta.Chip:Hide() end
+		if beta then W.SetChip(p.Beta.Chip, ns.Upper(L["Beta"]), "warning") else p.Beta.Chip:Hide() end
 		p.Recorder.Text:SetText(L["The Polestar Recorder, an optional addon of its own, records your play without names so the routes get better. Its page in Settings says how it works."])
 		y = layNote(p, p.Recorder, y, true)
 		p.Discord.Text:SetText(L["Feedback, bug reports and news."])

@@ -37,6 +37,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { parseCsv } = require('../data/csv');
+const { pinnedBuild, buildDir } = require('../data/pinned');
 const { CLASS_BY_FILE } = require('../game/races');
 
 const KINDS = ['npc', 'object', 'item', 'quest', 'zone', 'area', 'spell', 'faction', 'skill'];
@@ -498,14 +499,13 @@ function npcsOf(goals, data) {
 }
 
 // The Forever client build the data was built from (meta.json's "World of
-// Warcraft: Forever client tables" source), as its cache folder beside the
-// data, when it holds every file of `files`; else null: the same data
-// compiles the same guides whatever else is cached.
+// Warcraft: Forever client tables" source, data/pinned.js), as its cache
+// folder beside the data, when it holds every file of `files`; else null: the
+// same data compiles the same guides whatever else is cached.
 function pinnedBuildDir(data, files) {
-	const src = ((data.meta && data.meta.sources) || []).find((x) => x && /^World of Warcraft: Forever client tables/.test(String(x.name)));
-	const m = src && /(\d+\.\d+\.\d+\.\d+)/.exec(String(src.revision || ''));
-	if (!m) return null;
-	const dir = path.join(data.dir, '..', 'sources', 'wago', m[1]);
+	const pin = pinnedBuild(data.meta);
+	if (!pin) return null;
+	const dir = buildDir(data.dir, pin.build);
 	return files.every((f) => fs.existsSync(path.join(dir, f))) ? dir : null;
 }
 
@@ -557,8 +557,9 @@ function stepIndex(step, data, common) {
 
 // text -> { text, used: [{ kind, id, name, author }], plurals: [{ kind, id,
 // name }] }: the names `indexes` know replaced by tokens, where
-// `accept(entry)` allows; tokens already in the text are kept (and listed,
-// `author`); `plurals`: names that stand there in their English plural.
+// `accept(entry, rest)` allows (`rest`: the text after the name, its first 40
+// characters); tokens already in the text are kept (and listed, `author`);
+// `plurals`: names that stand there in their English plural.
 function tokeniseText(text, indexes, accept = () => true) {
 	const parts = []; // strings and { token, name, used }
 	const plurals = [];
@@ -582,7 +583,7 @@ function tokeniseText(text, indexes, accept = () => true) {
 		}
 		if (!isWordChar(text[i - 1])) {
 			const e = longestAt(indexes, text, i);
-			if (e && accept(e)) {
+			if (e && accept(e, text.slice(i + e.name.length, i + e.name.length + 40))) {
 				flush();
 				parts.push({ token: `{${e.kind}:${e.id}}`, name: e.name, used: { kind: e.kind, id: e.id, name: e.name, prio: Math.floor(e.prio), alias: e.alias ? e.english : undefined } });
 				i += e.name.length;
@@ -640,13 +641,16 @@ function selfNote(goal, data) {
 // worldZone, worldArea, worldData }, dropped }; problems: [{ guide, line,
 // message }] for author-written tokens the data does not know; aliases: [{
 // guide, line, words, token, english, text }], each name matched without its
-// "The" or "City", or by its first name.
+// "The" or "City", or by its first name; titleObjects: [{ guide, line,
+// message, hint }], the step titles where an object the step's goals name
+// stands before a lower-case word (its token stays: the lint warns).
 function tokeniseGuides(guides, data) {
 	const common = commonWords(guides);
 	const { idx: world, abilities } = worldIndex(data, common);
 	const stats = { replaced: Object.fromEntries(KINDS.map((k) => [k, 0])), bySource: Object.fromEntries(SOURCES.map((k) => [k, 0])), dropped: 0 };
 	const problems = [];
 	const aliases = []; // names matched without their "The" or "City"
+	const titleObjects = []; // an object of the step's own goals before a lower-case word in its title
 	const classes = new Map(); // class mask -> classIndex
 	const out = guides.map((guide) => {
 		const base = guideIndex(guide, data, common);
@@ -687,11 +691,17 @@ function tokeniseGuides(guides, data) {
 			if (!(k in names)) names[k] = e.name;
 			return names[k] === e.name;
 		};
-		const replace = (text, holder, key, indexes, ln) => {
-			let r = tokeniseText(text, indexes, any);
+		// A step's title takes the token of an object no goal of the step names
+		// only where the object's name stands alone: before a lower-case word it
+		// describes a kind of thing ("Dark Iron dwarves", whose object "Dark
+		// Iron" would put its name in the title on a translated client), while
+		// "Trade District" or "Boat to Auberdine" alone is that object's name.
+		const ownObjects = (e, rest) => e.kind !== 'object' || Math.floor(e.prio) === STEP || !/^[ \t]+\p{Ll}/u.test(rest);
+		const replace = (text, holder, key, indexes, ln, keep = () => true) => {
+			let r = tokeniseText(text, indexes, (e, rest) => keep(e, rest) && any(e));
 			// The English of the tokens the author wrote, for the author's words.
 			for (const u of r.used) if (u.author && !(`${u.kind}:${u.id}` in names) && dataName(data, u.kind, u.id)) names[`${u.kind}:${u.id}`] = dataName(data, u.kind, u.id);
-			if (seen.has(r.text) && seen.get(r.text) !== fillTokens(text, names)) r = tokeniseText(text, indexes, same);
+			if (seen.has(r.text) && seen.get(r.text) !== fillTokens(text, names)) r = tokeniseText(text, indexes, (e, rest) => keep(e, rest) && same(e));
 			for (const u of r.used) {
 				const k = `${u.kind}:${u.id}`;
 				const name = u.name || dataName(data, u.kind, u.id);
@@ -719,7 +729,32 @@ function tokeniseGuides(guides, data) {
 		copy.steps.forEach((step, si) => {
 			const orig = guide.steps[si];
 			const indexes = [stepIndex(orig, data, common), base, ...worlds];
-			for (const f of STEP_FIELDS) if (str(step[f])) replace(step[f], step, f, indexes, orig._line || guideLine);
+			for (const f of STEP_FIELDS) {
+				if (!str(step[f])) continue;
+				// A title's object of the step's own goals before a lower-case word
+				// keeps its token, and the author hears of it.
+				const before = new Map(); // object id -> [its words, the lower-case word after them]
+				const keep =
+					f === 'title'
+						? (e, rest) => {
+								if (!ownObjects(e, rest)) return false;
+								const w = e.kind === 'object' && /^[ \t]+(\p{Ll}[\p{L}'’-]*)/u.exec(rest);
+								if (w && !before.has(e.id)) before.set(e.id, [e.name, w[1]]);
+								return true;
+							}
+						: undefined;
+				const ln = orig._line || guideLine;
+				replace(step[f], step, f, indexes, ln, keep);
+				for (const [id, [name, word]] of before) {
+					if (!step[f].includes(`{object:${id}}`)) continue;
+					titleObjects.push({
+						guide,
+						line: ln,
+						message: `the title's "${name}" is the token of object ${id}, which the step's goals name, though "${word}" follows it in lower case: a translated client shows the object's name there`,
+						hint: `reword the title if "${name} ${word}" means a kind of thing rather than that object`,
+					});
+				}
+			}
 			step.goals.forEach((goal, gi) => {
 				const og = orig.goals[gi];
 				if (selfNote(og, data)) {
@@ -735,7 +770,7 @@ function tokeniseGuides(guides, data) {
 		Object.defineProperty(copy, '_plurals', { value: plurals, enumerable: false });
 		return copy;
 	});
-	return { guides: out, stats, problems, aliases };
+	return { guides: out, stats, problems, aliases, titleObjects };
 }
 
 // A text with its tokens filled by `names` (a guide's), as an English client

@@ -521,7 +521,8 @@ guides may fail it), never impossible by construction.
   breadcrumbs (no objectives, talk to someone) low, normal kill/collect quests
   middle, chain ends, escorts and group quests high; recorded quest XP
   (quests.json `xp`) overrides the estimate. Reduced by level difference:
-  100% up to quest level + 5, then 80/60/40/20/10%.
+  100% up to quest level + 5, 80% at 6 over, 60% at 7, then 50% from 8 over
+  on (what Forever pays, from players' recordings).
 - Kill XP: the Classic mob formula (45 + 5 × level, ±5% per level of
   difference above, zero-difference table below, nothing for grey), elites ×2,
   rested XP optional.
@@ -874,7 +875,9 @@ the level the block starts at), in `data/sim/zoneplan-<faction>-<race>-<class>.j
   none (as the in-game checks found). A flight takes its taxi legs' yards
   along their paths at 30 yd/s plus 2 s a hop (the addon planner's model)
   and `flightOverhead` once; travel.json's taxi `cost` is the price in
-  copper, which v1 still reads as seconds.
+  copper, which v1 read as seconds up to its world builder 31; since 32 v1
+  flies a leg's yards at `flightSpeed` (30 yd/s) and adds `flightOverhead`
+  per leg.
 - Faction territory (tools/lib/sim/v2/territory.js): a zone with the other
   faction's AreaTable `FactionGroupMask` (2 Alliance, 4 Horde, on the zone's
   top-level row) weighs 1; a contested zone (mask 0) leans to a faction, and

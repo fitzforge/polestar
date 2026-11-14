@@ -32,27 +32,51 @@
 --     goalZone (nil when none); signature "uiMap=mult,..." by uiMapID ("" for
 --     none). Built once per level and zone pair: the router keys its caches
 --     by the table's entries, so the same pair always gets the same table.
---   Nav.danger.Along(danger, map, x1, y1, x2, y2) -> factor >= 1
+--   Nav.danger.Along(danger, map, x1, y1, x2, y2, road) -> factor >= 1
 --     what a straight walk's cost is multiplied by: the zone in the middle of
 --     each 100 yd piece of the line (Path.ZoneAt), each piece x danger[zone]
 --     (a Table), x1 in none; 1 without a table, the router's maps or a
 --     length, and on another continent whose maps have not loaded yet
---     (Path.Resident: its part loads on arrival). The line's own ends count
+--     (Path.Resident: its part loads on arrival). `road`: the walk is a
+--     zone's road through (Nav/Travel.lua: from one of the zone's crossings
+--     to another, or over a crossing), where a zone far above by at most
+--     ROAD_GAP levels counts as dangerous, x3 (below). The line's own ends count
 --     like any other ground: the Table already leaves out the player's and
 --     the target's zones, and a plan's walk between two zone crossings deep in
 --     Western Plaguelands is a walk through it (#566).
+--
+-- A zone's road through (0.4.0, #1972: a level 37 bound for Watcher Biggs
+-- in the Swamp of Sorrows was sent to Lakeshire and round the Riverglades
+-- coast, three times as far as the road east from Darkshire). A zone's
+-- lowest level comes from all its creatures, and where they live off the
+-- road walks take through it, the road is far safer than the zone. Deadwind
+-- Pass (lowest level 55) lies between Duskwood and the Swamp of Sorrows: on
+-- players' recordings 12 people walked or rode its pass at levels 36 to 46,
+-- none died or fought on the way, and its level-55 creatures live 64 yd and
+-- more off the pass (the vultures) or 200 yd and more (the ogres and
+-- Karazhan's grounds). So on the road through (the crossing data's ways in
+-- and out, which follow where players walk), a zone far above by at most
+-- ROAD_GAP (20) levels counts as dangerous, x3: still kept out of where
+-- another way is about as short, but never worth a detour three times as
+-- long. Further above (no recording shows a road that far above walked
+-- safely), and anywhere off the road, x20. On every leveling guide's step to
+-- the next (21,330 pairs, both factions, each with every flight path and with
+-- none) the rule changes 8 plans: 7 take Deadwind Pass at levels 36 to 43 (9
+-- to 15 minutes sooner; 1 of them with flight paths), and 1 a 6 km walk with
+-- none (15 minutes sooner).
 
 local ADDON, ns = ...
 local Nav = ns.Nav
 
 local type, ipairs, sort, concat, pcall = type, ipairs, table.sort, table.concat, pcall
-local sqrt, ceil, floor = math.sqrt, math.ceil, math.floor
+local sqrt, ceil, floor, byte = math.sqrt, math.ceil, math.floor, string.byte
 
 local DANGEROUS = 4   -- a zone's lowest level at least this far above: x DANGEROUS_MULT
 local FAR_ABOVE = 10  -- more than this far above: x FAR_MULT
 local DANGEROUS_MULT = 3
 local FAR_MULT = 20   -- the other faction's towns' strength (Costs, hostile hubs)
 local STEP = 100      -- yards between the zones a straight walk looks at
+local ROAD_GAP = 20   -- a zone's road through counts as dangerous while the zone is at most this far above (#1972)
 
 local Danger = {}
 Nav.danger = Danger
@@ -90,18 +114,27 @@ function Danger.ZoneAt(map, x, y)
 	return ok and zone or nil
 end
 
-function Danger.Mult(level, uiMapID)
+-- The level zone danger prices uiMapID from: its danger floor, else its lowest level; nil without a range.
+local function lowest(uiMapID)
 	local M = ns.Maps
-	if type(level) ~= "number" or not uiMapID or not (M and M.GetZoneLevels) then return 1 end
+	if not uiMapID or not (M and M.GetZoneLevels) then return nil end
 	local min, _, danger = M.GetZoneLevels(uiMapID)
 	local lo = type(danger) == "number" and danger or min
-	if type(lo) ~= "number" then return 1 end
+	return type(lo) == "number" and lo or nil
+end
+
+function Danger.Mult(level, uiMapID)
+	local lo = type(level) == "number" and lowest(uiMapID)
+	if not lo then return 1 end
 	if lo > level + FAR_ABOVE then return FAR_MULT end
 	if lo >= level + DANGEROUS then return DANGEROUS_MULT end
 	return 1
 end
 
 local cache, cacheLevel = {}, nil -- [startZone:goalZone] = { table | false, signature } at cacheLevel
+-- [a Table] = { [uiMapID] = DANGEROUS_MULT }: its zones far above, at most ROAD_GAP levels, whose road through
+-- counts as dangerous (Danger.Along's `road`).
+local roadOf = setmetatable({}, { __mode = "k" })
 
 function Danger.Table(level, startZone, goalZone)
 	local M = ns.Maps
@@ -110,16 +143,20 @@ function Danger.Table(level, startZone, goalZone)
 	local key = (startZone or 0) .. ":" .. (goalZone or 0)
 	local e = cache[key]
 	if not e then
-		local t, ids = {}, {}
+		local t, ids, roads = {}, {}, {}
 		for id in M.EachZoneLevels() do
 			if id ~= startZone and id ~= goalZone then
 				local m = Danger.Mult(level, id)
-				if m > 1 then t[id], ids[#ids + 1] = m, id end
+				if m > 1 then
+					t[id], ids[#ids + 1] = m, id
+					if m > DANGEROUS_MULT and lowest(id) - level <= ROAD_GAP then roads[id] = DANGEROUS_MULT end
+				end
 			end
 		end
 		sort(ids)
 		for i, id in ipairs(ids) do ids[i] = id .. "=" .. t[id] end
 		e = { #ids > 0 and t or false, concat(ids, ",") }
+		if e[1] then roadOf[t] = roads end
 		cache[key] = e
 	end
 	return e[1] or nil, e[2]
@@ -129,10 +166,15 @@ end
 -- field holds one zone per chunk, 16 to a 533.33 yd tile and tile-aligned
 -- (tools/lib/nav/pack.js HEADER), so a plan's lines between the same places
 -- (flight masters, docks) ask the router once per chunk, not once per plan.
--- Kept for one Path.ZoneAt (another one, a new memo); dropped past MEMO_MAX.
+-- A chunk not seen yet is read from its whole tile's zones, read in one pass
+-- and kept too (Path.ZoneTile, 512 bytes a tile): read one chunk at a time,
+-- a plan's first lines across a continent cost up to 22 ms (0.4.0, D18: 4,569
+-- chunks for one estimate), now a pass per tile. Kept for one Path.ZoneAt
+-- (another one, a new memo); dropped past MEMO_MAX chunks or TILES_MAX tiles.
 local CHUNKS = 16 / (1600 / 3) -- chunks per yard
-local MEMO_MAX = 32768
+local MEMO_MAX, TILES_MAX = 32768, 1024
 local memo, memoFn, memoSize = {}, nil, 0
+local tiles, tilesN = {}, 0 -- [map] = { [tile key] = { zones string, cx0, cy0 } | false }
 
 local function zoneOf(zoneAt, map, x, y)
 	local m = memo[map]
@@ -140,17 +182,40 @@ local function zoneOf(zoneAt, map, x, y)
 		m = {}
 		memo[map] = m
 	end
-	local key = (floor(x * CHUNKS) + 4096) * 8192 + floor(y * CHUNKS) + 4096
+	local cx, cy = floor(x * CHUNKS), floor(y * CHUNKS)
+	local key = (cx + 4096) * 8192 + cy + 4096
 	local z = m[key]
 	if z == nil then
-		z = zoneAt(map, x, y) or false
+		local t = tiles[map]
+		if not t then
+			t = {}
+			tiles[map] = t
+		end
+		local tk = (floor(cx / 16) + 256) * 512 + floor(cy / 16) + 256
+		local e = t[tk]
+		if e == nil then
+			local P = Nav.Path
+			local s, cx0, cy0
+			if P and P.ZoneTile then s, cx0, cy0 = P.ZoneTile(map, x, y) end
+			e = s and { s, cx0, cy0 } or false
+			t[tk], tilesN = e, tilesN + 1
+		end
+		local qx, qy = e and cx - e[2], e and cy - e[3]
+		if e and qx >= 0 and qx < 16 and qy >= 0 and qy < 16 then
+			local hi, lo = byte(e[1], 2 * (qx * 16 + qy) + 1, 2 * (qx * 16 + qy) + 2)
+			z = hi * 256 + lo
+			if z == 0 then z = false end
+		else
+			z = zoneAt(map, x, y) or false
+		end
 		m[key] = z
 		memoSize = memoSize + 1
 	end
 	return z or nil
 end
 
-local function along(zoneAt, danger, map, x1, y1, x2, y2)
+-- `roads`: the multipliers a road through takes instead (roadOf), or nil.
+local function along(zoneAt, danger, map, x1, y1, x2, y2, roads)
 	local dx, dy = x2 - x1, y2 - y1
 	local n = ceil(sqrt(dx * dx + dy * dy) / STEP)
 	if n < 1 then return 1 end
@@ -158,19 +223,20 @@ local function along(zoneAt, danger, map, x1, y1, x2, y2)
 	for i = 1, n do
 		local f = (i - 0.5) / n
 		local z = zoneOf(zoneAt, map, x1 + dx * f, y1 + dy * f)
-		sum = sum + (z and danger[z] or 1)
+		local m = z and (roads and roads[z] or danger[z]) or 1
+		sum = sum + m
 	end
 	return sum / n
 end
 
-function Danger.Along(danger, map, x1, y1, x2, y2)
+function Danger.Along(danger, map, x1, y1, x2, y2, road)
 	local P = Nav.Path
 	local zoneAt = P and P.ZoneAt
 	if not (danger and zoneAt and map and x1 and y1 and x2 and y2) then return 1 end
 	-- Another continent whose walking maps have not loaded (its part loads when the player gets there) has no zones
 	-- yet: none is remembered as none.
 	if not known(P, map) then return 1 end
-	if zoneAt ~= memoFn or memoSize > MEMO_MAX then memo, memoFn, memoSize = {}, zoneAt, 0 end
-	local ok, f = pcall(along, zoneAt, danger, map, x1, y1, x2, y2)
+	if zoneAt ~= memoFn or memoSize > MEMO_MAX or tilesN > TILES_MAX then memo, memoFn, memoSize, tiles, tilesN = {}, zoneAt, 0, {}, 0 end
+	local ok, f = pcall(along, zoneAt, danger, map, x1, y1, x2, y2, road and roadOf[danger] or nil)
 	return ok and type(f) == "number" and f >= 1 and f or 1
 end

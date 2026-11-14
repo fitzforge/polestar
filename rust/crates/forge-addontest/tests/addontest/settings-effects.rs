@@ -14,11 +14,22 @@
 //! the setting at its default, the value the runner picks, its default again; the environment up (no `setup`), the
 //! probe reads once, and the three reads are compared as above.
 //!
+//! A control with a setting key is held to two more: a profile switch (and Reset all, which fire the same
+//! SETTING_CHANGED "" for every setting at once) moves its effect as the control alone does, to a copy of the
+//! profile with the setting at its default (read as the control's own reset read) and back to the profile with it
+//! at the value (read as set live), unless the check's reads move the world on (`once`: a level up, a drag from where
+//! the last one left); and a reload brings it back: the saved settings as they stood with the setting at the
+//! runner's value (none of the session's history), loaded in a fresh session of the group's environment before its
+//! login, the group's `setup` and the check's `prepare` after, read as it read set live (a different read is checked
+//! once more against the check alone in a fresh session, the group's earlier checks having maybe left the world
+//! otherwise). `reload = false` with a word why: a check whose read cannot come back by a reload of the settings
+//! alone.
+//!
 //! Each group file starts with the environment it runs in, `-- env: <name> [stub file...]` (one of env()'s, with
 //! more of tests/lua's stubs after its own: `-- env: world stub_rares.lua`), optionally a Codex pack the client
 //! loads when asked (`-- codex: sample.json`, a tests/fixtures/codex file) and the quest database built from
 //! tests/fixtures/questdb (`-- questdb: fixture`, with stub_quests.lua), and returns { setup = fn?, settle =
-//! seconds?, probes = { [id] = probe | { probe, value?, with?, prepare?, cleanup?, press?, bind?, login?, restore? } } }
+//! seconds?, probes = { [id] = probe | { probe, value?, with?, prepare?, cleanup?, press?, bind?, login?, restore?, once?, reload? } } }
 //! where id is the control's setting key, "action:<binding action>" or "<page>:<English label>" for a control with
 //! neither. `restore`: a control of the game's own state that no reset touches (its set(nil) does nothing: the game's
 //! image sharpening) is put back by writing the value it had, not nil.
@@ -65,7 +76,9 @@ const GROUPS: &[Group] = &[
 	Group { name: "guide_nav", src: include_str!("effects/guide-nav.lua") },
 	Group { name: "guide_whilehere", src: include_str!("effects/guide-whilehere.lua") },
 	Group { name: "guide_whilehere_turnins", src: include_str!("effects/guide-whilehere-turnins.lua") },
+	Group { name: "guide_whilehere_gather", src: include_str!("effects/guide-whilehere-gather.lua") },
 	Group { name: "guide_automation", src: include_str!("effects/guide-automation.lua") },
+	Group { name: "guide_professions", src: include_str!("effects/guide-professions.lua") },
 	Group { name: "guide_route", src: include_str!("effects/guide-route.lua") },
 	Group { name: "guide_ends", src: include_str!("effects/guide-ends.lua") },
 	Group { name: "guide_class", src: include_str!("effects/guide-class.lua") },
@@ -188,13 +201,38 @@ end
 local function write(c, v)
 	if c.set then c.set(v) elseif c.key then Polestar.Set(c.key, v) end
 end
+-- A value as Lua source (the saved variables of a reload).
+local function ser(v)
+	local t = type(v)
+	if t == "string" then return string.format("%q", v) end
+	if t == "number" then return string.format("%.17g", v) end
+	if t ~= "table" then return tostring(v) end
+	local out = {}
+	for k, x in pairs(v) do
+		local key = type(k) == "number" and ("[" .. string.format("%.17g", k) .. "]") or ("[" .. string.format("%q", k) .. "]")
+		out[#out + 1] = key .. " = " .. ser(x)
+	end
+	return "{ " .. table.concat(out, ", ") .. " }"
+end
+-- The saved variables of a reload: the settings and what goes with them (the profiles, the migrations run, the
+-- marks of what a first login did), none of the session's history (the rares met, the characters seen, boat
+-- times), which the group's probes would meet again as old.
+local KEPT = { schema = true, settings = true, profile = true, profileActive = true, profiles = true, migrations = true,
+	lineStyleKept = true, whatsNewSeen = true, gamepad = true }
+local function savedNow()
+	local t = {}
+	for k, v in pairs(PolestarDB) do if KEPT[k] then t[k] = v end end
+	return "PolestarDB = " .. ser(t)
+end
 local settle = G.settle or 0.1
 local function wait() stub.advance(settle) end
 if G.setup then G.setup() end
 wait()
-local bad, n, logins = {}, 0, {}
+local bad, n, logins, reloads = {}, 0, {}, {}
 local ids = {}
-for id in pairs(G.probes) do ids[#ids + 1] = id end
+for id in pairs(G.probes) do
+	if not __ONLY or id == __ONLY then ids[#ids + 1] = id end
+end
 table.sort(ids)
 for _, id in ipairs(ids) do
 	local e = G.probes[id]
@@ -242,11 +280,41 @@ for _, id in ipairs(ids) do
 			write(c, v)
 			wait()
 			local after = e.probe()
+			-- The saved variables as they stand now, for a reload with the setting at v.
+			local saved = c.key and not e.restore and savedNow() or nil
 			if e.restore then write(c, had) else write(c, nil) end
 			wait()
 			local back = e.probe()
 			if same(before, after) then return "changing it to " .. show(v) .. " changes nothing: " .. show(before) end
 			if not same(before, back) then return "back at its default it leaves " .. show(back) .. " (was " .. show(before) .. ")" end
+			-- A profile switch (and Reset all) changes every setting at once (SETTING_CHANGED ""): the effect follows
+			-- it both ways, read as the control's own reset and change read. To a copy of this profile with the setting
+			-- at its default, then back to this one with it at v. A check whose reads move the world on (`once`: a
+			-- level up, a drag from where the last one left) has its three reads above alone.
+			if c.key and not e.restore and not e.once then
+				write(c, v)
+				wait()
+				local db = Polestar.DB()
+				local function copy(t) if type(t) ~= "table" then return t end local o = {} for k, x in pairs(t) do o[k] = copy(x) end return o end
+				local mine, other = db.settings, copy(db.settings)
+				local keys, node = {}, other
+				for part in c.key:gmatch("[^.]+") do keys[#keys + 1] = part end
+				for i = 1, #keys - 1 do node = type(node) == "table" and node[keys[i]] or nil end
+				if type(node) == "table" then node[keys[#keys]] = nil end
+				db.settings = other
+				Polestar.Fire("SETTING_CHANGED", "", nil)
+				wait()
+				local blank = e.probe()
+				db.settings = mine
+				Polestar.Fire("SETTING_CHANGED", "", nil)
+				wait()
+				local again = e.probe()
+				write(c, nil)
+				wait()
+				if not same(blank, back) then return "in a profile with it at its default it leaves " .. show(blank) .. " (its own reset " .. show(back) .. ")" end
+				if not same(again, after) then return "back to its profile it leaves " .. show(again) .. " (set, it showed " .. show(after) .. ")" end
+			end
+			if saved and e.reload ~= false then reloads[#reloads + 1] = { id = id, saved = saved, after = after } end
 		end
 	end)
 	-- Whatever happened: the check's own state undone, then the group's.
@@ -259,7 +327,7 @@ for _, id in ipairs(ids) do
 	if not ok then bad[#bad + 1] = id .. ": the check failed: " .. tostring(why)
 	elseif why then bad[#bad + 1] = id .. ": " .. why end
 end
-emit({ bad = bad, n = n, logins = logins })
+emit({ bad = bad, n = n, logins = logins, reloads = reloads })
 "#;
 
 // An environment a group runs in: the stubs and the addon files its module's own tests use.
@@ -301,8 +369,9 @@ fn env(name: &str) -> Env {
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
 		// The whole addon with a guide that has a step for every dungeon in the route (Dungeons.ROUTE's, read from
 		// the settings' addon's list without it: the group's own list), registered before the settings window's
-		// addon loads, so Discovery > Dungeons has a row for each (Polestar_Options/Dungeons/Options.lua).
-		"dungeonroute" => Env { prelude: format!("stub.advance(1)\n{DUNGEON_ROUTE_GUIDE}\nassert(Polestar.UI.LoadOptions())\n"), ..env("world") },
+		// addon loads, so Discovery > Dungeons has a row for each (Polestar_Options/Dungeons/Options.lua). Dungeons in
+		// the route turned on first: held back as they ship (Core/Init.lua's switch), no row shows.
+		"dungeonroute" => Env { prelude: format!("Polestar.dungeonRoute = true\nstub.advance(1)\n{DUNGEON_ROUTE_GUIDE}\nassert(Polestar.UI.LoadOptions())\n"), ..env("world") },
 		// The real QoL against tests/lua/stub_qol.lua's client and its fake Engine, Nav and Pins (qol.rs,
 		// qol-items.rs, ui-look-buttons.rs), with its rows (the settings' addon's QoL/Options.lua) and the Buttons
 		// page that sets the action buttons' looks. The whole addon's guide window can't draw the fake Engine's
@@ -355,17 +424,69 @@ fn ready(g: &Group) -> Ready {
 	Ready { e, before, _codex: codex, _questdb: questdb }
 }
 
-fn run_group(g: &Group) -> Value {
+// The runner over the group's checks, or over the one check `only`.
+fn run_group_only(g: &Group, only: Option<&str>) -> Value {
 	let r = ready(g);
+	let only = only.map(|id| format!("__ONLY = {}\n", lua_string(id))).unwrap_or_default();
 	emitted(&RunAddon {
 		stubs: r.e.stubs,
 		before: r.before,
 		addons: r.e.addons,
 		login: r.e.login,
-		script: format!("{}{COMPARE}__GROUP = (function() {} end)()\n{RUNNER}", r.e.prelude, g.src),
+		script: format!("{}{COMPARE}{only}__GROUP = (function() {} end)()\n{RUNNER}", r.e.prelude, g.src),
 		..Default::default()
 	})
 	.remove(0)
+}
+
+fn run_group(g: &Group) -> Value {
+	run_group_only(g, None)
+}
+
+// One session of a reload check: the saved variables as the runner left them with the setting at its value (`saved`),
+// loaded before ADDON_LOADED as the client loads them; the environment up and the group's setup, then the check's
+// `prepare`; the probe's one read (null for nil).
+fn reload_read(g: &Group, id: &str, saved: &str) -> Value {
+	let r = ready(g);
+	let out = emitted(&RunAddon {
+		stubs: r.e.stubs,
+		before: r.before,
+		addons: r.e.addons,
+		saved: vec![("Polestar".into(), saved.into())],
+		login: r.e.login,
+		script: format!(
+			"{}__GROUP = (function() {} end)()\nlocal __e = __GROUP.probes[{}]\nif type(__e) == \"function\" then __e = {{ probe = __e }} end\nif __GROUP.setup then __GROUP.setup() end\nstub.advance(__GROUP.settle or 0.1)\nif __e.prepare then __e.prepare() end\nstub.advance(__GROUP.settle or 0.1)\nemit({{ read = __e.probe() }})",
+			r.e.prelude,
+			g.src,
+			lua_string(id)
+		),
+	})
+	.remove(0);
+	out.get("read").cloned().unwrap_or(Value::Null)
+}
+
+// Two reads the same, as the runner compares them.
+fn same_read(a: &Value, b: &Value) -> bool {
+	emitted(&RunAddon { script: format!("{COMPARE}emit(same({}, {}))", lua_value(a), lua_value(b)), ..Default::default() }).remove(0) == Value::Bool(true)
+}
+
+// A reload check (the runner's `reloads`): the setting at its value, read after a reload, shows what it showed when
+// set live. A different read is checked again against the check alone in a fresh session (the group's earlier checks
+// may have left the world otherwise). -> why it fails
+fn reload_check(g: &Group, l: &Value) -> Option<String> {
+	let id = l["id"].as_str().unwrap_or_default();
+	let read = reload_read(g, id, l["saved"].as_str().unwrap_or_default());
+	if same_read(&read, &l["after"]) {
+		return None;
+	}
+	let alone = run_group_only(g, Some(id));
+	let Some(live) = alone["reloads"].as_array().and_then(|a| a.first()).map(|x| x["after"].clone()) else {
+		return Some(format!("{id}: after a reload it shows {}; alone in a fresh session the check reads nothing: {}", lua_value(&read), alone["bad"]));
+	};
+	if same_read(&read, &live) {
+		return None;
+	}
+	Some(format!("{id}: after a reload it shows {}, set live {}", lua_value(&read), lua_value(&live)))
 }
 
 // One session of a login check: the check's `with` and `prepare` and the setting at `value`, written once the addon
@@ -420,6 +541,7 @@ fn check(name: &str) {
 	let out = run_group(g);
 	let mut bad: Vec<String> = out["bad"].as_array().map(|a| a.iter().map(|x| x.as_str().unwrap_or_default().to_string()).collect()).unwrap_or_default();
 	bad.extend(out["logins"].as_array().into_iter().flatten().filter_map(|l| login_check(g, l)));
+	bad.extend(out["reloads"].as_array().into_iter().flatten().filter_map(|l| reload_check(g, l)));
 	assert!(bad.is_empty(), "{name}: {} of {} controls without a live effect:\n{}", bad.len(), out["n"], bad.join("\n"));
 }
 
@@ -579,6 +701,16 @@ fn guide_automation() {
 }
 
 #[test]
+fn guide_whilehere_gather() {
+	check("guide_whilehere_gather");
+}
+
+#[test]
+fn guide_professions() {
+	check("guide_professions");
+}
+
+#[test]
 fn guide_route() {
 	check("guide_route");
 }
@@ -659,8 +791,11 @@ fn every_control_has_an_effect_check() {
 		script: format!(
 			r#"
 			stub.advance(1)
-			-- Guides with steps for every dungeon: each one's row on Discovery > Dungeons is a control too.
-			Polestar.Engine.GuideDungeons = function() return setmetatable({{}}, {{ __index = function() return true end }}) end
+			-- Guides with steps for every dungeon this character may run (never a city dungeon of the other faction,
+			-- Engine.EnemyCityDungeon): each one's row on Discovery > Dungeons is a control too (dungeons in
+			-- the route turned on: held back as they ship, Core/Init.lua's switch).
+			Polestar.dungeonRoute = true
+			Polestar.Engine.GuideDungeons = function() return setmetatable({{}}, {{ __index = function(_, map) return not Polestar.Engine.EnemyCityDungeon(map) end }}) end
 			assert(Polestar.UI.LoadOptions())
 			{pending}
 			local O = Polestar.UI.Options

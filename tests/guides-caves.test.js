@@ -79,6 +79,14 @@ const CASES = [
 		mouth: { map: 1438, x: 44.3, y: 57.9 },
 		tip: /relics of Wakening lie in the Ban'ethil Barrow Den/,
 	},
+	{
+		// #1506: the walking maps have no way into Algaz Station, Captain Rugelfuss's bunker at the tunnel post,
+		// from anywhere in Loch Modan, so the arrow drew a straight line from the trogg site.
+		guide: 'forever/alliance/03-loch-modan.guide',
+		target: (g) => g.t === 'turnin' && g.quest === 86585, // Banner of the Fallen, to Captain Rugelfuss
+		mouth: { map: 1432, x: 23.5, y: 75.6 }, // players' recordings: 16 people walked in at 23.33,75.75 -> 23.33,74.55
+		tip: /inside the bunker at the tunnel post: go in by its door/,
+	},
 ];
 
 let data;
@@ -107,8 +115,16 @@ for (const c of CASES) {
 
 // Goals underground where the walking maps do join the cave or mine: the goal carries its floor's height, so the
 // arrow's walk goes in through the mouth instead of ending on the hill over the target (heights.js: an objective's
-// object or creature, a collect's sources, a goto leading to a goal with one). Each case is a player report.
+// object or creature, or the objects its item comes out of; a collect's sources; a goto leading to a goal with one).
+// Each case is a player report.
 const FLOORS = [
+	{
+		// Pilsnerinn (#2126): the Filled Etched Phial is used on the Ancient Brazier deep in Splithoof Hold, and the
+		// arrow went up the Great Lift to the hill over the cave instead of in at its mouth.
+		guide: 'forever/horde/07-ashenvale.guide',
+		target: (g) => g.t === 'use' && g.quest === 1197 && g.oi === 1,
+		z: -70.5, // the Ancient Brazier's spawn (spawnz.json), the object the Cloven Hoof comes out of
+	},
 	{
 		// Redrett (#1782): the Rod of Helcular at the Flames of Azel and Veraz, in the Foothill Caverns under Darrow Hill.
 		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
@@ -126,6 +142,23 @@ const FLOORS = [
 		target: (g) => g.t === 'goto' && g.area === 288 && g.x === 28.5 && g.y === 55,
 		z: 21.3, // the miners' kill goal it leads to
 	},
+	{
+		// dloyd (#1945): the arrow led straight over the hill above the Vul'Gol Ogre Mound to Zzarc' Vul, below ground.
+		guide: 'forever/alliance/07-thousand-needles.guide',
+		target: (g) => g.t === 'collect' && g.item === 1968, // the Ogre's Monocle, from Zzarc' Vul
+		z: 13.7, // Zzarc' Vul's spawn (spawnz.json)
+	},
+	...[
+		[280502, 429], // the Relic of the Fang
+		[280679, 439], // the Relic of the Claw
+		[280680, 431], // the Relic of the Silent Shadow
+	].map(([item, z]) => ({
+		// ddos (#2005), Jaesais (#1919): the relics lie deep in the Stormrage Barrow Dens, and the arrow aimed at the hill
+		// above them. Their objects have no spawn data: data/goal-heights.json's records, from players' recordings.
+		guide: 'forever/class/druid/cat-form.guide',
+		target: (g) => g.t === 'collect' && g.item === item && g.quest === 98342,
+		z,
+	})),
 ];
 
 for (const c of FLOORS) {

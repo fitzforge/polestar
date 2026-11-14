@@ -459,7 +459,7 @@ fn the_pause_the_guide_key_binding_pauses_and_resumes() {
 	.remove(0);
 	assert_eq!(out, json!({ "seen": ["armed", false], "label": "Pause the guide", "pad": ["Pause the guide", "Pause"] }));
 	let xml = std::fs::read_to_string(addons_dir().join("Polestar/Bindings.xml")).unwrap();
-	assert!(is_match(&xml, r#"(?s)<Binding name="POLESTAR_PAUSE" category="Polestar" searchTags="BINDING_TAG_POLESTAR">\s*Polestar\.Bindings\.Pause\(\)\s*</Binding>"#), "{xml}");
+	assert!(is_match(&xml, r#"(?s)<Binding name="POLESTAR_PAUSE" category="Polestar">\s*Polestar\.Bindings\.Pause\(\)\s*</Binding>"#), "{xml}");
 }
 
 // Options, Guide, Window: the Pause switch pauses and resumes, and repaints when Polestar resumes by itself (or by

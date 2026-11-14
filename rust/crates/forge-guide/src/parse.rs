@@ -63,7 +63,7 @@ pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "labe
 
 // COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
-pub const MODS: [(&str, &[&str]); 32] = [
+pub const MODS: [(&str, &[&str]); 33] = [
 	("accept", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
@@ -72,7 +72,9 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("abandon", &["text", "optional", "only"]),
 	("destroy", &["text", "optional", "only"]),
 	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
-	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere"]),
+	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
+	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
+	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere", "gather"]),
 	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
 	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip", "quest"]),
 	("interact", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
@@ -87,6 +89,9 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("enter", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
 	("train", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
 	("buy", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "count", "nearest"]),
+	// `auction <item> xN`: buy it at the Auction House (the arrow: the nearest auctioneer of the player's faction);
+	// applies while the player gets the item by buying it (Core/Materials.lua).
+	("auction", &["text", "optional", "only", "count"]),
 	("vendor", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "gossip"]),
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
 	("level", &["text", "optional", "only", "group", "grind"]),
@@ -106,9 +111,9 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("wait", &["text", "optional", "only"]),
 ];
 /// Object.keys(MODS).
-pub const VERBS: [&str; 32] = [
-	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "vendor", "level",
-	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
+pub const VERBS: [&str; 33] = [
+	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "auction",
+	"vendor", "level", "money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
 ];
 
 /// `MODS[verb]` (own properties only).
@@ -131,9 +136,9 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 23] = [
-	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "reward", "choose", "xp", "money", "group", "direct", "gossip",
-	"grind",
+pub const MOD_WORDS: [&str; 24] = [
+	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "gather", "reward", "choose", "xp", "money", "group", "direct",
+	"gossip", "grind",
 ];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
@@ -973,7 +978,7 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 			}
 			Some(i)
 		}
-		"collect" | "use" | "destroy" | "buy" => {
+		"collect" | "use" | "destroy" | "buy" | "auction" => {
 			if t.is_none() {
 				fail!(format!("`{verb}` needs an item id"));
 			}
@@ -1459,6 +1464,41 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 				use_!("anywhere");
 				goal.set("anywhere", true);
 				i += 1;
+				continue;
+			}
+			"gather" => {
+				use_!("gather");
+				goal.set("gather", true);
+				i += 1;
+				// What the gather way takes: `gather <Profession> <rank>` (Herbalism for a herb, Mining to smelt a
+				// bar, Skinning for leather, Enchanting for dust) and `gather levels <min>-<max>` (the mobs it drops
+				// from as the player levels: cloth, meat). Either, both (the profession first) or neither.
+				let rank = toks.get(i + 1).filter(|t| !t.quoted && is_int(&t.text));
+				if let (Some(p), Some(rk)) = (toks.get(i), rank) {
+					if p.quoted || !is_modifier_token(Some(p)) {
+						if str_to_num(&rk.text) <= 0.0 {
+							fail!(format!("malformed skill rank \"{}\" after `gather {}`", rk.text, p.text));
+						}
+						goal.set("gatherSkill", p.text.as_str());
+						if p.quoted {
+							goal.set("gatherSkillQuoted", true);
+						}
+						goal.set("gatherRank", str_to_num(&rk.text));
+						i += 2;
+					}
+				}
+				if toks.get(i).is_some_and(|t| !t.quoted && t.text.to_lowercase() == "levels") {
+					let tk = toks.get(i + 1);
+					let range = tk.filter(|t| !t.quoted).and_then(|t| t.text.split_once('-')).filter(|(a, b)| is_int(a) && is_int(b)).map(|(a, b)| (str_to_num(a), str_to_num(b)));
+					match range {
+						Some((lo, hi)) if lo >= 1.0 && hi > lo => {
+							goal.set("gatherMin", lo);
+							goal.set("gatherMax", hi);
+						}
+						_ => fail!(format!("malformed level range \"{}\" (write `gather levels <min>-<max>`, e.g. `gather levels 15-30`)", tok_text(tk))),
+					}
+					i += 2;
+				}
 				continue;
 			}
 			"optional" => {

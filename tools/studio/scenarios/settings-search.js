@@ -4,10 +4,13 @@
 // on its Guide page with "arrow" typed in the header's box (the Arrow page,
 // its sections and the best settings, the second row lit by the Down key),
 // and with a query nothing matches ("hearthston xyzzy": the nearest settings
-// offered) at 1.0. The looks are the built-in six and the skin addons in the
+// offered) at 1.0; a question asked with /polestar ask ("how do I hide the
+// arrow?": the box holding it, the dropdown open on the answer) at each
+// scale, and the empty box's placeholder inviting a question at 1.0. The looks are the built-in six and the skin addons in the
 // download (skins.js's list, without its variants), each picked as skins.js
-// picks it. Shots: <look>-<scale> and <look>-nomatch (studio
-// settings-search/hearth-0.64 ...); the close-up is the dropdown and its box.
+// picks it. Shots: <look>-<scale>, <look>-nomatch, <look>-ask-<scale> and
+// <look>-placeholder (studio settings-search/hearth-0.64 ...); the close-up
+// is the dropdown and its box.
 //
 // The UI scale: UIParent at that scale, its size in UI units the screen's
 // 1920 x 1080 over it, as the client has it (the settings window keeps its
@@ -43,12 +46,33 @@ for i, r in ipairs(Polestar.UI.Options.Dropdown.Rows()) do rows[i] = r.kind .. "
 return rows`;
 }
 
+// The same window, the question asked from chat (or nothing typed: the placeholder).
+function ask(scale, question) {
+	return `local s = ${scale}
+UIParent:SetScale(s)
+function UIParent:GetWidth() return 1920 / s end
+function UIParent:GetHeight() return 1080 / s end
+if PolestarNavArrow then PolestarNavArrow:Hide() end
+if PolestarGuideFrame then PolestarGuideFrame:Hide() end
+Polestar.UI.ShowOptions("guide")
+stub.advance(1)
+${question === null ? '' : `Polestar.RunCommand(${luaStr(`ask ${question}`)})`}
+stub.advance(0.5)
+local rows = { "box: " .. (PolestarOptions.Search:GetText() ~= "" and PolestarOptions.Search:GetText() or PolestarOptions.Search.Placeholder:GetText()) }
+for _, r in ipairs(Polestar.UI.Options.Dropdown.Rows()) do rows[#rows + 1] = r.kind .. ": " .. (r.label or "") end
+return rows`;
+}
+
 const shots = {};
 for (const [name, [id, folder, variant]] of Object.entries(LOOKS)) {
 	const base = skins.pick(id, folder, variant);
 	for (const scale of SCALES) {
 		shots[`${name}-${scale}`] = { title: `${name} at UI scale ${scale}: "arrow" typed, the second row lit`, lua: `${base}\n${search(scale, 'arrow', 2)}` };
 	}
+	for (const scale of SCALES) {
+		shots[`${name}-ask-${scale}`] = { title: `${name} at UI scale ${scale}: /polestar ask how do I hide the arrow?`, lua: `${base}\n${ask(scale, 'how do I hide the arrow?')}` };
+	}
+	shots[`${name}-placeholder`] = { title: `${name}: the empty box inviting a question`, lua: `${base}\n${ask('1.0', null)}` };
 	shots[`${name}-nomatch`] = { title: `${name}: a query nothing matches, the nearest settings offered`, lua: `${base}\n${search('1.0', 'hearthston xyzzy', 0)}` };
 }
 

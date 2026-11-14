@@ -89,7 +89,7 @@ each class an `only` in the guide names, and one class no `only` names. With
 | R6 gating | The data closes the quest to this race or class and no `only` gates the line (fail). An `only` on a quest the data opens to everyone (warn). | fail / warn |
 | R7 numbers | Counts and quest levels in a goal or its tip match the data (`x10` for an objective of 8; "Kill 6" for 8). | fail / warn |
 | R8 grinds | Two `level` gates in a row with no quest work between them. | fail |
-| R9 quest log | The log holds at most 20 quests at every point (`LOG_MAX`, a guide rule kept well under the game's 40-quest log that the model and the writer use); the peak is reported. | fail |
+| R9 quest log | The log holds at most 40 quests at every point (`LOG_MAX`: Forever's quest log, the addon's `Compat.GetLogCap` when the client does not say); the peak is reported. | fail |
 | R10 loose ends | Every accept is turned in or abandoned later on the chain. | fail |
 
 Default mode runs R1-R10. It merges equal findings across personas and chains,
@@ -237,6 +237,7 @@ forge judge check --help
 forge judge seed-tests --help
 forge judge route-status --help
 forge judge feedback --help
+forge judge doors --help
 ```
 
 ### One pack: `forge judge`
@@ -396,6 +397,35 @@ no feedback row cites as untriaged; neither is guessed. `--out` is
 `data/route-fixes.json` with those overrides added; point the sim at it with
 `POLESTAR_ROUTE_FIXES`.
 
+### Dungeon runs against their floors: `forge judge doors`
+
+```sh
+forge judge doors --sim data/sim
+forge judge doors --sim data/sim --levels levels/Alliance.json,levels/Horde.json
+```
+
+Reads every leveling guide's dungeon runs (a `when dungeon "<Name>"` step,
+not negated, with an `enter` goal) and checks them against their floors in
+the Codex (`data/forever/codex/journal.json`: the client's Group Finder
+minimum, its fixed minimum or where players who killed a boss there
+entered, whichever is highest; `forge guide lint` already errors on a run
+gated under it). For each run it follows the guide from the stop before it
+(the last goal that does something where it stands) through its walks and
+flights to the door. A **blocker** (`door-danger`) is a zone the walk crosses
+or ends in, or a flight lands in, whose danger level (the world's: its
+lowest level, or its danger floor) is 4 or more over the run's `when
+level>=` gate: a player at the gate would walk among mobs 4 levels over
+them, the in-game planner's mark. The stop's own zone isn't counted, and a
+flight crosses nothing.
+
+With `--levels` (the calibrated level model's output per faction, the files
+the danger gate reads) it also warns of each run the model reaches under its
+floor (`under-floor`: the gate would hide the run for most players) and each
+pick-up whose gate isn't the floor less the levels the model plans between it
+and the run (`pickup-gate`, more than half a level off). These are warnings:
+a borderline run would flap with each model update. The command exits 1 when
+there is a blocker.
+
 ## Reading report.md and report.json
 
 `report.md` begins with a **Sources** line: the current guides' folder, the data folder and
@@ -422,7 +452,7 @@ whole 1-60 walk.
 | trains (trips) (`trains`, `trainTrips`) | Training goals; trips whose only purpose is training, going back on yourself | fewer trips |
 | grind min (`grindMin`) | Minutes spent on `level` goals (their time, travel to the camp included) | lower |
 | grind all, shown (`grindAllMin`, `grindShownMin`) | The level model's grinding on every goal (its evaluator's grind time), and the part on `level` goals; the rest is grind no step writes. A recorded JS walk has no model grind: both are `grindMin` | lower |
-| log peak (`logPeak`) | Most quests held at once | ≤ 20 |
+| log peak (`logPeak`) | Most quests held at once | ≤ 40 |
 
 Then, per start:
 
@@ -443,6 +473,22 @@ Then, per start:
   `turnin Q`, `work Q`); out of order is what falls outside the longest common
   order. `losses` is the written walk's extra minutes before each common event,
   biggest first: where the written guides lose time against the plan.
+- **Per guide** (`minutesByGuide`: `["v1", [...]]` and `["written", [...]]`, as
+  `rows`, each list in the order the walk to 60 enters the guides): each guide's model minutes (its goals'
+  time, the travel to each included, so the rows add up to the chain's hours),
+  the quests it hands in and the level at its first goal and after its last.
+  report.md puts every guide of the written chain beside the same guide of the
+  base chain (`change` is written less base), then the base chain's guides the
+  written chain does not have. A guide the two chains name differently (the
+  shipped `orc/` and `troll/` start guides against the seed's `orc-troll/`)
+  shows as two rows. It is where a route change's minutes land, guide by guide.
+- **Timed quests** (`timed`: `["v1", [...]]` and `["written", [...]]`): every
+  quest with a time limit the walk to 60 accepts, from its first accept to the
+  first hand-in after it, in model minutes (`gapMin`, empty when the walk does
+  not hand it in) against the limit (`limitMin`), with the guide of the accept.
+  report.md shows each gap's share of the limit for both chains: the model's
+  times are a fast player's, so a hand-in that uses most of the limit leaves
+  a slower player little room.
 
 A healthy written start: hours lower than v1 at 30 and 60, passed by and
 returns no worse, no new honest failures, no new seed-test failures, lint 0

@@ -162,6 +162,121 @@ pub fn measures(j: &crate::walk::Judged, to: f64) -> Measures {
 	}
 }
 
+/// One guide's share of a chain's walk (report.md's per-guide table): the model minutes of its goals
+/// (each goal's time, the travel to it included), the quests it hands in, and the level at its first
+/// goal and after its last.
+#[derive(Clone, Debug, Default, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GuideMinutes {
+	pub guide: String,
+	pub minutes: f64,
+	pub turnins: usize,
+	pub level_in: f64,
+	pub level_out: f64,
+}
+
+/// A walk's goals cut at `to` (as [`measures`] cuts them) by guide, in the order the walk enters the
+/// guides; minutes to one decimal. The rows add up to the walk's time.
+pub fn guide_minutes(goals: &[WalkGoal], to: f64) -> Vec<GuideMinutes> {
+	let mut out: Vec<GuideMinutes> = Vec::new();
+	let mut at: FxHashMap<&str, usize> = FxHashMap::default();
+	for g in goals.iter().filter(|g| g.lvl.is_finite() && g.lvl < to && g.time_after.is_finite()) {
+		let i = *at.entry(g.guide.as_str()).or_insert_with(|| {
+			out.push(GuideMinutes { guide: g.guide.clone(), level_in: g.lvl, ..Default::default() });
+			out.len() - 1
+		});
+		let r = &mut out[i];
+		r.minutes += (g.time_after - g.time) / 60.0;
+		if g.t == "turnin" {
+			r.turnins += 1;
+		}
+		r.level_out = g.lvl_after;
+	}
+	for r in &mut out {
+		r.minutes = (r.minutes * 10.0).round() / 10.0;
+	}
+	out
+}
+
+/// report.md's per-guide table of one start: every guide of the written chain in its order, each beside
+/// the same guide of the guides' chain, then the guides' chain's guides the written chain does not have.
+pub fn guide_table(v1: &[GuideMinutes], written: &[GuideMinutes]) -> String {
+	use std::fmt::Write;
+	let mut m = String::new();
+	let _ = writeln!(m, "| guide | guides min | written min | change | turn-ins guides -> written | levels guides -> written |");
+	let _ = writeln!(m, "|---|---|---|---|---|---|");
+	let levels = |r: Option<&GuideMinutes>| r.map_or("-".to_string(), |r| format!("{:.1}-{:.1}", r.level_in, r.level_out));
+	let mins = |r: Option<&GuideMinutes>| r.map_or("-".to_string(), |r| format!("{:.1}", r.minutes));
+	let turnins = |r: Option<&GuideMinutes>| r.map_or("-".to_string(), |r| r.turnins.to_string());
+	let row = |m: &mut String, guide: &str, a: Option<&GuideMinutes>, b: Option<&GuideMinutes>| {
+		let change = match (a, b) {
+			(Some(a), Some(b)) => format!("{:+.1}", b.minutes - a.minutes),
+			_ => "-".to_string(),
+		};
+		let _ = writeln!(m, "| {guide} | {} | {} | {change} | {} -> {} | {} -> {} |", mins(a), mins(b), turnins(a), turnins(b), levels(a), levels(b));
+	};
+	for b in written {
+		row(&mut m, &b.guide, v1.iter().find(|a| a.guide == b.guide), Some(b));
+	}
+	for a in v1.iter().filter(|a| !written.iter().any(|b| b.guide == a.guide)) {
+		row(&mut m, &a.guide, Some(a), None);
+	}
+	m
+}
+
+/// A timed quest on a chain's walk (report.md's timed table): the model minutes from its accept to its
+/// hand-in against its time limit, the yardstick of the route search's timed margin.
+#[derive(Clone, Debug, Default, PartialEq, Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct TimedGap {
+	pub q: i64,
+	pub title: String,
+	/// The guide of the accept.
+	pub guide: String,
+	pub limit_min: f64,
+	/// Minutes from the end of the accept to the end of the hand-in; None: the walk does not hand it in.
+	pub gap_min: Option<f64>,
+}
+
+/// Every timed quest the walk (cut at `to`) accepts, in the walk's order: its first accept, the first
+/// hand-in after it. `limit` gives a quest's limit in seconds (None: not timed), `title` its title.
+pub fn timed_gaps(goals: &[WalkGoal], limit: &dyn Fn(i64) -> Option<f64>, title: &dyn Fn(i64) -> String, to: f64) -> Vec<TimedGap> {
+	let goals: Vec<&WalkGoal> = goals.iter().filter(|g| g.lvl.is_finite() && g.lvl < to && g.time_after.is_finite()).collect();
+	let mut out: Vec<TimedGap> = Vec::new();
+	for (i, g) in goals.iter().enumerate() {
+		let Some(q) = g.q.filter(|_| g.t == "accept") else { continue };
+		let Some(lim) = limit(q).filter(|l| *l > 0.0) else { continue };
+		if out.iter().any(|t| t.q == q) {
+			continue;
+		}
+		let gap = goals[i + 1..].iter().find(|h| h.t == "turnin" && h.q == Some(q)).map(|h| ((h.time_after - g.time_after) / 6.0).round() / 10.0);
+		out.push(TimedGap { q, title: title(q), guide: g.guide.clone(), limit_min: (lim / 6.0).round() / 10.0, gap_min: gap });
+	}
+	out
+}
+
+/// report.md's timed table of one start: each timed quest either chain accepts, the guides' gap and the
+/// written one, with the share of the limit each uses.
+pub fn timed_table(v1: &[TimedGap], written: &[TimedGap]) -> String {
+	use std::fmt::Write;
+	let mut m = String::new();
+	let _ = writeln!(m, "| quest | guide (written) | limit min | guides min (share) | written min (share) |");
+	let _ = writeln!(m, "|---|---|---|---|---|");
+	let cell = |t: Option<&TimedGap>| match t {
+		None => "-".to_string(),
+		Some(TimedGap { gap_min: None, .. }) => "not handed in".to_string(),
+		Some(TimedGap { gap_min: Some(g), limit_min, .. }) => format!("{g:.1} ({:.0}%)", g / limit_min * 100.0),
+	};
+	let mut qs: Vec<i64> = written.iter().map(|t| t.q).collect();
+	qs.extend(v1.iter().map(|t| t.q).filter(|q| !written.iter().any(|t| t.q == *q)));
+	for q in qs {
+		let (a, b) = (v1.iter().find(|t| t.q == q), written.iter().find(|t| t.q == q));
+		let any = b.or(a).expect("a quest of either list");
+		let _ = writeln!(m, "| {q} {} | {} | {:.0} | {} | {} |", any.title, b.map_or("-", |t| t.guide.as_str()), any.limit_min, cell(a), cell(b));
+	}
+	m
+}
+
 /// The order's stream against the written walk (sdiff.js).
 #[derive(Clone, Debug, Default, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -437,6 +552,76 @@ mod tests {
 		assert_eq!(k.len(), 3);
 		assert!(k.contains(&0) && k.contains(&3));
 	}
+
+	/// A walk goal in guide `guide`, begun at `time` s and level `lvl`, ended at `time_after` and `lvl_after`.
+	fn timed(guide: &str, t: &str, q: Option<i64>, (lvl, time): (f64, f64), (lvl_after, time_after): (f64, f64)) -> WalkGoal {
+		let mut g = stream_goals(&serde_json::json!({ "goals": [{ "t": t, "q": q }] })).remove(0);
+		g.guide = guide.into();
+		(g.lvl, g.time, g.lvl_after, g.time_after) = (lvl, time, lvl_after, time_after);
+		g
+	}
+
+	#[test]
+	fn guide_minutes_split_the_walk_by_guide_in_the_order_it_enters_them() {
+		let goals = vec![
+			timed("forever/horde/orc-troll/01-durotar", "accept", Some(4641), (1.0, 0.0), (1.0, 30.0)),
+			timed("forever/horde/orc-troll/01-durotar", "turnin", Some(4641), (1.0, 30.0), (1.4, 150.0)),
+			timed("forever/horde/02-the-barrens", "accept", Some(840), (12.0, 150.0), (12.0, 210.0)),
+			timed("forever/horde/02-the-barrens", "turnin", Some(840), (12.0, 210.0), (12.6, 600.0)),
+			timed("forever/horde/orc-troll/01-durotar", "turnin", Some(788), (12.6, 600.0), (12.8, 660.0)),
+			timed("forever/horde/02-the-barrens", "turnin", Some(842), (12.8, 660.0), (13.1, 720.0)),
+		];
+		let rows = guide_minutes(&goals, 61.0);
+		assert_eq!(rows.len(), 2);
+		assert_eq!((rows[0].guide.as_str(), rows[0].minutes, rows[0].turnins, rows[0].level_in, rows[0].level_out), ("forever/horde/orc-troll/01-durotar", 3.5, 2, 1.0, 12.8));
+		assert_eq!((rows[1].guide.as_str(), rows[1].minutes, rows[1].turnins, rows[1].level_in, rows[1].level_out), ("forever/horde/02-the-barrens", 8.5, 2, 12.0, 13.1));
+		assert_eq!(rows.iter().map(|r| r.minutes).sum::<f64>(), 12.0, "the rows add up to the walk's time");
+		// Cut at 12: only the goals begun under level 12.
+		let cut = guide_minutes(&goals, 12.0);
+		assert_eq!(cut.len(), 1);
+		assert_eq!((cut[0].minutes, cut[0].turnins), (2.5, 1));
+	}
+
+	#[test]
+	fn guide_table_puts_each_written_guide_beside_the_same_guide_of_the_guides() {
+		let row = |guide: &str, minutes: f64, turnins: usize, level_in: f64, level_out: f64| GuideMinutes { guide: guide.into(), minutes, turnins, level_in, level_out };
+		let v1 = vec![row("forever/horde/orc/01-durotar", 200.0, 30, 1.0, 12.4), row("forever/horde/02-the-barrens", 410.0, 25, 12.4, 20.9)];
+		let written = vec![row("forever/horde/orc-troll/01-durotar", 190.0, 31, 1.0, 12.5), row("forever/horde/02-the-barrens", 395.5, 26, 12.5, 21.0)];
+		let t = guide_table(&v1, &written);
+		let lines: Vec<&str> = t.lines().collect();
+		assert_eq!(lines.len(), 5, "{t}");
+		assert_eq!(lines[2], "| forever/horde/orc-troll/01-durotar | - | 190.0 | - | - -> 31 | - -> 1.0-12.5 |");
+		assert_eq!(lines[3], "| forever/horde/02-the-barrens | 410.0 | 395.5 | -14.5 | 25 -> 26 | 12.4-20.9 -> 12.5-21.0 |");
+		assert_eq!(lines[4], "| forever/horde/orc/01-durotar | 200.0 | - | - | 30 -> - | 1.0-12.4 -> - |");
+	}
+
+	#[test]
+	fn timed_gaps_measure_each_timed_quest_from_its_accept_to_its_hand_in() {
+		let g = "forever/horde/02-the-barrens";
+		let goals = vec![
+			timed(g, "accept", Some(853), (15.0, 0.0), (15.0, 60.0)),
+			timed(g, "accept", Some(1824), (15.0, 60.0), (15.0, 120.0)),
+			timed(g, "turnin", Some(840), (15.0, 120.0), (15.2, 900.0)),
+			timed(g, "turnin", Some(853), (15.2, 900.0), (15.4, 1380.0)),
+			timed(g, "accept", Some(853), (15.4, 1380.0), (15.4, 1400.0)),
+		];
+		let limit = |q: i64| match q {
+			853 => Some(2700.0),
+			1824 => Some(1800.0),
+			_ => None,
+		};
+		let title = |q: i64| if q == 853 { "Apothecary Zamah".to_string() } else { format!("q{q}") };
+		let t = timed_gaps(&goals, &limit, &title, 61.0);
+		assert_eq!(t.len(), 2, "one row per timed quest, its first accept: {t:?}");
+		assert_eq!((t[0].q, t[0].title.as_str(), t[0].limit_min, t[0].gap_min), (853, "Apothecary Zamah", 45.0, Some(22.0)));
+		assert_eq!((t[1].q, t[1].limit_min, t[1].gap_min), (1824, 30.0, None), "not handed in on the walk");
+		let mut later = t.clone();
+		later[0].gap_min = Some(30.0);
+		let table = timed_table(&t, &later);
+		let lines: Vec<&str> = table.lines().collect();
+		assert_eq!(lines[2], "| 853 Apothecary Zamah | forever/horde/02-the-barrens | 45 | 22.0 (49%) | 30.0 (67%) |", "{table}");
+		assert_eq!(lines[3], "| 1824 q1824 | forever/horde/02-the-barrens | 30 | not handed in | not handed in |");
+	}
 }
 
 /// One start to report: the route (forge-sim's order), its judge stream (optional) and the written guides.
@@ -503,6 +688,10 @@ pub struct StartReport {
 	pub race: String,
 	/// ("v1" | "written", row) to 30 and to 60.
 	pub rows: Vec<(String, Measures)>,
+	/// ("v1" | "written", each guide's minutes, turn-ins and levels) on the walk to 60.
+	pub minutes_by_guide: Vec<(String, Vec<GuideMinutes>)>,
+	/// ("v1" | "written", each timed quest's accept-to-hand-in minutes against its limit) on the walk to 60.
+	pub timed: Vec<(String, Vec<TimedGap>)>,
 	pub honest_v1: BTreeMap<String, usize>,
 	pub honest_written: BTreeMap<String, usize>,
 	pub honest_new: Vec<String>,
@@ -604,6 +793,9 @@ fn start_report(inp: &Inputs, s: &StartInput, walks: &WalksCache) -> Result<(Str
 		judge_walk(&jo, &lv)
 	};
 	let mut rows = Vec::new();
+	let mut minutes_by_guide = Vec::new();
+	let mut timed = Vec::new();
+	let limits: FxHashMap<i64, f64> = world.quests.iter().filter_map(|w| w.limit.filter(|l| *l > 0.0).map(|l| (w.id as i64, l))).collect();
 	let mut chains: Vec<FxHashSet<String>> = Vec::new();
 	let mut written_goals = Vec::new();
 	for (name, tree) in [("v1", &inp.v1), ("written", &s.guides)] {
@@ -611,6 +803,8 @@ fn start_report(inp: &Inputs, s: &StartInput, walks: &WalksCache) -> Result<(Str
 			let j = judge(tree, to)?;
 			if to == 61.0 {
 				chains.push(j.walk.chain.iter().cloned().collect());
+				minutes_by_guide.push((name.to_string(), guide_minutes(&j.walk.goals, to)));
+				timed.push((name.to_string(), timed_gaps(&j.walk.goals, &|q| limits.get(&q).copied(), &title, to)));
 				if name == "written" {
 					written_goals = j.walk.goals.clone();
 				}
@@ -639,6 +833,8 @@ fn start_report(inp: &Inputs, s: &StartInput, walks: &WalksCache) -> Result<(Str
 		faction,
 		race,
 		rows,
+		minutes_by_guide,
+		timed,
 		honest_v1: honest_sum(&hv1, &chains[0]),
 		honest_written: honest_sum(&hw, &chains[1]),
 		honest_new: honest_new(&hw, &hv1, &chains[1], None),
@@ -752,6 +948,16 @@ pub fn markdown(o: &Output) -> String {
 			);
 			let _ = writeln!(m, "\n- only in order: {}\n- only written: {}", d.only_in_order.join("; "), d.only_written.join("; "));
 			let _ = writeln!(m, "- biggest losses: {}", d.losses.iter().take(10).map(|(x, v)| format!("+{v:.1} min before {x}")).collect::<Vec<_>>().join("; "));
+		}
+		let chain = |name: &str| s.minutes_by_guide.iter().find(|(n, _)| n == name).map_or(&[][..], |(_, r)| &r[..]);
+		if !s.minutes_by_guide.is_empty() {
+			let _ = writeln!(m, "\nPer guide, to 60 (model minutes; each goal's time, the travel to it included):\n");
+			m.push_str(&guide_table(chain("v1"), chain("written")));
+		}
+		let timed = |name: &str| s.timed.iter().find(|(n, _)| n == name).map_or(&[][..], |(_, r)| &r[..]);
+		if !timed("v1").is_empty() || !timed("written").is_empty() {
+			let _ = writeln!(m, "\nTimed quests, to 60 (model minutes from the accept to the hand-in, and the share of the time limit):\n");
+			m.push_str(&timed_table(timed("v1"), timed("written")));
 		}
 	}
 	m

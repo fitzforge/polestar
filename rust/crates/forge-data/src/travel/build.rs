@@ -292,7 +292,7 @@ fn set_v(s: &Set) -> V {
 	];
 	if !s.areas.is_empty() {
 		let area = |a: &Area| {
-			obj(vec![
+			let mut pairs = vec![
 				("id", a.id.as_str().into()),
 				("name", a.name.as_str().into()),
 				("map", a.map.into()),
@@ -301,7 +301,12 @@ fn set_v(s: &Set) -> V {
 				("bottom", a.bottom.into()),
 				("left", a.left.into()),
 				("right", a.right.into()),
-			])
+			];
+			if let Some((lo, hi)) = a.z {
+				pairs.push(("zmin", lo.into()));
+				pairs.push(("zmax", hi.into()));
+			}
+			obj(pairs)
 		};
 		pairs.push(("areas", s.areas.iter().map(area).collect::<Vec<V>>().into()));
 	}

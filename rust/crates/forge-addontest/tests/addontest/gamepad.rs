@@ -851,3 +851,29 @@ fn installs_option_cards_the_d_pad_reaches_them_a_picks_one_y_puts_the_default_b
 	"#);
 	assert_eq!(out[0], json!({ "reached": true, "picked": ["do", true], "reset": "ask", "ask": true, "card": false }), "Y puts Ask me at each back and moves the pick to its card");
 }
+
+// Make room in your quest log with a log of thirty quests (UI/QuestRoom.lua): its rows scroll inside the window,
+// and the d-pad walking down them to the last row's Abandon scrolls the list so the focus stays in sight.
+#[test]
+fn make_room_with_a_full_log_the_d_pad_reaches_the_last_row_and_the_list_scrolls_to_keep_it_in_sight() {
+	let out = run(r#"
+		local list = {}
+		for i = 1, 30 do list[i] = { quest = 9000 + i, title = "Quest " .. i, status = "unplanned" } end
+		Polestar.RoutePlan.Unneeded = function() return list end
+		Polestar.RoutePlan.Carried = function() return {} end
+		UI.ShowQuestRoom()
+		stub.advance(0.3)
+		local F = PolestarQuestRoom
+		local last = F.rows[30].Abandon
+		local reached = false
+		for _ = 1, 60 do
+			if G.Focused(F) == last then reached = true break end
+			stub.press("PADDDOWN")
+		end
+		local sf = F.List
+		local top, cur, view = sf:GetScrollChild():GetTop(), sf:GetVerticalScroll(), sf.psView or sf:GetHeight()
+		local a, z = top - last:GetTop(), top - last:GetBottom()
+		emit({ reached = reached, scrolled = cur > 0, inSight = a >= cur and z <= cur + view })
+	"#);
+	assert_eq!(out[0], json!({ "reached": true, "scrolled": true, "inSight": true }));
+}

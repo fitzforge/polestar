@@ -3,7 +3,9 @@
 --   maps.taxi   flight masters of this faction and neutral ones; known ones
 --               green, undiscovered ones amber; the tooltip lists direct
 --               destinations with this character's learned flight time or
---               an estimate.
+--               an estimate. On a continent no flight map has opened on yet
+--               for this character, one not known is amber but never called
+--               undiscovered: it may have been learnt before Polestar ran (#1795).
 --   maps.docks  both ends of every boat, zeppelin, airship and the tram this faction
 --               may ride; the tooltip names where it goes, the ride and the
 --               rough wait.
@@ -56,12 +58,23 @@ end
 -- Tooltips
 ---------------------------------------------------------------------------
 
-local function taxiTooltip(node, data, faction, known)
+-- Not known, on a continent no flight map has opened on yet (`seen` lacks it;
+-- nil `seen`: every continent has): the character may have it.
+local function unsure(node, known, seen)
+	return not known[node.id] and seen ~= nil and not seen[node.c]
+end
+
+local function taxiTooltip(node, data, faction, known, seen)
 	return function(tip)
 		tip:SetText(taxiName(node), rgb("text"))
-		local status = known[node.id] and L["Flight master, known"] or L["Flight master, not discovered"]
+		local status, col = L["Flight master, known"], "success"
+		if unsure(node, known, seen) then
+			status, col = L["Flight master"], "textDim"
+		elseif not known[node.id] then
+			status, col = L["Flight master, not discovered"], "warning"
+		end
 		if node.faction == 3 then status = status .. " · " .. L["Neutral"] end
-		tip:AddLine(status, rgb(known[node.id] and "success" or "warning"))
+		tip:AddLine(status, rgb(col))
 		local legs = data.flights[node.id]
 		if not legs then return end
 		local header = false
@@ -79,7 +92,7 @@ local function taxiTooltip(node, data, faction, known)
 				local t = secs and Maps.FormatTime(secs) or (approx .. Maps.FormatTime(Maps.LegSeconds(legs[i + 1])))
 				local r, g, b = rgb(known[dest.id] and "text" or "textMuted")
 				local name = taxiName(dest, true)
-				if not known[dest.id] then name = name .. " " .. L["(not discovered)"] end
+				if not known[dest.id] and not unsure(dest, known, seen) then name = name .. " " .. L["(not discovered)"] end
 				tip:AddDoubleLine(name, t, r, g, b, rgb("textDim"))
 			end
 		end
@@ -116,12 +129,13 @@ end
 
 ---------------------------------------------------------------------------
 -- Layer building (pure: everything comes in `o`)
---   o = { data = Nav.GetTravelData(), faction = 1|2|0, known = { [nodeID] = true }, bind = "Goldshire" | nil }
+--   o = { data = Nav.GetTravelData(), faction = 1|2|0, known = { [nodeID] = true }, bind = "Goldshire" | nil,
+--         seen = { [continent] = true } (where a flight map has opened; nil: everywhere) }
 -- -> taxi, docks, inns (pin lists)
 ---------------------------------------------------------------------------
 
 function Maps.BuildTravelPins(o)
-	local data, faction, known = o.data, o.faction or 0, o.known or {}
+	local data, faction, known, seen = o.data, o.faction or 0, o.known or {}, o.seen
 	local taxi, docks, inns = {}, {}, {}
 	if type(data) ~= "table" then return taxi, docks, inns end
 	local knownCol, unknownCol = color("success"), color("warning")
@@ -129,7 +143,7 @@ function Maps.BuildTravelPins(o)
 		if Maps.Allowed(node.faction, faction) then
 			local isKnown = known[node.id] and true or false
 			local p = pinAt(node, "map:flightmaster", 15, isKnown and knownCol or unknownCol,
-				taxiTooltip(node, data, faction, known), isKnown and 2 or 3)
+				taxiTooltip(node, data, faction, known, seen), isKnown and 2 or 3)
 			-- Not yet learned: in the warning colour, with a "?".
 			p.nodeID, p.known, p.badge = node.id, isKnown, not isKnown and "?" or nil
 			p.minimapSize = 14
@@ -185,6 +199,7 @@ function Maps.RefreshTravelPins()
 		data = N and N.GetTravelData and N.GetTravelData() or nil,
 		faction = Maps.Faction(),
 		known = N and N.GetKnownTaxiNodes and N.GetKnownTaxiNodes() or {},
+		seen = N and N.GetTaxiSeen and N.GetTaxiSeen() or nil,
 		bind = C and C.GetBindLocation and C.GetBindLocation() or nil,
 	}) }
 	local opts = { world = true, minimap = ns.Get("maps.travelMinimap") and true or false, edge = false }

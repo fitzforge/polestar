@@ -8,11 +8,11 @@
 return {
 	-- Step 1: Frostwolf Clan
 	-- {area:2839} Alterac Valley · {faction:729} Frostwolf Clan · {npc:13219} Jekyll Flandring · {zone:1416} Alterac Mountains · {npc:13218} Grunnda Wolfheart
-	["{area:2839} (level 51+) raises {faction:729}: win, capture towers and graveyards, and hand in the battleground's turn-ins; the Alterac Valley Reputation guide shows the fastest way. {npc:13219} waits at the Horde end of {zone:1416} outside the battleground; {npc:13218} inside {area:2839} sells the same mount."] = "",
+	["{area:2839} (level 51+) raises {faction:729}: win, capture towers and graveyards, and hand in the battleground's turn-ins; the Alterac Valley Reputation guide shows the fastest way. {npc:13219} waits at the Horde end of {zone:1416} outside the battleground; {npc:13218} inside {area:2839} sells the same mount."] = "{area:2839} (nivel 51+) sube {faction:729}: gana, captura torres y cementerios, y entrega las misiones del campo de batalla; la guía de reputación del Valle de Alterac muestra el camino más rápido. {npc:13219} espera en el extremo de la Horda de {zone:1416}, afuera del campo de batalla; {npc:13218}, dentro de {area:2839}, vende la misma montura.",
 
 	-- Step 2: Horn of the Frostwolf Howler
 	-- {skill:762} Riding
-	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Horde race can ride it."] = "",
+	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Horde race can ride it."] = "El cliente de Forever lo lista a 200 de oro y nivel 60. Corre a toda velocidad, así que para montarlo necesitas {skill:762} de oficial; cualquier raza de la Horda puede montarlo.",
 	-- {npc:13219} Jekyll Flandring
 	["{npc:13219}, 200g"] = "{npc:13219}, 200g",
 

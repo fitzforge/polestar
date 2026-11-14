@@ -108,6 +108,41 @@ test('a crossing end may give the height of the floor the walk to it ends on (z)
 	assert.match(lua, /id = "flat", a = \{ map = 1429, c = 0, wx = [-\d.]+, wy = [-\d.]+, r = 15 \}/);
 });
 
+test('a chain node may say nothing walkable lies above or below it (alone, #2224); TravelData.lua carries it', () => {
+	const node = (x, y, z, more = {}) => ({ map: 1436, x, y, z, radius: 15, ...more });
+	const doc = {
+		schema: 1,
+		chains: [
+			{ id: 'hall', open: 'both', nodes: [node(40, 75, 60), node(39, 76, 61, { alone: true }), node(38, 77, 62)] },
+			{ id: 'bad-alone', nodes: [node(40, 75, 60), node(39, 76, 61, { alone: 'yes' })] },
+		],
+	};
+	const set = validateCrossings(doc, frames);
+	assert.deepEqual(set.errors, ['chains[1] (bad-alone).nodes[1]: alone must be true or false']);
+	assert.deepEqual(set.chains[0].nodes.map((n) => n.alone === true), [false, true, false]);
+	const lua = crossingsLua({ crossings: [], open: [], chains: set.chains }, frames, { complete: true, live: {} }).join('\n');
+	assert.match(lua, /z = 61, r = 15, alone = true \}/);
+	assert.equal(lua.match(/alone = true/g).length, 1);
+});
+
+test('an area may give a height range (z): a place only the portals that land in it reach (#1970); TravelData.lua carries it', () => {
+	const box = { x1: 35.78, y1: 77.67, x2: 40.24, y2: 83.8 };
+	const doc = {
+		schema: 1,
+		areas: [
+			{ id: 'chamber', name: 'Chamber', map: 1453, box, z: { min: 10, max: 50 } },
+			{ id: 'flat', name: 'Flat', map: 1453, box: { x1: 10, y1: 10, x2: 20, y2: 20 } },
+			{ id: 'bad-z', name: 'Bad', map: 1453, box, z: { min: 50, max: 10 } },
+		],
+	};
+	const set = validateCrossings(doc, frames);
+	assert.deepEqual(set.errors, ['areas[2] (bad-z): z must give min < max (yards)']);
+	assert.deepEqual(set.areas.map((a) => [a.id, a.top, a.bottom, a.left, a.right, a.zmin, a.zmax]), [['chamber', -8975, -9030, 900, 840, 10, 50], ['flat', -8368.5, -8458.1, 1246.5, 1112.1, undefined, undefined]]);
+	const lua = crossingsLua({ crossings: [], open: [], chains: [], areas: set.areas }, frames, { complete: true, live: {} }).join('\n');
+	assert.match(lua, /\{ id = "chamber", name = "Chamber", map = 1453, c = 0, top = -8975, bottom = -9030, left = 900, right = 840, zmin = 10, zmax = 50 \},/);
+	assert.match(lua, /\{ id = "flat", name = "Flat", map = 1453, c = 0, top = -8368.5, bottom = -8458.1, left = 1246.5, right = 1112.1 \},/);
+});
+
 test('the crossings file is optional; a broken one stops the build with its errors', async () => {
 	assert.equal(readCrossingsFile(path.join(FIX, 'missing.json'), frames), null);
 	const dir = tmpdir('polestar-crossings-');

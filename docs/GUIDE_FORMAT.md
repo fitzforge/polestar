@@ -147,6 +147,7 @@ A step must contain at least one goal.
 | `enter` | `"Location"` | Be in a zone or an area: done once the zone or subzone text reads that name (`"Darnassus"`, `"Goldshire"`; in the client's language when the compiler finds its area, "Places by ID"), on the ground (a flight passing over it doesn't count, landing there does), and kept once the step had it, so walking on does not reopen it. Coordinates (`@x,y`) only point the arrow there. Lint warns about a name that is no zone or area of the client's tables. |
 | `train` | `[npcId]`, `<Profession> [Rank]`, or `class` | `train First Aid` / `train Mining Expert`: the nearest own-faction trainer of that profession and rank (`Apprentice`, `Journeyman`, `Expert`, `Artisan`; ranks taught by a book or quest point at its vendor or quest giver). Without a rank: the highest rank whose minimum skill (0/50/125/225) the last earlier `skill` (or `craft … until`) target for that profession in the guide reaches, Apprentice when there is none, and always above a rank the guide already trained. `train class`: the nearest trainer of the player's class. Resolved at runtime from the player's faction and position. |
 | `buy` | `<itemId> ["Item name"]` | Use `xN` for quantity. Add `nearest` to send the player to the closest own-faction vendor selling it. |
+| `auction` | `<itemId> ["Item name"]` | Buy `xN` (required) at the Auction House: the arrow leads to the nearest auctioneer of the player's faction (the neutral houses are another market and are left out). A bag count like `buy`. In a profession guide it is one way to get a material, beside the item's `collect … gather` steps: see "Materials". Takes no place. Polestar 0.4.0 (pack format 10). |
 | `vendor` | `[npcId]` or `nearest` | Sell junk / repair; `nearest` picks the closest own-faction vendor. Done when that merchant's window opens during the step; for `nearest`, also any merchant who repairs within 250 yards of one of its vendors (the same town: Polestar 0.3.6). A `vendor <npcId>` (a mount vendor, say) counts only at that NPC. Beside other goals of the step it is a stop on the way, not work: the step is done once those are, sold or not (Polestar 0.3.5). A step of only `vendor` goals waits for the window. |
 | `level` | `<N>`, `<N>.<fraction>` or `<N>+<XP>` | Reach level N (grind if needed). `level 12.5` reaches halfway through level 12 and `level 12+2500` 2500 XP into it (converted to a share of the level with the 1.12 XP table): done at level 12 with that share of the level's XP, or at any later level, and the guide window reads "Reach level 12 (50%)" with the XP still to earn under it ("1,240 XP to go"; any `level` goal shows this). The XP bar's guide mark puts its tick at that share of the bar while the character is in that level. The share is kept to whole percent; one that rounds to 0% or 100% is an error (write `level 12` or `level 13`), as is XP past the level's total; `level 12.0` is plain level 12. A guide that uses either form is written in pack format 4 (see "Conditions checked during play"). `level 35 grind 686` names the mob the level is reached on (an npc id): the compiler places the goal at that mob's spawn areas (as a `kill`'s, without the alternatives), and the arrow leads to the nearest of them, not to a `goto` before it in the step, which only leads where the mob has no known spawns (the compiler warns). The step's text stays the author's (`-- grind on Lashtail Raptor`). |
 | `money` | `<amount>` | Hold that much money: copper (`money 350`) or `1g50s` / `7s` / `25c`. Done once the bags hold it, and it stays done for the rest of its step if the money is spent before the step's other goals are done; the guide window reads "Have at least 1s 50c". For "loot until you can afford it"; pack format 5. |
@@ -186,7 +187,9 @@ item's `vendors`; `collect … nearest` from the item's droppers (see `collect`)
 `learn … nearest` from the recipe item's `vendors`; a trainer-taught `learn`
 from the profession rank's trainers in `professions.json`. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
-(within 250 yards), nearest to the previous goal first.
+(within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
+Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
+(within 60 yards), since its districts are a long walk apart.
 Smart targets take no coordinates.
 
 Modifiers, in any order after the positional arguments:
@@ -203,6 +206,7 @@ Modifiers, in any order after the positional arguments:
 | `lvl <N>` | Minimum level shown on an `accept`. |
 | `grind <npcId>` | On `level`: the mob the level is reached on; the arrow leads to its nearest spawn area. |
 | `optional` | Never blocks the step. |
+| `gather [<Profession> <rank>] [levels <min>-<max>]` | `collect` only: this bag count is the item's gather way in a profession guide (see "Materials"). `gather Mining 1`: it takes that profession at that rank (Herbalism for a herb, Mining to smelt a bar, Skinning for leather, Enchanting for dust; quoted for two words: `gather "First Aid" 1`); `gather levels 15-30`: it drops from mobs of those levels as the player levels (cloth, meat). Either, both (the profession first) or neither. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
 | `era` / `live` | Map frame of this goal's typed coordinates, overriding `coords`. |
@@ -210,7 +214,7 @@ Modifiers, in any order after the positional arguments:
 | `reward <item> ["Name"] [quality] ...` | `turnin` only: items given outright, same entries as `choose`. |
 | `xp <N>` | `turnin` only: the XP it pays. Shown with the rewards, and used for the route-level check when the quest has no `xp` in the data. |
 | `money <amount>` | `turnin` only: copper (`money 350`) or `1g50s` / `7s` / `25c` forms. |
-| `direct` | `turnin` only: the quest is handed in straight from the giver's window, with no `accept` (Distracting Jarven 308, the repeat cloth donations). It needs no earlier accept, and its availability, prerequisites and exclusive quests are checked as an `accept`'s are. The quest never enters the log, so it carries no objectives: get what it asks for with a plain `buy` or `collect` (without `quest`). The goal checks off on the hand-in itself and stays checked after a `/reload`, so a repeatable does not come back as undone. |
+| `direct` | `turnin` only: the quest is handed in straight from the giver's window, with no `accept` (Distracting Jarven 308, the repeat cloth donations). It needs no earlier accept, and its availability, prerequisites and exclusive quests are checked as an `accept`'s are. The quest never enters the log, so it carries no objectives: get what it asks for with a plain `buy` or `collect` (without `quest`). The goal checks off on the hand-in itself and stays checked after a `/reload`, so a repeatable does not come back as undone. The guide window reads it as "Hand in", with a line saying its giver offers it and takes it back in one talk. When its giver waits on a quest this guide accepts earlier (Unbagwa's Stranglethorn Fever wants Fin Fizracket's in the log) and the player skipped or never took that accept, the goal lets go and the route goes on; taking that quest brings it back. |
 | `gossip <id>` | `talk`, `vendor` and `train`: at that NPC, on the step the guide is at, Polestar picks the gossip option with that id (the client's `gossipOptionID`) for the player (Shift suppresses; the option "Pick what the step asks for"). Without it, a `buy`, `vendor` or `train` goal still opens the NPC's goods or training by the option's icon. |
 
 ## Conditions
@@ -294,8 +298,13 @@ ID"), and Polestar compares the game's own name for it, then the name you
 wrote. A `taxi` flight point gets its flight master's taxi node, as a `getfp`
 does, for the factions the step is for.
 
-**Dungeon steps.** `when dungeon "<Name>"` is for the steps of a dungeon
-run: they apply only to characters who run that dungeon, and `when
+**Dungeon steps.** This version of Polestar holds dungeons in the route
+back: it reads every `when dungeon` step as one of a dungeon the character
+skips (and every `when !dungeon` step as holding), whatever a player saved,
+and offers no choice, so a guide plays as its solo route. The steps still
+compile and lint as described here.
+
+`when dungeon "<Name>"` is for the steps of a dungeon run: they apply only to characters who run that dungeon, and `when
 !dungeon "<Name>"` is the route for those who do not. Dungeons in my route
 (Options, Guide, Automation; the setting `behavior.dungeons`) answers every
 dungeon: Skip them, Ask me or Run them (Skip by default, so the solo route is
@@ -308,7 +317,10 @@ accept) or the run asks; the dungeon's other steps follow the answer, and with
 none yet the solo route. An answer changes only the steps still ahead: like
 any `when`, a step the route has passed keeps its outcome. A step of a dungeon
 the character skips (and a `when !dungeon` step of one they run) has no step
-number, so the solo route's numbers stay as they are.
+number, so the solo route's numbers stay as they are. A city dungeon is its
+faction's only (Ragefire Chasm and the Ruins of Lordaeron the Horde's, The
+Hall of Thanes and the Stockade the Alliance's): for the other faction its
+steps never apply, whatever the answers, so its guides never carry them.
 
 A run is three parts. Its quests are picked up in `when dungeon` steps on
 stops the route makes anyway; the run itself is one `when dungeon` step, also
@@ -331,15 +343,30 @@ the data knows: name it in the run's tip and write only its hand-in, behind
 `when dungeon` and `when onquest`. A step of `note`s only never holds (see
 "Errands"): the run needs goals of its own.
 
+Gate a run and its pick-ups by level, so the guide never sends a player to a
+dungeon too low. The run carries `when level>=<floor>`. The floor is the
+dungeon's in the Codex: the highest of the in-game Group Finder's minimum, the
+client's own minimum and the level players entered at when they went on to kill
+a boss there, to a tenth of a level. Each pick-up carries the floor less the
+levels the route plans between it and the run (a pick-up at the run's own
+stop, the floor). Below its gate a step doesn't apply: Ask doesn't ask, the
+pick-up isn't taken, and the run is passed, so the route keeps the solo path.
+`forge guide lint` warns of a run gated under its floor (with a built Codex; an error again once the
+leveling route's runs carry their gates),
+and `forge judge doors` checks the walk from the stop before the run to its
+door against the gate.
+
 ```
 step Gryan Stoutmantle
   when dungeon "The Deadmines"
+  when level>=19.4
   accept 166
 
 step The Deadmines
   when dungeon "The Deadmines"
   when onquest 166
-  tip A dungeon for a group of five, about levels 17 to 24.
+  when level>=19.4
+  tip A dungeon for a group of five, levels 17 to 26.
   enter "The Deadmines" @42.5,71.7
   complete 166
 
@@ -641,6 +668,52 @@ the data lacks). A `section` with no step under it is an error, and header
 keys go before the first `section`. An older Polestar ignores sections and
 plays the steps from the start, so a pack with them needs no newer format.
 
+## Materials
+
+A crafting guide's materials can be gathered or bought: the player picks per
+guide (Gather, Buy or Mix) and per material, and changes it any time (the card
+a guide with such materials shows once, the Materials window, `/polestar
+materials`, or the guide window's menu; Options > Guide > Professions sets the
+way of a guide never answered). A section writes both ways for each material it needs that the Auction House
+sells: an `auction` goal (usually all of them in one step after the vendor
+goods) and the item's `collect` steps marked `gather`:
+
+```
+section Tailoring 75-150
+
+step Tailoring 75-150: Auction House
+  auction 2592 x567
+  auction 4306 x204
+
+step Wool Cloth
+  collect 2592 x567 anywhere gather levels 15-30
+
+step Silk Cloth
+  collect 4306 x204 anywhere gather levels 25-45
+```
+
+Polestar applies one way per item, never both, and a goal of the other way
+does not apply (like a goal for another class: its step passes when nothing
+else in it does):
+
+- An item with only `auction` goals is always bought; one with only `gather`
+  collects is always gathered.
+- Otherwise the player's pick for the item wins, then the guide's way: Buy
+  buys, Gather gathers (an item whose `gather` takes a profession the
+  character lacks, or a lower rank, is bought), and Mix, the default, gathers
+  what the character can (the profession and rank `gather` names; the levels:
+  from 2 below `min`, and for a bag count with no place, cloth looted while
+  levelling, up to 5 past `max`) and buys the rest. A character in Self-Found
+  mode gathers everything.
+
+The counts work as for any `collect` or `buy` under a section (above), so an
+`auction` goal asks only for what the section's crafts still need. Lint warns
+about a `gather` with no `auction` goal for its item in the same section (a
+player who buys would have nothing that buys that share); an `auction` with no
+`gather` is fine (bought only). An `auction` needs `xN`; one for an item that
+binds when picked up is an error. A pack with `auction` or `gather` is written
+in pack format 10 (Polestar 0.4.0).
+
 ## Jumps
 
 `skipto <label> when <predicate>` lets a guide skip a block of steps that
@@ -702,10 +775,10 @@ take a jump.
 | coordinates | the target's spawns, trying maps in order: the current zone, then maps the guide already used (most recent first), then anywhere. On the chosen map: the spawn nearest the previous goal when that goal is on the same map, else the centroid of the highest-priority candidate. A `when dungeon` step takes the previous goal and the used maps from every step before it, any other step from the steps before it that are not `when dungeon`, which a character who skips the dungeon never walks ("Dungeon steps") |
 | `kill` target name | `npcs.json` |
 | `collect` coordinates | every drop source with spawns, ranked as above (zone, used maps, nearness), then by drop chance. On the chosen map only the likely sources count (at least half the best chance there). Where elites (rank 1-3, hostile) drop the item beside normal mobs or objects, each at 1% or more, only the normal ones count, whatever the elites' chance, and a place of theirs with more elite spawns than its own within its radius (at least 70 yd) is an alternative spot: the point and the arrow lead to the normal mobs, not into the elite camp. An item only elites drop there keeps them. For a quest objective, mobs 3 or more levels above the quest (their lowest level) are left out where their higher chance would push the likely sources nearer the quest's level under that bar: those set it instead (a level 7 quest's seeds come from the level 5 Timberlings beside the giver, not the level 10 Elder Timberlings across the zone) |
-| `collect` source `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction` | a `collect` (quest objectives too) whose item has one source with spawns, or one that drops it at 50% or more, and at most 8 sources at 2% or more (not cloth that drops everywhere); where normal mobs or objects and elites both drop it at 1% or more, only the normal ones are named, as the arrow leads to them (so are they where a rare tops the droppers and normal mobs drop it at 50% or more, and the sources near a quest's level where mobs 3 or more levels above it would crowd them out, as for the coordinates): the source's name, a second source of the same kind at 50% or more, their ids, `npc` or `object`, the NPC's rank (1 elite, 2 rare elite, 3 boss, 4 rare) and faction (`A`, `H`, `AH`; none for a hostile mob). The goal line names it, in the client's language by its id: "Kill Grell or Grellkin for Fel Moss" for an enemy, "Collect Oats from Sack of Oats" otherwise (nothing added for an object named as the item); with author `text` the line under it says "Kill Aean Swiftriver (rare elite)" or "From <name>"; a quest started by that item reads as one line ("Runed Scroll: kill Aean Swiftriver (rare elite)") |
+| `collect` source `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction` | a `collect` (quest objectives too) whose item has one source with spawns, or one that drops it at 50% or more, and at most 8 sources at 2% or more (not cloth that drops everywhere); where normal mobs or objects and elites both drop it at 1% or more, only the normal ones are named, as the arrow leads to them (so are they where a rare tops the droppers and normal mobs drop it at 50% or more, and the sources near a quest's level where mobs 3 or more levels above it would crowd them out, as for the coordinates): when the named source spawns nowhere on the step's map but another source does (the goal is placed there), the names come from the sources there (#2275: Call of Fire's Fire Tar in Loch Modan names the Tunnel Rat Geomancers, not the Barrens' Razormane): the source's name, a second source of the same kind at 50% or more, their ids, `npc` or `object`, the NPC's rank (1 elite, 2 rare elite, 3 boss, 4 rare) and faction (`A`, `H`, `AH`; none for a hostile mob). The goal line names it, in the client's language by its id: "Kill Grell or Grellkin for Fel Moss" for an enemy, "Collect Oats from Sack of Oats" otherwise (nothing added for an object named as the item); with author `text` the line under it says "Kill Aean Swiftriver (rare elite)" or "From <name>"; a quest started by that item reads as one line ("Runed Scroll: kill Aean Swiftriver (rare elite)") |
 | `collect` source NPCs `fromNpcs` | every `collect` placed among its sources, whether the data placed the point or the author did and the data has the target there (as `spots`): the creatures its point and spawn areas belong to, the one the point itself belongs to first, then the other likely sources there (as above), at most 5. Objects are left out, as a macro can only target a creature. An item nothing drops gets the NPCs the data lists as its vendors instead, where they have spawns: those hand it over in their gossip window (the Warsong Scout's update), and nothing else would name them; a `collect` whose author named an `npc` carries that instead. The target button names them, in the client's language by their ids, before the item's own droppers, whose drop chances rank them over the whole world: for an item many creatures drop, those are mostly in other zones |
 | `collect` per-spot sources `fromNpcsAt` | a `collect` whose spots hold likely sources its `fromNpcs` leaves out (Centaur Bounty's ears drop from every centaur tribe in Desolace and its spots run through all their camps): those follow in `fromNpcs`, most spawns at the spots first, up to 32, and `fromNpcsAt` lists per spot, in `spots` order, the places in `fromNpcs` of the sources spawning there (within its radius and a yard), most spawns first. The target button names the mobs of the spot the arrow takes alone. Not on a `loop` step's goals, whose spots are the loop's points |
-| `kill` and `use` credited NPCs `fromNpcs` | a `kill` bound to a quest objective the data credits on several creatures (`objectives[].credit`), and a `use` bound to one or of the item such a quest hands over when taken: those creatures, the kill's own first, at most 5 (Kodo Roundup: the Kodo Kombobulator works on Aged, Dying and Ancient Kodos). The target button names them |
+| `kill` and `use` credited NPCs `fromNpcs` | a `kill` bound to a quest objective the data credits on several creatures (`objectives[].credit`), and a `use` bound to one or of the item such a quest hands over when taken: those creatures, the kill's own first, at most 5 (Kodo Roundup: the Kodo Kombobulator works on Aged, Dying and Ancient Kodos). A `use` also gets the creatures `mechanics.json` says its item works on (`use-item-on-mob`: its quest's own, or every quest's for a `use` with no quest), so Zapped Giants' shrinker names the giants to shrink (#2238). The target button names them |
 | profession, recipe, trainer | `professions.json` (skill line, recipe name, created item, reagents, recipe item; a trainer-taught `learn` gets every trainer of the rank that teaches it, both factions (a smart target), unless `npc <id>` names one). Classic profession names resolve without it. |
 | faction | `factions.json` by name (lowest id on ties) or id |
 | objective index | the quest's objective whose `id` matches the npc/item, when `quest Q` has no `.O` |
@@ -715,6 +788,7 @@ take a jump.
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
+| fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
 | taxi node `node` | `getfp`: its flight point's taxi node (`travel.json`): see "Places by ID" below |
@@ -765,9 +839,16 @@ lacks ("Rot Hide" gnolls, "Young Wetlands Crocolisks", "Cleft of Shadow",
 opening word does not count),
 and a one-word name the pack's texts
 also use as a lower-case word ("Barracks"), and two names a space apart (a
-name the data lacks, "Longshore Murloc Gills"). You may write a token
-yourself, `{npc:240}`: its kind and id must be in the data. `i18n guides
-stats` counts the tokens, by kind and by where the compiler found them.
+name the data lacks, "Longshore Murloc Gills"). In a step's title,
+an object no goal of the step names stays words before a lower-case word:
+"Dark Iron dwarves" though the data has an object named "Dark Iron"; alone
+("Trade District", a city's sign) it is that object's token. An object the
+step's goals name is its token there too, and compile and lint warn when a
+lower-case word follows it: reword the title if the words mean a kind of
+thing. You may write a token yourself, `{npc:240}`: its kind and id must be
+in the data.
+`i18n guides stats` counts the tokens, by kind and by where the compiler
+found them.
 
 **Spawn areas.** Mobs, quest objects and some NPCs spawn at more than one
 place, and a player who finds nothing where the arrow led must be able to try
@@ -809,7 +890,9 @@ gets no `spots`, except an NPC who walks around:
   `y`, so goals on the same target write the same list. A goal point at an
   alternative (the spawn nearest the previous goal) moves to the nearest open
   point; a hand-placed goal keeps its point and gets the points of the target
-  at it, where the data agrees (see Hand-placed). The maps mark every point,
+  at it, where the data agrees (see Hand-placed), as its spots only when one
+  of them is within 50 yd of the point (else its own spot leads and the points
+  are alternatives). The maps mark every point,
   on the minimap too, rather than shade regions, and the arrow leads to the
   nearest point the player has not checked: within the arrival radius of one
   it counts as checked and the arrow moves on at once to the next (checked
@@ -858,7 +941,11 @@ gets no `spots`, except an NPC who walks around:
   every spawn of a mob or object to kill, collect or click, places the target
   where the data does not (Forever moved it) and gets no `spots`. A route
   through gathering nodes lists every node place of the zone wherever its
-  point lies.
+  point lies. A target at a few known points (above) gives a point within
+  50 yd of one of them its points as the spots the arrow takes; a point
+  further from all of them is a place the author chose over them (cloth
+  bought at the Auction House, with mobs in the city that drop it), and keeps
+  its own spot, the points following as alternatives.
 - **Loop** (a step with a `loop` line, for a search the data does not shape
   the way you want: a circuit through camps, round a lake): the step's `goto`
   points, in order, become the spawn areas of each of its `kill`, `collect`
@@ -944,7 +1031,10 @@ object's (its spawn, or your `@x,y` at it):
   or `object` of their own) whose target is an object, or a creature (a kill
   or talk objective): that object's or creature's height. The Rod of Helcular
   used at the Flame of Azel ends its walk in the Foothill Caverns, not on
-  Darrow Hill above them (#1782);
+  Darrow Hill above them (#1782). Bound to an item objective, the objects the
+  item comes out of (`drops.object` in `items.json`): the Filled Etched Phial
+  used on the Ancient Brazier, whose Cloven Hoof is the objective, ends its
+  walk deep in Splithoof Hold, not on the hill over the cave (#2126);
 - `goto` leading to a goal with a height: a later goal of its own step, or
   one of the next step, whose point lies within 15 yards of the goto's; the
   nearest such goal's height. "Azurelode Mine" at the miners ends in the
@@ -1083,6 +1173,39 @@ lists the quests still in the log that a later guide hands in, under
 "Continue automatically" the chat says them. "Clean up quest log" never
 lists such a quest as unneeded: it is handed in later, even when that guide
 is not loaded yet.
+
+## Fresh starts
+
+A character who opens a leveling guide without the guides before it (a
+fresh start at its level, a guide skipped) cannot take the quests that
+follow on from those guides' quests, and has none of their quests to hand
+in. Polestar leaves those out of the guide for them (a cheap lead-in close
+by comes in instead), so the guide works, but it gives that much less XP.
+The compiler writes how much on each leveling guide that other leveling
+guides lead to (`next` and every route choice, up to 8 guides back), from
+the guides compiled together:
+`fresh = { from = "<guide id>", share = <percent>, xp = <XP>, needs = { <quest ids> } }`.
+Of the guide's quest XP (`xp`: each quest it hands in, once, at the data's
+XP, else the hand-in's own `xp`), `share` is the part in whole percent that
+hinges on a quest an earlier guide takes: a hand-in of a quest the guide
+never takes itself, and a quest whose accept waits on a prerequisite (each
+of `preAll`, or one of `pre` when the guide takes none of the others on its
+own first) that the guide does not take before it and an earlier guide
+does, directly or through another of the guide's accepts that waits so.
+`from` is the earlier guide holding most of that XP (the nearer one on a
+tie) and `needs` up to 8 of those earlier guides' quests, most XP first.
+Written only from 10%; there is nothing to write in the guide.
+
+In the game the share left to a character is `share` scaled by the part of
+`needs` they have neither done, nor in the log, nor taken on the way (a
+lead-in step Polestar put in). From 30%, below the guide's top level and
+with `from` a guide for them, the guide window says while the guide's live
+step is in its first third: "Fresh start: about N% of this guide's quest XP
+follows on from <guide>. Expect about M minutes of extra grinding, or start
+there." (M: that XP as kills of mobs of their level, 1.5 a minute), with
+"Open <guide>", which opens that guide in a new tab. Taken or dismissed, it
+is gone for that guide until the next session. "Suggested for you" lists
+such a guide after the others of its zone and travel band.
 
 ## Validation
 

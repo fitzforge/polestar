@@ -37,6 +37,7 @@ const PRIORS = {
 	extraKill: [0.043, 0.038, 0, 0.8, 'incidental kills per objective kill (mobs in the way; fixed, fitted 2026-10-12 against level checkpoints)'],
 	questXpScale: [1, 0.1, 0.5, 1.5, 'Forever quest XP / data quest XP (all rewards)'],
 	questEstScale: [1, 0.12, 0.5, 1.6, 'real reward / QuestXP-table estimate (quests without recorded XP)'],
+	flightSpeed: [30, 0, 30, 30, 'flight speed along the taxi path, yd/s: players\' recorded flights fly their path\'s yards at 29.8-30 a second (4,558 direct flights by 376 people; two-hop flights the same, without a stop at the node between; forge-sim\'s flightSpeed)'],
 	flightOverhead: [20, 8, 5, 60, 'seconds per flight: talk, take-off, landing'],
 	transportWait: [1, 0.3, 0.3, 2, 'multiplier on boat/zeppelin/tram average waits'],
 	hearthCast: [10, 0, 10, 10, 'hearthstone cast, seconds'],

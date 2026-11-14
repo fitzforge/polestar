@@ -188,6 +188,42 @@ fn no_data_compiles_guides_that_give_every_name_themselves() {
 	assert!(both.stderr.contains("--no-data and --data cannot be used together"), "{}", both.stderr);
 }
 
+/// A step's title takes the token of an object no goal of the step names only where the name stands alone:
+/// "Copper Vein" before "hills" stays words (its note still names it by its token), "Kobold Crate" alone is its
+/// token, as is the object of the step's own goal; that one before a lower-case word keeps its token, and compile
+/// and lint warn (tests/guide-texts.test.js, the same guide through the JS compiler).
+#[test]
+fn a_step_title_takes_an_unnamed_objects_token_only_where_its_name_stands_alone() {
+	let guides = tmp("title-objects");
+	std::fs::write(
+		guides.join("a.guide"),
+		"guide forever/a\ntitle Elwynn Forest\nfaction Alliance\nlevels 1-10\nzone Elwynn Forest\n\nstep Marshal McBride\n  accept 7\n\nstep Copper Vein hills: kill as you go\n  kill 6 quest 7 -- the Copper Vein spots draw Kobold Vermin\n\nstep Battered Chest\n  interact 2843\n\nstep Kobold Crate\n  goto 48,32\n\nstep Battered Chest lids open easily\n  interact 2843\n\nstep Marshal McBride\n  turnin 7\n",
+	)
+	.unwrap();
+	let out = tmp("title-objects-out");
+	let _ = std::fs::remove_dir_all(out.with_file_name("title-objects-out_Alliance"));
+	let r = forge(&["compile", "--guides", guides.to_str().unwrap(), "--data", &data_dir(), "--out", out.to_str().unwrap()]);
+	assert_eq!(r.status, 0, "{}", r.stderr);
+	// An Alliance guide of our own pack goes to its faction part, beside the pack (docs/PACK_FORMAT.md, "Format 8").
+	let lua = std::fs::read_to_string(out.with_file_name("title-objects-out_Alliance").join("Guides.lua")).unwrap();
+	assert!(lua.contains("title = \"Copper Vein hills: kill as you go\""), "the title keeps its words: {lua}");
+	assert!(lua.contains("the {object:1731} spots draw {npc:6}"), "the step's note names the object: {lua}");
+	assert!(lua.contains("title = \"{object:2843}\""), "the object of the step's goal is its title's token: {lua}");
+	assert!(lua.contains("title = \"{object:1617}\""), "an object's name alone is its token: {lua}");
+	// The step's own object before a lower-case word keeps its token, and the lint warns the author.
+	assert!(lua.contains("title = \"{object:2843} lids open easily\""), "{lua}");
+	assert!(
+		r.stderr.contains(
+			"the title's \"Battered Chest\" is the token of object 2843, which the step's goals name, though \"lids\" follows it in lower case: a translated client shows the object's name there"
+		),
+		"{}",
+		r.stderr
+	);
+	let lint = forge(&["lint", "--guides", guides.to_str().unwrap(), "--data", &data_dir()]);
+	assert_eq!(lint.status, 0, "a warning only: {}", lint.stderr);
+	assert!(lint.stderr.contains("reword the title if \"Battered Chest lids\" means a kind of thing rather than that object"), "{}", lint.stderr);
+}
+
 #[test]
 fn compile_never_writes_into_a_folder_that_is_not_a_generated_pack() {
 	let out = tmp("precious");
@@ -272,6 +308,62 @@ fn compile_reports_how_many_place_goals_got_an_area_and_getfp_goals_a_taxi_node(
 		"{}",
 		none.stdout
 	);
+}
+
+/// The fixture data in `<root>/forever`, its meta naming the Forever client build `build` it was read
+/// from (with the build's spell names), and in `<root>/sources/wago` the tables of `cached` builds.
+fn data_from_build(name: &str, build: &str, cached: &[&str]) -> PathBuf {
+	let root = tmp(name);
+	let dir = root.join("forever");
+	std::fs::create_dir_all(&dir).unwrap();
+	for e in std::fs::read_dir(data_dir()).unwrap().flatten() {
+		std::fs::copy(e.path(), dir.join(e.file_name())).unwrap();
+	}
+	let mut meta: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(dir.join("meta.json")).unwrap()).unwrap();
+	meta["sources"].as_array_mut().unwrap().push(serde_json::json!({
+		"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, SpellName) read from the installed client",
+		"url": null,
+		"revision": format!("wowf {build}"),
+	}));
+	std::fs::write(dir.join("meta.json"), meta.to_string()).unwrap();
+	for b in cached {
+		let wago = root.join("sources/wago").join(b);
+		std::fs::create_dir_all(&wago).unwrap();
+		std::fs::write(wago.join("AreaTable.csv"), "ID,ZoneName,AreaName_lang,ContinentID,ParentAreaID\n12,Elwynn,\"Elwynn Forest\",0,0\n").unwrap();
+		std::fs::write(wago.join("SpellName.csv"), "ID,Name_lang\n").unwrap();
+		std::fs::write(wago.join("SkillLineAbility.csv"), "ID,Spell,ClassMask\n").unwrap();
+	}
+	dir
+}
+
+/// Reference data read from a Forever client build compiles only with that build's tables in the sources
+/// beside it: with another build's (or none), the guide texts would name spells as words and places
+/// without their area, so compile and lint stop with one error naming the build, the folder and the
+/// missing tables. The fixture data names no build and is not affected.
+#[test]
+fn data_from_a_client_build_needs_that_builds_tables_in_the_sources_beside_it() {
+	let other = data_from_build("pinned-other", "1.60.1.7", &["1.60.1.6"]);
+	for cmd in ["compile", "lint"] {
+		let mut args = vec![cmd, "--guides", guides_dir_str(), "--data", other.to_str().unwrap()];
+		let out = tmp(&format!("pinned-other-{cmd}-out"));
+		if cmd == "compile" {
+			args.extend(["--out", out.to_str().unwrap()]);
+		}
+		let r = forge(&args);
+		assert_eq!(r.status, 1, "{cmd}: {}", r.stdout);
+		assert!(
+			r.stderr.contains(&format!("forge guide {cmd}: the reference data was built from Forever client build 1.60.1.7, but "))
+				&& r.stderr.contains("sources/wago/1.60.1.7 lacks SpellName.csv, SkillLineAbility.csv, AreaTable.csv"),
+			"{cmd}: {}",
+			r.stderr
+		);
+		assert!(tree(&out).is_empty(), "{cmd} wrote nothing");
+	}
+	let own = data_from_build("pinned-own", "1.60.1.7", &["1.60.1.6", "1.60.1.7"]);
+	let r = forge(&["compile", "--guides", guides_dir_str(), "--data", own.to_str().unwrap(), "--out", tmp("pinned-own-out").to_str().unwrap()]);
+	assert_eq!(r.status, 0, "{}", r.stderr);
+	let r = forge(&["compile", "--guides", guides_dir_str(), "--data", &data_dir(), "--out", tmp("pinned-none-out").to_str().unwrap()]);
+	assert_eq!(r.status, 0, "{}", r.stderr);
 }
 
 /// The `dataHash` lint expects of a world built now from `data` (forge_world::inputs, the checkout's other

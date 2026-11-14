@@ -5,7 +5,9 @@
 //!
 //! - XP to level: the 1.12 table.
 //! - Quest XP: reduced by how far the player is above the quest: 100% up to
-//!   quest level + 5, then 80/60/40/20/10%. `base_quest_xp` estimates a typical reward.
+//!   quest level + 5, 80% at 6 over, 60% at 7, then 50% from 8 over on (Forever's,
+//!   from players' recordings: forge-sim's xp::SHARE and its test). `base_quest_xp`
+//!   estimates a typical reward.
 //! - Kill XP: 45 + 5 × player level against an equal-level mob, +5% per level
 //!   the mob is above (at most +4 levels counted), scaled down by the
 //!   zero-difference value below, nothing for grey mobs; elites ×2.
@@ -161,20 +163,19 @@ pub fn base_quest_xp(qlvl: f64) -> f64 {
 	QUEST_XP_ANCHORS[QUEST_XP_ANCHORS.len() - 1].1
 }
 
-/// Share of a quest's reward by player level − quest level.
+/// Share of a quest's reward by player level − quest level (forge-sim's xp::SHARE): full to 5 over,
+/// 80% at 6, 60% at 7, half from 8 over on.
 pub fn quest_xp_share(player_level: f64, quest_level: f64) -> f64 {
 	let d = player_level - quest_level;
 	if d <= 5.0 {
 		return 1.0;
 	}
-	if d >= 10.0 {
-		return 0.1;
+	if d >= 8.0 {
+		return 0.5;
 	}
 	match d {
 		6.0 => 0.8,
 		7.0 => 0.6,
-		8.0 => 0.4,
-		9.0 => 0.2,
 		_ => f64::NAN,
 	}
 }
@@ -250,4 +251,26 @@ pub fn mob_xp(player_level: f64, mob_level: f64, elite: bool, forever: bool) -> 
 		0f64.max((if forever { mob_level * 5.0 + 45.0 } else { base }) * (1.0 - (player_level - mob_level) / zero_diff(player_level)))
 	};
 	math_round(v) * if elite { 2.0 } else { 1.0 }
+}
+
+#[cfg(test)]
+mod tests {
+	use super::{quest_xp, quest_xp_share};
+	use crate::js::parse_json;
+
+	/// Forever's payout above a quest's level, as players' recordings show it: what each recorded
+	/// turn-in paid against what the same quest paid people at 5 or fewer levels over (55,838
+	/// turn-ins; forge-sim's xp::SHARE test has the full table).
+	///
+	/// | levels over | +5 | +6 | +7 | +8 | +9 | +10 | +11 to +15 | +16 and over |
+	/// |---|---|---|---|---|---|---|---|---|
+	/// | paid / full (median) | 1.00 | 0.80 | 0.60 | 0.50 | 0.50 | 0.50 | 0.50 | 0.50 |
+	/// | people | 322 | 271 | 233 | 169 | 119 | 72 | 94 | 32 |
+	#[test]
+	fn a_quest_pays_what_players_recordings_show_however_far_over() {
+		let at = |over: f64| quest_xp_share(20.0 + over, 20.0);
+		assert_eq!([-3.0, 0.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 15.0, 40.0].map(at), [1.0, 1.0, 1.0, 0.8, 0.6, 0.5, 0.5, 0.5, 0.5, 0.5]);
+		let q = parse_json(r#"{"level": 14, "xp": 490}"#).unwrap();
+		assert_eq!((quest_xp(&q, 22.0), quest_xp(&q, 29.0)), (245.0, 245.0));
+	}
 }

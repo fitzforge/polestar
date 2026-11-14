@@ -48,4 +48,8 @@ return {
 	["The Greatstaff"] = "Der Großstab",
 	-- {npc:15192} Anachronos · {area:2300} Caverns of Time
 	["Back to {npc:15192} at the {area:2300}."] = "Zurück zu {npc:15192} bei den {area:2300}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Forming {quest:9250}: forty splinters become the {quest:9250}"] = "{quest:9250} zusammensetzen: Vierzig Splitter werden zu {quest:9250}",
+	-- ["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his Unholy Aura hurts everyone and cannot be dispelled (shadow resistance helps), his Breath of Sargeras curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "Bring den besudelten Stab nach {area:2279}, dem Dungeon am Nordende von {zone:1423}, durch das Haupttor. Finde auf {object:175433} die Stelle mit {object:181206} und einer kleinen weißen Flamme darauf, stell dich darauf und benutze den Stab: {npc:16387}, Hand of Sargeras (Boss der Stufe 63) tritt hervor. Bring eine starke Gruppe mit: Seine Unheilige Aura schadet allen und lässt sich nicht bannen (Schattenwiderstand hilft), sein Fluch Sargeras Odem muss sofort entfernt werden, und ein Entwaffnen eines Kriegers lässt ihn sein Schwert fallen, das ein Nahkämpfer aufheben und gegen ihn einsetzen kann. Er bleibt bis zu zweieinhalb Stunden, du kannst dich also neu sammeln.",
 }

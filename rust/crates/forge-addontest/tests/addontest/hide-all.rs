@@ -37,9 +37,9 @@ function CreateFrame(kind, name, parent, template, ...)
 		secure[#secure + 1] = f
 	end
 	for level = 2, 12 do
-		local info = debug.getinfo(level, "Sl")
+		local info = debug.getinfo(level, "Slf")
 		if not info then break end
-		if stub.addonSources[info.source] and not (info.source:find("Core/Init.lua", 1, true) and info.currentline < 320) then
+		if stub.addonSources[info.source] and not (Polestar and info.func == Polestar.CreateFrameUnder) then
 			made[f] = info.source:match("addon/(.*)$") .. ":" .. info.currentline
 			break
 		end
@@ -175,6 +175,7 @@ fn hiding_polestar_hides_every_surface_and_showing_it_brings_each_back_as_it_was
 		-- Something of everything: the guide window and its target button, the arrow, a minimap pin and the route
 		-- line, the minimap coordinates, the world map open with its pins, line and info bar, the floating button,
 		-- a window the player opened (Options), one they closed (the welcome), a rare alert and a notice.
+		P.Set("qol.targetSimple", true) -- the single button this checks; the list: the_target_list_s_rows_and_mark_...
 		P.Set("maps.minimapCoords", true)
 		P.Set("maps.coords", true)
 		P.Set("ui.launcher", true)
@@ -261,6 +262,8 @@ fn in_a_fight_hiding_takes_the_rest_at_once_and_the_secure_buttons_when_it_ends_
 	let out = run(
 		None,
 		r#"
+		P.Set("qol.targetSimple", true) -- the single button this checks; the list: the_target_list_s_rows_and_mark_...
+		stub.advance(0.5)
 		local function look()
 			return { PolestarGuideFrame:IsVisible(), PolestarNavArrow:IsVisible(), PolestarTargetButton:IsShown(), #stub.blocked }
 		end
@@ -281,6 +284,41 @@ fn in_a_fight_hiding_takes_the_rest_at_once_and_the_secure_buttons_when_it_ends_
 		vec![json!([true, true, true, 0]), json!([false, false, true, 0]), json!([false, false, false, 0]), json!([true, true, false, 0]), json!([true, true, true, 0])],
 		"window and arrow at once; the target button (secure) once the fight ends, both ways; no protected call"
 	);
+}
+
+// The target list (the default beside the target button): its rows are secure, so like the button they go and come
+// back once a fight ends; the Polestar mark beside them goes and comes with them.
+#[test]
+fn the_target_list_s_rows_and_mark_hide_with_polestar_the_rows_out_of_combat_with_nothing_blocked() {
+	let out = run(
+		None,
+		r#"
+		local function look()
+			return { PolestarTargetRow1 ~= nil and PolestarTargetRow1:IsShown(), PolestarTargetAnchor:IsShown(), PolestarTargetButton:IsShown(), #stub.blocked }
+		end
+		emit(look())
+		P.SetHidden(true); stub.advance(0.5)
+		emit(look())
+		P.SetHidden(false); stub.advance(0.5)
+		emit(look())
+		fight(true)
+		P.SetHidden(true); stub.advance(0.5)
+		emit(look())
+		fight(false); stub.advance(0.5)
+		emit(look())
+		fight(true)
+		P.SetHidden(false); stub.advance(0.5)
+		emit(look())
+		fight(false); stub.advance(0.5)
+		emit(look())"#,
+	);
+	assert_eq!(out[0], json!([true, true, false, 0]), "the list and its mark up, the button hidden beside them");
+	assert_eq!(out[1], json!([false, false, false, 0]));
+	assert_eq!(out[2], out[0], "back as it was");
+	assert_eq!(out[3], json!([true, false, false, 0]), "in a fight the rows (secure) stay until it ends; the mark goes at once");
+	assert_eq!(out[4], out[1]);
+	assert_eq!(out[5], json!([false, false, false, 0]), "and come back, with the mark, only once it ends");
+	assert_eq!(out[6], out[0], "no protected call either way");
 }
 
 #[test]
@@ -512,9 +550,9 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	(
 		"Polestar/QoL/Buttons.lua",
 		"UIParent",
-		3,
+		5,
 		"GuideShown",
-		"the quest item, Hearthstone, target, rare and bag buttons, their holder and the step key (secure): with ns.GuideShown, changed out of combat; the step key draws nothing",
+		"the quest item, Hearthstone, target, rare and bag buttons, their holder, the step key, the target list's rows (secure) and its Polestar mark: with ns.GuideShown, changed out of combat; the step key draws nothing",
 	),
 	("Polestar/Rares/Toast.lua", "UIParent", 1, "POLESTAR_HIDDEN", "the rare card's secure Target button: let go of with the card"),
 	("Polestar/UI/NameTargets.lua", "UIParent", 1, "POLESTAR_HIDDEN", "the guide's clickable names (secure): hidden with the window, out of combat (in a fight their driver hides them)"),
@@ -537,6 +575,7 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/Maps/WorldMap.lua", "owner", 1, "Hidden", "the world map's info bar: off while hidden"),
 	("Polestar/QoL/XPMark.lua", "bar", 1, "Hidden", "the guide level on the XP bar: off while hidden"),
 	("Polestar/QoL/Rewards.lua", "button", 1, "Hidden", "the quest reward marks: off while hidden"),
+	("Polestar/QoL/Rewards.lua", "frame", 1, "Hidden", "the reward panel's weights line beside its heading: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "button", 1, "Hidden", "the talent marks: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "m", 2, "Hidden", "their ring and badge, under the mark"),
 ];

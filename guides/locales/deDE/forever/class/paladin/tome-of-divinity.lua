@@ -101,4 +101,7 @@ return {
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption
 	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "Zurück nach oben in den {object:32386}: {npc:6178} nimmt das Schriftstück, {npc:6179} bringt dir {spell:7328} bei.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast Frostbolt from far off: they stand apart, so pull one at a time."] = "{npc:6172} liegt tot auf {area:56}, der Insel im {area:86} im Osten von Elwynn, auf einem der Hügel um den Steinkreis. Wähl seine Leiche an und benutze {item:6866}, um ihn zu erwecken, und sprich ihn dann an. Hat ihn gerade ein anderer Paladin erweckt, ist seine Leiche nach etwa drei Minuten wieder da. Die Defias Rogue Wizards auf der Insel (Stufe 9-10) wirken Frostblitz aus großer Entfernung: Sie stehen weit auseinander, also zieh sie einzeln.",
 }

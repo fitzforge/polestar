@@ -106,6 +106,9 @@ pub struct Data {
 	pub recorded: V,
 	/// The counted voters each recorded spot needs (data/recorded/meta.json `thresholds.spotVoters`).
 	pub spot_voters: f64,
+	/// mechanics.json's `quests` (quest id -> { kinds, params, ... }: how each quest is done, `forge data build`), or
+	/// Null; resolve.rs reads its `use-item-on-mob` params for the creatures a `use` goal's item works on.
+	pub mechanics: V,
 	/// moves.json ({ npc } -> id -> [[instance map, x, y, centre x, centre y, radius]]: the ground a
 	/// walking creature's spawn covers, world yards) or Null.
 	pub moves: V,
@@ -113,6 +116,10 @@ pub struct Data {
 	pub instances: V,
 	/// tools/lib/data/areas.js loadAreas or Null.
 	pub areas: V,
+	/// The Codex's dungeon floors (`<data>/codex/journal.json`, written by `forge data codex`): instance map
+	/// id -> { name, floor }, the level a dungeon's run in the route starts at (forge-data journal.rs
+	/// `levels_of`), or Null without a built Codex (`dungeon_floors_of`).
+	pub dungeon_floors: V,
 	pub professions: FxHashMap<i64, V>,
 	pub profession_by_name: FxHashMap<String, V>,
 	pub recipe_by_spell: FxHashMap<i64, V>,
@@ -163,9 +170,11 @@ impl Data {
 			goal_heights: V::Null,
 			recorded: V::Null,
 			spot_voters: crate::recorded::SPOT_VOTERS,
+			mechanics: V::Null,
 			moves,
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
+			dungeon_floors: V::Null,
 			professions: FxHashMap::default(),
 			profession_by_name: FxHashMap::default(),
 			recipe_by_spell: FxHashMap::default(),
@@ -546,7 +555,8 @@ pub fn objective_label(quest_id: &V, o: &V) -> String {
 	format!("{}.{} = {} {}{}", quest_id, o.get("index"), verb, what, count)
 }
 
-/// `loadData(dir)` (native): reads dir/<name>.json and the instance/area tables from dir/../sources.
+/// `loadData(dir)` (native): reads dir/<name>.json and the instance/area tables from dir/../sources, plus
+/// dir/mechanics.json's quests when the folder has one (`Data::mechanics`).
 #[cfg(feature = "native")]
 pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 	let mut texts = FxHashMap::default();
@@ -576,7 +586,31 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 		let need = read(beside.join("recorded").join("meta.json"))?.map(|m| m.get("thresholds").get("spotVoters").num()).filter(|n| *n >= 1.0);
 		data.spot_voters = need.unwrap_or(crate::recorded::SPOT_VOTERS);
 	}
+	if let Some(doc) = read(dir.join("mechanics.json"))? {
+		data.mechanics = doc.get("quests");
+	}
+	if let Some(doc) = read(dir.join("codex").join("journal.json"))? {
+		data.dungeon_floors = dungeon_floors_of(&doc);
+	}
 	Ok(data)
+}
+
+/// A built Codex journal's dungeon floors (`Data::dungeon_floors`): instance map id -> { name, floor } for
+/// each dungeon page with a floor; Null when no page has one (a Codex built before floors).
+pub fn dungeon_floors_of(journal: &V) -> V {
+	let out = V::obj();
+	let mut any = false;
+	for (_, page) in journal.get("dungeons").entries() {
+		if page.get("kind").as_str() == Some("dungeon") && page.get("floor").is_num() && page.get("map").is_num() {
+			out.set(&page.get("map").to_js_string(), obj! { "name" => page.get("name"), "floor" => page.get("floor") });
+			any = true;
+		}
+	}
+	if any {
+		out
+	} else {
+		V::Null
+	}
 }
 
 /// Whether dir holds any core file.

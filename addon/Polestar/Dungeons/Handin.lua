@@ -7,8 +7,8 @@
 -- at its last step), rebuilt after /reload.
 --
 --   Dungeons.HandinPlan(key) -> plan | nil, reason
---       plan = { dungeon, hand = { { quest, rec, ender, talks } }, unfinished = { quest, ... },
---         inside = { quest, ... }, unplaced = { quest, ... } }
+--       plan = { dungeon, hand = { { quest, rec, ender, talks, direct } }, unfinished = { quest, ... },
+--         inside = { quest, ... }, unplaced = { quest, ... }, errands = { { quest, rec } } }
 --       the page's quests in the log: hand (objectives done, or only talks
 --       left, turned in outside at `ender`, a point { kind, id, name, map,
 --       x, y, f }: Dungeons.Ender, the page's own place when it is the
@@ -18,9 +18,17 @@
 --       point with its line `oi`: The Glowing Shard's Sputtervalve in
 --       Ratchet before Falla Sagewind, #1326), unfinished (other objectives
 --       still open), inside (done, turned in inside the dungeon), unplaced
---       (done, nowhere known). No follow-up search: the Dungeons page asks
---       for the plan on every render.
---   Dungeons.HandinFollowUps(plan) -> { { rec, giver, after = { questId, ... }, ender } }
+--       (done, nowhere known). A page quest handed in at one talk and never
+--       in the log (`direct`: Pozzik's Indurium Ore, #2241) is in `hand`
+--       with `direct` once the bags hold every item it asks and its giver
+--       would take it (Lookup.QuestBlock, Dungeons.PreDone), turned in
+--       outside; its turn-in goal is `direct`. errands: those of `unfinished`
+--       done outside that are the next part of a chain of the page's quests
+--       (an earlier part done) and whose objectives are all errand items
+--       (below); HandinGuide places each as HandinFollowUps' `errand`, then
+--       its ender (one it cannot place stays a note). No follow-up search and
+--       no placing: the Dungeons page asks for the plan on every render.
+--   Dungeons.HandinFollowUps(plan) -> { { rec, giver, after = { questId, ... }, ender, errand } }
 --       the quests the `hand` quests open (Codex.FollowUps: every `pre`
 --       done or handed in here, and one of `preAny` when it has any) that
 --       this character can take (Lookup.QuestBlock: faction, race, class,
@@ -28,8 +36,17 @@
 --       the one a quest of `after` is turned in to or within NEAR seconds of
 --       it (ns.TravelCost); ender: where one among them is turned in when
 --       nothing is left to do once it is taken (no objectives: Earthen Echo,
---       #1748; only items the bags hold: Prehistoric Prism, #1817), this
---       character's side's, on the giver's continent
+--       #1748; only items the bags hold: Prehistoric Prism, #1817), or once
+--       its errand is done, this character's side's, on the giver's
+--       continent; errand: for one of this dungeon's own page quests done
+--       outside it, the collect goals of its objectives when every one is an
+--       errand item, one to be had out in the world: no instance's NPC or
+--       object gives it, and an NPC or object spawned outside does at least
+--       ERRAND_CHANCE percent of the time (placed at its nearest spawn), or
+--       a vendor of the character's side sells it (the nearest): Unending
+--       Torment's Toxic Skullcap, Blisterweed and Essence of Agony, #2173.
+--       In objective order, each placed from the one before it; nil when an
+--       objective is anything else or has no place
 --   Dungeons.HandinGuide(key) -> def | nil, reason   -- "nothing" when no quest can be handed in
 --   Dungeons.HandIn(key) -> guideId | nil, reason    -- builds, registers and opens it
 --   Dungeons.HandinText(plan) -> text                -- why nothing can be handed in, one line
@@ -41,8 +58,10 @@
 -- there, then the follow-ups that place gives once what they wait on is
 -- turned in there), one per NPC a quest's talk line is at (before the
 -- place it is turned in), one per other giver of follow-ups (after the
--- turn-ins they wait on), and one per ender of a follow-up handed in on the
--- way (after the stop that gives it), in the order of Dungeons.OrderStops
+-- turn-ins they wait on), one per follow-up's errand (a step of its own,
+-- titled with the quest, after the stop that gives it), and one per ender of
+-- a follow-up handed in on the way (after its errand, else after the stop
+-- that gives it), in the order of Dungeons.OrderStops
 -- from where the player stands, with no fixed end (kept per character as
 -- CharState().dungeonHandin[key]). Stops at the same NPC in a row are one
 -- step. The last step lists the quests not handed in as notes.
@@ -121,6 +140,121 @@ end
 
 local function titleOf(pq, rec) return pq.title or (rec and rec.title) or "" end
 
+-- An errand's item sources (#2173): a vendor, or an NPC that drops it or an
+-- object it lies in, spawned outside any instance, that gives it at least
+-- ERRAND_CHANCE percent of the time (or of no known chance: an object to
+-- pick). An item any instance's NPC or object gives is the run's, never an
+-- errand's; so is one only rare chests or drops give (Silver Bars).
+local ERRAND_CHANCE = 25
+
+-- source -> record, kind ("npc" | "object"), "inside" | "world" | nil
+local function sourceOf(src)
+	local C = ns.Codex
+	local r, k
+	if src.type == "drop" and src.npc then
+		r, k = C.Npc(src.npc), "npc"
+	elseif src.type == "object" and src.object then
+		r, k = C.Object(src.object), "object"
+	end
+	if not r then return nil end
+	if src.instance or r.instance then return r, k, "inside" end
+	local ok = type(r.spawns) == "table" and #r.spawns > 0 and (src.chance == nil or src.chance >= ERRAND_CHANCE)
+	return r, k, ok and "world" or nil
+end
+
+-- Whether `item` can be had for an errand, placing nothing (cheap).
+local function errandItem(item)
+	if not item then return false end
+	local ok = false
+	for _, src in ipairs(item.sources or {}) do
+		local _, _, where = sourceOf(src)
+		if where == "inside" then return false end
+		ok = ok or where == "world" or (src.type == "vendor" and src.npc ~= nil)
+	end
+	return ok
+end
+
+-- Where errand item `item` is had, from `at`: the nearest spawn of its best
+-- source out in the world, else the nearest vendor of the character's side
+-- who sells it. -> spot, source record, source kind, sold (a vendor) | nil
+local function itemSource(item, at, p)
+	local C, Lk = ns.Codex, LK()
+	if not errandItem(item) then return nil end
+	local spot, chance, rec, kind
+	for _, src in ipairs(item.sources or {}) do
+		local r, k, where = sourceOf(src)
+		if where == "world" then
+			local c = src.chance or 100
+			if not spot or c > chance then
+				spot, chance, rec, kind = Lk.Nearest(r.spawns, at), c, r, k
+			end
+		end
+	end
+	if spot then return spot, rec, kind end
+	local sellers = {}
+	for _, src in ipairs(item.sources or {}) do
+		if src.type == "vendor" and src.npc then sellers[#sellers + 1] = src.npc end
+	end
+	local e = #sellers > 0 and Lk.QuestEnd({ npc = sellers }, at, p) or nil
+	if not (e and e.spawn and not e.hostile) then return nil end
+	return e.spawn, C.Npc(e.npc), "npc", true
+end
+
+-- Whether page quest record `rec` can be an errand (errandGoals) for a
+-- quest in the log, placing nothing (the Dungeons page asks for the plan on
+-- every render): done outside the dungeon, the next part of a chain of its
+-- page quests (a `pre` or `preAny` of it on the page and done: a quest the
+-- character took before the run is the run's), every objective an errand
+-- item.
+local function errandable(key, rec)
+	local pq = rec and Dungeons.Quest(key, rec.id)
+	if not pq or pq.inside or (pq.finish and pq.finish.inside) then return false end
+	local after = false
+	for _, list in ipairs({ rec.pre or {}, rec.preAny or {} }) do
+		for _, id in ipairs(list) do after = after or (Dungeons.Quest(key, id) ~= nil and done(id)) end
+	end
+	local objs = rec.objectives or {}
+	if not after or #objs == 0 then return false end
+	local C = ns.Codex
+	for _, o in ipairs(objs) do
+		if not (o.type == "item" and o.id and errandItem(C.Item(o.id))) then return false end
+	end
+	return true
+end
+
+-- A follow-up's errand (HandinFollowUps' `errand`): one collect goal per
+-- objective, each saying where the item comes from ("Collect Toxic Skullcap
+-- from Tawny Grisette"), or nil.
+local function errandGoals(key, rec, from, p)
+	local pq = Dungeons.Quest(key, rec.id)
+	if not pq or pq.inside or (pq.finish and pq.finish.inside) then return nil end
+	local objs = rec.objectives or {}
+	if #objs == 0 then return nil end
+	local C = ns.Codex
+	local goals, at = {}, from
+	for oi, o in ipairs(objs) do
+		local item = o.type == "item" and o.id and C.Item(o.id)
+		local spot, src, kind, sold
+		if item then spot, src, kind, sold = itemSource(item, at, p) end
+		if not spot then return nil end
+		local goal = { t = "collect", quest = rec.id, oi = oi, title = rec.title, item = o.id, itemName = item.name or o.text,
+			count = o.count or 1, map = spot.map, x = spot.x, y = spot.y, f = spot.f == "e" and "e" or nil }
+		if src and src.name then
+			goal.from, goal.fromId, goal.fromKind = src.name, src.id, kind
+			-- A seller (one of the character's side, Lookup.QuestEnd) is no kill.
+			local fac = src.faction
+			if fac == "A" or fac == "H" or fac == "AH" then
+				goal.fromFaction = fac
+			elseif sold then
+				goal.fromFaction = "AH"
+			end
+		end
+		goals[#goals + 1] = goal
+		at = spot
+	end
+	return goals
+end
+
 function Dungeons.HandinPlan(key)
 	local d = Dungeons.Get(key)
 	if not d then return nil, "unknown" end
@@ -128,7 +262,7 @@ function Dungeons.HandinPlan(key)
 	if not (Lk and Lk.QuestEnd and C) then return nil, "missing" end
 	local from = ns.PlayerPoint()
 	local p = Lk.PlayerInfo()
-	local plan = { dungeon = d, hand = {}, unfinished = {}, inside = {}, unplaced = {} }
+	local plan = { dungeon = d, hand = {}, unfinished = {}, inside = {}, unplaced = {}, errands = {} }
 	for _, pq in ipairs(Dungeons.Quests(key)) do
 		if inLog(pq.id) and not done(pq.id) then
 			local rec = C.Quest(pq.id)
@@ -136,6 +270,10 @@ function Dungeons.HandinPlan(key)
 			local talks = not ready and talksLeft(pq.id, rec, from, p) or nil
 			if not (ready or talks) then
 				plan.unfinished[#plan.unfinished + 1] = pq
+				-- One whose objectives are items to be had out in the world
+				-- (Unending Torment's in the Undercity, #2173): HandinGuide
+				-- leads its errand, then its turn-in.
+				if errandable(key, rec) then plan.errands[#plan.errands + 1] = { quest = pq, rec = rec } end
 			elseif pq.finish and pq.finish.inside then
 				plan.inside[#plan.inside + 1] = pq
 			else
@@ -145,6 +283,16 @@ function Dungeons.HandinPlan(key)
 				else
 					plan.unplaced[#plan.unplaced + 1] = pq
 				end
+			end
+		elseif pq.direct and not (pq.finish and pq.finish.inside) then
+			-- One handed in at one talk and never in the log (the page's
+			-- `direct`: Pozzik's Indurium Ore, #2241), once the bags hold
+			-- every item it asks and its giver would take it (Lookup's
+			-- QuestBlock, its prerequisites done): handed in at its ender.
+			local rec = C.Quest(pq.id)
+			if rec and #(rec.objectives or {}) > 0 and carried(rec) and not Lk.QuestBlock(rec, p) and Dungeons.PreDone(rec) then
+				local ender = Dungeons.Ender(pq, from, rec)
+				if ender then plan.hand[#plan.hand + 1] = { quest = pq, rec = rec, ender = ender, direct = true } end
 			end
 		end
 	end
@@ -192,13 +340,22 @@ function Dungeons.HandinFollowUps(plan)
 					-- Handed in on the same route when nothing is left to do
 					-- once it is taken (Earthen Echo, from Bashana to Muln
 					-- Earthfury, #1748; Prehistoric Prism, the Titan Relic from
-					-- Prospector Whelgar to High Explorer Magellas, #1817) and
-					-- its ender is on the giver's continent (no trip across the
-					-- sea).
-					local e = carried(f) and Lk.QuestEnd(f["end"], giver, p) or nil
+					-- Prospector Whelgar to High Explorer Magellas, #1817), or
+					-- once its errand out in the world is done (Unending
+					-- Torment's three Undercity items, #2173), and its ender is
+					-- on the giver's continent (no trip across the sea).
+					local errand = not carried(f) and errandGoals(plan.dungeon.key, f, giver, p) or nil
+					local last = errand and errand[#errand]
+					local e = (carried(f) or errand) and Lk.QuestEnd(f["end"], last or giver, p) or nil
 					local ender = e and not e.hostile and endPoint(e) or nil
 					if ender and continentOf(ender) ~= continentOf(giver) then ender = nil end
-					out[#out + 1] = { rec = f, giver = giver, after = after, ender = ender }
+					-- An errand stays on the giver's continent and ends where
+					-- its quest is handed in.
+					for _, g in ipairs(errand or {}) do
+						if continentOf(g) ~= continentOf(giver) then errand = nil break end
+					end
+					if errand and not ender then errand = nil end
+					out[#out + 1] = { rec = f, giver = giver, after = after, ender = ender, errand = errand }
 				end
 			end
 		end
@@ -222,8 +379,9 @@ end
 -- plan, follow-ups -> stops: one per place a quest is turned in, the
 -- follow-ups its NPC gives once what they wait on is turned in there, after
 -- the stops at the NPCs its quests' talk lines are at; one per other giver
--- and set of turn-ins its follow-ups wait on; one per ender of a follow-up
--- handed in on the way, after the stop that gives it.
+-- and set of turn-ins its follow-ups wait on; one per follow-up's errand,
+-- after the stop that gives it; one per ender of a follow-up handed in on
+-- the way, after its errand, else after the stop that gives it.
 local function stopsOf(plan, follow)
 	local stops, byKey = {}, {}
 	local function add(s)
@@ -252,6 +410,16 @@ local function stopsOf(plan, follow)
 			if not dup then s.deps[#s.deps + 1] = i end
 		end
 	end
+	-- A quest in the log with an errand: the errand, then its ender.
+	for _, x in ipairs(plan.errands or {}) do
+		local k = "r" .. x.quest.id
+		local r = stops[byKey[k] or 0] or add({ key = k, npcKey = k, at = { name = titleOf(x.quest, x.rec) }, inP = x.errand[1],
+			outP = x.errand[#x.errand], deps = {}, talks = {}, turnins = {}, accepts = {}, errand = { rec = x.rec, errand = x.errand } })
+		local ek = "d" .. pointKey(x.ender) .. "<" .. k
+		local d = stops[byKey[ek] or 0] or add({ key = ek, npcKey = pointKey(x.ender), at = x.ender, inP = x.ender, outP = x.ender,
+			deps = { byKey[r.key] }, talks = {}, turnins = {}, accepts = {} })
+		d.turnins[#d.turnins + 1] = { quest = x.quest, rec = x.rec }
+	end
 	for _, f in ipairs(follow) do
 		local deps, set = {}, {}
 		for _, id in ipairs(f.after) do
@@ -274,11 +442,20 @@ local function stopsOf(plan, follow)
 				deps = deps, talks = {}, turnins = {}, accepts = {} })
 		end
 		s.accepts[#s.accepts + 1] = f
+		-- Its errand, a stop of its own (`errand`), from its first goal's
+		-- place to its last.
+		local before = s
+		if f.errand then
+			local first, last = f.errand[1], f.errand[#f.errand]
+			local k = "r" .. f.rec.id .. "<" .. s.key
+			before = stops[byKey[k] or 0] or add({ key = k, npcKey = k, at = { name = f.rec.title }, inP = first, outP = last,
+				deps = { byKey[s.key] }, talks = {}, turnins = {}, accepts = {}, errand = f })
+		end
 		-- A follow-up handed in on the way: after it, at its ender.
 		if f.ender then
-			local k = "d" .. pointKey(f.ender) .. "<" .. s.key
+			local k = "d" .. pointKey(f.ender) .. "<" .. before.key
 			local d = stops[byKey[k] or 0] or add({ key = k, npcKey = pointKey(f.ender), at = f.ender, inP = f.ender, outP = f.ender,
-				deps = { byKey[s.key] }, talks = {}, turnins = {}, accepts = {} })
+				deps = { byKey[before.key] }, talks = {}, turnins = {}, accepts = {} })
 			d.turnins[#d.turnins + 1] = { quest = f.rec, rec = f.rec }
 		end
 	end
@@ -288,9 +465,19 @@ end
 function Dungeons.HandinGuide(key)
 	local plan, err = Dungeons.HandinPlan(key)
 	if not plan then return nil, err end
-	if #plan.hand == 0 then return nil, "nothing" end
+	if #plan.hand == 0 and #plan.errands == 0 then return nil, "nothing" end
 	local d = plan.dungeon
 	local from = ns.PlayerPoint()
+	-- The errands of quests in the log, placed from where the player stands;
+	-- one that cannot be placed after all stays a "Not finished yet" note.
+	local p, placed = LK().PlayerInfo(), {}
+	for _, x in ipairs(plan.errands) do
+		local errand = errandGoals(key, x.rec, from, p)
+		local ender = errand and Dungeons.Ender(x.quest, errand[#errand], x.rec)
+		if ender then placed[#placed + 1] = { quest = x.quest, rec = x.rec, errand = errand, ender = ender } end
+	end
+	plan.errands = placed
+	if #plan.hand == 0 and #plan.errands == 0 then return nil, "nothing" end
 	local stops = stopsOf(plan, Dungeons.HandinFollowUps(plan))
 	local order = Dungeons.OrderStops(stops, from, nil, "dungeonHandin", key)
 	local steps, lastKey = {}, nil
@@ -308,8 +495,17 @@ function Dungeons.HandinGuide(key)
 			goal.oi = t.at.oi
 			step.goals[#step.goals + 1] = goal
 		end
+		-- An errand (a follow-up's, or a quest's in the log): its collect goals, in its own step (titled with the quest).
+		for _, g in ipairs(s.errand and s.errand.errand or {}) do
+			local goal = {}
+			for k, v in pairs(g) do goal[k] = v end
+			step.goals[#step.goals + 1] = goal
+		end
 		for _, h in ipairs(s.turnins) do
-			step.goals[#step.goals + 1] = questGoal("turnin", h.quest.id, titleOf(h.quest, h.rec), s.at)
+			local goal = questGoal("turnin", h.quest.id, titleOf(h.quest, h.rec), s.at)
+			-- A direct hand-in: never in the log, the engine counts its turn-in (#2241).
+			goal.direct = h.direct
+			step.goals[#step.goals + 1] = goal
 		end
 		for _, f in ipairs(s.accepts) do
 			-- Its prerequisites (Lookup.AcceptPre): a turn-in skipped here
@@ -322,9 +518,11 @@ function Dungeons.HandinGuide(key)
 	end
 	if #steps == 0 then return nil, "nothing" end
 	local last = steps[#steps]
+	local led = {}
+	for _, x in ipairs(plan.errands) do led[x.quest.id] = true end
 	local function note(pattern, list)
 		for _, pq in ipairs(list) do
-			last.goals[#last.goals + 1] = { t = "note", text = format(pattern, ns.Quoted(pq.title) or "") }
+			if not led[pq.id] then last.goals[#last.goals + 1] = { t = "note", text = format(pattern, ns.Quoted(pq.title) or "") } end
 		end
 	end
 	note(L["Not finished yet: %s"], plan.unfinished)

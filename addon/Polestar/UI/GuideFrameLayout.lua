@@ -222,6 +222,22 @@ ns.UI.GuideFrame.Part(function(GF)
 		empty.Text:ClearAllPoints()
 		empty.Text:SetPoint("TOP", empty, "TOP", 0, y)
 		y = y - empty.Text:GetStringHeight() - 18
+		-- A finished guide's quest lines (GF.EndQuestLines), 20px each, under the text.
+		local lines = empty.Carried:IsShown() or empty.Stray:IsShown()
+		if lines then
+			y = y + 10
+			if empty.Carried:IsShown() then
+				empty.Carried:ClearAllPoints()
+				empty.Carried:SetPoint("TOP", empty, "TOP", 0, y)
+				y = y - 20 - 2
+			end
+			if empty.Stray:IsShown() then
+				empty.Stray:ClearAllPoints()
+				empty.Stray:SetPoint("TOP", empty, "TOP", 0, y)
+				y = y - 20 - 2
+			end
+			y = y - 10
+		end
 		if empty.Primary:IsShown() then
 			empty.Primary:ClearAllPoints()
 			empty.Primary:SetPoint("TOP", empty, "TOP", 0, y)
@@ -440,7 +456,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		if GF.xp.psHas and not isCompact and state == "steps" and not list then
 			GF.xp:Show()
-			y = place("xp", GF.xp, y, GF.xp:GetHeight(), width)
+			-- Its line on two when the width can't hold it (GF.XPHeight).
+			local xh = GF.XPHeight and GF.XPHeight(width) or GF.xp:GetHeight()
+			GF.xp:SetHeight(xh)
+			y = place("xp", GF.xp, y, xh, width)
 		else
 			GF.xp:Hide()
 		end

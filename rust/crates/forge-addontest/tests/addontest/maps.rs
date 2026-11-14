@@ -14,9 +14,11 @@ local M = Polestar.Maps
 local m = stub.maps
 local w = stub.world
 Polestar.Nav.RegisterTravelData(m.travel, true)
+-- Known flight paths, on a continent where a flight map has opened before (#1795: else none is called undiscovered).
 local function known(...)
 	local flags = Polestar.CharState().flags
 	flags.taxi = {}
+	flags.taxiSeen = { [0] = true }
 	for _, id in ipairs({ ... }) do flags.taxi[id] = true end
 end
 -- A tooltip that records what a pin's tooltip function wrote.
@@ -171,6 +173,33 @@ fn discovering_a_flight_master_on_the_taxi_map_recolours_its_pin() {
 		true,
 	);
 	assert_eq!(out, json!({ "before": false, "after": true }));
+}
+
+// #1795: on a continent where no flight map has opened yet for this character, a flight master it doesn't know may
+// be one it learnt before Polestar ran: its pin keeps the amber "?", but no tooltip calls it undiscovered. Once a
+// flight map has opened there, it is undiscovered again.
+#[test]
+fn no_flight_master_is_called_undiscovered_on_a_continent_without_a_flight_map_opened() {
+	let out = run_with(
+		r#"
+		known(1)
+		Polestar.CharState().flags.taxiSeen = {}
+		M.LearnFlight(1, 3, nil, nil, 41.4)
+		M.RefreshTravelPins()
+		local layer = Polestar.Pins.GetLayer("maps.taxi")
+		local east = tip(layer[2].tooltip)
+		local r = { west = tip(layer[1].tooltip), east = { east[1], east[2] }, badge = layer[2].badge or false }
+		Polestar.CharState().flags.taxiSeen = { [0] = true }
+		M.RefreshTravelPins()
+		r.seen = tip(Polestar.Pins.GetLayer("maps.taxi")[2].tooltip)[2]
+		emit(r)"#,
+		"Alliance",
+		true,
+	);
+	assert_eq!(out["west"], json!(["West Hold, Testshire", "Flight master, known", " ", "Flights from here", "East Hold | ≈1:42", "Mid Camp | 0:41"]));
+	assert_eq!(out["east"], json!(["East Hold, Testshire", "Flight master"]));
+	assert_eq!(out["badge"], "?");
+	assert_eq!(out["seen"], "Flight master, not discovered");
 }
 
 // ---------------------------------------------------------------------------

@@ -142,12 +142,13 @@ function UnitName(unit)
 	if t then return t.name end
 	return unitName(unit)
 end
--- Portraits: the texture keeps the name of the unit it was drawn from;
--- q.portraits lists every draw.
+-- Portraits: the texture keeps the name of the unit it was drawn from, and
+-- shows it as "portrait:<name>"; q.portraits lists every draw.
 q.portraits = {}
 function SetPortraitTexture(tex, unit)
 	local t = targetOf(unit)
 	tex.portraitOf = t and t.name
+	tex:SetTexture(t and ("portrait:" .. tostring(t.name)) or nil)
 	q.portraits[#q.portraits + 1] = { unit = unit, name = t and t.name }
 end
 C_NamePlate = C_NamePlate or {}
@@ -579,8 +580,20 @@ end
 -- Quest rewards: q.choices = { { id, count }, ... }; reward buttons like QuestInfo's
 ---------------------------------------------------------------------------
 
+-- QuestInfoRewardsFrame (Mainline QuestInfo.xml): 285 wide, its Rewards heading (QuestTitleFont) and the choose
+-- line (QuestFont, in the quest material's text colour) above the choices.
 QuestInfoRewardsFrame = CreateFrame("Frame", "QuestInfoRewardsFrame", UIParent)
+QuestInfoRewardsFrame:SetSize(285, 10)
 QuestInfoRewardsFrame.RewardButtons = {}
+QuestInfoRewardsFrame.Header = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.Header:SetFont(STANDARD_TEXT_FONT, 18, "")
+QuestInfoRewardsFrame.Header:SetText("Rewards")
+QuestInfoRewardsFrame.Header:SetPoint("TOPLEFT", QuestInfoRewardsFrame, "TOPLEFT", 0, 0)
+QuestInfoRewardsFrame.Header:SetSize(285, 0)
+QuestInfoRewardsFrame.ItemChooseText = QuestInfoRewardsFrame:CreateFontString(nil, "ARTWORK")
+QuestInfoRewardsFrame.ItemChooseText:SetFont(STANDARD_TEXT_FONT, 13, "")
+QuestInfoRewardsFrame.ItemChooseText:SetText("You will be able to choose one of these rewards:")
+QuestInfoRewardsFrame.ItemChooseText:SetTextColor(0.18, 0.1, 0.03)
 QuestInfoFrame = CreateFrame("Frame", "QuestInfoFrame", UIParent)
 QuestInfoFrame.rewardsFrame = QuestInfoRewardsFrame
 
@@ -840,7 +853,7 @@ function q.step(goals, index)
 		views[g] = {
 			index = g, t = goal.t, status = goal.status or "active",
 			subject = goal.subject or goal.target or goal.itemName or goal.location,
-			quest = goal.quest, npc = goal.npc, item = goal.item,
+			quest = goal.quest, npc = goal.npc, item = goal.item, progress = goal.progress,
 		}
 	end
 	local steps = {}
@@ -874,6 +887,14 @@ function Nav.Hold(map, x, y, label, f)
 	q.nav.held, q.nav.target = t, t
 	table.insert(q.nav.sets, t)
 	return t
+end
+-- Nav.HoldNothing (a corpse inside a dungeon whose entrance is not known):
+-- no target until Nav.Unhold, which brings back the one from before.
+local NOTHING = { nothing = true }
+function Nav.HoldNothing()
+	if not q.nav.held then q.nav.under = q.nav.target end
+	q.nav.held, q.nav.target = NOTHING, nil
+	return NOTHING
 end
 function Nav.Unhold()
 	if not q.nav.held then return end

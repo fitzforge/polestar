@@ -33,6 +33,8 @@ struct Case {
 	/// runs, off here unless a case is about them.
 	pass_by: bool,
 	nearby_fp: bool,
+	/// data/dungeon-runs.json's records (the grind tips' dungeon runs); none unless a case is about them.
+	dungeon_runs: Option<Value>,
 }
 
 impl Default for Case {
@@ -52,6 +54,7 @@ impl Default for Case {
 			crossings: None,
 			pass_by: false,
 			nearby_fp: false,
+			dungeon_runs: None,
 		}
 	}
 }
@@ -111,6 +114,7 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		fresh_openers: forge_writer::post::FreshOpeners::Flag,
 		pass_by: c.pass_by,
 		nearby_fp: c.nearby_fp,
+		dungeon_runs: c.dungeon_runs.as_ref(),
 	})
 	.unwrap();
 	Run { out, guides }
@@ -2024,41 +2028,48 @@ fn a_grind_top_up_takes_the_hand_ins_before_the_level_is_needed_off_its_target()
 	assert_eq!(tip(&text), "  tip Top up here to level 13 before the hand-ins at Razor Hill: they take you to level 14.", "{text}");
 }
 
-// Fitz's grind policy (2026-11-08, final route review): every written grind step keeps its gate and says
-// plainly that a dungeon of the player's level will do instead, by faction and level band.
+// Fitz's grind policy (2026-11-08, final route review; the dungeons, 2026-11-13): every written grind step keeps
+// its gate and says plainly that a dungeon will do instead, when one is run near it: a run of the route's faction in
+// the guide or the one it leads to (data/dungeon-runs.json), its way in on the grind's continent, its range (the
+// Group Finder's) holding the grind's level.
 #[test]
-fn a_grind_top_up_names_the_dungeons_of_its_level_for_the_routes_faction() {
-	let c = |faction: Option<&str>, target: f64| Case {
+fn a_grind_top_up_names_the_dungeons_run_near_it_in_its_level_for_the_routes_faction() {
+	let c = |faction: &str, target: f64, runs: Value| Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 10-30", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  kill 20 quest 1.1", "", "step Hub again", "  turnin 1", ""])],
-		route: {
-			let mut r = json!({ "diff": {}, "order": [
-				{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
-				{ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) },
-				{ "t": "level", "lvl": target - 0.2, "target": target, "pt": 1, "from": "inserted" },
-				{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) },
-			] });
-			if let Some(fc) = faction {
-				r["faction"] = json!(fc);
-			}
-			r
-		},
-		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }] }),
+		route: json!({ "diff": {}, "faction": faction, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "from": f("a", 10) },
+			{ "t": "level", "lvl": target - 0.2, "target": target, "pt": 1, "from": "inserted" },
+			{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 13) },
+		] }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, -500, 500, 1411], [1, 1, -900, 900, 1413], [0, 0, 0, 0, 1436]], "zones": { "1411": "Durotar", "1413": "The Barrens", "1436": "Westfall" }, "quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "kill", "id": 20, "task": 0 }] }] }),
 		quests: json!({ "1": { "title": "One", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "kill", "id": 20 }] } }),
 		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } }, "20": { "name": "Mottled Boar", "spawns": { "1411": { "f": "e", "pts": [[75, 75]] } } } }),
+		dungeon_runs: Some(json!({ "runs": runs })),
 		..Case::default()
 	};
-	let tip = |faction: Option<&str>, target: f64| {
-		let r = run(&c(faction, target), Some(&area("Razor Hill", "Durotar", 1411)));
+	let tip = |faction: &str, target: f64, runs: Value| {
+		let r = run(&c(faction, target, runs), Some(&area("Razor Hill", "Durotar", 1411)));
 		r.read("a").into_iter().find(|l| l.starts_with("  tip Top up here")).unwrap_or_default()
 	};
-	let horde = tip(Some("Horde"), 21.4);
+	let at = |dungeon: &str, faction: &str, guide: &str, map: u32| json!({ "dungeon": dungeon, "faction": faction, "run": { "guide": guide, "entrance": { "map": map } } });
+	let wc = |faction: &str| at("Wailing Caverns", faction, "forever/a", 1413);
+	let horde = tip("Horde", 21.4, json!([wc("Horde")]));
 	assert!(horde.ends_with("before the hand-ins at Razor Hill. Or, with a group, run the Wailing Caverns dungeon instead."), "{horde}");
-	let alliance = tip(Some("Alliance"), 21.4);
+	// The other faction's run is no alternative; one a guide away from this one's chain neither.
+	let none = tip("Horde", 21.4, json!([wc("Alliance"), at("Wailing Caverns", "Horde", "forever/z", 1413)]));
+	assert!(none.ends_with("before the hand-ins at Razor Hill."), "{none}");
+	// Two near, nearest range middle first (a tie to the older dungeon).
+	let alliance = tip("Alliance", 21.4, json!([at("The Deadmines", "Alliance", "forever/a", 1413), wc("Both")]));
 	assert!(alliance.ends_with(" Or, with a group, run the Wailing Caverns dungeon or the Deadmines dungeon instead."), "{alliance}");
-	let high = tip(Some("Horde"), 28.9);
-	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon or the Razorfen Kraul dungeon instead."), "{high}");
+	// Across the sea: the Deadmines' way in is on another continent than the grind's.
+	let sea = tip("Alliance", 21.4, json!([at("The Deadmines", "Alliance", "forever/a", 1436)]));
+	assert!(sea.ends_with("before the hand-ins at Razor Hill."), "{sea}");
+	// Out of its range: Razorfen Kraul starts at 29 (the Group Finder's), so at 28.9 only Blackfathom Deeps.
+	let high = tip("Horde", 28.9, json!([at("Razorfen Kraul", "Horde", "forever/a", 1413), at("Blackfathom Deeps", "Horde", "forever/a", 1413)]));
+	assert!(high.ends_with(" Or, with a group, run the Blackfathom Deeps dungeon instead."), "{high}");
 	// Below every dungeon's band: no sentence.
-	let low = tip(Some("Horde"), 12.4);
+	let low = tip("Horde", 12.4, json!([wc("Horde")]));
 	assert!(low.ends_with("before the hand-ins at Razor Hill."), "{low}");
 }
 
@@ -10316,6 +10327,72 @@ fn level_fit_moves_work_to_the_later_visit_where_it_fits() {
 }
 
 #[test]
+fn level_fit_leaves_the_accept_where_another_task_of_its_quest_comes_first() {
+	// 0.4.0's Tauren written check: Mazzranache's gizzards, too high where the route has them, went
+	// to a later visit and took the accept with them, past the quest's Plainstrider scales, which
+	// stay with Poison Water's talons: a collect before its accept, refused by the pack check. The
+	// accept stays where it is while another task of its quest comes before the later stop by its
+	// giver; only the work that does not fit moves.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 10-15",
+		"zone Durotar",
+		"",
+		"step Hub",
+		"  accept 1",
+		"  accept 2",
+		"  accept 3",
+		"",
+		"step Gnolls",
+		"  kill 10 quest 1.1",
+		"",
+		"step Boars",
+		"  kill 13 quest 3.1",
+		"  kill 13 quest 1.2",
+		"",
+		"step Hub again",
+		"  turnin 1",
+		"  turnin 3",
+		"",
+		"step Wolves",
+		"  kill 12 quest 2.1",
+		"",
+		"step Hub last",
+		"  turnin 2",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> = [camp(10, "Gnoll", 16, 16, 70.0, 50.0, 5), camp(12, "Wolf", 14, 14, 70.0, 51.0, 5), camp(13, "Boar", 11, 11, 40.0, 20.0, 5)].into_iter().collect();
+	let two_tasks = json!({ "id": 1, "pre": [], "objs": [{ "oi": 0, "type": "kill", "id": 10, "task": 0 }, { "oi": 1, "type": "kill", "id": 13, "task": 1 }],
+		"tasks": [{ "work": [["kill", 16, 5, 0, 0, 10]] }, { "work": [["kill", 11, 5, 0, 0, 13]] }] });
+	let c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Horde", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 10.0, "from": f("a", 7) }, { "t": "accept", "q": 2, "pt": 0, "lvl": 10.0, "from": f("a", 8) },
+			{ "t": "accept", "q": 3, "pt": 0, "lvl": 10.0, "from": f("a", 9) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "lvl": 10.2, "from": f("a", 12) },
+			{ "t": "task", "q": 3, "task": 0, "pt": 2, "lvl": 10.5, "from": f("a", 15) },
+			{ "t": "task", "q": 1, "task": 1, "pt": 2, "lvl": 10.6, "from": f("a", 16) },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 11.0, "from": f("a", 19) }, { "t": "turnin", "q": 3, "pt": 0, "lvl": 11.5, "from": f("a", 20) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "lvl": 14.2, "from": f("a", 23) },
+			{ "t": "turnin", "q": 2, "pt": 0, "lvl": 15.0, "from": f("a", 26) }
+		] }),
+		world: level_world(json!([two_tasks, kill_quest(2, 12, 14, &[]), kill_quest(3, 13, 11, &[])])),
+		quests: json!({ "1": { "title": "One", "level": 16 }, "2": { "title": "Two", "level": 14 }, "3": { "title": "Three", "level": 11 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	let g = pick(&r.read("a"), r"^\s+(accept|turnin|kill)");
+	let at = |l: &str| idx(&g, l);
+	assert!(at("  accept 1") >= 0 && at("  accept 1") < at("  kill 13 quest 1.2"), "taken before its boars: {g:#?} {:#?}", r.out.log);
+	assert!(at("  kill 10 quest 1.1") > at("  kill 12 quest 2.1"), "the gnolls still go to the later visit: {g:#?}");
+	assert!(at("  turnin 1") > at("  kill 10 quest 1.1"), "{g:#?}");
+	let line = r.out.log.iter().find(|l| l.starts_with("level fit: One (1) task 1 moved after")).unwrap_or_else(|| panic!("{:#?}", r.out.log));
+	assert!(!line.contains("its accept with it"), "{line}");
+}
+
+#[test]
 fn level_fit_leaves_out_work_no_later_visit_fits() {
 	// Fangore's Galardell Valley (#977): Lieutenant Fangore (26) among gnolls of 22-25 at level 21.4, and the
 	// route never comes back at a level that fits: the quest, its hand-in and its follow-up go, and the
@@ -10672,5 +10749,61 @@ fn a_flight_master_is_not_learnt_too_far_off_or_for_a_walk_it_would_not_shorten(
 		let g = r.read("a");
 		assert!(idx(&g, "  getfp \"Sun Rock Retreat\"") > idx(&g, "  accept 3"), "{why}: {g:#?}");
 		assert!(!r.out.log.iter().any(|l| l.starts_with("nearby fp:")), "{why}: {:#?}", r.out.log);
+	}
+}
+
+#[test]
+fn every_piece_of_a_loop_step_the_route_splits_keeps_its_circuit() {
+	// 0.4.0 round, Westfall's Longshore murlocs: the route took the Gills (here quest 1) on a later
+	// visit and the gotos before them went along, leaving v1's step its `loop` and the Murloc Eyes
+	// (quest 2) with no point (the pack check: `loop` needs at least two `goto` points in its step).
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 10-12",
+				"zone Westfall",
+				"",
+				"step Hill",
+				"  accept 1",
+				"  accept 2",
+				"",
+				"step The Longshore murlocs",
+				"  tip Murlocs line the north coast.",
+				"  loop",
+				"  goto 42.5,10.5",
+				"  goto 45.5,9.2",
+				"  goto 49.5,9.5",
+				"  collect 100 quest 1",
+				"  collect 200 quest 2",
+				"",
+				"step Farm",
+				"  accept 3",
+				"",
+				"step Hill again",
+				"  turnin 1",
+				"  turnin 2",
+				"",
+			],
+		)],
+		quests: json!({ "1": { "title": "Gills" }, "2": { "title": "Eyes" }, "3": { "title": "Farm" } }),
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "from": f("a", 7) }, { "t": "accept", "q": 2, "from": f("a", 8) },
+			{ "t": "task", "q": 2, "task": 0, "from": f("a", 17) },
+			{ "t": "accept", "q": 3, "from": f("a", 20) },
+			{ "t": "task", "q": 1, "task": 0, "from": f("a", 16) },
+			{ "t": "turnin", "q": 1, "from": f("a", 23) }, { "t": "turnin", "q": 2, "from": f("a", 24) }
+		] }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	assert!(idx(&g, "  collect 100 quest 1") > idx(&g, "  accept 3"), "the route's split: {g:#?}");
+	for want in ["  collect 100 quest 1", "  collect 200 quest 2"] {
+		let at = idx(&g, want) as usize;
+		let s = g[..at].iter().rposition(|l| l.starts_with("step ")).unwrap();
+		assert!(g[s..at].iter().any(|l| l == "  loop"), "{want}: {g:#?}");
+		assert_eq!(g[s..at].iter().filter(|l| l.starts_with("  goto ")).count(), 3, "{want}: {g:#?}");
 	}
 }
