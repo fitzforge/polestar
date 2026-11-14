@@ -340,7 +340,7 @@ step Level 42.16 at Zul'Mamwe
   when !group 197
   when !group 208
   when level<42.16
-  tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. Or, with a group, run the Uldaman dungeon instead.
+  tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. With a group, the Uldaman run in the next guide, in Badlands, makes up the difference.
   goto 45.5,36.5 map 1434 "Skullsplitter Warrior"
   level 42.16 grind 667                -- grind on Skullsplitter Warrior
 
@@ -381,7 +381,7 @@ step Hemet Nesingwary
 
 step Level 42.16
   when level<42.16
-  tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. Or, with a group, run the Uldaman dungeon instead.
+  tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. With a group, the Uldaman run in the next guide, in Badlands, makes up the difference.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
   level 42.16 grind 690                -- grind on Cold Eye Basilisk
 
@@ -517,7 +517,7 @@ step Misty Valley
 step Level 42.46
   when !group 543
   when level<42.46
-  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
+  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. With a group, the Uldaman run in the next guide, in Badlands, makes up the difference.
   goto 5.5,31.4 map 1435 "Tangled Horror"
   level 42.46 grind 766                -- grind on Tangled Horror
 

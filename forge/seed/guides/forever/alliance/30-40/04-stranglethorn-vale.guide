@@ -60,7 +60,7 @@ step Stranglethorn Tigers
 
 step Level 33.2
   when level<33.2
-  tip The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+  tip The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2.
   goto 30.8,11.2 map 1434 "Stranglethorn Tiger"
   level 33.2 grind 682                 -- grind on Stranglethorn Tiger
 
@@ -102,7 +102,7 @@ step Kurzen's Compound: kill these as you meet them
 
 step Level 33.6
   when level<33.6
-  tip Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+  tip Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6.
   goto 44.6,10.0 map 1434 "Kurzen Jungle Fighter"
   level 33.6 grind 937                 -- grind on Kurzen Jungle Fighter
 
@@ -119,7 +119,7 @@ step Stranglethorn Vale: kill these as you meet them
 
 step Level 34
   when level<34
-  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
+  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34.
   goto 33.2,18.7 map 1434 "Elder Stranglethorn Tiger"
   level 34 grind 1085                  -- grind on Elder Stranglethorn Tiger
 

@@ -113,7 +113,7 @@ step Snapjaw Crocolisks
 step Level 36
   when level<36
   zone Stranglethorn Vale
-  tip Troll Witchery's Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
+  tip Troll Witchery's Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36.
   goto 40.2,27.2 map 1434 "Snapjaw Crocolisk"
   level 36 grind 1152                 -- grind on Snapjaw Crocolisk
 
