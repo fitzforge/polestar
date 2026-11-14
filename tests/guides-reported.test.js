@@ -14017,3 +14017,93 @@ test('Horde grind top-ups stand on camps at most a level over the player (#2207)
 	const mulgris = fel.findIndex((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 4984));
 	assert.ok(fel.indexOf(lurkers) === mulgris - 1 && mulgris === fel.indexOf(bears) - 1, 'on the way to Mulgris, whose hand-in sends you to the bears');
 });
+
+// #2311 (kaeldrin-gh, Human Warrior 22): "Complete The Rethban Gauntlet" had no place and nothing placed before it in
+// its step, so the arrow showed nothing while the player ran to the Rethban Caverns (the hand-in after it waits for
+// the quest). The same pattern, a `complete` with no place leading its step while its objective has one (lint: "the
+// arrow has nowhere to point"), in three more guides: The Balance of Light and Shadow (Benediction), How Big a
+// Threat? (Darnassus reputation) and Discipline (Undercity reputation). Each now has its objective's place: the
+// Rethban Caverns' first fork, where 6 people's recordings tick the objective (14.07-14.35, 25.17-25.45, live), after
+// a goto at the cave's mouth where they walk in; the others the quest data's objective points (984: 50+ people tick
+// it at 39-40.5, 52.5-54.5; 99134: 100+ around Brill, 58.5-61.5, 51.5-53.5).
+test('#2311: a complete that leads its step has a place for the arrow', { skip }, () => {
+	for (const [guide, quest, map, x, y] of [
+		['forever/class/warrior/fire-hardened-armor.guide', 1699, 1433, 14.2, 25.3],
+		['forever/class/priest/benediction.guide', 7622, 1423, 17.42, 12.24],
+		['forever/reputation/darnassus.guide', 984, 1439, 39.9, 53.9],
+		['forever/reputation/undercity.guide', 99134, 1420, 60.7, 52.0],
+	]) {
+		const list = goals(guide);
+		const i = at(list, `${guide}: complete ${quest}`, is('complete', quest));
+		const { goal } = list[i];
+		assert.ok(located(list[i]), `${guide}: complete ${quest} has a place`);
+		assert.equal(goal.map, map, `${guide}: complete ${quest} on map ${map}`);
+		assert.ok(Math.hypot(goal.x - x, goal.y - y) < 0.05, `${guide}: complete ${quest} at ${x},${y} (got ${goal.x},${goal.y})`);
+	}
+	const list = goals('forever/class/warrior/fire-hardened-armor.guide');
+	const i = at(list, 'complete 1699', is('complete', 1699));
+	const mouth = list[i - 1];
+	assert.equal(mouth.step, list[i].step, 'the cave mouth is in the same step');
+	assert.equal(mouth.goal.t, 'goto', 'a goto at the Rethban Caverns before the fork inside');
+	assert.ok(Math.hypot(mouth.goal.x - 15.0, mouth.goal.y - 27.3) < 0.05 && mouth.goal.f !== 'e', `the mouth at 15.0,27.3, live frame (got ${mouth.goal.x},${mouth.goal.y} ${mouth.goal.f})`);
+});
+
+// #2327 (kevintm1011, Human Priest 36): Stranglethorn Vale (Alliance 30-40) ended on "The road to Nijel's Point", a
+// goto at 33.7,72.8 in the Charred Vale, about 100 yards east of the road players walk (their positions run down x
+// 31-31.5 at y 72-74 and through the pass at 30.0, 76-77.5, 21-26 people per half-unit cell). Past it at Nijel's
+// Point, the guide sent the player back to it, and Desolace's first step then sent them back to Nijel's Point. The
+// goto now stands in the pass, and like #2082's boat back to Auberdine the step drops once the player is in the next
+// guide's zone. The same pattern, a guide's last step a lone goto into another zone with no such gate: Desolace's
+// boat to Stormwind Harbor and Ashenvale's boat to Menethil Harbor (Alliance 30-40).
+test('#2327: a leveling guide that ends on the way into another zone drops that step once you are there', { skip }, () => {
+	for (const [guide, zone] of [
+		['forever/alliance/30-40/04-stranglethorn-vale.guide', 'Desolace'],
+		['forever/alliance/30-40/02-desolace.guide', 'Stormwind City'],
+		['forever/alliance/30-40/03-ashenvale.guide', 'Wetlands'],
+		['forever/alliance/03-loch-modan.guide', 'Darkshore'],
+	]) {
+		const steps = compiled(guide).steps;
+		const last = steps[steps.length - 1];
+		assert.ok(last.goals.every((g) => g.t === 'goto'), `${guide}: ends on a travel step (${last.title})`);
+		assert.ok((last.when || []).some((p) => p.k === 'zone' && p.neg && p.name === zone), `${guide}: \`when !zone "${zone}"\` on ${last.title}`);
+	}
+	const steps = compiled('forever/alliance/30-40/04-stranglethorn-vale.guide').steps;
+	const road = steps[steps.length - 1].goals[0];
+	assert.equal(road.map, 1442, 'the road to Nijel\'s Point is in the Stonetalon Mountains');
+	assert.ok(Math.hypot(road.x - 30.0, road.y - 76.5) < 0.05, `the pass players walk through, 30.0,76.5 (got ${road.x},${road.y})`);
+});
+
+// #2326 (Stompsville): Screecher Spirits (3520) counts a Screecher Spirit that rises when Yeh'kinya's Bramble is used on
+// a dead screecher, and the spirit is friendly: players' recordings (10 people) tick each spirit right after the
+// bramble's cast (12699) with the spirit's own window open, and nobody ever killed one; the game's data credits the
+// objective on the spirit's gossip. Feralas (Horde 40-50) told the player to kill the spirit. The goal is a talk now,
+// after the bramble's use, and the tip says so.
+test('#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble', { skip }, () => {
+	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const use = at(list, 'use 10699', (g) => g.t === 'use' && g.item === 10699 && g.quest === 3520);
+	const talk = at(list, 'talk 8612', (g) => g.t === 'talk' && g.npc === 8612 && g.quest === 3520);
+	assert.ok(use < talk && list[use].step === list[talk].step, 'the bramble first, then the spirit, in one step');
+	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === 8612), 'no kill of a Screecher Spirit');
+	const tip = [list[talk].step.note, list[talk].step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /talk to the spirit that rises/, 'the tip says to talk to it');
+});
+
+// #2300 (Edet, Human Warlock 48): Searing Gorge (Alliance 40-50) sent the player alone to Zamael Lunthistle for Prayer
+// to Elune, "the night elf stands alone west of Thorium Point"; he stands inside the Twilight camp at Firewatch Ridge
+// among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites in Forever's creature data) within 10 yards,
+// with Highlord Mastrogonde (51, rare elite) beside him, and the player died there. Its second part (3378) is already a
+// group quest of 4 for the same camp; the first part is one now: its three steps wait for the player's group answer,
+// and the tip names the camp.
+test('#2300: Searing Gorge (Alliance): Prayer to Elune waits for a group, among the Twilight camp\'s elites', { skip }, () => {
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const zamael = list.filter(({ goal }) => goal.quest === 3377);
+	assert.deepEqual(zamael.map(({ goal }) => goal.t), ['accept', 'talk', 'turnin'], 'accept, talk and hand-in');
+	for (const { step, goal } of zamael) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && !p.neg && [p.q].flat().includes(3377)), `${goal.t} 3377 waits for \`when group 3377\``);
+	}
+	const talk = zamael.find(({ goal }) => goal.t === 'talk').goal;
+	assert.equal(talk.group && talk.group.size, 4, 'the talk says a group of 4');
+	const tip = [zamael[0].step.note, zamael[0].step.tip].flat().filter(Boolean).join(' ');
+	assert.doesNotMatch(tip, /stands alone/, 'not "stands alone"');
+	assert.match(tip, /Twilight camp/, 'the tip names the Twilight camp');
+});
