@@ -64,8 +64,9 @@ const LOGIN_BASE: f64 = 11003.0;
 /// the same tree without it). CI's runner measures this tree 4 KiB higher (11,204), which already left dev-040 at the
 /// edge of the budget there: 10 KiB more covers both.
 /// The fresh-start note (#1562: Engine.FreshFor and FreshStart, its banner) adds 6 KiB of code: measured 11,205 KiB on
-/// 2026-11-13 (11,199 without it). Engine.lua's private `Own` table holds exactly 512 keys at login there: one key more
-/// doubles its hash part, about 20 KiB.
+/// 2026-11-13 (11,199 without it). Engine.lua's private `Own` table held exactly 512 keys at login there: one key more
+/// doubled its hash part, about 20 KiB. dev-040 has since passed it (521 keys at 5fe81cc6e, 553 with round 5's merges),
+/// the hash part at 1,024 now, so the next doubling is far off.
 /// The travel lane (#2029) adds about 72 KiB on top, within it: 11,268 KiB against dev-040's 11,196 at 467cdd126
 /// (2026-11-14), 60 of it code (each file's compiled chunk): Nav/Travel.lua +27 (flights from and to flight masters
 /// the character may have, #1795; the Hearthstone's cooldown and its hold, #1915; Astral Recall; the roads through
@@ -77,7 +78,12 @@ const LOGIN_BASE: f64 = 11003.0;
 /// The Barrow Dens' five travel chains in Nav/TravelData.lua (#1919, #1341, #2005: the arrow's way out of and into
 /// the Stormrage Barrow Dens and the Ban'ethil Barrow Den, every node with its floor's height) add 54 KiB (11,613 ->
 /// 11,667 KiB at dev-040's 5fe81cc6e, 2026-11-14), within it.
-const LOGIN: f64 = LOGIN_BASE + 1192.0;
+/// 0.4.0's round 5 merged together, its content final (the materials and gathering spots, the travel planner and its
+/// walking maps, the guide end's lists, the gear advice's spec groups and Forever Leveling BiS, the fresh-start note,
+/// the settings search's questions and checked controls, sharing settings, the dungeon floors and their hold for 0.4.1,
+/// the floors by subzone, the worst cases and the rest): 12,327 KiB at login on 2026-11-14, 660 over dev-040's 11,667.
+/// The budget is that and about 5 % (Fitz, 2026-11-12, the login review once 0.4.0's content is final): 12,944.
+const LOGIN: f64 = LOGIN_BASE + 1941.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).
@@ -100,7 +106,9 @@ const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// and about 5 % (Fitz, 2026-11-12, as for the login).
 /// Then the search answering questions (#2178, +15: 1,905 to 1,920 on 2026-11-13, on its own base): the question words of English and the
 /// client's language, the stems, the label and search-term cover and /polestar ask.
-const LOADED: f64 = 2048.0;
+/// 0.4.0's round 5 merged together: 2,045 on 2026-11-14, 3 under the budget, which CI's runner (a few KiB higher than
+/// a local run) would pass over; the budget is that and about 5 %: 2,148.
+const LOADED: f64 = 2148.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
@@ -112,7 +120,9 @@ const LOADED: f64 = 2048.0;
 /// own base. All of 0.4.0's merges together: 4,670 with the base's rows on 2026-11-13; the budget with the base's
 /// rows is that and about 5 %. Then the search answering questions (#2178), +15 (4,363 to 4,378 with the base rows,
 /// 2026-11-13, on its own base).
-const OPENED: f64 = 4809.0;
+/// 0.4.0's round 5 merged together: 4,801 with the base's rows on 2026-11-14; the budget with the base's rows is that
+/// and about 5 %: 5,042.
+const OPENED: f64 = 4947.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'
@@ -120,7 +130,8 @@ const OPENED: f64 = 4809.0;
 /// the settings polish, 4,446 measured on 2026-11-13 (budget raised to it). All of 0.4.0's merges together: 4,376 on
 /// 2026-11-13; the budget is that and about 5 %. Then the search answering questions (#2178: +34, the same: 4,228 to
 /// 4,262 on 2026-11-13, on its own base).
-const PEAK: f64 = 4595.0;
+/// 0.4.0's round 5 merged together: 4,594 on 2026-11-14, 1 under the budget; the budget is that and about 5 %: 4,824.
+const PEAK: f64 = 4824.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),
