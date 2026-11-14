@@ -2379,6 +2379,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
 -- L["Match ErgoBars font"] = ""
 -- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
+L["play Freedoom Arcade by petllama"] = "играть в Freedoom Arcade от petllama"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "Freedoom Arcade от petllama (GPL-2.0 или новее) запускает три уровня Freedoom от проекта Freedoom (лицензия BSD) из папки Polestar_Arcade."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -4256,6 +4258,8 @@ L["Class quest chime"] = "Звук классового задания"
 -- L["Zones and coordinates"] = ""
 -- L["Trackers & map"] = ""
 -- L["Minimap and coordinates"] = ""
+L["Offer Freedoom Arcade on flights"] = "Предлагать Freedoom Arcade в полёте"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "Если до конца полёта осталась минута или больше, Polestar предлагает поиграть в Freedoom Arcade от petllama, пока вы ждёте: три уровня Freedoom или вся игра, если установлен аддон Freedoom Arcade. За 10 секунд до посадки игра сохраняется, ставится на паузу и закрывается. /polestar arcade открывает её в любой момент."
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
@@ -4352,6 +4356,20 @@ L["Part of the %s quests"] = "Часть заданий: %s"
 -- L["Adjust stat weights"] = ""
 -- L["Put back 1 weight."] = ""
 -- L["Put back %d weights."] = ""
+
+-- Maps/Arcade.lua
+L["a game: Play"] = "Играть"
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade не открывается: папки Polestar_Arcade нет или она отключена."
+L["Freedoom Arcade opens after the fight."] = "Freedoom Arcade откроется после боя."
+L["Play Freedoom Arcade"] = "Играть в Freedoom Arcade"
+L["Freedoom Arcade by petllama"] = "Freedoom Arcade от petllama"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "3 уровня Freedoom Phase 1. Esc: меню, P: пауза, F6/F9: сохранить/загрузить."
+L["Do you want to play Doom while waiting?"] = "Хотите поиграть в Doom, пока ждёте?"
+L["Don't ask again"] = "Больше не спрашивать"
+L["Landing in 10 seconds"] = "Посадка через 10 секунд"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade сохранён и поставлен на паузу."
+L["Close Freedoom Arcade to get your keys back."] = "Закройте Freedoom Arcade, чтобы вернуть управление клавишами."
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Посадка. Freedoom Arcade сохранён и на паузе: введите %s, чтобы продолжить."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

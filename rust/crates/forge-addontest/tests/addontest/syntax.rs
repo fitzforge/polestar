@@ -12,9 +12,15 @@ const ALLOWED_GLOBAL: &str = r"^(Polestar|PolestarDB|PolestarCharDB|PolestarReco
 
 // Globals one file may write: the TomTom stand-in owns `TomTom` while TomTom is not installed; the walking
 // router's cost table is `Polestar_NavCosts` (tools and the eval harness read it); the addon compartment
-// calls the handlers the .toc names (`AddonCompartmentFunc` and friends), which must be globals.
+// calls the handlers the .toc names (`AddonCompartmentFunc` and friends), which must be globals. Freedoom
+// Arcade (Polestar_Arcade, a program of its own) keeps its own: its namespace, its API, its commands and its
+// compartment handler.
 fn file_globals(rel: &str) -> &'static [&'static str] {
 	match rel {
+		"addon/Polestar_Arcade/src/core.lua" => &["FreedoomArcade"],
+		"addon/Polestar_Arcade/src/api.lua" => &["FreedoomArcadeAPI"],
+		"addon/Polestar_Arcade/src/main.lua" => &["SLASH_FREEDOOMARCADE1", "SLASH_FREEDOOMARCADE2", "SLASH_FREEDOOMARCADE3"],
+		"addon/Polestar_Arcade/src/minimap.lua" => &["FreedoomArcade_OnAddonCompartmentClick"],
 		"addon/Polestar/Nav/Journey.lua" => &["TomTom"],
 		"addon/Polestar_Nav/Routing/Costs.lua" => &["Polestar_NavCosts"],
 		"addon/Polestar/Maps/MinimapButton.lua" => &["Polestar_OnAddonCompartmentClick", "Polestar_OnAddonCompartmentEnter", "Polestar_OnAddonCompartmentLeave"],
@@ -43,8 +49,16 @@ fn addon_dirs() -> Vec<PathBuf> {
 	entries.into_iter().filter(|e| e.file_type().unwrap().is_dir()).map(|e| e.path()).collect()
 }
 
+// Freedoom Arcade's build and test tools (its asset builder's mock of the game, its benchmarks): they run on a
+// developer's machine, never in the client, and no manifest loads them.
+const NOT_ADDON_CODE: &[&str] = &["Polestar_Arcade/tools"];
+
 fn lua_files() -> Vec<PathBuf> {
-	addon_dirs().iter().flat_map(|d| walk(d, ".lua")).collect()
+	addon_dirs().iter().flat_map(|d| walk(d, ".lua")).filter(|f| !not_addon_code(f)).collect()
+}
+
+fn not_addon_code(f: &Path) -> bool {
+	NOT_ADDON_CODE.iter().any(|d| f.starts_with(addons_dir().join(d)))
 }
 
 /// A path relative to the checkout root, with `/` separators.
@@ -180,7 +194,7 @@ fn manifests_reference_existing_files_and_load_every_lua_file() {
 				continue;
 			}
 		};
-		for file in walk(&dir, ".lua") {
+		for file in walk(&dir, ".lua").into_iter().filter(|f| !not_addon_code(f)) {
 			if !loaded.contains(&file) {
 				problems.push(format!("{} is not loaded by any manifest", rel(&file)));
 			}

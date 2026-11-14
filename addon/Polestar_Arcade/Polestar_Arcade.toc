@@ -1,0 +1,52 @@
+## Interface: 16001
+## Title: Polestar Arcade
+## Notes: Part of Polestar: Freedoom Arcade by petllama, three levels of Freedoom to play on a flight. Loaded when you press Play.
+## Title-deDE: Polestar Arcade
+## Notes-deDE: Teil von Polestar: Freedoom Arcade von petllama, drei Freedoom-Level zum Spielen während eines Flugs. Wird geladen, wenn du auf Spielen klickst.
+## Title-esES: Polestar: arcade
+## Notes-esES: Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.
+## Title-esMX: Polestar: arcade
+## Notes-esMX: Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.
+## Title-frFR: Polestar : arcade
+## Notes-frFR: Fait partie de Polestar : Freedoom Arcade de petllama, trois niveaux de Freedoom à jouer pendant un vol. Chargé quand vous cliquez sur Jouer.
+## Title-koKR: Polestar 아케이드
+## Notes-koKR: Polestar의 일부: petllama의 Freedoom Arcade, 비행 중에 즐기는 Freedoom 세 레벨. 플레이를 누르면 불러옵니다.
+## Title-ptBR: Polestar: arcade
+## Notes-ptBR: Parte do Polestar: Freedoom Arcade de petllama, três níveis de Freedoom para jogar durante um voo. Carregado quando você clica em Jogar.
+## Title-ruRU: Polestar: аркада
+## Notes-ruRU: Часть Polestar: Freedoom Arcade от petllama, три уровня Freedoom, чтобы поиграть в полёте. Загружается, когда вы нажимаете «Играть».
+## Title-zhCN: Polestar 街机
+## Notes-zhCN: Polestar 的组成部分：petllama 的 Freedoom Arcade，飞行途中可玩的三个 Freedoom 关卡。点击“开始游戏”时加载。
+## Title-zhTW: Polestar 街機
+## Notes-zhTW: Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。
+## Author: Polestar; Freedoom Arcade by petllama
+## Version: 0.3.7.2
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## SavedVariables: Polestar_ArcadeDB
+## X-License: GPL-2.0-or-later (Freedoom Arcade, with petllama's permission); BSD-3-Clause (Freedoom's data, FREEDOOM-COPYING.txt)
+## X-Website: https://github.com/petllama/FreedoomArcade
+
+src\core.lua
+data\info.lua
+data\assets.lua
+data\maps.lua
+maps\E1M1.lua
+maps\E1M2.lua
+maps\E1M3.lua
+src\level.lua
+src\draw.lua
+src\render.lua
+src\p_mobj.lua
+src\p_enemy.lua
+src\p_player.lua
+src\p_spec.lua
+src\game.lua
+src\automap.lua
+src\savegame.lua
+src\sound.lua
+src\main.lua
+src\minimap.lua
+src\api.lua

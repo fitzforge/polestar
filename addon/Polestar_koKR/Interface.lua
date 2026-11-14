@@ -2379,6 +2379,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
 -- L["Match ErgoBars font"] = ""
 -- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
+L["play Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade 플레이"
+L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama의 Freedoom Arcade(GPL-2.0 이상)가 Freedoom 프로젝트의 Freedoom 3개 레벨(BSD 라이선스)을 Polestar_Arcade 폴더에서 실행합니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4256,6 +4258,8 @@ L["Class quest chime"] = "직업 퀘스트 알림음"
 -- L["Zones and coordinates"] = ""
 -- L["Trackers & map"] = ""
 -- L["Minimap and coordinates"] = ""
+L["Offer Freedoom Arcade on flights"] = "비행 중 Freedoom Arcade 제안"
+L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "남은 비행 시간이 1분 이상이면 Polestar가 기다리는 동안 petllama의 Freedoom Arcade를 플레이할지 묻습니다. Freedoom 3개 레벨이며, Freedoom Arcade 애드온이 설치되어 있으면 전체 게임입니다. 착륙 10초 전에 게임을 저장하고 일시 정지한 뒤 닫습니다. /polestar arcade로 언제든 열 수 있습니다."
 
 -- Dungeons/Options.lua
 -- L["Dungeons and characters"] = ""
@@ -4352,6 +4356,20 @@ L["Part of the %s quests"] = "%s 퀘스트의 일부"
 -- L["Adjust stat weights"] = ""
 -- L["Put back 1 weight."] = ""
 -- L["Put back %d weights."] = ""
+
+-- Maps/Arcade.lua
+L["a game: Play"] = "플레이"
+L["Freedoom Arcade can't open: its folder Polestar_Arcade is missing or turned off."] = "Freedoom Arcade를 열 수 없습니다: Polestar_Arcade 폴더가 없거나 꺼져 있습니다."
+L["Freedoom Arcade opens after the fight."] = "Freedoom Arcade는 전투가 끝난 뒤 열립니다."
+L["Play Freedoom Arcade"] = "Freedoom Arcade 플레이"
+L["Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade"
+L["3 levels of Freedoom Phase 1. Esc: menu, P: pause, F6/F9: save/load."] = "Freedoom Phase 1의 3개 레벨. Esc: 메뉴, P: 일시 정지, F6/F9: 저장/불러오기."
+L["Do you want to play Doom while waiting?"] = "기다리는 동안 Doom을 플레이할까요?"
+L["Don't ask again"] = "다시 묻지 않기"
+L["Landing in 10 seconds"] = "10초 후 착륙"
+L["Freedoom Arcade is saved and paused."] = "Freedoom Arcade를 저장하고 일시 정지했습니다."
+L["Close Freedoom Arcade to get your keys back."] = "키를 다시 쓰려면 Freedoom Arcade를 닫으세요."
+L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙했습니다. Freedoom Arcade를 저장하고 일시 정지했습니다. 계속하려면 %s 명령을 입력하세요."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

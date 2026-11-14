@@ -1,0 +1,102 @@
+# Build, test and publish Freedoom Arcade.
+#
+# Push a tag like v0.3.0 (matching "## Version" in src/FreedoomArcade.toc and a
+# "## 0.3.0" section in CHANGELOG.md) and this workflow:
+#   1. downloads Freedoom and id's Doom source, converts the assets
+#   2. runs the offline test suite under LuaJIT
+#   3. creates a GitHub release with the addon zip and the Freedoom WAD
+#   4. uploads the zip to CurseForge when the CF_API_TOKEN secret and the
+#      CF_PROJECT_ID repository variable are set
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: CurseForge release type
+        default: release
+        type: choice
+        options: [release, beta, alpha]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg luajit
+
+      - name: Fetch Freedoom and the Doom source
+        run: |
+          curl -sSLO https://github.com/freedoom/freedoom/releases/download/v0.13.0/freedoom-0.13.0.zip
+          echo "3f9b264f3e3ce503b4fb7f6bdcb1f419d93c7b546f4df3e874dd878db9688f59  freedoom-0.13.0.zip" | sha256sum -c
+          mkdir -p wad && unzip -q freedoom-0.13.0.zip -d wad
+          git clone --depth 1 https://github.com/id-Software/DOOM.git ref/DOOM
+
+      - name: Build addon
+        run: |
+          python3 tools/build_assets.py wad/freedoom-0.13.0/freedoom1.wad build/FreedoomArcade ref/DOOM/linuxdoom-1.10
+          sh tools/deploy.sh
+
+      - name: Test
+        env:
+          WOWDOOM_ADDONS: ${{ github.workspace }}/build
+        run: |
+          mkdir -p shots
+          for t in test_specials test_save test_minimap; do
+            luajit tools/$t.lua | tee /tmp/$t.log
+            tail -1 /tmp/$t.log | grep -q "ALL OK"
+          done
+
+      - name: Package
+        id: pkg
+        run: |
+          out=$(python3 tools/package.py)
+          echo "zip=$(echo "$out" | sed -n 1p)" >> "$GITHUB_OUTPUT"
+          echo "version=$(echo "$out" | sed -n 2p)" >> "$GITHUB_OUTPUT"
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ "${GITHUB_REF_NAME}" != "v$(echo "$out" | sed -n 2p)" ]; then
+            echo "tag ${GITHUB_REF_NAME} does not match toc version"; exit 1
+          fi
+          cp wad/freedoom-0.13.0/freedoom1.wad dist/
+          cp wad/freedoom-0.13.0/COPYING.txt dist/FREEDOOM-COPYING.txt
+          python3 tools/changelog.py "$(echo "$out" | sed -n 2p)" > dist/notes.md
+
+      - name: GitHub release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "${GITHUB_REF_NAME}" >/dev/null 2>&1; then
+            echo "release ${GITHUB_REF_NAME} already exists; refreshing its assets"
+            gh release upload "${GITHUB_REF_NAME}" "${{ steps.pkg.outputs.zip }}" dist/freedoom1.wad dist/FREEDOOM-COPYING.txt --clobber
+          else
+            gh release create "${GITHUB_REF_NAME}" "${{ steps.pkg.outputs.zip }}" dist/freedoom1.wad dist/FREEDOOM-COPYING.txt \
+              --title "Freedoom Arcade ${GITHUB_REF_NAME}" --notes-file dist/notes.md
+          fi
+
+      - name: Upload to CurseForge
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_PROJECT_ID: ${{ vars.CF_PROJECT_ID }}
+          CF_GAME_VERSIONS: ${{ vars.CF_GAME_VERSIONS }}
+        run: |
+          if [ -z "$CF_PROJECT_ID" ]; then
+            echo "CF_PROJECT_ID variable not set; skipping CurseForge upload"
+            exit 0
+          fi
+          if [ -z "$CF_API_TOKEN" ]; then
+            echo "::error::CF_PROJECT_ID is set but the CF_API_TOKEN secret is missing or empty. Set it with: gh secret set CF_API_TOKEN"
+            exit 1
+          fi
+          python3 tools/publish_curseforge.py "${{ steps.pkg.outputs.zip }}" "${{ steps.pkg.outputs.version }}" "${{ inputs.release_type || 'release' }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FreedoomArcade
+          path: ${{ steps.pkg.outputs.zip }}

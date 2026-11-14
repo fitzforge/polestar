@@ -235,6 +235,8 @@ mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
 mod lua_helper_paths;
 mod maps;
+#[path = "maps-arcade.rs"]
+mod maps_arcade;
 #[path = "maps-overlays.rs"]
 mod maps_overlays;
 #[path = "maps-reveal.rs"]
