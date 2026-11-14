@@ -1937,7 +1937,7 @@ for w in ([[a an the of to in on at and or for my me i is it how do can turn off
 	we us please would could should will need just this that its from anymore s t m d ll re ve don doesn didn won isn aren
 	cant dont doesnt wont isnt im ive]]):gmatch("%S+") do FILLER[w] = true end
 -- Those asking to switch something on or off: a toggle comes before a
--- slider or a choice that matches as well (scoreOf, SWITCH).
+-- slider or a choice that matches as well (scoreOf, WEIGHT.SWITCH).
 for w in ("off enable disable toggle stop show"):gmatch("%S+") do FILLER[w] = "switch" end
 
 -- Hint words a player types for a kind of change, and the words settings
@@ -2020,11 +2020,12 @@ end
 -- On and off words read as the toggle's own word, at the word's own weight:
 -- "hide the arrow" asks for Show arrow, off.
 local OPPOSITE = { hide = "show shown", hidden = "shown show", hiding = "show shown", unhide = "show shown" }
--- A synonym's match counts this share of the word's own, a filler word's
--- (scoreOf) this; a control whose label's words were all asked about (the
--- label is the answer, not a longer one holding the words) COVER more.
--- A toggle, asked to switch something on or off, SWITCH more.
-local SYN_SHARE, FILLER_SHARE, COVER, SWITCH = 0.6, 0.1, 50, 30
+-- A synonym's match counts SYN of the word's own, a filler word's (scoreOf)
+-- FILLER; a control whose label's words were all asked about (the label is
+-- the answer, not a longer one holding the words) COVER more. A toggle, asked
+-- to switch something on or off, SWITCH more. One table to keep the main
+-- chunk's locals in budget.
+local WEIGHT = { SYN = 0.6, FILLER = 0.1, COVER = 50, SWITCH = 30 }
 
 local LABEL, KEY, TERMS, PLACE, HELP = 1, 2, 3, 4, 5
 -- By field, the score of a match inside a word, a typo off, the word's start, the whole word.
@@ -2069,7 +2070,7 @@ local function searchTokens(c)
 	s = { label = label, words = {}, fields = {}, covers = {} }
 	local w, f = s.words, s.fields
 	addWords(w, f, label, LABEL, true)
-	-- What names it whole (scoreOf's COVER): its label's words, its English
+	-- What names it whole (scoreOf's WEIGHT.COVER): its label's words, its English
 	-- label's and each of its search terms' of two words or more (one word is
 	-- a hint, not a name), filler aside.
 	local function cover(text, least)
@@ -2239,12 +2240,12 @@ local function formSays(i, t)
 end
 
 -- A control's score for the query, 0 when a word it needs matches nothing;
--- and what its words alone make of it (no COVER or SWITCH: the page scope's
+-- and what its words alone make of it (no WEIGHT.COVER or WEIGHT.SWITCH: the page scope's
 -- fair match).
 local function scoreOf(c, nw)
 	local s = searchTokens(c)
 	local tw, tf = s.words, s.fields
-	local total, bonus = 0, qwords.onoff and c.kind == "toggle" and SWITCH or 0
+	local total, bonus = 0, qwords.onoff and c.kind == "toggle" and WEIGHT.SWITCH or 0
 	for i = 1, nw do
 		local m, filler, best, phrase = qwords[i], qfiller[i], 0, 0
 		local pair = qpairs[i]
@@ -2264,13 +2265,13 @@ local function scoreOf(c, nw)
 			local v = synonymScore(qstem[i], tw, tf, 1)
 			if v > best then best = v end
 		end
-		if best == 0 and not filler and qsyn[i] then best = synonymScore(qsyn[i], tw, tf, SYN_SHARE) end
+		if best == 0 and not filler and qsyn[i] then best = synonymScore(qsyn[i], tw, tf, WEIGHT.SYN) end
 		if best == 0 and not filler then return 0 end
-		-- A filler word's match, and a pair with one in it, count FILLER_SHARE:
+		-- A filler word's match, and a pair with one in it, count WEIGHT.FILLER:
 		-- they tell two settings apart, never outrank the words asked about
 		-- ("the" in "Hide the arrow with the guide").
-		if filler then best = floor(best * FILLER_SHARE) end
-		if filler or (i > 1 and qfiller[i - 1]) then phrase = floor(phrase * FILLER_SHARE) end
+		if filler then best = floor(best * WEIGHT.FILLER) end
+		if filler or (i > 1 and qfiller[i - 1]) then phrase = floor(phrase * WEIGHT.FILLER) end
 		total = total + best + phrase
 	end
 	-- Named whole: each word of its label, or of one of its search terms,
@@ -2291,7 +2292,7 @@ local function scoreOf(c, nw)
 				break
 			end
 		end
-		if all then return total + bonus + COVER, total end
+		if all then return total + bonus + WEIGHT.COVER, total end
 	end
 	return total + bonus, total
 end
@@ -2480,7 +2481,7 @@ local function scopeOf(nw)
 end
 
 -- A page's own results stand when its best one is a fair match by its words
--- alone (no COVER or SWITCH): on average each word whole in the setting's
+-- alone (no WEIGHT.COVER or WEIGHT.SWITCH): on average each word whole in the setting's
 -- place, or its start in the setting's own words. A word found only in a
 -- help text, or a typo, looks everywhere.
 local SCOPE_FLOOR = 50
