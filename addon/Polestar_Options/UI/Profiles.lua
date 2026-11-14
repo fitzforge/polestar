@@ -995,10 +995,11 @@ local function decorateCards(v)
 					v.Chips[card] = chip
 				end
 				W.SetChip(chip, L["In use"], "success")
-				-- On the picture's corner, so the name keeps the card's width: beside
-				-- the name, a long "In use" ("Используется") left "По умолчанию" 20px.
+				-- On the picture's top left corner (the chosen card's check holds the
+				-- right one), so the name keeps the card's width: beside the name, a
+				-- long "In use" ("Используется") left "По умолчанию" 20px.
 				chip:ClearAllPoints()
-				chip:SetPoint("TOPRIGHT", card.Art, "TOPRIGHT", -6, -6)
+				chip:SetPoint("TOPLEFT", card.Art, "TOPLEFT", 6, -6)
 				chip:SetFrameLevel(card:GetFrameLevel() + 3)
 				card.Name:SetWidth(max(20, card:GetWidth() - 20))
 			end

@@ -38,10 +38,13 @@ fn the_in_use_chip_sits_on_the_picture_and_leaves_the_profile_its_whole_name() {
 		local chip
 		for owner, ch in pairs(v.Chips) do if owner == c then chip = ch end end
 		local _, rel = chip:GetPoint(1)
-		emit({ name = c.Name:GetWidth(), card = c:GetWidth(), onArt = rel == c.Art, shown = chip:IsShown() })"#,
+		local k = c.Check
+		local apart = chip:GetRight() <= k:GetLeft() or chip:GetLeft() >= k:GetRight() or chip:GetBottom() >= k:GetTop() or chip:GetTop() <= k:GetBottom()
+		emit({ name = c.Name:GetWidth(), card = c:GetWidth(), onArt = rel == c.Art, shown = chip:IsShown(), apart = apart })"#,
 	);
 	assert_eq!(out["shown"], true, "{out}");
 	assert_eq!(out["onArt"], true, "the chip on the picture: {out}");
+	assert_eq!(out["apart"], true, "clear of the chosen card's check in the other corner: {out}");
 	assert_eq!(out["name"].as_f64(), out["card"].as_f64().map(|w| w - 20.0), "the name keeps the card's width: {out}");
 }
 
