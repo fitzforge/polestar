@@ -213,10 +213,16 @@ version probe's players, name -> when, at most 300), `heard` (players' answers t
 at }`, at most 50, 7 days).
 `dungeons` (per character) holds this character's answer per dungeon in leveling
 guides, by the instance's Map id: true runs it, false skips it (`Engine.ChooseDungeon`, `when dungeon`);
+`dungeonsWayOnly` (per character) marks a dungeon run with "Only quests on my way": its every-quest steps
+(`when dungeon "<Name>" all`) are left out (`Engine.ChooseDungeonWayOnly`; none: every quest is taken);
 the setting `behavior.dungeons` ("skip", the default, the solo route; "ask"; "run") answers the rest
 ("Dungeons in my route", Options, Guide, Automation). Unanswered with "ask", the first
 `when dungeon` step with work now holds the route (`Engine.DungeonQuestion`); `Engine.DungeonSoon` is a chosen
-run a few open steps ahead (start looking for a group) and `Engine.SkipDungeon` answers "skip" at the run.
+run a few open steps ahead (start looking for a group, with Find a group: UI/FindGroup.lua opens the game's Group
+Finder through its own micro button) and `Engine.SkipDungeon` answers "skip" at the run (Skip this one).
+`Engine.DungeonsAhead` lists the dungeons still ahead on the route (through the guides that follow, with about the
+level each run comes at and where its quests are picked up) for the guide window's "Dungeons on your way"
+(UI/DungeonRoute.lua) and for the notice that says what a change to these answers means (UI/GuideFrameBanner.lua).
 `behavior.suggestFrom` (default `"guides"`) is the pack suggestions come from.
 Modules keep their own keys beside these (`rares`, `instances`, `names`, `alts` account-wide;
 `ui`, `routes`, `classTrainLevel`, `classTrainVisit`, `qol`, `flightTimes`,

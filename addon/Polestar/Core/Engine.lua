@@ -934,7 +934,7 @@ end
 function Own.dungeonPending(step)
 	if step.along or not step.when then return nil end
 	for _, p in ipairs(step.when) do
-		if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil and Own.dungeonAsks(step) and Own.dungeonOpen(step) then return p end
+		if p.k == "dungeon" and not p.neg and not p.all and Own.dungeonAnswer(p.map) == nil and Own.dungeonAsks(step) and Own.dungeonOpen(step) then return p end
 	end
 	return nil
 end
@@ -976,8 +976,9 @@ function Own.predicateHolds(p)
 	elseif k == "bound" then
 		ok = Own.samePlace(C.GetBindLocation(), p)
 	elseif k == "dungeon" then
-		-- Not answered: not run (Own.whenFails asks for a step with work now).
-		ok = Own.dungeonAnswer(p.map) == true
+		-- Not answered: not run (Own.whenFails asks for a step with work now). A step of the dungeon's
+		-- every-quest route (`all`): also not for a player who chose only the quests on its way.
+		ok = Own.dungeonAnswer(p.map) == true and not (p.all and Own.wayOnly(p.map))
 	elseif k == "done" then
 		ok = Own.labelDone(p.label)
 	elseif k == "skill" then
@@ -1034,18 +1035,21 @@ end
 -- The first predicate of a step's `when` that does not hold now, or nil. A
 -- `when dungeon` of a dungeon not answered yet holds while the step asks and
 -- has something to do now (Own.dungeonAsks, Own.dungeonOpen): the route stops
--- there and asks; any other step of it waits for the answer, as for Skip. A
--- dungeon's hand-in of a quest the character carries finished holds it
--- whatever the answer (dungeonHandIn). The run of a dungeon the party runs
--- with the player (Engine.PartyRun) needs none of its quests: its `when
--- onquest` guard holds (partyRunGuard).
+-- there and asks; any other step of it waits for the answer, as for Skip, and
+-- so does a step of its every-quest route (`when dungeon "<Name>" all`),
+-- which never asks. A dungeon's hand-in of a quest the character carries
+-- finished holds it whatever the answer, and with only the quests on the
+-- way (dungeonHandIn). The run of a dungeon the party runs with the player
+-- (Engine.PartyRun) needs none of its quests: its `when onquest` guard holds
+-- (partyRunGuard).
 function Own.whenFails(step)
 	for _, p in ipairs(step.when or NONE) do
 		local dungeon = p.k == "dungeon" and not p.neg
-		if dungeon and Own.dungeonAnswer(p.map) ~= true and dungeonHandIn(step) then
+		local off = dungeon and (Own.dungeonAnswer(p.map) ~= true or (p.all and Own.wayOnly(p.map)))
+		if off and dungeonHandIn(step) then
 			-- holds: the dungeon's finished work is handed in on the way, run or not
 		elseif dungeon and Own.dungeonAnswer(p.map) == nil then
-			if not (Own.dungeonAsks(step) and Own.dungeonOpen(step)) then return p end
+			if p.all or not (Own.dungeonAsks(step) and Own.dungeonOpen(step)) then return p end
 		elseif not Own.predicateHolds(p) and not (p.k == "onquest" and not p.neg and partyRunGuard(step)) then
 			return p
 		end
@@ -4957,9 +4961,10 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- An escort quest's accept or objective (compiled `escort`).
 		escort = goal.escort == true or nil,
 		-- A dungeon's way in: a dungeon guide's "Enter <dungeon>" (its
-		-- `entrance`) or a leveling guide's dungeon run (`when dungeon`);
-		-- the window says where to find a group (UI.FinderLine).
-		entrance = (goal.entrance == true or Own.dungeonStep(guide.steps[s] or NONE)) or nil,
+		-- `entrance`) or a leveling guide's dungeon run (`when dungeon` with
+		-- an `enter`; not its pick-ups and hand-ins); the window says where
+		-- to find a group (UI.FinderLine).
+		entrance = (goal.entrance == true or Own.dungeonRunOf(guide.steps[s] or NONE) ~= nil) or nil,
 		-- A timed quest's accept: the seconds it allows (compiled `limit`,
 		-- quests.json; Quests/Timed.lua says so before it is taken).
 		limit = goal.t == "accept" and goal.limit or nil,
@@ -9151,6 +9156,27 @@ end
 -- true (run it), false (skip it) or nil (ask), as the route reads it.
 function Engine.DungeonAnswer(map) return Own.dungeonAnswer(map) end
 
+-- "Only quests on my way" for dungeon `map` (CharState().dungeonsWayOnly):
+-- the route leaves out its every-quest steps (`when dungeon "<Name>" all`:
+-- the quests off the way, a detour, a flight or another hub for them); none
+-- chosen, a dungeon run takes every quest (Fitz, 2026-11-14).
+function Own.wayOnly(map)
+	return type(map) == "number" and ns.CharState().dungeonsWayOnly[map] == true
+end
+
+function Engine.DungeonWayOnly(map) return Own.wayOnly(map) end
+
+-- Set or clear "Only quests on my way" for dungeon `map`. A change
+-- re-evaluates the route at once (steps passed keep their outcome) and is
+-- told as an answer for that dungeon (DUNGEON_ANSWERED).
+function Engine.ChooseDungeonWayOnly(map, on)
+	if type(map) ~= "number" then return end
+	ns.CharState().dungeonsWayOnly[map] = on and true or nil
+	Own.dungeonGen = Own.dungeonGen + 1
+	ns.Fire("DUNGEON_ANSWERED", map, Own.dungeonAnswer(map))
+	requestUpdate()
+end
+
 -- The answer for one dungeon: true runs it, false skips it, nil follows the
 -- answer for every dungeon (behavior.dungeons). Never Run for a city dungeon
 -- of the other faction (Engine.EnemyCityDungeon).
@@ -9168,7 +9194,7 @@ end
 function Own.dungeonRunOf(step)
 	local p
 	for _, w in ipairs(step.when or NONE) do
-		if w.k == "dungeon" and not w.neg then p = w break end
+		if w.k == "dungeon" and not w.neg and not w.all then p = w break end
 	end
 	if not p then return nil end
 	for _, goal in ipairs(step.goals) do
@@ -9183,7 +9209,7 @@ function Own.dungeonQuests(map)
 	local out, n = {}, 0
 	for _, step in ipairs(guide.steps) do
 		for _, p in ipairs(Guides.Matches(step.only, player) and step.when or NONE) do
-			if p.k == "dungeon" and not p.neg and p.map == map then
+			if p.k == "dungeon" and not p.neg and p.map == map and not (p.all and Own.wayOnly(map)) then
 				for _, goal in ipairs(step.goals) do
 					if goal.t == "accept" and goal.quest and not out[goal.quest] and goalApplies(goal) then
 						out[goal.quest] = questTitle(goal)
@@ -9228,7 +9254,7 @@ function Engine.DungeonQuestion()
 end
 
 -- The live step is a chosen dungeon's run (Own.dungeonRunOf): its
--- Own.dungeonInfo, for the window's "No group? Skip it", or nil.
+-- Own.dungeonInfo, for the window's door (I'm in a group, Skip this one), or nil.
 function Engine.DungeonRun()
 	local step = guide and computed and guide.steps[computed]
 	local p = step and Own.dungeonRunOf(step)
@@ -9259,11 +9285,12 @@ function Engine.DungeonSoon()
 	return nil
 end
 
--- "No group? Skip it" at a dungeon's run: answers it Skip for this
--- character, as the setting would, so the run and the dungeon's other steps
--- ahead stop applying and the route goes on with the next step; steps passed
--- keep their stored outcome. Its quests stay in the log (their hand-ins are
--- behind `when complete`, so they pass unless the quest gets done anyway).
+-- "Skip this one" at a dungeon's run: answers it Skip for this character,
+-- as the setting would, so the run and the dungeon's other steps ahead stop
+-- applying and the route goes on with the next step; steps passed keep their
+-- stored outcome. Its quests stay in the log: a finished one is still handed
+-- in (Own.dungeonHandIn), an unfinished one's hand-in passes and the quest log
+-- cleanup lists it.
 -- -> the titles of the dungeon's quests still in the log, in quest id order.
 function Engine.SkipDungeon(map)
 	if type(map) ~= "number" or not guide then return {} end
@@ -9276,6 +9303,213 @@ function Engine.SkipDungeon(map)
 	for i, q in ipairs(ids) do kept[i] = quests[q] end
 	Engine.ChooseDungeon(map, false)
 	return kept
+end
+
+-- The quests in the log that the active guide's dungeon steps (`when
+-- dungeon`: one dungeon's with `map`, else every dungeon's) take, hand in or
+-- wait on (a run's `when onquest`): { { quest, title, ready } } in quest id
+-- order. ready: finished, so its hand-in still comes whatever the answer
+-- (Own.dungeonHandIn); an unfinished one the route no longer hands in is
+-- listed by the quest log cleanup (Core/RoutePlan.lua Plan.Unneeded).
+function Engine.DungeonQuestsInLog(map)
+	if not guide then return {} end
+	if not player then refreshPlayer() end
+	local C, out, seen = Compat(), {}, {}
+	local function add(q, title)
+		if type(q) ~= "number" or seen[q] or not C.IsOnQuest(q) then return end
+		seen[q] = true
+		out[#out + 1] = { quest = q, title = title or C.GetQuestTitle(q) or ("#" .. q), ready = C.IsQuestReadyForTurnIn(q) and true or false }
+	end
+	for _, step in ipairs(guide.steps) do
+		local dungeon = false
+		for _, p in ipairs(Guides.Matches(step.only, player) and step.when or NONE) do
+			if p.k == "dungeon" and not p.neg and (map == nil or p.map == map) then dungeon = true end
+		end
+		if dungeon then
+			for _, goal in ipairs(step.goals) do
+				if (goal.t == "accept" or goal.t == "turnin") and goal.quest then add(goal.quest, questTitle(goal)) end
+			end
+			for _, p in ipairs(step.when) do
+				if p.k == "onquest" then
+					for _, q in ipairs(p.q) do add(q) end
+				end
+			end
+		end
+	end
+	table.sort(out, function(a, b) return a.quest < b.quest end)
+	return out
+end
+
+-- Dungeon `map`'s name, as the guide window says it: the client's language
+-- when it has one (Names.Instance), else the name the active guide's `when
+-- dungeon` steps give it; nil when neither knows it.
+function Engine.DungeonName(map)
+	local N = ns.Names
+	local name = type(map) == "number" and N and N.Instance and N.Instance(map)
+	if name then return name end
+	for _, step in ipairs(guide and guide.steps or NONE) do
+		for _, p in ipairs(step.when or NONE) do
+			if p.k == "dungeon" and p.map == map then return p.name end
+		end
+	end
+	return nil
+end
+
+-- About the level the route has a character at at step s of guide g: the
+-- guide's level range drawn through its grind steps (`level` goals) by step
+-- index. nil without a range.
+function Own.levelAt(g, s)
+	local lo, hi = tonumber(g.minLevel), tonumber(g.maxLevel)
+	if not (lo and hi) then return nil end
+	local steps = g.steps
+	local a, al, b, bl = 1, lo, #steps, hi
+	for i, step in ipairs(steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "level" and type(goal.level) == "number" and Guides.Matches(goal.only, player) then
+				local lv = goal.level + (tonumber(goal.frac) or 0)
+				if i <= s and i >= a then
+					a, al = i, lv
+				elseif i > s and i < b then
+					b, bl = i, lv
+				end
+			end
+		end
+	end
+	if b <= a then return al end
+	return al + (bl - al) * (s - a) / (b - a)
+end
+
+-- About the level a dungeon's run at step s of guide g comes at: its level
+-- gate (`when level>=`, the dungeon's floor in the route) or where the route
+-- has the character at that step (Own.levelAt), the higher of the two.
+function Own.runLevel(g, s)
+	local gate
+	for _, p in ipairs(g.steps[s].when or NONE) do
+		if p.k == "level" and (p.op == ">=" or p.op == ">") and type(p.n) == "number" then
+			local n = p.n + (tonumber(p.frac) or 0)
+			if not gate or n > gate then gate = n end
+		end
+	end
+	local at = Own.levelAt(g, s)
+	if gate and at then return math.max(gate, at) end
+	return gate or at
+end
+
+-- The guide the route goes on with after guide g, as far as it can be told
+-- now: its next, the one chosen at its route choice, else the recommended one.
+function Own.aheadNext(g)
+	local id, asks = routeNext(g)
+	if id or not asks then return id end
+	local best = rankRoutes(routeOptions(g))
+	return best and best.guide.id or nil
+end
+
+-- One step of dungeon d's, read for Engine.DungeonsAhead: its pick-ups still
+-- to take (not done, not in the log, not skipped; each quest once), the maps
+-- they are on in route order, its run (the step with an `enter`) with its
+-- level, where it is (the `enter`'s map, else the guide's zone), the guide's
+-- figures for its every-quest route (`dungeonAll`) and the dungeon's quests
+-- in the log (the run's `when onquest`). `all`: the step is one of its
+-- every-quest route's (`when dungeon "<Name>" all`), whose pick-ups count
+-- unless the player chose only the quests on its way.
+function Own.aheadStep(d, g, s, step, all)
+	local C = Compat()
+	for _, goal in ipairs(step.goals) do
+		if goal.t == "accept" and goal.quest and Guides.Matches(goal.only, player) then
+			local q = goal.quest
+			if not (d.seen[q] or questDone(q) or C.IsOnQuest(q) or Own.questSkipped(q) or (all and d.wayOnly)) then
+				d.seen[q] = true
+				d.picks = d.picks + 1
+				if goal.map then
+					if not d.pickMap then d.pickMap = goal.map end
+					local known = false
+					for _, m in ipairs(d.pickMaps) do
+						if m == goal.map then known = true end
+					end
+					if not known then d.pickMaps[#d.pickMaps + 1] = goal.map end
+				end
+			end
+		elseif goal.t == "enter" and not d.run and not all then
+			d.run = s
+			d.level = Own.runLevel(g, s)
+			d.runMap = goal.map or g.zone
+			d.allQuests = type(g.dungeonAll) == "table" and g.dungeonAll[d.map] or nil
+			for _, p in ipairs(step.when or NONE) do
+				if p.k == "onquest" then
+					for _, q in ipairs(p.q) do
+						if C.IsOnQuest(q) then d.inLog = d.inLog + 1 end
+					end
+				end
+			end
+		end
+	end
+end
+
+-- The dungeons still ahead on this character's route (the guide window's
+-- "Dungeons on your way" and its notice when dungeons are turned on or off):
+-- from the live step of the active guide, then through the guides that follow
+-- (Own.aheadNext), each dungeon whose run (its `when dungeon` step with an
+-- `enter`) is still to come and that the route can still take there: one of
+-- its quests in the log, or a pick-up of it on the way (in the same guide or
+-- one before). A dungeon whose pick-ups the route has passed with none taken
+-- is not: its run would not come (`when onquest`). Never a city dungeon of
+-- the other faction (Engine.EnemyCityDungeon). In route order, at most
+-- `limit` (default 5), over at most Own.AHEAD_GUIDES guides (a whole route);
+-- a guide read in for it alone gives its steps back after. -> { { map, name
+-- (the client's language when it has one), level (about the level its run
+-- comes at, Own.runLevel), runMap (the map its run is on), pickMap (the map
+-- its first pick-up ahead is on), pickMaps (the maps of its pick-ups ahead,
+-- in route order), picks (its quests to pick up ahead, its every-quest ones
+-- too unless only the quests on its way), inLog (its quests in the log),
+-- guideId (the guide of its run), here (that guide is the active one),
+-- answer (Own.dungeonAnswer: true runs it, false skips it, nil asks), wayOnly
+-- (Only quests on my way chosen), allQuests (what its every-quest route adds,
+-- { minutes, xp }, from the run's guide; nil when it has none) } }
+Own.AHEAD_GUIDES = 40
+function Engine.DungeonsAhead(limit)
+	if not (guide and computed) then return {} end
+	if not player then refreshPlayer() end
+	limit = limit or 5
+	local N = ns.Names
+	local out, pending, read, visited = {}, {}, {}, {}
+	local g, from = guide, computed
+	for _ = 1, Own.AHEAD_GUIDES do
+		if rawget(g, "steps") == nil then read[#read + 1] = g.id end
+		local steps = g.steps
+		for s = from, #steps do
+			local step = steps[s]
+			if Guides.Matches(step.only, player) and not (g == guide and isSkipped(s)) then
+				for _, p in ipairs(step.when or NONE) do
+					if p.k == "dungeon" and not p.neg and type(p.map) == "number" and not Engine.EnemyCityDungeon(p.map) then
+						local d = pending[p.map]
+						if not d then
+							d = { map = p.map, name = (N and N.Instance and N.Instance(p.map)) or p.name, picks = 0, inLog = 0, pickMaps = {}, seen = {},
+								wayOnly = Own.wayOnly(p.map) }
+							pending[p.map] = d
+						end
+						Own.aheadStep(d, g, s, step, p.all)
+						if d.run then
+							pending[p.map] = nil
+							if d.picks > 0 or d.inLog > 0 then
+								d.guideId, d.here, d.run, d.seen = g.id, g == guide, nil, nil
+								d.answer = Own.dungeonAnswer(d.map)
+								out[#out + 1] = d
+							end
+						end
+						break
+					end
+				end
+			end
+			if #out >= limit then break end
+		end
+		if #out >= limit then break end
+		visited[g] = true
+		local nextGuide = Guides.Get(Own.aheadNext(g) or "")
+		if not nextGuide or visited[nextGuide] then break end
+		g, from = nextGuide, 1
+	end
+	for _, id in ipairs(read) do Guides.Release(id) end
+	return out
 end
 
 -- Step i of guide g as a dungeon's step (`when dungeon`, not negated): { map,
@@ -10043,17 +10277,23 @@ function Engine.DungeonAnswerOf(d, map)
 end
 
 -- A step that cannot apply for the character's dungeon answers: one of a
--- dungeon they skip (`when dungeon`), or the solo way of one they run (`when
--- !dungeon`). Not answered (Ask me), it may still apply and keeps its number.
+-- dungeon they skip (`when dungeon`), the solo way of one they run (`when
+-- !dungeon`), or a step of a dungeon's every-quest route (`when dungeon
+-- "<Name>" all`) when they chose only the quests on its way. Not answered
+-- (Ask me), it may still apply and keeps its number.
 -- Skip is the default, so the injected steps of a dungeon route leave the
 -- solo route's numbers and totals as they were. `answerOf(map)`: another
 -- character's answers (Engine.StepHiddenFor); the player's by default.
 function Own.dungeonHidden(step, answerOf)
+	local mine = answerOf == nil
 	answerOf = answerOf or Own.dungeonAnswer
 	for _, p in ipairs(step.when or NONE) do
 		if p.k == "dungeon" then
 			local a = answerOf(p.map)
 			if (a == false and not p.neg) or (a == true and p.neg) then return true end
+			-- A step of the dungeon's every-quest route: not for this character when they chose only the quests
+			-- on its way (another character's choice is not known: theirs counts as every quest, the default).
+			if p.all and mine and Own.wayOnly(p.map) then return true end
 		end
 	end
 	return false
