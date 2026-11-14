@@ -128,9 +128,10 @@ return { key = key, step = at .. " of " .. count, height = PolestarWelcome:GetHe
 
 
 // Death: the client's ghost state and corpse position as death-arrow.rs has them;
-// the character dies at (map, x, y), in instance `inst` (its map id) when given,
-// and releases to the Spirit Healer at (gmap, gx, gy).
-const DEATH = ({ level, map, x, y, inst, gmap, gx, gy, zone }) => `local w = stub.world
+// the character dies at (map, x, y), in instance `inst` (its map id) named
+// `iname` (the client's name: the language folder's when it has one) when
+// given, and releases to the Spirit Healer at (gmap, gx, gy).
+const DEATH = ({ level, map, x, y, inst, iname, gmap, gx, gy, zone }) => `local w = stub.world
 w.setLevel(${level})
 dead, ghost, corpseAt = false, false, nil
 function UnitIsDeadOrGhost(unit) return unit == "player" and (dead or ghost) end
@@ -141,7 +142,8 @@ C_DeathInfo = { GetCorpseMapPosition = function(m)
 	return { x = corpseAt[2] / 100, y = corpseAt[3] / 100 }
 end }
 local instance = ${inst || 'nil'}
-function GetInstanceInfo() if w.inInstance then return "Instance", "party", 1, "Normal", 5, 0, false, instance end return "", "none", 0, "", 0, 0, false, 0 end
+local iname = instance and (Polestar.Names.Get("map", instance) or ${JSON.stringify(iname || 'Instance')})
+function GetInstanceInfo() if w.inInstance then return iname, "party", 1, "Normal", 5, 0, false, instance end return "", "none", 0, "", 0, 0, false, 0 end
 w.moveTo(${map}, ${x}, ${y}); play.syncZone()
 w.zone = ${JSON.stringify(zone)}
 if instance then w.inInstance = true end
@@ -259,13 +261,13 @@ return { mouthYards = near and math.floor(near), choice`),
 		'death-dungeon': {
 			title: 'Died in the Deadmines, released at Sentinel Hill',
 			capture: ['PolestarNavArrow'],
-			lua: DEATH({ level: 18, map: 1436, x: 42.5, y: 71.7, inst: 36, gmap: 1436, gx: 51.71, gy: 49.67, zone: 'Westfall' }),
+			lua: DEATH({ level: 18, map: 1436, x: 42.5, y: 71.7, inst: 36, iname: 'The Deadmines', gmap: 1436, gx: 51.71, gy: 49.67, zone: 'Westfall' }),
 		},
 		// The same with Lookup switched off (Options > Discovery): the Codex, which knows the entrance, never loads.
 		'death-dungeon-nolookup': {
 			title: 'Died in the Deadmines with Lookup off',
 			capture: ['PolestarNavArrow'],
-			lua: `Polestar.Set("lookup.enabled", false)\n${DEATH({ level: 18, map: 1436, x: 42.5, y: 71.7, inst: 36, gmap: 1436, gx: 51.71, gy: 49.67, zone: 'Westfall' })}`,
+			lua: `Polestar.Set("lookup.enabled", false)\n${DEATH({ level: 18, map: 1436, x: 42.5, y: 71.7, inst: 36, iname: 'The Deadmines', gmap: 1436, gx: 51.71, gy: 49.67, zone: 'Westfall' })}`,
 		},
 		'alts': { title: 'Characters: four on the account, the worst of each field', capture: ['PolestarPicker'], lua: `${screen(1920, 1080, 1)}\n${ALTS}` },
 		'alts-768': { title: 'Characters on 1366x768 at UI scale 1', capture: ['PolestarPicker'], lua: `${screen(1366, 768, 1)}\n${ALTS}` },
@@ -297,7 +299,7 @@ return { notice = (Polestar.UI.GuideFrame.BannerNotice()), guide = E.GetGuide().
 		'death-alcaz': {
 			title: 'Died in Alcaz Prison (no entrance in the Codex)',
 			capture: ['PolestarNavArrow'],
-			lua: DEATH({ level: 40, map: 1445, x: 63.62, y: 42.42, inst: 2994, gmap: 1445, gx: 63.62, gy: 42.42, zone: 'Dustwallow Marsh' }),
+			lua: DEATH({ level: 40, map: 1445, x: 63.62, y: 42.42, inst: 2994, iname: 'Alcaz Prison', gmap: 1445, gx: 63.62, gy: 42.42, zone: 'Dustwallow Marsh' }),
 		},
 		// The class card over a class quest's step: the Whirlwind Weapon's first accept (The Islander), its class line
 		// beside the badge ("ВОИН · УРОВЕНЬ 30" in Russian goes under it).
