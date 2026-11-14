@@ -153,19 +153,21 @@ fn floor_data() -> Data {
 
 /// Fitz, 2026-11-13: never send a player to a dungeon too low. A dungeon's run (its `when dungeon` step with an
 /// `enter`) is gated at the dungeon's floor from the Codex: no gate, or one under the floor (Razorfen Kraul gated
-/// 30 against its 30.9), is an error at the `enter`; 30.9 or more is clean. A `when !dungeon` step, a pick-up and a
+/// 30 against its 30.9), is a warning at the `enter` (an error again in 0.4.1, when the route's runs carry their
+/// gates); 30.9 or more is clean. A `when !dungeon` step, a pick-up and a
 /// hand-in aren't the run (a pick-up's gate is the floor less the levels the route plans before the run), and a
 /// Codex built before floors gives nothing to check.
 #[test]
-fn a_dungeon_run_gated_under_its_codex_floor_is_an_error_at_its_enter() {
+fn a_dungeon_run_gated_under_its_codex_floor_is_a_warning_at_its_enter() {
 	let run = |gate: &[&str]| {
 		let mut l = vec!["step Razorfen Kraul", "  when dungeon \"Razorfen Kraul\""];
 		l.extend_from_slice(gate);
 		l.push("  enter \"Razorfen Kraul\" @42.9,90.2");
 		guide_text(&l)
 	};
-	let erred = |text: &str| compile_with(text, &floor_data()).erred("floor");
+	let erred = |text: &str| compile_with(text, &floor_data()).warned("floor");
 	let ungated = run(&[]);
+	assert!(compile_with(&ungated, &floor_data()).erred("floor").is_empty(), "a warning, not an error, in 0.4.0");
 	assert_eq!(
 		erred(&ungated),
 		vec![format!(
@@ -192,5 +194,5 @@ fn a_dungeon_run_gated_under_its_codex_floor_is_an_error_at_its_enter() {
 	]);
 	assert!(erred(&others).is_empty(), "{:?}", erred(&others));
 	// No floor in the Codex (built before floors, or no Codex): nothing to check.
-	assert!(compile_with(&ungated, &dungeon_data()).erred("floor").is_empty());
+	assert!(compile_with(&ungated, &dungeon_data()).warned("floor").is_empty());
 }

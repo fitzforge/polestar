@@ -271,7 +271,8 @@ pub fn lowest_level(step: &V) -> f64 {
 /// its fixed minimum or where players who killed a boss there entered, whichever is highest). Below the gate
 /// the run is passed and the route keeps the solo path, so the gate is what keeps a player too low out. Its
 /// pick-ups and hand-ins aren't checked: a pick-up's gate is the floor less the levels the route plans before
-/// the run. No Codex, no check. House rule.
+/// the run. No Codex, no check. A warning for 0.4.0: the leveling route's runs get their gates with the dungeon
+/// layers in 0.4.1, and the check goes back to a house rule (an error in Polestar's own guides) with them.
 fn check_dungeon_floors(g: &V, data: &Data, diag: &mut Diagnostics) {
 	if !data.dungeon_floors.truthy() {
 		return;
@@ -292,7 +293,7 @@ fn check_dungeon_floors(g: &V, data: &Data, diag: &mut Diagnostics) {
 				crate::js::num_str(floor),
 				crate::js::num_str(floor)
 			);
-			house_rule(diag, g, &ast_file(g), line(&enter), msg);
+			diag.warn(&ast_file(g), line(&enter), msg, None);
 		}
 	}
 }
