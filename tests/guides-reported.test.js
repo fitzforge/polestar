@@ -12777,3 +12777,24 @@ test('#2264: the walk from Thunder Bluff to the Barrens takes the lift on its wa
 		}
 	}
 });
+
+// #2268's pattern in Durotar (Orc and Troll): A Simmering Storm (97281, from the Dull Storm Orb) and Stormy
+// Potential's accept (97282) were optional lines on the Rezlak stop that hands in Securing the Lines (835): once 835
+// was in, nothing held the step, and a player carrying the orb's quest walked on without handing it in. Its hand-in
+// now holds a step of its own, for carriers only; Stormy Potential stays an optional extra there (#807).
+test('Durotar: Rezlak waits for the Dull Storm Orb\'s quest and its follow-up before Thunder Ridge', { skip }, () => {
+	for (const guide of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		const list = goals(guide);
+		const hand = at(list, 'turnin 97281', is('turnin', 97281));
+		const { step } = list[hand];
+		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(97281)), `${guide}: only while 97281 is carried`);
+		assert.ok(!list[hand].goal.optional, `${guide}: the hand-in holds the step`);
+		const take = at(list, 'accept 97282', is('accept', 97282));
+		assert.equal(list[take].s, list[hand].s, `${guide}: the follow-up's accept on the same step`);
+		assert.ok(list[take].goal.optional, `${guide}: Stormy Potential stays an optional extra (#807)`);
+		assert.ok(list[hand].s > list[at(list, 'turnin 835', is('turnin', 835))].s, `${guide}: right after Securing the Lines`);
+		assert.ok(hand < at(list, 'Thunder Ridge organs', (g) => g.t === 'collect' && g.quest === 97282), `${guide}: before Thunder Ridge`);
+		const back = list[at(list, 'turnin 97282', is('turnin', 97282))].step;
+		assert.ok((back.when || []).some((p) => p.k === 'onquest' && !p.neg && p.q.includes(97282)), `${guide}: the hand-in waits for 97282 in the log`);
+	}
+});

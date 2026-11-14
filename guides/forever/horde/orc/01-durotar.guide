@@ -448,7 +448,10 @@ step Deathskip to Northern Durotar
 step Rezlak
   zone Durotar
   turnin 835
-  turnin 97281 optional
+
+step Rezlak
+  when onquest 97281
+  turnin 97281                        -- Rezlak
   accept 97282 optional
 
 step Thunder Ridge: kill these as you meet them
@@ -468,6 +471,7 @@ step Misha Tor'kren
   turnin 816
 
 step Rezlak
+  when onquest 97282
   turnin 97282
 
 step Heglan Shadeeye
