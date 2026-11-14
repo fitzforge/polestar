@@ -998,6 +998,41 @@ mod tests {
 	}
 
 	#[test]
+	fn edets_prayer_to_elune_report_2300_keeps_the_entire_elite_camp_visit_optional() {
+		let source = include_str!("../../../../guides/forever/alliance/40-50/06-searing-gorge.guide");
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let fixes = json!({ "fixes": all["fixes"].as_array().unwrap().iter().filter(|r| r["issue"] == 2300).cloned().collect::<Vec<_>>() });
+		let mut tree = BTreeMap::from([("searing-gorge.guide".to_string(), source.to_string())]);
+		let files = ["searing-gorge.guide".to_string()];
+		let quests = HashSet::from([3377, 7724, 3441]);
+		let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+		let rows = apply(&mut tree, &files, &quests, Some("Alliance"), records, None);
+		let out = &tree[&files[0]];
+		for (verb, target) in [("accept", "3377"), ("talk", "8436"), ("turnin", "3377")] {
+			let found: Vec<_> = out.lines().filter(|l| l.split_whitespace().take(2).eq([verb, target])).collect();
+			assert!(!found.is_empty(), "{verb}: the optional quest stays available");
+			assert!(found.iter().all(|l| split_comment(l).0.split_whitespace().any(|s| s == "optional")), "{found:?}");
+		}
+		assert!(out.contains("talk 8436 quest 3377.1 @29.6,26.3 map 1427"), "keep the real talk objective and its location");
+		assert!(!out.contains("stands alone"), "do not describe an elite camp as empty");
+		assert!(out.contains("Twilight elites") && out.contains("skip it while alone"), "explain the optional visit");
+		let neighboring_goals = |text: &str| {
+			text.lines()
+				.filter(|l| l.contains("quest 7724") || l.split_whitespace().nth(1).is_some_and(|q| ["7724", "3441"].contains(&q)) || l.contains("quest 3441."))
+				.map(str::to_string)
+				.collect::<Vec<_>>()
+		};
+		assert!(!neighboring_goals(source).is_empty());
+		assert_eq!(neighboring_goals(out), neighboring_goals(source), "Greater Lava Spiders and Velarok keep their required work");
+		assert_eq!(rows.len(), 4, "all three goals and the safety tip have records");
+		assert!(rows.iter().all(|r| ["applied", "redundant"].contains(&r.state.as_str())), "{rows:?}");
+		let before = tree.clone();
+		let rows = apply(&mut tree, &files, &quests, Some("Alliance"), records, None);
+		assert_eq!(tree, before);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
 	fn a_goal_note_fix_replaces_only_the_anchored_goals_note() {
 		let seed = "step Booty Bay\n  tip Keep the tavern directions.\n  accept 627 -- The ore drops from kobolds.\n  accept 600 -- Crank Fizzlebub\n";
 		let fixes = json!({ "fixes": [{ "id": "pickup", "at": { "quest": 627, "goal": "accept" }, "goalNote": "The deposits need Mining 75; buy four ore or ask a miner otherwise." }] });
