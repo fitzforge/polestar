@@ -302,7 +302,9 @@ impl ModelLevels {
 }
 
 /// The model's warnings: each run it places under its floor, and each pick-up whose gate isn't the floor less
-/// the levels it plans between the pick-up and the dungeon's next run (within [`PICKUP_SLACK`]).
+/// the levels it plans between the pick-up and the dungeon's next run (within [`PICKUP_SLACK`]), or the level
+/// its quests ask for when that is higher: a step gated under it holds an accept the game refuses, and the
+/// route comes back to it once the character gets there (a Silverpine pick-up from Orgrimmar).
 pub fn model_warnings(guides: &[V], floors: &V, lm: &ModelLevels) -> Vec<Violation> {
 	let floor_of = |d: &V| floors.get(&d.get("map").to_js_string()).get("floor").as_num();
 	// Every run with the model's level there, by dungeon.
@@ -337,16 +339,17 @@ pub fn model_warnings(guides: &[V], floors: &V, lm: &ModelLevels) -> Vec<Violati
 				}
 			} else if goals.iter().any(|x| x.get("t").as_str() == Some("accept")) {
 				let Some(run) = at_runs.iter().filter(|(rd, l)| same_dungeon(rd, &d) && *l >= level).map(|(_, l)| *l).reduce(f64::min) else { continue };
-				let want = floor - (run - level);
+				let planned = floor - (run - level);
+				let asks = goals.iter().filter(|x| x.get("t").as_str() == Some("accept")).filter_map(|x| x.get("minLevel").as_num()).fold(f64::NEG_INFINITY, f64::max);
+				let want = planned.max(asks);
 				let gate = forge_guide::validate::lowest_level(step);
 				if (gate - want).abs() > PICKUP_SLACK {
-					out.push(Violation::new(
-						file.clone(),
-						line,
-						Rule::PickupGate.as_str(),
-						Level::Warn,
-						format!("this {name} pick-up is gated at {}; the floor {} less the {} levels the model plans before the run gives {}", n(r1(gate)), n(floor), n(r1(run - level)), n(r1(want))),
-					));
+					let why = if asks > planned {
+						format!("its quests ask for level {} (the floor {} less the {} levels the model plans before the run gives {})", n(r1(asks)), n(floor), n(r1(run - level)), n(r1(planned)))
+					} else {
+						format!("the floor {} less the {} levels the model plans before the run gives {}", n(floor), n(r1(run - level)), n(r1(want)))
+					};
+					out.push(Violation::new(file.clone(), line, Rule::PickupGate.as_str(), Level::Warn, format!("this {name} pick-up is gated at {}; {why}", n(r1(gate)))));
 				}
 			}
 		}
@@ -447,6 +450,28 @@ mod tests {
 		let w = model_warnings(std::slice::from_ref(&g), &floors, &lm(28.0, 30.0, 33.0));
 		assert_eq!(w.iter().map(|v| v.rule.as_str()).collect::<Vec<_>>(), ["pickup-gate"]);
 		assert!(w[0].message.contains("gives 25.9"), "{}", w[0].message);
+	}
+
+	/// The Ruins of Lordaeron pick-up in Silverpine (Tabitha Heartweaver's A Frightened Request, level 15 to take):
+	/// the floor 17.9 less the 7.8 levels the model plans before the run gives 10.1, but a step gated there holds
+	/// an accept the game refuses until 15, and the route came back to it from Orgrimmar. The quest's own
+	/// minimum wins.
+	#[test]
+	fn a_pick_up_is_gated_at_least_at_the_level_its_quests_ask_for() {
+		let rol = || serde_json::json!({ "k": "dungeon", "name": "Ruins of Lordaeron", "map": 2999 });
+		let g = |gate: serde_json::Value| {
+			guide(serde_json::json!({ "id": "forever/horde/03", "steps": [
+				{ "title": "Tabitha Heartweaver", "when": [rol(), gate], "goals": [{ "t": "accept", "quest": 92401, "minLevel": 15 }] },
+				{ "title": "Hand-in", "goals": [{ "t": "turnin", "quest": 1 }] },
+				{ "title": "Run", "when": [rol(), { "k": "level", "op": ">=", "n": 17, "frac": 0.9 }], "goals": [{ "t": "enter", "map": 1420, "x": 63.2, "y": 67.5 }] },
+			] }))
+		};
+		let floors = guide(serde_json::json!({ "2999": { "name": "Ruins of Lordaeron", "floor": 17.9 } }));
+		let lm = ModelLevels::from_files(&[serde_json::json!([{ "rows": [{ "id": "forever/horde/03", "start": 14.3, "tq": [[1, 22.1]] }] }])]);
+		let w = model_warnings(&[g(serde_json::json!({ "k": "level", "op": ">=", "n": 10, "frac": 0.1 }))], &floors, &lm);
+		assert_eq!(w.iter().map(|v| v.rule.as_str()).collect::<Vec<_>>(), ["pickup-gate"]);
+		assert!(w[0].message.contains("gated at 10.1; its quests ask for level 15 (the floor 17.9 less the 7.8 levels the model plans before the run gives 10.1)"), "{}", w[0].message);
+		assert!(model_warnings(&[g(serde_json::json!({ "k": "level", "op": ">=", "n": 15 }))], &floors, &lm).is_empty(), "gated at the quest's own minimum");
 	}
 
 	#[test]

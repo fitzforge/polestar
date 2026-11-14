@@ -1818,8 +1818,8 @@ Polestar.Engine.PartyRun(map)                       -- "Run it this time" with t
   a predicate without `map` never holds, nor one of a city dungeon of the other faction, whatever the
   answers: `Engine.EnemyCityDungeon(map or Codex key)`, Ragefire Chasm and the Ruins of Lordaeron the
   Horde's, The Hall of Thanes and the Stockade the Alliance's, which also keeps such a dungeon out of
-  `Engine.ChooseDungeon`'s Run, `Engine.GuideDungeons`, `Engine.DungeonJoinable` and the hub's For your
-  level, `Dungeons.EnemyCapital`),
+  `Engine.ChooseDungeon`'s Run, `Engine.GuideDungeons`, `Engine.DungeonJoinable`, the hub's For your
+  level (`Dungeons.EnemyCapital`) and the dungeon heads-up (`UI.DungeonToast.Candidates`)),
   Polestar's gear advice on an item (`Own.isUpgrade`: `Gear.IsUpgrade`,
   counted as an upgrade when the advice is off or cannot judge the item), a
   profession's rank (`Compat.GetSkillRank` by skill line, else by name; not
