@@ -7,6 +7,6 @@ section: players
   goals from their mouths, Felwood's road between Bloodvenom Post and
   Talonbranch Glade, Shadowprey Village's inn, the Orgrimmar zeppelin's
   platform by the Undercity, Darkcloud Pinnacle's rope bridges to Arnak
-  Grimtotem, and shops, trainers and the Wizard's Sanctum's tower in
-  Orgrimmar, Ironforge and Stormwind (thanks Megabite, #1875; thanks
-  Yeeshak, #1969; thanks icastig, #1936; thanks dloyd, #1945; #1766).
+  Grimtotem, and shops and trainers in Orgrimmar, Ironforge and Stormwind
+  (thanks Megabite, #1875; thanks Yeeshak, #1969; thanks icastig, #1936;
+  thanks dloyd, #1945; #1766).
