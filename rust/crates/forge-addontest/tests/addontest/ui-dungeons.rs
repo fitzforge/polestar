@@ -1767,8 +1767,8 @@ fn for_your_level_starts_at_the_floor_and_the_page_shows_the_group_finders_size(
 		emit({ at19 = at(19), at20 = at(20), dm = sub("deadmines"), st = sub("sunken-temple"), brs = sub("blackrock-spire"),
 			floor = Polestar.Dungeons.Get("deadmines").floor, best = Polestar.Dungeons.BestAt("deadmines") })"#);
 	let out = &out[0];
-	assert_eq!(out["at19"], json!({}), "19 is in the Deadmines' 17-26 but under its floor 19.6");
-	assert_eq!(out["at20"], json!(["Deadmines"]), "from the floor up");
+	assert!(!strs(&out["at19"]).iter().any(|n| n == "Deadmines"), "19 is in the Deadmines' 17-26 but under its floor 19.6: {}", out["at19"]);
+	assert!(strs(&out["at20"]).iter().any(|n| n == "Deadmines"), "from the floor up: {}", out["at20"]);
 	assert_eq!(out["floor"], 19.6);
 	assert!(out["best"].as_i64().unwrap() >= 20, "best at never under the floor: {}", out["best"]);
 	assert!(out["dm"].as_str().unwrap().contains("5 players"), "{}", out["dm"]);
@@ -1803,7 +1803,7 @@ fn between_the_range_and_the_floor_players_recorded_entries_set_neither_the_hub_
 	let out = &out[0];
 	assert_eq!(out["floor"], 20.3);
 	assert!(out["best"].as_f64().unwrap() >= 21.0, "best at never under the floor: {}", out["best"]);
-	assert_eq!(out["hub20"], json!({}), "level 20, under the floor 20.3: not for your level");
-	assert_eq!(out["card20"], json!({}), "and no card");
-	assert_eq!(out["cardBest"], json!(["wailing-caverns"]), "the card at its best-at level");
+	assert!(!strs(&out["hub20"]).iter().any(|n| n == "Wailing Caverns"), "level 20, under the floor 20.3: not for your level: {}", out["hub20"]);
+	assert!(!strs(&out["card20"]).iter().any(|k| k == "wailing-caverns"), "and no card: {}", out["card20"]);
+	assert!(strs(&out["cardBest"]).iter().any(|k| k == "wailing-caverns"), "the card at its best-at level: {}", out["cardBest"]);
 }

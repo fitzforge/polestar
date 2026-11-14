@@ -288,7 +288,7 @@ fn check_dungeon_floors(g: &V, data: &Data, diag: &mut Diagnostics) {
 			let from = if gate > 1.0 { format!("from level {}", crate::js::num_str(gate)) } else { "at any level".to_string() };
 			let msg = format!(
 				"this {} run applies {from}, under the dungeon's floor of {} (the Codex: the Group Finder's minimum or where players who killed a boss there entered): gate it `when level>={}`",
-				ts(&row.get("name")),
+				ts(&row.get("name")).trim_start_matches("The "),
 				crate::js::num_str(floor),
 				crate::js::num_str(floor)
 			);
