@@ -747,6 +747,56 @@ emit(sq.hoverUnit(6, true, rows()))                                  -- secret G
 	assert_eq!(out[11], json!(["?", "Kobold Camp Cleanup", "0/10 Kobold Vermin slain", "Someone Else's Quest", "0/1 Something"]), "unreadable data: the client's rows stay and Polestar adds none");
 }
 
+// qol.questTooltipsNpc (off by default): an NPC's tooltip names the finished quests it takes, "<Quest>: Turn in",
+// and the quests it has for this character now, "Starts a quest: <Quest>", as an item that starts one reads.
+// What it has is checked on the hover, so it needs no available-quest markers (off here) and follows a turn-in
+// at once. Gryan (197) takes A Threat Within (783) and starts Kobold Camp Cleanup (7, after 783), Veteran Work
+// (10, level 10) and two this character can never take; Marshal Dughan's stand-in (196) starts 14, 15, 18, 33
+// and 19 (needs 33 or 60).
+#[test]
+fn an_npc_s_tooltip_names_the_quests_it_has_for_you_and_the_finished_ones_it_takes_once_asked_to() {
+	let db = fixture();
+	let out = run_saved(
+		&db,
+		r#"
+w.accept(783, { { text = "Speak with Gryan: 0/1", type = "event", required = 1 } }, "A Threat Within")
+stub.advance(0.3)
+emit(Polestar.Get("qol.questTooltipsNpc"))
+emit(sq.hoverUnit(196))
+Polestar.Set("qol.questTooltipsNpc", true)
+emit({ Q.StartedByNpc(197), Q.StartedByNpc(196), Q.StartedByNpc(6) == nil })
+emit(sq.hoverUnit(196))
+emit(sq.hoverUnit(197))             -- 783 is in the log, not finished: nothing to hand in, nothing to take yet
+w.finish(783)
+stub.advance(0.3)
+emit(sq.hoverUnit(197))
+w.turnIn(783)
+stub.advance(0.3)
+emit(sq.hoverUnit(197))
+w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
+stub.advance(0.3)
+emit(sq.hoverUnit(197))             -- taken: no longer offered
+Polestar.Set("qol.questTooltips", false)
+emit(sq.hoverUnit(196))
+"#,
+		"",
+		"PolestarDB = { schema = 1 }",
+	);
+	assert_eq!(out[0], false);
+	assert_eq!(out[1], json!(["?"]), "off: an NPC's tooltip as it was");
+	assert_eq!(out[2], json!([[7, 10, 12, 13], [14, 15, 18, 19, 33], true]), "every quest an NPC starts, whoever may take it");
+	assert_eq!(
+		out[3],
+		json!(["?", "Starts a quest: | Either This", "Starts a quest: | Or That", "Starts a quest: | Gathering Wood", "Starts a quest: | Wolves Across the Border"]),
+		"the ones this character can take now: 19 waits for 33 or 60"
+	);
+	assert_eq!(out[4], json!(["?"]));
+	assert_eq!(out[5], json!(["?", "A Threat Within: | Turn in"]), "a finished quest it takes");
+	assert_eq!(out[6], json!(["?", "Starts a quest: | Kobold Camp Cleanup"]), "handed in: the quest it opens is offered at once, with no scan");
+	assert_eq!(out[7], json!(["?"]));
+	assert_eq!(out[8], json!(["?"]), "quest tooltips off: none of it");
+}
+
 // The "New in Forever" mark (Quests/NewQuests.lua): a quest Forever added carries its ∞ after its name on the quest
 // lines of a mob's and an item's tooltip ("Starts a quest" too); ui.newInForever off takes it away. Kobold Camp
 // Cleanup (7) and A Strange Note (1972's) stand in for Forever's quests here.

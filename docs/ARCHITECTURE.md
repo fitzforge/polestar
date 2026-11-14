@@ -4874,6 +4874,9 @@ Polestar.QuestDB.GetObjectiveMobs(questID, oi) -> { name, ... } | nil           
 Polestar.QuestDB.CheckAvailable(id, ctx, isDone, isOn, opts) -> ok, reason      -- opts: lowLevel, levelAbove, skillRank
 Polestar.QuestDB.EachAvailabilityRef(id, fn) -> needsSkill                       -- fn(q) per quest whose done/in-log state CheckAvailable reads
 Polestar.QuestDB.GetAvailableQuests() -> { questID, ... } ; IsAvailable(q) ; WhyUnavailable(q) -> reason | nil
+Polestar.QuestDB.StartedByNpc(npcID) -> { questID, ... } | nil                   -- every quest the NPC starts
+Polestar.QuestDB.AvailableFrom(npcID) -> { questID, ... } | nil                  -- those this character can take now, checked on the ask (no scan)
+Polestar.QuestDB.TurnInsAt(npcID) -> { entry, ... } | nil                        -- the log's quests the NPC takes (entry.ready: finished)
    -- reasons: "eligibility" (faction, race incl. Skyborne high bits, class, holiday), "done", "active", "level"
    -- (minLevel), "grey", "high" (beyond qol.questLevelWindow), "prerequisite", "exclusive", "skill"
 Polestar.QuestDB.ObjectivesForNpc(id) / ObjectivesForItem(id) / ObjectivesForObject(id)
@@ -4959,7 +4962,8 @@ Quest markers): `questDB`, `availableQuests`,
 `questLevelWindow` (0–10, 10 = any; default 5), `lowLevelQuests`,
 `mapObjectives`, `objectiveSpots` (`groups` | `icons` | `areas`),
 `objectiveAreaAlpha`, `turnInMarkers`, `minimapObjectives`, `questMarkerSize`,
-`guideHighlight`, `guideDim`, `questTooltips`, `questDropChance`, `nameplateIcons`,
+`guideHighlight`, `guideDim`, `questTooltips`, `questDropChance`, `questTooltipsReplace`,
+`questTooltipsNpc`, `nameplateIcons`,
 `nameplateIconSide` (`left` | `right` | `above`), `questLevels`.
 The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
 `minimapObjectives`) default to off (Map → Guide & quests → Quest markers);

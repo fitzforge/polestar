@@ -150,10 +150,34 @@ ns.On("STEP_CHANGED", function() ahead = nil end)
 ns.On("GUIDE_CHANGED", function() ahead = nil end)
 ns.On("QUESTDB_UPDATED", function() ahead = nil end)
 
+-- An NPC's own quests (qol.questTooltipsNpc): the ready quests it takes,
+-- "<Quest>: Turn in", then the quests it has for this character now, "Starts
+-- a quest: <Quest>" as on an item that starts one.
+local function addNpcQuestLines(tt, npcID)
+	if not ns.Get("qol.questTooltipsNpc") then return 0 end
+	local qc, tc, ok = Q.Color("quest"), Q.Color("text"), Q.Color("success")
+	local added = 0
+	local taken = Q.TurnInsAt(npcID)
+	for i = 1, taken and #taken or 0 do
+		local e = taken[i]
+		if e.ready then
+			addLine(tt, (e.title or ("Quest " .. e.q)) .. mark(e.q) .. ":", L["Turn in"], qc, ok)
+			added = added + 1
+		end
+	end
+	local given = Q.AvailableFrom(npcID)
+	for i = 1, given and #given or 0 do
+		local q = given[i]
+		addLine(tt, L["Starts a quest"] .. ":", (Q.GetQuestTitle(q) or tostring(q)) .. mark(q), qc, tc)
+		added = added + 1
+	end
+	return added
+end
+
 -- Public so other tooltip paths (and tests) can ask for the same lines.
 function Q.AddUnitLines(tt, npcID)
 	if not (npcID and tooltipsOn()) then return 0 end
-	return addObjectiveLines(tt, Q.ObjectivesForNpc(npcID), 1, npcID)
+	return addObjectiveLines(tt, Q.ObjectivesForNpc(npcID), 1, npcID) + addNpcQuestLines(tt, npcID)
 end
 
 function Q.AddItemLines(tt, itemID)

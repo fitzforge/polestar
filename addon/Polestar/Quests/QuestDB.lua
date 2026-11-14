@@ -28,6 +28,7 @@ ns.RegisterDefaults("qol", {
 	questTooltips = true, -- quest lines on unit, item and object tooltips
 	questDropChance = false, -- ... with how often a mob or object gives the quest item, on its tooltip
 	questTooltipsReplace = false, -- ... in place of the client's own rows for the same quests
+	questTooltipsNpc = false, -- ... and on an NPC, the quests it gives now and the ready ones it takes
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
@@ -623,6 +624,31 @@ function Q.FollowUps(id)
 		end
 	end
 	return followUps[id]
+end
+
+-- Quests NPC npcID starts, ascending, or nil. Built on the first ask, and
+-- again once more quest chunks arrived (the NPC tooltip's "Starts a quest"
+-- lines, Quests/Tooltips.lua).
+local startedByNpc, startedByNpcOf
+function Q.StartedByNpc(npcID)
+	local ids = Q.QuestIds()
+	if startedByNpcOf ~= ids then
+		startedByNpc, startedByNpcOf = {}, ids
+		local starts = fieldOfAll(QUEST_START)
+		for _, q in ipairs(ids) do
+			for _, ref in Each(starts[q]) do
+				if ref > 0 then
+					local list = startedByNpc[ref]
+					if not list then
+						list = {}
+						startedByNpc[ref] = list
+					end
+					list[#list + 1] = q
+				end
+			end
+		end
+	end
+	return startedByNpc[npcID]
 end
 
 -- Quests item itemID starts (the quests' start item), ascending, or nil.
