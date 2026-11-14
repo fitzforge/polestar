@@ -446,19 +446,25 @@ end
 -- Picture cards: a choice made by its picture (a skin, an arrow style, an
 -- icon pack, a line style). The row's label and description on top, the
 -- cards under them across the row: each a picture over its name on the
--- control ground with a hairline, the chosen one in an accent hairline with
--- a check in its corner. choices: a list (or a function returning one) of
--- { value, text, draw = function(art, value), disabled = bool | fn, note }:
--- draw paints the picture once, into `art` (the card's picture area,
--- W.CARD_W - 2 wide, W.CARD_ART tall, clipped); note: a word after the name
--- ("Not loaded"). A click picks; right-click puts the default back. A click
--- on the row itself (a gamepad's A) steps to the next card.
+-- control ground with a hairline, the chosen one in a 2px accent edge with
+-- a check in its corner, the one under the pointer in a lighter edge.
+-- choices: a list (or a function returning one) of { value, text, draw =
+-- function(art, value), disabled = bool | fn, note, group }: draw paints the
+-- picture once, into `art` (the card's picture area, clipped; a picture that
+-- follows its size repaints on OnSizeChanged); note: a word after the name
+-- ("Not loaded"); group: a heading the card is listed under (the cards of
+-- one group in a run of their own, under it, in the order the groups first
+-- come). A click picks; right-click puts the default back. A click on the
+-- row itself (a gamepad's A) steps to the next card.
 -- opts.get() / opts.set(value) as a dropdown's; opts.art = { w, h } the
 -- picture's size (a registered control's `art`), W.CARD_W - 2 x W.CARD_ART
--- else.
+-- else; opts.grid = true: the cards share the row's width, as many a line
+-- as fit at opts.art's width or more (up to GRID_MAX), the picture keeping
+-- opts.art's proportions.
 ---------------------------------------------------------------------------
 
 local CARD_W, CARD_ART, CARD_NAME, CARD_GAP = 156, 88, 30, 12
+local GRID_MAX, GROUP_H, GROUP_GAP = 4, 22, 14
 W.CARD_W, W.CARD_ART = CARD_W, CARD_ART
 
 local function cardOff(ch)
@@ -475,13 +481,28 @@ local function paintCard(card)
 	local on = valueOf(row) == card.psValue
 	if on then
 		local r, g, b = Theme.Accent()
-		Theme.Border(card, r, g, b, 0.9)
+		Theme.Border(card, r, g, b, 1, nil, 2)
+	elseif card.psHover and not card.psOff then
+		local r, g, b = Theme.Color("textDim")
+		Theme.Border(card, r, g, b, 0.75)
 	else
 		Theme.Border(card, Theme.Wash("border"))
 	end
 	card.Check:SetShown(on)
-	W.Color(card.Name, on and "text" or "textDim")
+	W.Color(card.Name, (on or card.psHover) and "text" or "textDim")
 	card:SetAlpha(card.psOff and 0.45 or 1)
+end
+
+local function cardEnter(card)
+	card.psHover = true
+	paintCard(card)
+	simpleTip(card)
+end
+
+local function cardLeave(card)
+	card.psHover = nil
+	paintCard(card)
+	hideTip(card)
 end
 
 local function pickCard(row, value)
@@ -547,8 +568,8 @@ local function cardFor(row, ch)
 	card.psRow, card.psValue = row, ch.value
 	card:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	card:SetScript("OnClick", cardClick)
-	card:SetScript("OnEnter", simpleTip)
-	card:SetScript("OnLeave", hideTip)
+	card:SetScript("OnEnter", cardEnter)
+	card:SetScript("OnLeave", cardLeave)
 	W.Painter(card, paintCard)
 	if type(ch.draw) == "function" then
 		local ok, err = pcall(ch.draw, card.Art, ch.value)
@@ -558,42 +579,96 @@ local function cardFor(row, ch)
 	return card
 end
 
--- The cards under the label from y, `width` wide. -> their height
+-- A group's heading over its run of cards, made on first need.
+local function groupLabel(row, name)
+	row.psGroupBy = row.psGroupBy or {}
+	local fs = row.psGroupBy[name]
+	if not fs then
+		fs = W.Text(row, "small", "textMuted")
+		fs:SetJustifyH("LEFT")
+		row.psGroupBy[name] = fs
+	end
+	fs:SetText(name)
+	return fs
+end
+
+-- The cards under the label from y, `width` wide, in their groups' runs.
+-- -> their height
 local function cardsBelow(row, width, y)
 	local list = choicesOf(row)
 	local inset = row.psInset or 12
 	local cw, ca = row.psCardW or CARD_W, row.psCardArt or CARD_ART
 	local cols = max(1, floor((width + CARD_GAP) / (cw + CARD_GAP)))
-	for _, card in pairs(row.psCardBy) do card:Hide() end
-	local n = #list
-	-- Balanced lines: no lone card on the last one (6 at 5 a line: 3 and 3).
-	if n > 0 then cols = math.ceil(n / math.ceil(n / cols)) end
-	for i, ch in ipairs(list) do
-		local card = cardFor(row, ch)
-		card.Name:SetText(ch.text)
-		local note = ch.note or ""
-		card.Note:SetText(note)
-		-- The name takes what it needs; the note what is left, cut short
-		-- (whole in the tooltip), or none when that is too little to read.
-		local room = cw - 18
-		local nameW = min(room, math.ceil(textWidth(card.Name)))
-		card.Name:SetWidth(max(1, nameW))
-		local noteRoom = room - nameW - 8
-		card.Note:SetShown(note ~= "" and noteRoom >= 24)
-		card.Note:SetWidth(max(1, min(noteRoom, math.ceil(textWidth(card.Note)))))
-		card.psOff = cardOff(ch)
-		local lines = {}
-		if ch.tip then lines[#lines + 1] = ch.tip end
-		if note ~= "" then lines[#lines + 1] = note end
-		card.psTip, card.psTipLines = ch.text, #lines > 0 and lines or nil
-		local col, line = (i - 1) % cols, floor((i - 1) / cols)
-		card:ClearAllPoints()
-		card:SetPoint("TOPLEFT", row, "TOPLEFT", inset + col * (cw + CARD_GAP), -(y + line * (ca + CARD_NAME + CARD_GAP)))
-		card:Show()
-		paintCard(card)
+	if row.psGrid then
+		-- As many a line as fit at the picture's own width, sharing the row
+		-- (`width` is already the row's less its sides).
+		local room = width
+		cols = max(1, min(GRID_MAX, floor((room + CARD_GAP) / (cw + CARD_GAP))))
+		local w = floor((room - (cols - 1) * CARD_GAP) / cols)
+		ca = floor(ca * (w - 2) / (cw - 2) + 0.5)
+		cw = w
 	end
-	local lines = n == 0 and 0 or floor((n - 1) / cols) + 1
-	return lines * (ca + CARD_NAME) + max(0, lines - 1) * CARD_GAP
+	for _, card in pairs(row.psCardBy) do card:Hide() end
+	for _, fs in pairs(row.psGroupBy or {}) do fs:Hide() end
+	-- The runs: one per group, in the order the groups first come (one run
+	-- of every card without groups).
+	local runs, byName = {}, {}
+	for _, ch in ipairs(list) do
+		local name = ch.group or ""
+		local run = byName[name]
+		if not run then
+			run = { name = ch.group }
+			byName[name] = run
+			runs[#runs + 1] = run
+		end
+		run[#run + 1] = ch
+	end
+	local top = y
+	for r, run in ipairs(runs) do
+		if run.name then
+			if r > 1 then y = y + GROUP_GAP end
+			local fs = groupLabel(row, run.name)
+			fs:ClearAllPoints()
+			fs:SetPoint("TOPLEFT", row, "TOPLEFT", inset, -y)
+			fs:Show()
+			y = y + GROUP_H
+		elseif r > 1 then
+			y = y + CARD_GAP
+		end
+		-- Balanced lines: no lone card on the last one (6 at 5 a line: 3 and
+		-- 3), the cards keeping the size the row gave them.
+		local n = #run
+		local perLine = math.ceil(n / math.ceil(n / cols))
+		for i, ch in ipairs(run) do
+			local card = cardFor(row, ch)
+			card:SetSize(cw, ca + CARD_NAME)
+			card.Art:SetHeight(ca)
+			card.Name:SetText(ch.text)
+			local note = ch.note or ""
+			card.Note:SetText(note)
+			-- The name takes what it needs; the note what is left, cut short
+			-- (whole in the tooltip), or none when that is too little to read.
+			local room = cw - 18
+			local nameW = min(room, math.ceil(textWidth(card.Name)))
+			card.Name:SetWidth(max(1, nameW))
+			local noteRoom = room - nameW - 8
+			card.Note:SetShown(note ~= "" and noteRoom >= 24)
+			card.Note:SetWidth(max(1, min(noteRoom, math.ceil(textWidth(card.Note)))))
+			card.psOff = cardOff(ch)
+			local lines = {}
+			if ch.tip then lines[#lines + 1] = ch.tip end
+			if note ~= "" then lines[#lines + 1] = note end
+			card.psTip, card.psTipLines = ch.text, #lines > 0 and lines or nil
+			local col, line = (i - 1) % perLine, floor((i - 1) / perLine)
+			card:ClearAllPoints()
+			card:SetPoint("TOPLEFT", row, "TOPLEFT", inset + col * (cw + CARD_GAP), -(y + line * (ca + CARD_NAME + CARD_GAP)))
+			card:Show()
+			paintCard(card)
+		end
+		local lines = floor((n - 1) / perLine) + 1
+		y = y + lines * (ca + CARD_NAME) + (lines - 1) * CARD_GAP
+	end
+	return y - top
 end
 
 local function cardsRefresh(self)
@@ -607,8 +682,10 @@ function W.Cards(parent, label, path, choices, desc, opts)
 	local row = settingRow(parent, label, desc)
 	row.psChoices = choices
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
-	-- opts.art = { w, h }: bigger pictures (the skin cards' mini windows).
+	-- opts.art = { w, h }: bigger pictures (the skin cards' miniatures);
+	-- opts.grid: the cards share the row's width (cardsBelow).
 	if opts and type(opts.art) == "table" then row.psCardW, row.psCardArt = opts.art[1] + 2, opts.art[2] end
+	row.psGrid = opts and opts.grid and true or nil
 	row.psCardBy = {}
 	row.psBelow = cardsBelow
 	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
