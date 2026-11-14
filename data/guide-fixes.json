@@ -709,7 +709,7 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 91736,
-				"goal": "accept"
+				"goal": "turnin"
 			},
 			"tip": "The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.",
 			"note": "The still's quest is handed in the moment you click it with the apples; players who drank the Applejack found De Vries with nothing to offer.",
@@ -726,7 +726,7 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 91738,
-				"goal": "accept"
+				"goal": "turnin"
 			},
 			"tip": "Sergeant De Vries stands inside the barracks. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.",
 			"note": "Without the Applejack De Vries only opens his vendor window; with it the quest is handed in without an accept window.",

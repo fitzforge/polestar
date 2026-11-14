@@ -1843,17 +1843,24 @@ test(`${TIRISFAL}: Fitz's report (#1046 follow-up): each Brill visit enters the 
 // quest log: clicking it with four Shiny Red Apples hands it in on the spot
 // and gives the Thunder Applejack, which Sergeant De Vries needs for An Apple
 // Treat. The still comes once, after Homer Stonefield sells the apples, and no
-// step waits on `when onquest 91736`, which never holds.
-test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries`, { skip }, () => {
+// step waits on `when onquest 91736`, which never holds. GrosGorey (#2312)
+// saw While Here offer An Apple Treat before collecting the Applejack: neither
+// quest has an accept window, so both must be direct hand-ins.
+test(`${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept`, { skip }, () => {
 	const { steps } = compiled(ELWYNN);
 	const has = (st, pred) => st.goals.some(pred);
 	const still = steps.map((st, i) => [st, i]).filter(([st]) => has(st, (g) => g.quest === 91736));
 	assert.equal(still.length, 1, 'one step for the still');
 	const [step, at] = still[0];
-	assert.ok(has(step, is('accept', 91736)) && has(step, is('turnin', 91736)) && has(step, (g) => g.t === 'collect' && g.item === 247824), 'the still hands in and gives the Applejack in that step');
-	for (const st of steps) assert.ok(!(st.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(91736)), 'no step waits for 91736 in the quest log');
+	assert.ok(has(step, is('turnin', 91736)) && has(step, (g) => g.t === 'collect' && g.item === 247824), 'the still hands in and gives the Applejack in that step');
+	for (const quest of [91736, 91738]) {
+		const mine = steps.flatMap((st) => st.goals).filter((g) => g.quest === quest);
+		assert.equal(mine.length, 1, `${quest}: one hand-in, with no accept or tracked objective`);
+		assert.ok(mine[0].t === 'turnin' && mine[0].direct, `${quest}: handed in without entering the quest log`);
+		for (const st of steps) assert.ok(!(st.when || []).some((p) => ['onquest', 'complete'].includes(p.k) && [].concat(p.q).includes(quest)), `${quest}: no condition waits on the quest log`);
+	}
 	const apples = steps.findIndex((st) => has(st, (g) => g.t === 'buy' && g.item === 4536));
-	const deVries = steps.findIndex((st) => has(st, is('accept', 91738)));
+	const deVries = steps.findIndex((st) => has(st, is('turnin', 91738)));
 	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
 });
 
