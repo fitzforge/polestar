@@ -495,6 +495,8 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			w.level = Math.max(w.level, Math.floor(x.level || 0));
 			return;
 		case 'buy':
+		case 'auction':
+			// `auction`: bought at the Auction House, a bag count as `buy` is.
 			w.give(x.item, x.count || 1);
 			return;
 		case 'accept':
