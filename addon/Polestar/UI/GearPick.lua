@@ -68,6 +68,14 @@ local function itemQuality(id)
 	return rec and rec.quality or nil
 end
 
+-- The pick's gain: Forever Leveling BiS's in its score points ("+6.1 (+8%)")
+-- while its scores decide, else the percent; "new" for an empty slot.
+local function gainText(e)
+	local G = ns.Gear
+	if e.flbis and e.delta and not e.empty then return (G.PointsText(e.delta, e.pct)) end
+	return e.pct and (G.GainText(e.pct)) or L["new"]
+end
+
 -- Under the item's lines: what a click does, in the look's muted ink as it
 -- reads on the game's dark tooltip (Theme.TipColor).
 local function clickHint(tip)
@@ -131,13 +139,12 @@ function GP.Paint(row, goal)
 		f.Chevron:Hide()
 		f.Gain:Hide()
 		f.Text:SetPoint("LEFT", f, "LEFT", 0, 0)
-		f.Text:SetText(L["Reward"] .. ": " .. name .. " " .. (e.pct and ns.Gear.GainText(e.pct) or L["new"])
-			.. " · " .. L["at turn-in"])
+		f.Text:SetText(L["Reward"] .. ": " .. name .. " " .. gainText(e) .. " · " .. L["at turn-in"])
 	elseif pick.upgrade then
 		f.Chevron:Show()
 		f.Text:SetPoint("LEFT", f.Chevron, "RIGHT", 4, 0)
 		f.Text:SetText(name)
-		f.Gain:SetText(e.pct and (ns.Gear.GainText(e.pct)) or L["new"])
+		f.Gain:SetText(gainText(e))
 		f.Gain:Show()
 	else
 		f.Chevron:Hide()

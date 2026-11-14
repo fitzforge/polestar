@@ -71,6 +71,10 @@ local function register()
 		controls = {
 			{ kind = "dropdown", key = "gear.spec." .. class, label = L["Stat weights"], choices = choices, disabled = disabled,
 				help = L["Which levelling weights score your items. Automatic follows the talent tree with the most points."] },
+			{ kind = "toggle", key = "gear.useFlbis", label = L["Use Forever Leveling BiS when installed"], disabled = disabled,
+				needs = function() return ns.Compat.AddOnPresent("ForeverLevelingBiS") end,
+				search = "forever leveling bis, flbis, bis, upgrades, stat weights",
+				help = L["With Stat weights on Automatic, gear advice takes Forever Leveling BiS's gains, scores and spec from its version 1.2.9, and its upgrade arrows in your bags from the versions before."] },
 			{ kind = "button", icon = "sliders", button = L["Adjust"], label = L["Adjust weights"], disabled = disabled,
 				search = "stat weights, change weights, tweak, revert, default",
 				help = L["Weigh a stat more or less than Polestar does for your spec. Revert to default puts Polestar's weights back."],

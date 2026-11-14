@@ -25,6 +25,7 @@ and maintainers who release. Paths are from the repository root.
 | [SECURITY.md](../SECURITY.md) | everyone | How to report a security problem privately, and what counts as one |
 | [docs/TRANSLATING.md](TRANSLATING.md) | translators, contributors | The languages and their status, the locale file and how to fill it, formats, the glossary, the `i18n` commands, adding or reviewing a language |
 | [docs/ARCHITECTURE.md](ARCHITECTURE.md) | contributors | The contract between the addon's modules, the compiled guide data, the toolchain and the tests |
+| [docs/gear-weights.md](gear-weights.md) | players, contributors | Gear advice's stat weights: Polestar's own (the level bands, the weights worked out from the game's formulas, Mental Dexterity), what it takes from Forever Leveling BiS when that is installed, and every spec's weights at levels 10 to 60 |
 | [addon/README.md](../addon/README.md) | contributors | Which addon is which, the modules in load order with each file and its public table, where a hub screen lives, the generated files inside `addon/` |
 | [tools/README.md](../tools/README.md) | contributors, maintainers | The commands by group, the `tools/lib` folders, every generated file with its command and inputs, how to tell it is stale, the rebuild order after a data change |
 | [tests/README.md](../tests/README.md) | contributors | The test layers, the fake client, the helpers, how to run one test, what needs local data |

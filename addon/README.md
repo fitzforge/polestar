@@ -134,6 +134,7 @@ never in saved variables.
 | `SpecData.lua` | `Gear` | Generated: stat weight bands per spec and level, racial gear traits |
 | `PawnStats.lua`, `Pawn.lua` | `Gear.Pawn`, `Gear.Scales` | Custom stat weights from Pawn scale strings |
 | `Adjust.lua` | `Gear.Adjust` | The player's own changes to the built-in weights, with Revert to default (#1529) |
+| `FLB.lua` | `Gear.FLB` | Forever Leveling BiS's public API when it is installed (its bag arrows; from its version 2 its gains, scores, weights and spec), every call guarded |
 | `Gear.lua` | `Gear` | Upgrade advice: an item's score and whether it is an upgrade |
 | `Tooltip.lua` | `Gear` | Upgrade lines on item tooltips |
 | `Bags.lua` | `Gear.Bags` | The upgrade arrow on bag items, in the game's bags and Baganator |

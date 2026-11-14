@@ -100,6 +100,16 @@ return {
 		-- The better helm's tooltip: how much better than the worn one.
 		["gear.tooltip"] = function() return tip("item:9002") end,
 		["gear.spec.WARRIOR"] = { value = "protection", probe = function() return tip("item:9002") end },
+		-- Forever Leveling BiS installed (a stub of its API, version 2): its gain and "Scored by" on the better helm.
+		["gear.useFlbis"] = {
+			prepare = function()
+				stub.addonsLoaded.ForeverLevelingBiS = true
+				ForeverLevelingBiS_API = { version = 2, IsUpgrade = function() return true end, OnChanged = function() end,
+					GetGain = function(link) return link:find("item:9002") and 37.4 or nil end }
+				G.Invalidate("spec")
+			end,
+			probe = function() return tip("item:9002") end,
+			cleanup = function() ForeverLevelingBiS_API, stub.addonsLoaded.ForeverLevelingBiS = nil, nil; G.Invalidate("spec") end },
 		["Questing:Manage custom weights"] = { press = true,
 			prepare = function() local f = Polestar.UI.ScalesView.frame; if f then f:Hide() end end,
 			probe = function() local f = Polestar.UI.ScalesView.frame; return f ~= nil and f:IsShown() and true or false end,

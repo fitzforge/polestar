@@ -201,12 +201,16 @@ mod gear;
 mod gear_adjust;
 #[path = "gear-bags.rs"]
 mod gear_bags;
+#[path = "gear-flbis.rs"]
+mod gear_flbis;
 #[path = "gear-forever.rs"]
 mod gear_forever;
 #[path = "gear-pawn.rs"]
 mod gear_pawn;
 #[path = "gear-upgrades.rs"]
 mod gear_upgrades;
+#[path = "gear-weights.rs"]
+mod gear_weights;
 #[path = "guides-compiled.rs"]
 mod guides_compiled;
 #[path = "guides-end.rs"]

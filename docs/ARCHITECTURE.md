@@ -6257,7 +6257,7 @@ Gear's part in quest reward choices: QoL, "Quest reward marks".
 ### Automatic stat weights: the spec from the talents — Gear/Gear.lua
 
 ```lua
-Polestar.Gear.GetSpec() -> key, label, source        -- "setting" | "talents" | "default" | "custom"
+Polestar.Gear.GetSpec() -> key, label, source        -- "setting" | "talents" | "default" | "custom" | "flbis"
 Polestar.Gear.DetectSpec(class, classID, all) -> key, source, report   -- Automatic's pick and what each reader said
 Polestar.Gear.ScoredFor(short) -> text | nil          -- "Scored for Arcane, from your talents" (#2035)
 Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Rewards & gear, Gear advice lit
@@ -6291,13 +6291,15 @@ Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Re
   (once a frame) and redo the advice only when the pick, or `pending`, changed.
 - **Talents in the weights** (`Gear.TALENT_STATS`): talents that turn one
   stat into another, which the weights' sources (Classic formulas, sims) know
-  nothing of. On the built-in weights in use, never a custom scale, each rank
-  bought adds its share of the target stat's weight to the source stat; the
-  ranks are read by the talent's spell on the config the talent frame shows
-  (`Client.TalentSpellRanks`: each node's entry and definition, read once per
-  node). Mental Dexterity (Shaman, 3 ranks, spell 415140): a third of the
-  attack power weight to Intellect per rank, as the 12 November 2026 patch
-  notes set it (#2090). `/polestar gear spec` prints what each added.
+  nothing of. On Polestar's built-in weights in use, never a custom scale or
+  Forever Leveling BiS's weights, the ranks bought add their share of the
+  target stat's weight to the source stat; the ranks are read by the talent's
+  spell on the config the talent frame shows (`Client.TalentSpellRanks`: each
+  node's entry and definition, read once per node). Mental Dexterity (Shaman,
+  3 ranks, spell 415140): 33, 66 and 100% of the attack power weight to
+  Intellect, as Forever's 12 November 2026 hotfix set it (the client's hotfix
+  data, talent curve 85272; #2090). `/polestar gear spec` prints what each
+  added.
 - **Said.** Under the tooltip's upgrade line (and the reward pick line) Gear
   says what it scored with (`Gear.ScoredFor`); the guide window's reward pick
   and the reward panel's line open Stat weights on a click.
@@ -6309,7 +6311,7 @@ Polestar.Gear.ShowWeightsSetting()                   -- Settings > Questing > Re
 ### Bag upgrade arrows — Gear/Bags.lua
 
 ```lua
-Polestar.Gear.Bags.IsUpgrade(link) -> bool   -- what an arrow shows: Gear.IsUpgrade, with gear advice and gear.bagArrows on
+Polestar.Gear.Bags.IsUpgrade(link) -> bool   -- what an arrow shows: Gear.IsUpgrade (or Forever Leveling BiS's IsUpgrade, below), with gear advice and gear.bagArrows on
 Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPDATED schedules it, at most every 0.2 s
 ```
 
@@ -6341,6 +6343,18 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   Season of Discovery simulations blended with Polestar's own), else its
   table in Weights.lua. No simulation has Forever's own ratings, so a band
   takes `haste`, `expertise` and `armorPen` from Weights.lua (#1529).
+- **Formula weights.** On that band, at the player's level, `Gear.WeightsFor`
+  works out health (Stamina / 10), mana (Intellect less its spell crit, over
+  15), haste and expertise (the band's crit and hit at the spec's own ratios in
+  Weights.lua) and armor penetration (the band's crit times a same-level
+  mob's armor share, `Gear.ArmorShare`); a formula whose input the spec does
+  not weigh leaves the value. Cached per band and level. Every rule, the
+  game numbers behind them (`Gear.HEALTH_PER_STA`, `Gear.MANA_PER_INT`,
+  `Gear.IntPerSpellCrit`, the creature armor table) and every spec's weights
+  at levels 10 to 60: docs/gear-weights.md; addon tests `gear_weights::*`.
+- **The off hand.** A one-hander in the off hand counts at the weights'
+  `ohDps` where they have one (Pawn's OffHandDps, Forever Leveling BiS's
+  weights), else at half of `dps`.
   Weights.lua's header records what was checked against Forever's client tables
   (`ChrClasses`, `PlayerExpectedStat`, `gametables/combatratings.txt`, read
   with `forge gamedata export` and `forge gamedata file`) and how the weights
@@ -6362,6 +6376,77 @@ Polestar.Gear.Bags.Redraw()                  -- repaint the shown bags; GEAR_UPD
   are per 1% and its string per point: CritRating=1 is crit 14. Scales kept before (no `PolestarDB.gearScaleUnits`) held rating
   weights per point, when items counted rating points; they are converted
   once, so each scores items as it did, and `gearScaleUnits` is 2 after.
+
+### Forever Leveling BiS's API — Gear/FLB.lua
+
+```lua
+Polestar.Gear.FLB.Installed() -> bool        -- ForeverLevelingBiS_API is there
+Polestar.Gear.FLB.Version() -> n | nil       -- its version while gear advice and gear.useFlbis are on
+Polestar.Gear.UsesFLB(min) -> bool           -- and Stat weights is Automatic (Gear.lua)
+```
+
+Gear scores from Forever Leveling BiS by Timearc when it is installed, through
+its public API (`## OptionalDeps: ForeverLevelingBiS` loads it first; its
+reference: https://github.com/thunder426/ForeverLevelingBiS-API). Nothing of
+it is copied; every answer is asked of the player's copy, each call under
+`pcall` with a type check (a finite number; a spec, weapon setup or stat it
+adds later is left aside, as its terms ask), so an API that changes, errors or
+answers otherwise leaves Polestar's own answer. `version` missing is 1;
+version 2's functions are called only at 2 or more.
+
+- **Version 1** (its `IsUpgrade`, `OnChanged`): `Bags.IsUpgrade` takes its
+  `IsUpgrade(link)` while `Gear.UsesFLB(1)` and not `Gear.UsesFLB(2)`, its
+  false included (it says no while its Bag upgrades switch is off); only for
+  the bag arrows, never the reward picks or Wear, which its bag switch is not
+  about. One listener per API table on `OnChanged` invalidates gear advice
+  (`"flbis"`), once a frame.
+- **Version 2** (`GetSpec`, `GetWeights`, `ScoreItem`, `GetGain`), while
+  Automatic:
+  - `GetSpec()` -> spec, setup, classFile is Automatic's spec (source
+    `"flbis"`): the one picked in it, else its class's first. Its `bear` is
+    `"feral"` labelled "Bear", its `survivalmelee` `"survival"` labelled
+    "Survival (melee)" (`Gear.GetSpec`'s label; the forge-i18n data keys list
+    them); another class's answer, or a spec Polestar does not know, leaves
+    `Gear.DetectSpec`'s pick.
+  - `GetWeights(classFile, spec, level, setup)` -> weights, info, for its spec
+    and weapon setup (an unknown setup: nil, its default), read from its short
+    stat names (a missing one 0; crit and hit per 1% to spell crit and hit for
+    casters and healers; spell power split into damage and healing; expertise
+    per rating point to per 1% by `Gear.RATING_RATE`), are `Gear.GetWeights()`
+    (no talents or Adjust weights on them); `GetWeightsInfo()` is `{ source =
+    "flbis", from, upTo, profile, note }` (note: the player's profile name).
+  - `compare` (`flbCompare`): `GetGain(link)`, in its score points, is the
+    result's `delta` (`r.flbis`). The places an item can go (`flbPlaces`:
+    each ring or trinket slot; the main hand and, with Dual Wield, the off
+    hand for a one-hander; both hands for a two-hander; a worn two-hander for
+    a piece for either hand) are scored by its `ScoreItem` (`flbAt`: the
+    item there, as an off hand where it goes in one, less the worn pieces it
+    takes the place of); the place whose scores give the gain (within
+    0.01; Polestar's slot first among equals) is the worn piece the gain
+    measures against: its slot, `old`, `new`, `score`, `empty`, and `pct`
+    the gain's share of `old`. No such place, an empty slot or an `old` of
+    0 leave no `pct` ("+6.1 upgrade"). Its nil gain (cannot be worn now,
+    not gear, lighter armor while its Armor type is Class type) makes the
+    result unusable with no reason (no line, no arrow), except for a later
+    level: the place it gains most at. Any answer's second result true
+    (loading) makes it `pending`: no `delta` or `score`, not cached, and
+    `Gear.RankChoices` gives no pick (`Gear.QuestPick` caches none);
+    `OnChanged` or `GET_ITEM_INFO_RECEIVED` redo gear advice. A `GetGain`
+    that errors or answers another kind of value keeps Polestar's numbers
+    for that item. `Gear.IsUpgrade` needs a gain of `Gear.FLB_GAIN` (0.05:
+    it reads 0.0 at one decimal), the bag arrows and auto-equip's slot follow
+    it, and the tooltip shows `Gear.PointsText` ("+6.1 (+8%) upgrade", "+3.0
+    upgrade (empty slot)"); the guide's reward pick shows the points too.
+  - `ScoreItem(link, offHand)` is `Gear.ScoreItem` (nil while it loads).
+  - An item link is passed as it is (its random suffix counts); a bare
+    `item:<id>` (reward lists, `Gear.QuestPick`) as the ID.
+  - `Gear.ScoredFor` says "Scored by Forever Leveling BiS (Fury)" (short:
+    "Scored by Forever Leveling BiS") while it answers with gains or weights.
+- A spec or custom scale chosen in Stat weights, or gear.useFlbis off, keeps
+  Polestar's own advice. `/polestar gear spec` says what of it is used. Tests:
+  `gear_flbis::*`, on a stub in the shapes of its reference (none, version 1
+  and no version, version 2, an answer still loading, Bear, answers that error
+  or make no sense).
 
 ### Adjusted weights — Gear/Adjust.lua, UI/GearAdjust.lua
 
@@ -6595,6 +6680,14 @@ Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer 
   hovered choice through `Polestar.Hooks`. Gear's "Best pick" line
   (`gear.pickTooltip`) appears only when its pick is an upgrade, so it never
   contradicts the coin. `gear.rewards` is the guide window's pick line only.
+- **What the arrows were scored for** (#2035): with an upgrade arrow drawn, a
+  line at the right of the panel's Rewards heading (`rewardsFrame.Header`):
+  the arrow (success) and `Gear.ScoredFor(true)` ("Scored for Arcane") in the
+  look's small font and the panel's own text colour (its `ItemChooseText`'s,
+  the quest material's), cut to the room the heading leaves. Its tooltip is
+  the full `Gear.ScoredFor()` and what a click does; a click runs
+  `Gear.ShowWeightsSetting`. A panel without the heading (the map's quest
+  details) has none.
 - **Another addon's quest dialog** (Polestar: UI's) draws its own marks from
   `ReadChoices(false)` and `Rank` while `QuestFrame` stays hidden: `Mark`
   draws only on the stock panel, and auto-pick runs on `QUEST_COMPLETE`
@@ -6605,14 +6698,6 @@ Polestar.QoL.Rewards.best, .reason                -- auto-pick's settled answer 
   to chat. `ReadChoices` and `Rank` don't check `Polestar.Hidden()`; only
   the marks (`Mark`) and that chat line do, so that window checks it
   itself and redraws on `POLESTAR_HIDDEN`.
-- **What the arrows were scored for** (#2035): with an upgrade arrow drawn, a
-  line at the right of the panel's Rewards heading (`rewardsFrame.Header`):
-  the arrow (success) and `Gear.ScoredFor(true)` ("Scored for Arcane") in the
-  look's small font and the panel's own text colour (its `ItemChooseText`'s,
-  the quest material's), cut to the room the heading leaves. Its tooltip is
-  the full `Gear.ScoredFor()` and what a click does; a click runs
-  `Gear.ShowWeightsSetting`. A panel without the heading (the map's quest
-  details) has none.
 
 ### Gossip the step asks for — QoL/Gossip
 

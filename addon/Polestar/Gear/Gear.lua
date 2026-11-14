@@ -7,7 +7,12 @@
 --       result = { score, old, new, delta, pct (nil for an empty slot), slot,
 --                  usable, reason ("class"|"armor"|"weapon"|"skill"|"dualwield"|nil),
 --                  minLevel (level it can be worn), equipped (this very item
---                  is worn), empty (the slot is empty) }
+--                  is worn), empty (the slot is empty), flbis (Forever
+--                  Leveling BiS's numbers: delta its gain in its score
+--                  points; slot, old and pct of the worn piece it measures
+--                  against, old and pct nil without one), pending (its
+--                  answer waits on loading item data: no delta yet, and not
+--                  cached) }
 --       Rings and trinkets replace the weaker of the two (a unique item only
 --       its own copy); a two-hander is weighed against main hand + off hand;
 --       a one-hander or off-hand piece against an equipped two-hander is
@@ -16,37 +21,52 @@
 --       must be treated as read-only.
 --   Gear.IsUpgrade(link) -> bool, delta, pct
 --       Wearable now (level and proficiency) and at least gear.minUpgrade
---       percent better (any gain fills an empty slot).
+--       percent better (any gain fills an empty slot); with Forever Leveling
+--       BiS's gains, at least 0.05 of its points (Gear.FLB_GAIN).
+--   Gear.PointsText(delta, pct) -> "+6.1 (+8%)", outsized: Forever Leveling
+--       BiS's gain as its tooltip shows it, with its share of what it replaces
 --   Gear.FillsEmptySlot(link) -> bool
 --       Wearable now into an empty slot and no worse than nothing (score 0
 --       or more): what the bag arrow adds to IsUpgrade, so a weapon the
 --       weights give no value (a staff for a Druid) still beats a bare hand.
---   Gear.GetSpec() -> key, label, source ("setting" | "talents" | "default" | "custom")
+--   Gear.GetSpec() -> key, label, source ("setting" | "talents" | "default" | "custom" | "flbis")
 --       label "<spec> (adjusted)" while the player has changed its weights
 --       (Adjust.lua; GetWeightsInfo().adjusted is how many)
 --       "custom": an imported Pawn scale (Pawn.lua); key is "custom:<id>", label
 --       "Custom: <name>", and its weights are used as they are, at every level.
 --       Automatic ("talents" | "default") is Gear.DetectSpec's pick, read again
---       when the talents load or change
+--       when the talents load or change; "flbis": the spec Forever Leveling
+--       BiS scores for (its API version 2, FLB.lua: the one picked in it, else
+--       its class's first), which Automatic takes; its Bear is "feral" with the
+--       label "Bear", its melee Survival "survival" with "Survival (melee)"
 --   Gear.DetectSpec(class, classID, all) -> key, source, report: the spec with
 --       the most talent points, by every way the client can say (report: what
 --       each said; `/polestar gear spec` prints it)
+--   Gear.UsesFLB(min) -> bool: Forever Leveling BiS's answers apply (its API
+--       at version `min` or later, Stat weights on Automatic, gear.useFlbis on):
+--       1 its bag arrows (Bags.lua), 2 its gains, scores, weights and spec
 --   Gear.ScoredFor(short) -> "Scored for Arcane, from your talents" | nil: the
---       weights the advice scored with, said under it (#2035)
+--       weights the advice scored with, said under it (#2035); "Scored by
+--       Forever Leveling BiS (Arcane)" while its scores decide
 --   Gear.ShowWeightsSetting(): Settings > Questing > Rewards & gear, Gear advice
 --   Gear.GetWeights() -> weights (read-only): the spec's band for this level
 --       (Gear.WEIGHT_BANDS, generated SpecData.lua), else the authored table
 --       (Weights.lua); Forever's own ratings, which no band weighs (haste,
---       expertise, armorPen), come from the authored table;
+--       expertise, armorPen), come from the authored table; the formula
+--       weights (health, mana, haste, expertise, armorPen) worked out for the
+--       band at the player's level (Gear.WeightsFor, docs/gear-weights.md);
 --       a small melee weapon DPS weight is added where the spec has none
 --       (Feral's is 14x its attack power weight), the share of a stat that a
 --       talent turns into another (Gear.TALENT_STATS: Mental Dexterity), and
---       the player's own changes on top (Gear.Adjust, Adjust.lua)
+--       the player's own changes on top (Gear.Adjust, Adjust.lua). While
+--       Forever Leveling BiS's scores decide: its weights, where it gives them
 --   Gear.GetWeightsInfo() -> { source, note, upTo, level } of the weights in use
+--       (source "flbis" for Forever Leveling BiS's)
 --   Gear.GetPlayer() -> { class, classID, level, race, raceID, faction } (read-only)
 --   Gear.GetRacial() -> the racial gear traits in use (Gear.RACIALS by raceID) | nil
 --   Gear.IsEnabled() -> bool
 --   Gear.Scales, Gear.Pawn: custom weights from Pawn scale strings (Pawn.lua)
+--   Gear.FLB: Forever Leveling BiS's public API, guarded (FLB.lua)
 --
 -- Item stats: the client's C_Item.GetItemStats (Forever's own numbers,
 -- including random "of the Bear" suffixes) when it answers; equip bonuses it
@@ -71,6 +91,8 @@ local floor = math.floor
 
 local CLASSES, WEIGHTS, PROFICIENCY = Gear.CLASSES, Gear.WEIGHTS, Gear.PROFICIENCY
 local BANDS = Gear.WEIGHT_BANDS or {}
+-- Forever Leveling BiS's API (FLB.lua); never usable when that file is not loaded.
+local FLB = Gear.FLB or { Version = function() return nil end }
 local RACIALS = Gear.RACIALS or {}
 
 ---------------------------------------------------------------------------
@@ -87,6 +109,7 @@ do
 		pickTooltip = true, -- "Best pick" on quest reward items' tooltips
 		bagArrows = true, -- the upgrade arrow on bag items (Bags.lua)
 		hideForPawn = false, -- no bag arrows while Pawn is installed (it draws its own)
+		useFlbis = true, -- Forever Leveling BiS's answers while it is installed and Stat weights is Automatic (FLB.lua)
 		useBags = true,
 		minUpgrade = 1, -- percent
 		spec = spec, -- per class: "auto" or a spec key
@@ -453,7 +476,7 @@ local MELEE_INV = { [13] = true, [17] = true, [21] = true, [22] = true }
 local OFFHAND_INV = { [14] = true, [22] = true, [23] = true }
 -- Armor-class items every class wears whatever their subclass says.
 local ANY_ARMOR_INV = { [2] = true, [11] = true, [12] = true, [16] = true, [23] = true }
-local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage
+local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage (weights without ohDps)
 local DUAL_WIELD_SPELL = 674
 
 -- C_Item.GetItemStats keys -> canonical stat keys. Unknown keys are ignored.
@@ -620,6 +643,8 @@ Gear.GetItemInfo = itemInfo
 
 local player = { class = nil, classID = nil, level = 1, race = nil, raceID = nil, faction = nil }
 local specKey, specSource, specReport, weights, weightsInfo, customLabel, customName, adjusted
+local scoredBy -- "flbis" while Forever Leveling BiS's scores decide (resolveSpec)
+local flbLabel -- the label of a spec of Forever Leveling BiS's that Polestar folds into its own (its Bear)
 local scoredText = {} -- Gear.ScoredFor's text by `short`, for the spec resolved now
 local weightTalents -- what the stat-turning talents added to the weights in use (withTalentStats)
 local racial
@@ -793,12 +818,45 @@ local function withForeverRatings(w, authored)
 	return c
 end
 
+-- Polestar's formula weights (Weights.lua's header, docs/gear-weights.md), on
+-- the band in use at the player's level: health and mana from Stamina's and
+-- Intellect's weights, haste and expertise from the band's crit and hit at the
+-- spec's own ratios in the authored table, armor penetration from its crit and
+-- a same-level mob's armor. A formula whose input the spec does not weigh
+-- leaves the value as it is. Cached per band and level.
+local withFormula = setmetatable({}, { __mode = "k" }) -- band weights -> { [level] = weights }
+
+local function withFormulaStats(w, class, authored, level)
+	if not (w and authored) then return w end
+	local byLevel = withFormula[w]
+	if not byLevel then
+		byLevel = {}
+		withFormula[w] = byLevel
+	end
+	local c = byLevel[level]
+	if c then return c end
+	c = {}
+	for k, v in pairs(w) do c[k] = v end
+	if (c.sta or 0) > 0 then c.health = c.sta / Gear.HEALTH_PER_STA end
+	local perCrit = Gear.IntPerSpellCrit(class, level)
+	if perCrit and (c.int or 0) > 0 then c.mana = math.max(0, c.int - (c.spellCrit or 0) / perCrit) / Gear.MANA_PER_INT end
+	-- Haste follows crit for weapon specs, spell crit for casters and healers.
+	local crit, ref = "crit", authored.crit or 0
+	if ref <= 0 then crit, ref = "spellCrit", authored.spellCrit or 0 end
+	if authored.haste and ref > 0 and (c[crit] or 0) > 0 then c.haste = c[crit] * authored.haste / ref end
+	if authored.expertise and (authored.hit or 0) > 0 and (c.hit or 0) > 0 then c.expertise = c.hit * authored.expertise / authored.hit end
+	if (authored.crit or 0) > 0 and (c.crit or 0) > 0 then c.armorPen = c.crit * Gear.ArmorShare(level) end
+	byLevel[level] = c
+	return c
+end
+
 -- The spec's weights at a level: the first band whose upTo covers it (the
 -- last band past the end), with Forever's own ratings from the authored
--- table, else the authored table; with a melee DPS weight where the spec has
--- none (above).
+-- table, else the authored table; with the formula weights (above) and a
+-- melee DPS weight where the spec has none.
 -- -> weights, info { source, note, upTo }
 function Gear.WeightsFor(class, key, level)
+	level = tonumber(level) or 60
 	local authored = WEIGHTS[class] and WEIGHTS[class][key]
 	local bands = BANDS[class] and BANDS[class][key]
 	if bands and #bands > 0 then
@@ -809,21 +867,23 @@ function Gear.WeightsFor(class, key, level)
 				break
 			end
 		end
-		return withMeleeDps(withForeverRatings(pick.weights, authored), class, key), pick
+		return withMeleeDps(withFormulaStats(withForeverRatings(pick.weights, authored), class, authored, level), class, key), pick
 	end
 	local w = authored
-	return withMeleeDps(w, class, key), w and { source = "polestar", upTo = 60 } or nil
+	return withMeleeDps(withFormulaStats(w, class, authored, level), class, key), w and { source = "polestar", upTo = 60 } or nil
 end
 
--- Talents that turn one stat into another, which the weights' sources could
--- not see (Classic formulas and sims know no Forever talent): by class, the
--- talent's spell and ranks, and per rank the share of `from` that counts as
--- `into`. The built-in weights in use get `from` raised by `into`'s weight
--- times that share times the ranks bought (a custom scale is used as it is).
---   Mental Dexterity (Enhancement, 3 ranks): 33/66/100% of Intellect as attack
---   power, as the 12 November 2026 patch notes give it (#2090; was 50/100/150%).
+-- Talents that turn one stat into another, which Polestar's weights' sources
+-- could not see (Classic formulas and sims know no Forever talent): by class,
+-- the talent's spell and ranks, and for the ranks bought the share of `from`
+-- that counts as `into`. Polestar's built-in weights in use get `from` raised
+-- by `into`'s weight times that share (a custom scale and Forever Leveling
+-- BiS's weights are used as they are).
+--   Mental Dexterity (Enhancement, 3 ranks): 33, 66 and 100% of Intellect as
+--   attack power since Forever's 12 November 2026 hotfix (the client's hotfix
+--   data, talent curve 85272; #2090), 50, 100 and 150% before.
 local TALENT_STATS = {
-	SHAMAN = { { spell = 415140, ranks = 3, from = "int", into = "ap", per = 1 / 3 } },
+	SHAMAN = { { spell = 415140, ranks = 3, from = "int", into = "ap", shares = { 0.33, 0.66, 1 } } },
 }
 Gear.TALENT_STATS = TALENT_STATS
 
@@ -842,7 +902,7 @@ local function withTalentStats(w, class)
 	local out, added = nil, nil
 	for _, t in ipairs(list) do
 		local r = math.min(ranks[t.spell] or 0, t.ranks)
-		local add = r * t.per * (w[t.into] or 0)
+		local add = (t.shares[r] or 0) * (w[t.into] or 0)
 		if add > 0 then
 			if not out then
 				out = {}
@@ -859,7 +919,7 @@ end
 local function resolveSpec()
 	if not player.class then refreshPlayer() end
 	local class = player.class
-	specReport, customLabel, customName, weightTalents, adjusted = nil, nil, nil, nil, 0
+	specReport, customLabel, customName, weightTalents, adjusted, scoredBy, flbLabel = nil, nil, nil, nil, 0, nil, nil
 	scoredText[true], scoredText[false] = nil, nil
 	if not (class and WEIGHTS[class]) then
 		specKey, specSource, weights, weightsInfo = nil, "default", nil, nil
@@ -876,7 +936,29 @@ local function resolveSpec()
 	if chosen and chosen ~= "auto" and WEIGHTS[class][chosen] then
 		specKey, specSource = chosen, "setting"
 	else
-		specKey, specSource, specReport = Gear.DetectSpec(class, player.classID)
+		-- Automatic: the spec Forever Leveling BiS scores for (its API version
+		-- 2: the one picked in it, else its class's first), else the talents.
+		local api = FLB.Version() or 0
+		local picked, itsSpec, setup, itsLabel
+		if api >= 2 then picked, itsSpec, setup, itsLabel = FLB.Spec(class) end
+		if picked then
+			specKey, specSource, flbLabel = picked, "flbis", itsLabel
+		else
+			specKey, specSource, specReport = Gear.DetectSpec(class, player.classID)
+		end
+		-- Automatic, with Forever Leveling BiS's scores (version 2): its gains
+		-- and scores (compare, Gear.ScoreItem) and, where it answers, its
+		-- weights wherever Gear weighs stats itself (pairing a one-hander with
+		-- a bag shield, say).
+		if api >= 2 then
+			if FLB.HasGain() then scoredBy = "flbis" end
+			local w, info = FLB.Weights(class, itsSpec, player.level, setup)
+			if w then
+				scoredBy = "flbis"
+				weights, weightsInfo = withMeleeDps(w, class, specKey), info
+				return
+			end
+		end
 	end
 	weights, weightsInfo = Gear.WeightsFor(class, specKey, player.level)
 	weights, weightTalents = withTalentStats(weights, class)
@@ -891,11 +973,20 @@ local function resolveSpec()
 	end
 end
 
+-- Whether Forever Leveling BiS's answers apply (FLB.lua): its API usable at
+-- version `min` or later (1: its bag arrows; 2: its gains, scores and spec)
+-- while Stat weights is on Automatic.
+function Gear.UsesFLB(min)
+	if not specSource then resolveSpec() end
+	if specSource == "setting" or specSource == "custom" then return false end
+	return (FLB.Version() or 0) >= (min or 1)
+end
+
 function Gear.GetSpec()
 	if not specSource then resolveSpec() end
 	if specSource == "custom" then return specKey, customLabel, specSource end
 	local spec = specKey and specByKey(player.class, specKey)
-	local label = spec and spec.label or nil
+	local label = (specSource == "flbis" and flbLabel) or (spec and spec.label) or nil
 	if label and adjusted > 0 then label = (L["%s (adjusted)"]):format(L[label]) end
 	return specKey, label, specSource
 end
@@ -918,6 +1009,10 @@ end
 local function scoredFor(short, key, label, source)
 	if source == "custom" then return (L["Scored with your custom weights: %s"]):format(customName or "") end
 	local name = label and L[label] or key
+	if scoredBy == "flbis" then
+		if short then return L["Scored by Forever Leveling BiS"] end
+		return (L["Scored by Forever Leveling BiS (%s)"]):format(name)
+	end
 	if short then return (L["Scored for %s"]):format(name) end
 	if source == "setting" then return (L["Scored for %s, as chosen in Settings"]):format(name) end
 	if source == "talents" then return (L["Scored for %s, from your talents"]):format(name) end
@@ -1011,7 +1106,7 @@ local function scoreWith(info, w, asOffhand)
 			if RANGED_INV[info.inv] then
 				s = s + (w.rdps or 0) * v
 			elseif MELEE_INV[info.inv] then
-				s = s + (w.dps or 0) * v * (asOffhand and OFFHAND_DPS or 1)
+				s = s + (asOffhand and (w.ohDps or (w.dps or 0) * OFFHAND_DPS) or (w.dps or 0)) * v
 			end
 		elseif SCHOOLS[k] then
 			school = school + (w[k] or 0) * v
@@ -1100,7 +1195,15 @@ function Gear.ScoreItem(link)
 	local w = Gear.GetWeights()
 	if not w then return nil end
 	if not usability(info) then return nil end
-	return scoreWith(info, w, info.inv == 22 or info.inv == 14 or info.inv == 23)
+	local asOff = info.inv == 22 or info.inv == 14 or info.inv == 23
+	-- Forever Leveling BiS's own score while its scores decide; none while it
+	-- is pending (the item loading), rather than Polestar's for a moment.
+	if scoredBy then
+		-- nil while it is pending, or for what it does not count as gear
+		local s, _, answered = FLB.Score(type(link) == "string" and link or info.id, asOff)
+		if answered then return s end
+	end
+	return scoreWith(info, w, asOff)
 end
 
 ---------------------------------------------------------------------------
@@ -1178,6 +1281,127 @@ local function option(r, slot, old, new, empty)
 	end
 end
 
+-- The least gain of Forever Leveling BiS's that reads as one: its gains are
+-- in score points, shown at one decimal, so below 0.05 one reads as 0.0.
+local FLB_GAIN = 0.05
+Gear.FLB_GAIN = FLB_GAIN
+
+-- Where an item can go, as compare weighs it, and so where Forever Leveling
+-- BiS's gain may have put it: { slot, off (the item scored as an off hand),
+-- worn = { { slot, off }, ... } (the worn pieces it takes the place of: both
+-- hands for a two-hander; a worn two-hander for a piece for either hand) }.
+local function flbPlaces(info)
+	local inv = info.inv
+	local main = eqInfo[MAIN]
+	local twoHander = main and main.inv == 17
+	if inv == 17 then return { { slot = MAIN, off = false, worn = { { MAIN, false }, { OFF, true } } } } end
+	local slots = SLOTS_OF[inv]
+	if inv == 11 or inv == 12 then
+		local a, b = slots[1], slots[2]
+		return { { slot = a, off = false, worn = { { a, false } } }, { slot = b, off = false, worn = { { b, false } } } }
+	end
+	if inv == 13 or inv == 21 or OFFHAND_INV[inv] then
+		local out = {}
+		if inv == 13 or inv == 21 then out[#out + 1] = { slot = MAIN, off = false, worn = { { MAIN, false } } } end
+		if OFFHAND_INV[inv] or (inv == 13 and canDualWield()) then
+			out[#out + 1] = { slot = OFF, off = true, worn = { twoHander and { MAIN, false } or { OFF, true } } }
+		end
+		return out
+	end
+	return { { slot = slots[1], off = false, worn = { { slots[1], false } } } }
+end
+
+-- Forever Leveling BiS's scores at a place: the item's there (`new`) and the
+-- worn pieces' it takes the place of (`old`, 0 for none, nil when it gives
+-- one of them no score). -> new, old, empty, pending, answered
+local function flbAt(link, p)
+	local new, pending, answered = FLB.Score(link, p.off)
+	if not answered then return nil, nil, false, false, false end
+	local old, empty = 0, true
+	for _, w in ipairs(p.worn) do
+		local worn = eqLink[w[1]]
+		if worn then
+			empty = false
+			local s, wp, wa = FLB.Score(worn, w[2])
+			if not wa then return nil, nil, false, false, false end
+			pending = pending or wp
+			old = (old and s) and old + s or nil
+		end
+	end
+	return new, old, empty, pending, true
+end
+
+-- The least gain of Forever Leveling BiS's that reads as one: its gains are
+-- in score points, shown at one decimal, so below 0.05 one reads as 0.0.
+local FLB_GAIN = 0.05
+Gear.FLB_GAIN = FLB_GAIN
+-- How near its scores must come to its gain to say which worn piece the gain
+-- was measured against.
+local FLB_MATCH = 0.01
+
+-- While Forever Leveling BiS's scores decide (its API version 2): its gain
+-- (GetGain: in its score points, the number its tooltip shows) is the
+-- upgrade amount. The worn piece it was measured against is the place where
+-- its scores (ScoreItem: the item there less what it takes the place of) give
+-- that gain: its slot is the result's (the ring or trinket it would replace,
+-- the hand a one-hander goes in), its score `old`, and pct the gain's share
+-- of it. With an empty slot, a worn piece it gives no score (or 0), or no
+-- place its scores agree with, there is no share: pct nil ("+6.1 upgrade").
+--   * Pending (the item, or the worn gear, loading): no amount and no score
+--     yet, rather than Polestar's own for a moment; not cached, so asked
+--     again once its answers change (its OnChanged) or the item's data
+--     arrives (GET_ITEM_INFO_RECEIVED), both of which redo gear advice.
+--   * No gain (it cannot be worn now, is not gear to it, or is lighter armor
+--     while its Armor type is Class type): not for this character now, so no
+--     line and no mark; an item for a later level gets its score against the
+--     gear it would replace (the place it gains most at), for "upgrade at
+--     level N".
+--   * No answer from GetGain (an error, a value of another kind): Polestar's
+--     own numbers for this item.
+local function flbCompare(r, info, link)
+	if type(link) ~= "string" then link = info.id end
+	local gain, pending, answered = FLB.Gain(link)
+	if not answered then return end
+	local places = flbPlaces(info)
+	for _, p in ipairs(places) do
+		p.new, p.old, p.empty, p.pending = flbAt(link, p)
+		pending = pending or p.pending
+	end
+	r.flbis = true
+	if pending then
+		r.pending = true
+		r.score, r.old, r.new, r.delta, r.pct = nil, nil, nil, nil, nil
+		return
+	end
+	local at
+	if gain ~= nil then
+		for _, p in ipairs(places) do
+			if p.new and p.old and math.abs(p.new - p.old - gain) < FLB_MATCH and (not at or p.slot == r.slot) then at = p end
+		end
+	elseif (r.minLevel or 0) > player.level then
+		for _, p in ipairs(places) do
+			if p.new and p.old and (not at or p.new - p.old > at.new - at.old) then at = p end
+		end
+		if at then gain = at.new - at.old end
+	end
+	if gain == nil then
+		r.usable, r.reason = false, nil
+		r.score, r.old, r.new, r.delta, r.pct = nil, nil, nil, nil, nil
+		return
+	end
+	if at then
+		r.slot, r.empty, r.score, r.old, r.new = at.slot, at.empty, at.new, at.old, at.old + gain
+	else
+		-- No place its scores agree with: its gain alone, at compare's slot.
+		r.score, r.old, r.new = nil, nil, nil
+		for _, p in ipairs(places) do
+			if p.slot == r.slot then r.score = p.new end
+		end
+	end
+	r.delta = gain
+	r.pct = (r.old and r.old > 0 and not r.empty) and gain / r.old * 100 or nil
+end
+
 local function compare(link)
 	local info = itemInfo(link)
 	if not info then return nil end
@@ -1236,6 +1460,7 @@ local function compare(link)
 		option(r, slot, eqScore[slot], r.score, not eqLink[slot])
 	end
 	if r.old and r.old > 0 and not r.empty then r.pct = r.delta / r.old * 100 end
+	if scoredBy and not r.equipped then flbCompare(r, info, link) end
 	return r
 end
 
@@ -1248,8 +1473,11 @@ function Gear.CompareToEquipped(link)
 		resultCount = 0
 	end
 	local r = compare(link)
-	resultCache[link] = r or false
-	resultCount = resultCount + 1
+	-- A pending answer is asked again next time.
+	if not (r and r.pending) then
+		resultCache[link] = r or false
+		resultCount = resultCount + 1
+	end
 	return r
 end
 
@@ -1257,7 +1485,9 @@ function Gear.IsUpgrade(link)
 	local r = Gear.CompareToEquipped(link)
 	if not (r and r.usable and r.delta) then return false, nil end
 	if r.equipped then return false, 0, 0 end
-	local up = r.delta > 0 and (r.minLevel or 0) <= player.level
+	-- Forever Leveling BiS's gain counts from where its tooltip shows one:
+	-- +0.1 at one decimal (FLB_GAIN).
+	local up = r.delta >= (r.flbis and FLB_GAIN or 0) and r.delta > 0 and (r.minLevel or 0) <= player.level
 	if up and r.pct then up = r.pct >= (tonumber(ns.Get("gear.minUpgrade")) or 0) end
 	return up and true or false, r.delta, r.pct
 end
@@ -1273,7 +1503,7 @@ end
 ---------------------------------------------------------------------------
 
 local function invalidate(what)
-	if what == "spec" or what == "level" then specSource = nil end
+	if what == "spec" or what == "level" or what == "flbis" then specSource = nil end
 	if what == "items" then
 		for k in pairs(infoCache) do infoCache[k] = nil end
 		infoCount = 0
@@ -1359,8 +1589,19 @@ function Gear.GainText(pct)
 	return (pct >= 0 and "+" or "-") .. n .. "%", false
 end
 
+-- Forever Leveling BiS's gain in its score points, as its own tooltip shows
+-- it ("+6.1"), with its share of what it replaces where that says something
+-- ("+6.1 (+8%)"), and words past doubling ("+6.1 big upgrade").
+-- -> text, outsized
+function Gear.PointsText(delta, pct)
+	local text = ("%+.1f"):format(delta)
+	if pct and pct >= BIG then return text .. " " .. L["big upgrade"], true end
+	if pct and math.abs(pct) >= 1 then text = text .. " (" .. (Gear.GainText(pct)) .. ")" end
+	return text, false
+end
+
 -- Where the spec in use came from (Gear.GetSpec's source).
-local SPEC_SOURCE = { setting = L["setting"], talents = L["talents"], default = L["default"], custom = L["custom"] }
+local SPEC_SOURCE = { setting = L["setting"], talents = L["talents"], default = L["default"], custom = L["custom"], flbis = "Forever Leveling BiS" }
 
 -- /polestar gear spec: what each way of reading the talents found, and what
 -- Automatic picks from it and why, for a player to paste into a report.
@@ -1415,6 +1656,13 @@ function Gear.PrintSpecReport()
 		line(("%s: %s %d/%d, %s +%.2f"):format(L["Talents in the weights"], Client.SpellName(t.spell) or ("#" .. t.spell),
 			t.ranks, t.max, STAT_NAME[t.from] or t.from, t.add))
 	end
+	-- Forever Leveling BiS, when it is installed: what of it gear advice uses.
+	if FLB.Installed and FLB.Installed() then
+		local v = FLB.Version()
+		local how = (not v and L["not used: off in Settings"]) or (scoredBy and L["its gains, scores and spec are used"])
+			or (Gear.UsesFLB(1) and L["its bag arrows are used"]) or L["not used while Stat weights names a spec or custom weights"]
+		line(v and (L["Forever Leveling BiS (API version %d): %s"]):format(v, how) or (L["Forever Leveling BiS: %s"]):format(how))
+	end
 end
 
 -- /polestar gear scales: the custom scales for this class, the chosen one marked.
@@ -1462,17 +1710,26 @@ ns.RegisterCommand("gear", function(rest)
 	if label and source ~= "custom" then label = L[label] end
 	if rest == nil or rest == "" then
 		ns.Print(L["Gear weights"] .. ": " .. tostring(label) .. " (" .. (SPEC_SOURCE[source] or tostring(source)) .. ")")
+		if scoredBy then DEFAULT_CHAT_FRAME:AddMessage("  " .. Gear.ScoredFor()) end
 		DEFAULT_CHAT_FRAME:AddMessage("  " .. L["Choose them in Settings > Questing > Rewards & gear > Stat weights. /polestar gear spec: how Automatic picks them."])
 		return
 	end
 	local r = Gear.CompareToEquipped(rest)
-	if not r then
+	if not r or r.pending then
 		ns.Print(L["Not equippable gear, or its stats are not known yet"])
 	elseif not r.usable then
-		ns.Print(L["Not usable by your class"])
+		ns.Print(r.flbis and L["Forever Leveling BiS gives it no gain now"] or L["Not usable by your class"])
 	elseif r.equipped then
 		ns.Print(L["Equipped"])
 	else
-		ns.Print(("%s: %.1f -> %.1f (%s)"):format(tostring(label), r.old or 0, r.new or 0, r.pct and (Gear.GainText(r.pct)) or L["empty slot"]))
+		-- Forever Leveling BiS's gain in its score points, as its tooltip shows
+		-- it; with no worn score its gain measures against, the gain alone.
+		local gain = (r.flbis and (Gear.PointsText(r.delta, r.pct))) or (r.empty and L["empty slot"])
+			or (r.pct and (Gear.GainText(r.pct))) or L["empty slot"]
+		if r.flbis and not r.old then
+			ns.Print(("%s: %s"):format(tostring(label), gain))
+		else
+			ns.Print(("%s: %.1f -> %.1f (%s)"):format(tostring(label), r.old or 0, r.new or 0, gain))
+		end
 	end
 end, L["Gear advice: weights in use, or compare an item link"])

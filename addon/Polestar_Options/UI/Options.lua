@@ -790,7 +790,8 @@ local function buildAbout(view)
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
-		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."])
+		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
+		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
 	local maintH = W.SectionHeader(view)
 	W.SetSection(maintH, L["Maintenance"])
 	-- The profile in use is what goes back: the dialog says whose it is, and

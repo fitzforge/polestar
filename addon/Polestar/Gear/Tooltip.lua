@@ -1,7 +1,9 @@
 -- Gear lines on item tooltips (bags, loot, vendors, quest rewards, chat
 -- links, dungeon loot: every item tooltip Polestar.Hooks sees):
 --   * is it an upgrade at this level, against what it would replace
---     ("Polestar   +12.4% upgrade · Head")
+--     ("Polestar   +12.4% upgrade · Head"; with Forever Leveling BiS's gains,
+--     in its score points as its own tooltip shows them, and their share of
+--     what the item replaces: "Polestar   +6.1 (+8%) upgrade · Head")
 --   * on a quest reward choice, whether it is the one to take ("Best pick"),
 --     when that pick is an upgrade; with none, the reward panel's own mark
 --     (QoL: the choice that sells for most) decides, so nothing is said here
@@ -75,8 +77,24 @@ function Gear.TooltipLine(link)
 	local right, cr, cg, cb
 	local later = (r.minLevel or 0) > (Gear.PlayerLevel and Gear.PlayerLevel() or 0)
 	if r.empty then
+		-- Forever Leveling BiS's gain over nothing, in its score points.
 		right = L["upgrade (empty slot)"]
+		if r.flbis and r.delta >= Gear.FLB_GAIN then right = Gear.PointsText(r.delta) .. " " .. right end
 		cr, cg, cb = color("success", 0.42, 0.85, 0.6)
+	elseif r.flbis then
+		-- Forever Leveling BiS's gain, in its score points, with its share of
+		-- the worn piece it measures against where there is one (Gear.PointsText).
+		if abs(r.delta) < Gear.FLB_GAIN then
+			right = L["same as equipped"]
+			cr, cg, cb = color("textMuted", 0.5, 0.54, 0.63)
+		elseif r.delta > 0 then
+			local text, outsized = Gear.PointsText(r.delta, r.pct)
+			right = outsized and text or (text .. " " .. L["upgrade"])
+			cr, cg, cb = color("success", 0.42, 0.85, 0.6)
+		else
+			right = Gear.PointsText(r.delta, r.pct) .. " " .. L["downgrade"]
+			cr, cg, cb = color("danger", 0.96, 0.45, 0.45)
+		end
 	elseif not r.pct or abs(r.pct) < SAME then
 		right = L["same as equipped"]
 		cr, cg, cb = color("textMuted", 0.5, 0.54, 0.63)
@@ -88,7 +106,7 @@ function Gear.TooltipLine(link)
 		right = Gear.GainText(r.pct) .. " " .. L["downgrade"]
 		cr, cg, cb = color("danger", 0.96, 0.45, 0.45)
 	end
-	if later and (r.empty or (r.pct and r.pct > 0)) then
+	if later and (r.empty or (r.flbis and r.delta >= Gear.FLB_GAIN) or (not r.flbis and r.pct and r.pct > 0)) then
 		right = right .. " " .. L["at level"] .. " " .. r.minLevel
 		cr, cg, cb = color("warning", 0.98, 0.75, 0.3)
 	end
