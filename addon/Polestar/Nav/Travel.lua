@@ -588,18 +588,26 @@ end
 
 -- Walking from crossing end `e` to its partner: its data caption, else
 -- "Walk to <zone>" (0.3.7; it read "Go to <zone>", the Journey's twice
--- over: the walk to the crossing and the walk across it).
-local function crossCaption(e)
-	return e.caption or format(L["Walk to %s"], zoneName(e.partner.map))
+-- over: the walk to the crossing and the walk across it). `ride`: the
+-- character can ride (ns.CanRide), "Ride to <zone>".
+local function crossCaption(e, ride)
+	return e.caption or format(ride and L["Ride to %s"] or L["Walk to %s"], zoneName(e.partner.map))
 end
 
 -- The captions of the legs to and on a boat, zeppelin, tram or portal,
--- translated (this file loads after the locale file).
+-- translated (this file loads after the locale file); RIDE_TO for a
+-- character who can ride.
 local WALK_TO = {
 	boat = L["Walk to the boat"],
 	zeppelin = L["Walk to the zeppelin tower"],
 	tram = L["Walk to the Deeprun Tram"],
 	portal = L["Walk to the portal"],
+}
+local RIDE_TO = {
+	boat = L["Ride to the boat"],
+	zeppelin = L["Ride to the zeppelin tower"],
+	tram = L["Ride to the Deeprun Tram"],
+	portal = L["Ride to the portal"],
 }
 local TAKE = {
 	boat = L["Take the boat to %s"],
@@ -1186,9 +1194,10 @@ local function planRoute(p)
 	local function waypointLabel(before, w, after)
 		local nd = vref[w]
 		if vkind[w] == CROSS then
-			if before == 1 and onCross[w] then return crossCaption(nd.partner) end
-			if before and vkind[before] == CROSS and vref[before].partner == nd then return crossCaption(vref[before]) end
-			if after and vkind[after] == CROSS and vref[after] == nd.partner then return crossCaption(nd) end
+			local ride = ns.CanRide()
+			if before == 1 and onCross[w] then return crossCaption(nd.partner, ride) end
+			if before and vkind[before] == CROSS and vref[before].partner == nd then return crossCaption(vref[before], ride) end
+			if after and vkind[after] == CROSS and vref[after] == nd.partner then return crossCaption(nd, ride) end
 			return L["Walk"]
 		end
 		local inward = true
@@ -1272,9 +1281,9 @@ local function planRoute(p)
 				leg.radius, leg.waypoint = vref[to].r, true
 				leg.step = k == CROSS and "crossing" or "chain"
 			elseif k == TAXI then
-				leg.label = L["Walk to the flight master"]
+				leg.label = ns.CanRide() and L["Ride to the flight master"] or L["Walk to the flight master"]
 			elseif k == DOCK then
-				leg.label = WALK_TO[dockOf[to].kind] or WALK_TO.boat
+				leg.label = ns.CanRide() and (RIDE_TO[dockOf[to].kind] or RIDE_TO.boat) or (WALK_TO[dockOf[to].kind] or WALK_TO.boat)
 			elseif k == TARGET then
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
@@ -2257,6 +2266,14 @@ local CHOKE_BARE = {
 	building = L["Walk to the entrance"],
 	lift = L["Walk to the lift"],
 }
+-- A character who can ride (ns.CanRide): the walks to a cave or building
+-- mouth, by place, zone or bare; every other kind keeps its caption above
+-- (a lift's walk leads to a ride of its own).
+local CHOKE_RIDE = {
+	to = { cave = L["Ride to the %s cave mouth"], building = L["Ride to the %s entrance"] },
+	zone = { cave = L["Ride to the cave mouth in %s"], building = L["Ride to the entrance in %s"] },
+	bare = { cave = L["Ride to the cave mouth"], building = L["Ride to the entrance"] },
+}
 
 local function present(s)
 	return type(s) == "string" and s ~= "" and s ~= "Unknown" and s or nil
@@ -2289,6 +2306,7 @@ end
 -- A stop's caption: never empty, never "Unknown".
 local function stopLabel(s, c)
 	local kind = CHOKE_BARE[s.kind] and s.kind or "pass"
+	local ride = ns.CanRide() and CHOKE_RIDE or nil
 	local place = s.kind == "lift" and present(s.name) or present(s.to) or present(s.name)
 	if place then
 		if s.kind == "lift" and (s.side == "top" or s.side == "bottom") then
@@ -2296,11 +2314,11 @@ local function stopLabel(s, c)
 		elseif s.kind == "building" and innDoor(c, s.wx, s.wy) then
 			place = format(L["%s Inn"], place)
 		end
-		return format(CHOKE_TO[kind], place)
+		return format(ride and ride.to[kind] or CHOKE_TO[kind], place)
 	end
 	local zone = stopZone(s, c)
-	if zone then return format(CHOKE_IN[kind], zone) end
-	return CHOKE_BARE[kind]
+	if zone then return format(ride and ride.zone[kind] or CHOKE_IN[kind], zone) end
+	return ride and ride.bare[kind] or CHOKE_BARE[kind]
 end
 
 -- A crossing, a chain node, or the walk's own hand-made end near (c, wx, wy).

@@ -822,6 +822,24 @@ fn k1_k5_a_walk_is_split_at_the_chokepoints_on_its_path_each_step_named_snapped_
 	assert_eq!(out["lift"], json!(["lift", "bottom", -520]), "the ride goes to the paired landing");
 }
 
+// A character with the riding skill (line 762), set before the split names its steps.
+const RIDER: &str = "\nPolestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end\n";
+
+#[test]
+fn a_character_who_can_ride_rides_to_a_cave_mouth_the_walk_to_a_lift_s_landing_still_says_walk() {
+	let out = run(&format!(
+		"{RIDER}{}{}",
+		split(),
+		r#"
+		emit(labels())"#
+	));
+	assert_eq!(
+		out,
+		json!(["walk|Cross the bridge to Lakeshire", "walk|Ride to the cave mouth in Testshire", "walk|Walk to The Great Lift, Bottom", "lift|Ride the elevator up", "walk|Target",]),
+		"the cave mouth reads ride; the bridge keeps its caption and the walk to the lift still says walk"
+	);
+}
+
 // The Undercity's canals lie under the Ruins: a chokepoint there is no stop for a walk over the Ruins above it.
 #[test]
 fn a_chokepoint_more_than_30_yd_above_or_below_the_path_is_no_stop_one_on_the_paths_floor_is() {

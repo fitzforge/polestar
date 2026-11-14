@@ -141,6 +141,18 @@ function ns.FormatDistance(yards, opts)
 	return L["%d yd"]:format(math.floor(yards / round + 0.5) * round)
 end
 
+-- True when the character has the riding skill, so an overland leg reads
+-- "Ride to ..." instead of "Walk to ..." (Nav/Travel.lua, the Engine's arrow,
+-- the journey panel). Checked when a route's captions are made, not whether
+-- the player is mounted now; false while the skills are not known yet.
+-- 762: Compat.SKILL_LINES' riding, the line QoL/Riding.lua reads too.
+local RIDING = 762
+function ns.CanRide()
+	local C = ns.Compat
+	local rank = C and C.GetSkillRank and C.GetSkillRank(RIDING)
+	return type(rank) == "number" and rank > 0
+end
+
 -- The rolling debug log: the last DEBUG_LINES lines Polestar noted (ns.Debug,
 -- caught errors, blocked calls), kept whether or not debug output is on, so
 -- a report carries what led up to a problem (UI/Report.lua). A ring: one
