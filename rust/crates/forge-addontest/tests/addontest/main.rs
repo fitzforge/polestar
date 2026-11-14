@@ -3,6 +3,8 @@
 #![recursion_limit = "512"]
 mod alts;
 mod api;
+#[path = "auction-buys.rs"]
+mod auction_buys;
 mod automation;
 #[path = "automation-accept-off.rs"]
 mod automation_accept_off;
@@ -97,6 +99,8 @@ mod engine_field_route;
 mod engine_flights;
 #[path = "engine-focus.rs"]
 mod engine_focus;
+#[path = "engine-gather-spots.rs"]
+mod engine_gather_spots;
 #[path = "engine-grind.rs"]
 mod engine_grind;
 #[path = "engine-group-default.rs"]
@@ -119,6 +123,8 @@ mod engine_level_wait;
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]
 mod engine_manual;
+#[path = "engine-materials.rs"]
+mod engine_materials;
 #[path = "engine-money-task.rs"]
 mod engine_money_task;
 #[path = "engine-next-when.rs"]
@@ -420,6 +426,8 @@ mod ui_look_theme;
 mod ui_look_toasts;
 #[path = "ui-lookup.rs"]
 mod ui_lookup;
+#[path = "ui-materials.rs"]
+mod ui_materials;
 #[path = "ui-movers.rs"]
 mod ui_movers;
 #[path = "ui-options.rs"]

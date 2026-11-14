@@ -1829,6 +1829,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	check_labels(&steps, r);
 	check_along_goals(&gsteps.items(), r);
 	check_background(&steps, &gsteps.items(), r);
+	check_materials(&gsteps.items(), r);
 	guide
 }
 
@@ -1951,6 +1952,77 @@ fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
 				);
 			}
 		}
+	}
+}
+
+/// A profession material is gathered or bought, one way at a time (Core/Materials.lua): a `collect … gather` needs
+/// an `auction` goal for its item in the same section (the same guide without sections), or a player who buys it
+/// would find nothing that buys this range's share. Mirrors tools/lib/dsl/resolve.js checkMaterials.
+fn check_materials(steps: &[V], r: &mut R) {
+	let key = |step: &V, goal: &V| {
+		let section = if step.get("section").is_undef() { "0".to_string() } else { step.get("section").to_js_string() };
+		format!("{section}:{}", goal.get("item").to_js_string())
+	};
+	let mut bought: Vec<String> = Vec::new();
+	for step in steps {
+		for goal in step.get("goals").items() {
+			if goal.get("t").as_str() == Some("auction") {
+				bought.push(key(step, &goal));
+			}
+		}
+	}
+	for step in steps {
+		for goal in step.get("goals").items() {
+			if goal.get("t").as_str() != Some("collect") || !goal.get("gather").truthy() || bought.contains(&key(step, &goal)) {
+				continue;
+			}
+			r.warn(
+				&goal.hidden("_line"),
+				format!(
+					"`gather` with no `auction` goal for item {} in its {}: a player who buys materials has nothing that buys it here",
+					goal.get("item"),
+					if step.get("section").is_undef() { "guide" } else { "section" }
+				),
+				Some("add `auction <item> xN` to the Auction House step of this section, or drop `gather` (the item is then always gathered)"),
+			);
+		}
+	}
+}
+
+/// `collect … gather`: the item's gather way, which Core/Materials.lua weighs against the section's `auction` goal
+/// for it: true, or what the way takes ({ skill, skillLine, rank }: a profession at that rank; { min, max }: the
+/// levels of the mobs it drops from).
+fn gather_way(g: &V, ln: &V, r: &mut R) -> V {
+	let data = r.data;
+	if !g.get("quest").is_undef() {
+		r.err(ln, "`collect … gather` is a profession material, a bag count: drop `quest` (quest objectives use the quest’s own targets)", None);
+	}
+	if g.get("count").is_undef() {
+		r.err(ln, "`collect … gather` needs a count: `collect <item> xN … gather`", None);
+	}
+	let way = V::obj();
+	if !g.get("gatherSkill").is_undef() {
+		let name = g.get("gatherSkill").to_js_string();
+		let p = data.profession_named(&name);
+		if p.truthy() {
+			way.set("skill", p.get("name").to_js_string());
+			way.set("skillLine", p.get("id"));
+		} else if g.get("gatherSkillQuoted").truthy() {
+			way.set("skill", name.as_str());
+			r.warn(ln, format!("profession \"{name}\" is not in data{}; using the explicit name (new Forever content?)", if data.has_professions { "" } else { " (professions.json missing)" }), None);
+		} else {
+			r.err(ln, format!("unknown profession \"{name}\"; quote the name to use it anyway: `gather \"{name}\" {}`", g.get("gatherRank")), None);
+		}
+		way.set("rank", g.get("gatherRank"));
+	}
+	if !g.get("gatherMin").is_undef() {
+		way.set("min", g.get("gatherMin"));
+		way.set("max", g.get("gatherMax"));
+	}
+	if way.keys().is_empty() {
+		V::Bool(true)
+	} else {
+		way
 	}
 }
 
@@ -2704,6 +2776,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			"collect" => {
 				goal.set("item", g.get("item"));
 				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if g.get("gather").truthy() {
+					goal.set("gather", gather_way(g, &ln, r));
+				}
 				let it = data.item(&g.get("item"));
 				let mut sources: Vec<V> = Vec::new();
 				if it.truthy() && it.get("drops").truthy() {
@@ -2984,6 +3059,22 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					candidates = ids.into_iter().map(|id| cand("npc", id)).collect();
 				}
 				check_kinds = Some(candidates.clone());
+			}
+			"auction" => {
+				// Bought at the Auction House: the arrow leads to the nearest auctioneer of the player's faction (the
+				// neutral houses are another market and carry no faction).
+				goal.set("item", g.get("item"));
+				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if g.get("count").is_undef() {
+					r.err(&ln, "`auction` needs a count: `auction <item> xN`", None);
+				} else {
+					goal.set("count", g.get("count"));
+				}
+				let key = g.get("item").to_js_string();
+				if data.professions.values().any(|p| p.get("materials").get(&key).get("bop").truthy()) {
+					r.err(&ln, format!("item {} binds when picked up: the Auction House never has it", g.get("item")), Some("gather it with a `collect` step instead"));
+				}
+				smart(&sm, r, &goal, &npcs("auctioneer"), "auctioneer");
 			}
 			"level" => {
 				goal.set("level", g.get("level"));

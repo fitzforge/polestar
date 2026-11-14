@@ -104,6 +104,8 @@ pub const GOAL_KEYS: [&str; 84] = [
 	"item",
 	"itemName",
 	"count",
+	// A `collect … gather`: the item's gather way, true or { max, min, rank, skill, skillLine } (Core/Materials.lua).
+	"gather",
 	"oi",
 	"skill",
 	"skillLine",

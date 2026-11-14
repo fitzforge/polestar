@@ -1166,5 +1166,65 @@
     ]
    }
   }
+ },
+ "8719": {
+  "faction": "A",
+  "id": 8719,
+  "level": 50,
+  "name": "Auctioneer Fitch",
+  "roles": [
+   "auctioneer"
+  ],
+  "spawns": {
+   "1453": {
+    "f": "e",
+    "pts": [
+     [
+      61.4,
+      70.6
+     ]
+    ]
+   }
+  }
+ },
+ "95050": {
+  "faction": "H",
+  "id": 95050,
+  "level": 50,
+  "name": "Razor Hill Auctioneer",
+  "roles": [
+   "auctioneer"
+  ],
+  "spawns": {
+   "1411": {
+    "f": "e",
+    "pts": [
+     [
+      52.5,
+      41.0
+     ]
+    ]
+   }
+  }
+ },
+ "95051": {
+  "faction": null,
+  "id": 95051,
+  "level": 50,
+  "name": "Booty Bay Auctioneer",
+  "roles": [
+   "auctioneer"
+  ],
+  "spawns": {
+   "1434": {
+    "f": "e",
+    "pts": [
+     [
+      26.5,
+      76.0
+     ]
+    ]
+   }
+  }
  }
 }

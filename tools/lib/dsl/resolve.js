@@ -1019,6 +1019,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	checkLabels(ast.steps, err);
 	checkAlongGoals(guide.steps, warn);
 	checkBackground(ast.steps, guide.steps, err);
+	checkMaterials(guide.steps, warn);
 	return guide;
 }
 
@@ -1100,6 +1101,22 @@ function checkBackground(steps, compiled, err) {
 			}
 		}
 	});
+}
+
+// A profession material is gathered or bought, one way at a time (Core/Materials.lua): a `collect … gather`
+// needs an `auction` goal for its item in the same section (the same guide without sections), or a player who
+// buys it would find nothing that buys this range's share. Mirrors forge-guide's resolve.rs check_materials.
+function checkMaterials(steps, warn) {
+	const bought = new Set(); // "section:item"
+	for (const step of steps) {
+		for (const goal of step.goals) if (goal.t === 'auction') bought.add(`${step.section || 0}:${goal.item}`);
+	}
+	for (const step of steps) {
+		for (const goal of step.goals) {
+			if (goal.t !== 'collect' || !goal.gather || bought.has(`${step.section || 0}:${goal.item}`)) continue;
+			warn(goal._line, `\`gather\` with no \`auction\` goal for item ${goal.item} in its ${step.section ? 'section' : 'guide'}: a player who buys materials has nothing that buys it here`, 'add `auction <item> xN` to the Auction House step of this section, or drop `gather` (the item is then always gathered)');
+		}
+	}
 }
 
 // What an accept of quest `id` (record `q`, or null) waits on, for the
@@ -1463,6 +1480,33 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		}
 	};
 
+	// `collect … gather`: the item's gather way, which Core/Materials.lua weighs against the section's `auction`
+	// goal for it: true, or what the way takes ({ skill, skillLine, rank } a profession at that rank, { min, max }
+	// the levels of the mobs it drops from).
+	const gatherWay = () => {
+		if (g.quest !== undefined) err(ln, '`collect … gather` is a profession material, a bag count: drop `quest` (quest objectives use the quest’s own targets)');
+		if (g.count === undefined) err(ln, '`collect … gather` needs a count: `collect <item> xN … gather`');
+		const way = {};
+		if (g.gatherSkill !== undefined) {
+			const p = data.professionNamed(g.gatherSkill);
+			if (p) {
+				way.skill = String(p.name);
+				way.skillLine = p.id;
+			} else if (g.gatherSkillQuoted) {
+				way.skill = g.gatherSkill;
+				warn(ln, `profession "${g.gatherSkill}" is not in data${data.hasProfessions ? '' : ' (professions.json missing)'}; using the explicit name (new Forever content?)`);
+			} else {
+				err(ln, `unknown profession "${g.gatherSkill}"; quote the name to use it anyway: \`gather "${g.gatherSkill}" ${g.gatherRank}\``);
+			}
+			way.rank = g.gatherRank;
+		}
+		if (g.gatherMin !== undefined) {
+			way.min = g.gatherMin;
+			way.max = g.gatherMax;
+		}
+		return Object.keys(way).length ? way : true;
+	};
+
 	switch (v) {
 		case 'accept':
 		case 'turnin':
@@ -1539,6 +1583,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		case 'collect': {
 			goal.item = g.item;
 			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
+			if (g.gather) goal.gather = gatherWay();
 			const it = data.item(g.item);
 			const sources = [];
 			if (it && it.drops) {
@@ -1779,6 +1824,19 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 				candidates = ((it && it.vendors) || []).slice().sort((a, b) => a - b).map((id) => ({ kind: 'npc', id }));
 			}
 			checkKinds = candidates;
+			break;
+		}
+		case 'auction': {
+			// Bought at the Auction House: the arrow leads to the nearest auctioneer of the player's faction (the
+			// neutral houses are another market and carry no faction).
+			goal.item = g.item;
+			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
+			if (g.count === undefined) err(ln, '`auction` needs a count: `auction <item> xN`');
+			else goal.count = g.count;
+			if ([...data.professions.values()].some((p) => p.materials && p.materials[g.item] && p.materials[g.item].bop)) {
+				err(ln, `item ${g.item} binds when picked up: the Auction House never has it`, 'gather it with a `collect` step instead');
+			}
+			smart(goal, data.npcsWithRole('auctioneer').map((id) => ({ npc: id })), 'auctioneer');
 			break;
 		}
 		case 'level':

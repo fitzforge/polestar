@@ -16,6 +16,7 @@ mod dsl_heights;
 mod dsl_image;
 mod dsl_level;
 mod dsl_loop;
+mod dsl_materials;
 mod dsl_money_task;
 mod dsl_next_when;
 mod dsl_parse;

@@ -49,6 +49,7 @@ ns.RegisterDefaults("behavior", {
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC is little out of the way (Own.hereDetour)
 	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
 	whileHereFlights = true, -- also a friendly flight master within the radius whose flight path the character has not learned (Own.hereFlights)
+	whileHereGather = false, -- also a spot within the radius where a herb, ore vein or fishing pool the character gathers can spawn (Own.hereGather, Core/Gather.lua)
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
 	whileHereStepKey = true, -- the step key also targets the lines' mobs, after the step's own (QoL/Buttons.lua, Buttons.HereNames)
 })
@@ -439,6 +440,8 @@ local function goalApplies(goal)
 	local starts = goal.t == "collect" and not goal.quest and guide and layoutOf(guide).starters[goal]
 	if starts and not goalApplies(starts) then return false end
 	if goal.t == "die" and not Own.deathskips() then return false end
+	-- A material's gather or Auction House goal applies while its item's way is theirs (Own.materialApplies).
+	if (goal.t == "auction" or goal.gather) and not Own.materialApplies(goal) then return false end
 	if goal.profLine or goal.profName then
 		local C = Compat()
 		local q = goal.quest
@@ -2406,9 +2409,12 @@ local function chosen(goal)
 	return p.list[p.i]
 end
 
--- The NPC a goal is done with (the chosen candidate's, if any), named in
--- the client's language where Polestar.Names has it.
+-- The NPC a goal is done with (the chosen candidate's, if any; the banker
+-- for a material taken from the bank, none from the mail: Own.materialPlace),
+-- named in the client's language where Polestar.Names has it.
 local function npcOf(goal)
+	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then return held.npc, held.npc and (ns.Names.Npc(held.npc) or held.name) or nil end
 	local c = chosen(goal)
 	local npc, name
 	if c then npc, name = c.npc, c.npcName else npc, name = goal.npc, goal.npcName end
@@ -2694,6 +2700,9 @@ end
 -- NPC or object it stands for): the candidate's or spawn area's own, else the
 -- goal's while the position is the goal's own point.
 local function posOf(goal)
+	-- A material whose rest waits in the mail or the bank: there (Own.materialPlace).
+	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then return held.map, held.x, held.y, held.f, nil, held.z end
 	local c = chosen(goal)
 	if c then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)
@@ -2736,7 +2745,7 @@ end
 local function latchable(goal)
 	local t = goal.t
 	return t == "goto" or t == "explore" or t == "die" or t == "sethome" or t == "hearth" or t == "fly" or t == "getfp" or t == "enter"
-		or t == "buy" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
+		or t == "buy" or t == "auction" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
 		or (t == "train" and goal.class == true) or t == "money" or t == "destroy" or t == "wait" or t == "abandon"
 end
 
@@ -3023,7 +3032,7 @@ function Own.sectionPassed(s)
 end
 
 -- Per guide: each section's craft goals with their steps, in order, and the
--- section of each counted collect/buy goal (its materials).
+-- section of each counted collect/buy/auction goal (its materials).
 Own.sectionPlans = setmetatable({}, { __mode = "k" })
 function Own.sectionPlan()
 	local plan = Own.sectionPlans[guide]
@@ -3037,7 +3046,7 @@ function Own.sectionPlan()
 					plan.crafts[n] = plan.crafts[n] or {}
 					local list = plan.crafts[n]
 					list[#list + 1] = { s = s, goal = goal }
-				elseif (goal.t == "collect" or goal.t == "buy") and goal.item and not goal.quest and (goal.count or 1) > 1 then
+				elseif (goal.t == "collect" or goal.t == "buy" or goal.t == "auction") and goal.item and not goal.quest and (goal.count or 1) > 1 then
 					plan.goals[goal] = n
 				end
 			end
@@ -3101,7 +3110,7 @@ end
 -- past the section's start).
 function Own.needOf(goal)
 	local count = goal.count or 1
-	if not guide or not guide.sections or (goal.t ~= "collect" and goal.t ~= "buy") then return count end
+	if not guide or not guide.sections or (goal.t ~= "collect" and goal.t ~= "buy" and goal.t ~= "auction") then return count end
 	if not player then refreshPlayer() end
 	local n = Own.sectionPlan().goals[goal]
 	local sec = n and guide.sections[n]
@@ -3110,6 +3119,206 @@ function Own.needOf(goal)
 	local k = math.min(rank, sec.to)
 	local used = (Own.sectionDemand(n, sec.from)[goal.item] or 0) - (Own.sectionDemand(n, k)[goal.item] or 0)
 	return math.max(0, count - math.ceil(used - 0.001))
+end
+
+---------------------------------------------------------------------------
+-- Materials (docs/GUIDE_FORMAT.md, "Materials"; Core/Materials.lua): an item
+-- a profession guide both gathers (`collect … gather`) and buys (`auction`)
+-- takes one way at a time, and only that way's goals apply. The way is
+-- worked out once per evaluation and guide; Engine.RefreshMaterials forgets
+-- it when the player changes a way. A step whose goals all take the other
+-- way holds nothing and passes, as one for another class does; switching
+-- back brings it back (the way is never stored on a step).
+---------------------------------------------------------------------------
+
+Own.wayCache = setmetatable({}, { __mode = "k" }) -- guide -> { gen, [item] = { way, why } }
+
+-- "gather" | "buy", the reason (Materials.Way); nil for a goal of no material.
+function Own.materialWay(goal)
+	local M = ns.Materials
+	if not (M and guide and goal.item and (goal.t == "auction" or goal.gather)) then return nil end
+	local c = Own.wayCache[guide]
+	if not c or c.gen ~= generation then
+		c = { gen = generation }
+		Own.wayCache[guide] = c
+	end
+	local w = c[goal.item]
+	if not w then
+		if not player then refreshPlayer() end
+		local way, why = M.Way(guide, goal.item, player)
+		w = { way = way, why = why }
+		c[goal.item] = w
+	end
+	return w.way, w.why
+end
+
+function Own.materialApplies(goal)
+	local way = Own.materialWay(goal)
+	return way == nil or way == (goal.t == "auction" and "buy" or "gather")
+end
+
+-- Where a material the bags are still short of waits once nothing is left
+-- to get: the mail (with the purchases on their way: they come by mail),
+-- else the bank; then the nearest mailbox or banker (Materials.Nearest),
+-- picked again on zone changes like a goal's candidates: { map, x, y, f, z,
+-- npc | object, name, where = "mail" | "bank" }. nil while some is still to
+-- get: the arrow keeps the goal's own way (the auctioneer, the farm spot).
+Own.matPlaces = setmetatable({}, { __mode = "k" }) -- goal -> { gen, ctx, kind, place }
+function Own.materialPlace(goal)
+	local M = ns.Materials
+	if not (M and goal.item) then return nil end
+	local p = Own.matPlaces[goal]
+	if p and p.gen == generation then return p.place or nil end
+	local kind
+	local need, bags = Own.needOf(goal), Compat().GetItemCount(goal.item)
+	if bags < need then
+		local bank, mail, coming = M.Stored(goal.item)
+		if bags + bank + mail + coming >= need then kind = (mail + coming > 0 and "mailbox") or (bank > 0 and "bank") or nil end
+	end
+	local place = false
+	if kind and p and p.kind == kind and p.ctx == contextGen then
+		place = p.place
+	elseif kind then
+		local found = M.Nearest(kind)
+		if found and found.map and found.x and found.y then
+			place = { map = found.map, x = found.x, y = found.y, f = found.f, z = found.z, name = found.name, where = kind == "mailbox" and "mail" or "bank",
+				npc = kind == "bank" and found.id or nil, object = kind == "mailbox" and found.id or nil }
+		end
+	end
+	Own.matPlaces[goal] = { gen = generation, ctx = contextGen, kind = kind, place = place }
+	return place or nil
+end
+
+-- A material goal's counts for the window (Core/Materials.lua), while it is
+-- still to do: { way, reason, need, bags, bank, mail (with what is on its
+-- way by mail), alts = { { name, count } }, altsCounted, toGet, and for an
+-- Auction House goal with a known price: price (for the count still to
+-- buy), each, age (seconds), source ("search" | "auctionator"), listed
+-- (fewer are listed than that count) }; nil for other goals.
+function Own.materialView(goal, status)
+	local M = ns.Materials
+	if not (M and goal.item and (goal.t == "auction" or goal.gather)) or status == "na" or status == "done" then return nil end
+	local way, why = Own.materialWay(goal)
+	local need = Own.needOf(goal)
+	local total, parts = M.Have(goal.item)
+	local v = { way = way, reason = why, need = need, bags = parts.bags, bank = parts.bank, mail = parts.mail + parts.coming,
+		alts = parts.alts, altsCounted = parts.altsCounted, toGet = math.max(0, need - total) }
+	if goal.t == "auction" and v.toGet > 0 then
+		local price, info = M.Price(goal.item, v.toGet)
+		if price then
+			v.price, v.each, v.age, v.source = price, info.each, info.age, info.source
+			if info.short then v.listed = v.toGet - info.short end
+		end
+	end
+	return v
+end
+
+-- What a material goal's line shows beyond its count, for the view's signature.
+function Own.materialSig(goal)
+	local v = Own.materialView(goal, "active")
+	if not v then return "-" end
+	local m = Own.materialPlace(goal)
+	return table.concat({ v.way or "", v.bank, v.mail, v.toGet, #v.alts, v.price or "", m and m.where or "" }, ":")
+end
+
+-- Why a step of the other way holds nothing (Own.stepWhy: the step browser,
+-- a step looked at ahead): every goal of it is a material goal whose item
+-- takes the other way. nil otherwise.
+function Own.materialWhy(step, goals)
+	local why
+	for _, gv in ipairs(goals) do
+		local goal = step.goals[gv.index]
+		if gv.status ~= "na" or not goal or Own.materialApplies(goal) then return nil end
+		if not why then
+			local _, reason = Own.materialWay(goal)
+			local w = type(goal.gather) == "table" and goal.gather or nil
+			if goal.t == "auction" then
+				why = reason == "selfFound" and L["No Auction House for self-found characters"] or L["Gathering this yourself"]
+			elseif reason == "skill" and w and w.rank then
+				why = L["Bought at the Auction House: needs %s %d"]:format(skillName(w), w.rank)
+			elseif reason == "low" and w and w.min then
+				why = L["Bought at the Auction House: it drops from level %d"]:format(w.min)
+			elseif reason == "past" then
+				why = L["Bought at the Auction House: you're past its levels"]
+			else
+				why = L["Buying it at the Auction House"]
+			end
+		end
+	end
+	return why
+end
+
+-- Materials.SetMode / SetWay: the ways changed, so does the route.
+function Engine.RefreshMaterials()
+	Own.wayCache = setmetatable({}, { __mode = "k" })
+	Own.matPlaces = setmetatable({}, { __mode = "k" })
+	Engine.RequestUpdate()
+end
+
+-- The guide's materials still to get, per section the skill has not passed (the Materials window, its card and
+-- the shopping list at the Auction House: UI/Materials.lua, UI/MaterialsCard.lua, Materials.BuyRows): { { n,
+-- title ("Tailoring 75-150"), from, to, rank, items = { { item, name, need, held, toGet, way, reason, pick, buy
+-- (an Auction House goal buys it), gatherGoal (its first gather goal), canGather, gatherWhy, price, info } } } },
+-- the sections in order; scope "section": only the first. What the character holds (Materials.Have) counts
+-- toward the earliest section first: `held` of the section's `need`, `toGet` the rest. Every goal of the
+-- character's (its step's and its own `only`), whichever way its item takes now.
+function Engine.MaterialRows(scope)
+	local M = ns.Materials
+	local out = {}
+	if not (M and guide and guide.sections) then return out end
+	if not player then refreshPlayer() end
+	local bySec = {}
+	for s, step in ipairs(guide.steps) do
+		local sec, n = Own.sectionOf(s)
+		if sec and stepApplies(step) and not Own.sectionPassed(s) then
+			for _, goal in ipairs(step.goals) do
+				local item = goal.item
+				if item and (goal.t == "auction" or goal.gather) and Guides.Matches(goal.only, player) then
+					local e = bySec[n]
+					if not e then
+						e = { n = n, title = ("%s %d-%d"):format(skillName(sec) or sec.skill or "", sec.from, sec.to), from = sec.from, to = sec.to,
+							rank = skillRank(sec) or 0, items = {}, at = {} }
+						bySec[n] = e
+						out[#out + 1] = e
+					end
+					local row = e.at[item]
+					if not row then
+						row = { item = item, name = goal.itemName or Compat().GetItemName(item) or ("#" .. item), need = 0 }
+						e.at[item] = row
+						e.items[#e.items + 1] = row
+						row.way, row.reason = Own.materialWay(goal)
+					end
+					if goal.t == "auction" then
+						row.buy, row.need = true, Own.needOf(goal)
+					else
+						row.gatherGoal = row.gatherGoal or goal
+						if not row.buy then row.need = math.max(row.need, Own.needOf(goal)) end
+					end
+				end
+			end
+		end
+	end
+	table.sort(out, function(a, b) return a.n < b.n end)
+	if scope == "section" then
+		for i = #out, 2, -1 do out[i] = nil end
+	end
+	local held = {}
+	for _, e in ipairs(out) do
+		e.at = nil
+		for _, row in ipairs(e.items) do
+			local item = row.item
+			if held[item] == nil then held[item] = (M.Have(item)) end
+			local take = math.min(held[item], row.need)
+			held[item] = held[item] - take
+			row.held, row.toGet = take, row.need - take
+			row.pick = select(3, M.Mode(guide.id, item))
+			if row.gatherGoal then
+				row.canGather, row.gatherWhy = M.CanGather(row.gatherGoal, player)
+			end
+			if row.way == "buy" and row.toGet > 0 then row.price, row.info = M.Price(item, row.toGet) end
+		end
+	end
+	return out
 end
 
 -- The section heading over step i for the window: { title ("First Aid
@@ -3434,7 +3643,7 @@ function Own.goalDoneLive(s, g, goal)
 		if Own.starterTaken(s, g, goal) then return true end
 		if Own.usedLaterDone(s, g, goal) then return true end
 		return countState(goal)
-	elseif t == "buy" then
+	elseif t == "buy" or t == "auction" then
 		return countState(goal)
 	elseif t == "goto" then
 		if arrived[goal] then return true end
@@ -3634,11 +3843,11 @@ function Own.labelDone(label)
 	return ok
 end
 
--- Bag-count goals (non-quest buy/collect, count-mode craft, money, abandon,
--- destroy), latched within their own step so using the items up does not
--- reopen it.
+-- Bag-count goals (non-quest buy/auction/collect, count-mode craft, money,
+-- abandon, destroy), latched within their own step so using the items up
+-- does not reopen it.
 local function isBagCount(goal)
-	return goal.t == "buy" or (goal.t == "collect" and (not goal.quest or Own.bagCollect(goal)))
+	return goal.t == "buy" or goal.t == "auction" or (goal.t == "collect" and (not goal.quest or Own.bagCollect(goal)))
 		or (goal.t == "craft" and craftMode(goal) == "count") or goal.t == "money"
 		or goal.t == "abandon" or goal.t == "destroy"
 end
@@ -4233,7 +4442,7 @@ end
 
 Own.WHO_VERBS = {
 	accept = true, turnin = true, talk = true, train = true, vendor = true, sethome = true,
-	getfp = true, learn = true, buy = true, interact = true,
+	getfp = true, learn = true, buy = true, auction = true, interact = true,
 }
 
 -- kind ("npc" | "object" | "here"), id and name of whom a goal is done with.
@@ -4242,6 +4451,12 @@ Own.WHO_VERBS = {
 -- shows with the step's kills instead of waiting behind them. A plain
 -- interact (no quest) is still a visit to that object.
 function Own.whoOf(goal)
+	-- A material fetched from the mail or the bank (Own.materialPlace): done there.
+	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then
+		if held.npc then return "npc", held.npc, ns.Names.Npc(held.npc) or held.name end
+		return "object", held.object, held.name
+	end
 	if Own.WHO_VERBS[goal.t] then
 		local npc, name = npcOf(goal)
 		if npc then return "npc", npc, name end
@@ -4535,6 +4750,9 @@ local function describe(goal, s)
 	local N = ns.Names
 	-- A place goal's area (`area`) as the client names it, in its language.
 	local place = C.GetAreaName and C.GetAreaName(goal.area) or nil
+	-- A material whose rest waits in the mail or the bank (Own.materialPlace): taken from there.
+	local held = (t == "auction" or goal.gather) and Own.materialPlace(goal)
+	if held then return L["Take"], N.Item(goal.item) or goal.itemName, "item", held.where == "mail" and L["from your mail"] or L["from your bank"] end
 	if t == "accept" then
 		-- A quest named after its NPC (a breadcrumb: "Thun'grim Firegaze" at
 		-- Thun'grim Firegaze) is not named twice: no "from"/"at" detail.
@@ -4613,6 +4831,8 @@ local function describe(goal, s)
 	elseif t == "buy" then
 		local _, npcName = npcOf(goal)
 		return L["Buy"], N.Item(goal.item) or goal.itemName, "item", fmt(L["from %s"], npcName)
+	elseif t == "auction" then
+		return L["Buy"], N.Item(goal.item) or goal.itemName, "item", L["at the Auction House"]
 	elseif t == "vendor" then
 		local _, npcName = npcOf(goal)
 		if npcName then return L["Sell and repair at"], npcName, "npc", nil end
@@ -4658,7 +4878,7 @@ end
 -- Goals whose count shows as a progress bar instead of in the text.
 local function tracksProgress(goal)
 	local t = goal.t
-	return (goal.quest and goal.oi) or t == "buy" or (t == "collect" and not goal.quest)
+	return (goal.quest and goal.oi) or t == "buy" or t == "auction" or (t == "collect" and not goal.quest)
 		or (t == "craft" and craftMode(goal) ~= "manual")
 end
 
@@ -4917,6 +5137,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		-- A collect's source (compiled `from`); `inText`: the goal's text
 		-- already names it.
 		source = src,
+		-- A material's counts, way and price (Own.materialView).
+		materials = Own.materialView(goal, status),
 	}
 end
 
@@ -7314,7 +7536,7 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
-	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 end
+	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -7367,6 +7589,11 @@ local function signature()
 				-- Its line's notice (not in the log, not listed by its giver).
 				n = n + 1
 				sigParts[n] = Own.acceptNotice(current, g, goal, status) and "notice" or "-"
+			end
+			-- A material goal's counts, price and fetch place (Own.materialSig).
+			if goal.t == "auction" or goal.gather then
+				n = n + 1
+				sigParts[n] = Own.materialSig(goal)
 			end
 		end
 		local _, focus = stepGroups(current)
@@ -9997,14 +10224,15 @@ end
 
 -- Why step `step` holds nothing for this character now (Engine.GetStepView
 -- `why`), so a step looked at ahead does not read as an empty title: only a
--- step that depends on what the player does (`when`) says it. The first
--- `when` predicate that fails, or, when none of its goals applies (`goals`:
--- its goal views), the group quest it waits on not answered "do" (Elwynn's
--- Goldshire hand-in of Book Return), else that none applies. nil while a
--- goal applies, for a step hidden from the character (Own.hiddenStep), or
--- with no goals or no `when`.
+-- step that depends on what the player does (`when`) says it, or one of a
+-- material's other way (Own.materialWhy). The first `when` predicate that
+-- fails, or, when none of its goals applies (`goals`: its goal views), the
+-- group quest it waits on not answered "do" (Elwynn's Goldshire hand-in of
+-- Book Return), else that none applies. nil while a goal applies, for a step
+-- hidden from the character (Own.hiddenStep), or with no goals.
 function Own.stepWhy(step, goals)
-	if #goals == 0 or not step.when or Own.hiddenStep(step) then return nil end
+	if #goals == 0 or Own.hiddenStep(step) then return nil end
+	if not step.when then return Own.materialWhy(step, goals) end
 	if not Own.whenHolds(step) then
 		local p = Own.whenFails(step)
 		return p and Own.whenText(p) or nil
@@ -11142,6 +11370,7 @@ function Own.hereBuild()
 	local live = computed
 	local active = guide and live and logReady and ns.Get("behavior.whileHere")
 	Own.hereFlyBuild(active and pc or nil)
+	Own.hereGatherBuild(active and pc or nil)
 	if active then
 		if not player then refreshPlayer() end
 		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
@@ -11287,6 +11516,9 @@ function Own.hereBuild()
 			i = i + 1
 		elseif cur.kind == "flight" and Own.hereFlyHolds(cur) then
 			-- A flight path line: while its flight master is a candidate (Own.hereFly).
+			i = i + 1
+		elseif cur.kind == "gather" and Own.hereGatherHolds(cur) then
+			-- A gathering spot line: while its kind of node is a candidate (Own.hereGather).
 			i = i + 1
 		elseif Own.hereRemove(i, false) then
 			aimed = true
@@ -11493,7 +11725,7 @@ end
 -- behavior.whileHereRadius yards; a hand-in or a pick-up in the player's
 -- town or at most its seconds out of the way (0: in town only), never past
 -- HERE_FAR.
-Own.HERE_RADIAL = { work = true, flight = true }
+Own.HERE_RADIAL = { work = true, flight = true, gather = true }
 function Own.hereIn(e, d)
 	if not Own.HERE_RADIAL[e.kind] then
 		if Own.hereAt(e, d) then return true end
@@ -11749,7 +11981,7 @@ end
 -- only those are measured. True when a line the player had clicked went
 -- (the arrow goes back to the guide).
 function Own.hereTick(c, px, py)
-	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 then return false end
+	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 and Own.hereGatherN == 0 then return false end
 	-- On a taxi, boat or zeppelin, in an instance, hearthing or the live
 	-- step's escort: the lines shown hide and wait (Own.hereHeld), no new one
 	-- comes, nothing goes by distance or time, nothing counts as left. Back,
@@ -11826,6 +12058,7 @@ function Own.hereTick(c, px, py)
 	end
 	if Own.hereOnN >= Own.HERE_SHOW or Own.hereAllN == 0 then
 		Own.hereFlyTick(c, px, py, timedOnly)
+		Own.hereGatherTick(c, px, py, timedOnly)
 		return aimed
 	end
 	-- More candidates than the poll measures: the nearest, again each
@@ -11890,8 +12123,9 @@ function Own.hereTick(c, px, py)
 			best.d = false
 		end
 	end
-	-- A flight master passed (Own.hereFlyTick), after the quest lines.
+	-- A flight master passed (Own.hereFlyTick), after the quest lines; then a gathering spot (Own.hereGatherTick).
 	Own.hereFlyTick(c, px, py, timedOnly)
+	Own.hereGatherTick(c, px, py, timedOnly)
 	return aimed
 end
 
@@ -11909,6 +12143,9 @@ function Own.hereViewOf(e)
 	local v = e.view
 	if not v and e.kind == "flight" then
 		v = Own.hereFlyView(e)
+		e.view = v
+	elseif not v and e.kind == "gather" then
+		v = Own.hereGatherView(e)
 		e.view = v
 	end
 	if not v then
@@ -12135,6 +12372,7 @@ for _, event in ipairs({ "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }) do
 			for goal in pairs(Own.hereExpiredAt) do Own.hereExpiredAt[goal] = nil end
 			for goal in pairs(Own.hereMutes) do Own.hereMutes[goal] = nil end
 			for goal in pairs(Own.hereStrikes) do Own.hereStrikes[goal] = nil end
+			for i in pairs(Own.hereGatherBad) do Own.hereGatherBad[i] = nil end
 		end
 	end)
 end
@@ -12331,6 +12569,157 @@ ns.RegisterEvent("UI_INFO_MESSAGE", function(_, _, message)
 		Own.hereDirty = true
 		requestUpdate()
 	end
+end)
+
+---------------------------------------------------------------------------
+-- Gathering spots (behavior.whileHereGather, off by default; Core/Gather.lua): within the radius, a spot where a
+-- herb, ore vein or fishing pool the character gathers can spawn is a line after the quest lines and a flight
+-- master's, one at a time, with a flight path line's rules (not in combat, an instance or on a taxi, nor while a
+-- timed quest's clock runs; a dismiss mutes that kind of node around here, twice: for the zone; it goes past
+-- HERE_CLEAR times the radius). The line says the node can spawn there, never that one is up; "up here" only
+-- while the Interact Key picks a node of its kind (Gather.UpNow), and a chip when the player's minimap tracks its
+-- profession's nodes (Gather.Tracking: the view's `tracking`). One candidate per kind of node on the continent
+-- (Own.hereGatherOf), its goal moved to the spot its line shows. A spot the walk check turned away
+-- (Own.hereMayShow) stays away for the zone stay (Own.hereGatherBad), the kind's other spots don't.
+---------------------------------------------------------------------------
+
+Own.GATHER_STEP = -3 -- a gathering spot line's step: no guide step has it (Own.alongGoal reads none)
+Own.hereGather, Own.hereGatherN, Own.hereGatherKinds = {}, 0, {} -- the candidates; Gather.KindsOn's list (reused)
+Own.hereGatherEntries = {} -- kind -> its candidate, kept across builds (a dismiss holds)
+Own.hereGatherBad = {} -- spot number -> true: the walk there is a long way round, this zone stay
+
+-- Kind k's candidate, made once. Its goal is a `gather`, a verb of its own: no guide step holds it, no goal state
+-- ends it (the poll's rules end its line: Own.goalDoneLive reads it as never done) and the arrow says what the line
+-- says (its `text`), at the spot the line shows.
+function Own.hereGatherOf(k)
+	local e = Own.hereGatherEntries[k]
+	if not e then
+		local goal = { t = "gather", gatherKind = k, text = Own.hereGatherText(k, false) }
+		e = { s = Own.GATHER_STEP, g = k, goal = goal, kind = "gather", left = 0, places = 1, npcs = false, seen = false, spot = false,
+			d = false, pick = 0, budget = 0, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
+			on = false, since = 0, yards = 0, serial = 0, view = false }
+		Own.hereGatherEntries[k] = e
+	end
+	return e
+end
+
+-- What a line of kind k says: "Peacebloom is up here" while one is up (`up`), else "Peacebloom can grow here" (a
+-- vein, a pool: "can spawn here").
+function Own.hereGatherText(k, up)
+	local kind = ns.Gather.Kind(k) or {}
+	local name = kind.name or ""
+	if up then return L["%s is up here"]:format(name) end
+	return (kind.line == 182 and L["%s can grow here"] or L["%s can spawn here"]):format(name)
+end
+
+-- Own.hereGather for continent c (nil: none, Dynamic Questing or its gathering spots off, no guide).
+function Own.hereGatherBuild(c)
+	local list, n, G = Own.hereGather, 0, ns.Gather
+	if c and ns.Get("behavior.whileHereGather") and G and G.KindsOn then
+		for _, k in ipairs(G.KindsOn(c, Own.hereGatherKinds)) do
+			n = n + 1
+			list[n] = Own.hereGatherOf(k)
+		end
+	end
+	for i = n + 1, #list do list[i] = nil end
+	Own.hereGatherN = n
+end
+
+-- Whether gathering spot line e is still a candidate (Own.hereBuild keeps it).
+function Own.hereGatherHolds(e)
+	for i = 1, Own.hereGatherN do
+		if Own.hereGather[i] == e then return true end
+	end
+	return false
+end
+
+-- Gather.Nearest's filter: spot i of kind k may show (its kind not dismissed around here nor expired just now, the
+-- spot not turned away). Allocation-free.
+function Own.hereGatherOk(k, i)
+	local e = Own.hereGatherEntries[k]
+	return e ~= nil and not Own.hereGatherBad[i] and not Own.hereQuiet[e.goal] and Own.hereAgain(e) and not Own.hereMuted(e)
+end
+
+-- The poll's gathering spot line (Own.hereTick, after the quest lines and a flight master's): while fewer than
+-- HERE_SHOW lines show and none is a gathering spot's, the nearest spot in reach of a kind the character gathers
+-- shows, once the walk there is no long way round. Allocation-free once the continent's spots are decoded.
+function Own.hereGatherTick(c, px, py, timedOnly)
+	if Own.hereGatherN == 0 or timedOnly or Own.hereOnN >= Own.HERE_SHOW then return end
+	local on = Own.hereOn
+	for j = 1, Own.hereOnN do
+		if on[j].kind == "gather" then return end
+	end
+	local k, d, map, x, y, f, sx, sy, i = ns.Gather.Nearest(c, px, py, Own.hereRadius or 180, Own.hereGatherOk)
+	if not k then return end
+	local best = Own.hereGatherOf(k)
+	local goal = best.goal
+	goal.map, goal.x, goal.y, goal.f = map, x, y, f
+	local w = worldOf[goal]
+	if not w then
+		w = {}
+		worldOf[goal] = w
+	end
+	w[1], w[2], w[3] = c, sx, sy
+	if not Own.hereMayShow(best, d) then
+		Own.hereGatherBad[i] = true
+		return
+	end
+	-- Nearest first among the lines shown, after the route's next steps'.
+	local n, at = Own.hereOnN, Own.hereOnN + 1
+	for j = 1, n do
+		local o = on[j]
+		if not o.near and d < (o.d or math.huge) then
+			at = j
+			break
+		end
+	end
+	for j = n, at, -1 do on[j + 1] = on[j] end
+	on[at], Own.hereOnN = best, n + 1
+	Own.hereSerial = (Own.hereSerial or 0) + 1
+	best.on, best.since, best.serial, best.view, best.d = true, GetTime(), Own.hereSerial, false, d
+	best.yards = math.floor(d / Own.HERE_STEP + 0.5) * Own.HERE_STEP
+	Own.hereExpiredAt[goal], Own.hereMutes[goal] = nil, nil
+	Own.here = on[1]
+	ns.Fire("WHILE_HERE_CHANGED")
+end
+
+-- Gathering spot line e as Own.hereViewOf's view: its text (Own.hereGatherText: "is up here" while the Interact Key
+-- picks one of its kind); under it the profession and the skill it asks, and `tracking` while the minimap tracks
+-- that profession's nodes.
+function Own.hereGatherView(e)
+	local goal, G = e.goal, ns.Gather
+	local kind = G.Kind(goal.gatherKind) or {}
+	local _, upKind = G.UpNow()
+	local up = upKind == goal.gatherKind
+	local v = { t = "gather", step = e.s, index = e.g, here = "gather", left = 0, appeared = e.serial, later = false, gatherKind = goal.gatherKind,
+		map = goal.map, x = goal.x, y = goal.y, f = goal.f, status = "active", up = up, tracking = G.Tracking(kind.line) }
+	v.hereText = Own.hereGatherText(goal.gatherKind, up)
+	v.text = v.hereText
+	local profession = kind.line and Compat().GetSkillLineName(kind.line) or nil
+	v.hereSub = profession and L["%s %d"]:format(profession, kind.skill or 1) or nil
+	v.hereTip = up and L["The Interact Key has one in reach."] or L["A place where it can spawn: it may be up, or gathered already."]
+	return v
+end
+
+-- The Interact Key picked another object, or the minimap tracks other nodes: a gathering spot line says again
+-- whether its kind is up and whether its profession's nodes are tracked.
+ns.On("GATHER_UP_CHANGED", function()
+	for j = 1, Own.hereOnN do
+		local e = Own.hereOn[j]
+		if e.kind == "gather" then
+			e.view = false
+			ns.Fire("WHILE_HERE_CHANGED")
+			return
+		end
+	end
+end)
+
+-- A skill opened or closed a kind of node: the candidates again, the spots turned away forgotten (their numbers
+-- change).
+ns.On("GATHER_CHANGED", function()
+	Own.hereGatherBad = {}
+	Own.hereDirty = true
+	requestUpdate()
 end)
 
 ---------------------------------------------------------------------------
@@ -12662,7 +13051,7 @@ end
 
 -- Items the active guide still needs in the bags, so they are kept, never
 -- sold (QoL/Vendor.lua, QoL/Keep.lua): from the live step on, a `use` goal's
--- item, a `collect`'s, a `buy`'s, a `craft`'s reagents and the item an
+-- item, a `collect`'s, a `buy`'s or `auction`'s, a `craft`'s reagents and the item an
 -- `accept` starts from; and before it, a quest `collect` whose quest is in
 -- the log and handed in at a later step (the turn-in takes the items). Only
 -- steps and goals for this character, none the player skipped.
@@ -12692,7 +13081,7 @@ function Engine.KeptItems()
 				if s < live then
 					if t == "collect" and goal.quest and C.IsOnQuest(goal.quest) and wanted(s, g, goal) then early[#early + 1] = goal end
 				elseif wanted(s, g, goal) then
-					if t == "use" or t == "collect" or t == "buy" or (t == "accept" and goal.item) then
+					if t == "use" or t == "collect" or t == "buy" or t == "auction" or (t == "accept" and goal.item) then
 						keep(goal.item, s)
 					elseif t == "craft" and type(goal.reagents) == "table" then
 						for _, r in ipairs(goal.reagents) do keep(r.item, s) end

@@ -295,7 +295,8 @@ local function whileHereLine()
 	local st = E and E.WhileHereState and E.WhileHereState()
 	if not st then return nil end
 	local function step(s)
-		if type(s) == "number" and s < 1 then return "flight path" end -- the Engine's FLY_STEP: a "Learn the flight path" line
+		-- The Engine's GATHER_STEP (a gathering spot line) and FLY_STEP (a "Learn the flight path" line).
+		if type(s) == "number" and s < 1 then return s == -3 and "gathering spot" or "flight path" end
 		return ("step %s (guide %d)"):format(tostring((E.StepNumber(s))), s)
 	end
 	if not st.on then return cut((L["While here: %s"]):format("off")) end

@@ -1391,7 +1391,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }` (copper), `direct` | completed; `direct` (never accepted, so never orphaned): its QUEST_TURNED_IN during the step (latched) or the completed flag, not the session's turn-ins, so one hand-in of a repeatable closes one goal |
 | `complete` | `quest`, `title` | — | ready for turn-in or completed |
 | `kill` | `target` | `npc`, `count`, `quest`, `oi` | its objective finished (the quest-log line named after `target`, else line `oi`), or quest ready/completed (not while the log lists no objectives yet, right after the accept); without `quest`: manual |
-| `collect` | `item`, `itemName` | `count`, `quest`, `oi` | objective finished (the line named after the item, else `oi`) / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count`, or, for a single item the step's next `accept … item` starts its quest with (paired as in the step view), that quest in the log or done (accepting uses the item up) |
+| `collect` | `item`, `itemName` | `count`, `quest`, `oi`, `gather` (`true` or `{ skill, skillLine, rank, min, max }`: the item's gather way, applying only while its way is gather; see "Materials") | objective finished (the line named after the item, else `oi`) / quest ready (as `kill`) / completed; without `quest`: item count ≥ `count`, or, for a single item the step's next `accept … item` starts its quest with (paired as in the step view), that quest in the log or done (accepting uses the item up) |
 | `goto` | `map`, `x`, `y` | `text`, `r` (default 8 yd), `area` (its name in the client's language shows instead of `text`) | within radius, **or** gone into its `area` (subzone text equals the client's name of it, not the zone's, while indoors, after being seen elsewhere since the step came up; not for a goto after one into the same area in the step), **or** any later goal in the step is done, **or**, when only gotos, notes and goals that do not apply follow it in the step, the next step that applies is done with a quest goal of it done (`Own.nextStepDone`, counted as anchorStep counts: not a skipped step or one with `only`, not a goal with `only`; a cave's mouth or a dock ahead of work done ahead of the guide, #240) |
 | `talk` | `npc`, `npcName` | — | the player acts at that NPC during this step: a gossip option picked (`C_GossipInfo.SelectOption`/`SelectOptionByIndex`, `SelectGossipOption`, post-hooked), a quest accepted, completed or handed in there (`AcceptQuest`, `CompleteQuest`, `GetQuestReward`, QUEST_ACCEPTED / QUEST_TURNED_IN while its window is open or within 2 s of it closing), or its trainer, merchant or flight window opened; a gossip or quest window only opened is no check-off (#741); else manual |
 | `interact` | `object`, `objName` | `quest`, `oi` | objective state if `quest` (the line named after the object, else `oi`); else manual |
@@ -1404,6 +1404,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `enter` | `location` | `area`, `map`, `x`, `y` | zone or subzone equals the client's name of `area` (without one, `location`), as `hearth` without the hearthstone: the in-step latch keeps it once its live step had it (`latchable`, so passing it keeps it too); the coordinates only make its waypoint |
 | `train` | — | `npc`, `npcName`, `text` | a spell learned (LEARNED_SPELL_IN_SKILL_LINE) while the trainer's window is open during this step: that NPC (`npc`), one of the candidates for the character's class (`candidates` with `classes`), or, for `train class`, a class trainer of the character's class; the window opening alone is no check-off (Fitz); else manual |
 | `buy` | `item`, `itemName` | `count`, `npc`, `npcName` | item count ≥ `count` (default 1) |
+| `auction` | `item`, `itemName`, `count` | `candidates` (the auctioneers of the player's faction) | as `buy`: item count ≥ `count` (under a section, what its crafts still need: Own.needOf), latched in its step; applies only while its item's way is buy (see "Materials") |
 | `vendor` | — | `npc`, `npcName`, `text` | that merchant's window (`npc`, or one of the `candidates`; a plain `vendor`, any merchant) opened during this step; a window still open when the step comes up does not count (no carry-over for any NPC window); else manual. Beside other goals that hold the step and apply to the character it is a stop on the way, never holding the step (`Own.sideVendor`, `Own.holds`; its view's `side = true`): the step is done when those are, sold or not. A step of only vendor goals waits for the window, a tick or a skip |
 | `level` | `level` | `frac` | player level > `level`, or = `level` with XP / XPMax ≥ `frac` (no `frac`: level ≥ `level`); or (0.4.0, #1431) the finished quests in the log the guide hands in after the step and before the level is next needed (the first later step with a `level` goal or an accept above the character's level) give at least what is left (`Own.levelCover`; each quest's XP the client's `GetQuestLogRewardXP`, else the Codex's at `Levels.Share`): "hand in first", the route moves on to them, a later `level` goal holds if they fall short. Its view's `xpLeft` is the XP still to earn (`Own.xpLeft`: the client's XP to level for the level the character is at, the 1.12 table past it), shown "1,240 XP to go"; `readyXp` those quests' XP ("your finished quests give 7,600: hand them in first"), `handInFirst` when they cover it |
 | `wait` | `seconds` | `text` | that many seconds after its countdown began: once every goal before it in the step that holds the route is done (`Own.startWaits`, `Own.waitStart`, for the session); its view's progress is `{ cur = seconds left, max = seconds, kind = "wait" }`, drawn as a draining line "0:23 left" (`UI.GoalBar`); `Own.watchWait` evaluates each second while one counts; latched on the live step |
@@ -2040,6 +2041,32 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   discovered", `TAXI_NODE_STATUS_CHANGED`: Nav marks the node known, a build
   follows) ends the line and ticks the guide's later `getfp` goal for that
   flight master (`Own.fpKnown`), as an early pick-up does; the live step stays.
+  Gathering spots (0.4.0; `behavior.whileHereGather`, off by default,
+  Options' "Gathering spots"; `Core/Gather.lua` with the data of
+  `Core/GatherData.lua`, `node tools/polestar.js profession gathering spots`:
+  each herb, ore and fishing pool kind's spawns, points within 40 yd one spot,
+  and the skill it asks): within the radius, a spot where a node the character
+  gathers at its skill (Herbalism, Mining, Fishing) can spawn is a line of kind
+  "gather" after the quest lines and a flight master's, one at a time, with a
+  flight path line's rules: "Peacebloom can grow here" ("can spawn here" for a
+  vein or a pool), under it the profession and the skill ("Herbalism 50"); the
+  waypoint's step is `GATHER_STEP`, -3. A spot is where a node can spawn, never
+  a promise one is up: the line reads "Peacebloom is up here" only while the
+  Interact Key picks an object of its kind (`PLAYER_SOFT_INTERACT_CHANGED`, the
+  GameObject GUID's entry id: `Gather.UpNow`), and its view carries `tracking`
+  (the panel's "Tracking is on" chip) while the minimap tracks that
+  profession's nodes (`C_Minimap.GetTrackingInfo`, Find Herbs 2383, Find
+  Minerals 2580); Polestar never changes the tracking nor the Interact Key's
+  settings. Candidates: one per kind with spots on the continent
+  (`Own.hereGather`, `Own.hereGatherOf` kept across builds: a dismiss mutes the
+  kind around here, twice for the zone); its goal, a `gather` of its own (no
+  guide step holds it and no goal state ends it; the arrow, on a click, says
+  what the line says), moves to the spot its line shows. A spot the walk check
+  turns away stays away for the zone stay
+  (`Own.hereGatherBad`). The spots of a continent are decoded the first time
+  the option asks for them there (only the kinds the character gathers, in
+  200 yd cells; `GATHER_CHANGED` after a skill opens or closes a kind), and
+  `Gather.Nearest` measures only the cells within the radius, allocation-free.
   The arrival poll measures at most `HERE_MAX` of them (`Own.hereList`): all
   when that many fit, else the nearest (`Own.herePick`, again each
   `HERE_REPICK` yards the player moves). It (`Own.hereTick`, allocation-free:
@@ -3661,6 +3688,104 @@ underneath without touching the arrow (no replan, no `WAYPOINT_CHANGED`);
 `Nav.Unhold` once alive shows what is underneath then (a picked point only
 while the step is still the one it was picked on, as an override always is).
 While held, `Nav.HiddenWithGuide()` is false.
+
+#### Materials: gathered or bought (`Core/Materials.lua`)
+
+An item a profession guide both gathers (`collect … gather`) and buys
+(`auction`) takes one way at a time (GUIDE_FORMAT.md, "Materials"), and only
+the goals of that way apply (`Own.materialApplies` in `goalApplies`), so a
+step whose goals all take the other way passes as one for another class does,
+and changing a way moves the route at once: Buy on a gather step brings the
+route back to the section's Auction House step, Gather on it goes on to the
+gather steps. The way is never stored on a step; only the goals' own bag-count
+latches are, as for `collect` and `buy`.
+
+```lua
+Polestar.Materials.Way(guide, item, player) -> "gather" | "buy", reason   -- first rule that fits: Self-Found (C_PlayerInfo.IsSelfFoundActive) gathers ("selfFound"); no auction goal for the character gathers ("noBuy"), no gather goal buys ("noGather"); the player's pick ("picked"); Buy all ("mode"); Gather all, buying what takes a profession or rank the character lacks ("skill"); Mix: that too, mobs more than Materials.LOW (2) levels above ("low"), a bag count with no place more than Materials.PAST (5) levels past its mobs ("past"), else gather ("mix")
+Polestar.Materials.Mode(guideId[, item]) -> mode, answered, pick   -- the character's answer for the guide (CharState().materials.guides[guideId] = { mode, ways }), else Options' default (`professions.materials`: "ask", the default, reads Mix)
+Polestar.Materials.Asks(guideId) -> bool                         -- no answer yet, the default is to ask and Later never told it (never Self-Found)
+Polestar.Materials.Dismiss(guideId)                              -- Later on the card: the default stays, the guide asks no more
+Polestar.Materials.Choosable(guide) -> bool                      -- some material of it is both gathered and bought
+Polestar.Materials.SetMode(guideId, "gather" | "buy" | "mix")    -- Gather all and Buy all clear the picks; MATERIALS_CHANGED, Engine.RefreshMaterials
+Polestar.Materials.SetWay(guideId, item, "gather" | "buy" | nil) -- a pick (nil: back to the default); the guide's way becomes Mix
+Polestar.Materials.Have(item) -> total, { bags, bank, mail, coming, alts = { { name, count } }, altsCounted }
+Polestar.Materials.Stored(item) -> bank, mail, coming
+Polestar.Materials.Price(item, count) -> copper | nil, { each, age, source = "search" | "auctionator", short }
+Polestar.Materials.NoteSearch(item, rows)                        -- a search's listings: { { price, quantity } }
+Polestar.Materials.BuyRows() -> { { guide, guideTitle, section, item, name, toBuy, need, have, price, info } }  -- the running guide's materials whose way is Buy, still to buy, the earliest section first (the shopping list at the Auction House)
+Polestar.Materials.Search(item, count) -> bool                   -- at the open Auction House: the game's own buy view of the item, the count filled in once its listings come
+Polestar.Materials.ToAuctionator(title, { { item, name, count } }) -> bool  -- Auctionator's shopping list, while it is installed
+Polestar.Engine.MaterialRows(scope) -> { { n, title, from, to, rank, items = { { item, name, need, held, toGet, way, reason, pick, buy, gatherGoal, canGather, gatherWhy, price, info } } } }  -- the sections the skill has not passed ("section": the first only); what the character holds counts toward the earliest section first
+Polestar.Engine.RefreshMaterials()                               -- the ways changed: forget them, evaluate
+```
+
+- **Once per evaluation.** The Engine works out each item's way once per
+  evaluation and guide (`Own.wayCache`, keyed by `generation`); level-ups and
+  skill changes evaluate anyway, and `Engine.RefreshMaterials` drops the cache
+  when a way or a setting changes. `Materials.Index(guide)` lists each item's
+  gather and auction goals, walking the steps once per steps table (weak).
+- **Counts.** Bags live; the bank live while it is open, else as at the
+  character's last visit (`BANKFRAME_OPENED`, `PLAYERBANKSLOTS_CHANGED`,
+  `BANKFRAME_CLOSED`; before any, what `GetItemCount(id, true)` reports); the
+  mail as at the last look at the inbox (`MAIL_INBOX_UPDATE`, cash on delivery
+  left out) plus what was bought at the Auction House since
+  (`COMMODITY_PURCHASED`, `ITEM_PURCHASED`: it comes by mail); the account's
+  other characters of this realm and faction from their Characters entry
+  (`mats`), shown always and counted only with `professions.altMaterials`
+  (off by default). `Materials.Have` is the one count of what a character
+  holds: the auction house buys (`Quests/AuctionBuys.lua`) count quest items
+  with it too, so the mail and the purchases on their way count every item;
+  the bank snapshot holds the materials of the profession guides and of the
+  guides in the tabs (`Materials.Tracked`), never the whole bank, and an item
+  it does not hold reads what the client reports. `MATERIALS_COUNTS` follows a
+  new bank or mail count.
+- **The goal.** A material goal still to do carries `materials` in its view
+  (`Own.materialView`: way, reason, need, bags, bank, mail with what is on its
+  way, alts, toGet, and on an `auction` goal the price for the count still to
+  buy); `UI.MaterialsLine` shows it under the goal ("40 in your bank · 47 to
+  buy · ≈ 87s"). With the bags short and nothing left to get, the goal is
+  fetched instead (`Own.materialPlace`): "Take <item>", from the mail (the
+  purchases on their way included) at the nearest mailbox, else from the bank
+  at the nearest banker (`Materials.Nearest`, Nav/Nearby.lua), picked again on
+  zone changes; the arrow, the step's person and the view's NPC follow. The
+  step browser's reason for a step of the other way (`Own.materialWhy`):
+  "Gathering this yourself", "Buying it at the Auction House", "Bought at the
+  Auction House: needs Skinning 200" (or the levels), "No Auction House for
+  self-found characters".
+- **Prices.** From the searches the shopping list opens and those the player
+  makes for a tracked material (`COMMODITY_SEARCH_RESULTS_UPDATED`,
+  `ITEM_SEARCH_RESULTS_UPDATED` into `Materials.NoteSearch`): the cheapest
+  listings, up to 40, so a count is priced for that many ("only N listed" past
+  them), kept per auction house (realm and faction) for 14 days and dropped at
+  login after; else Auctionator's (`Auctionator.API.v1.GetAuctionPriceByItemID`
+  and `GetAuctionAgeByItemID`, caller "Polestar") when it is installed. Shown
+  with their age, never a gate.
+- **Searching.** `Materials.Search` does at the open Auction House what a click
+  on the item in the game's browse list does
+  (`AuctionHouseFrame:SelectBrowseResult` with `C_AuctionHouse.MakeItemKey`,
+  once `GetItemKeyInfo` has the item: `ITEM_KEY_ITEM_INFO_RECEIVED`), then
+  fills in the count to buy through the window's own quantity event
+  (`CommoditiesQuantitySelectionChanged`) once the listings are there.
+  Buying stays the game's Buy Now, the player's own click; nothing else of the
+  Auction House is touched (no scans, no favourites).
+- **On screen** (`UI/Materials.lua`). The card: the first time a guide with a
+  material to choose for is the running guide of a character that never
+  answered for it (`Materials.Asks`), with something still to get, the
+  heads-up card (`UI/ClassToast.lua`, kind "materials", `answers`: its third
+  answer before Later) asks how to get them, four seconds after the guide
+  opens: what the rest of the guide takes, what Mix gathers and buys for this
+  character, the cost of buying it all when every price is known; Mix (opens
+  the window), Gather, Buy; Later, the close button or its time running out
+  keep the default for good (`Materials.Dismiss`); another guide running takes
+  it away unanswered. The window (`PolestarMaterials`, `/polestar materials`):
+  Gather all, Buy all, Mix; each material of the sections ahead (or this one)
+  with what is still to get, what the character holds toward it, its way lit
+  (Gather | Buy, a way it cannot take off) and why; a pick is
+  `Materials.SetWay`, a right-click takes it back; what buying costs, and the
+  list for Auctionator or the copy window. The guide window's menu: "Gather
+  materials", "Buy materials", "Mix: choose per material". Options: Guide ›
+  Professions › Materials (`professions.materials`,
+  `professions.altMaterials`, and a Show button that opens the window).
 
 ### Nav API — journeys for players and other addons
 
@@ -5756,6 +5881,115 @@ Quest markers): `questDB`, `availableQuests`,
 The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
 `minimapObjectives`) default to off (Map → Guide & quests → Quest markers);
 `guideHighlight` only restyles markers those layers draw.
+
+### Auction house buys (Quests/AuctionBuys.lua, UI/AuctionBuys.lua)
+
+The quest items the character can buy at an auction house instead of
+farming them (`qol.auctionBuys`, on by default; Questing → Quests → Quest log
+and tooltips). The data side reads the running guide, the quest log, the
+quest database and the client; the screen side shows three things.
+
+```lua
+Polestar.AuctionBuys.On()
+Polestar.AuctionBuys.List(scope) -> list, pending   -- scope "guide" | "all" (and the rest of the quest log)
+    -- { { item, name, need, have, count, quests = { { id, title } }, why, kills, skill } }, guide order then log order;
+    -- why "farm" (kills) | "gather" (skill: Herbalism 182 or Mining 186, not known) | "made" | "ah"
+Polestar.AuctionBuys.Judge(itemID, count, goal, buys) -> why, kills, skill | false | nil (not known yet)
+Polestar.UI.AuctionBuys.Show() / Hide() / Layout() ; CardModel(kind, list, town) ; CheckGuide(id) ; CheckTown()
+Polestar.UI.AuctionBuys.MenuItem() -> the guide window's menu entry | nil
+Polestar.Nav.nearby.Near(kind, yards) -> place, yards | nil, reason   -- the nearest one in the player's zone
+Polestar.Compat.ItemKind(itemID) -> classID, subclassID ; ItemBinding(itemID) -> bindType | nil (not cached)
+```
+
+What is asked for: every `collect` goal of the running guide that is for
+this character (`Engine.Applies`) and serves a quest, from the live step on,
+and before it while its quest is in the log (the hand-in is still ahead).
+The quest is the goal's own, else the first quest within 40 steps whose
+objectives ask for the item. Optional goals, goals naming the NPC who hands
+the item over, quests done or skipped, and quests that hand the item over
+themselves are left out. Scope `all` adds the item objectives of the other
+quests in the log. Per item: the most each quest asks for, summed over the
+quests, less what the character holds (`Materials.Have`: the bags, the bank,
+the mail and what was bought and is on its way; `GetItemCount` with the bank
+without it); only items still short are listed.
+
+The rule. An item is an auction house buy when it is all of:
+
+1. **Tradeable**: the client says it is no Quest item (class 12) and binds
+   neither when picked up nor as a quest item (bindType 1 or 4). An item the
+   client has not cached is asked for (`GET_ITEM_INFO_RECEIVED`) and judged
+   when it arrives. Bind on equip and bind on use items trade.
+2. **Sold by no merchant**: the guide has no `buy` goal for it (the route
+   buys it there, `QoL/Buy.lua`; Restock tops up the rest), and the quest
+   database names no vendor for it, whatever the vendor's side or stock.
+3. **Not got on the way**: the whole count takes 20 kills or loots or more on
+   average (count / drop chance; `LONG_FARM`), or nothing drops it. The
+   chance is the best of the goal's own sources (`fromNpcs`, else `fromId`)
+   in the quest database's drop table, which keeps an item's 8 best
+   droppers: a creature past them drops it at most at the 8th's chance. A
+   goal naming no source counts every source the data knows: the droppers,
+   and objects yielding the item half the time or more (`NODE_CHANCE`), herb
+   and ore nodes (trade goods subclasses 9 and 7) only for a character with
+   Herbalism or Mining; without the skill an item only nodes give is listed
+   (`gather`). Chests and crates below that chance do not count. A chance
+   the data does not know (0) leaves the item out. An item the quest
+   database knows no source for is judged by the Codex (loaded for it, never
+   in combat): listed when a profession makes it (`made`) or when the guide's
+   goal for it stands within 40 yards of an auctioneer (`ah`: the guide
+   already sends the player there); left out otherwise (a container, a quest
+   or a gift the guide knows a way to).
+
+The quest database loads for it (`QuestDB.IsWanted` counts
+`qol.auctionBuys`). The lists are built when asked, in two layers: the
+judgement (what the quests want and which of it the rule lists) is kept
+until a step, the guide, the log, a skill, the Codex, an item the client
+sent or the setting changes; the counts are taken again when only the bags
+change (`BAG_UPDATE_DELAYED`, `MATERIALS_COUNTS`), so a merchant's or a
+mailbox's run of bag updates costs a count, never the rule. A pass decodes
+each quest's objectives once. `AUCTION_BUYS_CHANGED(arrived)` fires once
+after a burst of those; `arrived` is true when something a judgement waited
+for came (an item, the quest database, the Codex).
+
+On screen (`UI/AuctionBuys.lua`), both cards on the heads-up card
+(`UI/ClassToast.lua`; its icon row carries items: the game's tooltip, the
+count over the corner, Shift-click links one), waiting for another heads-up
+to be dismissed:
+
+- **The guide's card**: 4 seconds after a guide opens or the window switches
+  to it, "Auction house buys for this guide" with up to 4 lines ("15 Silk
+  Cloth for Caught!", then "+N more"), See the list, Got it, Turn these off.
+  Once per guide per character, once shown (`CharState().auctionGuides`);
+  it follows its list while shown and goes when another guide runs. With
+  nothing listed while an item is still loading, it asks again when an
+  item arrives (`arrived`), not on every change of the bags or the step.
+- **The reminder**: on a zone or subzone change, an auctioneer of the
+  character's side (`Nearby.Near("auction", 450)`: the Codex's auctioneer
+  role, on the player's map or its zone) within 450 yards while the
+  character rests (the town's rest area), or within 100 yards, means a town
+  with an auction house; the card lists what scope `all` still needs, "N quest
+  items to buy in <town>", with Show me the auctioneer (`Nearby.Go`) and See
+  the list. Once per visit: `CharState().auctionVisit` holds the town's map
+  until a zone change finds no auctioneer in reach. Never in combat (it waits
+  for `PLAYER_REGEN_ENABLED`), in an instance, while the step's escort runs
+  (`Engine.EscortRunning`), while Polestar or the guide window is hidden.
+  The Codex is loaded for it only in a rest area with something to buy.
+- **The list** (`PolestarAuctionBuys`, built on first use, registered with
+  the gamepad, Escape closes it): a row per item, its icon, "12 Silk Cloth",
+  "For Caught! · About 152 kills to farm · 3 in your bags and bank", and Show
+  me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
+  the running profession guide's materials to buy (`Materials.BuyRows`: their
+  way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
+  ≈ 87s · 140 held". Opened by the cards, the guide window's menu ("Auction
+  house buys (N)" while there are any) and `/polestar ah`. At the Auction
+  House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
+  group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
+  row then has a Search (`Materials.Search`: the game's own buy view of the
+  item, the count filled in; the player presses Buy), and Show me the auction
+  house goes.
+
+The heads-up card itself is registered with the gamepad as a window that
+showed on its own: it waits for the focus binding, then the D-pad walks its
+buttons and icons and B is Later.
 
 ### Party: where each member is on the guide, and group play — Quests/Party.lua
 
@@ -9113,12 +9347,15 @@ Polestar.Alts.IsCurrent(entry), Polestar.Alts.MaxLevel(), Polestar.Alts.Enabled(
 - **Store.** `PolestarDB.alts.chars["Name-Realm"]`, one small entry per
   character: name, realm, class, race, faction, level, xp, xpMax, rested,
   resting, zone, bind, money, profs (skill line to rank), tabs (up to six
-  `{ id, title, step, count, complete }` from `Engine.GetTabs`) with `active`, `seen`
+  `{ id, title, step, count, complete }` from `Engine.GetTabs`) with `active`,
+  mats (item to count: the profession guides' materials in its bags, bank and
+  mail, `Materials.OwnCounts`), `seen`
   (server time), `key`. Values that equal nothing are left out. An alt's
   entry is as of its last write, normally its logout.
 - **Writes.** All in the world: at login (after five seconds, once the tabs
   exist), on resting changes at once, on level-ups, XP, zone, money, skill and
-  tab changes coalesced into one write every ten seconds (a single pending
+  tab changes and new bank and mail counts (`MATERIALS_COUNTS`) coalesced into
+  one write every ten seconds (a single pending
   timer) while not resting, and at once while `IsResting()` reads true, and at
   once when the player asks to leave (`PLAYER_CAMPING` / `PLAYER_QUITING`
   where the client has them). `Logout` and `Quit` are protected functions and

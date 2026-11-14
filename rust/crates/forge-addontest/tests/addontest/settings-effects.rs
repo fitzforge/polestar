@@ -65,7 +65,9 @@ const GROUPS: &[Group] = &[
 	Group { name: "guide_nav", src: include_str!("effects/guide-nav.lua") },
 	Group { name: "guide_whilehere", src: include_str!("effects/guide-whilehere.lua") },
 	Group { name: "guide_whilehere_turnins", src: include_str!("effects/guide-whilehere-turnins.lua") },
+	Group { name: "guide_whilehere_gather", src: include_str!("effects/guide-whilehere-gather.lua") },
 	Group { name: "guide_automation", src: include_str!("effects/guide-automation.lua") },
+	Group { name: "guide_professions", src: include_str!("effects/guide-professions.lua") },
 	Group { name: "guide_route", src: include_str!("effects/guide-route.lua") },
 	Group { name: "guide_ends", src: include_str!("effects/guide-ends.lua") },
 	Group { name: "guide_class", src: include_str!("effects/guide-class.lua") },
@@ -576,6 +578,16 @@ fn guide_whilehere_turnins() {
 #[test]
 fn guide_automation() {
 	check("guide_automation");
+}
+
+#[test]
+fn guide_whilehere_gather() {
+	check("guide_whilehere_gather");
+}
+
+#[test]
+fn guide_professions() {
+	check("guide_professions");
 }
 
 #[test]

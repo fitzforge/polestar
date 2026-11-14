@@ -120,7 +120,7 @@ async function item(id) {
 	return {
 		id, name: sp.Display_lang, quality: Number(sp.OverallQualityID) || 1, icon: Number(it.IconFileDataID) || 134400,
 		level: Number(sp.ItemLevel) || 1, minLevel: Number(sp.RequiredLevel) || 0, sell: Number(sp.SellPrice) || 0,
-		classID: Number(it.ClassID) || 0, startsQuest: Number(sp.StartQuestID) || 0, bonding: Number(sp.Bonding) || 0,
+		classID: Number(it.ClassID) || 0, subclassID: Number(it.SubclassID) || 0, startsQuest: Number(sp.StartQuestID) || 0, bonding: Number(sp.Bonding) || 0,
 		desc: sp.Description_lang || '',
 	};
 }

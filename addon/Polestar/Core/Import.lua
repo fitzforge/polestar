@@ -228,6 +228,8 @@ local REWARD_ITEM = rec({ item = N, itemName = S, quality = N })
 local GOAL = rec({
 	t = S, class = B, zone = N, spell = N, spellName = S, faction = N, factionName = S, standing = N, achievement = N, achievementName = S, criteria = N,
 	quest = N, title = S, target = S, npc = N, npcName = S, object = N, objName = S, item = N, itemName = S, count = N, oi = N, skill = S, skillLine = N,
+	-- A collect's `gather` (format 10): true, or what its gather way takes.
+	gather = { bool = true, rec = { skill = S, skillLine = N, rank = N, min = N, max = N } },
 	rank = NS, rankMax = N, level = N, frac = N, grind = N, money = N, untilSkill = N, yellow = N, grey = N,
 	reagents = list(rec({ item = N, itemName = S, count = N })),
 	location = S, minLevel = N, qlvl = NS, limit = N, pre = LN, preAll = LN, closedBy = LN, crumbs = LN, endNpcs = LN, xp = N, parent = N, preTitles = { idmap = S }, text = S, node = N, area = N,
@@ -276,6 +278,8 @@ local function finite(v) return type(v) == "number" and v == v and v ~= huge and
 -- v shaped by spec -> a fresh copy; raises { field = where } at the first
 -- key or value that does not fit.
 local function build(v, spec, where)
+	-- `{ bool = true, rec = ... }`: true/false or that record (a collect's `gather`).
+	if type(v) == "boolean" and type(spec) == "table" and spec.bool then return v end
 	if type(v) == "string" and #v > LIMITS.text and (spec == S or spec == NS or spec == BS) then error({ field = where, long = true }, 0) end
 	if type(v) == "string" and #v > LIMITS.names and spec == SM then error({ field = where, long = true }, 0) end
 	if spec == S or spec == SM then

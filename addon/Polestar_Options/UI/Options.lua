@@ -303,6 +303,11 @@ local BUILTIN = {
 			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],
 			search = "flight path, flight master, taxi, learn, discover, getfp",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
+		-- 0.4.0's gathering spots (Engine Own.hereGather, Core/Gather.lua): off by default.
+		{ kind = "toggle", key = "behavior.whileHereGather", label = L["Gathering spots"], new = "0.4.0",
+			help = L["Also a spot near you where a herb, ore vein or fishing pool you can gather can spawn: one may be up there, or gathered already. With Find Herbs or Find Minerals on, the line says so; it says one is up when the Interact Key picks it."],
+			search = "herbs, herbalism, ore, mining, fishing pools, nodes, gathering, farm, spots, tracking, find herbs, find minerals, interact key",
+			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
@@ -471,6 +476,23 @@ local BUILTIN = {
 			end,
 			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
 			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
+	} },
+	-- Gather, buy or mix (Core/Materials.lua, UI/Materials.lua): a profession guide's materials. Each guide's own
+	-- answer is the player's, per character (its card, the guide window's menu, the Materials window, which the
+	-- last row opens); this is the way of a guide never answered.
+	{ page = GUIDE, tab = L["Professions"], section = L["Materials"], controls = {
+		{ kind = "dropdown", key = "professions.materials", label = L["Materials in profession guides"], new = "0.4.0",
+			help = L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."],
+			search = "materials, reagents, gather, farm, buy, auction house, mix, crafting, professions, tailoring, shopping",
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "mix", label = L["Mix"] }, { value = "gather", label = L["Gather"] }, { value = "buy", label = L["Buy"] } } },
+		{ kind = "toggle", key = "professions.altMaterials", label = L["Count my other characters' materials"], new = "0.4.0",
+			help = L["What your other characters of this realm and side hold counts toward what is still to get. Their counts show under a material either way; mail them over yourself."],
+			search = "alts, other characters, bank, mail, materials, reagents, count" },
+		{ kind = "button", button = L["Show"], label = L["Materials window"], new = "0.4.0",
+			help = L["Show how the profession guide gets its materials"],
+			search = "materials window, shopping list, reagents, gather, buy, mix, prices, /polestar materials",
+			onClick = function() ns.UI.Materials.Show() end,
+			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one

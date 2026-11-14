@@ -1509,7 +1509,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 #[test]
 fn the_database_loads_on_demand_not_while_every_quest_feature_is_off_at_once_when_one_turns_on() {
 	let db = fixture();
-	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false, questLoot = false }";
+	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false, questLoot = false, auctionBuys = false }";
 	let out = run_saved(
 		&db,
 		r#"

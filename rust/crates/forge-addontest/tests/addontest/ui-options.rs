@@ -182,7 +182,7 @@ fn pages_by_order_in_the_tree_s_groups_a_page_with_nothing_to_set_left_out_recor
 	assert!(in_order(&tree[2].1, &["Integrations", "Community guides", "Gamepad"]), "Setup: {:?}", tree[2].1);
 	assert_eq!(tree[3].1, ["Guiding Stars", "Recorder", "About"]);
 	assert_eq!(out["title"], "Guide");
-	assert_eq!(out["tabs"], json!(["Window", "Arrow & routes", "Automation"]));
+	assert_eq!(out["tabs"], json!(["Window", "Arrow & routes", "Automation", "Professions"]));
 	let quests = out["pages"].as_array().unwrap().iter().find(|p| p["name"] == "Quests").cloned();
 	assert_eq!(quests, Some(json!({ "name": "Quests", "key": "quests", "builtin": false, "tabs": ["Map"], "group": "guiding" })));
 	let footer: Vec<String> = out["footer"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
@@ -605,7 +605,7 @@ fn a_tab_whose_module_is_not_loaded_is_left_out_a_page_with_nothing_at_all_says_
 		"",
 	);
 	assert_eq!(out["landed"], "Guide");
-	assert_eq!(out["tabs"], json!(["Window", "Automation"]), "no dead Arrow & routes tab without Nav");
+	assert_eq!(out["tabs"], json!(["Window", "Automation", "Professions"]), "no dead Arrow & routes tab without Nav");
 	assert_eq!(out["empty"], true);
 	assert_eq!(out["controls"], 0);
 }
