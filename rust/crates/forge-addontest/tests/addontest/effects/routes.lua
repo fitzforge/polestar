@@ -157,7 +157,10 @@ return {
 		["nav.sparkleMax"] = { value = 10, with = { ["nav.lineStyle"] = "sparkle", ["nav.sparkleFlow"] = 0, ["nav.sparkleDensity"] = 10 }, probe = sparkles },
 		["nav.sparkleLater"] = sparkling(sparkles),
 		-- Flowing: how far the first sparkle moves while the clock runs half a second.
-		["nav.sparkleFlow"] = { with = { ["nav.lineStyle"] = "sparkle" }, probe = function()
+		-- Its reads hold the sparkles' clock at two fixed times, so where the first sparkle stands then (and which one is
+		-- first) follows every redraw before: no reads over a profile switch beside the runner's three (once), and none
+		-- in a fresh session to compare with this one's (reload; nav-route-sparkle.rs holds the flow itself).
+		["nav.sparkleFlow"] = { once = true, reload = false, with = { ["nav.lineStyle"] = "sparkle" }, probe = function()
 			local real = GetTime
 			GetTime = function() return 7000 end
 			stub.advance(0.1)

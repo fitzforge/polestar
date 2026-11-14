@@ -23,13 +23,15 @@ local function world(layer)
 	return out
 end
 local function minimap(layer) stub.advance(0.3); return Pins.GetMinimapFrames(layer) end
+-- The numbered pins as drawn; a number's own look only while it shows (a hidden one keeps whatever font it had).
 local function numbered()
 	local out = {}
 	for _, f in ipairs(world("nav.upcoming")) do
 		local _, size, outline = f.text:GetFont()
 		local tr, tg, tb = f.text:GetTextColor()
-		out[#out + 1] = { w = r3(f.width), size = r3(size), outline = outline, text = f.text:IsShown() and f.text:GetText() or false,
-			number = { r3(tr), r3(tg), r3(tb) }, fill = rgba(f.fill), ring = rgba(f.ring) }
+		local on = f.text:IsShown()
+		out[#out + 1] = { w = r3(f.width), size = on and r3(size) or false, outline = on and outline or false, text = on and f.text:GetText() or false,
+			number = on and { r3(tr), r3(tg), r3(tb) } or false, fill = rgba(f.fill), ring = rgba(f.ring) }
 	end
 	return out
 end

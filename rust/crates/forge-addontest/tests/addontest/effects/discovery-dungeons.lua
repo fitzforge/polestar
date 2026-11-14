@@ -30,8 +30,9 @@ return {
 			if PolestarPicker then PolestarPicker:Hide() end
 			return out
 		end,
-		-- A level-up into the dungeon's range: its heads-up card ("Ragefire Chasm is open to you").
-		["dungeons.headsUp"] = function()
+		-- A level-up into the dungeon's range: its heads-up card ("Ragefire Chasm is open to you"). Each read levels the
+		-- character up (once: no reads over a profile switch beside the runner's three).
+		["dungeons.headsUp"] = { once = true, probe = function()
 			local CT = UI.ClassToast
 			Polestar.CharState().dungeonToastSeen = {}
 			level = level + 1
@@ -41,6 +42,6 @@ return {
 			CT.Hide()
 			stub.advance(0.1)
 			return out
-		end,
+		end },
 	},
 }
