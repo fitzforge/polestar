@@ -736,11 +736,85 @@ function CT.PlaceSetting()
 	return (v == "below" or v == "free") and v or "above"
 end
 
+-- How far a frame's own drawing reaches past each of its edges, in its
+-- units: a soft shadow (the house look's, 12 over the top and 20 under the
+-- bottom), a skin's border, glow or corner marks, a part hung outside it.
+-- Read off the anchors that tie its regions and its children to it, and off
+-- where they and their children's regions stand; up to REACH_MAX, past which
+-- nothing a look draws goes (a frame's content hung far from it is not its
+-- drawing).
+local REACH_MAX = 48
+local function reach(o)
+	local r = { top = 0, bottom = 0, left = 0, right = 0 }
+	local function grow(side, d)
+		if d > r[side] and d <= REACH_MAX then r[side] = d end
+	end
+	local function byPoints(x)
+		for i = 1, (x.GetNumPoints and x:GetNumPoints() or 0) do
+			local p, rel, rp, dx, dy = x:GetPoint(i)
+			if rel == o and type(p) == "string" and type(rp) == "string" then
+				dx, dy = tonumber(dx) or 0, tonumber(dy) or 0
+				local xh, xw = x:GetHeight() or 0, x:GetWidth() or 0
+				-- An edge past the frame's own (a shadow's), or a part standing on its far side.
+				if rp:find("TOP") then grow("top", p:find("TOP") and dy or p:find("BOTTOM") and dy + xh or 0) end
+				if rp:find("BOTTOM") then grow("bottom", p:find("BOTTOM") and -dy or p:find("TOP") and xh - dy or 0) end
+				if rp:find("LEFT") then grow("left", p:find("LEFT") and -dx or p:find("RIGHT") and xw - dx or 0) end
+				if rp:find("RIGHT") then grow("right", p:find("RIGHT") and dx or p:find("LEFT") and dx + xw or 0) end
+			end
+		end
+	end
+	local ol, ob, orr, ot = o:GetLeft(), o:GetBottom(), o:GetRight(), o:GetTop()
+	local oe = o:GetEffectiveScale() or 1
+	-- x's rectangle in o's units (e: the scale x's coordinates are in).
+	local function byRect(x, e)
+		if not (ol and ob and orr and ot) then return end
+		local l, b, rr, t = x:GetLeft(), x:GetBottom(), x:GetRight(), x:GetTop()
+		if not (l and b and rr and t) then return end
+		local q = (e or oe) / oe
+		l, b, rr, t = l * q, b * q, rr * q, t * q
+		if rr <= l or t <= b then return end
+		if rr > ol and l < orr then
+			grow("top", t - ot)
+			grow("bottom", ob - b)
+		end
+		if t > ob and b < ot then
+			grow("left", ol - l)
+			grow("right", rr - orr)
+		end
+	end
+	local function shown(x) return x.IsShown == nil or x:IsShown() end
+	for _, x in ipairs({ o:GetRegions() }) do
+		if shown(x) then
+			byPoints(x)
+			byRect(x, oe)
+		end
+	end
+	for _, c in ipairs({ o:GetChildren() }) do
+		if shown(c) then
+			byPoints(c)
+			local ce = c:GetEffectiveScale() or oe
+			byRect(c, ce)
+			for _, x in ipairs({ c:GetRegions() }) do
+				if shown(x) then byRect(x, ce) end
+			end
+		end
+	end
+	return r
+end
+CT.Reach = reach
+
+-- The room between the card and the window's drawing.
+local GAP = 4
+
 -- Put the card on the window: above its top edge, or under its bottom one
 -- when the screen has no room above (toasts.headsup.place "below": under it,
--- over it when there is no room below), or on its own spot ("free":
--- toasts.headsup.pos, Move frames). animate: slide out from behind the edge
--- it sits on, or in from above on its own spot (a fade under ui.reduceMotion).
+-- over it when there is no room below), beside it where neither has room
+-- (the side facing the middle of the screen when both do), or on its own
+-- spot ("free": toasts.headsup.pos, Move frames). Clear of the window and
+-- of what its look draws past its edges (CT.Reach): touching it, the card
+-- sat under a shadow, border or corner marks drawn over it. animate: slide
+-- out from behind the edge it sits on, or in from above beside the window
+-- and on its own spot (a fade under ui.reduceMotion).
 function CT.Place(animate)
 	local w = window()
 	if not (f and w and CT.current) then return end
@@ -777,21 +851,44 @@ function CT.Place(animate)
 		-- hooks.guideAnchor) is the edge the card sits on instead.
 		local ran, own = Theme.SkinHookValue("guideAnchor")
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
-		local top, bottom, room = edge:GetTop(), edge:GetBottom(), UIParent:GetTop()
+		-- The gaps in the edge's units; the card's anchors take them in its own (k).
+		local r = reach(edge)
+		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
+		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
-		local fitsAbove = not (top and room) or (top + h * k) * s <= room * us
-		local above = fitsAbove
-		if place == "below" then
-			local fitsBelow = not bottom or (bottom - h * k) * s >= 0
-			above = not fitsBelow and fitsAbove
+		local sw, sh = UIParent:GetRight(), UIParent:GetTop()
+		local cw = f:GetWidth() * k
+		local fits = {
+			above = not (top and sh) or (top + gap.above + h * k) * s <= sh * us,
+			below = not bottom or (bottom - gap.below - h * k) * s >= 0,
+			left = left ~= nil and (left - gap.left - cw) * s >= 0,
+			right = right ~= nil and sw ~= nil and (right + gap.right + cw) * s <= sw * us,
+		}
+		local side
+		for _, o in ipairs(place == "below" and { "below", "above" } or { "above", "below" }) do
+			if not side and fits[o] then side = o end
 		end
-		CT.side = above and "above" or "below"
-		if above then
-			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, -1)
+		if not side and (fits.left or fits.right) then
+			local cx, mid = edge:GetCenter(), UIParent:GetCenter()
+			local towardLeft = cx and mid and cx * s > mid * us
+			side = ((towardLeft and fits.left) or not fits.right) and "left" or "right"
+		end
+		side = side or "below"
+		CT.side = side
+		local g = gap[side] / k
+		if side == "above" then
+			Anim.Anchor(f, "BOTTOMLEFT", edge, "TOPLEFT", 0, g)
+			dy = -(h + g)
+		elseif side == "below" then
+			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, -g)
+			dy = h + g
+		elseif side == "left" then
+			Anim.Anchor(f, "TOPRIGHT", edge, "TOPLEFT", -g, 0)
+			dy = 18
 		else
-			Anim.Anchor(f, "TOPLEFT", edge, "BOTTOMLEFT", 0, 1)
+			Anim.Anchor(f, "TOPLEFT", edge, "TOPRIGHT", g, 0)
+			dy = 18
 		end
-		dy = above and -h or h
 	end
 	local wasShown = f:IsShown()
 	f:Show()

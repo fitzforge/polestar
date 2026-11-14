@@ -45,6 +45,8 @@ uistub.openTabs({ { "test/durotar", 1 } }, 1)
 "#;
 
 // The card as 0.3.7 drew it (next at 0df6f58ab, this scene, 2026-11-11): every look but the house look keeps it.
+// Since 0.4.0 it stands clear of the window's drawing (here the shadow's 12 units over its top, and 4 more), not
+// a unit into the window.
 const AS_IN_0_3_7: &str = r#"{"Act": {"at": "", "h": 28, "shown": false, "text": false, "w": 72},
 "Badge": {"at": "TOPRIGHT>card.TOPRIGHT@-34,-12", "h": 18, "shown": true, "text": false, "w": 53},
 "Close": {"at": "TOPRIGHT>card.TOPRIGHT@-6,-6", "h": 24, "shown": true, "text": false, "w": 24},
@@ -62,7 +64,7 @@ const AS_IN_0_3_7: &str = r#"{"Act": {"at": "", "h": 28, "shown": false, "text":
 "ShowMe": {"at": "", "h": 28, "shown": false, "text": false, "w": 74},
 "Stripe": {"at": "TOPLEFT>card.TOPLEFT@1,-1 BOTTOMLEFT>card.BOTTOMLEFT@1,1", "h": 0, "shown": true, "text": false, "w": 4},
 "Title": {"at": "TOPLEFT>card.TOPLEFT@70,-29", "h": 0, "shown": true, "text": "Voidwalker ready", "w": 240},
-"card": {"at": "BOTTOMLEFT>window.TOPLEFT@0,-1", "h": 138, "shown": true, "text": false, "w": 340},
+"card": {"at": "BOTTOMLEFT>window.TOPLEFT@0,16", "h": 138, "shown": true, "text": false, "w": 340},
 "scale": 1, "side": "above"}"#;
 
 // The house look's card since 0.3.8 (glowup-038, this scene, 2026-11-12): the title at the top, "Level 10 · Warlock"
@@ -84,7 +86,7 @@ const HOUSE_0_3_8: &str = r#"{"Act": {"at": "", "h": 28, "shown": false, "text":
 "ShowMe": {"at": "", "h": 28, "shown": false, "text": false, "w": 74},
 "Stripe": {"at": "TOPLEFT>card.TOPLEFT@1,-1 BOTTOMLEFT>card.BOTTOMLEFT@1,1", "h": 0, "shown": false, "text": false, "w": 4},
 "Title": {"at": "TOPLEFT>card.TOPLEFT@66,-14", "h": 0, "shown": true, "text": "Voidwalker ready", "w": 244},
-"card": {"at": "BOTTOMLEFT>window.TOPLEFT@0,-1", "h": 144, "shown": true, "text": false, "w": 340},
+"card": {"at": "BOTTOMLEFT>window.TOPLEFT@0,16", "h": 144, "shown": true, "text": false, "w": 340},
 "scale": 1, "side": "above"}"#;
 
 fn run(script: &str) -> Value {
@@ -121,8 +123,9 @@ fn a_skin_on_the_house_look_draws_the_heads_up_card_exactly_as_0_3_7_did() {
 	assert_eq!(out["dump"], want, "the card as 0.3.7 drew it");
 }
 
-// Below: under the window's bottom edge, sliding out from behind it; over it again where the screen has no room
-// below. Above (the default) turns under the window where the screen has no room above.
+// Below: under the window's bottom edge, sliding out from behind it, clear of the shadow drawn under it (20 units,
+// and 4 more); over it again where the screen has no room below. Above (the default) turns under the window where
+// the screen has no room above.
 #[test]
 fn below_puts_the_card_under_the_window_and_each_side_turns_where_the_screen_has_no_room() {
 	let out = run(r#"
@@ -144,10 +147,33 @@ fn below_puts_the_card_under_the_window_and_each_side_turns_where_the_screen_has
 		CT.Place()
 		emit({ below = below, noRoomBelow = noRoomBelow, noRoomAbove = CT.side, aboveAt = DUMP().card.at })"#);
 	assert_eq!(out["below"]["side"], "below");
-	assert_eq!(out["below"]["at"], "TOPLEFT>window.BOTTOMLEFT@0,1", "under the window's bottom edge");
+	assert_eq!(out["below"]["at"], "TOPLEFT>window.BOTTOMLEFT@0,-24", "under the window's bottom edge, clear of its shadow");
 	assert_eq!(out["noRoomBelow"], "above", "no room below: over the window");
 	assert_eq!(out["noRoomAbove"], "below", "no room above: under the window");
-	assert_eq!(out["aboveAt"], "TOPLEFT>window.BOTTOMLEFT@0,1");
+	assert_eq!(out["aboveAt"], "TOPLEFT>window.BOTTOMLEFT@0,-24");
+}
+
+// A window as tall as the screen leaves no room over or under it: the card stands beside it, top edges level, on the
+// side facing the middle of the screen, else the side with room; clear of the shadow at its side (16 units, and 4).
+// The house look's shadow is what the window draws past its edges (CT.Reach).
+#[test]
+fn with_no_room_over_or_under_the_window_the_card_stands_beside_it() {
+	let out = run(r#"
+		CT.Show(1506)
+		stub.advance(1)
+		local w = GF.frame
+		local reach = CT.Reach(w)
+		w.y = 100
+		w:SetHeight(900)
+		w.x = 1300
+		CT.Place()
+		local right = { side = CT.side, at = DUMP().card.at }
+		w.x = 100
+		CT.Place()
+		emit({ reach = reach, nearRight = right, nearLeft = { side = CT.side, at = DUMP().card.at } })"#);
+	assert_eq!(out["reach"], serde_json::json!({ "top": 12, "bottom": 20, "left": 16, "right": 16 }), "the house look's shadow");
+	assert_eq!(out["nearRight"], serde_json::json!({ "side": "left", "at": "TOPRIGHT>window.TOPLEFT@-20,0" }), "near the right edge: on its left");
+	assert_eq!(out["nearLeft"], serde_json::json!({ "side": "right", "at": "TOPLEFT>window.TOPRIGHT@20,0" }), "near the left edge: on its right");
 }
 
 // A spot of its own: the card leaves the window for its saved place (the screen's top middle until it is moved),
