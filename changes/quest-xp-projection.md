@@ -1,5 +1,8 @@
 ---
 section: players
 ---
-- Completed quests now show their pending XP on the experience bar and in its
-  tooltip, alongside the game's existing XP and rested XP display.
+- The game's XP bar shows the XP your finished quests give when you hand
+  them in, as a muted green fill after your XP, and its tooltip adds it up: how
+  many quests, how much XP and where it leaves you, or that it takes you up
+  at least a level. Turn it off under Options > Quality of Life > Trackers >
+  Experience > "Completed quest XP" (thanks RikyZ90, #2269).

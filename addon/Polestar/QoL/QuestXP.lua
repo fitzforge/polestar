@@ -65,7 +65,7 @@ local function attach(bar)
 		frame.LevelLabel = frame:CreateFontString(nil, "OVERLAY")
 		if ns.Theme and ns.Theme.Font then ns.Theme.Font(frame.LevelLabel, "small") end
 		if ns.Theme and ns.Theme.SetOutline then ns.Theme.SetOutline(frame.LevelLabel, true) end
-		frame.LevelLabel:SetText(L["+1 Level"])
+		frame.LevelLabel:SetText(L["+1 level"])
 		frame.LevelLabel:SetTextColor(SAGE_R, SAGE_G, SAGE_B, 1)
 		frame.LevelLabel:SetPoint("BOTTOMLEFT", frame, "TOPLEFT", 0, 2)
 		frame:SetScript("OnSizeChanged", draw)
@@ -113,7 +113,7 @@ local function tooltip(owner)
 	end
 	tip:AddLine(" ")
 	tip:AddDoubleLine(L["Completed quests"], format("%d", QuestXP.count))
-	tip:AddDoubleLine(L["Pending Quest XP"], format("+%d (%.1f%%)", QuestXP.total, QuestXP.total / QuestXP.limit * 100), SAGE_R, SAGE_G, SAGE_B, SAGE_R, SAGE_G, SAGE_B)
+	tip:AddDoubleLine(L["Pending quest XP"], format("+%d (%.1f%%)", QuestXP.total, QuestXP.total / QuestXP.limit * 100), SAGE_R, SAGE_G, SAGE_B, SAGE_R, SAGE_G, SAGE_B)
 	if QuestXP.xp + QuestXP.total >= QuestXP.limit then
 		tip:AddLine(L["After turn-ins: at least +1 level"], SAGE_R, SAGE_G, SAGE_B)
 	else
