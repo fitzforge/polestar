@@ -12718,3 +12718,13 @@ test('#2199: the Horde Searing Gorge step names the Searing Lava Spiders, in the
 	}
 });
 
+// #2211 (Sekyno, Scourge Warrior 41): the Bloodsail Charts and Orders (604) also lie in the rowboat beside the larger
+// camp on the Wild Shore; players' recordings loot them at the data's three spots, two of them by that camp's shore.
+test("#2211: Stranglethorn Vale's Wild Shore step says the charts and orders also lie in the rowboat, in the guide and its seed", () => {
+	const rel = 'forever/horde/40-50/01-stranglethorn-vale.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		const step = fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith('step The Wild Shore\n'));
+		assert.ok(step, `${file}: a Wild Shore step`);
+		assert.match(step, /the charts and the orders lie in their tents and in the rowboat beside the larger camp/, `${file}: the rowboat`);
+	}
+});

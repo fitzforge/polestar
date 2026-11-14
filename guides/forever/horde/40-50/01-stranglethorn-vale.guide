@@ -327,7 +327,7 @@ step Booty Bay
 # ---------------------------------------------------------------- The Bloodsail Buccaneers
 step The Wild Shore
   zone Stranglethorn Vale
-  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
+  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
   collect 3920 quest 604.2
   collect 3921 quest 604.3
   collect 3910 quest 587.1
