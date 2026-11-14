@@ -537,8 +537,9 @@ function Nav.Sample()
 	local r = target.r or Nav.DEFAULT_RADIUS
 	-- Near the target, the player's floor against its height: not arrived
 	-- while a floor apart (Undercity's levels, caves, towers), and the arrow
-	-- says up or down (Nav.FloorHint).
-	if tZ and dist <= max(r * 2, 20) then
+	-- says up or down (Nav.FloorHint). Not in a place only portals reach (the
+	-- walking maps have no floor there: the Wizard's Sanctum's chamber, #1970).
+	if tZ and dist <= max(r * 2, 20) and not (T and T.place) then
 		local W = Nav.walk
 		local z = W and W.Floor and W.Floor(pc, px, py)
 		if z and abs(z - tZ) > FLOOR_GAP then floorHint = z < tZ and "up" or "down" end

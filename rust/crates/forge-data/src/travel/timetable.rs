@@ -629,12 +629,14 @@ struct PortalDef {
 }
 
 // The Wizard's Sanctum in Stormwind (#1970): the mage trainers stand in a chamber 76 yd under its ground floor that
-// no walk reaches; the tower's top room has the portal down (trigger 704) and the chamber the one back up (702).
+// no walk reaches; the tower's top room has the portal down (trigger 704) and the chamber the one back up (702). No
+// AreaTable area names the Sanctum (its rooms are Stormwind City's, 1519), so its ends keep their own names (area 0:
+// none): "Take the portal to Wizard's Sanctum", not "to Stormwind City" in the city itself.
 const PORTALS: [PortalDef; 4] = [
 	PortalDef { trigger: 527, id: "portal-ruttheran", from: "Darnassus", from_area: 1657.0, to: "Rut'theran Village", to_area: 702.0, floors: None },
 	PortalDef { trigger: 542, id: "portal-darnassus", from: "Rut'theran Village", from_area: 702.0, to: "Darnassus", to_area: 1657.0, floors: None },
-	PortalDef { trigger: 704, id: "portal-sanctum-chamber", from: "Wizard's Sanctum tower", from_area: 1519.0, to: "Wizard's Sanctum", to_area: 1519.0, floors: Some((148.6, 29.6)) },
-	PortalDef { trigger: 702, id: "portal-sanctum-tower", from: "Wizard's Sanctum", from_area: 1519.0, to: "Wizard's Sanctum tower", to_area: 1519.0, floors: Some((29.6, 148.6)) },
+	PortalDef { trigger: 704, id: "portal-sanctum-chamber", from: "Wizard's Sanctum tower", from_area: 0.0, to: "Wizard's Sanctum", to_area: 0.0, floors: Some((148.6, 29.6)) },
+	PortalDef { trigger: 702, id: "portal-sanctum-tower", from: "Wizard's Sanctum", from_area: 0.0, to: "Wizard's Sanctum tower", to_area: 0.0, floors: Some((29.6, 148.6)) },
 ];
 const PORTAL_SECONDS: f64 = 5.0;
 

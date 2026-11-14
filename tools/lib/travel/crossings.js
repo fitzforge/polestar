@@ -47,8 +47,9 @@ const KEYS = {
 	open: ['a', 'b', 'oneWay', 'source'],
 	chain: ['id', 'name', 'open', 'nodes', 'note'],
 	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'offMap'],
-	// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap.)
-	area: ['id', 'name', 'map', 'box', 'note', 'source'],
+	// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap; `z`: min and max, a height range: a place only the
+	// portals that land in it reach.)
+	area: ['id', 'name', 'map', 'box', 'z', 'note', 'source'],
 };
 
 const isObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -239,10 +240,16 @@ function validateCrossings(doc, frames) {
 		if (corners.some((v) => v === undefined)) return void errors.push(`${where}: box must give x1, y1, x2, y2 in map percent (0-100)`);
 		const [x1, y1, x2, y2] = corners;
 		if (!(x1 < x2 && y1 < y2)) return void errors.push(`${where}: box x1 < x2 and y1 < y2`);
+		let zr = null;
+		if (e.z !== undefined) {
+			const range = isObj(e.z) && Number.isFinite(e.z.min) && Number.isFinite(e.z.max) && e.z.min < e.z.max;
+			if (!range) return void errors.push(`${where}: z must give min < max (yards)`);
+			zr = { zmin: e.z.min, zmax: e.z.max };
+		}
 		if (!ok) return;
 		const a = frames.toWorld(e.map, x1, y1);
-		const z = frames.toWorld(e.map, x2, y2);
-		out.areas.push({ id: e.id, name: e.name, map: e.map, c: a.c, top: round(a.wx, 1), bottom: round(z.wx, 1), left: round(a.wy, 1), right: round(z.wy, 1) });
+		const far = frames.toWorld(e.map, x2, y2);
+		out.areas.push({ id: e.id, name: e.name, map: e.map, c: a.c, top: round(a.wx, 1), bottom: round(far.wx, 1), left: round(a.wy, 1), right: round(far.wy, 1), ...(zr || {}) });
 	});
 	return out;
 }
@@ -536,10 +543,12 @@ function crossingsLua(set, frames, { complete, live }) {
 		L.push('\t},');
 	}
 	if (set.areas && set.areas.length) {
-		L.push('\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy)');
+		L.push('\t-- parts of a zone no walk joins to the rest of it: id, name, uiMap, continent, world box (top, bottom: wx; left, right: wy),');
+		L.push('\t-- with a height range (zmin, zmax) a place only the portals that land in it reach');
 		L.push('\tareas = {');
 		for (const a of set.areas) {
-			L.push(`\t\t{ id = ${luaStr(a.id)}, name = ${luaStr(a.name)}, map = ${a.map}, c = ${a.c}, top = ${num(a.top)}, bottom = ${num(a.bottom)}, left = ${num(a.left)}, right = ${num(a.right)} },`);
+			const z = a.zmin !== undefined ? `, zmin = ${num(a.zmin)}, zmax = ${num(a.zmax)}` : '';
+			L.push(`\t\t{ id = ${luaStr(a.id)}, name = ${luaStr(a.name)}, map = ${a.map}, c = ${a.c}, top = ${num(a.top)}, bottom = ${num(a.bottom)}, left = ${num(a.left)}, right = ${num(a.right)}${z} },`);
 		}
 		L.push('\t},');
 	}

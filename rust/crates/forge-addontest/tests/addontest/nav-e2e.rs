@@ -2200,11 +2200,12 @@ fn t_234_floor_alliance_in_stormwinds_trade_district_outdoors_the_walk_out_start
 // Cannon (Stormwind 49.56,85.80 live, her spawn height 29.7) for a turn-in: "Hearthstone to Stormwind: saves 62 min",
 // a few minutes' walk away. Jennea and the other mage trainers stand in the Wizard's Sanctum's chamber, 76 yd under
 // its ground floor, reached only by the tower's portals (classic-db areatrigger_teleport 704 from the top room down,
-// 702 back up), and the walking maps did not join the top room to the street: the walk into her was unreachable and
-// the Hearthstone won. With the tower's stairs joined (pack/joins.json) and the two portals in the travel data, the
-// plan walks: up the tower, through the portal down, to her.
+// 702 back up). No walking map (nor Polestar's walking grid) has the chamber's floor: her goal landed on the terrain
+// buried under the Mage Quarter, which the maps join to the inn's (225 yd) and to Elwynn only by a way round of 26 km,
+// so the plan hearthed. The chamber is a place only portals reach now (crossings.json `wizards-sanctum-chamber`: its
+// box and height range), so the plan walks: up the tower (the chain `wizards-sanctum-tower`, from the stairs' top to
+// the portal), through the portal down, to her.
 #[test]
-#[ignore = "needs the release walking-map pack with the tower-stairs join (#2041)"]
 fn issue_1970_a_mage_in_elwynn_bound_in_stormwind_walks_to_jennea_cannon_in_the_wizards_sanctum_no_hearthstone() {
 	skip_unless_ready!();
 	let out = run(
@@ -2229,6 +2230,126 @@ fn issue_1970_a_mage_in_elwynn_bound_in_stormwind_walks_to_jennea_cannon_in_the_
 	assert!(!route.iter().any(|l| l.starts_with("hearth|")), "no Hearthstone for a walk of minutes: {}", route.join(", "));
 	assert!(route.iter().any(|l| l == "portal|Take the portal to Wizard's Sanctum"), "through the tower's portal down: {}", route.join(", "));
 	assert_eq!(route.last().map(String::as_str), Some("walk|Jennea Cannon"), "and the walk to her: {}", route.join(", "));
+}
+
+/// #1970: the walk to Jennea Cannon in the Wizard's Sanctum's chamber from where `start` puts the player (Stormwind,
+/// bound there, the Hearthstone ready): the route's legs from the current one, "kind|label".
+fn sanctum_route(start: &str) -> Vec<String> {
+	let script = [
+		r#"
+		w.setLevel(16)
+		w.faction = "Alliance"
+		w.bind("Stormwind City")
+		w.addItem(6948, 1)
+		IsIndoors = function() return nil end
+		"#,
+		start,
+		r#"
+		for _ = 1, 30 do aim(); stub.advance(0.05) end
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1453, x = 49.56, y = 85.80, z = 29.7, label = "Jennea Cannon", kind = "turnin", r = 5 })
+		for _ = 1, 600 do aim(); stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local route = {}
+		for i = ci or 1, legs and #legs or 0 do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit({ route = route })"#,
+	]
+	.concat();
+	strs(&run(&script, true)["route"])
+}
+
+// #1970: from anywhere in Stormwind the walk into the chamber is the stairs, the portal down and a walk to her, never one
+// over the terrain buried under the city (the inn's buried ground joins hers at 225 yd), nor the Hearthstone for it.
+#[test]
+fn issue_1970_from_the_mage_quarter_the_inn_and_the_gate_the_walk_to_jennea_cannon_ends_through_the_sanctums_portal() {
+	skip_unless_ready!();
+	for (from, start) in
+		[("the Mage Quarter's street", "place(1453, -8990, 820, 105)"), ("the Gilded Rose", "place(1453, -8867.7, 673.6, 98)"), ("the city's gate", "place(1453, -9092.1, 395.1, nil)")]
+	{
+		let route = sanctum_route(start);
+		let n = route.len();
+		assert!(!route.iter().any(|l| l.starts_with("hearth|")), "from {from}: no Hearthstone: {}", route.join(", "));
+		assert!(route.iter().any(|l| l == "walk|Walk to the portal"), "from {from}: up the tower to the portal: {}", route.join(", "));
+		assert!(
+			n >= 2 && route[n - 2] == "portal|Take the portal to Wizard's Sanctum" && route[n - 1] == "walk|Jennea Cannon",
+			"from {from}: the portal down, then the walk to her: {}",
+			route.join(", ")
+		);
+	}
+}
+
+// #1970: the arrow leads to the Sanctum's portal and stays on it, "Take the portal", while the player stands in the top
+// room (the portal's landing lies 6 yd from its entrance on the map); once the portal has put them in the chamber
+// (seen by its step onto the landing) it points straight at Jennea Cannon, a plan made there stays in the chamber,
+// and a goal outside leads back up through the portal there and out by the stairs.
+#[test]
+fn issue_1970_the_arrow_stays_on_the_sanctums_portal_until_the_player_is_through_it_then_points_at_jennea_cannon() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(16)
+		w.faction = "Alliance"
+		IsIndoors = function() return nil end
+		local PORTAL, LANDING, JENNEA, UP = { -9020.1, 880.5 }, { -9017.5, 885.9 }, { -8989.7, 861.9 }, { -9023.3, 892.4 }
+		local function route()
+			local legs, ci = N.GetRoute()
+			local out = {}
+			for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
+			return out
+		end
+		local function at(p)
+			local a = aim()
+			return { state = a.state, leg = route()[1] or "none", off = a.x and r1(dist(a.x, a.y, p[1], p[2])) or false }
+		end
+		local function ticks(n) for _ = 1, n do aim(); stub.advance(0.05) end end
+		place(1453, -8990, 820, 105)
+		ticks(30)
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1453, x = 49.56, y = 85.80, z = 29.7, label = "Jennea Cannon", kind = "turnin", r = 5 })
+		ticks(200)
+		local r = { street = route() }
+		place(1453, -9009.4, 867.7, 147.1) -- the stairs' top
+		ticks(60)
+		r.stairs = at(PORTAL)
+		place(1453, -9020.1, 880.5, 148.6) -- at the portal
+		ticks(100)
+		r.portal = at(PORTAL)
+		r.before = N.travel.place or false
+		place(1453, LANDING[1], LANDING[2], 29.6) -- through it
+		ticks(20)
+		r.inside = at(JENNEA)
+		r.place = N.travel.place or false
+		N.travel.Replan()
+		ticks(20)
+		r.replanned = route()
+		-- a goal outside: back up through the portal there
+		local sx, sy = C.WorldToMap(0, -8990, 820, 1453)
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 1453, x = sx, y = sy, z = 105, label = "Out", kind = "goto", r = 5 })
+		ticks(100)
+		r.out = route()
+		r.up = at(UP)
+		place(1453, -9014.9, 873.3, 148.6) -- the portal up puts them in the top room
+		ticks(20)
+		r.after = N.travel.place or false
+		r.outAfter = route()
+		emit(r)"#,
+		true,
+	);
+	let leg = |k: &str| out[k]["leg"].as_str().unwrap_or("").to_string();
+	assert!(strs(&out["street"]).iter().any(|l| l == "portal|Take the portal to Wizard's Sanctum"), "from the street, by the portal: {out}");
+	assert_eq!(leg("stairs"), "walk|Walk to the portal", "at the stairs' top: {out}");
+	assert!(f(&out["stairs"]["off"]) < 2.0, "the arrow points at the portal: {out}");
+	assert_eq!((out["portal"]["state"].as_str(), leg("portal").as_str()), (Some("instruction"), "portal|Take the portal to Wizard's Sanctum"), "at the portal, 5 s on: {out}");
+	assert!(f(&out["portal"]["off"]) < 2.0, "the arrow stays on the portal: {out}");
+	assert_eq!(out["before"], false, "the top room is not the chamber: {out}");
+	assert_eq!(out["place"], "wizards-sanctum-chamber", "the portal's step put the player in the chamber: {out}");
+	assert_eq!(leg("inside"), "walk|Jennea Cannon", "through the portal: {out}");
+	assert!(f(&out["inside"]["off"]) < 2.0, "the arrow points straight at her: {out}");
+	assert_eq!(strs(&out["replanned"]), vec!["walk|Jennea Cannon".to_string()], "a plan made in the chamber walks to her: {out}");
+	let way_out = strs(&out["out"]);
+	assert_eq!(way_out.first().map(String::as_str), Some("portal|Take the portal to Wizard's Sanctum tower"), "out: the portal up, a few yards off: {out}");
+	assert_eq!(out["up"]["state"], "instruction", "out: take the portal up: {out}");
+	assert!(f(&out["up"]["off"]) < 2.0, "the arrow points at the portal up: {out}");
+	assert_eq!(out["after"], false, "the portal up took the player out of the chamber: {out}");
+	assert!(!strs(&out["outAfter"]).iter().any(|l| l.starts_with("portal|")), "out of the chamber, no portal left: {out}");
 }
 
 // Stormwind as Horde (Fitz's trail round the city, 2026-10-23): from the Deeprun Tram's entrance (his mark, Stormwind

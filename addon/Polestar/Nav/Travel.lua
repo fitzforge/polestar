@@ -115,8 +115,12 @@ local zoneInfo, wildZone, covered = {}, {}, {}  -- [map] = { name, c, frame }; [
 local crossEnds, crossIds = {}, {}              -- { map, c, wx, wy, r, partner, caption, noCross }; [id] = true
 local openPair = {}                             -- [map] = { [map] = true }: walk from the first into the second
 local chains = {}                               -- { id, name, open, nodes = { { map, c, wx, wy, r, caption, back, chain, idx }, ... } }
-local areasIn = {}                              -- [map] = { { id, c, top, bottom, left, right }, ... }: parts of the zone no walk joins to the rest
+local areasIn = {}                              -- [map] = { { id, c, top, bottom, left, right, zmin, zmax }, ... }: parts of the zone no walk joins to the rest
 local pathZone, zoneVersion = {}, 0             -- learned path node -> zone (false: none), cached per zone data
+-- The areas with a height range: places the walking maps have no floor in, reached only by the portals that land in
+-- them ([id] = the area: the Wizard's Sanctum's chamber, #1970). Travel.place: the one the player is in (Travel.Placed).
+-- (Fields, not locals: the file's main chunk keeps clear of Lua 5.1's 200.)
+Travel.places, Travel.seen = {}, {}
 
 -- "Stormwind" of "Stormwind, Elwynn" (a Chinese client's names part at "，").
 local function shortName(name)
@@ -172,6 +176,7 @@ local function clearData()
 	pathCount = 0
 	zoneInfo, wildZone, covered = {}, {}, {}
 	crossEnds, crossIds, openPair, chains, areasIn = {}, {}, {}, {}, {}
+	Travel.places = {}
 	pathZone, zoneVersion = {}, zoneVersion + 1
 end
 
@@ -266,9 +271,11 @@ end
 --     (z: the height of the floor a walk to that end ends on, when given: the Undercity's entrance hall, not the city below)
 --   open = { zoneA, zoneB, oneWay (0/1), ... }   shared borders walkable anywhere
 --   chains = { { id, name, open = "mouth"|"both", nodes = { { map, c, wx, wy, r, caption, back }, ... } }, ... } }
---   areas = { { id, name, map, c, top, bottom, left, right }, ... }   parts of a zone no walk joins to the rest of it
---     (Rut'theran Village at the foot of Teldrassil, on the tree's map): a zone of their own, reached by no crossing,
---     only by portals, ships and flights (#1761)
+--   areas = { { id, name, map, c, top, bottom, left, right, zmin, zmax }, ... }   parts of a zone no walk joins to the rest
+--     of it (Rut'theran Village at the foot of Teldrassil, on the tree's map): a zone of their own, reached by no crossing,
+--     only by portals, ships and flights (#1761). One with a height range (zmin, zmax) holds only the points with a
+--     height in it: a place the walking maps have no floor in, under or over others on the map, reached only by the
+--     portals that land in it (the Wizard's Sanctum's chamber under its tower, #1970; Travel.places)
 -- Calls merge; an id seen before is skipped.
 function Nav.RegisterCrossings(d)
 	if type(d) ~= "table" then return end
@@ -322,7 +329,12 @@ function Nav.RegisterCrossings(d)
 			crossIds[a.id] = true
 			local list = areasIn[a.map] or {}
 			areasIn[a.map] = list
-			list[#list + 1] = { id = a.id, c = a.c, top = a.top, bottom = a.bottom, left = a.left, right = a.right }
+			local e = { id = a.id, c = a.c, top = a.top, bottom = a.bottom, left = a.left, right = a.right }
+			if type(a.zmin) == "number" and type(a.zmax) == "number" then
+				e.zmin, e.zmax = a.zmin, a.zmax
+				Travel.places[a.id] = e
+			end
+			list[#list + 1] = e
 		end
 	end
 	if d.complete then
@@ -516,19 +528,23 @@ local function mapZoneOf(map, c, wx, wy, target)
 	return best
 end
 -- With the areas: a point inside one's box (top and bottom in wx, left and right in wy, either way round, as a zone
--- frame) walks in the area. (A field, not a local: the file's main chunk is at Lua 5.1's 200 locals.)
-function Travel.ZoneOf(map, c, wx, wy, target)
-	local z = mapZoneOf(map, c, wx, wy, target)
-	local list = z and areasIn[z]
+-- frame) walks in the area; one with a height range (Travel.places) holds only a point whose height (z) is in it.
+-- (Fields, not locals: the file's main chunk is at Lua 5.1's 200 locals.)
+function Travel.InBox(a, wx, wy)
+	local t, b, l, r = a.top, a.bottom, a.left, a.right
+	if t > b then t, b = b, t end
+	if l > r then l, r = r, l end
+	return wx >= t and wx <= b and wy >= l and wy <= r
+end
+function Travel.ZoneOf(map, c, wx, wy, target, z)
+	local zone = mapZoneOf(map, c, wx, wy, target)
+	local list = zone and areasIn[zone]
 	if list then
 		for _, a in ipairs(list) do
-			local t, b, l, r = a.top, a.bottom, a.left, a.right
-			if t > b then t, b = b, t end
-			if l > r then l, r = r, l end
-			if a.c == c and wx >= t and wx <= b and wy >= l and wy <= r then return a.id end
+			if a.c == c and Travel.InBox(a, wx, wy) and (not a.zmin or (z and z >= a.zmin and z <= a.zmax)) then return a.id end
 		end
 	end
-	return z
+	return zone
 end
 
 -- The middle of a zone the crossing data knows (a city or an open zone,
@@ -645,16 +661,19 @@ local function planRoute(p)
 	-- Vertices (vzone: the zone on a continent with crossing data)
 	local vc, vx, vy, vkind, vref, vzone = {}, {}, {}, {}, {}, {}
 	local n = 0
-	local function add(kind, c, wx, wy, ref, map)
+	local function add(kind, c, wx, wy, ref, map, z)
 		n = n + 1
 		vc[n], vx[n], vy[n], vkind[n], vref[n] = c, wx, wy, kind, ref
-		if covered[c] then vzone[n] = Travel.ZoneOf(map, c, wx, wy) end
+		if covered[c] then vzone[n] = Travel.ZoneOf(map, c, wx, wy, nil, z) end
 		return n
 	end
 	add(START, p.c, p.wx, p.wy, nil, p.map)
+	-- A start in a place only portals reach (p.place: Travel.Placed saw the player go in) is there, whatever its floor.
+	if covered[p.c] and p.place then vzone[1] = p.place end
 	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map)
-	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694).
-	if covered[tg.c] then vzone[2] = Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true) end
+	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694), or with its height the
+	-- place only portals reach that holds it (the mage trainers under the Wizard's Sanctum, #1970).
+	if covered[tg.c] then vzone[2] = Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true, tg.z) end
 	-- learnV[v]: a flight master of the player's not learnt yet, on the start's or the target's continent. Talking
 	-- to it learns it and opens its flight map, so it is walked to and flown from like a known one, never flown to
 	-- (its flights go only to known ones): Ironforge's beside a player who has Menethil Harbor (#1174).
@@ -676,8 +695,8 @@ local function planRoute(p)
 		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
 			-- The dock: the end's board point on the deck when its ship lies off the pier.
 			local da, db = t.a.board or t.a, t.b.board or t.b
-			local va = add(DOCK, da.c, da.wx, da.wy, t, da.map)
-			local vb = add(DOCK, db.c, db.wx, db.wy, t, db.map)
+			local va = add(DOCK, da.c, da.wx, da.wy, t, da.map, da.z)
+			local vb = add(DOCK, db.c, db.wx, db.wy, t, db.map, db.z)
 			rideTo[va], rideTo[vb] = vb, va
 			rideCost[va], rideCost[vb] = t.waitA + t.ab, t.waitB + t.ba
 			dockEnd[va], dockEnd[vb] = da, db
@@ -688,8 +707,8 @@ local function planRoute(p)
 	-- Walk-in portals: a ride one way, from a to b.
 	for _, t in ipairs(walkOnly and {} or portals) do
 		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
-			local va = add(DOCK, t.a.c, t.a.wx, t.a.wy, t, t.a.map)
-			local vb = add(DOCK, t.b.c, t.b.wx, t.b.wy, t, t.b.map)
+			local va = add(DOCK, t.a.c, t.a.wx, t.a.wy, t, t.a.map, t.a.z)
+			local vb = add(DOCK, t.b.c, t.b.wx, t.b.wy, t, t.b.map, t.b.z)
 			rideTo[va], rideCost[va] = vb, t.seconds
 			dockEnd[va], dockEnd[vb] = t.a, t.b
 			dockOf[va], dockOf[vb] = t, t
@@ -722,7 +741,7 @@ local function planRoute(p)
 			for k, nd in ipairs(nodes) do
 				if covered[nd.c] then
 					local mouth = k == 1 or (k == #nodes and ch.open == "both")
-					chainV[nd] = add(mouth and CHAIN or DARK, nd.c, nd.wx, nd.wy, nd, nd.map)
+					chainV[nd] = add(mouth and CHAIN or DARK, nd.c, nd.wx, nd.wy, nd, nd.map, nd.z)
 				end
 			end
 		end
@@ -737,9 +756,10 @@ local function planRoute(p)
 		end
 	end
 
-	-- Inside a chain: the start and the target attach only to its nearest node and that node's neighbours.
-	local startIn = zoned and covered[p.c] and insideChain(p.c, p.wx, p.wy, p.z, nil, p.floors) or nil
-	local targetIn = zoned and covered[tg.c] and insideChain(tg.c, tg.wx, tg.wy, tg.z, true) or nil
+	-- Inside a chain: the start and the target attach only to its nearest node and that node's neighbours (one in a
+	-- place only portals reach is in no chain).
+	local startIn = zoned and covered[p.c] and not p.place and insideChain(p.c, p.wx, p.wy, p.z, nil, p.floors) or nil
+	local targetIn = zoned and covered[tg.c] and not Travel.places[vzone[2]] and insideChain(tg.c, tg.wx, tg.wy, tg.z, true) or nil
 
 	-- Explicit walk links: crossing pairs, chain neighbours, attachments.
 	local extra = {}
@@ -835,7 +855,8 @@ local function planRoute(p)
 	local walkCost, places = p.walkCost, p.places
 	if walkCost or places then
 		for v = 1, keys do
-			if v ~= 2 and vc[v] == tg.c and not sealed(v) and not learnV[v] then
+			-- A place only portals reach has no floor on the walking maps: its walks are drawn straight, never measured.
+			if v ~= 2 and vc[v] == tg.c and not sealed(v) and not learnV[v] and not Travel.places[vzone[v]] then
 				-- A dock carries its height (a board point's deck, a tram or zeppelin end's floor): the walk from it starts there.
 				if places then places[#places + 1] = { wx = vx[v], wy = vy[v], z = vkind[v] == DOCK and dockEnd[v].z or nil, start = v == 1 or nil } end
 				if walkCost then
@@ -1269,7 +1290,8 @@ local function planRoute(p)
 					if ex[k] == to then linked = true break end
 				end
 			end
-			if (linked and not lift) or vkind[to] == DARK or (u == 1 and startIn ~= nil) then leg.handmade = true end
+			-- In a place only portals reach (no floor on the walking maps) every walk is drawn straight too.
+			if (linked and not lift) or vkind[to] == DARK or (u == 1 and startIn ~= nil) or Travel.places[vzone[u]] then leg.handmade = true end
 			if cross and vref[u].id ~= nil then
 				leg.crossing, leg.side = vref[u].id, vref[u].side
 			end
@@ -1305,6 +1327,10 @@ local function planRoute(p)
 			leg.kind = t.kind
 			leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
 			leg.transport, leg.side = t, dockSide[u]
+			-- A ride into or out of a place only portals reach is over when the player is seen in it, or out of it
+			-- (Travel.Placed), never by the yards to its landing: the Wizard's Sanctum's lies a few from its entrance (#1970).
+			local into, from = Travel.places[vzone[to]] and vzone[to], Travel.places[vzone[u]] and vzone[u]
+			if into or from then leg.place = into or false end
 		elseif teleV[to] then
 			local e = teleV[to]
 			leg.kind = "teleport"
@@ -1889,7 +1915,7 @@ local function plan(target)
 	-- the portal up, not a walk drawn straight up the trunk (#989).
 	local direct = noWalkFor == target and noDirect and walkCost and walkCost(pc, px, py, true) == false
 	local route = Nav.PlanRoute({
-		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors,
+		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		faction = playerFaction,
 		known = knownNodes(),
@@ -2652,15 +2678,58 @@ end
 local FLOOR_DZ, FLAT_ARRIVE = 20, 5
 local RIDES = { boat = true, zeppelin = true, airship = true, tram = true }
 local function offFloor(to, pc, px, py, d, dock, reach)
-	if not to.z then return false end
+	-- In a place only portals reach the walking maps have no floor, so the player's floor tells nothing there.
+	if not to.z or Travel.place then return false end
 	local W = Nav.walk
 	local fz = W and W.Floor and W.Floor(pc, px, py)
 	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
 	return d > (dock and reach or FLAT_ARRIVE)
 end
 
+-- The place only portals reach (Travel.places) the player is in, while they stand in its box. -> its id, or nil
+function Travel.Inside(pc, px, py)
+	local a = Travel.place and Travel.places[Travel.place]
+	if a and a.c == pc and Travel.InBox(a, px, py) then return Travel.place end
+	Travel.place = nil
+	return nil
+end
+
+-- Which place only portals reach the player is in: the walking maps have no floor there and Forever's client gives no
+-- height, so only the portal's step tells. A portal moves the player JUMP yards or more between two of the arrow's
+-- samples (20 a second), faster than any mount (FAST), onto its landing (within LAND yards: the game puts them on
+-- the spot): the landing of a portal into a place puts them in it, the landing of one out of it takes them out. Any
+-- other step (a Mage's Blink in the chamber, the top room's floor round the portal) changes nothing; walking out of
+-- the place's box takes them out (a hearth, a death). A sample after a GAP (the arrow hidden) only starts again.
+-- -> true when the place changed.
+function Travel.Placed(pc, px, py)
+	local JUMP, FAST, LAND, GAP = 3, 40, 2, 1
+	local s, now, was = Travel.seen, GetTime(), Travel.place
+	if s.c == pc and now - s.t <= GAP then
+		local d = yards(pc, px, py, s.c, s.x, s.y)
+		-- (Two samples at one time that lie yards apart: a step in no time at all.)
+		if d >= JUMP and (now <= s.t or d / (now - s.t) >= FAST) then
+			for _, t in ipairs(portals) do
+				local a, b = t.a, t.b
+				if b.c == pc and yards(pc, px, py, b.c, b.wx, b.wy) <= LAND then
+					local into = Travel.ZoneOf(b.map, b.c, b.wx, b.wy, nil, b.z)
+					if Travel.places[into] then
+						Travel.place = into
+					elseif Travel.places[Travel.ZoneOf(a.map, a.c, a.wx, a.wy, nil, a.z)] then
+						Travel.place = nil
+					end
+				end
+			end
+		end
+	end
+	s.c, s.x, s.y, s.t = pc, px, py, now
+	Travel.Inside(pc, px, py)
+	return Travel.place ~= was
+end
+
 function Travel.Aim(pc, px, py)
 	if not Travel.Active() then return nil end
+	-- Into or out of a place only portals reach other than by the route's own ride there: plan again from where it put them.
+	if Travel.Placed(pc, px, py) and not (legs[ci] and legs[ci].place ~= nil) then dirty = true end
 	while legs[ci] do
 		local leg = legs[ci]
 		local kind = leg.kind
@@ -2718,7 +2787,8 @@ function Travel.Aim(pc, px, py)
 			return "instruction", from.c, from.wx, from.wy
 		else
 			local to = leg.to
-			if yards(pc, px, py, to.c, to.wx, to.wy) <= DOCK_ARRIVE then
+			local placed = leg.place
+			if (placed ~= nil and Travel.place == (placed or nil)) or (placed == nil and yards(pc, px, py, to.c, to.wx, to.wy) <= DOCK_ARRIVE) then
 				Travel.Behind(nil, leg.transport)
 				advance()
 			elseif kind == "hearth" or kind == "teleport" then
