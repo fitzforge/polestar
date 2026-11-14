@@ -31,6 +31,10 @@ const FIXTURE: &str = r#"{
 	[9062] = "16 30 25 2 4 1 spFire10 spFrost10",
 	[9063] = "16 30 25 2 4 1 sp10",
 	[9064] = "16 30 25 2 4 1 spShadow20",
+	[9070] = "13 25 20 2 2 13 agi10 dmin20 dmax30 speed2000",
+	[9071] = "13 20 15 2 2 15 agi1 dmin5 dmax9 speed2000",
+	[9072] = "22 25 0 2 2 13 agi10 dmin20 dmax30 speed2000",
+	[9073] = "13 45 40 2 2 13 agi10 dmin20 dmax30 speed2000",
 }"#;
 
 // Troll by default: a race with no gear trait (racials have their own tests).
@@ -289,6 +293,107 @@ fn a_weapon_the_class_can_train_but_the_character_has_not_learned_is_no_upgrade_
 fn without_weapon_skill_data_the_class_weapon_list_decides_as_before() {
 	let out = run(r#"local c = G.CompareToEquipped("item:9030"); emit({ G.IsUpgrade("item:9030"), c.usable })"#, Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() });
 	assert_eq!(out[0], json!([true, true]));
+}
+
+// #2309: Fist Weapons is a learned passive even when the skill pane lists only Unarmed.
+#[test]
+fn trained_fist_weapons_use_the_passive_when_only_unarmed_and_other_weapon_skills_are_listed() {
+	let out = run(
+		r#"
+		w.learnSkill(173, "Daggers", 100, 150); w.learnSkill(162, "Unarmed", 100, 150)
+		w.learnSpell(15590)
+		g.equip(16, "item:9071")
+		local c = G.CompareToEquipped("item:9070")
+		emit({ usable = c.usable, reason = c.reason, upgrade = G.IsUpgrade("item:9070"),
+			score = G.ScoreItem("item:9070"), tooltip = g.showTooltip(GameTooltip, "item:9070"),
+			listed = Polestar.Compat.GetSkillRank(473) ~= nil })
+		emit({ G.CompareToEquipped("item:9030").reason, G.IsUpgrade("item:9030"), G.ScoreItem("item:9030") == nil })
+	"#,
+		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() },
+	);
+	assert_eq!(out[0]["listed"], false, "no Fist Weapons skill row supplies the answer");
+	assert_eq!(out[0]["usable"], true);
+	assert!(out[0]["reason"].is_null());
+	assert_eq!(out[0]["upgrade"], true);
+	assert!(out[0]["score"].as_f64().unwrap() > 0.0);
+	assert!(text(&out[0]["tooltip"][0]).contains("upgrade"));
+	assert!(!text(&out[0]["tooltip"][0]).contains("not trained"));
+	assert_eq!(out[1], json!(["skill", false, true]), "Fist Weapons does not train Swords");
+}
+
+#[test]
+fn fist_weapon_training_can_be_known_as_a_passive_but_absent_from_the_ordinary_spellbook() {
+	let out = run(
+		r#"
+		w.learnSkill(173, "Daggers", 100, 150); w.learnSkill(162, "Unarmed", 100, 150)
+		C_SpellBook.IsSpellKnown = function() return false end
+		IsPlayerSpell = function(id) return id == 15590 end
+		g.equip(16, "item:9071")
+		local c = G.CompareToEquipped("item:9070")
+		emit({ c.usable, G.IsUpgrade("item:9070"), G.ScoreItem("item:9070") ~= nil })
+		emit(g.showTooltip(GameTooltip, "item:9070"))
+	"#,
+		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() },
+	);
+	assert_eq!(out[0], json!([true, true, true]));
+	assert!(text(&out[1][0]).contains("upgrade"));
+}
+
+#[test]
+fn fist_weapon_spell_changes_refresh_cached_comparisons_scores_and_tooltips() {
+	let out = run(
+		r#"
+		w.learnSkill(173, "Daggers", 100, 150); w.learnSkill(162, "Unarmed", 100, 150)
+		g.equip(16, "item:9071")
+		local function snapshot()
+			local c = G.CompareToEquipped("item:9070")
+			emit({ usable = c.usable, reason = c.reason, upgrade = G.IsUpgrade("item:9070"),
+				scored = G.ScoreItem("item:9070") ~= nil, tooltip = g.showTooltip(GameTooltip, "item:9070") })
+		end
+		snapshot()
+		w.spells[15590] = true; stub.fire("SPELLS_CHANGED"); snapshot()
+		-- Exercise client knowledge refresh in both directions, without a skill-line event.
+		w.spells[15590] = nil; stub.fire("SPELLS_CHANGED"); snapshot()
+		w.spells[15590] = true; stub.fire("SPELLS_CHANGED"); snapshot()
+	"#,
+		Opts { cls: "ROGUE", class_name: "Rogue", class_id: 4, ..Default::default() },
+	);
+	for (i, known) in [false, true, false, true].into_iter().enumerate() {
+		assert_eq!(out[i]["usable"], known, "transition {i}");
+		assert_eq!(out[i]["upgrade"], known, "transition {i}");
+		assert_eq!(out[i]["scored"], known, "transition {i}");
+		if known {
+			assert!(out[i]["reason"].is_null());
+			assert!(text(&out[i]["tooltip"][0]).contains("upgrade"));
+		} else {
+			assert_eq!(out[i]["reason"], "skill");
+			assert!(text(&out[i]["tooltip"][0]).contains("weapon skill not trained"));
+		}
+	}
+}
+
+#[test]
+fn fist_weapon_proficiency_preserves_rank_fallback_and_class_offhand_and_level_limits() {
+	for (name, before, item, opts, expected) in [
+		("untrained", "", 9070, Opts::default(), json!([false, "skill", false, false])),
+		("listed rank", "w.learnSkill(473, 'Fist Weapons', 1, 150)", 9070, Opts::default(), json!([true, false, true, true])),
+		("no APIs", "w.unsupport('skill'); w.unsupport('spell')", 9070, Opts::default(), json!([true, false, true, true])),
+		("class", "w.learnSpell(15590)", 9070, Opts { cls: "MAGE", class_name: "Mage", class_id: 8, ..Default::default() }, json!([false, "weapon", false, false])),
+		("offhand", "w.learnSpell(15590)", 9072, Opts { level: 10, ..Default::default() }, json!([false, "dualwield", false, false])),
+		("level", "w.learnSpell(15590)", 9073, Opts::default(), json!([true, false, false, true])),
+	] {
+		let out = run(
+			&format!(
+				r#"w.learnSkill(173, "Daggers", 100, 150); w.learnSkill(162, "Unarmed", 100, 150)
+				{before}
+				g.equip(16, "item:9071")
+				local c = G.CompareToEquipped("item:{item}")
+				emit({{ c.usable, c.reason or false, G.IsUpgrade("item:{item}"), G.ScoreItem("item:{item}") ~= nil }})"#
+			),
+			opts,
+		);
+		assert_eq!(out[0], expected, "{name}");
+	}
 }
 
 #[test]

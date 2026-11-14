@@ -651,6 +651,9 @@ local WEAPON_SKILL = {
 local weaponSkills
 
 local function knowsWeaponSkill(line)
+	-- Fists use Unarmed's rank and may have no separate skill row. Weapon
+	-- passives can be known through either of the client's spell APIs (#2309).
+	if line == 473 and (ns.Compat.IsPlayerSpell(15590) or Client.KnowsSpell(15590)) then return true end
 	if weaponSkills == nil then
 		weaponSkills = false
 		local known, any = {}, false
@@ -899,6 +902,7 @@ ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() invalidate("equipment") 
 ns.RegisterEvent("BAG_UPDATE_DELAYED", function() invalidate("bags") end)
 ns.RegisterEvent("PLAYER_LEVEL_UP", onLevel)
 ns.RegisterEvent("SKILL_LINES_CHANGED", function() invalidate("skills") end)
+ns.RegisterEvent("SPELLS_CHANGED", function() invalidate("skills") end)
 -- Item data arriving changes an answer only for an item one was built from.
 ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id)
 	id = tonumber(readable(id))
