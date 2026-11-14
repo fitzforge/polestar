@@ -64,6 +64,17 @@ local function fresh(guid, dead)
 	return true
 end
 
+-- A sighting's name, or nil when the client has none to give: a secret, an
+-- empty string, or its "Unknown" placeholder (UNKNOWNOBJECT) for a creature
+-- it has not cached yet. Nil sends the alert down the unnamed path (no
+-- Target macro; a later sighting with the name renames the card, #2254).
+local function nameOf(v)
+	v = readable(v)
+	if type(v) ~= "string" or v == "" or v == UNKNOWNOBJECT then return nil end
+	return v
+end
+D.NameOf = nameOf
+
 -- "Creature-0-4372-0-17-61-0000123456" -> "Creature", 61
 local function guidId(guid)
 	if type(guid) ~= "string" then return nil end
@@ -95,7 +106,7 @@ function D.Unit(unit, source)
 	local level = readable(UnitLevel(unit))
 	return Rares.Sighting({
 		source = source, kind = "rare", id = id, guid = guid,
-		name = readable(UnitName(unit)), classification = class,
+		name = nameOf(UnitName(unit)), classification = class,
 		level = type(level) == "number" and level or nil,
 		dead = dead and true or false,
 	})
@@ -154,7 +165,7 @@ function D.Vignette(vguid)
 	if not fresh(vguid, dead) then return nil end
 	return Rares.Sighting({
 		source = "vignette", kind = what, id = id, guid = object, vignette = vguid,
-		name = readable(info.name), dead = dead and true or false,
+		name = nameOf(info.name), dead = dead and true or false,
 	}, vignetteWhere(vguid))
 end
 

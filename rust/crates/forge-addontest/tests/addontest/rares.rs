@@ -774,6 +774,104 @@ emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#
 	assert_eq!(out[1], json!([false, false]));
 }
 
+#[test]
+fn rare_card_a_rare_first_seen_without_its_name_has_no_target_button_until_a_later_sighting_names_it() {
+	// A rare the Codex doesn't know (Forever-only; the id is a stand-in) whose vignette first gives no name (#2254).
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+local f, s = PolestarRareToast, PolestarRareCardTarget
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown() })
+-- Seen again inside the cooldown, now with its name: the same card takes it, no second alert or sound.
+-- 4 s: Detect looks at one vignette (or unit GUID) at most once per 3 s (DEBOUNCE), so a name readable
+-- sooner reaches the card at the next event after that.
+stub.advance(4)
+U.vignette("V9", { npc = 990001, name = "Bjorn", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, sounds = #stub.sounds, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown(),
+	macro = s:GetAttribute("macrotext") })
+-- A later alert for it, past the cooldown, starts from the name seen.
+stub.advance(11 * 60)
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, name = got[#got].name, unnamed = got[#got].unnamed or false })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Unknown rare", "target": false, "secure": false }));
+	assert_eq!(out[1]["n"], 1);
+	assert_eq!(out[1]["sounds"], 1);
+	assert_eq!(out[1]["name"], "Bjorn");
+	assert_eq!(out[1]["target"], true);
+	assert_eq!(out[1]["secure"], true);
+	assert!(out[1]["macro"].as_str().unwrap().contains("/targetexact Bjorn"), "{:?}", out[1]["macro"]);
+	assert_eq!(out[2], json!({ "n": 2, "name": "Bjorn", "unnamed": false }));
+}
+
+#[test]
+fn a_unit_the_client_still_calls_unknown_alerts_unnamed_and_keeps_unknown_out_of_the_history_and_the_rare_list() {
+	// UnitName gives the client's UNKNOWNOBJECT placeholder for a creature it hasn't cached yet (#2254 review).
+	let out = run(r#"
+UNKNOWNOBJECT = "Unknown"
+local U = stub.rares
+U.unit("nameplate1", { npc = 990003, name = "Unknown", level = 10, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+local f = PolestarRareToast
+emit({ n = #got, name = f.Name:GetText(), unnamed = got[1].unnamed or false, seen = R.History()["rare:990003"].name or false,
+	nearby = #R.Nearby() })
+-- 4 s on (the per-GUID debounce), targeted with its name: the card takes it.
+stub.advance(4)
+U.unit("target", { npc = 990003, name = "Bjorn", level = 10, class = "rare" })
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ n = #got, name = f.Name:GetText(), seen = R.History()["rare:990003"].name, nearby = R.Nearby()[1] })"#);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Unknown rare", "unnamed": true, "seen": false, "nearby": 0 }));
+	assert_eq!(out[1], json!({ "n": 1, "name": "Bjorn", "seen": "Bjorn", "nearby": "Bjorn" }));
+}
+
+#[test]
+fn rare_card_an_unnamed_card_named_in_a_fight_shows_target_disabled_until_the_fight_ends() {
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+local f, s = PolestarRareToast, PolestarRareCardTarget
+stub.qol.combat(true)
+stub.advance(4)
+U.vignette("V9", { npc = 990001, name = "Bjorn", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), enabled = f.Target:IsEnabled() and true or false,
+	secure = s:IsShown() })
+stub.qol.combat(false)
+emit({ enabled = f.Target:IsEnabled() and true or false, secure = s:IsShown(), macro = s:GetAttribute("macrotext") })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Bjorn", "target": true, "enabled": false, "secure": false }));
+	assert_eq!(out[1]["enabled"], true);
+	assert_eq!(out[1]["secure"], true);
+	assert!(out[1]["macro"].as_str().unwrap().contains("/targetexact Bjorn"), "{:?}", out[1]["macro"]);
+}
+
+#[test]
+fn rare_card_another_rare_s_name_leaves_an_unnamed_card_alone() {
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+-- Rocklance alerts first, so a later sighting of it falls inside its cooldown and alerts nothing.
+U.vignette("V8", { npc = 990002, name = "Rocklance", map = 1429, x = 89, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V8", true)
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+stub.advance(4)
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V8", true)
+local f = PolestarRareToast
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), unnamed = R.Toast.Current().unnamed or false })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 2, "name": "Unknown rare", "target": false, "unnamed": true }));
+}
+
 // Where a frame is on screen, from its anchors (stub frames keep them, the stub lays nothing out): offsets and
 // sizes in the frame's effective scale, UIParent at its own; two anchors span, one places by size. Then what the
 // mouse hits at a point: the shown, mouse-enabled candidate highest by strata (inherited from the parents, as
