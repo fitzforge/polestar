@@ -2585,9 +2585,9 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 test(`${REDRIDGE}: nikilok's report (#1792): no Bronze Tube from Herble; Gearcutter Cogspinner's on the Ironforge stop before, optional`, { skip }, () => {
 	const red = goals(REDRIDGE);
 	assert.ok(!red.some(({ goal }) => goal.t === 'buy' && goal.item === 4371), 'no buy in 04-redridge-mountains');
+	// (#2243: without a tube the guide passes Viktori's step on its own; see Acrylic's report below.)
 	const take = at(red, 'accept 174 (Look to the Stars)', is('accept', 174));
-	const darkshire = red[take].step;
-	assert.match(darkshire.note || '', /Without one, right-click the quest in the guide window and skip it/, 'the Darkshire step says to skip the quest without a tube');
+	assert.ok((red[take].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 4371), "Viktori's step only with a Bronze Tube");
 	const ash = goals('forever/alliance/06-ashenvale.guide');
 	const buy = at(ash, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
 	assert.equal(ash[buy].goal.npc, 5175, 'from Gearcutter Cogspinner');
@@ -5452,8 +5452,10 @@ test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, 
 	const stepIn = (l, what, t, q) => l[at(l, what, is(t, q))].s;
 	const stepOf = (what, t, q) => stepIn(list, what, t, q);
 	const first = stepIn(one, 'accept 101', 'accept', 101);
-	assert.equal(stepIn(one, 'turnin 174', 'turnin', 174), first, 'Look to the Stars handed in on the first Darkshire visit');
-	assert.equal(stepIn(one, 'accept 175', 'accept', 175), first, 'and its second part taken there');
+	// (#2243: Viktori's goals are steps of their own right after the main Darkshire step, gated on the Bronze Tube.)
+	const viktori = stepIn(one, 'turnin 174', 'turnin', 174);
+	assert.equal(viktori, first + 1, 'Look to the Stars handed in on the first Darkshire visit, right after its main step');
+	assert.equal(stepIn(one, 'accept 175', 'accept', 175), viktori + 1, 'and its second part taken there');
 	assert.equal(stepOf('turnin 175', 'turnin', 175), stepOf('turnin 149', 'turnin', 149), '175 handed to Blind Mary with Ghost Hair Thread');
 	const big = stepIn(one, 'turnin 101', 'turnin', 101);
 	assert.equal(stepIn(one, 'turnin 56', 'turnin', 56), big - 1, 'The Night Watch handed in on the Darkshire visit with the Totem of Infliction (the town hall, then Madame Eva)');
@@ -12910,11 +12912,12 @@ test('Alliance 50-60/01: the Broodling Essence step warns of the Malfunctioning 
 
 // Bennistrov's and Visur's report (#2207): the Tanaris guide's Dunemaul Compound step grinds to 47.06, almost a level
 // for a player at 46.1. The gate stays (lower, the Thistleshrub Valley's level-50 quests and 48-50 mobs would come 3+
-// levels over); the step now says why and names the level 45-46 Ogres at the compound's south end as the safer grind.
-test("Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and where the safer ogres are", { skip }, () => {
+// levels over); the step now says why, and the grind is on the level 45-46 Ogres at the compound's south end.
+test("Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and grinds on the safer ogres", { skip }, () => {
 	const list = goals('forever/alliance/40-50/04-tanaris.guide');
-	const dune = list.find(({ goal }) => goal.t === 'level' && goal.grind === 5474);
+	const dune = list.find(({ goal }) => goal.t === 'level' && goal.level === 47 && goal.frac);
 	assert.ok(dune, 'the written grind at the compound');
+	assert.equal(dune.goal.grind, 5471, 'the grind on the Dunemaul Ogres (45-46), not the Brutes');
 	const text = JSON.stringify(dune.step);
 	assert.match(text, /Thistleshrub Valley/, 'why: the Thistleshrub Valley next');
 	assert.match(text, /Ogres \(45-46\)/, 'the safer ogres');
@@ -12933,14 +12936,16 @@ test("Tanaris (Alliance 47): Rut'theran's flight path on the way up from the boa
 	}
 });
 
-// Alliance 1-12 route feel (0.4.0, #2025): Teldrassil's last stop in Auberdine takes Thundris', Terenthis' and
-// Tharnariun's quests, but The Red Crystal (4811) waited for Night Elf Darkshore's first steps, a second walk to
-// Sentinel Glynda in the same street. It is taken with the others (level 12 needed; players reach that stop at
-// 12.5 or more); Night Elf Darkshore keeps its accept for a player who loads it fresh.
-test(`${TELDRASSIL}: The Red Crystal is taken on the last Auberdine stop with Thundris' and Terenthis' quests`, { skip }, () => {
+// Alliance 1-12 route feel (0.4.0, #2025): The Red Crystal (4811) waited for Night Elf Darkshore's first steps, a
+// second walk to Sentinel Glynda in Auberdine's main street. It is taken on Teldrassil's first Auberdine stop, with
+// the WANTED poster a few steps from her (level 12 needed; the route reaches that stop at 12.5 or more), not at the
+// end of the second stop, which then walked back past the poster. Night Elf Darkshore keeps its accept for a player
+// who loads it fresh.
+test(`${TELDRASSIL}: The Red Crystal is taken on the first Auberdine stop, with the WANTED poster`, { skip }, () => {
 	const list = goals(TELDRASSIL).filter(forClass('WARRIOR'));
 	const take = list[at(list, 'accept 4811', is('accept', 4811))];
-	assert.ok(take.step.goals.some(is('accept', 954)) && take.step.goals.some(is('accept', 984)), 'the same step as 954 and 984');
+	assert.ok(take.step.goals.some(is('accept', 98025)) && take.step.goals.some(is('turnin', 6342)), 'the first stop: Laird and the WANTED poster');
+	assert.ok(at(list, 'accept 4811', is('accept', 4811)) < at(list, 'accept 954', is('accept', 954)), 'before the second stop');
 	const ne = goals(NE_DARKSHORE).filter(nightElf);
 	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'interact'), 'Night Elf Darkshore keeps the accept before the crystal');
 });
@@ -12960,4 +12965,130 @@ test(`${NE_DARKSHORE}: For Love Eternal is taken on the pier, done in Ameth'Aran
 	assert.match(list[pendant].goal.note || '', /Anaya Dawnrunner, level 16/, 'warns about her level');
 	const boat = list.findIndex(({ step }) => step.title === 'Boat to Stormwind Harbor');
 	assert.ok(give < boat && list.slice(give, boat).every(({ goal }) => goal.t !== 'accept'), 'handed in on the way to the boat');
+});
+
+// 0.4.0 route-feel audit (Alliance Felwood): the route reaches Xavaric at the far end of Jadefire Run for his Flute;
+// he is killed for Further Corruption (4906) there, not after the other satyrs on a walk back (6.3 min on every branch).
+test('Alliance 50-60/02: Xavaric killed when the route reaches him for the Flute of Xavaric', { skip }, () => {
+	const fel = goals('forever/alliance/50-60/02-felwood.guide');
+	const xav = at(fel, 'kill Xavaric', (g) => g.t === 'kill' && g.quest === 4906 && g.oi === 4);
+	const flute = at(fel, 'collect 11668', (g) => g.t === 'collect' && g.item === 11668);
+	assert.equal(fel[xav].s, fel[flute].s, 'the same step');
+	assert.ok(xav < flute, 'killed before the flute is looted');
+	for (const oi of [1, 2, 3]) assert.ok(xav < at(fel, `kill 4906.${oi}`, (g) => g.t === 'kill' && g.quest === 4906 && g.oi === oi), `before the other satyrs (4906.${oi})`);
+	const felbind = at(fel, 'collect 939.1', (g) => g.t === 'collect' && g.quest === 939);
+	for (const oi of [1, 2, 3]) assert.ok(at(fel, `kill 4906.${oi}`, (g) => g.t === 'kill' && g.quest === 4906 && g.oi === oi) < felbind, `the Felbind comes with the satyr kills, after 4906.${oi}`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
+	assert.ok(rf.some((r) => r.a[0] === 'task' && r.a[1] === 4906 && r.a[2] === 3 && r.b[0] === 'accept' && r.b[1] === 939), 'its record');
+	const after = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.after;
+	assert.ok(after.some((r) => r.a[0] === 'task' && r.a[1] === 4906 && r.b[0] === 'task' && r.b[1] === 939), 'and the Felbind\'s');
+});
+
+// 0.4.0 route-feel audit (Alliance Western Plaguelands): the Dalson's Tears cauldron (Target: Dalson's Tears, 5219)
+// stands beside the farmhouse the route works on its first stop there; Return to Chillwind Camp (5220) was walked past
+// there and taken 30 min later on a ride out from the camp. Now it is done with the farm and handed in on the same
+// return to the camp as the scourgestones.
+test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return to Chillwind Camp on the next camp stop', { skip }, () => {
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const p = (t, q) => at(wpl, `${t} ${q}`, is(t, q));
+	assert.equal(wpl[p('turnin', 5219)].s, wpl[p('turnin', 5060)].s, 'the cauldron with the farm\'s cabinet');
+	assert.ok(p('turnin', 5060) < p('turnin', 5219) && p('turnin', 5219) < p('accept', 5220), 'after the cabinet');
+	assert.equal(wpl[p('turnin', 5220)].s, wpl[p('turnin', 5403)].s, 'handed in with the scourgestones');
+	assert.equal(wpl[p('accept', 5222)].s, wpl[p('turnin', 5220)].s, 'Target: Writhing Haunt taken there');
+	assert.ok(p('turnin', 5220) < p('turnin', 5097), 'before the watchtowers\' hand-in');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
+	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5060 && r.b[0] === 'task' && r.b[1] === 5219), 'its record');
+	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5403 && r.b[0] === 'turnin' && r.b[1] === 5220), 'and the hand-in\'s');
+});
+
+// 0.4.0 audit (route-feel, Mount Hyjal): the game's quest log holds 40. An Alliance character who takes Mount Hyjal
+// after the Western Plaguelands guide carries about 28 quests in from the 50-60 guides, and parts 2 and 3 took up to
+// 42 at once: the Shrine of Aviana's three quests on top of two breadcrumbs for Dae'gun and the Summit picked up at
+// the end of part 2. Walk the default Human Warrior chain into Hyjal and count the log (accepts in, hand-ins out,
+// optional and group goals left aside, as the route-feel audit counts them): it never goes over 40.
+test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the 50-60 guides carry in', { skip }, () => {
+	const exp = (g) => {
+		const file = path.join(__dirname, '..', 'experimental', 'guides', `${g}.guide`);
+		data = data || loadData(DATA);
+		const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
+		return guides[0];
+	};
+	const chain = chainFrom('forever/alliance/human/01-elwynn-forest.guide');
+	const end = chain.indexOf('forever/alliance/50-60/04-western-plaguelands.guide');
+	assert.ok(end > 0, 'the chain reaches the Western Plaguelands guide');
+	const route = [...chain.slice(0, end + 1).map((g) => [g, compiled(g)]), ...['hyjal-1', 'hyjal-2', 'hyjal-3'].map((g) => [g, exp(g)])];
+	const fits = (o) => !o || ((!o.races || o.races.includes('Human')) && (!o.classes || o.classes.includes('WARRIOR')) && (!o.factions || o.factions.includes('Alliance')));
+	const solo = (st) => !(st.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
+	const log = new Set();
+	let peak = 0;
+	let where = '';
+	for (const [id, g] of route) {
+		for (const st of g.steps) {
+			if (!fits(st.only) || !solo(st)) continue;
+			for (const goal of st.goals) {
+				if (!fits(goal.only) || goal.optional) continue;
+				if (goal.t === 'accept') log.add(goal.quest);
+				else if (goal.t === 'turnin') log.delete(goal.quest);
+				if (log.size > peak) [peak, where] = [log.size, `${id} "${st.title}"`];
+			}
+		}
+	}
+	assert.ok(peak <= 40, `the log peaks at ${peak} (${where})`);
+});
+
+// chiboman (#2253, 0.3.7.2, Human Paladin 38): "Galen's Escape" pulls the Fallow Sanctuary's Lost One Riftseekers (37-38)
+// and their pets onto Galen; too hard alone at 38, and the step gave no warning. Players' recordings: 20 people, 11 of 19
+// finished on the first try, 8 failed the first escort at 36-39 and 5 of those finished on a retry. The step warns, says
+// how to keep the attackers on the player, and that a failed escort is taken again at the cage.
+test(`${ARATHI}: Galen's Escape warns of the Lost Ones the escort pulls onto Galen (#2253)`, { skip }, () => {
+	const list = goals(ARATHI);
+	const { step } = list[at(list, 'accept 1393', is('accept', 1393))];
+	const tips = [].concat(step.note || []).join(' ');
+	assert.match(tips, /Careful: on the walk out the camp's Lost One Riftseekers \(37-38\) and their pets/);
+	assert.match(tips, /take it again at his cage/);
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2253-galens-escape-careful'), 'a record the build keeps');
+});
+
+// #2268 (thmastin, Dwarf Shaman 11): the Empty Powder Keg's quest, Stolen Blasting Powder (95213), was handed in on the
+// quarry stop as an optional line beside Those Blasted Troggs! and The Public Servant; with those two in, nothing held
+// the step, and the window moved on to Helm's Bed Lake while 95213 sat complete in the log, Thesten's follow-up (95214)
+// never taken. The hand-in and the follow-up's accept now have a step of their own, shown while 95213 is carried.
+test('#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg\'s quest before Helm\'s Bed Lake', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 95213 && f.at.goal === 'turnin' && f.split), 'a split record the build keeps');
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 95213 && f.at.goal === 'turnin' && f.when === 'onquest 95213'), 'a when record the build keeps');
+	for (const guide of DUN_MOROGHS) {
+		const list = goals(guide);
+		const give = at(list, 'turnin 95213', is('turnin', 95213));
+		const take = at(list, 'accept 95214', is('accept', 95214));
+		const { step } = list[give];
+		assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(95213)), `${guide}: shown while 95213 is carried`);
+		assert.ok(!list[give].goal.optional && !list[take].goal.optional, `${guide}: the hand-in and the follow-up hold the step`);
+		assert.equal(list[take].step, step, `${guide}: 95214 taken on the same step`);
+		assert.ok(take < at(list, 'powder at the lake', (g) => g.t === 'collect' && g.item === 267415), `${guide}: before Helm's Bed Lake`);
+	}
+});
+
+// Acrylic (#2243, Gnome Warlock 26) and one more player: 04-redridge-mountains' first Darkshire stop held them on Look
+// to the Stars' hand-in (174, a Bronze Tube) and told them to skip it by hand; Herble had no tube in 44 merchant windows
+// of 28 people (#1792) and the Auction House buy before Darkshire is optional. Viktori's goals are a step of their own,
+// shown only with a tube (174) or once 174 is handed in (175); without it the chain's later goals in 05-duskwood and
+// 07-thousand-needles don't hold either.
+test(`${REDRIDGE}: Acrylic's report (#2243): Look to the Stars is a step of its own, only with a Bronze Tube; the chain drops out without one`, { skip }, () => {
+	const red = goals(REDRIDGE);
+	const take = at(red, 'accept 174', is('accept', 174));
+	const part2 = at(red, 'accept 175', is('accept', 175));
+	assert.notEqual(red[take].s, red[at(red, 'accept 163', is('accept', 163))].s, "not on the main Darkshire step");
+	assert.ok((red[take].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 4371), 'only with a Bronze Tube');
+	assert.equal(red[at(red, 'turnin 174', is('turnin', 174))].s, red[take].s, 'handed in on the same step');
+	assert.ok((red[part2].step.when || []).some((p) => p.k === 'turnedin' && !p.neg), '175 only once 174 is handed in');
+	const warlock = { race: 'Gnome', raceName: 'Gnome', faction: 'Alliance', cls: 'WARLOCK', className: 'Warlock', level: 26 };
+	const without = questGoalStatus(REDRIDGE, 174, warlock);
+	assert.ok(without.length >= 2 && without.every((s) => / (skipped|na)$/.test(s)), `without a tube 174 is passed: ${without.join(', ')}`);
+	const withTube = questGoalStatus(REDRIDGE, 174, warlock, { skills: 'w.addItem(4371, 1)' });
+	assert.ok(withTube.every((s) => !/ (skipped|na)$/.test(s)), `with a tube 174 is open: ${withTube.join(', ')}`);
+	for (const [guide, q] of [['forever/alliance/05-duskwood.guide', 175], ['forever/alliance/05-duskwood.guide', 177], [THOUSAND_NEEDLES, 177], [THOUSAND_NEEDLES, 181]]) {
+		const st = questGoalStatus(guide, q, { ...warlock, level: q === 181 ? 30 : 27 });
+		assert.ok(st.length >= 1 && st.every((s) => / (skipped|na)$/.test(s)), `${guide}: ${q} drops out without the chain: ${st.join(', ')}`);
+	}
 });

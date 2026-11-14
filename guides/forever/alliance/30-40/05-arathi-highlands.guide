@@ -64,7 +64,7 @@ step The Lost Caravan
   collect 6170 quest 1421             -- Wizards' Reagents
 
 step Galen Goodward
-  tip Galen is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards.
+  tip Galen is caged at the north end of the sanctuary. Free him and keep him alive on the walk out; his strongbox waits by the road afterwards. Careful: on the walk out the camp's Lost One Riftseekers (37-38) and their pets, with the Lost Ones around them, turn on Galen: clear the cage and the start of his path first, stay beside him and pull every attacker onto yourself. Many players lose him the first time; if he dies, abandon the quest and take it again at his cage.
   accept 1393
   complete 1393
   turnin 1393                         -- Galen's Strongbox

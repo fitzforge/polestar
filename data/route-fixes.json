@@ -6764,6 +6764,44 @@
 				],
 				"faction": "Horde",
 				"why": "#1644 (0.3.7, flow; 02-the-barrens): Altered Beings' Oasis Snapjaws are collected at Lushwater Oasis with Hezrul Bloodmark (852), who walks its west shore (46,36-42) among 15 of the snapjaws' 24 spawns (45.7-48.1,38.3-40.6; players' recordings show snapjaws killed by 52 people, with Lushwater's 45-47,37-42 among the spots), so the seed test can go with Verog without a third oasis visit."
+			},
+			{
+				"a": [
+					"task",
+					4906,
+					3
+				],
+				"b": [
+					"accept",
+					939
+				],
+				"faction": "Alliance",
+				"why": "Alliance Felwood (0.4.0 route-feel audit): Xavaric (Further Corruption's fourth objective) stands at the far end of Jadefire Run, where his Flute of Xavaric starts Felbind. Killed when the route reaches him for the flute, instead of after the Tricksters, Betrayers and Hellcallers: the flow audit saw every Alliance branch cross him for the flute and walk back about 2.4k yd for the kill (6.3 min)."
+			},
+			{
+				"a": [
+					"turnin",
+					5060
+				],
+				"b": [
+					"task",
+					5219,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Alliance Western Plaguelands (0.4.0 route-feel audit): Dalson's Tears' Scourge Cauldron (Target: Dalson's Tears, 46.1,52.6) stands just south-west of the Dalson farmhouse the route works at its first stop there; its key and hand-in come with the farm's cabinet, instead of a second ride out from Chillwind Camp 30 min later (933 yd out and back on every Alliance branch)."
+			},
+			{
+				"a": [
+					"turnin",
+					5403
+				],
+				"b": [
+					"turnin",
+					5220
+				],
+				"faction": "Alliance",
+				"why": "Alliance Western Plaguelands (0.4.0 route-feel audit): Return to Chillwind Camp (5220), taken at the Dalson's Tears cauldron on the first pass, is handed to High Priestess MacDonnell on the same return to the camp as the scourgestones."
 			}
 		],
 		"after": [
@@ -6998,6 +7036,20 @@
 				],
 				"faction": "Horde",
 				"why": "#1241 (Bonesavv77, Orc Warrior 24): Sun Rock Retreat is walked from Tsunaman and Maggran in the south, north to Tammra Windfield, then west to Braelyn Firehand outside the gate and the flight master beside her, on the way out. The guide took Braelyn and the flight path first and walked back east to Tammra."
+			},
+			{
+				"a": [
+					"task",
+					4906,
+					0
+				],
+				"b": [
+					"task",
+					939,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Alliance Felwood (0.4.0 route-feel audit): Jadefire Felbind drops from every Jadefire satyr (about one in four) and most often from Alshirr Banebreath in Jadefire Glen, far to the south. Collected after Further Corruption's Tricksters, Betrayers and Hellcallers in Jadefire Run, it comes with those kills; listed before them, the walk rode about 2.4k yd south for it and back north for the kills."
 			}
 		],
 		"stay": [

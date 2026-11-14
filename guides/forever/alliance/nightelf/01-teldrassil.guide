@@ -624,6 +624,7 @@ step Auberdine
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
   accept 3524                                 -- Gwennyth Bly'Leggonde
   accept 98025                                -- The WANTED poster outside the inn
+  accept 4811                                 -- Sentinel Glynda Nal'Shea
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart
   getfp "Auberdine"
 # ---------------------------------------------------------------- Auberdine
@@ -653,7 +654,6 @@ step Auberdine
   accept 958
   accept 984                                  -- Terenthis
   accept 2118                                 -- Tharnariun Treetender
-  accept 4811                                 -- Sentinel Glynda Nal'Shea
 
 step Gubber Blump
   zone Darkshore
