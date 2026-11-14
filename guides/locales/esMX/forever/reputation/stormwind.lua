@@ -197,7 +197,7 @@ return {
 	-- {item:13194} Felstone Field Cauldron Key · {npc:11075} Cauldron Lord Bilemaw
 	["{item:13194}, from {npc:11075}"] = "",
 	-- {object:176361} Scourge Cauldron
-	["the {object:176361}"] = "",
+	["the {object:176361}"] = "el {object:176361}",
 	-- {object:175894} Janice's Parcel
 	["{object:175894}, in the farmhouse"] = "",
 
@@ -205,7 +205,7 @@ return {
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears · {area:199} Felstone Field
 	["{npc:11077} guards the cauldron at {area:200}, north-east of {area:199}."] = "",
 	-- {object:177289} Scourge Cauldron
-	["the {object:177289}"] = "",
+	["the {object:177289}"] = "el {object:177289}",
 
 	-- Step 34: Chillwind Camp: the Writhing Haunt
 	-- {area:3197} Chillwind Camp · {area:202} Writhing Haunt
@@ -215,13 +215,13 @@ return {
 	-- {npc:11076} Cauldron Lord Razarch · {area:202} Writhing Haunt · {area:200} Dalson's Tears
 	["{npc:11076} guards the cauldron at the {area:202}, the farm east of {area:200}."] = "",
 	-- {object:176393} Scourge Cauldron
-	["the {object:176393}"] = "",
+	["the {object:176393}"] = "el {object:176393}",
 
 	-- Step 37: Gahrron's Withering
 	-- {npc:11078} Cauldron Lord Soulwrath · {area:201} Gahrron's Withering
 	["{npc:11078} guards the cauldron at {area:201}, in the east of the zone."] = "",
 	-- {object:176392} Scourge Cauldron
-	["the {object:176392}"] = "",
+	["the {object:176392}"] = "el {object:176392}",
 
 	-- Step 38: Chillwind Camp: done
 	-- {area:3197} Chillwind Camp
