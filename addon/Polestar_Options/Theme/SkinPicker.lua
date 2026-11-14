@@ -122,8 +122,11 @@ local drawing, paint, paintFont = I.drawing, I.paint, I.paintFont
 local floor, max, min = math.floor, math.max, math.min
 local STATUS_BAR = "Interface\\TargetingFrame\\UI-StatusBar"
 -- The window's width in its own units (drawn at the card's scale; its height
--- follows the skin's sizes), its person's header, its step's progress.
-local WIN_W, PERSON_H, DONE = 236, 44, 8 / 29
+-- follows the skin's sizes), its person's header, its step's progress. Wide
+-- enough for a goal's line and count whole in every language ("Mata a Kobold
+-- Vermin 10/10"; at 236 even English lost 2 px of it): the text keeps its
+-- size as the window scales down, so the width buys room slowly.
+local WIN_W, PERSON_H, DONE = 300, 44, 8 / 29
 -- The step: the guide window page's demo (UI/Looks/GuideWindow.lua), its
 -- first two goals.
 local GOALS = {
