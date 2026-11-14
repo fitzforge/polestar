@@ -765,6 +765,7 @@ take a jump.
 | group content `group` | elite work, dungeon and raid quests and goals on an instance map: see "Group content" below |
 | escort `escort` | the accept, `complete` and objective goals of an escort quest: see "Escort quests" below |
 | later hand-in `carriedTo` | `complete` and objective goals of a quest only a later guide of the chain hands in: see "Quests carried to a later guide" below |
+| fresh start `fresh` | a leveling guide that other leveling guides lead to: how much of its quest XP follows on from their quests: see "Fresh starts" below |
 | height `z` | a goal at an NPC or object: the height of that NPC's or object's spawn (`spawnz.json`), so the walk ends on its floor: see "Heights" below |
 | place area `area` | `sethome`, `hearth`, `fly` and `getfp` (their location) and `goto` (its label): the AreaTable area of that name, so the goal completes and reads right on every client language: see "Places by ID" below |
 | taxi node `node` | `getfp`: its flight point's taxi node (`travel.json`): see "Places by ID" below |
@@ -1136,6 +1137,39 @@ lists the quests still in the log that a later guide hands in, under
 "Continue automatically" the chat says them. "Clean up quest log" never
 lists such a quest as unneeded: it is handed in later, even when that guide
 is not loaded yet.
+
+## Fresh starts
+
+A character who opens a leveling guide without the guides before it (a
+fresh start at its level, a guide skipped) cannot take the quests that
+follow on from those guides' quests, and has none of their quests to hand
+in. Polestar leaves those out of the guide for them (a cheap lead-in close
+by comes in instead), so the guide works, but it gives that much less XP.
+The compiler writes how much on each leveling guide that other leveling
+guides lead to (`next` and every route choice, up to 8 guides back), from
+the guides compiled together:
+`fresh = { from = "<guide id>", share = <percent>, xp = <XP>, needs = { <quest ids> } }`.
+Of the guide's quest XP (`xp`: each quest it hands in, once, at the data's
+XP, else the hand-in's own `xp`), `share` is the part in whole percent that
+hinges on a quest an earlier guide takes: a hand-in of a quest the guide
+never takes itself, and a quest whose accept waits on a prerequisite (each
+of `preAll`, or one of `pre` when the guide takes none of the others on its
+own first) that the guide does not take before it and an earlier guide
+does, directly or through another of the guide's accepts that waits so.
+`from` is the earlier guide holding most of that XP (the nearer one on a
+tie) and `needs` up to 8 of those earlier guides' quests, most XP first.
+Written only from 10%; there is nothing to write in the guide.
+
+In the game the share left to a character is `share` scaled by the part of
+`needs` they have neither done, nor in the log, nor taken on the way (a
+lead-in step Polestar put in). From 30%, below the guide's top level and
+with `from` a guide for them, the guide window says while the guide's live
+step is in its first third: "Fresh start: about N% of this guide's quest XP
+follows on from <guide>. Expect about M minutes of extra grinding, or start
+there." (M: that XP as kills of mobs of their level, 1.5 a minute), with
+"Open <guide>", which opens that guide in a new tab. Taken or dismissed, it
+is gone for that guide until the next session. "Suggested for you" lists
+such a guide after the others of its zone and travel band.
 
 ## Validation
 

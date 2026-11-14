@@ -255,7 +255,8 @@ local GUIDE = rec({
 	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
 	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
-	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })), steps = list(STEP),
+	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })),
+	fresh = rec({ from = S, share = N, xp = N, needs = LN }), steps = list(STEP),
 })
 local PAYLOAD = rec({ format = N, license = S, guide = GUIDE, frames = { idmap = rec({ c = N, left = N, right = N, top = N, bottom = N }) } })
 
@@ -270,7 +271,8 @@ Import.KEYS = {
 	guide = keysOf(GUIDE), step = keysOf(STEP), goal = keysOf(GOAL), only = keysOf(ONLY),
 	reagents = keysOf(GOAL.rec.reagents.list), candidates = keysOf(GOAL.rec.candidates.list), spots = keysOf(GOAL.rec.spots.list),
 	fromNpcs = keysOf(GOAL.rec.fromNpcs.list),
-	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), sections = keysOf(GUIDE.rec.sections.list), when = keysOf(WHEN), image = keysOf(IMAGE),
+	items = keysOf(REWARD_ITEM), reward = keysOf(GUIDE.rec.reward.list), sections = keysOf(GUIDE.rec.sections.list), fresh = keysOf(GUIDE.rec.fresh),
+	when = keysOf(WHEN), image = keysOf(IMAGE),
 }
 
 local function finite(v) return type(v) == "number" and v == v and v ~= huge and v ~= -huge end

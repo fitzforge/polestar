@@ -63,6 +63,9 @@ const LOGIN_BASE: f64 = 11003.0;
 /// Theme.TipColor and the tooltip lines that take it (#2032) add 1 KiB: measured 11,200 KiB on 2026-11-13 (11,199 on
 /// the same tree without it). CI's runner measures this tree 4 KiB higher (11,204), which already left dev-040 at the
 /// edge of the budget there: 10 KiB more covers both.
+/// The fresh-start note (#1562: Engine.FreshFor and FreshStart, its banner) adds 6 KiB of code: measured 11,205 KiB on
+/// 2026-11-13 (11,199 without it). Engine.lua's private `Own` table holds exactly 512 keys at login there: one key more
+/// doubles its hash part, about 20 KiB.
 const LOGIN: f64 = LOGIN_BASE + 1192.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile

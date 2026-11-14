@@ -79,6 +79,7 @@ pub fn compile_sources(sources: &[Source], data: &Data, diag: &mut Diagnostics, 
 	lap.at("parse+resolve");
 	let Some(ctx) = &opts.context else {
 		crate::validate::validate_guides(&guides, data, diag);
+		crate::fresh::fresh_guides(&guides, data);
 		lap.at("validate");
 		let tokens = localise(&guides, data, diag);
 		lap.at("tokens");
@@ -95,6 +96,7 @@ pub fn compile_sources(sources: &[Source], data: &Data, diag: &mut Diagnostics, 
 		}
 	}
 	crate::validate::validate_pack_frames(&guides, data, &ours, ctx.data, diag);
+	crate::fresh::fresh_guides(&guides, data);
 	let tokens = localise(&guides, data, diag);
 	Compiled { guides, tokens }
 }

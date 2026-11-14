@@ -4497,6 +4497,9 @@ L["Show the quest items to buy at the auction house"] = "경매장에서 살 퀘
 -- L["Send to Auctionator"] = ""
 -- L["Copy list"] = ""
 -- L["Show how the profession guide gets its materials"] = ""
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = ""
+-- L["Expect about %d minutes of extra grinding, or start there."] = ""
+-- L["Open %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

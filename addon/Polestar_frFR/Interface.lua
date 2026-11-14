@@ -4498,6 +4498,9 @@ L["Show the quest items to buy at the auction house"] = "Afficher les objets de 
 -- L["Send to Auctionator"] = ""
 -- L["Copy list"] = ""
 -- L["Show how the profession guide gets its materials"] = ""
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = ""
+-- L["Expect about %d minutes of extra grinding, or start there."] = ""
+-- L["Open %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 29] = [
+pub const GUIDE_KEYS: [&str; 30] = [
 	"id",
 	"pack",
 	"title",
@@ -68,6 +68,7 @@ pub const GUIDE_KEYS: [&str; 29] = [
 	"names",
 	"written",
 	"sections",
+	"fresh",
 	"steps",
 ];
 /// `image` follows note, so a step without one is emitted as before; so does `section`.
@@ -232,6 +233,8 @@ pub const ONLY_KEYS: [&str; 3] = ["classes", "races", "factions"];
 const PACK_KEYS: [&str; 8] = ["id", "title", "author", "version", "license", "website", "source", "notes"];
 pub const FRAME_KEYS: [&str; 5] = ["c", "left", "right", "top", "bottom"];
 const LVL_KEYS: [&str; 2] = ["min", "max"];
+/// A leveling guide's `fresh` header (fresh.rs) in this key order.
+pub const FRESH_KEYS: [&str; 4] = ["from", "share", "xp", "needs"];
 
 fn header_main() -> String {
 	header("lua", crate::format::COMPILE_COMMAND, "the .guide files")
@@ -663,6 +666,8 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 			out.push("\t\t\tsteps = {".into());
 			out.extend_from_slice(&lines[1..lines.len() - 1]);
 			out.push("\t\t\t},".into());
+		} else if k == "fresh" {
+			out.push(format!("\t\t\tfresh = {},", inline(&v, &Keys::Fixed(&FRESH_KEYS), 2)));
 		} else if k == "nextWhen" {
 			// guide id -> its predicates, in the order of nextChoices.
 			let parts: Vec<String> = v.keys().iter().map(|id| format!("[{}] = {}", lua_string(id), list(&v.get(id), Some(&WHEN_KEYS), 2))).collect();
@@ -767,6 +772,8 @@ pub fn guide_data(guide: &V) -> V {
 				})
 				.collect();
 			out.set("steps", V::from(steps));
+		} else if k == "fresh" {
+			out.set(k, data_inline(&v, &Keys::Fixed(&FRESH_KEYS), 2));
 		} else if k == "nextWhen" {
 			let m = Obj::new();
 			for id in v.keys() {

@@ -4496,6 +4496,9 @@ L["Show the quest items to buy at the auction house"] = "Mostrar los objetos de 
 -- L["Send to Auctionator"] = ""
 -- L["Copy list"] = ""
 -- L["Show how the profession guide gets its materials"] = ""
+-- L["Fresh start: about %d%% of this guide's quest XP follows on from %s."] = ""
+-- L["Expect about %d minutes of extra grinding, or start there."] = ""
+-- L["Open %s"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
