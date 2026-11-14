@@ -391,6 +391,10 @@ mod settings_essentials;
 mod settings_game;
 #[path = "settings-migration.rs"]
 mod settings_migration;
+#[path = "settings-roundtrip.rs"]
+mod settings_roundtrip;
+#[path = "settings-smoke.rs"]
+mod settings_smoke;
 #[path = "skins-bundled.rs"]
 mod skins_bundled;
 #[path = "skins-concepts.rs"]

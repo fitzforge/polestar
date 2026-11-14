@@ -45,8 +45,8 @@
 -- walk's wins over nav.dotColor). nav.worldRouteAlpha fades the world map's
 -- line, nav.minimapRouteAlpha the minimap's, and each style's own size scales
 -- it there (nav.minimapLineSize, nav.minimapDotsSize, nav.minimapSparkleSize:
--- SIZE_KEYS; the Route lines page's "Minimap size" slider sets the size of
--- the style in use). nav.laterAlpha is how strongly the legs after this one
+-- SIZE_KEYS; the Route lines page's "Minimap size" row is the size of the
+-- style drawn). nav.laterAlpha is how strongly the legs after this one
 -- show, nav.lineOutline how strongly the dark outline (the line's soft
 -- shadow) under every stroke, nav.dotSize and nav.dotSpacing the dots', and
 -- nav.drawIn turns the draw-in off. The Route lines page
@@ -89,8 +89,8 @@ ns.RouteLines = RouteLines
 -- the dots at 80 %, the sparkles at 150 %; all at full opacity.
 ns.RegisterDefaults("nav", { routeLines = true, lineStyle = "line", lineWidth = Strokes.LINE_WIDTH, dotColor = "route", minimapRouteAlpha = 1,
 	minimapLineSize = 0.5, minimapDotsSize = 0.8, minimapSparkleSize = 1.5,
-	-- The Route lines page's "Minimap size" slider's key; it reads and writes the size of the style in
-	-- use. A size saved here before the sizes were per style is moved to all three.
+	-- The one minimap size from before the sizes were per style: one saved here
+	-- is moved to all three (splitSize).
 	minimapRouteSize = 1,
 	-- The Route lines page (Maps/RouteOptions.lua, 0.3.7): each way of
 	-- travel's own colour (false: the theme's; the tram's colours lifts too),

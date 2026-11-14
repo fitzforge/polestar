@@ -2506,7 +2506,14 @@ local function paint(frame, kind)
 		failSkin(id, err)
 		-- Outside a refresh, failSkin's own refresh has repainted the frame.
 		if refreshing then paint(frame, kind) end
+		return
 	end
+	-- A frame's own look over the skin's (frame.psAfterPaint: a toast's or a
+	-- tracker's own ground and border, UI/Toasts.lua), after every paint, so
+	-- no repaint (a skin switch, the house edge on its first showing) takes
+	-- it away.
+	local after = frame.psAfterPaint
+	if after then after(frame) end
 end
 
 function Theme.Skin(frame, kind)

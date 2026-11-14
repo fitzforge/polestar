@@ -684,7 +684,12 @@ GF.Part(function(GF)
 			W.HideTooltip(b)
 		end)
 		r.Share:Hide()
+		-- At the player's size (guideWindow.checkSize) from the first, the skin's
+		-- art drawn to it, as the look pass does: a row made after the last look
+		-- pass (rows come as a step needs them) has no other.
+		r.Check:SetSize(CHECK, CHECK)
 		placeCheck(r)
+		Theme.Repaint(r.Check)
 		-- "Other": the next-nearest trainer, vendor, inn or farm spot; for a goal
 		-- with spawn areas, the next spot. The arrow follows the goal there: the
 		-- Engine aims at it, and a point picked by hand gives way.

@@ -305,8 +305,14 @@ ns.UI.GuideFrame.Part(function(GF)
 			if fn then
 				fn()
 			elseif path == "" or path == "ui" then
+				-- Every setting at once (a profile switch, Reset all): what each
+				-- one's own change does above, the step's tip as the profile starts
+				-- it and the card read afresh included.
 				applyAll()
+				GF.SetTipOpen(ns.Get("ui.notesOpen") and true or false)
+				resetModel()
 				if path == "" then GF.ApplyLook() end
+				GF.Render()
 			elseif path == "guideWindow" then
 				GF.ApplyLook()
 			elseif type(path) == "string" and path:sub(1, 12) == "guideWindow." then

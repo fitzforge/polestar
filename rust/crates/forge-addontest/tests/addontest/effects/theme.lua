@@ -9,10 +9,12 @@ local function rgba(t) local r, g, b, a = t:GetVertexColor(); return { r, g, b, 
 local function textRgb(fs) local r, g, b = fs:GetTextColor(); return { r, g, b } end
 local function font(fs) local p, s, f = fs:GetFont(); return { p, s, f or "" } end
 local function shadow(fs) return select(4, fs:GetShadowColor()) end
-local function ground(f) return f.psSkin and f.psSkin.bg and rgba(f.psSkin.bg) or false end
+-- A ground or a border as seen: none while hidden (a look that draws none leaves the last one's, hidden).
+local function ground(f) return f.psSkin and f.psSkin.bg and f.psSkin.bg:IsShown() and rgba(f.psSkin.bg) or false end
 local function frame()
 	local e = GF.psBorder and GF.psBorder[1]
-	return { border = e and e:IsShown() or false, colour = e and rgba(e) or false, px = e and e:GetHeight() or false,
+	local on = e ~= nil and e:IsShown()
+	return { border = on, colour = on and rgba(e) or false, px = on and e:GetHeight() or false,
 		band = select(4, Polestar.UI.GuideFrame.parts.band:GetVertexColor()), shadow = GF.psShadow ~= nil and GF.psShadow:IsShown() and select(4, GF.psShadow:GetVertexColor()) or false,
 		ground = ground(GF) }
 end
@@ -21,7 +23,11 @@ return {
 	setup = function()
 		T, W = Polestar.Theme, Polestar.Widgets
 		-- The UI stub's player has no class: a Warrior's, for the class accent.
-		if not UnitClass then UnitClass = function(unit) if unit == "player" then return "Warrior", "WARRIOR", 1 end end end
+		if not UnitClass then
+			UnitClass = function(unit) if unit == "player" then return "Warrior", "WARRIOR", 1 end end
+			-- The client has it from the start: the colours worked out again with it.
+			T.Refresh()
+		end
 		uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
 		GF = PolestarGuideFrame
 		body, heading = W.Text(UIParent, "body", "text"), W.Text(UIParent, "heading", "text")

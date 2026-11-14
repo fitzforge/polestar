@@ -72,9 +72,12 @@ ns.OnLogin(routeRows)
 ns.On("GUIDES_REGISTERED", function() if ns.IsLoggedIn() then routeRows() end end)
 
 -- The group quests of this character's guides (`when group`), one toggle
--- each: on, do it with a group; off, skip it (or not answered yet: the
--- guide asks when it gets there). Per character (Engine.AnswerGroup). Read
--- once logged in; none: no tab.
+-- each: on, do it with a group; off, skip it. Per character
+-- (Engine.AnswerGroup). A quest not answered shows what Guide, Automation,
+-- Group quests answers for it, and reads nil while that asks, so a reset's
+-- Undo puts back an answer, or none, as it was. A reset (right-click, the
+-- section's or the page's) forgets the answer; a write answers only what
+-- the quest does not do already. Read once logged in; none: no tab.
 ns.OnLogin(function()
 	local E = ns.Engine
 	local list = E and E.GroupQuests and E.GroupQuests() or {}
@@ -84,9 +87,17 @@ ns.OnLogin(function()
 		local q = gq.quest
 		quests[#quests + 1] = { kind = "toggle",
 			label = function() return ns.Names and ns.Names.Quest and ns.Names.Quest(q) or gq.title or ("#" .. q) end,
-			help = L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."],
-			get = function() return E.GroupAnswer(q) == "do" end,
-			set = function(on) E.AnswerGroup(q, on and "do" or "skip") end }
+			help = L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, Guide, Automation, Group quests answers for it; by default the guide asks when it gets there."],
+			get = function()
+				local a = E.GroupAnswer(q)
+				if a == nil then return nil end
+				return a == "do"
+			end,
+			set = function(on)
+				if on == nil then E.AnswerGroup(q, nil) return end
+				local want = on and "do" or "skip"
+				if E.GroupAnswer(q) ~= want then E.AnswerGroup(q, want) end
+			end }
 	end
 	local done, why = ns.RegisterOptions({ page = L["Discovery"], tab = L["Group quests"], section = L["Group quests in leveling guides"], controls = quests })
 	if not done and geterrorhandler then geterrorhandler()(why) end

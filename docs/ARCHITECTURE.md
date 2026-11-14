@@ -4514,9 +4514,11 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   50 %, `nav.minimapDotsSize` 80 %, `nav.minimapSparkleSize` 150 %, Fitz's
   tuning for 0.3.6; 50-150 %) scales it, dots, spacing and the gap at the pin
   together (the strokes are laid out at the frame's scale divided by it).
-  The Route lines page's "Minimap size" slider (key `nav.minimapRouteSize`)
-  reads and sets the chosen style's; a size saved there before the sizes
-  were per style became each style's own (`splitSize`). Both on the Route
+  The Route lines page's "Minimap size" is a row per style, each that
+  style's key and shown while that style is drawn (the dots' under Reduce
+  motion with sparkles picked); a size saved under the old single key
+  (`nav.minimapRouteSize`) before the sizes were per style became each
+  style's own (`splitSize`). Both on the Route
   lines page, the world map keeping its own (`nav.worldRouteAlpha`). The
   minimap frame sits at the minimap's level + 3, under Polestar's trail and
   pins: the client draws its tracking blips and quest marks into the
@@ -7951,7 +7953,14 @@ resets through `W.ResetSetting(path, get?, set?)`, which hands what it held to
 the listener `W.OnReset` installs), a section's Reset and Reset page keep what
 the settings held as stored, and a chip in the footer (in the thanks line's
 place) says what was reset with an Undo (`O.Undo`) for 10 s; a new reset takes
-its place. Its controls run as halves of 36px rows, two to a row with a hairline
+its place. Reset page (`O.ResetPage`) puts back every setting a control of the
+page writes, its row on screen or hidden by its `needs` (a section's Reset
+only the rows on screen), and calls `set(nil)` on its rows of state that is no
+setting. It reads that state before any setting changes, since a setting's
+reset can move it (the guide window shown again ends a pause), and Undo puts
+the state back first and the settings after, so preset cards (which write the
+settings they name) never overwrite a setting put back. Its controls run as
+halves of 36px rows, two to a row with a hairline
 between (one a row below a 760px body); `wide = true`, picture cards and the
 search results take a whole row. A half is the label and the control, no
 description: `help` is the tooltip (`O.TipOf`: the help, where its colour

@@ -66,10 +66,14 @@ local SHAPES = {
 	end,
 }
 
--- The position settings and their shapes (more with P.RegisterPosition).
+-- The position settings and their shapes (more with P.RegisterPosition):
+-- every frame Move frames places by a setting (UI/Movers.lua), the alerts'
+-- line and the heads-up card's own spot included.
 local positions = {
 	["ui.pos"] = SHAPES.xy, ["ui.launcherPos"] = SHAPES.xy, ["nav.arrowPos"] = SHAPES.anchor,
 	["rares.toastPoint"] = SHAPES.pxy, ["maps.timerPos"] = SHAPES.pxy, ["maps.trackerPos"] = SHAPES.pxy, ["party.panelPos"] = SHAPES.pxy,
+	["toasts.transport.point"] = SHAPES.pxy, ["toasts.whilehere.point"] = SHAPES.pxy, ["toasts.headsup.pos"] = SHAPES.pxy,
+	["toasts.stackPoint"] = SHAPES.ppxy,
 }
 
 -- shape: "xy" | "pxy" | "ppxy" | "anchor", or fn(value) -> a fresh copy or nil.
@@ -260,6 +264,26 @@ local function slotName(path)
 	return key:find("Pos$") or key:find("Point$") or key:find("Colou?r$") or key == "accent"
 end
 
+-- The settings that hold one value per name the player picks for, with an
+-- empty default: the skin variant picked for each skin (skin id -> variant
+-- id), each a short text.
+local NAMED = { ["ui.skinVariants"] = true }
+
+local function text(v)
+	if type(v) ~= "string" or #v > LIMITS.text or find(v, "[%z\1-\31]") then return nil end
+	return v
+end
+
+-- A number a control may hold: finite, and within its slider's range (not
+-- snapped: some defaults sit between steps).
+local function number(v, c)
+	if not finite(v) or abs(v) > 1e9 then return nil end
+	if c and c.kind == "slider" and type(c.min) == "number" and type(c.max) == "number" then
+		if v < c.min - 1e-9 or v > c.max + 1e-9 then return nil end
+	end
+	return v
+end
+
 -- v as setting `path` may hold it (a fresh copy for a table), or nil.
 local function fit(path, v, c)
 	if NOT_SHARED[path] then return nil end
@@ -270,7 +294,11 @@ local function fit(path, v, c)
 		if type(v) == "table" then return shape(v) end
 		return nil
 	end
-	if d == nil then return nil end
+	if d == nil then
+		local parent = path:match("^(.+)%.[^.]+$")
+		if parent and NAMED[parent] then return text(v) end
+		return nil
+	end
 	local td = type(d)
 	if td == "boolean" then
 		if type(v) == "boolean" then
@@ -278,6 +306,9 @@ local function fit(path, v, c)
 			return v
 		end
 		if d == false and type(v) == "table" then return colour(v) end
+		-- Unset until its slider is moved (it follows another setting meanwhile:
+		-- the guide window's own background opacity), then the slider's number.
+		if d == false and type(v) == "number" and c and c.kind == "slider" then return number(v, c) end
 		return nil
 	elseif td == "table" then
 		if isColour(d) then return colour(v) end
@@ -285,13 +316,9 @@ local function fit(path, v, c)
 	end
 	if type(v) ~= td then return nil end
 	if td == "number" then
-		if not finite(v) or abs(v) > 1e9 then return nil end
-		if c and c.kind == "slider" and type(c.min) == "number" and type(c.max) == "number" then
-			-- In range, not snapped: some defaults sit between steps.
-			if v < c.min - 1e-9 or v > c.max + 1e-9 then return nil end
-		end
+		if number(v, c) == nil then return nil end
 	elseif td == "string" then
-		if #v > LIMITS.text or find(v, "[%z\1-\31]") then return nil end
+		if text(v) == nil then return nil end
 	else
 		return nil
 	end
