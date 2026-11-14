@@ -2451,8 +2451,10 @@ fn a_group_quest_banner_asks_skip_it_or_do_it_with_a_group_and_cannot_be_dismiss
 
 // Dungeons in the route, Ask me (Engine.DungeonQuestion): the banner asks at the dungeon the live step waits on, Run
 // it (the main link, the gamepad's first focus) or Skip it; it cannot be dismissed. Each answer goes to
-// Engine.ChooseDungeon for that dungeon.
+// Engine.ChooseDungeon for that dungeon. Dungeons in the route turned on (held back as they ship: Core/Init.lua's
+// switch; held_back_the_guide_window_shows_no_dungeon_notice below).
 const DUNGEON_ASK: &str = r#"
+		Polestar.dungeonRoute = true
 		uistub.dungeonQuestion = { map = 36, name = "The Deadmines", quests = 2, runIn = 4 }
 		uistub.openTabs(TABS, 1)
 		local B = GF.parts.banner
@@ -2502,6 +2504,7 @@ fn dungeon_route_ask_banner_offers_run_it_or_skip_it_and_cannot_be_dismissed() {
 #[test]
 fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_look_for_a_group() {
 	let out = run(r#"
+		Polestar.dungeonRoute = true
 		uistub.dungeonRun = { map = 36, name = "The Deadmines" }
 		uistub.dungeonKept = { "Oh Brother. . .", "Red Silk Bandanas" }
 		uistub.openTabs(TABS, 1)
@@ -2545,6 +2548,23 @@ fn dungeon_route_no_group_skip_it_at_the_run_names_the_quests_kept_soon_says_to_
 	assert_eq!(out["soon"], json!([true, "Wailing Caverns in 3 steps: start looking for a group.", false, true]));
 	assert_eq!(out["oneAhead"], "Wailing Caverns next: start looking for a group.");
 	assert_eq!(out["soonAfter"], false, "closed for this dungeon");
+}
+
+// Held back (Core/Init.lua's switch off, as it ships): whatever the engine says about a dungeon (a question, a run,
+// one soon) and a kept-quests notice left from before, the guide window shows none of the dungeon notices.
+#[test]
+fn held_back_the_guide_window_shows_no_dungeon_notice() {
+	let out = run(r#"
+		uistub.dungeonQuestion = { map = 36, name = "The Deadmines", quests = 2, runIn = 4 }
+		uistub.dungeonRun = { map = 36, name = "The Deadmines" }
+		uistub.dungeonSoon = { map = 43, name = "Wailing Caverns", steps = 1 }
+		uistub.openTabs(TABS, 1)
+		GF.notices.dungeonKept = { map = 36, titles = { "Red Silk Bandanas" } }
+		GF.Layout()
+		local B = GF.parts.banner
+		emit({ on = Polestar.dungeonRoute, kind = B:IsShown() and B.psKind or false })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "on": false, "kind": false }));
 }
 
 #[test]

@@ -527,9 +527,11 @@ fn right_clicking_the_quest_automation_switch_puts_accepting_and_turning_in_back
 	assert_eq!(out["again"], json!([true, true, true]), "from the defaults, right-click leaves them as they are");
 }
 
+// Dungeons in the route turned on (held back as they ship: Core/Init.lua's switch; the held_back_* test below).
 #[test]
 fn the_groups_page_shows_once_the_guides_have_dungeons_or_group_quests_and_writes_each_choice() {
 	let out = run(r#"
+		Polestar.dungeonRoute = true
 		Wel.Show()
 		local without = titles()
 		PolestarWelcome:Hide()
@@ -570,6 +572,32 @@ fn the_groups_page_shows_once_the_guides_have_dungeons_or_group_quests_and_write
 	assert_eq!(out["run"], json!(["run", "Run them"]));
 	assert_eq!(out["ask"], "ask");
 	assert_eq!(out["pages"][2], "Groups and dungeons", "after Questing");
+}
+
+// Held back (Core/Init.lua's switch off, as it ships): guides with dungeons in their route and Run them saved, yet
+// the page is Groups, about group quests only: no dungeon question, no word of dungeons; the saved answer stays.
+#[test]
+fn held_back_the_groups_page_asks_about_group_quests_only_and_names_no_dungeon() {
+	let out = run(r#"
+		Polestar.RegisterDefaults("behavior", { dungeons = "skip" })
+		Polestar.Set("behavior.dungeons", "run")
+		uistub.guideDungeons = { [1581] = true }
+		uistub.groupQuests = { { quest = 101, title = "Elite" } }
+		Wel.Show("groups")
+		local F = PolestarWelcome
+		local texts = {}
+		local function walk(f)
+			for _, r in ipairs({ f:GetRegions() }) do
+				if r.GetText and r:IsVisible() and r:GetText() then texts[#texts + 1] = r:GetText() end
+			end
+			for _, c in ipairs({ f:GetChildren() }) do walk(c) end
+		end
+		walk(F)
+		local dungeonWords = {}
+		for _, t in ipairs(texts) do if t:lower():find("dungeon") then dungeonWords[#dungeonWords + 1] = t end end
+		emit({ title = title(), dungeons = cards(F.Dungeons).shown, quests = cards(F.GroupQuests).shown, words = table.concat(dungeonWords, " | "),
+			route = Polestar.Get("behavior.dungeons") })"#);
+	assert_eq!(out, json!({ "title": "Groups", "dungeons": false, "quests": true, "words": "", "route": "run" }));
 }
 
 // Targeting (with QoL): the target button and its list, a preview, the single button (Simple target button) and who

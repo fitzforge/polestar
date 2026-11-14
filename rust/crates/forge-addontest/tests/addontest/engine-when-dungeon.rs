@@ -34,7 +34,9 @@ Polestar.RegisterGuide({
 })
 "#;
 
+// Dungeons in the route are held back while Core/Init.lua's switch is off (engine-dungeon-route.rs): turned on here.
 const HELPERS: &str = r#"
+Polestar.dungeonRoute = true
 E = Polestar.Engine
 function flush() stub.advance(0.25) end
 function state() local v = E.GetStepView(2); return { live = E.GetLiveStep(), status = v.status } end
@@ -152,6 +154,7 @@ Polestar.RegisterGuide({ id = "test/horde", pack = "test", title = "Horde", fact
 		script: [
 			TEST_PACK,
 			guides,
+			"Polestar.dungeonRoute = true",
 			"stub.login()",
 			r#"
 local maps = {}
@@ -165,4 +168,35 @@ emit({ maps = maps, read = rawget(Polestar.Guides.Get("test/deferred"), "steps")
 	.remove(0);
 	assert_eq!(out["maps"], json!([36, 48]));
 	assert_eq!(out["read"], false, "the compiled guide's steps are not read for the list");
+}
+
+// Held back (Core/Init.lua's switch off, as it ships): no dungeon is listed, so nothing offers one, and a step
+// for a dungeon saved as chosen is passed as for a character who chose none.
+#[test]
+fn held_back_no_dungeon_is_listed_and_a_chosen_one_is_passed() {
+	let guides = r#"
+Polestar.RegisterGuide({ id = "test/read", pack = "test", title = "Read", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ title = "Run", when = { { k = "dungeon", name = "Blackfathom Deeps", map = 48 } }, goals = { { t = "note", text = "in" } } },
+} })
+"#;
+	let listed = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: [TEST_PACK, guides, "stub.login()", "emit({ listed = next(Polestar.Engine.GuideDungeons()) or false })"].join("\n"),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(listed, json!({ "listed": false }));
+	let guide = GUIDE.replace("@WHEN@", BFD);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".into(), chosen_saved())],
+		script: [TEST_PACK, TEST_SOURCE, &guide, "E = Polestar.Engine", "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			"local v = E.GetStepView(2); emit({ live = E.GetLiveStep(), status = v.status })"].join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "live": 3, "status": "skipped" }));
 }

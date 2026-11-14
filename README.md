@@ -194,8 +194,8 @@ uses), Targeting (the target button, which lists your step's mobs and NPCs
 so a click targets one, the list following the button with no switch of its
 own; Simple target button for the single square button and who it targets;
 its mark and ping),
-Groups and dungeons (dungeons in your route, group quests), Your route (Fastest, Balanced or Roads, and the
-route line) and Your look (Polestar's looks, the game's and the skins, with a
+Groups (group quests), Your route (Fastest, Balanced or Roads, and the route
+line) and Your look (Polestar's looks, the game's and the skins, with a
 preview, and the colour scheme); a later character gets only its own choice,
 its class's stat weights. Every choice works the moment you make it, Skip
 install keeps everything as it is, and the last page names the guide

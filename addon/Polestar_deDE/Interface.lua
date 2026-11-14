@@ -913,6 +913,8 @@ L["Route line"] = "Routenlinie"
 -- L["The square button with a name beside it, on its own on your screen. Click it, or press its key, to target the next mob or NPC your step names."] = ""
 -- L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."] = ""
 -- L["The step key targets the same names without the button. Move frames, in Settings, moves the button."] = ""
+-- L["Groups"] = ""
+-- L["Leveling guides mark some elite and escort quests for a group. Choose what the guide does at them."] = ""
 
 -- New on the next branch
 L["%d of %d done"] = "%d von %d erledigt"
@@ -1465,6 +1467,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Materials window"] = ""
 -- L["Ask or search: how do I hide the arrow?"] = ""
 -- L["Ask or search settings"] = ""
+-- L["Install's pages: questing, groups, your route and your look, a page at a time. Each choice works at once."] = ""
+-- L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

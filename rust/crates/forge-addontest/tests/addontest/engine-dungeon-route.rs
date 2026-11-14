@@ -7,6 +7,10 @@
 //! (Engine.SkipDungeon) answers Skip and the route goes on. An answer given mid-guide never moves the live step
 //! back, never re-opens a pick-up the route passed, and the run is guarded (`when onquest`). Real Core manifest,
 //! stub world (a level 10 Human Warrior in Elwynn Forest), as engine-when-dungeon.rs.
+//!
+//! Dungeons in the route are held back while Core/Init.lua's switch (`ns.dungeonRoute`) is off, as it ships:
+//! these tests turn it on (`run`, `run_with`), and the `held_back_*` ones leave it off: every dungeon reads Skip
+//! whatever is saved, the route is the solo route's, nothing asks, and the saved answers are kept.
 
 use forge_addontest::{emitted, lua_value, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -132,13 +136,19 @@ fn run(saved: Option<Value>, script: &str) -> Vec<Value> {
 
 /// As `run`, with `world` (Lua, after the stub world is made and before login: quests already in the log).
 fn run_with(world: &str, saved: Option<Value>, script: &str) -> Vec<Value> {
+	run_switch(true, world, saved, script)
+}
+
+/// As `run_with`, with dungeons in the route turned on (`on`) or left as they ship (Core/Init.lua's switch).
+fn run_switch(on: bool, world: &str, saved: Option<Value>, script: &str) -> Vec<Value> {
 	let open = if saved.is_none() { r#"E.SetGuide("test/route")"# } else { "" };
+	let switch = if on { "Polestar.dungeonRoute = true" } else { "" };
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: format!("{WORLD}\n{world}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: saved.map(saved_lua).unwrap_or_default(),
-		script: [TEST_PACK, TEST_SOURCE, GUIDE, HELPERS, "stub.login()", open, r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6); mark()"#, script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, GUIDE, HELPERS, switch, "stub.login()", open, r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6); mark()"#, script].join("\n"),
 		..Default::default()
 	})
 }
@@ -369,4 +379,60 @@ fn dungeon_route_a_city_dungeon_of_the_other_faction_is_never_run_asked_listed_o
 	assert_eq!((run_them[0]["chosen"].clone(), run_them[0]["at"].clone()), (json!(false), json!(3)), "Run it for it is refused");
 	let ask = run(saved("ask"), "emit({ at = at(), asked = asked() })");
 	assert_eq!(ask[0], json!({ "at": 3, "asked": false }), "Ask me never asks about it");
+}
+
+// Held back (the switch off, as it ships): Run them saved for every dungeon and Run it for the Deadmines, yet the
+// route is the solo route's (steps 2, 3 and 7, numbered 1 to 3), nothing asks, no run comes, automation leaves the
+// dungeon's quests alone, no dungeon is listed for the settings, a choice changes nothing, and the saved answers are
+// kept as they were, for the release that turns it on.
+#[test]
+fn held_back_every_dungeon_reads_skip_whatever_is_saved_the_route_is_the_solo_routes_and_the_answers_are_kept() {
+	let saved = Some(json!({ "schema": 1, "guide": "test/route", "_route": "run", "dungeons": { "36": true } }));
+	let walk = r#"
+		take(7)
+		emit({ at = at(), soon = E.DungeonSoon() or false, run = E.DungeonRun() or false })
+		take(15)
+		emit({ at = at(), s4 = st(4), s5 = st(5), s6 = st(6), s7 = st(7), trace = trace })"#;
+	let out = run_switch(
+		false,
+		"",
+		saved,
+		&format!(
+			r#"
+		local n1, h1 = E.StepNumber(1)
+		emit({{ on = Polestar.dungeonRoute, routeOn = E.DungeonRouteOn(), route = Polestar.Get("behavior.dungeons"), at = at(), asked = asked(),
+			answer = E.DungeonAnswer(36), chosen = E.DungeonChosen(36), listed = next(E.GuideDungeons()) or false, total = E.StepTotal(),
+			n1 = n1, h1 = h1, n7 = E.StepNumber(7), wants = E.WantsQuest("accept", 214), s1 = st(1) }})
+		E.ChooseDungeon(36, false); flush()
+		{walk}
+		stub.fire("PLAYER_LOGOUT")
+		emit({{ route = PolestarDB.settings.behavior.dungeons, dungeons = PolestarCharDB.dungeons }})"#
+		),
+	);
+	assert_eq!(
+		out[0],
+		json!({ "on": false, "routeOn": false, "route": "run", "at": 2, "asked": false, "answer": false, "chosen": false, "listed": false,
+			"total": 3, "n1": 1, "h1": true, "n7": 3, "wants": false, "s1": "skipped" }),
+		"the solo route's first step and numbers"
+	);
+	assert_eq!(out[1], json!({ "at": 3, "soon": false, "run": false }));
+	assert_eq!((out[2]["at"].clone(), out[2]["trace"].clone()), (json!(7), json!([2, 3, 7])));
+	// Step for step what Skip them gives with dungeons in the route on.
+	let skip = run(char("skip"), walk);
+	assert_eq!((&out[1], &out[2]), (&skip[0], &skip[1]), "as Skip them");
+	assert_eq!(out[3], json!({ "route": "run", "dungeons": { "36": true } }), "the saved answers are kept, the choice wrote nothing");
+}
+
+// Held back, Ask me saved: nothing asks at the stop shared with the solo route; the solo way applies, as Skip.
+#[test]
+fn held_back_ask_me_saved_never_asks_and_a_shared_stop_takes_the_solo_way() {
+	let saved = Some(json!({ "schema": 1, "guide": "test/shared", "_route": "ask" }));
+	let out = run_switch(
+		false,
+		"w.onQuest(155, { 1 })",
+		saved,
+		r#"w.finish(155); flush()
+		emit({ at = at(), asked = asked(), total = E.StepTotal(), s2 = st(2), s3 = st(3) })"#,
+	);
+	assert_eq!(out[0], json!({ "at": 3, "asked": false, "total": 3, "s2": "skipped", "s3": "current" }));
 }

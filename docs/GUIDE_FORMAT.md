@@ -298,8 +298,13 @@ ID"), and Polestar compares the game's own name for it, then the name you
 wrote. A `taxi` flight point gets its flight master's taxi node, as a `getfp`
 does, for the factions the step is for.
 
-**Dungeon steps.** `when dungeon "<Name>"` is for the steps of a dungeon
-run: they apply only to characters who run that dungeon, and `when
+**Dungeon steps.** This version of Polestar holds dungeons in the route
+back: it reads every `when dungeon` step as one of a dungeon the character
+skips (and every `when !dungeon` step as holding), whatever a player saved,
+and offers no choice, so a guide plays as its solo route. The steps still
+compile and lint as described here.
+
+`when dungeon "<Name>"` is for the steps of a dungeon run: they apply only to characters who run that dungeon, and `when
 !dungeon "<Name>"` is the route for those who do not. Dungeons in my route
 (Options, Guide, Automation; the setting `behavior.dungeons`) answers every
 dungeon: Skip them, Ask me or Run them (Skip by default, so the solo route is

@@ -1036,14 +1036,15 @@ fn guide_window_in_dungeons_and_battlegrounds_hides_by_default_keep_visible_is_a
 // route" answers), Run it, or Skip it. Only the dungeons this character's guides have steps for show (0.3.6 plan:
 // "Options page lists only dungeons with steps"): Ragefire Chasm in a guide whose steps are read and The Deadmines
 // here (Engine.GuideDungeons; engine-when-dungeon.rs reads them from the guides). An answer saved for a dungeon not
-// shown (Gnomeregan) is kept, through Reset page too.
+// shown (Gnomeregan) is kept, through Reset page too. Dungeons in the route turned on (held back as they ship:
+// Core/Init.lua's switch; the held_back_* tests below).
 
 #[test]
 fn discovery_dungeons_an_answer_per_dungeon_the_guides_have_steps_for_per_character_in_the_client_s_language() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
-		script: format!("uistub.install()\nuistub.guideDungeons = {{ [389] = true, [36] = true }}\nstub.login()\nPolestar.UI.LoadOptions()\n{HELPERS}\nlocal UI, O, E = Polestar.UI, Polestar.UI.Options, Polestar.Engine")
+		script: format!("uistub.install()\nPolestar.dungeonRoute = true\nuistub.guideDungeons = {{ [389] = true, [36] = true }}\nstub.login()\nPolestar.UI.LoadOptions()\n{HELPERS}\nlocal UI, O, E = Polestar.UI, Polestar.UI.Options, Polestar.Engine")
 			+ r#"
 		Polestar.Names.Instance = function(id) if id == 389 then return "Огненная пропасть" end end
 		Polestar.CharState().dungeons[90] = true
@@ -1144,7 +1145,8 @@ fn guide_automation_an_answer_for_all_group_quests_while_a_guide_has_one_the_cla
 }
 
 // Guide, Automation: "Dungeons in my route" (behavior.dungeons): Skip them (the default: the solo route), Ask me or
-// Run them, shown once a guide for the character has a dungeon in its route. Right-click puts Skip back.
+// Run them, shown once dungeons in the route are turned on (Core/Init.lua's switch) and a guide for the character has
+// a dungeon in its route. Right-click puts Skip back.
 #[test]
 fn guide_automation_dungeons_in_my_route_while_a_guide_has_a_dungeon_skip_by_default() {
 	let none = run(r#"
@@ -1154,6 +1156,7 @@ fn guide_automation_dungeons_in_my_route_while_a_guide_has_a_dungeon_skip_by_def
 		emit(dd ~= nil and dd:IsShown())"#);
 	assert_eq!(none, json!(false), "not while no guide has a dungeon");
 	let out = run(r#"
+		Polestar.dungeonRoute = true
 		uistub.guideDungeons = { [36] = true }
 		UI.ShowOptions("guide")
 		O.Select("guide", "Automation")
@@ -1171,6 +1174,45 @@ fn guide_automation_dungeons_in_my_route_while_a_guide_has_a_dungeon_skip_by_def
 		json!({ "before": ["Dungeons in my route", "Skip them", "skip"], "choices": ["Skip them", "Ask me", "Run them"], "after": ["Run them", "run", true],
 			"right": ["Skip them", "skip"] })
 	);
+}
+
+// Held back (Core/Init.lua's switch off, as it ships): guides with dungeons in their route, Run them saved and
+// answers saved per dungeon, yet neither Guide, Automation's "Dungeons in my route" nor Discovery, Dungeons' rows
+// show, the search finds none of them, and the saved values stay as they are.
+#[test]
+fn held_back_no_dungeons_in_my_route_row_and_no_discovery_rows_whatever_is_saved() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Dungeons/Dungeons.xml", "UI/UI.xml"])],
+		script: format!("uistub.install()\nuistub.guideDungeons = {{ [389] = true, [36] = true }}\nstub.login()\nPolestar.UI.LoadOptions()\n{HELPERS}\nlocal UI, O = Polestar.UI, Polestar.UI.Options")
+			+ r#"
+		Polestar.Set("behavior.dungeons", "run")
+		Polestar.CharState().dungeons[36] = true
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		local dd = O.Controls("guide", "Automation")["behavior.dungeons"]
+		local automation = dd ~= nil and dd:IsShown()
+		UI.ShowOptions("dungeons")
+		local c = O.Controls("discovery", "Dungeons")
+		local function shown(row) return row ~= nil and row:IsShown() end
+		-- What a search lists: no route row among the controls found.
+		local function finds(q)
+			local hits = {}
+			for _, g in ipairs((O.Search(q))) do
+				for _, ctl in ipairs(g.controls) do
+					local label = type(ctl.label) == "function" and ctl.label() or ctl.label
+					if ctl.key == "behavior.dungeons" or label == "The Deadmines" or label == "Ragefire Chasm" then hits[#hits + 1] = label end
+				end
+			end
+			return #hits
+		end
+		local inRoute, asForAll = finds("Dungeons in my route"), finds("Deadmines")
+		emit({ on = Polestar.dungeonRoute, automation = automation, dm = shown(c["The Deadmines"]), rfc = shown(c["Ragefire Chasm"]),
+			inRoute = inRoute, asForAll = asForAll, route = Polestar.Get("behavior.dungeons"), saved = PolestarCharDB.dungeons })"#,
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out, json!({ "on": false, "automation": false, "dm": false, "rfc": false, "inRoute": 0, "asForAll": 0, "route": "run", "saved": { "36": true } }));
 }
 
 // The quest automation toggles show on Questing > Quests and on Quality of Life > Quests:

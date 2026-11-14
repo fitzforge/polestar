@@ -20,6 +20,18 @@ ns.stage = "Beta"
 -- its own page while this is true. The owner turns it off once they have
 -- been.
 ns.routesBeta = true
+-- Dungeons in the leveling routes (`when dungeon` steps, the
+-- behavior.dungeons setting "Dungeons in my route", the per-character answers
+-- in CharState().dungeons): built, held back for a later release. While
+-- false, the engine reads every dungeon as Skip whatever the saved answers
+-- say (Engine's Own.dungeonAnswer: the solo route, step for step), the saved
+-- answers stay as they are, and nothing offers the choice: no Options or
+-- Discovery row, no Install question, no guide window banner (each asks
+-- Engine.DungeonRouteOn, or Engine.GuideDungeons, which then lists none).
+-- The Dungeons hub (its pages, Pick up and Hand in guides, For your level)
+-- is not part of it. Read at call time: a test turns it on with
+-- `Polestar.dungeonRoute = true` before login.
+ns.dungeonRoute = false
 
 -- The pack docs online: the TOC's X-Website (the public repository, added at
 -- publication) plus the path of docs/PACKS.md. nil without that field.

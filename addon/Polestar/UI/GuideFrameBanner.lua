@@ -152,10 +152,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		if E and E.GroupQuestion then gq, gtitle = E.GroupQuestion() end
 		if gq then return "group", { quest = gq, title = gtitle } end
 		-- A dungeon in the route not answered yet (Engine.DungeonQuestion): the guide waits and asks.
-		local dq = E and E.DungeonQuestion and E.DungeonQuestion()
+		-- None of the dungeon notices while dungeons in the route are held back (ns.dungeonRoute).
+		local dq = ns.dungeonRoute and E and E.DungeonQuestion and E.DungeonQuestion()
 		if dq then return "dungeon", dq end
 		-- After "No group? Skip it": the quests kept in the log, until closed.
-		if notices.dungeonKept then return "dungeonKept", notices.dungeonKept end
+		if ns.dungeonRoute and notices.dungeonKept then return "dungeonKept", notices.dungeonKept end
 		local k = notices.stepSkip
 		if k and g ~= nil and g.id == k.guideId and (not view or view.index ~= k.step) then return "stepSkip", k end
 		local s = notices.skipped
@@ -163,10 +164,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		local a = E and awayNotice(E, g)
 		if a then return "away", a end
 		-- At a chosen dungeon's run, until inside: "No group? Skip it"; a few steps before it: start looking for a group.
-		local dr = E and E.DungeonRun and E.DungeonRun()
+		local dr = ns.dungeonRoute and E and E.DungeonRun and E.DungeonRun()
 		local C = ns.Compat
 		if dr and not (C and C.IsInInstance and C.IsInInstance()) then return "dungeonRun", dr end
-		local ds = E and E.DungeonSoon and E.DungeonSoon()
+		local ds = ns.dungeonRoute and E and E.DungeonSoon and E.DungeonSoon()
 		if ds and notices.soonSeen ~= ds.map then return "dungeonSoon", ds end
 		-- The live step's accepts would not fit in the quest log (Core/RoutePlan.lua).
 		local lo = g ~= nil and view and E.GetLiveStep and view.index == E.GetLiveStep() and ns.RoutePlan and ns.RoutePlan.LogOverflow()

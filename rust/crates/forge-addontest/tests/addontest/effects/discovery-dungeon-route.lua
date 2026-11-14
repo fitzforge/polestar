@@ -3,7 +3,8 @@
 -- Core/Engine.lua) on the whole addon, with the environment's guide open: one `when dungeon` step per dungeon of
 -- Dungeons.ROUTE, all ahead of the live step. A dungeon's step has no number while the character skips it (As for
 -- all dungeons, with "Dungeons in my route" at Skip: the solo route's numbers), its own once it is run
--- (Own.dungeonHidden). The list as Dungeons.ROUTE and the environment's guide have it (the setup checks it): the
+-- (Own.dungeonHidden). The environment turns dungeons in the route on (Core/Init.lua's switch, off as it ships)
+-- before the settings window's addon loads. The list as Dungeons.ROUTE and the environment's guide have it (the setup checks it): the
 -- checks' ids are read without the addon.
 local ROUTE = {
 	{ 389, "Ragefire Chasm" }, { 3065, "The Hall of Thanes" }, { 2999, "Ruins of Lordaeron" }, { 36, "The Deadmines" },
