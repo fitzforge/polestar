@@ -237,8 +237,8 @@ step The Slag Pit
   kill 9318 quest 7727.1
   collect 18922 quest 7722.1 @40.5,35.7
 
-step Greater Lava Spiders
-  tip The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
+step Searing Lava Spiders
+  tip The Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
   kill 5858 quest 7724.1
 
 step Dark Iron Lookouts

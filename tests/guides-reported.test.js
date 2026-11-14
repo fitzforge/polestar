@@ -12900,3 +12900,26 @@ test("Riverglades (experimental): the Horde Krol'dok Stronghold run is the dunge
 		for (const l of at) assert.ok(dungeon(l) && anyLine(l, new RegExp(`^\\s+when (complete|onquest) ${q}\\b`)), `${file}: the hand-in of ${q} waits for it, behind \`when dungeon\``);
 	}
 });
+
+// #2199 (Searing Gorge): Fiery Menace!'s spiders (npc 5858) are Searing Lava Spiders in Forever; players' quest log
+// reads "Searing Lava Spider slain" and every recorded objective tick is a kill of 5858. The Horde gorge step names
+// them so, in the guide and its seed.
+test('#2199: the Horde Searing Gorge step names the Searing Lava Spiders, in the guide and its seed', () => {
+	const rel = 'forever/horde/40-50/04-tanaris.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		const text = fs.readFileSync(file, 'utf8');
+		assert.match(text, /\n\s+tip The Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge\.\n/, `${file}: the tip names them`);
+		assert.doesNotMatch(text, /Greater Lava Spider/, `${file}: no Greater Lava Spiders`);
+	}
+});
+
+// #2211 (Sekyno, Scourge Warrior 41): the Bloodsail Charts and Orders (604) also lie in the rowboat beside the larger
+// camp on the Wild Shore; players' recordings loot them at the data's three spots, two of them by that camp's shore.
+test("#2211: Stranglethorn Vale's Wild Shore step says the charts and orders also lie in the rowboat, in the guide and its seed", () => {
+	const rel = 'forever/horde/40-50/01-stranglethorn-vale.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		const step = fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith('step The Wild Shore\n'));
+		assert.ok(step, `${file}: a Wild Shore step`);
+		assert.match(step, /the charts and the orders lie in their tents and in the rowboat beside the larger camp/, `${file}: the rowboat`);
+	}
+});
