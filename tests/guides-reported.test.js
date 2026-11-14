@@ -11893,3 +11893,15 @@ test('#1952: the Alliance start guides\' Camping 101 trainer steps wait until th
 	}
 	assert.ok(n >= 27, `${n} in-zone Camping 101 hand-ins found`);
 });
+
+// Alliance 1-12 route feel (0.4.0, #2025): Teldrassil's last stop in Auberdine takes Thundris', Terenthis' and
+// Tharnariun's quests, but The Red Crystal (4811) waited for Night Elf Darkshore's first steps, a second walk to
+// Sentinel Glynda in the same street. It is taken with the others (level 12 needed; players reach that stop at
+// 12.5 or more); Night Elf Darkshore keeps its accept for a player who loads it fresh.
+test(`${TELDRASSIL}: The Red Crystal is taken on the last Auberdine stop with Thundris' and Terenthis' quests`, { skip }, () => {
+	const list = goals(TELDRASSIL).filter(forClass('WARRIOR'));
+	const take = list[at(list, 'accept 4811', is('accept', 4811))];
+	assert.ok(take.step.goals.some(is('accept', 954)) && take.step.goals.some(is('accept', 984)), 'the same step as 954 and 984');
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'interact'), 'Night Elf Darkshore keeps the accept before the crystal');
+});
