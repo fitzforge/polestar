@@ -262,6 +262,29 @@ return { mouthYards = near and math.floor(near), choice`),
 		},
 		'alts': { title: 'Characters: four on the account, the worst of each field', capture: ['PolestarPicker'], lua: `${screen(1920, 1080, 1)}\n${ALTS}` },
 		'alts-768': { title: 'Characters on 1366x768 at UI scale 1', capture: ['PolestarPicker'], lua: `${screen(1366, 768, 1)}\n${ALTS}` },
+		// Journey 3 on the Desolace guide: two steps skipped, then a look back with Prev (the banners say where the guide is).
+		'skip-back': {
+			title: 'Two steps skipped, then a step back',
+			capture: ['PolestarGuideFrame'],
+			lua: `${screen(1920, 1080, 1)}\n${step('accept', 1458)}
+local E = Polestar.Engine
+E.Skip(); stub.advance(0.5)
+E.Skip(); stub.advance(0.5)
+local skipped = (Polestar.UI.GuideFrame.BannerNotice())
+E.Prev(); stub.advance(0.5)
+Polestar.UI.GuideFrame.Layout(); stub.advance(0.5)
+return { afterSkips = skipped, afterPrev = (Polestar.UI.GuideFrame.BannerNotice()), step = E.GetStepIndex(), live = E.GetLiveStep() }`,
+		},
+		// Another guide picked mid-zone in the same tab: the Desolace guide goes to the closed tabs, its banner offers it back.
+		'switch-guide': {
+			title: 'Stranglethorn Vale picked mid-Desolace',
+			capture: ['PolestarGuideFrame'],
+			lua: `${screen(1920, 1080, 1)}\n${step('accept', 1458)}
+local E = Polestar.Engine
+E.SetGuide("forever/alliance/30-40/04-stranglethorn-vale"); stub.advance(1)
+Polestar.UI.GuideFrame.Layout(); stub.advance(0.5)
+return { notice = (Polestar.UI.GuideFrame.BannerNotice()), guide = E.GetGuide().id, tabs = #E.GetTabs() }`,
+		},
 		// Died in Forever's own Alcaz Prison (instance 2994), whose entrance the Codex lacks; where the
 		// character stood before is no matter (the corpse is inside), released at Theramore's Spirit Healer.
 		'death-alcaz': {
@@ -270,4 +293,6 @@ return { mouthYards = near and math.floor(near), choice`),
 			lua: DEATH({ level: 40, map: 1445, x: 63.62, y: 42.42, inst: 2994, gmap: 1445, gx: 63.62, gy: 42.42, zone: 'Dustwallow Marsh' }),
 		},
 	},
+	// The Lua pieces, for scenarios that draw these cases on other surfaces (worst-case-looks).
+	lua: { screen, fill, room, log34, log47, ALTS },
 };
