@@ -13610,6 +13610,19 @@
 				"faction": "Horde",
 				"why": "Flow, Horde 50-60/02 (0.3.6 flow pass): with the Eastern Plaguelands moved out of 50-60/01, Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901) are done in Terrordale, a river east of Tirion's house, on 02's Tirion stop; Augustus takes the book back on 05's Terrordale stop.",
 				"source": "review"
+			},
+			{
+				"a": [
+					"accept",
+					1061
+				],
+				"b": [
+					"turnin",
+					97249
+				],
+				"faction": "Horde",
+				"why": "Silverpine Forest (Horde 12-15, 0.4.0 audit): the guide ended on Zor Lonetree's The Spirits of Stonetalon (1061, from level 13) after Thra and Migi, so the last step for everyone was an accept a character below 13 cannot take and the Valley of Wisdom done ahead was no end. Zor (38.9,38.4) stands on the walk from the Drag to Thra and Migi (36.5,28.8): he comes first now, and the guide ends in the Valley of Wisdom, where the next guide starts its walk to Far Watch Post.",
+				"source": "review"
 			}
 		]
 	}
