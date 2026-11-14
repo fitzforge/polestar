@@ -256,6 +256,13 @@ function Names.Get(kind, id)
 	return fromPack(kind, id)
 end
 
+-- A game name in the client's language (Names.Get), else `english` through
+-- Polestar's own strings: the names the settings' previews show ("Kobold
+-- Vermin" read "Kobold Vermin" in every language).
+function Names.Or(kind, id, english)
+	return Names.Get(kind, id) or ns.L[english]
+end
+
 function Names.Cached(kind, id)
 	if not valid(id) then return nil end
 	if kind == "quest" then

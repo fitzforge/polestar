@@ -408,6 +408,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-long-translations.rs"]
+mod ui_long_translations;
 #[path = "ui-look-buttons.rs"]
 mod ui_look_buttons;
 #[path = "ui-look-glow.rs"]

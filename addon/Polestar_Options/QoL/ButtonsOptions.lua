@@ -77,7 +77,7 @@ local function newSet(f, combat)
 	local faces = set.faces
 	faces.hearth.Cooldown:SetCooldown(GetTime and GetTime() - 600 or 0, 3600)
 	faces.bag.Icon:SetTexture(DEMO_BAG_ICON)
-	faces.rare.Label:SetText(L["Thuros Lightfingers"])
+	faces.rare.Label:SetText(ns.Names.Or("npc", 61, "Thuros Lightfingers"))
 	local target = faces.target
 	target.aList = { L["Rot Hide Mongrel"], L["Scarlet Warrior"], L["Executor Zygand"] }
 	target.aVerbs = { "kill", "collect", "turnin" }
@@ -611,7 +611,7 @@ if O and O.PresetCards and O.Ref then
 			g.faces[2].Count:SetText("3")
 			for i, key in ipairs({ "H", "E", "T" }) do g.faces[i].Hotkey:SetText(key) end
 			local t = g.faces[3]
-			t.aList, t.aVerbs, t.aIds, t.aMarks, t.aCycle = { L["Kobold Vermin"] }, { "kill" }, {}, { false }, 1
+			t.aList, t.aVerbs, t.aIds, t.aMarks, t.aCycle = { ns.Names.Or("npc", 6, "Kobold Vermin") }, { "kill" }, {}, { false }, 1
 			art.psGroup = g
 		end
 		O.WithSettings(values, function()

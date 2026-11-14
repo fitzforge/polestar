@@ -523,7 +523,7 @@ function CC.Fill(guide, index, view)
 	local hex = paint(p.class)
 	local className = UI.ClassName(p.class)
 	local level = goal.minLevel or goal.qlvl
-	F.Head:SetText(level and format(L["%s · LEVEL %d"], className:upper(), level) or className:upper())
+	F.Head:SetText(level and format(L["%s · LEVEL %d"], ns.Upper(className), level) or ns.Upper(className))
 	F.Title:SetText((gv and gv.subject) or goal.title or "")
 	local learn = CC.RewardLine(reward, hex)
 	F.Learn:SetText(learn or "")
@@ -654,10 +654,15 @@ function CC.Layout(width, c)
 		badgeW = badgeW + 8
 	end
 	local tw = max(40, w - x - 10)
-	F.Head:SetWidth(max(30, tw - badgeW))
+	-- The class line beside the badge; one longer than the room there (a
+	-- long translation: "Друид · УРОВЕНЬ 20" beside "НОВАЯ ФОРМА") goes under
+	-- the badge in the text's full width instead of being cut.
+	local under = badgeW > 0 and W.TextWidth(F.Head) > tw - badgeW
+	F.Head:SetWidth(under and tw or max(30, tw - badgeW))
 	F.Title:SetWidth(tw)
 	F.Learn:SetWidth(tw)
 	local y = F.psCompact and 8 or 12
+	if under then y = 10 + 20 + 6 end
 	F.Head:ClearAllPoints()
 	F.Head:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
 	y = y + F.Head:GetStringHeight() + 4

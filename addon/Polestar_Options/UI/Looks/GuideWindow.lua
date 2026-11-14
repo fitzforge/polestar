@@ -73,7 +73,7 @@ PART_OF["ui.showNotes"], PART_OF["ui.upcoming"], PART_OF["ui.upcomingOpen"] = "t
 local SAMPLE
 do
 	local MAP = 1429 -- Elwynn Forest
-	local GUIDE = { id = "polestar:sample", title = L["Elwynn Forest"], category = "Leveling", minLevel = 1, maxLevel = 10, stepCount = 29 }
+	local GUIDE = { id = "polestar:sample", title = ns.Names.Or("area", 12, "Elwynn Forest"), category = "Leveling", minLevel = 1, maxLevel = 10, stepCount = 29 }
 	local TABS = { { guideId = GUIDE.id, title = GUIDE.title, category = GUIDE.category, minLevel = 1, maxLevel = 10,
 		stepIndex = 8, stepCount = 29, done = 11, total = 29 } }
 	-- A goal as the Engine's step view gives one (UI.GoalLine draws it).
@@ -84,15 +84,15 @@ do
 		return g
 	end
 	local work = {
-		goal(1, 1, "kill", L["Kill"], L["Kobold Vermin"], "npc", "done", { progress = { cur = 10, max = 10 }, x = 41, y = 79 }),
-		goal(2, 1, "kill", L["Kill"], L["Kobold Worker"], "npc", "active", { progress = { cur = 3, max = 8 }, x = 40, y = 80 }),
-		goal(3, 1, "collect", L["Collect"], L["Gold Dust"], "item", "active",
-			{ progress = { cur = 0, max = 10 }, npcName = L["Kobold Worker"], lvl = { 6, 7 }, x = 40, y = 80 }),
+		goal(1, 1, "kill", L["Kill"], ns.Names.Or("npc", 6, "Kobold Vermin"), "npc", "done", { progress = { cur = 10, max = 10 }, x = 41, y = 79 }),
+		goal(2, 1, "kill", L["Kill"], ns.Names.Or("npc", 257, "Kobold Worker"), "npc", "active", { progress = { cur = 3, max = 8 }, x = 40, y = 80 }),
+		goal(3, 1, "collect", L["Collect"], ns.Names.Or("item", 773, "Gold Dust"), "item", "active",
+			{ progress = { cur = 0, max = 10 }, npcName = ns.Names.Or("npc", 257, "Kobold Worker"), lvl = { 6, 7 }, x = 40, y = 80 }),
 		goal(4, 2, "turnin", nil, L["Kobold Camp Cleanup"], "quest", "pending",
 			{ text = string.format(L["Turn in %s"], ns.Quoted(L["Kobold Camp Cleanup"])), x = 42, y = 66 }),
 	}
 	local STEPS = {
-		[8] = { index = 8, title = L["Goldshire"], note = L["Kobolds drop Gold Dust too: keep what you loot on the way."],
+		[8] = { index = 8, title = ns.Names.Or("area", 87, "Goldshire"), note = L["Kobolds drop Gold Dust too: keep what you loot on the way."],
 			status = "current", skipped = false, goals = work, focus = 1, current = 2,
 			groups = {
 				{ kind = "here", goals = { 1, 2, 3 }, done = false, map = MAP, x = 40, y = 80 },
@@ -101,7 +101,7 @@ do
 	}
 	-- Up next: the steps after it, by their titles.
 	for i, title in ipairs({ L["Fargodeep Mine"], L["Lion's Pride Inn"], L["Stonefield Farm"], L["Jasperlode Mine"],
-		L["Eastvale Logging Camp"], L["Westfall"] }) do
+		ns.Names.Or("area", 86, "Eastvale Logging Camp"), ns.Names.Or("area", 40, "Westfall") }) do
 		local s = 8 + i
 		STEPS[s] = { index = s, title = title, status = "upcoming", skipped = false, focus = 1,
 			goals = { goal(1, 1, "goto", nil, title, "place", "pending") }, groups = { { kind = "here", goals = { 1 }, done = false } } }
@@ -656,7 +656,7 @@ if O and O.PresetCards and O.Ref then
 			y = y + (m.Name:GetStringHeight() or 16) + 8
 			local goalK = G and G.Num("goalSize") or 1
 			local check = (mt.check or 18) * (G and G.Num("checkSize") or 1)
-			local lines = { L["Kill"] .. " " .. L["Kobold Vermin"], L["Kill"] .. " " .. L["Kobold Worker"], L["Collect"] .. " " .. L["Gold Dust"] }
+			local lines = { L["Kill"] .. " " .. ns.Names.Or("npc", 6, "Kobold Vermin"), L["Kill"] .. " " .. ns.Names.Or("npc", 257, "Kobold Worker"), L["Collect"] .. " " .. ns.Names.Or("item", 773, "Gold Dust") }
 			for i, fs in ipairs(m.Goals) do
 				sized(fs, "goal", goalK, clear)
 				W.Color(fs, i == 1 and "textMuted" or "text")

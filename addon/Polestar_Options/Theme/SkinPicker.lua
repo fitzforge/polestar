@@ -127,8 +127,8 @@ local WIN_W, PERSON_H, DONE = 236, 44, 8 / 29
 -- The step: the guide window page's demo (UI/Looks/GuideWindow.lua), its
 -- first two goals.
 local GOALS = {
-	{ t = "kill", status = "done", verb = L["Kill"], subject = L["Kobold Vermin"], subjectKind = "npc", progress = { cur = 10, max = 10 } },
-	{ t = "kill", status = "active", verb = L["Kill"], subject = L["Kobold Worker"], subjectKind = "npc", progress = { cur = 3, max = 8 },
+	{ t = "kill", status = "done", verb = L["Kill"], subject = ns.Names.Or("npc", 6, "Kobold Vermin"), subjectKind = "npc", progress = { cur = 10, max = 10 } },
+	{ t = "kill", status = "active", verb = L["Kill"], subject = ns.Names.Or("npc", 257, "Kobold Worker"), subjectKind = "npc", progress = { cur = 3, max = 8 },
 		current = true },
 }
 
@@ -383,7 +383,7 @@ local function paintWindow(p, w, h, alone)
 	tab.Selected:SetVertexColor(Theme.Wash("hover"))
 	tab.Bar:SetVertexColor(Theme.Color("accent"))
 	tab.Icon:SetVertexColor(Theme.Color("accent"))
-	say(tab.Label, "small", L["Elwynn Forest"], "text")
+	say(tab.Label, "small", ns.Names.Or("area", 12, "Elwynn Forest"), "text")
 	say(tab.Range, "small", "(1\226\128\14710)", "textDim")
 	local framed = Theme.KitTab(tab, true, nil, true)
 	tab.Frame:SetShown(hearth)
@@ -404,7 +404,7 @@ local function paintWindow(p, w, h, alone)
 	nav.Prev:SetVertexColor(Theme.Color("textDim"))
 	nav.Next:SetVertexColor(Theme.Color("textDim"))
 	say(nav.Count, "number", "8 / 29", "text")
-	say(nav.Title, "small", L["Elwynn Forest"], "textDim")
+	say(nav.Title, "small", ns.Names.Or("area", 12, "Elwynn Forest"), "textDim")
 	if look == "halo" then
 		nav.Rule:SetVertexColor(Theme.Color("accentLine"))
 	elseif hearth then
@@ -425,7 +425,7 @@ local function paintWindow(p, w, h, alone)
 	person.Name:ClearAllPoints()
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", textX, -10)
 	say(person.Name, "name", L["Marshal Dughan"], "personName")
-	say(person.Where, "small", L["Goldshire"], "textDim")
+	say(person.Where, "small", ns.Names.Or("area", 87, "Goldshire"), "textDim")
 	person.Rule:SetShown(hearth)
 	person.Rule:ClearAllPoints()
 	person.Rule:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", pad, 0)
