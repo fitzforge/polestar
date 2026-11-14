@@ -102,6 +102,49 @@ fn guides_sync_writes_every_text_with_its_names_and_check_fails_on_a_lost_token_
 	let _ = std::fs::remove_dir_all(&dir);
 }
 
+#[test]
+fn guides_sync_preserves_retired_lua_escapes_across_repeated_runs() {
+	let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("i18n-retired-escapes-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	std::fs::create_dir_all(dir.join("guides")).unwrap();
+	std::fs::create_dir_all(dir.join("locales/frFR/guides")).unwrap();
+	std::fs::write(dir.join("pack.json"), r#"{"id":"texts","title":"Texts Pack","author":"Ann","version":"1.0.0","license":"CC0-1.0","folder":"PolestarPack_Texts"}"#).unwrap();
+	std::fs::write(dir.join("guides/main.guide"), GUIDE).unwrap();
+	let file = dir.join("locales/frFR/guides/main.lua");
+	std::fs::write(
+		&file,
+		r#"return {
+	["a few {npc:6} at a time"] = "quelques {npc:6} à la fois",
+	["Old path C:\\123"] = "Copier C:\\123\\notes",
+	["Old slash apostrophe \\'"] = "Antislash \\' suivi",
+	["Old Unicode"] = "é 中文",
+	["Old escaped bytes"] = "\195\169 \228\184\173\230\150\135",
+	["Old literal escape"] = "Copier \\u007b",
+}
+"#,
+	)
+	.unwrap();
+	let data = root().join("tests/fixtures/dsl/data");
+	let (d, p) = (data.to_string_lossy().into_owned(), dir.to_string_lossy().into_owned());
+	let sync = || forge(&["guides", "sync", "frFR", "--pack", &p, "--data", &d]);
+	let first = sync();
+	assert_eq!(first.status, 0, "{}", first.stderr);
+	let canonical = std::fs::read_to_string(&file).unwrap();
+	assert!(canonical.contains(r#"["a few {npc:6} at a time"] = "quelques {npc:6} à la fois","#));
+	assert!(canonical.contains(r#"-- ["Old path C:\\123"] = "Copier C:\\123\\notes","#));
+	assert!(canonical.contains(r#"-- ["Old slash apostrophe \\'"] = "Antislash \\' suivi","#));
+	assert!(canonical.contains(r#"-- ["Old escaped bytes"] = "é 中文","#));
+	// A translator may spell UTF-8 as Lua decimal bytes in a retired entry too.
+	// Sync normalises that spelling while keeping the same text.
+	std::fs::write(&file, canonical.replace(r#"-- ["Old escaped bytes"] = "é 中文","#, r#"-- ["Old escaped bytes"] = "\195\169 \228\184\173\230\150\135","#)).unwrap();
+	for run in 2..=3 {
+		let result = sync();
+		assert_eq!(result.status, 0, "sync {run}: {}", result.stderr);
+		assert_eq!(std::fs::read_to_string(&file).unwrap(), canonical, "sync {run} changed or lost a translation");
+	}
+	let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// `i18n audit` (tests/i18n-audit.test.js, the command): no finding is exit 0 with a JSON document;
 /// no client tables is exit 1 with the reason.
 #[test]
