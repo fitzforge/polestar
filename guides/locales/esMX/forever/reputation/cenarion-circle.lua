@@ -9,250 +9,250 @@ return {
 	-- Guide
 	["Cenarion Circle Reputation"] = "Reputación: Círculo Cenarion",
 	-- {zone:1451} Silithus
-	["Nature resistance enchants and patterns, badge gear and Forever's new {zone:1451} patterns, from {zone:1451}'s camps."] = "",
+	["Nature resistance enchants and patterns, badge gear and Forever's new {zone:1451} patterns, from {zone:1451}'s camps."] = "Encantamientos y patrones de resistencia a la naturaleza, equipo de insignias y los nuevos patrones de {zone:1451} de Forever, de los campamentos de {zone:1451}.",
 	-- {zone:1451} Silithus
-	["Forever's new {zone:1451} patterns for Tailors, Leatherworkers and Blacksmiths, Friendly and Honored"] = "",
+	["Forever's new {zone:1451} patterns for Tailors, Leatherworkers and Blacksmiths, Friendly and Honored"] = "Los nuevos patrones de {zone:1451} de Forever para sastres, peleteros y herreros, en Amistoso y Honorable",
 
 	-- Step 1: The emissary in Ironforge
 	-- {zone:1455} Ironforge
-	["The emissary in {zone:1455}"] = "",
+	["The emissary in {zone:1455}"] = "El emisario en {zone:1455}",
 	-- {npc:15187} Cenarion Emissary Jademoon · {zone:1451} Silithus · {quest:8275} Taking Back Silithus
-	["Optional, and needed only for the Dredge quests later: {npc:15187} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "",
+	["Optional, and needed only for the Dredge quests later: {npc:15187} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "Opcional, y solo necesario para las misiones de los Draga más adelante: {npc:15187} te manda a {zone:1451} con {quest:8275}, una carta de 10 de reputación. Sáltala si ya estás en {zone:1451}.",
 
 	-- Step 2: The emissary in Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The emissary in {zone:1454}"] = "",
+	["The emissary in {zone:1454}"] = "El emisario en {zone:1454}",
 	-- {npc:15188} Cenarion Emissary Blackhoof · {zone:1451} Silithus · {quest:8275} Taking Back Silithus
-	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "",
+	["Optional, and needed only for the Dredge quests later: {npc:15188} sends you to {zone:1451} with {quest:8275}, a 10-reputation letter. Skip it if you are already in {zone:1451}."] = "Opcional, y solo necesario para las misiones de los Draga más adelante: {npc:15188} te manda a {zone:1451} con {quest:8275}, una carta de 10 de reputación. Sáltala si ya estás en {zone:1451}.",
 
 	-- Step 3: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {zone:1451} Silithus · {faction:609} Cenarion Circle · {npc:15270} Huum Wildmane · {quest:8318} Secret Communication · {item:20404} Encrypted Twilight Text
-	["{area:3425} is the walled druid camp in north-central {zone:1451}, with flight points for both sides. Everyone starts Neutral with the {faction:609} (druids at 2,000 of 3,000). Bor and {npc:15270} stand together in the main building. {quest:8318} opens the {item:20404} turn-ins for good. The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it."] = "",
+	["{area:3425} is the walled druid camp in north-central {zone:1451}, with flight points for both sides. Everyone starts Neutral with the {faction:609} (druids at 2,000 of 3,000). Bor and {npc:15270} stand together in the main building. {quest:8318} opens the {item:20404} turn-ins for good. The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it."] = "{area:3425} es el campamento amurallado de los druidas en el centro norte de {zone:1451}, con puntos de vuelo para ambos bandos. Todos empiezan en Neutral con {faction:609} (los druidas en 2.000 de 3.000). Bor y {npc:15270} están juntos en el edificio principal. {quest:8318} abre para siempre las entregas de {item:20404}. La ventaja Diplomático del Legado suma hasta un 10% a cada ganancia; los números de esta guía son sin ella.",
 	-- {npc:15270} Huum Wildmane
-	["{npc:15270}, level 60"] = "",
+	["{npc:15270}, level 60"] = "{npc:15270}, nivel 60",
 
 	-- Step 4: The cultist camp west of Cenarion Hold
 	-- {area:3425} Cenarion Hold
-	["The cultist camp west of {area:3425}"] = "",
+	["The cultist camp west of {area:3425}"] = "El campamento de sectarios al oeste de {area:3425}",
 	-- {item:20404} Encrypted Twilight Text · {npc:11804} Twilight Keeper Havunth
 	-- plural, as words: Wind Stones = {object:180461} Wind Stone
-	["The nearest Twilight's Hammer camp lies just south-west of the Hold. Avengers, Geolords and Stonecallers (level 57 to 59) each drop an {item:20404} about a third of the time, and every cultist kill is 1 reputation. {npc:11804} walks the edge of the camp. Keep every cultist robe, cowl and mantle you loot: they are the Twilight Trappings for the Wind Stones later."] = "",
+	["The nearest Twilight's Hammer camp lies just south-west of the Hold. Avengers, Geolords and Stonecallers (level 57 to 59) each drop an {item:20404} about a third of the time, and every cultist kill is 1 reputation. {npc:11804} walks the edge of the camp. Keep every cultist robe, cowl and mantle you loot: they are the Twilight Trappings for the Wind Stones later."] = "El campamento del Martillo Crepuscular más cercano está justo al suroeste del Fuerte. Los vengadores, geoseñores y clamapiedras (nivel 57 a 59) sueltan cada uno un {item:20404} más o menos una de cada tres veces, y cada sectario que matas da 1 de reputación. {npc:11804} recorre el borde del campamento. Guarda cada túnica, capucha y manto de sectario que saquees: son los Atavíos crepusculares para las piedras de viento de más adelante.",
 
 	-- Step 5: Back to Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425}"] = "De vuelta a {area:3425}",
 
 	-- Step 6: Cultists until the top of Friendly, texts saved
-	["Cultists until the top of Friendly, texts saved"] = "",
+	["Cultists until the top of Friendly, texts saved"] = "Sectarios hasta el tope de Amistoso, guardando los textos",
 	-- {npc:11880} Twilight Avenger · {item:20404} Encrypted Twilight Text · {area:2742} Hive'Ashi · {npc:15308} Twilight Prophet · {npc:15306} Bor Wildmane
-	["Neutral to Honored is 9,000 reputation (7,000 for druids). Every {npc:11880}, Geolord, Stonecaller, Master and Overlord gives 1 reputation until 5,999 of 6,000 Friendly, one point short of Honored; there they stop. Save every {item:20404} and leave the quests of the next steps for later: each kill below that point is a free point on top of its text, and the texts and quests pay the same at any standing. A text drops about every third kill, so 30 kills make 30 reputation and 10 texts (100 reputation later). Four camps: south-west of the Hold (39,44), the far west (26,34), the far south-west (19,84) and the north-east below {area:2742} (66,18: Overlords, and Flamereavers that count until the top of Honored). The {npc:15308} (87% text) walks between 18,31 and 23,69. Texts sell on the auction house if you would rather buy. At 5,999 Friendly the last point into Honored comes from a Flamereaver, Twilight Keeper or Marauder, or from your first 10 texts at {npc:15306}."] = "",
-	["Kills alone to the top of Friendly is 8,999 kills (6,999 for druids), but the texts they drop (about 3,000) are worth 30,000 more: most of the way to Exalted."] = "",
+	["Neutral to Honored is 9,000 reputation (7,000 for druids). Every {npc:11880}, Geolord, Stonecaller, Master and Overlord gives 1 reputation until 5,999 of 6,000 Friendly, one point short of Honored; there they stop. Save every {item:20404} and leave the quests of the next steps for later: each kill below that point is a free point on top of its text, and the texts and quests pay the same at any standing. A text drops about every third kill, so 30 kills make 30 reputation and 10 texts (100 reputation later). Four camps: south-west of the Hold (39,44), the far west (26,34), the far south-west (19,84) and the north-east below {area:2742} (66,18: Overlords, and Flamereavers that count until the top of Honored). The {npc:15308} (87% text) walks between 18,31 and 23,69. Texts sell on the auction house if you would rather buy. At 5,999 Friendly the last point into Honored comes from a Flamereaver, Twilight Keeper or Marauder, or from your first 10 texts at {npc:15306}."] = "De Neutral a Honorable son 9.000 de reputación (7.000 para los druidas). Cada {npc:11880}, geoseñor, clamapiedras, maestro y señor supremo da 1 de reputación hasta 5.999 de 6.000 en Amistoso, a un punto de Honorable; ahí dejan de contar. Guarda cada {item:20404} y deja las misiones de los pasos siguientes para después: cada muerte por debajo de ese punto es un punto gratis además de su texto, y los textos y las misiones pagan lo mismo con cualquier reputación. Un texto cae más o menos una de cada tres muertes, así que 30 muertes dan 30 de reputación y 10 textos (100 de reputación después). Cuatro campamentos: al suroeste del Fuerte (39,44), el extremo oeste (26,34), el extremo suroeste (19,84) y el noreste bajo {area:2742} (66,18: señores supremos, y segadores de llamas que cuentan hasta el tope de Honorable). El {npc:15308} (87% de texto) camina entre 18,31 y 23,69. Los textos se venden en la casa de subastas si prefieres comprar. En 5.999 de Amistoso, el último punto hasta Honorable sale de un segador de llamas, guardián crepuscular o merodeador, o de tus primeros 10 textos con {npc:15306}.",
+	["Kills alone to the top of Friendly is 8,999 kills (6,999 for druids), but the texts they drop (about 3,000) are worth 30,000 more: most of the way to Exalted."] = "Solo con muertes hasta el tope de Amistoso son 8.999 muertes (6.999 para los druidas), pero los textos que sueltan (unos 3.000) valen 30.000 más: la mayor parte del camino a Exaltado.",
 	-- {item:20732} Formula: Enchant Cloak - Greater Fire Resistance · {item:22251} Cenarion Herb Bag · {item:22758} Sylvan Shoulders
-	["Friendly (3,000) opens Kania's {item:20732} (10g), Mishta's {item:22251} (2g) and {item:22758} (5g), and Forever's new Friendly gloves patterns (7g 50s)."] = "",
+	["Friendly (3,000) opens Kania's {item:20732} (10g), Mishta's {item:22251} (2g) and {item:22758} (5g), and Forever's new Friendly gloves patterns (7g 50s)."] = "Amistoso (3.000) abre la {item:20732} de Kania (10g), la {item:22251} (2g) y las {item:22758} (5g) de Mishta, y los nuevos patrones de guantes de Amistoso de Forever (7g 50s).",
 	-- {item:20404} Encrypted Twilight Text
-	["{item:20404}: save them"] = "",
+	["{item:20404}: save them"] = "{item:20404}: guárdalos",
 	-- {npc:15201} Twilight Flamereaver
-	["{npc:15201}: still counts at 5,999 Friendly"] = "",
+	["{npc:15201}: still counts at 5,999 Friendly"] = "{npc:15201}: todavía cuenta en 5.999 de Amistoso",
 	-- {npc:15306} Bor Wildmane
-	["{npc:15306}: 10 texts, 100, for the last point"] = "",
+	["{npc:15306}: 10 texts, 100, for the last point"] = "{npc:15306}: 10 textos, 100, para el último punto",
 
 	-- Step 7: Vyral the Vile
 	-- {quest:8321} Vyral the Vile · {area:3446} Twilight's Run · {zone:1451} Silithus
 	-- plural, as words: Twilight Masters = {npc:11883} Twilight Master
-	["{quest:8321} (level 61, not elite) waits at the back of {area:3446}, the cave in the north-east of {zone:1451}. Flamereavers and Twilight Masters guard the way: the Flamereavers count until the top of Honored, the Masters stop at the top of Friendly like the other cultists."] = "",
+	["{quest:8321} (level 61, not elite) waits at the back of {area:3446}, the cave in the north-east of {zone:1451}. Flamereavers and Twilight Masters guard the way: the Flamereavers count until the top of Honored, the Masters stop at the top of Friendly like the other cultists."] = "{quest:8321} (nivel 61, no élite) espera al fondo de {area:3446}, la cueva del noreste de {zone:1451}. Segadores de llamas y maestros crepusculares vigilan el camino: los segadores de llamas cuentan hasta el tope de Honorable, los maestros dejan de contar en el tope de Amistoso como los demás sectarios.",
 
 	-- Step 8: Silithus quests at Cenarion Hold
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
-	["{zone:1451} quests at {area:3425}"] = "",
+	["{zone:1451} quests at {area:3425}"] = "Misiones de {zone:1451} en {area:3425}",
 	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings · {npc:15189} Beetix Ficklespragg
-	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Ahora cobra las misiones únicas: unos 1.700 de reputación solo, 2.400 con las misiones de grupo. Son de nivel 55 a 60, así que pagan completo a 60. {quest:8280} requiere antes {quest:8275}. {npc:15196} es un escórpido élite con dos guardias (grupo de 2 o 3). {quest:8307} de {npc:15174} es para cocineros: su receta hace los {item:20452} que quiere. {npc:15189} está arriba en su edificio: sube por adentro, la flecha no distingue los pisos.",
 	-- {npc:15191} Windcaller Proudhorn · {quest:8275} Taking Back Silithus
-	["{npc:15191}, after {quest:8275}"] = "",
+	["{npc:15191}, after {quest:8275}"] = "{npc:15191}, después de {quest:8275}",
 	-- {npc:15196} Deathclasp
-	["Wanted poster: {npc:15196}, elite"] = "",
+	["Wanted poster: {npc:15196}, elite"] = "Cartel de SE BUSCA: {npc:15196}, élite",
 	-- {npc:15174} Calandrath
-	["{npc:15174}, for Cooks"] = "",
+	["{npc:15174}, for Cooks"] = "{npc:15174}, para cocineros",
 
 	-- Step 9: Around Cenarion Hold
 	-- {area:3425} Cenarion Hold
-	["Around {area:3425}"] = "",
+	["Around {area:3425}"] = "Alrededor de {area:3425}",
 	-- {object:180503} Sandy Cookbook
 	-- plural, as words: Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer · Dredge Strikers = {npc:11740} Dredge Striker
-	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "",
+	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "Los escórpidos Latigopiedra y los correteadores de arena recorren las arenas alrededor del Fuerte; los golpeadores Draga cavan al noreste. El {object:180503} está en el campamento de sectarios al suroeste del Fuerte.",
 
 	-- Step 10: Back at the Hold
-	["Back at the Hold"] = "",
+	["Back at the Hold"] = "De vuelta en el Fuerte",
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash and Dredge Crushers"] = "",
+	["Stonelash and Dredge Crushers"] = "Latigopiedra y aplastadores Draga",
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker · Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "",
+	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "Los desolladores, pinzas Latigopiedra y acechadores de roca viven al sur y al suroeste del Fuerte; sus aguijones y colmillos caen más o menos una de cada diez veces. Los aplastadores Draga cavan al sur y al oeste del Fuerte.",
 	-- {item:20452} Smoked Desert Dumplings · {object:180503} Sandy Cookbook
-	["{item:20452}, from the {object:180503}"] = "",
+	["{item:20452}, from the {object:180503}"] = "{item:20452}, del {object:180503}",
 	-- {item:20452} Smoked Desert Dumplings · {item:20424} Sandworm Meat · {item:3713} Soothing Spices
-	["{item:20452}, from {item:20424} and {item:3713}"] = "",
+	["{item:20452}, from {item:20424} and {item:3713}"] = "{item:20452}, con {item:20424} y {item:3713}",
 
 	-- Step 12: Noggle Ficklespragg and Proudhorn
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} and Proudhorn"] = "",
+	["{npc:15190} and Proudhorn"] = "{npc:15190} y Proudhorn",
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
-	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} y {npc:15190} están en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
-	["The {area:3100}"] = "",
+	["The {area:3100}"] = "{area:3100}",
 	-- {zone:1451} Silithus
 	-- plural, as words: Twilight Tablet Fragments = {item:20378} Twilight Tablet Fragment
-	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "",
+	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "El campamento destruido del extremo noroeste de {zone:1451}: los fragmentos de tablilla crepuscular están en el suelo entre las ruinas.",
 
 	-- Step 14: Larksbane
-	["Larksbane"] = "",
+	["Larksbane"] = "Larksbane",
 
 	-- Step 15: Hermit Ortell
 	-- {npc:15194} Hermit Ortell · {zone:1451} Silithus · {quest:8319} Encrypted Twilight Texts · {quest:8349} Bor Wildmane
-	["{npc:15194} hides in the hills of eastern {zone:1451}. He also decodes {quest:8319} for a chance at a scroll of beckoning, but {quest:8349} pays the reputation: keep the texts for Bor."] = "",
+	["{npc:15194} hides in the hills of eastern {zone:1451}. He also decodes {quest:8319} for a chance at a scroll of beckoning, but {quest:8349} pays the reputation: keep the texts for Bor."] = "{npc:15194} se esconde en las colinas del este de {zone:1451}. También descifra {quest:8319} a cambio de la chance de un pergamino de llamada, pero {quest:8349} paga la reputación: guarda los textos para Bor.",
 
 	-- Step 16: The three Twilight Keepers
-	["The three Twilight Keepers"] = "",
-	["Each Keeper is a level 60, not elite, alone at a camp edge, and always drops its chapter: Mayna in the far west camp, Havunth in the camp south-west of the Hold, Exeter in the far south-west camp beside the Twilight Lord."] = "",
+	["The three Twilight Keepers"] = "Los tres guardianes crepusculares",
+	["Each Keeper is a level 60, not elite, alone at a camp edge, and always drops its chapter: Mayna in the far west camp, Havunth in the camp south-west of the Hold, Exeter in the far south-west camp beside the Twilight Lord."] = "Cada guardián es de nivel 60, no élite, está solo en el borde de un campamento y siempre suelta su capítulo: Mayna en el campamento del extremo oeste, Havunth en el campamento al suroeste del Fuerte, Exeter en el campamento del extremo suroeste, junto al Señor Crepuscular.",
 
 	-- Step 17: Back to Ortell
-	["Back to Ortell"] = "",
+	["Back to Ortell"] = "De vuelta con Ortell",
 
 	-- Step 18: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Campamento Barbabronce",
 	-- {zone:1451} Silithus · {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {quest:8304} Dearest Natalia · {item:20379} Noggle's Satchel · {npc:15196} Deathclasp · {spell:10101} Knock Away
-	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "",
+	["The dwarves' camp in the south of {zone:1451}. Talk {npc:15171} and {npc:15170} through their whole stories for {quest:8304}. {item:20379} lies on the mountain south-east of the camp. {npc:15196} lives up the trail east of the camp: an elite, and his {spell:10101} can throw you off the cliff."] = "El campamento de los enanos en el sur de {zone:1451}. Habla con {npc:15171} y {npc:15170} hasta el final de sus historias para {quest:8304}. {item:20379} está en la montaña al sureste del campamento. {npc:15196} vive subiendo el sendero al este del campamento: un élite, y su {spell:10101} puede tirarte del acantilado.",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
-	["{npc:15171} and {npc:15170}"] = "",
+	["{npc:15171} and {npc:15170}"] = "{npc:15171} y {npc:15170}",
 	-- {item:20385} Deathclasp's Pincer
-	["{item:20385}, elite: group of 2 or 3"] = "",
+	["{item:20385}, elite: group of 2 or 3"] = "{item:20385}, élite: grupo de 2 o 3",
 
 	-- Step 19: Back to Cenarion Hold with news
 	-- {area:3425} Cenarion Hold
-	["Back to {area:3425} with news"] = "",
+	["Back to {area:3425} with news"] = "De vuelta a {area:3425} con noticias",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
-	["Natalia, elite: group up"] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} está en el piso de arriba de su edificio: sube por dentro, la flecha no distingue los pisos.",
+	["Natalia, elite: group up"] = "Natalia, élite: agrúpate",
 
 	-- Step 20: Rubbings and brains
-	["Rubbings and brains"] = "",
+	["Rubbings and brains"] = "Calcos y cerebros",
 	-- {object:210337} Glyphed Crystal (no name in this language: may be words) · {item:20453} Geologist's Transcription Kit · {area:2742} Hive'Ashi · {area:2743} Hive'Zora · {area:2744} Hive'Regal · {quest:8308} Brann Bronzebeard's Lost Letter
-	["Rutgar and Frankal hand out the next two quests at their camp. Each hive has a {object:210337} to rub with the {item:20453}, and its silithid drop the brains: {area:2742} north of the Hold, {area:2743} in the west, {area:2744} in the south. Inside {area:2744} waits Mistress Natalia (level 62 elite, mind control and fear; group of 3 to 5). Now and then a hive silithid drops {quest:8308}: it starts a quest for Rutgar worth 100."] = "",
+	["Rutgar and Frankal hand out the next two quests at their camp. Each hive has a {object:210337} to rub with the {item:20453}, and its silithid drop the brains: {area:2742} north of the Hold, {area:2743} in the west, {area:2744} in the south. Inside {area:2744} waits Mistress Natalia (level 62 elite, mind control and fear; group of 3 to 5). Now and then a hive silithid drops {quest:8308}: it starts a quest for Rutgar worth 100."] = "Rutgar y Frankal dan las dos siguientes misiones en su campamento. Cada colmena tiene un {object:210337} para calcar con el {item:20453}, y sus silítidos sueltan los cerebros: {area:2742} al norte del Fuerte, {area:2743} en el oeste, {area:2744} en el sur. Dentro de {area:2744} espera la señora Natalia (élite de nivel 62, control mental y miedo; grupo de 3 a 5). De vez en cuando un silítido de la colmena suelta {quest:8308}: inicia una misión para Rutgar que vale 100.",
 	-- {item:20456} Hive'Regal Rubbing · {area:2744} Hive'Regal
-	["{item:20456}, deep in {area:2744}"] = "",
+	["{item:20456}, deep in {area:2744}"] = "{item:20456}, en lo hondo de {area:2744}",
 	-- {quest:8308} Brann Bronzebeard's Lost Letter
-	["{quest:8308}, a rare drop"] = "",
+	["{quest:8308}, a rare drop"] = "{quest:8308}, un botín raro",
 
 	-- Step 21: Mistress Natalia
-	["Mistress Natalia"] = "",
+	["Mistress Natalia"] = "Señora Natalia",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
-	["Optional: Natalia waits deep in {area:2744}, the hive in the south of {zone:1451}. She is a level 62 elite who mind-controls, fears and heals herself below half health: bring a group of 3 to 5 and interrupt her heals."] = "",
-	["Mistress Natalia: group of 3 to 5"] = "",
+	["Optional: Natalia waits deep in {area:2744}, the hive in the south of {zone:1451}. She is a level 62 elite who mind-controls, fears and heals herself below half health: bring a group of 3 to 5 and interrupt her heals."] = "Opcional: Natalia espera en lo hondo de {area:2744}, la colmena del sur de {zone:1451}. Es una élite de nivel 62 que controla mentes, aterroriza y se cura por debajo de la mitad de su salud: lleva un grupo de 3 a 5 e interrumpe sus curaciones.",
+	["Mistress Natalia: group of 3 to 5"] = "Señora Natalia: grupo de 3 a 5",
 
 	-- Step 22: The Calling
 	-- {quest:8314} Unraveling the Mystery · {quest:8315} The Calling · {npc:15183} Geologist Larksbane · {area:3257} Bones of Grakkarond · {npc:14862} Emissary Roman'khan
-	["{quest:8314} leads to {quest:8315}: {npc:15183} sends you to the {area:3257} to summon {npc:14862}, a level 63 boss for a raid of about 20. Take it only with a raid."] = "",
-	["raid of 20"] = "",
+	["{quest:8314} leads to {quest:8315}: {npc:15183} sends you to the {area:3257} to summon {npc:14862}, a level 63 boss for a raid of about 20. Take it only with a raid."] = "{quest:8314} lleva a {quest:8315}: {npc:15183} te manda a {area:3257} para invocar a {npc:14862}, un jefe de nivel 63 para una banda de unos 20. Tómala solo con una banda.",
+	["raid of 20"] = "banda de 20",
 	-- {item:20465} Crystal Unlocking Mechanism · {npc:14862} Emissary Roman'khan
-	["{item:20465}, {npc:14862}: raid of 20"] = "",
+	["{item:20465}, {npc:14862}: raid of 20"] = "{item:20465}, {npc:14862}: banda de 20",
 
 	-- Step 23: The New Frontier, Thunder Bluff
 	-- {quest:1123} Rabine Saturna · {npc:10881} Bluff Runner Windstrider · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise · {area:2361} Nighthaven · {zone:1450} Moonglade
-	["Optional: {quest:1123}'s chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. {npc:10881} sends you to {npc:5769} on {area:1639}, who sends you to {quest:1123} in {area:2361}, {zone:1450}."] = "",
+	["Optional: {quest:1123}'s chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. {npc:10881} sends you to {npc:5769} on {area:1639}, who sends you to {quest:1123} in {area:2361}, {zone:1450}."] = "Opcional: la cadena de {quest:1123} paga 525 de reputación Cenarion en siete misiones de nivel 55 a 57, completas a 60. {npc:10881} te manda con {npc:5769} en {area:1639}, que te manda con {quest:1123} en {area:2361}, {zone:1450}.",
 
 	-- Step 24: The New Frontier, Darnassus
 	-- {quest:6762} Rabine Saturna · {npc:10878} Herald Moonstalker · {npc:3516} Arch Druid Fandral Staghelm · {npc:4217} Mathrengyl Bearwalker · {area:2361} Nighthaven · {zone:1450} Moonglade
-	["Optional: {quest:6762}'s chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. {npc:10878} sends you to {npc:3516}, who sends you to {npc:4217}, who sends you to {quest:6762} in {area:2361}, {zone:1450}."] = "",
+	["Optional: {quest:6762}'s chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. {npc:10878} sends you to {npc:3516}, who sends you to {npc:4217}, who sends you to {quest:6762} in {area:2361}, {zone:1450}."] = "Opcional: la cadena de {quest:6762} paga 525 de reputación Cenarion en siete misiones de nivel 55 a 57, completas a 60. {npc:10878} te manda con {npc:3516}, que te manda con {npc:4217}, que te manda con {quest:6762} en {area:2361}, {zone:1450}.",
 
 	-- Step 25: Rabine Saturna
 	-- {quest:1123} Rabine Saturna · {area:2361} Nighthaven · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest · {zone:1451} Silithus
-	["{quest:1123} lives in {area:2361}. She sends you to {npc:13220} at {area:3077}, the camp in the north-east corner of {zone:1451}."] = "",
+	["{quest:1123} lives in {area:2361}. She sends you to {npc:13220} at {area:3077}, the camp in the north-east corner of {zone:1451}."] = "{quest:1123} vive en {area:2361}. Te manda con {npc:13220} en {area:3077}, el campamento de la esquina noreste de {zone:1451}.",
 
 	-- Step 26: Southwind Village
 	-- {area:2738} Southwind Village · {area:3425} Cenarion Hold · {object:178553} Hive'Ashi Pod
 	-- plural, as words: Tortured Druids = {npc:12178} Tortured Druid
-	["The Tortured Druids and Sentinels roam the ruins of {area:2738}, south-east of {area:3425}; the {object:178553} sits on the top floor of its wasp-circled tower."] = "",
+	["The Tortured Druids and Sentinels roam the ruins of {area:2738}, south-east of {area:3425}; the {object:178553} sits on the top floor of its wasp-circled tower."] = "Los druidas y centinelas torturados recorren las ruinas de {area:2738}, al sureste de {area:3425}; la {object:178553} está en el último piso de su torre rodeada de avispas.",
 
 	-- Step 27: Umber in Nighthaven
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} in {area:2361}"] = "",
+	["{npc:11939} in {area:2361}"] = "{npc:11939} en {area:2361}",
 
 	-- Step 28: Quests elsewhere
-	["Quests elsewhere"] = "",
+	["Quests elsewhere"] = "Misiones en otros lugares",
 	-- {faction:609} Cenarion Circle · {zone:1414} Kalimdor · {npc:10739} Mulgris Deepriver · {zone:1422} Western Plaguelands · {area:2100} Maraudon · {quest:1123} Rabine Saturna · {item:18501} Felvine Shard · {area:2577} Dire Maul
-	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "",
+	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "Las otras misiones de {faction:609} están repartidas por {zone:1414} y las Tierras de la Peste. Forever las paga completas a cualquier nivel: La fauna también sufre ({npc:10739}, {zone:1422}, niveles 54 y 56) 75 y 75, Corrupción de la tierra y la semilla ({area:2100}, nivel 51) 150. Fragmentos de la Vid Vil ({quest:1123}, nivel 60, el {item:18501} de Alzzin en {area:2577}) paga 150 y su Relicario 100 a cualquier nivel.",
 	-- {zone:1422} Western Plaguelands · {area:2100} Maraudon
-	["Do the {zone:1422} and {area:2100} quests while you level; at 60 they may pay a fraction."] = "",
+	["Do the {zone:1422} and {area:2100} quests while you level; at 60 they may pay a fraction."] = "Haz las misiones de {zone:1422} y {area:2100} mientras subes de nivel; a 60 puede que paguen una fracción.",
 
 	-- Step 29: Encrypted Twilight Texts to Revered
 	-- {quest:8319} Encrypted Twilight Texts
-	["{quest:8319} to Revered"] = "",
+	["{quest:8319} to Revered"] = "{quest:8319} hasta Reverenciado",
 	-- {npc:15306} Bor Wildmane · {quest:8319} Encrypted Twilight Texts · {npc:14479} Twilight Lord Everun · {item:20733} Formula: Enchant Cloak - Greater Nature Resistance · {item:22773} Pattern: Sylvan Crown
-	["Honored to Revered is 12,000 reputation. {npc:15306} takes 10 {quest:8319} for 100 reputation, again and again, until Exalted: 120 turn-ins (1,200 texts) to Revered without the quests, or about 950 texts after them. Hand in the texts you saved now. The cultists no longer count, but the Flamereavers, Twilight Keepers, Marauders and Templars count until 11,999 of 12,000 Honored, and the {npc:14479} and Prophet until Exalted. Honored opens Kania's {item:20733} (10g), Mishta's {item:22773} (5g) and Forever's new Honored patterns (7g 50s each)."] = "",
+	["Honored to Revered is 12,000 reputation. {npc:15306} takes 10 {quest:8319} for 100 reputation, again and again, until Exalted: 120 turn-ins (1,200 texts) to Revered without the quests, or about 950 texts after them. Hand in the texts you saved now. The cultists no longer count, but the Flamereavers, Twilight Keepers, Marauders and Templars count until 11,999 of 12,000 Honored, and the {npc:14479} and Prophet until Exalted. Honored opens Kania's {item:20733} (10g), Mishta's {item:22773} (5g) and Forever's new Honored patterns (7g 50s each)."] = "De Honorable a Reverenciado son 12.000 de reputación. {npc:15306} acepta 10 {quest:8319} por 100 de reputación, una y otra vez, hasta Exaltado: 120 entregas (1.200 textos) hasta Reverenciado sin las misiones, o unos 950 textos después de ellas. Entrega ahora los textos que guardaste. Los sectarios ya no cuentan, pero los segadores de llamas, guardianes crepusculares, merodeadores y templarios cuentan hasta 11.999 de 12.000 en Honorable, y el {npc:14479} y el Profeta hasta Exaltado. Honorable abre la {item:20733} de Kania (10g), los {item:22773} de Mishta (5g) y los nuevos patrones de Honorable de Forever (7g 50s cada uno).",
 	-- {npc:15306} Bor Wildmane
-	["{npc:15306}: 10 texts, 100"] = "",
+	["{npc:15306}: 10 texts, 100"] = "{npc:15306}: 10 textos, 100",
 
 	-- Step 30: Field Duty, level 60
 	-- {quest:8507} Field Duty
-	["{quest:8507}, level 60"] = "",
+	["{quest:8507}, level 60"] = "{quest:8507}, nivel 60",
 	-- {npc:15540} Windcaller Kaldon · {area:3425} Cenarion Hold · {quest:8507} Field Duty · {npc:15440} Captain Blackanvil · {area:2743} Hive'Zora · {npc:15612} Krug Skullsplit · {area:2744} Hive'Regal · {item:20809} Tactical Assignment · {item:7936} Ornate Mithril Boots · {npc:15542} Twilight Marauder · {quest:9338} Allegiance to Cenarion Circle
 	-- plural, as words: Heavy Runecloth Bandages = {item:14530} Heavy Runecloth Bandage
-	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "",
-	["Allegiance: one Combat, Logistics and Tactical badge, 200"] = "",
+	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "{npc:15540} está junto al pozo de la luna de {area:3425}. {quest:8507} (25 de reputación, repetible) te manda con papeles sin firmar al capitán de tu bando: la Brigada de Forjaz de {npc:15440} afuera de {area:2743} (Alianza) o la Legión de Orgrimmar de {npc:15612} afuera de {area:2744} (Horda). Usa primero los papeles, luego habla con el capitán: ataca un silítido élite de nivel 60; mantén con vida al capitán y él firma. Luego Kaldon te deja elegir un informe de combate, de logística o un {item:20809}, cada uno con una orden al azar que vale 50 de reputación y una insignia: 30 muertes de silítidos de colmena (élites), bienes como 30 vendas de paño rúnico gruesas o 3 {item:7936}, o un templario, {npc:15542} o un informe de exploración. Una insignia de cada tipo compra {quest:9338} con Kaldon: 200 de reputación, repetible. Una ronda completa son unos 375 de reputación.",
+	["Allegiance: one Combat, Logistics and Tactical badge, 200"] = "Lealtad: una insignia de combate, una de logística y una táctica, 200",
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
-	["{quest:8800}: {npc:15176}'s badge gear"] = "",
+	["{quest:8800}: {npc:15176}'s badge gear"] = "{quest:8800}: el equipo de insignias de {npc:15176}",
 
 	-- Step 31: Silithyst
-	["Silithyst"] = "",
+	["Silithyst"] = "Silitista",
 	-- {quest:9419} Scouring the Desert · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {npc:17079} General Kirika · {area:2744} Hive'Regal
-	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "",
-	["deliver Silithyst at the extractor"] = "",
+	["Optional, 100 reputation once: {quest:9419}. Your side's camp sits by a hive: {npc:17080}'s by {area:2743} (Alliance), {npc:17079}'s by {area:2744} (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you."] = "Opcional, 100 de reputación una vez: {quest:9419}. El campamento de tu bando está junto a una colmena: el de {npc:17080} junto a {area:2743} (Alianza), el de {npc:17079} junto a {area:2744} (Horda). La silitista surge de los géiseres brillantes del desierto: pasa por uno, lleva la silitista al extractor de silitista de tu campamento y luego habla con el líder del campamento. Es un objetivo de JcJ en el mundo: los jugadores del otro bando pueden quitártela.",
+	["deliver Silithyst at the extractor"] = "entrega la silitista en el extractor",
 
 	-- Step 32: Templars and the Abyssal Council
-	["Templars and the Abyssal Council"] = "",
+	["Templars and the Abyssal Council"] = "Templarios y el Consejo Abisal",
 	-- {object:180456} Lesser Wind Stone (no name in this language: may be words) · {item:20513} Abyssal Crest · {quest:8361} Abyssal Contacts · {npc:15270} Huum Wildmane · {quest:8331} Aurel Goldleaf · {item:14344} Large Brilliant Shard · {object:180461} Wind Stone · {item:20514} Abyssal Signet
-	["Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a {object:180456}: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an {item:20513} 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. {quest:8361} pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, {npc:15270} sends you to {quest:8331}: 3 crests and a {item:14344} buy the Medallion of Station that, worn with a set, opens the larger {object:180461} for a Duke (level 62 elite, group of 5; 25 reputation, {item:20514} 85%)."] = "",
+	["Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a {object:180456}: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an {item:20513} 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. {quest:8361} pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, {npc:15270} sends you to {quest:8331}: 3 crests and a {item:14344} buy the Medallion of Station that, worn with a set, opens the larger {object:180461} for a Duke (level 62 elite, group of 5; 25 reputation, {item:20514} 85%)."] = "Llevar un conjunto completo de Atavíos crepusculares (capucha, manto y túnica de sectario, más o menos 8%, 8% y 6% por sectario) te deja usar una {object:180456}: hay dos en cada uno de los tres campamentos del oeste. Aparece un templario abisal al azar: un élite de nivel 60 para 1 a 3 jugadores, 5 de reputación hasta el tope de Honorable y una {item:20513} el 93% de las veces. La invocación gasta el conjunto (y más adelante también el medallón y el anillo), y si el elemental se escapa se pierden: invoca solo cuando puedas ganar. {quest:8361} paga 100 por la primera cresta; después, Bor acepta 3 crestas por 50. Desde Amistoso, {npc:15270} te manda a {quest:8331}: 3 crestas y un {item:14344} compran el Medallón de rango que, llevado con un conjunto, abre la {object:180461} más grande para un duque (élite de nivel 62, grupo de 5; 25 de reputación, {item:20514} el 85%).",
 	-- {item:20513} Abyssal Crest
-	["{item:20513}: Templar, group of 1 to 3"] = "",
+	["{item:20513}: Templar, group of 1 to 3"] = "{item:20513}: templario, grupo de 1 a 3",
 	-- {npc:15270} Huum Wildmane
-	["{npc:15270}, Friendly"] = "",
+	["{npc:15270}, Friendly"] = "{npc:15270}, Amistoso",
 	-- {item:14344} Large Brilliant Shard
-	["3 crests and a {item:14344}: the Medallion of Station"] = "",
+	["3 crests and a {item:14344}: the Medallion of Station"] = "3 crestas y un {item:14344}: el Medallón de rango",
 	-- {item:20514} Abyssal Signet
-	["{item:20514}: Duke, group of 5"] = "",
+	["{item:20514}: Duke, group of 5"] = "{item:20514}: duque, grupo de 5",
 
 	-- Step 33: Signets and scepters to Exalted
-	["Signets and scepters to Exalted"] = "",
+	["Signets and scepters to Exalted"] = "Sellos y cetros hasta Exaltado",
 	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone (no name in this language: may be words) · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "",
-	["10 texts: 100"] = "",
+	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "De Reverenciado a Exaltado son 21.000 de reputación: 210 entregas de textos (2.100 textos), o menos con lo demás. Desde Honorable, Bor acepta 3 {quest:8363} por 100 (cada duque también da 25, hasta Exaltado), y {npc:15282} acepta un {item:20515} para {quest:9248} (200, una vez). Desde Reverenciado, {quest:8343} lleva a {quest:8341}: 3 sellos y 5 fragmentos brillantes grandes compran el Anillo de señorío, y conjunto, medallón y anillo abren la {object:180466} para un señor abisal: un jefe de nivel 63 para una banda de unos 20, 50 de reputación y un {item:20515}. Bor paga 200 por el primer cetro y 150 por cada 3 después. Reverenciado abre la {item:22252} (5g), la {item:22660} (9g) y los {item:22756} (5g) de Mishta; Exaltado es la reputación para el Equipo de batalla de campeón con {npc:15176}.",
+	["10 texts: 100"] = "10 textos: 100",
 	-- {quest:8363} Abyssal Signets
-	["3 {quest:8363}: 100, Honored"] = "",
+	["3 {quest:8363}: 100, Honored"] = "3 {quest:8363}: 100, Honorable",
 	-- {item:20515} Abyssal Scepter
-	["{item:20515}: Lord, raid of 20"] = "",
+	["{item:20515}: Lord, raid of 20"] = "{item:20515}: señor, banda de 20",
 	-- {npc:15270} Huum Wildmane
-	["{npc:15270}, Revered"] = "",
+	["{npc:15270}, Revered"] = "{npc:15270}, Reverenciado",
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["3 signets and 5 Large Brilliant Shards: the Ring of Lordship"] = "",
+	["3 signets and 5 Large Brilliant Shards: the Ring of Lordship"] = "3 sellos y 5 fragmentos brillantes grandes: el Anillo de señorío",
 	-- {quest:8364} Abyssal Scepters
-	["3 {quest:8364}: 150, Revered"] = "",
+	["3 {quest:8364}: 150, Revered"] = "3 {quest:8364}: 150, Reverenciado",
 
 	-- Step 34: The Ruins of Ahn'Qiraj, when they open
 	-- {area:3454} Ruins of Ahn'Qiraj
-	["The {area:3454}, when they open"] = "",
+	["The {area:3454}, when they open"] = "{area:3454}, cuando abran",
 	-- {area:2737} Scarab Wall · {zone:1451} Silithus · {quest:8791} The Fall of Ossirian · {npc:15185} Brood of Nozdormu · {npc:15498} Windcaller Yessendra · {npc:15500} Keyl Swiftclaw · {npc:15499} Warden Haro · {npc:16091} Dirk Thunderwood · {quest:9023} The Perfect Poison · {item:22217} Kurinnaxx's Venom Sac · {area:19} Zul'Gurub · {npc:15471} Lieutenant General Andorov · {item:22219} Plans: Jagged Obsidian Shield · {item:22191} Obsidian Mail Tunic
-	["A 20-player raid behind the {area:2737} in the far south-west of {zone:1451}. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts {quest:8791} (200 here and 200 {npc:15185}). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of {npc:15498}, {npc:15500} and {npc:15499} in the Hold, 100 reputation each. {npc:16091} in the Hold pays 100 once for {quest:9023}: {item:22217} from here and Venoxis's from {area:19}. {npc:15471} sells {item:22219} (Revered, 5g) and {item:22191} (Exalted, 8g) inside."] = "",
+	["A 20-player raid behind the {area:2737} in the far south-west of {zone:1451}. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts {quest:8791} (200 here and 200 {npc:15185}). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of {npc:15498}, {npc:15500} and {npc:15499} in the Hold, 100 reputation each. {npc:16091} in the Hold pays 100 once for {quest:9023}: {item:22217} from here and Venoxis's from {area:19}. {npc:15471} sells {item:22219} (Revered, 5g) and {item:22191} (Exalted, 8g) inside."] = "Una banda de 20 jugadores detrás de {area:2737}, en el extremo suroeste de {zone:1451}. Despejarla completa da unos 1.600 de reputación Cenarion: los enemigos menores 3 cada uno hasta 20.999 de 21.000 en Reverenciado, Kurinnaxx, Moam, Buru y Ayamiss 150 cada uno y Osirian 300, hasta Exaltado. La cabeza de Osirian inicia {quest:8791} (200 aquí y 200 con {npc:15185}). Su botín compra las misiones de anillo (Honorable), capa (Reverenciado) y arma (Exaltado) de {npc:15498}, {npc:15500} y {npc:15499} en el Fuerte, 100 de reputación cada una. {npc:16091}, en el Fuerte, paga 100 una vez por {quest:9023}: {item:22217} de aquí y el de Venoxis de {area:19}. {npc:15471} vende {item:22219} (Reverenciado, 5g) y {item:22191} (Exaltado, 8g) adentro.",
 
 	-- Step 35: Venoxis's Venom Sac, Zul'Gurub
 	-- {quest:9023} The Perfect Poison · {npc:14507} High Priest Venoxis · {area:19} Zul'Gurub · {zone:1434} Stranglethorn Vale
-	["Optional, for {quest:9023}: {npc:14507} is the first boss of {area:19}, a 20-player raid in north-east {zone:1434}."] = "",
+	["Optional, for {quest:9023}: {npc:14507} is the first boss of {area:19}, a 20-player raid in north-east {zone:1434}."] = "Opcional, para {quest:9023}: {npc:14507} es el primer jefe de {area:19}, una banda de 20 jugadores en el noreste de {zone:1434}.",
 	-- {item:22216} Venoxis's Venom Sac
-	["{item:22216}: raid of 20"] = "",
+	["{item:22216}: raid of 20"] = "{item:22216}: banda de 20",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Abyssal Crests, Abyssal Signets and Abyssal Scepters are repeatable at {npc:15306} once their opening quests are done."] = "Los Blasones abisales, Sellos abisales y Cetros abisales se pueden repetir con {npc:15306} una vez hechas sus misiones iniciales.",

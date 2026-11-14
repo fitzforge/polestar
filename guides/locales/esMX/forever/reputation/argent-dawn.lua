@@ -140,7 +140,7 @@ return {
 	["{item:19205} ({skill:164}), 4 gold"] = "",
 
 	-- Step 12: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "De Reverenciado a Exaltado",
 	-- {quest:5508} Corruptor's Scourgestones · {area:2057} Scholomance · {item:13920} Healthy Dragon Scale
 	["Revered to Exalted is 21,000: 840 Scourgestone or cauldron turn-ins, or the dungeon bosses with their {quest:5508} (a full {area:2057} clear is about 600). Turn in every stone and {item:13920} you saved."] = "",
 
