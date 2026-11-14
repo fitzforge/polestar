@@ -29,8 +29,10 @@
 --     ctx = { get, now (GetTime), inCombat, inInstance, self, alerted (GetTime of this session's alert), present }
 --   Rares.FounderSighting(unit, source, guid) -> action, reason   the live path for a player unit
 -- Messages: RARE_SPOTTED(alert) when an alert fires (alert.kind "founder" for
--- the founder); RARES_HISTORY(key) when the history changes; RARE_NEARBY when
--- the rares (and the founder) in range change.
+-- the founder); RARE_NAMED(key, name) when a sighting that alerts nothing
+-- (cooldown, combat hold) carries the name, for a card that went up unnamed;
+-- RARES_HISTORY(key) when the history changes; RARE_NEARBY when the rares
+-- (and the founder) in range change.
 
 local ADDON, ns = ...
 local L = ns.L

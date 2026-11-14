@@ -96,8 +96,9 @@ end
 
 -- The Target button's macro for alert a: the founder's wave
 -- (Buttons.FounderMacro), else a rare's (not a treasure, nor the options'
--- placeholder sample), by its name; nil without QoL's buttons or for a name
--- that cannot be a macro line.
+-- placeholder sample, nor an unnamed alert whose "Unknown rare" is only a
+-- title), by its name; nil without QoL's buttons or for a name that cannot
+-- be a macro line.
 function T.TargetMacro(a)
 	local B = ns.QoL and ns.QoL.Buttons
 	if type(a) ~= "table" or a.kind == "treasure" or a.unnamed or (a.source == "sample" and not a.id) then return nil end
@@ -436,7 +437,10 @@ ns.On("RARE_NAMED", function(key, name)
 	current.name, current.unnamed = name, nil
 	local left = f.psLeft
 	T.Show(current)
+	-- T.Show starts the timer over; keep the time left, line included (it
+	-- stands still while the cursor is on the card).
 	f.psLeft = left
+	W.SetProgress(f.Timer, max(0, left) / (f.psTotal or 1), f:GetWidth() - 2)
 end)
 
 -- Not while Polestar is hidden (Rares.lua sends none then either): a
