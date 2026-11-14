@@ -11705,6 +11705,35 @@ test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's 
 	assert.ok(taken >= 0 && taken < sweep, 'Freshwater Fiends is taken before the sweep');
 });
 
+// Krol'dok Stronghold for the Alliance (Fitz, 2026-11-13): the Riverglades guides' dungeon, for a group of five, run at
+// the end of part 4 from its door north of Sunnyglade (37.2,43.9, where players' recordings go in), behind `when
+// dungeon` and its floor of 43 (the named exception in data/codex/levels.json). Each pick-up is gated at the floor
+// less the levels the guides plan before the run (players' recordings: no level model plays the option), and each
+// hand-in waits for its quest (`when complete`/`when onquest`), so a character who skips the dungeon keeps the solo
+// steps.
+test("Riverglades (experimental): the Alliance Krol'dok Stronghold run is the dungeon's alone, at its door and its floor", () => {
+	const dungeon = (lines) => anyLine(lines, /^\s+when dungeon "Krol'dok Stronghold"$/);
+	const gate = (lines) => (lines.find((l) => /^\s+when level>=/.test(l)) || '').replace(/^\s+when level>=/, '');
+	const runs = rivergladesSteps('riverglades-alliance-4.guide').filter((l) => dungeon(l) && anyLine(l, /^\s+enter "Krol'dok Stronghold" @37\.2,43\.9\b/));
+	assert.equal(runs.length, 1, 'riverglades-alliance-4: one run step at the door');
+	assert.equal(gate(runs[0]), '43', 'the run is gated at the floor, 43');
+	const held = (runs[0].find((l) => /^\s+when onquest /.test(l)) || '').replace(/^\s+when onquest /, '').split(',').map(Number);
+	for (const q of [94983, 94984, 94982]) assert.ok(held.includes(q), `the run waits for a quest of it held (${q})`);
+	for (const [f, q, g] of [['riverglades-alliance-3.guide', 94984, 41.8], ['riverglades-alliance-3.guide', 94982, 41.8], ['riverglades-alliance-4.guide', 94983, 41.9]]) {
+		const at = rivergladesSteps(f).filter((l) => anyLine(l, new RegExp(`^\\s+accept ${q}\\b`)));
+		assert.ok(at.length >= 1, `${f}: ${q} is picked up`);
+		for (const l of at) {
+			assert.ok(dungeon(l), `${f}: ${q} is picked up only by a character who runs the dungeon`);
+			assert.equal(gate(l), String(g), `${f}: the pick-up of ${q} is gated at ${g}`);
+		}
+	}
+	for (const q of [94983, 94984, 94997, 94998, 94982, 94980]) {
+		const at = rivergladesSteps('riverglades-alliance-4.guide').filter((l) => anyLine(l, new RegExp(`^\\s+turnin ${q}\\b`)));
+		assert.ok(at.length >= 1, `riverglades-alliance-4: ${q} is handed in`);
+		for (const l of at) assert.ok(dungeon(l) && anyLine(l, new RegExp(`^\\s+when (complete|onquest) ${q}\\b`)), `riverglades-alliance-4: the hand-in of ${q} waits for it, behind \`when dungeon\``);
+	}
+});
+
 // No class trainer stands in the Riverglades, and the Feralas guide passes none: an Alliance player who goes on to
 // Feralas (level 43 or more) trains in part 4 whatever quests they carry, shamans in Ironforge (Stormwind has none).
 test('Riverglades (experimental): an Alliance player going on to Feralas trains in part 4', () => {
@@ -11826,6 +11855,18 @@ test('dungeons in the route: every `when dungeon` step of the leveling guides is
 		}
 	}
 	assert.deepEqual([...new Set(bad)], []);
+});
+
+// The Alliance's dungeon branch that leaves the solo route's way (the Hall of Thanes from 02-westfall's last Stormwind
+// stop: the Deeprun Tram to Ironforge and back, for every class but Shamans, who train in Ironforge already): each
+// travel step of the branch carries the run's gate, so a character under the dungeon's floor never rides out for a
+// run the route then passes.
+test("dungeons in the route: the Alliance tram to the Hall of Thanes runs only from the run's gate", { skip }, () => {
+	const run = DUNGEON_RUNS().find((r) => r.faction === 'Alliance' && dungeonKey(r.dungeon) === dungeonKey('The Hall of Thanes'));
+	assert.ok(run && run.run.gate != null, 'The Hall of Thanes: a gated run record');
+	const travel = compiled('forever/alliance/02-westfall.guide').steps.filter((s) => whenDungeonOf(s, 'The Hall of Thanes') && s.goals.length && s.goals.every((g) => g.t === 'goto' || g.t === 'fly'));
+	assert.deepEqual(travel.map((s) => s.title), ['Tram to Ironforge', 'Back to Stormwind City'], "02-westfall: the branch's travel steps");
+	for (const s of travel) assert.equal(lowestLevel(s), run.run.gate, `02-westfall: "${s.title}" is gated \`when level>=${run.run.gate}\``);
 });
 
 // Alliance 1-12 audit (0.4.0, #2025, bind points the route never hearths back to): the Night Elves' first Auberdine
