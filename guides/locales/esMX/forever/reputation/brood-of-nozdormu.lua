@@ -229,7 +229,7 @@ return {
 	["{npc:15192}: the Honored ring quest of your path"] = "",
 
 	-- Step 38: Honored to Revered
-	["Honored to Revered"] = "",
+	["Honored to Revered"] = "De Honorable a Reverenciado",
 	-- {npc:15727} C'Thun · {quest:8595} Mortal Champions · {quest:8789} Imperial Qiraji Armaments · {npc:15380} Arygos · {npc:15378} Merithra of the Dream · {item:18562} Elementium Ore
 	["Honored to Revered is 12,000: twelve artifacts, 24 insignias, or a mix with {npc:15727} (2,500). After the first, each insignia is the repeatable {quest:8595}. Every Temple boss sometimes drops an {quest:8789} or Regalia (about one time in twenty): {npc:15380} and {npc:15378}, inside the Temple once {npc:15727} is dead, take it with 3 {item:18562} for 200 and a weapon. Honored opens the chest exchange of the tier set (200)."] = "",
 	-- {item:18562} Elementium Ore · {area:2677} Blackwing Lair
@@ -247,7 +247,7 @@ return {
 	["{npc:15192}: the Revered ring quest of your path"] = "",
 
 	-- Step 40: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "De Reverenciado a Exaltado",
 	-- {npc:15727} C'Thun · {quest:8801} C'Thun's Legacy · {npc:15379} Caelestrasz
 	["Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with {npc:15727}'s 2,500 a week. {npc:15727}'s eye starts {quest:8801} for {npc:15379} (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker."] = "",
 
