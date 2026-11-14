@@ -25,7 +25,7 @@
 -- ready to hand in, the hand-in is pulled forward (0.3.8, plan item 3F-C7):
 -- the Engine leads the arrow there ahead of the live step's other errands
 -- (Own.timedAim) and the While-here panel opens with the quest's row, "Durnan
--- Furcutter ~3 min · go now, the route gets there too late" (a right-click
+-- Furcutter ≈3 min · go now, the route gets there too late" (a right-click
 -- lets the route be: the row goes, the arrow back to the step). TIMED_PULL
 -- when a pull starts or ends.
 -- A running timer whose hand-in the active guide's route does not make from
@@ -363,8 +363,9 @@ function Timed.OffText(q)
 	local C = ns.Compat
 	local name = (C and C.GetQuestTitle and C.GetQuestTitle(q)) or ("#" .. q)
 	if w then
-		-- Timed.Countdown starts with the hourglass and its own space: "<quest> <hourglass> 4:12 left".
-		return name .. " " .. countdown, format(L["%s ~%s · go now, the route gets there too late"], w.name, duration(w.secs))
+		-- Timed.Countdown starts with the hourglass and its own space: "<quest> <hourglass> 4:12 left"; the way's
+		-- time "about" as below (Theme.Approx).
+		return name .. " " .. countdown, format(L["%s %s · go now, the route gets there too late"], w.name, Theme.Approx() .. duration(w.secs))
 	end
 	local place = o.zone ~= "" and o.zone or o.name
 	local sub
