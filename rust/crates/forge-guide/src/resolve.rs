@@ -3124,6 +3124,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if g.get("direct").truthy() {
 		goal.set("direct", true);
 		let q = if !goal.get("quest").is_undef() { data.quest(&goal.get("quest")) } else { V::Null };
+		if q.truthy() && q.get("minLevel").num() > 0.0 {
+			goal.set("minLevel", q.get("minLevel").num());
+		}
 		if q.truthy() && q.get("level").num() > 0.0 {
 			goal.set("qlvl", q.get("level").num());
 		}

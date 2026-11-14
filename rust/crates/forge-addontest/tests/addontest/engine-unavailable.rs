@@ -913,3 +913,208 @@ Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Arathi", factio
 	assert_eq!(out["live"], 2, "{out}");
 	assert_eq!(out["events"], json!([{ "from": 1, "to": 2, "quests": ["522:Assassin's Plot:closed"] }]), "{out}");
 }
+
+// #2318: direct hand-ins have no accept elsewhere to lend them a minimum level. Use the existing cloth
+// donation's identity and minimum (7791, level 12), with a controlled map and a manually selected small guide.
+const DIRECT_LEVEL_WORLD: &str = r#"
+w.race, w.faction, w.class, w.className, w.level = "Human", "Alliance", "PALADIN", "Paladin", 11
+w.addMap(1453, { name = "Stormwind City", c = 0, left = 1000, right = -1000, top = 1000, bottom = -3000 })
+w.moveTo(1453, 50, 80)
+"#;
+
+const DIRECT_LEVEL_GUIDE: &str = r#"
+Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Donation", category = "Lookup", faction = "Alliance", minLevel = 1, maxLevel = 60, steps = {
+	{ goals = {
+		{ t = "turnin", quest = 7791, title = "A Donation of Wool", direct = true, minLevel = 12, qlvl = 60, npc = 14722, npcName = "Clavicus Knavingham", map = 1453, x = 53.93, y = 81.69 },
+	} },
+} })
+"#;
+
+const DIRECT_LEVEL_SNAPSHOT: &str = r#"
+local w = stub.world
+local function state()
+	local p = E.GetWaypoint()
+	return { at = E.GetStepIndex() or false, waypoint = p and (p.stepIndex .. ":" .. p.goalIndex) or false,
+		goals = brief(1), wanted = E.WantsQuest("direct", 7791) }
+end
+stub.fire("QUEST_LOG_UPDATE"); flush()
+"#;
+
+#[test]
+fn direct_hand_in_waits_for_its_minimum_in_non_leveling_guides_and_reopens_on_level_up_2318() {
+	for category in ["Lookup", "Class"] {
+		let guide = DIRECT_LEVEL_GUIDE.replace("Lookup", category);
+		let out = run(
+			DIRECT_LEVEL_WORLD,
+			&guide,
+			&format!(
+				"{DIRECT_LEVEL_SNAPSHOT}{}",
+				r#"
+				local completed = 0
+				Polestar.On("GUIDE_COMPLETED", function() completed = completed + 1 end)
+				flush()
+				local r = { low = state() }
+				w.setLevel(12); flush()
+				r.ding, r.completed = state(), completed
+				emit(r)
+			"#
+			),
+		);
+		assert_eq!(out["low"], json!({ "at": 1, "waypoint": false, "goals": ["skipped:level:Requires level 12"], "wanted": false }), "{category}: wait without an arrow or automation");
+		assert_eq!(out["ding"], json!({ "at": 1, "waypoint": "1:1", "goals": ["active:nil:nil"], "wanted": true }), "{category}: the minimum opens the hand-in");
+		assert_eq!(out["completed"], 0, "{category}: the waiting guide must not finish");
+	}
+}
+
+#[test]
+fn direct_hand_in_is_passed_in_a_leveling_guide_and_level_up_restores_it_even_after_the_guide_finishes_2318() {
+	for later_work in [false, true] {
+		let mut guide = DIRECT_LEVEL_GUIDE.replace("Lookup", "Leveling");
+		if later_work {
+			guide = guide.replace("} })", "\t{ goals = { { t = \"task\", text = \"Other work\" } } },\n} })");
+		}
+		let out = run(DIRECT_LEVEL_WORLD, &guide, &format!("{DIRECT_LEVEL_SNAPSHOT}local r = {{ low = state() }}; w.setLevel(12); flush(); r.ding = state(); emit(r)"));
+		assert_eq!(out["low"], json!({ "at": if later_work { json!(2) } else { json!(false) }, "waypoint": false, "goals": ["na:nil:nil"], "wanted": false }), "later work: {later_work}");
+		assert_eq!(out["ding"], json!({ "at": 1, "waypoint": "1:1", "goals": ["active:nil:nil"], "wanted": true }), "later work: {later_work}");
+	}
+}
+
+fn direct_level_shared_step() -> String {
+	DIRECT_LEVEL_GUIDE.replace("direct = true,", "direct = true, optional = true,").replace("\n\t} },", "\n\t\t{ t = \"task\", text = \"Other work\" },\n\t} },")
+}
+
+#[test]
+fn an_optional_direct_hand_in_in_a_live_shared_step_is_not_wanted_below_its_minimum_2318() {
+	let out = run(DIRECT_LEVEL_WORLD, &direct_level_shared_step(), &format!("{DIRECT_LEVEL_SNAPSHOT}local r = {{ low = state() }}; w.setLevel(12); flush(); r.ding = state(); emit(r)"));
+	assert_eq!(
+		out["low"],
+		json!({ "at": 1, "waypoint": false, "goals": ["na:nil:nil", "active:nil:nil"], "wanted": false }),
+		"unrelated work keeps the step live, but must not enable the optional hand-in"
+	);
+	assert_eq!(out["ding"]["at"], 1);
+	assert_eq!(out["ding"]["goals"], json!(["active:nil:nil", "active:nil:nil"]));
+	assert_eq!(out["ding"]["wanted"], true);
+}
+
+#[test]
+fn a_real_offer_still_overrides_a_direct_hand_in_minimum_and_the_reward_is_only_taken_once_2318() {
+	let out = run(
+		&format!("{DIRECT_LEVEL_WORLD}w.repeatable[7791] = true"),
+		&direct_level_shared_step(),
+		&format!(
+			"{DIRECT_LEVEL_SNAPSHOT}{}",
+			r#"
+			local r = { low = state() }
+			-- The client offering it is authoritative even if the recorded minimum is stale.
+			w.gossip(14722, { available = { { questID = 7791 } } }); flush()
+			r.offered = state()
+			w.questProgress(14722, 7791, { completable = true }); flush(); w.close()
+			r.rewarded = state()
+			stub.advance(5)
+			w.gossip(14722, { available = { { questID = 7791 } } }); flush(); w.close()
+			w.questProgress(14722, 7791, { completable = true }); flush(); w.close()
+			w.setLevel(12); flush()
+			r.ding = state()
+			r.calls = {}
+			for _, c in ipairs(w.calls) do r.calls[#r.calls + 1] = c[1] end
+			emit(r)
+		"#
+		),
+	);
+	assert_eq!(out["low"]["wanted"], false);
+	assert_eq!(out["offered"]["wanted"], true);
+	assert_eq!(out["offered"]["goals"][0], "active:nil:nil");
+	assert_eq!(out["rewarded"]["goals"][0], "done:nil:nil");
+	assert_eq!(out["rewarded"]["wanted"], false);
+	assert_eq!(out["ding"]["goals"][0], "done:nil:nil");
+	assert_eq!(out["ding"]["wanted"], false);
+	assert_eq!(out["calls"], json!(["C_GossipInfo.SelectAvailableQuest", "CompleteQuest", "GetQuestReward"]));
+}
+
+#[test]
+fn direct_minimum_does_not_reject_a_logged_quest_reopen_done_work_or_gate_an_ordinary_turn_in_2318() {
+	let guide = direct_level_shared_step();
+	for (name, before, guide, action, status, wanted) in [
+		("on log", "w.onQuest(7791, { 1 })", guide.clone(), "", "active:nil:nil", true),
+		("completed", "w.complete({ 7791 })", guide.clone(), "", "done:nil:nil", false),
+		("checked", "w.level = 12", guide.clone(), "E.ToggleGoal(1, 1); w.setLevel(11); flush()", "done:nil:nil", false),
+		("unknown minimum", "", guide.replace("minLevel = 12, ", ""), "", "active:nil:nil", true),
+		("ordinary logged turn-in", "w.onQuest(7791, { 1 })", guide.replace("direct = true, ", ""), "", "active:nil:nil", false),
+	] {
+		let out = run(
+			&format!("{DIRECT_LEVEL_WORLD}{before}"),
+			&guide,
+			&format!("{DIRECT_LEVEL_SNAPSHOT}{action}\nlocal r = {{ low = state(), turnin = E.WantsQuest(\"turnin\", 7791) }}; w.setLevel(12); flush(); r.ding = state(); emit(r)"),
+		);
+		assert_eq!(out["low"]["goals"][0], status, "{name}");
+		assert_eq!(out["ding"]["goals"][0], status, "{name}: level-up preserves state");
+		assert_eq!(out["low"]["wanted"], wanted, "{name}");
+		assert_eq!(out["ding"]["wanted"], wanted, "{name}: level-up preserves automation");
+		if name == "ordinary logged turn-in" {
+			assert_eq!(out["turnin"], true, "ordinary accepted quests still hand in");
+		}
+	}
+}
+
+fn direct_window_guide(minimum: u32) -> String {
+	direct_level_shared_step().replace("minLevel = 12,", &format!("minLevel = {minimum},")).replace(
+		r#"{ t = "task", text = "Other work" }"#,
+		r#"{ t = "turnin", quest = 7793, title = "A Donation of Silk", direct = true, optional = true, minLevel = 26, npc = 14722, npcName = "Clavicus Knavingham" },
+		{ t = "task", text = "Other work" }"#,
+	)
+}
+
+// A player at the real Wool minimum (12) can be shown its progress/reward window directly, without a list or
+// detail event first. A stale minimum of 13 in the guide must not overrule that server window. Silk is a separate
+// quest at the same giver (minimum 26); the Wool window says nothing about its availability.
+#[test]
+fn direct_progress_and_reward_windows_override_a_stale_minimum_without_an_earlier_list_2318() {
+	for minimum in [12, 13] {
+		for (window, calls) in [("w.questProgress(14722, 7791, { completable = true })", json!(["CompleteQuest", "GetQuestReward"])), ("w.questComplete(14722, 7791)", json!(["GetQuestReward"]))] {
+			let out = run(
+				&format!("{DIRECT_LEVEL_WORLD}w.level = 12; w.repeatable[7791] = true"),
+				&direct_window_guide(minimum),
+				&format!(
+					r#"{DIRECT_LEVEL_SNAPSHOT}
+						local r = {{ before = E.WantsQuest("direct", 7791) }}
+						{window}; flush(); w.close()
+						r.status = E.GetStepView(1).goals[1].status
+						r.wanted = E.WantsQuest("direct", 7791)
+						r.other = {{ E.GetStepView(1).goals[2].status, E.WantsQuest("direct", 7793) }}
+						stub.advance(5)
+						{window}; flush(); w.close()
+						r.calls = {{}}
+						for _, c in ipairs(w.calls) do r.calls[#r.calls + 1] = c[1] end
+						emit(r)
+					"#
+				),
+			);
+			assert_eq!(out["before"], minimum == 12, "minimum {minimum}: no prior offer");
+			assert_eq!(out["status"], "done", "minimum {minimum}, {window}");
+			assert_eq!(out["wanted"], false, "a completed direct goal must not repeat");
+			assert_eq!(out["other"], json!(["na", false]), "only the displayed quest is offered");
+			assert_eq!(out["calls"], calls, "minimum {minimum}, {window}: reward only once");
+		}
+	}
+}
+
+#[test]
+fn a_direct_progress_window_does_not_complete_missing_items_or_unlock_quests_without_an_id_2318() {
+	for (window, offered) in [("w.questProgress(14722, 7791, { completable = false })", true), ("w.questProgress(14722, 0, { completable = true })", false), ("w.questComplete(14722, 0)", false)] {
+		let out = run(
+			&format!("{DIRECT_LEVEL_WORLD}w.level = 12"),
+			&direct_window_guide(13),
+			&format!(
+				r#"{DIRECT_LEVEL_SNAPSHOT}
+					{window}; flush()
+					emit({{ wanted = E.WantsQuest("direct", 7791), status = E.GetStepView(1).goals[1].status,
+						other = {{ E.GetStepView(1).goals[2].status, E.WantsQuest("direct", 7793) }}, calls = #w.calls }})
+				"#
+			),
+		);
+		assert_eq!(out["wanted"], offered, "{window}");
+		assert_eq!(out["status"], if offered { "active" } else { "na" }, "{window}");
+		assert_eq!(out["other"], json!(["na", false]), "{window}: another quest stays unavailable");
+		assert_eq!(out["calls"], 0, "an incomplete or unidentified window cannot be handed in");
+	}
+}

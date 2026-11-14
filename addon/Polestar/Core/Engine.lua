@@ -498,8 +498,8 @@ end
 -- is handed in (a child quest, offered only while the parent is in the log:
 -- Valik with Infiltration, #1661), so the giver never offers it again. Else
 -- the mark its giver's window left this session.
--- Else, also known in advance, "level": the accept's `minLevel` is above the
--- character's level (the route passes it, "Requires level N", and comes back
+-- Else, also known in advance, "level": the accept's or direct hand-in's
+-- `minLevel` is above the character's level (the route passes it, "Requires level N", and comes back
 -- to it on the level-up; its objectives and turn-in wait with it). Else
 -- "pre": the accept lacks a prerequisite the route no longer brings
 -- (Own.preBlocked), a mark that goes the moment that prerequisite is done,
@@ -538,8 +538,9 @@ local function unavailableFor(goal, depth)
 	end
 	if u or Own.offered[q] then return u end
 	local level = player and player.level
-	for i = 1, level and (own and 1 or #list) or 0 do
-		local a = own and goal or list[i].goal
+	local levelOwn = own or goal.direct
+	for i = 1, level and (levelOwn and 1 or #list) or 0 do
+		local a = levelOwn and goal or list[i].goal
 		local lvl = tonumber(a.minLevel)
 		if lvl and level < lvl then
 			local m = Own.levelMarks[a]
@@ -3416,8 +3417,8 @@ function Own.catchUpPast(level)
 	return out
 end
 
--- The first step with an accept waiting for the character's level
--- (unavailableFor's "level" mark: the route passes it until then), or nil.
+-- The first step with an accept or direct hand-in waiting for the character's
+-- level (unavailableFor's "level" mark: the route passes it until then), or nil.
 -- A guide that is no leveling guide waits there with nothing else left open
 -- (computeCurrent): a dungeon's or an attunement's quest the level-up brings
 -- back. A leveling guide finishes past it, as past an accept its giver
@@ -3427,7 +3428,7 @@ function Own.levelHold()
 	for s = 1, #steps do
 		if stepApplies(steps[s]) and not (sk and sk[s]) then
 			for g, goal in ipairs(steps[s].goals) do
-				if goal.t == "accept" and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
+				if (goal.t == "accept" or goal.direct) and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
 					local u = unavailableFor(goal)
 					if u and u.reason == "level" then return s end
 				end
@@ -4387,15 +4388,15 @@ local function goalView(s, g, goal, stepStatus, group)
 		alternatives = n > 0 and n - 1 or 0
 	end
 	local unavail = status == "skipped" and unavailableFor(goal) or nil
-	-- An accept waiting for the character's level is no task yet (Fitz,
-	-- 0.3.6: no level text on pick-ups): not shown, like a goal for another
+	-- An accept or direct hand-in waiting for the character's level is no task
+	-- yet (Fitz, 0.3.6: no level text on pick-ups): not shown, like a goal for another
 	-- class; the level-up brings it back (Own.clearMarks). Unless the route
 	-- waits on it (Own.waitsOnLevel: a guide that is no leveling guide, or a
 	-- dungeon run ahead, with nothing else left open there): then its
 	-- "Requires level" line is the one thing the step says.
 	-- `waitsLevel`: the level a hidden one waits for (playtest.js's SIMULATE levels the player to it).
 	local waitsLevel
-	if unavail and unavail.reason == "level" and (goal.t == "accept" or layoutOf(guide).starters[goal]) and not Own.waitsOnLevel(s) then
+	if unavail and unavail.reason == "level" and (goal.t == "accept" or goal.direct or layoutOf(guide).starters[goal]) and not Own.waitsOnLevel(s) then
 		status, unavail, waitsLevel = "na", nil, tonumber(goal.minLevel)
 	end
 	-- A goal of a quest that left the log, held for the player's answer.
@@ -12659,6 +12660,18 @@ ns.RegisterEvent("QUEST_DETAIL", function(_, startItem) checkOffers("detail", st
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, q)
 	if type(q) == "number" then Own.listed(q) end
 end)
+-- A direct hand-in can open on its progress or reward page without an offer
+-- list or detail page first. That quest is available despite stale level
+-- data; this single window says nothing about the giver's other quests.
+for _, event in ipairs({ "QUEST_PROGRESS", "QUEST_COMPLETE" }) do
+	ns.RegisterEvent(event, function()
+		local list = Compat().GetOfferedQuests("detail") -- GetQuestID of the open page
+		if list and list[1] then
+			Own.listed(list[1])
+			Own.offered[list[1]] = true
+		end
+	end)
+end
 for _, event in ipairs({ "QUEST_COMPLETE", "QUEST_TURNED_IN" }) do
 	ns.RegisterEvent(event, function()
 		local npc = Compat().GetNpcID("npc")
@@ -12727,7 +12740,7 @@ function Own.wantsFrom(from, verb, questID, span)
 			for g, goal in ipairs(step.goals) do
 				if Own.matchesVerb(goal, verb) and goal.quest == questID and questID ~= waits and goalApplies(goal)
 					and not Own.questSkipped(questID)
-					and not (verb == "direct" and goalDone(s, g, goal))
+					and not (verb == "direct" and (goalDone(s, g, goal) or unavailableFor(goal)))
 					and not (verb ~= "accept" and ns.Party and ns.Party.HoldsQuest(questID)) then
 					return true
 				end
