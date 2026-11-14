@@ -7365,6 +7365,19 @@
 			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-11): done by 45 people at 12-22 (median 16), 0 people died within 60 yd, 10 abandoned"
 		},
 		{
+			"key": "forever/alliance/nightelf/02-darkshore.guide|collect 963.1|rare",
+			"guide": "forever/alliance/nightelf/02-darkshore.guide",
+			"goal": "collect 963.1",
+			"kind": "rare",
+			"title": "Ameth'Aran",
+			"level": 13.2,
+			"mobs": [
+				"Lady Moongazer 17-17"
+			],
+			"reason": "a rare near the goal with no recorded deaths at the spot (the same step's Highborne Relics carry the same row)",
+			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-13): done by 56 people (median 17.19), 0 people died within 60 yd, 5 abandoned"
+		},
+		{
 			"key": "forever/alliance/nightelf/02-darkshore.guide|kill 985.1|rare",
 			"guide": "forever/alliance/nightelf/02-darkshore.guide",
 			"goal": "kill 985.1",

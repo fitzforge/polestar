@@ -12670,3 +12670,31 @@ test("Tanaris (Alliance 47): Rut'theran's flight path on the way up from the boa
 	}
 });
 
+// Alliance 1-12 route feel (0.4.0, #2025): Teldrassil's last stop in Auberdine takes Thundris', Terenthis' and
+// Tharnariun's quests, but The Red Crystal (4811) waited for Night Elf Darkshore's first steps, a second walk to
+// Sentinel Glynda in the same street. It is taken with the others (level 12 needed; players reach that stop at
+// 12.5 or more); Night Elf Darkshore keeps its accept for a player who loads it fresh.
+test(`${TELDRASSIL}: The Red Crystal is taken on the last Auberdine stop with Thundris' and Terenthis' quests`, { skip }, () => {
+	const list = goals(TELDRASSIL).filter(forClass('WARRIOR'));
+	const take = list[at(list, 'accept 4811', is('accept', 4811))];
+	assert.ok(take.step.goals.some(is('accept', 954)) && take.step.goals.some(is('accept', 984)), 'the same step as 954 and 984');
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'interact'), 'Night Elf Darkshore keeps the accept before the crystal');
+});
+
+// Alliance 1-12 route feel (0.4.0, #2025): Night Elf Darkshore walked through Ameth'Aran, where Anaya Dawnrunner
+// walks, with For Love Eternal (963) left to 03-darkshore, which came back to the ruins for her pendant at about 17.
+// Cerellean Whiteclaw stands where the pier meets the shore: the quest is taken there at the start, the pendant on
+// the first Ameth'Aran visit (quest 16, from level 11; players' recordings: 8 people took the pendant under 15,
+// none died to her) and the hand-in on the way to the boat.
+test(`${NE_DARKSHORE}: For Love Eternal is taken on the pier, done in Ameth'Aran and handed in on the way to the boat`, { skip }, () => {
+	const list = goals(NE_DARKSHORE).filter(nightElf);
+	const take = at(list, 'accept 963', is('accept', 963));
+	const pendant = at(list, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	const give = at(list, 'turnin 963', is('turnin', 963));
+	assert.ok(take < pendant && pendant < give, 'taken, done, handed in');
+	assert.ok(list[pendant].step.goals.some(is('turnin', 953)), "on the first Ameth'Aran visit, with Sentinel Tysha's turn-in");
+	assert.match(list[pendant].goal.note || '', /Anaya Dawnrunner, level 16/, 'warns about her level');
+	const boat = list.findIndex(({ step }) => step.title === 'Boat to Stormwind Harbor');
+	assert.ok(give < boat && list.slice(give, boat).every(({ goal }) => goal.t !== 'accept'), 'handed in on the way to the boat');
+});
