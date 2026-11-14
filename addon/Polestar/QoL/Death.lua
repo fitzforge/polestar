@@ -24,6 +24,11 @@
 -- Died in a dungeon or raid and released outside it, the corpse is on no map
 -- the client answers for: the instance's entrance (the Codex) stands for it.
 --
+-- A corpse where the character died is held with the height of the floor they
+-- died on (Walk's tracked floor, Nav/Walk.lua Walk.Floor; none while it was not
+-- known), so the walk back ends on it: a corpse in a cave (the Fargodeep Mine,
+-- the Coldridge troll cave), not the ground above it.
+--
 -- Client: UnitIsGhost, C_DeathInfo.GetCorpseMapPosition, GetUnitSpeed,
 -- C_UnitAuras.GetPlayerAuraBySpellID (AuraData.duration), IsInInstance,
 -- GetInstanceInfo (through Compat) (Forever API docs).

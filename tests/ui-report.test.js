@@ -134,6 +134,26 @@ test('the report lists the travel plan from the current leg: each caption and ti
 	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (maybe) · Delgren the Purifier 0:40');
 });
 
+test('the Where line gives the height of the floor Polestar takes the player to stand on, when it knows one (#2215)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function whereLine()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Where: ") then return line end
+			end
+		end
+		Polestar.Compat.GetPlayerWorldPosition = function() return 0, -9200, 100 end
+		Polestar.Nav.walk = Polestar.Nav.walk or {}
+		Polestar.Nav.walk.Floor = function() return nil end
+		local r = { none = whereLine() }
+		Polestar.Nav.walk.Floor = function() return 15.6 end
+		r.floor = whereLine()
+		emit(r)`);
+	assert.doesNotMatch(out.none, / · z /, 'no floor known: none said');
+	assert.match(out.floor, /^Where: Elwynn Forest · .* · z 16$/);
+});
+
 // The longest report a player can send: every line at its cap in `word`'s
 // script under `locale`, the description at its most letters (or
 // `opts.descLen`), 40 addons and a marked right spot. Returns the report for

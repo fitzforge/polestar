@@ -142,3 +142,33 @@ fn the_way_back_to_a_corpse_below_ground_carries_the_floor_the_character_died_on
 	assert_eq!(out[0], json!({ "label": "Your corpse", "z": -42.5 }), "the floor it died on");
 	assert_eq!(out[1], json!({ "label": "Your corpse", "z": false }), "a corpse away from the death spot: no floor");
 }
+
+// A corpse where the character died is held with the height of the floor they died on (Walk.Floor when they died),
+// so the walk back ends on it: a corpse in a cave, not the ground above it (the Fargodeep Mine, the troll cave in
+// Coldridge). A corpse farther than 10 yd from where they died, or a floor not known then, holds no height, as before;
+// once alive the next death starts afresh.
+#[test]
+fn the_way_back_to_a_corpse_ends_on_the_floor_the_character_died_on() {
+	let out = run(r#"
+		local floor = 12
+		Nav.walk.Floor = function() return floor end
+		local function die(at, corpse)
+			stub.world.moveTo(1429, at[1], at[2])
+			corpseAt = corpse
+			dead = true; stub.fire("PLAYER_DEAD"); flush()
+			dead, ghost = false, true; stub.world.moveTo(1429, 30, 70); stub.fire("PLAYER_ALIVE"); flush()
+			local _, _, _, z = Nav.GetTargetWorld()
+			local t = Nav.GetTarget()
+			ghost, corpseAt = false, nil; stub.fire("PLAYER_UNGHOST"); flush()
+			return { target = t and t.label or false, z = z or false }
+		end
+		local r = {}
+		r.cave = die({ 46, 46 }, { 46, 46 })            -- died in the cave, the corpse there
+		r.moved = die({ 46, 46 }, { 50, 50 })           -- the corpse ~150 yd from where they died
+		floor = nil
+		r.unknown = die({ 46, 46 }, { 46, 46 })         -- the floor not known when they died
+		emit(r)"#);
+	assert_eq!(out[0]["cave"], json!({ "target": "Your corpse", "z": 12 }), "{}", out[0]);
+	assert_eq!(out[0]["moved"], json!({ "target": "Your corpse", "z": false }), "{}", out[0]);
+	assert_eq!(out[0]["unknown"], json!({ "target": "Your corpse", "z": false }), "{}", out[0]);
+}

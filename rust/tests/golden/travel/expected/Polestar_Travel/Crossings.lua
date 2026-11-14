@@ -22,7 +22,7 @@ N.RegisterCrossings({
 	open = {
 		1411, 1454, 0,
 	},
-	-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out
+	-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out, alone (nothing walkable above or below it)
 	chains = {
 		{ id = "burning-blade-coven", name = "Burning Blade Coven", open = "mouth", nodes = {
 			{ map = 1411, c = 1, wx = -109.3, wy = -4320.7, r = 15, caption = "Enter the cave" },

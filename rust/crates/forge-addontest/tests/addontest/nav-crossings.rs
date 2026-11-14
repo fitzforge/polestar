@@ -337,6 +337,52 @@ fn a_chain_hop_between_two_floors_is_a_lift_ride_and_a_start_in_the_chains_hall_
 	assert_eq!(out["lower"], "walk|Walk to the lift", "floor unknown, a level below the hall possible: to the lift");
 }
 
+// A chain node with nothing walkable above or below it (`alone`: the Undercity's courtyard inside the Ruins' mouth)
+// holds a start of unknown height even when no floor is known at all: with real paths off there is no walking engine,
+// so no floor, and a player in the courtyard was routed down to the city's lift and back up (#2224). A node without
+// it still holds only on its floor.
+#[test]
+fn a_start_of_unknown_height_by_a_chain_node_alone_on_its_floor_is_held_on_the_chain_2224() {
+	let out = run(r#"
+		N.RegisterCrossings({ complete = true, zones = ZONES, chains = { { id = "city", name = "City", open = "both", nodes = {
+			{ map = 9002, c = 0, wx = 600, wy = 100, z = 60, r = 15 },
+			{ map = 9003, c = 0, wx = 600, wy = -60, z = 63, r = 10 },
+			{ map = 9003, c = 0, wx = 600, wy = -100, z = 55, r = 6 },
+			{ map = 9003, c = 0, wx = 600, wy = -108, z = -41, r = 6 },
+		} } } })
+		Polestar.Transit = { LiftNear = function() return "lift-x" end, NextDeparture = function() return 12, 4 end }
+		Polestar.Nav.walk.Floor = function() return nil end
+		Polestar.Nav.walk.Floors = function() return nil end
+		nav.place(600, -62)
+		target(600, 500, "Outside")
+		local l, ci = N.GetRoute()
+		emit({ plain = l[ci].kind .. "|" .. l[ci].label })"#);
+	assert_eq!(out["plain"], "walk|Walk to the lift", "no floor known, a node with a floor of its own: not held, as before");
+	let out = run(r#"
+		N.RegisterCrossings({ complete = true, zones = ZONES, chains = { { id = "city", name = "City", open = "both", nodes = {
+			{ map = 9002, c = 0, wx = 600, wy = 100, z = 60, r = 15 },
+			{ map = 9003, c = 0, wx = 600, wy = -60, z = 63, r = 10, alone = true },
+			{ map = 9003, c = 0, wx = 600, wy = -100, z = 55, r = 6 },
+			{ map = 9003, c = 0, wx = 600, wy = -108, z = -41, r = 6 },
+		} } } })
+		Polestar.Transit = { LiftNear = function() return "lift-x" end, NextDeparture = function() return 12, 4 end }
+		Polestar.Nav.walk.Floor = function() return nil end
+		Polestar.Nav.walk.Floors = function() return nil end
+		local function first()
+			local l, ci = N.GetRoute()
+			return l[ci].kind .. "|" .. l[ci].label
+		end
+		nav.place(600, -62)
+		target(600, 500, "Outside")
+		local r = { alone = first() }
+		Polestar.Nav.walk.Floor = function() return -41 end
+		target(600, 499, "Outside")
+		r.below = first()
+		emit(r)"#);
+	assert_eq!(out["alone"], "walk|Follow the path", "by the alone node, no floor known: on the chain, walked out along it");
+	assert_eq!(out["below"], "walk|Walk to the lift", "a floor known below it: to the lift, as before");
+}
+
 #[test]
 fn a_crossing_set_that_is_not_complete_recorded_crossings_leaves_walking_as_before() {
 	let out = run(r#"

@@ -108,6 +108,23 @@ test('a crossing end may give the height of the floor the walk to it ends on (z)
 	assert.match(lua, /id = "flat", a = \{ map = 1429, c = 0, wx = [-\d.]+, wy = [-\d.]+, r = 15 \}/);
 });
 
+test('a chain node may say nothing walkable lies above or below it (alone, #2224); TravelData.lua carries it', () => {
+	const node = (x, y, z, more = {}) => ({ map: 1436, x, y, z, radius: 15, ...more });
+	const doc = {
+		schema: 1,
+		chains: [
+			{ id: 'hall', open: 'both', nodes: [node(40, 75, 60), node(39, 76, 61, { alone: true }), node(38, 77, 62)] },
+			{ id: 'bad-alone', nodes: [node(40, 75, 60), node(39, 76, 61, { alone: 'yes' })] },
+		],
+	};
+	const set = validateCrossings(doc, frames);
+	assert.deepEqual(set.errors, ['chains[1] (bad-alone).nodes[1]: alone must be true or false']);
+	assert.deepEqual(set.chains[0].nodes.map((n) => n.alone === true), [false, true, false]);
+	const lua = crossingsLua({ crossings: [], open: [], chains: set.chains }, frames, { complete: true, live: {} }).join('\n');
+	assert.match(lua, /z = 61, r = 15, alone = true \}/);
+	assert.equal(lua.match(/alone = true/g).length, 1);
+});
+
 test('the crossings file is optional; a broken one stops the build with its errors', async () => {
 	assert.equal(readCrossingsFile(path.join(FIX, 'missing.json'), frames), null);
 	const dir = tmpdir('polestar-crossings-');

@@ -3722,7 +3722,7 @@ Polestar.Nav.Trip() -> { target, name, label, ends, inside } | nil   -- the trip
 Polestar.Nav.EndTrip(arrived) -> ok                    -- back to the guide: the trip's target lets go
 Polestar.Nav.BackToGuide() -> ok                       -- any point picked by hand lets go (a trip as EndTrip); false on the guide's own
 Polestar.Nav.MoveTarget(target, map, x, y) -> ok       -- a point of your own that moves (a party member): the same target, its arrival kept (one chime)
-Polestar.Nav.Hold(map, x, y, label, f) -> target | nil  -- the arrow held there over every other target until Unhold (the death helper)
+Polestar.Nav.Hold(map, x, y, label, f, z) -> target | nil  -- the arrow held there over every other target until Unhold (the death helper); z: the floor's height there, optional
 Polestar.Nav.Unhold()
 Polestar.Nav.IsHeld() -> bool
 Polestar.Nav.GetTarget() -> waypoint | nil
@@ -3803,7 +3803,10 @@ waypoint, a point picked by hand and another addon's `SetTarget` all go on
 underneath without touching the arrow (no replan, no `WAYPOINT_CHANGED`);
 `Nav.Unhold` once alive shows what is underneath then (a picked point only
 while the step is still the one it was picked on, as an override always is).
-While held, `Nav.HiddenWithGuide()` is false.
+While held, `Nav.HiddenWithGuide()` is false. The corpse is held with the
+height of the floor the character died on (`Walk.Floor` at `PLAYER_DEAD`,
+kept as `QoL.State().diedAt` while it is within 10 yd of the corpse), so the
+walk back ends on it: a corpse in a cave, not the ground above it.
 
 #### Materials: gathered or bought (`Core/Materials.lua`)
 
@@ -5353,7 +5356,10 @@ walk stays inside one zone; between zones it goes only through
   enter at the mouth and leave the way they came ("Follow the path out", or the
   node's `back` caption). A node may carry its floor's height (`z`): a start
   (with the player's floor, `Walk.Floor`, known and within 20 yd of it) or a
-  target (or one with no height at all) is then inside only on that floor. A
+  target (or one with no height at all) is then inside only on that floor; a
+  node marked `alone` (nothing walkable above or below it within its reach:
+  the Undercity's courtyard inside the Ruins' mouth) also holds a start whose
+  height is unknown, as with real paths off, where no floor is known (#2224). A
   hop between neighbouring nodes whose floors lie 20 yd or more apart within
   15 yd on the map is a lift: a `lift` leg ("Ride the elevator up/down",
   Transit's lift id and timetable), the walk to it "Walk to the lift". The

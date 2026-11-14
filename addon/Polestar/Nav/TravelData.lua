@@ -1286,11 +1286,11 @@ N.RegisterCrossings({
 		1411, 1413, 0,
 		1416, 1424, 0,
 	},
-	-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out
+	-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out, alone (nothing walkable above or below it)
 	chains = {
 		{ id = "undercity-south-lift", name = "Undercity", open = "both", nodes = {
 			{ map = 1420, c = 0, wx = 1880.9, wy = 238, z = 60, r = 30 },
-			{ map = 1458, c = 0, wx = 1849.1, wy = 236.6, z = 61, r = 12 },
+			{ map = 1458, c = 0, wx = 1849.1, wy = 236.6, z = 61, r = 12, alone = true },
 			{ map = 1458, c = 0, wx = 1807.5, wy = 230.1, z = 62, r = 20 },
 			{ map = 1458, c = 0, wx = 1765.9, wy = 236.3, z = 63, r = 12 },
 			{ map = 1458, c = 0, wx = 1733.2, wy = 222.1, z = 64, r = 12 },

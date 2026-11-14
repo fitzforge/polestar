@@ -12,7 +12,10 @@
 //   chains     approach chains: ordered nodes with radius and caption (a cave
 //              or a climb); nodes after the mouth are reachable only through
 //              their own chain links ("open": "mouth"), or the last node is a
-//              second mouth ("both")
+//              second mouth ("both"); a node with a `z` and `alone: true` has
+//              nothing walkable above or below it within its reach, so a
+//              player there whose height is unknown is on its floor (the
+//              Undercity's courtyard inside the Ruins' mouth)
 //   areas      parts of a zone no walk joins to the rest of it (Rut'theran
 //              Village at the foot of Teldrassil): a box in map percent; the
 //              planner keeps the part apart, reached only by portals, ships
@@ -46,7 +49,7 @@ const KEYS = {
 	end: ['map', 'x', 'y', 'z', 'radius', 'offMap'],
 	open: ['a', 'b', 'oneWay', 'source'],
 	chain: ['id', 'name', 'open', 'nodes', 'note'],
-	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'offMap'],
+	node: ['map', 'x', 'y', 'z', 'radius', 'caption', 'back', 'alone', 'offMap'],
 	// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap.)
 	area: ['id', 'name', 'map', 'box', 'note', 'source'],
 };
@@ -215,7 +218,9 @@ function validateCrossings(doc, frames) {
 			const p = checkPoint(n, `${where}.nodes[${k}]`, KEYS.node, frames, errors);
 			const caption = checkCaption(n && n.caption, `${where}.nodes[${k}].caption`, errors);
 			const back = checkCaption(n && n.back, `${where}.nodes[${k}].back`, errors);
-			return p && { ...p, caption, back };
+			const alone = n && n.alone;
+			if (alone !== undefined && typeof alone !== 'boolean') errors.push(`${where}.nodes[${k}]: alone must be true or false`);
+			return p && { ...p, caption, back, ...(alone === true ? { alone: true } : {}) };
 		});
 		if (nodes.some((n) => !n)) return;
 		for (let k = 1; k < nodes.length; k++) {
@@ -519,7 +524,7 @@ function crossingsLua(set, frames, { complete, live }) {
 		L.push('\t},');
 	}
 	if (set.chains.length) {
-		L.push('\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out');
+		L.push('\t-- nodes: uiMap, continent, world yards, z (the floor height when given), radius, caption walking in, caption walking out, alone (nothing walkable above or below it)');
 		L.push('\tchains = {');
 		for (const ch of set.chains) {
 			L.push(`\t\t{ id = ${luaStr(ch.id)}, name = ${luaStr(ch.name)}, open = ${luaStr(ch.open)}, nodes = {`);
@@ -529,6 +534,7 @@ function crossingsLua(set, frames, { complete, live }) {
 				parts.push(`r = ${num(n.r)}`);
 				if (n.caption) parts.push(`caption = ${luaStr(n.caption)}`);
 				if (n.back) parts.push(`back = ${luaStr(n.back)}`);
+				if (n.alone) parts.push('alone = true');
 				L.push(`\t\t\t{ ${parts.join(', ')} },`);
 			}
 			L.push('\t\t} },');

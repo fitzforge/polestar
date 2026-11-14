@@ -981,7 +981,7 @@
 			"id": "undercity-south-lift",
 			"name": "Undercity",
 			"open": "both",
-			"note": "Polestar's fixed way in and out of the Undercity, by its south lift: the nodes follow Fitz's own walk (2026-10-23), their heights from Polestar's walking grid. The three nodes after the Ruins mouth cover the courtyard and gate the client already calls the Undercity (map 1458), so a player there is on the way out, not routed down and back up (Fitz, 2026-10-25)",
+			"note": "Polestar's fixed way in and out of the Undercity, by its south lift: the nodes follow Fitz's own walk (2026-10-23), their heights from Polestar's walking grid. The three nodes after the Ruins mouth cover the courtyard and gate the client already calls the Undercity (map 1458), so a player there is on the way out, not routed down and back up (Fitz, 2026-10-25). The courtyard's node is alone: no floor of the city lies under it, so with real paths off (no floor known) a player there is held too (#2224)",
 			"nodes": [
 				{
 					"map": 1420,
@@ -995,7 +995,8 @@
 					"x": 66.35,
 					"y": 4.5,
 					"z": 61,
-					"radius": 12
+					"radius": 12,
+					"alone": true
 				},
 				{
 					"map": 1458,
