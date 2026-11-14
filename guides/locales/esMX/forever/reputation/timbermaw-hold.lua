@@ -80,7 +80,7 @@ return {
 	["The Winterfall furbolgs rarely drop a {quest:8471} (3-4%). {npc:11558} takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions."] = "",
 
 	-- Step 13: Neutral to Friendly
-	["Neutral to Friendly"] = "",
+	["Neutral to Friendly"] = "De Neutral a Amistoso",
 	["Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads."] = "",
 
 	-- Step 14: Meilosh
@@ -98,12 +98,12 @@ return {
 	["Tailors with skill 290: {npc:11557} takes 2 {item:14342} once for 100 reputation and teaches the {item:15802}."] = "",
 
 	-- Step 17: Friendly to Honored
-	["Friendly to Honored"] = "",
+	["Friendly to Honored"] = "De Amistoso a Honorable",
 	-- {npc:11557} Meilosh · {item:19445} Formula: Enchant Weapon - Agility · {item:19202} Pattern: Heavy Timbermaw Belt · {item:19044} Might of the Timbermaw · {skill:165} Leatherworking · {item:19047} Wisdom of the Timbermaw · {skill:197} Tailoring
 	["Friendly to Honored is 6,000: 1,200 kills. Keep all feathers and beads. Honored opens at {npc:11557}: {item:19445} (3 gold), and for 2 gold 20 silver each {item:19202} and {item:19044} ({skill:165}) and {item:19047} ({skill:197})."] = "",
 
 	-- Step 18: Honored to Revered
-	["Honored to Revered"] = "",
+	["Honored to Revered"] = "De Honorable a Reverenciado",
 	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "",
 	-- {item:19445} Formula: Enchant Weapon - Agility · {skill:333} Enchanting
 	["{item:19445} ({skill:333}), 3 gold"] = "",
@@ -113,7 +113,7 @@ return {
 	["{quest:8469}: or 5 beads"] = "",
 
 	-- Step 19: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "De Reverenciado a Exaltado",
 	-- {npc:15395} Nafien · {npc:11554} Grazle · {npc:11556} Salfa · {npc:14342} Ragepaw · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall · {npc:11557} Meilosh · {item:19204} Pattern: Heavy Timbermaw Boots · {item:19049} Timbermaw Brawlers · {skill:165} Leatherworking · {item:19050} Mantle of the Timbermaw · {skill:197} Tailoring
 	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "",
 	-- {quest:8467} Feathers for Nafien
