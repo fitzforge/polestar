@@ -134,46 +134,55 @@ step Raan Wildwind
 step Camping 101: Alchemy
   when skill Alchemy 1
   when !knows 1230564
+  tip Nyassa Swiftdraught takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97963                                -- Raan Wildwind: for Nyassa Swiftdraught
 
 step Camping 101: Blacksmithing
   when skill Blacksmithing 1
   when !knows 1230171
+  tip Aedi Thriceforged takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97964                                -- Raan Wildwind: for Aedi Thriceforged
 
 step Camping 101: First Aid
   when skill "First Aid" 1
   when !knows 1230117
+  tip Naleeia Tattermend takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97965                                -- Raan Wildwind: for Naleeia Tattermend
 
 step Camping 101: Fishing
   when skill Fishing 1
   when !knows 1229745
+  tip Fenn Fairweather takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97967                                -- Raan Wildwind: for Fenn Fairweather
 
 step Camping 101: Leatherworking
   when skill Leatherworking 1
   when !knows 1229432
+  tip Indari Sunseam takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97969                                -- Raan Wildwind: for Indari Sunseam
 
 step Camping 101: Mining
   when skill Mining 1
   when !knows 1230161
+  tip Messana Crestwind takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97970                                -- Raan Wildwind: for Messana Crestwind
 
 step Camping 101: Skinning
   when skill Skinning 1
   when !knows 1229517
+  tip Mendalass Tattermend takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97971                                -- Raan Wildwind: for Mendalass Tattermend
 
 step Camping 101: Tailoring
   when skill Tailoring 1
   when !knows 1263425
+  tip Taleen Shimmerthread takes it once your Tailoring skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 97973                                -- Raan Wildwind: for Taleen Shimmerthread
 
 step Camping 101: Enchanting
   when skill Enchanting 1
   when !knows 1230643
+  tip Nasalanna Windsinger takes it once your Enchanting skill is 20: gather or craft until then, the guide carries on meanwhile.
   accept 98286                                -- Raan Wildwind: for Nasalanna Windsinger
 
 step Zerril Softbreeze
@@ -188,11 +197,13 @@ step Village quests
 
 step Indari Sunseam
   when onquest 97969
+  when complete 97969
   talk 251993 quest 97969.1
   turnin 97969                                -- Indari Sunseam
 
 step Messana Crestwind
   when onquest 97970
+  when complete 97970
   talk 257022 quest 97970.1
   turnin 97970                                -- Messana Crestwind, beside Indari
 
@@ -201,11 +212,13 @@ step Village quests
 
 step Taleen Shimmerthread
   when onquest 97973
+  when complete 97973
   talk 251991 quest 97973.1
   turnin 97973                                -- Taleen Shimmerthread
 
 step Aedi Thriceforged
   when onquest 97964
+  when complete 97964
   talk 251913 quest 97964.1
   turnin 97964                                -- Aedi Thriceforged, beside Taleen
 
@@ -216,26 +229,31 @@ step Village quests
 
 step Nyassa Swiftdraught
   when onquest 97963
+  when complete 97963
   talk 257019 quest 97963.1
   turnin 97963                                -- Nyassa Swiftdraught, west of Zerril
 
 step Mendalass Tattermend
   when onquest 97971
+  when complete 97971
   talk 257024 quest 97971.1
   turnin 97971                                -- Mendalass Tattermend
 
 step Nasalanna Windsinger
   when onquest 98286
+  when complete 98286
   talk 257020 quest 98286.1
   turnin 98286                                -- Nasalanna Windsinger
 
 step Naleeia Tattermend
   when onquest 97965
+  when complete 97965
   talk 257018 quest 97965.1
   turnin 97965                                -- Naleeia Tattermend, at the south side of the village
 
 step Fenn Fairweather
   when onquest 97967
+  when complete 97967
   talk 251992 quest 97967.1
   turnin 97967                                -- Fenn Fairweather, on the south edge of the village
 
@@ -700,6 +718,13 @@ step Baros Alexston
   tip Baros Alexston stands in Cathedral Square, on the way from the Keep to the main gate: his compass is in his old house in Westfall, on the way.
   accept 399
 
+step Stormwind trainers
+  only Warrior,Hunter,Rogue,Mage
+  zone Stormwind City
+  when level>=14
+  tip Level 14 spells while you're in Stormwind: warriors and rogues train in Old Town, hunters in the Dwarven District, mages in the Wizard's Sanctum of the Mage Quarter. Druids train with Sheldras Moontree below.
+  train class only Warrior,Hunter,Rogue,Mage
+
 step Woo Ping
   only Warrior
   zone Stormwind City
@@ -735,6 +760,13 @@ step Sheldras Moontree
   tip Sheldras Moontree, Stormwind's druid trainer, teaches you Teleport: Moonglade. Dendrite Starblaze's welcome waits for your Cat Form trip at the end of Darkshore.
   turnin 94912                                -- Sheldras Moontree
   accept 94914
+
+step Druid trainer
+  only Druid
+  zone Stormwind City
+  when level>=14
+  tip Level 14 spells while you're with Sheldras Moontree.
+  train class only Druid
 
 step Stormwind City
   only Mage

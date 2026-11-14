@@ -50,6 +50,54 @@
 			"issue": 1575
 		},
 		{
+			"id": "1575-desolace-alliance-undead-ravagers-west",
+			"quest": 261,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 61.1,
+				"y": 90.9,
+				"frame": "era"
+			},
+			"note": "Down the Scarlet Path's Undead Ravagers (261) on Desolace's south loop: the goal's arrow toured the bone fields of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (45, elite; Shen'dralas spawns on the same ground) and Magram Necromancers (42) walk among the Ravagers, at a route level of 38.8. The arrow points at the fields' western edge, on a Ravager's spawn (3 Ravager spawns within 60 yd, 7 within 100, 13 within 150), with no elite or mob 3 levels over within 40 yd; 15 of the 18 people who killed Ravagers in the recordings did so within 60 yd of it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns: Undead Ravager (11561) on map 1443 at 58.3-65.2,81.5-92.1; Magram Necrokhan (253274), Corpsefeeder (253394) and Magram Necromancer (253272) on Shen'dralas (map 2652), over the bone fields at Desolace 59.6-65.9,85.1-94.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "danger gate (players' recordings to 2026-11-12): the Ravagers done by 18 people at a median level of 38.0, nobody died within 60 yd"
+				}
+			],
+			"issue": 1575
+		},
+		{
+			"id": "1575-desolace-alliance-ghost-magnets-east",
+			"quest": 6134,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1443,
+				"x": 64.4,
+				"y": 91.7,
+				"frame": "era"
+			},
+			"note": "Ghost-o-plasm Round Up (6134) on Desolace's south loop: the Crate of Ghost Magnets' point (63.5,91.6) put it among Magram Necrokhans and Corpsefeeders (45, elite; Shen'dralas spawns over the Valley of Bones) at a route level of 38.8; players' recordings show 5 deaths within 60 yd of it. The crate works anywhere on the bone fields: the arrow points at the spot players used it on the fields' eastern side (Shen'dralas 33.5,29.0), 10 yd from the Magrami Spectre's spawn that drops the Ghost-o-plasm, with no elite within 40 yd; 59 of the 64 Ghost-o-plasm ticks in the recordings (all 8 people) came within 60 yd of it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Ghost-o-plasm objective ticks of 8 people on the bone fields, one at Shen'dralas 33.6,28.9; danger gate: 5 and 3 deaths within 60 yd of the old Ghost Magnets and Ghost-o-plasm points"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns: Magrami Spectre (11560) at Desolace 64.18,91.63; Magram Necrokhan (253274) and Corpsefeeder (253394) on Shen'dralas (map 2652), the nearest 41-47 yd from 64.4,91.7"
+				}
+			],
+			"issue": 1575
+		},
+		{
 			"id": "610-wetlands-fen-creepers",
 			"quest": 275,
 			"objective": 1,
@@ -2085,6 +2133,25 @@
 					"ref": "npc 2944: 574 sighting rows spread over the Badlands"
 				}
 			]
+		},
+		{
+			"id": "1575-burning-steppes-broodling-essence",
+			"quest": 4726,
+			"objective": 1,
+			"at": {
+				"map": 1428,
+				"x": 81.0,
+				"y": 28.0,
+				"frame": "era"
+			},
+			"note": "Broodling Essence: the Draco-Incarcinatrix is used on a Black Broodling, whose spawns are on the slopes east of Flame Crest (81-92,26-39); the Alliance guide's point at 72.4,28.2 stood among Fel Interlopers (55) and Flamekin (54) with no broodling near. 81.0,28.0 is beside a broodling spawn (81.0,28.2), where the Horde guide's point already is (#1575 sweep, 0.4.0 audit).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 7047 Black Broodling 51: 14 spawns at 81.0-91.9,26.5-62.1 in the Burning Steppes; Fel Interlopers (55) and Flamekin (54) at 69-72,26-32"
+				}
+			],
+			"issue": 1575
 		}
 	]
 }

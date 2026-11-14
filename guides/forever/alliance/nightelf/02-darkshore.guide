@@ -12,8 +12,9 @@ next forever/alliance/02-westfall
 # into this file.
 # Added here: A Fishy Peril (40); Humble Beginnings (399), from Baros Alexston on the walk through
 # Stormwind (02-westfall hands it in); Philmor's Favor (97220) and Gatehouse Goods (97222) from the
-# harbor to the cheese shop beside the flight master.
-# Left out: Expanding Horizons (97914), The Absent Minded Prospector (729), Deep Ocean, Vast Sea (982), The Tower of Althalaxx (965), Cave Mushrooms (947), WANTED: Murkdeep! (4740), For Love Eternal (963), Fruit of the Sea (1138), Buzzbox 411 (1001), Cleansing of the Infected (2138), Thundris Windweaver (4761), Tharnariun's Hope (2139), The Cliffspring River (4762), Beached Sea Creature (4730), Beached Sea Turtle (4727), Beached Sea Turtle (4725), A Lost Master (986), The Blackwood Corrupted (4763), Buzzbox 323 (1002), Buzzbox 525 (1003), Onu (948), The Master's Glaive (944), Therylune's Escape (945), The Powers Below (968), The Twilight Camp (949), It's All Fun and Games Until... (98042), Return to Onu (950), The Absent Minded Prospector (731), Beached Sea Turtle (4731), Beached Sea Creature (4733), Beached Sea Turtle (4732), Mathystra Relics (951), The Sleeper Has Awakened (5321), Holy Diver (87760), A Lost Master (993), The Tower of Althalaxx (966), The Tower of Althalaxx (967), Gyromast's Retrieval (2098), Escape Through Force (994), Trek to Ashenvale (990).
+# harbor to the cheese shop beside the flight master. For Love Eternal (963), from Cerellean Whiteclaw on
+# the pier at the start: Anaya's Pendant on the first Ameth'Aran visit, the hand-in on the way to the boat.
+# Left out: Expanding Horizons (97914), The Absent Minded Prospector (729), Deep Ocean, Vast Sea (982), The Tower of Althalaxx (965), Cave Mushrooms (947), WANTED: Murkdeep! (4740), Fruit of the Sea (1138), Buzzbox 411 (1001), Cleansing of the Infected (2138), Thundris Windweaver (4761), Tharnariun's Hope (2139), The Cliffspring River (4762), Beached Sea Creature (4730), Beached Sea Turtle (4727), Beached Sea Turtle (4725), A Lost Master (986), The Blackwood Corrupted (4763), Buzzbox 323 (1002), Buzzbox 525 (1003), Onu (948), The Master's Glaive (944), Therylune's Escape (945), The Powers Below (968), The Twilight Camp (949), It's All Fun and Games Until... (98042), Return to Onu (950), The Absent Minded Prospector (731), Beached Sea Turtle (4731), Beached Sea Creature (4733), Beached Sea Turtle (4732), Mathystra Relics (951), The Sleeper Has Awakened (5321), Holy Diver (87760), A Lost Master (993), The Tower of Althalaxx (966), The Tower of Althalaxx (967), Gyromast's Retrieval (2098), Escape Through Force (994), Trek to Ashenvale (990).
 
 # ---------------------------------------------------------------- Auberdine
 
@@ -43,14 +44,20 @@ step Auberdine
 step Auberdine
   zone Darkshore
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
-  sethome "Auberdine"
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   accept 4811 only NightElf                   -- Sentinel Glynda Nal'Shea
   turnin 1141 optional                        -- Gubber Blump
+  accept 963                                  -- Cerellean Whiteclaw, on the pier
 
 step The skeletal turtle
   collect 12289 quest 4681                    -- Sea Turtle Remains, on the beach west of the docks; underwater
   turnin 4681                                 -- Gwennyth Bly'Leggonde
+
+step Buzzbox 827
+  when onquest 983
+  tip Only if you still carry Buzzbox 827's quest: the Tide Crawlers scuttle along the shore below the village, and Buzzbox 827 stands on the beach just south of the docks.
+  collect 5385 quest 983 @35.6,47.1           -- Crawler Legs: the Tide Crawlers
+  turnin 983                                  -- Buzzbox 827
 
 # ---------------------------------------------------------------- First loop: south-east and north-east
 
@@ -67,6 +74,7 @@ step Ameth'Aran
   collect 281038 quest 98025                  -- Feather of Jai'vhanel
   interact 17188 quest 953.1                  -- Read the Lay of Ameth'Aran
   interact 17189 quest 953.2                  -- Read the Fall of Ameth'Aran
+  collect 5382 quest 963                      -- Anaya's Pendant: Anaya Dawnrunner, level 16; pull her away from the Highborne
   turnin 953
 
 step The red crystal
@@ -132,6 +140,7 @@ step Auberdine
   turnin 4813                                 -- Sentinel Glynda Nal'Shea
   vendor nearest
   turnin 4728                                 -- Gwennyth Bly'Leggonde
+  turnin 963                                  -- Cerellean Whiteclaw, where the pier meets the shore, on the way to the boat
 
 step Boat to Stormwind Harbor
   only NightElf
@@ -199,4 +208,3 @@ step Remy "Two Times"
   zone Elwynn Forest
   accept 40
   turnin 40
-  accept 35

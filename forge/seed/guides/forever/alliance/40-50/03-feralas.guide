@@ -147,11 +147,14 @@ step Thalanaar
   turnin 4281                         -- Falfindel Waywarder
   turnin 1100                         -- if you carry Lonebrow's Journal from Thousand Needles
 
+step Grind to 45
+  zone Feralas
+  tip Ride west into Feral Scar Vale: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. With a group, the Zul'Farrak run in the next guide, in Tanaris, makes up the difference.
+  level 45 grind 5292 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
+
 step Rage Scar yetis
-  tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
-  tip Zorbin's quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring Pratt's hides. Or, with a group, run the Zul'Farrak dungeon instead.
+  tip Ride north out of Feral Scar Vale into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a Pristine Yeti Hide, which Pratt pays for too.
   collect 18947 quest 7733            -- Rage Scar Yeti Hide
-  level 44.5 grind 5296                -- grind on Rage Scar Yeti
 
 step Rage Scar Hold
   tip No Pristine Yeti Hide yet? Keep killing the Rage Scar yetis until one drops, then right-click it.
@@ -188,11 +191,6 @@ step Zul'Farrak instead of grinding
   zone Tanaris
   tip Running Zul'Farrak instead of grinding gets you there faster in a group. The troll city lies in northern Tanaris, the next zone on the route; come back to Zorbin on the Forgotten Coast afterwards.
   goto 38.7,20.0 "Zul'Farrak" optional
-
-step Grind to 45
-  zone Feralas
-  tip Boat to the Forgotten Coast and ride east into Feral Scar Vale. Zorbin's quests on the coast need level 45. Or, with a group, run the Zul'Farrak dungeon or the Uldaman dungeon instead.
-  level 45 grind 5292 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
 
 step Zorbin Fandazzle
   tip Ride back to the Forgotten Coast; the goblin stands by the dock.

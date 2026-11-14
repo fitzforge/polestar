@@ -276,12 +276,15 @@ local function bandLabel(key)
 	return key
 end
 
--- For your level: from the dungeon's recommended start to its top (Fitz,
--- 2026-11-08: the Ruins of Lordaeron, 15-22, is not for a level
--- 13; an overlap with a wide window let it in from 13).
+-- For your level: from the dungeon's floor to its top (Fitz, 2026-11-08: the
+-- Ruins of Lordaeron, 15-22, is not for a level 13; an overlap with a wide
+-- window let it in from 13). The floor is the level its run in the route
+-- starts at (Dungeons.List: its range's bottom or where players who killed a
+-- boss there entered, whichever is higher), so the hub never offers a
+-- dungeon the route would still hold back (Fitz, 2026-11-13).
 local function forYou(d, plevel)
 	if d.kind == "raid" or not d.minLevel then return false end
-	return plevel >= d.minLevel and plevel <= (d.maxLevel or d.minLevel)
+	return plevel >= (d.floor or d.minLevel) and plevel <= (d.maxLevel or d.minLevel)
 end
 
 -- The level the dungeon suits best (Dungeons.BestAt), nil without one.
@@ -1290,7 +1293,9 @@ local function pageHeader(d)
 	if best then facts[#facts + 1] = best end
 	local z = d.zoneName or (e and mapName(e.map))
 	if z then facts[#facts + 1] = z end
-	if d.players then facts[#facts + 1] = format(L["%d players"], d.players) end
+	if d.players then
+		facts[#facts + 1] = (d.playersMax and d.playersMax > d.players) and format(L["%d-%d players"], d.players, d.playersMax) or format(L["%d players"], d.players)
+	end
 	if (d.bosses or 0) > 0 then facts[#facts + 1] = d.bosses == 1 and L["1 boss"] or format(L["%d bosses"], d.bosses) end
 	local sub = concat(facts, DOT)
 	W.ShellTitle(hub, d.name, sub)

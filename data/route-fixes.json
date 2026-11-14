@@ -4243,30 +4243,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					20
-				],
-				"b": [
-					"turnin",
-					118
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) are taken from him at the bridge on Redridge's first Lakeshire stop at 20 and done on the 24 visit, where they still give full XP; the 24 visit no longer stops for them."
-			},
-			{
-				"a": [
-					"accept",
-					98387
-				],
-				"b": [
-					"turnin",
-					118
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 12-20): see accept 20 before turnin 118."
-			},
-			{
-				"a": [
 					"turnin",
 					92
 				],
@@ -4324,6 +4300,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-07, Redridge at 20): Guard Parker at Three Corners, the far west end of the gnoll hills, first; the gnolls on the way back east to Deputy Feldon, so the walk doesn't pass Parker with his lunch and come back."
+			},
+			{
+				"a": [
+					"task",
+					1688
+				],
+				"b": [
+					"turnin",
+					39
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (B2/B3, with the start guides): Gnome Warlocks took Surena's Choker (The Binding's second part, 1688) on a walk of its own from Stormwind to the Brackwell Pumpkin Patch and back at the end of Dun Morogh, and 02-westfall's east Elwynn loop then walked the same road to Guard Thomas' bridge. Surena (71.0,80.8) stands just south of the loop's Downstream river (the bridge 74.0,72.2): the choker is taken there, and Gakin's summoning on a Goldshire -> Slaughtered Lamb -> Goldshire hop before Westfall (about 1,000 yd less, the start guide's measure; the voidwalker at about 14). The choker before Goldshire."
+			},
+			{
+				"a": [
+					"turnin",
+					39
+				],
+				"b": [
+					"turnin",
+					1689
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (B2/B3, with the start guides): Gnome Warlocks took Surena's Choker (The Binding's second part, 1688) on a walk of its own from Stormwind to the Brackwell Pumpkin Patch and back at the end of Dun Morogh, and 02-westfall's east Elwynn loop then walked the same road to Guard Thomas' bridge. Surena (71.0,80.8) stands just south of the loop's Downstream river (the bridge 74.0,72.2): the choker is taken there, and Gakin's summoning on a Goldshire -> Slaughtered Lamb -> Goldshire hop before Westfall (about 1,000 yd less, the start guide's measure; the voidwalker at about 14). The summoning after Goldshire."
+			},
+			{
+				"a": [
+					"turnin",
+					1689
+				],
+				"b": [
+					"accept",
+					36
+				],
+				"faction": "Alliance",
+				"why": "0.4.0 route audit (B2/B3, with the start guides): Gnome Warlocks took Surena's Choker (The Binding's second part, 1688) on a walk of its own from Stormwind to the Brackwell Pumpkin Patch and back at the end of Dun Morogh, and 02-westfall's east Elwynn loop then walked the same road to Guard Thomas' bridge. Surena (71.0,80.8) stands just south of the loop's Downstream river (the bridge 74.0,72.2): the choker is taken there, and Gakin's summoning on a Goldshire -> Slaughtered Lamb -> Goldshire hop before Westfall (about 1,000 yd less, the start guide's measure; the voidwalker at about 14). Before Westfall."
 			},
 			{
 				"a": [
@@ -4904,6 +4916,186 @@
 				],
 				"faction": "Horde",
 				"why": "Undead Warlocks: Carendin Halgar offers Creature of the Void (1473) only once Halgar's Summons (1478, Ageron Kargal's pointer from Brill to him) is handed in. Players' recordings: 4 people carrying 1478 had 1473 refused at Carendin, and each was offered it right after handing 1478 in. The route takes 1478 on the Brill stop that trains (Ageron offered it to 3 recorded Warlocks there at 10) and hands it in to Carendin before 1473."
+			},
+			{
+				"a": [
+					"task",
+					6123
+				],
+				"b": [
+					"turnin",
+					948
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): Gathering the Cure's Lunar Fungal Blooms (object 177750) grow in the moonkin caves just east of Auberdine (Darkshore 42.4-46.7, 45.7-53.3), a short way off the road south. 03-darkshore-return took Onu at the Grove (43.6,76.3) first and then walked about 1,140 yards back north to the caves and 1,350 back south to Buzzbox 525; picked on the way south, the Night Elves', Skyborne's and Druids' walk is about 2,000 yards (some 5 minutes) shorter. The blooms are outside While-you're-here's reach from the road."
+			},
+			{
+				"a": [
+					"turnin",
+					994
+				],
+				"b": [
+					"accept",
+					279
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025; first made for the 0.3.7 stranded-quests plan): Escape Through Force (994, quest level 22) is finished at the end of 03-darkshore-return (about 23) and was handed in to Terenthis only on 06-wetlands' Auberdine stop (about 28.5, six over: 80% of its XP, less at +7). 06-ashenvale already flies Astranaar -> Auberdine for the boat to Menethil at about 25, and Terenthis stands by the flight master: it is handed in there, before Menethil's first accept (Karl Boran, 279). 06-wetlands keeps its Terenthis step for anyone still carrying it."
+			},
+			{
+				"a": [
+					"turnin",
+					272
+				],
+				"b": [
+					"turnin",
+					98397
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025, with the Alliance 12-21 slice): Night Elf and Skyborne Druids carry Trial of the Sea Lion (272) from 03-darkshore; its Darkshore half pendant is taken on 03-darkshore-return's north coast and its Westfall half on 03-loch-modan's Westfall stretch (both only while 272 is in the log), so the halves are joined at the Shrine of Remulos on 03-darkshore-return's Cat Form trip to Moonglade, and 272 goes to Dendrite there, at about 22-23. It waited for 06-wetlands' own Moonglade trip at about 28 (a fallback that stays for a Druid still on 272)."
+			},
+			{
+				"a": [
+					"turnin",
+					5061
+				],
+				"b": [
+					"turnin",
+					98397
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): Aquatic Form (5061) follows Trial of the Sea Lion's hand-in to Dendrite on 03-darkshore-return's Moonglade trip and goes to Mathrengyl Bearwalker on the Darnassus stop that trip already makes for Cat Form (98397), not on a second trip in 06-wetlands."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					20
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025, with the Alliance 12-21 slice): Marshal Marris's Blackrock Menace and Blockade (20, 98387, level 21) and Foreman Oslow's Alther's Mill (98386, offered once The Everstill Bridge is handed in on the first visit) are taken on 04-redridge-mountains' Lakeshire stop, where both stand at the north end of the bridge on the way to the camps east of the lake, instead of on the first Redridge visit at 20 and carried about four hours through Darkshore, Ashenvale and the Wetlands. Level 21 quests handed in at about 26 still give full XP."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					98387
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
+			},
+			{
+				"a": [
+					"accept",
+					128
+				],
+				"b": [
+					"accept",
+					98386
+				],
+				"faction": "Alliance",
+				"why": "Alliance 20-30 audit (0.4.0, #2025): see accept 128 before accept 20."
+			},
+			{
+				"a": [
+					"turnin",
+					703
+				],
+				"b": [
+					"turnin",
+					733
+				],
+				"faction": "Alliance",
+				"why": "Scrounging (733): the scrap metal is collected at Agmond's End on 30-40/06-badlands' loop, but the quest was handed in to Sigrun Ironhew only on 40-50/01's return to Hammertoe's Digsite at about 43, five levels later, which a player who leaves for Riverglades from Thelsamar never reaches. Sigrun (Badlands 53.8,43.3) stands about 330 yd east of the Valley of Fangs (42.2,52.7) that 06 visits again for Martek and Rigglefuzz: 733 is handed in right after that stop, before the loop heads north to Thelsamar."
+			},
+			{
+				"a": [
+					"turnin",
+					733
+				],
+				"b": [
+					"turnin",
+					2500
+				],
+				"faction": "Alliance",
+				"why": "Scrounging (733) handed in inside 30-40/06-badlands, before Ghak Healtouch in Thelsamar ends the guide (see the pair turnin 703 -> turnin 733)."
+			},
+			{
+				"a": [
+					"accept",
+					690
+				],
+				"b": [
+					"accept",
+					1078
+				],
+				"faction": "Alliance",
+				"why": "Retrieval for Mauren (1078, eight Crystalized Scales from the Saltstone Basilisks at the Mirage Raceway, for Collin Mauren in Stormwind's Slaughtered Lamb) was taken in 06-ashenvale's Stormwind visit at about 25 and carried nine levels and four guides to the Raceway in 30-40/03. Collin stands in the Slaughtered Lamb beside Archmage Malin, whom 30-40/01's Mage Quarter stop visits at about 32, right before 30-40/03 crosses to the Raceway: the quest is taken there. The hand-in stays on 30-40/04's Stormwind stop."
+			},
+			{
+				"a": [
+					"turnin",
+					2972
+				],
+				"b": [
+					"accept",
+					2989
+				],
+				"faction": "Alliance",
+				"why": "Alliance 45-48 flow (0.4.0 audit, B26): Tanaris ends in Gadgetzan; the Darnassus and Rut'theran errands carried from Feralas and Tanaris (Troyas' answer 2939, Curgle's crate 3022, Tyrande 2972/4267, Gracina 162, Fandral 3763/3764) are done first, by the flight to Auberdine, and only then the boat to Menethil Harbor and the gryphon to Aerie Peak. The order went Gadgetzan -> Theramore -> boat -> Aerie Peak -> Ironforge -> Stormwind -> Lakeshire -> Morgan's Vigil -> Thelsamar -> Menethil -> boat -> Auberdine -> Darnassus -> boat -> Stormwind: two boat crossings and three single-purpose stops more. Calibrated level model, every Alliance race and class: -2.0 min to 60 on average."
+			},
+			{
+				"a": [
+					"accept",
+					3661
+				],
+				"b": [
+					"task",
+					2877
+				],
+				"faction": "Alliance",
+				"why": "Alliance 47 (0.4.0 audit, B26): Erelas Ambersky gives Favored of Elune? (3661) in Rut'theran Village, and its Wildkin Feathers lie on the ground in the Hinterlands. Taken before the Hinterlands visit, the feathers are picked up while riding between the Altar of Zul and Skulk Rock, instead of a separate Ironforge -> Aerie Peak trip in the Burning Steppes guide at about 51."
+			},
+			{
+				"a": [
+					"task",
+					3661
+				],
+				"b": [
+					"turnin",
+					2877
+				],
+				"faction": "Alliance",
+				"why": "Alliance 47 (0.4.0 audit, B26): Erelas Ambersky gives Favored of Elune? (3661) in Rut'theran Village, and its Wildkin Feathers lie on the ground in the Hinterlands. Taken before the Hinterlands visit, the feathers are picked up while riding between the Altar of Zul and Skulk Rock, instead of a separate Ironforge -> Aerie Peak trip in the Burning Steppes guide at about 51."
+			},
+			{
+				"a": [
+					"turnin",
+					5157
+				],
+				"b": [
+					"turnin",
+					8462
+				],
+				"faction": "Alliance",
+				"why": "Felwood end at the tunnel (Alliance 50-60/02, 0.4.0 audit): the Emerald Sanctuary's last hand-ins (Verifying the Corruption, Flute of Xavaric, Further Corruption, Collection of the Corrupt Water, Cleansing Felwood) come before the Timbermaw block (Nafien, Felpaw Village, Kernda), so the guide ends at Timbermaw Hold, where 50-60/03 starts through the tunnel. The old order rode north to Nafien, back down to the Sanctuary and up again to the tunnel at the start of 03: about 1.7k yd of riding saved. Nothing in the Timbermaw block feeds the south: Nafien's first quest comes from Grazle's first visit, and Speak to Salfa goes to the tunnel's Winterspring end."
+			},
+			{
+				"a": [
+					"turnin",
+					4906
+				],
+				"b": [
+					"task",
+					8461
+				],
+				"faction": "Alliance",
+				"why": "Felwood end at the tunnel (Alliance 50-60/02, 0.4.0 audit): Jadefire Run (Further Corruption) is worked from Irontree Woods on the way to the Sanctuary's last visit, before Felpaw Village; see the pair above."
 			}
 		],
 		"notes": [
@@ -6572,6 +6764,44 @@
 				],
 				"faction": "Horde",
 				"why": "#1644 (0.3.7, flow; 02-the-barrens): Altered Beings' Oasis Snapjaws are collected at Lushwater Oasis with Hezrul Bloodmark (852), who walks its west shore (46,36-42) among 15 of the snapjaws' 24 spawns (45.7-48.1,38.3-40.6; players' recordings show snapjaws killed by 52 people, with Lushwater's 45-47,37-42 among the spots), so the seed test can go with Verog without a third oasis visit."
+			},
+			{
+				"a": [
+					"task",
+					4906,
+					3
+				],
+				"b": [
+					"accept",
+					939
+				],
+				"faction": "Alliance",
+				"why": "Alliance Felwood (0.4.0 route-feel audit): Xavaric (Further Corruption's fourth objective) stands at the far end of Jadefire Run, where his Flute of Xavaric starts Felbind. Killed when the route reaches him for the flute, instead of after the Tricksters, Betrayers and Hellcallers: the flow audit saw every Alliance branch cross him for the flute and walk back about 2.4k yd for the kill (6.3 min)."
+			},
+			{
+				"a": [
+					"turnin",
+					5060
+				],
+				"b": [
+					"task",
+					5219,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Alliance Western Plaguelands (0.4.0 route-feel audit): Dalson's Tears' Scourge Cauldron (Target: Dalson's Tears, 46.1,52.6) stands just south-west of the Dalson farmhouse the route works at its first stop there; its key and hand-in come with the farm's cabinet, instead of a second ride out from Chillwind Camp 30 min later (933 yd out and back on every Alliance branch)."
+			},
+			{
+				"a": [
+					"turnin",
+					5403
+				],
+				"b": [
+					"turnin",
+					5220
+				],
+				"faction": "Alliance",
+				"why": "Alliance Western Plaguelands (0.4.0 route-feel audit): Return to Chillwind Camp (5220), taken at the Dalson's Tears cauldron on the first pass, is handed to High Priestess MacDonnell on the same return to the camp as the scourgestones."
 			}
 		],
 		"after": [
@@ -6806,6 +7036,20 @@
 				],
 				"faction": "Horde",
 				"why": "#1241 (Bonesavv77, Orc Warrior 24): Sun Rock Retreat is walked from Tsunaman and Maggran in the south, north to Tammra Windfield, then west to Braelyn Firehand outside the gate and the flight master beside her, on the way out. The guide took Braelyn and the flight path first and walked back east to Tammra."
+			},
+			{
+				"a": [
+					"task",
+					4906,
+					0
+				],
+				"b": [
+					"task",
+					939,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Alliance Felwood (0.4.0 route-feel audit): Jadefire Felbind drops from every Jadefire satyr (about one in four) and most often from Alshirr Banebreath in Jadefire Glen, far to the south. Collected after Further Corruption's Tricksters, Betrayers and Hellcallers in Jadefire Run, it comes with those kills; listed before them, the walk rode about 2.4k yd south for it and back north for the kills."
 			}
 		],
 		"stay": [
@@ -9320,6 +9564,15 @@
 				"q": 567,
 				"reason": "Catch-up in forever/horde/30-40/01-hillsbrad-foothills (#1776): Dangerous! is taken from the poster in the 22-25 guide, which kills Farmer Kalaba (567.4) with the peasants (528) and Citizen Wilkes (567.2) at the smithy (529), and leaves the clerk (567.1, the town hall with 532) and the miner (567.3, Azurelode Mine with 539) to this guide. A character who carries it but left the 22-25 guide before the smithy had no step for Kalaba or Wilkes here: the catch-up's peasants and smithy steps (`when !turnedin 529`) now list them, as the 22-25 guide does. Kolbi (Skyborne Druid 31, 0.3.6) had 567 at 2/4, with 529 neither in the log nor handed in.",
 				"issue": "#1776"
+			},
+			{
+				"q": 5249,
+				"after": [
+					"turnin",
+					5157
+				],
+				"reason": "Breadcrumb safety (0.4.0 audit, Alliance 50-60): To Winterspring! (5249) is offered by Ivy Leafrunner, who stands in the Emerald Sanctuary where 50-60/02's last stop is, and ends with Wynd Nightchaser, who gives The Ruins of Kel'Theril (5244) in 50-60/03. The quest data lists 5249 (or Starfall, 5250) as 5244's prerequisite; whether the game holds 5244 back without it is not recorded. Taken on the Sanctuary stop (no extra walking, 575 XP) and handed in to Wynd right before 5244, it works either way, and the breadcrumb rule holds: 5249 leaves the log before 5244 is asked for.",
+				"issue": "#2025"
 			}
 		],
 		"skip": [
@@ -9631,7 +9884,7 @@
 			{
 				"q": 1037,
 				"faction": "Alliance",
-				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47, a tenth of its XP by then): an 18-level carry for about 61 XP. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
+				"reason": "Velinde Starsong (610 XP at quest level 30) was taken at the Shrine of Aessina in 06-wetlands (about 29.5) and handed in to Thyn'tel Bladeweaver in Darnassus only in 40-50/01-stranglethorn-vale (Night Elves, about 41) or 40-50/05-the-hinterlands (about 47): an 18-level carry for half its XP by then, about 305 (Forever pays 50% of a quest's experience from eight levels over, players' recorded hand-ins), sitting in the log as a finished delivery all that way. Left out; the 40-50 Darnassus steps still hand in a copy players carry.",
 				"issue": "-"
 			},
 			{
@@ -13198,6 +13451,32 @@
 				"faction": "Horde",
 				"why": "Flow, Horde 50-60/02 (0.3.6 flow pass): with the Eastern Plaguelands moved out of 50-60/01, Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901) are done in Terrordale, a river east of Tirion's house, on 02's Tirion stop; Augustus takes the book back on 05's Terrordale stop.",
 				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5249
+				],
+				"b": [
+					"accept",
+					5244
+				],
+				"faction": "Alliance",
+				"why": "To Winterspring! (5249) is handed in to Wynd Nightchaser before The Ruins of Kel'Theril (5244) is taken from him: see the include for 5249.",
+				"source": "0.4.0 audit (#2025)"
+			},
+			{
+				"a": [
+					"turnin",
+					4261
+				],
+				"b": [
+					"turnin",
+					4496
+				],
+				"faction": "Alliance",
+				"why": "Forest Song is on the road from the Emerald Sanctuary back to Talrendis Point, ridden right after Arei's escort (Ancient Spirit): the quest is handed in to Kayneth Stillwind there instead of on a later Gadgetzan -> Talrendis Point -> Forest Song -> Talrendis Point detour between flights (about 1,400 yd and a landing).",
+				"source": "0.4.0 audit (route audit A2)"
 			}
 		]
 	}

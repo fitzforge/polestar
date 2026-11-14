@@ -51,10 +51,11 @@ next forever/alliance/05-duskwood
 # - Alther's Mill (98386, Forever) is offered by Foreman Oslow only once The
 #   Everstill Bridge (89) is handed in (two players' reports; the quest data
 #   has no prerequisite for it, #51). Since 2026-11-07 that is at 20, on
-#   Redridge's first visit (03-loch-modan), where Oslow gives it with the
-#   hand-in; Marshal Marris's Blackrock Menace and Blockade (20, 98387) and
-#   Murloc Poachers (150) are taken on that visit too, at their givers, and
-#   done here, where level 20-21 quests still give full XP. The tarantulas are
+#   Redridge's first visit (03-loch-modan); Murloc Poachers (150) is taken on
+#   that visit too. Since 0.4.0, Alther's Mill and Marshal Marris's Blackrock
+#   Menace and Blockade (20, 98387) are taken on this guide's Lakeshire stop,
+#   on the way to their camps, instead of being carried from the first visit;
+#   level 20-21 quests still give full XP here. The tarantulas are
 #   still killed on the trip east.
 # - Redridge's 15-20 quests (Guard Parker's and Deputy Feldon's gnolls, The
 #   Lost Tools and The Everstill Bridge, Darcy's and Martie's errands,
@@ -94,7 +95,7 @@ next forever/alliance/05-duskwood
 # Darnassus at the start of 06-wetlands. Night Elf and Skyborne Druids fetch
 # the Westfall half pendant for Trial of the Sea Lion (272), only while it is
 # in the log: the lockbox gives the half to no one else (#1386). Train in
-# Stormwind on the way; Shamans take the Deeprun Tram to Ironforge for theirs.
+# Stormwind on the way; Shamans trained in Ironforge minutes before, on 06-ashenvale's Ironforge stop.
 # Paladins: Human Paladins do The Tome of Divinity (1786, 1787) and learn
 # Redemption on 03-loch-modan's Elwynn walk and last Stormwind stop; a
 # Paladin still carrying 1786 or 1787 does Henze Faulk by Stone Cairn Lake
@@ -142,17 +143,6 @@ step Woo Ping
   tip While you're here: learn Polearms from Woo Ping (Trade District, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
   train 11867                         -- Woo Ping
 
-step Tram to Ironforge
-  only Shaman
-  zone Stormwind City
-  goto 64.5,7.5 "Tram to Ironforge"
-
-step Shaman training
-  only Shaman
-  zone Ironforge
-  tip Stormwind has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back.
-  train class
-
 step Fly to Sentinel Hill
   only NightElf,Skyborne,Druid
   when onquest 272
@@ -166,11 +156,6 @@ step Half Pendant of Aquatic Endurance
   zone Westfall
   tip Fly to Sentinel Hill and head north-west to the coast: the Strange Lockbox lies on the sea floor off the shore. Then head east along the road through Elwynn.
   collect 15882 x1                            -- Half Pendant of Aquatic Endurance: the Strange Lockbox
-
-step Back to Elwynn Forest
-  only Shaman
-  zone Elwynn Forest
-  goto 65.2,69.7 "The road into Elwynn Forest"
 
 step Elwynn Forest
   zone Elwynn Forest
@@ -202,7 +187,6 @@ step Duskwood
 
 step Darkshire
   tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
-  tip No Bronze Tube for Look to the Stars? Herble Baubbletump, in the house beside Viktori, is nearly always sold out. Without one, right-click the quest in the guide window and skip it.
   getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
   accept 101                              -- Madame Eva, in her house by the tavern; inside
   accept 66                               -- Madame Eva, inside
@@ -213,12 +197,20 @@ step Darkshire
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
   accept 163                              -- Elaine Carevin: Jitters, at Raven Hill
+
+step Viktori Prism'Antras
+  when has 4371
+  tip Viktori Prism'Antras is in her house at the east end of town. Look to the Stars needs a Bronze Tube, so this step shows only while you carry one: without a tube the guide passes Viktori and her chain.
   accept 174                              -- Viktori Prism'Antras, inside
   turnin 174
+
+step Viktori Prism'Antras
+  when turnedin 174
   accept 175                              -- For Blind Mary, on the hill south-east of town
 
 step Councilman Millstipe
   when dungeon "The Stockade"
+  when level>=23.5
   zone Duskwood
   tip For your Stockade run, in Stormwind at about 29: Councilman Millstipe is in the town hall. Keep it until then.
   accept 377                              -- Councilman Millstipe
@@ -317,8 +309,11 @@ step Lake Everstill's murlocs: kill these as you meet them
 # ---------------------------------------------------------------- Lakeshire
 
 step Lakeshire
-  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris's Blackrock quests and Alther's Mill came with you from your first Redridge visit.
+  tip Cross the long bridge north into town: Dockmaster Baren on the docks, Bailiff Conacher in the town hall, Martie Jainrose in her garden at the west end. Marshal Marris and Foreman Oslow stand at the north end of the bridge: the Blackrock camps' quests and Alther's Mill are worked on this visit's loop east of the lake.
   accept 126                                  -- Verner Osgood, by the road at the north end of the bridge
+  accept 20                                   -- Marshal Marris, at the north end of the bridge
+  accept 98387
+  accept 98386                                -- Foreman Oslow, beside him
   turnin 150                                  -- Dockmaster Baren
   accept 91                                   -- Bailiff Conacher, in the town hall
   accept 180                                  -- The Wanted poster by the inn

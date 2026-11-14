@@ -19,10 +19,16 @@ next forever/alliance/30-40/03-ashenvale
 # Excavation Site: Wetlands (run in 06-wetlands): Rethiel takes Horrors in the Highland (95646) on this guide's Wetlands
 # loop, and Prospector Whelgar the Titan Relic's Lost Relic Carry (95810) and High Explorer Magellas Prehistoric Prism
 # (98824) for whoever still carries them (`when complete`/`when onquest`).
-
-step To Deepwater Tavern
-  zone Wetlands
-  goto 10.7,61.0 "Deepwater Tavern"
+# City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it, the run
+# follows the Syndicate camp, at about 32. An Alarming Request (92432, Emissary Jacques on the Southshore stop) goes
+# to the Image of Archmage Modera in the Kirin Tor camp on the lake shore west of Dalaran, who gives Starving Arcane
+# and Heart of Disruption (92457, 92458; the second brings the Dalaran Sewer Key); the run follows at once through
+# the sewer grate in the city's western wall, 30 yards from her camp (8.8,59.5, where players' recordings go in),
+# Modera takes both back in the same camp (`when complete`), and the route goes on to the Hillsbrad Fields.
+# Shylamiir's A Green Sample and High Sorcerer Andromath's Power Overwhelming (92456, 92489), taken on the
+# Stormwind stop of forever/alliance/06-wetlands, are done inside too and go back on this guide's closing
+# Stormwind stop. Left out: Friend of the Kirin Tor (92459: 270 XP for a walk to Archmage Celindra) and Unstable
+# Magic (96603, level 60).
 
 step Angerfang Encampment
   when onquest 465,474
@@ -173,7 +179,7 @@ step Howin Kindfeather
 step Level 30.8
   when !group 474
   when level<30.8
-  tip Skipped Defeat Nek'rosh and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the Gnomeregan dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
+  tip Skipped Defeat Nek'rosh and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. With a group, the City of Dalaran run later in this guide, in Alterac Mountains, makes up the difference.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
   level 30.8 grind 1418                -- grind on Bluegill Raider
 
@@ -269,6 +275,42 @@ step Syndicate camp
   kill 2241 quest 505.2               -- Syndicate Thief
   accept 510 object 1738              -- Syndicate Documents
   accept 511 object 1738
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  when onquest 92432
+  when level>=31
+  zone Silverpine Forest
+  tip For your City of Dalaran run: west from the Syndicate camp, past Dalaran's dome, to the Kirin Tor camp on the lake shore, just over the border into Silverpine Forest. The Image of Archmage Modera wants the arcane remnants in the city thinned out and a mote from the heart of the disruption; Heart of Disruption brings the Dalaran Sewer Key, which opens the grate.
+  turnin 92432 "An Alarming Request"  -- Image of Archmage Modera
+  accept 92457                        -- Image of Archmage Modera
+  accept 92458
+
+step City of Dalaran
+  when dungeon "City of Dalaran"
+  when onquest 92457,92458,92456,92489
+  when level>=31
+  zone Alterac Mountains
+  tip The City of Dalaran is a dungeon for a group of five, levels 28 to 35. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.
+  tip Inside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's Starving Arcane; the Arcane Mote for Heart of Disruption drops inside too, and so do Shylamiir's Fel Infused Blossom and Andromath's Arcanic Enigma.
+  enter "City of Dalaran" @8.8,59.5 live
+  complete 92457 @8.8,59.5 live       -- Starving Arcane: the remnants and echoes, inside
+  complete 92458 @8.8,59.5 live       -- Heart of Disruption: the Arcane Mote, inside
+  complete 92456 @8.8,59.5 live       -- A Green Sample: the Fel Infused Blossom, inside
+  complete 92489 @8.8,59.5 live       -- Power Overwhelming: the Arcanic Enigma, inside
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  when complete 92457
+  zone Silverpine Forest
+  tip Back out of the grate to Modera's camp on the lake shore.
+  turnin 92457                        -- Image of Archmage Modera
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran"
+  when complete 92458
+  zone Silverpine Forest
+  turnin 92458                        -- Image of Archmage Modera
 
 step Hillsbrad Fields
   when onquest 98059
@@ -372,9 +414,38 @@ step Elling Trias
   accept 1248
 
 step Mage Quarter
-  tip Archmage Malin is in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
+  tip Archmage Malin and Collin Mauren are in the Slaughtered Lamb; Connor Rivers south of the Mage Quarter.
   accept 690                          -- Archmage Malin
+  accept 1078                         -- Collin Mauren: the Saltstone Basilisks at the Mirage Raceway drop the scales, in the next guide
   accept 1301                         -- Connor Rivers
+
+step High Sorcerer Andromath
+  when dungeon "City of Dalaran"
+  when complete 92489
+  zone Stormwind City
+  tip The Arcanic Enigma from your City of Dalaran run: High Sorcerer Andromath waits on the spiral walkway of the Wizard's Sanctum, the violet tower of the Mage Quarter, just past the door of the portal room.
+  turnin 92489                        -- High Sorcerer Andromath
+
+step Abandon Power Overwhelming
+  when dungeon "City of Dalaran"
+  when onquest 92489
+  when !complete 92489
+  tip Power Overwhelming is still unfinished: without a City of Dalaran run at its level the route doesn't come back for it, so abandon it.
+  abandon 92489                       -- Power Overwhelming
+
+step Shylamiir
+  when dungeon "City of Dalaran"
+  when complete 92456
+  zone Stormwind City
+  tip The Fel Infused Blossom from your City of Dalaran run: back to Shylamiir.
+  turnin 92456 npc 5502               -- Shylamiir
+
+step Abandon A Green Sample
+  when dungeon "City of Dalaran"
+  when onquest 92456
+  when !complete 92456
+  tip A Green Sample is still unfinished: without a City of Dalaran run at its level the route doesn't come back for it, so abandon it.
+  abandon 92456                       -- A Green Sample
 
 step Druid training
   only Druid

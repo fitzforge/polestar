@@ -9,7 +9,6 @@ next forever/alliance/04-redridge-mountains
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Retrieval for Mauren (1078).
 # Left out: Daily Delivery (469).
 # Givers passed at Menethil and left for the 27-29 Wetlands visit (06-wetlands), by design: Reclaiming
 # Goods and Apprentice's Duties (281, 471): their work is the hovels and north-coast loop that visit
@@ -25,11 +24,10 @@ next forever/alliance/04-redridge-mountains
 # Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose it
 # and took Gershala Nightwhisper's Researching the Corruption (1275) in Auberdine (forever/alliance/
 # 03-darkshore-return), the run follows Ruuzel at the north end of the Zoram Strand, at about 24: the way
-# in is the sunken ruins' pit east of him. Gershala takes the brain stems on the Auberdine stop of
-# forever/alliance/06-wetlands (`when complete`), beside Terenthis: here, on the way to the boat, a stop
-# by her walks past Terenthis with Escape Through Force ready, which the route hands in there. Left
-# out: Knowledge in the Deeps (971: Gerrig Bonegrip in Ironforge, on the stop after the run; level 23,
-# 3+ levels over on the Ironforge stop of 03-loch-modan), In Search of Thaelrid, Twilight Falls and
+# in is the sunken ruins' pit east of him. Gershala takes the brain stems on the Auberdine landing after the
+# run, beside Terenthis (`when complete`), and Gerrig Bonegrip the Lorgalis Manuscript for Knowledge in the
+# Deeps (971, taken on the Ironforge stop of forever/alliance/03-loch-modan) on this guide's Ironforge stop.
+# Left out: In Search of Thaelrid, Twilight Falls and
 # Blackfathom Villainy (1198, 1199, 1200: Darnassus, off the route; Thaelrid stands inside), the Warlock's
 # Orb of Soran'ruk (1740, class guide).
 
@@ -165,7 +163,7 @@ step The Ruins of Stardust
 
 step Mystral Lake
   zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake.
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake among them; she drops the bracers too, but the small elementals are the safer kills at this level.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
   collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
@@ -217,12 +215,14 @@ step Ruuzel
 
 step Blackfathom Deeps
   when dungeon "Blackfathom Deeps"
-  when onquest 1275
+  when onquest 1275,971
+  when level>=24.5
   zone Ashenvale
-  tip Blackfathom Deeps is a dungeon for a group of five, about levels 22 to 30, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
-  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
+  tip Blackfathom Deeps is a dungeon for a group of five, levels 24 to 32, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
+  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala, and the Lorgalis Manuscript for Gerrig Bonegrip is in there too. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
   enter "Blackfathom Deeps" @14.5,14.2
   collect 5952 x8 quest 1275.1        -- Researching the Corruption: Corrupted Brain Stems
+  collect 5359 quest 971.1            -- Knowledge in the Deeps: the Lorgalis Manuscript, inside
 
 step Talen
   turnin 1009
@@ -242,6 +242,25 @@ step Fly to Auberdine
   goto 34.5,48.0 "Astranaar flight master"
   fly "Auberdine"
   zone Darkshore
+
+step Terenthis
+  zone Darkshore
+  tip Terenthis stands by the flight master, at the east end of the main street; then back west to the dock.
+  turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+
+step Gershala Nightwhisper
+  when dungeon "Blackfathom Deeps"
+  when complete 1275
+  zone Darkshore
+  tip Your Blackfathom Deeps brain stems: Gershala Nightwhisper stands a short walk west of Terenthis, on the way to the dock.
+  turnin 1275                         -- Gershala Nightwhisper
+
+step Abandon Researching the Corruption
+  when dungeon "Blackfathom Deeps"
+  when onquest 1275
+  when !complete 1275
+  tip Researching the Corruption is still unfinished: without a Blackfathom Deeps run at its level the route doesn't come back for it, so abandon it.
+  abandon 1275                        -- Researching the Corruption
 
 step Boat to Menethil Harbor
   zone Darkshore
@@ -266,7 +285,7 @@ step Menethil Harbor
   accept 305                              -- Tarrel Rockweaver, by the north gate
 
 step Spoils of War
-  tip Timber and iron piles lie around the keep and along the harbor's walls.
+  tip Timber and iron piles lie around the keep and along the harbor's walls. Careful: Nightveiled Rotheap, a level 31 elite, roams the Wetlands' shores and roads: if it comes by, give it room.
   collect 279821 quest 98197              -- Khaz Modan Timber
   collect 279822 quest 98197              -- Khaz Modan Iron
 
@@ -292,7 +311,7 @@ step Whelgar's Excavation Site
 step The raptor hills
   tip Mottled Raptors and Screechers roam the hills west of the excavation site.
   tip Careful: Once a Mottled Screecher drops to 30% health, it calls for help from creatures within 20 yd. Mottled Screechers frequently come in packs of three, and raptors summoned by their calls for help may also join the fight.
-  kill 1021 quest 294                     -- Mottled Screecher
+  kill 1021 quest 294                     -- Mottled Screecher; careful: Nightveiled Rotheap, a level 31 elite, roams these hills
   kill 1020 quest 294                     -- Mottled Raptor
 
 step Ormer Ironbraid
@@ -305,7 +324,7 @@ step The Green Belt
   accept 276
 
 step Thelgen Rock
-  tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site.
+  tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site. Careful: Highland Lurkers and Horrors, level 28 elites, walk the same cave among them: pull the stalkers one at a time and keep clear of the elites.
   collect 280319 quest 98282              -- Unruptured Stalker Gland
 
 step The Mosshide gnolls
@@ -351,6 +370,20 @@ step Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   vendor nearest
 
+step Gerrig Bonegrip
+  when dungeon "Blackfathom Deeps"
+  when complete 971
+  zone Ironforge
+  tip The Lorgalis Manuscript from your Blackfathom Deeps run: Gerrig Bonegrip, in the Forlorn Cavern.
+  turnin 971                          -- Gerrig Bonegrip
+
+step Abandon Knowledge in the Deeps
+  when dungeon "Blackfathom Deeps"
+  when onquest 971
+  when !complete 971
+  tip Knowledge in the Deeps is still unfinished: without a Blackfathom Deeps run at its level the route doesn't come back for it, so abandon it.
+  abandon 971                         -- Knowledge in the Deeps
+
 step Buliwyf Stonehand
   only Warrior
   zone Ironforge
@@ -381,6 +414,12 @@ step Tram to Stormwind
 
 # ---------------------------------------------------------------- Stormwind
 
+step Sprite Jumpsprocket
+  when onquest 92748
+  zone Stormwind City
+  tip Still carrying Explosive Consultation (you used your Hearthstone at the end of Loch Modan)? The tram comes in at the Dwarven District, where Sprite Jumpsprocket stands.
+  turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
+
 step Baros Alexston
   zone Stormwind City
   when onquest 97914
@@ -404,7 +443,6 @@ step Master Mathias Shaw
   accept 2360                             -- Master Mathias Shaw: Agent Kearnen in Westfall takes it, at the end of Duskwood's second loop
 
 step Collin Mauren
-  accept 1078
   tip The Slaughtered Lamb is in the Mage Quarter. Warlocks: Gakin the Darkbinder is in its cellar.
   turnin 1075                             -- Collin Mauren
   level 20 only Warlock

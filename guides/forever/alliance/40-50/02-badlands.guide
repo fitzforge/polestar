@@ -10,6 +10,16 @@ next forever/alliance/40-50/03-feralas
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rhapsody's Kalimdor Kocktail (1452).
+# Uldaman (`when dungeon "Uldaman"`, dungeons in the route): for a character who chose it and took Prospector
+# Stormpike's The Lost Dwarves and Krom Stoutarm's Reclaimed Treasures (2398, 1360) on the Ironforge stop of
+# forever/alliance/40-50/01-stranglethorn-vale, the run follows the Stonevault dig, at about 43. Inside, Baelog takes
+# 2398 (the run step turns it in at the door's place: the data has none inside) and gives The Hidden Chamber (2240);
+# the Discs of Norgannon give The Platinum Discs (2278, 2279) and a
+# Shattered Necklace starts The Shattered Necklace (2198). The hand-ins (Stormpike, Krom, High Explorer Magellas,
+# then Dinita Stonemantle, and Talvash del Kissel) are on the Ironforge stop of
+# forever/alliance/40-50/05-the-hinterlands (`when complete`/`when onquest`). Left out: Talvash's chain after the
+# necklace (2199-2204: more trips into Uldaman) and Solution to Doom (709: Theldurin the Lost in the southern
+# Badlands, off the route).
 
 step Agmond's End
   zone Badlands
@@ -76,6 +86,23 @@ step The Uldaman dig
   collect 8047 quest 17               -- Magenta Fungus Cap; below ground
   collect 4610 quest 704              -- Carved Stone Urn; below ground
 
+step Uldaman
+  when dungeon "Uldaman"
+  when onquest 2398,1360
+  when level>=42.5
+  zone Badlands
+  tip Uldaman is a dungeon for a group of five, levels 41 to 51. Its door is a short way east of the dig.
+  tip Inside: Baelog, one of the lost dwarves, takes The Lost Dwarves and gives The Hidden Chamber, for Prospector Stormpike; a chest holds Krom Stoutarm's Reclaimed Treasures. Deeper in, the Discs of Norgannon start The Platinum Discs, which go to High Explorer Magellas, and a Shattered Necklace, a drop inside, starts a quest for Talvash del Kissel in Ironforge.
+  enter "Uldaman" @44.6,12.1
+  turnin 2398 npc 6906 @44.6,12.1     -- Baelog, inside
+  complete 1360 @44.6,12.1            -- Reclaimed Treasures: Krom's chest, inside
+
+step Abandon The Lost Dwarves
+  when dungeon "Uldaman"
+  when onquest 2398
+  tip The Lost Dwarves is still in your log: without an Uldaman run at its level the route doesn't come back for it, so abandon it.
+  abandon 2398                        -- The Lost Dwarves
+
 step Back to Loch Modan
   zone Badlands
   goto 49.4,8.0 "Ironband's Excavation Site"
@@ -118,7 +145,6 @@ step Aerie Peak
   accept 1451
   accept 2988
   accept 2880                         -- Fraggar Thundermantle, inside
-  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram; below ground
 
 # ---------------------------------------------------------------- Aerie Peak
 
@@ -129,6 +155,7 @@ step Rhapsody Shindigger
 
 step Witherbark villages
   tip The first two cages stand together in the Witherbark village south of Rhapsody; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
+  tip Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.
   interact 144068 quest 2988          -- Third Witherbark Cage
   interact 144067 quest 2988          -- Second Witherbark Cage
   collect 9259 quest 2880             -- Troll Tribal Necklace

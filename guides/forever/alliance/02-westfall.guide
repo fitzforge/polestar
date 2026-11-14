@@ -21,13 +21,26 @@ next forever/alliance/03-darkshore
 # Added 2026-11-07 (Alliance 12-20 zone order): east Elwynn for Dwarves and Gnomes, on the walk from
 # Goldshire to Westfall at about 13.5-14.5 (Humans do it in their start guide; Night Elves and Skyborne
 # arrive at 14.5, where its level 9-10 quests turn grey before the loop ends): A Fishy Peril (40,
-# Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp, the Tower of Azora and
-# the Jasperlode Mine in one loop; Report to Gryan Stoutmantle (109) comes from Dughan on the way in.
-# Left out for them: The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
+# Further Concerns needs it), Guard Thomas' chain, the Eastvale Logging Camp and the Tower of Azora in one
+# loop; Report to Gryan Stoutmantle (109) comes from Dughan on the way in.
+# Left out for them: Delicate Instruments (91723) and Good Steel (91732), level 7-8 quests handed in at about
+# 14.5 for 60-80% of their XP whose work is in the Jasperlode Mine among its elites (players' recordings, 0.3.5+:
+# handed in by 6-7 people at 14.4-14.5, 4 abandons of 91723), so the loop skips the mine;
+# The Jasperlode Mine (76) and Westbrook's chain (239, 11), which need The Fargodeep
 # Mine (62) first (players' recordings: never offered without it), and Delicate Instruments' second
 # part (91724), a second trip to Stone Cairn Lake for one hand-in at the tower.
 # Alba Fairmoon's Toxic Soil chain (92742 to 92748) is for every Alliance race, Humans included: players'
 # recordings show Humans taking and handing it in (2026-11-08), so #144's Human exclusion is lifted.
+#
+# The Hall of Thanes (`when dungeon "The Hall of Thanes"`, dungeons in the route): for a character who chose
+# it, Thom Filch's Important Heirlooms (96403) and Afadra Dunwall's The Restless Dead (96394) are taken in
+# Ironforge, by the Deeprun Tram from the last Stormwind stop, at about 16 (level 15 quests; players' recordings:
+# 53 people entered the Hall of Thanes at a median of 15.9, most of them while on this guide), the run follows
+# from the hall's door on the city's west side, a short walk past them (Ironforge 28.2,47.7, where players'
+# recordings go in), and both take theirs back at once. King Magni takes Old Ironforge Incursion (96393,
+# Earthseer Farsen's, for a Dwarf or Gnome who carries it from Dun Morogh) and the Treaty of Understanding
+# (98423, an item inside). An Ancient Grudge (96395) starts and ends inside, with the Ghostly Attendant (the run
+# tip names it). Shamans run it from their Ironforge training; the others take the tram there and back.
 
 # ---------------------------------------------------------------- East Elwynn (Dwarves and Gnomes)
 
@@ -45,7 +58,6 @@ step The Tower of Azora
   zone Elwynn Forest
   tip East along the road past Crystal Lake: Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.
   accept 91725                                -- Blixie Fitzwink
-  accept 91723                                -- Hamish Bergwort
 
 step The bridge
   only Dwarf,Gnome
@@ -62,7 +74,6 @@ step The Eastvale Logging Camp
   tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
   accept 83                                   -- Sara Timberlain, inside
   accept 5545                                 -- Supervisor Raelen
-  accept 91732                                -- Hagar Lowe
   collect 13872 quest 5545                    -- Bundle of Wood
   turnin 5545                                 -- Supervisor Raelen
 
@@ -87,24 +98,10 @@ step The gnoll camps
   tip Riverpaw gnolls camp in the hills west of Stone Cairn Lake; the Stolen Enchanting Supplies lie in their camps.
   collect 247805 quest 91725                  -- Stolen Enchanting Supplies
 
-step The Jasperlode Mine's entrance
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  goto 61.6,54.1 "Jasperlode Mine"
-
-step Jasperlode Mine: kill these as you meet them
-  only Dwarf,Gnome
-  zone Elwynn Forest
-  tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
-  tip Careful: Mother Fang (7-10), the Mine Spiders (7-9) and Geosculptor Yip (7) are elites deep in the mine: pull the kobolds one at a time near the entrance and back out if an elite comes; they're easier with a friend.
-  collect 247816 quest 91732                  -- Mining Tools
-  kill 476 quest 91723                        -- Kobold Geomancer walks around Jasperlode Mine: look inside the circle on the map
-
 step The Tower of Azora
   only Dwarf,Gnome
   zone Elwynn Forest
   tip Follow the hills south to the tower.
-  turnin 91723                                -- Hamish Bergwort
   turnin 91725                                -- Blixie Fitzwink
 
 step Downstream
@@ -116,6 +113,13 @@ step Downstream
   kill 822 quest 52                           -- Young Forest Bear
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247817 quest 91733                  -- Waterlogged Axe
+
+step Surena Caledon
+  only Gnome,Warlock
+  when onquest 1688
+  zone Elwynn Forest
+  tip Gakin's The Binding needs Surena's Choker: Surena Caledon (level 9) stands by the farmhouse of the Brackwell Pumpkin Patch, just south of the river.
+  collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
 
 step The bridge
   only Dwarf,Gnome
@@ -129,13 +133,22 @@ step The Eastvale Logging Camp
   only Dwarf,Gnome
   zone Elwynn Forest
   turnin 83                                   -- Sara Timberlain, inside
-  turnin 91732                                -- Hagar Lowe
 
 step Goldshire
   only Dwarf,Gnome
   zone Elwynn Forest
   tip Follow the road west to Goldshire, on the way to Westfall: Marshal Dughan stands outside the inn.
   turnin 39                                   -- Marshal Dughan
+
+step The Binding
+  only Gnome,Warlock
+  when onquest 1688,1689
+  zone Stormwind City
+  tip North along the road from Goldshire to Stormwind: Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls, then back south through Goldshire to Westfall.
+  turnin 1688                                 -- Gakin the Darkbinder
+  accept 1689
+  kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
+  turnin 1689                                 -- Summon Voidwalker
 
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
@@ -209,6 +222,12 @@ step Baros Alexston
   only Human
   zone Stormwind City
   accept 399                                  -- Baros Alexston, Cathedral Square: his compass is in his old house in Westfall
+
+step Class trainer
+  only Human
+  zone Stormwind City
+  tip While you're in the city: Warriors and Rogues train in Old Town, Paladins and Priests in the Cathedral of Light across Cathedral Square, Mages and Warlocks in the Mage Quarter, Hunters in the Dwarven District.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock
 
 step Stormwind City
   only Human,Priest
@@ -370,6 +389,7 @@ step Moonbrook: kill these as you meet them
 step Sentinel Hill
   turnin 13                                   -- Gryan Stoutmantle
   turnin 92745                                -- Alba Fairmoon
+  fly "Stormwind"                             -- Thor, on the south side of the hill
 
 # ---------------------------------------------------------------- Stormwind and the boat
 
@@ -382,7 +402,7 @@ step Stormwind City
 step High Priestess Laurena
   only Human,Priest
   zone Stormwind City
-  tip Walk to Stormwind. High Priestess Laurena is in the Cathedral of Light.
+  tip High Priestess Laurena is in the Cathedral of Light.
   turnin 94774 only Human -- Divine Grace
 
 step Stormwind City
@@ -424,10 +444,71 @@ step Shaman training
   tip Head to Stormwind. It has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back for the boat.
   train class
 
+step Tram to Ironforge
+  when dungeon "The Hall of Thanes"
+  when level>=14.4
+  only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  zone Stormwind City
+  tip For your Hall of Thanes run: the Deeprun Tram from the Dwarven District to Ironforge.
+  goto 64.5,7.5 "Tram to Ironforge"
+
+step Thom Filch and Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  when level>=14.4
+  zone Ironforge
+  tip For your Hall of Thanes run: Thom Filch and Afadra Dunwall stand a few steps apart on the city's west side, west of the High Seat. The hall's door is a short walk further west.
+  accept 96403                        -- Thom Filch
+  accept 96394                        -- Afadra Dunwall
+
+step The Hall of Thanes
+  when dungeon "The Hall of Thanes"
+  when onquest 96403,96394,96393
+  when level>=14.4
+  zone Ironforge
+  tip The Hall of Thanes is a dungeon for a group of five, levels 13 to 18, under Ironforge. Its door is on the west side of the city, a short walk west of Afadra Dunwall.
+  tip Inside: the Enraged Apparitions and Tormented Souls are Afadra's, the Dwarven Heirlooms Thom's, and Durgen Dirgehammer, the Dark Iron commander deep in the vaults, carries the head King Magni wants. A Ghostly Attendant inside gives An Ancient Grudge, for Faldrim Anvilmar, and takes it back there; a Treaty of Understanding found inside starts a quest for King Magni.
+  enter "The Hall of Thanes" @28.2,47.7 live
+  complete 96403 @28.2,47.7 live      -- Important Heirlooms: the heirlooms, inside
+  complete 96394 @28.2,47.7 live      -- The Restless Dead, inside
+  complete 96393 @28.2,47.7 live      -- Old Ironforge Incursion: Durgen Dirgehammer, inside
+
+step Thom Filch
+  when dungeon "The Hall of Thanes"
+  when complete 96403
+  zone Ironforge
+  turnin 96403                        -- Thom Filch
+
+step Afadra Dunwall
+  when dungeon "The Hall of Thanes"
+  when complete 96394
+  zone Ironforge
+  turnin 96394                        -- Afadra Dunwall
+
+step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
+  when complete 96393
+  zone Ironforge
+  tip Old Ironforge Incursion: King Magni sits on the High Seat, east of the hall's door.
+  turnin 96393                        -- King Magni Bronzebeard
+
+step King Magni Bronzebeard
+  when dungeon "The Hall of Thanes"
+  when onquest 98423
+  zone Ironforge
+  turnin 98423                        -- King Magni Bronzebeard: The Treaty of Understanding
+
+step Back to Stormwind City
+  when dungeon "The Hall of Thanes"
+  when level>=14.4
+  only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  zone Ironforge
+  tip Ride the tram back from Tinker Town to Stormwind's Dwarven District.
+  goto 78.0,51.4 "Tram to Stormwind"
+
 step Stormwind
   only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
   zone Stormwind City
-  tip Walk to Stormwind, or fly if you know its flight path. Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters), the Park (Druids).
+  tip Trainers: Old Town (Warriors, Rogues), the Cathedral (Paladins, Priests), the Mage Quarter (Mages, Warlocks), the Dwarven District (Hunters), the Park (Druids).
   enter "Stormwind City" @69.5,85.5          -- In through the main gate (already done if you are in the city)
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 12, 14 and 16 spells
 

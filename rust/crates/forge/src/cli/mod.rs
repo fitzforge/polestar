@@ -248,13 +248,15 @@ fn help(name: &str) -> Option<String> {
        {}
        {}
        {}
+       {}
        {}",
 			judge::USAGE,
 			judge::REPORT_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::CHECK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::SEED_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::STATUS_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
-			judge::FEEDBACK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: ")
+			judge::FEEDBACK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
+			judge::DOORS_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: ")
 		),
 		"sim" => SIM_HELP.to_string(),
 		"walks" => WALKS_HELP.to_string(),

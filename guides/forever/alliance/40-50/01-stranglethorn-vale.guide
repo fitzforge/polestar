@@ -15,6 +15,10 @@ next forever/alliance/40-50/02-badlands
 # The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
 # Cold Eye Basilisks and back.
+#
+# Uldaman (run in forever/alliance/40-50/02-badlands): for a character who chose it, Prospector Stormpike's The Lost
+# Dwarves (2398) and Krom Stoutarm's Reclaimed Treasures (1360) are taken on the Ironforge stop, at about 42.6, in the
+# Hall of Explorers beside Roetten Stonehammer.
 
 # ---------------------------------------------------------------- Theramore
 
@@ -172,116 +176,32 @@ step Riding at 40
   note "Skyboat to Zephras Isle: the north side of Dalaran, about every five minutes."
 
 step Boat to Booty Bay
-  only Dwarf
+  only Dwarf,Gnome,NightElf,Skyborne
   zone The Barrens
-  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Mage,Warlock,Druid
-
-step The Barrens
-  only Dwarf,Paladin
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Paladin
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,NightElf,Skyborne,Hunter
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,NightElf,Skyborne,Hunter
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,Gnome,NightElf,Skyborne,Rogue
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Gnome,NightElf,Skyborne,Rogue
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,Gnome,NightElf,Priest
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Gnome,NightElf,Priest
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Dwarf,Shaman
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Dwarf,Shaman
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step Boat to Booty Bay
-  only Gnome
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Hunter,Shaman,Druid
-
-step The Barrens
-  only Gnome,Skyborne,Mage
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Gnome,Skyborne,Mage
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
-
-step The Barrens
-  only Gnome,Warlock
-  zone The Barrens
+  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
   getfp "Ratchet"
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only Gnome,Warlock
-  zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay"
 
 step Boat to Booty Bay
-  only NightElf
+  only Human
+  when level<40
   zone The Barrens
-  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Shaman,Mage,Warlock
-
-step The Barrens
-  only NightElf,Skyborne,Druid
-  zone The Barrens
-  goto 63.4,38.5 "Ratchet"
-
-step Boat to Booty Bay
-  only NightElf,Skyborne,Druid
-  zone The Barrens
+  tip Ride north-west into the Barrens and up the coast to Ratchet: the boat to Booty Bay leaves from its dock, and Ratchet's gryphon master stands just above it.
+  note Level 40 with 100 gold later on? Randal Hunter teaches riding at Eastvale Logging Camp in Elwynn Forest: Collectibles, Mounts · Level 40 has the trip.
+  getfp "Ratchet"
   goto 63.4,38.5 "Boat to Booty Bay"
-
-step Boat to Booty Bay
-  only Skyborne
-  zone The Barrens
-  getfp "Ratchet" only Warlock         -- for the flight back to Strahad Farsan at 43
-  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Priest,Shaman,Warlock
 
 step Duskwood
   only Human
+  when level>=40
+  when !zone "Stranglethorn Vale"
   zone Duskwood
   goto 77.6,44.4 "Darkshire"
 
 step Fly to Booty Bay
   only Human
+  when level>=40
+  when !zone "Stranglethorn Vale"
   zone Duskwood
   goto 77.6,44.4 "Darkshire flight master"
   fly "Booty Bay"
@@ -305,6 +225,7 @@ step Booty Bay
 
 step Bloodsail camp
   tip Leave town by the tunnel and follow the coast north; the letter lies in the Bloodsail camp on the beach, where "Pretty Boy" Duncan walks.
+  tip Careful: the Bloodsail Mages and Warlocks here are level 40-43 and cast from range: pull one at a time and fight with your back to the open beach.
   turnin 595                          -- Bloodsail Correspondence
   accept 597
   collect 4027 quest 610              -- Catelyn's Blade
@@ -322,6 +243,7 @@ step Booty Bay
 step Wild Shore: kill these as you meet them
   zone Stranglethorn Vale
   tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the Wild Shore, south of Booty Bay.
+  tip Careful: the Wild Shore camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge.
   collect 3920 quest 604              -- Bloodsail Charts
   collect 3910 quest 587              -- Snuff
   collect 3897 quest 576              -- Dizzy's Eye
@@ -418,7 +340,7 @@ step Level 42.16 at Zul'Mamwe
   when !group 197
   when !group 208
   when level<42.16
-  tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. Or, with a group, run the Uldaman dungeon instead.
+  tip Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for Kebok's tusks. With a group, the Uldaman run in the next guide, in Badlands, makes up the difference.
   goto 45.5,36.5 map 1434 "Skullsplitter Warrior"
   level 42.16 grind 667                -- grind on Skullsplitter Warrior
 
@@ -459,7 +381,7 @@ step Hemet Nesingwary
 
 step Level 42.16
   when level<42.16
-  tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. Or, with a group, run the Uldaman dungeon instead.
+  tip Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the Crystalvein Mine, on your way south to Booty Bay. With a group, the Uldaman run in the next guide, in Badlands, makes up the difference.
   goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
   level 42.16 grind 690                -- grind on Cold Eye Basilisk
 
@@ -484,7 +406,6 @@ step Fly to Stormwind
 step Stormwind
   zone Stormwind City
   tip Angus Stern cooks in the Blue Recluse; Brohann Caskbelly is in the Dwarven District.
-  sethome "Stormwind City"
   turnin 1271 direct
   accept 1477                         -- High Sorcerer Andromath: for Watchmaster Sorigal in Darkshire, on the way to the swamp
   accept 1363                         -- Mazen Mac'Nadir
@@ -596,7 +517,7 @@ step Misty Valley
 step Level 42.46
   when !group 543
   when level<42.46
-  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the Uldaman dungeon instead.
+  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan. With a group, the Uldaman run in the next guide, in Badlands, makes up the difference.
   goto 5.5,31.4 map 1435 "Tangled Horror"
   level 42.46 grind 766                -- grind on Tangled Horror
 
@@ -661,6 +582,14 @@ step Ironforge
   turnin 727                          -- Gerrig Bonegrip
   train class only Shaman             -- Stormwind has no shaman trainer
 
+step Prospector Stormpike and Krom Stoutarm
+  when dungeon "Uldaman"
+  when level>=42.4
+  zone Ironforge
+  tip For your Uldaman run in the Badlands, in the next guide: Prospector Stormpike and Krom Stoutarm stand in the Hall of Explorers, beside the Reclaimers' hall.
+  accept 2398                         -- Prospector Stormpike
+  accept 1360                         -- Krom Stoutarm
+
 step Dun Morogh
   only Dwarf
   zone Dun Morogh
@@ -690,16 +619,24 @@ step Riding at 40
   vendor 7955 optional                -- Milli Featherwhistle: other colours, 20g
 
 step Fly to Thelsamar
-  only Human,NightElf,Skyborne
+  when taxi "Thelsamar"
+  when !zone "Dun Morogh"
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Thelsamar"
   zone Loch Modan
 
 step Loch Modan
-  only Dwarf,Gnome
+  when zone "Dun Morogh"
   zone Loch Modan
   tip Ride east out of Dun Morogh through the tunnel into Loch Modan and on along the road to Thelsamar.
+  goto 35.5,48.4 "Thelsamar"
+
+step Loch Modan
+  when !taxi "Thelsamar"
+  when !zone "Dun Morogh"
+  zone Loch Modan
+  tip No flight path to Thelsamar yet: ride out of Ironforge's gates, east through Dun Morogh and the tunnel into Loch Modan, and on along the road to Thelsamar.
   goto 35.5,48.4 "Thelsamar"
 
 step Thelsamar
