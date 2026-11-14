@@ -99,6 +99,8 @@ step Moonglade
 
 step Cenarion Enclave
   only NightElf
+  when !onquest 6001
+  when !turnedin 6001
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
@@ -174,12 +176,14 @@ step Body and Heart
 
 step Skyboat from Dalaran
   only Skyborne,Alliance
+  when !turnedin 94638
   zone Alterac Mountains
   tip Bear Form is taught on Zephras Isle. Skip this if you are still on the isle; otherwise take the skyboat from the north side of Dalaran.
   goto 12.5,51.8 "Skyboat to Zephras Isle" live
 
 step Skyboat from Thunder Bluff
   only Skyborne,Horde
+  when !turnedin 94638
   zone Mulgore
   tip Bear Form is taught on Zephras Isle. Skip this if you are still on the isle; otherwise take the skyboat from the cliffs south of Skywatcher Plateau, north of Thunder Bluff.
   goto 34.3,25.8 "Skyboat to Zephras Isle" live
