@@ -411,6 +411,10 @@ local function row(i)
 	r.Time:SetWidth(TIME_W)
 	r.Time:SetPoint("RIGHT", r, "TOPRIGHT", -PAD, -ROW_H / 2)
 	r.Sub = text(r, "small", "textDim")
+	-- Wrapped at the panel's width, the row as tall as it needs (subHeight): "durchschnittliche Wartezeit 0:15 ·
+	-- Fahrt 0:10" in German was cut short in a narrow window.
+	r.Sub:SetWordWrap(true)
+	r.Sub:SetJustifyV("TOP")
 	r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -2)
 	r:SetScript("OnClick", rowClick)
 	r:SetScript("OnEnter", rowEnter)
@@ -420,6 +424,12 @@ local function row(i)
 end
 
 local function open() return ns.Get("nav.journeyOpen") and true or false end
+
+-- The room under a step for its line at the width the panel gave it: one line's, or as many as its text wraps to.
+local function subHeight(r)
+	local h = r.Sub:GetStringHeight()
+	return h > SUB_H and ceil(h) + 2 or SUB_H
+end
 
 local function build()
 	local G = GF()
@@ -538,7 +548,8 @@ local function fillStructure(legs, ci)
 	shownLegs, shownCi, shownN = legs, ci, #legs
 end
 
--- Times only: once a second and on transit news. Never changes a height.
+-- Times only: once a second and on transit news. Never changes a height (a line under a step that wraps anew
+-- lays the panel out again, JP.Refresh).
 local function fillTimes()
 	setTime(head.Time, view.total)
 	local yd = view.yards
@@ -605,6 +616,11 @@ function JP.Refresh(force)
 		end
 	end
 	fillTimes()
+	-- A line under a step that now wraps to more or fewer lines: laid out again.
+	for i = 1, #rows do
+		local r = rows[i]
+		if r:IsShown() and r.Sub:IsShown() and r:GetHeight() ~= ROW_H + subHeight(r) then changed = true end
+	end
 	if changed or not had then relayout() end
 	if F:IsVisible() then JP.StartTicker() end
 end
@@ -629,6 +645,7 @@ function JP.Layout(width)
 		if r:IsShown() then
 			r.Text:SetWidth(textW)
 			r.Sub:SetWidth(textW + TIME_W)
+			if r.Sub:IsShown() then r:SetHeight(ROW_H + subHeight(r)) end
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", list, "TOPLEFT", 0, -y)
 			r:SetPoint("TOPRIGHT", list, "TOPRIGHT", 0, -y)
