@@ -12746,3 +12746,14 @@ test("#2211: Stranglethorn Vale's Wild Shore step says the charts and orders als
 		assert.match(step, /the charts and the orders lie in their tents and in the rowboat beside the larger camp/, `${file}: the rowboat`);
 	}
 });
+
+// #2222 (JohnSalchi, Orc Warrior 36): a death at the Theramore Docks, where the Captain's Footlocker lies under Theramore's
+// level 53-57 guards, is a long corpse run (his was 1,585 yards); the step says so, in the guide and its seed.
+test("#2222: Dustwallow Marsh's Theramore Docks step warns that a death there is a long run back, in the guide and its seed", () => {
+	const rel = 'forever/horde/30-40/04-dustwallow-marsh.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		const step = fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith('step The Theramore Docks\n'));
+		assert.ok(step, `${file}: a Theramore Docks step`);
+		assert.match(step, /guards are level 53-57.*long run back from the spirit healer/, `${file}: the corpse run`);
+	}
+});
