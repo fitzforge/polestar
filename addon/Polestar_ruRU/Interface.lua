@@ -1941,6 +1941,8 @@ L["Route line"] = "Линия маршрута"
 -- L["The square button with a name beside it, on its own on your screen. Click it, or press its key, to target the next mob or NPC your step names."] = ""
 -- L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."] = ""
 -- L["The step key targets the same names without the button. Move frames, in Settings, moves the button."] = ""
+-- L["Groups"] = ""
+-- L["Leveling guides mark some elite and escort quests for a group. Choose what the guide does at them."] = ""
 
 -- UI/Copy.lua
 L["Selected for you: copy it with Ctrl+C (Cmd+C on a Mac), then press Escape."] = "Выделено для вас: скопируйте Ctrl+C (Cmd+C на Mac), затем нажмите Escape."
@@ -2379,6 +2381,8 @@ L["Your manual check-offs and skipped steps in the current guide are cleared fro
 -- L["Follow ErgoBars' accent, live. Picking your own accent turns this off."] = ""
 -- L["Match ErgoBars font"] = ""
 -- L["Follow ErgoBars' font, live. Choosing another font turns this off."] = ""
+-- L["Install's pages: questing, groups, your route and your look, a page at a time. Each choice works at once."] = ""
+-- L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
