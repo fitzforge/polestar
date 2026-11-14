@@ -8895,9 +8895,13 @@ test('Bear Form approaches follow completed visits without dropping carried work
 		] },
 		{ name: 'first Night Elf doorway', quest: 5921, race: 'NightElf', faction: 'Alliance', point: [1457, 35.8, 11.6], states: [
 			['visit untaken', [], [], false],
-			['5925 letter held', [5925], [], false],
-			['letter and 5921 held', [5925, 5921], [], false],
-			['letter held after 5921 hand-in', [5925], [5921], false],
+			['5921 held without a letter', [5921], [], true],
+			['5921 handed in without a letter', [], [5921], true],
+			...[5923, 5924, 5925].flatMap((letter) => [
+				[`${letter} letter held, 5921 untaken`, [letter], [], false],
+				[`${letter} letter and 5921 held`, [letter, 5921], [], false],
+				[`${letter} letter held after 5921 hand-in`, [letter], [5921], false],
+			]),
 		] },
 		{ name: 'Alliance skyboat', race: 'Skyborne', faction: 'Alliance', point: [1416, 12.5, 51.8], states: islandStates },
 		{ name: 'Horde skyboat', race: 'Skyborne', faction: 'Horde', point: [1412, 34.3, 25.8], states: islandStates },
@@ -8907,46 +8911,77 @@ test('Bear Form approaches follow completed visits without dropping carried work
 			? (s) => s.goals.some((g) => g.verb === 'accept' && g.quest === visit.quest)
 			: (s) => s.title.startsWith('Skyboat') && s.only.factions.includes(visit.faction);
 		assert.equal(ast.steps.filter(identifies).length, 1, `${visit.name} has one source block`);
-		const index = ast.steps.findIndex(identifies) - (visit.quest ? 1 : 0);
-		assert.ok(index >= 0 && index + 1 < ast.steps.length);
-		// Compile the actual approach, retaining the guide header and restrictions. A sentinel
+		const end = ast.steps.findIndex(identifies) + (visit.quest ? 0 : 1);
+		let start = end - 1;
+		// The first visit has two reasons to approach. Include every contiguous approach
+		// before the quest stop so the test also exercises their interaction on arrival.
+		if (visit.quest) while (start > 0 && ast.steps[start - 1].goals.length === 1 && ast.steps[start - 1].goals[0].verb === 'goto') start--;
+		assert.ok(start >= 0 && end < ast.steps.length);
+		// Compile the actual approaches, retaining the guide header and restrictions. A sentinel
 		// task exposes whether the Engine leaves it, without optional quest/reference data.
 		const source = [
 			...lines.slice(0, ast.steps[0].line - 1),
-			...lines.slice(ast.steps[index].line - 1, ast.steps[index + 1].line - 1),
+			...lines.slice(ast.steps[start].line - 1, ast.steps[end].line - 1),
 			'step Continue after the visit', '  task "Continue"',
 		].join('\n');
 		const compiled = compileSources([{ file, text: source }], zones);
 		assert.deepEqual(compiled.diag.list, []);
 		const pack = writeTestPack(compiled.guides, zones);
 		const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", ns)`).join('\n');
+		const continuation = compiled.guides[0].steps.length;
+		const snapshot = 'emit({step=E.GetStepIndex(), point=E.GetWaypoint()})';
+		const runState = (held, completed, after = '') => runAddon({
+			stubs: ['stub_world.lua'],
+			addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+			saved: { Polestar: 'PolestarDB = {schema=1, settings={behavior={autoSelectGuide=false}}}' },
+			before: `local w = stub.world
+				w.race, w.raceName, w.faction, w.class, w.className = "${visit.race}", "${visit.race}", "${visit.faction}", "DRUID", "Druid"
+				w.level = 10
+				w.addMap(1450, {name="Moonglade", c=1, left=-1381.25, right=-3689.583, top=8491.666, bottom=6952.083})
+				w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
+				w.moveTo(1450, 40, 50)`,
+			script: `do local ns = {}
+				${loads}
+				end
+				local w = stub.world
+				${held.map((q) => `w.accept(${q}, {})`).join('\n')}
+				w.complete({${completed.join(',')}})
+				stub.login(); stub.advance(0.5)
+				local E = Polestar.Engine
+				E.SetGuide("forever/class/druid/bear-form"); stub.advance(0.5)
+				${snapshot}
+				${after}`,
+		}).emitted;
+		const atDoor = (out) => {
+			assert.ok(out.step >= 1 && out.step < continuation, 'the approach stays active');
+			assert.deepEqual([out.point.map, out.point.x, out.point.y], visit.point, 'retain the original doorway or port');
+		};
 		try {
 			for (const [state, held, completed, continues] of visit.states) {
 				await t.test(`${visit.name}: ${state}`, () => {
-					const [out] = runAddon({
-						stubs: ['stub_world.lua'],
-						addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
-						saved: { Polestar: 'PolestarDB = {schema=1, settings={behavior={autoSelectGuide=false}}}' },
-						before: `local w = stub.world
-							w.race, w.raceName, w.faction, w.class, w.className = "${visit.race}", "${visit.race}", "${visit.faction}", "DRUID", "Druid"
-							w.level = 10
-							w.addMap(1450, {name="Moonglade", c=1, left=-1381.25, right=-3689.583, top=8491.666, bottom=6952.083})
-							w.addMap(1457, {name="Darnassus", c=1, left=2938.363, right=1880.03, top=10238.316, bottom=9532.587})
-							w.moveTo(1450, 40, 50)`,
-						script: `do local ns = {}
-							${loads}
-							end
-							local w = stub.world
-							${held.map((q) => `w.accept(${q}, {})`).join('\n')}
-							w.complete({${completed.join(',')}})
-							stub.login(); stub.advance(0.5)
-							local E = Polestar.Engine
-							E.SetGuide("forever/class/druid/bear-form"); stub.advance(0.5)
-							emit({step=E.GetStepIndex(), point=E.GetWaypoint()})`,
-					}).emitted;
-					assert.equal(out.step, continues ? 2 : 1, 'only a finished visit removes its approach');
-					if (!continues) assert.deepEqual([out.point.map, out.point.x, out.point.y], visit.point, 'retain the original doorway or port');
+					const [out] = runState(held, completed);
+					if (continues) assert.equal(out.step, continuation, 'a finished visit removes its approach');
+					else atDoor(out);
 				});
+			}
+			if (visit.quest === 5921) {
+				for (const [name, held, action] of [
+					['arrive with a letter', [5925], ''],
+					['arrive without a letter', [], ''],
+					['abandon the letter before arrival', [5925], 'w.abandon(5925)'],
+					['take a letter before arrival', [], 'w.accept(5925, {})'],
+					['abandon Moonglade while carrying a letter', [5925, 5921], 'w.abandon(5921)'],
+				]) {
+					await t.test(`first Night Elf doorway: ${name}`, () => {
+						const [before, changed, arrived] = runState(held, [], `
+							${action}
+							stub.advance(0.5); ${snapshot}
+							w.moveTo(1457, 35.8, 11.6); stub.advance(2); ${snapshot}`);
+						atDoor(before);
+						atDoor(changed);
+						assert.equal(arrived.step, continuation, 'one arrival completes the approach, even when both reasons apply');
+					});
+				}
 			}
 		} finally {
 			fs.rmSync(pack.dir, { recursive: true, force: true });

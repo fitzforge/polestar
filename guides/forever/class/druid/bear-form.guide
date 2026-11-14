@@ -72,8 +72,20 @@ step Heeding the Call
 # without a waypoint the arrow led onto a ledge outside his floor, behind the wall (#1338). Each step
 # to him comes after a goto at the building's door on its south side, 35.8,11.6, where players'
 # recordings walk in; from there the arrow points straight at him.
+# A carried letter or an untaken Moonglade needs this first visit. Keep the reasons
+# overlapping: dropping a letter on the way must not drop the Moonglade approach.
+# Both approaches finish at the same doorway when both reasons apply.
 step Cenarion Enclave
   only NightElf
+  when onquest 5923,5924,5925
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Cenarion Enclave
+  only NightElf
+  when !onquest 5921
+  when !turnedin 5921
   zone Darnassus
   tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
   goto 35.8,11.6 "Cenarion Enclave"
