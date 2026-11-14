@@ -60,7 +60,7 @@ step Golems and Dark Iron dwarves
   collect 18959 quest 7728.1          -- Smithing Tuyere, Dark Iron Steamsmiths
   collect 18960 quest 7728.2          -- Lookout's Spyglass, Dark Iron Lookouts
 
-step Greater Lava Spiders
+step Searing Lava Spiders
   tip The spiders roam the lava pools and plateaus of the south-west.
   kill 5858 x20 quest 7724.1
 

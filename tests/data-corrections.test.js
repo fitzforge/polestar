@@ -478,3 +478,13 @@ test('every stable master by title has the stable master role (#2010)', () => {
 	}
 	assert.deepEqual(corrections.npcs[265756].set.roles, ['repair', 'stablemaster', 'trainer', 'vendor'], 'Genn Fairweather keeps his other roles');
 });
+
+// #2199: Fiery Menace! counts npc 5858, which the game calls the Searing Lava Spider ("Searing Lava Spider slain" in the
+// quest log, each tick a kill of 5858); the merged data kept its Classic name, Greater Lava Spider, so the step named a
+// spider no one sees. Sweep (the names of quest NPCs where the client's own name differs from the data's): Velarok
+// Windblade (8479), whose Divine Retribution reads "Velarok Story", was still Kalaran Windblade on his goals.
+test('the Searing Lava Spider and Velarok Windblade have the names the game shows (#2199)', () => {
+	assert.equal(corrections.npcs[5858].set.name, 'Searing Lava Spider');
+	assert.equal(corrections.npcs[8479].set.name, 'Velarok Windblade');
+	assert.ok(!corrections.npcs[5857], 'npc 5857 keeps its own name');
+});
