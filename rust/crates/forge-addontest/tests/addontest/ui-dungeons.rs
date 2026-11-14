@@ -182,9 +182,10 @@ fn show_dungeon_nil_opens_the_hub_at_home_level_bands_in_the_sidebar_the_dungeon
 }
 
 // Fitz, 2026-11-08 (a level 13 Horde Warlock saw the Ruins of Lordaeron, 15-22, and The Hall of Thanes, in
-// Ironforge, under "For your level"): a dungeon is for your level from its recommended start, and
-// one whose way in lies inside the other faction's capital is not under that faction's filter. The Ruins,
-// outside the Undercity, can be reached by both.
+// Ironforge, under "For your level"): a dungeon is for your level from its recommended start. Fitz, 2026-11-14:
+// a city dungeon (its way in inside a capital, or under it: the Ruins of Lordaeron, the Undercity's) is its
+// faction's only, so never under the other faction's filter, nor under All for a player of the other faction
+// (SETUP's player is a Horde Tauren).
 #[test]
 fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside_the_other_factions_capital() {
 	let f = fixture("dungeons.json");
@@ -217,8 +218,8 @@ fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside
 	assert_eq!(out["h15"], json!(["Ragefire Chasm", "Ruins of Lordaeron"]));
 	assert_eq!(out["h22"], json!(["Ruins of Lordaeron"]));
 	assert_eq!(out["a13"], json!(["The Hall of Thanes"]), "not Ragefire Chasm (Orgrimmar) for the Alliance");
-	assert_eq!(out["a15"], json!(["Ruins of Lordaeron", "The Hall of Thanes"]), "the Ruins lie outside the Undercity: the Alliance can get there");
-	assert_eq!(out["all13"], json!(["Ragefire Chasm", "The Hall of Thanes"]), "All shows both sides'");
+	assert_eq!(out["a15"], json!(["The Hall of Thanes"]), "not the Ruins of Lordaeron (the Undercity's) for the Alliance");
+	assert_eq!(out["all13"], json!(["Ragefire Chasm"]), "All: never the Horde player's other faction's city dungeon (The Hall of Thanes)");
 }
 
 // A player asked why Uldaman (35-47) showed under "For your level" at 35, where most of it suits ~42. It still

@@ -312,12 +312,14 @@ local function questCount(d, f)
 end
 
 -- For your level under the filter: a dungeon whose quests are all the other
--- faction's is theirs, not yours; so is one whose way in lies inside their
--- capital (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon).
+-- faction's is theirs, not yours; so is a city dungeon of theirs
+-- (Dungeons.EnemyCapital: The Hall of Thanes is not a Horde dungeon). Under
+-- All, never a city dungeon of the player's other faction.
 local function forYouAs(d, plevel, f)
 	if not forYou(d, plevel) then return false end
+	local side = f == "All" and SIDE[UI.PlayerFaction() or ""] or SIDE[f]
+	if D().EnemyCapital and D().EnemyCapital(d.key, side) then return false end
 	if f == "All" then return true end
-	if D().EnemyCapital and D().EnemyCapital(d.key, SIDE[f]) then return false end
 	local q = d.quests or {}
 	return (q[SIDE[f]] or 0) > 0 or ((q.A or 0) == 0 and (q.H or 0) == 0)
 end

@@ -9,7 +9,9 @@
 //!
 //! Checks, FAIL lines in polestar-dungeons-e2e.txt:
 //! - every scenario: never stuck (a goal that does not get done, a step that does not move on), the live
-//!   step never goes back and no guide comes back once left, the quest log never over 40;
+//!   step never goes back and no guide comes back once left, the quest log never over 40; no step of a city
+//!   dungeon of the other faction comes and none is asked about (Engine.EnemyCityDungeon: Ragefire Chasm and the
+//!   Ruins of Lordaeron are the Horde's, The Hall of Thanes and the Stockade the Alliance's);
 //! - Skip: no dungeon step is ever live and no dungeon quest is taken; the steps, their numbers and totals,
 //!   the accepts and hand-ins are exactly the solo route's, step for step; and each guide compiled with its
 //!   dungeon steps holds the solo compile's steps unchanged (the dungeon steps left out, `when !dungeon`
@@ -561,6 +563,9 @@ struct Ctx<'a> {
 
 /// What every scenario must hold: never stuck, never back, the log under the cap.
 fn common(r: &Value, out: &mut Outcome) {
+	for (_, e) in events(r, "city") {
+		out.fails.push(format!("a city dungeon of the other faction ({} step {} \"{}\", map {}): {}", s(e, "g"), e["s"], s(e, "ti"), e["m"], s(e, "why")));
+	}
 	for (_, e) in events(r, "stuck") {
 		out.fails.push(format!("stuck at {} step {} \"{}\": {}", s(e, "g"), e["s"], s(e, "ti"), s(e, "why")));
 	}
