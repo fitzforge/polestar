@@ -3440,7 +3440,7 @@ L["%s · this guide doesn't go there"] = "%s · этот гайд туда не 
 L["Timed quest"] = "Задание на время"
 L["This guide's route doesn't hand this quest in: go there yourself before the time runs out, or let it go."] = "Маршрут этого гайда не сдаёт это задание: доберитесь сами, пока не вышло время, или оставьте его."
 L["Right-click: hide this until the timer ends."] = "Правый клик: скрыть до конца таймера."
--- L["%s ~%s · go now, the route gets there too late"] = ""
+-- L["%s %s · go now, the route gets there too late"] = ""
 
 -- Core/Update.lua
 L["(outdated: latest %s)"] = "(устарел: последняя %s)"
