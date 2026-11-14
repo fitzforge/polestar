@@ -88,7 +88,7 @@ fn the_fixture_packs_match_the_expected_files() {
 	}
 	let toc = &got["Polestar_frFR/Polestar_frFR.toc"];
 	assert_eq!(*toc, forge_guide::toc::language_toc("frFR", &toc_line(toc, "Interface"), &toc_line(toc, "Version")), "the language folder's TOC, as `forge guide compile` writes it");
-	for line in ["## LoadOnDemand: 1", "## Dependencies: Polestar", "## Group: Polestar", "Interface.lua", "Names.lua", "Texts.lua"] {
+	for line in ["## LoadOnDemand: 1", "## Dependencies: Polestar", "## Group: Polestar", "Interface.lua", "Names.lua", "Subzones.lua", "Texts.lua"] {
 		assert!(toc.lines().any(|l| l == line), "{line}");
 	}
 	let lic = &got["Polestar_frFR/LICENSE-DATA.txt"];

@@ -263,8 +263,10 @@ them (quest titles, item names) and from Polestar's names of its
 language (`Names.lua` in the language folder `Polestar_<locale>`), loaded only on that client. A name no
 source has stays English. The client is the truth: a name it shows in play
 (an NPC targeted, moused over or talked to, a quest-giving object opened) is
-kept, per language, and shown from then on. docs/ARCHITECTURE.md, "Names",
-has the details.
+kept, per language, and shown from then on. The subzone names the arrow
+tells a city's floors apart by (the Undercity's quarters) are the client's
+own too (`Subzones.lua` in the language folder, `forge data subzones`).
+docs/ARCHITECTURE.md, "Names", has the details.
 
 - `forge data names [<locale>...]` rebuilds the addons. Per
   id the first source with a name wins: the client's own tables in that

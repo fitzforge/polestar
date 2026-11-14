@@ -40,6 +40,7 @@ pub mod sim_inputs;
 pub mod sources;
 pub mod spawns;
 pub mod stats;
+pub mod subzones;
 pub mod tables;
 pub mod talents;
 pub mod tdb;

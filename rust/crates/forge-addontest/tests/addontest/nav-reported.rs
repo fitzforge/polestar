@@ -152,6 +152,88 @@ fn undercity_the_walk_from_the_apothecarium_to_varimathras_stays_in_the_city_420
 	assert!(top < -30.0, "it stays under the ground, never higher than {:.1}", top);
 }
 
+// The surfaces at (c, x, y) on the shipped maps: { height, the row's English name, its name in the client's language
+// from the language folder's Subzones.lua, loaded as Core/Locale.lua loads the folder } each.
+const SUBZONES_AT: &str = r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local z, areas = {}, {}
+Path.SurfacesAt(@C, @X, @Y, z, areas)
+while #frames > 0 do table.remove(frames, 1)() end
+local n = Path.SurfacesAt(@C, @X, @Y, z, areas)
+local out = {}
+for i = 1, n do
+	out[i] = { z[i], Path.AreaName(@C, areas[i]) or false, Polestar.Names.Get("subzone", areas[i]) or false }
+end
+emit(out)"#;
+
+// #2244 (Reaperwest), the Undercity, on a Spanish (Latin America) client: in the Apothecarium (1458 50.7,71.0) the
+// walk to the bat handler started from a floor above the player and the arrow pointed at the wall. The client gives
+// no height: there the floor is the surface the client's subzone names, and the walking maps name their areas in
+// English, so "El Apothecarium" named none. The language folders name them as each language's client does
+// (Subzones.lua, `forge data subzones`): at the Apothecarium and on the canal by the auction house (1628, 305: the
+// canal, the walkway over it, the Ruins above), the subzone of every surface names, in each language, the surfaces
+// its English name names on an English client, and the Apothecarium's name its one floor.
+fn undercity_subzones_name_the_english_floors(locale: &str, apothecarium: &str) {
+	forge_addontest::needs!("map-frames.json");
+	let folder = forge_guide::toc::language_addon(locale);
+	for (spot, at) in [("the Apothecarium", world(1458, 50.7, 71.0)), ("the canal by the auction house", Pt { c: 0, x: 1628.02, y: 305.49, z: None })] {
+		let script = SUBZONES_AT.replace("@C", &at.c.to_string()).replace("@X", &at.x.to_string()).replace("@Y", &at.y.to_string());
+		let got = emitted(&RunAddon {
+			stubs: vec!["stub_encoding.lua"],
+			before: format!("function GetLocale() return \"{locale}\" end"),
+			addons: vec![Addon::name("Polestar_Nav"), Addon::files("Polestar", &["Core/Init.lua", "Core/LuaChunks.lua", "Core/Names.lua"]), Addon::files(&folder, &["Subzones.lua"])],
+			script,
+			..Default::default()
+		})
+		.remove(0);
+		// (height, English name, name in the language: the folder's, else the English one)
+		let surfaces: Vec<(f64, String, String)> = got
+			.as_array()
+			.unwrap()
+			.iter()
+			.map(|s| {
+				let en = s[1].as_str().unwrap_or("").to_string();
+				(s[0].as_f64().unwrap(), en.clone(), s[2].as_str().map_or(en, str::to_string))
+			})
+			.collect();
+		eprintln!("{locale}, {spot}: {surfaces:?}");
+		assert!(surfaces.iter().filter(|s| !s.1.is_empty()).count() >= 2, "{locale}, {spot}: floors with areas there: {surfaces:?}");
+		for (_, en, local) in surfaces.iter().filter(|s| !s.1.is_empty()) {
+			let by_en: Vec<f64> = surfaces.iter().filter(|s| s.1 == *en).map(|s| s.0).collect();
+			let by_local: Vec<f64> = surfaces.iter().filter(|s| s.2 == *local).map(|s| s.0).collect();
+			assert_eq!(by_local, by_en, "{locale}, {spot}: \"{local}\" names the surfaces \"{en}\" names in English: {surfaces:?}");
+		}
+		if spot == "the Apothecarium" {
+			let named: Vec<f64> = surfaces.iter().filter(|s| s.2 == apothecarium).map(|s| s.0).collect();
+			assert!(!named.is_empty() && surfaces.iter().any(|s| s.1 == "The Apothecarium" && s.2 == apothecarium), "{locale}: \"{apothecarium}\" names the Apothecarium: {surfaces:?}");
+			let (lo, hi) = named.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(lo, hi), z| (lo.min(*z), hi.max(*z)));
+			assert!(hi - lo <= 10.0, "{locale}: one floor (Walk.lua's ZTOL): {named:?}");
+		}
+	}
+}
+
+#[test]
+fn undercity_on_a_spanish_latin_america_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("esMX", "El Apothecarium");
+}
+
+#[test]
+fn undercity_on_a_german_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("deDE", "Das Apothekarium");
+}
+
+#[test]
+fn undercity_on_a_russian_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("ruRU", "Квартал аптекарей");
+}
+
+#[test]
+fn undercity_on_a_simplified_chinese_client_the_subzones_name_the_floors_english_names_name_2244() {
+	undercity_subzones_name_the_english_floors("zhCN", "炼金房");
+}
+
 // #541 (Deadshot), Stormwind, Alliance: from the Trade District (1453 68.48,75.35 live, street height 107) to
 // Jennea Cannon in the Wizard's Sanctum (the guide's goal: 49.56,85.80 live, z 29.7) the arrow ran a straight
 // line along the city walls, 369 yd. The client gives no height for the player, so the walk may start on any

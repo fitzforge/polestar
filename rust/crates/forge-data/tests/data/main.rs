@@ -20,6 +20,7 @@ mod professions;
 mod publish;
 mod questdb;
 mod questie_store;
+mod subzones;
 mod talents;
 mod trainers;
 mod travel;

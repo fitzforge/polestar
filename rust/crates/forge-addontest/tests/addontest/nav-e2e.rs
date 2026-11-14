@@ -1877,6 +1877,136 @@ fn lifts_walking_the_undercitys_canal_ring_from_the_auction_house_with_no_height
 	assert_eq!(out["bad"], "", "every step round the ring keeps the ride up (lost at steps {})", out["bad"]);
 }
 
+// #2244 (Reaperwest, a Spanish (Latin America) client): in the Undercity the floor is the surface the client's subzone
+// names (Nav/Walk.lua named), and the walking maps name their areas in English, so on every other language no subzone
+// matched: in the Apothecarium (1458 50.7,71.0) the walk to the bat handler (1458 63.2,48.6) started from a floor above
+// the player and the arrow pointed at the wall. With its language folder's Subzones.lua a client in another language
+// starts each walk where an English client does: in the Apothecarium on its floor, on the canal by the auction house
+// (the canal ring test's spot) on the levels its subzone names. At each spot the client names the subzone of the
+// lowest floor, the one the player stands on: its row's name in the client's language, `names` (English name -> the
+// client's).
+fn undercity_starts(locale: &str, names: &[(&str, &str)]) -> Value {
+	let (_tmp, ns) = ns_file();
+	let mut b = before(&nav_files(&ns));
+	if locale != "enUS" {
+		let folder = forge_guide::toc::language_addon(locale);
+		let list = toc_files(&folder).unwrap().iter().map(|p| lua_string(&p.to_string_lossy())).collect::<Vec<_>>().join(", ");
+		b = format!("function GetLocale() return {} end\nstub.packs.{folder} = {{ {list} }}\n{b}", lua_string(locale));
+	}
+	let names = names.iter().map(|(en, l)| format!("[{}] = {}", lua_string(en), lua_string(l))).collect::<Vec<_>>().join(", ");
+	let script = format!(
+		r#"
+		w.setLevel(30)
+		w.faction = "Horde"
+		IsIndoors = function() return 1 end
+		local NAMES = {{ {names} }}
+		local floors
+		do
+			local find = E.Find
+			E.Find = function(map, from, ...)
+				local f = {{}}
+				for i, z in ipairs(from.floors or {{}}) do f[i] = r1(z) end
+				table.sort(f)
+				floors = f
+				return find(map, from, ...)
+			end
+		end
+		-- The subzone the client shows on the lowest floor at (wx, wy): that floor's row in the client's language.
+		local function subzoneAt(wx, wy)
+			local z, areas, n = {{}}, {{}}, nil
+			for _ = 1, 200 do
+				n = E.SurfacesAt(0, wx, wy, z, areas)
+				if n then break end
+				stub.advance(0.05)
+			end
+			local lo, en = math.huge, nil
+			for i = 1, n or 0 do
+				local name = areas[i] ~= 0 and E.AreaName(0, areas[i])
+				if name and z[i] < lo then lo, en = z[i], name end
+			end
+			return en and NAMES[en] or ("no client name for " .. tostring(en))
+		end
+		-- The first search from (wx, wy) to the bat handler: its start height ("none": unknown), the floors it may
+		-- start on and its yards.
+		local subs = {{}}
+		local function start(wx, wy)
+			N.ClearTarget()
+			place(1458, 1500, 100, 0)
+			w.subzone = nil
+			stub.advance(3)
+			aim()
+			local sub = subzoneAt(wx, wy)
+			subs[#subs + 1] = sub
+			w.subzone = sub
+			place(1458, wx, wy, 0)
+			local n = #finds
+			floors = nil
+			N.SetTarget(1458, 63.2, 48.6, "Michael Garrett")
+			for _ = 1, 200 do
+				aim()
+				stub.advance(0.05)
+			end
+			for i = n + 1, #finds do
+				local f = finds[i]
+				if dist(f.from[1], f.from[2], wx, wy) < 3 then
+					return {{ z = f.from[3] and r1(f.from[3]) or "none", floors = f.from[3] == nil and floors or {{}}, yards = f.points and floor(length(f.points)) or false }}
+				end
+			end
+			return "no search from the spot"
+		end
+		local r = {{ apothecarium = start(1423.47, 386.79), canal = start(1628.02, 305.49) }}
+		r.subs = subs
+		emit(r)"#
+	);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_encoding.lua", "stub_packs.lua"],
+		before: b,
+		addons: polestar_addons(),
+		login: true,
+		script: format!("{PRELUDE}\n{script}"),
+		..Default::default()
+	})
+	.remove(0);
+	eprintln!("{locale}: {out}");
+	out
+}
+
+/// The Undercity's areas at the two spots in English.
+const UNDERCITY: [&str; 4] = ["The Apothecarium", "Canals", "Trade Quarter", "Ruins of Lordaeron"];
+
+/// An English client's starts, then `locale`'s, its client naming the Undercity's areas `names` (UNDERCITY's order,
+/// as the client's tables give them): the same starts, the Apothecarium's from its floor.
+fn undercity_starts_as_in_english(locale: &str, names: [&str; 4], apothecarium: &str) {
+	skip_unless_ready!();
+	let english = undercity_starts("enUS", &UNDERCITY.map(|n| (n, n)));
+	let start = &english["apothecarium"];
+	assert_eq!(english["subs"][0], "The Apothecarium", "the player stands on the Apothecarium's floor");
+	assert!(start["z"].is_number() && f(&start["yards"]) > 400.0, "English: from the Apothecarium's floor, out up the ramps: {start}");
+	let local = undercity_starts(locale, &std::array::from_fn::<_, 4, _>(|i| (UNDERCITY[i], names[i])));
+	assert_eq!(local["subs"][0], apothecarium);
+	assert_eq!((&local["apothecarium"], &local["canal"]), (&english["apothecarium"], &english["canal"]), "{locale}: the starts an English client gets");
+}
+
+#[test]
+fn undercity_a_spanish_latin_america_client_starts_its_walks_on_the_floors_an_english_client_does_2244() {
+	undercity_starts_as_in_english("esMX", ["El Apothecarium", "Canales", "Barrio del Comercio", "Ruinas de Lordaeron"], "El Apothecarium");
+}
+
+#[test]
+fn undercity_a_german_client_starts_its_walks_on_the_floors_an_english_client_does_2244() {
+	undercity_starts_as_in_english("deDE", ["Das Apothekarium", "Die Kanäle", "Das Handwerksviertel", "Die Ruinen von Lordaeron"], "Das Apothekarium");
+}
+
+#[test]
+fn undercity_a_russian_client_starts_its_walks_on_the_floors_an_english_client_does_2244() {
+	undercity_starts_as_in_english("ruRU", ["Квартал аптекарей", "Каналы", "Торговый квартал", "Руины Лордерона"], "Квартал аптекарей");
+}
+
+#[test]
+fn undercity_a_simplified_chinese_client_starts_its_walks_on_the_floors_an_english_client_does_2244() {
+	undercity_starts_as_in_english("zhCN", ["炼金房", "运河", "贸易区", "洛丹伦废墟"], "炼金房");
+}
+
 // Far waypoints (Fitz, 2026-10-23): every walk leg of the route is drawn along the ground as soon as the route is
 // planned, before the planner's measure is in (Nav/Walk.lua pumpShapes: Path.FindCoarse's sketch over the entrance
 // graph, a walk inside one cluster its own path), and no later. Before, a walk from a crossing's far end was hand-made

@@ -188,7 +188,8 @@ version throughout.
    Codex): build it with `forge data questdb` on every release machine
    before `forge release pack`, or the zip goes out without it. The language
    folders (`Polestar_<locale>`: guide texts and names) are committed; rebuild
-   their names with `forge data names` when the data changed.
+   their names with `forge data names` when the data changed, and their
+   subzone names with `forge data subzones` when the walking maps did.
 
    Compile after `forge release version`, never before: `forge release
    version` writes the TOCs, but the guide pack's version in

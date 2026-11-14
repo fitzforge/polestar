@@ -25,7 +25,9 @@
 --     each -> name | nil, nil on an English client
 --   Names.Get(kind, id) -> name | nil   -- the above by kind (quest npc object
 --     item spell faction map area taxi encounter), and any other kind a pack
---     adds (its table only)
+--     adds (its table only): "subzone", a walking map's area by its
+--     WMOAreaTable row, named as the client's subzone there (the folder's
+--     Subzones.lua, `forge data subzones`; Nav/Walk.lua's floor by subzone)
 --   Names.Cached(kind, id) -> name | nil   -- the same, never asking the
 --     server; an item's name from the pack only (Lookup indexes thousands)
 --   Names.Learn(unit) -> name | nil   -- remembers the name the client shows

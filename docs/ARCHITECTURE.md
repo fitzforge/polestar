@@ -30,7 +30,7 @@ one into the other. The addons:
 | `Polestar_Experimental` (`addon/Polestar_Experimental/`) | Polestar's experimental pack (pack id `polestar-experimental`): guides for Forever's new zones in testing (alpha); loaded on demand, off until the player chooses one of its guides at a route choice or switches it on (Community guides), never suggested; the experimental index of the guides our route choices offer is in Polestar_Guides (PACK_FORMAT, "Polestar's own extra packs") | `forge guide compile experimental` and `forge release pack`, from `experimental/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
 | `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
-| `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, the names the client showed players (`data/i18n/names-observed`), DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
+| `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: Polestar's interface strings (`Interface.lua`, for `Polestar.L`; translators and `forge i18n sync`), our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`), the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`) and the walking maps' subzone names (`Subzones.lua`, `Polestar.Names`' kind `subzone`, for the arrow's floor by subzone); loaded on demand by `Core/Locale.lua`, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`), `forge data names` (`Names.lua`, from the client's tables, the names the client showed players (`data/i18n/names-observed`), DingDB (pinned) and pfQuest) and `forge data subzones` (`Subzones.lua`, from the client's WMOAreaTable and AreaTable at the client build the data is built from); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the others' files alone | yes (generated) | yes |
 | `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `forge data questdb` | no (local, gitignored) | yes, when built |
 | `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `forge data codex`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
 | `Polestar_Nav` (`addon/Polestar_Nav/`) | Polestar's walking router (started from Shortest Path Forever v1.16.0 by Cillian Berragan, GPL-3.0-or-later; Polestar's since 2026-10-16) with the walking maps of Eastern Kingdoms, Kalimdor and Zephras Isle (maps format 5: Leffe's navigation maps, his surfaces, graph, jumps and drops, with our area names and chokepoints; format 3 from our grid when packed without `--leffe`) and the walk's chokepoints, for the arrow's walking routes; loaded on demand at login, never while an installed Shortest Path Forever guides (the target handed to it, or a journey of its own running; Nav, "In-game walking routes (Polestar_Nav)", "Hand-off to Shortest Path Forever") | the router hand-written (`Routing/`); `forge nav pack --leffe` (the maps, `PACK.json`, from Leffe's navigation maps, the navigation grid and the ground layers) | yes | yes, always |
@@ -1024,11 +1024,13 @@ Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files only; any kind
   `Names.lua` handing `Names.AddChunk`
   each kind's names as LuaChunks text, `"<id>\t<name>"` lines of up to 500
   names a chunk, cut out when a name is asked (about 1 MB resident instead
-  of 3 to 4), `LICENSE-DATA.txt`, Ding's `CREDITS.md`, and the folder's TOC,
-  which `forge data names` and `forge guide compile` write alike (each leaves
-  the other's files alone; `forge data names` removes the folder only once
-  no `Texts.lua` or `Interface.lua` is left in it, and the old `Polestar_Names_<locale>`),
-  committed and shipped. Kinds: `quest`, `npc`, `object`, `item`, and `map`
+  of 3 to 4), `LICENSE-DATA.txt`, Ding's `CREDITS.md`, `Subzones.lua`
+  (below), and the folder's TOC, which `forge data names`, `forge data
+  subzones` and `forge guide compile` write alike (each leaves the others'
+  files alone; `forge data names` and `forge guide compile` remove the folder
+  only once none of its `Interface.lua`, `Names.lua`, `Subzones.lua` and
+  `Texts.lua` is left in it, and `forge data names` the old
+  `Polestar_Names_<locale>`), committed and shipped. Kinds: `quest`, `npc`, `object`, `item`, and `map`
   (instance maps), `encounter` (DungeonEncounter ids), `faction`, `taxi`
   (TaxiNodes ids) and `objective` (the objective text of the dungeon quests
   whose objective is an event). `forge data names` builds
@@ -1051,6 +1053,18 @@ Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files only; any kind
   language's, as the web data once gave a koKR NPC its Portuguese name).
   Areas need no pack: the client names them by id (`Compat.GetAreaName`). Only the ids the compiled guides, the
   quest database, the Codex's data and the travel data name are kept.
+  The walking maps' areas are WMOAreaTable rows, which no client API names,
+  and the client tells only the subzone's name in its language
+  (`GetSubZoneText`): `Subzones.lua` (`forge data subzones`) hands
+  `Names.AddChunk` the kind `subzone`, each row the walking maps carry
+  (Polestar_Nav's `areaNames`) named as that language's client names the
+  subzone there (the row's own name, else its AreaTable row's: the rule the
+  grid names them by in English), from the Forever client's WMOAreaTable and
+  AreaTable in English and that language (wago.tools) at the client build the
+  data is built from (`subzones::BUILD`, held to data/forever's meta.json:
+  data naming another build stops it), the rows named as in English left out;
+  Nav/Walk.lua's floor by subzone reads it (`Names.Get`), else the row's
+  English name (#2244). Rebuild it after `forge nav pack`.
   `--no-questie` leaves DingDB out. `Data.CheckInstall` checks the client's
   language folder like the other optional data packs: never missing, named
   when its version differs. It also lists the languages whose old folders,
@@ -5061,9 +5075,9 @@ in `Walk.Measure` too): the canals and streets, never the roofs or the Ruins'
 ground over them. On a map whose surfaces carry their area (`Path.AreaFormat`:
 each WMO group's WMOAreaTable row, `Path.SurfacesAt`'s fifth argument), the
 surfaces the client's subzone names (the Undercity's "The Canals", its
-quarters, the hall's "Ruins of Lordaeron"; the rows' English names,
-`Path.AreaName`: an English client only until Polestar_Names carries
-WMOAreaTable names) are the floor at once when they lie within 10 yd; on
+quarters, the hall's "Ruins of Lordaeron"; each row's name in the client's
+language: the language folder's `Subzones.lua`, else its English name,
+`Path.AreaName`) are the floor at once when they lie within 10 yd; on
 several levels (the hall and its gallery; the Trade Quarter's ring, walkway
 and canal) they keep the candidate floors to those levels (`Walk.Floors`: a
 chain node then holds the start when one of them is on its floor and none
