@@ -571,6 +571,7 @@ function memAvailableGb() {
 	return gb;
 }
 function runFiles(files, { jobs = Math.max(1, Math.floor(require('node:os').availableParallelism() / 2)), reserveGb = 6, timeoutSec = 600, cwd = ROOT, log = console.log, memAvailable = memAvailableGb } = {}) {
+	if (!Number.isInteger(jobs) || jobs < 1) return Promise.reject(new RangeError('testsel: jobs needs a positive integer'));
 	const { spawn } = require('node:child_process');
 	const queue = [...files];
 	let running = 0;
