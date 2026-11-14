@@ -233,9 +233,9 @@ step Zorbin Fandazzle
 # ---------------------------------------------------------------- West: screechers and OOX-22/FE
 
 step Rogue Vale screechers
-  tip Rogue Vale opens just north of Zorbin's dock. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
+  tip Rogue Vale opens just north of Zorbin's dock. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all.
   use 10699 "Yeh'kinya's Bramble" quest 3520.1 @45.0,38.0
-  kill 8612 quest 3520.1
+  talk 8612 quest 3520.1
 
 step The Forgotten Coast: kill these as you meet them
   zone Feralas

@@ -14072,3 +14072,18 @@ test('#2327: a leveling guide that ends on the way into another zone drops that 
 	assert.equal(road.map, 1442, 'the road to Nijel\'s Point is in the Stonetalon Mountains');
 	assert.ok(Math.hypot(road.x - 30.0, road.y - 76.5) < 0.05, `the pass players walk through, 30.0,76.5 (got ${road.x},${road.y})`);
 });
+
+// #2326 (Stompsville): Screecher Spirits (3520) counts a Screecher Spirit that rises when Yeh'kinya's Bramble is used on
+// a dead screecher, and the spirit is friendly: players' recordings (10 people) tick each spirit right after the
+// bramble's cast (12699) with the spirit's own window open, and nobody ever killed one; the game's data credits the
+// objective on the spirit's gossip. Feralas (Horde 40-50) told the player to kill the spirit. The goal is a talk now,
+// after the bramble's use, and the tip says so.
+test('#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble', { skip }, () => {
+	const list = goals('forever/horde/40-50/03-feralas.guide');
+	const use = at(list, 'use 10699', (g) => g.t === 'use' && g.item === 10699 && g.quest === 3520);
+	const talk = at(list, 'talk 8612', (g) => g.t === 'talk' && g.npc === 8612 && g.quest === 3520);
+	assert.ok(use < talk && list[use].step === list[talk].step, 'the bramble first, then the spirit, in one step');
+	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === 8612), 'no kill of a Screecher Spirit');
+	const tip = [list[talk].step.note, list[talk].step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /talk to the spirit that rises/, 'the tip says to talk to it');
+});
