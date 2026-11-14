@@ -51,10 +51,12 @@ class Counter extends Map {
 	}
 }
 
-function applies(only, race, cls) {
+// A step's or goal's `only` for the branch: races, classes and factions, each a list (any one of it), all three.
+function applies(only, race, cls, faction) {
 	if (!truthy(only)) return true;
 	if (truthy(only.races) && !list(only.races).includes(race)) return false;
 	if (truthy(only.classes) && !list(only.classes).includes(cls)) return false;
+	if (faction && truthy(only.factions) && !list(only.factions).includes(faction)) return false;
 	return true;
 }
 
@@ -201,9 +203,10 @@ class Walk {
 	// walk's `chain`). data: loadData's. dyn: null (strict), "036" or "037". future: quest -> level at the guide's own
 	// hand-in on the strict walk (the XP rule). timed: quest -> timer seconds. take: "near" (lines taken where nearly
 	// free, as players do) or "all". followups: accept the follow-ups an early hand-in's NPC gives (players do).
-	constructor({ chain, race, cls, guides, legs, data, longFly = 0, dyn = null, future = null, timed = null, take = 'near', followups = true, dungeons = '', dungeonQuests = 'all' }) {
+	constructor({ chain, race, cls, guides, legs, data, longFly = 0, dyn = null, future = null, timed = null, take = 'near', followups = true, dungeons = '', dungeonQuests = 'all', faction = '' }) {
 		this.race = race;
 		this.cls = cls;
+		this.faction = faction;
 		this.proj = data.proj;
 		this.quests = data.quests;
 		this.nodes = data.nodes;
@@ -265,10 +268,10 @@ class Walk {
 			this.labelsPlayed = new Set();
 			for (let si = 1; si <= g.steps.length; si++) {
 				const step = g.steps[si - 1];
-				if (!applies(step.only, race, cls) || !whenOk(step.when, this.L, this, dungeons, dungeonQuests)) continue;
+				if (!applies(step.only, race, cls, faction) || !whenOk(step.when, this.L, this, dungeons, dungeonQuests)) continue;
 				if (step.label) this.labelsPlayed.add(step.label);
 				if (dyn) {
-					const gl = list(step.goals).filter((go) => !go.optional && applies(go.only, race, cls));
+					const gl = list(step.goals).filter((go) => !go.optional && applies(go.only, race, cls, faction));
 					this.liveEscort = gl.some((go) => truthy(go.escort) || go.t === 'escort');
 					this.liveTurnins = new Set(gl.filter((go) => go.t === 'turnin').map((go) => go.quest));
 				}
@@ -281,8 +284,8 @@ class Walk {
 				for (let gi = 0; gi < goals.length; gi++) {
 					const go = goals[gi];
 					const tt = go.t;
-					if (tt === 'getfp' && go.node != null && applies(go.only, race, cls)) this.taxiKnown.add(go.node);   // learnt at its step, optional or not
-					if (go.optional || !applies(go.only, race, cls)) continue;
+					if (tt === 'getfp' && go.node != null && applies(go.only, race, cls, faction)) this.taxiKnown.add(go.node);   // learnt at its step, optional or not
+					if (go.optional || !applies(go.only, race, cls, faction)) continue;
 					this.curGi = gi;
 					if (tt === 'turnin' && this.dynTurned.has(go.quest)) continue;   // handed in already, on a While-here line
 					if (tt === 'accept' && this.acceptAt.has(go.quest)) continue;
@@ -637,8 +640,8 @@ class Walk {
 			const steps = [];
 			g.steps.forEach((step, k) => {
 				const si = k + 1;
-				if (!applies(step.only, this.race, this.cls)) return;
-				const gl = list(step.goals).map((go, gi) => [gi, go]).filter(([, go]) => !go.optional && applies(go.only, this.race, this.cls));
+				if (!applies(step.only, this.race, this.cls, this.faction)) return;
+				const gl = list(step.goals).map((go, gi) => [gi, go]).filter(([, go]) => !go.optional && applies(go.only, this.race, this.cls, this.faction));
 				steps.push([si, step, gl]);
 				for (const [gi, go] of gl) {
 					const q = go.quest, tt = go.t;

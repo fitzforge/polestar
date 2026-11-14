@@ -41,7 +41,7 @@ function branchesOf(G, races, { faction = '', starts = [], classes = [] } = {}) 
 			if (starts.length && !starts.includes(start.toLowerCase()) && !starts.includes(label.toLowerCase())) continue;
 			for (const cls of list(((races[race] || {})[fac] || {}).classes)) {
 				if (classes.length && !classes.includes(cls)) continue;
-				out.push({ start, race, cls, first: g.id });
+				out.push({ start, race, cls, faction: fac, first: g.id });
 			}
 		}
 	}
@@ -168,7 +168,7 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 	};
 	const branchRows = [];
 	for (const b of branchesOf(G, data.races, { faction, starts, classes })) {
-		const common = { race: b.race, cls: b.cls, guides: G, legs, data, longFly, dungeons, dungeonQuests };
+		const common = { race: b.race, cls: b.cls, faction: b.faction, guides: G, legs, data, longFly, dungeons, dungeonQuests };
 		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons, dungeonQuests) });
 		let r = analyse(w, data.quests, data.proj);
 		const bkey = `${b.start}/${b.cls}`;

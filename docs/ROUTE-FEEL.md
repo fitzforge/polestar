@@ -42,7 +42,9 @@ light: a few seconds per branch, a few minutes per faction and mode.
 ## How a branch is played
 
 A branch is one start (race) and one class: the race's first leveling guide, then
-each guide's `next`, to the end of the chain. Two walks per branch:
+each guide's `next`, to the end of the chain. A step or goal whose `only` leaves
+out the branch's race, class or faction is not played (a guide both factions play
+keeps the other side's lines). Two walks per branch:
 
 - The **strict walk** does exactly the guide's lines, in order: it walks to each
   goal (the baked leg when there is one, else a straight line; flights, boats,

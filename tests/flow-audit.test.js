@@ -137,6 +137,19 @@ test('with dungeons in the route, a pick-up stop there only for a dungeon quest 
 	assert.equal(skip.branches[0].dng_quests, 0);
 });
 
+test('a step or goal for the other faction is not played: a shared guide\'s `only Alliance` lines stay out of a Horde walk', (t) => {
+	const guides = [guide('test/f', [
+		[accept(10, 1, 10, 10)],
+		{ only: { factions: ['Alliance'] }, goals: [accept(11, 3, 10, 13)] },
+		[{ ...accept(1, 4, 10, 11), only: { factions: ['Alliance'] } }, { ...accept(2, 4, 10, 11), only: { factions: ['Horde'] } }],
+		[kill(10, 10.3, 10)],
+		[turnin(10, 1, 10, 10)],
+	], { races: ['Orc'] })];
+	const run = runAudit({ guides, legs: {} }, dataDir(t), { dynamic: null, longFly: 0 });
+	assert.equal(run.branches[0].log_max, 2, 'quests 10 and 2 only');
+	assert.equal(run.branches[0].never_handed, 1, 'quest 2; quests 1 and 11 are the Alliance\'s');
+});
+
 test('the modes cover dungeons Skip, Run with every quest and with the quests on the way, each route choice the compiled guides hold and all of them', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [
