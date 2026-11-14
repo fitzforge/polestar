@@ -12645,3 +12645,28 @@ test('Alliance 50-60/01: the Broodling Essence step warns of the Malfunctioning 
 	assert.ok(fixes.some((f) => f.at && f.at.quest === 4726 && f.at.objective === 1 && /Malfunctioning Reaver/.test(f.tip || '')), 'and its record');
 });
 
+// Bennistrov's and Visur's report (#2207): the Tanaris guide's Dunemaul Compound step grinds to 47.06, almost a level
+// for a player at 46.1. The gate stays (lower, the Thistleshrub Valley's level-50 quests and 48-50 mobs would come 3+
+// levels over); the step now says why and names the level 45-46 Ogres at the compound's south end as the safer grind.
+test("Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and where the safer ogres are", { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const dune = list.find(({ goal }) => goal.t === 'level' && goal.grind === 5474);
+	assert.ok(dune, 'the written grind at the compound');
+	const text = JSON.stringify(dune.step);
+	assert.match(text, /Thistleshrub Valley/, 'why: the Thistleshrub Valley next');
+	assert.match(text, /Ogres \(45-46\)/, 'the safer ogres');
+});
+
+// Route feel (0.4.0 audit): the boat from Auberdine lands below Rut'theran Village; the guide walked up to Daryn and
+// Erelas and then, before handing in, back down to Vesprystus for the flight path and up again (about 160 yd each way,
+// the hand-ins and Favored of Elune? some minutes later). The flight path is learned on the way up, first.
+test("Tanaris (Alliance 47): Rut'theran's flight path on the way up from the boat, then Daryn and Erelas (0.4.0 audit)", { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const fp = at(list, "getfp Rut'theran", (g) => g.t === 'getfp' && g.location === "Rut'theran Village");
+	for (const [t, q] of [['turnin', 2939], ['turnin', 3022], ['accept', 3661]]) {
+		const i = at(list, `${t} ${q}`, is(t, q));
+		assert.ok(fp < i, `the flight path before ${t} ${q}`);
+		assert.notEqual(list[fp].s, list[i].s, `the flight path in its own step, before the ${t} ${q} stop`);
+	}
+});
+

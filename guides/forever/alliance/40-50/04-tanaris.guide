@@ -182,6 +182,7 @@ step The Noxious Lair
 
 step Dunemaul Compound
   tip Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
+  tip Why the grind: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. The Dunemaul Ogres (45-46) at the compound's south end are the safer ones to grind.
   kill 5474 quest 5863                -- Dunemaul Brute
   kill 5472 quest 5863                -- Dunemaul Enforcer
   kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
@@ -244,15 +245,15 @@ step Fly to Auberdine
 
 step Teldrassil
   zone Teldrassil
-  tip Take the boat from Auberdine's dock to Rut'theran Village.
-  goto 55.4,92.2 "Rut'theran Village"
+  tip Take the boat from Auberdine's dock to Rut'theran Village; Vesprystus, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  getfp "Rut'theran Village"
 
 # ---------------------------------------------------------------- Rut'theran Village and Darnassus
 
 step Rut'theran Village
   zone Teldrassil
   tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
-  getfp "Rut'theran Village"
   turnin 2939                         -- Daryn Lightwind
   note Daryn's next errand goes to Tanaris: skip it.
   turnin 3022                         -- Erelas Ambersky
