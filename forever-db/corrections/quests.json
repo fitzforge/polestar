@@ -278,6 +278,26 @@
 		],
 		"note": "The Stockade Riots (The Stockade) rewards 4,950 XP on Forever; the merged data had 2,950, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
 	},
+	"413": {
+		"set": {
+			"pre": [
+				315
+			],
+			"preAny": [
+				315
+			],
+			"breadcrumbs": [
+				415
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: Rejold Barleybrew offered Shimmer Stout to 15 people (Dwarves, Gnomes and a Human) who never had Rejold's New Brew (415), and 26 people took it without 415 before it (game builds 70790 to 70888); every window that did not offer it came before Perfect Stout (315) was handed in"
+			}
+		],
+		"note": "Shimmer Stout (413, Rejold Barleybrew in Brewnall Village) needs only Perfect Stout (315) handed in. The merged data also listed Rejold's New Brew (415, the Kharanos lead to Rejold) as a prerequisite, though it is only a breadcrumb: the Dun Morogh guides take 413 without 415, as players do (#2025)."
+	},
 	"421": {
 		"set": {
 			"xp": 875
@@ -840,6 +860,23 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Elanaria: starts with Moon Priestess Amara (npc 2151) and Kyra Windblade (npc 3598); as its giver the merged data also listed Sentinel Elissa Starbreeze (npc 3657)."
+	},
+	"1688": {
+		"set": {
+			"pre": [],
+			"preAny": [],
+			"breadcrumbs": [
+				1685,
+				1715
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-12: Gakin the Darkbinder offered Surena Caledon to 3 Gnome Warlocks who had The Slaughtered Lamb (1715, from Lago Blackwrench in Ironforge) and never Gakin's Summons (1685); 9 Human Warlocks took it after 1685"
+			}
+		],
+		"note": "Surena Caledon (1688, Gakin the Darkbinder in Stormwind) has two leads to Gakin, Gakin's Summons (1685, Remen Marcot in Goldshire, for Humans) and The Slaughtered Lamb (1715, Lago Blackwrench in Ironforge, for Dwarf-Gnome trainers), and needs neither: both are breadcrumbs. The merged data required both as prerequisites and named only 1685 as a breadcrumb, which made the Gnome guide's 1715-then-1688 order look unsafe (#2025)."
 	},
 	"1798": {
 		"set": {

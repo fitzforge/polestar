@@ -325,6 +325,58 @@
 			"evidence": "route level 22; Baron Marinous 21-21; recordings (2026-11-11): done by 19 people at 18-24 (median 20), 0 people died within 60 yd, 3 abandoned"
 		},
 		{
+			"key": "forever/alliance/03-darkshore-return.guide|kill 98013.1|elite",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "kill 98013.1",
+			"kind": "elite",
+			"title": "On the way",
+			"level": 22.3,
+			"mobs": [
+				"Baron Marinous 21-21 x5"
+			],
+			"reason": "Baron Marinous (level 21 elite) walks the Ruins of Mathystra among the naga the step works, at the route's level; players do it there safely and the step's tip (guide-fixes a2130-mathystra-baron-marinous) warns of him",
+			"evidence": "route level 22.3; Baron Marinous 21-21 x5; recordings (archive to 2026-11-12): done by 27 people at median 21.91, 0 people died within 60 yd, 5 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 951.1|elite",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 951.1",
+			"kind": "elite",
+			"title": "The naga",
+			"level": 22.3,
+			"mobs": [
+				"Baron Marinous 21-21 x4"
+			],
+			"reason": "Baron Marinous (level 21 elite) walks the Ruins of Mathystra among the naga the step works, at the route's level; players do it there safely and the step's tip (guide-fixes a2130-mathystra-baron-marinous) warns of him",
+			"evidence": "route level 22.3; Baron Marinous 21-21 x4; recordings (archive to 2026-11-12): done by 28 people at median 21.42, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 272.1|over",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 272.1",
+			"kind": "over",
+			"title": "Trial of the Sea Lion",
+			"level": 23.3,
+			"mobs": [
+				"Moonglade Warden 55-55 x2"
+			],
+			"reason": "Keeper Remulos and the Moonglade Wardens guard the Shrine of Remulos and are friendly to every player; the same goal was reviewed on 06-wetlands' Moonglade trip (players do it at the route's level). Since 0.4.0 Night Elf and Skyborne Druids join the half pendants on 03-darkshore-return's Cat Form trip; players: 11 people at median 18.85, 0 died there",
+			"evidence": "route level 23.3; Moonglade Warden 55-55 x2; recordings (archive to 2026-11-12): done by 11 people (median 18.85), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-darkshore-return.guide|collect 272.1|elite",
+			"guide": "forever/alliance/03-darkshore-return.guide",
+			"goal": "collect 272.1",
+			"kind": "elite",
+			"title": "Trial of the Sea Lion",
+			"level": 23.3,
+			"mobs": [
+				"Keeper Remulos 62-62"
+			],
+			"reason": "Keeper Remulos and the Moonglade Wardens guard the Shrine of Remulos and are friendly to every player; the same goal was reviewed on 06-wetlands' Moonglade trip (players do it at the route's level). Since 0.4.0 Night Elf and Skyborne Druids join the half pendants on 03-darkshore-return's Cat Form trip; players: 11 people at median 18.85, 0 died there",
+			"evidence": "route level 23.3; Keeper Remulos 62-62; recordings (archive to 2026-11-12): done by 11 people (median 18.85), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/alliance/03-darkshore.guide|use item 15877|over",
 			"guide": "forever/alliance/03-darkshore.guide",
 			"goal": "use item 15877",
@@ -456,6 +508,19 @@
 			],
 			"reason": "an elite within 40 yd with no recorded deaths at the spot",
 			"evidence": "route level 19.9; Lake Thresher 25-25; recordings (2026-11-11): done by 42 people at 17-25 (median 21), 0 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/alliance/03-loch-modan.guide|kill 86585.1|elite",
+			"guide": "forever/alliance/03-loch-modan.guide",
+			"goal": "kill 86585.1",
+			"kind": "elite",
+			"title": "Mountaineer Ylva",
+			"level": 19.4,
+			"mobs": [
+				"Stonevault Cave Hunter 36-37"
+			],
+			"reason": "the elites hold the pass south of the banner, not the banner's spot: the step warns to stay by the banner and not chase troggs south (guide-fixes 2025-ylva-stonevault-cave-hunters); players do the banner at the route's level",
+			"evidence": "route level 19.4; Stonevault Cave Hunter 36-37 (16 spawns at 32.2-33.8, 88.9-96.0, south of Ylva at 31.78,86.33); recordings (2026-11-13): done by 21 people (median 21.0), 3 deaths near the spot, south of the banner"
 		},
 		{
 			"key": "forever/alliance/04-redridge-mountains.guide|kill 226.2|over",
@@ -745,6 +810,139 @@
 			],
 			"reason": "an elite within 40 yd with no recorded deaths at the spot",
 			"evidence": "route level 24.5; Golm 32-32; recordings (2026-11-11): done by 29 people at 22-32 (median 27), 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98197.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98197.1",
+			"kind": "elite",
+			"title": "Spoils of War",
+			"level": 24.3,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.3; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 36 people at median 26.44, 0 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98197.2|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98197.2",
+			"kind": "elite",
+			"title": "Spoils of War",
+			"level": 24.3,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.3; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 37 people at median 26.35, 0 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 294.1|over",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 294.1",
+			"kind": "over",
+			"title": "The raptor hills",
+			"level": 24.4,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.4; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 39 people at median 27.05, 0 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 294.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 294.1",
+			"kind": "elite",
+			"title": "The raptor hills",
+			"level": 24.4,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*)",
+			"evidence": "route level 24.4; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 39 people at median 27.05, 0 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98282.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98282.1",
+			"kind": "elite",
+			"title": "Thelgen Rock",
+			"level": 24.6,
+			"mobs": [
+				"Highland Horror 28-28",
+				"Highland Lurker 28-29"
+			],
+			"reason": "Thelgen Rock holds Forever's Highland Lurkers and Horrors (level 28 elites) among the Cave and Leech Stalkers that drop the glands; the step's tip (guide-fixes a2130-thelgen-rock-highland-elites) warns of them and says to pull the stalkers one at a time; 2 of 32 people died in the cave",
+			"evidence": "route level 24.6; Highland Horror 28-28, Highland Lurker 28-29; recordings (archive to 2026-11-12): done by 32 people at median 26.82, 2 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 98282.1|pack",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 98282.1",
+			"kind": "pack",
+			"title": "Thelgen Rock",
+			"level": 24.6,
+			"mobs": [
+				"8 spawns 26+"
+			],
+			"reason": "Thelgen Rock holds Forever's Highland Lurkers and Horrors (level 28 elites) among the Cave and Leech Stalkers that drop the glands; the step's tip (guide-fixes a2130-thelgen-rock-highland-elites) warns of them and says to pull the stalkers one at a time; 2 of 32 people died in the cave",
+			"evidence": "route level 24.6; 8 spawns 26+; recordings (archive to 2026-11-12): done by 32 people at median 26.82, 2 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 276.1|over",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 276.1",
+			"kind": "over",
+			"title": "The Mosshide gnolls",
+			"level": 24.6,
+			"mobs": [
+				"Golm 32-32 x2"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them",
+			"evidence": "route level 24.6; Golm 32-32 x2; recordings (archive to 2026-11-12): done by 50 people at median 27.43, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 276.2|over",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 276.2",
+			"kind": "over",
+			"title": "The Mosshide gnolls",
+			"level": 24.6,
+			"mobs": [
+				"Golm 32-32 x2"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them",
+			"evidence": "route level 24.6; Golm 32-32 x2; recordings (archive to 2026-11-12): done by 50 people at median 27.16, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 276.2|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 276.2",
+			"kind": "elite",
+			"title": "The Mosshide gnolls",
+			"level": 24.6,
+			"mobs": [
+				"Golm 32-32 x2",
+				"Dragonmaw Reclaimer 29-30",
+				"Dragonmaw Soulbinder 29-30"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them; the Dragonmaw Reclaimers and Soulbinders of Forever's Dragonmaw Retreat stand east of the Mosshide hills the step works; 50 people did it, none died there",
+			"evidence": "route level 24.6; Golm 32-32 x2, Dragonmaw Reclaimer 29-30, Dragonmaw Soulbinder 29-30; recordings (archive to 2026-11-12): done by 50 people at median 27.16, 0 people died within 60 yd, 3 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|collect 470.1|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "collect 470.1",
+			"kind": "elite",
+			"title": "Ironbeard's Tomb",
+			"level": 24.7,
+			"mobs": [
+				"Neru 32-32"
+			],
+			"reason": "Golm and Neru are titan watchers (level 32 elites) that only appear when a player uses the Goaz Stone of Gleaning Our Future (98310, a group quest the solo route never takes) beside their spot; recorded kills of them are at those summon spots, and nobody died to them",
+			"evidence": "route level 24.7; Neru 32-32; recordings (archive to 2026-11-12): done by 37 people at median 26.94, 0 people died within 60 yd, 4 abandoned"
 		},
 		{
 			"key": "forever/alliance/06-wetlands.guide|collect 272.1|over",
@@ -1072,6 +1270,85 @@
 			"evidence": "route level 28.9; Mavoris Cloudsbreak 32-32; recordings (2026-11-11): done by 3 people at 29-32 (median 31), 1 people died within 60 yd (median level 29), 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/06-wetlands.guide|kill 289.2|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "kill 289.2",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 38 people at median 28.41, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|kill 289.1|over",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "kill 289.1",
+			"kind": "over",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 38 people at median 28.42, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|kill 289.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "kill 289.1",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32 x2; recordings (archive to 2026-11-12): done by 38 people at median 28.42, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 289.3|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 289.3",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 38 people at median 28.44, 6 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 471.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 471.1",
+			"kind": "elite",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 28,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "Nightveiled Rotheap (level 31 elite) roams the whole Wetlands (spawn points from Menethil's walls to the Green Belt) rather than holding this spot; 13 people killed it in the recordings and none died to it; the step warns of it (guide-fixes a2130-wetlands-rotheap-*); the deaths near the wreck were to its own crew (Cursed Marines and Sailors, Captain Halyndor), the quest's targets, not to the Rotheap",
+			"evidence": "route level 28; Nightveiled Rotheap 31-32; recordings (archive to 2026-11-12): done by 37 people at median 28.36, 5 people died within 60 yd, 8 abandoned"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|complete 95646|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "complete 95646",
+			"kind": "elite",
+			"title": "Excavation Site: Wetlands",
+			"level": 28.5,
+			"mobs": [
+				"Highland Lurker 28-29",
+				"Highland Horror 28-28"
+			],
+			"reason": "a dungeon step (`when dungeon \"Excavation Site: Wetlands\"`, a group of five at 28-31): the Highland Lurkers and Horrors are the dungeon's own elites, and the solo route never has the step",
+			"evidence": "route level 28.5; Highland Lurker 28-29, Highland Horror 28-28; recordings (archive to 2026-11-12): done by 33 people at median 30.14, inside the dungeon, 1 abandoned"
+		},
+		{
 			"key": "forever/alliance/07-thousand-needles.guide|kill 173.1|rare",
 			"guide": "forever/alliance/07-thousand-needles.guide",
 			"goal": "kill 173.1",
@@ -1352,6 +1629,45 @@
 			"evidence": "route level 31.2; 55 spawns 33+; recordings (2026-11-11): done by 15 people at 32-37 (median 33), 4 people died within 60 yd (median level 32), 1 abandoned"
 		},
 		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 98072.1|over",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 98072.1",
+			"kind": "over",
+			"title": "Dragonmaw Gates: kill these as you meet them",
+			"level": 30.5,
+			"mobs": [
+				"Subdued Dragonspawn 34-34 x3"
+			],
+			"reason": "a kill-as-you-meet-them step at the Dragonmaw Gates: the player picks which mobs to fight. The Subdued Dragonspawn (34, elite) chained among the Dragonmaw are this goal's reviewed elite row, 3.5 levels over the route's 30.5; players do it at the route's level (23 people, median 31.1) and the 1 who died there was killed by a Dragonmaw Reclaimer (30), not the Dragonspawn; none of the Alliance recordings at 30-49 died to a Subdued Dragonspawn",
+			"evidence": "route level 30.5; Subdued Dragonspawn 34-34 x3; recordings (archive to 2026-11-12): done by 23 people (median 31.13), 1 people died within 60 yd, 6 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 98246.1|elite",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 98246.1",
+			"kind": "elite",
+			"title": "Razormaw nests",
+			"level": 30.5,
+			"mobs": [
+				"Carnage 30-30 x2"
+			],
+			"reason": "Carnage (level 30 elite, at the route's level) prowls the hills around the Razormaw nests; the step before warns of him (Carnage is elite: grouping up is advised), and 27 people took the eggs (median 30.5) with no death there; Carnage killed 1 player in all the Alliance recordings at 30-49",
+			"evidence": "route level 30.5; Carnage 30-30 x2; recordings (archive to 2026-11-12): done by 27 people (median 30.51), 0 people died within 60 yd, 7 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/01-hillsbrad-foothills.guide|collect 98283.1|over",
+			"guide": "forever/alliance/30-40/01-hillsbrad-foothills.guide",
+			"goal": "collect 98283.1",
+			"kind": "over",
+			"title": "The Green Belt",
+			"level": 30.5,
+			"mobs": [
+				"Subdued Dragonspawn 34-34 x2"
+			],
+			"reason": "the Subdued Dragonspawn (34, elite) of the Green Belt's Dragonmaw are this goal's reviewed elite row, 3.5 levels over the route's 30.5; 24 people did it (median 30.8) with no death there",
+			"evidence": "route level 30.5; Subdued Dragonspawn 34-34 x2; recordings (archive to 2026-11-12): done by 24 people (median 30.79), 0 people died within 60 yd, 8 abandoned"
+		},
+		{
 			"key": "forever/alliance/30-40/02-desolace.guide|collect 1459.1|mixed",
 			"guide": "forever/alliance/30-40/02-desolace.guide",
 			"goal": "collect 1459.1",
@@ -1395,6 +1711,34 @@
 			],
 			"reason": "the Maraudine are 6 of the 46 toured spots; 3 people did it at 32-37 with no deaths",
 			"evidence": "route level 35.5; Maraudine Windchaser 38-39, Maraudine Mauler 38-39, Maraudine Marauder 39-40; recordings (2026-11-11): done by 3 people at 32-37 (median 37), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/02-desolace.guide|collect 93224.1|over",
+			"guide": "forever/alliance/30-40/02-desolace.guide",
+			"goal": "collect 93224.1",
+			"kind": "over",
+			"title": "Kolkar Village",
+			"level": 35.5,
+			"mobs": [
+				"Magram Necromancer 42-43 x2",
+				"Nascent Undead Ravager 40-41 x2"
+			],
+			"reason": "the Carved Centaur Totems drop from the Kolkar and the Magram alike (#1602) and are collected with Centaur Bounty's ears: by #1616's design the goal tours every clan's camp (the spots name each camp's own centaurs), so one of its points lies by the Magram's village; the step is Kolkar Village and its tip sends players to the Kolkar (30-35), and they work it there: 8 of the 13 people who ticked the totems did so within 150 yd of Kolkar Village, 1 near the Magram point",
+			"evidence": "route level 35.5; Magram Necromancer 42-43 x2, Nascent Undead Ravager 40-41 x2; recordings (archive to 2026-11-12): done by 15 people (median 37.28), 1 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/02-desolace.guide|collect 1387.1|over",
+			"guide": "forever/alliance/30-40/02-desolace.guide",
+			"goal": "collect 1387.1",
+			"kind": "over",
+			"title": "Kolkar Village",
+			"level": 35.5,
+			"mobs": [
+				"Magram Necromancer 42-43 x2",
+				"Magram Guardian 39-41 x2"
+			],
+			"reason": "Centaur Ears drop from every Desolace clan: by #1616's design the goal tours every clan's camp (the spots name each camp's own centaurs), so one of its points lies by the Magram's village; the step is Kolkar Village and its tip sends players to the Kolkar (30-35), and they work it there: 10 of the 17 people who ticked the ears did so within 150 yd of Kolkar Village, 2 near the Magram point",
+			"evidence": "route level 35.5; Magram Necromancer 42-43 x2, Magram Guardian 39-41 x2; recordings (archive to 2026-11-12): done by 17 people (median 36.66), 1 people died within 60 yd, 5 abandoned"
 		},
 		{
 			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1110.1|rare",
@@ -1488,6 +1832,19 @@
 			"evidence": "route level 34.1; 12 spawns 36+; recordings (2026-11-11): done by 15 people at 34-38 (median 36), 1 people died within 60 yd (median level 36), 2 abandoned"
 		},
 		{
+			"key": "forever/alliance/30-40/04-stranglethorn-vale.guide|level 34 grind 1085|grind",
+			"guide": "forever/alliance/30-40/04-stranglethorn-vale.guide",
+			"goal": "level 34 grind 1085",
+			"kind": "grind",
+			"title": "Level 34",
+			"level": 33.3,
+			"mobs": [
+				"Elder Stranglethorn Tiger 34-35 x11 (the grind mob)"
+			],
+			"reason": "the level model starts this top-up at 33.3, but players reach Stranglethorn above it (30-40/04 starts at a median level of 34.4, 35 people), and the step holds only below 34. Few grind here: 4 people killed Elder Stranglethorn Tigers (34-35) below 34, 9 at 33-35, and 1 of those 9 died 3 times right after an elder tiger kill. The other camps by the step are no safer in the recordings: at 33-35, 2 of the 12 people on the Stranglethorn Tigers (32-33) died to them and 2 of the 11 on the Stranglethorn Raptors (33-34) died right after a raptor kill. The elder tigers are Tiger Mastery's camp, which the step before works",
+			"evidence": "route level 33.3 to 34; Elder Stranglethorn Tiger 34-35 x11 (the grind mob); recordings (archive to 2026-11-12): Elder Stranglethorn Tigers killed below 34 by 4 people (48 kills), at 33-35 by 9 (120 kills), 3 deaths at 33-35 right after an elder tiger kill (1 person); 30-40/04 entered at a median level of 34.41 (35 people)"
+		},
+		{
 			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|kill 192.1|over",
 			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
 			"goal": "kill 192.1",
@@ -1579,6 +1936,19 @@
 			],
 			"reason": "players do it at the route's level: 5 people at median 36, 0 died there",
 			"evidence": "route level 36.3; 27 spawns 38+; recordings (2026-11-11): done by 5 people at 35-38 (median 36), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 213.1|pack",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 213.1",
+			"kind": "pack",
+			"title": "Lake Nazferiti",
+			"level": 35.9,
+			"mobs": [
+				"8 spawns 37+"
+			],
+			"reason": "a pack of higher spawns around Lake Nazferiti (the Venture Co.'s workers and agents, 37-39, about the lake); 31 people did it (median 36.2) with no death there, as for Panther Mastery's row at the same lake",
+			"evidence": "route level 35.9; 8 spawns 37+; recordings (archive to 2026-11-12): done by 31 people (median 36.21), 0 people died within 60 yd, 4 abandoned"
 		},
 		{
 			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 1396.1|rare",
@@ -2132,6 +2502,45 @@
 			"evidence": "route level 38.9; 21 spawns 40+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 733.1|elite",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 733.1",
+			"kind": "elite",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.2,
+			"mobs": [
+				"Malevolent Mirage 42-42"
+			],
+			"reason": "Malevolent Mirage (level 42 elite) has 24 spawn points across the whole Badlands (4.8-71.5,34.7-79.4) rather than holding this spot, and the step is a kill-as-you-meet-them sweep of the ogre camp; 7 people did it (median 39.8) with no death there; none of the Alliance recordings at 30-49 died to it",
+			"evidence": "route level 38.2; Malevolent Mirage 42-42; recordings (archive to 2026-11-12): done by 7 people (median 39.76), 0 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 93224.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 93224.1",
+			"kind": "elite",
+			"title": "Maraudine centaurs",
+			"level": 38.8,
+			"mobs": [
+				"Khan Hratha 42-42"
+			],
+			"reason": "Khan Hratha (level 42 elite) stands at the heart of the Maraudine's Valley of Spears (29.6,52.0); every Maraudine around drops the totems, and 15 people did it (median 37.3) with no death there; none of the Alliance recordings at 30-49 died to him",
+			"evidence": "route level 38.8; Khan Hratha 42-42; recordings (archive to 2026-11-12): done by 15 people (median 37.28), 0 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|kill 261.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "kill 261.1",
+			"kind": "elite",
+			"title": "The Valley of Bones",
+			"level": 38.8,
+			"mobs": [
+				"Corpsefeeder 45-45"
+			],
+			"reason": "the arrow points at the bone fields' clear western edge (places 1575-desolace-alliance-undead-ravagers-west, no elite within 40 yd); one of the other Ravager spots it tours (59.6,88.2) stands by a Corpsefeeder's spawn (45, elite) of Shen'dralas, and the step warns of the Corpsefeeders and Necrokhans on the fields. 18 people killed the Ravagers (median 38.0); the 3 who died within 60 yd of the arrow were killed by an Outcast Necromancer (39) and Undead Ravagers (38-39), and no Alliance recording at 30-49 died to a Corpsefeeder",
+			"evidence": "route level 38.8; Corpsefeeder 45-45; recordings (archive to 2026-11-12): done by 18 people (median 37.97), 3 people died within 60 yd, 4 abandoned"
+		},
+		{
 			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 1204.1|mixed",
 			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
 			"goal": "collect 1204.1",
@@ -2466,6 +2875,33 @@
 			"evidence": "route level 43; Vilebranch Witch Doctor 46-47, Vilebranch Soothsayer 46-47, Vilebranch Scalper 46-47; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/40-50/02-badlands.guide|collect 2880.1|over",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "collect 2880.1",
+			"kind": "over",
+			"title": "Witherbark villages",
+			"level": 43,
+			"mobs": [
+				"Hexed Larva 45-46 x7",
+				"Witch Doctor Ti'ik 49-49 x5"
+			],
+			"reason": "the necklaces drop from every Witherbark troll (43-45) around the villages; Witch Doctor Ti'ik (49) and his Hexed Larvae (45-46) keep to the western village's huts, and the step's heads-up says so (guide-fixes danger-hinterlands-43-witch-doctor-tiik)",
+			"evidence": "route level 43; Hexed Larva 45-46 x7, Witch Doctor Ti'ik 49-49 x5; recordings (2026-11-13): done by 1 (median 42.8), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/02-badlands.guide|collect 2880.1|pack",
+			"guide": "forever/alliance/40-50/02-badlands.guide",
+			"goal": "collect 2880.1",
+			"kind": "pack",
+			"title": "Witherbark villages",
+			"level": 43,
+			"mobs": [
+				"23 spawns 44+"
+			],
+			"reason": "the Witherbark villages are dense camps of 43-46 trolls by design; the necklaces drop from any of them at the villages' edges, and the step's heads-up keeps the player out of the witch doctor's huts",
+			"evidence": "route level 43; 23 spawns 44+; recordings (2026-11-13): done by 1 (median 42.8), deaths 0, abandons 0"
+		},
+		{
 			"key": "forever/alliance/40-50/03-feralas.guide|kill 2982.2|over",
 			"guide": "forever/alliance/40-50/03-feralas.guide",
 			"goal": "kill 2982.2",
@@ -2584,6 +3020,32 @@
 			],
 			"reason": "warned at the step: its tip names Wave Strider",
 			"evidence": "route level 45; Wave Strider 47-48; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/03-feralas.guide|kill 2970.2|elite",
+			"guide": "forever/alliance/40-50/03-feralas.guide",
+			"goal": "kill 2970.2",
+			"kind": "elite",
+			"title": "Grimtotem tauren",
+			"level": 43.8,
+			"mobs": [
+				"Namida Grimtotem 43-43"
+			],
+			"reason": "Namida Grimtotem (elite 43, at the player's level) stands at the camp's north-east edge; the Raiders and Shamans the quest asks for are all round the camp, and the step's heads-up says where she is (guide-fixes danger-feralas-44-namida-grimtotem)",
+			"evidence": "route level 43.8; Namida Grimtotem 43-43; recordings (2026-11-13): done by 2 (median 45.11), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/03-feralas.guide|kill 2970.3|elite",
+			"guide": "forever/alliance/40-50/03-feralas.guide",
+			"goal": "kill 2970.3",
+			"kind": "elite",
+			"title": "Grimtotem tauren",
+			"level": 43.8,
+			"mobs": [
+				"Namida Grimtotem 43-43"
+			],
+			"reason": "Namida Grimtotem (elite 43, at the player's level) stands at the camp's north-east edge; the Raiders and Shamans the quest asks for are all round the camp, and the step's heads-up says where she is (guide-fixes danger-feralas-44-namida-grimtotem)",
+			"evidence": "route level 43.8; Namida Grimtotem 43-43; recordings (2026-11-13): done by 2 (median 45.11), deaths 0, abandons 0"
 		},
 		{
 			"key": "forever/alliance/40-50/04-tanaris.guide|collect 3161.1|elite",
@@ -3524,11 +3986,66 @@
 			"evidence": "route level 48.2; Negolash 52-52; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|kill 2877.2|pack",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "kill 2877.2",
+			"kind": "pack",
+			"title": "Skulk Rock",
+			"level": 47.4,
+			"mobs": [
+				"7 spawns 49+"
+			],
+			"reason": "Skulk Rock's oozes are 46-49 around the rock; the 49s are a few spawns at its centre and the quest's Jade Oozes are at the player's level round its edge",
+			"evidence": "route level 47.4; 7 spawns 49+; recordings (2026-11-13): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 3661.1|over",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 3661.1",
+			"kind": "over",
+			"title": "Wildkin feathers",
+			"level": 47.4,
+			"mobs": [
+				"Wyrmkin Starhunter 51-51 x2",
+				"Fallen Moonkin 51-51 x2"
+			],
+			"reason": "the Wildkin Feathers lie on the ground across the Hinterlands; the 51 wildkin flagged stand at one spot of many, and the feathers are picked up between the Altar of Zul and Skulk Rock (players picked them up at 51-52)",
+			"evidence": "route level 47.4; Wyrmkin Starhunter 51-51 x2, Fallen Moonkin 51-51 x2; recordings (2026-11-13): done by 2 (median 51.56), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 2581.1|elite",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 2581.1",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 47.7,
+			"mobs": [
+				"Calefactus the Unleashed 50-50 x3",
+				"Vek'zol 55-55"
+			],
+			"reason": "the bloodmages' parts drop zone-wide in the Blasted Lands; Calefactus the Unleashed (elite 50) and Vek'zol (elite 55) roam the middle and the western ridge, and the step's heads-up names both (guide-fixes danger-blasted-lands-48-elites)",
+			"evidence": "route level 47.7; Calefactus the Unleashed 50-50 x3, Vek'zol 55-55; recordings (2026-11-13): done by 3 (median 47.83), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/05-the-hinterlands.guide|collect 2603.2|elite",
+			"guide": "forever/alliance/40-50/05-the-hinterlands.guide",
+			"goal": "collect 2603.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 47.7,
+			"mobs": [
+				"Calefactus the Unleashed 50-50 x3",
+				"Vek'zol 55-55"
+			],
+			"reason": "the bloodmages' parts drop zone-wide in the Blasted Lands; Calefactus the Unleashed (elite 50) and Vek'zol (elite 55) roam the middle and the western ridge, and the step's heads-up names both (guide-fixes danger-blasted-lands-48-elites)",
+			"evidence": "route level 47.7; Calefactus the Unleashed 50-50 x3, Vek'zol 55-55; recordings (2026-11-13): done by 3 (median 47.98), deaths 0, abandons 1"
+		},
+		{
 			"key": "forever/alliance/40-50/06-searing-gorge.guide|kill 7724.1|over",
 			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
 			"goal": "kill 7724.1",
 			"kind": "over",
-			"title": "Greater Lava Spiders",
+			"title": "Searing Lava Spiders",
 			"level": 48.3,
 			"mobs": [
 				"Flamebringer Elementalist 55-56 x2",
@@ -3698,6 +4215,85 @@
 			],
 			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
 			"evidence": "route level 48.9; 18 spawns 50+; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|kill 7724.1|pack",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "kill 7724.1",
+			"kind": "pack",
+			"title": "Searing Lava Spiders",
+			"level": 48.3,
+			"mobs": [
+				"8 spawns 50+"
+			],
+			"reason": "the Searing Lava Spiders (48-50) are the quest's own targets in the Cauldron; the 50s are the top of their range, and players did it at 49",
+			"evidence": "route level 48.3; 8 spawns 50+; recordings (2026-11-13): done by 3 (median 49.11), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7728.1|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7728.1",
+			"kind": "over",
+			"title": "Dark Iron dwarves: kill these as you meet them",
+			"level": 48.5,
+			"mobs": [
+				"Infernus Siege Giant 60-60 x2"
+			],
+			"reason": "the Infernus Siege Giants (60) are Forever spawns the quest data places in the Cauldron; nobody met them in players' recordings (no unit sighting, no death to them), and the deaths in the gorge were to Dark Iron and Twilight mobs",
+			"evidence": "route level 48.5; Infernus Siege Giant 60-60 x2; recordings (2026-11-13): done by 2 (median 49.82), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7728.2|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7728.2",
+			"kind": "over",
+			"title": "Dark Iron dwarves: kill these as you meet them",
+			"level": 48.5,
+			"mobs": [
+				"Infernus Siege Giant 60-60 x2",
+				"Lord Gazzran 62-62 x2"
+			],
+			"reason": "the Infernus Siege Giants (60) and Lord Gazzran (62) are Forever spawns the quest data places in the Cauldron; nobody met them in players' recordings (no unit sighting, no death to them), and the deaths in the gorge were to Dark Iron and Twilight mobs",
+			"evidence": "route level 48.5; Infernus Siege Giant 60-60 x2, Lord Gazzran 62-62 x2; recordings (2026-11-13): done by 3 (median 49.07), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|kill 7729.1|pack",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "kill 7729.1",
+			"kind": "pack",
+			"title": "Dark Iron dwarves: kill these as you meet them",
+			"level": 48.5,
+			"mobs": [
+				"9 spawns 50+"
+			],
+			"reason": "the Dark Iron Taskmasters and Slavers (48-50) are the quest's own targets in the Cauldron; the 50s are the top of their range, and players did it at 49",
+			"evidence": "route level 48.5; 9 spawns 50+; recordings (2026-11-13): done by 3 (median 49.26), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7722.1|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7722.1",
+			"kind": "over",
+			"title": "Searing Gorge: kill these as you meet them",
+			"level": 48.8,
+			"mobs": [
+				"Lieutenant Skarresh 58-60 x2"
+			],
+			"reason": "Lieutenant Skarresh (58-60) is a Forever spawn the quest data places by the Cauldron; nobody met him in players' recordings (no unit sighting, no death to him), and the deaths in the gorge were to Dark Iron and Twilight mobs",
+			"evidence": "route level 48.8; Lieutenant Skarresh 58-60 x2; recordings (2026-11-13): done by 2 (median 50.25), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/06-searing-gorge.guide|collect 7701.1|over",
+			"guide": "forever/alliance/40-50/06-searing-gorge.guide",
+			"goal": "collect 7701.1",
+			"kind": "over",
+			"title": "Searing Gorge: kill these as you meet them",
+			"level": 48.8,
+			"mobs": [
+				"Lieutenant Skarresh 58-60 x2"
+			],
+			"reason": "Lieutenant Skarresh (58-60) is a Forever spawn the quest data places by the Cauldron; nobody met him in players' recordings (no unit sighting, no death to him); the 2 deaths near the step were to Twilight and Dark Iron mobs of 48-49, a group quest step (when group 7701)",
+			"evidence": "route level 48.8; Lieutenant Skarresh 58-60 x2; recordings (2026-11-13): done by 1 (median 49.29), deaths 2, abandons 0"
 		},
 		{
 			"key": "forever/alliance/40-50/07-un-goro-crater.guide|collect 4141.1|elite",
@@ -4030,6 +4626,19 @@
 			"evidence": "route level 51.1; Hahk'Zor 54-54, Gorgon'och 54-54; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "kill 3823.2",
+			"kind": "over",
+			"title": "Dreadmaul Rock",
+			"level": 51.1,
+			"mobs": [
+				"Escaped Core Hound 60-60 x2"
+			],
+			"reason": "warned at the step: its tip names Escaped Core Hounds",
+			"evidence": "route level 51.1; Escaped Core Hound 60-60 x2; recordings (2026-11-13): 1 person did the objective (median level 52.1), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
 			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.3|rare",
 			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
 			"goal": "kill 3823.3",
@@ -4124,6 +4733,32 @@
 			"evidence": "route level 52; Malfunctioning Reaver 56-56; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|use 4726.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "use 4726.1",
+			"kind": "rare",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52,
+			"mobs": [
+				"Malfunctioning Reaver 56-56"
+			],
+			"reason": "warned at the step: its tip names Malfunctioning Reaver",
+			"evidence": "route level 52; Malfunctioning Reaver 56-56 about 65 yd from the Black Broodling at 81.0,28.2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4726.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4726.1",
+			"kind": "pack",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52,
+			"mobs": [
+				"8 spawns 54+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
+			"evidence": "route level 52; 8 spawns 54+; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4283.1|mixed",
 			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
 			"goal": "collect 4283.1",
@@ -4140,6 +4775,19 @@
 			],
 			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
 			"evidence": "route level 52; Giant Ember Worg 55-56, Blackrock Slayer 56-57, Blackrock Warlock 56-57, Blackrock Sorcerer 55-56, Blackrock Soldier 55-56, Blackrock Battlemaster 57-58; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4283.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4283.1",
+			"kind": "over",
+			"title": "Blackrock Stronghold",
+			"level": 52.3,
+			"mobs": [
+				"Firesworn 60-61 x2"
+			],
+			"reason": "warned at the step: its tip names Firesworn",
+			"evidence": "route level 52.3; Firesworn 60-61 x2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
 			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4296.1|rare",
@@ -4245,6 +4893,19 @@
 			],
 			"reason": "no recordings at this level yet: listed on #1702 for the next round with recordings",
 			"evidence": "route level 52.5; Servant of Razelikh 57-57, Servant of Sevine 55-56; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 3501.1|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 3501.1",
+			"kind": "elite",
+			"title": "Kum'isha the Collector",
+			"level": 52.5,
+			"mobs": [
+				"Vek'zol 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Vek'zol",
+			"evidence": "route level 52.5; Vek'zol 55-55 x2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/alliance/50-60/02-felwood.guide|kill 5156.1|elite",
@@ -4863,8 +5524,21 @@
 			"evidence": "route level 57.4; Precious 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/alliance/50-60/05-silithus.guide|kill npc 8529|elite",
-			"guide": "forever/alliance/50-60/05-silithus.guide",
+			"key": "forever/alliance/50-60/06-silithus.guide|collect 4084.2|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "collect 4084.2",
+			"kind": "elite",
+			"title": "Irontree Woods",
+			"level": 57.9,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x2"
+			],
+			"reason": "warned at the step: its tip names Ancient Irontree Walkers",
+			"evidence": "route level 57.9; Ancient Irontree Walker 59-59 x2; recordings (2026-11-13): 1 person did the objective (median level 58.5), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|kill npc 8529|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
 			"goal": "kill npc 8529",
 			"kind": "elite",
 			"title": "Scourge Champions",
@@ -4890,6 +5564,19 @@
 			],
 			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight",
 			"evidence": "route level 58.6; Crimson Templar 60-60 x2, Azure Templar 60-60 x2, Hoary Templar 60-60 x2, Earthen Templar 60-60 x2; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|collect 5086.1|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "collect 5086.1",
+			"kind": "elite",
+			"title": "Toxic Horrors",
+			"level": 58.9,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x2"
+			],
+			"reason": "warned at the step: its tip names Ancient Irontree Walkers; the arrow points at the Toxic Horror farthest from them",
+			"evidence": "route level 58.9; Ancient Irontree Walker 59-59 x2; recordings (2026-11-13): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/alliance/dwarf/01-dun-morogh.guide|collect 98321.1|rare",
@@ -5128,6 +5815,71 @@
 			],
 			"reason": "players do it (17 people, median 13); the 2 who died there fought other mobs (Elder Black Bear, Mountain Boar, Mountaineer Kamdar), not Wood Lurker",
 			"evidence": "route level 13.1; Wood Lurker 17-18; recordings (2026-11-11): done by 17 people at 11-16 (median 13), 2 people died within 60 yd (median level 13), 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 99160.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 99160.1",
+			"kind": "over",
+			"title": "Minor Ice Elemental on the way",
+			"level": 10,
+			"mobs": [
+				"Father Gavin 15-15 x2"
+			],
+			"reason": "Father Gavin, the level 15 mob counted here, is the quest's own friendly priest at the Misty Pine Refuge (he gives 99158 and 99160)",
+			"evidence": "route level 10; Father Gavin 15-15 x2; recordings (2026-11-13): done by 21 people (median 10.31), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|collect 267.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "collect 267.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"Headsplitter 15-17 x6"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; Headsplitter 15-17 x6; recordings (2026-11-13): done by 23 people (median 13.32), 1 person died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|collect 267.1|pack",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "collect 267.1",
+			"kind": "pack",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"7 spawns 14+"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; 7 spawns 14+; recordings (2026-11-13): done by 23 people (median 13.32), 1 person died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 224.1|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 224.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"Headsplitter 15-17 x2"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; Headsplitter 15-17 x2; recordings (2026-11-13): done by 21 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/dwarf/01-dun-morogh.guide|kill 224.2|over",
+			"guide": "forever/alliance/dwarf/01-dun-morogh.guide",
+			"goal": "kill 224.2",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 12.3,
+			"mobs": [
+				"Headsplitter 15-17 x3"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 12.3; Headsplitter 15-17 x3; recordings (2026-11-13): done by 24 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
 		},
 		{
 			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 98321.1|rare",
@@ -5394,6 +6146,58 @@
 			"evidence": "route level 12.9; Grizlak 15-15; recordings (2026-11-11): done by 29 people at 11-21 (median 15), 1 people died within 60 yd (median level 12), 1 abandoned"
 		},
 		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 99160.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 99160.1",
+			"kind": "over",
+			"title": "Minor Ice Elemental on the way",
+			"level": 10,
+			"mobs": [
+				"Father Gavin 15-15 x2"
+			],
+			"reason": "Father Gavin, the level 15 mob counted here, is the quest's own friendly priest at the Misty Pine Refuge (he gives 99158 and 99160)",
+			"evidence": "route level 10; Father Gavin 15-15 x2; recordings (2026-11-13): done by 21 people (median 10.31), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|collect 267.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "collect 267.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 11.6,
+			"mobs": [
+				"Headsplitter 15-17 x6"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 11.6; Headsplitter 15-17 x6; recordings (2026-11-13): done by 23 people (median 13.32), 1 person died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 224.1|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 224.1",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 11.6,
+			"mobs": [
+				"Headsplitter 15-17 x2"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 11.6; Headsplitter 15-17 x2; recordings (2026-11-13): done by 21 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/gnome/01-dun-morogh.guide|kill 224.2|over",
+			"guide": "forever/alliance/gnome/01-dun-morogh.guide",
+			"goal": "kill 224.2",
+			"kind": "over",
+			"title": "Stonesplinter troggs",
+			"level": 11.6,
+			"mobs": [
+				"Headsplitter 15-17 x3"
+			],
+			"reason": "warned at the step: its tip names Headsplitter (level 15) and says to work the camps at the valley's north edge",
+			"evidence": "route level 11.6; Headsplitter 15-17 x3; recordings (2026-11-13): done by 24 people (median 13.35), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
 			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91743.1|elite",
 			"guide": "forever/alliance/human/01-elwynn-forest.guide",
 			"goal": "collect 91743.1",
@@ -5642,6 +6446,84 @@
 			"evidence": "route level 9.4; Mine Spider 7-9 x2; recordings (2026-11-11): no objective ticks, 9 people died within 60 yd (median level 10), 1 abandoned"
 		},
 		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|kill 5624.1|rare",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "kill 5624.1",
+			"kind": "rare",
+			"title": "Guard Roberts",
+			"level": 5.9,
+			"mobs": [
+				"Matriarch Bristlefur 10-10"
+			],
+			"reason": "a rare (Matriarch Bristlefur, 10) roams near the goal; no recorded death there",
+			"evidence": "route level 5.9; Matriarch Bristlefur 10-10; recordings (2026-11-13): done by 6 people (median 6.28), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91751.1|rare",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 91751.1",
+			"kind": "rare",
+			"title": "Crystal Lake: kill these as you meet them",
+			"level": 8.3,
+			"mobs": [
+				"Elder Finseer 11-11"
+			],
+			"reason": "warned at the step: its tip names Elder Finseer (a level 11 rare murloc) and says to leave him be",
+			"evidence": "route level 8.3; Elder Finseer 11-11; recordings (2026-11-13): done by 15 people (median 8.81), 2 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 5545.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 5545.1",
+			"kind": "elite",
+			"title": "The Eastvale Logging Camp",
+			"level": 9,
+			"mobs": [
+				"Elmpaw 12-12"
+			],
+			"reason": "Elmpaw, a level 12 elite, roams the woods near the goal; recordings show at most 1 death within 60 yd",
+			"evidence": "route level 9; Elmpaw 12-12; recordings (2026-11-13): done by 42 people (median 9.47), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 83.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 83.1",
+			"kind": "elite",
+			"title": "Stone Cairn Lake",
+			"level": 9.3,
+			"mobs": [
+				"Croaky 11-11"
+			],
+			"reason": "Croaky (level 11 elite) has its own step with a group warning and a skip; players do Stone Cairn Lake's goal without dying there",
+			"evidence": "route level 9.3; Croaky 11-11; recordings (2026-11-13): done by 43 people (median 9.82), 0 people died within 60 yd, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91725.1|pack",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 91725.1",
+			"kind": "pack",
+			"title": "The gnoll camps",
+			"level": 9.3,
+			"mobs": [
+				"7 spawns 11+"
+			],
+			"reason": "a pack of higher spawns near the goal with no recorded deaths at the spot",
+			"evidence": "route level 9.3; 7 spawns 11+; recordings (2026-11-13): done by 39 people (median 10.44), 0 people died within 60 yd, 4 abandoned"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|kill 91724.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "kill 91724.1",
+			"kind": "elite",
+			"title": "Stone Cairn Lake",
+			"level": 9.8,
+			"mobs": [
+				"Elmpaw 12-12"
+			],
+			"reason": "Elmpaw, a level 12 elite, roams the woods near the goal; recordings show at most 1 death within 60 yd",
+			"evidence": "route level 9.8; Elmpaw 12-12; recordings (2026-11-13): done by 30 people (median 10.95), 1 person died within 60 yd, 1 abandoned"
+		},
+		{
 			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 459.1|pack",
 			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
 			"goal": "collect 459.1",
@@ -5760,6 +6642,19 @@
 			"evidence": "route level 10.2; Blackmoss the Fetid 13-13; recordings (2026-11-11): done by 11 people at 10-14 (median 11), 0 people died within 60 yd, 6 abandoned"
 		},
 		{
+			"key": "forever/alliance/nightelf/01-teldrassil.guide|collect 488.1|elite",
+			"guide": "forever/alliance/nightelf/01-teldrassil.guide",
+			"goal": "collect 488.1",
+			"kind": "elite",
+			"title": "Teldrassil: kill these as you meet them",
+			"level": 6.1,
+			"mobs": [
+				"Xethorr the Wicked 12-12"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; Xethorr the Wicked has its own optional group step with an elite warning",
+			"evidence": "route level 6.1; Xethorr the Wicked 12-12; recordings (2026-11-13): done by 32 people (median 6.64), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
 			"key": "forever/alliance/nightelf/02-darkshore.guide|complete 984|rare",
 			"guide": "forever/alliance/nightelf/02-darkshore.guide",
 			"goal": "complete 984",
@@ -5784,6 +6679,19 @@
 			],
 			"reason": "a rare near the goal with no recorded deaths at the spot",
 			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-11): done by 45 people at 12-22 (median 16), 0 people died within 60 yd, 10 abandoned"
+		},
+		{
+			"key": "forever/alliance/nightelf/02-darkshore.guide|collect 963.1|rare",
+			"guide": "forever/alliance/nightelf/02-darkshore.guide",
+			"goal": "collect 963.1",
+			"kind": "rare",
+			"title": "Ameth'Aran",
+			"level": 13.2,
+			"mobs": [
+				"Lady Moongazer 17-17"
+			],
+			"reason": "a rare near the goal with no recorded deaths at the spot (the same step's Highborne Relics carry the same row)",
+			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-13): done by 56 people (median 17.19), 0 people died within 60 yd, 5 abandoned"
 		},
 		{
 			"key": "forever/alliance/nightelf/02-darkshore.guide|kill 985.1|rare",
@@ -5823,6 +6731,19 @@
 			],
 			"reason": "a rare near the goal with no recorded deaths at the spot",
 			"evidence": "route level 14; Lady Moongazer 17-17; recordings (2026-11-11): done by 37 people at 13-22 (median 17), 0 people died within 60 yd, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/skyborne/01-zephras-isle.guide|collect 92515.1|rare",
+			"guide": "forever/alliance/skyborne/01-zephras-isle.guide",
+			"goal": "collect 92515.1",
+			"kind": "rare",
+			"title": "Prideclaws and Galestriders",
+			"level": 6.2,
+			"mobs": [
+				"Snapbeak the Quick 9-9 x3"
+			],
+			"reason": "a rare (Snapbeak the Quick, 9) roams among the step's Prideclaws and Galestriders; no recorded death there",
+			"evidence": "route level 6.2; Snapbeak the Quick 9-9 x3; recordings (2026-11-13): done by 23 people (median 6.51), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
 			"key": "forever/horde/02-the-barrens.guide|kill 871.3|elite",

@@ -4,7 +4,7 @@ title Western Plaguelands, Eastern Plaguelands, Feralas, Un'Goro Crater & Silith
 faction Alliance
 levels 56-58
 zone Western Plaguelands
-next forever/alliance/50-60/05-silithus
+next forever/alliance/50-60/06-silithus
 next polestar-experimental/hyjal-1
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
@@ -54,10 +54,14 @@ step The Writhing Haunt: kill these as you meet them
   kill 1817 quest 4984.1              -- Diseased Wolf
 
 step Dalson's Tears
+  tip After the farm's keys: the Scourge Cauldron stands just south-west of the farmhouse, and its Cauldron Lord beside it carries the key.
   collect 12738 quest 5059.1 @47.7,49.9 map 1422 -- Dalson Outhouse Key
   turnin 5059
   collect 12739 quest 5060.1 @48.2,49.7 map 1422 -- Dalson Cabinet Key
   turnin 5060                         -- Locked Cabinet, in the farmhouse; inside
+  collect 13195 quest 5219.1 @46.1,52.6 map 1422 -- Dalson's Tears Cauldron Key
+  turnin 5219                         -- Scourge Cauldron
+  accept 5220
 
 # ---------------------------------------------------------------- The cauldrons
 
@@ -65,6 +69,8 @@ step Chillwind Camp
   tip Ride back south to the camp.
   turnin 5402                         -- Argent Officer Pureheart
   turnin 5403
+  turnin 5220                         -- High Priestess MacDonnell
+  accept 5222
 
 step The Andorhal watchtowers
   tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
@@ -89,12 +95,6 @@ step Chillwind Camp
   turnin 5533                         -- Alchemist Arbington
   accept 5537
 
-step Dalson's Tears cauldron
-  tip The cauldron sits at Dalson's Tears, north-east of Felstone; its Cauldron Lord stands beside it.
-  collect 13195 quest 5219.1 @46.1,52.6 map 1422 -- Dalson's Tears Cauldron Key
-  turnin 5219                         -- Scourge Cauldron
-  accept 5220
-
 # ---------------------------------------------------------------- Andorhal
 
 step Andorhal
@@ -102,10 +102,6 @@ step Andorhal
   collect 12900 quest 5154.1          -- Annals of Darrowshire
   use 12627 @45.1,62.3 "Temporal Displacer"
   kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
-
-step Chillwind Camp
-  turnin 5220                         -- High Priestess MacDonnell
-  accept 5222
 
 step Writhing Haunt cauldron
   tip The cauldron sits at the Writhing Haunt, by Mulgris' farm.
@@ -291,7 +287,9 @@ step Eastern Plaguelands
 step The Undercroft
   zone Eastern Plaguelands
   tip Cross the river east to the Undercroft, the crypt in the south-west of the zone. The Torn Scroll lies inside: its key is on Infiltrator Hameya in the far north-east, done in the next guide.
+  tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
   accept 6024                         -- Torn Scroll, below ground
+  collect 14613 quest 5781.1 optional -- Taelan's Hammer, from Mercutio Filthgorger (57, elite): grouping up is advised
 
 step The Hinterlands
   zone The Hinterlands
@@ -355,6 +353,7 @@ step Darnassus
   turnin 3781                         -- Mathrengyl Bearwalker
   turnin 4986
   train class only Druid              -- Ironforge, where the next guide trains, has no druid trainer
+  train class only Warrior,Hunter,Rogue,Priest -- their trainers are in Darnassus too
   accept 3785 optional                -- Ten Morrowgrain from the Evergreen Pouch
   turnin 3785 optional
   accept 3803 optional
@@ -570,7 +569,7 @@ step Silithus: kill these as you meet them
 step Level 56.89
   when !group 2944
   when level<56.89
-  tip If you skipped The Super Snapper FX, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
+  tip If you skipped The Super Snapper FX, grind here to level 56.89 to stay on the route's plan.
   goto 54.9,31.2 map 1451 "Dredge Striker"
   level 56.89 grind 11740              -- grind on Dredge Striker
 

@@ -28,7 +28,7 @@ next forever/alliance/06-ashenvale
 
 step Auberdine
   zone Darkshore
-  tip From the dock, up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
+  tip From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.
   turnin 97926 optional                       -- Thundris Windweaver, north end of the village: Baros Alexston's reply
   accept 6123 only NightElf,Skyborne,Druid             -- Alanndarian Nightsong
   accept 729                                  -- Archaeologist Hollee
@@ -36,6 +36,12 @@ step Auberdine
   accept 4740                                 -- The WANTED poster
   accept 986                                  -- Terenthis
   accept 990                                  -- Sentinel Selarin, beside Terenthis: for Raene Wolfrunner in Astranaar, in the next guide
+
+step Lunar Fungus and Earthroot
+  only NightElf,Skyborne,Druid
+  tip On the way south to the Grove: the Lunar Fungal Blooms grow in the moonkin caves in the hills just east of Auberdine, a short way off the road; the moonkin there are irritable. Earthroot needs Herbalism: herbalists pick it all over Darkshore, anyone else brings it from Stormwind (Maria Lumere) or the Auction House.
+  collect 2449 x5 quest 6123.1 only NightElf,Skyborne -- Earthroot
+  collect 15851 x12 quest 6123.2 only NightElf,Skyborne -- Lunar Fungus
 
 step Onu
   when onquest 952
@@ -47,12 +53,6 @@ step Onu
   accept 944
 
 # ---------------------------------------------------------------- Fourth loop: the south
-
-step Lunar Fungus and Earthroot
-  only NightElf,Skyborne,Druid
-  tip The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of Auberdine; the moonkin there are irritable. Earthroot needs Herbalism: herbalists pick it all over Darkshore, anyone else brings it from Stormwind (Maria Lumere) or the Auction House.
-  collect 2449 x5 quest 6123.1 only NightElf,Skyborne -- Earthroot
-  collect 15851 x12 quest 6123.2 only NightElf,Skyborne -- Lunar Fungus
 
 step The Grove of the Ancients
   tip Grizzled Thistle Bears roam the hills around the Grove; Buzzbox 525 stands west of it among them.
@@ -135,7 +135,7 @@ step On the way
 
 step The naga
   label q98013
-  tip Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore.
+  tip Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore. Careful: Baron Marinous, an elite naga (21), walks the ruins among them: pull the naga away from him, or fight him at full health.
   collect 5273 quest 951                      -- Mathystra Relics
   kill 2181 quest 98013
   kill 2182 quest 98013
@@ -249,6 +249,17 @@ step The relics of the Barrow Dens
   turnin 98404 only Skyborne                  -- Avatar of Saeyleenan
   accept 98738 only Skyborne
 
+step Trial of the Sea Lion
+  only NightElf,Skyborne,Druid
+  zone Moonglade
+  when onquest 272
+  when has 15882
+  when has 15883
+  tip Both half pendants in your bags (the Westfall half from your last Westfall visit, the Darkshore half from the north coast): stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then take the pendant to Dendrite Starblaze with the Cat Form hand-in. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the halves at the Shrine of Remulos
+  turnin 272                                  -- Dendrite Starblaze
+  accept 5061                                 -- Dendrite Starblaze: Aquatic Form, for Mathrengyl Bearwalker
+
 step Back to Dendrite
   zone Moonglade
   only Druid
@@ -265,10 +276,17 @@ step Darnassus
   zone Darnassus
   goto 35.8,11.6 "Mathrengyl Bearwalker"
 
+step Mathrengyl Bearwalker: Aquatic Form
+  only NightElf,Skyborne,Druid
+  zone Darnassus
+  when onquest 5061
+  turnin 5061                                 -- Mathrengyl Bearwalker: Aquatic Form
+
 step To Darnassus
   only Druid
   zone Darnassus
-  tip Take the portal up to Mathrengyl, then fly back to Auberdine for the road south to Ashenvale.
+  tip Take the portal up to Mathrengyl, then fly back to Auberdine for the road south to Ashenvale. Mathrengyl is a Druid trainer: learn your new spells from him.
   turnin 98397 only NightElf,Skyborne -- Mathrengyl Bearwalker: Cat Form
   turnin 6125 only NightElf,Skyborne                   -- Mathrengyl Bearwalker: Cure Poison
+  train class                                 -- Mathrengyl Bearwalker
   fly "Auberdine"

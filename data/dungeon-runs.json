@@ -733,10 +733,10 @@
 				96394
 			],
 			"run": {
-				"guide": "forever/alliance/03-loch-modan",
+				"guide": "forever/alliance/02-westfall",
 				"after": {
-					"step": "Into Ironforge",
-					"note": "Ironforge's gate (~19.5); the door is on the city's west side, west of Afadra Dunwall"
+					"step": "Shaman training",
+					"note": "the last Stormwind stop (~16): Shamans already in Ironforge for training, the others by the Deeprun Tram; the door is on the city's west side, west of Afadra Dunwall (players' recordings: 53 people entered at a median of 15.9, most while on 02-westfall)"
 				},
 				"entrance": {
 					"map": 1455,
@@ -764,22 +764,22 @@
 			"handins": [
 				{
 					"quest": 96403,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run"
 				},
 				{
 					"quest": 96394,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run"
 				},
 				{
 					"quest": 96393,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run"
 				},
 				{
 					"quest": 98423,
-					"guide": "forever/alliance/03-loch-modan",
+					"guide": "forever/alliance/02-westfall",
 					"after": "run",
 					"when": "onquest"
 				}
@@ -788,7 +788,7 @@
 				"96395": "An Ancient Grudge: starts and ends inside (the run tip names it)"
 			},
 			"budget": {
-				"flow": "03-loch-modan +0.3 km, +7.3 min, hub visits +1.0 (mean over the starts; Human/Night Elf branches +3 within Ironforge: Filch/Afadra, the door, back), no avoidable hub revisits; Dwarf/Gnome start passed givers hub +1 (Thom Filch at ~11, 3+ over)"
+				"flow": "02-westfall: moved from 03-loch-modan's Ironforge stop (~21) to the level players run it (0.4.0 route audit); the tram round trip from the Dwarven District for the non-Shaman classes is the added travel, re-measure with the flow audit"
 			}
 		},
 		{
