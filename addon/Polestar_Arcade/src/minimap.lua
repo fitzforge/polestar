@@ -98,8 +98,13 @@ end
 function MM.Init(savedDB)
 	db = savedDB
 	if not Minimap then return end
+	-- Made the first time it shows: a hidden button costs nothing.
+	if db.minimapHidden then
+		if button then button:Hide() end
+		return
+	end
 	if not button then create() end
-	if db.minimapHidden then button:Hide() else button:Show() end
+	button:Show()
 end
 
 function MM.Toggle()
