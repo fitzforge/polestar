@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 // The danger-at-the-spot release gate (#1575): every leveling guide's kill/collect/use goals against the hostile mobs
-// around them and the route's level there (tools/lib/danger.js has the rules), compared with the reviewed baseline in
-// data/danger-baseline.json. A flag the baseline lacks fails the gate, so a route rebuild or a guide edit that sends
-// players among mobs well above them, elites or a high camp is caught before it ships.
+// around them and the route's level there, and its grinds' camps against the level each grind starts at (#2207;
+// tools/lib/danger.js has the rules), compared with the reviewed baseline in data/danger-baseline.json. A flag the
+// baseline lacks fails the gate, so a route rebuild or a guide edit that sends players among mobs well above them,
+// elites, a high camp or a grind on mobs 2+ levels over them is caught before it ships.
 //
 //   node tools/danger-gate.js --levels <Alliance.json>,<Horde.json> [options]
 //     --levels FILES       the calibrated level model's output per faction (the release audit's level run on the
@@ -69,7 +70,7 @@ function main(argv) {
 	if (opts.json) {
 		console.log(JSON.stringify({ flags: flags.length, baseline: baseline.length, census, ...result }, null, 1));
 	} else {
-		const line = (f) => `  ${f.guide} step ${f.step} "${f.title}": ${f.goal} ${f.kind} (+${f.margin}) at level ${f.level}: ${f.mobs.join(', ')}` +
+		const line = (f) => `  ${f.guide} step ${f.step} "${f.title}": ${f.goal} ${f.kind} (+${f.margin}) at level ${f.level}${f.levelEnd != null ? ' to ' + f.levelEnd : ''}: ${f.mobs.join(', ')}` +
 			(f.recordings ? ` | recordings: done by ${f.recordings.donePeople} (median ${f.recordings.doneMedian}), deaths ${f.recordings.deathPeople}, abandons ${f.recordings.abandons}` : '');
 		console.log(`danger gate: ${flags.length} flags, ${baseline.length} in the baseline`);
 		if (census) {
