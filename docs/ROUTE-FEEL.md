@@ -83,10 +83,13 @@ in game for a player following the route from the start:
 | `run-way` | Dungeons in my route on, only the quests on my way: the `when dungeon` steps without `all` |
 | `run+<choice>`, `run-way+<choice>` | either with a route choice |
 
-`modes` writes one audit per mode and faction (`<mode>-<faction>.json`); the gate
-pairs the files of the two folders by name. A player who answers per dungeon (Ask
-me, or a dungeon's own style in "Dungeons on your way") plays a mix of these; the
-modes play each choice whole (`--dungeons` with map ids plays a few dungeons).
+`modes` plays the default route and the route choices; `--with-dungeons` adds the
+`run` modes, for a release that ships dungeons in the route (both trees with the
+same flag). It writes one audit per mode and faction (`<mode>-<faction>.json`);
+the gate pairs the files of the two folders by name. A player who answers per
+dungeon (Ask me, or a dungeon's own style in "Dungeons on your way") plays a mix
+of the `run` modes; they play each choice whole (`--dungeons` with map ids plays a
+few dungeons).
 
 ## What it counts
 

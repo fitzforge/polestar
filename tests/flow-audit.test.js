@@ -150,7 +150,7 @@ test('a step or goal for the other faction is not played: a shared guide\'s `onl
 	assert.equal(run.branches[0].never_handed, 1, 'quest 2; quests 1 and 11 are the Alliance\'s');
 });
 
-test('the modes cover dungeons Skip, Run with every quest and with the quests on the way, each route choice the compiled guides hold and all of them', () => {
+test('the modes cover the default route, each route choice the compiled guides hold and all of them; with dungeons, both dungeon styles too', () => {
 	const exp = (id) => ({ id: `polestar-experimental/${id}`, category: 'Leveling', faction: 'Horde' });
 	const compiled = { guides: [
 		{ id: 'forever/horde/a', category: 'Leveling', faction: 'Horde', nextChoices: ['forever/horde/b', 'polestar-experimental/riverglades-horde-1'] },
@@ -158,10 +158,12 @@ test('the modes cover dungeons Skip, Run with every quest and with the quests on
 		{ id: 'forever/horde/e', category: 'Leveling', faction: 'Horde', nextChoices: ['forever/horde/f', 'polestar-experimental/not-compiled'] },
 		exp('riverglades-horde-1'), exp('shendralas'),
 	] };
-	assert.deepEqual(modesOf(compiled, 'Horde').map((m) => m.mode),
+	assert.deepEqual(modesOf(compiled, 'Horde').map((m) => m.mode), ['skip', 'riverglades', 'shendralas', 'riverglades+shendralas']);
+	assert.deepEqual(modesOf(compiled, 'Horde', { dungeons: true }).map((m) => m.mode),
 		['skip', 'riverglades', 'shendralas', 'riverglades+shendralas', 'run', 'run+riverglades', 'run+shendralas', 'run+riverglades+shendralas',
 			'run-way', 'run-way+riverglades', 'run-way+shendralas', 'run-way+riverglades+shendralas']);
-	assert.deepEqual(modesOf(compiled, 'Alliance').map((m) => [m.mode, m.dungeons, m.dungeonQuests]), [['skip', '', 'all'], ['run', 'all', 'all'], ['run-way', 'all', 'way']]);
+	assert.deepEqual(modesOf(compiled, 'Alliance').map((m) => [m.mode, m.dungeons, m.dungeonQuests]), [['skip', '', 'all']]);
+	assert.deepEqual(modesOf(compiled, 'Alliance', { dungeons: true }).map((m) => [m.mode, m.dungeons, m.dungeonQuests]), [['skip', '', 'all'], ['run', 'all', 'all'], ['run-way', 'all', 'way']]);
 });
 
 // A made-up audit: one guide's means, one branch with one zone.

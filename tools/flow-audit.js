@@ -4,8 +4,9 @@
 // branch (every start x class), and whether a candidate got worse than the guides that shipped.
 //
 //   node tools/flow-audit.js run --addon <dir> [options]          one audit: JSON (--out) and a report (--md)
-//   node tools/flow-audit.js modes --addon <dir> --out-dir <dir>   every way to play: dungeons off and on (both styles), each route
-//                                                                   choice and all of them, alone and with Run
+//   node tools/flow-audit.js modes --addon <dir> --out-dir <dir>   every way to play: the default route, each route choice and
+//                                                                   all of them; --with-dungeons adds dungeons in the route
+//                                                                   (both styles), alone and with the route choices
 //   node tools/flow-audit.js gate <before> <after> [--reasons F]   the gate: two audits, or two --out-dir folders
 //
 //   --addon DIR      the compiled guides: the folder holding Polestar_Guides* (and Polestar_Experimental for the route
@@ -20,6 +21,7 @@
 //   --wh-take T      near (default: lines taken where nearly free, as players do) or all
 //   --no-followups   an early hand-in's NPC's follow-ups are not taken there
 //   --no-legs        straight lines instead of the baked legs (both sides of a gate must use the same)
+//   --with-dungeons  modes: also every way with dungeons in the route (both sides of a gate must use the same)
 //   --reasons FILE   the stated reasons for accepted regressions (default data/flow-gate.json)
 // gate exits 1 when a check got worse without a reason, 0 otherwise.
 
@@ -34,7 +36,7 @@ const { compare, table, formatResult } = require('./lib/flow/gate');
 const USAGE = `usage: node tools/flow-audit.js run --addon <dir> [--data DIR] [--faction F] [--start LIST] [--class LIST] [--route LIST]
                                 [--dungeons all|IDS] [--dungeon-quests all|way] [--dynamic 037|036|off] [--wh-take near|all] [--no-followups] [--no-legs]
                                 [--out FILE] [--md FILE]
-       node tools/flow-audit.js modes --addon <dir> --out-dir <dir> [--faction F] [the run options]
+       node tools/flow-audit.js modes --addon <dir> --out-dir <dir> [--faction F] [--with-dungeons] [the run options]
        node tools/flow-audit.js gate <before.json|dir> <after.json|dir> [--reasons FILE] [--json]`;
 
 const listOf = (s) => (s ? String(s).split(',').map((x) => x.trim()).filter(Boolean) : []);
@@ -65,15 +67,16 @@ function run(opts) {
 	return 0;
 }
 
-// Every way to play a faction's route: dungeons off, and on with every dungeon quest ("run") or only the quests on the
-// way ("run-way"); each experimental route choice its guides offer and all of them together, alone and with each Run.
-// -> [{ mode, route, dungeons, dungeonQuests }]
-function modesOf(compiled, faction) {
+// Every way to play a faction's route: the default route ("skip": dungeons off), each experimental route choice its
+// guides offer and all of them together; with `dungeons`, also dungeons in the route with every dungeon quest ("run")
+// or only the quests on the way ("run-way"), alone and with the route choices. -> [{ mode, route, dungeons, dungeonQuests }]
+function modesOf(compiled, faction, { dungeons = false } = {}) {
 	const routes = routeChoices(compiled, faction);
 	const out = [{ mode: 'skip', route: [], dungeons: '', dungeonQuests: 'all' }];
 	const ways = routes.map(([label, id]) => [label, [id]]);
 	if (routes.length > 1) ways.push([routes.map(([label]) => label).join('+'), routes.map(([, id]) => id)]);
 	for (const [label, route] of ways) out.push({ mode: label, route, dungeons: '', dungeonQuests: 'all' });
+	if (!dungeons) return out;
 	for (const [run, dungeonQuests] of [['run', 'all'], ['run-way', 'way']]) {
 		out.push({ mode: run, route: [], dungeons: 'all', dungeonQuests });
 		for (const [label, route] of ways) out.push({ mode: `${run}+${label}`, route, dungeons: 'all', dungeonQuests });
@@ -87,7 +90,7 @@ function modes(opts) {
 	const dataDir = path.resolve(opts.data || DATA);
 	const base = auditOpts(opts);
 	for (const faction of opts.faction ? [opts.faction] : ['Alliance', 'Horde']) {
-		for (const m of modesOf(compiled, faction)) {
+		for (const m of modesOf(compiled, faction, { dungeons: Boolean(opts.withDungeons) })) {
 			const res = runAudit(compiled, dataDir, { ...base, faction, route: m.route, dungeons: m.dungeons, dungeonQuests: m.dungeonQuests });
 			res.mode = m.mode;
 			res.faction = faction;
@@ -139,7 +142,7 @@ function gate(opts, positional) {
 function main(argv) {
 	const [cmd, ...rest] = argv;
 	const { opts, positional, error } = parseArgs(rest, {
-		flags: ['--no-followups', '--no-legs', '--json', '--table'],
+		flags: ['--no-followups', '--no-legs', '--json', '--table', '--with-dungeons'],
 		options: ['--addon', '--data', '--faction', '--start', '--class', '--guide', '--route', '--dungeons', '--dungeon-quests', '--dynamic', '--wh-take', '--out', '--md', '--out-dir', '--reasons'],
 	});
 	if (opts.help || error || !['run', 'modes', 'gate'].includes(cmd) || (cmd !== 'gate' && !opts.addon)) {
