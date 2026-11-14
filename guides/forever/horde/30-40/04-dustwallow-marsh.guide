@@ -151,7 +151,7 @@ step Swamp Eye Jarl
   turnin 1203 optional
 
 step The Theramore Docks
-  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57.
+  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer.
   collect 5882 quest 1202.1 @71.5,51.2 map 1445 -- Underwater
 
 step Brackenwall Village

@@ -3129,6 +3129,24 @@ test('Horde 40-50/02: a character who knows Gadgetzan flies there instead of Fre
 	assert.equal(steps.filter((st) => flies(st, 'Gadgetzan') && taxi(st, false)).length, freewind.length, 'each has a Gadgetzan twin');
 });
 
+// Route feel (0.4.0 audit): flown in to Gadgetzan, the player lands beside Tran'rek, so Gadgetzan's quests come first and
+// the raceway after, with no ride back into town; the Freewind Post way keeps the road order (raceway, then the town).
+test('Horde 40-50/02: flown in to Gadgetzan, its quests come before the Mirage Raceway', { skip }, () => {
+	const steps = compiled(H40('02-feralas')).steps;
+	const taxi = (st, neg) => (st.when || []).some((p) => p.k === 'taxi' && !!p.neg === neg && p.name === 'Gadgetzan');
+	const has = (t, q) => (st) => st.goals.some((g) => g.t === t && g.quest === q);
+	const raceway = steps.findIndex((st) => st.title === 'Mirage Raceway');
+	const landed = steps.findIndex(has('turnin', 2864));
+	assert.ok(landed >= 0 && landed < raceway, 'Tran\'rek before the raceway');
+	assert.ok(taxi(steps[landed], false), 'for those who flew in');
+	for (const q of [992, 1690, 1707]) assert.ok(has('accept', q)(steps[landed]), `accept ${q} on landing`);
+	const zf = steps.findIndex((st, i) => i < raceway && taxi(st, false) && has('accept', 2865)(st));
+	assert.ok(zf > landed && (steps[zf].when || []).some((p) => p.k === 'dungeon' && !p.neg), "the Zul'Farrak pick-ups too, for its runners");
+	const back = steps.findIndex((st) => st.title === 'To Gadgetzan');
+	assert.ok(back > raceway && taxi(steps[back], true), 'the ride back into town is only for the Freewind Post way');
+	assert.ok(steps.findIndex((st, i) => i > raceway && has('turnin', 2864)(st)) > back, 'the Freewind Post way hands in at the town after the raceway');
+});
+
 test('Horde 40-50: the steps beside the elites and level 60 roamers the danger gate reviewed warn about them (#1575)', { skip }, () => {
 	for (const [n, quest, name] of [['02-feralas', 2975, "Ohk'zi"], ['02-feralas', 2974, 'Namida Grimtotem'], ['03-feralas', 699, 'Methuselah Crab'], ['03-feralas', 3128, 'Vale Screamer']]) {
 		const steps = fs.readFileSync(path.join(OFFICIAL_DIR, H40(n)), 'utf8').split(/\n(?=step )/);
@@ -12921,5 +12939,16 @@ test("#2211: Stranglethorn Vale's Wild Shore step says the charts and orders als
 		const step = fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith('step The Wild Shore\n'));
 		assert.ok(step, `${file}: a Wild Shore step`);
 		assert.match(step, /the charts and the orders lie in their tents and in the rowboat beside the larger camp/, `${file}: the rowboat`);
+	}
+});
+
+// #2222 (JohnSalchi, Orc Warrior 36): a death at the Theramore Docks, where the Captain's Footlocker lies under Theramore's
+// level 53-57 guards, is a long corpse run (his was 1,585 yards); the step says so, in the guide and its seed.
+test("#2222: Dustwallow Marsh's Theramore Docks step warns that a death there is a long run back, in the guide and its seed", () => {
+	const rel = 'forever/horde/30-40/04-dustwallow-marsh.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		const step = fs.readFileSync(file, 'utf8').split(/\n(?=step )/).find((s) => s.startsWith('step The Theramore Docks\n'));
+		assert.ok(step, `${file}: a Theramore Docks step`);
+		assert.match(step, /guards are level 53-57.*long run back from the spirit healer/, `${file}: the corpse run`);
 	}
 });

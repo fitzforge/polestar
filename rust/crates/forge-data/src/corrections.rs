@@ -1723,7 +1723,8 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 					let quests = when.as_str().and_then(|w| w.strip_prefix("onquest ")).map(|l| l.split(',').map(|q| q.trim().parse::<u32>().ok()).collect::<Option<Vec<u32>>>());
 					// (`[!]complete Q` / `[!]turnedin Q`: one quest ready to hand in, or handed in; #1952's Camping 101
 					// trainer steps wait until the profession reaches 20.)
-					let state = when.as_str().map(|w| w.trim_start_matches('!')).and_then(|w| w.strip_prefix("complete ").or_else(|| w.strip_prefix("turnedin "))).map(|q| q.trim().parse::<u32>().ok());
+					let state =
+						when.as_str().map(|w| w.trim_start_matches('!')).and_then(|w| w.strip_prefix("complete ").or_else(|| w.strip_prefix("turnedin "))).map(|q| q.trim().parse::<u32>().ok());
 					match (quests, state) {
 						(Some(Some(qs)), _) if !qs.is_empty() => {
 							for q in qs {
