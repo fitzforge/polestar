@@ -23,7 +23,7 @@ return {
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618}, just outside"] = "{npc:9618}，就在外面",
 	-- {npc:271301} Power Crystal · {quest:3761} Un'Goro Soil
-	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "",
+	["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "从现在起，捡起路过的每一块{npc:271301}（蓝色、绿色、红色、黄色）和每一堆{quest:3761}：总共25份土壤，20份给哈缪尔，5份给匹斯特苏格。",
 
 	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
@@ -172,7 +172,13 @@ return {
 	-- {area:340} Kargath · {zone:1418} Badlands
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340}建在{zone:1418}西缘的峭壁中。",
 
-	-- Step 35: Into the Searing Gorge
+	-- Step 35: The WANTED poster
+	-- {object:164867} WANTED
+	["The {object:164867} poster"] = "{object:164867}告示",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
+	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "为接下来途经{area:254}的{area:1584}之行做准备：{area:340}的{object:164867}告示要你削减副本内铁怒矮人的数量。",
+
+	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "进入{zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
@@ -180,59 +186,60 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "通往{area:254}的桥",
 
-	-- Step 36: Flame Crest
+	-- Step 37: Blackrock Depths
+	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
+	["{area:1584} is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.\nInside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the {zone:1428}."] = "{area:1584}是适合48级左右起五人小队的地下城，也是这座山里最大的一个：本任务要的是里面的铁怒矮人，你不必深入到比它们更远的地方。传送门在山体深处，从桥上沿锁链走道下去。\n副本内：铁怒卫兵、铁怒看守者和铁怒步兵。然后从传送门出来，穿过山的南出口前往{zone:1428}。",
+	-- {quest:4081} KILL ON SIGHT: Dark Iron Dwarves
+	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}：铁怒矮人，在副本内",
+
+	-- Step 38: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "从山里出来就在{area:252}旁边，那里满是55-57级的兽人。沿北边悬崖的道路向东，前往部落营地{area:251}。",
 
-	-- Step 37: Sha'ni Proudtusk
+	-- Step 39: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "沿悬崖向南前往火腹食人魔的山丘{quest:3821}。{npc:9136}的遗骸在山脚下。",
 
-	-- Step 38: Krom'Grul
+	-- Step 40: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822}在{quest:3821}的洞穴和矿道里走动；如果他不在，就清理入口周围的食人魔，直到他回来。",
 
-	-- Step 39: Ruins of Thaurissan: kill these as you meet them
+	-- Step 41: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}：沿途击杀以下目标",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "骑马向西前往挖掘场。{npc:7039} 傀儡（53级）在周围踏步巡逻，经常掉落碎片；{quest:4296} 矗立在挖掘场中央的索瑞森矮人之间。拓印它。\n黑色小龙在 {area:251} 正东的山丘中筑巢。将小龙打到濒死后，对它使用 {npc:10267} 的 {item:12284}，捕获其精华。",
 
-	-- Step 40: Flame Crest
+	-- Step 42: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "向东北回到{area:251}。",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "留着{npc:10267}的信：{quest:4808}在{zone:1452}的{area:2255}。",
 
-	-- Step 41: Kargath
+	-- Step 43: Kargath
 	-- {area:1584} Blackrock Depths
 	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "塞朵拉的下一个差事要去镇东边找鲁特维尔，然后进入{area:1584}：跳过它。",
 
-	-- Step 42: Fly to Tarren Mill
-	-- {area:272} Tarren Mill
-	["Fly to {area:272}"] = "飞往{area:272}",
+	-- Step 44: Warlord Goretooth
+	-- {area:1584} Blackrock Depths · {npc:9077} Warlord Goretooth · {area:340} Kargath
+	["The Anvilrage dwarves of your {area:1584} run: {npc:9077}, in {area:340}."] = "{area:1584}之行中的铁怒矮人：{npc:9077}，在{area:340}。",
+
+	-- Step 45: Fly to Undercity
+	-- {area:1497} Undercity
+	["Fly to {area:1497}"] = "飞往{area:1497}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
-	-- Step 43: Apothecary Lydon
-	["Inside"] = "在里面",
-
-	-- Step 44: Fly to Undercity
-	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "飞往{area:1497}",
-	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "{area:272}的飞行管理员",
-
-	-- Step 45: Harbinger Balthazad
+	-- Step 46: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}，在{object:36078}的蝙蝠管理员旁边",
 
-	-- Step 46: Oran Snakewrithe
+	-- Step 47: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825}站在{object:36082}。",
 
-	-- Step 47: Undercity
+	-- Step 48: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，在炼金房：瓶子之后在{zone:1447}装满",
 	-- {npc:5204} Apothecary Zinge
@@ -240,18 +247,18 @@ return {
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}，在{object:36073}",
 
-	-- Step 49: The Bulwark
+	-- Step 50: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "离开{zone:1458}，沿道路向东穿过{zone:1420}，前往边境上的被遗忘者要塞{area:152}。",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5405}：只有佩戴它时才会掉落天灾石。",
 
-	-- Step 50: Scarlet forward camp
+	-- Step 51: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字军前线营地",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "从{area:152}沿路向东进入{zone:1422}。血色十字军的帐篷就在费尔斯通农场再往前一点，位于{area:199}和{area:200}之间。用{object:176092}点燃指挥帐篷，并插上天灾战旗。",
 
-	-- Step 51: Janice Felstone
+	-- Step 52: Janice Felstone
 	-- {npc:10778} Janice Felstone
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "向西退回几步到费尔斯通农场，沿途第一座农场；{npc:10778}在房子里等候。",
 	["Upstairs"] = "在楼上",
@@ -272,14 +279,15 @@ return {
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "在乘坐前往{object:3202}的飞艇前，先飞往{area:1637}训练：本指南稍后经过的{zone:1458}没有猎人和萨满祭司训练师。",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "飞往{area:1637}，乘飞艇前往{object:3202}，再从那里飞往{zone:1418}西缘依悬崖而建的{area:340}。",
 	-- ["Fly to {area:1638} and train with {npc:3033} on {area:1639}, then fly to {area:1637} for the {object:3202} zeppelin."] = "飞往{area:1638}，在{area:1639}找{npc:3033}训练，然后飞往{area:1637}乘坐前往{object:3202}的飞艇。",
+	-- ["Fly to {area:272}"] = "飞往{area:272}",
 	-- ["Fly to {area:340}"] = "飞往{area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿道路向东穿过{area:28}，过河进入{area:139}；然后离开道路向北前往西北的废墟城镇{area:2627}。{npc:12384}坐在城镇边缘的一间小屋里。",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿道路向东穿过{zone:1422}，过河进入{zone:1423}；然后离开道路向北前往西北的废墟城镇{area:2627}。{npc:12384}坐在城镇边缘的一间小屋里。",
 	-- ["Free Darrowshire Spirits: talk to them"] = "释放达隆郡居民的灵魂：和它们交谈",
-	-- ["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "从现在起，捡起路过的每一块能量水晶（蓝色、绿色、红色、黄色）和每一堆{quest:3761}：总共25份土壤，20份给哈缪尔，5份给匹斯特苏格。",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "从{area:152}沿路向东进入{zone:1422}。费尔斯通农场是沿途第一座农场，{npc:10778}在房子里等候。",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "从{area:1938}向西骑到蜿蜒下降进入{area:490}的长坡道，然后沿着环形山的北壁前往{area:541}，那是建在悬崖洞穴里的营地。这里的所有人都是中立的。",
 	-- ["Gorillas"] = "猩猩",
+	-- ["Inside"] = "在里面",
 	-- ["Into {area:490}"] = "进入{area:490}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "留着诱饵：{npc:9684}是56级，第二圈会经过它的巢穴。",
 	-- ["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "保留包裹：{npc:10781}在{zone:1458}。",
@@ -326,6 +334,7 @@ return {
 	-- ["{area:139}: kill these as you meet them"] = "{area:139}：沿途击杀以下目标",
 	-- ["{area:2268} flight master"] = "{area:2268}的飞行管理员",
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}：沿途遇到就击杀",
+	-- ["{area:272} flight master"] = "{area:272}的飞行管理员",
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}让你去找{zone:1452}的{npc:9298}：留着它。",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "地精{npc:10302}坐在水晶塔正东的{area:543}。",
 	-- ["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}的鬼魂站在西南边{area:2262}的废墟里。",

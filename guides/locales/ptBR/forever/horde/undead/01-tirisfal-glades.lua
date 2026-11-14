@@ -146,30 +146,44 @@ return {
 	["/sit by her campfire until you get {spell:1229451}"] = "Use /sit junto à fogueira dela até receber {spell:1229451}",
 
 	-- Step 26: Camping 101: First Aid
+	-- {npc:5759} Nurse Neela · {skill:129} First Aid
+	["{npc:5759} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5759} a recebe quando sua perícia em {skill:129} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:5759} Nurse Neela
 	["Eleanor: for {npc:5759}"] = "Eleonora: para {npc:5759}",
 
 	-- Step 27: Camping 101: Enchanting
+	-- {npc:5695} Vance Undergloom · {skill:333} Enchanting
+	["{npc:5695} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5695} a recebe quando sua perícia em {skill:333} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:5695} Vance Undergloom
 	["Eleanor: for {npc:5695}"] = "Eleonora: para {npc:5695}",
 
 	-- Step 28: Camping 101: Herbalism
+	-- {npc:2114} Faruza · {skill:182} Herbalism
+	["{npc:2114} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2114} a recebe quando sua perícia em {skill:182} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:2114} Faruza
 	["Eleanor: for {npc:2114}"] = "Eleonora: para {npc:2114}",
 
 	-- Step 29: Camping 101: Alchemy
+	-- {npc:2132} Carolai Anise · {skill:171} Alchemy
+	["{npc:2132} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2132} a recebe quando sua perícia em {skill:171} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:2132} Carolai Anise
 	["Eleanor: for {npc:2132}"] = "Eleonora: para {npc:2132}",
 
 	-- Step 30: Camping 101: Skinning
+	-- {npc:6289} Rand Rhobart · {skill:393} Skinning
+	["{npc:6289} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6289} a recebe quando sua perícia em {skill:393} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:6289} Rand Rhobart
 	["Eleanor: for {npc:6289}"] = "Eleonora: para {npc:6289}",
 
 	-- Step 31: Camping 101: Leatherworking
+	-- {npc:3549} Shelene Rhobart · {skill:165} Leatherworking
+	["{npc:3549} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3549} a recebe quando sua perícia em {skill:165} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:3549} Shelene Rhobart
 	["Eleanor: for {npc:3549}"] = "Eleonora: para {npc:3549}",
 
 	-- Step 32: Camping 101: Tailoring
+	-- {npc:3523} Bowen Brisboise · {skill:197} Tailoring
+	["{npc:3523} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3523} a recebe quando sua perícia em {skill:197} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:3523} Bowen Brisboise
 	["Eleanor: for {npc:3523}"] = "Eleonora: para {npc:3523}",
 
@@ -359,6 +373,8 @@ return {
 	["{npc:1560}, in the inn"] = "{npc:1560}, na estalagem",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
 	["{npc:2128}: {npc:4568} in the {zone:1458} takes it"] = "{npc:2128}: {npc:4568} em {zone:1458} a recebe",
+	-- {npc:5724} Ageron Kargal · {npc:5675} Carendin Halgar · {zone:1458} Undercity
+	["{npc:5724}: {npc:5675} in the {zone:1458} takes it"] = "{npc:5724}: {npc:5675}, em {zone:1458}, a recebe",
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}, se você estava abaixo do 10 na última visita a {area:159}",
 
@@ -367,12 +383,16 @@ return {
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} espera no mausoléu na colina logo ao norte da cidade: abra o portão e lute com ele.",
 
 	-- Step 66: Carendin Halgar
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter (no name in this language: may be words)
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Ande para o sul de {area:159} até as {area:153} e desça até {zone:1458}. {npc:5675} fica no {object:36082}. O acampamento Escarlate fica logo a oeste das ruínas.",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter (no name in this language: may be words)
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Ande para o sul de {area:159} até as {area:153} e desça até {area:1497}. {npc:5675} fica no {object:36082}. O acampamento Escarlate fica logo a oeste das ruínas.",
+	-- {npc:4551} Michael Garrett
+	["{npc:4551}, the bat handler, on the way down from the Ruins"] = "{npc:4551}, o adestrador de morcegos, no caminho de descida das Ruínas",
+	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
+	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: ele só oferece {quest:1473} depois que esta for entregue",
 
 	-- Step 67: Anastasia Hartwell
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter (no name in this language: may be words)
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Ande para o sul de {area:159} até as {area:153} e desça até {zone:1458}. {npc:4568} fica no {object:36082}. O acampamento Escarlate fica logo a oeste das ruínas.",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter (no name in this language: may be words)
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "Ande para o sul de {area:159} até as {area:153} e desça até {area:1497}. {npc:4568} fica no {object:36082}. O acampamento Escarlate fica logo a oeste das ruínas.",
 
 	-- Step 68: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
@@ -403,7 +423,7 @@ return {
 	["{area:165}: kill these as you meet them"] = "{area:165}: vá matando estes pelo caminho",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
-	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades."] = "Siga a estrada para o leste. Os Horrores Sangrentos e os Espíritos Errantes assombram os túmulos no lado leste da fazenda, onde cresce {quest:99142}: Lina quer oito de cada.\nOs Frades Escarlates acampam logo a nordeste dos túmulos; {npc:1664} fica no meio deles.\nAs aranhas espreitam na mata do extremo leste da clareira.",
+	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "Siga a estrada para o leste. Os Horrores Sangrentos e os Espíritos Errantes assombram os túmulos no lado leste da fazenda, onde cresce {quest:99142}: Lina quer oito de cada.\nOs Frades Escarlates acampam logo a nordeste dos túmulos; {npc:1664} fica no meio deles.\nAs aranhas espreitam na mata do extremo leste da clareira.\nCuidado: Riptear (13) é elite e ronda a oeste e ao norte do acampamento dos Frades Escarlates: fique de olho nele antes de puxar.",
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}, na horta da fazenda",
 

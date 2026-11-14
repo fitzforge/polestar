@@ -10,21 +10,25 @@ return {
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, 여관",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840}, at the north entrance of town; walks around {area:42}: look inside the circle on the map"] = "{npc:840}, 마을 북쪽 입구. {area:42}을(를) 돌아다닙니다. 지도의 원 안을 살펴보십시오",
 
-	-- Step 3: Nightbane Shadow Weavers
+	-- Step 3: Councilman Millstipe
+	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
+	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "{area:717} 공략에서 얻은 {quest:377}: {npc:270}은(는) 마을 회관 안, 사령관 알테아 옆에 있습니다.",
+
+	-- Step 4: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "{npc:533}",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "늑대인간이 {area:42} 서쪽, 길 북쪽의 밝은나무 숲을 차지하고 있습니다. 하나씩 끌어오세요.",
 
-	-- Step 5: Nightbane Dark Runners
+	-- Step 6: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "{npc:205}",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "암흑길잡이는 {area:42} 서쪽, 길 남쪽 숲을 어슬렁거립니다.",
 
-	-- Step 7: Nightbane Vile Fangs and the Insane Ghoul
+	-- Step 8: Nightbane Vile Fangs and the Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "{npc:206}와(과) {npc:511}",
@@ -33,45 +37,45 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "",
 
-	-- Step 8: Darkshire
+	-- Step 9: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
-	["{npc:661}, by {npc:633}'s house; inside"] = "",
+	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}, {npc:633}의 집, 안",
 
-	-- Step 9: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "{area:42}에서 남서쪽 오우거 소굴로 가세요. {object:119}은(는) 입구의 야영지에 있으며 망치주먹 오우거가 지킵니다.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "{npc:272273}이(가) {quest:96138}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하세요",
 	["Below ground"] = "지하",
 
-	-- Step 10: Defias Strongbox
+	-- Step 11: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "데피아즈단 야영지는 {zone:1431} 남서쪽, {area:94} 남쪽의 {zone:1436} 경계 근처에 있습니다. 금고는 천막들 사이에 있습니다.",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "",
 
-	-- Step 12: Raven Hill Cemetery: kill these as you meet them
+	-- Step 13: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
 
-	-- Step 13: The Weathered Grave
+	-- Step 14: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
 
-	-- Step 14: Sven Yorgen's Camp
+	-- Step 15: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "{npc:311}의 야영지",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "다음 가이드에서 {zone:1453}의 {npc:1212}에게",
 
-	-- Step 15: Back to Darkshire
+	-- Step 16: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "{area:42}(으)로 돌아가기",
 	-- {npc:263} Lord Ello Ebonlocke
@@ -84,12 +88,12 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "다음 가이드에서 {zone:1453}의 {npc:482}에게",
 
-	-- Step 16: Viktori Prism'Antras
+	-- Step 17: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "",
+	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}의 집은 비행 조련사로 가는 길, 마을 동쪽 끝에 있습니다.",
 	["Inside"] = "",
 
-	-- Step 17: Fly to Menethil Harbor
+	-- Step 18: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "",
 	-- {area:42} Darkshire
@@ -119,7 +123,6 @@ return {
 	-- ["Ride east again to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "다시 동쪽의 용아귀부족 야영지로 가세요. 공격 계획서 네 묶음은 {area:1036}에 있습니다. 정예인 {npc:2091}도 야영지에 서 있습니다.",
 	-- ["Ride east again; the catapult stands at the Dragonmaw camp south of the road."] = "다시 동쪽으로 가세요. 투석기는 길 남쪽의 용아귀부족 야영지에 있습니다.",
 	-- ["Ride east to the ogre mound. {item:1349} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "동쪽의 오우거 소굴로 가세요. {item:1349}은(는) 입구의 야영지에 있으며 망치주먹 오우거가 지킵니다.",
-	-- ["Ride east to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "동쪽의 오우거 소굴로 가세요. {object:119}은(는) 입구의 야영지에 있으며 망치주먹 오우거가 지킵니다.",
 	-- ["Ride west along the road; the hermit's shack stands north-east of the {area:492}."] = "길을 따라 서쪽으로 가세요. 은둔자의 오두막은 {area:492} 북동쪽에 있습니다.",
 	-- ["Skeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp."] = "{npc:1110}, 해골 치료사, 해골 문지기가 {npc:311}의 야영지 바로 동쪽, 묘지 서쪽 구역을 차지하고 있습니다.",
 	-- ["Take the boat from Menethil's pier to {area:513} in {zone:1445}."] = "메네실 부두에서 배를 타고 {zone:1445}의 {area:513}(으)로 가세요.",
@@ -144,11 +147,8 @@ return {
 	-- ["{npc:2104}, by the keep"] = "{npc:2104}, 성채 옆",
 	-- ["{npc:2104}, in {area:2103}"] = "{area:2103}의 {npc:2104}",
 	-- ["{npc:267}, in the town hall"] = "{npc:267}, 마을 회관 안",
-	-- ["{npc:276}, at the east end of town"] = "{npc:276}, 마을 동쪽 끝",
 	-- ["{npc:4454}: for Martek in the {zone:1418}, later"] = "{npc:4454}: 나중에 {zone:1418}의 마르텍에게",
-	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661}, {npc:633}의 집 옆",
 	-- ["{npc:663}, by the town hall"] = "{npc:663}, 마을 회관 옆",
-	-- ["{npc:840}, at the north entrance of town"] = "{npc:840}, 마을 북쪽 입구",
 	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. {npc:4140}, {npc:4142}, {npc:4147}은(는) 북쪽 절반을, 소금바위 수정바실리스크, {npc:4139}, 무쇠턱 소금껍질거북은 가운데를, 소금바위 큰눈바실리스크(34-35, 당신보다 5레벨 높음: 하나씩)는 맨 남쪽을 돌아다닙니다. 독수리는 그 모든 곳 위를 맴돕니다.",
 	-- ["{quest:1738}: in {zone:1440}, on the way to {zone:1443}"] = "{quest:1738}: {zone:1443}(으)로 가는 길에 {zone:1440}에서",
 	-- ["{quest:65602}: the incubus, beside the succubus; the {item:190309} is near the {quest:1738}"] = "{quest:65602}: 서큐버스 옆의 인큐버스. {item:190309}은(는) {quest:1738} 근처에 있습니다",

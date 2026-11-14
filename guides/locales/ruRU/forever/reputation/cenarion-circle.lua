@@ -190,7 +190,7 @@ return {
 
 	-- Step 29: Encrypted Twilight Texts to Revered
 	-- {quest:8319} Encrypted Twilight Texts
-	["{quest:8319} to Revered"] = "",
+	["{quest:8319} to Revered"] = "{quest:8319} до уровня «Почтение»",
 	-- {npc:15306} Bor Wildmane · {quest:8319} Encrypted Twilight Texts · {npc:14479} Twilight Lord Everun · {item:20733} Formula: Enchant Cloak - Greater Nature Resistance · {item:22773} Pattern: Sylvan Crown
 	["Honored to Revered is 12,000 reputation. {npc:15306} takes 10 {quest:8319} for 100 reputation, again and again, until Exalted: 120 turn-ins (1,200 texts) to Revered without the quests, or about 950 texts after them. Hand in the texts you saved now. The cultists no longer count, but the Flamereavers, Twilight Keepers, Marauders and Templars count until 11,999 of 12,000 Honored, and the {npc:14479} and Prophet until Exalted. Honored opens Kania's {item:20733} (10g), Mishta's {item:22773} (5g) and Forever's new Honored patterns (7g 50s each)."] = "",
 	-- {npc:15306} Bor Wildmane
@@ -257,7 +257,6 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Abyssal Crests, Abyssal Signets and Abyssal Scepters are repeatable at {npc:15306} once their opening quests are done."] = "{item:20513}, {item:20514} и {item:20515} можно сдавать NPC {npc:15306} повторно после вводных заданий.",
 	-- ["Encrypted Twilight Texts repeats: {npc:15306} takes more texts again and again. The cultist camps are the place to farm them."] = "Задание с текстами повторяется: {npc:15306} принимает: {item:20404} – снова и снова. Фармите их в лагерях культистов.",
-	-- ["Encrypted Twilight Texts to Friendly"] = "Зашифрованные тексты Сумеречных ({item:20404}) до уровня «Дружелюбие»",
 	-- ["From here on, the {area:3454} raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation."] = "Дальше основную репутацию дают рейд {area:3454} и сдача знаков Совета Бездны (талисманы, перстни, скипетры).",
 	-- ["Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from {npc:15282}'s Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to {npc:15306}."] = "Продолжайте фармить лагеря Сумеречного Молота. В облачении культиста Сумеречного Молота и со станционным медальоном (задание «Станционный медальон» от NPC {npc:15282}) можно призывать храмовников у камней ветра ({object:180461}); {item:20513} с них сдавайте NPC {npc:15306}.",
 	-- ["Keep running the {area:3454} and turning in Abyssal Council insignia until Exalted."] = "Проходите {area:3454} и сдавайте знаки Совета Бездны до превознесения.",

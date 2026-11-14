@@ -14,9 +14,9 @@ return {
 
 	-- Step 2: Charred Wolf Meat: Auction House
 	-- {spell:2538} Charred Wolf Meat
-	["{spell:2538}: Auction House"] = "",
+	["{spell:2538}: Auction House"] = "{spell:2538}: аукцион",
 	-- {spell:2538} Charred Wolf Meat · {item:2672} Stringy Wolf Meat
-	["What {spell:2538} takes that the Auction House sells: 50 {item:2672}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:2538} takes that the Auction House sells: 50 {item:2672}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:2538} и продается на аукционе: 50 {item:2672}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 3: Charred Wolf Meat: ingredients
 	-- {spell:2538} Charred Wolf Meat
@@ -26,23 +26,23 @@ return {
 
 	-- Step 4: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire
-	["{spell:2538} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}."] = "",
+	["{spell:2538} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}."] = "{spell:2538}: оранжевый с 1 (желтый с 45, зеленый с 65, серый с 85) – около 50 приготовлений до 50. Готовьте у любого огня: у городского очага или у своего {object:29784}.",
 
 	-- Step 5: Roasted Boar Meat: Auction House
 	-- {spell:2540} Roasted Boar Meat
-	["{spell:2540}: Auction House"] = "",
+	["{spell:2540}: Auction House"] = "{spell:2540}: аукцион",
 	-- {spell:2540} Roasted Boar Meat · {item:769} Chunk of Boar Meat
-	["What {spell:2540} takes that the Auction House sells: 50 {item:769}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:2540} takes that the Auction House sells: 50 {item:769}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:2540} и продается на аукционе: 50 {item:769}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 6: Roasted Boar Meat: ingredients
 	-- {spell:2540} Roasted Boar Meat
 	["{spell:2540}: ingredients"] = "{spell:2540}: ингредиенты",
 	-- {npc:1126} Large Crag Boar · {npc:1125} Crag Boar · {zone:1426} Dun Morogh
-	["{npc:1126} (36%), {npc:1125} (34%) in {zone:1426}, or wherever the arrow points"] = "",
+	["{npc:1126} (36%), {npc:1125} (34%) in {zone:1426}, or wherever the arrow points"] = "{npc:1126} (36%), {npc:1125} (34%) – {zone:1426} или там, куда указывает стрелка",
 
 	-- Step 7: Roasted Boar Meat (1-50)
 	-- {spell:2540} Roasted Boar Meat · {object:29784} Basic Campfire
-	["{spell:2540} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}."] = "",
+	["{spell:2540} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}."] = "{spell:2540}: оранжевый с 1 (желтый с 45, зеленый с 65, серый с 85) – около 50 приготовлений до 50. Готовьте у любого огня: у городского очага или у своего {object:29784}.",
 
 	-- Step 8: Herb Baked Egg: shopping
 	-- {item:6888} Herb Baked Egg
@@ -52,15 +52,15 @@ return {
 
 	-- Step 9: Herb Baked Egg: Auction House
 	-- {item:6888} Herb Baked Egg
-	["{item:6888}: Auction House"] = "",
+	["{item:6888}: Auction House"] = "{item:6888}: аукцион",
 	-- {item:6888} Herb Baked Egg · {item:6889} Small Egg
-	["What {item:6888} takes that the Auction House sells: 50 {item:6889}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6888} takes that the Auction House sells: 50 {item:6889}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:6888} и продается на аукционе: 50 {item:6889}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 10: Herb Baked Egg: ingredients
 	-- {item:6888} Herb Baked Egg
 	["{item:6888}: ingredients"] = "",
 	-- {npc:1995} Strigid Owl · {zone:1438} Teldrassil
-	["{npc:1995} (58%) in {zone:1438}, or wherever the arrow points"] = "",
+	["{npc:1995} (58%) in {zone:1438}, or wherever the arrow points"] = "{npc:1995} (58%) – {zone:1438} или там, куда указывает стрелка",
 
 	-- Step 11: Herb Baked Egg (1-50)
 	-- {item:6888} Herb Baked Egg · {object:29784} Basic Campfire · {skill:185} Cooking · {item:2678} Mild Spices · {zone:1438} Teldrassil · {item:6889} Small Egg · {zone:1439} Darkshore · {item:6290} Brilliant Smallfish · {npc:6286} Zarrin · {area:186} Dolanaar · {item:5472} Kaldorei Spider Kabob
@@ -77,7 +77,7 @@ return {
 
 	-- Step 16: Roasted Boar Meat: ingredients
 	-- {npc:3099} Dire Mottled Boar · {zone:1411} Durotar
-	["{npc:3099} (99%) in {zone:1411}, or wherever the arrow points"] = "",
+	["{npc:3099} (99%) in {zone:1411}, or wherever the arrow points"] = "{npc:3099} (99%) – {zone:1411} или там, куда указывает стрелка",
 
 	-- Step 19: Charred Wolf Meat: ingredients
 	-- {npc:2960} Prairie Wolf Alpha · {npc:2959} Prairie Stalker · {zone:1412} Mulgore
@@ -85,7 +85,7 @@ return {
 
 	-- Step 22: Charred Wolf Meat: ingredients
 	-- {npc:1547} Decrepit Darkhound · {npc:1548} Cursed Darkhound · {zone:1420} Tirisfal Glades
-	["{npc:1547} (72%), {npc:1548} (33%) in {zone:1420}, or wherever the arrow points"] = "",
+	["{npc:1547} (72%), {npc:1548} (33%) in {zone:1420}, or wherever the arrow points"] = "{npc:1547} (72%), {npc:1548} (33%) – {zone:1420} или там, куда указывает стрелка",
 
 	-- Step 24: Journeyman Cooking
 	-- {skill:185} Cooking
@@ -95,15 +95,15 @@ return {
 
 	-- Step 25: Coyote Steak: Auction House
 	-- {spell:2541} Coyote Steak
-	["{spell:2541}: Auction House"] = "",
+	["{spell:2541}: Auction House"] = "{spell:2541}: аукцион",
 	-- {spell:2541} Coyote Steak · {item:2673} Coyote Meat
-	["What {spell:2541} takes that the Auction House sells: 40 {item:2673}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:2541} takes that the Auction House sells: 40 {item:2673}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:2541} и продается на аукционе: 40 {item:2673}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 26: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
 	["{spell:2541}: ingredients"] = "",
 	-- {npc:834} Coyote · {npc:833} Coyote Packleader · {zone:1436} Westfall
-	["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "",
+	["{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "{npc:834} (54%), {npc:833} (51%) – {zone:1436} или там, куда указывает стрелка",
 
 	-- Step 27: Coyote Steak (50-90)
 	-- {spell:2541} Coyote Steak · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {npc:235} Salma Saldean · {area:108} Sentinel Hill · {item:733} Westfall Stew · {item:724} Goretusk Liver Pie
@@ -118,15 +118,15 @@ return {
 
 	-- Step 29: Crab Cake: Auction House
 	-- {spell:2544} Crab Cake
-	["{spell:2544}: Auction House"] = "",
+	["{spell:2544}: Auction House"] = "{spell:2544}: аукцион",
 	-- {spell:2544} Crab Cake · {item:2674} Crawler Meat
-	["What {spell:2544} takes that the Auction House sells: 44 {item:2674}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:2544} takes that the Auction House sells: 44 {item:2674}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:2544} и продается на аукционе: 44 {item:2674}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 30: Crab Cake: ingredients
 	-- {spell:2544} Crab Cake
 	["{spell:2544}: ingredients"] = "",
 	-- {npc:830} Sand Crawler · {zone:1436} Westfall
-	["{npc:830} (43%) in {zone:1436}, or wherever the arrow points"] = "",
+	["{npc:830} (43%) in {zone:1436}, or wherever the arrow points"] = "{npc:830} (43%) – {zone:1436} или там, куда указывает стрелка",
 
 	-- Step 31: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1436} Westfall · {spell:3376} Curiously Tasty Omelet
@@ -139,15 +139,15 @@ return {
 
 	-- Step 33: Smoked Bear Meat: Auction House
 	-- {item:6890} Smoked Bear Meat
-	["{item:6890}: Auction House"] = "",
+	["{item:6890}: Auction House"] = "{item:6890}: аукцион",
 	-- {item:6890} Smoked Bear Meat · {item:3173} Bear Meat
-	["What {item:6890} takes that the Auction House sells: 30 {item:3173}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6890} takes that the Auction House sells: 30 {item:3173}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:6890} и продается на аукционе: 30 {item:3173}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 34: Smoked Bear Meat: ingredients
 	-- {item:6890} Smoked Bear Meat
 	["{item:6890}: ingredients"] = "",
 	-- {npc:1189} Black Bear Patriarch · {zone:1432} Loch Modan
-	["{npc:1189} (39%) in {zone:1432}, or wherever the arrow points"] = "",
+	["{npc:1189} (39%) in {zone:1432}, or wherever the arrow points"] = "{npc:1189} (39%) – {zone:1432} или там, куда указывает стрелка",
 
 	-- Step 35: Smoked Bear Meat (50-80)
 	-- {item:6890} Smoked Bear Meat · {object:29784} Basic Campfire · {item:6892} Recipe: Smoked Bear Meat · {zone:1432} Loch Modan
@@ -161,15 +161,15 @@ return {
 
 	-- Step 37: Dry Pork Ribs: Auction House
 	-- {spell:2546} Dry Pork Ribs
-	["{spell:2546}: Auction House"] = "",
+	["{spell:2546}: Auction House"] = "{spell:2546}: аукцион",
 	-- {spell:2546} Dry Pork Ribs · {item:2677} Boar Ribs
-	["What {spell:2546} takes that the Auction House sells: 52 {item:2677}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:2546} takes that the Auction House sells: 52 {item:2677}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:2546} и продается на аукционе: 52 {item:2677}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 38: Dry Pork Ribs: ingredients
 	-- {spell:2546} Dry Pork Ribs
 	["{spell:2546}: ingredients"] = "",
 	-- {npc:1191} Mangy Mountain Boar · {zone:1432} Loch Modan
-	["{npc:1191} (31%) in {zone:1432}, or wherever the arrow points"] = "",
+	["{npc:1191} (31%) in {zone:1432}, or wherever the arrow points"] = "{npc:1191} (31%) – {zone:1432} или там, куда указывает стрелка",
 
 	-- Step 39: Dry Pork Ribs (80-130)
 	-- {spell:2546} Dry Pork Ribs · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1432} Loch Modan · {spell:3376} Curiously Tasty Omelet
@@ -193,7 +193,7 @@ return {
 
 	-- Step 45: Crab Cake: ingredients
 	-- {npc:3814} Spined Crawler · {npc:3812} Clattering Crawler · {zone:1439} Darkshore
-	["{npc:3814} (42%), {npc:3812} (40%) in {zone:1439}, or wherever the arrow points"] = "",
+	["{npc:3814} (42%), {npc:3812} (40%) in {zone:1439}, or wherever the arrow points"] = "{npc:3814} (42%), {npc:3812} (40%) – {zone:1439} или там, куда указывает стрелка",
 
 	-- Step 46: Crab Cake (90-130)
 	-- {spell:2544} Crab Cake · {object:29784} Basic Campfire · {skill:185} Cooking · {zone:1439} Darkshore · {spell:3376} Curiously Tasty Omelet
@@ -207,19 +207,19 @@ return {
 
 	-- Step 48: Strider Stew: Auction House
 	-- {item:5477} Strider Stew
-	["{item:5477}: Auction House"] = "",
+	["{item:5477}: Auction House"] = "{item:5477}: аукцион",
 	-- {item:5477} Strider Stew · {item:5469} Strider Meat
-	["What {item:5477} takes that the Auction House sells: 52 {item:5469}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:5477} takes that the Auction House sells: 52 {item:5469}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:5477} и продается на аукционе: 52 {item:5469}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 49: Strider Stew: ingredients
 	-- {item:5477} Strider Stew
 	["{item:5477}: ingredients"] = "{item:5477}: ингредиенты",
 	-- {npc:3246} Fleeting Plainstrider · {zone:1413} The Barrens
-	["{npc:3246} (32%) in {zone:1413}, or wherever the arrow points"] = "",
+	["{npc:3246} (32%) in {zone:1413}, or wherever the arrow points"] = "{npc:3246} (32%) – {zone:1413} или там, куда указывает стрелка",
 
 	-- Step 50: Strider Stew (50-100)
 	-- {item:5477} Strider Stew · {object:29784} Basic Campfire · {item:5486} Recipe: Strider Stew
-	["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "",
+	["{item:5477} is orange from 50 (yellow at 90, green at 110, grey at 130): about 52 crafts to 100. Cook at any fire: a town hearth or your own {object:29784}. {item:5486} costs 4s 40c at its vendor; the arrow picks the nearest one of your faction."] = "{item:5477}: оранжевый с 50 (желтый с 90, зеленый с 110, серый с 130) – около 52 приготовлений до 100. Готовьте у любого огня: у городского очага или у своего {object:29784}. {item:5486} стоит у торговца 4 с 40 м; стрелка ведет к ближайшему торговцу вашей фракции.",
 
 	-- Step 51: Crispy Lizard Tail: shopping
 	-- {item:5479} Crispy Lizard Tail
@@ -229,9 +229,9 @@ return {
 
 	-- Step 52: Crispy Lizard Tail: Auction House
 	-- {item:5479} Crispy Lizard Tail
-	["{item:5479}: Auction House"] = "",
+	["{item:5479}: Auction House"] = "{item:5479}: аукцион",
 	-- {item:5479} Crispy Lizard Tail · {item:5470} Thunder Lizard Tail
-	["What {item:5479} takes that the Auction House sells: 30 {item:5470}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:5479} takes that the Auction House sells: 30 {item:5470}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:5479} и продается на аукционе: 30 {item:5470}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 53: Crispy Lizard Tail: ingredients
 	-- {item:5479} Crispy Lizard Tail
@@ -247,7 +247,7 @@ return {
 	-- {skill:185} Cooking
 	["Expert {skill:185}"] = "{skill:185}: Умелец",
 	-- {skill:185} Cooking · {item:16072} Expert Cookbook
-	["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it."] = "",
+	["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072} (1g); the arrow picks its nearest seller for your faction. Buy it and read it."] = "{skill:185}, ранг «Умелец»: предел 225; нужен навык 125 и уровень персонажа 20. Это книга: {item:16072} (1 з); стрелка ведет к ближайшему продавцу вашей фракции. Купите и прочитайте ее.",
 	-- {item:16072} Expert Cookbook · {skill:185} Cooking
 	["Buy and read {item:16072} (Expert {skill:185})"] = "Купите и прочитайте: {item:16072} ({skill:185}, «Умелец»)",
 
@@ -259,9 +259,9 @@ return {
 
 	-- Step 57: Curiously Tasty Omelet: Auction House
 	-- {spell:3376} Curiously Tasty Omelet
-	["{spell:3376}: Auction House"] = "",
+	["{spell:3376}: Auction House"] = "{spell:3376}: аукцион",
 	-- {spell:3376} Curiously Tasty Omelet · {item:3685} Raptor Egg
-	["What {spell:3376} takes that the Auction House sells: 46 {item:3685}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3376} takes that the Auction House sells: 46 {item:3685}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:3376} и продается на аукционе: 46 {item:3685}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 58: Curiously Tasty Omelet: ingredients
 	-- {spell:3376} Curiously Tasty Omelet
@@ -281,15 +281,15 @@ return {
 
 	-- Step 61: Hot Lion Chops: Auction House
 	-- {spell:3398} Hot Lion Chops
-	["{spell:3398}: Auction House"] = "",
+	["{spell:3398}: Auction House"] = "{spell:3398}: аукцион",
 	-- {spell:3398} Hot Lion Chops · {item:3731} Lion Meat
-	["What {spell:3398} takes that the Auction House sells: 45 {item:3731}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3398} takes that the Auction House sells: 45 {item:3731}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {spell:3398} и продается на аукционе: 45 {item:3731}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 62: Hot Lion Chops: ingredients
 	-- {spell:3398} Hot Lion Chops
 	["{spell:3398}: ingredients"] = "{spell:3398}: ингредиенты",
 	-- {npc:2384} Starving Mountain Lion · {zone:1424} Hillsbrad Foothills
-	["{npc:2384} (42%) in {zone:1424}, or wherever the arrow points"] = "",
+	["{npc:2384} (42%) in {zone:1424}, or wherever the arrow points"] = "{npc:2384} (42%) – {zone:1424} или там, куда указывает стрелка",
 
 	-- Step 63: Hot Lion Chops (130-175)
 	-- {spell:3398} Hot Lion Chops · {object:29784} Basic Campfire · {item:3735} Recipe: Hot Lion Chops · {item:3731} Lion Meat
@@ -304,9 +304,9 @@ return {
 
 	-- Step 65: Roast Raptor: Auction House
 	-- {item:12210} Roast Raptor
-	["{item:12210}: Auction House"] = "",
+	["{item:12210}: Auction House"] = "{item:12210}: аукцион",
 	-- {item:12210} Roast Raptor · {item:12184} Raptor Flesh
-	["What {item:12210} takes that the Auction House sells: 52 {item:12184}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:12210} takes that the Auction House sells: 52 {item:12184}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:12210} и продается на аукционе: 52 {item:12184}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 66: Roast Raptor: ingredients
 	-- {item:12210} Roast Raptor
@@ -354,9 +354,9 @@ return {
 
 	-- Step 75: Monster Omelet: Auction House
 	-- {item:12218} Monster Omelet
-	["{item:12218}: Auction House"] = "",
+	["{item:12218}: Auction House"] = "{item:12218}: аукцион",
 	-- {item:12218} Monster Omelet · {item:12207} Giant Egg
-	["What {item:12218} takes that the Auction House sells: 120 {item:12207}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:12218} takes that the Auction House sells: 120 {item:12207}. The counts drop by what your bags, bank and mail hold."] = "Что нужно для {item:12218} и продается на аукционе: 120 {item:12207}. Количество уменьшается на то, что уже лежит в сумках, банке и на почте.",
 
 	-- Step 76: Monster Omelet: ingredients
 	-- {item:12218} Monster Omelet
@@ -372,7 +372,6 @@ return {
 	-- ["Any {skill:185} trainer of your faction teaches Apprentice {skill:185} (character level 5); the arrow picks the nearest."] = "Любой учитель вашей фракции ({skill:185}) обучает навыку {skill:185}, ранг «Ученик» (уровень персонажа 5); стрелка ведет к ближайшему.",
 	-- ["Catch about 50 {item:6291} here by fishing (see the {skill:356} guide)."] = "Наловите здесь около 50 шт.: {item:6291} (см. гайд {skill:356}).",
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "Наловите здесь около 68 шт.: {item:6361} (см. гайд {skill:356}).",
-	-- ["Expert {skill:185} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16072}; the arrow picks its nearest seller for your faction. Buy it and read it."] = "{skill:185}, ранг «Умелец»: предел 225; нужен навык 125 и уровень персонажа 20. Это книга: {item:16072}; стрелка ведет к ближайшему продавцу вашей фракции. Купите и прочитайте ее.",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "{item:12207}: падает с железноклювов (зона {zone:1448}).",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "{skill:185}, ранг «Подмастерье»: предел 150; нужен навык 50 и уровень персонажа 10. Стрелка ведет к ближайшему учителю вашей фракции ({skill:185}).",
 	-- ["{area:442} docks"] = "{area:442}: причал",
@@ -386,7 +385,6 @@ return {
 	-- ["{item:5095} is orange from 50 (yellow at 90, grey at 130): about 68 crafts to 110. Cook at any fire: {object:29784} comes with {skill:185}. {skill:356} off the {area:442} docks catches {item:6361}."] = "{item:5095}: оранжевый с 50 (желтый с 90, серый с 130) – около 68 приготовлений до 110. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}. {item:6361} ловится с причала ({area:442}; {skill:356}).",
 	-- ["{item:5095}: ingredients"] = "{item:5095}: ингредиенты",
 	-- ["{item:5095}: shopping"] = "{item:5095}: покупки",
-	-- ["{item:5477} is orange from 50 (yellow at 90, grey at 130): about 52 crafts to 100. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:5477}: оранжевый с 50 (желтый с 90, серый с 130) – около 52 приготовлений до 100. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
 	-- ["{item:5479} is orange from 100 (yellow at 140, grey at 180): about 25 crafts to 125. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:5479}: оранжевый с 100 (желтый с 140, серый с 180) – около 25 приготовлений до 125. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
 	-- ["{item:5479} is orange from 125 (yellow at 140, grey at 180): about 15 crafts to 140. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:5479}: оранжевый с 125 (желтый с 140, серый с 180) – около 15 приготовлений до 140. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
 	-- ["{item:5480} is orange from 110 (yellow at 150, grey at 190): about 15 crafts to 125. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:5480}: оранжевый с 110 (желтый с 150, серый с 190) – около 15 приготовлений до 125. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
@@ -403,21 +401,8 @@ return {
 	-- ["{item:724}: ingredients"] = "{item:724}: ингредиенты",
 	-- ["{item:724}: shopping"] = "{item:724}: покупки",
 	-- ["{item:7974} has no drop data: buy it at the Gadgetzan Auction House, next to {npc:8125}, or open clams looted from coastal creatures."] = "{item:7974}: данных о добыче нет – купите на аукционе в Прибамбасске, рядом с {npc:8125}, или открывайте моллюсков с прибрежных существ.",
-	-- ["{npc:1193} (50%) in {zone:1432}, or wherever the arrow points"] = "{npc:1193} (50%) – {zone:1432} или там, куда указывает стрелка",
-	-- ["{npc:1400} (50%) in {zone:1437}, or wherever the arrow points"] = "{npc:1400} (50%) – {zone:1437} или там, куда указывает стрелка",
-	-- ["{npc:1549} (88%) in {zone:1420}, or wherever the arrow points"] = "{npc:1549} (88%) – {zone:1420} или там, куда указывает стрелка",
-	-- ["{npc:1689} (38%), {npc:1127} (36%) in {zone:1426}, or wherever the arrow points"] = "{npc:1689} (38%), {npc:1127} (36%) – {zone:1426} или там, куда указывает стрелка",
-	-- ["{npc:2385} (56%) in {zone:1424}, or wherever the arrow points"] = "{npc:2385} (56%) – {zone:1424} или там, куда указывает стрелка",
-	-- ["{npc:3099} (99%), {npc:3100} (74%) in {zone:1411}, or wherever the arrow points"] = "{npc:3099} (99%), {npc:3100} (74%) – {zone:1411} или там, куда указывает стрелка",
-	-- ["{npc:3244} (33%) in {zone:1413}, or wherever the arrow points"] = "{npc:3244} (33%) – {zone:1413} или там, куда указывает стрелка",
-	-- ["{npc:3818} (53%) in {zone:1440}, or wherever the arrow points"] = "{npc:3818} (53%) – {zone:1440} или там, куда указывает стрелка",
-	-- ["{npc:4352} (52%), {npc:4351} (51%) in {zone:1445}, or wherever the arrow points"] = "{npc:4352} (52%), {npc:4351} (51%) – {zone:1445} или там, куда указывает стрелка",
 	-- ["{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) in {zone:1443}, or wherever the arrow points"] = "{npc:4701} (55%), {npc:4702} (54%), {npc:4700} (40%) – {zone:1443} или там, куда указывает стрелка",
-	-- ["{npc:547} (35%), {npc:157} (34%) in {zone:1436}, or wherever the arrow points"] = "{npc:547} (35%), {npc:157} (34%) – {zone:1436} или там, куда указывает стрелка",
-	-- ["{npc:7099} (40%) in {zone:1448}, or wherever the arrow points"] = "{npc:7099} (40%) – {zone:1448} или там, куда указывает стрелка",
 	-- ["{quest:6610} asks for 20 {item:8932} (check the quest log); innkeepers and food vendors sell it, and the arrow picks the nearest."] = "{quest:6610}: нужно 20 шт. – {item:8932} (см. журнал заданий); продают хозяева таверн и торговцы едой, стрелка ведет к ближайшему.",
-	-- ["{spell:2538} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2538}: оранжевый с 1 (желтый с 45, серый с 85) – около 50 приготовлений до 50. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
-	-- ["{spell:2540} is orange from 1 (yellow at 45, grey at 85): about 50 crafts to 50. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:2540}: оранжевый с 1 (желтый с 45, серый с 85) – около 50 приготовлений до 50. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
 	-- ["{spell:3370} is orange from 100 (yellow at 120, grey at 160): about 26 crafts to 125. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:3370}: оранжевый с 100 (желтый с 120, серый с 160) – около 26 приготовлений до 125. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
 	-- ["{spell:3370} is yellow from 125 (yellow at 120, grey at 160): about 7 crafts to 130. Cook at any fire: {object:29784} comes with {skill:185}."] = "{spell:3370}: желтый с 125 (желтый с 120, серый с 160) – около 7 приготовлений до 130. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",
 	-- ["{spell:3370}: ingredients"] = "{spell:3370}: ингредиенты",

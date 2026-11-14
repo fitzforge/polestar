@@ -41,169 +41,98 @@ return {
 	["{area:345}: kill these as you meet them"] = "{area:345}: Töte diese, sobald sie dir begegnen",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Die Dustbelcher-Oger lagern direkt südlich des Tals; jeder von ihnen lässt Schrott fallen. Bussarde kreisen über der Ebene im Osten.\nDas zerschlagene Skelett liegt am Rand des Stonevault-Troggcamps; {quest:739}, der Mörder von Agmond, läuft zwischen den Bonesnappers umher.\nVorsicht: Dustbelcher Lords sind Stufe 44-45. Sie benutzen {spell:5242} und {spell:1160}, und unter 50 % Gesundheit rufen sie Verbündete im Umkreis von 15 Metern zu Hilfe. Sieben von ihnen stehen etwa 750 yd südlich von {area:340}.",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
 	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739} selbst (42) läuft zwischen den Bonesnappers umher: Lass ihn für den späteren Guide für {zone:1418} auf Stufe 43 übrig und töte jetzt die Bonesnappers für diese Quest.",
 
-	-- Step 10: Lotwil Veriatus
+	-- Step 10: Theldurin the Lost
+	-- {area:1517} Uldaman
+	["Theldurin sits by the ruined camp south of the trogg camp. His tablet lies just inside {area:1517}'s cave mouth, beside level 38 elites: a quest for a group."] = "Theldurin sitzt beim zerstörten Lager südlich des Troggenlagers. Seine Tafel liegt gleich hinter dem Höhleneingang von {area:1517}, neben Elites der Stufe 38: eine Quest für eine Gruppe.",
+
+	-- Step 11: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
 	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "Geh nach Westen in die {area:1878}; {npc:2921} arbeitet in der Mitte bei seinen Maschinen.",
 
-	-- Step 11: Lesser Rock Elementals
+	-- Step 12: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "Kleine Felselementare",
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
 	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Die Lesser Rock Elementals wandern durch die {area:1878} westlich von {npc:2921}; jedes Felselementar kann die Rock Elemental Shards für {npc:1470} fallen lassen.",
 
-	-- Step 13: The Ancient Chest
+	-- Step 14: The Ancient Chest
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
-	-- {zone:1418} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Geh nach Nordosten zu den Zwergenruinen im Norden der {zone:1418}; die Truhe steht zwischen den Zwergen der Schattenschmiede. {npc:2745} in der Nähe ist Elite: Gib ihm Raum.",
+	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
+	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
+	["Head north to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "Geh nach Norden zum Eingang von {area:1517} im Norden von {zone:1418}: Die Truhe liegt gleich hinter dem Höhleneingang. {npc:2932} und die Obsidian Golems (38) stehen daneben, und Shadowforge Diggers (35-36) arbeiten im Tunnel, alle Elite: Halte deine Gruppe zusammen.",
 	-- {item:4631} Tablet of Ryun'eh
 	["{item:4631}; below ground"] = "{item:4631}; unter der Erde",
 
-	-- Step 14: Valley of Fangs
-	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "Geh die Straße nach Süden: {npc:4618} und {npc:2817} lagern im {area:1877}, auf dem Weg nach {area:345}.",
+	-- Step 15: Valley of Fangs
+	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:1517} Uldaman · {area:345} Agmond's End
+	["{npc:4618} and {npc:2817} camp in the {area:1877}, on the road between {area:1517} and {area:345}."] = "{npc:4618} und {npc:2817} lagern im {area:1877}, auf der Straße zwischen {area:1517} und {area:345}.",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "Für {npc:4454} an der {area:2240}: Der Guide für {zone:1446} kommt bei Stufe 45 an ihm vorbei, behalte es",
 
-	-- Step 15: Theldurin the Lost
+	-- Step 16: Sigrun Ironhew
+	-- {area:1877} Valley of Fangs · {area:346} Hammertoe's Digsite · {npc:2860} Sigrun Ironhew
+	["East from the {area:1877} to {area:346}: {npc:2860} takes the scrap metal."] = "Vom {area:1877} nach Osten zu {area:346}: {npc:2860} nimmt den Metallschrott an.",
+
+	-- Step 17: Theldurin the Lost
 	-- {area:345} Agmond's End
 	["Head south to {area:345}."] = "Geh nach Süden zu {area:345}.",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "für {npc:2786} in {zone:1455}: behalte sie",
 
-	-- Step 16: Rock Elementals
+	-- Step 18: Rock Elementals
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental
 	["Rock Elementals"] = "Felselementare",
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Giant Buzzards = {npc:2831} Giant Buzzard · Elder Crag Coyotes = {npc:2729} Elder Crag Coyote
 	["The Rock Elementals roam south-east of {npc:2921}; Giant Buzzards and Elder Crag Coyotes share the plain to their west."] = "Die Felselementare streifen südöstlich von {npc:2921} umher; Riesenbussarde und Alte Klippenkojoten teilen sich die Ebene westlich davon.",
 
-	-- Step 17: Lotwil Veriatus
+	-- Step 19: Lotwil Veriatus
 	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
 	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "Der letzte Test von {npc:2921} ist optional: fünf {item:4628}, die nur die Greater Rock Elementals (42-44) in den südwestlichen Schluchten fallen lassen, etwa bei jedem fünften Kill, weit über deiner Stufe. Nimm ihn nur an, wenn du sie einzeln bewältigen kannst; ansonsten gib die Tafeln ab und zieh weiter.",
 
-	-- Step 18: Bracers of Rock Binding
+	-- Step 20: Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
 	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "Südwestlich in die Schluchten: Nur die Greater Rock Elementals dort lassen die Armschienen fallen.",
 
-	-- Step 20: Lucien Tosselwrench
+	-- Step 22: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
 	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}, neben {npc:2921}, tauscht gegen {item:2868}, ein Schmiedeprodukt: Dieser Schritt erscheint nur, wenn du ein Paar bei dir hast.",
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
 	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, neben {npc:2921}",
 
-	-- Step 21: To Stoutlager Inn
+	-- Step 23: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "Zum {area:2101}",
 
-	-- Step 22: Thelsamar
+	-- Step 24: Thelsamar
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, im Gasthaus; unter der Erde",
 
-	-- Step 23: Fly to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "Flieg nach {area:150}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Flugmeister in {area:144}",
-
-	-- Step 25: Theramore flight master
-	["Theramore flight master"] = "Flugmeister von Theramore",
-	-- {area:514} Foothold Citadel
-	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "Geh vom Boot aus den Pier hinauf zu Baldruc, dem Flugmeister am Tor von {area:514}.",
-
-	-- Step 26: Nijel's Point
-	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
-	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, falls 30-40/02 sie nicht angenommen hat: Das Wrack liegt unterhalb von {npc:11863}s Turm",
-
-	-- Step 27: Bibbly F'utzbuckle
-	-- {area:2407} Kormek's Hut
-	["Follow the road south to {area:2407}."] = "Folge der Straße nach Süden zu {area:2407}.",
-
-	-- Step 28: Kodo Graveyard
-	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} steht am Rand des {area:596}, südwestlich von {area:2407}; {object:176751} liegen zwischen den Skeletten.",
-
-	-- Step 29: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
-
-	-- Step 30: Maraudine centaurs
-	["Maraudine centaurs"] = "Zentauren der Maraudine",
-	-- {area:607} Valley of Spears
-	["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "Die Zentauren der Maraudine halten das {area:607} westlich des Friedhofs; jede Art lässt die Totems fallen.",
-
-	-- Step 31: Melizza Brimbuzzle
-	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs festgehalten. Befreie sie und halte sie auf dem Weg hinaus am Leben; sie bleibt am Friedhof stehen.\nVorsicht: Die geskripteten Gruppen sind verbunden und erscheinen nur während der Eskorte, du kannst sie also nicht vorher räumen oder einzeln ziehen. Die normalen Zentauren auf dem Pfad vor dem Start zu räumen hilft dagegen.",
-	-- {npc:12277} Melizza Brimbuzzle
-	["escort {npc:12277} back toward the graveyard"] = "eskortiere {npc:12277} zurück zum Friedhof",
-
-	-- Step 32: Mannoroc Coven
-	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
-	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
-	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Die Dämonen sammeln sich am {area:602} im Süden von {zone:1443}: Höllenhunde (Mana Eaters, Mage und Ley Hunters), Nether Maidens und Sisters sowie Doomwarder Captains rund um die Grube.\nVorsicht: Die meisten Mobs hier laufen Patrouillenrouten, sodass du leicht zusätzliche Mobs ziehst.",
-
-	-- Step 33: The Valley of Bones
-	-- {area:2657} Valley of Bones
-	["The {area:2657}"] = "{area:2657}",
-	-- {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the {item:15848} to draw the Magrami Spectres."] = "Untote Verheerer streifen über die Knochenfelder südlich des Dorfs der Magram, östlich des Kovens; ganz im Südosten benutzt du {item:15848}, um die Schreckgespenster der Magram anzulocken.",
-
-	-- Step 36: Azore Aldamort
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Folge der Straße nach Westen durch den Norden von {zone:1443} zu den Ruinen von {area:2405}. Dort steht {npc:11863}s Turm auf dem Hügel, auf dem Weg zum Wrack.",
-
-	-- Step 37: Karnitol's Chest
-	-- {npc:11863} Azore Aldamort
-	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "Die Truhe des Schiffswracks liegt gleich südwestlich von {npc:11863}s Turm.",
-
-	-- Step 38: Claim Rackmore's Treasure!
-	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest
-	["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} liegt neben {object:35251}. Sein silberner Schlüssel wird von den Trockenschnappkrebsen rund um das Wrack fallen gelassen; der goldene stammt von den Naga der Schlitterklingen an der Nordwestküste, als Nächstes.",
-	["Underwater"] = "Unter Wasser",
-
-	-- Step 39: Sar'theris Strand: kill these as you meet them
-	-- {area:598} Sar'theris Strand
-	["{area:598}: kill these as you meet them"] = "{area:598}: Töte diese, sobald sie dir begegnen",
-	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Die Naga der Schlitterklingen halten die Nordwestküste nördlich des Turms von {npc:11863}; Karnitols Tasche liegt davor auf dem Meeresgrund, und jeder Naga kann Rackmores goldenen Schlüssel fallen lassen. Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze und benutze {item:15766} an {object:177673}: {npc:12369} (38) erscheint; töte ihn für {quest:6027}.",
-	-- {item:15881} Rackmore's Golden Key
-	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Naga der Schlitterklingen",
-	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
-	["{item:15766}, on the {object:177673}"] = "{item:15766}, an {object:177673}",
-
-	-- Step 40: Rackmore's Chest
-	-- {object:177673} Serpent Statue (no name in this language: may be words)
-	["Rackmore's chest lies just south-east of the {object:177673}."] = "Rackmores Truhe liegt gleich südöstlich von {object:177673}.",
-
-	-- Step 43: Nijel's Point
-	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
-	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Folge der Straße nach Norden zu {area:608}: {npc:5396} steht am Südende, {npc:5638} in der Mitte, {npc:1182} im Norden.",
-	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
-	["for {npc:5637} in {zone:1455}: keep it"] = "für {npc:5637} in {zone:1455}: behalte sie",
-	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
-	["for {npc:3980} in {area:271}: keep it"] = "für {npc:3980} in {area:271}: behalte sie",
-
-	-- Step 44: Fly to Theramore
-	["Fly to Theramore"] = "Flieg nach Theramore",
-	["The next guide starts in Theramore."] = "Der nächste Guide beginnt in Theramore.",
-
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Ein {npc:217590} krabbelt im {area:596} herum: Fang einen mit dem Werkzeug aus dem Einsteigerpaket für Entomologen von {npc:217412}.",
+	-- ["Fly to Theramore"] = "Flieg nach Theramore",
+	-- ["Fly to {area:150}"] = "Flieg nach {area:150}",
 	-- ["Follow the road north to {area:608}."] = "Folge der Straße nach Norden zu {area:608}.",
+	-- ["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Folge der Straße nach Norden zu {area:608}: {npc:5396} steht am Südende, {npc:5638} in der Mitte, {npc:1182} im Norden.",
+	-- ["Follow the road south to {area:2407}."] = "Folge der Straße nach Süden zu {area:2407}.",
+	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Folge der Straße nach Westen durch den Norden von {zone:1443} zu den Ruinen von {area:2405}. Dort steht {npc:11863}s Turm auf dem Hügel, auf dem Weg zum Wrack.",
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Folge der Straße nach Westen durch den Norden von {zone:1443} zu den Ruinen von {area:2405}; die Truhe des Schiffswracks liegt gleich westlich davon am Ufer.",
 	-- ["Greater Rock Elementals"] = "Große Felselementare",
 	-- ["Head back west to the road and follow it south out of {zone:1432} through the pass into the {area:3}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Geh zurück nach Westen zur Straße und folge ihr nach Süden aus {zone:1432} durch den Pass in die {area:3}. {npc:2910} und {npc:2860} lagern Seite an Seite an der Grabungsstätte.",
 	-- ["Head north-east to the dwarven ruins in the north of the {area:3}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Geh nach Nordosten zu den Zwergenruinen im Norden der {area:3}; die Truhe steht zwischen den Zwergen der Schattenschmiede. {npc:2745} in der Nähe ist Elite: Gib ihm Raum.",
+	-- ["Head north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Geh nach Nordosten zu den Zwergenruinen im Norden der {zone:1418}; die Truhe steht zwischen den Zwergen der Schattenschmiede. {npc:2745} in der Nähe ist Elite: Gib ihm Raum.",
 	-- ["Lesser Rock Elementals"] = "Kleine Felselementare",
+	-- ["Maraudine centaurs"] = "Zentauren der Maraudine",
+	-- ["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "Geh vom Boot aus den Pier hinauf zu Baldruc, dem Flugmeister am Tor von {area:514}.",
 	-- ["Ogres and buzzards"] = "Oger und Bussarde",
+	-- ["Rackmore's chest lies just south-east of the {object:177673}."] = "Rackmores Truhe liegt gleich südöstlich von {object:177673}.",
 	-- ["Ride back west to the road and follow it south out of {zone:1432} through the pass into the {zone:1418}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Reite zurück nach Westen zur Straße und folge ihr nach Süden aus {zone:1432} durch den Pass ins {zone:1418}. {npc:2910} und {npc:2860} lagern nebeneinander bei der Ausgrabung.",
 	-- ["Ride north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "Reite nach Nordosten zur verlassenen Ausgrabung; die Vorratskiste liegt dort zwischen den Ogern der Staubspeier.",
 	-- ["Ride north-east to the dwarven ruins in the north of the {zone:1418}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Reite nach Nordosten zu den Zwergenruinen im Norden des {zone:1418}; die Truhe steht zwischen den Zwergen der Schattenschmiede. {npc:2745} in der Nähe ist Elite: Halte Abstand.",
@@ -212,28 +141,46 @@ return {
 	-- ["Shadowforge camp"] = "Lager der Schattenschmiede",
 	-- ["Take the boat to Theramore from the far pier."] = "Nimm vom hinteren Pier das Schiff nach Theramore.",
 	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east."] = "Die Oger der Staubspeier lagern gleich südlich des Tals; jeder von ihnen lässt Schrott fallen. Bussarde kreisen über der Ebene im Osten.",
-	-- ["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Die Dustbelcher-Oger lagern direkt südlich des Tals; jeder von ihnen lässt Schrott fallen. Bussarde kreisen über der Ebene im Osten.\nDas zerschlagene Skelett liegt am Rand des Stonevault-Troggcamps; {quest:739}, der Mörder von Agmond, läuft zwischen den Bonesnappers umher.\nVorsicht: Dustbelcher Lords sind Stufe 44-45. Sie benutzen Schlachtruf und Demoralisierender Ruf, und unter 50 % Gesundheit rufen sie Verbündete im Umkreis von 15 Metern zu Hilfe. Sieben von ihnen stehen etwa 750 yd südlich von {area:340}.",
 	-- ["The Greater Rock Elementals (level 42) walk the far south-west corner below {area:342}; pull them one at a time. The Dustbelcher Wyrmhunters and Maulers at {area:342} also drop scrap."] = "Die Großen Felselementare (Stufe 42) wandern in der äußersten Südwestecke unterhalb von {area:342}; zieh sie einzeln. Die Wyrmjäger und Raufer der Staubspeier bei {area:342} lassen auch Schrott fallen.",
 	-- ["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}."] = "Die Kleinen Felselementare streifen durch {area:1878} westlich von {npc:2921}.",
+	-- ["The Maraudine centaurs hold the {area:607} west of the graveyard; every kind drops the totems."] = "Die Zentauren der Maraudine halten das {area:607} westlich des Friedhofs; jede Art lässt die Totems fallen.",
+	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Die Naga der Schlitterklingen halten die Nordwestküste nördlich des Turms von {npc:11863}; Karnitols Tasche liegt davor auf dem Meeresgrund, und jeder Naga kann Rackmores goldenen Schlüssel fallen lassen. Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze und benutze {item:15766} an {object:177673}: {npc:12369} (38) erscheint; töte ihn für {quest:6027}.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Die Naga der Schlitterklingen halten die Nordwestküste nördlich des Turms von {npc:11863}; Karnitols Tasche liegt davor auf dem Meeresgrund. Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze und benutze {item:15766} an {object:177673}: {npc:12369} (38) erscheint; töte ihn für {quest:6027}.",
 	-- ["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "Das zerschlagene Skelett liegt gleich östlich der Oger, am Rand des Lagers der Steingrufttroggs; die Knochenknacker und Schamanen drumherum lassen die Splitter fallen. Theldurin sitzt weiter südlich beim zerstörten Lager.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit."] = "Die Dämonen versammeln sich bei {area:602} im Süden von {zone:1443}: Teufelshunde (Manafresser, Magier- und Leyjäger), Nethermaiden und Netherschwestern und Captains der Verdammniswächter rund um die Grube.",
+	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Die Dämonen sammeln sich am {area:602} im Süden von {zone:1443}: Höllenhunde (Mana Eaters, Mage und Ley Hunters), Nether Maidens und Sisters sowie Doomwarder Captains rund um die Grube.\nVorsicht: Die meisten Mobs hier laufen Patrouillenrouten, sodass du leicht zusätzliche Mobs ziehst.",
 	-- ["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "Der Flugmeister steht am Tor von {area:514}; {npc:5083} und {npc:4964} sind in der Zitadelle.",
 	-- ["The next guide starts in Theramore."] = "Der nächste Guide beginnt in Theramore.",
 	-- ["The skeleton's next task, Murdaloc, waits until the later {zone:1418} guide at 43."] = "Die nächste Aufgabe des Skeletts, Murdaloc, wartet bis zum späteren Guide für das {zone:1418} mit 43.",
+	-- ["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "Die Truhe des Schiffswracks liegt gleich südwestlich von {npc:11863}s Turm.",
 	-- ["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "Die Truhe des Schiffswracks liegt am Ufer gleich westlich von {npc:11863}s Turm.",
+	-- ["The {area:2657}"] = "{area:2657}",
 	-- ["Theramore"] = "Theramore",
+	-- ["Theramore flight master"] = "Flugmeister von Theramore",
+	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the {item:15848} to draw the Magrami Spectres."] = "Untote Verheerer streifen über die Knochenfelder südlich des Dorfs der Magram, östlich des Kovens; ganz im Südosten benutzt du {item:15848}, um die Schreckgespenster der Magram anzulocken.",
+	-- ["Underwater"] = "Unter Wasser",
+	-- ["escort {npc:12277} back toward the graveyard"] = "eskortiere {npc:12277} zurück zum Friedhof",
 	-- ["for the Dustwallow loop in the next guide"] = "für die Runde durch die Marschen von Dustwallow im nächsten Guide",
+	-- ["for {npc:3980} in {area:271}: keep it"] = "für {npc:3980} in {area:271}: behalte sie",
 	-- ["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "für {npc:4454} in {area:439}: Der Guide für {zone:1446} kommt mit 45 dort vorbei, behalte sie",
+	-- ["for {npc:5637} in {zone:1455}: keep it"] = "für {npc:5637} in {zone:1455}: behalte sie",
 	-- ["only if you carry {item:2868} (a blacksmith's craft)"] = "nur wenn du {item:2868} dabeihast (von Schmieden hergestellt)",
+	-- ["{area:144} flight master"] = "Flugmeister in {area:144}",
+	-- ["{area:598}: kill these as you meet them"] = "{area:598}: Töte diese, sobald sie dir begegnen",
+	-- ["{item:15766}, on the {object:177673}"] = "{item:15766}, an {object:177673}",
+	-- ["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Naga der Schlitterklingen",
 	-- ["{npc:11626}'s caravan stops on the road east of {area:606}. Take the quest and walk with the kodos past the {area:602}, killing the demons that jump them; talk to {npc:11596} at his camp east of the {area:596} afterwards."] = "Die Karawane von {npc:11626} hält an der Straße östlich von {area:606}. Nimm die Quest an und geh mit den Kodos an {area:602} vorbei; töte die Dämonen, die sie anspringen. Sprich danach mit {npc:11596} in seinem Lager östlich des {area:596}.",
 	-- ["{npc:11863}'s tower stands on the hill east of the wreck."] = "{npc:11863}s Turm steht auf dem Hügel östlich des Wracks.",
 	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs gefangen gehalten. Befrei sie und halte sie auf dem Weg hinaus am Leben; sie hält beim Friedhof an.",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Zentaurenlager westlich des Friedhofs festgehalten. Befreie sie und halte sie auf dem Weg hinaus am Leben; sie bleibt am Friedhof stehen.\nVorsicht: Die geskripteten Gruppen sind verbunden und erscheinen nur während der Eskorte, du kannst sie also nicht vorher räumen oder einzeln ziehen. Die normalen Zentauren auf dem Pfad vor dem Start zu räumen hilft dagegen.",
 	-- ["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}, ein Zentaurenhäuptling, lagert an der Nordwestküste, nördlich von {npc:11863}s Turm.",
 	-- ["{npc:1470}, in the inn"] = "{npc:1470}, im Gasthaus",
 	-- ["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}: fang ihn, für My Little Friends",
 	-- ["{npc:2921}'s next test needs crafted gear: skip it."] = "{npc:2921}s nächster Test braucht hergestellte Ausrüstung: Überspring ihn.",
 	-- ["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} und {npc:2817} lagern zusammen im {area:1877}, mitten im {area:3}.",
 	-- ["{npc:5638}'s next task, {item:6245}, is a drop on the far coast: skip it."] = "{npc:5638}s nächste Aufgabe, {item:6245}, ist eine Beute an der fernen Küste: Überspring sie.",
+	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, falls 30-40/02 sie nicht angenommen hat: Das Wrack liegt unterhalb von {npc:11863}s Turm",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} steht am Rand des {area:596}, südwestlich von {area:2407}; {object:176751} liegen zwischen den Skeletten.",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019} steht am Rand des {area:596}, südwestlich von {area:2407}; {object:176751} liegen zwischen den Skeletten. Ein {npc:217590} krabbelt auf dem Friedhof herum: Fang einen mit dem Einsteigerpaket für Entomologen und hak ihn dann ab.",
+	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} liegt neben {object:35251}. Sein silberner Schlüssel wird von den Trockenschnappkrebsen rund um das Wrack fallen gelassen; der goldene stammt von den Naga der Schlitterklingen an der Nordwestküste, als Nächstes.",
 }

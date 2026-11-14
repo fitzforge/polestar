@@ -9,11 +9,11 @@ return {
 	-- Guide
 	["Poisons (Alliance)"] = "",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever 透過這個任務鏈教授毒藥，而不是由訓練師教授；{item:7676}的配方也會一起給你。",
 
 	-- Step 1: Mathias and the Defias
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:7024} Agent Kearnen · {zone:1436} Westfall
-	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "",
+	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "20級時，{object:2100}軍情七處建築樓上的{npc:332}會派你去{zone:1436}找{npc:7024}。在Forever中要透過這個任務鏈學習毒藥，所以不要跳過。",
 
 	-- Step 2: Agent Kearnen
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
@@ -34,7 +34,7 @@ return {
 	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
 	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
 	-- {item:7908} Klaven Mortwake's Journal · {object:123214} Duskwood Chest
-	["{item:7908}: the {object:123214}, top floor"] = "",
+	["{item:7908}: the {object:123214}, top floor"] = "{item:7908}：{object:123214}，頂樓",
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
@@ -60,11 +60,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/lay down"] = "/lay down",
-	-- ["At 20 {npc:332} at SI:7 in {object:2100} sends you to {npc:7024} in {zone:1436}."] = "20級時，{object:2100}軍情七處的{npc:332}會派你去{zone:1436}找{npc:7024}。",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "全部都在{zone:1453}：加姆一家販售{item:3421}，{item:8431}就在城裡，最近的商人販售{item:3372}和{item:4371}。",
-	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "Forever 透過這個任務鏈教授{spell:2842}，而不是由訓練師教授；{item:7676}的配方也會一起給你。",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北騎過艾爾文森林前往{zone:1453}；馬迪亞斯·肖爾在{object:2100}的軍情七處。",
-	-- ["{item:7908}, in the {object:123214}"] = "{item:7908}，在{object:123214}",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024}從{zone:1436}最東邊、靠近{zone:1431}邊界的山丘上監視{npc:7053}的塔。守衛塔樓的{npc:7051}（23級）帶著鑰匙；克拉文的日記在塔頂的箱子裡。",
 	-- ["{npc:7207} works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined."] = "{npc:7207}在軍情七處兵營的地下室工作。在他旁邊輸入 /lay down 接受檢查。",
 	-- ["{spell:2842} (Alliance)"] = "{spell:2842}（聯盟）",

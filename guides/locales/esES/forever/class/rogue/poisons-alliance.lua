@@ -9,11 +9,11 @@ return {
 	-- Guide
 	["Poisons (Alliance)"] = "",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "En Forever, Venenos se aprende con esta cadena, no con el instructor; incluye la receta de {item:7676}.",
 
 	-- Step 1: Mathias and the Defias
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:7024} Agent Kearnen · {zone:1436} Westfall
-	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "",
+	["At 20 {npc:332}, upstairs in the SI:7 building in {object:2100}, sends you to {npc:7024} in {zone:1436}. This chain is how you learn Poisons on Forever, so do not skip it."] = "A nivel 20, {npc:332}, en el piso de arriba del edificio del IV:7 de {object:2100}, te envía con {npc:7024} en {zone:1436}. Esta cadena es como aprendes Venenos en Forever, así que no te la saltes.",
 
 	-- Step 2: Agent Kearnen
 	-- {npc:7053} Klaven Mortwake · {zone:1436} Westfall · {zone:1431} Duskwood · {item:8046} Kearnen's Journal
@@ -34,7 +34,7 @@ return {
 	-- plural, as words: Defias Tower Patrollers = {npc:7052} Defias Tower Patroller
 	["Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. {npc:7053}, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The {object:123214} beside his desk needs Lockpicking of about 70-75 (practise on the boxes at {area:97} in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the {spell:9810}, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out."] = "",
 	-- {item:7908} Klaven Mortwake's Journal · {object:123214} Duskwood Chest
-	["{item:7908}: the {object:123214}, top floor"] = "",
+	["{item:7908}: the {object:123214}, top floor"] = "{item:7908}: {object:123214}, piso de arriba del todo",
 
 	-- Step 5: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {item:7676} Thistle Tea · {spell:8681} Instant Poison · {item:2928} Dust of Decay · {item:3371} Empty Vial · {npc:1325} Jasper Fel · {npc:1326} Sloan McCoy · {object:2100} Old Town
@@ -60,11 +60,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["/lay down"] = "/lay down",
-	-- ["At 20 {npc:332} at SI:7 in {object:2100} sends you to {npc:7024} in {zone:1436}."] = "A nivel 20, {npc:332}, en el IV:7 de {object:2100}, te envía con {npc:7024} en {zone:1436}.",
 	-- ["Everything is in {zone:1453}: the Gumps sell {item:3421}, the {item:8431} lies in the city, and the nearest vendors sell a {item:3372} and a {item:4371}."] = "Todo está en {zone:1453}: los Gump venden {item:3421}, el {item:8431} está en la ciudad y los mercaderes más cercanos venden un {item:3372} y un {item:4371}.",
-	-- ["Forever teaches {spell:2842} through this chain, not the trainer; the {item:7676} recipe comes with it."] = "En Forever, {spell:2842} se aprende con esta cadena, no con el instructor; incluye la receta de {item:7676}.",
 	-- ["Ride north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Cabalga al norte por el Bosque de Elwynn hasta {zone:1453}; Mathias Shaw está en el IV:7, en {object:2100}.",
-	-- ["{item:7908}, in the {object:123214}"] = "{item:7908}, en el {object:123214}",
 	-- ["{npc:7024} watches {npc:7053}'s tower from the hills in the far east of {zone:1436}, by the {zone:1431} border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "{npc:7024} vigila la torre de {npc:7053} desde las colinas del extremo este de {zone:1436}, junto a la frontera con {zone:1431}. El {npc:7051} (nivel 23) que guarda la torre lleva su llave; el diario de Klaven está en el cofre de arriba.",
 	-- ["{npc:7207} works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined."] = "{npc:7207} trabaja en el sótano del IV:7, el Cuartel. Escribe /lay down a su lado para que te examine.",
 	-- ["{spell:2842} (Alliance)"] = "{spell:2842} (Alianza)",

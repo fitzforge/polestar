@@ -8,12 +8,12 @@
 return {
 	-- Guide
 	-- {area:1417} Sunken Temple
-	["Experience at 50, ending in the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50, ending in the {area:1417}; Classic's item choice may be gone on Forever."] = "Experiencia a nivel 50, con final en el {area:1417}; puede que Forever haya quitado el objeto a elegir de Classic.",
 	["Experience"] = "Experiencia",
 
 	-- Step 1: A Troubled Spirit (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:7572} Fallen Hero of the Horde · {zone:1435} Swamp of Sorrows
-	["At 50, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to the {npc:7572} in the {zone:1435}."] = "",
+	["At 50, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to the {npc:7572} in the {zone:1435}."] = "A nivel 50, {npc:5479}, junto a {npc:5480} en el edificio de los instructores de guerreros de {object:2100}, te envía con el {npc:7572} en el {zone:1435}.",
 
 	-- Step 2: A Troubled Spirit (Ironforge)
 	-- {npc:5113} Kelv Sternhammer · {zone:1455} Ironforge · {npc:7572} Fallen Hero of the Horde · {zone:1435} Swamp of Sorrows
@@ -72,8 +72,6 @@ return {
 	["In Classic the {npc:10996} let you choose the {item:20130}, the {item:20521} or the {item:20517} here. Forever's change notes say the choice is gone, though its quest page still lists three unnamed rewards: look at the reward window before you hand in."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 50, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to the {npc:7572} in the {zone:1435}."] = "A nivel 50, {npc:5479}, en el {object:2100}, junto a la taberna, te envía con el {npc:7572} en el {zone:1435}.",
-	-- ["Experience at 50, ending in the {area:1417}; Forever removed the Classic item choice."] = "Experiencia a nivel 50, con final en el {area:1417}; Forever quitó el objeto a elegir de Classic.",
 	-- ["The Helboars roam the north of the {zone:1419}, south of the {npc:10996}."] = "Los Jabinfernos recorren el norte de {zone:1419}, al sur de la {npc:10996}.",
 	-- ["The Shadowsworn cultists hold the east of the {zone:1419}."] = "Los Fieles Sombraída ocupan el este de {zone:1419}.",
 	-- ["The {area:1417} lies under the {area:74} in the east of the {zone:1435}. Each of the six Atal'ai trolls on the balcony drops a voodoo feather: Gasher or {npc:5716} the amber, Hukku or Mijan the blue, Zolo or Loro the green. The {area:1417} is a dungeon and the trolls are elite: grouping up is advised."] = "El {area:1417} está bajo la {area:74}, en el este del {zone:1435}. Cada uno de los seis trols Atal'ai del balcón suelta una pluma vudú: Gasher o {npc:5716}, la ámbar; Hukku o Mijan, la azul; Zolo o Loh'ro, la verde. El {area:1417} es una mazmorra y los trols son de élite: se recomienda ir en grupo.",

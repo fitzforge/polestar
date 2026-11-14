@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中級{skill:762}",
 	-- {skill:762} Riding
-	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "",
+	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "迅捷逐風者需要60級和中級{skill:762}。向你自己種族的騎術訓練師學習；地點請見60級坐騎指南。",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -45,10 +45,6 @@ return {
 
 	-- Step 6: Genn Fairweather
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
-	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "",
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756}在島上的港口城鎮{area:16638}的{area:17684}，靠近天空船碼頭。Forever用戶端標價每隻迅捷逐風者200金；選一隻。",
 	["200g"] = "200金",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Swift Galestriders need level 60 and Journeyman {skill:762} from a riding trainer of your faction; see the Level 60 mount guides for where."] = "迅捷逐風者需要60級，以及向你陣營騎術訓練師學習的中級{skill:762}；地點請見60級坐騎指南。",
-	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756}在島上的港口城鎮{area:16638}，靠近天空船碼頭。Forever用戶端標價每隻迅捷逐風者200金；選一隻。",
 }

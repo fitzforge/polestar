@@ -12,15 +12,15 @@ return {
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "A nivel 31, {npc:461}, en {object:2164} de {object:2101}, te envía con {npc:6266} en {area:392}. Compra antes un {item:5770} y un {item:3577} (pasos siguientes) para ahorrarte un viaje.",
 
 	-- Step 2: In Search of Menara Voidrender (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "A nivel 31, {npc:5172}, en {zone:1455}, te envía con {npc:6266} en {area:392}. Compra antes un {item:5770} y un {item:3577} (pasos siguientes) para ahorrarte un viaje.",
 
 	-- Step 3: In Search of Menara Voidrender (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "A nivel 31, {npc:3326}, en {object:172960}, te envía con {npc:6266} en {area:392}. Compra antes un {item:5770} y un {item:3577} (pasos siguientes) para ahorrarte un viaje.",
 
 	-- Step 4: In Search of Menara Voidrender (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -81,17 +81,13 @@ return {
 
 	-- Step 14: The Completed Robe
 	-- {npc:6266} Menara Voidrender · {item:6265} Soul Shard
-	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "",
+	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "Vuelve con {npc:6266} con el hilo, las brasas y un {item:6265}. Luego espera a su lado mientras trabaja la toga (no la ataques: el registro de misiones lo llama matar) y vuelve a hablar con ella.",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "Una toga de tela rara para la treintena, que {npc:6266} confecciona con las piezas que le lleves.",
-	-- ["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "A nivel 31, {npc:3326}, en {object:172960}, te envía con {npc:6266} en {area:392}.",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "A nivel 31, {npc:4563}, en {object:36082}, te envía con {npc:6266} en {area:392}. El zepelín de {zone:1420} vuela a {zone:1411}.",
-	-- ["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "A nivel 31, {npc:461}, en {object:2164} de {object:2101}, te envía con {npc:6266} en {area:392}.",
-	-- ["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "A nivel 31, {npc:5172}, en {zone:1455}, te envía con {npc:6266} en {area:392}.",
-	-- ["Back to {npc:6266} with the thread, the coal and a {item:6265}. Wait while she completes the robe, then speak to her again."] = "Vuelve con {npc:6266} con el hilo, el carbón y un {item:6265}. Espera mientras termina la toga y luego vuelve a hablar con ella.",
 	-- ["Bring {npc:6266} a {item:5770}: tailors sew it from a pattern that drops; otherwise buy one at the Auction House. Her next errand needs a {item:3577}: smelted from {item:2776}, or from the Auction House."] = "Llévale a {npc:6266} una {item:5770}: los sastres la cosen con un patrón que se obtiene como botín; si no, cómprala en la casa de subastas. Su siguiente encargo requiere una {item:3577}: se funde a partir de {item:2776} o se compra en la casa de subastas.",
 	-- ["The Burning Exiles, fire elementals in western {zone:1417}, drop the coal."] = "Los exiliados ardientes, elementales de fuego del oeste de {zone:1417}, sueltan el carbón.",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of Mannoroc Coven, in the south, the stone."] = "Los sátiros Odio Feroz de {area:603}, en el noreste de {zone:1443}, llevan la sangre; los infernales inferiores de Aquelarre Mannoroc, en el sur, la piedra.",

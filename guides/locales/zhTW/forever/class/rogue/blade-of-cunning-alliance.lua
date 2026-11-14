@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Seek out SI: 7
 	-- {npc:917} Keryn Sylvius · {area:87} Goldshire · {npc:332} Master Mathias Shaw · {zone:1453} Stormwind · {spell:921} Pick Pocket
-	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "",
+	["At 10 {npc:917}, the rogue trainer upstairs in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}. Train {spell:921} if you lack it: this chain needs it."] = "10級時，{area:87}旅店樓上的盜賊訓練師{npc:917}會給你一個包裹，交給{zone:1453}的{npc:332}。如果你還沒學{spell:921}，先去學：這個任務鏈需要它。",
 
 	-- Step 2: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
@@ -48,7 +48,7 @@ return {
 
 	-- Step 9: The Apple Falls
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {npc:4163} Syurna · {zone:1457} Darnassus
-	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "",
+	["At 10 {npc:3599}, the rogue trainer in the {area:186} inn, gives you a rose for {npc:4163} in {zone:1457}. If you lose the rose, abandon the quest and take it again."] = "10級時，{area:186}旅店的盜賊訓練師{npc:3599}會給你一朵玫瑰，交給{zone:1457}的{npc:4163}。如果你弄丟了玫瑰，放棄任務再重新接取。",
 
 	-- Step 10: Syurna
 	-- {zone:1457} Darnassus · {npc:4163} Syurna · {area:1658} Cenarion Enclave
@@ -65,8 +65,6 @@ return {
 	["Back to {npc:4163}"] = "返回{npc:4163}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 10 {npc:3599}, the rogue trainer in {area:186}, gives you a rose for {npc:4163} in {zone:1457}."] = "10級時，{area:186}的盜賊訓練師{npc:3599}會給你一朵玫瑰，交給{zone:1457}的{npc:4163}。",
-	-- ["At 10 {npc:917}, the rogue trainer in the Lion's Pride Inn in {area:87}, gives you a package for {npc:332} in {zone:1453}."] = "10級時，{area:87}旅店裡的盜賊訓練師{npc:917}會給你一個包裹，交給{zone:1453}的{npc:332}。",
 	-- ["Ride north to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北騎往{zone:1453}；馬迪亞斯·肖爾在{object:2100}的軍情七處。",
 	-- ["Ride west to {zone:1457}. {npc:4163} stands in the north-west of the city."] = "向西騎往{zone:1457}。{npc:4163}站在城市西北部。",
 	-- ["The {npc:6846} stands by the river at Elwynn's southern edge, south of {area:87}. He carries the shipping schedule."] = "{npc:6846}站在艾爾文森林南緣、{area:87}南邊的河邊。他身上帶著船運時間表。",

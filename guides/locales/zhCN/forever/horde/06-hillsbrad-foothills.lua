@@ -31,7 +31,8 @@ return {
 
 	-- Step 4: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
-	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "{area:287}镇东边的农场。{npc:232}在北边农舍旁的田里干活，{npc:2403}在更东南的那片田；到处都是希尔斯布莱德雇农和希尔斯布莱德农夫。{npc:2451}照料农场南边的田地。",
+	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
+	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms. Careful: Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "{area:287}镇东边的农场。{npc:232}在北边农舍旁的田里干活，{npc:2403}在更东南的那片田；到处都是希尔斯布莱德雇农和希尔斯布莱德农夫。{npc:2451}照料农场南边的田地。小心：肯瑞托卫兵（55级）站在农场北边、通往奥特兰克的上坡路上：待在田地里。",
 
 	-- Step 5: Mountain Lion Blood
 	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "小心：攻击一只狮子时，附近的狮子会前来支援，同一片田野上的凶猛黑熊也可能加入战斗。",
@@ -126,55 +127,83 @@ return {
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "{area:272}的飞行管理员",
 
-	-- Step 21: Fly to the Undercity
+	-- Step 21: Hadrec and Dalar Dawnweaver
+	-- {npc:1938} Dalar Dawnweaver
+	["Hadrec and {npc:1938}"] = "哈德瑞克和{npc:1938}",
+	-- {area:236} Shadowfang Keep · {npc:1952} High Executor Hadrec · {npc:1938} Dalar Dawnweaver
+	["For your {area:236} run: {npc:1952} stands below ground in the crypt, {npc:1938} just north of Allister."] = "为{area:236}之行做准备：{npc:1952}站在墓穴的地下，{npc:1938}就在奥利斯特北边。",
+	-- {npc:1952} High Executor Hadrec
+	["{npc:1952}, below ground"] = "{npc:1952}：在地下",
+
+	-- Step 22: Shadowfang Keep
+	-- {area:236} Shadowfang Keep · {area:228} The Sepulcher · {area:204} Pyrewood Village · {npc:4444} Deathstalker Vincent · {quest:1098} Deathstalkers in Shadowfang · {npc:3886} Razorclaw the Butcher · {npc:3887} Baron Silverlaine · {npc:4278} Commander Springvale · {npc:4279} Odo the Blindwatcher · {npc:4274} Fenrus the Devourer · {npc:3927} Wolf Master Nandos · {npc:4275} Archmage Arugal · {npc:1938} Dalar Dawnweaver
+	["{area:236} is a dungeon for a group of five, about levels 20 to 30, and a full run takes about an hour. Follow the road south from the {area:228}: the keep stands on the hill above {area:204}, its gate at the top of the path.\nInside: Rethilgore first; the Deathstalker freed from the cells after him opens the courtyard door, and {npc:4444} lies just inside the courtyard, to the right: hand {quest:1098} in to him there. Then {npc:3886}, {npc:3887}, {npc:4278}, {npc:4279}, {npc:4274} and {npc:3927}; {npc:4275} at the top drops his head for {npc:1938}."] = "{area:236}是适合20-30级左右五人小队的地下城，完整打一次约需一小时。从{area:228}沿道路向南：城堡位于{area:204}上方的山丘上，大门在山路顶端。\n副本内：先打雷希戈尔；在他之后从牢房里救出的亡灵卫士会打开庭院的门，{npc:4444}就躺在庭院入口内右侧：在那里把{quest:1098}交给他。然后是{npc:3886}、{npc:3887}、{npc:4278}、{npc:4279}、{npc:4274}和{npc:3927}；顶层的{npc:4275}掉落他的头颅，交给{npc:1938}。",
+	-- {quest:1014} Arugal Must Die · {item:5442} Head of Arugal
+	["{quest:1014}: the {item:5442}"] = "{quest:1014}：{item:5442}",
+
+	-- Step 23: Dalar Dawnweaver
+	-- {area:228} The Sepulcher · {npc:1938} Dalar Dawnweaver
+	["Back north up the road to the {area:228}: {npc:1938} stands just north of Allister."] = "沿道路向北返回{area:228}：{npc:1938}就站在奥利斯特北边。",
+
+	-- Step 24: Fly to the Undercity
 	-- {area:1497} Undercity
 	["Fly to the {area:1497}"] = "飞往{area:1497}",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
 	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "从墓穴东边不远处的蝙蝠管理员{npc:2226}继续飞往{area:1497}。",
 
-	-- Step 22: Aelthalyste
+	-- Step 25: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
 	["{npc:4606} stands in the {object:36070}."] = "{npc:4606}站在{object:36070}。",
 
-	-- Step 23: Master Apothecary Faranell
+	-- Step 26: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}，在炼金房",
-	-- {area:287} Hillsbrad
-	["Keep it: the {area:287} coast, later on the route"] = "留着它：{area:287}海岸，路线后面会去",
 
-	-- Step 24: Archibald
+	-- Step 27: Master Apothecary Faranell
+	-- {item:280438} Abominable Head · {area:153} Ruins of Lordaeron
+	["The {item:280438} from the {area:153}: Faranell takes it here."] = "{area:153}的{item:280438}：法拉奈尔在这里接收。",
+
+	-- Step 28: Morbin Lightbane
+	-- {area:153} Ruins of Lordaeron · {npc:266484} Morbin Lightbane · {object:36126} Royal Quarter
+	["Your {area:153} limbs: {npc:266484} stands in the {object:36126}, just past the Apothecarium."] = "{area:153}的肢体：{npc:266484}站在{object:36126}，就在炼金房再往前一点。",
+
+	-- Step 29: Oran Snakewrithe
+	-- {quest:95204} Crest of Lordaeron · {area:153} Ruins of Lordaeron · {npc:7825} Oran Snakewrithe
+	["The {quest:95204} from your {area:153} run: {npc:7825} takes it."] = "{area:153}之行得到的{quest:95204}：交给{npc:7825}。",
+
+	-- Step 30: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Warrior fastest."] = "趁在这里：向 {npc:11870} 学习 {spell:202}（{object:36070}，10 银币）；战士用双手武器升级最快。",
 
-	-- Step 25: Archibald
+	-- Step 31: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); two-handers level a Warrior fastest."] = "顺路提示：向{npc:11870}学习长柄武器（{object:36070}，1 金）；战士使用双手武器升级最快。",
 
-	-- Step 26: Archibald
+	-- Step 32: Archibald
 	-- {spell:202} Two-Handed Swords · {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn {spell:202} from {npc:11870} ({object:36070}, 10 silver); two-handers level a Paladin fastest."] = "趁在这里：向 {npc:11870} 学习 {spell:202}（{object:36070}，10 银币）；圣骑士用双手武器升级最快。",
 
-	-- Step 27: Archibald
+	-- Step 33: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Polearms from {npc:11870} ({object:36070}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "顺路提示：向{npc:11870}学习长柄武器（{object:36070}，1 金）；猎人的近战武器主要用于提供属性，双手武器的属性通常更多。",
 
-	-- Step 28: Archibald
+	-- Step 34: Archibald
 	-- {npc:11870} Archibald · {object:36070} War Quarter
 	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "顺便：在{npc:11870}处学习剑（{object:36070}，10银币）；主手持剑能让潜行者稳定升级。",
 
-	-- Step 29: Trial of the Sea Lion
+	-- Step 35: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
 	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}，先在湖西北岸的{area:2362}合并两半吊坠，再去{area:2361}找{npc:11802}。{npc:11802}在所在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}：在{area:2362}使用其中一半",
 
-	-- Step 30: Aquatic Form
+	-- Step 36: Aquatic Form
 	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "从建筑楼上的{npc:11802}处接取{quest:31}。然后到{area:2361}找{npc:11798}，他可将德鲁伊送往{area:1638}：{npc:3033}位于{area:1639}。",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}载德鲁伊飞往那里",
 
-	-- Step 31: Back to the Crossroads
+	-- Step 37: Back to the Crossroads
 	["Back to the Crossroads"] = "返回十字路口",
 	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "向{npc:3033}训练。继续飞行前，风骑士管理员东边不远处的{npc:3024}和{npc:4721}会给你两个任务，在接下来几份指南的路上完成；然后飞往十字路口，下一份指南从那里开始。",
@@ -184,15 +213,15 @@ return {
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
 	["{npc:4721}: {quest:1195}, the phial from {zone:1440}'s Laughing Sisters"] = "{npc:4721}：{quest:1195}，从{zone:1440}的欢笑姐妹身上获得小瓶",
 
-	-- Step 32: Zeppelin to Orgrimmar
+	-- Step 38: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
-	-- Step 33: Orgrimmar
+	-- Step 39: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "{zone:1454}中央",
 
-	-- Step 34: Orgrimmar
+	-- Step 40: Orgrimmar
 	["Train before you fly on: the next guide flies from here to the Crossroads."] = "继续飞行前先训练：下一份指南会从这里飞往十字路口。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -205,6 +234,7 @@ return {
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "从{zone:1454}（在{zone:1458}外的塔上乘飞艇）飞往{area:1638}，在{area:1639}训练，然后继续飞往{area:378}。",
 	-- ["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:378}."] = "从{zone:1454}（在{zone:1458}外的塔上乘飞艇）飞往{area:378}。",
 	-- ["Hearth to {area:378} and fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "用炉石回到{area:378}，飞往{area:392}。{quest:874}在{area:392}北边的海岸上扎营。",
+	-- ["Keep it: the {area:287} coast, later on the route"] = "留着它：{area:287}海岸，路线后面会去",
 	-- ["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "亡灵哨兵玛索吉躲在{area:290}上方的山坡上，位于敦霍尔德城堡南边，就在下去采花的路上。",
 	-- ["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "马索吉要你在三座山峰上各放一个药剂师之瓶。南边那座是{area:290}上方的山顶，就在他南边：在山顶使用药瓶。",
 	-- ["No Gallywix yet? The Class guide Poisons (Horde) runs the chain from Shenthul again, with a group for Gallywix."] = "还没击败加里维克斯？职业指南“毒药（部落）”会从申苏尔处重新带你做这条任务线，并组队击败加里维克斯。",

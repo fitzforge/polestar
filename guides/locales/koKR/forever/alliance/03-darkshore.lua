@@ -17,7 +17,7 @@ return {
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: {zone:1453}의 {npc:1646}에게",
 	["The WANTED poster outside the inn"] = "여관 밖의 현상수배 포스터",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "",
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, 여관 위층",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
 	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
@@ -45,7 +45,7 @@ return {
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "거북 해골",
 	-- {item:12289} Sea Turtle Remains
-	["{item:12289}, on the beach west of the docks; underwater"] = "",
+	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289}, 부두 서쪽 해변, 물속",
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "병든 곰",
@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "{area:442}에서 {area:702}(으)로 날아간 다음, 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "나이트 엘프는 {area:442}에서 {area:702}(으)로 날아가십시오. 스카이본은 {area:442} 부두에서 배를 타고 가서 루테란 비행 경로를 익히십시오. 그다음 차원문을 타고 {area:1658}의 {npc:4217}에게 올라가십시오.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -105,7 +105,7 @@ return {
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 성소 장신구는 {area:2361} 아래 {area:656} 바닥의 용기 속에 있습니다. 하나를 북서쪽의 {area:2362}(으)로 가져가 그곳에서 사용하고 {npc:11799}와(과) 대화하세요. {quest:29}에는 시간 제한이 있습니다. {npc:11799}이(가) 받을 때까지 순간이동이나 귀환석을 쓰지 마세요. 그런 다음 {area:2361}에서 {area:442}(으)로 날아 돌아오세요.",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: {area:445}에서 채집기를 채우십시오",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -152,7 +152,7 @@ return {
 	["The bay wrecks"] = "만의 난파선",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "{area:442} 북쪽 만의 바다 밑에 난파선 두 척이 있고, 각각 금고가 하나씩 있습니다. 이 해안에는 모래톱게와 등껍질 왕바닷게가 늘어서 있습니다.\n주의: 난파선 안의 멀록은 서로 가까이 있고 빠릅니다. 선체 벽과 구멍을 자주 헤엄쳐 통과하므로 대개 멀록을 더 끌어오게 됩니다.",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "",
 	-- {item:12192} Mist Veil's Lockbox
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}, {object:177624} 안에",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "{item:12347}을(를) 사용한 뒤 자브락시스를 처치하고, 땅에 떨어진 악마 가방을 클릭해 부적을 획득하십시오. 부적을 얻기 전에 자브락시스가 사라지면 퀘스트를 다시 받아 새 그릇을 받으십시오.",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
@@ -207,7 +207,6 @@ return {
 	-- ["Back to {npc:11802}"] = "{npc:11802}에게 돌아가기",
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "{area:2361}의 {npc:11802}에게 돌아간 다음, ({area:442}을(를) 거쳐) {area:702}(으)로 날아가십시오.",
 	-- ["Boat to {zone:1453}"] = "배를 타고 {zone:1453}(으)로 가십시오",
-	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. {item:15877}은(는) {area:2361} 아래 {area:656} 바닥의 용기 속에 있습니다. 하나를 북서쪽의 {area:2362}(으)로 가져가 그곳에서 사용하고 {npc:11799}와(과) 대화하세요. 그런 다음 {area:2361}에서 {area:442}(으)로 날아 돌아오세요.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있습니다. 비행 경로가 없다면 그곳에서 배우세요.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "그녀를 글레이브 밖으로 호위하십시오. 제출은 {zone:1440}의 테리실에게 합니다",
 	-- ["Fine Moonstalker Pelts"] = "고급 달표범 모피",
@@ -243,9 +242,8 @@ return {
 	-- ["The {object:12666}"] = "{object:12666}",
 	-- ["Thresher Eyes"] = "트레샤돈의 눈",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "{npc:2232}은(는) 마을 아래 해안을 따라 기어다니고, {quest:983}은(는) 부두 바로 남쪽 해변에 서 있습니다. {npc:2185}은(는) 얕은 물에서 헤엄칩니다. {quest:4723}은(는) 마을 바로 남쪽 해안에 놓여 있습니다.",
-	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "{area:442} 북쪽 만의 바다 밑에 난파선 두 척이 있고, 각각 금고가 하나씩 있습니다. 이 해안에는 모래톱게와 등껍질 왕바닷게가 늘어서 있습니다.",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450}은(는) {npc:10323}의 해변 남쪽 해안에 있습니다. 탐사가가 화석을 찾는 동안 그를 보호하십시오.",
-	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}, 부두 서쪽 해변",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}, {object:177624} 안에",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851}와(과) {item:2449}",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}: 폐허 서쪽, 북쪽 해안 앞바다 물속의 {object:177790}",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: 폐허 서쪽, 북쪽 해안 앞바다 물속의 {object:177792}",
@@ -259,7 +257,6 @@ return {
 	-- ["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298}: {item:15826}을(를) 사용하십시오. {zone:1439} 전역을 돌아다닙니다",
 	-- ["{npc:3616}, at the Grove"] = "{npc:3616}, 고대정령의 숲에서",
 	-- ["{npc:3661} hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in {zone:1440}."] = "{npc:3661}은(는) 탑 아래 암흑이교도 광신자들 사이에 숨어 있습니다. 그의 편지는 {zone:1440}의 수호자 델그렌에게 줄 수 있게 간직하십시오.",
-	-- ["{npc:3666}, by the inn"] = "{npc:3666}, 여관 옆",
 	-- ["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out."] = "{npc:3692}은(는) {area:449} 동쪽 언덕에 숨어 있습니다. 그가 길로 돌아가도록 도우십시오. 나가는 길에 그도 싸웁니다.",
 	-- ["{npc:3694}: for {npc:3691} in {area:415}, on the later {zone:1440} leg"] = "{npc:3694}: 나중의 {zone:1440} 구간에서 {area:415}의 {npc:3691}에게",
 	-- ["{npc:6667} hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}은(는) 폐허 앞바다의 작은 섬에 숨어 있습니다. 열쇠 조각은 거대한 숲타조(윗부분), 잿빛안개멀록(가운데), 사나운 모래톱게(아랫부분)에게서 떨어집니다.",

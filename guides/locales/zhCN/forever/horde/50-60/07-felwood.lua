@@ -62,14 +62,15 @@ return {
 
 	-- Step 13: Maybess Riverbreeze
 	-- {npc:9529} Maybess Riverbreeze
-	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "",
+	["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回格雷塔处的路上，在翡翠圣地西侧把碎片交给{npc:9529}。",
 
 	-- Step 14: Greta Mosshoof
 	["South to the Sanctuary once more."] = "再次向南前往翡翠圣地。",
 
 	-- Step 15: Toxic Horrors
-	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
-	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "沿{zone:1448}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动，大多数都会掉落一份液滴。",
+	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:14524} Vartrus the Ancient
+	-- plural, as words: Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
+	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "沿{zone:1448}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动，大多数都会掉落一份液滴。\n小心：59级精英远古铁木行者在{quest:5086}之间走动，{npc:14524}（63级，精英）在树林中游荡：在{area:1767}的最北端一次打一只。",
 
 	-- Step 17: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
@@ -92,6 +93,10 @@ return {
 	-- Step 24: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
 	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "信使以小队形式沿路从{area:1769}前往{area:2244}；在{npc:9298}附近的路边等候，经过时击杀。每名都携带一个箱子。\n小心：交还任务后会出现三四名56-57级冬泉伏兵攻击你；可以骑乘、潜行或使用{spell:5384}逃脱。之后它们会聚集在湖边，就能接下一个任务。",
+
+	-- Step 25: Salfa
+	-- {zone:1423} Eastern Plaguelands
+	["only if still carried: the {zone:1423} guide hands it in on its way through"] = "仅在仍带着时：{zone:1423}指南路过时会交还",
 
 	-- Step 26: Beads for Salfa
 	-- {npc:11556} Salfa
@@ -134,13 +139,7 @@ return {
 	-- {area:2255} Everlook
 	["Ride east along the road to {area:2255}."] = "沿道路向东骑往{area:2255}。",
 
-	-- Step 36: Dungeon instead of grinding
-	["Dungeon instead of grinding"] = "用地下城代替刷怪",
-	-- {area:2279} Stratholme · {area:2057} Scholomance · {area:1584} Blackrock Depths
-	["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "可选。和队伍一起刷{area:2279}、{area:2057}、黑石塔下层或{area:1584}，代替刷怪能更快到达。",
-	["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "可选：有队伍时，用一个55-60级的地下城代替下面的刷怪。",
-
-	-- Step 37: Grind to 60
+	-- Step 36: Grind to 60
 	["Grind to 60"] = "刷到60级",
 	-- {area:2249} Frostwhisper Gorge · {zone:1452} Winterspring · {area:2255} Everlook
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
@@ -154,13 +153,15 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back into the Timbermaw tunnel and take the {area:618} exit; {npc:9298} camps by the hot springs just outside."] = "回到木喉隧道，走{area:618}出口；{npc:9298}就在出口外的温泉旁扎营。",
+	-- ["Dungeon instead of grinding"] = "用地下城代替刷怪",
 	-- ["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {area:361}. The {area:2479} is the druids' camp just past the border."] = "飞往{area:431}，沿道路向西北离开{zone:1440}进入{area:361}。{area:2479}是刚过边界的德鲁伊营地。",
 	-- ["From the {zone:1458}, take the zeppelin from the tower outside the city to {zone:1454}."] = "在{zone:1458}城外的塔上乘飞艇前往{zone:1454}。",
-	-- ["On the way back south to {npc:10922}, {npc:9529} takes the shards on the west side of the Sanctuary."] = "在向南返回{npc:10922}的路上，在翡翠圣地西侧把碎片交给{npc:9529}。",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "仅当你有{quest:5087}时：信使们成小群地沿着从{area:1769}到{area:2244}的道路行走；在{npc:9298}附近的路边等候，在他们经过时杀死他们。每个都带着一个箱子。",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "仅在接有 {quest:5087} 时进行：信使以小队形式沿道路从 {area:1769} 前往 {area:2244}；在 {npc:9298} 附近路边等待，经过时击杀。每名都携带一个箱子。\n小心：交还任务后会出现三四名56—57级冬泉伏兵攻击你；可以骑乘、潜行或使用 {spell:5384} 逃脱。之后它们会聚集在湖边，你就能接下一个任务。",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "仅当{npc:9298}给了你{quest:5086}时：沿{area:361}的道路向北骑往{area:1767}；{quest:5086}在树木之间蠕动。",
 	-- ["Only with 30 {quest:6031}, and only at Neutral with the Timbermaw: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "仅当你有30块{quest:6031}，且木喉要塞声望达到中立时：沿道路向北前往{area:1769}；{npc:11557}就在入口里面交易。",
+	-- ["Optional. Running {area:2279}, {area:2057}, Lower Blackrock Spire or {area:1584} with a group instead of grinding gets you there faster."] = "可选。和队伍一起刷{area:2279}、{area:2057}、黑石塔下层或{area:1584}，代替刷怪能更快到达。",
+	-- ["Optional: with a group, a 55-60 dungeon replaces the grind below."] = "可选：有队伍时，用一个55-60级的地下城代替下面的刷怪。",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "向西北骑往{area:1763}。四个火盆立在暗影议会的建筑之间；对每一个使用净化后的水。",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "任务到这里就没了。疯狂的碎齿熊在{area:618}南部的{area:2249}潜行，位于从{area:2255}出发的道路南边。",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "穿过木喉隧道前往{area:493}。{npc:11939}在{area:2361}的一座房子里读书。",

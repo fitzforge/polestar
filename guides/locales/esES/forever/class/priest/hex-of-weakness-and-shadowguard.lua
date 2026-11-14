@@ -10,7 +10,7 @@ return {
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
 	["{quest:5652} and {quest:5642}"] = "{quest:5652} y {quest:5642}",
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
-	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "",
+	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "Los hechizos de sacerdote trol: {quest:5652} a nivel 10 y {quest:5642} a nivel 20. Gratis, sin objetivos.",
 
 	-- Step 1: Hex of Weakness: Tai'jin
 	-- {npc:3706} Tai'jin · {area:362} Razor Hill · {area:363} Valley of Trials · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
@@ -89,5 +89,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "A nivel 10, ve con {npc:6018} en {object:172961}, en el lado oeste de {zone:1454}. Los instructores de sacerdotes de otros lugares ({npc:3706} en {area:362}, {npc:3044} en {zone:1456}) te envían con él con una misión del mismo nombre.",
 	-- ["At 20, {npc:6018} teaches {quest:5642}. {npc:3044} in {zone:1456} and Aelthalyste in the {zone:1458} send you to him with a quest of the same name."] = "A nivel 20, {npc:6018} enseña {quest:5642}. {npc:3044} en {zone:1456} y Aelthalyste en {zone:1458} te envían con él con una misión del mismo nombre.",
-	-- ["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20."] = "Los hechizos de sacerdote trol: {quest:5652} a nivel 10 y {quest:5642} a nivel 20.",
 }

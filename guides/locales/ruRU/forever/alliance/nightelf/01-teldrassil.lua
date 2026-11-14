@@ -48,13 +48,13 @@ return {
 	-- {area:256} Aldrassil · {npc:3593} Alyissia · {npc:3594} Frahun Shadewhisper · {npc:3595} Shanda · {npc:3596} Ayanna Everstride · {npc:3597} Mardant Strongoak
 	["The trainers stand upstairs inside {area:256}, along the ramp that winds up the tree: {npc:3593} and {npc:3594} on the first level, {npc:3595} above them, {npc:3596} and {npc:3597} at the top. The arrow cannot tell the levels apart."] = "Учителя стоят наверху внутри древа ({area:256}), вдоль пандуса, вьющегося вверх: {npc:3593} и {npc:3594} – на первом ярусе, {npc:3595} – выше, {npc:3596} и {npc:3597} – на вершине. Стрелка не различает ярусы.",
 	-- {npc:3593} Alyissia
-	["{npc:3593}, the warrior trainer; inside"] = "",
+	["{npc:3593}, the warrior trainer; inside"] = "{npc:3593} – учитель воинов; внутри",
 	-- {npc:3596} Ayanna Everstride
 	["{npc:3596}, the hunter trainer"] = "{npc:3596} – учитель охотников",
 	-- {npc:3594} Frahun Shadewhisper
 	["{npc:3594}, the rogue trainer"] = "{npc:3594} – учитель разбойников",
 	-- {npc:3595} Shanda
-	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "",
+	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "{npc:3595} – учитель жрецов: войдите в древо через главный вход и поднимитесь по пандусу",
 	-- {npc:3597} Mardant Strongoak · {area:256} Aldrassil
 	["{npc:3597}, the druid trainer at {area:256}"] = "{npc:3597} – учитель друидов ({area:256})",
 
@@ -115,22 +115,32 @@ return {
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "Сядьте (/sit) у костра {npc:265811}, пока не получите эффект «{spell:1229451}»",
 
 	-- Step 17: Camping 101: Alchemy
+	-- {npc:3603} Cyndra Kindwhisper · {skill:171} Alchemy
+	["{npc:3603} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3603} примет его, когда ваш навык {skill:171} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265811} Lyreena Duskblade · {npc:3603} Cyndra Kindwhisper · {npc:6286} Zarrin
 	["{npc:265811}: for {npc:3603}, beside {npc:6286}"] = "{npc:265811}: для персонажа {npc:3603}, рядом с персонажем {npc:6286}",
 
 	-- Step 18: Camping 101: Herbalism
+	-- {npc:3604} Malorne Bladeleaf · {skill:182} Herbalism
+	["{npc:3604} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3604} примет его, когда ваш навык {skill:182} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265811} Lyreena Duskblade · {npc:3604} Malorne Bladeleaf · {npc:6286} Zarrin
 	["{npc:265811}: for {npc:3604}, beside {npc:6286}"] = "{npc:265811}: для персонажа {npc:3604}, рядом с персонажем {npc:6286}",
 
 	-- Step 19: Camping 101: First Aid
+	-- {npc:6094} Byancie · {skill:129} First Aid
+	["{npc:6094} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6094} примет его, когда ваш навык {skill:129} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265811} Lyreena Duskblade · {npc:6094} Byancie
 	["{npc:265811}: for {npc:6094} in the inn"] = "{npc:265811}: для персонажа {npc:6094} в таверне",
 
 	-- Step 20: Camping 101: Skinning
+	-- {npc:6287} Radnaal Maneweaver · {skill:393} Skinning
+	["{npc:6287} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6287} примет его, когда ваш навык {skill:393} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265811} Lyreena Duskblade · {npc:6287} Radnaal Maneweaver
 	["{npc:265811}: for {npc:6287}, by the road west"] = "{npc:265811}: для персонажа {npc:6287}, у дороги к западу",
 
 	-- Step 21: Camping 101: Leatherworking
+	-- {npc:3605} Nadyia Maneweaver · {skill:165} Leatherworking
+	["{npc:3605} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3605} примет его, когда ваш навык {skill:165} достигнет 20: до тех пор собирайте или создавайте предметы, гайд тем временем продолжается.",
 	-- {npc:265811} Lyreena Duskblade · {npc:3605} Nadyia Maneweaver
 	["{npc:265811}: for {npc:3605}, by the road west"] = "{npc:265811}: для персонажа {npc:3605}, у дороги к западу",
 
@@ -174,14 +184,14 @@ return {
 	["{quest:940}: kill these as you meet them"] = "",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Ночные саблезубы, совы и чащобные тенетники бродят по всей округе ({area:186}) и вдоль дороги на восток; с тенетников также падают паучьи лапки для рецепта. Лунный колодец – на западном краю деревни ({area:260}).",
 	["Nightsabers"] = "Ночные саблезубы",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "Чащобные тенетники",
 
 	-- Step 29: Zenn Foulhoof
 	-- {npc:2150} Zenn Foulhoof · {area:186} Dolanaar · {area:260} Starbreeze Village
-	["{npc:2150} sits by the road just east of {area:186}, between {area:186} and {area:260}."] = "",
+	["{npc:2150} sits by the road just east of {area:186}, between {area:186} and {area:260}."] = "{npc:2150} сидит у дороги чуть восточнее места {area:186}, между местами {area:186} и {area:260}.",
 
 	-- Step 30: Starbreeze Village
 	-- {npc:2107} Gaerolas Talvethren · {object:126158} Tallonkai's Dresser
@@ -194,7 +204,7 @@ return {
 	-- Step 31: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
-	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "",
+	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "К юго-западу от Звездного Бриза, к югу от NPC {npc:2150}. {npc:2080} ухаживает за своими саженцами на берегу; вокруг бродят плеточники-ростки и древесники, а среди них растут ростки ({quest:919}).",
 	-- {npc:2080} Denalan · {quest:922} Rellian Greenspyre · {zone:1457} Darnassus
 	["{npc:2080}: {quest:922} in {zone:1457} takes it"] = "{npc:2080}: задание принимает {quest:922} ({zone:1457})",
 
@@ -250,7 +260,8 @@ return {
 
 	-- Step 42: Ban'ethil Barrow Den
 	-- {npc:275744} Sentinel Lynessa Duskblossom · {npc:7317} Oben Rageclaw
-	["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs."] = "",
+	-- plural, as words: Gnarlpine Defenders = {npc:2010} Gnarlpine Defender
+	["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs.\nCareful: the barrow's Gnarlpine Defenders, Augurs and Shamans (7-9) stand in threes in the narrow tunnels: pull each group back toward the entrance before you go deeper."] = "Обитель – к югу от дороги. Внутри держат в плену: {npc:275744}; в глубине спит {npc:7317}, а четыре сундука с реликвиями стоят в нижних залах. С ее фурболгов падают клыки для Шайлы.\nОсторожно: защитники, авгуры и шаманы из племени Кривой Сосны (7-9) стоят по трое в узких туннелях: отводите каждую группу назад ко входу, прежде чем идти глубже.",
 	-- {item:5220} Gnarlpine Fang
 	["{item:5220}: any Gnarlpine furbolg"] = "",
 	-- {npc:7317} Oben Rageclaw
@@ -276,17 +287,17 @@ return {
 
 	-- Step 45: Gnarlpine Hold
 	-- {object:6751} Strange Fruited Plant
-	["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "",
+	["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "К югу от озер. {object:6751} растет у Лагеря у Кривой Сосны; остальные клыки падают с фурболгов вокруг.",
 
 	-- Step 47: Seek Redemption!
 	-- {area:186} Dolanaar · {npc:2150} Zenn Foulhoof · {npc:7234} Ferocitas the Dream Eater
 	-- plural, as words: Fel Cones = {object:1673} Fel Cone
-	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "",
+	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "Шишки Скверны лежат под деревьями вокруг места {area:186} и NPC {npc:2150}: подбирайте их на дороге на восток и отдайте NPC {npc:2150} по пути к NPC {npc:7234}.",
 
 	-- Step 48: Ferocitas the Dream Eater
 	-- {npc:7234} Ferocitas the Dream Eater · {area:260} Starbreeze Village · {item:8049} Gnarlpine Necklace
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
-	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "",
+	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "Мистики из племени Кривой Сосны и {npc:7234} стоят лагерем к северо-востоку от места {area:260}. С NPC {npc:7234} падает {item:8049}: откройте его, чтобы достать самоцвет.\nОсторожно: {npc:7234} ждет у костра в окружении мистиков, так что выманить его одного трудно.",
 	-- {item:8049} Gnarlpine Necklace · {npc:7234} Ferocitas the Dream Eater
 	["{item:8049}, from {npc:7234}"] = "",
 
@@ -423,21 +434,32 @@ return {
 
 	-- Step 71: Darnassus
 	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
+	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "Идите по дороге на запад в город {zone:1457} и используйте {item:279378} у таверны ({area:1659}) и у входа в туннель под местом {area:3425} для последних двух сов. {npc:4241} стоит сразу у входа в город: {area:1659}. {npc:3516} – в северной части города ({area:1658}), {quest:922} – чуть южнее; {npc:4092}, {npc:7999}, {npc:7313} и {npc:8396} – в Храме Луны в южной части.",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
 	["{item:279378}: the inn on the {area:1659}"] = "",
 
-	-- Step 73: Darnassus
+	-- Step 72: Warrior trainer
+	["Warrior trainer"] = "Учитель воинов",
+	-- {area:1660} Warrior's Terrace · {quest:1684} Elanaria
+	["Level 12 spells while you're on the {area:1660}: the warrior trainers stand beside {quest:1684}."] = "Заклинания 12-го уровня, пока вы здесь ({area:1660}): учителя воинов стоят рядом ({quest:1684}).",
+
+	-- Step 74: Darnassus
 	-- {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave
 	["{npc:3516}, in the {area:1658}"] = "{npc:3516} – здесь: {area:1658}",
 
-	-- Step 74: Cenarion Enclave
+	-- Step 75: Cenarion Enclave
 	-- {npc:4146} Jocaste · {area:1658} Cenarion Enclave · {spell:5149} Beast Training
 	["{npc:4146}, in the {area:1658}: {spell:5149}"] = "{npc:4146} ({area:1658}): {spell:5149}",
 
-	-- Step 76: Cenarion Enclave
+	-- Step 76: Cenarion Enclave trainers
+	-- {area:1658} Cenarion Enclave
+	["{area:1658} trainers"] = "Учителя: {area:1658}",
+	-- {area:1658} Cenarion Enclave
+	["Level 12 spells while you're in the {area:1658}: the hunter, rogue and druid trainers all stand in it."] = "Заклинания 12-го уровня, пока вы здесь ({area:1658}): учителя охотников, разбойников и друидов стоят здесь же.",
+
+	-- Step 78: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:4217}, in the {area:1658}"] = "{npc:4217} – здесь: {area:1658}",
 	-- {area:3425} Cenarion Hold
@@ -451,69 +473,74 @@ return {
 	-- {npc:11401} Priestess Alathea
 	["{npc:11401}, in the Temple of the Moon: Starshards"] = "{npc:11401} – в Храме Луны: Звездные осколки",
 
-	-- Step 77: Ilyenia Moonfire
+	-- Step 79: Priest trainer
+	["Priest trainer"] = "Учитель жрецов",
+	-- {npc:11401} Priestess Alathea
+	["Level 12 spells while you're in the Temple of the Moon: the priest trainers stand beside {npc:11401}."] = "Заклинания 12-го уровня, пока вы в Храме Луны: учителя жрецов стоят рядом с NPC {npc:11401}.",
+
+	-- Step 80: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 78: Ilyenia Moonfire
+	-- Step 81: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 79: Portal to Teldrassil
+	-- Step 82: Portal to Teldrassil
 	-- {quest:940} Teldrassil
 	["Portal to {quest:940}"] = "",
 
-	-- Step 80: Rut'theran Village
+	-- Step 83: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:10118} Nessa Shadowsong · {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine · {area:442} Auberdine · {npc:4200} Laird
 	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "",
 	-- {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine
 	["talk to {npc:3838} again: free with {quest:6342}"] = "",
 
-	-- Step 81: Auberdine
+	-- Step 84: Auberdine
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
 	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
 	["The WANTED poster outside the inn"] = "Плакат «РАЗЫСКИВАЕТСЯ» у таверны",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "",
 
-	-- Step 82: Return to Nessa
+	-- Step 85: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
 	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "Летите обратно сюда: {area:702} – от {npc:3841}, отдайте {item:16263}: {npc:10118} на пристани, затем летите обратно ({area:442}).",
 
-	-- Step 83: The Long Wash
+	-- Step 86: The Long Wash
 	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Прибрежные крабы снуют по берегу под деревней; {quest:983} стоит на пляже чуть южнее пристани. На мелководье плавают крепкозубы Темного берега. {object:175207} лежит на берегу чуть южнее деревни.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "",
 
-	-- Step 84: Auberdine
+	-- Step 87: Auberdine
 	-- {npc:3649} Thundris Windweaver
 	["{npc:3649}, north end of the village"] = "{npc:3649} – в северной части деревни",
 
-	-- Step 85: Gubber Blump
+	-- Step 88: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
 	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "{npc:10216} – на пристани",
 
-	-- Step 86: Moonglade
+	-- Step 89: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5929} – в лесу к северо-западу. Затем {npc:11800} ({area:2361}) доставит друидов прямо сюда: {area:702} – маршрут полета не нужен. {npc:11802} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Поговорите: {quest:5929}",
 
-	-- Step 87: Back to Darnassus
+	-- Step 90: Back to Darnassus
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
 
-	-- Step 90: The Moonkin Stone
+	-- Step 93: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Спуститесь обратно: {area:702}, затем летите сюда: {area:442}. {object:177525} стоит на холмах чуть восточнее деревни: используйте там {item:15208}, победите Лунокогтя и поговорите: {npc:12144}.",
 
-	-- Step 91: Body and Heart
+	-- Step 94: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
 	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "Еще раз летите сюда: {area:702} – и поднимитесь через портал к {npc:4217}, затем летите обратно ({area:442}).",
 
@@ -521,26 +548,19 @@ return {
 	-- ["Boat to {zone:1453}"] = "Корабль: {zone:1453}",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Каждое задание ({npc:3601}) дает вам предмет {item:15908}: примените его на названном звере, затем верните жезл ему ({area:186}). Чащобные тенетники ползают вокруг деревни, ночные саблезубы-охотники и совы-крикуны бродят по лесу к югу от нее.",
 	-- ["East to {area:260}"] = "На восток: {area:260}",
-	-- ["Fel Cones lie under the trees all around {area:186} and {npc:2150}. Nightsabers and Webwood Lurkers keep roaming the road east. {object:126158} is in the house on the hill at the east end of the village."] = "Шишки Скверны лежат под деревьями вокруг места {area:186} и {npc:2150}. На дороге на восток по-прежнему бродят ночные саблезубы и чащобные тенетники. {object:126158} – в доме на холме в восточной части деревни.",
 	-- ["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442} for the boat."] = "Еще раз летите сюда: {area:702} – и поднимитесь через портал к {npc:4217}, затем летите обратно ({area:442}) к кораблю.",
 	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "Идите по дороге на юго-запад: {area:188} → {area:186}.",
-	-- ["Follow the road west into {zone:1457}. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092} and {npc:7999} are in the Temple of the Moon at the south end. {npc:7316} is in the west of the city, on the way to the pink portal down to Rut'theran."] = "Идите по дороге на запад в город {zone:1457}. {npc:4241} стоит сразу у входа в город: {area:1659}. {npc:3516} – в северной части города ({area:1658}), {quest:922} – чуть южнее; {npc:4092} и {npc:7999} – в Храме Луны в южной части. {npc:7316} – на западе города, по пути к розовому порталу вниз, в Деревню Рут'теран.",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "Из гавани идите сюда: {object:2100}. Там воинов обучает {npc:5480}; {npc:6089} и {npc:6090} стоят вместе у таверны ({object:2152}). {npc:6090} сражается с вами за свою кружку.",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "От места {area:17203} езжайте через городские ворота в зону {zone:1429} и по дороге на запад: {zone:1436}.",
-	-- ["Gnarlpine Mystics and Ferocitas camp north-east of {area:260}. Ferocitas drops the {item:8049}: open it for the jewel."] = "Мистики из племени Кривой Сосны и Фероситас стоят лагерем к северо-востоку от места {area:260}. С Фероситаса падает {item:8049}: откройте его, чтобы достать самоцвет.",
 	-- ["Hearth to {area:186}"] = "Камень возвращения: {area:186}",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "Узнайте маршрут полета ({area:442}) на холме к югу от таверны, затем примените {spell:18960}. {npc:11802} – здесь: {area:2361}; {quest:5929} – в лесу к северо-западу. Узнайте маршрут полета ({area:493}) здесь: {area:2361} – и летите сюда: {area:702} (через {area:442}).",
 	-- ["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:8584} waits in the trees west of the cave mouth; {npc:1994} sits deep inside."] = "Облезлые ночные саблезубы и щетинистые вепри бродят к северу от древа ({area:256}), по пути к пещере. {npc:8584} ждет среди деревьев к западу от входа в пещеру; {npc:1994} – в ее глубине.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Вдоль дороги на восток живут ночные саблезубы, совы и чащобные тенетники. Лунный колодец – на западном краю деревни ({area:260}).",
-	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Ночные саблезубы, совы и чащобные тенетники бродят по всей округе ({area:186}) и вдоль дороги на восток. Лунный колодец – на западном краю деревни ({area:260}).",
-	-- ["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "К югу от Зенна. {npc:2080} ухаживает за своими саженцами на берегу; вокруг бродят плеточники-ростки и древесники, а среди них растут ростки ({quest:919}).",
-	-- ["South of the pools. The {object:6751} grows by the Hold."] = "К югу от озер. {object:6751} растет у Лагеря у Кривой Сосны.",
 	-- ["Speak with {npc:6286}, south of the inn"] = "Поговорите с персонажем {npc:6286} к югу от таверны",
 	-- ["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs."] = "Спуститесь через портал: {area:702}. {npc:10118} стоит на пристани, {npc:3838} – у гиппогрифов.",
 	-- ["Take the portal up from {area:702} to {npc:4217} in the {area:1658}."] = "Поднимитесь через портал ({area:702}) к {npc:4217} ({area:1658}).",
 	-- ["Take the road north-west from {area:186} towards the {area:264}; she lies hurt beside it."] = "Идите по дороге на северо-запад ({area:186} → {area:264}); она лежит раненая у дороги.",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "Гарпии из стаи Кровавого Пера гнездятся на склонах к западу и северу от поляны.",
-	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "Обитель – к югу от дороги. Внутри держат в плену: {npc:275744}; в глубине спит {npc:7317}, а четыре сундука с реликвиями стоят в нижних залах.",
 	-- ["The moonwell and {npc:8584}"] = "Лунный колодец и {npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "Лунный колодец – к северу от древа ({area:256}); {npc:8584} – чуть дальше на северо-запад. Задание «{quest:3522}» длится пять минут: наполните флакон и сразу идите к нему.",
 	-- ["The {area:264}"] = "{area:264}",
@@ -549,7 +569,6 @@ return {
 	-- ["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "На запад по дороге от места {area:186}, до поворота на север к поляне: Шейла ходит по дороге от стрелки на юго-запад до поворота примерно у 38,54 и обратно.",
 	-- ["{area:186} quests"] = "Задания: {area:186}",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "{npc:11401} – в Храме Луны: {spell:10797}",
-	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150} сидит у дороги чуть восточнее места {area:186}, по пути сюда: {area:260}.",
 	-- ["{npc:2150}, on the way back"] = "{npc:2150} – на обратном пути",
 	-- ["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, алхимики: для персонажа {npc:3603}",
 	-- ["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}, травники: для персонажа {npc:3604}",
@@ -557,9 +576,7 @@ return {
 	-- ["{npc:265811}, skinners: for {npc:6287}"] = "{npc:265811}, снятие шкур: для персонажа {npc:6287}",
 	-- ["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}, {skill:129}: для персонажа {npc:6094}",
 	-- ["{npc:3567}, back in {area:186}"] = "{npc:3567} – снова здесь: {area:186}",
-	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593} – учитель воинов",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595} – внутри древа",
-	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595} – учитель жрецов, внутри древа",
 	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595} – учитель жрецов, на пандусе по пути вниз: задание принимает {npc:3600} ({area:186})",
 	-- ["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:3603} – рядом с персонажем {npc:6286}: «Походное дело для начинающих», алхимики",
 	-- ["{npc:3604}, beside {npc:6286}: Camping 101, herbalists"] = "{npc:3604} – рядом с персонажем {npc:6286}: «Походное дело для начинающих», травники",

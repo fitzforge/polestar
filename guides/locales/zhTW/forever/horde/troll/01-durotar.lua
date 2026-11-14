@@ -100,8 +100,8 @@ return {
 	["{npc:6786} stands on the road at the valley's eastern exit."] = "{npc:6786}站在山谷東側出口的道路上。",
 
 	-- Step 20: Sen'jin Village
-	-- {area:367} Sen'jin Village
-	["Follow the road east out of the valley to {area:367} on the coast."] = "沿著道路向東離開山谷，前往海岸邊的{area:367}。",
+	-- {area:367} Sen'jin Village · {area:362} Razor Hill
+	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "沿著道路向東離開山谷，前往海岸邊的{area:367}。\n小心：Ukorsbane（8級）是精英，在{area:362}南邊營地的Ridgeshade蜘蛛之間走動：把蜘蛛從他身邊拉開。",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}：僅限附魔師，殘渣要從妖術墜飾分解取得",
@@ -115,14 +115,20 @@ return {
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809}在{area:362}南邊紮營。坐在他的營火旁（/sit），直到出現{spell:1229451}增益效果。學會專業技能後，{npc:265809}也會提供該專業的露營入門任務，交給該專業的訓練師：在{area:362}或在{zone:1454}（下一份指南的開頭）。",
 
 	-- Step 22: Camping 101: Mining
+	-- {npc:3175} Krunn · {skill:186} Mining
+	["{npc:3175} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:186}技能達到20後，{npc:3175}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265809} Brakk · {npc:3175} Krunn
 	["{npc:265809}: for {npc:3175}"] = "{npc:265809}：交給{npc:3175}",
 
 	-- Step 23: Camping 101: Engineering
+	-- {npc:11025} Mukdrak · {skill:202} Engineering
+	["{npc:11025} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:202}技能達到20後，{npc:11025}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265809} Brakk · {npc:11025} Mukdrak
 	["{npc:265809}: for {npc:11025}"] = "{npc:265809}：交給{npc:11025}",
 
 	-- Step 24: Camping 101: First Aid
+	-- {npc:5943} Rawrk · {skill:129} First Aid
+	["{npc:5943} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:129}技能達到20後，{npc:5943}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265809} Brakk · {npc:5943} Rawrk
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}：交給{npc:5943}",
 
@@ -196,7 +202,7 @@ return {
 
 	-- Step 42: Bloodtalon Matriarch
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there; Durotar Tigers roam the isle and the shore south of Sen'jin."] = "",
+	["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there; Durotar Tigers roam the isle and the shore south of Sen'jin."] = "涉水到北邊的回音群島。族母在那裡的迅猛龍之間徘徊；杜洛塔猛虎在島上以及森金村南邊的海岸遊蕩。",
 
 	-- Step 43: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
@@ -255,7 +261,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "",
 
-	-- Step 62: Thunder Ridge: kill these as you meet them
+	-- Step 63: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -264,22 +270,17 @@ return {
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "用{item:15908}馴服牠",
 
-	-- Step 63: Misha Tor'kren
+	-- Step 64: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "米莎的小屋在蜥蜴的南邊。西邊{area:814}沿岸的鱷魚身上帶著{item:4891}。",
 
-	-- Step 65: Heglan Shadeeye
+	-- Step 66: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657}站在{area:362}東邊的岸上。三叉戟、旗幟和匕首散落在他周圍的海灘上。",
 
-	-- Step 67: Paladin trainer
+	-- Step 68: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "",
-
-	-- Step 68: Mage trainer
-	["Mage trainer"] = "",
-	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "",
 
 	-- Step 69: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -293,7 +294,7 @@ return {
 	["Spitelash naga"] = "惡鞭納迦",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "向東北前往{area:370}下方、{npc:275657}北邊的海灘：惡鞭斥候和惡鞭侍從佔據那裡。獵人：在海灘上馴服一隻{npc:3107}。",
 
 	-- Step 72: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -317,7 +318,7 @@ return {
 
 	-- Step 78: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
-	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}."] = "燃刃氏族的教徒佔據{quest:827}的洞穴；他們都會掉落{item:4871}。{npc:3204}是14級的術士，站在深處，會掉落{item:4903}。",
+	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "燃刃氏族的教徒佔據{quest:827}的洞穴；他們都會掉落{item:4871}。{npc:3204}是14級的術士，站在深處，會掉落{item:4903}。\n小心：在{quest:827}裡，虛空行者與燃刃氏族的教徒並肩作戰，{npc:3204}（14級）帶著他自己的虛空行者在最裡面等著：在入口附近一次拉一個教徒來收集項圈。{item:4903}是可選的：除非你已經13級或有朋友同行，否則別碰{npc:3204}。",
 
 	-- Step 79: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
@@ -371,16 +372,14 @@ return {
 	["{zone:1454}'s {object:172982}"] = "",
 
 	-- Step 91: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875}站在{object:172960}，也就是{object:172982}下方的峽谷。把{item:6535}交給他，然後在他旁邊的召喚法陣使用{item:7464}，擊敗虛空行者以束縛它。",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it.\nCareful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in {zone:1454}: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one."] = "{npc:5875}站在{object:172960}，也就是{object:172982}下方的峽谷。把{item:6535}交給他，然後在他旁邊的召喚法陣使用{item:7464}，擊敗虛空行者以束縛它。\n小心：召喚出的虛空行者攻擊很痛，這是術士在{zone:1454}最常陣亡的一場戰鬥：滿血滿魔再開始，先派小鬼上去，在牠身上保持腐蝕術和獻祭，有治療石就用。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "向東回到{npc:275657}北邊的海岸。{npc:275662}和其他惡鞭納迦佔據{area:370}下方的海灘。獵人：在海灘上馴服一隻{npc:3107}。",
 	-- ["Back south to {area:362}."] = "向南回到{area:362}。",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "回到{object:172960}找{npc:5875}。在那裡的召喚法陣使用{item:7464}，擊敗虛空行者以束縛它。",
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369} across the bridge; any of them can drop a {item:6486}."] = "雷霆蜥蜴和閃電蜥蜴在橋對面的{area:369}吃草；牠們都可能掉落{item:6486}。",
 	-- ["Thunder lizards across the river"] = "河對岸的雷霆蜥蜴",
-	-- ["Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there."] = "涉水到北邊的回音群島。族母在那裡的迅猛龍之間徘徊。",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "學會{skill:129}後，{npc:265809}也會提供它的露營入門任務：交給{area:362}的{npc:5943}。",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "學會{skill:165}後，{npc:265809}也會提供它的露營入門任務：交給{zone:1454}的{npc:3365}（下一份指南）。",
 	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "學會{skill:171}後，{npc:265809}也會提供它的露營入門任務：交給{zone:1454}的{npc:11046}（下一份指南）。",

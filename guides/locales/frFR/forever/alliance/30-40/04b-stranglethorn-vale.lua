@@ -12,26 +12,26 @@ return {
 
 	-- Step 1: Collin Mauren
 	-- {object:2164} Slaughtered Lamb
-	["In the {object:2164}, if you still carry it"] = "",
+	["In the {object:2164}, if you still carry it"] = "Dans {object:2164}, si vous l'avez encore",
 
 	-- Step 2: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "",
+	["Fly to {area:42}"] = "Prendre un vol pour {area:42}",
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Maître de vol de {zone:1453}",
 
 	-- Step 3: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
-	["Into {zone:1434}"] = "",
+	["Into {zone:1434}"] = "Vers {zone:1434}",
 
 	-- Step 4: Rebel Camp
 	-- {zone:1431} Duskwood
-	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "",
+	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "Depuis {zone:1431}, prenez la route vers le sud ; le camp se trouve dans les collines à l'ouest de la route.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770} : pour {npc:773} à {area:35}",
 
 	-- Step 5: Nesingwary's Expedition
-	["South along the road: the hunters' tents stand just west of it."] = "",
+	["South along the road: the hunters' tents stand just west of it."] = "Au sud par la route : les tentes des chasseurs se trouvent juste à l'ouest.",
 	-- {npc:718} Sir S. J. Erlgadin · {area:37} Lake Nazferiti · {area:101} Kurzen's Compound
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718} : les Panthères Ombregueule rôdent autour de {area:37}, après {area:101}",
@@ -45,7 +45,7 @@ return {
 	-- Step 7: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
+	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "Les Réducteurs de têtes se tiennent plus loin dans le camp ; les Commandos rôdent camouflés autour et dans la grotte, et le coffre d'Herod se trouve à l'entrée de la grotte. Ramassez les pages des Collines verdoyantes à mesure qu'elles tombent.\nAttention : les Commandos de Kurzen sont de niveau 34-35, non élites, et apparaissent souvent camouflés ; près de la mort, ils utilisent {spell:7964}.",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "{npc:941}, sous terre",
 	-- {object:288} Bookie Herod's Strongbox
@@ -75,21 +75,21 @@ return {
 	-- {area:99} Rebel Camp
 	["East to the {area:99}, on the way back to Nesingwary's camp."] = "À l'est vers {area:99}, sur le chemin du retour au camp de Nesingwary.",
 	-- {npc:733} Sergeant Yohwa
-	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "",
+	["{npc:733}: the Commandos and Headshrinkers fell in the compound"] = "{npc:733} : les Commandos et les Réducteurs de têtes tombés dans le camp",
 
 	-- Step 15: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Crocilisques Gueule d'acier",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "",
+	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "Des Crocilisques Gueule d'acier se prélassent le long de la rivière au milieu de la jungle, sur le chemin des ruines Skullsplitter au sud.",
 
 	-- Step 16: Level 36
 	["Level 36"] = "Niveau 36",
 	-- {quest:205} Troll Witchery · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	["{quest:205}'s Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "Les trolls Skullsplitter de {quest:205} sont de niveau 39-42. En dessous de 36 ? Continuez à tuer les Crocilisques Gueule d'acier le long de la rivière jusqu'au niveau 36. Ou, en groupe, faites plutôt le donjon {area:796} (Armurerie) ou le donjon {area:1316}.",
 	-- {npc:1152} Snapjaw Crocolisk
-	["grind on {npc:1152}"] = "",
+	["grind on {npc:1152}"] = "tuez en boucle : {npc:1152}",
 
 	-- Step 17: Skullsplitter trolls
 	["Skullsplitter trolls"] = "Trolls Skullsplitter",

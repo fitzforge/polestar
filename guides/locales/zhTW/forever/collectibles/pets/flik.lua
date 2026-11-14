@@ -13,12 +13,9 @@ return {
 	-- {npc:14860} Flik
 	["{npc:14860} at the Darkmoon Faire"] = "暗月馬戲團的{npc:14860}",
 	-- {npc:14860} Flik · {area:87} Goldshire · {zone:1429} Elwynn Forest · {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {item:11027} Wood Frog Box
-	["{npc:14860} sells two frogs (1g each) while the Darkmoon Faire is in town; Forever has not shown the Faire yet. In Classic it sets up south of {area:87} in {zone:1429} one month and near {zone:1456} in {zone:1412} the next; go to whichever is up. {npc:14860} runs all over the Faire grounds, so look around for him. He carries only one {item:11027} at a time and restocks it about every 30 minutes: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:14860} sells two frogs (1g each) while the Darkmoon Faire is in town; Forever has not shown the Faire yet. In Classic it sets up south of {area:87} in {zone:1429} one month and near {zone:1456} in {zone:1412} the next; go to whichever is up. {npc:14860} runs all over the Faire grounds, so look around for him. He carries only one {item:11027} at a time and restocks it about every 30 minutes: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "暗月馬戲團來訪期間，{npc:14860}出售兩種青蛙（各1金）；Forever目前還沒出現過馬戲團。在經典版中，馬戲團一個月在{zone:1429}的{area:87}南邊紮營，下個月在{zone:1412}的{zone:1456}附近；去正在開放的那一處。{npc:14860}會在馬戲團場地到處跑，所以四處找找他。他一次只帶一個{item:11027}，大約每30分鐘補貨一次：如果他沒有，就是剛被人買走了。使用每件寵物物品即可學會對應的小寵物；之後目標會保持勾選。",
 	-- {item:11026} Tree Frog Box
 	["{item:11026}, 1g"] = "{item:11026}，1金",
 	-- {item:11027} Wood Frog Box
 	["{item:11027}, 1g"] = "{item:11027}，1金",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:14860} sells two frogs (1g each) while the Darkmoon Faire is in town. In Era the Faire sets up south of {area:87} in {zone:1429} one month and near {zone:1456} in {zone:1412} the next; go to whichever is up. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "暗月馬戲團來訪期間，{npc:14860}出售兩種青蛙（各1金）。在經典版中，馬戲團一個月在{zone:1429}的{area:87}南邊紮營，下個月在{zone:1412}的{zone:1456}附近；去正在開放的那一處。使用每件寵物物品即可學會對應的小寵物；之後目標會保持勾選。",
 }

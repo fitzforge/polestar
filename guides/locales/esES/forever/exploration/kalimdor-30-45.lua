@@ -15,7 +15,7 @@ return {
 	["Picks up west of the {zone:1413}, in {zone:1443}, and ends in {zone:1445}. 15 areas to discover here, levels 30-39."] = "Empieza al oeste de {zone:1413}, en {zone:1443}, y termina en {zone:1445}. 15 áreas por descubrir aquí, niveles 30-39.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Explorar el mapa del mundo entero con un personaje es un Desafío de Legado de Forever (1 Punto de Legado para toda la cuenta).",
 	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
-	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "",
+	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "Vuela a {area:467} (o a {area:608} si tienes la ruta) y toma el camino que sale de {zone:1442} hacia el suroeste hasta {zone:1443}; {area:608}, al norte, es el pueblo de la Alianza.",
 	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
 	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "Vuela a {area:460} y toma el camino hacia el suroeste hasta {zone:1443}; {area:2408}, en la costa oeste, es el pueblo de la Horda.",
 	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
@@ -73,6 +73,5 @@ return {
 	["level 61 area, well above this guide's range"] = "área de nivel 61, muy por encima del rango de esta guía",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "Toma el camino que sale de {zone:1442} hacia el suroeste hasta {zone:1443}; {area:608}, al norte, es el pueblo de la Alianza.",
 	-- ["The {area:1108}"] = "{area:1108}",
 }

@@ -62,7 +62,7 @@ return {
 	-- Step 14: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
-	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "",
+	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121} es la isla justo al sur de {area:1120}: cruza a nado. La ocupan Guardias serpiente y Hechiceras Crestafuria; {npc:8136} (nivel 47) espera en la cueva de su extremo sur. Atrae primero a sus guardias.",
 	-- {item:9248} Mysterious Relic
 	["{item:9248}; below ground"] = "",
 
@@ -83,10 +83,12 @@ return {
 	-- Step 18: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Desde {area:489}, cabalga hacia el oeste por el camino hasta el campamento Tótem Siniestro, al norte de él. {npc:7956} espera fuera; libera a los Duendes dardo del cercado del centro y mantén con vida a {npc:7956} y al menos a seis de ellos.",
 
 	-- Step 19: Grimtotem tauren
 	["Grimtotem tauren"] = "Tauren Tótem Siniestro",
+	-- {npc:222286} Namida Grimtotem
+	["Careful: {npc:222286}, an elite of level 43, stands at the camp's north-east edge, around 67,39: pull the Naturalists, Raiders and Shamans away from her."] = "Cuidado: {npc:222286}, una élite de nivel 43, está en el borde noreste del campamento, hacia 67,39: aleja de ella a los Naturalistas, Asaltantes y Chamanes antes de atacarlos.",
 
 	-- Step 20: Jer'kai Moonweaver
 	-- {zone:1457} Darnassus
@@ -100,32 +102,30 @@ return {
 	-- {object:164954} Zukk'ash Pod
 	["{object:164954}, inside"] = "",
 
-	-- Step 22: High Wilderness: kill these as you meet them
+	-- Step 22: Grind to 45
+	["Grind to 45"] = "Farmea hasta el 45",
+	-- {area:1105} Feral Scar Vale · {area:978} Zul'Farrak
+	["Ride west into {area:1105}: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-48, so they wait until you are 45. Or, with a group, run the {area:978} dungeon instead."] = "",
+	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
+	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farmea {npc:5292} en {area:1105}, {zone:1444}",
+
+	-- Step 23: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "",
-	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
-	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "",
+	-- {area:1105} Feral Scar Vale · {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
+	["Ride north out of {area:1105} into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\nCareful: the Rage Scar yetis are level 46-48, still one to three above you at 45: take them from the edge of the hills, one at a time."] = "",
 
-	-- Step 23: Rage Scar Hold
+	-- Step 24: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
 	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
 
-	-- Step 24: Feathermoon Stronghold
+	-- Step 25: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 25: Feathermoon Stronghold
+	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "Después {npc:3936} te pide que lleves noticias a {zone:1457}: omítelo, {area:976} te enviará allí en su lugar.",
-
-	-- Step 27: Grind to 45
-	["Grind to 45"] = "Farmea hasta el 45",
-	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
-	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
-	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farmea {npc:5292} en {area:1105}, {zone:1444}",
 
 	-- Step 28: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast
@@ -142,7 +142,7 @@ return {
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "Las recargas de {npc:14637} son de nivel 55: omítelas.",
 	-- {zone:1446} Tanaris · {area:489} Thalanaar
-	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "",
+	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "La guía de {zone:1446} empieza con el viaje hacia el este, pasando por {area:489}.",
 
 	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
@@ -151,7 +151,6 @@ return {
 	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Boat to the {area:1108} and ride east across {zone:1444} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Toma el barco a {area:1108} y cabalga hacia el este por {zone:1444} hasta los Dominios Tótem Siniestro, al norte del camino. {npc:7956} espera fuera; libera a los Duendes dardo del cercado del centro y mantén con vida a {npc:7956} y al menos a seis de ellos.",
 	-- ["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "Toma el barco a {area:1108} y cabalga hacia el este hasta {area:1105}. Las misiones de {npc:14637} en la costa requieren nivel 45.",
 	-- ["From Theramore, fly to {area:608} and ride south out of {zone:1443} into {zone:1444}; the road leads west to the {area:1108} dock, where the boat crosses to Feathermoon on {area:1120}."] = "Desde Theramore, vuela a {area:608} y cabalga hacia el sur desde {zone:1443} hasta {zone:1444}; el camino lleva al oeste hasta el muelle de {area:1108}, donde el barco cruza a Plumaluna, en {area:1120}.",
 	-- ["Giants and elementals"] = "Gigantes y elementales",
@@ -162,8 +161,6 @@ return {
 	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Cabalga hacia el oeste hasta el gigante de montaña amistoso al pie de las colinas. Los Caminantes de la tierra y los Gigantes del risco que lo rodean son élite: mantén la distancia.",
 	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Toca la campana cada vez que {npc:7774} se pare a deambular y llévala hacia el sur hasta {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Hacer {area:978} en grupo en vez de farmear te lleva allí más rápido. La ciudad trol está en el norte de {zone:1446}, la siguiente zona de la ruta; después vuelve con {npc:14637} en {area:1108}.",
-	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "Nada hacia el sur desde la isla hasta {area:1121}. La ocupan Guardias serpiente y Hechiceras Crestafuria; {npc:8136} (nivel 47) espera en la cueva de su extremo sur. Atrae primero a sus guardias.",
-	-- ["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "Terminas en el muelle de {area:1108}: la guía de {zone:1446} empieza con el viaje hacia el este desde aquí.",
 	-- ["grind on {npc:5292} at {area:1105}, {area:357}"] = "farmea {npc:5292} en {area:1105}, {area:357}",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "si llevas {quest:1100} de {zone:1441}",
 	-- ["{area:978} instead of grinding"] = "{area:978} en vez de farmear",

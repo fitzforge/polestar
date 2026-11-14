@@ -58,9 +58,10 @@ return {
 	-- Step 11: Level 55.04
 	["Level 55.04"] = "Nível 55.04",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Complete aqui até o nível 55.04 antes das entregas em {area:2255}: elas levam você ao nível 56. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1583} (Inferior).",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "mate {npc:7460} até subir",
+	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Complete aqui até o nível 55.04 antes das entregas em {area:2255}: elas levam você ao nível 56. Os Yetis Cardo de Gelo (55-56) são os de nível mais baixo aqui; as Matriarcas e os Patriarcas (56-58) batem mais forte. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1583} (Inferior).",
+	-- {npc:7458} Ice Thistle Yeti
+	["grind on {npc:7458}"] = "mate {npc:7458} até subir",
 
 	-- Step 12: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn

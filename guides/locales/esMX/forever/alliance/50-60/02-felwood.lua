@@ -35,8 +35,8 @@ return {
 
 	-- Step 6: Level 52.58
 	["Level 52.58"] = "Nivel 52.58",
-	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Si te saltaste El cuerno de la bestia o {item:9328}, mata enemigos aquí hasta el nivel 52.58 para seguir el plan de la ruta. O, con un grupo, haz en su lugar la mazmorra {area:1417} o la mazmorra {area:2100}.",
+	-- {item:9328} Super Snapper FX
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "Si te saltaste El cuerno de la bestia o {item:9328}, mata enemigos aquí hasta el nivel 52.58 para seguir el plan de la ruta.",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "sube de nivel con {npc:7153}",
 
@@ -46,8 +46,8 @@ return {
 
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "Nivel 52.69",
-	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Completa aquí hasta el nivel 52.69 antes de las entregas de {area:1763}: te llevan al nivel 53. O, con un grupo, haz en su lugar la mazmorra {area:1417} o la mazmorra {area:2100}.",
+	-- {area:1763} Jaedenar
+	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "Completa aquí hasta el nivel 52.69 antes de las entregas de {area:1763}: te llevan al nivel 53.",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "sube de nivel con {npc:7155}",
 
@@ -64,13 +64,14 @@ return {
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: los mocos corruptos se deslizan por las pozas viles de {area:1763}",
-	-- {npc:7125} Jaedenar Hound
-	["grind on {npc:7125}"] = "sube de nivel con {npc:7125}",
 
-	-- Step 12: Level 52.9
+	-- Step 13: Level 52.9
 	["Level 52.9"] = "Nivel 52.9",
-	-- {area:2479} Emerald Sanctuary · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Completa aquí hasta el nivel 52.9 antes de las entregas de {area:2479}: te llevan al nivel 53. O, con un grupo, haz en su lugar la mazmorra {area:1417} o la mazmorra {area:2100}.",
+	-- {area:2479} Emerald Sanctuary · {area:1766} Shatter Scar Vale
+	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
+	["Still short of level 52.9 after the {area:2479}'s hand-ins? Top up on the Entropic Beasts in {area:1766}, the next stop north."] = "¿Todavía no llegas al nivel 52.9 después de las entregas de {area:2479}? Sube de nivel con las bestias entrópicas en {area:1766}, la siguiente parada al norte.",
+	-- {npc:9878} Entropic Beast
+	["grind on {npc:9878}"] = "sube de nivel con {npc:9878}",
 
 	-- Step 14: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -84,45 +85,47 @@ return {
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "Los antárboles Combadera de {area:1767}, al este de {area:2618}, llevan {item:11503}.",
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 16: Nafien
-	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
-	["Follow the road north to the cave mouth of {area:1769}; {npc:15395} guards it."] = "Sigue el camino al norte hasta la entrada de la cueva de {area:1769}; {npc:15395} la vigila.",
-
-	-- Step 17: Felpaw Village
-	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Los fúrbolgs Muertobosque de {area:1762} llenan las colinas al oeste de la cueva. Sigue matándolos hasta que uno suelte un {quest:8470}, más o menos uno de cada treinta, luego haz clic derecho en él: {npc:11558}, en {area:1769}, lo acepta cuando los Fauces de Madera te sean neutrales, ahora si ya lo son, o cuando la última guía vuelva a pasar por la cueva a nivel 58.\nCuidado: Los vigías del cubil son de nivel 53-54; piden ayuda a los aliados a menos de 25 m cuando bajan del 50% de salud y huyen en busca de ayuda por debajo del 15%.",
-
-	-- Step 18: Nafien
-	-- {zone:1452} Winterspring
-	["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "Salfa está en el extremo de {zone:1452} del túnel: guárdala",
-
-	-- Step 20: Timbermaw Hold
-	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "Entra a la cueva: {npc:11558} está justo en la entrada.",
-	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral; da vueltas por aquí: búscala dentro del círculo del mapa",
-
-	-- Step 21: Jadefire Run: kill these as you meet them
+	-- Step 16: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
 	["{area:2618}: kill these as you meet them"] = "{area:2618}: mata a estos según te los encuentres",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} es el valle de los sátiros en el noroeste, con {npc:10648} al fondo. Él suelta {quest:939}; cualquier sátiro Fuego de Jade puede soltar {item:11674}.",
 
-	-- Step 22: Jaedenar again
+	-- Step 17: Jaedenar again
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "{area:1763} otra vez",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "Usa {item:12922} en el pozo de la luna corrupto del centro de {area:1763}.",
 
-	-- Step 23: The Emerald Sanctuary
+	-- Step 18: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "Cabalga al sureste desde {area:1763} hasta {area:2479}, el campamento de los druidas junto al camino en el sur de {zone:1448}.",
 
-	-- Step 24: The Emerald Sanctuary
+	-- Step 19: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
 	["The vial is filled in {zone:1457}: keep it; inside"] = "El vial se llena en {zone:1457}: guárdalo; adentro",
 	-- {zone:1413} Barrens
 	["Ends in the {zone:1413}: keep it"] = "Termina en {zone:1413}: guárdala",
+	-- {npc:10924} Ivy Leafrunner · {npc:11079} Wynd Nightchaser · {zone:1452} Winterspring
+	["{npc:10924}: for {npc:11079} in {zone:1452}, keep it"] = "{npc:10924}: para {npc:11079} en {zone:1452}, guárdala",
+
+	-- Step 20: Nafien
+	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
+	["Ride north up the road from the Sanctuary, all the way to the cave mouth of {area:1769}; {npc:15395} guards it."] = "Cabalga al norte por el camino desde el Santuario, hasta llegar a la entrada de la cueva de {area:1769}; {npc:15395} la vigila.",
+
+	-- Step 21: Felpaw Village
+	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Los fúrbolgs Muertobosque de {area:1762} llenan las colinas al oeste de la cueva. Sigue matándolos hasta que uno suelte un {quest:8470}, más o menos uno de cada treinta, luego haz clic derecho en él: {npc:11558}, en {area:1769}, lo acepta cuando los Fauces de Madera te sean neutrales, ahora si ya lo son, o cuando la última guía vuelva a pasar por la cueva a nivel 58.\nCuidado: Los vigías del cubil son de nivel 53-54; piden ayuda a los aliados a menos de 25 m cuando bajan del 50% de salud y huyen en busca de ayuda por debajo del 15%.",
+
+	-- Step 22: Nafien
+	-- {zone:1452} Winterspring
+	["Salfa stands at the {zone:1452} end of the tunnel: keep it"] = "Salfa está en el extremo de {zone:1452} del túnel: guárdala",
+
+	-- Step 24: Timbermaw Hold
+	-- {npc:11558} Kernda
+	["Step into the cave: {npc:11558} stands just inside."] = "Entra a la cueva: {npc:11558} está justo en la entrada.",
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral; da vueltas por aquí: búscala dentro del círculo del mapa",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Five feathers buy a little Timbermaw reputation"] = "Cinco plumas dan un poco de reputación con los Fauces de Madera",
@@ -138,6 +141,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "Los fúrbolgs Muertobosque de {area:1762} llenan las colinas al oeste de la cueva. Los vengadores pueden soltar un {quest:8470}.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Los sátiros Fuego de Jade ocupan la cañada al oeste del camino, con {npc:9454} al fondo.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "El vial se llena en {zone:1457}: guárdala",
+	-- ["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Completa aquí hasta el nivel 52.9 antes de las entregas de {area:2479}: te llevan al nivel 53. O, con un grupo, haz en su lugar la mazmorra {area:1417} o la mazmorra {area:2100}.",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "Usa {item:12922} en el pozo de la luna corrupto en medio de {area:1763}. Si liberaste a {npc:11018}, vuelve a {area:1770} por la súcubo {npc:9518}; los restos de Trey Forjaluz están a su lado.",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} es el templo en ruinas al norte de la cañada. Algunos de sus sectarios sueltan una {item:13140}, más o menos una de cada treinta muertes: abre la celda de {npc:11018} en {area:1770}, la cueva del fondo. Si cae, despeja la salida antes de liberarla; si no, omite sus misiones.",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}, botín raro",

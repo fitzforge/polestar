@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {zone:1447} Azshara · {area:1417} Sunken Temple
-	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "",
+	["Experience at 50 through {zone:1447} and the {area:1417}; Classic's item choice may be gone on Forever."] = "Experiencia a nivel 50 por {zone:1447} y {area:1417}; puede que Forever haya quitado la elección de objeto de Classic.",
 	["Experience"] = "Experiencia",
 
 	-- Step 1: Magecraft (Stormwind)
@@ -17,11 +17,11 @@ return {
 
 	-- Step 2: Magecraft (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
-	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "",
+	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{npc:7311}, uno de los instructores de magos de {zone:1454}, en {object:173161}, la da; también {npc:4567} en {zone:1458} y {npc:3047} en {zone:1456}.",
 
 	-- Step 3: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "Vuela a {area:3137} (Alianza) o {area:1237} (Horda). {npc:8395} acampa al pie de la torre de su maestro, un poco al este de {area:1237}: desde el cruce del camino principal de {zone:1447} en {area:1221}, ve recto al norte hasta los acantilados. Bájate de la montura antes de que te teletransporte arriba, o puede que el teletransporte no te lleve. Un sendero sin enemigos sube hasta {npc:8379}, en lo alto de la torre; un asistente de arriba te devuelve abajo, tantas veces como quieras.",
 	-- {npc:8379} Archmage Xylem
 	["{npc:8379}, in the tower"] = "{npc:8379}, en la torre",
 
@@ -60,10 +60,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "Vuelve a {zone:1447}, con {npc:8395} y a la torre.",
-	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "Experiencia a nivel 50 por {zone:1447} y {area:1417}; Forever quitó la elección de objeto de Classic.",
-	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to {npc:8379}."] = "Vuela a {area:3137} (Alianza) o {area:1237} (Horda). {npc:8395} acampa al pie de la torre de su maestro: desde el cruce del camino principal de {zone:1447} en {area:1221}, ve recto al norte hasta los acantilados. Te teletransporta arriba con {npc:8379}.",
 	-- ["Morphaz, a green drake, waits deep in the {area:1477}, the {area:1417} in the {area:74}: a group of five, level 50-54. Kill him for the {item:20085}."] = "Morphaz, un draco verde, espera en lo más hondo de {area:1477}, {area:1417} en {area:74}: grupo de cinco, nivel 50-54. Mátalo para obtener el {item:20085}.",
 	-- ["The Spitelash Sirens walk the ruins and beaches around the {area:1221} and the bay; they carry the coral."] = "Las sirenas Látigo de Ira recorren las ruinas y playas alrededor de {area:1221} y la bahía; llevan el coral.",
 	-- ["The blood elves camp along the cliffs of north-eastern {zone:1447}; Blood Elf Surveyors and Reclaimers drop the dust."] = "Los elfos de sangre acampan en los acantilados del noreste de {zone:1447}; los peritos y reivindicadores elfos de sangre sueltan el polvo.",
-	-- ["{npc:7311}, one of {zone:1454}'s mage trainers, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{npc:7311}, uno de los instructores de magos de {zone:1454}, la da; también {npc:4567} en {zone:1458} y {npc:3047} en {zone:1456}.",
 }

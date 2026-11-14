@@ -139,22 +139,32 @@ return {
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Sente-se (/sit) junto à fogueira dele até ganhar {spell:1229451}",
 
 	-- Step 24: Camping 101: Skinning
+	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
+	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6306} a recebe quando sua perícia em {skill:393} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399}: para {npc:6306}, na margem do lago",
 
 	-- Step 25: Camping 101: Leatherworking
+	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
+	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1632} a recebe quando sua perícia em {skill:165} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399}: para {npc:1632}, na margem do lago",
 
 	-- Step 26: Camping 101: Fishing
+	-- {npc:1651} Lee Brown · {skill:356} Fishing
+	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1651} a recebe quando sua perícia em {skill:356} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399}: para {npc:1651}, na margem do lago",
 
 	-- Step 27: Camping 101: First Aid
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2329} a recebe quando sua perícia em {skill:129} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399}: para {npc:2329}, na Estalagem Orgulho do Leão",
 
 	-- Step 28: Camping 101: Blacksmithing
+	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
+	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:514} a recebe quando sua perícia em {skill:164} chegar a 20: colete ou fabrique até lá; enquanto isso, o guia segue em frente.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399}: para {npc:514}, na ferraria de {area:87}",
 
@@ -289,9 +299,9 @@ return {
 	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Saia de {area:87} para leste, pela margem do lago. {npc:383} fica na margem a nordeste da cidade.",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
-	-- {area:91} Tower of Azora
+	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too."] = "Os murlocs da margem leste soltam a alga. Esfoladores: Lobos Cinza da Floresta vagam pelo bosque entre o lago e {area:91}; Predadores mais a leste também dão peles.",
+	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "Os murlocs da margem leste soltam a alga. Esfoladores: Lobos Cinza da Floresta vagam pelo bosque entre o lago e {area:91}; Predadores mais a leste também dão peles.\nCuidado: {npc:276180}, um murloc raro de nível 11, anda pelo rio junto à ponte de {npc:261}, a leste da mata dos Predadores: deixe-o em paz.",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "Folhas de Cristalga",
 

@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Islander (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
-	["At 30, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to {npc:6236} on {area:720} in the {zone:1413}."] = "",
+	["At 30, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to {npc:6236} on {area:720} in the {zone:1413}."] = "30級時，在{object:2100}戰士訓練師建築裡{npc:5480}旁邊的{npc:5479}會派你去找{zone:1413}{area:720}的{npc:6236}。",
 
 	-- Step 2: The Islander (Ironforge)
 	-- {npc:5113} Kelv Sternhammer · {zone:1455} Ironforge · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
@@ -60,13 +60,13 @@ return {
 	["The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite: the guide waits for level 37 first, and a friend helps. Burning Exiles (fire) by the {area:334} in the north-west, north-west of {area:320}; Thundering Exiles (air) by the {area:336} south-east of {area:320}, casting {spell:403} from 40 yards; Cresting Exiles (water) by the {area:333}, north-west of {area:321}, with {spell:122}. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning)."] = "大鍋需要每種符咒各8個，共24個；每隻流放者約有三分之一的機率掉落對應的符咒，所以預計要殺約70隻。牠們都是38-39級的非精英怪：指南會先等到37級，有朋友幫忙會更好。烈焰流放者（火）在西北部的{area:334}旁、{area:320}西北方；雷霆流放者（風）在{area:320}東南方的{area:336}旁，會從40碼外施放{spell:403}；水浪流放者（水）在{area:321}西北方的{area:333}旁，會使用{spell:122}。每種約十二隻，不到7分鐘就會重生。符咒可以交易，也能在拍賣場買賣；使用一個可暫時放逐另一種流放者（烈焰對雷霆、雷霆對水浪、水浪對烈焰）。",
 	-- {item:4479} Burning Charm
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile
-	["{item:4479}, from Burning Exiles"] = "",
+	["{item:4479}, from Burning Exiles"] = "{item:4479}，來自烈焰流放者",
 	-- {item:4480} Thundering Charm
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile
-	["{item:4480}, from Thundering Exiles"] = "",
+	["{item:4480}, from Thundering Exiles"] = "{item:4480}，來自雷霆流放者",
 	-- {item:4481} Cresting Charm
 	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
-	["{item:4481}, from Cresting Exiles"] = "",
+	["{item:4481}, from Cresting Exiles"] = "{item:4481}，來自水浪流放者",
 
 	-- Step 12: Essence of the Exile
 	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile
@@ -78,21 +78,16 @@ return {
 	-- {npc:6176} Bath'rah the Windwatcher · {quest:1713} The Summoning · {quest:1712} Cyclonian · {item:6052} Nature Protection Potion · {spell:10101} Knock Away · {item:6894} Whirlwind Heart
 	["Back to {npc:6176}. Accepting {quest:1713} starts his ritual, and {quest:1712} appears just north of his camp. {quest:1712} is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a {item:6052} soaks it), whirls, and {spell:10101} throws you far while it heals itself as you run back: fight with your back to a slope or rock. The {item:6894} always drops. If the fight fails {npc:6176} stops answering: abandon {quest:1713} and take it again for a new summon; the earlier items are not needed again."] = "",
 	-- {item:6894} Whirlwind Heart · {quest:1712} Cyclonian
-	["{item:6894}, from {quest:1712}"] = "",
+	["{item:6894}, from {quest:1712}"] = "{item:6894}，來自{quest:1712}",
 	-- {npc:6176} Bath'rah the Windwatcher · {item:6975} Whirlwind Axe
 	["{npc:6176}: {item:6975}, Sword or Warhammer"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {npc:6236} on {area:720} in the {zone:1413}."] = "30級時，{object:2100}的{npc:5479}（在Pig and Whistle旁邊）會派你去找{zone:1413}{area:720}的{npc:6236}。",
 	-- ["Defeat the challengers and {npc:6238}"] = "擊敗挑戰者和{npc:6238}",
 	-- ["Ride south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "從{area:392}沿海岸向南騎到{area:720}。{npc:6236}站在競技場旁：踩上格柵開始戰鬥；挑戰者會一個接一個上場，最後是{npc:6238}（33級）。",
 	-- ["The Bloodscalp trolls hold the north-west of {zone:1434}; they drop the {item:3901}."] = "血頂食人妖佔據{zone:1434}西北部；他們會掉落{item:3901}。",
 	-- ["Three kinds of elemental exiles roam {zone:1417}: Burning Exiles in the north-west, Thundering Exiles in the middle, Cresting Exiles in the north-east. Each drops its charm."] = "三種元素流放者在{zone:1417}遊蕩：西北部的烈焰流放者、中部的雷霆流放者、東北部的水浪流放者。每種都會掉落自己的護符。",
 	-- ["{item:3357}: {skill:182}, or the auction house"] = "{item:3357}：{skill:182}，或拍賣場",
-	-- ["{item:4479} from the Burning Exiles"] = "{item:4479}，來自烈焰流放者",
-	-- ["{item:4480} from the Thundering Exiles"] = "{item:4480}，來自雷霆流放者",
-	-- ["{item:4481} from the Cresting Exiles"] = "{item:4481}，來自水浪流放者",
-	-- ["{item:6894} from {quest:1712}"] = "{item:6894}，來自{quest:1712}",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176}在{zone:1416}東南部、{zone:1424}上方紮營；他的大鍋爐就在旁邊。他要一個{item:3357}、一個{item:3901}和{quest:1714}，後者由他的大鍋爐用三個護符熬製。",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712}就在{npc:6176}營地北邊等著，身上帶著{item:6894}。{quest:1712}是精英：建議組隊。",
 }

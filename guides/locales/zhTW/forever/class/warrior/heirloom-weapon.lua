@@ -10,7 +10,7 @@ return {
 	-- {spell:71} Defensive Stance
 	["{spell:71} and a Weapon (Horde)"] = "",
 	-- {spell:71} Defensive Stance · {npc:5810} Uzzek · {area:159} Brill
-	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "10級時學會{spell:71}，並獲得一把自選的單手武器：{npc:5810}的道路、{area:159}的地穴，或破天者盾牌。",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar
@@ -80,7 +80,7 @@ return {
 
 	-- Step 14: Coleman Farthing
 	-- {npc:1500} Coleman Farthing · {area:2119} Gallows' End Tavern · {area:159} Brill
-	["{npc:1500} is in the {area:2119}, the inn on {area:159}'s east side."] = "",
+	["{npc:1500} is in the {area:2119}, the inn on {area:159}'s east side."] = "{npc:1500}在{area:2119}，也就是{area:159}東側的旅店。",
 
 	-- Step 15: The Agamand Family Crypt
 	-- {area:158} Agamand Family Crypt
@@ -96,6 +96,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The four Agamand Weapon Racks stand among the buildings of {area:157}, north of {area:159}. The mills' undead attack on sight."] = "四個阿加曼德武器架立在{area:159}北邊{area:157}的建築之間。磨坊的不死生物看到你就會攻擊。",
 	-- ["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496}站在{area:159}。{npc:6390}在城鎮北邊山丘上的陵墓裡等著：打開大門與他戰鬥。",
-	-- ["{npc:1500} is in the inn, the {area:2119}, in {area:159}."] = "{npc:1500}在{area:159}的旅店{area:2119}裡。",
-	-- ["{spell:71} and a one-hand weapon of your choice at 10."] = "10級時學會{spell:71}，並獲得一把自選的單手武器。",
 }

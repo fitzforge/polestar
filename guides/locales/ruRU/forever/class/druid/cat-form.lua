@@ -31,7 +31,7 @@ return {
 
 	-- Step 6: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:768} Cat Form
-	["Take the portal up to {npc:4217}, upstairs in the {area:1658}: he teaches you {spell:768}."] = "",
+	["Take the portal up to {npc:4217}, upstairs in the {area:1658}: he teaches you {spell:768}."] = "Поднимитесь через портал к {npc:4217}, наверх ({area:1658}): он обучит вас заклинанию {spell:768}.",
 
 	-- Step 8: The Great Cat Spirit
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:1066} Aquatic Form · {npc:11802} Dendrite Starblaze · {area:493} Moonglade
@@ -53,15 +53,13 @@ return {
 
 	-- Step 12: To Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:768} Cat Form
-	["{npc:3033} on {area:1639} teaches you {spell:768}."] = "",
+	["{npc:3033} on {area:1639} teaches you {spell:768}."] = "{npc:3033} ({area:1639}) обучит вас заклинанию {spell:768}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702}."] = "Назад: {npc:11802} ({area:2361}), затем летите сюда: {area:702}.",
 	-- ["Back to {npc:11802} in {area:2361}, then take {npc:11798}'s flight to {area:1638}."] = "Назад: {npc:11802} ({area:2361}), затем летите с помощью персонажа {npc:11798} сюда: {area:1638}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Примените {spell:18960}. {npc:11802} – здесь: {area:2361}; узнайте там маршрут полета, если его у вас нет.",
-	-- ["Take the portal up to {npc:4217} in the {area:1658}."] = "Поднимитесь через портал к {npc:4217} ({area:1658}).",
-	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} стоит здесь: {area:1639}.",
 	-- ["{npc:4217} stands in the {area:1658}. Skyborne without the Rut'theran flight path: take the boat from {area:442}."] = "{npc:4217} стоит здесь: {area:1658}. Небеснорожденным без маршрута полета в Деревню Рут'теран: плывите на корабле от места {area:442}.",
 	-- ["{quest:98342} (Tauren) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98342} (таурены) ждет на южном холме над мостом, {npc:272054} (небеснорожденные) – к югу от двух мостов. Реликвии лежат здесь: {area:2363}, к востоку от озера. Выйдите из облика, щелкните по статуе у входа, чтобы получить пять минут скрытности, держитесь подальше от духов внутри и возьмите по одной реликвии каждого вида; {item:280680} лежит у подножия статуи белой кошки. Реликвия не дает добычи, пока ее обыскивает другой игрок: подождите немного и попробуйте снова.",
 	-- ["{quest:98394} (Night Elves) waits on the southern hill above the bridge, the {npc:272054} (Skyborne) south of the twin bridges. The relics lie in the {area:2363} east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue. A relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394} (ночные эльфы) ждет на южном холме над мостом, {npc:272054} (небеснорожденные) – к югу от двух мостов. Реликвии лежат здесь: {area:2363}, к востоку от озера. Выйдите из облика, щелкните по статуе у входа, чтобы получить пять минут скрытности, держитесь подальше от духов внутри и возьмите по одной реликвии каждого вида; {item:280680} лежит у подножия статуи белой кошки. Реликвия не дает добычи, пока ее обыскивает другой игрок: подождите немного и попробуйте снова.",

@@ -18,7 +18,7 @@ return {
 	-- Step 1: Pick your clan
 	["Pick your clan"] = "Choisissez votre clan",
 	-- {zone:1443} Desolace · {npc:5396} Captain Pentigast · {area:608} Nijel's Point · {quest:1382} Strange Alliance · {quest:1385} Brutal Politics · {npc:5412} Gurda Wildmane · {quest:1368} Gelkis Alliance · {quest:1367} Magram Alliance · {quest:93224} Carved Centaur Totems
-	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, and every quest of one clan costs the other five times what it pays (Buying Friendship: 3,000 for yours, 15,000 off the other), so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "",
+	["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, and every quest of one clan costs the other five times what it pays (Buying Friendship: 3,000 for yours, 15,000 off the other), so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "Les Gelkis (sud-ouest de {zone:1443}) et les Magram (sud-est) sont en guerre : chaque victime d'un clan donne 20 à l'autre et coûte 100 à son propre clan, et chaque quête d'un clan coûte à l'autre cinq fois ce qu'elle rapporte (Buying Friendship : 3 000 pour le vôtre, 15 000 retirés à l'autre), donc vous ne pouvez monter qu'avec un seul. Les deux commencent à Neutre. Dans Forever, les quêtes valent maintenant bien plus que les victimes. Alliance : le {npc:5396} à {area:608} propose {quest:1382} (Gelkis) et {quest:1385} (Magram). Horde : {npc:5412} propose {quest:1368} et {quest:1367}. Acceptez celle de votre clan, et {quest:93224} : le Buying Friendship de chaque clan (3 000) est proposé dès que vous rapportez les totems. Cochez ensuite la tâche. Le guide continue avec les Gelkis ; acceptez plutôt les quêtes des Magram et il passe à la partie Magram. Forever paie ces quêtes en entier à tout niveau.",
 	-- {quest:1382} Strange Alliance
 	["{quest:1382}: Gelkis"] = "{quest:1382} : Gelkis",
 	["Take the quests of one clan"] = "Acceptez les quêtes d'un seul clan",
@@ -79,91 +79,91 @@ return {
 
 	-- Step 10: Gelkis: Uthek the Wise sends you to the valley
 	-- {npc:5397} Uthek the Wise
-	["Gelkis: {npc:5397} sends you to the valley"] = "",
+	["Gelkis: {npc:5397} sends you to the valley"] = "Gelkis : {npc:5397} vous envoie dans la vallée",
 	-- {npc:5397} Uthek the Wise · {npc:253177} Nerlokh · {quest:93034} Valley of Bones · {zone:1443} Desolace · {zone:2652} Shen'dralas · {quest:92811} Economic Warfare
-	["At Honored and level 35, {npc:5397} sends you east to {npc:253177}, a Gelkis scout at the western mouth of the {quest:93034}, where the south of {zone:1443} runs into {zone:2652}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Gelkis, and each costs the Magram five times what it pays. Honored to Revered is 12,000; the valley pays 10,625 of it, {quest:92811} the rest."] = "",
+	["At Honored and level 35, {npc:5397} sends you east to {npc:253177}, a Gelkis scout at the western mouth of the {quest:93034}, where the south of {zone:1443} runs into {zone:2652}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Gelkis, and each costs the Magram five times what it pays. Honored to Revered is 12,000; the valley pays 10,625 of it, {quest:92811} the rest."] = "À Honoré et au niveau 35, {npc:5397} vous envoie à l'est auprès de {npc:253177}, un éclaireur gelkis à l'entrée ouest de {quest:93034}, là où le sud de {zone:1443} rejoint {zone:2652}. Les étapes de la vallée suivent les données de quête de Forever : personne parmi ceux qui enregistrent leur partie n'a encore fait ces quêtes, un emplacement ou l'ordre peut donc être inexact. Chaque quête de la vallée vous demande de rester Honoré auprès des Gelkis, et chacune coûte aux Magram cinq fois ce qu'elle rapporte. D'Honoré à Révéré, il faut 12 000 ; la vallée en rapporte 10 625, {quest:92811} le reste.",
 
 	-- Step 11: Gelkis: Nerlokh
 	-- {npc:253177} Nerlokh
-	["Gelkis: {npc:253177}"] = "",
+	["Gelkis: {npc:253177}"] = "Gelkis : {npc:253177}",
 	-- {npc:253177} Nerlokh · {npc:11559} Outcast Necromancer
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: {npc:253177} waits at the valley's western mouth. He wants six Undead Ravagers put to rest and the ritual garb of an {npc:11559}: the outcasts are Gelkis exiles who took up the Magram's necromancy."] = "",
+	["From the quest data: {npc:253177} waits at the valley's western mouth. He wants six Undead Ravagers put to rest and the ritual garb of an {npc:11559}: the outcasts are Gelkis exiles who took up the Magram's necromancy."] = "D'après les données de quête : {npc:253177} attend à l'entrée ouest de la vallée. Il veut que six Ravageurs morts-vivants soient mis au repos et la tenue rituelle d'un {npc:11559} : les exilés sont des Gelkis bannis qui ont adopté la nécromancie des Magram.",
 
 	-- Step 12: Gelkis: the valley's mouth
-	["Gelkis: the valley's mouth"] = "",
+	["Gelkis: the valley's mouth"] = "Gelkis : l'entrée de la vallée",
 	-- {quest:92846} Outcast Necromancers · {npc:253177} Nerlokh · {npc:253136} Orgrul
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "D'après les données de quête : les Ravageurs morts-vivants et les {quest:92846} remplissent la vallée depuis {npc:253177} vers le nord-est jusqu'au poste d'{npc:253136}, à son entrée nord ; les joueurs les ont croisés tout du long. Les Magram d'{npc:253136} sont hostiles à un ami des Gelkis. Des Dévoreurs de cadavres, élites de niveau 45, arpentent la vallée et attaquent tout le monde.",
 
 	-- Step 13: Gelkis: Facing the Truth
 	-- {quest:93041} Facing the Truth
-	["Gelkis: {quest:93041}"] = "",
+	["Gelkis: {quest:93041}"] = "Gelkis : {quest:93041}",
 	-- {npc:253177} Nerlokh · {item:255941} Gelkis Necromantic Garb · {npc:5397} Uthek the Wise · {item:255945} Accursed Skull
-	["From the quest data: {npc:253177} gives you a {item:255941} to show {npc:5397}, with an {item:255945} you find yourself: a freshly cursed skull, hoarded in the jaws of one of the valley's giant skeletons. The game's data has no spot for it."] = "",
+	["From the quest data: {npc:253177} gives you a {item:255941} to show {npc:5397}, with an {item:255945} you find yourself: a freshly cursed skull, hoarded in the jaws of one of the valley's giant skeletons. The game's data has no spot for it."] = "D'après les données de quête : {npc:253177} vous donne une {item:255941} à montrer à {npc:5397}, avec un {item:255945} que vous trouvez vous-même : un crâne fraîchement maudit, conservé dans la gueule de l'un des squelettes géants de la vallée. Les données du jeu n'indiquent pas où.",
 	-- {item:255945} Accursed Skull
-	["{item:255945}: in a giant skeleton's jaws"] = "",
+	["{item:255945}: in a giant skeleton's jaws"] = "{item:255945} : dans la gueule d'un squelette géant",
 
 	-- Step 14: Gelkis: Uthek the Wise and Mulara
 	-- {npc:5397} Uthek the Wise · {npc:253713} Mulara
-	["Gelkis: {npc:5397} and {npc:253713}"] = "",
+	["Gelkis: {npc:5397} and {npc:253713}"] = "Gelkis : {npc:5397} et {npc:253713}",
 	-- {npc:5397} Uthek the Wise · {area:606} Gelkis Village · {npc:253713} Mulara · {npc:253140} Molkar · {quest:92812} Economic Warfare
-	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "",
+	["From the quest data: back west to {npc:5397} in {area:606}. She needs Tears of Theradras: {npc:253713}, the Voice of Theradras, keeps them in the cave in the south of the village, past {npc:253140}. Ask her for them on {npc:5397}'s behalf and bring three back. {npc:253140} takes {quest:92812} on the way."] = "D'après les données de quête : retournez à l'ouest voir {npc:5397} à {area:606}. Elle a besoin de Larmes de Theradras : {npc:253713}, la Voix de Theradras, les garde dans la grotte au sud du village, après {npc:253140}. Demandez-les-lui de la part de {npc:5397} et rapportez-en trois. {npc:253140} prend {quest:92812} en chemin.",
 	-- {npc:253713} Mulara
-	["{npc:253713}, in the cave"] = "",
-	["three Tears of Theradras"] = "",
+	["{npc:253713}, in the cave"] = "{npc:253713}, dans la grotte",
+	["three Tears of Theradras"] = "trois Larmes de Theradras",
 
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
-	["Gelkis: {quest:93045}"] = "",
+	["Gelkis: {quest:93045}"] = "Gelkis : {quest:93045}",
 	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:256061} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
-	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "",
+	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "D'après les données de quête : {npc:5397} vous donne son bâton et un {item:6071}. Assemblez-les pour obtenir {item:256061}, apportez-le au site du rituel près de l'étang juste à l'est du village et dissipez la malédiction du {item:255945}. Puis retournez à l'est voir {npc:253177}.",
 	-- {item:255945} Accursed Skull
-	["dispel the {item:255945} by the pond"] = "",
+	["dispel the {item:255945} by the pond"] = "dissipez le {item:255945} près de l'étang",
 
 	-- Step 16: Gelkis: back to Nerlokh
 	-- {npc:253177} Nerlokh
-	["Gelkis: back to {npc:253177}"] = "",
+	["Gelkis: back to {npc:253177}"] = "Gelkis : retour à {npc:253177}",
 	-- {npc:253177} Nerlokh · {item:271794} Centaur Spear · {item:271795} Wanderer's Broadsword · {item:271799} Desert Crawler's Claw
-	["From the quest data: {npc:253177} pays 500 and your pick of three weapons for level 35: {item:271794} (polearm), {item:271795} (two-handed sword) or {item:271799} (dagger). Then he has two jobs deeper in the valley."] = "",
+	["From the quest data: {npc:253177} pays 500 and your pick of three weapons for level 35: {item:271794} (polearm), {item:271795} (two-handed sword) or {item:271799} (dagger). Then he has two jobs deeper in the valley."] = "D'après les données de quête : {npc:253177} paie 500 et le choix entre trois armes de niveau 35 : {item:271794} (arme d'hast), {item:271795} (épée à deux mains) ou {item:271799} (dague). Il a ensuite deux missions plus loin dans la vallée.",
 
 	-- Step 17: Gelkis: the heart of the valley
-	["Gelkis: the heart of the valley"] = "",
+	["Gelkis: the heart of the valley"] = "Gelkis : le cœur de la vallée",
 	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones · {item:256061} Uthek's Draenethyst Staff
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "",
+	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "D'après les données de quête : à l'est de {npc:253177}, au cœur de la vallée, les Magram retiennent des Captifs gelkis : libérez-en cinq. Parmi eux gisent des {npc:253446}, des invocations ratées coincées dans le sol : apaisez-en huit avec {item:256061}, que la quête vous donne. Des Dévoreurs de cadavres et des Nécrokhans magram, élites de niveau 45, arpentent la vallée et attaquent un ami des Gelkis : laissez-les passer avant d'attirer.",
 	-- {npc:253446} Haggard Bones
-	["Lay {npc:253446} to rest"] = "",
+	["Lay {npc:253446} to rest"] = "Apaisez les {npc:253446}",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
-	["free five Gelkis Captives"] = "",
+	["free five Gelkis Captives"] = "libérez cinq Captifs gelkis",
 
 	-- Step 18: Gelkis: Checking Things Out
 	-- {quest:93122} Checking Things Out
-	["Gelkis: {quest:93122}"] = "",
+	["Gelkis: {quest:93122}"] = "Gelkis : {quest:93122}",
 	-- {npc:253177} Nerlokh · {zone:2652} Shen'dralas · {area:16675} Magram Front · {area:16676} Outcast Hideaway
-	["From the quest data: {npc:253177}'s next order takes you deeper into {zone:2652} to scout two places: the {area:16675}, a Magram camp south-east of the valley, and the {area:16676}, the exiles' camp west of the Shen'dralar town, further south."] = "",
+	["From the quest data: {npc:253177}'s next order takes you deeper into {zone:2652} to scout two places: the {area:16675}, a Magram camp south-east of the valley, and the {area:16676}, the exiles' camp west of the Shen'dralar town, further south."] = "D'après les données de quête : l'ordre suivant de {npc:253177} vous mène plus loin dans {zone:2652} pour reconnaître deux endroits : le {area:16675}, un camp magram au sud-est de la vallée, et la {area:16676}, le camp des exilés à l'ouest de la ville des Shen'dralar, plus au sud.",
 
 	-- Step 19: Gelkis: the Magram Front and the Outcast Hideaway
 	-- {area:16675} Magram Front · {area:16676} Outcast Hideaway
-	["Gelkis: the {area:16675} and the {area:16676}"] = "",
+	["Gelkis: the {area:16675} and the {area:16676}"] = "Gelkis : {area:16675} et {area:16676}",
 	-- {area:16675} Magram Front · {area:16676} Outcast Hideaway · {npc:254040} Rokren · {npc:253177} Nerlokh
 	-- plural, as words: Outcast Necrokhans = {npc:253275} Outcast Necrokhan
-	["From the quest data: walk into the Magram camp at the {area:16675}, then south-west into the {area:16676}, where Outcast Necrokhans, elite and level 45, stand guard. In a tent there {npc:254040}, a Gelkis the outcasts hold, asks you to get him out: escort him clear of the hideaway, then tell {npc:253177}."] = "",
+	["From the quest data: walk into the Magram camp at the {area:16675}, then south-west into the {area:16676}, where Outcast Necrokhans, elite and level 45, stand guard. In a tent there {npc:254040}, a Gelkis the outcasts hold, asks you to get him out: escort him clear of the hideaway, then tell {npc:253177}."] = "D'après les données de quête : entrez dans le camp magram du {area:16675}, puis allez au sud-ouest dans la {area:16676}, que gardent des Nécrokhans exilés, élites de niveau 45. Sous une tente, {npc:254040}, un Gelkis que retiennent les exilés, vous demande de le faire sortir : escortez-le hors de la planque, puis prévenez {npc:253177}.",
 	-- {npc:254040} Rokren
-	["escort {npc:254040} out of the hideaway"] = "",
+	["escort {npc:254040} out of the hideaway"] = "escortez {npc:254040} hors de la planque",
 
 	-- Step 20: Gelkis: Nerlokh's last order
 	-- {npc:253177} Nerlokh
-	["Gelkis: {npc:253177}'s last order"] = "",
+	["Gelkis: {npc:253177}'s last order"] = "Gelkis : dernier ordre de {npc:253177}",
 	-- {npc:253177} Nerlokh
-	["From the quest data: with the Magram's warriors busy at the Front, {npc:253177} sees a chance at their khan."] = "",
+	["From the quest data: with the Magram's warriors busy at the Front, {npc:253177} sees a chance at their khan."] = "D'après les données de quête : tandis que les guerriers magram sont occupés au Front, {npc:253177} voit une occasion de s'en prendre à leur khan.",
 
 	-- Step 21: Gelkis: Khan Jehn
 	-- {npc:5601} Khan Jehn
 	["Gelkis: {npc:5601}"] = "Gelkis : {npc:5601}",
 	-- {npc:5601} Khan Jehn · {area:604} Magram Village · {npc:253177} Nerlokh · {npc:5397} Uthek the Wise · {item:271801} Abandoned Ferocity · {item:271802} Bludgeon of Betrayed Virtues · {item:271805} Thrice-Damned Effigy
 	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "",
+	["From the quest data: {npc:5601} (level 37) leads the Magram from the west side of {area:604}, north-east of {npc:253177}. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000."] = "D'après les données de quête : {npc:5601} (niveau 37) dirige les Magram depuis le côté ouest de {area:604}, au nord-est de {npc:253177}. Le village est hostile à un ami des Gelkis, et deux Nécrokhans magram, élites de niveau 45, se tiennent un peu à l'ouest du khan. {npc:5397} paie 6 000, un titre et le choix entre trois armes rares de niveau 35 : {item:271801} (hache à deux mains : Force, Endurance, Agilité), {item:271802} (masse à une main : Force, Endurance, Agilité) ou {item:271805} (main gauche : Esprit, Intelligence, Endurance). La quête coûte 30 000 auprès des Magram.",
 
 	-- Step 22: Gelkis: totems to Exalted
 	["Gelkis: totems to Exalted"] = "Gelkis : totems jusqu'à Exalté",
@@ -213,99 +213,99 @@ return {
 
 	-- Step 29: Magram: Warug sends you to the valley
 	-- {npc:5398} Warug
-	["Magram: {npc:5398} sends you to the valley"] = "",
+	["Magram: {npc:5398} sends you to the valley"] = "Magram : {npc:5398} vous envoie dans la vallée",
 	-- {quest:92743} A Conqueror's Crown · {npc:5398} Warug · {npc:253136} Orgrul · {area:604} Magram Village · {quest:92841} Valley of Bones · {quest:92811} Economic Warfare
-	["At Honored and level 35, after {quest:92743}, {npc:5398} sends you to {npc:253136} at the south end of {area:604}, the northern mouth of the {quest:92841}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Magram, and each costs the Gelkis five times what it pays. Honored to Revered is 12,000; the valley pays 11,125 of it, {quest:92811} the rest."] = "",
+	["At Honored and level 35, after {quest:92743}, {npc:5398} sends you to {npc:253136} at the south end of {area:604}, the northern mouth of the {quest:92841}. The valley steps follow Forever's quest data: nobody who records their play has done these quests yet, so a spot or the order may be off. Every valley quest asks you to stay Honored with the Magram, and each costs the Gelkis five times what it pays. Honored to Revered is 12,000; the valley pays 11,125 of it, {quest:92811} the rest."] = "À Honoré et au niveau 35, après {quest:92743}, {npc:5398} vous envoie auprès d'{npc:253136}, à l'extrémité sud de {area:604}, l'entrée nord de {quest:92841}. Les étapes de la vallée suivent les données de quête de Forever : personne parmi ceux qui enregistrent leur partie n'a encore fait ces quêtes, un emplacement ou l'ordre peut donc être inexact. Chaque quête de la vallée vous demande de rester Honoré auprès des Magram, et chacune coûte aux Gelkis cinq fois ce qu'elle rapporte. D'Honoré à Révéré, il faut 12 000 ; la vallée en rapporte 11 125, {quest:92811} le reste.",
 
 	-- Step 30: Magram: Orgrul
 	-- {npc:253136} Orgrul
-	["Magram: {npc:253136}"] = "",
+	["Magram: {npc:253136}"] = "Magram : {npc:253136}",
 	-- {npc:253136} Orgrul · {quest:92846} Outcast Necromancers
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: {npc:253136} wants bones from the valley's Undead Ravagers (the quest log counts them in hundreds) and six {quest:92846} dead: Gelkis exiles meddling with the Magram's new magic."] = "",
+	["From the quest data: {npc:253136} wants bones from the valley's Undead Ravagers (the quest log counts them in hundreds) and six {quest:92846} dead: Gelkis exiles meddling with the Magram's new magic."] = "D'après les données de quête : {npc:253136} veut des os des Ravageurs morts-vivants de la vallée (le journal de quêtes les compte par centaines) et six {quest:92846} morts : des exilés gelkis qui se mêlent de la nouvelle magie des Magram.",
 
 	-- Step 31: Magram: the valley's mouth
-	["Magram: the valley's mouth"] = "",
+	["Magram: the valley's mouth"] = "Magram : l'entrée de la vallée",
 	-- {quest:92846} Outcast Necromancers · {npc:253136} Orgrul · {npc:253177} Nerlokh
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253136} south-west to {npc:253177}'s post at its western mouth; players have met them all along it. {npc:253177} is a Gelkis scout. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253136} south-west to {npc:253177}'s post at its western mouth; players have met them all along it. {npc:253177} is a Gelkis scout. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "D'après les données de quête : les Ravageurs morts-vivants et les {quest:92846} remplissent la vallée depuis {npc:253136} vers le sud-ouest jusqu'au poste de {npc:253177}, à son entrée ouest ; les joueurs les ont croisés tout du long. {npc:253177} est un éclaireur gelkis. Des Dévoreurs de cadavres, élites de niveau 45, arpentent la vallée et attaquent tout le monde.",
 	-- plural, as words: Gently Cursed Bones = {item:254663} Gently Cursed Bone · Undead Ravagers = {npc:11561} Undead Ravager
-	["Gently Cursed Bones: Undead Ravagers"] = "",
+	["Gently Cursed Bones: Undead Ravagers"] = "Os légèrement maudits : Ravageurs morts-vivants",
 
 	-- Step 32: Magram: Corrupting Tears
 	-- {quest:92847} Corrupting Tears
-	["Magram: {quest:92847}"] = "",
+	["Magram: {quest:92847}"] = "Magram : {quest:92847}",
 	-- {npc:253136} Orgrul · {item:254841} Petrified Bark · {item:254840} Imbued Tears · {npc:5398} Warug
-	["From the quest data: {npc:253136} wants three {item:254841} from the valley's accursed trees (the game's data has no spot for them) and three {item:254840}: {npc:5398} keeps the crystals you took from the Gelkis, so ask him."] = "",
+	["From the quest data: {npc:253136} wants three {item:254841} from the valley's accursed trees (the game's data has no spot for them) and three {item:254840}: {npc:5398} keeps the crystals you took from the Gelkis, so ask him."] = "D'après les données de quête : {npc:253136} veut trois {item:254841} des arbres maudits de la vallée (les données du jeu n'indiquent pas où) et trois {item:254840} : {npc:5398} garde les cristaux que vous avez pris aux Gelkis, alors demandez-les-lui.",
 	-- {item:254841} Petrified Bark
-	["{item:254841}: the valley's accursed trees"] = "",
+	["{item:254841}: the valley's accursed trees"] = "{item:254841} : les arbres maudits de la vallée",
 
 	-- Step 33: Magram: Proof of Concept
 	-- {quest:92873} Proof of Concept
-	["Magram: {quest:92873}"] = "",
+	["Magram: {quest:92873}"] = "Magram : {quest:92873}",
 	-- {npc:253136} Orgrul · {item:254870} Rudimentary Necromancy Staff
 	-- plural, as words: Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager · Well Cursed Bones = {item:254842} Well Cursed Bone
-	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "",
+	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "D'après les données de quête : {npc:253136} vous donne un {item:254870}. Il a disposé deux squelettes sur la colline juste à l'est de son poste : servez-vous-en là-bas, et les Ravageurs morts-vivants naissants donnent les Os bien maudits.",
 	-- plural, as words: Well Cursed Bones = {item:254842} Well Cursed Bone · Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager
-	["Well Cursed Bones: Nascent Undead Ravagers"] = "",
+	["Well Cursed Bones: Nascent Undead Ravagers"] = "Os bien maudits : Ravageurs morts-vivants naissants",
 
 	-- Step 34: Magram: Orgrul's next tasks
 	-- {npc:253136} Orgrul
-	["Magram: {npc:253136}'s next tasks"] = "",
+	["Magram: {npc:253136}'s next tasks"] = "Magram : missions suivantes d'{npc:253136}",
 	-- {npc:253136} Orgrul · {item:271796} Blade of the Magram Clan · {item:271797} Staff of Revelations · {item:271798} Desperate Barrier
-	["From the quest data: {npc:253136} pays 500 and your pick of three items for level 35: {item:271796} (one-handed sword), {item:271797} (staff) or {item:271798} (shield)."] = "",
+	["From the quest data: {npc:253136} pays 500 and your pick of three items for level 35: {item:271796} (one-handed sword), {item:271797} (staff) or {item:271798} (shield)."] = "D'après les données de quête : {npc:253136} paie 500 et le choix entre trois objets de niveau 35 : {item:271796} (épée à une main), {item:271797} (bâton) ou {item:271798} (bouclier).",
 
 	-- Step 35: Magram: the heart of the valley
-	["Magram: the heart of the valley"] = "",
+	["Magram: the heart of the valley"] = "Magram : le cœur de la vallée",
 	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "",
+	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "D'après les données de quête : au sud-est d'{npc:253136}, au cœur de la vallée, les Magram gardent des Captifs gelkis : tuez-en cinq. Les {npc:253446} qui s'y trouvent sont des invocations ratées coincées dans le sol : relevez-en dix avec le Bâton de nécromancie amélioré qu'Orgrul vous a donné, et tuez ceux qui se défendent. Des Dévoreurs de cadavres, élites de niveau 45, arpentent la vallée et attaquent tout le monde ; les Nécrokhans magram, élites eux aussi, laissent tranquille un ami des Magram.",
 	-- {npc:253446} Haggard Bones
-	["Raise or slay {npc:253446}"] = "",
+	["Raise or slay {npc:253446}"] = "Relevez ou tuez les {npc:253446}",
 
 	-- Step 36: Magram: Bristleback Retreat
 	-- {quest:93066} Bristleback Retreat
-	["Magram: {quest:93066}"] = "",
+	["Magram: {quest:93066}"] = "Magram : {quest:93066}",
 	-- {npc:253136} Orgrul · {quest:93066} Bristleback Retreat
-	["From the quest data: back to {npc:253136}, then east to {quest:93066} for his next order."] = "",
+	["From the quest data: back to {npc:253136}, then east to {quest:93066} for his next order."] = "D'après les données de quête : retournez voir {npc:253136}, puis allez à l'est jusqu'à {quest:93066} pour son ordre suivant.",
 
 	-- Step 37: Magram: the quilboar
-	["Magram: the quilboar"] = "",
+	["Magram: the quilboar"] = "Magram : les huttins",
 	-- {quest:93066} Bristleback Retreat · {npc:253527} Kog'thug the Brave · {npc:255678} Quolga the Wise · {npc:253851} Hagiak · {area:16675} Magram Front
-	["From the quest data: the Bristleback quilboar hold {quest:93066}, east of the valley. {npc:253527} (elite, level 43) and {npc:255678} (elite, level 42) lead them: leave those two be. Then report to {npc:253851} at the {area:16675}, south of the Retreat."] = "",
+	["From the quest data: the Bristleback quilboar hold {quest:93066}, east of the valley. {npc:253527} (elite, level 43) and {npc:255678} (elite, level 42) lead them: leave those two be. Then report to {npc:253851} at the {area:16675}, south of the Retreat."] = "D'après les données de quête : les huttins Hérisse-dos tiennent {quest:93066}, à l'est de la vallée. {npc:253527} (élite, niveau 43) et {npc:255678} (élite, niveau 42) les dirigent : laissez ces deux-là tranquilles. Faites ensuite votre rapport à {npc:253851} au {area:16675}, au sud du Repli.",
 
 	-- Step 38: Magram: Hagiak at the Magram Front
 	-- {npc:253851} Hagiak · {area:16675} Magram Front
-	["Magram: {npc:253851} at the {area:16675}"] = "",
+	["Magram: {npc:253851} at the {area:16675}"] = "Magram : {npc:253851} au {area:16675}",
 	-- {npc:253851} Hagiak · {area:16676} Outcast Hideaway
-	["From the quest data: {npc:253851} sends you south-west to the {area:16676}, the exiles' camp west of the Shen'dralar town."] = "",
+	["From the quest data: {npc:253851} sends you south-west to the {area:16676}, the exiles' camp west of the Shen'dralar town."] = "D'après les données de quête : {npc:253851} vous envoie au sud-ouest jusqu'à la {area:16676}, le camp des exilés à l'ouest de la ville des Shen'dralar.",
 
 	-- Step 39: Magram: the Outcast Hideaway
 	-- {area:16676} Outcast Hideaway
-	["Magram: the {area:16676}"] = "",
+	["Magram: the {area:16676}"] = "Magram : {area:16676}",
 	-- {item:256892} Stolen Supplies · {quest:92846} Outcast Necromancers · {npc:253136} Orgrul · {npc:253177} Nerlokh
 	-- plural, as words: Outcast Scouts = {npc:254283} Outcast Scout · Outcast Necrokhans = {npc:253275} Outcast Necrokhan
-	["From the quest data: Outcast Scouts and Marauders hold the hideaway, with Outcast Necrokhans, elite and level 45, among them. The {item:256892} are crates in its west. The quest wants {quest:92846} here too; players have met them only in the valley between {npc:253136} and {npc:253177} so far, so take them there if the hideaway has none."] = "",
+	["From the quest data: Outcast Scouts and Marauders hold the hideaway, with Outcast Necrokhans, elite and level 45, among them. The {item:256892} are crates in its west. The quest wants {quest:92846} here too; players have met them only in the valley between {npc:253136} and {npc:253177} so far, so take them there if the hideaway has none."] = "D'après les données de quête : des Éclaireurs et des Maraudeurs exilés tiennent la planque, avec parmi eux des Nécrokhans exilés, élites de niveau 45. Les {item:256892} sont des caisses dans sa partie ouest. La quête demande aussi des {quest:92846} ici ; jusqu'ici, les joueurs ne les ont croisés que dans la vallée entre {npc:253136} et {npc:253177}, alors tuez-les là-bas si la planque n'en a pas.",
 	-- {item:256892} Stolen Supplies
-	["{item:256892}: crates"] = "",
+	["{item:256892}: crates"] = "{item:256892} : caisses",
 
 	-- Step 40: Magram: back to Hagiak
 	-- {npc:253851} Hagiak
-	["Magram: back to {npc:253851}"] = "",
+	["Magram: back to {npc:253851}"] = "Magram : retour à {npc:253851}",
 
 	-- Step 41: Magram: Orgrul's ritual
 	-- {npc:253136} Orgrul
-	["Magram: {npc:253136}'s ritual"] = "",
+	["Magram: {npc:253136}'s ritual"] = "Magram : le rituel d'{npc:253136}",
 	-- {quest:93196} Khan Jehn · {npc:253136} Orgrul
-	["From the quest data: {quest:93196} has been slain by outsiders working for the Gelkis, and {npc:253136} means to raise him."] = "",
+	["From the quest data: {quest:93196} has been slain by outsiders working for the Gelkis, and {npc:253136} means to raise him."] = "D'après les données de quête : {quest:93196} a été tué par des étrangers au service des Gelkis, et {npc:253136} compte le relever.",
 
 	-- Step 42: Magram: Khan Jehn
 	-- {quest:93196} Khan Jehn
 	["Magram: {quest:93196}"] = "Magram : {quest:93196}",
 	-- {item:257517} Ultimate Necromancy Staff · {area:604} Magram Village · {quest:93196} Khan Jehn · {item:271800} Scavenged Magram Armament · {item:271803} Greatstaff of the Necrokhans · {item:271804} Soulsplatter Mace
-	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "",
+	["From the quest data: take the {item:257517} to the ritual site, a tent by the lake in the middle of {area:604}, and raise {quest:93196}. The risen khan takes the quest: 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit). The quest costs the Gelkis 30,000."] = "D'après les données de quête : apportez le {item:257517} au site du rituel, une tente près du lac, au milieu de {area:604}, et relevez {quest:93196}. Le khan relevé prend la quête : 6 000, un titre et le choix entre trois armes rares de niveau 35 : {item:271800} (arme d'hast : Endurance, puissance d'attaque, Agilité), {item:271803} (bâton : Intelligence, Endurance, Esprit) ou {item:271804} (masse de main droite : Intelligence, Endurance, Esprit). La quête coûte 30 000 auprès des Gelkis.",
 	-- {quest:93196} Khan Jehn
-	["raise {quest:93196} at the tent by the lake"] = "",
+	["raise {quest:93196} at the tent by the lake"] = "relevez {quest:93196} à la tente près du lac",
 
 	-- Step 43: Magram: totems to Exalted
 	["Magram: totems to Exalted"] = "Magram : totems jusqu'à Exalté",
@@ -326,8 +326,5 @@ return {
 	-- ["Friendly to Honored is 6,000; after the clan's quests you are about 4,000 into it, so 2,000 to go. {npc:253140}'s {quest:92812} takes 5 Carved Centaur Totems for 750, again and again: three turn-ins, 15 totems. The Maraudine centaurs (level 36-40) of western {zone:1443} drop them; the totems do not bind, so the auction house is the other source. Magram kills add 20 each, but Forever's kill data stops them at the end of Friendly, 1 short of Honored. At Friendly the village also has three craft orders for 1,000 each: Halea wants 3 Greater Mystic Essences, {npc:253140} a {item:10008} (tailoring) and Talra a {item:5739} (leatherworking). Legacy Diplomat adds up to 10%."] = "D'Amical à Honoré, il faut 6 000 ; après les quêtes du clan, vous en avez environ 4 000, donc il en reste 2 000. {quest:92812} de {npc:253140} prend 5 totems centaures sculptés contre 750, encore et encore : trois remises, 15 totems. Les centaures maraudine (niveau 36-40) de l'ouest de {zone:1443} en laissent ; les totems ne sont pas liés, donc l'hôtel des ventes est l'autre source. Les Magram tués ajoutent 20 chacun, mais les données de victimes de Forever les arrêtent à la fin d'Amical, à 1 point d'Honoré. À Amical, le village a aussi trois commandes d'artisanat à 1 000 chacune : Halea veut 3 essences mystiques supérieures, {npc:253140} un {item:10008} (couture) et Talra un {item:5739} (travail du cuir). Diplomate de l'Héritage ajoute jusqu'à 10 %.",
 	-- ["Gelkis: the {quest:93034}"] = "Gelkis : {quest:93034}",
 	-- ["Magram: the {quest:92841}"] = "Magram : {quest:92841}",
-	-- ["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412} offers {quest:1368} and {quest:1367}. Take the one of your clan, and {quest:93224}: each clan's Buying Friendship (3,000) is offered once you bring the totems back. Then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it goes to the Magram half. Forever pays these quests in full at any level."] = "Les Gelkis (sud-ouest de {zone:1443}) et les Magram (sud-est) sont en guerre : chaque victime d'un clan donne 20 à l'autre et coûte 100 à son propre clan, donc vous ne pouvez monter qu'avec un seul. Les deux commencent à Neutre. Dans Forever, les quêtes valent maintenant bien plus que les victimes, et les quêtes de choix ne coûtent plus rien à l'autre clan. Alliance : le {npc:5396} à {area:608} propose {quest:1382} (Gelkis) et {quest:1385} (Magram). Horde : {npc:5412} propose {quest:1368} et {quest:1367}. Acceptez celle de votre clan, et {quest:93224} : le Buying Friendship de chaque clan (3 000) est proposé dès que vous rapportez les totems. Cochez ensuite la tâche. Le guide continue avec les Gelkis ; acceptez plutôt les quêtes des Magram et il passe à la partie Magram. Forever paie ces quêtes en entier à tout niveau.",
 	-- ["The Gelkis (south-west {zone:1443}) and the Magram (south-east) are at war: every kill of one clan gives the other 20 and costs its own clan 100, so you can only climb with one. Both start Neutral. Forever's quests are worth far more than kills now, and the choice quests no longer cost the other clan anything. Alliance: {npc:5396} at {area:608} offers {quest:1382} (Gelkis) and {quest:1385} (Magram). Horde: {npc:5412}, east of Shadowprey, offers {quest:1368} and {quest:1367}. Take the one of your clan and its Buying Friendship (3,000 for carrying a tote of totems), then tick the task. The guide goes on with the Gelkis; take the Magram's quests instead and it jumps to the Magram half. Do the clan's quests by level 50 if you can: in Classic a quest pays less once it is 6 or more levels below you, down to a fifth."] = "Les Gelkis (sud-ouest de {zone:1443}) et les Magram (sud-est) sont en guerre : chaque victime d'un clan donne 20 à l'autre et coûte 100 à son propre clan, donc vous ne pouvez monter qu'avec un seul. Les deux commencent à Neutre. Dans Forever, les quêtes valent maintenant bien plus que les victimes, et les quêtes de choix ne coûtent plus rien à l'autre clan. Alliance : le {npc:5396} à {area:608} propose {quest:1382} (Gelkis) et {quest:1385} (Magram). Horde : {npc:5412}, à l'est de Proie-de-l'ombre, propose {quest:1368} et {quest:1367}. Acceptez celle de votre clan et son Buying Friendship (3 000 pour porter un sac de totems), puis cochez la tâche. Le guide continue avec les Gelkis ; acceptez plutôt les quêtes des Magram et il passe à la partie Magram. Faites les quêtes du clan avant le niveau 50 si possible : dans Classic, une quête rapporte moins une fois qu'elle est 6 niveaux ou plus sous le vôtre, jusqu'à un cinquième.",
-	-- ["The ritual site is a tent by the lake in the middle of {area:604}. {npc:253136} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271800} (polearm: Stamina, attack power, Agility), {item:271803} (staff: Intellect, Stamina, Spirit) or {item:271804} (main-hand mace: Intellect, Stamina, Spirit)."] = "Le site du rituel est une tente près du lac, au milieu de {area:604}. {npc:253136} paie 6 000, un titre et le choix entre trois armes rares de niveau 35 : {item:271800} (arme d'hast : Endurance, puissance d'attaque, Agilité), {item:271803} (bâton : Intelligence, Endurance, Esprit) ou {item:271804} (masse de main droite : Intelligence, Endurance, Esprit).",
-	-- ["{npc:5601} (level 37) leads the Magram from the west side of {area:604}, with his bodyguards. The kill costs the Magram 500. {npc:5397} pays 6,000, a title, and your pick of three rare level 35 weapons: {item:271801} (two-handed axe: Strength, Stamina, Agility), {item:271802} (one-handed mace: Strength, Stamina, Agility) or {item:271805} (off-hand: Spirit, Intellect, Stamina)."] = "{npc:5601} (niveau 37) dirige les Magram depuis le côté ouest de {area:604}, avec ses gardes du corps. Le tuer coûte 500 auprès des Magram. {npc:5397} paie 6 000, un titre et le choix entre trois armes rares de niveau 35 : {item:271801} (hache à deux mains : Force, Endurance, Agilité), {item:271802} (masse à une main : Force, Endurance, Agilité) ou {item:271805} (main gauche : Esprit, Intelligence, Endurance).",
 }

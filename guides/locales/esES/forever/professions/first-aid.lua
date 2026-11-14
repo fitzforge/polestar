@@ -15,15 +15,15 @@ return {
 
 	-- Step 2: Linen Bandage: Auction House
 	-- {item:1251} Linen Bandage
-	["{item:1251}: Auction House"] = "",
+	["{item:1251}: Auction House"] = "{item:1251}: casa de subastas",
 	-- {item:1251} Linen Bandage · {item:2589} Linen Cloth
-	["What {item:1251} takes that the Auction House sells: 41 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:1251} takes that the Auction House sells: 41 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:1251} y vende la casa de subastas: 41 {item:2589}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 3: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
 	["{item:1251}: cloth"] = "{item:1251}: paño",
 	-- {item:2589} Linen Cloth
-	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, or take it from your bank."] = "Los humanoides de nivel 5-20 sueltan {item:2589}: guarda lo que despojes mientras subes de nivel o sácalo de tu banco.",
 
 	-- Step 4: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -32,9 +32,9 @@ return {
 
 	-- Step 5: Heavy Linen Bandage: Auction House
 	-- {item:2581} Heavy Linen Bandage
-	["{item:2581}: Auction House"] = "",
+	["{item:2581}: Auction House"] = "{item:2581}: casa de subastas",
 	-- {item:2581} Heavy Linen Bandage · {item:2589} Linen Cloth
-	["What {item:2581} takes that the Auction House sells: 20 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:2581} takes that the Auction House sells: 20 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:2581} y vende la casa de subastas: 20 {item:2589}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 6: Heavy Linen Bandage: cloth
 	-- {item:2581} Heavy Linen Bandage
@@ -52,7 +52,7 @@ return {
 
 	-- Step 9: Heavy Linen Bandage: Auction House
 	-- {item:2581} Heavy Linen Bandage · {item:2589} Linen Cloth
-	["What {item:2581} takes that the Auction House sells: 92 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:2581} takes that the Auction House sells: 92 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:2581} y vende la casa de subastas: 92 {item:2589}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 11: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -60,15 +60,15 @@ return {
 
 	-- Step 12: Wool Bandage: Auction House
 	-- {spell:3277} Wool Bandage
-	["{spell:3277}: Auction House"] = "",
+	["{spell:3277}: Auction House"] = "{spell:3277}: casa de subastas",
 	-- {spell:3277} Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3277} takes that the Auction House sells: 49 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3277} takes that the Auction House sells: 49 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {spell:3277} y vende la casa de subastas: 49 {item:2592}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 13: Wool Bandage: cloth
 	-- {spell:3277} Wool Bandage
 	["{spell:3277}: cloth"] = "{spell:3277}: paño",
 	-- {item:2592} Wool Cloth
-	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, or take it from your bank."] = "Los humanoides de nivel 15-30 sueltan {item:2592}: guarda lo que despojes mientras subes de nivel o sácalo de tu banco.",
 
 	-- Step 14: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -76,9 +76,9 @@ return {
 
 	-- Step 15: Heavy Wool Bandage: Auction House
 	-- {spell:3278} Heavy Wool Bandage
-	["{spell:3278}: Auction House"] = "",
+	["{spell:3278}: Auction House"] = "{spell:3278}: casa de subastas",
 	-- {spell:3278} Heavy Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3278} takes that the Auction House sells: 22 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3278} takes that the Auction House sells: 22 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {spell:3278} y vende la casa de subastas: 22 {item:2592}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 16: Heavy Wool Bandage: cloth
 	-- {spell:3278} Heavy Wool Bandage
@@ -92,39 +92,39 @@ return {
 	-- {skill:129} First Aid
 	["Expert {skill:129}"] = "{skill:129} de experto",
 	-- {skill:129} First Aid · {item:16084} Expert First Aid - Under Wraps · {item:8544} Mageweave Bandage
-	["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084} (1g); the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals (22s and 50s): buy both now, you read them at 180 and 210."] = "",
+	["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084} (1g); the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals (22s and 50s): buy both now, you read them at 180 and 210."] = "{skill:129} de experto sube el límite a 225; requiere habilidad 125 y nivel de personaje 20: es un libro, {item:16084} (1 o); la flecha elige el vendedor más cercano de tu facción. Cómpralo y léelo. El mismo mercader vende los manuales de Venda de seda pesada y de {item:8544} (22 p y 50 p): compra los dos ahora, los leerás a 180 y 210.",
 	-- {item:16084} Expert First Aid - Under Wraps · {skill:129} First Aid
 	["Buy and read {item:16084} (Expert {skill:129})"] = "Compra y lee {item:16084} ({skill:129} de experto)",
 
 	-- Step 19: Heavy Wool Bandage: Auction House
 	-- {spell:3278} Heavy Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3278} takes that the Auction House sells: 76 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3278} takes that the Auction House sells: 76 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {spell:3278} y vende la casa de subastas: 76 {item:2592}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 21: Heavy Wool Bandage (125-150)
 	-- {spell:3278} Heavy Wool Bandage
-	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "",
+	["{spell:3278} is yellow from 125 (yellow at 115, green at 150, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278} es amarillo desde 125 (amarillo a 115, verde a 150, gris a 185): unas 38 fabricaciones hasta 150. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
 
 	-- Step 22: Silk Bandage: Auction House
 	-- {item:6450} Silk Bandage
-	["{item:6450}: Auction House"] = "",
+	["{item:6450}: Auction House"] = "{item:6450}: casa de subastas",
 	-- {item:6450} Silk Bandage · {item:4306} Silk Cloth
-	["What {item:6450} takes that the Auction House sells: 42 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6450} takes that the Auction House sells: 42 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:6450} y vende la casa de subastas: 42 {item:4306}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 23: Silk Bandage: cloth
 	-- {item:6450} Silk Bandage
 	["{item:6450}: cloth"] = "{item:6450}: paño",
 	-- {item:4306} Silk Cloth
-	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, or take it from your bank."] = "Los humanoides de nivel 25-45 sueltan {item:4306}: guarda lo que despojes mientras subes de nivel o sácalo de tu banco.",
 
 	-- Step 24: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
-	["{item:6450} is yellow from 150 (yellow at 150, green at 180, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 150 for 50s; the arrow picks the nearest."] = "",
+	["{item:6450} is yellow from 150 (yellow at 150, green at 180, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it from skill 150 for 50s; the arrow picks the nearest."] = "{item:6450} es amarillo desde 150 (amarillo a 150, verde a 180, gris a 210): unas 42 fabricaciones hasta 180. Las vendas no necesitan fuego: hazlas en cualquier sitio. Te lo enseña cualquier instructor de {skill:129} de tu facción a partir de habilidad 150 por 50 p; la flecha elige el más cercano.",
 
 	-- Step 25: Heavy Silk Bandage: Auction House
 	-- {item:6451} Heavy Silk Bandage
-	["{item:6451}: Auction House"] = "",
+	["{item:6451}: Auction House"] = "{item:6451}: casa de subastas",
 	-- {item:6451} Heavy Silk Bandage · {item:4306} Silk Cloth
-	["What {item:6451} takes that the Auction House sells: 84 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6451} takes that the Auction House sells: 84 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:6451} y vende la casa de subastas: 84 {item:4306}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 26: Heavy Silk Bandage: cloth
 	-- {item:6451} Heavy Silk Bandage
@@ -132,23 +132,23 @@ return {
 
 	-- Step 27: Heavy Silk Bandage (180-210)
 	-- {item:6451} Heavy Silk Bandage
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "",
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} es amarillo desde 180 (amarillo a 180, verde a 210, gris a 240): unas 42 fabricaciones hasta 210. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
-	["{item:8544}: Auction House"] = "",
+	["{item:8544}: Auction House"] = "{item:8544}: casa de subastas",
 	-- {item:8544} Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8544} takes that the Auction House sells: 18 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8544} takes that the Auction House sells: 18 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:8544} y vende la casa de subastas: 18 {item:4338}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 29: Mageweave Bandage: cloth
 	-- {item:8544} Mageweave Bandage
 	["{item:8544}: cloth"] = "{item:8544}: paño",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "Los humanoides de nivel 35-50 sueltan {item:4338}: guarda lo que despojes mientras subes de nivel o sácalo de tu banco.",
 
 	-- Step 30: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "",
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} es amarillo desde 210 (amarillo a 210, verde a 240, gris a 270): unas 18 fabricaciones hasta 225. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
 
 	-- Step 31: Trauma
 	["Trauma"] = "Traumatología",
@@ -173,7 +173,7 @@ return {
 
 	-- Step 35: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8544} takes that the Auction House sells: 24 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8544} takes that the Auction House sells: 24 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:8544} y vende la casa de subastas: 24 {item:4338}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 37: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage
@@ -186,9 +186,9 @@ return {
 
 	-- Step 39: Heavy Mageweave Bandage: Auction House
 	-- {item:8545} Heavy Mageweave Bandage
-	["{item:8545}: Auction House"] = "",
+	["{item:8545}: Auction House"] = "{item:8545}: casa de subastas",
 	-- {item:8545} Heavy Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8545} takes that the Auction House sells: 50 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8545} takes that the Auction House sells: 50 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:8545} y vende la casa de subastas: 50 {item:4338}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 40: Heavy Mageweave Bandage: cloth
 	-- {item:8545} Heavy Mageweave Bandage
@@ -196,7 +196,7 @@ return {
 
 	-- Step 41: Heavy Mageweave Bandage (240-260)
 	-- {item:8545} Heavy Mageweave Bandage
-	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere."] = "",
+	["{item:8545} is yellow from 240 (yellow at 240, green at 270, grey at 300): about 25 crafts to 260. Bandages need no fire: craft them anywhere."] = "{item:8545} es amarillo desde 240 (amarillo a 240, verde a 270, gris a 300): unas 25 fabricaciones hasta 260. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
 
 	-- Step 42: Runecloth Bandage
 	-- {spell:18629} Runecloth Bandage · {quest:6622} Triage · {npc:12939} Doctor Gustaf VanHowzen · {npc:12920} Doctor Gregory Victor · {area:321} Hammerfall
@@ -204,15 +204,15 @@ return {
 
 	-- Step 43: Runecloth Bandage: Auction House
 	-- {item:14529} Runecloth Bandage
-	["{item:14529}: Auction House"] = "",
+	["{item:14529}: Auction House"] = "{item:14529}: casa de subastas",
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth
-	["What {item:14529} takes that the Auction House sells: 65 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:14529} takes that the Auction House sells: 65 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "Lo que necesitas para {item:14529} y vende la casa de subastas: 65 {item:14047}. Las cantidades bajan según lo que tengas en las bolsas, el banco y el correo.",
 
 	-- Step 44: Runecloth Bandage: cloth
 	-- {item:14529} Runecloth Bandage
 	["{item:14529}: cloth"] = "{item:14529}: paño",
 	-- {item:14047} Runecloth
-	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, or take it from your bank."] = "Los humanoides de nivel 45-60 sueltan {item:14047}: guarda lo que despojes mientras subes de nivel o sácalo de tu banco.",
 
 	-- Step 45: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
@@ -222,7 +222,6 @@ return {
 	-- ["Any {skill:129} trainer of your faction teaches Apprentice {skill:129} (character level 5); the arrow picks the nearest."] = "Cualquier instructor de {skill:129} de tu facción enseña {skill:129} de aprendiz (nivel de personaje 5); la flecha elige el más cercano.",
 	-- ["Artisan {skill:129} comes from the {quest:6622} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1454} sends you to the doctor in {area:321}."] = "{skill:129} de artesano se obtiene con la misión {quest:6622}. Requiere habilidad 225 y nivel 40; el instructor de {skill:129} de {zone:1454} te envía al médico de {area:321}.",
 	-- ["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 40; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore."] = "{skill:129} de artesano se obtiene con la misión {quest:6624}. Requiere habilidad 225 y nivel 40; el instructor de {skill:129} de {zone:1455} te envía al médico de Isla de Theramore.",
-	-- ["Expert {skill:129} raises the cap to 225; it needs skill 125 and character level 20: it is a book, {item:16084}; the arrow picks its nearest seller for your faction. Buy it and read it. The same vendor sells the Heavy Silk and {item:8544} manuals: buy both now, you read them at 180 and 210."] = "{skill:129} de experto sube el límite a 225; requiere habilidad 125 y nivel de personaje 20: es un libro, {item:16084}; la flecha elige el vendedor más cercano de tu facción. Cómpralo y léelo. El mismo mercader vende los manuales de Venda de seda pesada y de {item:8544}: compra los dos ahora, los leerás a 180 y 210.",
 	-- ["Journeyman {skill:129} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:129} trainer of your faction. Learn {spell:3276} on the same visit."] = "{skill:129} de oficial sube el límite a 150; requiere habilidad 50 y nivel de personaje 10: la flecha elige el instructor de {skill:129} de tu facción más cercano. Aprende {spell:3276} en la misma visita.",
 	-- ["humanoids of level 15-30 drop {item:2592} (or buy it at the Auction House)."] = "los humanoides de nivel 15-30 sueltan {item:2592} (o cómpralo en la casa de subastas).",
 	-- ["humanoids of level 25-45 drop {item:4306} (or buy it at the Auction House)."] = "los humanoides de nivel 25-45 sueltan {item:4306} (o cómpralo en la casa de subastas).",
@@ -230,20 +229,10 @@ return {
 	-- ["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "los humanoides de nivel 45-60 sueltan {item:14047} (o cómpralo en la casa de subastas).",
 	-- ["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "los humanoides de nivel 5-20 sueltan {item:2589} (o cómpralo en la casa de subastas).",
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251} es naranja desde 1 (amarillo a 30, gris a 60): unas 61 fabricaciones hasta 50. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
-	-- ["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "Los humanoides de nivel 45-60 sueltan {item:14047}: guarda lo que despojes mientras subes de nivel, sácalo de tu banco o cómpralo en la casa de subastas.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529} es amarilla desde 260 (amarilla a 260, gris a 320): unas 65 fabricaciones hasta 300. Las vendas no necesitan fuego: hazlas en cualquier sitio. {item:14529} sigue amarilla hasta 320, así que te lleva hasta 300 sin tener que ir a por la Venda de paño rúnico pesada.",
-	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} es amarillo desde 50 (amarillo a 50, gris a 100): unas 46 fabricaciones hasta 80. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
-	-- ["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "Los humanoides de nivel 5-20 sueltan {item:2589}: guarda lo que despojes mientras subes de nivel, sácalo de tu banco o cómpralo en la casa de subastas.",
-	-- ["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "Los humanoides de nivel 15-30 sueltan {item:2592}: guarda lo que despojes mientras subes de nivel, sácalo de tu banco o cómpralo en la casa de subastas.",
-	-- ["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "Los humanoides de nivel 25-45 sueltan {item:4306}: guarda lo que despojes mientras subes de nivel, sácalo de tu banco o cómpralo en la casa de subastas.",
-	-- ["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "Los humanoides de nivel 35-50 sueltan {item:4338}: guarda lo que despojes mientras subes de nivel, sácalo de tu banco o cómpralo en la casa de subastas.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450} es amarillo desde 150 (amarillo a 150, gris a 210): unas 42 fabricaciones hasta 180. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
-	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} es amarillo desde 180 (amarillo a 180, gris a 240): unas 42 fabricaciones hasta 210. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
-	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} es amarillo desde 210 (amarillo a 210, gris a 270): unas 18 fabricaciones hasta 225. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544} es amarillo desde 225 (amarillo a 210, gris a 270): unas 88 fabricaciones hasta 260. Las vendas no necesitan fuego: hazlas en cualquier sitio. {item:8544} sigue amarillo hasta 270; una sola receta hasta 260 te ahorra dos viajes al médico.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: atiende a los soldados heridos en la tienda del médico con las vendas que te da, primero a los más graves, antes de que muera ninguno.",
 	-- ["{quest:6624}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6624}: atiende a los soldados heridos en la tienda del médico con las vendas que te da, primero a los más graves, antes de que muera ninguno.",
-	-- ["{spell:3277} is yellow from 80 (yellow at 80, grey at 150): about 49 crafts to 115. Bandages need no fire: craft them anywhere. Any {skill:129} trainer of your faction teaches it; the arrow picks the nearest."] = "{spell:3277} es amarillo desde 80 (amarillo a 80, gris a 150): unas 49 fabricaciones hasta 115. Las vendas no necesitan fuego: hazlas en cualquier sitio. Te lo enseña cualquier instructor de {skill:129} de tu facción; la flecha elige el más cercano.",
 	-- ["{spell:3278} is yellow from 115 (yellow at 115, grey at 185): about 11 crafts to 125. Bandages need no fire: craft them anywhere."] = "{spell:3278} es amarillo desde 115 (amarillo a 115, gris a 185): unas 11 fabricaciones hasta 125. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
-	-- ["{spell:3278} is yellow from 125 (yellow at 115, grey at 185): about 38 crafts to 150. Bandages need no fire: craft them anywhere."] = "{spell:3278} es amarillo desde 125 (amarillo a 115, gris a 185): unas 38 fabricaciones hasta 150. Las vendas no necesitan fuego: hazlas en cualquier sitio.",
 }

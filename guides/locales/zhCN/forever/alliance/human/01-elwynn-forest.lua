@@ -139,22 +139,32 @@ return {
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "在他的营火旁坐下（/sit），直到获得{spell:1229451}",
 
 	-- Step 24: Camping 101: Skinning
+	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
+	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6306}会在你的{skill:393}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399}：交给湖岸的{npc:6306}",
 
 	-- Step 25: Camping 101: Leatherworking
+	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
+	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1632}会在你的{skill:165}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399}：交给湖岸的{npc:1632}",
 
 	-- Step 26: Camping 101: Fishing
+	-- {npc:1651} Lee Brown · {skill:356} Fishing
+	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1651}会在你的{skill:356}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399}：交给湖岸的{npc:1651}",
 
 	-- Step 27: Camping 101: First Aid
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2329}会在你的{skill:129}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399}：交给狮王之傲旅店里的{npc:2329}",
 
 	-- Step 28: Camping 101: Blacksmithing
+	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
+	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:514}会在你的{skill:164}技能达到20后接收：在那之前去采集或制作，指南会同时继续进行。",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399}：交给{area:87}铁匠铺的{npc:514}",
 
@@ -289,9 +299,9 @@ return {
 	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "沿湖岸向东离开{area:87}。{npc:383}站在镇子东北方的湖岸上。",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
-	-- {area:91} Tower of Azora
+	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too."] = "东岸的鱼人掉落海草。剥皮者：森林灰狼在湖和{area:91}之间的树林里游荡；更东边的{npc:118}也能剥出毛皮。",
+	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "东岸的鱼人掉落海草。剥皮者：森林灰狼在湖和{area:91}之间的树林里游荡；更东边的觅食的灰狼也能剥出毛皮。\n小心：11级稀有鱼人{npc:276180}在{npc:261}的桥边河里走动，在觅食的灰狼所在树林的东边：别去惹他。",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "{item:1256}",
 

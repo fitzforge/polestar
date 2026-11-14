@@ -39,14 +39,14 @@ return {
 	-- {item:18752} Exorcism Censer
 	["{item:18752}, inside a green patch"] = "",
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["Terrordale Spirits x25"] = "",
+	["Terrordale Spirits x25"] = "恐懼谷的靈魂 x25",
 
 	-- Step 6: Lord Grayson Shadowbreaker
 	["Lord Grayson takes the censer back."] = "",
 
 	-- Step 7: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {object:28027} Dwarven District · {item:18753} Arcanite Barding
-	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "",
+	["{npc:1416} works in {zone:1453}'s {object:28027}. He forges the {item:18753} from your materials and 150 gold."] = "{npc:1416}在{zone:1453}的{object:28027}工作。他會用你的材料和150金幣打造{item:18753}。",
 
 	-- Step 8: Grimand Elmore's materials
 	-- {npc:1416} Grimand Elmore
@@ -58,7 +58,7 @@ return {
 	-- {item:8836} Arthas' Tears
 	["{item:8836} x10"] = "",
 	-- plural, as words: Arcanite Bars = {item:12360} Arcanite Bar
-	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "",
+	["Arcanite Bars x6: an alchemist, or the Trade District Auction House"] = "奧金錠 x6：鍊金術師，或貿易區的拍賣場",
 
 	-- Step 9: Stratholme Holy Water
 	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands
@@ -83,14 +83,14 @@ return {
 	["Enriched Manna Biscuits"] = "可口的魔法點心",
 	-- {object:2160} The Argent Dawn · {object:92525} Argent Dawn · {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp · {npc:11536} Quartermaster Miranda Breechlock · {area:2268} Light's Hope Chapel
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
-	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "",
+	["{object:2160} quartermasters sell Enriched Manna Biscuits, five for 60 silver, once the {object:92525} is Friendly with you: {npc:10857} at {area:3197} or {npc:11536} at {area:2268}. Scourgestones and the Plaguelands quests raise the standing."] = "{object:92525}對你友善後，{object:2160}軍需官會出售強化法力餅乾，五個60銀幣：{area:3197}的{npc:10857}或{area:2268}的{npc:11536}。天譴石和瘟疫之地的任務可以提升聲望。",
 	-- {npc:10857} Argent Quartermaster Lightspark · {area:3197} Chillwind Camp
 	-- plural, as words: Enriched Manna Biscuits = {item:13724} Enriched Manna Biscuit
 	["Enriched Manna Biscuits: {npc:10857}, {area:3197}"] = "可口的魔法點心：{npc:10857}，{area:3197}",
 
 	-- Step 13: Merideth Carlson
 	-- {npc:2357} Merideth Carlson · {area:271} Southshore · {quest:7645} Manna-Enriched Horse Feed
-	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "",
+	["{npc:2357} breeds horses in {area:271}'s stable. She makes the {quest:7645} from the 20 biscuits and 50 gold, taken at the hand-in."] = "{npc:2357}在{area:271}的馬廄養馬。她會用20個餅乾和50金幣製作{quest:7645}，在繳交時收取。",
 
 	-- Step 14: Dire Maul: Tendris Warpwood
 	-- {area:2577} Dire Maul · {zone:1444} Feralas · {item:18249} Crescent Key · {npc:11489} Tendris Warpwood · {npc:11459} Ironbark Protector · {quest:7643} Ancient Equine Spirit · {item:18753} Arcanite Barding
@@ -118,10 +118,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800}來自瑟銀礦脈，{item:18335}來自{zone:1422}的精英怪，兩者都很稀有：通常從拍賣場取得。",
-	-- ["Arcanite Bars: the Auction House"] = "奧金錠：拍賣場",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "除了材料，再帶150金幣給{npc:1416}。",
 	-- ["Supply Crates, inside"] = "補給箱，在裡面",
-	-- ["Terrordale Spirits"] = "恐懼谷的靈魂",
 	-- ["The {spell:23214} chain is long: it takes you through {area:2279}, {area:2577} and {area:2057}, and costs about 350 gold in donations on top of the materials. Lord Grayson stands in the Cathedral of Light."] = "{spell:23214}任務鏈很長：會帶你進入{area:2279}、{area:2577}和{area:2057}，除了材料之外還要捐獻約350金幣。格雷森公爵站在光明大教堂裡。",
 	-- ["he hands you the {item:18746}"] = "他會給你{item:18746}",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, defeat the spirits it calls and then {npc:14516}, and give his Fallen Charger the {item:18799} and the {item:18792}. All are elite: bring a group. If the attempt fails, Lord Grayson gives you a new scryer through Again Into the {object:179746}."] = "{area:2057}位於{zone:1422}東南部的島上城鎮{area:2298}之下。在大藏骨堂地下室的中央使用{item:18746}，擊敗它召來的靈魂，再擊敗{npc:14516}，然後把{item:18799}和{item:18792}交給達克雷爾的墮落戰馬。全都是精英：請帶小隊。如果失敗，格雷森公爵會透過「重回大藏骨堂」給你新的預言水晶球。",
@@ -130,7 +128,4 @@ return {
 	-- ["{area:2627} lies in the far north-west of the {zone:1423}, by the {zone:1422} border. Use the {item:18752} there to drive out the spirits, then defeat them."] = "{area:2627}位於{zone:1423}的最西北方，靠近{zone:1422}邊界。在那裡使用{item:18752}驅出靈魂，然後擊敗它們。",
 	-- ["{item:14047} drops from humanoids around level 50 and up; {item:8836} is an herb of the Plaguelands and {zone:1448}; Arcanite Bars are an {skill:171} transmute. The Auction House in {zone:1453}'s {object:2096} sells all three, and so do crafters."] = "{item:14047}由50級以上的人型生物掉落；{item:8836}是瘟疫之地和{zone:1448}的草藥；奧金錠是{skill:171}轉化產物。{zone:1453}{object:2096}的拍賣場三樣都有賣，工匠也有。",
 	-- ["{npc:11406} is in {zone:1455}'s {object:32362}. Bring 150 gold: the censer is yours for a donation."] = "{npc:11406}在{zone:1455}的{object:32362}。帶150金幣：捐獻後香爐就歸你。",
-	-- ["{npc:1416} works in {zone:1453}'s {object:28027}."] = "{npc:1416}在{zone:1453}的{object:28027}工作。",
-	-- ["{npc:2357} breeds horses in {area:271}. She also wants 50 gold."] = "{npc:2357}在{area:271}養馬。她也要50金幣。",
-	-- ["{object:2160} quartermasters sell the biscuits in fives once the {object:92525} is Friendly with you: {npc:10857} at {area:3197}, {npc:11536} at {area:2268}, {npc:10856} at the {area:813}."] = "{object:92525}對你友善後，{object:2160}軍需官會以五個為一組出售點心：{area:3197}的{npc:10857}、{area:2268}的{npc:11536}、{area:813}的{npc:10856}。",
 }

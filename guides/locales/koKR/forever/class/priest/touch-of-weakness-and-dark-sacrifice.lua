@@ -10,7 +10,7 @@ return {
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
 	["{spell:2652} and {quest:5644}"] = "{spell:2652} 및 {quest:5644}",
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
-	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "",
+	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "언데드 사제 주문: 10레벨에 {spell:2652}, 20레벨에 {quest:5644}(Forever 신규). 무료이며 목표가 없습니다.",
 
 	-- Step 1: Touch of Weakness: Tai'jin
 	-- {zone:1411} Durotar · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
@@ -89,5 +89,4 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:4606} in the {zone:1458}'s {object:36070}. Priest trainers elsewhere ({npc:6018} in {zone:1454}, {npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to her with a quest of the same name."] = "10레벨에 {zone:1458} {object:36070}의 {npc:4606}에게 가십시오. 다른 곳의 사제 상급자({zone:1454}의 {npc:6018}, {area:362}의 {npc:3706}, {zone:1456}의 {npc:3044})가 같은 이름의 퀘스트로 그녀에게 보냅니다.",
 	-- ["At 20, {npc:4606} teaches {quest:5644}. {npc:6018} in {zone:1454} and {npc:3044} in {zone:1456} send you to her with a quest of the same name."] = "20레벨에 {npc:4606}이(가) {quest:5644}을(를) 가르칩니다. {zone:1454}의 {npc:6018}과(와) {zone:1456}의 {npc:3044}이(가) 같은 이름의 퀘스트로 그녀에게 보냅니다.",
-	-- ["The Undead priest spells: {spell:2652} at 10, {quest:5644} at 20."] = "언데드 사제 주문: 10레벨에 {spell:2652}, 20레벨에 {quest:5644}.",
 }

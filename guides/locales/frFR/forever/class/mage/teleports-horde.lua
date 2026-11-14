@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Teleport: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1454} Orgrimmar · {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {spell:3566} Teleport: Thunder Bluff
-	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the Crossroads. {npc:5957}, the portal trainer, stands with the mage trainers in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart. She teaches {spell:3566} for 80 silver."] = "",
+	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the Crossroads. {npc:5957}, the portal trainer, stands with the mage trainers in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart. She teaches {spell:3566} for 80 silver."] = "Au niveau 30. Les {zone:1456} se trouvent en {zone:1412} : volez-y depuis {zone:1454} ou la Croisée. {npc:5957}, la maîtresse des portails, se tient avec les maîtres des mages dans les {area:2197}, la grotte sous la {area:1640} : descendez par l'intérieur, la flèche ne distingue pas les étages. Elle enseigne {spell:3566} pour 80 pa.",
 
 	-- Step 4: Portals to Orgrimmar and the Undercity
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity
@@ -34,9 +34,5 @@ return {
 
 	-- Step 5: Portal: Thunder Bluff
 	-- {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
-	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the {area:380}. {npc:5957}, the portal trainer, stands with the mage trainers on {area:1640} and teaches {spell:3566} for 80 silver."] = "Au niveau 30. Les {zone:1456} se trouvent en {zone:1412} : volez-y depuis {zone:1454} ou la {area:380}. {npc:5957}, la maîtresse des portails, se tient avec les maîtres des mages sur la {area:1640} et enseigne {spell:3566} pour 80 pa.",
-	-- ["At 50 {npc:5957} in {zone:1456} teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "Au niveau 50, {npc:5957} aux {zone:1456} enseigne le dernier, {spell:11420}, pour 3 po 20 pa. Utilisez votre {spell:3566} pour vous y rendre.",
+	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "Au niveau 50, {npc:5957}, en bas dans les {area:2197} sous la {area:1640} des {zone:1456}, enseigne le dernier, {spell:11420}, pour 3 po 20 pa. Utilisez votre {spell:3566} pour vous y rendre.",
 }

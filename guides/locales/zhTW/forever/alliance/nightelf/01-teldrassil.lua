@@ -40,7 +40,7 @@ return {
 	["North to {area:257}"] = "向北前往{area:257}",
 	-- {area:256} Aldrassil · {npc:1994} Githyiss the Vile · {npc:8584} Iverron
 	-- plural, as words: Mangy Nightsabers = {npc:2032} Mangy Nightsaber · Thistle Boars = {npc:1985} Thistle Boar
-	["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:1994} sits deep inside. {npc:8584} waits in the trees west of the cave mouth."] = "",
+	["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:1994} sits deep inside. {npc:8584} waits in the trees west of the cave mouth."] = "癩皮夜刃豹和草刺野豬在{area:256}北邊、前往洞穴的路上遊蕩。{npc:1994}在洞穴深處。{npc:8584}在洞口西邊的樹林裡等候。",
 	-- plural, as words: Webwood Spiders = {npc:1986} Webwood Spider
 	["Webwood Spiders; below ground"] = "",
 
@@ -48,13 +48,13 @@ return {
 	-- {area:256} Aldrassil · {npc:3593} Alyissia · {npc:3594} Frahun Shadewhisper · {npc:3595} Shanda · {npc:3596} Ayanna Everstride · {npc:3597} Mardant Strongoak
 	["The trainers stand upstairs inside {area:256}, along the ramp that winds up the tree: {npc:3593} and {npc:3594} on the first level, {npc:3595} above them, {npc:3596} and {npc:3597} at the top. The arrow cannot tell the levels apart."] = "",
 	-- {npc:3593} Alyissia
-	["{npc:3593}, the warrior trainer; inside"] = "",
+	["{npc:3593}, the warrior trainer; inside"] = "{npc:3593}，戰士訓練師；在裡面",
 	-- {npc:3596} Ayanna Everstride
 	["{npc:3596}, the hunter trainer"] = "{npc:3596}，獵人訓練師",
 	-- {npc:3594} Frahun Shadewhisper
 	["{npc:3594}, the rogue trainer"] = "{npc:3594}，盜賊訓練師",
 	-- {npc:3595} Shanda
-	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "",
+	["{npc:3595}, the priest trainer: in at the tree's front entrance and up the ramp"] = "{npc:3595}，牧師訓練師：從樹的正門進去，沿坡道往上",
 	-- {npc:3597} Mardant Strongoak · {area:256} Aldrassil
 	["{npc:3597}, the druid trainer at {area:256}"] = "{npc:3597}，{area:256}的德魯伊訓練師",
 
@@ -115,22 +115,32 @@ return {
 	["/sit by {npc:265811}'s campfire until you get {spell:1229451}"] = "在{npc:265811}的營火旁/sit，直到獲得{spell:1229451}",
 
 	-- Step 17: Camping 101: Alchemy
+	-- {npc:3603} Cyndra Kindwhisper · {skill:171} Alchemy
+	["{npc:3603} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:171}技能達到20後，{npc:3603}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:3603} Cyndra Kindwhisper · {npc:6286} Zarrin
 	["{npc:265811}: for {npc:3603}, beside {npc:6286}"] = "{npc:265811}：交給{npc:3603}，在{npc:6286}旁邊",
 
 	-- Step 18: Camping 101: Herbalism
+	-- {npc:3604} Malorne Bladeleaf · {skill:182} Herbalism
+	["{npc:3604} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:182}技能達到20後，{npc:3604}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:3604} Malorne Bladeleaf · {npc:6286} Zarrin
 	["{npc:265811}: for {npc:3604}, beside {npc:6286}"] = "{npc:265811}：交給{npc:3604}，在{npc:6286}旁邊",
 
 	-- Step 19: Camping 101: First Aid
+	-- {npc:6094} Byancie · {skill:129} First Aid
+	["{npc:6094} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:129}技能達到20後，{npc:6094}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:6094} Byancie
 	["{npc:265811}: for {npc:6094} in the inn"] = "{npc:265811}：交給旅店裡的{npc:6094}",
 
 	-- Step 20: Camping 101: Skinning
+	-- {npc:6287} Radnaal Maneweaver · {skill:393} Skinning
+	["{npc:6287} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:393}技能達到20後，{npc:6287}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:6287} Radnaal Maneweaver
 	["{npc:265811}: for {npc:6287}, by the road west"] = "{npc:265811}：交給{npc:6287}，在往西的路旁",
 
 	-- Step 21: Camping 101: Leatherworking
+	-- {npc:3605} Nadyia Maneweaver · {skill:165} Leatherworking
+	["{npc:3605} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "你的{skill:165}技能達到20後，{npc:3605}就會接收它：在那之前先採集或製作，指南會同時繼續進行。",
 	-- {npc:265811} Lyreena Duskblade · {npc:3605} Nadyia Maneweaver
 	["{npc:265811}: for {npc:3605}, by the road west"] = "{npc:265811}：交給{npc:3605}，在往西的路旁",
 
@@ -174,14 +184,14 @@ return {
 	["{quest:940}: kill these as you meet them"] = "",
 	-- {area:186} Dolanaar · {area:260} Starbreeze Village
 	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "",
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者在{area:186}四周和往東的道路沿線遊蕩；潛伏者也會掉落配方要的蜘蛛腿。月井在{area:260}的西緣。",
 	["Nightsabers"] = "夜刃豹",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "樹林潛伏者",
 
 	-- Step 29: Zenn Foulhoof
 	-- {npc:2150} Zenn Foulhoof · {area:186} Dolanaar · {area:260} Starbreeze Village
-	["{npc:2150} sits by the road just east of {area:186}, between {area:186} and {area:260}."] = "",
+	["{npc:2150} sits by the road just east of {area:186}, between {area:186} and {area:260}."] = "{npc:2150}坐在{area:186}東邊的路旁，在{area:186}和{area:260}之間。",
 
 	-- Step 30: Starbreeze Village
 	-- {npc:2107} Gaerolas Talvethren · {object:126158} Tallonkai's Dresser
@@ -194,7 +204,7 @@ return {
 	-- Step 31: Lake Al'Ameth
 	-- {npc:2150} Zenn Foulhoof · {npc:2080} Denalan · {quest:919} Timberling Sprouts
 	-- plural, as words: Lasher Sproutlings = {npc:275703} Lasher Sproutling
-	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "",
+	["South-west of Starbreeze, south of {npc:2150}. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "在星風村西南方，{npc:2150}南邊。{npc:2080}在岸邊照料他的樹苗；鞭笞者幼苗和林精在他周圍遊蕩，{quest:919}就生長在牠們之間。",
 	-- {npc:2080} Denalan · {quest:922} Rellian Greenspyre · {zone:1457} Darnassus
 	["{npc:2080}: {quest:922} in {zone:1457} takes it"] = "{npc:2080}：由{zone:1457}的{quest:922}接收",
 
@@ -250,7 +260,8 @@ return {
 
 	-- Step 42: Ban'ethil Barrow Den
 	-- {npc:275744} Sentinel Lynessa Duskblossom · {npc:7317} Oben Rageclaw
-	["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs."] = "",
+	-- plural, as words: Gnarlpine Defenders = {npc:2010} Gnarlpine Defender
+	["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms. Its furbolgs drop Shayla's fangs.\nCareful: the barrow's Gnarlpine Defenders, Augurs and Shamans (7-9) stand in threes in the narrow tunnels: pull each group back toward the entrance before you go deeper."] = "古墓在道路南邊。{npc:275744}被關在裡面，{npc:7317}在深處沉睡，四個聖物箱在下層的房間裡。裡面的熊怪會掉落夏伊拉要的牙。\n小心：古墓裡的瘤背防禦者、預言者和薩滿（7-9級）三個一組站在狹窄的隧道裡：深入之前，先把每一組拉回入口方向。",
 	-- {item:5220} Gnarlpine Fang
 	["{item:5220}: any Gnarlpine furbolg"] = "",
 	-- {npc:7317} Oben Rageclaw
@@ -276,17 +287,17 @@ return {
 
 	-- Step 45: Gnarlpine Hold
 	-- {object:6751} Strange Fruited Plant
-	["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "",
+	["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "在池塘南邊。{object:6751}生長在脊骨堡旁；周圍的熊怪會掉落其餘的牙。",
 
 	-- Step 47: Seek Redemption!
 	-- {area:186} Dolanaar · {npc:2150} Zenn Foulhoof · {npc:7234} Ferocitas the Dream Eater
 	-- plural, as words: Fel Cones = {object:1673} Fel Cone
-	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "",
+	["Fel Cones lie under the trees all around {area:186} and {npc:2150}: pick them up on the road east and hand them to {npc:2150} on the way to {npc:7234}."] = "魔錐果散落在{area:186}和{npc:2150}周圍的樹下：在往東的路上撿起來，並在前往{npc:7234}的路上交給{npc:2150}。",
 
 	-- Step 48: Ferocitas the Dream Eater
 	-- {npc:7234} Ferocitas the Dream Eater · {area:260} Starbreeze Village · {item:8049} Gnarlpine Necklace
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
-	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "",
+	["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel.\nCareful: {npc:7234} waits near the camp fire with mystics around him, so pulling him without adds is hard."] = "瘤背秘法師和{npc:7234}在{area:260}東北方紮營。{npc:7234}會掉落{item:8049}：打開它取得寶石。\n小心：{npc:7234}在營火旁等著，周圍有秘法師，很難單獨把他拉出來。",
 	-- {item:8049} Gnarlpine Necklace · {npc:7234} Ferocitas the Dream Eater
 	["{item:8049}, from {npc:7234}"] = "",
 
@@ -423,21 +434,32 @@ return {
 
 	-- Step 71: Darnassus
 	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
+	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "沿著道路向西進入{zone:1457}，在{area:1659}的旅店和{area:3425}下方的隧道口使用{item:279378}，完成最後兩隻貓頭鷹。{npc:4241}站在一進城的{area:1659}上。{npc:3516}在城市北端的{area:1658}，{quest:922}就在其南邊；{npc:4092}、{npc:7999}、{npc:7313}和{npc:8396}在城市南端的月神殿裡。",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
 	["{item:279378}: the inn on the {area:1659}"] = "",
 
-	-- Step 73: Darnassus
+	-- Step 72: Warrior trainer
+	["Warrior trainer"] = "戰士訓練師",
+	-- {area:1660} Warrior's Terrace · {quest:1684} Elanaria
+	["Level 12 spells while you're on the {area:1660}: the warrior trainers stand beside {quest:1684}."] = "趁你在{area:1660}時學習12級法術：戰士訓練師站在{quest:1684}旁邊。",
+
+	-- Step 74: Darnassus
 	-- {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave
 	["{npc:3516}, in the {area:1658}"] = "{npc:3516}，在{area:1658}",
 
-	-- Step 74: Cenarion Enclave
+	-- Step 75: Cenarion Enclave
 	-- {npc:4146} Jocaste · {area:1658} Cenarion Enclave · {spell:5149} Beast Training
 	["{npc:4146}, in the {area:1658}: {spell:5149}"] = "{npc:4146}，在{area:1658}：{spell:5149}",
 
-	-- Step 76: Cenarion Enclave
+	-- Step 76: Cenarion Enclave trainers
+	-- {area:1658} Cenarion Enclave
+	["{area:1658} trainers"] = "{area:1658}訓練師",
+	-- {area:1658} Cenarion Enclave
+	["Level 12 spells while you're in the {area:1658}: the hunter, rogue and druid trainers all stand in it."] = "趁你在{area:1658}時學習12級法術：獵人、盜賊和德魯伊訓練師都在裡面。",
+
+	-- Step 78: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:4217}, in the {area:1658}"] = "{npc:4217}，在{area:1658}",
 	-- {area:3425} Cenarion Hold
@@ -451,96 +473,92 @@ return {
 	-- {npc:11401} Priestess Alathea
 	["{npc:11401}, in the Temple of the Moon: Starshards"] = "{npc:11401}，在月神殿裡：星辰碎片",
 
-	-- Step 77: Ilyenia Moonfire
+	-- Step 79: Priest trainer
+	["Priest trainer"] = "牧師訓練師",
+	-- {npc:11401} Priestess Alathea
+	["Level 12 spells while you're in the Temple of the Moon: the priest trainers stand beside {npc:11401}."] = "趁你在月神殿時學習12級法術：牧師訓練師站在{npc:11401}旁邊。",
+
+	-- Step 80: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
 
-	-- Step 78: Ilyenia Moonfire
+	-- Step 81: Ilyenia Moonfire
 	-- {npc:11866} Ilyenia Moonfire · {area:1660} Warrior's Terrace
 	["While you're here: learn Staves from {npc:11866} ({area:1660}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 79: Portal to Teldrassil
+	-- Step 82: Portal to Teldrassil
 	-- {quest:940} Teldrassil
 	["Portal to {quest:940}"] = "",
 
-	-- Step 80: Rut'theran Village
+	-- Step 83: Rut'theran Village
 	-- {area:702} Rut'theran Village · {npc:10118} Nessa Shadowsong · {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine · {area:442} Auberdine · {npc:4200} Laird
 	["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs. Once you have {quest:6342}, talk to {npc:3838} again and choose the flight to {area:442}: it is free and lands beside {npc:4200}. If the flight map opens instead, close it and talk to him again holding Shift."] = "",
 	-- {npc:3838} Vesprystus · {quest:6342} Flight to Auberdine
 	["talk to {npc:3838} again: free with {quest:6342}"] = "",
 
-	-- Step 81: Auberdine
+	-- Step 84: Auberdine
 	-- {npc:3841} Caylais Moonfeather · {npc:4200} Laird
 	["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
 	["The WANTED poster outside the inn"] = "旅店外的通緝海報",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart"] = "",
 
-	-- Step 82: Return to Nessa
+	-- Step 85: Return to Nessa
 	-- {area:702} Rut'theran Village · {npc:3841} Caylais Moonfeather · {item:16263} Laird's Response · {npc:10118} Nessa Shadowsong · {area:442} Auberdine
 	["Fly back to {area:702} from {npc:3841}, hand {item:16263} to {npc:10118} on the dock, then fly back to {area:442}."] = "",
 
-	-- Step 83: The Long Wash
+	-- Step 86: The Long Wash
 	-- {quest:983} Buzzbox 827 · {object:175207} Beached Sea Creature
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "潮行蟹在村子下方的海岸爬行；{quest:983}站在碼頭南邊不遠的海灘上。黑海岸蛇頸龍在淺水中游動。{object:175207}在村子南邊不遠的岸上。",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "",
 
-	-- Step 84: Auberdine
+	-- Step 87: Auberdine
 	-- {npc:3649} Thundris Windweaver
 	["{npc:3649}, north end of the village"] = "{npc:3649}，在村子北端",
 
-	-- Step 85: Gubber Blump
+	-- Step 88: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
 	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "",
 
-	-- Step 86: Moonglade
+	-- Step 89: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "與{quest:5929}交談",
 
-	-- Step 87: Back to Darnassus
+	-- Step 90: Back to Darnassus
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
 
-	-- Step 90: The Moonkin Stone
+	-- Step 93: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "回到{area:702}，飛往{area:442}。{object:177525}在村莊東邊的山丘上：在那裡使用{item:15208}，擊敗月爪梟獸，然後與{npc:12144}交談。",
 
-	-- Step 91: Body and Heart
+	-- Step 94: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
-	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "",
+	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "再飛往{area:702}一次，搭傳送門上去找{npc:4217}，然後飛回{area:442}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {zone:1453}"] = "搭船前往{zone:1453}",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "{npc:3601}的每個任務都會給你一根{item:15908}：對他指定的野獸使用，然後把馴獸棒帶回{area:186}給他。樹林潛伏者在村莊周圍潛行，夜刃捕食者和巨翼惡梟在村莊南邊的樹林遊蕩。",
 	-- ["East to {area:260}"] = "向東前往{area:260}",
-	-- ["Fel Cones lie under the trees all around {area:186} and {npc:2150}. Nightsabers and Webwood Lurkers keep roaming the road east. {object:126158} is in the house on the hill at the east end of the village."] = "魔錐果散落在{area:186}和{npc:2150}周圍的樹下。夜刃豹和樹林潛伏者仍在往東的道路上遊蕩。{object:126158}在村莊東端山丘上的房子裡。",
-	-- ["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442} for the boat."] = "再飛往{area:702}一次，搭傳送門上去找{npc:4217}，然後飛回{area:442}搭船。",
 	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "沿著道路向西南離開{area:188}，前往{area:186}。",
-	-- ["Follow the road west into {zone:1457}. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092} and {npc:7999} are in the Temple of the Moon at the south end. {npc:7316} is in the west of the city, on the way to the pink portal down to Rut'theran."] = "沿著道路向西進入{zone:1457}。{npc:4241}站在一進城的{area:1659}上。{npc:3516}在城市北端的{area:1658}，{quest:922}就在其南邊；{npc:4092}和{npc:7999}在城市南端的月神殿裡。{npc:7316}在城市西部，在前往通往魯瑟蘭的粉紅色傳送門的路上。",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "從港口走進{object:2100}。{npc:5480}在那裡訓練戰士；{npc:6089}和{npc:6090}一起站在{object:2152}旁。{npc:6090}會為了他的杯子和你決鬥。",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "從{area:17203}騎馬穿過城門進入{zone:1429}，沿著道路向西前往{zone:1436}。",
-	-- ["Gnarlpine Mystics and Ferocitas camp north-east of {area:260}. Ferocitas drops the {item:8049}: open it for the jewel."] = "瘤背秘法師和噬夢者菲羅斯塔在{area:260}東北方紮營。噬夢者菲羅斯塔會掉落{item:8049}：打開它取得寶石。",
 	-- ["Hearth to {area:186}"] = "用爐石回{area:186}",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "在旅店南邊的山丘上學習{area:442}的飛行路線，然後施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的樹林裡。在{area:2361}學習{area:493}的飛行路線，然後飛往{area:702}（途經{area:442}）。",
-	-- ["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:8584} waits in the trees west of the cave mouth; {npc:1994} sits deep inside."] = "癩皮夜刃豹和草刺野豬在{area:256}北邊、前往洞穴的路上遊蕩。{npc:8584}在洞口西邊的樹林裡等候；{npc:1994}在洞穴深處。",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者分布在往東的道路沿線。月井在{area:260}的西緣。",
-	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者在{area:186}四周和往東的道路沿線遊蕩。月井在{area:260}的西緣。",
-	-- ["South of Zenn. {npc:2080} tends his saplings on the shore; Lasher Sproutlings and Timberlings wander around him, and the {quest:919} grow among them."] = "在賽恩南邊。{npc:2080}在岸邊照料他的樹苗；{npc:275703}和林精在他周圍遊蕩，{quest:919}就生長在牠們之間。",
-	-- ["South of the pools. The {object:6751} grows by the Hold."] = "在池塘南邊。{object:6751}生長在脊骨堡旁。",
 	-- ["Speak with {npc:6286}, south of the inn"] = "與旅店南邊的{npc:6286}交談",
 	-- ["Take the portal down to {area:702}. {npc:10118} stands on the dock, {npc:3838} by the hippogryphs."] = "搭傳送門下到{area:702}。{npc:10118}站在碼頭上，{npc:3838}在角鷹獸旁。",
 	-- ["Take the portal up from {area:702} to {npc:4217} in the {area:1658}."] = "從{area:702}搭傳送門上去，到{area:1658}找{npc:4217}。",
 	-- ["Take the road north-west from {area:186} towards the {area:264}; she lies hurt beside it."] = "沿著道路從{area:186}向西北前往{area:264}；她受傷躺在路旁。",
 	-- ["The Bloodfeather harpies nest on the slopes west and north of the glade."] = "血羽鷹身人在林地西邊和北邊的山坡上築巢。",
-	-- ["The barrow is south of the road. {npc:275744} is held inside, {npc:7317} sleeps in its depths, and the four relic chests sit in the lower rooms."] = "古墓在道路南邊。{npc:275744}被關在裡面，{npc:7317}在深處沉睡，四個聖物箱在下層的房間裡。",
 	-- ["The moonwell and {npc:8584}"] = "月井與{npc:8584}",
 	-- ["The moonwell sits north of {area:256}; {npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "月井在{area:256}北邊；{npc:8584}在更西北一點。{quest:3522}只有五分鐘：裝滿藥瓶後直接去找他。",
 	-- ["The {area:264}"] = "{area:264}",
@@ -549,7 +567,6 @@ return {
 	-- ["West along the road from {area:186}, before the turn north to the glade: Shayla walks the road from the arrow south-west to the bend at about 38,54 and back."] = "從{area:186}沿著道路向西走，在轉向北邊前往林地之前：夏伊拉在這段路上來回巡邏，從箭頭處往西南走到約38,54的彎道再折返。",
 	-- ["{area:186} quests"] = "{area:186}任務",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "{npc:11401}，在月神殿裡：{spell:10797}",
-	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150}坐在{area:186}東邊的路旁，在前往{area:260}的路上。",
 	-- ["{npc:2150}, on the way back"] = "{npc:2150}，在回程路上",
 	-- ["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}，煉金術師：交給{npc:3603}",
 	-- ["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}，草藥師：交給{npc:3604}",
@@ -557,9 +574,7 @@ return {
 	-- ["{npc:265811}, skinners: for {npc:6287}"] = "{npc:265811}，剝皮師：交給{npc:6287}",
 	-- ["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}，{skill:129}：交給{npc:6094}",
 	-- ["{npc:3567}, back in {area:186}"] = "{npc:3567}，回到{area:186}",
-	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593}，戰士訓練師",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595}，在樹裡",
-	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}，牧師訓練師，在樹裡",
 	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}，牧師訓練師，在下樓途中的坡道上：由{area:186}的{npc:3600}接收",
 	-- ["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:3603}，在{npc:6286}旁邊：露營入門，煉金術師",
 	-- ["{npc:3604}, beside {npc:6286}: Camping 101, herbalists"] = "{npc:3604}，在{npc:6286}旁邊：露營入門，草藥師",

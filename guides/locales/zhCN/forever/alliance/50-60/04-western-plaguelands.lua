@@ -33,6 +33,8 @@ return {
 	["{area:202}: kill these as you meet them"] = "{area:202}：沿途击杀以下目标",
 
 	-- Step 7: Dalson's Tears
+	-- {object:177289} Scourge Cauldron
+	["After the farm's keys: the {object:177289} stands just south-west of the farmhouse, and its Cauldron Lord beside it carries the key."] = "拿到农场的钥匙之后：{object:177289}就在农舍西南边不远处，旁边的护锅者身上带着钥匙。",
 	-- {object:175924} Locked Cabinet
 	["{object:175924}, in the farmhouse; inside"] = "{object:175924}，位于农舍内",
 
@@ -62,233 +64,237 @@ return {
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852}是61级精英",
 
-	-- Step 13: Dalson's Tears cauldron
-	-- {area:200} Dalson's Tears
-	["{area:200} cauldron"] = "{area:200}的大锅",
-	-- {area:200} Dalson's Tears
-	["The cauldron sits at {area:200}, north-east of Felstone; its Cauldron Lord stands beside it."] = "大锅在费尔斯通农场东北方的{area:200}；护锅者拉扎奇站在旁边。",
-
-	-- Step 14: Andorhal
+	-- Step 13: Andorhal
 	["Andorhal"] = "安多哈尔",
 	-- {item:12627} Temporal Displacer · {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite
 	["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}."] = "在粮仓旁使用{item:12627}引出{npc:10717}。{quest:5154}是市政厅里的发霉的书籍之一。镇上的每个骷髅都会掉落{quest:5537}。",
 
-	-- Step 16: The Writhing Haunt cauldron
+	-- Step 14: The Writhing Haunt cauldron
 	-- {area:202} The Writhing Haunt
 	["{area:202} cauldron"] = "{area:202}的大锅",
 	-- {area:202} The Writhing Haunt · {npc:10739} Mulgris Deepriver
 	["The cauldron sits at the {area:202}, by {npc:10739}' farm."] = "大锅在{area:202}，{npc:10739}的农场旁。",
 
-	-- Step 17: Mulgris Deepriver
+	-- Step 15: Mulgris Deepriver
 	["Inside"] = "在里面",
 
-	-- Step 18: Diseased Grizzlies
+	-- Step 16: Diseased Grizzlies
 	["Diseased Grizzlies"] = "生病的灰熊",
 
-	-- Step 19: Mulgris Deepriver
+	-- Step 17: Mulgris Deepriver
 	-- {zone:1457} Darnassus
 	["For the druids of {zone:1457}: keep it"] = "交给{zone:1457}的德鲁伊：先留着",
 
-	-- Step 21: Chromie
+	-- Step 19: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel
 	["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210}，在{area:2268}：先留着",
 
-	-- Step 22: Sorrow Hill: kill these as you meet them
+	-- Step 20: Sorrow Hill: kill these as you meet them
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "{npc:1852}是精英，建议组队。他在安多哈尔中央守卫自己的护命匣。\n安多哈尔各处废墟中散落着小保险箱，每个箱子里有一只怀表。\n注意：食尸鬼和骷髅通常就在箱子旁，接近时会攻击。灼热食尸鬼还会伤害附近所有人，打破潜行。",
 
-	-- Step 24: More watches
+	-- Step 22: More watches
 	["More watches"] = "更多怀表",
 
-	-- Step 26: Kirsta Deepshadow
+	-- Step 24: Kirsta Deepshadow
 	-- {npc:11610} Kirsta Deepshadow
 	["Ride north up the road to the Northridge lumber mill; {npc:11610} hides at the camp's edge."] = "沿道路向北骑到北山伐木场；{npc:11610}躲在营地边缘。",
 
-	-- Step 27: The Scarlet Crusade
+	-- Step 25: The Scarlet Crusade
 	["The Scarlet Crusade"] = "血色十字军",
 	-- {area:190} Hearthglen
 	-- plural, as words: Scarlet Medics = {npc:10605} Scarlet Medic
 	["The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward {area:190}."] = "{npc:10605}、血色猎人、血色骑士和血色法师在伐木场和通往{area:190}的道路上巡逻。",
 
-	-- Step 29: Radley and Durgen
+	-- Step 27: Radley and Durgen
 	["Radley and Durgen"] = "猎人莱德雷和骑士杜尔根",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
 	["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613}在{npc:11610}东边的北山营地内走动；{npc:11611}看守着{area:190}南部入口处的塔楼。\n小心：塔楼底部有守卫，另有一名绕塔巡逻。与杜根·挽锤交战前先清理这些守卫，免得他们加入战斗。",
 
-	-- Step 31: Hearthglen overlook
+	-- Step 29: Hearthglen overlook
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "{area:190}瞭望点",
 	-- {area:190} Hearthglen
 	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "爬上{area:190}西侧山丘，俯瞰城镇。\n注意：大门处的哨兵能够侦测潜行玩家，镇内也有更多哨兵，附近还有一名精英巡逻。",
 
-	-- Step 33: Tirion Fordring
+	-- Step 31: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride east to the border river: {npc:1855} lives in a small hut on the bank."] = "向东骑到边界河：{npc:1855}住在河岸边的小屋里。",
 
-	-- Step 34: Gahrron's Withering cauldron
+	-- Step 32: Gahrron's Withering cauldron
 	-- {area:201} Gahrron's Withering
 	["{area:201} cauldron"] = "{area:201}的大锅",
 	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
 	["Ride south to {area:201}, where {npc:11078} guards the cauldron."] = "向南骑到{area:201}，{npc:11078}守卫着那里的大锅。",
 
-	-- Step 35: Chillwind Camp
+	-- Step 33: Chillwind Camp
 	["Ride south-west to the camp."] = "向西南骑回营地。",
 	-- {npc:5411} Krinkle Goodsteel · {area:976} Gadgetzan
 	["{npc:5411} in {area:976}: keep it"] = "{area:976}的{npc:5411}：先留着",
 
-	-- Step 36: Fly to Light's Hope Chapel
+	-- Step 34: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Fly to {area:2268}"] = "飞往{area:2268}",
 	-- {area:3197} Chillwind Camp
 	["{area:3197} flight master"] = "{area:3197}的飞行管理员",
 
-	-- Step 38: Aurora Skycaller
+	-- Step 36: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
 	["Ride north-west to {area:2276}, at the edge of the {area:2277}."] = "向西北骑到{area:2277}边缘的{area:2276}。",
 
-	-- Step 39: Villains of Darrowshire
+	-- Step 37: Villains of Darrowshire
 	-- {area:2624} Blackwood Lake · {area:2623} Infectis Scar
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound
 	["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "掠夺者霍古斯的头骨在{area:2624}，马杜克·布莱克波尔的剑在{area:2623}，各在鬼魂交战的地方；成年的{npc:8597}在两地之间的平原上捕猎。",
 	-- {item:12956} Skull of Horgus
 	["{item:12956}; underwater"] = "{item:12956}：在水下",
 
-	-- Step 40: Eastern Plaguelands: kill these as you meet them
+	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423}：沿途击杀以下目标",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "向西骑到{area:2627}。{npc:8596}、{npc:8600}和{npc:8603}在树林里游荡；在大白蚁丘装满{item:15042}，然后击杀更北边的{npc:8598}。",
 
-	-- Step 41: Augustus the Touched
+	-- Step 39: Augustus the Touched
 	-- {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby."] = "向北骑到{area:2627}。{npc:12384}住在破屋里，他的收据簿在附近的废弃旅店里。",
 
-	-- Step 42: Augustus the Touched
+	-- Step 40: Augustus the Touched
 	-- {npc:8598} Frenzied Plaguehound
 	["{npc:8598}, 170 yd north-east"] = "{npc:8598}，东北方170码",
 
-	-- Step 43: Plaguewood: kill these as you meet them
+	-- Step 41: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
 	["{area:2277}: kill these as you meet them"] = "{area:2277}：沿途击杀以下目标",
 
-	-- Step 44: Tirion Fordring
+	-- Step 42: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Cross the river west to {npc:1855}'s hut."] = "向西过河到{npc:1855}的小屋。",
 
-	-- Step 46: Tirion Fordring
+	-- Step 44: Tirion Fordring
 	["Listen to his story"] = "听他讲述他的故事",
 	-- {npc:11886} Mercutio Filthgorger
 	["{npc:11886} is elite: grouping up is advised"] = "{npc:11886}是精英：建议组队",
 
-	-- Step 47: Davil's Libram
+	-- Step 45: Davil's Libram
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1855} Tirion Fordring
 	["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954}在{npc:1855}西边{area:190}的市政厅里：血色卫兵站得很近。",
 	-- {item:12954} Davil's Libram
 	["{item:12954}; inside"] = "{item:12954}：在屋内",
 
-	-- Step 48: Redpath's Shield
+	-- Step 46: Redpath's Shield
 	-- {item:12955} Redpath's Shield · {area:201} Gahrron's Withering
 	["{item:12955} lies east of the barn at {area:201}."] = "{item:12955}在{area:201}谷仓东边。",
 
-	-- Step 50: The Undercroft
+	-- Step 48: The Undercroft
 	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
-	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide."] = "向东过河到{area:2261}，即区域西南部的地穴。{object:177667}在里面：它的钥匙在东北远端的{npc:12248}身上，在下一份指南中完成。",
+	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "向东过河到{area:2261}，即区域西南部的地穴。{object:177667}在里面：它的钥匙在东北远端的{npc:12248}身上，在下一份指南中完成。\n小心：米库提奥会带来大约四只非精英的帮手。它们是走到坟墓那里，而不是当场出现。",
 	-- {object:177667} Torn Scroll
 	["{object:177667}, below ground"] = "{object:177667}：在地下",
+	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
+	["{item:14613}, from {npc:11886} (57, elite): grouping up is advised"] = "{item:14613}，来自{npc:11886}（57级，精英）：建议组队",
 
-	-- Step 52: Fly to Southshore
+	-- Step 50: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "飞往{area:271}",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "{area:348}的飞行管理员",
 
-	-- Step 54: Fly to Rut'theran Village
+	-- Step 52: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "飞往{area:702}",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
-	-- Step 55: Rut'theran Village
+	-- Step 53: Rut'theran Village
 	-- {zone:1452} Winterspring
 	["Ranshalla in {zone:1452}: keep it"] = "兰莎尔拉在{zone:1452}，保留任务",
 
-	-- Step 57: The Temple Gardens
+	-- Step 55: The Temple Gardens
 	-- {npc:10878} Herald Moonstalker · {npc:7740} Gracina Spiritmight · {item:11682} Eridan's Vial
 	["{npc:10878} and {npc:7740} stand by the Temple of the Moon; fill {item:11682} at the moonwell inside."] = "{npc:10878}和{npc:7740}站在月神殿旁；在殿内的月亮井装满{item:11682}。",
 	-- {npc:7740} Gracina Spiritmight · {area:976} Gadgetzan
 	["{npc:7740}: keep it for {area:976}"] = "{npc:7740}：留到{area:976}",
 
-	-- Step 61: Darnassus
+	-- Step 59: Darnassus
 	-- {zone:1455} Ironforge
 	["{zone:1455}, where the next guide trains, has no druid trainer"] = "下一份指南学习技能的{zone:1455}没有德鲁伊训练师",
+	-- {zone:1457} Darnassus
+	["their trainers are in {zone:1457} too"] = "他们的训练师也在{zone:1457}",
 	-- {item:11040} Morrowgrain · {item:11020} Evergreen Pouch
 	["Ten {item:11040} from the {item:11020}"] = "从{item:11020}获得十个{item:11040}",
 	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:6762} in {zone:1450}: keep it"] = "{zone:1450}的{quest:6762}：先留着",
 
-	-- Step 62: Portal to Teldrassil
+	-- Step 60: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "传送至{zone:1438}",
 
-	-- Step 63: Rut'theran Village flight master
+	-- Step 61: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}的飞行管理员",
 
-	-- Step 64: Feathermoon Stronghold
+	-- Step 62: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "从{area:702}飞往{area:1116}。",
 	-- {npc:7900} Angelas Moonbreeze · {zone:1446} Tanaris
 	["{npc:7900}: keep it for {zone:1446}"] = "{npc:7900}：留到{zone:1446}",
 
-	-- Step 66: Boat to The Forgotten Coast
+	-- Step 64: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
 	["Boat to {area:1108}"] = "乘船前往{area:1108}",
 
-	-- Step 67: Zorbin Fandazzle
+	-- Step 65: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle · {area:1119} Twin Colossals
 	["Take the boat to the mainland and ride north-east to {npc:14637}'s camp by the {area:1119}."] = "乘船到大陆，向东北骑到{area:1119}旁{npc:14637}的营地。",
 
-	-- Step 68: The Forgotten Coast: kill these as you meet them
+	-- Step 66: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- {area:1119} Twin Colossals
 	["The shrunken giants roam the {area:1119}; the sea elementals wade along the coast to the west."] = "缩小的巨人在{area:1119}游荡；海元素在西边的海岸涉水。",
 
-	-- Step 70: Gregan Brewspewer
+	-- Step 68: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {area:1119} Twin Colossals · {item:11243} Videre Elixir · {item:11242} Evoroot
 	["{npc:7775}'s camp lies north of the {area:1119}. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "{npc:7775}的营地在{area:1119}北边。他用{item:11242}调制{item:11243}：接下他的跑腿任务换一瓶。",
 
-	-- Step 71: Rockbiter
+	-- Step 69: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "巨人{npc:7765}就在{npc:7775}营地的西北侧。",
 
-	-- Step 72: Evoroot
+	-- Step 70: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
 	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}长在{npc:7765}北边的一座废墟建筑里：从旁边的岩架穿过墙上的缺口爬进去。",
 
-	-- Step 73: Shay Leafrunner
+	-- Step 71: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
 	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "向西骑行进入鸦风废墟：{npc:7774}躲在后方的小圆形建筑里。打开她身旁的箱子获得{item:9189}：它和任务一样持续15分钟。",
 
-	-- Step 74: Wandering Shay
+	-- Step 72: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
 	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "步行带{npc:7774}返回{npc:7765}身边。她会走开，需在非战斗状态下摇铃叫她回来；提前清除沿途鹰身人，别让她靠近它们。",
 
-	-- Step 75: Gregan Brewspewer
+	-- Step 73: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {npc:9299} Gaeriyan · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
 	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one, and {npc:9299} in {area:976} shows himself only to someone who has drunk one."] = "回到{npc:7765}东南方不远处{npc:7775}的营地：{item:11242}能换三瓶维迪尔药剂。留着它们：{npc:9298}要一瓶，而{area:976}的{npc:9299}只会向喝过药剂的人现身。",
 
-	-- Step 77: Fly to Theramore
-	["Fly to Theramore"] = "飞往塞拉摩岛",
+	-- Step 75: Fly to Ratchet
+	-- {area:392} Ratchet
+	["Fly to {area:392}"] = "飞往{area:392}",
 	-- {area:489} Thalanaar
 	["{area:489} flight master"] = "{area:489}的飞行管理员",
 
-	-- Step 79: Ratchet
+	-- Step 76: Fly to Theramore
+	["Fly to Theramore"] = "飞往塞拉摩岛",
+
+	-- Step 77: The Barrens
 	-- {zone:1413} The Barrens · {area:392} Ratchet
 	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "从塞拉摩出发，向西骑入{zone:1413}，再沿海岸向北到{area:392}。",
+
+	-- Step 78: Ratchet
 	-- {npc:5901} Islen Waterseer
 	["{npc:5901}, on the coast north of town"] = "{npc:5901}，在镇子北边的海岸",
 	-- {zone:1448} Felwood
@@ -296,28 +302,28 @@ return {
 	-- {npc:8496} Liv Rizzlefix
 	["{npc:8496}: keep it for Un'Goro; inside"] = "{npc:8496}位于屋内：保留任务，留待安戈洛处理",
 
-	-- Step 80: Fly to Everlook
+	-- Step 79: Fly to Everlook
 	-- {area:2255} Everlook
 	["Fly to {area:2255}"] = "飞往{area:2255}",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
-	-- Step 82: Donova Snowden
+	-- Step 81: Donova Snowden
 	["Ride west along the road to the hot springs."] = "沿道路向西骑到温泉。",
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
 	["{npc:9299} in {area:976}: keep it"] = "{npc:9299}位于{area:976}，保留任务",
 
-	-- Step 84: Rabine Saturna
+	-- Step 83: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {area:2361} Nighthaven
 	["Walk into {area:1769} and take the {zone:1450} branch of the tunnel to {area:2361}."] = "走进{area:1769}，沿隧道的{zone:1450}分支到{area:2361}。",
 	-- {zone:1451} Silithus
 	["For {zone:1451}: keep it"] = "交给{zone:1451}：先留着",
 
-	-- Step 85: Fly to Gadgetzan
+	-- Step 84: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飞往{area:976}",
 
-	-- Step 86: Gadgetzan
+	-- Step 85: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 	-- {npc:7583} Sprinkle
@@ -329,23 +335,23 @@ return {
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "{npc:7876}，在镇子北侧：焦油在安戈洛，保留任务",
 
-	-- Step 87: Gaeriyan
+	-- Step 86: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
 	["{npc:9299} is a ghost at the graveyard just east of town: drink a {item:11243} there, which kills you, release your spirit and talk to him as a ghost. Then run back to your body to come back to life: the gravestone stands nearby."] = "{npc:9299}是镇子东边不远处墓地里的鬼魂：在那里喝下一瓶{item:11243}，它会杀死你，释放灵魂后以鬼魂形态和他交谈。然后跑回尸体处复活：墓碑就在附近。",
 
-	-- Step 88: Broken Pillar
+	-- Step 87: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
 	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "向西南骑行到{area:1938}的{npc:7771}营地。",
 	-- {quest:3444} The Stone Circle · {area:392} Ratchet
 	["{quest:3444} is in {area:392}"] = "{quest:3444}在{area:392}",
 
-	-- Step 90: Fly to Marshal's Refuge
+	-- Step 89: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 91: Linken
+	-- Step 90: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock · {npc:9999} Ringo
 	["Fly from {area:976} to {area:541}. {npc:8737} stands at the back of the refuge; {npc:9117} is in the cave behind him.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "从 {area:976} 飞往 {area:541}。{npc:8737} 站在避难所后方；{npc:9117} 在他身后的洞穴里。\n{npc:9997} 的朋友 {npc:9999} 失踪了。",
 	-- {npc:9117} J.D. Collie
@@ -353,77 +359,77 @@ return {
 	-- {npc:9997} Spraggle Frock
 	["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
 
-	-- Step 92: Into Silithus
+	-- Step 91: Into Silithus
 	-- {zone:1451} Silithus
 	["Into {zone:1451}"] = "进入{zone:1451}",
 
-	-- Step 93: Layo Starstrike
+	-- Step 92: Layo Starstrike
 	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "从环形山西北侧的山口骑乘进入{zone:1451}，{npc:13220}在山口出口的{area:3077}。",
 
-	-- Step 95: Cenarion Hold
+	-- Step 94: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "继续向西骑到{area:3425}。{npc:15189}在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}，在联盟帐篷处",
 
-	-- Step 96: Silithus: kill these as you meet them
+	-- Step 95: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途击杀以下目标",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "掘泥打击者在要塞西北方的沙丘中挖掘；石鞭蝎和掠沙蜘蛛在四周游荡。",
 
-	-- Step 97: Level 56.89
+	-- Step 96: Level 56.89
 	["Level 56.89"] = "等级 56.89",
-	-- {item:9328} Super Snapper FX · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "如果跳过了{item:9328}相关任务，就在这里刷怪到56.89级，跟上路线的等级规划。也可组队挑战{area:1584}副本或{area:1583}副本（下层）。",
+	-- {item:9328} Super Snapper FX
+	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "如果跳过了{item:9328}相关任务，就在这里刷怪到56.89级，跟上路线的等级规划。",
 	-- {npc:11740} Dredge Striker
 	["grind on {npc:11740}"] = "反复击杀{npc:11740}补足经验",
 
-	-- Step 98: Cenarion Hold
+	-- Step 97: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "骑乘返回{area:3425}。{npc:15189}在所在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
 
-	-- Step 99: Silithus: kill these as you meet them
+	-- Step 98: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["Dredge Crushers dig further west; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "掘泥摧毁者在更西边挖掘；石鞭巨钳蝎、石鞭掠夺者和石行蜘蛛在同一片沙地狩猎。",
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741}在附近巡逻，请在地图标示的圆圈内寻找",
 
-	-- Step 100: Southwind Village
+	-- Step 99: Southwind Village
 	-- {npc:13220} Layo Starstrike
 	["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "被折磨的德鲁伊和被折磨的哨兵在{npc:13220}西南方的废弃村庄中游荡。",
 
-	-- Step 102: The Hive'Ashi tower
+	-- Step 101: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "{area:2742}高塔",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
 	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "向西南骑行返回{area:2738}的{area:2742}高塔；爬上去，杀死为硬壳物品涌出的伏击者。",
 
-	-- Step 103: Layo Starstrike
+	-- Step 102: Layo Starstrike
 	-- {zone:1450} Moonglade
 	["Umber in {zone:1450}: keep it"] = "{zone:1450}的阿姆伯尔：留着",
 
-	-- Step 105: Krakle
+	-- Step 104: Krakle
 	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
 	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "从{zone:1451}进入环形山后不远就是{area:543}：地精{npc:10302}坐在水边。",
 
-	-- Step 106: Un'Goro Crater: kill these as you meet them
+	-- Step 105: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
 	["{zone:1449}: kill these as you meet them"] = "{zone:1449}：沿途击杀以下目标",
 
-	-- Step 107: Krakle's Thermometer
+	-- Step 106: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向东骑行到{area:537}，爬上去，在山顶附近的熔岩喷口使用{npc:10541}。",
 
-	-- Step 108: Krakle
+	-- Step 107: Krakle
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "在{zone:1452}的{npc:9298}处结束：留着",
 
-	-- Step 109: Northern Pylon
+	-- Step 108: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
 
-	-- Step 110: Ironstone Plateau: kill these as you meet them
+	-- Step 109: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau
 	["{area:1943}: kill these as you meet them"] = "{area:1943}：沿途击杀以下目标",
 	-- {area:1943} Ironstone Plateau · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
@@ -436,52 +442,52 @@ return {
 	-- {item:11480} Un'Goro Thunderer Pelt
 	["{item:11480}; below ground"] = "{item:11480}：在地下",
 
-	-- Step 112: Lakkari Tar Pits: kill these as you meet them
+	-- Step 111: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
 	["{area:538}: kill these as you meet them"] = "{area:538}：沿途击杀以下目标",
 	-- {area:538} Lakkari Tar Pits
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The Tar Beasts and Tar Lords wallow in the {area:538}, south of the refuge on the way down into the crater."] = "焦油兽和焦油领主在{area:538}打滚，位于避难所南边、下到环形山的路上。",
 
-	-- Step 113: The crater
+	-- Step 112: The crater
 	["The crater"] = "环形山",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
 	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "焦油兽在{area:538}打滚，中央{area:537}的火元素携带灰烬，南侧{area:540}的格里什毒蜂携带腺体。环形山内所有生物都有几率掉落{item:11018}。\n注意：格里什工蝎生命值低于 45% 时，有 50% 几率呼叫 25 码内盟友支援。",
 
-	-- Step 114: Torwa Pathfinder
+	-- Step 113: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619}的营地在进入环形山的斜坡底部。",
 	-- {area:1943} Ironstone Plateau
 	["The pelts come from the gorillas on {area:1943}"] = "毛皮由{area:1943}上的猩猩掉落",
 
-	-- Step 116: Ironstone Plateau: kill these as you meet them
+	-- Step 115: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
 	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "猩猩生活在{area:541}以东的{area:1943}，保留毛皮交给{npc:9619}。不要进入最深处的洞穴，里面的{npc:9622}为 55 级。\n注意：50–51 级的安戈洛猩猩生命值降到 25% 时，会召集 20 码内盟友支援。这里有一座满是猩猩的洞穴，在洞内战斗会引来许多额外敌人。",
 
-	-- Step 118: U'cha
+	-- Step 117: U'cha
 	-- {npc:9622} U'cha
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿东侧向北骑行到猩猩高地。55级的猩猩{npc:9622}坐在最深的洞里：先清理洞口的猩猩。",
 	["Below ground"] = "在地下",
 
-	-- Step 119: Lar'korwi
+	-- Step 118: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
 	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}的巢穴在{npc:9619}北边的丛林中，东部悬崖下方：在那里使用{item:11568}。{npc:9684}是56级：满血开打。",
 
-	-- Step 120: Torwa Pathfinder
+	-- Step 119: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Cross the south of the crater to {npc:9619} by the ramp."] = "穿过环形山南部，到坡道旁找{npc:9619}。",
 
-	-- Step 121: The Marshlands: kill these as you meet them
+	-- Step 120: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
 	["{area:1942}: kill these as you meet them"] = "{area:1942}：沿途击杀以下目标",
 
-	-- Step 122: Ringo
+	-- Step 121: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
 	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999}坐在环形山中央{area:537}的东南坡上。",
 
-	-- Step 123: Escort Ringo
+	-- Step 122: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
@@ -522,6 +528,7 @@ return {
 	-- ["{area:1377}: kill these as you meet them"] = "{area:1377}：沿途击杀以下目标",
 	-- ["{area:139}: kill these as you meet them"] = "{area:139}：沿途击杀以下目标",
 	-- ["{area:199} cauldron"] = "{area:199}的大锅",
+	-- ["{area:200} cauldron"] = "{area:200}的大锅",
 	-- ["{item:13320}, from {npc:11056}"] = "{item:13320}，来自{npc:11056}",
 	-- ["{npc:10300}: her escort comes later on the route"] = "{npc:10300}：她的护送任务在路线后面",
 	-- ["{npc:10739} stands by the farm at the {area:202}, north-east of the fields."] = "{npc:10739}站在田野东北方{area:202}的农场旁。",

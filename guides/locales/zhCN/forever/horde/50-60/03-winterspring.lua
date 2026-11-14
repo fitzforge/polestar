@@ -58,9 +58,10 @@ return {
 	-- Step 11: Level 55.04
 	["Level 55.04"] = "等级 55.04",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "在这里补到55.04级，再去{area:2255}交任务，交完会升到56级。也可以组队去{area:1584}副本或{area:1583}副本（下层）。",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "击杀{npc:7460}刷经验",
+	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "在这里补到55.04级，再去{area:2255}交任务，交完会升到56级。冰蓟雪人（55-56级）是这里等级最低的；冰蓟雪人女王和冰蓟雪人王（56-58级）打得更重。也可以组队去{area:1584}副本或{area:1583}副本（下层）。",
+	-- {npc:7458} Ice Thistle Yeti
+	["grind on {npc:7458}"] = "击杀{npc:7458}刷经验",
 
 	-- Step 12: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn

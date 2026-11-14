@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Orgrimmar
-	-- {npc:3310} Doras · {object:172982} Valley of Strength · {npc:268701} Thatog
-	["Walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}; {npc:268701} by the bank below it."] = "",
+	-- {npc:3310} Doras · {object:172982} Valley of Strength · {npc:6929} Innkeeper Gryshka · {npc:268701} Thatog · {zone:1421} Silverpine Forest · {zone:1413} Barrens
+	["Walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}; {npc:6929} keeps the inn below it, {npc:268701} stands by the bank. Bind here: the Hearthstone brings you back from {zone:1421} beside the zeppelin towers and the road to the {zone:1413}."] = "Войдите через главные ворота. {npc:3310}, распорядитель полетов, стоит на башне ({object:172982}); {npc:6929} держит таверну под ней, {npc:268701} стоит у банка. Привяжите камень возвращения здесь: он вернет вас из зоны {zone:1421} к башням дирижаблей и дороге в зону {zone:1413}.",
 
 	-- Step 2: Borstan
 	-- {object:173016} Borstan's Firepit
@@ -17,6 +17,10 @@ return {
 	-- Step 3: Neeru Fireblade
 	-- {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {quest:829} Neeru Fireblade
 	["The {object:172960} is the canyon under the {object:172982}; {quest:829} stands at its far end."] = "{object:172960} – ущелье под местом {object:172982}; {quest:829} стоит в дальнем конце.",
+	-- {quest:829} Neeru Fireblade · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
+	["{quest:829}: {quest:809} stands at {area:379}, on the next guide's road to the Crossroads"] = "{quest:829}: {quest:809} стоит здесь: {area:379}, на дороге к Перекрестку в следующем гайде",
+	-- {quest:829} Neeru Fireblade · {quest:832} Burning Shadows · {item:4903} Eye of Burning Shadow · {zone:1411} Durotar
+	["{quest:829}: {quest:832}, from the {item:4903} in {zone:1411}"] = "{quest:829}: {quest:832}, из предмета {item:4903} (зона {zone:1411})",
 
 	-- Step 4: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
@@ -58,7 +62,8 @@ return {
 
 	-- Step 11: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
-	["Train while you are in the city: Druids and Paladins have no trainer here."] = "",
+	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5654} Hex of Weakness
+	["Train while you are in the city: Druids and Paladins have no trainer here. Troll Priests: train with {npc:6018} in the {object:172961}, who takes {quest:5654}."] = "",
 
 	-- Step 12: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
@@ -85,11 +90,11 @@ return {
 
 	-- Step 19: Thrall
 	-- {npc:4949} Thrall · {quest:98024} Journey to the Crossroads · {quest:93739} Exploring the Horde · {quest:95350} Welcome to Azeroth
-	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "",
+	["{npc:4949} stands in Grommash Hold. He offers {quest:98024} and {quest:93739} once {quest:95350} is handed in."] = "{npc:4949} стоит в Крепости Громмаш. Он предлагает задания {quest:98024} и {quest:93739}, когда сдано задание {quest:95350}.",
 	-- {npc:4949} Thrall
 	["{npc:4949}, inside Grommash Hold"] = "{npc:4949}, внутри Крепости Громмаш",
 	-- {npc:4949} Thrall · {zone:1413} Barrens
-	["{npc:4949}: keep it, Thork at the Crossroads in the {zone:1413} guide"] = "",
+	["{npc:4949}: keep it, Thork at the Crossroads in the {zone:1413} guide"] = "{npc:4949}: сохраните, Торк на Перекрестке в гайде по зоне {zone:1413}",
 	-- {npc:4949} Thrall · {quest:93739} Exploring the Horde
 	["{npc:4949}: {quest:93739}, a tour of the Horde's leaders"] = "{npc:4949}: {quest:93739}, обход вождей Орды",
 	-- {npc:3230} Nazgrel
@@ -110,10 +115,12 @@ return {
 	["Zeppelin to {zone:1458}"] = "",
 
 	-- Step 22: Brill
-	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan
-	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square."] = "",
+	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan · {npc:246152} Shari Stilwell
+	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square; Paladins: {npc:246152} trains you in town."] = "",
 	-- {npc:1518} Apothecary Johaan
 	["{npc:1518}, inside"] = "",
+	-- {npc:246152} Shari Stilwell · {area:159} Brill
+	["{npc:246152}, in {area:159}"] = "{npc:246152}, здесь: {area:159}",
 
 	-- Step 23: Hadric Harlson
 	-- {npc:1495} Deathguard Linnea · {npc:267009} Hadric Harlson
@@ -124,11 +131,7 @@ return {
 	-- plural, as words: Dark Neophytes = {npc:267006} Dark Neophyte · Dark Enforcers = {npc:275437} Dark Enforcer · Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["The cultists camp a short walk south-east of {npc:267009}. Dark Neophytes and Dark Enforcers drop the Necrotic Crystal Fragments; more fragments, black crystals, lie on the ground among the tents."] = "",
 
-	-- Step 26: Brill
-	-- {npc:246152} Shari Stilwell · {area:159} Brill
-	["{npc:246152} trains Paladins in {area:159}, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine."] = "{npc:246152} обучает паладинов – {area:159}, недалеко на север по дороге от башен дирижаблей. Возвращайтесь по той же дороге в Серебряный бор.",
-
-	-- Step 28: The Sepulcher
+	-- Step 27: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
 	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it."] = "{area:228} – городок Отрекшихся у склепа посреди леса. Все нужные NPC стоят у входа в склеп; {npc:2226}, укротитель летучих мышей, – чуть к востоку.",
 	-- {npc:2226} Karos Razok · {npc:4556} Gordon Wendham · {zone:1458} Undercity
@@ -136,43 +139,44 @@ return {
 	-- {npc:1952} High Executor Hadrec
 	["{npc:1952}, below ground"] = "",
 
-	-- Step 29: The Sepulcher
+	-- Step 28: The Sepulcher
 	-- {quest:264} Until Death Do Us Part · {object:24776} Yuriv's Tombstone
 	["{quest:264} is handed in at {object:24776}, a grave a few steps south of the crypt entrance, not to a person."] = "{quest:264} сдается не персонажу, а объекту {object:24776} – могиле в нескольких шагах к югу от входа в склеп.",
 
-	-- Step 30: Border Crossings
+	-- Step 29: Border Crossings
 	-- {object:1627} Dalaran Crate
-	["Follow the road south. The {object:1627} sits beside it, north of Pyrewood."] = "Идите по дороге на юг. {object:1627} стоит у дороги, к северу от Деревни Погребальных Костров.",
+	-- plural, as words: Dalaran Apprentices = {npc:1867} Dalaran Apprentice
+	["Follow the road south. The {object:1627} sits beside it, north of Pyrewood. Careful: Dalaran Apprentices (13) stand around the crate: pull them one at a time before you open it."] = "Идите по дороге на юг. {object:1627} стоит у дороги, к северу от Деревни Погребальных Костров. Осторожно: вокруг ящика стоят ученики Даларана (13): выманивайте их по одному, прежде чем открыть его.",
 
-	-- Step 31: The Dead Field
+	-- Step 30: The Dead Field
 	-- {area:228} The Sepulcher · {npc:1983} Nightlash · {area:240} The Dead Field
-	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field."] = "К северу от места {area:228}. {npc:1983} бродит по {area:240}: убейте ее, затем пройдите через поле.",
+	["North of the {area:228}. {npc:1983} haunts the {area:240}: kill it, then walk across the field. Careful: {npc:1983} (14) rises once you have killed rot hide gnolls in the field: fight her with full health."] = "К северу от места {area:228}. {npc:1983} бродит по {area:240}: убейте ее, затем пройдите через поле. Осторожно: {npc:1983} (14) появляется, как только вы убьете гноллов из племени Гнилошкурых на поле: сражайтесь с ней с полным здоровьем.",
 
-	-- Step 32: Malden's Orchard
+	-- Step 31: Malden's Orchard
 	-- {area:238} Malden's Orchard
 	["Follow the road north-east to the Yoricks' house at {area:238}."] = "Идите по дороге на северо-восток к дому Йориков: {area:238}.",
 
-	-- Step 33: Mottled Worgs
+	-- Step 32: Mottled Worgs
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs"] = "Крапчатые ворги",
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
 	["Mottled Worgs prowl the hills around the house."] = "Крапчатые ворги рыщут по холмам вокруг дома.",
 
-	-- Step 34: Escorting Erland
+	-- Step 33: Escorting Erland
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} ждет к северо-востоку от дома. Проводите его к NPC {npc:1950}; по пути нападают ворги.",
 	-- {npc:1978} Deathstalker Erland
 	["{npc:1978}, inside"] = "",
 
-	-- Step 37: The Sepulcher
+	-- Step 36: The Sepulcher
 	-- {npc:1938} Dalar Dawnweaver · {area:227} Valgan's Field
 	["{npc:1938}: his books lie in the {area:227} farmhouse, on the walk north"] = "",
 	-- {npc:1937} Apothecary Renferrel · {zone:1458} Undercity
 	["{npc:1937}: Zinge in the {zone:1458}, on the way to the zeppelin at the end"] = "",
 	-- {area:233} Ambermill
-	["{area:233} comes later, down the lake shore"] = "",
+	["{area:233} comes later, down the lake shore"] = "{area:233} – позже, вниз по берегу озера",
 
-	-- Step 38: Valgan's Field farmhouse
+	-- Step 37: Valgan's Field farmhouse
 	-- {area:227} Valgan's Field
 	["{area:227} farmhouse"] = "",
 	-- {area:227} Valgan's Field · {object:1571} Dusty Spellbooks · {npc:1770} Moonrage Darkrunner
@@ -180,25 +184,25 @@ return {
 	-- {object:1571} Dusty Spellbooks
 	["{object:1571}; upstairs"] = "",
 
-	-- Step 39: Quinn Yorick
+	-- Step 38: Quinn Yorick
 	["North again to the Yoricks' house."] = "Снова на север к дому Йориков.",
 	-- {npc:1951} Quinn Yorick
 	["{npc:1951}, inside"] = "",
 
-	-- Step 40: Vile Fin murlocs
+	-- Step 39: Vile Fin murlocs
 	["Vile Fin murlocs"] = "Мурлоки из племени Злобного Плавника",
 	-- plural, as words: Vile Fin Shredders = {npc:1767} Vile Fin Shredder
-	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "",
+	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Идите вдоль берега озера на юго-восток от дома Йориков: живорезы и волноловы из племени Злобного Плавника на берегу роняют глаза мурлоков.",
 
-	-- Step 41: The Decrepit Ferry
+	-- Step 40: The Decrepit Ferry
 	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
 	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "",
 
-	-- Step 42: Ambermill
-	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
-	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Stay out of the middle, where {npc:2120} stands."] = "",
+	-- Step 41: Ambermill
+	-- {area:233} Ambermill · {npc:2540} Dalaran Serpent · {npc:2120} Archmage Ataeric
+	["Keep south along the shore from the ferry to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a {npc:2540} (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where {npc:2120} (22) stands."] = "",
 
-	-- Step 43: The Sepulcher
+	-- Step 42: The Sepulcher
 	-- {area:228} The Sepulcher
 	["Back north-west up the road to the {area:228}."] = "Обратно на северо-запад по дороге: {area:228}.",
 	-- {npc:1937} Apothecary Renferrel
@@ -208,16 +212,16 @@ return {
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
 	["{npc:1499} in {area:159}, on the way to the zeppelin at the end"] = "",
 
-	-- Step 44: The Ivar Patch
+	-- Step 43: The Ivar Patch
 	-- {zone:1420} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
 	["Take the road north toward {zone:1420}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Идите по дороге на север ({zone:1420}): дом Йориков ({area:238}) по пути. {quest:425} прячется недалеко к западу от него.",
 	["Inside"] = "Внутри",
 
-	-- Step 46: Magistrate Sevren
+	-- Step 45: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
-	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "",
+	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159} – недалеко на север по дороге от башен дирижаблей; {npc:1499} – в ратуше.",
 
-	-- Step 48: The Undercity
+	-- Step 47: The Undercity
 	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:2050} Raleigh Andrean · {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben · {npc:5204} Apothecary Zinge · {npc:2055} Master Apothecary Faranell
 	["{object:1661} lies under the {area:153}, beside the zeppelin towers. {npc:2050} stands at the inn by the way down; {npc:7683} on the way down to the Apothecarium, where {npc:11044} and {npc:5204} stand beside {npc:2055}."] = "",
 	-- {npc:4556} Gordon Wendham
@@ -235,25 +239,25 @@ return {
 	-- {npc:260093} Garen Largo · {area:1497} Undercity
 	["{npc:260093}, the {area:1497}'s paladin trainer"] = "",
 
-	-- Step 49: Brom Killian
+	-- Step 48: Brom Killian
 	-- {npc:4598} Brom Killian · {zone:1458} Undercity
 	["{npc:4598}, the mining trainer, works in the {zone:1458}."] = "{npc:4598}, учитель горного дела, работает здесь: {zone:1458}.",
 	-- {npc:4598} Brom Killian · {npc:265812} Eleanor Shackleton
 	["{npc:4598}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4598}: «Основы походной жизни», от костра NPC {npc:265812} в Тирисфальских лесах",
 
-	-- Step 50: Basil Frye
+	-- Step 49: Basil Frye
 	-- {npc:4605} Basil Frye · {zone:1458} Undercity
 	["{npc:4605}, the blacksmithing trainer, works in the {zone:1458}."] = "{npc:4605}, учитель кузнечного дела, работает здесь: {zone:1458}.",
 	-- {npc:4605} Basil Frye · {npc:265812} Eleanor Shackleton
 	["{npc:4605}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4605}: «Основы походной жизни», от костра NPC {npc:265812} в Тирисфальских лесах",
 
-	-- Step 51: Graham Van Talen
+	-- Step 50: Graham Van Talen
 	-- {npc:4586} Graham Van Talen · {zone:1458} Undercity
 	["{npc:4586}, the engineering trainer, works in the {zone:1458}."] = "{npc:4586}, учитель инженерного дела, работает здесь: {zone:1458}.",
 	-- {npc:4586} Graham Van Talen · {npc:265812} Eleanor Shackleton
 	["{npc:4586}: Camping 101, from {npc:265812}'s campfire in Tirisfal"] = "{npc:4586}: «Основы походной жизни», от костра NPC {npc:265812} в Тирисфальских лесах",
 
-	-- Step 52: Lady Sylvanas Windrunner
+	-- Step 51: Lady Sylvanas Windrunner
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
 	["{npc:10181} holds court in the {object:36126}."] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
@@ -261,30 +265,42 @@ return {
 	-- {npc:10181} Lady Sylvanas Windrunner
 	["Talk to {npc:10181}"] = "",
 
-	-- Step 53: Zeppelin to Orgrimmar
+	-- Step 52: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 
-	-- Step 54: Orgrimmar
+	-- Step 53: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
-	-- Step 55: Valley of Strength
+	-- Step 54: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength
-	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "",
+	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "Войдите через главные ворота. {npc:268701} стоит здесь: {object:172982}.",
 
-	-- Step 61: Sayoc
+	-- Step 57: Neeru Fireblade
+	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:3216} Neeru Fireblade
+	["For your {area:2437} run: the {object:172960} is the canyon under the {object:172982}; {npc:3216} stands at its far end, next to the {area:2437} portal."] = "Для подземелья {area:2437}: {object:172960} – ущелье под местом {object:172982}; {npc:3216} стоит в его дальнем конце, рядом с порталом ({area:2437}).",
+
+	-- Step 58: Ragefire Chasm
+	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:3216} Neeru Fireblade · {npc:11520} Taragaman the Hungerer · {npc:11518} Jergosh the Invoker · {npc:4949} Thrall
+	["{area:2437} is a dungeon for a group of five, about levels 13 to 18, and a full run takes 30 to 45 minutes. Its portal is in the {object:172960}, beside {npc:3216}.\nInside: past Oggleflint and his troggs, {npc:11520} waits in the lava cave and drops his heart. {npc:11518} and Bazzalan, further in, are for {npc:4949}'s Hidden Enemies, which this route leaves out."] = "{area:2437} – подземелье для группы из пяти игроков, примерно 13-18-й уровень; полное прохождение занимает от 30 до 45 минут. Его портал – здесь: {object:172960}, рядом с NPC {npc:3216}.\nВнутри: за Огглфлинтом и его троггами в лавовой пещере ждет {npc:11520}, с него падает его сердце. {npc:11518} и Баззалан, дальше внутри, нужны для задания «Hidden Enemies» от NPC {npc:4949}, которое этот маршрут пропускает.",
+
+	-- Step 59: Neeru Fireblade
+	-- {npc:3216} Neeru Fireblade
+	["Back out through the portal: {npc:3216} stands beside it."] = "Назад через портал: {npc:3216} стоит рядом с ним.",
+
+	-- Step 63: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
 	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
 
-	-- Step 63: Valley of Wisdom
-	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
-	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide walks from here to {area:379} and the Crossroads."] = "",
-
-	-- Step 64: Zor Lonetree
+	-- Step 65: Zor Lonetree
 	-- {npc:4047} Zor Lonetree · {npc:4049} Seereth Stonebreak
 	["{npc:4047}: {npc:4049}, on the road into Stonetalon in the next guide"] = "",
+
+	-- Step 66: Valley of Wisdom
+	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom · {area:379} Far Watch Post
+	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. The next guide walks from here to {area:379} and the Crossroads."] = "{npc:268684} и {npc:268682} сидят за Крепостью Громмаш – {object:172957}; гладкие валуны лежат вокруг них. Следующий гайд идет отсюда к месту {area:379} и Перекрестку.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At the {area:2362}"] = "Здесь: {area:2362}",
@@ -294,13 +310,11 @@ return {
 	-- ["Fly to {area:1637}"] = "Летите: {area:1637}",
 	-- ["Fly to {area:1638}: {npc:3033} trains you on {area:1639}. Skyborne: fly back to {zone:1454} for the zeppelin afterwards."] = "Летите: {area:1638}. {npc:3033} обучает вас – {area:1639}. Небеснорожденные: затем летите обратно в {zone:1454} к дирижаблю.",
 	-- ["Follow the lake shore south-east and swim out to {area:172}. Rot Hide gnolls cover the island; every type drops ichor. Stay out of {area:235} on its north side unless you go for the optional niche: the gnolls there are level 18-22."] = "Идите вдоль берега озера на юго-восток и плывите: {area:172}. Остров заполнен гноллами из стаи Гнилошкуров; ихор падает со всех. Не заходите в {area:235} на северной стороне, если не идете за дополнительной нишей: гноллы там 18-22 уровня.",
-	-- ["Follow the lake shore south-east toward {area:172}: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "Идите вдоль берега озера на юго-восток ({area:172}): живорезы и волноловы из племени Злобного Плавника на берегу роняют глаза мурлоков.",
 	-- ["Follow the road north out of Silverpine into {zone:1420} and east to the zeppelin towers outside the {area:153}. Take the zeppelin to {zone:1454}."] = "Идите по дороге на север из Серебряного бора в зону {zone:1420} и на восток к башням дирижаблей у места {area:153}. Садитесь на дирижабль: {zone:1454}.",
 	-- ["Follow the road north out of Silverpine into {zone:1420} and on to {area:159}: {npc:246152} trains Paladins there. The zeppelin towers are a short walk south down the road."] = "Идите по дороге на север из Серебряного бора в зону {zone:1420} и дальше: {area:159}. {npc:246152} обучает там паладинов. Башни дирижаблей – недалеко на юг по дороге.",
 	-- ["From the {area:380}, follow the road north-east to {area:1637} and walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}."] = "От поселения {area:380} идите по дороге на северо-восток: {area:1637}, вход через главные ворота. {npc:3310}, распорядитель полетов, стоит на башне ({object:172982}).",
 	-- ["Hearth to the {area:228}"] = "Камень возвращения: {area:228}",
 	-- ["Into Silverpine"] = "В Серебряный бор",
-	-- ["Keep it: Thork at the {area:380}"] = "Сохраните: Торк – {area:380}",
 	-- ["Keep it: {npc:2216} in {area:272}, a later guide"] = "Сохраните: {npc:2216} – {area:272}, в одном из следующих гайдов",
 	-- ["Moonrage Bloodhowlers"] = "Кровавые ревуны Лунной Ярости ({npc:1924})",
 	-- ["Mottled Worgs prowl the hills around the house. Then walk south along the lake shore: the Vile Fin Shredders and Tidehunters there drop the murloc eyes."] = "Крапчатые ворги ({npc:1766}) рыщут по холмам вокруг дома. Затем идите на юг вдоль берега озера: живорезы ({npc:1767}) и волноловы из племени Злобного Плавника роняют глаза мурлоков.",
@@ -324,14 +338,12 @@ return {
 	-- ["The {object:1593} lies at the ferry landing on the lake shore east of the {area:228}."] = "{object:1593} лежит у паромной пристани на берегу озера к востоку от места {area:228}.",
 	-- ["The {object:177790} lies on the coast west of the {area:240}. It holds the {item:15882} for Trial of the Sea Lion."] = "{object:177790} лежит на побережье к западу от {area:240}. В нем {item:15882} для задания Испытание Морского Льва.",
 	-- ["To {area:1637}"] = "В {area:1637}",
-	-- ["Walk in through the main gate. {npc:268701} stands in the {object:172982}; {object:173016} is a few steps north."] = "Войдите через главные ворота. {npc:268701} стоит здесь: {object:172982}; {object:173016} – в нескольких шагах к северу.",
 	-- ["Worgs and murlocs"] = "Ворги и мурлоки",
 	-- ["Zeppelin to {zone:1420}"] = "Дирижабль: {zone:1420}",
 	-- ["Zeppelin tower"] = "Башня дирижаблей",
 	-- ["grind on {npc:1909} at {area:1338}, {zone:1421}"] = "бейте NPC {npc:1909} – {area:1338}, {zone:1421}",
 	-- ["{area:1338} shore"] = "Берег: {area:1338}",
 	-- ["{area:1637} flight master"] = "Распорядитель полетов: {area:1637}",
-	-- ["{area:233} comes later, on the southern loop"] = "{area:233} – позже, на южном круге",
 	-- ["{item:15877}, from a {object:177785} in the lake"] = "{item:15877} – из объекта {object:177785} в озере",
 	-- ["{item:3317}: a rare drop from the gnolls"] = "{item:3317}: редкая добыча с гноллов",
 	-- ["{npc:11066}, the enchanting trainer, works in the Drag."] = "{npc:11066}, учитель наложения чар, работает на Волоке.",
@@ -340,11 +352,9 @@ return {
 	-- ["{npc:1938}: take it if he offers it; it may follow his {quest:98298} series, which the route does not run"] = "{npc:1938}: возьмите, если предложит; может идти после его серии {quest:98298}, которую маршрут не проходит",
 	-- ["{npc:2121}: {quest:516}, on the south loop"] = "{npc:2121}: {quest:516}, на южном круге",
 	-- ["{npc:2121}: {quest:516}, on the southern loop"] = "{npc:2121}: {quest:516}, на южном круге",
-	-- ["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684} и {npc:268682} сидят за Крепостью Громмаш – {object:172957}; гладкие валуны ({item:277952}) лежат вокруг них. Обучитесь, пока вы в городе (у друидов и паладинов здесь учителя нет). Следующий гайд начинается у NPC {npc:3310}, распорядителя полетов ({object:172982}).",
 	-- ["{npc:3365}, the leatherworking trainer, works in the {object:172958}."] = "{npc:3365}, учитель кожевничества, работает здесь: {object:172958}.",
 	-- ["{npc:3404}, the herbalism trainer, keeps her shop in the Drag."] = "{npc:3404}, учитель травничества, держит лавку на Волоке.",
 	-- ["{npc:4551}: keep {item:16210}, Podrig takes it on the ride through the {area:228} at 22"] = "{npc:4551}: сохраните {item:16210}, Подриг заберет его, когда будете проезжать через {area:228} на 22 уровне",
-	-- ["{npc:4949} offers {quest:98024} and {quest:93739} once {quest:95350} is handed in to him."] = "{npc:4949} предлагает задания {quest:98024} и {quest:93739}, когда вы сдадите ему {quest:95350}.",
 	-- ["{npc:6018} stands in the {object:172961} on the city's west side."] = "{npc:6018} – {object:172961}, на западе города.",
 	-- ["{npc:7088}, the skinning trainer, stands in the {object:172958}."] = "{npc:7088}, учитель снятия шкур, стоит здесь: {object:172958}.",
 	-- ["{object:112888}, inside the keep"] = "{object:112888}, внутри крепости",

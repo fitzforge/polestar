@@ -58,9 +58,10 @@ return {
 	-- Step 11: Level 55.04
 	["Level 55.04"] = "Stufe 55,04",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Hol hier Stufe 55,04 auf, bevor du die Quests bei {area:2255} abgibst: Sie bringen dich auf Stufe 56. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1584} oder den Dungeon {area:1583} (Untere).",
-	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "grinde {npc:7460}",
+	-- plural, as words: Ice Thistle Yetis = {npc:7458} Ice Thistle Yeti
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Hol hier Stufe 55,04 auf, bevor du die Quests bei {area:2255} abgibst: Sie bringen dich auf Stufe 56. Die Eisdistelyetis (55-56) sind hier die niedrigsten; die Matriarchinnen und Patriarchen (56-58) schlagen härter zu. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1584} oder den Dungeon {area:1583} (Untere).",
+	-- {npc:7458} Ice Thistle Yeti
+	["grind on {npc:7458}"] = "grinde {npc:7458}",
 
 	-- Step 12: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn

@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: A Lesson to Learn
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fly from {area:442} to {area:702} and take the portal up to {npc:4217} in the {area:1658}."] = "Voe de {area:442} para {area:702} e pegue o portal para subir até {npc:4217} em {area:1658}.",
+	["Night Elves fly from {area:442} to {area:702}; Skyborne take the boat from the {area:442} dock and learn the Rut'theran flight path. Then take the portal up to {npc:4217} in the {area:1658}."] = "Elfos Noturnos voam de {area:442} para {area:702}; Celonatos pegam o barco na doca de {area:442} e aprendem a rota de voo de Rut'theran. Depois, pegue o portal para subir até {npc:4217} em {area:1658}.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
@@ -190,8 +190,8 @@ return {
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "O acampamento furbolg ao sul de {area:456} guarda as Reservas de Castanha, Fruta e Grão junto às fogueiras. Com uma amostra de cada e a {item:12347} nas bolsas (a {item:12346} se enche no {object:174795}), use a bacia junto à fogueira mais perto do rio: ela invoca Zabraxxis, o sátiro corruptor, e o {item:12355} está na Bolsa Demoníaca dele.",
 	["By the bonfire closest to the river: summons Xabraxxis"] = "Junto à fogueira mais perto do rio: invoca Zabraxxis",
-	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
-	["{item:12355}, in {object:177624}"] = "{item:12355}, em {object:177624}",
+	-- {item:12347} Filled Cleansing Bowl
+	["After using the {item:12347}, kill Xabraxxis, then click his Demon Bag on the ground to collect the talisman. If Xabraxxis despawns before you get it, retake the quest for a new bowl."] = "Depois de usar a {item:12347}, mate Zabraxxis e clique na Bolsa Demoníaca dele no chão para pegar o talismã. Se Zabraxxis sumir antes de você pegá-lo, pegue a missão de novo para ganhar uma nova bacia.",
 
 	-- Step 34: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "Cuidado: se você atacar um filhote, os outros filhotes e muitas vezes a mãe entram na briga, então conte com vários de uma vez.",
@@ -246,6 +246,7 @@ return {
 	-- ["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore."] = "Dois naufrágios estão no fundo do mar na baía ao norte de {area:442}; cada um guarda um cofre. Tiscorais e Maretiscos Incrustados ocupam esta costa.",
 	-- ["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil."] = "{area:450} fica na costa ao sul da praia de {npc:10323}. Proteja o garimpeiro enquanto ele procura o fóssil.",
 	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}, na praia a oeste das docas",
+	-- ["{item:12355}, in {object:177624}"] = "{item:12355}, em {object:177624}",
 	-- ["{item:15851} and {item:2449}"] = "{item:15851} e {item:2449}",
 	-- ["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: o {object:177792} debaixo d'água na costa norte, a oeste das ruínas",
 	-- ["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279}: Discipulos do Crepúsculo e Capangas do Crepúsculo",

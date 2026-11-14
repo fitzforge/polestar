@@ -100,8 +100,8 @@ return {
 	["{npc:6786} stands on the road at the valley's eastern exit."] = "{npc:6786} steht auf der Straße am östlichen Ausgang des Tals.",
 
 	-- Step 20: Sen'jin Village
-	-- {area:367} Sen'jin Village
-	["Follow the road east out of the valley to {area:367} on the coast."] = "Folge der Straße nach Osten aus dem Tal nach {area:367} an der Küste.",
+	-- {area:367} Sen'jin Village · {area:362} Razor Hill
+	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Folge der Straße nach Osten aus dem Tal nach {area:367} an der Küste.\nVorsicht: Ukorsbane (8) ist ein Elite und läuft zwischen den Ridgeshade-Spinnen im Lager südlich von {area:362} umher: Zieh die Spinnen von ihm weg.",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: nur für Verzauberer, die Rückstände werden aus Verhexten Anhängern ({item:275724}) entzaubert",
@@ -115,14 +115,20 @@ return {
 	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert gleich südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff {spell:1229451} erscheint. Wenn du einen Beruf erlernt hast, bietet {npc:265809} auch sein Camping 101 an, das dein Berufslehrer entgegennimmt: in {area:362} oder in {zone:1454} zu Beginn des nächsten Guides.",
 
 	-- Step 22: Camping 101: Mining
+	-- {npc:3175} Krunn · {skill:186} Mining
+	["{npc:3175} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:3175} nimmt sie entgegen, sobald deine Fertigkeit in {skill:186} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:265809} Brakk · {npc:3175} Krunn
 	["{npc:265809}: for {npc:3175}"] = "{npc:265809}: für {npc:3175}",
 
 	-- Step 23: Camping 101: Engineering
+	-- {npc:11025} Mukdrak · {skill:202} Engineering
+	["{npc:11025} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:11025} nimmt sie entgegen, sobald deine Fertigkeit in {skill:202} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:265809} Brakk · {npc:11025} Mukdrak
 	["{npc:265809}: for {npc:11025}"] = "{npc:265809}: für {npc:11025}",
 
 	-- Step 24: Camping 101: First Aid
+	-- {npc:5943} Rawrk · {skill:129} First Aid
+	["{npc:5943} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5943} nimmt sie entgegen, sobald deine Fertigkeit in {skill:129} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:265809} Brakk · {npc:5943} Rawrk
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: für {npc:5943}",
 
@@ -255,7 +261,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "Stirb an den Mobs bei 52.0,21.4 ({npc:3118}): Ein Tod dort schickt dich zu diesem Friedhof. Gib deinen Geist frei und nimm die Wiederbelebung von {npc:6491} an.",
 
-	-- Step 62: Thunder Ridge: kill these as you meet them
+	-- Step 63: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "{area:369}: töte diese, wenn du sie triffst",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak · {area:362} Razor Hill · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
@@ -264,22 +270,17 @@ return {
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Zähm ihn mit {item:15908}",
 
-	-- Step 63: Misha Tor'kren
+	-- Step 64: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "Mishas Hütte steht südlich der Echsen. Die Krokilisken am {area:814} im Westen tragen {item:4891}.",
 
-	-- Step 65: Heglan Shadeeye
+	-- Step 66: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657} steht am Ufer östlich von {area:362}. Dreizack, Banner und Dolch liegen um ihn herum am Strand.",
 
-	-- Step 67: Paladin trainer
+	-- Step 68: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "{npc:246344} in {zone:1456}; in {area:362} gibt es keinen Paladin-Lehrer",
-
-	-- Step 68: Mage trainer
-	["Mage trainer"] = "Magierlehrer",
-	-- {npc:5884} Mai'ah · {zone:1411} Durotar · {area:362} Razor Hill
-	["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} in {zone:1411}; in {area:362} gibt es keinen Magierlehrer",
 
 	-- Step 69: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
@@ -317,7 +318,7 @@ return {
 
 	-- Step 78: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
-	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}."] = "Kultisten der Burning Blade halten die Höhlen von {quest:827}; jeder lässt {item:4871} fallen. {npc:3204}, ein Hexenmeister der Stufe 14, steht tief drinnen und lässt {item:4903} fallen.",
+	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Kultisten der Burning Blade halten die Höhlen von {quest:827}; jeder lässt {item:4871} fallen. {npc:3204}, ein Hexenmeister der Stufe 14, steht tief drinnen und lässt {item:4903} fallen.\nVorsicht: In {quest:827} kämpfen Leerwandler an der Seite der Kultisten der Burning Blade, und {npc:3204} (14) wartet hinten mit seinem eigenen: Zieh die Kultisten für die Halsbänder einzeln nahe dem Eingang. {item:4903} ist optional: Lass {npc:3204} in Ruhe, außer du bist 13 oder hast einen Freund dabei.",
 
 	-- Step 79: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
@@ -342,7 +343,7 @@ return {
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "Gepanzerte Skorpide kriechen über die Ebenen westlich von {area:362}. Zähm einen und kehr dann zu {npc:3171} zurück.",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
-	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "",
+	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "{npc:3171}: {npc:3352} in {zone:1454} lehrt {spell:5149}",
 
 	-- Step 85: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
@@ -371,13 +372,14 @@ return {
 	["{zone:1454}'s {object:172982}"] = "{object:172982} von {zone:1454}",
 
 	-- Step 91: The Binding
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning
-	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it."] = "{npc:5875} steht in {object:172960}, der Schlucht unter {object:172982}. Gib ihm {item:6535}, benutze dann {item:7464} am Beschwörungskreis neben ihm und besiege den Leerwandler, um ihn zu binden.",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
+	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it.\nCareful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in {zone:1454}: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one."] = "{npc:5875} steht in {object:172960}, der Schlucht unter {object:172982}. Gib ihm {item:6535}, benutze dann {item:7464} am Beschwörungskreis neben ihm und besiege den Leerwandler, um ihn zu binden.\nVorsicht: Der Leerwandler, den du beschwörst, schlägt hart zu, und an diesem Kampf sterben in {zone:1454} die meisten Hexenmeister: Fang mit voller Gesundheit und Mana an, schick deinen Wichtel vor, halte Verderbnis und Feuerbrand auf ihm und benutze einen Gesundheitsstein, falls du einen hast.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Zurück nach Osten zum Ufer nördlich von {npc:275657}. Späher und Bedienstete der Grollflossen halten den Strand unterhalb von {area:370}. Jäger: Zähm am Strand einen {npc:3107}.",
 	-- ["Back south to {area:362}."] = "Zurück nach Süden nach {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Zurück zu {npc:5875} in {object:172960}. Benutze dort {item:7464} am Beschwörungskreis und besiege den Leerwandler, um ihn zu binden.",
+	-- ["Mage trainer"] = "Magierlehrer",
 	-- ["Tame {npc:3099}"] = "{npc:3099} zähmen",
 	-- ["Tame {npc:3107}"] = "{npc:3107} zähmen",
 	-- ["Tame {npc:3126}"] = "{npc:3126} zähmen",
@@ -396,9 +398,9 @@ return {
 	-- ["{npc:12430} kneels behind the rocks just off the road south of {area:362}, on your way to the keep. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count."] = "{npc:12430} kniet hinter den Felsen direkt neben der Straße südlich von {area:362}, auf deinem Weg zur Festung. Wirke Geringes Heilen (Rang 2) auf sie, dann Machtwort: Seelenstärke: Rang 1 von Geringes Heilen zählt nicht.",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert direkt südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff Verbesserter Ruhebonus erscheint. Wenn du einen Beruf gelernt hast, bietet {npc:265809} auch sein Camping 101 an, das sein Lehrer abnimmt: in {area:362} oder in {zone:1454} am Anfang des nächsten Guides.",
 	-- ["{npc:3171}: Tame Beast"] = "{npc:3171}: Wildtier zähmen",
-	-- ["{npc:3171}: {npc:3352} in {zone:1454} teaches Beast Training"] = "{npc:3171}: {npc:3352} in {zone:1454} lehrt Wildtierausbildung",
 	-- ["{npc:3352}: Beast Training"] = "{npc:3352}: Wildtierausbildung",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, neben {npc:3139}: {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, in der Kaserne bei {npc:3139}",
 	-- ["{npc:5875}: Summon Voidwalker"] = "{npc:5875}: Leerwandler beschwören",
+	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} in {zone:1411}; in {area:362} gibt es keinen Magierlehrer",
 }

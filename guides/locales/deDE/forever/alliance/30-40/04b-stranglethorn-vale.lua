@@ -45,7 +45,7 @@ return {
 	-- Step 7: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
+	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "Headshrinkers stehen tiefer im Komplex; die Commandos lauern getarnt rundherum und in der Höhle, und Herods Geldkassette liegt am Höhleneingang. Sammle Green-Hills-Seiten ein, wenn sie fallen.\nVorsicht: Kurzen Commandos sind Stufe 34-35, keine Elites, und spawnen oft getarnt; kurz vor dem Tod benutzen sie {spell:7964}.",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "{npc:941}, unter der Erde",
 	-- {object:288} Bookie Herod's Strongbox
@@ -113,6 +113,5 @@ return {
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "„Sea Wolf“ MacKinley, im obersten Stockwerk",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb."] = "Headshrinkers stehen tiefer im Komplex; die Commandos lauern getarnt rundherum und in der Höhle, und Herods Geldkassette liegt am Höhleneingang. Sammle Green-Hills-Seiten ein, wenn sie fallen.\nVorsicht: Kurzen Commandos sind Stufe 34-35, keine Elites, und spawnen oft getarnt; kurz vor dem Tod benutzen sie Rauchbombe.",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Zieh eine Runde durch die Trollruinen im Norden und in der Mitte: Jede birgt eine Steintafel der Trolllegenden. Schattentatzenpanther schleichen getarnt im Dschungel darum herum; das Lager der Venture Co. auf {area:37} trägt die Gerommelten Kristalle.",
 }

@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Uthel'nay (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
-	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "",
+	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311}是{zone:1454}的法師訓練師之一，在{object:172961}的{object:173161}。然後在{zone:1454}正門外的塔搭飛艇前往{zone:1420}。",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "",
+	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:4568}站在{object:36082}。{item:7247}和{item:7308}就在她身後的岩架上（有人拿走後5分鐘會重新出現）。兩者都要在最後繳交，所以留著它們。",
 
 	-- Step 4: The alchemist shop
 	["The alchemist shop"] = "煉金商店",
@@ -51,6 +51,4 @@ return {
 	-- ["Humanoids drop {item:2589}; the Undercity Auction House sells it."] = "人型生物會掉落{item:2589}；幽暗城拍賣場有賣。",
 	-- ["Leave the {zone:1458} and follow the road south through {zone:1421}. The {area:279} mages hold {area:233}, south-east of the {area:228}; every {npc:1867}, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a {item:7293}."] = "離開{zone:1458}，沿著道路向南穿過{zone:1421}。{area:279}的法師佔據{area:228}東南方的{area:233}；每個{npc:1867}、達拉然法師、保衛者、守衛、咒術師、衛士和巫師都可能掉落{item:7293}。",
 	-- ["{npc:2128} is the {area:159} mage trainer."] = "{npc:2128}是{area:159}的法師訓練師。",
-	-- ["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:4568}站在{object:36082}。{item:7247}和{item:7308}就在她身後。",
-	-- ["{npc:7311} is one of {zone:1454}'s mage trainers. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311}是{zone:1454}的法師訓練師之一。然後在{zone:1454}正門外的塔搭飛艇前往{zone:1420}。",
 }

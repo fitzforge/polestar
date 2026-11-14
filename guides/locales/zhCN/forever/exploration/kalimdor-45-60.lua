@@ -84,6 +84,8 @@ return {
 	["9 areas to discover here. Its creatures are level 54-60."] = "这里有 9 个区域可供探索。生物等级为 54-60 级。",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "从{zone:1452}经由南部的{area:2256}到达{zone:2482}。这是 无限 的终局升级地区。",
+	-- {area:16849} Summit of Eternity · {npc:41861} Fayran Elthas · {area:16853} Tainted Foothills
+	["Flight paths here: {area:16849} ({npc:41861}), {area:16853} (Bluebell)."] = "飞行路线：{area:16849}（{npc:41861}），{area:16853}（Bluebell）。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "这里有9个区域待发现。",

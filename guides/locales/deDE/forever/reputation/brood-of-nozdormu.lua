@@ -159,7 +159,7 @@ return {
 
 	-- Step 26: Keeper Remulos
 	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "",
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} verlangt ein Fragment von jedem der vier Portale der {npc:235289}: Elite-Drachkin an den Portalen in {zone:1440}, {zone:1444} und {zone:1425} (je 5%) und der {npc:15625} in {zone:1431}. Schlachtzug-Inhalt.",
 	["10 (and 100 Cenarion Circle)"] = "10 (und 100 Zirkel des Cenarius)",
 
 	-- Step 27: The Ashenvale portal
@@ -257,7 +257,4 @@ return {
 	["At Exalted, {npc:15192} gives the last ring of your path: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker. Bring the Revered ring; 100 reputation."] = "Bei Ehrfürchtig gibt {npc:15192} den letzten Ring deines Pfades: The Protector of Kalimdor, The Qiraji Conqueror oder The Grand Invoker. Bring den Ring für Respektvoll mit; 100 Ruf.",
 	-- {npc:15192} Anachronos
 	["{npc:15192}: the Exalted ring quest of your path"] = "{npc:15192}: die Ring-Quest für Ehrfürchtig deines Pfades",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} verlangt ein Fragment von jedem der vier Portale der Drachen des Alptraums: Elite-Drachkin an den Portalen in {zone:1440}, {zone:1444} und {zone:1425} (je 5%) und der {npc:15625} in {zone:1431}. Schlachtzug-Inhalt.",
 }

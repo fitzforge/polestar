@@ -81,8 +81,8 @@ return {
 
 	-- Step 11: Nesingwary's camp
 	["Nesingwary's camp"] = "Acampamento de Rosarães Guima",
-	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:773} Krazek · {quest:338} The Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "Siga a estrada para o norte saindo de {object:3202}; o acampamento de caça de Rosarães Guima fica na colina a nordeste do rio. {npc:773} quer que ele seja investigado: ande entre as tendas. Daqui em diante, guarde toda página de {quest:338} que saquear: {npc:716} as recebe na sua próxima visita à Selva do Espinhaço.",
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:773} Krazek · {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
+	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of The {item:2755} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "Siga a estrada para o norte saindo de {object:3202}; o acampamento de caça de Rosarães Guima fica na colina a nordeste do rio. {npc:773} quer que ele seja investigado: ande entre as tendas. Daqui em diante, guarde toda página de {item:2755} que saquear: {npc:716} as recebe na sua próxima visita à Selva do Espinhaço.",
 
 	-- Step 12: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
@@ -95,12 +95,13 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: vá matando estes pelo caminho",
 	-- {area:37} Lake Nazferiti
-	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "Tigres-do-espinhaço (32) vagam pelas colinas em volta do acampamento e ao sul dele, Panteras (32) pelas clareiras a oeste e sudoeste. Os Geólogos da Empreendimentos S.A., que carregam os Cristais Rolados, trabalham nos acampamentos perto de {area:37}, a sudeste do acampamento.",
+	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: their camps are crowded, with Venture Co. Agents (39) among the geologists (36-38): pull from the camps' edges, one at a time."] = "Tigres-do-espinhaço (32) vagam pelas colinas em volta do acampamento e ao sul dele, Panteras (32) pelas clareiras a oeste e sudoeste. Os Geólogos da Empreendimentos S.A., que carregam os Cristais Rolados, trabalham nos acampamentos perto de {area:37}, a sudeste do acampamento. Cuidado: os acampamentos deles são lotados, com Agentes da Empreendimentos S.A. (39) entre os geólogos (36-38): puxe pelas bordas dos acampamentos, um de cada vez.",
 
 	-- Step 15: Cozzle's Footlocker
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti · {object:20691} Cozzle's Footlocker · {npc:2496} Baron Revilgaz
-	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}."] = "{npc:4723} (38) está dentro da casa da Empreendimentos S.A. na margem oeste de {area:37}, entre os geólogos: a chave dele abre {object:20691} na mesma casa, que guarda as plantas para {npc:2496}.",
+	-- plural, as words: Venture Co. Agents = {npc:260429} Venture Co. Agent
+	["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723} (38) está dentro da casa da Empreendimentos S.A. na margem oeste de {area:37}, entre os geólogos: a chave dele abre {object:20691} na mesma casa, que guarda as plantas para {npc:2496}. Cuidado: Agentes da Empreendimentos S.A. (39) ficam dentro e em volta da casa: limpe a porta antes de entrar.",
 	-- {npc:4723} Foreman Cozzle
 	["from {npc:4723}"] = "de {npc:4723}",
 	-- {item:5852} Fuel Regulator Blueprints · {object:20691} Cozzle's Footlocker
@@ -142,9 +143,9 @@ return {
 
 	-- Step 23: Level 35
 	["Level 35"] = "Nível 35",
-	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery
+	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Ainda abaixo de 35 depois da entrega a Aggro'gosh? Os Raptores Batecauda (35) caçam na selva logo ao norte de {object:3202}: mate-os até o nível 35. Ou, em grupo, faça a masmorra {area:796} (Biblioteca ou Armaria).",
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "As próximas missões de {area:35} e {object:3202} são de nível 35-38. Ainda abaixo de 35 depois da entrega a Aggro'gosh? Os Raptores Batecauda (35) caçam na selva logo ao norte de {object:3202}: mate-os até o nível 35.",
 	-- {npc:686} Lashtail Raptor
 	["grind on {npc:686}"] = "mate {npc:686} até subir",
 
@@ -159,8 +160,6 @@ return {
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, e {npc:2496}, {npc:737} e {npc:773}, no andar de cima, ao lado do mestre de voo.",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}, lá dentro",
-	-- {npc:2496} Baron Revilgaz · {area:2240} Mirage Raceway · {zone:1446} Tanaris
-	["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: para Pozzik em {area:2240}, a caminho de {zone:1446} por volta do nível 43",
 
 	-- Step 26: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -176,26 +175,21 @@ return {
 	-- Step 28: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
 	["{area:102}: kill these as you meet them"] = "{area:102}: vá matando estes pelo caminho",
-	-- {item:3915} Bloody Bone Necklace · {quest:338} The Green Hills of Stranglethorn
+	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
-	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of {quest:338}."] = "Os Caçadores de Cabeças Sanguescalpo (36-37) da aldeia da costa carregam as cabeças encolhidas.\nOs trolls Sanguescalpo ocupam as ruínas costa acima, ao norte do recife, e a aldeia mais adiante; qualquer um pode deixar cair um {item:3915}. Continue saqueando as páginas de {quest:338}.",
+	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "Os Caçadores de Cabeças Sanguescalpo (36-37) da aldeia da costa carregam as cabeças encolhidas.\nOs trolls Sanguescalpo ocupam as ruínas costa acima, ao norte do recife, e a aldeia mais adiante; qualquer um pode deixar cair um {item:3915}. Continue saqueando as páginas de {item:2755}.",
 
 	-- Step 30: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "A leste das colinas de Mosh'Ogg, as Panteras Umbragorja (37-38) espreitam a selva rumo ao lago; as Tigresas-do-espinhaço andam pela mesma área e de vez em quando deixam cair uma presa imaculada. Crocoliscos Arapuca tomam o rio logo a oeste da selva; guarde as peles para {npc:2495}. Cuidado: as Panteras Umbragorja (nível 37-38) e as Panteras Umbragorja Anciãs (nível 42-43) ficam furtivas fora de combate, então só aparecem quando você chega perto.",
 
-	-- Step 31: Green Hills pages
-	["Green Hills pages"] = "Páginas de Grande Espinhaço: Veredas",
-	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters on your next Stranglethorn visit, at about 40."] = "As páginas de {item:2755} caem com cerca de 1% cada dos trolls Sanguescalpo e Rachacrânio; guarde toda página que saquear e procure o resto na casa de leilões. {npc:716} recebe os capítulos na sua próxima visita à Selva do Espinhaço, por volta do nível 40.",
-
-	-- Step 32: Mosh'Ogg camp
+	-- Step 31: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "Acampamento Mosh'Ogg",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "Os ogros Mosh'Ogg acampam nas colinas logo a leste de {object:3202}, no seu caminho de volta. Mate 10 Brutamontes e 5 Mandingueiros (36-37); puxe um de cada vez.",
 
-	-- Step 33: Grom'gol
+	-- Step 32: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "De volta a {object:3202}.",
 	-- {npc:2465} Far Seer Mok'thardin
@@ -205,11 +199,11 @@ return {
 	-- {zone:1454} Orgrimmar
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "O próximo guia pega o zepelim para {zone:1454} na torre do lado oeste do acampamento.",
 
-	-- Step 34: Level 36
+	-- Step 33: Level 36
 	["Level 36"] = "Nível 36",
-	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
+	-- {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "As missões de Pântano Vadeoso são de nível 35-38. Ainda abaixo de 36 depois das entregas de {object:3202}? Os Brutamontes e Mandingueiros Mosh'Ogg acampam nas colinas logo a leste do acampamento: mate-os até o nível 36, puxando um de cada vez, e depois volte a pé até a torre do zepelim. Ou, em grupo, faça a masmorra {area:796} (Armaria) ou a masmorra {area:1316}.",
+	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "As missões de Pântano Vadeoso são de nível 35-38. Ainda abaixo de 36 depois das entregas de {object:3202}? Os Brutamontes e Mandingueiros Mosh'Ogg acampam nas colinas logo a leste do acampamento: mate-os até o nível 36, puxando um de cada vez, e depois volte a pé até a torre do zepelim.",
 	-- {npc:1142} Mosh'Ogg Brute
 	["grind on {npc:1142}"] = "mate {npc:1142} até subir",
 
@@ -218,9 +212,11 @@ return {
 	-- ["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "As missões do Pântano Vadeoso são de nível 35-38. Abaixo de 36? Continue matando os Brutamontes e Mandingueiros Mosh'Ogg aqui até o nível 36; puxe um de cada vez. Ou, em grupo, faça a masmorra {area:796} (Arsenal) ou a masmorra {area:1316}.",
 	-- ["Elder tigers and Lashtail raptors"] = "Tigres anciãos e Raptores Batecauda",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "Siga a estrada para o norte saindo de {object:3202}; o acampamento de caça de Rosarães Guima fica na colina a nordeste do rio. Daqui em diante, guarde toda página de {quest:338} que saquear: {npc:716} as recebe na sua próxima visita à Selva do Espinhaço.",
+	-- ["Green Hills pages"] = "Páginas de Grande Espinhaço: Veredas",
 	-- ["Head north to {area:37}, south-east of Nesingwary's camp: the Venture Co. Geologists (34-36) work the camps by the lake and carry the Tumbled Crystals."] = "Siga para o norte até {area:37}, a sudeste do acampamento do Rosarães: os Geólogos da Empreendimentos S.A. (34-36) trabalham nos acampamentos junto ao lago e carregam os Cristais Rolados.",
 	-- ["Head south down the coast to {object:3202} and fly to {area:35}."] = "Siga a costa para o sul até {object:3202} e voe para {area:35}.",
 	-- ["North up the road again. Nesingwary's camp is the one {npc:773} wants investigated: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "De novo para o norte pela estrada. O acampamento de Rosarães Guima é o que {npc:773} quer que seja investigado: ande entre as tendas e a investigação se completa. Crocoliscos do Rio ficam ao longo do rio abaixo do acampamento.",
+	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters on your next Stranglethorn visit, at about 40."] = "As páginas de {item:2755} caem com cerca de 1% cada dos trolls Sanguescalpo e Rachacrânio; guarde toda página que saquear e procure o resto na casa de leilões. {npc:716} recebe os capítulos na sua próxima visita à Selva do Espinhaço, por volta do nível 40.",
 	-- ["Shadowmaw panthers"] = "Panteras Umbragorja",
 	-- ["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "Os Raptores Batecauda (35-36) caçam na selva logo a nordeste de {object:3202}.",
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "Os ogros Mosh'Ogg acampam nas colinas logo a leste de {object:3202}. Mate um Brutamontes e um Mandingueiro (36-37); puxe um de cada vez.",
@@ -235,6 +231,7 @@ return {
 	-- ["{npc:2464} stands in the middle of {object:3202}, {npc:2465} beside the flight master."] = "{npc:2464} fica no meio de {object:3202}, e {npc:2465}, ao lado do mestre de voo.",
 	-- ["{npc:2465}, beside the flight master: the Shadowmaw and tigress parts come after the trolls"] = "{npc:2465}, ao lado do mestre de voo: as partes de Bocassombra e da tigresa vêm depois dos trolls",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:737} and {npc:773} on its top floor beside the flight master."] = "A loja de {npc:2495} fica no prédio a leste da estalagem; {npc:2498} está no andar de baixo da estalagem, e {npc:737} e {npc:773}, no andar de cima, ao lado do mestre de voo.",
+	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: para Pozzik em {area:2240}, a caminho de {zone:1446} por volta do nível 43",
 	-- ["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "{npc:2497} espera em {object:3202}, perto da torre do zepelim.",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "O acampamento dos caçadores desaparecidos de {npc:773} é o acampamento de Rosarães Guima: ande entre as tendas e a investigação é concluída. Crocoliscos do Rio ficam ao longo do rio, abaixo do acampamento.",
 }

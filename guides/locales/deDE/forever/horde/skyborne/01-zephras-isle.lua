@@ -102,6 +102,34 @@ return {
 	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
 	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "/sit an {npc:263664}s Lagerfeuer, bis du {spell:1229451} bekommst",
 
+	-- Step 15: Camping 101: Skinning
+	-- {npc:257024} Mendalass Tattermend · {skill:393} Skinning
+	["{npc:257024} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257024} nimmt sie entgegen, sobald deine Fertigkeit in {skill:393} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
+
+	-- Step 16: Camping 101: First Aid
+	-- {npc:257018} Naleeia Tattermend · {skill:129} First Aid
+	["{npc:257018} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257018} nimmt sie entgegen, sobald deine Fertigkeit in {skill:129} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
+
+	-- Step 17: Camping 101: Leatherworking
+	-- {npc:251993} Indari Sunseam · {skill:165} Leatherworking
+	["{npc:251993} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251993} nimmt sie entgegen, sobald deine Fertigkeit in {skill:165} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
+
+	-- Step 18: Camping 101: Mining
+	-- {npc:257022} Messana Crestwind · {skill:186} Mining
+	["{npc:257022} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257022} nimmt sie entgegen, sobald deine Fertigkeit in {skill:186} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
+
+	-- Step 19: Camping 101: Alchemy
+	-- {npc:257019} Nyassa Swiftdraught · {skill:171} Alchemy
+	["{npc:257019} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:257019} nimmt sie entgegen, sobald deine Fertigkeit in {skill:171} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
+
+	-- Step 20: Camping 101: Blacksmithing
+	-- {npc:251913} Aedi Thriceforged · {skill:164} Blacksmithing
+	["{npc:251913} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251913} nimmt sie entgegen, sobald deine Fertigkeit in {skill:164} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
+
+	-- Step 21: Camping 101: Fishing
+	-- {npc:251992} Fenn Fairweather · {skill:356} Fishing
+	["{npc:251992} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:251992} nimmt sie entgegen, sobald deine Fertigkeit in {skill:356} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
+
 	-- Step 22: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}: Camping 101 verlangt, dass du es lernst",
@@ -187,8 +215,6 @@ return {
 	["Skyhoppers hop about the fields just west of Valennia."] = "Himmelshüpfer hüpfen über die Felder gleich westlich von Valennia.",
 
 	-- Step 48: Ayessa Dawnsinger
-	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "sprich mit {npc:251968}",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
@@ -271,7 +297,7 @@ return {
 	-- Step 62: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Ornery Galestriders und Vuldren Alphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt {spell:5149}.",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Zähme {npc:251707}",
 	-- {npc:250874} Vuldren Alpha
@@ -286,7 +312,7 @@ return {
 
 	-- Step 65: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {npc:255853} Urs'endris · {area:17675} East Pylon Watchtower · {spell:1259416} Walk on Air
-	["{npc:252359} stands on {area:16638}'s east side. {npc:255853} waits by the falls just north of the {area:17675}: leave town to the north, climb the ridge east of the road and glide down to him with {spell:1259416}."] = "",
+	["{npc:252359} stands on {area:16638}'s east side. {npc:255853} waits by the falls just north of the {area:17675}: leave town to the north, climb the ridge east of the road and glide down to him with {spell:1259416}."] = "{npc:252359} steht auf der Ostseite von {area:16638}. {npc:255853} wartet an den Wasserfällen direkt nördlich von {area:17675}: Verlasse die Stadt nach Norden, klettere auf den Grat östlich der Straße und gleite mit {spell:1259416} zu ihm hinab.",
 
 	-- Step 66: The East Pylon Watchtower
 	-- {area:17675} East Pylon Watchtower
@@ -337,7 +363,7 @@ return {
 
 	-- Step 79: Strength and Mercy
 	-- {npc:255853} Urs'endris · {area:17675} East Pylon Watchtower · {spell:1259416} Walk on Air
-	["On your way north from Valennia, {npc:255853} waits by the falls north-east of you, just north of the {area:17675}: from the ridge above them, glide down with {spell:1259416}."] = "",
+	["On your way north from Valennia, {npc:255853} waits by the falls north-east of you, just north of the {area:17675}: from the ridge above them, glide down with {spell:1259416}."] = "Auf deinem Weg nach Norden von Valennia wartet {npc:255853} an den Wasserfällen nordöstlich von dir, direkt nördlich von {area:17675}: Gleite vom Grat oberhalb mit {spell:1259416} zu ihnen hinab.",
 
 	-- Step 80: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -415,8 +441,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Du verlässt die Insel endgültig. {npc:259119} wartet, wo das Luftschiff landet.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: Behalte es: Thrall in {zone:1454}, am Anfang des nächsten Guides",
-	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, bei der Landestelle: für {npc:3033} in {zone:1456}",
+	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, bei der Landestelle: für {npc:3033} in {zone:1456}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -436,7 +462,7 @@ return {
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} bildet Druiden auf der {area:1639} aus. Er lehrt dich {spell:18960}; der Willkommensgruß von {npc:11802} wartet etwa mit 21 auf deine Reise für {spell:499} (forever/horde/02-the-barrens).",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -446,7 +472,7 @@ return {
 
 	-- Step 103: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
-	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:199} bei {npc:11869} (10 Silber); Zweihandwaffen lassen einen Krieger am schnellsten leveln.",
 
 	-- Step 104: Ansekhwa
 	-- {npc:11869} Ansekhwa
@@ -455,16 +481,22 @@ return {
 	-- Step 105: Into Mulgore
 	-- {zone:1412} Mulgore
 	["Into {zone:1412}"] = "Nach {zone:1412}",
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
+	["Take {zone:1456}'s west lift down: the road at its foot runs south-east across {zone:1412} to the {zone:1413}."] = "Nimm den Westaufzug von {zone:1456} nach unten: Die Straße an seinem Fuß führt nach Südosten durch {zone:1412} ins {zone:1413}.",
 
-	-- Step 106: Into The Barrens
-	-- {zone:1413} The Barrens
+	-- Step 106: Into Barrens
+	-- {zone:1413} Barrens
 	["Into {zone:1413}"] = "Hinein nach {zone:1413}",
 
-	-- Step 108: The Crossroads
-	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	-- Step 107: Camp Taurajo
+	-- {zone:1412} Mulgore · {area:458} Gold Road · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn · {npc:3418} Kirge Sternhorn
+	["The road from {zone:1412} meets the {area:458} at {area:378}: {npc:10378}, the wind rider master, stands beside {npc:3418} on your way north to the Crossroads."] = "Die Straße aus {zone:1412} trifft bei {area:378} auf die {area:458}: {npc:10378}, der Windreitermeister, steht neben {npc:3418} auf deinem Weg nach Norden zum Wegekreuz.",
 
-	-- Step 109: To Orgrimmar
+	-- Step 109: The Crossroads
+	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
+	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Lerne die Flugroute bei {npc:3615} auf der Turmplattform. Die eigenen Quests von {area:380} kommen nach {zone:1421}, im Guide zu {zone:1413}.",
+
+	-- Step 110: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Nach {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
@@ -486,11 +518,9 @@ return {
 	-- ["Horde airship"] = "Luftschiff der Horde",
 	-- ["Jump off the top of the watchtower and use Walk on Air to float down to {npc:251361}, west of the tower."] = "Spring von der Spitze des Wachturms und benutze Luftwandeln, um zu {npc:251361} westlich des Turms hinabzuschweben.",
 	-- ["Kuramaa"] = "Kuramaa",
-	-- ["Learn the flight path from Devrak on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Lerne die Flugroute bei Devrak auf der Turmplattform. Die eigenen Quests von {area:380} kommen nach {zone:1421}, im Guide zu {zone:1413}.",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Verlass {zone:1456} mit einem Aufzug und folge der Straße nach Süden an {area:222} vorbei und durch den östlichen Pass ins {zone:1413}; nimm vom Pass aus die {area:458} nach Norden nach {area:380}, der Hordestadt mitten im {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Abschied von {area:16635}",
 	-- ["On the way north, back to {npc:255853} by the falls."] = "Auf dem Weg nach Norden zurück zu {npc:255853} an den Fällen.",
-	-- ["On your way north from Valennia, {npc:255853} waits by the falls north-east of you, just north of the {area:17675}: from the ridge above them, glide down with Walk on Air."] = "Auf deinem Weg nach Norden von Valennia wartet {npc:255853} an den Wasserfällen nordöstlich von dir, direkt nördlich von {area:17675}: Gleite vom Grat oberhalb mit Luftwandeln zu ihnen hinab.",
 	-- ["Prideclaws and Galestriders"] = "Rudelkrallen und Windschreiter",
 	-- ["Prideclaws and Galestriders share the meadows south of the village. Keep the {item:5469} for {npc:251905}; the eggs come later from the hippogryphs."] = "Rudelkrallen und Windschreiter teilen sich die Wiesen südlich des Dorfs. Behalte {item:5469} für {npc:251905}; die Eier kommen später von den Hippogryphen.",
 	-- ["Ride north-east to the {area:17675}. The Al'Aketh camp is just west of it, with {npc:252666} at its north end. Every cultist can drop a windstone charm."] = "Reite nach Nordosten zum {area:17675}. Das Lager der Al'Aketh liegt gleich westlich davon, mit {npc:252666} an seinem Nordende. Jeder Kultist kann ein Windsteinamulett der Al'Aketh fallen lassen.",
@@ -522,7 +552,6 @@ return {
 	-- ["The turncoat's house is in the {area:16626} north-west of {area:16638}. {npc:273017} waits nearby; his assassins lurk around the house."] = "Das Haus des Überläufers ist in {area:16626} nordwestlich von {area:16638}. {npc:273017} wartet in der Nähe; seine Attentäter lauern ums Haus.",
 	-- ["The watchtower"] = "Der Wachturm",
 	-- ["Walk north to {area:16624}; finish the {item:5469} on the Galestriders along the way if you are short."] = "Geh nach Norden nach {area:16624}; erledige unterwegs an den Windschreitern das restliche {item:5469}, falls dir welches fehlt.",
-	-- ["While you're here: learn Two-Handed Maces from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandstreitkolben bei {npc:11869} (10 Silber); Zweihandwaffen lassen einen Krieger am schnellsten leveln.",
 	-- ["Wind Hollows and {object:616466}"] = "Windhüllen und {object:616466}",
 	-- ["Wind Hollows and {object:616467}"] = "Windhüllen und {object:616467}",
 	-- ["Wind Hollows drift over the lowlands around {area:16638}. The first {object:616466} lie west of the orchard road."] = "Windhüllen treiben über das Tiefland um {area:16638}. Die ersten {object:616466} liegen westlich der Obstgartenstraße.",
@@ -545,12 +574,10 @@ return {
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, in der Dorfmitte",
 	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095} wartet in {area:16622}, südwestlich des Dorfs. Das Lager der Al'Aketh liegt gleich hinter ihr; {npc:256935} führt es an.",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} steht auf der Ostseite von {area:16638}.",
-	-- ["{npc:252359} stands on {area:16638}'s east side. {npc:255853} waits by the falls just north of the {area:17675}: leave town to the north, climb the ridge east of the road and glide down to him with Walk on Air."] = "{npc:252359} steht auf der Ostseite von {area:16638}. {npc:255853} wartet an den Wasserfällen direkt nördlich von {area:17675}: Verlasse die Stadt nach Norden, klettere auf den Grat östlich der Straße und gleite mit Luftwandeln zu ihm hinab.",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377} steht mitten in {area:16638}.",
 	-- ["{npc:252377}: Defensive Stance"] = "{npc:252377}: Verteidigungshaltung",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382} steht auf der Westseite von {area:16638}.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389} in {area:16638} gibt dir dreimal {item:15908}: Zähm {npc:254588} an den Seen nordwestlich der Stadt, {npc:251707} auf den Feldern westlich der Stadt und {npc:250874} bei {area:16663}, und kehr nach jedem zu ihr zurück. {npc:254411} steht neben ihr.",
-	-- ["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches Beast Training."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Ornery Galestriders und Vuldren Alphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt Wildtierausbildung.",
 	-- ["{npc:252389}: Tame Beast"] = "{npc:252389}: Wildtier zähmen",
 	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, an der Landestelle: für {npc:3033} in {zone:1456}",
 	-- ["{npc:254411}: Beast Training"] = "{npc:254411}: Wildtierausbildung",
@@ -560,6 +587,5 @@ return {
 	-- ["{npc:259119}: keep it, Thrall in {zone:1454} comes two guides later"] = "{npc:259119}: Behalte sie, Thrall in {zone:1454} kommt zwei Guides später",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}s Lagerfeuer",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you Teleport: {quest:94913}; {npc:11802}'s welcome waits for your Cat Form trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} lehrt Druiden auf {area:1639}. Er bringt dir Teleportieren: {quest:94913} bei; der Gruß von {npc:11802} wartet bei deiner Reise zur Katzengestalt etwa auf Stufe 21 (forever/horde/02-the-barrens).",
-	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 23 (forever/horde/04-the-barrens)."] = "{npc:3033} bildet Druiden auf der {area:1639} aus. Er lehrt dich {spell:18960}; der Willkommensgruß von {npc:11802} wartet etwa mit 23 auf deine Reise für {spell:499} (forever/horde/04-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 }

@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "Hinab den {area:485} nach {zone:1441}, dann nach Westen zu den Klippen der Wyverns bei {area:482}. Jede Wyvern dort kann einen Giftbeutel fallen lassen.",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "Hinab den {area:485} nach {zone:1441}, dann nach Westen zu den Klippen der Wyverns bei {area:482}. Jede Wyvern dort kann einen Giftbeutel fallen lassen. Vorsicht: Warte auf der Plattform, bis der Aufzug auf ihrer Höhe ist, bevor du hinaufsteigst, und bleib darauf, bis er anhält; der Sturz daneben ist tödlich.",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post

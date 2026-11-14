@@ -55,7 +55,7 @@ return {
 
 	-- Step 13: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "",
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "Volte cavalgando para oeste até o refúgio.\nPasse bem longe dos Demossauros e Estegodons elite. Daqui em diante, pegue todo {npc:271301} e {object:157936} que encontrar.",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, na entrada do refúgio",
 	-- {npc:8737} Linken
@@ -88,47 +88,43 @@ return {
 	["Ride east to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Siga para o leste até {area:1943}, onde o robô fica entre os gorilas. Não entre na caverna funda dali.",
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 19: Level 49.51
-	["Level 49.51"] = "Nível 49.51",
-	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "Complete aqui até o nível 49.51 antes das entregas em {area:541}: elas levam você ao nível 50. Ou, com um grupo, faça a masmorra {area:2100}.",
-	["Pterrordax"] = "Pterrordax",
-	["grind on Pterrordax"] = "mate Pterrordaxes até subir",
-
-	-- Step 20: Crate of Foodstuffs
+	-- Step 19: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "Desça para o sul pelo lado leste. Dimetrodontes Jovens pastam na selva leste e {npc:9165} voam perto dos penhascos leste; os dois soltam as escamas de {npc:9998}. O caixote fica no acampamento abandonado na selva leste.",
 
-	-- Step 21: Eastern Pylon
+	-- Step 20: Eastern Pylon
 	["Eastern Pylon"] = "Torre de Cristal Leste",
 	["The pylon stands on the eastern cliffs."] = "A torre fica nos penhascos leste.",
 
-	-- Step 22: The Gorishi hive
+	-- Step 21: The Gorishi hive
 	["The Gorishi hive"] = "A colmeia Gorishi",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Siga para sudoeste, passando por {npc:9619}: a colmeia dos silitídeos ocupa o sul da cratera. Use o Scraping Vial em um chocadouro, uma câmara com larvas penduradas. Vespas e Trabalhadoras Gorishi soltam {quest:3764}; Pterrordaxes fazem ninho nos penhascos do sul, se você ainda precisar de mortes.\nCuidado: os silitídeos Gorishi são de nível 51-54 e lançam {spell:8137} ou {spell:14120} em combate corpo a corpo; as Trabalhadoras Gorishi têm 50% de chance de chamar ajuda a até 25 metros quando ficam abaixo de 45% de vida.",
-	-- {npc:9167} Frenzied Pterrordax
-	["grind on {npc:9167}"] = "mate {npc:9167} até subir",
 
-	-- Step 23: Bones and equipment
+	-- Step 22: Bones and equipment
 	["Bones and equipment"] = "Ossos e equipamentos",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Ossos de Dinossauro ficam no chão no sudoeste, entre os estegodons: eles são elite, pegue os ossos ao redor deles e consiga o resto com os Dimetrodontes. O {item:11112} da expedição fica na selva sudoeste.",
-	-- {npc:9164} Elder Diemetradon
-	["grind on {npc:9164}"] = "mate {npc:9164} até subir",
 
-	-- Step 24: Western Pylon
+	-- Step 23: Western Pylon
 	["Western Pylon"] = "Torre de Cristal Oeste",
 	-- {npc:9167} Frenzied Pterrordax
 	["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "A torre fica nos penhascos oeste. {npc:9167} voam por todo o lado oeste.",
 
-	-- Step 25: Marshal's Refuge
+	-- Step 24: Marshal's Refuge
 	["Ride north along the western jungle back to the refuge."] = "Siga para o norte pela selva oeste de volta ao refúgio.",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}, na entrada do refúgio",
+
+	-- Step 25: Level 49.79
+	["Level 49.79"] = "Nível 49.79",
+	-- {area:541} Marshal's Refuge
+	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Pterrordax on the slopes east of {area:541} before you leave the crater."] = "Ainda abaixo do nível 49.79 depois das entregas do refúgio? Complete nos Pterrordax das encostas a leste de {area:541} antes de sair da cratera.",
+	["Pterrordax"] = "Pterrordax",
+	["grind on Pterrordax"] = "mate Pterrordaxes até subir",
 
 	-- Step 26: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -138,30 +134,24 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "Mestre de voo de {area:541}",
 
-	-- Step 27: To Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "Para {area:2101}",
+	-- Step 27: To Ironforge
+	-- {zone:1455} Ironforge
+	["To {zone:1455}"] = "Para {zone:1455}",
 
-	-- Step 28: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "Voe para {area:1537}",
-	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "Mestre de voo de {area:144}",
-
-	-- Step 29: Mystic Ward
+	-- Step 28: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: para Ogtinc, em {zone:1447}, guarde",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}, o instrutor de magos: para {npc:8395} em {zone:1447}, mantenha a missão",
 
-	-- Step 32: Fly to Astranaar
+	-- Step 31: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "Mestre de voo de {area:442}",
 
-	-- Step 33: Level 50.4
+	-- Step 32: Level 50.4
 	["Level 50.4"] = "Nível 50.4",
-	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Complete aqui até o nível 50.4 antes das entregas em {area:3137}: elas levam você ao nível 51. Ou, com um grupo, faça a masmorra {area:2100} ou a masmorra {area:1417}.",
+	-- {area:3137} Talrendis Point
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "Complete aqui até o nível 50.4 antes das entregas em {area:3137}: elas levam você ao nível 51.",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "mate {npc:6116} até subir",
 
@@ -172,6 +162,7 @@ return {
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Atravesse o sul da cratera até {npc:9619}, junto à rampa.",
 	-- ["Escort {npc:9999}"] = "Escolte {npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "Voe de {area:144} para {area:1537}.",
+	-- ["Fly to {area:1537}"] = "Voe para {area:1537}",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Quatro decalques de runas em {zone:1447}: guarde",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "De {area:144}, voe para {area:150}, pegue o barco para Theramore e voe até {area:976}. A primeira missão de {npc:9619} na cratera exige nível 48: complete o nível aqui se faltar.",
 	-- ["Grind to 50"] = "Suba até o nível 50",
@@ -186,7 +177,6 @@ return {
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Siga para o sul pelos penhascos leste até {npc:9619}, ao pé da rampa.",
 	-- ["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Desça para o sul pelo lado leste. Dimetrodontes Jovens pastam na selva leste e {npc:9165} voam perto dos penhascos leste; os dois deixam cair as escamas de {npc:9998}.",
 	-- ["Ride west back to the refuge."] = "Volte para o oeste até o refúgio.",
-	-- ["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Volte cavalgando para oeste até o refúgio.\nPasse bem longe dos Demossauros e Estegodons elite. Daqui em diante, pegue todo Cristal de Poder e {object:157936} que encontrar.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Siga para o oeste a partir de {npc:9619}: a colmeia silitídea ocupa o sul da cratera. Use o Frasco para Amostra numa câmara de incubação, uma câmara com larvas penduradas. Vespas e Trabalhadoras Gorishi deixam cair {quest:3764}; {npc:9166} fazem ninho nos penhascos sul, se ainda precisar de abates.",
 	-- ["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Siga para o oeste, saindo de {area:976}, até a longa rampa que desce para {area:490}. {npc:9619} acampa ao pé da rampa, no canto sudeste da cratera.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Siga para o oeste, passando {area:541}, e desça para o sul pelo lado oeste até {area:543}: {npc:10302}, o goblin, fica junto à água.",
@@ -200,10 +190,14 @@ return {
 	-- ["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997} and drop {npc:9998}'s scales."] = "A torre fica na encosta a leste do refúgio. {npc:9166} sobrevoam as encostas ao redor: contam para {npc:9997} e deixam cair as escamas de {npc:9998}.",
 	-- ["The relics are in the {zone:1428}: keep it"] = "As relíquias estão em {zone:1428}: guarde",
 	-- ["The wooden sign beside {npc:9997}"] = "A placa de madeira ao lado de {npc:9997}",
+	-- ["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "Complete aqui até o nível 49.51 antes das entregas em {area:541}: elas levam você ao nível 50. Ou, com um grupo, faça a masmorra {area:2100}.",
 	-- ["Xiggs waits in the {object:32359}."] = "Xisto espera em {object:32359}.",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "mate Errantes ou ogros Dunamalho ao redor de {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "mate {npc:5458} em {area:982}, {zone:1446}",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "mate {npc:6514} em {area:1943}, {zone:1449}",
+	-- ["grind on {npc:9164}"] = "mate {npc:9164} até subir",
+	-- ["grind on {npc:9167}"] = "mate {npc:9167} até subir",
+	-- ["{area:144} flight master"] = "Mestre de voo de {area:144}",
 	-- ["{area:978} (optional)"] = "{area:978} (opcional)",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: o guia anterior leva você até aqui com a pedra de regresso, então isto costuma ser marcado na hora",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, no fundo da caverna",

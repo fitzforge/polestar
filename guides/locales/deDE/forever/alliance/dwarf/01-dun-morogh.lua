@@ -136,18 +136,26 @@ return {
 	["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "Setz dich an Erics Lagerfeuer (tippe /sit) und warte auf den Segen. Hast du einen Beruf erlernt, bietet Eric auch dessen Camping 101 an, das der jeweilige Lehrer annimmt: Schmiedekunst bei {npc:1241} und {skill:129} bei {npc:2326} in {area:131}, Bergbau und Ingenieurskunst bei {area:189}.",
 
 	-- Step 21: Camping 101: Blacksmithing
+	-- {npc:1241} Tognus Flintfire · {skill:164} Blacksmithing
+	["{npc:1241} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1241} nimmt sie entgegen, sobald deine Fertigkeit in {skill:164} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:1241} Tognus Flintfire
 	["{npc:265813}: for {npc:1241}, in the cellar west of the distillery"] = "{npc:265813}: für {npc:1241}, im Keller westlich der Brauerei",
 
 	-- Step 22: Camping 101: First Aid
+	-- {npc:2326} Thamner Pol · {skill:129} First Aid
+	["{npc:2326} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2326} nimmt sie entgegen, sobald deine Fertigkeit in {skill:129} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:2326} Thamner Pol · {area:2102} Thunderbrew Distillery
 	["{npc:265813}: for {npc:2326} in the {area:2102}"] = "{npc:265813}: für {npc:2326} in {area:2102}",
 
 	-- Step 23: Camping 101: Mining
+	-- {npc:5392} Yarr Hammerstone · {skill:186} Mining
+	["{npc:5392} takes it once your {skill:186} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:5392} nimmt sie entgegen, sobald deine Fertigkeit in {skill:186} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:5392} Yarr Hammerstone · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:5392} at {area:189}"] = "{npc:265813}: für {npc:5392} bei {area:189}",
 
 	-- Step 24: Camping 101: Engineering
+	-- {npc:1702} Bronk Guzzlegear · {skill:202} Engineering
+	["{npc:1702} takes it once your {skill:202} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1702} nimmt sie entgegen, sobald deine Fertigkeit in {skill:202} 20 beträgt: Sammle oder stelle bis dahin her, der Guide geht inzwischen weiter.",
 	-- {npc:265813} Eric Brighthammer · {npc:1702} Bronk Guzzlegear · {area:189} Steelgrill's Depot
 	["{npc:265813}: for {npc:1702} at {area:189}"] = "{npc:265813}: für {npc:1702} bei {area:189}",
 
@@ -256,8 +264,8 @@ return {
 
 	-- Step 42: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village · {npc:1374} Rejold Barleybrew
-	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear · Elder Crag Boars = {npc:1127} Elder Crag Boar · Snow Leopards = {npc:1201} Snow Leopard
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Eisklauenbären, Alte Klippeneber und Schneeleoparden, die du auf dem Weg tötest, zählen für {npc:1374}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.",
+	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear · Elder Crag Boars = {npc:1127} Elder Crag Boar · Snow Leopards = {npc:1201} Snow Leopard · Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for {npc:1374}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} ist die Trollhöhle in den Hügeln südwestlich von {area:137}. Eisklauenbären, Alte Klippeneber und Schneeleoparden, die du auf dem Weg tötest, zählen für {npc:1374}. Töte Kopfjäger an ihrem Eingang und geh bis zu ihrem hinteren Ende durch.\nVorsicht: Die Fellhäuter der Frostmähnen in der Feste sind Stufe 9-10 und stehen paarweise: Zieh sie einzeln zurück zum Eingang.",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "{npc:1123}, unterirdisch",
 
@@ -276,7 +284,7 @@ return {
 
 	-- Step 46: Kharanos
 	-- {npc:1373} Jarven Thunderbrew · {item:2686} Thunder Ale · {npc:1247} Innkeeper Belm · {spell:8553} Barleybrew Scalder
-	["{npc:1373} guards the {item:2686} barrels in the distillery basement. Buy a {item:2686} from {npc:1247}, click the guarded barrel, then hand the ale to {npc:1373} from his quest window (there is no quest to accept); after that, the unguarded barrel takes the {spell:8553}."] = "",
+	["{npc:1373} guards the {item:2686} barrels in the distillery basement. Buy a {item:2686} from {npc:1247}, click the guarded barrel, then hand the ale to {npc:1373} from his quest window (there is no quest to accept); after that, the unguarded barrel takes the {spell:8553}."] = "{npc:1373} bewacht die {item:2686}-Fässer im Keller der Brennerei. Kaufe ein {item:2686} bei {npc:1247}, klicke das bewachte Fass an und gib dann das Bier im Questfenster an {npc:1373} ab (es gibt keine Quest zum Annehmen); danach nimmt das unbewachte Fass das {spell:8553}.",
 	-- {npc:1252} Senir Whitebeard · {npc:1274} Senator Barin Redstone · {zone:1455} Ironforge
 	["{npc:1252}: {npc:1274} in {zone:1455} takes it"] = "{npc:1252}: {npc:1274} in {zone:1455} nimmt sie an",
 	-- {item:2686} Thunder Ale · {npc:1247} Innkeeper Belm
@@ -372,38 +380,38 @@ return {
 	-- plural, as words: Rockjaw Skullthumpers = {npc:1115} Rockjaw Skullthumper
 	["Rockjaw Skullthumpers, Bonesnappers and Ambushers share the quarry and the slopes north of it; the Ambushers drop the {item:268548}."] = "Rockjaw Skullthumpers, Bonesnappers und Ambushers teilen sich den Steinbruch und die Hänge nördlich davon; die Ambushers lassen {item:268548} fallen.",
 
-	-- Step 70: Helm's Bed Lake
+	-- Step 71: Helm's Bed Lake
 	-- {area:212} Helm's Bed Lake · {quest:95214} Stolen Blasting Powder · {item:274268} Dark Iron Map
 	-- plural, as words: Rockjaw Ambushers = {npc:1116} Rockjaw Ambusher · Rockjaw Backbreakers = {npc:1118} Rockjaw Backbreaker
 	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "Rockjaw Ambushers bei {area:212}, nördlich des Steinbruchs, und Rockjaw Backbreakers weiter östlich lassen {quest:95214} fallen. Dark Iron Spies schleichen am Seeufer östlich des Steinbruchs umher; einer von ihnen lässt {item:274268} fallen.",
 
-	-- Step 71: Dun Morogh: kill these as you meet them
+	-- Step 72: Dun Morogh: kill these as you meet them
 	-- {item:2770} Copper Ore
 	-- plural, as words: Snow Leopards = {npc:1201} Snow Leopard · Copper Bars = {item:2840} Copper Bar
 	["Snow Leopards and boars roam the snow between the ranch and the quarry. Blacksmiths: Copper Bars come from smelting {item:2770} or the trade vendors."] = "Schneeleoparden und Eber streifen durch den Schnee zwischen der Ranch und dem Steinbruch. Schmiede: Kupferbarren bekommst du durch Verhütten von {item:2770} oder bei den Handwerkshändlern.",
 
-	-- Step 75: Protecting the Herd
+	-- Step 76: Protecting the Herd
 	-- {npc:1388} Vagash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: most classes solo it at level 14, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Das sind Elite-Mobs: Sich zusammenzutun wird empfohlen, such dir Leute dafür. {npc:1388} ist ein Elite der Stufe 12: Die meisten Klassen schaffen ihn auf Stufe 14 allein, aber vielleicht brauchst du Hilfe. Überspring ihn, wenn du allein bist: Die Route lässt dich die EP wieder hereingrinden.",
 	["Below ground"] = "Unter der Erde",
 
-	-- Step 76: Amberstill Ranch
+	-- Step 77: Amberstill Ranch
 	-- {zone:1455} Ironforge
 	["On the road back west to {zone:1455}."] = "Auf der Straße zurück nach Westen nach {zone:1455}.",
 
-	-- Step 78: South Gate Outpost
+	-- Step 79: South Gate Outpost
 	-- {area:806} South Gate Outpost · {zone:1432} Loch Modan
 	["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Folge der Straße ganz nach Osten zum {area:806} am Tunnel nach {zone:1432}.",
 
-	-- Step 79: Bruegs Kindleborn
+	-- Step 80: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597} wartet in einer Höhle über dem Hof nordwestlich von {area:806}; der Pfad hinauf beginnt hinter dem Hof.",
 
-	-- Step 81: Braldir Ashmantle
+	-- Step 82: Braldir Ashmantle
 	-- {zone:1432} Loch Modan · {npc:257808} Braldir Ashmantle
 	["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Geh durch den Tunnel nach {zone:1432}. Gleich dahinter führt ein mit Steinen markierter Pfad die Hügel rechts der Straße nach Norden hinauf zum Lager von {npc:257808}.",
 
-	-- Step 82: Fire Tar and the Reagent Pouch
+	-- Step 83: Fire Tar and the Reagent Pouch
 	-- {item:5026} Fire Tar · {item:6652} Reagent Pouch
 	["{item:5026} and the {item:6652}"] = "{item:5026} und {item:6652}",
 	-- {area:923} Stonesplinter Valley · {npc:257808} Braldir Ashmantle · {area:149} Silver Stream Mine
@@ -416,14 +424,14 @@ return {
 	-- plural, as words: Tunnel Rat Geomancers = {npc:1174} Tunnel Rat Geomancer
 	["{item:5026}: Tunnel Rat Geomancers"] = "{item:5026}: Geomanten der Tunnelratten",
 
-	-- Step 83: The Fire Spirit Stone
+	-- Step 84: The Fire Spirit Stone
 	["The Fire Spirit Stone"] = "Der Geisterstein des Feuers",
 	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember · {object:61934} Brazier of the Dormant Flame
 	["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808} gibt dir {item:6636}. Klettere auf den Gipfel über seinem Lager, trink das Sapta neben dem Geisterstein und besiege {npc:5893}, dann leg {item:6655} in {object:61934} oben auf dem Schrein der Ewigen Flamme.",
 	-- {item:6636} Fire Sapta
 	["{item:6636}, beside the Spirit Stone"] = "{item:6636}, neben dem Geisterstein",
 
-	-- Step 84: Back to Bruegs Kindleborn
+	-- Step 85: Back to Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn
 	["Back to {npc:257597}"] = "Zurück zu {npc:257597}",
 	-- {npc:257597} Bruegs Kindleborn
@@ -431,23 +439,24 @@ return {
 	-- {npc:257597} Bruegs Kindleborn · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:257597}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:257597}: {npc:2523}, dein {item:5176} und {item:263412}",
 
-	-- Step 85: North Gate Outpost
+	-- Step 86: North Gate Outpost
 	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
 	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} wartet am {area:808}, nördlich vom Südtor; die Zwergenleiche liegt den Pass westlich von ihm hinauf.",
 
-	-- Step 86: The tunnel post
+	-- Step 87: The tunnel post
 	["The tunnel post"] = "Der Tunnelposten",
 	-- {zone:1432} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
 	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Östlich durch den Tunnel am Südtor nach {zone:1432}. {npc:1089} und {npc:1092} stehen am Zwergenposten gleich dahinter.",
 
-	-- Step 87: Stonesplinter troggs
+	-- Step 88: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Stonesplinter-Troggs",
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth."] = "Nördlich des Postens, westlich der Straße: Die Stonesplinter-Troggs und -Späher lagern in den Hügeln. Beide lassen die Trogg Stone Teeth fallen.",
+	-- {area:923} Stonesplinter Valley
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Nördlich des Postens, westlich der Straße: Die Stonesplinter-Troggs und -Späher lagern in den Hügeln. Beide lassen die Trogg Stone Teeth fallen.\nVorsicht: Headsplitter, ein Trogg der Stufe 15, läuft durch {area:923} zwischen den Troggs der Stufe 11-12: Arbeite an den Lagern am Nordrand, nahe dem Posten, und halte dich von ihm fern.",
 
-	-- Step 88: Back to the tunnel post
+	-- Step 89: Back to the tunnel post
 	["Back to the tunnel post"] = "Zurück zum Tunnelposten",
 
-	-- Step 89: Thelsamar
+	-- Step 90: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell · {npc:1963} Vidra Hearthstove · {area:2101} Stoutlager Inn · {npc:1681} Brock Stoneseeker · {npc:1572} Thorgrum Borrelson
 	["North up the road to {area:144}. {npc:1340} walks the road through town, {npc:1963} stands outside the {area:2101}, {npc:1681} on the east side of town; {npc:1572} keeps the gryphons."] = "Nördlich die Straße hinauf nach {area:144}. {npc:1340} läuft die Straße durch die Stadt, {npc:1963} steht vor der {area:2101}, {npc:1681} auf der Ostseite der Stadt; {npc:1572} hält die Greifen.",
 	-- {npc:1572} Thorgrum Borrelson
@@ -455,7 +464,7 @@ return {
 	-- {npc:1572} Thorgrum Borrelson · {npc:4256} Golnir Bouldertoe · {zone:1455} Ironforge
 	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "{npc:1572}: für {npc:4256} in {zone:1455}",
 
-	-- Step 90: The west hills and the Algaz Station
+	-- Step 91: The west hills and the Algaz Station
 	-- {area:925} Algaz Station
 	["The west hills and the {area:925}"] = "Die westlichen Hügel und der {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
@@ -475,20 +484,20 @@ return {
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
 	["{npc:5413} in {zone:1453} takes it"] = "{npc:5413} in {zone:1453} nimmt es an",
 
-	-- Step 91: Silver Stream Mine
+	-- Step 92: Silver Stream Mine
 	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "Östlich entlang der Hügel zur Mine am Nordende des Sees: Die Kisten der Miners' League stehen in ihren Tunneln, zwischen weiteren Tunnel Rats.",
 	-- {item:2640} Miners' Gear
 	["{item:2640}, from the crates"] = "{item:2640}, aus den Kisten",
 
-	-- Step 92: Back to the Algaz Station
+	-- Step 93: Back to the Algaz Station
 	-- {area:925} Algaz Station
 	["Back to the {area:925}"] = "Zurück zur {area:925}",
 
-	-- Step 93: Thelsamar
+	-- Step 94: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
 	["South down the road to {area:144}, finishing the ears, meat and ichor on the way. {npc:1340} walks the road through town."] = "Auf der Straße nach Süden nach {area:144}; erledige unterwegs die Ohren, das Fleisch und das Sekret. {npc:1340} läuft die Straße durch den Ort ab.",
 
-	-- Step 94: Golnir Bouldertoe
+	-- Step 95: Golnir Bouldertoe
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:4256} Golnir Bouldertoe · {npc:1573} Gryth Thurden
 	["The gryphons land in the {object:32372}: {npc:4256} works at its north end, and {npc:1573} keeps the gryphons where you landed."] = "Die Greifen landen in der {object:32372}: {npc:4256} arbeitet an ihrem Nordende, und {npc:1573} hält die Greifen dort, wo du gelandet bist.",
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge (no name in this language: may be words)
@@ -496,19 +505,19 @@ return {
 	-- {npc:1573} Gryth Thurden
 	["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}, der Greifenmeister, wo du gelandet bist",
 
-	-- Step 95: Tinker Town
+	-- Step 96: Tinker Town
 	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)
 	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "Östlich von der {object:32372} in die {object:171524}: Die {object:660964} liegen an ihrem Briefkasten. Von hier aus geht der Guide einmal um die Stadt: nach Norden zur {object:32383}, nach Westen zum {object:32362}, nach Süden durch die Commons zum {object:171709}, nach Osten durch den {object:32359} und zurück zur {object:171524} für die Tram.",
 	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}, beim Briefkasten in {object:171524}",
 
-	-- Step 96: Forlorn Cavern
+	-- Step 97: Forlorn Cavern
 	-- {object:32372} Great Forge (no name in this language: may be words) · {npc:258098} Eldrun Stormbreaker · {object:32383} Forlorn Cavern · {npc:6120} Lago Blackwrench
 	["North of the {object:32372}: {npc:258098}, the shaman trainer, stands at the south end of the {object:32383}, the rogue and warlock trainers and {npc:6120} just north of him."] = "Nördlich der {object:32372}: {npc:258098}, der Schamanenlehrer, steht am Südende der {object:32383}, die Schurken- und Hexenmeisterlehrer und {npc:6120} gleich nördlich von ihm.",
 	-- {npc:6120} Lago Blackwrench · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6120}: {npc:6122} in {zone:1453} takes it"] = "{npc:6120}: {npc:6122} in {zone:1453} nimmt sie an",
 
-	-- Step 97: The Tome of Divinity
+	-- Step 98: The Tome of Divinity
 	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
 	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "Westlich von der {object:32383} in den {object:32362}: {npc:5149}, {npc:6179} und {npc:6178} sind in der {object:32386}, {npc:6179} und {npc:6178} auf der oberen Etage: Die Treppe nach oben beginnt gleich nordöstlich von {npc:5149}. {npc:6175}, ein Bettler, streift durch die Stadt. Er bittet um zehn {item:2589}: Die Troggs und Trolle in {zone:1426} lassen es fallen, und das Auktionshaus verkauft es.",
 	-- {quest:2997} Tome of Divinity
@@ -516,54 +525,54 @@ return {
 	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
 	["Use the {item:6866} on {npc:6177}"] = "Benutze {item:6866} an {npc:6177}",
 
-	-- Step 98: Narm Faulk
+	-- Step 99: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
 	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "Verlass {zone:1455} wieder und geh die Straße nach Osten zu {area:212}. {npc:6177} liegt tot an seinem Ufer: Benutze {item:6866} an ihm. Die Dark Iron Spies, die um den See schleichen, tragen die Schrift.",
 	-- {item:6847} Dark Iron Script
 	["{item:6847}: Dark Iron Spies"] = "{item:6847}: Spione der Dunkeleisenzwerge",
 
-	-- Step 100: Muiredon Battleforge
+	-- Step 101: Muiredon Battleforge
 	-- {npc:6179} Tiza Battleforge
 	["{npc:6179}: Redemption"] = "{npc:6179}: Erlösung",
 
-	-- Step 101: Mystic Ward
+	-- Step 102: Mystic Ward
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
 	["The paladin, priest and mage trainers are in the {object:32386}, in the {object:32362}."] = "Die Paladin-, Priester- und Magierlehrer sind in der {object:32386}, im {object:32362}.",
 
-	-- Step 102: High Seat
+	-- Step 103: High Seat
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
 	["South through the Commons: {npc:1274} stands in the {object:171709} with King Magni."] = "Südlich durch die Commons: {npc:1274} steht im {object:171709} bei König Magni.",
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
 	["{npc:1274}, in the {object:171709} with King Magni"] = "{npc:1274}, im {object:171709} bei König Magni",
 
-	-- Step 103: Buliwyf Stonehand
+	-- Step 104: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne {spell:197} bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Paladin am schnellsten.",
 
-	-- Step 104: Military Ward
+	-- Step 105: Military Ward
 	-- {object:32359} Military Ward (no name in this language: may be words) · {npc:11865} Buliwyf Stonehand · {object:32390} Hall of Arms (no name in this language: may be words)
 	["East to the {object:32359}: the warrior trainers and {npc:11865} in the {object:32390}, the hunter trainers beside it."] = "Östlich zum {object:32359}: Die Kriegerlehrer und {npc:11865} in der {object:32390}, die Jägerlehrer daneben.",
 
-	-- Step 105: Buliwyf Stonehand
-	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
-
 	-- Step 106: Buliwyf Stonehand
-	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
-	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
+	["While you're here: learn {spell:197} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:197} bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 
-	-- Step 107: Druid trainer
+	-- Step 107: Buliwyf Stonehand
+	-- {spell:199} Two-Handed Maces · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward (no name in this language: may be words)
+	["While you're here: learn {spell:199} from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:199} bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
+
+	-- Step 108: Druid trainer
 	["Druid trainer"] = "Druidenlehrer",
 	-- {npc:5505} Theridran · {zone:1453} Stormwind · {zone:1426} Dun Morogh
 	["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "{npc:5505} in {zone:1453}; {zone:1426} hat keinen Druidenlehrer",
 
-	-- Step 108: The Deeprun Tram
+	-- Step 109: The Deeprun Tram
 	-- {area:2257} Deeprun Tram
 	["The {area:2257}"] = "{area:2257}",
 	-- {object:171524} Tinker Town · {area:2257} Deeprun Tram · {zone:1453} Stormwind
 	["East back into {object:171524}: the {area:2257} leaves from its east end. Ride it to {zone:1453}."] = "Östlich zurück in die {object:171524}: Die {area:2257} fährt an ihrem Ostende ab. Fahr damit nach {zone:1453}.",
 
-	-- Step 109: Tram to Stormwind
+	-- Step 110: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Tiefenbahn nach {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
@@ -576,85 +585,75 @@ return {
 	-- {npc:13016} Deeprun Rat
 	["Catch {npc:13016}"] = "Fang {npc:13016}",
 
-	-- Step 110: Nipsy
+	-- Step 111: Nipsy
 	-- {zone:1453} Stormwind · {npc:13018} Nipsy · {npc:5413} Furen Longbeard · {object:28027} Dwarven District
 	["Ride the tram to {zone:1453}: {npc:13018} waits on the {zone:1453} platform. {npc:5413} stands in the {object:28027}, just outside the tram."] = "Fahr mit der Tram nach {zone:1453}: {npc:13018} wartet auf dem Bahnsteig von {zone:1453}. {npc:5413} steht im {object:28027}, direkt vor der Tram.",
 	-- {npc:13018} Nipsy · {zone:1453} Stormwind
 	["{npc:13018}, on the {zone:1453} platform"] = "{npc:13018}, auf dem Bahnsteig von {zone:1453}",
 
-	-- Step 111: Baros Alexston
+	-- Step 112: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District
 	["From the {object:28027} south-west to {object:2098}: {npc:1646}'s compass is in his old house in {zone:1436}, on the way. The flight master and the {object:2096} are south of the square."] = "Vom {object:28027} nach Südwesten zum {object:2098}: Der Kompass von {npc:1646} liegt in seinem alten Haus in {zone:1436}, auf dem Weg. Der Flugmeister und das {object:2096} sind südlich des Platzes.",
 
-	-- Step 112: Stormwind flight master
+	-- Step 113: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Flugmeister von {zone:1453}",
 
-	-- Step 113: Woo Ping
-	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "",
-
 	-- Step 114: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Wenn du schon hier bist: Lerne Stäbe bei {npc:11867} ({object:2096}, 10 Silber); die Nahkampfwaffe eines Jägers besteht vor allem aus ihren Werten, und Zweihandwaffen haben davon am meisten.",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne {spell:202} bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Paladin am schnellsten.",
 
 	-- Step 115: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Wenn du schon hier bist: Lerne Stäbe bei {npc:11867} ({object:2096}, 10 Silber); die Nahkampfwaffe eines Jägers besteht vor allem aus ihren Werten, und Zweihandwaffen haben davon am meisten.",
+
+	-- Step 116: Woo Ping
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Wenn du schon hier bist: Lerne Schwerter bei {npc:11867} ({object:2096}, 10 Silber); ein Schwert in der Haupthand levelt einen Schurken zuverlässig.",
 
-	-- Step 116: Defensive Stance
+	-- Step 117: Defensive Stance
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
 	["{npc:5480} trains warriors in {object:2100}, near Osric's shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "{npc:5480} bildet Krieger in {object:2100} aus, nahe Osrics Laden; die Bahn aus {zone:1455} kommt in {object:28027} an, nördlich davon. {npc:6089} und {npc:6090} stehen dort zusammen bei {object:2152}. {npc:6090} kämpft mit dir um seinen Krug. Bietet {npc:5480} {quest:1638} nicht an, geh direkt zu {npc:6089}: Er gibt dir {quest:1639} auch ohne.",
 
-	-- Step 117: Woo Ping
-	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
-
 	-- Step 118: Woo Ping
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:202} bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
+
+	-- Step 119: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Wenn du schon hier bist: Lerne Stäbe bei {npc:11867} ({object:2096}, 10 Silber); ein Stab hat beim Leveln mehr Zauberwerte als eine Einhandwaffe.",
 
-	-- Step 119: Gakin the Darkbinder
+	-- Step 120: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "{npc:6122} wartet im Keller von {object:2164} in {object:2101}.",
+	-- {quest:1688} Surena Caledon · {zone:1436} Westfall
+	["{quest:1688}: her choker and The Binding are on {zone:1436}'s east-Elwynn loop"] = "{quest:1688}: Ihr Halsband und The Binding gehören zur Runde durchs östliche Elwynn im Guide für {zone:1436}",
 
-	-- Step 121: Surena Caledon
-	-- {zone:1453} Stormwind · {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
-	["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Verlass {zone:1453} durchs Haupttor, geh nach Süden nach {area:87} und auf der Straße nach Osten zu {area:62}. {npc:881} (Stufe 9) steht bei dessen Bauernhaus.",
-
-	-- Step 122: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb · {area:87} Goldshire · {zone:1436} Westfall
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:87} and east Elwynn are next, then {zone:1436}."] = "Zurück zu {npc:6122}. Benutze {item:6928} am Beschwörungskreis im Keller des {object:2164} und besiege den Leerwandler, den er ruft. {area:87} und das östliche Elwynn kommen als Nächstes, dann {zone:1436}.",
-	["Subdue the voidwalker"] = "Bezwinge den Leerwandler",
-
-	-- Step 123: Goldshire
+	-- Step 122: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
 	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "Verlass {zone:1453} durch das Haupttor und folge der Straße nach Süden bis {area:87}: Das östliche Elwynn kommt vor {zone:1436}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:87} and east Elwynn are next, then {zone:1436}."] = "Zurück zu {npc:6122}. Benutze {item:6928} am Beschwörungskreis im Keller des {object:2164} und besiege den Leerwandler, den er ruft. {area:87} und das östliche Elwynn kommen als Nächstes, dann {zone:1436}.",
 	-- ["Crag Boars and Young Black Bears roam the fields around {area:131} and the depot."] = "Klippeneber und Junge Schwarzbären streifen über die Felder um {area:131} und das Depot.",
 	-- ["Defensive Stance"] = "Verteidigungshaltung",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Folge der Straße hinauf nach {zone:1455} und trainiere bei deinem Klassenlehrer. {area:2257} fährt von {object:171524} im Osten der Stadt ab. Fahr damit nach {zone:1453}.",
+	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Verlass {zone:1453} durchs Haupttor, geh nach Süden nach {area:87} und auf der Straße nach Osten zu {area:62}. {npc:881} (Stufe 9) steht bei dessen Bauernhaus.",
 	-- ["Rockjaw Skullthumpers fill the quarry; Rockjaw Ambushers by {area:212} drop the {item:268548}."] = "Schädelhauer der Felsenkiefer füllen den Steinbruch; Wegelagerer der Felsenkiefer bei {area:212} lassen {item:268548} fallen.",
 	-- ["Sit by Eric's campfire (type /sit) and wait for the buff."] = "Setz dich an Erics Lagerfeuer (tippe /sit) und warte auf den Segen.",
+	-- ["Subdue the voidwalker"] = "Bezwinge den Leerwandler",
 	-- ["Summon Voidwalker"] = "Leerwandler beschwören",
 	-- ["Tame Beast"] = "Wildtier zähmen",
 	-- ["Tame {npc:1126}"] = "Zähme {npc:1126}",
 	-- ["Tame {npc:1196}"] = "Zähme {npc:1196}",
 	-- ["Tame {npc:1201}"] = "Zähme {npc:1201}",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "Die Bahn kommt in {object:28027} an. {npc:5480} bildet Krieger in {object:2100} aus; {npc:6089} und {npc:6090} stehen dort zusammen bei {object:2152}. {npc:6090} kämpft mit dir um seinen Krug.",
-	-- ["While you're here: learn Two-Handed Axes from {npc:11865} ({object:32359}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne Zweihandäxte bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Paladin am schnellsten.",
-	-- ["While you're here: learn Two-Handed Axes from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandäxte bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
-	-- ["While you're here: learn Two-Handed Maces from {npc:11865} ({object:32359}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandstreitkolben bei {npc:11865} ({object:32359}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
-	-- ["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "Wenn du schon hier bist: Lerne Zweihandschwerter bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Paladin am schnellsten.",
-	-- ["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne Zweihandschwerter bei {npc:11867} ({object:2096}, 10 Silber); Zweihandwaffen leveln einen Krieger am schnellsten.",
 	-- ["{npc:10090}: Beast Training"] = "{npc:10090}: Wildtierausbildung",
 	-- ["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
 	-- ["{npc:1201}, on the way"] = "{npc:1201}, auf dem Weg",
 	-- ["{npc:1226}: {npc:376} in {zone:1453} takes it"] = "{npc:1226}: {npc:376} in {zone:1453} nimmt sie an",
 	-- ["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}, unter der Erde: Camping 101, Schmiede",
 	-- ["{npc:12427} kneels wounded on the ridge between two low walls just south of {area:131}, across the road from the hunter pet trainer, on the walk back from Rumbleshot's camp. Cast Lesser Heal (Rank 2) on him, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count."] = "{npc:12427} kniet verwundet auf dem Kamm zwischen zwei niedrigen Mauern gleich südlich von {area:131}, gegenüber dem Tierlehrer der Jäger auf der anderen Straßenseite, auf dem Rückweg von Rumbleshots Lager. Wirke Geringes Heilen (Rang 2) auf ihn, dann Machtwort: Seelenstärke: Rang 1 von Geringes Heilen zählt nicht.",
-	-- ["{npc:1373} guards the {item:2686} barrels in the distillery basement. Buy a {item:2686} from {npc:1247}, click the guarded barrel, then hand the ale to {npc:1373} from his quest window (there is no quest to accept); after that, the unguarded barrel takes the Barleybrew Scalder."] = "{npc:1373} bewacht die {item:2686}-Fässer im Keller der Brennerei. Kaufe ein {item:2686} bei {npc:1247}, klicke das bewachte Fass an und gib dann das Bier im Questfenster an {npc:1373} ab (es gibt keine Quest zum Annehmen); danach nimmt das unbewachte Fass das Barleybrew Scalder.",
 	-- ["{npc:1377}, at the depot"] = "{npc:1377}, am Depot",
 	-- ["{npc:1702}, beside him: Camping 101, engineers"] = "{npc:1702}, neben ihm: Camping 101, Ingenieure",
 	-- ["{npc:2326}, inside: Camping 101, {skill:129}"] = "{npc:2326}, drinnen: Camping 101, {skill:129}",

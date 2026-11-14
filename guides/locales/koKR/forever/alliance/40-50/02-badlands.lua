@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817}: 가시덤불 골짜기의 푸른 진주",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}의 다음 퀘스트는 경험치를 주지 않으니 건너뛰십시오.",
 
@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}, 지하",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,12 +93,12 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "마른나무껍질 마을",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "처음 두 우리는 {npc:5634} 남쪽 마른나무껍질 마을에 함께 있고, 세 번째는 동쪽의 다음 마을에 있습니다. 모든 마른나무껍질 트롤이 목걸이를 떨어뜨릴 수 있습니다.",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "처음 두 우리는 {npc:5634} 남쪽 마른나무껍질 마을에 함께 있고, 세 번째는 동쪽의 다음 마을에 있습니다. 모든 마른나무껍질 트롤이 목걸이를 떨어뜨릴 수 있습니다.\n주의: {npc:270772}(49)와(과) 그의 저주받은 애벌레(45)는 서쪽 마을의 오두막, 약 25,64 근처에 머뭅니다. 목걸이는 바깥의 트롤에게서 얻으세요.",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master at the top; inside"] = "",
+	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}, 꼭대기의 비행 조련사 옆, 안",
 	-- {zone:1425} The Hinterlands
 	["Talonaxe's next task waits for a later {zone:1425} guide."] = "탈론액스의 다음 임무는 이후 {zone:1425} 가이드에서 합니다.",
 
@@ -135,7 +133,6 @@ return {
 	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Blue Pearls from Stranglethorn"] = "가시덤불 골짜기의 푸른 진주",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "{area:392}(으)로 비행하십시오. {npc:6251}은(는) 은행 옆 집에서 가르칩니다. 이후 테라모어 섬으로 돌아오십시오.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "{area:608}(으)로 비행한 뒤 남쪽으로 {zone:1443}을(를) 지나 {zone:1444}(으)로 가서 {area:1108}의 부두까지 길을 따라가십시오. 배가 {area:1116}(으)로 건너가며, 그곳에서 다음 가이드가 시작합니다.",
 	-- ["On to Feathermoon"] = "페더문 요새로",
@@ -153,6 +150,6 @@ return {
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}, {object:32372}",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}은(는) 발굴 현장 남동쪽 {area:1898}에 홀로 야영하고 있습니다.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}의 칵테일에는 칼림도어의 재료가 필요하니 건너뛰십시오.",
-	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, 꼭대기의 비행 조련사 옆",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}, 지하",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}은(는) 목걸이를 계속 받습니다. 남는 것은 제출하십시오",
 }

@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Deputy Willem
 	-- {npc:198} Khelden Bremen
-	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "Mages : {npc:198}, le maître des mages, se tient à l'étage de l'abbaye : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:823} Deputy Willem
 	["{npc:823}, back at the Abbey steps"] = "{npc:823}, de retour au pied des marches de l'abbaye",
 
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
-	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:248415} se tient derrière l'abbaye, près des écuries. {npc:198}, le maître des mages, se tient à l'étage de l'abbaye : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:911} Llane Beshere
 	["{npc:911}, the warrior trainer; inside"] = "{npc:911}, le maître des guerriers ; à l'intérieur",
 	-- {npc:925} Brother Sammuel
@@ -94,7 +94,7 @@ return {
 
 	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
-	["{npc:823}, at the Abbey steps"] = "",
+	["{npc:823}, at the Abbey steps"] = "{npc:823}, au pied des marches de l'abbaye",
 	-- {npc:375} Priestess Anetta · {npc:377} Priestess Josetta · {area:87} Goldshire
 	["{npc:375}, the priest trainer: {npc:377} in {area:87} takes it"] = "{npc:375}, la maîtresse des prêtres : {npc:377} à {area:87} la reçoit",
 	-- {npc:952} Brother Neals
@@ -115,7 +115,7 @@ return {
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "",
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Suivez la route vers le sud pour sortir de la vallée jusqu'à {area:87}. {npc:240} se tient devant la forge, du côté ouest de la route, {npc:241} au bord de la route au sud de celle-ci, et {npc:295} et {npc:253} dans l'auberge de la Fierté du lion, de l'autre côté de la route.",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, à l'intérieur",
 	-- {npc:253} William Pestle
@@ -139,22 +139,32 @@ return {
 	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "Asseyez-vous (/sit) près de son feu de camp jusqu'à obtenir {spell:1229451}",
 
 	-- Step 24: Camping 101: Skinning
+	-- {npc:6306} Helene Peltskinner · {skill:393} Skinning
+	["{npc:6306} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:6306} prend la quête une fois votre compétence {skill:393} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner
 	["{npc:263399}: for {npc:6306} on the lake shore"] = "{npc:263399} : pour {npc:6306} sur la rive du lac",
 
 	-- Step 25: Camping 101: Leatherworking
+	-- {npc:1632} Adele Fielder · {skill:165} Leatherworking
+	["{npc:1632} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1632} prend la quête une fois votre compétence {skill:165} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1632} Adele Fielder
 	["{npc:263399}: for {npc:1632} on the lake shore"] = "{npc:263399} : pour {npc:1632} sur la rive du lac",
 
 	-- Step 26: Camping 101: Fishing
+	-- {npc:1651} Lee Brown · {skill:356} Fishing
+	["{npc:1651} takes it once your {skill:356} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:1651} prend la quête une fois votre compétence {skill:356} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:1651} Lee Brown
 	["{npc:263399}: for {npc:1651} on the lake shore"] = "{npc:263399} : pour {npc:1651} sur la rive du lac",
 
 	-- Step 27: Camping 101: First Aid
+	-- {npc:2329} Michelle Belle · {skill:129} First Aid
+	["{npc:2329} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:2329} prend la quête une fois votre compétence {skill:129} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:2329} Michelle Belle
 	["{npc:263399}: for {npc:2329} in the Lion's Pride Inn"] = "{npc:263399} : pour {npc:2329} à l'auberge de la Fierté du lion",
 
 	-- Step 28: Camping 101: Blacksmithing
+	-- {npc:514} Smith Argus · {skill:164} Blacksmithing
+	["{npc:514} takes it once your {skill:164} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{npc:514} prend la quête une fois votre compétence {skill:164} à 20 : récoltez ou fabriquez d'ici là, le guide continue en attendant.",
 	-- {npc:263399} Sam Sarsaparilla · {npc:514} Smith Argus · {area:87} Goldshire
 	["{npc:263399}: for {npc:514} at the {area:87} smithy"] = "{npc:263399} : pour {npc:514} à la forge de {area:87}",
 
@@ -193,7 +203,7 @@ return {
 
 	-- Step 38: Goldshire
 	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430} cuisine dans la cuisine de l'auberge. {npc:377} (prêtres), {npc:328} (mages) et {npc:917} (voleurs) se tiennent à l'étage de l'auberge : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430} : Camping 101 vous demande de l'apprendre ; sous terre",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
@@ -262,7 +272,7 @@ return {
 
 	-- Step 51: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377} (prêtres), {npc:328} (mages) et {npc:917} (voleurs) se tiennent à l'étage de l'auberge : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
 	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{npc:279} à {zone:1453} la reçoit (02-westfall)",
 
@@ -282,16 +292,16 @@ return {
 	-- Step 56: Druid trainer
 	["Druid trainer"] = "Maître des druides",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
-	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504} dans {zone:1453} ; {area:87} n'a pas de maître des druides",
 
 	-- Step 57: Jason Mathers
 	-- {area:87} Goldshire · {npc:383} Jason Mathers
-	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "",
+	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Sortez de {area:87} vers l'est en longeant la rive du lac. {npc:383} se tient sur la rive au nord-est de la ville.",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
-	-- {area:91} Tower of Azora
+	-- {area:91} Tower of Azora · {npc:276180} Elder Finseer · {npc:261} Guard Thomas
 	-- plural, as words: Prowlers = {npc:118} Prowler
-	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too."] = "Les murlocs de la rive est laissent tomber le varech. Dépeceurs : les Loups forestiers gris rôdent dans les bois entre le lac et la {area:91} ; les Rôdeurs plus à l'est donnent aussi des peaux.",
+	["The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.\nCareful: {npc:276180}, a level 11 rare murloc, walks the river by {npc:261}' bridge, east of the Prowlers' woods: leave him be."] = "Les murlocs de la rive est laissent tomber le varech. Dépeceurs : les Loups forestiers gris rôdent dans les bois entre le lac et la {area:91} ; les Rôdeurs plus à l'est donnent aussi des peaux.\nAttention : {npc:276180}, un murloc rare de niveau 11, arpente la rivière près du pont de {npc:261}, à l'est des bois des Rôdeurs : laissez-le tranquille.",
 	-- plural, as words: Crystal Kelp Fronds = {item:1256} Crystal Kelp Frond
 	["Crystal Kelp Fronds"] = "Feuilles de Varech cristallin",
 
@@ -315,7 +325,7 @@ return {
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
-	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "",
+	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "{npc:248278} est un élite de niveau 11 sur la rive des murlocs au sud du pont : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {quest:91740} demande un groupe de 2. Passez-la si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres. Faites un clic droit sur la tête pour sa quête.",
 
 	-- Step 64: Level 8.85
 	["Level 8.85"] = "Niveau 8.85",
@@ -377,7 +387,7 @@ return {
 
 	-- Step 77: Goldshire
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Suivez la route vers l'ouest pour revenir à {area:87} ; {npc:6306} se tient sur la rive du lac avant la ville. {npc:377} (prêtres), {npc:328} (mages) et {npc:917} (voleurs) se tiennent à l'étage de l'auberge : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}, inside"] = "{npc:6306}, à l'intérieur",
 	-- {npc:240} Marshal Dughan
@@ -387,7 +397,7 @@ return {
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, de retour dans l'auberge",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "",
+	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377} : {npc:376} à {zone:1453} la reçoit",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328} : {npc:5497} à {zone:1453} la reçoit",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
@@ -464,7 +474,7 @@ return {
 
 	-- Step 91: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
-	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "",
+	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Suivez la route vers le sud jusqu'à {area:120}, à l'entrée de {zone:1436}. {npc:963} se tient devant la caserne ; {npc:955} est à l'intérieur. Il ne propose {quest:91738} que tant que vous portez le {item:247824} : parlez-lui et la quête passe directement au rendu.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963} : pour {npc:234} à {area:108}",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
@@ -512,7 +522,6 @@ return {
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way."] = "La {item:247813}, la Hache détrempée et la Boîte à outils détrempée se trouvent dans la rivière au sud du pont. {npc:330}, une grosse truie, fouille le {area:62} à l'ouest de la rivière avec son {npc:390} : attirez d'abord les porcelets à l'écart. Tuez des Rôdeurs et des Jeunes ours des forêts en chemin.",
 	-- ["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore along the river too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "La {item:247813}, la hache et la boîte à outils reposent dans la rivière au sud du pont. {npc:330}, une grosse laie, fouille le {area:62} à l'ouest de la rivière avec son {npc:390} : éloignez d'abord les marcassins. Tuez des Rôdeurs et des Jeunes ours des forêts en chemin. {npc:248278} parcourt aussi la rive des murlocs le long de la rivière : faites un clic droit sur la tête qu'il laisse tomber. {npc:248278} est élite : mieux vaut être en groupe.",
 	-- ["The {skill:356} Traps sit along the west shore of the lake."] = "Les pièges de {skill:356} sont disposés le long de la rive ouest du lac.",
-	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {quest:91740} demande un groupe de 2. Passez-la si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
 	-- ["Torn Murloc Fins"] = "Ailerons de murloc déchirés",
 	-- ["Use the {item:6866} on {npc:6172}"] = "Utilisez le {item:6866} sur {npc:6172}",
 	-- ["{area:18} and the wolves"] = "Le {area:18} et les loups",
@@ -535,8 +544,6 @@ return {
 	-- ["{npc:263399}, leatherworkers: for {npc:1632}"] = "{npc:263399}, travailleurs du cuir : pour {npc:1632}",
 	-- ["{npc:263399}, skinners: for {npc:6306}"] = "{npc:263399}, dépeceurs : pour {npc:6306}",
 	-- ["{npc:263399}, {skill:129}: for {npc:2329} in the inn"] = "{npc:263399}, {skill:129} : pour {npc:2329} dans l'auberge",
-	-- ["{npc:270459} in {zone:1416}; {area:87} has no druid trainer"] = "{npc:270459} dans {zone:1416} ; {area:87} n'a pas de maître des druides",
-	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377} : {npc:376} à {zone:1453} reçoit les deux",
 	-- ["{npc:459}: Summon Imp"] = "{npc:459} : Invocation d'un diablotin",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, à la forge de l'autre côté de la route : Camping 101, forgerons",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171} : Rédemption",

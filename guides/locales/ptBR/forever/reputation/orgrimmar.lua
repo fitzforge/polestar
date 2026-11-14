@@ -194,14 +194,14 @@ return {
 	-- Step 31: Far Watch Post
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
 	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "Saia correndo pelo portão oeste de {faction:76} e atravesse a ponte para {zone:1413}. {npc:3337} e {quest:809} ficam em {area:379}.",
-	-- {quest:842} Crossroads Conscription · {npc:3338} Sergra Darkthorn
-	["{quest:842}, +100: to {npc:3338}"] = "{quest:842}, +100: para {npc:3338}",
+	-- {quest:842} Crossroads Conscription · {quest:860} Sergra Darkthorn
+	["{quest:842}, +100: to {quest:860}"] = "{quest:842}, +100: para {quest:860}",
 
 	-- Step 33: The Crossroads (optional hub)
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "{area:380} (polo opcional)",
-	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:380}: cerca de 1.500 de reputação de {faction:76} em 70 minutos, só para {faction:76}. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} e {npc:267310} ficam na cidade, {npc:3432} junto à estalagem.",
+	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {quest:860} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "O Forever paga estas missões antigas por inteiro em qualquer nível. {area:380}: cerca de 1.500 de reputação de {faction:76} em 70 minutos, só para {faction:76}. {quest:860}, {npc:3464}, {npc:3429}, {npc:3449} e {npc:267310} ficam na cidade, {npc:3432} junto à estalagem.",
 
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "Em volta da Encruzilhada",

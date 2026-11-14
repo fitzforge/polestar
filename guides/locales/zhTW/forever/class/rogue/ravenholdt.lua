@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:3486} Ravenholdt Manor · {npc:13085} Myrokos Silentform
-	["Opens {area:3486}, the hidden rogue house in the Alterac hills, and {npc:13085}'s jobs against the Syndicate."] = "",
+	["Opens {area:3486}, the hidden rogue house in the Alterac hills, and {npc:13085}'s jobs against the Syndicate."] = "開啟{area:3486}（奧特蘭克丘陵中隱藏的盜賊據點），以及{npc:13085}對付辛迪加的差事。",
 	-- {npc:13936} Ravenholdt
 	["{npc:13936} reputation"] = "{npc:13936}聲望",
 
@@ -33,11 +33,11 @@ return {
 
 	-- Step 4: Myrokos Silentform
 	-- {npc:6766} Ravenholdt Guard
-	["{npc:6766}: one emblem each time, 100 reputation"] = "",
+	["{npc:6766}: one emblem each time, 100 reputation"] = "{npc:6766}：每次一枚徽記，100點聲望",
 
 	-- Step 5: What's the Big Idea?
-	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
-	["In your mid 30s {npc:13085} has two more jobs; take both. Barton leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "",
+	-- {npc:13085} Myrokos Silentform · {npc:266357} Barton · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
+	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "",
 	-- {item:275482} Barton's Scouting Report
 	["Pick Pocket Barton for {item:275482}"] = "",
 
@@ -80,9 +80,7 @@ return {
 	-- ["At 24 an {item:17126} from {npc:13936} starts this; the data gives it to you through {npc:332} or {npc:918} in {zone:1453}, or Gest or Ormok in {zone:1454}. The quest hands you the {item:17125} for {npc:6707}."] = "24級時，{npc:13936}的{item:17126}會開啟此任務；依資料，你會透過{zone:1453}的{npc:332}或{npc:918}，或{zone:1454}的蓋斯特或奧莫克收到它。任務會給你{item:17125}，交給{npc:6707}。",
 	-- ["At 36, {npc:13085} sends you after Barton's scouting report. Barton leads a Syndicate party at {area:280}, in the east of the {zone:1416}: pick his pocket, do not kill him."] = "36級時，{npc:13085}派你去取巴爾頓的偵察報告。巴爾頓率領一支辛迪加隊伍在{zone:1416}東部的{area:280}：偷他的口袋，不要殺他。",
 	-- ["Horde fly to {area:272}, Alliance to {area:271}. The manor hides in the hills east of {area:272}, up a path into the {zone:1416}; the Rite of Cunning is passing its way in."] = "部落飛往{area:272}，聯盟飛往{area:271}。莊園隱藏在{area:272}東邊的山丘中，沿小路往上進入{zone:1416}；狡詐儀式是你進入的通行方式。",
-	-- ["Opens {area:3486}, the hidden rogue house in the Alterac hills, and its first jobs."] = "開啟{area:3486}（奧特蘭克丘陵中隱藏的盜賊據點）及其最初的任務。",
 	-- ["Rite of Cunning"] = "狡詐儀式",
 	-- ["{item:275482}: pickpocket Barton"] = "{item:275482}：對巴爾頓偷竊",
 	-- ["{npc:266216} is inside {area:275}, the Syndicate fortress in eastern {area:287}, south of the manor. Quick and quiet, says {npc:13085}."] = "{npc:266216}在{area:275}內，那是{area:287}東部、莊園南邊的辛迪加要塞。{npc:13085}說：要快又要安靜。",
-	-- ["{npc:6766}: {quest:6701}, repeatable"] = "{npc:6766}：{quest:6701}，可重複",
 }

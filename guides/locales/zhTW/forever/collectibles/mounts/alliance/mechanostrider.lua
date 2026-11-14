@@ -35,9 +35,8 @@ return {
 	-- {item:13322} Unpainted Mechanostrider
 	["{item:13322}, 20g"] = "{item:13322}，20金",
 	-- {spell:10907} Mechanostrider Piloting
-	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "",
+	["In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn {spell:10907}."] = "經典版中只有矮人和地精能騎乘機械陸行鳥；Forever中所有聯盟種族都能學習{spell:10907}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Era let only Dwarves and Gnomes ride mechanostriders; the Forever client allows every Alliance race."] = "經典版只允許矮人和地精騎乘機械陸行鳥；Forever用戶端允許所有聯盟種族。",
 	-- ["{area:189} is just east of {area:131}; {npc:7954} stands beside {npc:7955}'s mechanostriders. At 40 {npc:7954} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "{area:189}就在{area:131}東邊；{npc:7954}站在{npc:7955}的機械陸行鳥旁。40級時{npc:7954}會教你{skill:762}（依暴雪設計者為100金幣），學會後就會得到一匹坐騎。Forever用戶端允許所有聯盟種族騎乘牠們。",
 }

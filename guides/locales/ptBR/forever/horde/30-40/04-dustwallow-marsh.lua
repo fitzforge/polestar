@@ -84,7 +84,7 @@ return {
 
 	-- Step 18: The Theramore Docks
 	-- {area:513} Theramore Isle · {object:20925} Captain's Footlocker
-	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57."] = "Para o sudeste do solar até {area:513}: o {object:20925} está no fundo do mar diante das docas, no lado leste da ilha. Entre e saia nadando e fique longe dos píeres e da cidade: os guardas de Theramore são de nível 53-57.",
+	["South-east from the manor to {area:513}: the {object:20925} lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer."] = "Para o sudeste do solar até {area:513}: o {object:20925} está no fundo do mar diante das docas, no lado leste da ilha. Entre e saia nadando e fique longe dos píeres e da cidade: os guardas de Theramore são de nível 53-57, e morrer aqui significa uma longa corrida de volta desde o curandeiro espiritual.",
 	["Underwater"] = "Debaixo d'água",
 
 	-- Step 19: Brackenwall Village
@@ -95,8 +95,8 @@ return {
 
 	-- Step 20: Level 37.5
 	["Level 37.5"] = "Nível 37.5",
-	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "As últimas missões de {zone:1443} e Alterac são de nível 38-41. Ainda abaixo de 37.5 depois das entregas de Muralha Verde? As aranhas e Tocaieiras Névoa Negra (35-38) perto da caverna a noroeste da aldeia são as mais próximas: mate-as até o nível 37.5. Ou, em grupo, faça a masmorra {area:1316} ou a masmorra {area:796} (Armaria).",
+	-- {zone:1443} Desolace
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5."] = "As últimas missões de {zone:1443} e Alterac são de nível 38-41. Ainda abaixo de 37.5 depois das entregas de Muralha Verde? As aranhas e Tocaieiras Névoa Negra (35-38) perto da caverna a noroeste da aldeia são as mais próximas: mate-as até o nível 37.5.",
 	["Darkmist cavern"] = "Caverna Névoa Negra",
 	-- {npc:4377} Darkmist Lurker
 	["grind on {npc:4377}"] = "mate {npc:4377} até subir",
@@ -133,10 +133,12 @@ return {
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["North to the post; {npc:5412} stands beside {npc:5395}."] = "Ao norte, até o posto; {npc:5412} fica ao lado de {npc:5395}.",
+	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
+	["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}: a {quest:1366} dele, dos mesmos Maraudinos",
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "A oeste do posto, os centauros Maraudinos ocupam {area:607}. Todo Maraudino pode deixar cair {item:254432} e uma orelha para {quest:1366}, de {npc:5395}.",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "A oeste do posto, os centauros Maraudinos ocupam {area:607}. Todo Maraudino pode deixar cair {item:254432} e uma orelha para {quest:1366}, de {npc:5395}. Fique com os Maraudinos (36-39) no vale: a aldeia dos Magram, no sudeste, tem os mesmos saques, mas os Necromantes (42-43) e Guardiões (39-41) de lá estão bem acima do seu nível.",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
@@ -149,9 +151,9 @@ return {
 	-- Step 31: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
-	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "Siga para sudeste até os campos de ossos de {area:2657}, onde Assoladores Mortos-vivos vagam. No extremo sudeste, use {item:15848} para atrair os Espectros Magrami: eles deixam cair o fantasmoplasma.",
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge. Use the {item:15848} at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "Siga para sudeste até os campos de ossos de {area:2657}, onde Assoladores Mortos-vivos vagam, na borda sul de {zone:1443}. Use {item:15848} na seta para atrair os Espectros Magrami: eles deixam cair o fantasmoplasma.\nCuidado: Necrocãs e Come-cadáveres Magram (45, elite) andam pelos campos de ossos logo a oeste da seta, bem acima do seu nível: use o caixote na seta, no lado leste do vale, e puxe os espectros para longe deles.",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard

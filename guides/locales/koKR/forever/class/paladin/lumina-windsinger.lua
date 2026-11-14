@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Danitha Morr
 	-- {npc:246378} Danitha Morr · {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {area:228} Sepulcher · {zone:1421} Silverpine Forest
-	["At 18 {npc:246378}, inside {area:16602} on the bluffs north-west of the {area:156}, sends you south to the {area:228} in {zone:1421}."] = "",
+	["At 18 {npc:246378}, inside {area:16602} on the bluffs north-west of the {area:156}, sends you south to the {area:228} in {zone:1421}."] = "18레벨에 {area:156} 북서쪽 절벽 위 {area:16602} 안의 {npc:246378}이(가) 남쪽 {zone:1421}의 {area:228}(으)로 보냅니다.",
 
 	-- Step 2: Sepulcher
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {npc:259611} Deathguard Baldren
@@ -43,12 +43,12 @@ return {
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
 	["Back to the {area:228}"] = "{area:228}로 돌아가기",
-	-- {npc:259620} Lumina Windsinger · {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
-	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
-	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
-	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
-	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "",
+	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
+	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "",
+	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:248755}, the {area:228}"] = "{npc:248755}, {area:228}",
+	-- {npc:248755} Lumina Windsinger
+	["{npc:248755}: hear her story to the end"] = "",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -112,6 +112,8 @@ return {
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
 	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "{item:268484}을(를) 장착하세요. 거대한 늑대인간 {quest:95140}은(는) {area:228} 남쪽 숲에서 {area:17065} 관문 쪽으로 돌아다닙니다. 정예(25레벨)입니다. 가이드는 먼저 22레벨까지 기다리며, 파티를 권장합니다. 플레이어들은 22레벨부터 그를 처치했고, 한 명은 도우미가 한 명 더 필요했으며, 다른 한 명은 25레벨에 혼자 잡았습니다. 그 검으로 처음 공격이 적중할 때까지 보라색 보호막이 그를 지킵니다. 보호막이 깨지면 메시지가 나옵니다.",
+	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:259620}, the {area:228}"] = "{npc:259620}, {area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "",
 
@@ -127,7 +129,6 @@ return {
 	-- ["Rescuing {quest:91862}"] = "{quest:91862} 구출",
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "{zone:1421}을(를) 지나 남쪽의 {area:228}로 가십시오. {npc:248840}은(는) 마을 안에 있고, {npc:259611}은(는) 입구 근처에서 경계를 섭니다.",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172}은(는) {area:228} 동쪽 호수에 있습니다. 불탄 유해는 그 물가에 있습니다.",
-	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378}은(는) {area:156} 북서쪽 절벽 위 {area:16602} 안에서 Tyr's Watch의 성기사들을 이끕니다.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862}은(는) 섬 북쪽 끝 {area:235} 안에 갇혀 있습니다. 그녀 주변의 썩은가죽일족 놀이 열쇠를 가지고 있습니다.",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "{zone:1458} 및 대지 고리회 평판",
 }

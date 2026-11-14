@@ -17,11 +17,11 @@ return {
 
 	-- Step 2: Magecraft (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
-	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "",
+	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "Его дает {npc:7311}, один из учителей магов ({zone:1454}, {object:173161}); а также {npc:4567} ({zone:1458}) и {npc:3047} ({zone:1456}).",
 
 	-- Step 3: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara · {area:1221} Ruins of Eldarath · {npc:8379} Archmage Xylem
-	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "",
+	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to {npc:8379} at the top of the tower; an attendant at the top sends you back down, as often as you like."] = "Летите в {area:3137} (Альянс) или {area:1237} (Орда). {npc:8395} разбил лагерь под башней своего учителя, недалеко к востоку от места {area:1237}: от развилки главной дороги зоны {zone:1447} у места {area:1221} идите прямо на север к скалам. Слезьте с транспорта, прежде чем он телепортирует вас наверх, иначе телепорт может не сработать. Тропа без противников ведет к NPC {npc:8379} на вершине башни; служитель наверху отправит вас вниз, сколько угодно раз.",
 	-- {npc:8379} Archmage Xylem
 	["{npc:8379}, in the tower"] = "{npc:8379}, в башне",
 
@@ -61,9 +61,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "Вернитесь: {zone:1447}, {npc:8395} и башня.",
 	-- ["Experience at 50 through {zone:1447} and the {area:1417}; Forever removed the Classic item choice."] = "Опыт на 50-м уровне через зону {zone:1447} и {area:1417}; Forever убрал выбор предмета из классики.",
-	-- ["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below his master's tower: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. He teleports you up to {npc:8379}."] = "Летите в {area:3137} (Альянс) или {area:1237} (Орда). {npc:8395} разбил лагерь под башней своего учителя: от развилки главной дороги зоны {zone:1447} у места {area:1221} идите прямо на север к скалам. Он телепортирует вас наверх к NPC {npc:8379}.",
 	-- ["Morphaz, a green drake, waits deep in the {area:1477}, the {area:1417} in the {area:74}: a group of five, level 50-54. Kill him for the {item:20085}."] = "Морфаз, зеленый дракон, ждет в глубине: {area:1477} ({area:1417}, {area:74}). Группа из пяти, уровень 50-54. Убейте его ради предмета {item:20085}.",
 	-- ["The Spitelash Sirens walk the ruins and beaches around the {area:1221} and the bay; they carry the coral."] = "Сирены из клана Бича Злобы бродят по руинам и пляжам вокруг места {area:1221} и залива; у них есть коралл.",
 	-- ["The blood elves camp along the cliffs of north-eastern {zone:1447}; Blood Elf Surveyors and Reclaimers drop the dust."] = "Эльфы крови разбили лагерь вдоль скал на северо-востоке зоны {zone:1447}; пыль падает с эльфов крови-геодезистов и землемеров.",
-	-- ["{npc:7311}, one of {zone:1454}'s mage trainers, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "Его дает {npc:7311}, один из учителей магов ({zone:1454}); а также {npc:4567} ({zone:1458}) и {npc:3047} ({zone:1456}).",
 }

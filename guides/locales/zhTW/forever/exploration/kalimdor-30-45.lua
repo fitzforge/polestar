@@ -15,7 +15,7 @@ return {
 	["Picks up west of the {zone:1413}, in {zone:1443}, and ends in {zone:1445}. 15 areas to discover here, levels 30-39."] = "從{zone:1413}西邊的{zone:1443}接續，在{zone:1445}結束。這裡有15個區域要發現，等級30-39。",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "單一角色探索整張世界地圖是一項Forever傳承挑戰（1點帳號共用傳承點數）。",
 	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
-	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "",
+	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "飛往{area:467}（若有{area:608}的飛行路線就飛那裡），沿道路從{zone:1442}往西南進入{zone:1443}；北部的{area:608}是聯盟城鎮。",
 	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
 	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "飛往{area:460}，沿道路往西南進入{zone:1443}；西岸的{area:2408}是部落城鎮。",
 	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
@@ -73,6 +73,5 @@ return {
 	["level 61 area, well above this guide's range"] = "61級區域，遠高於本指南的等級範圍",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "沿道路從{zone:1442}往西南進入{zone:1443}；北部的{area:608}是聯盟城鎮。",
 	-- ["The {area:1108}"] = "{area:1108}",
 }

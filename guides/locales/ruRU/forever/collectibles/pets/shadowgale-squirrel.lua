@@ -10,7 +10,7 @@ return {
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "Небесный корабль: {area:279}",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either)."] = "{zone:2521} – стартовый остров небеснорожденных; по сообщениям с беты, посетить его может любой. Небесный корабль отходит с северной стороны места {area:279} примерно каждые пять минут (другой летает с севера от {zone:1456}; любая фракция может сесть на любой).",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "Небесный корабль: {zone:2521}",
 
@@ -18,7 +18,7 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "Небесный корабль: {zone:1456}",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "",
+	["{zone:2521} is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either)."] = "{zone:2521} – стартовый остров небеснорожденных; по сообщениям с беты, посетить его может любой. Небесный корабль отходит со скал к югу от места {area:17045}, к северу от {zone:1456}, примерно каждые пять минут (другой летает из места {area:279}; любая фракция может сесть на любой).",
 
 	-- Step 3: Revered with the Nightclaw Druids
 	-- {faction:2758} Nightclaw Druids
@@ -30,6 +30,4 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{npc:254151} sells the squirrel (50s) once you are Revered with the {faction:2758}."] = "{npc:254151} продает белку (50 с), когда ваша репутация — почтение ({faction:2758}).",
-	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} — стартовый остров Небеснорожденных; посетить его может любой. Небесный корабль отходит со скал к югу от места {area:17045}, к северу от {zone:1456}, примерно каждые пять минут (другой летает из места {area:279}; любая фракция может сесть на любой). Пропустите, если вы уже на острове.",
-	-- ["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the north side of {area:279} about every five minutes (another flies from north of {zone:1456}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} — стартовый остров Небеснорожденных; посетить его может любой. Небесный корабль отходит с северной стороны места {area:279} примерно каждые пять минут (другой летает с севера от {zone:1456}; любая фракция может сесть на любой). Пропустите, если вы уже на острове.",
 }

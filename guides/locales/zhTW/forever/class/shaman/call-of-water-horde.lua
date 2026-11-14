@@ -14,11 +14,11 @@ return {
 
 	-- Step 1: Searn Firewarder
 	-- {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {area:362} Razor Hill
-	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}. (Swart in {area:362} gives the same letter: carry either.)"] = "20級時，{object:172957}的{npc:5892}會派你去找{zone:1413}的{npc:5901}。（{area:362}的斯瓦特也給同一封信：帶哪一封都可以。）",
 
 	-- Step 2: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5901} Islen Waterseer · {zone:1413} Barrens · {npc:3066} Narm Skychaser · {area:222} Bloodhoof Village
-	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "",
+	["At 20 {npc:5906}, a shaman trainer on {area:1640} in {zone:1456}, sends you to {npc:5901} in the {zone:1413}. ({npc:3066} in {area:222} gives the same letter: carry either.)"] = "20級時，{zone:1456}{area:1640}上的薩滿訓練師{npc:5906}會派你去找{zone:1413}的{npc:5901}。（{area:222}的{npc:3066}也給同一封信：帶哪一封都可以。）",
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -107,8 +107,6 @@ return {
 	["{npc:5901}: {spell:5394} and your {item:5177}"] = "{npc:5901}：{spell:5394}和你的{item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}."] = "20級時，{object:172957}的{npc:5892}會派你去找{zone:1413}的{npc:5901}。",
-	-- ["At 20 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5901} in the {zone:1413}."] = "20級時，{zone:1456}的薩滿訓練師{npc:5906}會派你去找{zone:1413}的{npc:5901}。",
 	-- ["Fill the {item:7766} at the quilboar watering hole"] = "在野豬人的水源裝滿{item:7766}",
 	-- ["Fill the {item:7767} at the fountain"] = "在噴泉裝滿{item:7767}",
 	-- ["Fill the {item:7768} at the {object:107045}"] = "在{object:107045}裝滿{item:7768}",

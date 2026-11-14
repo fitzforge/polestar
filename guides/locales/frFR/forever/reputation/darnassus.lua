@@ -15,7 +15,7 @@ return {
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
 	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803} : 50 de réputation pour chaque lot de 10 {item:11040}, aussi souvent que vous le voulez",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "Environ 3 700 de réputation auprès de {faction:69} grâce aux quêtes de bas niveau de {zone:1438} et de {zone:1439}",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : la clairière de départ des Elfes de la nuit au nord-est de {zone:1438}, environ 1 050 de réputation en 30 minutes au niveau 60. Les donneurs de quêtes se tiennent autour d'{area:256}, le grand arbre. Forever paie ces anciennes quêtes en entier à tout niveau. Passez cette étape pour sauter ce groupe de quêtes.",
 
 	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -54,13 +54,13 @@ return {
 
 	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus · {npc:2151} Moon Priestess Amara
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub.\n{npc:2151} patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her."] = "Facultatif : le village sur la route de {faction:69}, environ 1 250 de réputation en 45 minutes au niveau 60. Forever paie ces anciennes quêtes en entier à tout niveau. Passez cette étape pour sauter ce groupe de quêtes.\n{npc:2151} patrouille sur la route à l'ouest du village : si elle n'est pas à la flèche, suivez la route jusqu'à la croiser.",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "{area:186} : {npc:2080} et le lac",
 	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
-	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2080} s'occupe de son jardin sur la rive sud-est de {area:259} ; {npc:2107} se tient à l'étage d'une maison à {area:260}, à l'est de {area:186} : montez par l'intérieur, la flèche ne distingue pas les étages.",
 
 	-- Step 9: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar
@@ -77,7 +77,7 @@ return {
 
 	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
-	["{area:186}: the {area:262}'s entrance"] = "",
+	["{area:186}: the {area:262}'s entrance"] = "{area:186} : l'entrée du {area:262}",
 
 	-- Step 12: Dolanaar: the relics and Ferocitas
 	-- {area:186} Dolanaar
@@ -94,7 +94,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : {area:442} à {zone:1439}, à un trajet en bateau du {area:702}, environ 1 400 de réputation en une heure au niveau 60. Les donneurs de quêtes se tiennent le long de la rue et de la jetée de la ville. Forever paie ces anciennes quêtes en entier à tout niveau. Passez cette étape pour sauter ce groupe de quêtes.",
 
 	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
@@ -103,9 +103,9 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Le camp de furbolgs au sud de la ville compte pour Quelle est l'ampleur de la menace ? ; les Ours des chardons enragés errent dans les bois au sud de la ville ; les fantômes bien-nés des ruines d'Ameth'Aran, au sud-est de la ville, portent les reliques, et le fantôme d'Anaya y erre aussi ; les ossements sont sur la plage au sud de la ville ; les champignons poussent dans la grotte des {area:445}, au nord-est.",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "",
+	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164} : utilisez {quest:2139} sur lui et ramenez-le à {npc:3701}",
 	-- {npc:2164} Rabid Thistle Bear
-	["Capture a {npc:2164}"] = "",
+	["Capture a {npc:2164}"] = "Capturez un {npc:2164}",
 	-- {quest:954} Bashal'Aran
 	["the blue aura in the ruins of {quest:954}"] = "l'aura bleue dans les ruines de {quest:954}",
 
@@ -156,7 +156,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (facultatif)",
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain · {npc:6735} Innkeeper Saelienne · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil · {zone:1453} Stormwind · {zone:1455} Ironforge
-	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
+	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "{quest:3803} prend 10 {item:11040} contre 50, aussi souvent que vous le voulez, et rapporte en entier au niveau 60. La suite qui la précède est de niveau 50 : 220. L'{npc:6735} vous envoie auprès de l'{npc:3516} dans l'{area:1658} ; il veut 20 {quest:3764}. (Les aubergistes de {zone:1453} et de {zone:1455} donnent le même départ.)",
 
 	-- Step 28: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
@@ -178,7 +178,7 @@ return {
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Honored"] = "{quest:7801} jusqu'à Honoré",
 	-- {quest:7801} Additional Runecloth · {item:14047} Runecloth · {quest:4183} The True Masters · {item:11040} Morrowgrain · {faction:69} Darnassus · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {zone:1444} Feralas
-	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7801} : 50 de réputation pour 20 {item:14047}, aussi souvent que vous le voulez. Après les quatre premiers dons, un Humain, un Nain ou un Gnome est à Amical 700 sur 6 000, donc Honoré est à 5 300 : 106 remises, 2 120 {item:14047} (les Elfes de la nuit commencent 900 plus haut : 88 remises ; les Éolides commencent à Neutre 500, donc à 7 900 : 158, deux de moins après Exploring the Alliance). {quest:4183} et la suite de l'{item:11040} ci-dessus en retirent 8, et chaque lot de 10 {item:11040} rendu compte pour une de plus ; chaque groupe de quêtes que vous avez fait en retire 20 à 28 de plus. D'autres quêtes rapportent auprès de {faction:69}, en entier tant qu'elles ne sont pas plus de 5 niveaux sous le vôtre : le reste de {zone:1439} (environ 3 400 de plus), {area:415} dans {zone:1440} (environ 3 900) et Pennelune à {zone:1444} (environ 1 700). Chaque gain auprès d'une ville en donne aussi un quart aux trois autres villes de l'Alliance (non compté ici). Rendez tout votre {item:14047} d'un coup.",
 
 	-- Step 36: Additional Runecloth to Revered
 	-- {quest:7801} Additional Runecloth
@@ -193,7 +193,6 @@ return {
 	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, Lelanai at the {area:1658} in {faction:69} sells her nightsabers to other races in Classic; the Saber and Swift Saber guides cover them."] = "De Révéré à Exalté, il faut 21 000 de réputation : 420 remises, 8 400 {item:14047}. À Exalté, Lelanai, dans l'{area:1658} de {faction:69}, vend ses sabres-de-nuit aux autres races dans Classic ; les guides Sabre et Sabre rapide en parlent.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439} (in Classic, a fifth of it at 60)"] = "Environ 3 700 de réputation auprès de {faction:69} grâce aux quêtes de bas niveau de {zone:1438} et de {zone:1439} (dans Classic, un cinquième au niveau 60)",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Les Adeptes noirs et les Ombremages (niveau 58-60) en lâchent ici ; chaque Fléau tué ici compte aussi pour {object:92525} (voir ce guide). L'hôtel des ventes convient aussi.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Les ogres Cognedune (niveau 45-48) en lâchent ici. L'hôtel des ventes convient aussi.",
 	-- ["Keep handing in {quest:7801} until {faction:69} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7801} jusqu'à être Exalté auprès de {faction:69}. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans {zone:1423}, ou l'hôtel des ventes.",
@@ -206,7 +205,5 @@ return {
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} recueille le tissu pour {faction:69}, à {faction:69}. Les premiers dons de laine, de soie, de tisse-mage et de {item:14047} (60 étoffes chacun) ne se font qu'une fois et rapportent le plus de réputation par étoffe ; ensuite, {quest:7801} se répète jusqu'à Exalté. Être Exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725} : {item:14047} livrée",
 	-- ["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands in the {area:736} east of the village."] = "{npc:2080} s'occupe de son jardin sur la rive sud-est du {area:259} ; {npc:2107} se tient dans le {area:736}, à l'est du village.",
-	-- ["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50 (in Classic a fifth at 60): 220 at full. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "{quest:3803} prend 10 {item:11040} contre 50, aussi souvent que vous le voulez, et rapporte en entier au niveau 60. La suite qui la précède est de niveau 50 (dans Classic, un cinquième au niveau 60) : 220 à pleine valeur. L'{npc:6735} vous envoie auprès de l'{npc:3516} dans l'{area:1658} ; il veut 20 {quest:3764}. (Les aubergistes de {zone:1453} et de {zone:1455} donnent le même départ.)",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} demande 20 {item:14047} par rendu et se répète autant que vous voulez. Apportez du {item:14047} par multiples de 20 et rendez tout d'un coup, un rendu après l'autre. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans {zone:1423}, ou l'hôtel des ventes.",
-	-- ["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off if it paid in full. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7801} : 50 de réputation pour 20 {item:14047}, aussi souvent que vous le voulez. Après les quatre premiers dons, un Humain, un Nain ou un Gnome est à Amical 700 sur 6 000, donc Honoré est à 5 300 : 106 remises, 2 120 {item:14047} (les Elfes de la nuit commencent 900 plus haut : 88 remises ; les Éolides commencent à Neutre 500, donc à 7 900 : 158, deux de moins après Exploring the Alliance). {quest:4183} et la suite de l'{item:11040} ci-dessus en retirent 8, et chaque lot de 10 {item:11040} rendu compte pour une de plus ; chaque groupe de quêtes que vous avez fait en retire 20 à 28 de plus s'il a rapporté en entier. D'autres quêtes rapportent auprès de {faction:69}, en entier tant qu'elles ne sont pas plus de 5 niveaux sous le vôtre : le reste de {zone:1439} (environ 3 400 de plus), {area:415} dans {zone:1440} (environ 3 900) et Pennelune à {zone:1444} (environ 1 700). Chaque gain auprès d'une ville en donne aussi un quart aux trois autres villes de l'Alliance (non compté ici). Rendez tout votre {item:14047} d'un coup.",
 }

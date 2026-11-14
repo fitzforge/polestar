@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Uthel'nay (Orgrimmar)
 	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
-	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "",
+	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} – один из учителей магов ({zone:1454}), {object:173161} ({object:172961}). Затем сядьте на дирижабль до зоны {zone:1420} у башни за главными воротами города {zone:1454}.",
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "",
+	["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:4568} стоит здесь: {object:36082}. {item:7247} и {item:7308} лежат на уступе позади нее (оба появляются снова через 5 минут после того, как их кто-то заберет). В конце вы сдаете оба предмета, так что сохраните их.",
 
 	-- Step 4: The alchemist shop
 	["The alchemist shop"] = "Лавка алхимика",
@@ -51,6 +51,4 @@ return {
 	-- ["Humanoids drop {item:2589}; the Undercity Auction House sells it."] = "С гуманоидов падает {item:2589}; его продают на аукционе Подгорода.",
 	-- ["Leave the {zone:1458} and follow the road south through {zone:1421}. The {area:279} mages hold {area:233}, south-east of the {area:228}; every {npc:1867}, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a {item:7293}."] = "Покиньте город {zone:1458} и идите по дороге на юг через зону {zone:1421}. Маги ({area:279}) удерживают {area:233}, к юго-востоку от места {area:228}; {item:7293} может выпасть с любого NPC {npc:1867}, а также с даларанских магов, заступников, тюремщиков, окудников, дозорных и волшебников.",
 	-- ["{npc:2128} is the {area:159} mage trainer."] = "{npc:2128} — учитель магов. Локация: {area:159}.",
-	-- ["{npc:4568} stands in the {object:36082}. The {item:7247} and the {item:7308} lie behind her."] = "{npc:4568} стоит здесь: {object:36082}. {item:7247} и {item:7308} лежат позади нее.",
-	-- ["{npc:7311} is one of {zone:1454}'s mage trainers. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311} — один из учителей магов ({zone:1454}). Затем сядьте на дирижабль до зоны {zone:1420} у башни за главными воротами города {zone:1454}.",
 }

@@ -15,15 +15,15 @@ return {
 
 	-- Step 2: Linen Bandage: Auction House
 	-- {item:1251} Linen Bandage
-	["{item:1251}: Auction House"] = "",
+	["{item:1251}: Auction House"] = "{item:1251}: Casa de Leilões",
 	-- {item:1251} Linen Bandage · {item:2589} Linen Cloth
-	["What {item:1251} takes that the Auction House sells: 41 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:1251} takes that the Auction House sells: 41 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "O que {item:1251} exige e a Casa de Leilões vende: 41 {item:2589}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 3: Linen Bandage: cloth
 	-- {item:1251} Linen Bandage
 	["{item:1251}: cloth"] = "{item:1251}: tecido",
 	-- {item:2589} Linen Cloth
-	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, or take it from your bank."] = "{item:2589} cai de humanoides de nível 5-20: guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 4: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
@@ -32,9 +32,9 @@ return {
 
 	-- Step 5: Heavy Linen Bandage: Auction House
 	-- {item:2581} Heavy Linen Bandage
-	["{item:2581}: Auction House"] = "",
+	["{item:2581}: Auction House"] = "{item:2581}: Casa de Leilões",
 	-- {item:2581} Heavy Linen Bandage · {item:2589} Linen Cloth
-	["What {item:2581} takes that the Auction House sells: 20 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:2581} takes that the Auction House sells: 20 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "O que {item:2581} exige e a Casa de Leilões vende: 20 {item:2589}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 6: Heavy Linen Bandage: cloth
 	-- {item:2581} Heavy Linen Bandage
@@ -52,7 +52,7 @@ return {
 
 	-- Step 9: Heavy Linen Bandage: Auction House
 	-- {item:2581} Heavy Linen Bandage · {item:2589} Linen Cloth
-	["What {item:2581} takes that the Auction House sells: 92 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:2581} takes that the Auction House sells: 92 {item:2589}. The counts drop by what your bags, bank and mail hold."] = "O que {item:2581} exige e a Casa de Leilões vende: 92 {item:2589}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 11: Heavy Linen Bandage (50-80)
 	-- {item:2581} Heavy Linen Bandage · {item:858} Lesser Healing Potion · {item:2450} Briarthorn · {item:2678} Mild Spices · {item:3371} Empty Vial
@@ -60,15 +60,15 @@ return {
 
 	-- Step 12: Wool Bandage: Auction House
 	-- {spell:3277} Wool Bandage
-	["{spell:3277}: Auction House"] = "",
+	["{spell:3277}: Auction House"] = "{spell:3277}: Casa de Leilões",
 	-- {spell:3277} Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3277} takes that the Auction House sells: 49 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3277} takes that the Auction House sells: 49 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "O que {spell:3277} exige e a Casa de Leilões vende: 49 {item:2592}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 13: Wool Bandage: cloth
 	-- {spell:3277} Wool Bandage
 	["{spell:3277}: cloth"] = "{spell:3277}: tecido",
 	-- {item:2592} Wool Cloth
-	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, or take it from your bank."] = "{item:2592} cai de humanoides de nível 15-30: guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 14: Wool Bandage (80-115)
 	-- {spell:3277} Wool Bandage · {skill:129} First Aid · {item:6452} Anti-Venom · {item:1475} Small Venom Sac · {spell:9810} Touch of Zanzil
@@ -76,9 +76,9 @@ return {
 
 	-- Step 15: Heavy Wool Bandage: Auction House
 	-- {spell:3278} Heavy Wool Bandage
-	["{spell:3278}: Auction House"] = "",
+	["{spell:3278}: Auction House"] = "{spell:3278}: Casa de Leilões",
 	-- {spell:3278} Heavy Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3278} takes that the Auction House sells: 22 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3278} takes that the Auction House sells: 22 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "O que {spell:3278} exige e a Casa de Leilões vende: 22 {item:2592}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 16: Heavy Wool Bandage: cloth
 	-- {spell:3278} Heavy Wool Bandage
@@ -98,7 +98,7 @@ return {
 
 	-- Step 19: Heavy Wool Bandage: Auction House
 	-- {spell:3278} Heavy Wool Bandage · {item:2592} Wool Cloth
-	["What {spell:3278} takes that the Auction House sells: 76 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {spell:3278} takes that the Auction House sells: 76 {item:2592}. The counts drop by what your bags, bank and mail hold."] = "O que {spell:3278} exige e a Casa de Leilões vende: 76 {item:2592}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 21: Heavy Wool Bandage (125-150)
 	-- {spell:3278} Heavy Wool Bandage
@@ -106,15 +106,15 @@ return {
 
 	-- Step 22: Silk Bandage: Auction House
 	-- {item:6450} Silk Bandage
-	["{item:6450}: Auction House"] = "",
+	["{item:6450}: Auction House"] = "{item:6450}: Casa de Leilões",
 	-- {item:6450} Silk Bandage · {item:4306} Silk Cloth
-	["What {item:6450} takes that the Auction House sells: 42 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6450} takes that the Auction House sells: 42 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "O que {item:6450} exige e a Casa de Leilões vende: 42 {item:4306}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 23: Silk Bandage: cloth
 	-- {item:6450} Silk Bandage
 	["{item:6450}: cloth"] = "{item:6450}: tecido",
 	-- {item:4306} Silk Cloth
-	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, or take it from your bank."] = "{item:4306} cai de humanoides de nível 25-45: guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 24: Silk Bandage (150-180)
 	-- {item:6450} Silk Bandage · {skill:129} First Aid
@@ -122,9 +122,9 @@ return {
 
 	-- Step 25: Heavy Silk Bandage: Auction House
 	-- {item:6451} Heavy Silk Bandage
-	["{item:6451}: Auction House"] = "",
+	["{item:6451}: Auction House"] = "{item:6451}: Casa de Leilões",
 	-- {item:6451} Heavy Silk Bandage · {item:4306} Silk Cloth
-	["What {item:6451} takes that the Auction House sells: 84 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:6451} takes that the Auction House sells: 84 {item:4306}. The counts drop by what your bags, bank and mail hold."] = "O que {item:6451} exige e a Casa de Leilões vende: 84 {item:4306}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 26: Heavy Silk Bandage: cloth
 	-- {item:6451} Heavy Silk Bandage
@@ -136,15 +136,15 @@ return {
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
-	["{item:8544}: Auction House"] = "",
+	["{item:8544}: Auction House"] = "{item:8544}: Casa de Leilões",
 	-- {item:8544} Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8544} takes that the Auction House sells: 18 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8544} takes that the Auction House sells: 18 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "O que {item:8544} exige e a Casa de Leilões vende: 18 {item:4338}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 29: Mageweave Bandage: cloth
 	-- {item:8544} Mageweave Bandage
 	["{item:8544}: cloth"] = "{item:8544}: tecido",
 	-- {item:4338} Mageweave Cloth
-	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "{item:4338} cai de humanoides de nível 35-50: guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 30: Mageweave Bandage (210-225)
 	-- {item:8544} Mageweave Bandage
@@ -173,7 +173,7 @@ return {
 
 	-- Step 35: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8544} takes that the Auction House sells: 24 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8544} takes that the Auction House sells: 24 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "O que {item:8544} exige e a Casa de Leilões vende: 24 {item:4338}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 37: Mageweave Bandage (225-240)
 	-- {item:8544} Mageweave Bandage
@@ -186,9 +186,9 @@ return {
 
 	-- Step 39: Heavy Mageweave Bandage: Auction House
 	-- {item:8545} Heavy Mageweave Bandage
-	["{item:8545}: Auction House"] = "",
+	["{item:8545}: Auction House"] = "{item:8545}: Casa de Leilões",
 	-- {item:8545} Heavy Mageweave Bandage · {item:4338} Mageweave Cloth
-	["What {item:8545} takes that the Auction House sells: 50 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:8545} takes that the Auction House sells: 50 {item:4338}. The counts drop by what your bags, bank and mail hold."] = "O que {item:8545} exige e a Casa de Leilões vende: 50 {item:4338}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 40: Heavy Mageweave Bandage: cloth
 	-- {item:8545} Heavy Mageweave Bandage
@@ -204,15 +204,15 @@ return {
 
 	-- Step 43: Runecloth Bandage: Auction House
 	-- {item:14529} Runecloth Bandage
-	["{item:14529}: Auction House"] = "",
+	["{item:14529}: Auction House"] = "{item:14529}: Casa de Leilões",
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth
-	["What {item:14529} takes that the Auction House sells: 65 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What {item:14529} takes that the Auction House sells: 65 {item:14047}. The counts drop by what your bags, bank and mail hold."] = "O que {item:14529} exige e a Casa de Leilões vende: 65 {item:14047}. As contagens diminuem conforme o que suas bolsas, seu banco e sua correspondência guardam.",
 
 	-- Step 44: Runecloth Bandage: cloth
 	-- {item:14529} Runecloth Bandage
 	["{item:14529}: cloth"] = "{item:14529}: tecido",
 	-- {item:14047} Runecloth
-	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, or take it from your bank."] = "",
+	["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, or take it from your bank."] = "{item:14047} cai de humanoides de nível 45-60: guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 45: Runecloth Bandage (260-300)
 	-- {item:14529} Runecloth Bandage · {item:14047} Runecloth · {item:14530} Heavy Runecloth Bandage
@@ -232,13 +232,8 @@ return {
 	-- ["humanoids of level 45-60 drop {item:14047} (or buy it at the Auction House)."] = "humanoides de nível 45-60 deixam cair {item:14047} (ou compre na Casa de Leilões).",
 	-- ["humanoids of level 5-20 drop {item:2589} (or buy it at the Auction House)."] = "humanoides de nível 5-20 deixam cair {item:2589} (ou compre na Casa de Leilões).",
 	-- ["{item:1251} is orange from 1 (yellow at 30, grey at 60): about 61 crafts to 50. Bandages need no fire: craft them anywhere."] = "{item:1251} fica laranja a partir de 1 (amarelo em 30, cinza em 60): cerca de 61 criações até 50. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
-	-- ["{item:14047} drops from humanoids of level 45-60: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:14047} cai de humanoides de nível 45-60: guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529} fica amarelo a partir de 260 (amarelo em 260, cinza em 320): cerca de 65 criações até 300. Bandagens não precisam de fogo: faça-as em qualquer lugar. {item:14529} fica amarelo até 320, então leva você até 300 sem uma ida para buscar Bandagem Grossa de Runatrama.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} fica amarelo a partir de 50 (amarelo em 50, cinza em 100): cerca de 46 criações até 80. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
-	-- ["{item:2589} drops from humanoids of level 5-20: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2589} cai de humanoides de nível 5-20: guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
-	-- ["{item:2592} drops from humanoids of level 15-30: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:2592} cai de humanoides de nível 15-30: guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
-	-- ["{item:4306} drops from humanoids of level 25-45: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4306} cai de humanoides de nível 25-45: guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
-	-- ["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, take it from your bank, or buy it at the Auction House."] = "{item:4338} cai de humanoides de nível 35-50: guarde o que saquear enquanto sobe de nível, pegue no seu banco ou compre na Casa de Leilões.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450} fica amarelo a partir de 150 (amarelo em 150, cinza em 210): cerca de 42 criações até 180. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
 	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} fica amarelo a partir de 180 (amarelo em 180, cinza em 240): cerca de 42 criações até 210. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
 	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} fica amarelo a partir de 210 (amarelo em 210, cinza em 270): cerca de 18 criações até 225. Bandagens não precisam de fogo: faça-as em qualquer lugar.",

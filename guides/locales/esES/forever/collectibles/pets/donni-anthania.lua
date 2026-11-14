@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Donni Anthania
 	-- {npc:6367} Donni Anthania · {area:87} Goldshire
-	["{npc:6367} has a farmhouse north of {area:87}. Each cat carrier costs 40s, 1g 60s for all four. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:6367} has a farmhouse north of {area:87}. Each cat carrier costs 40s, 1g 60s for all four. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:6367} tiene una granja al norte de {area:87}. Cada transportador de gato cuesta 40 p; 1 o 60 p por los cuatro. Cada objeto de mascota enseña su compañero al usarlo; los objetivos siguen marcados después.",
 	-- {item:8485} Cat Carrier (Bombay)
 	["{item:8485}, 40s"] = "{item:8485}, 40 p",
 	-- {item:8486} Cat Carrier (Cornish Rex)
@@ -21,7 +21,4 @@ return {
 	["{item:8487}, 40s"] = "{item:8487}, 40 p",
 	-- {item:8488} Cat Carrier (Silver Tabby)
 	["{item:8488}, 40s"] = "{item:8488}, 40 p",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:6367} has a farmhouse north of {area:87}. Each cat carrier costs 40s. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:6367} tiene una granja al norte de {area:87}. Cada transportador de gato cuesta 40 p. Cada objeto de mascota enseña su compañero al usarlo; los objetivos siguen marcados después.",
 }

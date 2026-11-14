@@ -20,13 +20,13 @@ return {
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 1-75: Auction House"] = "",
+	["{skill:333} 1-75: Auction House"] = "{skill:333} 1-75：拍賣場",
 	-- {item:10940} Strange Dust
-	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 1-75 takes that the Auction House sells: 51 {item:10940}. The counts drop by what your bags, bank and mail hold."] = "1-75階段所需的材料中，拍賣場有賣的：51個{item:10940}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 4: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {skill:333} Enchanting
-	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["51 {item:10940} for {spell:7420}: {skill:333}: disenchant green items of item level 5-20."] = "準備51個{item:10940}製作{spell:7420}：{skill:333}：分解物品等級5-20的綠色物品。",
 
 	-- Step 5: Enchant Bracer - Inferior Stamina to 25
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
@@ -37,7 +37,7 @@ return {
 
 	-- Step 6: Enchanting recipes at 25
 	-- {skill:333} Enchanting
-	["{skill:333} recipes at 25"] = "",
+	["{skill:333} recipes at 25"] = "{skill:333}25點的配方",
 	-- {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:1230643} Enchanted Lute · {item:4470} Simple Wood · {item:10940} Strange Dust
 	["Back to an {skill:333} trainer: {spell:7420} (from 15, 50c). Also learn {spell:1230643} (1s): Forever's {skill:333} camp item, 1 {item:4470} and 1 {item:10940}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:333} quest from your starting area's camping guide (after The Great Outdoors) sends you to an enchanting trainer who teaches it free."] = "",
 
@@ -55,31 +55,31 @@ return {
 
 	-- Step 9: Enchanting 75-150: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: vendor goods"] = "",
+	["{skill:333} 75-150: vendor goods"] = "{skill:333} 75-150：商人材料",
 	-- {item:10938} Lesser Magic Essence
-	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "",
+	["Buy the whole bracket's share in one go: 4 {item:10938} (32s). The arrow picks the nearest seller of your faction. {item:10938}: no vendor of the other faction sells it; that side gathers or buys it at the Auction House (next steps)."] = "一次買齊這個階段的用量：4個{item:10938}（32銀）。箭頭會指向你陣營最近的賣家。{item:10938}：另一陣營沒有商人販售；那一方要自己採集或在拍賣場購買（接下來的步驟）。",
 
 	-- Step 10: Enchanting 75-150: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 75-150: Auction House"] = "",
+	["{skill:333} 75-150: Auction House"] = "{skill:333} 75-150：拍賣場",
 	-- {item:1210} Shadowgem · {item:6338} Silver Rod · {item:10938} Lesser Magic Essence · {item:10940} Strange Dust · {item:11083} Soul Dust
-	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 75-150 takes that the Auction House sells: 1 {item:1210}, 1 {item:6338}, 4 {item:10938}, 121 {item:10940} and 20 {item:11083}. The counts drop by what your bags, bank and mail hold."] = "75-150階段所需的材料中，拍賣場有賣的：1個{item:1210}、1個{item:6338}、4個{item:10938}、121個{item:10940}和20個{item:11083}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 11: Shadowgem
 	-- {item:1210} Shadowgem · {item:6339} Runed Silver Rod · {object:1731} Copper Vein · {object:1732} Tin Vein · {object:1733} Silver Vein
-	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "",
+	["1 {item:1210} for {item:6339}: {item:1210} turns up in about one {object:1731}, {object:1732} or {object:1733} in 100: keep the ones you find while mining."] = "準備1個{item:1210}製作{item:6339}：大約每100個{object:1731}、{object:1732}或{object:1733}會出現一個{item:1210}：採礦時把找到的留著。",
 
 	-- Step 12: Silver Rod
 	-- {item:6338} Silver Rod · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
-	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "",
+	["1 {item:6338} for {item:6339}: {skill:164}: {item:6338}."] = "準備1個{item:6338}製作{item:6339}：{skill:164}：{item:6338}。",
 
 	-- Step 13: Strange Dust
 	-- {item:10940} Strange Dust · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod · {skill:333} Enchanting
-	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "",
+	["121 {item:10940} for {spell:7420}, {spell:7771} and {item:6339}: {skill:333}: disenchant green items of item level 5-20."] = "準備121個{item:10940}製作{spell:7420}、{spell:7771}和{item:6339}：{skill:333}：分解物品等級5-20的綠色物品。",
 
 	-- Step 14: Soul Dust
 	-- {item:11083} Soul Dust · {spell:13501} Enchant Bracer - Lesser Stamina · {skill:333} Enchanting
-	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["20 {item:11083} for {spell:13501}: {skill:333}: disenchant green items of item level 21-30."] = "準備20個{item:11083}製作{spell:13501}：{skill:333}：分解物品等級21-30的綠色物品。",
 
 	-- Step 15: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
@@ -97,19 +97,19 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} recipes at 130"] = "{skill:333}130點的配方",
 	-- {skill:333} Enchanting · {spell:7795} Runed Silver Rod · {spell:13501} Enchant Bracer - Lesser Stamina
-	["Back to an {skill:333} trainer: {spell:7795} (from 100) and {spell:13501} (from 130)."] = "",
+	["Back to an {skill:333} trainer: {spell:7795} (from 100) and {spell:13501} (from 130)."] = "回到{skill:333}訓練師那裡：{spell:7795}（100點起）和{spell:13501}（130點起）。",
 
 	-- Step 18: Enchant Bracer - Lesser Stamina to 150
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
-	["{spell:13501} to 150"] = "",
+	["{spell:13501} to 150"] = "{spell:13501}練到150",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:6339} Runed Silver Rod · {item:10938} Lesser Magic Essence · {skill:333} Enchanting
-	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "",
+	["{spell:13501} is orange at 130 (yellow 155, green 175, grey 195): about 20 crafts to 150, a point every craft. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:6339} first: the recipe needs it in your bags, so keep it there. {item:10938} (4 for 75-150): Alliance: {skill:333}: disenchant green items of item level 5-15; or the Auction House. Enchant any item for that slot in your bags, even a grey one. {skill:333} 150 is a Legacy System milestone."] = "{spell:13501}在技能130時為橙色（155變黃、175變綠、195變灰）：約製作20次可到150，每次都加1點。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。先做好{item:6339}：配方需要它放在背包裡，所以一直帶著。{item:10938}（75-150需要4個）：聯盟：{skill:333}：分解物品等級5-15的綠色物品；或在拍賣場購買。對背包中任何該部位的物品附魔都可以，灰色物品也行。{skill:333}達到150是傳承系統的一個里程碑。",
 
 	-- Step 19: Enchanting 150-225: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 150-225: Auction House"] = "",
+	["{skill:333} 150-225: Auction House"] = "{skill:333} 150-225：拍賣場",
 	-- {item:5500} Iridescent Pearl · {item:7971} Black Pearl · {item:11082} Greater Astral Essence · {item:11083} Soul Dust · {item:11128} Golden Rod · {item:11135} Greater Mystic Essence · {item:11137} Vision Dust · {item:11144} Truesilver Rod
-	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 150-225 takes that the Auction House sells: 1 {item:5500}, 1 {item:7971}, 1 {item:11082}, 71 {item:11083}, 1 {item:11128}, 1 {item:11135}, 21 {item:11137} and 1 {item:11144}. The counts drop by what your bags, bank and mail hold."] = "150-225階段所需的材料中，拍賣場有賣的：1個{item:5500}、1個{item:7971}、1個{item:11082}、71個{item:11083}、1個{item:11128}、1個{item:11135}、21個{item:11137}和1個{item:11144}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 20: Iridescent Pearl (Alliance)
 	-- {item:5500} Iridescent Pearl
@@ -124,27 +124,27 @@ return {
 
 	-- Step 22: Greater Astral Essence
 	-- {item:11082} Greater Astral Essence · {item:11130} Runed Golden Rod · {skill:333} Enchanting
-	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "",
+	["1 {item:11082} for {item:11130}: {skill:333}: disenchant green items of item level 16-25."] = "準備1個{item:11082}製作{item:11130}：{skill:333}：分解物品等級16-25的綠色物品。",
 
 	-- Step 23: Soul Dust
 	-- {item:11083} Soul Dust · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility · {skill:333} Enchanting
-	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "",
+	["71 {item:11083} for {item:11130}, {spell:13501} and {spell:13637}: {skill:333}: disenchant green items of item level 21-30."] = "準備71個{item:11083}製作{item:11130}、{spell:13501}和{spell:13637}：{skill:333}：分解物品等級21-30的綠色物品。",
 
 	-- Step 24: Golden Rod
 	-- {item:11128} Golden Rod · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
-	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "",
+	["1 {item:11128} for {item:11130}: {skill:164}: {item:11128}."] = "準備1個{item:11128}製作{item:11130}：{skill:164}：{item:11128}。",
 
 	-- Step 25: Greater Mystic Essence
 	-- {item:11135} Greater Mystic Essence · {item:11145} Runed Truesilver Rod · {skill:333} Enchanting
-	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "",
+	["1 {item:11135} for {item:11145}: {skill:333}: disenchant green items of item level 26-35."] = "準備1個{item:11135}製作{item:11145}：{skill:333}：分解物品等級26-35的綠色物品。",
 
 	-- Step 26: Vision Dust
 	-- {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense · {skill:333} Enchanting
-	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["21 {item:11137} for {item:11145} and {spell:13746}: {skill:333}: disenchant green items of item level 31-40."] = "準備21個{item:11137}製作{item:11145}和{spell:13746}：{skill:333}：分解物品等級31-40的綠色物品。",
 
 	-- Step 27: Truesilver Rod
 	-- {item:11144} Truesilver Rod · {item:11145} Runed Truesilver Rod · {skill:164} Blacksmithing
-	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "",
+	["1 {item:11144} for {item:11145}: {skill:164}: {item:11144}."] = "準備1個{item:11144}製作{item:11145}：{skill:164}：{item:11144}。",
 
 	-- Step 28: Expert Enchanting
 	-- {skill:333} Enchanting
@@ -156,29 +156,29 @@ return {
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
 	["{spell:13501} to 160"] = "",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
-	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。",
 
 	-- Step 30: Enchanting recipes at 160
 	-- {skill:333} Enchanting
-	["{skill:333} recipes at 160"] = "",
+	["{skill:333} recipes at 160"] = "{skill:333}160點的配方",
 	-- {spell:13637} Enchant Boots - Lesser Agility
-	["Still at the Expert trainer: {spell:13637} (from 160)."] = "",
+	["Still at the Expert trainer: {spell:13637} (from 160)."] = "仍在高級訓練師那裡：{spell:13637}（160點起）。",
 
 	-- Step 31: Enchant Boots - Lesser Agility to 205
 	-- {spell:13637} Enchant Boots - Lesser Agility
-	["{spell:13637} to 205"] = "",
+	["{spell:13637} to 205"] = "{spell:13637}練到205",
 	-- {spell:13637} Enchant Boots - Lesser Agility · {item:11083} Soul Dust
 	["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 59 crafts to 205. Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "",
 
 	-- Step 32: Enchanting recipes at 205
 	-- {skill:333} Enchanting
-	["{skill:333} recipes at 205"] = "",
+	["{skill:333} recipes at 205"] = "{skill:333}205點的配方",
 	-- {spell:13702} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
 	["Still at the Expert trainer: {spell:13702} (from 200) and {spell:13746} (from 205)."] = "",
 
 	-- Step 33: Enchant Cloak - Greater Defense to 225
 	-- {spell:13746} Enchant Cloak - Greater Defense
-	["{spell:13746} to 225"] = "",
+	["{spell:13746} to 225"] = "{spell:13746}練到225",
 	-- {spell:13746} Enchant Cloak - Greater Defense · {item:11137} Vision Dust · {item:11145} Runed Truesilver Rod · {item:7971} Black Pearl · {skill:333} Enchanting
 	["{spell:13746} is orange at 205 (yellow 225, green 245, grey 265): about 20 crafts to 225, a point every craft. Each takes 1 {item:11137}. One {item:11137} a craft (level 31-40 greens). Make the {item:11145} first: the recipe needs it in your bags, so keep it there. {item:7971} (1 for 150-225): {item:7971} is a rare drop (no mob gives it one time in 50): buy it at the Auction House, or keep the ones you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 225 is a Legacy System milestone."] = "",
 
@@ -204,9 +204,9 @@ return {
 
 	-- Step 38: Enchanting 225-300: Auction House
 	-- {skill:333} Enchanting
-	["{skill:333} 225-300: Auction House"] = "",
+	["{skill:333} 225-300: Auction House"] = "{skill:333} 225-300：拍賣場",
 	-- {item:8831} Purple Lotus · {item:11137} Vision Dust · {item:11176} Dream Dust
-	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "",
+	["What 225-300 takes that the Auction House sells: 34 {item:8831}, 39 {item:11137} and 208 {item:11176}. The counts drop by what your bags, bank and mail hold."] = "225-300階段所需的材料中，拍賣場有賣的：34個{item:8831}、39個{item:11137}和208個{item:11176}。數量會扣除你背包、銀行和郵件中已有的。",
 
 	-- Step 39: Purple Lotus (Alliance)
 	-- {item:8831} Purple Lotus
@@ -222,11 +222,11 @@ return {
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
-	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "",
+	["39 {item:11137} for {spell:13815}: {skill:333}: disenchant green items of item level 31-40."] = "準備39個{item:11137}製作{spell:13815}：{skill:333}：分解物品等級31-40的綠色物品。",
 
 	-- Step 42: Dream Dust
 	-- {item:11176} Dream Dust · {item:20747} Lesser Mana Oil · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting
-	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "",
+	["208 {item:11176} for {item:20747} and {spell:20017}: {skill:333}: disenchant green items of item level 41-50."] = "準備208個{item:11176}製作{item:20747}和{spell:20017}：{skill:333}：分解物品等級41-50的綠色物品。",
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
@@ -251,13 +251,11 @@ return {
 	-- ["Apprentice {skill:333}"] = "初級{skill:333}",
 	-- ["Artisan needs character level 35 and {skill:333} 200; it raises the cap to 300. Materials for 225-300 are worth about 30s in all."] = "專家級需要角色等級35且{skill:333}200點；上限提高到300。225-300所需材料總價約30銀。",
 	-- ["Back to an {skill:333} trainer: {spell:13501} is taught from {skill:333} 155."] = "回到{skill:333}訓練師那裡：{spell:13501}在{skill:333}155點時可學。",
-	-- ["Back to an {skill:333} trainer: {spell:13628}, {spell:13637} are taught from {skill:333} 180."] = "回到{skill:333}訓練師那裡：{spell:13628}、{spell:13637}在{skill:333}180點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:13661} is taught from {skill:333} 200."] = "回到{skill:333}訓練師那裡：{spell:13661}在{skill:333}200點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:13935} is taught from {skill:333} 255."] = "回到{skill:333}訓練師那裡：{spell:13935}在{skill:333}255點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:13948} is taught from {skill:333} 270."] = "回到{skill:333}訓練師那裡：{spell:13948}在{skill:333}270點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:7426} is taught from {skill:333} 90."] = "回到{skill:333}訓練師那裡：{spell:7426}在{skill:333}90點時可學。",
 	-- ["Back to an {skill:333} trainer: {spell:7788} is taught from {skill:333} 120."] = "回到{skill:333}訓練師那裡：{spell:7788}在{skill:333}120點時可學。",
-	-- ["Back to an {skill:333} trainer: {spell:7795} is taught from {skill:333} 130."] = "回到{skill:333}訓練師那裡：{spell:7795}在{skill:333}130點時可學。",
 	-- ["Expert needs character level 20 and {skill:333} 125; it raises the cap to 225. Materials for 150-225 are worth about 13s in all."] = "高級需要角色等級20且{skill:333}125點；上限提高到225。150-225所需材料總價約13銀。",
 	-- ["Journeyman needs character level 10 and {skill:333} 50; it raises the cap to 150. Materials for 75-150 are worth about 7g 51s in all."] = "中級需要角色等級10且{skill:333}50點；上限提高到150。75-150所需材料總價約7金51銀。",
 	-- ["Open Giant Clams here. The Auction House works too."] = "在這裡打開巨型蚌殼。拍賣場也買得到。",
@@ -294,20 +292,14 @@ return {
 	-- ["{skill:333} materials for 150-225"] = "{skill:333}150-225的材料",
 	-- ["{skill:333} materials for 225-300"] = "{skill:333}225-300的材料",
 	-- ["{skill:333} materials for 75-150"] = "{skill:333}75-150的材料",
-	-- ["{skill:333} recipes at 120"] = "{skill:333}120點的配方",
 	-- ["{skill:333} recipes at 155"] = "{skill:333}155點的配方",
 	-- ["{skill:333} recipes at 180"] = "{skill:333}180點的配方",
-	-- ["{skill:333} recipes at 200"] = "{skill:333}200點的配方",
-	-- ["{skill:333} recipes at 255"] = "{skill:333}255點的配方",
 	-- ["{skill:333} recipes at 292"] = "{skill:333}292點的配方",
 	-- ["{skill:333} recipes at 90"] = "{skill:333}90點的配方",
 	-- ["{skill:333} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 4g 3s in all."] = "{skill:333}可以邊升級邊練。永恆的傳承系統會在專業技能150、225和300（中級、高級和專家級的上限）時給予製造專業獎勵，所以每個階段都很重要。1-75所需材料總價約4金3銀。",
 	-- ["{skill:333}: disenchant uncommon (green) gear (or the Auction House)"] = "{skill:333}：分解優秀（綠色）裝備（或在拍賣場購買）",
 	-- ["{spell:13419} to 150"] = "{spell:13419}練到150",
-	-- ["{spell:13501} to 180"] = "{spell:13501}練到180",
-	-- ["{spell:13637} to 200"] = "{spell:13637}練到200",
 	-- ["{spell:13661} to 225"] = "{spell:13661}練到225",
-	-- ["{spell:13746} to 255"] = "{spell:13746}練到255",
 	-- ["{spell:13935} to 292"] = "{spell:13935}練到292",
 	-- ["{spell:13948} to 300"] = "{spell:13948}練到300",
 	-- ["{spell:7426} to 120"] = "{spell:7426}練到120",

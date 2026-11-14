@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "",
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "На 20-м уровне {npc:5875} ({object:172960} под районом {object:172982}) отправит вас в нескольких шагах отсюда: {npc:5909}. Задания на этих демонов дают два учителя – {npc:5875} здесь и {npc:5675} ({zone:1458}), – и можно взять только одно; гайд следует тому {quest:1472}, которое вы взяли. {npc:5909} предлагает обе ветки ({zone:1454}): возьмите обе.",
 	["the succubus"] = "",
 	["the incubus"] = "",
 
@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Magar
 	-- {npc:3363} Magar · {object:173018} Magar's Cloth Goods · {object:172960} Cleft of Shadow · {zone:1440} Ashenvale
-	["{npc:3363} keeps {object:173018} on the main street east of the {object:172960}. He asks you to look for his mate Krilge in {zone:1440}."] = "",
+	["{npc:3363} keeps {object:173018} on the main street east of the {object:172960}. He asks you to look for his mate Krilge in {zone:1440}."] = "{npc:3363} держит {object:173018} на главной улице к востоку от места {object:172960}. Он просит найти его подругу Krilge ({zone:1440}).",
 
 	-- Step 4: Gazrog
 	-- {npc:3464} Gazrog · {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains
@@ -59,7 +59,7 @@ return {
 
 	-- Step 10: Devourer of Souls (Undercity)
 	-- {object:1661} The Undercity · {npc:5675} Carendin Halgar · {quest:1472} Devourer of Souls · {npc:5875} Gan'rul Bloodeye · {object:36082} Magic Quarter · {npc:5693} Godrick Farsan
-	["{object:1661}'s version, for warlocks who took {npc:5675}'s {quest:1472} instead of {npc:5875}'s. At 20 {npc:5675}, in the {object:36082}, sends you to {npc:5693} close by. {npc:5693} shows you an image of each quarry and offers both branches: take both."] = "",
+	["{object:1661}'s version, for warlocks who took {npc:5675}'s {quest:1472} instead of {npc:5875}'s. At 20 {npc:5675}, in the {object:36082}, sends you to {npc:5693} close by. {npc:5693} shows you an image of each quarry and offers both branches: take both."] = "Вариант для {object:1661} – для чернокнижников, взявших {quest:1472} у NPC {npc:5675}, а не у {npc:5875}. На 20-м уровне {npc:5675} ({object:36082}) отправит вас неподалеку. Цель: {npc:5693}. {npc:5693} покажет вам образ каждой добычи и предложит обе ветки: возьмите обе.",
 
 	-- Step 11: Silverpine hearts
 	["Silverpine hearts"] = "",
@@ -67,14 +67,15 @@ return {
 	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
 
 	-- Step 12: Corma Villard
-	-- {npc:5683} Corma Villard · {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["{npc:5683} (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
+	["Corma Villard"] = "Corma Villard",
+	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
+	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
 
 	-- Step 13: The Binding: succubus (Undercity)
 	-- {quest:1474} The Binding · {zone:1458} Undercity
 	["{quest:1474}: succubus ({zone:1458})"] = "",
-	-- {npc:5675} Carendin Halgar · {npc:5683} Corma Villard · {item:6286} Pure Hearts
-	["Back to {npc:5675} with Dalin's and {npc:5683}'s hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
+	-- {npc:5675} Carendin Halgar · {item:6286} Pure Hearts
+	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
 	["{item:6286}, on the circle below {npc:5675}"] = "",
 
@@ -92,15 +93,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "Второй демон-соблазнитель – саяад мужского пола, а также сумка для осколков душ.",
-	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers offer the incubus, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one: this guide follows whichever {quest:1472} you took."] = "На 20-м уровне {npc:5875} ({object:172960} под районом {object:172982}) отправит вас в нескольких шагах отсюда: {npc:5909}. Инкуба предлагают два учителя – {npc:5875} здесь и {npc:5675} ({zone:1458}), – и можно взять только одно задание: гайд следует тому {quest:1472}, которое вы взяли.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "Назад к {npc:5675} ({object:36082}). Положите сердца у круга призыва под ним и победите призванного инкуба.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "Назад к {npc:5875} ({object:172960}). Отнесите шарф к кругу призыва в палатке рядом (хозяин: {npc:3216}) и победите призванного инкуба.",
 	-- ["Incubus (Horde)"] = "Инкуб (Орда)",
 	-- ["{area:422} lies in southern {zone:1440}, south of {area:431}. The Shadethicket bog beasts around the lake drop the {item:190232}, about one in twenty."] = "{area:422} – на юге зоны {zone:1440}, к югу от места {area:431}. {item:190232} падает с чащобных болотных зверей вокруг озера, примерно в одном случае из двадцати.",
 	-- ["{npc:185333} works as a tailor for the {area:279} wizards at {area:233}, in eastern {zone:1421}. Take her heart."] = "{npc:185333} работает портнихой у волшебников ({area:279}) здесь: {area:233}, восток зоны {zone:1421}. Заберите ее сердце.",
 	-- ["{npc:185334} works in {area:392}, on the {zone:1413} coast. Take the zeppelin to {zone:1411} and ride or fly on to {area:392}."] = "{npc:185334} работает здесь: {area:392}, на побережье зоны {zone:1413}. Сядьте на дирижабль в зону {zone:1411}, затем езжайте или летите дальше. Цель: {area:392}.",
-	-- ["{npc:3363} keeps {object:173018}, east of the {object:172960} along the main street. He asks you to look for his mate, Krilge."] = "{npc:3363} держит {object:173018} к востоку от места {object:172960} на главной улице. Он просит найти его подругу Krilge.",
 	-- ["{npc:5675}: he binds the incubus to you"] = "{npc:5675}: он привяжет к вам инкуба",
 	-- ["{npc:5875}: he binds the incubus to you"] = "{npc:5875}: он привяжет к вам инкуба",
-	-- ["{object:1661}'s version, for warlocks who took {npc:5675}'s {quest:1472} instead of {npc:5875}'s. At 20 {npc:5675}, in the {object:36082}, sends you to {npc:5693} in the Temple of the Damned, just north of him."] = "Вариант для {object:1661} – для чернокнижников, взявших {quest:1472} у NPC {npc:5675}, а не у {npc:5875}. На 20-м уровне {npc:5675} ({object:36082}) отправит вас в Храм Проклятых, чуть севернее. Цель: {npc:5693}.",
 }

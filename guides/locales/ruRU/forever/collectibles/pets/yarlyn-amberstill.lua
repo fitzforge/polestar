@@ -12,11 +12,8 @@ return {
 
 	-- Step 1: Yarlyn Amberstill
 	-- {npc:1263} Yarlyn Amberstill · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
-	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:1263} стоит здесь: {area:803}, к востоку от места {area:131} по дороге в зону {zone:1432}, рядом с NPC {npc:1261}, заводчиком баранов. Каждая клетка с кроликом стоит 20 с; арктическая и бурая клетки – новинки Forever. Каждый предмет питомца при использовании дает спутника; цели после этого остаются отмеченными.",
 	-- {item:8497} Rabbit Crate (Snowshoe)
 	["{item:8497}, 20s"] = "{item:8497}, 20 с",
 	["20s"] = "20 с",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:1263} stands at {area:803}, east of {area:131}. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:1263} стоит здесь: {area:803}, к востоку от места {area:131}. Каждая клетка с кроликом стоит 20 с; арктическая и бурая клетки — новинки Forever. Каждый предмет питомца при использовании дает спутника; цели после этого остаются отмеченными.",
 }

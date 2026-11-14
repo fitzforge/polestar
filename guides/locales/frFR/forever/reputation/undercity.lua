@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Undercity Reputation"] = "Réputation : Fossoyeuse",
 	-- {item:14047} Runecloth
-	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "",
+	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "Les quêtes de Tirisfal pendant que vous montez de niveau, celles des Maleterres à partir du niveau 55, puis {item:14047} jusqu'à Exalté.",
 	-- {faction:68} Undercity
 	["Exalted with the {faction:68}"] = "Exalté auprès de {faction:68}",
 
@@ -24,7 +24,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154} (optional hub)"] = "{area:154} (étape facultative)",
 	-- {area:154} Deathknell · {faction:68} Undercity · {npc:1661} Novice Elreth · {npc:1570} Executor Arren · {npc:1740} Deathguard Saltain
-	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "",
+	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "Forever paie ces anciennes quêtes en entier à tout niveau. {area:154}, le départ des Réprouvés à l'extrémité ouest des clairières de Tirisfal : environ 900 de réputation {faction:68} en 25 minutes. Les quêtes de la zone de départ ne donnent rien aux autres villes. {npc:1661}, {npc:1570} et {npc:1740} se tiennent dans le village.",
 
 	-- Step 3: Deathknell: the next quests
 	-- {area:154} Deathknell
@@ -57,7 +57,7 @@ return {
 	-- {area:159} Brill
 	["{area:159} (optional hub)"] = "{area:159} (étape facultative)",
 	-- {area:159} Brill · {faction:68} Undercity · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren · {npc:1518} Apothecary Johaan · {npc:1496} Deathguard Dillinger · {npc:1500} Coleman Farthing
-	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "",
+	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "Forever paie ces anciennes quêtes en entier à tout niveau. {area:159} et les champs alentour : environ 1 100 de réputation {faction:68} en 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} et {npc:1500} sont en ville.",
 
 	-- Step 9: Around Brill
 	-- {area:159} Brill
@@ -111,7 +111,7 @@ return {
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "Le {area:152} est le camp des Réprouvés sur la route qui mène des clairières de Tirisfal aux {zone:1422}. La suite de quêtes de {npc:10837} vous envoie contre les chaudrons du Fléau des {zone:1422} : environ 820 de réputation {faction:68}. Prenez des {item:12814} dans la caisse à côté de lui ; brûlez la tente de commandement du camp écarlate entre les {area:200} et le {area:199} et plantez la {item:12807} à côté.",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (niveau 53)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -133,13 +133,13 @@ return {
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["{npc:10902}: use the {item:12815} at the door"] = "{npc:10902} : utilisez la {item:12815} à la porte",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
-	["Mark {npc:10902} with the {item:12815}"] = "",
+	["Mark {npc:10902} with the {item:12815}"] = "Marquez {npc:10902} avec {item:12815}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
-	["Mark {npc:10903} with the {item:12815}"] = "",
+	["Mark {npc:10903} with the {item:12815}"] = "Marquez {npc:10903} avec {item:12815}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
-	["Mark {npc:10904} with the {item:12815}"] = "",
+	["Mark {npc:10904} with the {item:12815}"] = "Marquez {npc:10904} avec {item:12815}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
-	["Mark {npc:10905} with the {item:12815}"] = "",
+	["Mark {npc:10905} with the {item:12815}"] = "Marquez {npc:10905} avec {item:12815}",
 
 	-- Step 22: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
@@ -198,7 +198,7 @@ return {
 	-- {quest:2936} The Spider God
 	["{quest:2936} (optional chain)"] = "{quest:2936} (suite optionnelle)",
 	-- {zone:1425} Hinterlands · {area:272} Tarren Mill · {area:367} Sen'jin Village · {area:978} Zul'Farrak · {faction:68} Undercity · {quest:2937} Summoning Shadra · {quest:2938} Venom to the Undercity · {quest:2933} Venom Bottles
-	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "",
+	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "Six quêtes à travers les {zone:1425}, {area:272}, {area:367}, {area:978} et {faction:68} : 600 de réputation {faction:68} et 225 de Sombrelance. {quest:2937} et {quest:2938} sont de niveau 55 et paient 400 en entier au niveau 60 ; les quatre précédentes sont de niveau 43 à 45 et paient aussi en entier. Comptez environ 90 minutes avec les trajets. Les flacons de venin ({quest:2933}) sont posés sur les tables du village Witherbark à l'ouest des {zone:1425} : cliquez sur l'un d'eux pour commencer.",
 
 	-- Step 34: Shadra'Alor: an Undamaged Venom Sac
 	-- {area:353} Shadra'Alor · {quest:2934} Undamaged Venom Sac
@@ -263,15 +263,11 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Les Adeptes noirs et Ombremages (niveau 58-60) en lâchent ici ; chaque Fléau tué ici compte aussi pour l'{object:92525} (voir ce guide). L'hôtel des ventes fonctionne aussi.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Les ogres Cognedune (niveau 45-48) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
-	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes (180 at a fifth). Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "Dans Classic, les quêtes 6 niveaux ou plus sous le vôtre rapportent moins (un cinquième au niveau 60) ; un retour de la bêta de Forever dit qu'elles payaient en entier. Votre première remise vous le dira : si elle rapporte un cinquième, passez ces pôles. {area:154}, le départ des Réprouvés à l'extrémité ouest des clairières de Tirisfal : environ 900 de réputation {faction:68} en 25 minutes (180 au cinquième). Les quêtes de la zone de départ ne donnent rien aux autres villes. {npc:1661}, {npc:1570} et {npc:1740} se tiennent dans le village.",
-	-- ["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes (220 at a fifth). {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "Dans Classic, les quêtes 6 niveaux ou plus sous le vôtre rapportent moins (un cinquième au niveau 60) ; un retour de la bêta de Forever dit qu'elles payaient en entier. Votre première remise vous le dira : si elle rapporte un cinquième, passez ces pôles. {area:159} et les champs alentour : environ 1 100 de réputation {faction:68} en 45 minutes (220 au cinquième). {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} et {npc:1500} sont en ville.",
 	-- ["Keep handing in {quest:7819} until {faction:68} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7819} jusqu'à être Exalté auprès de {faction:68}. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",
 	-- ["Keep handing in {quest:7819}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7819}, 20 {item:14047} à la fois. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Les centaures kolkar (niveau 30-33) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
-	-- ["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 (a fifth at 60 in Classic, 440 {faction:68} in all then). Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "Six quêtes à travers les {zone:1425}, {area:272}, {area:367}, {area:978} et {faction:68} : 600 de réputation {faction:68} et 225 de Sombrelance. {quest:2937} et {quest:2938} sont de niveau 55 et paient 400 en entier au niveau 60 ; les quatre précédentes sont de niveau 43 à 45 (un cinquième au niveau 60 dans Classic, soit 440 de {faction:68} en tout). Comptez environ 90 minutes avec les trajets. Les flacons de venin ({quest:2933}) sont posés sur les tables du village Witherbark à l'ouest des {zone:1425} : cliquez sur l'un d'eux pour commencer.",
 	-- ["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "Les quêtes de niveau 55-60 des Maleterres et l'{item:14047} jusqu'à Exalté, avec les anciennes quêtes des clairières de Tirisfal en option.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Les Massacreurs de la KapitalRisk de la {area:381} (niveau 16-17) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
-	-- ["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation, about 710 at 60 if the level 53 quests pay less. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "Le {area:152} est le camp des Réprouvés sur la route qui mène des clairières de Tirisfal aux {zone:1422}. La suite de quêtes de {npc:10837} vous envoie contre les chaudrons du Fléau des {zone:1422} : environ 820 de réputation {faction:68}, environ 710 au niveau 60 si les quêtes de niveau 53 rapportent moins. Prenez des {item:12814} dans la caisse à côté de lui ; brûlez la tente de commandement du camp écarlate entre les {area:200} et le {area:199} et plantez la {item:12807} à côté.",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729} prend les étoffes pour {faction:68} à {faction:68}. Les premiers dons d'étoffe de laine, de soie, de tisse-mage et d'{item:14047} (60 étoffes chacun) se font une fois et donnent le plus de réputation par étoffe ; ensuite, {quest:7819} se répète jusqu'à Exalté. Être Exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14729}: {item:14047} delivered"] = "{npc:14729} : {item:14047} livrée",
 	-- ["{quest:7819} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819} prend 20 {item:14047} par remise et se répète à volonté. Apportez l'{item:14047} par multiples de 20 et rendez tout d'un coup, une remise après l'autre. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",

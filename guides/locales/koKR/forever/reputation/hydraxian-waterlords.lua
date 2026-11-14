@@ -64,7 +64,7 @@ return {
 
 	-- Step 10: Hands of the Enemy
 	-- {npc:12118} Lucifron · {npc:12259} Gehennas · {npc:12264} Shazzrah · {npc:12098} Sulfuron Harbinger · {area:2717} Molten Core
-	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "",
+	["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}, {npc:12259}, {npc:12264}, {npc:12098}은(는) {area:2717}의 우두머리이며, 각각 퀘스트에 필요한 자신의 손을 떨어뜨립니다.",
 	-- {item:17332} Hand of Shazzrah
 	["{item:17332}: raid of 40"] = "",
 
@@ -98,7 +98,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both elementals roam north-western {zone:1451}; the Rumblers cluster a little further north."] = "두 정령 모두 {zone:1451} 북서부를 돌아다닙니다. 우레의 모래정령은 조금 더 북쪽에 모여 있습니다.",
-	-- ["Bring the Hands of Lucifron, Gehennas, Shazzrah and Sulfuron from the {area:2717}."] = "{area:2717}에서 루시프론의 손, 게헨나스의 손, 샤즈라의 손, 설퍼론의 손을 가져오세요.",
 	-- ["Dust Stormers and Desert Rumblers"] = "{npc:11744}와(과) {npc:11746}",
 	-- ["Keep clearing the {area:2717} until Exalted."] = "확고한 동맹이 될 때까지 {area:2717}을(를) 계속 공략하세요.",
 	-- ["Kill a {npc:11668}, a {npc:11658}, an {npc:11673} and a {npc:12101} in the {area:2717}. Every {area:2717} elemental and boss also counts toward the Waterlords."] = "{area:2717}에서 {npc:11668}, {npc:11658}, {npc:11673}, {npc:12101}을(를) 하나씩 처치하세요. {area:2717}의 모든 정령과 우두머리도 물의 군주 평판에 반영됩니다.",

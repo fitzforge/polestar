@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817}：來自荊棘谷的藍珍珠",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "{npc:2817}的下一個任務不給經驗值：跳過它。",
 
@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}；在地下",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,12 +93,12 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "枯木食人妖村落",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "前兩個籠子一起放在{npc:5634}南邊的枯木村落；第三個在東邊的下一個村落。每隻枯木食人妖都可能掉落項鍊。",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "前兩個籠子一起放在{npc:5634}南邊的枯木村落；第三個在東邊的下一個村落。每隻枯木食人妖都可能掉落項鍊。\n小心：{npc:270772}（49級）和他的妖術幼蟲（45級）待在西邊村落的小屋附近，約在25,64：從外面的食人妖身上拿項鍊。",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master at the top; inside"] = "",
+	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}，在頂層的飛行管理員旁邊；在裡面",
 	-- {zone:1425} The Hinterlands
 	["Talonaxe's next task waits for a later {zone:1425} guide."] = "沙拉克·鷹斧的下一個任務留到之後的{zone:1425}指南。",
 
@@ -135,7 +133,6 @@ return {
 	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Blue Pearls from Stranglethorn"] = "來自荊棘谷的藍珍珠",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飛往{area:392}；{npc:6251}在銀行旁的房子裡授課。之後飛回塞拉摩島。",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "飛往{area:608}，向南騎過{zone:1443}進入{zone:1444}，沿道路前往{area:1108}的碼頭；船會駛往{area:1116}，下一份指南從那裡開始。",
 	-- ["On to Feathermoon"] = "前往羽月要塞",
@@ -153,6 +150,6 @@ return {
 	-- ["{npc:1573}, the {object:32372}"] = "{npc:1573}，{object:32372}",
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888}獨自在挖掘場東南方的{area:1898}紮營。",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}的雞尾酒需要卡林多的材料：跳過它。",
-	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}，在頂層的飛行管理員旁邊",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}；在地下",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884}會持續收購項鍊：多的都交出去",
 }

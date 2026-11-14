@@ -67,7 +67,8 @@ return {
 	-- {area:101} Kurzen's Compound
 	["{area:101}: kill these as you meet them"] = "{area:101}：沿途击杀以下目标",
 	-- {area:99} Rebel Camp · {quest:200} Bookie Herod
-	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side."] = "库尔森叛军占据{area:99}东边的营地；在外围击杀库尔森丛林战士和库尔森药草师，并拾取帐篷旁的补给箱。{quest:200}所需的记录在营地西侧的小屋内。",
+	-- plural, as words: Kurzen Elites = {npc:939} Kurzen Elite
+	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents. {quest:200}'s records lie in a hut on the compound's west side. Careful: Kurzen Elites and Witch Doctors (36) hold the compound's eastern half, by the cave: stay on its west side."] = "库尔森叛军占据{area:99}东边的营地；在外围击杀库尔森丛林战士和库尔森药草师，并拾取帐篷旁的补给箱。{quest:200}所需的记录在营地西侧的小屋内。小心：库尔森精英和库尔森巫医（36级）占据营地东半部、洞穴旁边：待在营地西侧。",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, in the hut"] = "{object:287}，在小屋里",
 	["The strongbox is deeper in, by the cave: on the northern loop (04b)"] = "保险箱在更深处的洞穴旁，北部环线（04b）会去取",
@@ -179,10 +180,10 @@ return {
 	-- {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:4078} is in the {object:2164}, in the {object:2101}."] = "{npc:4078}在{object:2101}的{object:2164}里。",
 
-	-- Step 32: Druid training
-	["Druid training"] = "德鲁伊训练",
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
-	["{npc:5504}, the druid trainer, stands in {zone:1453}, north-west of the {object:2101}."] = "德鲁伊训练师{npc:5504}位于{zone:1453}，在{object:2101}西北边。",
+	-- Step 32: Class training
+	["Class training"] = "职业训练",
+	-- {object:2096} Trade District · {object:2100} Old Town · {object:2101} Mage Quarter · {npc:5504} Sheldras Moontree · {zone:1455} Ironforge
+	["Your level 34 ranks: the class trainers stand around the {object:2096}, {object:2100}, the Cathedral and the {object:2101}; {npc:5504}, the druid trainer, stands north-west of the {object:2101}. Shamans train in {zone:1455}, later in 30-40."] = "学习34级技能：职业训练师分布在{object:2096}、{object:2100}、大教堂和{object:2101}周围；德鲁伊训练师{npc:5504}在{object:2101}西北边。萨满祭司在{zone:1455}训练，在30-40级后段。",
 
 	-- Step 34: Fly to Astranaar
 	-- {area:415} Astranaar

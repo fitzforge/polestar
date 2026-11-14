@@ -43,12 +43,12 @@ return {
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
 	["Back to the {area:228}"] = "Retour au {area:228}",
-	-- {npc:259620} Lumina Windsinger · {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
-	["{npc:259620} waits beside {npc:248840} in the {area:228} (a different {npc:259620} from the one you escorted). For {quest:95034}, click through every line of her story."] = "{npc:259620} attend à côté de {npc:248840} au {area:228} (une autre {npc:259620} que celle que vous avez escortée). Pour {quest:95034}, faites défiler chaque ligne de son histoire.",
-	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
-	["{npc:259620}, the {area:228}"] = "{npc:259620}, au {area:228}",
-	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "",
+	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {quest:95034} The Debt
+	["Lumina waits beside {npc:248840} in the {area:228} (a different Lumina from the one you escorted). For {quest:95034}, click through every line of her story."] = "Lumina attend à côté de {npc:248840} au {area:228} (une autre Lumina que celle que vous avez escortée). Pour {quest:95034}, faites défiler chaque ligne de son histoire.",
+	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:248755}, the {area:228}"] = "{npc:248755}, au {area:228}",
+	-- {npc:248755} Lumina Windsinger
+	["{npc:248755}: hear her story to the end"] = "{npc:248755} : écoutez son histoire jusqu'au bout",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -67,7 +67,7 @@ return {
 	-- Step 9: Whitestone Oak Lumber
 	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall · {zone:1458} Undercity · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1434} Stranglethorn Vale · {zone:1431} Duskwood
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
+	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581} se trouve sous {area:20}, en {zone:1436}, en territoire de l'Alliance : un groupe de cinq vers les niveaux 17-24. Depuis {zone:1458}, prenez le zeppelin pour {object:3202} en {zone:1434} et allez au nord à travers {zone:1431} jusqu'en {zone:1436}. L'entrée est la mine de {area:20}. Les Sculpteurs gobelins (élites, niveau 18-19) de la salle du mât de Sneed laissent tomber le bois à chaque fois.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}, dans la mine de {area:20}",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
@@ -75,7 +75,7 @@ return {
 
 	-- Step 10: Ulric Frostveil
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
-	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
+	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} attend à l'{area:2897}, sur la côte ouest d'{zone:1440} : prenez le zeppelin depuis {object:3202} (ou {zone:1458}) pour {zone:1454}, puis allez vers le nord à travers les {zone:1413} jusqu'en {zone:1440} et vers l'ouest par la route. Andruk, le maître des coursiers du vent de l'avant-poste, vous épargnera la marche la prochaine fois. Acceptez la quête de {npc:259649} avant de chasser les nagas : la gemme kor ne tombe que si vous l'avez.",
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
@@ -97,7 +97,7 @@ return {
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "{npc:3539}, le fabricant d'armes, se tient juste au sud d'{area:272}, dans les {zone:1424}. Accepter {quest:95125} lance la forge : reculez et attendez près de lui qu'il ait fini.",
 	-- {npc:3539} Ott
-	["Watch {npc:3539} forge the blade"] = "",
+	["Watch {npc:3539} forge the blade"] = "Regardez {npc:3539} forger la lame",
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "{npc:3539} vous donne {quest:95125}",
 
@@ -112,6 +112,8 @@ return {
 	-- Step 17: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
 	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Équipez la {item:268484}. {quest:95140}, le grand worgen, rôde dans les bois au sud du {area:228}, vers les portes de {area:17065}. Il est élite (niveau 25) : le guide attend d'abord le niveau 22, et il est conseillé de grouper ; des joueurs l'ont tué dès le niveau 22, l'un a eu besoin d'un second, un autre l'a tué en solo au niveau 25. Un bouclier violet le protège jusqu'à ce que votre premier coup avec la lame porte : un message vous indique qu'il s'est brisé.",
+	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
+	["{npc:259620}, the {area:228}"] = "{npc:259620}, au {area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "{quest:95140}, avec la {item:268484} équipée",
 
@@ -127,11 +129,9 @@ return {
 	-- ["Once she is clear of {area:235}, {npc:259620} waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "Une fois sortie de {area:235}, {npc:259620} vous attend au {area:228}. Parlez-lui de nouveau pour apprendre ce qui s'est vraiment passé sur la route.",
 	-- ["Rescuing {quest:91862}"] = "Secourir {quest:91862}",
 	-- ["Ride south through {zone:1421} to the {area:228}. {npc:248840} stands in the town; {npc:259611} keeps watch near its entrance."] = "Allez vers le sud à travers {zone:1421} jusqu'au {area:228}. {npc:248840} se trouve dans le bourg ; {npc:259611} monte la garde près de l'entrée.",
-	-- ["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581} se trouve sous {area:20}, en {zone:1436}, en territoire de l'Alliance : un groupe de cinq vers les niveaux 17-24. L'entrée est la mine de {area:20}. Les Sculpteurs gobelins (élites, niveau 18-19) de la salle du mât de Sneed laissent tomber le bois à chaque fois.",
 	-- ["{area:172} lies in the lake east of the {area:228}. The charred remains are on its shore."] = "{area:172} se trouve dans le lac à l'est du {area:228}. Les restes calcinés sont sur sa rive.",
 	-- ["{item:267412}, from the {npc:14235} Hide gnolls"] = "{item:267412}, sur les gnolls poil-putride ({npc:14235})",
 	-- ["{npc:246378} leads the Paladins of Tyr's Watch from inside {area:16602}, on the bluffs north-west of the {area:156}."] = "{npc:246378} dirige les paladins de Tyr's Watch depuis {area:16602}, sur les hauteurs au nord-ouest de la {area:156}.",
-	-- ["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: from the {zone:1458} take the zeppelin to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} attend à l'{area:2897}, sur la côte ouest d'{zone:1440} : depuis {zone:1458}, prenez le zeppelin pour {zone:1454}, puis allez vers le nord à travers les {zone:1413} jusqu'en {zone:1440} et vers l'ouest par la route. Andruk, le maître des coursiers du vent de l'avant-poste, vous épargnera la marche la prochaine fois. Acceptez la quête de {npc:259649} avant de chasser les nagas : la gemme kor ne tombe que si vous l'avez.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. The Rot Hide gnolls around her carry the key."] = "{quest:91862} est enfermée dans une cage à l'intérieur de {area:235}, à l'extrémité nord de l'île. Les gnolls Poil-Putride autour d'elle portent la clé.",
 	-- ["{quest:91862} is caged inside {area:235}, at the north end of the isle. {npc:14235} Hide gnolls around her carry the key."] = "{quest:91862} est enfermée dans une cage à {area:235}, au nord de l'île. Les gnolls poil-putride ({npc:14235}) qui l'entourent portent la clé.",
 	-- ["{zone:1458} and Earthen Ring reputation"] = "Réputation auprès de {zone:1458} et du Cercle terrestre",

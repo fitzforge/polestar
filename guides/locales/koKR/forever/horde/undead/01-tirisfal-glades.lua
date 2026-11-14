@@ -24,9 +24,9 @@ return {
 	-- {npc:1569} Shadow Priest Sarvis · {npc:244808} Aramis Hammerhand
 	["{npc:1569}: the scroll for {npc:244808}"] = "{npc:1569}: {npc:244808}에게 줄 두루마리",
 	-- {npc:1661} Novice Elreth
-	["{npc:1661}, beside the church; inside"] = "",
+	["{npc:1661}, beside the church; inside"] = "교회 옆의 {npc:1661}, 안",
 	-- {npc:2119} Dannal Stern
-	["{npc:2119}, the warrior trainer; inside"] = "",
+	["{npc:2119}, the warrior trainer; inside"] = "전사 상급자 {npc:2119}, 안",
 	-- {npc:2122} David Trias
 	["{npc:2122}, the rogue trainer"] = "도적 상급자 {npc:2122}",
 	-- {npc:2123} Dark Cleric Duesten
@@ -40,14 +40,14 @@ return {
 
 	-- Step 5: Injured Deathguard
 	-- {quest:90902} Rediscovering the Light · {npc:259377} Injured Deathguard · {spell:635} Holy Light
-	["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with {spell:635}."] = "",
+	["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with {spell:635}."] = "{quest:90902}: {npc:259377}이(가) 교회 주변에 누워 있습니다. 그중 5명을 {spell:635}(으)로 치유하세요.",
 
 	-- Step 6: Deathknell: kill these as you meet them
 	-- {area:154} Deathknell
 	["{area:154}: kill these as you meet them"] = "",
 	-- {area:154} Deathknell · {npc:1661} Novice Elreth
 	-- plural, as words: Rattlecage Skeletons = {npc:1890} Rattlecage Skeleton · Young Scavengers = {npc:1508} Young Scavenger · Duskbats = {npc:1512} Duskbat · Ragged Scavengers = {npc:1509} Ragged Scavenger · Mangy Duskbats = {npc:1513} Mangy Duskbat
-	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "",
+	["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side. {npc:1661} wants their paws and wings: kill them as you meet them while you clear the skeletons."] = "덜그럭거리는 해골은 {area:154} 북쪽의 폐허가 된 집들을 배회합니다. 새끼 승냥이와 그늘박쥐는 마을 곳곳을 돌아다니고, 승냥이와 병든 그늘박쥐는 마을 동쪽에 있습니다. {npc:1661}은(는) 그들의 발과 날개를 원합니다. 해골을 처치하면서 만나는 대로 처치하세요.",
 
 	-- Step 7: Back to the church
 	["Back to the church"] = "교회로 돌아가기",
@@ -74,7 +74,7 @@ return {
 	-- {npc:246143} Frightened Paladin
 	["The {npc:246143}"] = "{npc:246143}",
 	-- {quest:91208} Coming to Terms · {npc:246143} Frightened Paladin · {area:155} Night Web's Hollow
-	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "",
+	["{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}."] = "{quest:91208}: {npc:246143}은(는) {area:155}(으)로 가는 길, 교회 서쪽 언덕으로 도망쳤습니다.",
 	-- {npc:246143} Frightened Paladin
 	["Offer aid to the {npc:246143}"] = "{npc:246143}에게 도움을 주세요",
 
@@ -111,7 +111,7 @@ return {
 
 	-- Step 19: Solliden Farmstead
 	-- {area:154} Deathknell · {npc:6784} Calvin Montague · {area:156} Solliden Farmstead · {npc:1519} Deathguard Simmer
-	["Leave {area:154} by the road north-east. {npc:6784} stands by the farmhouse at the {area:156}; {npc:1519} stands by the road just past it."] = "",
+	["Leave {area:154} by the road north-east. {npc:6784} stands by the farmhouse at the {area:156}; {npc:1519} stands by the road just past it."] = "북동쪽 길로 {area:154}을(를) 떠나세요. {npc:6784}은(는) {area:156}의 농가 옆에 서 있고, {npc:1519}은(는) 그 바로 너머 길가에 서 있습니다.",
 
 	-- Step 20: Tirisfal Pumpkins
 	-- plural, as words: Tirisfal Pumpkins = {object:375} Tirisfal Pumpkin
@@ -146,30 +146,44 @@ return {
 	["/sit by her campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요",
 
 	-- Step 26: Camping 101: First Aid
+	-- {npc:5759} Nurse Neela · {skill:129} First Aid
+	["{npc:5759} takes it once your {skill:129} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:129} 숙련도가 20이 되면 {npc:5759}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:5759} Nurse Neela
 	["Eleanor: for {npc:5759}"] = "엘리노어: {npc:5759}에게",
 
 	-- Step 27: Camping 101: Enchanting
+	-- {npc:5695} Vance Undergloom · {skill:333} Enchanting
+	["{npc:5695} takes it once your {skill:333} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:333} 숙련도가 20이 되면 {npc:5695}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:5695} Vance Undergloom
 	["Eleanor: for {npc:5695}"] = "엘리노어: {npc:5695}에게",
 
 	-- Step 28: Camping 101: Herbalism
+	-- {npc:2114} Faruza · {skill:182} Herbalism
+	["{npc:2114} takes it once your {skill:182} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:182} 숙련도가 20이 되면 {npc:2114}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:2114} Faruza
 	["Eleanor: for {npc:2114}"] = "엘리노어: {npc:2114}에게",
 
 	-- Step 29: Camping 101: Alchemy
+	-- {npc:2132} Carolai Anise · {skill:171} Alchemy
+	["{npc:2132} takes it once your {skill:171} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:171} 숙련도가 20이 되면 {npc:2132}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:2132} Carolai Anise
 	["Eleanor: for {npc:2132}"] = "엘리노어: {npc:2132}에게",
 
 	-- Step 30: Camping 101: Skinning
+	-- {npc:6289} Rand Rhobart · {skill:393} Skinning
+	["{npc:6289} takes it once your {skill:393} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:393} 숙련도가 20이 되면 {npc:6289}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:6289} Rand Rhobart
 	["Eleanor: for {npc:6289}"] = "엘리노어: {npc:6289}에게",
 
 	-- Step 31: Camping 101: Leatherworking
+	-- {npc:3549} Shelene Rhobart · {skill:165} Leatherworking
+	["{npc:3549} takes it once your {skill:165} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:165} 숙련도가 20이 되면 {npc:3549}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:3549} Shelene Rhobart
 	["Eleanor: for {npc:3549}"] = "엘리노어: {npc:3549}에게",
 
 	-- Step 32: Camping 101: Tailoring
+	-- {npc:3523} Bowen Brisboise · {skill:197} Tailoring
+	["{npc:3523} takes it once your {skill:197} skill is 20: gather or craft until then, the guide carries on meanwhile."] = "{skill:197} 숙련도가 20이 되면 {npc:3523}이(가) 받습니다. 그때까지 채집하거나 제작하십시오. 그동안 가이드는 계속 진행됩니다.",
 	-- {npc:3523} Bowen Brisboise
 	["Eleanor: for {npc:3523}"] = "엘리노어: {npc:3523}에게",
 
@@ -210,7 +224,7 @@ return {
 	-- {npc:2132} Carolai Anise · {area:159} Brill
 	["From level 7 {npc:2132}, beside Johaan in the apothecary's house, offers her elixir quest; below 7 it waits for the next {area:159} visit."] = "",
 	-- {npc:2132} Carolai Anise
-	["{npc:2132}, beside Johaan; inside"] = "",
+	["{npc:2132}, beside Johaan; inside"] = "연금술사 요한 옆의 {npc:2132}, 안",
 
 	-- Step 40: Discipline
 	-- {item:286176} Executor's Motivator
@@ -222,7 +236,7 @@ return {
 	-- {npc:265944} William Pickman
 	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "",
 	-- {npc:1931} Captured Scarlet Zealot
-	["The {npc:1931}, in the inn's cellar"] = "",
+	["The {npc:1931}, in the inn's cellar"] = "여관 지하실의 {npc:1931}",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell
 	["The {area:159} trainers are in the inn ({npc:2131} downstairs, the rest upstairs); {npc:246152}, the Paladin trainer, by the square"] = "",
 	-- {npc:2129} Dark Cleric Beryl
@@ -256,7 +270,7 @@ return {
 
 	-- Step 49: Deathguard Dillinger
 	-- {area:159} Brill
-	["Back up the road and through {area:159} to its west end."] = "",
+	["Back up the road and through {area:159} to its west end."] = "길을 따라 돌아가 {area:159}을(를) 지나 서쪽 끝까지 가세요.",
 	-- {npc:1496} Deathguard Dillinger
 	["Ask {npc:1496} for his report"] = "{npc:1496}에게 보고를 요청하세요",
 
@@ -334,7 +348,7 @@ return {
 
 	-- Step 60: Deathguard Linnea's camp
 	-- {area:159} Brill
-	["Follow the road south-east from {area:159} past the zeppelin towers."] = "",
+	["Follow the road south-east from {area:159} past the zeppelin towers."] = "{area:159}에서 남동쪽 길을 따라 비행선 탑을 지나가세요.",
 
 	-- Step 61: Hadric Harlson
 	-- {npc:267009} Hadric Harlson
@@ -347,7 +361,7 @@ return {
 	-- Step 63: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
 	-- plural, as words: Cracked Skull Soldiers = {npc:1523} Cracked Skull Soldier · Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
-	["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}.\nCareful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds."] = "",
+	["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}.\nCareful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds."] = "길을 따라 북서쪽 {area:157}(으)로 가세요. {npc:1657}은(는) 방앗간 남쪽 묘지를 걸어 다니고, 니사, 그레고르, {npc:1656}은(는) 방앗간 안에 출몰합니다. 덜그럭거리는 해골병사와 금이간 해골병사는 갈비뼈를, 검은눈 해골마법사는 두개골을 떨어뜨리며, 누구든 {item:2839}을(를) 떨어뜨릴 수 있습니다.\n주의: 아가만드 근처의 썩어가는 언데드와 검은눈 해골마법사가 싸움에 합류할 수 있습니다.",
 	-- {npc:1655} Nissa Agamand
 	["{npc:1655}; upstairs"] = "",
 	-- {item:2839} A Letter to Yvette
@@ -359,20 +373,26 @@ return {
 	["{npc:1560}, in the inn"] = "여관 안의 {npc:1560}",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
 	["{npc:2128}: {npc:4568} in the {zone:1458} takes it"] = "{npc:2128}: {zone:1458}의 {npc:4568}에게 가져가세요",
+	-- {npc:5724} Ageron Kargal · {npc:5675} Carendin Halgar · {zone:1458} Undercity
+	["{npc:5724}: {npc:5675} in the {zone:1458} takes it"] = "{npc:5724}: {zone:1458}의 {npc:5675}이(가) 받습니다",
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "",
 
 	-- Step 65: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
-	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "",
+	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}은(는) 마을 바로 북쪽 언덕의 묘지에서 기다립니다. 문을 열고 그와 싸우십시오.",
 
 	-- Step 66: Carendin Halgar
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {zone:1458}(으)로 내려가세요. {npc:5675}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {area:1497}(으)로 내려가세요. {npc:5675}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
+	-- {npc:4551} Michael Garrett
+	["{npc:4551}, the bat handler, on the way down from the Ruins"] = "폐허에서 내려오는 길의 박쥐 조련사 {npc:4551}",
+	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
+	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}: 이것을 제출해야만 {quest:1473}을(를) 줍니다",
 
 	-- Step 67: Anastasia Hartwell
-	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {zone:1458} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
-	["Walk south from {area:159} to the {area:153} and down into the {zone:1458}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {zone:1458}(으)로 내려가세요. {npc:4568}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
+	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
+	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "{area:159}에서 남쪽 {area:153}(으)로 가서 {area:1497}(으)로 내려가세요. {npc:4568}은(는) {object:36082}에 있습니다. 붉은십자군 야영지는 폐허 바로 서쪽입니다.",
 
 	-- Step 68: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
@@ -391,19 +411,19 @@ return {
 
 	-- Step 72: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
-	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "",
+	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009}은(는) 교단 농장으로 가는 길의 {npc:1495} 야영지에 있습니다.",
 
 	-- Step 73: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
-	["Follow the road south-east past {npc:1495}'s camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "",
+	["Follow the road south-east past {npc:1495}'s camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "길을 따라 남동쪽으로 {npc:1495}의 야영지를 지나가세요. 저주받은 자의 교단이 그 바로 남동쪽 농장을 차지하고 있습니다. 괴저 수정 파편은 신도들 사이 땅에 놓여 있고, 신도들도 일부 지니고 있습니다.",
 
 	-- Step 74: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
-	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades."] = "",
+	["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "",
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "농장 정원의 {item:7227}",
 
@@ -471,7 +491,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:159}."] = "{area:159}(으)로 돌아가세요.",
-	-- ["Back up the road to {area:159}."] = "길을 따라 {area:159}(으)로 돌아가세요.",
 	-- ["Balnir graves"] = "발니르 농장 무덤",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "서쪽으로 돌아가는 길 내내 그늘박쥐와 암흑사냥개가 돌아다닙니다. 가는 길에 날개와 가죽을 마저 모으세요.",
 	-- ["Eleanor camps just south-west of town."] = "엘리노어 섀클턴은 마을 바로 남서쪽에서 야영합니다.",
@@ -479,7 +498,6 @@ return {
 	-- ["Follow the road east to {area:159}. {npc:10665} stands at the north-west edge of town; the {area:2119} is the big inn in the middle, with {npc:1515} in front of it."] = "길을 따라 동쪽 {area:159}(으)로 가세요. {npc:10665}은(는) 마을 북서쪽 끝에 있습니다. {area:2119}은(는) 마을 한가운데의 큰 여관이며, 그 앞에 {npc:1515}이(가) 있습니다.",
 	-- ["Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows."] = "길을 따라 동쪽으로 가세요. 피투성이 좀비와 떠도는 영혼이 농장 동쪽 무덤에 출몰하며, 그곳에 {quest:99142}이(가) 자랍니다.",
 	-- ["Follow the road north-east from {area:159} past {area:162}. {npc:1665} and his two Scarlet Bodyguards hold the Scarlet watchtower on the north-east coast, north of the {area:459}: pull the bodyguards first."] = "{area:159}에서 북동쪽 길을 따라 {area:162}을(를) 지나가세요. {npc:1665}와(과) 붉은십자군 경호원 2명이 {area:459} 북쪽, 북동쪽 해안의 붉은십자군 감시탑을 지킵니다. 경호원부터 끌어내세요.",
-	-- ["Follow the road north-west to {area:157}. {npc:1657} walks the graveyard south of the mills; Nissa, Gregor and {npc:1656} haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop {item:2839}. From here on, kill the Duskbats and Darkhounds you pass: {npc:3549} wants their wings and hides."] = "길을 따라 북서쪽 {area:157}(으)로 가세요. {npc:1657}은(는) 방앗간 남쪽 묘지를 걸어 다니고, 니사, 그레고르, {npc:1656}은(는) 방앗간 안에 출몰합니다. 덜그럭거리는 해골병사와 금이간 해골병사는 갈비뼈를, 검은눈 해골마법사는 두개골을 떨어뜨리며, 누구든 {item:2839}을(를) 떨어뜨릴 수 있습니다. 지금부터 지나가며 그늘박쥐와 암흑사냥개를 처치하세요. {npc:3549}에게 날개와 가죽이 필요합니다.",
 	-- ["Follow the road south back to {area:159}."] = "길을 따라 남쪽 {area:159}(으)로 돌아가세요.",
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "길을 따라 서쪽으로 {area:157}을(를) 지나 {area:16616}(으)로 가세요. 리어니드 바돌로매는 {npc:246389}의 야영지 바로 북쪽에 있습니다.",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "{npc:244808}을(를) 위해 동굴 안에서 거미줄에 갇힌 희생자 6명을 구출하세요",
@@ -488,16 +506,12 @@ return {
 	-- ["Head west into the {area:16616}; {npc:246389} and {npc:259190} camp at its edge."] = "서쪽 {area:16616}(으)로 가세요. {npc:246389}와(과) {npc:259190}이(가) 숲 가장자리에서 야영합니다.",
 	-- ["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the Webbed Victims are inside."] = "서쪽 동굴로 가세요. 새끼 검은그물거미는 밖에 있고, 검은그물거미와 거미줄에 갇힌 희생자는 안에 있습니다.",
 	-- ["Hearth to {area:159}"] = "귀환석으로 {area:159}에 가기",
-	-- ["Leave {area:154} by the road north-east. {npc:6784} stands by the farmhouse at the {area:156}."] = "북동쪽 길로 {area:154}을(를) 떠나세요. {npc:6784}은(는) {area:156}의 농가 옆에 서 있습니다.",
 	-- ["More Vile Fin murlocs walk the shore just north of the outpost."] = "전초기지 바로 북쪽 해안에도 썩은지느러미멀록이 더 있습니다.",
 	-- ["Paladin: {area:16616}"] = "성기사: {area:16616}",
-	-- ["Paladins: {quest:90902} is done once you have healed five {npc:259377} around the church with {spell:635}."] = "성기사: 교회 주변의 {npc:259377} 5명을 {spell:635}(으)로 치유하면 {quest:90902}이(가) 완료됩니다.",
-	-- ["Rattlecage Skeletons wander the ruined houses in the north half of {area:154}. Young Scavengers and Duskbats roam all around the village; the Ragged Scavengers and Mangy Duskbats are on its east side."] = "덜그럭거리는 해골은 {area:154} 북쪽의 폐허가 된 집들을 배회합니다. 새끼 승냥이와 그늘박쥐는 마을 곳곳을 돌아다니고, 승냥이와 병든 그늘박쥐는 마을 동쪽에 있습니다.",
 	-- ["Rattlecage skulls"] = "덜그럭거리는 해골의 두개골",
 	-- ["Rattlecages, scavengers and duskbats"] = "해골, 승냥이, 그늘박쥐",
 	-- ["Rot Hide graveyards"] = "썩은가죽일족 묘지",
 	-- ["Scarlet Warriors guard the outpost just west of the pumpkin fields. {npc:275954} is held inside: talk to him and stay with him until he is out."] = "붉은십자군 전사가 호박밭 바로 서쪽 전초기지를 지킵니다. {npc:275954}이(가) 안에 갇혀 있습니다. 말을 걸고 빠져나올 때까지 함께 있으세요.",
-	-- ["Take the road south-east out of {area:159}; Terrence stands on it short of the zeppelin towers."] = "남동쪽 길로 {area:159}을(를) 나가세요. 죽음의경비병 테렌스가 비행선 탑 조금 못 미쳐 서 있습니다.",
 	-- ["Talk to {npc:265944}"] = "{npc:265944}와(과) 대화하세요",
 	-- ["The Rattlecage Skeletons in the ruined houses drop the skulls."] = "폐허가 된 집의 덜그럭거리는 해골이 두개골을 떨어뜨립니다.",
 	-- ["The Rot Hide Graverobbers dig through the graveyards north of {area:159}; all the Rot Hides drop the ichor."] = "썩은가죽일족 도굴꾼이 {area:159} 북쪽 묘지를 파헤칩니다. 썩은가죽일족은 모두 체액을 떨어뜨립니다.",
@@ -509,7 +523,6 @@ return {
 	-- ["The spiders lurk in the woods at the far east end of the glades. {npc:276020}, a rogue abomination, wanders just north-west of them. {npc:276020} is elite: grouping up is advised."] = "거미는 숲 동쪽 맨 끝의 수풀에 숨어 있습니다. 떠돌이 누더기골렘 {npc:276020}이(가) 그 바로 북서쪽을 배회합니다. {npc:276020}은(는) 정예이니 파티를 권장합니다.",
 	-- ["The zeppelin lands at the tower just north-east of {zone:1454}'s main gate. Follow the road south into {zone:1411}, cross the {area:815} bridge below {area:379} and follow the road west to the {area:380}."] = "비행선은 {zone:1454} 정문 바로 북동쪽 탑에 내립니다. 길을 따라 남쪽 {zone:1411}(으)로 가서, {area:379} 아래 {area:815} 다리를 건넌 뒤 서쪽 길을 따라 {area:380}로 가세요.",
 	-- ["The {area:159} trainers are in and around the inn"] = "{area:159}의 상급자들은 여관 안팎에 있습니다",
-	-- ["The {npc:1931}, in the town hall basement"] = "마을 회관 지하실의 {npc:1931}",
 	-- ["The {npc:2211}, in the town hall basement"] = "마을 회관 지하실의 {npc:2211}",
 	-- ["The {quest:5482} grows in the graveyard fields just north of {area:159}."] = "{quest:5482}은(는) {area:159} 바로 북쪽의 묘지 들판에 자랍니다.",
 	-- ["Vicious Night Web Spiders"] = "흉포한 검은그물거미",
@@ -538,16 +551,9 @@ return {
 	-- ["{item:286326}, from {npc:276020}"] = "{npc:276020}에게서 {item:286326}",
 	-- ["{npc:10666}, the big abomination, walks the road a little further east. The {item:12737} grows along the road around him."] = "덩치 큰 누더기골렘 {npc:10666}은(는) 조금 더 동쪽 길을 걸어 다닙니다. {item:12737}은(는) 그 주변 길가에 자랍니다.",
 	-- ["{npc:1495}: {npc:276020}, an elite abomination in the east"] = "{npc:1495}: 동쪽의 정예 누더기골렘 {npc:276020}",
-	-- ["{npc:1496} stands in {area:159}. {npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:1496}은(는) {area:159}에 있습니다. {npc:6390}은(는) 마을 바로 북쪽 언덕의 묘지에서 기다립니다. 문을 열고 그와 싸우십시오.",
 	-- ["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Darkhounds roam a little further west, toward {npc:10666}."] = "{npc:1525}와(과) 심하게 훼손된 시체가 {area:159} 바로 서쪽 들판을 배회합니다. 암흑사냥개는 조금 더 서쪽, {npc:10666} 쪽에 돌아다닙니다.",
-	-- ["{npc:1661}, beside the church"] = "교회 옆의 {npc:1661}",
 	-- ["{npc:1667} stands at the south end of the Scarlet farm."] = "{npc:1667}은(는) 붉은십자군 농장 남쪽 끝에 서 있습니다.",
-	-- ["{npc:2119}, the warrior trainer"] = "전사 상급자 {npc:2119}",
-	-- ["{npc:2132}, beside Johaan"] = "연금술사 요한 옆의 {npc:2132}",
 	-- ["{npc:244808} and {npc:5667}"] = "{npc:244808}와(과) {npc:5667}",
 	-- ["{npc:244808} and {npc:5667} stand beside the church."] = "{npc:244808}와(과) {npc:5667}이(가) 교회 옆에 서 있습니다.",
-	-- ["{npc:267009} stands at {npc:1495}'s camp."] = "{npc:267009}은(는) {npc:1495}의 야영지에 있습니다.",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
-	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208}: {npc:246143}은(는) 교회 바로 서쪽 언덕으로 도망쳤습니다.",
-	-- ["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897}이(가) 야영지 바로 남동쪽 농장을 차지하고 있습니다. 괴저 수정 파편은 신도들 사이 땅에 놓여 있고, 신도들도 일부 지니고 있습니다.",
 }

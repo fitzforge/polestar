@@ -86,8 +86,6 @@ return {
 	["{quest:1450}, inside"] = "{quest:1450}, drinnen",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, drinnen",
-	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}; below ground"] = "{npc:7744}; unter der Erde",
 
 	-- Step 19: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -95,8 +93,8 @@ return {
 
 	-- Step 20: Witherbark villages
 	["Witherbark villages"] = "Dörfer der Witherbark",
-	-- {npc:5634} Rhapsody Shindigger
-	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace."] = "Die ersten beiden Käfige stehen zusammen im Dorf der Witherbark südlich von {npc:5634}; der dritte ist im nächsten Dorf östlich davon. Jeder Troll der Witherbark kann eine Halskette fallen lassen.",
+	-- {npc:5634} Rhapsody Shindigger · {npc:270772} Witch Doctor Ti'ik
+	["The first two cages stand together in the Witherbark village south of {npc:5634}; the third is in the next village to the east. Every Witherbark troll can drop a necklace.\nCareful: {npc:270772} (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside."] = "Die ersten beiden Käfige stehen zusammen im Dorf der Witherbark südlich von {npc:5634}; der dritte ist im nächsten Dorf östlich davon. Jeder Troll der Witherbark kann eine Halskette fallen lassen.\nVorsicht: {npc:270772} (49) und seine Verhexten Larven (45) halten sich in den Hütten des westlichen Dorfs auf, bei etwa 25,64: Hol dir die Halsketten von den Trollen draußen.",
 
 	-- Step 21: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
@@ -154,5 +152,6 @@ return {
 	-- ["{npc:2888} camps by himself in {area:1898}, south-east of the digsite."] = "{npc:2888} lagert allein in {area:1898}, südöstlich der Ausgrabungsstätte.",
 	-- ["{npc:5634}'s cocktail needs parts from Kalimdor: skip it."] = "{npc:5634}s Cocktail braucht Zutaten aus Kalimdor: Überspring ihn.",
 	-- ["{npc:5636}, beside the flight master at the top"] = "{npc:5636}, oben neben dem Flugmeister",
+	-- ["{npc:7744}; below ground"] = "{npc:7744}; unter der Erde",
 	-- ["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} zahlt weiter für Halsketten: Gib alle übrigen ab",
 }

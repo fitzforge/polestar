@@ -31,7 +31,7 @@ return {
 
 	-- Step 5: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw
-	["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "",
+	["The northern Deadwood (level 53-55) camp just south of the tunnel. They drop feathers about half the time: the best feather spot. {npc:9462} gives 15 until Exalted."] = "El campamento de los Muertobosque del norte (nivel 53-55) está justo al sur del túnel. Sueltan plumas aproximadamente la mitad de las veces: el mejor sitio para plumas. {npc:9462} da 15 hasta Exaltado.",
 
 	-- Step 6: Back to Nafien
 	-- {npc:15395} Nafien
@@ -141,7 +141,6 @@ return {
 	-- ["Feathers to Honored"] = "Plumas hasta Honorable",
 	-- ["Go through {faction:576} to its {zone:1452} exit; {npc:11556} stands just outside. The quests and kills so far usually reach Unfriendly, and then the Timbermaw let you pass. If they still show red, kill more Deadwood by the tunnel first."] = "Atraviesa {faction:576} hasta su salida a {zone:1452}; {npc:11556} está justo fuera. Las misiones y muertes hasta ahora suelen bastar para llegar a Adverso, y entonces los Fauces de Madera te dejan pasar. Si siguen en rojo, mata antes más Muertobosque junto al túnel.",
 	-- ["Keep turning in feathers and beads until Exalted."] = "Sigue entregando plumas y cuentas hasta Exaltado.",
-	-- ["The northern Deadwood (level 53-55) hold the camps just south of the tunnel. Keep their feathers too."] = "Los Muertobosque del norte (nivel 53-55) ocupan los campamentos justo al sur del túnel. Guarda también sus plumas.",
 	-- ["The northern Deadwood camps by the tunnel are the densest feather spot (35% drop chance there). Hand feathers to {npc:15395} at the tunnel, or to {npc:11554} in the south."] = "Los campamentos Muertobosque del norte, junto al túnel, son el mejor sitio para las plumas (allí caen un 35% de las veces). Entrega las plumas a {npc:15395} en el túnel, o a {npc:11554} en el sur.",
 	-- ["{area:2244} sits on the eastern side of {zone:1452}. Keep every {item:21383} you loot: {npc:11556} takes them."] = "{area:2244} está en el lado este de {zone:1452}. Guarda todas las {item:21383} que consigas: {npc:11556} las acepta.",
 	-- ["{faction:576} starts out Hostile, and its furbolgs in the tunnels attack until you reach Unfriendly. Every Deadwood and Winterfall furbolg you kill raises it, so the quests below pay twice. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:576} empieza en Hostil, y sus fúrbolgs de los túneles te atacan hasta que llegas a Adverso. Cada fúrbolg Muertobosque o Nevada que matas la sube, así que las misiones de abajo dan reputación por partida doble. La ventaja de Legado Diplomático de Forever aumenta la reputación que ganas.",

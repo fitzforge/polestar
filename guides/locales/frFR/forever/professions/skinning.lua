@@ -43,9 +43,11 @@ return {
 	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "Tuez et dépecez Cloudrunner (6), Trotteur des trombes (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Fièregriffe (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldrène (6), {npc:250874} (10), {npc:254588} (8) le long de la boucle jusqu'à {skill:393} 50 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 1-15. Comptez environ 60 bêtes pour ces 49 points.",
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Fièregriffe",
-	["Prideclaw, Vuldren"] = "Fièregriffe, Vuldrène",
 	["Prideclaw, Galestrider"] = "Fièregriffe, Trotteur des trombes",
-	["Galestrider, Vuldren"] = "Trotteur des trombes, Vuldrène",
+	-- {npc:250928} Highlands Ursera
+	["Prideclaw, {npc:250928}"] = "Fièregriffe, {npc:250928}",
+	["Galestrider, Cloudrunner"] = "Trotteur des trombes, Coureur des nuages",
+	["Prideclaw, Vuldren"] = "Fièregriffe, Vuldrène",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -58,12 +60,12 @@ return {
 	["Beasts 1-9: {zone:1412} (1-50)"] = "Bêtes 1-9 : {zone:1412} (1-50)",
 	-- {npc:2956} Adult Plainstrider · {npc:2957} Elder Plainstrider · {npc:3035} Flatland Cougar · {npc:3566} Flatland Prowler · {npc:2972} Kodo Calf · {npc:2961} Mountain Cougar · {npc:2959} Prairie Stalker · {npc:2958} Prairie Wolf · {npc:2960} Prairie Wolf Alpha · {skill:393} Skinning · {npc:3050} Veren Tallstrider
 	["Kill and skin {npc:2956} (6), Battleboar (3), {npc:2957} (8), {npc:3035} (7), {npc:3566} (9), {npc:2972} (7), {npc:2961} (3), Plainstrider (1), {npc:2959} (7), {npc:2958} (5), {npc:2960} (9) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. A quest here needs {skill:393}: Gathering Leather (level 8, {npc:3050}). Zone level 1-10. Expect about 60 beasts for these 49 points."] = "Tuez et dépecez {npc:2956} (6), Sanglier de guerre (3), {npc:2957} (8), {npc:3035} (7), {npc:3566} (9), {npc:2972} (7), {npc:2961} (3), Trotteur des plaines (1), {npc:2959} (7), {npc:2958} (5), {npc:2960} (9) le long de la boucle jusqu'à {skill:393} 50 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Une quête ici demande {skill:393} : La chasse aux peaux (niveau 8, {npc:3050}). Zone de niveau 1-10. Comptez environ 60 bêtes pour ces 49 points.",
-	["Battleboar, Plainstrider"] = "Sanglier de guerre, Trotteur des plaines",
-	-- {npc:2961} Mountain Cougar
-	["Battleboar, {npc:2961}"] = "Sanglier de guerre, {npc:2961}",
+	["Plainstrider"] = "Trotteur des plaines",
 	-- {npc:2961} Mountain Cougar
 	["{npc:2961}, Plainstrider"] = "{npc:2961}, Trotteur des plaines",
-	["Plainstrider"] = "Trotteur des plaines",
+	-- {npc:2961} Mountain Cougar
+	["Battleboar, {npc:2961}"] = "Sanglier de guerre, {npc:2961}",
+	["Battleboar, Plainstrider"] = "Sanglier de guerre, Trotteur des plaines",
 
 	-- Step 8: Beasts 1-9: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
@@ -105,8 +107,8 @@ return {
 	-- Step 12: Beasts 11-19: Darkshore (50-100)
 	-- {zone:1439} Darkshore
 	["Beasts 11-19: {zone:1439} (50-100)"] = "Bêtes 11-19 : {zone:1439} (50-100)",
-	-- {npc:2070} Moonstalker Runt · {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
-	["Kill and skin {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Tuez et dépecez {npc:2070} (11), {npc:2163} (11), {npc:2164} (13), Traquelune (14), {npc:2165} (16, demande 60), {npc:2237} (17, demande 70), {npc:3823} (19, demande 90), {npc:2071} (19, demande 90) le long de la boucle jusqu'à {skill:393} 100 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 10-20. Comptez environ 120 bêtes pour ces 50 points.",
+	-- {npc:2163} Thistle Bear · {npc:2164} Rabid Thistle Bear · {npc:2165} Grizzled Thistle Bear · {npc:2070} Moonstalker Runt · {npc:2237} Moonstalker Sire · {npc:3823} Ghostpaw Runner · {npc:2071} Moonstalker Matriarch · {skill:393} Skinning
+	["Kill and skin {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2070} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points."] = "Tuez et dépecez {npc:2163} (11), {npc:2164} (13), Traquelune (14), {npc:2165} (16, demande 60), {npc:2070} (16, demande 60), {npc:2237} (17, demande 70), {npc:3823} (19, demande 90), {npc:2071} (19, demande 90) le long de la boucle jusqu'à {skill:393} 100 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 10-20. Comptez environ 100 bêtes pour ces 50 points.",
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164}, Moonstalker"] = "{npc:2164}, Traquelune",
 	-- {npc:2165} Grizzled Thistle Bear
@@ -156,11 +158,13 @@ return {
 	-- {skill:393} Skinning
 	["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Expert) porte le plafond à 225 ; il demande la compétence 125, sans niveau de personnage, et coûte 50 pa : apprenez-le dès que vous atteignez 125. La flèche indique le maître de {skill:393} de votre faction le plus proche.",
 
-	-- Step 20: Beasts 21-27: Hillsbrad Foothills (125-150)
+	-- Step 20: Beasts 21-29: Hillsbrad Foothills (125-150)
 	-- {zone:1424} Hillsbrad Foothills
-	["Beasts 21-27: {zone:1424} (125-150)"] = "Bêtes 21-27 : {zone:1424} (125-150)",
+	["Beasts 21-29: {zone:1424} (125-150)"] = "Bêtes 21-29 : {zone:1424} (125-150)",
 	-- {npc:2351} Gray Bear · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, needs 135) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points."] = "Tuez et dépecez {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, demande 135) le long de la boucle jusqu'à {skill:393} 150 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 20-30. Comptez environ 30 bêtes pour ces 25 points.",
+	["Kill and skin {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, needs 135), Snapjaw (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 25 points."] = "Tuez et dépecez {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, demande 135), Gueule d'acier (29, demande 145) le long de la boucle jusqu'à {skill:393} 150 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 20-30. Comptez environ 30 bêtes pour ces 25 points.",
+	-- {npc:2351} Gray Bear
+	["{npc:2351}, Snapjaw"] = "{npc:2351}, Gueule d'acier",
 
 	-- Step 21: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
@@ -172,7 +176,7 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["Beasts 21-33: {zone:1416} (150-175)"] = "Bêtes 21-33 : {zone:1416} (150-175)",
 	-- {npc:2351} Gray Bear · {npc:2356} Elder Gray Bear · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2356} (25), {npc:2248} (30), Snapjaw (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 30 beasts for these 25 points."] = "Tuez et dépecez {npc:2351} (21), {npc:2356} (25), {npc:2248} (30), Gueule d'acier (30), {npc:2249} (31, demande 155), {npc:2406} (32, demande 160), {npc:2250} (32, demande 160), {npc:2251} (33, demande 165), {npc:2407} (33, demande 165) le long de la boucle jusqu'à {skill:393} 175 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 30-40. Comptez environ 30 bêtes pour ces 25 points.",
+	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "Tuez et dépecez {npc:2351} (21), {npc:2356} (25), Gueule d'acier (29), {npc:2248} (30), {npc:2249} (31, demande 155), {npc:2406} (32, demande 160), {npc:2250} (32, demande 160), {npc:2251} (33, demande 165), {npc:2407} (33, demande 165) le long de la boucle jusqu'à {skill:393} 175 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 30-40. Comptez environ 40 bêtes pour ces 25 points.",
 	["Snapjaw"] = "Gueule d'acier",
 	-- {npc:2251} Giant Yeti
 	["Snapjaw, {npc:2251}"] = "Gueule d'acier, {npc:2251}",
@@ -205,11 +209,11 @@ return {
 	-- {npc:1084} Young Sawtooth Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:768} Shadow Panther · {npc:1087} Sawtooth Snapper · {skill:393} Skinning
 	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "Tuez et dépecez {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, demande 205) le long de la boucle jusqu'à {skill:393} 225 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 35-45. Comptez environ 30 bêtes pour ces 25 points.",
 
-	-- Step 28: Beasts 42-49: The Hinterlands (225-250)
-	-- {zone:1425} The Hinterlands
-	["Beasts 42-49: {zone:1425} (225-250)"] = "Bêtes 42-49 : {zone:1425} (225-250)",
-	-- {npc:2927} Vicious Owlbeast · {npc:2924} Silvermane Wolf · {npc:2928} Primitive Owlbeast · {npc:2929} Savage Owlbeast · {npc:2926} Silvermane Stalker · {npc:2505} Saltwater Snapjaw · {skill:393} Skinning
-	["Kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, needs 230), {npc:2926} (47, needs 235), {npc:2505} (49, needs 245) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50. Expect about 40 beasts for these 25 points."] = "Tuez et dépecez {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, demande 230), {npc:2926} (47, demande 235), {npc:2505} (49, demande 245) le long de la boucle jusqu'à {skill:393} 250 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 40-50. Comptez environ 40 bêtes pour ces 25 points.",
+	-- Step 28: Beasts 45-48: Azshara (225-250)
+	-- {zone:1447} Azshara
+	["Beasts 45-48: {zone:1447} (225-250)"] = "Bêtes 45-48 : {zone:1447} (225-250)",
+	-- {npc:8759} Mosshoof Runner · {npc:6375} Thunderhead Hippogryph · {npc:6377} Thunderhead Stagwing · {skill:393} Skinning
+	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "Tuez et dépecez {npc:8759} (45), {npc:6375} (46, demande 230), {npc:6377} (48, demande 240) le long de la boucle jusqu'à {skill:393} 250 ; fouillez chaque cadavre, puis dépecez-le, et dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau L demande la compétence (L-10)x10 jusqu'au niveau 20, et Lx5 au-delà. Zone de niveau 45-55. Comptez environ 30 bêtes pour ces 25 points.",
 
 	-- Step 29: Beasts 48-54: Un'Goro Crater (250-275)
 	-- {zone:1449} Un'Goro Crater

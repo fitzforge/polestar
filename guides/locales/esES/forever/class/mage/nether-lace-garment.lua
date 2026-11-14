@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A robe or a tunic for Horde mages in their late 20s."] = "",
+	["A robe or a tunic for Horde mages in their late 20s."] = "Una toga o una túnica para magos de la Horda de casi nivel 30.",
 
 	-- Step 1: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter · {spell:3563} Teleport: Undercity · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "",
+	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} está en {object:36082} de {zone:1458}. Los orcos y trols usan {spell:3563} o toman el zepelín de {zone:1454} a {zone:1420} para verla.",
 
 	-- Step 2: Deino
 	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
@@ -40,11 +40,9 @@ return {
 	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "Una toga o una túnica para magos no-muertos y trols de casi nivel 30.",
 	-- ["Satyrs hold the ruins of {area:429} in eastern {zone:1440}. Fill {item:7269} at the bottom of the highest waterfall."] = "Los sátiros ocupan las ruinas de {area:429} en el este de {zone:1440}. Llena el {item:7269} al pie de la cascada más alta.",
 	-- ["Satyrs hold the ruins of {area:429} in eastern {zone:1440}. {spell:9052} at the bottom of the highest waterfall."] = "Los sátiros ocupan las ruinas de {area:429} en el este de {zone:1440}. {spell:9052} al pie de la cascada más alta.",
 	-- ["Take the zeppelin to {zone:1454}. {npc:5885} is one of {zone:1454}'s mage trainers."] = "Toma el zepelín a {zone:1454}. {npc:5885} es uno de los instructores de magos de {zone:1454}.",
 	-- ["The {quest:1945}, dryads, gather near the {area:426} in central {zone:1440}."] = "Las {quest:1945}, unas dríadas, se reúnen cerca de {area:426}, en el centro de {zone:1440}.",
 	-- ["{npc:3484}, a troll tailor, works at the {area:380}."] = "{npc:3484}, una sastre trol, trabaja en {area:380}.",
-	-- ["{npc:4568} stands in the {zone:1458}'s {object:36082}. Trolls take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} está en {object:36082} de {zone:1458}. Los trols toman el zepelín de {zone:1454} a {zone:1420} para verla.",
 }

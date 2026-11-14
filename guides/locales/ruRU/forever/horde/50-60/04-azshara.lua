@@ -35,7 +35,7 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "Ящики: {npc:256386}",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Езжайте на север по дороге к Перекрестку; там стоит {npc:256386}. Открывайте каждый ящик, который она дает, и приносите ей содержимое. Затем летите с Перекрестка сюда: {area:1237}.",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
@@ -46,14 +46,14 @@ return {
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Езжайте на восток к руинам на побережье. Наполните четыре склянки Карабоса в приливных лужах вдоль берега; между ними патрулируют наги клана Бича Злобы.",
 
 	-- Step 9: Thalassian Base Camp
-	-- {area:1227} Bay of Storms
-	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "Эльфы крови стоят лагерем на скалах на северо-востоке, у места {area:1227}.",
+	-- {area:1227} Bay of Storms · {npc:250023} Blackmaw Thrall
+	["The blood elves camp on the cliffs in the north-east, by the {area:1227}.\nCareful: a {npc:250023}, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side."] = "Эльфы крови стоят лагерем на скалах на северо-востоке, у места {area:1227}.\nОсторожно: у западного края лагеря стоит {npc:250023}, элитный противник 55-57 уровня: бейте эльфов крови с восточной стороны лагеря.",
 
 	-- Step 10: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Лагерь: {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "Лагерь Римтори – в восточной части основного лагеря. Прочтите там предмет {object:151286}, затем убейте волшебника.\nОсторожно: какой кристалл связан с Римтори, определяется случайно. Каждый из двух других вместо этого призывает враждебного инфернала.",
 
 	-- Step 11: Ag'tor Bloodfist
 	-- {area:1237} Valormok
@@ -84,7 +84,7 @@ return {
 
 	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Дирижабль: {zone:1458}",
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
@@ -127,10 +127,7 @@ return {
 	-- ["In the {object:172958}."] = "Ориентир: {object:172958}.",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "Ориентир: {object:172961}. Держите в сумках шерсть, шелковый материал и магическую ткань.",
 	-- ["Open {object:149036} for the {item:10556}"] = "Откройте {object:149036}, чтобы получить {item:10556}",
-	-- ["Ride north up the road to the {area:380}; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the {area:380}."] = "Езжайте на север по дороге сюда: {area:380}; там стоит {npc:256386}. Открывайте каждый ящик, который она дает, и приносите ей содержимое. Затем летите отсюда ({area:380}) сюда: {zone:1454}.",
-	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus."] = "Лагерь Римтори – в восточной части основного лагеря. Прочтите там предмет {object:151286}, затем убейте волшебника.",
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "Башня дирижаблей стоит чуть к северо-востоку от главных ворот ({zone:1454}); садитесь на дирижабль ({zone:1458}).",
-	-- ["Zeppelin to the {zone:1458}"] = "Дирижабль: {zone:1458}",
 	-- ["Zeppelin tower"] = "Башня дирижаблей",
 	-- ["{npc:11044}, in the Apothecarium"] = "{npc:11044}, в Районе Фармацевтов",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} стоит здесь: {area:380}. Открывайте каждый ящик, который она дает, и приносите ей содержимое.",

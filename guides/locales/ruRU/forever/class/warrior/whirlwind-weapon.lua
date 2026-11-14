@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: The Islander (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
-	["At 30, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to {npc:6236} on {area:720} in the {zone:1413}."] = "",
+	["At 30, {npc:5479}, beside {npc:5480} in the warrior trainers' building of {object:2100}, sends you to {npc:6236} on {area:720} in the {zone:1413}."] = "На 30-м уровне {npc:5479}, рядом с NPC {npc:5480} в здании учителей воинов ({object:2100}), отправляет вас к NPC {npc:6236} ({area:720}, {zone:1413}).",
 
 	-- Step 2: The Islander (Ironforge)
 	-- {npc:5113} Kelv Sternhammer · {zone:1455} Ironforge · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens
@@ -60,13 +60,13 @@ return {
 	["The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite: the guide waits for level 37 first, and a friend helps. Burning Exiles (fire) by the {area:334} in the north-west, north-west of {area:320}; Thundering Exiles (air) by the {area:336} south-east of {area:320}, casting {spell:403} from 40 yards; Cresting Exiles (water) by the {area:333}, north-west of {area:321}, with {spell:122}. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning)."] = "Котлу нужно по 8 оберегов каждого вида, всего 24, и каждый изгой роняет свой оберег примерно в одном случае из трех, так что рассчитывайте примерно на 70 убийств. Все они 38-39 уровня, не элитные: сначала гайд ждет 37-го уровня, и друг пригодится. Пылающие изгои (огонь) – у места {area:334} на северо-западе, к северо-западу от места {area:320}; грохочущие изгнанники (воздух) – у места {area:336} к юго-востоку от места {area:320}, бьют {spell:403} с 40 м; морские изгои (вода) – у места {area:333}, к северо-западу от места {area:321}, применяют {spell:122}. Каждых около дюжины, возрождаются меньше чем за 7 минут. Обереги можно передавать и продавать на аукционе; применение оберега на время изгоняет изгоя другого вида (пылающий – грохочущего, грохочущий – морского, морской – пылающего).",
 	-- {item:4479} Burning Charm
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile
-	["{item:4479}, from Burning Exiles"] = "",
+	["{item:4479}, from Burning Exiles"] = "{item:4479}: с пылающих изгоев",
 	-- {item:4480} Thundering Charm
 	-- plural, as words: Thundering Exiles = {npc:2762} Thundering Exile
-	["{item:4480}, from Thundering Exiles"] = "",
+	["{item:4480}, from Thundering Exiles"] = "{item:4480}: с грохочущих изгнанников",
 	-- {item:4481} Cresting Charm
 	-- plural, as words: Cresting Exiles = {npc:2761} Cresting Exile
-	["{item:4481}, from Cresting Exiles"] = "",
+	["{item:4481}, from Cresting Exiles"] = "{item:4481}: с морских изгоев",
 
 	-- Step 12: Essence of the Exile
 	-- {object:89931} Bath'rah's Cauldron · {quest:1712} Cyclonian · {quest:1714} Essence of the Exile
@@ -78,21 +78,16 @@ return {
 	-- {npc:6176} Bath'rah the Windwatcher · {quest:1713} The Summoning · {quest:1712} Cyclonian · {item:6052} Nature Protection Potion · {spell:10101} Knock Away · {item:6894} Whirlwind Heart
 	["Back to {npc:6176}. Accepting {quest:1713} starts his ritual, and {quest:1712} appears just north of his camp. {quest:1712} is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a {item:6052} soaks it), whirls, and {spell:10101} throws you far while it heals itself as you run back: fight with your back to a slope or rock. The {item:6894} always drops. If the fight fails {npc:6176} stops answering: abandon {quest:1713} and take it again for a new summon; the earlier items are not needed again."] = "",
 	-- {item:6894} Whirlwind Heart · {quest:1712} Cyclonian
-	["{item:6894}, from {quest:1712}"] = "",
+	["{item:6894}, from {quest:1712}"] = "{item:6894}: {quest:1712}",
 	-- {npc:6176} Bath'rah the Windwatcher · {item:6975} Whirlwind Axe
 	["{npc:6176}: {item:6975}, Sword or Warhammer"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["At 30, {npc:5479} in {object:2100}, beside the Pig and Whistle, sends you to {npc:6236} on {area:720} in the {zone:1413}."] = "На 30-м уровне {npc:5479} ({object:2100}, рядом с таверной «Свинья и Свисток») отправляет вас к NPC {npc:6236} ({area:720}, {zone:1413}).",
 	-- ["Defeat the challengers and {npc:6238}"] = "Победите противников. Последний: {npc:6238}",
 	-- ["Ride south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "Езжайте на юг вдоль побережья из места {area:392} в {area:720}. {npc:6236} стоит у арены: встаньте на решетку, чтобы начать бой; противники выходят по одному, затем {npc:6238} (33).",
 	-- ["The Bloodscalp trolls hold the north-west of {zone:1434}; they drop the {item:3901}."] = "Тролли из племени Кровавого Скальпа занимают северо-запад зоны {zone:1434}; с них падает {item:3901}.",
 	-- ["Three kinds of elemental exiles roam {zone:1417}: Burning Exiles in the north-west, Thundering Exiles in the middle, Cresting Exiles in the north-east. Each drops its charm."] = "По зоне {zone:1417} бродят три вида изгнанных элементалей: пылающие изгои на северо-западе, грохочущие изгнанники в центре, морские изгои на северо-востоке. С каждого падает свой амулет.",
 	-- ["{item:3357}: {skill:182}, or the auction house"] = "{item:3357}: {skill:182} или аукцион",
-	-- ["{item:4479} from the Burning Exiles"] = "{item:4479} — с пылающих изгоев",
-	-- ["{item:4480} from the Thundering Exiles"] = "{item:4480} — с грохочущих изгнанников",
-	-- ["{item:4481} from the Cresting Exiles"] = "{item:4481} — с морских изгоев",
-	-- ["{item:6894} from {quest:1712}"] = "{item:6894} — {quest:1712}",
 	-- ["{npc:6176} camps in the south-east of {zone:1416}, above {zone:1424}; his cauldron stands beside him. He asks for a {item:3357}, a {item:3901} and the {quest:1714}, which his cauldron brews from three charms."] = "{npc:6176} разбил лагерь на юго-востоке зоны {zone:1416}, над {zone:1424}; рядом стоит его котел. Ему нужны {item:3357}, {item:3901} и {quest:1714}, которую котел варит из трех амулетов.",
 	-- ["{quest:1712} waits just north of {npc:6176}'s camp and carries the {item:6894}. {quest:1712} is elite: grouping up is advised."] = "{quest:1712} ждет чуть севернее лагеря {npc:6176} и несет {item:6894}. {quest:1712} — элита: лучше собрать группу.",
 }

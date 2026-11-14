@@ -12,15 +12,15 @@ return {
 
 	-- Step 1: In Search of Menara Voidrender (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "31레벨에 {object:2101} {object:2164}의 {npc:461}이(가) {area:392}의 {npc:6266}에게 보냅니다. 왕복을 줄이려면 먼저 {item:5770}와(과) {item:3577}을(를) 사십시오(다음 단계).",
 
 	-- Step 2: In Search of Menara Voidrender (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "31레벨에 {zone:1455}의 {npc:5172}이(가) {area:392}의 {npc:6266}에게 보냅니다. 왕복을 줄이려면 먼저 {item:5770}와(과) {item:3577}을(를) 사십시오(다음 단계).",
 
 	-- Step 3: In Search of Menara Voidrender (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6266} Menara Voidrender · {area:392} Ratchet · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "31레벨에 {object:172960}의 {npc:3326}이(가) {area:392}의 {npc:6266}에게 보냅니다. 왕복을 줄이려면 먼저 {item:5770}와(과) {item:3577}을(를) 사십시오(다음 단계).",
 
 	-- Step 4: In Search of Menara Voidrender (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {item:5770} Robes of Arcana · {item:3577} Gold Bar
@@ -81,17 +81,13 @@ return {
 
 	-- Step 14: The Completed Robe
 	-- {npc:6266} Menara Voidrender · {item:6265} Soul Shard
-	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "",
+	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "실, 석탄, {item:6265}을(를) 가지고 {npc:6266}에게 돌아가십시오. 그런 다음 그녀가 로브를 만드는 동안 곁에서 기다린 뒤(공격하지 마십시오. 퀘스트 목록에는 처치로 표시됩니다) 다시 말을 거십시오.",
 	-- {npc:6266} Menara Voidrender
 	["Wait beside {npc:6266} while she finishes the robe"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A rare cloth robe for your 30s, which {npc:6266} makes from the parts you bring her."] = "30레벨대를 위한 희귀 천 로브. 가져온 재료로 {npc:6266}이(가) 만들어 줍니다.",
-	-- ["At 31 {npc:3326} in the {object:172960} sends you to {npc:6266} in {area:392}."] = "31레벨에 {object:172960}의 {npc:3326}이(가) {area:392}의 {npc:6266}에게 보냅니다.",
 	-- ["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}. The zeppelin from {zone:1420} flies to {zone:1411}."] = "31레벨에 {object:36082}의 {npc:4563}이(가) {area:392}의 {npc:6266}에게 보냅니다. {zone:1420}에서 출발하는 비행선이 {zone:1411}(으)로 갑니다.",
-	-- ["At 31 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6266} in {area:392}."] = "31레벨에 {object:2101} {object:2164}의 {npc:461}이(가) {area:392}의 {npc:6266}에게 보냅니다.",
-	-- ["At 31 {npc:5172} in {zone:1455} sends you to {npc:6266} in {area:392}."] = "31레벨에 {zone:1455}의 {npc:5172}이(가) {area:392}의 {npc:6266}에게 보냅니다.",
-	-- ["Back to {npc:6266} with the thread, the coal and a {item:6265}. Wait while she completes the robe, then speak to her again."] = "실, 석탄, {item:6265}을(를) 가지고 {npc:6266}에게 돌아가십시오. 로브를 완성할 때까지 기다린 뒤 다시 말을 거십시오.",
 	-- ["Bring {npc:6266} a {item:5770}: tailors sew it from a pattern that drops; otherwise buy one at the Auction House. Her next errand needs a {item:3577}: smelted from {item:2776}, or from the Auction House."] = "{npc:6266}에게 {item:5770}을(를) 가져가십시오: 재봉사는 몹이 떨어뜨리는 도안으로 만들 수 있고, 아니면 경매장에서 구매하십시오. 다음 심부름에는 {item:3577}이(가) 필요합니다: {item:2776}을(를) 제련하거나 경매장에서 구하십시오.",
 	-- ["The Burning Exiles, fire elementals in western {zone:1417}, drop the coal."] = "{zone:1417} 서부의 불의 정령인 떠도는 불의 정령이 석탄을 떨어뜨립니다.",
 	-- ["The Hatefury satyrs of {area:603}, in north-eastern {zone:1443}, carry the blood; the Lesser Infernals of Mannoroc Coven, in the south, the stone."] = "{zone:1443} 북동쪽 {area:603}의 서릿발분노 사티로스가 피를, 남쪽 만노로크 소굴의 하급 지옥불정령이 돌을 가지고 있습니다.",

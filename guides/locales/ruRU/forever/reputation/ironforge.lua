@@ -15,7 +15,7 @@ return {
 	-- {faction:47} Ironforge · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {zone:1459} Alterac Valley
 	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "Около 600 репутации у фракции {faction:47} за задания 52-59 уровня в зонах {zone:1428} и {zone:1452}; задания в зоне {zone:1459} тоже дают репутацию у фракции {faction:47}",
 	-- {faction:47} Ironforge · {zone:1426} Dun Morogh · {area:133} Gnomeregan
-	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "",
+	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "Около 2900 репутации у фракции {faction:47} за задания низкого уровня в зоне {zone:1426}, большая часть которой идет и фракции {area:133}",
 
 	-- Step 1: Mistina Steelshield, the cloth quartermaster
 	-- {npc:14723} Mistina Steelshield
@@ -163,7 +163,6 @@ return {
 	["Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 {item:14047}. At Exalted, {npc:1261} at {area:803} in eastern {zone:1426} sells his rams to other races in Classic; the Ram and Swift Ram guides cover them."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too (in Classic, a fifth of it at 60)"] = "Около 2900 репутации у фракции {faction:47} за задания низкого уровня в зоне {zone:1426}, большая часть которой идет и фракции {area:133} (в Classic на 60 уровне — пятая часть)",
 	-- ["Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the {object:92525} (see that guide). The Auction House works too."] = "Адепты Тьмы и темные маги (уровень 58-60) роняют его здесь; каждое убийство Плети здесь также идет в зачет фракции {object:92525} (см. тот гайд). Также можно купить на аукционе.",
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Огры из клана Песчаного Молота (уровень 45-48) роняют ее здесь. Также можно купить на аукционе.",
 	-- ["Keep handing in {quest:7806} until {faction:47} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Продолжайте сдавать {quest:7806}, пока репутация ({faction:47}) не достигнет превознесения. {item:14047}: адепты Тьмы и темные маги (уровень 58-60) в зоне {zone:1423} или аукцион.",

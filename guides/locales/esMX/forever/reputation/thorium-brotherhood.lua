@@ -22,8 +22,7 @@ return {
 	["{npc:14621} is elite"] = "{npc:14621} es élite",
 
 	-- Step 2: Golems and Dark Iron dwarves
-	-- {object:147516} Dark Iron (no name in this language: may be words)
-	["Golems and {object:147516} dwarves"] = "Gólems y enanos {object:147516}",
+	["Golems and Dark Iron dwarves"] = "Gólems y enanos Hierro Negro",
 	-- {area:1446} Thorium Point · {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below {area:1446}. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "Los gólems de guerra pesados y los capataces y esclavistas Hierro Negro trabajan por todo el fondo de La Caldera, debajo de {area:1446}. La {item:18959} la sueltan los vapoherreros Hierro Negro de los hornos del centro, el {item:18960} los oteadores Hierro Negro de las crestas del sur: más o menos uno de cada diez de cada uno.",
@@ -35,12 +34,9 @@ return {
 	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}, oteadores Hierro Negro",
 
 	-- Step 3: Searing Lava Spiders
-	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
+	-- plural, as words: Searing Lava Spiders = {npc:5857} Searing Lava Spider
 	["Searing Lava Spiders"] = "Arañas de lava superiores",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "Las arañas recorren las pozas de lava y mesetas del suroeste.",
-	-- Step 3: Greater Lava Spiders
-	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
-	["Greater Lava Spiders"] = "Arañas de lava superiores",
 
 	-- Step 4: The Slag Pit
 	-- {area:1443} The Slag Pit · {item:18922} Secret Plans: Fiery Flux · {npc:14621} Overseer Maltorius · {npc:14636} Chambermaid Pillaclencher · {npc:14628} Evonice Sootsmoker · {area:1446} Thorium Point
@@ -158,10 +154,11 @@ return {
 	-- {npc:12944} Lokhtos Darkbargainer
 	["{npc:12944} to Exalted"] = "{npc:12944} hasta Exaltado",
 	-- {item:17012} Core Leather · {item:11370} Dark Iron Ore · {npc:227939} The Molten Core · {item:19165} Flarecore Leggings · {item:19157} Chromatic Gauntlets · {item:19162} Corehound Belt · {item:19163} Molten Belt · {item:17013} Dark Iron Leggings · {item:19164} Dark Iron Gauntlets · {item:16988} Fiery Chain Shoulders · {item:19166} Black Amnesty · {item:273577} Enchant Weapon - Mighty Intellect · {item:19170} Ebon Hand · {item:20039} Dark Iron Boots
-	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. {npc:227939} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "",
+	["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. {npc:227939} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "De Reverenciado a Exaltado son 21,000 más: 105 núcleos o Sangres, 280 {item:17012} o 4,200 {item:11370}. Los materiales de {npc:227939} vienen de la banda, así que una hermandad o la casa de subastas hacen la mayor parte del trabajo. Reverenciado desbloquea {item:19165} 9 de oro, {item:19157} 9 de oro, {item:19162} 9 de oro, {item:19163} 9 de oro, {item:17013} 18 de oro, {item:19164} 8 de oro, {item:16988} 20 de oro, {item:19166} 7 de oro, Furianegra 7 de oro y {item:273577} 10 de oro. Exaltado desbloquea los diseños de armas épicas {item:19170}, Guardanegra y Ocaso (12 de oro cada uno) y {item:20039} 8 de oro.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Burninate"] = "Regresa con Burninate",
+	-- ["Greater Lava Spiders"] = "Arañas de lava superiores",
 	-- ["Keep turning in {area:2717} materials and {item:11099} at Lokhtos until Exalted."] = "Sigue entregando materiales de {area:2717} y {item:11099} a Lokhtos hasta Exaltado.",
 	-- ["Restoring Fiery Flux Supplies repeats in three versions: {item:3356}, Iron Bars or {item:4234}, each with Coal and an {item:18944}. Incendosaurs (level 47-49) in the north of {zone:1427} drop a scale every time; Burninate himself sells Coal."] = "Fabricar flujo ígneo se repite en tres versiones: {item:3356}, Barras de hierro o {item:4234}, cada una con Carbón y una {item:18944}. Los Incendosaurios (nivel 47-49) del norte de {zone:1427} sueltan una escama siempre; el propio Burninate vende Carbón.",
 	-- ["Revered to Exalted is 21,000 more: 105 cores or Bloods, 280 {item:17012} or 4,200 {item:11370}. The {area:2717} materials come from the raid, so a guild or the auction house does most of the work. Revered opens {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Blackfury 7g and {item:273577} 10g. Exalted opens the epic weapon plans {item:19170}, Blackguard and Nightfall (12g each) and {item:20039} 8g."] = "De Reverenciado a Exaltado son 21.000 más: 105 núcleos o sangres, 280 {item:17012} o 4.200 {item:11370}. Los materiales de {area:2717} salen de la banda, así que una hermandad o la casa de subastas hace la mayor parte del trabajo. Reverenciado abre {item:19165} 9g, {item:19157} 9g, {item:19162} 9g, {item:19163} 9g, {item:17013} 18g, {item:19164} 8g, {item:16988} 20g, {item:19166} 7g, Furianegra 7g y {item:273577} 10g. Exaltado abre los planos de armas épicas {item:19170}, Guardia Negra y Anochecer (12g cada uno) y {item:20039} 8g.",
