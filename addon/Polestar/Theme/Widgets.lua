@@ -3020,7 +3020,7 @@ function W.SetStageChip(c)
 		c:Hide()
 		return 0
 	end
-	return W.SetChip(c, string.upper(L[ns.stage]), "warning")
+	return W.SetChip(c, ns.Upper(L[ns.stage]), "warning")
 end
 
 -- The version line and its stage chip, kept inside the sidebar and clear of

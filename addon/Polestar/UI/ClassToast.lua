@@ -309,7 +309,7 @@ function CT.Model(q)
 	local reward = e[3] > 0 and d.rewards[e[3]] or nil
 	local name = C.RewardName(reward)
 	local m = { quest = q, reward = reward, class = p.class, level = s[1] }
-	m.head = format(L["LEVEL %d · %s"], s[1], UI.ClassName(p.class):upper())
+	m.head = format(L["LEVEL %d · %s"], s[1], ns.Upper(UI.ClassName(p.class)))
 	m.facts = format(L["Level %d · %s"], s[1], UI.ClassName(p.class))
 	m.title = name and format(L["%s ready"], CT.ShortName(name)) or UI.ClassName(p.class)
 	local where, who = giver[2] and UI.MapName(giver[2]), giverName(q, giver)

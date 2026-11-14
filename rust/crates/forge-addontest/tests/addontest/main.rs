@@ -221,6 +221,8 @@ mod import;
 mod import_safety;
 mod install;
 mod levels;
+#[path = "locale-format.rs"]
+mod locale_format;
 #[path = "locale-load.rs"]
 mod locale_load;
 mod lookup;

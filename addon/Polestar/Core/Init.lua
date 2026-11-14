@@ -66,16 +66,88 @@ function ns.Quoted(name)
 	return ns.LC("quote marks", "\226\128\156%s\226\128\157"):format(name)
 end
 
--- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c"
--- (parts that are zero left out; "0c" for none).
+-- Numbers as the client writes them in its language: thousands with its own
+-- separator ("34,000", "34.000", "34 000"), decimals with its decimal mark
+-- ("48.8", "48,8"). The client says them: BreakUpLargeNumbers (Forever's
+-- client has it) and LARGE_NUMBER_SEPERATOR / DECIMAL_SEPERATOR (Blizzard's
+-- spelling); a client without them gets its language's own (NUMBER_FORMS:
+-- thousands, decimal mark), English's elsewhere.
+local NUMBER_FORMS = {
+	deDE = { ".", "," }, esES = { ".", "," }, ptBR = { ".", "," }, itIT = { ".", "," },
+	frFR = { "\194\160", "," }, ruRU = { "\194\160", "," },
+}
+local function numberForm()
+	local f = NUMBER_FORMS[GetLocale and GetLocale() or "enUS"]
+	local large = type(LARGE_NUMBER_SEPERATOR) == "string" and LARGE_NUMBER_SEPERATOR or (f and f[1]) or ","
+	local mark = type(DECIMAL_SEPERATOR) == "string" and DECIMAL_SEPERATOR or (f and f[2]) or "."
+	return large, mark
+end
+
+-- n rounded to a whole number, its thousands separated: "34,000".
+function ns.Thousands(n)
+	n = math.floor((tonumber(n) or 0) + 0.5)
+	if type(BreakUpLargeNumbers) == "function" then
+		local ok, s = pcall(BreakUpLargeNumbers, n)
+		if ok and s ~= nil then return tostring(s) end
+	end
+	local sep = numberForm():reverse()
+	local digits = tostring(math.abs(n)):reverse():gsub("(%d%d%d)", function(d) return d .. sep end):reverse()
+	if digits:sub(1, #sep) == sep:reverse() then digits = digits:sub(#sep + 1) end
+	return (n < 0 and "-" or "") .. digits
+end
+
+-- x with `places` decimals (1 by default) and the client's decimal mark: "48.8".
+function ns.Decimal(x, places)
+	local s = string.format("%." .. (places or 1) .. "f", tonumber(x) or 0)
+	local _, mark = numberForm()
+	if mark == "." then return s end
+	return (s:gsub("%.", function() return mark end))
+end
+
+-- The coins' symbols, gold, silver, copper: the client's own
+-- (GOLD_AMOUNT_SYMBOL...; German "G", "S", "K"), else Polestar's translated "g s c".
+local function coin(client, own) return type(client) == "string" and client ~= "" and client or own end
+function ns.CoinSymbols()
+	return coin(GOLD_AMOUNT_SYMBOL, L["g"]), coin(SILVER_AMOUNT_SYMBOL, L["s"]), coin(COPPER_AMOUNT_SYMBOL, L["c"])
+end
+
+-- An amount of copper as the guide window writes it: "1g 50s", "7s", "25c",
+-- "214,748g 36s 47c" (parts that are zero left out; "0c" for none), in the
+-- coins' symbols (ns.CoinSymbols), the gold in thousands.
 function ns.MoneyText(copper)
 	copper = math.floor(copper or 0)
 	local g, s, c = math.floor(copper / 10000), math.floor(copper / 100) % 100, copper % 100
+	local G, S, C = ns.CoinSymbols()
 	local parts = {}
-	if g > 0 then parts[#parts + 1] = g .. "g" end
-	if s > 0 then parts[#parts + 1] = s .. "s" end
-	if c > 0 then parts[#parts + 1] = c .. "c" end
-	return #parts > 0 and table.concat(parts, " ") or "0c"
+	if g > 0 then parts[#parts + 1] = ns.Thousands(g) .. G end
+	if s > 0 then parts[#parts + 1] = s .. S end
+	if c > 0 or #parts == 0 then parts[#parts + 1] = c .. C end
+	return table.concat(parts, " ")
+end
+
+-- s in capitals as the client's languages write them. Lua's upper() knows
+-- ASCII alone ("Jäger" -> "JäGER", "Охотник" stays as it is): the small
+-- letters of Latin-1, Latin Extended-A and Cyrillic, two bytes in UTF-8, are
+-- raised here too (ß and the rest keep their form).
+local function upperChar(a, b)
+	local cp = (a:byte() % 32) * 64 + (b:byte() % 64)
+	local up = cp
+	if (cp >= 0xE0 and cp <= 0xFE and cp ~= 0xF7) or (cp >= 0x430 and cp <= 0x44F) then
+		up = cp - 0x20
+	elseif cp == 0xFF then
+		up = 0x178
+	elseif cp >= 0x450 and cp <= 0x45F then
+		up = cp - 0x50
+	elseif (cp >= 0x100 and cp <= 0x137) or (cp >= 0x14A and cp <= 0x177) then
+		if cp % 2 == 1 then up = cp - 1 end
+	elseif (cp >= 0x139 and cp <= 0x148) or (cp >= 0x179 and cp <= 0x17E) then
+		if cp % 2 == 0 then up = cp - 1 end
+	end
+	if up == cp then return a .. b end
+	return string.char(0xC0 + math.floor(up / 64), 0x80 + up % 64)
+end
+function ns.Upper(s)
+	return (tostring(s or ""):upper():gsub("([\192-\223])([\128-\191])", upperChar))
 end
 
 -- The interface's translations made with AI (tools/lib/i18n/locales.js,
@@ -134,10 +206,10 @@ function ns.FormatDistance(yards, opts)
 	if ns.Get("nav.distanceUnit") == "metres" then
 		local m = yards * YARD_METRES
 		local n = math.floor(m / round + 0.5) * round
-		if n >= 1000 then return L["%.1f km"]:format(m / 1000) end
+		if n >= 1000 then return L["%s km"]:format(ns.Decimal(m / 1000, 1)) end
 		return L["%d m"]:format(n)
 	end
-	if opts and opts.compact and yards >= 1000 then return L["%.1fk yd"]:format(yards / 1000) end
+	if opts and opts.compact and yards >= 1000 then return L["%sk yd"]:format(ns.Decimal(yards / 1000, 1)) end
 	return L["%d yd"]:format(math.floor(yards / round + 0.5) * round)
 end
 

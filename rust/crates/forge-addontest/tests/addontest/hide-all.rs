@@ -37,9 +37,9 @@ function CreateFrame(kind, name, parent, template, ...)
 		secure[#secure + 1] = f
 	end
 	for level = 2, 12 do
-		local info = debug.getinfo(level, "Sl")
+		local info = debug.getinfo(level, "Slf")
 		if not info then break end
-		if stub.addonSources[info.source] and not (info.source:find("Core/Init.lua", 1, true) and info.currentline < 320) then
+		if stub.addonSources[info.source] and not (Polestar and info.func == Polestar.CreateFrameUnder) then
 			made[f] = info.source:match("addon/(.*)$") .. ":" .. info.currentline
 			break
 		end

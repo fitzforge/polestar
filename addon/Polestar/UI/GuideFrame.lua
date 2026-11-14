@@ -1896,7 +1896,7 @@ GF.Part(function(GF)
 			r.psPlace, r.psCarried = nil, true
 			r.Icon:SetTexture(Theme.VerbIcon("turnin"))
 			local text = #carried == 1 and L["1 finished quest to hand in elsewhere"] or string.format(L["%d finished quests to hand in elsewhere"], #carried)
-			r.Text:SetText(xp > 0 and string.format(L["%s (%d XP)"], text, xp) or text)
+			r.Text:SetText(xp > 0 and string.format(L["%s (%s XP)"], text, ns.Thousands(xp)) or text)
 			r:Show()
 		end
 		local list, byKey = {}, {}

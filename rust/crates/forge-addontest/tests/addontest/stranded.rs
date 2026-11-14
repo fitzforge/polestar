@@ -160,7 +160,7 @@ fn the_guide_menu_s_load_over_a_leveling_guide_asks_once_while_the_route_still_h
 		emit(r)
 	"#);
 	assert_eq!(out["which"], "POLESTAR_LEAVE_HANDINS", "{out}");
-	assert!(is_match(text(&out["text"]), r"^2 finished quests in your log are handed in on the route before C \(\d+ XP\)\. Load it anyway\?"), "{out}");
+	assert!(is_match(text(&out["text"]), r"^2 finished quests in your log are handed in on the route before C \(\d{1,3}(,\d{3})* XP\)\. Load it anyway\?"), "{out}");
 	assert_eq!(out["stayed"], "test/a", "{out}");
 	assert_eq!(out["loaded"], "test/c", "{out}");
 }
@@ -181,7 +181,10 @@ fn with_the_gamepad_interface_the_guide_menu_s_load_says_in_chat_what_it_leaves_
 	assert_eq!(out["gamepad"], true, "{out}");
 	assert_eq!(out["popups"], 0, "{out}");
 	assert_eq!(out["loaded"], "test/c", "{out}");
-	assert!(is_match(text(&out["chat"]), r"2 finished quests in your log are handed in on the route before C \(\d+ XP\)\. They stay in your log, and the guide lists who takes each in\.$"), "{out}");
+	assert!(
+		is_match(text(&out["chat"]), r"2 finished quests in your log are handed in on the route before C \(\d{1,3}(,\d{3})* XP\)\. They stay in your log, and the guide lists who takes each in\.$"),
+		"{out}"
+	);
 }
 
 // The guide window's "Still to do" list: one row for the finished quests no open route hands in (40 here; 41 and 44
@@ -223,10 +226,10 @@ fn outlevelled_the_banner_says_the_finished_quests_left_here_and_its_jump_asks_o
 		r.jumped = E.GetGuide().id
 		emit(r)
 	"#);
-	assert_eq!(out["first"], json!(["You have outlevelled this guide.\n1 finished quest here first (1000 XP)", "Jump to B"]), "{out}");
+	assert_eq!(out["first"], json!(["You have outlevelled this guide.\n1 finished quest here first (1,000 XP)", "Jump to B"]), "{out}");
 	assert_eq!(
 		out["asked"],
-		json!([["You have outlevelled this guide.\n1 finished quest here first (1000 XP)\nJump anyway? They stay in your log, and the guide lists who takes each in.", "Jump anyway"], "test/a"]),
+		json!([["You have outlevelled this guide.\n1 finished quest here first (1,000 XP)\nJump anyway? They stay in your log, and the guide lists who takes each in.", "Jump anyway"], "test/a"]),
 		"{out}"
 	);
 	assert_eq!(out["jumped"], "test/b", "{out}");

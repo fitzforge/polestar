@@ -431,7 +431,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local text = L["You have outlevelled this guide."]
 			if n.left then
 				local what = n.left.n == 1 and L["1 finished quest here first"] or string.format(L["%d finished quests here first"], n.left.n)
-				text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%d XP)"], what, n.left.xp) or what)
+				text = text .. "\n" .. (n.left.xp > 0 and string.format(L["%s (%s XP)"], what, ns.Thousands(n.left.xp)) or what)
 				if n.asked then text = text .. "\n" .. L["Jump anyway? They stay in your log, and the guide lists who takes each in."] end
 			end
 			banner.Text:SetText(text)
@@ -491,20 +491,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			else
 				title = n.tier == 1 and L["Level 40: you can learn to ride"] or L["Level 60: Journeyman Riding"]
 				local tierName = n.tier == 1 and L["Apprentice Riding"] or L["Journeyman Riding"]
-				local baseGold = n.tier == 1 and L["100 g"] or L["1,000 g"]
-				local bodyParts = { tierName .. DOT .. baseGold }
+				-- Gold as "1,000 g", in the client's thousands and gold symbol.
+				local function gold(g) return ns.Thousands(g) .. " " .. (ns.CoinSymbols()) end
+				local bodyParts = { tierName .. DOT .. gold(n.tier == 1 and 100 or 1000) }
 				-- Discount: always mention; "Honored: Xg" when standing is confirmed.
 				local C = ns.Compat
 				local standing = n.factionID and C and C.GetFactionStanding and C.GetFactionStanding(n.factionID)
 				if standing and standing >= 5 then
 					-- Discounted gold: tier 1 = 90 g, tier 2 = 900 g.
 					local discountedGold = n.tier == 1 and 90 or 900
-					bodyParts[#bodyParts + 1] = string.format(L["Honored: %d g"], discountedGold)
+					bodyParts[#bodyParts + 1] = string.format(L["Honored: %s"], gold(discountedGold))
 				else
 					bodyParts[#bodyParts + 1] = L["10% off at Honored"]
 				end
-				-- Balance: gold-only to match "100 g" / "1,000 g" style.
-				bodyParts[#bodyParts + 1] = string.format(L["You have %d g."], floor(copper / 10000))
+				-- Balance: in gold, as the prices are.
+				bodyParts[#bodyParts + 1] = string.format(L["You have %s."], gold(floor(copper / 10000)))
 				body = table.concat(bodyParts, DOT)
 			end
 			banner.Text:SetText(title .. "\n" .. body)

@@ -575,7 +575,7 @@ local function askLeave(id)
 	local target = ns.Guides.Get(id)
 	local what = left.n == 1 and L["1 finished quest in your log is handed in on the route before %s"]:format(target and target.title or id)
 		or L["%d finished quests in your log are handed in on the route before %s"]:format(left.n, target and target.title or id)
-	if left.xp > 0 then what = string.format(L["%s (%d XP)"], what, left.xp) end
+	if left.xp > 0 then what = string.format(L["%s (%s XP)"], what, ns.Thousands(left.xp)) end
 	if ns.GamepadUI() then
 		ns.Print(what .. ". " .. L["They stay in your log, and the guide lists who takes each in."])
 		return false

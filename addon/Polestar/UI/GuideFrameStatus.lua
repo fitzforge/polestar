@@ -40,7 +40,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if not (rate and type(xp) == "number" and xp > 0 and Q and Q.Duration) then return nil end
 			return Theme.Approx() .. Q.Duration(xp / rate * 3600)
 		end
-		local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
+		local level = pace.target % 1 == 0 and string.format("%d", pace.target) or ns.Decimal(pace.target, 1)
 		local stepNo = UI.StepNo(pace.step, E)
 		local behind = (pace.short or 0) > GF.PACE_SLACK
 		local h = pace.hard
@@ -62,7 +62,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if pace.kind == "end" and type(pace.reach) == "number" and pace.reach > pace.target then level = GF.LevelText(pace.reach) end
 			return string.format(L["On pace for level %s by step %d"], level, stepNo)
 		end
-		local by = string.format(L["%s levels"], string.format("%.1f", pace.short))
+		local by = string.format(L["%s levels"], ns.Decimal(pace.short, 1))
 		local time = grind(pace.xp)
 		if pace.kind == "goal" then
 			-- The guide grinds it at that step: said plainly, not as a warning.
