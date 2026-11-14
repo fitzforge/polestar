@@ -201,6 +201,44 @@ fn an_alt_with_quests_already_done_starts_at_the_first_step_that_is_not_done() {
 	);
 }
 
+// A route whose second quest is offered from level 5: its accept and its turn-in wait on the level.
+const LEVEL_GATED: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/level-gated", pack = "test", title = "Level gated",
+	faction = "Alliance", minLevel = 1, maxLevel = 6, zone = 1429,
+	steps = {
+		{ title = "Deputy Willem", goals = {
+			{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 },
+		} },
+		{ title = "William Pestle", goals = {
+			{ t = "accept", quest = 60, title = "Kobold Candles", minLevel = 5, npc = 253, npcName = "William Pestle", map = 1429, x = 43.0, y = 65.0 },
+		} },
+		{ title = "Back to William", goals = {
+			{ t = "turnin", quest = 60, title = "Kobold Candles", npc = 253, npcName = "William Pestle", map = 1429, x = 43.0, y = 65.0 },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn progress_does_not_count_a_later_step_done_while_its_quest_waits_on_the_level() {
+	// #2257: a fresh character's bar counted every later step whose quests were above its level as done.
+	let out = run1(Run {
+		guides: LEVEL_GATED,
+		before: "w.level = 1",
+		script: r#"
+			E.SetGuide("test/level-gated"); flush()
+			local d1, t1 = E.GetProgress()
+			local at1 = E.GetStepIndex()
+			stub.world.setLevel(5); flush()
+			local d5, t5 = E.GetProgress()
+			emit({ at1 = at1, level1 = { d1, t1 }, at5 = E.GetStepIndex(), level5 = { d5, t5 } })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "at1": 1, "level1": [0, 3], "at5": 1, "level5": [0, 3] }));
+}
+
 #[test]
 fn only_on_steps_and_goals_filters_by_class_and_race() {
 	let out = run1(Run {
