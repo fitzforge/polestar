@@ -280,10 +280,14 @@ end
 local goal = guide("joe/points", "43.41,14.62,,0;45.1,16.1,12.5,0;42.7,21.2,,0,,1,14")
 local read = {}
 for i, p in ipairs(goal.spots) do read[i] = { p.x, p.y, p.z or false, p.r, p.n or false, p.alt or false, p.lvl or false, rawget(p, "x") == nil } end
--- Bytes per entry of 400 built, the list's slot included.
+-- Bytes per entry of 400 built, the list's slot included. A first build of the same records in another order (its own
+-- list: lists are shared by their packed text) makes the field strings the parse creates once, so the client's string
+-- table, which may double then, has grown before the measured build: its growth is no entry's cost.
 local function cost(id, rec)
-	local t = {}
+	local t, back = {}, {}
 	for i = 1, 400 do t[i] = rec:format(i % 90 + 5, i % 70 + 5) end
+	for i = 400, 1, -1 do back[#back + 1] = t[i] end
+	local _ = #guide(id .. "-first", table.concat(back, ";")).spots
 	local g = guide(id, table.concat(t, ";"))
 	collectgarbage("collect"); collectgarbage("collect")
 	local before = collectgarbage("count")
