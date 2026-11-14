@@ -140,10 +140,16 @@ fn great_outdoors(ctx: &Ctx, c: &mut Check) {
 	}
 }
 
+/// Sato: the Scrawny Ursera step leads to the slope west of Thendal Village. The spawn fix is in the private corrections
+/// overlay, so without it there is nothing to check (tests/guides-reported.test.js skips the same case).
 fn scrawny_ursera(ctx: &Ctx, c: &mut Check) {
-	let pts = crate::seed::correction(&ctx.root, "npcs", "250926").get("addSpawns").get("2521").get("pts");
-	if !pts.is_arr() {
-		c.ok(false, "the corrections add Scrawny Ursera spawns");
+	let fix = crate::seed::correction(&ctx.root, "npcs", "250926").get("addSpawns");
+	if !fix.truthy() {
+		c.skip("needs the private corrections overlay (data/local/corrections-private.json)");
+		return;
+	}
+	let pts = fix.get("2521").get("pts");
+	if !c.ok(pts.is_arr(), "the corrections add Scrawny Ursera spawns") {
 		return;
 	}
 	let pts = pts.items();

@@ -17,4 +17,7 @@ section: contributors
   Alonso's Dragonslayer quests left out (#1117), no Bronze Tube from Herble
   (#1792) and the Talondeep way into Stonetalon (#563, #1813). The 22 other
   seeds that still asserted an earlier form of their guides-reported case now
-  assert today's (#2042).
+  assert today's, as do five that later fixes left behind (Call of Fire, Book
+  of the Ancients, #225, #1004, #1792); Old Habits (#1705) and the Barrens'
+  one bind have seeds of their own, and the Scrawny Ursera seed skips without
+  the private corrections overlay, as its case does (#2042).

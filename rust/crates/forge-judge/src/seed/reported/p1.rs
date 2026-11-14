@@ -84,36 +84,54 @@ fn is_one(v: &V, x: f64) -> bool {
 	v.is_arr() && v.len() == 1 && v.at(0).as_num() == Some(x)
 }
 
+/// `forRace(race)`: an `only` naming races on the goal or its step lists it.
+fn for_race(race: &str, r: &Row) -> bool {
+	[r.step.get("only"), r.goal.get("only")].iter().all(|o| !o.truthy() || !o.get("races").truthy() || o.get("races").items().iter().any(|x| x.as_str() == Some(race)))
+}
+
+/// A Shaman hands the carried trainer lead to Kranal Fiss before the shared ritual, on the same stop. Since Tauren
+/// Shamans do Call of Fire on Mulgore's walk to Orgrimmar (as Orcs and Trolls do it from Durotar), the ritual is in
+/// each race's start guide: each race reads it, then its Barrens guide, as a Shaman of that race
+/// (tests/guides-reported.test.js, the same case). The shipped tree has a Durotar guide per race and one Barrens
+/// guide; a written route's tree has Orc and Troll's shared `orc-troll/` folder, its own Barrens guide included.
 fn call_of_fire(ctx: &Ctx, c: &mut Check) {
-	for file in ["forever/horde/02-the-barrens.guide", "forever/horde/orc-troll/02-the-barrens.guide"] {
-		let list = goals!(ctx, c, file);
-		let start = list.iter().position(|r| is("accept", 1524)(&r.goal));
-		if !ok!(c, start.is_some(), &format!("{file}: the shared ritual is offered")) {
+	const BARRENS: &str = "forever/horde/02-the-barrens.guide";
+	const BARRENS_ORC_TROLL: &str = "forever/horde/orc-troll/02-the-barrens.guide";
+	let either = |own: &'static str, shared: &'static str| if ctx.compiled(own).is_undef() { shared } else { own };
+	for (race, start, barrens, carried) in [
+		("Orc", either("forever/horde/orc/01-durotar.guide", DUROTAR), either(BARRENS_ORC_TROLL, BARRENS), 2983),
+		("Troll", either("forever/horde/troll/01-durotar.guide", DUROTAR), either(BARRENS_ORC_TROLL, BARRENS), 2983),
+		("Tauren", MULGORE, BARRENS, 1523),
+	] {
+		let mut all = goals!(ctx, c, start);
+		all.extend(goals!(ctx, c, barrens));
+		let shaman = for_class("SHAMAN");
+		let list: Vec<Row> = all.into_iter().filter(|r| for_race(race, r) && shaman(r)).collect();
+		let Some(ritual) = list.iter().position(|r| is("accept", 1524)(&r.goal)) else {
+			c.ok(false, &format!("{race}: the shared ritual is offered"));
 			return;
-		}
-		let start = start.unwrap();
+		};
 		for quest in [1522, 1523, 2983, 2984] {
-			let lead = list[..start].iter().find(|r| is("turnin", quest)(&r.goal));
-			if !ok!(c, lead.is_some(), &format!("{file}: carried trainer lead {quest} is handed in before the shared ritual")) {
+			let Some(lead) = list[..ritual].iter().find(|r| is("turnin", quest)(&r.goal)) else {
+				c.ok(false, &format!("{race}: carried trainer lead {quest} is handed in before the shared ritual"));
 				return;
-			}
-			let lead = lead.unwrap();
-			if quest != (if file.contains("orc-troll") { 2983 } else { 1523 }) {
+			};
+			if quest != carried {
 				let blocks = lead
 					.step
 					.get("when")
 					.items()
 					.iter()
 					.any(|p| p.get("k").as_str() == Some("onquest") && !p.get("neg").truthy() && p.get("q").items().iter().any(|q| q.as_num() == Some(quest as f64)));
-				if !ok!(c, blocks, &format!("{file}: an uncarried alternative never blocks the route")) {
+				if !c.ok(blocks, &format!("{race}: an uncarried alternative never blocks the route")) {
 					return;
 				}
 			}
-			if !ok!(c, n(&lead.goal, "npc", 5907.0), &format!("{file}: no trip to a different giver")) {
+			if !c.ok(n(&lead.goal, "npc", 5907.0), &format!("{race}: no trip to a different giver")) {
 				return;
 			}
 			for field in ["map", "x", "y"] {
-				if !ok!(c, lead.goal.get(field).strict_eq(&list[start].goal.get(field)), &format!("{file}: the same Kranal stop")) {
+				if !ok!(c, lead.goal.get(field).strict_eq(&list[ritual].goal.get(field)), &format!("{race}: the same Kranal stop")) {
 					return;
 				}
 			}
