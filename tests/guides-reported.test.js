@@ -11933,3 +11933,15 @@ test("Pysch_MC's report (#2199): the Searing Gorge guide names the Searing Lava 
 	assert.ok(!/Greater Lava Spider/.test(seed), 'the seed copy too');
 });
 
+// Bennistrov's and Visur's report (#2207): the Tanaris guide's Dunemaul Compound step grinds to 47.06, almost a level
+// for a player at 46.1. The gate stays (lower, the Thistleshrub Valley's level-50 quests and 48-50 mobs would come 3+
+// levels over); the step now says why and names the level 45-46 Ogres at the compound's south end as the safer grind.
+test("Bennistrov's and Visur's report (#2207): the Dunemaul grind says why, and where the safer ogres are", { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const dune = list.find(({ goal }) => goal.t === 'level' && goal.grind === 5474);
+	assert.ok(dune, 'the written grind at the compound');
+	const text = JSON.stringify(dune.step);
+	assert.match(text, /Thistleshrub Valley/, 'why: the Thistleshrub Valley next');
+	assert.match(text, /Ogres \(45-46\)/, 'the safer ogres');
+});
+

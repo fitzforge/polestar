@@ -8168,6 +8168,28 @@
 				}
 			],
 			"issue": 1999
+		},
+		{
+			"id": "2207-tanaris-dunemaul-grind-why",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5863,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Why the grind: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. The Dunemaul Ogres (45-46) at the compound's south end are the safer ones to grind.",
+			"note": "Bennistrov's and Visur's report (#2207): the Dunemaul Compound step grinds to 47.06, almost a level for a player at 46.1. The gate stays: lowering it to 46.7 (enough for Fandral's level-47 errand in Darnassus) let the calibrated level model take the Thistleshrub Valley's level-50 quests at about 46.5 and added 15 accepts three or more levels over (Tanaris and the Searing Gorge). The tip says why, and names the level 45-46 Ogres at the compound's south end as the safer grind.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings at the compound (6 people): Dunemaul Brute 47-48, Enforcer 46-47, Ogre 45-46, Ogre Mage 46-47, Warlock 47-48, Gor'marok 49"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "npc 5471 Dunemaul Ogre spawns at 39.1-39.6,72.6-74.9 (the compound's south end); Thistleshrub Rootshaper 5485 and Gnarled Thistleshrub 5490 48-50"
+				}
+			],
+			"issue": 2207
 		}
 	]
 }
