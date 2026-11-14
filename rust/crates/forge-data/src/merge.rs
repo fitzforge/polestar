@@ -12,7 +12,7 @@ use crate::questie::{drop_rate, table_rates, Questie};
 use crate::spawns::{points_of, reduce_spawns, spawn_record, SpawnOptions, P};
 
 pub const SOURCE: &str = "questie-forever";
-const NPC_FLAG_ROLES: [(f64, &str); 11] = [
+const NPC_FLAG_ROLES: [(f64, &str); 12] = [
 	(4.0, "vendor"),
 	(8.0, "flightmaster"),
 	(16.0, "trainer"),
@@ -24,6 +24,7 @@ const NPC_FLAG_ROLES: [(f64, &str); 11] = [
 	(4096.0, "auctioneer"),
 	(8192.0, "stablemaster"),
 	(16384.0, "repair"),
+	(536870912.0, "transmogrifier"),
 ];
 
 fn ids(v: &V) -> Vec<f64> {

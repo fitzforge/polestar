@@ -31,7 +31,7 @@ const RANK_UNKNOWN: f64 = 7.0;
 const TYPE_ORDER: [&str; 10] = ["vendor", "quest", "gift", "craft", "rep", "pvp", "drop", "object", "container", "world"];
 const WORLD_DROP_NPCS: usize = 12;
 const LOOT_CAP: usize = 150;
-const SERVICE_ROLES: [&str; 16] = [
+const SERVICE_ROLES: [&str; 17] = [
 	"vendor",
 	"repair",
 	"innkeeper",
@@ -41,6 +41,7 @@ const SERVICE_ROLES: [&str; 16] = [
 	"battlemaster",
 	"spirithealer",
 	"stablemaster",
+	"transmogrifier",
 	"trainer",
 	"weapon",
 	"sells:food",
