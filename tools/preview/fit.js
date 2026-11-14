@@ -143,7 +143,9 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 					if (w - r.w > 0.5) report('cut', 'its width', w - r.w, r.w / s);
 				}
 			} else {
-				const lines = wrap(fonts, o.font, o.plain, r.w / s);
+				// A string that breaks between characters (SetNonSpaceWrap, a
+				// multi-line edit box's text) has no word wider than its line.
+				const lines = wrap(fonts, o.font, o.plain, r.w / s, o.nonSpace);
 				for (const l of lines) {
 					const w = measure(fonts, o.font, l) * s;
 					if (w - r.w > 0.5) report('word', 'its width', w - r.w, r.w / s);
@@ -183,7 +185,7 @@ function audit(dump, roots, fonts, kinds = ['cut', 'lines', 'word', 'window']) {
 		if (r.x + r.w - box.x1 > 0.5) report('window', 'the right edge (its box)', r.x + r.w - box.x1);
 		// Wrapping, its height free: the lines it takes.
 		if (!o.wrap || scrolls || (hasTop && hasBottom) || o.h != null || r.w <= 0) continue;
-		const h = lineH(wrap(fonts, o.font, o.plain, r.w / s).length);
+		const h = lineH(wrap(fonts, o.font, o.plain, r.w / s, o.nonSpace).length);
 		const vy = hasTop ? 0 : hasBottom ? 1 : 0.5;
 		const y0 = r.y + r.h * vy - h * vy, y1 = y0 + h;
 		if (fixed.y0 - y0 > 0.5) report('window', 'the top edge', fixed.y0 - y0);

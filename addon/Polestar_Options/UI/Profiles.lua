@@ -31,6 +31,9 @@ local NEW = "\0new"
 local DOT = "  \194\183  "
 -- An open category's list: a line a setting, LIST_MAX at most (the rest counted).
 local LINE, LIST_MAX = 22, 40
+-- The string made: at most this many lines of it show in its well; the rest
+-- scrolls in it, cut inside the well's padding (COPY_PAD over and under).
+local COPY_LINES, COPY_PAD = 3, 8
 -- The settings window's metrics (DESIGN.md "The Row Rule"): section cards
 -- with a 36px header, 36px rows in two halves (stacked below 760), 24 apart.
 local ROW, PAD, GAP, STACK_BELOW = 36, 16, 24, 760
@@ -295,12 +298,12 @@ function PV.Export()
 		exported, exportedCount, exportedFrom, exportError = nil, nil, nil, n
 	end
 	local v = views[SHARE]
-	if v then W.SetCopyText(v.CopyBox, s or "") end
-	relayout()
-	if v and s and v.CopyBox:IsVisible() then
-		v.CopyBox:SetFocus()
-		v.CopyBox:HighlightText()
+	if v then
+		W.SetCopyText(v.CopyBox, s or "")
+		W.ScrollTo(v.CopyScroll, 0)
 	end
+	relayout()
+	if v and s and v.CopyBox:IsVisible() then W.SelectCopy(v.CopyBox) end
 end
 
 -- Every category, ticked when ids is nil or names it (none where core's
@@ -1026,7 +1029,29 @@ local function buildShare(v)
 	v.ExportRows = partRows(v, "export")
 	v.ExportList = {}
 	v.ExportNote = statusLine(v)
-	v.CopyBox = W.CopyBox(v, { lines = 3 })
+	-- The string made: the copy box's well, the box scrolling in it as the
+	-- report window's does (#1753), so a string of any length stays inside
+	-- the well; a click anywhere on it selects the whole string. The text is
+	-- cut inside the well's padding, never at its border. The page's wheel
+	-- goes on scrolling the page over it: the bar scrolls the box.
+	v.CopyWell = CreateFrame("Frame", nil, v)
+	v.CopyScroll = W.Scroll(v.CopyWell)
+	v.CopyScroll:SetPoint("TOPLEFT", v.CopyWell, "TOPLEFT", 0, -COPY_PAD)
+	v.CopyScroll:SetPoint("BOTTOMRIGHT", v.CopyWell, "BOTTOMRIGHT", 0, COPY_PAD)
+	v.CopyScroll:EnableMouseWheel(false)
+	v.CopyBox = W.ScrollChild(v.CopyScroll, W.CopyBox(v.CopyScroll, { lines = COPY_LINES, well = v.CopyWell }))
+	v.CopyBox:SetTextInsets(10, 10, 0, 0)
+	v.CopyWell:EnableMouse(true)
+	v.CopyWell:SetScript("OnMouseUp", function() W.SelectCopy(v.CopyBox) end)
+	v.CopyWell:Hide()
+	-- The string in the box's font at its text's width, broken anywhere as
+	-- the box breaks it: what the box's height is measured on. Hidden, never
+	-- alpha 0 (#1753).
+	v.CopyMeasure = W.Text(v, "label", "text")
+	v.CopyMeasure:SetJustifyH("LEFT")
+	v.CopyMeasure:SetWordWrap(true)
+	v.CopyMeasure:SetNonSpaceWrap(true)
+	v.CopyMeasure:Hide()
 	v.Made = statusLine(v)
 	v.ExportButton = W.Button(v, L["Make a string"], function() PV.Export() end, { primary = true, height = 24 })
 	v.ExportButton.psTip = L["A line of text holding the parts ticked above, from the profile chosen, to paste anywhere."]
@@ -1467,6 +1492,29 @@ local function hideChecklist(card, rows, pool)
 	for _, f in ipairs(pool) do f:Hide() end
 end
 
+-- The string made, its well's top at y: the box as tall as the string in
+-- its font at its width, broken anywhere (the bar's room left at its right,
+-- so the bar never covers it), the view COPY_LINES lines of it tall at most
+-- inside the well's padding, the rest scrolling in it. Measured at every
+-- layout: the width and the font change with the window and the look.
+-- -> y under the well
+local function layoutCopy(v, x, y, width)
+	local w = width - 2 * PAD
+	local bw = w - W.ScrollBarRoom(v.CopyScroll)
+	local m = v.CopyMeasure
+	m:SetWidth(max(1, bw - 20))
+	if m:GetText() ~= exported then m:SetText(exported) end
+	local line = m:GetLineHeight() or 16
+	local content = floor(max(m:GetStringHeight(), line) + 0.5)
+	local view = min(content, floor(COPY_LINES * line + 0.5))
+	v.CopyBox:SetWidth(bw)
+	v.CopyWell:SetSize(w, view + 2 * COPY_PAD)
+	W.SetScrollContent(v.CopyScroll, content, view)
+	v.psCopyTop = y
+	place(v, v.CopyWell, x + PAD, y)
+	return y + view + 2 * COPY_PAD
+end
+
 -- Make a string: the profile it is made of, a checklist of the categories
 -- (how many of its settings off their defaults each holds, and which),
 -- the word on positions while they stay out, the string once made, its
@@ -1497,12 +1545,8 @@ local function layoutMake(v, P, x, y, width)
 	y = status(v, v.ExportNote, not exportPick.positions and L["Window positions stay out unless you tick them: on another screen, frames you dragged can land in odd places."] or nil,
 		"info", width, x, y)
 	local made = exported ~= nil
-	v.CopyBox:SetShown(made)
-	if made then
-		v.CopyBox:SetWidth(width - 2 * PAD)
-		place(v, v.CopyBox, x + PAD, y + 12)
-		y = y + 12 + v.CopyBox:GetHeight()
-	end
+	v.CopyWell:SetShown(made)
+	if made then y = layoutCopy(v, x, y + 12, width) end
 	-- Its line, the button at the right of it.
 	local msg, kind
 	if made then
@@ -1696,6 +1740,11 @@ function PV.Shown()
 		out.exported = exported
 		out.exportParts, out.exportList = parts(s.ExportRows), lines(s.ExportList)
 		out.note = s.ExportNote:IsShown() and s.ExportNote.Text:GetText() or nil
+		-- The string made in its well: the view the box scrolls in (inside the
+		-- well's padding), the well's size, the box's height and width, whether
+		-- the box holds the whole string and is the view's scroll child.
+		out.copy = s.CopyWell:IsShown() and { view = s.CopyScroll.psView, wellH = s.CopyWell:GetHeight(), well = s.CopyWell:GetWidth(), content = s.CopyBox:GetHeight(),
+			width = s.CopyBox:GetWidth(), whole = s.CopyBox:GetText() == exported, scrolls = s.CopyScroll:GetScrollChild() == s.CopyBox and s.CopyBox:GetParent() == s.CopyScroll } or nil
 		out.copyNote = s.Made:IsShown() and s.Made.Text:GetText() or nil
 		out.preview = s.Status:IsShown() and not refusal and s.Status.Text:GetText() or nil
 		out.importParts, out.importList = parts(s.ImportRows), lines(s.ImportList)

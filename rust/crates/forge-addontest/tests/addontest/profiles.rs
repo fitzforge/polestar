@@ -945,3 +945,32 @@ fn the_share_tab_makes_a_string_of_the_parts_ticked_and_imports_the_parts_picked
 	assert_eq!(out["refused"], json!(["This is not a Polestar profile string.", true, false, 0]));
 	assert_eq!(out["cleared"], json!([false, ""]));
 }
+
+#[test]
+fn the_string_made_scrolls_whole_in_its_well_three_lines_tall_the_bar_beside_it_and_the_page_s_wheel_free() {
+	let out = run_page(
+		r#"-- The names' colours off their defaults: a string many lines long.
+		local names = { "npc", "quest", "item", "place", "object", "area", "dungeon", "rare", "skill", "spell", "faction", "achievement", "level", "success", "warning", "danger" }
+		for i, k in ipairs(names) do Polestar.Set("ui.colors." .. k, { i / 20, 0.5, 1 - i / 20 }) end
+		O.Select("profiles", "Share")
+		local s = PV.views["Share"]
+		local before = PV.Shown().copy or false
+		s.ExportButton:Click()
+		local made = PV.Shown()
+		local sf = s.CopyScroll
+		emit({ before = before, copy = made.copy, line = s.CopyMeasure:GetLineHeight(), room = Polestar.Widgets.ScrollBarRoom(sf),
+			wheel = sf.mouseWheel, text = s.CopyBox:GetText() == made.exported, long = #made.exported, measureShown = s.CopyMeasure:IsShown() })"#,
+	);
+	assert_eq!(out["before"], false, "no well until a string is made");
+	let copy = &out["copy"];
+	let line = out["line"].as_f64().unwrap();
+	assert_eq!(copy["scrolls"], true, "the box is the scroll child of the view inside its well");
+	assert_eq!(copy["whole"], true, "the box holds the whole string, for Ctrl+C");
+	assert_eq!(out["text"], true);
+	assert_eq!(copy["view"].as_f64(), Some((3.0 * line + 0.5).floor()), "the view: three lines of the string");
+	assert_eq!(copy["wellH"].as_f64(), Some((3.0 * line + 0.5).floor() + 16.0), "the well: the view and its padding over and under it");
+	assert!(copy["content"].as_f64().unwrap() > copy["view"].as_f64().unwrap(), "a string longer than the well scrolls in it: {copy} ({} letters)", out["long"]);
+	assert_eq!(copy["width"].as_f64().unwrap() + out["room"].as_f64().unwrap(), copy["well"].as_f64().unwrap(), "the box ends short of the bar's room");
+	assert_eq!(out["wheel"], false, "the page's wheel scrolls the page over the well");
+	assert_eq!(out["measureShown"], false, "the measure is never drawn");
+}

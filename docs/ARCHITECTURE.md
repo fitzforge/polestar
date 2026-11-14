@@ -411,7 +411,9 @@ Make a string (the profile it is made of; a checklist of the categories, each
 row its box, its name, how many of the profile's settings off their defaults
 it holds and a chevron opening the list of them; every one ticked but
 Window positions to start with, and a line saying why while it is not; the
-string selected for copying) and Import (a pasted string's preview: whose,
+string selected for copying, in a copy box three lines tall at most that
+scrolls in its well as the report window's, its bar beside it and the page's
+wheel left to the page) and Import (a pasted string's preview: whose,
 how many settings, how many differ; a checklist of the categories it holds,
 each with its changes, its list giving the setting, yours and theirs, a
 category that changes nothing and carries nothing greyed; Window positions

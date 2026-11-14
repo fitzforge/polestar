@@ -118,3 +118,24 @@ test('text fits: every Options page and tab', () => {
 	for (const panel of panels) found.push(...auditPanels(`Options ${panel.name}`, [panel]).map((l) => l.replace(/ #1 /, ' ')));
 	assert.deepEqual(found, [], `text outside its window:\n${found.join('\n')}`);
 });
+
+// A word wider than its line is cut in the client, unless the string breaks
+// between characters (SetNonSpaceWrap; a multi-line edit box's text, as the
+// preview stub dumps it): the client breaks it there, as render.js draws it,
+// so no word stands out of its line (the Share tab's profile string, one
+// word of base64, scrolling in its well).
+test('fit: a word wider than its line is found, unless the string breaks between characters', () => {
+	const word = 'eAEBfgGBnsiZm9ybWF0IjoxLCJuYW1lIjoiRGVmYXVsdCIs'.repeat(8);
+	const dump = (nonSpace) => ({
+		objects: [
+			{ id: 1, kind: 'Frame', name: 'PolestarCopy', shown: true, points: [{ point: 'TOPLEFT', relPoint: 'TOPLEFT', x: 100, y: -100 }], w: 400, h: 300 },
+			{
+				id: 2, kind: 'FontString', parent: 1, shown: true, text: word, font: ['label', 12, ''], wrap: true, nonSpace, justifyH: 'LEFT', justifyV: 'TOP',
+				points: [{ point: 'TOPLEFT', rel: 1, relPoint: 'TOPLEFT', x: 10, y: -8 }, { point: 'BOTTOMRIGHT', rel: 1, relPoint: 'BOTTOMRIGHT', x: -10, y: 8 }],
+			},
+		],
+	});
+	const words = (d) => audit(d, ['PolestarCopy'], fonts, ['word']).map(describe);
+	assert.deepEqual(words(dump(true)), [], 'broken between characters: no word wider than its line');
+	assert.equal(words(dump(false)).length, 1, 'broken at spaces only: the word is wider than its line');
+});
