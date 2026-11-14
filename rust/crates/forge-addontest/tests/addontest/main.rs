@@ -52,6 +52,8 @@ mod dsl_shared_candidates;
 mod dsl_smart;
 #[path = "dsl-verbs.rs"]
 mod dsl_verbs;
+#[path = "dungeon-route-held.rs"]
+mod dungeon_route_held;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
 #[path = "dungeons-pickup.rs"]
@@ -84,8 +86,6 @@ mod engine_die;
 mod engine_direct;
 #[path = "engine-dungeon-route.rs"]
 mod engine_dungeon_route;
-#[path = "dungeon-route-held.rs"]
-mod dungeon_route_held;
 #[path = "engine-dwell.rs"]
 mod engine_dwell;
 #[path = "engine-empty-stop.rs"]

@@ -194,8 +194,16 @@ Polestar.RegisterGuide({ id = "test/read", pack = "test", title = "Read", factio
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), chosen_saved())],
-		script: [TEST_PACK, TEST_SOURCE, &guide, "E = Polestar.Engine", "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
-			"local v = E.GetStepView(2); emit({ live = E.GetLiveStep(), status = v.status })"].join("\n"),
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			&guide,
+			"E = Polestar.Engine",
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			"local v = E.GetStepView(2); emit({ live = E.GetLiveStep(), status = v.status })",
+		]
+		.join("\n"),
 		..Default::default()
 	});
 	assert_eq!(out[0], json!({ "live": 3, "status": "skipped" }));

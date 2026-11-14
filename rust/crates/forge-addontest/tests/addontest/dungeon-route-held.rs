@@ -121,10 +121,7 @@ fn held_back_every_leveling_guide_with_dungeon_steps_is_the_solo_route_whatever_
 	let answers: serde_json::Map<String, Value> = maps.iter().map(|m| (m.to_string(), Value::Bool(true))).collect();
 	let saved_run = vec![(
 		"Polestar".to_string(),
-		format!(
-			"PolestarCharDB = {}\nPolestarDB = {{ schema = 1, settings = {{ behavior = {{ dungeons = \"run\" }} }} }}",
-			lua_value(&json!({ "schema": 1, "dungeons": answers }))
-		),
+		format!("PolestarCharDB = {}\nPolestarDB = {{ schema = 1, settings = {{ behavior = {{ dungeons = \"run\" }} }} }}", lua_value(&json!({ "schema": 1, "dungeons": answers }))),
 	)];
 	let (mut seen, mut diffs) = (0, Vec::new());
 	for (race, class, faction) in [("Human", "WARRIOR", "Alliance"), ("Orc", "WARRIOR", "Horde")] {
