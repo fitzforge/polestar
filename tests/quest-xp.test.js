@@ -20,11 +20,15 @@ function GetQuestLogRewardXP(id) q.rewardReads = q.rewardReads + 1; return q.rew
 function GetAppropriateTooltip() return GameTooltip end
 `;
 
-function run(script) {
+// options: the settings window's QoL rows too (Polestar_Options/QoL/Options.lua: the rows load with the
+// settings window, not at login).
+function run(script, options) {
+	const addons = [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Theme/Theme.xml', 'QoL/QoL.xml'] }];
+	if (options) addons.push({ name: 'Polestar_Options', files: ['QoL/Options.lua'] });
 	return runAddon({
 		stubs: ['stub_qol.lua'],
 		before,
-		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Core/Compat.lua', 'Theme/Theme.xml', 'QoL/QoL.xml'] }],
+		addons,
 		login: true,
 		script: String.raw`
 local q, P = stub.qol, Polestar.QoL.QuestXP
@@ -213,7 +217,7 @@ emit({ total = P.total, moved = P.frame:GetParent() == nextBar, shown = P.frame:
 	assert.deepEqual(moved, { total: 250, moved: true, shown: true });
 });
 
-test('registers only one quest XP toggle in Trackers / Experience', () => {
+test('registers only one quest XP toggle in Trackers & map / Experience', () => {
 	const [settings] = run(String.raw`
 local found = {}
 for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -225,9 +229,9 @@ for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
 	end
 end
 emit(found)
-`);
+`, true);
 	assert.deepEqual(settings, {
-		'qol.questXPOverlay': { tab: 'Trackers', section: 'Experience', kind: 'toggle', help: true, default: true },
+		'qol.questXPOverlay': { tab: 'Trackers & map', section: 'Experience', kind: 'toggle', help: true, default: true },
 	});
 });
 
