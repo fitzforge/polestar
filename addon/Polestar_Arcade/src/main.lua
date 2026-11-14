@@ -230,7 +230,7 @@ local function applyDetail()
 end
 
 local function createFrame()
-	frame = CreateFrame("Frame", "FreedoomArcadeFrame", UIParent)
+	frame = CreateFrame("Frame", D.STANDALONE and "FreedoomArcadeFrame" or D.ADDON .. "Frame", UIParent)
 	frame:SetFrameStrata("DIALOG")
 	frame:SetToplevel(true)
 	frame:SetPoint("CENTER")
@@ -254,7 +254,7 @@ local function createFrame()
 
 	title = bar:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 	title:SetPoint("LEFT", bar, "LEFT", 8, 0)
-	title:SetText("Freedoom Arcade  |cff999999(Esc: menu, Tab: map, F6/F9: quick save/load, P: pause)|r")
+	title:SetText("Freedoom Arcade by petllama  |cff999999(Esc: menu, Tab: map, F6/F9: quick save/load, P: pause)|r")
 
 	fpsText = bar:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	fpsText:SetPoint("RIGHT", bar, "RIGHT", -28, 0)
@@ -338,6 +338,8 @@ local function help()
 	D.Print("/doom minimap - show or hide the minimap button")
 end
 
+-- A copy inside another addon leaves the commands to the standalone addon when that one has them.
+if not SlashCmdList.FREEDOOMARCADE then
 SLASH_FREEDOOMARCADE1 = "/arcade"
 SLASH_FREEDOOMARCADE2 = "/freedoom"
 SLASH_FREEDOOMARCADE3 = "/doom"
@@ -389,6 +391,7 @@ SlashCmdList.FREEDOOMARCADE = function(msg)
 		help()
 	end
 end
+end
 
 ------------------------------------------------------------------------ init
 -- entering combat: save, pause and hand the keyboard back to the character
@@ -422,12 +425,16 @@ loader:RegisterEvent("PLAYER_REGEN_ENABLED")
 loader:SetScript("OnEvent", function(self, event, name)
 	if event == "PLAYER_REGEN_DISABLED" then return UI.OnAggro() end
 	if event == "PLAYER_REGEN_ENABLED" then return UI.OnCombatEnd() end
-	if name ~= "FreedoomArcade" then return end
-	FreedoomArcadeDB = FreedoomArcadeDB or {}
-	db = FreedoomArcadeDB
+	if name ~= D.ADDON then return end
+	-- Saved per folder: FreedoomArcadeDB, or <folder>DB for a copy inside another addon.
+	local dbName = D.STANDALONE and "FreedoomArcadeDB" or D.ADDON .. "DB"
+	_G[dbName] = _G[dbName] or {}
+	db = _G[dbName]
 	for k, v in pairs(defaults) do
 		if db[k] == nil then db[k] = v end
 	end
+	-- A copy inside another addon is opened from that addon: its minimap button starts hidden.
+	if db.minimapHidden == nil and not D.STANDALONE then db.minimapHidden = true end
 	G.alwaysRun = db.alwaysRun
 	D.Sound.enabled = db.sound
 	if D.Minimap then D.Minimap.Init(db) end

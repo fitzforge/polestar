@@ -1,10 +1,15 @@
 -- FreedoomArcade core: shared namespace, math helpers, random, binary decoding.
 -- Doom's 16.16 fixed point is replaced by plain Lua numbers in map units;
 -- angles stay in Doom's BAM convention (0 .. 2^32) so game code ports directly.
+local ADDON = ...
 FreedoomArcade = FreedoomArcade or {}
 local D = FreedoomArcade
 
-D.ADDON_PATH = "Interface\\AddOns\\FreedoomArcade\\"
+-- The folder this copy runs from (FreedoomArcade, or a copy shipped inside another addon under its own
+-- name): textures, sounds and saved variables follow it.
+D.ADDON = type(ADDON) == "string" and ADDON or "FreedoomArcade"
+D.ADDON_PATH = "Interface\\AddOns\\" .. D.ADDON .. "\\"
+D.STANDALONE = D.ADDON == "FreedoomArcade"
 D.MAPS = D.MAPS or {}
 
 local floor = math.floor
