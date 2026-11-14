@@ -10239,6 +10239,15 @@ matches and whose session files are all there as it is, so a rerun with the
 same forge is quick and a forge with changed recording code sessions every
 archive again (`--all` does every archive whatever the stamps say).
 
+`record draft <session|file> [--data dir]` resolves schema 2 flight-point and
+flight-destination node IDs, and hearth-bind innkeeper NPC IDs, through
+`<data>/travel.json` (default `data/forever`). Schema 1's recorded place names
+still take precedence. Missing or ambiguous travel references leave author
+comments naming the recorded IDs; an unresolved flight still ends its step.
+The author must resolve those comments before using the draft. A session with
+only unresolved travel events cannot produce a guide. The draft library accepts
+the same optional reference data as `draftGuide(session, { travel })`.
+
 `record trail <session|file> [--out file.json]` writes a session's `/psrec
 trail` runs as `[{ label, start, end, reason, points: [{ t, map, x, y, speed,
 mounted, swimming, falling, indoors, flying }] }]`: the `pos` events with
