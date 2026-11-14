@@ -2688,16 +2688,36 @@ local function hideViews()
 	if searchView then searchView:Hide() end
 end
 
+-- The settings Reset page puts back: every one a control of the page writes,
+-- its row on screen or not. A row a mode hides keeps its setting all the
+-- same (the trail dots while route lines are on; Dungeons in my route while
+-- no guide has a dungeon), and the page is all at its defaults after, as its
+-- dialog says. A reference counts once it has its home; a key with no
+-- default (its module not loaded) holds nothing to put back.
 local function pageKeys(p)
 	local keys = {}
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
 			for _, c in ipairs(allSettings(s)) do
-				if c.key and available(c) then keys[#keys + 1] = c.key end
+				if c.key and not (rawget(c, "ref") and not homeOf(c)) and ns.GetDefault(c.key) ~= nil then keys[#keys + 1] = c.key end
 			end
 		end
 	end
 	return keys
+end
+
+-- Does the page show a setting now (the footer offers Reset page)? A page
+-- whose rows all wait on something missing (Integrations with none of its
+-- addons installed) has nothing to reset in sight.
+local function pageShowsSetting(p)
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			for _, c in ipairs(allSettings(s)) do
+				if c.key and available(c) then return true end
+			end
+		end
+	end
+	return false
 end
 
 -- The profiles (ns.Profiles, UI/Profiles.lua): their names and the one in use.
@@ -2849,9 +2869,15 @@ function O.Undo()
 	Undo.list = nil
 	Undo.seq = Undo.seq + 1
 	Undo.hide()
+	-- State that is no setting first: a preset's cards write the settings they
+	-- name (none matched: the first preset's), so each setting put back after
+	-- them, as it was stored, has the last word.
 	local function put()
 		for _, u in ipairs(list) do
-			if u.set then u.set(u.value) else ns.Set(u.path, u.value) end
+			if u.set then u.set(u.value) end
+		end
+		for _, u in ipairs(list) do
+			if not u.set then ns.Set(u.path, u.value) end
 		end
 	end
 	local I = ns.ThemeInternal
@@ -2867,7 +2893,7 @@ end
 local footerProfile
 local function renderFooter(p)
 	local left = {}
-	if p and #pageKeys(p) > 0 then
+	if p and pageShowsSetting(p) then
 		left[#left + 1] = { label = L["Reset page"], opts = { icon = "reset", ghost = true }, onClick = function()
 			W.Modal({ title = L["Reset this page?"], icon = "reset", danger = true, action = L["Reset page"],
 				text = string.format(L["Every setting on %s goes back to its default."], p.name),
@@ -2895,23 +2921,27 @@ local function renderFooter(p)
 end
 
 function O.ResetPage(p)
-	local held = {}
+	-- What the page holds, for Undo, before anything changes: a setting's reset
+	-- can move state that is no setting (the guide window shown again resumes
+	-- a pause).
+	local held, state = {}, {}
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			for _, c in ipairs(allSettings(s)) do
+				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then
+					state[#state + 1] = c
+					if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
+				end
+			end
+		end
+	end
 	for _, key in ipairs(pageKeys(p)) do
 		local was = ns.GetStored(key)
 		if was ~= nil then held[#held + 1] = { path = key, value = was } end
 		ns.Set(key, nil)
 	end
 	-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
-	for _, t in ipairs(p.tabs) do
-		for _, s in ipairs(t.sections) do
-			for _, c in ipairs(allSettings(s)) do
-				if (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set and available(c) then
-					if c.get then held[#held + 1] = { get = c.get, set = c.set, value = c.get() } end
-					c.set(nil)
-				end
-			end
-		end
-	end
+	for _, c in ipairs(state) do c.set(nil) end
 	for _, v in pairs(p.views or {}) do
 		for _, w in pairs(v.cache or {}) do
 			if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
