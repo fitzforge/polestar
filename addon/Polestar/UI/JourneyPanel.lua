@@ -570,6 +570,34 @@ local function relayout()
 	if G and G.Layout then G.Layout() end
 end
 
+-- The panel's shape at its last layout (JP.Layout): open, and open, the height of each row shown in order and
+-- whether the "more" line shows.
+local laid = { open = nil, n = 0, more = false, h = {} }
+
+-- The shape laid out still holds: the panel open or closed as then and, open, the same rows at the same heights (a
+-- line under a step at the height the layout gives it) and the same "more" line. Then the window needs no new
+-- layout: a new plan of the same shape (each replan on a split walk) only repaints the rows. The lines under the
+-- steps are put at those heights, as the layout would.
+local function unmoved()
+	local isOpen = open()
+	if laid.open ~= isOpen then return false end
+	if not isOpen then return true end
+	local k = 0
+	for i = 1, #rows do
+		local r = rows[i]
+		if r:IsShown() then
+			k = k + 1
+			if laid.h[k] ~= (r.Sub:IsShown() and ROW_H + subHeight(r) or r:GetHeight()) then return false end
+		end
+	end
+	if k ~= laid.n or more:IsShown() ~= laid.more then return false end
+	for i = 1, #rows do
+		local r = rows[i]
+		if r:IsShown() and r.Sub:IsShown() then r:SetHeight(ROW_H + subHeight(r)) end
+	end
+	return true
+end
+
 -- Bring the panel up to date. force: repaint the structure too (settings,
 -- theme). Lays the window out only when what is shown changes shape.
 function JP.Refresh(force)
@@ -621,7 +649,7 @@ function JP.Refresh(force)
 		local r = rows[i]
 		if r:IsShown() and r.Sub:IsShown() and r:GetHeight() ~= ROW_H + subHeight(r) then changed = true end
 	end
-	if changed or not had then relayout() end
+	if (changed or not had) and not (had and unmoved()) then relayout() end
 	if F:IsVisible() then JP.StartTicker() end
 end
 
@@ -632,6 +660,7 @@ function JP.Layout(width)
 	local isOpen = open()
 	list:SetShown(isOpen)
 	if not isOpen then
+		laid.open = false
 		F:SetHeight(HEAD_H)
 		return HEAD_H
 	end
@@ -640,6 +669,7 @@ function JP.Layout(width)
 	dest:SetPoint("LEFT", list, "TOPLEFT", TEXT_X, -(DEST_H / 2 - 2))
 	local y = DEST_H
 	local textW = width - (TEXT_X + 22) - PAD - TIME_W - 8
+	local k = 0
 	for i = 1, #rows do
 		local r = rows[i]
 		if r:IsShown() then
@@ -649,9 +679,12 @@ function JP.Layout(width)
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", list, "TOPLEFT", 0, -y)
 			r:SetPoint("TOPRIGHT", list, "TOPRIGHT", 0, -y)
+			k = k + 1
+			laid.h[k] = r:GetHeight()
 			y = y + r:GetHeight()
 		end
 	end
+	laid.open, laid.n, laid.more = true, k, more:IsShown()
 	if more:IsShown() then
 		more:ClearAllPoints()
 		more:SetPoint("LEFT", list, "TOPLEFT", TEXT_X + 22, -(y + MORE_H / 2))

@@ -63,7 +63,7 @@ local type, pairs, ipairs, pcall = type, pairs, ipairs, pcall
 local sqrt, floor, huge = math.sqrt, math.floor, math.huge
 local format, lower = string.format, string.lower
 
-local Travel = { version = 0, zoneOfPoint = {} }
+local Travel = { version = 0, zoneOfPoint = {}, dockChain = {} }
 Nav.travel = Travel
 
 ns.RegisterDefaults("nav", { travel = true, detourCaption = false })
@@ -189,7 +189,7 @@ local function clearData()
 	crossEnds, crossIds, openPair, chains, areasIn = {}, {}, {}, {}, {}
 	Travel.places = {}
 	pathZone, zoneVersion = {}, zoneVersion + 1
-	Travel.zoneOfPoint = {}
+	Travel.zoneOfPoint, Travel.dockChain = {}, {}
 end
 
 -- replace: drop what was registered before (tests and tools use it).
@@ -355,7 +355,7 @@ function Nav.RegisterCrossings(d)
 		for c in pairs(touched) do covered[c] = true end
 	end
 	pathZone, zoneVersion = {}, zoneVersion + 1
-	Travel.zoneOfPoint = {}
+	Travel.zoneOfPoint, Travel.dockChain = {}, {}
 	Travel.version = Travel.version + 1
 end
 
@@ -635,8 +635,8 @@ local function insideChain(c, wx, wy, z, loose, floors)
 		local last = ch.open == "both" and #nodes - 1 or #nodes
 		for k = 2, last do
 			local nd = nodes[k]
-			local floorOK = not nd.z or (z and z - nd.z <= 20 and nd.z - z <= 20) or (z == nil and (loose or nd.alone or onEvery(floors, nd.z)))
-			if nd.c == c and floorOK then
+			-- (Another continent's node first: the floor test is the dearer one, and planRoute asks for every dock.)
+			if nd.c == c and (not nd.z or (z and z - nd.z <= 20 and nd.z - z <= 20) or (z == nil and (loose or nd.alone or onEvery(floors, nd.z)))) then
 				local d = yards(c, wx, wy, nd.c, nd.wx, nd.wy)
 				local cap = nd.r * CAPTURE
 				if cap < CAPTURE_MIN then cap = CAPTURE_MIN end
@@ -910,13 +910,22 @@ local function planRoute(p)
 		if targetIn then near(targetIn, function(v) link(v, 2) end) end
 		if startIn and targetIn and startIn.chain == targetIn.chain then link(1, 2) end
 		-- A dock inside a chain (the Deeprun Tram's Stormwind end, down its building past the door, #1242) is
-		-- reached like an inside target: through its nearest node and that node's neighbours only.
-		for v in pairs(dockOf) do
-			local e = dockEnd[v]
-			local nd = covered[vc[v]] and insideChain(vc[v], vx[v], vy[v], e.z, true)
-			if nd then
-				dockIn[v] = true
-				near(nd, function(u) link(u, v); link(v, u) end)
+		-- reached like an inside target: through its nearest node and that node's neighbours only. Which node is the
+		-- data's alone (the dock's spot and floor, the chains): worked out once per dock (Travel.dockChain, emptied
+		-- with the data), not on every plan.
+		do
+			local memo = Travel.dockChain
+			for v in pairs(dockOf) do
+				local e = dockEnd[v]
+				local nd = memo[e]
+				if nd == nil then
+					nd = covered[vc[v]] and insideChain(vc[v], vx[v], vy[v], e.z, true) or false
+					memo[e] = nd
+				end
+				if nd then
+					dockIn[v] = true
+					near(nd, function(u) link(u, v); link(v, u) end)
+				end
 			end
 		end
 	end

@@ -1803,6 +1803,33 @@ fn a_long_xp_line_takes_a_second_line_instead_of_being_cut() {
 	assert_eq!(out["line"], true);
 }
 
+// The XP line is measured at the window's width, as the layout measures it: an update that changes nothing in the
+// row lays the window out no more (at the row's own width, 0 before a layout, the two disagreed on a line that takes
+// two, and every XP update laid the whole window out again).
+#[test]
+fn an_xp_update_that_changes_nothing_in_the_row_does_not_lay_the_window_out_again() {
+	let out = run(r#"
+		local stats = { rate = 48000, timeToLevel = 30, maxed = false }
+		Polestar.QoL = {
+			GetXPStats = function() return stats end,
+			Duration = function() return "30s" end,
+			XP = { Short = function(n) return string.format("%.1fk", n / 1000) end, Summary = function() return "Level 24" end },
+		}
+		local pace = GF.PaceText
+		GF.PaceText = function() return "On pace for level 25.2 by step 96" end
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		local layouts, layout = 0, GF.Layout
+		GF.Layout = function(...) layouts = layouts + 1; return layout(...) end
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		Polestar.Fire("QOL_XP_UPDATED", stats)
+		GF.Layout, GF.PaceText = layout, pace
+		emit({ layouts = layouts, h = GF.xp:GetHeight(), one = GF.XPROW.h })"#)
+	.remove(0);
+	assert_eq!(out["layouts"], 0, "{out}");
+	assert!(out["h"].as_f64().unwrap() > out["one"].as_f64().unwrap(), "still on two lines: {out}");
+}
+
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
 // when on pace (up to a level short: Fitz, 0.3.6, a few bars short is no warning) or when a `level` goal ahead
 // grinds the gap, in the warning colour when more than a level short with nothing in the guide making it up;
