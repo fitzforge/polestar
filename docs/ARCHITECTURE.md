@@ -7968,6 +7968,7 @@ Polestar.RegisterOptions({
   page = "Quests", icon = "icon-accept", order = 30,      -- sidebar page (created on first use), its title as shown
   key = "quests",                                           -- optional: the page's stable key (default: made from page)
   group = "guiding",                                        -- optional: guiding | look | setup | about (default: by order)
+  general = true,                                           -- optional: a page for all of Polestar (Theme): its rows come first among equal search matches
   tab = "Map", section = "Markers",                         -- tab row entry and section (a card)
   toggle = { kind = "toggle", key = "qol.markers", label = "Markers", help = "One line." }, -- optional: the section's on/off, in its header
   shown = function() return Polestar.Get("nav.lineStyle") == "sparkle" end, -- optional: hide the section's card (a mode's settings)
@@ -8328,7 +8329,12 @@ page 50/45, help 40/35, typos 30 to 20, inside a word 12 to 5; two query
 words that are one joined pair of the control's (neighbours within one
 comma's part of its text) add up to 40. A filler word's match, and a pair
 with one in it, count a tenth: they tell settings apart, never outrank the
-words asked about ("the" in "Hide the arrow with the guide"). A control
+words asked about ("the" in "Hide the arrow with the guide"), so results
+are ordered by the score less that tenth first. Among settings the words
+asked about match alike, one on a page for all of Polestar (`general` in
+its spec: the Theme page) comes before a module's, then the filler decides:
+"text size", or a German "Wo ist die Textgröße?", finds Theme's Text size
+before a toast's or a tracker's. A control
 named whole, every word of its label or of one of its search terms of two
 words or more asked for (filler aside; whole or its start, or through a
 word's other forms or synonyms, never a typo: "slow" is not "Glow"), adds 50: "where is the xp

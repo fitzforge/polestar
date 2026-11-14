@@ -1433,6 +1433,9 @@ const QUESTIONS: &[(&str, &str)] = &[
 	("where can I set trainer reminders", "behavior.trainReminder"),
 	("show me the quest levels", "qol.questLevels"),
 	("I don't want it to turn in quests", "behavior.autoTurnin"),
+	// Every Polestar window's text size, before the toasts' and trackers' own of the same label.
+	("text size", "ui.textSize"),
+	("where is the text size?", "ui.textSize"),
 ];
 
 // The first setting row of the dropdown for each question (and the three best, for a failure's message).

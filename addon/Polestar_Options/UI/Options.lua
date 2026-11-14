@@ -138,6 +138,7 @@ local function add(spec, builtin)
 	if spec.dot then p.dot = spec.dot end
 	if spec.empty then p.empty = spec.empty end
 	if spec.group then p.group = spec.group end
+	if spec.general then p.general = true end
 	local tab = tabOf(p, spec.tab)
 	-- The page's lead tab (Essentials): first, whatever registered before it.
 	if spec.lead and not tab.lead then
@@ -2244,12 +2245,12 @@ local function formSays(i, t)
 end
 
 -- A control's score for the query, 0 when a word it needs matches nothing;
--- and what its words alone make of it (no WEIGHT.COVER or WEIGHT.SWITCH: the page scope's
--- fair match).
+-- what its words alone make of it (no WEIGHT.COVER or WEIGHT.SWITCH: the page scope's
+-- fair match); and the part of the score its filler words gave (they only break ties).
 local function scoreOf(c, nw)
 	local s = searchTokens(c)
 	local tw, tf = s.words, s.fields
-	local total, bonus = 0, qwords.onoff and c.kind == "toggle" and WEIGHT.SWITCH or 0
+	local total, bonus, fill = 0, qwords.onoff and c.kind == "toggle" and WEIGHT.SWITCH or 0, 0
 	for i = 1, nw do
 		local m, filler, best, phrase = qwords[i], qfiller[i], 0, 0
 		local pair = qpairs[i]
@@ -2277,6 +2278,8 @@ local function scoreOf(c, nw)
 		if filler then best = floor(best * WEIGHT.FILLER) end
 		if filler or (i > 1 and qfiller[i - 1]) then phrase = floor(phrase * WEIGHT.FILLER) end
 		total = total + best + phrase
+		if filler then fill = fill + best end
+		if filler or (i > 1 and qfiller[i - 1]) then fill = fill + phrase end
 	end
 	-- Named whole: each word of its label, or of one of its search terms,
 	-- one a query word asks for (whole or its start, or through the word's
@@ -2296,20 +2299,27 @@ local function scoreOf(c, nw)
 				break
 			end
 		end
-		if all then return total + bonus + WEIGHT.COVER, total end
+		if all then return total + bonus + WEIGHT.COVER, total, fill end
 	end
-	return total + bonus, total
+	return total + bonus, total, fill
 end
 
--- The best match first; one its section's on/off stops after an equal one
--- that works.
+-- The best match of the words asked about first (psCore: the score less its
+-- filler words' part); among equal ones, a setting of a page for all of
+-- Polestar (the Theme page's Text size) before a module's (a toast's Text
+-- size), then the filler words; one its section's on/off stops after an
+-- equal one that works.
 local function byScore(a, b)
+	if a.psCore ~= b.psCore then return a.psCore > b.psCore end
+	if a.psGeneral ~= b.psGeneral then return a.psGeneral end
 	if a.psScore ~= b.psScore then return a.psScore > b.psScore end
 	if a.psStopped ~= b.psStopped then return not a.psStopped end
 	return a.psOrder < b.psOrder
 end
 
 local function byBest(a, b)
+	if a.core ~= b.core then return a.core > b.core end
+	if a.general ~= b.general then return a.general end
 	if a.best ~= b.best then return a.best > b.best end
 	if a.off ~= b.off then return not a.off end
 	return a.order < b.order
@@ -2380,7 +2390,7 @@ local function collect(nw, only)
 				-- The section's toggle is a result of its own; a control is
 				-- found by its words and by those of its extras and cog. A
 				-- reference (Essentials) is found at its home.
-				local list, best, fair
+				local list, best, fair, core
 				local cands = {}
 				if s.toggle and not rawget(s.toggle, "ref") then cands[1] = s.toggle end
 				for _, c in ipairs(s.controls) do
@@ -2389,22 +2399,24 @@ local function collect(nw, only)
 				for _, c in ipairs(cands) do
 					order = order + 1
 					if available(c) and not (c.key and seen[c.key]) then
-						local score, words, via = 0, 0, nil
+						local score, words, via, fill = 0, 0, nil, 0
 						eachSetting(c, function(x)
 							if x == c or available(x) then
-								local v, w = scoreOf(x, nw)
-								if v > score then score, words, via = v, w or 0, x end
+								local v, w, f = scoreOf(x, nw)
+								if v > score then score, words, via, fill = v, w or 0, x, f or 0 end
 							end
 						end)
 						if score > 0 then
 							if c.key then seen[c.key] = true end
 							-- psVia: an extra or a cog's setting that matched better than the row's own.
 							c.psScore, c.psOrder, c.psVia = score, order, via ~= c and via or nil
+							c.psCore, c.psGeneral = score - fill, p.general == true
 							-- Stopped by its section's on/off: after the ones that work.
 							c.psStopped = s.toggle ~= c and sectionOff(s)
 							list = list or {}
 							list[#list + 1] = c
 							if not best or score > best then best = score end
+							if not core or c.psCore > core then core = c.psCore end
 							if not fair or words > fair then fair = words end
 						end
 					end
@@ -2415,7 +2427,7 @@ local function collect(nw, only)
 					local title = p.name
 					if t.name ~= "" then title = title .. "  \194\183  " .. t.name end
 					if s.name ~= "" and s.name ~= t.name then title = title .. "  \194\183  " .. s.name end
-					groups[#groups + 1] = { title = title, controls = list, best = best, fair = fair, order = #groups + 1, section = s,
+					groups[#groups + 1] = { title = title, controls = list, best = best, core = core, general = p.general == true, fair = fair, order = #groups + 1, section = s,
 						off = list[1].psStopped and true or false }
 					count = count + #list
 				end
@@ -3620,6 +3632,8 @@ function O.Matches(q, n)
 	end
 	table.sort(flat, function(a, b)
 		local x, y = a.c, b.c
+		if x.psCore ~= y.psCore then return x.psCore > y.psCore end
+		if x.psGeneral ~= y.psGeneral then return x.psGeneral end
 		if x.psScore ~= y.psScore then return x.psScore > y.psScore end
 		if x.psStopped ~= y.psStopped then return not x.psStopped end
 		if a.g ~= b.g then return a.g < b.g end
