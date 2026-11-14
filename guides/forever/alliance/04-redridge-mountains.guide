@@ -114,6 +114,12 @@ next forever/alliance/05-duskwood
 # the Hills (126, offered once 03-loch-modan's Lakeshire quests are handed in) is
 # taken on the Lakeshire stop: Yowler stands at the top of the Redridge Canyons on
 # the walk up to Render's Valley, and Verner Osgood is on the way back through town.
+#
+# Dungeons in the route: The Stockade's Crime and Punishment (377) from Councilman Millstipe in Darkshire.
+# The every-quest routes (`when dungeon "<Name>" all`) take Guard Berton's What Comes Around... (386, The
+# Stockade) and Dorin Songblade's Songblade Search (95772, Excavation Site: Wetlands) on the Lakeshire
+# stop; Berton's head and Fallen in the Fen (95795, from Daewyn inside the dig) come back to Lakeshire on a
+# hop at the end of 06-wetlands.
 
 # ---------------------------------------------------------------- Stormwind and the road
 
@@ -321,11 +327,25 @@ step Martie Jainrose
   tip Martie's garden is at the west end of town.
   turnin 34
 
+step Guard Berton
+  when dungeon "The Stockade" all
+  when level>=24.4
+  zone Redridge Mountains
+  tip For your Stockade run, at the end of Duskwood: Guard Berton, by the inn on the way back east, wants the head of Targorr the Dread, a prisoner inside.
+  accept 386                                  -- Guard Berton
+
 step Lakeshire
   tip Back east through town from Martie's garden: two Wanted posters hang on the town hall doorway.
   accept 169 optional                         -- The Wanted poster on the town hall doorway
   accept 95999 optional                       -- The Wanted poster beside it
   vendor nearest optional
+
+step Dorin Songblade
+  when dungeon "Excavation Site: Wetlands" all
+  when level>=25.8
+  zone Redridge Mountains
+  tip For your Excavation Site: Wetlands run, at about 28: Dorin Songblade, by the town hall, asks you to look for his brother Daewyn in the Wetlands dig.
+  accept 95772                                -- Dorin Songblade
 
 # ---------------------------------------------------------------- East of the lake
 

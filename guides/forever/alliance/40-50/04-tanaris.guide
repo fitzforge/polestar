@@ -19,10 +19,15 @@ next forever/alliance/40-50/05-the-hinterlands
 # takes Tran'rek's Scarab Shells (2865, after Tran'rek, 2864, handed in there), Chief Engineer Bilgewhizzle's
 # Divino-matic Rod (2768) and Trenton Lighthammer's Troll Temper (3042), at about 45; the run follows the pool by
 # Sandsorrow Watch, the route's nearest point to the city's gate (about 400 yards north), at about 46, and the three
-# are handed in on the next Gadgetzan stop (`when complete`). Left out: Gahz'rilla (2770: Wizzle Brassbolts at the
-# Mirage Raceway, level 50, 5 over there), The Prophecy of Mosh'aru (3527: after Screecher Spirits, 3520, which
-# this route does not take), Nekrum's Medallion (2991: a Hinterlands chain after this guide) and Tiara of the Deep
-# (2846: Tabetha in Dustwallow Marsh, off the route).
+# are handed in on the next Gadgetzan stop (`when complete`). The every-quest route (`when dungeon "Zul'Farrak"
+# all`) adds Yeh'kinya's Screecher Spirits (3520: the spirits are in Feralas, a flight from Gadgetzan and back
+# before the run) and The Prophecy of Mosh'aru (3527, the two tablets inside, back to Yeh'kinya after Tooga's
+# escort), and Tabetha's Tiara of the Deep (2846, taken in 40-50/02-badlands; a flight to Theramore and on to
+# Auberdine at the end). Left out: Gahz'rilla (2770: Gahz'rilla is called with the Mallet of Zul'Farrak, made from
+# the Sacred Mallet of Qiaga the Keeper, a level 50 elite on the Altar of Zul in the Hinterlands, where the route
+# is only at about 43, before Wizzle Brassbolts gives the quest here), Nekrum's Medallion (2991: Thadius Grimshade
+# gives it at Nethergarde Keep after The Altar of Zul, on 40-50/05-the-hinterlands, after the run), Find
+# OOX-17/TN! (351: its beacon is a rare drop of Tanaris' wildlife, not the dungeon's).
 
 step Thousand Needles
   zone Thousand Needles
@@ -77,6 +82,13 @@ step Steamwheedle Port
   turnin 2872                         -- Stoley, in the port's tavern; inside
   accept 2873
 
+step Yeh'kinya
+  when dungeon "Zul'Farrak" all
+  when level>=45.4
+  zone Tanaris
+  tip For your Zul'Farrak run: Yeh'kinya, in the port, wants three screecher spirits from Feralas first; the route flies there from Gadgetzan.
+  accept 3520                         -- Yeh'kinya
+
 step Noonshade Ruins: kill these as you meet them
   zone Tanaris
   tip Ride back west toward Gadgetzan. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.
@@ -89,6 +101,30 @@ step Gadgetzan
   turnin 1707                         -- Spigot Operator Luglunket
   turnin 1690                         -- Chief Engineer Bilgewhizzle
   accept 1691
+
+step Fly to Feathermoon
+  when dungeon "Zul'Farrak" all
+  when onquest 3520
+  zone Tanaris
+  tip For Yeh'kinya's Screecher Spirits: the gryphon to Feathermoon Stronghold, then the ferry to the mainland dock.
+  goto 51.0,29.3 "Gadgetzan flight master"
+  fly "Feathermoon"
+
+step Screecher Spirits
+  when dungeon "Zul'Farrak" all
+  when onquest 3520
+  zone Feralas
+  tip The Rogue Vale Screechers roam the coast just north of the mainland dock. Kill one, use Yeh'kinya's Bramble on its corpse before you loot it and speak with the spirit that rises: three times.
+  complete 3520                       -- Screecher Spirits
+
+step Fly to Gadgetzan
+  when dungeon "Zul'Farrak" all
+  when zone "Feralas"
+  zone Feralas
+  tip Back over the ferry to Feathermoon Stronghold and the gryphon to Gadgetzan.
+  goto 30.2,43.2 "Feathermoon flight master"
+  fly "Gadgetzan"
+  zone Tanaris
 
 step Waterspring Field
   tip The tougher Wastewander rogues, shadow mages and assassins camp south-east of Gadgetzan, south of the bandits. Leave Caliph Scorpidsting in the middle of the southern camp for later.
@@ -117,6 +153,27 @@ step Steamwheedle Port
   turnin 8366
   turnin 8365                         -- Haughty Modiste
 
+step Yeh'kinya
+  when dungeon "Zul'Farrak" all
+  when complete 3520
+  zone Tanaris
+  turnin 3520                         -- Yeh'kinya
+
+step Abandon Screecher Spirits
+  when dungeon "Zul'Farrak" all
+  when onquest 3520
+  when !complete 3520
+  tip Screecher Spirits is still unfinished: the route doesn't go back to Feralas before the Zul'Farrak run, so abandon it.
+  abandon 3520                        -- Screecher Spirits
+
+step Yeh'kinya
+  when dungeon "Zul'Farrak" all
+  when turnedin 3520
+  when level>=46.2
+  zone Tanaris
+  tip For your Zul'Farrak run: Yeh'kinya then wants the two Mosh'aru tablets, from Theka the Martyr and Hydromancer Velratha inside.
+  accept 3527                         -- Yeh'kinya
+
 step Noonshade Ruins
   tip Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower.
   collect 8483 x5 -- Wastewander Water Pouch
@@ -131,7 +188,7 @@ step The pool by Sandsorrow Watch
 
 step Zul'Farrak
   when dungeon "Zul'Farrak"
-  when onquest 2865,2768,3042
+  when onquest 2865,2768,3042,3527,2846
   when level>=46.2
   zone Tanaris
   tip Zul'Farrak is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.
@@ -140,6 +197,8 @@ step Zul'Farrak
   complete 2865 @38.7,20.1            -- Scarab Shells: the Scarabs, inside
   complete 3042 @38.7,20.1            -- Troll Temper: the Sandfury trolls, inside
   complete 2768 @38.7,20.1            -- Divino-matic Rod: Sergeant Bly, inside
+  complete 3527 @38.7,20.1            -- The Prophecy of Mosh'aru: the tablets of Theka the Martyr and Hydromancer Velratha, inside
+  complete 2846 @38.7,20.1            -- Tiara of the Deep: Hydromancer Velratha, inside
 
 step Gadgetzan
   turnin 992                          -- Senior Surveyor Fizzledowser
@@ -225,6 +284,20 @@ step Tooga's escort
   complete 1560
   turnin 1560                         -- Torta
 
+step Yeh'kinya
+  when dungeon "Zul'Farrak" all
+  when complete 3527
+  zone Tanaris
+  tip The Mosh'aru tablets from your Zul'Farrak run: Yeh'kinya is in the port, a short walk from Torta.
+  turnin 3527                         -- Yeh'kinya
+
+step Abandon The Prophecy of Mosh'aru
+  when dungeon "Zul'Farrak" all
+  when onquest 3527
+  when !complete 3527
+  tip The Prophecy of Mosh'aru is still unfinished: without a Zul'Farrak run at its level the route doesn't come back for it, so abandon it.
+  abandon 3527                        -- The Prophecy of Mosh'aru
+
 step Gadgetzan
   tip Ride back west to Gadgetzan: Andi Lynn stands on the east side of town, where you come in.
   turnin 5863                         -- Andi Lynn
@@ -258,6 +331,36 @@ step Gadgetzan
   accept 162                          -- for Darnassus, next
 
 # ---------------------------------------------------------------- To Darnassus
+
+step Fly to Theramore
+  when dungeon "Zul'Farrak" all
+  when complete 2846
+  zone Tanaris
+  tip The Tiara of the Deep goes to Tabetha in Dustwallow Marsh: the gryphon to Theramore, west into the marsh, then from Theramore on to Auberdine.
+  goto 51.0,29.3 "Gadgetzan flight master"
+  fly "Theramore"
+
+step Tabetha
+  when dungeon "Zul'Farrak" all
+  when complete 2846
+  zone Dustwallow Marsh
+  turnin 2846                         -- Tabetha
+
+step Fly to Auberdine
+  when dungeon "Zul'Farrak" all
+  when zone "Dustwallow Marsh"
+  zone Dustwallow Marsh
+  tip Back to Theramore's gryphon master and on to Auberdine.
+  goto 67.5,51.2 "Theramore flight master"
+  fly "Auberdine"
+  zone Darkshore
+
+step Abandon Tiara of the Deep
+  when dungeon "Zul'Farrak" all
+  when onquest 2846
+  when !complete 2846
+  tip Tiara of the Deep is still unfinished: without a Zul'Farrak run at its level the route doesn't come back for it, so abandon it.
+  abandon 2846                        -- Tiara of the Deep
 
 step Fly to Auberdine
   zone Tanaris

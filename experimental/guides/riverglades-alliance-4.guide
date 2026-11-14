@@ -38,7 +38,9 @@ next forever/alliance/40-50/01-stranglethorn-vale when level<43
 # dungeon's floor), from the door north of Sunnyglade, about 362 yd from Riftan's camp, where 16 people went in.
 # Riftan takes the bangle and gives Lingering Essence (94997) for Ashe; the hearth to Farholde Keep brings the other
 # hand-ins: Ashe's two (then her Curios of Curiosity, 94998, for Melanie Sable), Demar Brant's, and Tunk the
-# blacksmith's Krol'dok Moulding (94980) for Alphonse Dumas.
+# blacksmith's Krol'dok Moulding (94980) for Alphonse Dumas. The three taken before the run are picked up under its
+# floor (the levels the guides plan before it), so a character still carrying one unfinished after its hand-in
+# abandons it there: the route doesn't come back to the stronghold.
 
 step Farholde Keep
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
@@ -140,6 +142,13 @@ step Sergeant Riftan
   turnin 94983                          -- Sergeant Riftan
   accept 94997                          -- Sergeant Riftan: Lingering Essence, for Ashe Amberhall in Farholde Keep
 
+step Abandon Twilight Mementos
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94983
+  when !complete 94983
+  tip Twilight Mementos is still unfinished: without a Krol'dok Stronghold run at its level the route doesn't come back for it, so abandon it.
+  abandon 94983                         -- Twilight Mementos
+
 step Hearth to Farholde Keep
   hearth "Farholde Keep"
 
@@ -157,6 +166,13 @@ step Ashe Amberhall
   when complete 94984
   turnin 94984                          -- Ashe Amberhall
 
+step Abandon Tome of Twilight
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94984
+  when !complete 94984
+  tip Tome of Twilight is still unfinished: without a Krol'dok Stronghold run at its level the route doesn't come back for it, so abandon it.
+  abandon 94984                         -- Tome of Twilight
+
 step Ashe Amberhall
   when dungeon "Krol'dok Stronghold"
   when onquest 94997
@@ -172,6 +188,13 @@ step Demar Brant
   when dungeon "Krol'dok Stronghold"
   when complete 94982
   turnin 94982                          -- Demar Brant
+
+step Abandon Eye of Mugg
+  when dungeon "Krol'dok Stronghold"
+  when onquest 94982
+  when !complete 94982
+  tip Eye of Mugg is still unfinished: without a Krol'dok Stronghold run at its level the route doesn't come back for it, so abandon it.
+  abandon 94982                         -- Eye of Mugg
 
 step Alphonse Dumas
   when dungeon "Krol'dok Stronghold"

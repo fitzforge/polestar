@@ -14,6 +14,9 @@ next forever/alliance/30-40/06b-desolace
 # The split is where Riverglades (Polestar Experimental) joins the route as a choice: Thelsamar has the Stoutlager Inn
 # bind and the Lakeshire flight, and Riverglades' first part (37-40) starts at Blackrock Pass, north of Lakeshire; its
 # last part hands back to 40-50/03-feralas (43+) or 40-50/01-stranglethorn-vale at Theramore.
+# Uldaman (`when dungeon "Uldaman"`, dungeons in the route; the run is in 40-50/02-badlands): a runner, past level 39
+# at Agmond's End thanks to the dungeons' experience, takes Murdaloc (739) from the skeleton as 738 goes in, instead
+# of walking back to it after the ogres and buzzards; the solo route takes it there once its level allows.
 
 step Into Badlands
   zone Badlands
@@ -62,6 +65,13 @@ step Valley of Fangs
 step Agmond's End
   tip The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south.
   turnin 738                          -- Battered Dwarven Skeleton
+
+step Battered Dwarven Skeleton
+  when dungeon "Uldaman"
+  when level>=39
+  zone Badlands
+  tip Already level 39 or more: take Murdaloc from the skeleton now, while you stand at it.
+  accept 739                          -- Battered Dwarven Skeleton
 
 step Agmond's End: kill these as you meet them
   zone Badlands

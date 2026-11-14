@@ -20,6 +20,9 @@ next forever/alliance/40-50/06-searing-gorge
 # Caskbelly gives Into The Temple of Atal'Hakkar (1475) on the Stormwind stop, where Rhapsody's Tale (1469) is
 # handed in, at about 47.5; it is carried to the run at about 52 and goes back to him on the Stormwind stop of
 # forever/alliance/50-60/06-silithus.
+# Its every-quest route (`when dungeon "Sunken Temple" all`) takes the Atal'ai Exile's Jammal'an the Prophet (1446)
+# on the way from the Altar of Zul to Skulk Rock; the head goes back to him from Chillwind Camp at the start of
+# forever/alliance/50-60/04-western-plaguelands.
 
 step The Altar of Zul
   when onquest 2989
@@ -27,6 +30,13 @@ step The Altar of Zul
   tip Careful: Elite trolls guard the top platform, including Qiaga the Keeper and Morta'gya the Keeper, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group.
   goto 49.0,68.7
   complete 2989 @49.0,68.7
+
+step Atal'ai Exile
+  when dungeon "Sunken Temple" all
+  when level>=44.9
+  zone The Hinterlands
+  tip For your Sunken Temple run in the Swamp of Sorrows, at about 52: the Atal'ai Exile, west of the altar, wants the head of Jammal'an the Prophet, inside.
+  accept 1446                         -- Atal'ai Exile
 
 step Skulk Rock
   tip Ride north to Skulk Rock in the middle of the Hinterlands. Green Sludges and Jade Oozes crawl all around it.

@@ -27,9 +27,15 @@ next forever/alliance/04-redridge-mountains
 # in is the sunken ruins' pit east of him. Gershala takes the brain stems on the Auberdine landing after the
 # run, beside Terenthis (`when complete`), and Gerrig Bonegrip the Lorgalis Manuscript for Knowledge in the
 # Deeps (971, taken on the Ironforge stop of forever/alliance/03-loch-modan) on this guide's Ironforge stop.
-# Left out: In Search of Thaelrid, Twilight Falls and
-# Blackfathom Villainy (1198, 1199, 1200: Darnassus, off the route; Thaelrid stands inside), the Warlock's
-# Orb of Soran'ruk (1740, class guide).
+# Its every-quest route (`when dungeon "Blackfathom Deeps" all`): In Search of Thaelrid and Twilight Falls (1198,
+# 1199, taken in Darnassus from 03-darkshore-return's Auberdine stop): Thaelrid stands inside and gives
+# Blackfathom Villainy (1200); Twilight Falls and Blackfathom Villainy go back to Darnassus from the Auberdine
+# landing after the run. Excavation Site: Wetlands' every-quest route takes Seeking Caitlin (95737) from Llana in
+# Astranaar and, for it, Lost in the Thicket Things (95647) from Caitlin Grassman in Menethil. Players who
+# hearthed to Auberdine at the end of 03-loch-modan hand the Deadmines' quests in on this guide's Stormwind
+# stop (the Unsent Letter, 373; Underground Assault, Collecting Memories, Oh Brother..., 2040, 168, 167), and a
+# Stockade runner takes Bazil Thredd (389) there. Left out: the Warlock's Orb of Soran'ruk (1740: its large
+# fragment drops in Shadowfang Keep, which this route doesn't run).
 
 # ---------------------------------------------------------------- Darkshore
 
@@ -215,14 +221,22 @@ step Ruuzel
 
 step Blackfathom Deeps
   when dungeon "Blackfathom Deeps"
-  when onquest 1275,971
+  when onquest 1275,971,1198,1199
   when level>=24.5
   zone Ashenvale
   tip Blackfathom Deeps is a dungeon for a group of five, levels 24 to 32, and a full run takes about an hour. The way in is the sunken ruins at the north end of the strand: go down the stairs into the pit, swim through the tunnels under the wall, past the blue crystals, to the portal.
-  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala, and the Lorgalis Manuscript for Gerrig Bonegrip is in there too. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, has a quest for Darnassus, which this route leaves to the Dungeons page.
+  tip Inside: the naga and the satyrs drop the Corrupted Brain Stems for Gershala, and the Lorgalis Manuscript for Gerrig Bonegrip is in there too. Argent Guard Thaelrid, by a campfire in an underwater side room off Ghamoo-ra's room, gives Blackfathom Villainy: Twilight Lord Kelris' head, at the end of the dungeon, for Darnassus, which the route hands in after the run unless you chose only the quests on your way.
   enter "Blackfathom Deeps" @14.5,14.2
   collect 5952 x8 quest 1275.1        -- Researching the Corruption: Corrupted Brain Stems
   collect 5359 quest 971.1            -- Knowledge in the Deeps: the Lorgalis Manuscript, inside
+  turnin 1198 npc 4787 @14.5,14.2     -- In Search of Thaelrid: Argent Guard Thaelrid, inside; he gives Blackfathom Villainy, for Darnassus
+  collect 5879 x10 quest 1199.1       -- Twilight Falls: Twilight Pendants, from the Twilight's Hammer cultists inside
+
+step Abandon In Search of Thaelrid
+  when dungeon "Blackfathom Deeps" all
+  when onquest 1198
+  tip In Search of Thaelrid is still in your log: without a Blackfathom Deeps run at its level the route doesn't come back for it, so abandon it.
+  abandon 1198                        -- In Search of Thaelrid
 
 step Talen
   turnin 1009
@@ -234,6 +248,13 @@ step Maestra's Post
 step Astranaar
   tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.
   turnin 1008                         -- Shindrell Swiftfire
+
+step Llana
+  when dungeon "Excavation Site: Wetlands" all
+  when level>=24
+  zone Ashenvale
+  tip For your Excavation Site: Wetlands run, at about 28: Llana, beside Shindrell Swiftfire, sends you to Caitlin Grassman in Menethil Harbor.
+  accept 95737                        -- Llana
 
 # ---------------------------------------------------------------- Menethil Harbor
 
@@ -262,6 +283,60 @@ step Abandon Researching the Corruption
   tip Researching the Corruption is still unfinished: without a Blackfathom Deeps run at its level the route doesn't come back for it, so abandon it.
   abandon 1275                        -- Researching the Corruption
 
+step Fly to Rut'theran Village
+  when dungeon "Blackfathom Deeps" all
+  when complete 1200
+  zone Darkshore
+  tip Blackfathom Villainy, and Twilight Falls if its pendants are in your bags, go back to Darnassus: the hippogryph to Rut'theran Village, then the portal.
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Rut'theran Village"
+
+step Fly to Rut'theran Village
+  when dungeon "Blackfathom Deeps" all
+  when complete 1199
+  when !complete 1200
+  when zone "Darkshore"
+  zone Darkshore
+  tip Twilight Falls goes back to Darnassus: the hippogryph to Rut'theran Village, then the portal.
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Rut'theran Village"
+
+step Argent Guard Manados
+  when dungeon "Blackfathom Deeps" all
+  when complete 1199
+  zone Darnassus
+  turnin 1199                         -- Argent Guard Manados
+
+step Dawnwatcher Selgorm
+  when dungeon "Blackfathom Deeps" all
+  when complete 1200
+  zone Darnassus
+  tip Dawnwatcher Selgorm stands beside Argent Guard Manados.
+  turnin 1200                         -- Dawnwatcher Selgorm
+
+step Fly to Auberdine
+  when dungeon "Blackfathom Deeps" all
+  when zone "Darnassus"
+  zone Teldrassil
+  tip Back through the portal and the hippogryph to Auberdine, for the boat.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  fly "Auberdine"
+  zone Darkshore
+
+step Abandon Twilight Falls
+  when dungeon "Blackfathom Deeps" all
+  when onquest 1199
+  when !complete 1199
+  tip Twilight Falls is still unfinished: without a Blackfathom Deeps run at its level the route doesn't come back for it, so abandon it.
+  abandon 1199                        -- Twilight Falls
+
+step Abandon Blackfathom Villainy
+  when dungeon "Blackfathom Deeps" all
+  when onquest 1200
+  when !complete 1200
+  tip Blackfathom Villainy is still unfinished: the route doesn't come back to Blackfathom Deeps, so abandon it.
+  abandon 1200                        -- Blackfathom Villainy
+
 step Boat to Menethil Harbor
   zone Darkshore
   goto 32.4,43.8 "Boat to Menethil Harbor"
@@ -283,6 +358,25 @@ step Menethil Harbor
   accept 470                              -- Sida
   turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it
   accept 305                              -- Tarrel Rockweaver, by the north gate
+
+step Caitlin Grassman
+  when dungeon "Excavation Site: Wetlands" all
+  when onquest 95737
+  zone Wetlands
+  turnin 95737                        -- Caitlin Grassman
+
+step Abandon Seeking Caitlin
+  when dungeon "Excavation Site: Wetlands" all
+  when onquest 95737
+  tip Seeking Caitlin is still in your log: the route doesn't come back for it, so abandon it.
+  abandon 95737                           -- Seeking Caitlin
+
+step Caitlin Grassman
+  when dungeon "Excavation Site: Wetlands" all
+  when level>=24
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, at about 28: Caitlin Grassman asks you to find Ardin Grassman in the dig.
+  accept 95647                        -- Caitlin Grassman
 
 step Spoils of War
   tip Timber and iron piles lie around the keep and along the harbor's walls. Careful: Nightveiled Rotheap, a level 31 elite, roams the Wetlands' shores and roads: if it comes by, give it room.
@@ -420,12 +514,69 @@ step Sprite Jumpsprocket
   tip Still carrying Explosive Consultation (you used your Hearthstone at the end of Loch Modan)? The tram comes in at the Dwarven District, where Sprite Jumpsprocket stands.
   turnin 92748                                -- Sprite Jumpsprocket, Dwarven District
 
+step Shoni the Shilent
+  when dungeon "The Deadmines" all
+  when complete 2040
+  zone Stormwind City
+  tip Shoni the Shilent, a few steps from Sprite Jumpsprocket in the Dwarven District.
+  turnin 2040                         -- Shoni the Shilent
+
+step Wilder Thistlenettle
+  when dungeon "The Deadmines" all
+  when complete 168
+  zone Stormwind City
+  tip Wilder Thistlenettle, also in the Dwarven District.
+  turnin 168                          -- Wilder Thistlenettle
+
+step Wilder Thistlenettle
+  when dungeon "The Deadmines" all
+  when complete 167
+  zone Stormwind City
+  turnin 167                          -- Wilder Thistlenettle
+
+step Abandon Underground Assault
+  when dungeon "The Deadmines" all
+  when onquest 2040
+  when !complete 2040
+  tip Underground Assault is still unfinished: without a Deadmines run at its level the route doesn't come back for it, so abandon it.
+  abandon 2040                        -- Underground Assault
+
+step Abandon Collecting Memories
+  when dungeon "The Deadmines" all
+  when onquest 168
+  when !complete 168
+  tip Collecting Memories is still unfinished: without a Deadmines run at its level the route doesn't come back for it, so abandon it.
+  abandon 168                         -- Collecting Memories
+
+step Abandon Oh Brother...
+  when dungeon "The Deadmines" all
+  when onquest 167
+  when !complete 167
+  tip Oh Brother... is still unfinished: without a Deadmines run at its level the route doesn't come back for it, so abandon it.
+  abandon 167                         -- Oh Brother...
+
 step Baros Alexston
   zone Stormwind City
   when onquest 97914
   tip The tram comes in at the Dwarven District; walk west to the Cathedral Square: Baros Alexston stands at its east side. (The route hands his letter in at the end of 03-loch-modan; this is for a character still carrying it.)
   turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                   -- For Thundris Windweaver, back in Auberdine (06-wetlands)
+
+step Baros Alexston
+  when dungeon "The Deadmines"
+  when onquest 373
+  zone Stormwind City
+  tip Still carrying the Unsent Letter from your Deadmines run (you used your Hearthstone at the end of Loch Modan)? Baros Alexston takes it.
+  turnin 373                          -- Baros Alexston
+
+step Baros Alexston
+  when dungeon "The Stockade"
+  when turnedin 373
+  when !turnedin 389
+  when level>=23.2
+  zone Stormwind City
+  tip For your Stockade run, at the end of Duskwood: keep it until then.
+  accept 389                          -- Baros Alexston: for Warden Thelwater, at the Stockade's gate
 
 step Cathedral Square
   zone Stormwind City

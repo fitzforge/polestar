@@ -27,8 +27,9 @@ next forever/alliance/30-40/03-ashenvale
 # Modera takes both back in the same camp (`when complete`), and the route goes on to the Hillsbrad Fields.
 # Shylamiir's A Green Sample and High Sorcerer Andromath's Power Overwhelming (92456, 92489), taken on the
 # Stormwind stop of forever/alliance/06-wetlands, are done inside too and go back on this guide's closing
-# Stormwind stop. Left out: Friend of the Kirin Tor (92459: 270 XP for a walk to Archmage Celindra) and Unstable
-# Magic (96603, level 60).
+# Stormwind stop. The every-quest route (`when dungeon "City of Dalaran" all`) takes Modera's Friend of the Kirin
+# Tor (92459) after the run, to Archmage Celindra at the city's western edge on the way back east. Left out:
+# Unstable Magic (96603: Celindra offers it from level 48; the route is last near Dalaran at about 38).
 
 step Angerfang Encampment
   when onquest 465,474
@@ -311,6 +312,21 @@ step Image of Archmage Modera
   when complete 92458
   zone Silverpine Forest
   turnin 92458                        -- Image of Archmage Modera
+
+step Image of Archmage Modera
+  when dungeon "City of Dalaran" all
+  when turnedin 92458
+  when level>=31
+  zone Silverpine Forest
+  tip Modera then sends you to Archmage Celindra, on the way back east past the city.
+  accept 92459                        -- Image of Archmage Modera
+
+step Archmage Celindra
+  when dungeon "City of Dalaran" all
+  when onquest 92459
+  zone Alterac Mountains
+  tip Archmage Celindra stands at Dalaran's western edge, on the way east to the Hillsbrad Fields.
+  turnin 92459                        -- Archmage Celindra
 
 step Hillsbrad Fields
   when onquest 98059

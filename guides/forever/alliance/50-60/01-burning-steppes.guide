@@ -19,8 +19,10 @@ next forever/alliance/50-60/02-felwood
 # the Fallen Hero, at about 52 (its Group Finder minimum is 50): the temple's door is in the Pool of Tears, east of
 # him. Brohann takes the tablets on the Stormwind stop of forever/alliance/50-60/06-silithus (`when complete`).
 # The Essence of Eranikus (3373) starts with a drop inside and ends at the Essence Font inside (the run's tip names
-# it). Left out: its second part (3374: Itharius in the Swamp of Sorrows, off the route) and Jammal'an the Prophet
-# (1446: the Atal'ai Exile in the Hinterlands, given and taken there).
+# it). The every-quest route (`when dungeon "Sunken Temple" all`) adds the Atal'ai Exile's Jammal'an the Prophet (1446,
+# taken in forever/alliance/40-50/05-the-hinterlands, back to him at the start of 50-60/04-western-plaguelands) and,
+# for a runner holding 3373's Chained Essence of Eranikus, its second part (3374) at Itharius, between the temple
+# and the Blasted Lands.
 # Left out: Dark Iron Legacy (3801).
 
 # ---------------------------------------------------------------- Azshara
@@ -407,13 +409,35 @@ step Fallen Hero of the Horde
 
 step The Sunken Temple
   when dungeon "Sunken Temple"
-  when onquest 1475
+  when onquest 1475,1446
   when level>=50
   zone Swamp of Sorrows
   tip The Sunken Temple is a dungeon for a group of five, levels 50 to 60. Its door is in the sunken temple in the eastern lake, the Pool of Tears, east of the Fallen Hero: keep clear of Stonard on the way.
   tip Inside: the Atal'ai Tablets for Brohann Caskbelly. The Essence of Eranikus, a drop inside, starts a quest of its own.
   enter "Sunken Temple" @69.9,53.5
   complete 1475 @69.9,53.5            -- Into The Temple of Atal'Hakkar: ten Atal'ai Tablets, inside
+  complete 1446 @69.9,53.5            -- Jammal'an the Prophet: his head, inside
+
+step Itharius
+  when dungeon "Sunken Temple" all
+  when has 10455
+  zone Swamp of Sorrows
+  tip You placed the Essence of Eranikus in the Essence Font and carry the Chained Essence: Itharius waits in his cave at the swamp's western edge, on the way back to the Blasted Lands. Speak with him.
+  talk 5353                           -- Itharius
+
+step Itharius
+  when dungeon "Sunken Temple" all
+  when has 10589
+  when level>=50
+  zone Swamp of Sorrows
+  tip The Oathstone of Ysera's Dragonflight starts The Essence of Eranikus' second part: hand it back to Itharius with the Chained Essence.
+  accept 3374 item 10589              -- Oathstone of Ysera's Dragonflight
+
+step Itharius
+  when dungeon "Sunken Temple" all
+  when onquest 3374
+  zone Swamp of Sorrows
+  turnin 3374                         -- Itharius
 
 step Blasted Lands
   zone Blasted Lands

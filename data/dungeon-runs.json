@@ -24,6 +24,51 @@
 					},
 					"note": "in the dungeon's own Sentinel Hill step, which also hands in 155 (166 and 214 need it)",
 					"gate": 19.4
+				},
+				{
+					"quest": 2041,
+					"after": {
+						"quest": 971,
+						"goal": "accept",
+						"guide": "forever/alliance/03-loch-modan"
+					},
+					"note": "Gnoarn in Tinker Town, on the walk to the tram (~19.5): the breadcrumb to Shoni the Shilent",
+					"when": "onquest 65",
+					"all": true,
+					"gate": 17.9
+				},
+				{
+					"quest": 2040,
+					"after": {
+						"step": "Tram to Stormwind",
+						"guide": "forever/alliance/03-loch-modan"
+					},
+					"note": "Shoni the Shilent in Stormwind's Dwarven District, off the tram",
+					"when": "onquest 65",
+					"all": true,
+					"gate": 17.9
+				},
+				{
+					"quest": 168,
+					"after": {
+						"step": "Tram to Stormwind",
+						"guide": "forever/alliance/03-loch-modan"
+					},
+					"note": "Wilder Thistlenettle, in the Dwarven District on the walk out of the city",
+					"when": "onquest 65",
+					"all": true,
+					"gate": 17.9
+				},
+				{
+					"quest": 167,
+					"after": {
+						"step": "Tram to Stormwind",
+						"guide": "forever/alliance/03-loch-modan"
+					},
+					"note": "Wilder Thistlenettle, the same step",
+					"when": "onquest 65",
+					"all": true,
+					"gate": 17.9
 				}
 			],
 			"run": {
@@ -39,7 +84,10 @@
 				},
 				"objectives": [
 					214,
-					166
+					166,
+					2040,
+					168,
+					167
 				],
 				"itemStarts": [
 					{
@@ -47,7 +95,7 @@
 						"item": 2874
 					}
 				],
-				"guard": "turnedin 65; onquest 214,166",
+				"guard": "turnedin 65; onquest 214,166,2040,168,167",
 				"gate": 19.4
 			},
 			"handins": [
@@ -68,15 +116,92 @@
 						"step": "Fly to Stormwind"
 					},
 					"when": "onquest"
+				},
+				{
+					"quest": 2041,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": {
+						"step": "Tram to Stormwind"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Shoni the Shilent, off the tram"
+				},
+				{
+					"quest": 2040,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": {
+						"quest": 92748,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Shoni, a few steps from Sprite Jumpsprocket on the Stormwind stop before the boat (~21.4)"
+				},
+				{
+					"quest": 168,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": {
+						"quest": 92748,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Wilder Thistlenettle, the same stop"
+				},
+				{
+					"quest": 167,
+					"guide": "forever/alliance/03-loch-modan",
+					"after": {
+						"quest": 92748,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Wilder Thistlenettle, the same stop"
+				},
+				{
+					"quest": 373,
+					"guide": "forever/alliance/06-ashenvale",
+					"after": {
+						"quest": 97914,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"note": "Baros Alexston on 06-ashenvale's Stormwind stop, for a player who hearthed to Auberdine at the end of 03-loch-modan and so skipped its Stormwind stop (`!zone \"Darkshore\"`), where the letter is handed in otherwise"
+				},
+				{
+					"quest": 2040,
+					"guide": "forever/alliance/06-ashenvale",
+					"after": {
+						"quest": 92748,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Shoni the Shilent beside Sprite Jumpsprocket on 06-ashenvale's Stormwind stop, for a player who hearthed past 03-loch-modan's; abandoned after it when unfinished"
+				},
+				{
+					"quest": 168,
+					"guide": "forever/alliance/06-ashenvale",
+					"after": {
+						"quest": 92748,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Wilder Thistlenettle beside Sprite Jumpsprocket on 06-ashenvale's Stormwind stop, for a player who hearthed past 03-loch-modan's; abandoned after it when unfinished"
+				},
+				{
+					"quest": 167,
+					"guide": "forever/alliance/06-ashenvale",
+					"after": {
+						"quest": 92748,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Wilder Thistlenettle beside Sprite Jumpsprocket on 06-ashenvale's Stormwind stop, for a player who hearthed past 03-loch-modan's; abandoned after it when unfinished"
 				}
 			],
 			"leftOut": {
-				"168": "four union cards from the mine's undead, slow drops",
-				"92753": "the end of Alba Fairmoon's chain after Sprite Jumpsprocket (92749-92752), not on the route",
-				"1654": "Paladin class chain",
-				"1806": "Paladin class chain",
-				"2040": "Underground Assault: Gnoarn (Ironforge) and Shoni (Stormwind Dwarven District): with 167 it cost +2.0 km and +5 hub visits in the flow audit, over the requirement A budget",
-				"167": "Oh Brother...: Wilder Thistlenettle in the Dwarven District, as 2040"
+				"92753": "Destruction in Deadmines: the end of Alba Fairmoon's chain, whose A Dynamite Plan (92749) asks for ten Rough Dynamite from crafting or trade, which the route has no step for",
+				"1654": "The Test of Righteousness (Paladin): Jordan's Smithing Hammer lies in Shadowfang Keep, which the Alliance route doesn't run",
+				"1806": "The Test of Righteousness, its end: after 1654"
 			},
 			"runStop": [
 				166,
@@ -93,7 +218,24 @@
 					"note": "the stop's solo step (155's hand-in and the flight to Lakeshire), as on the route without the dungeon; the dungeon's steps hand 155 in on a step of their own, ungated, so a runner under the floor keeps it, take the dungeon's quests on the next, gated, and fly after the run"
 				}
 			],
-			"westfallGate": "the run and its Sentinel Hill hand-ins carry `when turnedin 65`, as the guide's Westfall stretch does"
+			"westfallGate": "the run and its Sentinel Hill hand-ins carry `when turnedin 65`, as the guide's Westfall stretch does",
+			"allQuests": {
+				"minutes": null,
+				"xp": 6870,
+				"quests": [
+					2041,
+					2040,
+					168,
+					167
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					166,
+					214,
+					373
+				]
+			}
 		},
 		{
 			"dungeon": "The Stockade",
@@ -137,6 +279,38 @@
 					},
 					"when": "onquest 389",
 					"gate": 25.9
+				},
+				{
+					"quest": 386,
+					"after": {
+						"quest": 34,
+						"goal": "turnin",
+						"guide": "forever/alliance/04-redridge-mountains"
+					},
+					"note": "Guard Berton by Lakeshire's inn, on the way back east from Martie's garden (~26.2)",
+					"all": true,
+					"gate": 24.4
+				},
+				{
+					"quest": 388,
+					"after": {
+						"step": "Rogue training",
+						"guide": "forever/alliance/05-duskwood"
+					},
+					"note": "Nikova Raskol in Old Town, before Warden Thelwater's gate on the closing Stormwind visit (~27.8)",
+					"all": true,
+					"gate": 25.9
+				},
+				{
+					"quest": 389,
+					"after": {
+						"quest": 373,
+						"goal": "turnin",
+						"guide": "forever/alliance/06-ashenvale"
+					},
+					"note": "Baros Alexston on 06-ashenvale's Stormwind stop, for a player who hearthed past 03-loch-modan's and hands the Unsent Letter in there",
+					"when": "turnedin 373",
+					"gate": 23.2
 				}
 			],
 			"run": {
@@ -154,9 +328,11 @@
 				"objectives": [
 					387,
 					377,
-					391
+					391,
+					386,
+					388
 				],
-				"guard": "onquest 387,377,391",
+				"guard": "onquest 387,377,391,386,388",
 				"gate": 25.9
 			},
 			"handins": [
@@ -187,18 +363,60 @@
 						"quest": 58,
 						"goal": "accept"
 					}
+				},
+				{
+					"quest": 388,
+					"guide": "forever/alliance/05-duskwood",
+					"after": {
+						"quest": 391,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Nikova Raskol in Old Town, a short walk past the gryphon master, after the run"
+				},
+				{
+					"quest": 386,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"step": "Trade District"
+					},
+					"all": true,
+					"note": "Guard Berton in Lakeshire: a hop from Stormwind at the end of 06-wetlands (`when complete 386`), on to Darkshire where 07-thousand-needles starts"
 				}
 			],
 			"leftOut": {
-				"386": "Guard Berton in Lakeshire: the route doesn't pass Lakeshire after the run",
-				"378": "Motley Garmason's chain at Dun Modr",
-				"388": "The Color of Blood: Nikova Raskol in Old Town, a second Old Town visit after the run (avoidable hub revisit +1 in the flow audit)"
+				"378": "The Fury Runs Deep: Motley Garmason gives it at Dun Modr after The Dark Iron War (303), thirty elite Dark Iron dwarves of level 27-30 with a minimum of 25; the route's only Wetlands visit before the run is at about 24.7, under that minimum and three to five levels under the elites"
 			},
 			"runStop": [
 				387
 			],
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 05-duskwood +0.9 km, +8.5 min, hub visits +1.0 (Warden Thelwater's gate on the closing Stormwind visit, the run and back); 04-redridge-mountains +0.3 km, +0.8 min, backtracks +1.0 (377's pick-up); 07-thousand-needles +0.2 min (377's hand-in); 06-wetlands -0.5 km, -1.4 min; the run's XP takes 18 min off 40-50/01-stranglethorn-vale's written grind; elsewhere only passed-giver counts move (at most 1.0)"
+			},
+			"travel": [
+				{
+					"guide": "forever/alliance/06-wetlands",
+					"to": "Lakeshire",
+					"when": "complete 386",
+					"all": true,
+					"note": "Fly to Lakeshire from Stormwind for Guard Berton; the next guide's way to Darkshire flies on from there"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 9750,
+				"quests": [
+					386,
+					388
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					389,
+					377,
+					387,
+					391
+				]
 			}
 		},
 		{
@@ -638,6 +856,40 @@
 					},
 					"note": "Gerrig Bonegrip in the Forlorn Cavern, ~190 yd from Prospector Stormpike on the Ironforge stop (~21; level 23, minimum 18, no prerequisite)",
 					"gate": 19.9
+				},
+				{
+					"quest": 3765,
+					"after": {
+						"quest": 389,
+						"goal": "accept",
+						"guide": "forever/alliance/03-loch-modan"
+					},
+					"note": "Argos Nightwhisper, on the way to the harbour on 03-loch-modan's last Stormwind stop (~21.5): the breadcrumb to Gershala",
+					"when": "!zone \"Darkshore\"",
+					"all": true,
+					"gate": 21.9
+				},
+				{
+					"quest": 1198,
+					"after": {
+						"quest": 1275,
+						"goal": "accept",
+						"guide": "forever/alliance/03-darkshore-return"
+					},
+					"note": "Dawnwatcher Shaedlass in Darnassus, right after Gershala (~22.2): the boat to Rut'theran Village (Night Elves fly), the portal, and back by hippogryph",
+					"all": true,
+					"gate": 22.7
+				},
+				{
+					"quest": 1199,
+					"after": {
+						"quest": 1275,
+						"goal": "accept",
+						"guide": "forever/alliance/03-darkshore-return"
+					},
+					"note": "Argent Guard Manados, beside her",
+					"all": true,
+					"gate": 22.7
 				}
 			],
 			"run": {
@@ -654,10 +906,21 @@
 				},
 				"objectives": [
 					1275,
-					971
+					971,
+					1198,
+					1199
 				],
-				"guard": "onquest 1275,971",
-				"gate": 24.5
+				"guard": "onquest 1275,971,1198,1199",
+				"gate": 24.5,
+				"insideEnds": [
+					{
+						"quest": 1198,
+						"npc": 4787
+					}
+				],
+				"insideQuests": [
+					1200
+				]
 			},
 			"handins": [
 				{
@@ -677,16 +940,76 @@
 						"goal": "turnin"
 					},
 					"note": "Gerrig Bonegrip on the Ironforge stop, beside Book: The Powers Below (968)"
+				},
+				{
+					"quest": 3765,
+					"guide": "forever/alliance/03-darkshore-return",
+					"after": {
+						"quest": 993,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Gershala Nightwhisper, before she gives Researching the Corruption (the breadcrumb in the log holds 1275 back)"
+				},
+				{
+					"quest": 1199,
+					"guide": "forever/alliance/06-ashenvale",
+					"after": {
+						"quest": 1275,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Argent Guard Manados in Darnassus: from the Auberdine landing after the run, for a runner with Blackfathom Villainy or Twilight Falls ready (`when complete`), back to Auberdine for the boat (~24.3)"
+				},
+				{
+					"quest": 1200,
+					"guide": "forever/alliance/06-ashenvale",
+					"after": {
+						"quest": 1275,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Dawnwatcher Selgorm, beside Argent Guard Manados, the same trip"
 				}
 			],
 			"leftOut": {
-				"1198": "In Search of Thaelrid: Darnassus, off the route",
-				"1199": "Twilight Falls: Darnassus, off the route",
-				"1200": "Blackfathom Villainy: Argent Guard Thaelrid inside, for Darnassus",
-				"1740": "Warlock class chain (class guide)"
+				"1740": "The Orb of Soran'ruk (Warlock): its Large Soran'ruk Fragment drops in Shadowfang Keep, which the Alliance route doesn't run"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 06-ashenvale +0.8 km, +15.0 min (Ruuzel's shore to the ruins' pit, ~420 yd, the run and back); 03-loch-modan +0.3 km, +0.9 min, hub visits +0.4 (Gerrig Bonegrip in the Forlorn Cavern); 03-darkshore-return +0.1 km, +0.4 min (1275 in Auberdine); 04-redridge-mountains -0.1 km, -0.2 min; the run's XP takes 13 min off 40-50/01-stranglethorn-vale's written grind"
+			},
+			"travel": [
+				{
+					"guide": "forever/alliance/03-darkshore-return",
+					"to": "Darnassus",
+					"when": "the pick-ups' gate",
+					"all": true,
+					"note": "the boat or the hippogryph to Rut'theran Village (its flight path learned there), the portal, and the hippogryph back to Auberdine (`when zone \"Darnassus\"`)"
+				},
+				{
+					"guide": "forever/alliance/06-ashenvale",
+					"to": "Darnassus",
+					"when": "complete 1200, or complete 1199 in Darkshore",
+					"all": true,
+					"note": "the hippogryph to Rut'theran Village, the portal, and back to Auberdine for the boat (`when zone \"Darnassus\"`)"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 21050,
+				"quests": [
+					3765,
+					1198,
+					1199,
+					1200
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					1275,
+					971
+				]
 			}
 		},
 		{
@@ -713,6 +1036,50 @@
 					},
 					"note": "Rethiel, when Blisters on the Land is handed in (~28.3); level 31, 2.7 over",
 					"gate": 28.0
+				},
+				{
+					"quest": 95737,
+					"after": {
+						"quest": 1008,
+						"goal": "turnin",
+						"guide": "forever/alliance/06-ashenvale"
+					},
+					"note": "Llana in Astranaar, beside Shindrell Swiftfire (~24.3): the breadcrumb to Caitlin Grassman",
+					"all": true,
+					"gate": 24
+				},
+				{
+					"quest": 95647,
+					"after": {
+						"quest": 305,
+						"goal": "accept",
+						"guide": "forever/alliance/06-ashenvale"
+					},
+					"note": "Caitlin Grassman on the Menethil stop (~24.3), once Seeking Caitlin is in",
+					"all": true,
+					"gate": 24
+				},
+				{
+					"quest": 95647,
+					"after": {
+						"quest": 98815,
+						"goal": "accept",
+						"guide": "forever/alliance/06-wetlands"
+					},
+					"note": "Caitlin Grassman again after James Halloran on 06-wetlands' first Menethil stop (~27.8): the catch-up, where an Ask player's question comes",
+					"all": true,
+					"gate": 27.5
+				},
+				{
+					"quest": 95772,
+					"after": {
+						"quest": 95999,
+						"goal": "accept",
+						"guide": "forever/alliance/04-redridge-mountains"
+					},
+					"note": "Dorin Songblade by Lakeshire's town hall (~26.2)",
+					"all": true,
+					"gate": 25.8
 				}
 			],
 			"run": {
@@ -731,7 +1098,9 @@
 				},
 				"objectives": [
 					98815,
-					95646
+					95646,
+					95647,
+					95772
 				],
 				"itemStarts": [
 					{
@@ -739,8 +1108,22 @@
 						"item": 270865
 					}
 				],
-				"guard": "onquest 98815,95646",
-				"gate": 28
+				"guard": "onquest 98815,95646,95647,95772",
+				"gate": 28,
+				"insideEnds": [
+					{
+						"quest": 95647,
+						"npc": 262681
+					},
+					{
+						"quest": 95772,
+						"npc": 262465
+					}
+				],
+				"insideQuests": [
+					95809,
+					95795
+				]
 			},
 			"handins": [
 				{
@@ -793,15 +1176,41 @@
 					},
 					"when": "onquest",
 					"note": "Hall of Explorers, for whoever still carries it"
+				},
+				{
+					"quest": 95737,
+					"guide": "forever/alliance/06-ashenvale",
+					"after": {
+						"quest": 305,
+						"goal": "accept"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Caitlin Grassman, at the Menethil stop"
+				},
+				{
+					"quest": 95809,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 469,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Caitlin Grassman beside the inn, on the Menethil stop before the boat (Heartwoven, from Ardin inside)"
+				},
+				{
+					"quest": 95795,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"step": "Trade District"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Dorin Songblade in Lakeshire (Fallen in the Fen, from Daewyn inside): the hop at the end of 06-wetlands, with The Stockade's Guard Berton"
 				}
 			],
-			"leftOut": {
-				"95647": "Lost in the Thicket Things: Caitlin Grassman, level 31, 3+ levels over on the first Menethil stop",
-				"95809": "Heartwoven: from Ardin inside, after 95647",
-				"95737": "Seeking Caitlin: Llana in Astranaar, after the Wetlands",
-				"95772": "Songblade Search: Dorin Songblade in Redridge, level 31, 3+ over on the Redridge stops",
-				"95795": "Fallen in the Fen: for Dorin Songblade in Redridge, off the route after the run"
-			},
+			"leftOut": {},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 06-wetlands +0.3 km, +5.2 min (the entrance ~130 yd off the road back west, Whelgar's dig on the way); 30-40/01-hillsbrad-foothills +0.5 km, +1.6 min, backtracks +1.0 (Rethiel's hand-in, Whelgar's and Magellas' for whoever still carries them); 06-ashenvale passed givers +1.0 (Halloran's 98815 at ~24.9: 3+ levels over, the level rule wins); the run's XP takes 14 min off 40-50/01-stranglethorn-vale's written grind"
 			},
@@ -812,7 +1221,35 @@
 					"giver": "Prospector Whelgar",
 					"note": "accepted where 95810 is handed in, behind `when onquest 95810`"
 				}
-			]
+			],
+			"travel": [
+				{
+					"guide": "forever/alliance/06-wetlands",
+					"to": "Lakeshire",
+					"when": "onquest 95795; !zone \"Redridge Mountains\"",
+					"all": true,
+					"note": "Fly to Lakeshire from Stormwind for Dorin Songblade, unless already there for Guard Berton"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 24600,
+				"quests": [
+					95737,
+					95647,
+					95809,
+					95772,
+					95795
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					98815,
+					95646,
+					95810,
+					98824
+				]
+			}
 		},
 		{
 			"dungeon": "The Hall of Thanes",
@@ -875,9 +1312,7 @@
 					"when": "onquest"
 				}
 			],
-			"leftOut": {
-				"96395": "An Ancient Grudge: starts and ends inside (the run tip names it)"
-			},
+			"leftOut": {},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 02-westfall +0.9 km, +16.6 min, hub visits +1.2 (the Deeprun Tram to Ironforge from the last Stormwind stop, the run and its hand-ins, the tram back; Shamans are in Ironforge already), avoidable backtracks +0.2; the run's XP takes 5 min off 40-50/01-stranglethorn-vale's written grind; elsewhere only passed-giver and hub-visit counts move (at most 1.2)"
 			}
@@ -969,11 +1404,21 @@
 						"goal": "accept"
 					},
 					"note": "the same stop"
+				},
+				{
+					"quest": 92459,
+					"guide": "forever/alliance/30-40/01-hillsbrad-foothills",
+					"after": {
+						"quest": 92458,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Archmage Celindra at Dalaran's western edge, on the way east to the Hillsbrad Fields (players' recordings: 25 hand-ins to her at 30-33)"
 				}
 			],
 			"leftOut": {
-				"92459": "Friend of the Kirin Tor: 270 XP for a walk to Archmage Celindra",
-				"96603": "Unstable Magic: level 60"
+				"96603": "Unstable Magic: Archmage Celindra offers it from level 48, and it gives no experience; the route is last near Dalaran at about 38"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 30-40/01-hillsbrad-foothills +2.6 km, +15.5 min (from the Syndicate camp west past the dome to Modera's camp, 1,427 yd, the grate and back), backtracks -3.0; 06-wetlands +0.5 km, +1.4 min, hub visits +1.0 (Shylamiir and High Sorcerer Andromath on the Stormwind stop); 30-40/04-stranglethorn-vale passed givers +3.0; the run's XP takes 69 min off 40-50/01-stranglethorn-vale's written grind"
@@ -981,7 +1426,45 @@
 			"runStop": [
 				92457,
 				92458
-			]
+			],
+			"followUps": [
+				{
+					"quest": 92459,
+					"from": 92458,
+					"giver": "Image of Archmage Modera",
+					"all": true,
+					"gate": 31,
+					"note": "accepted when 92458 is handed in, at the run's gate"
+				}
+			],
+			"takenEarlier": [
+				{
+					"quest": 690,
+					"guide": "forever/alliance/06-wetlands",
+					"after": {
+						"quest": 92489,
+						"goal": "accept"
+					},
+					"gate": 30,
+					"note": "Malin's Request from Archmage Malin, a few steps from High Sorcerer Andromath's pick-up: level 30 to take, which the dungeons' experience puts runners over there; the solo route takes it on 30-40/01-hillsbrad-foothills' Stormwind stop and Skuerto takes it at Refuge Pointe (30-40/05-arathi-highlands)"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 270,
+				"quests": [
+					92459
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					92456,
+					92489,
+					92457,
+					92458,
+					92432
+				]
+			}
 		},
 		{
 			"dungeon": "Uldaman",
@@ -1091,8 +1574,7 @@
 				}
 			],
 			"leftOut": {
-				"2199": "Lore for a Price: Talvash's chain after the necklace (2199-2204), more trips into Uldaman",
-				"709": "Solution to Doom: Theldurin the Lost in the southern Badlands, off the route"
+				"2199": "Lore for a Price and the necklace chain after it (2200-2204, 2361, 3375): five Silver Bars, then a second Uldaman run for the paladin's remains and the gems; the route runs Uldaman once, before the necklace is handed in"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 40-50/02-badlands +2.1 min, backtracks +1.0 (the dig to the door, ~185 yd east, and back; Baelog takes The Lost Dwarves inside); 40-50/01-stranglethorn-vale +0.1 km, +0.6 min, hub visits +1.0 (Stormpike and Krom in the Hall of Explorers); 40-50/05-the-hinterlands +0.3 km, +0.8 min, hub visits +1.0 (the Ironforge hand-ins); the run's XP takes 3.5 and 7.3 min off the written grinds of 40-50/03-feralas and 40-50/07-un-goro-crater"
@@ -1102,6 +1584,18 @@
 					"status": "needs-ingame",
 					"at": "run",
 					"what": "the way in from the dig: the door the run step leads to (44.6,12.1), about 185 yd east of Agmond's urns through the dig's caves"
+				}
+			],
+			"takenEarlier": [
+				{
+					"quest": 739,
+					"guide": "forever/alliance/30-40/06-badlands",
+					"after": {
+						"quest": 738,
+						"goal": "turnin"
+					},
+					"gate": 39,
+					"note": "Murdaloc from the Battered Dwarven Skeleton as Agmond's Fate's first part (738) goes in: level 42, taken from 39 (a quest at most three levels over); the dungeons' experience puts runners there, while the solo route takes it after the ogres and buzzards, walking back to the skeleton"
 				}
 			]
 		},
@@ -1118,6 +1612,29 @@
 					},
 					"note": "Brohann Caskbelly in the Dwarven District, where Rhapsody's Tale is handed in (~47.5; level 50, minimum 41)",
 					"gate": 45.0
+				},
+				{
+					"quest": 1446,
+					"after": {
+						"quest": 2989,
+						"goal": "complete",
+						"guide": "forever/alliance/40-50/05-the-hinterlands"
+					},
+					"note": "the Atal'ai Exile, west of the Altar of Zul, on the way to Skulk Rock (~47.4)",
+					"all": true,
+					"gate": 44.9
+				},
+				{
+					"quest": 3374,
+					"after": {
+						"quest": 1446,
+						"goal": "complete",
+						"guide": "forever/alliance/50-60/01-burning-steppes"
+					},
+					"note": "Itharius, between the temple and the Blasted Lands, for a runner holding 3373's Chained Essence of Eranikus: the Oathstone of Ysera's Dragonflight starts it (`when has 10589`), at the run's gate",
+					"when": "has 10589",
+					"all": true,
+					"gate": 50
 				}
 			],
 			"run": {
@@ -1133,12 +1650,13 @@
 					"y": 53.5
 				},
 				"objectives": [
-					1475
+					1475,
+					1446
 				],
 				"insideQuests": [
 					3373
 				],
-				"guard": "onquest 1475",
+				"guard": "onquest 1475,1446",
 				"gate": 50
 			},
 			"handins": [
@@ -1150,14 +1668,67 @@
 						"goal": "turnin"
 					},
 					"note": "Brohann Caskbelly on the next Stormwind stop (~58), on the way to the tram: 3,550 of its 7,100 XP there (the 50% floor), the route's visit rather than a tram hop at ~52.5"
+				},
+				{
+					"quest": 1446,
+					"guide": "forever/alliance/50-60/04-western-plaguelands",
+					"after": {
+						"step": "Chillwind Camp",
+						"before": true
+					},
+					"all": true,
+					"note": "the Atal'ai Exile in the Hinterlands, at the start of 50-60/04: the gryphon to Aerie Peak before the one to Chillwind Camp (`when complete 1446`, ~55.3)"
+				},
+				{
+					"quest": 3374,
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"after": "run",
+					"when": "onquest",
+					"all": true,
+					"note": "Itharius, the same stop"
 				}
 			],
-			"leftOut": {
-				"3374": "The Essence of Eranikus, its second part: Itharius in the Swamp of Sorrows, off every route stop",
-				"1446": "Jammal'an the Prophet: the Atal'ai Exile in the Hinterlands, given and taken there"
-			},
+			"leftOut": {},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/01-burning-steppes +1.4 km, +5.2 min (the Fallen Hero's camp to the door in the Pool of Tears, ~840 yd, and back); 40-50/05-the-hinterlands +0.2 min (Brohann's pick-up); 50-60/06-silithus hub visits +0.4 (Brohann's hand-in on the Stormwind stop); the run's XP takes 3 and 2 min off the written grinds of 50-60/02-felwood and 50-60/06-silithus"
+			},
+			"travel": [
+				{
+					"guide": "forever/alliance/50-60/04-western-plaguelands",
+					"to": "Aerie Peak",
+					"when": "complete 1446",
+					"all": true,
+					"note": "Fly to Aerie Peak, the Atal'ai Exile, then the guide's own flight to Chillwind Camp"
+				},
+				{
+					"guide": "forever/alliance/50-60/01-burning-steppes",
+					"to": "Itharius",
+					"when": "has 10455",
+					"all": true,
+					"note": "speak with Itharius in his cave at the swamp's western edge, between the temple's door and the Blasted Lands"
+				}
+			],
+			"checks": [
+				{
+					"status": "needs-ingame",
+					"at": "handin",
+					"quest": 3374,
+					"what": "Itharius hands the Oathstone of Ysera's Dragonflight to a player carrying the Chained Essence of Eranikus, and the quest it starts goes straight back to him (no player recorded it)"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 7100,
+				"quests": [
+					1446,
+					3374
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					1475,
+					3373
+				]
 			}
 		},
 		{
@@ -1239,9 +1810,7 @@
 					"note": "back to Eva, right after the run"
 				}
 			],
-			"leftOut": {
-				"5505": "The Key to Scholomance: the end of Alchemist Arbington's chain, which this route finishes only at the end of the guide: the run tip says someone in the group needs the Skeleton Key"
-			},
+			"leftOut": {},
 			"budget": {
 				"flow": "flow audit (dynamic 037, Warrior, every start; off vs this dungeon): 50-60/06-silithus +0.4 km, +3.4 min (Eva Sarkhoff and the door, beside Artist Renfray's stop)"
 			},
@@ -1292,6 +1861,50 @@
 					},
 					"note": "Trenton Lighthammer, the same stop, about 80 yd from Tran'rek",
 					"gate": 45.3
+				},
+				{
+					"quest": 2861,
+					"after": {
+						"step": "Fly to Stormwind",
+						"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+					},
+					"note": "Jennea Cannon in the Wizard's Sanctum on the Stormwind stop (~42.4): the breadcrumb to Tabetha, for any class (players' recordings: priests and paladins took it from mage trainers)",
+					"all": true,
+					"gate": 42.5
+				},
+				{
+					"quest": 2846,
+					"after": {
+						"quest": 2861,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/02-badlands"
+					},
+					"note": "Tabetha in Dustwallow Marsh, on the walk west from Theramore to the Barrens (~43.2)",
+					"all": true,
+					"gate": 43.3
+				},
+				{
+					"quest": 3520,
+					"after": {
+						"quest": 2873,
+						"goal": "accept",
+						"guide": "forever/alliance/40-50/04-tanaris"
+					},
+					"note": "Yeh'kinya in Steamwheedle Port (~45.2): the screecher spirits are in Feralas, a flight from Gadgetzan to Feathermoon and back before the run",
+					"all": true,
+					"gate": 45.4
+				},
+				{
+					"quest": 3527,
+					"after": {
+						"quest": 3520,
+						"goal": "turnin",
+						"guide": "forever/alliance/40-50/04-tanaris"
+					},
+					"note": "Yeh'kinya, when Screecher Spirits goes in (~46)",
+					"when": "turnedin 3520",
+					"all": true,
+					"gate": 46.2
 				}
 			],
 			"run": {
@@ -1309,9 +1922,11 @@
 				"objectives": [
 					2865,
 					2768,
-					3042
+					3042,
+					3527,
+					2846
 				],
-				"guard": "onquest 2865,2768,3042",
+				"guard": "onquest 2865,2768,3042,3527,2846",
 				"gate": 46.2
 			},
 			"handins": [
@@ -1339,17 +1954,89 @@
 						"quest": 992,
 						"goal": "turnin"
 					}
+				},
+				{
+					"quest": 2861,
+					"guide": "forever/alliance/40-50/02-badlands",
+					"after": {
+						"quest": 1258,
+						"goal": "turnin"
+					},
+					"when": "onquest",
+					"all": true,
+					"note": "Tabetha"
+				},
+				{
+					"quest": 3520,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 8365,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Yeh'kinya on the second Steamwheedle Port stop, after the Feralas flight"
+				},
+				{
+					"quest": 3527,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 1560,
+						"goal": "turnin"
+					},
+					"all": true,
+					"note": "Yeh'kinya, a short walk from Torta after Tooga's escort (~47.1)"
+				},
+				{
+					"quest": 2846,
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"after": {
+						"quest": 162,
+						"goal": "accept"
+					},
+					"all": true,
+					"note": "Tabetha: a flight to Theramore before the flight to Auberdine, which then leaves from Theramore (~47.3)"
 				}
 			],
 			"leftOut": {
-				"2770": "Gahz'rilla: Wizzle Brassbolts at the Mirage Raceway, level 50, 5 over there",
-				"3527": "The Prophecy of Mosh'aru: after Screecher Spirits (3520), which this route does not take",
-				"2991": "Nekrum's Medallion: a Hinterlands chain, after this guide",
-				"2846": "Tiara of the Deep: Tabetha in Dustwallow Marsh, off the route",
-				"351": "Find OOX-17/TN!: a rare beacon from the desert, not the dungeon"
+				"2770": "Gahz'rilla: he is called with the Mallet of Zul'Farrak, made from the Sacred Mallet of Qiaga the Keeper, a level 50 elite on the Altar of Zul in the Hinterlands; the route is there only at about 43, before Wizzle Brassbolts gives the quest, and 7 levels under her",
+				"2991": "Nekrum's Medallion: Thadius Grimshade gives it at Nethergarde Keep after The Altar of Zul, which the route does at about 47.5, after its only Zul'Farrak run",
+				"351": "Find OOX-17/TN!: its beacon is a rare drop of Tanaris' wildlife, not the dungeon's"
 			},
 			"budget": {
 				"flow": "flow audit (dynamic 037, off vs this dungeon): 40-50/04-tanaris +1.1 km (the pool to the gate and back), backtracks +1, hub visits +0; the guide 29 min shorter (its grind to 47 shortened by the run's XP)"
+			},
+			"travel": [
+				{
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"to": "Feathermoon",
+					"when": "onquest 3520",
+					"all": true,
+					"note": "Fly to Feathermoon from Gadgetzan, the ferry to the mainland dock, the Rogue Vale Screechers just north of it, and back (`when zone \"Feralas\"`)"
+				},
+				{
+					"guide": "forever/alliance/40-50/04-tanaris",
+					"to": "Theramore",
+					"when": "complete 2846",
+					"all": true,
+					"note": "Fly to Theramore from Gadgetzan, Tabetha, and on to Auberdine from Theramore (`when zone \"Dustwallow Marsh\"`)"
+				}
+			],
+			"allQuests": {
+				"minutes": null,
+				"xp": 15460,
+				"quests": [
+					2861,
+					2846,
+					3520,
+					3527
+				]
+			},
+			"wayOnly": {
+				"quests": [
+					2865,
+					2768,
+					3042
+				]
 			}
 		},
 		{

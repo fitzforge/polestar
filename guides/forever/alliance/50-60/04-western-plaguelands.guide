@@ -12,6 +12,30 @@ next polestar-experimental/hyjal-1
 # into this file.
 # Added here: The Giant Guardian (2844), Wandering Shay (2845), at the Feralas stop where the Northspring harpies are below you.
 # Left out: Felstone Field Cauldron (5218), Dalson's Tears Cauldron (5221), Writhing Haunt Cauldron (5224).
+# Sunken Temple (run in forever/alliance/50-60/01-burning-steppes): its every-quest route (`when dungeon "Sunken
+# Temple" all`) hands Jammal'an the Prophet (1446) to the Atal'ai Exile in the Hinterlands on the way in: the
+# gryphon to Aerie Peak, the Exile, then the gryphon to Chillwind Camp.
+
+step Fly to Aerie Peak
+  when dungeon "Sunken Temple" all
+  when complete 1446
+  zone The Hinterlands
+  tip Jammal'an's head goes to the Atal'ai Exile in the Hinterlands: the gryphon to Aerie Peak first, then on to Chillwind Camp.
+  fly "Aerie Peak"
+
+step Atal'ai Exile
+  when dungeon "Sunken Temple" all
+  when complete 1446
+  zone The Hinterlands
+  tip The Atal'ai Exile, south of the Witherbark villages.
+  turnin 1446                         -- Atal'ai Exile
+
+step Abandon Jammal'an the Prophet
+  when dungeon "Sunken Temple" all
+  when onquest 1446
+  when !complete 1446
+  tip Jammal'an the Prophet is still unfinished: without a Sunken Temple run at its level the route doesn't come back for it, so abandon it.
+  abandon 1446                        -- Jammal'an the Prophet
 
 step Chillwind Camp
   zone Western Plaguelands

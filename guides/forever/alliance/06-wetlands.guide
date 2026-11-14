@@ -43,14 +43,18 @@ next forever/alliance/07-thousand-needles
 # Titan Relic's Lost Relic Carry (95810, from the Relic Guardian inside) and gives Prehistoric Prism (98824)
 # for High Explorer Magellas on this guide's Ironforge stop. Halloran takes the hides at the docks before
 # the boat; Rethiel takes the root core on the Wetlands loop of 30-40/01-hillsbrad-foothills (`when
-# complete`). Left out: Lost in the Thicket Things and Heartwoven (95647, 95809: Caitlin Grassman, level 31,
-# 3+ levels over on the first Menethil stop), Seeking Caitlin (95737, Llana in Astranaar), Songblade Search
-# and Fallen in the Fen (95772, 95795: Dorin Songblade in Redridge, off the route).
+# complete`). The every-quest route (`when dungeon "Excavation Site: Wetlands" all`) adds Caitlin Grassman's
+# Lost in the Thicket Things (95647, taken on 06-ashenvale's Menethil stop after Llana's Seeking Caitlin, 95737,
+# with a catch-up here after Halloran) and Dorin Songblade's Songblade Search (95772, Lakeshire, on
+# 04-redridge-mountains): both end inside, where Ardin and Daewyn give Heartwoven and Fallen in the Fen (95809,
+# 95795); Caitlin takes Heartwoven before the boat, and a Lakeshire hop at the end of this guide hands in
+# Fallen in the Fen with The Stockade's What Comes Around... (386, Guard Berton), on the way to Darkshire.
 #
 # City of Dalaran (run in forever/alliance/30-40/01-hillsbrad-foothills): for a character who chose it,
 # Shylamiir's A Green Sample and High Sorcerer Andromath's Power Overwhelming (92456, 92489) are taken on the
 # Stormwind stop, after Lord Grayson Shadowbreaker, at about 30; both are done inside and go back on that
-# guide's closing Stormwind stop.
+# guide's closing Stormwind stop. A runner, past level 30 there thanks to the dungeons' experience, takes
+# Archmage Malin's Malin's Request (690) beside High Sorcerer Andromath instead of on 30-40/01's Stormwind stop.
 
 # ---------------------------------------------------------------- Night Elf and Skyborne Druids: Moonglade and Darnassus
 
@@ -161,6 +165,13 @@ step James Halloran
   zone Wetlands
   tip For your Excavation Site: Wetlands run, later in this guide: James Halloran, by the docks, wants hides from the raptors inside.
   accept 98815                        -- James Halloran
+
+step Caitlin Grassman
+  when dungeon "Excavation Site: Wetlands" all
+  when level>=27.5
+  zone Wetlands
+  tip For your Excavation Site: Wetlands run, later in this guide: Caitlin Grassman, beside the inn, asks you to find Ardin Grassman in the dig.
+  accept 95647                        -- Caitlin Grassman
 
 step Nord'el
   zone Wetlands
@@ -296,7 +307,7 @@ step Rethiel the Greenwarden
 
 step Excavation Site: Wetlands
   when dungeon "Excavation Site: Wetlands"
-  when onquest 98815,95646
+  when onquest 98815,95646,95647,95772
   when level>=28
   zone Wetlands
   tip Excavation Site: Wetlands is a dungeon for a group of five, levels 26 to 33. Its entrance lies just south of the road west, east of Whelgar's dig.
@@ -304,6 +315,21 @@ step Excavation Site: Wetlands
   enter "Excavation Site: Wetlands" @48.0,56.5 live
   complete 98815 @48.0,56.5 live      -- Highland Hides: the hides, inside
   complete 95646 @48.0,56.5 live      -- Horrors in the Highland: the root core, inside
+  turnin 95647 npc 262681 @48.0,56.5 live -- Lost in the Thicket Things: Ardin Grassman, inside; he gives Heartwoven, for Caitlin
+  turnin 95772 npc 262465 @48.0,56.5 live -- Songblade Search: Daewyn Songblade, inside; he gives Fallen in the Fen, for Dorin
+
+step Abandon Lost in the Thicket Things
+  when dungeon "Excavation Site: Wetlands" all
+  when onquest 95647
+  when !complete 95647
+  tip Lost in the Thicket Things is still unfinished: without an Excavation Site: Wetlands run at its level the route doesn't come back for it, so abandon it.
+  abandon 95647                       -- Lost in the Thicket Things
+
+step Abandon Songblade Search
+  when dungeon "Excavation Site: Wetlands" all
+  when onquest 95772
+  tip Songblade Search is still in your log: without an Excavation Site: Wetlands run at its level the route doesn't come back for it, so abandon it.
+  abandon 95772                       -- Songblade Search
 
 step Prospector Whelgar
   when dungeon "Excavation Site: Wetlands"
@@ -322,6 +348,13 @@ step Captain Stoutfist
   turnin 292                              -- Glorin Steelbrow, in the Deepwater Tavern
   accept 293                              -- For Archbishop Benedictus in Stormwind, at the end of this guide
   turnin 469                              -- James Halloran, by the docks, on the way to the boat
+
+step Caitlin Grassman
+  when dungeon "Excavation Site: Wetlands" all
+  when onquest 95809
+  zone Wetlands
+  tip Ardin's word for Caitlin Grassman, beside the inn.
+  turnin 95809                        -- Caitlin Grassman
 
 # Fresh-start pace (0.4.0, first made for 0.3.7): a character loading this guide without 06-ashenvale's Wetlands and
 # Ashenvale quests (the catch-up hides 23 of this guide's quests) left it a level lower than the route player. Every
@@ -630,6 +663,13 @@ step High Sorcerer Andromath
   tip For the same run: High Sorcerer Andromath waits on the spiral walkway of the Wizard's Sanctum, the violet tower of the Mage Quarter, just past the door of the portal room.
   accept 92489 npc 5694                   -- High Sorcerer Andromath
 
+step Archmage Malin
+  when dungeon "City of Dalaran"
+  when level>=30
+  zone Stormwind City
+  tip Archmage Malin stands a few steps from High Sorcerer Andromath: take Malin's Request now. Skuerto takes it at Refuge Pointe in the Arathi Highlands, later on the route.
+  accept 690                              -- Archmage Malin
+
 step Jorgen and Elling Trias
   turnin 1241                             -- Jorgen
   accept 1242
@@ -639,3 +679,39 @@ step Jorgen and Elling Trias
 step Trade District
   train class only Druid
   note Next: fly to Darkshire.
+
+step Fly to Lakeshire
+  when dungeon "The Stockade" all
+  when complete 386
+  zone Stormwind City
+  tip Guard Berton in Lakeshire takes Targorr's head: the gryphon to Lakeshire first, then on to Darkshire.
+  goto 66.3,62.7 "Stormwind gryphon master"
+  fly "Lakeshire"
+
+step Guard Berton
+  when dungeon "The Stockade" all
+  when complete 386
+  zone Redridge Mountains
+  turnin 386                              -- Guard Berton, by the inn
+
+step Abandon What Comes Around...
+  when dungeon "The Stockade" all
+  when onquest 386
+  when !complete 386
+  tip What Comes Around... is still unfinished: without a Stockade run at its level the route doesn't come back for it, so abandon it.
+  abandon 386                             -- What Comes Around...
+
+step Fly to Lakeshire
+  when dungeon "Excavation Site: Wetlands" all
+  when onquest 95795
+  when !zone "Redridge Mountains"
+  zone Stormwind City
+  tip Dorin Songblade in Lakeshire waits for word of his brother: the gryphon to Lakeshire first, then on to Darkshire.
+  goto 66.3,62.7 "Stormwind gryphon master"
+  fly "Lakeshire"
+
+step Dorin Songblade
+  when dungeon "Excavation Site: Wetlands" all
+  when onquest 95795
+  zone Redridge Mountains
+  turnin 95795                            -- Dorin Songblade

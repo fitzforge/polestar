@@ -18,8 +18,11 @@ next forever/alliance/40-50/03-feralas
 # Shattered Necklace starts The Shattered Necklace (2198). The hand-ins (Stormpike, Krom, High Explorer Magellas,
 # then Dinita Stonemantle, and Talvash del Kissel) are on the Ironforge stop of
 # forever/alliance/40-50/05-the-hinterlands (`when complete`/`when onquest`). Left out: Talvash's chain after the
-# necklace (2199-2204: more trips into Uldaman) and Solution to Doom (709: Theldurin the Lost in the southern
-# Badlands, off the route).
+# necklace (2199-2204: five Silver Bars, then a second Uldaman run for the paladin's remains and the gems; the route
+# runs Uldaman once). Solution to Doom (709) is on 30-40/06-badlands, behind `when group 709`.
+# Zul'Farrak (run in forever/alliance/40-50/04-tanaris): its every-quest route (`when dungeon "Zul'Farrak" all`)
+# hands Tabetha's Task (2861, from 40-50/01's Stormwind stop) to Tabetha on the walk west from Theramore and takes
+# her Tiara of the Deep (2846) there.
 
 step Agmond's End
   zone Badlands
@@ -186,6 +189,26 @@ step Theramore
   accept 1288
   turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
   turnin 1258                         -- Morgan Stern, inside
+
+step Tabetha
+  when dungeon "Zul'Farrak" all
+  when onquest 2861
+  zone Dustwallow Marsh
+  tip Tabetha is in the marsh west of Theramore, on the way to the Barrens.
+  turnin 2861                         -- Tabetha
+
+step Abandon Tabetha's Task
+  when dungeon "Zul'Farrak" all
+  when onquest 2861
+  tip Tabetha's Task is still in your log: the route doesn't come back for it, so abandon it.
+  abandon 2861                            -- Tabetha's Task
+
+step Tabetha
+  when dungeon "Zul'Farrak" all
+  when level>=43.3
+  zone Dustwallow Marsh
+  tip For your Zul'Farrak run in Tanaris, at about 46: Tabetha wants the Tiara of the Deep from Hydromancer Velratha, inside.
+  accept 2846                         -- Tabetha
 
 step Cortello's Riddle
   when onquest 625

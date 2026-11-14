@@ -23,6 +23,10 @@ next forever/alliance/06-ashenvale
 # it, Gershala Nightwhisper's Researching the Corruption (1275) is taken on the Auberdine stop after the
 # Grove, at about 22; the run is on the Zoram Strand in forever/alliance/06-ashenvale. The Corruption
 # Abroad (3765, Argos Nightwhisper in Stormwind) only leads to her: players take her quest without it.
+# The every-quest route (`when dungeon "Blackfathom Deeps" all`) hands The Corruption Abroad in to her
+# first (taken on 03-loch-modan's last Stormwind stop) and goes on to Darnassus right after her quest, for
+# Dawnwatcher Shaedlass' In Search of Thaelrid and Argent Guard Manados' Twilight Falls (1198, 1199): the
+# boat or the hippogryph to Rut'theran Village and the portal, then back to Auberdine.
 
 # ---------------------------------------------------------------- Auberdine
 
@@ -121,11 +125,49 @@ step Auberdine
   vendor nearest optional
 
 step Gershala Nightwhisper
+  when dungeon "Blackfathom Deeps" all
+  when onquest 3765
+  zone Darkshore
+  tip Gershala Nightwhisper, a short walk west of Terenthis, takes Argos Nightwhisper's word first.
+  turnin 3765                         -- Gershala Nightwhisper
+
+step Abandon The Corruption Abroad
+  when dungeon "Blackfathom Deeps" all
+  when onquest 3765
+  tip The Corruption Abroad is still in your log: the route doesn't come back for it, so abandon it.
+  abandon 3765                            -- The Corruption Abroad
+
+step Gershala Nightwhisper
   when dungeon "Blackfathom Deeps"
   when level>=22.7
   zone Darkshore
   tip For your Blackfathom Deeps run, on the Zoram Strand in the next guide: Gershala Nightwhisper stands a short walk west of Terenthis.
   accept 1275                         -- Gershala Nightwhisper
+
+step Teldrassil
+  when dungeon "Blackfathom Deeps" all
+  when level>=22.7
+  zone Teldrassil
+  tip For your Blackfathom Deeps run, two of its quests come from Darnassus: the boat from Auberdine's dock to Rut'theran Village (Night Elves fly), learning its flight path on the way up from the landing.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  getfp "Rut'theran Village"
+
+step Darnassus
+  when dungeon "Blackfathom Deeps" all
+  when level>=22.7
+  zone Darnassus
+  tip Through the portal into Darnassus: Dawnwatcher Shaedlass and Argent Guard Manados stand side by side. Argent Guard Thaelrid, whom Shaedlass sends you to find, is inside Blackfathom Deeps.
+  accept 1198                         -- Dawnwatcher Shaedlass
+  accept 1199                         -- Argent Guard Manados
+
+step Fly to Auberdine
+  when dungeon "Blackfathom Deeps" all
+  when zone "Darnassus"
+  zone Teldrassil
+  tip Back through the portal to Rut'theran Village and the hippogryph to Auberdine.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  fly "Auberdine"
+  zone Darkshore
 
 # ---------------------------------------------------------------- The north coast
 

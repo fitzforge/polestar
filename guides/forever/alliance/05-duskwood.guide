@@ -88,11 +88,13 @@ next forever/alliance/06-wetlands
 # 28.3; 52 people ran it at a median of 27.4), after the training: Warden Thelwater (Quell the Uprising; The
 # Stockade Riots when Bazil Thredd is carried from Baros Alexston after the Deadmines) is picked up and
 # handed in at the gate on the same stop; Councilman Millstipe's Crime and Punishment comes from
-# 04-redridge-mountains' Darkshire stop and goes back on 07-thousand-needles' (`when complete`). Left out:
-# The Color of Blood (388: Nikova Raskol in Old Town, a second Old Town visit after the run: an avoidable
-# hub revisit in the flow audit, over the travel budget), What Comes Around... (386:
-# Guard Berton in Lakeshire, not passed after the run) and The Fury Runs Deep (378: Motley Garmason's chain
-# at Dun Modr).
+# 04-redridge-mountains' Darkshire stop and goes back on 07-thousand-needles' (`when complete`). The
+# every-quest route (`when dungeon "The Stockade" all`) adds Nikova Raskol's The Color of Blood (388), taken
+# in Old Town before Thelwater's gate and handed in on the way to the gryphons after the run, and Guard
+# Berton's What Comes Around... (386, taken in Lakeshire on 04-redridge-mountains, handed in on a Lakeshire
+# hop at the end of 06-wetlands). Left out: The Fury Runs Deep (378: Motley Garmason gives it at Dun Modr
+# after The Dark Iron War, thirty elite Dark Iron dwarves of 27-30 and a minimum of 25; the route's Wetlands
+# visit before the run is at about 24.7).
 
 step Fly to Darkshire
   zone Redridge Mountains
@@ -274,6 +276,13 @@ step Rogue training
   tip Train here, in Stormwind City, before you go on.
   train class
 
+step Nikova Raskol
+  when dungeon "The Stockade" all
+  when level>=25.9
+  zone Stormwind City
+  tip For your Stockade run: Nikova Raskol, in Old Town, wants ten Red Wool Bandanas from the prisoners inside.
+  accept 388                              -- Nikova Raskol
+
 step Warden Thelwater
   when dungeon "The Stockade"
   when level>=25.9
@@ -302,7 +311,7 @@ step Warden Thelwater
 
 step The Stockade
   when dungeon "The Stockade"
-  when onquest 387,377,391
+  when onquest 387,377,391,386,388
   when level>=25.9
   zone Stormwind City
   tip The Stockade is a dungeon for a group of five, levels 24 to 32, and a run takes under an hour. Its gate is Warden Thelwater's, south of the Cathedral Square.
@@ -311,6 +320,8 @@ step The Stockade
   complete 387                            -- Quell the Uprising
   complete 377                            -- Crime and Punishment: Dextren Ward
   complete 391                            -- The Stockade Riots: Bazil Thredd
+  complete 386                            -- What Comes Around...: Targorr the Dread
+  collect 2909 x10 quest 388.1            -- The Color of Blood: Red Wool Bandanas, from the prisoners
 
 step Warden Thelwater
   when dungeon "The Stockade"
@@ -323,3 +334,17 @@ step Warden Thelwater
   when complete 391
   zone Stormwind City
   turnin 391                              -- Warden Thelwater, at the gate
+
+step Nikova Raskol
+  when dungeon "The Stockade" all
+  when complete 388
+  zone Stormwind City
+  tip Nikova Raskol, in Old Town, a short walk past the gryphon master.
+  turnin 388                              -- Nikova Raskol
+
+step Abandon The Color of Blood
+  when dungeon "The Stockade" all
+  when onquest 388
+  when !complete 388
+  tip The Color of Blood is still unfinished: without a Stockade run at its level the route doesn't come back for it, so abandon it.
+  abandon 388                             -- The Color of Blood
