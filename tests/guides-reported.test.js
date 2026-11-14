@@ -12780,3 +12780,23 @@ test(`${ARATHI}: Galen's Escape warns of the Lost Ones the escort pulls onto Gal
 	assert.match(tips, /take it again at his cage/);
 	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2253-galens-escape-careful'), 'a record the build keeps');
 });
+
+// #2268 (thmastin, Dwarf Shaman 11): the Empty Powder Keg's quest, Stolen Blasting Powder (95213), was handed in on the
+// quarry stop as an optional line beside Those Blasted Troggs! and The Public Servant; with those two in, nothing held
+// the step, and the window moved on to Helm's Bed Lake while 95213 sat complete in the log, Thesten's follow-up (95214)
+// never taken. The hand-in and the follow-up's accept now have a step of their own, shown while 95213 is carried.
+test('#2268: Dun Morogh holds Quarrymaster Thesten for the powder keg\'s quest before Helm\'s Bed Lake', { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 95213 && f.at.goal === 'turnin' && f.split), 'a split record the build keeps');
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 95213 && f.at.goal === 'turnin' && f.when === 'onquest 95213'), 'a when record the build keeps');
+	for (const guide of DUN_MOROGHS) {
+		const list = goals(guide);
+		const give = at(list, 'turnin 95213', is('turnin', 95213));
+		const take = at(list, 'accept 95214', is('accept', 95214));
+		const { step } = list[give];
+		assert.ok(step.when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(95213)), `${guide}: shown while 95213 is carried`);
+		assert.ok(!list[give].goal.optional && !list[take].goal.optional, `${guide}: the hand-in and the follow-up hold the step`);
+		assert.equal(list[take].step, step, `${guide}: 95214 taken on the same step`);
+		assert.ok(take < at(list, 'powder at the lake', (g) => g.t === 'collect' && g.item === 267415), `${guide}: before Helm's Bed Lake`);
+	}
+});

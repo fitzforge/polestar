@@ -9371,6 +9371,50 @@
 				}
 			],
 			"issue": 2253
+		},
+		{
+			"id": "2268-dun-morogh-thesten-split",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95213,
+				"goal": "turnin"
+			},
+			"split": {
+				"title": "Quarrymaster Thesten"
+			},
+			"note": "#2268: Dun Morogh (Dwarf and Gnome). The Empty Powder Keg's quest (95213) was handed in on the quarry stop with Those Blasted Troggs! and The Public Servant, as optional lines: once those two were in, nothing held the step, so a player carrying the keg's quest was sent on to Helm's Bed Lake without Thesten's follow-up (95214), whose powder then showed n/a. The keg's hand-in and the follow-up's accept get a step of their own (this record), shown only while the keg's quest is carried (2268-dun-morogh-thesten-when).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268: a Dwarf Shaman at level 11 stood beside Quarrymaster Thesten with Stolen Blasting Powder (95213) complete in the log; the guide's window had moved on to Helm's Bed Lake, where the follow-up's powder showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 95213 started by the Empty Powder Keg (268548), ended by Quarrymaster Thesten (1256); 95214 started and ended by him, after 95213"
+				}
+			],
+			"issue": 2268
+		},
+		{
+			"id": "2268-dun-morogh-thesten-when",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95213,
+				"goal": "turnin"
+			},
+			"when": "onquest 95213",
+			"note": "#2268: the Quarrymaster Thesten step (2268-dun-morogh-thesten-split) shows only while Stolen Blasting Powder (95213) is in the log; there its hand-in and the follow-up's accept hold the route before Helm's Bed Lake. A player without the keg never sees it.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2268: a Dwarf Shaman at level 11 stood beside Quarrymaster Thesten with Stolen Blasting Powder (95213) complete in the log; the guide's window had moved on to Helm's Bed Lake, where the follow-up's powder showed n/a"
+				},
+				{
+					"kind": "questie",
+					"ref": "quest 95213 started by the Empty Powder Keg (268548), ended by Quarrymaster Thesten (1256); 95214 started and ended by him, after 95213"
+				}
+			],
+			"issue": 2268
 		}
 	]
 }
