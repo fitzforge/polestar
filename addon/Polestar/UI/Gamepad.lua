@@ -1529,10 +1529,22 @@ local function hintsOf(e, w, onClose)
 	return list
 end
 
+-- The widget under the ring hears of it (w.psOnPadFocus(w, on): a switch
+-- rings its own track too), and so does the one it left.
+local marked
+local function markFocus(w)
+	if marked == w then return end
+	local old = marked
+	marked = w
+	if old and old.psOnPadFocus then ns.SafeCall(old.psOnPadFocus, old, false) end
+	if w and w.psOnPadFocus then ns.SafeCall(w.psOnPadFocus, w, true) end
+end
+
 local function hidePaint()
 	if ring then ring:Hide() end
 	if bar then bar:Hide() end
 	if badge then badge:Hide() end
+	markFocus(nil)
 end
 
 -- The hint bar under the window, at its left edge, kept on the screen (a
@@ -1557,6 +1569,7 @@ local function paint(e)
 	else
 		r:Hide()
 	end
+	markFocus(w)
 	local hints = ns.Get("gamepad.hints")
 	local chip = theBadge()
 	local close = hints and closeButton(e)

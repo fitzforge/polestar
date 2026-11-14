@@ -3394,7 +3394,10 @@ Polestar.Theme.Color(name) -> r, g, b, a
    -- world map overlays: game art, the same in every scheme, outside the legibility guard);
    -- "discord" (Discord's Blurple, on its own mark only, outside the legibility guard)
 Polestar.Theme.Wash(role) -> r, g, b, a     -- ink at the role's alpha: "border","divider","hover",
-   -- "selected","progress","track","toggle","box","thumb","swatch","chip","watermark","mover"
+   -- "selected","progress","track","toggle" (the off switch's edge),"box","thumb","swatch","chip","watermark","mover"
+Polestar.Theme.SwitchColors(on, hover, enabled) -> { track, edge, knob, contact = { r, g, b }, shadow = { r, g, b, a } }
+   -- the settings switch's colours for one state (W.Toggle, W.Switch); disabled: hueless; contact: the track where
+   -- the knob's shadow meets the knob (what an on knob is read against; tests hold it and the off knob to 3:1)
 Polestar.Theme.Hex(name) -> "ffrrggbb"     -- for |c escapes
 Polestar.Theme.TipColor(name) -> r, g, b   -- name's colour for a line on the game's tooltip: as it is where it reads
    -- at 4.5:1 on the tooltip's dark ground (Theme.TIP_GROUND), else (a light look's ink) moved toward the look's
@@ -3414,6 +3417,13 @@ Polestar.Theme.ShowsRim() -> bool         -- ui.rim
 Polestar.Theme.SUBJECTS                   -- the subject/status colours a player may set (ui.colors.<name>)
 Polestar.Theme.Skin(frame, kind)          -- "window","panel","inset","button","editbox","checkbox","dropdown","scrollbar","tab","close"
 Polestar.Theme.Media(name) -> texturePath -- e.g. "icon-accept", "check", "white", "glow"
+Polestar.Theme.SharpMedia(family, region, height) -> texturePath   -- "disc", "switch-edge", "switch-fill", "switch-focus"
+   -- (Media/UI <family>-16/-32/-64): the smallest at or above `height` (region units) on screen, so the client, which
+   -- makes no mipmaps for addon textures, never shrinks one by two or more
+Polestar.Theme.PixelsPerUnit(region) -> n -- physical pixels per unit of the region's coordinate space
+Polestar.Widgets.Capsule(parent, w, h, art?, mode?) -> frame   -- a capsule from one disc's halves and middle column
+   -- (no join, any width or alpha; :SetColor, :SetCapsule(w, h), :SetSpan(w)); mode "whole": the art at its own
+   -- shape over the frame, "span": whole while square (a knob). W.Pill is the same.
 Polestar.Theme.OnChanged(fn)              -- fn() on any scheme/colour/font change
 Polestar.Theme.IsEllesmere() -> bool   -- a UI suite's look is followed (EllesmereUI, or ErgoBars: the same contract)
 Polestar.Theme.SkinProvider() -> "EllesmereUI" | "ErgoBars" | nil   -- whose; named in the scheme, accent note and Integrations

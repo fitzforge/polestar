@@ -489,6 +489,8 @@ mod ui_scrub;
 mod ui_settings_ux;
 #[path = "ui-steplist.rs"]
 mod ui_steplist;
+#[path = "ui-switch.rs"]
+mod ui_switch;
 #[path = "ui-thanks.rs"]
 mod ui_thanks;
 #[path = "ui-transparent.rs"]

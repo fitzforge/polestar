@@ -1066,6 +1066,55 @@ function Theme.AccentGround(share)
 	end
 end
 
+-- The switch's colours (Theme/Widgets.lua W.Toggle, W.Switch) for one state,
+-- on the panel ground its rows sit on. On: the accent track under a light
+-- knob (the lighter of the text and the panel colour, a third of the way to
+-- white) with a soft shadow round it. Off: a well darker than the panel (a
+-- step lighter-toned on a light look's paper) inside a 1px edge of the
+-- `toggle` wash, so it reads on every ground, under a knob in the dim text
+-- colour (a muted light tone on a dark look, ink on a light one). Under the
+-- cursor the track lightens a touch (toward the ink, when off); disabled,
+-- every colour loses its hue (the row fades it too), so a switch turned off
+-- by another setting is grey, never a darkened accent. `contact` is the
+-- track where the knob's shadow meets the knob's edge (about half its
+-- strength there): what the knob is seen against when on.
+-- -> { track, edge, knob, contact = { r, g, b }, shadow = { r, g, b, a } }
+local function mix(a, b, k)
+	return { a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k, a[3] + (b[3] - a[3]) * k }
+end
+Theme.SWITCH_SHADOW_EDGE = 0.5
+function Theme.SwitchColors(on, hover, enabled)
+	local pal = Theme.Palette()
+	local ground, light = pal.panel, isLight(pal)
+	local track, edge, knob, shadowA
+	if on then
+		track = pal.accent
+		if hover then track = shifted(track, 0.04) end
+		track = { track[1], track[2], track[3] }
+		edge = track
+		local t, p = pal.text, pal.panel
+		local lighter = Theme.Luminance(t[1], t[2], t[3]) >= Theme.Luminance(p[1], p[2], p[3]) and t or p
+		knob = mix(lighter, { 1, 1, 1 }, 0.3)
+		shadowA = light and 0.45 or 0.7
+	else
+		track = light and shifted(ground, -0.07) or mix(ground, pal.shade, 0.55)
+		if hover then track = mix(track, pal.ink, 0.08) end
+		local wash = pal.toggle
+		edge = mix(ground, wash, math.min(1, (wash[4] or 1) * 1.6))
+		knob = { pal.textDim[1], pal.textDim[2], pal.textDim[3] }
+		shadowA = light and 0.25 or 0.5
+	end
+	if not enabled then
+		track, edge, knob = shifted(track, 0, 0.12), shifted(edge, 0, 0.12), shifted(knob, 0, 0.12)
+		shadowA = shadowA * 0.5
+	end
+	local s = pal.shade
+	return {
+		track = { track[1], track[2], track[3] }, edge = { edge[1], edge[2], edge[3] }, knob = { knob[1], knob[2], knob[3] },
+		shadow = { s[1], s[2], s[3], shadowA }, contact = mix(track, s, shadowA * Theme.SWITCH_SHADOW_EDGE),
+	}
+end
+
 -- The window border: shown (ui.border), and its thickness in physical
 -- pixels (ui.borderSize, 1-4). Its colour is the "windowBorder" token.
 -- -> shown, size
@@ -1103,6 +1152,33 @@ function Theme.Media(name)
 	if name == "icon-skull" then return "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8" end
 	if type(name) == "string" and name:find("[\\/]") then return name end
 	return MEDIA .. "UI\\" .. name
+end
+
+-- Physical pixels per unit of a region's coordinate space (the screen's
+-- height in pixels over UIParent's in units, times the region's own scale
+-- over UIParent's). -> a number (1 where the client can't say)
+function Theme.PixelsPerUnit(region)
+	local ph = GetPhysicalScreenSize and select(2, GetPhysicalScreenSize())
+	local uh = UIParent and UIParent:GetHeight()
+	if not (ph and ph > 0 and uh and uh > 0) then return 1 end
+	local own = region and region.GetEffectiveScale and region:GetEffectiveScale() or 1
+	local base = UIParent:GetEffectiveScale() or 1
+	if base <= 0 then base = 1 end
+	return ph / uh * own / base
+end
+
+-- A part drawn from an art family Media/UI holds at several sizes ("disc",
+-- "ring": 16, 32 and 64 px; tools/media/ui.js): the smallest at or above the
+-- part's height on screen (`height` in the region's units), so the client,
+-- which makes no mipmaps for these files, never shrinks one by two or more
+-- and its edge stays smooth at any UI scale. -> the texture's path
+local SHARP_SIZES = { 16, 32, 64 }
+function Theme.SharpMedia(name, region, height)
+	local px = (height or 16) * Theme.PixelsPerUnit(region)
+	for i = 1, #SHARP_SIZES - 1 do
+		if px <= SHARP_SIZES[i] then return Theme.Media(name .. "-" .. SHARP_SIZES[i]) end
+	end
+	return Theme.Media(name .. "-" .. SHARP_SIZES[#SHARP_SIZES])
 end
 
 -- A texture the skin in use brings in place of Polestar's (its media, or
