@@ -8749,11 +8749,11 @@
 			},
 			{
 				"q": 1096,
-				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks on 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068), on the same walk. Calibrated level model (R10, all 28 Horde branches): 0.10-0.15 h sooner to 60 with the swap it belongs to.",
+				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks after 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068). Horde level tidy (0.4.0): taken from Ziz on the way back down from Sun Rock (calibrated level model 26.9 there) instead of on the way up (25.9, two levels under Gerenzo); the tower is a short walk east of Ziz's hut on the road down to Malaka'jin.",
 				"issue": "2025",
 				"after": [
 					"turnin",
-					1095
+					6393
 				]
 			},
 			{

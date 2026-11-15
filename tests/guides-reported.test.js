@@ -12776,7 +12776,7 @@ test('Durotar (Orc, Troll): no Mage trainer step back in the Valley of Trials af
 // Fizziks on the Webwinder Path, were never offered. The southern Barrens and Ratchet now come first, Stonetalon last;
 // Grish Longrunner's letter (5881) and Brave Moonhorn's message (4542) are done on the Ashenvale & Thousand Needles
 // guide's own Great Lift step. Calibrated level model: 0.10-0.15 h sooner to 60 on every Horde branch.
-test('forever/horde/04-the-barrens.guide: Horde 21-30 audit: the southern Barrens and Ratchet before Stonetalon, Gerenzo on the way up (#2025)', { skip }, () => {
+test('forever/horde/04-the-barrens.guide: Horde 21-30 audit: the southern Barrens and Ratchet before Stonetalon, Gerenzo on the Webwinder Path (#2025)', { skip }, () => {
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'turnin 849', is('turnin', 849));
 	const ratchet = at(list, 'turnin 1094', is('turnin', 1094));
@@ -12788,13 +12788,14 @@ test('forever/horde/04-the-barrens.guide: Horde 21-30 audit: the southern Barren
 	const arm = at(list, 'collect 5736', (g) => g.t === 'collect' && g.item === 5736);
 	const back = at(list, 'turnin 1096', is('turnin', 1096));
 	assert.ok(ratchet <= orders && orders < ziz && ziz < arm && arm < back, 'Sputtervalve, Ziz, Gerenzo, Ziz');
-	assert.ok(back < at(list, 'accept 6393', is('accept', 6393)), 'Gerenzo before Sun Rock');
+	// Since the 0.4.0 level tidy Gerenzo (27) is taken from Ziz on the way back down from Sun Rock, about a level later.
+	assert.ok(arm > at(list, 'turnin 6393', is('turnin', 6393)) && back < at(list, 'turnin 1058', is('turnin', 1058)), 'Gerenzo after Sun Rock, before Malaka\'jin');
 	assert.ok(!list.some(({ goal }) => goal.quest === 4542 || (goal.t === 'turnin' && goal.quest === 5881)), 'the Great Lift errands are the next guide\'s');
 	assert.deepEqual(list.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), ['Camp Taurajo'], 'one bind, Camp Taurajo (no Sun Rock bind: the hearth ends the guide)');
 	const next = goals(ASHENVALE_HORDE);
 	const lift = at(next, 'turnin 5881', is('turnin', 5881));
 	assert.equal(next[at(next, 'accept 4542', is('accept', 4542))].s, next[lift].s, 'Grish and Moonhorn on one Great Lift step');
-	assert.ok(at(next, 'turnin 857', is('turnin', 857)) < lift && lift < at(next, 'turnin 4542', is('turnin', 4542)), 'after the Tear of the Moons, before Freewind');
+	assert.ok(lift < at(next, 'turnin 4542', is('turnin', 4542)), 'before Freewind (The Tear of the Moons is left out since the 0.4.0 level tidy)');
 	const first = next[0];
 	assert.ok(first.goal.t === 'goto' && Math.abs(first.goal.x - 51.5) < 0.5 && Math.abs(first.goal.y - 30.4) < 0.5, 'Ashenvale opens at the Crossroads\' flight master, the walk east from Seereth');
 });

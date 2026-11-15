@@ -49,9 +49,9 @@ next forever/horde/07-ashenvale
 # Bael Modan and Blackthorn Ridge -> Camp Taurajo (the hearth) -> fly to the Crossroads (Thork, Korran) -> fly to
 # Ratchet (Sputtervalve: Further Instructions 1094 -> 1095; the Merchant Coast: Mahren, Isha Awak) ->
 # back to the Crossroads (the flight the arrow picks) -> Seereth -> west into Stonetalon: Malaka'jin (Jin'Zil) -> up the Webwinder Path
-# to Ziz Fizziks (1095, Gerenzo 1096), XT:9, XT:4 and Gerenzo's tower -> Ziz -> Sun Rock Retreat (flight
-# path) -> Mirkfallon Lake and Stonetalon Peak -> Sun Rock -> the Charred Vale -> Sun Rock -> down to
-# Malaka'jin (Jin'Zil). The next guide flies to Zoram'gar Outpost from the nearest flight master the
+# to Ziz Fizziks (1095), XT:9 and XT:4 -> Sun Rock Retreat (flight
+# path) -> Mirkfallon Lake and Stonetalon Peak -> Sun Rock -> the Charred Vale -> Sun Rock -> down the Webwinder Path:
+# Ziz (Gerenzo 1096), Gerenzo's tower and back -> Malaka'jin (Jin'Zil). The next guide flies to Zoram'gar Outpost from the nearest flight master the
 # player knows (the hearth to Camp Taurajo, or the walk to the Crossroads).
 # Calling in the Reserves (5881, Maggran at Sun Rock, for Grish Longrunner at the Great Lift) and Message
 # to Freewind Post (4542, Brave Moonhorn beside Grish) are done on forever/horde/07-ashenvale's way down
@@ -316,7 +316,7 @@ step Ziz Fizziks
   when onquest 1095
   tip Up the Webwinder Path to Ziz Fizziks' hut, where the road forks east to Windshear Crag: Sputtervalve's orders are for him.
   turnin 1095                         -- Ziz Fizziks, inside
-  accept 1096                         -- Ziz Fizziks: Gerenzo, at the top of the Venture Co. tower on Windshear Crag
+  note Ziz's next errand, Gerenzo at the top of the Venture Co. tower (27), comes on the way back down from Sun Rock.
 
 step Shredding Machines
   zone Stonetalon Mountains
@@ -325,20 +325,8 @@ step Shredding Machines
   kill 4074 quest 1068.2              -- XT:9
   kill 4073 quest 1068.1              -- XT:4
 
-step Gerenzo Wrenchwhistle
-  zone Stonetalon Mountains
-  when onquest 1096
-  tip A short walk north of XT:4, Gerenzo Wrenchwhistle (27) stands at the top of the Venture Co. tower on Windshear Crag: clear the Venture Co. on the way up. His Mechanical Arm is for Ziz.
-  collect 5736 quest 1096 @64.5,40.3  -- Gerenzo's Mechanical Arm, from Gerenzo Wrenchwhistle
-
-step Ziz Fizziks
-  zone Stonetalon Mountains
-  when complete 1096
-  tip Back west to Ziz Fizziks' hut, on the way to Sun Rock.
-  turnin 1096                         -- Ziz Fizziks, inside
-
 step Sun Rock Retreat
-  tip West from Ziz Fizziks' hut to Sun Rock Retreat.
+  tip Back west past Ziz Fizziks' hut to Sun Rock Retreat.
   accept 6562                         -- Tsunaman: Je'neu Sancrea at Zoram'gar, next guide
   accept 6393
   accept 5881                         -- Maggran Earthbinder: Grish is at the Great Lift, on the next guide's way into Thousand Needles
@@ -398,8 +386,25 @@ step Sun Rock Retreat
   turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
   turnin 6393                         -- Tsunaman, up on the ledge
 
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  tip Back down the Webwinder Path to Ziz Fizziks' hut, where the road forks east to Windshear Crag.
+  accept 1096                         -- Ziz Fizziks: Gerenzo, at the top of the Venture Co. tower on Windshear Crag
+
+step Gerenzo Wrenchwhistle
+  zone Stonetalon Mountains
+  when onquest 1096
+  tip East from Ziz's hut along the road to Windshear Crag, past where XT:4 roamed: Gerenzo Wrenchwhistle (27) stands at the top of the Venture Co. tower. Clear the Venture Co. on the way up. His Mechanical Arm is for Ziz.
+  collect 5736 quest 1096 @64.5,40.3  -- Gerenzo's Mechanical Arm, from Gerenzo Wrenchwhistle
+
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  when complete 1096
+  tip Back west to Ziz Fizziks' hut, on the way down to Malaka'jin.
+  turnin 1096                         -- Ziz Fizziks, inside
+
 step Malaka'jin
-  tip Head back down the Webwinder Path to Malaka'jin.
+  tip On down the Webwinder Path to Malaka'jin.
   turnin 1058                         -- Witch Doctor Jin'Zil, below ground
 
 step Seereth Stonebreak
