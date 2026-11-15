@@ -1,7 +1,7 @@
 {
   "about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
   "files": {
-    "forever/alliance/02-westfall.guide": "24006904565420e9824b7ffcfe9d1059c1787b9898e0e411adc022d899af5887",
+    "forever/alliance/02-westfall.guide": "c6707bd5df4f0a3e835d9bd47563755d0da548b0f2e060501728450925cff760",
     "forever/alliance/03-darkshore-return.guide": "bf5fcd8094be9525012d859968a881f1944ec175b507bd57a28cfb2f1a9443b6",
     "forever/alliance/03-darkshore.guide": "d2cb0ec0483d52a416504a09a65a6942506c458d6c0349daa069ad0dcd101db0",
     "forever/alliance/03-loch-modan.guide": "0683fc9aaf48a639142c99d62fdf44fc42a275a02316239f3f6cebffbd88f58d",

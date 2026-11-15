@@ -390,7 +390,7 @@ step The Tome of Divinity
   accept 1643 only Human
   turnin 1643 only Human -- Stephanie Turner, Trade District
   accept 1644 only Human
-  collect 2589 quest 1644.1 only Human -- Linen Cloth
+  collect 2589 quest 1644.1 @61.2,71.3 map 1453 live only Human -- Linen Cloth: you have it from Westfall's Defias; if not, the Auction House here in the Trade District (not the level 25 thugs in Old Town)
   turnin 1644 only Human
   accept 1780 only Human
   turnin 1780 only Human -- Duthorian Rall
