@@ -2909,7 +2909,10 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			// objective it names is (a kill written on an item's line), and progress and count follow the wrong
 			// quest-log line. An error. Another target of the same kind that is no objective: a warning.
 			let right = if named.truthy() { find(&id) } else { None };
-			let swapped = right.is_some_and(|ri| oi.num() != ri as f64);
+			// Two lines of a quest may share one target (report to the same officer before and after the
+			// patrol): `find` gives the first, but the line named is right whenever its own target is the goal's.
+			let names_own = named.truthy() && same_kind(&named.get("kind")) && named.get("id").strict_eq(&id);
+			let swapped = right.is_some_and(|ri| oi.num() != ri as f64) && !names_own;
 			if swapped || (named.truthy() && same_kind(&named.get("kind")) && !named.get("id").is_nullish() && !named.get("id").strict_eq(&id)) {
 				let own = right.and_then(|ri| data.quest_objectives(&gq).get(ri - 1).cloned());
 				let own_part = match (&own, right) {
