@@ -264,9 +264,31 @@ Polestar.UI.LevelTip.Show(Polestar.UI.Picker.details.XP)`;
 // section asks. POLESTAR_DUNGEONS_PACK: a Dungeons1.lua built by `codex build`
 // (local, never committed) used instead of the fixture's; it needs
 // POLESTAR_CLIENT_ART, so those renders land outside the repository.
+// POLESTAR_CODEX_DIR: a whole Polestar_Codex folder built by `forge data codex`
+// (local, never committed), loaded instead of both, so a pick-up or hand-in
+// guide shows the real quests, NPCs and places; same rule for the renders.
 const DUNGEONS_PACK = process.env.POLESTAR_DUNGEONS_PACK || null;
+const CODEX_DIR = process.env.POLESTAR_CODEX_DIR || null;
 let dungeonsPack = null;
+// The stubbed client loads `dir`'s files, in its TOC's order, when the Codex is asked for.
+function codexDirStub(dir) {
+	const toc = fs.readFileSync(path.join(dir, 'Polestar_Codex.toc'), 'utf8');
+	const files = toc.split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith('#')).map((f) => JSON.stringify(path.join(dir, f.replace(/\\/g, '/'))));
+	return `do
+  local __codexFiles = { ${files.join(', ')} }
+  local __load = C_AddOns.LoadAddOn
+  function C_AddOns.LoadAddOn(name)
+    if name ~= "Polestar_Codex" then return __load(name) end
+    if not stub.addonsLoaded[name] then
+      for _, f in ipairs(__codexFiles) do dofile(f) end
+      stub.addonsLoaded[name] = true
+    end
+    return true, nil
+  end
+end`;
+}
 function dungeonsStub() {
+	if (CODEX_DIR) return codexDirStub(CODEX_DIR);
 	if (!dungeonsPack) {
 		const { buildJournal, emitJournal } = require('../lib/codex/journal');
 		const f = JSON.parse(fs.readFileSync(path.join(ROOT, 'tests', 'fixtures', 'codex', 'dungeons.json'), 'utf8'));
