@@ -1618,14 +1618,19 @@ local function layoutRows(view, controls, top, x, width, whole)
 			y = y + place(w, x, width)
 		elseif left then
 			local h = place(w, x + half, width - half)
+			-- The two halves stand as tall as the taller one (a label on two
+			-- lines), so their hairlines meet.
+			local lineH = max(leftH, h)
+			left:SetHeight(lineH)
+			w:SetHeight(lineH)
 			view.psMid = (view.psMid or 0) + 1
 			local m = midRule(view, view.psMid)
 			m:ClearAllPoints()
 			m:SetPoint("TOPLEFT", view, "TOPLEFT", x + half, -y)
-			m:SetSize(1, max(leftH, h))
+			m:SetSize(1, lineH)
 			m:Show()
 			left.psPair, w.psPair = w, left
-			y, left = y + max(leftH, h), nil
+			y, left = y + lineH, nil
 		else
 			lineRows = {}
 			left = w

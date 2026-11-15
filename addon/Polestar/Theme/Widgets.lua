@@ -2646,7 +2646,8 @@ end
 ---------------------------------------------------------------------------
 -- Compact rows (the settings window, DESIGN.md "The Row Rule"): a setting
 -- is a half of a 36px row: its label (Body, textDim; text and a 6px gold dot
--- before it while off its default) from 16, one line, cut with an ellipsis;
+-- before it while off its default) from 16, on two lines at most before it
+-- is cut with an ellipsis (the row grows when two lines need it);
 -- its control right-aligned 16 from the half's right edge at a fixed width
 -- per kind (slider: a 120 track, 8, the value box; dropdown 168; colour: the
 -- 20px chip, the hex, the opacity). Left of the control zone (as wide as the
@@ -2734,7 +2735,10 @@ function W.CompactRow(row, opts)
 	row.psTipAnchor = "ANCHOR_TOPLEFT"
 	row.psExtras = opts.extras
 	row.Cog = opts.cog
-	row.Label:SetWordWrap(false)
+	-- A long or translated label wraps to a second line before it is cut;
+	-- picture cards keep theirs on the one line of their band.
+	row.Label:SetWordWrap(not row.psBelow)
+	row.Label:SetMaxLines(row.psBelow and 1 or 2)
 	if rawget(row, "Help") then row.Help:Hide() end
 	if rawget(row, "psConnector") then for _, t in ipairs(row.psConnector) do t:Hide() end end
 	if not rawget(row, "ModDot") then
@@ -2806,6 +2810,8 @@ function W.LayoutCompact(row, width)
 		label:SetPoint("LEFT", row, "LEFT", HALF_PAD, 0)
 	end
 	label:SetWidth(lw)
+	-- Two lines of label: the row grows to hold them with 3px over and under.
+	if not below then h = max(h, math.ceil(label:GetStringHeight()) + 6) end
 	if info then
 		info:ClearAllPoints()
 		info:SetPoint("LEFT", label, "LEFT", min(lw, math.ceil(textWidth(label))) + 4, 0)

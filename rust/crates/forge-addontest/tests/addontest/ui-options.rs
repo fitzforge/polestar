@@ -813,8 +813,9 @@ fn window_border_band_and_shadow_repaint_every_window_live_right_click_restores_
 	assert_eq!(out["own"]["accentOff"], false, "picking an own border colour turns the accent border off");
 }
 
-// A new font lays the page out again; a label too long for its half in the new face is cut with an ellipsis (its
-// whole text in the tooltip), never wrapped: its row keeps its 36px and the rows below keep their places.
+// A new font lays the page out again; a label too long for its half in the new face wraps to a second line before it
+// is cut with an ellipsis (its whole text in the tooltip): two lines fit its 36px row, so the rows below keep their
+// places.
 #[test]
 fn switching_the_font_lays_the_page_out_again_a_label_that_no_longer_fits_is_cut_its_row_keeps_its_height() {
 	let out = run(r#"
@@ -833,13 +834,13 @@ fn switching_the_font_lays_the_page_out_again_a_label_that_no_longer_fits_is_cut
 		end
 		Polestar.Set("ui.font", "inter")
 		emit({ before = before, after = { h = row:GetHeight(), below = top(below), wrap = row.Label:GetWordWrap(),
-			cut = row.Label:GetStringWidth() <= row.Label:GetWidth() } })"#);
+			lines = row.Label:GetMaxLines() } })"#);
 	let (before, after) = (&out["before"], &out["after"]);
 	assert_eq!(before["h"], 36);
 	assert_eq!(after["h"], 36, "the row keeps its height");
 	assert_eq!(after["below"], before["below"], "the rows below keep their places");
-	assert_eq!(after["wrap"], false, "one line");
-	assert_eq!(after["cut"], true, "cut at its half");
+	assert_eq!(after["wrap"], true, "it wraps");
+	assert_eq!(after["lines"], 2, "to two lines at most");
 }
 
 #[test]
