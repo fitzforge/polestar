@@ -2877,6 +2877,18 @@ test(`${THOUSAND_NEEDLES}: the Darkshire stop finishes at Sirra Von'Indi before 
 	assert.ok(grave > lastSirra && grave > at(list, 'turnin 252', is('turnin', 252)) && list[grave].s === list[at(list, 'turnin 58', is('turnin', 58))].s, 'Althea\'s Weathered Grave hand-in with The Night Watch, after Sirra');
 });
 
+// Level tidy 0.4.0: Worgen in the Woods (222) sent players at Nightbane Tainted Ones (30-31) on 07's first loop south
+// of Darkshire, at 29 (recordings: 25th percentile 29.8; 5 people died there). Its kills now come after the west loop
+// and Lord Ello's hand-in, right before the flight out, with Calor's hand-in and 223 on the way back to the flight master.
+test(`${THOUSAND_NEEDLES}: level tidy 0.4.0: Worgen in the Woods is hunted at the end of the Duskwood visit`, { skip }, () => {
+	const list = goals(THOUSAND_NEEDLES);
+	const tainted = at(list, 'kill 920 for 222', (g) => g.t === 'kill' && g.quest === 222 && g.npc === 920);
+	assert.ok(tainted > at(list, 'turnin 252', is('turnin', 252)), 'after Lord Ello\'s hand-in');
+	assert.ok(tainted > at(list, 'turnin 323', is('turnin', 323)), 'after the west loop (Sven)');
+	assert.ok(at(list, 'turnin 223', is('turnin', 223)) > tainted && at(list, 'turnin 223', is('turnin', 223)) < at(list, 'fly Menethil', (g) => g.t === 'fly'), 'Calor and Carevin before the flight');
+	assert.ok(at(list, 'collect 1946 for 177', (g) => g.t === 'collect' && g.item === 1946) < at(list, 'accept 181', is('accept', 181)), 'the Insane Ghoul stays on the first loop (181 is done at the ogre mound)');
+});
+
 // The sweep for #1348: a Bronze Tube is never a buy that holds a step (every vendor of it keeps one or two),
 // and a goal that must get one sends the player to the Stormwind Auction House, not to a vendor.
 test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House', { skip }, () => {
@@ -9854,6 +9866,22 @@ test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Trying Times at Howin, 
 	assert.ok(creepers.path && creepers.path.points[0][0] > 45, 'the creeper place starts on the river by Einar');
 	const kill = list[at(list, 'kill 1040', (g) => g.t === 'kill' && g.quest === 275)];
 	assert.ok(nearestYards(kill.goal, 1437, 40.6, 32.9) < 150, `the creepers lead along the river (${kill.goal.x},${kill.goal.y})`);
+});
+
+// Level tidy 0.4.0: Geltharis (The Branch of Cenarius, 1031) and the three Insane Druids (1012) are level 32, three
+// over a player at 06-wetlands' Xavian and Forest Song stretch (recordings: 25th percentile about 29). No later visit
+// fits them, so both are group choices: their offers never hold a step, and their work waits for "Do it with a group".
+test(`${WETLANDS}: level tidy 0.4.0: The Branch of Cenarius and Insane Druids are group choices, never solo work at 29`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const grouped = (step, q) => (step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q));
+	for (const q of [1031, 1012]) {
+		const mine = list.filter(({ goal }) => goal.quest === q);
+		assert.ok(mine.length > 0, `${q} is in the guide`);
+		assert.ok(mine.filter(({ goal }) => goal.t === 'accept').every(({ goal }) => goal.optional), `${q}: the accept is optional`);
+		const work = mine.filter(({ goal }) => goal.t !== 'accept' && goal.t !== 'turnin');
+		assert.ok(work.length > 0 && work.every(({ step }) => grouped(step, q)), `${q}: its objectives are on the group branch`);
+		assert.ok(mine.filter(({ goal }) => goal.t === 'turnin').every(({ step }) => grouped(step, q) || (step.when || []).some((p) => p.k === 'complete' && !p.neg)), `${q}: handed in only after the group work`);
+	}
 });
 
 // #1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was

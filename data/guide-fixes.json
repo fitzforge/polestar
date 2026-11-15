@@ -4919,6 +4919,16 @@
 			"pr": 1317
 		},
 		{
+			"id": "tidy040-branch-of-cenarius-optional",
+			"faction": "Alliance",
+			"at": { "quest": 1031, "goal": "accept" },
+			"optional": true,
+			"note": "The Branch of Cenarius (1031): Geltharis (32) is 3 levels over a player at Xavian (about 29), so the quest is a group choice (route-fixes group 1031): Anilia's offer never holds the step.",
+			"source": [
+				{ "kind": "recording", "ref": "06-wetlands' Xavian stretch on 0.3.7+: 25th percentile 28.6-29.2 (5-14 people per step); 3 people died near Geltharis, 2 to Xavian Hellcallers (30)" }
+			]
+		},
+		{
 			"id": "1336-insane-druids-barrow-den",
 			"faction": "Alliance",
 			"at": {

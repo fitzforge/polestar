@@ -416,10 +416,12 @@ step Shael'dryn
 step Anilia
   tip Follow the road east to the satyr camps of Xavian; Anilia hides at their edge.
   turnin 1021
-  accept 1031
+  accept 1031 optional                -- Anilia: The Branch of Cenarius, from Geltharis (level 32): a fight for a group at this level
 
 step Geltharis
-  tip Geltharis leads the Xavian satyrs; he carries the branch.
+  when group 1031
+  when onquest 1031
+  tip Geltharis leads the Xavian satyrs; he carries the branch. He is level 32, above you here, among level 29-30 satyrs: grouping up is advised.
   collect 5461 quest 1031             -- Branch of Cenarius
 
 step Forest Song
@@ -459,10 +461,12 @@ step Kayneth Stillwind
 # Players' recordings: the barrow's mouth near 75.95,75.45, south of the Forsaken camp; the
 # walking maps lead over the hill above the druids instead (#1336).
 step The Dor'Danil Barrow Den's entrance
+  when group 1012
   when onquest 1012
   goto 75.95,75.45 live "The Dor'Danil Barrow Den"
 
 step Insane druids
+  when group 1012
   when onquest 1012
   tip The three druids are inside The Dor'Danil Barrow Den, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. Taneel Darkwood is in the eastern halls, Uthil Mooncall deepest down at the north-east end and Mavoris Cloudsbreak at the western end.
   tip Careful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight.
@@ -471,6 +475,7 @@ step Insane druids
   kill 3942 quest 1012.3              -- Mavoris Cloudsbreak, inside The Dor'Danil Barrow Den
 
 step Forest Song
+  when group 1012
   when onquest 1012
   turnin 1012                         -- Kayneth Stillwind
 
@@ -527,7 +532,11 @@ step Krolg
 step Melyria and Illiyana
   tip West from Krolg along the southern hills to the Shrine of Aessina: Melyria and Illiyana stand together by it.
   turnin 1022                         -- Sentinel Melyria Frostshadow
-  turnin 1031                         -- Illiyana
+
+step Illiyana
+  when complete 1031
+  tip Illiyana stands beside Melyria.
+  turnin 1031                         -- Illiyana: the Branch of Cenarius
 
 step Delgren the Purifier
   zone Ashenvale

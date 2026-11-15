@@ -3230,6 +3230,18 @@
 			{
 				"a": [
 					"turnin",
+					252
+				],
+				"b": [
+					"task",
+					222
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (07-thousand-needles, Duskwood 29-31): Worgen in the Woods' Nightbane Tainted Ones (30-31) and Vile Fangs (29-30) were hunted on the first loop south of Darkshire, where players were at 29 (players' recordings: 25th percentile 29.8, 5 people died there, 3 to a higher mob). They come after the west loop and Lord Ello's hand-in (252), right before the flight out of Darkshire, about a level later; Calor and Jonathan Carevin (223) are on the way back to the flight master. 222 and 223 pay 5,050 XP, so they stay in the route."
+			},
+			{
+				"a": [
+					"turnin",
 					98221
 				],
 				"b": [
@@ -7794,6 +7806,16 @@
 				"q": 98310,
 				"size": 2,
 				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Gleaning Our Future's four hearts drop only from Golm, Ados, Neru and Modr, level-32 rank-1 creatures in Forever's data that the Goaz Stones call up, at the route's 30-31; no recorded character has done it. An elite at the quest's level is a group quest: a group of 2, like Defeat Nek'rosh, with the route's solo fallback (the top-up for skipped group quests)."
+			},
+			{
+				"q": 1031,
+				"size": 2,
+				"why": "Level tidy 0.4.0 (Alliance, 06-wetlands' Ashenvale part): The Branch of Cenarius drops from Geltharis (level 32, normal) at the Xavian satyr camps (29-30), where players are at 29 (players' recordings: 25th percentile 28.6-29.2 on that stretch): 3 levels over a solo player. The route has no later Ashenvale visit east of Astranaar, and 30-40's only Ashenvale pass is a flight through Astranaar at about 35, so it is a group choice; the solo player skips it."
+			},
+			{
+				"q": 1012,
+				"size": 2,
+				"why": "Level tidy 0.4.0 (Alliance, 06-wetlands' Ashenvale part): Insane Druids' three level-32 druids sit deep in The Dor'Danil Barrow Den among quickly respawning Forsaken, at the route's 29 (3 over). Already optional; its barrow steps now wait for the group choice too. No later Ashenvale visit fits it."
 			},
 			{
 				"q": 541,
