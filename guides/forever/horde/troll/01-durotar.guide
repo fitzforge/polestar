@@ -451,12 +451,11 @@ step Rezlak
   accept 835
 
 step Drygulch Ravine
-  tip Savages and Storm Witches nest in Drygulch Ravine, east of Rezlak. A Storm Witch drops the Dull Storm Orb. Shamans: the Burning Blade Cultists by Dustwind Cave, at the ravine's south end, drop the Reagent Pouch.
+  tip Savages and Storm Witches nest in Drygulch Ravine, east of Rezlak. A Storm Witch drops the Dull Storm Orb.
   kill 3117 quest 835.1
   kill 3118 quest 835.2
   collect 277661 "Dull Storm Orb" optional
   accept 97281 optional
-  collect 6652 quest 1525.2 only Shaman
 
 step Deathskip to Northern Durotar
   zone Durotar
@@ -625,6 +624,14 @@ step Thunder lizards on the way north
   tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, beside the road north to Orgrimmar; any of them can drop a Singed Scale. Uzzek takes it when the next guide passes Far Watch Post.
   tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 6486 quest 1498.1
+
+# Shamans: the Reagent Pouch from the Burning Blade Cultists (10-11) by Dustwind Cave, on the walk north to
+# Orgrimmar at about 12, as Mulgore does; on the Drygulch loop at 10 they were a level over (level tidy 0.4.0).
+step Dustwind Gulch cultists
+  only Shaman
+  zone Durotar
+  tip Burning Blade Cultists hold Dustwind Cave, at the south end of Drygulch Ravine, east of the road north to Orgrimmar; they drop the Reagent Pouch.
+  collect 6652 quest 1525.2
 
 step Orgrimmar
   only Hunter

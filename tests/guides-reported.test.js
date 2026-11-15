@@ -6908,7 +6908,10 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 		const telf = at(list, 'accept 1525', is('accept', 1525));
 		const pouch = at(list, 'collect 6652', (g) => g.t === 'collect' && g.item === 6652);
 		assert.ok(kranal < telf && telf < pouch, `${file}: Telf, then the pouch`);
-		assert.equal(list[pouch].s, list[at(list, 'kill 3117 quest 835', (g) => g.t === 'kill' && g.npc === 3117)].s, `${file}: the pouch in the Drygulch Ravine step`);
+		// Level tidy 0.4.0: the pouch's cultists (10-11) are fought on the walk north at the end (about 12), after
+		// Skull Rock, still in Drygulch Ravine by Dustwind Cave, not on the level-10 Drygulch loop.
+		assert.ok(yards(list[pouch].goal, list[at(list, 'kill 3117 quest 835', (g) => g.t === 'kill' && g.npc === 3117)].goal) < 400, `${file}: the pouch in Drygulch Ravine`);
+		assert.ok(pouch > at(list, 'turnin 827 (Skull Rock)', is('turnin', 827)), `${file}: the pouch on the walk north at the end`);
 	}
 	const barrens = goals('forever/horde/02-the-barrens.guide');
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
