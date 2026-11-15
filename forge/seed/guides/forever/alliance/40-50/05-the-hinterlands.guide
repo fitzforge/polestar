@@ -147,6 +147,7 @@ step Gorilla hills
 
 step Unbagwa's ritual
   tip Hand in the fangs and stay: three waves of gorillas come, Mokk the Savage last.
+  tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
   turnin 349 direct -- Witch Doctor Unbagwa, inside Spirit Den
   collect 2797 quest 348              -- Heart of Mokk
 

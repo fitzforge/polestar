@@ -10858,6 +10858,23 @@
 			"issue": 2396
 		},
 		{
+			"id": "stv-unbagwa-waves-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 349,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"tip": "Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.",
+			"note": "Ice's report (Discord): Witch Doctor Unbagwa's ritual (Stranglethorn Fever, 349 handed in, then Mokk the Savage for 348) sends three waves of Mistvale gorillas back to back before Mokk; alone it was hard for the reporter's class. The step now says so up front.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "player report (Ice, Discord, 2026-11-16): three gorilla waves with little rest, then Mokk; hard alone for some classes"
+				}
+			]
+		},
+		{
 			"id": "2448-tanaris-rhapsody-ride-onquest",
 			"faction": "Alliance",
 			"at": {
