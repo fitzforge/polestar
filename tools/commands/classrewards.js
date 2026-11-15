@@ -101,7 +101,9 @@ function walkGuides(dir, out = []) {
 }
 
 // The guides with a `class` header: { file, mask, reward (first spell or item
-// line, choices together), quests (accept/turnin/complete ids in order) }.
+// line, choices together), quests (accept/turnin/complete ids in order),
+// holds (quest -> the level its first accept step waits for: the guide's
+// opening level or the step's own `level` hold, the higher) }.
 function classGuides(dir) {
 	const diag = { error() {}, warn() {}, push() {} };
 	const out = [];
@@ -118,13 +120,17 @@ function classGuides(dir) {
 		if (first && first.spell) reward = { spell: first.spell };
 		else if (first) reward = { items: lines.filter((r) => r.item && r.line === first.line).map((r) => r.item), choice: !!first.choice };
 		const quests = [];
+		const holds = {};
+		const opening = (g.header.levels && g.header.levels.min) || 1;
 		for (const step of g.steps || []) {
+			const hold = Math.max(opening, ...(step.goals || []).filter((goal) => goal.verb === 'level').map((goal) => Number(goal.level) || 0));
 			for (const goal of step.goals || []) {
 				const q = Number(goal.quest);
 				if (q && ['accept', 'turnin', 'complete'].includes(goal.verb) && !quests.includes(q)) quests.push(q);
+				if (q && goal.verb === 'accept' && !(q in holds)) holds[q] = hold;
 			}
 		}
-		out.push({ file: path.relative(ROOT, file), mask, reward, quests });
+		out.push({ file: path.relative(ROOT, file), mask, reward, quests, holds });
 	}
 	return out;
 }
@@ -365,6 +371,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 	// its heads-up (Quel'Serrar, Arcane Refreshment): the guide is the opt-in.
 	const guided = new Set();
 	for (const g of guides) for (const q of g.quests) if (mask.has(q)) guided.add(find(q));
+	// The heads-up comes when the class guide would let you take the quest: its
+	// accept step's level hold (Fitz's level rule, 0.4.0) when that is above the
+	// quest's own minimum. A level 1 start stays at 1 (no heads-up: the trainer
+	// gives it at the start).
+	const heldAt = new Map();
+	for (const g of guides) for (const [q, hold] of Object.entries(g.holds || {})) if (!heldAt.has(Number(q)) || hold < heldAt.get(Number(q))) heldAt.set(Number(q), hold);
+	const startLevel = (q, v) => {
+		const min = Number(v.minLevel) || Number(v.level) || 1;
+		return min > 1 ? Math.max(min, heldAt.get(q) || 0) : min;
+	};
 	const gearSet = (e, v) => {
 		const w = webOf(v);
 		const sort = Number(w && w.zone);
@@ -399,7 +415,7 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 				const rank = !g.maps.length ? 3 : g.maps.some((m) => rs.home.has(m)) ? 0 : g.maps.some((m) => anyHome.has(m)) ? 2 : 1;
 				if (!best || rank < best.rank) best = { rank, i };
 			});
-			if (best) candidates.push({ q, reward: e.reward, minLevel: Number(v.minLevel) || Number(v.level) || 1, key: rs.key, rank: best.rank, giver: givers[best.i] });
+			if (best) candidates.push({ q, reward: e.reward, minLevel: startLevel(q, v), key: rs.key, rank: best.rank, giver: givers[best.i] });
 		}
 	}
 	// One start per reward and race: the best-placed giver, then the lowest level, then the lowest id.
