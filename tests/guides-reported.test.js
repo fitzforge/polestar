@@ -7034,9 +7034,9 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	// Taurajo flight comes after its quests (the one from Thunder Bluff).
 	const ring = at(list, 'accept 96260', is('accept', 96260));
 	assert.deepEqual(list.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').filter((e) => list.indexOf(e) < ring).map(({ s }) => s), [], 'no Camp Taurajo flight before the Earthen Ring');
-	// Since the 0.4.0 level tidy Test of Endurance (Grenka, 31) and Test of Strength (Rok'Alim, elite) are left out at 29;
-	// Dorn may only ever offer Test of Strength after Test of Endurance's hand-in.
-	for (const q of [1150, 1151]) assert.ok(!list.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `${q} left out of the solo route`);
+	// Since the 0.4.0 level tidy Test of Endurance (Grenka, 31) waits for the next Freewind visit at 31 and Test of Strength
+	// (Rok'Alim, elite) is left out: neither is taken here at 29. Dorn may only ever offer Test of Strength after Test of Endurance's hand-in.
+	for (const q of [1150, 1151]) assert.ok(!list.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `${q} not taken at 29`);
 	const t1150 = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 1150);
 	const a1151 = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === 1151);
 	assert.ok(a1151 === -1 || (t1150 !== -1 && t1150 < a1151), 'Test of Strength after Test of Endurance');

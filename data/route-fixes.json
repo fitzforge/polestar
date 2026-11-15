@@ -9995,15 +9995,9 @@
 				"issue": ""
 			},
 			{
-				"q": 1150,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Test of Endurance (level 30) sends the player after Grenka Bloodscreech (31) inside Roguefeather Den, whose harpies (28-30, 19 spawns 29+, recorded deaths of 12 people) were met at 29 in forever/horde/07-ashenvale (recorded 25th percentile 29.5). Jandia's two harpy quests moved to the next Freewind visit at about 31 (forever/horde/30-40/02-thousand-needles), but Dorn Plainstalker's mesa is north-east of Freewind while the den is west: an out-and-back for one quest, and no later Horde guide visits Thousand Needles (agreed with the 30-40 slice). Test of Faith (1149) is still done.",
-				"issue": ""
-			},
-			{
 				"q": 1151,
 				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Test of Strength (level 30, Rok'Alim the Pounder, a lone elite on Highperch) is offered only after Test of Endurance (1150), which the route leaves out; it was optional already.",
+				"reason": "Horde level tidy (0.4.0): Test of Strength (level 30) sends the player after Rok'Alim the Pounder, a lone elite on Highperch, west of Whitereach Post; Test of Endurance (1150) is done on the 30-40 guides' first Freewind visit at about 31, and Rok'Alim's cliffs are off that visit's walk. It was optional already.",
 				"issue": ""
 			},
 			{

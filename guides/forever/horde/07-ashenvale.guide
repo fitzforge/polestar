@@ -29,8 +29,8 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken and worked on the
 # next Freewind visit at about 31, in forever/horde/30-40/02-thousand-needles (agreed with the 30-40 slice): Roguefeather Den's harpies
 # (28-30, packs) and Grenka Bloodscreech (31) were met here at 29, with a harpy grind to 29.5 before them.
-# Left out: Test of Endurance and Test of Strength (1150, 1151, level 30: Grenka, then Rok'Alim, a lone
-# elite on Highperch); Test of Faith (1149) is still done at Dorn's mesa.
+# Test of Faith (1149) is done at Dorn's mesa; his Test of Endurance (1150, Grenka Bloodscreech 31 in the same den) comes
+# with Jandia's quests on the next Freewind visit. Left out: Test of Strength (1151, Rok'Alim, a lone elite on Highperch).
 # Stonetalon Standstill (25) is taken from Mastok on the first Splintertree stop and worked at Mystral
 # Lake with Tideress on the way back from Shadumbra: Tideress drops the Befouled Water Globe (The
 # Befouled Element 1918) only for a player with 25 in the log or handed in (players' recordings, #1346).
@@ -435,7 +435,7 @@ step Dorn Plainstalker
   accept 1149                         -- Dorn Plainstalker, below ground
   complete 1149
   turnin 1149
-  note Dorn's next test, Test of Endurance, sends you after Grenka Bloodscreech (31) in Roguefeather Den: leave it.
+  note Dorn's next test, Test of Endurance (Grenka Bloodscreech, 31), comes with the next Freewind visit, at 31.
 
 step Freewind Post
   turnin 4841                         -- Cliffwatcher Longhorn
