@@ -4216,11 +4216,12 @@
 			"id": "a4060-bs-accept-broodling-essence-52",
 			"faction": "Alliance",
 			"at": {
-				"quest": 4726,
-				"goal": "accept"
+				"quest": 3823,
+				"goal": "objective",
+				"objective": 1
 			},
 			"level": 52,
-			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest.",
+			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest. Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the same top-up comes before Extinguish the Firegut's kills instead, on the Firegut Ogres (50-51) of the rock's near side: the Brutes on its east side are 52-53, two over the 51 player there in the calibrated level model with rested experience.",
 			"source": [
 				{
 					"kind": "recording",
@@ -5488,10 +5489,11 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 5082,
-				"goal": "turnin"
+				"goal": "objective",
+				"objective": 1
 			},
-			"level": 54,
-			"note": "Winterspring (Alliance 53-56): the top-up to 55.05 was one block after Donova; its first part (to 54) is ground on the Frostfire Winterfall camp while Donova's and Salfa's kills still count (grind policy: no single block, grind on quest mobs).",
+			"level": 55,
+			"note": "Winterspring (Alliance 53-56): the top-up to 55.05 was one block after Donova; its first part (to 54) is ground on the Frostfire Winterfall camp while Donova's and Salfa's kills still count (grind policy: no single block, grind on quest mobs). Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the top-up goes to 55 on the camp's Pathfinders (53-54) before the kills, since its Den Watchers are 55-56, two over the 54 player there; the later top-up to 55.05 is then nearly done.",
 			"source": [
 				{
 					"kind": "client",
@@ -10629,7 +10631,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him.",
+			"tip": "Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him.",
 			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): Vek'zol (level 55, elite) stands at 49.9,35.5, beside Kum'isha's hill (52.0,35.7), and at 39.0-39.2,32.4-33.0 to the west, where a level 52 player collects Imperfect Draenethyst Fragments from the Blasted Lands mobs.",
 			"source": [
 				{
@@ -10728,10 +10730,11 @@
 			"at": {
 				"quest": 5863,
 				"goal": "objective",
-				"objective": 1
+				"objective": 1,
+				"guide": "forever/alliance/40-50/04-tanaris"
 			},
-			"tip": "Why the grind to 47: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes.",
-			"note": "Bennistrov's and Visur's report (#2207): the Dunemaul Compound step grinds to 47.06, almost a level for a player at 46.1. The gate stays: lowering it to 46.7 (enough for Fandral's level-47 errand in Darnassus) let the calibrated level model take the Thistleshrub Valley's level-50 quests at about 46.5 and added 15 accepts three or more levels over (Tanaris and the Searing Gorge). The tip says why; the written grind itself is on the level 45-46 Ogres at the compound's south end (the danger gate's grind check flagged the 46-48 Brutes).",
+			"tip": "Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50) and the Gaping Chasm's silithids (47-50) come next. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.",
+			"note": "Bennistrov's and Visur's report (#2207): the Dunemaul Compound step grinds to 47.06, almost a level for a player at 46.1. The gate stays: lowering it to 46.7 (enough for Fandral's level-47 errand in Darnassus) let the calibrated level model take the Thistleshrub Valley's level-50 quests at about 46.5 and added 15 accepts three or more levels over (Tanaris and the Searing Gorge). The tip says why; the written grind itself is on the level 45-46 Ogres at the compound's south end (the danger gate's grind check flagged the 46-48 Brutes). Level tidy 0.4.0 (minimum fixes): the compound's quest (5863) waits for the Un'Goro guide's Gadgetzan landing, so the Tanaris step holds only the grind; this tip is hand-written on it (a grind step has no quest goal to anchor on).",
 			"source": [
 				{
 					"kind": "recording",
@@ -10743,6 +10746,198 @@
 				}
 			],
 			"issue": 2207
+		},
+		{
+			"id": "2396-tanaris-water-survey-scarabs",
+			"faction": "Alliance",
+			"at": {
+				"quest": 992,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: tapping the pool brings Scarabs (level 44-47) out of the sand to attack you: tap it, then step away from the trolls and fight the Scarabs one by one.",
+			"note": "Fyurie's report (#2396): the pool step did not say that using the Untapped Dowsing Widget at the pool is the objective, nor that Scarabs come out when it is tapped (the reporter met them at 47). The step's first tip now says to tap the pool; this one warns about the Scarabs.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2396 (Fyurie, 0.3.7.2, Night Elf Warrior 48): the Scarabs came at the player after tapping; follow-up on the issue: they are level 47"
+				},
+				{
+					"kind": "questie",
+					"ref": "data/forever npcs.json 7269 Scarab, level 44-46, no fixed spawns (summoned)"
+				}
+			],
+			"issue": 2396
+		},
+		{
+			"id": "2448-tanaris-rhapsody-ride-onquest",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1452,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"when": "onquest 1452",
+			"note": "Fyurie's report (#2448): at the end of the Tanaris guide, the walk into the Hinterlands to Rhapsody Shindigger (26.9,48.6) showed to players without Rhapsody's Kalimdor Kocktail (1452), whose hand-in step was hidden, so they rode there for nothing and the next step pointed back. The hand-in and the walk to it (the walk has no quest goal to anchor on and carries the same line by hand) now show only while 1452 is in the log.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2448 (Fyurie, 0.3.7.2): the report's step dump shows the Rhapsody's Tale step hidden (needs Rhapsody's Kalimdor Kocktail) after the goto step"
+				}
+			],
+			"issue": 2448
+		},
+		{
+			"id": "a4060-ungoro-petals-level-51",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4141,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 51,
+			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Un'Goro's camps from Fire Plume Ridge on are 51-54 (Bloodpetal Trappers 52-53, Gorishi 51-53, Diemetradons 51-52, Frenzied Pterrordax 51-54) and the calibrated level model with rested experience reaches them at about 50. A top-up to 51 on the Bloodpetal Threshers (49-50) of the eastern jungle comes first; it replaces most of the Pterrordax top-up to 49.79 after the refuge and Azshara's to 50.4, which the player is then past.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 6511 Bloodpetal Thresher 49-50, 6512 Bloodpetal Trapper 52-53, 9166 Pterrordax 50-52 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-ungoro-northern-pylon-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4285,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Frenzied Pterrordax here are 51-54: take the scales from the Pterrordax (50-52) and Young Diemetradons (49-50), one at a time.",
+			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the slopes by the Northern Pylon mix Pterrordax (50-52) with Frenzied Pterrordax (51-54) around a 51 player; Shizzle's scales drop from the lower ones.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 9166 Pterrordax 50-52, Frenzied Pterrordax 51-54, 9162 Young Diemetradon 49-50 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-ungoro-bones-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3882,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Elder Diemetradons (53-55) and Glutinous Oozes (52-54) roam the south-west too: take the bones and scales from the Diemetradons (51-52) at the edge.",
+			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the south-west jungle's Diemetradons are 51-52 with Elder Diemetradons (53-55) and Glutinous Oozes (52-54) among them, around a 51 player.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Diemetradon 51-52, Elder Diemetradon 53-55, Glutinous Ooze 52-54 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-ungoro-threshadon-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4290,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.",
+			"note": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the Threshadon carcass lies among Venomhide Ravasaurs of 50-51, one or two over the 49 player there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 6508 Venomhide Ravasaur 50-51 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-thaurissan-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3701,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55: take the relics at the edge of the ruins and pull one at a time.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the Ruins of Thaurissan's Spies and Agents are 53-54 with War Reavers and Firewalkers up to 55 around the relics, one to three over the 52 player there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Thaurissan Spy 53-54, War Reaver 53-55, Thaurissan Firewalker 53-55 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-azshara-52-before-kimjael",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3601,
+				"goal": "accept"
+			},
+			"level": 52,
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Kim'jael's camp and the Thalassian Base Camp are blood elves of 51-53 (Magister Hawkhelm 53), two over the 51 player there in the calibrated level model with rested experience. A short top-up to 52 on the Spitelash Myrmidons (50-51) on the way north comes first; it replaces part of the later top-ups in this guide and Felwood.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 6196 Spitelash Myrmidon 50-51, 6198 Blood Elf Surveyor 51-52, Blood Elf Reclaimer 52-53 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-ice-thistle-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3783,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the hills' yetis and chimaeras run 53-57 around a 54 player; both quests can be done on the 53-55 ones.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 7457 Rogue Ice Thistle 53-55, 7458 Ice Thistle Yeti 55-56 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-pristine-horns-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 977,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: take the Matriarchs at the edge of the hills, one at a time, and leave the Patriarchs: their horns drop from both.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Ice Thistle Matriarchs are 56-57 and Patriarchs 57-58 around a 55-56 player; the Matriarchs are enough.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Ice Thistle Matriarch 56-57, Ice Thistle Patriarch 57-58 in Forever's data"
+				}
+			]
+		},
+		{
+			"id": "a4060-xavaric-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4906,
+				"goal": "objective",
+				"objective": 4
+			},
+			"tip": "Careful: Xavaric (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Jadefire Run's satyrs are 52-54 around a 53 player; Xavaric alone is 55.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 10648 Xavaric 55, Jadefire Hellcaller 53-54 in Forever's data"
+				}
+			]
 		},
 		{
 			"id": "2253-galens-escape-careful",

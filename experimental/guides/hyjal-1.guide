@@ -512,6 +512,7 @@ step Unmarked Grave
 step Mourning's Rest
   tip The Scourge hold the ruins of Mourning's Rest, east of Elderwild: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them. Burn the bone pile at the south-eastern end with the Survivor's Torch: the Scourge Reanimator that answers carries the amulet.
   tip Careful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room.
+  tip Careful: the Scourge Reanimator is level 59-60: burn the bone pile last, at full health, with the ruins around it cleared.
   kill 249247 x3 quest 92449.1 only Alliance  -- Forgotten Soldier
   kill 249228 x12 quest 92449.2 only Alliance  -- Fleshflay Ravener
   kill 249247 x3 quest 95026.1 only Horde

@@ -41,6 +41,7 @@ step Swamplight Manor
   tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three Soothing Spices: if you passed Helenia Olden, buy them from her in Theramore first.
   accept 1219                         -- Loose Dirt
   accept 1218                         -- "Swamp Eye" Jarl
+  buy 3713 x3 npc 4897                -- Soothing Spices: Helenia Olden in Theramore, if you left without them
   turnin 1218                         -- with the spices from Theramore
   accept 1206
 
@@ -207,10 +208,10 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
-  accept 617                          -- Privateer Bloads
+  accept 617                          -- Privateer Bloads: keep it, the naga (43-44) wait for the level-48 Booty Bay stop
   turnin 669                          -- Fleet Master Seahorn, top floor
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
-  accept 621                          -- Inside
+  accept 621                          -- Inside: keep it, Zanzil's village (43-44) waits for the level-48 Booty Bay stop
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
@@ -248,53 +249,29 @@ step Wild Shore: kill these as you meet them
 
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
-  accept 348                          -- Fin Fizracket
+  accept 348                          -- Fin Fizracket: keep it, Mokk waits for the level-48 Booty Bay stop
   turnin 604                          -- Fleet Master Seahorn
   note Seahorn now offers The Bloodsail Buccaneers: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it.
   turnin 576                          -- Dizzy One-Eye
 
 step Gorilla hills
-  tip Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; Witch Doctor Unbagwa sits among them.
+  tip Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets.
   collect 3919 quest 606              -- Mistvale Giblets
-  collect 2799 x10 -- Gorilla Fang
-
-step Unbagwa's ritual
-  tip Hand in the fangs and stay: three waves of gorillas come, Mokk the Savage last. Fight at full health.
-  turnin 349 direct -- Witch Doctor Unbagwa, inside Spirit Den
-  collect 2797 quest 348              -- Heart of Mokk
-# ---------------------------------------------------------------- North of the bay
-
-step Naga Explorers
-  tip The naga comb the beaches north of the Bloodsail camp; they drop the reeds.
-  collect 4029 quest 617              -- Akiris Reed
 
 step Booty Bay
   tip Ride back down to town; Shaky stands at the tunnel mouth.
   turnin 606                          -- "Shaky" Phillipe
   accept 607
-  turnin 617                          -- Privateer Bloads
-  accept 623                          -- for Privateer Groy in Theramore: keep it
   accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
-  turnin 348                          -- Fin Fizracket
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
-  accept 609
+  accept 609                          -- keep it: Zanzil's village waits for the level-48 Booty Bay stop
 
 step Cortello's scroll
   tip Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of Booty Bay, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48.
   collect 4056 optional               -- Cortello's Riddle
   accept 624 optional                 -- for the Swamp of Sorrows later
 
-step Zanzil's village
-  tip Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
-  collect 4016 quest 621              -- Zanzil's Mixture
-  collect 3926 quest 609              -- Chucky's Huge Ring
-  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass
-
 # ---------------------------------------------------------------- The jungle
-
-step Maury and Jon-Jon
-  tip Ride north to the hills west of the road. Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together just north of Zanzil's village.
-  collect 3924 quest 609              -- Maury's Clubbed Foot
 
 step Jungle Stalkers
   tip The Jungle Stalkers roam the slopes west of the mine.
@@ -384,12 +361,8 @@ step Level 42.16
 step Booty Bay
   tip Ride south down the road to Booty Bay.
   turnin 611                          -- Baron Revilgaz
-  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
   turnin 209                          -- Kebok, upstairs
-  turnin 621                          -- Inside
-  note MacKinley's next task sends you after elite ogres: skip it.
   turnin 600                          -- Crank Fizzlebub
-  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
   accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
 
 # ---------------------------------------------------------------- Stormwind

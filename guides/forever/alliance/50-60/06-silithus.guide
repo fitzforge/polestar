@@ -294,6 +294,14 @@ step Everlook
   zone Winterspring
   accept 6604                         -- Harlo Wigglesworth
 
+step Winterfall Village
+  when onquest 8464
+  zone Winterspring
+  tip Salfa's Winterfall Activity waited for this visit: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
+  kill 7439 quest 8464.1              -- Winterfall Shaman
+  kill 7440 quest 8464.2              -- Winterfall Den Watcher
+  kill 7438 quest 8464.3              -- Winterfall Ursa
+
 step Starfall Village
   zone Winterspring
   tip Ride north-west up the road to Starfall Village.

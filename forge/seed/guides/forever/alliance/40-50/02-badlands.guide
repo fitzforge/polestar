@@ -69,7 +69,7 @@ step Into Badlands
 
 step Badlands
   zone Badlands
-  goto 37.4,14.9 "Badlands"
+  goto 37.4,14.9 "The Uldaman dig"
 
 step The Uldaman dig
   zone Badlands
@@ -79,7 +79,7 @@ step The Uldaman dig
 
 step Back to Loch Modan
   zone Badlands
-  goto 49.4,8.0 "Loch Modan"
+  goto 49.4,8.0 "Ironband's Excavation Site"
 
 step Ironband's Excavation Site
   zone Loch Modan
@@ -107,7 +107,7 @@ step Southshore
 
 step The Hinterlands
   zone The Hinterlands
-  goto 11.8,46.8 "The Hinterlands"
+  goto 11.8,46.8 "Aerie Peak"
 
 step Aerie Peak
   zone The Hinterlands
@@ -117,9 +117,8 @@ step Aerie Peak
   accept 1450
   turnin 1450                         -- Gryphon Master Talonaxe, inside
   accept 1451
-  accept 2988
-  accept 2880                         -- Fraggar Thundermantle, inside
-  sethome "Aerie Peak" npc 7744       -- Innkeeper Thulfram: the last guide binds here, so this usually ticks at once; below ground
+  accept 2988                         -- keep it: the Witherbark villages (44-46) wait for the level-47 Hinterlands stop
+  accept 2880                         -- Fraggar Thundermantle, inside: keep it for the same stop
 
 # ---------------------------------------------------------------- Aerie Peak
 
@@ -127,19 +126,6 @@ step Rhapsody Shindigger
   tip Rhapsody camps on the road east of Aerie Peak.
   turnin 1451
   accept 1452
-
-step Witherbark villages
-  tip The first two cages stand together in the Witherbark village south of Rhapsody; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
-  interact 144068 quest 2988          -- Third Witherbark Cage
-  interact 144067 quest 2988          -- Second Witherbark Cage
-  collect 9259 quest 2880             -- Troll Tribal Necklace
-  interact 144066 quest 2988          -- First Witherbark Cage
-
-step Aerie Peak
-  turnin 2880                         -- Fraggar Thundermantle, inside
-  accept 2881 optional                -- Fraggar keeps paying for necklaces: hand in any extras
-  turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top; inside
-  note Talonaxe's next task waits for a later Hinterlands guide.
 
 step Fly to Menethil Harbor
   zone The Hinterlands
@@ -155,8 +141,6 @@ step Boat to Theramore
 
 step Theramore
   zone Dustwallow Marsh
-  tip Privateer Groy stands on the docks where the boat lands.
-  turnin 623                          -- Privateer Groy
   turnin 1287                         -- Captain Garran Vimes, on the top floor
   accept 1288
   turnin 1288                         -- Lady Jaina Proudmoore, on the top floor
