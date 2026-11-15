@@ -129,6 +129,10 @@ module.exports = make({
 			title: 'Leveling, Horde 30-40 and 40-50: Riverglades (40-43) and Shen\'dralas (43-45) among our guides, Riverglades selected',
 			filter: 'Horde', open: ['Leveling/Horde/30', 'Leveling/Horde/40'], select: 'polestar-experimental/riverglades-horde-1',
 		},
+		'menu-4050-shendralas': {
+			title: "Leveling, Horde 40-50: Shen'dralas (43-45) among our guides, selected",
+			filter: 'Horde', open: ['Leveling/Horde/40'], select: 'polestar-experimental/shendralas',
+		},
 	},
 	choices: {
 		'choice-badlands': { title: 'Choose your path at the end of the Badlands (Kargath, level 40): Stranglethorn Vale or the Riverglades', from: 'forever/horde/30-40/06-badlands', level: 40 },
