@@ -18,7 +18,7 @@ step Fly to Astranaar
 
 step Felwood
   zone Felwood
-  goto 54.2,86.8 "Felwood"
+  goto 54.2,86.8 "The Emerald Sanctuary"
 
 step The Emerald Sanctuary
   tip Ride north out of Astranaar into Felwood to the Emerald Sanctuary, the druids' camp by the road.
@@ -49,8 +49,7 @@ step Level 52.58
 step Grazle
   turnin 8460
   accept 8462                         -- Nafien waits at the north end of Felwood
-  accept 8466 optional                -- Five feathers buy a little Timbermaw reputation
-  turnin 8466 optional
+  turnin 8466 direct optional
 
 step Level 52.69
   when level<52.69
@@ -111,6 +110,7 @@ step Irontree Woods
 step Jadefire Run: kill these as you meet them
   zone Felwood
   tip Jadefire Run is the satyr valley in the north-west, with Xavaric at its far end. He drops the Flute of Xavaric; every Jadefire satyr can drop Jadefire Felbind.
+  tip Careful: Xavaric (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him.
   kill 10648 quest 4906.4             -- Xavaric
   collect 11668                       -- Flute of Xavaric
   accept 939
@@ -148,7 +148,7 @@ step Nafien
 
 step Felpaw Village
   tip The Deadwood furbolgs of Felpaw Village fill the hills west of the cave. Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.
-  tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
+  tip Careful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   kill 7156 quest 8461.1              -- Deadwood Den Watcher
   kill 7157 quest 8461.2              -- Deadwood Avenger
   kill 7158 quest 8461.3              -- Deadwood Shaman
@@ -158,11 +158,10 @@ step Felpaw Village
 step Nafien
   turnin 8461
   accept 8465                         -- Salfa stands at the Winterspring end of the tunnel: keep it
-  accept 8467 optional
 
 step Nafien
-  when complete 8467
-  turnin 8467
+  when has 21377 x5
+  turnin 8467 direct
 
 step Timbermaw Hold
   tip Step into the cave: Kernda stands just inside.

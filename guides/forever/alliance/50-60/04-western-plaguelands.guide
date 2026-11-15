@@ -375,24 +375,8 @@ step Boat to The Forgotten Coast
   zone Feralas
   goto 31.0,39.8 "Boat to The Forgotten Coast"
 
-step Zorbin Fandazzle
-  tip Take the boat to the mainland and ride north-east to Zorbin's camp by the Twin Colossals.
-  accept 7725
-  accept 7726
-
-step The Forgotten Coast: kill these as you meet them
-  zone Feralas
-  tip The shrunken giants roam the Twin Colossals; the sea elementals wade along the coast to the west.
-  collect 18958 quest 7726.1          -- Water Elemental Core
-  collect 18956 quest 7725.1          -- Miniaturization Residue
-  use 18904 quest 7725.1 @44.3,46.6 map 1444
-
-step Zorbin Fandazzle
-  turnin 7725
-  turnin 7726
-
 step Gregan Brewspewer
-  tip Gregan's camp lies north of the Twin Colossals. He brews the Videre Elixir from an Evoroot: take his errand for one.
+  tip Take the boat to the mainland and ride north-east past the Twin Colossals to Gregan's camp. He brews the Videre Elixir from an Evoroot: take his errand for one.
   turnin 4142
 
 step Rockbiter

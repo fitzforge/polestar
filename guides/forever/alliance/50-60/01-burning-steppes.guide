@@ -71,10 +71,7 @@ step Ogtinc
 
 step Sanath Lim-yo
   zone Azshara
-  tip Sanath Lim-yo wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one.
-  accept 3381
-  collect 10450 quest 3381.1
-  turnin 3381
+  tip Top up here, if you need to, on the Thunderhead hippogryphs around Sanath Lim-yo's camp.
   level 50.56 grind 6375               -- grind on Thunderhead Hippogryph
 
 step Sanath Lim-yo
@@ -88,6 +85,12 @@ step Archmage Xylem
   only Mage
   tip The apprentice at the top of the tower sends you back down.
   accept 8251                         -- The blood elves are at the Thalassian Base Camp, on the way to Kim'jael
+
+step Level 52 on the way north
+  when level<52
+  tip Top up to level 52 on the Spitelash Myrmidons (50-51) of the ruins between Sanath's camp and the north: the blood elves at Kim'jael's camp are 52-53. Or, with a group, run the Sunken Temple dungeon instead.
+  goto 46.5,54.5 map 1447 "Spitelash Myrmidon"
+  level 52 grind 6196                  -- grind on Spitelash Myrmidon
 
 step Kim'jael
   tip Kim'jael camps at the Legashi Encampment in the north; his equipment lies all over the Thalassian Base Camp just south-east of him.
@@ -272,27 +275,25 @@ step Morgan's Vigil
   tip Morgan's Vigil sits in the south-east of the Steppes, at the top of the pass up from Redridge.
   accept 3823
 
+step Level 52 at Dreadmaul Rock
+  when level<52
+  tip Top up first to level 52 on the Firegut Ogres (50-51) on the near side of Dreadmaul Rock, north of the Vigil: the Brutes on its east side are 52-53. Or, with a group, run the Sunken Temple dungeon instead.
+  goto 78.7,44.7 map 1428 "Firegut Ogre"
+  level 52 grind 7033                 -- grind on Firegut Ogre
+
 step Dreadmaul Rock
   tip The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.
   tip Careful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of Dreadmaul Rock: pull the ogres on the rock itself and look around before each pull.
   kill 7034 quest 3823.1              -- Firegut Ogre Mage, below ground
   kill 7033 quest 3823.2              -- Firegut Ogre
   kill 7035 quest 3823.3              -- Firegut Brute
-  level 51 grind 7033                 -- grind on Firegut Ogre: Oralius gives FIFTY! YEP! from level 51
 
 # ---------------------------------------------------------------- Morgan's Vigil
 
 step Morgan's Vigil
   zone Burning Steppes
-  accept 4283                         -- Oralius: the Blackrock orcs drop the medallions, keep it open all through the Steppes
   turnin 3823                         -- Oralius
-  accept 3824
-
-step Level 52
-  when level<52
-  tip Top up here to level 52 on the ogres of Dreadmaul Rock, on the way to Flame Crest: the hand-ins there take you to level 53. Or, with a group, run the Sunken Temple dungeon instead.
-  goto 78.7,44.7 map 1428 "Firegut Ogre Mage"
-  level 52 grind 7034               -- grind on Firegut Ogre Mage
+  note Oralius' next tasks (Gor'tesh, and fifty Blackrock Medallions) send you among the Blackrock orcs of 55-58 at the foot of Blackrock Mountain: skip them.
 
 # ---------------------------------------------------------------- Flame Crest and the Ruins of Thaurissan
 
@@ -307,9 +308,9 @@ step Ruins of Thaurissan: kill these as you meet them
   tip Read the tablet in the Dark Iron camp among the ruins, south-west of Flame Crest, to copy the transcript.
   tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
   tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
+  tip Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55: take the relics at the edge of the ruins and pull one at a time.
   interact 153556 quest 3701.1        -- Thaurissan Relic
   collect 12283 quest 4726.1
-  collect 11467 quest 4283.1
   use 12284 quest 4726.1 @81.0,28.0 map 1428
   collect 11470 quest 4296.1
 
@@ -349,29 +350,10 @@ step Level 52.08
   goto 89.6,51.2 map 1428 "Ember Worg"
   level 52.08 grind 9690               -- grind on Ember Worg
 
-# ---------------------------------------------------------------- Blackrock Stronghold
-
-step Blackrock Stronghold
-  tip Gor'tesh and the Blackrock orcs hold the camps and the stronghold at the foot of Blackrock Mountain, west of Flame Crest. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.
-  tip Careful: Gor'tesh has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.
-  tip Careful: Firesworn, level 60 fire elementals, wander the Steppes, some between the Blackrock camps: look before each pull and let them pass.
-  collect 11467 quest 4283.1          -- Blackrock Medallion; inside
-  collect 11080 quest 3824.1          -- Gor'tesh
-
 # ---------------------------------------------------------------- Back to the Vigil
 
 step Morgan's Vigil
   tip Ride back east along the road to the Vigil.
-  turnin 4283                         -- Oralius
-  turnin 3824
-  accept 3825
-
-step Dreadmaul Rock
-  tip Climb to the top of Dreadmaul Rock and plant the head in the soft dirt mound.
-  interact 160840 quest 3825.1        -- Soft Dirt Mound
-
-step Morgan's Vigil
-  turnin 3825                         -- Oralius
   vendor nearest
 
 step Fly to Nethergarde Keep
@@ -398,6 +380,24 @@ step Fallen Hero of the Horde
   talk 7572 quest 2801.1 @34.3,66.1
   turnin 2801
 
+step Blasted Lands: kill these as you meet them
+  zone Blasted Lands
+  tip Ride back south into the Blasted Lands for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and Black Slayer vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.
+  tip Careful: two elites roam here: Calefactus the Unleashed (50) in the middle of the zone around 44,34, and Vek'zol (55) on the ridge around 39,32. When you see one, hunt somewhere else.
+  collect 8396 quest 2585
+  collect 8396 quest 2601
+  collect 8396 quest 2603             -- Vulture Gizzard
+  collect 8392 quest 2581             -- Blasted Boar Lung
+  collect 8392 quest 2583
+  collect 8392 quest 2585
+  collect 8394 quest 2601             -- Basilisk Brain
+  collect 8394 quest 2583
+  collect 8391 quest 2581             -- Snickerfang Jowl
+  collect 8391 quest 2603
+  collect 8393 quest 2581             -- Scorpok Pincer
+  collect 8393 quest 2583
+  collect 8393 quest 2585
+
 step Blasted Lands
   zone Blasted Lands
   goto 52.0,35.7 "Rise of the Defiler"
@@ -405,10 +405,19 @@ step Blasted Lands
 step Kum'isha the Collector
   tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.
   tip Careful: Felcular, Razelikh the Defiler and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds Razelikh's Tear, Flames of Chaos and then Enrage at 15%.
-  tip Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32): take the fragments from the mobs on the way from the keep, not beside him.
+  tip Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him.
   accept 3501                         -- Kum'isha the Collector walks around here: look inside the circle on the map
   collect 10593 quest 3501.1
   turnin 3501
+
+step The bloodmages
+  tip Ride north to the bloodmages' camp beside the road into the Blasted Lands.
+  turnin 2601                         -- Bloodmage Lynnore
+  turnin 2603
+  turnin 2581                         -- Bloodmage Drazial
+  turnin 2583
+  turnin 2585
+  note The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it.
 
 step To Ironforge
   zone Ironforge

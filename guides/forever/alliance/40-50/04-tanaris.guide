@@ -9,7 +9,11 @@ next forever/alliance/40-50/05-the-hinterlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Sprinkle's Secret Ingredient (2641), The Borrower (2941).
+# Added here: The Borrower (2941).
+# The Dunemaul Compound (5863, Brutes 46-48 and Gor'marok 49) and the Thistleshrub Valley (2605, 3362, mobs 48-50) are
+# taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49, on the ride west to the
+# crater: here at 46-47 they are two and three levels over the player. Sprinkle's Secret Ingredient (2641) and its
+# follow-ups need the Hinterlands water before that landing and are left out.
 # Darnassus comes at the end of this guide, by the flight to Auberdine, before the boat to Menethil Harbor and the
 # Hinterlands: Troyas' answer (2939), Curgle's crate (3022), Tyrande (2972, 4267), Gracina (162) and Fandral's soil
 # errand (3763, 3764) are all Feralas and Tanaris errands, and Erelas' Favored of Elune? (3661) is then in the log for
@@ -47,14 +51,14 @@ step Gadgetzan
   zone Tanaris
   tip Ride south-east off the Shimmering Flats into Tanaris. Gadgetzan is just inside the border.
   turnin 2864                         -- Tran'rek, north side of town
-  accept 3362                         -- Tran'rek
+  accept 3362                         -- Tran'rek: keep it, the Thistleshrub Valley waits for the Un'Goro guide's Gadgetzan landing
   accept 992                          -- Senior Surveyor Fizzledowser
   getfp "Gadgetzan" npc 7823          -- Bera Stonehammer
-  accept 2605                         -- Marin Noggenfogger
+  accept 2605                         -- Marin Noggenfogger: keep it for the same landing
   accept 1690                         -- Chief Engineer Bilgewhizzle, by the water tower
   accept 1707                         -- Spigot Operator Luglunket, next to him
   sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
-  accept 5863                         -- Andi Lynn
+  accept 5863                         -- Andi Lynn: keep it, the Dunemaul Compound waits for the same landing
   accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
 
 step Gadgetzan
@@ -125,7 +129,8 @@ step Gadgetzan
   turnin 1691                         -- Chief Engineer Bilgewhizzle
 
 step The pool by Sandsorrow Watch
-  tip Ride north-west to the Sandfury troll camp at Sandsorrow Watch. Use the Untapped Dowsing Widget at the edge of its pool; the trolls stand close, so pull the nearest first.
+  tip Ride north-west to the Sandfury troll camp at Sandsorrow Watch. Use the Untapped Dowsing Widget at the edge of its pool to tap it; the trolls stand close, so pull the nearest first.
+  tip Careful: tapping the pool brings Scarabs (level 44-47) out of the sand to attack you: tap it, then step away from the trolls and fight the Scarabs one by one.
   use 8584 quest 992.1 @39.9,28.4 "Pool by Sandsorrow Watch" -- Gives the Tapped Dowsing Widget
 
 step Zul'Farrak
@@ -181,35 +186,18 @@ step The Noxious Lair
   collect 8587 quest 82               -- Centipaar Insect Parts
 
 step Dunemaul Compound
-  tip Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
-  tip Why the grind to 47: the Thistleshrub Valley comes next, with mobs of 48-50 and quests of level 50. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes.
-  kill 5474 quest 5863                -- Dunemaul Brute
-  kill 5472 quest 5863                -- Dunemaul Enforcer
-  kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
+  tip Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.
+  tip Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50) and the Gaping Chasm's silithids (47-50) come next. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.
   level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
-step Thistleshrub Valley: kill these as you meet them
-  zone Tanaris
-  tip Ride south into Thistleshrub Valley. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley. The Thistleshrubs are 48-50, above you: pull one at a time.
-  tip Careful: The other thistleshrub mobs in the area are level 49-50 and wander a lot, so you can easily pull extra mobs.
-  collect 8428 x1 quest 2605          -- Laden Dew Gland
-  kill 5485 quest 3362                -- Thistleshrub Rootshaper
-  kill 5490 quest 3362                -- Gnarled Thistleshrub
-
 step Tooga's escort
-  tip The little turtle Tooga hides at the north end of the valley. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
+  tip The little turtle Tooga hides at the north end of the Thistleshrub Valley: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
   accept 1560                         -- Tooga
   complete 1560
   turnin 1560                         -- Torta
 
 step Gadgetzan
-  tip Ride back west to Gadgetzan: Andi Lynn stands on the east side of town, where you come in.
-  turnin 5863                         -- Andi Lynn
-  turnin 2605                         -- Marin Noggenfogger
-  accept 2606
-  turnin 3362                         -- Tran'rek
-  turnin 2606                         -- Sprinkle
-  accept 2641
+  tip Ride back west to Gadgetzan; Alchemist Pestlezugg is inside.
   turnin 82                           -- Alchemist Pestlezugg, inside
   accept 10                           -- Senior Surveyor Fizzledowser
 
@@ -336,10 +324,10 @@ step The Hinterlands
 step Aerie Peak
   zone The Hinterlands
   getfp "Aerie Peak"
-  accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
   accept 2877                         -- Fraggar Thundermantle, inside
 
 step The Hinterlands
+  when onquest 1452
   zone The Hinterlands
   goto 26.9,48.6 "Rhapsody Shindigger"
 
@@ -347,5 +335,16 @@ step Rhapsody Shindigger
   turnin 1452
   accept 1469
 
-step Sprinkle's Secret Ingredient
-  collect 8526 quest 2641.1 @41.0,59.8 map 1425 -- Underwater
+step Witherbark villages
+  tip The first two cages stand together in the Witherbark village south of Rhapsody's camp; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
+  tip Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.
+  interact 144068 quest 2988          -- Third Witherbark Cage
+  interact 144067 quest 2988          -- Second Witherbark Cage
+  collect 9259 quest 2880             -- Troll Tribal Necklace
+  interact 144066 quest 2988          -- First Witherbark Cage
+
+step Aerie Peak
+  tip Ride back north-west to Aerie Peak.
+  turnin 2880                         -- Fraggar Thundermantle, inside
+  turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top
+  accept 2989

@@ -3115,7 +3115,8 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 	const kept = [
 		['forever/alliance/50-60/01-burning-steppes.guide', 7972],
 		['forever/class/priest/blood-of-morphaz.guide', 7972],
-		['forever/alliance/50-60/03-winterspring.guide', 12840],
+		// (forever/alliance/50-60/03-winterspring.guide's Scourgestones went with Corin's Crossing, left out at 55 in the
+		// level tidy 0.4.0: its Scourge are 57-60.)
 		['forever/horde/50-60/05-eastern-plaguelands.guide', 12840],
 		['forever/horde/40-50/02-feralas.guide', 8705],
 		['forever/class/shaman/darkreaver.guide', 18335],
@@ -7207,7 +7208,10 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: flow re-order: Raptor 
 	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const stalkers = stepOf('the Jungle Stalkers (196)', (g) => g.t === 'kill' && g.quest === 196);
-	assert.equal(stalkers, stepOf("Maury's Clubbed Foot (609)", (g) => g.t === 'collect' && g.item === 3924) + 1, 'the raptors on the jungle loop, right after Maury (A Meal Served Cold is left out)');
+	// Level tidy 0.4.0: Zanzil's village and Maury (43-44) wait for the level-48 Booty Bay stop, so the raptors follow
+	// the optional Cortello's scroll step on the way north out of town.
+	assert.equal(stalkers, stepOf("Cortello's scroll", (g) => g.t === 'collect' && g.item === 4056) + 1, 'the raptors on the jungle loop, right after leaving Booty Bay (A Meal Served Cold is left out)');
+	assert.ok(goals('forever/alliance/40-50/05-the-hinterlands.guide').some(({ goal }) => goal.t === 'collect' && goal.item === 3924), "Maury's foot on the level-48 Booty Bay stop");
 	const turnin = stepOf('turnin 196', is('turnin', 196));
 	assert.ok(turnin < stepOf('turnin 622', is('turnin', 622)), 'handed in on the way to the Rebel Camp');
 	assert.ok(turnin < stepOf('turnin 611', is('turnin', 611)), 'before the last Booty Bay stop');
@@ -7231,13 +7235,11 @@ test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshi
 // Flow review (2026-11-07): Alliance Feralas went back to Feathermoon after the southern mainland loop, then took the
 // boat out again for Lord Shalzaru on the Isle of Dread and back for his hand-in; the Groddoc livers waited for the
 // eastern loop, which walked back to the apes by Feral Scar Vale.
-test('forever/alliance/40-50/03-feralas.guide: flow re-order: Lord Shalzaru closes the southern loop, one Feathermoon visit, Groddoc livers by Feral Scar', { skip }, () => {
+test('forever/alliance/40-50/03-feralas.guide: flow re-order: one Feathermoon visit for the southern loop, Groddoc livers by Feral Scar, the Gordunni after the grind to 45 (level tidy 0.4.0)', { skip }, () => {
 	const list = goals('forever/alliance/40-50/03-feralas.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
-	const relic = stepOf('the Mysterious Relic (2870)', (g) => g.t === 'collect' && g.quest === 2870);
-	assert.ok(relic > stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'after the yetis');
-	assert.ok(relic < stepOf('turnin 4127', is('turnin', 4127)), 'before the Feathermoon hand-ins');
-	assert.equal(stepOf('turnin 2870', is('turnin', 2870)), stepOf('turnin 4127', is('turnin', 4127)), 'one Feathermoon visit');
+	assert.ok(!list.some(({ goal }) => [2870, 2871, 7003, 7721].includes(goal.quest)), 'Lord Shalzaru (47) and Zorbin\'s giants (47-49) are left out at 43-45');
+	assert.ok(stepOf('turnin 4127', is('turnin', 4127)) < stepOf('the grind to 45', (g) => g.t === 'level' && g.level >= 45), 'the courier chain on the first Feathermoon return');
 	assert.equal(stepOf('the Groddoc livers', (g) => g.t === 'collect' && g.quest === 1452 && g.oi === 3), stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'the livers with the yetis');
 });
 
@@ -7272,7 +7274,7 @@ test("forever/alliance/50-60/03-winterspring.guide: flow re-order: the four reli
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const fragments = new Set(list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 5245).map((e) => e.s));
 	assert.equal(fragments.size, 1, 'all four fragments in one step');
-	assert.equal(stepOf('turnin 5211', is('turnin', 5211)), stepOf('turnin 5509', is('turnin', 5509)), 'with the Scourgestones');
+	assert.ok(!list.some(({ goal }) => goal.quest === 5211), 'Defenders of Darrowshire is left out (level tidy 0.4.0: Corin\'s Crossing\'s Scourge are 57-60 at 55)');
 });
 
 // Flow review (2026-11-07): Alliance Western Plaguelands fetched the Annals from Andorhal and came back to the same
@@ -7371,7 +7373,7 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding t
 	assert.ok(jartsam < stepOf('turnin 1477', is('turnin', 1477)), 'Night Elves ride from the first Stormwind stop, before Darkshire');
 	assert.ok(jartsam > stepOf('turnin 1271', is('turnin', 1271)), 'after the Stormwind stop');
 	for (const npc of [4772, 7954]) assert.ok(stepOf(`riding trainer ${npc}`, train(npc)) < stepOf('turnin 733', is('turnin', 733)), `riding ${npc} before the Badlands`);
-	const last = stepOf('turnin 609', is('turnin', 609));
+	const last = stepOf('turnin 600', is('turnin', 600));
 	const sw = list.find(({ goal, s }) => s > last && goal.t === 'fly' && /Stormwind/.test(goal.location || ''));
 	const gotoBefore = list.filter(({ s, goal }) => s === sw.s && goal.t === 'goto')[0];
 	assert.equal(gotoBefore.goal.map, 1434, 'the Stormwind flight leaves from Booty Bay');
@@ -8007,7 +8009,8 @@ const ALLIANCE_VOLUME = {
 	'forever/alliance/06-wetlands.guide': [469], // Daily Delivery
 	'forever/alliance/30-40/01-hillsbrad-foothills.guide': [632, 633, 634], // The Thandol Span; The Thandol Span; Plea to the Alliance
 	'forever/alliance/30-40/03-ashenvale.guide': [1319, 1320, 1132], // The Black Shield; The Black Shield (on the Theramore crossing since the 30-40 re-order); Fiora Longears
-	'forever/alliance/40-50/07-un-goro-crater.guide': [2662], // Noggenfogger Elixir
+	// 40-50/07: Noggenfogger Elixir (2662) left out in the level tidy 0.4.0 with Sprinkle's Secret Ingredient (2641):
+	// The Thirsty Goblin waits for the Un'Goro guide's Gadgetzan landing, after the route's last Hinterlands visit.
 	'forever/alliance/dwarf/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings
 	'forever/alliance/gnome/01-dun-morogh.guide': [414, 224, 267, 416, 418, 1339, 307, 1338, 6387, 6391, 6388, 6661, 6662, 399], // Stout to Kadrell; In Defense of the King's Lands; The Trogg Threat; Rat Catching; Thelsamar Blood Sausages; Mountaineer Stormpike's Task; Filthy Paws; Stormpike's Order; Honor Students; Ride to Ironforge; Gryth Thurden; Deeprun Rat Roundup; Me Brother, Nipsy; Humble Beginnings
 	'forever/alliance/human/01-elwynn-forest.guide': [1097], // Elmore's Task
@@ -9310,31 +9313,33 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: final review: Ironfor
 });
 
 // Final route review before 0.3.5, Alliance 40-60: the Gadgetzan stop told the player to skip Sprinkle's next
-// ingredient ("the route never brings it back") right before accepting it; the route takes it, collects it in
-// the Hinterlands and hands it in on the Un'Goro guide's Gadgetzan stop.
-test('forever/alliance/40-50/04-tanaris.guide: final review: no note to skip Sprinkle\'s Secret Ingredient, which the route takes', { skip }, () => {
-	const list = goals('forever/alliance/40-50/04-tanaris.guide');
-	const take = at(list, 'accept 2641', is('accept', 2641));
-	const stop = list.filter(({ s }) => s === list[take].s);
-	assert.ok(!stop.some(({ goal }) => goal.t === 'note' && /Sprinkle/.test(goal.text) && /skip/i.test(goal.text)), 'no skip note on the stop that takes it');
-	assert.ok(list.some(({ goal }) => goal.t === 'collect' && goal.quest === 2641), 'its ingredient is collected');
-	assert.ok(goals('forever/alliance/40-50/07-un-goro-crater.guide').some(({ goal }) => goal.t === 'turnin' && goal.quest === 2641), 'and handed in at Gadgetzan in the Un\'Goro guide');
+// ingredient ("the route never brings it back") right before accepting it. Level tidy 0.4.0: The Thirsty Goblin's
+// Thistleshrub Valley (48-50) waits for the Un'Goro guide's Gadgetzan landing, after the route's last Hinterlands
+// visit, so Sprinkle's Secret Ingredient is left out (route-fixes skip) and no step sends you for its water.
+test('forever/alliance/40-50/04-tanaris.guide: final review: Sprinkle\'s Secret Ingredient left out with a record, no stray step for it', { skip }, () => {
+	for (const g of ['04-tanaris', '05-the-hinterlands', '07-un-goro-crater']) {
+		assert.ok(!goals(`forever/alliance/40-50/${g}.guide`).some(({ goal }) => goal.quest === 2641), `no 2641 goal in ${g}`);
+	}
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.skip.some((e) => e.q === 2641 && e.faction === 'Alliance'), 'a route-fix skip says why');
+	const un = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	assert.ok(at(un, 'turnin 2606', is('turnin', 2606)) > at(un, 'turnin 2605', is('turnin', 2605)), 'In Good Taste handed to Sprinkle on the Un\'Goro guide\'s Gadgetzan stop');
 });
 
 // Final route review before 0.3.5, Alliance 40-60: the Burning Steppes topped up to 51.39 on the Dreadmaul Rock
 // ogres on the way to Flame Crest, then rode back to the same ogres for a top-up to 52 right after the Flame Crest
-// accepts. Nothing between gives experience: one top-up to 52 on the way (guide-fixes level record).
-test('forever/alliance/50-60/01-burning-steppes.guide: final review: one top-up to 52 at Dreadmaul Rock before Flame Crest, no ride back', { skip }, () => {
+// accepts. Nothing between gives experience: one top-up to 52 on the way (guide-fixes level record). Level tidy 0.4.0:
+// the one top-up comes before Extinguish the Firegut's kills (the rock's Brutes are 52-53), on the Firegut Ogres.
+test('forever/alliance/50-60/01-burning-steppes.guide: final review: one top-up to 52 at Dreadmaul Rock before its Brutes and Flame Crest, no ride back', { skip }, () => {
 	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
 	const crest = at(list, 'accept 4726', is('accept', 4726));
-	const vigil = at(list, 'accept 3824', is('accept', 3824));
+	const kills = at(list, 'kill 7035 (Firegut Brute)', (g) => g.t === 'kill' && g.quest === 3823);
 	const grinds = list.filter(({ goal }) => goal.t === 'level');
-	const between = grinds.filter(({ s }) => s > list[vigil].s && s < list[crest].s);
-	assert.ok(between.some(({ goal }) => goal.level >= 52), 'the top-up to 52 is on the way to Flame Crest');
+	assert.ok(grinds.some(({ goal, s }) => goal.level >= 52 && s < list[kills].s && s > list[at(list, 'accept 3823', is('accept', 3823))].s), 'the top-up to 52 comes right before the Dreadmaul kills');
 	const after = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4726);
 	assert.ok(!grinds.some(({ s }) => s > list[crest].s && s < list[after].s), 'no top-up between the Flame Crest accepts and their hand-ins');
-	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 4726 && f.at.goal === 'accept');
-	assert.equal(rec && rec.level, 52, 'a level record keeps it on a refresh');
+	const rec = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.find((f) => f.at.quest === 3823 && f.level === 52);
+	assert.ok(rec, 'a level record keeps it on a refresh');
 });
 
 // Final route review before 0.3.5, Alliance 40-60: Searing Gorge starts at the Grimesilt outhouse in the south-east
@@ -9687,7 +9692,7 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	};
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 587), 'Stranglethorn Fever on the Booty Bay stop after the Wild Shore');
-	assert.equal(step(stv, 'accept', 2872), step(stv, 'turnin', 617), "Stoley's Debt on the Booty Bay stop after the naga");
+	assert.equal(step(stv, 'accept', 2872), step(stv, 'turnin', 606), "Stoley's Debt on the Booty Bay stop after the gorilla hills");
 	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));
 	assert.ok(gate >= 0 && gate < at(ungoro, 'accept 8254', is('accept', 8254)), "Priests reach 50 in Un'Goro before Cenarion Aid");
@@ -10414,13 +10419,13 @@ test('Alliance Un\'Goro, second visit: the Scent of Lar\'korwi, the Bait and The
 test('Alliance Winterspring and Feralas: the long top-ups are split onto the quest mobs', { skip }, () => {
 	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
 	const k = at(ws, 'kill for 5082', (x) => x.t === 'kill' && x.quest === 5082);
-	assert.ok(ws.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) === 54 && s === ws[k].s), '03: level 54 in the Frostfire step that kills for Donova');
-	// Feralas: since Bennistrov's report (#1999) the level-45 grind is on the Feral Scar yetis (43-45), before the Rage
-	// Scar yetis' hides (see that case); the Pristine Yeti Hide still counts.
+	// Level tidy 0.4.0: the Frostfire camp's Den Watchers are 55-56, so the top-up on its Pathfinders (53-54) goes to 55
+	// in its own step right before the kills, on the same camp.
+	assert.ok(ws.some(({ goal, s }) => goal.t === 'level' && lvlOf(goal) >= 55 && goal.grind === 7442 && s === ws[k].s - 1), '03: the Frostfire top-up on the Pathfinders right before the kills for Donova');
+	// Feralas: since Bennistrov's report (#1999) the level-45 grind is on the Feral Scar yetis (43-45); since the level
+	// tidy (0.4.0) the Rage Scar yetis' hides (46-49) are left out (see that case).
 	const fe = goals('forever/alliance/40-50/03-feralas.guide');
 	assert.ok(fe.some(({ goal }) => goal.t === 'level' && goal.grind === 5292), '03-feralas: the level-45 grind on the Feral Scar yetis');
-	const pristine = at(fe, 'turnin 7735', is('turnin', 7735));
-	assert.ok(required(fe[pristine]), 'Pristine Yeti Hide is counted');
 });
 
 // Alliance 40-60 flow pass (0.3.7): quest givers and hand-ins the route walked past and came back to later.
@@ -10438,8 +10443,7 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	assert.ok(s6('turnin 3442', is('turnin', 3442)) < s6('dagger', (g) => g.t === 'collect' && g.quest === 3443), 'the dagger is hunted with Forging the Shaft in the log');
 	assert.equal(s6('turnin 3443', is('turnin', 3443)), s6('dagger', (g) => g.t === 'collect' && g.quest === 3443) + 1, 'handed in right after');
 	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
-	const sw = (what, pred) => ws[at(ws, what, pred)].s;
-	assert.equal(sw('scourgestones', (g) => g.t === 'collect' && g.item === 12841), sw('spirits', (g) => g.t === 'kill' && g.quest === 5211), 'the scourgestones at Corin\'s Crossing with the spirits');
+	assert.ok(!ws.some(({ goal }) => goal.quest === 5211), 'Corin\'s Crossing left out (level tidy 0.4.0: its Scourge are 57-60 at 55)');
 	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const sp = (what, pred) => wpl[at(wpl, what, pred)].s;
 	assert.ok(sp('turnin 978', is('turnin', 978)) < sp('accept 1047', is('accept', 1047)), 'Erelas before the portal up to Darnassus');
@@ -11331,12 +11335,12 @@ test(`${TELDRASSIL}: Twisted Hatred's webwoods on the way to the Oracle Glade, h
 
 // --- Alliance 50-60 quest volume, 0.3.6 audit #11 (2026-11-09): XP before Winterspring's last top-up. Every
 // grind of 50-60/01-03 tops up to a level the next work needs, so only XP handed in before the 55.05 top-up
-// shortens it; these three hand-ins come on stops the route already makes, before it.
-test('Alliance 50-53: A Meeting with the Master on the hippogryph top-up, the relics and the soil handed in on the way to Felwood', { skip }, () => {
+// shortens it; these hand-ins come on stops the route already makes, before it. #2460 (g4dz1n4): A Meeting with
+// the Master is gone on Forever (Sanath's gossip teleports for free), so the route no longer takes it.
+test('Alliance 50-53: no Meeting with the Master (#2460), the relics and the soil handed in on the way to Felwood', { skip }, () => {
 	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
-	const meet = at(bs, 'turnin 3381', is('turnin', 3381));
-	assert.ok(!bs[meet].goal.optional && !bs[at(bs, 'accept 3381', is('accept', 3381))].goal.optional, 'Sanath\'s feathers are part of the route');
-	assert.ok(bs[meet].step === bs.find(({ goal }) => goal.t === 'level' && goal.grind === 6375).step, 'on the step that tops up on the Thunderhead Hippogryphs');
+	assert.ok(!bs.some(({ goal }) => goal.quest === 3381), 'A Meeting with the Master is not in the guide');
+	assert.ok(bs.some(({ goal }) => goal.t === 'level' && goal.grind === 6375), 'the Thunderhead Hippogryph top-up at Sanath\'s camp stays');
 	const relics = at(bs, 'turnin 3701', is('turnin', 3701));
 	assert.ok(at(bs, 'relic work', (g) => g.quest === 3701 && g.t !== 'accept' && g.t !== 'turnin') < relics, 'the relics are read first');
 	assert.ok(at(bs, 'turnin 3501', is('turnin', 3501)) < relics, 'after the Steppes and the Blasted Lands, on the Ironforge stop');
@@ -11349,7 +11353,7 @@ test('Alliance 50-53: A Meeting with the Master on the hippogryph top-up, the re
 		assert.ok(!late.some(({ goal }) => goal.t === 'turnin' && (goal.quest === 3701 || goal.quest === 3764)), `neither waits for ${g}`);
 	}
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
-	assert.ok(rf.include.some((e) => e.q === 3381), 'the route fixes include A Meeting with the Master');
+	assert.ok(rf.skip.some((e) => e.q === 3381 && e.issue === '#2460') && !rf.include.some((e) => e.q === 3381), 'the route fixes leave A Meeting with the Master out');
 	for (const q of [3701, 3764]) assert.ok(rf.pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === q && p.faction === 'Alliance'), `a route-fix pair keeps the ${q} hand-in early`);
 });
 
@@ -13801,19 +13805,17 @@ test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's R
 });
 
 // Bennistrov's report (#1999): the Feralas High Wilderness step ground to level 44.5 on the Rage Scar yetis (46-48) at
-// 43-44. The level-45 grind now comes first, on the Feral Scar yetis (43-45), and the Rage Scar yetis' hides (Improved
-// Quality, the Pristine Yeti Hide) after it, with a heads-up on their level.
-test("Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis below 45", { skip }, () => {
+// 43-44. The level-45 grind came first, on the Feral Scar yetis (43-45), and the Rage Scar yetis' hides after it. Level
+// tidy 0.4.0: the Rage Scar yetis (46-49) are still two or more over the 45 player there, so Improved Quality and the
+// Pristine Yeti Hide are left out: the guide never sends you to them.
+test("Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yetis", { skip }, () => {
 	const list = goals('forever/alliance/40-50/03-feralas.guide');
 	const at45 = list.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 45);
 	assert.ok(at45 >= 0, 'a level-45 grind');
 	const rageScar = new Set([5296, 5297, 5299]); // Rage Scar Yeti 46, Ferocious Rage Scar 47, Elder Rage Scar 48
 	const onRageScar = ({ goal }) => (goal.t === 'level' && rageScar.has(goal.grind)) || (goal.t === 'kill' && rageScar.has(goal.npc)) ||
-		(goal.t === 'collect' && [18947, 18969].includes(goal.item));
-	list.forEach((e, i) => { if (onRageScar(e)) assert.ok(i > at45, `${e.goal.t} ${e.goal.item || e.goal.npc || e.goal.grind} comes after level 45`); });
-	assert.ok(list.some(onRageScar), 'the Rage Scar work is still in the guide');
-	const hides = list[at(list, 'collect 18947', (g) => g.t === 'collect' && g.quest === 7733)];
-	assert.ok(JSON.stringify(hides.step).includes('46-48'), "a heads-up on the yetis' level");
+		(goal.t === 'collect' && [18947, 18969].includes(goal.item)) || [7733, 7735].includes(goal.quest);
+	assert.deepEqual(list.filter(onRageScar).map(({ goal }) => `${goal.t} ${goal.quest || goal.item || goal.npc || goal.grind}`), [], 'no Rage Scar work');
 });
 
 
@@ -13980,7 +13982,9 @@ test('Alliance 50-60: danger warnings at Dreadmaul Rock, the Blackrock camps, Ku
 	const L6 = 'forever/alliance/50-60/06-silithus.guide';
 	const tipped = (st, re) => assert.ok([st.note, ...(st.notes || []), ...(st.tips || [])].concat(JSON.stringify(st)).some((t) => re.test(t || '')), `${st.title}: ${re}`);
 	tipped(stepOf(BS, (g) => g.quest === 3823 && g.t === 'kill' && g.oi === 2), /Escaped Core Hounds/);
-	tipped(stepOf(BS, (g) => g.quest === 3824 && g.t === 'collect'), /Firesworn/);
+	// Level tidy 0.4.0: the Blackrock Stronghold step (Gor'tesh, the medallions) is left out (orcs 55-58 at 52-53), so
+	// its Firesworn warning goes with it.
+	assert.ok(!goals(BS).some(({ goal }) => goal.quest === 3824 || goal.quest === 4283), 'no Blackrock Stronghold work');
 	tipped(stepOf(BS, (g) => g.quest === 3501 && g.t === 'collect'), /Vek'zol/);
 	tipped(stepOf(L6, (g) => g.quest === 4084 && g.t === 'collect' && g.oi === 2), /Ancient Irontree Walkers/);
 	tipped(stepOf(L6, (g) => g.quest === 5086 && g.t === 'collect'), /Ancient Irontree Walkers/);
@@ -14432,4 +14436,24 @@ test('#2300: Searing Gorge (Alliance): Prayer to Elune waits for a group, among 
 	const tip = [zamael[0].step.note, zamael[0].step.tip].flat().filter(Boolean).join(' ');
 	assert.doesNotMatch(tip, /stands alone/, 'not "stands alone"');
 	assert.match(tip, /Twilight camp/, 'the tip names the Twilight camp');
+});
+
+// Level tidy 0.4.0, Alliance 40-50 reports. PRDesrochers/Bennistrov (#1917): leaving Theramore without the Soothing
+// Spices left Jarl's hand-in with no way to get them; the Swamplight Manor step buys them from Helenia Olden before
+// the hand-in. Fyurie (#2448): the Tanaris guide ended with a ride to Rhapsody's camp for players without Rhapsody's
+// Kalimdor Kocktail, then a trip to the Violet Tragan pool; the ride is only for players carrying 1452. Fyurie
+// (#2396): the Sandsorrow pool step says to tap the pool and warns of the Scarabs that come out.
+test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), no empty Rhapsody ride (#2448), the pool\'s Scarabs (#2396)', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const hand = at(stv, 'turnin 1218', is('turnin', 1218));
+	const buy = stv.findIndex(({ goal, s }) => goal.t === 'buy' && goal.item === 3713 && s === stv[hand].s);
+	assert.ok(buy >= 0 && stv[buy].s === stv[hand].s && buy < hand, 'the spices are bought on the Swamplight Manor step, before the hand-in');
+	const tan = goals('forever/alliance/40-50/04-tanaris.guide');
+	const ride = tan.find(({ goal }) => goal.t === 'goto' && /Rhapsody/.test(goal.text || goal.label || JSON.stringify(goal)));
+	assert.ok(ride && (ride.step.when || []).some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(1452)), 'the ride to Rhapsody only with 1452 in the log');
+	assert.ok(!tan.some(({ goal }) => goal.t === 'collect' && goal.quest === 2641), 'no trip to the pool at the end of Tanaris');
+	const pool = tan[at(tan, 'the Sandsorrow pool', (g) => g.quest === 992 && g.t === 'use')];
+	const tip = [pool.step.note, pool.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /tap it/, 'says to tap the pool');
+	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
 });

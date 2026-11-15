@@ -3181,18 +3181,6 @@
 			},
 			{
 				"a": [
-					"task",
-					2870
-				],
-				"b": [
-					"turnin",
-					4127
-				],
-				"faction": "Alliance",
-				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): Lord Shalzaru (2870) closes the southern mainland loop: from the Feral Scar yetis the walk goes on to the Isle of Dread and swims back to Sardor Isle, so Feathermoon takes the loop's hand-ins and Shalzaru's on one visit. It was a Feathermoon visit, then the boat out to the coast, the isle, and the boat back for his hand-in alone. The seed's note that Shalzaru waits for the end of the mainland loop (his level 47) still holds."
-			},
-			{
-				"a": [
 					"turnin",
 					208
 				],
@@ -6709,18 +6697,6 @@
 			{
 				"a": [
 					"task",
-					609
-				],
-				"b": [
-					"task",
-					196
-				],
-				"faction": "Alliance",
-				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks. (2026-11-08: A Meal Served Cold is skipped for its 30-minute limit, so the stalkers are anchored after Maury and Jon-Jon, task 609, on the same jungle loop.)"
-			},
-			{
-				"a": [
-					"task",
 					2821
 				],
 				"b": [
@@ -9613,11 +9589,6 @@
 				"issue": "-"
 			},
 			{
-				"q": 7735,
-				"reason": "Quest volume, Alliance 40-60 (0.3.7, 2026-11-09): Pristine Yeti Hide: half of Feralas' level-45 top-up is ground on the Rage Scar yetis (3% hide), so the hide is certain and handed to Pratt McGrubben on the next Feathermoon stop.",
-				"issue": "-"
-			},
-			{
 				"q": 1137,
 				"after": [
 					"turnin",
@@ -9797,11 +9768,6 @@
 					5149
 				],
 				"reason": "Quest volume, Horde 50-60 (0.3.7; moved to 50-60/05 by the 0.3.6 flow pass): Uncle Carlin (level 56, from 50, 2900 XP) is a message from Pamela Redpath in Darrowshire to Carlin Redpath at Light's Hope Chapel: 50-60/05 hands Pamela's doll in and rides back to the chapel to fly to Tarren Mill, where Carlin takes it and gives Defenders of Darrowshire (5211) on the same stop. A delivery with no fighting.",
-				"issue": "-"
-			},
-			{
-				"q": 3381,
-				"reason": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09): A Meeting with the Master (48, 2200 XP; the data had no reward when the seed was cut, so it was written optional) is taken and handed in at Sanath Lim-yo's camp in Azshara (50-60/01), where the route tops up on the Thunderhead Hippogryphs that drop the two Undamaged Hippogryph Feathers (30% each): no walk of its own, and the XP comes before Burning Steppes' level-51 gate.",
 				"issue": "-"
 			},
 			{
@@ -10188,6 +10154,33 @@
 				],
 				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp, where 30-40/04 hunts the raptors (players' recordings: 31.5,12.8, 21 people, most on this guide at about 34.5), and the Stolen Shipments lie in the Bloodscalp ruins of Zul'Kunda, which the guide's Savage Coast step works for Kebok's ears and Zimmix; Wharfmaster Lozgil takes it with Zimmix's Great Escape on the second Booty Bay stop.",
 				"issue": "-"
+			},
+			{
+				"q": 98205,
+				"after": [
+					"turnin",
+					1258
+				],
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Whelps are the Worst! (level 44, 3,750 XP): Mudsprocket lies just south of the road west out of Dustwallow Marsh, which the route rides after the level-43 Theramore stop on its way to Feralas; Searing Hatchlings and Whelps 41-43 (players' recordings: done at 44-48).",
+				"issue": "-"
+			},
+			{
+				"q": 98215,
+				"after": [
+					"turnin",
+					1258
+				],
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Dragon Scales, Post Burnt Tails (level 44, 3,750 XP): the scales drop from the same whelps and the Firemane dragonkin (41-44) of the Wyrmbog, taken with Whelps are the Worst!.",
+				"issue": "-"
+			},
+			{
+				"q": 98231,
+				"after": [
+					"turnin",
+					1258
+				],
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): an at-level quest on a walk the route already makes, so the band levels by questing rather than by the written grinds. Active Ingredient (level 44, 3,750 XP): the Wyrmtail grows in the Wyrmbog east of Mudsprocket (players' recordings at 44-48,74-83), on the same Wyrmbog loop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -10548,6 +10541,102 @@
 				"q": 523,
 				"faction": "Alliance",
 				"reason": "Alliance level tidy (0.4.0): Baron's Demise asks for Baron Vardus (40), who turns up in Strahnbrad's inn cellar or a Syndicate tent camp north of it, on 30-40/05's Alterac trip at about 38. Left out; Assassin's Contract (522), which leads to it, stays optional.",
+				"issue": "-"
+			},
+			{
+				"q": 2870,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Against Lord Shalzaru: Lord Shalzaru is level 47 on the Isle of Dread, two over the 43-45 player on the Feralas route (recorded 25th percentile 43.3 at the step); the only later Feralas stop (50-60/04) is at about 57, where the quest is nine levels under.",
+				"issue": "-"
+			},
+			{
+				"q": 2871,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Delivering the Relic follows Against Lord Shalzaru (2870), left out.",
+				"issue": "-"
+			},
+			{
+				"q": 7003,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Zapped Giants: the zapped giants are 47-49 among elite Shore and Deep Striders (48-49) and Sea Elementals (48-49) at the Forgotten Coast, three or four over the player there (recorded 25th percentile 45.7, 5 players); the later Feralas stop (50-60/04) is at about 57, nine levels over the quest.",
+				"issue": "-"
+			},
+			{
+				"q": 7721,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Fuel for the Zapping: Sea Elementals 48-49 and Sea Sprays 47-48 at the Forgotten Coast, three or four over the 45 player there; the later Feralas stop is at about 57.",
+				"issue": "-"
+			},
+			{
+				"q": 7733,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Improved Quality: the Rage Scar yetis are 46-49 (Elder Rage Scar 48-49) in the High Wilderness, two to four over the 45 player at the end of the Feralas guide (Bennistrov's #1999: the guide wanted 47-48 mobs at 43); the later Feralas stop (50-60/04) is at about 57, nine over the quest.",
+				"issue": "#1999"
+			},
+			{
+				"q": 7735,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Pristine Yeti Hide: a drop from the same Rage Scar yetis (46-49), left out with Improved Quality (7733).",
+				"issue": "#1999"
+			},
+			{
+				"q": 2641,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): The Thirsty Goblin (2605) waits for the Un'Goro guide's Gadgetzan landing at about 49 (Thistleshrub Valley 48-50, three over the 47 player of the Tanaris guide), so In Good Taste is handed in there and Sprinkle's Secret Ingredient comes after the route's last Hinterlands visit, where its water is drawn. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 2661,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Delivery for Marin follows Sprinkle's Secret Ingredient (2641), left out.",
+				"issue": "-"
+			},
+			{
+				"q": 2662,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Noggenfogger Elixir follows Delivery for Marin (2661), left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3824,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes: mobs two or more over the player block a solo step): Gor'tesh the Brute Lord (54) stands among the Blackrock Soldiers, Sorcerers, Slayers and Warlocks (55-57) at the foot of Blackrock Mountain, three to five over the 52-53 player of the Burning Steppes visit; the route makes no later Burning Steppes visit. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3825,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Ogre Head On A Stick = Party follows Gor'tesh the Brute Lord (3824), left out.",
+				"issue": "-"
+			},
+			{
+				"q": 4283,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): FIFTY! YEP! wants fifty Blackrock Medallions; below 53 only the seven Ember Worgs (51-52) drop them, so the work is the Blackrock orcs (55-58) at the foot of Blackrock Mountain, three to six over the 52-53 player. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 5211,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Defenders of Darrowshire's spirits rise from the Scourge of Corin's Crossing (Crypt Slayers 58-59, Diseased Flayers 57-59, Scourge Champions 59-60), three to five over the 55 player of the Winterspring guide's Light's Hope stop; the later Eastern Plaguelands stop (50-60/04) is at about 56.5, still two to four under them. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3381,
+				"faction": "Alliance",
+				"reason": "A Meeting with the Master is no longer a quest on Forever: Sanath Lim-yo's gossip teleports you to Archmage Xylem's tower for free, with no Undamaged Hippogryph Feathers asked (g4dz1n4's report, #2460, Dwarf Shaman 50 at Sanath on 0.3.7.2). The quest data's era rules mark it removed, and no recorded player took or handed it in. Left out; the Thunderhead Hippogryph top-up at Sanath's camp stays.",
+				"issue": "#2460"
+			},
+			{
+				"q": 7725,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-60, minimum fixes): Again With the Zapped Giants needs Zapped Giants (7003), which the Feralas guide leaves out (its giants are 47-49 among elite Striders at 45). Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 7726,
+				"faction": "Alliance",
+				"reason": "Level tidy 0.4.0 (Alliance 40-60, minimum fixes): Refuel for the Zapping needs Fuel for the Zapping (7721), which the Feralas guide leaves out. Left out.",
 				"issue": "-"
 			}
 		],
@@ -13278,11 +13367,23 @@
 					2941
 				],
 				"b": [
-					"turnin",
-					2641
+					"task",
+					5863
 				],
 				"faction": "Alliance",
-				"why": "Alliance 40-60 order (2026-11-08, #1228): The Borrower (2941) goes to Curgle Cranklehop (52.4,26.9) first on the Gadgetzan stop, then Sprinkle and Marin Noggenfogger on the way out south to Un'Goro; the stop used to end at Curgle and walk back past Sprinkle."
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): The Dunemaul Compound (Brutes 46-48, Gor'marok 49) is three over the 46 player of the Tanaris guide (recorded 25th percentile 46.9, 9 players; calibrated level model with rested experience 46.5). It is taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49, after The Borrower's hand-in, on the ride south-west toward the crater."
+			},
+			{
+				"a": [
+					"turnin",
+					2941
+				],
+				"b": [
+					"task",
+					3362
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Thistleshrub Valley (Rootshapers 49-50, Gnarled Thistleshrubs 48-49) and The Thirsty Goblin's Dew Collectors (47-48, among them) are three over the 47 player of the Tanaris guide (recorded 25th percentile 47.1, 8 players). Taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49, after the Dunemaul Compound, then handed in at Gadgetzan before the ride to the crater."
 			},
 			{
 				"a": [
@@ -13599,14 +13700,98 @@
 			{
 				"a": [
 					"turnin",
-					617
+					606
 				],
 				"b": [
 					"accept",
 					2872
 				],
 				"faction": "Alliance",
-				"why": "Level sweep (2026-11-08): Stoley's Debt (minimum level 40) is taken on the Booty Bay stop after the naga reeds (Akiris by the Bundle), at 40.6, not on arrival at 39.87-39.94 (the calibrated level model, every Alliance start); Stoley is in Tanaris, two guides on."
+				"why": "Level sweep (2026-11-08): Stoley's Debt (minimum level 40) is taken on the Booty Bay stop after the gorilla hills (Shaky's giblets), at about 40.6, not on arrival at 39.87-39.94 (the calibrated level model, every Alliance start); Stoley is in Tanaris, two guides on. (Level tidy 0.4.0: Akiris by the Bundle's naga wait for the level-48 Booty Bay stop.)"
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					617
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): Akiris by the Bundle's Naga Explorers are 43-44, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.8, 8 players). Taken there, done on the level-48 Booty Bay stop of the Hinterlands guide after the Bloodsail captains, on the beaches north of town."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					621
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Zanzil's village (Zanzil Naga, Witch Doctors and Zombies 43-44) is two over the 42 player of the first Stranglethorn visit (recorded 25th percentile 42.1, 6 players). Zanzil's Secret and Voodoo Dues are taken there and done on the level-48 Booty Bay stop, north along the coast after the naga."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					609
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Voodoo Dues' Maury, Jon-Jon and Chucky (43-44) stand in and beside Zanzil's village, two over the 42 player of the first Stranglethorn visit; done with Zanzil's Secret on the level-48 Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					608
+				],
+				"b": [
+					"task",
+					348
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Mokk the Savage (44) answers Witch Doctor Unbagwa's ritual, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.5, 6 players, 5 of them died there). Stranglethorn Fever is taken there and the ritual done on the level-48 Booty Bay stop, at the Mistvale hills above town."
+			},
+			{
+				"a": [
+					"accept",
+					2877
+				],
+				"b": [
+					"task",
+					2988
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the Witherbark villages (Witherbark trolls 44-46, Hexed Larvae 45-46, Witch Doctor Ti'ik 49) are three or four over the 42 player of the Badlands guide's Hinterlands visit. Witherbark Cages and Troll Necklace Bounty are taken there and done on the level-47 Hinterlands landing at the end of the Tanaris guide, south of Rhapsody's camp, and handed in at Aerie Peak before The Altar of Zul."
+			},
+			{
+				"a": [
+					"turnin",
+					2801
+				],
+				"b": [
+					"task",
+					2581
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the bloodmages' five beast quests (Scorpok Stingers 50-51, Snickerfang Hyenas 49-50, Helboars 52-53) are three or four over the 47 player of the Hinterlands guide's Blasted Lands stop (recorded 25th percentile 47.8, 9 players). Taken there, done on the level-52 Blasted Lands stop of the 50-60 Burning Steppes guide with Kum'isha, and handed in at the bloodmages' camp before the hearth."
+			},
+			{
+				"a": [
+					"accept",
+					6604
+				],
+				"b": [
+					"task",
+					8464
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): Winterfall Village's Shaman (56-57) and Ursa (57-58) are two and three over the 55 player of the Winterspring guide. Salfa's Winterfall Activity is taken there and its village kills done on the last guide's Everlook landing at about 59, east of town before the ride to Starfall Village; Salfa takes it on that guide's Winterspring stop as before."
 			},
 			{
 				"a": [
