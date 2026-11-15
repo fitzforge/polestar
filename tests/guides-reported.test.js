@@ -13535,12 +13535,13 @@ test('Alliance level tidy 30-40: The Cook in the Cage with Special Forces in Kur
 	assert.ok(done < at(list, 'accept 97048', is('accept', 97048)) && at(list, 'turnin 97048', is('turnin', 97048)) > at(list, 'turnin 213', is('turnin', 213)), 'Captain Aransas on the Booty Bay stop');
 });
 
-test('Alliance level tidy 30-40: Anything of Value with the Zul\'Kunda tablets, handed to Wharfmaster Lozgil at Booty Bay', { skip }, () => {
-	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+test('Alliance level tidy 30-40: Anything of Value with Zimmix in the Bloodscalp ruins, handed to Wharfmaster Lozgil at Booty Bay', { skip }, () => {
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
 	const take = at(list, 'accept 97328', is('accept', 97328));
 	const shipments = at(list, 'collect 277953', (g) => g.t === 'collect' && g.item === 277953);
-	assert.ok(take < shipments && list[shipments].s === list[at(list, 'collect 2007', (g) => g.t === 'collect' && g.item === 2007)].s, 'the shipments on the Zul\'Kunda tablets step');
-	assert.ok(at(list, 'turnin 97328', is('turnin', 97328)) > at(list, 'turnin 213', is('turnin', 213)), 'Lozgil on the Booty Bay stop');
+	assert.ok(take < shipments && list[shipments].s === list[at(list, 'collect 1519', (g) => g.t === 'collect' && g.item === 1519)].s, 'the shipments with Kebok\'s ears on the Savage Coast');
+	const lozgil = at(list, 'turnin 97328', is('turnin', 97328));
+	assert.equal(list[lozgil].s, list[at(list, 'turnin 97331', is('turnin', 97331))].s, 'Lozgil takes both on the second Booty Bay stop');
 });
 
 // 0.4.0 route audit (Refs #2025): 30-40/01 opened with a bare waypoint to Menethil's Deepwater Tavern, 100 yd from the

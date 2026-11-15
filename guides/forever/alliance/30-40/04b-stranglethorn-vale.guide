@@ -83,11 +83,9 @@ step Water Elementals
 
 step The Ruins of Zul'Kunda
   zone Stranglethorn Vale
-  tip North along the coast to the ruins on the hill: the last two tablets lie there, and the Stolen Shipments lie scattered around the ruins. Pick up Green Hills pages as they drop.
-  accept 97328 @31.5,12.8 map 1434    -- Thoroughly Scavenged Supplies, a looted crate west of Nesingwary's camp, on the way
+  tip North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop.
   collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
   collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
-  collect 277953 quest 97328 @24.8,13.0 map 1434 -- Stolen Shipment
   complete 339 optional               -- Chapter I
   complete 340 optional               -- Chapter II
   complete 341 optional               -- Chapter III
@@ -137,4 +135,3 @@ step Booty Bay
   accept 600                          -- Crank Fizzlebub, inside
   accept 606                          -- "Sea Wolf" MacKinley, on the top floor
   turnin 97048                        -- Captain Aransas
-  turnin 97328                        -- Wharfmaster Lozgil, on the docks

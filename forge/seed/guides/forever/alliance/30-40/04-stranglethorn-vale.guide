@@ -116,6 +116,7 @@ step Stranglethorn Vale: kill these as you meet them
   tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
   kill 1085 quest 187                 -- Elder Stranglethorn Tiger
   kill 685 quest 194                  -- Stranglethorn Raptor
+  accept 97328 @31.5,12.8 map 1434    -- Thoroughly Scavenged Supplies, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, later in this loop
 
 step Nesingwary's Expedition
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
@@ -160,11 +161,12 @@ step Stranglethorn Vale
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
   tip From Sentinel Hill the way leads south out of Westfall into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
-  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north, where Zimmix Sputterspark, a goblin, is caged: any Bloodscalp can drop his Primitive Key; then lead him out of the ruins.
-  accept 97329                        -- Zimmix Sputterspark, in the Bloodscalp ruins
+  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins of Zul'Kunda on the coast to the north, where Zimmix Sputterspark, a goblin, is caged (any Bloodscalp can drop his Primitive Key; then lead him out of the ruins) and the Stolen Shipments lie scattered.
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
   complete 578 @21.9,22.4             -- The haunted island
+  accept 97329                        -- Zimmix Sputterspark, in the Bloodscalp ruins
   collect 1519 quest 189              -- Bloodscalp Ear
+  collect 277953 quest 97328 @24.8,13.0 map 1434 -- Stolen Shipment
   collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
   turnin 97329
   accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
@@ -188,6 +190,7 @@ step Booty Bay
   turnin 189                          -- Kebok, upstairs
   turnin 578                          -- Baron Revilgaz, upstairs in the tavern
   turnin 97331                        -- Wharfmaster Lozgil, on the docks
+  turnin 97328                        -- Wharfmaster Lozgil
   accept 601                          -- Baron Revilgaz: the water elementals rise around the haunted island, on the northern loop
 
 # ---------------------------------------------------------------- Stormwind

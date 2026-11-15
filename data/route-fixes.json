@@ -9982,9 +9982,9 @@
 				"q": 97328,
 				"after": [
 					"accept",
-					207
+					194
 				],
-				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp (players' recordings: 31.5,12.8, 21 people) and the Stolen Shipments lie in the Ruins of Zul'Kunda, where 30-40/04b's last two troll tablets are worked at about 36; Wharfmaster Lozgil takes it on the guide's Booty Bay stop.",
+				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp, where 30-40/04 hunts the raptors (players' recordings: 31.5,12.8, 21 people, most on this guide at about 34.5), and the Stolen Shipments lie in the Bloodscalp ruins of Zul'Kunda, which the guide's Savage Coast step works for Kebok's ears and Zimmix; Wharfmaster Lozgil takes it with Zimmix's Great Escape on the second Booty Bay stop.",
 				"issue": "-"
 			}
 		],
