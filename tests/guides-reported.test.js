@@ -246,6 +246,17 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the southern Echo 
 	assert.ok(list[gate].goal.grind === 3121, 'the top-up is on the Durotar Tigers (7-8)');
 });
 
+// --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
+// 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
+test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {
+	const list = goals(MULGORE);
+	const back = at(list, 'turnin 745 (Sharing the Land)', is('turnin', 745));
+	for (const q of [743, 746, 760]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < at(list, "Herak's Head (99080)", (g) => g.t === 'collect' && g.quest === 99080), `${q} is handed in before the centaurs`);
+	assert.ok(back < at(list, 'the centaurs (99080)', (g) => g.t === 'kill' && g.quest === 99080), 'the centaurs after the Bloodhoof hand-ins');
+	assert.ok(back < at(list, 'the mine (764)', (g) => g.t === 'kill' && g.quest === 764), 'the mine after the Bloodhoof hand-ins');
+	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'accept 833 (Red Rocks)', is('accept', 833)), 'Baine takes the head before Red Rocks');
+});
+
 // --- Hand-overs (Onrevax, #337): a report an NPC gives you by hand names him,
 // so the target button and the step key have someone to target.
 

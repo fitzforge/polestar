@@ -12257,6 +12257,30 @@
 			{
 				"a": [
 					"turnin",
+					745
+				],
+				"b": [
+					"task",
+					99080
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Mulgore): Drive Them Out (11) sent players at the Galak Centaurs and Outrunners (8-10) and Herak the Pillager (11) at 9 (players' 25th percentile 9.2). The centaurs now come after northern Mulgore and the Bloodhoof hand-ins (Sharing the Land, Dwarven Digging, Dangers of the Windfury, Wildmane Cleansing), at about 11, on a loop from Bloodhoof to Morin Cloudstalker, the centaurs, the mine, Morin and Baine before Red Rocks"
+			},
+			{
+				"a": [
+					"turnin",
+					745
+				],
+				"b": [
+					"task",
+					764
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Mulgore): the Venture Co. Mine (Workers and Supervisors 8-10, Supervisor Fizsprocket 12; 6 players died there) was worked at 9; with the centaurs (the record before) it now comes after the Bloodhoof hand-ins at about 11. The Ravaged Caravan's hand-in to Morin (751) and his two quests go with it, on the first Morin stop of that loop"
+			},
+			{
+				"a": [
+					"turnin",
 					766
 				],
 				"b": [
