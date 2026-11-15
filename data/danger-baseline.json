@@ -2,6 +2,20 @@
 	"about": "The danger-at-the-spot gate's reviewed flags (#1575; tools/danger-gate.js, tools/lib/danger.js). One row per flag the gate may raise on the release candidate, kept on purpose: key (guide|goal|kind), the step and the mobs flagged, why it stays (reason) and what players' recordings and the data show (evidence). A new flag fails the gate until it is fixed in the guide or reviewed into this file. Recorded with the 0.3.7 candidate, the calibrated level model and the recordings archive of 2026-11-11. The gate runs with the recordings archive's census (--archive): an npc players meet as friendly, or never meet where the data places it, is no threat. Rows that stopped flagging on the 0.4.0 development branch (2026-11-13) were dropped.",
 	"flags": [
 		{
+			"key": "forever/alliance/02-westfall.guide|collect 1644.1|target",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 1644.1",
+			"kind": "target",
+			"title": "The Tome of Divinity",
+			"level": 16.3,
+			"mobs": [
+				"Old Town Thug 25-26",
+				"Forlorn Spirit 25-26"
+			],
+			"reason": "since the level tidy the Linen Cloth goal points at the Trade District Auction House and its note says the cloth comes from Westfall's Defias, not the level 25 thugs in Old Town, which the gate still counts as the item's droppers nearby",
+			"evidence": "route level 16.3; Old Town Thug 25-26, Forlorn Spirit 25-26; recordings (2026-11-15): done by 3 (median 12.25), deaths 4 (before the goal pointed at the Auction House), abandons 0"
+		},
+		{
 			"key": "forever/alliance/02-westfall.guide|collect 22.1|elite",
 			"guide": "forever/alliance/02-westfall.guide",
 			"goal": "collect 22.1",
