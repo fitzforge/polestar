@@ -9977,6 +9977,15 @@
 				],
 				"reason": "Alliance level tidy (0.4.0): Returning to Port follows The Cook in the Cage and is handed to Captain Aransas on 30-40/04b's Booty Bay stop.",
 				"issue": "-"
+			},
+			{
+				"q": 97328,
+				"after": [
+					"accept",
+					207
+				],
+				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp (players' recordings: 31.5,12.8, 21 people) and the Stolen Shipments lie in the Ruins of Zul'Kunda, where 30-40/04b's last two troll tablets are worked at about 36; Wharfmaster Lozgil takes it on the guide's Booty Bay stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
