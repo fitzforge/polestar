@@ -2601,12 +2601,14 @@ test(`${BADLANDS}: flow re-order: Agmond's End swept before Lotwil, Lotwil's ele
 	const list = goals(BADLANDS);
 	assert.deepEqual(compiled(BADLANDS).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
 	const lotwil = at(list, 'accept 710 (Lotwil)', is('accept', 710));
-	for (const [what, pred] of [['Theldurin\'s accept', is('accept', 709)], ['the scrap', (g) => g.t === 'collect' && g.quest === 733]]) {
-		assert.ok(at(list, what, pred) < lotwil, `${what} before Lotwil`);
-	}
+	assert.ok(at(list, 'Theldurin\'s accept', is('accept', 709)) < lotwil, 'Theldurin\'s accept before Lotwil');
+	// Level tidy (0.4.0): the scrap comes from the Dustbelcher Ogres (38-39) on the Dustbowl's west side, where players
+	// collect it in their recordings, on the Lesser Rock Elementals step: no walk back to Agmond's End's 41-43 camp.
 	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
 	assert.ok(stones > lotwil, 'the Small Stone Shards after Lotwil\'s accept');
 	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.item === 7848), 'Ghak\'s Rock Elemental Shards with them');
+	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.quest === 733), 'the scrap on the same Dustbowl step');
+	assert.ok(at(list, 'the scrap', (g) => g.t === 'collect' && g.quest === 733) < at(list, 'turnin 733', is('turnin', 733)), 'before Sigrun takes it');
 });
 
 // The same pattern elsewhere: a quest taken where the route already stands,
