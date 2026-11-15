@@ -19,6 +19,8 @@ next forever/alliance/30-40/02-desolace
 # hunted on the second loop (04b) at about 36, not here at 33-34. The hearthstone, bound in Booty Bay on the first stop,
 # is the way back there from Nesingwary's camp at the end of the jungle loop (#2419). Players who know the Stonetalon
 # Peak flight fly there from Auberdine instead of Astranaar, closer to Desolace (#2403); warlocks keep Astranaar.
+# Zimmix Sputterspark's rescue (97329, 97331) is done on the Savage Coast with Kebok's Bloodscalp ears and handed in to
+# Wharfmaster Lozgil on the second Booty Bay stop.
 
 step Fly to Darkshire
   zone Wetlands
@@ -175,6 +177,13 @@ step The Savage Coast: kill these as you meet them
   complete 578 @21.9,22.4             -- The haunted island
   collect 1519 quest 189              -- Bloodscalp Ear
 
+step Zimmix Sputterspark
+  tip Zimmix Sputterspark, a goblin, is caged in the Bloodscalp ruins north of the mine. Any Bloodscalp troll can drop the Primitive Key; then lead him out of the ruins.
+  accept 97329                        -- Zimmix Sputterspark
+  collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
+  turnin 97329
+  accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
+
 step River crocolisks
   tip River Crocolisks swim the river by the Rebel Camp.
   collect 4053 quest 575              -- Large River Crocolisk Skin
@@ -193,6 +202,7 @@ step Booty Bay
   turnin 201                          -- Krazek, upstairs
   turnin 189                          -- Kebok, upstairs
   turnin 578                          -- Baron Revilgaz, upstairs in the tavern
+  turnin 97331                        -- Wharfmaster Lozgil, on the docks
   accept 601                          -- Baron Revilgaz: the water elementals rise around the haunted island, on the northern loop
 
 # ---------------------------------------------------------------- Stormwind

@@ -9946,9 +9946,9 @@
 				"q": 97329,
 				"after": [
 					"accept",
-					207
+					189
 				],
-				"reason": "Alliance level tidy (0.4.0), quest volume: Where's the Key? (35, 2,750 XP): Zimmix Sputterspark is caged in the Ruins of Zul'Kunda, where 30-40/04b already goes for Kurzen's Mystery's last tablets at about 36, and the Bloodscalp trolls there (34-37) drop the key (players' recordings: 40 records of it). It replaces part of the experience the loop lost when Panther Mastery and Troll Witchery moved to 40-50/01.",
+				"reason": "Alliance level tidy (0.4.0), quest volume: Where's the Key? (35, 2,750 XP): Zimmix Sputterspark is caged in the Bloodscalp ruins on Stranglethorn's north-west coast, where 30-40/04's Savage Coast step already hunts Bloodscalp trolls for Kebok's ears at about 34 (the route walked past him); any Bloodscalp drops the key (players' recordings: 40 records of it). It makes up part of the experience the guide lost when Sin'Dall and the Lashtails moved to the second loop.",
 				"issue": "-"
 			},
 			{
@@ -9957,7 +9957,7 @@
 					"turnin",
 					97329
 				],
-				"reason": "Alliance level tidy (0.4.0), quest volume: Zimmix's Great Escape (35, 2,750 XP): lead Zimmix out of Zul'Kunda, then Wharfmaster Lozgil takes it on 30-40/04b's Booty Bay stop at the end of the same loop.",
+				"reason": "Alliance level tidy (0.4.0), quest volume: Zimmix's Great Escape (35, 2,750 XP): lead Zimmix out of the ruins, then Wharfmaster Lozgil takes it on 30-40/04's second Booty Bay stop, with Kebok's ears.",
 				"issue": "-"
 			}
 		],

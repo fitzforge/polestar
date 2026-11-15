@@ -15,8 +15,7 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # Level tidy (0.4.0): Sin'Dall (Tiger Mastery, 188) and the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about
 # 36 instead of on the first loop at 33-34. Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's
 # Skullsplitter trolls (205, 39-42) are three and four levels over players here: 40-50/01-stranglethorn-vale takes both at
-# about 42 (Brother Nimetz offers Troll Witchery there once Kurzen's Mystery is handed in on this loop). Zimmix
-# Sputterspark's rescue (97329, 97331) is done in the Ruins of Zul'Kunda with the last tablets and handed in at Booty Bay.
+# about 42 (Brother Nimetz offers Troll Witchery there once Kurzen's Mystery is handed in on this loop).
 
 step Collin Mauren
   when complete 1078
@@ -86,13 +85,6 @@ step The Ruins of Zul'Kunda
   complete 341 optional               -- Chapter III
   complete 342 optional               -- Chapter IV
 
-step Zimmix Sputterspark
-  tip Zimmix Sputterspark, a goblin, is caged in the ruins. Any Bloodscalp troll (34-37) can drop the Primitive Key; then lead him out of the ruins.
-  accept 97329                        -- Zimmix Sputterspark
-  collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
-  turnin 97329
-  accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
-
 step Rebel Camp
   tip East to the Rebel Camp, on the way back to Nesingwary's camp.
   turnin 329                          -- Lieutenant Doren
@@ -132,7 +124,6 @@ step Booty Bay
   turnin 601                          -- Baron Revilgaz, upstairs in the tavern
   accept 602                          -- For Archmage Ansirem in Alterac Mountains
   turnin 213                          -- Kebok
-  turnin 97331                        -- Wharfmaster Lozgil, on the docks
   turnin 210                          -- Krazek, upstairs
   accept 627 optional -- Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.
   accept 600                          -- Crank Fizzlebub, inside

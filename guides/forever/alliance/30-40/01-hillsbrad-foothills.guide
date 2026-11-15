@@ -170,6 +170,9 @@ step Howin Kindfeather
   tip Back east along the road to the Green Belt: Howin Kindfeather camps among the Fenrunners, just west of Rethiel. Then west again to Menethil for the boat.
   turnin 98230                        -- Howin Kindfeather
 
+step Menethil Harbor
+  turnin 98072                        -- James Halloran
+
 step First Mate Fitzsimmons
   zone Wetlands
   tip First Mate Fitzsimmons sits in the Deepwater Tavern, south of the keep.
@@ -194,9 +197,6 @@ step Level 30.8
   tip Skipped Defeat Nek'rosh and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the Gnomeregan dungeon or the Scarlet Monastery dungeon (Graveyard) instead.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
   level 30.8 grind 1418                -- grind on Bluegill Raider
-
-step Menethil Harbor
-  turnin 98072                        -- James Halloran
 
 step Boat to Southshore
   zone Wetlands

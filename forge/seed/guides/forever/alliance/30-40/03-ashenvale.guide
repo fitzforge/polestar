@@ -125,7 +125,7 @@ step Mirage Raceway: kill these as you meet them
   collect 5794 quest 1104                 -- Salty Scorpid Venom
   collect 5798 quest 1110                 -- Rocket Car Parts
   collect 5848 quest 1176                 -- Hollow Vulture Bone
-  collect 5795 quest 1105                 -- Hardened Tortoise Shell
+  collect 5795 quest 1105 @76.4,58.2 map 1441 -- Hardened Tortoise Shell, from the Sparkleshell Tortoises
   collect 5675 quest 1078.1 optional      -- Crystalized Scale, from the Saltstone Basilisks: eight for Collin Mauren in Stormwind
 
 step Mirage Raceway
