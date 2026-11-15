@@ -1083,7 +1083,9 @@ end)
 -- New badge on its row, and its page's row in the sidebar counts them until
 -- the page is opened. PolestarDB.optionsSeen[page key] holds the newest
 -- release whose settings the player has seen on that page (account-wide,
--- not a setting). The rows keep their badges through the session a page is
+-- not a setting), and ["*"] the newest seen on every page: a fresh install's
+-- (core's UI/OptionsLoader.lua marks it true, the window's first opening
+-- takes it as the newest release among its settings). The rows keep their badges through the session a page is
 -- first opened in: they read the seen state as it was when the window
 -- first opened.
 ---------------------------------------------------------------------------
@@ -1123,6 +1125,16 @@ local seenAtOpen
 local function seenTable()
 	local db = ns.DB()
 	if type(db.optionsSeen) ~= "table" then db.optionsSeen = {} end
+	local seen = db.optionsSeen
+	if seen["*"] == true then
+		local top
+		for _, p in ipairs(pageList) do
+			for _, x in ipairs(Index.newList(p)) do
+				if newer(x.new, top) then top = x.new end
+			end
+		end
+		seen["*"] = top
+	end
 	if not seenAtOpen then
 		seenAtOpen = {}
 		for k, v in pairs(db.optionsSeen) do seenAtOpen[k] = v end
@@ -1133,7 +1145,7 @@ end
 local function rowIsNew(c)
 	if not (c.new and c.page) then return false end
 	seenTable()
-	return newer(c.new, seenAtOpen[c.page.key])
+	return newer(c.new, seenAtOpen[c.page.key]) and newer(c.new, seenAtOpen["*"])
 end
 
 ---------------------------------------------------------------------------
@@ -3135,10 +3147,11 @@ function Index.newList(p)
 	return list
 end
 local function pageNew(p)
-	local seenNow = seenTable()[p.key]
+	local seen = seenTable()
+	local seenNow, seenAll = seen[p.key], seen["*"]
 	local n = 0
 	for _, x in ipairs(Index.newList(p)) do
-		if newer(x.new, seenNow) and available(x) then n = n + 1 end
+		if newer(x.new, seenNow) and newer(x.new, seenAll) and available(x) then n = n + 1 end
 	end
 	return n
 end

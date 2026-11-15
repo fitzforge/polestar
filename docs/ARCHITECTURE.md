@@ -8748,7 +8748,10 @@ the same.
 (nothing on the row: its gutter is the changed dot's or the reset's), and its page's sidebar row counts the
 page's new settings until the page is opened:
 `PolestarDB.optionsSeen[page key]` keeps the newest `new` release seen there
-(account-wide, not a setting, so profiles and resets leave it). The pills keep
+(account-wide, not a setting, so profiles and resets leave it). A fresh install
+sees nothing new: core's `UI/OptionsLoader.lua` starts its record as
+`{ ["*"] = true }`, and the window's first opening takes that as the newest
+`new` release among its settings, seen on every page. The pills keep
 through the session the page is first opened in (they read the seen state as
 it was when the window first opened), and go the next.
 
