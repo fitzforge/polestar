@@ -852,6 +852,8 @@ fn the_look_page_lists_the_looks_beside_a_preview_loads_them_only_once_shown_and
 		stub.RunScript(find("Blizzard"), "OnEnter")
 		local hover = { preview = p.PreviewName:GetText(), line = p.PreviewLine:GetText() ~= "", skin = Polestar.Get("ui.skin") }
 		stub.RunScript(find("Blizzard"), "OnLeave")
+		-- A moment later (the gap to the next card is crossed without the preview flashing back).
+		stub.advance(0.2)
 		local left = p.PreviewName:GetText()
 		find("Blizzard"):Click()
 		local now = { skin = Polestar.Get("ui.skin"), live = Polestar.Theme.SkinId(), picked = find("Blizzard").psSelected,

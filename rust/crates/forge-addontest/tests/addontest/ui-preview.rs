@@ -243,6 +243,8 @@ fn hovering_a_row_lights_the_parts_of_the_preview_its_setting_changes_and_leavin
 		stub.RunScript(rows["nav.arrowScale"], "OnEnter")
 		local on = { scale = lit("nav.arrowScale"), ring = lit("nav.arrowRingColor") }
 		stub.RunScript(rows["nav.arrowScale"], "OnLeave")
+		-- Off every row, a moment later (the gap to the next row is crossed with the lights on).
+		stub.advance(0.2)
 		local off = lit("nav.arrowScale")
 		stub.RunScript(rows["nav.arrowAlpha"], "OnEnter")
 		local before = lit("nav.arrowAlpha")

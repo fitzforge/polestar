@@ -1376,16 +1376,30 @@ local function keptHeight(self)
 end
 
 -- A row's tooltip: at once, or for a compact half (psTipFn) 0.25s after the
--- cursor arrives (W.ShowRowTip), unless it has left by then.
-local TIP_DELAY = 0.25
+-- cursor arrives (W.ShowRowTip), unless it has left by then. One timer for
+-- every row (the pointer is on one row at a time): crossing rows re-aims it
+-- at the row under the pointer; a hover allocates nothing.
+local rowTip = { delay = 0.25 }
+local function rowTipDue()
+	rowTip.waiting = nil
+	local row = rowTip.row
+	if not (row and row.psHover) then return end
+	local left = rowTip.at - GetTime()
+	if left > 0.001 then
+		rowTip.waiting = true
+		C_Timer.After(left, rowTipDue)
+		return
+	end
+	rowTip.row = nil
+	W.ShowRowTip(row)
+end
 local function rowEnter(self)
 	if self.psTipFn then
 		self.psHover = true
-		local token = {}
-		self.psTipToken = token
-		C_Timer.After(TIP_DELAY, function()
-			if self.psHover and self.psTipToken == token then W.ShowRowTip(self) end
-		end)
+		rowTip.row, rowTip.at = self, GetTime() + rowTip.delay
+		if rowTip.waiting then return end
+		rowTip.waiting = true
+		C_Timer.After(rowTip.delay, rowTipDue)
 		return
 	end
 	simpleTip(self)
@@ -1551,11 +1565,17 @@ do
 	end
 
 	-- Hover, press and the gamepad's focus: each repaints the switch at once
-	-- (the press widens the knob over 100 ms).
+	-- (the press widens the knob over 100 ms). The pointer only lightens the
+	-- track: its tones are swapped and painted, nothing else (a hover is no
+	-- refresh: no height, marks or kit art).
 	local function switchHover(self, on)
 		self.psSwitchHover = on or nil
 		if not on and self.psPress and self.psPress > 0 then Anim.To(self.psSquish, "value", self.psPress, 0, PRESS, "out") end
-		if self.psToneOn then toggleRefresh(self) end
+		if not self.psToneOn or Theme.GameSkin() then return end
+		local enabled = W.Enabled(self)
+		local hover = (on or self.psPadFocus) and enabled or false
+		self.psToneOff, self.psToneOn = Theme.SwitchColors(false, hover, enabled), Theme.SwitchColors(true, hover, enabled)
+		W.SwitchPaint(self)
 	end
 	local function switchPress(self, down)
 		if down and not W.Enabled(self) then return end

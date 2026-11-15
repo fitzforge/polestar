@@ -395,6 +395,8 @@ mod settings_effects;
 mod settings_essentials;
 #[path = "settings-game.rs"]
 mod settings_game;
+#[path = "settings-hover-perf.rs"]
+mod settings_hover_perf;
 #[path = "settings-migration.rs"]
 mod settings_migration;
 #[path = "settings-perf.rs"]

@@ -533,9 +533,42 @@ local drawn = setmetatable({}, { __mode = "k" })
 -- the last (repaint.live: the live skin's card was among them).
 local repaint
 
+-- The cards' palettes by skin, variant and scheme: resolved once, until the
+-- theme next changes (a live repaint too). A look previewed under the pointer
+-- (Install's looks) draws without building its palette again. A picture
+-- drawn under other values (a profile's card: O.WithSettings answers ns.Get)
+-- or alone resolves its own.
+local realGet = ns.Get
+local palettes = {}
+Theme.OnChanged(function()
+	for k in pairs(palettes) do palettes[k] = nil end
+end)
+local function paletteOf(id, scheme)
+	local byId = palettes[id]
+	if not byId then
+		byId = {}
+		palettes[id] = byId
+	end
+	local v = previewing[id]
+	if v == nil then v = false end
+	local byVariant = byId[v]
+	if not byVariant then
+		byVariant = {}
+		byId[v] = byVariant
+	end
+	local key = scheme
+	if key == nil then key = false end
+	local pal = byVariant[key]
+	if not pal then
+		pal = resolve(id, scheme)
+		byVariant[key] = pal
+	end
+	return pal
+end
+
 local function paintCard(art, id, scheme, alone)
 	-- The palette: a scheme's card wears it on Polestar's own look.
-	drawing.pal = resolve(id, scheme)
+	drawing.pal = (not alone and ns.Get == realGet) and paletteOf(id, scheme) or resolve(id, scheme)
 	local p = art.psSkinCard or build(art)
 	local W = ns.Widgets
 	local w, h = art:GetWidth() or 0, art:GetHeight() or 0

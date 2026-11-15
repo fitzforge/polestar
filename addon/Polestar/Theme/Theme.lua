@@ -1108,11 +1108,25 @@ end
 -- the game's tooltip (W.Tooltip's, Gear's) take this: the palette's colour
 -- where it reads at 4.5:1 on that ground, else moved toward the look's paper
 -- (a light look's panel, a dark look's text) until it does, as Nav's lines
--- over the world are. -> r, g, b
+-- over the world are. Worked out once per palette and colour (every
+-- tooltip line asks). -> r, g, b
 Theme.TIP_GROUND = { 0.09, 0.09, 0.19 }
-function Theme.TipColor(name)
-	local pal = Theme.Palette()
-	return liftTo(Theme.TIP_GROUND, isLight(pal) and pal.panel or pal.text, pal[name] or pal.text)
+do
+	local lifted = setmetatable({}, { __mode = "k" })
+	function Theme.TipColor(name)
+		local pal = Theme.Palette()
+		local byName = lifted[pal]
+		if not byName then
+			byName = {}
+			lifted[pal] = byName
+		end
+		local c = byName[name]
+		if not c then
+			c = { liftTo(Theme.TIP_GROUND, isLight(pal) and pal.panel or pal.text, pal[name] or pal.text) }
+			byName[name] = c
+		end
+		return c[1], c[2], c[3]
+	end
 end
 
 -- A ground tinted by the accent: `share` of the accent mixed into the

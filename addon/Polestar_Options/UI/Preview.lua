@@ -136,11 +136,27 @@ end
 
 -- A hotspot's or a light's outline: on under the cursor, or lit while the
 -- pointer is on its setting's row (P.Focus), with a soft wash of the accent
--- (none on a light of a part outside the band: f:LightEdge).
+-- (none on a light of a part outside the band: f:LightEdge). Painted only
+-- when its state, the accent or its scale moved; a light (no click target
+-- of its own) keeps its paint and is hidden while out: a hover across rows
+-- lights and puts out dozens of parts at the cost of a show or a hide each.
 local function hotspotEdge(b, on)
+	local lit = rawget(b, "psLit") and true or false
+	local light = rawget(b, "psLight")
+	if light and not lit then
+		if b:IsShown() then b:Hide() end
+		return
+	end
 	local r, g, bb = Theme.Accent()
-	local lit = rawget(b, "psLit")
-	Theme.Border(b, r, g, bb, (on or lit) and 1 or 0)
+	local shown = (on or lit) and true or false
+	local scale = b:GetEffectiveScale()
+	if light then b:Show() end
+	if rawget(b, "psEdgeShown") == shown and b.psEdgeLit == lit and b.psEdgeScale == scale
+		and b.psEdgeR == r and b.psEdgeG == g and b.psEdgeB == bb then
+		return
+	end
+	b.psEdgeShown, b.psEdgeLit, b.psEdgeScale, b.psEdgeR, b.psEdgeG, b.psEdgeB = shown, lit, scale, r, g, bb
+	Theme.Border(b, r, g, bb, shown and 1 or 0)
 	if rawget(b, "psEdgeOnly") then return end
 	local wash = rawget(b, "Wash")
 	if lit and not wash then
@@ -176,6 +192,19 @@ local function controlFor(key)
 	return O and O.ControlByKey and O.ControlByKey(key)
 end
 
+-- A hotspot under the pointer: its outline and its setting's name (one
+-- lines table for every hotspot: a hover allocates nothing).
+local HOT_LINES = { L["Click to find its settings."] }
+local function hotspotEnter(self)
+	hotspotEdge(self, true)
+	local c = controlFor(self.psKey)
+	if c then W.Tooltip(self, "ANCHOR_TOP", UI.Options.LabelOf(c), HOT_LINES) end
+end
+local function hotspotLeave(self)
+	hotspotEdge(self, false)
+	W.HideTooltip(self)
+end
+
 function P.Hotspot(frame, region, key)
 	local b = CreateFrame("Button", nil, frame)
 	b:SetAllPoints(region)
@@ -189,16 +218,8 @@ function P.Hotspot(frame, region, key)
 	end
 	spots[#spots + 1] = b
 	hotspotEdge(b, false)
-	b:SetScript("OnEnter", function(self)
-		hotspotEdge(self, true)
-		local c = controlFor(self.psKey)
-		local O = UI.Options
-		if c then W.Tooltip(self, "ANCHOR_TOP", O.LabelOf(c), { L["Click to find its settings."] }) end
-	end)
-	b:SetScript("OnLeave", function(self)
-		hotspotEdge(self, false)
-		W.HideTooltip(self)
-	end)
+	b:SetScript("OnEnter", hotspotEnter)
+	b:SetScript("OnLeave", hotspotLeave)
 	b:SetScript("OnClick", function(self)
 		if not hintDismissed() then
 			ns.DB().optionsPreviewHint = true
@@ -254,7 +275,7 @@ local function lightFrame(rec)
 	-- Over the preview's parts; over a window part's children (its rows).
 	l:SetFrameLevel(parent:GetFrameLevel() + (parent == owner and 18 or 60))
 	l:EnableMouse(false)
-	l.psKey, l.psEdgeOnly = rec.psKey, (rec.psEdgeOnly or parent ~= owner) or nil
+	l.psKey, l.psEdgeOnly, l.psLight = rec.psKey, (rec.psEdgeOnly or parent ~= owner) or nil, true
 	return l
 end
 
@@ -295,15 +316,23 @@ function P.LightEach(f, key, fn, ring)
 	return rec
 end
 
--- Shown, and not faded out (a part a crop left out has its alpha at 0).
+-- Shown, and not faded out (a part a crop left out has its alpha at 0). The
+-- frames above it are looked at once a lighting (P.LightUp moves `lighting`
+-- on): the window's accent parts share most of their parents. The memo is
+-- never wiped, only stamped (a wiped table refilled churns its nodes).
+local memo = { lighting = 0, at = {}, opaque = {} }
+local function opaque(f)
+	if memo.at[f] == memo.lighting then return memo.opaque[f] end
+	local p = f.GetParent and f:GetParent()
+	local v = not (f.GetAlpha and f:GetAlpha() <= 0.001) and (p == nil or opaque(p))
+	memo.at[f], memo.opaque[f] = memo.lighting, v
+	return v
+end
 local function showing(region)
 	if region.IsVisible and not region:IsVisible() then return false end
-	local f = region
-	while f do
-		if f.GetAlpha and f:GetAlpha() <= 0.001 then return false end
-		f = f.GetParent and f:GetParent()
-	end
-	return true
+	if region.GetAlpha and region:GetAlpha() <= 0.001 then return false end
+	local p = region.GetParent and region:GetParent()
+	return p == nil or opaque(p)
 end
 
 -- The frame that shows a hotspot or a light (a light's made now if need be).
@@ -320,23 +349,26 @@ end
 -- Lights setting `key`'s parts on the preview `owner` holds (its host, or the
 -- band itself), and puts out the ones lit before; nil puts them all out. A
 -- light whose part is not showing (a surface a narrow page leaves out, a
--- tab's underline while another tab is open) stays dark. -> how many it lit
+-- tab's underline while another tab is open) stays dark. A part lit for both
+-- stays lit; the two lists are kept and reused (a hover allocates nothing).
+-- -> how many it lit
+local NONE = {}
 function P.LightUp(owner, key)
 	if not owner then return 0 end
-	for _, l in ipairs(rawget(owner, "psLitList") or {}) do
-		l.psLit = nil
-		hotspotEdge(l, false)
-	end
-	owner.psLitList = nil
+	local old = rawget(owner, "psLitList") or NONE
+	local lit = rawget(owner, "psLitSpare")
+	if not lit or lit == old then lit = {} end
+	for i = #lit, 1, -1 do lit[i] = nil end
+	local stamp = (rawget(owner, "psLitStamp") or 0) + 1
+	owner.psLitStamp = stamp
 	local list = key and rawget(owner, "psByKey") and owner.psByKey[key]
-	if not list then return 0 end
-	local lit = {}
-	for _, b in ipairs(list) do
+	memo.lighting = memo.lighting + 1
+	for _, b in ipairs(list or NONE) do
 		local each = rawget(b, "psEach")
 		if each then
 			local ok, parts = pcall(each)
 			if not ok then report(parts) end
-			for _, region in ipairs(ok and type(parts) == "table" and parts or {}) do
+			for _, region in ipairs(ok and type(parts) == "table" and parts or NONE) do
 				if showing(region) then
 					local l = b.psMade[region]
 					if not l then
@@ -350,11 +382,18 @@ function P.LightUp(owner, key)
 			lit[#lit + 1] = shownBy(b, true)
 		end
 	end
+	for _, l in ipairs(lit) do l.psLitStamp = stamp end
+	for _, l in ipairs(old) do
+		if l.psLitStamp ~= stamp then
+			l.psLit = nil
+			hotspotEdge(l, false)
+		end
+	end
 	for _, l in ipairs(lit) do
 		l.psLit = true
 		hotspotEdge(l, false)
 	end
-	owner.psLitList = lit
+	owner.psLitList, owner.psLitSpare = lit, old ~= NONE and old or nil
 	return #lit
 end
 

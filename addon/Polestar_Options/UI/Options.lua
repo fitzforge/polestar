@@ -42,6 +42,8 @@ local win
 local pages, pageList = {}, {} -- name -> page; ordered list
 local current, currentTab
 local query = ""
+-- O.ControlByKey's index of the specs by key; nil after a registration.
+local specIndex
 local seq = 0
 -- The window out of the way without closing (O.Fold, O.Peek, Shift + the
 -- wheel; below): state = while it is folded to its header, { h, hidden =
@@ -135,6 +137,7 @@ local function dropViews(p)
 end
 
 local function add(spec, builtin)
+	specIndex = nil
 	local p = pageOf(spec.page, spec.icon, spec.order, builtin, spec.key)
 	if spec.subtitle then p.subtitle = spec.subtitle end
 	if spec.custom then p.custom = spec.custom end
@@ -1264,13 +1267,15 @@ end
 -- too, through its set(nil)); the footer offers to undo it.
 function O.ResetSection(controls)
 	local held = Undo.holdings(controls)
-	for _, c in ipairs(controls) do
-		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
-			ns.Set(c.key, nil)
-		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
-			c.set(nil)
+	ns.Batch(function()
+		for _, c in ipairs(controls) do
+			if c.key and c.kind ~= "button" and c.kind ~= "binding" then
+				if ns.GetStored(c.key) ~= nil then ns.Set(c.key, nil) end
+			elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
+				c.set(nil)
+			end
 		end
-	end
+	end)
 	local view = O.view
 	if view and view.cache then
 		for _, c in ipairs(controls) do
@@ -1371,8 +1376,42 @@ local function inlineRefresh(self)
 end
 
 -- Tell the preview on screen which setting the pointer is on: its frame's
--- optional f:Focus(key) (a preview that scrolls to the part it draws).
-function O.PreviewFocus(key) UI.Preview.Focus(O.view, key) end
+-- optional f:Focus(key) (a preview that scrolls to the part it draws). Off a
+-- row (nil) the lights go out FOCUS_GRACE later, unless the pointer lands on
+-- another row first: crossing the gap between two rows, columns or sections
+-- hands the lights over without them blinking out. One timer at a time, no
+-- closure per hover.
+do
+	local FOCUS_GRACE = 0.15
+	local offAt, offView, waiting
+	local function lightsOut()
+		waiting = nil
+		if not offAt then return end
+		local left = offAt - GetTime()
+		if left > 0.001 then
+			waiting = true
+			C_Timer.After(left, lightsOut)
+			return
+		end
+		local view = offView
+		offAt, offView = nil, nil
+		UI.Preview.Focus(view, nil)
+	end
+	function O.PreviewFocus(key)
+		if key == nil then
+			offAt, offView = GetTime() + FOCUS_GRACE, O.view
+			if not waiting then
+				waiting = true
+				C_Timer.After(FOCUS_GRACE, lightsOut)
+			end
+			return
+		end
+		-- A row of another tab: the one left goes dark now.
+		if offView and offView ~= O.view then UI.Preview.Focus(offView, nil) end
+		offAt, offView = nil, nil
+		UI.Preview.Focus(O.view, key)
+	end
+end
 
 -- A ghost Move for a row or a section's header whose setting places a frame
 -- (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off while
@@ -1854,24 +1893,60 @@ end
 -- (UI.Preview); here, what it asks of the window.
 ---------------------------------------------------------------------------
 
--- The setting `key`'s control spec: on the page and tab on screen first,
--- then the page, then anywhere; a reference to a control on another tab
--- (c.ref) leads to that control itself. -> spec | nil
-function O.ControlByKey(key)
-	local best, rank
+-- The specs by key, built once (in page order) and again after a
+-- registration (add drops it): byKey[key] = { c, page, tab, ... } of every
+-- control holding the key (not a reference); home[key] = its home control
+-- (O.AllControls' first).
+local function indexed()
+	if specIndex then return specIndex end
+	local byKey, home = {}, {}
 	for _, p in ipairs(pageList) do
 		for _, t in ipairs(p.tabs) do
 			for _, s in ipairs(t.sections) do
 				for _, c in ipairs(allSettings(s)) do
-					if c.key == key and available(c) and not rawget(c, "ref") then
-						local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
-						if not rank or r < rank then best, rank = c, r end
+					if c.key ~= nil and not rawget(c, "ref") then
+						local list = byKey[c.key]
+						if not list then
+							list = {}
+							byKey[c.key] = list
+						end
+						list[#list + 1] = c
+						list[#list + 1] = p
+						list[#list + 1] = t
 					end
+				end
+				for _, c in ipairs(homeSettings(s)) do
+					if c.key ~= nil and home[c.key] == nil then home[c.key] = c end
 				end
 			end
 		end
 	end
+	specIndex = { byKey = byKey, home = home }
+	return specIndex
+end
+
+-- The setting `key`'s control spec: on the page and tab on screen first,
+-- then the page, then anywhere; a reference to a control on another tab
+-- (c.ref) leads to that control itself. -> spec | nil
+-- Asked on every hover of a preview's part: through the index.
+function O.ControlByKey(key)
+	local list = key ~= nil and indexed().byKey[key]
+	if not list then return nil end
+	local best, rank
+	for i = 1, #list, 3 do
+		local c, p, t = list[i], list[i + 1], list[i + 2]
+		if available(c) then
+			local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
+			if not rank or r < rank then best, rank = c, r end
+		end
+	end
 	return best
+end
+
+-- The home control of setting `key` (its row on a deep tab, references
+-- aside, available or not). -> spec | nil
+function O.HomeControl(key)
+	return key ~= nil and indexed().home[key] or nil
 end
 O.LabelOf = labelOf
 
@@ -3183,8 +3258,8 @@ function O.Undo()
 			if not u.set then ns.Set(u.path, u.value) end
 		end
 	end
-	local I = ns.ThemeInternal
-	if I and I.batch then I.batch(put) else put() end
+	-- One batch: the look and the window worked out again once (ns.Batch).
+	ns.Batch(put)
 	-- State that is no setting repaints itself.
 	local view = O.view
 	for _, w in pairs(view and view.cache or {}) do
@@ -3238,13 +3313,20 @@ function O.ResetPage(p)
 			end
 		end
 	end
-	for _, key in ipairs(pageKeys(p)) do
-		local was = ns.GetStored(key)
-		if was ~= nil then held[#held + 1] = { path = key, value = was } end
-		ns.Set(key, nil)
-	end
-	-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
-	for _, c in ipairs(state) do c.set(nil) end
+	-- One batch: the look, the rows and the preview worked out again once at
+	-- its end (ns.Batch), not once per setting; a setting at its default
+	-- already is left alone.
+	ns.Batch(function()
+		for _, key in ipairs(pageKeys(p)) do
+			local was = ns.GetStored(key)
+			if was ~= nil then
+				held[#held + 1] = { path = key, value = was }
+				ns.Set(key, nil)
+			end
+		end
+		-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
+		for _, c in ipairs(state) do c.set(nil) end
+	end)
 	for _, v in pairs(p.views or {}) do
 		for _, w in pairs(v.cache or {}) do
 			if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end
