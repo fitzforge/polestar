@@ -852,10 +852,13 @@ local AT_HAND = 15 -- seconds of travel from the player: such a stop comes first
 -- the path ends at its last stop). travel(a, b) -> seconds | nil (nil and
 -- unknown points cost FAR). -> order (stop indices), cost. The stops at hand
 -- (AT_HAND) come first; ties keep the authored order.
-function Dungeons.PlanStops(stops, from, finish, travel)
+-- pause: optional cooperative budget check for a caller running the planner
+-- in a coroutine; existing synchronous callers leave it out.
+function Dungeons.PlanStops(stops, from, finish, travel, pause)
 	local n = #stops
 	local memoT = {}
 	local function T(a, b)
+		if pause then pause() end
 		if a == nil or b == nil then return FAR end
 		if a == b then return 0 end
 		local row = memoT[a]

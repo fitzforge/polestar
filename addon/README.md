@@ -171,6 +171,8 @@ never in saved variables.
 | `Codex.lua` | `Codex` | Reads `Polestar_Codex`, chunk by chunk |
 | `Sources.lua` | `Lookup` | Where an item, mount or pet comes from (and where an NPC, quest, dungeon or treasure is), ranked for this character |
 | `Guide.lua` | `Lookup` | Opens the curated guide for an item, or builds one from a ranked source |
+| `HandinRoute.lua` | `HandinRoute` | Gives completed-quest stops a provisional order, then refines travel estimates and stop order across frames |
+| `Handins.lua` | `Handins` | Builds a guide to hand in the quest log's completed quests, grouped by ender and ordered by estimated travel cost, when the player asks |
 | `Spotter.lua` | `Lookup` | What mount another player rides; where-from lines on tooltips |
 | `Options.lua` | (registers options) | The Lookup settings |
 

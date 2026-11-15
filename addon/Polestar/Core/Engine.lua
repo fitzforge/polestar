@@ -122,6 +122,9 @@ local function stepApplies(step)
 end
 
 local function questDone(q)
+	-- This generated route represents the current log, including repeatable
+	-- quests handed in before. Their old completion flag is not this errand.
+	if guide and guide.id == "lookup/handins/ready" and Compat().IsOnQuest(q) then return false end
 	return turnedIn[q] or Compat().IsQuestCompleted(q)
 end
 
@@ -3003,6 +3006,7 @@ end
 goalDone = function(s, g, goal)
 	local t = goal.t
 	local C = Compat()
+	if t == "turnin" and guide.id == "lookup/handins/ready" then return not C.IsOnQuest(goal.quest) end
 	if t ~= "accept" and checked(s, g) then return true end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end

@@ -200,6 +200,7 @@ mod guides_end_early;
 mod guides_end_places;
 #[path = "guides-memory.rs"]
 mod guides_memory;
+mod handins;
 mod harness;
 #[path = "hide-all.rs"]
 mod hide_all;

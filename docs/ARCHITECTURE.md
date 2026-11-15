@@ -6018,6 +6018,40 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   fires on target change and mouseover; `/polestar mount` opens Lookup at the
   target's (else the mouseover's) mount, `/polestar lookup [text]` searches.
 
+### Completed quests across the quest log
+
+`addon/Polestar/Lookup/Handins.lua` provides `Polestar.Handins.Start()`:
+the guide window menu's **Hand in completed quests** and `/polestar handin`
+both use it. The player starts the route explicitly. It considers the
+whole quest log, including quests outside the current zone and leveling
+guide, but only quests the client reports ready to hand in. It adds no
+follow-up accepts or unfinished objectives.
+
+The generated guide, `lookup/handins/ready`, groups quests at a shared
+ender. `Lookup/HandinRoute.lua` supplies a quick provisional order using
+direct-distance estimates from the player's position. It then checks
+travel costs across frames through `Nav.EstimateTravel`: at most four
+budgeted calls per 50 ms slice, respecting the navigation planner's busy
+response. The final stop-order search uses `Dungeons.PlanStops` with a
+cooperative pause callback, yielding at four-millisecond boundaries. Other
+callers of `PlanStops` remain synchronous.
+
+The refined estimates use the travel planner's available connections;
+neither order guarantees the fastest route or establishes that every
+location is reachable. If the cost checks have not finished after 30
+seconds, the guide keeps all its provisional stops and explains that the
+estimates are incomplete; starting it again retries. Quests whose hand-in
+location is unknown are named instead of being assigned an invented
+waypoint. After a completed estimate pass, hand-ins without a known travel
+route are listed separately.
+
+`Start()` opens the guide and shows the guide window; another call replans
+in the same tab. It returns the guide id on success, or `nil, reason` and a
+message when it cannot start. While the guide is open, changes in quest
+progress refresh its remaining hand-ins without switching away from the
+player's active tab. This route uses the existing guide and navigation
+controls and does not enable automatic quest actions.
+
 ## Dungeons — dungeon quest journal, pick-up and hand-in guides
 
 The dungeon pages come from the Codex's instances (Toolchain, "Codex"): in a

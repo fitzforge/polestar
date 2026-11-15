@@ -1409,7 +1409,19 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Choose guide", "Open in new tab", "Skip this step", "Report a problem", "Compact mode", "Transparent", "Lock window", "Reset guide progress", "Options", "Hide window"])
+		json!([
+			"Choose guide",
+			"Open in new tab",
+			"Skip this step",
+			"Report a problem",
+			"Hand in completed quests",
+			"Compact mode",
+			"Transparent",
+			"Lock window",
+			"Reset guide progress",
+			"Options",
+			"Hide window"
+		])
 	);
 	assert_eq!(out["locked"], true);
 	assert_eq!(out["style"], "transparent");
@@ -1448,6 +1460,40 @@ fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_
 	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
 	for key in ["none", "unsettled"] {
 		assert!(!joined(&out[key]).contains("Clean up quest log"), "{key}: no entry with nothing to list");
+	}
+}
+
+#[test]
+fn the_menu_offers_completed_quest_hand_ins_beside_cleanup_and_only_starts_on_click_even_without_a_guide() {
+	let out = run(r#"
+		local starts = 0
+		Polestar.Handins = { Start = function() starts = starts + 1 return "lookup/handins/ready" end }
+		Polestar.RoutePlan.Unneeded = function() return { { quest = 77, title = "Stray", status = "unplanned" } } end
+		local function pick()
+			GF.menuButton:Click()
+			local texts, action = {}, nil
+			for _, r in ipairs(PolestarMenu.rows) do
+				if r:IsShown() then
+					texts[#texts + 1] = r.Text:GetText()
+					if r.Text:GetText() == "Hand in completed quests" then action = r end
+				end
+			end
+			local before = starts
+			if action then action:Click() else W.HideMenu() end
+			return { texts = texts, found = action ~= nil, before = before, after = starts, closed = not PolestarMenu:IsShown() }
+		end
+		local empty = pick()
+		uistub.setGuide(uistub.elwynn, 3)
+		local active = pick()
+		emit({ empty = empty, active = active })"#)
+	.remove(0);
+	for (key, before) in [("empty", 0), ("active", 1)] {
+		assert_eq!(out[key]["found"], true, "{key}: discoverable without requiring a current guide");
+		assert_eq!(out[key]["texts"][4], "Clean up quest log (1)");
+		assert_eq!(out[key]["texts"][5], "Hand in completed quests");
+		assert_eq!(out[key]["before"], before, "opening the menu does not start a route");
+		assert_eq!(out[key]["after"], before + 1, "one click starts the route once");
+		assert_eq!(out[key]["closed"], true);
 	}
 }
 
