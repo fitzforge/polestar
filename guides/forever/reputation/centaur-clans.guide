@@ -117,12 +117,14 @@ step Gelkis: the Kolkar camps
 
 step Gelkis: Magram Village
   tip The Sacks of Meat lie about Magram Village, in the south-east. Every Magram you kill on the way pays the Gelkis 20.
+  level 33
   collect 6069 x6 quest 1370.1 @69.8,77.9 -- Crudely Dried Meat: Sacks of Meat
   kill 4640 optional                  -- Magram Wrangler: 20 Gelkis
   kill 4641 optional                  -- Magram Windchaser: 20 Gelkis
 
 step Gelkis: Ongeku
   tip Back to Uthek, then east to the Swamp of Sorrows: Ongeku (level 37) waits by a black cauldron in Fallow Sanctuary, north-east of Stonard.
+  level 36
   turnin 1370                         -- Uthek the Wise: 500
   accept 1373
   zone Swamp of Sorrows
@@ -151,6 +153,7 @@ step Gelkis: Nerlokh
 
 step Gelkis: the valley's mouth
   tip From the quest data: the Undead Ravagers and the Outcast Necromancers fill the valley from Nerlokh north-east to Orgrul's post at its northern mouth; players have met them all along it. Orgrul's Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.
+  level 39
   kill 11561 x6 quest 93035.1
   collect 255875 quest 93037.1        -- Necromantic Garb: Outcast Necromancers
 
@@ -186,6 +189,7 @@ step Gelkis: back to Nerlokh
 
 step Gelkis: the heart of the valley
   tip From the quest data: east of Nerlokh, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie Haggard Bones, failed summons stuck in the ground: lay eight to rest with Uthek's Draenethyst Staff, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull.
+  level 40
   kill 253446 x8 quest 93062.1 "Lay Haggard Bones to rest"
   complete 93058 @45.12,32.26 live    -- free five Gelkis Captives
 
@@ -211,6 +215,7 @@ step Gelkis: Nerlokh's last order
 step Gelkis: Khan Jehn
   zone Desolace
   tip From the quest data: Khan Jehn (level 37) leads the Magram from the west side of Magram Village, north-east of Nerlokh. The village is hostile to a friend of the Gelkis, and two Magram Necrokhans, elite and level 45, stand a little west of the khan. Uthek pays 6,000, a title, and your pick of three rare level 35 weapons: Abandoned Ferocity (two-handed axe: Strength, Stamina, Agility), Bludgeon of Betrayed Virtues (one-handed mace: Strength, Stamina, Agility) or Thrice-Damned Effigy (off-hand: Spirit, Intellect, Stamina). The quest costs the Magram 30,000.
+  level 41
   kill 5601 quest 93128.1 @66.0,80.4  -- Khan Jehn
   turnin 93128 choose 271801 271802 271805 -- Uthek the Wise: 6,000
 
@@ -248,6 +253,7 @@ step Magram Village: Warug and Gorhak
 step Magram: the Kolkar camps
   only Alliance
   tip The Kolkar centaurs (level 30-33) hold the camps south of Nijel's Point.
+  level 31
   kill 4632 x12 quest 1386.1 @68.6,48.0 -- Kolkar Centaur
   kill 4633 x12 quest 1386.2 @68.5,40.0 -- Kolkar Scout
   kill 4634 x6 quest 1386.3 @70.8,47.0 -- Kolkar Mauler
@@ -256,6 +262,7 @@ step Magram: the Kolkar camps
 
 step Magram: Broken Tears
   tip The Tears of Theradras are crystals in the cave behind Gelkis Village, in the south-west. Every Gelkis you kill on the way pays the Magram 20.
+  level 33
   collect 6083 x3 quest 1369.1 @39.7,93.7 -- Broken Tears: the Tear of Theradras crystals
   kill 4648 optional                  -- Gelkis Stamper: 20 Magram
   kill 4649 optional                  -- Gelkis Windchaser: 20 Magram
@@ -290,6 +297,7 @@ step Magram: Orgrul
 
 step Magram: the valley's mouth
   tip From the quest data: the Undead Ravagers and the Outcast Necromancers fill the valley from Orgrul south-west to Nerlokh's post at its western mouth; players have met them all along it. Nerlokh is a Gelkis scout. Corpsefeeders, elite and level 45, walk the valley and attack anyone.
+  level 39
   collect 254663 quest 92844.1        -- Gently Cursed Bones: Undead Ravagers
   kill 11559 x6 quest 92846.1
 
@@ -305,6 +313,7 @@ step Magram: Corrupting Tears
 step Magram: Proof of Concept
   zone Shen'dralas
   tip From the quest data: Orgrul gives you a Rudimentary Necromancy Staff. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones.
+  level 40
   turnin 92847                        -- Orgrul: 500
   accept 92873
   collect 254842 quest 92873.1        -- Well Cursed Bones: Nascent Undead Ravagers
@@ -319,6 +328,7 @@ step Magram: Orgrul's next tasks
 step Magram: the heart of the valley
   zone Shen'dralas
   tip From the quest data: south-east of Orgrul, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The Haggard Bones there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone.
+  level 41
   kill 253431 x5 quest 92893.1
   kill 253446 x10 quest 92894.1 "Raise or slay Haggard Bones"
 
@@ -330,6 +340,7 @@ step Magram: Bristleback Retreat
 
 step Magram: the quilboar
   tip From the quest data: the Bristleback quilboar hold Bristleback Retreat, east of the valley. Kog'thug the Brave (elite, level 43) and Quolga the Wise (elite, level 42) lead them: leave those two be. Then report to Hagiak at the Magram Front, south of the Retreat.
+  level 42
   kill 253524 x4 quest 93066.1
   kill 253525 x6 quest 93066.2
   kill 253526 x6 quest 93066.3
@@ -342,6 +353,7 @@ step Magram: Hagiak at the Magram Front
 
 step Magram: the Outcast Hideaway
   tip From the quest data: Outcast Scouts and Marauders hold the hideaway, with Outcast Necrokhans, elite and level 45, among them. The Stolen Supplies are crates in its west. The quest wants Outcast Necromancers here too; players have met them only in the valley between Orgrul and Nerlokh so far, so take them there if the hideaway has none.
+  level 42
   kill 254283 x2 quest 93072.1
   kill 254284 x6 quest 93072.2
   kill 11559 x8 quest 93072.3

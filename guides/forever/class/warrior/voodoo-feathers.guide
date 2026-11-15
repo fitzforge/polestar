@@ -115,9 +115,9 @@ step Voodoo Feathers
 step The Sunken Temple
   tip You need two feathers of each colour from the six Atal'ai troll guardians (level 51-52, elite) on the Sunken Temple's balcony, who hold the barrier in front of Jammal'an the Prophet: Gasher and Zul'Lor drop the amber, Hukku and Mijan the blue, Zolo and Loro the green, every kill; each player on the quest loots their own set. The Sunken Temple is a five-player dungeon: needs a group of five. It lies in the Pool of Tears in eastern Swamp of Sorrows: climb the temple's outer steps, dive into the flooded hall and follow the stairs down to the entrance. Inside, reach the balcony by the stairs or the path on the right, not the spiral stairs. Hukku calls guardians and casts Shadow Bolt Volley and Curse of Blood; Mijan heals the others (Renew, a Healing Ward, Healing Wave below half health): kill her or her ward fast; Zul'Lor cleaves.
   level 51
-  collect 20606 x2 quest 8425.1 @69.9,53.6    -- Amber Voodoo Feather, from Gasher and Zul'Lor
-  collect 20607 x2 quest 8425.2 @69.9,53.6    -- Blue Voodoo Feather, from Hukku and Mijan
-  collect 20608 x2 quest 8425.3 @69.9,53.6    -- Green Voodoo Feather, from Zolo and Loro
+  collect 20606 x2 quest 8425.1 @69.9,53.6 group 5 -- Amber Voodoo Feather, from Gasher and Zul'Lor
+  collect 20607 x2 quest 8425.2 @69.9,53.6 group 5 -- Blue Voodoo Feather, from Hukku and Mijan
+  collect 20608 x2 quest 8425.3 @69.9,53.6 group 5 -- Green Voodoo Feather, from Zolo and Loro
 
 step Back to the Fallen Hero
   turnin 8425                                 -- Fallen Hero of the Horde

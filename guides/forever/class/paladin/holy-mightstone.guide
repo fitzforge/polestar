@@ -90,9 +90,9 @@ step The Sunken Temple
   tip The Temple of Atal'Hakkar, the Sunken Temple, lies in the Pool of Tears in eastern Swamp of Sorrows: go up the ruin's stairs, dive into the flooded hall and follow the stairs down to the portal. It is a dungeon for a group of five at about 50-55. Six elite troll minibosses (level 51-52) stand on the balconies around the temple's great round room, each behind a pack of elites on its side path. Each drops its feather every time: Gasher and Zul'Lor the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green; you need all six. Hukku calls guardians and throws Shadow Bolt Volleys, Mijan heals: kill them first.
   level 51
   goto 69.9,53.6 "The Temple of Atal'Hakkar"
-  collect 20606 quest 8418.1 @69.9,53.6 -- Amber Voodoo Feather x2: Gasher, Zul'Lor
-  collect 20607 quest 8418.2 @69.9,53.6 -- Blue Voodoo Feather x2: Hukku, Mijan
-  collect 20608 quest 8418.3 @69.9,53.6 -- Green Voodoo Feather x2: Zolo, Loro
+  collect 20606 quest 8418.1 @69.9,53.6 group 5 -- Amber Voodoo Feather x2: Gasher, Zul'Lor
+  collect 20607 quest 8418.2 @69.9,53.6 group 5 -- Blue Voodoo Feather x2: Hukku, Mijan
+  collect 20608 quest 8418.3 @69.9,53.6 group 5 -- Green Voodoo Feather x2: Zolo, Loro
 
 step Forging the Mightstone
   zone Western Plaguelands

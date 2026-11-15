@@ -2452,6 +2452,67 @@ for (const [G, q, solo] of [['forever/class/rogue/poisons-horde.guide', 2478, 25
 	assert.deepEqual(group[0].goals.filter((g) => g.quest === q).map((g) => `${g.t} ${g.item || g.npc}`), alone[0].goals.filter((g) => g.quest === q).map((g) => `${g.t} ${g.item || g.npc}`), 'both ways do the same objectives');
 });
 
+// #2462 (TAKODACHI: an Alliance Warrior followed the Horde-only Brutal Armor guide to Camp Taurajo and died), the side
+// guides' sweep: no guide sends a character to a quest giver, ender, trainer or vendor of the other faction. A guide
+// with no `faction` line is for both sides, so its one-side NPCs need an `only` (Celestial Orb's Tabetha's Task went to
+// Deino in Orgrimmar for every mage). Leveling guides have their own checks.
+test('side guides: no step sends a character to an NPC of the other faction (#2462)', { skip }, () => {
+	const { applicable } = require('../tools/lib/dsl/conditions');
+	const SIDE = { Human: 'Alliance', Dwarf: 'Alliance', NightElf: 'Alliance', Gnome: 'Alliance', Orc: 'Horde', Scourge: 'Horde', Tauren: 'Horde', Troll: 'Horde' };
+	const exp = path.join(__dirname, '..', 'experimental', 'guides');
+	const side = allGuides().filter((g) => !/^forever\/(alliance|horde)\//.test(g)).map((g) => compiled(g));
+	for (const f of fs.readdirSync(exp).filter((f) => f.endsWith('.guide'))) side.push(compileSources([{ file: path.join(exp, f), text: fs.readFileSync(path.join(exp, f), 'utf8') }], data).guides[0]);
+	const wrong = [];
+	for (const g of side) {
+		const head = { factions: g.faction ? [g.faction] : null, races: g.races || null, classes: g.classes || null };
+		for (const step of g.steps) {
+			for (const goal of step.goals) {
+				const n = goal.npc && goal.t !== 'kill' && data.npcs[goal.npc];
+				if (!n || (n.faction !== 'A' && n.faction !== 'H')) continue;
+				const own = n.faction === 'A' ? 'Alliance' : 'Horde';
+				const set = applicable([head, step.only, goal.only]);
+				const others = set.factions.includes(own === 'Alliance' ? 'Horde' : 'Alliance') ? set.races.filter((r) => (SIDE[r] ? SIDE[r] !== own : r === 'Skyborne')) : [];
+				if (others.length) wrong.push(`${g.id}, ${step.title}: ${goal.t} at ${n.name} (${own}) for ${others.join('/')}`);
+			}
+		}
+	}
+	assert.deepEqual(wrong, []);
+	const tabetha = goals('forever/class/mage/celestial-orb.guide').filter(({ goal }) => goal.t === 'accept' && goal.quest === 2861);
+	assert.deepEqual(tabetha.map(({ goal }) => `${goal.only.factions} ${goal.npc}`), ['Alliance 5497', 'Horde 5885'], 'Tabetha\'s Task from each side\'s own trainer');
+});
+
+// Fitz's level rule (0.4.0) on the reputation, collectible, exploration, miscellaneous and legacy guides, as on the class
+// guides above: every step that fights waits on its own `level` hold (the guide's opening level is the floor) for mobs at
+// most 1 above it, 2 for a group step's elites. A city reputation guide of 12-60 sent a level 12 straight to the
+// Plaguelands' cauldron lords (53-58); Gelkis and Magram's valley (38-43) waited only for 35. Left as they are, on
+// purpose: raid and level 61+ bosses (past what a hold can wait for), the Legacy checklist's dungeon bands (held at each
+// band's first level), one dropper among many (any thunder lizard drops the horn, any Shardtooth the meat), the Barrens'
+// Echeyakee (the data's 60 is a summon's range), Chol'aruk (an optional group kill in a solo hub) and the Timbermaw
+// feather and bead farms (any Deadwood or Winterfall furbolg).
+test('side guides: every fighting step waits on its own level for mobs at most 1 above it (Fitz\'s rule, #2462)', { skip }, () => {
+	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
+	const LEFT = new Set(['legacy/legacy-challenges', 'reputation/orgrimmar 3475', 'reputation/orgrimmar 5832', 'reputation/orgrimmar 267307', 'reputation/wintersaber-trainers 7446', 'reputation/timbermaw-hold 7442']);
+	const wrong = [];
+	for (const G of allGuides().filter((g) => /^forever\/(reputation|collectibles|exploration|miscellaneous|legacy)\//.test(g))) {
+		const id = G.replace(/^forever\//, '').replace(/\.guide$/, '');
+		if (LEFT.has(id)) continue;
+		const floor = compiled(G).minLevel || 1;
+		for (const step of compiled(G).steps) {
+			const own = Math.max(floor, ...step.goals.filter((g) => g.t === 'level').map((g) => g.level));
+			for (const goal of step.goals) {
+				const item = goal.t === 'collect' && !goal.gather && goal.fromKind !== 'object' ? data.items[goal.item] : null;
+				const droppers = item && item.drops && !(item.vendors || []).length && !Object.keys(item.drops.object || {}).length ? Object.entries(item.drops.npc || {}).filter(([, chance]) => typeof chance === 'number' && chance >= 1).map(([npc]) => Number(npc)).filter(top) : [];
+				const mob = goal.t === 'kill' ? goal.npc : droppers.length ? droppers.reduce((a, b) => (top(b) < top(a) ? b : a)) : null;
+				const n = mob && data.npcs[mob];
+				if (!n || n.faction || LEFT.has(`${id} ${mob}`) || top(mob) >= 61 || own >= 60) continue;
+				const allow = goal.group ? 2 : 1;
+				if (top(mob) > own + allow) wrong.push(`${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, ${n.name} up to ${top(mob)}, the step waits for ${own}`);
+			}
+		}
+	}
+	assert.deepEqual(wrong, []);
+});
+
 test('forever/class/warrior/fire-hardened-armor.guide: Kapu\'s report: Fire Hardened Mail is taken at 27, not at 20, and Roogug waits for 28', { skip }, () => {
 	const G = 'forever/class/warrior/fire-hardened-armor.guide';
 	const list = goals(G);
@@ -6256,9 +6317,9 @@ test("Konky88's report (#1150): Valuable Vantages' three vials come before its h
 });
 
 // Erá's report (#1160): The Eye of Bhossca, C's second job, comes with C's letter in a capital city's mailbox at
-// level 30 (after the horn job), not at the quest data's 25: its correction and the class-quest heads-up go by 30.
-// The quest itself is level 35 (the Scarlet Monastery), so under Fitz's level rule (0.4.0) the guide holds its accept
-// at the Dead Drop for 34: the heads-up's guide opens with the "comes at 34" notice instead of sending you in at 30.
+// level 30 (after the horn job), not at the quest data's 25: its correction goes by 30. The quest itself is level 35
+// (the Scarlet Monastery), so under Fitz's level rule (0.4.0) the guide holds its accept at the Dead Drop for 34, and
+// the class-quest heads-up waits for the guide's hold (34) instead of telling you at 30 about a quest it then holds.
 test("Erá's report (#1160): The Eye of Bhossca opens at 30 and holds its level 35 quest for 34", { skip }, () => {
 	const guide = 'forever/class/rogue/the-eye-of-bhossca.guide';
 	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8'), /^levels 30-35$/m);
@@ -6268,7 +6329,7 @@ test("Erá's report (#1160): The Eye of Bhossca opens at 30 and holds its level 
 	assert.equal(gate && gate.goal.level, 34, 'a level 34 gate before the Dead Drop');
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	assert.equal(corrections[78676].set.minLevel, 30, 'the correction a data build applies');
-	assert.match(fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8'), /\[78676\] = \{ 30, /, 'the heads-up starts at 30');
+	assert.match(fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8'), /\[78676\] = \{ 34, /, 'the heads-up waits for the guide\'s hold at 34');
 });
 
 // --- Flow re-order (2026-11-07, Alliance starts 1-20): the walks below crossed back over ground for one
