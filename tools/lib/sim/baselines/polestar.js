@@ -7,6 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { compileProject } = require('../../dsl/project');
 const { CLASSES, RACES } = require('../../game/races');
+const { LEVEL_XP } = require('../../game/xp');
 
 const MAX_ENUMERATED = 2000;
 const ANY_CLASS_MIN = 8; // a class list this long came from a negation (`!Druid`)
@@ -51,22 +52,40 @@ function dungeonPicker(dungeons) {
 	return (p) => (p.map != null && set.has(String(p.map))) || (p.name != null && set.has(norm(p.name)));
 }
 
-// A step's `when dungeon` predicates hold for the character (ctx.chosen): a
-// `when dungeon` step only for a chosen dungeon, `when !dungeon` only for one
-// not chosen. Other `when` predicates are the play's (not modelled here).
-function dungeonsHold(step, ctx) {
-	return !(step.when || []).some((p) => p.k === 'dungeon' && ctx.chosen(p) === !!p.neg);
+// The group quests a played character does (`when group`, the addon's answer
+// to "do this group quest?"): null or [] none (a solo player), 'all', or quest
+// ids. -> grouped(q) for a compiled `when group`.
+function groupPicker(groups) {
+	if (groups === 'all') return () => true;
+	const set = new Set([].concat(groups || []).map(Number));
+	return (q) => set.has(Number(q));
+}
+
+// A step's `when dungeon` and `when group` predicates hold for the character:
+// a `when dungeon` step only for a chosen dungeon (ctx.chosen), `when !dungeon`
+// only for one not chosen; a `when group` step only for a group quest the
+// character does (ctx.grouped), `when !group` only for one it skips. Other
+// `when` predicates are the play's (not modelled here).
+function whenHolds(step, ctx) {
+	return !(step.when || []).some((p) => (p.k === 'dungeon' && ctx.chosen(p) === !!p.neg) || (p.k === 'group' && ctx.grouped(p.q) === !!p.neg));
+}
+
+// A `level` goal's checkpoint: its level and the XP into it (`level 28.9` is 90%
+// of level 28's XP, reached as the addon counts it: XP / XPMax >= frac; the
+// epsilon keeps 0.34 x 167100 = 56814.00000000001 at 56814).
+function levelEvent(goal) {
+	return { t: 'level', level: goal.level, xp: goal.frac ? Math.ceil(goal.frac * LEVEL_XP[goal.level] - 1e-6) : null };
 }
 
 function guideEvents(g, ctx) {
 	const events = [{ t: 'guide', title: g.title, zone: g.zoneName || null, levels: g.minLevel != null ? [g.minLevel, g.maxLevel ?? g.minLevel] : null, id: g.id }];
 	for (const step of g.steps || []) {
-		if (!onlyHolds(step.only, ctx) || !dungeonsHold(step, ctx)) continue;
+		if (!onlyHolds(step.only, ctx) || !whenHolds(step, ctx)) continue;
 		const seen = new Set();
 		for (const goal of step.goals || []) {
 			if (!onlyHolds(goal.only, ctx)) continue;
 			let e = null;
-			if (goal.t === 'level') e = { t: 'level', level: goal.level, xp: null };
+			if (goal.t === 'level') e = levelEvent(goal);
 			else if (goal.quest == null) continue;
 			else if (goal.t === 'accept' || goal.t === 'turnin') e = { t: goal.t, q: goal.quest, ...target(goal) };
 			else {
@@ -121,7 +140,10 @@ function firstFor(guides, rFile, { anyRace = false } = {}) {
 // `dungeons` (dungeonPicker): the dungeons the character chose; their `when
 // dungeon` steps are played and their `when !dungeon` steps left out (none by
 // default: the solo route). Price the runs with the sim's 'dungeons' family.
-function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, race, cls = null, quests = null, maxPaths = MAX_ENUMERATED, pack = null, dungeons = null } = {}) {
+// `groups` (groupPicker): the group quests the character does; their `when
+// group` steps are played and their `when !group` steps left out (none by
+// default: a solo player skips them).
+function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, race, cls = null, quests = null, maxPaths = MAX_ENUMERATED, pack = null, dungeons = null, groups = null } = {}) {
 	const rFile = raceFile(race);
 	// A one-side race implies its faction; Skyborne (both sides) needs one given.
 	const sides = Object.keys((RACES[lower(race).replace(/[\s_-]/g, '')] || {}).sides || {});
@@ -139,7 +161,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		guides = [...compiled.guides.filter((g) => !packGuides.has(g.id)), ...p.guides];
 	}
 	const clsFile = cls ? (CLASSES[lower(cls)] || {}).file || String(cls).toUpperCase() : null;
-	const ctx = { faction: fac, race: rFile, cls: clsFile, chosen: dungeonPicker(dungeons) };
+	const ctx = { faction: fac, race: rFile, cls: clsFile, chosen: dungeonPicker(dungeons), grouped: groupPicker(groups) };
 
 	const leveling = guides.filter((g) => g.category === 'Leveling' && (!g.faction || g.faction === fac));
 	const byId = new Map(leveling.map((g) => [g.id, g]));
