@@ -438,10 +438,12 @@ emit({{ nearest = math.floor(nearest()), row = row, after = after and after.yard
 	assert!(out[0]["arrowYards"].as_f64().unwrap() > 500.0, "the camp is far off: {}", out[0]);
 	assert_eq!(out[0]["step"], 27, "the spores' step, The Barrens: kill these as you meet them: {}", out[0]);
 	assert_eq!(out[0]["text"], "Collect Fungal Spores from Laden Mushroom, 1 more", "{}", out[0]);
-	assert_eq!(out[0]["yards"], 55, "to the centre of the mushrooms' spawn spot at the oasis: {}", out[0]);
+	// 65 yd since the 0.4.0 data (55 before): the mushrooms' spawns at the oasis are grouped anew (dev-040's spot
+	// 55.6,41.5 of 5 is 55.41,42.44 of 5 plus single spawns), the row still measuring to a spot's centre.
+	assert_eq!(out[0]["yards"], 65, "to the centre of the mushrooms' spawn spot at the oasis: {}", out[0]);
 	assert_eq!(out[0]["zhevra"], true, "the zhevra are a candidate too; the spores, found in fewer places, come first: {}", out[0]);
 	let shown = out[0]["report"].as_str().unwrap();
-	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 27) · 55 yd"), "{shown}");
+	assert!(shown.starts_with("While here: Collect Fungal Spores from Laden Mushroom, 1 more · quest 848 · step ") && shown.contains("(guide 27) · 65 yd"), "{shown}");
 	assert!(shown.contains(" · radius 180 yd · "), "{shown}");
 	let both = out[1].as_str().unwrap();
 	assert!(both.starts_with("19:1:") && both.split(' ').nth(1).is_some_and(|z| z.starts_with("27:3:")), "hooves (the route's next steps) then spores (later in the guide) at the oasis edge: {both}");
