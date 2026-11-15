@@ -2385,6 +2385,32 @@ fn new_settings_put_a_pill_on_their_section_and_a_count_on_their_page_until_open
 	assert_eq!(later["pill"], "New");
 }
 
+// A page's sidebar row shows the changed dot while the page holds a setting off its default, whether or not its
+// section is turned off: here the Medallions section stays on (its header's switch at its default) while its size
+// is changed. With every setting at its default there is no dot. (A section's "turned off" test once stood in for
+// "holds a change", so a changed setting under a section that was on showed nothing.)
+#[test]
+fn a_page_s_changed_dot_shows_a_setting_off_its_default_under_a_section_that_is_on_and_none_at_the_defaults() {
+	let out = run_opts(
+		r#"
+		local function dot()
+			for _, b in ipairs(PolestarOptions.navButtons) do
+				if b:IsShown() and b.Label:GetText() == "Fake pins" then return b.Changed:IsShown() end
+			end
+			return "no row"
+		end
+		UI.ShowOptions("guide")
+		local defaults = dot()
+		Polestar.Set("fake.medalSize", 1.5)
+		O.RefreshNav()
+		emit({ defaults = defaults, changed = dot(), sectionOn = Polestar.Get("fake.medal") })"#,
+		"",
+		"",
+		LOOK_PAGE,
+	);
+	assert_eq!(out, json!({ "defaults": false, "changed": true, "sectionOn": true }));
+}
+
 // A tab's preview is built when the tab first shows, laid out across the main column and pinned between the tab
 // band and the rows, which scroll under it; its caption is the one line under it (10 over it, 15, 10 under), no
 // chrome over it. Another tab's taller preview is capped; a tab without one gives the room back; nothing is built

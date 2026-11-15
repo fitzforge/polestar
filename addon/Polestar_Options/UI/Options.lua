@@ -1207,7 +1207,7 @@ end
 
 -- Whether a section holds a setting off its default, as
 -- modifiedCount(sectionSettings(s)) > 0 says, without making the lists.
-local function sectionOff(s)
+local function sectionModified(s)
 	local t = s.toggle
 	if t and offDefault(t) and available(t) then return true end
 	for _, c in ipairs(s.controls) do
@@ -2915,7 +2915,7 @@ end
 local function pageChanged(p)
 	for _, t in ipairs(p.tabs) do
 		for _, s in ipairs(t.sections) do
-			if sectionOff(s) then return true end
+			if sectionModified(s) then return true end
 		end
 	end
 	return false
