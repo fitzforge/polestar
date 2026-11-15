@@ -691,31 +691,128 @@ end
 -- Pills and chips
 ---------------------------------------------------------------------------
 
--- A horizontal capsule (two half circles and a middle).
-local function pill(parent, w, h)
-	local f = CreateFrame("Frame", nil, parent)
-	f:SetSize(w, h)
-	local l = f:CreateTexture(nil, "ARTWORK")
-	l:SetTexture(Theme.Media("circle"))
-	l:SetTexCoord(0, 0.5, 0, 1)
-	l:SetSize(h / 2, h)
-	l:SetPoint("LEFT", f, "LEFT", 0, 0)
-	local r = f:CreateTexture(nil, "ARTWORK")
-	r:SetTexture(Theme.Media("circle"))
-	r:SetTexCoord(0.5, 1, 0, 1)
-	r:SetSize(h / 2, h)
-	r:SetPoint("RIGHT", f, "RIGHT", 0, 0)
-	local m = f:CreateTexture(nil, "ARTWORK")
-	m:SetTexture(WHITE)
-	m:SetPoint("TOPLEFT", l, "TOPRIGHT", 0, 0)
-	m:SetPoint("BOTTOMRIGHT", r, "BOTTOMLEFT", 0, 0)
-	f.parts = { l, m, r }
-	function f.SetColor(self, cr, cg, cb, ca)
-		for i = 1, 3 do self.parts[i]:SetVertexColor(cr, cg, cb, ca) end
+-- A horizontal capsule drawn as one shape: a disc's two halves at its ends
+-- and the disc's middle column stretched between them, so its flat top and
+-- bottom are the disc's own anti-aliased edge and nothing shows where the
+-- pieces meet, whatever its width or alpha. The disc ("disc", or `art`:
+-- another family of Theme.SharpMedia's, or a full path drawn at one size)
+-- comes at the size that suits the capsule's height on screen, checked again
+-- at each SetColor. Pixel snapping is off, so the pieces keep their shared
+-- edges and the curve its shape at any position and UI scale.
+-- mode "whole": the art drawn whole over the frame (a texture already at
+-- its shape: the switch's track); "span": whole while the frame is no wider
+-- than tall (a knob), the three pieces when :SetSpan widens it, the middle
+-- running half a unit under each end (an opaque knob shows no join even
+-- where a renderer smooths each piece's edge on its own).
+-- The middle and right pieces are made the first time the capsule draws
+-- three (never for "whole"), so a switch's parts cost no unused textures.
+--   W.Capsule(parent, w, h, art?, mode?) -> frame:
+--     :SetColor(r, g, b, a)    :SetCapsule(w, h)    :SetSpan(w)
+--     .parts { left (the whole art in one piece), middle, right } (middle and right once made)
+-- The capsule's methods (one table: Widgets.lua's main chunk is near Lua 5.1's 200 locals).
+local Cap = {}
+function Cap.noSnap(t)
+	if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
+	if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
+end
+
+function Cap.sides(self)
+	local p = self.parts
+	if p[2] then return p end
+	local m = self:CreateTexture(nil, "ARTWORK")
+	local r = self:CreateTexture(nil, "ARTWORK")
+	r:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+	r:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+	r:SetWidth(self.psH / 2)
+	local lap = self.psMode == "span" and 0.5 or 0
+	m:SetPoint("TOPLEFT", p[1], "TOPRIGHT", -lap, 0)
+	m:SetPoint("BOTTOMRIGHT", r, "BOTTOMLEFT", lap, 0)
+	p[2], p[3] = m, r
+	for i = 2, 3 do
+		local t = p[i]
+		Cap.noSnap(t)
+		if self.psPath then t:SetTexture(self.psPath) end
+		if self.psR then t:SetVertexColor(self.psR, self.psG, self.psB, self.psA) end
 	end
+	return p
+end
+
+function Cap.cut(self)
+	local l, m, r = self.parts[1], self.parts[2], self.parts[3]
+	if self.psOne then
+		l:SetTexCoord(0, 1, 0, 1)
+	else
+		l:SetTexCoord(0, 0.5, 0, 1)
+		m:SetTexCoord(0.5, 0.5, 0, 1)
+		r:SetTexCoord(0.5, 1, 0, 1)
+	end
+end
+
+-- One piece or three, by the mode and the width.
+function Cap.shape(self, cw)
+	local one = self.psMode == "whole" or (self.psMode == "span" and cw <= self.psH + 0.01)
+	if one == self.psOne then return end
+	self.psOne = one
+	local p, l = self.parts, self.parts[1]
+	l:ClearAllPoints()
+	l:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+	if one then
+		l:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+		if p[2] then
+			p[2]:Hide()
+			p[3]:Hide()
+		end
+	else
+		Cap.sides(self)
+		l:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
+		l:SetWidth(self.psH / 2)
+		p[2]:Show()
+		p[3]:Show()
+	end
+	Cap.cut(self)
+end
+
+function Cap.Sharpen(self)
+	local a = self.psArt
+	local path = a:find("[\\/]") and a or Theme.SharpMedia(a, self, self.psH)
+	if path == self.psPath then return end
+	self.psPath = path
+	for _, t in ipairs(self.parts) do t:SetTexture(path) end
+	Cap.cut(self)
+end
+
+function Cap.SetCapsule(self, cw, ch)
+	self.psH = ch
+	self:SetSize(cw, ch)
+	self.parts[1]:SetWidth(ch / 2)
+	if self.parts[3] then self.parts[3]:SetWidth(ch / 2) end
+	self.psOne = nil
+	Cap.shape(self, cw)
+	Cap.Sharpen(self)
+end
+
+function Cap.SetSpan(self, cw)
+	self:SetWidth(cw)
+	Cap.shape(self, cw)
+end
+
+function Cap.SetColor(self, cr, cg, cb, ca)
+	Cap.Sharpen(self)
+	self.psR, self.psG, self.psB, self.psA = cr, cg, cb, ca
+	for _, t in ipairs(self.parts) do t:SetVertexColor(cr, cg, cb, ca) end
+end
+
+local function capsule(parent, w, h, art, mode)
+	local f = CreateFrame("Frame", nil, parent)
+	f.psArt, f.psMode = art or "disc", mode
+	local l = f:CreateTexture(nil, "ARTWORK")
+	Cap.noSnap(l)
+	f.parts = { l }
+	f.Sharpen, f.SetCapsule, f.SetSpan, f.SetColor = Cap.Sharpen, Cap.SetCapsule, Cap.SetSpan, Cap.SetColor
+	f:SetCapsule(w, h)
 	return f
 end
-W.Pill = pill
+W.Capsule, W.Pill = capsule, capsule
 
 -- A small labelled capsule: level ranges, races, states. kind: "neutral" |
 -- "accent" | "success" | "warning" (the release stage) | "dungeon" (group
@@ -724,7 +821,7 @@ W.CHIP_H = 20
 function W.Chip(parent)
 	local c = CreateFrame("Frame", nil, parent)
 	c:SetHeight(W.CHIP_H)
-	c.Bg = pill(c, 40, W.CHIP_H)
+	c.Bg = capsule(c, 40, W.CHIP_H)
 	c.Bg:SetAllPoints(c)
 	c.Text = W.Text(c, "caption", "textDim")
 	c.Text:SetPoint("CENTER", c, "CENTER", 0, 0)
@@ -1088,25 +1185,122 @@ end
 W.RowEnter = rowEnter
 
 ---------------------------------------------------------------------------
--- Toggle: a pill switch. The knob slides (120 ms, ease-out); with reduced
--- motion it simply lands.
+-- Toggle: a capsule switch (Theme.SwitchColors has its colours). A 36x18
+-- track, each part one texture drawn at its own shape (tools/media/ui.js):
+-- its 1px edge, the fill one unit inside it, and the 14px knob 2px in from
+-- every side over a soft shadow. Flipped, the knob slides and every colour
+-- crossfades with it in one 150 ms ease-out; with reduced motion it lands at
+-- once. Under the cursor the track lightens a touch; held down, the knob
+-- widens by 4 toward where it will go; with the gamepad's focus a ring
+-- stands 2px outside the track. All of it is Polestar's own art; the game's
+-- looks draw their kit's check box instead (gameCheck).
 ---------------------------------------------------------------------------
 
-local TOGGLE_W, TOGGLE_H, KNOB = 30, 16, 12
+local TOGGLE_W, TOGGLE_H, KNOB, KNOB_IN = 36, 18, 14, 2
+local KNOB_PRESS, SHADOW_OUT = 4, 2
+local SLIDE, PRESS = 0.15, 0.1
+W.TOGGLE_W, W.TOGGLE_H, W.KNOB = TOGGLE_W, TOGGLE_H, KNOB
 
 local function toggleValue(self)
 	if self.psGet then return self.psGet() and true or false end
 	return ns.Get(self.psPath) and true or false
 end
 
+-- The switch's parts on `owner` (a row or a W.Switch button): owner.Track
+-- (the track's frame; its textures by layer: .Edge, .Fill and the knob's
+-- .Shadow, and the gamepad's .Focus ring once made; .parts the first three
+-- and the knob's at rest) and owner.Knob, a capsule frame over it. Two
+-- frames and four textures, as few as the art allows: the settings window
+-- builds dozens of these.
+-- The switch's shared handlers (one table, as Cap).
+local SwitchOn = {}
+function SwitchOn.slide(o, v)
+	o.psOwner.psP = v
+	W.SwitchPaint(o.psOwner)
+end
+function SwitchOn.squish(o, v)
+	o.psOwner.psPress = v
+	W.SwitchPaint(o.psOwner)
+end
+-- The texture `name` at the size that suits height `h` on screen.
+function SwitchOn.art(tex, name, h)
+	local path = Theme.SharpMedia(name, tex, h)
+	if path ~= tex.psPath then
+		tex.psPath = path
+		tex:SetTexture(path)
+	end
+end
+-- The gamepad's focus ring, made the first time the switch has the focus
+-- (most never do). The ring's texture is 52x26 for its 44x26 ring.
+function SwitchOn.ring(t)
+	local f = t:CreateTexture(nil, "BACKGROUND")
+	f:SetSize(TOGGLE_W + 16, TOGGLE_H + 8)
+	f:SetPoint("CENTER", t, "CENTER", 0, 0)
+	Cap.noSnap(f)
+	t.Focus = f
+	return f
+end
+local function switchParts(owner)
+	local t = CreateFrame("Frame", nil, owner)
+	t:SetSize(TOGGLE_W, TOGGLE_H)
+	t.Edge = t:CreateTexture(nil, "BORDER")
+	t.Edge:SetAllPoints(t)
+	t.Fill = t:CreateTexture(nil, "ARTWORK")
+	t.Fill:SetAllPoints(t)
+	local k = capsule(t, KNOB, KNOB, "disc", "span")
+	k:SetFrameLevel(t:GetFrameLevel() + 1)
+	-- The shadow stretches with the knob's press.
+	t.Shadow = t:CreateTexture(nil, "OVERLAY")
+	t.Shadow:SetTexture(Theme.Media("knob-shadow"))
+	t.Shadow:SetSize(KNOB + 2 * SHADOW_OUT, KNOB + 2 * SHADOW_OUT)
+	t.Shadow:SetPoint("CENTER", k, "CENTER", 0, -1)
+	t.parts = { t.Fill, t.Edge, t.Shadow, k.parts[1] }
+	for i = 1, 3 do Cap.noSnap(t.parts[i]) end
+	owner.Track, owner.Knob = t, k
+	owner.psP, owner.psPress = 0, 0
+	-- The slide (psP, 0 off .. 1 on) and the press (psPress, 0 .. 1) tween
+	-- through these, each repainting the switch.
+	owner.psSlide = { psOwner = owner, psOnValue = SwitchOn.slide }
+	owner.psSquish = { psOwner = owner, psOnValue = SwitchOn.squish }
+	return t
+end
+
+local function lerp(a, b, p) return a + (b - a) * p end
+local function blend(region, method, x, y, p, a)
+	region[method](region, lerp(x[1], y[1], p), lerp(x[2], y[2], p), lerp(x[3], y[3], p), a)
+end
+
+-- Paints the switch at its slide and press (owner.psP, owner.psPress) from
+-- the two ends' colours (owner.psToneOff, owner.psToneOn: Theme.SwitchColors'
+-- shared tables, kept by toggleRefresh).
+function W.SwitchPaint(self)
+	local off, on, t, k = self.psToneOff, self.psToneOn, self.Track, self.Knob
+	if not on then return end
+	local p = self.psP or 0
+	blend(t.Edge, "SetVertexColor", off.edge, on.edge, p, 1)
+	blend(t.Fill, "SetVertexColor", off.track, on.track, p, 1)
+	blend(k, "SetColor", off.knob, on.knob, p, 1)
+	blend(t.Shadow, "SetVertexColor", off.shadow, on.shadow, p, lerp(off.shadow[4], on.shadow[4], p))
+	local w = KNOB + KNOB_PRESS * (self.psPress or 0)
+	k:SetSpan(w)
+	t.Shadow:SetWidth(w + 2 * SHADOW_OUT)
+	k:ClearAllPoints()
+	k:SetPoint("LEFT", t, "LEFT", KNOB_IN + (TOGGLE_W - 2 * KNOB_IN - w) * p, 0)
+end
+
 -- The game's looks' check box in place of the switch (their kit's art,
 -- Theme.KitCheck): true when one was drawn.
 local function gameCheck(self, on)
 	local game, kit = Theme.GameSkin(), Theme.Kit()
-	for i = 1, #self.Track.parts do self.Track.parts[i]:SetShown(not game) end
+	local t = self.Track
+	t.Fill:SetShown(not game)
+	t.Edge:SetShown(not game)
+	t.Shadow:SetShown(not game)
 	self.Knob:SetShown(not game)
+	local ring = rawget(t, "Focus") or (not game and self.psPadFocus and SwitchOn.ring(t))
+	if ring then ring:SetShown(not game and self.psPadFocus or false) end
 	if kit then
-		Theme.KitCheck(self, self.Track:GetParent(), self.Track, on)
+		Theme.KitCheck(self, t:GetParent(), t, on)
 	else
 		Theme.KitHide(self, "toggle")
 		Theme.KitHide(self, "toggleCheck")
@@ -1124,24 +1318,54 @@ local function toggleRefresh(self)
 		self.checked = on
 		return
 	end
-	if on then
-		local r, g, b = Theme.Accent()
-		self.Track:SetColor(r, g, b, 1)
-		self.Knob:SetVertexColor(Theme.Color("onAccent"))
-	else
-		self.Track:SetColor(Theme.Wash("toggle"))
-		self.Knob:SetVertexColor(Theme.Color("textDim"))
+	local hover = (self.psSwitchHover or self.psPadFocus) and enabled or false
+	self.psToneOff, self.psToneOn = Theme.SwitchColors(false, hover, enabled), Theme.SwitchColors(true, hover, enabled)
+	local t, ar, ag, ab = self.Track, Theme.Accent()
+	SwitchOn.art(t.Edge, "switch-edge", TOGGLE_H)
+	SwitchOn.art(t.Fill, "switch-fill", TOGGLE_H)
+	local ring = rawget(t, "Focus")
+	if ring then
+		SwitchOn.art(ring, "switch-focus", TOGGLE_H + 8)
+		ring:SetVertexColor(ar, ag, ab, 0.8)
 	end
-	local x = on and (TOGGLE_W - KNOB - 2) or 2
+	local to = on and 1 or 0
 	if self.psOn ~= nil and self.psOn ~= on then
-		self.Knob.psAnchor[4] = x
-		Anim.To(self.Knob, "offsetX", (self.psKnobX or x) - x, 0, Anim.FAST, "out")
-	else
-		Anim.Anchor(self.Knob, "LEFT", self.Track, "LEFT", x, 0)
+		Anim.To(self.psSlide, "value", self.psP or (1 - to), to, SLIDE, "out")
+	elseif not Anim.IsRunning(self.psSlide, "value") then
+		self.psP = to
 	end
-	self.psKnobX = x
+	W.SwitchPaint(self)
 	self.psOn = on
 	self.checked = on
+end
+
+-- Hover, press and the gamepad's focus: each repaints the switch at once
+-- (the press widens the knob over 100 ms).
+local function switchHover(self, on)
+	self.psSwitchHover = on or nil
+	if not on and self.psPress and self.psPress > 0 then Anim.To(self.psSquish, "value", self.psPress, 0, PRESS, "out") end
+	if self.psToneOn then toggleRefresh(self) end
+end
+local function switchPress(self, down)
+	if down and not W.Enabled(self) then return end
+	Anim.To(self.psSquish, "value", self.psPress or 0, down and 1 or 0, PRESS, "out")
+end
+local function switchFocus(self, on)
+	self.psPadFocus = on or nil
+	if self.psToneOn then toggleRefresh(self) end
+end
+
+function SwitchOn.enter(self) self.psEnter(self); switchHover(self, true) end
+function SwitchOn.leave(self) self.psLeave(self); switchHover(self, false) end
+function SwitchOn.down(self, button) if button == "LeftButton" then switchPress(self, true) end end
+function SwitchOn.up(self) switchPress(self, false) end
+local function switchEvents(b, enter, leave)
+	b.psEnter, b.psLeave = enter, leave
+	b:SetScript("OnEnter", SwitchOn.enter)
+	b:SetScript("OnLeave", SwitchOn.leave)
+	b:SetScript("OnMouseDown", SwitchOn.down)
+	b:SetScript("OnMouseUp", SwitchOn.up)
+	b.psOnPadFocus = switchFocus
 end
 
 -- opts.get() / opts.set(value) stand in for reading and writing the path when
@@ -1153,12 +1377,9 @@ local GEAR, GEAR_GAP = 22, 6
 function W.Toggle(parent, label, path, desc, depends, opts)
 	local row = settingRow(parent, label, desc)
 	row.psRow = true
-	row.Track = pill(row, TOGGLE_W, TOGGLE_H)
+	switchParts(row)
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
 	row.Track:SetPoint("RIGHT", row, "RIGHT", -12, 0)
-	row.Knob = row.Track:CreateTexture(nil, "OVERLAY")
-	row.Knob:SetTexture(Theme.Media("circle"))
-	row.Knob:SetSize(KNOB, KNOB)
 	local gear = opts and opts.gear
 	if gear then
 		row.Gear = W.IconButton(row, "gear", GEAR, gear.tip, function() gear.onClick() end)
@@ -1180,8 +1401,7 @@ function W.Toggle(parent, label, path, desc, depends, opts)
 			ns.Set(self.psPath, not ns.Get(self.psPath))
 		end
 	end)
-	row:SetScript("OnEnter", rowEnter)
-	row:SetScript("OnLeave", hideTip)
+	switchEvents(row, rowEnter, hideTip)
 	row.Refresh = toggleRefresh
 	return W.Bind(row, path, depends)
 end
@@ -1192,18 +1412,14 @@ end
 function W.Switch(parent, get, set, tip)
 	local b = CreateFrame("Button", nil, parent)
 	b:SetSize(TOGGLE_W + 8, 24)
-	b.Track = pill(b, TOGGLE_W, TOGGLE_H)
+	switchParts(b)
 	b.Track:SetPoint("CENTER", b, "CENTER", 0, 0)
-	b.Knob = b.Track:CreateTexture(nil, "OVERLAY")
-	b.Knob:SetTexture(Theme.Media("circle"))
-	b.Knob:SetSize(KNOB, KNOB)
 	b.psGet, b.psTip = get, tip
 	b:SetScript("OnClick", function(self)
 		set(not toggleValue(self))
 		self:Refresh()
 	end)
-	b:SetScript("OnEnter", simpleTip)
-	b:SetScript("OnLeave", hideTip)
+	switchEvents(b, simpleTip, hideTip)
 	b.Refresh = toggleRefresh
 	return W.Painter(b, toggleRefresh)
 end
@@ -1325,7 +1541,7 @@ function W.SkinSlider(self)
 	self.Fill:Show()
 	self.Fill:SetHeight(hearth and 3 or 2)
 	self.Fill:SetVertexColor(Theme.Accent())
-	self.Thumb:SetTexture(Theme.Media("circle"))
+	self.Thumb:SetTexture(Theme.SharpMedia("disc", s, 12))
 	self.Thumb:SetSize(12, 12)
 	self.Thumb:SetVertexColor(Theme.Color(hearth and "title" or "text"))
 	if self.Value then W.Color(self.Value, "textDim") end
@@ -1351,7 +1567,7 @@ local function sliderParts(owner, parent, width)
 	fillTex:SetPoint("LEFT", trk, "LEFT", 0, 0)
 	owner.Fill = fillTex
 	local thumb = s:CreateTexture(nil, "OVERLAY")
-	thumb:SetTexture(Theme.Media("circle"))
+	thumb:SetTexture(Theme.SharpMedia("disc", s, 12))
 	thumb:SetSize(12, 12)
 	s:SetThumbTexture(thumb)
 	owner.Thumb = thumb

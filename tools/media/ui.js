@@ -365,6 +365,43 @@ function white() {
 	return new Canvas(8, 8).fill(() => -1, [1, 1, 1, 1]);
 }
 
+// The switch (Theme/Widgets.lua W.Toggle, W.Switch) and the slider's thumb,
+// each part one texture drawn whole at its own shape, at three sizes. The
+// client makes no mipmaps for these files, so a texture shrunk to under half
+// its size aliases at its edge; Theme.SharpMedia picks the smallest size at
+// or above the part's height on screen, so none is ever shrunk by two or
+// more, from UI scale 0.64 on a 1080p screen to 1.5 on a 4K one.
+//   disc-N            the knob and the thumb (N x N)
+//   switch-edge-N     the 36x18 track's outline, filled (2N x N)
+//   switch-fill-N     the track's fill, one unit (N/18 px) inside the edge
+//   switch-focus-N    the focus ring: a 44x26 capsule ring 2 units wide, in
+//                     a 52x26 texture (drawn 4 units round the track)
+//   knob-shadow       one soft disc, blurred past any aliasing: the knob's
+//                     edge sits at 14/18 of its radius, still about half
+//                     strength there, fading out at the texture's edge
+// A wider capsule (the knob held down, chips) is a disc's two halves with
+// its middle column stretched between them (W.Capsule).
+const SHARP_SIZES = [16, 32, 64];
+function disc(n) {
+	return new Canvas(n, n).fill(sdf.circle(n / 2, n / 2, n / 2 - 0.5), [1, 1, 1, 1]);
+}
+const capsuleShape = (cx, cy, hw, hh) => sdf.box(cx, cy, hw, hh, hh);
+function switchEdge(n) {
+	return new Canvas(2 * n, n).fill(capsuleShape(n, n / 2, n - 0.5, n / 2 - 0.5), [1, 1, 1, 1]);
+}
+function switchFill(n) {
+	const e = n / 18;
+	return new Canvas(2 * n, n).fill(capsuleShape(n, n / 2, n - 0.5 - e, n / 2 - 0.5 - e), [1, 1, 1, 1]);
+}
+function switchFocus(n) {
+	const u = n / 26;
+	const mid = capsuleShape(n, n / 2, 22 * u - 0.5 - u, 13 * u - 0.5 - u);
+	return new Canvas(2 * n, n).fill((x, y) => Math.abs(mid(x, y)) - u, [1, 1, 1, 1]);
+}
+function knobShadow() {
+	return new Canvas(32, 32).fill(sdf.circle(16, 16, 12.5), [1, 1, 1, 1], { feather: 7 });
+}
+
 // ---------------------------------------------------------------------------
 // Identity. The Polestar emblem is a four-point guiding star set in a fine
 // ring: long north/south rays that break through the ring, short east/west
@@ -695,6 +732,13 @@ function pennantEdge() {
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'UI');
 	const written = [];
+	for (const n of SHARP_SIZES) {
+		written.push(disc(n).write(path.join(dir, `disc-${n}.tga`)));
+		written.push(switchEdge(n).write(path.join(dir, `switch-edge-${n}.tga`)));
+		written.push(switchFill(n).write(path.join(dir, `switch-fill-${n}.tga`)));
+		written.push(switchFocus(n).write(path.join(dir, `switch-focus-${n}.tga`)));
+	}
+	written.push(knobShadow().write(path.join(dir, 'knob-shadow.tga')));
 	for (const [name, shape] of Object.entries(GLYPHS)) written.push(glyph(shape).write(path.join(dir, `${name}.tga`)));
 	written.push(glyph(discordMark()).write(path.join(dir, 'discord.tga')));
 	written.push(glow().write(path.join(dir, 'glow.tga')));

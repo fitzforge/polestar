@@ -235,10 +235,11 @@ components:
     width: "150px"
     height: "28px"
   toggle:
-    backgroundColor: "{colors.toggle}"
+    backgroundColor: "a well darker than {colors.panel}"
+    borderColor: "{colors.toggle}"
     rounded: "{rounded.capsule}"
-    width: "30px"
-    height: "16px"
+    width: "36px"
+    height: "18px"
   toggle-on:
     backgroundColor: "{colors.accent}"
   slider:
@@ -533,7 +534,7 @@ Glows are light, not depth: a soft additive halo around the guiding marks, in th
 
 ## Shapes
 
-Square-cornered rectangles everywhere, edged by 1px hairlines snapped to the physical pixel at any UI scale. The only curves are capsules (two half circles and a middle) for chips (20px tall) and toggle tracks (30×16), and circles for toggle knobs and slider thumbs (12px) and map-pin discs. Markers are bars, not boxes: a 2px accent bar for selection and position, a 2px underline for the active tab, 2–3px progress lines. Zone paintings are rectangular crops with a 40px shade along the top and a fade over the bottom 62% into the ground.
+Square-cornered rectangles everywhere, edged by 1px hairlines snapped to the physical pixel at any UI scale. The only curves are capsules for chips (20px tall; two half circles and a middle cut from one disc, so the join never shows) and toggle tracks (36×18, each part one texture at its own shape), and circles for toggle knobs (14px) and slider thumbs (12px) and map-pin discs. Markers are bars, not boxes: a 2px accent bar for selection and position, a 2px underline for the active tab, 2–3px progress lines. Zone paintings are rectangular crops with a 40px shade along the top and a fade over the bottom 62% into the ground.
 
 The identity shape is the Polestar emblem: a four-point guiding star whose long north and south rays break through a fine ring, short east and west rays inside it. It appears in the accent at 36px at the head of the rail (or beside the wordmark), at 64px on About (48px on the game's Settings canvas), 60px in the welcome's lockup, 40px on the welcome's later pages, and 36px in the guide window's empty state and on the route choice (each in its glow where noted), as a hollow double-ring engraving at 2.8% ink behind empty states only, and as the four-point mark at the centre of map pins. The emblem, wordmark and tagline always travel together as one lockup: the wordmark and tagline stacked, centred on the emblem.
 
@@ -578,8 +579,8 @@ Icons come from one authored family drawn in code: filled silhouettes and round-
 - **Search dropdown:** the settings search's list as the player types, right under the box (right edges aligned, 4px below, at least 300px wide), on the panel skin with 6px over and under the rows. A setting's row is 40px: its label in Label textDim, the words it matches in text, and its page and tab under it in Small textMuted, both 12px in; a place's row ("Go to page: Arrow", "Tab: …", "Section: …") is the same, its sidebar group or page under it. See all and the "Did you mean" suggestions are 28px rows in the accent, See all under a hairline; "No settings match" and "Did you mean:" are captions in Small textMuted. The hover wash under the pointer; the row Up and Down lit wears the selected wash and a 2px accent bar at its left edge, or a game look's own lit row. It comes as a menu does: a 120ms fade with a 4px drop, then rows change in place as the player types.
 - **Copy box:** the search field's well and border without the glyph: 30px tall (multi-line: 16px a line plus 16), Label text inset 10px. Read-only: it selects its text when focused or clicked, and typing puts the text back. Text longer than the box's lines (the report window's report, the Share tab's profile string, one word of base64 broken anywhere) scrolls inside the well with the scrollbar beside it, never drawn past it; in a page that scrolls, the page keeps the wheel. Reports and positions meant for copying sit in one, inside the copy window; an address in a page is a link (see Links).
 - **Text area:** the copy box's well and border, editable (the report's "What went wrong?": three lines, 250 letters at most), its placeholder in textMuted until something is typed; focus lights the border as in the search field. Escape leaves it; Tab moves on to the report.
-- **Toggle:** a 30×16 capsule 12px from the row's edge. Off: the toggle wash with a textDim knob; on: the accent with an onAccent knob. The 12px knob slides in 120ms, ease-out.
-- **Switch:** the toggle's capsule and knob on their own (`W.Switch`), 24px tall, for state that is not a setting: a community addon shown or hidden on the Community guides page. A click flips it; its tooltip says what it does.
+- **Toggle:** a 36×18 capsule 12px from the row's edge, its 14px knob 2px in from every side. Off: a well darker than the panel (a step down on a light look's paper) inside a 1px edge of the toggle wash, so it reads on every ground, under a knob in textDim (a muted light tone on a dark look, ink on a light one). On: the accent under a light knob (the lighter of text and panel, a third of the way to white) on a soft shadow, the shadow giving the knob its edge on a light accent. Each knob reads at 3:1 against what is around it in every look and scheme (tests: ui-switch.rs). **Hover:** the track lightens a touch (toward the ink, when off). **Press:** the knob widens by 4px toward where it will go. **Gamepad focus:** besides the row's ring, a 2px accent ring at 80% stands 2px outside the track. **Disabled:** the row fades and the switch's colours lose their hue: grey, never a darkened accent. **Motion:** the knob slides and every colour crossfades with it, 150ms ease-out; reduced motion lands it at once. The game's looks draw their kit's check box instead. The art comes at 16, 32 and 64px and each part takes the smallest at or above its size on screen, so it stays smooth from UI scale 0.64 to 1.5 (the client makes no mipmaps for addon textures).
+- **Switch:** the toggle's track and knob on their own (`W.Switch`), 24px tall, for state that is not a setting: a community addon shown or hidden on the Community guides page, a section's on/off in its header, a small switch beside a size. A click flips it; its tooltip says what it does.
 - **Slider:** a 112px, 2px track in the track wash with an accent fill and a 12px round thumb in text; the value right of it (Number, textDim, 44px wide); the wheel steps it; right-click restores the default.
 - **Dropdown:** a 150×28 button on the control ground, the value in Label text, a 12px chevron in textDim; its choices open in the shared menu with an accent check on the current one.
 - **Colour swatch:** a 34×18 chip with a 2px inset fill and a swatch-wash border; while no own value is set, where the colour comes from ("Dusk", "EllesmereUI") sits left of it in Small textMuted; right-click restores.

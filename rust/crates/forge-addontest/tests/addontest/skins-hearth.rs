@@ -157,7 +157,7 @@ fn hearth_controls_are_planks_switches_grooves_and_recesses_in_polestar_s_own_ar
 	assert_eq!(s["trackH"], 3, "a deeper groove than the house's 2");
 	assert_eq!(s["fill"], true);
 	assert_eq!(s["fillH"], 3);
-	assert_eq!(s["thumb"], "Interface\\AddOns\\Polestar\\Media\\UI\\circle", "Polestar's round thumb, not the game's");
+	assert!(s["thumb"].as_str().is_some_and(|t| t.starts_with("Interface\\AddOns\\Polestar\\Media\\UI\\disc-")), "Polestar's round thumb (its sharp disc), not the game's: {}", s["thumb"]);
 	assert_eq!(rgb(&s["thumbColor"]), [1.0, 0.851, 0.627], "in the firelit gold");
 	assert_eq!(s["thumbW"], 12);
 	let d = &out["dropdown"];
