@@ -121,8 +121,56 @@ local function stepApplies(step)
 	return Guides.Matches(step.only, player) and (step.when == nil or Own.whenHolds(step))
 end
 
-local function questDone(q)
-	return turnedIn[q] or Compat().IsQuestCompleted(q)
+-- Hand-ins of the loaded guide's quests, kept across /reload
+-- (CharState().handed[guideId][questID]): the client never flags a
+-- repeatable quest completed, so without it the quest's steps would open
+-- again at the next login. Only for a quest the guide takes itself (it has
+-- the quest's accept): a hand-in with no accept in the guide is another
+-- route's work, forgotten at a reload as before, and a `turnin ... direct`
+-- has its own latch (Own.latchTurnin). true: handed in. nil: this guide has
+-- nothing stored for it. `id` is the guide asked about when it is not the
+-- loaded one (the picker counting another guide's quests).
+function Own.handed(q, id)
+	id = id or (guide and guide.id)
+	local all = id and ns.CharState().handed
+	local mine = type(all) == "table" and all[id]
+	if type(mine) == "table" then return mine[q] end
+	return nil
+end
+
+function Own.setHanded(q, v)
+	local st = ns.CharState()
+	if type(st.handed) ~= "table" then st.handed = {} end
+	local mine = st.handed[guide.id]
+	if type(mine) ~= "table" then
+		mine = {}
+		st.handed[guide.id] = mine
+	end
+	mine[q] = v
+end
+
+-- Whether the loaded guide takes quest q itself: it has an `accept` for it
+-- (worked out once a guide).
+Own.guideQuests = setmetatable({}, { __mode = "k" })
+function Own.takesQuest(q)
+	local set = Own.guideQuests[guide]
+	if not set then
+		set = {}
+		for _, step in ipairs(guide.steps) do
+			for _, goal in ipairs(step.goals) do
+				if goal.t == "accept" and type(goal.quest) == "number" then set[goal.quest] = true end
+			end
+		end
+		Own.guideQuests[guide] = set
+	end
+	return set[q] == true
+end
+
+local function questDone(q, id)
+	if Compat().IsQuestCompleted(q) then return true end
+	local handed = Own.handed(q, id)
+	if handed ~= nil then return handed end
+	return turnedIn[q] or false
 end
 
 -- First blocking prerequisite of an `accept` the character still lacks, or
@@ -899,6 +947,21 @@ function Own.latchCaughtUp(passed)
 	if not logReady or Own.caughtUp[guide] then return end
 	Own.caughtUp[guide] = true
 	for s = 1, passed do Own.latchWhen(s) end
+	-- A stored hand-in (Own.handed) the client has flagged since needs no
+	-- memory, in this guide's table or any other's.
+	local all = ns.CharState().handed
+	if type(all) == "table" then
+		local C = Compat()
+		for id, mine in pairs(all) do
+			if type(mine) == "table" then
+				for q in pairs(mine) do
+					if C.IsQuestCompleted(q) then mine[q] = nil end
+				end
+			end
+			if type(mine) ~= "table" or not next(mine) then all[id] = nil end
+		end
+		if not next(all) then ns.CharState().handed = nil end
+	end
 end
 
 -- The player stands in a hearth's or flight's place: the zone or subzone
@@ -7109,7 +7172,7 @@ function Own.doneIn(g)
 	local C, done = Compat(), 0
 	for _, step in ipairs(g.steps) do
 		for _, goal in ipairs(step.goals) do
-			if (goal.t == "accept" or goal.t == "turnin") and goal.quest and (questDone(goal.quest) or C.IsOnQuest(goal.quest)) then done = done + 1 end
+			if (goal.t == "accept" or goal.t == "turnin") and goal.quest and (questDone(goal.quest, g.id) or C.IsOnQuest(goal.quest)) then done = done + 1 end
 		end
 	end
 	return done
@@ -7128,7 +7191,7 @@ function Own.allQuestsDone(g)
 				if goal.quest and (t == "accept" or t == "turnin" or t == "complete") and not goal.optional
 					and Guides.Matches(goal.only, player) then
 					any = true
-					if not questDone(goal.quest) then return false end
+					if not questDone(goal.quest, g.id) then return false end
 				end
 			end
 		end
@@ -12243,6 +12306,15 @@ function Engine.ResetProgress()
 	state.skipped[id] = nil
 	state.when[id] = nil
 	if type(state.skipStored) == "table" then state.skipStored[id] = nil end
+	-- The guide's memory of hand-ins the client does not flag (Own.handed),
+	-- and the session's of the same quests, or they would read handed in until
+	-- the next login.
+	if type(state.handed) == "table" then
+		for q in pairs(type(state.handed[id]) == "table" and state.handed[id] or NONE) do
+			if not Compat().IsQuestCompleted(q) then turnedIn[q] = nil end
+		end
+		state.handed[id] = nil
+	end
 	-- What an update passed or left behind (Own.passAdded) comes back too.
 	for _, f in ipairs({ "added", "gone", "behind", "passedBefore" }) do
 		if type(state[f]) == "table" then state[f][id] = nil end
@@ -12384,6 +12456,8 @@ ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
 		for i = 1, #tabs do
 			use(tabs[i])
 			Own.latchTurnin(questID)
+			-- Kept for the tab's guide across /reload (Own.handed).
+			if guide and Own.takesQuest(questID) then Own.setHanded(questID, true) end
 		end
 		useActive()
 	end

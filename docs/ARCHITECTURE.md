@@ -1821,6 +1821,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   jump. A `done` predicate (`Own.labelDone`) holds when the labelled step
   applies, is not skipped and its goals are done (`Own.goalsDone`, which is
   `stepDone` without the along pass).
+- **Hand-ins the client does not flag.** A repeatable quest is never
+  completed for the client, so its hand-in is kept per guide,
+  `CharState().handed[guideId][questID]` (`Own.handed`, set on
+  `QUEST_TURNED_IN` for a quest the tab's guide takes itself: it has the
+  quest's `accept`, `Own.takesQuest`). A hand-in with no accept in the guide
+  is another route's work and is forgotten at a reload as before; a
+  `turnin ... direct` keeps its own latch (`Own.latchTurnin`).
+  `questDone` reads the client first, then this, then the session's
+  turn-ins; another guide with the same quest keeps its own answer.
+  `Engine.ResetProgress` drops the guide's table, and an entry the client
+  has flagged since is dropped at login (`Own.latchCaughtUp`).
 - **Unavailable quests.** An `accept` whose `closedBy` names a quest that is
   in the log or done is unavailable before any visit (reason `"closed"`,
   "No longer offered: you took <quest>"): a breadcrumb whose follow-up is
