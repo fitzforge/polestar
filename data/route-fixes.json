@@ -4112,6 +4112,18 @@
 			},
 			{
 				"a": [
+					"task",
+					868
+				],
+				"b": [
+					"turnin",
+					1536
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): the Field of Giants' mounds (about 45,72) lie on the road from Camp Taurajo south, before Brine's hut (43.4,77.4) and Gann (46,77): Shamans fill their eggs on the way down, not back north from Brine (flow audit: 6.5 more walking minutes on every Shaman branch with the eggs after Brine)."
+			},
+			{
+				"a": [
 					"turnin",
 					584
 				],

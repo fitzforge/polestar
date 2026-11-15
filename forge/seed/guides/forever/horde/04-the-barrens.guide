@@ -151,6 +151,12 @@ step Grunt Logmar
   tip Grunt Logmar stands by the flight master. His Outraged Pillager (23) is elite: grouping up is advised; the two Encroaching Soldiers are not.
   accept 97250                        -- Grunt Logmar: the soldiers and the pillager camp just east of Gann Stonespire, on the way south
 
+step Field of Giants
+  zone The Barrens
+  tip South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
+  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
+  collect 5058 quest 868.1
+
 step The Barrens
   only Shaman
   when onquest 1536
@@ -163,12 +169,6 @@ step Brine
   tip Brine's hut stands on the ridge above the quilboar watering hole, south of Camp Taurajo, on the way to Bael Modan.
   turnin 1536                         -- Brine: the red waterskin from Tarren Mill
   accept 1534                         -- Brine: the blue waterskin is filled in Ashenvale, next guide
-
-step Field of Giants
-  zone The Barrens
-  tip South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
-  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
-  collect 5058 quest 868.1
 
 step Gann Stonespire
   tip Gann walks the road south toward Bael Modan, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. Sulhasa sits up in the tree just east of the road at 47.9,77.5.
