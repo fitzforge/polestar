@@ -128,7 +128,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	-- Where the player put it is where it opens (and rises to) next time.
-	W.DragWindow(head, F, { onStop = function()
+	ns.DragWindow(head, F, { onStop = function()
 		local point, _, relPoint, x, y = F:GetPoint(1)
 		if point then Anim.Anchor(F, point, UIParent, relPoint, x, y) end
 	end })

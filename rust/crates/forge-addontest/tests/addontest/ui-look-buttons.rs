@@ -448,7 +448,7 @@ fn buttons_preview_draws_the_target_list_beside_the_target_face_and_the_single_f
 	);
 	assert_eq!(out["list"], json!([false, true, true, "Rot Hide Mongrel", "3/8", true, "Executor Zygand", true, "plain"]), "the mark and the rows in the target face's place, the first one close");
 	assert_eq!(out["rare"], -146, "the rare button clear of three rows, as on the screen");
-	assert_eq!(out["row"], json!(["TOPLEFT", "BOTTOMLEFT", 232]), "in a row the rows hang under the target face, the rare button past them");
+	assert_eq!(out["row"], json!(["TOPLEFT", "BOTTOMLEFT", 260]), "in a row the rows hang under the target face, the rare button past them (208 + 52)");
 	assert_eq!(out["simple"], json!([true, false, false, "Rot Hide Mongrel"]), "Simple target button: the single face again");
 }
 

@@ -166,7 +166,7 @@ local function build()
 	F:Hide()
 	Theme.Skin(F, "window")
 	local function drag(frame)
-		W.DragWindow(frame, F)
+		ns.DragWindow(frame, F)
 	end
 	drag(F)
 

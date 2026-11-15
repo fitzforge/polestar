@@ -241,7 +241,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	local savePosition = GF.SavePosition
 
-	-- After a move (W.DragWindow, which the bars and the foot carry): the spot kept.
+	-- After a move (ns.DragWindow, which the bars and the foot carry): the spot kept.
 	local function dragStop()
 		savePosition()
 		-- The class quest card on the window flips below it when there is no room above.

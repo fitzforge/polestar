@@ -1400,3 +1400,39 @@ emit({ before, #R.Nearby() })"#,
 	);
 	assert_eq!(later[0], json!([1, 0]));
 }
+
+// The alert card drags as Polestar's windows do (Polestar.DragWindow): from the first pixel, by exactly the
+// pointer's travel at its scale; the drop is saved as { point, x, y } on the card's own point (the top), in whole
+// units.
+#[test]
+fn the_rare_alert_follows_the_pointer_and_saves_its_spot_on_its_own_point() {
+	let out = run(r#"
+Polestar.Codex.Load()
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true))
+-- Once its arrival has settled (Anim moves it in).
+stub.advance(1)
+local f = PolestarRareToast
+f:SetScale(1.2)
+f.x, f.y = 700, 800
+local s, left0, top0 = f:GetEffectiveScale(), f:GetLeft(), f:GetTop()
+local function near(a, b) return math.abs(a - b) < 1e-9 end
+stub.cursor = { 900, 500 }
+stub.RunScript(f, "OnMouseDown", "LeftButton")
+stub.cursor = { 901, 500 }
+stub.advance(0.02)
+local p, _, rp, x, y = f:GetPoint(1)
+local first = p == "TOPLEFT" and rp == "BOTTOMLEFT" and near(x, left0 + 1 / s) and near(y, top0)
+stub.cursor = { 940, 470 }
+stub.advance(0.02)
+p, _, rp, x, y = f:GetPoint(1)
+local follows = near(x, left0 + 40 / s) and near(y, top0 - 30 / s)
+stub.RunScript(f, "OnMouseUp", "LeftButton")
+local saved = Polestar.Get("rares.toastPoint")
+local k = UIParent:GetEffectiveScale() / s
+local wx = math.floor(f:GetLeft() + f:GetWidth() / 2 - UIParent:GetWidth() * k / 2 + 0.5)
+local wy = math.floor(f:GetBottom() + f:GetHeight() - UIParent:GetHeight() * k + 0.5)
+emit({ first = first, follows = follows, saved = saved, want = { "TOP", wx, wy } })"#);
+	assert_eq!(out[0]["first"], true, "from the first pixel");
+	assert_eq!(out[0]["follows"], true, "by exactly the pointer's travel, at the card's scale");
+	assert_eq!(out[0]["saved"], out[0]["want"], "saved on its own point, in whole units");
+}

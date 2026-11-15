@@ -641,7 +641,7 @@ local function buildDetails()
 	d.Art = ZoneArt.Create(d, DETAIL_W, ART_H, "panel")
 	d.Art.psZoom = 1.5
 	d.Art:SetPoint("TOPLEFT", d, "TOPLEFT", 0, 0)
-	W.DragWindow(d.Art, shell)
+	ns.DragWindow(d.Art, shell)
 	-- The icon in a dark well with a hairline in the quality colour, the
 	-- name beside it and a muted line under the name.
 	d.Well = CreateFrame("Frame", nil, d.Art.Over)

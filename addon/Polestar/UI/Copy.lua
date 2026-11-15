@@ -34,7 +34,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	W.DragWindow(head, F)
+	ns.DragWindow(head, F)
 	F.Head = head
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)

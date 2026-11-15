@@ -949,8 +949,14 @@ fn the_settings_window_is_its_own_window_no_hub_rail_the_hub_stays_and_it_moves_
 			tagline = settings.Tagline:GetText(), main = settings.psMainW, width = settings:GetWidth() - settings.psSidebar - 2 }
 		UI.ShowPicker()
 		local back = { settings = settings:IsShown(), hub = hub:IsShown() }
-		stub.RunScript(settings.Header, "OnDragStart")
-		emit({ opened = opened, back = back, moving = rawget(settings, "moving") == true })"#);
+		-- ns.DragWindow: a press on the header and the pointer's travel move the window (it then hangs by its corner).
+		stub.cursor = { 900, 500 }
+		stub.RunScript(settings.Header, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.advance(0.1)
+		stub.RunScript(settings.Header, "OnMouseUp", "LeftButton")
+		local point, _, relPoint = settings:GetPoint(1)
+		emit({ opened = opened, back = back, moving = point == "TOPLEFT" and relPoint == "BOTTOMLEFT" })"#);
 	assert_eq!(out["opened"]["shown"], true);
 	assert_eq!(out["opened"]["hub"], true, "the hub stays");
 	assert_eq!(out["opened"]["rail"], true, "no hub rail");

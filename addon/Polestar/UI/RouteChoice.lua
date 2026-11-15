@@ -645,7 +645,7 @@ local function build()
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	head:SetHeight(HEAD_H)
-	W.DragWindow(head, F)
+	ns.DragWindow(head, F)
 	F.Header = head
 	F.Night, F.Haze, F.Band = W.Night(head, { height = HEAD_H, sub = -6 })
 	F.HeadRule = W.Divider(head)

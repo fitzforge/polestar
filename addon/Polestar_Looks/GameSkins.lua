@@ -663,7 +663,7 @@ local function dragBar(f, host)
 	bar:SetParent(host)
 	bar:SetFrameLevel(host:GetFrameLevel() + 1)
 	if not bar.psWired then
-		ns.Widgets.DragWindow(bar, f)
+		ns.DragWindow(bar, f)
 		bar.psWired = true
 	end
 	return bar

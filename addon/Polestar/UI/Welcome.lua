@@ -114,7 +114,7 @@
 -- last line going down to the footer. It is opaque (the world never shows
 -- through it). Taller than the screen (a large UI scale, a long
 -- translation), it scales itself down to fit; it is dragged by any free
--- spot (W.DragWindow). Motion: the
+-- spot (ns.DragWindow). Motion: the
 -- window fades in and the hero settles 8px up as it fades in (180ms); a page
 -- change fades the old page out (120ms) and the new one in, rising 6px
 -- (180ms). Reduced motion (Anim) snaps the movement. The night's extras
@@ -2914,7 +2914,7 @@ local function onKey(self, key)
 end
 
 local function drag(frame)
-	W.DragWindow(frame, F)
+	ns.DragWindow(frame, F)
 end
 
 local function build()

@@ -1643,23 +1643,35 @@ local function mouseClick(b, downFirst)
 	return acted
 end
 local function keyPress(b) acted = 0; q.click(b, true); local onDown = acted; q.click(b, false); stub.runTimers(); return { onDown, acted } end
--- Hover, press, drag (the user carries the holder to x, y), release: no
--- OnMouseUp after a drag; the release's click is sent anyway in case the
--- client does. Reports whether the set moved, the actions fired and the
--- attribute while the cursor is still on the button; then leaves.
+-- Which frame a drag carries (Polestar.StartDrag, called on the client's
+-- drag start): the holder, the bag button, or nil.
+local carriedBy
+local startDrag = Polestar.StartDrag
+Polestar.StartDrag = function(handle, frame, ...)
+	local ok = startDrag(handle, frame, ...)
+	if ok then carriedBy = frame end
+	return ok
+end
+-- Hover, press, drag (the user carries the holder to x, y: the pointer still
+-- where it was pressed, the drag leaves the holder where the client put
+-- it), release: no OnMouseUp after a drag; the release's click is sent
+-- anyway in case the client does. Reports whether the set moved, the
+-- actions fired and the attribute while the cursor is still on the button;
+-- then leaves.
 local function drag(b, x, y)
 	acted = 0
+	carriedBy = nil
 	hover(b)
 	press(b)
 	R(b, "OnDragStart", "LeftButton")
-	local started = holder.moving
+	local started = carriedBy == holder
 	if started then holder:ClearAllPoints(); holder:SetPoint("CENTER", UIParent, "CENTER", x, y) end
 	R(b, "OnDragStop", "LeftButton")
 	q.click(b, false)
 	stub.runTimers()
 	local a = attr(b)
 	leave(b)
-	return { started == true, acted, a }
+	return { started, acted, a }
 end
 local function slot(b) local _, rel, _, x, y = b:GetPoint(1); return { rel == holder, x, y } end
 local function spot() local p, _, rp, x, y = holder:GetPoint(1); return { p, rp, x, y } end
@@ -1743,6 +1755,48 @@ fn action_buttons_with_the_lock_on_only_a_shift_drag_moves_the_set_a_plain_drag_
 	assert_eq!(out[3], json!([[true, 0, "false"], ["CENTER", "CENTER", -100, 10]]), "unlocked: a plain drag moves it again, live");
 }
 
+// The set follows the pointer as Polestar's windows do (Polestar.StartDrag), at the set's own scale: the drag starts
+// on the client's drag start, a few pixels on, and carries the set from the press's own spot, so it catches up at
+// once and then moves by exactly the pointer's travel (StartMoving dropped a scaled set off the pointer). The drop
+// is saved as { point, relPoint, x, y }, as before.
+#[test]
+fn action_buttons_the_set_follows_the_pointer_from_the_press_by_its_exact_travel_at_the_set_scale() {
+	let out = run(&[
+		ACTS,
+		r#"
+		q.items[900] = { name = "Torch" }
+		q.addItem(0, 1, 900, 1)
+		q.step({ { t = "use", item = 900, quest = 7 } })
+		set("buttonScale", 1.25)
+		holder.x, holder.y = 400, 300
+		local s = holder:GetEffectiveScale()
+		local left0, top0 = holder:GetLeft(), holder:GetTop()
+		local function near(a, b) return math.abs(a - b) < 1e-9 end
+		local function at(dx, dy)
+			local p, _, rp, x, y = holder:GetPoint(1)
+			return p == "TOPLEFT" and rp == "BOTTOMLEFT" and near(x, left0 + dx / s) and near(y, top0 + dy / s)
+		end
+		hover(item)
+		stub.cursor = { 900, 500 }
+		R(item, "OnMouseDown", "LeftButton")
+		stub.cursor = { 904, 500 }
+		R(item, "OnDragStart", "LeftButton")
+		stub.advance(0.02)
+		local caught = at(4, 0)
+		stub.cursor = { 940, 470 }
+		stub.advance(0.02)
+		local follows = at(40, -30)
+		R(item, "OnDragStop", "LeftButton")
+		stub.runTimers()
+		local p = PolestarCharDB.qol.buttonPos
+		emit({ scale = s, caught = caught, follows = follows,
+			saved = p[1] == "TOPLEFT" and p[2] == "BOTTOMLEFT" and near(p[3], left0 + 40 / s) and near(p[4], top0 - 30 / s) })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "scale": 1.25, "caught": true, "follows": true, "saved": true }));
+}
+
 #[test]
 fn action_buttons_the_set_comes_back_where_it_was_left_after_a_reload() {
 	let out = run_with(&[ACTS, " emit(spot())"].concat(), "", Some(r#"PolestarCharDB = { qol = { buttonPos = { "TOPLEFT", "TOPLEFT", 40, -60 } } }"#));
@@ -1758,12 +1812,14 @@ bag.IsMouseOver = function(self) return self.over == true end
 -- Press, drag (the user carries the button to x, y), release: whether the bag
 -- button moved and whether the set's holder moved with it.
 local function bagDrag(x, y)
+	carriedBy = nil
+	R(bag, "OnMouseDown", "LeftButton")
 	R(bag, "OnDragStart", "LeftButton")
-	local started, carried = bag.moving, holder.moving
+	local started, carried = carriedBy == bag, carriedBy == holder
 	if started then bag:ClearAllPoints(); bag:SetPoint("CENTER", UIParent, "CENTER", x, y) end
 	R(bag, "OnDragStop", "LeftButton")
 	stub.runTimers()
-	return { started == true, carried == true }
+	return { started, carried }
 end
 local function bagSpot() local p, rel, rp, x, y = bag:GetPoint(1); return { p, rp, x, y, rel == UIParent } end
 "#;

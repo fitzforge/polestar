@@ -16,6 +16,9 @@ section: players
 - Dragging a Polestar window (Install, the guide window, the settings and
   guide menu, the route choice, the guide end and the other dialogs) now
   follows the pointer from the first pixel, and a plain click never moves
-  it.
+  it. The flight timer, the instance tracker, the party panel, the arrow,
+  the floating button, the rare alert and the quest buttons drag the same
+  way and stay exactly where you drop them, at any scale; a click on the
+  arrow or the floating button still does what it did.
 - The target list's rows are a little wider, so a name like "Rot Hide
   Mongrel" fits beside its count.
