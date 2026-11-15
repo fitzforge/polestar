@@ -37,6 +37,25 @@ end
 
 local colored = setmetatable({}, { __mode = "k" }) -- region -> colour name
 local painters = setmetatable({}, { __mode = "k" }) -- object -> fn(object)
+-- The same regions by colour name (name -> { [region] = true }): a live
+-- repaint visits those in the colours it changed, not every one.
+local byName = {}
+local WEAK_KEYS = { __mode = "k" }
+
+local function file(region, name)
+	local was = colored[region]
+	if was == name then return end
+	if was then byName[was][region] = nil end
+	colored[region] = name
+	if name then
+		local set = byName[name]
+		if not set then
+			set = setmetatable({}, WEAK_KEYS)
+			byName[name] = set
+		end
+		set[region] = true
+	end
+end
 
 -- Colour a font string or texture by palette name, and keep it coloured
 -- through theme changes. alpha multiplies the palette alpha. A veiled
@@ -49,7 +68,7 @@ function W.Color(region, name, alpha)
 	if region.psMutedFrom and name ~= "textMuted" then
 		region.psMutedFrom, name = name, "textMuted"
 	end
-	colored[region] = name
+	file(region, name)
 	region.psAlpha = alpha
 	local r, g, b, a = Theme.Color(name)
 	a = region.psVeiled and 0 or (a or 1) * (alpha or 1)
@@ -64,7 +83,7 @@ end
 
 -- Stop following the theme (the caller colours the region itself).
 function W.Uncolor(region)
-	colored[region] = nil
+	file(region, nil)
 end
 
 -- Put a region's palette colour (and its W.Color alpha) back on: after a
@@ -105,8 +124,18 @@ Theme.OnChanged(function()
 		-- A live repaint: the regions in a colour it changed (a name the
 		-- palette lacks reads its text colour), the painters of what shows.
 		local pal = Theme.Palette()
-		for region, name in pairs(colored) do
-			if changed[name] or (pal[name] == nil and changed.text) then W.Color(region, name, region.psAlpha) end
+		for name in pairs(changed) do
+			local set = byName[name]
+			if set then
+				for region in pairs(set) do W.Color(region, name, region.psAlpha) end
+			end
+		end
+		if changed.text then
+			for name, set in pairs(byName) do
+				if pal[name] == nil then
+					for region in pairs(set) do W.Color(region, name, region.psAlpha) end
+				end
+			end
 		end
 		for obj, fn in pairs(painters) do
 			if not fullPainters[obj] and (not obj.IsVisible or obj:IsVisible()) then fn(obj) end
@@ -854,8 +883,33 @@ local function refreshList(list)
 	for i = 1, #list do list[i]:Refresh() end
 end
 
+-- A row hidden when every row refreshes waits for its next showing (its
+-- page, tab or window opened again) and refreshes then.
+local function refreshStale(control)
+	if control.psStale then
+		control.psStale = nil
+		control:Refresh()
+	end
+end
+
 function W.RefreshAll()
-	for _, list in pairs(bound) do refreshList(list) end
+	for _, list in pairs(bound) do
+		for i = 1, #list do
+			local control = list[i]
+			if control.HookScript and control.IsVisible and not control:IsVisible() then
+				if not control.psStale then
+					control.psStale = true
+					if not control.psStaleHooked then
+						control.psStaleHooked = true
+						control:HookScript("OnShow", refreshStale)
+					end
+				end
+			else
+				control.psStale = nil
+				control:Refresh()
+			end
+		end
+	end
 end
 
 ns.On("SETTING_CHANGED", function(path)

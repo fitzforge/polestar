@@ -11,7 +11,7 @@
 --               rough wait.
 --   maps.inns   innkeepers; the one the Hearthstone is bound to glows.
 -- Layers are rebuilt on login, discovery (taxi map), binding, settings and
--- theme changes; never per frame.
+-- theme changes that move the colours they wear; never per frame.
 
 local ADDON, ns = ...
 local Maps = ns.Maps
@@ -234,8 +234,30 @@ for _, event in ipairs({ "TAXIMAP_OPENED", "TAXIMAP_CLOSED", "HEARTHSTONE_BOUND"
 	end)
 end
 
+-- The theme's colours the pins wear (their tooltips read theirs as they
+-- show), as of the last theme change. A repaint that leaves those five as
+-- they were (a dragged transparency slider, a switched look option)
+-- rebuilds no layer.
+local WORN = { "success", "warning", "npc", "place", "object" }
+local worn = {}
+local function wornChanged()
+	local T, moved = ns.Theme, false
+	for i = 1, #WORN do
+		local r, g, b = T.Color(WORN[i])
+		local k = 3 * i
+		if worn[k - 2] ~= r or worn[k - 1] ~= g or worn[k] ~= b then
+			worn[k - 2], worn[k - 1], worn[k] = r, g, b
+			moved = true
+		end
+	end
+	return moved
+end
+
 ns.OnLogin(function()
 	local T = ns.Theme
-	if T and T.OnChanged then T.OnChanged(queue) end
+	if T and T.OnChanged and T.Color then
+		wornChanged()
+		T.OnChanged(function() if wornChanged() then queue() end end)
+	end
 	queue()
 end)

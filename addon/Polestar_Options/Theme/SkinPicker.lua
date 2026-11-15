@@ -509,6 +509,11 @@ end
 -- skin's own design, dart, glow and colours, pointing ahead-left; the
 -- swatches under it.
 local cardLook = {}
+-- While the cards on screen are drawn again in one go (the theme's listener
+-- below): the arrow's look is read once for them all, and the live skin's
+-- own arrow put back once, after the last (batch.live: the live skin's card
+-- was among them).
+local batch
 local function paintArrow(p, w, h, left)
 	local art = p.win:GetParent()
 	local room = max(8, w - 4 - left)
@@ -522,7 +527,7 @@ local function paintArrow(p, w, h, left)
 		p.holder:SetPoint("TOP", art, "TOPLEFT", mid / s, -top / s)
 		if Nav.ReadPalette then Nav.ReadPalette() end
 		Arrow.ReadSkin()
-		Arrow.ReadLook(cardLook)
+		if not batch then Arrow.ReadLook(cardLook) end
 		Arrow.PaintDial(p.dial, cardLook, Arrow.StyleFor("skin"), "travel", 0.5, 400)
 		p.dial.distText:Hide()
 		p.dial.labelText:Hide()
@@ -588,11 +593,15 @@ local function draw(art, id, variant, scheme, alone)
 	local ok, err = pcall(paintCard, art, id, scheme, alone)
 	drawing.id, drawing.pal, previewing[id] = wasId, wasPal, wasVariant
 	if not alone then
-		-- The live skin's own again: the arrow's colours, dart and glow, and
-		-- a resolver's answer for the variant in use.
-		if Nav and Nav.ReadPalette then Nav.ReadPalette() end
-		if Arrow and Arrow.ReadSkin then Arrow.ReadSkin() end
-		if id == live and SKINS[id].resolve then resolve(id) end
+		if batch then
+			if id == live then batch.live = id end
+		else
+			-- The live skin's own again: the arrow's colours, dart and glow, and
+			-- a resolver's answer for the variant in use.
+			if Nav and Nav.ReadPalette then Nav.ReadPalette() end
+			if Arrow and Arrow.ReadSkin then Arrow.ReadSkin() end
+			if id == live and SKINS[id].resolve then resolve(id) end
+		end
 	end
 	if not ok then error(err, 0) end
 end
@@ -609,13 +618,25 @@ end
 -- (Theme.OnChanged's full).
 Theme.OnChanged(function()
 	local failed
+	batch = {}
 	for art in pairs(drawn) do
 		if art:IsVisible() then
+			if not batch.drew then
+				batch.drew = true
+				Arrow.ReadLook(cardLook)
+			end
 			local ok, err = pcall(redraw, art)
 			if not ok then failed = failed or err end
 		else
 			art.psCardStale = true
 		end
+	end
+	local done = batch
+	batch = nil
+	if done.drew then
+		if Nav and Nav.ReadPalette then Nav.ReadPalette() end
+		if Arrow and Arrow.ReadSkin then Arrow.ReadSkin() end
+		if done.live and SKINS[done.live].resolve then resolve(done.live) end
 	end
 	if failed then error(failed, 0) end
 end, true)

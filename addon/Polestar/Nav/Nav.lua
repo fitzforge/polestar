@@ -144,6 +144,25 @@ local function refreshPalette()
 	if type(T) == "table" and T.IsLightPalette and T.Palette and T.Contrast then overTheWorld(T) end
 end
 
+-- Whether the palette moved since the last theme change looked (the
+-- colours as they were then kept in `seen`).
+local seen = {}
+local function paletteMoved()
+	local moved = false
+	for name, c in pairs(palette) do
+		local s = seen[name]
+		if not s then
+			s = {}
+			seen[name] = s
+		end
+		if s[1] ~= c[1] or s[2] ~= c[2] or s[3] ~= c[3] then
+			s[1], s[2], s[3] = c[1], c[2], c[3]
+			moved = true
+		end
+	end
+	return moved
+end
+
 function Nav.RGB(name)
 	local c = palette[name] or palette.text
 	return c[1], c[2], c[3]
@@ -719,10 +738,14 @@ end
 
 ns.OnInit(function()
 	refreshPalette()
+	paletteMoved()
 	local T = ns.Theme
 	if type(T) == "table" and type(T.OnChanged) == "function" then
 		T.OnChanged(function()
 			refreshPalette()
+			-- A live repaint (a slider dragged) changes colours alone: when
+			-- none of Nav's moved, nothing Nav shows changes either.
+			if not paletteMoved() and T.LiveChanged and T.LiveChanged() then return end
 			notify("OnTheme")
 		end)
 	end

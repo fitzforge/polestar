@@ -600,6 +600,10 @@ local P -- the resolved palette; rebuilt on the next read after a change
 -- live ones while the card is painted; nothing is switched, saved or
 -- repainted.
 local drawing = {}
+-- While a repaint runs, its listeners too (Theme.Refresh, the live
+-- repaint): the skin in use and its key, worked out once ({ id =, key = };
+-- a skin failing meanwhile clears them). Nil otherwise.
+local skinMemo
 
 -- The skin chosen (ui.skin) as it is drawn: a registered skin (built in or
 -- added by another addon through the Skin API, docs/SKINS-API.md) that has
@@ -609,9 +613,12 @@ local drawing = {}
 -- returns or its addon registers it later in the session.
 function Theme.SkinId()
 	if drawing.id then return drawing.id end
+	if skinMemo and skinMemo.id then return skinMemo.id end
 	local k = get("ui.skin")
-	if SKINS[k] and not FAILED[k] and (Theme._testShowHidden or not HIDDEN_SKINS[k]) then return k end
-	return "polestar"
+	local id = "polestar"
+	if SKINS[k] and not FAILED[k] and (Theme._testShowHidden or not HIDDEN_SKINS[k]) then id = k end
+	if skinMemo then skinMemo.id = id end
+	return id
 end
 
 
@@ -694,9 +701,12 @@ end
 -- part missing or disabled, Polestar's own look stands in, whole (not the
 -- look's sizes and controls on Polestar's frames).
 function Theme.SkinKey()
+	local m = not drawing.id and skinMemo
+	if m and m.key then return m.key end
 	local s = SKINS[Theme.SkinId()]
 	local key = s and baseOf(s) or "polestar"
-	if (GAME_SKINS[key] or key == "hearth") and Theme.LoadLooks and not Theme.LoadLooks(key) then return "polestar" end
+	if (GAME_SKINS[key] or key == "hearth") and Theme.LoadLooks and not Theme.LoadLooks(key) then key = "polestar" end
+	if m then m.key = key end
 	return key
 end
 
@@ -1555,6 +1565,36 @@ local function fontSpec(role)
 	return s[1], s[2], s[3]
 end
 
+-- What every string's font reads besides the string's own (its outline,
+-- size and shadow repaint it as they change): each role's spec and the text
+-- shadow, as the last repaint of every string left them.
+local fontsSeen, roleNames = {}, nil
+-- Whether any of it changed since (a font, a size, the skin, the shadow's
+-- colour), noting it. A refresh where nothing did (a switched look option,
+-- a colour) leaves every string's font as it is.
+local function fontsMoved()
+	if not roleNames then
+		roleNames = {}
+		for role in pairs(ROLES) do roleNames[#roleNames + 1] = role end
+		table.sort(roleNames)
+	end
+	local seen, i, moved = fontsSeen, 0, false
+	for k = 1, #roleNames do
+		local path, size, flags = fontSpec(roleNames[k])
+		if seen[i + 1] ~= path or seen[i + 2] ~= size or seen[i + 3] ~= flags then
+			seen[i + 1], seen[i + 2], seen[i + 3] = path, size, flags
+			moved = true
+		end
+		i = i + 3
+	end
+	local mode, r, g, b, own = shadowSpec()
+	if seen[i + 1] ~= mode or seen[i + 2] ~= r or seen[i + 3] ~= g or seen[i + 4] ~= b or seen[i + 5] ~= own then
+		seen[i + 1], seen[i + 2], seen[i + 3], seen[i + 4], seen[i + 5] = mode, r, g, b, own
+		moved = true
+	end
+	return moved
+end
+
 -- Forever leaves a string blank after a new font until its text changes
 -- (the options' values and tiles after a skin change): set it again. Not an
 -- edit box the player is in: setting its text again drops their cursor and
@@ -1661,12 +1701,17 @@ function Theme.Border(frame, r, g, b, a, layer, size)
 	end
 	local px = Theme.Pixel(frame)
 	local n = (type(size) == "number" and size > 1) and floor(size + 0.5) or 1
-	local w, o = px * n, px * (n - 1)
-	local top, bottom, left, right = e[1], e[2], e[3], e[4]
-	top:ClearAllPoints(); top:SetPoint("TOPLEFT", frame, "TOPLEFT", -o, o); top:SetPoint("TOPRIGHT", frame, "TOPRIGHT", o, o); top:SetHeight(w)
-	bottom:ClearAllPoints(); bottom:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -o, -o); bottom:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", o, -o); bottom:SetHeight(w)
-	left:ClearAllPoints(); left:SetPoint("TOPLEFT", top, "BOTTOMLEFT", 0, 0); left:SetPoint("BOTTOMLEFT", bottom, "TOPLEFT", 0, 0); left:SetWidth(w)
-	right:ClearAllPoints(); right:SetPoint("TOPRIGHT", top, "BOTTOMRIGHT", 0, 0); right:SetPoint("BOTTOMRIGHT", bottom, "TOPRIGHT", 0, 0); right:SetWidth(w)
+	-- The edges' places stand until the pixel or the thickness changes (a
+	-- repaint of colours alone lays nothing out).
+	if e.px ~= px or e.n ~= n then
+		e.px, e.n = px, n
+		local w, o = px * n, px * (n - 1)
+		local top, bottom, left, right = e[1], e[2], e[3], e[4]
+		top:ClearAllPoints(); top:SetPoint("TOPLEFT", frame, "TOPLEFT", -o, o); top:SetPoint("TOPRIGHT", frame, "TOPRIGHT", o, o); top:SetHeight(w)
+		bottom:ClearAllPoints(); bottom:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -o, -o); bottom:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", o, -o); bottom:SetHeight(w)
+		left:ClearAllPoints(); left:SetPoint("TOPLEFT", top, "BOTTOMLEFT", 0, 0); left:SetPoint("BOTTOMLEFT", bottom, "TOPLEFT", 0, 0); left:SetWidth(w)
+		right:ClearAllPoints(); right:SetPoint("TOPRIGHT", top, "BOTTOMRIGHT", 0, 0); right:SetPoint("BOTTOMRIGHT", bottom, "TOPRIGHT", 0, 0); right:SetWidth(w)
+	end
 	for i = 1, 4 do
 		e[i]:SetVertexColor(r, g, b, a)
 		e[i]:Show()
@@ -2436,6 +2481,7 @@ failSkin = function(id, err, deferred)
 	local s = SKINS[id]
 	if FAILED[id] or not s or s.builtin then return end
 	FAILED[id] = tostring(err)
+	if skinMemo then skinMemo.id, skinMemo.key = nil, nil end
 	local who = s.addon or "?"
 	if ns.NoteError then ns.NoteError(format("skin %s (%s): %s", id, who, tostring(err))) end
 	if ns.Print and ns.L then
@@ -2619,21 +2665,33 @@ end
 local livePending, liveFrame, liveRun = false, nil, nil
 local liveChanged -- the palette names the live repaint running changed
 
--- Repaint everything we skinned or fonted, then tell the listeners.
+local function repaintAll()
+	switchSkin()
+	for sky in pairs(bands) do paintBand(sky) end
+	for frame, kind in pairs(skinned) do paint(frame, kind) end
+	if fontsMoved() then
+		for fs, role in pairs(fonted) do paintFont(fs, role) end
+	end
+end
+
+-- Repaint everything we skinned or fonted (the strings when their fonts'
+-- inputs moved: fontsMoved), then tell the listeners.
 function Theme.Refresh()
 	P = nil
 	livePending = false
 	refreshing = true
-	memo = { faces = {} }
-	switchSkin()
-	for sky in pairs(bands) do paintBand(sky) end
-	for frame, kind in pairs(skinned) do paint(frame, kind) end
-	for fs, role in pairs(fonted) do paintFont(fs, role) end
+	memo, skinMemo = { faces = {} }, {}
+	local ok, err = pcall(repaintAll)
 	memo = nil
 	refreshing = false
+	if not ok then
+		skinMemo = nil
+		error(err, 0)
+	end
 	-- A registered skin failed while painting: everything again in the house style.
 	if refreshAgain then
 		refreshAgain = false
+		skinMemo = nil
 		return Theme.Refresh()
 	end
 	-- EllesmereUI's font is handed over at login, in the frame the window is
@@ -2647,6 +2705,7 @@ function Theme.Refresh()
 		end)
 	end
 	tell(false)
+	skinMemo = nil
 end
 
 -- Whether two palette entries hold the same colour (or value).
@@ -2656,6 +2715,20 @@ local function sameEntry(a, b)
 	for k, v in pairs(a) do if b[k] ~= v then return false end end
 	for k in pairs(b) do if a[k] == nil then return false end end
 	return true
+end
+
+local function repaintShown(changed)
+	for sky in pairs(bands) do
+		if sky:IsVisible() then paintBand(sky) end
+	end
+	for frame, kind in pairs(skinned) do
+		if frame:IsVisible() then paint(frame, kind) end
+	end
+	if changed.shade then
+		for fs in pairs(fonted) do
+			if fs:IsVisible() then paintShadow(fs) end
+		end
+	end
 end
 
 -- A live change of a setting the palette alone holds (LIVE, while
@@ -2677,33 +2750,32 @@ local function liveRepaint()
 		end
 	end
 	refreshing = true
-	memo = { faces = {} }
-	for sky in pairs(bands) do
-		if sky:IsVisible() then paintBand(sky) end
-	end
-	for frame, kind in pairs(skinned) do
-		if frame:IsVisible() then paint(frame, kind) end
-	end
-	if changed.shade then
-		for fs in pairs(fonted) do
-			if fs:IsVisible() then paintShadow(fs) end
-		end
-	end
+	memo, skinMemo = { faces = {} }, {}
+	local ok, err = pcall(repaintShown, changed)
 	memo = nil
 	refreshing = false
+	if not ok then
+		skinMemo = nil
+		error(err, 0)
+	end
 	if refreshAgain then
 		refreshAgain = false
+		skinMemo = nil
 		return Theme.Refresh()
 	end
 	liveChanged = changed
 	tell(true)
-	liveChanged = nil
+	liveChanged, skinMemo = nil, nil
 end
 
 -- While listeners hear a live repaint: { [palette name] = true } for the
 -- colours it changed (W.Color's regions of the others stay as they are);
 -- nil after a full refresh, where every colour is painted again.
 function Theme.LiveChanged() return liveChanged end
+
+-- Whether a listener passes `frame` by on this repaint: a live one paints
+-- what shows, and the full refresh the change settles with the rest.
+function Theme.LiveHidden(frame) return liveChanged ~= nil and not frame:IsVisible() end
 
 -- A live change's repaint waits for the next frame update, so the changes
 -- made within one frame repaint once; a full refresh before it stands in.
