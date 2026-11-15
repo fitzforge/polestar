@@ -330,8 +330,8 @@ step Bloodtalon Matriarch
 step Level 9
   when level<9
   tip Top up here to level 9 before the southern isles: the Voodoo and Hexed Trolls there are 8-9 and Zalazane is 10.
-  goto 65.5,83.0 map 1411 "Durotar Tigers"
-  level 9 grind 3121               -- grind on Durotar Tigers
+  goto 65.5,83.0 map 1411 "Durotar Tiger"
+  level 9 grind 3121               -- grind on Durotar Tiger
 
 step Echo Isles: kill these as you meet them
   zone Durotar
