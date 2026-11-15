@@ -52,6 +52,8 @@ step Into the Riverglades
   tip New in Forever: this guide follows what players did in the Riverglades. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip From Kargath, ride south-east across the Badlands to the zone's southern edge: the pass of Twilight's Shroud leads down into the Riverglades. Rog'mar, the Horde's fort, stands in the middle of the zone, east along the valley.
   goto 55.0,93.0 "Into the Riverglades"
+  zone Riverglades
+  enter "Riverglades" @32.0,29.9
 
 step Fly to Freewind Post
   when !taxi "Kargath"
@@ -360,6 +362,7 @@ step Na'zok's camp
   accept 95162                          -- Paletusk Harvesting
 
 step Bolder'ok
+  when onquest 95420
   tip North-west to Bolder'ok, the ogres' town. Clugfist, its chieftain, sits on the hill. The ogres are friendly while you leave them alone.
   turnin 95420                          -- Clugfist
   accept 95424                          -- Might Makes Right
