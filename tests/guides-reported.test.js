@@ -1824,10 +1824,10 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Masoj\'s three vials on 
 
 // Level tidy (2026-11-15): the Shimmering Flats' silithid dig (Invaders 34-35) and the Gazers (34-35) came first on the
 // flats at about 31 (calibrated level model), three levels over the player. The flats' north (basilisks, tortoises,
-// Scorpid Reavers and rocket rubble, 30-32) and the raceway's hand-ins now come first, then a top-up to 32.5 on the
+// Scorpid Reavers and rocket rubble, 30-32) and the raceway's hand-ins now come first, then one top-up to 32 on the
 // Saltstone Crystalhides (32-33) on the way south-west, then the Gazers, the dig and Moktar Krin, all on the same visit
-// before Gadgetzan. Desolace's top-up is to 32 on the Kolkar centaurs (30-32), before Shadowprey, whose Other Fish to
-// Fry is offered from 32.
+// before Gadgetzan. With players' recorded 25th percentile 33.1-33.2 there, 32 puts the Gazers and Invaders (35) at most
+// two over at the top of their camps, with tips; Desolace's Kolkar top-up went (the flats' one covers it).
 test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the raceway\'s hand-ins, on the same visit', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
 	const firstHandIn = at(list, 'turnin 1105', is('turnin', 1105));
@@ -1839,16 +1839,12 @@ test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the
 	]) assert.ok(at(list, what, pred) > firstHandIn, `${what} after the raceway's first hand-ins`);
 	assert.ok(at(list, 'turnin 1175', is('turnin', 1175)) < at(list, 'accept 5561', is('accept', 5561)), 'the whole flats before Desolace');
 	const levels = list.filter(({ goal }) => goal.t === 'level');
-	assert.equal(levels.length, 2, 'two top-ups');
-	const [flats, desolace] = levels;
-	assert.equal(flats.goal.level + (flats.goal.frac || 0), 32.5);
+	assert.equal(levels.length, 1, 'one top-up');
+	const [flats] = levels;
+	assert.equal(flats.goal.level + (flats.goal.frac || 0), 32);
 	assert.equal(flats.goal.grind, 4151, 'on the Saltstone Crystalhides (32-33)');
 	const fi = list.indexOf(flats);
 	assert.ok(firstHandIn < fi && fi < at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3), 'after the hand-ins, before the Gazers');
-	assert.equal(desolace.goal.level + (desolace.goal.frac || 0), 32);
-	assert.equal(desolace.goal.grind, 4635, 'on the Kolkar Windchasers (31-32)');
-	const di = list.indexOf(desolace);
-	assert.ok(at(list, 'turnin 5561', is('turnin', 5561)) < di && di < at(list, 'accept 6143', is('accept', 6143)), 'after the kodos, before Shadowprey');
 	const gazers = list[at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3)].step;
 	assert.match([gazers.note, gazers.tip].flat().filter(Boolean).join(' '), /Gazers can still be two over you/, 'the Gazers step says how to pull them');
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
@@ -14270,7 +14266,7 @@ test('Durotar: Rezlak waits for the Dull Storm Orb\'s quest and its follow-up be
 // with Roguefeather Den, which Thousand Needles' first Freewind visit now does at 31.)
 test('Horde grind top-ups stand on camps at most a level over the player (#2207)', { skip }, () => {
 	for (const [guide, title, npc] of [
-		['forever/horde/30-40/02-thousand-needles.guide', 'Level 32', 4635],
+		['forever/horde/30-40/02-thousand-needles.guide', 'Level 32', 4151],
 		['forever/horde/50-60/02-felwood.guide', 'Level 52.63', 1821],
 		['forever/horde/50-60/03-winterspring.guide', 'Level 55.04', 7458],
 		['forever/horde/50-60/06-silithus.guide', 'Level 58', 11741],
