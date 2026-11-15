@@ -140,26 +140,24 @@ local function build()
 		if which == "RightButton" then
 			W.HideTooltip(self)
 			ns.Maps.ShowMenu(self)
-		else
+		elseif not ns.DragMoved(self) then
 			ns.ToggleHidden()
 			if GameTooltip and GameTooltip:GetOwner() == self then showTip(self) end
 		end
 	end)
 	button:SetScript("OnEnter", showTip)
 	button:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
-	button:SetScript("OnDragStart", function(self)
-		if ns.DragLocked() then return end
-		W.HideTooltip(self)
-		self.psMoving = true
-		self:StartMoving()
-	end)
-	button:SetScript("OnDragStop", function(self)
-		if not self.psMoving then return end
-		self.psMoving = nil
-		self:StopMovingOrSizing()
-		local x, y = self:GetCenter()
-		if x and y then ns.Set("ui.launcherPos", { floor(x + 0.5), floor(y + 0.5) }) end
-	end)
+	-- Dragged from the first pixel (ns.DragWindow); the centre saved on the drop.
+	ns.DragWindow(button, button, {
+		locked = function() return ns.DragLocked() end,
+		onStart = function(self) W.HideTooltip(self) end,
+		onStop = function(self)
+			local x, y = self:GetCenter()
+			if x and y then ns.Set("ui.launcherPos", { floor(x + 0.5), floor(y + 0.5) }) end
+		end,
+	})
+	-- A drag is never a click, moved or locked (the client's drag start).
+	button:SetScript("OnDragStart", function(self) self.psDragMoved = true end)
 	button:Hide()
 	return button
 end

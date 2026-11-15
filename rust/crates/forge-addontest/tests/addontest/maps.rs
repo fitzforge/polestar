@@ -461,11 +461,14 @@ fn with_the_lock_on_only_a_shift_drag_moves_the_flight_timer_and_the_instance_tr
 		r#"
 		known(1, 3)
 		fly(1, 1, { 3 }, 600, 0, 40)
+		-- A press, the pointer's travel, the release (ns.DragWindow): did the frame move?
 		local function drag(f)
-			stub.RunScript(f, "OnDragStart")
-			local started = f.moving == true
-			f:StopMovingOrSizing()
-			return started
+			stub.cursor = { 900, 500 }
+			stub.RunScript(f, "OnMouseDown", "LeftButton")
+			stub.cursor = { 910, 490 }
+			stub.advance(0.02)
+			stub.RunScript(f, "OnMouseUp", "LeftButton")
+			return Polestar.DragMoved(f)
 		end
 		local r = {}
 		for _, name in ipairs({ "PolestarFlightTimer", "PolestarInstanceTracker" }) do
@@ -502,13 +505,17 @@ fn with_the_lock_on_a_drag_that_does_not_move_the_flight_timer_or_the_instance_t
 		local r = {}
 		for name, key in pairs({ PolestarFlightTimer = "maps.timerPos", PolestarInstanceTracker = "maps.trackerPos" }) do
 			local f = stub.frame(name)
+			local function drag()
+				stub.cursor = { 900, 500 }
+				stub.RunScript(f, "OnMouseDown", "LeftButton")
+				stub.cursor = { 910, 490 }
+				stub.RunScript(f, "OnMouseUp", "LeftButton")
+			end
 			stub.keys.shift = false
-			stub.RunScript(f, "OnDragStart")
-			stub.RunScript(f, "OnDragStop")
+			drag()
 			local refused = Polestar.Get(key)
 			stub.keys.shift = true
-			stub.RunScript(f, "OnDragStart")
-			stub.RunScript(f, "OnDragStop")
+			drag()
 			r[name] = { refused, type(Polestar.Get(key)) }
 		end
 		emit(r)"#,

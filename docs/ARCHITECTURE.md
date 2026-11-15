@@ -9556,7 +9556,10 @@ Each call fires `GUIDE_VISIBILITY`.
   toggle; its look on Settings > Buttons): a `PolestarLauncher` on `UIParent` in the minimap button's
   look, and works as it does: click hides or shows all of Polestar
   (`Polestar.ToggleHidden`, dimmed while hidden), right-click opens `Maps.ShowMenu`, a drag
-  (`StartMoving`; with `ui.lockHud` only a Shift-drag, `ns.DragLocked`) saves
+  (`ns.DragWindow`, Core/Init.lua, as every Polestar window and the HUD's
+  frames: it follows the pointer from the first pixel, and the release's
+  click after a move does nothing; with `ui.lockHud` only a Shift-drag,
+  `ns.DragLocked`) saves
   its centre in `ui.launcherPos` (from the screen's bottom-left; unset: beside
   the window's default corner, `TOPRIGHT` -440, -256). It refreshes on
   `GUIDE_VISIBILITY` and its settings and hides while `RulesHide()` holds, so

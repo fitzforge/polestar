@@ -3921,10 +3921,7 @@ function W.Shell(name, opts)
 	f.psRail = RAIL
 
 	local function draggable(frame)
-		frame:EnableMouse(true)
-		frame:RegisterForDrag("LeftButton")
-		frame:SetScript("OnDragStart", function() f:StartMoving() end)
-		frame:SetScript("OnDragStop", function() f:StopMovingOrSizing() end)
+		ns.DragWindow(frame, f)
 	end
 
 	-- The section rail: the emblem on the title's line, then one button per
@@ -4031,10 +4028,7 @@ function W.Shell(name, opts)
 	head:SetPoint("TOPLEFT", main, "TOPLEFT", 0, 0)
 	head:SetPoint("TOPRIGHT", main, "TOPRIGHT", 0, 0)
 	head:SetHeight(SHELL.header)
-	head:EnableMouse(true)
-	head:RegisterForDrag("LeftButton")
-	head:SetScript("OnDragStart", function() f:StartMoving() end)
-	head:SetScript("OnDragStop", function() f:StopMovingOrSizing() end)
+	ns.DragWindow(head, f)
 	f.Header = head
 	f.Band = Theme.Band(head, "BACKGROUND", -5)
 	f.Band:SetAllPoints(head)

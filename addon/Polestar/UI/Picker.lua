@@ -1177,10 +1177,7 @@ local function buildDetails()
 	d.Art = ZoneArt.Create(d, DETAIL_W, ART_H, "panel")
 	d.Art.psZoom = 1.5 -- the wider band shows more of the zone
 	d.Art:SetPoint("TOPLEFT", d, "TOPLEFT", 0, 0)
-	d.Art:EnableMouse(true)
-	d.Art:RegisterForDrag("LeftButton")
-	d.Art:SetScript("OnDragStart", function() win:StartMoving() end)
-	d.Art:SetScript("OnDragStop", function() win:StopMovingOrSizing() end)
+	ns.DragWindow(d.Art, win)
 	-- The window's close button moves to the art's corner, where the shell
 	-- keeps it; the star beside it.
 	win.Close:SetParent(d.Art.Over)

@@ -503,6 +503,8 @@ mod ui_welcome;
 mod ui_whatsnew;
 #[path = "ui-while-here.rs"]
 mod ui_while_here;
+#[path = "ui-window-drag.rs"]
+mod ui_window_drag;
 #[path = "ui-zoneart.rs"]
 mod ui_zoneart;
 #[path = "where.rs"]

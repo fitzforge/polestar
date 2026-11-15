@@ -387,20 +387,23 @@ local function build()
 	f:SetFrameStrata("HIGH")
 	f:SetClampedToScreen(true)
 	f:SetMovable(true)
-	f:RegisterForDrag("LeftButton")
 	buildSecure()
 
-	f:SetScript("OnDragStart", function(self)
-		-- Lined up with the other alerts (Alerts & toasts > Stacking): the line moves, not the card.
-		local TS = looks()
-		if TS and TS.Stacked("rare") then return end
-		self:StartMoving()
-	end)
-	f:SetScript("OnDragStop", function(self)
-		self:StopMovingOrSizing()
-		local point, _, _, x, y = self:GetPoint(1)
-		if point then ns.Set("rares.toastPoint", { point, floor(x + 0.5), floor(y + 0.5) }) end
-	end)
+	-- Dragged from the first pixel (ns.DragWindow), unless lined up with the
+	-- other alerts (Alerts & toasts > Stacking): the line moves, not the card.
+	-- The drop is saved as { point, x, y } on the card's own point.
+	ns.DragWindow(f, f, {
+		locked = function()
+			local TS = looks()
+			return TS and TS.Stacked("rare") and true or false
+		end,
+		onStop = function(self)
+			local p = Rares.Get("toastPoint")
+			local point = type(p) == "table" and type(p[1]) == "string" and p[1] or DEFAULT[1]
+			local x, y = ns.PointOffsets(self, point)
+			ns.Set("rares.toastPoint", { point, floor(x + 0.5), floor(y + 0.5) })
+		end,
+	})
 	f:SetScript("OnUpdate", ns.Safe(function(self, elapsed)
 		if self:IsMouseOver() then return end
 		self.psLeft = (self.psLeft or 0) - elapsed

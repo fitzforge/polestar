@@ -885,6 +885,133 @@ function ns.DragLocked()
 	return ns.Get("ui.lockHud") and not ns.Compat.IsShiftKeyDown() and true or false
 end
 
+-- ns.DragWindow(handle, frame, opts): the left button held on `handle` moves
+-- `frame` with the pointer from the first pixel it travels, as the hand
+-- moves it: no drag threshold to cross first (the client's drag start, then
+-- StartMoving, left the window still for a few pixels and then made it leap
+-- to catch up; on a scaled frame StartMoving also dropped it off the
+-- pointer), and a press that does not move it leaves it exactly where it
+-- was (no anchor rewritten, nothing re-snapped). While it moves, the window
+-- hangs by its top-left corner off UIParent's bottom-left, moved by exactly
+-- the pointer's travel, kept on screen while it is clamped there; the
+-- frame's scale and the UI scale are both counted, so the window keeps its
+-- place under the pointer at any scale. The move runs on a driver frame of
+-- its own, so the window's and the handle's OnUpdate scripts stay theirs.
+-- Every Polestar window and the HUD's frames (the arrow, the floating
+-- button, the timers, the rare alert; the action buttons through
+-- ns.StartDrag) move this way. opts: locked() (true: the press does
+-- nothing; the guide window's lock, ns.DragLocked), onStart(frame) (at the
+-- first pixel it moves), onStop(frame) (after a move that changed it: save
+-- the spot, re-record an Anim anchor). A handle with a click of its own
+-- skips it after a move (ns.DragMoved).
+local dragging -- the move under way: { frame, handle, opts, x0, y0 (the pointer, physical px), left, top, moved }
+local dragDriver = CreateFrame("Frame")
+dragDriver:Hide()
+
+local function dragTo(d)
+	local f = d.frame
+	local s = f:GetEffectiveScale()
+	if not s or s <= 0 then return end
+	local cx, cy = GetCursorPosition()
+	local dx, dy = (cx - d.x0) / s, (cy - d.y0) / s
+	if not d.moved and dx == 0 and dy == 0 then return end
+	if not d.moved then
+		d.moved = true
+		d.handle.psDragMoved = true
+		if d.opts.onStart then d.opts.onStart(f) end
+	end
+	local left, top = d.left + dx, d.top + dy
+	if f.IsClampedToScreen and f:IsClampedToScreen() then
+		local us = UIParent:GetEffectiveScale()
+		local sw, sh = UIParent:GetWidth() * us / s, UIParent:GetHeight() * us / s
+		local w, h = f:GetWidth(), f:GetHeight()
+		left = math.min(math.max(left, 0), math.max(0, sw - w))
+		top = math.max(math.min(top, sh), math.min(sh, h))
+	end
+	f:ClearAllPoints()
+	f:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", left, top)
+end
+
+local function dragEnd()
+	local d = dragging
+	if not d then return end
+	dragging = nil
+	dragDriver:Hide()
+	if d.moved and d.opts.onStop then d.opts.onStop(d.frame) end
+end
+
+dragDriver:SetScript("OnUpdate", function()
+	local d = dragging
+	if not d then return end
+	dragTo(d)
+	-- A release the handle did not hear (the pointer let go over another window).
+	if IsMouseButtonDown and not IsMouseButtonDown("LeftButton") then dragEnd() end
+end)
+
+-- ns.StartDrag(handle, frame, opts, x0, y0): `frame` follows the pointer from
+-- (x0, y0) (physical px, default where it is now) until the release, as
+-- ns.DragWindow moves it. For a handle whose press the client must see
+-- first (a secure button starts it on its drag start, the press's own spot
+-- given, so the frame catches up at once and then follows exactly).
+-- -> true once the move is under way
+function ns.StartDrag(handle, frame, opts, x0, y0)
+	if dragging then return false end
+	if frame.IsMovable and not frame:IsMovable() then return false end
+	local left, top = frame:GetLeft(), frame:GetTop()
+	if not (left and top) then return false end
+	if not (x0 and y0) then x0, y0 = GetCursorPosition() end
+	handle.psDragMoved = nil
+	dragging = { frame = frame, handle = handle, opts = opts or {}, x0 = x0, y0 = y0, left = left, top = top, moved = false }
+	dragDriver:Show()
+	return true
+end
+
+-- ns.StopDrag(): the move under way ends where the pointer is (onStop after a move).
+function ns.StopDrag()
+	if not dragging then return end
+	dragTo(dragging)
+	dragEnd()
+end
+
+-- ns.DragMoved(handle): whether the last press on `handle` moved its window,
+-- so its click (on the release) is not taken as one.
+function ns.DragMoved(handle)
+	return handle.psDragMoved == true
+end
+
+-- ns.PointOffsets(frame, point) -> x, y: the offsets that pin `frame`'s
+-- `point` to the same point of UIParent where it stands now, in the frame's
+-- own units (its scale counted), for a spot saved as { point, x, y }.
+function ns.PointOffsets(frame, point)
+	local k = UIParent:GetEffectiveScale() / frame:GetEffectiveScale()
+	local uw, uh = UIParent:GetWidth() * k, UIParent:GetHeight() * k
+	local function along(size, low, high)
+		if point:find(low) then return 0 elseif point:find(high) then return size end
+		return size / 2
+	end
+	local x = frame:GetLeft() + along(frame:GetWidth(), "LEFT", "RIGHT") - along(uw, "LEFT", "RIGHT")
+	local y = frame:GetBottom() + along(frame:GetHeight(), "BOTTOM", "TOP") - along(uh, "BOTTOM", "TOP")
+	return x, y
+end
+
+function ns.DragWindow(handle, frame, opts)
+	opts = opts or {}
+	handle:EnableMouse(true)
+	handle:SetScript("OnMouseDown", function(self, button)
+		if button ~= "LeftButton" or dragging then return end
+		self.psDragMoved = nil
+		if opts.locked and opts.locked() then return end
+		ns.StartDrag(self, frame, opts)
+	end)
+	handle:SetScript("OnMouseUp", function(_, button)
+		if button ~= "LeftButton" or not dragging or dragging.handle ~= handle then return end
+		ns.StopDrag()
+	end)
+	handle:HookScript("OnHide", function()
+		if dragging and dragging.handle == handle then dragEnd() end
+	end)
+end
+
 -- The guide window's on/off (ui.shown): the action buttons, the party panel
 -- and the rare and transport alerts go with it, the arrow only with
 -- nav.hideArrowWithGuide on (Nav.HiddenWithGuide). An instance hide

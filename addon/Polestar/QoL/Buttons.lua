@@ -125,7 +125,7 @@ local PORTRAIT_CAP = 16
 -- applyRows); TL.anchor: the mark (the set's handle and the way to its
 -- settings). TL.info, cap, keep, progress, item: what TargetNames collects
 -- for the rows (Buttons.TargetInfo).
-local TL = { MAX = 8, W = 180, H = 30, GAP = 2, FACE = 26, ANCHOR = 22, NEAR = 0.3, FLASH = 0.7,
+local TL = { MAX = 8, W = 208, H = 30, GAP = 2, FACE = 26, ANCHOR = 22, NEAR = 0.3, FLASH = 0.7,
 	rows = {}, info = {}, cap = MAX_NAMES }
 
 local Buttons = {}
@@ -461,13 +461,14 @@ local function place()
 end
 
 -- The frame a drag carries (the holder, or the bag button) and where its
--- spot is saved.
+-- spot is saved. It follows the pointer as ns.DragWindow moves a window (the
+-- frame's scale counted, which StartMoving's drop got wrong on a scaled set).
 local moving
 local function stopMoving()
 	local f = moving
 	if not f then return end
 	moving = nil
-	f:StopMovingOrSizing()
+	ns.StopDrag()
 	local point, _, relPoint, x, y = f:GetPoint(1)
 	if point then QoL.State()[f == bag and "bagButtonPos" or "buttonPos"] = { point, relPoint, x, y } end
 	if relabel then relabel() end
@@ -497,6 +498,14 @@ local function hoverEnd(b)
 	if not b.dragging then useOnKeyDown(b, nil) end
 end
 
+-- The press's spot, so a drag carries the set from there (ns.StartDrag).
+local function onPress(b, button)
+	if button == "LeftButton" then b.psPressX, b.psPressY = GetCursorPosition() end
+end
+
+-- The drag starts on the client's drag start (the secure release must hear
+-- of it first, useOnKeyDown), and carries the set from the press's own spot:
+-- it catches up the client's few pixels at once, then follows exactly.
 local function onDragStart(b)
 	if QoL.InLockdown() then return end
 	b.dragging = true
@@ -504,7 +513,7 @@ local function onDragStart(b)
 	-- Locked: still a drag, so its release uses nothing, but the set stays.
 	if ns.DragLocked() then return end
 	moving = b == bag and bag or holder
-	moving:StartMoving()
+	ns.StartDrag(b, moving, nil, b.psPressX, b.psPressY)
 end
 
 local function onDragStop(b)
@@ -895,6 +904,7 @@ local function wire(b, onEnter)
 		hoverEnd(self)
 		if GameTooltip and GameTooltip:GetOwner() == self then GameTooltip:Hide() end
 	end)
+	b:HookScript("OnMouseDown", onPress)
 	b:SetScript("OnDragStart", onDragStart)
 	b:SetScript("OnDragStop", onDragStop)
 	-- A step that ends mid-drag hides the button the drag started on.
@@ -2433,13 +2443,16 @@ do
 	-- page, Install's Targeting page): the Polestar mark and n rows, drawn by
 	-- the live list's own code (buildRow, buildMark, paintLook); never a
 	-- secure template, no scripts, nothing the clicks or the bindings see.
-	-- -> { mark = frame, rows = { frame, ... } }
-	function Buttons.NewListFaces(parent, n)
-		local f = { mark = CreateFrame("Button", nil, parent), rows = {} }
+	-- faces: each row with the live row's creature model too, so a row whose
+	-- entry has an id shows that creature's face as the list does in the game.
+	-- -> { mark = frame, rows = { frame, ... }, faces = true or nil }
+	local NO_UNITS = {}
+	function Buttons.NewListFaces(parent, n, faces)
+		local f = { mark = CreateFrame("Button", nil, parent), rows = {}, faces = faces and true or nil }
 		buildMark(f.mark)
 		for i = 1, n or 3 do
 			f.rows[i] = CreateFrame("Button", nil, parent)
-			buildRow(f.rows[i], true)
+			buildRow(f.rows[i], not faces)
 		end
 		return f
 	end
@@ -2458,6 +2471,8 @@ do
 				r.psNear = e.near and true or nil
 				paintText(r)
 				paintCount(r)
+				-- The creature's face by its id, as the live row (no unit near: a preview).
+				if f.faces then paintRowFace(r, NO_UNITS) end
 				setNear(r, r.psNear, false)
 				paintLook(r)
 				r:Show()

@@ -27,36 +27,43 @@
 --      the stat weights the gear advice scores rewards with
 --      (gear.spec.<CLASS>: Automatic or one of the class's specs) as option
 --      cards, while Gear knows the class;
---   3. targeting (with QoL loaded): the target button (qol.targetButton)
---      and its target list, a preview of the list (Buttons.NewListFaces) or,
---      with Simple target button, of the single button's face and name plate
---      (Buttons.NewFace) over the switches for it, the single button
---      (qol.targetSimple, its child) and who it targets (qol.targetPlate, the
---      single button's), its mark and its ping (qol.markTarget,
---      qol.pingTarget), and a line that the step key targets the same without
---      it and Move frames moves it;
---   4. groups: dungeons in the route (behavior.dungeons: Skip them, Ask me,
---      Run them; once that setting exists, dungeons in the route are not
+--   3. targeting (with QoL loaded): a stage with the real target list
+--      centred in it (Buttons.NewListFaces with faces: the Polestar mark, a
+--      row per name with its face, count and drop) or, with Simple target
+--      button, the single button's face with its key and name plate
+--      (Buttons.NewFace), the skull beside the name while it marks, and one
+--      line under it on what a click and the key do; it follows the
+--      switches under it at once: the target button (qol.targetButton), the
+--      single button (qol.targetSimple, its child) and who it targets
+--      (qol.targetPlate, the single button's), its mark and its ping
+--      (qol.markTarget, qol.pingTarget), and a line naming the step key's
+--      binding, which targets the same without it, and Move frames;
+--   4. groups: while the guides have group quests, the guide window's card
+--      at one (the first of the character's guides) as the choice in use
+--      makes it (the banner that asks, the quest in the route, or left
+--      out), then dungeons in the route (behavior.dungeons: Skip them, Ask
+--      me, Run them; once that setting exists, dungeons in the route are not
 --      held back (ns.dungeonRoute) and the character's guides have
 --      dungeons) and group quests (behavior.groupQuests: Ask me at each, Do
---      them with a group, Skip them; while the guides have any) as option
---      cards;
+--      them with a group, Skip them) as option rows;
 --   5. route: the polestar.guide front page's route demo (Elwynn Forest,
---      Northshire Abbey to the Westfall bridge): the chosen style's walk
---      as the site draws it, redrawn when the style changes, the last one
---      left as a faint dashed ghost; then the route style (nav.routeStyle,
---      the setting Options' Route style dropdown writes) as three rows,
---      Fastest, Balanced (Recommended) and Roads, each saying what it does;
---      then the route line's look (nav.lineStyle: Line, Dots, Sparkles) as
---      cards each previewing it;
---   6. look: the looks (ui.skin, Theme.SkinChoices) as a list beside a large
---      preview of the one under the pointer or the gamepad's focus, else the
---      one in use, drawn by the settings' skin picker (Theme.DrawSkinCard:
---      Polestar_Options, and the skin addons, load when the page first
---      shows; without them the window itself is the preview); the colour
---      scheme (ui.scheme) as preview cards in each scheme's own colours
---      while the house look is on (not a skin that brings its own grounds);
---      the gamepad's button names (gamepad.glyphs) while a gamepad is in use;
+--      Northshire Abbey to the Westfall bridge): the chosen style's walk in
+--      the route line's look and colour, redrawn when either changes, the
+--      last style's left as a faint dashed ghost; then the route style
+--      (nav.routeStyle, the setting Options' Route style dropdown writes) as
+--      three rows, Fastest, Balanced (Recommended) and Roads, each saying
+--      what it does; then the route line's look (nav.lineStyle: Line, Dots,
+--      Sparkles) as cards each previewing it;
+--   6. look: a large live preview of the look under the pointer or the
+--      gamepad's focus, else the one in use, with its name and what it is
+--      beside it, over the looks (ui.skin, Theme.SkinChoices) as picture
+--      cards, the built-in ones and the concept looks apart, each drawn by
+--      the settings' skin picker (Theme.DrawSkinCard: Polestar_Options, and
+--      the skin addons, load when the page first shows; without them the
+--      window itself is the preview); the colour scheme (ui.scheme) as
+--      preview cards in each scheme's own colours while the house look is
+--      on (not a skin that brings its own grounds); the gamepad's button
+--      names (gamepad.glyphs) while a gamepad is in use;
 --   7. finish: the guide on its painting (its level range, who it is for),
 --      its pitch; You're all set; what Start guide does, or that the guide
 --      is open; where to change it all later (Settings and its search,
@@ -102,9 +109,12 @@
 -- turns the pages with LB / RB and starts on Next (UI/Gamepad.lua).
 --
 -- The window takes the height of its tallest page, laid out in the current
--- language, font and look, so it never jumps; a shorter page's body sits in
--- the middle of the room under its hero. Taller than the screen (a large UI
--- scale, a long translation), it scales itself down to fit. Motion: the
+-- language, font and look, so it never jumps; every page starts right under
+-- its hero, a shorter one's preview growing a little (STAGE_GROW) and its
+-- last line going down to the footer. It is opaque (the world never shows
+-- through it). Taller than the screen (a large UI scale, a long
+-- translation), it scales itself down to fit; it is dragged by any free
+-- spot (ns.DragWindow). Motion: the
 -- window fades in and the hero settles 8px up as it fades in (180ms); a page
 -- change fades the old page out (120ms) and the new one in, rising 6px
 -- (180ms). Reduced motion (Anim) snaps the movement. The night's extras
@@ -136,6 +146,7 @@ local FOOT_PAD = 24
 local DELAY = 2 -- seconds after login, so the world and the other windows settle first
 local OUT = 0.11 -- a page leaving fades this long
 local MARGIN = 24 -- kept free round the window when it scales itself down to fit the screen
+local STAGE_GROW = 72 -- the most a short page's preview grows by; the rest goes over the footer (render)
 
 local F -- the window
 local current = "welcome" -- the page shown (its key)
@@ -922,11 +933,15 @@ end
 local OPTION_GAP, OPTION_PER_ROW, OPTION_PAD = 10, 4, 10
 local OPTION_TEXT_X = OPTION_PAD + 14 + 8 -- after the ring's 14px of ink
 
+-- The one in use: the selected wash, the accent outline and the 2px accent
+-- edge down its left, its name and line at full strength (a muted line on
+-- the wash would read dimmer than the cards around it).
 local function paintOption(c)
 	local on = c.psGroup.spec.get() == c.psValue
 	c.psSelected = on
 	c.Fill:SetShown(on)
 	c.Dot:SetShown(on)
+	c.Bar:SetShown(on)
 	if on then
 		local r, g, b = Theme.Accent()
 		paintOutline(c, r, g, b, 1)
@@ -936,6 +951,7 @@ local function paintOption(c)
 		c.Ring:SetVertexColor(Theme.Color("textMuted"))
 	end
 	W.Color(c.Name, on and "text" or "textDim")
+	W.Color(c.Desc, on and "textDim" or "textMuted")
 end
 
 local function optionCard(g)
@@ -950,6 +966,11 @@ local function optionCard(g)
 	c.Dot = W.Tex(c, "ARTWORK", "circle", "accent", 2)
 	c.Dot:SetSize(7, 7)
 	c.Dot:SetPoint("CENTER", c.Ring, "CENTER", 0, 0)
+	c.Bar = solid(c, "ARTWORK", 2)
+	c.Bar:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
+	c.Bar:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
+	c.Bar:SetWidth(2)
+	W.Color(c.Bar, "accent")
 	c.Name = W.Text(c, "label", "text")
 	c.Name:SetJustifyH("LEFT")
 	c.Name:SetJustifyV("TOP")
@@ -980,7 +1001,10 @@ local function optionGroup(p, spec)
 	return g
 end
 
--- Shows group g or hides it; shown, lays it out from y. -> the y under it
+-- Shows group g or hides it; shown, lays it out from y. -> the y under it.
+-- spec.rows: one card per row across the page, the ring on its middle, the
+-- name on one line and its line under it (a few long choices read better
+-- stacked than squeezed side by side).
 local function layGroup(g, y, shown)
 	local list = shown and g.spec.choices() or {}
 	shown = shown and #list > 0
@@ -995,8 +1019,10 @@ local function layGroup(g, y, shown)
 		y = y + g.Note:GetStringHeight()
 	end
 	y = y + 10
-	local perRow = min(OPTION_PER_ROW, #list)
+	local perRow = g.spec.rows and 1 or min(OPTION_PER_ROW, #list)
 	local cw = floor((CW - OPTION_GAP * (perRow - 1)) / perRow)
+	local textX = g.spec.rows and OPTION_TEXT_X or OPTION_PAD
+	local gap = g.spec.rows and 6 or OPTION_GAP
 	local rowTop, rowH = y, 0
 	for i, ch in ipairs(list) do
 		local c = g.cards[i] or optionCard(g)
@@ -1005,7 +1031,7 @@ local function layGroup(g, y, shown)
 		c.Name:SetText(ch.name)
 		c.Name:SetWidth(cw - OPTION_TEXT_X - OPTION_PAD)
 		c.Desc:SetText(ch.desc or "")
-		c.Desc:SetWidth(cw - OPTION_PAD * 2)
+		c.Desc:SetWidth(cw - textX - OPTION_PAD)
 		c.Desc:SetShown(ch.desc ~= nil)
 		local nameH = c.Name:GetStringHeight()
 		c.Name:ClearAllPoints()
@@ -1013,16 +1039,20 @@ local function layGroup(g, y, shown)
 		c.Ring:ClearAllPoints()
 		-- The ring on the name's first line.
 		local _, size = c.Name:GetFont()
-		c.Ring:SetPoint("CENTER", c, "TOPLEFT", OPTION_PAD + 7, -(OPTION_PAD + min(nameH, (tonumber(size) or 12) * 1.2) / 2))
 		c.Desc:ClearAllPoints()
-		c.Desc:SetPoint("TOPLEFT", c, "TOPLEFT", OPTION_PAD, -(OPTION_PAD + nameH + 4))
-		c.psH = OPTION_PAD + nameH + (ch.desc and 4 + c.Desc:GetStringHeight() or 0) + OPTION_PAD
+		c.Desc:SetPoint("TOPLEFT", c, "TOPLEFT", textX, -(OPTION_PAD + nameH + (g.spec.rows and 2 or 4)))
+		c.psH = OPTION_PAD + nameH + (ch.desc and (g.spec.rows and 2 or 4) + c.Desc:GetStringHeight() or 0) + OPTION_PAD
+		if g.spec.rows then
+			c.Ring:SetPoint("CENTER", c, "LEFT", OPTION_PAD + 7, 0)
+		else
+			c.Ring:SetPoint("CENTER", c, "TOPLEFT", OPTION_PAD + 7, -(OPTION_PAD + min(nameH, (tonumber(size) or 12) * 1.2) / 2))
+		end
 		local col = (i - 1) % perRow
 		if col == 0 and i > 1 then
-			rowTop = rowTop + rowH + OPTION_GAP
+			rowTop = rowTop + rowH + gap
 			rowH = 0
 		end
-		place(c, col * (cw + OPTION_GAP), rowTop)
+		place(c, col * (cw + gap), rowTop)
 		c:SetWidth(cw)
 		rowH = max(rowH, c.psH)
 		c:Show()
@@ -1065,6 +1095,9 @@ local function paintScheme(c)
 	local on = Theme.SchemeKey() == c.psValue
 	c.psSelected = on
 	if on then paintOutline(c, ar, ag, ab, 1) else paintOutline(c, Theme.Wash("border")) end
+	-- The pick: the accent outline and an accent edge along the card's foot.
+	c.Sel:SetShown(on)
+	c.Sel:SetVertexColor(ar, ag, ab, 1)
 	W.Color(c.Name, on and "text" or "textDim")
 end
 
@@ -1082,20 +1115,24 @@ local function schemeCard(p)
 	c.Sky = solid(c, "BORDER", 1)
 	c.Sky:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 0, 0)
 	c.Sky:SetPoint("TOPRIGHT", c.Ground, "TOPRIGHT", 0, 0)
-	c.Sky:SetHeight(14)
+	c.Sky:SetHeight(9)
 	c.Line1 = solid(c, "ARTWORK", 0)
-	c.Line1:SetSize(52, 4)
-	c.Line1:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -20)
+	c.Line1:SetSize(52, 3)
+	c.Line1:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -14)
 	c.Line2 = solid(c, "ARTWORK", 0)
-	c.Line2:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -29)
-	c.Line2:SetHeight(3)
+	c.Line2:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 8, -21)
+	c.Line2:SetHeight(2)
 	c.Bar = solid(c, "ARTWORK", 1)
-	c.Bar:SetSize(2, 15)
-	c.Bar:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 0, -18)
+	c.Bar:SetSize(2, 12)
+	c.Bar:SetPoint("TOPLEFT", c.Ground, "TOPLEFT", 0, -12)
 	c.Button = solid(c, "ARTWORK", 0)
-	c.Button:SetSize(22, 7)
-	c.Button:SetPoint("BOTTOMRIGHT", c.Ground, "BOTTOMRIGHT", -6, 6)
+	c.Button:SetSize(18, 5)
+	c.Button:SetPoint("BOTTOMRIGHT", c.Ground, "BOTTOMRIGHT", -5, 4)
 	c.Name = W.Text(c, "label", "textDim")
+	c.Sel = solid(c, "OVERLAY", 2)
+	c.Sel:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
+	c.Sel:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", 0, 0)
+	c.Sel:SetHeight(2)
 	c.Name:SetPoint("TOPLEFT", c.Side, "BOTTOMLEFT", 3, 0)
 	c.Name:SetPoint("TOPRIGHT", c.Ground, "BOTTOMRIGHT", -3, 0)
 	c.Name:SetHeight(SCHEME_NAME_H)
@@ -1329,35 +1366,38 @@ end
 -- The scheme cards (Theme.SchemeChoices) on page p, for the look page.
 local function buildSchemes(p)
 	F.Schemes = {}
-	p.SchemeTitle = para(p, "body", "text", CW, 2)
+	p.SchemeTitle = W.Text(p, "body", "text")
+	p.SchemeTitle:SetJustifyH("LEFT")
 	p.SchemeTitle:SetText(L["Colour scheme"])
-	p.SchemeNote = para(p, "note", "textMuted", CW, 3)
-	p.SchemeNote:SetText(L["The background of every Polestar window. It changes as you pick."])
 end
 
--- Shows the scheme cards from y, or hides them. -> the y under them
-local function laySchemes(p, y, shown)
+-- Shows the scheme cards in the column at x0, `w` wide, from y, `cols` to a
+-- row, or hides them. -> the y under them
+local SCHEME_INNER_H, SCHEME_ROW_GAP = 32, 6
+local function laySchemes(p, x0, y, w, shown, cols)
 	p.SchemeTitle:SetShown(shown)
-	p.SchemeNote:SetShown(shown)
 	local choices = shown and Theme.SchemeChoices() or {}
 	local n = #choices
 	for i = n + 1, #F.Schemes do F.Schemes[i]:Hide() end
 	if n == 0 then return y end
-	place(p.SchemeTitle, 0, y)
-	y = y + p.SchemeTitle:GetStringHeight() + 4
-	place(p.SchemeNote, 0, y)
-	y = y + p.SchemeNote:GetStringHeight() + 10
-	local cw = floor((CW - SCHEME_GAP * (n - 1)) / n)
+	place(p.SchemeTitle, x0, y)
+	y = y + p.SchemeTitle:GetStringHeight() + 8
+	cols = min(cols, n)
+	local cw = floor((w - SCHEME_GAP * (cols - 1)) / cols)
+	local ch_ = 5 + SCHEME_INNER_H + SCHEME_NAME_H
 	for i, ch in ipairs(choices) do
 		local c = F.Schemes[i] or schemeCard(p)
 		F.Schemes[i] = c
 		c.psValue = ch.value
 		c.Name:SetText(ch.text)
-		c:SetSize(cw, 5 + PREVIEW_H + SCHEME_NAME_H)
-		-- The title line and the text line inside a card as narrow as six schemes make it.
+		c:SetSize(cw, ch_)
+		c.Side:SetHeight(SCHEME_INNER_H)
+		c.Ground:SetHeight(SCHEME_INNER_H)
+		-- The title line and the text line inside a card as narrow as it is.
 		c.Line1:SetWidth(min(52, floor((cw - 10 - 22) * 0.6)))
 		c.Line2:SetWidth(floor((cw - 10 - 22) * 0.8))
-		place(c, (i - 1) * (cw + SCHEME_GAP), y)
+		local col, row = (i - 1) % cols, floor((i - 1) / cols)
+		place(c, x0 + col * (cw + SCHEME_GAP), y + row * (ch_ + SCHEME_ROW_GAP))
 		if not c.psPainted then
 			c.psPainted = true
 			W.Painter(c, paintScheme)
@@ -1366,7 +1406,7 @@ local function laySchemes(p, y, shown)
 		end
 		c:Show()
 	end
-	return y + 5 + PREVIEW_H + SCHEME_NAME_H
+	return y + math.ceil(n / cols) * (ch_ + SCHEME_ROW_GAP) - SCHEME_ROW_GAP
 end
 
 -- 2. Questing ----------------------------------------------------------------
@@ -1445,78 +1485,179 @@ local function targetShown()
 end
 
 do
-	local STAGE_H = 72
-	-- The preview's names: the settings' Buttons page's.
-	local DEMO = { L["Rot Hide Mongrel"], L["Scarlet Warrior"] }
+	local PAD = 20 -- round the stage's picture
+	local CAPTION_GAP = 14
+	local SKULL = "Interface\\TargetingFrame\\UI-RaidTargetingIcon_8"
+	local SKULL_SIZE = 18
+	local ITEM = 2834 -- Embalming Ichor, which Rot Hide Mongrels drop for Graverobbers
 
-	-- The target list's rows in the preview: the first close (green).
-	local LIST = { { name = DEMO[1], verb = "kill", cur = 3, max = 8, near = true }, { name = DEMO[2], verb = "kill", cur = 0, max = 5 } }
+	-- The preview's step: two names of Tirisfal Glades from the game's data, as
+	-- the settings' Buttons page names them, the first with the item it drops
+	-- for the step (Graverobbers, 358) and both with their counts. Their ids
+	-- give the rows the creature's face where the client draws one.
+	local function itemName()
+		local C = C_Item
+		local n = C and C.GetItemNameByID and C.GetItemNameByID(ITEM)
+		if not n and GetItemInfo then n = GetItemInfo(ITEM) end
+		return known(n) or L["Embalming Ichor"]
+	end
+	local function demo()
+		return {
+			{ name = L["Rot Hide Mongrel"], verb = "kill", id = 1675, cur = 2, max = 5, item = itemName() },
+			{ name = L["Scarlet Warrior"], verb = "kill", id = 1535, cur = 4, max = 10 },
+		}
+	end
 
-	-- The preview: the target list as it stands beside the button (the live
-	-- rows' own code on plain frames: Buttons.NewListFaces), or with Simple
-	-- target button the button's own face (Buttons.NewFace: a plain Button,
-	-- no secure template, no clicks) with its plate as qol.targetPlate has
-	-- it; on a patch of the world, faint while the button is off.
-	-- (psFace, psList: the faces, made only with QoL loaded.)
-	local function paintStage(stage)
-		paintOutline(stage, Theme.Wash("border"))
-		local r, g, b = Theme.Color("scrim")
-		stage.Ground:SetVertexColor(r, g, b, 1)
-		local face, list, B = stage.psFace, stage.psList, ns.QoL and ns.QoL.Buttons
+	-- The target button's key in the game's short form ("S-T"), or nil while unbound.
+	local function targetKey()
+		local B = ns.QoL and ns.QoL.Buttons
+		if not (B and B.KeyText and B.BindingKey) then return nil end
+		return B.KeyText(B.BindingKey("CLICK PolestarTargetButton:LeftButton"))
+	end
+
+	-- What the picture does, in one line under it.
+	local function caption(on, simple, key)
+		if not on then return L["Off. The step key still targets the same names."] end
+		if simple then
+			return key and (L["Click it, or press %s: each press targets the next name."]):format(cmd(key))
+				or L["Click it: each click targets the next name."]
+		end
+		return key and (L["Click a name to target it, or press %s for the first one close by."]):format(cmd(key))
+			or L["Click a name to target it."]
+	end
+
+	-- The stage: the real target button and its list as the game shows them,
+	-- drawn by their own code on plain frames (Buttons.NewFace and
+	-- Buttons.NewListFaces: no secure template, no clicks), centred in the
+	-- stage with its caption under it. The list: the small Polestar mark in
+	-- the button's slot (the button itself hidden, its key still working) and
+	-- a row per name with the creature's face, its count and the item it
+	-- drops. Simple target button: the one square button with its key and the
+	-- name it targets next (in its kind's colour with Show who it targets).
+	-- Mark what the target button finds: the skull it puts on the mob, beside
+	-- the name. Faint while the button is off. `extra`: room to grow into.
+	local function layStage(stage, extra)
+		local B = ns.QoL and ns.QoL.Buttons
+		local face, list = stage.psFace, stage.psList
+		local on = ns.Get("qol.targetButton") and true or false
+		local simple = (ns.Get("qol.targetSimple") or not list) and true or false
+		local key = targetKey()
+		local alpha = on and 1 or 0.35
+		local picW, picH, room = 0, 0, 0
 		if face and B then
-			local alpha = ns.Get("qol.targetButton") and 1 or 0.35
-			local simple = ns.Get("qol.targetSimple") or not list
+			local size = B.Size("target")
+			face.aCycle = 1
 			B.Paint(face)
+			face.Hotkey:SetText(key or "")
 			face:SetAlpha(alpha)
-			face:SetShown(simple and true or false)
+			face:SetShown(simple)
 			if list then
 				if simple then
 					for _, row in ipairs(list.rows) do row:Hide() end
 				else
-					B.PaintListFaces(list, face, LIST, "right")
+					B.PaintListFaces(list, face, demo(), "right")
 					for _, row in ipairs(list.rows) do row:SetAlpha(alpha) end
 				end
 				list.mark:SetShown(not simple)
 				list.mark:SetAlpha(alpha)
 			end
+			-- The stage keeps one height for both pictures (the list, the single
+			-- button), so a switch never moves the rows under it.
+			local n = #demo()
+			local rh = list and list.rows[1]:GetHeight() or 0
+			local listH = list and n * rh + (n - 1) * 2 or 0
+			local side = ns.Get("qol.buttonTextSide") or "right"
+			local stacked = side == "above" or side == "below"
+			local simpleH = size + (stacked and 4 + (face.Label:GetStringHeight() or 12) or 0)
+			room = max(size, listH, simpleH)
+			local skullAt
+			if simple then
+				local lw = W.TextWidth(face.Label)
+				picW = stacked and max(size, lw) or size + 8 + lw
+				picH = simpleH
+				skullAt = face.Label
+			else
+				local g = ns.Get("buttons.spacing") or 8
+				picW = size + g + list.rows[1]:GetWidth()
+				picH = max(size, listH)
+				skullAt = list.rows[1]
+			end
+			local marked = on and ns.Get("qol.markTarget") and true or false
+			stage.Skull:SetShown(marked)
+			if marked then
+				stage.Skull:ClearAllPoints()
+				stage.Skull:SetPoint("LEFT", skullAt, "RIGHT", 6, 0)
+				picW = picW + 6 + SKULL_SIZE
+			end
+			-- The button's corner, so the whole picture is centred; a name over
+			-- the button or on its left comes before it.
+			local top = PAD + floor(extra / 2) + floor((room - picH) / 2)
+			if simple and side == "above" then top = top + picH - size end
+			local x = floor((CW - picW) / 2)
+			if simple and side == "left" then x = x + picW - size - (marked and 6 + SKULL_SIZE or 0) end
+			if simple and stacked then x = floor((CW - size) / 2) end
+			face:ClearAllPoints()
+			face:SetPoint("TOPLEFT", stage, "TOPLEFT", x, -top)
+			if list and not simple then B.PlaceList(face, list.mark, list.rows, nil, "right") end
 		end
+		stage.Caption:SetText(caption(on, simple, key))
+		local capY = PAD + floor(extra / 2) + room + CAPTION_GAP
+		stage.Caption:ClearAllPoints()
+		stage.Caption:SetPoint("TOP", stage, "TOPLEFT", CW / 2, -capY)
+		local h = capY + stage.Caption:GetStringHeight() + PAD + (extra - floor(extra / 2))
+		stage:SetHeight(h)
+		return h
+	end
+
+	local function paintStage(stage)
+		paintOutline(stage, Theme.Wash("border"))
+		local r, g, b = Theme.Color("scrim")
+		stage.Ground:SetVertexColor(r, g, b, 1)
+		if stage.psLaid then layStage(stage, stage.psExtra or 0) end
 	end
 
 	PAGES[#PAGES + 1] = {
 		key = "targeting",
 		shown = function() return full and targetShown() end,
 		build = function(P)
-			compactHero(P.Hero, L["Targeting"],
-				L["A list beside the target button names the mobs and NPCs of your step: click a name to target it, or press the button's key for the first one close by."])
+			compactHero(P.Hero, L["Targeting"], L["Target the mobs and NPCs of your step with one click."])
 			local p = P.Body
 			local stage = CreateFrame("Frame", nil, p)
-			stage:SetSize(CW, STAGE_H)
+			stage:SetWidth(CW)
 			outline(stage)
 			stage.Ground = solid(stage, "BACKGROUND", -7)
 			stage.Ground:SetAllPoints(stage)
+			stage.Caption = W.Text(stage, "note", "textDim")
+			stage.Caption:SetWidth(CW - PAD * 2)
+			stage.Caption:SetJustifyH("CENTER")
+			stage.Skull = stage:CreateTexture(nil, "OVERLAY")
+			stage.Skull:SetTexture(SKULL)
+			stage.Skull:SetSize(SKULL_SIZE, SKULL_SIZE)
+			stage.Skull:Hide()
 			local B = ns.QoL and ns.QoL.Buttons
 			if B and B.NewFace then
 				local face = B.NewFace(stage, "target")
-				face.aList, face.aVerbs, face.aIds, face.aMarks, face.aCycle = DEMO, { "kill", "kill" }, {}, { false, false }, 1
-				face:SetPoint("LEFT", stage, "LEFT", 20, 0)
+				local d = demo()
+				face.aList, face.aVerbs, face.aIds, face.aMarks, face.aCycle = { d[1].name, d[2].name }, { "kill", "kill" }, { d[1].id, d[2].id }, { false, false }, 1
 				face:EnableMouse(false)
 				stage.psFace = face
 				if B.NewListFaces then
-					stage.psList = B.NewListFaces(stage, #LIST)
+					stage.psList = B.NewListFaces(stage, #d, true)
 					stage.psList.mark:EnableMouse(false)
 					for _, row in ipairs(stage.psList.rows) do row:EnableMouse(false) end
 				end
 			end
-			stage.Refresh = paintStage
 			W.Painter(stage, paintStage)
 			W.Bind(stage, "qol.targetPlate", "qol.targetButton")
 			W.Bind(stage, "qol.targetSimple")
+			W.Bind(stage, "qol.markTarget")
+			stage.Refresh = paintStage
 			p.Stage = stage
 			F.TargetButton = toggleRow(p, L["Show a button that targets the step's mobs and NPCs"], "qol.targetButton",
-				L["A row for each mob or NPC your step names, with its face and what it drops, beside a small Polestar mark. Click a row, or press the target button's key for the first one close by."])
+				L["Each name it can target is a row with the creature's face and the item it drops for the step."])
 			-- The single button instead of the list; who it targets is its own.
 			F.TargetSimple = toggleRow(p, L["Simple target button"], "qol.targetSimple",
-				L["One square button instead of the list: each click, or a press of its key, targets the next name."],
+				L["One square button instead of the list: each click targets the next name."],
 				{ depends = "qol.targetButton", child = true })
 			F.TargetPlate = toggleRow(p, L["Show who it targets"], "qol.targetPlate",
 				L["Their name beside the button: green for an NPC, red for a mob, gold for an elite or rare."],
@@ -1527,15 +1668,18 @@ do
 			F.PingTarget = toggleRow(p, L["Ping it for my group"], "qol.pingTarget",
 				L["Your group sees what the target button and the step key found, even behind rocks and buildings."])
 			p.StepKey = para(p, "note", "textMuted", CW, 3)
-			p.StepKey:SetText(L["The step key targets the same names without the button. Move frames, in Settings, moves the button."])
+			p.StepKey:SetText((L["No button? The key \"%s\" (Key Bindings, Polestar) targets the same names. Move frames, in Settings, moves the button."]):format(L["Use the step button"]))
 			p.Keep = keepLine(p)
 		end,
-		layout = function(P)
+		layout = function(P, extra)
 			local heroH = layoutCompactHero(P.Hero)
 			local p = P.Body
 			place(p.Stage, 0, 0)
+			local grow = min(extra or 0, STAGE_GROW)
+			p.Stage.psLaid, p.Stage.psExtra = true, grow
+			local stageH = layStage(p.Stage, grow)
 			paintStage(p.Stage)
-			local y = layRows({ F.TargetButton, F.TargetSimple, F.TargetPlate, F.MarkTarget, F.PingTarget }, STAGE_H + 8) + 10
+			local y = layRows({ F.TargetButton, F.TargetSimple, F.TargetPlate, F.MarkTarget, F.PingTarget }, stageH + 8) + 10
 			place(p.StepKey, 0, y)
 			y = y + p.StepKey:GetStringHeight() + 14
 			place(p.Keep, 0, y)
@@ -1577,13 +1721,120 @@ local function groupsHero()
 	return L["Groups"], L["Leveling guides mark some elite and escort quests for a group. Choose what the guide does at them."]
 end
 
+-- The preview: the guide window's card at a group quest as the choice in use
+-- makes it, on the first group quest of the character's guides. Ask me at
+-- each: the banner the guide window shows there ("Group quest: …", what
+-- skipping does, Skip it and Do it with a group); Do them with a group: the
+-- quest in the route with its Group chip; Skip them: left out, the solo
+-- route going on. It follows the cards at once. `extra`: room to grow into.
+local buildGroupStage, layGroupStage
+do
+	local GQ_CARD_W, GQ_PAD, GQ_INSET = 340, 20, 14
+
+	local function groupDemoTitle()
+		local E = ns.Engine
+		local list = E and E.GroupQuests and E.GroupQuests() or {}
+		return known(list[1] and list[1].title) or L["Group quest"]
+	end
+
+	function buildGroupStage(p)
+		local s = CreateFrame("Frame", nil, p)
+		s:SetWidth(CW)
+		outline(s)
+		s.Ground = solid(s, "BACKGROUND", -7)
+		s.Ground:SetAllPoints(s)
+		local c = CreateFrame("Frame", nil, s)
+		c:SetWidth(GQ_CARD_W)
+		W.Fill(c, "bg", "BACKGROUND", -6)
+		outline(c)
+		c.Bar = solid(c, "ARTWORK", 2)
+		c.Bar:SetPoint("TOPLEFT", c, "TOPLEFT", 0, 0)
+		c.Bar:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", 0, 0)
+		c.Bar:SetWidth(2)
+		W.Color(c.Bar, "accent")
+		c.Title = para(c, "goal", "text", GQ_CARD_W - GQ_INSET * 2 - 60, 2)
+		c.Chip = W.Chip(c)
+		c.Text = para(c, "note", "textDim", GQ_CARD_W - GQ_INSET * 2, 3)
+		c.Skip = W.Text(c, "label", "textDim")
+		c.Do = W.Text(c, "label", "accent")
+		s.Card = c
+		s.Caption = W.Text(s, "note", "textMuted")
+		s.Caption:SetWidth(CW - GQ_PAD * 2)
+		s.Caption:SetJustifyH("CENTER")
+		W.Painter(s, function(self)
+			paintOutline(self, Theme.Wash("border"))
+			local r, g, b = Theme.Color("scrim")
+			self.Ground:SetVertexColor(r, g, b, 1)
+			paintOutline(self.Card, Theme.Wash("divider"))
+		end)
+		return s
+	end
+
+	-- One answer drawn on the card. -> the card's height
+	local function paintGroupCard(c, answer, title)
+		c.Title:SetText(answer == "ask" and (L["Group quest: %s"]):format(colored("quest", title))
+			or colored(answer == "skip" and "textMuted" or "quest", title))
+		c.Chip:SetShown(answer == "do")
+		if answer == "do" then W.SetChip(c.Chip, L["Group"], "accent") end
+		c.Text:SetText(answer == "ask" and L["It needs a group. Skip it and the guide keeps to the solo route."]
+			or answer == "do" and L["In your route: the guide takes you to it. Bring a group."]
+			or L["Left out: the guide keeps to the solo route."])
+		c.Bar:SetShown(answer ~= "skip")
+		c.Skip:SetText(L["Skip it"])
+		c.Do:SetText(L["Do it with a group"])
+		c.Skip:SetShown(answer == "ask")
+		c.Do:SetShown(answer == "ask")
+		place(c.Title, GQ_INSET, GQ_INSET)
+		c.Chip:ClearAllPoints()
+		c.Chip:SetPoint("LEFT", c.Title, "LEFT", W.TextWidth(c.Title) + 8, 0)
+		local y = GQ_INSET + c.Title:GetStringHeight() + 6
+		place(c.Text, GQ_INSET, y)
+		y = y + c.Text:GetStringHeight()
+		if answer == "ask" then
+			y = y + 8
+			place(c.Skip, GQ_INSET, y)
+			place(c.Do, GQ_INSET + W.TextWidth(c.Skip) + 16, y)
+			y = y + c.Skip:GetStringHeight()
+		end
+		return y + GQ_INSET
+	end
+
+	local GROUP_CAPTIONS = {
+		ask = L["When you reach one, the guide window asks."],
+		["do"] = L["The guide takes you to each one."],
+		skip = L["The guide leaves them out."],
+	}
+
+	function layGroupStage(s, extra)
+		s.psExtra = extra
+		local answer = oneOf("behavior.groupQuests", { "ask", "do", "skip" }, "ask")
+		local title = groupDemoTitle()
+		-- One height for every answer, so a pick never moves the cards under it.
+		local cardH = 0
+		for _, a in ipairs({ "do", "skip", "ask" }) do cardH = max(cardH, paintGroupCard(s.Card, a, title)) end
+		paintGroupCard(s.Card, answer, title)
+		s.Card:SetHeight(cardH)
+		local top = GQ_PAD + floor(extra / 2)
+		place(s.Card, floor((CW - GQ_CARD_W) / 2), top)
+		s.Caption:SetText(GROUP_CAPTIONS[answer])
+		local capY = top + cardH + 12
+		s.Caption:ClearAllPoints()
+		s.Caption:SetPoint("TOP", s, "TOPLEFT", CW / 2, -capY)
+		local h = capY + s.Caption:GetStringHeight() + GQ_PAD + (extra - floor(extra / 2))
+		s:SetHeight(h)
+		return h
+	end
+end
+
 PAGES[#PAGES + 1] = {
 	key = "groups",
 	shown = function() return full and (dungeonsShown() or groupQuestsShown()) end,
 	build = function(P)
 		compactHero(P.Hero, groupsHero())
 		local p = P.Body
-		F.Dungeons = optionGroup(p, { title = L["Dungeons in my route"],
+		p.Stage = buildGroupStage(p)
+		F.GroupStage = p.Stage
+		F.Dungeons = optionGroup(p, { title = L["Dungeons in my route"], rows = true,
 			note = L["For a group of five: the guide picks up a dungeon's quests on its way, sends you to the door at the right level and hands them in after."],
 			get = function() return oneOf("behavior.dungeons", { "skip", "ask", "run" }, "skip") end,
 			set = function(v) ns.Set("behavior.dungeons", v) end,
@@ -1594,28 +1845,33 @@ PAGES[#PAGES + 1] = {
 					{ value = "run", name = L["Run them"], desc = L["Every dungeon on your way."] },
 				}
 			end })
-		F.GroupQuests = optionGroup(p, { title = L["Group quests"],
-			note = L["Elite and escort quests the guides mark for a group."],
+		F.GroupQuests = optionGroup(p, { title = L["Group quests"], rows = true,
 			get = function() return oneOf("behavior.groupQuests", { "ask", "do", "skip" }, "ask") end,
 			set = function(v) ns.Set("behavior.groupQuests", v) end,
 			choices = function()
 				return {
 					{ value = "ask", name = L["Ask me at each"], desc = L["The guide asks when you reach one."] },
-					{ value = "do", name = L["Do them with a group"], desc = L["A party levelling together."] },
+					{ value = "do", name = L["Do them with a group"], desc = L["For a party levelling together: every one is in the route."] },
 					{ value = "skip", name = L["Skip them"], desc = L["Solo: the route leaves them out."] },
 				}
 			end })
 		p.Keep = keepLine(p)
 	end,
-	layout = function(P)
+	layout = function(P, extra)
 		local title, sub = groupsHero()
 		P.Hero.Title:SetText(title)
 		P.Hero.Sub:SetText(sub)
 		local heroH = layoutCompactHero(P.Hero)
 		local p = P.Body
 		local dungeons, quests = dungeonsShown(), groupQuestsShown()
-		local y = layGroup(F.Dungeons, 0, dungeons)
-		y = layGroup(F.GroupQuests, (dungeons and quests) and y + 18 or y, quests) + 14
+		local y = 0
+		p.Stage:SetShown(quests)
+		if quests then
+			place(p.Stage, 0, 0)
+			y = layGroupStage(p.Stage, min(extra or 0, STAGE_GROW)) + 16
+		end
+		y = layGroup(F.Dungeons, y, dungeons)
+		y = layGroup(F.GroupQuests, dungeons and quests and y + 18 or y, quests) + 14
 		place(p.Keep, 0, y)
 		return heroH, y + p.Keep:GetStringHeight()
 	end,
@@ -1708,7 +1964,7 @@ local function layoutStyleRow(c)
 end
 
 -- What the route page and the setting changes need of the map.
-local routeMap, paintMap, redrawRoute
+local routeMap, paintMap, redrawRoute, restyleRoute
 do
 	-- The map: the polestar.guide front page's route demo, as the site draws it
 	-- (polestar-site: components/landing/Demo.tsx, lib/route-demo.json and the
@@ -1716,10 +1972,10 @@ do
 	-- painting, Northshire Abbey's front steps to the Westfall border bridge,
 	-- each route style's walk (the site's illustrations traced over the painted
 	-- map, its yards), corners rounded by 4 of the painting's 1002 px as the
-	-- site's roadPath rounds them. The chosen style's walk shows as the site's
-	-- dotted road with the white trail over it; a switch leaves the last style's
-	-- walk as a faint dashed ghost, fades the new road in and replays the trail
-	-- from the abbey; under reduced motion all of it at once.
+	-- site's roadPath rounds them. The chosen style's walk shows in the route
+	-- line's own look and colour (Line, Dots or Sparkles: nav.lineStyle); a
+	-- switch leaves the last style's walk as a faint dashed ghost and replays
+	-- the trail from the abbey; under reduced motion all of it at once.
 	local DEMO_MAP, DEMO_GOAL = 1429, 1436 -- Elwynn Forest; Westfall, where the walk goes
 	local DEMO = { -- map percent, x1, y1, x2, y2, ...
 		fastest = { yards = 1359, 48.17, 42.26, 47.52, 43.81, 47.3, 44.3, 47.07, 44.79, 46.35, 46.23, 46.12, 46.72, 45.93, 47.24, 45.79, 47.67, 45.65, 48.22, 45.61, 48.8, 45.61, 49.1, 45.56, 49.68, 45.42, 50.22, 45.3, 50.52, 45.08, 51.02, 44.81, 51.44, 34.53, 64.88, 34.23, 65.26, 33.91, 65.62, 19.66, 81.05 },
@@ -1728,11 +1984,10 @@ do
 	}
 	local ROUTE_STYLES = { "fastest", "balanced", "roads" }
 	local LAYER_W = 1002 -- the painting's width in its own px (the site's stroke units)
-	local REPLAY, ROAD_FADE, GHOST_FADE, GHOST_ALPHA = 1.6, 0.5, 0.9, 0.55
+	local REPLAY, GHOST_FADE, GHOST_ALPHA = 1.6, 0.9, 0.55
 	-- The site's strokes, in the painting's px: the trail 2.4 wide over a dark
-	-- glow; the road 1.4 wide, 1 on and 3.2 off; the ghost 1.3 wide, 2.5 on and
-	-- 3 off.
-	local TRAIL_W, ROAD_W, ROAD_ON, ROAD_OFF, GHOST_W, GHOST_ON, GHOST_OFF = 2.4, 1.4, 1, 3.2, 1.3, 2.5, 3
+	-- glow; the ghost 1.3 wide, 2.5 on and 3 off.
+	local TRAIL_W, GHOST_W, GHOST_ON, GHOST_OFF = 2.4, 1.3, 2.5, 3
 	-- The painting zoomed so the walks take WALKS_H of the map's height, their
 	-- middle at WALKS_X of its width.
 	local WALKS_H, WALKS_X = 0.82, 0.3
@@ -1799,46 +2054,120 @@ do
 		l:Show()
 	end
 
-	-- The trail: the chosen walk's first `share` (0-1, eased) in white over its
-	-- dark glow; the goal's pin turns the accent once it is whole.
+	-- The walks' points, at least SEG_MIN px apart (the first and the last
+	-- kept). The traced walks have a point every pixel or two on their bends,
+	-- and the client does not draw a line region that short: only the long
+	-- straights showed, as white fragments with gaps between them.
+	local SEG_MIN = 8
+	local function spaced(pts)
+		local n = #pts
+		if n <= 4 then return pts end
+		local out = { pts[1], pts[2] }
+		for i = 3, n - 3, 2 do
+			if sqrt((pts[i] - out[#out - 1]) ^ 2 + (pts[i + 1] - out[#out]) ^ 2) >= SEG_MIN then
+				out[#out + 1], out[#out + 2] = pts[i], pts[i + 1]
+			end
+		end
+		-- The end itself: it takes the place of a last point too close to it.
+		if #out > 2 and sqrt((pts[n - 1] - out[#out - 1]) ^ 2 + (pts[n] - out[#out]) ^ 2) < SEG_MIN then
+			out[#out - 1], out[#out] = pts[n - 1], pts[n]
+		else
+			out[#out + 1], out[#out + 2] = pts[n - 1], pts[n]
+		end
+		return out
+	end
+
+	-- The route line's look (nav.lineStyle, as Maps/RouteLines.lua reads it):
+	-- "line" (the default), "dots" or "sparkle".
+	local function lineStyle()
+		local s = ns.Get("nav.lineStyle")
+		if s == "dots" or s == "sparkle" then return s end
+		return "line"
+	end
+	local DOT_GAP, STAR_GAP = 9, 22
+
+	-- Calls fn(k, x, y) every `gap` px along pts up to `to` px, from gap / 2.
+	local function along(pts, to, gap, fn)
+		local at, k, nextAt = 0, 0, gap / 2
+		for i = 1, #pts - 3, 2 do
+			local ax, ay, bx, by = pts[i], pts[i + 1], pts[i + 2], pts[i + 3]
+			local len = sqrt((bx - ax) ^ 2 + (by - ay) ^ 2)
+			while len > 0 and nextAt <= at + len and nextAt <= to do
+				local t = (nextAt - at) / len
+				k = k + 1
+				fn(k, ax + (bx - ax) * t, ay + (by - ay) * t)
+				nextAt = nextAt + gap
+			end
+			at = at + len
+		end
+		return k
+	end
+
+	local function poolTex(parent, set, i, media, size)
+		local t = set[i]
+		if not t then
+			t = parent:CreateTexture(nil, "ARTWORK", nil, 2)
+			t:SetTexture(media)
+			t:SetSize(size, size)
+			set[i] = t
+		end
+		return t
+	end
+
+	-- The trail: the chosen walk's first `share` (0-1, eased) in the route
+	-- line's look and colour, the line over its dark glow; the goal's pin
+	-- turns the accent once it is whole.
 	local function drawTrail(m, share)
 		m.psShare = share
 		local pts = m.psPts and m.psPts[m.psStyle]
 		if not pts then return end
 		local u, f = m.psUnit, m.Trail
+		local look, to = lineStyle(), m.psLen[m.psStyle] * share
 		local r, g, b = Theme.Color("scrim")
-		local n = stretches(pts, 0, m.psLen[m.psStyle] * share, nil, nil, function(k, ax, ay, bx, by)
-			local glow = poolLine(f, m.TrailGlow, k, 0, true)
-			glow:SetThickness(max(5, TRAIL_W * u * 3))
-			glow:SetVertexColor(r, g, b, 0.8)
-			lineAt(glow, f, ax, ay, bx, by)
-			local core = poolLine(f, m.TrailCore, k, 1)
-			core:SetThickness(max(2, TRAIL_W * u))
-			core:SetVertexColor(1, 1, 1, 0.95)
-			lineAt(core, f, ax, ay, bx, by)
-		end)
+		local cr, cg, cb = routeColour()
+		local n = 0
+		if look == "line" then
+			n = stretches(pts, 0, to, nil, nil, function(k, ax, ay, bx, by)
+				local glow = poolLine(f, m.TrailGlow, k, 0, true)
+				glow:SetThickness(max(5, TRAIL_W * u * 3))
+				glow:SetVertexColor(r, g, b, 0.8)
+				lineAt(glow, f, ax, ay, bx, by)
+				local core = poolLine(f, m.TrailCore, k, 1)
+				core:SetThickness(max(2, TRAIL_W * u))
+				core:SetVertexColor(cr, cg, cb, 1)
+				lineAt(core, f, ax, ay, bx, by)
+			end)
+		end
 		hideFrom(m.TrailGlow, n)
 		hideFrom(m.TrailCore, n)
+		n = 0
+		if look ~= "line" then
+			local media, size, gap = Theme.Media("circle"), 4, DOT_GAP
+			if look == "sparkle" then media, size, gap = NAV_MEDIA .. "sparkle", 12, STAR_GAP end
+			n = along(pts, to, gap, function(k, x, y)
+				local t = poolTex(f, m.TrailMarks, k, media, size)
+				t:SetTexture(media)
+				t:SetSize(size, size)
+				t:ClearAllPoints()
+				t:SetPoint("CENTER", f, "TOPLEFT", x, -y)
+				t:SetVertexColor(cr, cg, cb, look == "sparkle" and (k % 3 == 0 and 0.6 or 0.95) or 1)
+				t:Show()
+			end)
+		end
+		hideFrom(m.TrailMarks, n)
 		local arrived = share >= 0.995
 		if arrived then m.EndFill:SetVertexColor(Theme.Accent()) else m.EndFill:SetVertexColor(Theme.Color("sidebar")) end
 	end
 
-	-- The road (the chosen walk, dotted) and the ghost (the last style's, dashed).
+	-- The ghost: the last style's walk, dashed (each dash long enough for the
+	-- client to draw it).
 	local function drawRoads(m)
 		local u, s, ghost = m.psUnit, m.psStyle, m.psGhost
 		local r, g, b = Theme.Color("scrim")
-		local pts = m.psPts[s]
-		local n = stretches(pts, 0, m.psLen[s], max(1, ROAD_ON * u), ROAD_OFF * u, function(k, ax, ay, bx, by)
-			local l = poolLine(m.Road, m.RoadLines, k, 0)
-			l:SetThickness(max(1.5, ROAD_W * u))
-			l:SetVertexColor(r * 0.5 + 0.02, g * 0.5 + 0.03, b * 0.5 + 0.05, 0.55)
-			lineAt(l, m.Road, ax, ay, bx, by)
-		end)
-		hideFrom(m.RoadLines, n)
-		n = 0
+		local n = 0
 		if ghost and ghost ~= s then
 			local gp = m.psPts[ghost]
-			n = stretches(gp, 0, m.psLen[ghost], GHOST_ON * u, GHOST_OFF * u, function(k, ax, ay, bx, by)
+			n = stretches(gp, 0, m.psLen[ghost], max(SEG_MIN, GHOST_ON * u), max(5, GHOST_OFF * u), function(k, ax, ay, bx, by)
 				local sh = poolLine(m.Ghost, m.GhostShadow, k, 0, true)
 				sh:SetThickness(max(3, GHOST_W * u * 2.5))
 				sh:SetVertexColor(r, g, b, 0.6)
@@ -1851,6 +2180,11 @@ do
 		end
 		hideFrom(m.GhostLines, n)
 		hideFrom(m.GhostShadow, n)
+	end
+
+	-- The route line's look changed: the trail drawn again in it.
+	function restyleRoute(m)
+		if m and m.psPts then drawTrail(m, m.psShare or 1) end
 	end
 
 	-- The note: where the walk goes and its yards, as the site's "Go to
@@ -1893,12 +2227,12 @@ do
 		m.Vig2:SetPoint("TOPRIGHT", m.Vig1, "TOPLEFT", 0, 0)
 		m.Vig2:SetPoint("BOTTOMRIGHT", m.Vig1, "BOTTOMLEFT", 0, 0)
 		m.Vig2:SetWidth(floor(CW * 0.2))
-		-- The ghost, the road and the trail, each its own layer to fade.
-		for _, k in ipairs({ "Ghost", "Road", "Trail" }) do
+		-- The ghost and the trail, each its own layer to fade.
+		for _, k in ipairs({ "Ghost", "Trail" }) do
 			m[k] = CreateFrame("Frame", nil, d)
 			m[k]:SetAllPoints(d)
 		end
-		m.GhostLines, m.GhostShadow, m.RoadLines, m.TrailCore, m.TrailGlow = {}, {}, {}, {}, {}
+		m.GhostLines, m.GhostShadow, m.TrailCore, m.TrailGlow, m.TrailMarks = {}, {}, {}, {}, {}
 		-- The trail replays eased as the site's (cubic out).
 		m.psOnValue = function(self, v) drawTrail(self, 1 - (1 - v) ^ 3) end
 		local top = CreateFrame("Frame", nil, d)
@@ -1976,6 +2310,9 @@ do
 				pts[n + 1], pts[n + 2] = ox + w[i] * sx, oy + w[i + 1] * sy
 				if n > 0 then len = len + sqrt((pts[n + 1] - pts[n - 1]) ^ 2 + (pts[n + 2] - pts[n]) ^ 2) end
 			end
+			pts = spaced(pts)
+			len = 0
+			for i = 3, #pts - 1, 2 do len = len + sqrt((pts[i] - pts[i - 2]) ^ 2 + (pts[i + 1] - pts[i - 1]) ^ 2) end
 			m.psPts[s], m.psLen[s] = pts, len
 		end
 		local pts = m.psPts.balanced
@@ -1986,7 +2323,6 @@ do
 		m.psStyle, m.psGhost = routeStyle(), nil
 		Anim.Stop(m, "value")
 		m.Ghost:SetAlpha(GHOST_ALPHA)
-		m.Road:SetAlpha(1)
 		legs(m)
 		drawRoads(m)
 		drawTrail(m, 1)
@@ -1995,9 +2331,9 @@ do
 		noteWalk(m)
 	end
 
-	-- A new style: the last one's walk stays as the ghost, the new road fades in
-	-- and the trail replays from the abbey (the site's switch); under reduced
-	-- motion all at once.
+	-- A new style: the last one's walk stays as the ghost and the trail
+	-- replays from the abbey (the site's switch); under reduced motion all at
+	-- once.
 	function redrawRoute(m)
 		if not (m and m.psPts) then return end
 		local s = routeStyle()
@@ -2007,12 +2343,10 @@ do
 		drawRoads(m)
 		if Anim.Reduced() then
 			m.Ghost:SetAlpha(GHOST_ALPHA)
-			m.Road:SetAlpha(1)
 			Anim.Stop(m, "value")
 			drawTrail(m, 1)
 			return
 		end
-		Anim.To(m.Road, "alpha", 0, 1, ROAD_FADE, "out")
 		Anim.To(m.Ghost, "alpha", 1, GHOST_ALPHA, GHOST_FADE, "out")
 		Anim.To(m, "value", 0, 1, REPLAY, "linear")
 	end
@@ -2060,21 +2394,25 @@ PAGES[#PAGES + 1] = {
 local loadLooks, previewLook, paintLookRow
 do
 	-- The looks (ui.skin): Theme.SkinChoices, the built-ins and then the skin
-	-- addons (which it loads), as a list of rows in up to three columns of
-	-- eight, each a radio ring and the look's name, beside a large preview of
-	-- the look under the pointer or the gamepad's focus, else the one in use.
-	-- The settings' skin picker draws it (Theme.DrawSkinCard, Polestar_Options)
-	-- the way the Theme page draws its cards; without that addon the window
-	-- itself shows the look once picked. None of it loads before the page first
-	-- shows: the list keeps room for eight rows, so the window's height does not
-	-- wait for it. A click puts the look on, and every Polestar window, this
-	-- one with it, wears it at once; right-click (or the gamepad's Y) puts the
-	-- house look back.
-	local PREVIEW_W, PREVIEW_ART_H = 248, 140
-	local LIST_X = PREVIEW_W + 16
-	local LIST_W = CW - LIST_X
-	local LOOK_ROW_H, LOOK_ROW_GAP, LOOK_ROWS, LOOK_MAX_COLS = 24, 2, 8, 3
-	local LOOK_LIST_H = LOOK_ROWS * LOOK_ROW_H + (LOOK_ROWS - 1) * LOOK_ROW_GAP
+	-- addons (which it loads), as picture cards in two groups (Built in, then
+	-- the concept looks the skin addons bring), six to a row: each the look's
+	-- own guide window in miniature, drawn by the settings' skin picker
+	-- (Theme.DrawSkinCard, Polestar_Options, as the Theme page draws its
+	-- cards), its name under it; the one in use in the accent outline with an
+	-- accent edge along its foot. Over them, the live preview: the look under
+	-- the pointer or the gamepad's focus, else the one in use, large (the
+	-- guide window with a step, the arrow and a button, in the scheme in use),
+	-- its name and what it is beside it. Without that addon the window itself
+	-- shows the look once picked. None of it loads before the page first
+	-- shows: the grid keeps room for three rows, so the window's height does
+	-- not wait for it. A click puts the look on, and every Polestar window,
+	-- this one with it, wears it at once; right-click (or the gamepad's Y)
+	-- puts the house look back.
+	local PREVIEW_W, PREVIEW_ART_H = 256, 144
+	local SIDE_X = PREVIEW_W + 20
+	local LOOK_COLS, LOOK_GAP, LOOK_THUMB_H, LOOK_NAME_H, LOOK_RESERVE = 6, 8, 40, 20, 3
+	local LOOK_W = floor((CW - LOOK_GAP * (LOOK_COLS - 1)) / LOOK_COLS)
+	local LOOK_H = 4 + LOOK_THUMB_H + LOOK_NAME_H
 
 	-- What each built-in look is; a skin addon says it itself (its desc).
 	local LOOK_LINES = {
@@ -2120,33 +2458,46 @@ do
 	function paintLookRow(r)
 		local on = lookInUse() == r.psLook
 		r.psSelected = on
-		r.Dot:SetShown(on)
-		if on then r.Ring:SetVertexColor(Theme.Accent()) else r.Ring:SetVertexColor(Theme.Color("textMuted")) end
+		r.Sel:SetShown(on)
+		if on then
+			local ar, ag, ab = Theme.Accent()
+			paintOutline(r, ar, ag, ab, 1)
+		else
+			paintOutline(r, Theme.Wash("border"))
+		end
 		W.Color(r.Name, on and "text" or "textDim")
 	end
 
+	-- A look's card: its miniature over its name.
 	local function lookRow(p)
 		local r = CreateFrame("Button", nil, p)
+		r:SetSize(LOOK_W, LOOK_H)
+		W.Fill(r, "panel", "BACKGROUND", -6)
 		W.Hover(r)
-		r.Ring = W.Tex(r, "ARTWORK", "skin-ring", nil, 0)
-		r.Ring:SetSize(17, 17)
-		r.Ring:SetPoint("CENTER", r, "LEFT", 6 + 7, 0)
-		r.Dot = W.Tex(r, "ARTWORK", "circle", "accent", 2)
-		r.Dot:SetSize(6, 6)
-		r.Dot:SetPoint("CENTER", r.Ring, "CENTER", 0, 0)
-		r.Name = W.Text(r, "label", "textDim")
-		r.Name:SetPoint("LEFT", r, "LEFT", 6 + 14 + 8, 0)
-		r.Name:SetPoint("RIGHT", r, "RIGHT", -4, 0)
+		outline(r)
+		r.Art = CreateFrame("Frame", nil, r)
+		r.Art:SetPoint("TOPLEFT", r, "TOPLEFT", 4, -4)
+		r.Art:SetSize(LOOK_W - 8, LOOK_THUMB_H)
+		if r.Art.SetClipsChildren then r.Art:SetClipsChildren(true) end
+		r.Name = W.Text(r, "small", "textDim")
+		r.Name:SetPoint("TOPLEFT", r.Art, "BOTTOMLEFT", 2, 0)
+		r.Name:SetPoint("TOPRIGHT", r.Art, "BOTTOMRIGHT", -2, 0)
+		r.Name:SetHeight(LOOK_NAME_H)
 		r.Name:SetJustifyH("LEFT")
 		r.Name:SetWordWrap(false)
+		r.Sel = solid(r, "OVERLAY", 2)
+		r.Sel:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 0)
+		r.Sel:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", 0, 0)
+		r.Sel:SetHeight(2)
+		W.Color(r.Sel, "accent")
 		r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 		r:SetScript("OnClick", function(self, button)
 			if button == "RightButton" then ns.Set("ui.skin", nil) else ns.Set("ui.skin", self.psLook) end
 			previewLook(p, lookInUse())
 		end)
 		-- The pointer previews a look before it is picked.
-		r:SetScript("OnEnter", function(self) previewLook(p, self.psLook) end)
-		r:SetScript("OnLeave", function() previewLook(p, lookInUse()) end)
+		r:HookScript("OnEnter", function(self) previewLook(p, self.psLook) end)
+		r:HookScript("OnLeave", function() previewLook(p, lookInUse()) end)
 		W.Painter(r, function(self) if self.psLook then paintLookRow(self) end end)
 		return r
 	end
@@ -2183,9 +2534,16 @@ do
 				local r, g, b = Theme.Color("scrim")
 				self.Ground:SetVertexColor(r, g, b, 1)
 			end)
-			p.PreviewName = W.Text(p, "heading", "text")
+			p.PreviewName = W.Text(p, "display", "text")
 			p.PreviewName:SetJustifyH("LEFT")
-			p.PreviewLine = para(p, "note", "textMuted", PREVIEW_W, 3)
+			p.PreviewName:SetWordWrap(false)
+			p.PreviewLine = para(p, "note", "textDim", CW - SIDE_X, 3)
+			p.PreviewHint = para(p, "note", "textMuted", CW - SIDE_X, 3)
+			p.PreviewHint:SetText(L["Point at a look to see it here; click it to wear it."])
+			p.BuiltTitle = W.Text(p, "caption", "textMuted")
+			p.BuiltTitle:SetText(L["Built in"])
+			p.AddonTitle = W.Text(p, "caption", "textMuted")
+			p.AddonTitle:SetText(L["Concept looks"])
 			buildSchemes(p)
 			F.Glyphs = optionGroup(p, { title = L["Button names"],
 				note = L["The names and shapes Polestar shows for your gamepad's buttons. Automatic reads them off the gamepad."],
@@ -2204,31 +2562,54 @@ do
 			local heroH = layoutCompactHero(P.Hero)
 			local p = P.Body
 			place(p.Preview, 0, 0)
-			place(p.PreviewName, 0, PREVIEW_ART_H + 10)
-			p.PreviewName:SetWidth(PREVIEW_W)
-			place(p.PreviewLine, 0, PREVIEW_ART_H + 10 + p.PreviewName:GetStringHeight() + 3)
-			-- The list, once the page has shown (the looks load then).
-			local choices = looksLoaded and Theme.SkinChoices() or {}
-			local cols = min(LOOK_MAX_COLS, max(1, math.ceil(#choices / LOOK_ROWS)))
-			local colW = floor((LIST_W - 8 * (cols - 1)) / cols)
-			for i, ch in ipairs(choices) do
-				local r = F.Skins[i] or lookRow(p)
-				F.Skins[i] = r
-				r.psLook = ch.value
-				r.Name:SetText(ch.text)
-				local col, row = floor((i - 1) / LOOK_ROWS), (i - 1) % LOOK_ROWS
-				r:SetShown(col < cols)
-				r:SetSize(colW, LOOK_ROW_H)
-				place(r, LIST_X + col * (colW + 8), row * (LOOK_ROW_H + LOOK_ROW_GAP))
-				paintLookRow(r)
-			end
-			for i = #choices + 1, #F.Skins do F.Skins[i]:Hide() end
+			p.PreviewName:SetWidth(CW - SIDE_X)
 			if looksLoaded then previewLook(p, lookInUse()) end
-			local y = max(LOOK_LIST_H, PREVIEW_ART_H + 10 + p.PreviewName:GetStringHeight() + 3 + p.PreviewLine:GetStringHeight())
-			-- The colour scheme: the house look's alone (a skin that brings its
-			-- own ground colours leaves a scheme nothing to change).
+			local sy = 6
+			place(p.PreviewName, SIDE_X, sy)
+			sy = sy + p.PreviewName:GetStringHeight() + 6
+			place(p.PreviewLine, SIDE_X, sy)
+			sy = sy + p.PreviewLine:GetStringHeight() + 12
+			-- Beside the preview under the name: the colour scheme, the house
+			-- look's alone (a skin that brings its own ground colours leaves a
+			-- scheme nothing to change); else how the cards work.
 			local house = Theme.SkinKey() == "polestar" and not (Theme.SkinScheme and Theme.SkinScheme()) and not Theme.SkinToken("bg")
-			y = laySchemes(p, house and y + 18 or y, house)
+			p.PreviewHint:SetShown(not house)
+			place(p.PreviewHint, SIDE_X, sy)
+			sy = house and laySchemes(p, SIDE_X, sy, CW - SIDE_X, true, 3) or laySchemes(p, SIDE_X, sy, CW - SIDE_X, false, 3) + p.PreviewHint:GetStringHeight()
+			local y = max(PREVIEW_ART_H, sy) + 16
+			-- The cards, once the page has shown (the looks load then): the
+			-- built-ins, then the skin addons' looks.
+			local choices = looksLoaded and Theme.SkinChoices() or {}
+			local groups = { {}, {} }
+			for _, ch in ipairs(choices) do table.insert(groups[ch.addon and 2 or 1], ch) end
+			local i, top = 0, y
+			for gi, list in ipairs(groups) do
+				local head = gi == 1 and p.BuiltTitle or p.AddonTitle
+				head:SetShown(#list > 0)
+				if #list > 0 then
+					place(head, 0, y)
+					y = y + 18
+					for k, ch in ipairs(list) do
+						i = i + 1
+						local r = F.Skins[i] or lookRow(p)
+						F.Skins[i] = r
+						r.psLook = ch.value
+						r.Name:SetText(ch.text)
+						local col, row = (k - 1) % LOOK_COLS, floor((k - 1) / LOOK_COLS)
+						place(r, col * (LOOK_W + LOOK_GAP), y + row * (LOOK_H + LOOK_GAP))
+						if Theme.DrawSkinCard and r.psDrawn ~= ch.value then
+							r.psDrawn = ch.value
+							pcall(Theme.DrawSkinCard, r.Art, ch.value)
+						end
+						r:Show()
+						paintLookRow(r)
+					end
+					y = y + math.ceil(#list / LOOK_COLS) * (LOOK_H + LOOK_GAP) - LOOK_GAP + 12
+				end
+			end
+			for k = i + 1, #F.Skins do F.Skins[k]:Hide() end
+			-- Room for the grid before the looks load, so the height does not wait for them.
+			y = max(y, top + LOOK_RESERVE * (LOOK_H + LOOK_GAP) + 2 * 18 + 12)
 			local pad = gamepadShown()
 			y = layGroup(F.Glyphs, pad and y + 18 or y, pad) + 14
 			place(p.Keep, 0, y)
@@ -2533,10 +2914,7 @@ local function onKey(self, key)
 end
 
 local function drag(frame)
-	frame:EnableMouse(true)
-	frame:RegisterForDrag("LeftButton")
-	frame:SetScript("OnDragStart", function() F:StartMoving() end)
-	frame:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
+	ns.DragWindow(frame, F)
 end
 
 local function build()
@@ -2548,6 +2926,9 @@ local function build()
 	F:EnableMouse(true)
 	F:SetMovable(true)
 	F:SetWidth(WIDTH)
+	-- Opaque: a setup read line by line, with nothing of the world (names over
+	-- heads, the ground) showing through it as the windows' 94 % ground lets.
+	F.psBgAlpha = 1
 	F:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	F:Hide()
 	-- The title the game's looks write in the window's title bar.
@@ -2744,10 +3125,13 @@ local function paintDots(at, n, animate)
 	end
 end
 
--- Lays every page shown out (the window takes the tallest; a shorter page's
--- body sits in the middle of what is left under its hero, so no blank band
--- gathers over the footer) and shows the current one; `from`: the page
--- left, faded out. The look page's looks load as it first shows.
+-- Lays every page shown out (the window takes the tallest) and shows the
+-- current one; `from`: the page left, faded out. Every page's body starts
+-- right under its hero; a shorter page hands what it has spare to its
+-- preview (layout's `extra`: the stage grows and its picture stays centred
+-- in it), and a page with no preview keeps its last line ("Skip install
+-- keeps these as they are.") on the footer's edge, so no blank band opens
+-- under the hero. The look page's looks load as it first shows.
 function render(from)
 	local list = pageList()
 	local at
@@ -2761,19 +3145,30 @@ function render(from)
 	local heights = {}
 	for _, pg in ipairs(list) do
 		local P = F.pages[pg.key]
-		local heroH, bodyH = pg.layout(P)
-		P.Hero:SetHeight(heroH)
-		P.Body:SetHeight(max(1, bodyH))
-		heights[pg.key] = heroH
+		local heroH, bodyH = pg.layout(P, 0)
+		heights[pg.key] = { heroH, bodyH }
 		tallest = max(tallest, heroH + bodyH + BOTTOM)
 	end
 	tallest = math.ceil(tallest)
 	for _, pg in ipairs(list) do
 		local P = F.pages[pg.key]
-		local heroH = heights[pg.key]
-		local spare = tallest - (heroH + P.Body:GetHeight() + BOTTOM)
+		local heroH, bodyH = heights[pg.key][1], heights[pg.key][2]
+		local spare = floor(tallest - (heroH + bodyH + BOTTOM))
+		if spare > 0 then
+			heroH, bodyH = pg.layout(P, spare)
+			spare = floor(tallest - (heroH + bodyH + BOTTOM))
+			-- No preview took it: the last line goes down to the footer's edge.
+			local keep = rawget(P.Body, "Keep")
+			if spare > 0 and keep and keep:IsShown() then
+				local _, _, _, x, y = keep:GetPoint(1)
+				place(keep, x or 0, -(y or 0) + spare)
+				bodyH = bodyH + spare
+			end
+		end
+		P.Hero:SetHeight(heroH)
+		P.Body:SetHeight(max(1, bodyH))
 		P.Body:ClearAllPoints()
-		P.Body:SetPoint("TOPLEFT", P, "TOPLEFT", EDGE, -(heroH + floor(max(0, spare) / 2)))
+		P.Body:SetPoint("TOPLEFT", P, "TOPLEFT", EDGE, -heroH)
 		P:SetHeight(tallest)
 	end
 	F:SetHeight(1 + tallest + FOOT_H + 1)
@@ -2959,6 +3354,7 @@ local LINE_SETTINGS = { ["nav.lineStyle"] = true, ["nav.dotColor"] = true, ["nav
 ns.On("SETTING_CHANGED", function(path)
 	if not (F and F.Lines and LINE_SETTINGS[path or ""]) then return end
 	for _, c in ipairs(F.Lines) do paintLook(c) end
+	restyleRoute(F.RouteMap)
 end)
 
 -- The character's flag, set as the addon loads: due (0) for a new character,
@@ -3000,6 +3396,9 @@ ns.On("SETTING_CHANGED", function(path)
 	if (path == "nav.routeStyle" or path == "nav" or path == "") and F.Styles then
 		for _, c in ipairs(F.Styles) do paintStyle(c) end
 		redrawRoute(F.RouteMap)
+	end
+	if (path == "behavior.groupQuests" or path == "behavior" or path == "") and F.GroupStage and F.GroupStage:IsShown() then
+		layGroupStage(F.GroupStage, F.GroupStage.psExtra or 0)
 	end
 	for _, g in ipairs(F.Groups) do
 		for _, c in ipairs(g.cards) do

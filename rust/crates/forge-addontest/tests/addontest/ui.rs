@@ -750,8 +750,11 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 		Polestar.Set("ui.scale", 1.3)
 		Polestar.Set("ui.opacity", 0.5)
 		Polestar.Set("ui.locked", true)
-		stub.RunScript(GF.parts.nav, "OnDragStart")
-		local movedWhileLocked = F.moving == true
+		stub.cursor = { 900, 500 }
+		stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
+		local movedWhileLocked = Polestar.DragMoved(GF.parts.nav)
 		Polestar.Set("ui.compact", true)
 		local P = GF.parts
 		local compact = { strip = P.strip:IsShown(), after = P.after:IsShown(), tip = P.tip:IsShown(), rows = #visibleRows(),
@@ -786,10 +789,15 @@ fn dragging_saves_the_position_the_grip_resizes_width_within_bounds() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)
 		F.x, F.y = 1500, 300
-		stub.RunScript(GF.parts.nav, "OnDragStart")
-		local moving = F.moving
+		-- ns.DragWindow: a press on the bar, the pointer's travel, the release saves the spot.
+		stub.cursor = { 900, 500 }
+		stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.advance(0.1)
+		local _, _, _, mx = F:GetPoint(1)
+		local moving = mx ~= nil and mx > 1500
 		local top = F:GetTop()
-		stub.RunScript(GF.parts.nav, "OnDragStop")
+		stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
 		local pos = Polestar.Get("ui.pos")
 		stub.cursor = { 100, 500 }
 		stub.RunScript(GF.grip, "OnMouseDown", "LeftButton")
@@ -802,7 +810,7 @@ fn dragging_saves_the_position_the_grip_resizes_width_within_bounds() {
 		emit({ moving = moving, pos = pos, top = top, live = live, width = Polestar.Get("ui.width"),
 			polling = GF.grip:GetScript("OnUpdate") ~= nil, point = { F:GetPoint(1) } })"#)
 	.remove(0);
-	assert_eq!(out["moving"], true);
+	assert_eq!(out["moving"], true, "the window follows the pointer");
 	assert_eq!(out["pos"], json!([1500, out["top"].clone()]), "saved as the top-left corner");
 	assert_eq!(out["live"], 420, "width follows the cursor while dragging");
 	assert_eq!(out["width"], 560, "and is clamped to the maximum");
@@ -818,8 +826,10 @@ fn grow_upward_pins_the_window_by_its_bottom_left_turning_it_on_or_off_keeps_the
 		Polestar.Set("ui.growUp", true)
 		local on, onPoint = Polestar.Get("ui.pos"), { F:GetPoint(1) }
 		F.x, F.y = 900, 120
-		stub.RunScript(GF.parts.nav, "OnDragStart")
-		stub.RunScript(GF.parts.nav, "OnDragStop")
+		stub.cursor = { 900, 500 }
+		stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+		stub.cursor = { 910, 490 }
+		stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
 		local dragged = Polestar.Get("ui.pos")
 		stub.cursor = { 100, 500 }
 		stub.RunScript(GF.grip, "OnMouseDown", "LeftButton")
@@ -3000,17 +3010,20 @@ fn floating_button_off_by_default_on_it_hides_and_shows_polestar_opens_the_menu_
 		b:Click("LeftButton")
 		b:Click("RightButton")
 		b.x, b.y = 100, 200
-		b:GetScript("OnDragStart")(b)
-		local moving = b.moving
-		b:GetScript("OnDragStop")(b)
+		-- ns.DragWindow: a press, the pointer's travel, the release.
+		local function drag()
+			stub.cursor = { 900, 500 }
+			stub.RunScript(b, "OnMouseDown", "LeftButton")
+			stub.cursor = { 910, 490 }
+			stub.RunScript(b, "OnMouseUp", "LeftButton")
+			return Polestar.DragMoved(b)
+		end
+		local moving = drag()
 		local saved, moved = Polestar.Get("ui.launcherPos"), at()
 		Polestar.Set("ui.lockHud", true)
-		b:GetScript("OnDragStart")(b)
-		local locked = b.moving
+		local locked = drag()
 		stub.keys.shift = true
-		b:GetScript("OnDragStart")(b)
-		local shiftDrag = b.moving
-		b:GetScript("OnDragStop")(b)
+		local shiftDrag = drag()
 		stub.keys.shift = false
 		Polestar.Set("ui.launcher", false)
 		emit({ before = before, start = start, shown = shown, fired = fired, menu = menu == b, moving = moving, saved = saved, moved = moved,

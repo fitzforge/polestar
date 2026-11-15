@@ -164,8 +164,11 @@ fn a_window_scale_changed_while_another_addon_keeps_the_window_out_of_sight_keep
 local GF = Polestar.UI.GuideFrame
 uistub.setGuide(uistub.elwynn, 3)
 F.x, F.y = 1500, 300
-stub.RunScript(GF.parts.nav, "OnDragStart")
-stub.RunScript(GF.parts.nav, "OnDragStop")
+-- A drag (ns.DragWindow): press, the pointer's travel, release; the drop saves the spot.
+stub.cursor = { 900, 500 }
+stub.RunScript(GF.parts.nav, "OnMouseDown", "LeftButton")
+stub.cursor = { 910, 490 }
+stub.RunScript(GF.parts.nav, "OnMouseUp", "LeftButton")
 local top = F:GetTop()
 veil(F)
 Polestar.Set("ui.scale", 1.2)

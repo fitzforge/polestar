@@ -127,15 +127,11 @@ local function build()
 	local head = CreateFrame("Frame", nil, F)
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
-	head:EnableMouse(true)
-	head:RegisterForDrag("LeftButton")
-	head:SetScript("OnDragStart", function() F:StartMoving() end)
-	head:SetScript("OnDragStop", function()
-		F:StopMovingOrSizing()
-		-- Where the player put it is where it opens (and rises to) next time.
+	-- Where the player put it is where it opens (and rises to) next time.
+	ns.DragWindow(head, F, { onStop = function()
 		local point, _, relPoint, x, y = F:GetPoint(1)
 		if point then Anim.Anchor(F, point, UIParent, relPoint, x, y) end
-	end)
+	end })
 	F.Header = head
 	F.Night, F.Haze, F.Band = W.Night(head, { width = WIDTH * 0.8, height = 120, sub = -6 })
 	F.HeadRule = W.Divider(head)
