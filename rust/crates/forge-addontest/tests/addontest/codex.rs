@@ -79,6 +79,8 @@ fn emitpack_round_trips_every_record_through_codex_lua() {
 	let mut codex = sample_codex();
 	// A child quest's parent, needed in the log (the Valik rule): the `u` field.
 	codex["quests"]["176"]["parent"] = json!(33);
+	// A kill done by using an item on that NPC (#2468): the `a` field after the objective.
+	codex["quests"]["176"]["objectives"][1]["useItem"] = json!(2933);
 	let pack = write_codex_pack(&codex, &CodexOpts::default());
 	let keys = |k: &str| -> Vec<String> { codex[k].as_object().map(|o| o.keys().cloned().collect()).unwrap_or_default() };
 	let ids = serde_json::to_string(&json!({

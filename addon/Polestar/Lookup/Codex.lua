@@ -387,6 +387,11 @@ local function decodeQuest(group, id, s)
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
 			if o then o.tame = true end
+		elseif lead == "a" then
+			-- The kill objective before it is done by using this item on the
+			-- NPC (the Codex build's useItem, #2468): a<item>.
+			local o = rec.objectives[#rec.objectives]
+			if o then o.useItem = tonumber(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
 			local o = rec.objectives[#rec.objectives]

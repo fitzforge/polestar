@@ -7,6 +7,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { mergeCodex } = require('../tools/lib/codex/build');
+const { emitPack } = require('../tools/lib/codex/pack');
 
 function inputs(mechanics) {
 	const quest = (id, extra = {}) => ({ id, title: 'Q' + id, start: { npc: [] }, end: { npc: [] }, objectives: [{ type: 'kill', id: extra.npc || 1, count: 1, text: 'Mob' }], ...extra });
@@ -57,4 +58,12 @@ test('a kill done with an item keeps useItem; a plain kill, a tame and a kind wi
 	const plain = mergeCodex(inputs(null)).quests[88001].objectives[0];
 	assert.equal(plain.useItem, undefined);
 	assert.equal(plain.type, 'kill');
+});
+
+// The pack carries it to the addon (Lookup/Codex.lua reads `a<item>` after the objective).
+test('the pack writes useItem after its objective, and nothing for a plain kill (#2468)', () => {
+	const quests = mergeCodex(inputs(mechanics)).quests;
+	const text = Object.values(emitPack({ meta: { schema: 1 }, items: {}, npcs: {}, objects: {}, quests: { 88001: quests[88001], 88002: quests[88002] }, instances: {}, zones: {}, factions: {}, spells: {}, frames: {} }, { version: '0', build: 'test' })).join('\n');
+	assert.match(text, /k6498,1,Mob;a22432\b/);
+	assert.doesNotMatch(text, /k1,1,Mob;a/);
 });
