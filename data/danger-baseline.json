@@ -2,6 +2,292 @@
 	"about": "The danger-at-the-spot gate's reviewed flags (#1575; tools/danger-gate.js, tools/lib/danger.js). One row per flag the gate may raise on the release candidate, kept on purpose: key (guide|goal|kind), the step and the mobs flagged, why it stays (reason) and what players' recordings and the data show (evidence). A new flag fails the gate until it is fixed in the guide or reviewed into this file. Recorded with the 0.3.7 candidate, the calibrated level model and the recordings archive of 2026-11-11. The gate runs with the recordings archive's census (--archive): an npc players meet as friendly, or never meet where the data places it, is no threat. Rows that stopped flagging on the 0.4.0 development branch (2026-11-13) were dropped.",
 	"flags": [
 		{
+			"key": "forever/alliance/02-westfall.guide|collect 22.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 22.1",
+			"kind": "elite",
+			"title": "Goretusk Livers as you go",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the goal's own mobs are Goretusks 12-15",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60; recordings (2026-11-15): done by 87 (median 14.39), deaths 1, abandons 10"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 153.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 153.1",
+			"kind": "elite",
+			"title": "Red Leather Bandanas as you go",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the goal's own mobs are Defias 10-15",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60; recordings (2026-11-15): done by 85 (median 14.46), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|kill 12.1|over",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "kill 12.1",
+			"kind": "over",
+			"title": "Defias Trappers and Smugglers",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60 x2"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the targets are Defias Trappers and Smugglers 11-13",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60 x2; recordings (2026-11-15): done by 82 (median 14.14), deaths 1, abandons 10"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|kill 12.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "kill 12.1",
+			"kind": "elite",
+			"title": "Defias Trappers and Smugglers",
+			"level": 15.1,
+			"mobs": [
+				"Harvest Golem V000-A 60-60 x2"
+			],
+			"reason": "Harvest Golem V000-A (60, elite) is an event creature: 1 player met it in 7,917 recorded sessions; the targets are Defias Trappers and Smugglers 11-13",
+			"evidence": "route level 15.1; Harvest Golem V000-A 60-60 x2; recordings (2026-11-15): done by 82 (median 14.14), deaths 1, abandons 10"
+		},
+		{
+			"key": "forever/alliance/03-loch-modan.guide|kill 86585.1|over",
+			"guide": "forever/alliance/03-loch-modan.guide",
+			"goal": "kill 86585.1",
+			"kind": "over",
+			"title": "Mountaineer Ylva",
+			"level": 19.4,
+			"mobs": [
+				"Stonevault Cave Hunter 36-37 x2"
+			],
+			"reason": "warned at the step: its tip says the Stonevault Cave Hunters hold the pass south toward the Badlands and to stay by the banner; Headsplitter is the target",
+			"evidence": "route level 19.4; Stonevault Cave Hunter 36-37 x2; recordings (2026-11-15): done by 29 (median 20.67), deaths 3, abandons 1"
+		},
+		{
+			"key": "forever/alliance/06-ashenvale.guide|kill 294.2|elite",
+			"guide": "forever/alliance/06-ashenvale.guide",
+			"goal": "kill 294.2",
+			"kind": "elite",
+			"title": "The raptor hills",
+			"level": 24,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "warned at the goal: its note names Nightveiled Rotheap (31, elite), who roams the hills",
+			"evidence": "route level 24; Nightveiled Rotheap 31-32; recordings (2026-11-15): done by 52 (median 27.17), deaths 2, abandons 14"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 471.1|over",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 471.1",
+			"kind": "over",
+			"title": "The Lost Fleet: kill these as you meet them",
+			"level": 27.7,
+			"mobs": [
+				"Nightveiled Rotheap 31-32 x2"
+			],
+			"reason": "warned at the step: the Wetlands tips name Nightveiled Rotheap (31, elite), who roams the shores and roads",
+			"evidence": "route level 27.7; Nightveiled Rotheap 31-32 x2; recordings (2026-11-15): done by 49 (median 28.39), deaths 7, abandons 9"
+		},
+		{
+			"key": "forever/alliance/human/01-elwynn-forest.guide|collect 91725.1|elite",
+			"guide": "forever/alliance/human/01-elwynn-forest.guide",
+			"goal": "collect 91725.1",
+			"kind": "elite",
+			"title": "The gnoll camps",
+			"level": 9.3,
+			"mobs": [
+				"Elmpaw 12-12 x3"
+			],
+			"reason": "Elmpaw (12, elite) is named in the step's Careful tip; the goal is the Stolen Enchanting Supplies in the camps, 0 deaths recorded",
+			"evidence": "route level 9.3; Elmpaw 12-12 x3; recordings (2026-11-15): done by 48 (median 10.53), deaths 0, abandons 7"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 5545.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 5545.1",
+			"kind": "elite",
+			"title": "The Eastvale Logging Camp",
+			"level": 13.6,
+			"mobs": [
+				"Elmpaw 12-12"
+			],
+			"reason": "Elmpaw (12, elite) walks the woods north of the camp; the Bundles of Wood are on the ground, and no recorded death in 50 people",
+			"evidence": "route level 13.6; Elmpaw 12-12; recordings (2026-11-15): done by 50 (median 9.59), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/02-westfall.guide|collect 91725.1|elite",
+			"guide": "forever/alliance/02-westfall.guide",
+			"goal": "collect 91725.1",
+			"kind": "elite",
+			"title": "The gnoll camps",
+			"level": 13.7,
+			"mobs": [
+				"Elmpaw 12-12 x3"
+			],
+			"reason": "Elmpaw (12, elite) walks near the gnoll camps; the supplies are on the ground, and no recorded death in 48 people",
+			"evidence": "route level 13.7; Elmpaw 12-12 x3; recordings (2026-11-15): done by 48 (median 10.53), deaths 0, abandons 7"
+		},
+		{
+			"key": "forever/alliance/nightelf/02-darkshore.guide|collect 98025.1|rare",
+			"guide": "forever/alliance/nightelf/02-darkshore.guide",
+			"goal": "collect 98025.1",
+			"kind": "rare",
+			"title": "Ameth'Aran",
+			"level": 13.2,
+			"mobs": [
+				"Lady Moongazer 17-17"
+			],
+			"reason": "a rare not needed for the goal (Jai'vhanel is the target); no recorded death in 65 people",
+			"evidence": "route level 13.2; Lady Moongazer 17-17; recordings (2026-11-15): done by 65 (median 16.43), deaths 0, abandons 11"
+		},
+		{
+			"key": "forever/alliance/skyborne/01-zephras-isle.guide|collect 92684.1|rare",
+			"guide": "forever/alliance/skyborne/01-zephras-isle.guide",
+			"goal": "collect 92684.1",
+			"kind": "rare",
+			"title": "Gustberry Lowlands: kill these as you meet them",
+			"level": 10.2,
+			"mobs": [
+				"Tel'daeor the Stormspeaker 13-13"
+			],
+			"reason": "a rare (13) not needed for the goal; no recorded death in 25 people",
+			"evidence": "route level 10.2; Tel'daeor the Stormspeaker 13-13; recordings (2026-11-15): done by 25 (median 10.33), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 98216.1|pack",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 98216.1",
+			"kind": "pack",
+			"title": "Goaz Warders",
+			"level": 28.1,
+			"mobs": [
+				"6 spawns 30+"
+			],
+			"reason": "a group choice (`when group 98216`): the Goaz Warders are elites, and the solo route skips the step",
+			"evidence": "route level 28.1; 6 spawns 30+; recordings (2026-11-15): done by 40 (median 30.3), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/skyborne/01-zephras-isle.guide|kill 92461.1|pack",
+			"guide": "forever/alliance/skyborne/01-zephras-isle.guide",
+			"goal": "kill 92461.1",
+			"kind": "pack",
+			"title": "Thendal Grove: kill these as you meet them",
+			"level": 1.1,
+			"mobs": [
+				"6 spawns 3+"
+			],
+			"reason": "the start area's first camp: Pesky Cirrusflies (1) are the targets; 52 people did it, 1 death",
+			"evidence": "route level 1.1; 6 spawns 3+; recordings (2026-11-15): done by 52 (median 1.1), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|collect 93.1|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "collect 93.1",
+			"kind": "over",
+			"title": "Gooey Spider Legs",
+			"level": 26.9,
+			"mobs": [
+				"Disturbed Ghoul 30-30 x2"
+			],
+			"reason": "two Disturbed Ghouls (30) at the edge of the spiders' woods are not targets (Gooey Spider Legs come from the spiders); flagged since the level tidy moved the route level 0.2 lower; 1 recorded death in 21 people",
+			"evidence": "route level 26.9; Disturbed Ghoul 30-30 x2; recordings (2026-11-15): done by 21 (median 26.24), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.1|pack",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.1",
+			"kind": "pack",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"12 spawns 31+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which skeletons to fight (the targets are 26-29; the 31+ ones stand deeper in); flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; 12 spawns 31+; recordings (2026-11-15): done by 45 (median 29.25), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.2|pack",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.2",
+			"kind": "pack",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"12 spawns 31+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which skeletons to fight (the targets are 26-29; the 31+ ones stand deeper in); flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; 12 spawns 31+; recordings (2026-11-15): done by 45 (median 29.22), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.3|pack",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.3",
+			"kind": "pack",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"8 spawns 31+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which skeletons to fight (the targets are 26-29; the 31+ ones stand deeper in); flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; 8 spawns 31+; recordings (2026-11-15): done by 45 (median 29.29), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 58.1|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 58.1",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x2"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x2; recordings (2026-11-15): done by 52 (median 29.44), deaths 13, abandons 4"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.1|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.1",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x8"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x8; recordings (2026-11-15): done by 45 (median 29.25), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.2|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.2",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x9"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x9; recordings (2026-11-15): done by 45 (median 29.22), deaths 11, abandons 5"
+		},
+		{
+			"key": "forever/alliance/07-thousand-needles.guide|kill 323.3|rare",
+			"guide": "forever/alliance/07-thousand-needles.guide",
+			"goal": "kill 323.3",
+			"kind": "rare",
+			"title": "Raven Hill Cemetery: kill these as you meet them",
+			"level": 29.7,
+			"mobs": [
+				"Commander Felstrom 32-32 x7"
+			],
+			"reason": "a rare (Commander Felstrom, 32) not needed for the goal; flagged since the level tidy moved the route level 0.2 lower",
+			"evidence": "route level 29.7; Commander Felstrom 32-32 x7; recordings (2026-11-15): done by 45 (median 29.29), deaths 11, abandons 5"
+		},
+		{
 			"key": "forever/alliance/02-westfall.guide|collect 38.3|rare",
 			"guide": "forever/alliance/02-westfall.guide",
 			"goal": "collect 38.3",
