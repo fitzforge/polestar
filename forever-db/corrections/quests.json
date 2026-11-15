@@ -3072,6 +3072,34 @@
 		},
 		"note": "Venomous Journeys: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Owen Thadd (npc 211022)."
 	},
+	"84147": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever) is the only source of 84147; pfQuest and the server have 8905 alone, with the same objectives, level and Alliance race mask"
+			}
+		],
+		"note": "An Earnest Proposition 84147 is a second copy of 8905 (the same Deliana quest in Ironforge for Druids: 15 Winterspring Blood Samples and the Wildheart Bracers). Only one source lists it and Forever's server quest table has 8905 alone, so the Dungeons page listed the quest twice. The copy leaves the data."
+	},
+	"84150": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB (Questie-Forever) is the only source of 84150; pfQuest and the server have 8908 alone, with the same objectives (15 Winterspring Blood Samples, Lightforge Bracers), level and Alliance race mask"
+			}
+		],
+		"note": "An Earnest Proposition 84150 is a second copy of 8908 (the same Deliana quest in Ironforge for Paladins). Only one source lists it and Forever's server quest table has 8908 alone, so Scholomance's Alliance pick-up guide asked Deliana for An Earnest Proposition twice. The copy leaves the data."
+	},
 	"84396": {
 		"set": {
 			"end": {

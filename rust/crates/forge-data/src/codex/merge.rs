@@ -1892,6 +1892,15 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		}
 	}
 	let objects = Obj::new();
+	// An object only inside an instance (data/forever's `instances`: map ids) is that instance's: the pick-up
+	// guides leave out a prerequisite that uses one (Upper Blackrock Spire's Rookery Eggs, Egg Freezing).
+	let mut key_of_map: FxHashMap<u64, String> = FxHashMap::default();
+	for (k, inst) in instances.entries() {
+		let m = inst.get("map");
+		if !m.is_nullish() {
+			key_of_map.insert(m.num().to_bits(), k.to_string());
+		}
+	}
 	for (id, o) in oentries(&fv.objects) {
 		let roles = o.get("roles").items();
 		let treasure = roles.iter().any(|r| r.as_str() == Some("chest"));
@@ -1908,6 +1917,9 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		r.set("name", name);
 		r.set("treasure", treasure);
 		r.set("spawns", spawns_v(&spawns_of(&o.get("spawns"), zones_in, frames_in, mailbox)));
+		if let Some(k) = o.get("instances").items().iter().find_map(|m| key_of_map.get(&m.num().to_bits())) {
+			r.set("instance", k.as_str());
+		}
 		if mailbox {
 			r.set("mailbox", true);
 			let f = o.get("faction");
@@ -2029,12 +2041,19 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			let tame = tames_with_rod(&q);
 			let objectives: Vec<V> =
 				q.get("objectives").items().iter().filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|o| objective_of(o, escort, tame)).collect();
-			if learned.truthy() && !corrected.has("objectives") {
+			if learned.truthy() {
 				// A recorded spot places an objective our data doesn't; a trusted one replaces our data's point.
+				// A correction that sets the objectives decides their kinds and ids; only one that places a
+				// line itself keeps that line from the recorded spot (Riverglades' kill credits, set by a
+				// correction with no place, were left with none: Krol'dok Stronghold's prerequisites).
+				let fixed = corrected.get("objectives");
 				let kept: Vec<usize> =
 					q.get("objectives").items().iter().enumerate().filter(|(_, o)| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk"))).map(|(i, _)| i).collect();
 				for (i, (map, x, y, provisional)) in crate::learn::objective_spots(&q, &learned, true) {
 					let Some(o) = kept.iter().position(|k| *k == i).map(|p| &objectives[p]) else { continue };
+					if !fixed.at(i).get("map").is_nullish() {
+						continue;
+					}
 					if provisional && !o.get("map").is_nullish() {
 						continue;
 					}

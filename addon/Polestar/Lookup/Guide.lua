@@ -617,7 +617,9 @@ local function questStep(q, from, isTarget, opts)
 		if o.type == "kill" and o.id then
 			local npc = C.Npc(o.id)
 			local target = (npc and npc.name) or o.text or npcName(o.id)
-			local s = npc and Lookup.Nearest(npc.spawns, here)
+			-- No placed NPC (a kill credit, Riverglades' "[DNT] Kill Credit"): the
+			-- objective's own place, where players' recordings show it ticking.
+			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, target)
@@ -642,7 +644,7 @@ local function questStep(q, from, isTarget, opts)
 			-- quest's objective line, so it holds the step until done.
 			local npc = C.Npc(o.id)
 			local who = (npc and npc.name) or o.text or npcName(o.id)
-			local s = npc and Lookup.Nearest(npc.spawns, here)
+			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, who)
@@ -652,7 +654,7 @@ local function questStep(q, from, isTarget, opts)
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
-			local s = obj and Lookup.Nearest(obj.spawns, here)
+			local s = (obj and Lookup.Nearest(obj.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("object", o.id)
 				mark(s, objName)

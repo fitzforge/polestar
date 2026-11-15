@@ -6896,8 +6896,10 @@ flight timer and the instance tracker are set under Quality of Life.
   observations within 10 world yards share one icon at an original point;
   the other physical mailboxes keep their own pins. Codex spawn frame tags
   are retained for coordinate projection and navigation. Optional escaped
-  `t<title>` NPC and `m<faction>` mailbox tails extend the packed records;
-  older readers skip these comma-free fields, and older packs stay readable.
+  `t<title>` NPC, `m<faction>` mailbox and `i<instance>` object tails (the
+  instance an object lies in: the pick-up guides leave out a prerequisite that
+  uses one) extend the packed records; older readers skip these comma-free
+  fields, and older packs stay readable.
   Reads run in batches of 100 outside combat, the first time the world map
   opens with the layer on (at once when its minimap icons are on), never at
   login, so the Codex stays unloaded until then; filters reuse the records
