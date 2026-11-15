@@ -41,7 +41,10 @@ step Fly to Shadowprey Village
   when !zone "Desolace"
   tip New in Forever: this guide follows what players did in Shen'dralas. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Shen'dralas lies south of Desolace, through the Valley of Bones, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to Orgrimmar first (from Grom'gol or the Undercity).
+  zone Orgrimmar
+  goto 45.3,63.7 "Orgrimmar flight master"
   fly "Shadowprey Village"
+  zone Desolace
 
 step Fly to Nijel's Point
   only Alliance
