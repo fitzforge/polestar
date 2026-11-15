@@ -29,8 +29,6 @@ next forever/alliance/40-50/02-badlands
 # Left out on purpose:
 # - The Sharpest of Blades (95184): eight Solid Sharpening Stones, a blacksmith's make; 3 of 16 recorded players
 #   handed it in.
-# - Love Thy Neighbor (95330) and High Stakes (96009): both send you back to Turner's Logging Camp; part 4 takes
-#   them when it heads west from Farholde Keep.
 
 step Into the Riverglades
   when !zone "Riverglades"
@@ -142,6 +140,7 @@ step Farholde Keep
   accept 94877                          -- Saving Sunnyglade: for later in this guide
   accept 94881                          -- Ashe Amberhall: Curious Trinkets, for later in this guide
   accept 94879                          -- Scraps of Knowledge, for later in this guide
+  accept 95330                          -- Cassandra Wheeler, by the inn: Love Thy Neighbor, for Turner's Logging Camp later in this guide
   sethome "Farholde Keep" npc 257595   -- Barracks Master Harlan, at the inn
 
 step Tessa Dawnbright
@@ -236,6 +235,7 @@ step Farholde Keep
   tip South back to Farholde Keep.
   turnin 95156                          -- Ember Bladewhisper
   turnin 95943                          -- Bertrand Ironbrow
+  accept 96009                          -- High Stakes: for Turner's Logging Camp later in this guide
   turnin 95913                          -- Tessa Dawnbright
   accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port, keep it
 
@@ -593,11 +593,6 @@ step Wheatley
 #   hollow.
 # - Twilight Mementos (94983), Lingering Essence (94997), Curios of Curiosity (94998), Tome of Twilight (94984), Eye
 #   of Mugg (94982) and Krol'dok Moulding (94980): their items come from the Krol'dok Stronghold dungeon.
-
-step Farholde Keep
-  tip Before you head west: Bertrand Ironbrow and Cassandra Wheeler, by the inn, both have work at Turner's Logging Camp.
-  accept 96009                          -- Bertrand Ironbrow: High Stakes
-  accept 95330                          -- Cassandra Wheeler: Love Thy Neighbor
 
 step Something's in the Water
   when onquest 96084
