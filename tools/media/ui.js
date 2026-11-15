@@ -140,8 +140,6 @@ const GLYPHS = {
 		subtract(dot(9, 14.6, 6.6), ring(9, 14.6, 4.1, 1.3)),
 	),
 	'icon-level': union(polyline([[6, 12.5], [12, 6.5], [18, 12.5]], 2.6), polyline([[6, 18.5], [12, 12.5], [18, 18.5]], 2.6)),
-	// The trip to a zone on the route choice's cards: a clock face, its hands at ten past.
-	'icon-clock': union(ring(12, 12.4, 8.4), line(12, 12.4, 12, 7.6, 2.4), line(12, 12.4, 15.6, 14.4, 2.4)),
 	'icon-note': subtract(dot(12, 12, 9.5), union(line(12, 10.6, 12, 17, 2.5), dot(12, 7.1, 1.6))),
 	// Professions: rising bars for a skill rank, a scroll for a recipe to
 	// learn, an anvil for crafting.
