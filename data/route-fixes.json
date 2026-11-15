@@ -6838,6 +6838,20 @@
 			},
 			{
 				"a": [
+					"task",
+					835,
+					0
+				],
+				"b": [
+					"task",
+					1525,
+					1
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Durotar 10, #1175): the Reagent Pouch drops from the Burning Blade Cultists at Dustwind Cave, the south end of Drygulch Ravine, where Rezlak's Savages and Storm Witches are killed"
+			},
+			{
+				"a": [
 					"accept",
 					843
 				],
@@ -12379,18 +12393,6 @@
 				],
 				"faction": "Horde",
 				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Fizzle Darkstorm (12, his quest 12) and his linked Burning Blade cultists were fought at 10-11 (Troll players' 25th percentile 10.8; 13 deaths there, 6 to a higher mob) in one step with the lizards, before Misha. As in the seed order, the lizards, Rezlak's Stormy Potential and Misha's Lost But Not Forgotten come first, so his camp, just north of Misha's hut, is met with their experience"
-			},
-			{
-				"a": [
-					"turnin",
-					827
-				],
-				"b": [
-					"task",
-					1525
-				],
-				"faction": "Horde",
-				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): the Reagent Pouch for Call of Fire (12) drops from the Burning Blade Cultists (10-11) by Dustwind Cave. On the Drygulch Ravine loop Troll Shamans got it at 10 (players' 25th percentile 10.2). It is taken on the walk north to Orgrimmar at the end, after Skull Rock, at about 12, as Mulgore's Shamans do; Telf's Call of Fire is still taken at 10 on the Kranal trip. This replaces #1175's together record (the pouch with Securing the Lines' Savages and Storm Witches)"
 			},
 			{
 				"a": [

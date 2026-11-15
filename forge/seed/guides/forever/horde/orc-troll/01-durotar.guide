@@ -77,10 +77,10 @@ next forever/horde/orc-troll/02-the-barrens
 # the way out (Thun'grim 1502 and Forged Steel 1503 follow in the Barrens
 # guide); Shamans take Call of Fire (2983) from Swart and go straight on to
 # Kranal Fiss across the river and Telf Joolam on his mountain (1524, 1525),
-# so the Reagent Pouch drops from the Burning Blade Cultists by Dustwind
-# Cave on the walk out at about 12; the Fire Tar, Telf's brazier and Kranal
-# (1526, 1527) follow in the Barrens guide. (c14 and c15 took Kranal and Telf
-# from the Crossroads and walked back to northern Durotar for the pouch; here
+# so the Reagent Pouch drops from the Burning Blade Cultists by Drygulch
+# Ravine on the north loop; the Fire Tar, Telf's brazier and Kranal (1526,
+# 1527) follow in the Barrens guide. (c14 and c15 took Kranal and Telf from
+# the Crossroads and walked back to northern Durotar for the pouch; here
 # they are done at 10, on the way.)
 # Hunters take Etched Parchment (3087, Orcs) or Etched Tablet (3082, Trolls)
 # to Jen'shan at 1, tame their three beasts for Thotar (6062, 6083, 6082:
@@ -537,11 +537,12 @@ step Rezlak
   accept 835
 
 step Drygulch Ravine
-  tip Savages and Storm Witches nest in Drygulch Ravine, east of Rezlak. A Storm Witch drops the Dull Storm Orb.
+  tip Savages and Storm Witches nest in Drygulch Ravine, east of Rezlak. A Storm Witch drops the Dull Storm Orb. Shamans: the Burning Blade Cultists by Dustwind Cave, at the ravine's south end, drop the Reagent Pouch.
   kill 3117 quest 835.1
   kill 3118 quest 835.2
   collect 277661 "Dull Storm Orb"
   accept 97281
+  collect 6652 quest 1525.2 only Shaman
 
 step Rezlak
   turnin 835
@@ -665,13 +666,6 @@ step Ormak Grimshot
   zone Orgrimmar
   tip Follow the road north from Razor Hill to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
   turnin 6081                         -- Ormak Grimshot: Beast Training
-
-# Shamans: the Reagent Pouch from the Burning Blade Cultists (10-11) by Dustwind Cave, on the way out at
-# about 12, as Mulgore does; on the Drygulch loop at 10 they were a level over (level tidy 0.4.0).
-step Dustwind Gulch cultists
-  only Shaman
-  tip Burning Blade Cultists hold Dustwind Cave, at the south end of Drygulch Ravine, east of the road north to Orgrimmar; they drop the Reagent Pouch.
-  collect 6652 quest 1525.2
 
 # ---------------------------------------------------------------- To the Crossroads
 
