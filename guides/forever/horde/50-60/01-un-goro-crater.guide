@@ -287,9 +287,8 @@ step To Gadgetzan
 
 step Gadgetzan
   zone Tanaris
-  tip The hearth lands in Gadgetzan: Andi Lynn and Tran'rek take the Dunemaul Compound and Thistleshrub Valley, done on the way into the crater.
+  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound, done on the way into the crater.
   turnin 5863                         -- Andi Lynn
-  turnin 3362                         -- Tran'rek, beside the wind rider master
   turnin 4504                         -- Tran'rek
 
 step Gadgetzan

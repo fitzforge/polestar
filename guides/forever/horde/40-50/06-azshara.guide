@@ -15,10 +15,9 @@ next forever/horde/50-60/01-un-goro-crater
 # Feralas ride for about a fifth of that).
 # Added here: Assisting Arch Druid Runetotem (3762), from Innkeeper Pala on the Thunder Bluff stop, handed to Hamuul
 # before Un'Goro Soil (3761). Left out: the Undercity copy (3784).
-# Level tidy (0.4.0): Zapped Giants, Fuel for the Zapping (7003, 7721) and Vengeance on the Northspring (3063), taken in
-# 40-50/03 where their giants and harpies (48-50) were 2-4 over the player, are done on this Feralas loop; Zorbin's next
-# two (7725, 7726: the same giants again, 550 XP each) are left out. The Dunemaul Compound (5863, Gor'marok 49) and
-# Thistleshrub Valley (3362, Rootshapers 49-50), taken in 40-50/04, are done at the Broken Pillar on the way to
+# Level tidy (0.4.0): Vengeance on the Northspring (3063), taken in 40-50/03 where its harpies (48-50) are 2 over the
+# player, is done on this Feralas loop, after Zorbin's second round of giants. The Dunemaul Compound (5863, Gor'marok
+# 49), taken in 40-50/04, is done at the Broken Pillar on the way to
 # Un'Goro and handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
 # (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
 # the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
@@ -118,12 +117,6 @@ step Zilzibin Drumlore
   when onquest 32
   tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris.
   turnin 32                             -- Zilzibin Drumlore, the Drag
-
-step Zilzibin Drumlore
-  zone Orgrimmar
-  when onquest 7732
-  tip Zilzibin, in the Drag, takes Hadoken's report on the Zukk'ash from Feralas.
-  turnin 7732                           -- Zilzibin Drumlore, the Drag
 
 step Dran Droffers
   zone Orgrimmar
@@ -272,21 +265,27 @@ step Witch Doctor Uzer'i
   turnin 3126
   accept 3127
 
+step Zorbin Fandazzle
+  turnin 7003
+  turnin 7721
+  accept 7725
+  accept 7726
+
 # ---------------------------------------------------------------- The Forgotten Coast
 
 step The Forgotten Coast: kill these as you meet them
   zone Feralas
-  tip Ride north-west to the Forgotten Coast. The Sea Elementals and Sea Sprays wash along the shore around Zorbin's dock.
+  tip The Sea Elementals and Sea Sprays wash along the shore around the dock.
   tip The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with Zorbin's Ultra-Shrinker first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.
   collect 9597 quest 3127
   use 9621 quest 3127.1 @39.9,22.2 map 1444
-  collect 18958 quest 7721.1
-  collect 18956 quest 7003.1
-  use 18904 quest 7003.1 @40.1,38.6 map 1444
+  collect 18958 quest 7726
+  collect 18956 quest 7725
+  use 18904 quest 7725.1 @44.3,46.6 map 1444
 
 step Zorbin Fandazzle
-  turnin 7003
-  turnin 7721
+  turnin 7725
+  turnin 7726
 
 step Northspring harpies
   tip The Northspring harpies nest on the ridges in the far north-west, past the giants' hills. The Windcallers heal, so kill them first and pull one at a time.
@@ -343,9 +342,3 @@ step The Dunemaul Compound
   kill 5474 quest 5863.1
   kill 5472 quest 5863.2
   kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
-
-step Thistleshrub Valley
-  zone Tanaris
-  tip West of the compound the cactus creatures fill the valley, on the way to Un'Goro's ramp: Tran'rek's Gnarled Thistleshrubs and Rootshapers. Both quests go back to Gadgetzan on the next guide's first stop there.
-  kill 5490 quest 3362.1
-  kill 5485 quest 3362.2

@@ -16,13 +16,11 @@ con Three zones, lots of travel
 # into this file.
 # Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626), Continued Threat (1428).
 # Level tidy (0.4.0): Stranglethorn's level 43-46 work, taken in 40-50/01 at 41-42 where its mobs ran 2-4 levels over
-# the player (#2353, #2102), is done here on the Grom'gol zeppelin stop at about 45: Gan'zulah and the Fate of Yenniku
+# the player (#2353, #2102), is done here on the Grom'gol zeppelin stop at about 47: Gan'zulah and the Fate of Yenniku
 # (586, 588), the Singing Crystals (589), Mok'thardin's last enchantment and Akiris (573, 617, the naga coast),
 # Stranglethorn Fever (349/348, Mokk 44), Voodoo Dues (609) and the Wild Shore (604, 576, 587); Deliver to MacKinley
-# (2874) is handed in on the same Booty Bay stop. Stinglasher (7731, level 47), taken in 40-50/02, is done on the
-# Camp Mojache return at about 46-47, with Hadoken's report (7732) for Orgrimmar in 40-50/06. Zapped Giants, Fuel for
-# the Zapping (7003, 7721) and Vengeance on the Northspring (3063) are taken here and done on 40-50/06's Feralas loop
-# at about 50: their giants and harpies are 48-50.
+# (2874) is handed in on the same Booty Bay stop. Vengeance on the Northspring (3063) is taken here and done on
+# 40-50/06's Feralas loop at about 51: its harpies are 48-50.
 
 step Zeppelin to Undercity
   zone Durotar
@@ -305,15 +303,6 @@ step Fly to Camp Mojache
   fly "Camp Mojache"
   zone Feralas
 
-step The Writhing Deep
-  tip The Zukk'ash hive burrows into the hills south-east of the camp; Stinglasher waits in its deepest chamber.
-  collect 18962 quest 7731.1 @75.6,60.9
-
-step Camp Mojache
-  tip Back north to the camp.
-  turnin 7731                         -- Hadoken Swiftstrider
-  accept 7732                         -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
-
 step Sprite darters and forest walkers
   tip The sprite darters flit over the grove just west of the camp and carry the Encrusted Minerals; the Wandering Forest Walkers, a little further west, carry the Splintered Logs.
   collect 9589 quest 3128.2 @68.0,47.5 map 1444
@@ -328,8 +317,8 @@ step Frayfeather hippogryphs
 
 step Zorbin Fandazzle
   tip Ride north-west to the Forgotten Coast; Zorbin waits on the dock.
-  accept 7003                         -- keep it: the zapped giants (47-49) wait for your Feralas visit at about 50
-  accept 7721                         -- keep it: the sea elementals (47-49) wait for your Feralas visit at about 50
+  accept 7003
+  accept 7721
 
 # ---------------------------------------------------------------- West: screechers and OOX-22/FE
 
@@ -338,8 +327,15 @@ step Rogue Vale screechers
   use 10699 "Yeh'kinya's Bramble" quest 3520.1 @45.0,38.0
   talk 8612 quest 3520.1
 
+step The Forgotten Coast: kill these as you meet them
+  zone Feralas
+  tip Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with Zorbin's Ultra-Shrinker first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north.
+  collect 18958 quest 7721.1
+  collect 18956 quest 7003.1
+  use 18904 quest 7003.1 @40.1,38.6 map 1444
+
 step Rage Scar yetis
-  tip On the way back south-east from Rogue Vale, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
+  tip On the way back south-east from the coast, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
   collect 18947 quest 7734.1
   collect 18972 optional                -- Perfect Yeti Hide, a rare drop
   accept 7738 optional
@@ -350,4 +346,4 @@ step Camp Mojache
   turnin 7734                           -- Jangdor Swiftstrider, inside
   turnin 7738 optional
   turnin 3128                           -- Witch Doctor Uzer'i
-  note Talo's Northspring harpies (48-50) and Zorbin's giants wait for your Feralas visit at about 50: keep both quests.
+  note Talo's Northspring harpies (48-50) wait for your Feralas visit at about 51: keep the quest.

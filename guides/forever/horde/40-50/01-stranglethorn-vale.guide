@@ -15,7 +15,7 @@ next forever/horde/40-50/01b-riverglades
 # Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 # Level tidy (0.4.0): the level 43-46 errands are still taken here, where the route passes their givers, and done on
-# 40-50/03's Grom'gol zeppelin stop at about 45, where their mobs fit (here they ran 2-4 over the player, #2353,
+# 40-50/03's Grom'gol zeppelin stop at about 47, where their mobs fit (here they ran 2-4 over the player, #2353,
 # #2102): Speaking with Gan'zulah (586), Mok'thardin's Enchantment and Akiris (573, 617), Stranglethorn Fever (348),
 # Voodoo Dues (609) and the Wild Shore (604, 576, 587).
 
@@ -194,7 +194,7 @@ step Booty Bay
 # ---------------------------------------------------------------- North through the jungle
 
 step Mistvale gorillas
-  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.
+  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 47.
   collect 2799 x10
   collect 3862 quest 571 @33.0,66.1 map 1434
 
@@ -306,7 +306,7 @@ step The Vile Reef
 step Jungle stalkers
   tip The stalker raptors hunt the jungle south of Grom'gol, out towards the west coast.
   kill 687 quest 196.1
-  note The naga explorers on the coast south of here (43-44) are for Bloads and Mok'thardin: keep both quests for your Stranglethorn stop at about 45.
+  note The naga explorers on the coast south of here (43-44) are for Bloads and Mok'thardin: keep both quests for your Stranglethorn stop at about 47.
 
 step Booty Bay
   tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
@@ -317,11 +317,11 @@ step Booty Bay
   accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
-  accept 609                            -- MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45
+  accept 609                            -- MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 47
   turnin 628 optional                   -- Drizzlik, inside: the Elder Crocolisk Skin
-  accept 576                            -- Dizzy One-Eye: keep it for the Wild Shore at about 45
-  accept 604                            -- Fleet Master Seahorn: keep it for the Wild Shore at about 45
-  accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 45
+  accept 576                            -- Dizzy One-Eye: keep it for the Wild Shore at about 47
+  accept 604                            -- Fleet Master Seahorn: keep it for the Wild Shore at about 47
+  accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 47
   vendor nearest
 
 step The Bloodsail ships
@@ -330,11 +330,11 @@ step The Bloodsail ships
   accept 624 optional                   -- for a later stop in the Swamp of Sorrows
 
 step Zanzil's camps
-  tip North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture. Careful: the Zanzil Witch Doctors and the three ghost pirates near them are 43-44: pull one at a time and leave the ghosts for your stop at about 45.
+  tip North-east of Mistvale, Zanzil's followers camp in the jungle; every one of them can carry the mixture. Careful: the Zanzil Witch Doctors and the three ghost pirates near them are 43-44: pull one at a time and leave the ghosts for your stop at about 47.
   collect 4016 quest 621.1
 
 step Zul'Mamwe
-  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: Ana'thek the Cruel (45) guards the south-western ruins, and Gan'zulah's head lies below ground among Skullsplitters of 43-44: Speaking with Gan'zulah waits for your Stranglethorn stop at about 45.
+  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: Ana'thek the Cruel (45) guards the south-western ruins, and Gan'zulah's head lies below ground among Skullsplitters of 43-44: Speaking with Gan'zulah waits for your Stranglethorn stop at about 47.
   goto 45.4,36.2 "Skullsplitter warriors"
   collect 1524 quest 209.1 @45.4,36.2 map 1434 era
   collect 3908 quest 585.3
@@ -353,7 +353,7 @@ step Grom'gol Base Camp
   turnin 95770 npc 2519                 -- Kin'weelay
   turnin 585
   accept 95141                          -- Commander Aggro'gosh: for Krom'rosh in Rog'mar, the Riverglades' Horde fort, in the next guide
-  note Keep Speaking with Gan'zulah and Mok'thardin's Enchantment: the Skullsplitter chief and the naga coast come on your Stranglethorn stop at about 45.
+  note Keep Speaking with Gan'zulah and Mok'thardin's Enchantment: the Skullsplitter chief and the naga coast come on your Stranglethorn stop at about 47.
 
 step Fly to Booty Bay
   zone Stranglethorn Vale

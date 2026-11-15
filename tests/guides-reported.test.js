@@ -7895,13 +7895,10 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the sinew w
 // Final route review, Horde 40-60: Zukk'ash Report is ready on the Orgrimmar stop that ends the Feralas guide, which
 // passes Zilzibin Drumlore; it was carried to the Azshara guide's Orgrimmar stop.
 test('forever/horde/40-50/02-feralas.guide: final review: Zukk\'ash Report on the Orgrimmar stop that ends the guide', { skip }, () => {
-	// Since the 0.4.0 level tidy Stinglasher (47) waits for 40-50/03's Camp Mojache return at about 46-47, so the
-	// report is ready from there; the first Orgrimmar pass after it is 40-50/06's ride to Azshara, which hands it in.
-	assert.ok(!goals('forever/horde/40-50/02-feralas.guide').some(({ goal }) => is('turnin', 7732)(goal)), 'not ready in 02');
-	const az = goals('forever/horde/40-50/06-azshara.guide');
-	const report = az[at(az, 'turnin 7732', is('turnin', 7732))];
-	assert.ok(report.s < az[at(az, 'accept 5535', is('accept', 5535))].s, 'on the Orgrimmar ride to Azshara');
-	assert.ok(report.step.when.some((p) => p.k === 'onquest' && !p.neg), 'only while carried');
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const report = list[at(list, 'turnin 7732', is('turnin', 7732))];
+	assert.equal(report.s, list[at(list, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru\'s hand-in, in Orgrimmar');
+	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7732)(goal)), 'not carried to the Azshara guide');
 });
 
 // Final route review, Horde 40-60: the snapper claws were an "along the way" list from the Pool of Tears; the
@@ -10986,7 +10983,7 @@ test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent
 test('Horde 45 and 53 Orgrimmar stops: Belgrom and Jes\'rimon take their ready hand-ins on the way through', { skip }, () => {
 	const fer = goals('forever/horde/40-50/02-feralas.guide');
 	const grim = fer[at(fer, 'turnin 2976', is('turnin', 2976))].s;
-	assert.equal(grim, fer[at(fer, 'accept 649', is('accept', 649))].s, 'Belgrom on the Orgrimmar stop after Feralas');
+	assert.equal(grim, fer[at(fer, 'turnin 7732', is('turnin', 7732))].s, 'Belgrom on the Orgrimmar stop after Feralas');
 	assert.equal(grim, fer[at(fer, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru, same stop');
 	const fel = goals('forever/horde/50-60/02-felwood.guide');
 	const jes = fel[at(fel, 'turnin 4300', is('turnin', 4300))];
@@ -11064,8 +11061,7 @@ test('Horde 45-50 Orgrimmar: Zilzibin in the Drag, and the ready reports handed 
 	for (const f of ['forever/horde/40-50/02-feralas.guide', 'forever/horde/40-50/06-azshara.guide']) assert.doesNotMatch(src(f), /Zilzibin Drumlore, Valley of Spirits/, f);
 	const fer = goals('forever/horde/40-50/02-feralas.guide');
 	const i = (what, pred) => at(fer, what, pred);
-	// (Zukk'ash Report waits for 40-50/06 since the 0.4.0 level tidy: Dran Droffers marks the Drag.)
-	assert.ok(i('turnin 3121', is('turnin', 3121)) < i('accept 649', is('accept', 649)) && i('accept 649', is('accept', 649)) < i('turnin 2976', is('turnin', 2976)), 'Cleft, Drag, Valley of Honor');
+	assert.ok(i('turnin 3121', is('turnin', 3121)) < i('turnin 7732', is('turnin', 7732)) && i('turnin 7732', is('turnin', 7732)) < i('turnin 2976', is('turnin', 2976)), 'Cleft, Drag, Valley of Honor');
 	const az = goals('forever/horde/40-50/06-azshara.guide');
 	const loh = az[at(az, 'accept 5535', is('accept', 5535))].s;
 	for (const q of [32, 81]) {

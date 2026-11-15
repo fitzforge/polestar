@@ -5630,30 +5630,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					3122
-				],
-				"b": [
-					"task",
-					7731
-				],
-				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): Stinglasher (7731, level 47) is taken at Camp Mojache in 40-50/02 at about 45 and killed on 40-50/03's Camp Mojache return at about 46-47; Hadoken's report (7732) goes to Zilzibin on 40-50/06's Orgrimmar stop."
-			},
-			{
-				"a": [
-					"accept",
-					379
-				],
-				"b": [
-					"task",
-					2781
-				],
-				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): WANTED: Caliph Scorpidsting (2781, Caliph 46) is taken from the poster in Steamwheedle Port in 40-50/02 at about 44 and done on 40-50/04's Tanaris visit at about 46."
-			},
-			{
-				"a": [
 					"accept",
 					3127
 				],
@@ -5662,19 +5638,7 @@
 					3063
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): Zapped Giants, Fuel for the Zapping (7003, 7721; giants and elementals 47-49) and Vengeance on the Northspring (3063; harpies 48-50) are taken in 40-50/03 at about 46 and done on 40-50/06's Feralas loop at about 50."
-			},
-			{
-				"a": [
-					"accept",
-					3127
-				],
-				"b": [
-					"task",
-					7003
-				],
-				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): see the 3063 pair: Zorbin's giants wait for 40-50/06's Feralas loop at about 50."
+				"why": "Horde 40-60 level tidy (0.4.0): Vengeance on the Northspring (3063; harpies 48-50) is taken in 40-50/03 at about 48, two under its harpies, and done on 40-50/06's Feralas loop at about 51, after Zorbin's second round of giants."
 			},
 			{
 				"a": [
@@ -5686,19 +5650,7 @@
 					5863
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): The Dunemaul Compound (5863; Brutes 46-48, Gor'marok 49) and Thistleshrub Valley (3362; Rootshapers 49-50) are taken in Gadgetzan in 40-50/04 at about 45-46 and done at the Broken Pillar at the end of 40-50/06 (about 50), on the way into Un'Goro; both are handed in on 50-60/01's Gadgetzan stop."
-			},
-			{
-				"a": [
-					"turnin",
-					3380
-				],
-				"b": [
-					"task",
-					3362
-				],
-				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): see the 5863 pair."
+				"why": "Horde 40-60 level tidy (0.4.0): The Dunemaul Compound (5863; Brutes 46-48, Gor'marok 49) is taken in Gadgetzan in 40-50/04 at about 49 (recorded players there 25th percentile 46, about 48 with the Riverglades before it) and done at the Broken Pillar at the end of 40-50/06 (about 52), on the way into Un'Goro; Andi Lynn takes it on 50-60/01's Gadgetzan stop."
 			},
 			{
 				"a": [
@@ -10752,18 +10704,6 @@
 				"q": 5534,
 				"faction": "Horde",
 				"reason": "Horde level tidy (0.4.0): Kim'jael's \"Missing\" Equipment (level 53; Spitelash 50-55 with casters at Eldarath) at about 50 in 40-50/06 was 3 over the player. Kim'jael Indeed! (3601) moved to 50-60/04-azshara's Thalassian Base Camp; there Eldarath comes before the base camp, so its hand-in would be a ride back for one quest. Left out.",
-				"issue": "-"
-			},
-			{
-				"q": 7725,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Again With the Zapped Giants is level 55 and pays 550 XP; it needed a second loop over the same giants after Zapped Giants (7003), which is now done at 50 in 40-50/06. Left out.",
-				"issue": "-"
-			},
-			{
-				"q": 7726,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Refuel for the Zapping is level 55 and pays 550 XP; it needed a second loop over the same elementals after Fuel for the Zapping (7721), which is now done at 50 in 40-50/06. Left out.",
 				"issue": "-"
 			},
 			{
