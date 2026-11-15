@@ -141,10 +141,10 @@
 			},
 			{
 				"kind": "eg",
-				"ref": "EG Link live quest scans, the 9 full builds 1.60.1.70170 to 70450: 236 has no data, while Eight-Legged Menaces (245), from the same Watcher Dodds, is in all of them"
+				"ref": "EG Link live quest scans, builds 1.60.1.70888 (collected 10 to 13 November) and 70938 (13 to 15 November): 236 has no data, while Eight-Legged Menaces (245), from the same Watcher Dodds, is in both (as in the beta builds 70170 to 70450)"
 			}
 		],
-		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: no live scan has it, QuestieDB's Forever store does not list it (only pfQuest does), and Wowhead's Forever database has no quest 236. The quest leaves the data, so the map stops marking Watcher Dodds with it."
+		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's quest data does not list it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
 	},
 	"287": {
 		"set": {
