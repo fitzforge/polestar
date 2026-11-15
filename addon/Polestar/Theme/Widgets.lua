@@ -2720,13 +2720,20 @@ function W.HeaderScale(f, path)
 		-- Options, Appearance, Windows.
 		local inHeader = f.Close:GetParent() == head
 		t:SetShown(inHeader or not f.Close:IsShown())
+		-- The game's looks have no close button of their own, so the scale
+		-- stays in that narrowed header too. There it takes a line of its own
+		-- under the thanks line (UI/Thanks.lua reads psOwnLine), at the
+		-- title's right: side by side the two reach over the page title in a
+		-- language with longer words than English.
+		local ownLine = t:IsShown() and not inHeader
+		t.psOwnLine = ownLine
 		if f.Close:IsShown() and inHeader then
 			t:SetPoint("RIGHT", f.Close, "LEFT", -14, 0)
 		else
-			t:SetPoint("TOPRIGHT", head, "TOPRIGHT", -SHELL.pad, -16)
+			t:SetPoint("TOPRIGHT", head, "TOPRIGHT", -SHELL.pad, ownLine and -40 or -16)
 		end
 		if t:IsShown() then
-			f.Title:SetPoint("TOPRIGHT", t, "TOPLEFT", -16, -16)
+			f.Title:SetPoint("TOPRIGHT", t, "TOPLEFT", -16, ownLine and 8 or -16)
 		else
 			f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -(12 + 28 + 12), -32)
 		end
