@@ -623,7 +623,7 @@ Theme.OnChanged(function()
 		if art:IsVisible() then
 			if not batch.drew then
 				batch.drew = true
-				Arrow.ReadLook(cardLook)
+				if Arrow and Arrow.ReadLook then Arrow.ReadLook(cardLook) end
 			end
 			local ok, err = pcall(redraw, art)
 			if not ok then failed = failed or err end

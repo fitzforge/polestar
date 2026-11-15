@@ -334,23 +334,47 @@ end
 -- The lowest contrast any held role reaches, as a ratio of its floor (>= 1
 -- is legible): the text ladder on every ground, the subject and status
 -- colours on every ground but the sky (only titles sit on the band).
-local function legibility(P)
+-- Theme.Contrast's ratio, each colour's luminance worked out once; `roles`:
+-- the held roles' luminances already (keepLegible's, whose grounds alone
+-- move).
+-- (The scratch tables: one local, the main chunk is at Lua's 200.)
+local LEGIBLE_SCRATCH = { roles = {}, keep = {}, trial = {} }
+function LEGIBLE_SCRATCH.luminances(P, out)
+	local lum = Theme.Luminance
+	for role in pairs(Theme.LEGIBLE) do
+		local c = P[role]
+		out[role] = lum(c[1], c[2], c[3])
+	end
+	for role in pairs(SHARED) do
+		local c = P[role]
+		out[role] = lum(c[1], c[2], c[3])
+	end
+	return out
+end
+local function legibility(P, roles)
+	roles = roles or LEGIBLE_SCRATCH.luminances(P, LEGIBLE_SCRATCH.roles)
 	local worst = math.huge
 	for _, gname in ipairs(Theme.GROUNDS) do
+		local c = P[gname]
+		local lg = Theme.Luminance(c[1], c[2], c[3])
 		for role, floorRatio in pairs(Theme.LEGIBLE) do
-			local q = Theme.Contrast(P[role], P[gname]) / floorRatio
+			local a, b = roles[role], lg
+			if a < b then a, b = b, a end
+			local q = (a + 0.05) / (b + 0.05) / floorRatio
 			if q < worst then worst = q end
 		end
 		if gname ~= "sky" then
 			for role in pairs(SHARED) do
-				local q = Theme.Contrast(P[role], P[gname]) / 4.5
+				local a, b = roles[role], lg
+				if a < b then a, b = b, a end
+				local q = (a + 0.05) / (b + 0.05) / 4.5
 				if q < worst then worst = q end
 			end
 		end
 	end
 	return worst
 end
-Theme.Legibility = legibility
+Theme.Legibility = function(P) return legibility(P) end
 
 -- Whether a palette is a light one: its text darker than its window ground
 -- (a parchment scheme or skin), so the guard below lifts its grounds instead.
@@ -367,18 +391,36 @@ Theme.IsLightPalette = isLight
 -- `light` says which way (default: as P stands now); `need`, the legibility
 -- to reach (default 1: the floor; a registered skin's, the look it extends
 -- where that look sits under the floor, so its own tokens are held to it).
+-- (The search's trial grounds are written into the same scratch colours;
+-- the grounds kept are new ones.)
 local function keepLegible(P, light, need)
 	need = need or 1
-	if legibility(P) >= need then return P end
+	local roles = LEGIBLE_SCRATCH.luminances(P, LEGIBLE_SCRATCH.keep)
+	if legibility(P, roles) >= need then return P end
 	local base = {}
 	for _, gname in ipairs(Theme.GROUNDS) do base[gname] = P[gname] end
 	if light == nil then light = isLight(P) end
 	local far = light and 1 or -1
 	local lo, hi = far, 0 -- lightness shift: lo is legible, hi is not
+	local trial = LEGIBLE_SCRATCH.trial
+	for _, gname in ipairs(Theme.GROUNDS) do
+		local c, t = base[gname], trial[gname]
+		if not t then
+			t = {}
+			trial[gname] = t
+		end
+		t.L, t.a, t.b = toLab(c[1], c[2], c[3])
+	end
 	for _ = 1, 14 do
 		local mid = (lo + hi) / 2
-		for _, gname in ipairs(Theme.GROUNDS) do P[gname] = shifted(base[gname], mid) end
-		if legibility(P) >= need then lo = mid else hi = mid end
+		for _, gname in ipairs(Theme.GROUNDS) do
+			local t = trial[gname]
+			local L = t.L + mid
+			if L < 0 then L = 0 elseif L > 1 then L = 1 end
+			t[1], t[2], t[3] = fromLab(L, t.a, t.b)
+			P[gname] = t
+		end
+		if legibility(P, roles) >= need then lo = mid else hi = mid end
 	end
 	for _, gname in ipairs(Theme.GROUNDS) do P[gname] = shifted(base[gname], lo) end
 	return P
@@ -1520,22 +1562,37 @@ local scripted = setmetatable({}, { __mode = "k" }) -- fontString -> its text's 
 local HARD = { 1, -1, 1 }
 local SKIN_SHADOW = { halo = { 0, -1, 0.9 }, forever = HARD, blizzard = HARD, classic = HARD }
 
--- What a repaint of every string reads alike for each (Theme.Refresh sets
--- it while its loop runs; nothing it reads changes meanwhile): the font
--- spec per role (faces) and the shadow's mode, colour and the skin's own.
+-- What a repaint of every string reads alike for each (Theme.Refresh and
+-- the live repaint set it while they and their listeners run; nothing it
+-- reads changes meanwhile): the font spec per role (faces) and the shadow's
+-- mode, colour and the skin's own; a picker card's own (cards: its palette
+-- -> the same for the skin it draws).
 local memo
+local function memoNow()
+	if not memo then return nil end
+	if not drawing.id then return memo end
+	local pal = drawing.pal
+	if not pal then return nil end
+	local m = memo.cards[pal]
+	if not m then
+		m = { faces = {} }
+		memo.cards[pal] = m
+	end
+	return m
+end
 
 -- ui.textShadow: "skin" (the default: the skin's own), "soft", "hard" or
 -- "none" for every Polestar string. -> mode, r, g, b (the shade), own
 -- ({ x, y, alpha } or nil: the soft one in the shade)
 local function shadowSpec()
-	if memo and memo.shadow then return memo.mode, memo.r, memo.g, memo.b, memo.own end
+	local m = memoNow()
+	if m and m.shadow then return m.mode, m.r, m.g, m.b, m.own end
 	local mode = get("ui.textShadow")
 	local r, g, b = Theme.Color("shade")
 	local own = SKIN_SHADOW[Theme.SkinId()]
 	if own == nil then own = SKIN_SHADOW[Theme.SkinKey()] end
 	if mode == "hard" then own = HARD elseif mode == "soft" then own = nil end
-	if memo then memo.shadow, memo.mode, memo.r, memo.g, memo.b, memo.own = true, mode, r, g, b, own end
+	if m then m.shadow, m.mode, m.r, m.g, m.b, m.own = true, mode, r, g, b, own end
 	return mode, r, g, b, own
 end
 
@@ -1556,11 +1613,12 @@ local function paintShadow(fs)
 end
 
 local function fontSpec(role)
-	if not memo then return Theme.FontSpec(role) end
-	local s = memo.faces[role]
+	local m = memoNow()
+	if not m then return Theme.FontSpec(role) end
+	local s = m.faces[role]
 	if not s then
 		s = { Theme.FontSpec(role) }
-		memo.faces[role] = s
+		m.faces[role] = s
 	end
 	return s[1], s[2], s[3]
 end
@@ -2680,18 +2738,17 @@ function Theme.Refresh()
 	P = nil
 	livePending = false
 	refreshing = true
-	memo, skinMemo = { faces = {} }, {}
+	memo, skinMemo = { faces = {}, cards = {} }, {}
 	local ok, err = pcall(repaintAll)
-	memo = nil
 	refreshing = false
 	if not ok then
-		skinMemo = nil
+		memo, skinMemo = nil, nil
 		error(err, 0)
 	end
 	-- A registered skin failed while painting: everything again in the house style.
 	if refreshAgain then
 		refreshAgain = false
-		skinMemo = nil
+		memo, skinMemo = nil, nil
 		return Theme.Refresh()
 	end
 	-- EllesmereUI's font is handed over at login, in the frame the window is
@@ -2705,7 +2762,7 @@ function Theme.Refresh()
 		end)
 	end
 	tell(false)
-	skinMemo = nil
+	memo, skinMemo = nil, nil
 end
 
 -- Whether two palette entries hold the same colour (or value).
@@ -2750,22 +2807,21 @@ local function liveRepaint()
 		end
 	end
 	refreshing = true
-	memo, skinMemo = { faces = {} }, {}
+	memo, skinMemo = { faces = {}, cards = {} }, {}
 	local ok, err = pcall(repaintShown, changed)
-	memo = nil
 	refreshing = false
 	if not ok then
-		skinMemo = nil
+		memo, skinMemo = nil, nil
 		error(err, 0)
 	end
 	if refreshAgain then
 		refreshAgain = false
-		skinMemo = nil
+		memo, skinMemo = nil, nil
 		return Theme.Refresh()
 	end
 	liveChanged = changed
 	tell(true)
-	liveChanged, skinMemo = nil, nil
+	liveChanged, memo, skinMemo = nil, nil, nil
 end
 
 -- While listeners hear a live repaint: { [palette name] = true } for the

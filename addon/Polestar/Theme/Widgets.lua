@@ -118,6 +118,82 @@ function W.Painter(obj, fn, full)
 	return obj
 end
 
+-- What a full refresh found hidden by a frame above it, painted when that
+-- frame next shows (its own OnShow runs as it shows): its coloured regions
+-- and its painters (frame -> { [object] = true }). An object hidden itself
+-- is painted at once: its painter may be what shows it (a rim, a band).
+local staleColor = setmetatable({}, WEAK_KEYS)
+local stalePaint = setmetatable({}, WEAK_KEYS)
+local staleHooked = setmetatable({}, WEAK_KEYS)
+
+-- The frame hiding `o` (its nearest ancestor not shown) when its OnShow can
+-- say it shows; true when one with no OnShow hides it; false when nothing
+-- above it does. While a full pass runs, `walked` holds the answers for the
+-- frames above what it paints.
+local walked
+local function hider(o)
+	local up = o.GetParent
+	local p = up and up(o)
+	if not p then return false end
+	local r = walked and walked[p]
+	if r == nil then
+		local shown = p.IsShown
+		if shown and not shown(p) then
+			r = p.HookScript and p or true
+		else
+			r = hider(p)
+		end
+		if walked then walked[p] = r end
+	end
+	return r
+end
+
+local defer
+local function showStale(frame)
+	local colors, paints = staleColor[frame], stalePaint[frame]
+	staleColor[frame], stalePaint[frame] = nil, nil
+	if colors then
+		for region in pairs(colors) do
+			local name = colored[region]
+			if name then defer(staleColor, region, nil, name) end
+		end
+	end
+	if paints then
+		for obj in pairs(paints) do
+			local fn = painters[obj]
+			if fn then defer(stalePaint, obj, fn) end
+		end
+	end
+end
+
+-- Paint obj (W.Color in colour `name`, else its painter fn) now when it
+-- shows, else when the frame hiding it shows.
+local function apply(obj, fn, name)
+	if name then W.Color(obj, name, obj.psAlpha) else fn(obj) end
+end
+function defer(stale, obj, fn, name)
+	local shown = obj.IsShown
+	if not shown or not shown(obj) then return apply(obj, fn, name) end
+	local frame = hider(obj)
+	if not frame or frame == true then return apply(obj, fn, name) end
+	local set = stale[frame]
+	if not set then
+		set = setmetatable({}, WEAK_KEYS)
+		stale[frame] = set
+		if not staleHooked[frame] then
+			staleHooked[frame] = true
+			frame:HookScript("OnShow", showStale)
+		end
+	end
+	set[obj] = true
+end
+
+local walkMemo, shownNow = {}, {}
+local function fullPass()
+	for region, name in pairs(colored) do defer(staleColor, region, nil, name) end
+	for obj, fn in pairs(painters) do defer(stalePaint, obj, fn) end
+end
+
 Theme.OnChanged(function()
 	local changed = Theme.LiveChanged and Theme.LiveChanged()
 	if changed then
@@ -142,8 +218,26 @@ Theme.OnChanged(function()
 		end
 		return
 	end
-	for region, name in pairs(colored) do W.Color(region, name, region.psAlpha) end
-	for obj, fn in pairs(painters) do fn(obj) end
+	-- A full refresh: what shows now, the rest as it shows.
+	walked = walkMemo
+	local ok, err = pcall(fullPass)
+	walked = nil
+	for k in pairs(walkMemo) do walkMemo[k] = nil end
+	-- A frame the pass found hidden that a painter showed on the way: what
+	-- waits on it, now.
+	local n = 0
+	for frame in pairs(staleColor) do
+		if frame:IsShown() then n = n + 1; shownNow[n] = frame end
+	end
+	for frame in pairs(stalePaint) do
+		if frame:IsShown() then n = n + 1; shownNow[n] = frame end
+	end
+	for i = 1, n do
+		local frame = shownNow[i]
+		shownNow[i] = nil
+		showStale(frame)
+	end
+	if not ok then error(err, 0) end
 end)
 
 -- One line by default, cut with an ellipsis at its width: that is how a

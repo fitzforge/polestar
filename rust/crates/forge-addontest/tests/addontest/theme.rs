@@ -508,7 +508,9 @@ fn ellesmereui_font_a_refresh_sets_the_text_again_a_frame_later_so_a_string_draw
 		T.Refresh()
 		stub.advance(0.1)
 		local ownFont = sets
+		sets = 0
 		Polestar.Set("ui.matchFont", true)
+		local switched = sets
 		stub.advance(0.1)
 		sets = 0
 		T.Refresh()
@@ -520,12 +522,15 @@ fn ellesmereui_font_a_refresh_sets_the_text_again_a_frame_later_so_a_string_draw
 		T.Refresh()
 		local syncTwo = sets
 		stub.advance(0.1)
-		emit({ ownFont = ownFont, sameFrame = sameFrame, later = later, twiceLater = sets - syncTwo, text = fs:GetText() })"#,
+		emit({ ownFont = ownFont, switched = switched, sameFrame = sameFrame, later = later, twiceLater = sets - syncTwo, text = fs:GetText() })"#,
 		"stub.withEllesmere()",
 	);
-	assert_eq!(out["ownFont"], 2, "without EllesmereUI's font the one re-set stands, nothing is queued");
-	assert_eq!(out["sameFrame"], 2, "the refresh sets the text again at once");
-	assert_eq!(out["later"], 2, "and once more a frame later");
+	// A string's text is set again where its font changed (the switch to EllesmereUI's); a refresh that changes
+	// no font leaves the strings as they are, but while the font is EllesmereUI's sets them again a frame later.
+	assert_eq!(out["ownFont"], 0, "without EllesmereUI's font a refresh that changes no font sets nothing, nothing is queued");
+	assert_eq!(out["switched"], 2, "EllesmereUI's font taken: the text set again at once");
+	assert_eq!(out["sameFrame"], 0, "the same font: nothing set again at once");
+	assert_eq!(out["later"], 2, "and once a frame later");
 	assert_eq!(out["twiceLater"], 2, "refreshes in one frame share one later pass");
 	assert_eq!(out["text"], "Innkeeper Heather");
 }
