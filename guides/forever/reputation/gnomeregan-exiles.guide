@@ -253,7 +253,7 @@ step Morgan's Vigil: Jalinda Sprig
   accept 4262                         -- Overmaster Pyron, +100
 
 step Blackrock Mountain: Overmaster Pyron
-  zone map 1415
+  zone Searing Gorge
   tip Blackrock Mountain stands in the west of the Burning Steppes. Overmaster Pyron, a fire elemental, walks the lava paths inside it, near the door of Blackrock Depths but outside the dungeon: at 60 you take him alone.
   level 52
   kill 9026 quest 4262.1              -- Overmaster Pyron
