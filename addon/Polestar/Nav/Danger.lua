@@ -83,11 +83,10 @@ Nav.danger = Danger
 
 local levelSeen = 0 -- PLAYER_LEVEL_UP's level: the client's can lag the event
 
--- The level alone, as Compat.GetPlayerInfo reads it (without its table: every
--- travel estimate asks, thousands a Dungeons hub browse).
 function Danger.Level()
 	local C = ns.Compat
-	local level = C and C.Readable and (C.Readable(UnitLevel("player")) or 1) or nil
+	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
+	local level = info and type(info.level) == "number" and info.level or nil
 	if levelSeen > (level or 0) then level = levelSeen end
 	return level
 end

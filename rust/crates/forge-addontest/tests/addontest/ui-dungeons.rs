@@ -43,7 +43,7 @@ fn instance_map(m: &Value) -> InstanceMap {
 }
 
 /// The fixture's Codex as a pack, with its Dungeons journal (`buildJournal(fixture.inputs, fixture.codex)`).
-fn pack() -> CodexPack {
+pub(crate) fn pack() -> CodexPack {
 	let f = fixture("dungeons.json");
 	pack_of(&f["codex"], &f["inputs"])
 }
@@ -587,6 +587,8 @@ fn a_page_with_quests_to_pick_up_pick_up_the_quests_is_the_primary_action_the_en
 		emit({ pickup = shown(pg.Pickup), go = shown(pg.Go), quiet = shown(pg.GoQuiet), none = shown(pg.PickupNone), corner = corner(),
 			tip = { pg.Pickup.psTip, pg.Pickup.psTipLines } })
 		done[1486], done[959] = true, true
+		stub.fire("QUEST_TURNED_IN", 1486)
+		stub.fire("QUEST_TURNED_IN", 959)
 		DS.Render()
 		pg.PickupNone:Click()
 		emit({ pickup = shown(pg.Pickup), go = shown(pg.Go), none = shown(pg.PickupNone), corner = corner(), tip = pg.PickupNone.psTipLines, printed = printed,
@@ -664,10 +666,13 @@ fn hand_in_the_quests_shows_only_while_one_of_the_pages_quests_is_in_the_log_lea
 		emit({ lead = shown(pg.HandIn), quiet = shown(pg.HandInQuiet), corner = corner(), tip = pg.HandInQuiet.psTipLines, printed = printed,
 			tabs = #Polestar.Engine.GetTabs(), fits = pg.Sub:GetWidth() > 0, map = pg.MapBtn:IsShown(), go = shown(pg.GoQuiet) })
 		log[914] = nil
+		stub.fire("QUEST_REMOVED", 914)
 		DS.Render()
 		emit({ lead = shown(pg.HandIn), quiet = shown(pg.HandInQuiet) })
 		log[914] = true
 		Polestar.Compat.IsQuestReadyForTurnIn = function(id) return id == 914 end
+		stub.fire("QUEST_ACCEPTED", 914)
+		stub.fire("QUEST_LOG_UPDATE")
 		local asked = {}
 		Polestar.Dungeons.HandIn = function(key) asked[#asked + 1] = key return "lookup/handin/" .. key end
 		DS.Render()

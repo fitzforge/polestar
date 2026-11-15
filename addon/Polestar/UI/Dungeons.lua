@@ -128,13 +128,19 @@ local function questWidth() return mainWidth() - CARD_X * 2 end
 -- each plan walks every quest, its givers and the travel to them: worked out
 -- per render, a dungeon's tabs made about 2.5 MB of garbage. One page's at a
 -- time, for MEMO_SECONDS at most (the travel estimates move with the player),
--- dropped at once by a quest, level, XP, bag, standing, names or look change.
+-- at the level it was worked out at, dropped at once by a quest, level, XP,
+-- bag, standing, names or look change.
 local memo = { at = -math.huge }
 local MEMO_SECONDS = 10
+local function playerLevel()
+	local C = ns.Compat
+	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
+	return info and info.level or 1
+end
 local function memoFor(key, f)
-	local now, w = GetTime(), mainWidth()
-	if memo.key ~= key or memo.f ~= f or memo.w ~= w or now - memo.at > MEMO_SECONDS then
-		memo.key, memo.f, memo.w, memo.at = key, f, w, now
+	local now, w, level = GetTime(), mainWidth(), playerLevel()
+	if memo.key ~= key or memo.f ~= f or memo.w ~= w or memo.level ~= level or now - memo.at > MEMO_SECONDS then
+		memo.key, memo.f, memo.w, memo.level, memo.at = key, f, w, level, now
 		memo.header, memo.quests = nil, nil
 	end
 	return memo
@@ -157,12 +163,6 @@ local function factionKey()
 	local f = uiState().dungeonsFaction
 	if f ~= "Alliance" and f ~= "Horde" and f ~= "All" then f = UI.PlayerFaction() or "All" end
 	return f
-end
-
-local function playerLevel()
-	local C = ns.Compat
-	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
-	return info and info.level or 1
 end
 
 local thousands = ns.Thousands
