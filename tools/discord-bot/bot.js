@@ -7,6 +7,7 @@
 //   node tools/discord-bot/bot.js            run
 //   node tools/discord-bot/bot.js refresh    rewrite every filed issue from its post, then exit
 
+const { createChat } = require('./lib/chat');
 const { botConfig } = require('./lib/config');
 const { createCommands } = require('./lib/commands');
 const { createDiscord } = require('./lib/discord');
@@ -31,6 +32,7 @@ async function main() {
 	const media = createMedia({ github: mediaGitHub, branch: config.mediaBranch });
 	const sync = createSync({ discord, github, media, config, log });
 	const commands = createCommands({ discord, github, issueFor: sync.issueFor, log });
+	const chat = createChat({ discord, forumId: config.forumId, log });
 
 	const forum = await discord.getChannel(config.forumId);
 	if (forum.type !== 15) throw new Error(`DISCORD_FORUM_ID ${config.forumId} is not a forum channel (#${forum.name})`);
@@ -47,10 +49,11 @@ async function main() {
 	const gateway = createGateway({
 		token: config.discordToken,
 		url: await discord.gatewayUrl(),
-		// The admin commands (/close, /reopen) beside the filing.
+		// The admin commands (/close, /reopen) and `!bug` beside the filing.
 		onDispatch(type, d) {
 			if (type === 'READY' && d.application) commands.register(d.application.id, forum.guild_id);
 			if (type === 'INTERACTION_CREATE') commands.handle(d).catch((err) => log.error('interaction:', err.message));
+			chat.dispatch(type, d);
 			return sync.dispatch(type, d);
 		},
 		onFatal(err) {

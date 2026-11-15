@@ -234,6 +234,14 @@ GitHub fails to take is tried again by the same catch-up 5 minutes later,
 backing off to an hour. A post a player tagged In progress is filed like any
 other: only the status tags moderators set mean a post was handled.
 
+## `!bug` in chat
+
+Anyone who types `!bug` or `!bugs` (the whole message, any case) in a channel
+the bot can see gets how to report a bug from the game: the bug icon or
+`/polestar report`, Copy report, a new post in #bugs. One answer per channel
+a minute; never in the #bugs forum or its threads (everything there goes to
+the issue), and never to a bot or a webhook. The text is in `lib/chat.js`.
+
 ## Closing from Discord
 
 Server administrators can close or reopen a report from its #bugs thread.
@@ -278,6 +286,7 @@ the bot, `notify.js`, `links.js` or `known.js` against something else,
 | `lib/links.js` | Which issues a pull request addresses; the issue's pull requests comment, the overlap warning and their labels |
 | `lib/known.js` | The #known-issues board: which issues, their words made inert, grouping, the fixed sections, splitting and writing in place |
 | `lib/gateway.js`, `lib/discord.js`, `lib/github.js` | The Discord gateway and the two REST APIs; the media branch |
+| `lib/chat.js` | `!bug` in chat: how to report a bug |
 
 A change to the report's layout in `Report.lua` needs `lib/report.js` and
 its tests to follow.
