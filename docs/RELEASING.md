@@ -201,6 +201,17 @@ version throughout.
    `Polestar_Guides*` TOC equal the release version (a test build carries
    its `x.y.z-rcN` the same way).
 
+   After the last change to a leveling guide, regenerate
+   `addon/Polestar/Core/LegacySteps.lua` with every release players may
+   update from as an `--old` (each `vX.Y.Z` tag's `guides`, the last release
+   included): `git archive <tag> guides | tar -x -C <dir>/<tag>`, then
+   `node tools/legacy-steps.js --old <dir>/v0.3.4/guides ... --old
+   <dir>/<last release>/guides`, and commit it. The mapping above reads a
+   save's changed steps from it: a step it does not list keeps no check-off,
+   skip or saved view, and nothing in its stretch passes behind the player.
+   0.3.7.2 changed 23 guide files without a new one, and 0.4.0's had no
+   0.3.7.x in it (#2350).
+
    Don't regenerate `addon/Polestar/Nav/TravelData.lua` (`forge data
    travel`) on a release build unless its output keeps every portal and
    every flight point of the committed file (the Forever ones need the

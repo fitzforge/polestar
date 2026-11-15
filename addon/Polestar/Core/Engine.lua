@@ -419,8 +419,10 @@ function Own.acceptMissing(q, s, l)
 	if C.IsOnQuest(q) or questDone(q) then return false end
 	local skipped = ns.CharState().skipped[guide.id]
 	for _, a in ipairs(list) do
+		-- An accept an update passed (Own.passAdded) is none: its quest's later
+		-- goals go with it, whether the pass took its step or only the accept.
 		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s])
-			and stepApplies(a.step) and Guides.Matches(a.goal.only, player) and not Own.barred(a.goal) and greyNeed(a.goal) ~= false then
+			and stepApplies(a.step) and Guides.Matches(a.goal.only, player) and not Own.barred(a.goal) and not Own.gone(a.goal) and greyNeed(a.goal) ~= false then
 			return false
 		end
 	end
@@ -687,7 +689,9 @@ end
 -- CharState().when[guideId][step], one whose `when` failed as skipped, so
 -- it never comes back when the condition changes later (money spent, an
 -- item used up, a zone left), a step that applied stays applied, and the
--- player can still Unskip a step stored off by mistake.
+-- player can still Unskip a step stored off by mistake. A `complete` failing
+-- on a quest the player carries is not stored (Own.failsForNow): the hand-in
+-- comes back once the quest is done.
 
 -- Quest `p.q` can be taken now: not in the log or done, the level reached,
 -- its prerequisites done (missingPre, as an accept's), its `parent` in the
@@ -1042,19 +1046,38 @@ function Own.predicateHolds(p)
 	return ok
 end
 
--- The first predicate of a step's `when` that does not hold now, or nil. A
+-- Whether predicate p of a step's `when` does not hold now. A
 -- `when dungeon` of a dungeon not answered yet holds while the step asks and
 -- has something to do now (Own.dungeonAsks, Own.dungeonOpen): the route stops
 -- there and asks; any other step of it waits for the answer, as for Skip.
+function Own.predicateFails(step, p)
+	if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil then
+		return not (Own.dungeonAsks(step) and Own.dungeonOpen(step))
+	end
+	return not Own.predicateHolds(p)
+end
+
+-- The first predicate of a step's `when` that does not hold now, or nil.
 function Own.whenFails(step)
 	for _, p in ipairs(step.when or NONE) do
-		if p.k == "dungeon" and not p.neg and Own.dungeonAnswer(p.map) == nil then
-			if not (Own.dungeonAsks(step) and Own.dungeonOpen(step)) then return p end
-		elseif not Own.predicateHolds(p) then
-			return p
-		end
+		if Own.predicateFails(step, p) then return p end
 	end
 	return nil
+end
+
+-- Whether step's `when` fails only on quest work under way: each predicate
+-- that fails is a `complete` of a quest the player carries (#2350: Redridge's
+-- Wanted hand-ins, passed before the elite was dead). Such a failure is never
+-- stored (Own.latchWhen): the step comes back once the quest is done.
+function Own.failsForNow(step)
+	local C, any = Compat(), false
+	for _, p in ipairs(step.when or NONE) do
+		if Own.predicateFails(step, p) then
+			if p.k ~= "complete" or p.neg or not C.IsOnQuest(p.q) then return false end
+			any = true
+		end
+	end
+	return any
 end
 
 -- A `next` option's `when` (from.nextWhen[id], format 4): whether it holds
@@ -1114,7 +1137,9 @@ end
 -- Store step s's `when` outcome once the route has moved past it
 -- (latchPassed): held in `when`, failed as a skip. Not before the quest log
 -- can be read (it lags PLAYER_LOGIN; Own.latchCaughtUp stores the steps
--- passed meanwhile). A step for other characters (`only`) stores nothing.
+-- passed meanwhile). A step for other characters (`only`) stores nothing, nor
+-- does one that fails only on a quest the player is still doing
+-- (Own.failsForNow): it is checked again.
 function Own.latchWhen(s)
 	local step = guide.steps[s]
 	if not logReady or not (step and step.when) or not Guides.Matches(step.only, player) then return end
@@ -1122,6 +1147,7 @@ function Own.latchWhen(s)
 	local held, skipped = state.when[guide.id], state.skipped[guide.id]
 	if (held and held[s]) or (skipped and skipped[s]) then return end
 	local field = Own.whenFails(step) == nil and "when" or "skipped"
+	if field == "skipped" and Own.failsForNow(step) then return end
 	local t = state[field][guide.id]
 	if not t then
 		t = {}
@@ -6769,7 +6795,7 @@ function Own.noteAdded(g, map, old)
 	for j, key in ipairs(Own.stepKeys(g)) do
 		if not kept[j] and not hereAt[key] then hereAt[key] = j end
 	end
-	local had, upTo, prev, changed = {}, {}, 0, {}
+	local had, upTo, prev, changed, unknown = {}, {}, 0, {}, {}
 	for k = 1, #old do
 		local list, at, last
 		if map[k] then
@@ -6789,6 +6815,14 @@ function Own.noteAdded(g, map, old)
 			last = (Own.nextKept(map, k) or (#g.steps + 1)) - 1
 			if last < at then last = at end
 			changed[k] = { list = list, at = at, last = last }
+			-- No earlier release lists its goals (a save from a release
+			-- LegacySteps.lua was not built with: 0.3.7.x for 0.4.0, #2350):
+			-- nothing tells what the update added in its stretch, so none of
+			-- it counts as added. Read as all new, it held nothing, the
+			-- player's place went past it and the pass hid quests never taken.
+			if not list then
+				for j = at, last do unknown[j] = true end
+			end
 		end
 		for _, x in ipairs(list or NONE) do
 			if not had[x] or at < had[x] then had[x] = at end
@@ -6827,7 +6861,7 @@ function Own.noteAdded(g, map, old)
 				if bk then mine[bk] = ids end
 			end
 		end
-		if not kept[j] and not step.feeder then
+		if not kept[j] and not step.feeder and not unknown[j] then
 			local quests, fresh, ids, soft, moved = 0, 0, {}, true, false
 			for _, goal in ipairs(step.goals) do
 				local x = Own.goalId(goal)
@@ -6861,7 +6895,14 @@ function Own.noteAdded(g, map, old)
 			end
 		end
 	end
-	-- Noted even with nothing added: feeder steps planned in pass the same way.
+	-- Noted even with nothing added: feeder steps planned in pass the same way,
+	-- but one the save's guide had planned in too is no update's (its key is
+	-- among the save's; the plan at this point may not have it yet, before the
+	-- quest log is in): Stranglethorn 40-50's Grom'gol feeder, where the
+	-- player stood (#2350).
+	local savedKeys = {}
+	for _, key in ipairs(old) do savedKeys[key] = true end
+	mine.savedKeys = savedKeys
 	s.added[g.id] = mine
 end
 
@@ -6935,10 +6976,18 @@ function Own.stepIn(set, j)
 	return bk and set[bk] or nil
 end
 
+-- Whether step j of the loaded guide is a feeder step the save's guide did
+-- not have (Own.noteAdded's `savedKeys`): it comes with the update.
+function Own.feederAdded(added, j)
+	if not guide.steps[j].feeder then return false end
+	local had = type(added) == "table" and type(added.savedKeys) == "table" and added.savedKeys
+	return not (had and had[Own.stepKeys(guide)[j]])
+end
+
 -- Whether goal `goal` of step j of the loaded guide is something an update
--- added (`added`, Own.noteAdded) or comes with a feeder step.
+-- added (`added`, Own.noteAdded) or comes with a feeder step it added.
 function Own.goalAdded(added, j, goal)
-	if guide.steps[j].feeder then return true end
+	if Own.feederAdded(added, j) then return true end
 	local e = Own.stepIn(added, j)
 	if e == true then return true end
 	local v = type(e) == "table" and e[Own.goalId(goal)]
@@ -7059,19 +7108,18 @@ function Own.passAdded()
 	for j = 1, P - 1 do
 		local step = steps[j]
 		if Guides.Matches(step.only, player) then
-			local e = (step.feeder and true) or Own.stepIn(added, j)
-			if e == true then
-				for g, goal in ipairs(step.goals) do
-					if held(j, g, goal) then behind[goal.quest] = true end
-				end
-				note(j, true)
-			elseif type(e) == "table" then
+			local e = (Own.feederAdded(added, j) and true) or Own.stepIn(added, j)
+			if e then
+				-- What of it the player has done (the quest taken or handed in)
+				-- shows done (#2350): a step passes whole only while work of it
+				-- is open, and of a step that keeps other goals only the open
+				-- goals pass.
 				local ids, all = {}, true
 				for g, goal in ipairs(step.goals) do
 					local x = Own.goalId(goal)
-					if e[x] == true or type(e[x]) == "number" or (e[x] == "req" and Own.carried(goal)) then
-						ids[x] = true
-						if goal.quest and held(j, g, goal) then behind[goal.quest] = true end
+					if e == true or e[x] == true or type(e[x]) == "number" or (e[x] == "req" and Own.carried(goal)) then
+						if held(j, g, goal) then behind[goal.quest] = true end
+						if goal.t ~= "note" and not goalDone(j, g, goal) then ids[x] = true end
 					elseif goal.t ~= "note" then
 						all = false
 					end
