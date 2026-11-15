@@ -15810,6 +15810,190 @@
 			],
 			"reason": "players meet Shen'dralar Citizen, Arondel, Kerelle, Shen'dralas Protector, Maralus, Jarael, Melanori, Naria only as neutral (the census), never hostile, and nobody died to them; the step's tip says to leave them be.",
 			"evidence": "route level 45.3 (experimental route choices' model); 59 spawns 47+; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|collect 99257.1|over",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "collect 99257.1",
+			"kind": "over",
+			"title": "A Heart of Crystal",
+			"level": 46.1,
+			"mobs": [
+				"Shen'dralar Citizen 60-60 x2",
+				"Shen'dralar Scholar 60-60 x2",
+				"Shen'dralas Protector 60-60 x2"
+			],
+			"reason": "the temple's Shen'dralar and its Protectors are neutral, and the heart comes from the Decrepit Pylon Protectors (42-43) along the road; players do it (done by 6 people (median level 43.94), 0 deaths, 1 abandoned)",
+			"evidence": "route level 46.1; Shen'dralar Citizen 60-60 x2, Shen'dralar Scholar 60-60 x2, Shen'dralas Protector 60-60 x2; recordings (2026-11-15): done by 6 people (median level 43.94), 0 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Alliance|collect 99257.1|pack",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
+			"goal": "collect 99257.1",
+			"kind": "pack",
+			"title": "A Heart of Crystal",
+			"level": 46.1,
+			"mobs": [
+				"6 spawns 48+"
+			],
+			"reason": "a pack of mobs a level or two above the player near the work, at about level 46 by the level model now that the zone is part of the route; players do it (done by 6 people (median level 43.94), 0 deaths, 1 abandoned)",
+			"evidence": "route level 46.1; 6 spawns 48+; recordings (2026-11-15): done by 6 people (median level 43.94), 0 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95943.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95943.1",
+			"kind": "rare",
+			"title": "Foreman's Crate",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 32 people (median level 40.67), 0 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 32 people (median level 40.67), 0 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.1",
+			"kind": "elite",
+			"title": "The Twilight cult",
+			"level": 45,
+			"mobs": [
+				"Executioner Morg 46-46"
+			],
+			"reason": "Executioner Morg (elite, 46) keeps to the Twilight camps in the west, away from Sunnyglade's streets where this work is; players do it (done by 33 people (median level 40.34), 9 deaths, 0 abandoned)",
+			"evidence": "route level 45; Executioner Morg 46-46; recordings (2026-11-15): done by 33 people (median level 40.34), 9 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.3|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.3",
+			"kind": "over",
+			"title": "The Twilight cult",
+			"level": 45,
+			"mobs": [
+				"Rog'mar Grunt 55-55 x2"
+			],
+			"reason": "Rog'mar Grunts (55) guard the Horde fort east of Sunnyglade; the guide's tips keep players west and north of its walls; players do it (done by 33 people (median level 40.71), 5 deaths, 0 abandoned)",
+			"evidence": "route level 45; Rog'mar Grunt 55-55 x2; recordings (2026-11-15): done by 33 people (median level 40.71), 5 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94858.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94858.2",
+			"kind": "over",
+			"title": "Farmer Elbrim",
+			"level": 45,
+			"mobs": [
+				"Rog'mar Grunt 55-55 x3"
+			],
+			"reason": "Rog'mar Grunts (55) guard the Horde fort east of Sunnyglade; the guide's tips keep players west and north of its walls; players do it (done by 23 people (median level 42.52), 2 deaths, 0 abandoned)",
+			"evidence": "route level 45; Rog'mar Grunt 55-55 x3; recordings (2026-11-15): done by 23 people (median level 42.52), 2 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95912.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95912.1",
+			"kind": "pack",
+			"title": "Blademaster Kaijo",
+			"level": 45,
+			"mobs": [
+				"6 spawns 47+"
+			],
+			"reason": "a pack of mobs a level or two above the player near the work, at about level 45 by the level model now that the zone is part of the route; players do it (done by 26 people (median level 42.01), 1 deaths, 1 abandoned)",
+			"evidence": "route level 45; 6 spawns 47+; recordings (2026-11-15): done by 26 people (median level 42.01), 1 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95254.1",
+			"kind": "elite",
+			"title": "The crawlers and Trapclaw",
+			"level": 45,
+			"mobs": [
+				"Komuk 45-45"
+			],
+			"reason": "Komuk, a Horde elite of level 45, ranges over the zone's wilds; the guide's tips say to take your beasts away from him; players do it (done by 46 people (median level 41.43), 1 deaths, 1 abandoned)",
+			"evidence": "route level 45; Komuk 45-45; recordings (2026-11-15): done by 46 people (median level 41.43), 1 deaths, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95288.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95288.1",
+			"kind": "over",
+			"title": "The Eastsea pirates",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49 x2"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 46 people (median level 42.33), 1 deaths, 2 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49 x2; recordings (2026-11-15): done by 46 people (median level 42.33), 1 deaths, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 95122.1",
+			"kind": "elite",
+			"title": "The pirates' second wave",
+			"level": 45,
+			"mobs": [
+				"Komuk 45-45"
+			],
+			"reason": "Komuk, a Horde elite of level 45, ranges over the zone's wilds; the guide's tips say to take your beasts away from him; players do it (done by 43 people (median level 42.9), 0 deaths, 0 abandoned)",
+			"evidence": "route level 45; Komuk 45-45; recordings (2026-11-15): done by 43 people (median level 42.9), 0 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 95122.2",
+			"kind": "rare",
+			"title": "The pirates' second wave",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 44 people (median level 42.82), 0 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 44 people (median level 42.82), 0 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95124.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95124.2",
+			"kind": "rare",
+			"title": "The pirates' ships",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 36 people (median level 43.62), 2 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 36 people (median level 43.62), 2 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "use 95165.2",
+			"kind": "rare",
+			"title": "The pirates' ships",
+			"level": 45,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash, a rare elite of level 49, roams the coast and cliffs; the guide's tip on the pirates says to keep well away from him; players do it (done by 36 people (median level 43.62), 2 deaths, 0 abandoned)",
+			"evidence": "route level 45; Gul'gash 49-49; recordings (2026-11-15): done by 36 people (median level 43.62), 2 deaths, 0 abandoned"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 95261.1",
+			"kind": "pack",
+			"title": "Finish the Beast Entrails",
+			"level": 45,
+			"mobs": [
+				"6 spawns 47+"
+			],
+			"reason": "a pack of mobs a level or two above the player near the work, at about level 45 by the level model now that the zone is part of the route; players do it (done by 49 people (median level 41.8), 0 deaths, 2 abandoned)",
+			"evidence": "route level 45; 6 spawns 47+; recordings (2026-11-15): done by 49 people (median level 41.8), 0 deaths, 2 abandoned"
 		}
 	]
 }

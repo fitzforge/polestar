@@ -79,8 +79,23 @@ step Cedric Dalton
   when onquest 94679
   turnin 94679
 
+step Gelinda Coppergleam
+  tip South-west past Southern Watch: Gelinda Coppergleam, a prospector, has camped by the Cinderscale dragonkin's hollow.
+  accept 95792                          -- Clear 'em Out
+  accept 95934                          -- Proof of Profit
+
+step The Cinderscale hollow
+  tip The whelps nest all over the hollow; the warriors (level 41-42) guard its back, by the Cubic Draconia. Scaldaron, a rare elite drake, can be up here too: leave him be unless you have a group.
+  kill 262473 x8 quest 95792.1 @30.0,72.2  -- Cinderscale Whelp
+  kill 262477 x4 quest 95792.2 @29.6,73.1  -- Cinderscale Warrior
+  collect 271611 quest 95934.1          -- Cubic Draconia
+
+step Gelinda Coppergleam
+  turnin 95792
+  turnin 95934
+
 step Holmsby farm
-  tip South from Southern Watch to the Holmsbys' farm by the river.
+  tip Back past Southern Watch and south to the Holmsbys' farm by the river.
   accept 94999                          -- Eleanor Holmsby: Eyes for the Watchman
   accept 94923                          -- Robbie Holmsby: Hats Off
 
@@ -609,21 +624,6 @@ step Turner's Logging Camp
   tip Careful: Ghostmaw, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass.
   turnin 95330                          -- Halligan Turner
   collect 271877 x10 quest 96009.1      -- Wood Bundle
-
-step Gelinda Coppergleam
-  tip South-west past Southern Watch: Gelinda Coppergleam, a prospector, has camped by the Cinderscale dragonkin's hollow.
-  accept 95792                          -- Clear 'em Out
-  accept 95934                          -- Proof of Profit
-
-step The Cinderscale hollow
-  tip The whelps nest all over the hollow; the warriors (level 41-42) guard its back, by the Cubic Draconia. Scaldaron, a rare elite drake, can be up here too: leave him be unless you have a group.
-  kill 262473 x8 quest 95792.1 @30.0,72.2  -- Cinderscale Whelp
-  kill 262477 x4 quest 95792.2 @29.6,73.1  -- Cinderscale Warrior
-  collect 271611 quest 95934.1          -- Cubic Draconia
-
-step Gelinda Coppergleam
-  turnin 95792
-  turnin 95934
 
 step Sergeant Riftan
   tip North up the long valley towards Twilight's Shroud: Sergeant Riftan holds a small camp below the Twilight cult's fortress.
