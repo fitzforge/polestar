@@ -55,6 +55,10 @@ local BRAND = {
 
 local SCHEMES = ns.House.SCHEMES
 Theme.SCHEMES = SCHEMES
+-- The house's own schemes (registered ones join SCHEMES later): they carry
+-- the experimental chip's orchid (House.EXPERIMENTAL).
+local HOUSE_SCHEME, EXPERIMENTAL = {}, ns.House.EXPERIMENTAL
+for _, s in pairs(SCHEMES) do HOUSE_SCHEME[s] = true end
 Theme.SCHEME_ORDER = { "dusk", "night", "graphite" }
 
 -- "#rrggbb" and an alpha -> { r, g, b, a }.
@@ -164,6 +168,8 @@ do
 		icon = hex("FFD100"), iconHover = hex("FFD100"), buttonText = hex("FFD100"), personName = hex("FFD100"), tabRest = hex("A38D58"),
 		rowLabel = hex("FFFFFF"), navRest = hex("CCCCCC"),
 		link = hex("FFD100"), npc = hex("FFFFFF"), discord = hex("5865F2"),
+		-- The experimental chip: the house's orchid (House.EXPERIMENTAL).
+		experimental = hex("C77DFF"),
 	}
 	function gamePalette(over)
 		local p = {}
@@ -646,9 +652,12 @@ local HOUSE_EXTRA = {
 	personName = "npc", tabRest = "textDim", rowLabel = "text", navRest = "textDim",
 	-- A close square a skin shows on the guide window's title (the guideTitle hook).
 	closeFill = "danger", closeEdge = "border", closeGlyph = "text",
+	-- Polestar's experimental guides' chip: a scheme or skin without its own
+	-- shows it in its dungeon violet.
+	experimental = "dungeon",
 }
 -- Those a non-house skin falls back on too.
-local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
+local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph", "experimental" }
 
 -- Menus and popups open over other frames (a panel marked psMenu: the
 -- dropdown menus, a setting's cog, Quick settings; the tooltip too): their
@@ -893,6 +902,7 @@ local function resolve(id, schemeKey)
 	for name, c in pairs(ART) do out[name] = copy(c) end
 	for name, c in pairs(BRAND) do out[name] = copy(c) end
 	for name, c in pairs(src) do out[name] = copy(c) end
+	if HOUSE_SCHEME[src] then out.experimental = copy(EXPERIMENTAL) end
 	-- A registered skin's own tokens (with its variant and resolver) over the
 	-- scheme, under the player's own colours; its accent stands in for
 	-- Polestar gold.

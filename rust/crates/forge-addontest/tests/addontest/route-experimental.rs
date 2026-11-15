@@ -454,26 +454,30 @@ fn our_route(data: &forge_guide::data::Data, offers: bool) -> forge_addontest::d
 	write_test_pack_offering(&compiled.guides, data, &our_manifest(), &index)
 }
 
-/// The AddOns-list lines of the checkout's experimental pack (addon/Polestar_Experimental), loaded on demand: the
-/// route choices may offer its guides from the index.
+/// The AddOns-list lines of the checkout's experimental pack (addon/Polestar_Experimental), loaded on demand, and
+/// its files for stub_packs.lua: shown by default, it loads at login, and the route choices offer its guides.
 fn exp_installed() -> String {
-	let toc = std::fs::read_to_string(addons_dir().join(EXP).join(format!("{EXP}.toc"))).unwrap();
+	let dir = addons_dir().join(EXP);
+	let toc = std::fs::read_to_string(dir.join(format!("{EXP}.toc"))).unwrap();
 	let meta: Vec<String> = toc.lines().filter_map(|l| l.strip_prefix("## ")?.split_once(':')).map(|(k, v)| format!("[{}] = {}", lua_string(k.trim()), lua_string(v.trim()))).collect();
+	let files: Vec<String> =
+		toc.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(|f| lua_string(&dir.join(f).to_string_lossy())).collect();
 	format!(
-		"stub.addonMeta.Polestar = {{ Version = \"1.0.0\" }}\nstub.addons = {{ {{ name = \"Polestar\", loaded = true }}, {{ name = {n}, reason = \"DEMAND_LOADED\" }} }}\nstub.addonMeta[{n}] = {{ {} }}\n",
+		"stub.addonMeta.Polestar = {{ Version = \"1.0.0\" }}\nstub.addons = {{ {{ name = \"Polestar\", loaded = true }}, {{ name = {n}, reason = \"DEMAND_LOADED\" }} }}\nstub.addonMeta[{n}] = {{ {} }}\nstub.packs[{n}] = {{ {} }}\n",
 		meta.join(", "),
+		files.join(", "),
 		n = lua_string(EXP)
 	)
 }
 
-/// For a character of `race` (faction `faction`) and the pack built in `pack`: for every leveling guide they fit,
-/// where the route goes on (Engine.NextGuide) with behavior.routeChoice "recommended", and whether Skip grey
+/// For a character of `race` (faction `faction`) and the pack built in `pack`: for every leveling guide of ours they
+/// fit, where the route goes on (Engine.NextGuide) with behavior.routeChoice "recommended", and whether Skip grey
 /// quests may leave quest 1 out at 60 (Engine.GreyLeftOut: false while a guide down the chain is not known); the
 /// guides whose route choice asks with "ask"; and the experimental offers of their `next` lines.
 fn route_of(pack: &forge_addontest::dsl::TestPack, race: &str, faction: &str) -> Value {
 	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", lua_string(&f.to_string_lossy()))).collect();
 	emitted(&RunAddon {
-		stubs: vec!["stub_world.lua"],
+		stubs: vec!["stub_world.lua", "stub_packs.lua"],
 		before: format!("{}stub.world.race, stub.world.raceName, stub.world.faction = {r}, {r}, {}", exp_installed(), lua_string(faction), r = lua_string(race)),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		script: format!(
@@ -489,7 +493,7 @@ fn route_of(pack: &forge_addontest::dsl::TestPack, race: &str, faction: &str) ->
 			local list = {{}}
 			for _, h in ipairs(G.List()) do
 				local g = G.Get(h.id)
-				if g and (g.category == nil or g.category == "Leveling") and G.GuideMatches(g, player) then list[#list + 1] = g end
+				if g and (g.category == nil or g.category == "Leveling") and not G.IsExperimental(g) and G.GuideMatches(g, player) then list[#list + 1] = g end
 			end
 			Polestar.Set("behavior.routeChoice", "ask")
 			for _, g in ipairs(list) do

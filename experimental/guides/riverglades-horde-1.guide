@@ -73,7 +73,7 @@ step Powderfuse Port
   when !taxi "Kargath"
   zone Riverglades
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later (part 3): this crate goes to the Horde's fort.
+  tip Friz Frazzlespark keeps a stall at the west end of the docks. The port's other jobs are for later in this guide: this crate goes to the Horde's fort.
   accept 95062                          -- Frazzlespark's Crate: for Krom'rosh in Rog'mar
 
 step Sleebo's workshop
@@ -297,11 +297,11 @@ step Tran'gul
   tip East back to Rog'mar.
   turnin 94672
   turnin 94680
-  accept 94727                          -- Digging for Answers: for Clubtoe in Sunnyglade, in part 4
+  accept 94727                          -- Digging for Answers: for Clubtoe in Sunnyglade, later in this guide
 
 step WANTED: Scoutmaster Vargas
   when group 95882
-  tip Scoutmaster Vargas is an elite (level 42) at the Alliance scouts' camp in the hills south-east of Na'zok, where you go next: grouping up is advised. The poster hangs in the middle of the fort; Neza Bloodsnout takes the eye, in part 4.
+  tip Scoutmaster Vargas is an elite (level 42) at the Alliance scouts' camp in the hills south-east of Na'zok, where you go next: grouping up is advised. The poster hangs in the middle of the fort; Neza Bloodsnout takes the eye, later in this guide.
   accept 95882                          -- the Wanted poster
 
 step Na'zok's camp
@@ -343,7 +343,7 @@ step Bolder'ok
   turnin 94556                          -- Clugfist
   turnin 95424
   turnin 95425
-  accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, in part 4
+  accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, later in this guide
   accept 94668                          -- Bloodmaster's Ring
   turnin 94668                          -- Jezap Jinglesprocket
   accept 94669 optional                 -- Pay to Play: the Ring's bouts, one-on-one fights with elites (41-45); a deposit first

@@ -142,12 +142,12 @@ step Farholde Keep
   getfp "Farholde Keep" npc 257087      -- Gretchen Mayberry, at the western gate
   accept 95943                          -- Bertrand Ironbrow: Foreman's Plight
   accept 95156                          -- Ember Bladewhisper: Stuff 'Em and Stick 'Em
-  accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, which Sunnyglade's cultists and the pirates drop; hand it in on your way back in part 3
+  accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, which Sunnyglade's cultists and the pirates drop; hand it in on your way back later
   turnin 95148                          -- Demar Brant, in the keep
   accept 94613                          -- My Kingdom for a Horse
-  accept 94877                          -- Saving Sunnyglade: for part 2
-  accept 94881                          -- Ashe Amberhall: Curious Trinkets, for part 2
-  accept 94879                          -- Scraps of Knowledge, for part 2
+  accept 94877                          -- Saving Sunnyglade: for later in this guide
+  accept 94881                          -- Ashe Amberhall: Curious Trinkets, for later in this guide
+  accept 94879                          -- Scraps of Knowledge, for later in this guide
   sethome "Farholde Keep" npc 257595   -- Barracks Master Harlan, at the inn
 
 step Tessa Dawnbright
@@ -227,10 +227,10 @@ step Terral's Watch
   turnin 94924                          -- Watcher Cornelius
   turnin 94925
   turnin 95983
-  accept 94928                          -- A Few Furs for Friz: for Powderfuse Port (part 2), keep it
-  accept 95984                          -- Song of the Strider: for part 2, where the tallstriders graze by Sleebo's workshop; keep it
-  accept 95064                          -- Preventative Measures: for part 2, at the Horde's training grounds north of Rog'mar
-  accept 95426                          -- Rog'mar Supplies: for part 2, the same training grounds
+  accept 94928                          -- A Few Furs for Friz: for Powderfuse Port, keep it
+  accept 95984                          -- Song of the Strider: for later, where the tallstriders graze by Sleebo's workshop; keep it
+  accept 95064                          -- Preventative Measures: for later, at the Horde's training grounds north of Rog'mar
+  accept 95426                          -- Rog'mar Supplies: for later, the same training grounds
 
 step Watcher Cornelius
   when onquest 95986
@@ -241,16 +241,16 @@ step Farholde Keep
   turnin 95156                          -- Ember Bladewhisper
   turnin 95943                          -- Bertrand Ironbrow
   turnin 95913                          -- Tessa Dawnbright
-  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port (part 2), keep it
+  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port, keep it
 
 step WANTED: Ghostmaw
   when group 95991
-  tip Ghostmaw is an elite (level 42) who hunts along the river between Wheeler's Grange and Terral's Watch, on your way north in part 2: grouping up is advised. The poster hangs by the keep; Wheatley, who takes the fang, stands south of the inn.
+  tip Ghostmaw is an elite (level 42) who hunts along the river between Wheeler's Grange and Terral's Watch, on your way north later in this guide: grouping up is advised. The poster hangs by the keep; Wheatley, who takes the fang, stands south of the inn.
   accept 95991                          -- the WANTED! poster
 
 step WANTED: Blademaster Kaijo
   when group 95912
-  tip Blademaster Kaijo is an elite (level 42) at the Horde's training grounds north of Rog'mar, where part 2 goes: grouping up is advised.
+  tip Blademaster Kaijo is an elite (level 42) at the Horde's training grounds north of Rog'mar, where this guide goes later: grouping up is advised.
   accept 95912                          -- the Wanted poster
 
 # Polestar Experimental, Riverglades for the Alliance, part 2 of 4 (2026-11-12). Hand-written from players'
@@ -352,7 +352,7 @@ step Terral's Watch
   turnin 95064
   turnin 95426
   accept 95066                          -- The Rog'mar Situation: for Demar Brant in Farholde Keep, keep it
-  accept 96125                          -- In Need of Relief: for Dunston Willis in Bolder'ok (part 3), keep it
+  accept 96125                          -- In Need of Relief: for Dunston Willis in Bolder'ok, keep it
 
 step Sleebo Fizzlespout
   tip Back north-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
@@ -396,7 +396,7 @@ step Back through the port
   tip Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers.
   turnin 95118                          -- Wharfmaster Whizzbuzz
   turnin 95260                          -- Argo Brinewhistle
-  accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms are for part 3
+  accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms are for later
 
 step The crawlers and Trapclaw
   tip North along the beach from the docks: the crawlers drop the meat for Fimbo and the spittle for Zizplink, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks. Gul'gash, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away.
@@ -413,16 +413,16 @@ step The Eastsea pirates
 step Powderfuse Port
   tip Back to the port, from the north pier west through the docks.
   turnin 95119                          -- Wharfmaster Whizzbuzz
-  accept 95122                          -- Unchecked Expansion: for part 3
-  accept 95123                          -- A Blast Ye Scurvy Dogs!: for part 3
+  accept 95122                          -- Unchecked Expansion: for later in this guide
+  accept 95123                          -- A Blast Ye Scurvy Dogs!: for later in this guide
   turnin 95254                          -- Fimbo Greasemitz
   turnin 95121
   turnin 95988                          -- Innkeeper Zizplink
   accept 95957                          -- Drink Up!
   turnin 95957                          -- Gray Dawnbright
-  accept 95975                          -- Her World: for part 3, the wildflowers west of the port
+  accept 95975                          -- Her World: for later, the wildflowers west of the port
   turnin 95288                          -- Friz Frazzlespark
-  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp (part 3)
+  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp
 
 step Wharfmaster Whizzbuzz
   when onquest 95120
@@ -528,17 +528,17 @@ step Farholde Keep
   tip South-west across the plains to Farholde Keep. Ashe Amberhall and Demar Brant stand together in the keep at the east end: Ashe first, her news is what Brant's next orders wait on.
   turnin 94881                          -- Ashe Amberhall
   turnin 94879
-  accept 94907                          -- A Small Favor: for part 4
+  accept 94907                          -- A Small Favor: for later in this guide
   turnin 95059                          -- Demar Brant
   turnin 94877
   turnin 95066
-  accept 95329                          -- Out in the Field: for Watcher Cornelius at Terral's Watch (part 4)
-  accept 94886                          -- The Western Front: for part 4
+  accept 95329                          -- Out in the Field: for Watcher Cornelius at Terral's Watch
+  accept 94886                          -- The Western Front: for later in this guide
 
 step Demar Brant
   when onquest 94885
   turnin 94885
-  accept 94887                          -- Saving Marshal Ryan: for part 4
+  accept 94887                          -- Saving Marshal Ryan: for later in this guide
 
 step Ashe Amberhall
   when onquest 94884
@@ -565,7 +565,7 @@ step Farholde Keep, the west side
 step Sister Rowland
   when onquest 96083
   turnin 96083
-  accept 96084                          -- Something's in the Water: for part 4
+  accept 96084                          -- Something's in the Water: for later in this guide
 
 step Wheatley
   when onquest 95991

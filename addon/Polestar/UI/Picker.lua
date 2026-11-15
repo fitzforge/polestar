@@ -768,6 +768,23 @@ local function rowDoubleClick(self)
 	P.LoadSelected()
 end
 
+-- The Forever mark on an experimental guide's row: under the cursor it says
+-- what the guide is, and the row keeps its hover wash; a click on it is the
+-- row's.
+local function foreverEnter(self)
+	self:GetParent():LockHighlight()
+	W.Tooltip(self, "ANCHOR_RIGHT", L["New in Forever"], { L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] })
+end
+local function foreverLeave(self)
+	self:GetParent():UnlockHighlight()
+	W.HideTooltip(self)
+end
+local function foreverClick(self) rowClick(self:GetParent()) end
+local function foreverDoubleClick(self) rowDoubleClick(self:GetParent()) end
+-- The mark's glyph (16 x 8, Media/UI/icon-forever) and the box under the
+-- cursor around it.
+local FOREVER_W, FOREVER_H, FOREVER_BOX = 16, 8, 18
+
 local function guideRow(i)
 	local r = rowPool[i]
 	if r then return r end
@@ -792,13 +809,21 @@ local function guideRow(i)
 	r.Title:SetPoint("LEFT", r, "LEFT", TEXT_X, 0)
 	r.Range = W.Text(r, "body", "textMuted")
 	r.Range:SetPoint("LEFT", r.Title, "RIGHT", 5, 0)
-	-- One of Polestar's experimental guides: "Experimental" after the range
-	-- (the route choice's chip, Guides.IsExperimental).
-	r.Exp = W.Chip(r)
-	r.Exp:SetPoint("LEFT", r.Range, "RIGHT", 6, 0)
-	r.Exp:Hide()
+	-- One of Polestar's experimental guides: the Forever mark after the range,
+	-- in its own gold as quest texts show it (Guides.IsExperimental).
+	r.Forever = CreateFrame("Button", nil, r)
+	r.Forever:SetSize(FOREVER_W + 4, FOREVER_BOX)
+	r.Forever:SetPoint("LEFT", r.Range, "RIGHT", 4, 0)
+	r.Forever.Mark = W.Tex(r.Forever, "ARTWORK", "icon-forever")
+	r.Forever.Mark:SetSize(FOREVER_W, FOREVER_H)
+	r.Forever.Mark:SetPoint("CENTER", r.Forever, "CENTER", 0, 0)
+	r.Forever:SetScript("OnEnter", foreverEnter)
+	r.Forever:SetScript("OnLeave", foreverLeave)
+	r.Forever:SetScript("OnClick", foreverClick)
+	r.Forever:SetScript("OnDoubleClick", foreverDoubleClick)
+	r.Forever:Hide()
 	-- A guide with group content (compiled `group`): "Group" after the range
-	-- and that chip.
+	-- and that mark.
 	r.Group = W.Chip(r)
 	r.Group:SetPoint("LEFT", r.Range, "RIGHT", 6, 0)
 	r.Group:Hide()
@@ -840,12 +865,12 @@ local function paintRow(r, g, note, width, title)
 	W.Color(r.Note, sel and "textDim" or "textMuted")
 	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
-	local expW = isExperimental(g) and (W.SetChip(r.Exp, L["Experimental"], "experimental") + 6) or 0
-	r.Exp:SetShown(expW > 0)
+	local expW = isExperimental(g) and (FOREVER_W + 4 + 4) or 0
+	r.Forever:SetShown(expW > 0)
 	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
 	r.Group:SetShown(groupW > 0)
 	r.Group:ClearAllPoints()
-	r.Group:SetPoint("LEFT", expW > 0 and r.Exp or r.Range, "RIGHT", 6, 0)
+	r.Group:SetPoint("LEFT", expW > 0 and r.Forever or r.Range, "RIGHT", expW > 0 and 2 or 6, 0)
 	-- A pack's guide carries its pack's title, except in that pack's own list.
 	local pack = packOf(g)
 	if pack and not (view == "browse" and category == PACK .. pack.id) then

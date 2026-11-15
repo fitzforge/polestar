@@ -45,7 +45,7 @@ step Into Mount Hyjal
   when !zone "Mount Hyjal"
   tip Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Mount Hyjal lies south of Winterspring. Fly to Everlook and ride south through Winterspring to Darkwhisper Gorge at its southern end: the gorge leads up into Mount Hyjal. The ride in is not in our recordings yet: if the arrow loses the way, keep to the gorge.
-  tip Bind your Hearthstone at Everlook's inn before you ride: Ketharas sends you to Moonglade at the end of this part, and the way there starts in Everlook.
+  tip Bind your Hearthstone at Everlook's inn before you ride: partway through this guide Ketharas sends you to Moonglade, and the way there starts in Everlook.
   fly "Everlook"
   zone Winterspring
   sethome "Everlook" npc 11118          -- Innkeeper Vizzie
@@ -57,7 +57,7 @@ step The road in
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Quintus Wainworth (Alliance) and Thark Gorax (Horde) wait together by the road a little inside the zone. Neither of their quests is in our recordings yet.
   accept 96833 only Alliance            -- Venom Maws: for Ketharas, the hermit
-  accept 96830 only Horde               -- Farsight Guided: for Ortak Lomgok in Elderwild, part 2; keep it
+  accept 96830 only Horde               -- Farsight Guided: for Ortak Lomgok in Elderwild, later in this guide; keep it
 
 step Loose Cog
   tip The cog lies by the path south-west of the camp, on your way to Ketharas.
@@ -274,8 +274,8 @@ step The Ashen workstations
 
 step The Curious Crow
   turnin 95316
-  accept 91881 only Alliance            -- The Western Post: for Sefira Everbright in Elderwild, part 2; keep it
-  accept 94782 only Horde               -- The Western Post: for Zet'gan in Elderwild, part 2; keep it
+  accept 91881 only Alliance            -- The Western Post: for Sefira Everbright in Elderwild, later in this guide; keep it
+  accept 94782 only Horde               -- The Western Post: for Zet'gan in Elderwild, later in this guide; keep it
 
 step Velician
   tip West across the slope from the scar: Velician waits alone.
@@ -345,13 +345,13 @@ step Kaylaena's workshop
   complete 92009                        -- deliver the crate before it fizzles
   turnin 92009                          -- Kaylaena Springwhisper
   turnin 92594
-  accept 92011                          -- Rubble Rummage: in Dae'gun, part 3; keep it
+  accept 92011                          -- Rubble Rummage: in Dae'gun, later in this guide; keep it
 
 step Ketharas
   tip South-east to the Hermit's Abode.
   turnin 93773
-  accept 96930                          -- The Capricious Corvid: for the Curious Crow, part 2
-  accept 92171                          -- Taking to New Heights: for Skylord Omnuron, part 3
+  accept 96930                          -- The Capricious Corvid: for the Curious Crow, later in this guide
+  accept 92171                          -- Taking to New Heights: for Skylord Omnuron, later in this guide
 
 # Polestar Experimental, Mount Hyjal part 2 of 3, for both factions (2026-11-12). Hand-written.
 # Sources as in part 1: Forever's quest data for quests, givers, enders and objectives; the one recorded session
@@ -389,13 +389,6 @@ step Ketharas
 #   deliveries (90854, 92433, 95769, 97119).
 # - Open Season (91696) and Barkskin Breakout (91698): not recorded, and the data has no hand-in for the first.
 # - The Horde's Sawyer errands (97001, 97006, 97007): the data has no giver or hand-in for them.
-
-step Back to Mount Hyjal
-  when !zone "Mount Hyjal"
-  tip Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip This part carries on from part 1: fly to the Tainted Foothills, or ride in from Everlook through Darkwhisper Gorge.
-  fly "Tainted Foothills"
-  zone Mount Hyjal
 
 step The Curious Crow
   when onquest 96930
@@ -457,13 +450,13 @@ step Bear berries
   collect 262818 x30 quest 93831.1      -- Bear Berries
 
 step Barkskin Burrow
-  tip Back to Osi, then the two elders at the back of the burrow. Suma Mossmane stands beside Osi, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana (part 3), and you bring both back here then.
+  tip Back to Osi, then the two elders at the back of the burrow. Suma Mossmane stands beside Osi, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana, also later in this guide, and you bring both back here then.
   turnin 93831                          -- Osi Mistpaw
   accept 91697                          -- Meet the Elders
   talk 256650                           -- Elder Pinespeaker
   talk 256627                           -- Elder Mistpaw
   turnin 91697                          -- Elder Mistpaw
-  accept 93826                          -- Deal Dread to Deadwood: on your way back here in part 3; keep it
+  accept 93826                          -- Deal Dread to Deadwood: on your way back here later; keep it
   accept 93825                          -- Suma Mossmane: Barkbound Blessings
   accept 93827 @20.6,78.8               -- Thobon Sapclaw: Windswept Wards
 
@@ -539,7 +532,7 @@ step Elderwild
   turnin 90702
   turnin 95027                          -- Hnaz Blunderflame
   accept 90750                          -- Sefira Everbright: More Work?
-  accept 91688                          -- To the Summit of Eternity: for Thisalee Crow, part 3; keep it
+  accept 91688                          -- To the Summit of Eternity: for Thisalee Crow, later in this guide; keep it
 
 step Daythor Brellan and Sefira
   only Alliance
@@ -558,7 +551,7 @@ step Elderwild
   turnin 92592                          -- Zet'gan
   turnin 95026
   turnin 92609
-  accept 95248                          -- To the Summit of Eternity: for Thisalee Crow, part 3; keep it
+  accept 95248                          -- To the Summit of Eternity: for Thisalee Crow, later in this guide; keep it
 
 step The overlook
   tip West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story.
@@ -574,7 +567,7 @@ step Shalla'kal and Galvinquam
 
 step Lisbael Highfeather
   tip East across the Cradle to Lisbael Highfeather.
-  accept 96145                          -- Past Wing and Claw: for Phoebe Highfeather, part 3; keep it
+  accept 96145                          -- Past Wing and Claw: for Phoebe Highfeather, later in this guide; keep it
 
 step Jereman
   when onquest 96931
@@ -635,7 +628,7 @@ step Marrosis
   when onquest 96939
   tip South to Marrosis, another wild god, at Mourning's Rest's eastern edge.
   turnin 96939                          -- Marrosis
-  accept 92317                          -- Stolen Life: for Ketharas, part 3; keep it
+  accept 92317                          -- Stolen Life: for Ketharas, later in this guide; keep it
   accept 96957                          -- Bone Sweet Bone
 
 step Bones and stolen life
@@ -697,13 +690,6 @@ step Shalla'kal and Galvinquam
 #   Ghansurok, an elite chimaera): not recorded yet.
 # - The Horde's Tribal Colors (96998) and Wrap Return (96999): the remains lie in Dae'gun and the hand-ins are in
 #   Elderwild and Sen'jin Village.
-
-step Back to Mount Hyjal
-  when !zone "Mount Hyjal"
-  tip Experimental route (alpha). It is written from Forever's quest data and the first recording of the zone, and some steps are not checked in game yet: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
-  tip This part carries on from part 2 in the Cradle of Tranquility: fly to the Tainted Foothills and ride north-west, or ride in from Everlook through Darkwhisper Gorge.
-  fly "Tainted Foothills"
-  zone Mount Hyjal
 
 step Corrupted Growth
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.

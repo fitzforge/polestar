@@ -32,10 +32,14 @@ local SHARED = {
 	area = { 0.93, 0.75, 0.6, 1 },
 	achievement = { 1, 0.64, 0.32, 1 },
 	dungeon = { 0.64, 0.52, 1, 1 }, -- dungeon and raid entrances (portal violet)
-	experimental = { 0.78, 0.49, 1, 1 }, -- Polestar's experimental guides' chip (orchid, redder than the portal violet)
 	rare = { 1, 0.5, 0.32, 1 }, -- rare NPCs (ember; treasures keep object)
 }
 House.DEFAULT_ACCENT, House.SHARED = DEFAULT_ACCENT, SHARED
+-- Polestar's experimental guides' chip on the house's own schemes (orchid,
+-- redder than the portal violet). Not a shared subject colour: a registered
+-- scheme without its own `experimental` takes its dungeon violet
+-- (Theme.HOUSE_EXTRA), so it never has to be held legible there.
+House.EXPERIMENTAL = { 0.78, 0.49, 1, 1 }
 
 -- A scheme: the grounds (bg window, panel raised panels and popups, panelAlt
 -- controls, sidebar, footer, sky the top of the header band), the text

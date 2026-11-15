@@ -13881,10 +13881,11 @@ test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return 
 });
 
 // 0.4.0 audit (route-feel, Mount Hyjal): the game's quest log holds 40. An Alliance character who takes Mount Hyjal
-// after the Western Plaguelands guide carries about 28 quests in from the 50-60 guides, and parts 2 and 3 took up to
-// 42 at once: the Shrine of Aviana's three quests on top of two breadcrumbs for Dae'gun and the Summit picked up at
-// the end of part 2. Walk the default Human Warrior chain into Hyjal and count the log (accepts in, hand-ins out,
-// optional and group goals left aside, as the route-feel audit counts them): it never goes over 40.
+// after the Western Plaguelands guide carries about 28 quests in from the 50-60 guides, and the zone's second and
+// third stretches took up to 42 at once: the Shrine of Aviana's three quests on top of two breadcrumbs for Dae'gun and
+// the Summit picked up in the Cradle. Walk the default Human Warrior chain into the Mount Hyjal guide and count the
+// log (accepts in, hand-ins out, optional and group goals left aside, as the route-feel audit counts them): it never
+// goes over 40.
 test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the 50-60 guides carry in', { skip }, () => {
 	const exp = (g) => {
 		const file = path.join(__dirname, '..', 'experimental', 'guides', `${g}.guide`);
@@ -13895,7 +13896,7 @@ test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the
 	const chain = chainFrom('forever/alliance/human/01-elwynn-forest.guide');
 	const end = chain.indexOf('forever/alliance/50-60/04-western-plaguelands.guide');
 	assert.ok(end > 0, 'the chain reaches the Western Plaguelands guide');
-	const route = [...chain.slice(0, end + 1).map((g) => [g, compiled(g)]), ...['hyjal-1', 'hyjal-2', 'hyjal-3'].map((g) => [g, exp(g)])];
+	const route = [...chain.slice(0, end + 1).map((g) => [g, compiled(g)]), ['hyjal-1', exp('hyjal-1')]];
 	const fits = (o) => !o || ((!o.races || o.races.includes('Human')) && (!o.classes || o.classes.includes('WARRIOR')) && (!o.factions || o.factions.includes('Alliance')));
 	const solo = (st) => !(st.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
 	const log = new Set();
