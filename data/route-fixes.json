@@ -5404,11 +5404,11 @@
 					5233
 				],
 				"b": [
-					"task",
+					"accept",
 					4985
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): The Wildlife Suffers Too part 2 (4985, Diseased Grizzlies 55-56) is taken from Mulgris on the Felwood guide's hand-in of part 1 (about 53), where the route stands beside him, and worked on the Silithus guide's Writhing Haunt stop (about 59)."
+				"why": "Horde 50-60 level tidy (0.4.0): The Wildlife Suffers Too part 2 (4985, Diseased Grizzlies 55-56) is taken from Mulgris at the Writhing Haunt cauldron stop of the Silithus guide (about 59) instead of at 53: Mulgris is passed again there, and the quest is not carried four guides."
 			},
 			{
 				"a": [
@@ -5416,11 +5416,11 @@
 					3913
 				],
 				"b": [
-					"task",
+					"accept",
 					4507
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): Pawn Captures Queen (4507, the Gorishi Hive Queen) is taken from Pestlezugg on the Un'Goro guide's Gadgetzan stop, where Bungle in the Jungle is handed in, and worked on the Silithus guide's Un'Goro loop. Super Sticky (4504) stays in the Un'Goro guide: its tar drops from the Tar Beasts (50-51) and Creepers (51-52) too."
+				"why": "Horde 50-60 level tidy (0.4.0): Pawn Captures Queen (4507) is taken at Gadgetzan on the Eastern Plaguelands guide's stop (about 57), the visit before its Un'Goro work on the Silithus guide, not carried five guides from the Un'Goro guide. Super Sticky (4504) stays in the Un'Goro guide: its tar drops from the Tar Beasts (50-51) and Creepers (51-52) too."
 			},
 			{
 				"a": [

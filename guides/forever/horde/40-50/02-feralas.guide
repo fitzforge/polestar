@@ -344,7 +344,7 @@ step Steamwheedle Port
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
   tip South along the coast, the Southsea pirates hold the cove. Andre Firebeard and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.
-  tip Careful: Two or three pirates stand with Andre, and many more pirates from the town join the fight once it starts.
+  tip Careful: Two or three pirates stand with Andre (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.
   kill 7855 quest 8366.1
   collect 20519 quest 8365.1
   kill 7856 quest 8366.2

@@ -19,9 +19,9 @@ next forever/horde/50-60/01-un-goro-crater
 # 40-50/03 where their giants and harpies (48-50) were 2-4 over the player, are done on this Feralas loop; Zorbin's next
 # two (7725, 7726: the same giants again, 550 XP each) are left out. The Dunemaul Compound (5863, Gor'marok 49) and
 # Thistleshrub Valley (3362, Rootshapers 49-50), taken in 40-50/04, are done at the Broken Pillar on the way to
-# Un'Goro and handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534) moves to 50-60/04, and Stealing Knowledge
-# (3517) and Betrayed (3505) are taken in Valormok here and done there (Spitelash and blood elves 51-55 at about 50).
-# Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
+# Un'Goro and handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
+# (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
+# the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
@@ -165,8 +165,6 @@ step Valormok
 
 step Valormok
   getfp "Valormok"
-  accept 3517                         -- Jediga: keep it, the Ruins of Eldarath's Spitelash (52-55) wait for the second Azshara guide
-  accept 3505                         -- Ag'tor Bloodfist: keep it, the blood elves of the Thalassian Base Camp (51-55) wait for the second Azshara guide
 
 step Undamaged Hippogryph Feathers
   tip The Thunderhead Hippogryphs fly over the hills just south of Valormok.

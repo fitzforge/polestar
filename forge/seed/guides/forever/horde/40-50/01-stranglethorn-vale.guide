@@ -203,7 +203,8 @@ step Witch Doctor Unbagwa
   accept 349                          -- Inside Spirit Den
 
 step Mistvale gorillas
-  tip The gorillas roam the valley around Unbagwa; the elders drop the giblets. Unbagwa's gorilla fangs and Mokk (44) wait for your Stranglethorn stop at about 45.
+  tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.
+  collect 2799 x10
   collect 3862 quest 571 @33.0,66.1 map 1434
 
 step Mistvale gorillas

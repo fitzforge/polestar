@@ -33,7 +33,7 @@ step Dalson's Tears farmhouse
 
 step Mulgris Deepriver
   turnin 4984                         -- Inside
-  accept 4985                         -- Inside: keep it, the Diseased Grizzlies (55-56) wait for the Silithus guide's Plaguelands visit at about 58
+  note His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58.
 
 step Tirisfal Glades
   zone Tirisfal Glades

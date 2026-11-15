@@ -212,8 +212,8 @@ step Augustus the Touched
 step Level 56
   when level<56
   tip Top up here to level 56 before the Frenzied Plaguehounds of Northdale (57-58): the Noxious Plaguebats (54-56) over the fields on the way east are at your level, and Nathanos wants twenty of them. Or, with a group, run the Blackrock Spire dungeon (Lower) instead.
-  goto 49.5,43.4 map 1423 "Noxious Plaguebat"
-  kill 8601 quest 6042.1 @49.5,43.4 map 1423
+  goto 49.5,43.4 map 1423 "Noxious Plaguebat" live
+  kill 8601 quest 6042.1 @49.5,43.4 map 1423 live
   level 56 grind 8601                  -- grind on Noxious Plaguebat
 
 step Plaguewood: kill these as you meet them

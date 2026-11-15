@@ -15,10 +15,10 @@ next forever/horde/50-60/02-felwood
 # (6164, A Plague Upon Thee's termites) is done on 50-60/05's Egan stop; Darrowshire, Light's Hope Chapel and the
 # Marlene/Chromie chain open 50-60/05 at about 56.
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
-# 0.4.0 level tidy (mobs 2+ over the player done where they fit, the quests still taken where the route passes their
-# givers): Beware of Pterrordax's Frenzied Pterrordax (4501.2, 51-54) are killed on the pylon loop at about 52, its
-# Pterrordax (50-52) on the first loop; Pawn Captures Queen (4507) is worked on 50-60/06's Un'Goro loop; A Plague Upon
-# Thee (5901) on 50-60/05's Terrordale stop. Super Sticky (4504) stays on the first loop: its tar drops from the Tar
+# 0.4.0 level tidy (mobs 2+ over the player done where they fit): Beware of Pterrordax's Frenzied Pterrordax (4501.2,
+# 51-54) are killed on the pylon loop at about 52, its Pterrordax (50-52) on the first loop; Pawn Captures Queen (4507)
+# is taken on 50-60/05's Gadgetzan stop and worked on 50-60/06's Un'Goro loop; A Plague Upon Thee (5901) is taken at
+# the Bulwark on 50-60/04 and worked on 50-60/05's Terrordale stop. Super Sticky (4504) stays on the first loop: its tar drops from the Tar
 # Beasts (50-51) and Creepers (51-52) too. The Rise of the Machines (4061, War Reavers 53-55) is left out (no later
 # Burning Steppes visit). A short top-up to 51 on Larion's Threshers (only below 51) opens the crater, in place of the
 # three small grinds it had; the Trappers and Gorishi (52-53) get Careful tips. Krom'Grul (3822, level 54 alone in his
@@ -296,7 +296,6 @@ step Gadgetzan
   when onquest 4496
   zone Tanaris
   turnin 4496                         -- Alchemist Pestlezugg, inside
-  accept 4507                         -- Pestlezugg: keep it, the Gorishi queen waits for the Silithus guide's crater loop
 
 step Orgrimmar
   only Hunter,Shaman
@@ -440,7 +439,6 @@ step The Bulwark
   turnin 5094                         -- High Executor Derrington
   accept 5096
   turnin 5405 direct
-  accept 5901                         -- Mickey Levine: keep it, Terrordale's termite mounds wait for the Eastern Plaguelands guide
 # ---------------------------------------------------------------- Western Plaguelands
 
 step Scarlet forward camp

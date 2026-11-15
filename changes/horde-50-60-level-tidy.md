@@ -8,9 +8,9 @@ section: players
   45 (thanks Sekyno); Stinglasher waits for the next Camp Mojache stop, Caliph
   Scorpidsting for the next Tanaris visit, Feralas' zapped giants and
   Northspring harpies for the visit at 50, and Tanaris' Dunemaul Compound and
-  Rootshapers for the ride into Un'Goro. Kim'jael moves to the second Azshara
-  guide, and Stealing Knowledge and Betrayed, taken in Valormok, are done
-  there. In 50-60, Un'Goro's Frenzied Pterrordax wait for the pylon loop, the
+  Rootshapers for the ride into Un'Goro. Kim'jael, Stealing Knowledge and
+  Betrayed move to the second Azshara guide, where their naga and blood elves
+  fit. In 50-60, Un'Goro's Frenzied Pterrordax wait for the pylon loop, the
   Gorishi queen for the Silithus guide's crater loop, Terrordale and Tirion's
   hunts in the Eastern Plaguelands, Kirsta's Scarlets, Mulgris' grizzlies and
   Nathanos' Rangers on the Silithus guide's Plaguelands ride, Umi's yeti horns
