@@ -403,6 +403,8 @@ mod settings_migration;
 mod settings_perf;
 #[path = "settings-roundtrip.rs"]
 mod settings_roundtrip;
+#[path = "settings-session.rs"]
+mod settings_session;
 #[path = "settings-smoke.rs"]
 mod settings_smoke;
 #[path = "skins-bundled.rs"]
