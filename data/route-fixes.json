@@ -2594,6 +2594,18 @@
 			{
 				"a": [
 					"task",
+					151
+				],
+				"b": [
+					"task",
+					9
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Westfall): The Killing Fields' Harvest Watchers (level 14-15) were killed right after Molsen Farm's well, where players were at 13 (players' recordings, 0.3.7+: 25th percentile 13.3 at that step, 18 people died there, 8 of them to a higher mob). Their biggest field (11 of 24 spawns) lies between the Jansen Stead and Saldean's Farm, so they are killed on the walk south after the Jansen Stead, right before Saldean's hand-ins, at about 14 (25th percentile 14.3-14.5 there): mobs at most one level up, no extra walking."
+			},
+			{
+				"a": [
+					"task",
 					22
 				],
 				"b": [

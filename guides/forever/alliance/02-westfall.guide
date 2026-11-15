@@ -293,16 +293,6 @@ step Defias Trappers and Smugglers
 step Molsen Farm's well
   collect 254547 quest 92742.2 @46.1,38.2     -- Fill the vial at the farm's well
 
-step Molsen Farm's Harvest Watchers
-  tip Harvest Watchers and Golems work the fields around Molsen Farm; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks here: leave it alone.
-  kill 114 quest 9                            -- Harvest Watchers
-  collect 255007 quest 92909.1
-  collect 255010 quest 92909.2
-  collect 732 quest 38.4                      -- Okra
-  collect 255155 optional                     -- Precessive Autocognition Assembly
-  accept 92910 optional
-  collect 814 x5 optional                     -- Flask of Oil: keep five for Captain Grayson at the Westfall Lighthouse, later on the route
-
 step The gnoll hills
   tip North to the hills above Jangolode Mine: Riverpaw Gnolls and Scouts (level 11-13) roam there, east toward the Jansen Stead. The gnolls further south and west are 13-19: stay in the north hills.
   tip Careful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.
@@ -329,6 +319,16 @@ step The Jansen Stead
   collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
   turnin 64                                   -- Farmer Furlbrow
   turnin 151                                  -- Verna Furlbrow
+
+step Harvest Watchers north of Saldean's Farm
+  tip On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.
+  kill 114 quest 9                            -- Harvest Watchers
+  collect 255007 quest 92909.1
+  collect 255010 quest 92909.2
+  collect 732 quest 38.4                      -- Okra
+  collect 255155 optional                     -- Precessive Autocognition Assembly
+  accept 92910 optional
+  collect 814 x5 optional                     -- Flask of Oil: keep five for Captain Grayson at the Westfall Lighthouse, later on the route
 
 step Finish the Goretusk Livers
   when !has 723 x8

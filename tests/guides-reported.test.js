@@ -4239,26 +4239,30 @@ test(`${WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jans
 // Route review (2026-11-08, W3; #1415): the loop's two long "kill these as you meet them" lists (twelve goals,
 // then five) made players flip between the two steps to find what came next (the most frequent manual moves on
 // 0.3.4, 32 people). The same walk is now one target per step in walking order: the Defias fields, Molsen Farm's
-// well, its Harvest Watchers, the gnoll hills, the murloc coast, Furlbrow's Wardrobe, the Jansen Stead. The
-// livers, the vulture meat and the bandanas, which drop all over the loop, are worked in the background with a
+// well, the gnoll hills, the murloc coast, Furlbrow's Wardrobe, the Jansen Stead, then the Harvest Watchers.
+// Level tidy 0.4.0: the Harvest Watchers (14-15) came right after the well, where players were at 13 (recordings:
+// 25th percentile 13.3, 18 people died there); their biggest field lies between the Jansen Stead and Saldean's Farm,
+// so they are killed on the walk back south, after the loop's other quests, at about 14 (25th percentile 14.3-14.5).
+// The livers, the vulture meat and the bandanas, which drop all over the loop, are worked in the background with a
 // finish step before their hand-in.
 test(`${WESTFALL}: flow audit: one north loop, one target per step in walking order, Saldean's handed in once on the way back`, { skip }, () => {
 	const list = working(goals(WESTFALL));
 	const collects = (item) => (g) => g.t === 'collect' && g.item === item;
 	const paws = at(list, 'the Gnoll Paws', collects(725));
 	for (const [what, item] of [['the Goretusk Snouts', 731], ['the Okra', 732]]) {
-		const i = at(list, what, collects(item));
-		assert.ok(i < paws, `${what} before the north hills`);
 		assert.ok(list.filter(({ goal }) => collects(item)(goal)).length === 1, `${what} listed once`);
 	}
+	assert.ok(at(list, 'the Goretusk Snouts', collects(731)) < paws, 'the Goretusk Snouts before the north hills');
+	const watchers = at(list, 'the Harvest Watchers', (g) => g.t === 'kill' && g.quest === 9);
+	assert.equal(list[at(list, 'the Okra', collects(732))].step, list[watchers].step, 'the Okra with the Harvest Watchers');
 	const order = [
 		['the Defias Trappers', (g) => g.t === 'kill' && g.quest === 12 && g.npc === 504],
 		["Molsen Farm's well", collects(254547)],
-		['the Harvest Watchers', (g) => g.t === 'kill' && g.quest === 9],
 		['the Gnoll Paws', collects(725)],
 		['the murloc gills', collects(254548)],
 		["Furlbrow's Wardrobe", collects(841)],
 		['the oats', collects(1528)],
+		['the Harvest Watchers', (g) => g.t === 'kill' && g.quest === 9],
 	].map(([what, pred]) => [what, at(list, what, pred)]);
 	order.forEach(([what, i], k) => k && assert.ok(i > order[k - 1][1] && list[i].step !== list[order[k - 1][1]].step, `${what} in its own step after ${order[k - 1][0]}`));
 	const steps = compiled(WESTFALL).steps;
@@ -4269,7 +4273,7 @@ test(`${WESTFALL}: flow audit: one north loop, one target per step in walking or
 		const finish = at(list, `the finish step of ${item}`, collects(item));
 		assert.ok(finish < at(list, `turnin ${quest}`, is('turnin', quest)), `item ${item} has a finish step before quest ${quest}'s hand-in`);
 	}
-	const oats = order.at(-1)[1];
+	const oats = order.at(-2)[1];
 	const saldean = list[at(list, 'turnin 9', is('turnin', 9))].step;
 	for (const q of [9, 92909, 38, 22]) {
 		const i = at(list, `turnin ${q}`, is('turnin', q));
