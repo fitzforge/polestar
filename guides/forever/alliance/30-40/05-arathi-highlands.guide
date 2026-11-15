@@ -17,6 +17,7 @@ pitch For characters of 36 to 38. Faldir's Cove, where the naga and the professo
 # Southshore's edge that few players find, so the Southshore step never waits for him.
 # Level tidy (0.4.0): the Syndicate camp (Syndicate Assassins 505 and its documents 510, 511) is worked here at about 37, on the
 # way from Southshore to Arathi, instead of at 31-32 in 01-hillsbrad-foothills (Syndicate Thieves 33-34, Wizards 34-35);
+# Magistrate Maleb's quest is taken on 01's Southshore stop and carried here (this Southshore stop takes it if 01 didn't).
 # Noble Deaths (512) and Letter to Stormpike (514) follow on this guide's Southshore and Ironforge stops. The Stone of
 # East Binding's key is taken after Kinelory's errand, at about 38. Left out at 38: Dark Council (537, Nagaz 40, who
 # also guards the Ensorcelled Parchment, 551) and Baron's Demise (523, Baron Vardus 40). Faldir's Cove (662-669) is a
@@ -153,7 +154,7 @@ step Fly to Southshore
 step Southshore
   zone Hillsbrad Foothills
   accept 500                          -- Marshal Redpath
-  accept 505                          -- Magistrate Henry Maleb, inside: the Syndicate camp is on the way to Arathi
+  accept 505                          -- Magistrate Henry Maleb, inside, if 30-40/01 didn't take it: the Syndicate camp is on the way to Arathi
 
 step Shadowy Assassin
   tip A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.

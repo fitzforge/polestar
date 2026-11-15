@@ -13,9 +13,10 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # Since 2026-11-07 Stranglethorn's second loop, after Desolace (the first loop is 30-40/04, which takes its Booty Bay
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
 # Level tidy (0.4.0): Sin'Dall (Tiger Mastery, 188) and the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about
-# 36 instead of on the first loop at 33-34. Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's
-# Skullsplitter trolls (205, 39-42) are three and four levels over players here: 40-50/01-stranglethorn-vale takes both at
-# about 42 (Brother Nimetz offers Troll Witchery there once Kurzen's Mystery is handed in on this loop). Wendel Mathers'
+# 36 instead of on the first loop at 33-34, where Ajeck and Hemet give them (Nesingwary's camp on the way in takes them for
+# whoever didn't). Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's Skullsplitter trolls (205, 39-42)
+# are three and four levels over players here: 40-50/01-stranglethorn-vale works both at about 41. Brother Nimetz gives
+# Troll Witchery here, when Kurzen's Mystery is handed in, and it is carried to that guide. Wendel Mathers'
 # Cook in the Cage (97047) is worked with Special Forces in Kurzen's Compound; Captain Aransas takes 97048 at Booty Bay.
 
 step Collin Mauren
@@ -43,9 +44,9 @@ step Rebel Camp
   accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
 
 step Nesingwary's Expedition
-  tip South along the road: the hunters' tents stand just west of it.
-  accept 188                          -- Ajeck Rouack: Sin'Dall, after the jungle ruins
-  accept 195                          -- Hemet Nesingwary: the Lashtail Raptors, with Sin'Dall
+  tip South along the road: the hunters' tents stand just west of it. Ajeck and Hemet gave you these on the first loop: take them now only if you didn't.
+  accept 188                          -- Ajeck Rouack, if 30-40/04 didn't give it: Sin'Dall, after the jungle ruins
+  accept 195                          -- Hemet Nesingwary, if 30-40/04 didn't give it: the Lashtail Raptors, with Sin'Dall
 
 step Bookie Herod
   when onquest 200
@@ -100,6 +101,7 @@ step Rebel Camp
   turnin 331                          -- Lieutenant Doren
   turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
   turnin 207                          -- Brother Nimetz
+  accept 205                          -- keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide
 
 step Sin'Dall and the Lashtail raptors
   tip From the Rebel Camp, past Nesingwary's camp to the hilltop south-west of it: Sin'Dall, the great tiger (37), lairs there, and the Lashtail Raptors run in the jungle around it. Then back to the hunters' tents.

@@ -4633,8 +4633,9 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: the Syndicate camp once, Reassignmen
 	const list = goals(HILLSBRAD_ALLIANCE);
 	const { steps } = compiled(HILLSBRAD_ALLIANCE);
 	assert.deepEqual(steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
-	// Level tidy (0.4.0): the camp (Thieves 33-34, Wizards 34-35) is worked in 30-40/05 at about 37, still in one stop.
-	assert.ok(!list.some(({ goal }) => [505, 510, 511].includes(goal.quest)), 'no Syndicate camp at 31-32');
+	// Level tidy (0.4.0): the camp (Thieves 33-34, Wizards 34-35) is worked in 30-40/05 at about 37, still in one stop;
+	// Magistrate Maleb's quest is taken here, on the Southshore stop, and carried there.
+	assert.ok(!list.some(({ goal }) => [505, 510, 511].includes(goal.quest) && !is('accept', 505)(goal)), 'no Syndicate camp at 31-32');
 	const arathi = goals(ARATHI);
 	const docs = at(arathi, 'accept 510 (Foreboding Plans)', is('accept', 510));
 	const kills = arathi.filter(({ goal }) => goal.t === 'kill' && goal.quest === 505);
@@ -11896,8 +11897,8 @@ test('Alliance Stranglethorn 35: Lake Nazferiti after Kurzen\'s Compound, the ta
 	for (const { goal } of list.filter(({ goal }) => goal.t === 'collect' && goal.item === 4106)) {
 		assert.ok(goal.map === 1434 && goal.x > 40 && goal.y > 15 && goal.y < 30, `${goal.t} ${goal.quest} at Lake Nazferiti (${goal.x},${goal.y})`);
 	}
-	// Level tidy (0.4.0, #2365): Panther Mastery (Shadowmaw 37-38) and Troll Witchery (Skullsplitters 39-42) are 40-50/01's.
-	assert.ok(!list.some(({ goal }) => [192, 193, 205].includes(goal.quest)), 'no Panther Mastery or Troll Witchery at 35-36');
+	// Level tidy (0.4.0, #2365): Panther Mastery (Shadowmaw 37-38) and Troll Witchery (Skullsplitters 39-42) are worked in 40-50/01.
+	assert.ok(!list.some(({ goal }) => [192, 193, 205].includes(goal.quest) && goal.t !== 'accept'), 'no Panther Mastery or Troll Witchery work at 35-36');
 	const rebel = list.filter(({ goal }) => goal.t === 'turnin' && [329, 330, 331, 574, 207].includes(goal.quest)).map(({ s }) => s);
 	assert.equal(new Set(rebel).size, 1, 'every Rebel Camp hand-in on one stop');
 	assert.ok(rebel[0] > Math.max(...tablets), 'after the last tablet');
@@ -13617,7 +13618,9 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	const has = (list, q) => list.some(({ goal }) => goal.quest === q);
 	const hills = g('01-hillsbrad-foothills');
 	const arathi = g('05-arathi-highlands');
-	for (const q of [505, 510, 511, 514]) assert.ok(!has(hills, q), `01: no ${q}`);
+	for (const q of [505, 510, 511, 514]) assert.ok(!hills.some(({ goal }) => goal.quest === q && !is('accept', 505)(goal)), `01: no ${q} work`);
+	const shore = hills[at(hills, 'getfp Southshore', (x) => x.t === 'getfp' && /Southshore/.test(x.location || ''))].s;
+	assert.equal(hills[at(hills, 'accept 505', is('accept', 505))].s, shore, '01: Maleb gives Syndicate Assassins on the Southshore stop (pick up now, work later)');
 	const camp = at(arathi, 'kill 2241 quest 505', (x) => x.t === 'kill' && x.quest === 505);
 	assert.ok(at(arathi, 'accept 505', is('accept', 505)) < camp && camp < at(arathi, 'getfp Refuge Pointe', (x) => x.t === 'getfp' && /Refuge Pointe/.test(x.location || '')), '05: the camp on the road from Southshore to Refuge Pointe');
 	assert.ok(at(arathi, 'turnin 510', is('turnin', 510)) < at(arathi, 'collect 3505', (x) => x.t === 'collect' && x.quest === 512), '05: Noble Deaths taken before Strahnbrad');
@@ -13625,12 +13628,25 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	const stv = g('04-stranglethorn-vale');
 	const stv2 = g('04b-stranglethorn-vale');
 	for (const q of [188, 195]) {
-		assert.ok(!stv.some(({ goal }) => goal.quest === q && goal.t !== 'turnin'), `04: ${q} not taken at 34`);
+		assert.ok(!stv.some(({ goal }) => goal.quest === q && !['accept', 'turnin'].includes(goal.t)), `04: ${q} not worked at 34`);
+		assert.ok(stv.some(({ goal }) => is('accept', q)(goal)), `04: ${q} taken where its giver hands in the elder tigers and raptors`);
 		assert.ok(at(stv2, `accept ${q}`, is('accept', q)) < at(stv2, `turnin ${q}`, is('turnin', q)), `04b: ${q} taken and handed in`);
 	}
 	const level = stv.filter(({ goal }) => goal.t === 'level').at(-1).goal;
 	assert.notEqual(level.npc, 1085, '04: the top-up to 34 is not on the elder tigers (34-35)');
-	for (const q of [192, 205]) assert.ok(!has(stv2, q), `04b: no ${q}`);
+	for (const q of [192, 205]) assert.ok(!stv2.some(({ goal }) => goal.quest === q && goal.t !== 'accept'), `04b: no ${q} work`);
+	assert.ok(stv.some(({ goal }) => is('accept', 192)(goal)), '04: Erlgadin gives Panther Mastery on the Panthers hand-in');
+	assert.equal(stv2[at(stv2, 'accept 205', is('accept', 205))].s, stv2[at(stv2, 'turnin 207', is('turnin', 207))].s, '04b: Nimetz gives Troll Witchery on the Kurzen hand-in');
+	const jungle = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	for (const [q, giver] of [[192, 196], [205, 622]]) {
+		const work = jungle.findIndex(({ goal }) => goal.quest === q && ['kill', 'collect'].includes(goal.t));
+		assert.ok(work >= 0 && work < at(jungle, `turnin ${q}`, is('turnin', q)), `40-50/01: ${q} worked before its hand-in`);
+		assert.ok(Math.abs(jungle[at(jungle, `turnin ${q}`, is('turnin', q))].s - jungle[at(jungle, `turnin ${giver}`, is('turnin', giver))].s) <= 1, `40-50/01: ${q} handed in with ${giver}, on the ride north`);
+	}
+	assert.ok(g('02-desolace').some(({ goal }) => is('accept', 6161)(goal)), "02: Rackmore's Log taken beside Karnitol's Chest");
+	const bad = g('06-badlands');
+	assert.ok(at(bad, 'accept 97617', is('accept', 97617)) < at(bad, 'accept 719', is('accept', 719)), '06: Dorgaron gives Safety Checks at the foot of the pass');
+	assert.ok(!bad.some(({ goal }) => goal.t === 'collect' && goal.item === 278404), "06: no Pristine Mattock among Agmond's End's Shamans and Murdaloc");
 	for (const q of [662, 664, 665, 666]) {
 		for (const { step } of arathi.filter(({ goal }) => goal.quest === q)) assert.ok(whenOn(step, 'group', 665), `05: ${q} only on the Faldir's Cove group choice`);
 	}

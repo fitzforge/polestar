@@ -18,10 +18,18 @@ next polestar-experimental/riverglades-alliance-1
 # Level tidy (0.4.0): Scrounging's scrap (733) comes from the Dustbelcher Ogres (38-39) west of Agmond's End, away from the
 # Maulers and Shamans (41-43) further south-west; Lotwil's last test, the Bracers of Rock Binding (712, Greater Rock
 # Elementals 42-44), is left out of the solo route, and with it Lucien Tosselwrench's trade (716), which needs it.
+# Safety Checks (97617): Dorgaron gives it at the foot of the pass; the artifacts and the helmet come from the Shadowforge
+# diggers and the Stonevault Bonesnappers this guide already fights, and the Pristine Mattock, which lies among Agmond's
+# End's Stonevault Shamans (40-41) beside Murdaloc (42), waits for 40-50/02-badlands, which hands it in on its way north.
 
 step Into Badlands
   zone Badlands
   goto 49.4,8.0 "Into Badlands"
+
+step Dorgaron
+  zone Badlands
+  tip Dorgaron of the Explorers' League camps at the foot of the pass. His artifacts drop from the Shadowforge diggers at Hammertoe's Digsite and the Stonevault Bonesnappers at Agmond's End, and the helmet lies in the Shadowforge camp.
+  accept 97617                        -- Dorgaron: keep it, the Pristine Mattock waits for the 40-50 Badlands visit
 
 step Badlands
   zone Badlands
@@ -37,10 +45,11 @@ step Hammertoe's Digsite
 
 step Hammertoe's Digsite: kill these as you meet them
   zone Badlands
-  tip The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it.
+  tip The Shadowforge dwarves camp just north of the digsite; the crumpled map and Dorgaron's mining helmet lie among their tents. Tunnelers and Darkweavers carry Ryedol's pick and Dorgaron's artifacts. Crag Coyotes roam the slopes around it.
   accept 720                          -- Crumpled Map
   collect 7846 quest 2500             -- Crag Coyote Fang
   collect 4616 quest 719              -- Ryedol's Lucky Pick
+  collect 278403 quest 97617 @53.1,34.5 -- Explorers' League Mining Helmet, in the Shadowforge camp
   collect 7847 quest 2500             -- Buzzard Gizzard
 
 step The excavation crate
@@ -78,6 +87,7 @@ step Agmond's End: kill these as you meet them
   note Murdaloc himself (42) walks among the Bonesnappers: leave him for the later Badlands guide at 43, and kill the Bonesnappers for this quest now.
   collect 5797 quest 1108             -- Indurium Flake
   kill 2893 quest 739                 -- Stonevault Bonesnapper
+  collect 278402 quest 97617          -- Unstudied Artifact, from the Shadowforge diggers and the Bonesnappers
 
 step Theldurin the Lost
   when group 709

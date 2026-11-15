@@ -117,8 +117,8 @@ step Karnitol's Chest
   accept 1455
 
 step Claim Rackmore's Treasure!
-  tip Rackmore's Log lies beside Karnitol's Chest. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.
-  accept 6161
+  tip Rackmore's Log lies beside Karnitol's Chest, if you didn't take it on your first Desolace visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.
+  accept 6161                         -- Rackmore's Log, if 30-40/02 didn't take it
   collect 15878 quest 6161.1 @34.7,33.5 map 1443 -- Underwater
 
 step Sar'theris Strand: kill these as you meet them

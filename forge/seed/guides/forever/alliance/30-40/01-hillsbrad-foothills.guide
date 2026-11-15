@@ -18,8 +18,9 @@ next forever/alliance/30-40/03-ashenvale
 # MacKreel's Moonshine (647) is taken in 05-arathi-highlands: its 15-minute limit does not last the walk to Menethil and the boat (#1319).
 # Level tidy (0.4.0): Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are taken on the
 # Menethil stop at about 31 (Captain Halyndor is 30) instead of at 28 in 06-wetlands; 293 goes to Archbishop Benedictus on
-# this guide's Stormwind stop. The Syndicate camp (Syndicate Assassins 505, 510, 511) moved to 05-arathi-highlands at
-# about 37: its Thieves are 33-34 and its Wizards 34-35, two and three levels over players here.
+# this guide's Stormwind stop. The Syndicate camp (Syndicate Assassins 505, 510, 511) is worked in 05-arathi-highlands at
+# about 37: its Thieves are 33-34 and its Wizards 34-35, two and three levels over players here. Magistrate Maleb's quest is
+# taken on this Southshore stop, where the route already passes him, and carried to that trip.
 
 step Angerfang Encampment
   when onquest 465,474
@@ -200,6 +201,7 @@ step Southshore
   accept 564                          -- Darren Malvew: the lions come later
   getfp "Southshore" npc 2432         -- Darla Harris
   buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
+  accept 505                          -- Magistrate Henry Maleb, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
 
 step Bartolo Ginsetti

@@ -16,7 +16,9 @@ next forever/alliance/30-40/02-desolace
 # stop, and Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it. Level tidy (0.4.0): one top-up to 33.2 on
 # the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model.
 # Level tidy (0.4.0): Tiger Mastery's Sin'Dall (188, level 37) and Raptor Mastery's Lashtail Raptors (195, 35-36) are
-# hunted on the second loop (04b) at about 36, not here at 33-34. The hearthstone, bound in Booty Bay on the first stop,
+# hunted on the second loop (04b) at about 36, not here at 33-34; Ajeck and Hemet give them here, where the elder tigers and
+# raptors are handed in, and they are carried to 04b. Panther Mastery's Shadowmaw Panthers (192, 37-38) wait for
+# 40-50/01-stranglethorn-vale at about 41; Sir S. J. Erlgadin gives it on this loop's hand-in. The hearthstone, bound in Booty Bay on the first stop,
 # is the way back there from Nesingwary's camp at the end of the jungle loop (#2419). Players who know the Stonetalon
 # Peak flight fly there from Auberdine instead of Astranaar, closer to Desolace (#2403); warlocks keep Astranaar.
 # Zimmix Sputterspark's rescue (97329, 97331) is done on the Savage Coast with Kebok's Bloodscalp ears and handed in to
@@ -78,6 +80,7 @@ step Panthers, raptors and elder tigers
 step Sir S. J. Erlgadin
   tip Back east to Nesingwary's camp on the way north to the Rebel Camp.
   turnin 191
+  accept 192                          -- keep it: the Shadowmaw Panthers (37-38) wait for the 40-50 Stranglethorn guide
 
 # ---------------------------------------------------------------- Rebel Camp
 
@@ -124,8 +127,10 @@ step Nesingwary's Expedition
   accept 340 optional
   accept 341 optional
   accept 342 optional
-  turnin 187                          -- Ajeck Rouack: Sin'Dall comes on the second loop (04b)
-  turnin 194                          -- Hemet Nesingwary: the Lashtails come on the second loop (04b)
+  turnin 187                          -- Ajeck Rouack
+  accept 188                          -- keep it: Sin'Dall (37) comes on the second loop (04b)
+  turnin 194                          -- Hemet Nesingwary
+  accept 195                          -- keep it: the Lashtail Raptors come on the second loop (04b), with Sin'Dall
 
 # ---------------------------------------------------------------- Booty Bay
 

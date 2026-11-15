@@ -10105,9 +10105,14 @@
 				"q": 505,
 				"after": [
 					"accept",
-					500
+					564
 				],
-				"reason": "Alliance level tidy (0.4.0): Syndicate Assassins' Footpads (32-33) and Thieves (33-34), with Syndicate Wizards (34-35) in the camp, were met at about 32 on 30-40/01's Southshore visit (recorded 25th percentile 32.8, 7 of 26 players died there). Magistrate Maleb's quest is taken on 30-40/05's first Southshore stop at about 37 and the camp is worked on the road north to Arathi; the documents (510, 511) are handed in on the return to Southshore before Strahnbrad, so Noble Deaths (512) is done on the same Alterac trip.",
+				"reason": "Alliance level tidy (0.4.0): Syndicate Assassins' Footpads (32-33) and Thieves (33-34), with Syndicate Wizards (34-35) in the camp, were met at about 32 on 30-40/01's Southshore visit (recorded 25th percentile 32.8, 7 of 26 players died there). Magistrate Maleb's quest is taken on that Southshore stop, where the route already passes him, and carried; the camp is worked on 30-40/05's road north to Arathi at about 37, and the documents (510, 511) are handed in on the return to Southshore before Strahnbrad, so Noble Deaths (512) is done on the same Alterac trip.",
+				"issue": "-"
+			},
+			{
+				"q": 97617,
+				"reason": "Alliance level tidy (0.4.0), quest volume: Safety Checks (level 40, 3,150 XP). Dorgaron camps at the foot of the pass from Loch Modan into the Badlands, which 30-40/06 rides through to Hammertoe's Digsite; the artifacts drop from the Shadowforge diggers (35-36) and Stonevault Bonesnappers (39-40) that guide already fights, and the helmet lies in the Shadowforge camp (players' recordings at 52-54,30-34). The Pristine Mattock lies at Agmond's End among the Stonevault Shamans (40-41) beside Murdaloc (42) and is taken with him on 40-50/02's Badlands visit, which hands the quest in on its ride north.",
 				"issue": "-"
 			},
 			{
@@ -14403,11 +14408,11 @@
 					1459
 				],
 				"b": [
-					"accept",
+					"task",
 					188
 				],
 				"faction": "Alliance",
-				"why": "Alliance level tidy (0.4.0): Tiger Mastery's Sin'Dall (37) was hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.7, 8 players died on that coast). Ajeck offers it on the second loop (30-40/04b) after Desolace, and Sin'Dall's hill, just south-west of Nesingwary's camp, is hunted at the end of that loop at about 36, after the Rebel Camp and before the hunters' hand-ins.",
+				"why": "Alliance level tidy (0.4.0): Tiger Mastery's Sin'Dall (37) was hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.7, 8 players died on that coast). Ajeck gives it on that loop, when the elder tigers are handed in, and Sin'Dall's hill, just south-west of Nesingwary's camp, is hunted at the end of the second loop (30-40/04b) at about 36, after Desolace, the Rebel Camp and before the hunters' hand-ins.",
 				"source": "Alliance level tidy 2026-11-15"
 			},
 			{
@@ -14416,11 +14421,11 @@
 					1459
 				],
 				"b": [
-					"accept",
+					"task",
 					195
 				],
 				"faction": "Alliance",
-				"why": "Alliance level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (35-36) were hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.3). Hemet offers it on the second loop (30-40/04b), and the Lashtails run around Sin'Dall's hill, hunted with him at the end of that loop; Raptor Mastery (196) follows at the same hand-in.",
+				"why": "Alliance level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (35-36) were hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.3). Hemet gives it on that loop, when the Stranglethorn Raptors are handed in, and the Lashtails, which run around Sin'Dall's hill, are hunted with him at the end of the second loop (30-40/04b); Raptor Mastery (196) follows at the same hand-in.",
 				"source": "Alliance level tidy 2026-11-15"
 			},
 			{
@@ -14435,6 +14440,136 @@
 				"faction": "Alliance",
 				"why": "Alliance level tidy (0.4.0): the Syndicate camp on the Alterac border is worked on 30-40/05's road from Southshore to Arathi (about 1,300 yd more than the straight road), before Refuge Pointe's first stop.",
 				"source": "Alliance level tidy 2026-11-15"
+			},
+			{
+				"a": [
+					"accept",
+					500
+				],
+				"b": [
+					"task",
+					505
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Syndicate Assassins is carried from 30-40/01's Southshore stop and worked after Marshal Redpath's stop on 30-40/05's way north, at about 37.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					191
+				],
+				"b": [
+					"accept",
+					192
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Sir S. J. Erlgadin gives Panther Mastery (192) on 30-40/04's Panthers hand-in, where the route already stands at his tent; the Shadowmaw Panthers (37-38), three over players at 35, are hunted on 40-50/01's jungle ride at about 41 and handed in at Nesingwary's camp on that guide's ride north.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					196
+				],
+				"b": [
+					"task",
+					192
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): the Shadowmaw Panthers (37-38) prowl the jungle north-west of Zul'Mamwe, between the Jungle Stalkers' slopes and the north-west coast, which 40-50/01 rides at about 41.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					192
+				],
+				"b": [
+					"turnin",
+					196
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Panther Mastery is handed to Sir S. J. Erlgadin with Hemet's Raptor Mastery, on 40-50/01's ride north to the Rebel Camp.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					196
+				],
+				"b": [
+					"task",
+					205
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Troll Witchery's fetishes come from the Skullsplitter Mystics (39-40) in Zul'Mamwe's northern half, east of the Jungle Stalkers' slopes, on 40-50/01's jungle ride at about 41; at 35-36 on 30-40/04b the Skullsplitters (39-42) were four over the player (#2365).",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					207
+				],
+				"b": [
+					"accept",
+					205
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Brother Nimetz gives Troll Witchery on 30-40/04b's Kurzen's Mystery hand-in, where the route already stands; it is carried to 40-50/01, which works it and hands it in at the Rebel Camp.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					205
+				],
+				"b": [
+					"turnin",
+					196
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Troll Witchery's fetishes are taken before the ride north, so Brother Nimetz takes them on the Rebel Camp stop that follows Nesingwary's camp.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					6161
+				],
+				"b": [
+					"turnin",
+					1459
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Rackmore's Log lies beside Karnitol's Chest, which 30-40/02 opens on the first Desolace visit; Claim Rackmore's Treasure! is taken there and carried to the south loop at the end of 30-40, where its keys and chest are.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"accept",
+					97617
+				],
+				"b": [
+					"accept",
+					719
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Dorgaron gives Safety Checks at the foot of the pass from Loch Modan, on 30-40/06's ride to Hammertoe's Digsite.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					739
+				],
+				"b": [
+					"turnin",
+					97617
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Safety Checks' Pristine Mattock lies among Agmond's End's Stonevault Shamans (40-41) beside Murdaloc (42), one to three over players on 30-40/06 (about 38.5): it is taken with Murdaloc on 40-50/02's Badlands visit, which hands the quest to Dorgaron on its ride north to Loch Modan.",
+				"source": "Alliance level tidy 2026-11-16"
 			}
 		]
 	}

@@ -15,6 +15,10 @@ next forever/alliance/40-50/02-badlands
 # The Bloodsail Buccaneers (608) is taken on the level-48 Booty Bay stop (40-50/05).
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the
 # Cold Eye Basilisks and back.
+# Level tidy (0.4.0): Panther Mastery (192, Shadowmaw Panthers 37-38) and Troll Witchery (205, the Skullsplitter Mystics'
+# fetishes, 39-40) are worked here at about 41, between the Jungle Stalkers and the north-west coast, and handed in at
+# Nesingwary's camp and the Rebel Camp on the same ride north; they were three and four levels over players on the 30-40
+# Stranglethorn loops, which give them (30-40/04 and 04b) for this visit.
 
 # ---------------------------------------------------------------- Theramore
 
@@ -277,19 +281,29 @@ step Jungle Stalkers
   tip The Jungle Stalkers roam the slopes west of the mine.
   kill 687 quest 196.1 @32.1,43.1 map 1434 -- Jungle Stalker
 
+step Zul'Mamwe's Mystics and the Shadowmaw Panthers
+  tip East from the stalkers' slopes to the ruins of Zul'Mamwe: the Skullsplitter Mystics (39-40) in its northern half carry Brother Nimetz's fetishes. Careful: the Witch Doctors, Berserkers and Headhunters (41-44) hold the ruins' southern half: stay north. Then north-west toward the coast: the Shadowmaw Panthers (37-38) prowl the jungle west of the ruins, often stealthed.
+  collect 2466 quest 205 @45.5,36.5 map 1434 -- Skullsplitter Fetish, from the Skullsplitter Mystics
+  kill 684 quest 192 @42.4,32.5 map 1434 -- Shadowmaw Panther
+
 # ---------------------------------------------------------------- The far north
 
 step The north-west coast
-  tip Ride north-west from the mine to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
+  tip Ride on north-west to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
   collect 4611 quest 705              -- Blue Pearl; underwater
   collect 4034 quest 611              -- Stone of the Tides
 
 step Hemet Nesingwary
   turnin 196
+  turnin 192                          -- Sir S. J. Erlgadin, beside him
 
 step Hemet Nesingwary
   when group 197
   accept 197
+
+step Sir S. J. Erlgadin
+  when group 193
+  accept 193
 
 step Arbor Tarantula
   when onquest 93176
