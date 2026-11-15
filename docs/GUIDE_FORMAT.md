@@ -1004,6 +1004,14 @@ gets no `spots`, except an NPC who walks around:
   15 yd of its edge), and otherwise the region is its places (a creature
   players meet at several places along its way), its points outside the
   region become alternatives, and a spawn it moves away from stays one.
+  Your coordinates at a spawn of a target that stands at several places,
+  inside a recorded spot backed by at least half the best-backed one's
+  players, are that place: players do it there, though more do it elsewhere
+  (Westfall's oats at the Jansen Stead, one farm of the several players gather
+  at, #621). The goal keeps its point and its places, and the recorded spots
+  of the target's other places are alternatives, never one zone-wide search.
+  A creature at one spawn that players meet along its way is no such place:
+  every place they met it is searched.
   Trouble in the Valley (95621): players loot Benedict's Orders within 47 yd
   of 41.8,15.5, so that is the area, not 112 yd around Corporal Adamore's
   spawns. The recordings' coordinates are the game client's: its map frame

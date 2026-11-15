@@ -4277,7 +4277,10 @@ test(`${WESTFALL}: Human Warriors' Defensive Stance and Human Priests' Divine Gr
 // goal, unplaced, so before Saldean's the arrow searched every Sack of Oats
 // in the zone, down to Moonbrook, and the far sacks were empty. They are
 // gathered on the return to the Jansen Stead, in its fields, beside the
-// turn-in.
+// turn-in. This compile (tools/lib/dsl) has no players' recorded areas, which
+// once grew the farms into one zone-wide search in the shipped pack: forge's
+// recorded_areas keeps the author's point at a farm players use (forge-guide
+// recorded_areas.rs, #621), and the forge-judge seed of this case checks it.
 test(`${WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jansen Stead's fields on the way back, not searched over the zone on the road in`, { skip }, () => {
 	const list = goals(WESTFALL);
 	const oats = at(list, 'collect 1528', (g) => g.t === 'collect' && g.item === 1528);
