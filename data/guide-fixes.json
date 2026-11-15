@@ -903,6 +903,24 @@
 			]
 		},
 		{
+			"id": "2479-barrens-verog-from-the-kolkar",
+			"faction": "Horde",
+			"at": {
+				"quest": 851,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test Tonga's seeds at the bubbling fissure on the oasis' east bank while you are there.",
+			"note": "#2479 (Corey): the tip said Verog walks among the Kolkar, so players waited for him to wander by. He appears after Kolkar centaurs are killed at the Stagnant Oasis (data/mechanics-public.json 851).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-15: 76 Verog the Dervish (3395) kills by 61 people; 63 came within ten minutes of a Kolkar kill, a median of 25 seconds after the last one"
+				}
+			],
+			"issue": 2479
+		},
+		{
 			"id": "barrens-fizzule-flares-and-salute",
 			"faction": "Horde",
 			"at": {

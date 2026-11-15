@@ -326,7 +326,7 @@ step The Barrens: kill these as you meet them
 step Regthar Deathgate
   turnin 855
   turnin 850
-  accept 851                          -- Regthar Deathgate: Verog walks with the Kolkar at the Stagnant Oasis, later
+  accept 851                          -- Regthar Deathgate: Verog comes out when you kill the Kolkar at the Stagnant Oasis, later
 
 step The Dry Hills
   tip West to the Dry Hills. Any Witchwing harpy drops a talon: keep to the eastern slopes, where the Witchwing Harpies and Roguefeathers (14-15) nest; the Slayers and Windcallers (16-17) hold the western hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
@@ -627,7 +627,7 @@ step the Crossroads
 
 step Verog the Dervish
   zone The Barrens
-  tip Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads. Test Tonga's seeds at the bubbling fissure on the oasis' east bank while you are there.
+  tip Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test Tonga's seeds at the bubbling fissure on the oasis' east bank while you are there.
   collect 5023 quest 851.1
   interact 3737 quest 877.1           -- Underwater
   kill 12296 quest 6129.1 "Cure Sickly Gazelle" only Tauren,Skyborne,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads

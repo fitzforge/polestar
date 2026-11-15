@@ -3485,6 +3485,19 @@ test('Horde 40-50/03: the Stranglethorn Fever waves step warns of three back-to-
 	assert.ok(fixes.some((f) => f.at && f.at.quest === 349 && f.at.goal === 'turnin' && /three waves of gorillas/.test(f.tip || '')), 'and its record');
 });
 
+// Corey's report (#2479): the Verog step said he walks among the Kolkar, so players waited for him. He comes out when
+// the Stagnant Oasis' Kolkar are killed (recordings: 63 of 76 Verog kills a median 25 s after a Kolkar kill).
+test("The Barrens (Horde): Verog's step says he comes out when you kill the Kolkar (#2479)", { skip }, () => {
+	const list = goals('forever/horde/02-the-barrens.guide');
+	const verog = list[at(list, 'collect 5023 quest 851', (g) => g.t === 'collect' && g.quest === 851)];
+	const text = [verog.step.note, verog.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /doesn't wander on his own/, 'not a wandering spawn');
+	assert.match(text, /kill the Kolkar centaurs/, 'killing the Kolkar brings him out');
+	assert.doesNotMatch(text, /Verog walks among/, 'the old wording is gone');
+	const mech = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'mechanics-public.json'), 'utf8')).quests['851'];
+	assert.ok(mech && /Kolkar/.test(mech.note), 'the mechanic is recorded');
+});
+
 test('Horde 40-50/02: a character who knows Gadgetzan flies there instead of Freewind Post (#1976)', { skip }, () => {
 	// 30-40/02 learns Gadgetzan's flight path beside the Shimmering Flats; each way to Freewind Post has its twin.
 	const steps = compiled(H40('02-feralas')).steps;
