@@ -10549,18 +10549,6 @@
 				"issue": "-"
 			},
 			{
-				"q": 2870,
-				"faction": "Alliance",
-				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Against Lord Shalzaru: Lord Shalzaru is level 47 on the Isle of Dread, two over the 43-45 player on the Feralas route (recorded 25th percentile 43.3 at the step); the only later Feralas stop (50-60/04) is at about 57, where the quest is nine levels under.",
-				"issue": "-"
-			},
-			{
-				"q": 2871,
-				"faction": "Alliance",
-				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Delivering the Relic follows Against Lord Shalzaru (2870), left out.",
-				"issue": "-"
-			},
-			{
 				"q": 7003,
 				"faction": "Alliance",
 				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Zapped Giants: the zapped giants are 47-49 among elite Shore and Deep Striders (48-49) and Sea Elementals (48-49) at the Forgotten Coast, three or four over the player there (recorded 25th percentile 45.7, 5 players); the later Feralas stop (50-60/04) is at about 57, nine levels over the quest.",
@@ -10575,13 +10563,13 @@
 			{
 				"q": 7733,
 				"faction": "Alliance",
-				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Improved Quality: the Rage Scar yetis are 46-49 (Elder Rage Scar 48-49) in the High Wilderness, two to four over the 45 player at the end of the Feralas guide (Bennistrov's #1999: the guide wanted 47-48 mobs at 43); the later Feralas stop (50-60/04) is at about 57, nine over the quest.",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step): Improved Quality: the Rage Scar yetis are 46-49 (Elder Rage Scar 48-49) in the High Wilderness, two or more over the 45 player of the Feralas guide when it was written (Bennistrov's #1999: the guide wanted 47-48 mobs at 43); with the Riverglades and Shen'dralas in the route players end Feralas at about 47, still under the Elder Rage Scars, and the later Feralas stop (50-60/04) is at about 57, nine over the quest.",
 				"issue": "#1999"
 			},
 			{
 				"q": 7735,
 				"faction": "Alliance",
-				"reason": "Level tidy 0.4.0 (Alliance 40-50, mobs two or more over the player block a solo step; player level = the recorded 25th percentile where 5+ players are recorded, else the calibrated level model): Pristine Yeti Hide: a drop from the same Rage Scar yetis (46-49), left out with Improved Quality (7733).",
+				"reason": "Level tidy 0.4.0 (Alliance 40-50): Pristine Yeti Hide: a drop from the same Rage Scar yetis (46-49), left out with Improved Quality (7733).",
 				"issue": "#1999"
 			},
 			{
@@ -13373,18 +13361,6 @@
 				],
 				"b": [
 					"task",
-					5863
-				],
-				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): The Dunemaul Compound (Brutes 46-48, Gor'marok 49) is three over the 46 player of the Tanaris guide (recorded 25th percentile 46.9, 9 players; calibrated level model with rested experience 46.5). It is taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49, after The Borrower's hand-in, on the ride south-west toward the crater."
-			},
-			{
-				"a": [
-					"turnin",
-					2941
-				],
-				"b": [
-					"task",
 					3362
 				],
 				"faction": "Alliance",
@@ -13724,7 +13700,7 @@
 					617
 				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): Akiris by the Bundle's Naga Explorers are 43-44, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.8, 8 players). Taken there, done on the level-48 Booty Bay stop of the Hinterlands guide after the Bloodsail captains, on the beaches north of town."
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Akiris by the Bundle's Naga Explorers are 43-44, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.8, 8 players). Taken and done on the level-48 Booty Bay stop of the Hinterlands guide after the Bloodsail captains, on the beaches north of town; carried from the first visit it took the quest log past 35 in the Riverglades."
 			},
 			{
 				"a": [
@@ -13736,7 +13712,7 @@
 					621
 				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Zanzil's village (Zanzil Naga, Witch Doctors and Zombies 43-44) is two over the 42 player of the first Stranglethorn visit (recorded 25th percentile 42.1, 6 players). Zanzil's Secret and Voodoo Dues are taken there and done on the level-48 Booty Bay stop, north along the coast after the naga."
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Zanzil's village (Zanzil Naga, Witch Doctors and Zombies 43-44) is two over the 42 player of the first Stranglethorn visit (recorded 25th percentile 42.1, 6 players). Zanzil's Secret and Voodoo Dues are taken and done on the level-48 Booty Bay stop, north along the coast after the naga."
 			},
 			{
 				"a": [
@@ -13760,19 +13736,59 @@
 					348
 				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): Mokk the Savage (44) answers Witch Doctor Unbagwa's ritual, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.5, 6 players, 5 of them died there). Stranglethorn Fever is taken there and the ritual done on the level-48 Booty Bay stop, at the Mistvale hills above town."
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Mokk the Savage (44) answers Witch Doctor Unbagwa's ritual, three over the 41 player of the first Stranglethorn visit (recorded 25th percentile 41.5, 6 players, 5 of them died there). Stranglethorn Fever is taken on the level-48 Booty Bay stop and the ritual done there, at the Mistvale hills above town."
 			},
 			{
 				"a": [
-					"accept",
-					2877
+					"turnin",
+					2874
 				],
 				"b": [
-					"task",
-					2988
+					"accept",
+					617
 				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes): the Witherbark villages (Witherbark trolls 44-46, Hexed Larvae 45-46, Witch Doctor Ti'ik 49) are three or four over the 42 player of the Badlands guide's Hinterlands visit. Witherbark Cages and Troll Necklace Bounty are taken there and done on the level-47 Hinterlands landing at the end of the Tanaris guide, south of Rhapsody's camp, and handed in at Aerie Peak before The Altar of Zul."
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Akiris by the Bundle, Zanzil's Secret, Voodoo Dues and Stranglethorn Fever are taken on the level-48 Booty Bay stop, where they are done, not on the first Stranglethorn visit at 41: carried from there through the Riverglades they held the quest log at 36.",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"accept",
+					621
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Zanzil's Secret is taken on the level-48 Booty Bay stop with Akiris by the Bundle (pair above).",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"accept",
+					609
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Voodoo Dues is taken on the level-48 Booty Bay stop with Akiris by the Bundle (pair above).",
+				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"accept",
+					348
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50): Stranglethorn Fever is taken on the level-48 Booty Bay stop with Akiris by the Bundle (pair above).",
+				"source": "Alliance level tidy 2026-11-16"
 			},
 			{
 				"a": [

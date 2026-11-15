@@ -142,8 +142,8 @@ step Aerie Peak
   accept 1450
   turnin 1450                         -- Gryphon Master Talonaxe, inside
   accept 1451
-  accept 2988                         -- keep it: the Witherbark villages (44-46) wait for the level-47 Hinterlands stop
-  accept 2880                         -- Fraggar Thundermantle, inside: keep it for the same stop
+  accept 2988
+  accept 2880                         -- Fraggar Thundermantle, inside
 
 # ---------------------------------------------------------------- Aerie Peak
 
@@ -151,6 +151,19 @@ step Rhapsody Shindigger
   tip Rhapsody camps on the road east of Aerie Peak.
   turnin 1451
   accept 1452
+
+step Witherbark villages
+  tip The first two cages stand together in the Witherbark village south of Rhapsody; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
+  tip Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.
+  interact 144068 quest 2988          -- Third Witherbark Cage
+  interact 144067 quest 2988          -- Second Witherbark Cage
+  collect 9259 quest 2880             -- Troll Tribal Necklace
+  interact 144066 quest 2988          -- First Witherbark Cage
+
+step Aerie Peak
+  turnin 2880                         -- Fraggar Thundermantle, inside
+  turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top; inside
+  note Talonaxe's next task waits for a later Hinterlands guide.
 
 step Fly to Menethil Harbor
   zone The Hinterlands

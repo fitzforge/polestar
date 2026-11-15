@@ -10,10 +10,11 @@ next forever/alliance/40-50/05-the-hinterlands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Borrower (2941).
-# The Dunemaul Compound (5863, Brutes 46-48 and Gor'marok 49) and the Thistleshrub Valley (2605, 3362, mobs 48-50) are
-# taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49, on the ride west to the
-# crater: here at 46-47 they are two and three levels over the player. Sprinkle's Secret Ingredient (2641) and its
-# follow-ups need the Hinterlands water before that landing and are left out.
+# The Thistleshrub Valley (2605, 3362, mobs 48-50) is taken at Gadgetzan's first stop and done on the Un'Goro guide's
+# Gadgetzan landing at about 49.5, on the ride west to the crater: here at 47-48 its camps are two over the player.
+# Sprinkle's Secret Ingredient (2641) and its follow-ups need the Hinterlands water before that landing and are left
+# out. The Dunemaul Compound (5863, Brutes 46-48, Gor'marok 49) is done here again since the Riverglades and
+# Shen'dralas joined the route: players arrive at about 47.5.
 # Darnassus comes at the end of this guide, by the flight to Auberdine, before the boat to Menethil Harbor and the
 # Hinterlands: Troyas' answer (2939), Curgle's crate (3022), Tyrande (2972, 4267), Gracina (162) and Fandral's soil
 # errand (3763, 3764) are all Feralas and Tanaris errands, and Erelas' Favored of Elune? (3661) is then in the log for
@@ -58,7 +59,7 @@ step Gadgetzan
   accept 1690                         -- Chief Engineer Bilgewhizzle, by the water tower
   accept 1707                         -- Spigot Operator Luglunket, next to him
   sethome "Gadgetzan" npc 7733        -- Innkeeper Fizzgrimble
-  accept 5863                         -- Andi Lynn: keep it, the Dunemaul Compound waits for the same landing
+  accept 5863                         -- Andi Lynn
   accept 3022                         -- Curgle Cranklehop: his crate goes to Rut'theran Village, later
 
 step Gadgetzan
@@ -186,8 +187,11 @@ step The Noxious Lair
   collect 8587 quest 82               -- Centipaar Insect Parts
 
 step Dunemaul Compound
-  tip Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.
+  tip Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
   tip Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50) and the Gaping Chasm's silithids (47-50) come next. Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.
+  kill 5474 quest 5863                -- Dunemaul Brute
+  kill 5472 quest 5863                -- Dunemaul Enforcer
+  kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
   level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
 step Tooga's escort
@@ -197,7 +201,8 @@ step Tooga's escort
   turnin 1560                         -- Torta
 
 step Gadgetzan
-  tip Ride back west to Gadgetzan; Alchemist Pestlezugg is inside.
+  tip Ride back west to Gadgetzan: Andi Lynn stands on the east side of town, where you come in; Alchemist Pestlezugg is inside.
+  turnin 5863                         -- Andi Lynn
   turnin 82                           -- Alchemist Pestlezugg, inside
   accept 10                           -- Senior Surveyor Fizzledowser
 
@@ -324,6 +329,7 @@ step The Hinterlands
 step Aerie Peak
   zone The Hinterlands
   getfp "Aerie Peak"
+  accept 2989                         -- Gryphon Master Talonaxe, beside the flight master
   accept 2877                         -- Fraggar Thundermantle, inside
 
 step The Hinterlands
@@ -334,17 +340,3 @@ step The Hinterlands
 step Rhapsody Shindigger
   turnin 1452
   accept 1469
-
-step Witherbark villages
-  tip The first two cages stand together in the Witherbark village south of Rhapsody's camp; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
-  tip Careful: Witch Doctor Ti'ik (49) and his Hexed Larvae (45) keep to the huts of the western village, around 25,64: take the necklaces from the trolls outside.
-  interact 144068 quest 2988          -- Third Witherbark Cage
-  interact 144067 quest 2988          -- Second Witherbark Cage
-  collect 9259 quest 2880             -- Troll Tribal Necklace
-  interact 144066 quest 2988          -- First Witherbark Cage
-
-step Aerie Peak
-  tip Ride back north-west to Aerie Peak.
-  turnin 2880                         -- Fraggar Thundermantle, inside
-  turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top
-  accept 2989

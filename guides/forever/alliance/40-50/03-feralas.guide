@@ -5,7 +5,7 @@ faction Alliance
 levels 43-45
 zone Feralas
 next forever/alliance/40-50/04-tanaris
-pitch Mudsprocket's whelps, Feathermoon's isle, ogres and yetis.
+pitch Feathermoon's isle, ogres, yetis and the Isle of Dread.
 pro Two new flight paths for later
 pro Then on to Tanaris
 pro Stays on the main route
@@ -16,9 +16,10 @@ con Boats to and from the island
 # into this file.
 # Added here: Rise of the Silithid (4267).
 # Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
-# Left out: Against Lord Shalzaru (2870, 2871; Shalzaru is 47, two over the 43-45 player here) and Zorbin's Zapped
-# Giants and Fuel for the Zapping (7003, 7721; Sea Elementals and zapped giants 47-49, elite giants around them).
-# The Gordunni ogres come after the grind to 45: their Shamans are 44-45 and the Mage-Lords 45-46.
+# Left out: Zorbin's Zapped Giants and Fuel for the Zapping (7003, 7721; Sea Elementals and zapped giants 47-49, elite
+# giants around them) and Pratt's Improved Quality and Pristine Yeti Hide (7733, 7735; Rage Scar yetis 46-49, #1999).
+# Since the Riverglades and Shen'dralas joined the route, players arrive here at about 46: Lord Shalzaru (47) and the
+# Gordunni (44-46) are done on the guide's own loop again.
 
 # Mudsprocket: Drazzit Dripvalve's and Gizzix Grimegurgle's three Wyrmbog quests (98205, 98215, 98231, level 44,
 # whelps and Firemane 41-44), on the ride west out of Dustwallow Marsh after Theramore. Shown only when you start the
@@ -95,6 +96,8 @@ step Hatecrest naga
 
 step Feathermoon Stronghold
   turnin 2869                         -- Latronicus Moonspear
+  accept 2870
+  note Lord Shalzaru waits for the end of the mainland loop.
 
 step Boat to The Forgotten Coast
   zone Feralas
@@ -111,14 +114,35 @@ step The courier's boat
   turnin 4125                         -- Wrecked Row Boat
   accept 4127
 
+step Gordunni ogres
+  tip Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north.
+  kill 5236 quest 2982                -- Gordunni Shaman
+  kill 5232 quest 2982                -- Gordunni Brute
+  kill 5240 quest 2982                -- Gordunni Warlock
+
+step Feral Scar Vale
+  tip Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; Bloodroar the Stalker (level 48) prowls the middle.
+  collect 8973 quest 2821             -- Thick Yeti Hide
+  collect 6259 quest 1452.3 @57.5,56.5 map 1444 -- Groddoc Liver
+
+step Isle of Dread
+  tip The Isle of Dread is the island just south of Sardor Isle: swim over. Hatecrest Serpent Guards and Sorceresses hold it; Lord Shalzaru (level 47) waits in the cave at its south end. Pull his guards first.
+  collect 9248 quest 2870 @28.5,70.5 map 1444 -- Mysterious Relic; below ground
+
 step Feathermoon Stronghold
-  tip Coming from the south: Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Coming from the south: Latronicus and Vestia first, then Angelas beside Ginro's building, then the stairs. Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Pratt is by the flight master, on the way out.
+  turnin 2870                         -- Latronicus Moonspear
+  accept 2871
+  turnin 2871                         -- Vestia Moonspear
+  turnin 2982                         -- Angelas Moonbreeze
   turnin 4127                         -- Ginro Hearthkindle
   accept 4129
   turnin 4129                         -- Quintis Jonespyre, upstairs
   accept 4130
   turnin 4130                         -- Ginro Hearthkindle
   accept 4131
+  turnin 2821                         -- Pratt McGrubben
+  note Pratt's next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it.
 
 step Fly to Thalanaar
   when taxi "Thalanaar"
@@ -169,29 +193,17 @@ step The Writhing Deep
 
 step Grind to 45
   zone Feralas
-  tip Ride west into Feral Scar Vale: grind its Feral Scar Yetis (43-44) to 45, and take Pratt's thick hides from them as you go; the Groddoc Apes (42-43) on the slopes to the south drop Rhapsody's livers. Bloodroar the Stalker (level 48) prowls the middle and the Hulking Feral Scars (45-46) the north end. Or, with a group, run the Zul'Farrak dungeon instead.
-  collect 8973 quest 2821             -- Thick Yeti Hide
-  collect 6259 quest 1452.3 @57.5,56.5 map 1444 -- Groddoc Liver
+  tip Ride west into Feral Scar Vale: its yetis are 43-45. The Rage Scar yetis in the hills to the north are 46-49: leave them. Or, with a group, run the Zul'Farrak dungeon instead.
   level 45 grind 5292 -- grind on Feral Scar Yeti at Feral Scar Vale, Feralas
-
-step Gordunni ogres
-  when level>=45
-  tip Ride south-east to the Gordunni camp in the hills beside the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north.
-  tip Careful: the Gordunni Mage-Lords (45-46) cast from range among the Shaman: pull one at a time from the camp's edge.
-  kill 5236 quest 2982                -- Gordunni Shaman
-  kill 5232 quest 2982                -- Gordunni Brute
-  kill 5240 quest 2982                -- Gordunni Warlock
 
 step Ironfur bears
   zone Feralas
-  when level>=45
-  tip Ride north out of the Gordunni hills: the Ironfur Bears (41-42) at the foot of the High Wilderness drop Rhapsody's last liver.
+  tip Ride north out of Feral Scar Vale: the Ironfur Bears (41-42) at the foot of the High Wilderness drop Rhapsody's last liver.
   tip Careful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge.
   collect 6258 quest 1452.2 @53.2,47.3 map 1444
 
 step Feathermoon Stronghold
-  tip Angelas Moonbreeze stands beside Ginro's building; Ginro Hearthkindle stands upstairs in it: go up inside, the arrow cannot tell the floors apart.
-  turnin 2982                         -- Angelas Moonbreeze
+  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 4265                         -- Ginro Hearthkindle
   accept 4266
   turnin 4266                         -- Shandris Feathermoon
@@ -199,8 +211,6 @@ step Feathermoon Stronghold
 
 step Feathermoon Stronghold
   note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
-  turnin 2821                         -- Pratt McGrubben, by the flight master
-  note Pratt's next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it.
 
 step Fly to Thalanaar
   zone Feralas

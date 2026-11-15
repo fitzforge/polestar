@@ -12,6 +12,10 @@ next forever/alliance/40-50/06-searing-gorge
 # Added here: The Monogrammed Sash (8552).
 # The hearth is set in Ironforge on the training stop: the Searing Gorge guide starts with it (and the gryphon to
 # Thelsamar), and the Burning Steppes guide hearths back there twice.
+# Booty Bay at 48: Akiris by the Bundle (617), Zanzil's Secret (621), Voodoo Dues (609) and Stranglethorn Fever (348)
+# are taken here and done on the coast north of the bay and in the gorilla hills: on 40-50/01's visit at 41 their naga,
+# Zanzil's followers and Mokk were two and three levels over the player, and carrying them from there took the quest log
+# past 35 in the Riverglades.
 
 step The Altar of Zul
   when onquest 2989
@@ -105,7 +109,11 @@ step Fly to Booty Bay
 step Booty Bay
   zone Stranglethorn Vale
   turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
+  accept 609                          -- "Sea Wolf" MacKinley
   accept 608                          -- Fleet Master Seahorn, top floor
+  accept 617                          -- Privateer Bloads
+  accept 621                          -- Crank Fizzlebub, inside
+  accept 348                          -- Fin Fizracket
 
 step The Bloodsail captains
   zone Stranglethorn Vale

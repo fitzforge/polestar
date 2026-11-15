@@ -7236,11 +7236,15 @@ test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshi
 // Flow review (2026-11-07): Alliance Feralas went back to Feathermoon after the southern mainland loop, then took the
 // boat out again for Lord Shalzaru on the Isle of Dread and back for his hand-in; the Groddoc livers waited for the
 // eastern loop, which walked back to the apes by Feral Scar Vale.
-test('forever/alliance/40-50/03-feralas.guide: flow re-order: one Feathermoon visit for the southern loop, Groddoc livers by Feral Scar, the Gordunni after the grind to 45 (level tidy 0.4.0)', { skip }, () => {
+test('forever/alliance/40-50/03-feralas.guide: flow re-order: Lord Shalzaru closes the southern loop, one Feathermoon visit, Groddoc livers by Feral Scar', { skip }, () => {
 	const list = goals('forever/alliance/40-50/03-feralas.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
-	assert.ok(!list.some(({ goal }) => [2870, 2871, 7003, 7721].includes(goal.quest)), 'Lord Shalzaru (47) and Zorbin\'s giants (47-49) are left out at 43-45');
-	assert.ok(stepOf('turnin 4127', is('turnin', 4127)) < stepOf('the grind to 45', (g) => g.t === 'level' && g.level >= 45), 'the courier chain on the first Feathermoon return');
+	const relic = stepOf('the Mysterious Relic (2870)', (g) => g.t === 'collect' && g.quest === 2870);
+	assert.ok(relic > stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'after the yetis');
+	assert.ok(relic < stepOf('turnin 4127', is('turnin', 4127)), 'before the Feathermoon hand-ins');
+	assert.equal(stepOf('turnin 2870', is('turnin', 2870)), stepOf('turnin 4127', is('turnin', 4127)), 'one Feathermoon visit');
+	// Level tidy (0.4.0): Zorbin's giants (47-49, elite Striders around them) stay left out.
+	assert.ok(!list.some(({ goal }) => [7003, 7721].includes(goal.quest)), "Zorbin's giants are left out");
 	assert.equal(stepOf('the Groddoc livers', (g) => g.t === 'collect' && g.quest === 1452 && g.oi === 3), stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'the livers with the yetis');
 });
 
@@ -9697,7 +9701,10 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 		else assert.equal(gate.goal.only, undefined, `${file}: the gate before ${q} is for everyone`);
 	};
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	assert.equal(step(stv, 'accept', 348), step(stv, 'turnin', 587), 'Stranglethorn Fever on the Booty Bay stop after the Wild Shore');
+	// Level tidy (0.4.0): Stranglethorn Fever (minimum 40) is taken on the level-48 Booty Bay stop of 40-50/05, where Mokk is fought.
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	assert.ok(!stv.some(({ goal }) => is('accept', 348)(goal)), 'Stranglethorn Fever is not taken at 41');
+	assert.equal(step(hin, 'accept', 348), step(hin, 'turnin', 2874), 'Stranglethorn Fever on the level-48 Booty Bay stop');
 	assert.equal(step(stv, 'accept', 2872), step(stv, 'turnin', 606), "Stoley's Debt on the Booty Bay stop after the gorilla hills");
 	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));

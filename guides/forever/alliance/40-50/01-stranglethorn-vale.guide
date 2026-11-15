@@ -212,10 +212,10 @@ step Booty Bay
   zone Stranglethorn Vale
   turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
-  accept 617                          -- Privateer Bloads: keep it, the naga (43-44) wait for the level-48 Booty Bay stop
+  note Privateer Bloads' Akiris by the Bundle waits for the level-48 Booty Bay stop (its naga are 43-44): leave it for now.
   turnin 669                          -- Fleet Master Seahorn, top floor
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
-  accept 621                          -- Inside: keep it, Zanzil's village (43-44) waits for the level-48 Booty Bay stop
+  note Crank Fizzlebub's Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now.
   note Seahorn's next errand goes back to Arathi: skip it.
   turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
@@ -253,7 +253,7 @@ step Wild Shore: kill these as you meet them
 
 step Booty Bay
   turnin 587                          -- Deeg, on the top floor
-  accept 348                          -- Fin Fizracket: keep it, Mokk waits for the level-48 Booty Bay stop
+  note Fin Fizracket's Stranglethorn Fever (Mokk the Savage) waits for the level-48 Booty Bay stop: leave it for now.
   turnin 604                          -- Fleet Master Seahorn
   note Seahorn now offers The Bloodsail Buccaneers: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it.
   turnin 576                          -- Dizzy One-Eye
@@ -268,7 +268,7 @@ step Booty Bay
   accept 607
   accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
   turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
-  accept 609                          -- keep it: Zanzil's village waits for the level-48 Booty Bay stop
+  note MacKinley's Voodoo Dues waits for the level-48 Booty Bay stop, with Zanzil's village: leave it for now.
 
 step Cortello's scroll
   tip Optional: Cortello's scroll lies inside one of the three Bloodsail ships anchored off the coast just south of Booty Bay, on a middle or lower deck, and is not always on the same ship. Their crews are 42-45 pirates: clear your way from the edge, one at a time, and leave the captains (45-48), whom the route comes back for at 48.
