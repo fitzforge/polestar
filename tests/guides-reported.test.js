@@ -257,6 +257,18 @@ test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after 
 	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'accept 833 (Red Rocks)', is('accept', 833)), 'Baine takes the head before Red Rocks');
 });
 
+// --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye (11) was killed on Brill's north loop at 7-8 (players' 25th
+// percentile 8.1). The poster is read on the last Brill stop after the Balnir Farmstead, Garren's Haunt is on the
+// walk west to Leonid, and the paw goes to Executor Zygand on the final Brill stop.
+test(`${TIRISFAL}: level tidy: Maggot Eye after the Balnir Farmstead, not on the north loop`, { skip }, () => {
+	const list = goals(TIRISFAL);
+	const paw = at(list, "Maggot Eye's Paw (398)", (g) => g.t === 'collect' && g.quest === 398);
+	for (const q of [371, 369, 356]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < paw, `${q} is handed in before Maggot Eye`);
+	assert.ok(at(list, 'turnin 368 (A New Plague)', is('turnin', 368)) < paw, 'the north loop and its murlocs come first');
+	assert.ok(paw < at(list, 'turnin 96899 (Leonid)', is('turnin', 96899)), 'Garren\'s Haunt on the walk west to Leonid');
+	assert.ok(at(list, 'turnin 398', is('turnin', 398)) > paw, 'Zygand takes the paw afterwards');
+});
+
 // --- Hand-overs (Onrevax, #337): a report an NPC gives you by hand names him,
 // so the target button and the step key have someone to target.
 

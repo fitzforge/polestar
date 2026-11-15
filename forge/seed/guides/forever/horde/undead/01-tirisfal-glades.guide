@@ -245,7 +245,6 @@ step Brill
   accept 427
   accept 99134
   accept 99141
-  accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
 
 step Faruza
@@ -394,8 +393,7 @@ step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip Greater Duskbats fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings.
   tip The Doom Weed grows in the graveyard fields just north of Brill, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.
-  tip The Rot Hide Mongrels hold the hills further north. Maggot Eye (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.
-  tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
+  tip The Rot Hide Mongrels hold the hills further north, around Garren's Haunt. Leave Maggot Eye (level 11) in his hut for now: the guide comes back for him at the end.
   tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene.
   collect 2876 quest 375.1
   collect 278242 quest 97558.1
@@ -403,7 +401,6 @@ step Tirisfal Glades: kill these as you meet them
   kill 1941 quest 358.1
   collect 2834 quest 358.3
   kill 1675 quest 358.2               -- Rot Hide Mongrel walks around Garren's Haunt: look inside the circle on the map
-  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
   collect 2859 quest 368.1
   collect 278244 quest 97558.3
 
@@ -414,7 +411,6 @@ step Brill
   turnin 368                          -- Apothecary Johaan, inside
   accept 369
   accept 91282 only Paladin           -- Shari Stilwell, the Paladin trainer: A Second Home, to Bandarion Keep
-  turnin 398                          -- Executor Zygand
   turnin 358                          -- Magistrate Sevren, inside
   accept 359
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
@@ -564,11 +560,19 @@ step Brill
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
+  accept 398                          -- The Wanted poster by the inn
+
+# Maggot Eye (11) waits for this last Brill stop, at about 11.5: on the 7-8 north loop he was 3-4
+# levels up (level tidy 0.4.0). Garren's Haunt is a short way north on the walk west to Leonid.
+step Maggot Eye
+  tip North to Garren's Haunt, the Rot Hide camp on the hill south of the shore. Maggot Eye (level 11) stands in the hut: clear the gnolls around him first.
+  tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
+  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
 
 # ---------------------------------------------------------------- Leonid, then on to the Barrens
 
 step Leonid Barthalomew the Revered
-  tip Follow the road west past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
+  tip West from Garren's Haunt past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
@@ -651,4 +655,5 @@ step Back to Tirisfal Glades
 step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
+  turnin 398                          -- Executor Zygand, in front of the inn
   note The next guide walks south from Brill into Silverpine Forest.

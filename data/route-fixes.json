@@ -5510,19 +5510,6 @@
 			},
 			{
 				"a": [
-					"task",
-					358,
-					0
-				],
-				"b": [
-					"task",
-					398,
-					0
-				],
-				"why": "c15 review: Maggot Eye (58.7,30.8) stands in the Rot Hide Mongrel camp at Garren's Haunt (56-61,31-38) that Graverobbers' Mongrels send the player through in Brill's north sweep, at about 8.5 with the paw quest already in the log, so he dies on that pass with no walk of his own. c15 moved him (edit 30, camp revisit) behind the Vile Fin Murloc Skins north of the Crusader's Outpost at 32,46, so the west loop ended with a walk of about 1,200 yd east to Garren's Haunt and the sweep's step named him in a tip with no goal (judge: avoidable trip to Garren's Haunt)"
-			},
-			{
-				"a": [
 					"turnin",
 					763
 				],
@@ -6266,19 +6253,6 @@
 					1
 				],
 				"why": "#1046: the Darkhound Hides for Hides for the Forsaken and the Darkhound Blood for A New Plague (367) drop from the same Decrepit and Cursed Darkhounds west of Brill: one stretch of the west loop, with the Putrid Claws in the same fields"
-			},
-			{
-				"a": [
-					"task",
-					398,
-					0
-				],
-				"b": [
-					"task",
-					368,
-					0
-				],
-				"why": "#1046: Maggot Eye's camp at Garren's Haunt (58.7,30.8) is on the hill just south of the north shore where the Vile Fins for A New Plague (368) walk: the north loop goes on from him to the shore and back to Brill, one direction, no doubling back"
 			},
 			{
 				"a": [
@@ -12277,6 +12251,18 @@
 				],
 				"faction": "Horde",
 				"why": "Level tidy 0.4.0 (Mulgore): the Venture Co. Mine (Workers and Supervisors 8-10, Supervisor Fizsprocket 12; 6 players died there) was worked at 9; with the centaurs (the record before) it now comes after the Bloodhoof hand-ins at about 11. The Ravaged Caravan's hand-in to Morin (751) and his two quests go with it, on the first Morin stop of that loop"
+			},
+			{
+				"a": [
+					"turnin",
+					371
+				],
+				"b": [
+					"task",
+					398
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): WANTED: Maggot Eye (10; Maggot Eye is 11) was done on Brill's north loop at 7-8 (players' 25th percentile 8.1), 3-4 levels below him. The poster is read on the last Brill stop after the Balnir Farmstead (about 11.5) and Garren's Haunt is visited on the walk west to Leonid, a short way north of the road; Executor Zygand takes the paw on the final Brill stop. This replaces #1046's together record (Maggot Eye with A New Plague's murlocs on the north loop): the murlocs stay there"
 			},
 			{
 				"a": [
