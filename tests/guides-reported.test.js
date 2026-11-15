@@ -11665,7 +11665,10 @@ test('Horde 24-30: Thunder Bluff stop for Pigments and The Sacred Flame, carrier
 	const b = goals('forever/horde/04-the-barrens.guide');
 	const tb = at(b, 'the Thunder Bluff stop', is('accept', 1195));
 	assert.equal(b[tb].goal.npc, 4721);
-	assert.ok(at(b, 'Tah', is('accept', 97538)) < at(b, 'the flight on to the Crossroads', (g) => g.t === 'fly' && /Crossroads/.test(g.dest || g.name || g.to || JSON.stringify(g))), 'both quests before the flight to the Crossroads');
+	// Level tidy 0.4.0: the guide now opens with a Crossroads landing for Korran's Egg Hunt; the flight that matters
+	// is the next one to the Crossroads after the Thunder Bluff stop.
+	const onward = b.findIndex(({ goal }, i) => i > tb && goal.t === 'fly' && /Crossroads/.test(goal.dest || goal.name || goal.to || JSON.stringify(goal)));
+	assert.ok(onward > tb && at(b, 'Tah', is('accept', 97538)) < onward, 'both quests before the flight to the Crossroads');
 	const carrier = (list, i, q) => assert.ok((list[i].step.when || []).some((p) => (p.k === 'onquest' || p.k === 'complete') && !p.neg && [].concat(p.q).includes(q)), `${list[i].goal.t} ${q}: only for a carrier`);
 	carrier(b, at(b, 'Mirkweed Pods', (g) => g.t === 'collect' && g.item === 278201), 97538);
 	assert.ok(at(b, 'Mirkweed Pods', (g) => g.t === 'collect' && g.item === 278201) > at(b, 'Gaea Seeds', (g) => g.t === 'collect' && g.item === 16205), 'the pods with the Gaea Seeds\' shore');
@@ -14113,10 +14116,10 @@ test('Durotar: Rezlak waits for the Dull Storm Orb\'s quest and its follow-up be
 // The danger gate's grind rule (#2207): a top-up whose camp stands 2+ levels over the player when it starts. Five Horde
 // top-ups move to a camp at most a level over the player, at the same place or a short ride off; the top-up on the
 // Diseased Grizzlies (55-56) becomes one to 53 on the Carrion Lurkers (52-53) on the way to Mulgris, who sends you to
-// the bears, so they are fought at 53.
+// the bears, so they are fought at 53. (Level tidy 0.4.0: Ashenvale's top-up to 29.49 on the Screeching Harpies left
+// with Roguefeather Den, which Thousand Needles' first Freewind visit now does at 31.)
 test('Horde grind top-ups stand on camps at most a level over the player (#2207)', { skip }, () => {
 	for (const [guide, title, npc] of [
-		['forever/horde/07-ashenvale.guide', 'Level 29.49', 4100],
 		['forever/horde/30-40/02-thousand-needles.guide', 'Level 33', 4635],
 		['forever/horde/50-60/02-felwood.guide', 'Level 52.63', 1821],
 		['forever/horde/50-60/03-winterspring.guide', 'Level 55.04', 7458],

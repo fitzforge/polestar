@@ -515,5 +515,5 @@ step Freewind Post
   turnin 5147
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
-  vendor nearest
+  vendor nearest optional
   note Jandia's two harpy quests come with the next Freewind visit, at 31, with the Mirage Raceway's quests.
