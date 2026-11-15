@@ -7101,6 +7101,32 @@
 			"evidence": "route level 14.8; High Order Mage 30-30 x2; recordings (2026-11-13): done by 40 people (median 18.1), 0 people died within 60 yd, 9 abandoned"
 		},
 		{
+			"key": "forever/horde/04-the-barrens.guide|kill 97250.1|elite",
+			"guide": "forever/horde/04-the-barrens.guide",
+			"goal": "kill 97250.1",
+			"kind": "elite",
+			"title": "Wrongly Blamed, Justly Corrected",
+			"level": 24.5,
+			"mobs": [
+				"Outraged Pillager 23-23 x4"
+			],
+			"reason": "a group choice (when group 97250) whose tip says the Outraged Pillager is elite and advises a group; the elite is a level under the route's level, and the step's model level fell from about 25 to 24.5 only because Hillsbrad's smithy, Dangerous! and Elixir of Agony moved to the 30 visit (0.4.0 level tidy)",
+			"evidence": "route level 24.5; Outraged Pillager 23-23 x4 (elite); recordings (0.4.0 data): done by 29 people (median 26.6), 2 died within 60 yd, 8 abandoned"
+		},
+		{
+			"key": "forever/horde/05-stonetalon-mountains.guide|collect 479.1|over",
+			"guide": "forever/horde/05-stonetalon-mountains.guide",
+			"goal": "collect 479.1",
+			"kind": "over",
+			"title": "Ambermill",
+			"level": 22.5,
+			"mobs": [
+				"High Order Mage 30-30 x4"
+			],
+			"reason": "the same Ambermill goal as Silverpine's (its baseline row: the High Order Mages stand on the Ambermill road and in Alterac's Dalaran ruins, and no one died to one there), now taken on the Silverpine ride at 22; the step before it names the High Order Mages",
+			"evidence": "route level 22.5; High Order Mage 30-30 x4; recordings (0.4.0 data): done by 53 people (median 17.3), 0 died within 60 yd, 11 abandoned"
+		},
+		{
 			"key": "forever/horde/04-the-barrens.guide|collect 86576.1|rare",
 			"guide": "forever/horde/04-the-barrens.guide",
 			"goal": "collect 86576.1",

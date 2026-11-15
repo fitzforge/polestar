@@ -134,6 +134,17 @@
 			"issue": 1575
 		},
 		{
+			"id": "level-tidy-040-durotar-halikor-lizards",
+			"faction": "Horde",
+			"at": { "quest": 97282, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
+			"note": "Level tidy 0.4.0: the Thunder Ridge lizards (Stormy Potential) are a step of their own again, before Misha, with Fizzle Darkstorm after; Halikor (12, elite) patrols among the lizards, so the warning the Fizzle step carries (1575-durotar-halikor-fizzle) goes on the lizards' step too.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30); 3130 Thunder Lizard 39-41,27-31, 3131 Lightning Hide 39-44,24" }
+			],
+			"issue": 1575
+		},
+		{
 			"id": "1575-durotar-halikor-singed-scale",
 			"faction": "Horde",
 			"at": { "quest": 1498, "goal": "objective", "objective": 1 },
@@ -321,8 +332,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
-			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22.",
+			"tip": "On the roads around Ambermill, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
+			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22. 0.4.0 level tidy: Ambermill Investigations moved to the ride through Silverpine at 22 (05-stonetalon-mountains), on the roads Watching the Roads already walks, so the tip no longer starts from the ferry.",
 			"source": {
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-13: deaths on 03-silverpine-forest's Ambermill step, killers 1914, 2540, 1912; npcs.json levels"
@@ -2029,8 +2040,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
-			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip.",
+			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the Silithid Mounds in the Field of Giants, south of Camp Taurajo, until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip. 0.4.0 level tidy: the eggs (Egg Hunt) moved to 04-the-barrens at 25, so the tip names the mounds itself.",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -2145,11 +2156,11 @@
 			"id": "ashenvale-zoramgar-already-there",
 			"faction": "Horde",
 			"at": {
-				"quest": 6462,
+				"quest": 6442,
 				"goal": "accept"
 			},
 			"tip": "Learn the flight path here while you pick up the outpost's quests.",
-			"note": "The Horde Stonetalon guide walks across Ashenvale to Zoram'gar Outpost (the step before, Marukai) and learns its flight path in this step; the seed tip \"Fly from Ratchet to Zoram'gar Outpost\" named a flight to a path not learned yet, from a town the player is not in.",
+			"note": "The Horde Stonetalon guide walks across Ashenvale to Zoram'gar Outpost and learns its flight path in this step; the seed tip \"Fly from Ratchet to Zoram'gar Outpost\" named a flight to a path not learned yet, from a town the player is not in. (Anchored on Marukai's Naga at the Zoram Strand since the 0.4.0 level tidy moved Troll Charm to the 26 visit, #2372.)",
 			"source": [
 				{
 					"kind": "client",
@@ -2344,6 +2355,48 @@
 				}
 			],
 			"pr": 1077
+		},
+		{
+			"id": "level-tidy-040-durotar-echo-isles-level-9",
+			"faction": "Horde",
+			"at": {
+				"quest": 97225,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 9,
+			"note": "Level tidy 0.4.0 (Orc and Troll Durotar): the southern Echo Isles hold Voodoo and Hexed Trolls of 8-9 and Zalazane (10). After Kolkar Crag and its Sen'jin hand-ins players arrive at about 8.8; a top-up to 9 on the Durotar Tigers (7-8) between the northern and the southern isles makes sure no one meets the trolls at 8. The level-10 top-up before Razor Hill's Conscript of the Horde absorbs it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Echo Isles objectives ticked at a 25th percentile of 8.3 (Orc, 31 people) and 8.1 (Troll, 15); 13 people died there at levels 6.7-8.8, 8 of them to a troll above their level"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3206 Voodoo Troll and 3207 Hexed Troll 8-9, 3205 Zalazane 10, 3121 Durotar Tiger 7-8; quests 826 (10), 808 and 97225 (9)"
+				}
+			]
+		},
+		{
+			"id": "level-tidy-040-durotar-benedict-level-7",
+			"faction": "Horde",
+			"at": {
+				"quest": 784,
+				"goal": "objective",
+				"objective": 3
+			},
+			"level": 7,
+			"note": "Level tidy 0.4.0 (Orc and Troll Durotar): Lieutenant Benedict (8) stands at the top of Tiragarde Keep among the Kul Tiras Marines (6-7). Players killed him at 6.6-7.1 and the keep's deaths were at 6.8-7.7; with the prickly pears moved to Encroachment, the keep is reached a little lower still. The outskirts, sailors and marines are a step of their own, then a top-up to 7 on the Kul Tiras Sailors (5-6) around the keep, then Benedict and his chest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Benedict's kill ticked at a 25th percentile of 7.09 (Orc, 33 people) and 6.85 (Troll, 14); 7 people died at the keep at 6.8-12.9, 3 to marines of 7"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3192 Lieutenant Benedict 8, 3129 Kul Tiras Marine 6-7, 3128 Kul Tiras Sailor 5-6 (Durotar 56-60,51-59)"
+				}
+			]
 		},
 		{
 			"id": "1077-durotar-quilboar-in-the-razormane-grounds-step",
@@ -4777,7 +4830,7 @@
 				"quest": 1824,
 				"goal": "accept"
 			},
-			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to Ruga; the thunderhawks after.",
+			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The antennae come first, at the Silithid Mounds south of the camp, then straight back to Ruga; the thunderhawks after.",
 			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit. Since 0.3.8 the thunderhawks come after the hand-in (route-fixes pair turnin 1824 -> task 913): with them before it, players' recordings on Polestar 0.3.5 and later show 6 accepts, 2 hand-ins, 2 fails and 2 abandons.",
 			"source": [
 				{

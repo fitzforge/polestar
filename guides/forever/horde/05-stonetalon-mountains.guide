@@ -18,17 +18,16 @@ next forever/horde/06-hillsbrad-foothills
 # Flow: north across the Barrens to Kadrak at the Mor'shan Rampart (Report to Kadrak) ->
 # Splintertree Post (flight path) -> Night Run (Ashenvale Hunt)
 # -> west across Ashenvale, Va'xug Firefure's ravine on the way -> Zoram'gar Outpost (flight path,
-# naga heads) -> Thistlefur Village and Hold -> Zoram'gar, Vorsha the Lasher ->
-# fly to Splintertree
-# (Ruul's hand-in) -> fly to Orgrimmar
+# naga heads) -> Vorsha the Lasher -> Zoram'gar -> fly to Orgrimmar
 # (training) -> zeppelin to Tirisfal Glades -> the Sepulcher (Allister's two
 # road quests, Journey to Hillsbrad) -> the roads around Ambermill and Beren's Peril (the
 # Offering Stone) -> Southpoint Tower for forever/horde/06-hillsbrad-foothills.
 #
-# Thistlefur at 21: Troll Charm, Between a Rock and a Thistlefur and Freedom to Ruul are done from
-# Zoram'gar on this visit (the old chain took them at 23 and carried them through Stonetalon and
-# Hillsbrad to the 27 visit). The Sapphires, Torek, Pixel and Senani's hunt
-# targets are level 23-27 and wait for the second visit at 26; none is taken now and carried.
+# Thistlefur waits for the second Ashenvale visit at about 26.5 (forever/horde/07-ashenvale, #2372):
+# Troll Charm, Between a Rock and a Thistlefur and Freedom to Ruul (all level 24; Avengers, Shamans and
+# the hold's Ursa and Den Watchers 23-24 in packs, Shamans calling for help) were done here at 22, two
+# levels under them, and players died there. The Sapphires, Torek, Pixel and Senani's hunt
+# targets are level 23-27 and wait for the same visit; none is taken now and carried.
 #
 # Ashenvale Outrunners (level 24, Outrunners 23-24) waits for the second Ashenvale visit at 26
 # (forever/horde/07-ashenvale), with Torek and Sharptalon by the same lumber camp: taken on the way
@@ -125,11 +124,9 @@ step A Void Path
 # ---------------------------------------------------------------- Zoram'gar Outpost
 
 step Zoram'gar Outpost
-  tip Head west along the main road across Ashenvale, past Astranaar (Alliance: keep to the road), to the coast. Zoram'gar Outpost is on the Zoram Strand in the north-west: Marukai, Mitsuwa and Karang Amakkar stand around it, the Warsong Runner beside the flight master. Its other quests are for the next visit, at 26.
+  tip Head west along the main road across Ashenvale, past Astranaar (Alliance: keep to the road), to the coast. Zoram'gar Outpost is on the Zoram Strand in the north-west: Marukai and Muglash stand around it, the Warsong Runner beside the flight master. Its other quests, Thistlefur's among them, are for the next visit, at 26.
   getfp "Zoram'gar Outpost"
   accept 6442                         -- Marukai
-  accept 6462                         -- Mitsuwa: the troll charms are in Thistlefur Hold, east of the outpost
-  accept 216                          -- Karang Amakkar
   accept 6641                         -- Muglash: take it last, his escort starts at once
 
 step Vorsha the Lasher
@@ -142,39 +139,14 @@ step Naga heads
   collect 5490 quest 6442
 
 step Zoram'gar Outpost
-  tip Back to the outpost before heading east to Thistlefur.
+  tip Back to the outpost.
   turnin 6641                         -- Warsong Runner
   turnin 6442                         -- Marukai
 
-# ---------------------------------------------------------------- Thistlefur
-
-step Thistlefur Village
-  tip East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.
-  tip Careful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs.
-  kill 3925 quest 216.1
-  kill 3924 quest 216.2
-
-step Thistlefur Hold
-  tip Inside the hold, Troll Chests lie along the tunnels. Ruul Snowhoof is held deep inside: free him and protect him all the way out, then he runs home to Night Run.
-  tip Careful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where Dal Bloodclaw roams.
-  collect 16602 quest 6462            -- Below ground
-  accept 6482                         -- Ruul Snowhoof, below ground
-  complete 6482
-
-step Zoram'gar Outpost
-  tip Back west to Zoram'gar. Karang offers King of the Foulweald now; leave it for the next Ashenvale visit at 26, when the walk east passes the Foulweald.
-  turnin 216                          -- Karang Amakkar
-  turnin 6462                         -- Mitsuwa
-
-step Splintertree Post
-  tip Fly to Splintertree Post: Yama Snowhoof waits in the inn for news of Ruul.
-  fly "Splintertree Post"
-  turnin 6482                         -- Yama Snowhoof, inside the inn
-
 step Fly to Orgrimmar
   zone Ashenvale
-  tip Out of the inn to the Splintertree Post flight master and fly to Orgrimmar.
-  goto 73.26,61.67 "Splintertree Post flight master"
+  tip Fly to Orgrimmar from the Zoram'gar Outpost flight master.
+  goto 12.2,33.8 "Zoram'gar Outpost flight master"
   fly "Orgrimmar"
   zone Orgrimmar
 
@@ -253,6 +225,7 @@ step The Sepulcher
   accept 493                          -- Apothecary Renferrel: Lydon in Tarren Mill, next guide
   accept 95981                        -- Shadow Priest Allister
   accept 516                          -- Shadow Priest Allister: Beren's Peril, south-east of Ambermill
+  accept 479                          -- Shadow Priest Allister: Ambermill's pendants, on the same roads
 
 step Deathguard Podrig
   only Undead
@@ -274,6 +247,11 @@ step Silverpine Forest: kill these as you meet them
   kill 1888 quest 95981.1
   kill 1973 quest 516.2               -- Below ground
   kill 1974 quest 516.1
+
+step Ambermill
+  zone Silverpine Forest
+  tip On the roads around Ambermill, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.
+  collect 3354 quest 479.1            -- Dalaran Pendant
 
 step Beren's Peril
   zone Silverpine Forest

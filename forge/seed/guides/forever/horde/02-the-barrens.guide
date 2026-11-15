@@ -14,9 +14,10 @@ next forever/horde/05-stonetalon-mountains
 # the route walks past twice; her escort ends at Camp Aparaje on the way back down to Malaka'jin) and
 # Kaya's Alive (6401, from Makaba with the escort's hand-in; Tammra Windfield takes it at Sun Rock in
 # forever/horde/04-the-barrens).
-# Left out: The Harvester (897).
+# Left out: The Harvester (897); Egg Hunt (868, level 22: the Silithid Mounds' Swarmers 21-22 and their
+# swarms, 9 recorded deaths, at about 20.5 on the only Field of Giants pass; 0.4.0 level tidy).
 # Trial at the Field of Giants (1824, Warriors) runs for 30 minutes: it is taken from Ruga on Jorn's stop after the thunder
-# lizards, not on the first Camp Taurajo stop; the eggs and the antennae (the same mounds) come next, then the hand-in, and
+# lizards, not on the first Camp Taurajo stop; the antennae come next, then the hand-in, and
 # the thunderhawks only after it.
 # Apothecary Zamah (853) runs for 45 minutes and Helbrim offers it on the Fungal Spores hand-in: only Druids
 # take it, on the next Crossroads stop, and hand it to Zamah on the Thunder Bluff step that follows; the
@@ -36,17 +37,24 @@ next forever/horde/05-stonetalon-mountains
 # path, bind) -> the Razormane camp -> the Crossroads -> Ratchet (Southsea beach) -> the oases and
 # Regthar -> the Dry Hills -> the Sludge Fen console -> the Razormane camp -> the Crossroads ->
 # the Dry Hills -> Echeyakee -> the Crossroads -> Ratchet
-# (Samophlange handed in): the Raptor Grounds' nests and the silver -> Gazlowe's Stolen Booty on
-# the beach -> Northwatch Hold and Gilthares' escort back to Ratchet -> fly to the Crossroads ->
+# (Samophlange handed in, Raptor Horns and Baron Longshore taken): the Raptor Grounds' nests and the silver -> Gazlowe's
+# Stolen Booty and Baron Longshore at the south end of the beach -> Ratchet -> fly to the Crossroads ->
 # the Dry Hills (Vrang, Walton) -> Wenikee -> the Sludge Fen shredder
 # and Nugget Slugs -> the Boulder Lode Mine -> Wenikee -> the Crossroads -> Verog and Tonga's seed test at the Stagnant Oasis -> Camp Taurajo (flight path) -> the Bristleback camps ->
-# Agama'gor -> fly to Orgrimmar for level 20 training -> fly to Ratchet -> Ishamuhale -> the
+# Agama'gor -> fly to Orgrimmar for level 20 training -> fly to Ratchet -> Northwatch Hold and Gilthares'
+# escort back to Ratchet -> Ishamuhale -> the
 # Crossroads, Regthar,
 # Hezrul and the snapjaws at Lushwater -> Camp Taurajo: Jorn's thunder lizards and thunderhawks -> the Crossroads:
 # Counterattack! -> west to Seereth, Makaba and Malaka'jin -> the Webwinder Path, Ziz Fizziks and
 # Windshear Crag -> back down: Kaya's escort from Grundig's hut to Camp Aparaje -> Malaka'jin ->
 # Seereth. The next guide goes north to the Mor'shan Rampart and
 # Ashenvale.
+#
+# 0.4.0 level tidy: Raptor Horns (865, level 18) and WANTED: Baron Longshore (895, Baron 16) are taken on the second
+# Ratchet stop at about 18, not the first at 16 (the horns on the Raptor Grounds and in Vrang's hills, the Baron
+# with Gazlowe's crates at the south end of the beach); The Guns of Northwatch and Free From the Hold (891, 898,
+# level 20: Captain Fairmount 20 and her cannoneers 19 with healers and guards, 8 recorded deaths) on the Ratchet
+# stop after the Orgrimmar trip, at about 21.
 #
 # Orcs and Trolls: Far Watch Post first (Conscript of the Horde to Kargal and Crossroads Conscription
 # from him: only Warriors pass him at the end of their Durotar guide, everyone else carries 840 here;
@@ -267,28 +275,25 @@ step Ratchet
   accept 887                          -- Gazlowe, upstairs
   accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
-  accept 895                          -- WANTED poster
-  accept 865                          -- Mebok Mizzyrix
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
   accept 896                          -- Wharfmaster Dizzywig: the emerald comes from the Boulder Lode Mine, later
+  note Mebok's Raptor Horns and the WANTED poster's Baron Longshore are for the next Ratchet stop, at 18.
 
 step The Barrens: kill these as you meet them
   zone The Barrens
-  tip The pirates camp on the beach south of Ratchet: the piles of complicated parts lie in the sand among them, and Baron Longshore stands at the camp's southern end.
+  tip The pirates camp on the beach south of Ratchet: the piles of complicated parts lie in the sand among them. Baron Longshore (16) stands at the camp's southern end: leave him for the next Ratchet stop.
   kill 3381 quest 887.1
   kill 3382 quest 887.2
   collect 277331 quest 97253.1
-  collect 5084 quest 895.1
 
 step Ratchet
   turnin 887                          -- Gazlowe, upstairs
-  turnin 895                          -- Gazlowe
   accept 890
   turnin 97253                        -- Wrenix the Wretched
   turnin 890                          -- Wharfmaster Dizzywig
   accept 892
   turnin 892                          -- Gazlowe
-  accept 888                          -- Gazlowe: the crates lie at the south end of the beach camp, on the walk to Northwatch Hold at 18
+  accept 888                          -- Gazlowe: the crates lie at the south end of the beach camp, on the next Ratchet stop at 18
 
 step Fly to Crossroads
   zone The Barrens
@@ -324,10 +329,10 @@ step Regthar Deathgate
   accept 851                          -- Regthar Deathgate: Verog walks with the Kolkar at the Stagnant Oasis, later
 
 step The Dry Hills
-  tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
+  tip West to the Dry Hills. Any Witchwing harpy drops a talon: keep to the eastern slopes, where the Witchwing Harpies and Roguefeathers (14-15) nest; the Slayers and Windcallers (16-17) hold the western hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
   tip Careful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat.
   collect 5096 quest 903.1
-  collect 5064 quest 867.1
+  collect 5064 quest 867.1 @40.6,16.8
 
 step Samophlange
   tip The Control Console stands at the Venture Co. research site west of the Sludge Fen. Close the three valves around the drill, use the console again, then take the Console Key from Tinkerer Sniggles beside it.
@@ -384,10 +389,6 @@ step Harpy Lieutenants
 step The Dry Hills
   collect 4926 @37.9,16.2
   accept 819
-
-step Raptor Horns
-  tip On the way east to Echeyakee: Sunscale Scytheclaws prowl the plains east of the Dry Hills; any of them can drop an Intact Raptor Horn for Mebok in Ratchet.
-  collect 5055 quest 865.1 @44.1,14.4
 
 step Echeyakee
   zone The Barrens
@@ -462,11 +463,8 @@ step Ratchet
   accept 92706                        -- WANTED poster
 
 step Ratchet
-  accept 865                          -- Mebok Mizzyrix, beside the WANTED poster: take it now if he did not offer it on the first Ratchet stop
-
-step Ratchet
-  when complete 865
-  turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
+  accept 865                          -- Mebok Mizzyrix, beside the WANTED poster: the Sunscale raptors are on your way south-west
+  accept 895                          -- The WANTED poster: Baron Longshore stands at the south end of the pirate camp, by Gazlowe's crates
 
 step Ratchet
   zone The Barrens
@@ -478,7 +476,6 @@ step Ratchet
   turnin 902                          -- Sputtervalve
   accept 1483                         -- Sputtervalve: keep it, Ziz Fizziks is on the Webwinder Path in Stonetalon, at the end of this guide
   accept 3921                         -- Sputtervalve: Wenikee stands on the road north of the Crossroads, on the way to the Sludge Fen
-  accept 891                          -- Captain Thalo'thas Brightsun
   vendor nearest
 
 step Bruuz
@@ -491,7 +488,7 @@ step Ratchet
   when group 92706
   turnin 92706
 
-# ---------------------------------------------------------------- South-west: the Raptor Grounds, then Northwatch Hold
+# ---------------------------------------------------------------- South-west: the Raptor Grounds, then the beach
 step Raptor nests
   tip South-west from Ratchet across the plains to the Raptor Grounds: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a Sunscale Feather: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest.
   interact 6907 quest 905.1
@@ -500,43 +497,26 @@ step Raptor nests
 
 step Raptor Grounds: kill these as you meet them
   zone The Barrens
-  tip Sunscale Scytheclaws hunt the plains around the Raptor Grounds; they drop the horns. Mebok takes them when the escort brings you back to Ratchet.
+  tip Sunscale Scytheclaws hunt the plains around the Raptor Grounds; they drop the horns. Mebok takes them back in Ratchet; any still missing come with Vrang's hills later.
   tip South-east toward the coast: the stolen silver lies in a raptor nest north-west of Northwatch Hold.
   collect 5055 quest 865.1
   collect 5061 quest 3281.1
 
 step Stolen Booty
-  tip East to the beach, at the south end of the pirate camp: the crate of boots and the fragile crate with the lens sit there, a short walk north of Northwatch Hold.
+  tip East to the beach, at the south end of the pirate camp: the crate of boots and the fragile crate with the lens sit there, and Baron Longshore (16) stands beside them.
   collect 5076 quest 888.1 @62.6,49.6
   collect 5077 quest 888.2 @63.6,49.3
-
-step Northwatch Hold: kill these as you meet them
-  zone The Barrens
-  tip Northwatch Hold, on the coast just south of the pirate camp. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.
-  tip Careful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier.
-  collect 5078 quest 891.4
-  kill 3393 quest 891.1               -- On the top floor
-  kill 3455 quest 891.2               -- On the top floor
-  kill 3454 quest 891.3               -- Upstairs
-
-step Free From the Hold
-  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
-  accept 898                          -- Inside
-
-step Ratchet
-  goto 62.3,39.1
-  complete 898
-
-step Ratchet
-  turnin 898                          -- Captain Thalo'thas Brightsun
-  turnin 891
+  collect 5084 quest 895.1
 
 step Ratchet
   when complete 865
+  tip Back north along the beach to Ratchet.
   turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
 
 step Ratchet
+  tip Gazlowe stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 888                          -- Gazlowe, upstairs
+  turnin 895                          -- Gazlowe
 
 step Fly to Crossroads
   zone The Barrens
@@ -688,7 +668,7 @@ step The Crossroads
   turnin 899                          -- Mankrik
   turnin 4921
   accept 95774                        -- Mankrik offers Her Name Is Olgra once Lost in Battle is handed in
-  accept 868                          -- Korran: the eggs are in the Field of Giants, south of Camp Taurajo, after the Orgrimmar trip
+  note Korran's Egg Hunt (the Field of Giants' silithid, 21-22) is left out: leave it.
 
 # ---------------------------------------------------------------- Orgrimmar at 20
 
@@ -854,7 +834,31 @@ step Ratchet
   turnin 896                          -- Wharfmaster Dizzywig
   turnin 863                          -- Sputtervalve
   turnin 865                          -- Mebok Mizzyrix
+  accept 891                          -- Captain Thalo'thas Brightsun
   vendor nearest
+
+# ---------------------------------------------------------------- Northwatch Hold at 21
+
+step Northwatch Hold: kill these as you meet them
+  zone The Barrens
+  tip South along the beach past the pirate camp to Northwatch Hold, on the coast. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls.
+  tip Careful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier.
+  collect 5078 quest 891.4
+  kill 3393 quest 891.1               -- On the top floor
+  kill 3455 quest 891.2               -- On the top floor
+  kill 3454 quest 891.3               -- Upstairs
+
+step Free From the Hold
+  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
+  accept 898                          -- Inside
+
+step Ratchet
+  goto 62.3,39.1
+  complete 898
+
+step Ratchet
+  turnin 898                          -- Captain Thalo'thas Brightsun
+  turnin 891
 
 step Islen Waterseer
   only Shaman
@@ -940,21 +944,16 @@ step Enraged Thunder Lizards
   accept 884 optional
 
 step Jorn Skyseer
-  tip Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to Ruga; the thunderhawks after.
+  tip Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The antennae come first, at the Silithid Mounds south of the camp, then straight back to Ruga; the thunderhawks after.
   turnin 907
   accept 913
   turnin 884 optional
   accept 1824 only Warrior            -- Ruga Ragetotem, inside
 
-step Field of Giants
-  tip South of Camp Taurajo, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
-  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
-  collect 5058 quest 868.1
-
 step Twitching Antennae
   zone The Barrens
   only Warrior
-  tip The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.
+  tip The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the Silithid Mounds in the Field of Giants, south of Camp Taurajo, until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.
   collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
 
 step Ruga Ragetotem
@@ -990,7 +989,6 @@ step The Crossroads
   tip North up the Gold Road to the Crossroads: Tonga Runetotem at the south gate, Mankrik by the inn, Korran west of the north gate.
   turnin 880                          -- Tonga Runetotem
   turnin 95774                        -- Mankrik
-  turnin 868                          -- Korran
 
 step Thun'grim Firegaze
   only Warrior

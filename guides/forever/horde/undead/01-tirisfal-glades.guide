@@ -255,7 +255,6 @@ step Brill
   accept 427
   accept 99134
   accept 99141
-  accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
 
 step Faruza
@@ -341,8 +340,8 @@ step Cold Hearth Manor: kill these as you meet them
   zone Tirisfal Glades
   tip Rotting Dead and Ravaged Corpses shamble through the fields just west of Brill; Decrepit Darkhounds roam there and on west along the road toward Gordo. Johaan wants their blood, Shelene their hides.
   collect 2855 quest 404.1
-  collect 2858 quest 367.1
-  collect 278243 quest 97558.2
+  collect 2858 quest 367.1 @51.1,50.5
+  collect 278243 quest 97558.2 @51.1,50.5
 
 step Bowen Brisboise
   when onquest 97961
@@ -402,20 +401,18 @@ step Deathguard Kel
 
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
-  tip Greater Duskbats fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings.
+  tip Greater Duskbats (6-7) fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.
   tip The Doom Weed grows in the graveyard fields just north of Brill, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.
-  tip The Rot Hide Mongrels hold the hills further north. Maggot Eye (level 11) stands in their camp on the hill south of the shore: clear the gnolls around him first.
-  tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
-  tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene.
-  collect 2876 quest 375.1
-  collect 278242 quest 97558.1
+  tip The Rot Hide Mongrels hold the hills further north, around Garren's Haunt. Leave Maggot Eye (level 11) in his hut for now: the guide comes back for him at the end.
+  tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene. Straight north of Brill the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by.
+  collect 2876 quest 375.1 @60.5,43.1
+  collect 278242 quest 97558.1 @60.5,43.1
   collect 13702 quest 5482.1
   kill 1941 quest 358.1
   collect 2834 quest 358.3
   kill 1675 quest 358.2               -- Rot Hide Mongrel walks around Garren's Haunt: look inside the circle on the map
-  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
-  collect 2859 quest 368.1
-  collect 278244 quest 97558.3
+  collect 2859 quest 368.1 @60.8,28.4
+  collect 278244 quest 97558.3 @60.8,28.4
 
 step Brill
   tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
@@ -424,7 +421,6 @@ step Brill
   turnin 368                          -- Apothecary Johaan, inside
   accept 369
   accept 91282 only Paladin           -- Shari Stilwell, the Paladin trainer: A Second Home, to Bandarion Keep
-  turnin 398                          -- Executor Zygand
   turnin 358                          -- Magistrate Sevren, inside
   accept 359
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
@@ -539,16 +535,9 @@ step Hadric Harlson
   accept 96897
   accept 96898
 
-step Tirisfal Glades: kill these as you meet them
-  zone Tirisfal Glades
-  tip Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
-  collect 275851 quest 96898.1 @68.2,64.6
-  kill 275437 quest 96897.2 @68.2,64.6
-  kill 267006 quest 96897.1 @68.2,64.6
-
 step Balnir Farmstead: kill these as you meet them
   zone Tirisfal Glades
-  tip Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows: Linnea wants eight of each.
+  tip Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows: Linnea wants eight of each.
   tip The Scarlet Friars camp just north-east of the graves; Captain Vachon stands among them.
   tip The spiders lurk in the woods at the far east end of the glades.
   tip Careful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull.
@@ -559,6 +548,15 @@ step Balnir Farmstead: kill these as you meet them
   kill 1538 quest 371.2
   kill 1664 quest 371.1
   collect 2872 quest 369.1
+
+# The cult's farm (Dark Neophytes and Enforcers 10-12, quests 12) comes on the way back west from the
+# Balnir Farmstead, with its experience, not on the way out (level tidy 0.4.0).
+step Tirisfal Glades: kill these as you meet them
+  zone Tirisfal Glades
+  tip On the way back west, the Cult of the Damned holds the farm just south-east of Deathguard Linnea's camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
+  collect 275851 quest 96898.1 @68.2,64.6
+  kill 275437 quest 96897.2 @68.2,64.6
+  kill 267006 quest 96897.1 @68.2,64.6
 
 step Deathguard Linnea's camp
   turnin 96897                        -- Hadric Harlson
@@ -572,14 +570,22 @@ step Brill
   accept 492
   accept 445                          -- Apothecary Johaan: for Renferrel at the Sepulcher
   turnin 371                          -- Executor Zygand
+  accept 398                          -- The Wanted poster beside Zygand
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
 
+# Maggot Eye (11) waits for this last Brill stop, at about 11.5: on the 7-8 north loop he was 3-4
+# levels up (level tidy 0.4.0). Garren's Haunt is a short way north on the walk west to Leonid.
+step Maggot Eye
+  tip North to Garren's Haunt, the Rot Hide camp on the hill south of the shore. Maggot Eye (level 11) stands in the hut: clear the gnolls around him first.
+  tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
+  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
+
 # ---------------------------------------------------------------- Leonid, then on to the Barrens
 
 step Leonid Barthalomew the Revered
-  tip Follow the road west past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
+  tip West from Garren's Haunt past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
@@ -661,4 +667,5 @@ step Back to Tirisfal Glades
 step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
+  turnin 398                          -- Executor Zygand, in front of the inn
   note The next guide walks south from Brill into Silverpine Forest.

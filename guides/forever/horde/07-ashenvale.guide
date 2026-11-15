@@ -13,8 +13,10 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Crossroads' flight master (the hearth is kept for Splintertree Post's bind), and its Great Lift step takes
 # Calling in the Reserves (5881, from Maggran at Sun Rock) to Grish Longrunner and Message to Freewind Post (4542)
 # from Brave Moonhorn, both at the top of the lift.
-# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151), The Tear of the Moons (857, a
-# level 30 quest, at 28 on the road from Camp Taurajo to the Great Lift, #1333).
+# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
+# Left out: The Tear of the Moons (857, level 30): its strongbox stands beside General Twinbraid (30) and his
+# Officers (26) in Bael Modan's fortress, two levels over the players on the road to the Great Lift at 28 (recorded
+# 25th percentile 28.8, 12 recorded deaths there), and no later Horde guide passes Bael Modan (0.4.0 level tidy).
 # Carried in from forever/horde/04-the-barrens' Thunder Bluff stop (or 06's for Druids), for players
 # who took them: The Sacred Flame (1195: the Etched Phial from Raynewood's Laughing Sisters, filled at
 # the moonwell south of them on the way to Mystral Lake; 1196 from Zangen on the Thunder Bluff stop to
@@ -24,12 +26,18 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # flight path; without it the arrow goes by Camp Taurajo and Mulgore).
 # The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
 # visit at 33 in forever/horde/30-40/02-thousand-needles.
+# Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken and worked on the
+# next Freewind visit at about 31, in forever/horde/30-40/02-thousand-needles (agreed with the 30-40 slice): Roguefeather Den's harpies
+# (28-30, packs) and Grenka Bloodscreech (31) were met here at 29, with a harpy grind to 29.5 before them.
+# Test of Faith (1149) is done at Dorn's mesa; his Test of Endurance (1150, Grenka Bloodscreech 31 in the same den) comes
+# with Jandia's quests on the next Freewind visit. Left out: Test of Strength (1151, Rok'Alim, a lone elite on Highperch).
 # Stonetalon Standstill (25) is taken from Mastok on the first Splintertree stop and worked at Mystral
 # Lake with Tideress on the way back from Shadumbra: Tideress drops the Befouled Water Globe (The
 # Befouled Element 1918) only for a player with 25 in the log or handed in (players' recordings, #1346).
-# Troll Charm (6462), Between a Rock and a Thistlefur (216) and Freedom to Ruul (6482) are done on the
-# first Ashenvale visit at 21 (forever/horde/05-stonetalon-mountains), with Vorsha the Lasher (6641); King of the Foulweald (6621)
-# opens with 216's hand-in and is taken here from Karang.
+# Troll Charm (6462), Between a Rock and a Thistlefur (216) and Freedom to Ruul (6482), all level 24, are
+# done on this visit from Zoram'gar at about 26.5 (#2372: on the first Ashenvale visit at 22 players died to
+# the furbolg packs); King of the Foulweald (6621) opens with 216's hand-in and is taken from Karang on the
+# same Zoram'gar stop, and Ruul goes to Yama in Splintertree's inn on the bind stop.
 # Ashenvale Outrunners (6503, level 24) is taken here at the Warsong lumber camp, between Torek's assault and
 # Sharptalon in the same woods (0.3.7): on the first visit at 21-23 the model's players were 1-1.5 levels under it.
 #
@@ -50,9 +58,11 @@ step Fly to Zoram'gar Outpost
 
 step Zoram'gar Outpost
   zone Ashenvale
-  tip Je'neu Sancrea stands in the outpost.
+  tip Je'neu Sancrea, Karang Amakkar and Mitsuwa stand in the outpost.
   turnin 6562                         -- Je'neu Sancrea
   accept 6563
+  accept 216                          -- Karang Amakkar
+  accept 6462                         -- Mitsuwa: the troll charms are in Thistlefur Hold, east of the outpost
 
 step Je'neu Sancrea
   when dungeon "Blackfathom Deeps"
@@ -88,10 +98,25 @@ step Blackfathom Deeps
   enter "Blackfathom Deeps" @14.5,14.2
   complete 6921                       -- Amongst the Ruins: the Fathom Core, from the Fathom Stone
 
+step Thistlefur Village
+  tip East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.
+  tip Careful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs.
+  kill 3925 quest 216.1
+  kill 3924 quest 216.2
+
+step Thistlefur Hold
+  tip Inside the hold, Troll Chests lie along the tunnels. Ruul Snowhoof is held deep inside: free him and protect him all the way out, then he runs home to Night Run.
+  tip Careful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where Dal Bloodclaw roams.
+  collect 16602 quest 6462            -- Below ground
+  accept 6482                         -- Ruul Snowhoof, below ground
+  complete 6482
+
 step Zoram'gar Outpost
   note Je'neu offers a Blackfathom Deeps quest next; leave it unless you have a group.
-  tip Back to Zoram'gar from the ruins before heading east for good.
+  tip Back west to Zoram'gar from Thistlefur before heading east for good.
   turnin 6563                         -- Je'neu Sancrea
+  turnin 216                          -- Karang Amakkar
+  turnin 6462                         -- Mitsuwa
   accept 6621                         -- Karang Amakkar: a banner defence in the Foulweald, east of Mystral Lake: furbolg waves, then Chief Murgut
 
 step Je'neu Sancrea
@@ -167,6 +192,7 @@ step Splintertree Post
 step Splintertree Post
   accept 25                           -- Mastok Wrilehiss
   sethome "Splintertree Post"         -- Innkeeper Kaylisk, beside her
+  turnin 6482                         -- Yama Snowhoof, inside the inn
   accept 6504 optional                -- Gurda Ragescar: only if you carry the manual pages
   turnin 6504 optional
   vendor nearest
@@ -357,13 +383,6 @@ step Brine
   turnin 1534                         -- Brine
   accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
 
-step Tear of the Moons
-  zone The Barrens
-  tip On the road south to the Great Lift, turn east into the Bael Modan dig. Feegly the Exiled hides at its south edge. General Twinbraid's Strongbox stands on the bottom floor of the dwarves' fortress, beside General Twinbraid (30) and his Officers (26): pull them to you one at a time.
-  accept 857                          -- Feegly the Exiled
-  collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
-  turnin 857
-
 step The Great Lift
   zone Thousand Needles
   tip Grish Longrunner and Brave Moonhorn wait at the top of the Great Lift: Maggran's letter is for Grish, and Moonhorn's message goes down to Freewind Post with you.
@@ -383,8 +402,7 @@ step Freewind Post
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
-  accept 98069                        -- Jandia: her stolen supplies lie in the same harpy den
+  note Jandia's two harpy quests come with the next Freewind visit, at 31.
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -417,7 +435,7 @@ step Dorn Plainstalker
   accept 1149                         -- Dorn Plainstalker, below ground
   complete 1149
   turnin 1149
-  accept 1150
+  note Dorn's next test, Test of Endurance (Grenka Bloodscreech, 31), comes with the next Freewind visit, at 31.
 
 step Freewind Post
   turnin 4841                         -- Cliffwatcher Longhorn
@@ -446,7 +464,7 @@ step Level 28.9
   level 28.9 grind 10759              -- grind on Grimtotem Stomper
 
 step Lakota Windsong
-  tip Climb the path to the top of Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.
+  tip Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.
   collect 12884 quest 5147 @38.1,26.9 -- Arnak Grimtotem
   accept 4904 @37.95,26.45            -- Lakota Windsong
   complete 4904
@@ -476,7 +494,7 @@ step Wizlo Bearingshiner
 
 step Hypercapacitor Gizmo
   when group 5151
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Enraged Panther is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Enraged Panther is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone.
   collect 12946 quest 5151.1 @22.8,24.6 map 1441
 
 step Whitereach Post
@@ -491,42 +509,11 @@ step Wizlo Bearingshiner
   when group 5151
   turnin 5151
 
-step Level 29.49
-  when !group 5151
-  when level<29.49
-  tip If you skipped Hypercapacitor Gizmo and are still short of 29.49, kill harpies here first: Roguefeather Den is your next stop anyway. The Screeching Harpies (28-29) at its edge are at your level; the Roguefeathers and Windcallers (29-30) inside hit harder. Past it, this step skips itself. Or, with a group, run the Blackfathom Deeps dungeon instead.
-  goto 27.2,51.3 map 1441 "Screeching Harpy"
-  level 29.49 grind 4100               -- grind on Screeching Harpy
-
-step The Screeching Canyon: kill these as you meet them
-  zone Thousand Needles
-  tip South of Darkcloud, the harpies of Roguefeather Den. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's; her Stolen Freewind Supplies lie on the ground along the foot of the cliff and in the cave up on top.
-  kill 4101 quest 98070.2
-  kill 4104 quest 98070.3
-  kill 4100 quest 98070.1
-  collect 279383 x8 quest 98069 @27.0,51.9 map 1441 -- Stolen Freewind Supplies, on the ground around the den
-  collect 5843 quest 1150
-
 step Freewind Post
-  tip Back east to Freewind Post: it lies on the way from Roguefeather Den to Dorn's mesa.
+  tip Back east past Whitereach Post to Freewind Post.
   turnin 4767                         -- Elu
   turnin 5147
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
-  turnin 98070                        -- Jandia, inside
-  turnin 98069                        -- Jandia, inside
-  vendor nearest
-
-step Test of Endurance
-  tip Dorn Plainstalker's mesa is north-east of Freewind.
-  turnin 1150                         -- Dorn Plainstalker, below ground
-  accept 1151 optional                -- Dorn Plainstalker offers Test of Strength once Test of Endurance is in
-
-step Rok'Alim the Pounder
-  tip Rok'Alim, a hard-hitting rock elemental, walks the cliffs of Highperch, back west past Whitereach Post. Rok'Alim the Pounder is elite: grouping up is advised.
-  collect 5844 quest 1151 optional
-  turnin 1151 optional                -- Dorn Plainstalker, below ground
-
-step Freewind Post
-  tip Back to Freewind Post. The Mirage Raceway's quests come with the next visit to the Shimmering Flats, at 33.
-  note The next guide flies on from here to the Crossroads and Orgrimmar.
+  vendor nearest optional
+  note Jandia's two harpy quests come with the next Freewind visit, at 31, with the Mirage Raceway's quests.

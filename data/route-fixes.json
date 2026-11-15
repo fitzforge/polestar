@@ -109,6 +109,54 @@
 			{
 				"a": [
 					"task",
+					792
+				],
+				"b": [
+					"task",
+					790
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Sarkoth is level 4 and players met him at 2.6 (25th percentile, 61 people), two levels under him. He waits for the first return to the Den (the scorpid tails, cactus apples and familiars handed in), at 3 or more, and is fought on the way north to the Burning Blade Coven: his slope west of the Den, then Hana'zua (40.6,62.6); Gornek takes the claw on the Den stop after the Coven. This replaces c13's together record (Sarkoth with the Scorpid Workers' tails)"
+			},
+			{
+				"a": [
+					"task",
+					1485
+				],
+				"b": [
+					"task",
+					790
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): as the record before, for Warlocks, whose familiar quest is Vile Familiars (1485)"
+			},
+			{
+				"a": [
+					"turnin",
+					789
+				],
+				"b": [
+					"task",
+					790
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Sarkoth after the first Den return's hand-ins (see the records before)"
+			},
+			{
+				"a": [
+					"turnin",
+					790
+				],
+				"b": [
+					"accept",
+					1516
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Call of Earth needs level 4, which Shamans reach with Hana'zua's hand-in now that Sarkoth comes after the first Den return; they take it from Canaga with Sarkoth's claw to Gornek, back at the Den, before the Coven's Felstalkers"
+			},
+			{
+				"a": [
+					"task",
 					789
 				],
 				"b": [
@@ -1425,17 +1473,6 @@
 					384
 				],
 				"why": "c14 review: back in Kharanos with the ribs, Gremlock's Cooking lesson and Camping 101 first, then the ribs to Ragnar, in one distillery step, as v1 and the c14 Gnome guide (01-dun-morogh.guide:366-372) do; c14 Dwarf handed the ribs in first and split the distillery into four steps (01-dun-morogh.guide:363-377, its tip still saying the lesson comes first; the 'Camping 101 waits for the return' ledger test fails on Dwarf)"
-			},
-			{
-				"a": [
-					"accept",
-					1150
-				],
-				"b": [
-					"task",
-					98070
-				],
-				"why": "r7b read (Orc): Test of Endurance taken before the Roguefeather Den (Jandia's harpies), so Grenka's Claw is collected on that visit (the world has no task for the claw)"
 			},
 			{
 				"a": [
@@ -3751,50 +3788,62 @@
 			{
 				"a": [
 					"turnin",
-					6482
+					6641
 				],
 				"b": [
 					"accept",
 					493
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
+				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15. (Anchored on Vorsha the Lasher's hand-in at Zoram'gar, the last Ashenvale step before the flight to Orgrimmar, since the 0.4.0 level tidy moved Thistlefur and Freedom to Ruul to the 26 visit, #2372.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6482
+					6641
 				],
 				"b": [
 					"accept",
 					516
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
+				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up. (Anchored on Vorsha the Lasher's hand-in at Zoram'gar, the last Ashenvale step before the flight to Orgrimmar, since the 0.4.0 level tidy moved Thistlefur and Freedom to Ruul to the 26 visit, #2372.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6482
+					6641
 				],
 				"b": [
 					"accept",
 					95981
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
+				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22. (Anchored on Vorsha the Lasher's hand-in at Zoram'gar, the last Ashenvale step before the flight to Orgrimmar, since the 0.4.0 level tidy moved Thistlefur and Freedom to Ruul to the 26 visit, #2372.)"
 			},
 			{
 				"a": [
 					"turnin",
-					98095
+					6641
+				],
+				"b": [
+					"accept",
+					479
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): Ambermill Investigations (level 16) was worked at 14-15 in 03-silverpine-forest (recorded 25th percentile 15.1): its Mages fight beside Dalaran Serpents, Conjurors (17-18) stand among them and 5 of 14 recorded players died there. Shadow Priest Allister gives it on the Sepulcher stop of the ride to Hillsbrad at 22, the pendants come on the roads around Ambermill that Watching the Roads walks, and he takes it on the Hillsbrad guide's flight back to the Sepulcher."
+			},
+			{
+				"a": [
+					"turnin",
+					549
 				],
 				"b": [
 					"accept",
 					1058
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Sun Rock Retreat and Stonetalon Peak (level 23-26)."
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Sun Rock Retreat and Stonetalon Peak (level 23-26). (Anchored on WANTED: Syndicate Personnel's hand-in, the last Tarren Mill stop, since the 0.4.0 level tidy left Valuable Vantages out.)"
 			},
 			{
 				"a": [
@@ -3835,26 +3884,62 @@
 			{
 				"a": [
 					"turnin",
-					98095
+					549
 				],
 				"b": [
 					"accept",
 					879
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before the southern Barrens' level 23-27 quests (Betrayal from Within, Weapons of Choice, Gann Stonespire)."
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before the southern Barrens' level 23-27 quests (Betrayal from Within, Weapons of Choice, Gann Stonespire). (Anchored on 549's hand-in since the 0.4.0 level tidy left Valuable Vantages out.)"
 			},
 			{
 				"a": [
 					"turnin",
-					98095
+					549
 				],
 				"b": [
 					"accept",
 					893
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Weapons of Choice (level 24)."
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Weapons of Choice (level 24). (Anchored on 549's hand-in since the 0.4.0 level tidy left Valuable Vantages out.)"
+			},
+			{
+				"a": [
+					"turnin",
+					5064
+				],
+				"b": [
+					"accept",
+					529
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, agreed with the 30-40 slice): Battle of Hillsbrad part 3 (level 26: Blacksmith Verringtan 26 and his apprentices, a dense smithy with casters) was taken at 24 in 06-hillsbrad-foothills (recorded 25th percentile 24.3); it is taken on the Tarren Mill visit at about 30 in forever/horde/30-40/01-hillsbrad-foothills, before 532 (its follow-up), whose town hall stands beside the smithy."
+			},
+			{
+				"a": [
+					"turnin",
+					5064
+				],
+				"b": [
+					"accept",
+					567
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, agreed with the 30-40 slice): Dangerous! (level 28) was taken at 24 in 06-hillsbrad-foothills and carried to the 30 visit for its clerk and miner; the whole quest is taken on the 30-40/01 Tarren Mill visit, Kalaba and Wilkes with the fields and the smithy there."
+			},
+			{
+				"a": [
+					"turnin",
+					5064
+				],
+				"b": [
+					"accept",
+					509
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, agreed with the 30-40 slice): Elixir of Agony (level 28; the Mudsnout gnolls 27-28 and their shamans around the blossoms, 6 recorded deaths) was worked at 25 in 06-hillsbrad-foothills; it is taken on the 30-40/01 Tarren Mill visit at about 30 and 513 goes to Faranell on that guide's closing Undercity stop."
 			},
 			{
 				"a": [
@@ -3903,20 +3988,6 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): the Barrens and Sun Rock at 24-26, then Ashenvale's second visit from 26."
-			},
-			{
-				"a": [
-					"task",
-					868,
-					0
-				],
-				"b": [
-					"task",
-					1824,
-					0
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after the eggs, at the same mounds south of Camp Taurajo at 21, and take them straight to Ruga; the antennae vanish 15 minutes after they drop (the thunderhawks after the hand-in since 0.3.8: pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -3994,14 +4065,14 @@
 			{
 				"a": [
 					"turnin",
-					891
-				],
-				"b": [
-					"turnin",
 					905
 				],
+				"b": [
+					"accept",
+					891
+				],
 				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then the beach, and flies to the Crossroads for the nests and the silver. Horde level tidy (0.4.0): Northwatch Hold (Captain Fairmount 20 and her cannoneers 19, each with a healer and guards, 8 recorded deaths at 18-19) and Gilthares' escort come on the Ratchet stop after the Orgrimmar trip at about 21, so 891 is taken after the nests are handed in."
 			},
 			{
 				"a": [
@@ -4030,14 +4101,74 @@
 			{
 				"a": [
 					"turnin",
+					888
+				],
+				"b": [
+					"accept",
 					891
+				],
+				"faction": "Horde",
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold, taken on the walk from the silver's nest at 18-19 and handed to Gazlowe on the way back into Ratchet. Horde level tidy (0.4.0): Northwatch Hold waits for the Ratchet stop at about 21 (level 20 targets with healers and guards), so the booty goes in first."
+			},
+			{
+				"a": [
+					"turnin",
+					881
+				],
+				"b": [
+					"accept",
+					865
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): Raptor Horns (level 18) was taken from Mebok on the first Ratchet stop at 16 (recorded 25th percentile 14.7 there) and its Scytheclaws (16-18) hunted on the first Dry Hills loop at 16-17; it is taken on the second Ratchet stop at about 18, with the horns from the Raptor Grounds on the walk south-west and, if still short, in Vrang's hills."
+			},
+			{
+				"a": [
+					"turnin",
+					881
+				],
+				"b": [
+					"accept",
+					895
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): WANTED: Baron Longshore (Baron 16, at the south end of the pirate camp) was taken on the first Ratchet stop at 14-16 (recorded 25th percentile 14.7); it is taken on the second Ratchet stop at about 18, and the Baron is killed beside Gazlowe's crates on that walk."
+			},
+			{
+				"a": [
+					"accept",
+					95774
+				],
+				"b": [
+					"accept",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): The Guns of Northwatch (level 20) and Free From the Hold come on the Ratchet stop after the Orgrimmar trip (model 21.2), not on the walk past the hold at 18-19 (recorded 25th percentile 18.9; Fairmount 20 and her cannoneers 19 with healers and guards, 8 recorded deaths). Mankrik's Her Name Is Olgra is taken on the last Crossroads stop before that trip."
+			},
+			{
+				"a": [
+					"turnin",
+					549
+				],
+				"b": [
+					"accept",
+					868
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): Egg Hunt (level 22: the Silithid Mounds' Swarmers 21-22 and their swarms, 9 recorded deaths) was worked at 20.5 in forever/horde/02-the-barrens (recorded 25th percentile 20.8); it is taken from Korran on the Crossroads landing that opens forever/horde/04-the-barrens after Hillsbrad, the eggs on the road from Camp Taurajo south to Gann at about 25, Korran's hand-in with Thork's."
+			},
+			{
+				"a": [
+					"task",
+					868
 				],
 				"b": [
 					"turnin",
-					888
+					1536
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
+				"why": "Horde level tidy (0.4.0): the Field of Giants' mounds (about 45,72) lie on the road from Camp Taurajo south, before Brine's hut (43.4,77.4) and Gann (46,77): Shamans fill their eggs on the way down, not back north from Brine (flow audit: 6.5 more walking minutes on every Shaman branch with the eggs after Brine)."
 			},
 			{
 				"a": [
@@ -5521,19 +5652,6 @@
 			},
 			{
 				"a": [
-					"task",
-					358,
-					0
-				],
-				"b": [
-					"task",
-					398,
-					0
-				],
-				"why": "c15 review: Maggot Eye (58.7,30.8) stands in the Rot Hide Mongrel camp at Garren's Haunt (56-61,31-38) that Graverobbers' Mongrels send the player through in Brill's north sweep, at about 8.5 with the paw quest already in the log, so he dies on that pass with no walk of his own. c15 moved him (edit 30, camp revisit) behind the Vile Fin Murloc Skins north of the Crusader's Outpost at 32,46, so the west loop ended with a walk of about 1,200 yd east to Garren's Haunt and the sweep's step named him in a tip with no goal (judge: avoidable trip to Garren's Haunt)"
-			},
-			{
-				"a": [
 					"turnin",
 					763
 				],
@@ -5886,17 +6004,6 @@
 					97279
 				],
 				"why": "Durotar, Tom: Kzan Thornslash at the back of the Den on the Den visit, the mouth the last waypoint before him"
-			},
-			{
-				"a": [
-					"task",
-					790
-				],
-				"b": [
-					"task",
-					789
-				],
-				"why": "c13 review: Sarkoth prowls the Scorpid Workers' slope (40.5,66.8) and drops their tails too: the workers are worked on from him, v1's one 'Sarkoth' step, not a separate Sarkoth step after Hana'zua. The c13 Orc cut split that step, and the guide read three steps titled Sarkoth (01-durotar:181, 190, 197)"
 			},
 			{
 				"a": [
@@ -6277,19 +6384,6 @@
 					1
 				],
 				"why": "#1046: the Darkhound Hides for Hides for the Forsaken and the Darkhound Blood for A New Plague (367) drop from the same Decrepit and Cursed Darkhounds west of Brill: one stretch of the west loop, with the Putrid Claws in the same fields"
-			},
-			{
-				"a": [
-					"task",
-					398,
-					0
-				],
-				"b": [
-					"task",
-					368,
-					0
-				],
-				"why": "#1046: Maggot Eye's camp at Garren's Haunt (58.7,30.8) is on the hill just south of the north shore where the Vile Fins for A New Plague (368) walk: the north loop goes on from him to the shore and back to Brill, one direction, no doubling back"
 			},
 			{
 				"a": [
@@ -6847,39 +6941,51 @@
 			},
 			{
 				"a": [
-					"accept",
-					6442
+					"turnin",
+					6562
 				],
 				"b": [
 					"accept",
 					6462
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Troll Charm is taken from Mitsuwa on the first Zoram'gar stop (21) and Thistlefur Hold is done from there, with Between a Rock and a Thistlefur and Freedom to Ruul; the old chain took it at 23 and carried it through Stonetalon and Hillsbrad to the 27 visit."
+				"why": "Horde level tidy (0.4.0, #2372 Fitz): Troll Charm (level 24) is taken from Mitsuwa on forever/horde/07-ashenvale's first Zoram'gar stop (about 26.5), with Je'neu's Sapphires, and Thistlefur Hold is done from there with Between a Rock and a Thistlefur and Freedom to Ruul. On the first Ashenvale visit (05-stonetalon-mountains, model 22.4, recorded 22.9) the hold's Ursa, Totemics and Den Watchers (23-24, 24 spawns, scripted ambushes) were two levels up and killed 4 recorded players."
 			},
 			{
 				"a": [
-					"accept",
-					6442
+					"turnin",
+					6562
 				],
 				"b": [
 					"accept",
 					216
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Between a Rock and a Thistlefur is taken from Karang Amakkar on the first Zoram'gar stop (21), Thistlefur Village on the walk to the hold."
+				"why": "Horde level tidy (0.4.0, #2372 Fitz): Between a Rock and a Thistlefur (level 24: 12 Avengers and 12 Shamans, 23-24, Shamans fleeing for help) is taken from Karang Amakkar on the 07-ashenvale Zoram'gar stop at about 26.5, not at 22 on the first visit (28 spawns 23+ around the village, 3 recorded deaths). King of the Foulweald (6621) opens with its hand-in on the same outpost."
 			},
 			{
 				"a": [
+					"task",
+					216
+				],
+				"b": [
 					"turnin",
-					6462
+					6563
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, #2372): Thistlefur is worked between the Sapphires and the walk back to Zoram'gar, so The Essence of Aku'Mai, Between a Rock and a Thistlefur and Troll Charm are handed in on one stop, where Karang then gives King of the Foulweald for the walk east."
+			},
+			{
+				"a": [
+					"accept",
+					6442
 				],
 				"b": [
 					"accept",
 					6641
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Muglash's escort (Vorsha the Lasher, level 23) is taken on the Zoram'gar stop after Thistlefur at 21-22; the naga brazier is on the strand just north of the outpost, so the second visit at 26 no longer starts with it."
+				"why": "Horde 12-30 re-chain (2026-11-07), re-anchored by the 0.4.0 level tidy (#2372): Muglash's escort (Vorsha the Lasher, level 23) is taken with Marukai's naga heads on the first Zoram'gar stop at 22; the naga brazier is on the strand just north of the outpost, so the second visit at 26 no longer starts with it. (It was anchored on Troll Charm's hand-in, which moved to the 26 visit.)"
 			},
 			{
 				"a": [
@@ -6904,19 +7010,6 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): Ziz Fizziks is taken from Sputtervalve when Samophlange is handed to him; Ziz is on the Webwinder Path at the end of the same Barrens stay."
-			},
-			{
-				"a": [
-					"task",
-					868,
-					0
-				],
-				"b": [
-					"task",
-					913
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants (42.6-48.5,69.4-72.4), just south of the plains where Jorn's thunderhawks circle (44.8-50.1,60.1-67.0). Final route review (2026-11-08): no walk back into Camp Taurajo between the two; Jorn takes the wings on the way back north (overrides pair task 868 before turnin 913). Since 0.3.8 the eggs come first and the thunderhawks on the way back north, so a Warrior's antennae, at the same mounds as the eggs, reach Ruga before the 30-minute Trial at the Field of Giants runs out (pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -8679,11 +8772,11 @@
 			},
 			{
 				"q": 1096,
-				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks on 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068), on the same walk. Calibrated level model (R10, all 28 Horde branches): 0.10-0.15 h sooner to 60 with the swap it belongs to.",
+				"reason": "Horde 21-30 audit (phase 2, R10): Gerenzo Wrenchwhistle (level 27, from 16, 2200 XP) from Ziz Fizziks after 1095's hand-in: Gerenzo (4202, level 27, normal) stands at the top of the Venture Co. tower on Windshear Crag (64.5,40.3), about 260 yd north of XT:4 (Shredding Machines, 1068). Horde level tidy (0.4.0): taken from Ziz on the way back down from Sun Rock (calibrated level model 26.9 there) instead of on the way up (25.9, two levels under Gerenzo); the tower is a short walk east of Ziz's hut on the road down to Malaka'jin.",
 				"issue": "2025",
 				"after": [
 					"turnin",
-					1095
+					6393
 				]
 			},
 			{
@@ -8885,9 +8978,9 @@
 				"q": 1145,
 				"after": [
 					"turnin",
-					1150
+					5064
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Korran stands beside the Crossroads flight master: The Swarm Grows is taken on the flight from Freewind Post to Orgrimmar (one landing), handed to Belgrom in Orgrimmar's Valley of Honor on the way out to the zeppelin, and its follow-ups (1146, 1147) are worked on the 33-34 Shimmering Flats visit.",
+				"reason": "Horde 30-40 re-order (2026-11-07): Korran stands beside the Crossroads flight master: The Swarm Grows is taken on the flight from Freewind Post to Orgrimmar (one landing), handed to Belgrom in Orgrimmar's Valley of Honor on the way out to the zeppelin, and its follow-ups (1146, 1147) are worked on the 33-34 Shimmering Flats visit. (Anchored on Secret Notes' hand-in at Freewind, the last 07-ashenvale step, since the 0.4.0 level tidy left Test of Endurance out.)",
 				"issue": ""
 			},
 			{
@@ -9906,6 +9999,18 @@
 			}
 		],
 		"skip": [
+			{
+				"q": 857,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0, #1333): The Tear of the Moons (level 30) puts General Twinbraid's Strongbox beside General Twinbraid (30) and his Officers (26) on the Bael'dun fortress's bottom floor. On forever/horde/07-ashenvale's road from Camp Taurajo to the Great Lift players are at 28 (recorded 25th percentile 28.8, 18 people) and 12 recorded people died there; the only later Horde pass of the southern Barrens is a Camp Taurajo landing at about 35, a 1,000 yd detour each way for a quest five levels under (agreed with the 30-40 slice). Left out of the solo route.",
+				"issue": 1333
+			},
+			{
+				"q": 1151,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Test of Strength (level 30) sends the player after Rok'Alim the Pounder, a lone elite on Highperch, west of Whitereach Post; Test of Endurance (1150) is done on the 30-40 guides' first Freewind visit at about 31, and Rok'Alim's cliffs are off that visit's walk. It was optional already.",
+				"issue": ""
+			},
 			{
 				"q": 212,
 				"faction": "Alliance",
@@ -11706,17 +11811,6 @@
 			{
 				"a": [
 					"turnin",
-					868
-				],
-				"b": [
-					"turnin",
-					1825
-				],
-				"why": "#1078: Warriors hand Speak with Thun'grim to Thun'grim, east of the Crossroads, on the last Crossroads loop; the guide put the hand-in in the Camp Taurajo step, a 2,300 yd walk there and back before Tatternack's hand-in"
-			},
-			{
-				"a": [
-					"turnin",
 					842
 				],
 				"b": [
@@ -12244,6 +12338,102 @@
 			{
 				"a": [
 					"turnin",
+					745
+				],
+				"b": [
+					"task",
+					99080
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Mulgore): Drive Them Out (11) sent players at the Galak Centaurs and Outrunners (8-10) and Herak the Pillager (11) at 9 (players' 25th percentile 9.2). The centaurs now come after northern Mulgore and the Bloodhoof hand-ins (Sharing the Land, Dwarven Digging, Dangers of the Windfury, Wildmane Cleansing), at about 11, on a loop from Bloodhoof to Morin Cloudstalker, the centaurs, the mine, Morin and Baine before Red Rocks"
+			},
+			{
+				"a": [
+					"turnin",
+					745
+				],
+				"b": [
+					"task",
+					764
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Mulgore): the Venture Co. Mine (Workers and Supervisors 8-10, Supervisor Fizsprocket 12; 6 players died there) was worked at 9; with the centaurs (the record before) it now comes after the Bloodhoof hand-ins at about 11. The Ravaged Caravan's hand-in to Morin (751) and his two quests go with it, on the first Morin stop of that loop"
+			},
+			{
+				"a": [
+					"turnin",
+					371
+				],
+				"b": [
+					"task",
+					398
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): WANTED: Maggot Eye (10; Maggot Eye is 11) was done on Brill's north loop at 7-8 (players' 25th percentile 8.1), 3-4 levels below him. The poster is read on the last Brill stop after the Balnir Farmstead (about 11.5) and Garren's Haunt is visited on the walk west to Leonid, a short way north of the road; Executor Zygand takes the paw on the final Brill stop. This replaces #1046's together record (Maggot Eye with A New Plague's murlocs on the north loop): the murlocs stay there"
+			},
+			{
+				"a": [
+					"accept",
+					398
+				],
+				"b": [
+					"turnin",
+					492
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): on the last Brill stop the Wanted poster (60.7,51.5) stands beside Executor Zygand (60.6,51.8), so Maggot Eye's poster is read with Zygand's hand-in, before the inn's cellar (61.9,51.4) and Junior Apothecary Holland (57.4,48.9) on the way out north-west; reading it last walked back about 170 yd across Brill"
+			},
+			{
+				"a": [
+					"turnin",
+					815
+				],
+				"b": [
+					"accept",
+					96825
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): the prickly pears grow among the Razormane huts just west of Razor Hill, where Quilboars (6-7) and Scouts (7-8) killed 19 players at 6.3-6.9, 10 of them to a higher quilboar; the guide sent you there at 6 on a trip of its own from the first Razor Hill stop. Cook Torka gives it with Break a Few Eggs' hand-in after the south loop and the pears are picked in the same huts as Encroachment's quilboars and scouts, at 10; the fruit goes back to Torka with Encroachment"
+			},
+			{
+				"a": [
+					"task",
+					356
+				],
+				"b": [
+					"task",
+					96897
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): The Cult of the Damned and Remnants of War (12) send you at Dark Neophytes and Enforcers of 10-12 (casters; 13 players died there, 4 to a higher cultist). The farm, just south-east of Linnea's camp, was done on the way out at 10 (players' 25th percentile 10.9); it is now done on the way back west from the Balnir Farmstead (Rear Guard Patrol, the friars, the spiders), with its experience, before the hand-ins at Linnea's camp"
+			},
+			{
+				"a": [
+					"task",
+					356
+				],
+				"b": [
+					"task",
+					96898
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): Remnants of War's crystal fragments lie among the same cultists, after the Balnir Farmstead (the record before)"
+			},
+			{
+				"a": [
+					"turnin",
+					816
+				],
+				"b": [
+					"task",
+					806
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Fizzle Darkstorm (12, his quest 12) and his linked Burning Blade cultists were fought at 10-11 (Troll players' 25th percentile 10.8; 13 deaths there, 6 to a higher mob) in one step with the lizards, before Misha. As in the seed order, the lizards, Rezlak's Stormy Potential and Misha's Lost But Not Forgotten come first, so his camp, just north of Misha's hut, is met with their experience"
+			},
+			{
+				"a": [
+					"turnin",
 					766
 				],
 				"b": [
@@ -12274,6 +12464,30 @@
 				],
 				"faction": "Horde",
 				"why": "Flow audit, Orc Durotar (#1092): Lar Prowltusk stands 21 yd from Master Gadrin and offers Thwarting Kolkar Aggression at level 5 on the first Sen'jin stop (11 recorded windows of his, most at level 5 with Report to Sen'jin Village still in the log). The Orc order took it on a trip of its own from Razor Hill after Tiragarde Keep (1,200 yd south), then walked north again to the toolboxes east of Razor Hill; taken on the first stop, the coast is walked once, from Razor Hill south. The shared seed now has the accept on that stop"
+			},
+			{
+				"a": [
+					"turnin",
+					786
+				],
+				"b": [
+					"task",
+					826
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): the southern Echo Isles were worked straight off the coast at 8 (players' 25th percentile 8.3), against Zalazane (10), his quest (10) and Voodoo and Hexed Trolls of 8-9 that killed 13 players there, 8 of them to a higher troll. Kolkar Crag and its Sen'jin hand-ins (Thwarting Kolkar Aggression, Lost in the Shadows, A Solvent Spirit) come first, then the northern isle and a top-up to 9 on the tigers, so the trolls are met at 9; the graveyard brings you back to Sen'jin as before"
+			},
+			{
+				"a": [
+					"turnin",
+					786
+				],
+				"b": [
+					"task",
+					97225
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Forgotten Loa Idols (9) lie among the same Voodoo and Hexed Trolls as Zalazane's quest: after Kolkar Crag and the top-up to 9, with Zalazane (the record before)"
 			},
 			{
 				"a": [
@@ -13179,18 +13393,6 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-08, Hillsbrad 22): the bears and creepers for Elixir of Suffering roam the hills west of Tarren Mill on the way down to Hillsbrad Fields, where the lions for Mountain Lion Blood stand too (#1123). The route walked back up to Tarren Mill for Lydon's hand-in and Umpi's delivery between the hills and the fields, then down the same slope again; both go on the Tarren Mill stop after the fields, with Battle of Hillsbrad and Mountain Lion Blood, saving about 1,000 yd"
-			},
-			{
-				"a": [
-					"task",
-					868
-				],
-				"b": [
-					"turnin",
-					913
-				],
-				"faction": "Horde",
-				"why": "Final route review (2026-11-08, Barrens 21): Jorn Skyseer stands in Camp Taurajo; his thunderhawks circle just south of it and the Field of Giants' Silithid eggs lie just south of them. The route walked back into the camp to hand in Cry of the Thunderhawk between the hawks and the eggs, then south again and back north past him; the wings are handed in on the walk back north after the eggs (and the Warriors' antennae, Ruga beside him), saving about 600 yd"
 			},
 			{
 				"a": [
