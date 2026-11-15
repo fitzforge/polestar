@@ -13361,6 +13361,18 @@
 				],
 				"b": [
 					"task",
+					5863
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Alliance 40-50, minimum fixes: mobs two or more over the player block a solo step): The Dunemaul Compound (Brutes 46-48, Gor'marok 49) is two over the 47-48 player of the Tanaris guide (the level model with the Riverglades and Shen'dralas in the route: 47.9 at the compound). It is taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49.5, after The Borrower's hand-in, on the ride south-west toward the crater."
+			},
+			{
+				"a": [
+					"turnin",
+					2941
+				],
+				"b": [
+					"task",
 					3362
 				],
 				"faction": "Alliance",

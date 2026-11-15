@@ -10,8 +10,8 @@ pitch For characters of 49 to 51, but most quests here are level 51-53: on purpo
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# The Tanaris guide's Thistleshrub Valley (2605, 3362, mobs 48-50) is done on this guide's Gadgetzan landing, at
-# about 49.5.
+# The Tanaris guide's Dunemaul Compound (5863) and Thistleshrub Valley (2605, 3362) are done on this guide's Gadgetzan
+# landing, at about 49.5 (their mobs are 46-50).
 
 step Fly to Menethil Harbor
   zone Ironforge
@@ -45,16 +45,24 @@ step Gadgetzan
   when group 2944
   accept 2944
 
+step Dunemaul Compound
+  zone Tanaris
+  tip Ride south-west to the ogre compound. Brutes and Enforcers (46-48) fill it; Gor'marok the Ravager (49) stands in the middle with guards around him: clear them first.
+  kill 5474 quest 5863                -- Dunemaul Brute
+  kill 5472 quest 5863                -- Dunemaul Enforcer
+  kill 12046 x1 quest 5863            -- Gor'marok the Ravager, below ground
+
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
-  tip Ride south-west into Thistleshrub Valley. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.
+  tip Ride west into Thistleshrub Valley. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.
   tip Careful: the thistleshrubs wander a lot, so you can easily pull extra mobs.
   collect 8428 x1 quest 2605          -- Laden Dew Gland
   kill 5485 quest 3362                -- Thistleshrub Rootshaper
   kill 5490 quest 3362                -- Gnarled Thistleshrub
 
 step Gadgetzan
-  tip Ride back north-east to Gadgetzan.
+  tip Ride back north-east to Gadgetzan: Andi Lynn stands on the east side of town.
+  turnin 5863                         -- Andi Lynn
   turnin 2605                         -- Marin Noggenfogger
   accept 2606
   turnin 3362                         -- Tran'rek
