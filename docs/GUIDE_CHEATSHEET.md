@@ -49,6 +49,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `background` | Inside an `along until` step: its goals are slow, zone-wide collections worked over the whole stay; each needs a finish step before its hand-in (GUIDE_FORMAT, "Background goals") | `background` |
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
+| `backto <label> [when <predicate>]` | Inside a step: once it is done, the route goes back to the labelled step (this one or an earlier one) and the steps between open again, while the predicate holds (GUIDE_FORMAT, "Going back"; needs Polestar 0.4.1) | `backto camp when has 750 x5` |
 | `loop` | Inside a step: its `goto` points are the places to search, in order, for the step's kill, collect and interact goals without `@x,y` | `loop` |
 | `note <text>` | A line of information; never holds the player up | `note The camp is busy at night.` |
 | `level <N>` | Reach level N, grinding if need be | `level 2` |

@@ -1384,6 +1384,19 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 			}
 			step.set("skipto", list);
 		}
+		// `backto <label> [when <predicate>]`: { to, when? }.
+		let backto = s.get("backto");
+		if backto.truthy() {
+			let b: V = obj! { "to" => backto.get("to") }.into();
+			if backto.get("when").truthy() {
+				let w = resolve_when(&vec![backto.get("when")].into(), &szid, None, r);
+				b.set("when", w.at(0));
+			}
+			step.set("backto", b);
+			if !s.get("along").is_undef() {
+				r.err(&backto.get("line"), "an `along` step is never the step the route is at: it cannot send the route back", Some("put `backto` on the step that ends the round"));
+			}
+		}
 		let step_goals: V = V::arr();
 		step.set("goals", step_goals.clone());
 		step.set_hidden("_line", s.get("line"));
@@ -1502,7 +1515,8 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	guide
 }
 
-/// Step labels are guide-wide: each names one step; `along until`/`skipto` name a later step, `done` any.
+/// Step labels are guide-wide: each names one step; `along until`/`skipto` name a later step, `backto` its
+/// own step or an earlier one, `done` any.
 fn check_labels(steps: &[V], r: &mut R) {
 	let mut labels: FxHashMap<String, (usize, V)> = FxHashMap::default();
 	for (i, s) in steps.iter().enumerate() {
@@ -1541,7 +1555,20 @@ fn check_labels(steps: &[V], r: &mut R) {
 				_ => {}
 			}
 		}
-		let preds: Vec<V> = s.get("when").items().into_iter().chain(skipto.iter().map(|k| k.get("when"))).collect();
+		let backto = s.get("backto");
+		if backto.truthy() {
+			let to = backto.get("to").to_js_string();
+			match labels.get(&to) {
+				None => r.err(&backto.get("line"), format!("unknown label \"{to}\""), Some("name the step the round starts at with `label <name>`")),
+				Some((t, line)) if *t > i => {
+					let msg = format!("`backto {to}` must name this step or an earlier one (the label is on line {line}); `skipto` jumps ahead");
+					r.err(&backto.get("line"), msg, None);
+				}
+				_ => {}
+			}
+		}
+		let back_when = if backto.truthy() && backto.get("when").truthy() { Some(backto.get("when")) } else { None };
+		let preds: Vec<V> = s.get("when").items().into_iter().chain(skipto.iter().map(|k| k.get("when"))).chain(back_when).collect();
 		for p in preds {
 			if p.get("k").as_str() == Some("done") && !labels.contains_key(&p.get("label").to_js_string()) {
 				r.err(&p.get("line"), format!("unknown label \"{}\"", p.get("label")), Some("name a step with `label <name>`"));

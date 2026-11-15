@@ -57,6 +57,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `background` | On an `along until` step: its goals are slow, zone-wide collections (a low drop rate, the mobs all along the route) worked over the whole stay; each quest objective needs a finish step, a plain step working it, before the step that hands its quest in |
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
+| `backto <label> [when <predicate>]` | Once the step is done, the route goes back to the labelled step (this one or an earlier one) and the steps between open again, while the predicate holds: a repeatable quest handed in while the bags hold another round's worth (Polestar 0.4.1) |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals without `@x,y` (at least two, one map) |
 
 ## Goals
@@ -165,7 +166,8 @@ spell; `!knows` for the step that trains it); `!` in front of any but
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
-`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with
+`backto`, Polestar 0.4.1.
 
 ## Lint errors that come up most
 

@@ -127,9 +127,10 @@ end
 -- again at the next login. Only for a quest the guide takes itself (it has
 -- the quest's accept): a hand-in with no accept in the guide is another
 -- route's work, forgotten at a reload as before, and a `turnin ... direct`
--- has its own latch (Own.latchTurnin). true: handed in. nil: this guide has
--- nothing stored for it. `id` is the guide asked about when it is not the
--- loaded one (the picker counting another guide's quests).
+-- has its own latch (Own.latchTurnin). true: handed in. false: open again
+-- for another round (Own.reopen), whatever the session saw. nil: this guide
+-- has nothing stored for it. `id` is the guide asked about when it is not
+-- the loaded one (the picker counting another guide's quests).
 function Own.handed(q, id)
 	id = id or (guide and guide.id)
 	local all = id and ns.CharState().handed
@@ -165,6 +166,9 @@ function Own.takesQuest(q)
 	end
 	return set[q] == true
 end
+
+-- Quest id -> true from its QUEST_TURNED_IN until it has left the log.
+Own.leaving = {}
 
 local function questDone(q, id)
 	if Compat().IsQuestCompleted(q) then return true end
@@ -3771,6 +3775,105 @@ function Own.keep(s)
 	end
 end
 
+-- `backto` (format 11; docs/GUIDE_FORMAT.md, "Going back"): step s is done
+-- and names the step a round starts at (its own label or an earlier step's).
+-- While its predicate holds (always, without one) the steps from there
+-- through s open again (Own.reopen) and the route goes back: a repeatable
+-- quest is taken, worked and handed in once more. Returns the step to go
+-- back to, nil when the route goes on, or false while a quest of the round
+-- that was just handed in is still in the log (the client says the hand-in
+-- before the quest leaves: opening the round now would read it as a quest
+-- taken already). Not before the quest log can be read, as a jump.
+function Own.backto(s)
+	local b = guide.steps[s].backto
+	if not (b and logReady) then return nil end
+	local from = Own.marksOf().labels[b.to]
+	if not (from and from <= s) then return nil end
+	if b.when and not Own.predicateHolds(b.when) then return nil end
+	local C = Compat()
+	for t = from, s do
+		for _, goal in ipairs(guide.steps[t].goals) do
+			local q = goal.quest
+			if q and Own.leaving[q] and C.IsOnQuest(q) then return false end
+		end
+	end
+	Own.reopen(from, s)
+	return from
+end
+
+-- Step s is done for good: each of its goals that holds it is a quest goal
+-- of a quest the client flags completed, so no round can do it again.
+function Own.doneForGood(s)
+	local C = Compat()
+	local any = false
+	for _, goal in ipairs(guide.steps[s].goals) do
+		if goal.t ~= "note" and not goal.optional and goalApplies(goal) then
+			if not (goal.quest and C.IsQuestCompleted(goal.quest)) then return false end
+			any = true
+		end
+	end
+	return any
+end
+
+-- Steps from..to open again: the player's ticks, latched results, skips,
+-- stored `when` outcomes (with them a `backto` that went on, Own.wentOn),
+-- arrivals and waits are forgotten, and so is what this guide remembers of
+-- their quests the game does not flag as completed (a repeatable quest
+-- handed in, one that left the log): the quest log and the bags decide
+-- afresh. The guide's own memory only (Own.handed): another tab's guide with
+-- the same quest keeps reading the hand-in.
+function Own.reopen(from, to)
+	local state, C = ns.CharState(), Compat()
+	local m, sk = manualFor(guide.id), skippedFor(guide.id)
+	local held = state.when and state.when[guide.id]
+	local now = Own.passedNow[guide.id]
+	local lost = state.lostQuests and state.lostQuests[guide.id]
+	for s = from, to do
+		if sk then sk[s] = nil end
+		-- A `backto` that went on because its step cannot be done again stays so:
+		-- a wider round opening around it has nothing to offer it either.
+		if held and not (held[s] == "on" and Own.doneForGood(s)) then held[s] = nil end
+		for g, goal in ipairs(guide.steps[s].goals) do
+			local key = Own.key(s, g)
+			if m then m[key] = nil end
+			if sk then sk[key] = nil end
+			if now then now[key] = nil end
+			arrived[goal] = nil
+			Own.waitStart[goal] = nil
+			local q = goal.quest
+			if q and not C.IsQuestCompleted(q) then
+				if questDone(q) then Own.setHanded(q, false) end
+				Own.removed[q], Own.wasFailed[q] = nil, nil
+				if lost then lost[q] = nil end
+			end
+		end
+	end
+end
+
+-- Whether the route went on past step s's `backto`: its predicate did not
+-- hold when the step was done, or the step cannot be done again. Kept with
+-- the step's `when` outcome (CharState().when[guideId][s] = "on"), so it
+-- stands after a /reload and goes where that outcome goes: Own.reopen and
+-- the player bringing the step back (Own.keep) forget it. `on` sets it
+-- (true), or forgets it (false) when the step is open again: a step with
+-- `when` then keeps that outcome as held (the route had passed it with its
+-- predicates holding, as Own.latchWhen stores it).
+function Own.wentOn(s, on)
+	local all = ns.CharState().when
+	local held = all[guide.id]
+	if on == nil then return held ~= nil and held[s] == "on" end
+	if on then
+		if not held then
+			held = {}
+			all[guide.id] = held
+		end
+		held[s] = "on"
+	elseif held and held[s] == "on" then
+		held[s] = guide.steps[s].when and true or nil
+		if not next(held) then all[guide.id] = nil end
+	end
+end
+
 -- First applicable, not skipped, not done step, after placing the tab when
 -- it was just loaded (place). During play soft steps hold as usual, so a
 -- quest taken out of order never jumps a training stop. A step the route
@@ -3781,9 +3884,14 @@ local function computeCurrent()
 	if placing then place() end
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
-	for s = 1, #steps do
+	local s, went = 1, nil
+	while s <= #steps do
+		local step = steps[s]
+		local open = stepApplies(step) and not (sk and sk[s])
 		-- The live step stays while the group waits on it (Own.partyHold).
-		if stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
+		if open and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
+			-- Open again: its `backto` decides afresh once it is done.
+			if step.backto then Own.wentOn(s, false) end
 			local hold = Own.holdsBefore(s)
 			if hold then
 				return hold
@@ -3792,7 +3900,29 @@ local function computeCurrent()
 			elseif not Own.flightJudged(s) then
 				return s
 			end
+		elseif open and step.backto and logReady and not Own.wentOn(s) then
+			-- Done, with a `backto`: the route goes back, or goes on for good. A
+			-- round that is done again at once (nothing in it can be done twice)
+			-- goes on too. Nothing is decided before the quest log can be read,
+			-- nor while a hand-in is still leaving it (the step stays live).
+			local from = nil
+			if not (went and went[s]) then from = Own.backto(s) end
+			if from == false then
+				return s
+			elseif from then
+				went = went or {}
+				went[s] = true
+				sk = skippedFor(guide.id)
+				-- The step itself cannot be done again (a quest done for good):
+				-- the route goes back this once, for what the round's other steps
+				-- still offer, and on when it comes here again.
+				if Own.doneForGood(s) then Own.wentOn(s, true) end
+				s = from - 1
+			else
+				Own.wentOn(s, true)
+			end
 		end
+		s = s + 1
 	end
 	-- Nothing else open: a guide that is no leveling guide waits at an accept
 	-- the level-up brings back (Own.levelHold).
@@ -12439,11 +12569,15 @@ ns.RegisterEvent("QUEST_LOG_UPDATE", function() logReady = true end)
 -- A quest leaving the log (abandoned, failed, or handed in) may be held
 -- (Own.holdLost); taking it again ends that.
 ns.RegisterEvent("QUEST_REMOVED", function(_, questID)
-	if type(questID) == "number" then Own.removed[questID] = true end
+	-- A quest leaving after its hand-in is no quest lost: a round may open it
+	-- again (Own.reopen), and the question is for an abandon.
+	if type(questID) == "number" then
+		if Own.leaving[questID] then Own.leaving[questID] = nil else Own.removed[questID] = true end
+	end
 end)
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, a, b)
 	local q = type(b) == "number" and b or a
-	if type(q) == "number" then Own.removed[q], Own.wasFailed[q] = nil, nil end
+	if type(q) == "number" then Own.removed[q], Own.wasFailed[q], Own.leaving[q] = nil, nil, nil end
 end)
 
 ns.RegisterEvent("UNIT_QUEST_LOG_CHANGED", function(_, unit)
@@ -12451,13 +12585,20 @@ ns.RegisterEvent("UNIT_QUEST_LOG_CHANGED", function(_, unit)
 end)
 
 ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
-	if questID then turnedIn[questID] = true end
+	if questID then
+		turnedIn[questID] = true
+		-- Still in the log: its QUEST_REMOVED is to come. Gone already: that one
+		-- was the hand-in's.
+		if Compat().IsOnQuest(questID) then Own.leaving[questID] = true end
+		Own.removed[questID] = nil
+	end
 	if questID and player then
 		for i = 1, #tabs do
 			use(tabs[i])
 			Own.latchTurnin(questID)
-			-- Kept for the tab's guide across /reload (Own.handed).
-			if guide and Own.takesQuest(questID) then Own.setHanded(questID, true) end
+			-- Kept for the tab's guide across /reload (Own.handed); a hand-in a
+			-- round opened again (Own.reopen) is answered by the next one.
+			if guide and (Own.takesQuest(questID) or Own.handed(questID) == false) then Own.setHanded(questID, true) end
 		end
 		useActive()
 	end

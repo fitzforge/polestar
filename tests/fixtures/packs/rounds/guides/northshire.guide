@@ -1,0 +1,28 @@
+# Fixture: a step's `backto` (tests/playtest.test.js): the simulated player
+# plays each round once and then skips the step that goes back, so a guide
+# with rounds plays to its end.
+guide rounds/northshire
+title Rounds Fixture
+faction Alliance
+race Human
+levels 1-6
+zone Elwynn Forest
+
+step Northshire Abbey
+  label abbey
+  goto 48.2,42.0 "Northshire Abbey"
+
+step Round the abbey again
+  task "Walk the wall"
+  backto abbey
+
+step While under level 3
+  label grind
+  level 2
+
+step Until level 3
+  task "Rest a moment"
+  backto grind when level<3
+
+step Then
+  task "Go on"

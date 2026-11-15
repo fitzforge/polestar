@@ -10,7 +10,8 @@
 //!   (when: when.rs predicates, each with its line; only on a step that has one;
 //!   label: the step's name; along: true, or the label `along until` names; labelLine/alongLine: their lines;
 //!   background: true on an `along until` step of zone-wide, slow goals (backgroundLine its line, #1135);
-//!   skipto: [{ to, when: predicate, line }], the step's `skipto <label> when <predicate>` lines in order)
+//!   skipto: [{ to, when: predicate, line }], the step's `skipto <label> when <predicate>` lines in order;
+//!   backto: { to, when?: predicate, line }, the step's `backto <label> [when <predicate>]` line)
 //!   goal  = { line, verb, zone, note, ...positional/modifier fields }
 //! `zone` on a goal is the zone spec in effect ({ name } | { map }, with line),
 //! shared by every goal under the same header/step `zone` line.
@@ -57,9 +58,12 @@ pub const HEADER_KEYS: [&str; 20] =
 /// Lines inside a step that are not goals.
 /// `loop`: the step's `goto` points are the spawn areas of its kill, collect
 /// and interact goals (resolve.rs, applyLoop).
+/// `backto <label> [when <predicate>]`: once the step is done (and while the predicate
+/// holds), the route goes back to the labelled step and the steps from there through
+/// this one open again (resolve.rs, checkLabels).
 /// `skipto <label> when <predicate>`: when the route reaches the step and the
 /// predicate holds, it jumps to the labelled step (resolve.rs, checkLabels).
-pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "loop"];
+pub const STEP_KEYS: [&str; 11] = ["zone", "only", "tip", "image", "when", "label", "along", "background", "skipto", "backto", "loop"];
 
 // COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
@@ -608,6 +612,32 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 							cx.err(ln, "`skipto` cannot wait for an answer: `group` asks the player at a step", Some("put `when group <quest>` on the steps of that quest instead"))
 						}
 						Ok(v) => push_to(&step, "skipto", obj! { "to" => toks[1].text.as_str(), "when" => with_line(&v, ln), "line" => ln }),
+					}
+				}
+				"backto" => {
+					let usage = "`backto` needs a label, and may have a predicate: backto <label> [when <predicate>]";
+					if toks.len() < 2 || toks[1].quoted || toks.len() == 3 || (toks.len() > 2 && (toks[2].quoted || toks[2].text.to_lowercase() != "when")) {
+						cx.err(ln, usage, None);
+						continue;
+					}
+					if !is_label(&toks[1].text) {
+						cx.err(ln, format!("malformed label \"{}\" (letters, digits, - and _)", toks[1].text), None);
+						continue;
+					}
+					if step.get("backto").truthy() {
+						cx.err(ln, "a step goes back to one place: a second `backto`", None);
+						continue;
+					}
+					if toks.len() == 2 {
+						step.set("backto", obj! { "to" => toks[1].text.as_str(), "line" => ln });
+						continue;
+					}
+					match parse_when(&sl(&line, toks[3].start, lex.end)) {
+						Err(e) => cx.err(ln, format!("`backto`: {}", e.error), e.hint.as_deref()),
+						Ok(v) if v.get("k").as_str() == Some("group") => {
+							cx.err(ln, "`backto` cannot wait for an answer: `group` asks the player at a step", Some("put `when group <quest>` on the steps of that quest instead"))
+						}
+						Ok(v) => step.set("backto", obj! { "to" => toks[1].text.as_str(), "when" => with_line(&v, ln), "line" => ln }),
 					}
 				}
 				"image" => parse_image(&step, toks, ln, &mut cx),

@@ -12,7 +12,8 @@
 //   (image: { path, ext, w, h, line }, images.js parseImagePath; w/h null unless written)
 //   (when: tools/lib/dsl/when.js predicates, each with its line; only on a step that has one;
 //   label: the step's name; along: true, or the label `along until` names; labelLine/alongLine: their lines;
-//   skipto: [{ to, when: predicate, line }], the step's `skipto <label> when <predicate>` lines in order)
+//   skipto: [{ to, when: predicate, line }], the step's `skipto <label> when <predicate>` lines in order;
+//   backto: { to, when?: predicate, line }, the step's `backto <label> [when <predicate>]` line)
 //   goal  = { line, verb, zone, note, ...positional/modifier fields }
 // `zone` on a goal is the zone spec in effect ({ name } | { map }, with line),
 // shared by every goal under the same header/step `zone` line.
@@ -43,9 +44,12 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 // Lines inside a step that are not goals.
 // `loop`: the step's `goto` points are the spawn areas of its kill, collect
 // and interact goals (resolve.js, applyLoop).
+// `backto <label> [when <predicate>]`: once the step is done (and while the predicate
+// holds), the route goes back to the labelled step and the steps from there through
+// this one open again (resolve.js, checkLabels).
 // `skipto <label> when <predicate>`: when the route reaches the step and the
 // predicate holds, it jumps to the labelled step (resolve.js, checkLabels).
-const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'backto', 'loop'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -392,6 +396,28 @@ function parseGuide(text, file, diag) {
 				if (w.error) err(ln, `\`skipto\`: ${w.error}`, w.hint);
 				else if (w.value.k === 'group') err(ln, '`skipto` cannot wait for an answer: `group` asks the player at a step', 'put `when group <quest>` on the steps of that quest instead');
 				else (step.skipto ||= []).push({ to: toks[1].text, when: { ...w.value, line: ln }, line: ln });
+			} else if (kw === 'backto') {
+				const usage = '`backto` needs a label, and may have a predicate: backto <label> [when <predicate>]';
+				if (toks.length < 2 || toks[1].quoted || toks.length === 3 || (toks.length > 2 && (toks[2].quoted || toks[2].text.toLowerCase() !== 'when'))) {
+					err(ln, usage);
+					continue;
+				}
+				if (!LABEL_RE.test(toks[1].text)) {
+					err(ln, `malformed label "${toks[1].text}" (letters, digits, - and _)`);
+					continue;
+				}
+				if (step.backto) {
+					err(ln, 'a step goes back to one place: a second `backto`');
+					continue;
+				}
+				if (toks.length === 2) {
+					step.backto = { to: toks[1].text, line: ln };
+					continue;
+				}
+				const w = parseWhen(line.slice(toks[3].start, lex.end));
+				if (w.error) err(ln, `\`backto\`: ${w.error}`, w.hint);
+				else if (w.value.k === 'group') err(ln, '`backto` cannot wait for an answer: `group` asks the player at a step', 'put `when group <quest>` on the steps of that quest instead');
+				else step.backto = { to: toks[1].text, when: { ...w.value, line: ln }, line: ln };
 			} else if (kw === 'image') {
 				parseImage(step, toks, ln, err);
 			} else if (kw === 'loop') {

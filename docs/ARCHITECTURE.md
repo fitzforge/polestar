@@ -1025,6 +1025,7 @@ Polestar.RegisterGuide({
       along = "camp",              -- optional (format 4): true or a later step's label; the route passes over the step
       label = "camp",              -- optional (format 4): the step's name, unique in the guide
       skipto = { { to = "camp", when = { k = "turnedin", q = 1235 } } },  -- optional (format 5): jumps to a later step's label, checked when the route reaches the step
+      backto = { to = "camp", when = { k = "has", item = 750, n = 5 } },  -- optional (format 11): once the step is done, back to its own or an earlier step's label; `when` optional
       goals = { goal, ... },       -- at least one
     },
   },
@@ -1821,13 +1822,31 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   jump. A `done` predicate (`Own.labelDone`) holds when the labelled step
   applies, is not skipped and its goals are done (`Own.goalsDone`, which is
   `stepDone` without the along pass).
+- **Rounds.** A step with `backto` (format 11; GUIDE_FORMAT, "Going back")
+  is asked when `computeCurrent` passes it done, once the quest log can be
+  read: `Own.backto` checks its predicate and, while it holds, opens the
+  steps from the labelled one through it again (`Own.reopen`: their ticks
+  and latches in `CharState().manual`, skips, stored `when` outcomes,
+  arrivals and waits are forgotten, and with them what the guide remembers
+  of their quests the client does not flag completed), and `computeCurrent`
+  goes on from the labelled step. A hand-in whose quest has not left the
+  log yet holds the step (`Own.leaving`, from `QUEST_TURNED_IN` to its
+  `QUEST_REMOVED`): opening the round then would read the quest as taken
+  already, and such a leaving is no lost quest. A round done again at once
+  goes on. That the route went on (the predicate failed, or the step cannot
+  be done again: `Own.doneForGood`, every holding goal a quest the client
+  flags completed) is kept as `"on"` in `CharState().when[guideId][step]`
+  (`Own.wentOn`), so the step sends nobody back after a `/reload`; it is
+  forgotten when the step is open again.
 - **Hand-ins the client does not flag.** A repeatable quest is never
   completed for the client, so its hand-in is kept per guide,
   `CharState().handed[guideId][questID]` (`Own.handed`, set on
   `QUEST_TURNED_IN` for a quest the tab's guide takes itself: it has the
-  quest's `accept`, `Own.takesQuest`). A hand-in with no accept in the guide
-  is another route's work and is forgotten at a reload as before; a
-  `turnin ... direct` keeps its own latch (`Own.latchTurnin`).
+  quest's `accept`, `Own.takesQuest`, or for one a round had opened again):
+  `true` handed in, `false` opened again by a round whatever the session
+  saw. A hand-in with no accept in the guide is another route's work and is
+  forgotten at a reload as before; a `turnin ... direct` keeps its own latch
+  (`Own.latchTurnin`).
   `questDone` reads the client first, then this, then the session's
   turn-ins; another guide with the same quest keeps its own answer.
   `Engine.ResetProgress` drops the guide's table, and an entry the client
