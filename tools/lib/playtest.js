@@ -479,7 +479,12 @@ function chainDone(guides, g, persona, groups = 'skip', chosen = dungeonPicker(n
 	const done = new Set();
 	const carried = new Set();
 	const open = new Set();
+	// A guide no other leads into whose step waits on a quest another guide hands in (`when turnedin`: The Eye of
+	// Bhossca, a class guide of its own, after The Horn of Xelthos's 78307) is played as by a character who did that
+	// guide: the quest is done.
+	const elsewhere = (q) => !into.has(g.id) && !handIn.has(q) && guides.some((o) => o.id !== g.id && o.steps.some((s) => s.goals.some((x) => x.t === 'turnin' && x.quest === q)));
 	for (const s of g.steps) {
+		for (const p of s.when || []) if (p.k === 'turnedin' && !p.neg) for (const q of [].concat(p.q)) if (turned.has(q) || elsewhere(q)) done.add(q);
 		for (const x of s.goals) {
 			if (x.t !== 'accept') continue;
 			for (const p of [...(x.pre || []), ...(x.preAll || [])]) {
