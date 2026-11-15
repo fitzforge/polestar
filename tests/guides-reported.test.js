@@ -1616,10 +1616,8 @@ test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tri
 // Flow audit, Horde Hillsbrad (#1079): Battle of Hillsbrad was walked out in one visit, Tarren Mill ->
 // Hillsbrad Fields -> Tarren Mill five times, the last two for Magistrate Burnside and Foreman Bonds (both
 // level 30) at 25-27. Parts 4 and 5 (532, 539) and Dangerous!'s clerk and miner come on the Tarren Mill
-// visit at 30-32 (30-40/01-hillsbrad-foothills since the 2026-11-07 Horde 30-40 re-order): the town hall
-// after the yeti caves, Helcular's Revenge handed in on the Tarren Mill stop between (Infiltration waits for the
-// last Tarren Mill stop since #1466: the #1466 case after Valik's), then
-// the flames, Dalaran's crater and the mine on one sweep south-west to Southshore's graveyard.
+// visit at 30-31 (30-40/01-hillsbrad-foothills): the town hall, Tarren Mill, then the mine (level tidy 2026-11-15:
+// Helcular's Revenge and the Dalaran crater left this visit, so nothing comes between).
 test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 and 5 wait for the Tarren Mill visit at 32', { skip }, () => {
 	const early = goals('forever/horde/06-hillsbrad-foothills.guide');
 	assert.deepEqual(early.filter(({ goal }) => [532, 539].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing of parts 4 and 5 at 25-27');
@@ -1628,13 +1626,10 @@ test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 an
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const idx = (what, pred) => at(list, what, pred);
 	const accept = idx('accept 532', is('accept', 532));
-	const rod = idx("Helcular's Rod", (g) => g.t === 'collect' && g.quest === 552);
 	const hall = idx('Magistrate Burnside', (g) => g.t === 'kill' && g.quest === 532 && g.npc === 2335);
 	const back = idx('turnin 532', is('turnin', 532));
 	const bonds = idx('Foreman Bonds', (g) => g.t === 'kill' && g.quest === 539 && g.npc === 2305);
-	const dalaran = idx('the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
-	assert.ok(accept < rod && rod < hall && hall < back && back < dalaran && dalaran < bonds, 'Tarren Mill, the yetis, the town hall, Tarren Mill, Dalaran, the mine');
-	assert.equal(list[idx('turnin 552', is('turnin', 552))].s, list[back].s, '552 is handed in on the Tarren Mill stop between');
+	assert.ok(accept < hall && hall < back && back < bonds, 'Tarren Mill, the town hall, Tarren Mill, the mine');
 	for (const q of [539, 567]) assert.ok(idx(`turnin ${q}`, is('turnin', q)) > bonds, `${q} is handed in after the mine`);
 });
 
@@ -1646,15 +1641,16 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: no bind in Hillsbrad', {
 	assert.deepEqual(list.filter(({ goal }) => goal.t === 'sethome').map(({ goal }) => goal.location), [], 'Freewind Post stays bound');
 });
 
-// Horde 21-40 audit (0.4.0): Elixir of Agony (515) needs a Lesser Troll's Blood Elixir no vendor sells; Hillsbrad 22-25
-// offers it only to a character carrying one, and Hillsbrad 30-40's opening Undercity stop offers it again for a
-// character who bought one since.
+// Horde 21-40 audit (0.4.0) and level tidy (2026-11-15): Elixir of Agony's first two parts (509, 513) come on the 30-31
+// Hillsbrad visit (the Mudsnout blossoms, then Faranell on the Undercity stop at its end); 515 needs a Lesser Troll's
+// Blood Elixir no vendor sells and could only start after Hillsbrad, so it is left out (route-fixes skip 515).
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: Elixir of Agony is offered in the Undercity only with the elixir in the bags', { skip }, () => {
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
-	const acc = at(list, 'accept 515 (Faranell)', is('accept', 515));
-	assert.ok((list[acc].step.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 3388), 'only with a Lesser Troll\'s Blood Elixir');
-	const fly = list.findIndex(({ step }) => step.title === 'Fly to Tarren Mill');
-	assert.ok(fly >= 0 && acc < fly, 'in the Undercity, before Tarren Mill');
+	assert.equal(list.filter(({ goal }) => goal.quest === 515).length, 0, 'no 515: it would start after Hillsbrad');
+	const blossoms = at(list, 'the Mudsnout blossoms', (g) => g.t === 'collect' && g.quest === 509);
+	const fly = list.findIndex(({ step }) => step.title === 'Fly to Undercity');
+	const faranell = at(list, 'turnin 513 (Faranell)', is('turnin', 513));
+	assert.ok(blossoms < fly && fly < faranell, 'the blossoms in Hillsbrad, Faranell on the Undercity stop at the end');
 });
 
 // Horde 30-40 audit (0.4.0): the Badlands bound the hearthstone at Kargath, and nothing hearths back to it: the guide
@@ -1668,29 +1664,29 @@ test('forever/horde/30-40/06-badlands.guide: no bind at Kargath', { skip }, () =
 
 // Horde 30-40 audit (0.4.0): Bracers of Binding (557) and Dalaran Patrols (545) were taken at Tarren Mill at about 31
 // and worked only on the 38-39 visit, carried through four guides; players' recordings show 3 people abandoning
-// Bracers of Binding on the way. Bel'varil and Voidglare stand at the same inn on the 38-39 visit's first Tarren Mill
-// stop, which takes them now.
+// Bracers of Binding on the way. Since the level tidy (2026-11-15) their openers (556, 544, 93680) are worked on the
+// 38-39 visit too: Bel'varil and Voidglare give them on the Tarren Mill stop after the Dalaran crater, before the ruins.
 test('forever/horde/30-40: Bracers of Binding and Dalaran Patrols are taken on the 38-39 visit, not carried from 31', { skip }, () => {
 	const early = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
-	assert.deepEqual(early.filter(({ goal }) => goal.t === 'accept' && [545, 557].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'not taken at 31');
+	assert.deepEqual(early.filter(({ goal }) => goal.t === 'accept' && [544, 545, 556, 557, 93680].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'not taken at 30-31');
 	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
-	const first = list.findIndex(({ step }) => step.title === 'Tarren Mill');
+	const crater = at(list, 'the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
 	for (const q of [545, 557]) {
 		const acc = at(list, `accept ${q}`, is('accept', q));
-		assert.equal(list[acc].s, list[first].s, `${q} on the first Tarren Mill stop`);
+		assert.ok(crater < acc, `${q} after the crater`);
+		assert.ok(acc < at(list, 'the Dalaran Summoners', (g) => g.t === 'kill' && g.quest === 545), `${q} before the ruins`);
 	}
-	assert.ok(at(list, 'accept 545', is('accept', 545)) < at(list, 'the Dalaran Summoners', (g) => g.t === 'kill' && g.quest === 545), 'before the ruins');
 });
 
 // Horde 30-40 audit (0.4.0): Centaur Bounty (1366) was taken at the end of the first Desolace visit (33-35) and worked
 // only on the second (38), carried through Stranglethorn; players' recordings show 4 people abandoning it on the way.
-// Felgur stands beside Gurda Wildmane at Ghost Walker Post, where the second visit stops before the Valley of Spears.
+// Felgur stands at Ghost Walker Post, where the second visit stops before the Valley of Spears.
 test('forever/horde/30-40: Centaur Bounty is taken on the second Desolace visit, before the Valley of Spears', { skip }, () => {
 	const first = goals('forever/horde/30-40/02-thousand-needles.guide');
 	assert.deepEqual(first.filter(({ goal }) => is('accept', 1366)(goal)).length, 0, 'not taken on the first visit');
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	const acc = at(list, 'accept 1366', is('accept', 1366));
-	assert.equal(list[acc].s, list[at(list, 'accept 93225', is('accept', 93225))].s, 'with Gurda Wildmane at Ghost Walker Post');
+	assert.equal(list[acc].step.title, 'Ghost Walker Post', 'at Ghost Walker Post');
 	assert.ok(acc < at(list, 'the centaur ears', (g) => g.t === 'collect' && g.quest === 1366), 'before the valley');
 });
 
@@ -1706,12 +1702,13 @@ test('forever/horde/30-40/03-stranglethorn-vale.guide: no Green Hills chapters o
 	at(list, 'turnin 1182 (Revilgaz)', is('turnin', 1182));
 });
 
-// #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned at 33 on the way back
+// #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned on the way back
 // from the Mirage Raceway (the walk to Gadgetzan and the flight to Freewind Post beat the walk west across the flats:
-// the addon's travel planner takes that way itself), so the 40-50 guide can fly to Gadgetzan.
+// the addon's travel planner takes that way itself), so the 40-50 guide can fly to Gadgetzan. Since the level tidy
+// (2026-11-15) that is the first raceway visit's hand-ins (1104, 1105); the flats' south comes after Desolace.
 test('forever/horde/30-40/02-thousand-needles.guide: Gadgetzan\'s flight path on the way back from the raceway (#1976)', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
-	const raceway = at(list, 'turnin 1175 (the raceway)', is('turnin', 1175));
+	const raceway = at(list, 'turnin 1105 (the raceway)', is('turnin', 1105));
 	const fp = at(list, 'getfp Gadgetzan', (g) => g.t === 'getfp' && /Gadgetzan/.test(JSON.stringify(g)));
 	const family = at(list, 'accept 5361 (Freewind Post)', is('accept', 5361));
 	assert.ok(raceway < fp && fp < family, 'after the raceway, before Freewind Post');
@@ -1755,12 +1752,115 @@ test('forever/horde/30-40/04-dustwallow-marsh.guide: the Valley of Spears and th
 	}
 });
 
+// Phenyx on Discord (#2357, level 37.5): "This quest is too hard alone" (Ghost-o-plasm Round Up, 6134). The Crate of
+// Ghost Magnets draws the Magrami Spectres (38-39) in numbers, a few yards from the Magram Necrokhans and Corpsefeeders
+// (45, elite). Players' recordings put the 25th percentile at the crate at 38.1, so the spectres are at most one level
+// over: the quest stays solo, comes last on the Desolace visit (after Thunder Axe Fortress and Mannoroc Coven, whose
+// Valley of Bones lies just south-east), and the steps say the spectres come in numbers and where the elites walk.
+// The Valley of Spears' totems (93225) say where Khan Hratha and the Rock Worms (elite) stand.
+test('forever/horde/30-40/04-dustwallow-marsh.guide: Phenyx (#2357): the ghost-o-plasm comes after Mannoroc Coven, with the elites named', { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const take = list[at(list, 'accept 6134', is('accept', 6134))];
+	assert.ok(!(take.step.when || []).some((p) => p.k === 'group'), 'a solo accept, not a group choice');
+	const plasm = at(list, 'collect 15849', (g) => g.t === 'collect' && g.quest === 6134);
+	for (const q of [5381, 1366, 93225]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < plasm, `${q} is handed in before the spectres`);
+	assert.ok(at(list, 'complete 5581', (g) => g.quest === 5581 && g.t !== 'accept' && g.t !== 'turnin') < plasm, 'Mannoroc Coven comes first');
+	assert.ok(plasm < at(list, 'turnin 6134', is('turnin', 6134)) && at(list, 'turnin 6134', is('turnin', 6134)) < at(list, 'turnin 5581', is('turnin', 5581)), 'Hornizz, then the hearth to Taiga');
+	const text = (i) => [list[i].step.note, list[i].step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text(plasm), /Spectres \(38-39\)[^.]*in numbers/, 'the spectres come in numbers');
+	assert.match(text(plasm), /Necrokhans and Corpsefeeders \(45, elite\)/, 'the elites are named');
+	assert.match(text(at(list, 'totems', (g) => g.t === 'collect' && g.quest === 93225)), /Khan Hratha and the Rock Worms \(41-42, elite\)/, 'the valley\'s elites are named');
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(!rf.deliberate.group.some((g) => g.q === 6134), 'no group record');
+	assert.ok(rf.deliberate.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'task,5581' && `${p.b}` === 'task,6134'), 'a record the build keeps');
+	assert.ok(!rf.overrides.skip.some((s) => s.q === 93225 && s.faction === 'Horde'), 'the totems are not skipped');
+});
+
+// Level tidy (2026-11-15): Questioning Reethe's fight (Private Hallan and the Theramore Skirmishers, 36; 4 people died
+// there in players' recordings) came on the first walk out of Brackenwall at about 35 (calibrated level model). Ogron
+// is now met on the second walk east to the Swamplight Manor, after Brackenwall's hand-ins, and Krog takes it on the
+// last Brackenwall stop.
+test('forever/horde/30-40/04-dustwallow-marsh.guide: Questioning Reethe comes on the second walk east, after Brackenwall\'s hand-ins', { skip }, () => {
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	const take = at(list, 'accept 1273', is('accept', 1273));
+	for (const q of [1201, 1322, 1323, 1218]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < take, `${q} is handed in first`);
+	assert.ok(take < at(list, 'turnin 1206', is('turnin', 1206)), 'on the way to Jarl');
+	assert.equal(list[at(list, 'turnin 1273', is('turnin', 1273))].s, list[at(list, 'turnin 1177', is('turnin', 1177))].s, 'Krog, on the last Brackenwall stop');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'turnin,1323' && `${p.b}` === 'accept,1273'), 'a record the build keeps');
+});
+
+// Level tidy (2026-11-15): from the Mudsnout blossoms (Hillsbrad 64,61) the straight line to Hillsbrad's smithy crosses
+// Southshore, whose guards (55) stand at 47-55,49-62. The walk now goes by the northern vial's peak (Valuable Vantages,
+// Hillsbrad 71.6,30.2), north-east of the town, and Lydon takes the blossoms with Darthalia's Battle of Hillsbrad on the
+// Tarren Mill stop after the smithy.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: from the Mudsnout blossoms to the smithy north of Southshore', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const blossoms = at(list, 'collect 3502', (g) => g.t === 'collect' && g.quest === 509);
+	const smithy = at(list, 'kill 2404', (g) => g.t === 'kill' && g.quest === 529);
+	const way = list.findIndex(({ goal }, i) => i > blossoms && i < smithy && goal.map === 1424 && goal.y < 49 && goal.x > 55);
+	assert.ok(way > 0, 'a point north-east of Southshore\'s guards between the blossoms and the smithy');
+	assert.ok(!list.some(({ goal }, i) => i > blossoms && i < smithy && goal.map === 1424 && goal.x > 46 && goal.x < 56 && goal.y > 48 && goal.y < 63), 'no goal inside Southshore');
+	assert.equal(list[at(list, 'turnin 509', is('turnin', 509))].s, list[at(list, 'turnin 529', is('turnin', 529))].s, 'Lydon and Darthalia on one stop');
+});
+
+// Level tidy (2026-11-15): Masoj's Scout Support and Valuable Vantages (98094, 98095, level 25) left the 22-25 Hillsbrad
+// guide (the western peak's yetis, 30-32, were five over there) and come at 30 in this guide: Darthalia's orders on the
+// 529 stop, Masoj and the southern peak with the blossoms, the northern peak on the way west, the western peak with
+// Helcular's Rod, and the hand-in on the way back from the mine.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Masoj\'s three vials on the walks the guide already makes', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const i = (what, pred) => at(list, what, pred);
+	const vial = (n) => i(`vial ${n}`, (g) => g.t === 'use' && g.quest === 98095 && g.oi === n);
+	assert.ok(i('accept 98094', is('accept', 98094)) < i('turnin 98094', is('turnin', 98094)));
+	assert.ok(i('turnin 98094', is('turnin', 98094)) < i('collect 3502', (g) => g.t === 'collect' && g.quest === 509), 'Masoj before the blossoms');
+	assert.ok(vial(3) < vial(2) && vial(2) < i('kill 2404', (g) => g.t === 'kill' && g.quest === 529), 'south and north peaks before the smithy');
+	const rod = i('collect 3708', (g) => g.t === 'collect' && g.quest === 552);
+	assert.ok(rod < vial(1) && vial(1) < i('kill 2335', (g) => g.t === 'kill' && g.npc === 2335), 'the western peak with the rod, before the town hall');
+	assert.ok(i('kill 2305', (g) => g.t === 'kill' && g.npc === 2305) < i('turnin 98095', is('turnin', 98095)) && i('turnin 98095', is('turnin', 98095)) < i('turnin 539', is('turnin', 539)), 'Masoj on the way back from the mine');
+	const step = list[vial(3)].step;
+	assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Dun Garok Rifleman \(29-30, elite\)/, 'the southern peak names the elite below it');
+});
+
+// Level tidy (2026-11-15): the Shimmering Flats' silithid dig (Invaders 34-35) and the Gazers (34-35) came first on the
+// flats at about 31 (calibrated level model), three levels over the player. The flats' north (basilisks, tortoises,
+// Scorpid Reavers and rocket rubble, 30-32) and the raceway's hand-ins now come first, then a top-up to 32.5 on the
+// Saltstone Crystalhides (32-33) on the way south-west, then the Gazers, the dig and Moktar Krin, all on the same visit
+// before Gadgetzan. Desolace's top-up is to 32 on the Kolkar centaurs (30-32), before Shadowprey, whose Other Fish to
+// Fry is offered from 32.
+test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the raceway\'s hand-ins, on the same visit', { skip }, () => {
+	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
+	const firstHandIn = at(list, 'turnin 1105', is('turnin', 1105));
+	for (const [what, pred] of [
+		['dig 1147', (g) => g.t === 'kill' && g.quest === 1147],
+		['Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3],
+		['turnin 1147', is('turnin', 1147)],
+		['turnin 1175', is('turnin', 1175)],
+	]) assert.ok(at(list, what, pred) > firstHandIn, `${what} after the raceway's first hand-ins`);
+	assert.ok(at(list, 'turnin 1175', is('turnin', 1175)) < at(list, 'accept 5561', is('accept', 5561)), 'the whole flats before Desolace');
+	const levels = list.filter(({ goal }) => goal.t === 'level');
+	assert.equal(levels.length, 2, 'two top-ups');
+	const [flats, desolace] = levels;
+	assert.equal(flats.goal.level + (flats.goal.frac || 0), 32.5);
+	assert.equal(flats.goal.grind, 4151, 'on the Saltstone Crystalhides (32-33)');
+	const fi = list.indexOf(flats);
+	assert.ok(firstHandIn < fi && fi < at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3), 'after the hand-ins, before the Gazers');
+	assert.equal(desolace.goal.level + (desolace.goal.frac || 0), 32);
+	assert.equal(desolace.goal.grind, 4635, 'on the Kolkar Windchasers (31-32)');
+	const di = list.indexOf(desolace);
+	assert.ok(at(list, 'turnin 5561', is('turnin', 5561)) < di && di < at(list, 'accept 6143', is('accept', 6143)), 'after the kodos, before Shadowprey');
+	const gazers = list[at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3)].step;
+	assert.match([gazers.note, gazers.tip].flat().filter(Boolean).join(' '), /Gazers can still be two over you/, 'the Gazers step says how to pull them');
+	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'turnin,1105' && `${p.b}` === 'task,1147'), 'a record the build keeps');
+});
+
 // Dungeons in the route (0.4.0, the grind-tip rule): a grind step names a dungeon only when its run is in the route
-// in the same or the next guide, on the same continent: City of Dalaran in Hillsbrad, Razorfen Kraul in Thousand
-// Needles; Scarlet Monastery, Blackfathom Deeps and Razorfen Downs are not route dungeons in Horde 30-40.
+// in the same or the next guide, on the same continent: Razorfen Kraul in Thousand Needles; Scarlet Monastery,
+// Blackfathom Deeps and Razorfen Downs are not route dungeons in Horde 30-40. (Hillsbrad has no grind steps since the
+// level tidy, 2026-11-15.)
 test('forever/horde/30-40: the grind steps name only the dungeons the route runs nearby', { skip }, () => {
 	const want = {
-		'01-hillsbrad-foothills': ['City of Dalaran'],
 		'02-thousand-needles': ['Razorfen Kraul'],
 		'03-stranglethorn-vale': [],
 		'04-dustwallow-marsh': [],
@@ -1782,7 +1882,7 @@ test('forever/horde/30-40: the grind steps name only the dungeons the route runs
 test('forever/horde/30-40: the steps warn of the high mobs the danger gate finds at their goals', { skip }, () => {
 	for (const [file, quest, names, item] of [
 		['01-hillsbrad-foothills', 527, ['Kirin Tor Guard']],
-		['01-hillsbrad-foothills', 544, ['Arcane Sentries', 'Kirin Tor Guards']],
+		['05-arathi-highlands', 544, ['Arcane Sentries', 'Kirin Tor Guards']],
 		['03-stranglethorn-vale', 213, ['Venture Co. Agents']],
 		['03-stranglethorn-vale', 1182, ['Venture Co. Agents']],
 		['05-arathi-highlands', 545, ['Arcane Sentries', 'Kirin Tor Guards']],
@@ -2387,16 +2487,16 @@ test(`${HILLSBRAD_ALLIANCE}: Fyurie's report: Spark of Freedom is asked as a gro
 
 // --- Tarren Mill (refusal gate's hand-in-first step, 2026-11-08): all 6 people who took Dalaran Patrols (545) had just
 // handed in Key to the City (93680) to Magus Wordeen Voidglare, and nobody took it without; the route left 93680 out
-// and accepted 545 right after Prison Break In. Key to the City is taken with 544 and handed in before 545's accept.
+// and accepted 545 right after Prison Break In. Key to the City is taken with 544 and handed in before 545's accept,
+// all on the 38-39 visit since the level tidy (2026-11-15).
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: Key to the City is handed in before Dalaran Patrols is accepted', { skip }, () => {
-	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
 	const take = at(list, 'accept 93680', is('accept', 93680));
 	const key = at(list, 'collect 279469', (g) => g.t === 'collect' && g.item === 279469);
 	const done = at(list, 'turnin 93680', is('turnin', 93680));
 	assert.ok(at(list, 'accept 544', is('accept', 544)) < take, 'taken with Prison Break In');
 	assert.ok(take < key && key < done, 'the key, then its hand-in');
-	// Dalaran Patrols itself is taken on the 38-39 visit's first Tarren Mill stop (Horde 30-40 audit, 0.4.0), after it.
-	at(goals('forever/horde/30-40/05-arathi-highlands.guide'), 'accept 545 on the 38-39 visit', is('accept', 545));
+	assert.ok(done < at(list, 'accept 545', is('accept', 545)), 'Dalaran Patrols after the hand-in');
 	// The Grimy Key is looted from an object the data has no spawn for: the step carries the recorded spot.
 	const g = list[key].goal;
 	assert.ok(g.map === 1416 && Math.hypot(g.x - 16.4, g.y - 89.3) < 0.5, `the key's step points at Alterac 16.4,89.3 (got ${g.map} ${g.x},${g.y})`);
@@ -2460,7 +2560,7 @@ for (const [q, title, giver, files] of [
 // Defilers (the game's quest data: RequiredMinRepFaction 510, 3000), which the leveling route never earns; Rutherford
 // Twing refused it to a level 28 player. The hand-in (straight from his window: #1699) is optional and the step says why.
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler\'s Basic Care Package is optional and says it needs Defilers reputation', { skip }, () => {
-	const file = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const file = 'forever/horde/30-40/05-arathi-highlands.guide';
 	const list = goals(file).filter(({ goal }) => goal.quest === 8263);
 	assert.ok(list.length >= 1, 'the hand-in');
 	for (const { goal } of list) assert.ok(goal.optional, `${goal.t} 8263 is optional`);
@@ -2469,18 +2569,17 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: the Defiler\'s Basic Car
 
 // --- DexeeXI's report (#1322, client 70862): Elixir of Agony (515) takes item 3388, which the game calls Lesser Troll's
 // Blood Elixir (players' recordings: the objective reads so and ticks with it); the quest's own text still says Strong. The
-// Undercity step told players to buy a Strong Troll's Blood Potion, the item's old name. The Craftsman's Writs of the
-// Supply Factions Reputation guide named old item names the same way (one, Elixir of Greater Defense, is now another item).
+// Undercity step told players to buy a Strong Troll's Blood Potion, the item's old name. Since the level tidy (2026-11-15)
+// the route leaves 515 out (it could start only after Hillsbrad), so no Horde guide asks for the elixir at all. The
+// Craftsman's Writs of the Supply Factions Reputation guide named old item names the same way (one, Elixir of Greater
+// Defense, is now another item).
 test("DexeeXI's report (#1322): the guides name the elixirs the quests take by their names in the game", { skip }, () => {
-	const file = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	const list = goals(file);
 	assert.equal(data.items[3388].name, "Lesser Troll's Blood Elixir");
 	assert.ok(data.quests[515].objectives.some((o) => o.type === 'item' && o.id === 3388), 'Elixir of Agony takes item 3388');
-	const step = list.find(({ step }) => step.title === 'The Undercity').step;
-	const said = [step.tip, step.note, ...step.goals.map((g) => g.text)].flat().filter(Boolean).join(' ');
-	assert.match(said, /needs a Lesser Troll's Blood Elixir/);
-	assert.match(said, /quest text says Strong, but it takes a Lesser Troll's Blood Elixir/);
-	assert.doesNotMatch(said, /Strong Troll's Blood Potion/);
+	for (const file of ['forever/horde/06-hillsbrad-foothills.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide']) {
+		const said = goals(file).map(({ step }) => [step.tip, step.note, ...step.goals.map((g) => g.text)].flat().filter(Boolean).join(' ')).join(' ');
+		assert.doesNotMatch(said, /Strong Troll's Blood Potion/, `${file}: never the old name`);
+	}
 	// Each writ's hand-in says which item it takes: one of the quest's item objectives, by the game's name.
 	const writs = goals('forever/reputation/merchants-favor.guide').filter(({ goal }) => goal.t === 'turnin' && /^Craftsman's Writ/.test(data.quests[goal.quest]?.title || ''));
 	assert.ok(writs.length > 0, 'the writ hand-ins');
@@ -5701,25 +5800,26 @@ test('Recordings (starting-zone review 0.3.6): Crystal Lake\'s murloc step warns
 	}
 });
 
-test('Tincho on Discord (#1575): the Flame of Uzel step warns about the higher yetis and Frostmaw at the flame', { skip }, () => {
-	// Reached at about 30-31 on the 29-33 Hillsbrad guide; recordings: Giant/Mountain Yetis (32-34) in pairs and the rare Frostmaw (37) at the flame.
-	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8'));
-	assert.ok(fixes.fixes.some((f) => f.at && f.at.quest === 553 && f.at.objective === 3 && /Frostmaw/.test(f.tip || '')), 'the tip is a guide-fixes record');
-	const uzel = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 553 && goal.oi === 3 && goal.t !== 'accept' && goal.t !== 'turnin');
-	assert.ok(uzel.length > 0, 'the Flame of Uzel is lit in the Hillsbrad guide');
-	for (const { step } of uzel) {
-		const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
-		assert.match(text, /Frostmaw, a rare yeti \(37\)/, `"${step.title}" names Frostmaw and his level`);
-		assert.match(text, /Yetis \(32-34\)[^.]*in pairs/, `"${step.title}" names the yetis and that they come in pairs`);
+test('Tincho on Discord (#1575), Maazias (#1925): Helcular\'s flames and grave are not on the Horde route', { skip }, () => {
+	// The Flame of Uzel's Giant and Mountain Yetis (32-34, in pairs) and Frostmaw (37), and the grave between Southshore's
+	// level 55 guards were met at 30-31; the only later Horde Hillsbrad visit (38) doesn't pass them. Level tidy
+	// (2026-11-15): part 2 (553) is left out with a route-fixes skip; part 1 (552, the rod) stays, see Kolbi's test.
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.skip.some((s) => s.q === 553 && s.faction === 'Horde' && s.issue === '#1925'), 'skip 553');
+	for (const file of ['forever/horde/30-40/01-hillsbrad-foothills.guide', 'forever/horde/30-40/05-arathi-highlands.guide']) {
+		assert.equal(goals(file).filter(({ goal }) => goal.quest === 553).length, 0, `${file}: no Helcular's flames`);
 	}
 });
 
 test('Kolbi on Discord (#1695): Helcular\'s Rod is farmed on the Foothill Caverns\' 30-32 yetis, never toured into the 32-34 cave', { skip }, () => {
 	// The rod drops from every Hillsbrad yeti; the goal toured eleven spots, eight of them in the northern cave of Mountain
-	// and Giant Yetis (32-34), taken at 29. Recordings: 15 of the 18 people who got it did so in the caverns.
+	// and Giant Yetis (32-34), taken at 29. Recordings: 15 of the 18 people who got it did so in the caverns. Level tidy
+	// (2026-11-15): the caverns' yetis are at most one level over the players there (recorded 25th percentile 30.3), so
+	// the rod stays, on the walk from Tarren Mill to the town hall.
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8'));
 	assert.ok(places.places.some((p) => p.quest === 552 && p.objective === 1 && p.at), 'the point is a places.json record');
-	const rod = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.t === 'collect' && goal.quest === 552);
+	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const rod = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 552);
 	assert.ok(rod.length > 0, 'the rod is farmed in the Hillsbrad guide');
 	for (const { step, goal } of rod) {
 		// The Cave (2248) and Ferocious (2249) Yetis stand at Hillsbrad 42-47,25-34; the 32-34 yetis north of y 14.
@@ -5729,13 +5829,19 @@ test('Kolbi on Discord (#1695): Helcular\'s Rod is farmed on the Foothill Cavern
 		assert.ok(!from.includes(2250) && !from.includes(2251), `the Mountain and Giant Yetis are not the rod's targets (${from.join(', ')})`);
 		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Stay in these caverns/, `"${step.title}" says to stay in the caverns`);
 	}
+	const rodAt = at(list, 'collect 3708', (g) => g.t === 'collect' && g.quest === 552);
+	assert.ok(rodAt < at(list, 'kill 2335 (Burnside)', (g) => g.quest === 532 && g.t === 'kill' && g.npc === 2335), 'on the way to the town hall');
+	assert.equal(list[at(list, 'turnin 552', is('turnin', 552))].s, list[at(list, 'turnin 532', is('turnin', 532))].s, 'handed in on the town hall trip\'s Tarren Mill stop');
 });
 
-test('Danger at the spot (#1575, #1695): the Syndicate missives fallback warns that the Syndicate are above you', { skip }, () => {
-	// 32-35 Syndicate, worked at about 31-32 since #1466 (29.4 before); recordings: 4 people died there at about 32.
-	const steps = goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.t === 'collect' && goal.quest === 533);
-	assert.ok(steps.length > 0, 'the missive fallback is in the guide');
-	for (const { step } of steps) assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Careful: at 31-32 they are still above you[^.]*Wizards \(34-35\)/, `"${step.title}" warns`);
+test('Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you', { skip }, () => {
+	// 32-35 Syndicate; recordings: 4 people died there at about 32. Since the level tidy (2026-11-15) Infiltration and its
+	// missive fallback come on the 38-39 visit only.
+	assert.equal(goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 533).length, 0, 'nothing of Infiltration at 30-31');
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	const steps = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 533);
+	assert.ok(steps.length > 0, 'the missive fallback is on the 38-39 visit');
+	assert.ok(at(list, 'turnin 533', is('turnin', 533)) < at(list, 'accept 503', is('accept', 503)), 'Gol\'dir after it, on the same visit');
 });
 
 // Danger-at-the-spot sweep (#1575): every leveling guide's kill/collect/use goal against the mobs around it (spawn data),
@@ -7572,10 +7678,9 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: final review: training i
 	assert.equal(pal.filter(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('Tarren Mill')).length, 1, 'Paladins: one flight to Tarren Mill');
 	const sham = list.filter(forClass('SHAMAN'));
 	assert.ok(flies(sham, 'The Sepulcher') < tm(sham), 'Shamans: the Sepulcher before Tarren Mill');
-	const war = list.filter(forClass('WARRIOR'));
-	// #1322: the note names the Lesser Troll's Blood Elixir the objective takes (the quest text says Strong).
-	const note = war.find(({ step }) => /Lesser Troll's Blood Elixir/.test([].concat(step.note || []).join(' ')));
-	assert.ok(note && note.s < war[tm(war)].s, 'the potion tip in the Undercity, before the flight to Tarren Mill');
+	// #1322: the Lesser Troll's Blood Elixir tip went with Elixir of Agony 515 (left out in the level tidy, 2026-11-15);
+	// nothing in this guide sends you for the elixir now.
+	assert.equal(list.filter(({ goal }) => goal.quest === 515).length, 0, 'no 515, so no elixir tip');
 	const next = goals('forever/horde/30-40/02-thousand-needles.guide').filter(forClass('DRUID'));
 	assert.ok(flies(next, 'Thunder Bluff') < flies(next, 'Freewind Post') || flies(next, 'Freewind Post') < 0, 'Druids at 32: Orgrimmar -> Thunder Bluff -> Freewind Post');
 });
@@ -7951,7 +8056,6 @@ const HORDE_VOLUME = {
 	'forever/horde/02-the-barrens.guide': [4021, 1062, 6548, 6629, 6461], // Counterattack!; Goblin Invaders; Avenge My Village; Kill Grundig Darkcloud; Blood Feeders
 	'forever/horde/05-stonetalon-mountains.guide': [494], // Time To Strike
 	'forever/horde/30-40/02-thousand-needles.guide': [1111], // Wharfmaster Dizzywig (handed in at Ratchet in 30-40/04)
-	'forever/horde/30-40/05-arathi-highlands.guide': [566], // WANTED: Baron Vardus
 	// Horde 40-60 (2026-11-08, 0.3.6)
 	'forever/horde/30-40/06-badlands.guide': [1137], // News for Fizzle, to the Mirage Raceway on 40-50/02's ride to Tanaris
 	'forever/horde/40-50/01-stranglethorn-vale.guide': [95748, 1392, 580], // The Gurubashi Legends of Old; Noboru the Cudgel (0.3.7: its hand-in was optional); Whiskey Slim's Lost Grog (0.3.7: bottles on 40-50/05's beaches, hand-in on 40-50/06's Booty Bay stop)
@@ -8756,11 +8860,13 @@ test('Horde 30-40 re-order: the chain runs Hillsbrad, the Flats and Desolace, St
 	for (const id of ['01-desolace', '02-stranglethorn-vale', '03-arathi-highlands']) assert.ok(retired.includes(`forever/horde/30-40/${id}`), `${id} is retired`);
 	const [hills, tn, , dust, alterac] = H3040.map((g) => goals(g));
 	const has = (list, t, q) => list.some(({ goal }) => goal.t === t && goal.quest === q);
-	for (const q of [532, 539, 553, 677]) assert.ok(has(hills, 'turnin', q), `${q} in the 30-32 guide`);
-	assert.ok(!has(hills, 'turnin', 1365) && has(tn, 'turnin', 1365), 'Desolace is not entered at 30');
-	for (const q of [1105, 1176, 1175, 1147, 5361, 6027]) assert.ok(has(tn, 'turnin', q), `${q} with the Flats and Desolace`);
-	for (const q of [5581, 6134, 93225]) assert.ok(has(dust, 'turnin', q) && !has(tn, 'turnin', q), `${q} on the second Desolace stop, at 38`);
-	for (const q of [503, 507, 508, 651]) assert.ok(has(alterac, 'turnin', q), `${q} on the 38-39 Alterac and Arathi visit`);
+	// Level tidy (2026-11-15): Hillsbrad keeps its 26-30 quests at 30; Tarren Mill's 33-36 quests and Hammerfall's chain
+	// come on the 38-39 visit; the Hand of Iruxos goes with the portals on the second Desolace stop.
+	for (const q of [529, 532, 539, 567]) assert.ok(has(hills, 'turnin', q), `${q} in the 29-31 guide`);
+	assert.ok(!has(hills, 'turnin', 1434) && has(tn, 'turnin', 1434), 'Desolace is not entered at 30'); // Khan Dez'hepah (1365) moved to the 36-38 visit in the level tidy
+	for (const q of [1105, 1176, 1175, 1147, 5361, 1150, 98070]) assert.ok(has(tn, 'turnin', q), `${q} with the Flats and Desolace`);
+	for (const q of [5581, 5381]) assert.ok(has(dust, 'turnin', q) && !has(tn, 'turnin', q), `${q} on the second Desolace stop, at 38`);
+	for (const q of [503, 533, 544, 651, 677, 97539]) assert.ok(has(alterac, 'turnin', q), `${q} on the 38-39 Alterac and Arathi visit`);
 	const shells = at(tn, 'turnin 1105', is('turnin', 1105));
 	assert.ok(shells < at(tn, 'accept 1106', is('accept', 1106)), 'Martek the Exiled taken after Hardened Shells');
 	assert.ok(!has(goals('forever/horde/07-ashenvale.guide'), 'accept', 1106), 'not after Salt Flat Venom alone');
@@ -9168,17 +9274,19 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 });
 
 // Final route review for 0.3.5 (Horde 30-32): the level 31 top-up said Hammerfall's quests start at 31
-// (they are offered from 29-30; the top-up keeps their 32-36 levels within reach), and the level 30 top-up
-// by Tarren Mill had no dungeon to run instead of the yetis.
+// (they are offered from 29-30; the top-up kept their 32-36 levels within reach), and the level 30 top-up
+// by Tarren Mill had no dungeon to run instead of the yetis. Since the level tidy (2026-11-15) Hammerfall's quests
+// and Tarren Mill's 33-36 quests come on the 38-39 visit, so Hillsbrad at 30 has no top-up at all: nothing in it is
+// above the level its own quests bring you to.
 test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the City of Dalaran', { skip }, () => {
 	data = data || loadData(DATA);
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	for (const q of [655, 672, 677, 97539]) assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
-	const [t31] = stepTips(guide, /^\s+level 31\b/);
-	assert.doesNotMatch(t31, /start at 31/);
-	const [t30] = stepTips(guide, /^\s+level 30\b/);
-	// Since the 0.4.0 dungeons rule the top-up names the dungeon the route runs in this guide, City of Dalaran.
-	assert.match(t30, /City of Dalaran/);
+	assert.equal(goals(guide).filter(({ goal }) => goal.t === 'level').length, 0, 'no top-up in Hillsbrad');
+	const arathi = goals('forever/horde/30-40/05-arathi-highlands.guide');
+	for (const q of [655, 672, 677, 97539]) {
+		assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
+		assert.ok(arathi.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `${q} is taken on the 38-39 visit`);
+	}
 });
 
 // Final route review for 0.3.5 (Alliance 30-40): Bartolo's Yeti Fur Cloak (565) also wants a Hillman's
@@ -10225,31 +10333,27 @@ test("Fyurie's report (#1425): Private Thorsen is looked for at the top of the R
 });
 
 // --- Horde 30-40 audit (2026-11-09): Lydon's Shindigger keg is in Dun Garok's elite cellar, so Elixir
-// of Agony's second part is a group choice and its steps lead players who took it (a gated step whose goals were all
-// optional was done at once); the Shaman's Water Sapta is used at the brazier; Desolace's Demon Pick, Gem of the
-// Serpent and clams are lines of their own; Portals of the Legion uses the Hand of Iruxos, not a "Rod of Banishing".
+// of Agony's second part was a group choice; since the level tidy (2026-11-15) the route leaves 515 and everything after
+// it out (route-fixes skip 515), so no step sends a solo player into the cellar. The Shaman's Water Sapta is used at the
+// brazier; Desolace's Demon Pick and clams are lines of their own; Portals of the Legion uses the Hand of Iruxos, not a
+// "Rod of Banishing".
 test('Horde 30-40 audit: Hillsbrad\'s Shindigger keg is a group choice, in Dun Garok, and its steps lead', { skip }, () => {
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	const steps = compiled(guide).steps;
-	const take = steps.find((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 517));
-	assert.ok(take && (take.when || []).some((p) => p.k === 'group'), 'Elixir of Agony 517 is accepted on a `when group` step');
-	for (const st of steps.filter((s) => (s.when || []).some((p) => p.k === 'onquest') && s.goals.some((g) => g.quest === 517 || g.quest === 524))) {
-		assert.ok(st.goals.some((g) => !g.optional), `"${st.title}" has a goal that holds it`);
-	}
-	const [tip] = stepTips(guide, /^\s+collect 3517 quest 517\b/);
-	assert.match(tip, /Dun Garok/);
-	assert.doesNotMatch(tip, /Syndicate camp/);
+	assert.equal(goals(guide).filter(({ goal }) => [515, 517, 524].includes(goal.quest)).length, 0, 'no Elixir of Agony after 513, so no keg');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.skip.some((s) => s.q === 515 && s.faction === 'Horde'), 'skip 515');
 	const sham = goals(guide).filter(forClass('SHAMAN'));
 	const use = at(sham, 'use 6637', (g) => g.t === 'use' && g.item === 6637);
 	assert.ok(use < at(sham, 'collect 7812', (g) => g.t === 'collect' && g.item === 7812), 'the Water Sapta is drunk before the bracers');
 });
 
 test('Horde 30-40 audit: Desolace\'s quest items are used where the game needs them', { skip }, () => {
-	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
-	for (const [item, quest, what] of [[14523, 5381, 'the Demon Pick'], [15766, 6027, 'the Gem of the Serpent'], [15874, 6142, 'the Soft-shelled Clams']]) {
-		const use = at(list, `use ${item}`, (g) => g.t === 'use' && g.item === item);
-		assert.ok(use < at(list, `turnin ${quest}`, is('turnin', quest)), `${what} before the hand-in`);
-	}
+	const first = goals('forever/horde/30-40/02-thousand-needles.guide');
+	assert.ok(at(first, 'use 15874', (g) => g.t === 'use' && g.item === 15874) < at(first, 'turnin 6142', is('turnin', 6142)), 'the Soft-shelled Clams before the hand-in');
+	assert.equal(first.filter(({ goal }) => goal.quest === 6027).length, 0, 'the Book of the Ancients is not on the first visit');
+	assert.deepEqual(first.filter(({ goal }) => goal.quest === 5381).map(({ goal }) => goal.t), ['accept'], 'the Hand of Iruxos is only taken on the first visit (pick up now, work it at 38)');
+	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
+	assert.ok(at(list, 'use 14523', (g) => g.t === 'use' && g.item === 14523) < at(list, 'turnin 5381', is('turnin', 5381)), 'the Demon Pick before the hand-in');
 	const pick = list.find(({ goal }) => goal.t === 'use' && goal.item === 14523).goal;
 	assert.ok(Math.hypot(pick.x - 54.95, pick.y - 26.66) < 1, 'the Demon Pick goes to the Hand of Iruxos Crystal');
 	const [portals] = stepTips('forever/horde/30-40/04-dustwallow-marsh.guide', /^\s+complete 5581\b/);
@@ -10282,17 +10386,16 @@ test('Horde 30-40 audit: Badlands slabs beside Agmond\'s End, Lotwil on the way 
 // in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops).
 test("Mokii's report (#1431): Horde 30-40 grinds come after the ready hand-ins", { skip }, () => {
 	for (const [guide, level, after] of [
-		['forever/horde/30-40/04-dustwallow-marsh.guide', 37.5, [1177, 1202, 1239]],
-		['forever/horde/30-40/02-thousand-needles.guide', 32.5, [1110, 1104, 1105, 1176, 1175]],
+		['forever/horde/30-40/04-dustwallow-marsh.guide', 36, [1177, 1202, 1239]],
+		['forever/horde/30-40/02-thousand-needles.guide', 32, [1110, 1104, 1105, 5561]],
 		['forever/horde/30-40/03-stranglethorn-vale.guide', 35, [568]],
-		['forever/horde/30-40/03-stranglethorn-vale.guide', 36, [569, 570]],
 	]) {
 		const list = goals(guide);
 		const grind = at(list, `${guide}: level ${level}`, (g) => g.t === 'level' && g.level + (g.frac || 0) === level);
 		for (const q of after) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < grind, `${guide}: turnin ${q} before the level ${level} grind`);
 	}
 	const g = goals('forever/horde/30-40/04-dustwallow-marsh.guide').find(({ goal }) => goal.t === 'level').goal;
-	assert.ok(g.grind !== 4362 && g.y < 30, 'the 37.5 grind is by Brackenwall, not on the Mirefin murlocs of the north-east coast');
+	assert.ok(g.grind !== 4362 && g.y < 30, 'the 37 grind is by Brackenwall, not on the Mirefin murlocs of the north-east coast');
 });
 
 // --- Alliance 50-60 quest volume (2026-11-08): quests on stops the route already makes, counted as part of
@@ -10520,7 +10623,7 @@ test('Felwood, both sides: the Deadwood Ritual Totem is worked in the Felpaw Vil
 // (533): offered only while 533 is in the log, and its reward is the Syndicate Missive 533 asks for. The step is shown
 // only with Infiltration in the log, and the stout is handed in at once, before any missive farming.
 test("Valik's report: Valik only with Infiltration in the log, handed in at once", { skip }, () => {
-	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const guide = 'forever/horde/30-40/05-arathi-highlands.guide';
 	const steps = compiled(guide).steps;
 	const s = steps.find((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 535));
 	assert.ok(s && (s.when || []).some((p) => p.k === 'onquest'), 'the Valik step is gated on Infiltration in the log');
@@ -10534,11 +10637,11 @@ test("Valik's report: Valik only with Infiltration in the log, handed in at once
 // the bags Infiltration is ready to hand in and Valik's errand, whose reward is that missive, is moot: the step
 // applies only while Infiltration is in the log and not yet complete.
 test("#1661: with the Syndicate Missive already in the bags the guide passes Henchman Valik", { skip }, () => {
-	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
+	const guide = 'forever/horde/30-40/05-arathi-highlands.guide';
 	const steps = compiled(guide).steps;
 	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 535)) + 1;
 	assert.ok((steps[s - 1].when || []).some((p) => p.k === 'complete' && p.neg && p.q === 533), 'gated on Infiltration not complete');
-	const who = { race: 'Tauren', raceName: 'Tauren', faction: 'Horde', cls: 'SHAMAN', className: 'Shaman', level: 31 };
+	const who = { race: 'Tauren', raceName: 'Tauren', faction: 'Horde', cls: 'SHAMAN', className: 'Shaman', level: 38 };
 	const applies = (before) => engineRun(guide, who, { before, script: `emit({ applies = E.Applies(${s}) })` }).applies;
 	assert.equal(applies('w.onQuest(533, { 1 })'), true, 'Infiltration in the log, no missive yet: Valik');
 	assert.equal(applies('w.onQuest(533, { 1 }); w.finish(533)'), false, 'the missive dropped: Valik is passed');
@@ -10546,24 +10649,25 @@ test("#1661: with the Syndicate Missive already in the bags the guide passes Hen
 });
 
 // Steffen's report (#1466): Infiltration (533, level 34; Syndicate 32-34) was worked at 30, right after the first Tarren
-// Mill stop, on every start, and the pace line called it hard. It is still accepted there (Valik offers his errand only
-// while it is in the log), but Valik and the missive come on the way back from Southshore's graveyard, after Dalaran,
-// at about 31-32, and Krusk takes it with the Dalaran hand-ins. Valik's gate (above) keeps working.
+// Mill stop, on every start, and the pace line called it hard. 0.3.7 moved Valik and the missive to the walk back from
+// Southshore at about 31-32; the level tidy (2026-11-15) moves the whole quest to the 38-39 visit: accepted on the first
+// Tarren Mill stop, Valik on the road north, and Krusk takes it with the Dalaran crater's hand-ins. Valik's gate (above)
+// keeps working.
 test("#1466: Infiltration is accepted at 30 but Valik and the missive wait for the walk back from Southshore", { skip }, () => {
-	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	assert.equal(goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 533 || goal.quest === 535).length, 0, 'nothing of it at 30');
+	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
 	const take = at(list, 'accept 533', is('accept', 533));
-	const town = at(list, 'Magistrate Burnside', (g) => g.t === 'kill' && g.quest === 532 && g.npc === 2335);
-	const dalaran = at(list, 'the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
-	const grave = at(list, 'turnin 553', is('turnin', 553));
 	const valik = at(list, 'accept 535', is('accept', 535));
 	const missive = at(list, 'collect 3601', (g) => g.t === 'collect' && g.item === 3601);
+	const dalaran = at(list, 'the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
 	const hand = at(list, 'turnin 533', is('turnin', 533));
 	const dalaranIn = at(list, 'turnin 544', is('turnin', 544));
-	assert.ok(take < town && town < dalaran && dalaran < grave && grave < valik && valik < missive && missive < hand, 'accepted first, worked after Southshore');
+	assert.ok(take < valik && valik < missive && missive < dalaran && dalaran < hand, 'accepted first, Valik on the road north, then the crater');
 	assert.equal(list[hand].s, list[dalaranIn].s, 'Krusk takes it on the Tarren Mill stop with the Dalaran hand-ins');
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
 	assert.ok(!pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 533 && p.b[1] === 539), 'no #1079 pair hands it in before the mine');
-	assert.ok(pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 553 && p.b[0] === 'accept' && p.b[1] === 535), 'a route-fixes pair keeps Valik after Southshore');
+	const deliberate = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
+	assert.ok(deliberate.some((p) => p.a[0] === 'turnin' && p.a[1] === 5581 && p.b[0] === 'accept' && p.b[1] === 533), 'a route-fixes pair keeps it on the 38-39 visit');
 });
 
 // Players' recordings (2026-11-09 pull): after Eagle's Fist (79975) on the Stonewrought Dam's ledge, most players drop
@@ -10716,9 +10820,10 @@ test('Alliance Desolace south loop: the Flesh Picker is only for players on My L
 
 // Final route review 0.3.6, Alliance 38-39 Desolace: the Book of the Ancients (6027) was a bare collect with a tip calling
 // Lord Kragaru "a centaur chieftain" who "camps" on the coast. He is the naga lord the Gem of the Serpent (15766, the
-// quest's source item) summons at the Serpent Statue on Ranazjar Isle; the Horde guide already uses the gem there.
+// quest's source item) summons at the Serpent Statue on Ranazjar Isle. Horde level tidy (2026-11-15): the Horde
+// guide left the quest out (Kragaru, 38, at about 34 on its only Desolace coast walk), with a route-fixes skip.
 test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent at the statue first', { skip }, () => {
-	for (const guide of ['forever/alliance/30-40/06b-desolace.guide', 'forever/horde/30-40/02-thousand-needles.guide']) {
+	for (const guide of ['forever/alliance/30-40/06b-desolace.guide']) {
 		const list = goals(guide);
 		const use = at(list, `${guide}: use 15766`, (g) => g.t === 'use' && g.item === 15766 && g.quest === 6027);
 		const book = at(list, `${guide}: collect 15803`, (g) => g.t === 'collect' && g.item === 15803);
@@ -10726,6 +10831,9 @@ test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent
 		const g = list[use].goal;
 		assert.ok(g.map === 1443 && Math.abs(g.x - 28.2) < 1 && Math.abs(g.y - 6.7) < 1, `${guide}: at the Serpent Statue (${g.x},${g.y})`);
 	}
+	assert.equal(goals('forever/horde/30-40/02-thousand-needles.guide').filter(({ goal }) => goal.quest === 6027).length, 0, 'Horde: no Book of the Ancients');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.skip.some((s) => s.q === 6027 && s.faction === 'Horde'), 'Horde: a skip the build keeps');
 	assert.doesNotMatch(fs.readFileSync(path.join(OFFICIAL_DIR, 'forever/alliance/30-40/06b-desolace.guide'), 'utf8'), /Kragaru, a centaur/, 'Kragaru is no centaur');
 });
 
@@ -11267,9 +11375,10 @@ test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef 
 // Ricter's own spot, in the middle of the linked guard pairs. Of 6 people on 0.3.5+, 3 worked the camp for 12-35
 // minutes with only that travel step showing (the goals, NPCs and the linked-pairs warning are on the next step), 2
 // died there, and one person in the whole archive ever stood on Ricter's spot. The step now ends at the
-// crater's eastern rim, on the path players walk in from the Flame of Uzel, outside the guards' reach.
+// crater's eastern rim, on the path players walk in from the east, outside the guards' reach (the crater is on the
+// 38-39 visit since the level tidy, 2026-11-15).
 test('Horde Hillsbrad 30: the walk to the Dalaran crater ends at its rim, not on Ricter', { skip }, () => {
-	const steps = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide').steps;
+	const steps = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps;
 	const crater = steps.findIndex((st) => st.goals.some((g) => g.t === 'collect' && g.quest === 544));
 	assert.ok(crater > 0, 'the crater step');
 	const walk = steps[crater - 1].goals.find((g) => g.t === 'goto');
@@ -11583,18 +11692,17 @@ test('Horde Silverpine: Camping 101 hand-ins as plain turn-ins on carrier-only s
 // Review (0.3.6, Horde Desolace 34): Claim Rackmore's Treasure (6161, 2,800 XP) was left out although its log, both keys
 // and its chest lie on the coast the guide works: the silver key from the clam beds' Drysnap crabs, the golden key from the
 // Slitherblade naga, the chest beside the Serpent Statue. The coast is now one walk north after Thunder Axe Fortress.
+// Level tidy (2026-11-15): the Book of the Ancients (6027) left the Horde route, so the chest has its own step.
 test('Horde Desolace 34: Rackmore\'s Treasure on one walk north along the coast, after Thunder Axe Fortress', { skip }, () => {
 	const list = goals('forever/horde/30-40/02-thousand-needles.guide');
-	const book = at(list, 'accept 6027', is('accept', 6027));
+	assert.equal(list.filter(({ goal }) => goal.quest === 6027).length, 0, 'no Book of the Ancients');
 	const take = at(list, 'accept 6161', is('accept', 6161));
 	const silver = at(list, 'silver key', (g) => g.t === 'collect' && g.item === 15878);
 	const gold = at(list, 'golden key', (g) => g.t === 'collect' && g.item === 15881);
 	const chest = at(list, 'turnin 6161', is('turnin', 6161));
-	assert.ok(at(list, 'turnin 5741', is('turnin', 5741)) < take && book < take, 'after the Sceptre is back with Azore');
+	assert.ok(at(list, 'turnin 5741', is('turnin', 5741)) < take, 'after the Sceptre is back with Azore');
 	assert.ok(take < silver && silver < gold && gold < chest, 'log, crabs, naga, chest');
 	assert.ok(at(list, 'interact 177784 (clams)', (g) => g.t === 'interact' && g.object === 177784) > take, 'the clams come after the log');
-	assert.equal(list[chest].s, list[at(list, 'use 15766 (statue)', (g) => g.t === 'use' && g.item === 15766)].s, 'the chest on the statue step');
-	assert.ok(chest < at(list, 'turnin 6027', is('turnin', 6027)), 'before Azore takes the book');
 	assert.ok(list.every(({ goal }) => !goal.only), 'no race or class filter');
 });
 
@@ -12022,8 +12130,9 @@ test('Horde Barrens 15-21: Apothecary Zamah only for Druids, taken right before 
 
 // creazy231's report (#1660): a Tauren Druid at 29 who skipped the 22-25 Hillsbrad guide opened Horde 30-40/01 with
 // Battle of Hillsbrad 532, 539, 541 and Infiltration 533 hidden ("needs Battle of Hillsbrad / The Rescue from Hillsbrad
-// Foothills"). The guide now does Battle of Hillsbrad 527-529 and The Rescue (498) from Tarren Mill first, each step
-// only until its chain's last quest is handed in.
+// Foothills"). The guide does Battle of Hillsbrad 527-528 and The Rescue (498) from Tarren Mill first, each step
+// only until its chain's last quest is handed in. Since the level tidy (2026-11-15) Battle of Hillsbrad 529 (the
+// smithy) is this guide's own for everyone (the 22-25 guide stops after 528), and Infiltration is on the 38-39 visit.
 const HILLSBRAD_3040 = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
 const TAUREN_DRUID_29 = { race: 'Tauren', raceName: 'Tauren', faction: 'Horde', cls: 'DRUID', className: 'Druid', level: 29 };
 // Per quest of the Hillsbrad chains: the statuses of its accept goals, and what the plan left out (guide.hidden).
@@ -12046,33 +12155,37 @@ function hillsbradChains(before) {
 
 test("creazy231's report (#1660): Hillsbrad 30-40 catches a player who skipped the 22-25 guide up on Battle of Hillsbrad and The Rescue", { skip }, () => {
 	const list = goals(HILLSBRAD_3040);
-	const catchUp = list.filter(({ goal }) => [527, 528, 529, 498].includes(goal.quest));
-	assert.ok(catchUp.length >= 12, 'the chains are in the guide');
+	const catchUp = list.filter(({ goal }) => [527, 528, 498].includes(goal.quest));
+	assert.ok(catchUp.length >= 9, 'the chains are in the guide');
 	for (const { step, goal } of catchUp) {
-		const last = [527, 528, 529].includes(goal.quest) ? 529 : 498;
+		const last = [527, 528].includes(goal.quest) ? 528 : 498;
 		assert.ok((step.when || []).some((p) => p.k === 'turnedin' && p.neg && p.q === last), `${goal.t} ${goal.quest}: only until ${last} is handed in`);
 	}
-	const firstStop = at(list, 'accept 533', is('accept', 533));
-	assert.ok(at(list, 'turnin 529', is('turnin', 529)) < at(list, 'accept 532', is('accept', 532)), '529 handed in before 532 is taken');
-	assert.ok(at(list, 'turnin 498', is('turnin', 498)) < firstStop, 'The Rescue handed in before Infiltration is taken');
+	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 529 && goal.t !== 'turnin')) {
+		assert.ok((step.when || []).some((p) => p.k === 'turnedin' && p.neg && p.q === 529), `${goal.t} 529: only until 529 is handed in`);
+	}
+	const take = at(list, 'accept 532', is('accept', 532));
+	assert.ok(at(list, 'turnin 529', is('turnin', 529)) < take, '529 handed in before 532 is taken');
+	assert.ok(at(list, 'turnin 498', is('turnin', 498)) < take, 'The Rescue handed in before the town hall');
 	const out = hillsbradChains('');
 	assert.deepEqual(Object.values(out.hidden), [], 'nothing left out for a character without the 22-25 guide'); // an empty Lua table comes back as {}
-	for (const q of ['527', '498', '532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
+	for (const q of ['527', '498', '529', '532']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
 });
 
 test("creazy231's report (#1660): a player who did the 22-25 Hillsbrad guide sees none of the catch-up", { skip }, () => {
-	const out = hillsbradChains('w.complete({ 527, 528, 529, 498 })');
+	// The 22-25 guide hands in 527, 528 and 498; 529 is this guide's.
+	const out = hillsbradChains('w.complete({ 527, 528, 498 })');
 	assert.deepEqual(Object.values(out.hidden), []);
 	// Not in the guide, or in a step that does not apply to them ("na").
-	for (const q of ['527', '528', '529', '498']) assert.ok([undefined, 'na', 'na,na'].includes(out.accepts[q]), `no ${q} step for them: ${out.accepts[q]}`);
-	for (const q of ['532', '533']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
+	for (const q of ['527', '528', '498']) assert.ok([undefined, 'na', 'na,na'].includes(out.accepts[q]), `no ${q} step for them: ${out.accepts[q]}`);
+	for (const q of ['529', '532']) assert.ok(!/skipped|na/.test(out.accepts[q]), `${q} is open: ${out.accepts[q]}`);
 });
 
-// Kolbi's report (#1776, Skyborne Druid 31, 0.3.6): "Dangerous! makes you split 4 kills between a few steps". Dangerous!
-// (567) comes from the poster in the 22-25 guide, which kills Farmer Kalaba with the peasants and Citizen Wilkes at the
-// smithy; the clerk and the miner wait for this guide's town hall (with 532) and Azurelode Mine (with 539) visits, as
-// players' recordings show. A character who carried it but left the 22-25 guide before the smithy had no step for Kalaba or
-// Wilkes in Hillsbrad 30-40: the catch-up's peasants and smithy steps list them now.
+// Kolbi's report (#1776, Skyborne Druid 31, 0.3.6): "Dangerous! makes you split 4 kills between a few steps". Since the
+// level tidy (2026-11-15) Dangerous! (567) is taken from the Tarren Mill poster in this guide: Farmer Kalaba and Citizen
+// Wilkes come with Battle of Hillsbrad 529 at the smithy, the clerk and the miner with this guide's town hall (532) and
+// Azurelode Mine (539) visits, as players' recordings show. A character who carried it from an older 22-25 guide with
+// 529 already handed in keeps the clerk and the miner open.
 function dangerousKills(before) {
 	return engineRun(HILLSBRAD_3040, TAUREN_DRUID_29, {
 		before,
@@ -12093,7 +12206,8 @@ test("Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kala
 	const list = goals(HILLSBRAD_3040);
 	const stepOf = (pred, what) => list[at(list, what, pred)].step;
 	const kill = (npc, q, oi) => (g) => g.t === 'kill' && g.quest === q && g.oi === oi && g.npc === npc;
-	assert.equal(stepOf(kill(2451, 567, 4), 'Farmer Kalaba'), stepOf(kill(2267, 528, 1), 'the peasants'), 'Kalaba with the peasants');
+	assert.ok(at(list, 'accept 567', is('accept', 567)) < at(list, 'Farmer Kalaba', kill(2451, 567, 4)), 'taken from the poster first');
+	assert.equal(stepOf(kill(2451, 567, 4), 'Farmer Kalaba'), stepOf(kill(2404, 529, 1), 'the smithy'), 'Kalaba with the smithy');
 	assert.equal(stepOf(kill(2449, 567, 2), 'Citizen Wilkes'), stepOf(kill(2404, 529, 1), 'the smithy'), 'Wilkes at the smithy');
 	assert.equal(stepOf(kill(2448, 567, 1), 'the clerk'), stepOf(kill(2387, 532, 2), 'the town hall'), 'the clerk in the town hall, with 532');
 	assert.equal(stepOf(kill(2450, 567, 3), 'the miner'), stepOf(kill(2269, 539, 2), 'the mine'), 'the miner in the mine, with 539');
@@ -12171,14 +12285,14 @@ test('forever/alliance/30-40/05-arathi-highlands.guide: Noboru\'s cudgel and que
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.optional;
 	assert.ok(rf.some((e) => e.q === 1392), 'route-fixes deliberate.optional 1392');
 });
-// Discord (Bright and others, 2026-11-09): Hillsbrad & Arathi is labelled 29-32 (29-33 since #1660) but most of its quests are 32-34 ("the
-// group one"). The label is the character level the route plays it at (it chains with Thousand Needles' 32); the
-// guide says up front that its quests run higher on purpose, and how hard its camps hit.
+// Discord (Bright and others, 2026-11-09): Hillsbrad & Arathi was labelled 29-32 (29-33 since #1660) but most of its
+// quests were 32-34 ("the group one"). Since the level tidy (2026-11-15) the Hillsbrad guide keeps only the quests at
+// its 29-31 label (Tarren Mill's 33-36 quests and Hammerfall's chain moved to the 38-39 visit), and its pitch says so.
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: Discord: the guide says why its quests run above its 29-33 label', { skip }, () => {
 	const g = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide');
-	assert.deepEqual([g.minLevel, g.maxLevel], [29, 33], 'the label stays the route\'s character levels');
-	assert.match(g.pitch || '', /32-34/, 'the pitch names the quest levels');
-	assert.match(g.pitch || '', /one at a time/);
+	assert.deepEqual([g.minLevel, g.maxLevel], [29, 31], 'the label stays the route\'s character levels');
+	assert.match(g.pitch || '', /at or under your level/, 'the pitch says its quests fit the label');
+	for (const q of [544, 533, 553, 676, 677, 97539]) assert.ok(!goals('forever/horde/30-40/01-hillsbrad-foothills.guide').some(({ goal }) => goal.quest === q), `${q} is not in the 29-31 guide`);
 });
 
 
@@ -12296,19 +12410,13 @@ test(`${WETLANDS}: #1866: the Tome of Mel'Thandris is read on the later moonwell
 });
 
 // Helcular's Revenge (553, Horde 30-40/01-hillsbrad-foothills): the grave lies inside Southshore, an Alliance town
-// (4 abandons in players' recordings). The recordings show it can be done: of 21 people who lit the flames, 14
-// handed it in at the grave, all of them coming down from the north. The step keeps the hand-in, leads in by a goto
-// north of the graveyard and names the guard posts beside it.
+// (4 abandons in players' recordings), between level 55 guards. Since the level tidy (2026-11-15, #1925) the quest is
+// left out of the Horde route (its yetis were over the players too), so no Horde guide sends anyone into Southshore's
+// graveyard.
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: Helcular\'s grave is approached from the north, between the guards', { skip }, () => {
-	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	const list = goals(guide);
-	const hand = at(list, 'turnin 553', is('turnin', 553));
-	assert.ok(!list[hand].goal.optional, 'the hand-in is kept');
-	const north = list.slice(0, hand).filter(({ s, goal }) => s === list[hand].s && goal.t === 'goto');
-	assert.equal(north.length, 1, 'one goto before the grave in its step');
-	assert.ok(yards(north[0].goal, { map: 1424, x: 53.4, y: 48.8 }) <= 30, 'north of the graveyard');
-	assert.ok(north[0].goal.y < list[hand].goal.y - 3, 'north of the grave');
-	assert.match([].concat(list[hand].step.note || []).join(' '), /Southshore Guards/);
+	for (const guide of H3040) assert.ok(!goals(guide).some(({ goal }) => goal.quest === 553), `${guide}: no Helcular's grave`);
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.skip.some((s) => s.q === 553 && s.faction === 'Horde'), 'skip 553 is recorded');
 });
 
 // #1867 (Teldrassil, Camping 101: Skinning, 97949): Lyreena didn't offer it because the character already knew Camp
@@ -12911,11 +13019,11 @@ test('forever/horde/04-the-barrens.guide: Horde 21-30 audit: the southern Barren
 // Horde 21-30 audit (0.4.0, #2025): Faranell's Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (3388), an
 // Alchemy potion no vendor sells, and its hand-in waits six levels for the Hillsbrad coast in the 30-40 guide. The
 // Hillsbrad 22-25 guide told everyone to take it and keep it; players' recordings: 2 people took it, 1 handed it in (at
-// 38.8), 2 abandoned it. It is taken in the 30-40 guide, whose opening Undercity stop offers it with the elixir.
+// 38.8), 2 abandoned it. Since the level tidy (2026-11-15) the Horde route leaves 515 out (route-fixes skip 515).
 test('forever/horde/06-hillsbrad-foothills.guide: Horde 21-30 audit: Elixir of Agony is not carried from Hillsbrad 22-25 (#2025)', { skip }, () => {
 	assert.ok(!goals('forever/horde/06-hillsbrad-foothills.guide').some(({ goal }) => goal.quest === 515), 'no Elixir of Agony in the 22-25 guide');
-	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
-	assert.ok(pairs.some((p) => p.b[0] === 'accept' && p.b[1] === 515 && p.a[0] === 'accept' && p.a[1] === 1145), 'the order is a route-fixes record');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.skip.some((s) => s.q === 515 && s.faction === 'Horde'), 'the skip is a route-fixes record');
 });
 
 // Horde 21-30 audit (0.4.0, #2025): Thunder Bluff has Warrior and Hunter trainers, but the Ashenvale & Thousand Needles
@@ -14162,7 +14270,7 @@ test('Durotar: Rezlak waits for the Dull Storm Orb\'s quest and its follow-up be
 // with Roguefeather Den, which Thousand Needles' first Freewind visit now does at 31.)
 test('Horde grind top-ups stand on camps at most a level over the player (#2207)', { skip }, () => {
 	for (const [guide, title, npc] of [
-		['forever/horde/30-40/02-thousand-needles.guide', 'Level 33', 4635],
+		['forever/horde/30-40/02-thousand-needles.guide', 'Level 32', 4635],
 		['forever/horde/50-60/02-felwood.guide', 'Level 52.63', 1821],
 		['forever/horde/50-60/03-winterspring.guide', 'Level 55.04', 7458],
 		['forever/horde/50-60/06-silithus.guide', 'Level 58', 11741],
