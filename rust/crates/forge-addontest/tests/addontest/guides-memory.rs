@@ -68,8 +68,13 @@ fn pack_files(name: &str) -> String {
 /// carriedTo, limit, parent) cost tens of KiB, and the pack is back at 0.3.6's size but for the Horde peak (+115).
 /// Budgets: those plus ~1%. Read raised for #1944's exact points (measured 23,186 / 22,311; Fitz, 2026-11-12:
 /// raise memory budgets while 0.3.8's content grows, review once it is final): those plus ~5%.
+/// 0.4.0 release build (release data 2026-11-15, the packs compiled on it): Alliance resident 17,870, peak 38,199,
+/// read 25,099; Horde resident 16,024, peak 34,592, read 23,989, against dev-040's committed pack's 16,297 / 35,202
+/// / 23,415 and 15,054 / 32,649 / 22,489. The same 183 / 173 guides; the 0.4.0 data brings more spots (+14%),
+/// heights, notes and points per goal, and 4% more steps. Fitz OK'd size growth for 0.4.0 (2026-11-15): budgets
+/// are those plus ~1%.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 16450.0), ("peak", 35490.0), ("read", 24350.0)]), ("Horde", "Orc", [("resident", 15190.0), ("peak", 32910.0), ("read", 23430.0)])];
+	[("Alliance", "Human", [("resident", 18050.0), ("peak", 38580.0), ("read", 25350.0)]), ("Horde", "Orc", [("resident", 16190.0), ("peak", 34940.0), ("read", 24230.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
