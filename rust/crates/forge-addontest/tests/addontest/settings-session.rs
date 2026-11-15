@@ -18,7 +18,11 @@
 //! change pass. Before that branch (release/040-data 36bb3028ac, the same session with every control of the
 //! tabs): Reset page 3,945 ms and 19.7 MB (it wrote every setting of the page, each refreshing the window and
 //! the look on its own), a search keystroke 18.2 ms, its worst 149 ms (each preset card's summary listed every
-//! control of every page for each of its settings).
+//! control of every page for each of its settings). Before its second round (561748c7fa): a switch 24.6 ms, a
+//! dropdown's pick 23.2, a slider's release 31.7 (a look setting repainted and walked every frame, region and
+//! row of every page built; every click re-checked every page's settings for the sidebar's dots), Reset page
+//! 99.5 and its Undo 93, a profile switch 99.9 (every row of every page refreshed), the colour picker closed
+//! after Cancel 71 (the settle refreshed the look a second time for the same value), a search keystroke 377 KiB.
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
@@ -31,33 +35,33 @@ const REF_BASELINE: f64 = 6.95;
 const CPU_CLOCK: bool = !cfg!(windows);
 
 // (action, median ms, median KiB): the run's median and about half again (ms; 0.2 at least) or a fifth (KiB;
-// 2 at least). Measured: open 10.2 ms / 92.6 KiB, a tab 4.9 / 48.7, a search keystroke 16.2 / 377, a switch
-// 24.6 / 161, a dropdown's pick 23.2 / 150, a slider's step 2.3 / 1.2 and its release 31.7 / 166, the colour
-// wheel 10.8 / 1.5 a move and 71 / 487 closed (put back), Reset page with three settings off 99.5 / 875 and
-// its Undo 93 / 844, a profile switch 99.9 / 845, an Install page 4.0 / 72.6.
+// 2 at least). Measured: open 8.4 ms / 92.6 KiB, a tab 4.4 / 48.8, a search keystroke 12.4 / 130, a switch
+// 4.0 / 31, a dropdown's pick 3.9 / 19, a slider's step 1.7 / 1.2 and its release 4.2 / 36, the colour wheel
+// 10.8 / 1.5 a move and 0.14 / 1.1 closed after Cancel, Reset page with three settings off 24.6 / 588 and its
+// Undo 25.4 / 553, a profile switch 29.0 / 556, an Install page 3.5 / 72.6.
 const BUDGETS: &[(&str, f64, f64)] = &[
-	("open", 16.0, 112.0),
+	("open", 13.0, 112.0),
 	("close", 0.2, 2.0),
-	("select", 7.5, 59.0),
+	("select", 6.6, 59.0),
 	("scroll", 0.2, 2.0),
-	("search type", 24.0, 453.0),
-	("search clear", 8.5, 102.0),
-	("toggle", 37.0, 194.0),
+	("search type", 18.6, 156.0),
+	("search clear", 6.3, 102.0),
+	("toggle", 6.4, 37.0),
 	("dropdown open", 0.4, 3.2),
-	("dropdown pick", 35.0, 180.0),
-	("slider step", 3.5, 2.0),
-	("slider release", 48.0, 200.0),
+	("dropdown pick", 6.0, 23.0),
+	("slider step", 2.7, 2.0),
+	("slider release", 6.7, 44.0),
 	("colour open", 0.2, 2.2),
-	("colour drag", 16.0, 2.0),
-	("colour close", 107.0, 585.0),
+	("colour drag", 17.0, 2.0),
+	("colour close", 0.3, 2.0),
 	("keybind capture", 0.2, 2.0),
 	("keybind cancel", 0.2, 2.0),
-	("reset page", 150.0, 1050.0),
-	("undo", 140.0, 1013.0),
-	("profile switch", 150.0, 1014.0),
-	("install page", 6.0, 87.0),
+	("reset page", 39.0, 706.0),
+	("undo", 41.0, 664.0),
+	("profile switch", 47.0, 667.0),
+	("install page", 5.6, 87.0),
 	("install close", 0.2, 2.0),
-	("path open", 1.0, 16.0),
+	("path open", 1.3, 16.0),
 	("path close", 0.2, 2.0),
 ];
 

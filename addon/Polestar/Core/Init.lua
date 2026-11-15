@@ -895,9 +895,19 @@ function ns.Set(path, value)
 	end
 	if value == lookup(defaults, keys) then value = nil end
 	node[keys[#keys]] = value
-	if liveDepth > 0 and not livePaths[path] then
-		livePaths[path] = true
-		liveOrder[#liveOrder + 1] = path
+	if liveDepth > 0 then
+		if not livePaths[path] then
+			livePaths[path] = true
+			liveOrder[#liveOrder + 1] = path
+		end
+	elseif livePaths[path] then
+		-- Written plainly after live writes (the colour picker's Cancel): this
+		-- change's own message announces the value, so its settle has nothing
+		-- left to tell (no second full refresh for the same value).
+		livePaths[path] = nil
+		for i = #liveOrder, 1, -1 do
+			if liveOrder[i] == path then table.remove(liveOrder, i) end
+		end
 	end
 	if batched.depth > 0 then
 		if not batched.seen[path] then
