@@ -2732,3 +2732,125 @@ for k = 1, 120 do
 end
 Polestar.RegisterGuide({ id = "test/long", pack = "test", title = "Long", faction = "Alliance", minLevel = 1, maxLevel = 60, zone = 1429, steps = steps })
 "#;
+
+// #2461 (Erisez, Skyborne Druid 51, 0.3.7.2, Horde Azshara): Betrayed (3504) taken early in Orgrimmar and handed in
+// to Ag'tor, who gave the next Betrayed (3505); when the guide reached its "accept Betrayed" step, the accept stayed
+// open (3504 was in neither the log nor, for the client, done) and he had to skip it. A quest whose later chain is in
+// the log or done is behind the player: the loaded quest database's follow-ups (its `pre`/`preAll` read the other
+// way, transitively) that this character can take and that need it (in `preAll`, or a one-of `pre` naming no other
+// quest this character can take) prove it. The accept and its hand-in are then done.
+const BETRAYED: &str = r#"
+Polestar.RegisterGuide({ id = "test/betrayed", pack = "test", title = "Azshara", faction = "Horde", minLevel = 44, maxLevel = 54, zone = 1411, steps = {
+	{ title = "Belgrom Rockmaul", goals = { { t = "accept", quest = 3504, title = "Betrayed", npc = 4485, npcName = "Belgrom Rockmaul", map = 1411, x = 40, y = 40 } } },
+	{ title = "Ag'tor Bloodfist", goals = { { t = "turnin", quest = 3504, title = "Betrayed", npc = 8576, npcName = "Ag'tor Bloodfist", map = 1411, x = 60, y = 60 } } },
+	{ goals = { { t = "level", level = 60 } } },
+} })
+"#;
+
+fn betrayed(records: &str, world: &str) -> Value {
+	let script = format!(
+		r#"
+		{}
+		{records}
+		{world}
+		stub.fire("QUEST_LOG_UPDATE"); E.SetGuide("test/betrayed"); flush()
+		local v1, v2 = E.GetStepView(1), E.GetStepView(2)
+		emit({{ index = E.GetStepIndex(), accept = v1.goals[1].status, turnin = v2.goals[1].status }})"#,
+		forge_addontest::questdb::ADD_RECORDS_LUA
+	);
+	run1(Run {
+		guides: BETRAYED,
+		before: r#"w.race, w.raceName, w.faction, w.class, w.className, w.level = "Orc", "Orc", "Horde", "WARRIOR", "Warrior", 51"#,
+		full: true,
+		script: &script,
+		..Default::default()
+	})
+}
+
+// Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), excl, objectives,
+// zone, events, skill, holiday, preAll.
+const BETRAYED_DB: &str = r#"
+Polestar.QuestDB.SetMeta({ schema = 2 })
+AddRecords("quests", {
+	[3504] = { "Betrayed", 53, 44, 178, nil, 2 },
+	[3505] = { "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, { 3504 } },
+	[3506] = { "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, { 3505 } },
+	[3507] = { "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, { 3506 } },
+	[9001] = { "Either lead-in, Horde", 50, 44, 178, nil, 2 },
+	[9002] = { "Open after 3504 or 9001", 53, 44, 178, nil, 2, nil, nil, nil, { 3504, 9001 } },
+	[9003] = { "Alliance lead-in", 50, 44, 77, nil, 1 },
+	[9004] = { "Open after 3504 or the Alliance lead-in", 53, 44, 178, nil, 2, nil, nil, nil, { 3504, 9003 } },
+})
+"#;
+
+#[test]
+fn an_accept_and_hand_in_are_done_once_a_later_quest_of_the_chain_is_in_the_log_or_done_2461_betrayed() {
+	let held = json!({ "index": 1, "accept": "active", "turnin": "pending" });
+	let past = json!({ "index": 3, "accept": "done", "turnin": "done" });
+	let at = |db: &str, world: &str| betrayed(db, world);
+	assert_eq!(at(BETRAYED_DB, ""), held, "nothing of the chain taken: the accept holds");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(3505, { { required = 10, fulfilled = 1 } })"), past, "Ag'tor's Betrayed in the log (Erisez's state)");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(3507, {})"), past, "a later part in the log: 3507 needs 3506 (preAll), which needs 3505, which needs 3504");
+	assert_eq!(at(BETRAYED_DB, "w.complete({ 3505 })"), past, "a later part done");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(9002, {})"), held, "a quest open after 3504 or another lead-in this character can take proves neither");
+	assert_eq!(at(BETRAYED_DB, "w.onQuest(9004, {})"), past, "the other lead-in is the Alliance's: for a Horde character it proves 3504");
+	assert_eq!(at("", "w.onQuest(3505, {})"), held, "no quest database loaded: nothing known, the accept holds as before");
+}
+
+// #2461 on the shipped guide (addon/Polestar_Guides_Horde, forever/horde/40-50/06-azshara), Erisez's state: a
+// Skyborne Druid in the guide's levels (50) with Ag'tor's Betrayed (3505) in the log and Belgrom's (3504) neither in
+// the log nor done, the guide brought to its Orgrimmar step that takes 3504. With the quest database loaded, the accept is done and the
+// guide moves on; without 3505 it holds as before.
+fn shipped_betrayed(with_3505: bool) -> Value {
+	let dir = forge_addontest::run::addons_dir();
+	let before = r#"local w = stub.world
+w.race, w.raceName, w.faction, w.class, w.className, w.level = "Skyborne", "Skyborne", "Horde", "DRUID", "Druid", 50
+w.money = 500000"#;
+	let script = format!(
+		r#"
+{}
+E = Polestar.Engine
+for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
+stub.login(); stub.advance(0.25)
+Polestar.Set("behavior.autoAccept", false)
+Polestar.QuestDB.SetMeta({{ schema = 2 }})
+-- Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre (one of), ..., raceHigh (18).
+AddRecords("quests", {{
+	[3504] = {{ "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 2 }},
+	[3505] = {{ "Betrayed", 53, 44, 178, nil, 2, nil, nil, nil, {{ 3504 }}, nil, nil, nil, nil, nil, nil, nil, 2 }},
+}})
+E.SetGuide("forever/horde/40-50/06-azshara"); stub.advance(0.25)
+if {with} then stub.world.onQuest(3505, {{ {{ required = 10, fulfilled = 1 }}, {{ required = 10, fulfilled = 0 }}, {{ required = 1, fulfilled = 0 }} }}) end
+stub.world.moveTo(1454, 75.2, 34.2); stub.world.setZone("Orgrimmar", "Valley of Honor")
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
+local g = E.GetGuide()
+local at, gi
+for i, step in ipairs(g.steps) do
+	for j, x in ipairs(step.goals) do if not at and x.t == "accept" and x.quest == 3504 then at, gi = i, j end end
+end
+E.SkipUpTo(at); stub.advance(0.25)
+emit({{ guide = E.GetGuide().id, steps = #g.steps, at = at or false, index = E.GetStepIndex(), title = g.steps[at].title, accept = E.GoalDone(at, gi) }})
+"#,
+		forge_addontest::questdb::ADD_RECORDS_LUA,
+		with = with_3505
+	);
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before.to_string(),
+		addons: vec![Addon::name("Polestar"), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
+		script,
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn erisezs_betrayed_taken_early_passes_the_shipped_azshara_accept_2461() {
+	let held = shipped_betrayed(false);
+	assert_ne!(held["at"], false, "06-azshara takes Betrayed (3504): {held}");
+	assert_eq!(held["guide"], "forever/horde/40-50/06-azshara", "the guide stays: {held}");
+	assert_eq!(held["index"], held["at"], "without Ag'tor's Betrayed the accept holds the guide: {held}");
+	let past = shipped_betrayed(true);
+	assert_eq!(past["accept"], true, "Ag'tor's Betrayed in the log: Belgrom's is behind him: {past}");
+	assert!(past["index"].as_u64().unwrap_or(0) > past["at"].as_u64().unwrap_or(u64::MAX), "the guide moves past the step: {past}");
+}

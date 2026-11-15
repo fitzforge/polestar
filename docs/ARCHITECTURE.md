@@ -2426,6 +2426,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   instead. Passed while the player looks at another step (Prev, Next,
   Goto), it waits for their return to the live step (`Own.skipQueue`), so no
   quest is passed over unsaid. Placement at load never fires it.
+- **Quests past by their chain** (#2461). A quest counts as done (Engine's
+  `questDone`: its accept, objectives and hand-in, and as a prerequisite) when
+  it is handed in, or when a later quest of its chain is in the log or done
+  (`Own.chainPast`): the loaded quest database's follow-ups of it
+  (`QuestDB.FollowUps`, transitively) that this character can take (faction,
+  race, class) and that need it, in `preAll` or as a one-of `pre` naming no
+  other quest this character can take. So a chain taken early (Betrayed in
+  Orgrimmar, carried on to Ag'tor before the guide's step) never holds the
+  route. Without the database loaded nothing is inferred (it is never loaded
+  for this). The follow-up lists are kept per quest (`Own.laterOf`), the
+  answer once per quest per evaluation.
 - **Quests the player skipped** (`Engine.SkipQuest`, a quest's line
   right-clicked in the guide window: Skip this quest): saved per character
   by quest id (`skippedQuests`), so in every guide. Until the quest is done,

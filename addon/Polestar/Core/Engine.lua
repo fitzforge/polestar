@@ -123,8 +123,96 @@ local function stepApplies(step)
 	return Guides.Matches(step.only, player) and (step.when == nil or Own.whenHolds(step))
 end
 
+-- A quest is done when it is handed in (this session or flagged), or when a
+-- later quest of its chain is in the log or done (Own.chainPast): the game
+-- gave that one only to a character past this one, so its accept, its work
+-- and its hand-in are behind the player (Betrayed taken early in Orgrimmar and
+-- carried on to Ag'tor's part before the guide reached it, #2461).
 local function questDone(q)
-	return turnedIn[q] or Compat().IsQuestCompleted(q)
+	return turnedIn[q] or Compat().IsQuestCompleted(q) or Own.chainPast(q) ~= nil
+end
+
+-- The quests that prove quest q past for this character (Own.chainPast), from
+-- the loaded quest database: every quest whose prerequisites, followed back,
+-- lead to q (QuestDB.FollowUps, transitively). A follow-up counts only when
+-- this character can take it (faction, race, class) and it needs q itself:
+-- q among its `preAll`, or its one-of `pre` naming no other quest this
+-- character can take (a follow-up open after either side's lead-in proves
+-- neither for a character who could take both). Static per character and
+-- database: kept per quest, rebuilt when more quest chunks arrive. Without
+-- the database loaded, none.
+Own.NO_LATER = {}
+Own.LATER_MAX = 100 -- the most quests followed after one (the longest chain in the data has 65)
+Own.laterCache = { ids = nil, lists = {} }
+function Own.laterOf(q)
+	local Q = ns.QuestDB
+	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return Own.NO_LATER end
+	local cache, ids = Own.laterCache, Q.QuestIds()
+	if cache.ids ~= ids then
+		cache.ids, cache.lists, cache.ctx = ids, {}, Q.PlayerContext(Compat().GetPlayerInfo())
+	end
+	local list = cache.lists[q]
+	if list then return list end
+	list = {}
+	cache.lists[q] = list
+	local F, ctx = Q.F, cache.ctx
+	local function eligible(id)
+		local r = Q.QuestRecord(id)
+		return r ~= nil and Q.IsEligible(r, ctx)
+	end
+	local function needs(s, p)
+		local r = Q.QuestRecord(s)
+		if not (r and Q.IsEligible(r, ctx)) then return false end
+		for _, x in Q.Each(r[F.PRE_ALL]) do
+			if x == p then return true end
+		end
+		local named = false
+		for _, x in Q.Each(r[F.PRE]) do
+			if x == p then
+				named = true
+			elseif eligible(x) then
+				return false
+			end
+		end
+		return named
+	end
+	local seen, queue, head = { [q] = true }, { q }, 1
+	while queue[head] and #list < Own.LATER_MAX do
+		local p = queue[head]
+		head = head + 1
+		for _, s in ipairs(Q.FollowUps(p) or Own.NO_LATER) do
+			if not seen[s] and needs(s, p) then
+				seen[s] = true
+				list[#list + 1] = s
+				queue[#queue + 1] = s
+			end
+		end
+	end
+	return list
+end
+
+-- The later quest of q's chain (Own.laterOf) that is in the log or done, or
+-- nil. Read once per quest while the quest log and the database stay as they
+-- are (Own.logStamp: bumped by every quest event; no table per ask).
+Own.logStamp, Own.pastGen, Own.pastVal = 0, {}, {}
+function Own.chainPast(q)
+	local Q = ns.QuestDB
+	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return nil end
+	local ids, stamp = Q.QuestIds(), Own.logStamp
+	if Own.pastIds ~= ids then Own.pastIds, Own.pastGen, Own.pastVal = ids, {}, {} end
+	if Own.pastGen[q] == stamp then return Own.pastVal[q] or nil end
+	local C, found = Compat(), false
+	for _, s in ipairs(Own.laterOf(q)) do
+		if turnedIn[s] or C.IsOnQuest(s) or C.IsQuestCompleted(s) then
+			found = s
+			break
+		end
+	end
+	Own.pastGen[q], Own.pastVal[q] = stamp, found
+	return found or nil
+end
+for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
+	ns.RegisterEvent(event, function() Own.logStamp = Own.logStamp + 1 end)
 end
 
 -- First blocking prerequisite of an `accept` the character still lacks, or
