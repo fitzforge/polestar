@@ -588,7 +588,10 @@ fn a_next_guide_whose_races_leave_out_the_characters_says_why_its_turnins_do_not
 	let missed = compile_map(&[("1.guide", &each), ("2.guide", &human), ("3.guide", &text("t/three", &["step S", "  level 2"], &["race Dwarf", "pitch Three"]))]);
 	assert_eq!(
 		only(&missed.warnings, "never turned in"),
-		vec![format!("1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/three\" for some of the characters it applies to", line_of(&each, "  accept 7"))]
+		vec![format!(
+			"1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/three\" for some of the characters it applies to",
+			line_of(&each, "  accept 7")
+		)]
 	);
 	// Deeper on the route too: a guide for both kinds in between hands each to its own.
 	let deep = compile_map(&[

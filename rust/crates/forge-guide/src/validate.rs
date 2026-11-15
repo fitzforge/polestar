@@ -1537,11 +1537,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				)
 			};
 			// Every next guide leaves the stranded characters out: each says for whom it is.
-			let reasons: Vec<String> = next
-				.iter()
-				.filter(|_| !stranded.is_empty())
-				.map(|s| format!("\"{}\" is for {} only, so its turn-ins do not count", ts(&s.get("id")), who_label(s)))
-				.collect();
+			let reasons: Vec<String> = next.iter().filter(|_| !stranded.is_empty()).map(|s| format!("\"{}\" is for {} only, so its turn-ins do not count", ts(&s.get("id")), who_label(s))).collect();
 			let because = if reasons.is_empty() { String::new() } else { format!(" ({})", reasons.join("; ")) };
 			let taken: Vec<&Route> = routes.iter().filter(|r| meets(&open, &ctx.followers(&r.s))).collect();
 			let failing: Vec<&Route> = taken.iter().copied().filter(|r| !r.left.is_empty()).collect();
@@ -1559,12 +1555,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				diag.warn(&file, line(&a.goal), format!("quest {name} is accepted but never turned in on the route through \"{}\"{}", ts(&r.s.get("id")), some(r.left.len())), Some(hint(false)));
 			}
 			if !stranded.is_empty() {
-				diag.warn(
-					&file,
-					line(&a.goal),
-					format!("quest {name} is accepted but never turned in later in this guide or a guide after it{}{because}", some(stranded.len())),
-					Some(hint(true)),
-				);
+				diag.warn(&file, line(&a.goal), format!("quest {name} is accepted but never turned in later in this guide or a guide after it{}{because}", some(stranded.len())), Some(hint(true)));
 			}
 		}
 
