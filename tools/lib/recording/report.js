@@ -171,13 +171,15 @@ function sessionItems(s, xpModel) {
 				if (cur && Number.isInteger(e.lvl) && num(e.xp) !== null) cur.obsCum = xpModel.cum(e.lvl, e.xp);
 				break;
 			case 'taxi':
+			case 'enter':
 				lastPos = null;
 				break;
 			default:
 				break;
 		}
 		// Instance entries carry the cached last outdoor position, not a sample
-		// at their event time. Keep the preceding player anchor and event timing.
+		// at their event time. Clear the anchor across the stay: the next outdoor
+		// sample may follow a different exit or a hearthstone. Keep event timing.
 		if (e.e !== 'enter' && typeof e.map === 'number' && num(e.x) !== null && num(e.y) !== null) {
 			if (lastPos && lastPos.map === e.map && cur) {
 				const [w, h] = mapSize(s.maps, e.map);
