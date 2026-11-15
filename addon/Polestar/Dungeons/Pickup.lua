@@ -39,8 +39,10 @@
 --       in the log or done (neither taken nor `later`): one an item starts
 --       that is not in the bags, nor given by a quest before it, nor dropped
 --       outside as above (The Unsent Letter, Edwin VanCleef's drop in the
---       Deadmines, before Bazil Thredd), or one with no placed giver or
---       turn-in (Finkle Einhorn inside Blackrock Spire); pre: the open
+--       Deadmines, before Bazil Thredd), one with no placed giver or
+--       turn-in (Finkle Einhorn inside Blackrock Spire), or one whose
+--       objective only an instance gives (insideOnly: Scholomance's Kirtonos
+--       the Herald before Stratholme's Menethil's Gift); pre: the open
 --       prerequisites, in the order they are done
 --       (all of `pre`, one of `preAny`: Lookup.QuestChain), with the open
 --       breadcrumbs of the page's chain each before the quest it leads to
@@ -140,12 +142,13 @@
 --       map, x, y, f, z, item, itemName, chance }
 --
 -- Route: the cheapest path from where the player stands, through the
--- prerequisite quests (each after the one before it in its chain; after one,
+-- prerequisite quests (each after the quests it requires; after one,
 -- the player stands at its turn-in) and the givers (one stop per giver with
 -- every quest whose prerequisites are behind; a giver comes up again for a
 -- quest still waiting), to the entrance (Dungeons.PlanStops: the stops at
--- hand first, then exact up to 12 stops, else nearest-next improved by
--- moving stops). The carried quests are named in one line, the entrance
+-- hand first, then exact up to 12 stops, else the cheaper of nearest-next
+-- and cheapest insertion, each improved by moving runs of up to three
+-- stops). The carried quests are named in one line, the entrance
 -- step's note, with a note on the hand-in guide for
 -- after the run (Dungeons/Handin.lua). Travel: ns.TravelCost. The order is
 -- kept per character, so a guide rebuilt without a position (after /reload)
@@ -379,6 +382,42 @@ local function startable(r, before, from, p)
 	return false
 end
 
+-- Whether one of chain quest r's objectives can only be done inside an
+-- instance, so not on a pick-up guide's way: a kill or talk of an NPC the
+-- Codex places in an instance and nowhere outside, or an item whose sources
+-- the Codex knows are all mobs or objects of an instance or with no place
+-- at all, one of them in an instance (no vendor, craft or placed mob or
+-- object outside). Stratholme's pick-up guide sent Horde players through
+-- Scholomance for Menethil's Gift (Kirtonos the Herald, Doctor Theolen
+-- Krastinov) and after dungeon armour for Just Compensation (Bracers of
+-- Valor): over five hours of "picking up" on the route planner's estimate.
+-- An objective the Codex knows nothing of is not one.
+local function insideOnly(r)
+	local C = ns.Codex
+	local function inside(x) return x and x.instance and not (x.spawns and #x.spawns > 0) end
+	for _, o in ipairs(r.objectives or {}) do
+		if (o.type == "kill" or o.type == "talk") and o.id then
+			if inside(C.Npc(o.id)) then return true end
+		elseif o.type == "item" and o.id then
+			local it = C.Item(o.id)
+			local sources = it and it.sources or {}
+			local within, outside = false, false
+			for _, src in ipairs(sources) do
+				local x = (src.type == "drop" and src.npc and C.Npc(src.npc)) or (src.type == "object" and src.object and C.Object(src.object)) or nil
+				if not x then
+					outside = true -- a vendor, a craft, a source the Codex does not hold
+				elseif src.instance or x.instance then
+					within = true
+				elseif x.spawns and #x.spawns > 0 then
+					outside = true
+				end
+			end
+			if within and not outside then return true end
+		end
+	end
+	return false
+end
+
 -- A page quest's side when neither the Codex nor the quest database knows
 -- it: that of the quests of this page it leads to (its `closedBy`, the page
 -- quests whose chain names it) when they are all one side's. In Search of
@@ -521,7 +560,9 @@ end
 -- in where another quest the plan accepts is given (its target). Its detour
 -- is the cheapest insertion of its giver on the way to its target's giver,
 -- from where the player stands, the entrance, or any other stop of the plan
--- (another giver, a chain quest's giver or turn-in), breadcrumbs left out:
+-- (another giver, a chain quest's giver or turn-in), breadcrumbs left out
+-- (one with a prerequisite of its own in the plan: from that one's turn-in
+-- or the entrance only):
 -- min over A of T(A, giver) + T(giver, target) - T(A, target). It is left out
 -- when its giver is on a continent no other stop is on, when the detour is
 -- over DETOUR seconds, or when it is a delivery across the sea (its giver on
@@ -604,6 +645,29 @@ local function dropDetours(plan, from, p)
 			stop(e and e.spawn)
 		end
 	end
+	-- A breadcrumb with a prerequisite of its own in the plan opens only once
+	-- that one is turned in: its detour is measured from there (and from the
+	-- entrance), never from a stop the route passes before it. Blackrock
+	-- Spire's Tinkee Steamboil, Felnok Steelspring's in Winterspring, opens
+	-- after Return to Tinkee is handed in at Flame Crest; measured from
+	-- Felnok's own earlier visit it looked free, and the Horde guide flew
+	-- back to Winterspring and to the Badlands for it (over half an hour).
+	local function afterOwn(r)
+		local list
+		for _, k in ipairs({ "pre", "preAny" }) do
+			for _, pid in ipairs(r[k] or {}) do
+				if recs[pid] then
+					local e = Lk.QuestEnd(recs[pid]["end"], at[pid] or from, p)
+					if e and located(e.spawn) then
+						list = list or {}
+						list[#list + 1] = e.spawn
+					end
+				end
+			end
+		end
+		if list and located(plan.dungeon.entrance) then list[#list + 1] = plan.dungeon.entrance end
+		return list
+	end
 	local drop = {}
 	plan.breadcrumbs = {}
 	for _, id in ipairs(ids) do
@@ -617,9 +681,9 @@ local function dropDetours(plan, from, p)
 				local tc = continentOf(at[tid])
 				if tc == nil or tc == c then sea = false end
 			end
+			for _, a in ipairs(stops) do near = near or continentOf(a) == c end
 			local best
-			for _, a in ipairs(stops) do
-				near = near or continentOf(a) == c
+			for _, a in ipairs(afterOwn(recs[id]) or stops) do
 				for _, tid in ipairs(targets) do
 					local x, y, z = T(a, g), T(g, at[tid]), T(a, at[tid])
 					if x and y and z and (not best or x + y - z < best) then best = x + y - z end
@@ -812,6 +876,10 @@ function Dungeons.PickupPlan(key, offer)
 						-- Deadmines; the Damp Note drops outside (#1380).
 						if not inLog(r.id) and not startable(r, pre, from, p)
 							and not (preDone(r) and Dungeons.DropPoint(key, r, from, r)) then ok = false end
+						-- One done inside an instance (another dungeon's boss, its
+						-- drops) is no pick-up: Kirtonos the Herald before
+						-- Menethil's Gift.
+						if not inLog(r.id) and insideOnly(r) then ok = false end
 						pre[#pre + 1] = r
 					end
 				end
@@ -972,7 +1040,7 @@ end
 -- that only appends the entrance would leave a city and come back to it).
 ---------------------------------------------------------------------------
 
-local EXACT = 12 -- stops searched exactly; more: nearest-next, then improved
+local EXACT = 12 -- stops searched exactly; more: two first orders, then improved
 local AT_HAND = 15 -- seconds of travel from the player: such a stop comes first (#1593)
 
 -- stops = { { inP, outP, deps = { stopIndex, ... } }, ... }: inP where the
@@ -1069,7 +1137,16 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 		if #order == n then return order, total end
 		order = prefix()
 	end
-	-- Many stops: nearest-next first...
+	-- Many stops: two first orders, each every stop after its dependencies
+	-- (the stops at hand stay first)...
+	local deps = {}
+	for i = 1, n do
+		local set = {}
+		for _, d in ipairs(stops[i].deps) do set[d] = true end
+		deps[i] = set
+	end
+	-- ...nearest-next...
+	local near = prefix()
 	local mask, last = mask0, last0
 	for _ = fixed + 1, n do
 		local bc, bi = math.huge, nil
@@ -1080,11 +1157,41 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 			end
 		end
 		if not bi then break end
-		order[#order + 1] = bi
+		near[#near + 1] = bi
 		mask, last = mask + pow[bi], bi
 	end
-	-- ...then moved one stop at a time while that shortens the path and keeps
-	-- every stop after its dependencies (the stops at hand stay first).
+	-- ...and cheapest insertion: each stop, once its dependencies are in,
+	-- where it adds the least, never before one of them.
+	local ins = prefix()
+	local placed = {}
+	for k = 1, fixed do placed[ins[k]] = true end
+	for _ = fixed + 1, n do
+		local bi
+		for i = 1, n do
+			if not placed[i] then
+				local ok = true
+				for d in pairs(deps[i]) do ok = ok and placed[d] end
+				if ok then
+					bi = i
+					break
+				end
+			end
+		end
+		if not bi then break end
+		local lo = fixed
+		for p = fixed + 1, #ins do
+			if deps[bi][ins[p]] then lo = p end
+		end
+		local bc, bp = math.huge, nil
+		for p = lo, #ins do
+			local a = p == 0 and 0 or ins[p]
+			local nx = ins[p + 1]
+			local v = T(outOf(a), stops[bi].inP) + (nx and (T(stops[bi].outP, stops[nx].inP) - T(outOf(a), stops[nx].inP)) or (tail(bi) - tail(a)))
+			if v < bc then bc, bp = v, p end
+		end
+		table.insert(ins, bp + 1, bi)
+		placed[bi] = true
+	end
 	local function cost(o)
 		local c, prev = 0, 0
 		for _, i in ipairs(o) do
@@ -1093,43 +1200,82 @@ function Dungeons.PlanStops(stops, from, finish, travel)
 		end
 		return c + tail(prev)
 	end
-	local function valid(o)
-		local pos = {}
-		for p, i in ipairs(o) do pos[i] = p end
-		for p, i in ipairs(o) do
-			for _, d in ipairs(stops[i].deps) do
-				if not pos[d] or pos[d] > p then return false end
-			end
-		end
-		return true
-	end
-	local c = cost(order)
-	local improved, rounds = true, 0
-	while improved and rounds < 50 do
-		improved, rounds = false, rounds + 1
-		for a = fixed + 1, #order do
-			for b = fixed + 1, #order do
-				if a ~= b then
-					local o = {}
-					for k, v in ipairs(order) do o[k] = v end
-					local moved = table.remove(o, a)
-					table.insert(o, b, moved)
-					if valid(o) then
-						local oc = cost(o)
-						if oc < c then order, c, improved = o, oc, true end
+	-- Then improved by moving runs of one to three stops elsewhere while that
+	-- shortens the path and keeps every stop after its dependencies. A
+	-- chain's links move together: Sunken Temple's Alliance guide went from
+	-- Stormwind to the Plaguelands for four quests in a row and back to
+	-- Stormwind before In Search of the Temple, which starts there.
+	local function improve(o)
+		local m = #o
+		local function outAt(k) return k <= 0 and from or stops[o[k]].outP end
+		local function inAt(k) return stops[o[k]].inP end
+		local function tailAt(k) return tail(k <= 0 and 0 or o[k]) end
+		-- The cost of the edge leaving position k (k = 0: the player), to the next stop or the entrance.
+		local function edge(k) return k < m and T(outAt(k), inAt(k + 1)) or tailAt(k) end
+		local function movable(a, L, b)
+			if b < a then
+				for q = b + 1, a - 1 do
+					for s = a, a + L - 1 do
+						if deps[o[s]][o[q]] then return false end
+					end
+				end
+			else
+				for q = a + L, b do
+					for s = a, a + L - 1 do
+						if deps[o[q]][o[s]] then return false end
 					end
 				end
 			end
+			return true
 		end
+		local rounds, improved = 0, true
+		while improved and rounds < 50 do
+			improved, rounds = false, rounds + 1
+			for L = 1, 3 do
+				for a = fixed + 1, m - L + 1 do
+					local z = a + L - 1
+					-- Out: the edges into and out of the run give way to one across it.
+					local out = (z < m and T(outAt(a - 1), inAt(z + 1)) or tailAt(a - 1)) - T(outAt(a - 1), inAt(a)) - edge(z)
+					for b = fixed, m do
+						if b < a - 1 or b > z then
+							local into = T(outAt(b), inAt(a)) + (b < m and T(outAt(z), inAt(b + 1)) or tail(o[z])) - edge(b)
+							if out + into < -0.5 and movable(a, L, b) then
+								local run = {}
+								for s = a, z do run[#run + 1] = o[s] end
+								for _ = a, z do table.remove(o, a) end
+								local at = b < a and b or b - L
+								for s = 1, L do table.insert(o, at + s, run[s]) end
+								improved = true
+								break
+							end
+						end
+					end
+					if improved then break end
+				end
+				if improved then break end
+			end
+		end
+		return o
 	end
-	return order, c
+	near, ins = improve(near), improve(ins)
+	local cn, ci = cost(near), cost(ins)
+	if #ins == #near and ci < cn then return ins, ci end
+	return near, cn
 end
 
--- plan -> stops: each open prerequisite quest once (after the one before it
--- in its chain; it starts at its giver nearest the player and leaves the
+-- plan -> stops: each open prerequisite quest once (after the quests it
+-- requires; it starts at its giver nearest the player and leaves the
 -- player at its turn-in; `opens`: the page quests it comes before, each
 -- once) and each giver once per set of prerequisites its quests wait on (a
 -- giver comes up again for a quest still waiting).
+-- A prerequisite waits only on what it needs: the quests its own `pre` and
+-- `preAny` name among the stops, the breadcrumb spliced in right before it
+-- (turned in where it is given, plan.closedBy), and, for one an item starts
+-- (no giver: the item drops, or a quest before it gives it), the quest
+-- before it. A page quest's other prerequisites are free of each other:
+-- Ramstein's six (Nathanos Blightcaller, Stratholme) in the list's order sent
+-- a Horde player from the Plaguelands to the Undercity and back for The
+-- Champion of the Banshee Queen, the Undercity passed on the way there.
 local function stopsOf(plan, from)
 	local Lk = LK()
 	local stops, byKey = {}, {}
@@ -1137,6 +1283,13 @@ local function stopsOf(plan, from)
 		stops[#stops + 1] = s
 		byKey[s.key] = #stops
 		return s
+	end
+	local function dep(s, i)
+		if not i or i == byKey[s.key] then return end
+		for _, d in ipairs(s.deps) do
+			if d == i then return end
+		end
+		s.deps[#s.deps + 1] = i
 	end
 	for _, t in ipairs(plan.take) do
 		local prev
@@ -1148,16 +1301,14 @@ local function stopsOf(plan, from)
 				local start = endPoint(Lk.QuestEnd(r.start, from))
 				local drop = not start and Dungeons.DropPoint(plan.dungeon.key, r, from, r) or nil
 				local finish = endPoint(Lk.QuestEnd(r["end"], start or drop or from))
-				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop, opens = {} })
+				add({ key = k, rec = r, inP = start or drop, outP = finish or start or drop, deps = {}, drop = drop, opens = {}, item = start == nil })
 			end
 			local s = stops[byKey[k]]
 			local opens = s.opens
 			if opens[#opens] ~= t.quest then opens[#opens + 1] = t.quest end
-			if prev and prev ~= byKey[k] then
-				local dup = false
-				for _, d in ipairs(s.deps) do dup = dup or d == prev end
-				if not dup then s.deps[#s.deps + 1] = prev end
-			end
+			for _, id in ipairs(r.pre or {}) do dep(s, byKey["q" .. id]) end
+			for _, id in ipairs(r.preAny or {}) do dep(s, byKey["q" .. id]) end
+			if prev and (s.item or (plan.closedBy and plan.closedBy[stops[prev].rec.id])) then dep(s, prev) end
 			prev = byKey[k]
 			deps[#deps + 1] = k
 		end

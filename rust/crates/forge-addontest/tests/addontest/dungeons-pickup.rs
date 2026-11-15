@@ -2804,3 +2804,115 @@ emit({ errand = errand, items = items, unplaced = describe(D.HandinGuide("{KEY}"
 		"a part in the log: its errand, then its hand-in"
 	);
 }
+
+/// The fixture's pack after `edit` has changed its codex and journal inputs.
+fn pack_edited(edit: impl FnOnce(&mut Value, &mut Value)) -> CodexPack {
+	let (mut c, mut i) = fixture_parts();
+	edit(&mut c, &mut i);
+	pack_of(&c, &i)
+}
+
+// A page quest's prerequisites wait only on what they need (the dungeon sweep, 0.4.0): Ramstein's six,
+// Stratholme, were done in the order the Codex lists them, so a Horde guide flew from the Plaguelands to the
+// Undercity and back for The Champion of the Banshee Queen. Here Arugal Must Die needs Deathstalkers in
+// Shadowfang (Hadrec, Silverpine) and The Dalaran Inquiry (after Bethor's Orders from the Undercity), in that
+// order; from the Undercity the guide takes Bethor's errand and Keeper Bel'dugur's quest there first, then
+// Silverpine once: never Silverpine, the Undercity and Silverpine again.
+#[test]
+fn a_page_quest_s_independent_prerequisites_are_routed_by_place_not_in_list_order_the_undercity_once() {
+	let pack = pack_edited(|c, _| c["quests"]["1014"]["pre"] = json!([1098, 1011]));
+	let out = run(&pack, &k(r#"emit(describe(D.PickupGuide("{KEY}")))"#), Opts { cls: "WARRIOR", done: vec![], log: vec![], ..Default::default() }).remove(0);
+	let titles: Vec<&str> = out.as_array().unwrap().iter().map(|s| s["title"].as_str().unwrap()).collect();
+	let at = |t: &str| titles.iter().position(|x| *x == t).unwrap_or_else(|| panic!("no step {t}: {titles:?}"));
+	assert!(at("Orders from the Undercity") < at("Deathstalkers in Shadowfang"), "Bethor's errand in the Undercity before Silverpine: {titles:?}");
+	assert!(at("Keeper Bel'dugur") < at("Deathstalkers in Shadowfang"), "Bel'dugur in the Undercity before Silverpine: {titles:?}");
+	assert_eq!(titles.last(), Some(&"Shadowfang Keep"));
+}
+
+// A prerequisite done inside an instance (another dungeon's boss) is no pick-up (the dungeon sweep, 0.4.0:
+// Stratholme's Horde guide went through Scholomance for Kirtonos the Herald before Menethil's Gift). With The
+// Dalaran Inquiry asking for a boss the Codex places only inside an instance, Arugal Must Die is not taken;
+// with the same NPC spawned outside, it is.
+#[test]
+fn a_page_quest_whose_prerequisite_is_done_inside_an_instance_is_not_picked_up_one_outside_is() {
+	let script = k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take = {}
+for i, t in ipairs(plan.take) do take[i] = t.quest.id end
+emit(take)"#);
+	let edit = |spawns: Value, instance: Value| {
+		move |c: &mut Value, _: &mut Value| {
+			c["npcs"]["9001"] = json!({ "id": 9001, "name": "Kirtonos the Herald", "level": 60, "levelMax": null, "faction": null, "rare": false, "elite": true, "boss": true, "instance": instance, "roles": [], "spawns": spawns });
+			c["quests"]["1011"]["objectives"] = json!([{ "type": "kill", "id": 9001, "count": 1, "text": "Kirtonos the Herald" }]);
+		}
+	};
+	let inside = run(&pack_edited(edit(json!([]), json!("scholomance"))), &script, Opts::default()).remove(0);
+	assert_eq!(inside, json!([1740]), "Arugal Must Die waits: its chain needs a boss inside Scholomance");
+	let outside = run(&pack_edited(edit(json!([{ "map": 1421, "x": 50, "y": 50, "f": "e" }]), Value::Null)), &script, Opts::default()).remove(0);
+	assert_eq!(outside, json!([1740, 1014]));
+}
+
+// A breadcrumb with a prerequisite of its own opens only once that one is turned in (the dungeon sweep, 0.4.0:
+// Blackrock Spire's Tinkee Steamboil, from Felnok in Winterspring after Return to Tinkee is handed in at Flame
+// Crest, looked free from Felnok's earlier visit, and the Horde guide flew back to Winterspring for it). Word
+// to Dalar, Bethor's in the Undercity for Dalar once The Dalaran Inquiry is behind, is measured from Dalar,
+// where the Inquiry ends: a trip back to the Undercity, left out.
+#[test]
+fn a_breadcrumb_that_opens_after_its_own_prerequisite_is_judged_from_that_turn_in_and_left_out_as_a_detour() {
+	let pack = pack_edited(|c, i| {
+		c["quests"]["2001"] = json!({ "id": 2001, "title": "Word to Dalar", "level": 20, "minLevel": 16, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [1498], "object": [], "item": [] }, "end": { "npc": [1938], "object": [] }, "objectives": [], "pre": [1011], "zone": 1421,
+			"rewards": [], "choices": [], "preAny": [] });
+		i["forever"]["quests"]["2001"] = json!({});
+		let quests = i["forever"]["dungeons"]["dungeons"][0]["quests"].as_array_mut().unwrap();
+		quests.push(json!({ "id": 2001, "title": "Word to Dalar", "faction": "Horde", "level": 20, "minLevel": 16, "classes": null, "rewards": { "items": [], "choices": [] }, "chain": [] }));
+	});
+	let out = run(
+		&pack,
+		&k(r#"
+local plan = D.PickupPlan("{KEY}")
+local take, crumbs = {}, {}
+for i, t in ipairs(plan.take) do take[i] = t.quest.id end
+for _, b in ipairs(plan.breadcrumbs or {}) do crumbs[#crumbs + 1] = { b.id, b.taken, b.detour and b.detour > 300 or false } end
+emit({ take = take, crumbs = crumbs })"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out["crumbs"], json!([[2001, false, true]]), "{out}");
+	assert_eq!(out["take"], json!([1740, 1014]), "{out}");
+}
+
+// Above the exact size (the dungeon sweep, 0.4.0): a chain's links move together. Sunken Temple's Alliance guide
+// went from Stormwind to the Plaguelands for a chain of four and back to Stormwind for two quests there (the second
+// after the first), then to the Hinterlands; moving one stop at a time could not mend it (the first Stormwind
+// quest alone gains nothing, the second cannot go before it). The player stands outside town, nothing at hand.
+#[test]
+fn planstops_above_the_exact_size_moves_a_run_of_stops_together_and_keeps_its_order() {
+	let pack = default_pack();
+	let script = r#"
+local CITY = {
+	start = { sw = 200, wpl = 600, hl = 600 },
+	sw = { sw = 1, wpl = 500, hl = 500 },
+	wpl = { sw = 500, wpl = 1, hl = 300 },
+	hl = { sw = 500, wpl = 300, hl = 1 },
+}
+local function at(city, name) return { city = city, name = name } end
+local function travel(a, b) return CITY[a.city][b.city] end
+local stops = {
+	{ inP = at("sw", "chain 1"), outP = at("wpl"), deps = {} },
+	{ inP = at("wpl", "chain 2"), outP = at("wpl"), deps = { 1 } },
+	{ inP = at("wpl", "chain 3"), outP = at("wpl"), deps = { 2 } },
+	{ inP = at("wpl", "chain 4"), outP = at("wpl"), deps = { 3 } },
+	{ inP = at("sw", "town 1"), outP = at("sw"), deps = {} },
+	{ inP = at("sw", "town 2"), outP = at("sw"), deps = { 5 } },
+}
+for i = 1, 7 do stops[#stops + 1] = { inP = at("hl", "hinterlands " .. i), outP = at("hl"), deps = {} } end
+local order, cost = Polestar.Dungeons.PlanStops(stops, at("start"), at("hl", "entrance"), travel)
+local names = {}
+for i, s in ipairs(order) do names[i] = stops[s].inP.name end
+emit({ route = names, cost = cost })"#;
+	let out = run(&pack, script, Opts::default()).remove(0);
+	let route: Vec<&str> = out["route"].as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect();
+	assert_eq!(&route[..6], ["town 1", "town 2", "chain 1", "chain 2", "chain 3", "chain 4"], "Stormwind once, then the chain: {out}");
+	assert_eq!(out["cost"], 200 + 1 + 1 + 1 + 1 + 1 + 300 + 6 + 1, "not 200 + 3 + 3 + 500 + 1 + 500 + 6 + 1, the Plaguelands first: {out}");
+}
