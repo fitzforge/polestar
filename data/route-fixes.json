@@ -9977,6 +9977,12 @@
 		],
 		"skip": [
 			{
+				"q": 857,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0, #1333): The Tear of the Moons (level 30) puts General Twinbraid's Strongbox beside General Twinbraid (30) and his Officers (26) on the Bael'dun fortress's bottom floor. On forever/horde/07-ashenvale's road from Camp Taurajo to the Great Lift players are at 28 (recorded 25th percentile 28.8, 18 people) and 12 recorded people died there; the only later Horde pass of the southern Barrens is a Camp Taurajo landing at about 35, a 1,000 yd detour each way for a quest five levels under (agreed with the 30-40 slice). Left out of the solo route.",
+				"issue": 1333
+			},
+			{
 				"q": 98095,
 				"faction": "Horde",
 				"reason": "Horde level tidy (0.4.0): Valuable Vantages (level 25) puts its western vial on the peak top on the Alterac border (Alterac 38.6,94.8) among Ferocious Yetis 31-32 (camp 31, 10 spawns, 4 recorded deaths, 3 of them to a higher mob), at 26 in 06-hillsbrad-foothills (recorded 25th percentile 26.1). The 30-40 slice checked its Tarren Mill visit at about 30: still one or two levels under the yetis there, and no later Horde visit to Hillsbrad before 38. Left out of the solo route.",

@@ -65,8 +65,8 @@ next forever/horde/07-ashenvale
 # spawns: take them if you meet one.
 #
 # The Tear of the Moons (857) is a level 30 quest: General Twinbraid (30) and his Officers stand
-# by the strongbox. It is taken at 28 in forever/horde/07-ashenvale, on the road from Camp
-# Taurajo to the Great Lift (#1333).
+# by the strongbox. It is left out of the Horde route (0.4.0 level tidy): no pass of Bael Modan
+# comes at a level that fits it.
 #
 # Carried on, finished: Trouble in the Deeps (6562, Je'neu at Zoram'gar, next guide) and Calling in the
 # Reserves (5881, Grish at the Great Lift, next guide).

@@ -5449,19 +5449,15 @@ test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine o
 // Maazias's report (#1333): The Tear of the Moons is a level 30 quest; its strongbox stands beside
 // General Twinbraid (30) and his Officers (26). Done with Gann Stonespire's Bael Modan quests in the
 // Barrens 24-26 it came at 26 for every Horde start, and the guide frame told everyone to reach 28
-// first. It is taken on the next pass, the road from Camp Taurajo to the Great Lift, at about 28.
-test(`${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is done on the road from Camp Taurajo to the Great Lift, not in the Barrens 24-26 (#1333)`, { skip }, () => {
-	assert.deepEqual(goals('forever/horde/04-the-barrens.guide').filter(({ goal }) => goal.quest === 857).map(({ goal }) => goal.t), [], 'not in the Barrens 24-26');
-	for (const [race, cls] of [['Orc', 'MAGE'], ['Tauren', 'SHAMAN'], ['Undead', 'PALADIN']]) {
-		const list = goals(ASHENVALE_HORDE).filter(forRaceOf(race)).filter(forClass(cls));
-		const taurajo = list.findLastIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo');
-		const accept = at(list, 'accept 857', is('accept', 857));
-		const box = at(list, 'the strongbox (857)', (g) => g.quest === 857 && g.t === 'collect');
-		const turnin = at(list, 'turnin 857', is('turnin', 857));
-		assert.ok(taurajo >= 0 && taurajo < accept && accept < box && box < turnin, `${race} ${cls}: after the flight to Camp Taurajo, taken, done and handed in`);
-		assert.ok(turnin < at(list, 'turnin 4542 (Message to Freewind Post)', is('turnin', 4542)), `${race} ${cls}: before the Great Lift and Freewind Post`);
-		assert.match([list[box].step.note, list[box].step.tip].flat().filter(Boolean).join(' '), /General Twinbraid.*\(30\)/, 'the step names General Twinbraid and his level');
+// first. It was then taken on the road from Camp Taurajo to the Great Lift at about 28; since the 0.4.0 level tidy
+// (players there at 28.8, recorded 25th percentile; 12 recorded deaths at the fortress) it is left out: no Horde pass
+// of Bael Modan comes at 30.
+test(`${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is not sent at players two levels under it (#1333)`, { skip }, () => {
+	for (const g of ['forever/horde/04-the-barrens.guide', ASHENVALE_HORDE]) {
+		assert.deepEqual(goals(g).filter(({ goal }) => goal.quest === 857).map(({ goal }) => goal.t), [], `${g}: no Tear of the Moons`);
 	}
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.skip.some((r) => r.q === 857 && r.faction === 'Horde'), 'the skip is a record');
 });
 
 // #1346: Tideress drops the Befouled Water Globe (16408, which starts The Befouled Element 1918) only for a

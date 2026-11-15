@@ -13,8 +13,10 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # Crossroads' flight master (the hearth is kept for Splintertree Post's bind), and its Great Lift step takes
 # Calling in the Reserves (5881, from Maggran at Sun Rock) to Grish Longrunner and Message to Freewind Post (4542)
 # from Brave Moonhorn, both at the top of the lift.
-# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151), The Tear of the Moons (857, a
-# level 30 quest, at 28 on the road from Camp Taurajo to the Great Lift, #1333).
+# Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
+# Left out: The Tear of the Moons (857, level 30): its strongbox stands beside General Twinbraid (30) and his
+# Officers (26) in Bael Modan's fortress, two levels over the players on the road to the Great Lift at 28 (recorded
+# 25th percentile 28.8, 12 recorded deaths there), and no later Horde guide passes Bael Modan (0.4.0 level tidy).
 # Carried in from forever/horde/04-the-barrens' Thunder Bluff stop (or 06's for Druids), for players
 # who took them: The Sacred Flame (1195: the Etched Phial from Raynewood's Laughing Sisters, filled at
 # the moonwell south of them on the way to Mystral Lake; 1196 from Zangen on the Thunder Bluff stop to
@@ -380,13 +382,6 @@ step Brine
   tip Brine's hut stands on the ridge above the quilboar watering hole south of Camp Taurajo, on the road to the Great Lift.
   turnin 1534                         -- Brine
   accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
-
-step Tear of the Moons
-  zone The Barrens
-  tip On the road south to the Great Lift, turn east into the Bael Modan dig. Feegly the Exiled hides at its south edge. General Twinbraid's Strongbox stands on the bottom floor of the dwarves' fortress, beside General Twinbraid (30) and his Officers (26): pull them to you one at a time.
-  accept 857                          -- Feegly the Exiled
-  collect 5038 quest 857 @49.1,84.3   -- General Twinbraid's Strongbox; below ground
-  turnin 857
 
 step The Great Lift
   zone Thousand Needles
