@@ -2022,7 +2022,10 @@ function layoutMenu()
 			row.psArmed = nil
 			row.Text:SetText(item.text)
 			row.Text:SetPoint("LEFT", row, "LEFT", anyIcon and 32 or 12, 0)
-			-- item.font: the text drawn in that face (a font list).
+			-- item.font: the text drawn in that face (a font list), the row's
+			-- own label hidden (not at alpha 0: in the client a string's
+			-- alpha is its colour's, which the row's next paint puts back,
+			-- and the label stood offset behind the face).
 			local face = rawget(row, "Face")
 			if item.font then
 				if not face then
@@ -2033,10 +2036,10 @@ function layoutMenu()
 				face:ClearAllPoints()
 				face:SetPoint("LEFT", row, "LEFT", anyIcon and 32 or 12, 0)
 				face:Show()
-				row.Text:SetAlpha(0)
+				row.Text:Hide()
 			else
 				if face then face:Hide() end
-				row.Text:SetAlpha(1)
+				row.Text:Show()
 			end
 			if item.icon then
 				row.Icon:SetTexture(Theme.Media(Theme.Icon(item.icon)))
@@ -2212,7 +2215,8 @@ local function dropdownRefresh(self)
 		end
 		W.SetFaceText(face, b.Label:GetText(), font)
 		face:SetShown(font ~= nil)
-		b.Label:SetAlpha(font and 0 or 1)
+		-- Hidden, not at alpha 0 (the menu rows' reason above).
+		b.Label:SetShown(font == nil)
 	end
 	dimRow(self, W.Enabled(self))
 end
@@ -3908,6 +3912,10 @@ function W.Shell(name, opts)
 	f:EnableMouse(true)
 	f:SetMovable(true)
 	f:Hide()
+	-- Opaque whatever the windows' opacity (ui.bgOpacity): at 94 % the game's
+	-- own frames behind it showed through the header as faint ghosts. Its
+	-- Peek button is how to see through it.
+	f.psBgAlpha = 1
 	Theme.Skin(f, "window")
 	f.navButtons, f.tabButtons, f.footerButtons, f.railButtons = {}, {}, { left = {}, right = {} }, {}
 	f.psRail = RAIL

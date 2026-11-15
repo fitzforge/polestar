@@ -984,7 +984,7 @@ local function choicesOf(c)
 	if type(list) == "function" then list = list() end
 	for i, ch in ipairs(list or {}) do
 		out[i] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview }
+			disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview, group = ch.group }
 	end
 	return out
 end
@@ -1009,7 +1009,7 @@ local function makeControl(parent, c)
 		w = W.Dropdown(parent, labelOf(c), c.key, choices, c.help, nil, opts)
 	elseif c.kind == "cards" then
 		local choices = type(c.choices) == "function" and function() return choicesOf(c) end or choicesOf(c)
-		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, { get = getset and getset.get, set = getset and getset.set, art = c.art })
+		w = W.Cards(parent, labelOf(c), c.key, choices, c.help, { get = getset and getset.get, set = getset and getset.set, art = c.art, grid = c.grid })
 	elseif c.kind == "color" then
 		w = W.Swatch(parent, labelOf(c), c.key, c.help, { shown = c.shown, source = c.source, linked = c.linked, alpha = c.alpha })
 	elseif c.kind == "button" then

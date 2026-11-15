@@ -201,10 +201,10 @@ fn a_band_holds_its_element_alone_at_its_real_size_centred_its_strings_12_px_or_
 }
 
 // Theme at the default window (1300 x 946): its three are too wide for the band at their real size, so all three
-// are drawn alike at 84-86% and the hint line says so, the cards on whole pixels; in a window wide enough, at their
-// real size, no fit note.
+// are drawn alike at 80-86% on the stage's one line, the cards on whole pixels, and the hint line stays the
+// preview's own (the stage says no "Shown at N% to fit"); in a window wide enough, at their real size.
 #[test]
-fn theme_s_three_fit_the_default_window_at_about_85_percent_and_say_so_and_a_wide_one_draws_them_whole() {
+fn theme_s_three_fit_the_default_window_at_80_to_86_percent_without_a_fit_note_and_a_wide_one_draws_them_whole() {
 	let out = run(r#"
 		local function whole(fr)
 			local _, _, _, x, y = fr:GetPoint(1)
@@ -218,8 +218,8 @@ fn theme_s_three_fit_the_default_window_at_about_85_percent_and_say_so_and_a_wid
 		f = shown("theme", "Essentials")
 		emit({ default = default, wide = { fit = f.psFit, note = f.Hint:IsShown() and f.Hint:GetText():find("to fit", 1, true) ~= nil } })"#);
 	let fit = out["default"]["fit"].as_f64().unwrap();
-	assert!((0.84..=0.86).contains(&fit), "{out}");
-	assert_eq!(out["default"]["hint"], json!(format!("Shown at {}% to fit", (fit * 100.0).round() as i64)));
+	assert!((0.80..=0.86).contains(&fit), "{out}");
+	assert_eq!(out["default"]["hint"], json!("Click a part of the preview to find its settings."), "{out}");
 	assert_eq!(out["default"]["whole"], true, "on whole pixels: {out}");
 	assert_eq!(out["wide"], json!({ "fit": 1, "note": false }), "{out}");
 }

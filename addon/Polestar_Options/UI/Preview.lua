@@ -11,10 +11,11 @@
 -- centred on the element on the window's plain ground, the band only as tall
 -- as it: BAND_PAD over and under, [the picker], the element, [its states'
 -- labels], [one hint line]. No chrome.
---   f:Content(width) -> w, h, place(left, top, k)[, labels]  the page's: the
---                  element's natural size, what puts it at (left, top) at
---                  scale k, and its labels ({ fontstring, x } at their
---                  centres, in its units)
+--   f:Content(width[, tall]) -> w, h, place(left, top, k)[, labels]  the
+--                  page's: the element's natural size (tall: the height the
+--                  band may give it, nil without a limit), what puts it at
+--                  (left, top) at scale k, and its labels ({ fontstring, x }
+--                  at their centres, in its units)
 --   f:Label(text)  a state's label (a 12px Label in textMuted, centred)
 --   opts.picker    { choices, get, set }: a centred dropdown over the element
 --                  (a tab that sets several elements: the one shown)
@@ -22,9 +23,11 @@
 --   opts.watch     setting path prefixes ("nav.", "toasts.rare."; "" every
 --                  setting): a change of one lays the band out again at once
 --                  while it shows, on its next show else; a theme change too
+--   opts.fitNote   false: no fit line (below)
 --   An element too wide or too tall for the band is placed at the k that
 --   fits, every part alike, never over 1; its hint line says so ("Shown at
---   86% to fit"), else it is the hotspots' one-time hint, else there is none.
+--   86% to fit", unless opts.fitNote is false), else it is the hotspots'
+--   one-time hint, else there is none.
 --   P.MapHero(f[, scene, mapLabel])  a sharp 1:1 crop of a zone's world map
 --                  (P.SharpArt, P.InnerShade) and the game's minimap, side
 --                  by side; P.HERO_SCENE the map pins' scene (Elwynn) in the
@@ -368,7 +371,7 @@ local BAND_PAD, PICKER_W, PICKER_H, PICKER_GAP = 20, 220, 28, 14
 local LINE_GAP, LINE_H, STATE_GAP, BAND_SIDE = 10, 15, 40, 24
 local PLAY_GAP, PLAY_UNDER, PLAY_H = 16, 8, 22
 P.BAND_PAD, P.PICKER_H, P.PICKER_GAP, P.LINE_GAP, P.LINE_H, P.STATE_GAP = BAND_PAD, PICKER_H, PICKER_GAP, LINE_GAP, LINE_H, STATE_GAP
-P.PLAY_UNDER, P.PLAY_H = PLAY_UNDER, PLAY_H
+P.PLAY_UNDER, P.PLAY_H, P.BAND_SIDE = PLAY_UNDER, PLAY_H, BAND_SIDE
 
 local bands = setmetatable({}, { __mode = "k" })
 
@@ -480,6 +483,9 @@ function P.Band(parent, opts)
 		f.Play:SetFrameLevel(f:GetFrameLevel() + 30)
 	end
 	f.psWatch = opts.watch
+	-- opts.fitNote = false: no "Shown at N% to fit" line (a page that frames
+	-- its element and scales it whole says nothing of it).
+	f.psFitNote = opts.fitNote ~= false
 	function f:Hot(region, key) return P.Hot(self, region, key) end
 	function f:Light(key, ...) return P.Light(self, key, ...) end
 	function f:LightEdge(key, ...) return P.LightEdge(self, key, ...) end
@@ -507,7 +513,10 @@ function P.Band(parent, opts)
 		if pick then pick.Label:SetText(pickerLabel(self)) end
 		local w, h, place, labels
 		if type(self.Content) == "function" then
-			local ok, a, b, c, d = pcall(self.Content, self, width)
+			-- The height it may take, less the band's pads (and the picker):
+			-- a page may arrange its element by it (nil: no limit).
+			local tall = room and (room - 2 * BAND_PAD - (pick and (PICKER_H + PICKER_GAP) or 0)) or nil
+			local ok, a, b, c, d = pcall(self.Content, self, width, tall)
 			if ok then w, h, place, labels = a, b, c, d else report(a) end
 		end
 		local y = BAND_PAD
@@ -556,7 +565,7 @@ function P.Band(parent, opts)
 				end
 				y = y + LINE_GAP + LINE_H
 			end
-			if k < 1 then
+			if k < 1 and self.psFitNote then
 				hint = string.format(L["Shown at %d%% to fit"], floor(k * 100 + 0.5))
 			else
 				local host = hostOf(self)
