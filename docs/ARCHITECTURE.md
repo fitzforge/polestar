@@ -2012,8 +2012,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   already (an open goal for the same objective in a listed along step,
   background goals included, `Own.hereShown`, or a pinned quest: Along the
   way lists them; a later along step not listed yet counts like any step),
-  not an objective the live step works itself, with mobs at most
-  `HERE_ABOVE` levels over the player, whatever is left (no size cap: the
+  not an objective the live step works itself, with mobs (a spot's `lvl`,
+  else the goal's) at most `HERE_MOBS_ABOVE` (1) level over the player
+  (Fitz's rule: never send a solo player at mobs 2 or more levels above
+  them; a quest carried for later is not offered back at a camp 2 over as
+  the route passes it), whatever is left (no size cap: the
   player is there already). One objective is one line however many steps
   hold it (`Own.hereGroups`, by `Own.hereKey`: the quest's objective `oi`,
   else the item collected or the mob killed; Fitz, 0.3.6: Raptor Horns read
@@ -2086,7 +2089,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   group question in the step, no `optional` accept, a `group` (elite,
   dungeon) one only after the player said "do", the quest not skipped,
   closed, dropped by an `abandon` of the guide, below its `minLevel` or more
-  than `HERE_ABOVE` (2) levels over the character (`qlvl`), the log keeping
+  than `HERE_ABOVE` (2) levels over the character (`qlvl`: the quest's own
+  level alone makes no camp dangerous, so it keeps the wider margin), the log keeping
   `LOG_SPARE` (2) slots free (`Own.logRoom`, of `Compat.GetLogCap`: Forever's
   client answers 0 to `GetMaxNumQuestsCanAccept`, and its log holds 40), and
   a timed quest (`limit`) only in the route's next `AHEAD` (5) steps and when
