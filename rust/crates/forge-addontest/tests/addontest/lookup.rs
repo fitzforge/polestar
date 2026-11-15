@@ -506,6 +506,29 @@ fn generated_guides_a_live_frame_point_is_a_goal_without_a_frame_an_era_one_keep
 	assert_eq!(era, json!([["accept", "e"], ["turnin", "e"]]));
 }
 
+// #2468: Toxic Test's pickup line said "Kill Devilsaur" for a stab with the quest item. The Codex
+// marks that kill with `useItem`; the same kill without it stays "Kill". Not one quest id.
+#[test]
+fn a_kill_finished_by_using_an_item_says_use_and_the_same_kill_without_one_says_kill() {
+	let [kill, used] = first::<2>(run(&(TEST_PACK.to_string()
+		+ r#"
+		local function line(id, objective)
+			local q = { id = 88001, title = "Stab", start = { npc = { 777001 } }, ["end"] = { npc = { 777001 } }, objectives = { objective } }
+			local step = Polestar.Lookup.QuestStep(q, { map = 9001, x = 50, y = 50 }, { inside = function() return { map = 9001, x = 40, y = 40, name = "Inside" } end })
+			local obj = step.goals[2]
+			assert(Polestar.RegisterGuide({ id = id, pack = "test", title = "Stab", steps = { step } }))
+			Polestar.Engine.SetGuide(id)
+			local view = Polestar.Engine.GetStepView(1)
+			local row = view and view.goals[2]
+			return { t = obj.t, item = obj.item or false, npc = obj.npc, oi = obj.oi, verb = row and row.verb or false }
+		end
+		emit(line("test/kill-credit", { type = "kill", id = 6498, count = 1, text = "Devilsaur" }))
+		emit(line("test/use-on-mob", { type = "kill", id = 6498, count = 1, text = "Devilsaur", useItem = 22432 }))
+	"#)));
+	assert_eq!(kill, json!({ "t": "kill", "item": false, "npc": 6498, "oi": 1, "verb": "Kill" }));
+	assert_eq!(used, json!({ "t": "use", "item": 22432, "npc": 6498, "oi": 1, "verb": "Use" }));
+}
+
 // A guide built from a mount's best source would leave out level 40, riding and the gold: only a
 // curated mount guide (by `collects`, or a class mount's spell by `keywords`) is offered.
 const MOUNT_GUIDE_LUA: &str = r#"

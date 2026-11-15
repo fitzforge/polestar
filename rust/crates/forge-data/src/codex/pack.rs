@@ -394,6 +394,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if o.get("tame").truthy() {
 			parts.push("t".into());
 		}
+		// The item the kill objective before it is really a use of (merge.rs `use_item_on`, #2468):
+		// a<item>. An older reader skips it (no objective kind is a).
+		let use_item = o.get("useItem");
+		if use_item.truthy() {
+			parts.push(format!("a{}", num(&use_item)?));
+		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");
 		for side in ["A", "H"] {

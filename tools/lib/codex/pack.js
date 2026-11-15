@@ -51,6 +51,8 @@
 //                 area trigger); an older reader skips it (no objective kind is p)
 //            [;t]: the kill objective before it is a beast to tame (Taming the
 //                 Beast), not to kill; an older reader skips it too
+//            [;a<item>]: the kill objective before it is done by using that item on
+//                 the NPC (useItem, #2468); an older reader skips it (no objective kind is a)
 //            [;w<side><rank>,<lvl>]...: hostile elites at the objective before it (an
 //                 object to use, an item only objects give), for side A or H (rank 1
 //                 elite, 2 rare elite, 3 boss; lvl their highest level); an older
@@ -272,9 +274,10 @@ function encodeQuest(rec) {
 		if (!t) throw new Error(`codex pack: quest ${rec.id}: unknown objective type "${o.type}"`);
 		const field = `${t}${num(o.id)},${num(o.count)},${esc(o.text)}`;
 		const tame = o.tame ? ['t'] : [];
+		const use = o.useItem ? [`a${num(o.useItem)}`] : [];
 		const elites = ['A', 'H'].filter((s) => o.elites && o.elites[s]).map((s) => `w${s}${num(o.elites[s].rank)},${num(o.elites[s].lvl)}`);
-		if (o.map === null || o.map === undefined || o.x === null || o.x === undefined || o.y === null || o.y === undefined) return [field, ...tame, ...elites];
-		return [field, `p${num(o.map)},${coord(o.x)},${coord(o.y)},${o.f || ''}`, ...tame, ...elites];
+		if (o.map === null || o.map === undefined || o.x === null || o.x === undefined || o.y === null || o.y === undefined) return [field, ...tame, ...use, ...elites];
+		return [field, `p${num(o.map)},${coord(o.x)},${coord(o.y)},${o.f || ''}`, ...tame, ...use, ...elites];
 	});
 	const rep = rec.repFaction && rec.repStanding ? [`r${num(rec.repFaction)},${num(rec.repStanding)}`] : [];
 	const xp = rec.xp > 0 ? [`x${num(rec.xp)}`] : [];
