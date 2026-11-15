@@ -15,7 +15,7 @@ next forever/horde/orc-troll/02-the-barrens
 #
 # Flow: Valley of Trials -> Sen'jin Village (report) -> Razor Hill (bind) ->
 # Tiragarde Keep -> Razor Hill -> the wreckage and the coast -> Sen'jin
-# Village -> Echo Isles and the south-east shore -> Kolkar Crag -> Razor Hill
+# Village -> Kolkar Crag -> Echo Isles and the south-east shore -> Razor Hill
 # -> Razormane Grounds -> Rezlak, Drygulch Ravine, Thunder Ridge and Fizzle
 # Darkstorm -> Razor Hill -> Heglan's shore, the naga coast, Margoz and Skull
 # Rock -> Razor Hill -> west over the Southfury River to Far Watch Post and the
@@ -406,34 +406,8 @@ step Makrura and crawlers
   collect 4887 quest 818.1
   collect 4888 quest 818.2
 
-step Bloodtalon Matriarch
-  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
-  collect 277128 quest 97223.1
-
-step Echo Isles
-  tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
-  collect 277135 quest 97225.1
-  kill 3206 quest 826.2
-  kill 3207 quest 826.1
-  complete 96873 optional
-  collect 4866 quest 826.3
-  collect 4864 quest 808.1 @67.4,87.8
-
-step South-east shore
-  tip Durotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach.
-  collect 4892 quest 817.1
-  collect 4890 quest 815.1
-
-step Sen'jin Village
-  turnin 96873 optional               -- Pa'zula
-  turnin 817                          -- Vel'rin Fang
-  turnin 818                          -- Master Vornal
-  turnin 97225                        -- Master Gadrin
-  turnin 826
-  turnin 808
-  turnin 97223                        -- Xar'Ti
-  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
-
+# Kolkar Crag before the Echo Isles: Zalazane (10) and the Voodoo and Hexed
+# Trolls (8-9) are met at 9, not at 8 (level tidy 0.4.0).
 step Kolkar Crag
   tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
   interact 3189 quest 786.1 @49.8,81.3
@@ -446,6 +420,40 @@ step Kolkar Crag
 step Sen'jin Village
   turnin 786                          -- Lar Prowltusk
   turnin 99123                        -- Master Vornal
+  turnin 818                          -- Master Vornal
+
+step Bloodtalon Matriarch
+  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
+  collect 277128 quest 97223.1
+
+step South-east shore
+  tip Durotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach.
+  collect 4892 quest 817.1
+  collect 4890 quest 815.1
+
+step Level 9
+  when level<9
+  tip Top up here to level 9 before the southern isles: the Voodoo and Hexed Trolls there are 8-9 and Zalazane is 10.
+  goto 65.5,83.0 map 1411 "Durotar Tigers"
+  level 9 grind 3121               -- grind on Durotar Tigers
+
+step Echo Isles
+  tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
+  collect 277135 quest 97225.1
+  kill 3206 quest 826.2
+  kill 3207 quest 826.1
+  complete 96873 optional
+  collect 4866 quest 826.3
+  collect 4864 quest 808.1 @67.4,87.8
+
+step Sen'jin Village
+  turnin 96873 optional               -- Pa'zula
+  turnin 817                          -- Vel'rin Fang
+  turnin 97225                        -- Master Gadrin
+  turnin 826
+  turnin 808
+  turnin 97223                        -- Xar'Ti
+  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
 
 # ---------------------------------------------------------------- Razor Hill and the north
 

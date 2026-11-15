@@ -233,6 +233,19 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: tor's report: Securing the Lin
 	assert.ok(at(list, 'turnin 835', is('turnin', 835)) < at(list, 'turnin 806', is('turnin', 806)), '835 is done before 806 is handed in');
 });
 
+// --- Durotar (level tidy 0.4.0): the southern Echo Isles were worked straight off the coast at 8 (players'
+// 25th percentile 8.3), against Zalazane (10) and Voodoo and Hexed Trolls of 8-9 that killed 13 players there.
+// Kolkar Crag and its Sen'jin hand-ins come first, then a top-up to 9 before the southern isles.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the southern Echo Isles come after Kolkar Crag and a top-up to 9`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const isles = Math.min(at(list, 'the Loa idols (97225)', (g) => g.t === 'collect' && g.quest === 97225), at(list, "Zalazane's trolls (826)", (g) => g.t === 'kill' && g.quest === 826));
+	for (const q of [786, 99123, 818]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < isles, `${q} is handed in at Sen'jin before the southern isles`);
+	const gate = list.slice(0, isles).findLastIndex(({ goal }) => goal.t === 'level');
+	assert.ok(gate >= 0 && list[gate].goal.level >= 9, 'a top-up to 9 comes before the southern isles');
+	assert.ok(gate > at(list, 'turnin 786', is('turnin', 786)), 'the top-up is after Kolkar Crag');
+	assert.ok(list[gate].goal.grind === 3121, 'the top-up is on the Durotar Tigers (7-8)');
+});
+
 // --- Hand-overs (Onrevax, #337): a report an NPC gives you by hand names him,
 // so the target button and the step key have someone to target.
 

@@ -12290,6 +12290,30 @@
 			},
 			{
 				"a": [
+					"turnin",
+					786
+				],
+				"b": [
+					"task",
+					826
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): the southern Echo Isles were worked straight off the coast at 8 (players' 25th percentile 8.3), against Zalazane (10), his quest (10) and Voodoo and Hexed Trolls of 8-9 that killed 13 players there, 8 of them to a higher troll. Kolkar Crag and its Sen'jin hand-ins (Thwarting Kolkar Aggression, Lost in the Shadows, A Solvent Spirit) come first, then the northern isle and a top-up to 9 on the tigers, so the trolls are met at 9; the graveyard brings you back to Sen'jin as before"
+			},
+			{
+				"a": [
+					"turnin",
+					786
+				],
+				"b": [
+					"task",
+					97225
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Forgotten Loa Idols (9) lie among the same Voodoo and Hexed Trolls as Zalazane's quest: after Kolkar Crag and the top-up to 9, with Zalazane (the record before)"
+			},
+			{
+				"a": [
 					"task",
 					101
 				],

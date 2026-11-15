@@ -293,7 +293,9 @@ step Razor Hill
 
 # Lar Prowltusk's Kolkar quest is taken on the first Sen'jin stop (he offers
 # it at level 5), so the coast is walked from Razor Hill south: the toolboxes
-# east of town first, then the beaches, the Echo Isles and Sen'jin.
+# east of town first, then the beaches and Kolkar Crag, west of Sen'jin.
+# The Echo Isles come last, from Sen'jin and back by the graveyard: Zalazane
+# (10) and the Voodoo and Hexed Trolls (8-9) are met at 9, not at 8.
 step Scuttle Coast: kill these as you meet them
   zone Durotar
   tip The gnomish toolboxes lie in the wreckage along the shore east and south-east of Razor Hill. Follow the shore south to Sen'jin.
@@ -303,12 +305,33 @@ step Scuttle Coast: kill these as you meet them
   collect 4887 quest 818.1            -- Underwater
   collect 4890 quest 815.1
 
+step Kolkar Crag
+  tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
+  accept 99123 @46.3,78.7
+  goto 46.3,78.7 "Kolkar Crag"        -- Free Pal'juh and see her safely out of the crag
+  complete 99123
+  interact 3192 quest 786.3 @46.2,78.9
+  interact 3190 quest 786.2 @47.7,77.3
+  interact 3189 quest 786.1 @49.8,81.3
+
+step Sen'jin Village
+  tip Back east to Sen'jin on the way to the Echo Isles.
+  turnin 786                          -- Lar Prowltusk
+  turnin 99123                        -- Master Vornal
+  turnin 818                          -- Master Vornal
+
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
   tip Durotar Tigers roam the isle as well as the shore south of Sen'jin, and the Taillasher eggs sit in nests on the isles and along the beach.
   collect 277128 quest 97223.1
   collect 4892 quest 817.1            -- Durotar Tiger Fur
+
+step Level 9
+  when level<9
+  tip Top up here to level 9 before the southern isles: the Voodoo and Hexed Trolls there are 8-9 and Zalazane is 10.
+  goto 65.5,83.0 map 1411 "Durotar Tigers"
+  level 9 grind 3121               -- grind on Durotar Tigers
 
 step Echo Isles: kill these as you meet them
   zone Durotar
@@ -330,24 +353,10 @@ step Sen'jin Village
   turnin 808
   turnin 826
   turnin 97225                        -- Master Gadrin
-  turnin 818                          -- Master Vornal
   turnin 96873 optional               -- Pa'zula
   turnin 817                          -- Vel'rin Fang
   turnin 97223                        -- Xar'Ti
   train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
-
-step Kolkar Crag
-  tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
-  accept 99123 @46.3,78.7
-  goto 46.3,78.7 "Kolkar Crag"        -- Free Pal'juh and see her safely out of the crag
-  complete 99123
-  interact 3192 quest 786.3 @46.2,78.9
-  interact 3190 quest 786.2 @47.7,77.3
-  interact 3189 quest 786.1 @49.8,81.3
-
-step Sen'jin Village
-  turnin 786                          -- Lar Prowltusk
-  turnin 99123                        -- Master Vornal
 
 step Razor Hill
   accept 99048

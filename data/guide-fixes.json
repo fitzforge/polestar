@@ -2342,6 +2342,27 @@
 			"pr": 1077
 		},
 		{
+			"id": "level-tidy-040-durotar-echo-isles-level-9",
+			"faction": "Horde",
+			"at": {
+				"quest": 97225,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 9,
+			"note": "Level tidy 0.4.0 (Orc and Troll Durotar): the southern Echo Isles hold Voodoo and Hexed Trolls of 8-9 and Zalazane (10). After Kolkar Crag and its Sen'jin hand-ins players arrive at about 8.8; a top-up to 9 on the Durotar Tigers (7-8) between the northern and the southern isles makes sure no one meets the trolls at 8. The level-10 top-up before Razor Hill's Conscript of the Horde absorbs it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Echo Isles objectives ticked at a 25th percentile of 8.3 (Orc, 31 people) and 8.1 (Troll, 15); 13 people died there at levels 6.7-8.8, 8 of them to a troll above their level"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3206 Voodoo Troll and 3207 Hexed Troll 8-9, 3205 Zalazane 10, 3121 Durotar Tiger 7-8; quests 826 (10), 808 and 97225 (9)"
+				}
+			]
+		},
+		{
 			"id": "1077-durotar-quilboar-in-the-razormane-grounds-step",
 			"at": {
 				"quest": 837,
