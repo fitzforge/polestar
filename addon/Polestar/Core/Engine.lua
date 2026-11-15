@@ -10888,8 +10888,9 @@ end
 --     Remains, #1540), unless a use goal of the quest names that item (the
 --     Giant Softshell Clam gives the clam Clam Bait's use goal opens); the
 --     items are the quest's, not each objective's;
---   * with mobs at most HERE_ABOVE levels over the player (a spot's `lvl`,
---     else the goal's), measured to such places only;
+--   * with mobs at most HERE_MOBS_ABOVE levels over the player (a spot's `lvl`,
+--     else the goal's), measured to such places only (Fitz: never send a solo
+--     player at mobs 2 or more levels above them; 1 is fine);
 --   * any size: whatever is left (15 quilboars as much as 2), the player is there
 --     already.
 -- One objective is one line, however many steps hold it (Own.hereGroups:
@@ -10953,7 +10954,8 @@ Own.HERE_SHOW = 3 -- lines shown at once
 Own.HERE_TAKES = 2 -- pick-ups among them (a hub's later quests never fill the list)
 Own.HERE_ORDER = 30 -- yards a shown line must be nearer to move up past another
 Own.HERE_REPICK = 25 -- yards moved before the nearest are picked again
-Own.HERE_ABOVE = 2 -- levels a candidate's mobs may be above the player
+Own.HERE_ABOVE = 2 -- levels a pick-up's quest (`qlvl`) may be above the player
+Own.HERE_MOBS_ABOVE = 1 -- levels a line's mobs may be above the player
 -- A hand-in (Own.hereDetour): in reach while its detour is at most the
 -- player's seconds (behavior.whileHereTurninSeconds), or its NPC is within
 -- HERE_TOWN yards while the player rests in a town (an inn's or a city's
@@ -11854,7 +11856,7 @@ function Own.hereBuild()
 	Own.hereGatherBuild(active and pc or nil)
 	if active then
 		if not player then refreshPlayer() end
-		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
+		Own.hereTop = (player.level or 1) + Own.HERE_MOBS_ABOVE
 		Own.hereRadius = tonumber(ns.Get("behavior.whileHereRadius")) or 180
 		Own.hereTurnins = ns.Get("behavior.whileHereTurnins") and true or false
 		Own.hereSeconds = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
