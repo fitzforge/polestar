@@ -816,7 +816,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 			// `done` names a step of the guide being played; the options are also listed from other guides.
 			if (p.k === 'done') err(p.line, '`done` checks a step of the guide being played: it cannot decide a `next` option', 'use a predicate on the character, such as `turnedin <quest>`');
 			else if (p.k === 'group') err(p.line, '`group` asks the player at a step of the guide: it cannot decide a `next` option', 'put `when group <quest>` on the steps of that quest');
-			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn);
+			else guide.nextWhen[id] = resolveWhen([p], endZone ? endZone.id : null, null, data, warn, err);
 		}
 	}
 	setIf(guide, 'pitch', h.pitch);
@@ -910,12 +910,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		}
 		setIf(step, 'only', onlyOf(s.only));
 		const stepZone = resolveZone(s.zone || (s.goals[0] && s.goals[0].zone));
-		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn));
+		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn, err));
 		setIf(step, 'label', s.label);
 		setIf(step, 'along', s.along);
 		setIf(step, 'section', s.section);
 		// `skipto <label> when <predicate>`: { to, when } in the step's order, `when` one predicate.
-		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn)[0] }));
+		if (s.skipto) step.skipto = s.skipto.map((k) => ({ to: k.to, when: resolveWhen([k.when], stepZone ? stepZone.id : null, null, data, warn, err)[0] }));
 		step.goals = [];
 		hidden(step, '_line', s.line);
 		hidden(step, '_only', s.only);
@@ -1133,7 +1133,8 @@ function nonEmpty(o) {
 // player's choice; a profession with its skill line (`skill`); a `cooldown`
 // item checked against the data; a `group` quest checked as one. `levels`: the
 // guide's [min, max], to warn about a step no character in that range sees.
-function resolveWhen(list, zoneId, levels, data, warn) {
+// A `rep` faction the data cannot give an id is an error (`err`): the engine reads a standing by faction id.
+function resolveWhen(list, zoneId, levels, data, warn, err) {
 	if (!list || !list.length) return undefined;
 	const haveQuests = nonEmpty(data.quests);
 	const haveItems = nonEmpty(data.items);
@@ -1215,6 +1216,32 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 			case 'knows':
 				w.spell = p.spell;
 				break;
+			case 'buff':
+				w.spell = p.spell;
+				break;
+			case 'rep': {
+				// The engine reads a standing by faction id: a name must be one the data knows.
+				const where = data.hasFactions ? '' : ' (factions.json missing)';
+				if (p.faction !== undefined) {
+					const f = data.faction(p.faction);
+					w.faction = p.faction;
+					if (f && f.name) w.name = String(f.name);
+					else warn(p.line, `faction ${p.faction} is not in data${where} (new Forever content?)`);
+				} else {
+					const found = data.factionNamed(p.name);
+					if (found) {
+						w.name = String(found.faction.name);
+						w.faction = found.faction.id;
+						if (found.ambiguous) warn(p.line, `faction "${p.name}" matches ids ${found.ambiguous.map((f) => f.id).join(', ')}; using ${found.faction.id} (write \`rep <factionId> <Standing>\` to choose)`);
+					} else {
+						w.name = p.name;
+						err(p.line, `unknown faction "${p.name}"${where}; give its id: \`rep <factionId> <Standing>\``);
+					}
+				}
+				w.standing = p.standing;
+				if (p.points) w.points = p.points;
+				break;
+			}
 			case 'dungeon': {
 				w.name = p.name;
 				const run = dungeonNamed(data, p.name);
@@ -1777,6 +1804,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			if (goal.skillLine !== undefined) progressOf(ctx, goal.skillLine).target = g.level;
 			break;
 		}
+		case 'buff': {
+			// An aura: its name from the client's spell tables, else the author's.
+			const name = g.spellName || taughtSpellName(data, g.spell);
+			if (!name) err(ln, `spell ${g.spell} is not in data; give its name: \`buff ${g.spell} "Name"\``);
+			goal.spell = g.spell;
+			goal.spellName = name || undefined;
+			if (g.off) goal.off = true;
+			break;
+		}
 		case 'cast': {
 			// Any spell: its name from the professions data (a recipe), else the author's.
 			const found = data.recipe(g.spell);
@@ -2109,6 +2145,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		}
 	}
 	if (g.r !== undefined) goal.r = g.r;
+	if (g.points) goal.points = g.points;
 	if (g.optional) goal.optional = true;
 	// `turnin ... direct`: handed in from the giver's window with no accept;
 	// its quest's level, as an accept's, for the engine's grey-quest skipping.

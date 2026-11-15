@@ -130,6 +130,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `skill <Profession> <N>` | Reach skill N (quote names of two words) | `skill "First Aid" 40` |
 | `learn <spell> ["Name"]` | Learn a recipe; from a trainer, or with `nearest` from the closest vendor of its recipe | `learn 3276` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (needs Polestar 0.3.0) | `cast 818 "Basic Campfire"` |
+| `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it (needs Polestar 0.4.1) | `buff 1126 "Mark of the Wild"` |
 | `craft <spell> ["Name"]` | Craft a recipe, `x<N>` times | `craft 3275 x5` |
 | `until <N>` | On `craft`: until the profession reaches N | `craft 3275 until 40` |
 | `section <Profession> <from>-<to>` | In column 0: a skill range as the heading over the steps after it; the guide starts at the range the player's skill is in, and asks only for the materials still needed in it (GUIDE_FORMAT, "Sections") | `section Mining 1-65` |
@@ -138,7 +139,8 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 
 | Line | What it does | Example |
 |---|---|---|
-| `rep <Faction> <Standing>` | Reach a standing (`Neutral` to `Exalted`) with a faction, by name or id | `rep Stormwind Friendly` |
+| `rep <Faction> <Standing>` | Reach a standing (`Hated` to `Exalted`) with a faction, by name or id | `rep Stormwind Friendly` |
+| `rep <Faction> <Standing>+<points>` | Reach that many points into the standing, as the reputation bar counts them (needs Polestar 0.4.1) | `rep Stormwind Revered+12000` |
 | `achieve <id> "Name"` | Complete an achievement or Legacy Challenge | `achieve 9001 "Kobold Catcher"` |
 | `criteria <n>` | On `achieve`: one criterion of it | `achieve 9001 "Kobold Catcher" criteria 2` |
 
@@ -179,6 +181,8 @@ the outcome stays.
 | `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
 | `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |
 | `when knows <spell>` | the character knows the spell (spellbook or recipe; needs Polestar 0.3.0) | `when !knows 100` |
+| `when rep <Faction> <Standing>[+<points>]` | the standing with the faction is that or higher, or that many points into it (needs Polestar 0.4.1) | `when !rep Stormwind Honored` |
+| `when buff <spell>` | the character has the aura of that spell, a buff or a debuff (needs Polestar 0.4.1) | `when !buff 1126` |
 | `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps
@@ -193,6 +197,7 @@ the outcome stays.
 | Line | What it does | Example |
 |---|---|---|
 | `optional` | After a goal: the step can be finished without it | `kill 299 optional` |
+| `off` | After a `buff` goal: done while the aura is gone | `buff 15007 "Resurrection Sickness" off` |
 | `group [N]` | After a goal: it needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it | `kill 299 group 3` |
 
 ## Handing over with `next`

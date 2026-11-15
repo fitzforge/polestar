@@ -26,7 +26,7 @@
 
 const { lexLine } = require('./lexer');
 const { parseConditions, FACTIONS } = require('./conditions');
-const { parseWhen } = require('./when');
+const { parseWhen, readStandingText, STANDINGS } = require('./when');
 const { readMoney } = require('./money');
 const { parseImagePath, parseImageSize } = require('./images');
 const { levelPoint } = require('../game/xp');
@@ -87,6 +87,8 @@ const MODS = {
 	// `cast <spellId> ["Name"]`: the player casts that spell while the goal is open.
 	cast: [...COMMON, ...COORDS],
 	craft: [...COMMON, ...COORDS, 'count', 'until'],
+	// `buff <spellId> ["Name"]`: have that aura; with `off`, be rid of it.
+	buff: [...COMMON, ...COORDS, 'off'],
 	rep: [...COMMON, ...COORDS],
 	explore: [...COMMON, 'map', 'r', 'frame'],
 	achieve: [...COMMON, ...COORDS, 'criteria'],
@@ -95,7 +97,7 @@ const MODS = {
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind', 'off'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -138,17 +140,12 @@ function isModifierToken(tok) {
 	return MOD_WORDS.includes(w) || w.startsWith('@') || /^x\d+$/.test(w);
 }
 
-// Reputation standings as the client numbers them (1 Hated .. 8 Exalted).
-const STANDINGS = { hated: 1, hostile: 2, unfriendly: 3, neutral: 4, friendly: 5, honored: 6, revered: 7, exalted: 8 };
-
-// A standing token -> { value } | { error } | null (not a standing at all).
+// A standing token (`Revered`, `7`, `Revered+12000`: that many points into the standing), read as
+// the `rep` predicate reads it (when.js: 1 Hated .. 8 Exalted)
+// -> { value, points? } | { error } | null (not a standing at all).
 function readStanding(tok) {
 	if (!tok || tok.quoted) return null;
-	const word = tok.text.toLowerCase();
-	if (Object.hasOwn(STANDINGS, word)) return { value: STANDINGS[word] };
-	if (!INT_RE.test(tok.text)) return null;
-	const n = Number(tok.text);
-	return n >= 1 && n <= 8 ? { value: n } : { error: `standing ${tok.text} is out of range (1-8, or Hated..Exalted)` };
+	return readStandingText(tok.text);
 }
 
 // Unquoted words up to (not including) the first token `stop` accepts.
@@ -821,6 +818,7 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 		}
 		case 'learn':
 		case 'craft':
+		case 'buff':
 		case 'cast': {
 			if (!t) return err(ln, `\`${verb}\` needs a spell id`), -1;
 			goal.spell = parseId(t, 'spell', ln, err);
@@ -851,6 +849,7 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 			if (!s) return err(ln, toks[i] ? `unknown standing "${toks[i].text}" (Hated, Hostile, Unfriendly, Neutral, Friendly, Honored, Revered, Exalted, or 1-8)` : usage), -1;
 			if (s.error) return err(ln, s.error), -1;
 			goal.standing = s.value;
+			if (s.points) goal.points = s.points;
 			return i + 1;
 		}
 		case 'explore': {
@@ -1076,6 +1075,11 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 			case 'optional':
 				if (!use('optional')) return null;
 				goal.optional = true;
+				i++;
+				continue;
+			case 'off':
+				if (!use('off')) return null;
+				goal.off = true;
 				i++;
 				continue;
 			case 'direct':

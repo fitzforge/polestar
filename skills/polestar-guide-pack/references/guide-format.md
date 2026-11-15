@@ -94,8 +94,9 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted) | |
 | `learn <spell> ["Name"]` | Learn a recipe or spell | `npc`, `item`, `nearest` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (Polestar 0.3.0); name it unless it is a recipe in the data | coordinates |
+| `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it. With `off`: done while it is gone. Name it unless the client's spell tables know it (Polestar 0.4.1) | `off` |
 | `craft <spell> ["Name"]` | Craft a recipe | `xN`, `until` |
-| `rep <Faction> <Standing>` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id | |
+| `rep <Faction> <Standing>[+<points>]` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id; `+<points>` that many points into it, as the reputation bar counts them (Polestar 0.4.1) | |
 | `explore <x>,<y> ["Area"]` | Discover the map area there | `map`, `r`, `era` / `live` only |
 | `achieve <id> "Name"` | Complete an achievement or Legacy Challenge; the name is required | `criteria` |
 | `wait <seconds> ["text"]` | A countdown (1 to 3600 seconds) that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (Polestar 0.3.0) | no place modifiers, no `group` |
@@ -123,6 +124,7 @@ After the arguments, in any order.
 | `"text"` | Right after an id: the name or title, for content missing from the data; later: the text players see |
 | `lvl <N>` | On `accept`: the level the quest needs |
 | `optional` | Never holds the step |
+| `off` | On `buff`: done while the aura is gone |
 | `group [N]` | Needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it |
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
@@ -160,12 +162,16 @@ step was completed, not skipped or jumped over; not on a `next` line),
 cooldown aside), `group <quest>` (the player chose to do that group quest;
 unanswered, the route waits and asks; on the accept step, `!group` for a solo
 way; not on `next` or `skipto`), `knows <spell>` (the character knows the
-spell; `!knows` for the step that trains it); `!` in front of any but
+spell; `!knows` for the step that trains it), `rep <Faction> <Standing>[+<points>]`
+(the standing with the faction is that or higher, or that many points into
+it), `buff <spell>` (the character has that aura); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
-`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with a
+`buff` goal, points on a `rep` goal, or a `when rep` or `when buff` predicate,
+Polestar 0.4.1.
 
 ## Lint errors that come up most
 

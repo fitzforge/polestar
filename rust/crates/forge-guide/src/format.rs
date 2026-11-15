@@ -24,6 +24,10 @@ pub const PACKED_FORMAT: u32 = 8;
 /// Format 9: the `wait` goal (a countdown in the step). An older Polestar refuses the pack as too new
 /// instead of refusing each guide with "unknown verb".
 pub const WAIT_FORMAT: u32 = 9;
+/// Format 11: the `buff` goal, a `rep` goal's `points` and the `rep` and `buff` when predicates. An older
+/// Polestar refuses the pack as too new instead of refusing each guide with "unknown verb" or "bad when", or
+/// counting a `rep` goal done at the start of its standing.
+pub const BUFF_REP_FORMAT: u32 = 11;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -33,6 +37,7 @@ pub fn needs(format: u32) -> Option<&'static str> {
 		3 => "0.2.5",
 		4 => "0.2.6",
 		5..=9 => "0.3.0",
+		11 => "0.4.1",
 		_ => return None,
 	})
 }
@@ -77,11 +82,28 @@ fn uses_wait(g: &V) -> bool {
 	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("wait")))
 }
 
+// A `buff` goal, a `rep` goal with points, or a `rep` or `buff` predicate (on a step, a `skipto` or a `next`
+// option) needs format 11 (BUFF_REP_FORMAT).
+const FORMAT11_WHEN: [&str; 2] = ["rep", "buff"];
+
+fn needs11(list: &V) -> bool {
+	list.items().iter().any(|p| in_set(&FORMAT11_WHEN, &p.get("k")))
+}
+
+fn uses_buff_rep(g: &V) -> bool {
+	g.get("steps").items().iter().any(|s| {
+		s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("buff") || (goal.get("t").as_str() == Some("rep") && goal.get("points").truthy()))
+			|| needs11(&s.get("when"))
+			|| s.get("skipto").items().iter().any(|k| in_set(&FORMAT11_WHEN, &k.get("when").get("k")))
+	}) || g.get("nextWhen").values().iter().any(needs11)
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
 
-/// The format a pack's compiled guides need: WAIT_FORMAT when a guide has a `wait` goal,
+/// The format a pack's compiled guides need: BUFF_REP_FORMAT when a guide uses a `buff` goal, a `rep` goal's
+/// points or a `rep` or `buff` predicate, WAIT_FORMAT when a guide has a `wait` goal,
 /// MONEY_TASK_FORMAT when a guide
 /// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 /// `skipto`, WHEN_FORMAT when a step
@@ -89,6 +111,9 @@ fn has_keys(v: &V) -> bool {
 /// option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 /// LEGS_FORMAT (project.rs build_pack_files).
 pub fn format_for(guides: &[V]) -> u32 {
+	if guides.iter().any(uses_buff_rep) {
+		return BUFF_REP_FORMAT;
+	}
 	if guides.iter().any(uses_wait) {
 		return WAIT_FORMAT;
 	}

@@ -1132,7 +1132,8 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `learn` | `spell`, `spellName` | `skillLine`, `npc`/`npcName` (trainer), `item` (recipe item) | spell known |
 | `cast` | `spell`, `spellName` | `map`, `x`, `y` | ticked by `Own.latchCast` on the player's `UNIT_SPELLCAST_SUCCEEDED` for `spell` (values read with `Compat.Readable`) while the goal is open: the live step, the step in view, or an along step listed under them; stored as a check-off (`CharState().manual`), so it is kept like the player's own tick; else manual |
 | `craft` | `spell`, `spellName` | `item`/`itemName` (created), `count`, `untilSkill`, `skillLine`, `reagents = { { item, itemName, count } }` | skill ≥ `untilSkill` if set, else created-item count ≥ `count`, else manual |
-| `rep` | `faction`, `factionName`, `standing` (1–8) | — | standing ≥ `standing` |
+| `buff` | `spell`, `spellName` | `off`, `map`, `x`, `y` | the player has the aura of `spell` (`Compat.PlayerHasAura`; with `off`, has it not), latched in its live step; manual where the client has no aura API. `UNIT_AURA` for the player updates only while a tab's guide asks about an aura (`Own.asksAuras`) |
+| `rep` | `faction`, `factionName`, `standing` (1–8) | `points` | standing ≥ `standing` (`Own.standingAtLeast`); with `points`, that many points into `standing` or any higher standing, the progress counting toward them |
 | `explore` | `map`, `x`, `y` | `text` (area name) | area at that point explored; else arrival (latched) |
 | `achieve` | `achievement`, `achievementName` | `criteria` (index) | achievement (or that criterion) completed |
 
@@ -1473,7 +1474,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   than the global cooldown and not run out; it times an update for when it
   ends, and `BAG_UPDATE_COOLDOWN`/`SPELL_UPDATE_COOLDOWN` update once a guide
   has asked), whether the character knows a spell (`Compat.IsSpellKnown`,
-  else `Compat.IsPlayerSpell`; `SPELLS_CHANGED` updates), and the player's
+  else `Compat.IsPlayerSpell`; `SPELLS_CHANGED` updates), a standing with a
+  faction (`rep`: `Own.standingAtLeast`, by faction id, with points inside
+  the standing; a faction not met is below every standing), an aura on the
+  player (`buff`: `Compat.PlayerHasAura`; while the client refuses to say,
+  neither `buff` nor `!buff` holds), and the player's
   answer at a group quest (`Own.groupAnswer`:
   `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
   from the guide window's banner or Options, Discovery, Group quests;

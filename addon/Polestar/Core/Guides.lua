@@ -179,6 +179,7 @@ local REQUIRED = {
 	skill = { skill = isStr, level = isNum },
 	learn = { spell = isNum, spellName = isStr },
 	cast = { spell = isNum, spellName = isStr },
+	buff = { spell = isNum, spellName = isStr },
 	craft = { spell = isNum, spellName = isStr },
 	rep = { faction = isNum, factionName = isStr, standing = isNum },
 	explore = { map = isNum, x = isNum, y = isNum },
@@ -267,6 +268,13 @@ local function checkWhen(list)
 		elseif k == "knows" then
 			-- A spell id (format 5).
 			if not isNum(p.spell) then return false end
+		elseif k == "buff" then
+			-- An aura's spell id (format 11).
+			if not isNum(p.spell) then return false end
+		elseif k == "rep" then
+			-- A faction id, a standing (1 Hated .. 8 Exalted) and points inside it (format 11).
+			if not (isNum(p.faction) and isNum(p.standing) and p.standing >= 1 and p.standing <= 8) then return false end
+			if p.points ~= nil and not (isNum(p.points) and p.points >= 1) then return false end
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -427,6 +435,9 @@ local function checkGoal(goal)
 	if goal.count ~= nil and not isNum(goal.count) then return "bad count" end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
+	-- Points inside a `rep` goal's standing, and a `buff` goal's `off` (format 11).
+	if goal.points ~= nil and not (goal.t == "rep" and isNum(goal.points) and goal.points >= 1) then return "bad points" end
+	if goal.off ~= nil and not (goal.t == "buff" and goal.off == true) then return "bad off" end
 	if goal.t == "level" and goal.frac ~= nil and not isFrac(goal.frac) then return "bad frac" end
 	for _, key in ipairs(KEYS.goalNumbers) do
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end
@@ -646,7 +657,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [11] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

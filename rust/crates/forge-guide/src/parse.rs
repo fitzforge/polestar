@@ -31,7 +31,7 @@ use crate::lexer::{js_trim, js_trim_end, lex_units, Lex, Tok, RE_WS};
 use crate::money::read_money;
 use crate::obj;
 use crate::re;
-use crate::when::{is_label, parse_when};
+use crate::when::{is_label, parse_when, read_standing_text, Standing};
 use crate::xp::level_point;
 
 /// ID_RE: slash-separated segments of a-z 0-9 _ -, none empty (an empty one would make a hidden `.lua` file).
@@ -63,7 +63,7 @@ pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "labe
 
 // COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
-pub const MODS: [(&str, &[&str]); 32] = [
+pub const MODS: [(&str, &[&str]); 33] = [
 	("accept", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
@@ -99,6 +99,8 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	// `cast <spellId> ["Name"]`: the player casts that spell while the goal is open.
 	("cast", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
 	("craft", &["text", "optional", "only", "group", "at", "map", "r", "frame", "count", "until"]),
+	// `buff <spellId> ["Name"]`: have that aura; with `off`, be rid of it.
+	("buff", &["text", "optional", "only", "group", "at", "map", "r", "frame", "off"]),
 	("rep", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
 	("explore", &["text", "optional", "only", "group", "map", "r", "frame"]),
 	("achieve", &["text", "optional", "only", "group", "at", "map", "r", "frame", "criteria"]),
@@ -106,9 +108,9 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("wait", &["text", "optional", "only"]),
 ];
 /// Object.keys(MODS).
-pub const VERBS: [&str; 32] = [
+pub const VERBS: [&str; 33] = [
 	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "vendor", "level",
-	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
+	"money", "task", "note", "skill", "learn", "cast", "craft", "buff", "rep", "explore", "achieve", "wait",
 ];
 
 /// `MODS[verb]` (own properties only).
@@ -131,9 +133,9 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 23] = [
+pub const MOD_WORDS: [&str; 24] = [
 	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "reward", "choose", "xp", "money", "group", "direct", "gossip",
-	"grind",
+	"grind", "off",
 ];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
@@ -143,8 +145,9 @@ const GROUP_MAX: f64 = 40.0;
 pub const QUALITIES: [&str; 8] = ["poor", "common", "uncommon", "rare", "epic", "legendary", "artifact", "heirloom"];
 /// Profession ranks in trainer order (rank 1..4).
 pub const RANKS: [&str; 4] = ["apprentice", "journeyman", "expert", "artisan"];
-/// Reputation standings as the client numbers them (1 Hated .. 8 Exalted).
-pub const STANDINGS: [(&str, f64); 8] = [("hated", 1.0), ("hostile", 2.0), ("unfriendly", 3.0), ("neutral", 4.0), ("friendly", 5.0), ("honored", 6.0), ("revered", 7.0), ("exalted", 8.0)];
+/// Reputation standings as the client numbers them (1 Hated .. 8 Exalted): when.rs reads them for
+/// the `rep` goal and the `rep` predicate alike.
+pub use crate::when::STANDINGS;
 
 struct Cx<'a> {
 	file: &'a str,
@@ -226,18 +229,11 @@ fn is_modifier_token(tok: Option<&Tok>) -> bool {
 	MOD_WORDS.contains(&w.as_str()) || w.starts_with('@') || w.strip_prefix('x').is_some_and(is_int)
 }
 
-/// A standing token -> Some(Ok(value)) | Some(Err(error)) | None (not a standing at all).
-fn read_standing(tok: Option<&Tok>) -> Option<Result<f64, String>> {
+/// A standing token (`Revered`, `7`, `Revered+12000`: that many points into the standing)
+/// -> Some(Ok(standing)) | Some(Err(error)) | None (not a standing at all).
+fn read_standing(tok: Option<&Tok>) -> Option<Result<Standing, String>> {
 	let tok = tok.filter(|t| !t.quoted)?;
-	let word = tok.text.to_lowercase();
-	if let Some((_, v)) = STANDINGS.iter().find(|(k, _)| *k == word) {
-		return Some(Ok(*v));
-	}
-	if !is_int(&tok.text) {
-		return None;
-	}
-	let n = str_to_num(&tok.text);
-	Some(if (1.0..=8.0).contains(&n) { Ok(n) } else { Err(format!("standing {} is out of range (1-8, or Hated..Exalted)", tok.text)) })
+	read_standing_text(&tok.text)
 }
 
 /// Unquoted words up to (not including) the first token `stop` accepts.
@@ -1156,7 +1152,7 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 				}
 			}
 		}
-		"learn" | "craft" | "cast" => {
+		"learn" | "craft" | "buff" | "cast" => {
 			if t.is_none() {
 				fail!(format!("`{verb}` needs a spell id"));
 			}
@@ -1196,8 +1192,11 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 					None => usage.to_string(),
 				}),
 				Some(Err(e)) => fail!(e),
-				Some(Ok(v)) => {
-					goal.set("standing", v);
+				Some(Ok(s)) => {
+					goal.set("standing", s.value);
+					if s.points > 0.0 {
+						goal.set("points", s.points);
+					}
 					Some(i + 1)
 				}
 			}
@@ -1464,6 +1463,12 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 			"optional" => {
 				use_!("optional");
 				goal.set("optional", true);
+				i += 1;
+				continue;
+			}
+			"off" => {
+				use_!("off");
+				goal.set("off", true);
 				i += 1;
 				continue;
 			}

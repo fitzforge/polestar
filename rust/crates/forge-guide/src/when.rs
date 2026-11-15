@@ -7,7 +7,7 @@
 //! parse_when(rest) -> Ok(value) | Err(WhenError { error, hint })
 //!   rest: the line after `when`, as written. One predicate per `when` line
 //!   (see the JS source for the list).
-//! value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label? }; `q` is a list for onquest.
+//! value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label?, faction?, standing?, points? }; `q` is a list for onquest.
 
 use crate::js::{str_to_num, V};
 use crate::lexer::{is_js_space, js_trim, RE_DOT, RE_NWS, RE_WS};
@@ -16,12 +16,50 @@ use crate::obj;
 use crate::re;
 use crate::xp::level_point;
 
-pub const KINDS: [&str; 17] =
-	["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows"];
+pub const KINDS: [&str; 19] =
+	["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows", "rep", "buff"];
+/// The standings, as the `rep` goal and predicate name them (1 Hated .. 8 Exalted).
+pub const STANDINGS: [(&str, f64); 8] = [("hated", 1.0), ("hostile", 2.0), ("unfriendly", 3.0), ("neutral", 4.0), ("friendly", 5.0), ("honored", 6.0), ("revered", 7.0), ("exalted", 8.0)];
+
+/// A standing as written, and the points into it (0: none written).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Standing {
+	pub value: f64,
+	pub points: f64,
+}
+
+/// "Revered", "7", "Revered+12000" -> Some(Ok(standing)) | Some(Err(error)) | None (not a standing at all).
+/// Points count from the start of the standing (the reputation bar's own number).
+pub fn read_standing_text(text: &str) -> Option<Result<Standing, String>> {
+	let m = re!(r"^([A-Za-z]+|[0-9]+)(?:\+([0-9]+))?$").captures(text)?;
+	let word = m[1].to_lowercase();
+	let value = if let Some((_, v)) = STANDINGS.iter().find(|(k, _)| *k == word) {
+		*v
+	} else if is_int(&m[1]) {
+		let n = str_to_num(&m[1]);
+		if !(1.0..=8.0).contains(&n) {
+			return Some(Err(format!("standing {} is out of range (1-8, or Hated..Exalted)", &m[1])));
+		}
+		n
+	} else {
+		return None;
+	};
+	let Some(p) = m.get(2) else {
+		return Some(Ok(Standing { value, points: 0.0 }));
+	};
+	let points = str_to_num(p.as_str());
+	if points < 1.0 {
+		return Some(Err("points inside a standing start at 1: write the standing alone for its start".into()));
+	}
+	if value == 8.0 && points > 999.0 {
+		return Some(Err("Exalted has 999 points at most".into()));
+	}
+	Some(Ok(Standing { value, points }))
+}
 const QUEST_ONE: [&str; 4] = ["complete", "turnedin", "available", "group"];
 /// The predicates that name a place.
 pub const PLACE: [&str; 3] = ["zone", "subzone", "bound"];
-const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>";
+const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]rep <Faction> <Standing>[+<points>], [!]buff <spell>";
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct WhenError {
@@ -211,6 +249,43 @@ pub fn parse_when(rest: &str) -> Result<V, WhenError> {
 			return fail("`knows` needs a spell id: knows <spell>");
 		}
 		value.set("spell", str_to_num(args));
+		return Ok(V::Obj(value));
+	}
+	if kind == "buff" {
+		if !is_int(args) || str_to_num(args) <= 0.0 {
+			return fail("`buff` needs a spell id: buff <spell>");
+		}
+		value.set("spell", str_to_num(args));
+		return Ok(V::Obj(value));
+	}
+	if kind == "rep" {
+		let usage = "`rep` needs a faction and a standing: rep <Faction> <Standing>[+<points>] or rep <factionId> <Standing>";
+		let r = re!(r#"^(?:"((?:[^"\\]|\\{RE_DOT})*)"|([^"]+?)){RE_WS}+({RE_NWS}+)$"#).captures(args);
+		let faction = r.as_ref().map(|r| match r.get(1) {
+			Some(q) => js_trim(&unescape(q.as_str())).to_string(),
+			None => js_trim(&r[2]).to_string(),
+		});
+		let s = r.as_ref().and_then(|r| read_standing_text(&r[3]));
+		let (Some(faction), Some(s), Some(r)) = (faction.filter(|f| !f.is_empty()), s, r.as_ref()) else {
+			return Err(WhenError { error: usage.into(), hint: Some("standings: Hated, Hostile, Unfriendly, Neutral, Friendly, Honored, Revered, Exalted, or 1-8".into()) });
+		};
+		let s = match s {
+			Ok(s) => s,
+			Err(e) => return fail(e),
+		};
+		// Hated and up always holds: nothing stands below it.
+		if s.value == 1.0 && s.points == 0.0 {
+			return fail("`rep <Faction> Hated` always holds: Hated is the lowest standing");
+		}
+		if r.get(1).is_none() && is_int(&faction) {
+			value.set("faction", str_to_num(&faction));
+		} else {
+			value.set("name", faction.as_str());
+		}
+		value.set("standing", s.value);
+		if s.points > 0.0 {
+			value.set("points", s.points);
+		}
 		return Ok(V::Obj(value));
 	}
 	// zone, subzone, bound, dungeon
