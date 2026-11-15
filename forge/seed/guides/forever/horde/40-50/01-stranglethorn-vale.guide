@@ -401,7 +401,6 @@ step Booty Bay
   turnin 621                            -- Crank Fizzlebub, inside
   turnin 209                            -- Kebok, upstairs
   accept 2864                           -- Krazek, upstairs: for Tran'rek in Gadgetzan
-  accept 97332                          -- Wharfmaster Lozgil, on the docks: a package for Powderfuse Port in the Riverglades, the next guide
 
 step Ironjaw Basilisks
   zone Stranglethorn Vale

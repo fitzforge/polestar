@@ -13,17 +13,17 @@ next forever/40-50/shendralas
 # Rizzle's Schematics (1194).
 
 step Fly to Grom'gol
-  when zone "Swamp of Sorrows"
-  zone Swamp of Sorrows
-  goto 46.1,54.7 "Stonard flight master"
-  fly "Grom'gol"
-  zone Stranglethorn Vale
-
-step Fly to Grom'gol
   when zone "Badlands"
   zone Badlands
   tip Coming from the Riverglades: Kargath's flight master stands at the foot of the fortress.
   goto 4.1,44.9 "Kargath flight master"
+  fly "Grom'gol"
+  zone Stranglethorn Vale
+
+step Fly to Grom'gol
+  when zone "Swamp of Sorrows"
+  zone Swamp of Sorrows
+  goto 46.1,54.7 "Stonard flight master"
   fly "Grom'gol"
   zone Stranglethorn Vale
 

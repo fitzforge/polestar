@@ -12572,20 +12572,41 @@ test('Riverglades (Horde route): after Stranglethorn Vale, flown in from Stonard
 });
 
 // The route's stops on either side of the zone carry its errands, each recorded taken and handed in by players:
-// Twice Misplaced Trust (97332) from Wharfmaster Lozgil on Booty Bay's docks and Report to Rog'mar (95141) from
-// Commander Aggro'gosh at Grom'gol, both on Stranglethorn's last visits, go to Whizzbuzz and Krom'rosh; On the Other
-// Side (95033, Tan'jani) and Shipping and Handling (95296, Friz) go to Camp Mojache and Steamwheedle Port, both on the
-// Feralas & Tanaris guide's way.
+// Report to Rog'mar (95141) from Commander Aggro'gosh on Stranglethorn's last Grom'gol stop goes to Krom'rosh; On
+// the Other Side (95033, Tan'jani) and Shipping and Handling (95296, Friz) go to Camp Mojache and Steamwheedle Port,
+// both on the Feralas & Tanaris guide's way. Twice Misplaced Trust (97332) stays out: Lozgil offers it only after
+// two Stranglethorn quests the route doesn't take (players' recordings).
 test("Riverglades (Horde route): the zone's errands are taken and handed in at stops the route makes", () => {
 	const H = (n) => rivergladesSteps(path.join(__dirname, '..', 'guides', 'forever', 'horde', '40-50', n));
 	const stepOf = (steps, verb, q) => steps.find((l) => anyLine(l, new RegExp(`^\\s+${verb} ${q}\\b`)));
 	const stv = H('01-stranglethorn-vale.guide'), glades = rivergladesSteps(RIVERGLADES_HORDE), feralas = H('02-feralas.guide');
-	for (const [q, from, to, at] of [[97332, stv, glades, /^step (Booty Bay|Powderfuse Port)$/], [95141, stv, glades, /^step (Grom'gol Base Camp|Rog'mar)$/],
+	for (const [q, from, to, at] of [[95141, stv, glades, /^step (Grom'gol Base Camp|Rog'mar)$/],
 		[95033, glades, feralas, /^step (Rog'mar|Camp Mojache)$/], [95296, glades, feralas, /^step (Powderfuse Port|Steamwheedle Port)$/]]) {
 		const take = stepOf(from, 'accept', q), give = stepOf(to, 'turnin', q);
 		assert.ok(take && at.test(take[0]), `${q} taken: ${take && take[0]}`);
 		assert.ok(give && at.test(give[0]), `${q} handed in: ${give && give[0]}`);
 	}
+	assert.ok(!stepOf(stv, 'accept', 97332), 'Twice Misplaced Trust is not taken');
+});
+
+// Clugfist offers Might Makes Right and Unworthy Champion (95424, 95425) only after Land of Giants (95420): all 17
+// recorded characters who took them had handed it in. Land of Giants comes from Tran'gul after Spread the Word
+// (95418), Clubtoe's word once Twilight No More! (95427, Chogg'Zac) is done, after Tran'gul's and Clubtoe's
+// Sunnyglade quests. So the guide does Sunnyglade whole, Rog'mar, then Bolder'ok, as those players did; Clugfist's
+// Decree, the Ring and Da'grosh's camp follow from Might Makes Right. Chogg'Zac is no group choice: the chain
+// hangs on him.
+test("Riverglades (Horde route): Sunnyglade and Land of Giants come before Clugfist's quests in Bolder'ok", () => {
+	const lines = fs.readFileSync(RIVERGLADES_HORDE, 'utf8').split('\n').map(codeOf);
+	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
+	const order = [['turnin', 94672], ['turnin', 94680], ['turnin', 94727], ['turnin', 95601], ['turnin', 95602], ['turnin', 95427], ['turnin', 95418], ['turnin', 95420], ['accept', 95424], ['accept', 95425], ['accept', 95428], ['accept', 94744]];
+	const at = order.map(([v, q]) => first(v, q));
+	order.forEach(([v, q], i) => assert.ok(at[i] >= 0, `${v} ${q} is in the guide`));
+	for (let i = 1; i < at.length; i++) assert.ok(at[i - 1] < at[i], `${order[i - 1].join(' ')} before ${order[i].join(' ')}`);
+	const steps = rivergladesSteps(RIVERGLADES_HORDE);
+	const chogg = steps.find((l) => anyLine(l, /^\s+collect 265750\b/));
+	assert.ok(chogg && !anyLine(chogg, /^\s+when group\b/), "Chogg'Zac is on the route, with a Careful tip");
+	const last = steps.find((l) => anyLine(l, /^\s+accept 94965\b/));
+	assert.ok(last && anyLine(last, /^\s+when turnedin 94737\b/), "the Ring's last bouts wait for Gobam's errands");
 });
 
 // #1984: Captain Garran Vimes never offers Vimes's Report (1288) after The Deserters (1287): at least 10 recorded

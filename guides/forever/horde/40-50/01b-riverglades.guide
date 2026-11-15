@@ -25,11 +25,12 @@ next forever/horde/40-50/02-feralas
 # after Borrowed Blades; Rock 'em and Sock 'em after Gaseous Gold; Tran'gul's quests after Show Them How It's Done
 # (part 2).
 # Elites, each behind a group choice: Snargl (40), Ombassa (41), Ghostmaw (42); Scoutmaster Vargas (42) in part 2.
-# Picked up on the way here: Report to Rog'mar (95141, Commander Aggro'gosh at Grom'gol) and Twice Misplaced Trust
-# (97332, Wharfmaster Lozgil in Booty Bay), both in the Stranglethorn Vale guide. Taken here for the next guide:
-# On the Other Side (95033, Tan'jani, for Camp Mojache) and Shipping and Handling (95296, Friz, for Steamwheedle
-# Port), both on the Feralas & Tanaris guide's way.
+# Picked up on the way here: Report to Rog'mar (95141, Commander Aggro'gosh at Grom'gol, in the Stranglethorn Vale
+# guide). Taken here for the next guide: On the Other Side (95033, Tan'jani, for Camp Mojache) and Shipping and
+# Handling (95296, Friz, for Steamwheedle Port), both on the Feralas & Tanaris guide's way.
 # Left out on purpose:
+# - Twice Misplaced Trust (97332): Wharfmaster Lozgil in Booty Bay offers it only after Anything of Value (97328) and
+#   Zimmix's Great Escape (97331) (players' recordings), which the route doesn't take; While-you're-here hands it in.
 # - Hail the Dragonslayer (95936): it starts from the head of Scaldaron, a rare elite drake in the Cinderscale
 #   hollow.
 # - Finding Tan'jani (95143), from Hammerfall in the Arathi Highlands: this guide doesn't assume you carry it;
@@ -206,11 +207,8 @@ step Meadowsbrook
   kill 256383 x12 quest 93786.1         -- Meadowsbrook Farmhand
   collect 262640 x6 quest 93787.1       -- Feed Satchel
 
-step Hearth to Rog'mar
-  hearth "Rog'mar"
-
 step Rog'mar
-  tip Your hearth lands by Innkeeper Toka on the fort's west side: Tan'jani first, then Krom'rosh, Gorg by the cook fire, Kreza and Neza on your way east through the fort.
+  tip Back to Rog'mar, where your Hearthstone is set: Tan'jani on the fort's west side first, then Krom'rosh, Gorg by the cook fire, Kreza and Neza on your way east through the fort.
   turnin 95951                          -- Tan'jani
   accept 95955                          -- Stick 'Em
   turnin 93786                          -- Krom'rosh
@@ -263,15 +261,20 @@ step Tan'jani
 # Riverglades for the Horde, part 2 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone and Forever's quest data for titles, levels, objectives and places.
 # Order: Tran'gul's first errand in Sunnyglade (the Twilight cult's farm town) with Fuzzle's escort, and back;
-# Na'zok's camp and the ogres of Bolder'ok in the hills to the north-east (levels 36-42), with Jom-jom's escort on
-# the way back to the ogres' chieftain. Clubtoe's quests in Sunnyglade wait for part 4, on the way west.
+# Clubtoe's quests in Sunnyglade and Chogg'Zac, and back to Tran'gul for Land of Giants; Na'zok's camp and the
+# ogres of Bolder'ok in the hills to the north-east (levels 36-42), with Jom-jom's escort on the way back to the
+# ogres' chieftain.
 # Offered only after another quest is handed in (players' recordings): Tran'gul's quests after Show Them How It's
 # Done (part 1); Digging for Answers after Twilight Missives; Biting the Hand's escort after the finger bones;
-# Clugfist's Decree and Bloodmaster's Ring after Might Makes Right; each bout of the Bloodmaster's Ring after the one
-# before.
+# The Purple Ones and Sickening Lights after Digging for Answers; the second Purple Ones after the first; Twilight
+# No More! after the second Purple Ones; Spread the Word after Twilight No More!; Land of Giants after Spread the
+# Word and Tran'gul's and Clubtoe's quests; Might Makes Right and Unworthy Champion after Land of Giants (every
+# recorded character, 17 of 17); Clugfist's Decree and Bloodmaster's Ring after Might Makes Right; each bout of the
+# Bloodmaster's Ring after the one before, the last two after Gobam's errands.
 # The Bloodmaster's Ring bouts are one-on-one fights against elite ogres and beasts (41-45): an optional side chain
 # for players who want it. Recorded players of levels 41-43 won them (one lost a bout and took it again).
-# Elites, each behind a group choice: Scoutmaster Vargas (42), and Chogg'Zac (41) in part 4.
+# Elites: Scoutmaster Vargas (42), behind a group choice. Chogg'Zac (41) is Land of Giants' way to Bolder'ok: by
+# then a few levels under you, and recorded players of 42-43 killed him alone.
 # Left out on purpose:
 # - Step One: Rock (95183): Hamur offers it only once Might Makes Right is handed in, when the rock piles are back
 #   in the hills behind you; Step Two: More Rock (96026) asks for ten Heavy Weightstones, a blacksmith's make.
@@ -307,7 +310,44 @@ step Tran'gul
   tip East back to Rog'mar.
   turnin 94672
   turnin 94680
-  accept 94727                          -- Digging for Answers: for Clubtoe in Sunnyglade, later in this guide
+  accept 94727                          -- Digging for Answers: for Clubtoe in Sunnyglade
+
+step Clubtoe
+  tip West to Sunnyglade again: Clubtoe, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand Tran'gul's quest in; one of the missing ogres stands a few steps west.
+  complete 94727 @49.9,46.9             -- talk Clubtoe round
+  turnin 94727
+  accept 95417                          -- The Purple Ones
+  accept 95602                          -- Sickening Lights
+  turnin 95417                          -- Twilight Brute, a few steps west
+  accept 95601                          -- The Purple Ones
+
+step The ritual grounds
+  tip The ritualists and their empowered brutes gather at the ritual circles in the middle of Sunnyglade: wreck five of the circles.
+  tip Careful: Chogg'Zac, the elite ogre (level 41), walks through here from the western streets: watch for him before each pull.
+  kill 261711 x5 quest 95601.1          -- Empowered Brute
+  kill 262169 x10 quest 95601.2         -- Twilight Ritualist
+  complete 95602 @47.7,49.9             -- destroy 5 Twilight Ritual Circles
+
+step Clubtoe
+  turnin 95601
+  turnin 95602
+  accept 95427                          -- Twilight No More!
+
+step Chogg'Zac
+  tip Careful: Chogg'Zac, the two-headed ogre at the western edge of Sunnyglade, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. Clugfist's quests in Bolder'ok wait on this one.
+  collect 265750 quest 95427.2 optional @44.9,51.0  -- Chogg's Head
+  collect 265751 quest 95427.1 optional @44.9,51.0  -- Zac's Head
+
+step Clubtoe
+  when complete 95427
+  turnin 95427
+  accept 95418                          -- Spread the Word: for Tran'gul in Rog'mar
+
+step Tran'gul
+  when onquest 95418
+  tip East back to Rog'mar: Clubtoe's word goes to Tran'gul, and Tran'gul's to Clugfist, the ogres' chieftain.
+  turnin 95418
+  accept 95420                          -- Land of Giants: for Clugfist in Bolder'ok
 
 step WANTED: Scoutmaster Vargas
   when group 95882
@@ -321,7 +361,8 @@ step Na'zok's camp
 
 step Bolder'ok
   tip North-west to Bolder'ok, the ogres' town. Clugfist, its chieftain, sits on the hill. The ogres are friendly while you leave them alone.
-  accept 95424                          -- Clugfist: Might Makes Right
+  turnin 95420                          -- Clugfist
+  accept 95424                          -- Might Makes Right
   accept 95425                          -- Unworthy Champion
 
 step The Twilight ogres' camp
@@ -382,8 +423,8 @@ step The Bloodmaster's Ring: Mog'thar
   turnin 94964
 
 step The Bloodmaster's Ring: Snufflesnout and Chub'chob
-  when turnedin 94964
-  tip The last two are level 44 and 45: leave them for later if Mog'thar was a close fight.
+  when turnedin 94737
+  tip Jezap offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if Mog'thar was a close fight.
   accept 94965 optional                 -- Snufflesnout (44)
   complete 94965 @65.7,20.2
   turnin 94965
@@ -412,7 +453,6 @@ step Powderfuse Port
   accept 95288                          -- Smuggler's Paradise
   accept 95121                          -- Fimbo Greasemitz: A Taste of the Sea
   accept 95254                          -- The WANTED! poster by the inn: Trapclaw
-  turnin 97332                          -- Wharfmaster Whizzbuzz: Lozgil's package from Booty Bay, if you carry it
   accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
   accept 95119                          -- Unfriendly Competition
 
@@ -526,30 +566,24 @@ step Argo Brinewhistle
 
 # Riverglades for the Horde, part 4 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone and Forever's quest data for titles, levels, objectives and places.
-# Order: the hearth to Rog'mar; Clubtoe's quests in Sunnyglade on the way west; Da'grosh's camp below Twilight's
+# Order: the hearth to Rog'mar; west through Sunnyglade to Da'grosh's camp below Twilight's
 # Shroud, Crag'rog's cave, the Twilight cult's camps and ogre mine (levels 41-44); out through Twilight's Shroud to
 # Kargath (its flight path), where the Feralas & Tanaris guide picks up.
 # Offered only after another quest is handed in (players' recordings): The Wayward Warrior after Clugfist's Decree;
-# The Purple Ones and Sickening Lights after Digging for Answers; the second Purple Ones after the first; Twilight No
-# More! after the second Purple Ones; Rise Up! and Death to the Executioner after Rumblings of Discontent; It Is
-# Time, Brother... and Bring Me His Head after Carving a Path.
-# Elites, each behind a group choice: Chogg'Zac (41), Overlord Kilgar (46). The Twilight camps hold elites the route
+# Rise Up! and Death to the Executioner after Rumblings of Discontent; It Is Time, Brother... and Bring Me His Head
+# after Carving a Path.
+# Elites, behind a group choice: Overlord Kilgar (46). The Twilight camps hold elites the route
 # never asks for: Twilight Enforcers (45) on patrol, Executioner Morg and Overlord Kilgar (46) in the fortress, the
 # Twilight Forgemaster (46, rare).
 # Left out on purpose:
-# - Spread the Word (95418) and Land of Giants (95420) after Chogg'Zac: back across the zone to Rog'mar and
-#   Bolder'ok.
 # - Death to the Executioner (95433): Executioner Morg is an elite (46), and the mace goes to Clugfist in Bolder'ok.
 # - A Token of Vengeance (94975), Tome of Twilight (94972), Eye of Mugg (94968) and Krol'dok Moulding (94973): their
 #   items come from the Krol'dok Stronghold dungeon.
 # - It Is Time, Brother... (95278): Da'grosh's message goes back to Krom'rosh in Rog'mar, and this route leaves the
 #   zone through Twilight's Shroud instead.
 
-step Hearth to Rog'mar
-  hearth "Rog'mar"
-
 step Rog'mar
-  tip Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
+  tip Back to Rog'mar from the port, where your Hearthstone is set. Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
   turnin 95428                          -- Krom'rosh: Clugfist's Decree
   accept 94744                          -- The Wayward Warrior: for Da'grosh, west of Sunnyglade
 
@@ -557,36 +591,8 @@ step Neza Bloodsnout
   when onquest 95882
   turnin 95882
 
-step Clubtoe
-  tip West to Sunnyglade again: Clubtoe, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand Tran'gul's quest in; one of the missing ogres stands a few steps west.
-  complete 94727 @49.9,46.9             -- talk Clubtoe round
-  turnin 94727
-  accept 95417                          -- The Purple Ones
-  accept 95602                          -- Sickening Lights
-  turnin 95417                          -- Twilight Brute, a few steps west
-  accept 95601                          -- The Purple Ones
-
-step The ritual grounds
-  tip The ritualists and their empowered brutes gather at the ritual circles in the middle of Sunnyglade: wreck five of the circles.
-  tip Careful: Chogg'Zac, the elite ogre (level 41), walks through here from the western streets: watch for him before each pull.
-  kill 261711 x5 quest 95601.1          -- Empowered Brute
-  kill 262169 x10 quest 95601.2         -- Twilight Ritualist
-  complete 95602 @47.7,49.9             -- destroy 5 Twilight Ritual Circles
-
-step Clubtoe
-  turnin 95601
-  turnin 95602
-
-step Chogg'Zac
-  when group 95427
-  tip Chogg'Zac, the two-headed ogre, is an elite (level 41) at the western edge of Sunnyglade: grouping up is advised.
-  accept 95427                          -- Clubtoe: Twilight No More!
-  collect 265750 quest 95427.2 @44.9,51.0  -- Chogg's Head
-  collect 265751 quest 95427.1 @44.9,51.0  -- Zac's Head
-  turnin 95427                          -- Clubtoe
-
 step Da'grosh
-  tip West out of Sunnyglade and on up the valley towards Twilight's Shroud: Da'grosh, Krom'rosh's wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.
+  tip West from Rog'mar through Sunnyglade and on up the valley towards Twilight's Shroud: Da'grosh, Krom'rosh's wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.
   turnin 94744                          -- Da'grosh
   accept 95431                          -- Rumblings of Discontent
   accept 94745                          -- Carving a Path
