@@ -5529,7 +5529,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['alliance/02-westfall', 'accept 1638', /Fly or walk/],
 		['alliance/02-westfall', 'turnin 94774', /Fly or walk/],
 		['alliance/02-westfall', 'train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid', /Fly or walk/],
-		['horde/05-stonetalon-mountains', 'accept 6462', /Fly from Ratchet/],
+		['horde/05-stonetalon-mountains', 'accept 6442', /Fly from Ratchet/],
 		['horde/05-stonetalon-mountains', 'accept 95883', /Tarren Mill flight path|fly from the Undercity/],
 		['horde/07-ashenvale', 'accept 4542', /Fly from Thunder Bluff/],
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
@@ -7035,7 +7035,12 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	// Taurajo flight comes after its quests (the one from Thunder Bluff).
 	const ring = at(list, 'accept 96260', is('accept', 96260));
 	assert.deepEqual(list.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').filter((e) => list.indexOf(e) < ring).map(({ s }) => s), [], 'no Camp Taurajo flight before the Earthen Ring');
-	assert.ok(at(list, 'turnin 1150', is('turnin', 1150)) < at(list, 'accept 1151', is('accept', 1151)), 'Test of Strength after Test of Endurance');
+	// Since the 0.4.0 level tidy Test of Endurance (Grenka, 31) and Test of Strength (Rok'Alim, elite) are left out at 29;
+	// Dorn may only ever offer Test of Strength after Test of Endurance's hand-in.
+	for (const q of [1150, 1151]) assert.ok(!list.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `${q} left out of the solo route`);
+	const t1150 = list.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 1150);
+	const a1151 = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === 1151);
+	assert.ok(a1151 === -1 || (t1150 !== -1 && t1150 < a1151), 'Test of Strength after Test of Endurance');
 	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 96261)) {
 		assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 96261 && !p.neg), `${goal.t} 96261: Broodmother Valraxx is elite, asked as a group quest`);
 	}
@@ -8666,12 +8671,33 @@ test('Horde 30-40 re-order: the chain runs Hillsbrad, the Flats and Desolace, St
 	assert.ok(!dust.some(({ goal }) => [1166, 1168, 1169].includes(goal.quest) && goal.t === 'accept'), 'the level-43 Brackenwall quests are left for the 40-50 Dustwallow visit');
 });
 
-test('forever/horde/07-ashenvale.guide: Stolen Freewind Supplies with Stop the Screeching, in the same harpy den', { skip }, () => {
-	const list = goals('forever/horde/07-ashenvale.guide');
+// Since the 0.4.0 level tidy Jandia's two harpy quests are taken at the start of the 30-40 guides, after a top-up to 30
+// (Roguefeather Den's harpies 28-30 and Grenka 31 were met at 29 in 07-ashenvale): the pairing holds in whichever guide has them.
+test('Horde: Stolen Freewind Supplies with Stop the Screeching, in the same harpy den', { skip }, () => {
+	const guides = ['forever/horde/07-ashenvale.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide', 'forever/horde/30-40/02-thousand-needles.guide'];
+	const g = guides.find((f) => goals(f).some(({ goal }) => goal.t === 'accept' && goal.quest === 98070));
+	assert.ok(g, 'a Horde guide takes Stop the Screeching');
+	assert.ok(!goals('forever/horde/07-ashenvale.guide').some(({ goal }) => [98069, 98070].includes(goal.quest)), 'not at 29 in 07-ashenvale');
+	const list = goals(g);
 	const step = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	assert.equal(step('accept', 98069), step('accept', 98070), 'taken from Jandia with Stop the Screeching');
-	assert.equal(list[at(list, 'collect 279383', (g) => g.t === 'collect' && g.quest === 98069)].s, list[at(list, 'kill 4101', (g) => g.t === 'kill' && g.quest === 98070)].s, 'the supplies in the Screeching Canyon step');
+	assert.equal(list[at(list, 'collect 279383', (x) => x.t === 'collect' && x.quest === 98069)].s, list[at(list, 'kill 4101', (x) => x.t === 'kill' && x.quest === 98070)].s, 'the supplies in the Screeching Canyon step');
 	assert.equal(step('turnin', 98069), step('turnin', 98070), 'handed in with it');
+});
+
+// Fitz's report (#2372): Thistlefur Village and Hold (216, 6462, 6482, level 24; furbolg packs 23-24, Shamans that flee
+// for help, two scripted ambushes in the hold) were done at 22 on the first Ashenvale visit. They wait for the
+// Zoram'gar stop of the second visit at about 26.5, before King of the Foulweald (6621), which needs 216's hand-in.
+test("Fitz's report (#2372): Thistlefur on the second Ashenvale visit, before King of the Foulweald", { skip }, () => {
+	const first = goals('forever/horde/05-stonetalon-mountains.guide');
+	for (const q of [216, 6462, 6482]) assert.ok(!first.some(({ goal }) => goal.quest === q), `${q} not on the first visit at 22`);
+	const list = goals(ASHENVALE_HORDE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	for (const q of [216, 6462]) assert.ok(idx('accept', q) < idx('turnin', q), `${q} taken and handed in on the 26 visit`);
+	assert.equal(list[idx('turnin', 216)].s, list[idx('accept', 6621)].s, 'King of the Foulweald from Karang on the same stop');
+	assert.equal(list[idx('turnin', 6462)].s, list[idx('turnin', 6563)].s, 'with the Sapphires, one Zoram\'gar stop');
+	assert.ok(idx('turnin', 6482) > idx('accept', 6482), 'Ruul handed to Yama later in the guide');
+	assert.ok(idx('accept', 6621) < list.findIndex(({ goal }) => goal.quest === 6621 && goal.t !== 'accept'), 'the banner after the accept');
 });
 
 // --- Alliance 40-60 order (2026-11-08): a first Western Plaguelands stop at ~51 between the Hinterlands and the Burning

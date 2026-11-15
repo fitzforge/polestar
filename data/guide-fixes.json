@@ -2141,11 +2141,11 @@
 			"id": "ashenvale-zoramgar-already-there",
 			"faction": "Horde",
 			"at": {
-				"quest": 6462,
+				"quest": 6442,
 				"goal": "accept"
 			},
 			"tip": "Learn the flight path here while you pick up the outpost's quests.",
-			"note": "The Horde Stonetalon guide walks across Ashenvale to Zoram'gar Outpost (the step before, Marukai) and learns its flight path in this step; the seed tip \"Fly from Ratchet to Zoram'gar Outpost\" named a flight to a path not learned yet, from a town the player is not in.",
+			"note": "The Horde Stonetalon guide walks across Ashenvale to Zoram'gar Outpost and learns its flight path in this step; the seed tip \"Fly from Ratchet to Zoram'gar Outpost\" named a flight to a path not learned yet, from a town the player is not in. (Anchored on Marukai's Naga at the Zoram Strand since the 0.4.0 level tidy moved Troll Charm to the 26 visit, #2372.)",
 			"source": [
 				{
 					"kind": "client",

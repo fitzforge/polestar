@@ -1429,17 +1429,6 @@
 			{
 				"a": [
 					"accept",
-					1150
-				],
-				"b": [
-					"task",
-					98070
-				],
-				"why": "r7b read (Orc): Test of Endurance taken before the Roguefeather Den (Jandia's harpies), so Grenka's Claw is collected on that visit (the world has no task for the claw)"
-			},
-			{
-				"a": [
-					"accept",
 					109
 				],
 				"b": [
@@ -3751,38 +3740,38 @@
 			{
 				"a": [
 					"turnin",
-					6482
+					6641
 				],
 				"b": [
 					"accept",
 					493
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
+				"why": "Horde 12-30 re-chain (2026-11-07): Journey to Hillsbrad Foothills (from level 19) is taken on the Sepulcher stop of the ride to Hillsbrad at 22, not in the Silverpine stay at 12-15. (Anchored on Vorsha the Lasher's hand-in at Zoram'gar, the last Ashenvale step before the flight to Orgrimmar, since the 0.4.0 level tidy moved Thistlefur and Freedom to Ruul to the 26 visit, #2372.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6482
+					6641
 				],
 				"b": [
 					"accept",
 					516
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
+				"why": "Horde 12-30 re-chain (2026-11-07): Beren's Peril (level 21) rides with the Offering Stone on the way to Hillsbrad at 22; at Silverpine's 12-15 its Ravenclaw undead are five levels up. (Anchored on Vorsha the Lasher's hand-in at Zoram'gar, the last Ashenvale step before the flight to Orgrimmar, since the 0.4.0 level tidy moved Thistlefur and Freedom to Ruul to the 26 visit, #2372.)"
 			},
 			{
 				"a": [
 					"turnin",
-					6482
+					6641
 				],
 				"b": [
 					"accept",
 					95981
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22. (Since the final route review drops The Warsong Reports, anchored on Freedom to Ruul's hand-in at Splintertree, the last step before the flight to Orgrimmar.)"
+				"why": "Horde 12-30 re-chain (2026-11-07): Watching the Roads (level 20) is done on the roads around Ambermill on the ride to Hillsbrad at 22. (Anchored on Vorsha the Lasher's hand-in at Zoram'gar, the last Ashenvale step before the flight to Orgrimmar, since the 0.4.0 level tidy moved Thistlefur and Freedom to Ruul to the 26 visit, #2372.)"
 			},
 			{
 				"a": [
@@ -6847,39 +6836,51 @@
 			},
 			{
 				"a": [
-					"accept",
-					6442
+					"turnin",
+					6562
 				],
 				"b": [
 					"accept",
 					6462
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Troll Charm is taken from Mitsuwa on the first Zoram'gar stop (21) and Thistlefur Hold is done from there, with Between a Rock and a Thistlefur and Freedom to Ruul; the old chain took it at 23 and carried it through Stonetalon and Hillsbrad to the 27 visit."
+				"why": "Horde level tidy (0.4.0, #2372 Fitz): Troll Charm (level 24) is taken from Mitsuwa on forever/horde/07-ashenvale's first Zoram'gar stop (about 26.5), with Je'neu's Sapphires, and Thistlefur Hold is done from there with Between a Rock and a Thistlefur and Freedom to Ruul. On the first Ashenvale visit (05-stonetalon-mountains, model 22.4, recorded 22.9) the hold's Ursa, Totemics and Den Watchers (23-24, 24 spawns, scripted ambushes) were two levels up and killed 4 recorded players."
 			},
 			{
 				"a": [
-					"accept",
-					6442
+					"turnin",
+					6562
 				],
 				"b": [
 					"accept",
 					216
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Between a Rock and a Thistlefur is taken from Karang Amakkar on the first Zoram'gar stop (21), Thistlefur Village on the walk to the hold."
+				"why": "Horde level tidy (0.4.0, #2372 Fitz): Between a Rock and a Thistlefur (level 24: 12 Avengers and 12 Shamans, 23-24, Shamans fleeing for help) is taken from Karang Amakkar on the 07-ashenvale Zoram'gar stop at about 26.5, not at 22 on the first visit (28 spawns 23+ around the village, 3 recorded deaths). King of the Foulweald (6621) opens with its hand-in on the same outpost."
 			},
 			{
 				"a": [
+					"task",
+					216
+				],
+				"b": [
 					"turnin",
-					6462
+					6563
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, #2372): Thistlefur is worked between the Sapphires and the walk back to Zoram'gar, so The Essence of Aku'Mai, Between a Rock and a Thistlefur and Troll Charm are handed in on one stop, where Karang then gives King of the Foulweald for the walk east."
+			},
+			{
+				"a": [
+					"accept",
+					6442
 				],
 				"b": [
 					"accept",
 					6641
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Muglash's escort (Vorsha the Lasher, level 23) is taken on the Zoram'gar stop after Thistlefur at 21-22; the naga brazier is on the strand just north of the outpost, so the second visit at 26 no longer starts with it."
+				"why": "Horde 12-30 re-chain (2026-11-07), re-anchored by the 0.4.0 level tidy (#2372): Muglash's escort (Vorsha the Lasher, level 23) is taken with Marukai's naga heads on the first Zoram'gar stop at 22; the naga brazier is on the strand just north of the outpost, so the second visit at 26 no longer starts with it. (It was anchored on Troll Charm's hand-in, which moved to the 26 visit.)"
 			},
 			{
 				"a": [
@@ -8885,9 +8886,9 @@
 				"q": 1145,
 				"after": [
 					"turnin",
-					1150
+					5064
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Korran stands beside the Crossroads flight master: The Swarm Grows is taken on the flight from Freewind Post to Orgrimmar (one landing), handed to Belgrom in Orgrimmar's Valley of Honor on the way out to the zeppelin, and its follow-ups (1146, 1147) are worked on the 33-34 Shimmering Flats visit.",
+				"reason": "Horde 30-40 re-order (2026-11-07): Korran stands beside the Crossroads flight master: The Swarm Grows is taken on the flight from Freewind Post to Orgrimmar (one landing), handed to Belgrom in Orgrimmar's Valley of Honor on the way out to the zeppelin, and its follow-ups (1146, 1147) are worked on the 33-34 Shimmering Flats visit. (Anchored on Secret Notes' hand-in at Freewind, the last 07-ashenvale step, since the 0.4.0 level tidy left Test of Endurance out.)",
 				"issue": ""
 			},
 			{
@@ -9906,6 +9907,18 @@
 			}
 		],
 		"skip": [
+			{
+				"q": 1150,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Test of Endurance (level 30) sends the player after Grenka Bloodscreech (31) inside Roguefeather Den, whose harpies (28-30, 19 spawns 29+, recorded deaths of 12 people) were met at 29 in forever/horde/07-ashenvale. Jandia's two harpy quests moved to the start of forever/horde/30-40/01-hillsbrad-foothills after a top-up to 30, but Dorn Plainstalker's mesa is north-east of Freewind while the den is west: an out-and-back for one quest, and no later Horde guide visits Thousand Needles (agreed with the 30-40 slice). Test of Faith (1149) is still done.",
+				"issue": ""
+			},
+			{
+				"q": 1151,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Test of Strength (level 30, Rok'Alim the Pounder, a lone elite on Highperch) is offered only after Test of Endurance (1150), which the route leaves out; it was optional already.",
+				"issue": ""
+			},
 			{
 				"q": 212,
 				"faction": "Alliance",
