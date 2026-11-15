@@ -1668,7 +1668,9 @@ test('forever/horde/30-40/06-badlands.guide: no bind at Kargath', { skip }, () =
 // 38-39 visit too: Bel'varil and Voidglare give them on the Tarren Mill stop after the Dalaran crater, before the ruins.
 test('forever/horde/30-40: Bracers of Binding and Dalaran Patrols are taken on the 38-39 visit, not carried from 31', { skip }, () => {
 	const early = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
-	assert.deepEqual(early.filter(({ goal }) => goal.t === 'accept' && [544, 545, 556, 557, 93680].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'not taken at 30-31');
+	assert.deepEqual(early.filter(({ goal }) => goal.t === 'accept' && [545, 557].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'not taken at 30-31');
+	// "Pick up now, do later" (Fitz, 2026-11-16): their openers are taken on Hillsbrad's last Tarren Mill stop and only worked at 38-39.
+	assert.deepEqual([...new Set(early.filter(({ goal }) => [544, 556, 93680].includes(goal.quest)).map(({ goal }) => goal.t))], ['accept'], 'the openers are only taken at 30-31');
 	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
 	const crater = at(list, 'the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
 	for (const q of [545, 557]) {
@@ -1825,7 +1827,7 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Masoj\'s three vials on 
 // Level tidy (2026-11-15): the Shimmering Flats' silithid dig (Invaders 34-35) and the Gazers (34-35) came first on the
 // flats at about 31 (calibrated level model), three levels over the player. The flats' north (basilisks, tortoises,
 // Scorpid Reavers and rocket rubble, 30-32) and the raceway's hand-ins now come first, then one top-up to 32 on the
-// Saltstone Crystalhides (32-33) on the way south-west, then the Gazers, the dig and Moktar Krin, all on the same visit
+// Scorpid Reavers (31-32, at most a level over), then the Gazers, the dig and Moktar Krin, all on the same visit
 // before Gadgetzan. With players' recorded 25th percentile 33.1-33.2 there, 32 puts the Gazers and Invaders (35) at most
 // two over at the top of their camps, with tips; Desolace's Kolkar top-up went (the flats' one covers it).
 test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the raceway\'s hand-ins, on the same visit', { skip }, () => {
@@ -1842,7 +1844,7 @@ test('forever/horde/30-40/02-thousand-needles.guide: the flats\' south after the
 	assert.equal(levels.length, 1, 'one top-up');
 	const [flats] = levels;
 	assert.equal(flats.goal.level + (flats.goal.frac || 0), 32);
-	assert.equal(flats.goal.grind, 4151, 'on the Saltstone Crystalhides (32-33)');
+	assert.equal(flats.goal.grind, 4140, 'on the Scorpid Reavers (31-32)');
 	const fi = list.indexOf(flats);
 	assert.ok(firstHandIn < fi && fi < at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3), 'after the hand-ins, before the Gazers');
 	const gazers = list[at(list, 'Gazers', (g) => g.t === 'kill' && g.quest === 1175 && g.oi === 3)].step;
@@ -5833,7 +5835,7 @@ test('Kolbi on Discord (#1695): Helcular\'s Rod is farmed on the Foothill Cavern
 test('Danger at the spot (#1575, #1695): the Syndicate missives fallback comes when the Syndicate are under you', { skip }, () => {
 	// 32-35 Syndicate; recordings: 4 people died there at about 32. Since the level tidy (2026-11-15) Infiltration and its
 	// missive fallback come on the 38-39 visit only.
-	assert.equal(goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 533).length, 0, 'nothing of Infiltration at 30-31');
+	assert.deepEqual(goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 533).map(({ goal }) => goal.t), ['accept'], 'Infiltration is only taken at 30-31 (pick up now, do later)');
 	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
 	const steps = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 533);
 	assert.ok(steps.length > 0, 'the missive fallback is on the 38-39 visit');
@@ -10383,7 +10385,7 @@ test('Horde 30-40 audit: Badlands slabs beside Agmond\'s End, Lotwil on the way 
 test("Mokii's report (#1431): Horde 30-40 grinds come after the ready hand-ins", { skip }, () => {
 	for (const [guide, level, after] of [
 		['forever/horde/30-40/04-dustwallow-marsh.guide', 36, [1177, 1202, 1239]],
-		['forever/horde/30-40/02-thousand-needles.guide', 32, [1110, 1104, 1105, 5561]],
+		['forever/horde/30-40/02-thousand-needles.guide', 32, [1110, 1104, 1105]],
 		['forever/horde/30-40/03-stranglethorn-vale.guide', 35, [568]],
 	]) {
 		const list = goals(guide);
@@ -10650,7 +10652,7 @@ test("#1661: with the Syndicate Missive already in the bags the guide passes Hen
 // Tarren Mill stop, Valik on the road north, and Krusk takes it with the Dalaran crater's hand-ins. Valik's gate (above)
 // keeps working.
 test("#1466: Infiltration is accepted at 30 but Valik and the missive wait for the walk back from Southshore", { skip }, () => {
-	assert.equal(goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 533 || goal.quest === 535).length, 0, 'nothing of it at 30');
+	assert.deepEqual(goals('forever/horde/30-40/01-hillsbrad-foothills.guide').filter(({ goal }) => goal.quest === 533 || goal.quest === 535).map(({ goal }) => goal.t), ['accept'], 'only the accept at 30 (pick up now, do later)');
 	const list = goals('forever/horde/30-40/05-arathi-highlands.guide');
 	const take = at(list, 'accept 533', is('accept', 533));
 	const valik = at(list, 'accept 535', is('accept', 535));
@@ -10663,7 +10665,7 @@ test("#1466: Infiltration is accepted at 30 but Valik and the missive wait for t
 	const pairs = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.pairs;
 	assert.ok(!pairs.some((p) => p.a[0] === 'turnin' && p.a[1] === 533 && p.b[1] === 539), 'no #1079 pair hands it in before the mine');
 	const deliberate = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
-	assert.ok(deliberate.some((p) => p.a[0] === 'turnin' && p.a[1] === 5581 && p.b[0] === 'accept' && p.b[1] === 533), 'a route-fixes pair keeps it on the 38-39 visit');
+	assert.ok(deliberate.some((p) => p.a[0] === 'turnin' && p.a[1] === 5581 && p.b[0] === 'task' && p.b[1] === 533), 'a route-fixes pair keeps its work on the 38-39 visit');
 });
 
 // Players' recordings (2026-11-09 pull): after Eagle's Fist (79975) on the Stonewrought Dam's ledge, most players drop
@@ -12288,7 +12290,9 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Discord: the guide says 
 	const g = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	assert.deepEqual([g.minLevel, g.maxLevel], [29, 31], 'the label stays the route\'s character levels');
 	assert.match(g.pitch || '', /at or under your level/, 'the pitch says its quests fit the label');
-	for (const q of [544, 533, 553, 676, 677, 97539]) assert.ok(!goals('forever/horde/30-40/01-hillsbrad-foothills.guide').some(({ goal }) => goal.quest === q), `${q} is not in the 29-31 guide`);
+	const hills = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	for (const q of [553, 677, 97539]) assert.ok(!hills.some(({ goal }) => goal.quest === q), `${q} is not in the 29-31 guide`);
+	for (const q of [544, 533, 676]) assert.deepEqual(hills.filter(({ goal }) => goal.quest === q).map(({ goal }) => goal.t), ['accept'], `${q} is only taken in the 29-31 guide (pick up now, do later)`);
 });
 
 
@@ -14266,7 +14270,7 @@ test('Durotar: Rezlak waits for the Dull Storm Orb\'s quest and its follow-up be
 // with Roguefeather Den, which Thousand Needles' first Freewind visit now does at 31.)
 test('Horde grind top-ups stand on camps at most a level over the player (#2207)', { skip }, () => {
 	for (const [guide, title, npc] of [
-		['forever/horde/30-40/02-thousand-needles.guide', 'Level 32', 4151],
+		['forever/horde/30-40/02-thousand-needles.guide', 'Level 32', 4140],
 		['forever/horde/50-60/02-felwood.guide', 'Level 52.63', 1821],
 		['forever/horde/50-60/03-winterspring.guide', 'Level 55.04', 7458],
 		['forever/horde/50-60/06-silithus.guide', 'Level 58', 11741],

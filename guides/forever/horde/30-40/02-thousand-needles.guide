@@ -225,7 +225,7 @@ step Mirage Raceway
 step Shimmering Flats: kill these as you meet them
   zone Thousand Needles
   tip North-east of the raceway onto the flats. The Saltstone Basilisks (30-31) sun themselves north-west of it; the Sparkleshell tortoises crowd round a half-buried ship in the north-east, and the Salt Flats Scavengers and Vultures circle the eastern flats. Every vulture drops a bone, about one tortoise in three a shell.
-  tip Careful: Scavengers and Vultures use Execute when your health is low; the Snappers (34-35) hit hardest of the tortoises and are over you here: the Tortoises drop the shells just as often, so stay with them.
+  tip Careful: Scavengers and Vultures use Execute when your health is low; the Snappers (34-35) hit hardest of the tortoises and are over you here: the Tortoises drop the shells just as often, so stay with them. Take the venom from the Reavers (31-32) of the north half and leave the Scorpid Terrors (33-34) further south.
   kill 4147 quest 1175.1 @75.7,57.3 map 1441
   collect 5795 quest 1105 @82.1,55.0 map 1441 -- Hardened Tortoise Shell
   collect 5848 quest 1176 @87.9,65.4 map 1441 -- Hollow Vulture Bone
@@ -246,9 +246,9 @@ step Mirage Raceway
 step Level 32
   when level<32
   zone Thousand Needles
-  tip The flats' south and the silithid dig are 32-35, Desolace's quests 32-38. Still below 32 after the raceway's hand-ins? On the way south-west to the dig, the Saltstone Crystalhides (32-33) graze the flats just west of the raceway: kill them until level 32 (they count for A Bump in the Road too); leave the Gazers (34-35) further south for after. Or, with a group, run the Razorfen Kraul dungeon instead.
-  goto 72.4,78.5 map 1441 "Saltstone Crystalhides"
-  level 32 grind 4151                 -- grind on Saltstone Crystalhide
+  tip The flats' south and the silithid dig are 32-35, Desolace's quests 32-38. Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the Razorfen Kraul dungeon instead.
+  goto 75.0,60.0 map 1441 "Scorpid Reavers"
+  level 32 grind 4140                 -- grind on Scorpid Reaver
 
 step The southern flats
   zone Thousand Needles
