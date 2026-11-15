@@ -60,7 +60,7 @@ Every line before the first `step`.
 |---|---|---|
 | `guide` | yes, first line | id: `[a-z0-9_-]+` parts joined by single `/` (none leading or trailing), unique across all guides; it starts with the pack's id and `/` (`joe-routes/elwynn`; Polestar's own guides: `forever/`) |
 | `title` | yes | rest of line |
-| `levels` | yes | `<min>-<max>` |
+| `levels` | yes | `<min>-<max>`: the character levels the route brings players here at. A guide both factions play (no `faction` line) may give each side its own: `levels <min>-<max> Alliance` and `levels <min>-<max> Horde`, a line each (see "Levels per faction") |
 | `zone` | yes | default zone: map name from `data/forever/zones.json`, or `map <uiMapID>` |
 | `faction` | no | `Alliance` or `Horde` |
 | `race` | no | comma list (see Conditions) |
@@ -77,6 +77,24 @@ Every line before the first `step`.
 | `coords` | no | `era` (default) or `live`: the map frame of coordinates typed in this guide (`@x,y`, `goto`, `explore`). Era-frame ones compile with `f = "e"`; on a map without Era bounds they compile live. `record draft` writes `coords live`. |
 | `pitch` | no | one short sentence about the zone, shown on its card in the route choice window: 60 characters at most, so it fits two lines (required, as a warning, when the guide is a route option) |
 | `pro` / `con` | no | repeatable: one advantage / disadvantage per line, shown under the pitch. The card shows the first 3 pros and the first con, each on one line: 38 characters at most (a longer one is cut; the card's tooltip has every one whole). Keep them short, plain, factual and true for every race that can choose the route. Our own route options write exactly 3 and 1 (tests/route-choice-copy.test.js). |
+
+**Levels per faction.** Where the two factions' routes bring characters to a
+shared guide at different levels, each side gets its own range, so the guide
+menu, the suggestions and the "outgrown" notice speak to each player's level:
+
+```
+guide forever/40-50/shendralas
+title Shen'dralas
+levels 45-46 Alliance
+levels 47-48 Horde
+```
+
+Each line names one faction once. A plain `levels <min>-<max>` beside one
+faction's line is the other faction's range; beside both it is an error, as
+is a faction line on a guide with a `faction` header (it has one range) or a
+faction line with neither the other faction's nor a plain one. The compiled
+guide carries `factionLevels` with each side's range, and `minLevel` /
+`maxLevel` span both (what a Polestar older than 0.4.0 shows).
 
 A route choice, as excerpts of two guides' headers (a pack's Tirisfal guide
 offering our Barrens or its own Silverpine):

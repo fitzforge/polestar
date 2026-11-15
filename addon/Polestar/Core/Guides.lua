@@ -91,6 +91,19 @@ function Guides.OtherFaction(g, player)
 	return nil
 end
 
+-- Guide (or header) g's levels for a character of `faction` (default: the
+-- player's): a guide both factions play may give each its own range
+-- (`factionLevels`, a header's `levels <min>-<max> Alliance|Horde`: where the
+-- route brings that side's characters), else its minLevel/maxLevel. Every
+-- reader of a guide's range goes through here. -> min | nil, max | nil
+function Guides.Levels(g, faction)
+	if type(g) ~= "table" then return nil, nil end
+	local by = g.factionLevels
+	local r = by and by[faction or ns.Compat.GetPlayerFaction() or ""]
+	if r then return r.min, r.max end
+	return g.minLevel, g.maxLevel
+end
+
 -- Another race's starting zone on the character's own side (Fitz,
 -- 2026-10-30): a leveling guide from level 1 locked to races the character
 -- is not, for their faction and class. GuideMatches turns it away like any
@@ -568,6 +581,15 @@ local function checkGoal(goal)
 	return nil
 end
 
+-- factionLevels = { Alliance = { min, max }, Horde = { min, max } }, either side optional.
+function Own.levelsOk(by)
+	if type(by) ~= "table" then return false end
+	for side, r in pairs(by) do
+		if not (type(side) == "string" and SIDES[side:lower()] == side and type(r) == "table" and isNum(r.min) and isNum(r.max) and r.min <= r.max) then return false end
+	end
+	return true
+end
+
 local function validate(def)
 	if type(def) ~= "table" then return "guide is not a table" end
 	if not isStr(def.id) then return "missing id" end
@@ -580,6 +602,7 @@ local function validate(def)
 	elseif type(def.steps) ~= "table" or #def.steps == 0 then return "no steps" end
 	if def.minLevel ~= nil and not isNum(def.minLevel) then return "bad minLevel" end
 	if def.maxLevel ~= nil and not isNum(def.maxLevel) then return "bad maxLevel" end
+	if def.factionLevels ~= nil and not Own.levelsOk(def.factionLevels) then return "bad factionLevels" end
 	if def.next ~= nil and not isStr(def.next) then return "bad next" end
 	if def.faction ~= nil and not isStr(def.faction) then return "bad faction" end
 	if def.category ~= nil and not isStr(def.category) then return "bad category" end
@@ -1758,6 +1781,10 @@ function ns.RegisterExperimental(list)
 			local def = { id = e.id, pack = e.pack, category = "Leveling" }
 			for _, k in ipairs(K.strings) do if isStr(e[k]) then def[k] = e[k] end end
 			for _, k in ipairs(K.numbers) do if isNum(e[k]) then def[k] = e[k] end end
+			if e.factionLevels ~= nil and Own.levelsOk(e.factionLevels) then
+				def.factionLevels = {}
+				for side, r in pairs(e.factionLevels) do def.factionLevels[side] = { min = r.min, max = r.max } end
+			end
 			for _, k in ipairs(K.lists) do
 				if type(e[k]) == "table" then
 					local l = {}
@@ -1875,7 +1902,9 @@ local function rank(packId, player, here, zone)
 	for i, id in ipairs(r.guides) do
 		local g = guides[id]
 		if (g.category == nil or g.category == "Leveling") and guideMatches(g, player) then
-			local lo, hi = g.minLevel or 1, g.maxLevel or g.minLevel or 1
+			local lo, hi = Guides.Levels(g, player.faction)
+			lo = lo or 1
+			hi = hi or lo
 			if hi < lo then hi = lo end
 			if level >= lo and level <= hi then
 				local specific = ((g.races and #g.races > 0) or (g.classes and #g.classes > 0)) and 0 or 1

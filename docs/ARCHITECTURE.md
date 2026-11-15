@@ -1819,7 +1819,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   about N% of this guide's quest XP follows on from X", "Open X" opens it in
   a new tab; taken or dismissed, gone for that guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
-  `maxLevel` by 2 or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
+  top (`maxLevel`, or their side's `factionLevels` one: `Guides.Levels`) by
+  `Engine.OUTGROWN` (3) or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
   catch-up may pass it whole first); the UI offers the jump. While the
   guides between the active one and the level-best suggestion still hand in
@@ -3258,7 +3259,7 @@ same rules (`"log"`): left out while not done, kept once it only has to be
 handed in. Left out (`Own.leftOut[guideId]`, for the session; each
 placement works it out again), an accept no longer applies, with its turn-in
 and objectives; taking the quest by hand brings it back. In a guide the
-character is past (`maxLevel` + 2, as the out-levelled banner counts) going
+character is past (`maxLevel` + 2) going
 back is a detour: every grey or green accept not taken yet is left out,
 anywhere in the guide, unless at least `Own.CHAIN_WORTH` (3) accepts from
 yellow up need it down the chain (`Own.catchUpPast`); a quest in the log

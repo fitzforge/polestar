@@ -251,8 +251,9 @@ local WHEN = rec({ k = S, neg = B, op = S, n = N, frac = N, q = NL, item = N, sp
 -- an imported guide has no addon folder holding the file, so it shows none.
 local IMAGE = rec({ file = S, w = N, h = N })
 local STEP = rec({ title = S, note = S, image = IMAGE, label = S, only = ONLY, when = list(WHEN), along = BS, skipto = list(rec({ to = S, when = WHEN })), section = N, goals = list(GOAL) })
+local LEVELS = rec({ min = N, max = N })
 local GUIDE = rec({
-	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, category = S, folder = S, keywords = LS,
+	id = S, title = S, faction = S, races = LS, classes = LS, minLevel = N, maxLevel = N, factionLevels = rec({ Alliance = LEVELS, Horde = LEVELS }), category = S, folder = S, keywords = LS,
 	collects = LN, reward = list(rec({ item = N, itemName = S, quality = N, choice = B, spell = N, spellName = S, text = S })),
 	why = S, zone = N, zoneName = S, next = S, nextChoices = LS, nextWhen = { map = list(WHEN) }, pitch = S, pros = LS, cons = LS, author = S, version = N, group = B,
 	names = { map = SM }, written = { map = SM }, sections = list(rec({ skill = S, skillLine = N, from = N, to = N })),
@@ -676,9 +677,10 @@ function Import.Preview(text)
 		end
 	end
 	local c = shown(g)
+	local lo, hi = ns.Guides.Levels(g)
 	return {
 		entry = entry, id = g.id, title = escape(c.title or g.id), author = g.author and escape(g.author) or nil,
-		version = g.version, steps = #g.steps, minLevel = g.minLevel, maxLevel = g.maxLevel, faction = g.faction,
+		version = g.version, steps = #g.steps, minLevel = lo, maxLevel = hi, faction = g.faction,
 		license = escape(entry.license), state = state, have = have and versionOf(have.guide) or nil,
 		authorChanged = authorChanged or nil, licenseChanged = licenseChanged or nil,
 	}

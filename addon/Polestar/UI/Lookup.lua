@@ -735,7 +735,7 @@ local function factsFor(s, entity, list)
 	if k == "guide" then
 		local g = guideHeader(s.id) or {}
 		add(L["Category"], g and UI.Category and L[UI.Category(g)])
-		add(L["Levels"], UI.LevelRange(g.minLevel, g.maxLevel))
+		add(L["Levels"], UI.GuideLevels(g))
 		add(L["Faction"], ns.FactionName(g.faction) or L["Both factions"])
 		if g.stepCount or g.steps then add(L["Steps"], tostring(g.stepCount or #g.steps)) end
 		return out

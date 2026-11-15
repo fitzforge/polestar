@@ -66,6 +66,10 @@ local outleveled = {} -- guideId -> true, GUIDE_OUTLEVELED once per session
 
 local Engine = {}
 ns.Engine = Engine
+-- Levels past a guide's top (its `levels` max for the player's side) at which
+-- the guide window calls it outgrown (GUIDE_OUTLEVELED): most players run a
+-- little ahead of the route, so 2 past the top is still the guide's ground.
+Engine.OUTGROWN = 3
 
 -- The player's own word: goal skips, the current goal, header arrival, the
 -- saved view, state carried over pack updates. One table (Lua 5.1 caps a
@@ -4141,7 +4145,8 @@ end
 -- once it only has to be handed in. Only for leveling guides, with "Skip grey
 -- quests" on.
 function Own.catchUp(anchor, level)
-	if guide.maxLevel and level >= guide.maxLevel + 2 then return Own.catchUpPast(level) end
+	local _, top = Guides.Levels(guide, player and player.faction)
+	if top and level >= top + 2 then return Own.catchUpPast(level) end
 	local out = {}
 	if anchor <= 1 then return out end
 	local C = Compat()
@@ -4180,13 +4185,12 @@ function Own.catchUp(anchor, level)
 	return out
 end
 
--- In a guide the character is past (2 levels over its top, as the
--- out-levelled banner counts), going back is a detour: every grey or green
--- accept not taken yet is left out, unless at least CHAIN_WORTH quests from
--- yellow up need it, down the chain (The Tower of Althalaxx at 30: five
--- grey and green quests in Darkshore lead to four at 28 and 31 in
--- Ashenvale, so the chain stays). A quest in the log by the same rules,
--- kept once it only has to be handed in.
+-- In a guide the character is past (2 levels over its top), going back is a
+-- detour: every grey or green accept not taken yet is left out, unless at
+-- least CHAIN_WORTH quests from yellow up need it, down the chain (The Tower
+-- of Althalaxx at 30: five grey and green quests in Darkshore lead to four
+-- at 28 and 31 in Ashenvale, so the chain stays). A quest in the log by the
+-- same rules, kept once it only has to be handed in.
 Own.CHAIN_WORTH = 3
 function Own.catchUpPast(level)
 	local C = Compat()
@@ -4378,7 +4382,8 @@ local function place()
 	-- login's pick, Start guide, a guide chained to), it then chains to the
 	-- next (evaluateLoaded); opened by the player or brought back by a reload,
 	-- it stays, finished.
-	local past = anyOut or (guide.maxLevel ~= nil and level >= guide.maxLevel)
+	local _, top = Guides.Levels(guide, player and player.faction)
+	local past = anyOut or (top ~= nil and level >= top)
 	local whole = catchUp and not start and not later and logReady and past
 	local through = whole and autoChain and Own.opened[guide.id]
 	local allDone = whole and Own.allQuestsDone(guide)
@@ -8118,7 +8123,7 @@ local function routeOptions(from)
 		local stub = g == nil and exp ~= nil and Guides.ExperimentalLoadable(id)
 		if stub then g = exp end
 		if g and Guides.GuideMatches(g, player) and Own.optionHolds(from, id) then
-			local top = exp and exp.topLevel or g.maxLevel
+			local top = exp and exp.topLevel or select(2, Guides.Levels(g, player.faction))
 			list[#list + 1] = { guide = g, outleveled = (top ~= nil and level >= top), exp = exp, stub = stub }
 		end
 	end
@@ -9092,10 +9097,11 @@ local function evaluate()
 	Own.watchHearth()
 	Own.watchWait()
 	Own.progressQueue() -- a progress count that waited for this evaluation
-	-- Out-levelled: once per guide per session; for a guide the catch-up may
+	-- Out-levelled (Engine.OUTGROWN past the top): once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
-	if guide and guide.maxLevel and (player.level or 1) >= guide.maxLevel + 2 and not outleveled[guide.id] and not mayPass then
+	local _, top = Guides.Levels(guide, player.faction)
+	if guide and top and (player.level or 1) >= top + Engine.OUTGROWN and not outleveled[guide.id] and not mayPass then
 		outleveled[guide.id] = true
 		local suggested = Guides.Suggest()
 		-- The next guide instead of the level-best one while the guides between
@@ -9537,9 +9543,10 @@ function Engine.GetRouteChoice(fromId)
 		if e and thenId and offered[thenId] and e.viaMap and not (here and here.map == e.viaMap) then
 			via = Compat().GetMapName and Compat().GetMapName(e.viaMap) or e.via
 		end
+		local lo, hi = Guides.Levels(g, player and player.faction)
 		local opt = {
 			id = g.id, title = g.title, zone = g.zone, zoneName = g.zoneName, focusX = focus and focus.x, focusY = focus and focus.y,
-			minLevel = g.minLevel, maxLevel = e and e.topLevel or g.maxLevel,
+			minLevel = lo, maxLevel = e and e.topLevel or hi,
 			pitch = g.pitch, pros = g.pros, cons = g.cons, seconds = o.seconds, quests = #quests, steps = #g.steps,
 			recommended = o == rec, chosen = g.id == chosenId, outleveled = o.outleveled, open = tabIndexOf(g.id) ~= nil,
 			experimental = e ~= nil or nil, newInForever = Own.mostlyNew(quests) or nil,
@@ -10013,7 +10020,8 @@ function Engine.FreshFor(g)
 	if not (g.category == nil or g.category == "Leveling") then return nil end
 	if not player then refreshPlayer() end
 	local lvl = player.level or 1
-	if type(g.maxLevel) == "number" and lvl >= g.maxLevel then return nil end
+	local _, top = Guides.Levels(g, player.faction)
+	if type(top) == "number" and lvl >= top then return nil end
 	local from = Guides.Get(f.from)
 	if not (from and Guides.GuideMatches(from, player)) then return nil end
 	-- Taken on the way: the accepts of the feeder steps the guide's plan put in.
@@ -15069,7 +15077,7 @@ ns.OnLogin(function()
 		if suggested then Own.opened[suggested] = true end -- opened for the player
 		local g = suggested and Guides.Get(suggested)
 		local from = g and choiceOffering(suggested)
-		if from and routesTable()[from.id] == nil and (player.level or 1) <= (g.minLevel or 1) + 1 then offerFrom = from.id end
+		if from and routesTable()[from.id] == nil and (player.level or 1) <= (Guides.Levels(g, player.faction) or 1) + 1 then offerFrom = from.id end
 	end
 	if #ids == 0 then
 		persist()

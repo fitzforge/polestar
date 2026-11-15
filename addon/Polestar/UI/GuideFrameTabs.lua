@@ -198,7 +198,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			b.Label:SetText(b.psTitle)
 			b.Label:SetWidth(0) -- unbound, to measure the whole title
 			b.psTitleW = floor(b.Label:GetStringWidth() + 1)
-			local lv = guide and UI.LevelRange(guide.minLevel, guide.maxLevel)
+			local lv = guide and UI.GuideLevels(guide)
 			b.psRange = (lv and not thin) and ("(" .. lv .. ")") or nil
 			b:SetHeight(tabH)
 			b.Range:SetText(b.psRange or "")
@@ -245,7 +245,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local items, G = {}, ns.Guides
 		for i, t in ipairs(tabs or {}) do
 			local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
-			local lv = guide and UI.LevelRange(guide.minLevel, guide.maxLevel)
+			local lv = guide and UI.GuideLevels(guide)
 			local text = (t.title or t.guideId) .. (lv and ("  |c" .. Theme.Hex("textMuted") .. "(" .. lv .. ")|r") or "")
 			items[#items + 1] = { text = text, icon = CATEGORY_ICON[t.category] or "icon-level", checked = i == active,
 				onClick = function() if E.SelectTab and i ~= active then E.SelectTab(i) end end }

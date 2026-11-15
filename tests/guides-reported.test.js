@@ -26,6 +26,7 @@ const { writeTestPack } = require('./helpers/dsl');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
 const { tokeniseGuides } = require('../tools/lib/dsl/tokens');
+const { guideHeaders } = require('./helpers/guide-levels');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
 
@@ -2238,23 +2239,9 @@ test(`Bennistrov's report: This Land Was Their Land is taken only after Defeat N
 // over each start's classes) has Humans entering Westfall at 11.35, Darkshore at 15.27 and Loch Modan at 17.77,
 // and the other starts leaving them at up to 17.54, 19.38 and 21.61. The per-start levels come from the level sim
 // with locally calibrated parameters, so a test can't recompute them; these tests check the guides' own labels instead.
-const headers = () => Object.fromEntries(allGuides().flatMap((file) => {
-	const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
-	const id = /^guide (\S+)/m.exec(text);
-	const lv = /^levels (\d+)-(\d+)/m.exec(text);
-	const next = /^next (\S+)/m.exec(text);
-	return id && lv ? [[id[1], { file, min: +lv[1], max: +lv[2], next: next && next[1] }]] : [];
-}));
-
-test('every leveling guide starts at most one level above the end of each guide that leads into it', () => {
-	const all = headers();
-	const holes = [];
-	for (const [id, g] of Object.entries(all)) {
-		const n = g.next && all[g.next];
-		if (n && n.min > g.max + 1) holes.push(`${id} ends at ${g.max}, ${g.next} starts at ${n.min}`);
-	}
-	assert.deepEqual(holes, []);
-});
+// Each guide's levels per faction (tests/helpers/guide-levels.js); tests/guides-levels.test.js checks the hand-offs
+// and that every level has a guide on each side.
+const headers = () => guideHeaders(OFFICIAL_DIR);
 
 test('Alliance 12-21: Westfall, Darkshore and Loch Modan start where Humans enter them, within one level', () => {
 	const all = headers();

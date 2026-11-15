@@ -728,6 +728,8 @@ function Guides.GuideMatches(g, player) return uistub.realGuides.GuideMatches(g,
 function Guides.Matches(only, player) return uistub.realGuides.Matches(only, player) end
 function Guides.OtherStart(g, player) return uistub.realGuides.OtherStart(g, player) end
 function Guides.OtherFaction(g, player) return uistub.realGuides.OtherFaction(g, player) end
+-- A guide's levels for the player's side (uistub.player.faction): the real registry's rule.
+function Guides.Levels(g, faction) return uistub.realGuides.Levels(g, faction or uistub.player.faction) end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)

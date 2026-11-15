@@ -1430,6 +1430,17 @@ fn route_needs_group(steps: &[V]) -> bool {
 	})
 }
 
+/// The levels a guide's header spans: its plain `levels` and every `levels <min>-<max> <Faction>` together.
+fn guide_levels(h: &V) -> Option<(f64, f64)> {
+	let mut ranges = vec![h.get("levels")];
+	let by = h.get("factionLevels");
+	ranges.extend(by.keys().iter().map(|f| by.get(f)));
+	ranges.iter().filter(|r| r.truthy()).fold(None, |acc, r| {
+		let (lo, hi) = (r.get("min").num(), r.get("max").num());
+		Some(acc.map_or((lo, hi), |(a, b): (f64, f64)| (a.min(lo), b.max(hi))))
+	})
+}
+
 /// `resolveGuide(ast, data, diag, { pack, author })`.
 pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<&str>, author: Option<&str>) -> V {
 	let file = ast.get("file").as_str().unwrap_or("").to_string();
@@ -1443,9 +1454,22 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	set_if(&guide, "faction", h.get("faction"));
 	set_if(&guide, "races", h.get("races"));
 	set_if(&guide, "classes", h.get("classes"));
-	if h.get("levels").truthy() {
-		guide.set("minLevel", h.get("levels").get("min"));
-		guide.set("maxLevel", h.get("levels").get("max"));
+	// `levels <min>-<max> <Faction>` (parse.rs): each faction's range in `factionLevels`, the plain one standing in for a
+	// faction without its own; minLevel/maxLevel span them all (what a Polestar that reads no `factionLevels` shows).
+	let levels = guide_levels(&h);
+	if let Some((lo, hi)) = levels {
+		guide.set("minLevel", lo);
+		guide.set("maxLevel", hi);
+	}
+	if h.get("factionLevels").truthy() {
+		let by = V::obj();
+		for f in ["Alliance", "Horde"] {
+			let r = if h.get("factionLevels").get(f).truthy() { h.get("factionLevels").get(f) } else { h.get("levels") };
+			if r.truthy() {
+				by.set(f, V::Obj(obj! { "min" => r.get("min"), "max" => r.get("max") }));
+			}
+		}
+		guide.set("factionLevels", by);
 	}
 	guide.set("category", canonical_category(&h.get("category"), ast, r));
 	set_if(&guide, "folder", h.get("folder"));
@@ -1708,7 +1732,6 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	};
 	let frame_default = (if h.get("coords").truthy() { h.get("coords").to_js_string() } else { "era".to_string() }, !h.get("coords").is_undef());
 	let prof_progress: ProfProgress = RefCell::new(Vec::new());
-	let levels = if h.get("levels").truthy() { Some((h.get("levels").get("min").num(), h.get("levels").get("max").num())) } else { None };
 	for s in &steps {
 		let step: V = V::obj();
 		set_if(&step, "title", s.get("title"));

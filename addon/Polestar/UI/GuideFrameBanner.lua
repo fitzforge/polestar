@@ -119,7 +119,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local nextId = E.NextGuide and E.NextGuide(g.id)
 		local nextGuide = nextId and G and G.Get and G.Get(nextId)
 		if nextGuide then
-			local lv = UI.LevelRange(nextGuide.minLevel, nextGuide.maxLevel)
+			local lv = UI.GuideLevels(nextGuide)
 			return { guideId = g.id, label = (nextGuide.title or nextId) .. (lv and (" (" .. lv .. ")") or "") }
 		end
 		local choice = E.GetRouteChoice and E.GetRouteChoice(g.id)

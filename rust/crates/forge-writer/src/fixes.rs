@@ -1205,7 +1205,7 @@ fn apply_way(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 
 /// A `levels` record: the guide's header `levels A-B` reads `A-<levels.top>` when that top is above B:
 /// the level players are at when they leave the guide, above where the route ends it (the guide window
-/// calls a guide outgrown at its top + 2 and offers another). -> the changed lines.
+/// calls a guide outgrown at its top + 3 and offers another). -> the changed lines.
 fn apply_levels(lines: &mut [String], found: &[usize], r: &Value) -> Vec<usize> {
 	let Some(top) = r["levels"]["top"].as_u64() else { return Vec::new() };
 	let mut changed = Vec::new();
