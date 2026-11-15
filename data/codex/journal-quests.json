@@ -66,6 +66,78 @@
 			"instance": "razorfen-downs",
 			"source": { "kind": "questie", "ref": "QuestieDB 1.0.16 quest 93604: \"Venture to Razorfen Downs and acquire Virulent Blood of Agamaggan, then return it to Kog'thug the Brave at Bristleback Retreat\"" },
 			"note": "Agamaggan's Blood (both factions; Kog'thug the Brave at Bristleback Retreat): the Virulent Blood of Agamaggan is found inside Razorfen Downs, the quest text says, and the quest data places no mob or object that holds it (#2204)."
+		},
+		{
+			"quest": 94968,
+			"instance": "kroldok-stronghold",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 14 people took it from Krom'rosh and handed it in to him; its one objective ticked inside Krol'dok Stronghold (map 3039)" },
+			"note": "Eye of Mugg (Horde; Krom'rosh, Bolder'ok, Riverglades): the Eye of Mugg drops from Overlord Mugg, the stronghold's leader, whom the quest data has not placed."
+		},
+		{
+			"quest": 94982,
+			"instance": "kroldok-stronghold",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 20 people took it from Demar Brant, 13 handed it in to him; its one objective ticked inside Krol'dok Stronghold (map 3039)" },
+			"note": "Eye of Mugg (Alliance; Commander Demar Brant, Riverglades): the Eye of Mugg drops from Overlord Mugg, the stronghold's leader, whom the quest data has not placed."
+		},
+		{
+			"quest": 94975,
+			"instance": "kroldok-stronghold",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 14 people took it from Da'grosh and handed it in to him; 7 progressed its objective inside Krol'dok Stronghold (map 3039)" },
+			"note": "A Token of Vengeance (Horde; Da'grosh, Riverglades): 15 Cultist Ears from the Twilight's Hammer inside the stronghold, whom the quest data has not placed."
+		},
+		{
+			"quest": 94983,
+			"instance": "kroldok-stronghold",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 20 people took it from Sergeant Riftan, 13 handed it in to him; 5 progressed its objective inside Krol'dok Stronghold (map 3039)" },
+			"note": "Twilight Mementos (Alliance; Sergeant Riftan, Riverglades): 8 Twilight Bangles from the Twilight's Hammer inside the stronghold, whom the quest data has not placed."
+		},
+		{
+			"quest": 96771,
+			"instance": "kroldok-stronghold",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 23 people took it, 14 handed it in to Ranath Nightstride; Zalfan Moonshadow's kill ticked inside Krol'dok Stronghold (map 3039) for 5 of them" },
+			"note": "Vengeance of the Highborne (Alliance; Ranath Nightstride by Dalaran in the Alterac Mountains): Zalfan Moonshadow is fought inside the stronghold, and the quest data has not placed him."
+		},
+		{
+			"quest": 92343,
+			"instance": "blackmaw-hold",
+			"source": { "kind": "questie", "ref": "QuestieDB 1.1.1 quest 92343: \"Gather 10 Nordrassil Root Caps inside Blackmaw Hold for Nara Wildmane in Thunder Bluff\"" },
+			"note": "Get to the Roots of It (Horde; Nara Wildmane, Thunder Bluff): the Root Caps grow inside Blackmaw Hold, the quest text says, on an object the quest data has not placed; players' recordings show 3 people taking it from her."
+		},
+		{
+			"quest": 92344,
+			"instance": "blackmaw-hold",
+			"source": { "kind": "recording", "ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 2 people took it from Mathrengyl Bearwalker; one gathered the Root Caps inside Blackmaw Hold (map 2974) and handed it in to him" },
+			"note": "Get to the Roots of It (Alliance; Mathrengyl Bearwalker, Darnassus): the Nordrassil Root Caps grow inside Blackmaw Hold, on an object the quest data has not placed; QuestieDB's quest text says the same."
+		},
+		{
+			"quest": 7643,
+			"instance": "dire-maul",
+			"source": { "kind": "questie", "ref": "QuestieDB 1.1.1: quest 7643 ends at NPC 14566 (Ancient Equine Spirit), which it places inside instance 429 (Dire Maul)" },
+			"note": "Ancient Equine Spirit (Paladin, Human and Dwarf; Lord Grayson Shadowbreaker, Stormwind): the spirit, freed when Tendris Warpwood falls, takes the horse feed inside Dire Maul; the quest's giver and its feed's vendor are outside."
+		},
+		{
+			"quest": 8418,
+			"instance": "sunken-temple",
+			"source": { "kind": "tdb", "ref": "creatures 5712, 5713, 5714, 5715, 5716 and 5717 (the Voodoo Feathers' only placed sources) each have one spawn, in map 109 (Sunken Temple)" },
+			"note": "Forging the Mightstone (Paladin, Alliance; Commander Ashlam Valorfist, Chillwind Camp): six Voodoo Feathers from the troll champions inside the Sunken Temple."
+		},
+		{
+			"quest": 8413,
+			"instance": "sunken-temple",
+			"source": { "kind": "tdb", "ref": "creatures 5712, 5713, 5714, 5715, 5716 and 5717 (the Voodoo Feathers' only placed sources) each have one spawn, in map 109 (Sunken Temple)" },
+			"note": "Da Voodoo (Shaman, Horde; Bath'rah the Windwatcher, Alterac Mountains): six Voodoo Feathers from the troll champions inside the Sunken Temple."
+		},
+		{
+			"quest": 8422,
+			"instance": "sunken-temple",
+			"source": { "kind": "tdb", "ref": "creatures 5712, 5713, 5714, 5715, 5716 and 5717 (the Voodoo Feathers' only placed sources) each have one spawn, in map 109 (Sunken Temple)" },
+			"note": "Trolls of a Feather (Warlock; Impsy, Felwood): six Voodoo Feathers from the troll champions inside the Sunken Temple."
+		},
+		{
+			"quest": 8425,
+			"instance": "sunken-temple",
+			"source": { "kind": "tdb", "ref": "creatures 5712, 5713, 5714, 5715, 5716 and 5717 (the Voodoo Feathers' only placed sources) each have one spawn, in map 109 (Sunken Temple)" },
+			"note": "Voodoo Feathers (Warrior; the Fallen Hero of the Horde, Swamp of Sorrows): six Voodoo Feathers from the troll champions inside the Sunken Temple; one player's recording shows all three ticking inside the temple."
 		}
 	]
 }
