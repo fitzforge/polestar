@@ -2194,7 +2194,6 @@ L["Walk real paths"] = "Реальные пути"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "Стрелка ведет по тропам в обход скал, воды и стен по картам Polestar с маршрутизатором Shortest Path Forever от Cillian Berragan. Выкл.: указывает прямо на каждую точку."
 L["Route lines"] = "Линии маршрута"
 L["Class teleports"] = "Классовые телепорты"
-L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта (городские телепорты мага, Лунная поляна друида), если так быстрее. Для телепорта в город нужна руна телепортации в сумках."
 L["Share boat times"] = "Делиться расписанием кораблей"
 L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."] = "Поездка на корабле, дирижабле, поезде или подъемнике засекает время; ваша гильдия и группа получают эти данные, а вы — их, чтобы стрелка подсказывала отправление следующего."
 L["Blizzard waypoint"] = "Точка Blizzard"
@@ -2504,6 +2503,7 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Заново настроить Polestar, страница за страницей: задания, группы, ваш маршрут, ваш вид. Каждый выбор действует сразу."
 L["Show experimental guides"] = "Показывать экспериментальные гайды"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Гайды Polestar для новых зон Forever, которые еще проходят проверку: в меню гайдов в разделе «Прокачка» с меткой «Экспериментальный». Они никогда не выбираются за вас; выбор маршрута в любом случае предлагает их зону там, где она подходит."
+L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта, если так быстрее: городские телепорты мага, Лунная поляна друида или Астральное возвращение шамана (как второй камень возвращения). Для телепорта в город нужна руна телепортации в сумках."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -4812,3 +4812,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Нечего �
 -- L["All factions"] = "Все фракции"
 -- L["Try %s"] = "Попробовать зону %s"
 -- L["Most of its quests are new in Forever."] = "Большинство заданий здесь новые в Forever."
+-- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Маршрут может начинаться с известного вам заклинания телепорта (городские телепорты мага, Лунная поляна друида), если так быстрее. Для телепорта в город нужна руна телепортации в сумках."

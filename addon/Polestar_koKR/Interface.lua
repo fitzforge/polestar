@@ -2194,7 +2194,6 @@ L["Walk real paths"] = "실제 길로 걷기"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "화살표가 Polestar 보행 지도와 Cillian Berragan의 Shortest Path Forever 경로 탐색기로 절벽, 물, 벽을 돌아 지면의 길을 따라갑니다. 끄면 각 정류장을 곧장 가리킵니다."
 L["Route lines"] = "경로선"
 L["Class teleports"] = "직업 순간이동"
-L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문(마법사의 도시 순간이동, 드루이드의 달의 숲)으로 경로를 시작합니다. 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
 L["Share boat times"] = "배 시간 공유"
 L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."] = "배, 비행선, 지하철, 승강기를 타면 시간을 잽니다. 길드와 파티가 그 시간을 받고 나도 그들의 시간을 받아, 화살표가 다음 출발을 알려줍니다."
 L["Blizzard waypoint"] = "블리자드 경유지"
@@ -2504,6 +2503,7 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다: 퀘스트 진행, 파티, 내 경로, 내 모양. 선택은 바로 적용됩니다."
 L["Show experimental guides"] = "실험적 가이드 표시"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "아직 시험 중인 Forever 신규 지역용 Polestar 가이드: 가이드 메뉴의 레벨업 아래에 실험적 표시와 함께 나열됩니다. 자동으로 선택되지는 않으며, 경로 선택에서는 어느 쪽이든 맞는 곳에서 해당 지역을 제안합니다."
+L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문으로 경로를 시작합니다: 마법사의 도시 순간이동, 드루이드의 달의 숲, 주술사의 영혼의 귀환(두 번째 귀환석처럼). 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -4805,3 +4805,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "적용할 것�
 -- L["All factions"] = "모든 진영"
 -- L["Try %s"] = "%s 시도"
 -- L["Most of its quests are new in Forever."] = "대부분의 퀘스트가 Forever 신규입니다."
+-- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "더 빠르면 아는 순간이동 주문(마법사의 도시 순간이동, 드루이드의 달의 숲)으로 경로를 시작합니다. 도시 순간이동에는 가방에 순간이동의 룬이 필요합니다."

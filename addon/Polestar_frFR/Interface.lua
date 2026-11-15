@@ -2195,7 +2195,6 @@ L["Walk real paths"] = "Suivre les vrais chemins"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "La flèche suit les chemins au sol en contournant falaises, eau et murs, sur les cartes de marche de Polestar, avec le calculateur d'itinéraire de Shortest Path Forever par Cillian Berragan. Désactivé : elle pointe tout droit vers chaque arrêt."
 L["Route lines"] = "Lignes d'itinéraire"
 L["Class teleports"] = "Téléportations de classe"
-L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Un itinéraire peut commencer par un sort de téléportation que vous connaissez (les téléportations de mage vers les capitales, Reflet-de-Lune pour le druide) quand c'est plus rapide. Une téléportation vers une capitale demande une rune de téléportation dans vos sacs."
 L["Share boat times"] = "Partager les horaires des bateaux"
 L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."] = "Prendre un bateau, un zeppelin, un tram ou un ascenseur en relève l'horaire ; votre guilde et votre groupe reçoivent ces horaires et vous recevez les leurs, pour que la flèche dise quand part le prochain."
 L["Blizzard waypoint"] = "Point de passage Blizzard"
@@ -2505,6 +2504,7 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Reconfigurer Polestar, une page à la fois : quêtes, groupes, votre itinéraire, votre apparence. Chaque choix s'applique tout de suite."
 L["Show experimental guides"] = "Afficher les guides expérimentaux"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Les guides de Polestar pour les nouvelles zones de Forever, encore en test : listés dans le menu des guides sous Progression avec l'étiquette Expérimental. Ils ne sont jamais choisis pour vous ; un choix d'itinéraire propose leur zone là où elle convient, de toute façon."
+L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Un itinéraire peut commencer par un sort de téléportation que vous connaissez quand c'est plus rapide : les téléportations de mage vers les capitales, Reflet-de-Lune pour le druide ou Rappel astral pour le chaman (comme une seconde pierre de foyer). Une téléportation vers une capitale demande une rune de téléportation dans vos sacs."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -4853,3 +4853,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Rien à appliq
 -- L["All factions"] = "Toutes les factions"
 -- L["Try %s"] = "Essayer %s"
 -- L["Most of its quests are new in Forever."] = "La plupart de ses quêtes sont nouvelles dans Forever."
+-- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Un itinéraire peut commencer par un sort de téléportation que vous connaissez (les téléportations de mage vers les capitales, Reflet-de-Lune pour le druide) quand c'est plus rapide. Une téléportation vers une capitale demande une rune de téléportation dans vos sacs."

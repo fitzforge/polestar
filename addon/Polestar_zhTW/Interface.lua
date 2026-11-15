@@ -2194,7 +2194,6 @@ L["Walk real paths"] = "走實際路徑"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "箭頭會依 Polestar 的步行地圖，沿地面繞過懸崖、水域與牆壁前進，使用 Cillian Berragan 的 Shortest Path Forever 路徑規劃器。關閉：直接指向每一站。"
 L["Route lines"] = "路線線條"
 L["Class teleports"] = "職業傳送"
-L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始（法師的主城傳送、德魯伊的月光林地）。主城傳送需要背包中有傳送符文。"
 L["Share boat times"] = "分享船班時間"
 L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."] = "搭乘船、飛艇、地鐵或升降梯時會計時；你的公會與小隊會獲得這些時間，你也會獲得他們的，讓箭頭能告訴你下一班何時出發。"
 L["Blizzard waypoint"] = "暴雪路徑點"
@@ -2504,6 +2503,7 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "逐頁重新設定 Polestar：解任務、小隊、你的路線、你的外觀。每項選擇立即生效。"
 L["Show experimental guides"] = "顯示實驗性指南"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Polestar 為 Forever 新地區製作的指南，仍在測試中：列在指南選單的「升級」下，帶有「實驗性」標籤。它們不會被自動選取；無論如何，路線選擇都會在合適的位置提供它們的地區。"
+L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始：法師的主城傳送、德魯伊的月光林地，或薩滿的星界傳送（就像第二顆爐石）。主城傳送需要背包中有傳送符文。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -4805,3 +4805,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "無可套用�
 -- L["All factions"] = "所有陣營"
 -- L["Try %s"] = "嘗試 %s"
 -- L["Most of its quests are new in Forever."] = "其中大部分任務是 Forever 新增的。"
+-- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "在較快時，路線可能以你會的傳送法術開始（法師的主城傳送、德魯伊的月光林地）。主城傳送需要背包中有傳送符文。"

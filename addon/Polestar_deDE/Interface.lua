@@ -1301,7 +1301,6 @@ L["Walk real paths"] = "Echten Wegen folgen"
 L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] = "Der Pfeil folgt Wegen am Boden um Klippen, Wasser und Mauern, auf Polestars Wegekarten, mit dem Router von Shortest Path Forever von Cillian Berragan. Aus: Er zeigt direkt auf jede Station."
 L["Route lines"] = "Routenlinien"
 L["Class teleports"] = "Klassen-Teleports"
-L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Routen können mit einem Teleportzauber beginnen, den du kennst (die Stadtteleports eines Magiers, die Mondlichtung eines Druiden), wenn das schneller ist. Ein Stadtteleport braucht eine Rune der Teleportation in deinen Taschen."
 L["Share boat times"] = "Bootszeiten teilen"
 L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."] = "Eine Fahrt mit Boot, Zeppelin, Bahn oder Aufzug wird gemessen; deine Gilde und Gruppe erhalten diese Zeiten und du ihre, damit der Pfeil sagen kann, wann der nächste abfährt."
 L["Warn about missable quests"] = "Vor verpassbaren Quests warnen"
@@ -1490,6 +1489,7 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen: Questen, Gruppen, deine Route, dein Aussehen. Jede Wahl wirkt sofort."
 L["Show experimental guides"] = "Experimentelle Guides zeigen"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Polestars Guides für die neuen Gebiete von Forever, noch im Test: im Guide-Menü unter Leveln mit der Marke „Experimentell“. Sie werden nie für dich ausgewählt; eine Routenwahl bietet ihr Gebiet ohnehin an, wo es passt."
+L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Routen können mit einem Teleportzauber beginnen, den du kennst, wenn das schneller ist: die Stadtteleports eines Magiers, die Mondlichtung eines Druiden oder der Astrale Rückruf eines Schamanen (wie ein zweiter Ruhestein). Ein Stadtteleport braucht eine Rune der Teleportation in deinen Taschen."
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -4842,3 +4842,4 @@ L["Nothing to apply: the parts ticked are the same as yours."] = "Nichts anzuwen
 -- L["Try %s"] = "%s ausprobieren"
 -- L["Most of its quests are new in Forever."] = "Die meisten Quests dort sind neu in Forever."
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = "Wenn ein Stufenaufstieg die Quests eines Dungeons für diesen Charakter freischaltet, sagt dir eine Karte am Guide-Fenster das, einmal pro Dungeon, mit einer Schaltfläche, die dessen Quests in einem neuen Tab zusammenstellt."
+-- L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."] = "Routen können mit einem Teleportzauber beginnen, den du kennst (die Stadtteleports eines Magiers, die Mondlichtung eines Druiden), wenn das schneller ist. Ein Stadtteleport braucht eine Rune der Teleportation in deinen Taschen."
