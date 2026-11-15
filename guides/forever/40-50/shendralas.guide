@@ -69,6 +69,7 @@ step The Valley of Bones: a Tattered Journal
   zone Shen'dralas
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip The Outcast Necromancers and the Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.
+  tip The Gelkis and Magram centaurs have Valley of Bones quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.
   collect 260347
   accept 93644
 
@@ -93,6 +94,7 @@ step Evenshade's Overlook
 step North into Desolace
   zone Desolace
   tip Mordent wants a fragment and a shard of the pylons back from Desolace's two centaur villages: Magram Village lies just beyond the valley's northern way out.
+  tip Careful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village.
   enter "Desolace" @64.0,80.4
 
 step Magram Village
