@@ -80,7 +80,7 @@ pub const WHEN_KEYS: [&str; 18] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 81] = [
+pub const GOAL_KEYS: [&str; 82] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -104,6 +104,8 @@ pub const GOAL_KEYS: [&str; 81] = [
 	"itemName",
 	"count",
 	"oi",
+	// Part of the objective's count this goal is done at (format 11).
+	"upto",
 	"skill",
 	"skillLine",
 	"rank",

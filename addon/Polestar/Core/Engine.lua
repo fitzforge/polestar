@@ -2596,6 +2596,12 @@ local function objectiveState(goal)
 		if not objs then return false end
 		local o = objs[Own.objectiveLine(goal, objs)]
 		if o then cur, max, finished = o.numFulfilled, o.numRequired, o.finished end
+		-- `upto` (format 11): part of the line's count is this goal's; the rest is a later step's.
+		local part = goal.upto
+		if part and cur and (not max or part < max) then
+			if cur >= part or finished then return true, part, part end
+			return false, cur, part
+		end
 	end
 	if C.IsQuestReadyForTurnIn(q) then return true, cur, max end
 	return finished and true or false, cur, max

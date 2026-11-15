@@ -25,6 +25,7 @@ mod dsl_section;
 mod dsl_shared_candidates;
 mod dsl_skipto;
 mod dsl_smart;
+mod dsl_upto;
 mod dsl_validate;
 mod dsl_verbs;
 mod dsl_walks;

@@ -2109,6 +2109,16 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		}
 	}
 	if (g.r !== undefined) goal.r = g.r;
+	// `upto <N>`: part of a quest objective's count. Without the objective's line there is nothing
+	// to count; at the whole of its count the goal is the objective itself.
+	if (g.upto !== undefined) {
+		const line = goal.oi !== undefined ? data.questObjectives(goal.quest)[goal.oi - 1] : null;
+		if (goal.quest === undefined || goal.oi === undefined) err(ln, '`upto` counts part of a quest objective: the goal needs `quest <id>.<objective>`');
+		else {
+			goal.upto = g.upto;
+			if (line && line.count !== null && g.upto >= line.count) warn(ln, `\`upto ${g.upto}\` is the whole of quest ${goal.quest}.${goal.oi} (x${line.count}): the goal is done with the objective, as without it`, 'drop `upto`, or give the part of the count this step is for');
+		}
+	}
 	if (g.optional) goal.optional = true;
 	// `turnin ... direct`: handed in from the giver's window with no accept;
 	// its quest's level, as an accept's, for the engine's grey-quest skipping.

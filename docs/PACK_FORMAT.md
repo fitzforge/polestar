@@ -15,7 +15,7 @@ The handbook is [PACKS.md](PACKS.md).
 **On this page:** [`pack.json`](#packjson) ·
 [The addon](#the-addon) · [TOC fields](#toc-fields) ·
 [Rules Polestar enforces](#rules-polestar-enforces) ·
-[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Import strings](#import-strings) · [Versioning](#versioning)
+[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 11](#format-11) · [Import strings](#import-strings) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
@@ -740,6 +740,22 @@ changes, read by Polestar 0.3.0 and later:
   no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
   own faction's guides and the factionless ones, not the other side's.
 
+## Format 11
+
+Format 5 with an objective goal's **`upto`**. Polestar 0.4.1 and later read
+it. The compiler writes a pack in format 11 only when a guide of it uses
+one: an older Polestar would read such a guide and hold the step until the
+whole objective is done, so it needs a format of its own.
+
+`upto = N` on a goal with `quest` and `oi`: the goal is done once the quest
+log's line counts N (or is finished), and its progress runs to N; a line
+whose own count is N or less is read as without it. Not a number: the guide
+is refused.
+
+```lua
+{ t = "kill", quest = 7, title = "Kobold Camp Cleanup", target = "Kobold Vermin", npc = 6, count = 10, oi = 1, upto = 4 }
+```
+
 ## Import strings
 
 One compiled guide as one line of text, for a player to paste on Polestar's
@@ -818,8 +834,9 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates, a step's
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
-  faction parts, Polestar's own pack only) by 0.3.0 and later, and format 9
-  (the `wait` goal) by 0.3.0 and later.
+  faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
+  (the `wait` goal) by 0.3.0 and later, and format 11 (an objective goal's
+  `upto`) by 0.4.1 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

@@ -3115,6 +3115,23 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	if !g.get("r").is_undef() {
 		goal.set("r", g.get("r"));
 	}
+	// `upto <N>`: part of a quest objective's count. Without the objective's line there is nothing to count; at
+	// the whole of its count the goal is the objective itself.
+	if !g.get("upto").is_undef() {
+		if goal.get("quest").is_undef() || goal.get("oi").is_undef() {
+			r.err(&ln, "`upto` counts part of a quest objective: the goal needs `quest <id>.<objective>`", None);
+		} else {
+			goal.set("upto", g.get("upto"));
+			let count = data.quest_objectives(&goal.get("quest")).get((goal.get("oi").num() - 1.0) as usize).map(|o| o.get("count")).unwrap_or_default();
+			if !count.is_nullish() && g.get("upto").num() >= count.num() {
+				r.warn(
+					&ln,
+					format!("`upto {}` is the whole of quest {}.{} (x{}): the goal is done with the objective, as without it", g.get("upto"), goal.get("quest"), goal.get("oi"), count),
+					Some("drop `upto`, or give the part of the count this step is for"),
+				);
+			}
+		}
+	}
 	if g.get("optional").truthy() {
 		goal.set("optional", true);
 	}
