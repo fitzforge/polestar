@@ -49,7 +49,11 @@ const STRAY_SHARE: f64 = 0.75;
 
 const GATHER_ROLES: [&str; 3] = ["mine", "herb", "fishing"];
 const LOOP_RADIUS: f64 = 30.0;
-const LOOP_VERBS: [&str; 3] = ["kill", "collect", "interact"];
+/// `skill`: a gathering round, the herbs or veins that raise the skill found by walking the points.
+const LOOP_VERBS: [&str; 4] = ["kill", "collect", "interact", "skill"];
+/// A step with none of those: the loop is where to look for someone who walks, the NPC of its accept,
+/// turnin and talk goals.
+const LOOP_NPC_VERBS: [&str; 3] = ["accept", "turnin", "talk"];
 const ON_STEP_ONLY: [&str; 8] = ["goto", "talk", "hearth", "die", "getfp", "fly", "vendor", "task"];
 const CATEGORIES: [&str; 9] = ["Leveling", "Class", "Professions", "Reputation", "Legacy", "Exploration", "Collectibles", "Miscellaneous", "Dungeons"];
 
@@ -998,7 +1002,8 @@ fn only_of(c: &V) -> V {
 	}
 }
 
-/// A `loop` step: its `goto` points are the places to search for its kill, collect and interact goals.
+/// A `loop` step: its `goto` points are the places to search for its kill, collect, interact and skill
+/// goals, or with none of those for the NPC of its accept, turnin and talk goals.
 fn apply_loop(step: &V, s: &V, r: &mut R) {
 	let data = r.data;
 	let ln = s.get("loop");
@@ -1021,16 +1026,26 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 		return r.err(&own.hidden("_line"), "a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it", None);
 	}
 	let sgoals = s.get("goals");
-	let targets: Vec<V> = goals
-		.iter()
-		.enumerate()
-		.filter(|(i, g)| {
-			g.get("t").as_str().is_some_and(|t| LOOP_VERBS.contains(&t)) && !sgoals.at(*i).get("explicitCoords").truthy() && !sgoals.at(*i).get("anywhere").truthy() && !g.get("candidates").truthy()
-		})
-		.map(|(_, g)| g.clone())
-		.collect();
+	let placeable = |verbs: &[&str]| -> Vec<V> {
+		goals
+			.iter()
+			.enumerate()
+			.filter(|(i, g)| {
+				g.get("t").as_str().is_some_and(|t| verbs.contains(&t)) && !sgoals.at(*i).get("explicitCoords").truthy() && !sgoals.at(*i).get("anywhere").truthy() && !g.get("candidates").truthy()
+			})
+			.map(|(_, g)| g.clone())
+			.collect()
+	};
+	let mut targets = placeable(&LOOP_VERBS);
+	if targets.is_empty() && !goals.iter().any(|g| g.get("t").as_str().is_some_and(|t| LOOP_VERBS.contains(&t))) {
+		targets = placeable(&LOOP_NPC_VERBS);
+	}
 	if targets.is_empty() {
-		return r.err(&ln, "`loop` needs a kill, collect or interact goal without its own `@x,y`", Some("a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path"));
+		return r.err(
+			&ln,
+			"`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk",
+			Some("a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path"),
+		);
 	}
 	for goal in &targets {
 		goal.set("map", first.get("map"));

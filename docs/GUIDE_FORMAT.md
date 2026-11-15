@@ -116,7 +116,7 @@ Step directives:
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals instead of a path to walk: see "Spawn areas", Loop. |
+| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact and skill goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
 
 A step must contain at least one goal.
 
@@ -786,13 +786,13 @@ gets no `spots`, except an NPC who walks around:
   point lies.
 - **Loop** (a step with a `loop` line, for a search the data does not shape
   the way you want: a circuit through camps, round a lake): the step's `goto`
-  points, in order, become the spawn areas of each of its `kill`, `collect`
-  and `interact` goals that has no `@x,y` of its own and picks no place at
-  runtime (`nearest`), with `spread = true`. The goal's point is the first
-  goto, the spots are exactly the gotos (no alternatives, no spawn count `n`),
-  each as wide as its goto's `r` (default 30 yd), and the gotos leave the
-  step (their labels with them), so the player searches the points one after
-  another as in an area objective. Compile-time
+  points, in order, become the spawn areas of each of its `kill`, `collect`,
+  `interact` and `skill` goals that has no `@x,y` of its own and picks no
+  place at runtime (`nearest`), with `spread = true`. The goal's point is the
+  first goto, the spots are exactly the gotos (no alternatives, no spawn count
+  `n`), each as wide as its goto's `r` (default 30 yd), and the gotos leave
+  the step (their labels with them), so the player searches the points one
+  after another as in an area objective. Compile-time
   only: the compiled step has no `loop`. It is an error when the step has
   fewer than two gotos, gotos on different maps or frames, an `optional` or
   `only` goto, or no goal to place.
@@ -805,6 +805,38 @@ gets no `spots`, except an NPC who walks around:
     goto 52.3,26.8
     kill 6 x10 quest 7.1
   ```
+
+  A `skill` goal takes the points for a gathering round: the veins or herbs
+  that raise the skill are found by walking them, and nothing in the data
+  places a skill.
+
+  ```
+  step Copper, round the hills
+    loop
+    goto 47.6,35.1
+    goto 49.0,32.4
+    goto 52.3,26.8
+    skill Mining 50
+  ```
+
+  In a step with none of those goals, the loop is where to look for someone
+  who walks: its `accept`, `turnin` and `talk` goals take the points, and the
+  arrow leads from one to the next until the player meets the NPC. Use it for
+  a walker the data draws no circle for (Walkers, above), or whose round is
+  too long for one circle. Beside a kill, collect, interact or skill goal the
+  loop is that goal's, and an accept, turnin or talk keeps its own place.
+
+  ```
+  step Deputy Willem, somewhere on his rounds
+    loop
+    goto 48.2,42.0
+    goto 46.9,40.3
+    goto 45.5,42.6
+    accept 783
+  ```
+
+  Standing at a point for a few seconds with nothing found moves the arrow to
+  the next, for these goals as for a kill.
 
 See docs/ARCHITECTURE.md, Smart logic, "Spawn areas".
 
