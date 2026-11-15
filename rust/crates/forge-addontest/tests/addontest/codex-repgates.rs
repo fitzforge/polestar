@@ -94,6 +94,7 @@ fn inputs(rows: &Value) -> Result<Inputs, String> {
 		attunement_table: V::Null,
 		store_xp: Default::default(),
 		journal_quests: Vec::new(),
+		mechanics: V::Null,
 		warnings: Vec::new(),
 	})
 }

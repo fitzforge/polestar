@@ -30,7 +30,9 @@
 --       elite, rare elite or boss out in the world, or an item it drops,
 --       carries the compiled guides' `group` ({ kind = "elite", rank, lvl }),
 --       so the step says "Elite: group advised" (Rear Guard Patrol's Riptear,
---       before the Ruins of Lordaeron's The Wrath of Rath'mael)
+--       before the Ruins of Lordaeron's The Wrath of Rath'mael). A kill the
+--       Codex marks with `useItem` (an item used on that NPC) is a use of
+--       that item, at the NPC's spawns; a tame stays a tame (#2468)
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
@@ -557,8 +559,19 @@ local function questStep(q, from, isTarget, opts)
 				s = inside("npc", o.id)
 				mark(s, target)
 			end
-			goals[#goals + 1] = spawnSpots(at({ t = "kill", target = target, npc = o.id, tame = o.tame,
-				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }, s), npc and npc.spawns)
+			-- `useItem`: the item this kill is really a use of (Codex, from a
+			-- use-item-on-mob mechanic). The engine then says Use. A tame
+			-- (Taming the Beast) stays a kill the engine words as Tame.
+			local goal = { target = target, npc = o.id, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
+			if type(o.useItem) == "number" and o.useItem > 0 and not o.tame then
+				goal.t = "use"
+				goal.item = o.useItem
+				goal.itemName = itemName(o.useItem)
+			else
+				goal.t = "kill"
+				goal.tame = o.tame
+			end
+			goals[#goals + 1] = spawnSpots(at(goal, s), npc and npc.spawns)
 		elseif o.type == "item" and o.id then
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
