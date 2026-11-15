@@ -7,6 +7,7 @@ faction Alliance
 levels 20-23
 zone Ironforge
 keywords Water Totem, Healing Stream Totem, Water Sapta, Eldrun Stormbreaker, Norric Lochthane, Hervdana Saegrund, waterskin, Stonewatch Falls, Astranaar, Stendel's Pond, Forgotten Shrine, Minor Manifestation of Water, Shaman, class quest, totem
+collects 5177
 reward item 5177
 reward spell 5394 "Healing Stream Totem"
 reward item 6637

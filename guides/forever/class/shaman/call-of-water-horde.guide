@@ -7,6 +7,7 @@ faction Horde
 levels 20-23
 zone Orgrimmar
 keywords Water Totem, Healing Stream Totem, Water Sapta, Searn Firewarder, Xanis Flameweaver, Swart, Narm Skychaser, Islen Waterseer, Brine, waterskin, Quilboar Watering Hole, Spring Well, Ruins of Stardust, Brazier of Everfount, Minor Manifestation of Water, Tiev Mordune, Shaman, class quest, totem
+collects 5177
 reward item 5177
 reward spell 5394 "Healing Stream Totem"
 reward item 6637
