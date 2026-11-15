@@ -671,7 +671,16 @@ local TAKE = {
 	portal = L["Take the portal to %s"],
 }
 
-local function planRoute(p)
+-- The search's arrays (vertices, costs, the heap), kept from one plan to the
+-- next: a Dungeons hub browse plans thousands of travel estimates, and each
+-- plan's own arrays were a good part of its garbage. A plan cleans what the
+-- last one left before it starts (`n`: the vertices it used, `paths`: its
+-- path nodes). A plan made while another runs (a walk cost or hook planning
+-- again) makes its own; planRoute below hands them out.
+local planScratch = { busy = false, n = 0, paths = 0, vc = {}, vx = {}, vy = {}, vkind = {}, vref = {}, vzone = {}, pathV = {},
+	dist = {}, tm = {}, prev = {}, via = {}, done = {}, stranded = {}, onFoot = {}, hk = {}, hv = {}, tw = {}, ty = {}, nw = {} }
+
+local function planBody(p, S)
 	-- (planRoute's own constants: the file's main chunk keeps clear of Lua 5.1's 200 locals)
 	local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
 	local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
@@ -692,7 +701,18 @@ local function planRoute(p)
 	local walkOnly = p.walkOnly -- a ghost: no flights, rides, portals, hearth or teleports
 
 	-- Vertices (vzone: the zone on a continent with crossing data)
-	local vc, vx, vy, vkind, vref, vzone = {}, {}, {}, {}, {}, {}
+	local vc, vx, vy, vkind, vref, vzone
+	if S then
+		vc, vx, vy, vkind, vref, vzone = S.vc, S.vx, S.vy, S.vkind, S.vref, S.vzone
+		-- What the last plan left past this one's own writes (dist and the
+		-- dense arrays are written for every vertex below).
+		local tm, prev, via, done, stranded, onFoot, tw, ty, nw = S.tm, S.prev, S.via, S.done, S.stranded, S.onFoot, S.tw, S.ty, S.nw
+		for i = 1, S.n do
+			vref[i], vzone[i], tm[i], prev[i], via[i], done[i], stranded[i], onFoot[i], tw[i], ty[i], nw[i] = nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil
+		end
+	else
+		vc, vx, vy, vkind, vref, vzone = {}, {}, {}, {}, {}, {}
+	end
 	local n = 0
 	-- A fixed point's zone (`key`: a flight master, a dock or portal end, an inn, a crossing end, a chain node) is
 	-- worked out once per zone data where its map is one of the crossing data's zones, the same every plan
@@ -820,13 +840,19 @@ local function planRoute(p)
 		end
 	end
 	local keys = n
-	local pathV = {}
+	local pathV = S and S.pathV or {}
 	for i = 1, pathCount do
 		local c = pathC[i]
 		if (c == p.c or c == tg.c) and n - keys < MAX_PATH_VERTICES then
 			pathV[i] = add(PATH, c, pathX[i], pathY[i], i)
 			if covered[c] then vzone[n] = pathZoneOf(i) end
+		else
+			pathV[i] = nil
 		end
+	end
+	if S then
+		for i = pathCount + 1, S.paths do pathV[i] = nil end
+		S.paths = pathCount
 	end
 
 	-- Inside a chain: the start and the target attach only to its nearest node and that node's neighbours (one in a
@@ -947,7 +973,9 @@ local function planRoute(p)
 	-- Walk.Measure: the player, flight masters, docks and portal ends, the inn and
 	-- teleport landings, crossing ends and chain mouths (a walk from those stays
 	-- hand-made, drawn straight; only its price is the engine's).
-	local tw, ty, nw, discounted = {}, {}, {}, false
+	local tw, ty, nw, discounted
+	if S then tw, ty, nw = S.tw, S.ty, S.nw else tw, ty, nw = {}, {}, {} end
+	discounted = false
 	if p.noDirect then nw[1] = true end
 	local walkCost, places = p.walkCost, p.places
 	if walkCost or places then
@@ -973,35 +1001,38 @@ local function planRoute(p)
 		end
 	end
 
-	-- Links between key vertices and their nearest learned path nodes (zone rules apply).
+	-- Links between key vertices and their nearest learned path nodes (zone rules apply). Each key's nearest
+	-- (MAX_LINKS at most, nearest first) in bv/bd, the same two lists for every key.
 	local links = {}
 	if n > keys then
+		local bv, bd = {}, {}
 		for k = 1, keys do
 			if not sealed(k) then
-				local best = {}
+				local m = 0
 				for v = keys + 1, n do
 					local d = yards(vc[k], vx[k], vy[k], vc[v], vx[v], vy[v])
 					if d <= LINK_YARDS then
-						local pos = #best + 1
-						while pos > 1 and best[pos - 1].d > d do
-							best[pos] = best[pos - 1]
+						local pos = m + 1
+						while pos > 1 and bd[pos - 1] > d do
+							bv[pos], bd[pos] = bv[pos - 1], bd[pos - 1]
 							pos = pos - 1
 						end
-						best[pos] = { v = v, d = d }
-						if #best > MAX_LINKS then best[#best] = nil end
+						bv[pos], bd[pos] = v, d
+						if m < MAX_LINKS then m = m + 1 end
 					end
 				end
-				for _, b in ipairs(best) do
-					local zk, zv = vzone[k], vzone[b.v]
+				for i = 1, m do
+					local bvi, bdi = bv[i], bd[i]
+					local zk, zv = vzone[k], vzone[bvi]
 					if zonesWalk(zk, zv) then
 						local lk = links[k] or {}
 						links[k] = lk
-						lk[#lk + 1], lk[#lk + 2] = b.v, b.d
+						lk[#lk + 1], lk[#lk + 2] = bvi, bdi
 					end
 					if zonesWalk(zv, zk) then
-						local lv = links[b.v] or {}
-						links[b.v] = lv
-						lv[#lv + 1], lv[#lv + 2] = k, b.d
+						local lv = links[bvi] or {}
+						links[bvi] = lv
+						lv[#lv + 1], lv[#lv + 2] = k, bdi
 					end
 				end
 			end
@@ -1062,10 +1093,16 @@ local function planRoute(p)
 	end
 
 	-- Dijkstra with a binary heap (lazy deletion), ordered by cost; tm = real seconds.
-	local dist, tm, prev, via, done = {}, {}, {}, {}, {}
+	local dist, tm, prev, via, done, hk, hv
+	if S then
+		dist, tm, prev, via, done, hk, hv = S.dist, S.tm, S.prev, S.via, S.done, S.hk, S.hv
+		S.n = n
+	else
+		dist, tm, prev, via, done, hk, hv = {}, {}, {}, {}, {}, {}, {}
+	end
 	for i = 1, n do dist[i] = huge end
 	dist[1], tm[1] = 0, 0
-	local hk, hv, size = {}, {}, 0
+	local size = 0
 	local function push(k, v)
 		size = size + 1
 		local i = size
@@ -1103,7 +1140,7 @@ local function planRoute(p)
 	-- off was the start of a walk straight up the tree, and players in
 	-- Darnassus were sent down the portal (#1564). A ride, a flight or the
 	-- Hearthstone leaves that ground.
-	local stranded = {}
+	local stranded = S and S.stranded or {}
 	-- onFoot[v]: v was reached by a plain walk (straight, or measured into the
 	-- target), not along a link of its own (a crossing, a chain, a learned
 	-- path: `along` while those are walked). A plain walk on from v goes only
@@ -1112,7 +1149,7 @@ local function planRoute(p)
 	-- walk past it, and with v's straight estimate cheaper than the start's
 	-- measured walk into the target it led the arrow to the Searing Gorge
 	-- gate's Badlands end, 300 yd short of Kargath, and on from there (#1694).
-	local onFoot, along = {}, false
+	local onFoot, along = S and S.onFoot or {}, false
 	local function relax(v, d, t, how, from)
 		if d < dist[v] then
 			dist[v], tm[v], prev[v], via[v] = d, t, from, how
@@ -1533,6 +1570,21 @@ local function planRoute(p)
 		rest = rest + legs[k].seconds
 	end
 	return legs, nil, discounted
+end
+
+-- A plan (planBody) on the kept arrays, or on its own while another runs.
+local function planRoute(p)
+	local S = planScratch
+	if S.busy then return planBody(p, nil) end
+	S.busy = true
+	local ok, legs, why, discounted = pcall(planBody, p, S)
+	S.busy = false
+	if not ok then
+		-- A plan stopped part way: the next cleans every vertex written.
+		S.n = #S.vc
+		error(legs, 0)
+	end
+	return legs, why, discounted
 end
 
 ---------------------------------------------------------------------------

@@ -122,6 +122,31 @@ end
 
 local function questWidth() return mainWidth() - CARD_X * 2 end
 
+-- A page's plans, worked out once while nothing they read changes: the
+-- header's (the levels chip, the pick-up and hand-in plans) and the quests
+-- tab's (each quest's lines and layout). Every tab re-renders the page, and
+-- each plan walks every quest, its givers and the travel to them: worked out
+-- per render, a dungeon's tabs made about 2.5 MB of garbage. One page's at a
+-- time, for MEMO_SECONDS at most (the travel estimates move with the player),
+-- at the level it was worked out at, dropped at once by a quest, level, XP,
+-- bag, standing, names or look change.
+local memo = { at = -math.huge }
+local MEMO_SECONDS = 10
+local function playerLevel()
+	local C = ns.Compat
+	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
+	return info and info.level or 1
+end
+local function memoFor(key, f)
+	local now, w, level = GetTime(), mainWidth(), playerLevel()
+	if memo.key ~= key or memo.f ~= f or memo.w ~= w or memo.level ~= level or now - memo.at > MEMO_SECONDS then
+		memo.key, memo.f, memo.w, memo.level, memo.at = key, f, w, level, now
+		memo.header, memo.quests = nil, nil
+	end
+	return memo
+end
+local function forget() memo.key = nil end
+
 local function viewHeight()
 	local h = hub and hub:GetHeight() or 0
 	if h <= 0 then h = SH.height end
@@ -138,12 +163,6 @@ local function factionKey()
 	local f = uiState().dungeonsFaction
 	if f ~= "Alliance" and f ~= "Horde" and f ~= "All" then f = UI.PlayerFaction() or "All" end
 	return f
-end
-
-local function playerLevel()
-	local C = ns.Compat
-	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
-	return info and info.level or 1
 end
 
 local thousands = ns.Thousands
@@ -1305,8 +1324,19 @@ local function pageHeader(d)
 		pg.Forever:Hide()
 	end
 	-- The levels chip: what the quests still to do are worth, after the
-	-- Forever chip; none at 60 or with no XP to count.
-	local xs = D().QuestXP and D().QuestXP(d.key)
+	-- Forever chip; none at 60 or with no XP to count. With the pick-up and
+	-- hand-in plans, worked out once per page (memo).
+	local Dg, LKm = D(), ns.Lookup
+	local m = memoFor(d.key, factionKey())
+	local hd = m.header
+	if not hd then
+		local guided = LKm and LKm.Guide
+		hd = { xs = Dg.QuestXP and Dg.QuestXP(d.key) or false,
+			plan = guided and Dg.PickupPlan and Dg.PickupPlan(d.key) or false,
+			hplan = guided and Dg.HandinPlan and Dg.HandinPlan(d.key) or false }
+		m.header = hd
+	end
+	local xs = hd.xs or nil
 	if UI.LevelTip.Set(pg.XP, xs, { head = L["If you finish the quests here"], need = L["You are level %d. Level %d is recommended for the quests here; from there:"] }) then
 		pg.XP:ClearAllPoints()
 		if d.forever then
@@ -1317,9 +1347,8 @@ local function pageHeader(d)
 	end
 	-- The actions, right to left: the primary first.
 	local go = e ~= nil and ns.Nav ~= nil
-	local Dg, LKm = D(), ns.Lookup
-	local plan = LKm and LKm.Guide and Dg.PickupPlan and Dg.PickupPlan(d.key) or nil
-	local hplan = LKm and LKm.Guide and Dg.HandinPlan and Dg.HandinPlan(d.key) or nil
+	local plan = hd.plan or nil
+	local hplan = hd.hplan or nil
 	local take = plan and #plan.take or 0
 	local hand = hplan and #hplan.hand + #(hplan.errands or {}) or 0
 	local logged = hplan and #hplan.hand + #hplan.unfinished + #hplan.inside + #hplan.unplaced or 0
@@ -1789,17 +1818,25 @@ end
 
 local function renderQuests(key, f, plevel)
 	local side = SIDE[f]
-	local qs = D().Quests(key, side)
 	hidePool(blocks)
-	qpass.quests, qpass.key, qpass.plevel = qs, key, plevel
-	local plans, tops = {}, {}
-	local y = CARD_GAP
-	for i, q in ipairs(qs) do
-		local p = plan(q, key)
-		plans[i], tops[i] = p, y
-		y = y + p.h + CARD_GAP
+	-- Each quest's lines and layout, once per page (memo).
+	local m = memoFor(key, f)
+	local mq = m.quests
+	if not mq then
+		local qs = D().Quests(key, side)
+		local plans, tops = {}, {}
+		local y = CARD_GAP
+		for i, q in ipairs(qs) do
+			local p = plan(q, key)
+			plans[i], tops[i] = p, y
+			y = y + p.h + CARD_GAP
+		end
+		mq = { qs = qs, plans = plans, tops = tops, y = y }
+		m.quests = mq
 	end
-	qpass.plans, qpass.tops, qpass.painted = plans, tops, {}
+	local qs, y = mq.qs, mq.y
+	qpass.quests, qpass.key, qpass.plevel = qs, key, plevel
+	qpass.plans, qpass.tops, qpass.painted = mq.plans, mq.tops, {}
 	if #qs == 0 then
 		local other = 0
 		if side then other = #D().Quests(key, side == "A" and "H" or "A") end
@@ -2440,19 +2477,29 @@ ns.On("SHOW_DUNGEON", function(key) DS.Show(key) end)
 -- The dungeon list carries names: a late names pack sorts and names it anew.
 local function listChanged()
 	listCache = nil
+	forget()
 	if root and root:IsVisible() then DS.Render() end
 end
 ns.On("CODEX_LOADED", listChanged)
 ns.On("NAMES_LOADED", listChanged)
 Theme.OnChanged(function() if root and root:IsVisible() then DS.Render() end end)
+-- Another font measures the quests' lines anew.
+W.OnFontChanged(forget)
 local function questsChanged()
+	forget()
 	if root and root:IsVisible() and page then DS.Render() end
 end
 for _, ev in ipairs({ "QUEST_ACCEPTED", "QUEST_REMOVED", "QUEST_TURNED_IN", "PLAYER_LEVEL_UP" }) do
 	ns.RegisterEvent(ev, questsChanged)
 end
+-- An objective done (a quest ready to hand in) or XP gained changes the
+-- plans; the page shows them with its next render.
+for _, ev in ipairs({ "QUEST_LOG_UPDATE", "PLAYER_XP_UPDATE" }) do
+	ns.RegisterEvent(ev, forget)
+end
 -- A key picked up or a standing reached changes the Attunement tab only.
 local function ownedChanged()
+	forget()
 	if tab == "attune" and root and root:IsVisible() and page then DS.Render() end
 end
 for _, ev in ipairs({ "BAG_UPDATE_DELAYED", "UPDATE_FACTION" }) do
