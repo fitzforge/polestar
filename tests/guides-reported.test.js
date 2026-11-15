@@ -8671,7 +8671,7 @@ test('Horde 30-40 re-order: the chain runs Hillsbrad, the Flats and Desolace, St
 	assert.ok(!dust.some(({ goal }) => [1166, 1168, 1169].includes(goal.quest) && goal.t === 'accept'), 'the level-43 Brackenwall quests are left for the 40-50 Dustwallow visit');
 });
 
-// Since the 0.4.0 level tidy Jandia's two harpy quests are taken at the start of the 30-40 guides, after a top-up to 30
+// Since the 0.4.0 level tidy Jandia's two harpy quests are taken on the next Freewind visit at about 31 (30-40/02)
 // (Roguefeather Den's harpies 28-30 and Grenka 31 were met at 29 in 07-ashenvale): the pairing holds in whichever guide has them.
 test('Horde: Stolen Freewind Supplies with Stop the Screeching, in the same harpy den', { skip }, () => {
 	const guides = ['forever/horde/07-ashenvale.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide', 'forever/horde/30-40/02-thousand-needles.guide'];

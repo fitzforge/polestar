@@ -24,8 +24,8 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # flight path; without it the arrow goes by Camp Taurajo and Mulgore).
 # The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
 # visit at 33 in forever/horde/30-40/02-thousand-needles.
-# Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken and worked at the
-# start of the next guide, after a short top-up to 30 beside Freewind (agreed with the 30-40 slice): Roguefeather Den's harpies
+# Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken and worked on the
+# next Freewind visit at about 31, in forever/horde/30-40/02-thousand-needles (agreed with the 30-40 slice): Roguefeather Den's harpies
 # (28-30, packs) and Grenka Bloodscreech (31) were met here at 29, with a harpy grind to 29.5 before them.
 # Left out: Test of Endurance and Test of Strength (1150, 1151, level 30: Grenka, then Rok'Alim, a lone
 # elite on Highperch); Test of Faith (1149) is still done at Dorn's mesa.
@@ -368,7 +368,7 @@ step Freewind Post
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  note Jandia's two harpy quests come at the start of the next guide, after a short top-up to 30.
+  note Jandia's two harpy quests come with the next Freewind visit, at 31.
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -482,4 +482,4 @@ step Freewind Post
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
   vendor nearest
-  note Jandia's two harpy quests come at the start of the next guide, after a short top-up to 30; the Mirage Raceway's quests come with the next visit to the Shimmering Flats, at 33.
+  note Jandia's two harpy quests come with the next Freewind visit, at 31, with the Mirage Raceway's quests.
