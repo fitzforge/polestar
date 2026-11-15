@@ -12,7 +12,7 @@
 				"y": 20.7,
 				"frame": "era"
 			},
-			"note": "Handful of Oats (Poor Old Blanchy, #621, Xaden Ryan): the goal's point (56.8,19.1) stood about 50 yards from the nearest Sack of Oats, so the compiler made it a zone-wide search; it now sits on the Jansen Stead's nearest sack, at 56.92,20.65, beside the farm and Verna's turn-in.",
+			"note": "Handful of Oats (Poor Old Blanchy, #621, Xaden Ryan): the goal's point (56.8,19.1) stood about 50 yards from the nearest Sack of Oats; it now sits on the Jansen Stead's nearest sack, at 56.92,20.65, beside the farm and Verna's turn-in. The goal's zone-wide search in the build comes from players' recorded spots of the objective, spread over Westfall, not from this point.",
 			"source": [
 				{
 					"kind": "pfquest",
