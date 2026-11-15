@@ -281,13 +281,6 @@ local BUILTIN = {
 			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
-		{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
-			help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
-			search = "new in forever, infinity, new quest, forever quest, mark, badge" },
-		-- Core/Update.lua's notices (0.3.7): shown once the setting is registered.
-		{ kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
-			help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
-			search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" },
 	} },
 	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
 	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.
@@ -583,6 +576,13 @@ for _, list in ipairs({
 end
 
 for _, spec in ipairs(BUILTIN) do add(spec, true) end
+-- The quests Forever added (Quests/NewQuests.lua): their mark shows in the guide, the Codex and quest tooltips alike,
+-- so it sits with the quest log and tooltips.
+add({ page = QUESTING, tab = L["Quests"], section = L["Quest log and tooltips"], controls = {
+	{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
+		help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
+		search = "new in forever, infinity, new quest, forever quest, mark, badge" },
+} }, true)
 add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trainReminder() } }, true)
 
 -- Integrations: a section per supported addon, each registered by its
@@ -729,6 +729,12 @@ local INSTALL = { kind = "button", icon = "palette", button = L["Install"], labe
 	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
 	onClick = function() ns.Fire("SHOW_WELCOME") end }
 
+-- Core/Update.lua's notices (0.3.7), at home on About under Install and What's new: shown once the setting is
+-- registered.
+local UPDATE = { kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
+	help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
+	search = "update, new version, outdated, old version, release, curseforge, polestar client, upgrade" }
+
 -- The About hero: the sidebar's lockup at full size. The emblem (64, its ink
 -- on the 32 edge, in its glow), then the wordmark (Media/UI/wordmark.tga,
 -- 1:1, its ink 3px into the box and on rows 4-27), the tagline under it, and
@@ -822,6 +828,14 @@ local function buildAbout(view)
 	local whatsNew = W.ActionTile(view, "star", L["What's new"], L["What this version of Polestar changed for you."],
 		function() ns.Fire("SHOW_WHATSNEW") end)
 	view.WhatsNew = whatsNew
+	-- Core/Update.lua's switch, a row under the two tiles (its widget for a search result's jump).
+	local update
+	if ns.GetDefault and ns.GetDefault(UPDATE.key) ~= nil then
+		update = O.Control(view, UPDATE)
+		W.CompactRow(update)
+		view.cache[UPDATE] = update
+		view.Update = update
+	end
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
@@ -879,6 +893,12 @@ local function buildAbout(view)
 			y = y + aiLink:GetHeight() + 12
 		end
 		y = y + placePair(view, { install, whatsNew }, y, cw, W.LayoutTile) + 12
+		if update then
+			update:ClearAllPoints()
+			update:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
+			update.psTop = y
+			y = y + W.LayoutRow(update, width) + 12
+		end
 		whyH:ClearAllPoints()
 		whyH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		whyH:SetWidth(width)
@@ -914,7 +934,7 @@ add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subt
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
-add({ page = ABOUT, section = L["Install"], controls = { INSTALL } }, true)
+add({ page = ABOUT, section = L["Install"], controls = { INSTALL, UPDATE } }, true)
 
 -- Page keys from before the pages were regrouped (and older section names)
 -- reach the page, and the tab, that holds those settings now. A page's own

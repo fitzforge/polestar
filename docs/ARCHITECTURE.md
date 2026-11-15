@@ -9524,7 +9524,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   another heads-up or in the first 120 s of a fresh install
   (`update.firstRun`): it waits for `PLAYER_REGEN_ENABLED`,
   `PLAYER_ENTERING_WORLD`, `HEADS_UP_HIDDEN` or the end of those seconds.
-  `update.card` (Options > Guide > Window, on by default) turns it off,
+  `update.card` (Options > About, under Install; on by default) turns it off,
   except two or more behind: then it shows at most once a day
   (`update.shownAt`). The guide window's last banner (`update`, shown with
   no guide open too): "Polestar 0.3.7 is out: you're on 0.3.6." with
