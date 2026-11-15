@@ -244,6 +244,13 @@ const GLYPHS = {
 	),
 	search: union(ring(10.5, 10.5, 6, 2.4), line(15, 15, 20.2, 20.2, 2.8)),
 	lock: union(box(12, 15.4, 7.2, 5.6, 1.4), arc(12, 9, 4.2, -180, 0, 2.3), line(7.8, 9, 7.8, 10.4, 2.3), line(16.2, 9, 16.2, 10.4, 2.3)),
+	// Move (a setting's frame, placed in Move frames): a cross with an
+	// arrowhead at each of its four ends.
+	move: union(
+		line(12, 3.4, 12, 20.6, 2), line(3.4, 12, 20.6, 12, 2),
+		polyline([[9.4, 6], [12, 3.4], [14.6, 6]], 2), polyline([[9.4, 18], [12, 20.6], [14.6, 18]], 2),
+		polyline([[6, 9.4], [3.4, 12], [6, 14.6]], 2), polyline([[18, 9.4], [20.6, 12], [18, 14.6]], 2),
+	),
 	// A link to another page (the settings' cross-link rows): two chain
 	// links, overlapping, on the diagonal.
 	link: rotate(union(

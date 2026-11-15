@@ -2603,7 +2603,7 @@ fn inline_extras_keep_their_own_setting_click_and_right_click_reset_beside_the_r
 		local _, _, _, cx = colour:GetPoint(1)
 		local _, _, _, gx = glow:GetPoint(1)
 		emit({ parent = parent, flipped = flipped, picked = picked, rowDot = rowDot, colour = Polestar.Get("fake.medalColour"),
-			glow = Polestar.Get("fake.medalGlow"), size = Polestar.Get("fake.medalSize"), order = gx < cx })"#,
+			glow = Polestar.Get("fake.medalGlow"), size = Polestar.Get("fake.medalSize"), order = cx < gx })"#,
 		"",
 		"",
 		LOOK_PAGE,
@@ -2615,7 +2615,7 @@ fn inline_extras_keep_their_own_setting_click_and_right_click_reset_beside_the_r
 	assert_eq!(out["colour"], false, "right-click: its default");
 	assert_eq!(out["glow"], true);
 	assert_eq!(out["size"], 1);
-	assert_eq!(out["order"], true, "right to left before the control: the colour, then the glow");
+	assert_eq!(out["order"], true, "left to right after the control: the colour, then the glow");
 }
 
 // A row's `more` sits behind a cog: the cog opens a compact popup by it (the row's label, 300 wide, rows of 30px)
@@ -2705,7 +2705,7 @@ fn a_row_s_help_is_its_tooltip_after_a_moment_with_the_reset_hint_and_a_search_r
 	assert_eq!(out["found"], json!(["How big the discs are.", "Right-click to reset.", "Fake pins  \u{b7}  Medallions  \u{b7}  Medallions"]));
 }
 
-// Fixed columns: left of the control zone (as wide as the widest control) a half has, right to left, a swatch, a
+// Fixed columns: right of the control zone (as wide as the widest control) a half has, left to right, a swatch, a
 // switch and the cog at one x each, an empty one keeping its place, so they line up down the page.
 #[test]
 fn a_half_s_swatch_switch_and_cog_stand_in_fixed_columns_down_the_page() {
@@ -2725,7 +2725,7 @@ fn a_half_s_swatch_switch_and_cog_stand_in_fixed_columns_down_the_page() {
 	assert_eq!(out["halves"][0], out["halves"][1]);
 	assert_eq!(out["switch"][0], out["switch"][1], "the switches in one column, a swatch beside one or not");
 	assert_eq!(out["cog"][0], out["cog"][1], "the cogs in one column");
-	assert!(n(&out["swatch"]) > n(&out["switch"][0]) && n(&out["switch"][0]) > n(&out["cog"][0]), "right to left: swatch, switch, cog: {out}");
+	assert!(n(&out["swatch"]) < n(&out["switch"][0]) && n(&out["switch"][0]) < n(&out["cog"][0]), "left to right: swatch, switch, cog: {out}");
 }
 
 // Search results stand in a card per page, tab and section, the best first; a result its section's on/off stops

@@ -1481,14 +1481,13 @@ do
 	end
 end
 
--- A ghost Move for a row or a section's header whose setting places a frame
--- (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off while
--- the frame has no box (its feature off) or its setting is.
+-- A row's Move glyph, in its extras' Move column, whose setting places a
+-- frame (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off
+-- while the frame has no box (its feature off) or its setting is.
 local function moveButton(parent, key, label, offFn, onClick)
-	local b = W.Button(parent, L["Move"], onClick, { ghost = true, height = 22 })
-	b.psTight = true
-	W.SetButtonText(b, L["Move"])
-	b.psTip, b.psTipLines = L["Move"], { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], label or "") }
+	local b = W.IconButton(parent, "move", W.RowParts.COMPACT_CHIP, L["Move"], onClick, 13)
+	b.psMove, b.psInline, b.psLabel = true, true, L["Move"]
+	b.psTipLines = { string.format(L["Opens Move frames with %s picked; the settings come back when you are done."], label or "") }
 	b.Refresh = inlineRefresh
 	W.SetDisabledWhen(b, function()
 		local M = ns.Movers
@@ -1533,20 +1532,17 @@ local function rowOf(view, c)
 		W.SetDisabledWhen(cog, disabledOf(c))
 		view.cogs[c] = cog
 	end
-	-- Move stands in the cog's column, or left of a cog.
-	local move
+	-- Move: a glyph in the extras' Move column, after the cog's.
 	if c.move and ns.Movers and ns.Movers.Unlock then
-		move = moveButton(w, c.move, labelOf(c), disabledOf(c), function() O.MoveFrame(c.move, w) end)
+		local move = moveButton(w, c.move, labelOf(c), disabledOf(c), function() O.MoveFrame(c.move, w) end)
 		w.MoveButton = move
-		if cog then
-			extras = extras or {}
-			extras[#extras + 1] = move
-		end
+		extras = extras or {}
+		extras[#extras + 1] = move
 	end
 	-- Picture cards named as their section need no label of their own: the
 	-- card's header says it.
 	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
-	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog or move,
+	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog,
 		height = view.psRowH, bare = bare })
 	-- New to the player: a 6px accent ring in the label's gutter, the changed
 	-- mark's place (markSections shows the one that applies).
@@ -1563,7 +1559,8 @@ local function rowOf(view, c)
 		w:HookScript("OnEnter", function() O.PreviewFocus(c.key) end)
 		w:HookScript("OnLeave", off)
 		for _, x in ipairs(extras or {}) do
-			x:HookScript("OnEnter", function(self) O.PreviewFocus(self.psControl.key) end)
+			-- Move stands for the row's own setting.
+			x:HookScript("OnEnter", function(self) O.PreviewFocus(self.psControl and self.psControl.key or c.key) end)
 			x:HookScript("OnLeave", off)
 		end
 		if cog then
@@ -1601,6 +1598,7 @@ local function layoutRows(view, controls, top, x, width, whole)
 	local y, left, leftH = top, nil, 0
 	local lineRows = {}
 	local function place(w, px, pw)
+		w.psColumns = view.psColumns
 		w:ClearAllPoints()
 		w:SetPoint("TOPLEFT", view, "TOPLEFT", px, -y)
 		w:Show()
@@ -1811,6 +1809,22 @@ local function toggleOf(view, t, card)
 	return sw
 end
 
+-- The extras' columns some row of these sections uses (W.LayoutCompact):
+-- one no row needs takes no room from the labels. -> { swatch, switch, cog, move }
+local function extrasColumns(groups)
+	local cols = {}
+	for _, g in ipairs(groups) do
+		for _, c in ipairs(g.controls) do
+			for _, e in ipairs(c.extras or {}) do
+				if available(e) then cols[e.kind == "color" and "swatch" or "switch"] = true end
+			end
+			if c.more and #c.more > 0 then cols.cog = true end
+			if c.move and ns.Movers and ns.Movers.Unlock then cols.move = true end
+		end
+	end
+	return cols
+end
+
 -- Sections from y, one card each across the body. groups: { { name,
 -- controls, section, settings }, ... } (`settings`: what its Reset resets);
 -- opts.whole: every row across (search results); opts.gutter: room left of
@@ -1822,6 +1836,7 @@ local function layoutSections(view, groups, y, opts)
 	for _, sw in pairs(view.extras) do if rawget(sw, "psHeaderSwitch") then sw:Hide() end end
 	for _, m in ipairs(view.mids) do m:Hide() end
 	view.psMid = 0
+	view.psColumns = extrasColumns(groups)
 	local width = win.BodyWidth
 	local n = 0
 	for _, g in ipairs(groups) do
