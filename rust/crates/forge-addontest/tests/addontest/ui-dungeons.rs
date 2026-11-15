@@ -1606,7 +1606,9 @@ fn the_heads_up_keeps_the_complete_pickup_count_button_inside_the_card() {
 			giver = "5 quests to pick up · Levels 17–22 · The Barrens", badge = "+1.4 LEVELS",
 			act = { label = label }, more = { label = "Open in Dungeons" }, off = { label = "Turn these off" } })
 		local f, b = CT.frame, CT.frame.Act
-		emit({ label = b.Label:GetText(), bounded = b:GetWidth() <= f:GetWidth() - 32,
+		-- The card's padding each side, and the class stripe's width where the look draws it (the house look doesn't).
+		local stripe = f.Stripe:IsShown() and 4 or 0
+		emit({ label = b.Label:GetText(), bounded = b:GetWidth() <= f:GetWidth() - 28 - stripe,
 			complete = not b.Label:IsTruncated(), labelFits = b.Label:GetStringHeight() + 4 <= b:GetHeight(),
 			width = b:GetWidth(), height = b:GetHeight() })"#,
 		false,
@@ -1644,7 +1646,8 @@ local function buttonBounds()
 		local b = f[name]
 		if b:IsShown() then
 			local r, label = rect(b), rect(b.Label)
-			if r.x < 18 - .01 or r.x + r.w > f:GetWidth() - 14 + .01 or r.y < 0 or r.y + r.h > f:GetHeight() - 14 + .01 then
+			local left = 14 + (f.Stripe:IsShown() and 4 or 0)
+			if r.x < left - .01 or r.x + r.w > f:GetWidth() - 14 + .01 or r.y < 0 or r.y + r.h > f:GetHeight() - 14 + .01 then
 				errors[#errors + 1] = name .. " outside card padding"
 			end
 			if b.Label:IsTruncated() or label.x < r.x - .01 or label.x + label.w > r.x + r.w + .01
