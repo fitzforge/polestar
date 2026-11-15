@@ -12,17 +12,17 @@ return {
 
 	-- Step 2: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Caster {spell:18960}. Avec les deux demi-pendentifs dans vos sacs, placez-vous près du {area:2362} sur la rive nord-ouest du lac et utilisez-en une moitié pour les rejoindre, puis rendez-vous à {npc:11802} dans {area:2361}. {npc:11802} se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
-	["{item:15885}: join the halves at the {area:2362}"] = "",
+	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885} : assemblez les deux moitiés à {area:2362}",
 
 	-- Step 3: Aquatic Form
 	-- {quest:5061} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["Take {quest:5061} from {npc:11802}, upstairs in his building. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}."] = "",
+	["Take {quest:5061} from {npc:11802}, upstairs in his building. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}."] = "Prenez {quest:5061} auprès de {npc:11802}, à l’étage de son bâtiment. Ensuite, {npc:11800}, à {area:2361}, transporte les druides directement à {area:702}.",
 
 	-- Step 5: Mathrengyl Bearwalker
 	-- {area:1658} Cenarion Enclave · {area:442} Auberdine · {area:150} Menethil Harbor
-	["Take the portal up to the {area:1658}, then fly back to {area:442} for the boat to {area:150}."] = "",
+	["Take the portal up to the {area:1658}, then fly back to {area:442} for the boat to {area:150}."] = "Prenez le portail vers {area:1658}, puis reprenez un vol pour {area:442} afin d’embarquer pour {area:150}.",
 
 	-- Step 7: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
@@ -38,7 +38,7 @@ return {
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Bateau pour {area:150}",
 	-- {area:442} Auberdine · {area:150} Menethil Harbor
-	["Take the boat from {area:442}'s dock to {area:150}."] = "",
+	["Take the boat from {area:442}'s dock to {area:150}."] = "Prenez le bateau au quai de {area:442} pour rejoindre {area:150}.",
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -52,17 +52,17 @@ return {
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "{item:2594}, chez {npc:1464}",
 	-- {npc:2104} Captain Stoutfist
-	["{npc:2104}, by the keep; on the top floor"] = "",
+	["{npc:2104}, by the keep; on the top floor"] = "{npc:2104}, près du donjon, au dernier étage",
 	-- {npc:2104} Captain Stoutfist · {quest:98221} From the Ashes · {area:1036} Angerfang Encampment
-	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "",
+	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "{npc:2104} : {quest:98221}, les plans d’attaque à {area:1036}",
 	-- {npc:1242} Karl Boran
 	["{npc:1242}, on the pier north of the inn"] = "{npc:1242}, sur la jetée au nord de l'auberge",
 	-- {npc:2094} James Halloran
-	["{npc:2094}, by the docks"] = "",
+	["{npc:2094}, by the docks"] = "{npc:2094}, près des quais",
 	-- {npc:270844} Sylessa Duskwhisper · {npc:2094} James Halloran
 	["{npc:270844}, beside {npc:2094} by the docks"] = "{npc:270844}, à côté de {npc:2094}, près des quais",
 	-- {npc:2097} Harlo Barnaby · {npc:1071} Longbraid the Grim · {area:205} Dun Modr
-	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "",
+	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, près de la porte nord : à remettre à {npc:1071} lors du passage à {area:205} dans le guide 30-40/01-hillsbrad-foothills",
 
 	-- Step 14: Nord'el
 	-- {item:279915} Nord'el · {area:150} Menethil Harbor
@@ -71,7 +71,7 @@ return {
 	-- Step 15: The Bluegill hovels
 	["The Bluegill hovels"] = "Les huttes des Branchie-bleue",
 	-- {area:1022} Bluegill Marsh · {object:261} Damaged Crate · {object:142151} Sealed Barrel · {object:259} Half-buried Barrel
-	["Follow the coast north out of Menethil into {area:1022}. Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "",
+	["Follow the coast north out of Menethil into {area:1022}. Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "Suivez la côte au nord de Menethil jusqu'à {area:1022}. Trois conteneurs dans les taudis murlocs, du sud au nord : le {object:261}, puis le {object:142151}, puis le {object:259} à l'extrémité nord.",
 
 	-- Step 16: The Lost Fleet: kill these as you meet them
 	-- {area:1039} The Lost Fleet
@@ -82,7 +82,7 @@ return {
 
 	-- Step 17: Menethil Harbor
 	-- {npc:2094} James Halloran · {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist · {npc:1239} First Mate Fitzsimmons
-	["In from the north: {npc:2094} by the docks, {npc:1242} on the pier, {npc:2104} in the keep, then {npc:1239} in the inn."] = "",
+	["In from the north: {npc:2094} by the docks, {npc:1242} on the pier, {npc:2104} in the keep, then {npc:1239} in the inn."] = "En arrivant du nord : {npc:2094} près des quais, {npc:1242} sur la jetée, {npc:2104} dans le donjon, puis {npc:1239} dans l’auberge.",
 	-- {npc:270844} Sylessa Duskwhisper
 	["{npc:270844}, beside him"] = "{npc:270844}, à côté de lui",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
@@ -100,18 +100,18 @@ return {
 	-- Step 19: Raptor valley
 	["Raptor valley"] = "La vallée des raptors",
 	-- {quest:295} Ormer's Revenge
-	["Follow the road east: the bigger raptors for {quest:295} hunt in the valley just west of the excavation site."] = "",
+	["Follow the road east: the bigger raptors for {quest:295} hunt in the valley just west of the excavation site."] = "Suivez la route vers l’est : les plus gros raptors, pour {quest:295}, chassent dans la vallée juste à l’ouest du site de fouilles.",
 
 	-- Step 20: Whelgar's Excavation Site
 	-- {npc:1078} Ormer Ironbraid · {npc:1077} Prospector Whelgar
-	["The excavation site sits on the hill south of the road: {npc:1078} at the top, {npc:1077} below ground."] = "",
+	["The excavation site sits on the hill south of the road: {npc:1078} at the top, {npc:1077} below ground."] = "Le site de fouilles se trouve sur la colline au sud de la route : {npc:1078} est au sommet, et {npc:1077} sous terre.",
 
 	-- Step 21: Whelgar's Excavation Site: kill these as you meet them
 	-- {area:118} Whelgar's Excavation Site
 	["{area:118}: kill these as you meet them"] = "{area:118} : tuez-les au passage",
 	-- {npc:1353} Sarltooth · {object:331} Loose Soil
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "",
+	["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "Les reliques reposent dans les fouilles elles-mêmes. {npc:1353}, un grand Razormaw, rôde dans la vallée des rapaces juste à l'ouest.\nGoaz Goazs Warder (élite, 32) se tient parmi les reliques et les {object:331} : retirez-les un par un ou contournez-les.",
 	-- {item:2661} Neru Fragment · {object:331} Loose Soil
 	["{item:2661}: the {object:331}"] = "{item:2661} : le {object:331}",
 
@@ -120,74 +120,74 @@ return {
 	["{npc:1078} and Whelgar"] = "{npc:1078} et Whelgar",
 	-- {npc:1077} Prospector Whelgar · {item:279993} Titanic Keystone
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "",
+	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, sous terre : le {item:279993}, de l'élite Goazs Warder",
 
 	-- Step 23: Goaz Warders
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["Goaz Warders"] = "",
+	["Goaz Warders"] = "Goazs Warder",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "",
+	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Les Goazs Warder se trouvent juste à l'ouest du camp de Whelgar : utilisez le {item:279996} qu'il vous a donné à côté d'un.\n{npc:270892} est d'élite : le regroupement est conseillé.",
 
 	-- Step 24: Prospector Whelgar
 	["Below ground"] = "Sous terre",
 
 	-- Step 25: Prospector Whelgar
 	-- {item:279996} Goaz Stone · {zone:1437} Wetlands · {area:205} Dun Modr
-	["A new {item:279996}, for the four titan watchers around the {zone:1437}; below ground. Their hearts drop from level 32 elites on the {area:205} visit"] = "",
+	["A new {item:279996}, for the four titan watchers around the {zone:1437}; below ground. Their hearts drop from level 32 elites on the {area:205} visit"] = "Un nouveau {item:279996}, pour les quatre observateurs de titans autour du {zone:1437} ; sous terre. Leurs cœurs chutent des élites du niveau 32 lors de la visite {area:205}",
 
 	-- Step 26: Angerfang Encampment
 	-- {zone:1455} Ironforge · {npc:2091} Chieftain Nek'rosh · {quest:98221} From the Ashes
-	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "",
+	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "Au nord des fouilles dans le camp Dragonmaw : cliquez sur les quatre ensembles de plans d'attaque. Le plan {zone:1455} se situe à l'extrémité ouest du camp, les trois autres plus à l'est. {npc:2091}, une élite, se démarque au sud-est : {quest:98221} n'a ​​pas besoin de lui.",
 	-- {item:3337} Dragonmaw War Banner
-	["{item:3337}: the camp's Raiders and Swamprunners"] = "",
+	["{item:3337}: the camp's Raiders and Swamprunners"] = "{item:3337} : les Raiders et Swamprunners du camp",
 
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:277} Fire Taboo · {zone:1437} Wetlands
-	["Follow the road east to the {area:1025}; {npc:1244} stands by the river. {quest:277}'s flint came with you from your last {zone:1437} visit."] = "",
+	["Follow the road east to the {area:1025}; {npc:1244} stands by the river. {quest:277}'s flint came with you from your last {zone:1437} visit."] = "Suivez la route vers l’est jusqu’à {area:1025} ; {npc:1244} se trouve près de la rivière. Vous avez conservé le silex de {quest:277} depuis votre dernier passage à {zone:1437}.",
 
 	-- Step 28: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
-	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "",
+	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "Campements {npc:270637} parmi les Fenrunners, juste à l'ouest de {npc:1244}.",
 	-- {area:1038} Dragonmaw Gates · {zone:1437} Wetlands
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor
-	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Incisives de tranchegueule : des rapaces par le {area:1038}, sur la boucle {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- {quest:98246} Trying Times
-	["{quest:98246}: the Razormaw eggs, on the same loop"] = "",
+	["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246} : les œufs Razormaw, sur la même boucle",
 
 	-- Step 29: Einar Stonegrip
 	-- {npc:270637} Howin Kindfeather · {npc:2093} Einar Stonegrip
-	["East from {npc:270637}: {npc:2093} stands beside the road."] = "",
+	["East from {npc:270637}: {npc:2093} stands beside the road."] = "Partez vers l’est depuis {npc:270637} : {npc:2093} se trouve près de la route.",
 	-- {npc:2093} Einar Stonegrip · {npc:2094} James Halloran
-	["{npc:2093}: for {npc:2094} in Menethil"] = "",
+	["{npc:2093}: for {npc:2094} in Menethil"] = "{npc:2093} : pour {npc:2094} à Menethil",
 
 	-- Step 30: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "",
+	["Fen Creepers along the river"] = "Rampants des tourbières le long de la rivière",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Au nord-ouest de {npc:2093} jusqu'à la rivière : Rampants des tourbières se cache dans ses mares et le long de ses berges jusqu'à l'ouest jusqu'à {area:1024}. Continuez vers l'ouest jusqu'à ce que vous en ayez douze, puis revenez vers l'est jusqu'à {npc:1244}.\nAttention : en dehors du combat, Rampants des tourbières lance Sneak de temps en temps, ils sont donc furtifs et difficiles à voir.",
 
 	-- Step 31: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, un raptor élite, sur la boucle de {zone:1437} du guide 30-40/01-hillsbrad-foothills",
 
 	-- Step 32: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:1217} Glorin Steelbrow · {npc:2094} James Halloran
-	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "",
+	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:1217} in the {area:2104} south of it, {npc:2094} by the docks on the way to the boat."] = "Retournez à {area:150} si vous vous dirigez vers {area:2104}, ou marchez vers l'ouest le long de la route : {npc:2104} se trouve au dernier étage de {area:2103}, {npc:1217} dans le {area:2104} au sud de celui-ci, {npc:2094} près des quais sur le chemin vers le bateau.",
 	["On the top floor"] = "Au dernier étage",
 	-- {zone:1437} Wetlands
-	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Pour la catapulte Dragonmaw, sur la boucle {zone:1437} de 30-40/01-hillsbrad-foothills",
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
-	["{npc:1217}, in the {area:2104}"] = "",
+	["{npc:1217}, in the {area:2104}"] = "{npc:1217}, à {area:2104}",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind City
-	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
+	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "Pour {npc:1284}, à {zone:1453}, à la fin de ce guide",
 	-- {npc:2094} James Halloran
-	["{npc:2094}, by the docks, on the way to the boat"] = "",
+	["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, près des quais, sur le chemin du bateau",
 
 	-- Step 33: Boat to Auberdine
 	-- {area:442} Auberdine
-	["The boat to {area:442} leaves from the far end of Menethil's western pier."] = "",
+	["The boat to {area:442} leaves from the far end of Menethil's western pier."] = "Le bateau vers {area:442} part de l'extrémité de la jetée ouest de Menethil.",
 
 	-- Step 34: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
@@ -197,15 +197,15 @@ return {
 
 	-- Step 35: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:3649} stands at the north end of {area:442}."] = "",
+	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649} se trouve à l’extrémité nord de {area:442}.",
 	-- {area:442} Auberdine
-	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "",
+	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "Réponse d'Alexston, si vous le portez toujours (l'itinéraire le remet au premier arrêt {area:442} de 03-darkshore-return)",
 
 	-- Step 36: Auberdine
 	-- {npc:3693} Terenthis
-	["{npc:3693} stands by the flight master."] = "",
+	["{npc:3693} stands by the flight master."] = "{npc:3693} se trouve près du maître de vol.",
 	-- {npc:3693} Terenthis · {zone:1439} Darkshore
-	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "",
+	["{npc:3693}: Volcor's escort from the end of {zone:1439}"] = "{npc:3693} : Escorte de Volcor depuis la fin de {zone:1439}",
 
 	-- Step 37: Fly to Astranaar
 	-- {area:415} Astranaar
@@ -213,9 +213,9 @@ return {
 
 	-- Step 38: Shindrell Swiftfire
 	-- {npc:3845} Shindrell Swiftfire · {area:415} Astranaar
-	["{npc:3845} stands by {area:415}'s flight master."] = "",
+	["{npc:3845} stands by {area:415}'s flight master."] = "{npc:3845} se trouve près du maître de vol de {area:415}.",
 	-- {quest:4581} Kayneth Stillwind · {area:2358} Forest Song
-	["For {quest:4581} at {area:2358}"] = "",
+	["For {quest:4581} at {area:2358}"] = "Pour {quest:4581}, à {area:2358}",
 
 	-- Step 39: Astranaar
 	-- {npc:3894} Pelturas Whitemoon
@@ -225,7 +225,7 @@ return {
 	-- {npc:3901} Illiyana
 	["Melyria and {npc:3901}"] = "Melyria et {npc:3901}",
 	-- {area:415} Astranaar
-	["The two stand together at the western end of the road, south-west of {area:415}."] = "",
+	["The two stand together at the western end of the road, south-west of {area:415}."] = "Tous deux se trouvent ensemble à l’extrémité ouest de la route, au sud-ouest de {area:415}.",
 
 	-- Step 41: Shael'dryn
 	-- {area:419} Howling Vale · {npc:3916} Shael'dryn
@@ -272,18 +272,18 @@ return {
 
 	-- Step 50: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
-	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
+	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "Facultatif : {npc:3848} propose également {quest:1012}, des druides 32 à trois niveaux au plus profond de {area:432}, une grotte de monstres furtifs réapparaissant rapidement, et de retour vers elle par la suite. Il est au-dessus de votre niveau ici : prenez-le uniquement si vous êtes groupé ou si vous souhaitez de l'XP supplémentaire ; le guide n'en a pas besoin.",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}, à quelques pas à l'est",
 
 	-- Step 51: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
-	["{area:432}'s entrance"] = "",
+	["{area:432}'s entrance"] = "L’entrée de {area:432}",
 
 	-- Step 52: Insane druids
 	["Insane druids"] = "Druides fous",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
-	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
+	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Les trois druides sont à l'intérieur de {area:432}, séparés les uns des autres : entrez par son embouchure, au sud du camp des Réprouvés, et non par la colline au-dessus d'eux. {npc:3940} se trouve dans les halls est, {npc:3941} au plus profond à l'extrémité nord-est et {npc:3942} à l'extrémité ouest.\nAttention : la tanière compte de nombreux monstres qui réapparaissent rapidement, y compris des morts-vivants furtifs et des patrouilles, donc des monstres supplémentaires se joignent souvent au combat.",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
 	["{npc:3940}, inside {area:432}"] = "{npc:3940}, à l'intérieur de {area:432}",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
@@ -305,11 +305,11 @@ return {
 
 	-- Step 59: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
-	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "",
+	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "{npc:3691} et {npc:3961} sont dans l’auberge ; {npc:3894} se trouve dans le bâtiment juste au sud.",
 	-- {npc:3961} Maliynn
-	["{npc:3961}, in the inn"] = "",
+	["{npc:3961}, in the inn"] = "{npc:3961}, dans l’auberge",
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside the building south of the inn"] = "",
+	["{npc:3894}, inside the building south of the inn"] = "{npc:3894}, dans le bâtiment au sud de l’auberge",
 
 	-- Step 60: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
@@ -319,19 +319,19 @@ return {
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
 	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696} et ses gardes campent juste à l'est de {npc:3897}.\nAttention : des loups et des araignées rôdent près du camp et peuvent se joindre au combat. Certains loups vont par deux.",
 	-- {item:5388} Ran Bloodtooth's Skull · {npc:3696} Ran Bloodtooth
-	["{item:5388}, from {npc:3696}"] = "",
+	["{item:5388}, from {npc:3696}"] = "{item:5388}, sur {npc:3696}",
 
 	-- Step 63: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
-	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "",
+	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "À l'ouest de {npc:3897} le long des collines du sud jusqu'à {area:416} : Melyria et {npc:3901} se tiennent ensemble à côté.",
 
 	-- Step 64: Delgren the Purifier
 	-- {area:413} Maestra's Post
-	["North to {area:413}."] = "",
+	["North to {area:413}."] = "Partez vers le nord jusqu’à {area:413}.",
 
 	-- Step 65: Astranaar
 	-- {area:415} Astranaar · {npc:3691} Raene Wolfrunner
-	["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "",
+	["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Suivez la route vers le sud-est jusqu’à {area:415} : {npc:3691} est dans l’auberge, et le maître de vol à l’extrémité ouest.",
 
 	-- Step 66: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -343,9 +343,9 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Prendre un vol pour {area:1537}",
 	-- {npc:1571} Shellei Brondir
-	["{npc:1571} is the flight master by Menethil's inn."] = "",
+	["{npc:1571} is the flight master by Menethil's inn."] = "{npc:1571} est le maître de vol de l'auberge de Menethil.",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maître de vol de {area:150}",
 
 	-- Step 70: Ironforge priests
 	-- {zone:1455} Ironforge

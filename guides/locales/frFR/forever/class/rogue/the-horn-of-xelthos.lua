@@ -18,9 +18,9 @@ return {
 	-- Step 2: Veenix
 	-- {npc:4086} Veenix · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {item:210187} Venture Co. Work Order · {spell:921} Pick Pocket
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
-	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "",
+	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "{npc:4086}, un gobelin ami des deux factions, se trouve parmi les KapitalRisk dans le {area:461}, à l'est de Stonetalon, à une courte distance au nord-est de {area:460}. La Horde s'envole vers {area:460} ; Alliance à {area:467}. Il veut un {item:210187} avant de remettre les explosifs : les Déboiseurs de la KapitalRisk (niveau 18) qui travaillent autour de lui les portent dans leurs poches. Dissimulez-vous derrière un et {spell:921} ; les tuer ne le donne pas.",
 	-- {spell:921} Pick Pocket · {npc:3989} Venture Co. Logger · {item:210187} Venture Co. Work Order
-	["{spell:921} a {npc:3989} for a {item:210187}"] = "",
+	["{spell:921} a {npc:3989} for a {item:210187}"] = "Utilisez {spell:921} sur {npc:3989} pour obtenir {item:210187}",
 
 	-- Step 3: Shadowfang Keep
 	-- {item:210186} Breaching Charge · {item:5140} Flash Powder · {item:210213} Sister's Half-Key · {item:210212} Brother's Half-Key

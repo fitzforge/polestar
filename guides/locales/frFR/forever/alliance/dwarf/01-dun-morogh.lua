@@ -191,7 +191,7 @@ return {
 
 	-- Step 32: The Grizzled Den
 	-- {npc:278166} Mountaineer Cornelius
-	["Flintfire's shipments lie on the cave floor, and {npc:278166} is missing somewhere inside.\nCareful: Wendigos stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks from outside avoids this."] = "",
+	["Flintfire's shipments lie on the cave floor, and {npc:278166} is missing somewhere inside.\nCareful: Wendigos stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks from outside avoids this."] = "Les expéditions de Flintfire reposent sur le sol de la grotte et {npc:278166} a disparu quelque part à l'intérieur.\nAttention : les Wendigos se tiennent proches les uns des autres à l'intérieur de la grotte, les combats en attirent donc facilement plusieurs à la fois ; les attirer un par un avec des attaques à distance de l'extérieur évite cela.",
 
 	-- Step 33: Rumbleshot's Ammo
 	-- {object:176785} Ammo Crate · {npc:271546} Mountaineer Gretchen · {area:136} Grizzled Den
@@ -208,7 +208,7 @@ return {
 	["{zone:1426}: kill these as you meet them"] = "{zone:1426} : tuez-les au passage",
 	-- {area:131} Kharanos
 	-- plural, as words: Crag Boars = {npc:1125} Crag Boar · Young Black Bears = {npc:1128} Young Black Bear
-	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "",
+	["Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to {area:131} and the depot: kill them on the walk back."] = "Sangliers des rochers et Jeunes ours noir parcourent les champs depuis le camp de Rumbleshot au nord-est jusqu'à {area:131} et le dépôt : tuez-les sur le chemin du retour.",
 
 	-- Step 37: Mountaineer Dolf
 	-- {npc:12427} Mountaineer Dolf · {area:131} Kharanos · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
@@ -218,7 +218,7 @@ return {
 
 	-- Step 38: Kharanos
 	-- {npc:1252} Senir Whitebeard · {area:2102} Thunderbrew Distillery · {npc:1241} Tognus Flintfire
-	["{npc:1252} stands by Eric's campfire in front of the {area:2102}; {npc:1241} is in the cellar west of it."] = "",
+	["{npc:1252} stands by Eric's campfire in front of the {area:2102}; {npc:1241} is in the cellar west of it."] = "{npc:1252} se tient près du feu de camp d'Eric devant le {area:2102} ; {npc:1241} se trouve dans la cave à l'ouest de celui-ci.",
 
 	-- Step 39: Thunderbrew Distillery
 	-- {npc:1267} Ragnar Thunderbrew · {npc:1699} Gremlock Pilsnor · {skill:185} Cooking
@@ -236,11 +236,11 @@ return {
 	-- {area:131} Kharanos
 	["{area:131} and the depot"] = "{area:131} et le dépôt",
 	-- {npc:1269} Razzle Sprysprocket · {area:131} Kharanos
-	["The pilots stand at the depot; {npc:1269} is on the road back west, north of {area:131}."] = "",
+	["The pilots stand at the depot; {npc:1269} is on the road back west, north of {area:131}."] = "Les pilotes se trouvent au dépôt ; {npc:1269} est sur la route du retour vers l’ouest, au nord de {area:131}.",
 	-- {npc:1377} Pilot Stonegear
-	["{npc:1377}, beside him"] = "",
+	["{npc:1377}, beside him"] = "{npc:1377}, à côté de lui",
 	-- {npc:1269} Razzle Sprysprocket
-	["{npc:1269}, on the way back; below ground"] = "",
+	["{npc:1269}, on the way back; below ground"] = "{npc:1269}, sur le chemin du retour ; sous terre",
 
 	-- Step 41: Brewnall Village
 	-- {area:137} Brewnall Village · {area:131} Kharanos · {npc:8508} Gretta Ganter · {npc:1374} Rejold Barleybrew · {npc:1375} Marleth Barleybrew
@@ -309,7 +309,7 @@ return {
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113} : à rendre à {npc:257597}, près de la porte Sud",
 	-- {npc:1226} Maxan Anvol · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
-	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "",
+	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "{npc:1226} : à remettre à {npc:11406}, à {zone:1455}",
 
 	-- Step 51: Steelgrill's Depot
 	-- {area:131} Kharanos · {zone:1426} Dun Morogh
@@ -370,12 +370,12 @@ return {
 	["The quarry troggs"] = "Les troggs de la carrière",
 	-- {item:268548} Empty Powder Keg
 	-- plural, as words: Rockjaw Skullthumpers = {npc:1115} Rockjaw Skullthumper
-	["Rockjaw Skullthumpers, Bonesnappers and Ambushers share the quarry and the slopes north of it; the Ambushers drop the {item:268548}."] = "",
+	["Rockjaw Skullthumpers, Bonesnappers and Ambushers share the quarry and the slopes north of it; the Ambushers drop the {item:268548}."] = "Brise-crânes Mâcheroc, Bonesnappers et Embusqués Mâcheroc partagent la carrière et les pentes au nord de celle-ci ; le Embusqués Mâcheroc abandonne le {item:268548}.",
 
 	-- Step 70: Helm's Bed Lake
 	-- {area:212} Helm's Bed Lake · {quest:95214} Stolen Blasting Powder · {item:274268} Dark Iron Map
 	-- plural, as words: Rockjaw Ambushers = {npc:1116} Rockjaw Ambusher · Rockjaw Backbreakers = {npc:1118} Rockjaw Backbreaker
-	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "",
+	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "Embusqués Mâcheroc par {area:212}, au nord de la carrière, et Brise-dos Mâcheroc plus à l'est laissent tomber le {quest:95214}. Sombrefer Des espions se faufilent autour des rives du lac à l'est de la carrière ; l'un d'eux laisse tomber le {item:274268}.",
 
 	-- Step 71: Dun Morogh: kill these as you meet them
 	-- {item:2770} Copper Ore
@@ -436,53 +436,53 @@ return {
 	["{npc:1960} waits at the {area:808}, north of the South Gate; the dwarven corpse lies up the pass to the west of him."] = "{npc:1960} attend à l'{area:808}, au nord de la porte Sud ; le cadavre du nain se trouve en haut du col, à l'ouest de lui.",
 
 	-- Step 86: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "Le poste du tunnel",
 	-- {zone:1432} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
+	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "Traversez le tunnel de la porte sud vers l’est pour rejoindre {zone:1432}. {npc:1089} et {npc:1092} se trouvent au poste nain juste après.",
 
 	-- Step 87: Stonesplinter troggs
-	["Stonesplinter troggs"] = "",
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth."] = "",
+	["Stonesplinter troggs"] = "Troggs éclateurs de pierre",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth."] = "Au nord du poste, à l'ouest de la route : les troggs et éclaireurs Stonesplinter campent dans les collines. Les deux lâchent les dents de pierre Trogg.",
 
 	-- Step 88: Back to the tunnel post
-	["Back to the tunnel post"] = "",
+	["Back to the tunnel post"] = "Retour au poste du tunnel",
 
 	-- Step 89: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell · {npc:1963} Vidra Hearthstove · {area:2101} Stoutlager Inn · {npc:1681} Brock Stoneseeker · {npc:1572} Thorgrum Borrelson
-	["North up the road to {area:144}. {npc:1340} walks the road through town, {npc:1963} stands outside the {area:2101}, {npc:1681} on the east side of town; {npc:1572} keeps the gryphons."] = "",
+	["North up the road to {area:144}. {npc:1340} walks the road through town, {npc:1963} stands outside the {area:2101}, {npc:1681} on the east side of town; {npc:1572} keeps the gryphons."] = "Vers le nord sur la route jusqu'à {area:144}. {npc:1340} parcourt la route à travers la ville, {npc:1963} se trouve à l'extérieur du {area:2101}, {npc:1681} du côté est de la ville ; {npc:1572} conserve les griffons.",
 	-- {npc:1572} Thorgrum Borrelson
 	["{npc:1572}, the gryphon master"] = "{npc:1572}, le maître des griffons",
 	-- {npc:1572} Thorgrum Borrelson · {npc:4256} Golnir Bouldertoe · {zone:1455} Ironforge
-	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "",
+	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "{npc:1572} : pour {npc:4256}, à {zone:1455}",
 
 	-- Step 90: The west hills and the Algaz Station
 	-- {area:925} Algaz Station
-	["The west hills and the {area:925}"] = "",
+	["The west hills and the {area:925}"] = "Les collines de l’ouest et {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear · Mountain Boars = {npc:1190} Mountain Boar · Forest Lurkers = {npc:1195} Forest Lurker
-	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "",
+	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Vers le nord à travers les collines à l'ouest de la route jusqu'à {npc:1343} au niveau de {area:925}. Les kobolds Tunnel Rat creusent dans les collines en chemin ; Anciens ours noir, Sangliers des montagnes et Rôdeuses des forêts parcourent le même terrain.",
 	-- {item:3110} Tunnel Rat Ear
-	["{item:3110}: Tunnel Rat kobolds"] = "",
+	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110} : Kobolds Rats des tunnels",
 	-- {item:3172} Boar Intestines
 	-- plural, as words: Mountain Boars = {npc:1190} Mountain Boar
-	["{item:3172}: Mountain Boars"] = "",
+	["{item:3172}: Mountain Boars"] = "{item:3172} : Sangliers des montagnes",
 	-- {item:3173} Bear Meat
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear
-	["{item:3173}: Elder Black Bears"] = "",
+	["{item:3173}: Elder Black Bears"] = "{item:3173} : Anciens ours noir",
 	-- {item:3174} Spider Ichor
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
-	["{item:3174}: Forest Lurkers"] = "",
+	["{item:3174}: Forest Lurkers"] = "{item:3174} : Rôdeuses des forêts",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
-	["{npc:5413} in {zone:1453} takes it"] = "",
+	["{npc:5413} in {zone:1453} takes it"] = "À remettre à {npc:5413}, à {zone:1453}",
 
 	-- Step 91: Silver Stream Mine
-	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "",
+	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "Vers l'est le long des collines jusqu'à la mine à l'extrémité nord du loch : les caisses de la Ligue des Mineurs se trouvent dans ses tunnels, parmi d'autres Rats des Tunnels.",
 	-- {item:2640} Miners' Gear
-	["{item:2640}, from the crates"] = "",
+	["{item:2640}, from the crates"] = "{item:2640}, dans les caisses",
 
 	-- Step 92: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "Retournez à {area:925}",
 
 	-- Step 93: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
@@ -490,7 +490,7 @@ return {
 
 	-- Step 94: Golnir Bouldertoe
 	-- {object:32372} Great Forge · {npc:4256} Golnir Bouldertoe · {npc:1573} Gryth Thurden
-	["The gryphons land in the {object:32372}: {npc:4256} works at its north end, and {npc:1573} keeps the gryphons where you landed."] = "",
+	["The gryphons land in the {object:32372}: {npc:4256} works at its north end, and {npc:1573} keeps the gryphons where you landed."] = "Les griffons atterrissent à {object:32372} : {npc:4256} travaille à son extrémité nord, et {npc:1573} s’occupe des griffons à votre point d’arrivée.",
 	-- {npc:4256} Golnir Bouldertoe · {object:32372} Great Forge
 	["{npc:4256}, in the {object:32372}"] = "{npc:4256}, à la {object:32372}",
 	-- {npc:1573} Gryth Thurden
@@ -498,19 +498,19 @@ return {
 
 	-- Step 95: Tinker Town
 	-- {object:32372} Great Forge · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {object:171709} High Seat · {object:32359} Military Ward
-	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "",
+	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "À l'est du {object:32372} vers {object:171524} : le {object:660964} se trouve près de sa boîte aux lettres. De là, le guide fait un tour de la ville : au nord jusqu'au {object:32383}, à l'ouest jusqu'au {object:32362}, au sud à travers les Communes jusqu'au {object:171709}, à l'est via le {object:32359} et retour à {object:171524} pour le tramway.",
 	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}, près de la boîte aux lettres de {object:171524}",
 
 	-- Step 96: Forlorn Cavern
 	-- {object:32372} Great Forge · {npc:258098} Eldrun Stormbreaker · {object:32383} Forlorn Cavern · {npc:6120} Lago Blackwrench
-	["North of the {object:32372}: {npc:258098}, the shaman trainer, stands at the south end of the {object:32383}, the rogue and warlock trainers and {npc:6120} just north of him."] = "",
+	["North of the {object:32372}: {npc:258098}, the shaman trainer, stands at the south end of the {object:32383}, the rogue and warlock trainers and {npc:6120} just north of him."] = "Au nord du {object:32372} : {npc:258098}, l'entraîneur de chaman, se trouve à l'extrémité sud de {object:32383}, les entraîneurs de voleurs et de sorciers et {npc:6120} juste au nord de lui.",
 	-- {npc:6120} Lago Blackwrench · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6120}: {npc:6122} in {zone:1453} takes it"] = "{npc:6120} : à rendre à {npc:6122}, à {zone:1453}",
 
 	-- Step 97: The Tome of Divinity
 	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
-	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "",
+	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, {npc:6179} and {npc:6178} on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "À l'ouest du {object:32383} jusqu'au {object:32362} : {npc:5149}, {npc:6179} et {npc:6178} se trouvent dans les {object:32386}, {npc:6179} et {npc:6178} à son étage supérieur : les escaliers commencent juste au nord-est de {npc:5149}. {npc:6175}, un mendiant, erre dans la ville. Il demande dix {item:2589} : les troggs et trolls de {zone:1426} le lâchent, et la salle des ventes le vend.",
 	-- {quest:2997} Tome of Divinity
 	["From the {quest:2997} she gives you"] = "Grâce à {quest:2997} qu'elle vous donne",
 	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
@@ -528,11 +528,11 @@ return {
 
 	-- Step 101: Mystic Ward
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward
-	["The paladin, priest and mage trainers are in the {object:32386}, in the {object:32362}."] = "",
+	["The paladin, priest and mage trainers are in the {object:32386}, in the {object:32362}."] = "Les maîtres des paladins, des prêtres et des mages se trouvent dans {object:32386}, à {object:32362}.",
 
 	-- Step 102: High Seat
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
-	["South through the Commons: {npc:1274} stands in the {object:171709} with King Magni."] = "",
+	["South through the Commons: {npc:1274} stands in the {object:171709} with King Magni."] = "Traversez les communs vers le sud : {npc:1274} se trouve dans {object:171709}, avec le roi Magni.",
 	-- {npc:1274} Senator Barin Redstone · {object:171709} High Seat
 	["{npc:1274}, in the {object:171709} with King Magni"] = "{npc:1274}, au {object:171709} avec le roi Magni",
 
@@ -542,7 +542,7 @@ return {
 
 	-- Step 104: Military Ward
 	-- {object:32359} Military Ward · {npc:11865} Buliwyf Stonehand · {object:32390} Hall of Arms (no name in this language: may be words)
-	["East to the {object:32359}: the warrior trainers and {npc:11865} in the {object:32390}, the hunter trainers beside it."] = "",
+	["East to the {object:32359}: the warrior trainers and {npc:11865} in the {object:32390}, the hunter trainers beside it."] = "Partez vers l’est jusqu’à {object:32359} : les maîtres des guerriers et {npc:11865} se trouvent dans {object:32390}, et les maîtres des chasseurs à côté.",
 
 	-- Step 105: Buliwyf Stonehand
 	-- {spell:197} Two-Handed Axes · {npc:11865} Buliwyf Stonehand · {object:32359} Military Ward
@@ -555,36 +555,36 @@ return {
 	-- Step 107: Druid trainer
 	["Druid trainer"] = "Maître des druides",
 	-- {npc:5505} Theridran · {zone:1453} Stormwind · {zone:1426} Dun Morogh
-	["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "",
+	["{npc:5505} in {zone:1453}; {zone:1426} has no druid trainer"] = "{npc:5505}, à {zone:1453} ; il n’y a pas de maître des druides à {zone:1426}",
 
 	-- Step 108: The Deeprun Tram
 	-- {area:2257} Deeprun Tram
 	["The {area:2257}"] = "{area:2257}",
 	-- {object:171524} Tinker Town · {area:2257} Deeprun Tram · {zone:1453} Stormwind
-	["East back into {object:171524}: the {area:2257} leaves from its east end. Ride it to {zone:1453}."] = "",
+	["East back into {object:171524}: the {area:2257} leaves from its east end. Ride it to {zone:1453}."] = "Retournez vers l’est dans {object:171524} : {area:2257} part de son extrémité est. Prenez-le pour rejoindre {zone:1453}.",
 
 	-- Step 109: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Tram pour {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Sur la plateforme {zone:1455} du {area:2257}, {npc:12997} demande de l'aide avec les rats : utilise son {item:17117} sur les Rats des profondeurs aux alentours de la plateforme, les rend, puis apporte sa lettre à son frère {npc:13018} à la fin {zone:1453}.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
-	["{npc:12997}, on the {zone:1455} platform"] = "",
+	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, sur le quai de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
-	["{npc:13016}: use the {item:17117}"] = "",
+	["{npc:13016}: use the {item:17117}"] = "{npc:13016} : utilisez {item:17117}",
 	-- {npc:13016} Deeprun Rat
-	["Catch {npc:13016}"] = "",
+	["Catch {npc:13016}"] = "Attrapez {npc:13016}",
 
 	-- Step 110: Nipsy
 	-- {zone:1453} Stormwind · {npc:13018} Nipsy · {npc:5413} Furen Longbeard · {object:28027} Dwarven District
-	["Ride the tram to {zone:1453}: {npc:13018} waits on the {zone:1453} platform. {npc:5413} stands in the {object:28027}, just outside the tram."] = "",
+	["Ride the tram to {zone:1453}: {npc:13018} waits on the {zone:1453} platform. {npc:5413} stands in the {object:28027}, just outside the tram."] = "Prenez le tram pour {zone:1453} : {npc:13018} vous attend sur le quai de {zone:1453}. {npc:5413} se trouve à {object:28027}, juste à la sortie du tram.",
 	-- {npc:13018} Nipsy · {zone:1453} Stormwind
-	["{npc:13018}, on the {zone:1453} platform"] = "",
+	["{npc:13018}, on the {zone:1453} platform"] = "{npc:13018}, sur le quai de {zone:1453}",
 
 	-- Step 111: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District
-	["From the {object:28027} south-west to {object:2098}: {npc:1646}'s compass is in his old house in {zone:1436}, on the way. The flight master and the {object:2096} are south of the square."] = "",
+	["From the {object:28027} south-west to {object:2098}: {npc:1646}'s compass is in his old house in {zone:1436}, on the way. The flight master and the {object:2096} are south of the square."] = "Du sud-ouest de {object:28027} à {object:2098} : la boussole de {npc:1646} se trouve dans son ancienne maison à {zone:1436}, en route. Le maître de vol et le {object:2096} se trouvent au sud de la place.",
 
 	-- Step 112: Stormwind flight master
 	-- {zone:1453} Stormwind
@@ -624,12 +624,12 @@ return {
 
 	-- Step 122: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb · {area:87} Goldshire · {zone:1436} Westfall
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:87} and east Elwynn are next, then {zone:1436}."] = "",
+	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:87} and east Elwynn are next, then {zone:1436}."] = "Retour à {npc:6122}. Utilisez le {item:6928} au cercle d'invocation dans la cave du {object:2164} et battez le marcheur du vide qu'il appelle. {area:87} et East Elwynn sont les suivants, puis {zone:1436}.",
 	["Subdue the voidwalker"] = "Soumettez le marcheur du Vide",
 
 	-- Step 123: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
-	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "",
+	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "Quittez {zone:1453} par la porte principale et suivez la route vers le sud jusqu'à {area:87} : l'est d'Elwynn arrive avant {zone:1436}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:40} is next, west of {area:87}."] = "Retournez voir {npc:6122}. Utilisez le {item:6928} au cercle d'invocation dans la cave de l'{object:2164} et vainquez le marcheur du Vide qu'il appelle. La {area:40} est la suite, à l'ouest de {area:87}.",

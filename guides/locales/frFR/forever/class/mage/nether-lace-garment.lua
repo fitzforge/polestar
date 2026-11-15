@@ -37,7 +37,7 @@ return {
 
 	-- Step 6: Kil'hala
 	-- {npc:3484} Kil'hala
-	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
+	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "{npc:3484}, un tailleur troll, travaille à la Croisée. La robe apporte de l’intelligence, de l’endurance et de l’esprit ; la tunique apporte davantage d’intelligence et d’endurance, mais pas d’esprit.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "Une robe ou une tunique pour les mages morts-vivants et trolls, vers la fin des niveaux 20.",

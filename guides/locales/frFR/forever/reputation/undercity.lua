@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Undercity Reputation"] = "Réputation : Fossoyeuse",
 	-- {item:14047} Runecloth
-	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "",
+	["Tirisfal quests while you level, the Plaguelands quests from 55, then {item:14047} to Exalted."] = "Quêtes Tirisfal pendant que vous progressez, les quêtes Maleterres de 55, puis {item:14047} jusqu'à Exalté.",
 	-- {faction:68} Undercity
 	["Exalted with the {faction:68}"] = "Exalté auprès de {faction:68}",
 
@@ -24,7 +24,7 @@ return {
 	-- {area:154} Deathknell
 	["{area:154} (optional hub)"] = "{area:154} (étape facultative)",
 	-- {area:154} Deathknell · {faction:68} Undercity · {npc:1661} Novice Elreth · {npc:1570} Executor Arren · {npc:1740} Deathguard Saltain
-	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "",
+	["Forever pays these old quests in full at any level. {area:154}, the Forsaken start at the west end of Tirisfal: about 900 {faction:68} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:1661}, {npc:1570} and {npc:1740} stand in the village."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:154}, les Réprouvés commencent à l'extrémité ouest de Tirisfal : environ la réputation 900 {faction:68} en minutes 25. Les quêtes de la zone de départ ne donnent aucune part aux autres villes. {npc:1661}, {npc:1570} et {npc:1740} se trouvent dans le village.",
 
 	-- Step 3: Deathknell: the next quests
 	-- {area:154} Deathknell
@@ -57,7 +57,7 @@ return {
 	-- {area:159} Brill
 	["{area:159} (optional hub)"] = "{area:159} (étape facultative)",
 	-- {area:159} Brill · {faction:68} Undercity · {npc:1515} Executor Zygand · {npc:1499} Magistrate Sevren · {npc:1518} Apothecary Johaan · {npc:1496} Deathguard Dillinger · {npc:1500} Coleman Farthing
-	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "",
+	["Forever pays these old quests in full at any level. {area:159} and the fields around it: about 1,100 {faction:68} reputation in 45 minutes. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} and {npc:1500} are in the town."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:159} et les champs qui l'entourent : à propos de la réputation 1 100 {faction:68} en minutes 45. {npc:1515}, {npc:1499}, {npc:1518}, {npc:1496} et {npc:1500} sont dans la ville.",
 
 	-- Step 9: Around Brill
 	-- {area:159} Brill
@@ -111,7 +111,7 @@ return {
 
 	-- Step 18: Bulwark: Scarlet Diversions
 	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152} est le camp des Réprouvés sur la route de Tirisfal vers {zone:1422}. La chaîne de {npc:10837} vous envoie contre les chaudrons du Fléau des {zone:1422} : à propos de la réputation de 820 {faction:68}. Prenez un {item:12814} dans la boîte à côté de lui ; brûlez la tente de commandement du camp écarlate entre {area:200} et {area:199} et plantez le {item:12807} à côté.",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (niveau 53)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -133,13 +133,13 @@ return {
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["{npc:10902}: use the {item:12815} at the door"] = "{npc:10902} : utilisez la {item:12815} à la porte",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
-	["Mark {npc:10902} with the {item:12815}"] = "",
+	["Mark {npc:10902} with the {item:12815}"] = "Marquez {npc:10902} avec la {item:12815}",
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
-	["Mark {npc:10903} with the {item:12815}"] = "",
+	["Mark {npc:10903} with the {item:12815}"] = "Marquez {npc:10903} avec la {item:12815}",
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
-	["Mark {npc:10904} with the {item:12815}"] = "",
+	["Mark {npc:10904} with the {item:12815}"] = "Marquez {npc:10904} avec la {item:12815}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
-	["Mark {npc:10905} with the {item:12815}"] = "",
+	["Mark {npc:10905} with the {item:12815}"] = "Marquez {npc:10905} avec la {item:12815}",
 
 	-- Step 22: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
@@ -198,7 +198,7 @@ return {
 	-- {quest:2936} The Spider God
 	["{quest:2936} (optional chain)"] = "{quest:2936} (suite optionnelle)",
 	-- {zone:1425} Hinterlands · {area:272} Tarren Mill · {area:367} Sen'jin Village · {area:978} Zul'Farrak · {faction:68} Undercity · {quest:2937} Summoning Shadra · {quest:2938} Venom to the Undercity · {quest:2933} Venom Bottles
-	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "",
+	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "Six quêtes à travers les réputations {zone:1425}, {area:272}, {area:367}, {area:978} et {faction:68} : 600 {faction:68} et 225 Sombrelance. {quest:2937} et {quest:2938} sont de niveau 55 et paient 400 en totalité à 60 ; les quatre qui les précèdent sont de niveau 43 à 45 et paient également intégralement. Comptez environ 90 minutes avec le trajet. Le {quest:2933} se trouve sur les tables du village Witherbark à l'ouest du {zone:1425} : cliquez dessus pour commencer.",
 
 	-- Step 34: Shadra'Alor: an Undamaged Venom Sac
 	-- {area:353} Shadra'Alor · {quest:2934} Undamaged Venom Sac

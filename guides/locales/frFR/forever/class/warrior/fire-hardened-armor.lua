@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "Armure en acier trempé",
-	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "Disponible dès le niveau 20 avec un bouclier ; un haubert au niveau 28, puis une coiffe, des jambières et des gantelets auprès de trois forgerons.",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -97,7 +97,7 @@ return {
 
 	-- Step 19: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "Le {quest:1708} pousse sur le fond marin juste au sud de {area:150}, près des cabanes murlocs et d'un bateau naufragé : huit là-bas et deux au sud-est du port, chacun de retour en 3 minutes, vous attendrez donc les réapparitions pour atteindre 20. Les murlocs peuvent vous attraper sous l'eau : surveillez votre respiration, et un {item:5996} supprime le risque.",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "{item:6848}, sur le {quest:1708}",
 

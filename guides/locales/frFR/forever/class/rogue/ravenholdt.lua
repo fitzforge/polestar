@@ -29,17 +29,17 @@ return {
 	-- plural, as words: Syndicate Rogues = {npc:2260} Syndicate Rogue
 	["{npc:266216} is inside {area:275}, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says {npc:13085}. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry {quest:6701} for the guards' repeatable reputation quest."] = "{npc:266216} est à l'intérieur du {area:275}, la forteresse du Syndicat au sud du manoir ; il peut se tenir à l'un de quinze endroits du donjon, alors cherchez bien. Vite et sans bruit, dit {npc:13085}. Faites les poches des Voleurs, Mages de l'ombre et Sentinelles du Syndicat de niveau 20-21 sur votre chemin : ils portent des {quest:6701} pour la quête de réputation répétable des gardes.",
 	-- {quest:6701} Syndicate Emblems
-	["Pick Pocket Syndicate members for {quest:6701}"] = "",
+	["Pick Pocket Syndicate members for {quest:6701}"] = "Utilisez Vol à la tire sur les membres du Syndicat pour {quest:6701}",
 
 	-- Step 4: Myrokos Silentform
 	-- {npc:6766} Ravenholdt Guard
-	["{npc:6766}: one emblem each time, 100 reputation"] = "",
+	["{npc:6766}: one emblem each time, 100 reputation"] = "{npc:6766} : un emblème à chaque fois, pour 100 points de réputation",
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
 	["In your mid 30s {npc:13085} has two more jobs; take both. Barton leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "Vers le milieu de la trentaine, {npc:13085} a deux autres travaux ; acceptez les deux. Barton mène une équipe d'éclaireurs du Syndicat à {area:280}, dans l'est des {zone:1416}, dans l'une des maisons, entouré de membres du Syndicat camouflés. Faites-lui les poches pour le rapport et ne le tuez pas : il ne le laisse pas tomber. Si vous êtes de plus bas niveau que lui, il voit à travers le camouflage ; le talent Maître de l'illusion aide, ou bien utilisez Distraction sur lui, puis Disparition, et revenez par-derrière. {spell:921} peut rater plusieurs fois de suite.",
 	-- {item:275482} Barton's Scouting Report
-	["Pick Pocket Barton for {item:275482}"] = "",
+	["Pick Pocket Barton for {item:275482}"] = "Pick Pocket Barton pour {item:275482}",
 
 	-- Step 6: Covert Extraction
 	-- {npc:13085} Myrokos Silentform · {area:281} Ruins of Alterac · {zone:1416} Alterac Mountains

@@ -78,7 +78,7 @@ return {
 
 	-- Step 11: Back to Thendal Village
 	-- {npc:257551} Valreaa Valewind · {npc:251366} Aetheen of the Gales · {npc:252095} Hanaa Nightwind
-	["Back up from the den to {npc:257551} and {npc:251366} in the village before heading south-west to {npc:252095}: the road from her camp leads on south to Shen'dar."] = "",
+	["Back up from the den to {npc:257551} and {npc:251366} in the village before heading south-west to {npc:252095}: the road from her camp leads on south to Shen'dar."] = "Remontez de la tanière à {npc:257551} et {npc:251366} dans le village avant de vous diriger vers le sud-ouest jusqu'à {npc:252095} : la route depuis son camp mène au sud jusqu'à Shen'dar.",
 
 	-- Step 12: Hanaa Nightwind
 	-- {npc:252095} Hanaa Nightwind · {area:16622} Thendal Grove · {npc:256935} Malduko Cloudcrush
@@ -88,7 +88,7 @@ return {
 
 	-- Step 13: Windshaper Boro
 	-- {area:16635} Thendal Village
-	["Back to Boro in {area:16635} with the Signet."] = "",
+	["Back to Boro in {area:16635} with the Signet."] = "Retour à Boro en {area:16635} avec le Signet.",
 	-- {item:6635} Earth Sapta · {area:16988} Rise of Spirits · {npc:251166} Minor Manifestation of Earth
 	["drink the {item:6635} at the {area:16988}, just east of the village, to see the {npc:251166}"] = "buvez {item:6635} à {area:16988}, juste à l'est du village, pour voir la {npc:251166}",
 	-- {npc:251374} Windshaper Boro · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -111,7 +111,7 @@ return {
 	["{area:16624}: kill these as you meet them"] = "{area:16624} : tuez-les au passage",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
-	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "",
+	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Fièregriffes et Galestriders partagent les prairies autour de {area:16624} ; les Galestriders broutent le plus épais juste à l'ouest. Ils abandonnent à la fois le Petits oeuf et le {item:5469} pour {npc:251905}.",
 
 	-- Step 31: Shen'dar Village hand-ins
 	-- {area:16624} Shen'dar Village
@@ -168,7 +168,7 @@ return {
 
 	-- Step 44: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "Sur la route vers le sud-est en direction de {area:16638}, {npc:273017} surveille {quest:98512}, juste au nord de lui.",
 
 	-- Step 45: Valanaar
 	-- {npc:252476} Talaanis Shadowsong
@@ -188,7 +188,7 @@ return {
 
 	-- Step 48: Ayessa Dawnsinger
 	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
+	["{npc:260628}, upstairs"] = "{npc:260628}, à l’étage",
 	-- {npc:251968} Ayessa Dawnsinger
 	["talk to {npc:251968}"] = "parlez à {npc:251968}",
 	-- {npc:252382} Sessaria Skystride · {npc:251968} Ayessa Dawnsinger · {quest:97243} Call of Fire
@@ -225,9 +225,9 @@ return {
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge."] = "Des Pommes d’orage mûres et de la Poussière de voltemouche jonchent le verger ; des Bandits affamés ({npc:252802}) le pillent. Des trotteurs des trombes paissent dans les champs à l'est. L'assemblage brisé flotte à la lisière nord du verger.",
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple
-	["Ripe Stormapples"] = "",
+	["Ripe Stormapples"] = "Pommes d’orage mûre",
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
-	["Hungry Bandits"] = "",
+	["Hungry Bandits"] = "Bandits affamés",
 	-- {npc:268592} Olariaan Swiftburn
 	["{npc:268592}, at the Shrine of Flames just south-east of the orchard"] = "{npc:268592}, au sanctuaire des Flammes juste au sud-est du verger",
 
@@ -299,7 +299,7 @@ return {
 	-- Step 68: The turncoat
 	["The turncoat"] = "Le traître",
 	-- {area:16626} Gustberry Lowlands · {area:16638} Valanaar · {npc:273017} Fendaal Windstone
-	["The turncoat's house is in the {area:16626} north-west of {area:16638}, just north of {npc:273017}."] = "",
+	["The turncoat's house is in the {area:16626} north-west of {area:16638}, just north of {npc:273017}."] = "La maison du renégat se trouve à {area:16626}, au nord-ouest de {area:16638}, juste au nord de {npc:273017}.",
 	["search the dead cultist in the house"] = "fouillez le cultiste mort dans la maison",
 	-- {npc:253372} Dead Cultist
 	["{npc:253372}, inside"] = "{npc:253372}, à l'intérieur",
@@ -367,14 +367,14 @@ return {
 
 	-- Step 85: The Strange Hermit
 	-- {area:16625} Windsong Lake
-	["The hermit lives at {area:16625}'s west shore."] = "",
+	["The hermit lives at {area:16625}'s west shore."] = "L’ermite vit sur la rive ouest de {area:16625}.",
 	-- {npc:251684} Strange Hermit
 	["talk to {npc:251684}"] = "parlez à {npc:251684}",
 
 	-- Step 86: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow · Wind Hollow Essences = {item:262357} Wind Hollow Essence
-	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "",
+	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Les cônes {item:257128} poussent au sud de l'ermite ; le Creux du vent dérive à l'est du lac et laisse également tomber le Essences de creux du vent pour le {quest:93736} de {npc:254344}. Les biens des réfugiés se trouvent le long de la rive nord de {area:16625} ; {npc:259013} se trouve à son extrémité nord-ouest.",
 
 	-- Step 88: The Shrine of Akir
 	-- {area:16629} Shrine of Akir
@@ -414,13 +414,13 @@ return {
 	-- {npc:259119} Alaana Stormwalker
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Vous quittez l'île pour de bon. {npc:259119} attend là où se pose le dirigeable.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
-	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "",
+	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119} : conservez cette quête pour Thrall, à {zone:1454}, au début du guide suivant",
 	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
 	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:259118}, près de l'aire d'atterrissage : pour {npc:3033} à {zone:1456}",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} se trouve à {area:2197}, la grotte sous {area:1640} : descendez à l’intérieur, car la flèche ne distingue pas les étages.",
 
 	-- Step 99: Traditions of the Bluff
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
@@ -436,7 +436,7 @@ return {
 
 	-- Step 100: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "",
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} entraîne les druides sur {area:1639}. Il vous apprend {spell:18960} ; L'accueil de {npc:11802} attend votre voyage {spell:499} vers 21 (pour toujours/horde/02-les-barrens).",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -462,15 +462,15 @@ return {
 
 	-- Step 108: The Crossroads
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Apprenez la trajectoire de vol à partir de {npc:3615} sur la plate-forme de la tour. Les propres quêtes de {area:380} viennent après {zone:1421}, dans le guide {zone:1413}.",
 
 	-- Step 109: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Depuis la Croisée, suivez la route vers le nord-est jusqu'à {area:379}, traversez la {area:815} jusqu'à {zone:1411} et continuez vers le nord jusqu'à la porte principale de {zone:1454}. Le guide suivant commence dans {zone:1454} : Thrall prend {quest:95350}, et le zeppelin part pour {zone:1420} et {zone:1421}.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982}, à {zone:1454}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16624} with what you found."] = "Retournez à {area:16624} avec ce que vous avez trouvé.",

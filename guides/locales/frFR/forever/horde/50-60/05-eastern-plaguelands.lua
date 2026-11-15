@@ -82,7 +82,7 @@ return {
 	-- {zone:1423} Eastern Plaguelands
 	["{zone:1423}: kill these as you meet them"] = "{zone:1423} : tuez-les au passage",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
-	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "",
+	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.\nThe shattered sword lies on the ground north-west of the lake."] = "Chiens pestiféré et leurs avortons parcourent les rives du lac au sud-ouest de la chapelle ; Chauve-souris pestiférée et Larves putride partagent le sol.\nL'épée brisée repose sur le sol au nord-ouest du lac.",
 
 	-- Step 18: Nathanos Blightcaller
 	-- {npc:15193} The Banshee Queen · {area:2260} Marris Stead · {area:2261} Undercroft
@@ -149,7 +149,7 @@ return {
 
 	-- Step 33: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
-	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "",
+	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033} forme les druides à {area:1639} ; {npc:246344}, pour les paladins, se trouve aussi en ville.",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} sur {area:1639} ; {npc:246344}",
 
@@ -159,7 +159,7 @@ return {
 
 	-- Step 36: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
-	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "",
+	["Ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "Montez la route vers le nord. Le chaudron se trouve à {area:1762}, juste au sud-ouest de {area:1769} ; les furbolgs Mort-bois y sont hostiles.",
 
 	-- Step 37: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
@@ -182,7 +182,7 @@ return {
 	-- {zone:1452} Winterspring · {area:2246} Frostfire Hot Springs
 	["Back through the tunnel and take the {zone:1452} exit, then ride south to {area:2246}."] = "Repassez par le tunnel et prenez la sortie vers {zone:1452}, puis allez au sud jusqu'à {area:2246}.",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
-	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "",
+	["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086} se trouve à {zone:1448}, lors d’un prochain passage : conservez cette quête.",
 
 	-- Step 44: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
@@ -223,9 +223,9 @@ return {
 
 	-- Step 52: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
-	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
+	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "Le vol atterrit à {area:541} : {npc:9997} se tient à côté du maître de vol et {npc:8737} près de la grotte à quelques pas. Le travail de {npc:9997} se trouve à Un'Goro sur le chemin du prochain guide vers le nord.",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
-	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
+	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941} est destinée à {npc:9117}, dans la grotte ici, au retour à {area:541} dans le guide suivant : conservez cette quête.",
 
 	-- Step 53: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
@@ -233,7 +233,7 @@ return {
 
 	-- Step 54: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
-	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
+	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "Partez vers le sud-ouest jusqu’aux ruines de {area:2738}. {object:179565}, pour {quest:1123}, se trouve dans l’une des maisons en ruine.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Un Parchemin déchiré se trouve à l'entrée de {area:2261}, la crypte au sud de {area:2260}.",

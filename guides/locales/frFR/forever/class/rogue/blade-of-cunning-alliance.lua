@@ -23,7 +23,7 @@ return {
 	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire · {spell:921} Pick Pocket · {spell:2070} Sap
 	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "Le {npc:6846} (niveau 10, un gobelin) travaille dans la maison du quai, au {area:797}, sur la rivière à la limite sud de la forêt d'Elwynn, au sud de {area:87}. Entrez camouflé et utilisez {spell:921} sur lui par-derrière : le programme ne tombe jamais de son cadavre. N'ouvrez pas avec {spell:2070} ni par un combat : il appelle trois vagues de gardes du corps. Tenez-vous loin des cheminées de la maison ; elles vous font sortir du camouflage. Il revient 2 à 5 minutes après sa mort.",
 	-- {spell:921} Pick Pocket · {npc:6846} Defias Dockmaster · {item:7675} Defias Shipping Schedule
-	["{spell:921} the {npc:6846} for the {item:7675}"] = "",
+	["{spell:921} the {npc:6846} for the {item:7675}"] = "Utilisez {spell:921} sur {npc:6846} pour obtenir {item:7675}",
 
 	-- Step 4: Back to Mathias Shaw
 	["Back to Mathias Shaw"] = "Retour auprès de Mathias Shaw",
@@ -58,7 +58,7 @@ return {
 	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade · {spell:2983} Sprint
 	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "{npc:6909} (satyre de niveau 12) vit au bout d'une grande branche au nord de la {area:264} : passez par la brèche en V dans le mur au nord de la clairière et avancez le long de la branche. Faites-lui les poches pour le journal ; le tuer ne le donne pas, et un combat fait sortir trois Serviteurs de Sethir. Il fait des allers-retours entre la branche principale et une branche latérale : attendez camouflé au bout de la branche principale et volez-le par-derrière quand il revient. Puis utilisez {spell:2983} pour fuir. Il revient 8 minutes et demie après sa mort.",
 	-- {item:7737} Sethir's Journal
-	["Pick Pocket Sethir the Ancient for {item:7737}"] = "",
+	["Pick Pocket Sethir the Ancient for {item:7737}"] = "Pick Pocket Sethir l’Ancien pour {item:7737}",
 
 	-- Step 12: Back to Syurna
 	-- {npc:4163} Syurna

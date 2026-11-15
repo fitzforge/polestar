@@ -42,7 +42,7 @@ return {
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon; inside"] = "{npc:2230}, à côté de Lydon ; à l'intérieur",
 	-- {quest:567} Dangerous!
-	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "",
+	["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "L'affiche {quest:567} : Kalaba avec les paysans, Wilkes à la forge ; le commis et le mineur lors de la visite vers 30 ; à l'intérieur",
 
 	-- Step 7: Stanley
 	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
@@ -62,7 +62,7 @@ return {
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215} : ordres pour {npc:270438}, sur la route de Fort-de-Durn",
 	-- {npc:2216} Apothecary Lydon · {item:3502} Mudsnout Blossoms
-	["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "",
+	["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "{npc:2216}, à l’intérieur : {item:3502} pousse au sud-ouest de Fort-de-Durn, sur le chemin pour s’y rendre",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -79,14 +79,14 @@ return {
 	-- {area:290} Dun Garok
 	["Masoj hides on the hillside above {area:290}, south-west of Durnholde, on the way down to the blossoms."] = "Masoj se cache sur le flanc de colline au-dessus de {area:290}, au sud-ouest de Fort-de-Durn, en descendant vers les fleurs.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
-	["{npc:270438}, once {quest:98094} is in"] = "",
+	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, après avoir rendu {quest:98094}",
 
 	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
 	["Just south of Masoj, the {item:3502} grow on the hillsides above the river."] = "Juste au sud de Masoj, les {item:3502} poussent sur les collines au-dessus de la rivière.",
 
 	-- Step 13: The southern peak
-	["The southern peak"] = "",
+	["The southern peak"] = "Le sommet sud",
 	-- {area:290} Dun Garok
 	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, south-east of the blossoms: use a vial at the top."] = "Masoj veut qu'une Fiole d'apothicaire soit placée sur trois sommets. Celui du sud est la colline au-dessus de {area:290}, au sud-est des fleurs : utilisez une fiole au sommet.",
 
@@ -97,40 +97,40 @@ return {
 	["Inside"] = "À l'intérieur",
 
 	-- Step 15: The western peak
-	["The western peak"] = "",
+	["The western peak"] = "Le sommet ouest",
 	-- {area:287} Hillsbrad
-	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "",
+	["From {area:287} town climb the mountain to the north, right up to its top on the Alterac border: the western vial goes there, not on the lower slope."] = "Depuis la ville de {area:287}, gravissez la montagne au nord jusqu’à son sommet, à la frontière d’Alterac : la fiole de l’ouest doit être placée là-haut, et non sur la pente en contrebas.",
 
 	-- Step 16: Back to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Back to {area:272}"] = "Retour à {area:272}",
 	-- {area:272} Tarren Mill
-	["East along the foothills, then down into {area:272}."] = "",
+	["East along the foothills, then down into {area:272}."] = "Longez les contreforts vers l’est, puis descendez vers {area:272}.",
 
 	-- Step 17: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
 	["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, à {zone:1458}",
 
 	-- Step 18: The northern peak
-	["The northern peak"] = "",
+	["The northern peak"] = "Le sommet nord",
 	-- {area:272} Tarren Mill
-	["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "",
+	["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "Le sommet nord se trouve au sud-est de {area:272}, sur le chemin descendant vers Fort-de-Durn.",
 
 	-- Step 19: Deathstalker Masoj
 	-- {area:290} Dun Garok
-	["Back down to Masoj on the hillside above {area:290}."] = "",
+	["Back down to Masoj on the hillside above {area:290}."] = "Redescendez auprès de Masoj, sur le flanc de colline au-dessus de {area:290}.",
 
 	-- Step 20: The Sepulcher
 	-- {area:272} Tarren Mill · {area:228} The Sepulcher · {npc:2121} Shadow Priest Allister
-	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "",
+	["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Remontez à pied jusqu’à {area:272}, puis prenez un vol pour {area:228} : {npc:2121} se trouve près de l’entrée de la crypte.",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Maître de vol de {area:272}",
 
 	-- Step 21: Fly to the Undercity
 	-- {area:1497} Undercity
-	["Fly to the {area:1497}"] = "",
+	["Fly to the {area:1497}"] = "Prendre un vol pour {area:1497}",
 	-- {npc:2226} Karos Razok · {area:1497} Undercity
-	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "",
+	["Fly on from {npc:2226}, the bat handler just east of the crypt, to the {area:1497}."] = "Prenez ensuite un vol auprès de {npc:2226}, le maître des chauves-souris juste à l’est de la crypte, pour rejoindre {area:1497}.",
 
 	-- Step 22: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter
@@ -164,18 +164,18 @@ return {
 
 	-- Step 29: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Caster {spell:18960}. Rejoignez les deux moitiés pendantes au {area:2362}, sur la rive nord-ouest du lac, avant de voir {npc:11802} dans {area:2361}. {npc:11802} se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885} : utilisez une moitié au {area:2362}",
 
 	-- Step 30: Aquatic Form
 	-- {quest:31} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "",
+	["Take {quest:31} from {npc:11802}, who stands upstairs in his building. Then {npc:11798} in {area:2361} flies druids to {area:1638}: {npc:3033} is on {area:1639}."] = "Prenez {quest:31} auprès de {npc:11802}, à l’étage de son bâtiment. Ensuite, {npc:11798}, à {area:2361}, transporte les druides à {area:1638} : {npc:3033} se trouve à {area:1639}.",
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798} à {area:2361} y emmène les druides",
 
 	-- Step 31: Back to the Crossroads
-	["Back to the Crossroads"] = "",
+	["Back to the Crossroads"] = "Retour à la Croisée",
 	-- {npc:3033} Turak Runetotem · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Entraînez-vous auprès de {npc:3033}. Avant de repartir, {npc:3024} et {npc:4721}, à quelques pas à l'est du maître des coursiers du vent, donnent deux quêtes qui se font en chemin dans les guides suivants ; puis prenez un vol pour la Croisée, où commence le guide suivant.",
 	-- {npc:3024} Tah Winterhoof · {quest:97538} Pigments for Paints · {area:464} Mirkfallon Lake
@@ -190,10 +190,10 @@ return {
 
 	-- Step 33: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "Le centre de {zone:1454}",
 
 	-- Step 34: Orgrimmar
-	["Train before you fly on: the next guide flies from here to the Crossroads."] = "",
+	["Train before you fly on: the next guide flies from here to the Crossroads."] = "Apprenez vos nouveaux sorts avant de repartir : le guide suivant vous fera prendre un vol d’ici pour la Croisée.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour de {area:275} ; ouvrez les deux cadenas.",

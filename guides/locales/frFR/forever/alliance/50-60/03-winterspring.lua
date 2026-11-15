@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} se trouve à la sortie du tunnel de {area:1769} donnant sur {zone:1452}, à votre arrivée.",
 
 	-- Step 4: Everlook's inn
 	-- {area:2255} Everlook
@@ -28,7 +28,7 @@ return {
 	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
 	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} se promène autour de {area:2255} : cherchez dans le cercle sur la carte",
 	-- {item:12383} Moontouched Feather
-	["{item:12383}, 110 yd north"] = "",
+	["{item:12383}, 110 yd north"] = "{item:12383}, à 110 mètres au nord",
 
 	-- Step 7: Ice Thistle Hills: kill these as you meet them
 	-- {area:2247} Ice Thistle Hills
@@ -52,9 +52,9 @@ return {
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "{area:2246} : tuez-les au passage",
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {item:14047} Runecloth · {zone:1452} Winterspring · {area:1584} Blackrock Depths
-	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "",
+	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}. Or, with a group, run the {area:1584} dungeon instead."] = "Le camp ouest Tombe-hiver se trouve dans les collines entre {npc:11556} et {npc:9298}. N'importe quel furbolg ici peut lâcher un {item:12771} (environ un sur dix : il fait partie des victoires nécessaires à ces quêtes) et un {quest:8471} (environ un sur trente : il fait partie des recharges) : faites un clic droit sur celui qui tombe. Gardez le {item:14047} que les furbolgs lâchent pour Meilosh.\nLe reste du travail de {zone:1452} est le niveau 55-58 : restez dans ce camp jusqu'au niveau 54, donc vos premières victoires comptent également pour {npc:9298} et {npc:11556}. Ou, en groupe, exécutez plutôt le donjon {area:1584}.",
 	-- {npc:7442} Winterfall Pathfinder
-	["grind on {npc:7442}"] = "",
+	["grind on {npc:7442}"] = "Tuez en boucle : {npc:7442}",
 
 	-- Step 11: Donova Snowden
 	-- {zone:1448} Felwood
@@ -63,10 +63,10 @@ return {
 	-- Step 12: Level 55.05
 	["Level 55.05"] = "Niveau 55.05",
 	-- {area:2255} Everlook · {area:2246} Frostfire Hot Springs · {area:1769} Timbermaw Hold · {quest:8471} Winterfall Ritual Totem · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56. Grind the Winterfall furbolgs camped by {area:2246} (Pathfinders, Totemics, Den Watchers): killing them raises your Timbermaw reputation, which the quests here and the walk through {area:1769} need, one of them drops the {quest:8471}, and they fill your bags with the thirty Runecloth Meilosh asks for. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Rechargez ici jusqu'au niveau 55.05 avant les remises à {area:2255} : elles vous amènent au niveau 56. Broyez les furbolgs Tombe-hiver campés par {area:2246} (Éclaireurs, Totemiques, Gardiens de la tanière) : les tuer augmente votre réputation Timbermaw, dont les quêtes ici et la promenade à travers {area:1769} ont besoin, l'un d'eux lâche le {quest:8471}, et ils remplissent vos sacs avec les trente Etoffe runique. Meilosh demande. Ou, en groupe, exécutez plutôt le donjon {area:1584} ou le donjon {area:1583} (inférieur).",
 
 	-- Step 13: Winterfall Ritual Totem
-	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "",
+	["Any Winterfall furbolg can drop the totem, about one kill in thirty: if the top-up did not bring one, keep killing them here until it drops, then right-click it."] = "N'importe quel furbolg Tombe-hiver peut lâcher le totem, environ une fois sur trente : si la recharge n'en a pas apporté, continuez à les tuer ici jusqu'à ce qu'il tombe, puis faites un clic droit dessus.",
 	-- {area:1769} Timbermaw Hold
 	["For Kernda in {area:1769}: keep it"] = "Pour Kernda à {area:1769} : gardez-le",
 
@@ -78,7 +78,7 @@ return {
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cornes de yéti en parfait état ({item:12367})",
 	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
-	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "",
+	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns."] = "Retour aux collines : seuls les Matriarches Chardon de glace et Patriarches Chardon de glace portent les klaxons.",
 
 	-- Step 17: Everlook
 	-- {npc:10978} Legacki
@@ -118,13 +118,13 @@ return {
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616} : les termites viendront plus tard, à {area:2627}",
 	-- {npc:10838} Commander Ashlam Valorfist
-	["{npc:10838}: the watchtowers are in Andorhal, keep it"] = "",
+	["{npc:10838}: the watchtowers are in Andorhal, keep it"] = "{npc:10838} : les tours de guet se trouvent à Andorhal ; conservez cette quête",
 	-- {npc:11053} High Priestess MacDonnell · {area:200} Dalson's Tears
-	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "",
+	["{npc:11053}: the cauldron is at {area:200}, keep it"] = "{npc:11053} : le chaudron se trouve à {area:200} ; conservez cette quête",
 
 	-- Step 24: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1423} Eastern Plaguelands
-	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "",
+	["{npc:10739} stands by the farm at the {area:202}, on the road east to the {zone:1423}."] = "{npc:10739} se trouve près de la ferme de {area:202}, sur la route vers l’est menant à {zone:1423}.",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 25: Into Eastern Plaguelands
@@ -157,7 +157,7 @@ return {
 	-- Step 31: Corin's Crossing
 	-- {area:2264} Corin's Crossing · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
+	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.\nCareful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Le Fléau autour de {area:2264}, à l'ouest de la chapelle, lâche les deux types de Pierre du Fléau ; Esprits de Darrowshire s'en élève : parlez à chacun pour le libérer.\nAttention : {npc:10411} devient invisible hors combat et appelle Gargouilles Aile-de-roc une fois le combat commencé. Seuls 3 existent et ils réapparaissent toutes les 15 min.",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
 

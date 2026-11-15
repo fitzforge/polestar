@@ -52,7 +52,7 @@ return {
 
 	-- Step 11: Thelsamar
 	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "",
+	["Set your hearth here: the {zone:1427} guide starts from {area:144}."] = "Faites-en votre foyer : le guide de {zone:1427} commence à {area:144}.",
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -62,7 +62,7 @@ return {
 
 	-- Step 15: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} se trouve à l’étage, au-dessus de {npc:7916} : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
 	["{npc:7907}'s next errand goes to {zone:1446}: skip it."] = "La course suivante de {npc:7907} Lightwind mène en {zone:1446} : passez-la.",
 	-- {npc:7916} Erelas Ambersky · {zone:1428} Burning Steppes
@@ -100,7 +100,7 @@ return {
 
 	-- Step 27: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "",
+	["Fly to {area:42}"] = "Prendre un vol pour {area:42}",
 
 	-- Step 30: The bloodmages
 	["The bloodmages"] = "Les mages de sang",
@@ -141,7 +141,7 @@ return {
 	-- Step 36: The Bloodsail captains
 	["The Bloodsail captains"] = "Les capitaines de la Voile sanglante",
 	-- {area:35} Booty Bay · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "",
+	["The three Bloodsail ships lie at anchor off the coast just south of {area:35}: {npc:2550} (45) and {npc:2548} (46) on the nearer decks, {npc:2546} (48) on the flagship, each with a crew of 42-45 pirates. Swim out, clear each deck from the edge and pull one at a time."] = "Les trois navires Bloodsail sont ancrés au large de la côte, juste au sud de {area:35} : {npc:2550} (45) et {npc:2548} (46) sur les ponts les plus proches, {npc:2546} (48) sur le vaisseau amiral, chacun avec un équipage de Pirates 42-45. Nagez, dégagez chaque pont du bord et tirez-en un à la fois.",
 
 	-- Step 38: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash

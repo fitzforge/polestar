@@ -12,7 +12,7 @@ return {
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}, {object:172957} : gardez-la pour {zone:1451}",
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist · {area:1237} Valormok
-	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "",
+	["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "{npc:4485}, dans {object:172958} : conservée depuis le premier passage à {zone:1447} ; sinon, prenez-la ici pour {npc:8576}, à {area:1237}",
 
 	-- Step 2: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -35,12 +35,12 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "Les caisses de {npc:256386}",
 	-- {npc:256386} Dokimi · {area:1237} Valormok
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "",
+	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "Suivez la route vers le nord jusqu’à la Croisée ; {npc:256386} s’y trouve. Ouvrez chaque caisse qu’elle vous remet et rapportez-en le contenu. Prenez ensuite un vol depuis la Croisée vers {area:1237}.",
 
 	-- Step 6: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Prendre un vol pour {area:1237}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
 	-- Step 8: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Allez à l'est jusqu'aux ruines sur la côte. Remplissez les quatre fioles du Chimiste Cuely aux bassins le long du rivage ; des nagas Fouette-bile patrouillent entre eux.",
@@ -88,7 +88,7 @@ return {
 
 	-- Step 18: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
-	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} et {npc:8393} travaillent à l’Apothicarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, à côté de lui",
 
@@ -111,7 +111,7 @@ return {
 
 	-- Step 26: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Quittez {zone:1458} en suivant la route vers l’est ; {area:152} garde le passage vers {zone:1422}.",
 
 	-- Step 28: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw

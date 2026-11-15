@@ -15,7 +15,7 @@ return {
 	-- {faction:72} Stormwind · {area:3197} Chillwind Camp · {zone:1428} Burning Steppes
 	["About 1,150 {faction:72} reputation from level 52-58 quests at {area:3197} and in the {zone:1428}"] = "Environ 1 150 de réputation {faction:72} grâce aux quêtes de niveau 52-58 du {area:3197} et des {zone:1428}",
 	-- {faction:72} Stormwind · {area:717} Stockade
-	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "",
+	["About 4,500 {faction:72} reputation from low-level quests in Elwynn and the {area:717}"] = "À propos de la réputation de 4 500 {faction:72} provenant des quêtes de bas niveau d'Elwynn et du {area:717}",
 
 	-- Step 1: Clavicus Knavingham, the cloth quartermaster
 	-- {npc:14722} Clavicus Knavingham
@@ -29,11 +29,11 @@ return {
 	-- {faction:72} Stormwind
 	["{faction:72} errands"] = "Courses à {faction:72}",
 	-- {faction:72} Stormwind
-	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: four quick deliveries inside {faction:72} for 200 reputation in about five minutes. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : quatre livraisons rapides à l'intérieur de {faction:72} pour la réputation 200 en cinq minutes environ. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 3: Northshire Valley
 	-- {area:87} Goldshire · {npc:823} Deputy Willem · {npc:197} Marshal McBride · {area:24} Northshire Abbey
-	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Human start valley north of {area:87}: about 1,600 reputation in 40 minutes at 60, the best rate of the hubs. {npc:823} and {npc:197} stand at {area:24}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "En option : la vallée de départ humain au nord de {area:87} : environ la réputation 1,600 en minutes 40 à 60, le meilleur tarif des hubs. {npc:823} et {npc:197} se trouvent à {area:24}. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 4: Northshire: kobolds, wolves and bandanas
 	["Northshire: kobolds, wolves and bandanas"] = "Comté-du-Nord : kobolds, loups et foulards",
@@ -77,7 +77,7 @@ return {
 
 	-- Step 11: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:253} William Pestle
-	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:87}, Westbrook and the farms south of {area:87}: about 1,450 reputation in an hour at 60. {npc:240}, {npc:241} and {npc:253} stand around the Lion's Pride Inn. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : {area:87}, Ruisseau-de-l’Ouest et les fermes au sud de {area:87} : environ la réputation de 1 450 en une heure à 60. {npc:240}, {npc:241} et {npc:253} se trouvent autour du Lion's Pride Inn. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 12: Goldshire: the mines
 	-- {area:87} Goldshire
@@ -129,7 +129,7 @@ return {
 	-- Step 20: Eastvale
 	["Eastvale"] = "Val d'Est",
 	-- {npc:261} Guard Thomas · {area:91} Tower of Azora
-	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern Elwynn, around {npc:261} on the bridge and the {area:91}, about 1,000 reputation in 40 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : est d'Elwynn, autour de {npc:261} sur le pont et {area:91}, environ 1, réputation 000 en minutes 40 à 60. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 21: Eastvale: the work
 	["Eastvale: the work"] = "Val d'Est : le travail",
@@ -151,7 +151,7 @@ return {
 	-- {area:717} Stockade
 	["{area:717}: two quests"] = "{area:717} : deux quêtes",
 	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
-	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : le {area:717} est la prison de {faction:72}, un donjon dans les canaux du {object:2101}. Sur 60, vous l'effacez seul en dix minutes : réputation 300. {npc:1719} se trouve à la porte, {npc:1721} dans {object:2100}. Deux autres quêtes {area:717} commencent à l'extérieur de la ville, 100 chacune, si vous passez par là : What Comes Around... ({npc:1696}) de {npc:859} dans {area:69} et Crime et Châtiment ({npc:1663}) de {npc:270} dans {area:42}. (Les émeutes Stockade, 100 plus, nécessitent d'abord la lettre non envoyée de {npc:639} dans {area:1581}.) Forever paie intégralement ces anciennes quêtes à n'importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 25: Inside the Stockade
 	-- {area:717} Stockade
@@ -179,7 +179,7 @@ return {
 	-- Step 30: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "",
+	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Ces quêtes sont de niveau 52 à 58, elles paient donc intégralement à 60. {npc:10838} et {npc:11053} à {area:3197}, au sud du {zone:1422}, vous envoient contre les quatre chaudrons du Fléau : 820 {faction:72} réputation en tout et 600 {object:92525} à côté. Les Ecorcheurs Squelette et Goules écumante parcourent les champs au nord du camp.",
 
 	-- Step 31: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
@@ -238,7 +238,7 @@ return {
 	-- Step 40: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} à {area:2418}, au sud-est du {zone:1428}, commence {quest:4183} : une chaîne vers {area:69} et {object:2117}, 175 {faction:72} et 175 Réputation {zone:1457} (niveau 54). Les Rejetons noir et les {npc:7044} vivent sur les pentes au nord du Vigil ; les {npc:7040} et {npc:7041} à l'ouest de celle-ci, au milieu de la zone.",
 
 	-- Step 41: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire
@@ -260,7 +260,7 @@ return {
 	-- {quest:7796} Additional Runecloth
 	["{quest:7796} to Honored"] = "{quest:7796} jusqu'à Honoré",
 	-- {quest:7796} Additional Runecloth · {item:14047} Runecloth · {faction:72} Stormwind · {zone:1436} Westfall · {area:69} Lakeshire · {zone:1431} Duskwood · {area:42} Darkshire
-	["{quest:7796}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a non-Human stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Humans start 900 higher: 88 turn-ins; a Skyborne's Exploring the Alliance paid 100, two fewer). The level 52-58 quests above take 23 turn-ins off; every Elwynn hub you did takes 20 to 30 more off. More quest hubs pay {faction:72}, in full while they are no more than 5 levels below you: {zone:1436} (about 2,500 in all), Redridge's {area:69} (about 3,000) and {zone:1431}'s {area:42} (about 2,900). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7796}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a non-Human stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Humans start 900 higher: 88 turn-ins; a Skyborne's Exploring the Alliance paid 100, two fewer). The level 52-58 quests above take 23 turn-ins off; every Elwynn hub you did takes 20 to 30 more off. More quest hubs pay {faction:72}, in full while they are no more than 5 levels below you: {zone:1436} (about 2,500 in all), Redridge's {area:69} (about 3,000) and {zone:1431}'s {area:42} (about 2,900). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7796} : réputation 50 pour 20 {item:14047}, aussi souvent que vous le souhaitez. Après les quatre premiers dons, un non-humain se tient à Friendly 700 de 6 000, donc Honoré est 5 300 absent : 106 se rend, 2 120 {item:14047} (Les humains commencent 900 plus haut : remises 88 ; un Skyborne Exploring the Alliance a payé 100, deux de moins). Les quêtes de niveau 52-58 ci-dessus suppriment les remises 23 ; chaque hub Elwynn que vous avez fait prend 20 à 30 plus de réduction. Plus de hubs de quêtes paient {faction:72}, en totalité alors qu'ils ne sont pas plus de niveaux 5 en dessous de vous : {zone:1436} (environ 2 500 en tout), {area:69} de les Carmines (environ 3 000) et {area:42} de {zone:1431} (environ 2 900). Chaque gain de ville donne également un quart de ce montant aux trois autres villes de l'Alliance (non prises en compte ici). Remettez tous vos {item:14047} en même temps.",
 
 	-- Step 45: Additional Runecloth to Revered
 	-- {quest:7796} Additional Runecloth

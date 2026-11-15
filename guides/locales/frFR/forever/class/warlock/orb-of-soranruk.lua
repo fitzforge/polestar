@@ -11,7 +11,7 @@ return {
 
 	-- Step 1: Doan Karhan
 	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep
-	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "",
+	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "{npc:6247} campe à côté de {npc:6244}, dans une tente juste au nord-est de {area:378}, dans le sud de {zone:1413}. Les démonistes de l'Alliance l'atteignent depuis {area:392} ou Theramore ; Les Hordes se dirigent vers le sud depuis le la Croisée. Il veut des fragments de deux donjons : prenez la quête avant l'exécution de vos {area:2797} et {area:236}.",
 
 	-- Step 2: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {area:414} Zoram Strand · {npc:4832} Twilight Lord Kelris · {npc:4829} Aku'mai

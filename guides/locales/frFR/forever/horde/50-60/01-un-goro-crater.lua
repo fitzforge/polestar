@@ -12,7 +12,7 @@ return {
 	-- {area:1938} Broken Pillar · {zone:1449} Un'Goro Crater · {area:541} Marshal's Refuge
 	["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, chevauchez vers l'ouest jusqu'à la longue rampe qui descend dans le {zone:1449}, puis longez la paroi nord du cratère jusqu'au {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
 	-- {npc:9997} Spraggle Frock
-	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "",
+	["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "le panneau en bois près de {npc:9997}, à côté du maître de vol : les pterreurdactyles se trouvent sur le parcours de ce guide",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, au fond de la grotte ; sous terre",
 
@@ -33,7 +33,7 @@ return {
 	-- Step 5: Pterrordax
 	["Pterrordax"] = "Pterreurdactyles",
 	-- {npc:9998} Shizzle
-	["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "",
+	["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "Les pterreurdactyles survolent l’est du cratère, depuis les pentes sous le refuge en direction du sud ; leurs écailles palmées sont destinées à {npc:9998}.",
 	["grind on Pterrordax"] = "tuez en boucle : ptérreurdactyles",
 
 	-- Step 6: Power Crystals and soil
@@ -97,7 +97,7 @@ return {
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}, à l'entrée",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}, près du maître de vol",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, sous terre",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
@@ -127,8 +127,8 @@ return {
 
 	-- Step 25: The Marshlands
 	-- {quest:4061} The Rise of the Machines · {area:340} Kargath · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
-	["grind on Ravasaur"] = "",
+	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Attention : de nombreux ravasaures parcourent la zone, et vous risquez d’en attirer plusieurs à la fois.\nSi vous n’avez pas encore atteint le niveau 52, continuez à chasser les ravasaures après avoir obtenu la huitième griffe : {quest:4061}, à {area:340}, nécessite le niveau 52, et les quêtes des Maleterres à la fin de ce guide sont de niveau 55. Vous pouvez aussi former un groupe pour faire le donjon de {area:1417} ou de {area:2100}.",
+	["grind on Ravasaur"] = "Tuez des Ravasaures en boucle",
 
 	-- Step 26: Western Pylon
 	["Western Pylon"] = "Pylône ouest",
@@ -149,7 +149,7 @@ return {
 
 	-- Step 30: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
-	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
+	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Prenez un vol pour {area:1637} et apprenez vos nouveaux sorts avant de prendre le bateau pour {area:16727} : il n’y a pas de maître des chasseurs ni des chamans lors du passage à {zone:1458} plus tard dans ce guide.",
 
 	-- Step 31: Back to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -161,7 +161,7 @@ return {
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Bateau pour {area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}, près du quai : pour {quest:4324}, à {area:251}, plus tard dans ce guide",
 
 	-- Step 33: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
@@ -169,7 +169,7 @@ return {
 
 	-- Step 34: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
-	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "",
+	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} est construit dans les falaises à l’extrémité ouest de {zone:1418}.",
 
 	-- Step 35: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -235,7 +235,7 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, l'Apothicarium : les fioles se remplissent plus tard en {zone:1447}",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, près de Cuely à l’Apothicarium",
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",
 

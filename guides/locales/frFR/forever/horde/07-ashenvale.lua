@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12736} Je'neu Sancrea
-	["{npc:12736} stands in the outpost."] = "",
+	["{npc:12736} stands in the outpost."] = "{npc:12736} se trouve dans l’avant-poste.",
 
 	-- Step 3: Blackfathom Deeps ruins
 	-- {area:2797} Blackfathom Deeps
@@ -35,7 +35,7 @@ return {
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "Fontaine de {area:418}",
 	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "",
+	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "La fontaine se trouve au centre de {area:418}, où rôde {npc:12678} : utilisez {item:7767} à cet endroit.",
 
 	-- Step 7: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -45,7 +45,7 @@ return {
 	-- {npc:210995} Alonso · {area:421} Mystral Lake
 	["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}, un ajout de Forever, se tient sur la rive ouest de {area:421} avec trois quêtes rapides de tueur de dragon.",
 	-- {npc:210995} Alonso · {area:1276} Talondeep Path
-	["{npc:210995} walks around the {area:1276}: the map marks where to look"] = "",
+	["{npc:210995} walks around the {area:1276}: the map marks where to look"] = "{npc:210995} se déplace dans {area:1276} : la carte indique où chercher.",
 
 	-- Step 9: King of the Foulweald
 	-- {area:421} Mystral Lake · {item:16972} Karang's Banner · {object:178206} Foulweald Totem Mound (no name in this language: may be words) · {npc:12918} Chief Murgut
@@ -78,7 +78,7 @@ return {
 
 	-- Step 18: Splintertree Post
 	-- {npc:12196} Innkeeper Kaylisk
-	["{npc:12196}, beside her"] = "",
+	["{npc:12196}, beside her"] = "{npc:12196}, à côté d’elle",
 	-- {npc:12718} Gurda Ragescar
 	["{npc:12718}: only if you carry the manual pages"] = "{npc:12718} : seulement si vous portez les pages du manuel",
 
@@ -107,11 +107,11 @@ return {
 
 	-- Step 23: Tideress
 	-- {area:421} Mystral Lake · {npc:12759} Tideress · {item:16408} Befouled Water Globe · {quest:25} Stonetalon Standstill · {npc:12737} Mastok Wrilehiss
-	["Back south-west to {area:421}. {npc:12759}, a corrupted water elemental, drifts around the lake's island and under the water. She drops the {item:16408} only once you have {quest:25} from {npc:12737}; it starts a quest for Splintertree."] = "",
+	["Back south-west to {area:421}. {npc:12759}, a corrupted water elemental, drifts around the lake's island and under the water. She drops the {item:16408} only once you have {quest:25} from {npc:12737}; it starts a quest for Splintertree."] = "Retournez au sud-ouest à {area:421}. {npc:12759}, un élémentaire d’eau corrompu, se déplace autour de l’île du lac et sous l’eau. Vous devez avoir accepté {quest:25} auprès de {npc:12737} pour obtenir {item:16408} sur elle ; cet objet lance une quête pour le Poste de Bois-brisé.",
 
 	-- Step 24: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "",
+	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Des élémentaires d’eau souillés se déplacent près des rives du lac ; le pavillon se trouve sur l’île et surplombe l’avant-poste de l’Alliance.",
 	["Underwater"] = "Sous l'eau",
 	["Gazebo"] = "Belvédère",
 
@@ -133,15 +133,15 @@ return {
 
 	-- Step 34: Skywatcher Plateau
 	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "",
-	["North of Thunder Bluff"] = "",
+	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "Le camp du Cercle terrestre et ses trois quêtes se trouvent sur {area:17045}, au nord de {zone:1456}. Prenez un vol pour {zone:1456} si vous connaissez son trajet aérien, puis descendez par un ascenseur. Sinon, volez jusqu'à {area:378} et marchez vers le nord à travers {zone:1412} ; la flèche vous guidera ensuite jusqu'à l'extrémité nord du plateau pour y monter.",
+	["North of Thunder Bluff"] = "Au nord des Pitons-du-Tonnerre",
 
 	-- Step 36: The Earthen Ring
 	["The Earthen Ring"] = "Le Cercle terrestre",
 	-- {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
-	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "",
+	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "Le camp du Cercle terrestre se trouve au nord des pitons : {npc:264074}, {npc:264072} et {npc:259118}. Depuis {zone:1456}, descendez par un ascenseur ; si vous venez à pied depuis {area:378}, continuez vers le nord au-delà des pitons.",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother
-	["{npc:259118}: {quest:96261} comes once this is handed in"] = "",
+	["{npc:259118}: {quest:96261} comes once this is handed in"] = "{npc:259118} : {quest:96261} devient disponible après avoir rendu cette quête.",
 
 	-- Step 37: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
@@ -157,13 +157,13 @@ return {
 
 	-- Step 38: The Earthen Ring
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
-	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118} propose {quest:96261} uniquement après avoir rendu {quest:96259}.",
 
 	-- Step 40: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	["{npc:264082} sits at the north end of {area:17044}; her {item:273658} starts {quest:96294}. {npc:264082} is elite: grouping up is advised."] = "",
+	["{npc:264082} sits at the north end of {area:17044}; her {item:273658} starts {quest:96294}. {npc:264082} is elite: grouping up is advised."] = "{npc:264082} se trouve à l’extrémité nord de {area:17044} ; son objet {item:273658} lance {quest:96294}. {npc:264082} est élite : il est conseillé de former un groupe.",
 	-- {item:273658} Bloody Parchment · {npc:264082} Broodmother Valraxx
-	["{item:273658}, from {npc:264082}: it does not drop for everyone"] = "",
+	["{item:273658}, from {npc:264082}: it does not drop for everyone"] = "{item:273658}, sur {npc:264082} : cet objet ne tombe pas pour tout le monde.",
 
 	-- Step 41: The Earthen Ring
 	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
@@ -178,7 +178,7 @@ return {
 
 	-- Step 44: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:2995} Tal
-	["Into {area:1638} by a lift: {npc:2995}, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet."] = "",
+	["Into {area:1638} by a lift: {npc:2995}, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet."] = "Montez à {area:1638} par un ascenseur : {npc:2995}, le maître des coursiers du vent, se trouve sur le piton central. Apprenez son trajet aérien si vous ne le connaissez pas encore.",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
 	["Speak with {npc:3057}, in {area:1638}: {quest:93739}"] = "Parlez à {npc:3057}, à {area:1638} : {quest:93739}",
 	-- {npc:3057} Cairne Bloodhoof
@@ -206,23 +206,23 @@ return {
 
 	-- Step 49: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "",
+	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "La hutte de {npc:5899} se trouve sur la crête surplombant le point d’eau des hurans, au sud de {area:378}, sur la route de {area:485}.",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "pour {npc:5901}, au sud de {area:392} : guide suivant",
 
 	-- Step 50: Tear of the Moons
 	-- {area:485} Great Lift · {area:359} Bael Modan · {npc:3421} Feegly the Exiled · {object:3646} General Twinbraid's Strongbox · {npc:3414} General Twinbraid
-	["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "",
+	["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "Sur la route vers le sud en direction de {area:485}, bifurquez vers l’est jusqu’au site de fouilles de {area:359}. {npc:3421} se cache à son extrémité sud. {object:3646} se trouve au niveau inférieur de la forteresse des nains, près de {npc:3414} (niveau 30) et de ses officiers (niveau 26) : attirez-les un par un.",
 	-- {object:3646} General Twinbraid's Strongbox
 	["{object:3646}; below ground"] = "{object:3646} ; sous terre",
 
 	-- Step 51: Great Lift
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles
-	["{area:485}, down into {zone:1441}"] = "",
+	["{area:485}, down into {zone:1441}"] = "{area:485}, descendre aux {zone:1441}",
 
 	-- Step 52: Freewind Post's lift
 	-- {area:484} Freewind Post
-	["{area:484}'s lift"] = "",
+	["{area:484}'s lift"] = "Ascenseur du {area:484}",
 
 	-- Step 53: Freewind Post
 	-- {area:484} Freewind Post
@@ -232,9 +232,9 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "L'avis de recherche près de {npc:10537}",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
-	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "",
+	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "{npc:4877}, la marchande de fournitures d’artisanat, dans l’auberge : ses quêtes concernent les harpies hurleuses de {area:487}.",
 	-- {npc:4877} Jandia
-	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "",
+	["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877} : ses fournitures volées se trouvent dans le même repaire de harpies.",
 
 	-- Step 54: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
@@ -269,7 +269,7 @@ return {
 
 	-- Step 59: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
-	["{npc:11116}, beside {npc:4877}"] = "",
+	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}, à côté de {npc:4877}",
 
 	-- Step 61: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
@@ -283,13 +283,13 @@ return {
 	["{object:176344}, north-west camp"] = "{object:176344}, camp nord-ouest",
 
 	-- Step 62: Level 28.9
-	["Level 28.9"] = "",
+	["Level 28.9"] = "Niveau 28,9",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps · {area:1717} Razorfen Kraul
-	["Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:1717} dungeon instead."] = "",
+	["Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:1717} dungeon instead."] = "Pas encore au niveau 28,9 ? Les membres du Totem sinistre de ces camps (niveaux 25 à 28) conviennent : tuez-en quelques-uns de plus avant de monter jusqu’à {npc:10646}. Si vous avez dépassé ce seuil, cette étape sera automatiquement passée. Vous pouvez aussi former un groupe pour faire le donjon de {area:2797} ou de {area:1717}.",
 	-- {area:2097} Darkcloud Pinnacle
-	["Grimtotem camps below {area:2097}"] = "",
+	["Grimtotem camps below {area:2097}"] = "Camps du Totem sinistre en contrebas de {area:2097}",
 	-- {npc:10759} Grimtotem Stomper
-	["grind on {npc:10759}"] = "",
+	["grind on {npc:10759}"] = "Tuez en boucle : {npc:10759}",
 
 	-- Step 63: Lakota Windsong
 	-- {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
@@ -318,7 +318,7 @@ return {
 	-- Step 72: Level 29.49
 	["Level 29.49"] = "Niveau 29.49",
 	-- {quest:5151} Hypercapacitor Gizmo · {area:487} Roguefeather Den · {area:2797} Blackfathom Deeps · {area:796} Scarlet Monastery
-	["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
+	["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon or the {area:796} dungeon (Graveyard) instead."] = "Si vous avez passé {quest:5151} et n’avez pas encore atteint le niveau 29,49, commencez par tuer des harpies ici : {area:487} est de toute façon votre prochaine destination. Si vous avez dépassé ce seuil, cette étape sera automatiquement passée. Vous pouvez aussi former un groupe pour faire le donjon de {area:2797} ou le Cimetière de {area:796}.",
 	-- {npc:4101} Screeching Roguefeather
 	["grind on {npc:4101}"] = "tuez en boucle : {npc:4101}",
 
@@ -326,13 +326,13 @@ return {
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "{area:483} : tuez-les au passage",
 	-- {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:4877} Jandia · {quest:98069} Stolen Freewind Supplies
-	["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "",
+	["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "Au sud du Pic du Nuage noir se trouvent les harpies de {area:487}. {npc:4490} (niveau 31) se déplace parmi elles : éliminez les harpies autour d’elle avant de l’attirer. Les harpies hurleuses, les plumensorcières et les imploratrices célestes sont les cibles de {npc:4877} ; ses {quest:98069} se trouvent au sol, au pied de la falaise et dans la grotte au sommet.",
 	-- {quest:98069} Stolen Freewind Supplies
-	["{quest:98069}, on the ground around the den"] = "",
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}, au sol autour du repaire",
 
 	-- Step 74: Freewind Post
 	-- {area:484} Freewind Post · {area:487} Roguefeather Den · {npc:2986} Dorn Plainstalker
-	["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "",
+	["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "Retournez vers l’est à {area:484} : ce lieu se trouve sur le chemin entre {area:487} et le plateau de {npc:2986}.",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}, à l'intérieur",
 	-- {npc:4877} Jandia
@@ -340,19 +340,19 @@ return {
 
 	-- Step 75: Test of Endurance
 	-- {npc:2986} Dorn Plainstalker
-	["{npc:2986}'s mesa is north-east of Freewind."] = "",
+	["{npc:2986}'s mesa is north-east of Freewind."] = "Le plateau de {npc:2986} se trouve au nord-est du Poste de Librevent.",
 	-- {npc:2986} Dorn Plainstalker · {quest:1151} Test of Strength · {quest:1150} Test of Endurance
-	["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "",
+	["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "{npc:2986} propose {quest:1151} après avoir rendu {quest:1150}.",
 
 	-- Step 76: Rok'Alim the Pounder
 	-- {npc:4499} Rok'Alim the Pounder · {area:482} Highperch · {area:2237} Whitereach Post
-	["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "",
+	["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}, un élémentaire de roche qui frappe fort, arpente les falaises de {area:482}, à l’ouest, au-delà de {area:2237}. {npc:4499} est élite : il est conseillé de former un groupe.",
 
 	-- Step 77: Freewind Post
 	-- {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats
-	["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "",
+	["Back to {area:484}. The {area:2240}'s quests come with the next visit to the {area:439}, at 33."] = "Retournez à {area:484}. Les quêtes de {area:2240} seront abordées lors du prochain passage à {area:439}, au niveau 33.",
 	-- {zone:1454} Orgrimmar
-	["The next guide flies on from here to the Crossroads and {zone:1454}."] = "",
+	["The next guide flies on from here to the Crossroads and {zone:1454}."] = "Le guide suivant vous fera prendre un vol depuis ici vers la Croisée et {zone:1454}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south-west to {area:421}. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Retournez au sud-ouest vers {area:421}. Des Elémentaires d’eau souillés dérivent le long de ses rives ; le belvédère se dresse sur l'île et domine l'avant-poste de l'Alliance.",

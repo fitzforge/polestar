@@ -37,13 +37,13 @@ return {
 
 	-- Step 6: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Afterwards {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "",
+	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Afterwards {npc:11800}, in the middle of {area:2361}, flies druids straight to {area:702}."] = "Caster {spell:18960}. Avec les deux moitiés dans vos sacs, placez-vous près du {area:2362} sur la rive nord-ouest et utilisez le {item:15883} pour les rejoindre, puis lancez à nouveau {spell:18960} (cela fonctionne à l'intérieur de {zone:1450}) pour atterrir près de {npc:11802}. Il se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne distingue pas les étages. Ensuite, {npc:11800}, au milieu de {area:2361}, envoie les druides directement vers {area:702}.",
 	-- {item:15885} Pendant of the Sea Lion
 	["{item:15885}: join the halves at the shrine"] = "{item:15885} : assemblez les moitiés au sanctuaire",
 
 	-- Step 7: Cenarion Enclave
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:31} Aquatic Form
-	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "",
+	["Take the portal up to {npc:4217} in the {area:1658}. {quest:31}: swim fast and breathe underwater."] = "Prenez le portail vers {npc:4217}, à {area:1658}. Pour {quest:31}, nagez rapidement et respirez sous l’eau.",
 
 	-- Step 8: Aquatic Form
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5061} Aquatic Form
@@ -60,21 +60,21 @@ return {
 
 	-- Step 11: Half Pendant of Aquatic Agility
 	-- {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:1637} Orgrimmar · {object:177792} Strange Lockbox · {area:382} Sludge Fen
-	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177792} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "",
+	["Take {npc:11798}'s flight to {area:1638} and fly on to {area:1637}. The {object:177792} lies underwater in the {area:382} pond, a short walk out of {area:1637}'s west gate, in front of a wooden wall. The Venture Co. there are quick to join a fight: come in from the west to avoid most of them."] = "Prenez le vol de {npc:11798} vers {area:1638} et envolez-vous vers {area:1637}. Le {object:177792} se trouve sous l'eau dans l'étang {area:382}, à quelques pas de la porte ouest de {area:1637}, devant un mur en bois. La KapitalRisk ils sont prompts à se joindre au combat : venez par l'ouest pour éviter la plupart d'entre eux.",
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zeppelin pour {zone:1458}",
 	-- {area:1637} Orgrimmar · {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "",
+	["Back through {area:1637} to the zeppelin towers outside its main gate: the zeppelin to the {zone:1458} lands in {zone:1420}, and {zone:1421} is south of the {zone:1458}."] = "Retraversez {area:1637} jusqu’aux tours des zeppelins devant la porte principale : le zeppelin pour {zone:1458} vous dépose à {zone:1420}, et {zone:1421} se trouve au sud de {zone:1458}.",
 
 	-- Step 13: Half Pendant of Aquatic Endurance
 	-- {object:177790} Strange Lockbox · {area:228} Sepulcher · {spell:18960} Teleport: Moonglade
-	["The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "",
+	["The {object:177790} lies at the bottom of very deep water off the coast north-west of the {area:228}, beside an air fissure where you can breathe: watch your breath on the way down. Then {spell:18960} takes you straight back."] = "Le {object:177790} se trouve au fond d'eaux très profondes au large de la côte nord-ouest du {area:228}, à côté d'une fissure d'air où vous pouvez respirer : surveillez votre respiration en descendant. Ensuite, {spell:18960} vous ramène directement.",
 
 	-- Step 14: Pendant of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {item:15883} Half Pendant of Aquatic Agility · {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "",
+	["Cast {spell:18960}. With both halves in your bags, stand by the {area:2362} on the north-west shore and use the {item:15883} to join them, then cast {spell:18960} again (it works inside {zone:1450}) to land by {npc:11802}. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:11798} flies druids to {area:1638}."] = "Caster {spell:18960}. Avec les deux moitiés dans vos sacs, placez-vous près du {area:2362} sur la rive nord-ouest et utilisez le {item:15883} pour les rejoindre, puis lancez à nouveau {spell:18960} (cela fonctionne à l'intérieur de {zone:1450}) pour atterrir près de {npc:11802}. Il se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne distingue pas les étages. {npc:11798} envoie des druides vers {area:1638}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast Teleport: {zone:1450}. Join the two halves into the {item:15885} near the {area:2362}, on the north-west shore of the lake, then see {npc:11802} in {area:2361}. Fly to {area:702} afterwards."] = "Lancez Téléportation : {zone:1450}. Assemblez les deux moitiés pour obtenir {item:15885} près du {area:2362}, sur la rive nord-ouest du lac, puis allez voir {npc:11802} à {area:2361}. Volez ensuite jusqu'à {area:702}.",

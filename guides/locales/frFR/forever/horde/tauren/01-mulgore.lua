@@ -18,9 +18,9 @@ return {
 
 	-- Step 3: Camp Narache: kill these as you meet them
 	-- {area:221} Camp Narache
-	["{area:221}: kill these as you meet them"] = "",
+	["{area:221}: kill these as you meet them"] = "{area:221} : tuez-les au passage",
 	-- {npc:2980} Grull Hawkwind
-	["Plainstriders roam the mesa all around the camp: take their meat and feathers on the way back to {npc:2980}."] = "",
+	["Plainstriders roam the mesa all around the camp: take their meat and feathers on the way back to {npc:2980}."] = "Trotteurs des plaines parcourt la mesa tout autour du camp : emportez leur viande et leurs plumes sur le chemin du retour à {npc:2980}.",
 
 	-- Step 4: Grull Hawkwind
 	-- {npc:3059} Harutt Thunderhorn
@@ -155,11 +155,11 @@ return {
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
 	["Prairie Wolves and Adult Plainstriders roam the plains around the village."] = "Les Loups des prairies et les Trotteurs des plaines adultes parcourent les plaines autour du village.",
 	-- {object:2910} Well Stone
-	["{object:2910}, 170 yd east"] = "",
+	["{object:2910}, 170 yd east"] = "{object:2910}, à 170 mètres à l’est",
 
 	-- Step 34: Winterhoof Water Well
 	-- {npc:2988} Morin Cloudstalker · {quest:99079} Longwalker Malah · {area:821} Rolling Plains
-	["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the {area:821} a little east."] = "",
+	["The well lies south-east of the village. {npc:2988} camps beside it, and {quest:99079} stands on the {area:821} a little east."] = "Le puits se trouve au sud-est du village. {npc:2988} campe à côté, et {quest:99079} se trouve sur le {area:821} un peu à l'est.",
 	-- {npc:2988} Morin Cloudstalker
 	["{npc:2988} walks around here: look inside the circle on the map"] = "{npc:2988} se promène par ici : cherchez dans le cercle sur la carte",
 
@@ -177,7 +177,7 @@ return {
 	-- Step 38: Thunderhorn Water Well
 	-- {item:287505} Tender Strider Meat
 	-- plural, as words: Adult Plainstriders = {npc:2956} Adult Plainstrider
-	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "",
+	["The well lies north of the village. Adult Plainstriders graze around it: they drop the {item:287505} for Kyle."] = "Le puits se trouve au nord du village. Trotteurs des plaines adulte le contourne : ils lâchent le {item:287505} pour Kyle.",
 
 	-- Step 39: Bloodhoof Village
 	-- {npc:277154} Kyle the Frenzied · {item:287505} Tender Strider Meat
@@ -202,7 +202,7 @@ return {
 
 	-- Step 44: Galak centaurs
 	["Galak centaurs"] = "Centaures galak",
-	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "",
+	["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "Les centaures Galak campent dans les plaines à l'est du puits ; Herak les conduit.",
 
 	-- Step 45: The Venture Co. Mine
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes
@@ -257,7 +257,7 @@ return {
 
 	-- Step 55: Thunder Bluff
 	-- {npc:3057} Cairne Bloodhoof
-	["{npc:3057}'s tent"] = "",
+	["{npc:3057}'s tent"] = "Tente de {npc:3057}",
 
 	-- Step 56: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3057} Cairne Bloodhoof
@@ -267,7 +267,7 @@ return {
 	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
 	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} veut de l'encens tauren : achetez ses quatre ingrédients à {npc:3014} l'herboriste, {npc:3012} la fournisseuse en enchantement, {npc:3005} le fournisseur en travail du cuir et {npc:3027} le fournisseur en cuisine, puis combinez-les en {item:278078}.",
 	-- {npc:2987} Eyahn Eagletalon · {npc:269068} Eylah Sunhorn
-	["{npc:2987}, beside {npc:269068}"] = "",
+	["{npc:2987}, beside {npc:269068}"] = "{npc:2987}, à côté de {npc:269068}",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
 	["{item:278079}, from {npc:3014}"] = "{item:278079}, chez {npc:3014}",
 	-- {item:278080} Bundle of Dried Cedar Twigs · {npc:3012} Nata Dawnstrider
@@ -287,7 +287,7 @@ return {
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
 	["Spread the {item:278078} off {area:1641}"] = "Répandez l'{item:278078} depuis {area:1641}",
 	-- {npc:3441} Melor Stonehoof · {quest:860} Sergra Darkthorn
-	["{npc:3441}: for {quest:860} at the Crossroads"] = "",
+	["{npc:3441}: for {quest:860} at the Crossroads"] = "{npc:3441} : pour {quest:860}, à la Croisée",
 	-- {npc:3039} Holt Thunderhorn · {npc:3041} Torm Ragetotem
 	["{npc:3039}, beside {npc:3041}"] = "{npc:3039}, à côté de {npc:3041}",
 
@@ -314,13 +314,13 @@ return {
 
 	-- Step 72: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
-	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} se trouve à {area:2197}, la grotte sous {area:1640} : descendez à l’intérieur, car la flèche ne distingue pas les étages.",
 	-- {npc:5906} Xanis Flameweaver · {npc:5543} Clarice Foster · {area:1640} Spirit Rise
 	["{npc:5906}, a few steps from {npc:5543} on {area:1640}"] = "{npc:5906}, à quelques pas de {npc:5543} sur {area:1640}",
 
 	-- Step 74: Elder Rise
 	-- {npc:5769} Arch Druid Hamuul Runetotem · {npc:3448} Tonga Runetotem
-	["{npc:5769}: for {npc:3448} at the Crossroads"] = "",
+	["{npc:5769}: for {npc:3448} at the Crossroads"] = "{npc:5769} : pour {npc:3448}, à la Croisée",
 
 	-- Step 75: Turak Runetotem
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -328,11 +328,11 @@ return {
 
 	-- Step 76: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5930} Great Bear Spirit
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Caster {spell:18960}. {npc:11802} est dans {area:2361} ; le {quest:5930} se trouve dans les bois du nord-ouest. {npc:11802} se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 
 	-- Step 77: Back to Thunder Bluff
 	-- {area:1639} Elder Rise
-	["Cross to {area:1639}."] = "",
+	["Cross to {area:1639}."] = "Rejoignez {area:1639}.",
 
 	-- Step 78: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
@@ -358,7 +358,7 @@ return {
 
 	-- Step 83: The Crossroads
 	-- {zone:1412} Mulgore · {npc:3448} Tonga Runetotem · {quest:860} Sergra Darkthorn · {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
+	["Leave {zone:1412} by the south-eastern pass and follow the road to the Crossroads. {npc:3448} stands at the south gate, {quest:860} by the inn, {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Quitter {zone:1412} par le col sud-est et suivre la route jusqu'à la Croisée. {npc:3448} se trouve à la porte sud, {quest:860} près de l'auberge, {npc:3615} sur la plate-forme de la tour. Les propres quêtes de {area:380} viennent après {zone:1421}, dans le guide {zone:1413}.",
 	-- {npc:3429} Thork
 	["{npc:3429}, by the wind rider tower"] = "{npc:3429}, près de la tour des coursiers du vent",
 	-- {npc:3615} Devrak
@@ -366,7 +366,7 @@ return {
 
 	-- Step 84: Jahan Hawkwing
 	-- {npc:3483} Jahan Hawkwing · {npc:3615} Devrak · {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem
-	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "",
+	["{npc:3483} sells armor on the north side of the Crossroads. His bundle goes to {npc:3615}, who sends it with you on the flight to {zone:1456} you take for {npc:3033} anyway."] = "{npc:3483} vend des armures du côté nord du la Croisée. Son paquet va à {npc:3615}, qui l'envoie avec vous sur le vol vers {zone:1456} que vous prenez de toute façon pour {npc:3033}.",
 
 	-- Step 85: Class turn-in in Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -378,9 +378,9 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
 	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Depuis la Croisée, suivez la route vers le nord-est jusqu'à {area:379}, traversez la {area:815} jusqu'à {zone:1411} et continuez vers le nord jusqu'à la porte principale de {zone:1454}. Le guide suivant commence en {zone:1454} et emmène le zeppelin vers {zone:1420} et {zone:1421}.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982}, à {zone:1454}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Bloodhoof"] = "Retour à Sabot-de-Sang",

@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Tirisfal Glades
-	["The zeppelin towers"] = "",
+	["The zeppelin towers"] = "Les tours des zeppelins",
 
 	-- Step 2: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -21,7 +21,7 @@ return {
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}."] = "Dans {object:172961}.",
 	-- {item:14047} Runecloth
-	["sixty {item:14047}"] = "",
+	["sixty {item:14047}"] = "60 {item:14047}",
 
 	-- Step 6: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
@@ -69,7 +69,7 @@ return {
 
 	-- Step 15: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors
-	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "",
+	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet."] = "Suivez la route de {zone:1448} vers le nord jusqu’à {area:1767} ; {quest:5086} se déplace entre les arbres, et la plupart laissent tomber une gouttelette.",
 
 	-- Step 17: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
@@ -91,7 +91,7 @@ return {
 
 	-- Step 24: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
-	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
+	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Les coureurs parcourent la route de {area:1769} vers {area:2244} en petits groupes ; attendez sur la route près de {npc:9298} et tuez-les en passant. Chacun porte une caisse.\nAttention : Le retour fait apparaître trois ou quatre embuscades 56-57 Tombe-hiver de niveau qui vous attaquent ; vous pouvez leur échapper à cheval, furtivement ou avec {spell:5384}, puis ils se rassemblent au bord du lac pour que vous puissiez entreprendre la quête suivante.",
 
 	-- Step 26: Beads for Salfa
 	-- {npc:11556} Salfa
@@ -100,11 +100,11 @@ return {
 
 	-- Step 28: Meilosh
 	-- {quest:6031} Runecloth · {area:1769} Timbermaw Hold · {npc:11557} Meilosh
-	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "",
+	["With 30 {quest:6031} in your bags: follow the road north to {area:1769}; {npc:11557} trades just inside the entrance."] = "Avec 30 {quest:6031} dans vos sacs, suivez la route vers le nord jusqu’à {area:1769} ; {npc:11557} fait du commerce juste après l’entrée.",
 
 	-- Step 29: Kernda
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
+	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "Le totem Mort-bois de {area:1762}, si {npc:11558} ne l'a pas pris alors : elle attend à l'entrée du tunnel de {area:1769} et vous parle depuis le neutre avec le Timbermaw, où les furbolgs Mort-bois de {zone:1448} vous ont amené.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} se promène par ici : cherchez dans le cercle sur la carte",
 
@@ -116,9 +116,9 @@ return {
 	["Level 59.9"] = "Niveau 59.9",
 	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Rechargez ici jusqu'au niveau 59.9 avant les remises à {zone:1452} : elles vous amènent au niveau 60. Les Crocs acéré enragé (59) de {area:2249}, juste au nord de l'étrange source, donnent bien plus d'expérience que les furbolgs de {area:1769}. Ou, en groupe, exécutez plutôt le donjon {area:2057} ou le donjon {area:2279}.",
 	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "",
+	["grind on {npc:7446}"] = "Tuez en boucle : {npc:7446}",
 
 	-- Step 33: Donova Snowden
 	-- {area:2246} Frostfire Hot Springs
@@ -128,7 +128,7 @@ return {
 
 	-- Step 34: Are We There, Yeti?
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "",
+	["Scare {npc:10978} with {npc:10980}"] = "Effrayez {npc:10978} avec {npc:10980}",
 
 	-- Step 35: Everlook
 	-- {area:2255} Everlook

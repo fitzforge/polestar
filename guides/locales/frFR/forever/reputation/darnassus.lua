@@ -15,7 +15,7 @@ return {
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain
 	["{quest:3803}: 50 reputation for every 10 {item:11040}, as often as you like"] = "{quest:3803} : 50 de réputation pour chaque lot de 10 {item:11040}, aussi souvent que vous le voulez",
 	-- {faction:69} Darnassus · {zone:1438} Teldrassil · {zone:1439} Darkshore
-	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "",
+	["About 3,700 {faction:69} reputation from low-level quests in {zone:1438} and {zone:1439}"] = "À propos de la réputation de 3 700 {faction:69} issue des quêtes de bas niveau dans {zone:1438} et {zone:1439}",
 
 	-- Step 1: Raedon Duskstriker, the cloth quartermaster
 	-- {npc:14725} Raedon Duskstriker
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Shadowglen
 	-- {zone:1438} Teldrassil · {area:256} Aldrassil
-	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Night Elf start glade in north-east {zone:1438}, about 1,050 reputation in 30 minutes at 60. The givers stand around {area:256}, the great tree. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : l'Elfe de la nuit démarre la clairière au nord-est de {zone:1438}, environ 1, réputation 050 en minutes 30 à 60. Les donateurs se tiennent autour de {area:256}, le grand arbre. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 3: Shadowglen: the glade and the spider den
 	-- {area:188} Shadowglen
@@ -54,13 +54,13 @@ return {
 
 	-- Step 7: Dolanaar
 	-- {faction:69} Darnassus
-	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the village on the road to {faction:69}, about 1,250 reputation in 45 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : le village sur la route de {faction:69}, environ 1, réputation 250 en minutes 45 à 60. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 8: Dolanaar: Denalan and the lake
 	-- {area:186} Dolanaar · {npc:2080} Denalan
 	["{area:186}: {npc:2080} and the lake"] = "{area:186} : {npc:2080} et le lac",
 	-- {npc:2080} Denalan · {area:259} Lake Al'Ameth · {npc:2107} Gaerolas Talvethren · {area:260} Starbreeze Village · {area:186} Dolanaar
-	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:2080} tends his garden on the south-east shore of {area:259}; {npc:2107} stands upstairs in a house in {area:260}, east of {area:186}: go up inside, the arrow cannot tell the floors apart."] = "{npc:2080} entretient son jardin sur la rive sud-est de {area:259} ; {npc:2107} se trouve à l'étage d'une maison à {area:260}, à l'est de {area:186} : montez à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 
 	-- Step 9: Dolanaar: the woods around the village
 	-- {area:186} Dolanaar
@@ -75,7 +75,7 @@ return {
 
 	-- Step 11: Dolanaar: the Ban'ethil Barrow Den's entrance
 	-- {area:186} Dolanaar · {area:262} Ban'ethil Barrow Den
-	["{area:186}: the {area:262}'s entrance"] = "",
+	["{area:186}: the {area:262}'s entrance"] = "{area:186} : l'entrée du {area:262}",
 
 	-- Step 12: Dolanaar: the relics and Ferocitas
 	-- {area:186} Dolanaar
@@ -92,7 +92,7 @@ return {
 
 	-- Step 14: Auberdine
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {area:702} Rut'theran Village
-	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation in an hour at 60. The givers stand along the town's street and pier. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : {area:442} à {zone:1439}, une excursion en bateau à partir de {area:702}, environ 1, réputation 400 en une heure à 60. Les donateurs se tiennent le long de la rue et de la jetée de la ville. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 15: Auberdine: the coast and the woods
 	-- {area:442} Auberdine
@@ -101,9 +101,9 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Le camp de furbolgs au sud de la ville compte pour Quelle est l'ampleur de la menace ? ; les Ours des chardons enragés errent dans les bois au sud de la ville ; les fantômes bien-nés des ruines d'Ameth'Aran, au sud-est de la ville, portent les reliques, et le fantôme d'Anaya y erre aussi ; les ossements sont sur la plage au sud de la ville ; les champignons poussent dans la grotte des {area:445}, au nord-est.",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "",
+	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164} : utilisez {quest:2139} dessus et ramenez-le à {npc:3701}",
 	-- {npc:2164} Rabid Thistle Bear
-	["Capture a {npc:2164}"] = "",
+	["Capture a {npc:2164}"] = "Capturer un {npc:2164}",
 	-- {quest:954} Bashal'Aran
 	["the blue aura in the ruins of {quest:954}"] = "l'aura bleue dans les ruines de {quest:954}",
 
@@ -154,7 +154,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (facultatif)",
 	-- {quest:3803} Morrowgrain to Darnassus · {item:11040} Morrowgrain · {npc:6735} Innkeeper Saelienne · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil · {zone:1453} Stormwind · {zone:1455} Ironforge
-	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "",
+	["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50: 220. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "{quest:3803} prend 10 {item:11040} pour 50, aussi souvent que vous le souhaitez, et paie intégralement à 60. La chaîne qui la précède est au niveau 50 : 220. {npc:6735} vous renvoie à {npc:3516} dans {area:1658} ; il veut 20 {quest:3764}. (Les aubergistes de {zone:1453} et {zone:1455} donnent le même départ.)",
 
 	-- Step 28: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
@@ -176,7 +176,7 @@ return {
 	-- {quest:7801} Additional Runecloth
 	["{quest:7801} to Honored"] = "{quest:7801} jusqu'à Honoré",
 	-- {quest:7801} Additional Runecloth · {item:14047} Runecloth · {quest:4183} The True Masters · {item:11040} Morrowgrain · {faction:69} Darnassus · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {zone:1444} Feralas
-	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7801} : réputation 50 pour 20 {item:14047}, aussi souvent que vous le souhaitez. Après les quatre premiers dons, un Humain, un Nain ou un Gnome se tient à Friendly 700 de 6,000, donc Honoré est 5,300 absent : 106 se rend, 2 120 {item:14047} (Les Elfes de la nuit commencent 900 plus haut : 88 rendus ; Skyborne commence au neutre 500, donc 7 900 s'éloignent : 158, deux de moins après Exploration de l'Alliance). {quest:4183} et la chaîne {item:11040} ci-dessus suppriment les remises 8, et chaque 10 {item:11040} que vous remettez compte pour un de plus ; chaque hub que vous avez fait prend 20 à 28 plus. Plus de quêtes paient {faction:69}, en totalité alors qu'elles ne sont pas supérieures à 5 niveaux en dessous de vous : le reste de {zone:1439} (environ 3 400 de plus), {area:415} dans {zone:1440} (environ 3,900) et Feathermoon dans {zone:1444} (environ 1,700). Chaque gain de ville donne également un quart de ce montant aux trois autres villes de l'Alliance (non prises en compte ici). Remettez tous vos {item:14047} en même temps.",
 
 	-- Step 36: Additional Runecloth to Revered
 	-- {quest:7801} Additional Runecloth

@@ -35,18 +35,18 @@ return {
 
 	-- Step 10: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
-	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "",
+	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "Descendez de votre monture avant de parler à {npc:8395} : il vous téléporte dans la tour de {npc:8379}, sur la falaise au-dessus de son camp.",
 
 	-- Step 11: Archmage Xylem
-	["The apprentice at the top of the tower sends you back down."] = "",
+	["The apprentice at the top of the tower sends you back down."] = "L’apprenti au sommet de la tour vous renvoie en bas.",
 	-- {area:1220} Thalassian Base Camp · {npc:8420} Kim'jael
-	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "",
+	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "Les elfes de sang se trouvent à {area:1220}, sur le chemin de {npc:8420}",
 
 	-- Step 12: Kim'jael
 	-- {npc:8420} Kim'jael · {area:1219} Legashi Encampment · {area:1220} Thalassian Base Camp
 	["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him."] = "{npc:8420} campe à {area:1219}, au nord ; son équipement est éparpillé dans tout {area:1220}, juste au sud-est.",
 	-- {item:20028} Glittering Dust
-	["{item:20028}, from the blood elf surveyors and reclaimers"] = "",
+	["{item:20028}, from the blood elf surveyors and reclaimers"] = "{item:20028}, sur les géomètres et les récupérateurs elfes de sang",
 	-- {npc:6196} Spitelash Myrmidon
 	["grind on {npc:6196}"] = "tuez en boucle : {npc:6196}",
 
@@ -62,20 +62,20 @@ return {
 
 	-- Step 18: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
-	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "",
+	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "Retournez vers l’ouest au camp de {npc:8395} et descendez de votre monture : il vous téléporte de nouveau auprès de Xylem.",
 
 	-- Step 20: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
-	["The {area:1223}"] = "",
+	["The {area:1223}"] = "Le {area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "",
+	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "Les Sirènes Fouette-bile parcourent les ruines et la plage autour du {area:1223}, juste au sud de {npc:8395}. Seul le Sirènes Fouette-bile porte le corail, pas le Hurleuses Fouette-bile.",
 
 	-- Step 21: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back up through {npc:8395}'s teleport."] = "",
+	["Back up through {npc:8395}'s teleport."] = "Remontez grâce à la téléportation de {npc:8395}.",
 	-- {area:1417} Sunken Temple
-	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
+	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "La dernière tâche de Xylem, Détruire Morphaz, se trouve dans le {area:1417} : ignorez-la.",
 
 	-- Step 23: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
@@ -121,11 +121,11 @@ return {
 
 	-- Step 33: Western Plaguelands
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
-	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "",
+	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "Depuis {area:271}, suivez la route vers le nord à travers Alterac jusqu’à {area:3197}.",
 
 	-- Step 34: Chillwind Camp
 	-- {npc:10838} Commander Ashlam Valorfist
-	["{npc:10838} stands in the middle of the camp."] = "",
+	["{npc:10838} stands in the middle of the camp."] = "{npc:10838} se trouve au centre du camp.",
 
 	-- Step 35: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -167,7 +167,7 @@ return {
 	-- {npc:7034} Firegut Ogre Mage
 	["{npc:7034}, below ground"] = "{npc:7034}, sous terre",
 	-- {npc:7033} Firegut Ogre · {npc:9177} Oralius · {quest:4283} FIFTY! YEP!
-	["grind on {npc:7033}: {npc:9177} gives {quest:4283} from level 51"] = "",
+	["grind on {npc:7033}: {npc:9177} gives {quest:4283} from level 51"] = "Tuez en boucle {npc:7033} : {npc:9177} propose {quest:4283} à partir du niveau 51",
 
 	-- Step 43: Morgan's Vigil
 	-- {npc:9177} Oralius
@@ -176,7 +176,7 @@ return {
 	-- Step 44: Level 52
 	["Level 52"] = "Niveau 52",
 	-- {area:249} Dreadmaul Rock · {area:251} Flame Crest · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52 on the ogres of {area:249}, on the way to {area:251}: the hand-ins there take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Rechargez ici jusqu'au niveau 52 sur les ogres de {area:249}, en route vers {area:251} : les remises vous amènent au niveau 53. Ou, en groupe, exécutez plutôt le donjon {area:1417} ou le donjon {area:2100}.",
 	-- {npc:7034} Firegut Ogre Mage
 	["grind on {npc:7034}"] = "tuez en boucle : {npc:7034}",
 
@@ -208,7 +208,7 @@ return {
 	-- Step 52: Level 52.08
 	["Level 52.08"] = "Niveau 52.08",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Si vous avez passé {quest:4022}, tuez des monstres ici jusqu’au niveau 52,08 pour suivre la progression prévue par l’itinéraire. Vous pouvez aussi former un groupe pour faire le donjon de {area:1417} ou de {area:2100}.",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "tuez en boucle : {npc:9690}",
 
@@ -281,7 +281,7 @@ return {
 
 	-- Step 78: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} se trouve à l’étage, au-dessus de {npc:7916} : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1438}"] = "Retour à {zone:1438}",

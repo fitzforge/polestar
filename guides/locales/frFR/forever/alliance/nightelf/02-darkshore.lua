@@ -22,9 +22,9 @@ return {
 
 	-- Step 4: Auberdine
 	-- {npc:3666} Wizbang Cranktoggle
-	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Le bateau accoste à l'ouest du village. Le maître de vol se tient sur la colline au sud de l'auberge ; les donneurs de quêtes sont répartis le long de la rue principale. {npc:3666} se trouve à l'étage de l'auberge : prenez les escaliers à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "",
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, à l’étage de l’auberge",
 
 	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "La tortue squelettique",
@@ -35,7 +35,7 @@ return {
 	["Bears and the Blackwood camp"] = "Les ours et le camp Noirbois",
 	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Ours des chardons enragé parcourt les collines au sud de {area:442} : utilisez {item:7586} sur l'une d'entre elles pour le capturer. Montez ensuite jusqu'au camp des furbolgs juste à l'est d'eux : rien à tuer pour l'instant.",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "les Ours des chardons enragés les plus proches de {npc:3701}",
@@ -82,14 +82,14 @@ return {
 
 	-- Step 14: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "",
+	["Back north to {area:447}: the flame burns in the south of the ruins."] = "Retournez vers le nord à {area:447} : la flamme brûle au sud des ruines.",
 
 	-- Step 15: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Retournez au nord-est dans les montagnes jusqu'au cristal.",
 
 	-- Step 16: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
-	["North along the hills to {npc:3650}, then west down to {area:442}."] = "",
+	["North along the hills to {npc:3650}, then west down to {area:442}."] = "Longez les collines vers le nord jusqu’à {npc:3650}, puis descendez vers l’ouest jusqu’à {area:442}.",
 
 	-- Step 18: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
@@ -97,19 +97,19 @@ return {
 
 	-- Step 19: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
-	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "",
+	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "À la descente du bateau, {npc:268511} se trouve sur le port : sa livraison est destinée à la fromagerie de {npc:483}, dans {object:2096}, près du maître de vol.",
 
 	-- Step 20: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Maître de vol de {zone:1453}",
 	-- {npc:483} Elaine Trias
-	["{npc:483}, in her cheese shop"] = "",
+	["{npc:483}, in her cheese shop"] = "{npc:483}, dans sa fromagerie",
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
-	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "",
+	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "Montez l’escalier de sa boutique : déposez la livraison à {object:460004}",
 
 	-- Step 21: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall
-	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
+	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} se trouve à {object:2098}, à l’ouest de {object:2096} : sa boussole est dans son ancienne maison à {zone:1436}, sur le chemin.",
 
 	-- Step 22: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
@@ -122,7 +122,7 @@ return {
 	-- Step 24: Druid trainer
 	["Druid trainer"] = "Maître des druides",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
-	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504}, à {zone:1453} ; il n’y a pas de maître des druides à {area:87}",
 
 	-- Step 26: Class trainer
 	["Class trainer"] = "Maître de classe",

@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: The Emerald Sanctuary
 	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "",
+	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "Quittez {area:415} vers le nord pour entrer dans {zone:1448}, puis rejoignez {area:2479}, le camp des druides près de la route.",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, dans les ruines juste à l'est de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Grazle
 	-- {npc:11554} Grazle · {area:2479} Emerald Sanctuary
-	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
+	["{npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "Le furbolg {npc:11554} se trouve près de la route, juste au sud de {area:2479}.",
 
 	-- Step 5: Deadwood Village
 	-- {npc:11554} Grazle
@@ -36,7 +36,7 @@ return {
 	-- Step 6: Level 52.58
 	["Level 52.58"] = "Niveau 52.58",
 	-- {item:9328} Super Snapper FX · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Si vous avez ignoré La corne de la bête ou The {item:9328}, passez ici au niveau 52.58 pour rester sur le plan de l'itinéraire. Ou, en groupe, exécutez plutôt le donjon {area:1417} ou le donjon {area:2100}.",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "tuez en boucle : {npc:7153}",
 
@@ -47,30 +47,30 @@ return {
 	-- Step 8: Level 52.69
 	["Level 52.69"] = "Niveau 52.69",
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Terminez votre progression jusqu’au niveau 52,69 ici avant de rendre les quêtes à {area:1763} : elles vous feront atteindre le niveau 53. Vous pouvez aussi former un groupe pour faire le donjon de {area:1417} ou de {area:2100}.",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "tuez en boucle : {npc:7155}",
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
 	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "",
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Les satyres Jadefire tiennent le vallon à l'ouest de la route, avec {npc:9454} à l'arrière.\nAttention : Traqueurs des ombres Jadefeu (niveau 51-52) utilise Sneak et {spell:7992} et est furtif, ils rejoignent donc souvent les combats. non invité.\ndiapositive Limons maudit maudite sur les ruisseaux du vallon : tuez-les et utilisez le pot Limon maudit vide de Laris sur leurs restes.",
 	-- {npc:7109} Jadefire Felsworn
 	["grind on {npc:7109}"] = "tuez en boucle : {npc:7109}",
 
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "",
+	["{area:1763} is the ruined temple north of the glen."] = "{area:1763} est le temple en ruine au nord du vallon.",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
+	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949} : diapositive Limons corrompu sur les pools gangrenés de {area:1763}",
 	-- {npc:7125} Jaedenar Hound
 	["grind on {npc:7125}"] = "tuez en boucle : {npc:7125}",
 
 	-- Step 12: Level 52.9
 	["Level 52.9"] = "Niveau 52.9",
 	-- {area:2479} Emerald Sanctuary · {area:1417} Sunken Temple · {area:2100} Maraudon
-	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Terminez votre progression jusqu’au niveau 52,9 ici avant de rendre les quêtes à {area:2479} : elles vous feront atteindre le niveau 53. Vous pouvez aussi former un groupe pour faire le donjon de {area:1417} ou de {area:2100}.",
 
 	-- Step 14: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -90,7 +90,7 @@ return {
 
 	-- Step 17: Felpaw Village
 	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Les furbolgs Mort-bois de {area:1762} remplissent les collines à l'ouest de la grotte. Continuez à les tuer jusqu'à ce que l'un d'entre eux laisse tomber un {quest:8470}, soit environ une fois sur trente, puis faites un clic droit dessus : {npc:11558} dans {area:1769} le prend une fois que les Timbermaw sont neutres envers vous, maintenant s'ils le sont déjà, ou lorsque le dernier guide repasse dans la grotte à 58.\nAttention : les guetteurs de la tanière sont de niveau 53-54 ; ils appellent les alliés proches dans 25 yd une fois en dessous de 50% de santé et s'enfuient pour obtenir de l'aide en dessous de 15%.",
 
 	-- Step 18: Nafien
 	-- {zone:1452} Winterspring
@@ -98,7 +98,7 @@ return {
 
 	-- Step 20: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Entrez dans la grotte : {npc:11558} se trouve juste après l’entrée.",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558} : les Grumegueules ne vous parlent qu'à partir de Neutre ; patrouille par ici : regardez dans le cercle sur la carte",
 
@@ -112,11 +112,11 @@ return {
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "De nouveau {area:1763}",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
-	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
+	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "Utilisez {item:12922} au puits de lune corrompu, au centre de {area:1763}.",
 
 	-- Step 23: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
-	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "",
+	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "Depuis {area:1763}, partez vers le sud-est jusqu’à {area:2479}, le camp des druides près de la route au sud de {zone:1448}.",
 
 	-- Step 24: The Emerald Sanctuary
 	-- {zone:1457} Darnassus

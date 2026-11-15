@@ -40,7 +40,7 @@ return {
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post
 	["{npc:5810} at {area:379}"] = "{npc:5810} au {area:379}",
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore
-	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the Crossroads."] = "",
+	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the Crossroads."] = "{npc:5810} est facile à manquer : il se tient sous un petit auvent près d'un grand arbre juste à l'ouest de {area:379}, en contrebas du côté sud de la route, avec le poteau en vue à l'est. Aller tout droit vers le sud depuis le poste ne mène pas à lui. Depuis {zone:1411}, traversez le pont vers l'ouest ; depuis {zone:1412}, dirigez-vous vers le nord après la Croisée.",
 
 	-- Step 7: Singed Scales in Thunder Ridge
 	-- {area:369} Thunder Ridge
@@ -58,11 +58,11 @@ return {
 
 	-- Step 9: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:1699} Thorn Hill
-	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads. Most slopes are too steep: climb the broad ridge on the north or east side."] = "",
+	["{npc:5878}'s hut sits on top of {area:1699}, east of the Crossroads. Most slopes are too steep: climb the broad ridge on the north or east side."] = "La hutte de {npc:5878} se trouve au sommet de {area:1699}, à l’est de la Croisée. La plupart des pentes sont trop raides : montez par la large crête du côté nord ou est.",
 
 	-- Step 10: Forged Steel
 	-- {object:58369} Stolen Iron Chest · {npc:5878} Thun'grim Firegaze
-	["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the Crossroads. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "",
+	["The {object:58369} stands by a broken wagon in the Razormane camp north-west of {npc:5878}, north-east of the Crossroads. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too)."] = "Le {object:58369} se trouve à côté d'un wagon cassé dans le camp Tranchecrin au nord-ouest de {npc:5878}, au nord-est du la Croisée. Deux Razormanes le gardent et leurs chasseurs extraient d'autres quilboars : nettoyez-les un par un, puis ouvrez le coffre (il se remplit en quelques secondes, pour qu'un ami puisse également le piller).",
 	-- {item:6534} Forged Steel Bars · {object:58369} Stolen Iron Chest
 	["{item:6534}, from the {object:58369}"] = "{item:6534}, dans le {object:58369}",
 

@@ -26,7 +26,7 @@ return {
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642} : la Lame ardente à {area:599}, où mène son enquête",
 
 	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -47,7 +47,7 @@ return {
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} et le Prophète",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
-	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "",
+	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "Son frère {npc:5643} (36) parcourt la forteresse avec les cultistes de Burning Blade (30-33) : tirez-le seul. Le {npc:13019} conserve le sceptre dans le bâtiment principal de la forteresse. {npc:5642} veut quatre cultistes de chaque type en route.",
 	-- {item:6767} Tyranis' Pendant
 	["{item:6767}; inside"] = "{item:6767} ; à l'intérieur",
 	-- {quest:5741} Sceptre of Light
@@ -69,11 +69,11 @@ return {
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Utilisez le {item:13892} de {npc:11596} sur un Vieillard, Un Mourant ou un {npc:4702} : il devient un kodo apprivoisé qui vous suit. Retournez au camp de {npc:11596} ; là-bas, parlez au kodo : cela compte et vous permet d'apprivoiser le suivant. Cinq kodos, un à la fois ; Vieux kodo laisse également tomber les peaux, et les Flagellants scorpashi qui chassent autour du cimetière transportent le venin.",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "sur un Vieux kodo, un Kodo mourant ou un {npc:4702} dans le cimetière ; ne le tuez pas",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "Parlez au kodo apprivoisé au camp de {npc:11596} ; répétez l’opération pour chacun des cinq kodos.",
 
 	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins

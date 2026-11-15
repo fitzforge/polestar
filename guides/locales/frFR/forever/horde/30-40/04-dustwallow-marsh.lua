@@ -12,29 +12,29 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "Le centre de {zone:1454}",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, pour « Œil-des-marais » Jarl",
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {area:720} Fray Island
-	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "",
+	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "{npc:3354}, dans {object:172958} : pour {area:720}, plus tard dans ce guide (disponible à partir du niveau 30)",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "Prendre un vol pour la Croisée",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran
-	["{npc:3428} stands beside the Crossroads flight master."] = "",
+	["{npc:3428} stands beside the Crossroads flight master."] = "{npc:3428} se trouve près du maître de vol de la Croisée.",
 	-- {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["for {npc:4485} in {zone:1454}, at the end of this guide"] = "",
+	["for {npc:4485} in {zone:1454}, at the end of this guide"] = "pour {npc:4485}, à {zone:1454}, à la fin de ce guide",
 
 	-- Step 6: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "Volez jusqu'au {area:378}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
 	-- Step 8: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
@@ -66,7 +66,7 @@ return {
 	-- {object:20985} Loose Dirt
 	["{object:20985}, beside the manor"] = "{object:20985}, à côté du manoir",
 	-- {quest:1218} Soothing Spices · {zone:1454} Orgrimmar
-	["{quest:1218}, if you did not buy them in {zone:1454}"] = "",
+	["{quest:1218}, if you did not buy them in {zone:1454}"] = "{quest:1218}, si vous ne les avez pas achetés à {zone:1454}",
 
 	-- Step 15: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
@@ -89,17 +89,17 @@ return {
 
 	-- Step 19: Brackenwall Village
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike
-	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} in the village."] = "",
+	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} in the village."] = "Retournez vers l’ouest à Mur-de-Fougères avec la tête : {npc:4503} se trouve à l’extrémité sud du village, à l’arrivée de la route, et {npc:4791} dans le village.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words)
-	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "",
+	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "Pour {npc:2519}, à {object:3202}, dans le guide forever/horde/40-50/01-stranglethorn-vale",
 
 	-- Step 20: Level 37.5
-	["Level 37.5"] = "",
+	["Level 37.5"] = "Niveau 37,5",
 	-- {zone:1443} Desolace · {area:1316} Razorfen Downs · {area:796} Scarlet Monastery
-	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "",
-	["Darkmist cavern"] = "",
+	["{zone:1443}'s last quests and Alterac are 38-41. Still below 37.5 after Brackenwall's hand-ins? The Darkmist spiders and Lurkers (35-38) by the cavern north-west of the village are the closest: kill them until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "Les dernières quêtes de {zone:1443} et Alterac sont 38-41. Toujours en dessous de 37.5 après la remise de Brackenwall ? Les araignées et rôdeurs de Darkmist (35-38) près de la caverne au nord-ouest du village sont les plus proches : tuez-les jusqu'au niveau 37.5. Ou, en groupe, exécutez plutôt le donjon {area:1316} ou le donjon {area:796} (Armurerie).",
+	["Darkmist cavern"] = "Grotte de Sombrebrume",
 	-- {npc:4377} Darkmist Lurker
-	["grind on {npc:4377}"] = "",
+	["grind on {npc:4377}"] = "Tuez en boucle : {npc:4377}",
 
 	-- Step 21: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -123,24 +123,24 @@ return {
 
 	-- Step 25: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane
-	["{npc:11624} stands in the village."] = "",
+	["{npc:11624} stands in the village."] = "{npc:11624} se trouve dans le village.",
 
 	-- Step 26: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
+	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "Dirigez-vous vers l’est jusqu’à {area:602}. Avec le {quest:5381} de {npc:11624} dans vos sacs, ouvrez l'anneau d'un portail démoniaque : un {npc:11937} (38-39) en sort ; tuez-le pour fermer ce portail. Six portails. Attention : les Infernaux, les Doomguards et Invocateurs de la Lame ardente passent à proximité de nombreux portails et peuvent les rejoindre ; tuez d'abord les foules à proximité ou entraînez le gardien, par exemple vers le lac central du clan.",
 
 	-- Step 27: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
-	["North to the post; {npc:5412} stands beside {npc:5395}."] = "",
+	["North to the post; {npc:5412} stands beside {npc:5395}."] = "Partez vers le nord jusqu’au poste ; {npc:5412} se trouve près de {npc:5395}.",
 
 	-- Step 28: Valley of Spears
 	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}."] = "À l’ouest du poste, les centaures maraudines occupent {area:607}. Chaque Maraudine peut laisser tomber {item:254432} et une oreille pour la quête {quest:1366} de {npc:5395}.",
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} est retenue captive dans le camp maraudine à l’extrémité ouest de la vallée ; libérez-la et escortez-la jusqu’à la sortie est de la vallée.\nAttention : les groupes prévus par l’événement attaquent ensemble et apparaissent uniquement pendant l’escorte. Vous ne pouvez donc pas les éliminer à l’avance ni les attirer un par un. Éliminer les centaures déjà présents sur le chemin avant de commencer reste utile.",
 
 	-- Step 30: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -151,19 +151,19 @@ return {
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "Dirigez-vous vers le sud-est jusqu’aux champs d’os du {area:2657}, où se déplacent Ravageurs mort-vivant. A l'extrême sud-est, utilisez le {item:15848} pour dessiner le Spectres magrami : ils lâchent le ghost-o-plasm.",
 
 	-- Step 32: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard
-	["North to the goblin camp on the west side of the {area:596}."] = "",
+	["North to the goblin camp on the west side of the {area:596}."] = "Partez vers le nord jusqu’au camp gobelin, à l’ouest de {area:596}.",
 
 	-- Step 34: Shadowprey
 	["Shadowprey"] = "Proie-de-l'Ombre",
-	["West to Shadowprey."] = "",
+	["West to Shadowprey."] = "Partez vers l’ouest jusqu’à Proie-de-l’Ombre.",
 
 	-- Step 35: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Prenez un vol depuis {area:2408} vers {area:1638}, puis entraînez-vous auprès de {npc:3033}, à {area:1639}. De là, prenez un vol pour {zone:1454}.",
 
 	-- Step 36: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -179,19 +179,19 @@ return {
 
 	-- Step 38: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485} se trouve dans {object:172958}.",
 
 	-- Step 39: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
-	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "",
+	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "L’atelier de {npc:3412} se trouve dans {object:172958}, près de {npc:4485} : rendez {quest:2841} si vous avez fait {area:133}.",
 
 	-- Step 40: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Maîtres de classe d’{zone:1454}",
 	-- {zone:1458} Undercity
-	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "",
+	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "Profitez de votre passage en ville pour apprendre vos nouveaux sorts ; les autres personnages le feront ensuite à {zone:1458}.",
 	-- {zone:1458} Undercity
-	["The next guide takes the {zone:1458} zeppelin from the tower outside the main gate."] = "",
+	["The next guide takes the {zone:1458} zeppelin from the tower outside the main gate."] = "Le guide suivant vous fera prendre le zeppelin pour {zone:1458}, depuis la tour située devant la porte principale.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:496}"] = "Retour à {area:496}",

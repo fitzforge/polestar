@@ -108,7 +108,7 @@ return {
 	-- {area:814} Southfury River · {zone:1411} Durotar · {zone:1413} The Barrens · {area:385} Northwatch Hold
 	["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "Franchissez les ponts de {area:814} vers l'ouest pour quitter {zone:1411} et entrer dans les {zone:1413}. {area:385}, à l'est, est un fort de l'Alliance.",
 	-- {area:392} Ratchet · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
-	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "",
+	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "Trajectoires de vol ici : {area:392} (Bragok), la Croisée (Devrak), {area:378} ({npc:10378}).",
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore

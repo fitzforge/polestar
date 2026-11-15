@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Prenez un vol depuis {area:2408} vers {area:1638}, puis entraînez-vous auprès de {npc:3033}, à {area:1639}. De là, prenez un vol pour {zone:1454}.",
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -24,12 +24,12 @@ return {
 
 	-- Step 4: Keldran
 	-- {npc:5640} Keldran · {object:172961} Valley of Spirits
-	["{npc:5640} stands in the {object:172961} on the west side of the city."] = "",
+	["{npc:5640} stands in the {object:172961} on the west side of the city."] = "{npc:5640} se trouve dans {object:172961}, à l’ouest de la ville.",
 
 	-- Step 5: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
-	["Train while you are in the city."] = "",
+	["{zone:1454} trainers"] = "Maîtres de classe d’{zone:1454}",
+	["Train while you are in the city."] = "Profitez de votre passage en ville pour apprendre vos nouveaux sorts.",
 
 	-- Step 6: Fly to Ratchet
 	-- {area:392} Ratchet
@@ -63,7 +63,7 @@ return {
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}, à l'intérieur",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, on the bottom floor"] = "",
+	["{npc:2498}, inside, on the bottom floor"] = "{npc:2498}, à l’intérieur, au niveau inférieur",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs"] = "{npc:2496}, à l'étage",
 	-- {npc:2496} Baron Revilgaz · {area:37} Lake Nazferiti
@@ -96,7 +96,7 @@ return {
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434} : tuez-les au passage",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "",
+	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp."] = "Les Tigres de Strangleronce (niveau 32) parcourent les collines autour du camp et au sud, tandis que les Panthères (niveau 32) rôdent dans les clairières à l’ouest et au sud-ouest. Les Géologues de la KapitalRisk, qui portent les Cristaux réduits, travaillent dans les camps près de {area:37}, au sud-est du camp.",
 
 	-- Step 15: Cozzle's Footlocker
 	-- {npc:4723} Foreman Cozzle · {area:37} Lake Nazferiti · {object:20691} Cozzle's Footlocker · {npc:2496} Baron Revilgaz
@@ -113,9 +113,9 @@ return {
 
 	-- Step 17: Elder Stranglethorn Tigers
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["Elder Stranglethorn Tigers"] = "",
+	["Elder Stranglethorn Tigers"] = "Anciens tigres de Strangleronce",
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "",
+	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "Les Anciens tigres de Strangleronce (niveaux 34 à 35) parcourent les collines au sud-ouest du camp. Attention : des camps trolls se trouvent près du territoire des tigres ; des trolls peuvent rejoindre le combat si vous attirez les ennemis sans précaution.",
 
 	-- Step 18: Nesingwary's camp
 	["Back north to the camp."] = "Retournez au camp, au nord.",
@@ -129,24 +129,24 @@ return {
 
 	-- Step 21: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["Lashtail Raptors"] = "",
+	["Lashtail Raptors"] = "Raptors flagellants",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:2464} Commander Aggro'gosh
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}."] = "",
+	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}."] = "En retournant vers le sud à {object:3202}, les Raptors flagellants (niveaux 35 à 36) chassent dans la jungle entre le camp et {object:3202} : ils comptent pour les quêtes de Hemet et de {npc:2464}.",
 
 	-- Step 22: Grom'gol
 	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2497} Nimboya · {npc:2465} Far Seer Mok'thardin
 	["{npc:2464} stands in the middle of {object:3202}, {npc:2497} near the zeppelin tower, {npc:2465} beside the flight master."] = "{npc:2464} se tient au centre de {object:3202}, {npc:2497} près de la tour du zeppelin, {npc:2465} à côté du maître de vol.",
 	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "",
+	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "{npc:2465} : les griffes des Panthères Ombregueule et le croc de tigresse seront récupérés à la fin de ce guide",
 
 	-- Step 23: Level 35
-	["Level 35"] = "",
+	["Level 35"] = "Niveau 35",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "",
+	["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35. Or, with a group, run the {area:796} dungeon (Library or Armory) instead."] = "Les prochaines quêtes de {area:35} et de {object:3202} sont de niveau 35 à 38. Vous n’avez toujours pas atteint le niveau 35 après avoir rendu la quête d’Aggro’gosh ? Les Raptors flagellants (niveau 35) chassent dans la jungle juste au nord de {object:3202} : tuez-en jusqu’au niveau 35. Vous pouvez aussi former un groupe pour faire la Bibliothèque ou l’Armurerie de {area:796}.",
 	-- {npc:686} Lashtail Raptor
-	["grind on {npc:686}"] = "",
+	["grind on {npc:686}"] = "Tuez en boucle : {npc:686}",
 
 	-- Step 24: Fly to Booty Bay
 	-- {area:35} Booty Bay
@@ -183,33 +183,33 @@ return {
 	-- Step 30: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "",
+	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "À l’est des collines Mosh’Ogg, les Panthères Ombregueule (niveaux 37 à 38) rôdent dans la jungle vers le lac ; les Tigresses de Strangleronce parcourent le même territoire et laissent parfois tomber un croc intact. Les Crocilisques Dents-de-scie bordent la rivière juste à l’ouest de la jungle ; conservez leurs peaux pour {npc:2495}. Attention : les Panthères Ombregueule (niveaux 37 à 38) et les Anciennes panthères Ombregueule (niveaux 42 à 43) se camouflent hors combat et restent cachées jusqu’à ce que vous vous approchiez.",
 
 	-- Step 31: Green Hills pages
 	["Green Hills pages"] = "Pages des Vertes collines",
 	-- {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
-	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters on your next Stranglethorn visit, at about 40."] = "",
+	["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters on your next Stranglethorn visit, at about 40."] = "Les trolls Bloodscalp et Skullsplitter peuvent laisser tomber les pages de {item:2755}, avec environ 1 % de chances pour chaque page. Conservez toutes les pages obtenues et cherchez celles qui vous manquent à l’hôtel des ventes. {npc:716} acceptera les chapitres lors de votre prochain passage à Strangleronce, vers le niveau 40.",
 
 	-- Step 32: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "Camp Mosh'Ogg",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "",
+	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "Les ogres Mosh’Ogg campent dans les collines juste à l’est de {object:3202}, sur votre chemin du retour. Tuez 10 Brutes et 5 Sorciers-docteurs (niveaux 36 à 37) ; attirez-les un par un.",
 
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "Retour à {object:3202}.",
 	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
+	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465} : pour le guide forever/horde/40-50/01-stranglethorn-vale",
 	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
+	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497} : pour le guide forever/horde/40-50/01-stranglethorn-vale",
 	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
+	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Le guide suivant vous fera prendre le zeppelin pour {zone:1454} depuis la tour située à l’ouest du camp.",
 
 	-- Step 34: Level 36
 	["Level 36"] = "Niveau 36",
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:796} Scarlet Monastery · {area:1316} Razorfen Downs
 	-- plural, as words: Mosh'Ogg Brutes = {npc:1142} Mosh'Ogg Brute
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "",
+	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "Les quêtes du marécage d’Âprefange sont de niveau 35 à 38. Vous n’avez toujours pas atteint le niveau 36 après avoir rendu les quêtes de {object:3202} ? Les Brutes et les Sorciers-docteurs Mosh’Ogg campent dans les collines juste à l’est du camp : tuez-en jusqu’au niveau 36 en les attirant un par un, puis retournez à pied à la tour des zeppelins. Vous pouvez aussi former un groupe pour faire l’Armurerie de {area:796} ou le donjon de {area:1316}.",
 	-- {npc:1142} Mosh'Ogg Brute
 	["grind on {npc:1142}"] = "tuez en boucle : {npc:1142}",
 

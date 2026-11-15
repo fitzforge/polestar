@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Auberdine
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3649} Thundris Windweaver · {npc:3666} Wizbang Cranktoggle
-	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Le bateau accoste à l'ouest du village : {npc:3644} attend là où la jetée rencontre le rivage. Montez d'abord jusqu'à {npc:3649} à l'extrémité nord du village, puis descendez la rue principale jusqu'à l'auberge. Le maître de vol se tient sur la colline au sud de l'auberge. {npc:3666} se trouve à l'étage de l'auberge : prenez les escaliers à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {npc:3644} Cerellean Whiteclaw
 	["{npc:3644}, on the pier"] = "{npc:3644}, sur la jetée",
 	-- {npc:3649} Thundris Windweaver
@@ -17,15 +17,15 @@ return {
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649} : pour {npc:1646} à {zone:1453}",
 	["The WANTED poster outside the inn"] = "L'affiche AVIS DE RECHERCHE devant l'auberge",
 	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "",
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, à l’étage de l’auberge",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
-	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
+	["{npc:10219} (Night Elves have it from {zone:1438})"] = "{npc:10219} (les elfes de la nuit l’ont déjà depuis {zone:1438})",
 	-- {npc:10216} Gubber Blump
-	["{npc:10216}, on the pier"] = "",
+	["{npc:10216}, on the pier"] = "{npc:10216}, sur la jetée",
 
 	-- Step 3: Gubber Blump
 	-- {npc:10216} Gubber Blump · {item:12238} Darkshore Grouper
-	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "",
+	["Fishers only: {npc:10216} stands on the pier. His {item:12238} is fished from the pier itself."] = "Pour les pêcheurs uniquement : {npc:10216} se trouve sur la jetée. Vous pouvez pêcher {item:12238} directement depuis celle-ci.",
 
 	-- Step 4: The beach
 	["The beach"] = "La plage",
@@ -40,7 +40,7 @@ return {
 	-- Step 5: Auberdine
 	-- {quest:3524} Washed Ashore
 	-- plural, as words: Beached Sea Turtles = {quest:4722} Beached Sea Turtle
-	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "",
+	["{quest:3524}: the Beached Sea Turtles up the coast offer their quests only once it is handed in"] = "{quest:3524} : les Las tortue de mer échouée du haut de la côte ne proposent leurs quêtes qu'une fois remis",
 
 	-- Step 6: The skeletal turtle
 	["The skeletal turtle"] = "La tortue squelettique",
@@ -105,7 +105,7 @@ return {
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} se tient à l'étage de son immeuble à {area:2361} : montez à l'intérieur, la flèche ne permet pas de distinguer les étages. Colifichets du sanctuaire se trouvent dans les conteneurs au sol de {area:656}, en dessous de {area:2361} : prenez-en un au {area:2362} au nord-ouest, utilisez-le là-bas et parlez à {npc:11799}. {quest:29} fonctionne sur une minuterie : pas de téléportation ni de Hearthstone tant que {npc:11799} ne l'a pas. Revenez ensuite à {area:442} depuis {area:2361}.",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122} : remplissez l'échantillonneur aux {area:445}",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -138,7 +138,7 @@ return {
 	-- {item:15845} Filled Cliffspring Falls Sampler
 	["{item:15845}: at the mouth of the cave by the falls"] = "{item:15845} : à l'entrée de la grotte près des chutes",
 	-- {item:12237} Fine Crab Chunks · {npc:2233} Encrusted Tide Crawler · {npc:2235} Reef Crawler
-	["{item:12237} from {npc:2233} and {npc:2235}, by this stop"] = "",
+	["{item:12237} from {npc:2233} and {npc:2235}, by this stop"] = "{item:12237}, sur {npc:2233} et {npc:2235}, près de cette étape",
 
 	-- Step 25: Auberdine
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
@@ -200,7 +200,7 @@ return {
 
 	-- Step 35: Auberdine
 	-- {quest:948} Onu · {zone:1439} Darkshore
-	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "",
+	["For {quest:948} at the Grove, on {zone:1439}'s southern loop after the trip east"] = "Pour {quest:948}, au bosquet, sur la boucle sud de {zone:1439} après le trajet vers l’est",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south"] = "Retour au sud",

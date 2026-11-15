@@ -12,11 +12,11 @@ return {
 
 	-- Step 2: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "",
+	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} se trouve à la sortie du tunnel de {area:1769} donnant sur {zone:1452}, à votre arrivée.",
 
 	-- Step 3: Donova Snowden
 	-- {npc:9298} Donova Snowden · {area:2246} Frostfire Hot Springs
-	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "",
+	["Ride south from the tunnel: {npc:9298} camps among the steaming pools of {area:2246}, in the west of the valley."] = "Depuis le tunnel, partez vers le sud : {npc:9298} campe parmi les bassins fumants de {area:2246}, à l’ouest de la vallée.",
 	["Linken's letter"] = "La lettre de Linken",
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} vient de {npc:7775} en {zone:1444}, plus loin dans ce guide.",
@@ -28,7 +28,7 @@ return {
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.",
 	-- {item:12771} Empty Firewater Flask
-	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
+	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771} : environ un furbolg Tombe-hiver sur dix en porte un ; continue de les tuer jusqu'à ce que ça tombe",
 	-- {quest:8471} Winterfall Ritual Totem
 	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}, un butin rare des furbolgs Tombe-hiver",
 
@@ -41,11 +41,11 @@ return {
 	["Raging Owlbeasts"] = "Chouettards enragés ({npc:7451})",
 	-- {area:2251} Lake Kel'Theril · {area:2246} Frostfire Hot Springs · {area:2255} Everlook
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
-	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "",
+	["Raging Owlbeasts roam the hills north of {area:2251}, by the road between {area:2246} and {area:2255}."] = "Chouettards enragé parcourt les collines au nord de {area:2251}, par la route entre {area:2246} et {area:2255}.",
 
 	-- Step 8: Everlook
 	-- {area:2255} Everlook
-	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "",
+	["{area:2255} is the goblin town on the east side of the valley, past the owlbeast hills."] = "{area:2255} est la ville gobeline à l’est de la vallée, après les collines des chouettards.",
 	["Gregor's quests lead to other zones: keep them."] = "Les quêtes de Gregor mènent à d'autres zones : gardez-les.",
 	-- {npc:10431} Gregor Greystone
 	["{npc:10431}, inside"] = "{npc:10431}, à l'intérieur",
@@ -58,7 +58,7 @@ return {
 	-- Step 11: Level 55.04
 	["Level 55.04"] = "Niveau 55.04",
 	-- {area:2255} Everlook · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Terminez votre progression jusqu’au niveau 55,04 ici avant de rendre les quêtes à {area:2255} : elles vous feront atteindre le niveau 56. Vous pouvez aussi former un groupe pour faire le donjon de {area:1584} ou la partie inférieure de {area:1583}.",
 	-- {npc:7460} Ice Thistle Patriarch
 	["grind on {npc:7460}"] = "tuez en boucle : {npc:7460}",
 
@@ -105,7 +105,7 @@ return {
 
 	-- Step 22: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
-	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} et {npc:14728} reposent sur {area:1641}. Chacun des dons de Rumstag prélève soixante laines, soies ou tisse-mage de vos sacs : remettez ce que vous transportez, évitez le reste.",
 
 	-- Step 23: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -115,7 +115,7 @@ return {
 
 	-- Step 24: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
-	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
+	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} achète {item:11040}, cultivé à partir de {quest:3761}. La quête {quest:3782} en demande dix, et {item:11020} permet un essai toutes les dix minutes : ne la prenez que si vous avez déjà les céréales.",
 
 	-- Step 25: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

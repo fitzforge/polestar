@@ -41,7 +41,7 @@ return {
 	["Level 52.63"] = "Niveau 52.63",
 	-- {area:200} Dalson's Tears · {npc:11610} Kirsta Deepshadow · {quest:6004} Unfinished Business · {area:1417} Sunken Temple · {area:2100} Maraudon
 	-- plural, as words: Scarlet Mages = {npc:1826} Scarlet Mage
-	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "",
+	["Top up here to level 52.63 before the hand-ins at {area:200}: they take you to level 53. The Scarlet Mages and Knights here count for {npc:11610}'s {quest:6004}. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Rechargez ici jusqu'au niveau 52.63 avant les remises à {area:200} : elles vous amènent au niveau 53. Le Mages écarlate et les chevaliers comptent ici pour le {quest:6004} de {npc:11610}. Ou, en groupe, exécutez plutôt le donjon {area:1417} ou le donjon {area:2100}.",
 	-- {npc:1826} Scarlet Mage
 	["grind on {npc:1826}"] = "tuez en boucle : {npc:1826}",
 
@@ -59,7 +59,7 @@ return {
 	-- Step 10: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Grizzlys malades",
 	-- {area:202} Writhing Haunt · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["The bears roam the hills north and east of the {area:202}. Below level 53.02, keep hunting them after the eighth: the hand-ins at the {area:202} take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Les ours parcourent les collines au nord et à l'est du {area:202}. En dessous du niveau 53.02, continuez à les chasser après le huitième : les remises au {area:202} vous amènent au niveau 54. Ou, en groupe, exécutez plutôt le donjon {area:1417} ou le donjon {area:1584}.",
 	-- {npc:1816} Diseased Grizzly
 	["grind on {npc:1816}"] = "tuez en boucle : {npc:1816}",
 
@@ -83,12 +83,12 @@ return {
 	-- Step 15: Level 53.34
 	["Level 53.34"] = "Niveau 53.34",
 	-- {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["Top up here to level 53.34 before the hand-ins at {area:1763}: they take you to level 54. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Terminez votre progression jusqu’au niveau 53,34 ici avant de rendre les quêtes à {area:1763} : elles vous feront atteindre le niveau 54. Vous pouvez aussi former un groupe pour faire le donjon de {area:1417} ou de {area:1584}.",
 
 	-- Step 17: Paladin trainer
 	["Paladin trainer"] = "Maître des paladins",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152}, à {zone:1420} ; {zone:1454} n’a pas de maître des paladins",
 
 	-- Step 18: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -96,7 +96,7 @@ return {
 
 	-- Step 19: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "Le centre de {zone:1454}",
 
 	-- Step 20: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -127,7 +127,7 @@ return {
 
 	-- Step 26: Deadwood Village
 	-- {area:1769} Timbermaw Hold · {area:1763} Jaedenar · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Le village furbolg Mort-bois se trouve juste au sud du sanctuaire. Chaque victoire Mort-bois augmente également votre réputation {area:1769} ; gardez les plumes de la coiffe. Continuez à les tuer jusqu'au niveau 53.92 : les prochaines mains du Sanctuaire et {area:1763} le veulent. Ou, en groupe, exécutez plutôt le donjon {area:1417} ou le donjon {area:1584}.",
 	-- {npc:7153} Deadwood Warrior
 	["grind on {npc:7153}"] = "tuez en boucle : {npc:7153}",
 
@@ -139,7 +139,7 @@ return {
 
 	-- Step 28: A Strange Red Key
 	-- {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {area:1763} Jaedenar
-	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "",
+	["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Vous avez obtenu {item:13140} : utilisez-le pour lancer la quête, puis libérez {npc:11018} de sa cage à {area:1770}, la grotte à l’extrémité nord de {area:1763}.",
 
 	-- Step 29: Captured Arko'narin
 	-- {npc:11016} Captured Arko'narin
@@ -147,13 +147,13 @@ return {
 
 	-- Step 31: Rescue From Jaedenar
 	-- {npc:11018} Arko'narin · {area:1770} Shadow Hold
-	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "",
+	["Walk {npc:11018} out of {area:1770} and keep her alive until she is out of the cave."] = "Guidez {npc:11018} hors de {area:1770} et protégez-la jusqu’à la sortie de la grotte.",
 	-- {npc:11018} Arko'narin
-	["{npc:11018}, below ground"] = "",
+	["{npc:11018}, below ground"] = "{npc:11018}, sous terre",
 
 	-- Step 32: Jessir Moonbow
 	-- {area:2479} Emerald Sanctuary
-	["Back at the {area:2479}."] = "",
+	["Back at the {area:2479}."] = "De retour à {area:2479}.",
 
 	-- Step 35: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -163,7 +163,7 @@ return {
 
 	-- Step 36: Rakaiah
 	-- {npc:9518} Rakaiah · {area:1763} Jaedenar · {npc:11020} Remains of Trey Lightforge
-	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "",
+	["The succubus {npc:9518} waits in the middle of {area:1763}, beside the {npc:11020}."] = "La succube {npc:9518} vous attend au centre de {area:1763}, près de {npc:11020}.",
 	["Below ground"] = "Sous terre",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "{npc:11020}, sous terre",
@@ -184,7 +184,7 @@ return {
 	-- Step 40: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {area:1997} Bloodvenom Post · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Suivez la route vers le nord-est jusqu'à {area:1767}. Le Ecorcheurs Crochebois et les broyeurs du côté est des bois portent chacun un {item:11503} ; Grizzlys de la griffe colérique et Ravageurs Gangrepatte parcourent les mêmes bois pour Talo. En dessous du niveau 54.21, continuez à chasser les grizzlis et les ravageurs : les remises au {area:1997} et au {area:2479} vous amènent au niveau 55. Ou, en groupe, exécutez plutôt le donjon {area:1584} ou le donjon {area:1417}.",
 	-- {npc:8957} Angerclaw Grizzly
 	["grind on {npc:8957}"] = "tuez en boucle : {npc:8957}",
 
@@ -204,7 +204,7 @@ return {
 
 	-- Step 44: Felpaw Village
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1584} Blackrock Depths · {area:1417} Sunken Temple · {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda
-	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "",
+	["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Attention : les gardiens de la tanière sont de niveau 53 à 54. Sous 50 % de leurs points de vie, ils appellent les alliés dans un rayon de 25 mètres ; sous 15 %, ils fuient pour chercher de l’aide.\nSi vous n’avez pas atteint le niveau 54,54, continuez à combattre les Mort-bois après avoir atteint le nombre demandé par {npc:15395} : les quêtes à rendre à {area:1769} et à {area:2479} vous feront atteindre le niveau 55. Vous pouvez aussi former un groupe pour faire le donjon de {area:1584} ou de {area:1417}.\nContinuez jusqu’à obtenir {quest:8470}, avec environ une chance sur trente, puis faites un clic droit dessus. {npc:11558}, à {area:1769}, l’accepte lorsque votre réputation auprès des Grumegueules est Neutre : dès maintenant si c’est déjà le cas, ou lors du nouveau passage devant la grotte au niveau 59 dans le dernier guide.",
 	-- {npc:7156} Deadwood Den Watcher
 	["grind on {npc:7156}"] = "tuez en boucle : {npc:7156}",
 
@@ -214,7 +214,7 @@ return {
 
 	-- Step 46: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "",
+	["Step into the cave: {npc:11558} stands just inside."] = "Entrez dans la grotte : {npc:11558} se trouve juste après l’entrée.",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558} : les Grumegueules ne vous parlent qu'à partir de Neutre ; patrouille par ici : regardez dans le cercle sur la carte",
 
@@ -233,7 +233,7 @@ return {
 	-- Step 50: Level 54.7
 	["Level 54.7"] = "Niveau 54.7",
 	-- {area:1997} Bloodvenom Post · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.7 before the hand-ins at {area:1997} : they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Rechargez ici jusqu'au niveau 54.7 avant les remises à {area:1997} : elles vous amènent au niveau 55. Ou, en groupe, exécutez plutôt le donjon {area:1584} ou le donjon {area:1417}.",
 	-- {npc:7155} Deadwood Pathfinder
 	["grind on {npc:7155}"] = "tuez en boucle : {npc:7155}",
 
@@ -256,7 +256,7 @@ return {
 	-- Step 55: Level 54.87
 	["Level 54.87"] = "Niveau 54.87",
 	-- {zone:1452} Winterspring · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
-	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 54.87 before the hand-ins in {zone:1452}: they take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Rechargez ici jusqu'au niveau 54.87 avant les remises dans {zone:1452} : elles vous amènent au niveau 55. Ou, en groupe, exécutez plutôt le donjon {area:1584} ou le donjon {area:1417}.",
 	-- {npc:7125} Jaedenar Hound
 	["grind on {npc:7125}"] = "tuez en boucle : {npc:7125}",
 

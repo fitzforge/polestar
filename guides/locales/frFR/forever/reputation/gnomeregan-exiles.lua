@@ -15,7 +15,7 @@ return {
 	-- {area:133} Gnomeregan · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron
 	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "400 de réputation auprès de {area:133} grâce aux bocaux de limon de {npc:9616} et à {quest:4262} (niveau 52-54)",
 	-- {area:133} Gnomeregan · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too"] = "",
+	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too"] = "À propos de la réputation de 3 000 {area:133} provenant des quêtes de bas niveau de {zone:1426}, également payée à {zone:1455}",
 
 	-- Step 1: Bubulo Acerbus, the cloth quartermaster
 	-- {npc:14724} Bubulo Acerbus
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : les nains et les gnomes commencent la vallée au sud-ouest de {area:131}, environ 1, réputation 150 en minutes 30 à 60. {npc:658} et {npc:713} se trouvent à {area:77}. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -60,7 +60,7 @@ return {
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : {area:131} et les routes Brewnall et {area:133} qui l'entourent, à propos de la réputation 1 300 en minutes 50 à 60. La plupart des donateurs se trouvent dans et autour du {area:2102} et à {area:189} à l'est de celui-ci. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
@@ -87,7 +87,7 @@ return {
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "La carrière et le {area:803}",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : {zone:1426} oriental, du camp de {npc:264936} aux {area:134} et {area:803}, environ la réputation de 500 en minutes 30 à 60. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
@@ -155,7 +155,7 @@ return {
 	-- {quest:7812} Additional Runecloth
 	["{quest:7812} to Honored"] = "{quest:7812} : Honoré",
 	-- {quest:7812} Additional Runecloth · {item:14047} Runecloth · {npc:9616} Laris Geardawdle · {npc:9561} Jalinda Sprig · {zone:1426} Dun Morogh · {npc:4077} Gaxim Rustfizzle · {object:171524} Tinker Town · {area:133} Gnomeregan
-	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s {area:133} dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s {area:133} dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7812} : réputation 50 pour 20 {item:14047}, aussi souvent que vous le souhaitez. Après les quatre premiers dons, un Humain, un Nain ou un Elfe de la nuit se tient à Friendly 700 de 6,000, donc Honoré est 5,300 absent : 106 se rend, 2 120 {item:14047} (les Gnomes démarrent 900 plus haut : remises en 88 ; Skyborne démarre au neutre 2 000, donc 6 400 absent : 128, deux de moins après avoir exploré l'Alliance). Les quêtes {npc:9616} et {npc:9561} ci-dessus suppriment les remises 8 ; chaque hub {zone:1426} que vous avez fait amène 10 à 26 plus de réduction. En dehors de Dun Morogh, Gnomeregan rapporte peu : les quêtes de {npc:4077} dans Stonetalon (environ 500) et les quêtes de donjon {area:133} de {object:171524}. Chaque gain de ville donne également un quart de ce montant aux trois autres villes de l'Alliance (non prises en compte ici). Remettez tous vos {item:14047} en même temps.",
 
 	-- Step 28: Additional Runecloth to Revered
 	-- {quest:7812} Additional Runecloth

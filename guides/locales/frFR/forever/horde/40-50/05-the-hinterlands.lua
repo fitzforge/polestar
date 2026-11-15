@@ -35,15 +35,15 @@ return {
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
-	["{quest:7849}, {quest:7845} and {quest:7850} are group quests: they send you into {area:354}, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.\n{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "",
+	["{quest:7849}, {quest:7845} and {quest:7850} are group quests: they send you into {area:354}, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.\n{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "{quest:7849}, {quest:7845} et {quest:7850} sont des quêtes de groupe : elles vous envoient dans {area:354}, dont les trolls sont d'élite (46-50). Emmenez-les avec un groupe de trois personnes ou plus ; sautez-les si vous êtes seul, l'itinéraire vous fait revivre l'expérience. \n{npc:14736} se dresse au sommet de l'auberge, au-dessus de {npc:14731} : montez, la flèche ne peut pas distinguer les niveaux.",
 
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
 	["{area:307}: kill these as you meet them"] = "{area:307} : tuez-les au passage",
 	-- {npc:2491} Whiskey Slim · {area:307} The Overlook Cliffs
-	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "",
+	["The big turtles crawl along the beaches north of the village, and {npc:2491}'s bottles of port lie on the same beaches, from the village up to the {area:307}: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it."] = "Les grosses tortues rampent le long des plages au nord du village, et les bouteilles de porto de {npc:2491} reposent sur les mêmes plages, du village jusqu'au {area:307} : ramassez-les au fur et à mesure. Un snapjaw peut rarement faire tomber la balise de détresse de l'OOX-09/HL : gardez-la.",
 	-- {object:2068} Pupellyverbos Port
-	["{object:2068}, on the beaches"] = "",
+	["{object:2068}, on the beaches"] = "{object:2068}, sur les plages",
 	-- {item:8704} OOX-09/HL Distress Beacon
 	["{item:8704}, a rare drop"] = "{item:8704}, butin rare",
 
@@ -83,7 +83,7 @@ return {
 	["{area:355}: kill these as you meet them"] = "{area:355} : tuez-les au passage",
 	-- {area:355} The Altar of Zul · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Silvermane Howlers = {npc:2925} Silvermane Howler
-	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "",
+	["South-west of the lake, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "Au sud-ouest du lac, les devins de Vilebranch tiennent le {area:355}, le temple des trolls au sud des collines centrales. Qiaga et {npc:8636} (élite, 50) se dressent à son sommet : emmenez les devins sur les marches inférieures.\nAu sud-ouest, les Hurleurs Crins-d'argent parcourent les collines à l'est des villages de Witherbark.",
 
 	-- Step 18: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
@@ -100,7 +100,7 @@ return {
 
 	-- Step 21: Jintha'Alor
 	-- {area:354} Jintha'Alor · {npc:14757} Elder Torntusk
-	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "",
+	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. The trolls inside are elite: stay with your group and keep to the paths."] = "Le crâne du chasseur Malkhor repose sur un tas sous les ruines de Vilebranch, ses os sur un tas au pied de {area:354}. Les vaisseaux de sang contaminé se trouvent sur les terrasses inférieures et {npc:14757} se trouve au sommet. Les trolls à l'intérieur sont d'élite : restez avec votre groupe et restez sur les sentiers.",
 	-- {npc:14757} Elder Torntusk · {area:354} Jintha'Alor
 	["{npc:14757}, at the top of {area:354}"] = "{npc:14757}, au sommet de {area:354}",
 	-- {area:355} The Altar of Zul
@@ -112,12 +112,12 @@ return {
 
 	-- Step 23: Revantusk Village
 	-- {npc:14736} Primal Torntusk · {npc:14731} Lard
-	["{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "",
+	["{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "{npc:14736} se trouve tout en haut de l’auberge, au-dessus de {npc:14731} : montez, car la flèche ne distingue pas les différents niveaux.",
 
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "Niveau 49.02",
 	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor · {area:2100} Maraudon
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon instead."] = "Si vous avez passé {quest:7816} ou les quêtes de groupe de {area:354}, tuez des monstres ici jusqu’au niveau 49,02 pour suivre la progression prévue par l’itinéraire. Vous pouvez aussi former un groupe pour faire le donjon de {area:2100}.",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "tuez en boucle : {npc:2505}",
 
@@ -146,11 +146,11 @@ return {
 
 	-- Step 33: Fallen Hero of the Horde
 	-- {zone:1419} Blasted Lands
-	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "",
+	["The ghostly orc stands by the road where the swamp meets the canyon into the {zone:1419}. Listen to his story."] = "L’orc fantomatique se trouve près de la route, là où le marais rejoint le canyon menant à {zone:1419}. Écoutez son histoire.",
 
 	-- Step 35: Fallen Hero of the Horde
 	-- {npc:7623} Dispatch Commander Ruag · {area:75} Stonard · {zone:1419} Blasted Lands
-	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "",
+	["for {npc:7623} in {area:75}, after the {zone:1419}"] = "pour {npc:7623}, à {area:75}, après {zone:1419}",
 
 	-- Step 36: The bloodmages
 	["The bloodmages"] = "Les mages de sang",
@@ -170,9 +170,9 @@ return {
 
 	-- Step 39: Stonard
 	-- {area:75} Stonard
-	["Ride back north through the canyon to {area:75}."] = "",
+	["Ride back north through the canyon to {area:75}."] = "Retournez vers le nord à travers le canyon jusqu’à {area:75}.",
 	-- {npc:7643} Bengor · {npc:950} Swamp Talker
-	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "",
+	["{npc:7643}'s The {npc:950} is a level 55 quest: leave it."] = "La quête de {npc:7643} concernant {npc:950} est de niveau 55 : laissez-la de côté.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south."] = "À l'est de la route, les Sangliers cendrés et les Grunters fouillent les pentes près des Basilics Rougepierre. Restez à l'écart des Sangliers infernaux de niveau 52, plus au sud.",

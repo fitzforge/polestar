@@ -28,7 +28,7 @@ return {
 
 	-- Step 3: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun · {npc:3401} Shenthul
-	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "",
+	["Fly to the Crossroads and head north to the Venture Co. tower above the {area:382}. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the {item:8051} twice, then walk up in front of him and /salute. In any other order he attacks. Lost the {item:8051}? Abandon and retake from {npc:3401}."] = "Volez vers le la Croisée et dirigez-vous vers le nord jusqu'à la tour KapitalRisk au-dessus du {area:382}. Fizzule se tient sous un arbre à l'est de la tour, à l'extérieur de celle-ci, et est hostile jusqu'à ce qu'on lui signale. Ciblez-le à environ 50 mètres et tirez deux fois avec le {item:8051}, puis avancez devant lui et / saluez. Dans n'importe quel autre ordre, il attaque. Vous avez perdu le {item:8051} ? Abandonner et reprendre {npc:3401}.",
 	-- {item:8051} Flare Gun
 	["{item:8051}, twice, at Fizzule"] = "{item:8051}, deux fois, sur Fizzule",
 
@@ -36,7 +36,7 @@ return {
 	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
 	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "Gardez le {item:8066} dans vos sacs et utilisez-le sur lui chaque fois que vous vous approchez, sinon il devient hostile. {npc:7287} (niveau 22) marche près de la tour : longez le mur, camouflez-vous derrière lui et utilisez {spell:921} pour la clé. Le tuer ne la donne pas ; si ses poches sont vides, tuez-le et attendez 4 minutes et demie qu'il revienne.",
 	-- {item:8072} Silixiz's Tower Key
-	["Pick Pocket Foreman Silixiz for {item:8072}"] = "",
+	["Pick Pocket Foreman Silixiz for {item:8072}"] = "Pick Pocket Contremaître Silixiz pour {item:8072}",
 
 	-- Step 5: The Venture Co. tower
 	["The Venture Co. tower"] = "La tour de la KapitalRisk",

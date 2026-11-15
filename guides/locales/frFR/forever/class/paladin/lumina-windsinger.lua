@@ -48,7 +48,7 @@ return {
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}, au {area:228}",
 	-- {npc:259620} Lumina Windsinger
-	["{npc:259620}: hear her story to the end"] = "",
+	["{npc:259620}: hear her story to the end"] = "{npc:259620} : écoutez son histoire jusqu’au bout",
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
@@ -67,7 +67,7 @@ return {
 	-- Step 9: Whitestone Oak Lumber
 	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall · {zone:1458} Undercity · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1434} Stranglethorn Vale · {zone:1431} Duskwood
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "",
+	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581} se trouve sous {area:20} dans {zone:1436}, terre de l'Alliance : un groupe de cinq à environ 17-24. Depuis {zone:1458}, prenez le zeppelin jusqu'à {object:3202} à {zone:1434} et continuez vers le nord en passant par {zone:1431} jusqu'à {zone:1436}. L'entrée est la mine {area:20}. Le Sculpteurs gobelin (élite, niveau 18-19) dans la salle du mât de Sneed laisse tomber le bois à chaque fois.",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}, dans la mine de {area:20}",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
@@ -75,7 +75,7 @@ return {
 
 	-- Step 10: Ulric Frostveil
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
-	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "",
+	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} attend à {area:2897} sur la côte ouest de {zone:1440} : prenez le zeppelin de {object:3202} (ou {zone:1458}) jusqu'à {zone:1454}, puis allez vers le nord en passant par {zone:1413} jusqu'à {zone:1440} et vers l'ouest le long de la route. Andruk, le maître des vents de l'avant-poste, vous épargnera la promenade la prochaine fois. Faites la quête de {npc:259649} avant de chasser les nagas : la gemme Kor ne tombe que tant que vous l'avez.",
 
 	-- Step 11: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
@@ -97,7 +97,7 @@ return {
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "{npc:3539}, le fabricant d'armes, se tient juste au sud d'{area:272}, dans les {zone:1424}. Accepter {quest:95125} lance la forge : reculez et attendez près de lui qu'il ait fini.",
 	-- {npc:3539} Ott
-	["Watch {npc:3539} forge the blade"] = "",
+	["Watch {npc:3539} forge the blade"] = "Regardez {npc:3539} forger la lame",
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "{npc:3539} vous donne {quest:95125}",
 

@@ -50,7 +50,7 @@ return {
 
 	-- Step 11: The Barrens
 	-- {area:382} Sludge Fen · {object:407566} Goblin Tome (no name in this language: may be words) · {area:392} Ratchet
-	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "",
+	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "Deux livres : le manuel dans la salle de contrôle au sommet de la plate-forme pétrolière du {area:382}, et le {object:407566} à côté de Gazlowe dans {area:392}.",
 
 	-- Step 12: The Wailing Caverns' cave
 	-- {area:718} Wailing Caverns
@@ -175,7 +175,7 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Level 60 books: {area:254}"] = "Livres de niveau 60 : {area:254}",
 	-- {item:228133} Magma or Lava? · {area:254} Blackrock Mountain · {area:1584} Blackrock Depths · {area:2717} Molten Core
-	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "",
+	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "{item:228133} se trouve à l'intérieur de {area:254}, dans le passage de la mine vers {area:1584} au-delà du donneur de quête {area:2717}. Le waypoint marque la montagne.",
 
 	-- Step 42: The level 60 books: Jennea Cannon
 	-- {npc:5497} Jennea Cannon

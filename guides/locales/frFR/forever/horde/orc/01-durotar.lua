@@ -49,7 +49,7 @@ return {
 	["{area:363}: kill these as you meet them"] = "{area:363} : tuez-les au passage",
 	-- {quest:790} Sarkoth · {npc:3287} Hana'zua · {quest:792} Vile Familiars · {area:365} Burning Blade Coven
 	-- plural, as words: Scorpid Workers = {npc:3124} Scorpid Worker · Cactus Apples = {item:11583} Cactus Apple
-	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "",
+	["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}, un grand scorpide, rôde sur le versant sud de {npc:3287} parmi les Scorpides ouvrier ; choisissez le Pommes de cactus près des cactus sur le chemin.\nLe {quest:792} envahit la pente sous le {area:365}, la grotte du côté nord de la vallée.",
 
 	-- Step 6: Class trainer
 	["Class trainer"] = "Maître de classe",
@@ -175,7 +175,7 @@ return {
 
 	-- Step 38: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
-	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "",
+	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "Retour au nord-ouest jusqu'à {area:362} : {npc:3139} d'abord, puis {npc:3147} dans la tour de guet, puis {npc:3142} et {npc:266940} en direction de l'est jusqu'au rivage.",
 	-- {npc:266940} Turroc
 	["{npc:266940}, inside"] = "{npc:266940}, à l'intérieur",
 
@@ -183,7 +183,7 @@ return {
 	-- {area:373} Scuttle Coast
 	["{area:373}: kill these as you meet them"] = "{area:373} : tuez-les au passage",
 	-- {area:362} Razor Hill
-	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "",
+	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "Les boîtes à outils gnomes se trouvent dans l'épave le long de la côte à l'est et au sud-est de {area:362}. Suivez la côte vers le sud jusqu'à Sen'jin.\nMakrura et des surf crawlers bordent les plages au nord-est de Sen'jin.",
 	["Underwater"] = "Sous l'eau",
 
 	-- Step 40: Echo Isles: kill these as you meet them
@@ -224,7 +224,7 @@ return {
 
 	-- Step 49: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
-	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "",
+	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "Traversez le pont de {area:814} vers l’ouest : {npc:3337} se trouve à {area:379}, sur les hauteurs au-dessus du pont, sur le chemin de {npc:5907}.",
 
 	-- Step 54: Kranal Fiss
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
@@ -232,7 +232,7 @@ return {
 
 	-- Step 55: Telf Joolam
 	-- {zone:1411} Durotar · {npc:5900} Telf Joolam
-	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "",
+	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "Revenez sur le pont et vers le sud le long de la rive {zone:1411} de la rivière jusqu'à l'endroit où un sentier étroit gravit la montagne : {npc:5900} maintient le sanctuaire au sommet. Faites attention aux bords en montant et redescendez par le même sentier.",
 
 	-- Step 56: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west."] = "Les Hurans et les Eclaireurs Tranchecrin tiennent les huttes à l'ouest de la ville ; les Lève-poussière et les Gardes de guerre tiennent les camps plus à l'ouest.",
@@ -283,13 +283,13 @@ return {
 
 	-- Step 69: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
-	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "",
+	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "Retournez à {area:362} : voyez {npc:3139}, puis {npc:3142}.",
 
 	-- Step 70: Spitelash naga
 	["Spitelash naga"] = "Nagas Fouette-bile",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "Au nord-est de la plage en dessous de {area:370}, au nord de {npc:275657} : Eclaireurs fouette-bile et les préposés la tiennent. Chasseurs : apprivoisez un {npc:3107} sur la plage.",
 
 	-- Step 71: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -342,17 +342,17 @@ return {
 
 	-- Step 84: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "",
+	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "À l'ouest de {area:362} sur le pont {area:814} : {npc:3337} et {npc:5810} se tiennent ensemble à {area:379} au-dessus. De là, la route vers le nord passant par {zone:1411} mène à {zone:1454}.",
 
 	-- Step 85: Thunder lizards on the way north
-	["Thunder lizards on the way north"] = "",
+	["Thunder lizards on the way north"] = "Lézards-tonnerre en route vers le nord",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Les Lézards-tonnerre et les Foudroyants paissent sur {area:369}, à côté de la route du nord vers {zone:1454} ; chacun d'eux peut laisser tomber une {item:6486}. {npc:5810} la prend quand le guide suivant passe par {area:379}.\nAttention : Halikor, un élite de niveau 12, rôde sur {area:369} parmi les lézards : repérez-le avant d'attirer quoi que ce soit.",
 
 	-- Step 87: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
-	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
+	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la porte principale de {zone:1454}, juste à l'ouest de {area:817}. {npc:3352} est aux côtés des entraîneurs de chasseurs dans le {object:172958}.",
 
 	-- Step 88: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
@@ -362,9 +362,9 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "Vers {zone:1454}",
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
-	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
+	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "Suivez la route vers le nord depuis {area:379} jusqu'à la porte principale de {zone:1454}. Le guide suivant commence dans {zone:1454} : {quest:829} prend la quête des cultistes, les entraîneurs enseignent vos nouveaux rangs et le zeppelin part des tours à l'extérieur de la porte pour {zone:1420} et {zone:1421}. {zone:1413} vient après Silverpine.",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{object:172982}, à {zone:1454}",
 
 	-- Step 90: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning

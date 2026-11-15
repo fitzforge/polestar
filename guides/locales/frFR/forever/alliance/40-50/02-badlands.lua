@@ -9,7 +9,7 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {npc:2817} Rigglefuzz
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
-	["{npc:2817}: Blue Pearls from Stranglethorn"] = "",
+	["{npc:2817}: Blue Pearls from Stranglethorn"] = "{npc:2817} : Perles bleue de Strangleronce",
 	-- {npc:2817} Rigglefuzz
 	["{npc:2817}'s next quest pays no experience: skip it."] = "La quête suivante de {npc:2817} ne rapporte pas d'expérience : passez-la.",
 
@@ -34,7 +34,7 @@ return {
 
 	-- Step 8: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
-	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "Roulez vers le nord en passant par le col jusqu'à {zone:1432} et vers l'est le long de la rive sud jusqu'au camp d'Ironband.",
 
 	-- Step 9: Into Badlands
 	-- {zone:1418} Badlands
@@ -46,7 +46,7 @@ return {
 
 	-- Step 11: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "Retour par le col : les troggs Stonevault creusent à l'extérieur de {area:1517}, à la limite nord de {zone:1418}. Les urnes sculptées et les grappes de champignons magenta se trouvent dans leurs grottes et tunnels, à l'extérieur du donjon lui-même.",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "{item:8047} ; sous terre",
 	-- {object:2743} Carved Stone Urn
@@ -54,14 +54,14 @@ return {
 
 	-- Step 12: Back to Loch Modan
 	-- {zone:1432} Loch Modan
-	["Back to {zone:1432}"] = "",
+	["Back to {zone:1432}"] = "Retour à {zone:1432}",
 
 	-- Step 13: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "Revenez vers le nord jusqu'aux Excavations de Baguefer.",
 
 	-- Step 14: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride west along the loch to {area:144}."] = "",
+	["Ride west along the loch to {area:144}."] = "Longez le loch vers l’ouest jusqu’à {area:144}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, sous terre",
 
@@ -73,7 +73,7 @@ return {
 
 	-- Step 16: Southshore
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980} preaches by the inn."] = "",
+	["{npc:3980} preaches by the inn."] = "{npc:3980} prêche près de l’auberge.",
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980}, upstairs"] = "{npc:3980}, à l'étage",
 	-- {area:796} Scarlet Monastery
@@ -132,7 +132,7 @@ return {
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Démoniste : {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "Depuis Theramore, dirigez-vous vers le nord dans le {zone:1413} jusqu'à {area:392}, ou volez si vous connaissez sa trajectoire de vol. {npc:6251} enseigne dans la maison près de la banque.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Blue Pearls from Stranglethorn"] = "Perles bleues de Strangleronce",

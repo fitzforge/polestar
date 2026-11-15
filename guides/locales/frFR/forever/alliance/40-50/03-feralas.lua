@@ -20,7 +20,7 @@ return {
 
 	-- Step 4: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
-	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{area:1116} se trouve sur {area:1120}, au large du {area:1108} : le bateau du quai de la côte y traverse. {npc:7880} se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:3936} Shandris Feathermoon
 	["{npc:3936}, beside him"] = "{npc:3936}, à côté de lui",
 	-- {npc:7877} Latronicus Moonspear
@@ -68,7 +68,7 @@ return {
 
 	-- Step 15: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
-	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "En venant du sud : {npc:7877} et {npc:7878} d'abord, puis {npc:7900} à côté du bâtiment de {npc:7880}, puis les escaliers. {npc:7880} se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne permet pas de distinguer les étages. {npc:7852} est près du maître de vol, en train de sortir.",
 	-- {npc:7879} Quintis Jonespyre
 	["{npc:7879}, upstairs"] = "{npc:7879}, à l'étage",
 
@@ -83,7 +83,7 @@ return {
 	-- Step 18: Grimtotem camp
 	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "De {area:489}, roulez vers l’ouest le long de la route jusqu’au camp Totem sinistre au nord de celui-ci. {npc:7956} attend à l'extérieur ; libérez le Fées fléchetteuse du stylo au milieu et gardez {npc:7956} et au moins six d'entre eux en vie.",
 
 	-- Step 19: Grimtotem tauren
 	["Grimtotem tauren"] = "Taurens Totem sinistre",
@@ -104,17 +104,17 @@ return {
 	-- {area:1136} High Wilderness
 	["{area:1136}: kill these as you meet them"] = "{area:1136} : tuez-les au passage",
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak
-	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "",
+	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide, and about one in thirty a {quest:7735}, which {npc:7852} pays for too.\n{npc:14637}'s quests on the coast need level 45: grind the yetis here until level 44.5, so the kills also bring {npc:7852}'s hides. Or, with a group, run the {area:978} dungeon instead."] = "Revenez à l'ouest le long de la route, puis au nord dans les collines Griffe féroce. Chaque yéti ici peut lâcher une peau, et environ un sur trente un {quest:7735}, que {npc:7852} paie également. Les quêtes de \n{npc:14637} sur la côte nécessitent le niveau 45 : broyez les yétis ici jusqu'au niveau 44.5, donc les victimes rapportent également Les peaux de {npc:7852}. Ou, en groupe, exécutez plutôt le donjon {area:978}.",
 	-- {npc:5296} Rage Scar Yeti
-	["grind on {npc:5296}"] = "",
+	["grind on {npc:5296}"] = "Tuez en boucle : {npc:5296}",
 
 	-- Step 23: Rage Scar Hold
 	-- {quest:7735} Pristine Yeti Hide
-	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "",
+	["No {quest:7735} yet? Keep killing the Rage Scar yetis until one drops, then right-click it."] = "Vous n’avez pas encore obtenu {quest:7735} ? Continuez à tuer les Yétis Griffe féroce jusqu’à l’obtenir, puis faites un clic droit dessus.",
 
 	-- Step 24: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} se trouve à l’étage de son bâtiment : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 
 	-- Step 25: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -123,7 +123,7 @@ return {
 	-- Step 27: Grind to 45
 	["Grind to 45"] = "Farmer jusqu'au niveau 45",
 	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle · {area:978} Zul'Farrak · {area:1517} Uldaman
-	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "",
+	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45. Or, with a group, run the {area:978} dungeon or the {area:1517} dungeon instead."] = "Partez vers l’est jusqu’à {area:1105}. Les quêtes de {npc:14637}, sur la côte, nécessitent le niveau 45. Vous pouvez aussi former un groupe pour faire le donjon de {area:978} ou de {area:1517}.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {zone:1444} Feralas
 	["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farmez les {npc:5292} au {area:1105}, {zone:1444}",
 
@@ -142,7 +142,7 @@ return {
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "Les recharges de {npc:14637} Fandazzle sont de niveau 55 : passez-les.",
 	-- {zone:1446} Tanaris · {area:489} Thalanaar
-	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "",
+	["The {zone:1446} guide starts with the trip east, past {area:489}."] = "Le guide de {zone:1446} commence par le trajet vers l’est, après {area:489}.",
 
 	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles

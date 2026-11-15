@@ -43,7 +43,7 @@ return {
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "{area:93} : tuez-les au passage",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate
-	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "",
+	["Head south-west from {area:42} to the ogre mound. {object:119} sits in the camp at its entrance; Splinter Fist ogres guard it."] = "Dirigez-vous vers le sud-ouest de {area:42} jusqu’au monticule de l’ogre. {object:119} se trouve dans le camp à son entrée ; Les ogres Splinter Fist le gardent.",
 	-- {npc:272273} Lost Watcher · {quest:96138} Merrick's Bow
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "Seulement si un {npc:272273} a laissé tomber {quest:96138} : clic droit dessus",
 	["Below ground"] = "Sous terre",
@@ -63,7 +63,7 @@ return {
 
 	-- Step 13: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
-	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "",
+	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 from level 28, but no fight."] = "La tombe se trouve parmi les squelettes à l'angle nord-ouest du cimetière, sur le chemin de {npc:311}. Sa quête et la suivante sont en conversation uniquement, avec {npc:268} et le Commandant Althea dans {area:42} : niveau 35 à partir du niveau 28, mais pas de combat.",
 
 	-- Step 14: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
@@ -86,7 +86,7 @@ return {
 
 	-- Step 16: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "",
+	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "La maison de {npc:276} se trouve à l’extrémité est de la ville, sur le chemin du maître de vol.",
 	["Inside"] = "À l'intérieur",
 
 	-- Step 17: Fly to Menethil Harbor

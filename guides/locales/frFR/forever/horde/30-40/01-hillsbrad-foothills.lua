@@ -16,16 +16,16 @@ return {
 
 	-- Step 2: Thunder Bluff
 	-- {area:484} Freewind Post · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Fly from {area:484} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to the Crossroads from there."] = "",
+	["Fly from {area:484} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to the Crossroads from there."] = "Prenez un vol depuis {area:484} vers {area:1638}, puis entraînez-vous auprès de {npc:3033}, à {area:1639}. De là, prenez un vol pour la Croisée.",
 
 	-- Step 3: Ratchet
 	-- {area:484} Freewind Post · {area:392} Ratchet · {npc:5901} Islen Waterseer
-	["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "Prenez un vol depuis {area:484} vers {area:392}. {npc:5901} campe sur la côte, à quelques pas au sud de la ville. Prenez ensuite un vol depuis {area:392} pour la Croisée.",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
-	["{npc:5901}: your {item:6637}, for the brazier"] = "",
+	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901} : votre objet {item:6637}, pour le brasero",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "Prendre un vol pour la Croisée",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Maître de vol des {zone:1456}",
 
@@ -35,18 +35,18 @@ return {
 
 	-- Step 7: Korran
 	-- {npc:3428} Korran
-	["{npc:3428} stands beside the Crossroads flight master."] = "",
+	["{npc:3428} stands beside the Crossroads flight master."] = "{npc:3428} se trouve près du maître de vol de la Croisée.",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
+	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428} : pour {npc:4485}, à {zone:1454}",
 
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
 	-- Step 9: Thrall
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
-	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "",
+	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "{npc:4949} vous attend au fort Grommash, dans {object:172957}.",
 	-- {npc:4949} Thrall
 	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}, Grommash Hold, si vous l'avez",
 
@@ -56,9 +56,9 @@ return {
 
 	-- Step 11: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}, on the way out to the main gate."] = "",
+	["{npc:4485} stands in the {object:172958}, on the way out to the main gate."] = "{npc:4485} se trouve dans {object:172958}, sur le chemin menant à la porte principale.",
 	-- {npc:4483} Moktar Krin · {area:439} Shimmering Flats
-	["for {npc:4483} in the {area:439}, next guide"] = "",
+	["for {npc:4483} in the {area:439}, next guide"] = "pour {npc:4483}, dans {area:439} : guide suivant",
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -66,7 +66,7 @@ return {
 
 	-- Step 13: The Undercity
 	-- {quest:515} Elixir of Agony · {item:3388} Lesser Troll's Blood Elixir · {skill:171} Alchemy · {area:287} Hillsbrad
-	["{quest:515} needs a {item:3388}, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a {item:3388}. No elixir: skip the Elixir steps in {area:287}."] = "",
+	["{quest:515} needs a {item:3388}, an {skill:171} item: buy one at the auction house if you can (or ask an alchemist). The quest text says Strong, but it takes a {item:3388}. No elixir: skip the Elixir steps in {area:287}."] = "Pour {quest:515}, il vous faut {item:3388}, un objet fabriqué en {skill:171} : achetez-en un à l’hôtel des ventes si possible, ou demandez à un alchimiste. Le texte anglais de la quête indique “Strong”, mais l’objet requis est {item:3388}. Sans élixir, passez les étapes de la série de quêtes de l’élixir à {area:287}.",
 	-- {item:3388} Lesser Troll's Blood Elixir · {quest:515} Elixir of Agony
 	["{item:3388}: auction house or an alchemist, for {quest:515}."] = "{item:3388} : hôtel des ventes ou un alchimiste, pour {quest:515}.",
 
@@ -80,11 +80,11 @@ return {
 
 	-- Step 16: Brazier of Everfount
 	-- {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
-	["Fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "",
+	["Fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "Prenez un vol pour {area:228}. {object:113791} se trouve sur la colline juste au sud-ouest : vainquez la Manifestation d’eau corrompue mineure à proximité, placez ses brassards dans le brasero, parlez à {npc:5895} et conservez {item:7813} pour {npc:5901}. Prenez ensuite un vol depuis {area:228} vers {area:272}.",
 	-- {item:6637} Water Sapta
-	["{item:6637}: drink it by the standing stone to see the elemental"] = "",
+	["{item:6637}: drink it by the standing stone to see the elemental"] = "{item:6637} : buvez-le près de la pierre dressée pour voir l’élémentaire.",
 	-- {npc:5901} Islen Waterseer
-	["for {npc:5901}, next guide"] = "",
+	["for {npc:5901}, next guide"] = "pour {npc:5901} : guide suivant",
 
 	-- Step 17: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
@@ -108,7 +108,7 @@ return {
 
 	-- Step 22: Tarren Mill
 	-- {area:272} Tarren Mill
-	["Back east to {area:272}."] = "",
+	["Back east to {area:272}."] = "Retournez vers l’est à {area:272}.",
 
 	-- Step 23: Hillsbrad Peasants
 	-- plural, as words: Hillsbrad Peasants = {npc:2267} Hillsbrad Peasant
@@ -142,32 +142,32 @@ return {
 	["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "Au sud-ouest, les Yétis des grottes et les Yétis féroces (30-32) remplissent {area:277}, dans les collines à l'ouest de {area:272} ; environ un sur seize porte le bâtonnet. Restez dans ces cavernes : les Yétis des montagnes et les Yétis géants (32-34) de la grotte plus au nord le portent aussi, mais au niveau 29-30 ils frappent fort et viennent par deux.",
 
 	-- Step 31: Level 30
-	["Level 30"] = "",
+	["Level 30"] = "Niveau 30",
 	-- {area:272} Tarren Mill · {quest:544} Prison Break In · {quest:556} Stone Tokens · {quest:676} The Hammer May Fall · {area:796} Scarlet Monastery · {area:2797} Blackfathom Deeps
-	["{area:272}'s {quest:544}, {quest:556} and {quest:676} are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the {area:796} dungeon (Graveyard) or the {area:2797} dungeon instead."] = "",
+	["{area:272}'s {quest:544}, {quest:556} and {quest:676} are offered from level 30. Below it? Keep killing the yetis in these caves until level 30. Or, with a group, run the {area:796} dungeon (Graveyard) or the {area:2797} dungeon instead."] = "Les quêtes {quest:544}, {quest:556} et {quest:676} de {area:272} sont disponibles à partir du niveau 30. Vous ne l’avez pas encore atteint ? Continuez à tuer les yétis de ces grottes jusqu’au niveau 30. Vous pouvez aussi former un groupe pour faire le Cimetière de {area:796} ou le donjon de {area:2797}.",
 	-- {npc:2248} Cave Yeti
-	["grind on {npc:2248}"] = "",
+	["grind on {npc:2248}"] = "Tuez en boucle : {npc:2248}",
 
 	-- Step 32: Town hall
 	["Town hall"] = "Hôtel de ville",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
-	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "",
+	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Rejoignez la ville de {area:287}, au sud-ouest des grottes des yétis. L’hôtel de ville se trouve à l’ouest de la ville : {npc:2335} (niveau 30) et {npc:2448} sont à l’intérieur, avec le Registre municipal d’Hillsbrad ; la Proclamation d’Hillsbrad est affichée à côté. Des conseillers circulent dans la ville.",
 	-- {object:1761} Hillsbrad Proclamation
 	["{object:1761}, inside"] = "{object:1761}, à l'intérieur",
 
 	-- Step 33: Tarren Mill
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}, inside: offered from level 30"] = "",
+	["{npc:2410}, inside: offered from level 30"] = "{npc:2410}, à l’intérieur : disponible à partir du niveau 30",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:93680} Key to the City · {item:279469} Grimy Key
-	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "",
+	["{npc:2410}: {quest:93680}, the {item:279469} is by the traitors"] = "{npc:2410} : {quest:93680} ; {item:279469} se trouve près des traîtres.",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}, inside: offered from level 30"] = "",
+	["{npc:2437}, inside: offered from level 30"] = "{npc:2437}, à l’intérieur : disponible à partir du niveau 30",
 	-- {npc:2770} Tallow · {npc:2771} Drum Fel · {area:321} Hammerfall
-	["{npc:2770}: for {npc:2771} in {area:321}, later in this guide (from level 30)"] = "",
+	["{npc:2770}: for {npc:2771} in {area:321}, later in this guide (from level 30)"] = "{npc:2770} : pour {npc:2771}, à {area:321}, plus tard dans ce guide (à partir du niveau 30)",
 
 	-- Step 34: Foothill Caverns
 	-- {area:272} Tarren Mill · {item:3710} Rod of Helcular · {object:1768} Flame of Azel · {object:1769} Flame of Veraz
-	["Back into the yeti caves west of {area:272} with the {item:3710}. The path splits just inside: the {object:1768} burns on the upper level to the right, the {object:1769} on the lower level to the left, past more yetis."] = "",
+	["Back into the yeti caves west of {area:272} with the {item:3710}. The path splits just inside: the {object:1768} burns on the upper level to the right, the {object:1769} on the lower level to the left, past more yetis."] = "Retournez dans les grottes des yétis, à l’ouest de {area:272}, avec {item:3710}. Le chemin se divise juste après l’entrée : {object:1768} brûle au niveau supérieur, à droite ; {object:1769} brûle au niveau inférieur, à gauche, après d’autres yétis.",
 
 	-- Step 35: Flame of Uzel
 	-- plural, as words: Mountain Yetis = {npc:2250} Mountain Yeti
@@ -179,23 +179,23 @@ return {
 
 	-- Step 37: The Dalaran crater
 	-- {area:279} Dalaran
-	["The {area:279} crater"] = "",
+	["The {area:279} crater"] = "Le cratère de {area:279}",
 	-- {area:279} Dalaran · {npc:2411} Ricter · {npc:2412} Alina · {npc:2413} Dermot · {npc:2414} Kegan Darkmar
 	-- plural, as words: Worn Stone Tokens = {item:3714} Worn Stone Token
-	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "",
+	["Head west along the foot of the mountains to the violet dome of {area:279}. {npc:2411}, {npc:2412} and {npc:2413} (33-34) stand together inside the crater's eastern rim, {npc:2414} (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens. Careful: Many guards stand in linked pairs and others patrol alone around the camp."] = "Longez le pied des montagnes vers l’ouest jusqu’au dôme violet de {area:279}. {npc:2411}, {npc:2412} et {npc:2413} (niveaux 33 à 34) se tiennent ensemble à l’intérieur du bord est du cratère ; {npc:2414} (niveau 35) se trouve un peu plus à l’ouest. Chacun porte un objet en pierre de sang. Les Défenseurs et les Théurges de Dalaran (niveaux 31 à 33) qui les entourent peuvent laisser tomber des Runes gravées usées. Attention : de nombreux gardes sont liés par deux et attaquent ensemble ; d’autres patrouillent seuls autour du camp.",
 	-- {item:279469} Grimy Key
-	["{item:279469}: an object to loot, by the traitors"] = "",
+	["{item:279469}: an object to loot, by the traitors"] = "{item:279469} : un objet à ramasser près des traîtres",
 
 	-- Step 39: Azurelode Mine
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
-	["Head south past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "",
+	["Head south past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "Partez vers le sud, dépassez la ville de {area:287} et rejoignez {area:288}. Des mineurs travaillent dans les tunnels ; {npc:2305} (niveau 30) et {npc:2450} (niveau 29) se trouvent tout au fond.",
 	-- {area:288} Azurelode Mine
 	["Inside {area:288}"] = "Dans {area:288}",
 
 	-- Step 40: Torn Fin murlocs
 	["Torn Fin murlocs"] = "Murlocs Aileron déchiré",
 	-- {area:271} Southshore
-	["The Torn Fin murlocs camp on the beaches south-west of {area:271}'s bay, below the mine."] = "",
+	["The Torn Fin murlocs camp on the beaches south-west of {area:271}'s bay, below the mine."] = "Les murlocs Aileron déchiré campent sur les plages au sud-ouest de la baie de {area:271}, en contrebas de la mine.",
 	["Torn Fin beach"] = "Plage des Aileron déchiré",
 
 	-- Step 41: Helcular's Grave
@@ -206,7 +206,7 @@ return {
 
 	-- Step 42: Daggerspine naga
 	["Daggerspine naga"] = "Nagas Daguéchine",
-	["The Daggerspine naga line the shore south-east of the town."] = "",
+	["The Daggerspine naga line the shore south-east of the town."] = "Les nagas Daguéchine occupent le rivage au sud-est de la ville.",
 	["Daggerspine shore"] = "Rivage des Daguéchine",
 
 	-- Step 43: Henchman Valik
@@ -227,46 +227,46 @@ return {
 	-- {npc:2410} Magus Wordeen Voidglare
 	["{npc:2410}, inside"] = "{npc:2410}, à l'intérieur",
 	-- {npc:2410} Magus Wordeen Voidglare · {quest:545} Dalaran Patrols
-	["{npc:2410}: he offers {quest:545} after it"] = "",
+	["{npc:2410}: he offers {quest:545} after it"] = "{npc:2410} : il propose {quest:545} après cette quête.",
 	-- {npc:2437} Keeper Bel'varil
-	["{npc:2437}: for the 38-39 visit to Alterac"] = "",
+	["{npc:2437}: for the 38-39 visit to Alterac"] = "{npc:2437} : pour le passage à Alterac aux niveaux 38–39",
 	-- {npc:2410} Magus Wordeen Voidglare
-	["{npc:2410}: for the 38-39 visit to Alterac"] = "",
+	["{npc:2410}: for the 38-39 visit to Alterac"] = "{npc:2410} : pour le passage à Alterac aux niveaux 38–39",
 	-- {npc:2229} Krusk · {npc:2316} Gol'dir
-	["{npc:2229} now offers {npc:2316} (level 36): leave it for the 38-39 visit."] = "",
+	["{npc:2229} now offers {npc:2316} (level 36): leave it for the 38-39 visit."] = "{npc:2229} propose maintenant la quête concernant {npc:2316} (niveau 36) : gardez-la pour le passage aux niveaux 38–39.",
 	-- {npc:2216} Apothecary Lydon
 	["{npc:2216}, inside"] = "{npc:2216}, à l'intérieur",
 
 	-- Step 46: Elixir of Agony with a group
 	-- {quest:515} Elixir of Agony
-	["{quest:515} with a group"] = "",
+	["{quest:515} with a group"] = "{quest:515} en groupe",
 	-- {area:290} Dun Garok · {area:271} Southshore
-	["Lydon's next errand is a keg of Shindigger Stout from the cellar of {area:290}, the elite dwarven keep south-east of {area:271}: take it only if you go there with a group."] = "",
+	["Lydon's next errand is a keg of Shindigger Stout from the cellar of {area:290}, the elite dwarven keep south-east of {area:271}: take it only if you go there with a group."] = "Pour sa prochaine quête, Lydon demande un Tonneau de Shindigger dans la cave de {area:290}, le bastion nain peuplé d’élites au sud-est de {area:271} : acceptez-la uniquement si vous y allez en groupe.",
 
 	-- Step 47: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
-	["{quest:539} with a group"] = "",
+	["{quest:539} with a group"] = "{quest:539} en groupe",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
-	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "",
+	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "La dernière bataille de Darthalia se déroule à {area:290}, le bastion nain au sud-est de {area:271} : tous les nains y sont élites (niveaux 28 à 32), y compris {npc:2304}. C’est une bonne source d’expérience si vous avez un groupe.",
 
 	-- Step 48: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
-	["{quest:547} with a group"] = "",
+	["{quest:547} with a group"] = "{quest:547} en groupe",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
-	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "",
+	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "Les mêmes nains de {area:290} peuvent laisser tomber l’épée de {npc:2419} (environ une chance sur douze).",
 
 	-- Step 49: Dun Garok
 	-- {area:290} Dun Garok
-	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "",
+	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "Éliminez les ennemis de {area:290} en progressant depuis la porte ; les nains partent chercher de l’aide lorsqu’ils atteignent 30 % de leurs points de vie.",
 
 	-- Step 50: Tarren Mill
 	-- {npc:2425} Varimathras · {zone:1458} Undercity
-	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "",
+	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "pour {npc:2425}, à {zone:1458}, à la fin de ce guide",
 
 	-- Step 52: Shindigger keg
 	["Shindigger keg"] = "Tonneau de Shindigger",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
-	["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "",
+	["The Kegs of Shindigger Stout stand in the cellar of {area:290}, the dwarven keep south-east of {area:271}, beside {npc:2304} (32); every dwarf there is elite (28-32)."] = "Les Tonneaux de Shindigger se trouvent dans la cave de {area:290}, le bastion nain au sud-est de {area:271}, près de {npc:2304} (niveau 32) ; tous les nains y sont élites (niveaux 28 à 32).",
 	["Below ground"] = "Sous terre",
 
 	-- Step 53: Back to Tarren Mill
@@ -283,44 +283,44 @@ return {
 	-- Step 55: Boulderfist camp
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall · {area:313} Northfold Manor
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
-	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "",
+	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "Quittez {area:272} vers l’est en passant par {area:1057}, puis suivez la route vers l’est. Les Ogres et les Massacreurs Rochepoing (niveaux 32 à 34) campent au sud de la route, au sud de {area:313} ; les Massacreurs se trouvent dans la grotte.",
 
 	-- Step 56: Level 31
-	["Level 31"] = "",
+	["Level 31"] = "Niveau 31",
 	-- {area:321} Hammerfall · {area:796} Scarlet Monastery · {area:2797} Blackfathom Deeps
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
-	["{area:321}'s quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the {area:796} dungeon (Graveyard) or the {area:2797} dungeon instead."] = "",
+	["{area:321}'s quests are 32-36. Below 31? Keep killing the Boulderfist Ogres and Enforcers at this camp until level 31. Or, with a group, run the {area:796} dungeon (Graveyard) or the {area:2797} dungeon instead."] = "Les quêtes de {area:321} sont de niveau 32 à 36. Vous n’avez pas encore atteint le niveau 31 ? Continuez à tuer les Ogres et les Massacreurs Rochepoing de ce camp jusqu’au niveau 31. Vous pouvez aussi former un groupe pour faire le Cimetière de {area:796} ou le donjon de {area:2797}.",
 	-- {npc:2562} Boulderfist Ogre
-	["grind on {npc:2562}"] = "",
+	["grind on {npc:2562}"] = "Tuez en boucle : {npc:2562}",
 
 	-- Step 57: Hammerfall
 	-- {npc:2851} Urda · {npc:15126} Rutherford Twing · {quest:8263} Defiler's Basic Care Package · {zone:1461} Arathi Basin
-	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "",
+	["The orc stronghold at the eastern end of the road. {npc:2851}, the wind rider master, stands by the gate.\n{npc:15126} offers the {quest:8263} only once you are Friendly with the Defilers ({zone:1461}): skip it if he doesn't offer it."] = "Le bastion orc se trouve à l’extrémité est de la route. {npc:2851}, le maître des coursiers du vent, se tient près de la porte.\n{npc:15126} propose {quest:8263} uniquement lorsque votre réputation auprès des Profanateurs ({zone:1461}) atteint le niveau Amical : passez cette quête s’il ne la propose pas.",
 	-- {npc:2792} Gor'mul
 	["{npc:2792}, by the gate"] = "{npc:2792}, près de la porte",
 	-- {npc:2706} Tor'gan · {area:272} Tarren Mill
-	["{npc:2706}: its Syndicate are by the road in from {area:272}, on the 38-39 visit"] = "",
+	["{npc:2706}: its Syndicate are by the road in from {area:272}, on the 38-39 visit"] = "{npc:2706} : les membres du Syndicat concernés se trouvent près de la route venant de {area:272}, lors du passage aux niveaux 38–39.",
 
 	-- Step 58: Witherbark Village
-	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "",
+	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Au sud de Trépas-d’Orgrim, les trolls Witherbark occupent le village dans les collines. Les Lanceurs de haches gardent les huttes extérieures ; les Sorciers-docteurs et les Chasseurs de têtes occupent le cœur du village. Attention : ces trois types de trolls fuient pour chercher de l’aide à 15 % de leurs points de vie, ce qui peut attirer d’autres trolls des camps voisins.",
 
 	-- Step 59: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["Highland raptors and Plains Creepers"] = "",
+	["Highland raptors and Plains Creepers"] = "Raptors des hautes-terres et Rampants des plaines",
 	-- {area:321} Hammerfall
 	-- plural, as words: Highland Striders = {npc:2559} Highland Strider · Plains Creepers = {npc:2563} Plains Creeper
-	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "",
+	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "Sur le chemin du retour vers le nord, les Arpenteurs des hautes-terres parcourent les collines autour de {area:321} et peuvent laisser tomber les yeux. Au sud, les Rampants des plaines (niveaux 32 à 33) tissent leurs toiles dans l’herbe ; vous trouverez la soie d’araignée sur eux.",
 	-- {item:278225} Surgical Spidersilk
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["{item:278225}, from Plains Creepers"] = "",
+	["{item:278225}, from Plains Creepers"] = "{item:278225}, sur les Rampants des plaines",
 
 	-- Step 60: Hammerfall
 	-- {area:321} Hammerfall
-	["Back north to {area:321}."] = "",
+	["Back north to {area:321}."] = "Retournez vers le nord à {area:321}.",
 	-- {npc:12920} Doctor Gregory Victor
-	["{npc:12920}, at the south gate"] = "",
+	["{npc:12920}, at the south gate"] = "{npc:12920}, à la porte sud",
 	-- {npc:2706} Tor'gan · {npc:2771} Drum Fel · {quest:677} Call to Arms
-	["{npc:2706}'s Guile of the Raptor, {npc:2771}'s next {quest:677} and the doctor's Ward Restocking wait for the 38-39 visit."] = "",
+	["{npc:2706}'s Guile of the Raptor, {npc:2771}'s next {quest:677} and the doctor's Ward Restocking wait for the 38-39 visit."] = "Attendez le passage aux niveaux 38–39 pour faire La ruse du raptor auprès de {npc:2706}, la suite de {quest:677} auprès de {npc:2771} et la quête Ward Restocking du docteur.",
 
 	-- Step 61: Fly to Undercity
 	-- {area:1497} Undercity
@@ -330,9 +330,9 @@ return {
 
 	-- Step 62: Varimathras
 	-- {npc:2425} Varimathras · {object:36126} Royal Quarter
-	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "",
+	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "{npc:2425} se trouve près de Sylvanas, dans {object:36126}.",
 	-- {npc:2425} Varimathras
-	["{npc:2425}: Darthalia's commendation"] = "",
+	["{npc:2425}: Darthalia's commendation"] = "{npc:2425} : la recommandation de Darthalia",
 
 	-- Step 63: Undercity trainers
 	-- {zone:1458} Undercity

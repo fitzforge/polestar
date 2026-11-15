@@ -22,7 +22,7 @@ return {
 
 	-- Step 3: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {zone:1411} Durotar · {area:1704} Grol'dom Farm · {area:379} Far Watch Post · {zone:1440} Ashenvale
-	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "",
+	["{npc:5907} is not in the Crossroads: take the road north from the Crossroads and fork east towards {zone:1411}; past {area:1704} he paces by a tall tower east of the road (from {zone:1411}: over the Southfury bridge, past {area:379}). If you reach {zone:1440} you went too far."] = "{npc:5907} n'est pas dans le la Croisée : prendre la route vers le nord à partir du la Croisée et bifurquer vers l'est en direction de {zone:1411} ; après {area:1704}, il passe devant une haute tour à l'est de la route (depuis {zone:1411} : au-dessus du pont Southfury, après {area:379}). Si vous atteignez {zone:1440}, vous êtes allé trop loin.",
 
 	-- Step 4
 	-- {npc:5907} Kranal Fiss · {npc:3173} Swart
@@ -51,7 +51,7 @@ return {
 	-- Step 10: Fire Tar
 	-- {item:5026} Fire Tar
 	-- plural, as words: Fireballs = {spell:133} Fireball
-	["The Razormane casters north-east of the Crossroads drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "",
+	["The Razormane casters north-east of the Crossroads drop the {item:5026} three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time."] = "Les lanceurs de sorts Tranchecrin au nord-est du la Croisée lâchent le {item:5026} trois fois sur quatre : Chercheurs d'eau et Tisse-épines (niveau 10-11), Géomanciens (niveau 12-13, ils lancent Fireballs et courent chercher de l'aide en cas de blessure) et Mystiques (niveau 13-14, ils se soignent eux-mêmes avec une santé faible). Tirez-les un à la fois.",
 
 	-- Step 11: Reagent Pouch
 	-- {spell:348} Immolate · {area:371} Dustwind Cave · {area:362} Razor Hill · {area:817} Skull Rock · {zone:1454} Orgrimmar

@@ -14,7 +14,7 @@ return {
 	-- {npc:2934} Keeper Bel'dugur
 	["{npc:2934}, on the way back to Zinge"] = "{npc:2934}, sur le chemin du retour vers Zinge",
 	-- {item:8523} Field Testing Kit · {area:976} Gadgetzan
-	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "",
+	["the {item:8523} from these errands: keep it, Tanaris Field Sampling hands it back in {area:976}"] = "le {item:8523} de ces courses : gardez-le, Les échantillons du désert de Tanaris le rend à {area:976}",
 
 	-- Step 3: Undercity
 	-- {npc:7825} Oran Snakewrithe · {object:36126} Royal Quarter
@@ -23,7 +23,7 @@ return {
 	-- Step 4: Riding at 40
 	["Riding at 40"] = "Monte au niveau 40",
 	-- {npc:4773} Velma Warnam · {area:159} Brill · {npc:4731} Zachariah Post · {object:3202} Grom'gol (no name in this language: may be words)
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, a short ride north of the zeppelin towers, with {npc:4731}'s skeletal horses (20 gold each) beside her. Ride back to the towers for the {object:3202} zeppelin."] = "La monte nécessite le niveau 40 et coûte 100 pièces d’or ; son apprentissage vous donne une monture. Chaque race l’apprend auprès de son propre instructeur : le vôtre est {npc:4773}, à {area:159}, un peu au nord des tours des zeppelins, près des chevaux squelettes de {npc:4731} (20 pièces d’or chacun). Retournez ensuite aux tours pour prendre le zeppelin vers {object:3202}.",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, maître de monte",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
@@ -41,7 +41,7 @@ return {
 
 	-- Step 7: Stonard
 	-- {npc:5591} Dar · {area:75} Stonard · {npc:1443} Fel'zerul
-	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "",
+	["Coming from Stranglethorn, you carry these already. Starting here: {npc:5591} stands inside {area:75}'s great hall and {npc:1443} on its top floor."] = "Si vous arrivez de Strangleronce, vous avez déjà ces quêtes. Si vous commencez ici : {npc:5591} se trouve dans la grande salle de {area:75}, et {npc:1443} au dernier étage.",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}, à l'intérieur",
 	-- {npc:1443} Fel'zerul
@@ -55,7 +55,7 @@ return {
 	-- Step 9: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocilisques Dents-de-scie",
 	-- {area:75} Stonard
-	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "",
+	["The crocolisks wallow in the pools around Galen's old camp, just north of {area:75}, on the way back east; about one in four drops a flank."] = "Les crocilisques se prélassent dans les mares autour de l’ancien camp de Galen, juste au nord de {area:75}, sur le chemin du retour vers l’est ; environ un sur quatre laisse tomber un flanc.",
 
 	-- Step 10: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
@@ -63,13 +63,13 @@ return {
 
 	-- Step 11: Misty Reed Post
 	-- {npc:5592} Tok'Kar
-	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "",
+	["Follow the road south-east to the small Horde post on the shore. {npc:5592} takes the crocolisk flanks from the last swamp visit."] = "Suivez la route vers le sud-est jusqu’au petit poste de la Horde sur le rivage. Remettez à {npc:5592} les flancs de crocilisque conservés depuis votre dernier passage dans le marais.",
 
 	-- Step 12: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
 	["{area:2403}: kill these as you meet them"] = "{area:2403} : tuez-les au passage",
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
-	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "",
+	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "Les vivaneaux bordent la rive au sud du poste.\nLe Clampants monstrueux parcourt les plages de la côte est, rares et espacées : tuez tous ceux que vous voyez, ceux qui descendent de la piscine également.",
 	["Underwater"] = "Sous l'eau",
 
 	-- Step 14: Murlocs of the Misty Reed
@@ -79,7 +79,7 @@ return {
 	["Below ground"] = "Sous terre",
 
 	-- Step 16: Continued Threat
-	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "",
+	["The same murloc shore again: Inkspewers east of the post, Flesheaters around the western huts, and the Oracles among both."] = "Encore la même rive murloc : les Encriers à l'est du poste, les Flesheaters autour des huttes ouest et les Oracles entre les deux.",
 
 	-- Step 18: Stonard
 	-- {npc:5598} Atal'ai Exile · {zone:1425} Hinterlands
@@ -101,17 +101,17 @@ return {
 
 	-- Step 22: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
-	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "",
+	["{npc:4500}, {npc:4502} and {npc:4501} (below ground) are in the village; their quests are for the {area:511} on this trip."] = "{npc:4500}, {npc:4502} et {npc:4501} (sous terre) se trouvent dans le village ; leurs quêtes concernent {area:511} pour ce passage.",
 	-- {npc:4501} Draz'Zilb
 	["{npc:4501}, below ground"] = "{npc:4501}, sous terre",
 
 	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
-	["The {object:2555}"] = "",
+	["The {object:2555}"] = "Le {object:2555}",
 
 	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
-	["Ride south-west to the {object:2555}."] = "",
+	["Ride south-west to the {object:2555}."] = "Partez vers le sud-ouest jusqu’à {object:2555}.",
 	-- {object:2555} Musty Scroll
 	["the {object:2555}"] = "le {object:2555}",
 	-- {area:498} Bloodfen Burrow
@@ -121,7 +121,7 @@ return {
 	-- {area:510} The Dragonmurk
 	["{area:510}: kill these as you meet them"] = "{area:510} : tuez-les au passage",
 	-- {area:511} Wyrmbog
-	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
+	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "À l'est à travers le {area:511} : les éclaireurs Firemane et les queues de frêne parcourent sa limite nord avec les nouveau-nés et les dragonnets Searing ; les Scalebanes gardent les grottes du dragon plus au sud-est. Le tabac à priser, le grog et le coffre-fort de Mok'Morokk se trouvent dans les camps des draconiens.",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
 	["{npc:4329} walks around {area:510}: look inside the circle on the map"] = "{npc:4329} se promène autour de {area:510} : cherchez dans le cercle sur la carte",
 
@@ -168,7 +168,7 @@ return {
 	-- Step 35: Rogue Vale screechers
 	["Rogue Vale screechers"] = "Hurleurs des vallées insoumis",
 	-- {npc:14637} Zorbin Fandazzle · {npc:5308} Rogue Vale Screecher · {item:10699} Yeh'kinya's Bramble
-	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "",
+	["Rogue Vale opens just north of {npc:14637}'s dock. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Rogue Vale ouvre juste au nord du quai de {npc:14637}. Tuez un {npc:5308}, utilisez {item:10699} sur son corps et tuez l'esprit qui s'élève.",
 
 	-- Step 36: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
@@ -183,7 +183,7 @@ return {
 	-- Step 38: Rage Scar yetis
 	["Rage Scar yetis"] = "Yétis Griffe féroce",
 	-- {quest:7738} Perfect Yeti Hide
-	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "",
+	["On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a {quest:7738}, which starts a quest of its own."] = "Sur le chemin du retour vers le sud-est depuis les harpies, les Yétis Griffe féroce vivent autour des grottes dans les collines près de la route. Chacun peut aussi laisser tomber {quest:7738}, qui lance une quête.",
 	-- {quest:7738} Perfect Yeti Hide
 	["{quest:7738}, a rare drop"] = "{quest:7738}, butin rare",
 

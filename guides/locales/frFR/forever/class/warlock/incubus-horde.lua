@@ -18,7 +18,7 @@ return {
 
 	-- Step 2: Zankaja
 	-- {npc:5910} Zankaja · {object:172982} Valley of Strength
-	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the Crossroads."] = "",
+	["{npc:5910} lives in a hut up on the cliffs on the west side of the city, above the {object:172982}: climb the wind rider tower, cross the bridge at its top to the west and turn right off it. She sends you to the Crossroads."] = "{npc:5910} vit dans une cabane sur les falaises du côté ouest de la ville, au-dessus du {object:172982} : grimpe sur la tour du cavalier du vent, traverse le pont à son sommet à l'ouest et tourne à droite. Elle vous envoie au la Croisée.",
 
 	-- Step 3: Magar
 	-- {npc:3363} Magar · {object:173018} Magar's Cloth Goods · {object:172960} Cleft of Shadow · {zone:1440} Ashenvale
@@ -26,15 +26,15 @@ return {
 
 	-- Step 4: Gazrog
 	-- {npc:3464} Gazrog · {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {zone:1442} Stonetalon Mountains
-	["{npc:3464} waits in front of the inn at the Crossroads. He sends you on to {npc:4197} at {area:2539}, in {zone:1442}."] = "",
+	["{npc:3464} waits in front of the inn at the Crossroads. He sends you on to {npc:4197} at {area:2539}, in {zone:1442}."] = "{npc:3464} vous attend devant l’auberge de la Croisée. Il vous envoie auprès de {npc:4197}, à {area:2539}, dans {zone:1442}.",
 
 	-- Step 5: Ken'zigla
 	-- {zone:1442} Stonetalon Mountains · {area:2539} Malaka'jin · {npc:4197} Ken'zigla · {npc:5911} Grunt Logmar
-	["Take the road west from the Crossroads into {zone:1442} and, just past the border, the faint trail up to the left (south): {area:2539} cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "",
+	["Take the road west from the Crossroads into {zone:1442} and, just past the border, the faint trail up to the left (south): {area:2539} cannot be reached from the main road. {npc:4197} hands you her draught for {npc:5911}."] = "Prendre la route vers l'ouest depuis la Croisée jusqu'à {zone:1442} et, juste après la frontière, le léger sentier qui monte à gauche (sud) : {area:2539} n'est pas accessible depuis la route principale. {npc:4197} vous remet son brouillon pour {npc:5911}.",
 
 	-- Step 6: Grunt Dogran
 	-- {npc:5911} Grunt Logmar · {area:378} Camp Taurajo · {npc:5875} Gan'rul Bloodeye
-	["{npc:5911} stands at {area:378}, south down the road from the Crossroads. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "",
+	["{npc:5911} stands at {area:378}, south down the road from the Crossroads. He sends you north to the quilboar camp where Dogran is held: the camp with two huts side by side, north-west of a decoy camp whose huts stand apart. A rare level 22 elite quilboar sometimes guards the huts: send your voidwalker in, sacrifice it if you must, and talk to Dogran. He gives you a pendant for {npc:5875}. Keep it."] = "{npc:5911} se trouve à {area:378}, au sud sur la route de la Croisée. Il vous envoie vers le nord, au camp des sangliers où est détenu Dogran : le camp avec deux cabanes côte à côte, au nord-ouest d'un camp de leurres dont les cabanes sont écartées. Un quilboar d'élite de niveau rare 22 garde parfois les huttes : envoyez votre marcheur du vide, sacrifiez-le s'il le faut et parlez à Dogran. Il vous donne un pendentif pour {npc:5875}. Gardez-le.",
 
 	-- Step 7: The Binding: succubus (Orgrimmar)
 	-- {quest:1513} The Binding · {zone:1454} Orgrimmar
@@ -74,7 +74,7 @@ return {
 	-- {quest:1474} The Binding · {zone:1458} Undercity
 	["{quest:1474}: succubus ({zone:1458})"] = "{quest:1474} : succube ({zone:1458})",
 	-- {npc:5675} Carendin Halgar · {npc:5683} Corma Villard · {item:6286} Pure Hearts
-	["Back to {npc:5675} with Dalin's and {npc:5683}'s hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
+	["Back to {npc:5675} with Dalin's and {npc:5683}'s hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "Retour à {npc:5675} avec les cœurs de Dalin et {npc:5683}. Il vous tend le {item:6286} : descendez dans le cercle d'invocation en dessous de lui, placez-vous dessus et utilisez-les. Invoquez d'abord votre marcheur du Vide et poursuivez le combat sur le cercle, sinon les gardes pourraient la tuer et la mort ne compterait pas. Si elle gagne, utilisez à nouveau les cœurs ; conservez-les, {npc:5675} les reprend.",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
 	["{item:6286}, on the circle below {npc:5675}"] = "{item:6286}, sur le cercle sous {npc:5675}",
 

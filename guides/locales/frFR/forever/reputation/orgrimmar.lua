@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Orgrimmar Reputation"] = "Réputation : Orgrimmar",
 	-- {zone:1411} Durotar · {zone:1448} Felwood · {zone:1447} Azshara · {item:14047} Runecloth
-	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "",
+	["{zone:1411} and Crossroads quests while you level, {zone:1448} and {zone:1447} quests from 55, then {item:14047} to Exalted."] = "Quêtes {zone:1411} et la Croisée pendant que vous progressez, quêtes {zone:1448} et {zone:1447} à partir de 55, puis {item:14047} à Exalté.",
 	-- {faction:76} Orgrimmar
 	["Exalted with {faction:76}"] = "Exalté auprès d'{faction:76}",
 
@@ -17,14 +17,14 @@ return {
 	-- {faction:76} Orgrimmar
 	["{faction:76}: how it works"] = "{faction:76} : comment ça marche",
 	-- {faction:76} Orgrimmar · {npc:14726} Rashona Straglash · {quest:7832} Additional Runecloth · {item:14047} Runecloth · {zone:1456} Thunder Bluff · {zone:1458} Undercity · {zone:1411} Durotar · {npc:4949} Thrall · {quest:5726} Hidden Enemies
-	["{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward."] = "",
+	["{faction:76} reputation comes from quests and cloth. {npc:14726}, the cloth quartermaster, stands in the Drag beside the cloth and leather armor shop. She takes four one-time donations of 60 cloth (150 each) and then {quest:7832}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:76} also gives a quarter as much to {zone:1456}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:76}'s quests within 5 levels of them: {zone:1411} at 5 to 12, the Crossroads at 12 to 20, {npc:4949}'s {quest:5726} at 12 to 16. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Orgrimmar's merchants sell to you for 10% less (the Classic rule), the wolf vendor included; at Exalted other races can buy the wolves: 20 gold for a level 40 wolf, 200 gold for a swift wolf at level 60, once you have mount training. {faction:76} has no tabard or other reward."] = "La réputation {faction:76} vient des quêtes et des tissus. {npc:14726}, l'intendant des tissus, se tient dans le Drag à côté du magasin d'armures en tissu et en cuir. Elle reçoit quatre dons uniques de tissu 60 (150 chacun), puis {quest:7832}, 20 {item:14047} pour 50, aussi souvent que vous le souhaitez. Chaque point que vous gagnez avec {faction:76} donne également un quart de plus au {zone:1456}, au {zone:1458} et au Trolls Sombrelance. Pendant que vous progressez, effectuez les quêtes de {faction:76} dans les niveaux 5 : {zone:1411} de 5 à 12, le la Croisée de 12 à 20, {npc:4949} de {quest:5726} à 12 à 16. L'avantage Legacy Diplomat s'élève à 10%. Récompenses : chez Honoré Orgrimmar, les marchands vous vendent 10 % de moins (la règle classique), y compris le vendeur de loups ; Chez Exaltés, d'autres races peuvent acheter les loups : de l'or 20 pour un loup de niveau 40, de l'or 200 pour un loup rapide de niveau 60, une fois que vous avez suivi l'entraînement de monture. {faction:76} n'a ​​pas de tabard ou autre récompense.",
 	["her donations are handed in from her window and never enter the log"] = "ses dons se rendent depuis sa fenêtre et n'entrent jamais dans le journal de quêtes",
 
 	-- Step 2: Valley of Trials (optional hub)
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363} (étape facultative)",
 	-- {area:363} Valley of Trials · {faction:76} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Le {area:363} est le meilleur d'entre eux : environ 1 400 {faction:76} et 1 400 réputation Sombrelance en minutes 25. {npc:3143} attend dans le Den, la grande cabane ; {npc:10176} se trouve à l'extérieur.",
 	-- {npc:3144} Eitrigg · {faction:76} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {faction:76}: {quest:787}, +50"] = "{npc:3144}, à {faction:76} : {quest:787}, +50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -37,7 +37,7 @@ return {
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556} : frappez-le avec la {item:16114}",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "Réveil {npc:10556}",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den
@@ -62,15 +62,15 @@ return {
 	-- {npc:3145} Zureetha Fargaze
 	["{npc:3145}, in the Den"] = "{npc:3145}, dans la Tanière",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}, +50 : {quest:97225} l'attend",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367} (étape facultative)",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {faction:76} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:367} et {area:368} : environ la réputation de 700 {faction:76} et 650 Sombrelance en minutes 25. {npc:3188} et {npc:3304} se trouvent près des cabanes, {npc:3194} près de l'eau, {npc:7953} au sud du village.",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}, +100 : nécessite {quest:805} du Den",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
@@ -94,7 +94,7 @@ return {
 	-- {npc:4949} Thrall · {quest:5726} Hidden Enemies
 	["{npc:4949}: {quest:5726} (optional hub)"] = "{npc:4949} : {quest:5726} (étape facultative)",
 	-- {quest:5726} Hidden Enemies · {faction:76} Orgrimmar · {area:2437} Ragefire Chasm
-	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "",
+	["Forever pays these old quests in full at any level. {quest:5726}: 400 {faction:76} reputation in 20 minutes, with a run through {area:2437} that a level 60 clears alone."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {quest:5726} : réputation 400 {faction:76} en minutes 20, avec une exécution via {area:2437} qu'un niveau 60 efface seul.",
 
 	-- Step 14: Skull Rock: the Lieutenant's Insignia
 	-- {quest:827} Skull Rock · {item:14544} Lieutenant's Insignia
@@ -129,7 +129,7 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362} (étape facultative)",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {faction:76} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow · {npc:266940} Turroc
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:362} et nord {zone:1411} : à propos de la réputation de 1 800 {faction:76} et 1 650 Sombrelance en minutes 80. {npc:3142} et {npc:3139} se trouvent au milieu de la ville, {npc:3191} près de la caserne, {npc:3147} et {npc:266940} aux abords.",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}, +100 : demande {quest:823}, de Sen'jin",
 
@@ -172,14 +172,14 @@ return {
 	-- {npc:3293} Rezlak
 	["{npc:3293} and Misha"] = "{npc:3293} et Misha",
 	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
-	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
+	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "Un {npc:3118} peut supprimer un {item:277661} : utilisez-le pour démarrer {quest:97281}. Une fois que vous avez remis cela, {npc:3293} propose {quest:97282}.",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
 	["{npc:3117}, in {area:370}"] = "{npc:3117}, dans le {area:370}",
 
 	-- Step 27: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Les Organes de lézard-tonnerre chargé proviennent des lézards-tonnerre de {area:369}, juste à l'ouest de {npc:3293}.",
 
 	-- Step 29: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {faction:76} Orgrimmar
@@ -201,10 +201,10 @@ return {
 	-- {area:380} The Crossroads
 	["{area:380} (optional hub)"] = "{area:380} (étape facultative)",
 	-- {area:380} The Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
-	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "",
+	["Forever pays these old quests in full at any level. {area:380}: about 1,500 {faction:76} reputation in 70 minutes, {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:380} : environ la réputation de 1 500 {faction:76} en minutes 70, celle de {faction:76} uniquement. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} et {npc:267310} se trouvent dans la ville, {npc:3432} près de l'auberge.",
 
 	-- Step 34: Around the Crossroads
-	["Around the Crossroads"] = "",
+	["Around the Crossroads"] = "Autour du la Croisée",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
 	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "Les camps Tranchecrin et les caisses de ravitaillement sont au nord-est de la ville ; {npc:267307}, un sanglier élite, se tient au fond de la grotte de la {area:1699}, par là. Les harpies Ensorçaile nichent loin au nord-ouest. Le {npc:10668} gît au nord-est du {area:378}, au sud : faites un clic droit dessus. Raptors et trotteurs des plaines sont partout.",
 	-- {npc:10668} Beaten Corpse
@@ -230,13 +230,13 @@ return {
 	["Prowlers, {npc:3452} and {quest:881}"] = "Rôdeurs, {npc:3452} et {quest:881}",
 	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "",
+	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Rôdeurs des savanes se trouve à l'ouest et au nord de la Croisée. {quest:876} dirige les harpies Witchwing dans l'extrême nord-ouest. Puis {npc:3338} vous donne le {item:10327} : faites-le sauter à côté des os de kodo à {object:147524}, au nord de la ville, et tuez le lion blanc.",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819} (optional hub)"] = "{quest:819} (étape facultative)",
 	-- {quest:819} Chen's Empty Keg · {zone:1413} Barrens · {npc:3292} Brewmaster Drohn · {area:392} Ratchet · {faction:76} Orgrimmar
-	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "",
+	["Forever pays it in full at any level. {quest:819} lies on the ground at one of several spots in the central and northern {zone:1413}, most of them by the roads around the Crossroads; once someone takes it, it turns up at another. {npc:3292} in {area:392} pays 250 {faction:76} reputation for the keg and its first filling, then 50 for every filling after, as often as you like."] = "Forever le paie intégralement à n’importe quel niveau. {quest:819} se trouve au sol à l'un des nombreux endroits du centre et du nord de {zone:1413}, la plupart près des routes autour de la Croisée ; une fois que quelqu'un le prend, il apparaît chez un autre. {npc:3292} dans {area:392} paie la réputation de 250 {faction:76} pour le fût et son premier remplissage, puis 50 pour chaque remplissage ultérieur, aussi souvent que vous le souhaitez.",
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819}: look for it by the roads"] = "{quest:819} : cherchez-le près des routes",
 
@@ -329,7 +329,7 @@ return {
 
 	-- Step 54: Belgrom Rockmaul: Betrayed
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
-	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "",
+	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} se trouve dans le {object:172958} en dehors du {object:173084}. Les deux premières quêtes {quest:3504} sont de niveau 53 et paient également en totalité à 60, comme chaque quête dans Forever.",
 
 	-- Step 55: Valormok
 	-- {area:1237} Valormok · {zone:1447} Azshara · {npc:8576} Ag'tor Bloodfist

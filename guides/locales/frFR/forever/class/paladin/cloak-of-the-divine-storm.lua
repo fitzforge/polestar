@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:444} Tower of Althalaxx
-	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "Disponible dès le niveau 22 à {area:444} ; les ennemis y sont de niveau 28 à 30, alors attendez d’approcher du niveau 30 ou allez-y avec un ami. Réservé à l’Alliance pour le moment.",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Strange Orb",

@@ -22,11 +22,11 @@ return {
 
 	-- Step 4: Gadgetzan
 	-- {area:976} Gadgetzan
-	["The flight from Theramore lands in {area:976}."] = "",
+	["The flight from Theramore lands in {area:976}."] = "Le vol en provenance de Theramore atterrit à {area:976}.",
 
 	-- Step 6: Sprinkle
 	-- {npc:7564} Marin Noggenfogger
-	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "",
+	["{npc:7564}, once he has brewed the elixir: a few seconds"] = "{npc:7564}, une fois l’élixir préparé : quelques secondes",
 
 	-- Step 8: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -91,14 +91,14 @@ return {
 	-- Step 19: Level 49.51
 	["Level 49.51"] = "Niveau 49.51",
 	-- {area:541} Marshal's Refuge · {area:2100} Maraudon
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "",
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "Terminez votre progression jusqu’au niveau 49,51 ici avant de rendre les quêtes à {area:541} : elles vous feront atteindre le niveau 50. Vous pouvez aussi former un groupe pour faire le donjon de {area:2100}.",
 	["Pterrordax"] = "Pterreurdactyles",
 	["grind on Pterrordax"] = "tuez des Pterreurdactyles en boucle",
 
 	-- Step 20: Crate of Foodstuffs
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
-	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "",
+	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales. The crate sits at the abandoned camp in the eastern jungle."] = "Descendez vers le sud du côté est. Jeunes dimeurtrodon frôle la jungle orientale et {npc:9165} vole près des falaises orientales ; les deux abandonnent les échelles de {npc:9998}. La caisse se trouve dans le camp abandonné dans la jungle orientale.",
 
 	-- Step 21: Eastern Pylon
 	["Eastern Pylon"] = "Le Pylône est",
@@ -108,7 +108,7 @@ return {
 	["The Gorishi hive"] = "La ruche Gorishi",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride south-west past {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Roulez vers le sud-ouest après {npc:9619} : la ruche silithide remplit le sud du cratère. Utilisez le flacon à gratter sur une écloserie, une chambre avec des larves suspendues. Les guêpes et les ouvrières Gorishi abandonnent {quest:3764} ; Les Pterrordax nichent sur les falaises du sud si vous avez encore besoin de les tuer.\nAttention : les silithides Gorishi sont de niveau 51-54 et lancent {spell:8137} ou {spell:14120} en mêlée ; Ouvriers Gorishi a 50% de chances d'appeler à l'aide dans 25 yd une fois qu'il tombe en dessous de 45% de santé.",
 	-- {npc:9167} Frenzied Pterrordax
 	["grind on {npc:9167}"] = "tuez en boucle : {npc:9167}",
 
@@ -152,7 +152,7 @@ return {
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406} : pour Ogtinc en {zone:1447}, gardez-la",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}, le maître des mages : pour {npc:8395}, à {zone:1447} ; conservez cette quête",
 
 	-- Step 32: Fly to Astranaar
 	-- {area:442} Auberdine
@@ -161,7 +161,7 @@ return {
 	-- Step 33: Level 50.4
 	["Level 50.4"] = "Niveau 50.4",
 	-- {area:3137} Talrendis Point · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Terminez votre progression jusqu’au niveau 50,4 ici avant de rendre les quêtes à {area:3137} : elles vous feront atteindre le niveau 51. Vous pouvez aussi former un groupe pour faire le donjon de {area:2100} ou de {area:1417}.",
 	-- {npc:6116} Highborne Apparition
 	["grind on {npc:6116}"] = "tuez en boucle : {npc:6116}",
 

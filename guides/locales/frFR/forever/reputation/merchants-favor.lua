@@ -29,11 +29,11 @@ return {
 	-- {area:380} The Crossroads · {quest:98248} Shipping Label
 	["{area:380} camp: the {quest:98248}"] = "Camp de {area:380} : l'{quest:98248}",
 	-- {faction:2587} Durotar Supply and Logistics · {npc:256386} Dokimi
-	["The {faction:2587} camp stands just outside the west gate of the Crossroads. The label pays 2000 reputation once (and, by beta reports, 50 Merchant's Favor): two thirds of the way to Friendly. Filled crates go to {npc:256386} too, but they pay only Merchant's Favor and silver, never reputation."] = "",
+	["The {faction:2587} camp stands just outside the west gate of the Crossroads. The label pays 2000 reputation once (and, by beta reports, 50 Merchant's Favor): two thirds of the way to Friendly. Filled crates go to {npc:256386} too, but they pay only Merchant's Favor and silver, never reputation."] = "Le camp {faction:2587} se trouve juste à l’extérieur de la porte ouest du la Croisée. Le label paie une fois la réputation 2000 (et, d'après les rapports bêta, la Faveur du marchand 50) : les deux tiers du chemin vers Friendly. Les caisses remplies vont également à {npc:256386}, mais elles ne paient que la faveur du marchand et l'argent, jamais de réputation.",
 
 	-- Step 4: Gather your writs
 	["Gather your writs"] = "Rassemblez vos commandes",
-	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "",
+	["Craftsman's Writs are the camp's reputation: 75 for a Journeyman writ, 125 for an Expert, 200 for an Artisan. Each asks for one crafted item, the one its title names. Make it or buy it on the Auction House; you need not know the profession. Each writ can be done once a day, and any number of different ones. Take the quest only of writs whose item you have or will buy on the way (right-click the writ), keep the writ in your bags, then tick this: the next steps lead to each customer you hold a writ for."] = "Les ordres d'artisan font la réputation du camp : 75 pour un ordre de compagnon, 125 pour un expert, 200 pour un artisan. Chacun demande un objet fabriqué, celui qui porte son titre. Fabriquez-le ou achetez-le à l'Hôtel des Ventes ; vous n'avez pas besoin de connaître le métier. Chaque bref peut être rédigé une fois par jour et en plusieurs nombres différents. Prenez la quête uniquement des ordres dont vous avez ou achèterez l'objet en cours de route (cliquez droit sur l'ordre), conservez l'ordre dans vos sacs, puis cochez ceci : les prochaines étapes mènent à chaque client pour lequel vous détenez un ordre.",
 	["Take the quests of the writs you can fill"] = "Acceptez les quêtes des commandes que vous pouvez remplir",
 
 	-- Step 5: Duskwood writ customers
@@ -54,7 +54,7 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "{zone:1434} : clients des commandes",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol (no name in this language: may be words) · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "",
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} détient trois clients : \"Sea Wolf\" MacKinley (au dernier étage de l'auberge), {npc:7853}, l'ingénieur du transporteur gobelin, et {npc:2663}. {npc:14508} se trouve au {area:1741}, à environ 800 yards au sud de {object:3202} ; {npc:261961} se trouve dans le nord de Strangleronce. Les clients n'affichent aucun point de quête : faites quand même un clic droit dessus.",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "{item:3485}, 75 de réputation",
 	-- {item:7506} Gnomish Universal Remote
@@ -92,7 +92,7 @@ return {
 	-- {item:11128} Golden Rod
 	["{item:11128}, 75 reputation"] = "{item:11128}, 75 de réputation",
 	-- {npc:789} Kimberly Hiett · {area:69} Lakeshire
-	["bring it: engineers make it; {npc:789} in {area:69} lists it (not yet seen in her window up to level 30), or the Auction House"] = "",
+	["bring it: engineers make it; {npc:789} in {area:69} lists it (not yet seen in her window up to level 30), or the Auction House"] = "apportez-le : les ingénieurs le font ; {npc:789} dans {area:69} le répertorie (pas encore vu dans sa fenêtre jusqu'au niveau 30), ou l'hôtel des ventes",
 	-- {item:4384} Explosive Sheep
 	["{item:4384}, 75 reputation"] = "{item:4384}, 75 de réputation",
 	-- {item:5958} Fine Leather Pants
@@ -122,7 +122,7 @@ return {
 	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} et {npc:257282} sont proches l'un de l'autre dans le sud-ouest des montagnes ; des nervis du Syndicat rôdent autour de {npc:257282}. {npc:6176} se tient sur le bord est, au-dessus de {area:272}. Les clients n'affichent aucune marque de quête : faites quand même un clic droit sur eux.",
 	-- {item:3391} Elixir of Ogre Strength
 	["{item:3391}, 75 reputation"] = "{item:3391}, 75 de réputation",
-	["bring it: leatherworkers make it, or buy it at the Auction House"] = "",
+	["bring it: leatherworkers make it, or buy it at the Auction House"] = "apportez-le : les maroquiniers le fabriquent ou l'achètent à l'Hôtel des Ventes",
 	-- {item:18662} Heavy Leather Ball
 	["{item:18662}, 75 reputation"] = "{item:18662}, 75 de réputation",
 	-- {item:5540} Pearl-handled Dagger
@@ -204,7 +204,7 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers again"] = "{zone:1434} : clients des commandes, de nouveau",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {object:3202} Grom'gol (no name in this language: may be words) · {area:1741} Gurubashi Arena · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "",
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} détient trois clients : \"Sea Wolf\" MacKinley (au dernier étage de l'auberge), {npc:7853} sur le transporteur de style zeppelin et {npc:2663}. {npc:14508} se trouve à environ 800 yards au sud de {object:3202}, près du {area:1741} ; {npc:261961} se trouve dans le nord de Strangleronce. Les clients n'affichent aucun point de quête : faites quand même un clic droit dessus.",
 
 	-- Step 19: Wetlands writ customers again
 	-- {zone:1437} Wetlands
@@ -241,7 +241,7 @@ return {
 	-- Step 27: Friendly to Honored
 	["Friendly to Honored"] = "D'Amical à Honoré",
 	-- {skill:197} Tailoring · {skill:165} Leatherworking · {skill:333} Enchanting · {skill:164} Blacksmithing · {skill:202} Engineering · {skill:171} Alchemy · {skill:185} Cooking · {npc:256742} Dianne Softstep · {area:1002} Three Corners · {npc:256672} Kurvelk Shadowhoof · {item:262902} Forged Delivery Receipt · {item:248549} Waylaid Crate · {item:262917} Notarized Shipping Container · {npc:256390} Marcy Baker · {npc:256386} Dokimi · {quest:93862} Crate Return
-	["Friendly opens the first gated recipes at the camp's profession vendors ({skill:197} 25, {skill:165} 17, {skill:333} 13, {skill:164} 10, {skill:202} 10, {skill:171} 5, {skill:185} 2) and the Uncertified Scribe: {npc:256742} at {area:1002}, {npc:256672} at the south end of the Crossroads camp. The scribe's {item:262902} (15 Merchant's Favor) turns an empty {item:248549} into a {item:262917}; hand it to {npc:256390} or {npc:256386} for 50 reputation ({quest:93862}). Any crate works, so buy the cheapest one the Auction House has. Honored is 6000 more: 80 Journeyman writs, 48 Expert, 30 Artisan, or 120 crate returns (1,800 Favor and 120 crates). Mix both: every writ you can fill, returns with spare Favor. The Legacy perk Diplomat adds up to 10% to every gain."] = "",
+	["Friendly opens the first gated recipes at the camp's profession vendors ({skill:197} 25, {skill:165} 17, {skill:333} 13, {skill:164} 10, {skill:202} 10, {skill:171} 5, {skill:185} 2) and the Uncertified Scribe: {npc:256742} at {area:1002}, {npc:256672} at the south end of the Crossroads camp. The scribe's {item:262902} (15 Merchant's Favor) turns an empty {item:248549} into a {item:262917}; hand it to {npc:256390} or {npc:256386} for 50 reputation ({quest:93862}). Any crate works, so buy the cheapest one the Auction House has. Honored is 6000 more: 80 Journeyman writs, 48 Expert, 30 Artisan, or 120 crate returns (1,800 Favor and 120 crates). Mix both: every writ you can fill, returns with spare Favor. The Legacy perk Diplomat adds up to 10% to every gain."] = "Friendly ouvre les premières recettes fermées chez les vendeurs professionnels du camp ({skill:197} 25, {skill:165} 17, {skill:333} 13, {skill:164} 10, {skill:202} 10, {skill:171} 5, {skill:185} 2) et le scribe non certifié : {npc:256742} à {area:1002}, {npc:256672} à l'extrémité sud du Campement la Croisée. Le {item:262902} du scribe (15 Merchant's Faveur) transforme un {item:248549} vide en {item:262917} ; remettez-le à {npc:256390} ou {npc:256386} pour la réputation 50 ({quest:93862}). N'importe quelle caisse fonctionne, alors achetez la moins chère de l'hôtel des ventes. 6000 plus est à l'honneur : 80 Journeyman Writs, 48 Expert, 30 Artisan ou 120 retours de caisses (caisses 1 800 Favor et 120). Mélangez les deux : chaque mandat que vous pouvez remplir revient avec une Faveur de rechange. L'avantage Legacy Diplomat s'ajoute à 10% à chaque gain.",
 	-- {item:262902} Forged Delivery Receipt
 	["{item:262902}, 15 Merchant's Favor"] = "{item:262902}, 15 Merchant's Favor",
 	-- {quest:93862} Crate Return
@@ -272,7 +272,7 @@ return {
 	-- Step 31: Exalted
 	["Exalted"] = "Exalté",
 	-- {npc:256389} Tamelyn Aldridge · {npc:256384} Gishah · {item:262766} Reins of the Pack Kodo · {npc:256736} Huey Sunnydale · {area:1002} Three Corners · {npc:10636} Pack Kodo
-	["Exalted opens the camp's tabard (200 Favor) at {npc:256389} or {npc:256384}, and the {item:262766} (6,000 Favor; the mount needs level 60 and Journeyman mount training) at {npc:256736} in {area:1002} or Okamache at the Crossroads camp. The {npc:10636} guide under Collectibles leads you there."] = "",
+	["Exalted opens the camp's tabard (200 Favor) at {npc:256389} or {npc:256384}, and the {item:262766} (6,000 Favor; the mount needs level 60 and Journeyman mount training) at {npc:256736} in {area:1002} or Okamache at the Crossroads camp. The {npc:10636} guide under Collectibles leads you there."] = "Exalté ouvre le tabard du camp (200 Faveur) à {npc:256389} ou {npc:256384}, et le {item:262766} (6 000 Faveur ; la monture nécessite le niveau 60 et l'entraînement de monture Compagnon) à {npc:256736} dans {area:1002} ou Okamache au camp la Croisée. Le guide {npc:10636} sous Objets de collection vous y mène.",
 	-- {item:262765} Azeroth Commerce Authority Tabard
 	["{item:262765}, 200 Merchant's Favor"] = "{item:262765}, 200 Merchant's Favor",
 	-- {item:262764} Durotar Supply and Logistics Tabard

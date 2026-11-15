@@ -8,12 +8,12 @@
 return {
 	-- Step 1: Auberdine
 	-- {npc:3649} Thundris Windweaver · {npc:3702} Alanndarian Nightsong · {npc:2913} Archaeologist Hollee · {npc:3693} Terenthis · {npc:3694} Sentinel Selarin
-	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "",
+	["From the dock, up to the north end of the village first ({npc:3649}, {npc:3702} by the moonwell, {npc:2913}), then down the main street: the WANTED poster outside the inn, {npc:3693} at its east end, where the road leaves south. {npc:3694} stands beside {npc:3693} by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment."] = "Depuis le quai, jusqu'à l'extrémité nord du village d'abord ({npc:3649}, {npc:3702} près du puits de lune, {npc:2913}), puis descendre la rue principale : l'affiche ON RECHERCHE à l'extérieur de l'auberge, {npc:3693} à son extrémité est, là où la route part vers le sud. {npc:3694} se tient à côté de {npc:3693} près du maître de vol ; si elle n'est pas là, elle a été tuée et réapparaît sous peu : attendez un instant.",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston
-	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "",
+	["{npc:3649}, north end of the village: {npc:1646}'s reply"] = "{npc:3649}, à l’extrémité nord du village : la réponse de {npc:1646}",
 	["The WANTED poster"] = "L'affiche AVIS DE RECHERCHE",
 	-- {npc:3694} Sentinel Selarin · {npc:3693} Terenthis · {npc:3691} Raene Wolfrunner · {area:415} Astranaar
-	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "",
+	["{npc:3694}, beside {npc:3693}: for {npc:3691} in {area:415}, in the next guide"] = "{npc:3694}, à côté de {npc:3693} : pour {npc:3691}, à {area:415}, dans le guide suivant",
 
 	-- Step 3: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
@@ -50,7 +50,7 @@ return {
 	-- {object:12666} Twilight Tome
 	["The {object:12666}"] = "{object:12666}",
 	-- {object:12666} Twilight Tome · {quest:949} The Twilight Camp
-	["The {object:12666}, once it has {quest:949}"] = "",
+	["The {object:12666}, once it has {quest:949}"] = "{object:12666}, une fois que {quest:949} y est disponible",
 	-- {item:279279} Peerless Eye
 	-- plural, as words: Twilight Disciples = {npc:2338} Twilight Disciple
 	["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279} : Disciples du crépuscule et Nervis du crépuscule",
@@ -63,12 +63,12 @@ return {
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "La plage de {npc:10323}",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
-	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "",
+	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "Campements {npc:10323} sur la plage à l'ouest du glaive : tuez les murlocs au feu de camp ; il arrive dans la troisième vague avec son chien. Quatre restes échoués reposent sur les plages à l'ouest et au sud-ouest de {area:450} : emmenez-les en direction du nord jusqu'à son camp.",
 
 	-- Step 11: The shore west of the Grove
-	["The shore west of the Grove"] = "",
+	["The shore west of the Grove"] = "Le rivage à l’ouest du bosquet",
 	-- {area:442} Auberdine · {quest:4728} Beached Sea Creature
-	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "",
+	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "Sur le chemin vers le nord en direction de {area:442}, le dernier {quest:4728} se trouve sur le rivage à l’ouest du bosquet.",
 
 	-- Step 12: Auberdine
 	["Follow the road north."] = "Suivez la route vers le nord.",
@@ -109,14 +109,14 @@ return {
 
 	-- Step 19: Volcor
 	-- {npc:3692} Volcor · {area:449} Master's Glaive · {npc:3693} Terenthis · {area:442} Auberdine
-	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "",
+	["{npc:3692} hides in the hills east of the {area:449}. Help him back to the road; he fights on his way out. {npc:3693} takes the escort in {area:442} on the next visit there."] = "{npc:3692} se cache dans les collines à l'est de {area:449}. Aidez-le à reprendre la route ; il se bat en sortant. {npc:3693} emmène l'escorte à {area:442} lors de sa prochaine visite.",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, à l'intérieur de {area:455}",
-	["His walk ends at the road, where Grimclaw waits"] = "",
+	["His walk ends at the road, where Grimclaw waits"] = "Sa promenade se termine sur la route, où Grimclaw l'attend",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
 	["{npc:12298}: use the {item:15826} on them; they roam all of {zone:1439}"] = "{npc:12298} : utilisez le {item:15826} sur eux ; ils errent dans tout {zone:1439}",
 	-- {npc:12298} Sickly Deer
-	["Cure {npc:12298}"] = "",
+	["Cure {npc:12298}"] = "Soignez {npc:12298}",
 
 	-- Step 21: Auberdine flight master
 	-- {area:442} Auberdine
@@ -132,11 +132,11 @@ return {
 
 	-- Step 26: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Caster {spell:18960}. {npc:11802} se tient à l'étage de son immeuble à {area:2361} : montez à l'intérieur, la flèche ne permet pas de distinguer les étages. Apprenez la trajectoire de vol là-bas si vous ne l’avez pas.",
 
 	-- Step 27: Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "{npc:11802} se trouve à l’étage de son bâtiment à {area:2361} : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 	-- {npc:11802} Dendrite Starblaze
 	["{npc:11802}: the welcome from Sheldras"] = "{npc:11802} : le message de bienvenue de Sheldras Moontree",
 
@@ -149,11 +149,11 @@ return {
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "Retour auprès de {npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
-	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Retour à {npc:11802} dans {area:2361}, puis {npc:11800} amène les druides directement vers {area:702}. {npc:11802} se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 
 	-- Step 32: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}."] = "Prenez le portail pour rejoindre {npc:4217}, puis reprenez un vol pour {area:442} afin de suivre la route vers le sud jusqu’à {zone:1440}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "Des Géniteurs traquelunes rôdent dans les bois autour du glaive. Le {object:10076} et le {object:12666} se trouvent au fond du cratère ; {npc:3584} se tient sur son flanc nord.",

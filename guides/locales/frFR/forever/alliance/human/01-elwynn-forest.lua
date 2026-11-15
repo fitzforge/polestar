@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Deputy Willem
 	-- {npc:198} Khelden Bremen
-	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "Pour les mages : {npc:198}, le maître des mages, se trouve à l’étage de l’abbaye. Prenez l’escalier intérieur, car la flèche ne distingue pas les étages.",
 	-- {npc:823} Deputy Willem
 	["{npc:823}, back at the Abbey steps"] = "{npc:823}, de retour au pied des marches de l'abbaye",
 
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
-	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:248415} se trouve derrière l'Abbaye, à côté des écuries. {npc:198}, le dresseur de mages, se tient à l'étage de l'Abbaye : prenez les escaliers à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {npc:911} Llane Beshere
 	["{npc:911}, the warrior trainer; inside"] = "{npc:911}, le maître des guerriers ; à l'intérieur",
 	-- {npc:925} Brother Sammuel
@@ -94,7 +94,7 @@ return {
 
 	-- Step 16: Northshire Abbey
 	-- {npc:823} Deputy Willem
-	["{npc:823}, at the Abbey steps"] = "",
+	["{npc:823}, at the Abbey steps"] = "{npc:823}, au pied des marches de l’abbaye",
 	-- {npc:375} Priestess Anetta · {npc:377} Priestess Josetta · {area:87} Goldshire
 	["{npc:375}, the priest trainer: {npc:377} in {area:87} takes it"] = "{npc:375}, la maîtresse des prêtres : {npc:377} à {area:87} la reçoit",
 	-- {npc:952} Brother Neals
@@ -115,7 +115,7 @@ return {
 
 	-- Step 19: Goldshire
 	-- {area:87} Goldshire · {npc:240} Marshal Dughan · {npc:241} Remy "Two Times" · {npc:295} Innkeeper Farley · {npc:253} William Pestle
-	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "",
+	["Follow the road south out of the valley to {area:87}. {npc:240} stands outside the smithy on the west side of the road, {npc:241} by the road south of it, and {npc:295} and {npc:253} in the Lion's Pride Inn across the road."] = "Suivez la route vers le sud hors de la vallée jusqu'à {area:87}. {npc:240} se trouve à l'extérieur de la forge du côté ouest de la route, {npc:241} près de la route au sud de celle-ci, et {npc:295} et {npc:253} dans le Lion's Pride Inn, de l'autre côté de la route.",
 	-- {npc:295} Innkeeper Farley
 	["{npc:295}, inside"] = "{npc:295}, à l'intérieur",
 	-- {npc:253} William Pestle
@@ -193,7 +193,7 @@ return {
 
 	-- Step 38: Goldshire
 	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430} cuisine dans la cuisine de l'auberge. {npc:377} (prêtres), {npc:328} (mages) et {npc:917} (voleurs) se tiennent à l'étage de l'auberge : prenez les escaliers à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430} : Camping 101 vous demande de l'apprendre ; sous terre",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
@@ -262,7 +262,7 @@ return {
 
 	-- Step 51: Goldshire
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377} (prêtres), {npc:328} (mages) et {npc:917} (voleurs) se tiennent à l'étage de l'auberge : prenez les escaliers à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
 	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{npc:279} à {zone:1453} la reçoit (02-westfall)",
 
@@ -282,11 +282,11 @@ return {
 	-- Step 56: Druid trainer
 	["Druid trainer"] = "Maître des druides",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
-	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "",
+	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504}, à {zone:1453} ; il n’y a pas de maître des druides à {area:87}",
 
 	-- Step 57: Jason Mathers
 	-- {area:87} Goldshire · {npc:383} Jason Mathers
-	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "",
+	["Head east out of {area:87} along the lake shore. {npc:383} stands on the shore north-east of town."] = "Quittez {area:87} vers l’est en longeant le lac. {npc:383} se trouve sur la rive au nord-est de la ville.",
 
 	-- Step 58: Crystal Lake: kill these as you meet them
 	-- {area:91} Tower of Azora
@@ -315,7 +315,7 @@ return {
 
 	-- Step 62: Croaky
 	-- {npc:248278} Croaky · {quest:91740} Croaky's Head
-	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "",
+	["{npc:248278} is a level 11 elite on the murloc shore south of the bridge: grouping up is encouraged, look for people to do it with. {quest:91740} needs a group of 2. Skip it if you are alone: the route has you grind the XP back. Right-click the head for its quest."] = "{npc:248278} est une élite de niveau 11 sur la rive murloc au sud du pont : le regroupement est encouragé, cherchez des personnes avec qui le faire. {quest:91740} nécessite un groupe de 2. Ignorez-le si vous êtes seul : l'itinéraire vous fait récupérer l'XP. Faites un clic droit sur la tête pour sa quête.",
 
 	-- Step 64: Level 8.85
 	["Level 8.85"] = "Niveau 8.85",
@@ -377,7 +377,7 @@ return {
 
 	-- Step 77: Goldshire
 	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
-	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Follow the road west back to {area:87}; {npc:6306} stands on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Suivez la route vers l'ouest jusqu'à {area:87} ; {npc:6306} se trouve au bord du lac, avant la ville. {npc:377} (prêtres), {npc:328} (mages) et {npc:917} (voleurs) se tiennent à l'étage de l'auberge : prenez les escaliers à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}, inside"] = "{npc:6306}, à l'intérieur",
 	-- {npc:240} Marshal Dughan
@@ -387,7 +387,7 @@ return {
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}, de retour dans l'auberge",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind
-	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "",
+	["{npc:377}: {npc:376} in {zone:1453} takes it"] = "{npc:377} : à remettre à {npc:376}, à {zone:1453}",
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328} : {npc:5497} à {zone:1453} la reçoit",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
@@ -464,7 +464,7 @@ return {
 
 	-- Step 91: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
-	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "",
+	["Follow the road south to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks; {npc:955} stands inside. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "Suivez la route vers le sud jusqu'au {area:120}, en direction du {zone:1436}. {npc:963} se trouve à l'extérieur de la caserne ; {npc:955} se trouve à l’intérieur. Il a {quest:91738} seulement pendant que vous portez le {item:247824} : parlez-lui et ça passe directement à la remise.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963} : pour {npc:234} à {area:108}",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack

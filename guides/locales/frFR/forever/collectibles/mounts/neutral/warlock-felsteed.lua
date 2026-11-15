@@ -30,7 +30,7 @@ return {
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:6251} in {area:392}"] = "{npc:6251} à {area:392}",
 	-- {area:392} Ratchet · {zone:1413} Barrens · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {quest:3631} Summon Felsteed
-	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "",
+	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "{area:392} est le port gobelin sur la côte {zone:1413}, à l'est de la Croisée ; du côté de l'Alliance, prenez le bateau à partir de {area:35}. {npc:6251} se tient près de sa petite tour sur la colline au-dessus de la ville, et non sur les quais. Remettez-le, puis prenez son propre {quest:3631} et rendez-le directement : cela vous apprend la monture. Pas de combat, et les quêtes ne demandent rien.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:3326} in the {object:172960} sends you to {npc:6251} in {area:392}."] = "Au niveau 40, {npc:3326}, dans la {object:172960}, vous envoie voir {npc:6251} à {area:392}.",

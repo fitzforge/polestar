@@ -14,7 +14,7 @@ return {
 
 	-- Step 2: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
-	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "",
+	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519} : la légende réside à Zul'Kunda, où ce guide se dirige vers {npc:1061}",
 
 	-- Step 3: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -31,7 +31,7 @@ return {
 
 	-- Step 6: Booty Bay
 	-- {area:35} Booty Bay
-	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "",
+	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "Gringer, le maître de vol, attend sur le pont supérieur de {area:35}. Les donneurs de quêtes se tiennent sur les promenades autour du port et dans l'auberge.",
 	-- {npc:2495} Drizzlik
 	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495} : les peaux de Gueule d'acier ramassées plus tôt ; à l'intérieur",
 	-- {npc:2495} Drizzlik · {npc:2635} Elder Saltwater Crocolisk · {object:3202} Grom'gol (no name in this language: may be words)
@@ -60,7 +60,7 @@ return {
 	-- Step 11: The Bloodsail ships
 	["The Bloodsail ships"] = "Les navires de la Voile sanglante",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
-	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "",
+	["Optional, and tough at 41: the scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs. Take it only if you can pull the crew to the rail one at a time, or with a friend; its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "Facultatif et difficile au niveau 41 : le parchemin {quest:624} se trouve sur le pont de l’un des trois navires au large de {area:43}. Leurs équipages sont composés de pirates de niveau 42 à 45 qui attaquent par deux. N’acceptez cette quête que si vous pouvez les attirer un par un près du bastingage, ou si vous êtes accompagné ; la suite vous mènera à travers {zone:1435}, {zone:1445} et {zone:1425}.",
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "pour une étape ultérieure dans {zone:1435}",
 
@@ -88,17 +88,17 @@ return {
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {quest:586} Speaking with Gan'zulah · {area:1517} Uldaman · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them. Stay on the Bloodscalps here until level 41: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43. Or, with a group, run the {area:1517} dungeon instead.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "À l'ouest de l'expédition, les chefs Bloodscalp {npc:1061} et {npc:1062} se tiennent ensemble dans les ruines de Zul'Kunda. Éliminez d'abord leurs gardes, puis attirez-les. Restez sur les Bloodscalp ici jusqu'au niveau 41 : {quest:586}, au chaudron juste après, vous envoie contre des Skullsplitter de niveau 41-43. Ou bien, en groupe, faites plutôt le donjon d'{area:1517}.\nSur la côte entre Zul'Kunda et {object:3202}, un {npc:2635} (élite de niveau 38) partage les points d'apparition des crocilisques ordinaires : tuez-le s'il est là et prenez sa peau pour {npc:2495}.",
 	-- {object:52} Fall of Gurubashi
-	["from the {object:52}, in the ruins"] = "",
+	["from the {object:52}, in the ruins"] = "dans {object:52}, dans les ruines",
 	-- {quest:586} Speaking with Gan'zulah
-	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "",
+	["grind on the Bloodscalps here: {quest:586}, at the cauldron next, sends you to Skullsplitters of 41-43"] = "Tuez des trolls Bloodscalp ici : {quest:586}, au chaudron de la prochaine étape, vous enverra combattre des trolls Skullsplitter de niveau 41 à 43.",
 
 	-- Step 20: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
 	["the {object:2076}, beside {npc:2497}"] = "le {object:2076}, à côté de {npc:2497}",
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
-	["{npc:2497}: for the {zone:1425}, around level 48"] = "",
+	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497} : pour {zone:1425}, vers le niveau 48",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519} : les crânes-trophées se trouvent dans les ruines Skullsplitter, plus tard sur cette boucle",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519} : l'entrée de la caverne sous {area:104}, à l'ouest du camp",
 
@@ -124,11 +124,11 @@ return {
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "{npc:6807}, à l'étage",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
-	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, dans l’auberge : ses bouteilles s’échouent sur la côte de {zone:1425}, vers le niveau 48",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
+	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}, à l’étage : les défenses se récupèrent sur les trolls Skullsplitter, plus tard sur cette boucle",
 	-- {zone:1446} Tanaris
-	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "",
+	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "MacKinley, au dernier étage : pour Stoley, à {zone:1446}",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}, à l'intérieur : la {item:4105}",
 
@@ -154,7 +154,7 @@ return {
 	-- {area:127} Balia'mah Ruins
 	["{area:127}: kill these as you meet them"] = "{area:127} : tuez-les au passage",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
+	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Les prochains crânes-trophées se trouvent dans les petites ruines juste au nord du camp des guerriers.\nLes derniers crânes sont dans les ruines un peu plus à l’ouest, sur le chemin du retour vers {object:3202}.",
 
 	-- Step 29: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -162,9 +162,9 @@ return {
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "le {object:2076}",
 	-- {object:2076} Bubbling Cauldron
-	["the {object:2076} again: Yenniku's fate"] = "",
+	["the {object:2076} again: Yenniku's fate"] = "De nouveau {object:2076} : le sort de Yenniku",
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
-	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "",
+	["{npc:2519}: the basilisks graze beside the road back from {area:35}"] = "{npc:2519} : les basilics se trouvent au bord de la route au retour de {area:35}",
 
 	-- Step 31: Booty Bay
 	-- {npc:2498} Crank Fizzlebub
@@ -172,17 +172,17 @@ return {
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}, à l'étage",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
-	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "",
+	["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, à l’étage : pour {quest:2864}, à {area:976}",
 
 	-- Step 32: Ironjaw Basilisks
 	-- plural, as words: Ironjaw Basilisks = {npc:1551} Ironjaw Basilisk
 	["Ironjaw Basilisks"] = "Basilics gueule de fer",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
-	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "",
+	["Ride north out of {area:35} along the road; the basilisks bask on the rocks east of it in the middle of the jungle, on the way back to {object:3202}. Their shards drop often."] = "Quittez {area:35} par la route vers le nord ; les basilics se prélassent sur les rochers à l’est de la route, au milieu de la jungle, sur le chemin du retour vers {object:3202}. Ils laissent souvent tomber leurs éclats.",
 
 	-- Step 33: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Ride on north to {object:3202}."] = "",
+	["Ride on north to {object:3202}."] = "Continuez vers le nord jusqu’à {object:3202}.",
 
 	-- Step 35: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Remontez la route vers le nord jusqu'au camp des chasseurs.",
@@ -198,7 +198,7 @@ return {
 	-- Step 42: Level 42.68
 	["Level 42.68"] = "Niveau 42.68",
 	-- {quest:192} Panther Mastery · {quest:195} Raptor Mastery · {area:1517} Uldaman
-	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:192} or {quest:195}, grind here to level 42.68 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Si vous avez passé {quest:192} ou {quest:195}, tuez des monstres ici jusqu’au niveau 42,68 pour suivre la progression prévue par l’itinéraire. Vous pouvez aussi former un groupe pour faire le donjon de {area:1517}.",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "tuez en boucle : {npc:667}",
 
@@ -209,17 +209,17 @@ return {
 	-- Step 45: Level 42.74
 	["Level 42.74"] = "Niveau 42.74",
 	-- {quest:208} Big Game Hunter · {area:1517} Uldaman
-	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:208}, grind here to level 42.74 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Si vous avez passé {quest:208}, tuez des monstres ici jusqu’au niveau 42,74 pour suivre la progression prévue par l’itinéraire. Vous pouvez aussi former un groupe pour faire le donjon de {area:1517}.",
 
 	-- Step 49: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "Vers {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "",
+	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Depuis {zone:1431}, suivez la route vers l’est à travers {zone:1430} pour entrer dans le marais. {npc:1776} vous attend à {area:657}, le camp draeneï situé juste à côté de la route à son arrivée depuis {zone:1430}.",
 
 	-- Step 50: Stonard
 	-- {area:75} Stonard
-	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "",
+	["Head east to {area:75}, in the reeds south of the road. Bind here."] = "Partez vers l’est jusqu’à {area:75}, dans les roseaux au sud de la route. Faites-en votre foyer.",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}, à l'intérieur",
 	-- {npc:1442} Helgrum the Swift
@@ -249,11 +249,11 @@ return {
 
 	-- Step 55: Galen's Strongbox
 	-- {area:75} Stonard
-	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "",
+	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "Son coffre se trouve dans son ancien camp au nord de {area:75}, sur le chemin du retour vers l’ouest.",
 
 	-- Step 56: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
-	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "",
+	["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Suivez la route vers l’ouest jusqu’au camp draeneï de {area:657}, près de l’entrée venant de {zone:1430}. La quête {quest:698} est destinée à {npc:5592}, à {area:1978}, lors du prochain passage dans le marais : conservez les flancs.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {area:35}"] = "Bateau pour {area:35}",

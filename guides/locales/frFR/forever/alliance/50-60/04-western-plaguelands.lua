@@ -8,7 +8,7 @@
 return {
 	-- Step 2: Argent Officer Pureheart
 	-- {quest:5401} Argent Dawn Commission · {spell:437801} Light's Hope · {zone:1452} Winterspring
-	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "",
+	["No {quest:5401} yet ({spell:437801} gives it on the {zone:1452} guide's way through)? Pureheart gives you one here: the scourgestone quests need it."] = "Pas encore de {quest:5401} ({spell:437801} le donne dans le guide {zone:1452}) ? Pureheart vous en donne un ici : les quêtes de la pierre du Fléau en ont besoin.",
 
 	-- Step 3: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
@@ -167,7 +167,7 @@ return {
 
 	-- Step 42: Augustus the Touched
 	-- {npc:8598} Frenzied Plaguehound
-	["{npc:8598}, 170 yd north-east"] = "",
+	["{npc:8598}, 170 yd north-east"] = "{npc:8598}, à 170 mètres au nord-est",
 
 	-- Step 43: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
@@ -262,7 +262,7 @@ return {
 
 	-- Step 71: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
-	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "",
+	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "Le géant {npc:7765} se trouve juste au nord-ouest du camp de {npc:7775}.",
 
 	-- Step 72: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
@@ -274,7 +274,7 @@ return {
 
 	-- Step 74: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "",
+	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "Ramenez {npc:7774} à {npc:7765} en marchant : elle s’éloigne parfois, alors sonnez la cloche pour la rappeler hors combat, et éliminez les harpies sur le chemin avant qu’elle ne les atteigne.",
 
 	-- Step 75: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {npc:9299} Gaeriyan · {area:976} Gadgetzan
@@ -288,7 +288,7 @@ return {
 
 	-- Step 79: Ratchet
 	-- {zone:1413} The Barrens · {area:392} Ratchet
-	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "",
+	["From Theramore, ride west into the {zone:1413} and north up the coast to {area:392}."] = "Depuis Theramore, dirigez-vous vers l'ouest jusqu'à {zone:1413} et vers le nord jusqu'à {area:392}.",
 	-- {npc:5901} Islen Waterseer
 	["{npc:5901}, on the coast north of town"] = "{npc:5901}, sur la côte au nord de la ville",
 	-- {zone:1448} Felwood
@@ -327,7 +327,7 @@ return {
 	-- {area:3197} Chillwind Camp
 	["For {area:3197}: keep it"] = "Pour {area:3197} : gardez-la",
 	-- {npc:7876} Tran'rek
-	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "",
+	["{npc:7876}, north side of town: the tar is in Un'Goro, keep it"] = "{npc:7876}, au nord de la ville : le goudron se trouve à Un’Goro ; conservez cette quête",
 
 	-- Step 87: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir
@@ -359,11 +359,11 @@ return {
 
 	-- Step 93: Layo Starstrike
 	-- {zone:1451} Silithus · {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
-	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "",
+	["Ride out of the crater's north-western pass into {zone:1451}: {npc:13220} stands at {area:3077}, where the pass comes out."] = "Quittez le cratère par le passage nord-ouest pour rejoindre {zone:1451} : {npc:13220} se trouve à {area:3077}, au débouché du passage.",
 
 	-- Step 95: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Continuez vers l’ouest jusqu’à {area:3425}. {npc:15189} se trouve à l’étage de son bâtiment : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 	-- {npc:17082} Rifleman Torrig
 	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, aux tentes de l'Alliance",
 
@@ -376,13 +376,13 @@ return {
 	-- Step 97: Level 56.89
 	["Level 56.89"] = "Niveau 56.89",
 	-- {item:9328} Super Snapper FX · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire
-	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "",
+	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan. Or, with a group, run the {area:1584} dungeon or the {area:1583} dungeon (Lower) instead."] = "Si vous avez ignoré le {item:9328}, passez ici au niveau 56.89 pour rester sur le plan de l'itinéraire. Ou, en groupe, exécutez plutôt le donjon {area:1584} ou le donjon {area:1583} (inférieur).",
 	-- {npc:11740} Dredge Striker
 	["grind on {npc:11740}"] = "tuez en boucle : {npc:11740}",
 
 	-- Step 98: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
-	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Ride back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Retournez à {area:3425}. {npc:15189} se trouve à l’étage de son bâtiment : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 
 	-- Step 99: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
@@ -406,7 +406,7 @@ return {
 
 	-- Step 105: Krakle
 	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "",
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "En arrivant de {zone:1451}, {area:543} se trouve juste à l’entrée du cratère : le gobelin {npc:10302} est près de l’eau.",
 
 	-- Step 106: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
@@ -451,9 +451,9 @@ return {
 
 	-- Step 114: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["{npc:9619} camps at the foot of the ramp into the crater."] = "",
+	["{npc:9619} camps at the foot of the ramp into the crater."] = "{npc:9619} campe au pied de la rampe menant dans le cratère.",
 	-- {area:1943} Ironstone Plateau
-	["The pelts come from the gorillas on {area:1943}"] = "",
+	["The pelts come from the gorillas on {area:1943}"] = "Les peaux se récupèrent sur les gorilles de {area:1943}",
 
 	-- Step 116: Ironstone Plateau: kill these as you meet them
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha

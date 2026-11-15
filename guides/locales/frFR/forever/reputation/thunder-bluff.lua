@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Thunder Bluff Reputation"] = "Réputation : Thunder Bluff",
 	-- {zone:1412} Mulgore · {zone:1452} Winterspring · {item:11040} Morrowgrain · {item:14047} Runecloth
-	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "",
+	["{zone:1412} quests while you level, {zone:1452} quests and {item:11040} from 55, then {item:14047} to Exalted."] = "Quêtes {zone:1412} pendant que vous progressez, quêtes {zone:1452} et {item:11040} de 55, puis {item:14047} jusqu'à Exalté.",
 	-- {faction:81} Thunder Bluff
 	["Exalted with {faction:81}"] = "Exalté : {faction:81}",
 
@@ -17,14 +17,14 @@ return {
 	-- {faction:81} Thunder Bluff
 	["{faction:81}: how it works"] = "{faction:81} : comment ça marche",
 	-- {faction:81} Thunder Bluff · {item:11040} Morrowgrain · {npc:14728} Rumstag Proudstrider · {quest:7825} Additional Runecloth · {item:14047} Runecloth · {zone:1454} Orgrimmar · {zone:1458} Undercity · {zone:1412} Mulgore · {area:378} Camp Taurajo · {zone:1441} Thousand Needles
-	["{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the Crossroads at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward."] = "",
+	["{faction:81} reputation comes from quests, {item:11040} and cloth. {npc:14728}, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then {quest:7825}, 20 {item:14047} for 50, as often as you like. Every point you earn with {faction:81} also gives a quarter as much to {zone:1454}, the {zone:1458} and the Darkspear Trolls. While you level, do {faction:81}'s quests within 5 levels of them: {zone:1412} at 1 to 12, {area:378} and the Crossroads at 13 to 22, {zone:1441} at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. {faction:81} has no tabard or other reward."] = "La réputation {faction:81} vient des quêtes, de {item:11040} et du tissu. {npc:14728}, l'intendant du tissu, se dresse sur la montée centrale parmi les tentes des maroquiniers et des tailleurs. Il prend quatre dons uniques de tissu 60 (150 chacun), puis {quest:7825}, 20 {item:14047} pour 50, aussi souvent que vous le souhaitez. Chaque point que vous gagnez avec {faction:81} donne également un quart de plus au {zone:1454}, au {zone:1458} et au Trolls Sombrelance. Pendant que vous progressez, effectuez les quêtes de {faction:81} dans les niveaux 5 : {zone:1412} à 1 à 12, {area:378} et la Croisée à 13 à 22, {zone:1441} à 25 à 30. L'avantage Legacy Diplomat s'élève à 10%. Récompenses : chez Honoré Thunder Bluff, les marchands vous vendent 10% de moins (la règle classique), le vendeur de kodo inclus ; chez Exalté, d'autres races peuvent acheter les kodos : 20 gold pour un kodo de niveau 40 200 gold pour un super kodo de niveau 60, une fois que vous avez suivi l'entraînement de monture. {faction:81} n'a ​​pas de tabard ou autre récompense.",
 	["his donations are handed in from his window and never enter the log"] = "ses dons se rendent depuis sa fenêtre et n'entrent jamais dans le journal de quêtes",
 
 	-- Step 2: Camp Narache (optional hub)
 	-- {area:221} Camp Narache
 	["{area:221} (optional hub)"] = "{area:221} (étape facultative)",
 	-- {area:221} Camp Narache · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2980} Grull Hawkwind · {npc:2981} Chief Hawkwind · {npc:3209} Brave Windfeather
-	["Forever pays these old quests in full at any level. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "",
+	["Forever pays these old quests in full at any level. {area:221}, at the south end of {zone:1412}: about 1,100 {faction:81} reputation in 25 minutes. Starting-zone quests give the other cities no share. {npc:2980} and {npc:2981} stand in the camp, {npc:3209} at its edge."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:221}, à l'extrémité sud de {zone:1412} : environ la réputation de 1,100 {faction:81} en minutes 25. Les quêtes de la zone de départ ne donnent aucune part aux autres villes. {npc:2980} et {npc:2981} se trouvent dans le camp, {npc:3209} à son bord.",
 
 	-- Step 3: Greatmother Hawkwind and the plains
 	-- {npc:2991} Greatmother Hawkwind
@@ -62,13 +62,13 @@ return {
 	-- {area:222} Bloodhoof Village
 	["{area:222} (optional hub)"] = "{area:222} (étape facultative)",
 	-- {area:222} Bloodhoof Village · {zone:1412} Mulgore · {faction:81} Thunder Bluff · {npc:2993} Baine Bloodhoof · {npc:2947} Harken Windtotem · {npc:2985} Ruul Eagletalon · {npc:3222} Brave Wildrunner · {npc:2988} Morin Cloudstalker
-	["Forever pays these old quests in full at any level. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes. {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "",
+	["Forever pays these old quests in full at any level. {area:222} and eastern {zone:1412}: about 1,000 {faction:81} reputation in 45 minutes. {npc:2993} stands in the middle of the village; {npc:2947}, {npc:2985} and {npc:3222} close by; {npc:2988} waits east of the village by the road."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:222} et {zone:1412} oriental : environ la réputation de 1 000 {faction:81} en minutes 45. {npc:2993} se trouve au milieu du village ; {npc:2947}, {npc:2985} et {npc:3222} à proximité ; {npc:2988} attend à l'est du village au bord de la route.",
 
 	-- Step 11: Eastern Mulgore
 	-- {zone:1412} Mulgore
 	["Eastern {zone:1412}"] = "L'est de {zone:1412}",
 	-- {quest:99079} Longwalker Malah · {object:2908} Sealed Supply Crate
-	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "",
+	["{quest:99079} waits by the eastern border. The {object:2908} of the ravaged caravan lies north-east of the village: open it to start the next quest."] = "{quest:99079} attend près de la frontière orientale. Le {object:2908} de la caravane ravagée se trouve au nord-est du village : ouvrez-le pour lancer la quête suivante.",
 	-- {object:2908} Sealed Supply Crate
 	["the {object:2908}"] = "la {object:2908}",
 
@@ -80,21 +80,21 @@ return {
 	["The mine, the centaurs and the plains"] = "La mine, les centaures et les plaines",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
 	-- plural, as words: Swoops = {npc:2970} Swoop
-	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "",
+	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "Retour à la mine pour les ouvriers, les contremaîtres et {quest:765} au fond : son {item:281031} démarre {quest:98424}, et ses autres pages se trouvent à l'intérieur de la mine. Les centaures Galak et Herak campent à l'est du village. Rapaces survole {zone:1412} ; les harpies Windfury se perchent au sud-est du village ; le camp des gnolls de Palemane à l'ouest de celui-ci.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
-	["{item:281031}, from {quest:765}"] = "",
+	["{item:281031}, from {quest:765}"] = "{item:281031}, de {quest:765}",
 	-- {item:281035} Shredder Operation Instructions
-	["{item:281035}, inside the mine"] = "",
+	["{item:281035}, inside the mine"] = "{item:281035}, à l'intérieur de la mine",
 
 	-- Step 14: Morin Cloudstalker
 	-- {quest:98427} Ceasing Operations · {quest:98424} Fizsprocket's Notes
-	["{quest:98427}, +150: needs {quest:98424}"] = "",
+	["{quest:98427}, +150: needs {quest:98424}"] = "{quest:98427}, +150 : nécessite {quest:98424}",
 
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
-	["{area:360}: the Clearcutter"] = "",
+	["{area:360}: the Clearcutter"] = "{area:360} : le coupe-clair",
 	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "",
+	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Le broyeur d'élite KapitalRisk Clearcutter travaille au plus profond de la mine, au-delà de l'endroit où se trouvait Fizsprocket : sa clé est pour {quest:98427}.",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
@@ -106,9 +106,9 @@ return {
 	-- {area:17044} Gloomrise
 	["{area:17044} (optional hub)"] = "{area:17044} (étape facultative)",
 	-- {area:17045} Skywatcher Plateau · {faction:81} Thunder Bluff · {zone:1454} Orgrimmar · {npc:259118} Muln Earthfury · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem
-	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "",
+	["Forever pays these old quests in full at any level. The Earthen Ring camp on the {area:17045}, north-west of {faction:81}: 300 {faction:81} reputation in 20 minutes, plus 100 each for {zone:1454} and the Darkspear Trolls and 450 Earthen Ring. {npc:259118}, {npc:264074} and {npc:264072} stand in the camp."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Le camp du Cercle terrestre sur le {area:17045}, au nord-ouest de {faction:81} : réputation de 300 {faction:81} en minutes 20, plus 100 chacun pour {zone:1454} et Trolls Sombrelance et 450 Anneau de terre. {npc:259118}, {npc:264074} et {npc:264072} se trouvent dans le camp.",
 	-- {npc:259118} Muln Earthfury · {quest:96259} Defending the Dead · {quest:96261} The Broodmother
-	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "",
+	["{npc:259118}: {quest:96259}, +100 ({quest:96261} comes once it is handed in)"] = "{npc:259118} : {quest:96259}, +100 ({quest:96261} arrive une fois remis)",
 	-- {npc:264074} Mazu'kon · {quest:96241} Talkin' bout Toxins, Mon
 	["{npc:264074}: {quest:96241} (Darkspear +100)"] = "{npc:264074} : {quest:96241} (Sombrelance +100)",
 
@@ -123,11 +123,11 @@ return {
 	-- Step 20: The Skywatcher camp: hand in
 	["The Skywatcher camp: hand in"] = "Le camp des Guetteurs du ciel : rendre les quêtes",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
-	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "",
+	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118} propose {quest:96261} uniquement après avoir rendu {quest:96259}.",
 
 	-- Step 21: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise
-	["{npc:264082}, at the heart of {area:17044}"] = "",
+	["{npc:264082}, at the heart of {area:17044}"] = "{npc:264082}, au cœur de {area:17044}",
 
 	-- Step 23: Rumstag Proudstrider: A Donation of Wool
 	-- {npc:14728} Rumstag Proudstrider · {item:14047} Runecloth · {quest:7825} Additional Runecloth
@@ -183,7 +183,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (optionnel)",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
-	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "",
+	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804} prend 10 {item:11040} pour 50, aussi souvent que vous le souhaitez, et paie intégralement à 60, mais c'est lent : le {item:11020} produit une douille toutes les 10 minutes et une douille en contient environ une. {item:11040} en moyenne, donc chaque remise prend environ 90 minutes d'attente, 18 {quest:3761} et 9 paquets de graines (90 argent). Il fonctionne à côté de tout ce que vous faites : un peu plus de réputation 30 par heure. La chaîne qui la précède est le niveau 50. {npc:6746} vous envoie à {npc:5769} sur {area:1639} ; il veut 20 {quest:3761}.",
 
 	-- Step 32: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain

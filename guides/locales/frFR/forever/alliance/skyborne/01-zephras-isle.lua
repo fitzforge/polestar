@@ -68,17 +68,17 @@ return {
 	-- Step 10: Thendal Grove: kill these as you meet them
 	-- {npc:251115} Urs'anah · {npc:250926} Scrawny Ursera
 	-- plural, as words: Ursera Scavengers = {npc:250937} Ursera Scavenger
-	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "",
+	["The Ursera Scavengers den west of the grove, with {npc:251115}, the matriarch, at the back of the den; {npc:250926} prowl the woods between the den and the grove."] = "La tanière Charognards ursera à l'ouest du bosquet, avec {npc:251115}, la matriarche, au fond de la tanière ; {npc:250926} rôde dans les bois entre la tanière et le bosquet.",
 	["Below ground"] = "Sous terre",
 	-- {item:252665} Head of Urs'anah
 	["{item:252665}; below ground"] = "{item:252665} ; sous terre",
 
 	-- Step 11: Aetheen of the Gales
-	["Back east out of the den to the grove."] = "",
+	["Back east out of the den to the grove."] = "Quittez le repaire vers l’est pour retourner au bosquet.",
 
 	-- Step 12: Hanaa Nightwind
 	-- {npc:252095} Hanaa Nightwind · {npc:256935} Malduko Cloudcrush
-	["{npc:252095} camps south-west of the grove, south of the Ursera den, on the way south to Shen'dar. The Al'Aketh thugs hold the camp south-west of her; {npc:256935} stands in its middle.\nCareful: {npc:256935} casts shocks; drag him clear of the other cultists before fighting so they don't join in."] = "",
+	["{npc:252095} camps south-west of the grove, south of the Ursera den, on the way south to Shen'dar. The Al'Aketh thugs hold the camp south-west of her; {npc:256935} stands in its middle.\nCareful: {npc:256935} casts shocks; drag him clear of the other cultists before fighting so they don't join in."] = "{npc:252095} campe au sud-ouest du bosquet, au sud de la tanière d'Ursera, sur la route vers le sud en direction de Shen'dar. Les voyous d'Al'Aketh tiennent le camp au sud-ouest d'elle ; {npc:256935} se trouve au milieu.\nAttention : {npc:256935} projette des chocs ; éloignez-le des autres cultistes avant de se battre afin qu'ils ne se joignent pas à nous.",
 
 	-- Step 13: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:263664} Raan Wildwind · {npc:251523} Constable Aonda · {npc:251903} Rathiril Sunlance
@@ -157,7 +157,7 @@ return {
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
 	["Prideclaws and Galestriders"] = "Fièregriffes et trotteurs des trombes",
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw
-	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "",
+	["Prideclaws and Galestriders roam the grasslands around the village. Galestriders drop both the eggs and the meat: most players get the eggs from the ones just west of the village."] = "Fièregriffes et Galestriders parcourent les prairies autour du village. Les Galestriders lâchent à la fois les œufs et la viande : la plupart des joueurs obtiennent les œufs de ceux situés juste à l'ouest du village.",
 
 	-- Step 38: Village quests
 	["The bounty board"] = "Le tableau des primes",
@@ -168,7 +168,7 @@ return {
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
 	["The Highlands Bandits camp north-east of the village. \"Badwind\" Bennic waits at the far north end of their camp."] = "Les Bandits des hautes-terres campent au nord-est du village. Bennic « Mauvais vent » attend tout au nord de leur camp.",
 	-- plural, as words: Highlands Bandits = {npc:251918} Highlands Bandit
-	["Highlands Bandits"] = "",
+	["Highlands Bandits"] = "Bandits des hautes-terres",
 	["\"Badwind\" Bennic, below ground"] = "Bennic « Mauvais vent », sous terre",
 
 	-- Step 41: Shen'dar turn-ins
@@ -218,7 +218,7 @@ return {
 
 	-- Step 52: Shen'dar Highlands: kill these as you meet them
 	-- {item:263493} Hippogryph Down
-	["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them.\nThe Novice Seers practise in the clearing west of Shen'dar, on the way back to the village."] = "",
+	["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them.\nThe Novice Seers practise in the clearing west of Shen'dar, on the way back to the village."] = "Dirigez-vous vers le nord-ouest jusqu’aux nids d’hippogriffes sur les falaises ouest. {item:263493} se trouve autour des nids ; la matriarche patrouille parmi eux.\nLes voyants débutants s'entraînent dans la clairière à l'ouest de Shen'dar, sur le chemin du retour au village.",
 
 	-- Step 53: Shen'dar Village again
 	-- {area:16624} Shen'dar Village
@@ -226,7 +226,7 @@ return {
 
 	-- Step 55: Fendaal Windstone
 	-- {area:16638} Valanaar · {npc:273017} Fendaal Windstone · {quest:98512} Al'Aketh Assassins
-	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "",
+	["On the road south-east to {area:16638}, {npc:273017} watches the {quest:98512} just north of him."] = "Sur la route vers le sud-est en direction de {area:16638}, {npc:273017} surveille {quest:98512}, juste au nord de lui.",
 
 	-- Step 56: Valanaar, the turncoat
 	-- {area:16638} Valanaar
@@ -247,7 +247,7 @@ return {
 	-- plural, as words: Skyhoppers = {npc:251727} Skyhopper
 	["Skyhoppers swarm the fields west of {area:16638}."] = "Les Sauteciels pullulent dans les champs à l'ouest de {area:16638}.",
 	-- {npc:260628} Valennia Stormfist
-	["{npc:260628}, upstairs"] = "",
+	["{npc:260628}, upstairs"] = "{npc:260628}, à l’étage",
 
 	-- Step 60: The road to Valanaar
 	-- {area:16638} Valanaar
@@ -301,7 +301,7 @@ return {
 	-- {npc:252800} Aamelia Windfield
 	["{npc:252800} again"] = "De nouveau {npc:252800}",
 	-- {npc:252800} Aamelia Windfield
-	["Back to {npc:252800} at the farmhouse."] = "",
+	["Back to {npc:252800} at the farmhouse."] = "Retournez auprès de {npc:252800}, à la ferme.",
 
 	-- Step 68: Bandit Highwaymen
 	["Bandit Highwaymen"] = "Bandits de grand chemin",
@@ -310,7 +310,7 @@ return {
 	-- Step 69: Standing our ground
 	["Standing our ground"] = "Tenir bon",
 	-- {npc:252800} Aamelia Windfield
-	["{npc:252800}, at the farmhouse"] = "",
+	["{npc:252800}, at the farmhouse"] = "{npc:252800}, à la ferme",
 	-- {npc:252800} Aamelia Windfield
 	["Tell {npc:252800} you're ready"] = "Dites à {npc:252800} que vous êtes prêt",
 
@@ -318,7 +318,7 @@ return {
 	-- {area:16638} Valanaar
 	["{area:16638} turn-ins"] = "Quêtes à rendre à {area:16638}",
 	-- {npc:252359} Lotheluum Starbreeze · {quest:94006} The Great Ursera Spirit
-	["{npc:252359}, between the west gate and Valennia's house: {quest:94006}"] = "",
+	["{npc:252359}, between the west gate and Valennia's house: {quest:94006}"] = "{npc:252359}, entre la porte ouest et la maison de Valennia : {quest:94006}",
 
 	-- Step 71: Valanaar turn-ins
 	-- {npc:252373} Anathamaas Aetherwind
@@ -350,12 +350,12 @@ return {
 
 	-- Step 76: Urs'endris
 	-- {npc:255853} Urs'endris · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16638} Valanaar
-	["{npc:255853} waits by the falls just north of the watchtower. {npc:258443} prowls the {area:16623} south-west of the dead cultist, where you go after {area:16638}."] = "",
+	["{npc:255853} waits by the falls just north of the watchtower. {npc:258443} prowls the {area:16623} south-west of the dead cultist, where you go after {area:16638}."] = "{npc:255853} vous attend près des chutes juste au nord de la tour de guet. {npc:258443} rôde à {area:16623}, au sud-ouest du sectateur mort, où vous irez après {area:16638}.",
 
 	-- Step 78: The dead cultist
 	["The dead cultist"] = "Le cultiste mort",
 	-- {npc:273017} Fendaal Windstone
-	["North-west of Valanaar along the road, past {npc:273017}: the dead cultist lies just north of him."] = "",
+	["North-west of Valanaar along the road, past {npc:273017}: the dead cultist lies just north of him."] = "Au nord-ouest de Valanaar le long de la route, après {npc:273017} : le cultiste mort se trouve juste au nord de lui.",
 	["Search the dead cultist"] = "Fouiller le cultiste mort",
 	["Inside"] = "À l'intérieur",
 	-- {npc:258443} Ur'endra
@@ -409,7 +409,7 @@ return {
 	-- {npc:258130} Jorel Windsinger
 	["Find {npc:258130}"] = "Trouvez {npc:258130}",
 	-- {item:258771} Al'Aketh Cultist's Ear · {npc:254151} Vayn Moongaze
-	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "",
+	["{item:258771}: the Stormchasers and Footsoldiers around {npc:254151}'s camp"] = "{item:258771} : les Stormchasers et Footsoldiers autour du camp de {npc:254151}",
 
 	-- Step 90: Elegael Thornpaw, the missive
 	-- {npc:257944} Elegael Thornpaw
@@ -452,11 +452,11 @@ return {
 	-- {area:16638} Valanaar
 	["{area:16638}, the fate of Zephras"] = "{area:16638}, le destin de Zephras",
 	-- {object:617084} Portal to Valanaar (no name in this language: may be words) · {npc:252475} Elaadrin Evengale · {npc:252476} Talaanis Shadowsong · {npc:259012} Ealaane Nimbuswalker
-	["The {object:617084} sets you down beside {npc:252475} at the south end of the town. {npc:252476} is at the north end, {npc:259012} a few steps north-west of her."] = "",
+	["The {object:617084} sets you down beside {npc:252475} at the south end of the town. {npc:252476} is at the north end, {npc:259012} a few steps north-west of her."] = "{object:617084} vous dépose près de {npc:252475}, à l’extrémité sud de la ville. {npc:252476} se trouve à l’extrémité nord, et {npc:259012} à quelques pas au nord-ouest d’elle.",
 
 	-- Step 100: Elaadrin Evengale
 	-- {npc:252475} Elaadrin Evengale · {area:279} Dalaran · {area:16638} Valanaar · {npc:259084} Denaaris Stargale
-	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "",
+	["{npc:252475} sends you on to {area:279}. Take the skycutter from the dock tower just south of {area:16638}: it lands by the Kirin Tor camp west of {area:279}, beside {npc:259084} and the Skyborne Portal."] = "{npc:252475} vous renvoie à {area:279}. Prenez le skycutter depuis la tour du quai juste au sud de {area:16638} : il atterrit près du camp Kirin Tor à l'ouest de {area:279}, à côté de {npc:259084} et du portail Skyborne.",
 	-- {npc:252475} Elaadrin Evengale · {npc:259084} Denaaris Stargale
 	["{npc:252475}: {npc:259084} waits by the Skyborne portal"] = "{npc:252475} : {npc:259084} attend près du portail éolide",
 
@@ -486,7 +486,7 @@ return {
 
 	-- Step 105: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {zone:1436} Westfall
-	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "",
+	["{npc:1646} stands in {object:2098}, on the way from the Keep to the main gate: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} se trouve à {object:2098}, sur le chemin entre le donjon et la porte principale : sa boussole est dans son ancienne maison à {zone:1436}, sur le trajet.",
 
 	-- Step 106: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District

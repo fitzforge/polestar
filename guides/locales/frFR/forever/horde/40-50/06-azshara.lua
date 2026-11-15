@@ -16,7 +16,7 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["To {object:3202}"] = "Vers {object:3202}",
 	-- {area:75} Stonard · {area:117} Grom'gol Base Camp
-	["The flight from {area:75} lands at {area:117}."] = "",
+	["The flight from {area:75} lands at {area:117}."] = "Le vol depuis {area:75} vous dépose à {area:117}.",
 
 	-- Step 5: Fly to Booty Bay
 	-- {area:35} Booty Bay
@@ -30,15 +30,15 @@ return {
 	-- {npc:7406} Oglethorpe Obnoticus
 	["{npc:7406}, inside"] = "{npc:7406}, à l'intérieur",
 	-- {npc:2491} Whiskey Slim
-	["{npc:2491}, in the inn"] = "",
+	["{npc:2491}, in the inn"] = "{npc:2491}, dans l’auberge",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, on the balcony of the same building"] = "",
+	["{npc:2487}, on the balcony of the same building"] = "{npc:2487}, sur le balcon du même bâtiment",
 
 	-- Step 7: The Bloodsail ships
 	["The Bloodsail ships"] = "Les navires de la Voile sanglante",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "",
+	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "Au sud de Booty Bay, trois navires Bloodsail gisent au large du {area:43} : {npc:2550}, {npc:2548} et {npc:2546} chacun se tient sur un pont avec leurs équipages. Nagez et travaillez de navire en navire.",
 
 	-- Step 9: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
@@ -87,9 +87,9 @@ return {
 	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117} se promène autour de {area:1235} : cherchez dans le cercle sur la carte",
 
 	-- Step 26: Level 50
-	["Level 50"] = "",
+	["Level 50"] = "Niveau 50",
 	-- {quest:4493} March of the Silithid · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar · {zone:1447} Azshara · {area:2100} Maraudon · {area:1417} Sunken Temple
-	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "",
+	["Top up here to level 50: {quest:4493}, from {npc:7010} in {zone:1454} at the end of {zone:1447}, needs it. Or, with a group, run the {area:2100} dungeon or the {area:1417} dungeon instead."] = "Terminez votre progression jusqu’au niveau 50 ici : la quête {quest:4493}, proposée par {npc:7010} à {zone:1454} après {zone:1447}, exige ce niveau. Vous pouvez aussi former un groupe pour faire le donjon de {area:2100} ou de {area:1417}.",
 	-- {npc:6125} Haldarr Satyr
 	["grind on {npc:6125}"] = "tuez en boucle : {npc:6125}",
 

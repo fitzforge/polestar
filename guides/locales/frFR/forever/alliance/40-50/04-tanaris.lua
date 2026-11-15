@@ -10,7 +10,7 @@ return {
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
 	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} se trouve sur les {area:439}, dans le sud-est des {zone:1441} : {npc:4454} est dans le camp des gnomes à côté de la piste, Zamek près du camp gobelin.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454} : {quest:1137}, confiée par Martek dans {zone:1418}",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -58,7 +58,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, à l'intérieur",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "MacKinley « Loup des mers », à {area:35} : l’itinéraire vous y conduira à la fin du guide de {zone:1425} ; conservez cette quête",
 
 	-- Step 11: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "Attention : les Larrons lancent Désarmement. Les Voleurs restent cachés grâce à Camouflage. Les Assassins utilisent Exécution quand votre vie est à 20 % ou moins.",
@@ -107,7 +107,7 @@ return {
 
 	-- Step 21: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
-	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "",
+	["Ride back west to {area:976}: {npc:11758} stands on the east side of town, where you come in."] = "Retournez vers l’ouest à {area:976} : {npc:11758} se trouve à l’est de la ville, à votre arrivée.",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 
@@ -143,7 +143,7 @@ return {
 
 	-- Step 28: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master"] = "",
+	["{npc:5636}, beside the flight master"] = "{npc:5636}, près du maître de vol",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, à l'intérieur",
 

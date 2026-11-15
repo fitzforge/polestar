@@ -18,7 +18,7 @@ return {
 
 	-- Step 4: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "Le centre de {zone:1454}",
 
 	-- Step 6: Riding at 40
 	["Riding at 40"] = "Monte au niveau 40",
@@ -33,7 +33,7 @@ return {
 
 	-- Step 8: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "Riding nécessite le niveau 40 et coûte de l'or 100 ; l'apprendre vous donne une monture. Chaque race l'apprend de l'entraîneur de sa propre race : le vôtre est {npc:7953} dans {area:367}, un court trajet au sud de {zone:1454} sur la route {zone:1411}, avec les rapaces de Zjolnir (20 en or chacun) à ses côtés. Revenez ensuite au maître de vol de {zone:1454}.",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "{npc:7953}, maître de monte",
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
@@ -47,11 +47,11 @@ return {
 
 	-- Step 11: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
-	["Your trainer is in {zone:1456}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins)."] = "",
+	["Your trainer is in {zone:1456}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins)."] = "Votre maître de classe se trouve à {zone:1456} : {npc:3033} pour les druides, à {area:1639}, et {npc:246344} pour les paladins.",
 
 	-- Step 13: Riding at 40
 	-- {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village · {npc:3685} Harb Clawhoof · {zone:1456} Thunder Bluff
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "La monte nécessite le niveau 40 et coûte 100 pièces d’or ; son apprentissage vous donne une monture. Chaque race l’apprend auprès de son propre instructeur : le vôtre est {npc:3690}, à {area:222}, près des kodos de {npc:3685} (20 pièces d’or chacun). Retournez ensuite auprès du maître de vol de {zone:1456}.",
 	-- {npc:3690} Kar Stormsinger
 	["{npc:3690}, riding trainer"] = "{npc:3690}, maître de monte",
 	-- {npc:3685} Harb Clawhoof · {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village
@@ -67,7 +67,7 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "{area:392} pour le Palefroi corrompu",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "",
+	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "Prenez un vol depuis {zone:1454} vers {area:392} ; {npc:6251} se trouve sur la colline au-dessus des quais.",
 
 	-- Step 17: Fly to Freewind Post
 	-- {area:392} Ratchet
@@ -75,9 +75,9 @@ return {
 
 	-- Step 20: Mirage Raceway
 	-- {area:484} Freewind Post · {zone:1446} Tanaris · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	["The road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "La route de {area:484} à {zone:1446} passe devant le {area:2240} sur le {area:439} : {npc:4454} se trouve dans le camp des gnomes à côté de la piste, {npc:4630} et {npc:4709} près du camp des gobelins. {npc:4630} d'abord, puis {npc:4709}, qui s'enfuit pour occuper Rizzle ; puis prenez les plans de Rizzle du camp des gnomes et ramenez-les à {npc:4630}.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454} : {quest:1137}, confiée par Martek dans {zone:1418}",
 	-- {npc:4630} Pozzik · {item:5852} Fuel Regulator Blueprints · {npc:2496} Baron Revilgaz
 	["{npc:4630}: the {item:5852} from {npc:2496}, if you carry them"] = "{npc:4630} : les {item:5852} de {npc:2496}, si vous les avez sur vous",
 	-- {npc:4706} Razzeric · {npc:4630} Pozzik
@@ -106,7 +106,7 @@ return {
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, à l'intérieur",
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
-	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "",
+	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579} : les hurleurs vivent à {zone:1444}, pour le prochain passage à {zone:1444}",
 
 	-- Step 26: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
@@ -124,7 +124,7 @@ return {
 
 	-- Step 28: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
-	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "",
+	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "Roulez vers le nord-est jusqu'au port : {npc:7881}, le {npc:15165} et le chef de la sécurité prennent ce que {area:1336} vous a donné. {area:976} se trouve à l'ouest de celui-ci.",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 50"] = "pour {area:35}, vers le niveau 50",
 
@@ -176,25 +176,25 @@ return {
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "{area:2522} : tuez-les au passage",
 	-- {area:1105} Feral Scar Vale
-	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "",
+	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "Depuis la ruche, partez vers l’ouest jusqu’aux ruines des ogres en contrebas de {area:1105}. Des chamans, des démonistes et des cogneurs occupent les lieux ; les Seigneurs-mages à l’extrémité sud portent l’orbe.",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} se promène autour de {area:2522} : cherchez dans le cercle sur la carte",
 
 	-- Step 43: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
-	["{area:1105} yetis"] = "",
+	["{area:1105} yetis"] = "Yétis de {area:1105}",
 	-- {area:1105} Feral Scar Vale
-	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
+	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "Au nord-ouest des ruines, les yétis vivent dans {area:1105} ; chacun peut laisser tomber une peau épaisse.",
 
 	-- Step 44: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Uniquement si vous avez la balise de détresse : toutes les bêtes, tous les gnolls et tous les ogres de {zone:1444} peuvent la laisser tomber, avec environ une chance sur cent ; utilisez-la pour lancer la quête. Le robot se trouve dans une petite grotte du côté nord de {area:1105}, juste au nord-ouest des ruines. Escortez-le jusqu’au quai de {area:1108} ; des yétis et des gorilles vous tendront des embuscades en chemin. Vous récupérerez la récompense à {area:35} lors d’un prochain passage.\nAttention : trois embuscades se déclenchent pendant l’escorte, et le robot vous avertit avant chacune. La première comprend 3 yétis, juste après la sortie de la grotte, pendant la montée vers la route. La deuxième comprend 3 gorilles, sur le chemin longeant la falaise. La troisième comprend environ 4 gnolls, dont un lanceur de sorts, à l’endroit où l’itinéraire bifurque vers le quai.",
 
 	-- Step 45: Camp Mojache
 	-- {zone:1444} Feralas
-	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "",
+	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "les Yétis Griffe féroce, lors du prochain passage à {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
-	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
+	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875} : pour {npc:7010}, à {zone:1454}",
 
 	-- Step 46: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar

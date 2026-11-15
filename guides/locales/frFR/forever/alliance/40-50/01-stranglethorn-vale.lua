@@ -13,7 +13,7 @@ return {
 	-- {quest:1260} Morgan Stern
 	["{quest:1260}, inside"] = "{quest:1260}, à l'intérieur",
 	-- {npc:4964} Commander Samaul · {area:514} Foothold Citadel
-	["{npc:4964}, on the top floor of {area:514}"] = "",
+	["{npc:4964}, on the top floor of {area:514}"] = "{npc:4964}, au dernier étage de {area:514}",
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, pour « Œil-des-marais » Jarl",
 
@@ -26,7 +26,7 @@ return {
 
 	-- Step 3: Swamplight Manor
 	-- {quest:1218} Soothing Spices · {npc:4897} Helenia Olden
-	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "",
+	["Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house. Jarl wants three {quest:1218}: if you passed {npc:4897}, buy them from her in Theramore first."] = "Prenez la route vers le nord jusqu'au manoir en ruine ; Jarl vit dans la cabane à côté et la terre se trouve au coin de la maison. Jarl veut trois {quest:1218} : si vous avez réussi {npc:4897}, achetez-les-lui d'abord à Theramore.",
 	["with the spices from Theramore"] = "avec les épices de Theramore",
 
 	-- Step 4: "Stinky" Ignatz
@@ -58,7 +58,7 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, à l'intérieur",
 	-- {npc:4794} Morgan Stern · {zone:1435} Swamp of Sorrows
-	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "",
+	["{npc:4794}: the crawlers are on the {zone:1435} shore, keep it"] = "{npc:4794} : les clampants se trouvent sur le rivage de {zone:1435} ; conservez cette quête",
 
 	-- Step 10: Mirefin murlocs
 	["Mirefin murlocs"] = "Murlocs Aileron boueux",
@@ -83,7 +83,7 @@ return {
 
 	-- Step 16: Foothold Citadel
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
-	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "",
+	["The boat leaves from Theramore: report to {npc:4944} on the top floor of {area:514} on the way to the docks."] = "Le bateau part de Theramore : présentez-vous à {npc:4944} au dernier étage du {area:514} en route vers les quais.",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, au dernier étage",
 	-- {npc:4968} Lady Jaina Proudmoore
@@ -134,7 +134,7 @@ return {
 	-- {npc:2487} Fleet Master Seahorn
 	["{npc:2487}, top floor"] = "{npc:2487}, dernier étage",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "",
+	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "{npc:737}, à l’étage : les trolls Skullsplitter, sur la boucle nord",
 	["Inside"] = "À l'intérieur",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "La course suivante de Seahorn ramène en Arathi : passez-la.",
 	-- {npc:2542} Catelyn the Blade
@@ -159,7 +159,7 @@ return {
 
 	-- Step 48: Booty Bay
 	-- {quest:604} The Bloodsail Buccaneers
-	["Seahorn now offers {quest:604}: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it."] = "",
+	["Seahorn now offers {quest:604}: leave it. Its three captains are level 45-48 with crews around them, and the route brings you back to Seahorn at 48 for it."] = "Seahorn propose désormais {quest:604} : laissez-le. Ses trois capitaines sont de niveau 45-48 avec des équipages autour d'eux, et l'itinéraire vous ramène à Seahorn à 48 pour cela.",
 
 	-- Step 49: Gorilla hills
 	["Gorilla hills"] = "Collines des gorilles",
@@ -209,7 +209,7 @@ return {
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["Jungle Stalkers"] = "Traqueurs de la jungle",
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
-	["The Jungle Stalkers roam the slopes west of the mine."] = "",
+	["The Jungle Stalkers roam the slopes west of the mine."] = "Les Traqueurs de la jungle parcourent les pentes à l'ouest de la mine.",
 
 	-- Step 57: The north-west coast
 	["The north-west coast"] = "La côte nord-ouest",
@@ -221,19 +221,19 @@ return {
 
 	-- Step 60: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s Entomology Starter Kit."] = "Un {npc:217588} rampe dans la jungle au sud-est du camp de Nesingwary, en route vers le {area:99} : attrapez-en un avec l'outil du kit de démarrage entomologie de {npc:217412}.",
 
 	-- Step 61: Rebel Camp
-	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "",
+	["Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "Partez vers le nord-est, dépassez le camp de Nesingwary, puis suivez la route vers le nord jusqu’au camp à l’extrémité nord de la vallée.",
 
 	-- Step 63: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:728} est un élite de niveau 40 : la plupart des classes le battent seules au niveau 42, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.",
 
 	-- Step 64: Level 42.16 at Zul'Mamwe
-	["Level 42.16 at Zul'Mamwe"] = "",
+	["Level 42.16 at Zul'Mamwe"] = "Niveau 42.16 à Zul'Mamwe",
 	-- {npc:737} Kebok · {area:1517} Uldaman
-	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Alone, you skip Nesingwary's three elite hunts: take their experience from the Skullsplitter trolls of Zul'Mamwe instead, just east of the mine, so every kill also counts for {npc:737}'s tusks. Or, with a group, run the {area:1517} dungeon instead."] = "Seul, vous évitez les trois chasses d'élite de Nesingwary : prenez plutôt leur expérience auprès des trolls Skullsplitter de Zul'Mamwe, juste à l'est de la mine, afin que chaque victoire compte également pour les défenses de {npc:737}. Ou, en groupe, exécutez plutôt le donjon {area:1517}.",
 	-- {npc:667} Skullsplitter Warrior
 	["grind on {npc:667}"] = "tuez en boucle : {npc:667}",
 
@@ -253,16 +253,16 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:731} est un élite de niveau 43 : la plupart des classes le battent seules au niveau 45, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.\nAttention : des tigres et des panthères Ombregueule camouflées rôdent près de lui. Éliminez-les avant de l'attirer. Quand vous l'attirez, {npc:731} appelle à l'aide les créatures dans un rayon de 20 m.",
 
 	-- Step 72: Level 42.16
-	["Level 42.16"] = "",
+	["Level 42.16"] = "Niveau 42,16",
 	-- {area:310} Crystalvein Mine · {area:35} Booty Bay · {area:1517} Uldaman
 	-- plural, as words: Cold Eye Basilisks = {npc:690} Cold Eye Basilisk
-	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Still short of level 42.16 after the hunts you did? Make up the rest on the Cold Eye Basilisks by the {area:310}, on your way south to {area:35}. Or, with a group, run the {area:1517} dungeon instead."] = "Il vous manque encore le niveau 42.16 après les chasses que vous avez effectuées ? Composez le reste sur le Basilics Oeil-de-glace par le {area:310}, en route vers le sud jusqu'à {area:35}. Ou, en groupe, exécutez plutôt le donjon {area:1517}.",
 	-- {npc:690} Cold Eye Basilisk
 	["grind on {npc:690}"] = "tuez en boucle : {npc:690}",
 
 	-- Step 73: Booty Bay
 	-- {area:35} Booty Bay
-	["Ride south down the road to {area:35}."] = "",
+	["Ride south down the road to {area:35}."] = "Suivez la route vers le sud jusqu’à {area:35}.",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "La course suivante de {npc:2498} concernant Zanzil commence à {zone:1441} : passez-la.",
 	-- {npc:737} Kebok
@@ -279,7 +279,7 @@ return {
 	-- {npc:1141} Angus Stern · {object:2169} Blue Recluse · {npc:5384} Brohann Caskbelly · {object:28027} Dwarven District
 	["{npc:1141} cooks in the {object:2169}; {npc:5384} is in the {object:28027}."] = "{npc:1141} cuisine au {object:2169} ; {npc:5384} est dans {object:28027}.",
 	-- {npc:5694} High Sorcerer Andromath · {npc:5464} Watchmaster Sorigal · {area:42} Darkshire
-	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "",
+	["{npc:5694}: for {npc:5464} in {area:42}, on the way to the swamp"] = "{npc:5694} : pour {npc:5464}, à {area:42}, sur le chemin du marais",
 
 	-- Step 76: Stormwind
 	-- {npc:1440} Milton Sheaf · {object:2117} Stormwind Keep
@@ -330,7 +330,7 @@ return {
 
 	-- Step 90: Darkshire
 	-- {npc:5464} Watchmaster Sorigal
-	["{npc:5464}, by the flight master"] = "",
+	["{npc:5464}, by the flight master"] = "{npc:5464}, près du maître de vol",
 
 	-- Step 92: Misty Valley
 	["The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays."] = "Le parchemin se trouve dans le marais au nord de Biggs. Les Maraistreurs au nord peuvent laisser tomber les essais de Khadgar.",
@@ -338,7 +338,7 @@ return {
 	-- Step 94: Level 42.46
 	["Level 42.46"] = "Niveau 42.46",
 	-- {quest:543} The Perenolde Tiara · {area:1517} Uldaman
-	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["If you skipped {quest:543}, grind here to level 42.46 to stay on the route's plan. Or, with a group, run the {area:1517} dungeon instead."] = "Si vous avez passé {quest:543}, tuez des monstres ici jusqu’au niveau 42,46 pour suivre la progression prévue par l’itinéraire. Vous pouvez aussi former un groupe pour faire le donjon de {area:1517}.",
 	-- {npc:766} Tangled Horror
 	["grind on {npc:766}"] = "tuez en boucle : {npc:766}",
 
@@ -360,7 +360,7 @@ return {
 	["The driftwood washes up along the eastern shore."] = "Le bois flotté s'échoue le long de la rive est.",
 	-- {item:5938} Pristine Crawler Leg
 	-- plural, as words: Silt Crawlers = {npc:922} Silt Crawler
-	["{item:5938}, from the Silt Crawlers on the same shore"] = "",
+	["{item:5938}, from the Silt Crawlers on the same shore"] = "{item:5938}, du Clampants des vases sur la même rive",
 
 	-- Step 99: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
@@ -376,7 +376,7 @@ return {
 
 	-- Step 106: Ironforge
 	-- {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers · {npc:2786} Gerrig Bonegrip · {object:32383} Forlorn Cavern
-	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "",
+	["{npc:5637} is in the Reclaimers' hall by the {object:32356}, {npc:2786} in the {object:32383}."] = "{npc:5637} se trouve dans la salle des récupérateurs près de {object:32356}, et {npc:2786} dans {object:32383}.",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "{zone:1453} n'a pas de maître des chamans",
 
@@ -400,11 +400,11 @@ return {
 
 	-- Step 112: Loch Modan
 	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:144} Thelsamar
-	["Ride east out of {zone:1426} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "",
+	["Ride east out of {zone:1426} through the tunnel into {zone:1432} and on along the road to {area:144}."] = "Quittez {zone:1426} vers l’est par le tunnel menant à {zone:1432}, puis suivez la route jusqu’à {area:144}.",
 
 	-- Step 113: Thelsamar
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
-	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "",
+	["{npc:1470} is below ground in {area:144}, by the inn. His mushrooms grow in the {area:1517} dig in the {zone:1418}; the next guide takes you there and back through {area:144}."] = "{npc:1470} se trouve sous terre à {area:144}, près de l’auberge. Ses champignons poussent dans les fouilles de {area:1517}, à {zone:1418} ; le guide suivant vous y conduira, puis repassera par {area:144}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, sous terre",
 

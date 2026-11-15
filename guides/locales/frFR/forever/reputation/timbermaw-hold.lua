@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: Deadwood Village
 	-- {zone:1448} Felwood · {item:21377} Deadwood Headdress Feather · {npc:9464} Overlord Ror · {npc:14342} Ragepaw
-	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "",
+	["The Deadwood furbolgs (level 48-50) hold the village at the south end of {zone:1448}. Keep every {item:21377}: they are worth 10 reputation each later and never stop counting. {npc:9464} (15 reputation) and the rare {npc:14342} (25) live here and count until Exalted. Forever pays quests in full at any level; in Classic grey mobs gave about a fifth, about 1 a kill for these furbolgs at 60. Do it while leveling if you can."] = "Les furbolgs Mort-bois (niveau 48-50) tiennent le village à l'extrémité sud de {zone:1448}. Conservez chaque {item:21377} : ils valent la réputation 10 chacun plus tard et ne cessent de compter. {npc:9464} (réputation 15) et le rare {npc:14342} (25) vivent ici et comptent jusqu'à Exalté. Forever paie l'intégralité des quêtes à n'importe quel niveau ; dans Classic, les foules grises ont donné environ un cinquième, environ 1, une victoire pour ces furbolgs à 60. Faites-le en nivelant si vous le pouvez.",
 	-- {npc:14342} Ragepaw
 	["{npc:14342}, rare"] = "{npc:14342}, rare",
 
@@ -100,7 +100,7 @@ return {
 	-- Step 17: Friendly to Honored
 	["Friendly to Honored"] = "D'Amical à Honoré",
 	-- {npc:11557} Meilosh · {item:19445} Formula: Enchant Weapon - Agility · {item:19202} Pattern: Heavy Timbermaw Belt · {item:19044} Might of the Timbermaw · {skill:165} Leatherworking · {item:19047} Wisdom of the Timbermaw · {skill:197} Tailoring
-	["Friendly to Honored is 6,000: 1,200 kills. Keep all feathers and beads. Honored opens at {npc:11557}: {item:19445} (3 gold), and for 2 gold 20 silver each {item:19202} and {item:19044} ({skill:165}) and {item:19047} ({skill:197})."] = "",
+	["Friendly to Honored is 6,000: 1,200 kills. Keep all feathers and beads. Honored opens at {npc:11557}: {item:19445} (3 gold), and for 2 gold 20 silver each {item:19202} and {item:19044} ({skill:165}) and {item:19047} ({skill:197})."] = "Amical à Honoré est 6 000 : 1 200 tue. Gardez toutes les plumes et perles. Le rang Honoré débloque à {npc:11557} : {item:19445} (3 or), et pour 2 or 20 argent, chaque {item:19202} et {item:19044} ({skill:165}) et {item:19047} ({skill:197}).",
 
 	-- Step 18: Honored to Revered
 	["Honored to Revered"] = "D'Honoré à Révéré",
@@ -115,7 +115,7 @@ return {
 	-- Step 19: Revered to Exalted
 	["Revered to Exalted"] = "De Révéré à Exalté",
 	-- {npc:15395} Nafien · {npc:11554} Grazle · {npc:11556} Salfa · {npc:14342} Ragepaw · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall · {npc:11557} Meilosh · {item:19204} Pattern: Heavy Timbermaw Boots · {item:19049} Timbermaw Brawlers · {skill:165} Leatherworking · {item:19050} Mantle of the Timbermaw · {skill:197} Tailoring
-	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "",
+	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "Les tueries se sont arrêtées à la fin d'Honoré. Révéré à Exalté est 21 000 : 420 remises, 2 100 plumes et perles. Remettez les plumes à {npc:15395} au tunnel ou à {npc:11554} au sud, les perles à {npc:11556}, cinq à la fois. Les furbolgs nommés (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) comptent toujours. Le rang Révéré débloque à {npc:11557}, pour de l'or 4 chacun : {item:19204} et {item:19049} ({skill:165}) et {item:19050} ({skill:197}).",
 	-- {quest:8467} Feathers for Nafien
 	["{quest:8467}: 5 feathers, 50 reputation"] = "{quest:8467} : 5 plumes, 50 de réputation",
 	-- {quest:8466} Feathers for Grazle

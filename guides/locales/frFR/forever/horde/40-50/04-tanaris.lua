@@ -14,7 +14,7 @@ return {
 
 	-- Step 3: Gadgetzan
 	-- {npc:7876} Tran'rek · {area:979} Sandsorrow Watch
-	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "",
+	["The flight lands beside {npc:7876}. Take the town's quests before riding west to {area:979}."] = "Le vol vous dépose près de {npc:7876}. Prenez les quêtes de la ville avant de partir vers l’ouest jusqu’à {area:979}.",
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}, à côté du maître des coursiers du vent",
 
@@ -24,7 +24,7 @@ return {
 
 	-- Step 6: Senior Surveyor Fizzledowser
 	-- {area:976} Gadgetzan · {npc:7771} Marvon Rivetseeker
-	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "",
+	["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "Retournez vers l’est auprès de Fizzledowser, à l’ouest de {area:976} ; {npc:7771} se trouve plus au sud.",
 
 	-- Step 7: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:9978} Gahz'ridian Detector · {area:983} Dunemaul Compound
@@ -88,7 +88,7 @@ return {
 
 	-- Step 20: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
-	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
+	["for {npc:5204} in the {zone:1458}, around level 52"] = "pour {npc:5204}, à {zone:1458}, vers le niveau 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "pour {npc:7010} à {zone:1454}, vers le niveau 50",
 
@@ -107,7 +107,7 @@ return {
 	-- Step 24: The Grimesilt Dig Site
 	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "",
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Depuis {area:16727}, entrez dans {zone:1427} par le passage est, puis allez vers l’ouest jusqu’au site de fouilles. {object:173265} se trouve à son extrémité sud ; les Géologues Sombrefer creusent juste au nord. Apportez 15 {item:4306}, disponibles à l’hôtel des ventes.",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "les {object:173265}",
 
@@ -119,27 +119,27 @@ return {
 
 	-- Step 27: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
-	["{area:246}'s slavers and golems"] = "",
+	["{area:246}'s slavers and golems"] = "Esclavagistes et golems de {area:246}",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "Roulez vers le sud depuis {area:1446} jusqu'au Chaudron : les Sous-chefs Sombrefer et Esclavagistes Sombrefer conduisent les esclaves sur les chemins, et les Golems de guerre lourd patrouillent à l'étage en dessous de {npc:8479}.",
 
 	-- Step 28: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "",
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479} se trouve seul au sud de {area:1446}, au bord de la grande excavation. Écoutez son histoire.",
 
 	-- Step 31: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427} : tuez-les au passage",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Greater Lava Spiders = {npc:5858} Greater Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Golems de guerre lourd patrouille dans le chaudron sous {npc:8479} et laisse tomber l'huile ; le Magma et Elémentaires flamboyant dérivant parmi eux font tomber les cœurs. Les Sous-chefs Sombrefer et Esclavagistes Sombrefer pilotent les esclaves sur les chemins ; un Esclavagiste Sombrefer peut laisser tomber le {item:11818} : gardez-le.\nLe Araignées de lave incendiaire parcourt les plateaux et les bassins de lave au sud-ouest de la gorge.\n{area:1443} s'ouvre au nord du Chaudron. Incendosaures nage dans ses bassins de lave : tirez-les jusqu'au bord. Les plans secrets se trouvent sur le rebord supérieur de la fosse.\nAttention : Esclavagistes Sombrefer (niveau 45-46) appelle à l'aide les alliés dans 15 yd lorsqu'il est tiré, lance Net jusqu'à 15 yd et utilise Rend en mêlée.",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}, butin rare",
 
 	-- Step 33: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
-	["Ride back north to {area:1446}, just past {npc:8479}."] = "",
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "Retournez vers le nord à {area:1446}, juste après {npc:8479}.",
 
 	-- Step 34: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "Les fourneaux des Forge-vapeur",

@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Darkspear Trolls Reputation"] = "Réputation : Trolls Darkspear",
 	-- {item:14047} Runecloth · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too."] = "",
+	["{item:14047} to Exalted, with the old {zone:1411} quests as a fast extra that pays {zone:1454} too."] = "{item:14047} à Exalté, avec les anciennes quêtes {zone:1411} comme supplément rapide qui rapporte également {zone:1454}.",
 	-- {faction:530} Darkspear Trolls
 	["Exalted with the {faction:530}"] = "Exalté auprès des {faction:530}",
 
@@ -24,7 +24,7 @@ return {
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363} (étape facultative)",
 	-- {area:363} Valley of Trials · {zone:1454} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Le {area:363} est le meilleur d'entre eux : environ 1 400 {zone:1454} et 1 400 réputation Sombrelance en minutes 25. {npc:3143} attend dans le Den, la grande cabane ; {npc:10176} se trouve à l'extérieur.",
 	-- {npc:3144} Eitrigg · {zone:1454} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {zone:1454}: {quest:787}, +50"] = "{npc:3144}, à {zone:1454} : {quest:787}, +50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -37,7 +37,7 @@ return {
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556} : frappez-le avec la {item:16114}",
 	-- {npc:10556} Lazy Peon
-	["Wake {npc:10556}"] = "",
+	["Wake {npc:10556}"] = "Réveil {npc:10556}",
 
 	-- Step 4: The Den: hand in
 	-- {area:364} The Den
@@ -62,15 +62,15 @@ return {
 	-- {npc:3145} Zureetha Fargaze
 	["{npc:3145}, in the Den"] = "{npc:3145}, dans la Tanière",
 	-- {quest:805} Report to Sen'jin Village · {quest:97225} Forgotten Loa Idols
-	["{quest:805}, +50: {quest:97225} waits on it"] = "",
+	["{quest:805}, +50: {quest:97225} waits on it"] = "{quest:805}, +50 : {quest:97225} l'attend",
 
 	-- Step 9: Sen'jin Village (optional hub)
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367} (étape facultative)",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {zone:1454} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:367} et {area:368} : environ la réputation de 625 {zone:1454} et 650 Sombrelance en minutes 25. {npc:3188} et {npc:3304} se trouvent près des cabanes, {npc:3194} près de l'eau, {npc:7953} au sud du village.",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
-	["{quest:97225}, +100: needs {quest:805} from the Den"] = "",
+	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}, +100 : nécessite {quest:805} du Den",
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
@@ -84,7 +84,7 @@ return {
 	-- Step 11: The coast and the road
 	["The coast and the road"] = "La côte et la route",
 	-- {quest:97223} Bloodtalon Matriarch
-	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village."] = "",
+	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village."] = "Makrura et les surf crawlers parcourent les plages à l'est et au sud de Sen'jin. Le {quest:97223} se trouve à l'est du village.",
 
 	-- Step 12: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village
@@ -98,19 +98,19 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362} (étape facultative)",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {zone:1454} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. {area:362} et nord {zone:1411} : à propos de la réputation de 1 650 {zone:1454} et 1 650 Sombrelance en minutes 80. {npc:3142} et {npc:3139} se trouvent au milieu de la ville, {npc:3191} près de la caserne, {npc:3147} et Turroc aux abords.",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}, +100 : demande {quest:823}, de Sen'jin",
 
 	-- Step 15: Tiragarde Keep
 	-- {area:362} Razor Hill · {npc:3192} Lieutenant Benedict · {object:3239} Benedict's Chest · {item:4881} Aged Envelope · {quest:830} The Admiral's Orders · {item:4870} Canvas Scraps
-	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}."] = "",
+	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}."] = "Le donjon se trouve au sud de {area:362} sur la côte. {npc:3192} se trouve dans le seul bâtiment du donjon ; sa clé ouvre {object:3239} sur le toit, et le {item:4881} à l'intérieur démarre {quest:830}. Les marins et les marines abandonnent le {item:4870}.",
 
 	-- Step 16: Razormane Grounds and the Echo Isles
 	-- {area:816} Razormane Grounds · {area:368} Echo Isles
 	["{area:816} and the {area:368}"] = "{area:816} et les {area:368}",
 	-- {area:362} Razor Hill · {area:368} Echo Isles · {object:3240} Taillasher Eggs
-	["The Razormane camps are south-west and west of {area:362}. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "",
+	["The Razormane camps are south-west and west of {area:362}. Then head to the {area:368} for the {object:3240}: each nest gives an egg every time."] = "Les camps Tranchecrin se trouvent au sud-ouest et à l'ouest de {area:362}. Direction ensuite le {area:368} pour le {object:3240} : chaque nid donne à chaque fois un œuf.",
 
 	-- Step 17: Razor Hill: hand in
 	-- {area:362} Razor Hill
@@ -141,14 +141,14 @@ return {
 	-- {npc:3293} Rezlak
 	["{npc:3293} and Misha"] = "{npc:3293} et Misha",
 	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
-	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
+	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "Un {npc:3118} peut supprimer un {item:277661} : utilisez-le pour démarrer {quest:97281}. Une fois que vous avez remis cela, {npc:3293} propose {quest:97282}.",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
 	["{npc:3117}, in {area:370}"] = "{npc:3117}, dans le {area:370}",
 
 	-- Step 22: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Les Organes de lézard-tonnerre chargé proviennent des lézards-tonnerre de {area:369}, juste à l'ouest de {npc:3293}.",
 
 	-- Step 24: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {zone:1454} Orgrimmar
@@ -198,7 +198,7 @@ return {
 	-- Step 33: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "Le mont Rochenoire, en groupe",
 	-- {area:1583} Blackrock Spire · {faction:530} Darkspear Trolls · {area:340} Kargath · {zone:1418} Badlands · {quest:4903} Warlord's Command · {npc:3144} Eitrigg · {zone:1458} Undercity · {area:978} Zul'Farrak · {zone:1425} Hinterlands
-	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "",
+	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "Pour la Horde ! (Tête de Rend, {area:1583}) et Le Seigneur de Rochenoire (Tête de Nefarian) paient 200 à chaque ville de la Horde, y compris le {faction:530}. {area:340} dans le {zone:1418} démarre la chaîne Rend : {quest:4903}, {npc:3144}'s Wisdom, puis For The Horde !. Emmenez-les quand votre groupe part. La chaîne Le dieu-araignée du guide {zone:1458} ({area:978} et le {zone:1425}) paie 225 Sombrelance en route.",
 	-- {npc:9077} Warlord Goretooth · {quest:4903} Warlord's Command
 	["{npc:9077}: {quest:4903}, a group of five"] = "{npc:9077} : {quest:4903}, un groupe de cinq",
 

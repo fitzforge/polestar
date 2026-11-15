@@ -30,7 +30,7 @@ return {
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "{npc:252359} se trouve à {area:16638}, la ville Skyborne au sud de l'île, et n'a aucune nouvelle des druides du nord. Sa mission est le début de l'histoire de Nightclaw (niveau 8 et plus, n'importe quelle race). Chaque quête rapporte la réputation de Nightclaw : 4100 en tout, assez pour Friendly. Les rendus des joueurs payaient la totalité de leur réputation bien au-dessus du niveau de ces quêtes.",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw

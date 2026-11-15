@@ -20,7 +20,7 @@ return {
 	-- Step 4: The Grimesilt outhouse
 	-- {area:144} Thelsamar · {zone:1418} Badlands · {area:340} Kargath · {zone:1427} Searing Gorge · {area:247} Grimesilt Dig Site · {item:4306} Silk Cloth
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "",
+	["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}: the {area:247} is just inside, in the south-east. The prisoner in the wooden outhouse wants 15 {item:4306} and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one."] = "De {area:144} roulez vers le sud dans le {zone:1418}, puis vers l'ouest après la ville de la Horde de {area:340} (laissez-lui de la place) et montez le sentier jusqu'à {zone:1427} : le {area:247} se trouve juste à l'intérieur, au sud-est. Le prisonnier dans la latrine en bois veut 15 {item:4306} et huit morts Géologues Sombrefer du site de fouilles qui l'entoure. La dépendance s'ouvre également avec la clé, si vous en avez trouvée une.",
 
 	-- Step 5: The Grimesilt outhouse
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
@@ -29,19 +29,19 @@ return {
 	-- Step 6: Level 48.27
 	["Level 48.27"] = "Niveau 48.27",
 	-- {item:3985} Monogrammed Sash · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "Si vous avez ignoré le {item:3985} ou le Face à Negolash, passez ici au niveau 48.27 pour rester sur le plan de l'itinéraire. Ou, en groupe, exécutez plutôt le donjon {area:2100} ou le donjon {area:978}.",
 	-- {npc:5839} Dark Iron Geologist
 	["grind on {npc:5839}"] = "tuez en boucle : {npc:5839}",
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "",
+	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dorius se tient au bord de la route, à côté du {area:247}. Escortez-le vers le nord-est jusqu'à {area:1959} et gardez-le en vie ; quand c'est fini, lisez le {object:175704} qu'il laisse sur la route.",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Pour {npc:8256} à {zone:1455}, à la fin de ce guide",
 
 	-- Step 8: Thorium Point
 	-- {area:1446} Thorium Point
-	["Ride west along the north of the Gorge to {area:1446}, the scaffolded camp on the north-west rim."] = "",
+	["Ride west along the north of the Gorge to {area:1446}, the scaffolded camp on the north-west rim."] = "Longez le nord de la gorge vers l’ouest jusqu’à {area:1446}, le camp avec des échafaudages sur le bord nord-ouest.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "Le panneau {object:179827}",
 
@@ -53,24 +53,24 @@ return {
 	-- plural, as words: Greater Lava Spiders = {npc:5858} Greater Lava Spider
 	["Greater Lava Spiders"] = "Araignées de lave incendiaires",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
-	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "",
+	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Les araignées parcourent les plateaux et les bassins de lave au sud de {npc:8436}, sur le chemin de {npc:8479}.",
 
 	-- Step 14: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
-	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "",
+	["{npc:8479} stands on the rim of the Cauldron, south of {area:1446}. Listen to his story."] = "{npc:8479} se trouve au bord du Chaudron, au sud de {area:1446}. Écoutez son histoire.",
 
 	-- Step 17: Golems and elementals
 	["Golems and elementals"] = "Golems et élémentaires",
 	-- {npc:8479} Velarok Windblade
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental
-	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "",
+	["Heavy War Golems patrol the floor of the Cauldron below {npc:8479}; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Golems de guerre lourd patrouille sur le sol du Chaudron sous {npc:8479} ; Elémentaires de magma dérive parmi eux. Golems de guerre lourd et les élémentaires laissent tomber l'huile, les élémentaires les cœurs.",
 
 	-- Step 19: Dark Iron dwarves: kill these as you meet them
 	-- {object:147516} Dark Iron
-	["{object:147516} dwarves: kill these as you meet them"] = "",
+	["{object:147516} dwarves: kill these as you meet them"] = "Les nains de {object:147516} : tuez-les au passage",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere · {object:147516} Dark Iron · {item:11818} Grimesilt Outhouse Key
 	-- plural, as words: Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
+	["Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Sous-chefs Sombrefer et Esclavagistes Sombrefer conduisent les esclaves partout dans le Chaudron, et chacun d'entre eux peut transporter un {item:10551}. Les Forge-vapeurs Sombrefer fonctionnent sur les fours du milieu (le {item:18959}), les Guetteurs Sombrefer se trouvent sur les crêtes sud (le Spyglass). Tout {object:147516} peut laisser tomber le {item:11818} : conservez-le.\nAttention : Esclavagistes Sombrefer (niveau 45-46) appelle à l'aide des alliés dans 15 yd lorsqu'il est tiré, lancez Net depuis jusqu'à 15 yd, et utilisez Rend en mêlée.",
 
 	-- Step 22: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
@@ -88,7 +88,7 @@ return {
 	-- Step 25: Level 48.66
 	["Level 48.66"] = "Niveau 48.66",
 	-- {quest:7701} WANTED: Overseer Maltorius · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "Si vous avez passé {quest:7701}, tuez des monstres ici jusqu’au niveau 48,66 pour suivre la progression prévue par l’itinéraire. Vous pouvez aussi former un groupe pour faire le donjon de {area:2100} ou de {area:978}.",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "tuez en boucle : {npc:9318}",
 
@@ -116,7 +116,7 @@ return {
 	-- Step 32: Level 48.98
 	["Level 48.98"] = "Niveau 48.98",
 	-- {quest:3452} The Flame's Casing · {area:2100} Maraudon · {area:978} Zul'Farrak
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "",
+	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan. Or, with a group, run the {area:2100} dungeon or the {area:978} dungeon instead."] = "Si vous avez passé {quest:3452}, tuez des monstres ici jusqu’au niveau 48,98 pour suivre la progression prévue par l’itinéraire. Vous pouvez aussi former un groupe pour faire le donjon de {area:2100} ou de {area:978}.",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "tuez en boucle : {npc:5844}",
 

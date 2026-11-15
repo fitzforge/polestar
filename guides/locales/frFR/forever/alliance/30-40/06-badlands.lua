@@ -41,9 +41,9 @@ return {
 	["{area:345}: kill these as you meet them"] = "{area:345} : tuez-les au passage",
 	-- {quest:739} Murdaloc · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Le camp des ogres Dustbelcher juste au sud de la vallée ; n'importe lequel d'entre eux laisse tomber de la ferraille. Des buses font le tour de la plaine à l'est.\nLe squelette meurtri se trouve à la limite du camp trogg de Stonevault ; {quest:739}, le tueur d'Agmond, se promène parmi les Bonesnappers.\nAttention : Seigneurs Crache-poussières sont de niveau 44-45. Ils utilisent {spell:5242} et {spell:1160}, et en dessous de 50% de santé, ils appellent à l'aide des alliés dans 15 yd. Sept d'entre eux se trouvent à environ 750 yd au sud de {area:340}.",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "{quest:739} lui-même (42) marche parmi les Bonesnappers : laissez-le pour le dernier guide {zone:1418} sur 43, et tuez les Bonesnappers pour cette quête maintenant.",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
@@ -54,7 +54,7 @@ return {
 	["Lesser Rock Elementals"] = "Elémentaires de roche inférieurs ({npc:2735})",
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {npc:1470} Ghak Healtouch
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "",
+	["The Lesser Rock Elementals wander the {area:1878} west of {npc:2921}; every rock elemental can drop {npc:1470}'s Rock Elemental Shards."] = "Les Elémentaires de roche inférieur parcourent le {area:1878} à l'ouest de {npc:2921} ; chaque élémentaire de roche peut laisser tomber le Fragments d'élémentaire de roche de {npc:1470}.",
 
 	-- Step 13: The Ancient Chest
 	-- {object:126260} Ancient Chest
@@ -66,9 +66,9 @@ return {
 
 	-- Step 14: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "",
+	["Head south down the road: {npc:4618} and {npc:2817} camp in the {area:1877}, on the way to {area:345}."] = "Suivez la route vers le sud : {npc:4618} et {npc:2817} campent à {area:1877}, sur le chemin de {area:345}.",
 	-- {npc:4454} Fizzle Brassbolts · {area:2240} Mirage Raceway · {zone:1446} Tanaris
-	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "",
+	["For {npc:4454} at the {area:2240}: the {zone:1446} guide passes him at 45, keep it"] = "Pour {npc:4454}, à {area:2240} : le guide de {zone:1446} passe près de lui au niveau 45 ; conservez cette quête",
 
 	-- Step 15: Theldurin the Lost
 	-- {area:345} Agmond's End
@@ -86,15 +86,15 @@ return {
 	-- Step 17: Lotwil Veriatus
 	-- {npc:2921} Lotwil Veriatus · {item:4628} Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "",
+	["{npc:2921}'s last test is optional: five {item:4628}, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on."] = "Le dernier test de {npc:2921} est facultatif : cinq {item:4628}, que seul le Elémentaires de roche supérieur (42-44) dans les ravins du sud-ouest lâchent, soit environ un kill sur cinq, bien au-dessus de votre niveau. Prenez-le seulement si vous pouvez les gérer un à la fois ; sinon, remettez les dalles et continuez.",
 
 	-- Step 18: Bracers of Rock Binding
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "",
+	["South-west into the gulches: only the Greater Rock Elementals there drop the bracers."] = "Au sud-ouest dans les ravins : seuls les Elémentaires de roche supérieur y déposent les brassards.",
 
 	-- Step 20: Lucien Tosselwrench
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus · {item:2868} Patterned Bronze Bracers
-	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "",
+	["{npc:2920}, beside {npc:2921}, trades for {item:2868}, a blacksmith's craft: this step shows only when you carry a pair."] = "{npc:2920}, près de {npc:2921}, propose un échange contre {item:2868}, fabriqué en forge : cette étape apparaît uniquement si vous en avez une paire.",
 	-- {npc:2920} Lucien Tosselwrench · {npc:2921} Lotwil Veriatus
 	["{npc:2920}, beside {npc:2921}"] = "{npc:2920}, à côté de {npc:2921}",
 
@@ -115,7 +115,7 @@ return {
 	-- Step 25: Theramore flight master
 	["Theramore flight master"] = "Maître de vol de Theramore",
 	-- {area:514} Foothold Citadel
-	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "",
+	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "Descendez du bateau, montez sur la jetée jusqu'à Baldruc, le maître de vol près de la porte de {area:514}.",
 
 	-- Step 26: Nijel's Point
 	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort

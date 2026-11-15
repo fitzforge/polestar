@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Aramis Hammerhand
 	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
+	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} vous donne un {item:282423} après {quest:364} : lisez-le, puis apportez-le à {npc:244808} près de l'église. Il vous demande de soigner cinq {npc:259377} qui traînent autour de {area:154}. {spell:635} fait un peu mal à un paladin Réprouvé à chaque fois : surveillez votre santé.",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "Soignez 5 {npc:259377} avec {spell:635}",
 
@@ -34,7 +34,7 @@ return {
 
 	-- Step 5: Bandarion Keep
 	-- {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {npc:267009} Hadric Harlson · {area:159} Brill
-	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after {quest:96896} from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "",
+	["{area:16602} stands on the bluffs north-west of the {area:156} (the road west starts near 29,46). {npc:246349} waits at the gate. {npc:246389}, the keep's trainer, and {npc:259190}, its stable master, stand at the forest's edge just south of him. They only have work for you from level 10 and after {quest:96896} from Leonid at the keep, the end of {npc:267009}'s chain that starts south-east of {area:159}; take their quests when you see them."] = "{area:16602} se dresse sur les falaises au nord-ouest de {area:156} (la route vers l'ouest commence près de 29, 46). {npc:246349} attend à la porte. {npc:246389}, le maître du donjon, et {npc:259190}, son maître d'écurie, se tiennent à la lisière de la forêt, juste au sud de lui. Ils n'ont du travail pour vous qu'à partir du niveau 10 et après {quest:96896} de Leonid au donjon, la fin de la chaîne de {npc:267009} qui commence au sud-est de {area:159} ; prenez leurs quêtes lorsque vous les voyez.",
 
 	-- Step 6: Murlocs at the Gates
 	-- {area:16881} Shadowvale
@@ -46,7 +46,7 @@ return {
 
 	-- Step 7: Touring the Grounds
 	-- {npc:246349} Breton Samuels · {npc:246389} Hilda the Breaker · {npc:246394} Ander Solliden · {npc:246393} Jorin Croge · {npc:246378} Danitha Morr
-	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "",
+	["{npc:246349} gives you a weapon, then sends you round the keep to speak with four of its people: {npc:246389} just south of the gate, {npc:246394}, the lookout, who walks the road south-east of the keep, then {npc:246393} and {npc:246378} inside the keep. Pick the conversation option with each."] = "{npc:246349} vous donne une arme, puis vous envoie faire le tour du donjon pour parler avec quatre de ses habitants : {npc:246389} juste au sud de la porte, {npc:246394}, le guetteur, qui parcourt la route au sud-est du donjon, puis {npc:246393} et {npc:246378} à l'intérieur du donjon. Choisissez l’option de conversation avec chacun.",
 	-- {npc:246349} Breton Samuels · {item:246164} Skullthumper · {item:246165} Driftwood Smasher
 	["{npc:246349}: {item:246164} or {item:246165}"] = "{npc:246349} : {item:246164} ou {item:246165}",
 
@@ -96,7 +96,7 @@ return {
 
 	-- Step 15: Ephram Barbaro
 	-- {npc:259190} Ephram Barbaro · {npc:246389} Hilda the Breaker
-	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "",
+	["{npc:259190} waits at the forest's edge south of the gate, a few steps west of {npc:246389}."] = "{npc:259190} vous attend à la lisière de la forêt au sud de la porte, à quelques pas à l’ouest de {npc:246389}.",
 
 	-- Step 16: A Lesson in Divinity
 	-- {npc:246378} Danitha Morr · {item:2589} Linen Cloth · {zone:1458} Undercity
@@ -134,9 +134,9 @@ return {
 
 	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption
-	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "",
+	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "Retour à {area:16602}, à travers toutes les clairières : Billmuth en bas prend les plans, puis {npc:246378}, de retour à l'étage dans le donjon, vous apprend {spell:7328}.",
 	-- {npc:246378} Danitha Morr · {spell:7328} Redemption
-	["{npc:246378}, back upstairs: {spell:7328}"] = "",
+	["{npc:246378}, back upstairs: {spell:7328}"] = "{npc:246378}, de retour à l’étage : {spell:7328}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, {npc:246378} teaches you {spell:7328}."] = "Retour à {area:16602}, en traversant toutes les clairières : Billmuth, au rez-de-chaussée, prend les plans, {npc:246378} vous apprend {spell:7328}.",

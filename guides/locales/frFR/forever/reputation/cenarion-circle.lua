@@ -65,7 +65,7 @@ return {
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["{zone:1451} quests at {area:3425}"] = "Quêtes de {zone:1451} à {area:3425}",
 	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings · {npc:15189} Beetix Ficklespragg
-	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Encaissez désormais les quêtes uniques : environ la réputation de 1,700 seule, 2,400 avec les quêtes de groupe. Ils sont du niveau 55 à 60, ils paient donc intégralement à 60. {quest:8280} nécessite d'abord {quest:8275}. {npc:15196} est un scorpide d'élite doté de deux gardes (groupe de 2 ou 3). Le {quest:8307} de {npc:15174} est destiné aux cuisiniers : sa recette permet d'obtenir le {item:20452} qu'il souhaite. {npc:15189} se tient à l'étage de son immeuble : montez à l'intérieur, la flèche ne permet pas de distinguer les étages.",
 	-- {npc:15191} Windcaller Proudhorn · {quest:8275} Taking Back Silithus
 	["{npc:15191}, after {quest:8275}"] = "{npc:15191}, après {quest:8275}",
 	-- {npc:15196} Deathclasp
@@ -83,7 +83,7 @@ return {
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "De retour au Fort",
 	-- {npc:15189} Beetix Ficklespragg
-	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} se trouve à l’étage de son bâtiment : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -99,7 +99,7 @@ return {
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "{npc:15190} et Proudhorn",
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
-	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} et {npc:15190} se trouvent à l’étage de leur bâtiment : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -135,7 +135,7 @@ return {
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "Retour à {area:3425} avec des nouvelles",
 	-- {npc:15190} Noggle Ficklespragg
-	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} se trouve à l’étage de son bâtiment : montez par l’intérieur, car la flèche ne distingue pas les étages.",
 	["Natalia, elite: group up"] = "Natalia, élite : formez un groupe",
 
 	-- Step 20: Rubbings and brains
@@ -184,7 +184,7 @@ return {
 	-- Step 28: Quests elsewhere
 	["Quests elsewhere"] = "Quêtes ailleurs",
 	-- {faction:609} Cenarion Circle · {zone:1414} Kalimdor · {npc:10739} Mulgris Deepriver · {zone:1422} Western Plaguelands · {area:2100} Maraudon · {quest:1123} Rabine Saturna · {item:18501} Felvine Shard · {area:2577} Dire Maul
-	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "",
+	["The {faction:609}'s other quests are spread over {zone:1414} and the Plaguelands. Forever pays them in full at any level: The Wildlife Suffers Too ({npc:10739}, {zone:1422}, levels 54 and 56) 75 and 75, Corruption of Earth and Seed ({area:2100}, level 51) 150. Shards of the Felvine ({quest:1123}, level 60, the {item:18501} from Alzzin in {area:2577}) pays 150 and its Reliquary 100 at any level."] = "Les autres quêtes du {faction:609} sont réparties sur {zone:1414} et les Maleterres. Forever les paie intégralement à n'importe quel niveau : La faune souffre aussi ({npc:10739}, {zone:1422}, niveaux 54 et 56) 75 et 75, Corruption de la terre et des semences ({area:2100}, niveau 51) 150. Les Éclats de Felvine ({quest:1123}, niveau 60, le {item:18501} d'Alzzin en {area:2577}) paye 150 et son Reliquaire 100 à n'importe quel niveau.",
 	-- {zone:1422} Western Plaguelands · {area:2100} Maraudon
 	["Do the {zone:1422} and {area:2100} quests while you level; at 60 they may pay a fraction."] = "Faites les quêtes de {zone:1422} et de {area:2100} pendant que vous montez de niveau ; au niveau 60, elles ne rapportent peut-être qu'une fraction.",
 

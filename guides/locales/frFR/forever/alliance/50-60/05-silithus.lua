@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Ratchet
 	-- {area:541} Marshal's Refuge · {area:392} Ratchet
-	["Fly from {area:541} to {area:392}."] = "",
+	["Fly from {area:541} to {area:392}."] = "Prenez un vol depuis {area:541} vers {area:392}.",
 	-- {npc:8496} Liv Rizzlefix
 	["{npc:8496}, inside"] = "{npc:8496}, à l'intérieur",
 
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Light's Hope Chapel
 	-- {npc:11038} Caretaker Alen · {area:2627} Terrordale
-	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "",
+	["{npc:11038}, by the graves south of the chapel: Egan is in {area:2627}, keep it"] = "{npc:11038}, près des tombes au sud de la chapelle : Egan est en {area:2627}, conservez-le",
 
 	-- Step 10: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion

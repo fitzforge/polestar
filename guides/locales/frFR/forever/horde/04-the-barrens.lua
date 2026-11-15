@@ -37,7 +37,7 @@ return {
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721} : la fiole vient d'{zone:1440}, guide suivant",
 
 	-- Step 6: Fly to Crossroads
-	["Fly to Crossroads"] = "",
+	["Fly to Crossroads"] = "Prendre un vol pour la Croisée",
 	-- {npc:2995} Tal · {zone:1456} Thunder Bluff
 	["Fly to the Crossroads from the wind rider master: {npc:2995} on {zone:1456}'s central rise."] = "Volez jusqu'à la Croisée depuis le maître des coursiers du vent : {npc:2995}, sur le plateau central des {zone:1456}.",
 
@@ -48,7 +48,7 @@ return {
 	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way up"] = "{npc:4049} : {npc:4074} et {npc:4073} errent à l'est de {npc:4201}, sur le chemin de la montée",
 
 	-- Step 8: The road west
-	["The road west"] = "",
+	["The road west"] = "La route vers l’ouest",
 	-- {npc:4049} Seereth Stonebreak
 	["The road west past {npc:4049}'s camp"] = "La route de l'ouest après le camp de {npc:4049}",
 
@@ -66,9 +66,9 @@ return {
 	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat · {npc:4073} XT:4
 	["Up the {area:1076} past {npc:4201} and west to {area:460}; coming from {npc:4073}, back west past Ziz's hut."] = "Montez {area:1076} après {npc:4201}, puis allez vers l'ouest jusqu'à {area:460} ; si vous venez de {npc:4073}, revenez vers l'ouest en passant la hutte de Ziz.",
 	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
-	["{npc:11862}: {npc:12736} at Zoram'gar, next guide"] = "",
+	["{npc:11862}: {npc:12736} at Zoram'gar, next guide"] = "{npc:11862} : {npc:12736}, à Zoram’gar, dans le guide suivant",
 	-- {npc:11860} Maggran Earthbinder · {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["{npc:11860}: {npc:12576} is at the {area:1718}, later in this guide"] = "",
+	["{npc:11860}: {npc:12576} is at the {area:1718}, later in this guide"] = "{npc:11860} : {npc:12576} se trouve à {area:1718}, plus tard dans ce guide",
 	-- {npc:11860} Maggran Earthbinder
 	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
 	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860} : Héliolites lumineuses ({item:277936}) sur les harpies Rougefurie",
@@ -129,7 +129,7 @@ return {
 
 	-- Step 21: To Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["To {area:378}"] = "",
+	["To {area:378}"] = "Vers {area:378}",
 
 	-- Step 22: Camp Taurajo
 	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak · {area:378} Camp Taurajo
@@ -142,9 +142,9 @@ return {
 	-- Step 23: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "",
+	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "{npc:5911} se trouve près du maître de vol. Sa cible {npc:268623} (niveau 23) est élite : il est conseillé de former un groupe. Les deux soldats qui l’accompagnent ne sont pas élites.",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
-	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "",
+	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911} : les soldats et le pillard campent juste à l’est de {npc:3341}, sur le chemin vers le sud",
 
 	-- Step 25: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
@@ -156,7 +156,7 @@ return {
 
 	-- Step 26: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
-	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "",
+	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "{npc:3341} parcourt la route vers le sud en direction de {area:359}, entre environ 46, 75 et 46, 81 : s'il n'est pas à la flèche, suivez la route jusqu'à ce que vous le rencontriez. {npc:14242} se trouve dans l'arbre juste à l'est de la route à 47.9,77.5.",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
 	["{npc:3341} walks around {area:1701}: look inside the circle on the map"] = "{npc:3341} se promène autour de {area:1701} : cherchez dans le cercle sur la carte",
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
@@ -165,7 +165,7 @@ return {
 	-- Step 27: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "",
+	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "A quelques pas à l'est de l'arbre de {npc:14242}, un petit camp : deux Soldats envahissant et le {npc:268623} pour Logmar. Le {npc:268623} est élite : le regroupement est conseillé.",
 
 	-- Step 28: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
@@ -176,12 +176,12 @@ return {
 	-- Step 29: Blackthorn Ridge
 	-- {area:1701} Blackthorn Ridge · {npc:3436} Kuz · {npc:3434} Nak · {npc:3435} Lok Orcbane · {npc:5859} Hagg Taurenbane · {quest:885} Washte Pawne · {spell:1752} Sinister Strike
 	-- plural, as words: Razormane Stalkers = {npc:3457} Razormane Stalker
-	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "",
+	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "À l'ouest de Gann, les Tranchecrin détiennent {area:1701}. {npc:3436} se trouve du côté est, {npc:3434} au sud et {npc:3435} à l'extrémité ouest. Lok (25) et les Warfrenzies (24-25) sont quelques niveaux au-dessus de vous ; {npc:5859}, une élite rare, parcourt parfois la crête : quittez-le. Guides Tranchecrin et Traqueurs Tranchecrin abandonnent le Backstabber, Seers the Wand et Warfrenzies le War Shield. {quest:885}, un serpent de vent rouge rare, survole la crête : sa plume lance une quête.\nAttention : Traqueurs Tranchecrin se déplace furtivement et frappe avec {spell:1752}, afin de pouvoir rejoindre un combat sans avertissement.",
 
 	-- Step 30: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
 	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker
-	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp."] = "",
+	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp."] = "Sur le chemin du retour vers l'est vers {npc:3341} : les lézards Traqueuses Jappecroc et {npc:3238} parcourent la plaine entre la crête et son camp.",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "{npc:4128} se promène autour de {area:1156} : cherchez dans le cercle sur la carte",
 
@@ -197,7 +197,7 @@ return {
 
 	-- Step 36: Great Lift
 	-- {area:1718} Great Lift
-	["The top of the {area:1718}"] = "",
+	["The top of the {area:1718}"] = "Le sommet de {area:1718}",
 
 	-- Step 37: Great Lift
 	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
@@ -207,13 +207,13 @@ return {
 	-- {area:1718} Great Lift
 	["The {area:1718}"] = "{area:1718}",
 	-- {npc:10079} Brave Moonhorn · {area:1718} Great Lift · {npc:12576} Grish Longrunner
-	["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "",
+	["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079} se trouve au sommet de {area:1718}, près de {npc:12576}.",
 	-- {npc:10079} Brave Moonhorn
 	["{npc:10079}, at the top of the lift"] = "{npc:10079}, en haut de l'élévateur",
 
 	-- Step 41: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
-	["{npc:5911}, beside the flight master"] = "",
+	["{npc:5911}, beside the flight master"] = "{npc:5911}, près du maître de vol",
 
 	-- Step 42: Fly to Crossroads
 	-- {area:378} Camp Taurajo
@@ -226,7 +226,7 @@ return {
 	-- Step 44: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Voler jusqu'à {area:392}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
 	-- Step 45: Sputtervalve
 	-- {npc:3442} Sputtervalve
@@ -236,7 +236,7 @@ return {
 
 	-- Step 46: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
-	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
+	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "{quest:874} campe sur le rivage, juste au nord du maître de vol de {area:392}.",
 
 	-- Step 47: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer

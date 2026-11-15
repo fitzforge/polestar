@@ -27,7 +27,7 @@ return {
 	-- {quest:5401} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:2268} Light's Hope Chapel
 	["The Scourge drop no Scourgestones unless you wear an {quest:5401}. {npc:10840} gives you one through her quest, {quest:5401}, which you hand in straight away (if you already have one from {area:2268}, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones."] = "Le Fléau ne laisse tomber aucune pierre du Fléau si vous ne portez pas une {quest:5401}. {npc:10840} vous en donne une via sa quête, {quest:5401}, que vous rendez aussitôt (si vous en avez déjà une de la {area:2268}, portez-la). Équipez-la dans un emplacement de bijou : elle apparaît comme une amélioration qui n'expire jamais. Gardez-la sur vous jusqu'à avoir 20 pierres.",
 	-- {quest:5401} Argent Dawn Commission
-	["the {quest:5401} trinket: equip it"] = "",
+	["the {quest:5401} trinket: equip it"] = "le bijou {quest:5401} : équipez-le",
 
 	-- Step 5: Minion's Scourgestones
 	-- plural, as words: Minion's Scourgestones = {item:12840} Minion's Scourgestone

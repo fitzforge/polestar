@@ -15,7 +15,7 @@ return {
 	-- {faction:47} Ironforge · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {zone:1459} Alterac Valley
 	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "Environ 600 de réputation auprès de {faction:47} grâce aux quêtes de niveau 52-59 des {zone:1428} et de {zone:1452} ; les quêtes de la {zone:1459} rapportent aussi auprès de {faction:47}",
 	-- {faction:47} Ironforge · {zone:1426} Dun Morogh · {area:133} Gnomeregan
-	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "",
+	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "À propos de la réputation de 2 900 {faction:47} provenant des quêtes de bas niveau de {zone:1426}, la majeure partie a également été versée à {area:133}.",
 
 	-- Step 1: Mistina Steelshield, the cloth quartermaster
 	-- {npc:14723} Mistina Steelshield
@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : les nains et les gnomes commencent la vallée au sud-ouest de {area:131}, environ 1, réputation 100 en minutes 30 à 60. {npc:658} et {npc:713} se trouvent à {area:77}. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -60,7 +60,7 @@ return {
 
 	-- Step 8: Kharanos
 	-- {area:131} Kharanos · {area:133} Gnomeregan · {area:2102} Thunderbrew Distillery · {area:189} Steelgrill's Depot
-	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : {area:131} et les routes Brewnall et {area:133} qui l'entourent, à propos de la réputation 1 300 en minutes 50 à 60. La plupart des donateurs se trouvent dans et autour du {area:2102} et à {area:189} à l'est de celui-ci. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 9: Kharanos: the hills and the depot
 	-- {area:131} Kharanos
@@ -87,7 +87,7 @@ return {
 	-- {area:803} Amberstill Ranch
 	["The quarry and {area:803}"] = "La carrière et le {area:803}",
 	-- {zone:1426} Dun Morogh · {npc:264936} Earthseer Farsen · {area:134} Gol'Bolar Quarry · {area:803} Amberstill Ranch
-	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "",
+	["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation in 30 minutes at 60. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "Facultatif : {zone:1426} oriental, du camp de {npc:264936} aux {area:134} et {area:803}, environ la réputation de 500 en minutes 30 à 60. Forever paie intégralement ces anciennes quêtes à n’importe quel niveau. Ignorez cette étape pour ignorer le hub.",
 
 	-- Step 14: The quarry: troggs, spies and Vagash
 	-- {npc:1388} Vagash
@@ -113,7 +113,7 @@ return {
 
 	-- Step 19: Ironforge: Royal Historian Archesonus
 	-- {faction:47} Ironforge · {npc:8879} Royal Historian Archesonus · {object:171709} High Seat · {zone:1428} Burning Steppes
-	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "",
+	["These quests are level 52 to 59, so they pay in full at 60: about 600 {faction:47} reputation. {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "Ces quêtes sont de niveau 52 à 59, elles paient donc intégralement à 60 : environ de la réputation 600 {faction:47}. {npc:8879} se tient aux côtés du roi Magni dans le {object:171709} ; il vous envoie dans les ruines de Thaurissan dans le {zone:1428}.",
 	-- {npc:8879} Royal Historian Archesonus
 	["Hear {npc:8879} out"] = "Écoutez l'{npc:8879} jusqu'au bout",
 
@@ -148,7 +148,7 @@ return {
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Honored"] = "{quest:7806} jusqu'à Honoré",
 	-- {quest:7806} Additional Runecloth · {item:14047} Runecloth · {zone:1426} Dun Morogh · {faction:47} Ironforge · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1459} Alterac Valley
-	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "",
+	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7806} : réputation 50 pour 20 {item:14047}, aussi souvent que vous le souhaitez. Après les quatre premiers dons, un Humain, un Elfe de la nuit ou un Gnome se tient à Friendly 700 de 6 000, donc Honoré est 5 300 absent : 106 se rend, 2 120 {item:14047} (Les nains commencent 900 plus haut : remises en 88 ; Skyborne démarre au neutre 2 000, donc 6 400 absent : 128, deux de moins après avoir exploré l'Alliance). Les quêtes de niveau 52-59 ci-dessus suppriment les remises 12 ; chaque hub {zone:1426} que vous avez fait amène 10 à 26 plus de réduction. Plus de hubs paient {faction:47}, en totalité alors qu'ils ne sont pas plus que des niveaux 5 en dessous de vous : {area:144} dans {zone:1432} (environ 3 500 en tout) et {area:150} dans le {zone:1437} (environ 2,500). À partir du niveau 51, les quêtes uniques de {zone:1459} ajoutent environ 1 900. Chaque gain de ville donne également un quart de ce montant aux trois autres villes de l'Alliance (non prises en compte ici). Remettez tous vos {item:14047} en même temps.",
 
 	-- Step 26: Additional Runecloth to Revered
 	-- {quest:7806} Additional Runecloth

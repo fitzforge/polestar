@@ -28,11 +28,11 @@ return {
 	-- Step 5: Toxic Test
 	-- {npc:6498} Devilsaur · {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
 	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur · Devilsaurs = {npc:6498} Devilsaur
-	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
+	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "N'importe quel {npc:6498} compte, l'Ironhide et le Diablosaures Rex aussi. Ils sont élites (niveau 54-55), frappés avec {spell:14099} et dépassent la forme de voyage. Le regroupement est encouragé, mais un druide peut le faire seul : Hibernate ou {spell:339} à distance, le poignarder avec le {item:22432} (le barbillon ne casse pas {spell:2637}), puis repartir. Le crédit compte au moment où la barbe atterrit, même si vous mourez après. La flèche pointe vers la plaine Diablosaures de l'ouest et du nord ; un {npc:6499} parcourt le milieu du sud du cratère, plus près de {npc:9619}.",
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
 	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498} : piquez-le avec l'{item:22432}",
 	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["Stab a {npc:6498} with the {item:22432}"] = "",
+	["Stab a {npc:6498} with the {item:22432}"] = "Frappez {npc:6498} avec {item:22432}",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple

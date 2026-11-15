@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun
-	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
+	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "Sur le chemin vers le nord depuis le camp de Seereth, restez à l'est de la route jusqu'à la tour KapitalRisk au nord du {area:382}. Avant de vous approcher de Fizzule, utilisez {item:8051} pour tirer deux fusées éclairantes, puis ciblez-le et /salut : il attaque toute personne qui entre sans signaler au préalable.",
 	-- {quest:2478} Mission: Possible But Not Probable
-	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "",
+	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "{quest:2478} est pour le niveau 23 ou plus : les drones de la tour sont des 25 et Gallywix un 23 élite. Faites-le quand vous le pouvez, en groupe, à partir du guide de classe Poisons (Horde).",
 
 	-- Step 2: Kadrak
 	-- {zone:1413} Barrens · {npc:8582} Kadrak · {area:1703} Mor'shan Rampart · {zone:1440} Ashenvale
@@ -18,16 +18,16 @@ return {
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
-	["Into {zone:1440}"] = "",
+	["Into {zone:1440}"] = "Vers {zone:1440}",
 	-- {area:431} Splintertree Post
-	["The road north to {area:431}"] = "",
+	["The road north to {area:431}"] = "La route vers le nord jusqu’à {area:431}",
 
 	-- Step 4: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12696} Senani Thunderheart · {area:428} Night Run · {npc:12867} Kuray'bin · {zone:1440} Ashenvale
 	-- plural, as words: Ashenvale Outrunners = {npc:12856} Ashenvale Outrunner
 	["{area:431} is just north up the road. Coming in from the south, the flight master and {npc:12696}'s hunt board at {area:428} come first, then the vendors. {npc:12867} at the lumber camp offers Ashenvale Outrunners: leave it for the next {zone:1440} visit, at 26."] = "Le {area:431} est juste au nord, en remontant la route. En arrivant du sud, le maître de vol et le tableau de chasse de {npc:12696} à {area:428} viennent d'abord, puis les marchands. {npc:12867}, au camp de bûcherons, propose « Les estafettes d'Ashenvale » : gardez-la pour la prochaine visite en {zone:1440}, au niveau 26.",
 	-- {npc:12696} Senani Thunderheart · {zone:1440} Ashenvale
-	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "",
+	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {zone:1440} visit, at 26."] = "Les cibles de chasse de {npc:12696} (Ursangous, Shadumbra, Serres-tranchantes) sont pour la prochaine visite {zone:1440}, à 26.",
 
 	-- Step 5: Va'xug Firefure
 	-- {npc:267214} Va'xug Firefure · {area:415} Astranaar
@@ -42,15 +42,15 @@ return {
 
 	-- Step 7: Zoram'gar Outpost
 	-- {zone:1440} Ashenvale · {area:415} Astranaar · {area:2897} Zoram'gar Outpost · {area:414} Zoram Strand · {npc:12719} Marukai · {npc:12721} Mitsuwa · {npc:12757} Karang Amakkar · {npc:12863} Warsong Runner
-	["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "",
+	["Head west along the main road across {zone:1440}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west: {npc:12719}, {npc:12721} and {npc:12757} stand around it, the {npc:12863} beside the flight master. Its other quests are for the next visit, at 26."] = "Dirigez-vous vers l'ouest le long de la route principale traversant {zone:1440}, après {area:415} (Alliance : restez sur la route), jusqu'à la côte. {area:2897} se trouve sur le {area:414} au nord-ouest : {npc:12719}, {npc:12721} et {npc:12757} se trouvent autour, le {npc:12863} à côté du maître de vol. Ses autres quêtes sont pour la prochaine visite, à 26.",
 	-- {npc:12721} Mitsuwa
-	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "",
+	["{npc:12721}: the troll charms are in Thistlefur Hold, east of the outpost"] = "{npc:12721} : les charmes de troll se trouvent à Thistlefur Hold, à l'est de l'avant-poste",
 	-- {npc:12717} Muglash
-	["{npc:12717}: take it last, his escort starts at once"] = "",
+	["{npc:12717}: take it last, his escort starts at once"] = "{npc:12717} : acceptez sa quête en dernier, car l’escorte commence immédiatement",
 
 	-- Step 8: Vorsha the Lasher
 	-- {npc:12717} Muglash · {npc:12719} Marukai
-	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "",
+	["{npc:12717} walks north up the strand to a naga brazier. Put the brazier out, then guard him through the naga waves until Vorsha is dead; the Wrathtail naga drop the heads {npc:12719} wants."] = "{npc:12717} marche vers le nord jusqu'à un brasier naga. Éteignez le brasier, puis protégez-le à travers les vagues nagas jusqu'à ce que Vorsha soit mort ; les nagas Wrathtail laissent tomber les têtes que {npc:12719} veut.",
 	["Naga brazier"] = "Brasero naga",
 
 	-- Step 9: Naga heads
@@ -58,7 +58,7 @@ return {
 	["Every Wrathtail naga along the strand north of the outpost drops heads."] = "Chaque naga Irequeue de la grève au nord de l'avant-poste lâche des têtes.",
 
 	-- Step 10: Zoram'gar Outpost
-	["Back to the outpost before heading east to Thistlefur."] = "",
+	["Back to the outpost before heading east to Thistlefur."] = "Retour à l'avant-poste avant de nous diriger vers l'est en direction de Thistlefur.",
 
 	-- Step 11: Thistlefur Village
 	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "À l'est de Zoram'gar, les furbolgs Crins-de-chardon remplissent le village et les collines autour de leur repaire.\nAttention : un Chaman à 15 % de vie ou moins fuit chercher de l'aide, ce qui peut attirer des furbolgs en plus.",
@@ -74,13 +74,13 @@ return {
 
 	-- Step 13: Zoram'gar Outpost
 	-- {npc:12757} Karang Amakkar · {zone:1440} Ashenvale
-	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {zone:1440} visit at 26, when the walk east passes the Foulweald."] = "",
+	["Back west to Zoram'gar. {npc:12757} offers King of the Foulweald now; leave it for the next {zone:1440} visit at 26, when the walk east passes the Foulweald."] = "Retournez à l'ouest jusqu'à Zoram'gar. {npc:12757} propose désormais Le roi des Vile-sylve ; laissez-le pour la prochaine visite {zone:1440} à 26, lorsque la marche vers l'est passe le Le roi des Vile-sylve.",
 
 	-- Step 14: Splintertree Post
 	-- {area:431} Splintertree Post · {npc:12837} Yama Snowhoof
-	["Fly to {area:431}: {npc:12837} waits in the inn for news of Ruul."] = "",
+	["Fly to {area:431}: {npc:12837} waits in the inn for news of Ruul."] = "Envolez-vous vers {area:431} : {npc:12837} attend à l'auberge des nouvelles de Ruul.",
 	-- {npc:12837} Yama Snowhoof
-	["{npc:12837}, inside the inn"] = "",
+	["{npc:12837}, inside the inn"] = "{npc:12837}, à l’intérieur de l’auberge",
 
 	-- Step 15: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -88,7 +88,7 @@ return {
 	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
 	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "Sortez de l'auberge, allez au maître de vol du {area:431} et volez jusqu'à {area:1637}.",
 	-- {area:431} Splintertree Post
-	["{area:431} flight master"] = "",
+	["{area:431} flight master"] = "Maître de vol de {area:431}",
 
 	-- Step 16: Druid trainer
 	["Druid trainer"] = "Maître des druides",
@@ -101,7 +101,7 @@ return {
 
 	-- Step 19: Shenthul
 	-- {quest:2478} Mission: Possible But Not Probable · {npc:3401} Shenthul · {object:172960} Cleft of Shadow
-	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "",
+	["If you did {quest:2478} with a group, {npc:3401} in the {object:172960} takes it now."] = "Si vous avez fait {quest:2478} en groupe, rendez-la maintenant à {npc:3401}, dans {object:172960}.",
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "{npc:2391}, à {area:272}, enseigne les Poisons : gardez la quête",
 
@@ -115,7 +115,7 @@ return {
 
 	-- Step 22: Strange Lockbox
 	-- {area:240} Dead Field · {object:177790} Strange Lockbox · {item:15882} Half Pendant of Aquatic Endurance · {area:228} Sepulcher
-	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "",
+	["From the zeppelin towers, run south into Silverpine and west past the {area:240} to the coast: the {object:177790} lies at the bottom of very deep water there, beside an air fissure where you can breathe. Watch your breath on the way down. It holds the {item:15882} for Trial of the Sea Lion. Then on to the {area:228}."] = "Depuis les tours de zeppelin, dirigez-vous vers le sud jusqu'à Silverpine et vers l'ouest en passant par le {area:240} jusqu'à la côte : le {object:177790} se trouve au fond d'une eau très profonde, à côté d'une fissure d'air où vous pouvez respirer. Surveillez votre respiration en descendant. Il contient le {item:15882} pour L'épreuve du lion de mer. Passons ensuite au {area:228}.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}, from the {object:177790}"] = "{item:15882}, dans le {object:177790}",
 
@@ -123,9 +123,9 @@ return {
 	-- {area:228} Sepulcher · {object:177790} Strange Lockbox · {npc:2121} Shadow Priest Allister · {npc:1937} Apothecary Renferrel
 	["Down the road through Silverpine to the {area:228}: from the zeppelin towers, south through Tirisfal; from the {object:177790}, south-east from the coast to the road. {npc:2121} and {npc:1937} stand by the crypt entrance."] = "Descendez la route à travers la forêt des Pins argentés jusqu'au {area:228} : depuis les tours des zeppelins, vers le sud à travers Tirisfal ; depuis le {object:177790}, vers le sud-est depuis la côte jusqu'à la route. {npc:2121} et {npc:1937} se tiennent près de l'entrée de la crypte.",
 	-- {npc:1937} Apothecary Renferrel · {area:272} Tarren Mill
-	["{npc:1937}: Lydon in {area:272}, next guide"] = "",
+	["{npc:1937}: Lydon in {area:272}, next guide"] = "{npc:1937} : Lydon, à {area:272}, dans le guide suivant",
 	-- {npc:2121} Shadow Priest Allister · {quest:516} Beren's Peril · {area:233} Ambermill
-	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "",
+	["{npc:2121}: {quest:516}, south-east of {area:233}"] = "{npc:2121} : {quest:516}, au sud-est de {area:233}",
 
 	-- Step 24: Deathguard Podrig
 	-- {npc:6389} Deathguard Podrig · {item:16210} Gordon's Crate · {zone:1458} Undercity
@@ -133,33 +133,33 @@ return {
 
 	-- Step 25: Silverpine Forest: kill these as you meet them
 	-- {zone:1421} Silverpine Forest
-	["{zone:1421}: kill these as you meet them"] = "",
+	["{zone:1421}: kill these as you meet them"] = "{zone:1421} : tuez-les au passage",
 	-- {area:233} Ambermill · {quest:516} Beren's Peril
 	-- plural, as words: Dalaran Watchers = {npc:1888} Dalaran Watcher · Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "",
+	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest."] = "Au sud sur la route après Pyrewood : Gardiens de Dalaran et les sorciers patrouillent sur les routes autour de {area:233}, et au sud-ouest de la ville, les Manouvriers Ravenclaw et Gardiens Ravenclaw hantent les ruines de {quest:516} au sud-est de la forêt.",
 
 	-- Step 26: Beren's Peril
 	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
-	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "",
+	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "Les morts-vivants de Serdaigle hantent les ruines de {quest:516}, à l'est de la route au sud-est de la forêt ; a {npc:1973} laisse tomber le {item:271343} qui mène au {object:645153}.\nUn esprit d'élite (20) se tient souvent à côté du {object:645153} : éloignez les Serdaigle de la pierre avant de les combattre.",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}, sur un {npc:1973}",
 	-- {object:645153} Offering Stone · {quest:95883} The Tortured Soul · {item:271343} Note Scrap
-	["the {object:645153} offers {quest:95883} once the {item:271343} is in; below ground"] = "",
+	["the {object:645153} offers {quest:95883} once the {item:271343} is in; below ground"] = "{object:645153} propose {quest:95883} après avoir rendu {item:271343} ; sous terre",
 	-- {item:271350} Tortured Soul
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, sur les Âmes torturées parmi les ruines ; sous terre",
 
 	-- Step 27: The Offering of Blood
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
-	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "",
+	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "La quête vous remet un {item:210713} : utilisez-le à côté du {object:645153} pour offrir votre sang, puis tuez l'esprit d'élite qui répond. \n{quest:95883} est élite : le regroupement est conseillé.",
 	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
-	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "",
+	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}, près de {object:645153} : invoque l’esprit élite",
 
 	-- Step 28: Into Hillsbrad
 	-- {area:287} Hillsbrad
-	["Into {area:287}"] = "",
+	["Into {area:287}"] = "Vers {area:287}",
 	-- {area:285} Southpoint Tower
-	["The road east to {area:285}"] = "",
+	["The road east to {area:285}"] = "La route vers l’est jusqu’à {area:285}",
 
 	-- Step 29: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower

@@ -285,7 +285,7 @@ return {
 
 	-- Step 57: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
-	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "",
+	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:13478} enseigne {item:13445} ({skill:171} 265) pendant 1 g 30 s. Vendu par Alliance : {npc:5178} ({zone:1455}), stock limité ; Horde : {npc:3348} ({zone:1454}), stock limité. Ses vendeurs en gardent un ou deux en stock qui reviennent quelque temps après une vente ; la maison de vente aux enchères l'a souvent aussi.",
 
 	-- Step 58: Arthas' Tears (Alliance)
 	-- {item:8836} Arthas' Tears
@@ -303,19 +303,19 @@ return {
 	-- {item:8838} Sungrass
 	["{item:8838} (Alliance)"] = "{item:8838} (Alliance)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8838} in {zone:1425} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8838} in {zone:1425} is marked."] = "43 {item:8838} pour {item:13445} : {skill:182} : {item:8838} (compétence 230) dans {zone:1425} (40-50), {zone:1444} (40-50) et {zone:1447} (45-55) ; ou à la Maison des Ventes. La zone la plus dense de {item:8838} dans {zone:1425} est marquée.",
 
 	-- Step 61: Sungrass (Horde)
 	-- {item:8838} Sungrass
 	["{item:8838} (Horde)"] = "{item:8838} (Horde)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8838} in {zone:1444} is marked."] = "",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8838} in {zone:1444} is marked."] = "43 {item:8838} pour {item:13445} : {skill:182} : {item:8838} (compétence 230) dans {zone:1425} (40-50), {zone:1444} (40-50) et {zone:1447} (45-55) ; ou à la Maison des Ventes. La zone la plus dense de {item:8838} dans {zone:1444} est marquée.",
 
 	-- Step 62: Stonescale Eel (Alliance)
 	-- {item:13422} Stonescale Eel
 	["{item:13422} (Alliance)"] = "{item:13422} (Alliance)",
 	-- {item:13422} Stonescale Eel · {item:13445} Elixir of Greater Defense · {skill:356} Fishing · {object:180712} Stonescale Eel Swarm
-	["43 {item:13422} for {item:13445}: {skill:356}; or the Auction House. Fish {object:180712} here."] = "",
+	["43 {item:13422} for {item:13445}: {skill:356}; or the Auction House. Fish {object:180712} here."] = "43 {item:13422} pour {item:13445} : {skill:356} ; ou à la Maison des Ventes. Pêchez {object:180712} ici.",
 
 	-- Step 63: Stonescale Eel (Horde)
 	-- {item:13422} Stonescale Eel
