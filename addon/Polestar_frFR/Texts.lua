@@ -2142,7 +2142,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "Le vol atterrit au {area:702}. {npc:7916} se tient à quelques pas au nord-ouest du maître de vol.",
 		["The hermit hides among the rocks south-east of {area:2738}."] = "L'ermite se cache parmi les rochers au sud-est de {area:2738}.",
 		["The lake for {quest:5845}"] = "Le lac pour {quest:5845}",
-		["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "L'itinéraire principal jusqu'au niveau 60 : {zone:1451}, {zone:1448}, {zone:1452} et les Maleterres, avec les rendus à {zone:1453}, à {zone:1455} et à {spell:437801} en chemin.",
 		["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Les furbolgs Tombe-hiver de l'ouest laissent tomber les perles.\nAttention : rendre la quête fait apparaître trois ou quatre embusqués Tombe-hiver de niveau 56-57 qui vous attaquent ; vous pouvez leur échapper en monture, camouflé ou avec {spell:5384}, et ils se rassemblent ensuite près du lac, ce qui vous permet de prendre la quête suivante.",
 		["The {area:2479}"] = "{area:2479}",
 		["The {area:3098}"] = "{area:3098}",
@@ -7101,7 +7100,6 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, à l'étage : pour {quest:2864} à {area:976}",
 		["{object:3202} flight master"] = "Maître de vol de Grom'gol",
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770} : à l'ouest de {object:3202}, nagez au-dessus de {area:104} et plongez jusqu'à l'entrée de la caverne dans le récif ; la quête s'accomplit dès que vous la trouvez. Laissez la caverne pour l'instant : les traqueurs de la jungle sont au sud, le long de la côte.",
-		["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} et le {zone:1435} aux niveaux 40-43 : {object:3202}, les pirates de {area:35}, les chasses de Nesingwary et {area:75}.",
 } end)()
 t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "En venant des {zone:2548} : le maître de vol de {area:340} se tient au pied de la forteresse.",

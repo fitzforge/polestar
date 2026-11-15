@@ -1368,7 +1368,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later."] = "Раскопки культа Сумеречного Молота занимают северо-западный угол: фрагменты табличек лежат на земле, их также носят пылевихри и пустынные грохотуны. С любого культиста может упасть {item:20404}: сохраните двадцать – десять для персонажа {npc:15306} и десять позже для персонажа {npc:15194}.",
 		["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "Полет заканчивается здесь: {area:702}. {npc:7916} стоит недалеко к северо-западу от распорядителя полетов.",
 		["The hermit hides among the rocks south-east of {area:2738}."] = "Отшельник прячется среди скал к юго-востоку (ориентир: {area:2738}).",
-		["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "Основной маршрут до 60-го уровня: {zone:1451}, {zone:1448}, {zone:1452} и Чумные земли, со сдачей заданий по пути: {zone:1453}, {zone:1455} и {spell:437801}.",
 		["The {area:2479}"] = "{area:2479}",
 		["The {area:3098}"] = "{area:3098}",
 		["Theramore flight master"] = "Распорядитель полетов: Терамор",
@@ -4285,7 +4284,6 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{npc:716}: the four chapters"] = "{npc:716}: четыре главы",
 		["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, наверху: для задания {quest:2864} ({area:976})",
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: к западу от места {object:3202} плывите над местом {area:104} и нырните к входу в пещеру в рифе; задание выполнится, как только вы его найдете. Пока не заходите в пещеру: ящеры-ловчие – к югу вдоль побережья.",
-		["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} и {zone:1435} на 40-43-м уровне: {object:3202}, пираты ({area:35}), охота Эрнестуэя и {area:75}.",
 } end)()
 t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "Если вы прибыли из зоны {zone:2548}: распорядитель полетов ({area:340}) стоит у подножия крепости.",

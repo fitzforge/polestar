@@ -2142,7 +2142,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "O voo pousa em {area:702}. {npc:7916} fica a uma curta caminhada a noroeste do mestre de voo.",
 		["The hermit hides among the rocks south-east of {area:2738}."] = "O eremita se esconde entre as rochas a sudeste de {area:2738}.",
 		["The lake for {quest:5845}"] = "O lago para {quest:5845}",
-		["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "A rota principal até o 60: {zone:1451}, {zone:1448}, {zone:1452} e as Terras Pestilentas, com as entregas em {zone:1453}, {zone:1455} e {spell:437801} pelo caminho.",
 		["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Os furbolgs Invernosos do oeste deixam cair as contas.\nCuidado: a entrega faz surgir três ou quatro emboscadores Invernosos de nível 56-57 que atacam você; dá para escapar montado, furtivo ou com {spell:5384}, e depois eles se juntam perto do lago, liberando a próxima missão.",
 		["The {area:2479}"] = "{area:2479}",
 		["The {area:3098}"] = "{area:3098}",
@@ -7117,7 +7116,6 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, no andar de cima: para {quest:2864} em {area:976}",
 		["{object:3202} flight master"] = "Mestre de voo de {object:3202}",
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: a oeste de {object:3202}, nade sobre {area:104} e mergulhe até a entrada da caverna no recife; a missão é concluída quando você a encontra. Deixe a caverna para depois: os espreitadores da selva estão ao sul, ao longo da costa.",
-		["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} e {zone:1435} no nível 40-43: {object:3202}, os piratas de {area:35}, as caçadas de Nesingwary e {area:75}.",
 } end)()
 t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "Vindo de {zone:2548}: o mestre de voo de {area:340} fica ao pé da fortaleza.",

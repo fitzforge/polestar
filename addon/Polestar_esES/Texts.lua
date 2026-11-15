@@ -1260,7 +1260,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["Ten more for {quest:8323}"] = "Diez más para {quest:8323}",
 		["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later."] = "La excavación del Martillo Crepuscular ocupa la esquina noroeste: hay fragmentos de tablilla en el suelo y los sirocosos y estruendores del desierto también los llevan. Cualquier cultor puede soltar un {item:20404}: guarda veinte, diez para {npc:15306} y diez para {npc:15194} más tarde.",
 		["The hermit hides among the rocks south-east of {area:2738}."] = "El ermitaño se esconde entre las rocas al sureste de {area:2738}.",
-		["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "La ruta principal hasta el 60: {zone:1451}, {zone:1448}, {zone:1452} y las Tierras de la Peste, con las entregas en {zone:1453}, {zone:1455} y {spell:437801} de camino.",
 		["The {area:2479}"] = "El {area:2479}",
 		["The {area:3098}"] = "El {area:3098}",
 		["Theramore flight master"] = "Maestro de vuelo de Theramore",
@@ -3914,7 +3913,6 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{npc:716}: the four chapters"] = "{npc:716}: los cuatro capítulos",
 		["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, en el piso de arriba: para {quest:2864} en {area:976}",
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: al oeste de {object:3202}, nada sobre {area:104} y bucea hasta la entrada de la caverna en el arrecife; la misión se completa al encontrarla. Deja la caverna por ahora: los acechadores de la selva están al sur, a lo largo de la costa.",
-		["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} y {zone:1435} a nivel 40-43: {object:3202}, los piratas de {area:35}, las cacerías de Nesingwary y {area:75}.",
 } end)()
 t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "Si vienes de {zone:2548}: el maestro de vuelo de {area:340} está al pie de la fortaleza.",

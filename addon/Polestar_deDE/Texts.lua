@@ -2142,7 +2142,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["The flight lands in {area:702}. {npc:7916} stands a short walk north-west of the flight master."] = "Der Flug landet in {area:702}. {npc:7916} steht einen kurzen Fußweg nordwestlich vom Flugmeister.",
 		["The hermit hides among the rocks south-east of {area:2738}."] = "Der Einsiedler versteckt sich zwischen den Felsen südöstlich von {area:2738}.",
 		["The lake for {quest:5845}"] = "Der See für {quest:5845}",
-		["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "Die Hauptroute bis 60: {zone:1451}, {zone:1448}, {zone:1452} und die Pestländer, mit den Abgaben in {zone:1453}, {zone:1455} und {spell:437801} auf dem Weg.",
 		["The western Winterfall furbolgs drop the beads.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Die westlichen Winterquell-Furbolgs lassen die Perlen fallen.\nVorsicht: Beim Abgeben erscheinen drei oder vier Winterquell-Furbolgs der Stufe 56-57 aus dem Hinterhalt, die dich angreifen; du kannst ihnen auf deinem Reittier, getarnt oder mit {spell:5384} entkommen, und sie sammeln sich dann am See, sodass du die nächste Quest annehmen kannst.",
 		["The {area:2479}"] = "{area:2479}",
 		["The {area:3098}"] = "{area:3098}",
@@ -7117,7 +7116,6 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, oben: für {quest:2864} in {area:976}",
 		["{object:3202} flight master"] = "Flugmeister von {object:3202}",
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: Schwimm westlich von {object:3202} hinaus über das {area:104} und tauch zum Höhleneingang im Riff; die Quest wird abgeschlossen, sobald du ihn findest. Lass die Höhle vorerst links liegen: Die Dschungelpirscher sind südlich an der Küste.",
-		["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} und {zone:1435} mit 40-43: {object:3202}, die Piraten von {area:35}, Nesingwarys Jagden und {area:75}.",
 } end)()
 t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "Aus {zone:2548} kommend: Der Flugmeister von {area:340} steht am Fuß der Festung.",

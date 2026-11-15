@@ -1264,7 +1264,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["Ten more for {quest:8323}"] = "{quest:8323}에 10개 더",
 		["The Twilight's Hammer dig fills the north-west corner: tablet fragments lie on the ground and the Dust Stormers and Desert Rumblers carry them too. Every cultist can drop an {item:20404}: keep twenty, ten for {npc:15306} and ten for {npc:15194} later."] = "황혼의 망치단 발굴지가 북서쪽 구석을 채우고 있습니다. 서판 조각은 땅바닥에 있고, {npc:11744}와(과) {npc:11746}도 가지고 있습니다. 이교도는 누구나 {item:20404}을(를) 떨어뜨릴 수 있습니다. 20개를 보관하세요. 10개는 {npc:15306}에게, 10개는 나중에 {npc:15194}에게 줍니다.",
 		["The hermit hides among the rocks south-east of {area:2738}."] = "은둔자는 {area:2738} 남동쪽 바위 사이에 숨어 있습니다.",
-		["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "60레벨까지의 주 경로: {zone:1451}, {zone:1448}, {zone:1452}와(과) 역병지대이며, 도중에 {zone:1453}, {zone:1455}, {spell:437801}에서 퀘스트를 제출합니다.",
 		["The {area:2479}"] = "{area:2479}",
 		["The {area:3098}"] = "{area:3098}",
 		["Theramore flight master"] = "테라모어 섬 비행 조련사",
@@ -3920,7 +3919,6 @@ t.guides["forever/horde/40-50/01-stranglethorn-vale"] = (function() return {
 		["{npc:716}: the four chapters"] = "{npc:716}: 네 개의 장",
 		["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, 위층: {area:976}의 {quest:2864}에게",
 		["{quest:95770}: west of {object:3202}, swim out over the {area:104} and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast."] = "{quest:95770}: {object:3202} 서쪽으로 {area:104} 위를 헤엄쳐 나가 암초 속 동굴 입구로 잠수하세요. 입구를 찾으면 퀘스트가 완료됩니다. 동굴은 일단 그냥 두세요. 줄무늬정글랩터는 해안을 따라 남쪽에 있습니다.",
-		["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "40-43레벨 {zone:1434}와(과) {zone:1435}: {object:3202}, {area:35}의 해적, 네싱워리의 사냥, {area:75}.",
 } end)()
 t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Coming from the {zone:2548}: {area:340}'s flight master stands at the foot of the fortress."] = "{zone:2548}에서 오는 경우: {area:340}의 비행 조련사는 요새 아래에 서 있습니다.",
