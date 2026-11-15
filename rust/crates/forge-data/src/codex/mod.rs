@@ -145,6 +145,10 @@ pub struct Inputs {
 	pub journal_quests: Vec<V>,
 	/// forever-db's quest XP (`journal::load_store_xp`).
 	pub store_xp: FxHashMap<i64, f64>,
+	/// data/forever/mechanics.json (optional). A kill done by using an item on that NPC keeps
+	/// `useItem` on the Codex objective (merge.rs `use_item_on`). Null when the file is absent,
+	/// which leaves every objective as it was.
+	pub mechanics: V,
 	pub warnings: Vec<String>,
 }
 
@@ -515,6 +519,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		attunement_table: V::Obj(attunement_table),
 		journal_quests,
 		store_xp: journal::load_store_xp(&opts.root.join("forever-db"))?,
+		mechanics: j("mechanics.json", true)?,
 		warnings,
 	})
 }

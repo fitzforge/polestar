@@ -711,6 +711,7 @@ fn inputs(s: Synth) -> Inputs {
 		attunement_table: V::obj(),
 		store_xp: Default::default(),
 		journal_quests: Vec::new(),
+		mechanics: V::Null,
 		warnings: Vec::new(),
 	}
 }

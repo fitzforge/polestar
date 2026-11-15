@@ -364,6 +364,22 @@
 				}
 			],
 			"note": "Essence of the Exile (1714) is handed in at Bath'rah's Cauldron (object 89931) straight from the cauldron's window, which opens on the charms it wants (\"The cauldron bubbles. Its vapors beckon...\", then Continue): a player's in-game screenshot (#1699). The game's data marks 1714 as a quest handed in on the spot, repeatable, offered only while Cyclonian is in the log; players' recordings have never shown a quest of that kind accepted (66 such quests handed in, none taken)."
+		},
+		"9051": {
+			"kinds": [
+				{
+					"kind": "use-item-on-mob",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "use-item-on-mob",
+					"item": 22432,
+					"npcs": [6498]
+				}
+			],
+			"note": "Toxic Test (9051) is done by using the Devilsaur Barb (22432) on a Devilsaur (6498). The objective credits the hit and the creature stays up. The druid class guide already says to stab with that barb, and the item token on that sentence is 22432. The server mechanic is use-item-on-mob and names no item, so a Lookup pickup list said Kill Devilsaur. Player report #2468."
 		}
 	}
 }
