@@ -26,8 +26,11 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- anchors; it never fetches views or builds strings.
 	---------------------------------------------------------------------------
 
+	-- The tab strip: in compact mode only while two guides or more are open,
+	-- slim (GF.StripH); one open guide the navigator names.
 	local function stripShown()
-		return strip.psHasTabs and not compact() and GF.On("tabs")
+		if not (strip.psHasTabs and GF.On("tabs")) then return false end
+		return not compact() or (strip.psTabN or 0) >= 2
 	end
 
 	-- A part a skin places itself (Skin API 2, hooks.guidePlace(name, frame,
@@ -349,19 +352,22 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- text running to the window's padding, and 8 past its top and bottom;
 		-- over the navigator's inner edge the two scrims overlap so that one rises
 		-- as the other falls over the same band (Theme.Scrim), centred on that edge.
+		-- The slim strip's tabs sit closer to the window's edge: the bar's backing
+		-- reaches out by the height they lost, so they stay on its solid middle.
 		local v, bv = GF.veil, band.Veil
 		local o = (GF.VEIL_FEATHER + v.psClear) / 2
+		local out = 8 + (strip:IsShown() and max(0, TAB_H - strip:GetHeight()) or 0)
 		v:ClearAllPoints()
 		bv:ClearAllPoints()
 		if flip then
 			v:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
 			v:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 14, -o)
 			bv:SetPoint("TOPLEFT", nav, "TOPLEFT", -14, o)
-			bv:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
+			bv:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -out)
 		else
 			v:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", -14, o)
 			v:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 14, -8)
-			bv:SetPoint("TOPLEFT", F, "TOPLEFT", -14, 8)
+			bv:SetPoint("TOPLEFT", F, "TOPLEFT", -14, out)
 			bv:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 14, -o)
 		end
 	end
@@ -390,7 +396,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		local isCompact = compact()
 		local showStrip = stripShown()
 		strip:SetShown(showStrip)
-		strip:SetHeight(showStrip and TAB_H or 0.01)
+		local SH = GF.StripH()
+		strip:SetHeight(showStrip and SH or 0.01)
 		-- The guide's title sits in the navigator only when no tab names it.
 		local steps = nav.Steps:IsShown()
 
@@ -400,7 +407,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local lookupW = nav.Lookup:GetWidth()
 		local titleW = width - PAD - (steps and nav.Steps:GetWidth() + 12 or 0) - 24 - 8 - 8 - (nav.Close:IsShown() and 18 or 0) - skipW - reportW - nearbyW - lookupW
 		-- At the minimum width the controls take the row; the title must not sit
-		-- behind Skip (notably in compact mode, where the tab strip is hidden).
+		-- behind Skip (notably in compact mode with one guide, where no strip shows).
 		nav.Title:SetShown((not showStrip or not steps) and GF.On("guideTitle") and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "" and titleW >= 40)
 		nav.Title:SetWidth(max(40, titleW))
 		card:SetWidth(width)
@@ -423,7 +430,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local list = GF.live and UI.StepList and UI.StepList.Place(body, state == "steps")
 		if list then
 			for _, f in ipairs({ card, after, along, GF.here, upnext, UI.JourneyPanel and UI.JourneyPanel.frame }) do f:Hide() end
-			local outer = (showStrip and TAB_H or 0) + NAV_H + PROG_H
+			local outer = (showStrip and SH or 0) + NAV_H + PROG_H
 			local height = min(UI.StepList.height or F:GetHeight(), max(outer + GF.MIN_BODY_H, roomAbove() or math.huge))
 			y = stack(list, y, UI.StepList.Layout(width, height - outer - y))
 		elseif state == "steps" then
@@ -470,7 +477,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		if ran and type(extra) == "number" and extra > 0 then y = y + extra end
 		local showFoot = (state == "steps" or state == "complete" or state == "skippedout") and GF.On("progress")
 		foot:SetShown(showFoot)
-		local stripH = showStrip and TAB_H or 0
+		local stripH = showStrip and SH or 0
 		fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
 		fit.limit = roomAbove()
 		if fit.from then

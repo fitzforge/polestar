@@ -2511,7 +2511,9 @@ GF.Part(function(GF)
 	local function render()
 		if not F or not ns.IsLoggedIn() then return end
 		local E, G = Engine(), ns.Guides
-		strip.psHasTabs = GF.TabsOf(E) ~= nil
+		local tl = GF.TabsOf(E)
+		strip.psHasTabs = tl ~= nil
+		strip.psTabN = tl and #tl or 0
 		local guide = E and E.GetGuide and E.GetGuide()
 		local list = G and G.List and G.List()
 		if not guide then
@@ -3367,10 +3369,13 @@ GF.Part(function(GF)
 
 		-- The tabs changed (a step moved on, a tab opened or closed): their titles
 		-- and progress are redrawn. The window is laid out again only when the
-		-- strip itself comes or goes; a step change already laid it out (Render).
+		-- strip itself comes or goes (compact mode shows it from two tabs); a
+		-- step change already laid it out (Render).
 		ns.On("TABS_CHANGED", whenReady(function()
-			local has = GF.TabsOf(Engine()) ~= nil
-			if has ~= strip.psHasTabs then
+			local tl = GF.TabsOf(Engine())
+			local has, was = tl ~= nil, GF.StripShown()
+			strip.psTabN = tl and #tl or 0
+			if has ~= strip.psHasTabs or was ~= GF.StripShown() then
 				strip.psHasTabs = has
 				GF.Layout()
 			elseif GF.StripShown() then
