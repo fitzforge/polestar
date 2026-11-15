@@ -355,7 +355,7 @@ step Thundris Windweaver
 
 step Auberdine
   zone Darkshore
-  tip Terenthis stands by the flight master. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in.
+  tip Terenthis stands by the flight master. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Changing layer can also find her.
   turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
   accept 990 optional                     -- Sentinel Selarin, once she comes: Trek to Ashenvale, for Raene Wolfrunner in Astranaar
 
