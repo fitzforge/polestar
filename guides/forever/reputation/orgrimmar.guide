@@ -179,6 +179,7 @@ step Orgrimmar: Thrall and Neeru
 step Ragefire Chasm
   when done hidden
   tip Ragefire Chasm opens off the Cleft of Shadow. Jergosh the Invoker and Bazzalan wait at the far end.
+  level 14
   goto 51.9,49.8 "Ragefire Chasm"
   complete 5728                       -- Jergosh the Invoker and Bazzalan
 
@@ -331,6 +332,7 @@ step The Crossroads (optional hub)
 step Around the Crossroads
   when done crossroads
   tip The Razormane camps and the supply crates are north-east of the town; Chol'aruk, an elite boar, sits deep in the Thorn Hill cave there. The Witchwing harpies nest far to the north-west. The Beaten Corpse lies north-east of Camp Taurajo, in the south: right-click it. Raptors and plainstriders are everywhere.
+  level 14
   collect 5087 x7 quest 844.1         -- Plainstrider Beak
   collect 5062 x12 quest 869.1        -- Raptor Head
   kill 3267 x8 quest 871.1            -- Razormane Water Seeker
@@ -358,6 +360,7 @@ step The Crossroads: hand in
 step Zhevras, quilboars, harpies and the Raptor Grounds
   when done crossroads
   tip Zhevra Runners graze south and west of the town. Kreenig Snarlsnout leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The Stolen Silver is in the Raptor Grounds east of Camp Taurajo: follow the nest-lined path on its left side to the last nest.
+  level 16
   collect 5086 x4 quest 845.1         -- Zhevra Hooves
   kill 3269 x8 quest 872.1            -- Razormane Geomancer
   kill 3266 x8 quest 872.2            -- Razormane Defender
@@ -377,6 +380,7 @@ step The Crossroads: hand in again
 step Prowlers, Serena and Echeyakee
   when done crossroads
   tip Savannah Prowlers lie west and north of the Crossroads. Serena Bloodfeather leads the Witchwing harpies in the far north-west. Then Sergra gives you the Horn of Echeyakee: blow it beside the kodo bones at Echeyakee's Lair, north of the town, and kill the white lion.
+  level 19
   collect 5096 x7 quest 903.1         -- Prowler Claws
   collect 5067 quest 876.1            -- Serena's Head
   turnin 903
@@ -400,6 +404,7 @@ step Ratchet: Brewmaster Drohn
 step Lions, plainstriders and a thunder lizard
   when done keg
   tip Savannah lions, plainstriders and thunder lizards roam the whole northern Barrens. The lions drop a tusk about every other kill, the plainstriders a kidney about two kills in five; any thunder lizard may drop the horn, about one in five.
+  level 18
   collect 4893 x5 quest 821.1         -- Savannah Lion Tusk
   collect 4894 x5 quest 821.2         -- Plainstrider Kidney
   collect 4895 quest 821.3            -- Thunder Lizard Horn
@@ -407,6 +412,7 @@ step Lions, plainstriders and a thunder lizard
 step Ratchet: the repeatable keg
   when done keg
   tip From now on Drohn takes 5 Lightning Glands, a Thunderhawk Saliva Gland and a Kodo Liver for 50, as often as you like. The Stormhide thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of Camp Taurajo drop them. Gather several sets before you head back to Ratchet.
+  level 23
   turnin 821                          -- Brewmaster Drohn
   collect 4898 x5 optional            -- Lightning Gland, from Stormhides
   collect 4897 optional               -- Thunderhawk Saliva Gland, from Greater Thunderhawks
@@ -450,6 +456,7 @@ step Bloodvenom Post: Wild Guardians
 step Winterspring: owlbeasts
   zone Winterspring
   tip Raging Owlbeasts north-west of Everlook, Ragged Owlbeasts further west.
+  level 55
   kill 7451 x15 quest 4521.1          -- Raging Owlbeast
   kill 7450 x15 quest 4521.2          -- Ragged Owlbeast
 
@@ -461,6 +468,7 @@ step Bloodvenom Post: hand in
 step Winterspring: Moontouched Owlbeasts
   zone Winterspring
   tip Moontouched Owlbeasts north of Everlook and south of it.
+  level 57
   kill 7453 x13 quest 4741.1          -- Moontouched Owlbeast
 
 step Bloodvenom Post: hand in again
@@ -471,6 +479,7 @@ step Bloodvenom Post: hand in again
 step Winterspring: Berserk Owlbeasts
   zone Winterspring
   tip Most Berserk Owlbeasts are north of Everlook. A Blue-feathered Necklace may drop from the owlbeasts now: use it to start Guarding Secrets.
+  level 58
   kill 7454 x10 quest 4721.1          -- Berserk Owlbeast
   accept 4882 item 12558 optional     -- Blue-feathered Necklace: Guarding Secrets, +50
 
@@ -494,6 +503,7 @@ step Valormok
 
 step Magus Rimtori's camp
   tip Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the Kaldorei Tome of Summoning there to start the next quest: break the crystals around the circle, kill the guard that comes, then Magus Rimtori.
+  level 54
   kill 6199 x10 quest 3505.1          -- Blood Elf Reclaimer
   kill 6198 x10 quest 3505.2          -- Blood Elf Surveyor
   complete 3505 @59.5,31.5            -- Find Magus Rimtori's camp
