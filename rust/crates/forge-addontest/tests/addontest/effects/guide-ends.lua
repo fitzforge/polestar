@@ -2,8 +2,9 @@
 -- The Guide page's guide rows (Polestar_Options/UI/Options.lua; Core/Engine.lua) on the whole addon: an Orc Warrior
 -- in Durotar, as engine-guide-end.rs and engine-routes.rs have them. Each check finishes a fresh leveling guide of
 -- two quests: the guide-end window asks, or The Barrens loads in its tab; a guide that offers The Barrens or
--- Silverpine Forest asks where to go, or takes the recommended zone. And the guide opened at login when no tab is
--- saved.
+-- Silverpine Forest asks where to go, or takes the recommended zone. The guide opened at login when no tab is
+-- saved. And Polestar Experimental's guides (Core/Guides.lua, Guides.OWN_EXTRA), its pack registered as its own
+-- addon registers it, listed with ours or taken out.
 local w, E
 local n = 0
 local function flush() stub.advance(0.6) end
@@ -22,6 +23,10 @@ local function world()
 		zoneName = "The Barrens", steps = { { goals = { { t = "level", level = 20 } } } } })
 	Polestar.RegisterGuide({ id = "test/silverpine", pack = "test", title = "Silverpine Forest", faction = "Horde", minLevel = 10, maxLevel = 18, zone = 1421,
 		zoneName = "Silverpine Forest", steps = { { goals = { { t = "level", level = 18 } } } } })
+	Polestar.RegisterPack({ addon = "Polestar_Experimental", id = "polestar-experimental", format = 1, title = "Polestar Experimental", author = "Polestar",
+		version = "1", license = "GPL-3.0-only" })
+	Polestar.RegisterGuide({ id = "polestar-experimental/barrens", pack = "polestar-experimental", title = "The Barrens (experimental)", faction = "Horde",
+		minLevel = 10, maxLevel = 20, zone = 1413, zoneName = "The Barrens", steps = { { goals = { { t = "level", level = 20 } } } } })
 end
 -- A fresh leveling guide in Durotar, finished: its two quests taken. -> the guide in the tab then ("stays": the
 -- finished one)
@@ -54,5 +59,13 @@ return {
 			local g = Polestar.Engine.GetGuide()
 			return g and g.id or false
 		end },
+		-- The guides the guide menu lists (Guides.List): the experimental Barrens guide among them, or not.
+		["behavior.experimentalGuides"] = function()
+			local out = {}
+			for _, g in ipairs(Polestar.Guides.List()) do
+				if Polestar.Guides.IsExperimental(g) then out[#out + 1] = g.id end
+			end
+			return table.concat(out, ",")
+		end,
 	},
 }
