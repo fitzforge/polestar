@@ -335,8 +335,14 @@ fn the_codex_takes_recorded_prerequisites_and_objective_spots() {
 	assert_eq!((o.get("map").num(), o.get("x").num(), o.get("y").num(), o.get("provisional").truthy()), (1426.0, 61.0, 62.0, true));
 	// A correction's prerequisites stand.
 	let corrections = parse_json(r#"{"quests":{"900":{"set":{"pre":[]}}}}"#).unwrap();
-	let codex = merge_codex(&inputs(Snapshot { quests: snapshot, corrections })).quests.get("900");
+	let codex = merge_codex(&inputs(Snapshot { quests: snapshot.clone(), corrections })).quests.get("900");
 	assert_eq!(stringify(&codex.get("pre"), None), "[]");
+	// A correction that sets the objectives (their kinds and ids, as Riverglades' kill credits) gives no place:
+	// the recorded spot still places the line (Krol'dok Stronghold's Sickening Lights had no place at all).
+	let corrections = parse_json(r#"{"quests":{"900":{"set":{"objectives":[{"type":"kill","id":272603,"count":5,"text":"[DNT] Kill Credit"}]}}}}"#).unwrap();
+	let codex = merge_codex(&inputs(Snapshot { quests: snapshot, corrections })).quests.get("900");
+	let o = codex.get("objectives").at(0);
+	assert_eq!((o.get("map").num(), o.get("x").num(), o.get("y").num()), (1426.0, 61.0, 62.0));
 }
 
 fn clone_forever(f: &crate::codex::Forever) -> crate::codex::Forever {

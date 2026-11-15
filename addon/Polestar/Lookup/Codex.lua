@@ -331,8 +331,14 @@ local function decodeNpc(group, id, s)
 	}
 end
 
+-- An object record: treasure;loot;spawn groups...[;z<heights>][;m<faction>][;i<instance>] (the instance an
+-- object lies in, last: Upper Blackrock Spire's Rookery Eggs).
 local function decodeObject(group, id, s)
 	local t, n = split(s, ";")
+	local instance
+	if n >= 3 and sub(t[n], 1, 1) == "i" then
+		instance, n = unesc(sub(t[n], 2)), n - 1
+	end
 	local mailbox, faction
 	if n >= 3 and (t[n] == "m" or t[n] == "mA" or t[n] == "mH" or t[n] == "mAH") then
 		mailbox, faction = true, sub(t[n], 2)
@@ -341,7 +347,7 @@ local function decodeObject(group, id, s)
 	end
 	local heights
 	heights, n = heightsField(t, n)
-	return { id = id, name = nameOf(group, id), treasure = t[1] == "1", mailbox = mailbox,
+	return { id = id, name = nameOf(group, id), treasure = t[1] == "1", mailbox = mailbox, instance = instance,
 		faction = faction, loot = numbers(t[2]), spawns = decodeSpawns(t, 3, n, heights) }
 end
 
