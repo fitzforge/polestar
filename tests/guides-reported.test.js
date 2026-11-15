@@ -12413,10 +12413,10 @@ test('Riverglades (experimental): an escort is taken and walked in one step, so 
 // Demar Brant offers The Western Front, and Ashe Amberhall A Small Favor, only once Curious Trinkets and Scraps of
 // Knowledge are handed in (players' offer windows): in the keep, Ashe's hand-ins come first.
 test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come before The Western Front and A Small Favor", () => {
-	const lines = fs.readFileSync(path.join(RIVERGLADES, 'riverglades-alliance-3.guide'), 'utf8').split('\n').map(codeOf);
+	const lines = fs.readFileSync(path.join(RIVERGLADES, 'riverglades-alliance-1.guide'), 'utf8').split('\n').map(codeOf);
 	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
 	for (const q of [94886, 94907]) {
-		assert.ok(first('accept', q) >= 0, `${q} is taken in part 3`);
+		assert.ok(first('accept', q) >= 0, `${q} is taken`);
 		for (const t of [94881, 94879]) {
 			assert.ok(first('turnin', t) >= 0 && first('turnin', t) < first('accept', q), `${t} is handed in before ${q} is taken`);
 		}
@@ -12432,7 +12432,7 @@ const anyLine = (lines, re) => lines.some((l) => re.test(l));
 test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's murloc heads are one sweep", () => {
 	const steps = rivergladesSteps('riverglades-alliance-1.guide');
 	const sweep = steps.findIndex((lines) => anyLine(lines, /^\s+collect 267266\b/));
-	assert.ok(sweep >= 0, 'the murloc heads are collected in part 1');
+	assert.ok(sweep >= 0, 'the murloc heads are collected');
 	for (const npc of [258574, 258573]) {
 		assert.ok(anyLine(steps[sweep], new RegExp(`^\\s+kill ${npc}\\b.*\\bquest 94614\\.`)), `the heads' step kills ${npc} for Freshwater Fiends`);
 	}
@@ -12441,22 +12441,23 @@ test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's 
 });
 
 // No class trainer stands in the Riverglades, and the Feralas guide passes none: an Alliance player who goes on to
-// Feralas (level 43 or more) trains in part 4 whatever quests they carry, shamans in Ironforge (Stormwind has none).
-test('Riverglades (experimental): an Alliance player going on to Feralas trains in part 4', () => {
-	const steps = rivergladesSteps('riverglades-alliance-4.guide');
+// Feralas (level 43 or more) trains at the end of the Riverglades guide whatever quests they carry, shamans in
+// Ironforge (Stormwind has none).
+test('Riverglades (experimental): an Alliance player going on to Feralas trains at the end of the Riverglades guide', () => {
+	const steps = rivergladesSteps('riverglades-alliance-1.guide');
 	const questGated = (lines) => anyLine(lines, /^\s+when !?(onquest|complete|turnedin|available)\b/);
 	assert.ok(steps.some((l) => anyLine(l, /^\s+when level>=43\b/) && anyLine(l, /^\s+fly "Stormwind"/) && !questGated(l)), 'players of 43 or more fly to Stormwind');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only .*\bWarrior\b/) && !questGated(l)), 'the class trainer step');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
 });
 
-// The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers part 1: a character there knows
-// Kargath's flight path and rides in through Twilight's Shroud; the boat from Tanaris is for everyone else
-// (0.4.0 route audit, R17r).
-test('Riverglades (experimental): Horde part 1 rides in from Kargath, the boat only for characters without its flight path', () => {
+// The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers the Riverglades: a character
+// there knows Kargath's flight path and rides in through Twilight's Shroud; the boat from Tanaris is for everyone
+// else (0.4.0 route audit, R17r).
+test('Riverglades (experimental): the Horde rides in from Kargath, the boat only for characters without its flight path', () => {
 	const steps = rivergladesSteps('riverglades-horde-1.guide');
 	const header = steps[0];
-	assert.ok(anyLine(header, /^levels 40-/), 'part 1 is written for players arriving at about 40');
+	assert.ok(anyLine(header, /^levels 40-/), 'written for players arriving at about 40');
 	const foot = steps.findIndex((l) => anyLine(l, /^\s+when taxi "Kargath"/) && anyLine(l, /^\s+goto /));
 	assert.ok(foot > 0, 'a step rides in from Kargath');
 	for (const re of [/^\s+fly "Freewind Post"/, /^\s+getfp "Gadgetzan"/, /Boat to Powderfuse Port/]) {
@@ -13880,10 +13881,11 @@ test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return 
 });
 
 // 0.4.0 audit (route-feel, Mount Hyjal): the game's quest log holds 40. An Alliance character who takes Mount Hyjal
-// after the Western Plaguelands guide carries about 28 quests in from the 50-60 guides, and parts 2 and 3 took up to
-// 42 at once: the Shrine of Aviana's three quests on top of two breadcrumbs for Dae'gun and the Summit picked up at
-// the end of part 2. Walk the default Human Warrior chain into Hyjal and count the log (accepts in, hand-ins out,
-// optional and group goals left aside, as the route-feel audit counts them): it never goes over 40.
+// after the Western Plaguelands guide carries about 28 quests in from the 50-60 guides, and the zone's second and
+// third stretches took up to 42 at once: the Shrine of Aviana's three quests on top of two breadcrumbs for Dae'gun and
+// the Summit picked up in the Cradle. Walk the default Human Warrior chain into the Mount Hyjal guide and count the
+// log (accepts in, hand-ins out, optional and group goals left aside, as the route-feel audit counts them): it never
+// goes over 40.
 test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the 50-60 guides carry in', { skip }, () => {
 	const exp = (g) => {
 		const file = path.join(__dirname, '..', 'experimental', 'guides', `${g}.guide`);
@@ -13894,7 +13896,7 @@ test('Alliance Mount Hyjal: the quest log never holds more than 40 with what the
 	const chain = chainFrom('forever/alliance/human/01-elwynn-forest.guide');
 	const end = chain.indexOf('forever/alliance/50-60/04-western-plaguelands.guide');
 	assert.ok(end > 0, 'the chain reaches the Western Plaguelands guide');
-	const route = [...chain.slice(0, end + 1).map((g) => [g, compiled(g)]), ...['hyjal-1', 'hyjal-2', 'hyjal-3'].map((g) => [g, exp(g)])];
+	const route = [...chain.slice(0, end + 1).map((g) => [g, compiled(g)]), ['hyjal-1', exp('hyjal-1')]];
 	const fits = (o) => !o || ((!o.races || o.races.includes('Human')) && (!o.classes || o.classes.includes('WARRIOR')) && (!o.factions || o.factions.includes('Alliance')));
 	const solo = (st) => !(st.when || []).some((p) => !p.neg && (p.k === 'group' || p.k === 'dungeon'));
 	const log = new Set();

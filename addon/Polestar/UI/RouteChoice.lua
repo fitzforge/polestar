@@ -17,8 +17,9 @@
 -- - the facts a leveller decides on, a glyph and its number each, spread
 --   across the card: the levels, the trip there, the quests (where they do
 --   not fit, the widest gives way);
--- - the author's pitch, then at most 3 pros and 2 cons, one line each (a
---   detour through another zone is the first con);
+-- - the author's pitch (every route choice of ours has one), then at most 3
+--   pros and 2 cons, each wrapped to as many lines as it takes (a detour
+--   through another zone is the first con);
 -- - where the route goes on ("Then: Feralas & Tanaris" and the level it
 --   takes the character to), unless every route meets again in one guide:
 --   the header says so then;
@@ -66,6 +67,7 @@ local GO_H = 32
 local PIN = 16 -- the start's mark (its medallion 22, as on the world map)
 local PENNANT_W, PENNANT_H = 26, 39
 local MAX_PROS, MAX_CONS = 3, 2
+local FIT_MARGIN = 16 -- the least room left above and below a window shrunk to fit the screen
 local SEP = "  \194\183  "
 
 local F -- the window
@@ -147,7 +149,7 @@ end
 local function stateOf(o)
 	if o.open then return L["Your current route"], "success" end
 	if o.recommended then return L["Recommended"], "accent" end
-	if o.experimental then return L["Experimental"], "warning" end
+	if o.experimental then return L["Experimental"], "experimental" end
 	if o.outleveled then return L["Outlevelled"], "neutral" end
 end
 
@@ -173,17 +175,43 @@ end
 -- Cards
 ---------------------------------------------------------------------------
 
--- One bullet line (a pro or a con), pooled per card: a single line,
--- truncated with an ellipsis at the card's width (the tooltip has it whole).
+-- One bullet line (a pro or a con), pooled per card: wrapped to the card's
+-- width, as many lines as it takes.
 local function bullet(c, list, i, glyph, color, textColor)
 	local b = list[i]
 	if not b then
 		b = {}
 		b.Glyph = W.Tex(c, "ARTWORK", glyph, color)
 		b.Text = W.Text(c, "label", textColor)
+		b.Text:SetWordWrap(true)
+		b.Text:SetJustifyV("TOP")
+		b.Text:SetSpacing(2)
+		b.Text:SetWidth(INNER - 20)
 		list[i] = b
 	end
 	return b
+end
+
+-- The bullets of `items` (at most `cap`) set on a card's pool `list`: the
+-- height each takes (STEP for one line, each wrapped line more), in order.
+local function bulletHeights(c, list, items, cap, glyph, color, textColor)
+	local out = {}
+	for i, text in ipairs(items) do
+		if i > cap then break end
+		local b = bullet(c, list, i, glyph, color, textColor)
+		b.Text:SetText("Ag")
+		local one = b.Text:GetStringHeight()
+		b.Text:SetText(text)
+		out[i] = STEP + max(0, ceil(b.Text:GetStringHeight() - one))
+	end
+	return out
+end
+
+-- The height of a block of bullets (bulletHeights' sum).
+local function blockHeight(heights)
+	local h = 0
+	for _, v in ipairs(heights) do h = h + v end
+	return h
 end
 
 -- The four 1px edges of `frame`, textures of `owner`.
@@ -238,7 +266,7 @@ local function paintTag(t)
 	if kind == "accent" then
 		local r, g, b = Theme.Accent()
 		tint(t.Tint, r, g, b, 0.16)
-	elseif kind == "success" or kind == "warning" then
+	elseif kind == "success" or kind == "warning" or kind == "experimental" then
 		local r, g, b = Theme.Color(kind)
 		tint(t.Tint, r, g, b, 0.14)
 	else
@@ -581,33 +609,31 @@ local function fillCard(c, o, grid, showThen)
 	c.Rule:SetPoint("TOPRIGHT", c, "TOPRIGHT", -CARD_PAD, -y)
 	c.Rule:SetShown(#(o.pros or {}) + #consOf(o) > 0)
 	y = y + 14
-	-- One line per bullet; rows = the grid's share, so the next block aligns
-	-- across cards.
-	local function lines(list, items, cap, rows, glyph, color, textColor, size)
-		local n, top = 0, y
-		for i, text in ipairs(items) do
-			if i > cap then break end
-			local b = bullet(c, list, i, glyph, color, textColor)
+	-- The bullets, each as tall as its wrapped text; minH = the grid's
+	-- share (the tallest pros block of any card), so the cons align across
+	-- cards.
+	local function lines(list, items, cap, minH, glyph, color, textColor, size)
+		local top = y
+		local heights = bulletHeights(c, list, items, cap, glyph, color, textColor)
+		for i, h in ipairs(heights) do
+			local b = list[i]
 			b.Glyph:SetSize(size, size)
 			b.Glyph:ClearAllPoints()
 			b.Glyph:SetPoint("TOPLEFT", c, "TOPLEFT", CARD_PAD + (12 - size) / 2, -(y + 3 + (12 - size) / 2))
-			b.Text:SetText(text)
-			b.Text:SetWidth(INNER - 20)
 			b.Text:ClearAllPoints()
 			b.Text:SetPoint("TOPLEFT", c, "TOPLEFT", CARD_PAD + 20, -y)
 			b.Glyph:Show()
 			b.Text:Show()
-			y = y + STEP
-			n = i
+			y = y + h
 		end
-		for i = n + 1, #list do
+		for i = #heights + 1, #list do
 			list[i].Glyph:Hide()
 			list[i].Text:Hide()
 		end
-		if rows > n then y = top + rows * STEP end
+		if y - top < minH then y = top + minH end
 	end
-	lines(c.Pros, o.pros or {}, MAX_PROS, grid.pros, "check", "success", "text", 12)
-	if grid.pros > 0 and grid.cons > 0 then y = y + 4 end
+	lines(c.Pros, o.pros or {}, MAX_PROS, grid.prosH, "check", "success", "text", 12)
+	if grid.prosH > 0 and grid.cons > 0 then y = y + 4 end
 	lines(c.Cons, consOf(o), MAX_CONS, 0, "cross", "textMuted", "textDim", 9)
 	fillThen(c, o, showThen)
 	-- The recommended card leads: the accent outline and the primary button.
@@ -734,16 +760,17 @@ local function layout(choice)
 	F.Subtitle:SetText(table.concat(parts, " "))
 	F.Subtitle:SetWidth(width - PAD * 2 - 48 - 40)
 
-	-- The grid every card shares: the tallest pitch, the most pro and con
-	-- rows shown, a "Then" line when any card has one.
+	-- The grid every card shares: the tallest pitch, the tallest block of
+	-- pros (wrapped), whether any card has cons, a "Then" line when any card
+	-- has one.
 	local showThen = choice.joinsAt == nil
-	local grid = { pitch = 0, pros = 0, cons = 0, thenLine = false }
+	local grid = { pitch = 0, prosH = 0, cons = 0, thenLine = false }
 	for i, o in ipairs(opts) do
 		local c = card(i)
 		c.psIndex = i
 		c.Pitch:SetText(o.pitch or "")
 		if o.pitch then grid.pitch = max(grid.pitch, c.Pitch:GetStringHeight()) end
-		grid.pros = max(grid.pros, min(#(o.pros or {}), MAX_PROS))
+		grid.prosH = max(grid.prosH, blockHeight(bulletHeights(c, c.Pros, o.pros or {}, MAX_PROS, "check", "success", "text")))
 		grid.cons = max(grid.cons, min(#consOf(o), MAX_CONS))
 		if showThen and type(o.thenGuideTitle) == "string" and o.thenGuideTitle ~= "" then grid.thenLine = true end
 	end
@@ -761,7 +788,20 @@ local function layout(choice)
 		c:Show()
 	end
 	for i = n + 1, #cards do cards[i]:Hide() end
-	F:SetHeight(HEAD_H + PAD + cardH + PAD + FOOT_H)
+	local height = HEAD_H + PAD + cardH + PAD + FOOT_H
+	F:SetHeight(height)
+	-- Taller than the screen (wrapped pros at a large UI scale): the whole
+	-- window shrinks to fit, so nothing runs off its top or bottom, and sits
+	-- in the screen's middle (its usual place, a little above, would push its
+	-- top off). (Its layer, Polestar.UIParent, is the screen's size at
+	-- UIParent's scale.)
+	local room = UIParent:GetHeight() or 0
+	local fit = room > 0 and min(1, (room - FIT_MARGIN * 2) / height) or 1
+	F:SetScale(fit)
+	if room > 0 and height * fit + 2 * (FIT_MARGIN + 40) > room then
+		F:ClearAllPoints()
+		F:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+	end
 	F.Always:SetChecked(ns.Get("behavior.routeChoice") == "recommended")
 end
 

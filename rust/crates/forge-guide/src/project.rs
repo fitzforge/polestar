@@ -427,6 +427,41 @@ pub fn experimental_index(ours: &[V], extras: &[V], data: &Data, diag: &mut Diag
 	offered.iter().map(|id| index_entry(by_id[id], &by_id, data)).collect()
 }
 
+/// Every experimental guide a player starts with (one no guide of its pack leads to) is offered by a route choice
+/// of ours for every faction it is for (its `faction`, else both): a zone is never left without its way in for one
+/// side. A faction none of `ours` is for (a partial checkout, a fixture) is not asked about. An error on the
+/// experimental guide, naming the side that lacks the offer.
+pub fn experimental_offered_everywhere(ours: &[V], extras: &[V], diag: &mut Diagnostics) {
+	let led: rustc_hash::FxHashSet<String> = extras.iter().flat_map(next_list).collect();
+	for e in extras {
+		let id = e.get("id").to_js_string();
+		if led.contains(&id) {
+			continue;
+		}
+		let ef = e.get("faction");
+		for side in ["Alliance", "Horde"] {
+			if ef.truthy() && ef.as_str() != Some(side) {
+				continue;
+			}
+			let of_side = |g: &&V| g.get("faction").as_str() == Some(side);
+			if !ours.iter().any(|g| of_side(&g)) {
+				continue;
+			}
+			// The default line never counts: an experimental guide is only ever chosen.
+			if ours.iter().filter(of_side).any(|g| next_list(g).iter().skip(1).any(|t| *t == id)) {
+				continue;
+			}
+			let file = e.hidden("_ast").get("file").to_js_string();
+			diag.error(
+				&file,
+				1.0,
+				format!("experimental guide \"{id}\" is for the {side} but no {side} guide of ours offers it: its zone has no way in for them"),
+				Some(format!("add `next {id}` after the first `next` line of the {side} guide whose end it fits (the level players have there)")),
+			);
+		}
+	}
+}
+
 /// A point of a goal for the index: { map, x, y, f }.
 fn index_point(goal: &V) -> V {
 	let p = Obj::new();
@@ -1230,9 +1265,15 @@ mod native {
 		let force = opts.force;
 		let mut project = compile_project(pack_dir, manifest, data, data_warnings, opts.include_drafts, opts.context);
 		project.diag.list.extend(extra);
-		// Read only when a `next` line of ours names an extra pack's guide.
-		let offering = manifest.get("id").as_str() == Some("guides") && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
-		let offers = if offering { experimental_index(&project.guides, &read_extras(root, data), data, &mut project.diag) } else { Vec::new() };
+		// The extra packs' guides beside ours (read_extras): the experimental index, read only when a `next` line
+		// of ours names one, and the check that each zone is offered to every side it is for.
+		let ours = manifest.get("id").as_str() == Some("guides");
+		let extras = if ours { read_extras(root, data) } else { Vec::new() };
+		let offering = ours && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
+		let offers = if offering { experimental_index(&project.guides, &extras, data, &mut project.diag) } else { Vec::new() };
+		if ours {
+			experimental_offered_everywhere(&project.guides, &extras, &mut project.diag);
+		}
 		let license = read_license(pack_dir, manifest, &mut project.diag);
 		let mut translations = V::obj();
 		if !project.diag.has_errors() || force {

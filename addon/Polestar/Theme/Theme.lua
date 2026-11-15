@@ -55,6 +55,10 @@ local BRAND = {
 
 local SCHEMES = ns.House.SCHEMES
 Theme.SCHEMES = SCHEMES
+-- The house's own schemes (registered ones join SCHEMES later): they carry
+-- the experimental chip's orchid (House.EXPERIMENTAL).
+local HOUSE_SCHEME, EXPERIMENTAL = {}, ns.House.EXPERIMENTAL
+for _, s in pairs(SCHEMES) do HOUSE_SCHEME[s] = true end
 Theme.SCHEME_ORDER = { "dusk", "night", "graphite" }
 
 -- "#rrggbb" and an alpha -> { r, g, b, a }.
@@ -102,7 +106,7 @@ local SKIN_PALETTES = {
 		icon = hex("C2B9A9"), iconHover = hex("F4EFE6"), buttonText = hex("F4EFE6"), personName = hex("8CCBFF"), tabRest = hex("C2B9A9"),
 		rowLabel = hex("F4EFE6"), navRest = hex("C2B9A9"),
 		link = hex("8CCBFF"), npc = hex("8CCBFF"), quest = hex("FFE07A"), place = hex("F5AD85"),
-		rare = hex("FF8052"), dungeon = hex("A385FF"), discord = hex("5865F2"),
+		rare = hex("FF8052"), dungeon = hex("A385FF"), experimental = hex("CF8CFF"), discord = hex("5865F2"),
 	},
 	hearth = {
 		-- Grounds: the window a walnut board, lit at the top (bg) and in
@@ -131,7 +135,7 @@ local SKIN_PALETTES = {
 		frameEdge = hex("B07A3C"), frameEdgeDark = hex("5A3618"), titleLine = hex("9A6430"),
 		-- Status, warmed to the wood: a leaf green, amber, a coal red.
 		success = hex("8FD66E"), arrive = hex("8FD66E"), todo = hex("FF9440"), warning = hex("FFB84D"),
-		later = hex("FFB84D"), danger = hex("FF7A5C"), manual = hex("D6A6FF"), skipped = hex("7FD0E0"),
+		later = hex("FFB84D"), danger = hex("FF7A5C"), manual = hex("D6A6FF"), skipped = hex("7FD0E0"), experimental = hex("E0A6FF"),
 		icon = hex("D2BE9C"), iconHover = hex("FFD9A0"), buttonText = hex("F5E9D3"), personName = hex("FFD9A0"), tabRest = hex("B39D79"),
 		rowLabel = hex("F5E9D3"), navRest = hex("D2BE9C"),
 		link = hex("FFB070"), discord = hex("5865F2"),
@@ -164,6 +168,8 @@ do
 		icon = hex("FFD100"), iconHover = hex("FFD100"), buttonText = hex("FFD100"), personName = hex("FFD100"), tabRest = hex("A38D58"),
 		rowLabel = hex("FFFFFF"), navRest = hex("CCCCCC"),
 		link = hex("FFD100"), npc = hex("FFFFFF"), discord = hex("5865F2"),
+		-- The experimental chip: the house's orchid (House.EXPERIMENTAL).
+		experimental = hex("C77DFF"),
 	}
 	function gamePalette(over)
 		local p = {}
@@ -182,6 +188,8 @@ SKIN_PALETTES.forever = gamePalette({
 	-- A mechanic's violet (an escort's line) a step lighter, to read on the
 	-- lit goal's gold card as well as on black.
 	dungeon = hex("BBA6FF"),
+	-- The experimental chip's orchid, lighter for the same reason.
+	experimental = hex("DCA6FF"),
 })
 -- Blizzard Style: the damage meter's greys. Its parts are parted by 1px
 -- grey hairlines (#3a3a3a), the selection a flat grey row (GameSkins'
@@ -693,9 +701,12 @@ local HOUSE_EXTRA = {
 	personName = "npc", tabRest = "textDim", rowLabel = "text", navRest = "textDim",
 	-- A close square a skin shows on the guide window's title (the guideTitle hook).
 	closeFill = "danger", closeEdge = "border", closeGlyph = "text",
+	-- Polestar's experimental guides' chip: a scheme or skin without its own
+	-- shows it in its dungeon violet.
+	experimental = "dungeon",
 }
 -- Those a non-house skin falls back on too.
-local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
+local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph", "experimental" }
 
 -- Menus and popups open over other frames (a panel marked psMenu: the
 -- dropdown menus, a setting's cog, Quick settings; the tooltip too): their
@@ -943,6 +954,7 @@ local function resolve(id, schemeKey)
 	for name, c in pairs(ART) do out[name] = copy(c) end
 	for name, c in pairs(BRAND) do out[name] = copy(c) end
 	for name, c in pairs(src) do out[name] = copy(c) end
+	if HOUSE_SCHEME[src] then out.experimental = copy(EXPERIMENTAL) end
 	-- A registered skin's own tokens (with its variant and resolver) over the
 	-- scheme, under the player's own colours; its accent stands in for
 	-- Polestar gold.

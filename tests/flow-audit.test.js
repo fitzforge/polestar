@@ -119,6 +119,14 @@ test('a route choice is taken where a guide offers it, and nextWhen picks the op
 	assert.equal(new Router('g').nextOf(byLevel, 43), 'x/high');
 });
 
+test('a guide for both factions goes on by the character\'s faction, as the addon does', () => {
+	const shen = { next: 'h/feralas', nextChoices: ['h/feralas', 'a/feralas'] };
+	const guides = new Map([['h/feralas', { faction: 'Horde' }], ['a/feralas', { faction: 'Alliance' }]]);
+	assert.equal(new Router('g', [], '', 'all', { guides, faction: 'Alliance' }).nextOf(shen, 45), 'a/feralas');
+	assert.equal(new Router('g', [], '', 'all', { guides, faction: 'Horde' }).nextOf(shen, 45), 'h/feralas');
+	assert.equal(new Router('g').nextOf(shen, 45), 'h/feralas', 'without a side, the first');
+});
+
 test('with dungeons in the route, a pick-up stop there only for a dungeon quest is a dungeon trip; without them it is not walked', (t) => {
 	const guides = [guide('test/d', [
 		[accept(10, 1, 10, 10)],

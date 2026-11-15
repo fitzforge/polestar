@@ -1,27 +1,27 @@
 guide polestar-experimental/shendralas
-title Shen'dralas (experimental)
-levels 42-44
+title Shen'dralas
+levels 43-45
 zone Shen'dralas
 coords live
-folder Shen'dralas · Experimental
 why Forever's new zone south of Desolace, an alpha route written from players' recordings.
 keywords shen'dralas, shendralas, valley of bones, evenshade's overlook, forlorn gardens, bristleback retreat, pylons, desolace, experimental, alpha
-next forever/horde/40-50/04-tanaris
+next forever/horde/40-50/03-feralas
 next forever/alliance/40-50/03-feralas
 pitch A detour south of Desolace into Shen'dralas: 11 quests around a fallen Highborne temple, for levels 41-45.
 pro About 27,500 quest experience plus the kills
 pro Brings you back to the main route where you left it
 pro Its experience comes off the grinding the route asks for before level 50: about an hour sooner to 60
-con Its quests are about on level at 43 and a few levels under you at 46
+con Its quests are about on level at 43 and a level or two under you at 45
 con Elites walk the Valley of Bones: Corpsefeeders and Magram Necrokhans, level 45
 con Experimental: written from a handful of players' recordings
 
 # Polestar Experimental, Shen'dralas for both factions (2026-11-12). Hand-written from players' recordings of
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
 # titles, levels and objectives and the client's tables for item and spell names. A detour for levels 41-45,
-# offered as a route choice. Horde: offered at the end of the Feralas, Dustwallow Marsh & Swamp of Sorrows guide
-# (40-50/03, Camp Mojache, about level 46); in from Shadowprey Village, out by hearth to Camp Mojache, where the
-# Tanaris guide picks up at the flight master. Alliance: offered at the end of the Badlands guide (40-50/02,
+# offered as a route choice. Horde: offered at the end of the Feralas & Tanaris guide (40-50/02, Orgrimmar, about
+# level 45; moved from the end of 40-50/03 in 0.4.0, where players were about 46.4 by the level model); in from
+# Shadowprey Village, out by the flight back to Orgrimmar, where the next Feralas guide picks up at the zeppelin
+# towers. Alliance: offered at the end of the Badlands guide (40-50/02,
 # Theramore, about level 43); in from Nijel's Point, out on the ride south into Feralas, where the Feralas guide
 # picks up at the Feathermoon boat.
 # Order: the Tattered Journal from the valley's necromancers; Mordent Evenshade's pylons (find the three, the
@@ -129,6 +129,7 @@ step The temple: the Mana Sieve
 
 step The western pylon: repair it
   tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Then repair the pylon with the Pile of Pylon Parts (Repair and Recharge Pylon). Decrepit Pylon Protectors guard it.
+  tip Careful: the pylon stands at the edge of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.
   use 271882 quest 96018.2 @43.97,35.59 -- Pile of Pylon Parts: Repair and Recharge Pylon
   collect 286647 quest 99257.1 optional -- Depleted Crystal Heart, from the Decrepit Pylon Protectors
 
@@ -168,6 +169,7 @@ step Mithera
 
 step The Forlorn Gardens
   tip Rowdy Roses and Terrible Tulips grow all over the gardens; the Malevolent Marigolds keep to the northern part. Woodwyrd, the treant in the middle of the gardens, has a request of his own that needs water from Maraudon, a dungeon: this guide leaves it.
+  tip The Shen'dralar who wander the gardens are neutral, like the temple's guards: leave them be and pull the flowers away from them. Careful: Nascent Pylon Protectors (elites, 43) wander the zone's middle, the gardens too: keep clear of them.
   kill 254566 x4 quest 93362.1        -- Rowdy Rose
   kill 254567 x4 quest 93362.2        -- Terrible Tulip
   kill 254572 x20 quest 93362.3       -- Malevolent Marigold
@@ -188,7 +190,7 @@ step Historian Biraxas
 
 step Back to your route
   only Horde
-  note Shen'dralas is done. Your Tanaris guide picks up at Camp Mojache's flight master: hearth there, or ride back north through the Valley of Bones to Shadowprey Village and fly to Camp Mojache.
+  note Shen'dralas is done. Your next Feralas guide picks up in Orgrimmar, at the zeppelin towers outside the gate: ride back north through the Valley of Bones to Shadowprey Village and fly to Orgrimmar.
 
 step Back to your route
   only Alliance

@@ -1785,10 +1785,11 @@ GF.Part(function(GF)
 				nav.Title:SetText(guide.title or guide.id)
 			end
 			nav.psMeta = UI.GuideMeta(guide)
+			nav.psExperimental = ns.Guides.IsExperimental and ns.Guides.IsExperimental(guide) or nil
 		else
 			nav.Steps.Count:SetText("")
 			nav.Title:SetText(L["Polestar"])
-			nav.psMeta = nil
+			nav.psMeta, nav.psExperimental = nil, nil
 		end
 		W.SetIconState(nav.Prev, false, guide ~= nil)
 		W.SetIconState(nav.Next, false, guide ~= nil and index ~= nil)
@@ -2844,6 +2845,7 @@ GF.Part(function(GF)
 			local lines = {}
 			if view and view.title and view.title ~= "" then lines[#lines + 1] = view.title end
 			if nav.psMeta and nav.psMeta ~= "" then lines[#lines + 1] = nav.psMeta end
+			if nav.psExperimental then lines[#lines + 1] = { L["Experimental"], Theme.Color("experimental") } end
 			W.Tooltip(self, tooltipAnchor(), nav.Title:GetText() or "", lines)
 			GF.HoverIn()
 		end)

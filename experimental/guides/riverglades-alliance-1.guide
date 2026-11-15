@@ -1,13 +1,19 @@
 guide polestar-experimental/riverglades-alliance-1
-title Riverglades 1: Southern Watch, Turner's Logging Camp and Farholde Keep (experimental)
+title Riverglades
 faction Alliance
-levels 37-40
+levels 39-43
 zone Riverglades
 coords live
-folder Riverglades · Experimental
 why Forever's new zone, an alpha route written from players' recordings.
-keywords riverglades, farholde, southern watch, turner's logging camp, wheeler's grange, terral's watch, experimental, alpha
-next polestar-experimental/riverglades-alliance-2
+keywords riverglades, farholde, southern watch, turner's logging camp, wheeler's grange, terral's watch, sunnyglade, rog'mar, sleebo, powderfuse port, eastsea pirates, admiral lamora, bolder'ok, dunston, western front, sergeant riftan, marshal ryan, gelinda, cinderscale, experimental, alpha
+next forever/alliance/40-50/03-feralas when level>=43
+next forever/alliance/40-50/01-stranglethorn-vale when level<43
+pitch Forever's new zone, in through Blackrock Pass north of Lakeshire: the Alliance's Farholde Keep and about 90 quests from level 39, then on to Feralas, or to Stranglethorn Vale below level 43.
+pro One zone and one hub, Farholde Keep with its flight path and inn, in place of Desolace's south loop, and from level 43 also the Stranglethorn Vale and Badlands guides
+pro No sea crossing on the way in: Thelsamar's flight to Lakeshire, then a short ride north through Blackrock Pass
+con Experimental: written from players' recordings and not yet checked end to end in the game
+con Skips Desolace's south loop: quests left in your log for the guides it skips show at this guide's end, to keep or abandon
+con Elite camps, and a few quests that need a group (each behind a group choice)
 
 # Polestar Experimental, Riverglades for the Alliance, part 1 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone (123 sessions to 2026-11-12) and Forever's quest data (the client's quest records,
@@ -30,6 +36,12 @@ next polestar-experimental/riverglades-alliance-2
 #   handed it in.
 # - Love Thy Neighbor (95330) and High Stakes (96009): both send you back to Turner's Logging Camp; part 4 takes
 #   them when it heads west from Farholde Keep.
+
+step Quests for Desolace's south loop
+  tip The Riverglades take the place of Desolace's south loop, so three quests you carry for it have nowhere to go on this route: Azore's Sceptre of Light, Kreldig's errand for the Karnitol satchel and Brother Crowley's letter to Brother Anton at Nijel's Point. Drop them now and keep the room in your quest log for the Riverglades.
+  abandon 6141                          -- Brother Anton: the letter for Nijel's Point
+  abandon 1456                          -- The Karnitol Shipwreck: the satchel off Desolace's north-west coast
+  abandon 5741                          -- Sceptre of Light: the hand-in to Azore Aldamort in Desolace
 
 step Into the Riverglades
   when !zone "Riverglades"
@@ -64,6 +76,7 @@ step Turner's Logging Camp
 
 step The Bristle Hills
   tip West into the Bristle Hills: the Redridge gnolls camp on the slopes all the way from the hills west of the lumber camp to the pass you came in by. The stolen saw blades lie only in the western camps, near the pass.
+  tip Careful: Snargl, an elite gnoll (level 40), roams the south-western camps: pull the gnolls away from him.
   kill 255770 x8 quest 94678.1          -- Redridge Mystic
   kill 255772 x8 quest 94678.2          -- Redridge Trapper
   kill 255769 x6 quest 94678.3          -- Redridge Brute
@@ -136,12 +149,12 @@ step Farholde Keep
   getfp "Farholde Keep" npc 257087      -- Gretchen Mayberry, at the western gate
   accept 95943                          -- Bertrand Ironbrow: Foreman's Plight
   accept 95156                          -- Ember Bladewhisper: Stuff 'Em and Stick 'Em
-  accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, which Sunnyglade's cultists and the pirates drop; hand it in on your way back in part 3
+  accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, which Sunnyglade's cultists and the pirates drop; hand it in on your way back later
   turnin 95148                          -- Demar Brant, in the keep
   accept 94613                          -- My Kingdom for a Horse
-  accept 94877                          -- Saving Sunnyglade: for part 2
-  accept 94881                          -- Ashe Amberhall: Curious Trinkets, for part 2
-  accept 94879                          -- Scraps of Knowledge, for part 2
+  accept 94877                          -- Saving Sunnyglade: for later in this guide
+  accept 94881                          -- Ashe Amberhall: Curious Trinkets, for later in this guide
+  accept 94879                          -- Scraps of Knowledge, for later in this guide
   sethome "Farholde Keep" npc 257595   -- Barracks Master Harlan, at the inn
 
 step Tessa Dawnbright
@@ -153,6 +166,7 @@ step Tessa Dawnbright
 
 step The cathedral
   tip Sister Rowland keeps the old cathedral at the south-west corner of Farholde Keep. The bats roost in its upper floor; Marla Bell hands out the holy candles beside it; the graves are in the chapel graveyard.
+  tip Abbot Schuncke, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him.
   accept 95603                          -- Bats in the Belfry
   kill 262037 x5 quest 95603.1          -- Roosting Duskbat
   turnin 95603
@@ -209,6 +223,7 @@ step King of the Wild Plains
 
 step The plains
   tip The Rog'mar Poachers hunt the plains north of the tower; the Wildplains lions roam among them. A picked carcass lies in the grass east of the tower: its skull starts A Feast for Buzzards.
+  tip Careful: Ghostmaw, an elite (level 42), hunts along the river west of the plains: keep an eye on the riverbank.
   accept 95983                          -- Picked Carcass: A Feast for Buzzards
   kill 259052 x12 quest 94924.1 @58.0,59.0  -- Rog'mar Poacher
   collect 266888 x8 quest 94925.1       -- Prized Lion Hide
@@ -221,10 +236,10 @@ step Terral's Watch
   turnin 94924                          -- Watcher Cornelius
   turnin 94925
   turnin 95983
-  accept 94928                          -- A Few Furs for Friz: for Powderfuse Port (part 2), keep it
-  accept 95984                          -- Song of the Strider: for part 2, where the tallstriders graze by Sleebo's workshop; keep it
-  accept 95064                          -- Preventative Measures: for part 2, at the Horde's training grounds north of Rog'mar
-  accept 95426                          -- Rog'mar Supplies: for part 2, the same training grounds
+  accept 94928                          -- A Few Furs for Friz: for Powderfuse Port, keep it
+  accept 95984                          -- Song of the Strider: for later, where the tallstriders graze by Sleebo's workshop; keep it
+  accept 95064                          -- Preventative Measures: for later, at the Horde's training grounds north of Rog'mar
+  accept 95426                          -- Rog'mar Supplies: for later, the same training grounds
 
 step Watcher Cornelius
   when onquest 95986
@@ -235,14 +250,534 @@ step Farholde Keep
   turnin 95156                          -- Ember Bladewhisper
   turnin 95943                          -- Bertrand Ironbrow
   turnin 95913                          -- Tessa Dawnbright
-  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port (part 2), keep it
+  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port, keep it
 
 step WANTED: Ghostmaw
   when group 95991
-  tip Ghostmaw is an elite (level 42) who hunts along the river between Wheeler's Grange and Terral's Watch, on your way north in part 2: grouping up is advised. The poster hangs by the keep; Wheatley, who takes the fang, stands south of the inn.
+  tip Ghostmaw is an elite (level 42) who hunts along the river between Wheeler's Grange and Terral's Watch, on your way north later in this guide: grouping up is advised. The poster hangs by the keep; Wheatley, who takes the fang, stands south of the inn.
   accept 95991                          -- the WANTED! poster
 
 step WANTED: Blademaster Kaijo
   when group 95912
-  tip Blademaster Kaijo is an elite (level 42) at the Horde's training grounds north of Rog'mar, where part 2 goes: grouping up is advised.
+  tip Blademaster Kaijo is an elite (level 42) at the Horde's training grounds north of Rog'mar, where this guide goes later: grouping up is advised.
   accept 95912                          -- the Wanted poster
+
+# Polestar Experimental, Riverglades for the Alliance, part 2 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: Sunnyglade (the Twilight cult's farm town, levels 37-41) in one visit, Fuzzle's escort to the west edge and
+# Farmer Elbrim's farm last; the Horde's training grounds north of Rog'mar for Watcher Cornelius; Sleebo's workshop
+# with the tallstriders and the marsh, and a stop at Terral's Watch; Powderfuse Port (the neutral goblin port) and
+# its first loop: the murlocs south-west, back through the port, the crawlers and Trapclaw north of it, the Eastsea
+# pirates north-east (levels 38-43), the port again.
+# Offered only after another quest is handed in (players' recordings): Biting the Hand's escort after the finger
+# bones; All That's Left after What We Lost; Cut Off the Heads after both of Claire's first quests; An Unsettling
+# Discovery after Cut Off the Heads; Rock 'em and Sock 'em after Gaseous Gold; The Rog'mar Situation after
+# Cornelius's two errands; It Takes Guts after Terrors From the Deep; Goes Down Smooth after Stepped Out; Drink Up!
+# after Goes Down Smooth; Her World after Drink Up!; Smuggler's Special after Smuggler's Paradise; the pirates'
+# second wave after Unfriendly Competition.
+# Elites, each behind a group choice: Chogg'Zac (41), Old Rot-Chum (42), and the WANTED posters part 1 took for
+# Ghostmaw and Blademaster Kaijo (42).
+# Left out on purpose:
+# - Not My Circus (95982): ten Briny Seafood Stews, a cook's make; 2 of 25 recorded players handed it in.
+
+step Ghostmaw
+  when group 95991
+  tip Ghostmaw, the elite, hunts along the river between Wheeler's Grange and Terral's Watch, on your way north.
+  collect 271828 quest 95991.1 @52.9,57.8  -- Ghostmaw's Fang
+
+step Sunnyglade
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold hides in the middle of the town, Apprentice Claire at its eastern edge, and Farmer Elbrim waits at his farm on the north-eastern edge.
+  accept 94961                          -- Fuzzle: Biting the Hand
+  accept 95642                          -- Apprentice Claire: Abominable Magics
+  accept 95643                          -- Indiscriminate Purge
+  accept 94829                          -- Farmer Elbrim: What We Lost
+
+step The Twilight cult
+  tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.
+  tip Keep the Mageweave Cloth they drop if you took Brother Lowley's Wound Dressings. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
+  tip Careful: Chogg'Zac, an elite ogre (level 41), walks the western streets of Sunnyglade, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.
+  tip Ghostmaw, the river's elite (level 42), can wander up from the south-western fields: let him pass.
+  kill 261711 x5 quest 95643.1 @47.7,50.6  -- Empowered Brute
+  kill 262169 x5 quest 95643.2 @47.3,50.0  -- Twilight Ritualist
+  complete 95642 @47.8,50.0             -- fill the Crystal Catalyst at the ritual circles
+  collect 266424 x5 quest 94879.1       -- Twilight Page
+  kill 256952 x8 quest 94877.1          -- Twilight Raider
+  kill 254560 x8 quest 94877.2          -- Twilight Shadowmancer
+  kill 256798 x8 quest 94877.3          -- Twilight Neophyte
+  collect 267073 x20 quest 94961.1      -- Twilight Finger Bone
+  collect 266425 x25 quest 94881.1      -- Twilight Charm
+  interact 621813 quest 94829.1 @48.2,44.6  -- Loose Soil: bury the mementos
+  accept 94885 optional                 -- Field Marshal's Log: only if a cultist dropped the log
+
+step Apprentice Claire
+  turnin 95642
+  turnin 95643
+
+step Cut Off the Heads
+  when group 95562
+  tip Chogg'Zac, the two-headed ogre, is an elite (level 41) at the western edge of Sunnyglade: grouping up is advised. Claire then has the filled catalyst for Ashe Amberhall in Farholde Keep.
+  accept 95562                          -- Apprentice Claire
+  collect 265750 quest 95562.1 @44.9,51.1  -- Chogg's Head
+  collect 265751 quest 95562.2 @44.9,51.1  -- Zac's Head
+  turnin 95562
+  accept 94884                          -- An Unsettling Discovery: for Ashe Amberhall in Farholde Keep
+
+step Fuzzle
+  tip Fuzzle wants out of Sunnyglade: lead him west to his treasure at the edge of town and keep the cultists off him.
+  turnin 94961
+  accept 94963                          -- Biting the Hand
+  complete 94963 @41.6,47.7             -- lead Fuzzle out of Sunnyglade to his treasure, west of the town
+  turnin 94963                          -- Fuzzle's Treasure
+
+step Farmer Elbrim
+  tip Back east through the town to Elbrim's farm: the doll and the locket are in the burnt farmhouse beside it.
+  turnin 94829
+  accept 94858                          -- All That's Left
+  collect 266251 quest 94858.1          -- Discarded Doll
+  collect 266252 quest 94858.2          -- Damaged Locket
+  turnin 94858
+
+step The Rog'mar training grounds
+  tip North-east of Elbrim's farm, the Horde drills its trainees in the fields north of Rog'mar. Stay north of the fort: its guards are far above your level. The supply crates lie around the drill grounds. Three elites work this ground: Blademaster Kaijo (42) walks among the trainees, Krek the Noxious (42) lurks at the north end, and Komuk (45), a Horde elite, patrols the hills to the east; give each of them room.
+  tip Careful: Rog'mar Grunts (55) guard the fort's north wall, around 59,39 to 61,41. Leave the crates and trainees by the wall and take the ones further north, around 57-61,34-37.
+  kill 256749 x12 quest 95064.1 @60.8,37.0  -- Rog'mar Trainee
+  collect 274975 x8 quest 95426.1       -- Rog'mar Supply Crate
+
+step Blademaster Kaijo
+  when group 95912
+  tip Blademaster Kaijo, the elite, walks the training grounds.
+  collect 271425 quest 95912.1 @58.3,38.8  -- Blademaster's Banner
+
+step Sleebo's workshop
+  tip South-east, round Rog'mar's east side, to Sleebo Fizzlespout's workshop on the hill. Komuk and the Bolder'ok ogres walk the road east of the fort: let them pass before you cross it.
+  accept 96063                          -- Gaseous Gold
+
+step The tallstriders and the marsh
+  tip The Roving Tallstriders graze the meadows south-west of the workshop; further south-west the marsh bubbles with gas: fill the vials at the vents.
+  collect 271778 quest 95984.1          -- Intact Tallstrider Beak
+  collect 272004 x8 quest 96063.1       -- Marsh Gas Vial
+
+step Terral's Watch
+  tip Watcher Cornelius's tower stands just south-west of the marsh.
+  turnin 95984                          -- Watcher Cornelius
+  turnin 95064
+  turnin 95426
+  accept 95066                          -- The Rog'mar Situation: for Demar Brant in Farholde Keep, keep it
+  accept 96125                          -- In Need of Relief: for Dunston Willis in Bolder'ok, keep it
+
+step Sleebo Fizzlespout
+  tip Back north-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
+  turnin 96063
+  accept 96067                          -- Rock 'em and Sock 'em
+  complete 96067 @68.2,48.6             -- the stress test: beat G45-B4G beside the workshop
+  turnin 96067
+
+step Powderfuse Port
+  tip East down the road to Powderfuse Port, the goblins' harbour. Friz Frazzlespark keeps a stall at the west end of the docks; Gray Dawnbright, Innkeeper Zizplink and Fimbo Greasemitz are at the inn, and Wharfmaster Whizzbuzz works the north pier. Zizplink's drink needs three things the port's traders sell: the chum from Gritta Chumwater, the degreaser and the old poison from Kor'gar and Krikshank, by Friz's stall.
+  turnin 94928                          -- Friz Frazzlespark
+  accept 95288                          -- Smuggler's Paradise
+  accept 95059                          -- Frazzlespark's Crate: for Demar Brant in Farholde Keep, keep it
+  turnin 95961                          -- Gray Dawnbright
+  accept 95988                          -- Innkeeper Zizplink: Goes Down Smooth
+  buy 271657 npc 260487                 -- Fresh Chum, from Gritta Chumwater
+  buy 271653 npc 260565                 -- Goblin Degreaser, from Kor'gar
+  buy 271654 npc 260560                 -- Expired Poison, from Krikshank
+  accept 95121                          -- Fimbo Greasemitz: A Taste of the Sea
+  accept 95254                          -- The WANTED! poster by the inn: Trapclaw
+  accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
+  accept 95119                          -- Unfriendly Competition
+
+step WANTED: Old Rot-Chum
+  when group 95120
+  tip Old Rot-Chum is an elite (level 42) on the south shore: grouping up is advised.
+  accept 95120                          -- The WANTED! poster by the inn
+
+step The murlocs, south-west
+  tip South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts Terrors From the Deep for Argo Brinewhistle at the docks.
+  accept 95260                          -- Painted Hide: Terrors From the Deep
+  collect 268344 x12 quest 95121.1      -- Saltwater Murloc Eye
+  kill 256801 x8 quest 95118.1          -- Murloc Warrior
+  kill 255898 x8 quest 95118.2          -- Murloc Oracle
+
+step Old Rot-Chum
+  when group 95120
+  collect 268341 quest 95120.1 @77.4,72.3  -- Rot-Covered Harpoon
+
+step Back through the port
+  tip Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers.
+  turnin 95118                          -- Wharfmaster Whizzbuzz
+  turnin 95260                          -- Argo Brinewhistle
+  accept 95261                          -- It Takes Guts: the beasts' entrails come as you go; the mushrooms are for later
+
+step The crawlers and Trapclaw
+  tip North along the beach from the docks: the crawlers drop the meat for Fimbo and the spittle for Zizplink, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks. Gul'gash, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away.
+  collect 268345 x6 quest 95121.2       -- Sand Crawler Meat
+  collect 271650 x3 quest 95988.1       -- Crawler Spittle
+  collect 268586 quest 95254.1          -- Trapclaw's Pincer
+
+step The Eastsea pirates
+  tip North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. Gul'gash walks the camp too: keep an eye out for him.
+  kill 257901 x10 quest 95119.1         -- Eastsea Buccaneer
+  kill 257910 x10 quest 95119.2         -- Eastsea Musketeer
+  collect 268796 x8 quest 95288.1       -- Smuggled Goods
+
+step Powderfuse Port
+  tip Back to the port, from the north pier west through the docks.
+  turnin 95119                          -- Wharfmaster Whizzbuzz
+  accept 95122                          -- Unchecked Expansion: for later in this guide
+  accept 95123                          -- A Blast Ye Scurvy Dogs!: for later in this guide
+  turnin 95254                          -- Fimbo Greasemitz
+  turnin 95121
+  turnin 95988                          -- Innkeeper Zizplink
+  accept 95957                          -- Drink Up!
+  turnin 95957                          -- Gray Dawnbright
+  accept 95975                          -- Her World: for later, the wildflowers west of the port
+  turnin 95288                          -- Friz Frazzlespark
+  accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp
+
+step Wharfmaster Whizzbuzz
+  when onquest 95120
+  turnin 95120
+
+# Polestar Experimental, Riverglades for the Alliance, part 3 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: from Powderfuse Port, the Eastsea pirates' second wave (levels 43-45) and Captain Bentcoin's camp; the port;
+# the pirates' ships and Admiral Lamora on the north-eastern cliffs; Argo's mushrooms on the ridge west of them;
+# Dunston Willis in Bolder'ok; south to the port again; the wildflowers west of it; Farholde Keep, where Sunnyglade's
+# and the port's errands are handed in.
+# Offered only after another quest is handed in (players' recordings): Smuggler's Bargain after Smuggler's Special;
+# See Ya, Scallywags! and Admiral Lamora after the second wave's first two; The Monster Surfaces after It Takes Guts;
+# Dunston Checks Out after In Need of Relief; The Western Front and A Small Favor after Ashe Amberhall's two
+# Sunnyglade quests; Out in the Field after Saving Sunnyglade; Saving Marshal Ryan after Field Marshal's Log;
+# Brother Lowley's next jobs after Wound Dressings.
+# Left out on purpose:
+# - Shipping and Handling (95296) and I Know a Guy (95295): Friz's errands end in Tanaris and Booty Bay, and the
+#   second one sends you back here.
+# - From Port to Port (95219): Friz's cask goes to Feathermoon Stronghold in Feralas; only players of level 43 or
+#   more go on to Feralas from here, and the Feralas guide doesn't hand it in.
+
+step Beast Entrails as you go
+  along until argo
+  background
+  tip Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.
+  tip Careful: Old Rot-Chum (elite, 42), Komuk (a Horde elite, 45) and Ghostmaw (elite, 42) range over the zone's wilds: take your beasts away from them.
+  collect 268632 x15 quest 95261.1      -- Beast Entrails
+
+step The pirates' second wave
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are a couple of levels above you: pull them one at a time. Gul'gash, a rare elite of level 49, roams these cliffs and the beach below: if you see him, keep well away.
+  kill 257915 x8 quest 95122.1          -- Eastsea Raider
+  kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
+  collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg
+
+step Captain Bentcoin
+  tip East along the cliffs to the far end of the pirates' camp: Captain Bentcoin waits by the water, Captain Haynes beside him.
+  turnin 95293                          -- Captain Bentcoin
+  accept 95294                          -- Captain Haynes: Smuggler's Bargain
+
+step Powderfuse Port
+  tip Back to the port.
+  turnin 95122                          -- Wharfmaster Whizzbuzz
+  turnin 95123
+  accept 95165                          -- See Ya, Scallywags!
+  accept 95124                          -- Admiral Lamora
+  turnin 95294                          -- Friz Frazzlespark
+
+step The pirates' ships
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
+  kill 257861 quest 95124.1             -- Admiral Lamora
+  collect 268506 quest 95124.2          -- Lamora's Loot
+  use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
+  use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
+
+step Rotflesh Mushrooms
+  tip West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.
+  collect 268664 x8 quest 95261.2       -- Rotflesh Mushroom
+
+step Bolder'ok
+  tip North-west to Bolder'ok, the ogres' town. Its ogres side with the Horde and attack you on sight, and Clugfist on his hill in the middle is an elite (level 50): keep to the town's north-eastern edge, where Dunston Willis hides.
+  turnin 96125                          -- Dunston Willis
+  accept 96126                          -- An Ogre's Captive
+
+step Gronok's Key
+  tip Gronok the Butcher (level 44) carries the key: he paces the lanes south of Dunston's hut.
+  tip The Bloodmaster's Ring lies just west of the lanes: its fighters (elites, 41-45) only fight in a bout, so leave them be.
+  collect 272190 quest 96126.1          -- Gronok's Key
+
+step Dunston Willis
+  tip Free him, then get him out: Dunston fights his way out of Bolder'ok, and you keep the ogres off him. If he falls, take the quest from him again.
+  turnin 96126
+  accept 94927                          -- Dunston Checks Out
+  complete 94927 @68.7,12.6             -- help Dunston break out of Bolder'ok
+
+step Finish the Beast Entrails
+  when !has 268632 x15
+  tip South-east out of the hills towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. Gul'gash wanders down to this beach too.
+  collect 268632 x15 quest 95261.1 @78.7,49.8  -- Beast Entrails
+
+step Powderfuse Port
+  label argo
+  tip Down to the port.
+  turnin 95165                          -- Wharfmaster Whizzbuzz
+  turnin 95124
+  turnin 95261                          -- Argo Brinewhistle
+  accept 95267 optional                 -- The Monster Surfaces: a big beast in the shallows south-west of the port, near Old Rot-Chum, the elite
+
+step The Monster Surfaces
+  when onquest 95267
+  tip The Monstrous Threshadon prowls the shallows south-west of the port, below the murlocs' beaches. Old Rot-Chum, an elite, walks the shore close by: give him room.
+  collect 268633 quest 95267.1          -- Sea Monster's Head
+
+step Argo Brinewhistle
+  when onquest 95267
+  turnin 95267
+
+step The meadows
+  tip West of the port, the wildflowers grow in the meadows below Sleebo's workshop.
+  collect 271823 x20 quest 95975.1      -- Wildflower
+
+step Farholde Keep
+  tip South-west across the plains to Farholde Keep. Ashe Amberhall and Demar Brant stand together in the keep at the east end: Ashe first, her news is what Brant's next orders wait on.
+  turnin 94881                          -- Ashe Amberhall
+  turnin 94879
+  accept 94907                          -- A Small Favor: for later in this guide
+  turnin 95059                          -- Demar Brant
+  turnin 94877
+  turnin 95066
+  accept 95329                          -- Out in the Field: for Watcher Cornelius at Terral's Watch
+  accept 94886                          -- The Western Front: for later in this guide
+
+step Demar Brant
+  when onquest 94885
+  turnin 94885
+  accept 94887                          -- Saving Marshal Ryan: for later in this guide
+
+step Ashe Amberhall
+  when onquest 94884
+  turnin 94884
+
+step Ember Bladewhisper
+  when onquest 95912
+  turnin 95912
+
+step Brother Lowley
+  when onquest 96081
+  tip Brother Lowley tends the wounded beside the barracks: bandage three of his soldiers, then he has a note for Sister Rowland in the cathedral.
+  collect 4338 x20 anywhere             -- Mageweave Cloth
+  turnin 96081
+  accept 96082                          -- Doctor's Orderly
+  use 272126 quest 96082.1 @65.5,79.3   -- Makeshift Bandages, on the Wounded Soldiers beside him
+  turnin 96082
+  accept 96083                          -- Clerical Quarantine
+
+step Farholde Keep, the west side
+  tip West through the keep: Tessa Dawnbright by the orchard, then the cathedral and Wheatley south of the inn if you have their errands.
+  turnin 95975                          -- Tessa Dawnbright
+
+step Sister Rowland
+  when onquest 96083
+  turnin 96083
+  accept 96084                          -- Something's in the Water: for later in this guide
+
+step Wheatley
+  when onquest 95991
+  turnin 95991
+
+# Polestar Experimental, Riverglades for the Alliance, part 4 of 4 (2026-11-12). Hand-written from players'
+# recordings of the zone and Forever's quest data for titles, levels, objectives and places.
+# Order: Farholde Keep's errands for the west; Terral's Watch (with Sister Rowland's phial on the way for players who
+# took Brother Lowley's jobs); Turner's Logging Camp; Gelinda Coppergleam's Cinderscale hollow south-west of Southern
+# Watch (levels 39-42); Sergeant Riftan's camp below Twilight's Shroud and the Twilight cult's camps and ogre mine
+# (levels 41-44); the hearth to Farholde Keep; Stormwind for Marshal Ryan's crest; Menethil Harbor and the boat to
+# Theramore, where the Feralas guide (43-45) starts; below level 43, the Stranglethorn Vale guide (40-43) from
+# Theramore instead.
+# Class trainers: none in the Riverglades. Whoever passes through Stormwind trains there; a player going on to
+# Feralas (level 43 or more) flies there to train in any case, as the Feralas guide passes no trainer (shamans train
+# in Ironforge); the Stranglethorn Vale guide has its own Stormwind and Ironforge stops.
+# Offered only after another quest is handed in (players' recordings): High Stakes after Foreman's Plight;
+# Bring Me His Head after Sergeant Riftan's first three; News to Farholde after Bring Me His Head; Dying Wish after
+# Saving Marshal Ryan; Delivering Closure after Dying Wish; The Twilight Threat after News to Farholde.
+# Elites, each behind a group choice: Overlord Kilgar (46).
+# The Twilight camps hold elites the route never asks for: Twilight Enforcers (45) on patrol, Executioner Morg and
+# Overlord Kilgar (46) in the fortress, the Twilight Forgemaster (46, rare).
+# Left out on purpose:
+# - Upstream Contamination (96085): Krek the Noxious is an elite (42) far north, by the training grounds.
+# - Hail the Dragonslayer (95935): it starts from the head of Scaldaron, a rare elite drake in the Cinderscale
+#   hollow.
+# - Twilight Mementos (94983), Lingering Essence (94997), Curios of Curiosity (94998), Tome of Twilight (94984), Eye
+#   of Mugg (94982) and Krol'dok Moulding (94980): their items come from the Krol'dok Stronghold dungeon.
+
+step Farholde Keep
+  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip Before you head west: Bertrand Ironbrow and Cassandra Wheeler, by the inn, both have work at Turner's Logging Camp.
+  accept 96009                          -- Bertrand Ironbrow: High Stakes
+  accept 95330                          -- Cassandra Wheeler: Love Thy Neighbor
+
+step Something's in the Water
+  when onquest 96084
+  tip North past Terral's Watch: fill Sister Rowland's phial in the marsh water north-east of the tower.
+  use 281229 quest 96084.1 @62.0,56.2   -- Empty Phial
+
+step Terral's Watch
+  tip Watcher Cornelius's tower.
+  turnin 94927                          -- Watcher Cornelius: Dunston Checks Out
+  turnin 95329                          -- Out in the Field
+
+step Turner's Logging Camp
+  tip West across the river to Turner's Logging Camp: the Peasant Woodpiles around the camp give the wood bundles.
+  tip Careful: Ghostmaw, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass.
+  turnin 95330                          -- Halligan Turner
+  collect 271877 x10 quest 96009.1      -- Wood Bundle
+
+step Gelinda Coppergleam
+  tip South-west past Southern Watch: Gelinda Coppergleam, a prospector, has camped by the Cinderscale dragonkin's hollow.
+  accept 95792                          -- Clear 'em Out
+  accept 95934                          -- Proof of Profit
+
+step The Cinderscale hollow
+  tip The whelps nest all over the hollow; the warriors (level 41-42) guard its back, by the Cubic Draconia. Scaldaron, a rare elite drake, can be up here too: leave him be unless you have a group.
+  kill 262473 x8 quest 95792.1 @30.0,72.2  -- Cinderscale Whelp
+  kill 262477 x4 quest 95792.2 @29.6,73.1  -- Cinderscale Warrior
+  collect 271611 quest 95934.1          -- Cubic Draconia
+
+step Gelinda Coppergleam
+  turnin 95792
+  turnin 95934
+
+step Sergeant Riftan
+  tip North up the long valley towards Twilight's Shroud: Sergeant Riftan holds a small camp below the Twilight cult's fortress.
+  turnin 94886                          -- Sergeant Riftan
+  accept 94888                          -- No Soldier Left Behind
+  accept 94889                          -- Carving a Path
+  accept 96015                          -- A Miner Problem
+
+step The Twilight camps
+  tip The cult's camps fill the valley north and west of Riftan. Free the captive Farholde Scouts as you find them, and kill a Twilight Thrall for Ashe: her soulstone takes it. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them.
+  kill 256795 x8 quest 94889.1          -- Twilight Fanatic
+  kill 256797 x8 quest 94889.2          -- Twilight Corrupter
+  kill 256799 x8 quest 94889.3          -- Twilight Champion
+  complete 94888 @27.7,41.5             -- free five captive Farholde Scouts
+  complete 94907 @26.6,47.8             -- kill a Twilight Thrall
+
+step Marshal Ryan
+  when onquest 94887
+  tip Marshal Ryan lies wounded among the camps at the valley's western edge.
+  tip Careful: Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress north of him: come at Ryan from the south.
+  complete 94887 @26.2,40.8             -- find Marshal Ryan and talk to him
+  turnin 94887
+  accept 94892                          -- Dying Wish: for Demar Brant in Farholde Keep
+
+step The ogre mine
+  tip North of the camps the cult works ogre miners in a mine, driven by the Twilight Subjugators.
+  tip Careful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in, and pull the miners and Subjugators back out to you.
+  kill 260995 x5 quest 96015.1          -- Ogre Miner
+  kill 260996 x5 quest 96015.2          -- Twilight Subjugator
+
+step Sergeant Riftan
+  turnin 94888
+  turnin 94889
+  turnin 96015
+
+step Bring Me His Head
+  when group 94890
+  tip Overlord Kilgar is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised.
+  accept 94890                          -- Sergeant Riftan
+  collect 265837 quest 94890.1 @26.7,44.9  -- Kilgar's Head
+  turnin 94890
+  accept 94891                          -- News to Farholde: for Ashe Amberhall
+
+step Hearth to Farholde Keep
+  hearth "Farholde Keep"
+
+step Farholde Keep
+  tip From the inn: Bertrand Ironbrow on the way in, then Demar Brant and Ashe Amberhall in the keep.
+  turnin 96009                          -- Bertrand Ironbrow
+  turnin 94907                          -- Ashe Amberhall
+
+step Ashe Amberhall
+  when onquest 94891
+  turnin 94891
+
+step Demar Brant
+  when onquest 94892
+  turnin 94892
+  accept 94893                          -- Delivering Closure: for Abigail Lawson in Stormwind
+
+step The Twilight Threat
+  when turnedin 94891
+  accept 94894                          -- Demar Brant: Kilgar's head for Highlord Bolvar Fordragon in Stormwind Keep
+
+step Sister Rowland
+  when onquest 96084
+  tip Sister Rowland, in the cathedral at the keep's south-west corner.
+  turnin 96084
+
+step Stormwind
+  when onquest 94893
+  tip Gretchen Mayberry flies to Stormwind. Abigail Lawson waits in the Cathedral Square.
+  fly "Stormwind"
+  zone Stormwind City
+  turnin 94893                          -- Abigail Lawson
+
+step Stormwind Keep
+  when onquest 94894
+  zone Stormwind City
+  turnin 94894                          -- Highlord Bolvar Fordragon
+
+step Quests for Stranglethorn Vale and the Badlands
+  when level>=43
+  tip From level 43 the route goes on to Feralas and leaves out the Stranglethorn Vale and the Badlands & Hinterlands guides, where these quests are handed in: drop them, so your quest log has room for Feralas.
+  abandon 1718                          -- The Islander
+  abandon 205                           -- Troll Witchery
+  abandon 196                           -- Raptor Mastery
+  abandon 600                           -- Venture Company Mining
+  abandon 606                           -- Scaring Shaky
+  abandon 1260                          -- Morgan Stern
+  abandon 669                           -- Sunken Treasure
+  abandon 603                           -- Ansirem's Key
+  abandon 705                           -- Pearl Diving
+  abandon 739                           -- Murdaloc
+
+step Train before Feralas
+  only !Shaman
+  when level>=43
+  when !zone "Stormwind City"
+  tip No class trainer stands in the Riverglades, and the Feralas guide passes none: Gretchen Mayberry flies to Stormwind, where you train before you go on.
+  fly "Stormwind"
+  zone Stormwind City
+
+step Your class trainer
+  only !Shaman
+  when zone "Stormwind City"
+  tip No class trainer stands in the Riverglades: train here in Stormwind before you fly on.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  note Level 40 with 100 gold? Your race's riding trainer teaches riding: Collectibles, Mounts · Level 40 has a guide for each race's mounts.
+
+step Shaman trainer
+  only Shaman
+  when level>=43
+  tip No shaman trainer stands in the Riverglades or in Stormwind, and the Feralas guide passes none: fly to Ironforge and train there on your way to Menethil Harbor.
+  fly "Ironforge"
+  zone Ironforge
+  train class only Shaman
+  note Level 40 with 100 gold? Your race's riding trainer teaches riding: Collectibles, Mounts · Level 40 has a guide for each race's mounts.
+
+step Leave Stormwind
+  when zone "Stormwind City"
+  zone Stormwind City
+  tip The next guide starts in Theramore: fly to Menethil Harbor in the Wetlands and take the boat across from there. Stormwind's gryphon master stands in the Trade District.
+  goto 66.3,62.7 "Stormwind flight master"
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Fly to Menethil Harbor
+  when !zone "Wetlands"
+  tip The next guide starts in Theramore: fly to Menethil Harbor in the Wetlands and take the boat across from there.
+  fly "Menethil Harbor"
+  zone Wetlands
+
+step Boat to Theramore
+  zone Wetlands
+  goto 5.13,63.61 "Boat to Theramore"

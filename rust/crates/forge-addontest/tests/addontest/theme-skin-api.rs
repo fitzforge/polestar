@@ -487,7 +487,8 @@ fn a_skin_preset_is_checked_against_the_settings_applied_only_on_request_and_und
 }
 
 // A light scheme (dark text on parchment): the guard lifts its grounds instead of darkening them, at registration
-// and live, so a negative brightness or a dark ground colour can never send a light palette's grounds to black.
+// and live, so a negative brightness or a dark ground colour can never send a light palette's grounds to black. The
+// experimental guides' chip, a token it does not give, takes its dungeon violet (the house's orchid stays on dusk).
 #[test]
 fn a_light_scheme_is_lifted_not_darkened_so_brightness_or_a_dark_ground_never_sends_it_to_black() {
 	let out = run(r##"
@@ -503,7 +504,8 @@ fn a_light_scheme_is_lifted_not_darkened_so_brightness_or_a_dark_ground_never_se
 		local function L(c) return T.Luminance(c[1], c[2], c[3]) end
 		local function state()
 			local pal = T.Palette()
-			return { light = L(pal.bg) > L(pal.text), legible = T.Legibility(pal) >= 1, bg = L(pal.bg), bgHex = hexOf(pal.bg) }
+			return { light = L(pal.bg) > L(pal.text), legible = T.Legibility(pal) >= 1, bg = L(pal.bg), bgHex = hexOf(pal.bg),
+				expIsDungeon = hexOf(pal.experimental) == hexOf(pal.dungeon) }
 		end
 		Polestar.Set("ui.scheme", "parchment")
 		out.plain = state()
@@ -523,12 +525,14 @@ fn a_light_scheme_is_lifted_not_darkened_so_brightness_or_a_dark_ground_never_se
 		Polestar.Set("ui.scheme", "dusk")
 		Polestar.Set("ui.brightness", 1)
 		out.duskBright = { T.Legibility(T.Palette()) >= 1, L(T.Palette().bg) < L(T.Palette().text) }
+		out.duskExp = hexOf(T.Palette().experimental) ~= hexOf(T.Palette().dungeon)
 		emit(out)"##);
 	assert_eq!(out["reg"], json!([true]), "legible as given: no note");
 	assert_eq!(out["plain"]["bgHex"], "f2e8d0");
 	for k in ["plain", "dimmed", "dark"] {
 		assert_eq!(out[k]["light"], true, "{k}: {}", out[k]);
 		assert_eq!(out[k]["legible"], true, "{k}: {}", out[k]);
+		assert_eq!(out[k]["expIsDungeon"], true, "{k}: the experimental chip falls back on dungeon: {}", out[k]);
 		assert!(out[k]["bg"].as_f64().unwrap() > 0.4, "{k}: grounds kept light: {}", out[k]);
 	}
 	assert_eq!(out["dusty"][0], true);
@@ -536,6 +540,7 @@ fn a_light_scheme_is_lifted_not_darkened_so_brightness_or_a_dark_ground_never_se
 	assert!(note.contains("lightened"), "{note}");
 	assert_eq!(out["dusty"][2], true, "the stored grounds are lighter");
 	assert_eq!(out["duskBright"], json!([true, true]));
+	assert_eq!(out["duskExp"], true, "dusk keeps the experimental orchid");
 }
 
 // The example skin never ships (Polestar's own skin addons may: they are not the example), and the install check

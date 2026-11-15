@@ -108,17 +108,22 @@ function whenOk(when, level, walk = null, dungeons = '', dungeonQuests = 'all') 
 
 // A chain played as the addon hands over at each guide's end: the guide's `next` choices (nextChoices, the first the
 // default) whose `nextWhen` holds at the walk's level, and of those the first one a wanted route choice names (`route`:
-// substrings of guide ids: "riverglades", "shendralas", "hyjal"), else the first.
+// substrings of guide ids: "riverglades", "shendralas", "hyjal"), else the first. With `side` ({ guides, faction }) a
+// choice that is another faction's guide is passed over, as the addon goes on by the character's faction (a guide for
+// both, such as Shen'dralas, names each side's way back).
 class Router {
-	constructor(start, route = [], dungeons = '', dungeonQuests = 'all') {
+	constructor(start, route = [], dungeons = '', dungeonQuests = 'all', side = null) {
 		this.start = start;
 		this.route = route;
 		this.dungeons = dungeons;
 		this.dungeonQuests = dungeonQuests;
+		this.side = side;
 	}
 
 	nextOf(g, level) {
-		const choices = (truthy(g.nextChoices) ? list(g.nextChoices) : [g.next]).filter(Boolean);
+		const s = this.side;
+		const ours = (c) => !s || !s.guides.has(c) || !s.guides.get(c).faction || s.guides.get(c).faction === s.faction;
+		const choices = (truthy(g.nextChoices) ? list(g.nextChoices) : [g.next]).filter((c) => c && ours(c));
 		const nw = g.nextWhen || {};
 		const ok0 = choices.filter((c) => whenOk(nw[c], level, null, this.dungeons, this.dungeonQuests));
 		const ok = ok0.length ? ok0 : choices;
@@ -604,7 +609,8 @@ class Walk {
 				this.itemN.set(src, Math.max(this.itemN.get(src), 1));
 			}
 		}
-		if (tt === 'turnin' && q != null && !this.turninAt.has(q)) this.turninAt.set(q, e.i);
+		// An `abandon` takes the quest out of the log as a hand-in does (no experience): the chain's end with it.
+		if ((tt === 'turnin' || tt === 'abandon') && q != null && !this.turninAt.has(q)) this.turninAt.set(q, e.i);
 		if (OBJ_TYPES.has(tt) && q != null) {
 			this.objLast.set(q, e);
 			this.played.add(okeyOf(go));

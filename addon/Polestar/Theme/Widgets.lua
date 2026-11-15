@@ -975,7 +975,8 @@ W.Capsule, W.Pill = capsule, capsule
 
 -- A small labelled capsule: level ranges, races, states. kind: "neutral" |
 -- "accent" | "success" | "warning" (the release stage) | "dungeon" (group
--- content).
+-- content) | "experimental" (one of Polestar's experimental guides: its own
+-- purple, the `experimental` token of every look).
 W.CHIP_H = 20
 function W.Chip(parent)
 	local c = CreateFrame("Frame", nil, parent)
@@ -996,7 +997,7 @@ function W.SetChip(c, text, kind)
 		local r, g, b = Theme.Accent()
 		c.Bg:SetColor(r, g, b, 0.16)
 		W.Color(c.Text, "accent")
-	elseif kind == "success" or kind == "warning" or kind == "dungeon" then
+	elseif kind == "success" or kind == "warning" or kind == "dungeon" or kind == "experimental" then
 		local r, g, b = Theme.Color(kind)
 		c.Bg:SetColor(r, g, b, 0.14)
 		W.Color(c.Text, kind)
