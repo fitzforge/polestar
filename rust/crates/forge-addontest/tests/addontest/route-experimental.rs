@@ -551,22 +551,10 @@ fn the_real_route_compiled_with_the_offers_and_without_them_has_the_same_default
 			}
 		}
 	}
-	assert_eq!(offered.len(), 5, "the five offers: {offered:?}");
+	assert_eq!(offered.len(), 2, "the two offers: {offered:?}");
 	for (race, faction, offers) in [
-		(
-			"Orc",
-			"Horde",
-			json!(["forever/horde/30-40/06-badlands -> polestar-experimental/riverglades-horde-1", "forever/horde/40-50/02-feralas -> polestar-experimental/shendralas"]),
-		),
-		(
-			"Human",
-			"Alliance",
-			json!([
-				"forever/alliance/30-40/06-badlands -> polestar-experimental/riverglades-alliance-1",
-				"forever/alliance/40-50/02-badlands -> polestar-experimental/shendralas",
-				"forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"
-			]),
-		),
+		("Orc", "Horde", json!(["forever/horde/30-40/06-badlands -> polestar-experimental/riverglades-horde-1"])),
+		("Human", "Alliance", json!(["forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"])),
 	] {
 		let (a, b) = (route_of(&with, race, faction), route_of(&without, race, faction));
 		assert!(a["route"].as_object().unwrap().len() > 20, "{race}: the guides are in");

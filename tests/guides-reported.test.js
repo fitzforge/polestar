@@ -7373,7 +7373,7 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding t
 	const jartsam = stepOf('Jartsam', train(4753));
 	assert.ok(jartsam < stepOf('turnin 1477', is('turnin', 1477)), 'Night Elves ride from the first Stormwind stop, before Darkshire');
 	assert.ok(jartsam > stepOf('turnin 1271', is('turnin', 1271)), 'after the Stormwind stop');
-	for (const npc of [4772, 7954]) assert.ok(stepOf(`riding trainer ${npc}`, train(npc)) < stepOf('turnin 733', is('turnin', 733)), `riding ${npc} before the Badlands`);
+	for (const npc of [4772, 7954]) assert.ok(list.some(({ goal }) => train(npc)(goal)), `riding ${npc} on this guide, before the Riverglades and the Badlands`);
 	const last = stepOf('turnin 600', is('turnin', 600));
 	const sw = list.find(({ goal, s }) => s > last && goal.t === 'fly' && /Stormwind/.test(goal.location || ''));
 	const gotoBefore = list.filter(({ s, goal }) => s === sw.s && goal.t === 'goto')[0];
@@ -7986,13 +7986,17 @@ const HORDE_VOLUME = {
 	'forever/horde/50-60/06-silithus.guide': [5234, 5235, 5236, 5238], // the Bulwark cauldrons to Mission Accomplished!
 };
 
-// The guide and every guide its `next` leads to, in order.
+// The guide and every guide its `next` leads to, in order. A guide for both factions (forever/40-50/shendralas) goes
+// on to the start's faction's next guide, as the addon does.
 function chainFrom(guide) {
+	const side = (guide.match(/^forever\/(alliance|horde)\//) || [])[1];
 	const out = [];
 	for (let g = guide; g && !out.includes(g); ) {
 		out.push(g);
-		const next = compiled(g).next;
-		g = next ? `${String(Array.isArray(next) ? next[0] : next).replace(/\.guide$/, '')}.guide` : null;
+		const c = compiled(g);
+		const opts = [c.next, ...(c.nextChoices || [])].flat().filter(Boolean).map(String);
+		const next = opts.find((id) => !side || !/^forever\/(alliance|horde)\//.test(id) || id.startsWith(`forever/${side}/`));
+		g = next ? `${next.replace(/\.guide$/, '')}.guide` : null;
 		if (g && !fs.existsSync(path.join(OFFICIAL_DIR, g))) break;
 	}
 	return out;
@@ -9423,8 +9427,9 @@ test('alliance 40-60: final review: travel tips, notes and titles match where th
 	assert.doesNotMatch(supplies.goal.note || '', /Nethergarde/, 'so it is not "for Nethergarde Keep"');
 	const roetten = stv[at(stv, 'turnin 1467', is('turnin', 1467))];
 	assert.doesNotMatch(roetten.step.note || '', /Tram|next guide/, 'the Ironforge stop starts in Ironforge');
-	const sigrun = stv[at(stv, 'turnin 733', is('turnin', 733))];
-	assert.equal(sigrun.s, stv[at(stv, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
+	const badlands = goals('forever/alliance/40-50/02-badlands.guide');
+	const sigrun = badlands[at(badlands, 'turnin 733', is('turnin', 733))];
+	assert.equal(sigrun.s, badlands[at(badlands, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
 	assert.match(sigrun.step.note || '', /Badlands/, 'with the way in');
 	const feralas = goals('forever/alliance/40-50/03-feralas.guide');
 	const last = feralas[at(feralas, 'turnin 4281', is('turnin', 4281))];
@@ -12395,7 +12400,7 @@ test("jaff's report: a quest the route takes is handed in by a goal that holds",
 		assert.ok(t && !t.goal.optional, `${guide}: turnin ${q} is a goal that holds`);
 		assert.ok(!(t.step.when || []).some((p) => p.k === 'group' || (p.k === 'onquest' && !p.neg && ![p.q].flat().includes(q))), `${guide}: turnin ${q} is not behind another quest's or a group's condition`);
 	}
-	const stv = goals(A('40-50/01-stranglethorn-vale')).find(({ goal }) => is('accept', 706)(goal));
+	const stv = goals(A('40-50/02-badlands')).find(({ goal }) => is('accept', 706)(goal));
 	assert.ok(stv && stv.goal.optional, 'accept 706 (Fiery Blaze Enchantments, a rare drop) is optional');
 	for (const file of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
 		const list = goals(file);
@@ -12566,10 +12571,12 @@ test("mylons's report (#1893): the Cozzle's Footlocker step waits until Goblin S
 	assert.ok(onQuest.some((v) => /^collect 5852 /.test(v) && !/ (na|skipped)$/.test(v)), `with 1182, the blueprints: ${onQuest.join(', ')}`);
 });
 
-// Polestar Experimental's Riverglades guides (experimental/guides): two facts from players' recordings the route
-// stands on, read from the guide text so they hold without reference data.
+// The Riverglades guides (Polestar Experimental's in experimental/guides; the Alliance one is in the route since 0.4.0,
+// guides/forever/alliance/40-50/01b-riverglades): facts from players' recordings the route stands on, read from the
+// guide text so they hold without reference data.
 const RIVERGLADES = path.join(__dirname, '..', 'experimental', 'guides');
-const riverglades = () => fs.readdirSync(RIVERGLADES).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort();
+const RG_ALLIANCE = path.join(__dirname, '..', 'guides', 'forever', 'alliance', '40-50', '01b-riverglades.guide');
+const riverglades = () => [...fs.readdirSync(RIVERGLADES).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort().map((f) => path.join(RIVERGLADES, f)), RG_ALLIANCE];
 const codeOf = (line) => line.split('--')[0];
 
 // Hurley (Helping Hands), the lost horse (Rescue Roundup), Fuzzle (Biting the Hand), Dunston Willis (Dunston
@@ -12579,14 +12586,14 @@ test('Riverglades (experimental): an escort is taken and walked in one step, so 
 	const ESCORTS = [94861, 94992, 94963, 94927, 94556];
 	const seen = new Set();
 	for (const f of riverglades()) {
-		for (const step of fs.readFileSync(path.join(RIVERGLADES, f), 'utf8').split(/\n(?=step\b)/)) {
+		for (const step of fs.readFileSync(f, 'utf8').split(/\n(?=step\b)/)) {
 			const lines = step.split('\n').map(codeOf);
 			for (const q of ESCORTS) {
 				const taken = lines.findIndex((l) => new RegExp(`^\\s+accept ${q}\\b`).test(l));
 				if (taken < 0) continue;
 				seen.add(q);
 				const walked = lines.findIndex((l) => new RegExp(`^\\s+complete ${q}\\b`).test(l));
-				assert.ok(walked > taken, `${f}: ${lines[0]}: escort ${q} is walked in the step that takes it`);
+				assert.ok(walked > taken, `${path.basename(f)}: ${lines[0]}: escort ${q} is walked in the step that takes it`);
 			}
 		}
 	}
@@ -12595,8 +12602,8 @@ test('Riverglades (experimental): an escort is taken and walked in one step, so 
 
 // Demar Brant offers The Western Front, and Ashe Amberhall A Small Favor, only once Curious Trinkets and Scraps of
 // Knowledge are handed in (players' offer windows): in the keep, Ashe's hand-ins come first.
-test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come before The Western Front and A Small Favor", () => {
-	const lines = fs.readFileSync(path.join(RIVERGLADES, 'riverglades-alliance-1.guide'), 'utf8').split('\n').map(codeOf);
+test("Riverglades: Ashe Amberhall's Sunnyglade hand-ins come before The Western Front and A Small Favor", () => {
+	const lines = fs.readFileSync(RG_ALLIANCE, 'utf8').split('\n').map(codeOf);
 	const first = (verb, q) => lines.findIndex((l) => new RegExp(`^\\s+${verb} ${q}\\b`).test(l));
 	for (const q of [94886, 94907]) {
 		assert.ok(first('accept', q) >= 0, `${q} is taken`);
@@ -12607,13 +12614,13 @@ test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come befo
 });
 
 // A guide's steps as lists of code lines (comments cut).
-const rivergladesSteps = (file) => fs.readFileSync(path.join(RIVERGLADES, file), 'utf8').split(/\n(?=step\b)/).map((s) => s.split('\n').map(codeOf));
+const rivergladesSteps = (file) => fs.readFileSync(path.isAbsolute(file) ? file : path.join(RIVERGLADES, file), 'utf8').split(/\n(?=step\b)/).map((s) => s.split('\n').map(codeOf));
 const anyLine = (lines, re) => lines.some((l) => re.test(l));
 
 // Benjy Wheeler offers Freshwater Fiends before My Kingdom for a Horse (players' offer windows), and its Mudfin murlocs
 // drop Halligan Turner's murloc heads: one sweep along the river does both, instead of a second murloc hunt later.
-test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's murloc heads are one sweep", () => {
-	const steps = rivergladesSteps('riverglades-alliance-1.guide');
+test("Riverglades: Benjy Wheeler's murlocs and Halligan Turner's murloc heads are one sweep", () => {
+	const steps = rivergladesSteps(RG_ALLIANCE);
 	const sweep = steps.findIndex((lines) => anyLine(lines, /^\s+collect 267266\b/));
 	assert.ok(sweep >= 0, 'the murloc heads are collected');
 	for (const npc of [258574, 258573]) {
@@ -12623,15 +12630,40 @@ test("Riverglades (experimental): Benjy Wheeler's murlocs and Halligan Turner's 
 	assert.ok(taken >= 0 && taken < sweep, 'Freshwater Fiends is taken before the sweep');
 });
 
-// No class trainer stands in the Riverglades, and the Feralas guide passes none: an Alliance player who goes on to
-// Feralas (level 43 or more) trains at the end of the Riverglades guide whatever quests they carry, shamans in
-// Ironforge (Stormwind has none).
-test('Riverglades (experimental): an Alliance player going on to Feralas trains at the end of the Riverglades guide', () => {
-	const steps = rivergladesSteps('riverglades-alliance-1.guide');
-	const questGated = (lines) => anyLine(lines, /^\s+when !?(onquest|complete|turnedin|available)\b/);
-	assert.ok(steps.some((l) => anyLine(l, /^\s+when level>=43\b/) && anyLine(l, /^\s+fly "Stormwind"/) && !questGated(l)), 'players of 43 or more fly to Stormwind');
+// No class trainer stands in the Riverglades, and the Badlands & Hinterlands guide passes none: the Alliance trains in
+// Stormwind at the end of the Riverglades guide whatever quests they carry, shamans in Ironforge (Stormwind has none),
+// then flies to Thelsamar for the Badlands.
+test('Riverglades: the Alliance trains at the end of the Riverglades guide and flies on to Thelsamar', () => {
+	const steps = rivergladesSteps(RG_ALLIANCE);
+	const questGated = (lines) => anyLine(lines, /^\s+when !?(onquest|complete|turnedin|available|level)\b/);
+	assert.ok(steps.some((l) => anyLine(l, /^\s+fly "Stormwind"/) && anyLine(l, /^\s+only !Shaman\b/) && !questGated(l)), 'everyone but shamans flies to Stormwind');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only .*\bWarrior\b/) && !questGated(l)), 'the class trainer step');
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
+	assert.ok(anyLine(steps[steps.length - 1], /^\s+fly "Thelsamar"/), 'the guide ends with the flight to Thelsamar');
+	assert.ok(!steps.some((l) => anyLine(l, /^\s+abandon\b/)), 'nothing carried in is dropped: the Stranglethorn and Badlands quests are handed in on the route');
+});
+
+// The new zones are part of the Alliance route instead of being offered beside it. The Riverglades come
+// after Stranglethorn Vale (about 42.7 by the level model, the level of their port and Western Front; 1,160 -> ~300
+// minutes of grinding in 40-50), Shen'dralas after the Badlands & Hinterlands, then Feralas; no Choose-your-path card
+// for either. Shen'dralas players come into Feralas from Desolace, so the Feralas guide's Barrens/Thalanaar opening is
+// theirs to skip and Thalanaar's flight path is picked up at the end.
+test('Alliance route: Stranglethorn -> Riverglades -> Badlands & Hinterlands -> Shen\'dralas -> Feralas, no cards for them', () => {
+	const G = path.join(__dirname, '..', 'guides', 'forever');
+	const head = (rel) => fs.readFileSync(path.join(G, rel), 'utf8').split('\n# ')[0];
+	const nexts = (rel) => head(rel).split('\n').filter((l) => l.startsWith('next ')).map((l) => l.slice(5).trim());
+	assert.deepEqual(nexts('alliance/30-40/06-badlands.guide'), ['forever/alliance/30-40/06b-desolace']);
+	assert.deepEqual(nexts('alliance/40-50/01-stranglethorn-vale.guide'), ['forever/alliance/40-50/01b-riverglades']);
+	assert.deepEqual(nexts('alliance/40-50/01b-riverglades.guide'), ['forever/alliance/40-50/02-badlands']);
+	assert.deepEqual(nexts('alliance/40-50/02-badlands.guide'), ['forever/40-50/shendralas']);
+	assert.ok(nexts('40-50/shendralas.guide').includes('forever/alliance/40-50/03-feralas'));
+	const retired = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'guides', 'retired.json'), 'utf8'));
+	for (const id of ['polestar-experimental/riverglades-alliance-1', 'polestar-experimental/shendralas']) assert.ok(retired.includes(id), `${id}: a saved tab opens its successor`);
+	const feralas = fs.readFileSync(path.join(G, 'alliance/40-50/03-feralas.guide'), 'utf8').split(/\n(?=step\b)/);
+	for (const title of ['Into The Barrens', 'Thalanaar flight master']) {
+		assert.ok(feralas.find((s) => s.startsWith(`step ${title}\n`)).includes('\n  when !turnedin 93394\n'), `${title}: not for a player coming from Shen'dralas`);
+	}
+	assert.ok(feralas.some((s) => s.includes('\n  when !taxi "Thalanaar"\n') && s.includes('getfp "Thalanaar"')), 'Thalanaar\'s flight path for those who have not learnt it');
 });
 
 // The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers the Riverglades: a character

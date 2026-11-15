@@ -4,13 +4,29 @@ title Badlands & The Hinterlands
 faction Alliance
 levels 43-43
 zone Badlands
-next forever/alliance/40-50/03-feralas
-next polestar-experimental/shendralas
+next forever/40-50/shendralas
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rhapsody's Kalimdor Kocktail (1452).
+# Opens with Hammertoe's Digsite and Garek, the Badlands stops that ended 40-50/01 before the Riverglades came between.
+
+step Badlands
+  zone Badlands
+  goto 53.8,43.3 "Hammertoe's Digsite"
+
+# ---------------------------------------------------------------- The Badlands
+
+step Hammertoe's Digsite
+  zone Badlands
+  tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
+  turnin 733                          -- Sigrun Ironhew
+  accept 706 optional                 -- Fiery Blaze Enchantments: its Black Drake's Heart is a rare drop, so the work and hand-in are optional too
+
+step Garek
+  tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.
+  accept 732
 
 step Agmond's End
   zone Badlands

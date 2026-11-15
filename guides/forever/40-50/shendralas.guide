@@ -1,17 +1,12 @@
-guide polestar-experimental/shendralas
+guide forever/40-50/shendralas
 title Shen'dralas
 levels 43-45
 zone Shen'dralas
 coords live
 why About a dozen quests on a short trip into Forever's new zone, 43 to 45, then back to Feralas.
-keywords shen'dralas, shendralas, valley of bones, evenshade's overlook, forlorn gardens, bristleback retreat, pylons, desolace, experimental, alpha
+keywords shen'dralas, shendralas, valley of bones, evenshade's overlook, forlorn gardens, bristleback retreat, pylons, desolace
 next forever/horde/40-50/03-feralas
 next forever/alliance/40-50/03-feralas
-pitch A fallen Highborne temple south of Desolace.
-pro About 27,500 quest experience
-pro Then back to the main route in Feralas
-pro Less grinding before level 50
-con Level 45 elites in the Valley of Bones
 
 # Polestar Experimental, Shen'dralas for both factions (2026-11-12). Hand-written from players' recordings of
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
@@ -53,7 +48,6 @@ step Fly to Nijel's Point
   only Alliance
   when !zone "Shen'dralas"
   when !zone "Desolace"
-  tip Experimental route (alpha). It follows what players did in Shen'dralas and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Shen'dralas lies south of Desolace, through the Valley of Bones, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from Menethil Harbor to Theramore first.
   fly "Nijel's Point"
 
@@ -75,6 +69,7 @@ step The Valley of Bones: a Tattered Journal
   zone Shen'dralas
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip The Outcast Necromancers and the Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.
+  tip The Gelkis and Magram centaurs have Valley of Bones quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.
   collect 260347
   accept 93644
 
@@ -99,6 +94,7 @@ step Evenshade's Overlook
 step North into Desolace
   zone Desolace
   tip Mordent wants a fragment and a shard of the pylons back from Desolace's two centaur villages: Magram Village lies just beyond the valley's northern way out.
+  tip Careful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village.
   enter "Desolace" @64.0,80.4
 
 step Magram Village
@@ -123,18 +119,15 @@ step Evenshade's Overlook
 step The temple: the Mana Sieve
   tip Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.
   collect 255662 @45.9,78.2
-  accept 99257 optional               -- Historian Biraxas, if he offers it: a Decrepit Pylon Protector's heart, from the road north and the pylons
 
 step The western pylon: repair it
   tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Then repair the pylon with the Pile of Pylon Parts (Repair and Recharge Pylon). Decrepit Pylon Protectors guard it.
   tip Careful: the pylon stands at the edge of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.
   use 271882 quest 96018.2 @43.97,35.59 -- Pile of Pylon Parts: Repair and Recharge Pylon
-  collect 286647 quest 99257.1 optional -- Depleted Crystal Heart, from the Decrepit Pylon Protectors
 
 step Bristleback Retreat: repair the eastern pylon
   tip East along the valley road to the eastern pylon and repair it the same way, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
   use 271882 quest 96018.3 @73.4,23.91 -- Pile of Pylon Parts: Repair and Recharge Pylon
-  collect 286647 quest 99257.1        -- Depleted Crystal Heart, from the Decrepit Pylon Protectors at either pylon
 
 step Evenshade's Overlook
   tip Back west along the valley road and south to Mordent. A Brief History Lesson asks you to hear him out: talk to him once more, then hand it in.
@@ -153,7 +146,6 @@ step Liranne
 step The temple: Magister Kirandis
   tip Magister Kirandis waits inside the temple. Then Mithera, on the temple's eastern side, has work in the Forlorn Gardens.
   turnin 93394
-  turnin 99257                        -- Historian Biraxas, if you took it and carry the heart
   accept 93341
 
 step The Forlorn Gardens: the pedestal
@@ -174,7 +166,7 @@ step The Forlorn Gardens
   turnin 93594
 
 step Mithera
-  tip Historian Biraxas, inside the temple, may have a task for you if you didn't take it earlier: the heart of a Decrepit Pylon Protector, a short ride back up the road north. Otherwise Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace's flight points (Shadowprey Village for the Horde, Nijel's Point for the Alliance).
+  tip Historian Biraxas, inside the temple, has a task for you now that you have met Magister Kirandis: the heart of a Decrepit Pylon Protector, a short ride back up the road north. Otherwise Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace's flight points (Shadowprey Village for the Horde, Nijel's Point for the Alliance).
   turnin 93362
   accept 99257 optional               -- Historian Biraxas
 
