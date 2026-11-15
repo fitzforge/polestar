@@ -148,10 +148,14 @@ local function hider(o)
 	return r
 end
 
+-- (A setting row's refresh waits the same way: staleRefresh, W.RefreshShown.)
+local staleRefresh = setmetatable({}, WEAK_KEYS)
+local function refreshRow(control) control:Refresh() end
+
 local defer
 local function showStale(frame)
-	local colors, paints = staleColor[frame], stalePaint[frame]
-	staleColor[frame], stalePaint[frame] = nil, nil
+	local colors, paints, rows = staleColor[frame], stalePaint[frame], staleRefresh[frame]
+	staleColor[frame], stalePaint[frame], staleRefresh[frame] = nil, nil, nil
 	if colors then
 		for region in pairs(colors) do
 			local name = colored[region]
@@ -163,6 +167,9 @@ local function showStale(frame)
 			local fn = painters[obj]
 			if fn then defer(stalePaint, obj, fn) end
 		end
+	end
+	if rows then
+		for control in pairs(rows) do defer(staleRefresh, control, refreshRow) end
 	end
 end
 
@@ -187,6 +194,10 @@ function defer(stale, obj, fn, name)
 	end
 	set[obj] = true
 end
+
+-- A setting row refreshed now when it shows, else when the frame hiding it
+-- shows (a hidden page's or a closed window's rows).
+function W.RefreshShown(control) defer(staleRefresh, control, refreshRow) end
 
 local walkMemo, shownNow = {}, {}
 local function fullPass()
@@ -1024,7 +1035,8 @@ ns.On("SETTING_CHANGED", function(path)
 	if ns.SettingLive and ns.SettingLive() then return end
 	refreshList(bound[path])
 	refreshList(dependents[path])
-	for control in pairs(conditional) do control:Refresh() end
+	-- Those greyed out by a rule: what shows now, the rest as it shows.
+	for control in pairs(conditional) do W.RefreshShown(control) end
 end)
 
 -- Every row again after a full refresh (a live repaint's colours reach

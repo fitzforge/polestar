@@ -16,18 +16,23 @@
 //! ever adds time). The milliseconds are held where os.clock() is CPU time, scaled as perf.test.js scales its
 //! budgets: by max(1, reference / REF_BASELINE), the reference being 500 events through the same event path to
 //! a plain handler (its timing on the machine the budgets were set on: REF_BASELINE). Before live writes a
-//! Background step cost 50 ms and 3.5 MiB here, a Guide window page step 13 ms and 0.8 MiB.
+//! Background step cost 50 ms and 3.5 MiB here, a Guide window page step 13 ms and 0.8 MiB (dev-040 on
+//! 2026-11-15, the same setup in a quiet moment: 28 ms and 3.2 MiB a Background step).
+//!
+//! Measured 2026-11-15 with nothing else queued on the machine (reference 6.95 ms): Background 1.98 ms and
+//! 151 KiB a step, the Guide window page's own Background 0.43 ms and 20 KiB, its Opacity 0.29 ms and 5 KiB.
+//! The KiB are all the Lua state allocated, this stub's frame tables included (the client keeps those in C).
 
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::Value;
 
 const ROUNDS: u32 = 3;
-const STEP_MS: f64 = 4.0;
-const STEP_KIB: f64 = 640.0;
-const GW_STEP_MS: f64 = 1.5;
-const GW_STEP_KIB: f64 = 64.0;
+const STEP_MS: f64 = 2.5;
+const STEP_KIB: f64 = 170.0;
+const GW_STEP_MS: f64 = 0.6;
+const GW_STEP_KIB: f64 = 24.0;
 // The reference's fastest timing where the budgets were set (i7-10700K, Linux, the harness's Lua 5.1).
-const REF_BASELINE: f64 = 1.0;
+const REF_BASELINE: f64 = 6.95;
 const CPU_CLOCK: bool = !cfg!(windows);
 
 const SCRIPT: &str = r#"

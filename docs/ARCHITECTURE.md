@@ -3414,7 +3414,8 @@ Polestar.Theme.ShowsRim() -> bool         -- ui.rim
 Polestar.Theme.SUBJECTS                   -- the subject/status colours a player may set (ui.colors.<name>)
 Polestar.Theme.Skin(frame, kind)          -- "window","panel","inset","button","editbox","checkbox","dropdown","scrollbar","tab","close"
 Polestar.Theme.Media(name) -> texturePath -- e.g. "icon-accept", "check", "white", "glow"
-Polestar.Theme.OnChanged(fn)              -- fn() on any scheme/colour/font change
+Polestar.Theme.OnChanged(fn, full)        -- fn() on any scheme/colour/font change; full: after a full refresh only, not a dragged slider's live repaint
+Polestar.Theme.LiveChanged() -> { [token] = true } | nil   -- while listeners hear a live repaint: the palette tokens it changed
 Polestar.Theme.IsEllesmere() -> bool   -- a UI suite's look is followed (EllesmereUI, or ErgoBars: the same contract)
 Polestar.Theme.SkinProvider() -> "EllesmereUI" | "ErgoBars" | nil   -- whose; named in the scheme, accent note and Integrations
 Polestar.Theme.SkinId() -> id             -- ui.skin as drawn: a registered skin that has not failed, else "polestar"
@@ -3723,6 +3724,19 @@ path when EllesmereUI is not installed; EllesmereUI wins when both are.
 Integrations section carry that name. Every surface paints
 from tokens (`W.Color`, `W.Painter`, `Theme.Skin`, `Theme.Band`), so a scheme or
 colour change repaints live without a reload.
+
+When a repaint runs: a plain look change is a full refresh (`Theme.Refresh`):
+what shows is painted at once, and a coloured region, painter or greyed-out
+setting row that a hidden frame above it keeps out of sight (another settings
+page, a closed window) is painted when that frame shows next, from its own
+OnShow (`Theme/Widgets.lua`: `staleColor`, `stalePaint`, `W.RefreshShown`); an
+object hidden itself is painted at once, its painter may be what shows it.
+Strings take a new font only when a font input moved. A slider or the colour
+wheel dragged writes each value live (`ns.Live`): the next frame repaints the
+colours that changed on what shows (`Theme.LiveChanged()`, the listeners
+registered with `Theme.OnChanged(fn, true)` left out), and the drag's end
+settles it with one full refresh (`ns.SettleLive`; the colour wheel's 0.25 s
+after its last value).
 
 ## Nav
 
