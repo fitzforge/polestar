@@ -394,7 +394,7 @@ N.RegisterTravelData({
 		{a={"Orgrimmar",1,1354,-4642.7,1411,50.69,12.89,"e",1637,54.3},ab=78,b={"Grom'gol",0,-12441.2,215.2,1434,31.43,29.91,"e",117,32.1},ba=105,faction=2,id="zeppelin-orgrimmar-gromgol",kind="zeppelin",waitA=162,waitB=162},
 		{a={"Undercity",0,2054.7,241.6,1420,61.78,59.18,"e",1497},ab=96,b={"Grom'gol",0,-12417.8,208.2,1434,31.54,29.36,"e",117,32.1},ba=117,faction=2,id="zeppelin-undercity-gromgol",kind="zeppelin",waitA=177,waitB=177},
 		{a={"Valanaar Skydocks",2991,1842.7,573.9,2521,65.75,83.96,"l",16628,{wx=1855.2,wy=574,z=644.5}},ab=131,b={"Dalaran",0,544.8,424.2,1416,12.83,51.17,"e",279},ba=108,faction=1,id="airship-zephras-dalaran",kind="airship",waitA=189,waitB=189},
-		{a={"Valanaar Skydocks",2991,1952.1,1003.9,2521,58.02,81.01,"l",16628,{wx=1957.3,wy=1003.1,z=663}},ab=147,b={"Mulgore",1,-802,366.5,1412,34.33,26.05,"l",215},ba=84,faction=2,id="airship-zephras-mulgore",kind="airship",waitA=170,waitB=170},
+		{a={"Valanaar Skydocks",2991,1953.2,1003.3,2521,58.03,80.98,"l",16628,{wx=1957.3,wy=1003.1,z=663}},ab=147,b={"Mulgore",1,-802,366.5,1412,34.33,26.05,"l",215},ba=84,faction=2,id="airship-zephras-mulgore",kind="airship",waitA=170,waitB=170},
 		{a={"Stormwind",0,-8346.5,514,1453,69.58,30.27,"l",1519,91.8},ab=74,b={"Ironforge",0,-4840.3,-1330.5,1455,78.02,51.37,"e",1537,501.9},ba=74,faction=1,id="tram-stormwind-ironforge",kind="tram",waitA=68,waitB=68},
 	},
 	-- walk-in portals, one way a -> b: id, destination name and area, ends as transports (with z), seconds (the loading screen)
