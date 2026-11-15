@@ -207,6 +207,32 @@ fn a_mixed_flight_keeps_the_named_departure_when_the_planner_is_not_leading_1853
 	}
 }
 
+// #1853 with #2260's arrow-off rule: with Polestar's arrow off, a flight to a landing never learned leads there as
+// travel even when training shares its step, and the training leads once there; a known landing holds as written
+// (a_mixed_flight_keeps_the_named_departure_when_the_planner_is_not_leading_1853).
+#[test]
+fn with_the_arrow_off_a_mixed_flight_to_a_landing_never_learned_leads_there_then_to_the_training_1853_2260() {
+	let out = run(
+		MIXED_FLIGHT,
+		r#"
+		Polestar.Set("nav.arrow", false)
+		KNOWN[22] = false
+		E.SetGuide("test/mixed-flight"); flush()
+		local function at()
+			local wp, v = E.GetWaypoint(), E.GetStepView(1)
+			return { E.GetStepIndex(), wp and wp.kind or false, wp and wp.goalIndex or false,
+				wp and wp.map or false, v.goals[1].status, v.goals[2].status }
+		end
+		local r = { lead = at() }
+		stub.world.moveTo(1412, 47, 50); stub.advance(1)
+		r.arrived = at()
+		emit(r)
+		"#,
+	);
+	assert_eq!(out["lead"], json!([1, "fly", 1, 1412, "active", "active"]), "{out}");
+	assert_eq!(out["arrived"], json!([1, "train", 2, 1456, "done", "active"]), "{out}");
+}
+
 #[test]
 fn a_walk_to_the_flight_master_passes_and_the_flight_step_leads_to_its_end_so_the_route_flies_there_directly_1191() {
 	let out = run(
