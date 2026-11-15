@@ -816,6 +816,8 @@ for _, v in ipairs({ "accept", "turnin", "complete", "kill", "collect", "goto", 
 end
 VERB_ICON.enter = VERB_ICON.goto
 VERB_ICON.cast = VERB_ICON.use
+VERB_ICON.equip = VERB_ICON.use
+VERB_ICON.deposit = VERB_ICON.collect
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)

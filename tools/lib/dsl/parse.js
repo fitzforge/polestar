@@ -59,6 +59,10 @@ const MODS = {
 	complete: [...COMMON, ...COORDS],
 	abandon: ['text', 'optional', 'only'],
 	destroy: ['text', 'optional', 'only'],
+	// `deposit <item> [xN]`: put the item in the bank (until the bags hold none, or the bank holds N).
+	deposit: ['text', 'optional', 'only', ...COORDS, 'count'],
+	// `equip <item>`: wear the item; with `off`, take it off.
+	equip: ['text', 'optional', 'only', ...COORDS, 'off'],
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
 	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
@@ -95,7 +99,7 @@ const MODS = {
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind', 'off'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -677,6 +681,8 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 		case 'collect':
 		case 'use':
 		case 'destroy':
+		case 'deposit':
+		case 'equip':
 		case 'buy': {
 			if (!t) return err(ln, `\`${verb}\` needs an item id`), -1;
 			goal.item = parseId(t, 'item', ln, err);
@@ -1076,6 +1082,11 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 			case 'optional':
 				if (!use('optional')) return null;
 				goal.optional = true;
+				i++;
+				continue;
+			case 'off':
+				if (!use('off')) return null;
+				goal.off = true;
 				i++;
 				continue;
 			case 'direct':

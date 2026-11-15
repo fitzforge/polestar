@@ -6,6 +6,7 @@ mod compile_pack;
 mod dsl_abandon_destroy;
 mod dsl_along;
 mod dsl_cast;
+mod dsl_deposit_equip;
 mod dsl_enter;
 mod dsl_escort;
 mod dsl_farm;

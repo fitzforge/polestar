@@ -16,12 +16,12 @@ use crate::obj;
 use crate::re;
 use crate::xp::level_point;
 
-pub const KINDS: [&str; 17] =
-	["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows"];
+pub const KINDS: [&str; 19] =
+	["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows", "equipped", "indoors"];
 const QUEST_ONE: [&str; 4] = ["complete", "turnedin", "available", "group"];
 /// The predicates that name a place.
 pub const PLACE: [&str; 3] = ["zone", "subzone", "bound"];
-const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>";
+const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]equipped <item>, [!]indoors";
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct WhenError {
@@ -211,6 +211,19 @@ pub fn parse_when(rest: &str) -> Result<V, WhenError> {
 			return fail("`knows` needs a spell id: knows <spell>");
 		}
 		value.set("spell", str_to_num(args));
+		return Ok(V::Obj(value));
+	}
+	if kind == "indoors" {
+		if !args.is_empty() {
+			return fail("`indoors` takes nothing after it");
+		}
+		return Ok(V::Obj(value));
+	}
+	if kind == "equipped" {
+		if !is_int(args) || str_to_num(args) <= 0.0 {
+			return fail("`equipped` needs one item id: equipped <item>");
+		}
+		value.set("item", str_to_num(args));
 		return Ok(V::Obj(value));
 	}
 	// zone, subzone, bound, dungeon

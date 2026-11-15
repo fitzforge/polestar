@@ -63,7 +63,7 @@ pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "labe
 
 // COMMON = text optional only group; COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
-pub const MODS: [(&str, &[&str]); 32] = [
+pub const MODS: [(&str, &[&str]); 34] = [
 	("accept", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
@@ -71,6 +71,10 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("complete", &["text", "optional", "only", "group", "at", "map", "r", "frame"]),
 	("abandon", &["text", "optional", "only"]),
 	("destroy", &["text", "optional", "only"]),
+	// `deposit <item> [xN]`: put the item in the bank (until the bags hold none, or the bank holds N).
+	("deposit", &["text", "optional", "only", "at", "map", "r", "frame", "count"]),
+	// `equip <item>`: wear the item; with `off`, take it off.
+	("equip", &["text", "optional", "only", "at", "map", "r", "frame", "off"]),
 	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
 	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere"]),
 	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
@@ -106,9 +110,9 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("wait", &["text", "optional", "only"]),
 ];
 /// Object.keys(MODS).
-pub const VERBS: [&str; 32] = [
-	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "vendor", "level",
-	"money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
+pub const VERBS: [&str; 34] = [
+	"accept", "turnin", "complete", "abandon", "destroy", "deposit", "equip", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy",
+	"vendor", "level", "money", "task", "note", "skill", "learn", "cast", "craft", "rep", "explore", "achieve", "wait",
 ];
 
 /// `MODS[verb]` (own properties only).
@@ -131,9 +135,9 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 23] = [
+pub const MOD_WORDS: [&str; 24] = [
 	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "reward", "choose", "xp", "money", "group", "direct", "gossip",
-	"grind",
+	"grind", "off",
 ];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
@@ -973,7 +977,7 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 			}
 			Some(i)
 		}
-		"collect" | "use" | "destroy" | "buy" => {
+		"collect" | "use" | "destroy" | "deposit" | "equip" | "buy" => {
 			if t.is_none() {
 				fail!(format!("`{verb}` needs an item id"));
 			}
@@ -1464,6 +1468,12 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 			"optional" => {
 				use_!("optional");
 				goal.set("optional", true);
+				i += 1;
+				continue;
+			}
+			"off" => {
+				use_!("off");
+				goal.set("off", true);
 				i += 1;
 				continue;
 			}

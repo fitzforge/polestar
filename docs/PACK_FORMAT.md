@@ -15,7 +15,7 @@ The handbook is [PACKS.md](PACKS.md).
 **On this page:** [`pack.json`](#packjson) ·
 [The addon](#the-addon) · [TOC fields](#toc-fields) ·
 [Rules Polestar enforces](#rules-polestar-enforces) ·
-[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Import strings](#import-strings) · [Versioning](#versioning)
+[Format 3](#format-3) · [Format 4](#format-4) · [Format 5](#format-5) · [Format 6](#format-6) · [Format 7](#format-7) · [Format 8](#format-8) · [Format 11](#format-11) · [Import strings](#import-strings) · [Versioning](#versioning)
 
 A community addon is an addon for World of Warcraft: Forever that depends
 on Polestar and registers guides with it. It is built from a pack: a folder
@@ -322,6 +322,8 @@ hold:
 | `"skill"` | `name`, `n`; optional `skillLine` (format 5) | the character's rank in that profession is `n` or more; one not learned is rank 0 |
 | `"cooldown"` | `item` or `spell` (format 5) | the item or spell is on cooldown for more than the global cooldown (1.5 s) |
 | `"knows"` | `spell` (format 5) | the character knows the spell (`Compat.IsSpellKnown`, else `Compat.IsPlayerSpell`) |
+| `"equipped"` | `item` (format 11) | the player wears the item (`Compat.IsItemEquipped`); while the client cannot say, neither `equipped` nor `!equipped` holds |
+| `"indoors"` | nothing more (format 11) | the player is indoors (`Compat.IsIndoors`); while the client cannot say, neither holds |
 | `"group"` | `q` (format 5) | the player answered "do it" for that group quest (`CharState().groupQuests[q] == "do"`); unanswered, the step applies and is not done, so the route waits there; refused in `nextWhen` and `skipto` |
 
 ```lua
@@ -740,6 +742,33 @@ changes, read by Polestar 0.3.0 and later:
   no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
   own faction's guides and the factionless ones, not the other side's.
 
+## Format 11
+
+Format 5 with the **`deposit`** and **`equip`** goals and the
+**`equipped`** and **`indoors`** `when` predicates (on a step, a `skipto` or
+a `next` option). Polestar 0.4.1 and later read it. The compiler writes a
+pack in format 11 only when its guides use one of them. An older Polestar
+would refuse such a guide ("unknown verb", "bad when"), so these need their
+own format.
+
+`deposit` goal: `{ t = "deposit", item = <itemId>, itemName = "<Name>" }`.
+Done once the bags hold none of the item, latched within its live step as a
+`destroy` is (not on a step ahead: an item not in the bags yet is not an
+item put in the bank). With `count = N` it is done once the bank holds N of
+the item (the count with the bank less the bags'), and its progress counts
+them. Polestar reads the counts and moves nothing.
+
+`equip` goal: `{ t = "equip", item = <itemId>, itemName = "<Name>" }`. Done
+while the player wears the item (`Compat.IsItemEquipped`), and latched once
+its live step had it or the route has moved past it. With `off = true` it is
+done while the item is not worn. A client that cannot say makes it the
+player's to tick. An `off` that is not `true`, or on another verb, refuses
+the guide. Polestar equips nothing.
+
+```lua
+{ when = { { k = "equipped", neg = true, item = 6256 }, { k = "indoors", neg = true } }, goals = { { t = "equip", item = 6256, itemName = "Fishing Pole" } } }
+```
+
 ## Import strings
 
 One compiled guide as one line of text, for a player to paste on Polestar's
@@ -818,8 +847,10 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates, a step's
   `skipto`) by 0.3.0 and later, format 6 (a guide's `legs`), format 7
   (baked legs in the race parts) and format 8 (packed spawn spots and
-  faction parts, Polestar's own pack only) by 0.3.0 and later, and format 9
-  (the `wait` goal) by 0.3.0 and later.
+  faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
+  (the `wait` goal) by 0.3.0 and later, and format 11 (the `deposit` and
+  `equip` goals, the `equipped` and `indoors` when predicates) by 0.4.1 and
+  later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

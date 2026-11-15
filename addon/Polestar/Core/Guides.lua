@@ -157,6 +157,8 @@ local REQUIRED = {
 	complete = { quest = isNum, title = isStr },
 	abandon = { quest = isNum, title = isStr },
 	destroy = { item = isNum, itemName = isStr },
+	deposit = { item = isNum, itemName = isStr },
+	equip = { item = isNum, itemName = isStr },
 	kill = { target = isStr },
 	collect = { item = isNum, itemName = isStr },
 	["goto"] = { map = isNum, x = isNum, y = isNum },
@@ -267,6 +269,11 @@ local function checkWhen(list)
 		elseif k == "knows" then
 			-- A spell id (format 5).
 			if not isNum(p.spell) then return false end
+		elseif k == "equipped" then
+			-- An item id (format 11).
+			if not isNum(p.item) then return false end
+		elseif k == "indoors" then
+			-- Nothing more (format 11).
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -427,6 +434,8 @@ local function checkGoal(goal)
 	if goal.count ~= nil and not isNum(goal.count) then return "bad count" end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
+	-- An `equip` goal's `off` (format 11).
+	if goal.off ~= nil and not (goal.t == "equip" and goal.off == true) then return "bad off" end
 	if goal.t == "level" and goal.frac ~= nil and not isFrac(goal.frac) then return "bad frac" end
 	for _, key in ipairs(KEYS.goalNumbers) do
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end
@@ -646,7 +655,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true, [11] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

@@ -959,8 +959,19 @@ function Compat.Supports(feature)
 		return (C_MapExplorationInfo and C_MapExplorationInfo.GetExploredAreaIDsAtPosition) and true or false
 	elseif feature == "achievement" then
 		return GetAchievementInfo and true or false
+	elseif feature == "equipment" then
+		return ((C_Item and C_Item.IsEquippedItem) or IsEquippedItem) and true or false
 	end
 	return false
+end
+
+-- Whether the player wears the item; nil when the client cannot say.
+function Compat.IsItemEquipped(itemID)
+	local fn = (C_Item and C_Item.IsEquippedItem) or IsEquippedItem
+	if not (fn and itemID) then return nil end
+	local ok, worn = pcall(fn, itemID)
+	if not ok then return nil end
+	return worn and true or false
 end
 
 local function learnedRank(info)

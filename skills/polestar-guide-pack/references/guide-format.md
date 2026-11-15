@@ -72,6 +72,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `complete <quest> ["Title"]` | Finish every objective of a quest with nothing more specific to track | |
 | `abandon <quest> ["Title"]` | Drop a quest from the log; done once it is out, the quest's `accept` stays done (Polestar 0.3.0) | no place modifiers, no `group` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (Polestar 0.3.0) | no place modifiers, no `group` |
+| `deposit <item> ["Name"]` | Put an item in the bank; done once the bags hold none, or with `x<N>` once the bank holds N (Polestar 0.4.1) | `xN`, no `group` |
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
 | `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere` |
 | `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
@@ -94,6 +95,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `skill <Profession> <N>` | Reach skill N (`"First Aid"` quoted) | |
 | `learn <spell> ["Name"]` | Learn a recipe or spell | `npc`, `item`, `nearest` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (Polestar 0.3.0); name it unless it is a recipe in the data | coordinates |
+| `equip <item> ["Name"]` | Wear an item; kept once the step had it. With `off`: done while it is not worn (Polestar 0.4.1) | `off`, no `group` |
 | `craft <spell> ["Name"]` | Craft a recipe | `xN`, `until` |
 | `rep <Faction> <Standing>` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id | |
 | `explore <x>,<y> ["Area"]` | Discover the map area there | `map`, `r`, `era` / `live` only |
@@ -123,6 +125,7 @@ After the arguments, in any order.
 | `"text"` | Right after an id: the name or title, for content missing from the data; later: the text players see |
 | `lvl <N>` | On `accept`: the level the quest needs |
 | `optional` | Never holds the step |
+| `off` | On `equip`: done while the item is not worn |
 | `group [N]` | Needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it |
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
@@ -160,12 +163,15 @@ step was completed, not skipped or jumped over; not on a `next` line),
 cooldown aside), `group <quest>` (the player chose to do that group quest;
 unanswered, the route waits and asks; on the accept step, `!group` for a solo
 way; not on `next` or `skipto`), `knows <spell>` (the character knows the
-spell; `!knows` for the step that trains it); `!` in front of any but
+spell; `!knows` for the step that trains it), `equipped <item>` (the character
+wears the item), `indoors` (in a cave, a mine or a building); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
-`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with a
+`deposit` or `equip` goal, or a `when equipped` or `when indoors` predicate,
+Polestar 0.4.1.
 
 ## Lint errors that come up most
 

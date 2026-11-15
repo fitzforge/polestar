@@ -16,7 +16,11 @@ const MONEY_TASK_FORMAT = 5;
 // Format 6 (read, no longer written): a guide's baked legs inline (`legs`). Format 7: baked
 // legs in the race parts' Legs.lua (Polestar.RegisterLegs; legs.json, forge guide bake).
 const LEGS_FORMAT = 7;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0' };
+// Format 11: the `deposit` and `equip` goals and the `equipped` and `indoors` when predicates. An
+// older Polestar refuses the pack as too new instead of refusing each guide with "unknown verb"
+// or "bad when".
+const DEPOSIT_EQUIP_FORMAT = 11;
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 11: '0.4.1' };
 
 // A step with `label` or `along` (an older Polestar would stop at an along step).
 const usesAlong = (s) => s.label !== undefined || s.along !== undefined;
@@ -37,13 +41,25 @@ const usesMoneyTask = (g) => (g.steps || []).some((s) =>
 	(s.goals || []).some((goal) => MONEY_TASK_VERBS.has(goal.t)) || needs5(s.when) || (Array.isArray(s.skipto) && s.skipto.length)) ||
 	Object.values(g.nextWhen || {}).some(needs5);
 
-// The format a pack's compiled guides need: MONEY_TASK_FORMAT when a guide
+// A `deposit` or `equip` goal, or an `equipped` or `indoors` predicate (on a step, a `skipto` or a
+// `next` option) needs format 11 (DEPOSIT_EQUIP_FORMAT).
+const DEPOSIT_EQUIP_VERBS = new Set(['deposit', 'equip']);
+const DEPOSIT_EQUIP_WHEN = new Set(['equipped', 'indoors']);
+const needsWorn = (list) => (list || []).some((p) => DEPOSIT_EQUIP_WHEN.has(p.k));
+const usesDepositEquip = (g) => (g.steps || []).some((s) =>
+	(s.goals || []).some((goal) => DEPOSIT_EQUIP_VERBS.has(goal.t)) || needsWorn(s.when) ||
+	(Array.isArray(s.skipto) && s.skipto.some((k) => needsWorn([k.when])))) ||
+	Object.values(g.nextWhen || {}).some(needsWorn);
+
+// The format a pack's compiled guides need: DEPOSIT_EQUIP_FORMAT when a guide uses a `deposit` or
+// `equip` goal or an `equipped` or `indoors` predicate, MONEY_TASK_FORMAT when a guide
 // uses money/task/enter/cast/abandon/destroy/die goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 // `skipto`, WHEN_FORMAT when a step
 // has `when`, `label` or `along`, a level goal has `frac`, or a `next`
 // option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 // LEGS_FORMAT (project.js buildPackFiles).
 function formatFor(guides) {
+	if ((guides || []).some(usesDepositEquip)) return DEPOSIT_EQUIP_FORMAT;
 	if ((guides || []).some(usesMoneyTask)) return MONEY_TASK_FORMAT;
 	const uses = (guides || []).some((g) => (g.steps || []).some((s) => (Array.isArray(s.when) && s.when.length) || usesAlong(s)));
 	if (uses || (guides || []).some(usesLevelFrac)) return WHEN_FORMAT;
@@ -100,4 +116,4 @@ function placeholderLicense(license) {
 	return `Licensed under ${license}: ${LICENSE_PLACEHOLDER}.\n`;
 }
 
-module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
+module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, DEPOSIT_EQUIP_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };

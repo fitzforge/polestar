@@ -702,6 +702,12 @@ local function act(i, g, r)
 		if w.log[q] then w.abandon(q) end
 	elseif t == "destroy" then
 		if g.item then w.removeItem(g.item) end
+	elseif t == "deposit" then
+		-- Into the bank: what the goal counts, else all the bags hold.
+		if r.count and (w.items[r.item] or 0) < r.count then w.addItem(r.item, r.count - (w.items[r.item] or 0)) end
+		w.deposit(r.item)
+	elseif t == "equip" then
+		w.equip(r.item, not r.off)
 	elseif q and g.oi and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then
 			local o = w.log[q].objectives[g.oi]

@@ -215,6 +215,13 @@ test('a class no persona\'s race can be is played as the first race of the guide
 	assert.deepEqual(ok.filter((l) => l.includes('classes/totems')), ['ok  classes/totems (Orc Shaman)', 'ok  classes/totems (Tauren Shaman)', 'ok  classes/totems (Tauren Druid)']);
 });
 
+test('a `deposit` goal, with and without a count, and an `equip` goal on and off play through: the player banks the item and wears the other', { skip }, async () => {
+	const pack = commandPack({ pack: path.join(PACKS, 'banked') });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	assert.ok(results.length > 0);
+	for (const r of results) assert.equal(r.ok, true, JSON.stringify(r));
+});
+
 test('level goals inside a level play through: the player gets that share of the level\'s XP', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'halflevel') });
 	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });

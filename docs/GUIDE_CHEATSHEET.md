@@ -119,6 +119,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `buy 159 x5 nearest` |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (needs Polestar 0.3.0) | `money 1s` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (needs Polestar 0.3.0) | `destroy 6948 "Hearthstone"` |
+| `deposit <item> ["Name"]` | Put the item in the bank: done once the bags hold none, or with `x<N>` once the bank holds N (needs Polestar 0.4.1) | `deposit 750 x8` |
 | `wait <seconds> ["text"]` | A countdown that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (needs Polestar 0.3.0) | `wait 30 "the boat docks"` |
 | `task "<text>"` | Something Polestar cannot see: the player ticks it, and it holds the step until then unless `optional` (needs Polestar 0.3.0) | `task "Tame a Venomtail Scorpid"` |
 
@@ -130,6 +131,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `skill <Profession> <N>` | Reach skill N (quote names of two words) | `skill "First Aid" 40` |
 | `learn <spell> ["Name"]` | Learn a recipe; from a trainer, or with `nearest` from the closest vendor of its recipe | `learn 3276` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (needs Polestar 0.3.0) | `cast 818 "Basic Campfire"` |
+| `equip <item> ["Name"]` | Wear the item; kept once the step had it (needs Polestar 0.4.1) | `equip 750` |
 | `craft <spell> ["Name"]` | Craft a recipe, `x<N>` times | `craft 3275 x5` |
 | `until <N>` | On `craft`: until the profession reaches N | `craft 3275 until 40` |
 | `section <Profession> <from>-<to>` | In column 0: a skill range as the heading over the steps after it; the guide starts at the range the player's skill is in, and asks only for the materials still needed in it (GUIDE_FORMAT, "Sections") | `section Mining 1-65` |
@@ -179,6 +181,8 @@ the outcome stays.
 | `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
 | `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |
 | `when knows <spell>` | the character knows the spell (spellbook or recipe; needs Polestar 0.3.0) | `when !knows 100` |
+| `when equipped <item>` | the character wears the item (needs Polestar 0.4.1) | `when !equipped 750` |
+| `when indoors` | the character is in a cave, a mine or a building (needs Polestar 0.4.1) | `when !indoors` |
 | `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps
@@ -193,6 +197,7 @@ the outcome stays.
 | Line | What it does | Example |
 |---|---|---|
 | `optional` | After a goal: the step can be finished without it | `kill 299 optional` |
+| `off` | After an `equip` goal: done while the item is not worn | `equip 750 off` |
 | `group [N]` | After a goal: it needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it | `kill 299 group 3` |
 
 ## Handing over with `next`
