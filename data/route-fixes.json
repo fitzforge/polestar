@@ -9959,6 +9959,24 @@
 				],
 				"reason": "Alliance level tidy (0.4.0), quest volume: Zimmix's Great Escape (35, 2,750 XP): lead Zimmix out of the ruins, then Wharfmaster Lozgil takes it on 30-40/04's second Booty Bay stop, with Kebok's ears.",
 				"issue": "-"
+			},
+			{
+				"q": 97047,
+				"after": [
+					"accept",
+					574
+				],
+				"reason": "Alliance level tidy (0.4.0): The Cook in the Cage (level 38, 2,850 XP) and Returning to Port (97048, 2,850 XP): Wendel Mathers is caged at the western edge of Kurzen's Compound, where 30-40/04b's Special Forces step works at about 36; the key drops from the compound's Elites and Subchiefs (35-37, one level over at most) and the uniform lies in its eastern part (players' recordings: about 50,8), and Captain Aransas is on the guide's Booty Bay stop. 150 players are recorded doing it.",
+				"issue": "-"
+			},
+			{
+				"q": 97048,
+				"after": [
+					"turnin",
+					97047
+				],
+				"reason": "Alliance level tidy (0.4.0): Returning to Port follows The Cook in the Cage and is handed to Captain Aransas on 30-40/04b's Booty Bay stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [

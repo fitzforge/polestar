@@ -13526,6 +13526,15 @@ test('Alliance level tidy 30-40: Lifting the Curse on 01\'s Menethil stop, Clean
 	assert.ok(at(list, 'turnin 293', is('turnin', 293)) > boat, 'Benedictus on the Stormwind stop at the end');
 });
 
+test('Alliance level tidy 30-40: The Cook in the Cage with Special Forces in Kurzen\'s Compound, Returning to Port at Booty Bay', { skip }, () => {
+	const list = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	const take = at(list, 'accept 97047', is('accept', 97047));
+	const done = at(list, 'turnin 97047', is('turnin', 97047));
+	assert.ok(at(list, 'accept 574', is('accept', 574)) < take && take < at(list, 'kill 938', (g) => g.t === 'kill' && g.npc === 938), 'taken with Special Forces, before the compound work');
+	assert.ok(done < at(list, 'turnin 574', is('turnin', 574)), 'Wendel freed before Yohwa');
+	assert.ok(done < at(list, 'accept 97048', is('accept', 97048)) && at(list, 'turnin 97048', is('turnin', 97048)) > at(list, 'turnin 213', is('turnin', 213)), 'Captain Aransas on the Booty Bay stop');
+});
+
 // 0.4.0 route audit (Refs #2025): 30-40/01 opened with a bare waypoint to Menethil's Deepwater Tavern, 100 yd from the
 // flight master 07 lands at, with nothing to do there; the next step turned back south-east to the Angerfang
 // Encampment. The guide opens on the catapult now.
