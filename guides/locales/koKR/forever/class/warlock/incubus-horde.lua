@@ -11,8 +11,8 @@ return {
 	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "20레벨에 {object:172982} 아래 {object:172960}의 {npc:5875}이(가) 몇 걸음 떨어진 {npc:5909}에게 보냅니다. 이 악마들은 여기의 {npc:5875}과 {zone:1458}의 {npc:5675}, 두 상급자가 시작하며 하나만 수락할 수 있습니다. 이 가이드는 수락한 {quest:1472}을(를) 따라갑니다. {npc:5909}은(는) {zone:1454}의 두 갈래를 모두 줍니다. 둘 다 받으십시오.",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "",
 	["the succubus"] = "",
 	["the incubus"] = "",
 
@@ -93,6 +93,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "두 번째 유혹 악마인 남성 사야드와, 영혼의 조각을 담을 영혼의 조각 가방입니다.",
+	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "20레벨에 {object:172982} 아래 {object:172960}의 {npc:5875}이(가) 몇 걸음 떨어진 {npc:5909}에게 보냅니다. 이 악마들은 여기의 {npc:5875}과 {zone:1458}의 {npc:5675}, 두 상급자가 시작하며 하나만 수락할 수 있습니다. 이 가이드는 수락한 {quest:1472}을(를) 따라갑니다. {npc:5909}은(는) {zone:1454}의 두 갈래를 모두 줍니다. 둘 다 받으십시오.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "{object:36082}의 {npc:5675}에게 돌아가십시오. 그 아래 소환진에 심장을 놓고 소환된 인큐버스를 쓰러뜨리십시오.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "{object:172960}의 {npc:5875}에게 돌아가십시오. 근처 {npc:3216}의 천막 안 소환진으로 스카프를 가져가 소환된 인큐버스를 쓰러뜨리십시오.",
 	-- ["Incubus (Horde)"] = "인큐버스 (호드)",

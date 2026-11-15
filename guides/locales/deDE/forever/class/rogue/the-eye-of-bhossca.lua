@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "Der tote Briefkasten von C",
-	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "Der nächste Auftrag von C kommt per Brief: Sobald du Stufe 30 hast und den Horn-Auftrag erledigt hast, besuche eine beliebige Hauptstadt, und der Brief von C landet im Briefkasten; erst dann bietet ihn {object:410369} nahe {area:204} an, im südlichen Silberwald direkt südlich von {area:236}. Die Questdaten nennen eine Mindeststufe von 25, aber Spieler erhalten den Brief und den Auftrag mit 30.",
 
 	-- Step 2: The Scarlet Monastery
@@ -25,7 +25,7 @@ return {
 
 	-- Step 3: Back to the dead drop
 	["Back to the dead drop"] = "Zurück zum toten Briefkasten",
-	-- {object:410369} Dead Drop (no name in this language: may be words)
+	-- {object:410369} Dead Drop
 	["Place the eye in the {object:410369} near Pyrewood. Check a capital mailbox for C's payment letter on your next planned city visit, then return here for the reward quest. The payment may not be available immediately; do not repeat the infiltration just because the reward has not appeared."] = "Lege das Auge in {object:410369} bei Pyrewood. Sieh bei deinem nächsten geplanten Stadtbesuch im Briefkasten einer Hauptstadt nach dem Zahlungsbrief von C und kehre dann für die Belohnungsquest hierher zurück. Die Zahlung ist vielleicht nicht sofort da; wiederhole die Infiltration nicht nur, weil die Belohnung noch nicht erschienen ist.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

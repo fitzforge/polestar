@@ -72,8 +72,8 @@ return {
 	["{npc:3209} walks around {area:221}: look inside the circle on the map"] = "{npc:3209} da vueltas por {area:221}: búscalo dentro del círculo del mapa",
 
 	-- Step 12: Seer Ravenfeather
-	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1516} Call of Earth
-	["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} está en {area:221}. {quest:1516} necesita nivel 4, que alcanzas con las entregas de aquí.",
+	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1519} Call of Earth
+	["{npc:5888} stands in {area:221}. {quest:1519} needs level 4, which you reach with the turn-ins here."] = "",
 
 	-- Step 13: Ritual Salve
 	-- {area:358} Brambleblade Ravine
@@ -471,6 +471,7 @@ return {
 	-- ["{npc:3209}, next to {npc:2980}"] = "{npc:3209}, junto a {npc:2980}",
 	-- ["{npc:3441}: for {quest:860} at the {area:380}"] = "{npc:3441}: para {quest:860} en {area:380}",
 	-- ["{npc:5769}: for {npc:3448} at the {area:380}"] = "{npc:5769}: para {npc:3448} en {area:380}",
+	-- ["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} está en {area:221}. {quest:1516} necesita nivel 4, que alcanzas con las entregas de aquí.",
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746}, en la elevación central, te manda con {npc:3033} en {area:1639}.",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} está en el extremo oeste del campamento, en la esquina noroeste de las colinas donde merodean los Pumas monteses ({npc:2961}): acepta su misión, caza los pumas desde allí hacia el sur y el este, y luego regresa con {npc:2980}.",
 	-- ["{quest:96130} and {quest:756}"] = "{quest:96130} y {quest:756}",

@@ -23,9 +23,9 @@ return {
 	-- Step 3: The pyre on Fenris Isle
 	-- {area:172} Fenris Isle
 	["The pyre on {area:172}"] = "{area:172}上的火堆",
-	-- {area:172} Fenris Isle · {area:228} Sepulcher · {object:566037} Charred Remains (no name in this language: may be words)
+	-- {area:172} Fenris Isle · {area:228} Sepulcher · {object:566037} Charred Remains
 	["{area:172} lies in the lake north-east of the {area:228}. The gnolls' pyre, with the {object:566037}, is on its shore: click the remains to hand in, and click them again for the next quest. The body is a tauren's, not the elf's."] = "{area:172}位于{area:228}东北方的湖中。豺狼人的火堆在湖岸上，{object:566037}就在其中：点击遗骸交还任务，再点击一次接受后续任务。那是牛头人的遗体，不是精灵的。",
-	-- {object:566037} Charred Remains (no name in this language: may be words)
+	-- {object:566037} Charred Remains
 	["from the {object:566037}"] = "来自{object:566037}",
 
 	-- Step 4: Fenris Keep

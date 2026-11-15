@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Fièregriffe",
 	["Prideclaw, Galestrider"] = "Fièregriffe, Trotteur des trombes",
+	["Prideclaw, Vuldren"] = "Fièregriffe, Vuldrène",
+	["Cloudrunner, Galestrider"] = "",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Fièregriffe, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Trotteur des trombes, Coureur des nuages",
-	["Prideclaw, Vuldren"] = "Fièregriffe, Vuldrène",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -246,6 +246,7 @@ return {
 	-- ["Duskbat"] = "Chauve-souris du crépuscule",
 	-- ["Duskbat, {npc:1513}"] = "Chauve-souris du crépuscule, {npc:1513}",
 	-- ["Expert {skill:393} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Expert) porte le plafond à 225 ; requiert la compétence 125 et le niveau 20. La flèche indique le maître en {skill:393} le plus proche de votre faction.",
+	-- ["Galestrider, Cloudrunner"] = "Trotteur des trombes, Coureur des nuages",
 	-- ["Galestrider, Prideclaw"] = "Trotteur des trombes, Fièregriffe",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Compagnon) porte le plafond à 150 ; requiert la compétence 50 et le niveau 10. La flèche indique le maître en {skill:393} le plus proche de votre faction.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20."] = "Tuez et dépecez Coyote (10), {npc:833} (11), {npc:454} (12), Broche-tripes (14), {npc:547} (16, requiert 60) le long de la boucle jusqu'à {skill:393} 100 ; dépecez les bêtes du plus haut niveau que votre compétence permet. Une bête de niveau N requiert la compétence (N-10)x10 jusqu'au niveau 20, puis Nx5 au-delà. Zone de niveau 10-20.",

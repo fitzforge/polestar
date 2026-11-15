@@ -88,7 +88,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "Les Traqueurs corrompus parcourent la pente sous la grotte, du côté nord de la vallée.",
 
 	-- Step 16: Back to the Den
-	-- {object:654925} Lost Journal (no name in this language: may be words)
+	-- {object:654925} Lost Journal
 	["the {object:654925} on the ground beside her"] = "le {object:654925} par terre à côté d'elle",
 
 	-- Step 17: Call of Earth

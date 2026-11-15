@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "El buzón secreto de C",
-	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369} es un cofre en una casa justo afuera de {area:204}, en el sur de Bosque de Argénteos, al sur de {area:236}. Ábrelo y lee la nota de C: el trabajo hay que hacerlo solo, fuera de cualquier grupo.",
 
 	-- Step 2: Veenix
@@ -30,7 +30,7 @@ return {
 
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "De vuelta al buzón secreto",
-	-- {object:410369} Dead Drop (no name in this language: may be words)
+	-- {object:410369} Dead Drop
 	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "Abre {object:410369} otra vez, el cofre cerca de Piroleña donde tomaste el trabajo, y entrega ahí el cuerno. El pago de C es una segunda entrega en el mismo cofre, sin nada que aceptar antes, y puede que no esté ahí enseguida: hay jugadores que han esperado de un cuarto de hora a dos horas. Revisa el buzón de una capital en tu próxima visita planeada para ver la carta de C, y luego vuelve a este cofre por él. No repitas la mazmorra solo porque el pago todavía no se ofrece.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

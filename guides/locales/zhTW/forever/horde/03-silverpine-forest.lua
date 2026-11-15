@@ -195,7 +195,7 @@ return {
 	["Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes."] = "從約里克家沿著湖岸向東南走：沿途的邪鰭切割者和邪鰭潮行者會掉落魚人眼睛。",
 
 	-- Step 40: The Decrepit Ferry
-	-- {object:1593} Corpse Laden Boat (no name in this language: may be words) · {area:233} Ambermill
+	-- {object:1593} Corpse Laden Boat · {area:233} Ambermill
 	["Follow the lake shore south from the murlocs: the {object:1593} lies at the ferry landing, on the way to {area:233}."] = "",
 
 	-- Step 41: Ambermill

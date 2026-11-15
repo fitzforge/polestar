@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}、傲爪",
 	["Prideclaw, Galestrider"] = "傲爪、疾风陆行鸟",
+	["Prideclaw, Vuldren"] = "傲爪、瓦尔德伦",
+	["Cloudrunner, Galestrider"] = "",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "傲爪、{npc:250928}",
-	["Galestrider, Cloudrunner"] = "疾风陆行鸟、云行者",
-	["Prideclaw, Vuldren"] = "傲爪、瓦尔德伦",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -246,6 +246,7 @@ return {
 	-- ["Duskbat"] = "夜行蝙蝠",
 	-- ["Duskbat, {npc:1513}"] = "夜行蝙蝠、{npc:1513}",
 	-- ["Expert {skill:393} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:393} trainer of your faction."] = "高级{skill:393}将上限提高到225；需要技能125和角色等级20级。箭头指向本阵营最近的{skill:393}训练师。",
+	-- ["Galestrider, Cloudrunner"] = "疾风陆行鸟、云行者",
 	-- ["Galestrider, Prideclaw"] = "疾风陆行鸟、傲爪",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "中级{skill:393}将上限提高到150；需要技能50和角色等级10级。箭头指向本阵营最近的{skill:393}训练师。",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (16, needs 60) along the loop until {skill:393} 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20."] = "沿路线击杀并剥皮山狗（10）、{npc:833}（11）、{npc:454}（12）、血牙野猪（14）、{npc:547}（16，需要60），直到{skill:393}达到100；剥你技能允许的最高等级野兽。L级野兽在20级及以下需要技能(L-10)x10，20级以上需要Lx5。区域等级10-20。",

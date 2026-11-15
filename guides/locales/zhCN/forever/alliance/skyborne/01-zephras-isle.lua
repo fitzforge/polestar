@@ -284,9 +284,9 @@ return {
 
 	-- Step 62: The missing scholar
 	["The missing scholar"] = "失踪的学者",
-	-- {object:581822} Bloodstained Satchel (no name in this language: may be words) · {area:16638} Valanaar
+	-- {object:581822} Bloodstained Satchel · {area:16638} Valanaar
 	["The {object:581822} lies by the path west of {area:16638}."] = "{object:581822}位于{area:16638}以西的小路旁。",
-	-- {object:581822} Bloodstained Satchel (no name in this language: may be words)
+	-- {object:581822} Bloodstained Satchel
 	["The {object:581822}"] = "{object:581822}",
 
 	-- Step 63: Gustberry Lowlands

@@ -300,8 +300,8 @@ return {
 	["Stormwind City"] = "",
 
 	-- Step 62: Warlock: Summon Felsteed
-	-- {quest:3631} Summon Felsteed
-	["Warlock: {quest:3631}"] = "흑마법사: {quest:3631}",
+	-- {quest:4488} Summon Felsteed
+	["Warlock: {quest:4488}"] = "흑마법사: {quest:4488}",
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}, {object:2164} 안: 다음 가이드 끝에 {area:392}의 {npc:6251}이(가) 받습니다",
 
@@ -453,6 +453,7 @@ return {
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "불탄 여관은 서쪽 길, {zone:1413} 방향에 있습니다. 경비병의 휘장은 잿더미 속에, 발굽 자국은 여관 옆 진흙에 있습니다.",
 	-- ["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "선장들은 {area:43} 앞바다에 정박한 배 위에 있으며, 각자 42-45레벨 해적 선원을 거느립니다. 가까운 갑판에는 스틸워터(45)와 킬하울(46), 기함에는 {npc:2546}(48)이 있습니다. 42레벨이라면 파티로 하거나 가이드 끝에 할 전투입니다. 간다면 갑판마다 먼저 정리하세요. 코르텔로의 두루마리는 물가의 난파선에 있습니다.",
 	-- ["The riddle's next scroll lies in western Dustwallow: skip it."] = "수수께끼의 다음 두루마리는 먼지진흙 습지대 서부에 있습니다. 건너뛰세요.",
+	-- ["Warlock: {quest:3631}"] = "흑마법사: {quest:3631}",
 	-- ["for the flight back to {npc:6251} at 43"] = "43레벨에 {npc:6251}에게 돌아가는 비행을 위해",
 	-- ["for the {area:8} later"] = "나중에 {area:8}에 쓸 것",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: {zone:1432}의 {npc:1344}에게 줄 것, 보관하세요",

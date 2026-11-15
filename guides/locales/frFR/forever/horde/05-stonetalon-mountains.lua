@@ -159,20 +159,20 @@ return {
 	["South down the road past Pyrewood: Dalaran Watchers and Wizards patrol the roads around {area:233}, and south-west of the town the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest. Careful: High Order Mages (30) walk the same roads among the Watchers and Wizards: leave them."] = "Descendez la route vers le sud en passant Bois-du-Bûcher : des Guetteurs et des Sorciers de Dalaran patrouillent sur les routes autour d'{area:233}, et au sud-ouest de la ville les Drudgers et les Gardiens Ravenclaw hantent les ruines de {quest:516}, dans le sud-est de la forêt. Attention : des Mages du Haut ordre (30) parcourent les mêmes routes parmi les Guetteurs et les Sorciers : laissez-les.",
 
 	-- Step 30: Beren's Peril
-	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone (no name in this language: may be words)
+	-- {quest:516} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["The Ravenclaw undead haunt the ruins of {quest:516}, east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}.\nAn elite spirit (20) often stands beside the {object:645153}: pull the Ravenclaws away from the stone before you fight them."] = "Les morts-vivants Ravenclaw hantent les ruines de {quest:516}, à l'est de la route, dans le sud-est de la forêt ; un {npc:1973} lâche le {item:271343} qui mène à la {object:645153}.\nUn esprit élite (20) se tient souvent à côté de la {object:645153} : attirez les Ravenclaw loin de la pierre avant de les combattre.",
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}, sur un {npc:1973}",
-	-- {object:645153} Offering Stone (no name in this language: may be words) · {quest:95883} The Tortured Soul · {item:271343} Note Scrap
+	-- {object:645153} Offering Stone · {quest:95883} The Tortured Soul · {item:271343} Note Scrap
 	["the {object:645153} offers {quest:95883} once the {item:271343} is in; below ground"] = "la {object:645153} propose {quest:95883} une fois le {item:271343} déposé ; sous terre",
 	-- {item:271350} Tortured Soul
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "{item:271350}, sur les Âmes torturées parmi les ruines ; sous terre",
 
 	-- Step 31: The Offering of Blood
-	-- {item:210713} Tortured Soul · {object:645153} Offering Stone (no name in this language: may be words) · {quest:95883} The Tortured Soul
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["The quest hands you a {item:210713}: use it beside the {object:645153} to offer your blood, then kill the elite spirit that answers.\n{quest:95883} is elite: grouping up is advised."] = "La quête vous remet un {item:210713} : utilisez-le à côté de {object:645153} pour offrir votre sang, puis tuez l'esprit élite qui répond.\n{quest:95883} est élite : il est conseillé de se grouper.",
-	-- {item:210713} Tortured Soul · {object:645153} Offering Stone (no name in this language: may be words)
+	-- {item:210713} Tortured Soul · {object:645153} Offering Stone
 	["{item:210713}, beside the {object:645153}: summons the elite spirit"] = "{item:210713}, à côté de {object:645153} : invoque l'esprit élite",
 
 	-- Step 32: Into Hillsbrad

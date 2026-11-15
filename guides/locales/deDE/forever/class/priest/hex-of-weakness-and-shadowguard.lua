@@ -75,8 +75,8 @@ return {
 	["{npc:4606}: take her {quest:5642} letter"] = "{npc:4606}: Nimm ihren Brief {quest:5642} an",
 
 	-- Step 12: Shadowguard: Ur'kyo
-	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5642} Shadowguard
-	["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "Mit 20 bringt dir {npc:6018} im {object:172961} {quest:5642} mit einer Quest bei, die er dir gibt und sofort zurücknimmt.",
+	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5680} Shadowguard
+	["At 20, {npc:6018} in the {object:172961} teaches {quest:5680} with a quest he gives and takes back at once."] = "Mit 20 bringt dir {npc:6018} im {object:172961} {quest:5680} mit einer Quest bei, die er dir gibt und sofort zurücknimmt.",
 
 	-- Step 13: Shadowguard: Miles Welsh's letter
 	-- {quest:5642} Shadowguard · {npc:3044} Miles Welsh
@@ -88,6 +88,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:6018} in the {object:172961}, on {zone:1454}'s west side. Priest trainers elsewhere ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to him with a quest of the same name."] = "Geh mit 10 zu {npc:6018} im {object:172961} auf der Westseite von {zone:1454}. Priesterlehrer anderswo ({npc:3706} in {area:362}, {npc:3044} in {zone:1456}) schicken dich mit einer gleichnamigen Quest zu ihm.",
+	-- ["At 20, {npc:6018} in the {object:172961} teaches {quest:5642} with a quest he gives and takes back at once."] = "Mit 20 bringt dir {npc:6018} im {object:172961} {quest:5642} mit einer Quest bei, die er dir gibt und sofort zurücknimmt.",
 	-- ["At 20, {npc:6018} teaches {quest:5642}. {npc:3044} in {zone:1456} and Aelthalyste in the {zone:1458} send you to him with a quest of the same name."] = "Mit 20 lehrt {npc:6018} {quest:5642}. {npc:3044} in {zone:1456} und Aelthalyste in {zone:1458} schicken dich mit einer gleichnamigen Quest zu ihm.",
 	-- ["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20."] = "Die Priesterzauber der Trolle: {quest:5652} mit 10, {quest:5642} mit 20.",
 }

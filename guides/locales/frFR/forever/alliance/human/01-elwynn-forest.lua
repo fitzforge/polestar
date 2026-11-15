@@ -234,7 +234,7 @@ return {
 	-- Step 45: Elwynn Forest: kill these as you meet them
 	-- {zone:1429} Elwynn Forest
 	["{zone:1429}: kill these as you meet them"] = "{zone:1429} : tuez-les au passage",
-	-- {object:694855} Overgrown Duskweed (no name in this language: may be words)
+	-- {object:694855} Overgrown Duskweed
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "L'{object:694855} pousse dans les champs autour des vignes et de la ferme des Stonefield ; les Sangliers Brocheroc des environs fournissent le sang.\nLes Sangliers Brocheroc paissent entre les vignes et la ferme.",
 	-- {item:286215} Vial of Animal Blood

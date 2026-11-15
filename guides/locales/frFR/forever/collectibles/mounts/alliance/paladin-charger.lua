@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "Votre monture épique au niveau 60, invoquée à volonté : l'étape plus rapide après le Cheval de guerre.",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Au niveau 60, {npc:5149}, dans {object:32362}, vous envoie voir {quest:7638} à la cathédrale de la Lumière de {zone:1453}.",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -119,6 +119,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800} provient des filons de thorium, {item:18335} des élites de {zone:1422}, tous deux rarement : l'hôtel des ventes est la source habituelle.",
 	-- ["Arcanite Bars: the Auction House"] = "Barres d'arcanite : l'hôtel des ventes",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Au niveau 60, {npc:5149}, dans {object:32362}, vous envoie voir {quest:7638} à la cathédrale de la Lumière de {zone:1453}.",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Apportez 150 pièces d'or pour {npc:1416} avec les matériaux.",
 	-- ["Supply Crates, inside"] = "Caisses de fournitures, à l'intérieur",
 	-- ["Terrordale Spirits"] = "Esprits de Val-Terreur ({npc:14564})",

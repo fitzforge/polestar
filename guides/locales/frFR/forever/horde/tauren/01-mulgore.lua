@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: The shrine of An'she and Mu'sha
 	["The shrine of An'she and Mu'sha"] = "Le sanctuaire d'An'she et Mu'sha",
-	-- {object:660739} Ritual Fire (no name in this language: may be words)
+	-- {object:660739} Ritual Fire
 	["The incense burns out in ten minutes: run straight east along the southern hills to the {object:660739}."] = "L'encens se consume en dix minutes : courez tout droit vers l'est le long des collines du sud jusqu'au {object:660739}.",
 
 	-- Step 8: Grull Hawkwind
@@ -72,8 +72,8 @@ return {
 	["{npc:3209} walks around {area:221}: look inside the circle on the map"] = "{npc:3209} se promène autour de {area:221} : cherchez dans le cercle sur la carte",
 
 	-- Step 12: Seer Ravenfeather
-	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1516} Call of Earth
-	["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} se tient au {area:221}. {quest:1516} requiert le niveau 4, que vous atteignez avec les quêtes rendues ici.",
+	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1519} Call of Earth
+	["{npc:5888} stands in {area:221}. {quest:1519} needs level 4, which you reach with the turn-ins here."] = "",
 
 	-- Step 13: Ritual Salve
 	-- {area:358} Brambleblade Ravine
@@ -482,6 +482,7 @@ return {
 	-- ["{npc:3059}, the warrior trainer"] = "{npc:3059}, le maître des guerriers",
 	-- ["{npc:3209}, next to {npc:2980}"] = "{npc:3209}, à côté de {npc:2980}",
 	-- ["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449} : les harpies viendront plus tard, dans {area:383}",
+	-- ["{npc:5888} stands in {area:221}. {quest:1516} needs level 4, which you reach with the turn-ins here."] = "{npc:5888} se tient au {area:221}. {quest:1516} requiert le niveau 4, que vous atteignez avec les quêtes rendues ici.",
 	-- ["{npc:6746} on the central rise sends you to {npc:3033} on {area:1639}."] = "{npc:6746}, sur le piton central, vous envoie voir {npc:3033} sur {area:1639}.",
 	-- ["{npc:6775} stands at the west end of the camp, at the north-west corner of the hills where the Mountain Cougars prowl: take his quest, hunt the cougars from there south and east, then come back up to {npc:2980}."] = "{npc:6775} se tient à l'extrémité ouest du camp, à l'angle nord-ouest des collines où rôdent les Pumas des montagnes : prenez sa quête, chassez les pumas de là vers le sud et l'est, puis remontez voir {npc:2980}.",
 	-- ["{object:2910} on the way"] = "{object:2910} en chemin",

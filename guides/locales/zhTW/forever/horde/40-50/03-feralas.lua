@@ -6,6 +6,15 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1435} Swamp of Sorrows · {zone:1444} Feralas
+	["{zone:1435} and Dustwallow first, then {zone:1444}."] = "",
+	["Takes you to level 47"] = "",
+	-- {zone:1446} Tanaris
+	["Then on to {zone:1446}"] = "",
+	["Stays on the main route"] = "",
+	["Three zones, lots of travel"] = "",
+
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "搭飛艇前往{zone:1458}",

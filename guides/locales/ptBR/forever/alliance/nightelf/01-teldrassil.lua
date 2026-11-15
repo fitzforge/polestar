@@ -84,10 +84,10 @@ return {
 	["Use the {item:5185} at the moonwell"] = "Use o {item:5185} no poço lunar",
 
 	-- Step 11: Tenaron Stormgrip
-	-- {area:256} Aldrassil · {object:654846} Lost Journal (no name in this language: may be words)
+	-- {area:256} Aldrassil · {object:654846} Lost Journal
 	["Back to the top of {area:256}. The {object:654846} lies beside him."] = "De volta ao topo de {area:256}. {object:654846} está ao lado dele.",
 	["Upstairs"] = "No andar de cima",
-	-- {object:654846} Lost Journal (no name in this language: may be words)
+	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "{object:654846}, no andar de cima",
 	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
 	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, a instrutora de sacerdote, no segundo nível de {area:256}, na descida: {npc:3600}, em {area:186}, a recebe",
@@ -286,7 +286,7 @@ return {
 	["Use the {item:5621} at the moonwell"] = "Use o {item:5621} no poço lunar",
 
 	-- Step 45: Gnarlpine Hold
-	-- {object:6751} Strange Fruited Plant (no name in this language: may be words)
+	-- {object:6751} Strange Fruited Plant
 	["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "Ao sul das águas. A {object:6751} cresce junto ao Acampamento; os furbolgs em volta dela soltam o resto das presas.",
 
 	-- Step 47: Seek Redemption!
@@ -535,9 +535,9 @@ return {
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "{npc:10118} fica no cais de Rut'theran, onde você pousa. Depois suba pelo portal até {npc:4217}, em {area:1658}.",
 
 	-- Step 93: The Moonkin Stone
-	-- {object:177525} Moonkin Stone (no name in this language: may be words)
+	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
-	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone (no name in this language: may be words) · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
+	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Desça de volta até {area:702} e voe para {area:442}. {object:177525} fica nas colinas logo a leste da vila: use o {item:15208} ali, derrote Lunagarra e fale com {npc:12144}.",
 
 	-- Step 94: Body and Heart

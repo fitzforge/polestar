@@ -9,8 +9,13 @@ return {
 	-- Guide
 	-- {zone:1451} Silithus · {zone:1448} Felwood · {zone:1452} Winterspring
 	["{zone:1451}, {zone:1448}, {zone:1452} & the Plaguelands"] = "{zone:1451}, {zone:1448}, {zone:1452} y las Tierras de la Peste",
-	-- {zone:1451} Silithus · {zone:1448} Felwood · {zone:1452} Winterspring · {zone:1453} Stormwind · {zone:1455} Ironforge · {spell:437801} Light's Hope
-	["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "La ruta principal hasta el 60: {zone:1451}, {zone:1448}, {zone:1452} y las Tierras de la Peste, con las entregas en {zone:1453}, {zone:1455} y {spell:437801} de camino.",
+	-- {zone:1451} Silithus · {zone:1448} Felwood · {zone:1452} Winterspring
+	["{zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands."] = "",
+	["Takes you all the way to 60"] = "",
+	["Stays on the main route"] = "",
+	-- {area:493} Moonglade
+	["{area:493} flight path on the way"] = "",
+	["Lots of flying between zones"] = "",
 
 	-- Step 1: Ratchet
 	-- {area:541} Marshal's Refuge · {area:392} Ratchet
@@ -506,6 +511,7 @@ return {
 	-- ["Take the flight path in {area:2361} and fly to {area:442}."] = "Toma la ruta de vuelo de {area:2361} y vuela a {area:442}.",
 	-- ["Take the {area:1769} tunnel from its {area:618} mouth, west of {npc:9298}, and follow the {area:493} branch to {area:2361}. {npc:11939} studies by the lake shore."] = "Toma el túnel de {area:1769} desde su entrada en {area:618}, al oeste de {npc:9298}, y sigue el ramal de {area:493} hasta {area:2361}. {npc:11939} estudia a orillas del lago.",
 	-- ["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each want sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: 120 of each in all, from your bags or the Auction House."] = "Toma el {area:2257} hasta {zone:1455}. {npc:14724} y {npc:14723} quieren cada uno sesenta de paño de lana, sesenta de paño de seda y sesenta de tela de paño mágico, y luego sesenta {item:14047}: 120 de cada en total, de tus bolsas o de la casa de subastas.",
+	-- ["The main route to 60: {zone:1451}, {zone:1448}, {zone:1452} and the Plaguelands, with the hand-ins in {zone:1453}, {zone:1455} and {spell:437801} on the way."] = "La ruta principal hasta el 60: {zone:1451}, {zone:1448}, {zone:1452} y las Tierras de la Peste, con las entregas en {zone:1453}, {zone:1455} y {spell:437801} de camino.",
 	-- ["The {area:2739}"] = "El {area:2739}",
 	-- ["The {npc:7446} bears roam the snowy valley south of {area:2250}."] = "Los osos {npc:7446} recorren el valle nevado al sur de {area:2250}.",
 	-- ["Toward the north-west pass"] = "Hacia el paso del noroeste",

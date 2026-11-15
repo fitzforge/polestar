@@ -441,8 +441,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "你將永遠離開這座島。{npc:259119}在飛艇降落處等著。",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}：先留著：{zone:1454}的索爾，在下一份指南開頭",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "降落處旁的{npc:253957}：給{zone:1456}的{npc:3033}",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -559,6 +559,7 @@ return {
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}站在{area:16638}的東側。",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382}站在{area:16638}的西側。",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{area:16638}的{npc:252389}會三次交給你{item:15908}：馴服城鎮西北方湖邊的一隻{npc:254588}、城鎮西邊田野中的一隻{npc:251707}，以及{area:16663}的一隻{npc:250874}，每次完成後回去找她。{npc:254411}站在她身旁。",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "降落處旁的{npc:253957}：給{zone:1456}的{npc:3033}",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}在瞭望塔北邊不遠的瀑布旁等著。",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}在叛徒房子南邊不遠的山坡上遊蕩。",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}的營火",

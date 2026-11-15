@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888} ist ab 1 orange (gelb bei 45, grün bei 65, grau bei 85): etwa 50 Herstellungen bis 50. Koch an jedem Feuer: einem Stadtfeuer oder deinem eigenen {object:29784}. {item:6888} kommt mit {skill:185} (der Client bringt es mit der Fertigkeit bei); {item:2678} verkaufen Kochhändler. Die Strigid-Eulen in {zone:1438} lassen meistens ein {item:6889} fallen, und auch die Moonkin in {zone:1439} lassen sie fallen. Angler können stattdessen {item:6290} (Rezept 40c) aus den Gewässern von Rut'theran kochen, und {npc:6286} in {area:186} gibt für {item:5472} Recipe of the Kaldorei (sieben Small Spider Legs von den Spinnen im Webwood), orange von 10 bis 50.",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250873} Juvenile Vuldren
-	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} auf Zephras Isle, oder wohin der Pfeil zeigt",
+	-- {npc:250874} Vuldren Alpha
+	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -410,6 +410,7 @@ return {
 	-- ["{npc:1549} (88%) in {zone:1420}, or wherever the arrow points"] = "{npc:1549} (88%) in {zone:1420}, oder dort, wo der Pfeil hinzeigt",
 	-- ["{npc:1689} (38%), {npc:1127} (36%) in {zone:1426}, or wherever the arrow points"] = "{npc:1689} (38%), {npc:1127} (36%) in {zone:1426}, oder dort, wo der Pfeil hinzeigt",
 	-- ["{npc:2385} (56%) in {zone:1424}, or wherever the arrow points"] = "{npc:2385} (56%) in {zone:1424}, oder dort, wo der Pfeil hinzeigt",
+	-- ["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} auf Zephras Isle, oder wohin der Pfeil zeigt",
 	-- ["{npc:3099} (99%), {npc:3100} (74%) in {zone:1411}, or wherever the arrow points"] = "{npc:3099} (99%), {npc:3100} (74%) in {zone:1411}, oder dort, wo der Pfeil hinzeigt",
 	-- ["{npc:3244} (33%) in {zone:1413}, or wherever the arrow points"] = "{npc:3244} (33%) in {zone:1413}, oder dort, wo der Pfeil hinzeigt",
 	-- ["{npc:3818} (53%) in {zone:1440}, or wherever the arrow points"] = "{npc:3818} (53%) in {zone:1440}, oder dort, wo der Pfeil hinzeigt",

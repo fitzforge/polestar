@@ -17,11 +17,11 @@ return {
 	["Your first letter ({item:9576}, from {npc:197} after Kobold Camp Cleanup) points you to {npc:459}, the warlock trainer in the little graveyard beside {area:24}. She asks for a book the Defias stole."] = "",
 
 	-- Step 2: The Stolen Books
-	-- {object:83763} Stolen Books (no name in this language: may be words)
+	-- {object:83763} Stolen Books
 	["The {object:83763}"] = "",
 	-- plural, as words: Defias Thugs = {npc:38} Defias Thug
 	["The Defias tent stands in the vineyard east of the Abbey. The book is small: it lies on the ground just right of the tent's opening, beside a blue jug. Three Defias Thugs (level 3-4) guard the tent; pull them one at a time, or step inside the tent and click the book, where they cannot reach you. The book respawns three minutes after someone takes it."] = "",
-	-- {item:6785} Powers of the Void · {object:83763} Stolen Books (no name in this language: may be words)
+	-- {item:6785} Powers of the Void · {object:83763} Stolen Books
 	["{item:6785}, from the {object:83763}"] = "",
 
 	-- Step 3: Summon Imp

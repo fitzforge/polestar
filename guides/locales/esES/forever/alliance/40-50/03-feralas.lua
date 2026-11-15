@@ -6,6 +6,15 @@
 -- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:1121} Isle of Dread
+	["Feathermoon's isle, ogres, yetis and the {area:1121}."] = "",
+	["Two new flight paths for later"] = "",
+	-- {zone:1446} Tanaris
+	["Then on to {zone:1446}"] = "",
+	["Stays on the main route"] = "",
+	["Boats to and from the island"] = "",
+
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
 	["Into {zone:1413}"] = "",

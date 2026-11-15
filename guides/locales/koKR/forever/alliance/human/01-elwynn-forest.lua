@@ -234,7 +234,7 @@ return {
 	-- Step 45: Elwynn Forest: kill these as you meet them
 	-- {zone:1429} Elwynn Forest
 	["{zone:1429}: kill these as you meet them"] = "",
-	-- {object:694855} Overgrown Duskweed (no name in this language: may be words)
+	-- {object:694855} Overgrown Duskweed
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855}은(는) 포도밭과 스톤필드 농장 주변 밭에서 자라며, 주변의 돌엄니멧돼지가 피를 줍니다.\n돌엄니멧돼지는 포도밭과 농장 사이에서 풀을 뜯습니다.",
 	-- {item:286215} Vial of Animal Blood

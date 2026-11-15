@@ -22,8 +22,8 @@ return {
 	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "两种钻石都很稀有：在拍卖行购买最快。矿工采掘瑟银矿脉时，取得 {item:12800} 的概率约为百分之一（{zone:1428} 的 {area:2418} 北侧的瑟银矿脉每五分钟刷新）。高等级精英掉落 {item:18335} 的概率约为百分之一，最好找稀有精英雷瓦克安，掉落概率约为九分之一。",
 
 	-- Step 3: Sagorne Creststrider
-	-- {quest:7668} The Darkreaver Menace
-	["{quest:7668} needs level 60."] = "{quest:7668}需要60级。",
+	-- {quest:8258} The Darkreaver Menace
+	["{quest:8258} needs level 60."] = "{quest:8258}需要60级。",
 	-- {item:18746} Divination Scryer
 	["he hands you the {item:18746}"] = "他会交给你{item:18746}",
 
@@ -41,4 +41,5 @@ return {
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: buy them at the auction house if you can."] = "{item:12800}来自瑟银矿脉，{item:18335}来自{zone:1422}的精英怪，两者都很少见：能的话在拍卖行购买。",
 	-- ["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds."] = "58级时，{object:172957}的萨满祭司训练师{npc:13417}要求两颗稀有钻石。",
 	-- ["{area:2057} lies under {area:2298}, the island town in the south-east of the {zone:1422}. Use the {item:18746} in the heart of the {object:179746}'s basement, beat the spirits it calls, then {npc:14516}. All are elite: bring a group."] = "{area:2057}位于{zone:1422}东南部的岛上小镇{area:2298}之下。在尸骨储藏所地下室的中央使用{item:18746}，击败它召来的灵魂，然后击败{npc:14516}。全都是精英：请带上小队。",
+	-- ["{quest:7668} needs level 60."] = "{quest:7668}需要60级。",
 }

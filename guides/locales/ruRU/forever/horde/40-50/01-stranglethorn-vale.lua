@@ -7,8 +7,13 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	-- {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows · {object:3202} Grom'gol · {area:35} Booty Bay · {area:75} Stonard
-	["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} и {zone:1435} на 40-43-м уровне: {object:3202}, пираты ({area:35}), охота Эрнестуэя и {area:75}.",
+	-- {area:35} Booty Bay · {area:75} Stonard
+	["Nesingwary's hunts and {area:35}'s pirates, then {area:75}."] = "",
+	["Riding and level 40 training first"] = "",
+	-- {area:75} Stonard
+	["{area:75} flight path for later"] = "",
+	["Stays on the main route"] = "",
+	["Spread over two zones, lots of travel"] = "",
 
 	-- Step 1: Fly to the Undercity
 	-- {area:1497} Undercity
@@ -327,4 +332,5 @@ return {
 	-- ["for a later stop in the {area:8}"] = "для более поздней остановки ({area:8})",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}, рядом: {npc:2497}",
 	-- ["{area:392} pier"] = "Пирс: {area:392}",
+	-- ["{zone:1434} and the {zone:1435} at 40-43: {object:3202}, {area:35}'s pirates, Nesingwary's hunts and {area:75}."] = "{zone:1434} и {zone:1435} на 40-43-м уровне: {object:3202}, пираты ({area:35}), охота Эрнестуэя и {area:75}.",
 }

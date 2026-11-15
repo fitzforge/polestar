@@ -88,7 +88,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "地獄捕獵者在洞穴下方的山坡上遊蕩，位於山谷北側。",
 
 	-- Step 16: Back to the Den
-	-- {object:654925} Lost Journal (no name in this language: may be words)
+	-- {object:654925} Lost Journal
 	["the {object:654925} on the ground beside her"] = "她旁邊地上的{object:654925}",
 
 	-- Step 17: Call of Earth

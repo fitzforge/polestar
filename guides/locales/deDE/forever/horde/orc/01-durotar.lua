@@ -88,7 +88,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "Teufelspirscher streifen über den Hang unterhalb der Höhle, auf der Nordseite des Tals.",
 
 	-- Step 16: Back to the Den
-	-- {object:654925} Lost Journal (no name in this language: may be words)
+	-- {object:654925} Lost Journal
 	["the {object:654925} on the ground beside her"] = "{object:654925} neben ihr auf dem Boden",
 
 	-- Step 17: Call of Earth

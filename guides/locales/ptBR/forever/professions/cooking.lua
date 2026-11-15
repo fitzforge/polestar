@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888} é laranja desde 1 (amarelo em 45, verde em 65, cinza em 85): cerca de 50 criações até 50. Cozinhe em qualquer fogueira: a lareira de uma cidade ou a sua própria {object:29784}. {item:6888} vem com {skill:185} (o cliente ensina junto com a habilidade); {item:2678} são de vendedor de culinária. As corujas Estrígidas de {zone:1438} soltam {item:6889} na maioria das vezes, e os luniscantes de {zone:1439} também. Pescadores podem cozinhar {item:6290} (receita 40c) com as águas de Rut'theran, e {npc:6286} em {area:186} dá a Receita dos Kaldorei (sete Pernas Pequenas de Aranha das aranhas Lenhateias) por {item:5472}, laranja de 10 a 50.",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250873} Juvenile Vuldren
-	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} na Ilha de Zefras, ou onde a seta apontar",
+	-- {npc:250874} Vuldren Alpha
+	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -411,6 +411,7 @@ return {
 	-- ["{npc:1549} (88%) in {zone:1420}, or wherever the arrow points"] = "{npc:1549} (88%) em {zone:1420}, ou onde a seta apontar",
 	-- ["{npc:1689} (38%), {npc:1127} (36%) in {zone:1426}, or wherever the arrow points"] = "{npc:1689} (38%), {npc:1127} (36%) em {zone:1426}, ou onde a seta apontar",
 	-- ["{npc:2385} (56%) in {zone:1424}, or wherever the arrow points"] = "{npc:2385} (56%) em {zone:1424}, ou onde a seta apontar",
+	-- ["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} na Ilha de Zefras, ou onde a seta apontar",
 	-- ["{npc:3099} (99%), {npc:3100} (74%) in {zone:1411}, or wherever the arrow points"] = "{npc:3099} (99%), {npc:3100} (74%) em {zone:1411}, ou onde a seta apontar",
 	-- ["{npc:3244} (33%) in {zone:1413}, or wherever the arrow points"] = "{npc:3244} (33%) em {zone:1413}, ou onde a seta apontar",
 	-- ["{npc:3818} (53%) in {zone:1440}, or wherever the arrow points"] = "{npc:3818} (53%) em {zone:1440}, ou onde a seta apontar",

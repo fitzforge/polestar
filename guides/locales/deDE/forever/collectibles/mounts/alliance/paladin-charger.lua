@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "Dein episches Reittier mit 60, jederzeit beschworen: die schnellere Stufe nach dem Schlachtross.",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Mit 60 schickt dich {npc:5149} ({object:32362}) zu {quest:7638} in der Kathedrale des Lichts in {zone:1453}.",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -119,6 +119,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800} stammt aus Thoriumadern, {item:18335} von den Elitegegnern in {zone:1422}, beide selten: Meist kaufst du sie im Auktionshaus.",
 	-- ["Arcanite Bars: the Auction House"] = "Arkanitbarren: Auktionshaus",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Mit 60 schickt dich {npc:5149} ({object:32362}) zu {quest:7638} in der Kathedrale des Lichts in {zone:1453}.",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Bring für {npc:1416} 150 Gold zusammen mit den Materialien mit.",
 	-- ["Supply Crates, inside"] = "Vorratskisten, drinnen",
 	-- ["Terrordale Spirits"] = "Schreckenstalgeister",

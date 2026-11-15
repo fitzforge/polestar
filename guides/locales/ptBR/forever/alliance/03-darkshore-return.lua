@@ -99,7 +99,7 @@ return {
 	["Underwater"] = "Debaixo d'água",
 
 	-- Step 17: Strange Lockbox
-	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox (no name in this language: may be words)
+	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}: the {object:177792} under the water off the north coast, west of the ruins"] = "{item:15883}: o {object:177792} debaixo d'água na costa norte, a oeste das ruínas",
 
 	-- Step 18: Mist's Edge: kill these as you meet them

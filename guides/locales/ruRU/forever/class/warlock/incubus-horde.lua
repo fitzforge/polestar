@@ -11,8 +11,8 @@ return {
 	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "На 20-м уровне: суккуб и инкуб из Forever – ее брат-близнец мужского пола, – каждый с сумкой для осколков душ.",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "На 20-м уровне {npc:5875} ({object:172960} под районом {object:172982}) отправит вас в нескольких шагах отсюда: {npc:5909}. Задания на этих демонов дают два учителя – {npc:5875} здесь и {npc:5675} ({zone:1458}), – и можно взять только одно; гайд следует тому {quest:1472}, которое вы взяли. {npc:5909} предлагает обе ветки ({zone:1454}): возьмите обе.",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "",
 	["the succubus"] = "",
 	["the incubus"] = "",
 
@@ -93,6 +93,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "Второй демон-соблазнитель – саяад мужского пола, а также сумка для осколков душ.",
+	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "На 20-м уровне {npc:5875} ({object:172960} под районом {object:172982}) отправит вас в нескольких шагах отсюда: {npc:5909}. Задания на этих демонов дают два учителя – {npc:5875} здесь и {npc:5675} ({zone:1458}), – и можно взять только одно; гайд следует тому {quest:1472}, которое вы взяли. {npc:5909} предлагает обе ветки ({zone:1454}): возьмите обе.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "Назад к {npc:5675} ({object:36082}). Положите сердца у круга призыва под ним и победите призванного инкуба.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "Назад к {npc:5875} ({object:172960}). Отнесите шарф к кругу призыва в палатке рядом (хозяин: {npc:3216}) и победите призванного инкуба.",
 	-- ["Incubus (Horde)"] = "Инкуб (Орда)",

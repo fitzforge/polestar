@@ -300,8 +300,8 @@ return {
 	["Stormwind City"] = "",
 
 	-- Step 62: Warlock: Summon Felsteed
-	-- {quest:3631} Summon Felsteed
-	["Warlock: {quest:3631}"] = "Brujo: {quest:3631}",
+	-- {quest:4488} Summon Felsteed
+	["Warlock: {quest:4488}"] = "Brujo: {quest:4488}",
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}, en {object:2164}: {npc:6251}, en {area:392}, la recoge al final de la siguiente guía",
 
@@ -453,6 +453,7 @@ return {
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "La posada quemada está en el camino del oeste, hacia {zone:1413}; la insignia del guardia está entre las cenizas y las huellas de pezuñas, en el barro junto a la posada.",
 	-- ["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "Los capitanes están en los barcos fondeados frente a la {area:43}, cada uno con una tripulación de piratas de nivel 42-45: Aguasmansas (45) y Sinquilla (46) en las cubiertas más cercanas, y {npc:2546} (48) en el buque insignia. A nivel 42 es una pelea para un grupo o para el final de la guía; si vas, limpia antes cada cubierta. El pergamino de Cortello está en el naufragio junto a la orilla.",
 	-- ["The riddle's next scroll lies in western Dustwallow: skip it."] = "El siguiente pergamino del enigma está en el oeste del Marjal Revolcafango: omítelo.",
+	-- ["Warlock: {quest:3631}"] = "Brujo: {quest:3631}",
 	-- ["for the flight back to {npc:6251} at 43"] = "para el vuelo de vuelta a {npc:6251} a nivel 43",
 	-- ["for the {area:8} later"] = "para {area:8}, más tarde",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}: para {npc:1344}, en {zone:1432}; guárdalo",

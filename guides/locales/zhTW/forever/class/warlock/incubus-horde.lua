@@ -11,8 +11,8 @@ return {
 	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "20級時，{object:172982}下方{object:172960}的{npc:5875}會派你去找幾步之遙的{npc:5909}。有兩位訓練師提供這些惡魔的任務，這裡的{npc:5875}和{zone:1458}的{npc:5675}，你只能接其中一個；本指南依照你接的{quest:1472}。{npc:5909}會提供{zone:1454}的兩條路線：兩條都接。",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "",
 	["the succubus"] = "",
 	["the incubus"] = "",
 
@@ -93,6 +93,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "第二種誘惑型惡魔，也就是男性的魅魔，還有一個用來裝靈魂碎片的靈魂碎片包。",
+	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "20級時，{object:172982}下方{object:172960}的{npc:5875}會派你去找幾步之遙的{npc:5909}。有兩位訓練師提供這些惡魔的任務，這裡的{npc:5875}和{zone:1458}的{npc:5675}，你只能接其中一個；本指南依照你接的{quest:1472}。{npc:5909}會提供{zone:1454}的兩條路線：兩條都接。",
 	-- ["Back to Carendin in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "回到{object:36082}找卡蘭丁。把心臟放在他下方的召喚法陣，擊敗它們召喚出的夢魔。",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "回到{object:36082}找{npc:5675}。把心臟放在他下方的召喚法陣，擊敗它們召喚出的夢魔。",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "回到{object:172960}找{npc:5875}。把圍巾帶到附近{npc:3216}帳篷裡的召喚法陣，擊敗它召喚出的夢魔。",

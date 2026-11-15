@@ -441,8 +441,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Dejas la isla para siempre. {npc:259119} espera donde aterriza la aeronave.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: guárdala: Thrall en {zone:1454}, al principio de la siguiente guía",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, junto al aterrizaje: para {npc:3033} en {zone:1456}",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -561,6 +561,7 @@ return {
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382} está en el lado oeste de {area:16638}.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389}, en {area:16638}, te da una {item:15908} tres veces: doma un {npc:254588} junto a los lagos al noroeste del pueblo, un {npc:251707} en los campos al oeste del pueblo y un {npc:250874} en {area:16663}, volviendo con ella tras cada uno. {npc:254411} está a su lado.",
 	-- ["{npc:252389}: Tame Beast"] = "{npc:252389}: Domesticar bestia",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, junto al aterrizaje: para {npc:3033} en {zone:1456}",
 	-- ["{npc:254411}: Beast Training"] = "{npc:254411}: Entrenamiento de bestias",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} espera junto a la cascada, justo al norte de la atalaya.",
 	-- ["{npc:255853}: Bear Form"] = "{npc:255853}: Forma de oso",

@@ -11,7 +11,7 @@ return {
 	["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272}은(는) 이 가이드의 거점입니다. 귀환석으로 이곳에 두 번 돌아옵니다. 모두 마을 광장 주변에 있습니다.",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "여관 옆의 {object:107045}에서 {item:7768}을(를) 채우세요",
-	-- {object:556670} WANTED (no name in this language: may be words)
+	-- {object:556670} WANTED
 	["The {object:556670} poster by the inn"] = "여관 옆의 {object:556670} 게시판",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",

@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, 무리발톱",
 	["Prideclaw, Galestrider"] = "",
+	["Prideclaw, Vuldren"] = "",
+	["Cloudrunner, Galestrider"] = "",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "무리발톱, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "돌풍타조, 구름달리미",
-	["Prideclaw, Vuldren"] = "",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -244,6 +244,7 @@ return {
 	-- ["Beasts 48-54: {zone:1449} (275-300)"] = "야수 48-54: {zone:1449} (275-300)",
 	-- ["Duskbat"] = "그늘박쥐",
 	-- ["Duskbat, {npc:1513}"] = "그늘박쥐, {npc:1513}",
+	-- ["Galestrider, Cloudrunner"] = "돌풍타조, 구름달리미",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "수습 {skill:393}은(는) 최대 숙련도를 150(으)로 올립니다. 숙련도 50, 캐릭터 레벨 10이(가) 필요합니다. 화살표가 진영의 가장 가까운 {skill:393} 상급자를 가리킵니다.",
 	-- ["Kill and skin {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, needs 155), {npc:1108} (32, needs 160), Panther (32, needs 160), {npc:682} (32, needs 160), {npc:685} (33, needs 165), {npc:689} (34, needs 170), {npc:1085} (34, needs 170) along the loop until {skill:393} 175; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45."] = "순환 경로를 따라 {skill:393} 175까지 다음 야수를 처치하고 가죽을 벗기세요: {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, 숙련도 155), {npc:1108} (32, 숙련도 160), 퓨마 (32, 숙련도 160), {npc:682} (32, 숙련도 160), {npc:685} (33, 숙련도 165), {npc:689} (34, 숙련도 170), {npc:1085} (34, 숙련도 170). 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 30-45.",
 	-- ["Kill and skin {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, needs 130), {npc:1018} (27, needs 135), {npc:1019} (29, needs 145) along the loop until {skill:393} 150; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30."] = "순환 경로를 따라 {skill:393} 150까지 다음 야수를 처치하고 가죽을 벗기세요: {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, 숙련도 130), {npc:1018} (27, 숙련도 135), {npc:1019} (29, 숙련도 145). 숙련도가 허용하는 가장 높은 레벨의 야수를 벗기세요. L 레벨 야수는 20레벨까지 숙련도 (L-10)x10, 그 이상은 Lx5가 필요합니다. 지역 레벨 20-30.",

@@ -11,7 +11,7 @@ return {
 	["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272}是本指南的据点：炉石会两次把你带回这里。所有人都站在镇广场周围。",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "在旅店旁的{object:107045}装满{item:7768}",
-	-- {object:556670} WANTED (no name in this language: may be words)
+	-- {object:556670} WANTED
 	["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}告示",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}：在屋内",

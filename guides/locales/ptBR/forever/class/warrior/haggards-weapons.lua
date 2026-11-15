@@ -47,9 +47,9 @@ return {
 	["Back to {npc:6114} for {spell:71}, then to {quest:1680} at the {object:32372} in the middle of {zone:1455}."] = "De volta a {npc:6114} para {spell:71}, depois a {quest:1680} na {object:32372}, no meio de {zone:1455}.",
 
 	-- Step 8: Ironband's Compound
-	-- {quest:1681} Ironband's Compound · {zone:1426} Dun Morogh · {area:212} Helm's Bed Lake · {object:85562} Ironband's Strongbox (no name in this language: may be words) · {npc:6124} Captain Beld
+	-- {quest:1681} Ironband's Compound · {zone:1426} Dun Morogh · {area:212} Helm's Bed Lake · {object:85562} Ironband's Strongbox · {npc:6124} Captain Beld
 	["{quest:1681} lies in eastern {zone:1426}, below {area:212} on its south side. Dark Iron Spies (level 8-10) stand along the way, far enough apart to pull one at a time. {object:85562} is in the basement of the southernmost house; {npc:6124} (level 11) stands by it and charges on sight. The box always holds the ore and refills 15 minutes after opening."] = "{quest:1681} fica no leste de {zone:1426}, embaixo de {area:212}, no lado sul. Espiões Ferro Negro (nível 8-10) ficam pelo caminho, afastados o bastante para puxar um de cada vez. {object:85562} fica no porão da casa mais ao sul; {npc:6124} (nível 11) fica ao lado e ataca assim que vê você. A caixa sempre guarda o minério e se enche 15 minutos depois de aberta.",
-	-- {item:6800} Umbral Ore · {object:85562} Ironband's Strongbox (no name in this language: may be words)
+	-- {item:6800} Umbral Ore · {object:85562} Ironband's Strongbox
 	["{item:6800}, from {object:85562}"] = "{item:6800}, de {object:85562}",
 
 	-- Step 10: Elanaria

@@ -82,7 +82,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "Los acechadores viles recorren la ladera bajo la cueva, en el lado norte del valle.",
 
 	-- Step 17: Zureetha Fargaze
-	-- {object:654925} Lost Journal (no name in this language: may be words)
+	-- {object:654925} Lost Journal
 	["the {object:654925} on the ground beside her"] = "{object:654925}, en el suelo a su lado",
 	-- {npc:3707} Ken'jai · {npc:3706} Tai'jin · {area:362} Razor Hill
 	["{npc:3707}, the priest trainer at the Den: for {npc:3706} in {area:362}"] = "{npc:3707}, el instructor de sacerdotes en la Guarida: para {npc:3706} en {area:362}",

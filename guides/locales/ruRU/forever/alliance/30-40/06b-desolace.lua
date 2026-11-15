@@ -6,6 +6,15 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {zone:1443} Desolace
+	["Kodo bones, demons and lost treasure in south {zone:1443}."] = "",
+	["Short: about one level of quests"] = "",
+	-- {zone:1434} Stranglethorn Vale
+	["Then on to {zone:1434}"] = "",
+	["Stays on the main route"] = "",
+	["A long trip out to Kalimdor"] = "",
+
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "Летите сюда: {area:150}",
@@ -53,7 +62,7 @@ return {
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magram Necrokhans = {npc:253274} Magram Necrokhan · Magram Necromancers = {npc:253272} Magram Necromancer
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan · Magram Necromancers = {npc:253272} Magram Necromancer
 	["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Опустошители-отрекшиеся бродят по костяным полям к югу от деревни племени Маграм, к востоку от Ковена: стрелка ведет к их западному краю. Затем используйте {item:15848} у его стрелки, на восточной стороне полей, чтобы приманить призраков из племени Маграм. Осторожно: некроханы Маграм и трупоеды (45, элитные) ходят по костяным полям между двумя стрелками вместе с некромантами Маграм (42): подтягивайте опустошителей и призраков к себе, подальше от них.",
 
 	-- Step 14: Azore Aldamort

@@ -300,8 +300,8 @@ return {
 	["Stormwind City"] = "",
 
 	-- Step 62: Warlock: Summon Felsteed
-	-- {quest:3631} Summon Felsteed
-	["Warlock: {quest:3631}"] = "術士：{quest:3631}",
+	-- {quest:4488} Summon Felsteed
+	["Warlock: {quest:4488}"] = "術士：{quest:4488}",
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:461}, in the {object:2164}: {npc:6251} in {area:392} takes it at the end of the next guide"] = "{npc:461}，在{object:2164}：由{area:392}的{npc:6251}在下一份指南結尾接收",
 
@@ -453,6 +453,7 @@ return {
 	-- ["The burned inn stands on the road west, toward the {zone:1413}; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn."] = "燒毀的旅店位於西邊通往{zone:1413}的道路上；衛兵的徽章就在灰燼中，蹄印則在旅店旁的泥地上。",
 	-- ["The captains stand on the ships anchored off the {area:43}, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, {npc:2546} (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore."] = "船長們站在停泊於{area:43}外海的船上，每艘都有42-45級的海盜船員：斯蒂沃特船長（45）和尼哈魯船長（46）在較近的甲板上，{npc:2546}（48）在旗艦上。42級時這是小隊的戰鬥，或留到指南最後再打；如果要去，先清空每層甲板。科泰羅的卷軸在岸邊的船骸上。",
 	-- ["The riddle's next scroll lies in western Dustwallow: skip it."] = "謎題的下一份卷軸在塵泥沼澤西部：跳過。",
+	-- ["Warlock: {quest:3631}"] = "術士：{quest:3631}",
 	-- ["for the flight back to {npc:6251} at 43"] = "為了在43級時飛回{npc:6251}",
 	-- ["for the {area:8} later"] = "稍後用於{area:8}",
 	-- ["{npc:1356}: for {npc:1344} in {zone:1432}, keep it"] = "{npc:1356}：給{zone:1432}的{npc:1344}，保留此任務",

@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "La boîte aux lettres morte de C",
-	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "La {object:410369} est un coffre dans une maison juste à l'extérieur du {area:204}, dans le sud de la forêt des Pins-Argentés, au sud du {area:236}. Ouvrez-le et lisez le message de C : le travail doit se faire seul, hors de tout groupe.",
 
 	-- Step 2: Veenix
@@ -30,7 +30,7 @@ return {
 
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "Retour à la boîte aux lettres morte",
-	-- {object:410369} Dead Drop (no name in this language: may be words)
+	-- {object:410369} Dead Drop
 	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "Ouvrez à nouveau la {object:410369}, le coffre à l'extérieur de Bois-du-Bûcher où vous avez pris le travail, et rendez-y le cor. Le paiement de C est une seconde remise au même coffre, sans rien à accepter d'abord, et il peut ne pas être là tout de suite : des joueurs ont attendu d'un quart d'heure à deux heures. Vérifiez une boîte aux lettres de capitale pour la lettre suivante de C lors de votre prochaine visite prévue en ville, puis revenez à ce coffre pour le récupérer. Ne refaites pas le donjon simplement parce que le paiement n'est pas encore proposé.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

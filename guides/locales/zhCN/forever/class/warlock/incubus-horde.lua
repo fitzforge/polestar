@@ -11,8 +11,8 @@ return {
 	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "20级：魅魔和无限服的夜魔（魅魔的男性孪生版本），各附赠一个装灵魂碎片的灵魂袋。",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "达到 20 级后，{object:172982} 下方 {object:172960} 中的 {npc:5875} 会让你去找几步之外的 {npc:5909}。两名训练师可开启这些恶魔任务，分别是这里的 {npc:5875} 和 {zone:1458} 的 {npc:5675}，但你只能选择其中一人；本指南会跟随你已接受的 {quest:1472} 继续引导。{npc:5909} 提供 {zone:1454} 的两个分支：两个都接。",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "",
 	["the succubus"] = "魅魔",
 	["the incubus"] = "男魅魔",
 
@@ -94,6 +94,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "第二个魅魔类恶魔，即男性萨亚德，外加一个装灵魂碎片的灵魂碎片包。",
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers offer the incubus, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one: this guide follows whichever {quest:1472} you took."] = "20级时，{object:172982}下方{object:172960}的{npc:5875}会让你去找几步之外的{npc:5909}。有两位训练师提供夜魔任务，这里的{npc:5875}和{zone:1458}的{npc:5675}，你只能接其中一个：本指南会跟随你接的那个{quest:1472}。",
+	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "达到 20 级后，{object:172982} 下方 {object:172960} 中的 {npc:5875} 会让你去找几步之外的 {npc:5909}。两名训练师可开启这些恶魔任务，分别是这里的 {npc:5875} 和 {zone:1458} 的 {npc:5675}，但你只能选择其中一人；本指南会跟随你已接受的 {quest:1472} 继续引导。{npc:5909} 提供 {zone:1454} 的两个分支：两个都接。",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "回到{object:36082}找{npc:5675}。把心脏放在他下方的召唤法阵上，击败它们召唤出的夜魔。",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "回到{object:172960}找{npc:5875}。把围巾带到附近{npc:3216}帐篷里的召唤法阵，击败它召唤出的夜魔。",
 	-- ["Incubus (Horde)"] = "夜魔（部落）",

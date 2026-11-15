@@ -82,7 +82,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "地狱捕猎者在山谷北侧、洞穴下方的山坡上游荡。",
 
 	-- Step 17: Zureetha Fargaze
-	-- {object:654925} Lost Journal (no name in this language: may be words)
+	-- {object:654925} Lost Journal
 	["the {object:654925} on the ground beside her"] = "她身旁地上的{object:654925}",
 	-- {npc:3707} Ken'jai · {npc:3706} Tai'jin · {area:362} Razor Hill
 	["{npc:3707}, the priest trainer at the Den: for {npc:3706} in {area:362}"] = "{npc:3707}，洞穴处的牧师训练师：交给{area:362}的{npc:3706}",

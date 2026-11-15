@@ -84,10 +84,10 @@ return {
 	["Use the {item:5185} at the moonwell"] = "Usa la {item:5185} en el pozo de la luna",
 
 	-- Step 11: Tenaron Stormgrip
-	-- {area:256} Aldrassil · {object:654846} Lost Journal (no name in this language: may be words)
+	-- {area:256} Aldrassil · {object:654846} Lost Journal
 	["Back to the top of {area:256}. The {object:654846} lies beside him."] = "Vuelve a lo alto de {area:256}. El {object:654846} está a su lado.",
 	["Upstairs"] = "",
-	-- {object:654846} Lost Journal (no name in this language: may be words)
+	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "",
 	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
 	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, el instructor de sacerdotes, en el segundo nivel de {area:256} al bajar: la recibe {npc:3600} en {area:186}",
@@ -355,9 +355,9 @@ return {
 
 	-- Step 57: Sentinel Arynia again
 	["Sentinel Arynia again"] = "Centinela Arynia otra vez",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words)
+	-- {object:673378} Oracle Tree Bark
 	["{object:673378}, just west of the moonwell"] = "{object:673378}, justo al oeste del pozo de la luna",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words) · {zone:1457} Darnassus
+	-- {object:673378} Oracle Tree Bark · {zone:1457} Darnassus
 	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "",
 
 	-- Step 58: Sentinel Shayla Nightbreeze

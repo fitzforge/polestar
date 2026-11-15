@@ -56,9 +56,9 @@ return {
 	["Neutral opens the rest of the Scepter of the Shifting Sands chain. Baristolth sends you back to {quest:8303}."] = "Neutro libera o resto da cadeia do Cetro das Areias Cambiantes. Baristolth manda você de volta a {quest:8303}.",
 
 	-- Step 9: The Crystalline Tear
-	-- {object:180633} Crystalline Tear (no name in this language: may be words)
+	-- {object:180633} Crystalline Tear
 	["The {object:180633}"] = "{object:180633}",
-	-- {object:180633} Crystalline Tear (no name in this language: may be words) · {area:3428} Ahn'Qiraj · {zone:1451} Silithus
+	-- {object:180633} Crystalline Tear · {area:3428} Ahn'Qiraj · {zone:1451} Silithus
 	["The {object:180633} is a small red crystal on the ground just outside the gates of {area:3428}, in the far south-west of {zone:1451}. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again."] = "{object:180633} é um pequeno cristal vermelho no chão logo fora dos portões de {area:3428}, no extremo sudoeste de {zone:1451}. Clique nele, depois fique e assista à visão da Guerra das Areias Cambiantes até o fim. Se ela for interrompida, abandone a missão e clique na Lágrima de novo.",
 	["Watch the vision"] = "Assista à visão",
 

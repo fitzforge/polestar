@@ -441,8 +441,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "이제 섬을 완전히 떠납니다. {npc:259119}이(가) 비행선이 내리는 곳에서 기다립니다.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: 보관하세요. 다음 가이드 시작에 {zone:1454}의 스랄",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "착륙장 옆의 {npc:253957}: {zone:1456}의 {npc:3033}에게",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -559,6 +559,7 @@ return {
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359}은(는) {area:16638} 동쪽에 있습니다.",
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382}은(는) {area:16638} 서쪽에 있습니다.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{area:16638}의 {npc:252389}이(가) {item:15908}을(를) 세 번 줍니다. 마을 북서쪽 호숫가의 {npc:254588}, 마을 서쪽 들판의 {npc:251707}, {area:16663}의 {npc:250874}을(를) 길들이고, 매번 그녀에게 돌아가세요. {npc:254411}은(는) 그녀 옆에 있습니다.",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "착륙장 옆의 {npc:253957}: {zone:1456}의 {npc:3033}에게",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}은(는) 감시탑 바로 북쪽 폭포 옆에서 기다립니다.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}은(는) 배신자의 집 바로 남쪽 비탈을 배회합니다.",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}의 모닥불",

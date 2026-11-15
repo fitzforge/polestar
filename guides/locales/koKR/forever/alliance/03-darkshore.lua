@@ -71,9 +71,9 @@ return {
 	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "{npc:3639}은(는) 폐허 북쪽 끝에 서 있습니다. 저주받은 명가의 원혼, 고뇌하는 명가의 원혼, {npc:2178}이(가) 폐허를 떠돕니다. {npc:3667}의 유령이 그 사이를 거닐고, 올빼미 {npc:270196}이(가) 폐허 동쪽을 맴돕니다. 두 석판은 폐허 안에 있고, {quest:4722}은(는) 폐허 서쪽 해안에 있습니다.",
 	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
 	["Highborne Relics"] = "명가의 유물",
-	-- {object:17188} Lay of Ameth'Aran (no name in this language: may be words)
+	-- {object:17188} Lay of Ameth'Aran
 	["Read the {object:17188}"] = "{object:17188}을(를) 읽으십시오",
-	-- {object:17189} Fall of Ameth'Aran (no name in this language: may be words)
+	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "{object:17189}을(를) 읽으십시오",
 
 	-- Step 11: The red crystal

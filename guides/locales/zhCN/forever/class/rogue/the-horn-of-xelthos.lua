@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "C的秘密投递点",
-	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369} 是一只宝箱，位于银松森林南部、{area:236} 以南的 {area:204} 外一间房子里。打开它并阅读 C 的便条：这项工作必须退出小队，独自完成。",
 
 	-- Step 2: Veenix
@@ -30,7 +30,7 @@ return {
 
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "回到秘密投递点",
-	-- {object:410369} Dead Drop (no name in this language: may be words)
+	-- {object:410369} Dead Drop
 	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "再次打开{object:410369}，也就是你在焚木村外接下这份差事的那个箱子，在那里交还号角。C的报酬是同一个箱子的第二次交还，无需先接受任务，而且可能不会立刻出现：玩家等待的时间从一刻钟到两小时不等。下次计划中回主城时，检查邮箱里C的后续来信，再回这个箱子领取报酬。暂时没有报酬任务，不代表需要重新潜入副本。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

@@ -441,8 +441,8 @@ return {
 	["You leave the isle for good. {npc:259119} waits where the airship lands."] = "Du verlässt die Insel endgültig. {npc:259119} wartet, wo das Luftschiff landet.",
 	-- {npc:259119} Alaana Stormwalker · {zone:1454} Orgrimmar
 	["{npc:259119}: keep it: Thrall in {zone:1454}, at the start of the next guide"] = "{npc:259119}: Behalte es: Thrall in {zone:1454}, am Anfang des nächsten Guides",
-	-- {npc:253957} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
-	["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, bei der Landestelle: für {npc:3033} in {zone:1456}",
+	-- {npc:259118} Muln Earthfury · {npc:3033} Turak Runetotem · {zone:1456} Thunder Bluff
+	["{npc:259118}, by the landing: for {npc:3033} in {zone:1456}"] = "",
 
 	-- Step 97: Clarice Foster
 	-- {npc:5543} Clarice Foster · {area:2197} Pools of Vision · {area:1640} Spirit Rise
@@ -579,7 +579,7 @@ return {
 	-- ["{npc:252382} stands on {area:16638}'s west side."] = "{npc:252382} steht auf der Westseite von {area:16638}.",
 	-- ["{npc:252389} in {area:16638} hands you a {item:15908} three times: tame a {npc:254588} by the lakes north-west of town, an {npc:251707} in the fields west of town and a {npc:250874} at {area:16663}, returning to her after each. {npc:254411} stands beside her."] = "{npc:252389} in {area:16638} gibt dir dreimal {item:15908}: Zähm {npc:254588} an den Seen nordwestlich der Stadt, {npc:251707} auf den Feldern westlich der Stadt und {npc:250874} bei {area:16663}, und kehr nach jedem zu ihr zurück. {npc:254411} steht neben ihr.",
 	-- ["{npc:252389}: Tame Beast"] = "{npc:252389}: Wildtier zähmen",
-	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, an der Landestelle: für {npc:3033} in {zone:1456}",
+	-- ["{npc:253957}, by the landing: for {npc:3033} in {zone:1456}"] = "{npc:253957}, bei der Landestelle: für {npc:3033} in {zone:1456}",
 	-- ["{npc:254411}: Beast Training"] = "{npc:254411}: Wildtierausbildung",
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853} wartet an den Fällen gleich nördlich des Wachturms.",
 	-- ["{npc:255853}: Bear Form"] = "{npc:255853}: Bärengestalt",

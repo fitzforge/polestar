@@ -84,10 +84,10 @@ return {
 	["Use the {item:5185} at the moonwell"] = "달샘에서 {item:5185}을(를) 사용하세요",
 
 	-- Step 11: Tenaron Stormgrip
-	-- {area:256} Aldrassil · {object:654846} Lost Journal (no name in this language: may be words)
+	-- {area:256} Aldrassil · {object:654846} Lost Journal
 	["Back to the top of {area:256}. The {object:654846} lies beside him."] = "{area:256} 꼭대기로 돌아가세요. {object:654846}은(는) 그 옆에 있습니다.",
 	["Upstairs"] = "위층",
-	-- {object:654846} Lost Journal (no name in this language: may be words)
+	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "",
 	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
 	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "내려가는 길에 {area:256} 2층의 사제 상급자 {npc:3595}: {area:186}의 {npc:3600}에게 가져가세요",
@@ -355,9 +355,9 @@ return {
 
 	-- Step 57: Sentinel Arynia again
 	["Sentinel Arynia again"] = "다시 파수꾼 아리니아 클라우드브레이크",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words)
+	-- {object:673378} Oracle Tree Bark
 	["{object:673378}, just west of the moonwell"] = "달샘 바로 서쪽의 {object:673378}",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words) · {zone:1457} Darnassus
+	-- {object:673378} Oracle Tree Bark · {zone:1457} Darnassus
 	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "",
 
 	-- Step 58: Sentinel Shayla Nightbreeze

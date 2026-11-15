@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Коготь прайда",
 	["Prideclaw, Galestrider"] = "",
+	["Prideclaw, Vuldren"] = "",
+	["Cloudrunner, Galestrider"] = "",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Коготь прайда, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Буреног, Облакобег",
-	["Prideclaw, Vuldren"] = "",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -244,6 +244,7 @@ return {
 	-- ["Beasts 48-54: {zone:1449} (275-300)"] = "Звери 48-54: {zone:1449} (275-300)",
 	-- ["Duskbat"] = "Сумеречница",
 	-- ["Duskbat, {npc:1513}"] = "Сумеречница, {npc:1513}",
+	-- ["Galestrider, Cloudrunner"] = "Буреног, Облакобег",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Подмастерье»: предел 150; нужен навык 50 и уровень персонажа 10. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
 	-- ["Kill and skin {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, needs 155), {npc:1108} (32, needs 160), Panther (32, needs 160), {npc:682} (32, needs 160), {npc:685} (33, needs 165), {npc:689} (34, needs 170), {npc:1085} (34, needs 170) along the loop until {skill:393} 175; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45."] = "Убивайте зверей по кругу и снимайте с них шкуры: {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, нужно 155), {npc:1108} (32, нужно 160), Пантера (32, нужно 160), {npc:682} (32, нужно 160), {npc:685} (33, нужно 165), {npc:689} (34, нужно 170), {npc:1085} (34, нужно 170) – пока {skill:393} не достигнет 175; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 30-45.",
 	-- ["Kill and skin {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, needs 130), {npc:1018} (27, needs 135), {npc:1019} (29, needs 145) along the loop until {skill:393} 150; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30."] = "Убивайте зверей по кругу и снимайте с них шкуры: {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, нужно 130), {npc:1018} (27, нужно 135), {npc:1019} (29, нужно 145) – пока {skill:393} не достигнет 150; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 20-30.",

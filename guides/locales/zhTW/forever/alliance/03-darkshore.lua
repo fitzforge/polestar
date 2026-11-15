@@ -71,9 +71,9 @@ return {
 	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "{npc:3639}站在廢墟北緣。被詛咒的精靈貴族、悲苦的精靈貴族和{npc:2178}在廢墟中出沒；{npc:3667}的鬼魂在它們之間走動，貓頭鷹{npc:270196}在它們東邊盤旋。兩塊石板在廢墟中；一個{quest:4722}在廢墟西邊的岸上。",
 	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
 	["Highborne Relics"] = "精靈貴族的聖物",
-	-- {object:17188} Lay of Ameth'Aran (no name in this language: may be words)
+	-- {object:17188} Lay of Ameth'Aran
 	["Read the {object:17188}"] = "閱讀{object:17188}",
-	-- {object:17189} Fall of Ameth'Aran (no name in this language: may be words)
+	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "閱讀{object:17189}",
 
 	-- Step 11: The red crystal

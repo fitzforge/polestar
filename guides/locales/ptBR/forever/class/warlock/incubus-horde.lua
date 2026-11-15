@@ -11,8 +11,8 @@ return {
 	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "No nível 20: o súcubo e o íncubo do Forever, seu gêmeo masculino, cada um com uma bolsa de almas para seus fragmentos.",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
-	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar
-	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "No nível 20, {npc:5875}, na {object:172960} sob o {object:172982}, envia você a {npc:5909}, a poucos passos. Dois instrutores iniciam esses demônios, {npc:5875} aqui e {npc:5675} na {zone:1458}, e você só pode pegar um; este guia segue a {quest:1472} que você pegou. {npc:5909} oferece os dois ramos de {zone:1454}: pegue os dois.",
+	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1507} Devourer of Souls · {zone:1454} Orgrimmar
+	["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1507} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "",
 	["the succubus"] = "o súcubo",
 	["the incubus"] = "o íncubo",
 
@@ -93,6 +93,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."] = "Um segundo demônio sedutor, o sayaad macho, e uma bolsa para guardar seus fragmentos de alma.",
+	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "No nível 20, {npc:5875}, na {object:172960} sob o {object:172982}, envia você a {npc:5909}, a poucos passos. Dois instrutores iniciam esses demônios, {npc:5875} aqui e {npc:5675} na {zone:1458}, e você só pode pegar um; este guia segue a {quest:1472} que você pegou. {npc:5909} oferece os dois ramos de {zone:1454}: pegue os dois.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "Volte a {npc:5675} no {object:36082}. Coloque os corações no círculo de evocação abaixo dele e derrote o íncubo que eles chamarem.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "Volte a {npc:5875} na {object:172960}. Leve o lenço ao círculo de evocação na tenda de {npc:3216}, ali perto, e derrote o íncubo que ele chamar.",
 	-- ["Incubus (Horde)"] = "Íncubo (Horda)",

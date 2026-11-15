@@ -50,9 +50,9 @@ return {
 
 	-- Step 11: The loch
 	["The loch"] = "Der See",
-	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words) · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
+	-- {object:665289} Discarded Fishing Toolbox · {area:144} Thelsamar · {item:278051} Monogrammed Silver Hair Clip
 	["South along the west shore. The {object:665289} lies on the loch bed at one of several places: east of {area:144} (48.1,39.7), a little south-west of there (45.7,43.4), or at the south end of the loch (48.7,54.4 or 50.6,53.3). If it isn't at the arrow, try the next place. Click it for the quest; the {item:278051} comes with it."] = "Am Westufer entlang nach Süden. Der {object:665289} liegt auf dem Seegrund an einer von mehreren Stellen: östlich von {area:144} (48.1,39.7), ein Stück südwestlich davon (45.7,43.4) oder am Südende des Sees (48.7,54.4 oder 50.6,53.3). Wenn er nicht am Pfeil ist, versuch die nächste Stelle. Klick ihn an für die Quest; der {item:278051} kommt dazu.",
-	-- {object:665289} Discarded Fishing Toolbox (no name in this language: may be words)
+	-- {object:665289} Discarded Fishing Toolbox
 	["{object:665289}; underwater"] = "{object:665289}; unter Wasser",
 
 	-- Step 12: Thelsamar

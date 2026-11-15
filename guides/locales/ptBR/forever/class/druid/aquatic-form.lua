@@ -23,16 +23,16 @@ return {
 	["At the {area:2362}"] = "No {area:2362}",
 
 	-- Step 4: Half Pendant of Aquatic Agility
-	-- {area:2361} Nighthaven · {area:442} Auberdine · {object:177792} Strange Lockbox (no name in this language: may be words) · {area:456} Cliffspring River
+	-- {area:2361} Nighthaven · {area:442} Auberdine · {object:177792} Strange Lockbox · {area:456} Cliffspring River
 	-- plural, as words: Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Fly from {area:2361} to {area:442}. The {object:177792} lies far out on the sea floor off the north coast, between tall rocks west of where the {area:456} reaches the sea: it cannot be seen from the east side of the rocks. Watch your breath and the Darkshore Threshers; fight above water."] = "Voe de {area:2361} para {area:442}. O {object:177792} está longe, no fundo do mar ao largo da costa norte, entre rochas altas a oeste de onde {area:456} chega ao mar: do lado leste das rochas não dá para ver. Fique de olho no fôlego e nos Manguais da Costa Negra; lute fora d'água.",
-	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox (no name in this language: may be words)
+	-- {item:15883} Half Pendant of Aquatic Agility · {object:177792} Strange Lockbox
 	["{item:15883}, from the {object:177792}"] = "{item:15883}, do {object:177792}",
 
 	-- Step 5: Half Pendant of Aquatic Endurance
-	-- {area:442} Auberdine · {zone:1453} Stormwind · {area:108} Sentinel Hill · {object:177790} Strange Lockbox (no name in this language: may be words)
+	-- {area:442} Auberdine · {zone:1453} Stormwind · {area:108} Sentinel Hill · {object:177790} Strange Lockbox
 	["Take the boat from {area:442} to {zone:1453} and fly to {area:108}. Head west to the coast: the {object:177790} lies far out on the sea floor beside a bubbling fissure (air), west of a sunken anchor. Sharks roam here; do not swim on past the wreck beyond it, the deep water brings fatigue."] = "Pegue o barco de {area:442} para {zone:1453} e voe para {area:108}. Siga para oeste até a costa: o {object:177790} está longe, no fundo do mar, ao lado de uma fenda borbulhante (ar), a oeste de uma âncora afundada. Tubarões rondam por ali; não passe do naufrágio mais adiante, a água funda dá fadiga.",
-	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox (no name in this language: may be words)
+	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}, from the {object:177790}"] = "{item:15882}, do {object:177790}",
 
 	-- Step 6: Pendant of the Sea Lion

@@ -44,10 +44,10 @@ return {
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}, Garramanada",
 	["Prideclaw, Galestrider"] = "",
+	["Prideclaw, Vuldren"] = "",
+	["Cloudrunner, Galestrider"] = "",
 	-- {npc:250928} Highlands Ursera
 	["Prideclaw, {npc:250928}"] = "Prideclaw, {npc:250928}",
-	["Galestrider, Cloudrunner"] = "Zancavendavales, Correnubes",
-	["Prideclaw, Vuldren"] = "",
 
 	-- Step 6: Beasts 1-9: Durotar (1-50)
 	-- {zone:1411} Durotar
@@ -244,6 +244,7 @@ return {
 	-- ["Beasts 48-54: {zone:1449} (275-300)"] = "Bestias 48-54: {zone:1449} (275-300)",
 	-- ["Duskbat"] = "Murciumbrío",
 	-- ["Duskbat, {npc:1513}"] = "Murciumbrío, {npc:1513}",
+	-- ["Galestrider, Cloudrunner"] = "Zancavendavales, Correnubes",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} de oficial sube el tope a 150; requiere habilidad 50 y nivel de personaje 10. La flecha elige el instructor de {skill:393} de tu facción más cercano.",
 	-- ["Kill and skin {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, needs 155), {npc:1108} (32, needs 160), Panther (32, needs 160), {npc:682} (32, needs 160), {npc:685} (33, needs 165), {npc:689} (34, needs 170), {npc:1085} (34, needs 170) along the loop until {skill:393} 175; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-45."] = "Mata y despelleja {npc:1150} (30), {npc:683} (30), {npc:855} (30), {npc:681} (30), {npc:688} (31, requiere 155), {npc:1108} (32, requiere 160), Pantera (32, requiere 160), {npc:682} (32, requiere 160), {npc:685} (33, requiere 165), {npc:689} (34, requiere 170), {npc:1085} (34, requiere 170) a lo largo del circuito hasta {skill:393} 175; despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 30-45.",
 	-- ["Kill and skin {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, needs 130), {npc:1018} (27, needs 135), {npc:1019} (29, needs 145) along the loop until {skill:393} 150; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30."] = "Mata y despelleja {npc:1417} (21), {npc:1020} (22), {npc:1015} (23), {npc:1400} (23), {npc:1016} (24), {npc:1021} (24), {npc:2089} (25), {npc:1022} (25), {npc:1023} (26, requiere 130), {npc:1018} (27, requiere 135), {npc:1019} (29, requiere 145) a lo largo del circuito hasta {skill:393} 150; despelleja las bestias de mayor nivel que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta nivel 20 y Lx5 por encima. Nivel de la zona 20-30.",
