@@ -129,7 +129,7 @@ fn level_key(name: &str) -> String {
 /// Finder's, but for the two named rows of data/codex/levels.json: The Hall of Thanes' top of 18 and Krol'dok
 /// Stronghold's floor of 43, so a third exception can't get in uncited. And where 5 or more people were recorded,
 /// the Group Finder's minimum is at or under their 25th percentile and their 90th percentile at most
-/// `journal::CHECK_SLACK` (5) over the top: a broken join or a wrong client row shows. On the newest Forever
+/// `journal::CHECK_SLACK` (8) over the top: a broken join or a wrong client row shows. On the newest Forever
 /// client tables with the Group Finder in the source cache (FORGE_SOURCES, else <repo>/data/sources) and this
 /// checkout's data/codex/recorded.json and levels.json; a fresh clone has no client tables and skips.
 #[test]

@@ -8584,11 +8584,17 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 			const d = data.quests[q];
 			return !!(d && d.objectives && d.objectives.length && d.objectives.every((o) => o.type === 'kill' && (d.end.npc || []).includes(o.id)));
 		};
+		// A profession quest whose only objective is a skill level (Camping 101: Skinning, "Raise your skinning skill
+		// to 20", #1952): like a class quest it waits for the skill, and the trainer's step turns it in once complete.
+		const skillLevel = (q) => {
+			const d = data.quests[q];
+			return !!(d && d.skill && d.objectives && d.objectives.length && d.objectives.every((o) => o.type === 'event'));
+		};
 		const lastWork = new Map();
 		list.forEach(({ goal }, i) => { if (WORK.has(goal.t) && goal.quest != null && !goal.optional) lastWork.set(goal.quest, i); });
 		const open = new Map();
 		list.forEach(({ goal, g }, i) => {
-			if (goal.t === 'accept' && !goal.optional && !classQuest(goal.quest) && !delivery(goal.quest)) open.set(goal.quest, g);
+			if (goal.t === 'accept' && !goal.optional && !classQuest(goal.quest) && !delivery(goal.quest) && !skillLevel(goal.quest)) open.set(goal.quest, g);
 			if (goal.t === 'turnin') open.delete(goal.quest);
 			const nextG = list[i + 1] && list[i + 1].g;
 			if (nextG && nextG !== g) {

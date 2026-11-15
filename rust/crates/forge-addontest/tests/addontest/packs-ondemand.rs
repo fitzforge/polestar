@@ -509,8 +509,9 @@ const INSTALLED_OFF_BUDGET_KIB: f64 = 2.0;
 
 /// What the shipped experimental guides add to a login now that they are on by default (0.4.0: listed with our
 /// guides, so loaded at login): measured 2026-11-15 (Lua 5.1) with Riverglades (Alliance and Horde), Shen'dralas
-/// and Mount Hyjal, +2237.9 KiB, and the budget that plus about 5 %.
-const ON_MEASURED_KIB: f64 = 2237.9;
+/// and Mount Hyjal, +2237.9 KiB; compiled on the QuestieDB 1.1.1 data the same day, +2351.1 KiB (size budgets may
+/// grow for 0.4.0, Fitz). The budget is the last figure plus about 5 %.
+const ON_MEASURED_KIB: f64 = 2351.1;
 const ON_BUDGET_KIB: f64 = ON_MEASURED_KIB * 1.05;
 
 #[test]

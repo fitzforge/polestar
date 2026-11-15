@@ -302,11 +302,12 @@ pub struct JournalInputs<'a> {
 
 /// People with a boss kill a dungeon needs before their entries set its floor.
 pub const FLOOR_PEOPLE: f64 = 5.0;
-/// How far players' 90th percentile entry may sit over a dungeon's top before the build warns. 5: the 0.4.0
-/// recordings (74 people in the Deadmines, 66 in Wailing Caverns, 67 in Ruins of Lordaeron) put the late
-/// tail of the early dungeons 3.5 to 4.6 levels over the Group Finder's top (players back for a carry or a
-/// drop), their 25th percentile unchanged; a broken join or a 60 top is many levels out.
-pub const CHECK_SLACK: f64 = 5.0;
+/// How far players' 90th percentile entry may sit over a dungeon's top before the build warns. 8: the 0.4.0
+/// recordings of 2026-11-15 (7,940 sessions: 79 people in the Deadmines, 78 in Wailing Caverns, 74 in Ruins of
+/// Lordaeron) put the late tail of the early dungeons 5.5 to 7.2 levels over the Group Finder's top (players back
+/// for a carry or a drop), their 25th percentile unchanged (19.5, 20.4, 18.2); a broken join or a 60 top is many
+/// more levels out.
+pub const CHECK_SLACK: f64 = 8.0;
 
 /// A dungeon's range and floor (journal pages' `minLevel`, `maxLevel`, `floor`).
 #[derive(Clone, Debug, PartialEq)]
@@ -1628,7 +1629,7 @@ mod tests {
 		let f = finder(15.0, 22.0);
 		assert!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(22.0), &rec(75.0, 17.9, 24.9)).is_empty(), "p90 2.9 over the top: inside the slack");
 		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(60.0), &rec(75.0, 14.0, 24.9)).len(), 1, "a p25 under the finder's minimum");
-		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(19.0), &rec(75.0, 17.9, 24.9)).len(), 1, "a p90 more than 5 over the top");
+		assert_eq!(recorded_check("Ruins of Lordaeron", Some(&f), &V::Num(16.0), &rec(75.0, 17.9, 24.9)).len(), 1, "a p90 more than 8 over the top");
 		assert!(recorded_check("Sunken Temple", Some(&f), &V::Num(20.0), &rec(4.0, 10.0, 40.0)).is_empty(), "under 5 people: no check");
 		assert!(recorded_check("Molten Core", None, &V::Num(60.0), &rec(40.0, 10.0, 40.0)).is_empty(), "no finder row: no check");
 	}
