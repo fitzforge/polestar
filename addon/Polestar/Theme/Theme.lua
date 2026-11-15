@@ -1080,13 +1080,13 @@ end
 -- strength there): what the knob is seen against when on. On a light
 -- accent (Halo's yellow, a player's pale one) the shadow deepens until the
 -- knob reads at 3:1 against it.
--- -> { track, edge, knob, contact = { r, g, b }, shadow = { r, g, b, a } }
+-- -> { track, edge, knob, contact = { r, g, b }, shadow = { r, g, b, a } },
+-- shared per palette and state (read only), so repaints make no garbage.
 local function mix(a, b, k)
 	return { a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k, a[3] + (b[3] - a[3]) * k }
 end
 Theme.SWITCH_SHADOW_EDGE = 0.5
-function Theme.SwitchColors(on, hover, enabled)
-	local pal = Theme.Palette()
+local function switchColors(pal, on, hover, enabled)
 	local ground, light = pal.panel, isLight(pal)
 	local track, edge, knob, shadowA
 	if on then
@@ -1124,6 +1124,22 @@ function Theme.SwitchColors(on, hover, enabled)
 		track = { track[1], track[2], track[3] }, edge = { edge[1], edge[2], edge[3] }, knob = { knob[1], knob[2], knob[3] },
 		shadow = { s[1], s[2], s[3], shadowA }, contact = mix(track, s, shadowA * Theme.SWITCH_SHADOW_EDGE),
 	}
+end
+local switchCache = setmetatable({}, { __mode = "k" })
+function Theme.SwitchColors(on, hover, enabled)
+	local pal = Theme.Palette()
+	local byState = switchCache[pal]
+	if not byState then
+		byState = {}
+		switchCache[pal] = byState
+	end
+	local i = (on and 4 or 0) + (hover and 2 or 0) + (enabled and 1 or 0) + 1
+	local c = byState[i]
+	if not c then
+		c = switchColors(pal, on, hover, enabled)
+		byState[i] = c
+	end
+	return c
 end
 
 -- The window border: shown (ui.border), and its thickness in physical

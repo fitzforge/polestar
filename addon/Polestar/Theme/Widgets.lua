@@ -704,79 +704,111 @@ end
 -- than tall (a knob), the three pieces when :SetSpan widens it, the middle
 -- running half a unit under each end (an opaque knob shows no join even
 -- where a renderer smooths each piece's edge on its own).
+-- The middle and right pieces are made the first time the capsule draws
+-- three (never for "whole"), so a switch's parts cost no unused textures.
 --   W.Capsule(parent, w, h, art?, mode?) -> frame:
 --     :SetColor(r, g, b, a)    :SetCapsule(w, h)    :SetSpan(w)
---     .parts { left (the whole art in one piece), middle, right }
+--     .parts { left (the whole art in one piece), middle, right } (middle and right once made)
+-- The capsule's methods (one table: Widgets.lua's main chunk is near Lua 5.1's 200 locals).
+local Cap = {}
+function Cap.noSnap(t)
+	if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
+	if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
+end
+
+function Cap.sides(self)
+	local p = self.parts
+	if p[2] then return p end
+	local m = self:CreateTexture(nil, "ARTWORK")
+	local r = self:CreateTexture(nil, "ARTWORK")
+	r:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 0)
+	r:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+	r:SetWidth(self.psH / 2)
+	local lap = self.psMode == "span" and 0.5 or 0
+	m:SetPoint("TOPLEFT", p[1], "TOPRIGHT", -lap, 0)
+	m:SetPoint("BOTTOMRIGHT", r, "BOTTOMLEFT", lap, 0)
+	p[2], p[3] = m, r
+	for i = 2, 3 do
+		local t = p[i]
+		Cap.noSnap(t)
+		if self.psPath then t:SetTexture(self.psPath) end
+		if self.psR then t:SetVertexColor(self.psR, self.psG, self.psB, self.psA) end
+	end
+	return p
+end
+
+function Cap.cut(self)
+	local l, m, r = self.parts[1], self.parts[2], self.parts[3]
+	if self.psOne then
+		l:SetTexCoord(0, 1, 0, 1)
+	else
+		l:SetTexCoord(0, 0.5, 0, 1)
+		m:SetTexCoord(0.5, 0.5, 0, 1)
+		r:SetTexCoord(0.5, 1, 0, 1)
+	end
+end
+
+-- One piece or three, by the mode and the width.
+function Cap.shape(self, cw)
+	local one = self.psMode == "whole" or (self.psMode == "span" and cw <= self.psH + 0.01)
+	if one == self.psOne then return end
+	self.psOne = one
+	local p, l = self.parts, self.parts[1]
+	l:ClearAllPoints()
+	l:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
+	if one then
+		l:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+		if p[2] then
+			p[2]:Hide()
+			p[3]:Hide()
+		end
+	else
+		Cap.sides(self)
+		l:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
+		l:SetWidth(self.psH / 2)
+		p[2]:Show()
+		p[3]:Show()
+	end
+	Cap.cut(self)
+end
+
+function Cap.Sharpen(self)
+	local a = self.psArt
+	local path = a:find("[\\/]") and a or Theme.SharpMedia(a, self, self.psH)
+	if path == self.psPath then return end
+	self.psPath = path
+	for _, t in ipairs(self.parts) do t:SetTexture(path) end
+	Cap.cut(self)
+end
+
+function Cap.SetCapsule(self, cw, ch)
+	self.psH = ch
+	self:SetSize(cw, ch)
+	self.parts[1]:SetWidth(ch / 2)
+	if self.parts[3] then self.parts[3]:SetWidth(ch / 2) end
+	self.psOne = nil
+	Cap.shape(self, cw)
+	Cap.Sharpen(self)
+end
+
+function Cap.SetSpan(self, cw)
+	self:SetWidth(cw)
+	Cap.shape(self, cw)
+end
+
+function Cap.SetColor(self, cr, cg, cb, ca)
+	Cap.Sharpen(self)
+	self.psR, self.psG, self.psB, self.psA = cr, cg, cb, ca
+	for _, t in ipairs(self.parts) do t:SetVertexColor(cr, cg, cb, ca) end
+end
+
 local function capsule(parent, w, h, art, mode)
 	local f = CreateFrame("Frame", nil, parent)
 	f.psArt, f.psMode = art or "disc", mode
 	local l = f:CreateTexture(nil, "ARTWORK")
-	local m = f:CreateTexture(nil, "ARTWORK")
-	local r = f:CreateTexture(nil, "ARTWORK")
-	r:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
-	r:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
-	local lap = mode == "span" and 0.5 or 0
-	m:SetPoint("TOPLEFT", l, "TOPRIGHT", -lap, 0)
-	m:SetPoint("BOTTOMRIGHT", r, "BOTTOMLEFT", lap, 0)
-	f.parts = { l, m, r }
-	for i = 1, 3 do
-		local t = f.parts[i]
-		if t.SetSnapToPixelGrid then t:SetSnapToPixelGrid(false) end
-		if t.SetTexelSnappingBias then t:SetTexelSnappingBias(0) end
-	end
-	local function cut(self)
-		if self.psOne then
-			l:SetTexCoord(0, 1, 0, 1)
-		else
-			l:SetTexCoord(0, 0.5, 0, 1)
-			m:SetTexCoord(0.5, 0.5, 0, 1)
-			r:SetTexCoord(0.5, 1, 0, 1)
-		end
-	end
-	-- One piece or three, by the mode and the width.
-	local function shape(self, cw)
-		local one = self.psMode == "whole" or (self.psMode == "span" and cw <= self.psH + 0.01)
-		if one == self.psOne then return end
-		self.psOne = one
-		l:ClearAllPoints()
-		l:SetPoint("TOPLEFT", self, "TOPLEFT", 0, 0)
-		if one then
-			l:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
-		else
-			l:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
-			l:SetWidth(self.psH / 2)
-		end
-		m:SetShown(not one)
-		r:SetShown(not one)
-		cut(self)
-	end
-	function f.Sharpen(self)
-		local a = self.psArt
-		local path = a:find("[\\/]") and a or Theme.SharpMedia(a, self, self.psH)
-		if path == self.psPath then return end
-		self.psPath = path
-		l:SetTexture(path)
-		m:SetTexture(path)
-		r:SetTexture(path)
-		cut(self)
-	end
-	function f.SetCapsule(self, cw, ch)
-		self.psH = ch
-		self:SetSize(cw, ch)
-		l:SetWidth(ch / 2)
-		r:SetWidth(ch / 2)
-		self.psOne = nil
-		shape(self, cw)
-		self:Sharpen()
-	end
-	function f.SetSpan(self, cw)
-		self:SetWidth(cw)
-		shape(self, cw)
-	end
-	function f.SetColor(self, cr, cg, cb, ca)
-		self:Sharpen()
-		for i = 1, 3 do self.parts[i]:SetVertexColor(cr, cg, cb, ca) end
-	end
+	Cap.noSnap(l)
+	f.parts = { l }
+	f.Sharpen, f.SetCapsule, f.SetSpan, f.SetColor = Cap.Sharpen, Cap.SetCapsule, Cap.SetSpan, Cap.SetColor
 	f:SetCapsule(w, h)
 	return f
 end
@@ -1175,60 +1207,83 @@ local function toggleValue(self)
 end
 
 -- The switch's parts on `owner` (a row or a W.Switch button): owner.Track
--- (the track's frame: .Edge, .Fill, .Focus, .Shadow; .parts every texture
--- the house switch shows) and owner.Knob. Child frames stacked by level:
--- focus ring and edge, fill, shadow, knob.
+-- (the track's frame; its textures by layer: .Edge, .Fill and the knob's
+-- .Shadow, and the gamepad's .Focus ring once made; .parts the first three
+-- and the knob's at rest) and owner.Knob, a capsule frame over it. Two
+-- frames and four textures, as few as the art allows: the settings window
+-- builds dozens of these.
+-- The switch's shared handlers (one table, as Cap).
+local SwitchOn = {}
+function SwitchOn.slide(o, v)
+	o.psOwner.psP = v
+	W.SwitchPaint(o.psOwner)
+end
+function SwitchOn.squish(o, v)
+	o.psOwner.psPress = v
+	W.SwitchPaint(o.psOwner)
+end
+-- The texture `name` at the size that suits height `h` on screen.
+function SwitchOn.art(tex, name, h)
+	local path = Theme.SharpMedia(name, tex, h)
+	if path ~= tex.psPath then
+		tex.psPath = path
+		tex:SetTexture(path)
+	end
+end
+-- The gamepad's focus ring, made the first time the switch has the focus
+-- (most never do). The ring's texture is 52x26 for its 44x26 ring.
+function SwitchOn.ring(t)
+	local f = t:CreateTexture(nil, "BACKGROUND")
+	f:SetSize(TOGGLE_W + 16, TOGGLE_H + 8)
+	f:SetPoint("CENTER", t, "CENTER", 0, 0)
+	Cap.noSnap(f)
+	t.Focus = f
+	return f
+end
 local function switchParts(owner)
 	local t = CreateFrame("Frame", nil, owner)
 	t:SetSize(TOGGLE_W, TOGGLE_H)
-	local base = t:GetFrameLevel()
-	-- The ring's texture is 52x26 for its 44x26 ring.
-	t.Focus = capsule(t, TOGGLE_W + 16, TOGGLE_H + 8, "switch-focus", "whole")
-	t.Focus:SetPoint("CENTER", t, "CENTER", 0, 0)
-	t.Focus:Hide()
-	t.Edge = capsule(t, TOGGLE_W, TOGGLE_H, "switch-edge", "whole")
-	t.Edge:SetPoint("CENTER", t, "CENTER", 0, 0)
-	t.Fill = capsule(t, TOGGLE_W, TOGGLE_H, "switch-fill", "whole")
-	t.Fill:SetPoint("CENTER", t, "CENTER", 0, 0)
+	t.Edge = t:CreateTexture(nil, "BORDER")
+	t.Edge:SetAllPoints(t)
+	t.Fill = t:CreateTexture(nil, "ARTWORK")
+	t.Fill:SetAllPoints(t)
 	local k = capsule(t, KNOB, KNOB, "disc", "span")
-	t.Shadow = capsule(t, KNOB + 2 * SHADOW_OUT, KNOB + 2 * SHADOW_OUT, Theme.Media("knob-shadow"), "span")
+	k:SetFrameLevel(t:GetFrameLevel() + 1)
+	-- The shadow stretches with the knob's press.
+	t.Shadow = t:CreateTexture(nil, "OVERLAY")
+	t.Shadow:SetTexture(Theme.Media("knob-shadow"))
+	t.Shadow:SetSize(KNOB + 2 * SHADOW_OUT, KNOB + 2 * SHADOW_OUT)
 	t.Shadow:SetPoint("CENTER", k, "CENTER", 0, -1)
-	t.Focus:SetFrameLevel(base + 1)
-	t.Edge:SetFrameLevel(base + 1)
-	t.Fill:SetFrameLevel(base + 2)
-	t.Shadow:SetFrameLevel(base + 3)
-	k:SetFrameLevel(base + 4)
-	t.parts = {}
-	for _, c in ipairs({ t.Fill, t.Edge, t.Shadow, k }) do
-		for i = 1, 3 do t.parts[#t.parts + 1] = c.parts[i] end
-	end
+	t.parts = { t.Fill, t.Edge, t.Shadow, k.parts[1] }
+	for i = 1, 3 do Cap.noSnap(t.parts[i]) end
 	owner.Track, owner.Knob = t, k
 	owner.psP, owner.psPress = 0, 0
 	-- The slide (psP, 0 off .. 1 on) and the press (psPress, 0 .. 1) tween
 	-- through these, each repainting the switch.
-	owner.psSlide = { psOnValue = function(_, v) owner.psP = v; W.SwitchPaint(owner) end }
-	owner.psSquish = { psOnValue = function(_, v) owner.psPress = v; W.SwitchPaint(owner) end }
+	owner.psSlide = { psOwner = owner, psOnValue = SwitchOn.slide }
+	owner.psSquish = { psOwner = owner, psOnValue = SwitchOn.squish }
 	return t
 end
 
 local function lerp(a, b, p) return a + (b - a) * p end
-local function blend(cap, x, y, p, a)
-	cap:SetColor(lerp(x[1], y[1], p), lerp(x[2], y[2], p), lerp(x[3], y[3], p), a)
+local function blend(region, method, x, y, p, a)
+	region[method](region, lerp(x[1], y[1], p), lerp(x[2], y[2], p), lerp(x[3], y[3], p), a)
 end
 
 -- Paints the switch at its slide and press (owner.psP, owner.psPress) from
--- the two ends' colours (owner.psTones, kept by toggleRefresh).
+-- the two ends' colours (owner.psToneOff, owner.psToneOn: Theme.SwitchColors'
+-- shared tables, kept by toggleRefresh).
 function W.SwitchPaint(self)
-	local tones, t, k = self.psTones, self.Track, self.Knob
-	if not tones then return end
-	local p, off, on = self.psP or 0, tones.off, tones.on
-	blend(t.Edge, off.edge, on.edge, p, 1)
-	blend(t.Fill, off.track, on.track, p, 1)
-	blend(k, off.knob, on.knob, p, 1)
-	blend(t.Shadow, off.shadow, on.shadow, p, lerp(off.shadow[4], on.shadow[4], p))
+	local off, on, t, k = self.psToneOff, self.psToneOn, self.Track, self.Knob
+	if not on then return end
+	local p = self.psP or 0
+	blend(t.Edge, "SetVertexColor", off.edge, on.edge, p, 1)
+	blend(t.Fill, "SetVertexColor", off.track, on.track, p, 1)
+	blend(k, "SetColor", off.knob, on.knob, p, 1)
+	blend(t.Shadow, "SetVertexColor", off.shadow, on.shadow, p, lerp(off.shadow[4], on.shadow[4], p))
 	local w = KNOB + KNOB_PRESS * (self.psPress or 0)
 	k:SetSpan(w)
-	t.Shadow:SetSpan(w + 2 * SHADOW_OUT)
+	t.Shadow:SetWidth(w + 2 * SHADOW_OUT)
 	k:ClearAllPoints()
 	k:SetPoint("LEFT", t, "LEFT", KNOB_IN + (TOGGLE_W - 2 * KNOB_IN - w) * p, 0)
 end
@@ -1238,8 +1293,12 @@ end
 local function gameCheck(self, on)
 	local game, kit = Theme.GameSkin(), Theme.Kit()
 	local t = self.Track
-	for _, c in ipairs({ t.Fill, t.Edge, t.Shadow, self.Knob }) do c:SetShown(not game) end
-	t.Focus:SetShown(not game and self.psPadFocus or false)
+	t.Fill:SetShown(not game)
+	t.Edge:SetShown(not game)
+	t.Shadow:SetShown(not game)
+	self.Knob:SetShown(not game)
+	local ring = rawget(t, "Focus") or (not game and self.psPadFocus and SwitchOn.ring(t))
+	if ring then ring:SetShown(not game and self.psPadFocus or false) end
 	if kit then
 		Theme.KitCheck(self, t:GetParent(), t, on)
 	else
@@ -1260,9 +1319,15 @@ local function toggleRefresh(self)
 		return
 	end
 	local hover = (self.psSwitchHover or self.psPadFocus) and enabled or false
-	self.psTones = { off = Theme.SwitchColors(false, hover, enabled), on = Theme.SwitchColors(true, hover, enabled) }
-	local ar, ag, ab = Theme.Accent()
-	self.Track.Focus:SetColor(ar, ag, ab, 0.8)
+	self.psToneOff, self.psToneOn = Theme.SwitchColors(false, hover, enabled), Theme.SwitchColors(true, hover, enabled)
+	local t, ar, ag, ab = self.Track, Theme.Accent()
+	SwitchOn.art(t.Edge, "switch-edge", TOGGLE_H)
+	SwitchOn.art(t.Fill, "switch-fill", TOGGLE_H)
+	local ring = rawget(t, "Focus")
+	if ring then
+		SwitchOn.art(ring, "switch-focus", TOGGLE_H + 8)
+		ring:SetVertexColor(ar, ag, ab, 0.8)
+	end
 	local to = on and 1 or 0
 	if self.psOn ~= nil and self.psOn ~= on then
 		Anim.To(self.psSlide, "value", self.psP or (1 - to), to, SLIDE, "out")
@@ -1279,7 +1344,7 @@ end
 local function switchHover(self, on)
 	self.psSwitchHover = on or nil
 	if not on and self.psPress and self.psPress > 0 then Anim.To(self.psSquish, "value", self.psPress, 0, PRESS, "out") end
-	if self.psTones then toggleRefresh(self) end
+	if self.psToneOn then toggleRefresh(self) end
 end
 local function switchPress(self, down)
 	if down and not W.Enabled(self) then return end
@@ -1287,14 +1352,19 @@ local function switchPress(self, down)
 end
 local function switchFocus(self, on)
 	self.psPadFocus = on or nil
-	if self.psTones then toggleRefresh(self) end
+	if self.psToneOn then toggleRefresh(self) end
 end
 
+function SwitchOn.enter(self) self.psEnter(self); switchHover(self, true) end
+function SwitchOn.leave(self) self.psLeave(self); switchHover(self, false) end
+function SwitchOn.down(self, button) if button == "LeftButton" then switchPress(self, true) end end
+function SwitchOn.up(self) switchPress(self, false) end
 local function switchEvents(b, enter, leave)
-	b:SetScript("OnEnter", function(self) enter(self); switchHover(self, true) end)
-	b:SetScript("OnLeave", function(self) leave(self); switchHover(self, false) end)
-	b:SetScript("OnMouseDown", function(self, button) if button == "LeftButton" then switchPress(self, true) end end)
-	b:SetScript("OnMouseUp", function(self) switchPress(self, false) end)
+	b.psEnter, b.psLeave = enter, leave
+	b:SetScript("OnEnter", SwitchOn.enter)
+	b:SetScript("OnLeave", SwitchOn.leave)
+	b:SetScript("OnMouseDown", SwitchOn.down)
+	b:SetScript("OnMouseUp", SwitchOn.up)
 	b.psOnPadFocus = switchFocus
 end
 

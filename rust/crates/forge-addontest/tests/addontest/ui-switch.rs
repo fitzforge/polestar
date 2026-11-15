@@ -142,7 +142,7 @@ local host = Polestar.UI.GuideFrame.frame
 host:SetSize(400, 40)
 Polestar.Set("ui.shadow", true)
 local t = W.Toggle(host, "Switch", "ui.shadow", "desc")
-local function fill() local r, g, b = t.Track.Fill.parts[1]:GetVertexColor() return { r, g, b } end
+local function fill() local r, g, b = t.Track.Fill:GetVertexColor() return { r, g, b } end
 local function knob() local r, g, b = t.Knob.parts[1]:GetVertexColor() return { r, g, b } end
 local out = { accent = { T.Accent() }, enabled = fill() }
 W.SetDisabledWhen(t, function() return true end)
@@ -175,9 +175,9 @@ host:SetSize(400, 40)
 Polestar.Set("ui.shadow", false)
 local t = W.Toggle(host, "Switch", "ui.shadow", "desc")
 local T_ = T
-local function lum() local r, g, b = t.Track.Fill.parts[1]:GetVertexColor() return T_.Luminance(r, g, b) end
+local function lum() local r, g, b = t.Track.Fill:GetVertexColor() return T_.Luminance(r, g, b) end
 local function knobX() return select(4, t.Knob:GetPoint(1)) end
-local out = { rest = lum(), restW = t.Knob:GetWidth(), restX = knobX(), focus0 = t.Track.Focus:IsShown() }
+local out = { rest = lum(), restW = t.Knob:GetWidth(), restX = knobX(), focus0 = rawget(t.Track, "Focus") ~= nil and t.Track.Focus:IsShown() }
 t:GetScript("OnEnter")(t)
 out.hover = lum()
 t:GetScript("OnMouseDown")(t, "LeftButton")
@@ -196,7 +196,7 @@ stub.advance(0.05)
 out.midX = knobX()
 stub.advance(0.3)
 out.endX = knobX()
-local r, g, b = t.Track.Fill.parts[1]:GetVertexColor()
+local r, g, b = t.Track.Fill:GetVertexColor()
 out.onFill, out.accent = { r, g, b }, { T.Accent() }
 Polestar.Set("ui.reduceMotion", true)
 Polestar.Set("ui.shadow", false)
