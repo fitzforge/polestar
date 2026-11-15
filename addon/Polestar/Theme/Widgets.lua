@@ -1390,231 +1390,235 @@ W.RowEnter = rowEnter
 ---------------------------------------------------------------------------
 
 local TOGGLE_W, TOGGLE_H, KNOB, KNOB_IN = 36, 18, 14, 2
-local KNOB_PRESS, SHADOW_OUT = 4, 2
-local SLIDE, PRESS = 0.15, 0.1
-W.TOGGLE_W, W.TOGGLE_H, W.KNOB = TOGGLE_W, TOGGLE_H, KNOB
+-- (The switch's own parts in a block of their own: this file keeps Lua 5.1's
+-- 10 spare locals.)
+do
+	local KNOB_PRESS, SHADOW_OUT = 4, 2
+	local SLIDE, PRESS = 0.15, 0.1
+	W.TOGGLE_W, W.TOGGLE_H, W.KNOB = TOGGLE_W, TOGGLE_H, KNOB
 
-local function toggleValue(self)
-	if self.psGet then return self.psGet() and true or false end
-	return ns.Get(self.psPath) and true or false
-end
-
--- The switch's parts on `owner` (a row or a W.Switch button): owner.Track
--- (the track's frame; its textures by layer: .Edge, .Fill and the knob's
--- .Shadow, and the gamepad's .Focus ring once made; .parts the first three
--- and the knob's at rest) and owner.Knob, a capsule frame over it. Two
--- frames and four textures, as few as the art allows: the settings window
--- builds dozens of these.
--- The switch's shared handlers (one table, as Cap).
-local SwitchOn = {}
-function SwitchOn.slide(o, v)
-	o.psOwner.psP = v
-	W.SwitchPaint(o.psOwner)
-end
-function SwitchOn.squish(o, v)
-	o.psOwner.psPress = v
-	W.SwitchPaint(o.psOwner)
-end
--- The texture `name` at the size that suits height `h` on screen.
-function SwitchOn.art(tex, name, h)
-	local path = Theme.SharpMedia(name, tex, h)
-	if path ~= tex.psPath then
-		tex.psPath = path
-		tex:SetTexture(path)
+	local function toggleValue(self)
+		if self.psGet then return self.psGet() and true or false end
+		return ns.Get(self.psPath) and true or false
 	end
-end
--- The gamepad's focus ring, made the first time the switch has the focus
--- (most never do). The ring's texture is 52x26 for its 44x26 ring.
-function SwitchOn.ring(t)
-	local f = t:CreateTexture(nil, "BACKGROUND")
-	f:SetSize(TOGGLE_W + 16, TOGGLE_H + 8)
-	f:SetPoint("CENTER", t, "CENTER", 0, 0)
-	Cap.noSnap(f)
-	t.Focus = f
-	return f
-end
-local function switchParts(owner)
-	local t = CreateFrame("Frame", nil, owner)
-	t:SetSize(TOGGLE_W, TOGGLE_H)
-	t.Edge = t:CreateTexture(nil, "BORDER")
-	t.Edge:SetAllPoints(t)
-	t.Fill = t:CreateTexture(nil, "ARTWORK")
-	t.Fill:SetAllPoints(t)
-	local k = capsule(t, KNOB, KNOB, "disc", "span")
-	k:SetFrameLevel(t:GetFrameLevel() + 1)
-	-- The shadow stretches with the knob's press.
-	t.Shadow = t:CreateTexture(nil, "OVERLAY")
-	t.Shadow:SetTexture(Theme.Media("knob-shadow"))
-	t.Shadow:SetSize(KNOB + 2 * SHADOW_OUT, KNOB + 2 * SHADOW_OUT)
-	t.Shadow:SetPoint("CENTER", k, "CENTER", 0, -1)
-	t.parts = { t.Fill, t.Edge, t.Shadow, k.parts[1] }
-	for i = 1, 3 do Cap.noSnap(t.parts[i]) end
-	owner.Track, owner.Knob = t, k
-	owner.psP, owner.psPress = 0, 0
-	-- The slide (psP, 0 off .. 1 on) and the press (psPress, 0 .. 1) tween
-	-- through these, each repainting the switch.
-	owner.psSlide = { psOwner = owner, psOnValue = SwitchOn.slide }
-	owner.psSquish = { psOwner = owner, psOnValue = SwitchOn.squish }
-	return t
-end
 
-local function lerp(a, b, p) return a + (b - a) * p end
-local function blend(region, method, x, y, p, a)
-	region[method](region, lerp(x[1], y[1], p), lerp(x[2], y[2], p), lerp(x[3], y[3], p), a)
-end
-
--- Paints the switch at its slide and press (owner.psP, owner.psPress) from
--- the two ends' colours (owner.psToneOff, owner.psToneOn: Theme.SwitchColors'
--- shared tables, kept by toggleRefresh).
-function W.SwitchPaint(self)
-	local off, on, t, k = self.psToneOff, self.psToneOn, self.Track, self.Knob
-	if not on then return end
-	local p = self.psP or 0
-	blend(t.Edge, "SetVertexColor", off.edge, on.edge, p, 1)
-	blend(t.Fill, "SetVertexColor", off.track, on.track, p, 1)
-	blend(k, "SetColor", off.knob, on.knob, p, 1)
-	blend(t.Shadow, "SetVertexColor", off.shadow, on.shadow, p, lerp(off.shadow[4], on.shadow[4], p))
-	local w = KNOB + KNOB_PRESS * (self.psPress or 0)
-	k:SetSpan(w)
-	t.Shadow:SetWidth(w + 2 * SHADOW_OUT)
-	k:ClearAllPoints()
-	k:SetPoint("LEFT", t, "LEFT", KNOB_IN + (TOGGLE_W - 2 * KNOB_IN - w) * p, 0)
-end
-
--- The game's looks' check box in place of the switch (their kit's art,
--- Theme.KitCheck): true when one was drawn.
-local function gameCheck(self, on)
-	local game, kit = Theme.GameSkin(), Theme.Kit()
-	local t = self.Track
-	t.Fill:SetShown(not game)
-	t.Edge:SetShown(not game)
-	t.Shadow:SetShown(not game)
-	self.Knob:SetShown(not game)
-	local ring = rawget(t, "Focus") or (not game and self.psPadFocus and SwitchOn.ring(t))
-	if ring then ring:SetShown(not game and self.psPadFocus or false) end
-	if kit then
-		Theme.KitCheck(self, t:GetParent(), t, on)
-	else
-		Theme.KitHide(self, "toggle")
-		Theme.KitHide(self, "toggleCheck")
+	-- The switch's parts on `owner` (a row or a W.Switch button): owner.Track
+	-- (the track's frame; its textures by layer: .Edge, .Fill and the knob's
+	-- .Shadow, and the gamepad's .Focus ring once made; .parts the first three
+	-- and the knob's at rest) and owner.Knob, a capsule frame over it. Two
+	-- frames and four textures, as few as the art allows: the settings window
+	-- builds dozens of these.
+	-- The switch's shared handlers (one table, as Cap).
+	local SwitchOn = {}
+	function SwitchOn.slide(o, v)
+		o.psOwner.psP = v
+		W.SwitchPaint(o.psOwner)
 	end
-	return game
-end
+	function SwitchOn.squish(o, v)
+		o.psOwner.psPress = v
+		W.SwitchPaint(o.psOwner)
+	end
+	-- The texture `name` at the size that suits height `h` on screen.
+	function SwitchOn.art(tex, name, h)
+		local path = Theme.SharpMedia(name, tex, h)
+		if path ~= tex.psPath then
+			tex.psPath = path
+			tex:SetTexture(path)
+		end
+	end
+	-- The gamepad's focus ring, made the first time the switch has the focus
+	-- (most never do). The ring's texture is 52x26 for its 44x26 ring.
+	function SwitchOn.ring(t)
+		local f = t:CreateTexture(nil, "BACKGROUND")
+		f:SetSize(TOGGLE_W + 16, TOGGLE_H + 8)
+		f:SetPoint("CENTER", t, "CENTER", 0, 0)
+		Cap.noSnap(f)
+		t.Focus = f
+		return f
+	end
+	local function switchParts(owner)
+		local t = CreateFrame("Frame", nil, owner)
+		t:SetSize(TOGGLE_W, TOGGLE_H)
+		t.Edge = t:CreateTexture(nil, "BORDER")
+		t.Edge:SetAllPoints(t)
+		t.Fill = t:CreateTexture(nil, "ARTWORK")
+		t.Fill:SetAllPoints(t)
+		local k = capsule(t, KNOB, KNOB, "disc", "span")
+		k:SetFrameLevel(t:GetFrameLevel() + 1)
+		-- The shadow stretches with the knob's press.
+		t.Shadow = t:CreateTexture(nil, "OVERLAY")
+		t.Shadow:SetTexture(Theme.Media("knob-shadow"))
+		t.Shadow:SetSize(KNOB + 2 * SHADOW_OUT, KNOB + 2 * SHADOW_OUT)
+		t.Shadow:SetPoint("CENTER", k, "CENTER", 0, -1)
+		t.parts = { t.Fill, t.Edge, t.Shadow, k.parts[1] }
+		for i = 1, 3 do Cap.noSnap(t.parts[i]) end
+		owner.Track, owner.Knob = t, k
+		owner.psP, owner.psPress = 0, 0
+		-- The slide (psP, 0 off .. 1 on) and the press (psPress, 0 .. 1) tween
+		-- through these, each repainting the switch.
+		owner.psSlide = { psOwner = owner, psOnValue = SwitchOn.slide }
+		owner.psSquish = { psOwner = owner, psOnValue = SwitchOn.squish }
+		return t
+	end
 
-local function toggleRefresh(self)
-	local on = toggleValue(self)
-	local enabled = W.Enabled(self)
-	if self.SetHeight and self.psRow then self:SetHeight(keptHeight(self)) end
-	dimRow(self, enabled)
-	if gameCheck(self, on) then
+	local function lerp(a, b, p) return a + (b - a) * p end
+	local function blend(region, method, x, y, p, a)
+		region[method](region, lerp(x[1], y[1], p), lerp(x[2], y[2], p), lerp(x[3], y[3], p), a)
+	end
+
+	-- Paints the switch at its slide and press (owner.psP, owner.psPress) from
+	-- the two ends' colours (owner.psToneOff, owner.psToneOn: Theme.SwitchColors'
+	-- shared tables, kept by toggleRefresh).
+	function W.SwitchPaint(self)
+		local off, on, t, k = self.psToneOff, self.psToneOn, self.Track, self.Knob
+		if not on then return end
+		local p = self.psP or 0
+		blend(t.Edge, "SetVertexColor", off.edge, on.edge, p, 1)
+		blend(t.Fill, "SetVertexColor", off.track, on.track, p, 1)
+		blend(k, "SetColor", off.knob, on.knob, p, 1)
+		blend(t.Shadow, "SetVertexColor", off.shadow, on.shadow, p, lerp(off.shadow[4], on.shadow[4], p))
+		local w = KNOB + KNOB_PRESS * (self.psPress or 0)
+		k:SetSpan(w)
+		t.Shadow:SetWidth(w + 2 * SHADOW_OUT)
+		k:ClearAllPoints()
+		k:SetPoint("LEFT", t, "LEFT", KNOB_IN + (TOGGLE_W - 2 * KNOB_IN - w) * p, 0)
+	end
+
+	-- The game's looks' check box in place of the switch (their kit's art,
+	-- Theme.KitCheck): true when one was drawn.
+	local function gameCheck(self, on)
+		local game, kit = Theme.GameSkin(), Theme.Kit()
+		local t = self.Track
+		t.Fill:SetShown(not game)
+		t.Edge:SetShown(not game)
+		t.Shadow:SetShown(not game)
+		self.Knob:SetShown(not game)
+		local ring = rawget(t, "Focus") or (not game and self.psPadFocus and SwitchOn.ring(t))
+		if ring then ring:SetShown(not game and self.psPadFocus or false) end
+		if kit then
+			Theme.KitCheck(self, t:GetParent(), t, on)
+		else
+			Theme.KitHide(self, "toggle")
+			Theme.KitHide(self, "toggleCheck")
+		end
+		return game
+	end
+
+	local function toggleRefresh(self)
+		local on = toggleValue(self)
+		local enabled = W.Enabled(self)
+		if self.SetHeight and self.psRow then self:SetHeight(keptHeight(self)) end
+		dimRow(self, enabled)
+		if gameCheck(self, on) then
+			self.psOn = on
+			self.checked = on
+			return
+		end
+		local hover = (self.psSwitchHover or self.psPadFocus) and enabled or false
+		self.psToneOff, self.psToneOn = Theme.SwitchColors(false, hover, enabled), Theme.SwitchColors(true, hover, enabled)
+		local t, ar, ag, ab = self.Track, Theme.Accent()
+		SwitchOn.art(t.Edge, "switch-edge", TOGGLE_H)
+		SwitchOn.art(t.Fill, "switch-fill", TOGGLE_H)
+		local ring = rawget(t, "Focus")
+		if ring then
+			SwitchOn.art(ring, "switch-focus", TOGGLE_H + 8)
+			ring:SetVertexColor(ar, ag, ab, 0.8)
+		end
+		local to = on and 1 or 0
+		if self.psOn ~= nil and self.psOn ~= on then
+			Anim.To(self.psSlide, "value", self.psP or (1 - to), to, SLIDE, "out")
+		elseif not Anim.IsRunning(self.psSlide, "value") then
+			self.psP = to
+		end
+		W.SwitchPaint(self)
 		self.psOn = on
 		self.checked = on
-		return
 	end
-	local hover = (self.psSwitchHover or self.psPadFocus) and enabled or false
-	self.psToneOff, self.psToneOn = Theme.SwitchColors(false, hover, enabled), Theme.SwitchColors(true, hover, enabled)
-	local t, ar, ag, ab = self.Track, Theme.Accent()
-	SwitchOn.art(t.Edge, "switch-edge", TOGGLE_H)
-	SwitchOn.art(t.Fill, "switch-fill", TOGGLE_H)
-	local ring = rawget(t, "Focus")
-	if ring then
-		SwitchOn.art(ring, "switch-focus", TOGGLE_H + 8)
-		ring:SetVertexColor(ar, ag, ab, 0.8)
-	end
-	local to = on and 1 or 0
-	if self.psOn ~= nil and self.psOn ~= on then
-		Anim.To(self.psSlide, "value", self.psP or (1 - to), to, SLIDE, "out")
-	elseif not Anim.IsRunning(self.psSlide, "value") then
-		self.psP = to
-	end
-	W.SwitchPaint(self)
-	self.psOn = on
-	self.checked = on
-end
 
--- Hover, press and the gamepad's focus: each repaints the switch at once
--- (the press widens the knob over 100 ms).
-local function switchHover(self, on)
-	self.psSwitchHover = on or nil
-	if not on and self.psPress and self.psPress > 0 then Anim.To(self.psSquish, "value", self.psPress, 0, PRESS, "out") end
-	if self.psToneOn then toggleRefresh(self) end
-end
-local function switchPress(self, down)
-	if down and not W.Enabled(self) then return end
-	Anim.To(self.psSquish, "value", self.psPress or 0, down and 1 or 0, PRESS, "out")
-end
-local function switchFocus(self, on)
-	self.psPadFocus = on or nil
-	if self.psToneOn then toggleRefresh(self) end
-end
-
-function SwitchOn.enter(self) self.psEnter(self); switchHover(self, true) end
-function SwitchOn.leave(self) self.psLeave(self); switchHover(self, false) end
-function SwitchOn.down(self, button) if button == "LeftButton" then switchPress(self, true) end end
-function SwitchOn.up(self) switchPress(self, false) end
-local function switchEvents(b, enter, leave)
-	b.psEnter, b.psLeave = enter, leave
-	b:SetScript("OnEnter", SwitchOn.enter)
-	b:SetScript("OnLeave", SwitchOn.leave)
-	b:SetScript("OnMouseDown", SwitchOn.down)
-	b:SetScript("OnMouseUp", SwitchOn.up)
-	b.psOnPadFocus = switchFocus
-end
-
--- opts.get() / opts.set(value) stand in for reading and writing the path when
--- one switch stands for several settings, or for state that is no setting
--- (path nil); set(nil) on right-click: defaults.
--- opts.gear = { tip, onClick }: a gear before the switch that opens the
--- setting's own options (the route lines' style).
-local GEAR, GEAR_GAP = 22, 6
-function W.Toggle(parent, label, path, desc, depends, opts)
-	local row = settingRow(parent, label, desc)
-	row.psRow = true
-	switchParts(row)
-	row.psGet, row.psSet = opts and opts.get, opts and opts.set
-	row.Track:SetPoint("RIGHT", row, "RIGHT", -12, 0)
-	local gear = opts and opts.gear
-	if gear then
-		row.Gear = W.IconButton(row, "gear", GEAR, gear.tip, function() gear.onClick() end)
-		row.Gear:SetPoint("RIGHT", row.Track, "LEFT", -GEAR_GAP, 0)
-		fitLabel(row, row.Gear, function() return 12 + TOGGLE_W + GEAR_GAP + GEAR + 10 end)
-	else
-		fitLabel(row, row.Track, function() return 12 + TOGGLE_W + 10 end)
+	-- Hover, press and the gamepad's focus: each repaints the switch at once
+	-- (the press widens the knob over 100 ms).
+	local function switchHover(self, on)
+		self.psSwitchHover = on or nil
+		if not on and self.psPress and self.psPress > 0 then Anim.To(self.psSquish, "value", self.psPress, 0, PRESS, "out") end
+		if self.psToneOn then toggleRefresh(self) end
 	end
-	-- Left-click flips it; right-click puts the setting back to its default.
-	row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	row:SetScript("OnClick", function(self, button)
-		if not W.Enabled(self) then return end
-		if self.psSet then
-			if button == "RightButton" then W.ResetSetting(nil, function() return toggleValue(self) end, self.psSet) else self.psSet(not toggleValue(self)) end
-			self:Refresh()
-		elseif button == "RightButton" then
-			W.ResetSetting(self.psPath)
+	local function switchPress(self, down)
+		if down and not W.Enabled(self) then return end
+		Anim.To(self.psSquish, "value", self.psPress or 0, down and 1 or 0, PRESS, "out")
+	end
+	local function switchFocus(self, on)
+		self.psPadFocus = on or nil
+		if self.psToneOn then toggleRefresh(self) end
+	end
+
+	function SwitchOn.enter(self) self.psEnter(self); switchHover(self, true) end
+	function SwitchOn.leave(self) self.psLeave(self); switchHover(self, false) end
+	function SwitchOn.down(self, button) if button == "LeftButton" then switchPress(self, true) end end
+	function SwitchOn.up(self) switchPress(self, false) end
+	local function switchEvents(b, enter, leave)
+		b.psEnter, b.psLeave = enter, leave
+		b:SetScript("OnEnter", SwitchOn.enter)
+		b:SetScript("OnLeave", SwitchOn.leave)
+		b:SetScript("OnMouseDown", SwitchOn.down)
+		b:SetScript("OnMouseUp", SwitchOn.up)
+		b.psOnPadFocus = switchFocus
+	end
+
+	-- opts.get() / opts.set(value) stand in for reading and writing the path when
+	-- one switch stands for several settings, or for state that is no setting
+	-- (path nil); set(nil) on right-click: defaults.
+	-- opts.gear = { tip, onClick }: a gear before the switch that opens the
+	-- setting's own options (the route lines' style).
+	local GEAR, GEAR_GAP = 22, 6
+	function W.Toggle(parent, label, path, desc, depends, opts)
+		local row = settingRow(parent, label, desc)
+		row.psRow = true
+		switchParts(row)
+		row.psGet, row.psSet = opts and opts.get, opts and opts.set
+		row.Track:SetPoint("RIGHT", row, "RIGHT", -12, 0)
+		local gear = opts and opts.gear
+		if gear then
+			row.Gear = W.IconButton(row, "gear", GEAR, gear.tip, function() gear.onClick() end)
+			row.Gear:SetPoint("RIGHT", row.Track, "LEFT", -GEAR_GAP, 0)
+			fitLabel(row, row.Gear, function() return 12 + TOGGLE_W + GEAR_GAP + GEAR + 10 end)
 		else
-			ns.Set(self.psPath, not ns.Get(self.psPath))
+			fitLabel(row, row.Track, function() return 12 + TOGGLE_W + 10 end)
 		end
-	end)
-	switchEvents(row, rowEnter, hideTip)
-	row.Refresh = toggleRefresh
-	return W.Bind(row, path, depends)
-end
+		-- Left-click flips it; right-click puts the setting back to its default.
+		row:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		row:SetScript("OnClick", function(self, button)
+			if not W.Enabled(self) then return end
+			if self.psSet then
+				if button == "RightButton" then W.ResetSetting(nil, function() return toggleValue(self) end, self.psSet) else self.psSet(not toggleValue(self)) end
+				self:Refresh()
+			elseif button == "RightButton" then
+				W.ResetSetting(self.psPath)
+			else
+				ns.Set(self.psPath, not ns.Get(self.psPath))
+			end
+		end)
+		switchEvents(row, rowEnter, hideTip)
+		row.Refresh = toggleRefresh
+		return W.Bind(row, path, depends)
+	end
 
--- The same switch without a row or a setting, for state that is not a
--- setting (a guide pack shown or hidden): get() -> on, set(on). Click
--- flips it; the owner repaints it with :Refresh().
-function W.Switch(parent, get, set, tip)
-	local b = CreateFrame("Button", nil, parent)
-	b:SetSize(TOGGLE_W + 8, 24)
-	switchParts(b)
-	b.Track:SetPoint("CENTER", b, "CENTER", 0, 0)
-	b.psGet, b.psTip = get, tip
-	b:SetScript("OnClick", function(self)
-		set(not toggleValue(self))
-		self:Refresh()
-	end)
-	switchEvents(b, simpleTip, hideTip)
-	b.Refresh = toggleRefresh
-	return W.Painter(b, toggleRefresh)
+	-- The same switch without a row or a setting, for state that is not a
+	-- setting (a guide pack shown or hidden): get() -> on, set(on). Click
+	-- flips it; the owner repaints it with :Refresh().
+	function W.Switch(parent, get, set, tip)
+		local b = CreateFrame("Button", nil, parent)
+		b:SetSize(TOGGLE_W + 8, 24)
+		switchParts(b)
+		b.Track:SetPoint("CENTER", b, "CENTER", 0, 0)
+		b.psGet, b.psTip = get, tip
+		b:SetScript("OnClick", function(self)
+			set(not toggleValue(self))
+			self:Refresh()
+		end)
+		switchEvents(b, simpleTip, hideTip)
+		b.Refresh = toggleRefresh
+		return W.Painter(b, toggleRefresh)
+	end
 end
 
 ---------------------------------------------------------------------------

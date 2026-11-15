@@ -357,44 +357,47 @@ end
 -- The Little Dipper as the mock draws it, in px from the end of its handle
 -- (x right, y down): { x, y, radius }. The handle's end has no star of its
 -- own (Polaris: the emblem beside it, or the sky).
-local DIPPER = {
-	{ 0, 0, 0 }, { 62, -24, 1.6 }, { 114, -34, 1.5 }, { 162, -27, 1.5 },
-	{ 236, -52, 2.2 }, { 262, -10, 1.9 }, { 196, 13, 1.3 },
-}
-local LINKS = { { 1, 2 }, { 2, 3 }, { 3, 4 }, { 4, 5 }, { 5, 6 }, { 6, 7 }, { 7, 4 } }
+local dipper
+do
+	local DIPPER = {
+		{ 0, 0, 0 }, { 62, -24, 1.6 }, { 114, -34, 1.5 }, { 162, -27, 1.5 },
+		{ 236, -52, 2.2 }, { 262, -10, 1.9 }, { 196, 13, 1.3 },
+	}
+	local LINKS = { { 1, 2 }, { 2, 3 }, { 3, 4 }, { 4, 5 }, { 5, 6 }, { 6, 7 }, { 7, 4 } }
 
--- Draws the Dipper on `parent`, its handle's end at (ox, oy), scaled and
--- turned `deg` degrees clockwise, in the neutral star colour.
-local function dipper(parent, ox, oy, scale, deg)
-	local a = rad(deg or 0)
-	local c, s = cos(a), sin(a)
-	local pts = {}
-	for i, st in ipairs(DIPPER) do
-		local x, y = st[1], st[2]
-		pts[i] = { ox + (x * c - y * s) * scale, oy + (x * s + y * c) * scale }
-		if st[3] > 0 then
-			local halo = W.Tex(parent, "BORDER", "glow", nil, 1)
-			halo:SetSize(st[3] * 6, st[3] * 6)
-			halo:SetPoint("CENTER", parent, "TOPLEFT", pts[i][1], -pts[i][2])
-			local core = W.Tex(parent, "BORDER", "circle", nil, 2)
-			core:SetSize(max(2, st[3] * 2), max(2, st[3] * 2))
-			core:SetPoint("CENTER", halo, "CENTER", 0, 0)
-			W.Painter(halo, function(t)
+	-- Draws the Dipper on `parent`, its handle's end at (ox, oy), scaled and
+	-- turned `deg` degrees clockwise, in the neutral star colour.
+	function dipper(parent, ox, oy, scale, deg)
+		local a = rad(deg or 0)
+		local c, s = cos(a), sin(a)
+		local pts = {}
+		for i, st in ipairs(DIPPER) do
+			local x, y = st[1], st[2]
+			pts[i] = { ox + (x * c - y * s) * scale, oy + (x * s + y * c) * scale }
+			if st[3] > 0 then
+				local halo = W.Tex(parent, "BORDER", "glow", nil, 1)
+				halo:SetSize(st[3] * 6, st[3] * 6)
+				halo:SetPoint("CENTER", parent, "TOPLEFT", pts[i][1], -pts[i][2])
+				local core = W.Tex(parent, "BORDER", "circle", nil, 2)
+				core:SetSize(max(2, st[3] * 2), max(2, st[3] * 2))
+				core:SetPoint("CENTER", halo, "CENTER", 0, 0)
+				W.Painter(halo, function(t)
+					local r, g, b = Theme.Color("star")
+					t:SetVertexColor(r, g, b, 0.3)
+					core:SetVertexColor(r, g, b, 1)
+				end)
+			end
+		end
+		for _, link in ipairs(LINKS) do
+			local p, q = pts[link[1]], pts[link[2]]
+			local t = solid(parent, "BORDER", 0)
+			segment(t, parent, p[1], p[2], q[1], q[2], 1)
+			W.Painter(t, function(tex)
+				tex:SetHeight(Theme.Pixel(parent))
 				local r, g, b = Theme.Color("star")
-				t:SetVertexColor(r, g, b, 0.3)
-				core:SetVertexColor(r, g, b, 1)
+				tex:SetVertexColor(r, g, b, 0.28)
 			end)
 		end
-	end
-	for _, link in ipairs(LINKS) do
-		local p, q = pts[link[1]], pts[link[2]]
-		local t = solid(parent, "BORDER", 0)
-		segment(t, parent, p[1], p[2], q[1], q[2], 1)
-		W.Painter(t, function(tex)
-			tex:SetHeight(Theme.Pixel(parent))
-			local r, g, b = Theme.Color("star")
-			tex:SetVertexColor(r, g, b, 0.28)
-		end)
 	end
 end
 
@@ -695,45 +698,48 @@ local function paintArrowMini(a, g)
 end
 
 -- The library's miniature: three rows with their counts, the first chosen.
-local LIBRARY = {
-	{ "Leveling", "icon-level" },
-	{ "Professions", "icon-craft" },
-	{ "Reputation", "icon-rep" },
-}
+local libraryMini
+do
+	local LIBRARY = {
+		{ "Leveling", "icon-level" },
+		{ "Professions", "icon-craft" },
+		{ "Reputation", "icon-rep" },
+	}
 
-local function libraryMini(m)
-	local rows = {}
-	for i, it in ipairs(LIBRARY) do
-		local r = CreateFrame("Frame", nil, m)
-		r:SetPoint("TOPLEFT", m, "TOPLEFT", 10, -(9 + (i - 1) * 20))
-		r:SetPoint("TOPRIGHT", m, "TOPRIGHT", -10, -(9 + (i - 1) * 20))
-		r:SetHeight(17)
-		local sel = i == 1
-		r.Fill = solid(r, "BACKGROUND", -4)
-		r.Fill:SetAllPoints(r)
-		W.Painter(r.Fill, function(t) t:SetVertexColor(Theme.Wash(sel and "selected" or "hover")) end)
-		if sel then
-			r.Bar = solid(r, "ARTWORK", 1)
-			r.Bar:SetPoint("TOPLEFT", r, "TOPLEFT", 0, 0)
-			r.Bar:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 0)
-			r.Bar:SetWidth(2)
-			W.Color(r.Bar, "accent")
+	function libraryMini(m)
+		local rows = {}
+		for i, it in ipairs(LIBRARY) do
+			local r = CreateFrame("Frame", nil, m)
+			r:SetPoint("TOPLEFT", m, "TOPLEFT", 10, -(9 + (i - 1) * 20))
+			r:SetPoint("TOPRIGHT", m, "TOPRIGHT", -10, -(9 + (i - 1) * 20))
+			r:SetHeight(17)
+			local sel = i == 1
+			r.Fill = solid(r, "BACKGROUND", -4)
+			r.Fill:SetAllPoints(r)
+			W.Painter(r.Fill, function(t) t:SetVertexColor(Theme.Wash(sel and "selected" or "hover")) end)
+			if sel then
+				r.Bar = solid(r, "ARTWORK", 1)
+				r.Bar:SetPoint("TOPLEFT", r, "TOPLEFT", 0, 0)
+				r.Bar:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 0, 0)
+				r.Bar:SetWidth(2)
+				W.Color(r.Bar, "accent")
+			end
+			r.Glyph = W.Tex(r, "ARTWORK", it[2], sel and "accent" or "textMuted")
+			r.Glyph:SetSize(11, 11)
+			r.Glyph:SetPoint("LEFT", r, "LEFT", 6, 0)
+			r.Count = W.Text(r, "caption", "textMuted")
+			r.Count:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+			r.Name = W.Text(r, "small", sel and "text" or "textDim")
+			r.Name:SetPoint("LEFT", r.Glyph, "RIGHT", 7, 0)
+			r.Name:SetPoint("RIGHT", r.Count, "LEFT", -6, 0)
+			r.Name:SetJustifyH("LEFT")
+			r.Name:SetWordWrap(false)
+			r.Name:SetText(L[it[1]])
+			r.psCategory = it[1]
+			rows[i] = r
 		end
-		r.Glyph = W.Tex(r, "ARTWORK", it[2], sel and "accent" or "textMuted")
-		r.Glyph:SetSize(11, 11)
-		r.Glyph:SetPoint("LEFT", r, "LEFT", 6, 0)
-		r.Count = W.Text(r, "caption", "textMuted")
-		r.Count:SetPoint("RIGHT", r, "RIGHT", -6, 0)
-		r.Name = W.Text(r, "small", sel and "text" or "textDim")
-		r.Name:SetPoint("LEFT", r.Glyph, "RIGHT", 7, 0)
-		r.Name:SetPoint("RIGHT", r.Count, "LEFT", -6, 0)
-		r.Name:SetJustifyH("LEFT")
-		r.Name:SetWordWrap(false)
-		r.Name:SetText(L[it[1]])
-		r.psCategory = it[1]
-		rows[i] = r
+		return rows
 	end
-	return rows
 end
 
 PAGES[#PAGES + 1] = {
@@ -876,8 +882,8 @@ local TEXT_W = CW - 30 - 24
 
 -- opts: depends (the setting the row waits on, greyed while it is off),
 -- child (indented under that setting's row).
-local CHILD_X = 18
 local function toggleRow(p, label, path, desc, opts)
+	local CHILD_X = 18
 	local row = W.Toggle(p, label, path, desc, opts and opts.depends, opts)
 	local indent = opts and opts.child and CHILD_X or 0
 	row:SetWidth(CW + 24)
@@ -1373,40 +1379,43 @@ end
 
 -- Shows the scheme cards in the column at x0, `w` wide, from y, `cols` to a
 -- row, or hides them. -> the y under them
-local SCHEME_INNER_H, SCHEME_ROW_GAP = 32, 6
-local function laySchemes(p, x0, y, w, shown, cols)
-	p.SchemeTitle:SetShown(shown)
-	local choices = shown and Theme.SchemeChoices() or {}
-	local n = #choices
-	for i = n + 1, #F.Schemes do F.Schemes[i]:Hide() end
-	if n == 0 then return y end
-	place(p.SchemeTitle, x0, y)
-	y = y + p.SchemeTitle:GetStringHeight() + 8
-	cols = min(cols, n)
-	local cw = floor((w - SCHEME_GAP * (cols - 1)) / cols)
-	local ch_ = 5 + SCHEME_INNER_H + SCHEME_NAME_H
-	for i, ch in ipairs(choices) do
-		local c = F.Schemes[i] or schemeCard(p)
-		F.Schemes[i] = c
-		c.psValue = ch.value
-		c.Name:SetText(ch.text)
-		c:SetSize(cw, ch_)
-		c.Side:SetHeight(SCHEME_INNER_H)
-		c.Ground:SetHeight(SCHEME_INNER_H)
-		-- The title line and the text line inside a card as narrow as it is.
-		c.Line1:SetWidth(min(52, floor((cw - 10 - 22) * 0.6)))
-		c.Line2:SetWidth(floor((cw - 10 - 22) * 0.8))
-		local col, row = (i - 1) % cols, floor((i - 1) / cols)
-		place(c, x0 + col * (cw + SCHEME_GAP), y + row * (ch_ + SCHEME_ROW_GAP))
-		if not c.psPainted then
-			c.psPainted = true
-			W.Painter(c, paintScheme)
-		else
-			paintScheme(c)
+local laySchemes
+do
+	local SCHEME_INNER_H, SCHEME_ROW_GAP = 32, 6
+	function laySchemes(p, x0, y, w, shown, cols)
+		p.SchemeTitle:SetShown(shown)
+		local choices = shown and Theme.SchemeChoices() or {}
+		local n = #choices
+		for i = n + 1, #F.Schemes do F.Schemes[i]:Hide() end
+		if n == 0 then return y end
+		place(p.SchemeTitle, x0, y)
+		y = y + p.SchemeTitle:GetStringHeight() + 8
+		cols = min(cols, n)
+		local cw = floor((w - SCHEME_GAP * (cols - 1)) / cols)
+		local ch_ = 5 + SCHEME_INNER_H + SCHEME_NAME_H
+		for i, ch in ipairs(choices) do
+			local c = F.Schemes[i] or schemeCard(p)
+			F.Schemes[i] = c
+			c.psValue = ch.value
+			c.Name:SetText(ch.text)
+			c:SetSize(cw, ch_)
+			c.Side:SetHeight(SCHEME_INNER_H)
+			c.Ground:SetHeight(SCHEME_INNER_H)
+			-- The title line and the text line inside a card as narrow as it is.
+			c.Line1:SetWidth(min(52, floor((cw - 10 - 22) * 0.6)))
+			c.Line2:SetWidth(floor((cw - 10 - 22) * 0.8))
+			local col, row = (i - 1) % cols, floor((i - 1) / cols)
+			place(c, x0 + col * (cw + SCHEME_GAP), y + row * (ch_ + SCHEME_ROW_GAP))
+			if not c.psPainted then
+				c.psPainted = true
+				W.Painter(c, paintScheme)
+			else
+				paintScheme(c)
+			end
+			c:Show()
 		end
-		c:Show()
+		return y + math.ceil(n / cols) * (ch_ + SCHEME_ROW_GAP) - SCHEME_ROW_GAP
 	end
-	return y + math.ceil(n / cols) * (ch_ + SCHEME_ROW_GAP) - SCHEME_ROW_GAP
 end
 
 -- 2. Questing ----------------------------------------------------------------
@@ -3350,12 +3359,14 @@ local function yieldToFight()
 end
 
 -- The route line cards follow their setting, the route's colour and reduced motion.
-local LINE_SETTINGS = { ["nav.lineStyle"] = true, ["nav.dotColor"] = true, ["nav"] = true, ["ui.reduceMotion"] = true, ["ui"] = true, [""] = true }
-ns.On("SETTING_CHANGED", function(path)
-	if not (F and F.Lines and LINE_SETTINGS[path or ""]) then return end
-	for _, c in ipairs(F.Lines) do paintLook(c) end
-	restyleRoute(F.RouteMap)
-end)
+do
+	local LINE_SETTINGS = { ["nav.lineStyle"] = true, ["nav.dotColor"] = true, ["nav"] = true, ["ui.reduceMotion"] = true, ["ui"] = true, [""] = true }
+	ns.On("SETTING_CHANGED", function(path)
+		if not (F and F.Lines and LINE_SETTINGS[path or ""]) then return end
+		for _, c in ipairs(F.Lines) do paintLook(c) end
+		restyleRoute(F.RouteMap)
+	end)
+end
 
 -- The character's flag, set as the addon loads: due (0) for a new character,
 -- seen for one Polestar already knew, so only new characters get it unasked.

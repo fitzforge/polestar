@@ -703,8 +703,8 @@ local SKIN_EXTRA = { "closeFill", "closeEdge", "closeGlyph" }
 -- sight. On the Polestar base it is the panel colour at full opacity
 -- whatever the panels' own; a look's or a skin's own is held at MENU_ALPHA
 -- at least.
-local MENU_ALPHA = 0.97
 local function solidMenu(out, own)
+	local MENU_ALPHA = 0.97
 	local c = out.menuBg
 	if c then c[4] = own and math.max(c[4] or 1, MENU_ALPHA) or 1 end
 end
@@ -1389,27 +1389,29 @@ end
 -- Fonts
 ---------------------------------------------------------------------------
 
-local FACES = {
-	regular = MEDIA .. "Fonts\\Inter-Regular.ttf",
-	medium = MEDIA .. "Fonts\\Inter-Medium.ttf",
-	semibold = MEDIA .. "Fonts\\Inter-SemiBold.ttf",
-}
-
 local ROLES = ns.House.ROLES -- the size ladder (Theme/House.lua)
 
--- Fira Sans (SIL OFL 1.1), the Halo skin's face: Latin, Greek and Cyrillic.
-local FIRA = {
-	regular = MEDIA .. "Fonts\\FiraSans-Regular.ttf",
-	medium = MEDIA .. "Fonts\\FiraSans-Medium.ttf",
-	semibold = MEDIA .. "Fonts\\FiraSans-SemiBold.ttf",
-}
-local OPEN_SANS_REGULAR = MEDIA .. "Fonts\\OpenSans-Regular.ttf"
-local OPEN_SANS = {
-	regular = OPEN_SANS_REGULAR,
-	medium = OPEN_SANS_REGULAR,
-	semibold = MEDIA .. "Fonts\\OpenSans-Bold.ttf",
-}
-local FAMILIES = setmetatable({ opensans = OPEN_SANS, inter = FACES, fira = FIRA }, { __index = EXTRA_FAMILIES })
+local FAMILIES
+do
+	local FACES = {
+		regular = MEDIA .. "Fonts\\Inter-Regular.ttf",
+		medium = MEDIA .. "Fonts\\Inter-Medium.ttf",
+		semibold = MEDIA .. "Fonts\\Inter-SemiBold.ttf",
+	}
+	-- Fira Sans (SIL OFL 1.1), the Halo skin's face: Latin, Greek and Cyrillic.
+	local FIRA = {
+		regular = MEDIA .. "Fonts\\FiraSans-Regular.ttf",
+		medium = MEDIA .. "Fonts\\FiraSans-Medium.ttf",
+		semibold = MEDIA .. "Fonts\\FiraSans-SemiBold.ttf",
+	}
+	local OPEN_SANS_REGULAR = MEDIA .. "Fonts\\OpenSans-Regular.ttf"
+	local OPEN_SANS = {
+		regular = OPEN_SANS_REGULAR,
+		medium = OPEN_SANS_REGULAR,
+		semibold = MEDIA .. "Fonts\\OpenSans-Bold.ttf",
+	}
+	FAMILIES = setmetatable({ opensans = OPEN_SANS, inter = FACES, fira = FIRA }, { __index = EXTRA_FAMILIES })
+end
 
 -- The font a skin starts with (ui.font "skin", the default): the house
 -- style and the others use the game's, Halo uses Fira Sans.
@@ -1934,12 +1936,10 @@ end
 -- A soft drop shadow around a window: nine slices of Media/UI/shadow, offset
 -- down a little so it reads as depth, not a halo. Sliced at the shape's edge
 -- (half strength): the window covers the rest.
-local SHADOW_OUT = 16
-local SHADOW_DROP = 4
-local SLICE = 20 / 64
 -- `out` and `drop` (a skin's shadow.size and shadow.drop) default to the
 -- house's; a frame's shadow takes new ones in place.
 local function shadowFor(frame, out, drop)
+	local SHADOW_OUT, SHADOW_DROP, SLICE = 16, 4, 20 / 64
 	out, drop = out or SHADOW_OUT, drop or SHADOW_DROP
 	local s = frame.psShadow
 	if not s then
@@ -2093,9 +2093,8 @@ ns.House = nil
 -- The soft veil: Media/UI/veil-soft (64 px, its 24 px edge fading to clear)
 -- in nine slices, laid 24 units out from the frame so the frame itself sits
 -- on the solid middle. Tinted with `token` at `alpha`.
-local VEIL_OUT = 24
-local VEIL_SLICE = 24 / 64
 local function veilFor(frame)
+	local VEIL_OUT, VEIL_SLICE = 24, 24 / 64
 	local v = frame.psSkin.veil
 	if v then return v end
 	v = CreateFrame("Frame", nil, frame)

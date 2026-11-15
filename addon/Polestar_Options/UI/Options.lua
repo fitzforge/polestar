@@ -78,30 +78,33 @@ local function keyOf(name) return (name:lower():gsub("[^%w]+", "")) end
 
 -- Pages that close the list whatever registers after them: the author's
 -- Recorder, then About.
-local TAIL = { [L["Recorder"]] = 1, [L["About"]] = 2 }
+local pageOf
+do
+	local TAIL = { [L["Recorder"]] = 1, [L["About"]] = 2 }
 
--- key: the page's stable key (`/polestar options <key>`, O.Select), the
--- spec's own or else made from the name. Built-in pages give theirs, so a
--- translated title does not move them.
-local function pageOf(name, icon, order, builtin, key)
-	local p = pages[name]
-	if not p then
-		seq = seq + 1
-		p = { name = name, key = keyOf(key or name), icon = icon or "gear", order = order or 100, builtin = builtin, seq = seq, tabs = {} }
-		pages[name] = p
-		pageList[#pageList + 1] = p
-		-- By order (built-in pages first on a tie), Recorder and About last.
-		table.sort(pageList, function(a, b)
-			local ta, tb = TAIL[a.name] or 0, TAIL[b.name] or 0
-			if ta ~= tb then return ta < tb end
-			if a.order ~= b.order then return a.order < b.order end
-			if (a.builtin and true or false) ~= (b.builtin and true or false) then return a.builtin and true or false end
-			return a.seq < b.seq
-		end)
-	else
-		if icon and not p.builtin then p.icon = icon end
+	-- key: the page's stable key (`/polestar options <key>`, O.Select), the
+	-- spec's own or else made from the name. Built-in pages give theirs, so a
+	-- translated title does not move them.
+	function pageOf(name, icon, order, builtin, key)
+		local p = pages[name]
+		if not p then
+			seq = seq + 1
+			p = { name = name, key = keyOf(key or name), icon = icon or "gear", order = order or 100, builtin = builtin, seq = seq, tabs = {} }
+			pages[name] = p
+			pageList[#pageList + 1] = p
+			-- By order (built-in pages first on a tie), Recorder and About last.
+			table.sort(pageList, function(a, b)
+				local ta, tb = TAIL[a.name] or 0, TAIL[b.name] or 0
+				if ta ~= tb then return ta < tb end
+				if a.order ~= b.order then return a.order < b.order end
+				if (a.builtin and true or false) ~= (b.builtin and true or false) then return a.builtin and true or false end
+				return a.seq < b.seq
+			end)
+		else
+			if icon and not p.builtin then p.icon = icon end
+		end
+		return p
 	end
-	return p
 end
 
 local function tabOf(p, name)
@@ -916,39 +919,42 @@ local ALIASES = {
 
 -- What a reference never takes from its home: where it stands, its own
 -- state (ps* fields), the home's cog, Move and New mark.
-local REF_OWN = { page = true, tab = true, section = true, more = true, move = true, new = true, child = true }
+local homeOf
+do
+	local REF_OWN = { page = true, tab = true, section = true, more = true, move = true, new = true, child = true }
 
--- -> the home of reference c, or nil (c is no reference, or has no home yet)
-local function homeOf(c)
-	local home = rawget(c, "psHome")
-	if home or not rawget(c, "ref") then return home end
-	local same, other
-	local function look(x, onPage)
-		if same then return end
-		if x ~= c and not rawget(x, "ref") and x.key == c.key then
-			if onPage then same = x elseif not other then other = x end
+	-- -> the home of reference c, or nil (c is no reference, or has no home yet)
+	function homeOf(c)
+		local home = rawget(c, "psHome")
+		if home or not rawget(c, "ref") then return home end
+		local same, other
+		local function look(x, onPage)
+			if same then return end
+			if x ~= c and not rawget(x, "ref") and x.key == c.key then
+				if onPage then same = x elseif not other then other = x end
+			end
+			for _, e in ipairs(rawget(x, "extras") or {}) do look(e, onPage) end
+			local m = rawget(x, "more")
+			for _, y in ipairs(type(m) == "table" and m or {}) do look(y, onPage) end
 		end
-		for _, e in ipairs(rawget(x, "extras") or {}) do look(e, onPage) end
-		local m = rawget(x, "more")
-		for _, y in ipairs(type(m) == "table" and m or {}) do look(y, onPage) end
-	end
-	for _, p in ipairs(pageList) do
-		local onPage = p == rawget(c, "page")
-		for _, t in ipairs(p.tabs) do
-			for _, s in ipairs(t.sections) do
-				if s.toggle then look(s.toggle, onPage) end
-				for _, x in ipairs(s.controls) do look(x, onPage) end
+		for _, p in ipairs(pageList) do
+			local onPage = p == rawget(c, "page")
+			for _, t in ipairs(p.tabs) do
+				for _, s in ipairs(t.sections) do
+					if s.toggle then look(s.toggle, onPage) end
+					for _, x in ipairs(s.controls) do look(x, onPage) end
+				end
 			end
 		end
+		home = same or other
+		if not home then return nil end
+		rawset(c, "psHome", home)
+		setmetatable(c, { __index = function(_, k)
+			if REF_OWN[k] or (type(k) == "string" and k:sub(1, 2) == "ps") then return nil end
+			return home[k]
+		end })
+		return home
 	end
-	home = same or other
-	if not home then return nil end
-	rawset(c, "psHome", home)
-	setmetatable(c, { __index = function(_, k)
-		if REF_OWN[k] or (type(k) == "string" and k:sub(1, 2) == "ps") then return nil end
-		return home[k]
-	end })
-	return home
 end
 O.HomeOf = homeOf
 
@@ -1880,8 +1886,8 @@ end
 -- The first open's one line under the header: how the rows work (hover,
 -- right-click), until its close button dismisses it for good
 -- (PolestarDB.optionsIntro). -> the room it takes at the view's top
-local INTRO_H = 28
 local function introRoom(view)
+	local INTRO_H = 28
 	if ns.DB().optionsIntro then
 		if rawget(view, "Intro") then view.Intro:Hide() end
 		return 0
@@ -2181,29 +2187,32 @@ end
 
 -- Optimal string alignment distance (a swap of two neighbours is one edit)
 -- between the bytes qb[1..lq] and the word t; cap + 1 once it is over cap.
-local DIST_ROWS = { {}, {}, {}, {} } -- three rows and the word's bytes, reused
-local function distance(qb, lq, t, cap)
-	local lt = #t
-	if lt - lq > cap or lq - lt > cap then return cap + 1 end
-	local r0, r1, r2, tb = DIST_ROWS[1], DIST_ROWS[2], DIST_ROWS[3], DIST_ROWS[4]
-	for j = 1, lt do tb[j] = byte(t, j) end
-	for j = 0, lt do r1[j] = j end
-	for i = 1, lq do
-		local a, low = qb[i], i
-		r2[0] = i
-		for j = 1, lt do
-			local b = tb[j]
-			local v = r1[j - 1] + (a == b and 0 or 1)
-			if r1[j] + 1 < v then v = r1[j] + 1 end
-			if r2[j - 1] + 1 < v then v = r2[j - 1] + 1 end
-			if i > 1 and j > 1 and a == tb[j - 1] and qb[i - 1] == b and r0[j - 2] + 1 < v then v = r0[j - 2] + 1 end
-			r2[j] = v
-			if v < low then low = v end
+local distance
+do
+	local DIST_ROWS = { {}, {}, {}, {} } -- three rows and the word's bytes, reused
+	function distance(qb, lq, t, cap)
+		local lt = #t
+		if lt - lq > cap or lq - lt > cap then return cap + 1 end
+		local r0, r1, r2, tb = DIST_ROWS[1], DIST_ROWS[2], DIST_ROWS[3], DIST_ROWS[4]
+		for j = 1, lt do tb[j] = byte(t, j) end
+		for j = 0, lt do r1[j] = j end
+		for i = 1, lq do
+			local a, low = qb[i], i
+			r2[0] = i
+			for j = 1, lt do
+				local b = tb[j]
+				local v = r1[j - 1] + (a == b and 0 or 1)
+				if r1[j] + 1 < v then v = r1[j] + 1 end
+				if r2[j - 1] + 1 < v then v = r2[j - 1] + 1 end
+				if i > 1 and j > 1 and a == tb[j - 1] and qb[i - 1] == b and r0[j - 2] + 1 < v then v = r0[j - 2] + 1 end
+				r2[j] = v
+				if v < low then low = v end
+			end
+			if low > cap then return cap + 1 end
+			r0, r1, r2 = r1, r2, r0
 		end
-		if low > cap then return cap + 1 end
-		r0, r1, r2 = r1, r2, r0
+		return r1[lt]
 	end
-	return r1[lt]
 end
 
 -- A query word and what it made of each word met so far (kinds), kept
@@ -2582,12 +2591,6 @@ local function scopeOf(nw)
 	return page, table.concat(rest, " ")
 end
 
--- A page's own results stand when its best one is a fair match by its words
--- alone (no WEIGHT.COVER or WEIGHT.SWITCH): on average each word whole in the setting's
--- place, or its start in the setting's own words. A word found only in a
--- help text, or a typo, looks everywhere.
-local SCOPE_FLOOR = 50
-
 -- -> { { title = "Page · Tab", controls = { ... } }, ... }, count, suggestions, page
 -- Each control once (a setting shown on two pages, under the first), the
 -- best first in its group, the group with the best match first. A query
@@ -2595,6 +2598,11 @@ local SCOPE_FLOOR = 50
 -- result) for the rest of its words, everywhere when nothing there matches
 -- them fairly. With no match, suggestions: up to three labels near the query.
 function O.Search(q)
+	-- A page's own results stand when its best one is a fair match by its
+	-- words alone (no WEIGHT.COVER or WEIGHT.SWITCH): on average each word
+	-- whole in the setting's place, or its start in the setting's own words.
+	-- A word found only in a help text, or a typo, looks everywhere.
+	local SCOPE_FLOOR = 50
 	local nw = parseQuery(q)
 	if nw == 0 then return {}, 0 end
 	local page, rest = scopeOf(nw)
@@ -3253,52 +3261,55 @@ end
 -- short upright hairline after it, the other tabs moved along to make room.
 -- Run after every W.ShellTabs, which lays the row out afresh (the game's
 -- tab looks keep their label's anchor: the shift made here comes off first).
-local LEAD = { STAR = 11, GAP = 4, RULE = 17 }
-local function markLead(list, active)
-	local first = win.tabButtons and win.tabButtons[1]
-	if not first then return end
-	local grow = LEAD.STAR + LEAD.GAP
-	local lp, lrel, lrp, lx, ly = first.Label:GetPoint(1)
-	lx = lx or 0
-	if first.psLeadX and math.abs(lx - first.psLeadX) < 0.01 then lx = lx - grow / 2 end
-	first.psLeadX = nil
-	local lead = first:IsShown() and list[1] and list[1].lead and #list > 1 and true or false
-	local star, rule = rawget(first, "psStar"), rawget(win, "psLeadRule")
-	if star then star:SetShown(lead) end
-	if rule then rule:SetShown(lead) end
-	if lp then
-		first.Label:ClearAllPoints()
-		first.Label:SetPoint(lp, lrel or first, lrp or lp, lead and lx + grow / 2 or lx, ly or 0)
-	end
-	if not lead then return end
-	first.psLeadX = lx + grow / 2
-	if not star then
-		star = W.Tex(first, "ARTWORK", "star", "textMuted")
-		star:SetSize(LEAD.STAR, LEAD.STAR)
-		first.psStar = star
-	end
-	W.Color(star, list[1] == active and "accent" or "textMuted")
-	star:ClearAllPoints()
-	star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD.GAP, 0)
-	star:Show()
-	first:SetWidth(first:GetWidth() + grow)
-	if not rule then
-		rule = W.Divider(win.TabRow, true)
-		win.psLeadRule = rule
-	end
-	-- 8 either side of the hairline.
-	local _, _, _, fx = first:GetPoint(1)
-	rule:ClearAllPoints()
-	rule:SetSize(1, 16)
-	rule:SetPoint("LEFT", win.TabRow, "BOTTOMLEFT", (fx or 0) + first:GetWidth() + 8, SH.tabs / 2)
-	rule:Show()
-	local shift = grow + LEAD.RULE
-	for i = 2, #win.tabButtons do
-		local t = win.tabButtons[i]
-		if t:IsShown() then
-			local p, rel, rp, x, y = t:GetPoint(1)
-			t:ClearAllPoints()
-			t:SetPoint(p, rel, rp, (x or 0) + shift, y or 0)
+local markLead
+do
+	local LEAD = { STAR = 11, GAP = 4, RULE = 17 }
+	function markLead(list, active)
+		local first = win.tabButtons and win.tabButtons[1]
+		if not first then return end
+		local grow = LEAD.STAR + LEAD.GAP
+		local lp, lrel, lrp, lx, ly = first.Label:GetPoint(1)
+		lx = lx or 0
+		if first.psLeadX and math.abs(lx - first.psLeadX) < 0.01 then lx = lx - grow / 2 end
+		first.psLeadX = nil
+		local lead = first:IsShown() and list[1] and list[1].lead and #list > 1 and true or false
+		local star, rule = rawget(first, "psStar"), rawget(win, "psLeadRule")
+		if star then star:SetShown(lead) end
+		if rule then rule:SetShown(lead) end
+		if lp then
+			first.Label:ClearAllPoints()
+			first.Label:SetPoint(lp, lrel or first, lrp or lp, lead and lx + grow / 2 or lx, ly or 0)
+		end
+		if not lead then return end
+		first.psLeadX = lx + grow / 2
+		if not star then
+			star = W.Tex(first, "ARTWORK", "star", "textMuted")
+			star:SetSize(LEAD.STAR, LEAD.STAR)
+			first.psStar = star
+		end
+		W.Color(star, list[1] == active and "accent" or "textMuted")
+		star:ClearAllPoints()
+		star:SetPoint("RIGHT", first.Label, "LEFT", -LEAD.GAP, 0)
+		star:Show()
+		first:SetWidth(first:GetWidth() + grow)
+		if not rule then
+			rule = W.Divider(win.TabRow, true)
+			win.psLeadRule = rule
+		end
+		-- 8 either side of the hairline.
+		local _, _, _, fx = first:GetPoint(1)
+		rule:ClearAllPoints()
+		rule:SetSize(1, 16)
+		rule:SetPoint("LEFT", win.TabRow, "BOTTOMLEFT", (fx or 0) + first:GetWidth() + 8, SH.tabs / 2)
+		rule:Show()
+		local shift = grow + LEAD.RULE
+		for i = 2, #win.tabButtons do
+			local t = win.tabButtons[i]
+			if t:IsShown() then
+				local p, rel, rp, x, y = t:GetPoint(1)
+				t:ClearAllPoints()
+				t:SetPoint(p, rel, rp, (x or 0) + shift, y or 0)
+			end
 		end
 	end
 end
