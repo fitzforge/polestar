@@ -1,5 +1,5 @@
 'use strict';
-// Polestar Experimental's Shen'dralas guide (experimental/guides/shendralas.guide), compiled with the
+// The Shen'dralas guide (guides/forever/40-50/shendralas.guide, both factions' route), compiled with the
 // reference data: the order players' recordings support, pinned so an edit can't undo it unseen.
 //
 // Needs data/forever (forge data build); skips without it.
@@ -19,7 +19,7 @@ let list;
 // The guide's goals in order, as { step, goal }.
 function goals() {
 	if (!list) {
-		const file = path.join(ROOT, 'experimental', 'guides', 'shendralas.guide');
+		const file = path.join(ROOT, 'guides', 'forever', '40-50', 'shendralas.guide');
 		const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], loadData(DATA));
 		assert.equal(guides.length, 1, 'the guide compiles');
 		list = guides[0].steps.flatMap((step) => step.goals.map((goal) => ({ step, goal })));
@@ -57,11 +57,14 @@ test("Shen'dralas: the temple's quests wait for Meeting the Magister, as the onl
 	for (const { goal } of goals().filter(({ goal }) => is('accept', 99257)(goal))) assert.equal(goal.optional, true, 'never recorded: always optional');
 });
 
-// The client gives Repair and Recharge Pylon (the spell players cast at each pylon) to the Pile of Pylon Parts, and
-// each repair is its own quest log line, so the guide counts the line, whatever finishes it.
-test("Shen'dralas: each pylon repair is the Pile of Pylon Parts at that pylon, counted by its quest log line, after the Mana Sieve", { skip }, () => {
+// Each repair is its own quest log line, credited as a kill: in players' recordings (8 recorded repairs at each pylon,
+// both factions) Repair and Recharge Pylon is cast on a Decrepit Pylon Protector (252711) just slain beside the pylon,
+// the cast's target where the recording names one. No source gives the Pile of Pylon Parts the client ties the
+// spell to, so the guide counts the log line on the Protector, not an item in the bags.
+test("Shen'dralas: each pylon repair is a Decrepit Pylon Protector at that pylon, counted by its quest log line, after the Mana Sieve", { skip }, () => {
 	const sieve = first((g) => g.t === 'collect' && g.item === 255662, 'the Mana Sieve');
-	const repairs = goals().map(({ goal }, i) => ({ goal, i })).filter(({ goal }) => goal.t === 'use' && goal.item === 271882);
+	const repairs = goals().map(({ goal }, i) => ({ goal, i })).filter(({ goal }) => goal.t === 'kill' && goal.quest === 96018);
+	assert.ok(!goals().some(({ goal }) => goal.t === 'use' && goal.item === 271882), 'no goal needs the Pile of Pylon Parts');
 	assert.equal(repairs.length, 2, 'two repairs');
 	for (const { goal, i } of repairs) {
 		assert.ok(i > sieve, 'after the Mana Sieve');

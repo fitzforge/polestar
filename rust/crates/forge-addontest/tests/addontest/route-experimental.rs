@@ -443,8 +443,8 @@ fn our_route(data: &forge_guide::data::Data, offers: bool) -> forge_addontest::d
 		let mut diag = forge_guide::diag::Diagnostics::new();
 		let extras = forge_guide::project::read_extras(root(), data);
 		let index = forge_guide::project::experimental_index(&compiled.guides, &extras, data, &mut diag);
-		// Every zone has its way in for each side it is for (Riverglades both, Shen'dralas both, Mount Hyjal the
-		// Alliance).
+		// Every zone has its way in for each side it is for (the Riverglades and Mount Hyjal, the Alliance; the
+		// Horde's Riverglades and Shen'dralas are guides of the route since 0.4.0).
 		forge_guide::project::experimental_offered_everywhere(&compiled.guides, &extras, &mut diag);
 		assert!(!diag.has_errors(), "{:?}", diag.sorted());
 		index
@@ -551,26 +551,22 @@ fn the_real_route_compiled_with_the_offers_and_without_them_has_the_same_default
 			}
 		}
 	}
-	assert_eq!(offered.len(), 5, "the five offers: {offered:?}");
+	assert_eq!(offered.len(), 2, "the two offers: {offered:?}");
+	// The Horde has no offer since 0.4.0: the Riverglades and Shen'dralas are its route.
 	for (race, faction, offers) in [
-		(
-			"Orc",
-			"Horde",
-			json!(["forever/horde/30-40/06-badlands -> polestar-experimental/riverglades-horde-1", "forever/horde/40-50/02-feralas -> polestar-experimental/shendralas"]),
-		),
+		("Orc", "Horde", json!([])),
 		(
 			"Human",
 			"Alliance",
 			json!([
 				"forever/alliance/30-40/06-badlands -> polestar-experimental/riverglades-alliance-1",
-				"forever/alliance/40-50/02-badlands -> polestar-experimental/shendralas",
 				"forever/alliance/50-60/04-western-plaguelands -> polestar-experimental/hyjal-1"
 			]),
 		),
 	] {
 		let (a, b) = (route_of(&with, race, faction), route_of(&without, race, faction));
 		assert!(a["route"].as_object().unwrap().len() > 20, "{race}: the guides are in");
-		assert_eq!(a["offers"], offers, "{race}: the route choices that offer an experimental guide");
+		assert_eq!(lines(&a["offers"]), lines(&offers), "{race}: the route choices that offer an experimental guide");
 		assert_eq!(lines(&b["offers"]), Vec::<String>::new());
 		assert_eq!(a["route"], b["route"], "{race}: the default route is the same without the offers");
 		// With "ask" (the default) the offering guides ask at their end, and no other guide asks anew.

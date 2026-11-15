@@ -1627,9 +1627,9 @@ Polestar's own guides may offer one of Polestar's experimental guides as one
 more option, an alpha route through one of Forever's new zones:
 
 ```
-guide forever/horde/30-40/06-badlands
-next forever/horde/40-50/01-stranglethorn-vale
-next polestar-experimental/riverglades-horde-1
+guide forever/alliance/30-40/06-badlands
+next forever/alliance/30-40/06b-desolace
+next polestar-experimental/riverglades-alliance-1
 ```
 
 The first line stays the route's default: an experimental guide may never be

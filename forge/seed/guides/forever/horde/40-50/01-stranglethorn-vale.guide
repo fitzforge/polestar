@@ -4,12 +4,7 @@ title Stranglethorn Vale & Swamp of Sorrows
 faction Horde
 levels 39-43
 zone Stranglethorn Vale
-next forever/horde/40-50/02-feralas
-pitch Nesingwary's hunts and Booty Bay's pirates, then Stonard.
-pro Riding and level 40 training first
-pro Stonard flight path for later
-pro Stays on the main route
-con Spread over two zones, lots of travel
+next forever/horde/40-50/01b-riverglades
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -361,6 +356,7 @@ step Grom'gol Base Camp
   turnin 598                            -- Kin'weelay
   turnin 95770 npc 2519                 -- Kin'weelay
   turnin 585
+  accept 95141                          -- Commander Aggro'gosh: for Krom'rosh in Rog'mar, the Riverglades' Horde fort, in the next guide
   note Keep Speaking with Gan'zulah and Mok'thardin's Enchantment: the Skullsplitter chief and the naga coast come on your Stranglethorn stop at about 45.
 
 step Fly to Booty Bay

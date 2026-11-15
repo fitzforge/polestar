@@ -3,8 +3,7 @@ title Feralas & Tanaris
 faction Horde
 levels 42-44
 zone Feralas
-next forever/horde/40-50/03-feralas
-next polestar-experimental/shendralas
+next forever/40-50/shendralas
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
@@ -175,6 +174,7 @@ step Steamwheedle Port
   turnin 2872                           -- Stoley
   accept 2873
   accept 8366                           -- Security Chief Bilgewhizzle
+  turnin 95296                          -- Wharfmaster Steamfizzle, on the pier: Friz's errand from the Riverglades, if you carry it
 
 step Lost Rigger Cove
   tip South along the coast, the Southsea pirates hold the cove. Andre Firebeard and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.
@@ -213,6 +213,7 @@ step Camp Mojache
   accept 2973                           -- Krueg Skullsplitter
   accept 2975                           -- Rok Orhan
   accept 2987                           -- Orwin Gizzmick
+  turnin 95033                          -- Witch Doctor Uzer'i: Tan'jani's errand from the Riverglades, if you carry it
   accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 45
   accept 2822                           -- Jangdor Swiftstrider
 
