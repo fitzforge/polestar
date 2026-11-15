@@ -255,6 +255,16 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Fizzle Darkstorm a
 	assert.notEqual(list[fizzle].s, list[at(list, 'the lizards (97282)', (g) => g.t === 'collect' && g.quest === 97282)].s, 'Fizzle has a step of his own');
 });
 
+// --- Durotar (level tidy 0.4.0): Lieutenant Benedict (8) was killed at 6.6-7.1; a top-up to 7 on the sailors comes
+// after the keep's outskirts and before him.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: a top-up to 7 before Lieutenant Benedict`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const benedict = at(list, 'Benedict (784.3)', (g) => g.t === 'kill' && g.quest === 784 && g.npc === 3192);
+	const gate = list.slice(0, benedict).findLastIndex(({ goal }) => goal.t === 'level');
+	assert.ok(gate > at(list, 'the marines (784.2)', (g) => g.t === 'kill' && g.quest === 784 && g.npc === 3129), 'the top-up after the sailors and marines');
+	assert.ok(list[gate].goal.level >= 7 && list[gate].goal.grind === 3128, 'a top-up to 7 on the Kul Tiras Sailors');
+});
+
 // --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
 // 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
 test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {

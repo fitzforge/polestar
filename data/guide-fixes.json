@@ -2374,6 +2374,27 @@
 			]
 		},
 		{
+			"id": "level-tidy-040-durotar-benedict-level-7",
+			"faction": "Horde",
+			"at": {
+				"quest": 784,
+				"goal": "objective",
+				"objective": 3
+			},
+			"level": 7,
+			"note": "Level tidy 0.4.0 (Orc and Troll Durotar): Lieutenant Benedict (8) stands at the top of Tiragarde Keep among the Kul Tiras Marines (6-7). Players killed him at 6.6-7.1 and the keep's deaths were at 6.8-7.7; with the prickly pears moved to Encroachment, the keep is reached a little lower still. The outskirts, sailors and marines are a step of their own, then a top-up to 7 on the Kul Tiras Sailors (5-6) around the keep, then Benedict and his chest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Benedict's kill ticked at a 25th percentile of 7.09 (Orc, 33 people) and 6.85 (Troll, 14); 7 people died at the keep at 6.8-12.9, 3 to marines of 7"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3192 Lieutenant Benedict 8, 3129 Kul Tiras Marine 6-7, 3128 Kul Tiras Sailor 5-6 (Durotar 56-60,51-59)"
+				}
+			]
+		},
+		{
 			"id": "1077-durotar-quilboar-in-the-razormane-grounds-step",
 			"at": {
 				"quest": 837,
