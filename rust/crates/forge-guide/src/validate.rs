@@ -1013,7 +1013,9 @@ impl Ctx<'_> {
 	}
 
 	// Characters for whom every route from the start of guide h turns quest q in (None: every character,
-	// for a loop back into a guide being walked).
+	// for a loop back into a guide being walked). A character's routes go on only through the guides after h it
+	// can follow (a guide for both factions handing each one on to its own next guide); one that can follow none
+	// stops at h's end.
 	fn covered(&self, h: &V, q: &V, visiting: &mut FxHashSet<Key>) -> Option<Rc<CharSet>> {
 		let k = format!("{}|{}", ts(&h.get("id")), ts(q));
 		if let Some(c) = self.covered_memo.borrow().get(&k) {
@@ -1025,18 +1027,24 @@ impl Ctx<'_> {
 		}
 		visiting.insert(hid.clone());
 		let next = self.successors(h);
-		let mut after: Option<Rc<CharSet>> = if next.is_empty() { Some(Rc::new(CharSet::default())) } else { None };
+		let mut after: Option<CharSet> = if next.is_empty() { Some(CharSet::default()) } else { None };
+		let mut missed = CharSet::default();
 		for s in &next {
 			if let Some(c) = self.covered(s, q, visiting) {
-				after = Some(match after {
-					Some(a) => Rc::new(a.iter().filter(|k| c.contains(*k)).cloned().collect()),
-					None => c,
-				});
+				let a = after.get_or_insert_with(CharSet::default);
+				for f in self.followers(s).iter() {
+					if c.contains(f) {
+						a.insert(f.clone());
+					} else {
+						missed.insert(f.clone());
+					}
+				}
 			}
 		}
+		let after = after.map(|a| minus(&a, &missed));
 		visiting.remove(&hid);
 		let out = after.map(|after| {
-			let mut out: CharSet = (*after).clone();
+			let mut out: CharSet = after;
 			for t in self.quest_goals(h).iter() {
 				if closes(&t.goal) && t.goal.get("quest").strict_eq(q) {
 					out.extend(t.chars.iter().cloned());
@@ -1501,43 +1509,40 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			}
 			let name = quest_name(data, &aq, &a.goal.get("title"));
 			let some = |left: usize| if left < a.chars.len() { " for some of the characters it applies to" } else { "" };
+			// Each guide after this one, with the characters still holding the quest who follow it there and miss
+			// its turn-in on every route from it. A character's routes are the guides it can follow (a guide for
+			// both factions hands each to its own next guide): one that can follow none stops here.
 			struct Route {
 				s: V,
 				left: CharSet,
 			}
-			let routes: Vec<Route> = ctx
-				.successors(g)
-				.into_iter()
+			let next = ctx.successors(g);
+			let routes: Vec<Route> = next
+				.iter()
 				.map(|s| {
-					let c = ctx.covered(&s, &aq, &mut FxHashSet::default());
-					let left = match c {
-						Some(c) => minus(&open, &c),
+					let follow = ctx.followers(s);
+					let left = match ctx.covered(s, &aq, &mut FxHashSet::default()) {
+						Some(c) => open.iter().filter(|k| follow.contains(*k) && !c.contains(*k)).cloned().collect(),
 						None => CharSet::default(),
 					};
-					Route { s, left }
+					Route { s: s.clone(), left }
 				})
 				.collect();
-			// A next guide whose race, class or faction leaves out every character still holding the quest.
-			let outside = |r: &Route| !meets(&r.left, &characters(&[guide_layer(&r.s)], &V::Undef));
-			let why = |r: &Route, it: &str| if outside(r) { format!(" ({it} is for {} only, so its turn-ins do not count)", who_label(&r.s)) } else { String::new() };
+			// Characters still holding the quest whom no next guide takes (its race, class or faction).
+			let stranded: CharSet = if next.is_empty() { CharSet::default() } else { open.iter().filter(|k| !next.iter().any(|s| ctx.followers(s).contains(*k))).cloned().collect() };
 			let hint = |excluded: bool| {
 				format!(
 					"turn it in later in this guide{}, or make the accept `optional` when the player may leave it",
 					if excluded { ", or pick a `next` guide these characters can follow" } else { " or in a guide after it" }
 				)
 			};
-			let failing: Vec<&Route> = routes.iter().filter(|r| !r.left.is_empty()).collect();
-			if routes.is_empty() || failing.len() == routes.len() {
-				let left: CharSet = if !routes.is_empty() { failing.iter().flat_map(|r| r.left.iter().cloned()).collect() } else { open.clone() };
-				let reasons: Vec<String> = failing
-					.iter()
-					.filter(|r| outside(r))
-					.map(|r| {
-						let w = why(r, &format!("\"{}\"", ts(&r.s.get("id"))));
-						w[2..w.len() - 1].to_string()
-					})
-					.collect();
-				let because = if reasons.is_empty() { String::new() } else { format!(" ({})", reasons.join("; ")) };
+			// Every next guide leaves the stranded characters out: each says for whom it is.
+			let reasons: Vec<String> = next.iter().filter(|_| !stranded.is_empty()).map(|s| format!("\"{}\" is for {} only, so its turn-ins do not count", ts(&s.get("id")), who_label(s))).collect();
+			let because = if reasons.is_empty() { String::new() } else { format!(" ({})", reasons.join("; ")) };
+			let taken: Vec<&Route> = routes.iter().filter(|r| meets(&open, &ctx.followers(&r.s))).collect();
+			let failing: Vec<&Route> = taken.iter().copied().filter(|r| !r.left.is_empty()).collect();
+			if next.is_empty() || failing.len() == taken.len() {
+				let left: CharSet = if next.is_empty() { open.clone() } else { failing.iter().flat_map(|r| r.left.iter().cloned()).chain(stranded.iter().cloned()).collect() };
 				diag.warn(
 					&file,
 					line(&a.goal),
@@ -1547,12 +1552,10 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				continue;
 			}
 			for r in failing {
-				diag.warn(
-					&file,
-					line(&a.goal),
-					format!("quest {name} is accepted but never turned in on the route through \"{}\"{}{}", ts(&r.s.get("id")), some(r.left.len()), why(r, "it")),
-					Some(hint(outside(r))),
-				);
+				diag.warn(&file, line(&a.goal), format!("quest {name} is accepted but never turned in on the route through \"{}\"{}", ts(&r.s.get("id")), some(r.left.len())), Some(hint(false)));
+			}
+			if !stranded.is_empty() {
+				diag.warn(&file, line(&a.goal), format!("quest {name} is accepted but never turned in later in this guide or a guide after it{}{because}", some(stranded.len())), Some(hint(true)));
 			}
 		}
 

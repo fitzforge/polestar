@@ -1409,7 +1409,11 @@ goals carry its `goto` points instead, in order, with `spread = true` and no
 interact bound to a quest objective that players' recordings place
 (`data/recorded/quests.json`) takes its places from the trusted recorded spots
 (an area of a spot's own size, no `n` where no spawn of the target lies in it;
-GUIDE_FORMAT, "Spawn areas", Recorded). `x`/`y` stay the
+GUIDE_FORMAT, "Spawn areas", Recorded). That pass is forge's (forge-guide
+resolve.rs `recorded_areas`) only: the node tests' JS compile
+(`tools/lib/dsl`) has none and keeps the data's places, so a node test of a
+goal's places reads them without the recordings; the forge-judge seeds (the
+reported gate) compile with forge and check what ships. `x`/`y` stay the
 default point. `z` (optional, 0.2.4) is the height of the NPC or object the
 goal's `x`/`y` stands for (the compiler's, from `spawnz.json`: GUIDE_FORMAT,
 "Heights"); a spot and a smart target's candidate may carry their own `z`

@@ -20,8 +20,8 @@ const MULGORE_FOREVER: &str = r#""1412":{"c":1,"left":2479.167,"right":-3675,"to
 
 /// The Barrens with Trouble in the Valley (95621: Benedict's Orders from Corporal Adamore's seven spawns about
 /// one camp), a quest whose drops spawn far from where players get them (92553: the Hatchling's mobs at
-/// 60,60), and Mulgore (both frames) with Galak centaurs away from where players kill them (99080) and Galak
-/// outrunners in one small camp (99081).
+/// 60,60), sacks of oats at three farms 300 yd apart (95705), and Mulgore (both frames) with Galak centaurs away
+/// from where players kill them (99080) and Galak outrunners in one small camp (99081).
 fn data() -> Data {
 	let mut t: FxHashMap<String, String> = FxHashMap::default();
 	t.insert("zones".into(), r#"{"1413":{"id":1413,"name":"The Barrens","areaId":17,"type":3},"1412":{"id":1412,"name":"Mulgore","areaId":215,"type":3}}"#.into());
@@ -35,6 +35,7 @@ fn data() -> Data {
 		"95702":{"id":95702,"title":"Totems","level":18,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"item","id":9999,"count":5}]},
 		"95704":{"id":95704,"title":"Supplies","level":18,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"object","id":600,"count":1}]},
 		"95703":{"id":95703,"title":"The Wanderer","level":18,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":9001,"count":1}]},
+		"95705":{"id":95705,"title":"Oats","level":12,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"item","id":8888,"count":8}]},
 		"99080":{"id":99080,"title":"Galak","level":8,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":2967,"count":6}]},
 		"99081":{"id":99081,"title":"Outrunners","level":8,"start":{"npc":[],"object":[],"item":[]},"end":{"npc":[],"object":[]},"objectives":[{"type":"kill","id":2968,"count":4}]}}"#
 			.into(),
@@ -50,13 +51,22 @@ fn data() -> Data {
 		"2968":{"id":2968,"name":"Galak Outrunner","level":8,"spawns":{"1412":{"f":"e","pts":[[63.5,58.5],[63.9,58.2],[63.3,58.0]]}}}}"#
 			.into(),
 	);
-	t.insert("objects".into(), r#"{"500":{"id":500,"name":"Lone Crate","spawns":{"1413":{"f":"e","pts":[[50.0,50.0]]}}},"600":{"id":600,"name":"Supply Crate","spawns":{"1413":{"f":"e","pts":[[20.0,20.0],[22.0,20.0],[20.0,23.0]]}}}}"#.into());
+	// The sacks: 15 at each of three farms, more than an object's exact points take (40).
+	let sacks: Vec<String> = [40.0, 43.0, 46.0].iter().flat_map(|fx| (0..15).map(move |i| format!("[{},{}]", fx + f64::from(i % 5) * 0.1, 40.0 + f64::from(i / 5) * 0.1))).collect();
+	t.insert(
+		"objects".into(),
+		format!(
+			r#"{{"500":{{"id":500,"name":"Lone Crate","spawns":{{"1413":{{"f":"e","pts":[[50.0,50.0]]}}}}}},"600":{{"id":600,"name":"Supply Crate","spawns":{{"1413":{{"f":"e","pts":[[20.0,20.0],[22.0,20.0],[20.0,23.0]]}}}}}},"700":{{"id":700,"name":"Sack of Oats","spawns":{{"1413":{{"f":"e","pts":[{}]}}}}}}}}"#,
+			sacks.join(",")
+		),
+	);
 	t.insert(
 		"items".into(),
 		r#"{"270151":{"id":270151,"name":"Benedict's Orders","drops":{"npc":{"262119":null},"object":{}},"questItem":true},
 		"6889":{"id":6889,"name":"Raptor Egg","drops":{"npc":{"7":null},"object":{}},"questItem":true},
 		"7777":{"id":7777,"name":"Small Egg","drops":{"npc":{},"object":{}},"questItem":true},
-		"9999":{"id":9999,"name":"Centaur Totem","drops":{"npc":{"8001":null,"8002":null},"object":{}},"questItem":true}}"#
+		"9999":{"id":9999,"name":"Centaur Totem","drops":{"npc":{"8001":null,"8002":null},"object":{}},"questItem":true},
+		"8888":{"id":8888,"name":"Handful of Oats","drops":{"npc":{},"object":{"700":100}},"questItem":true}}"#
 			.into(),
 	);
 	t.insert("meta".into(), "{}".into());
@@ -213,6 +223,36 @@ fn an_author_s_point_where_the_data_places_no_source_takes_the_recorded_area_aro
 	assert_eq!((goals[0].get("x").num(), goals[0].get("y").num()), (45.0, 45.0));
 	assert_eq!(goals[0].get("spots").items().iter().map(spot).collect::<Vec<_>>(), vec![(45.4, 45.2, 60.0, false), (70.0, 80.0, 40.0, true)]);
 	assert!(warnings.iter().all(|w| !w.contains("recordings")), "{warnings:?}");
+}
+
+// Xaden Ryan's report (#621), Westfall's oats: sacks stand at every farm and players gather them at several, the
+// best-backed farm not the one the step stands at. An author's point at a sack inside a recorded spot backed by at
+// least half the players of the best-backed one is that farm: the other farms are alternatives, never grown with it
+// into one zone-wide search (each lies within 250 yd of the next). A point at a spot fewer than half that many
+// players back still takes the farms' region.
+#[test]
+fn an_author_s_point_at_a_spawn_a_well_backed_recorded_spot_holds_stays_the_place_never_a_zone_wide_search_621() {
+	let mut d = data();
+	let step = ["collect 8888 quest 95705.1 @40,40"];
+	recorded(&mut d, &[line(95705, 1413, r#""item""#, "trusted", &[(46.0, 40.0, 60.0, 12), (43.0, 40.0, 60.0, 10), (40.0, 40.0, 60.0, 8)])]);
+	let g = compiled(&d, "The Barrens", &step).0.remove(0);
+	assert_eq!((g.get("x").num(), g.get("y").num()), (40.0, 40.0));
+	assert!(!g.get("spread").truthy(), "{:?}", g.get("spots"));
+	let spots = g.get("spots").items();
+	let (here, other): (Vec<V>, Vec<V>) = spots.into_iter().partition(|s| !s.get("alt").truthy());
+	assert!(!here.is_empty() && here.iter().all(|s| s.get("x").num() < 41.0), "the farm at the point: {here:?}");
+	assert!(other.iter().any(|s| s.get("x").num() > 42.0), "the other farms, alternatives: {other:?}");
+	// Fewer than half the best farm's players gather here: the farms' region, searched from the point.
+	recorded(&mut d, &[line(95705, 1413, r#""item""#, "trusted", &[(46.0, 40.0, 60.0, 12), (43.0, 40.0, 60.0, 10), (40.0, 40.0, 60.0, 5)])]);
+	let g = compiled(&d, "The Barrens", &step).0.remove(0);
+	assert!(g.get("spread").truthy(), "{:?}", g.get("spots"));
+	assert_eq!(g.get("spots").items().len(), 3, "{:?}", g.get("spots"));
+	// A creature at one spawn that players meet along its way (Hezrul Bloodmark on Lushwater's shore) is no place
+	// of several: however well the spot at its spawn is backed, every place players met it is searched.
+	recorded(&mut d, &[line(95703, 1413, r#""monster""#, "trusted", &[(46.0, 30.0, 60.0, 8), (43.0, 30.0, 50.0, 6), (40.2, 30.1, 40.0, 4)])]);
+	let g = compiled(&d, "The Barrens", &["kill 9001 quest 95703.1"]).0.remove(0);
+	assert_eq!(g.get("spots").items().len(), 3, "{:?}", g.get("spots"));
+	assert!(g.get("spread").truthy());
 }
 
 /// Mulgore's Forever-frame point 60.11,61.66 (where the game client records) in its Era frame (the spawns').

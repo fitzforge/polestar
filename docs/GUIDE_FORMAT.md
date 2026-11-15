@@ -1022,6 +1022,14 @@ gets no `spots`, except an NPC who walks around:
   15 yd of its edge), and otherwise the region is its places (a creature
   players meet at several places along its way), its points outside the
   region become alternatives, and a spawn it moves away from stays one.
+  Your coordinates at a spawn of a target that stands at several places,
+  inside a recorded spot backed by at least half the best-backed one's
+  players, are that place: players do it there, though more do it elsewhere
+  (Westfall's oats at the Jansen Stead, one farm of the several players gather
+  at, #621). The goal keeps its point and its places, and the recorded spots
+  of the target's other places are alternatives, never one zone-wide search.
+  A creature at one spawn that players meet along its way is no such place:
+  every place they met it is searched.
   Trouble in the Valley (95621): players loot Benedict's Orders within 47 yd
   of 41.8,15.5, so that is the area, not 112 yd around Corporal Adamore's
   spawns. The recordings' coordinates are the game client's: its map frame
@@ -1312,9 +1320,11 @@ Warnings:
   earlier in the chain, not yet turned in or abandoned): the game does not
   offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides
-  after it, checked for every route choice; when a next guide's race or class
-  leaves out the characters still holding the quest, the warning says so (its
-  turn-ins do not count for them)
+  after it, checked for every route choice; each character goes on only
+  through the next guides it can follow (a guide for both factions with one
+  `next` per faction hands each faction to its own), and when no next guide's
+  race, class or faction takes the characters still holding the quest, the
+  warning says so (its turn-ins do not count for them)
 - `complete` on a quest with no objectives: the turn-in is the action; use `turnin`
 - a `turnin` whose quest's objectives ask for an item the world gives (a drop,
   an object, a vendor or a container; not one the quest or an NPC hands over)

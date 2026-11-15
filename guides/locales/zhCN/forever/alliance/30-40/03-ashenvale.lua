@@ -32,7 +32,7 @@ return {
 
 	-- Step 6: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "",
+	["Lightforge Ingots"] = "{item:2702}",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "米奈希尔港西南方海滩上的蓝腮鱼人带着锭。",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702}：在水下",
@@ -134,7 +134,6 @@ return {
 	-- ["From {area:608}"] = "从{area:608}出发",
 	-- ["Geltharis"] = "加萨里斯",
 	-- ["Insane druids"] = "发狂的德鲁伊",
-	-- ["Lightforge Ingots"] = "{item:2702}",
 	-- ["Melyria and {npc:3901}"] = "哨兵梅丽瑞亚·霜影和{npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "生锈的箱子散落在被遗忘者营地西边的沼泽兽营地周围；逐个打开，直到找到剑柄。",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "从{area:442}的码头乘船前往{area:150}。",

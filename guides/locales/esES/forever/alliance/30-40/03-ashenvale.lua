@@ -32,7 +32,7 @@ return {
 
 	-- Step 6: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "",
+	["Lightforge Ingots"] = "Lingotes Forjaluz",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Los múrlocs Branquiazul de la playa al suroeste de Menethil llevan los lingotes.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "",
@@ -133,7 +133,6 @@ return {
 	-- ["From {area:608}"] = "Desde {area:608}",
 	-- ["Geltharis"] = "Geltharis",
 	-- ["Insane druids"] = "Druidas dementes",
-	-- ["Lightforge Ingots"] = "Lingotes Forjaluz",
 	-- ["Melyria and {npc:3901}"] = "Melyria e {npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "Hay cofres oxidados alrededor de los campamentos furbolg Sombramatorral al oeste de los Renegados; ábrelos hasta que uno tenga el pomo.",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "Toma el barco a {area:150} en los muelles de {area:442}.",

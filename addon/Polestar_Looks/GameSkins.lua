@@ -1388,11 +1388,14 @@ function Theme.KitTab(b, active, label, flush, close)
 	elseif flush and kit.chatTab then
 		-- The chat frame's tabs on the guide window's strip: the resting
 		-- ones faded as the chat frame fades them, the active one whole and
-		-- 3 taller.
+		-- 3 taller. On a tab lower than the art (compact mode's slim strip)
+		-- the active one is the tab's height, so neither the art nor its close
+		-- rises past the window's top edge.
 		hideKey(b, "tabLit")
-		host:SetHeight(active and 24 or 21)
+		local h = min(active and 24 or 21, b:GetHeight() - (active and 0 or 3))
+		host:SetHeight(h)
 		host:SetAlpha(active and 1 or 0.55)
-		mid = ((active and 24 or 21) - b:GetHeight()) / 2
+		mid = (h - b:GetHeight()) / 2
 		three(b, "tabArt", kit, kit.chatTab, host, 10, 10 / 58, "BACKGROUND", 0)
 	elseif flush and kit.flushBare then
 		hideKey(b, "tabLit")
