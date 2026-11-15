@@ -1112,7 +1112,8 @@
 					3188
 				],
 				"object": []
-			}
+			},
+			"xp": 9991
 		},
 		"source": [
 			{
@@ -1122,9 +1123,13 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 5 people were given 9,991 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
 			}
 		],
-		"note": "The Spider God: ends with Master Gadrin (npc 3188); as its ender the merged data also listed Tablet of Theka (object 142715)."
+		"note": "The Spider God: ends with Master Gadrin (npc 3188); as its ender the merged data also listed Tablet of Theka (object 142715). It rewards 9,991 XP on Forever, not the Classic 4,850 (Forever raised dungeon quest XP, #394)."
 	},
 	"3525": {
 		"set": {
@@ -1140,7 +1145,8 @@
 				"object": [
 					152097
 				]
-			}
+			},
+			"xp": 10403
 		},
 		"source": [
 			{
@@ -1150,9 +1156,13 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 10,403 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
 			}
 		],
-		"note": "Extinguishing the Idol: starts with Belnistrasz (npc 8516) and ends with Belnistrasz's Brazier (object 152097); as its giver the merged data also listed Belnistrasz's Brazier (object 152097); as its ender the merged data also listed Belnistrasz (npc 8516)."
+		"note": "Extinguishing the Idol: starts with Belnistrasz (npc 8516) and ends with Belnistrasz's Brazier (object 152097); as its giver the merged data also listed Belnistrasz's Brazier (object 152097); as its ender the merged data also listed Belnistrasz (npc 8516). It rewards 10,403 XP on Forever, not the Classic 4,250 (Forever raised dungeon quest XP, #394)."
 	},
 	"3645": {
 		"set": {
@@ -2752,7 +2762,8 @@
 					"count": 5,
 					"text": "Twisted Air Totem"
 				}
-			]
+			],
+			"xp": 3708
 		},
 		"source": [
 			{
@@ -2766,9 +2777,13 @@
 			{
 				"kind": "eg",
 				"ref": "players' caches (EG Link): objectives"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people were given 3,708 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
 			}
 		],
-		"note": "Storm, Earth, and Fire is shared by the Horde and Alliance Shaman chains: it ends at both the Horde's Rau Cliffrunner (npc 4722) and Veyric Thunderhame (npc 259023) in Arathi, who starts it and whose words its text and progress text are; forever/class/shaman/call-of-air-alliance hands it in to Veyric. Kept so a sweep against giver data that names only one side does not drop Veyric again. Its objectives in the game's order are the Water, Earth, Fire and Air totems (the world database and players' caches agree); the merged data listed Fire, Air, Earth, Water, so the guide's `quest 79358.N` lines counted the wrong totem's line."
+		"note": "Storm, Earth, and Fire is shared by the Horde and Alliance Shaman chains: it ends at both the Horde's Rau Cliffrunner (npc 4722) and Veyric Thunderhame (npc 259023) in Arathi, who starts it and whose words its text and progress text are; forever/class/shaman/call-of-air-alliance hands it in to Veyric. Kept so a sweep against giver data that names only one side does not drop Veyric again. Its objectives in the game's order are the Water, Earth, Fire and Air totems (the world database and players' caches agree); the merged data listed Fire, Air, Earth, Water, so the guide's `quest 79358.N` lines counted the wrong totem's line. It rewards 3,708 XP on Forever, not the Classic 3,150."
 	},
 	"79361": {
 		"set": {
@@ -5910,7 +5925,11 @@
 					"type": "event",
 					"id": null,
 					"count": 1,
-					"text": "Hissing Serum administered"
+					"text": "Hissing Serum administered",
+					"map": 1458,
+					"f": "l",
+					"x": 44.9,
+					"y": 62.9
 				}
 			]
 		},
@@ -5925,10 +5944,10 @@
 			},
 			{
 				"kind": "recording",
-				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 23 people took Unending Torment from Master Apothecary Faranell (2055) with 'Hissing Serum administered' x1; it ticked as they cast 1310681, the Hissing Serum's use"
+				"ref": "players' in-game recordings (to 2026-11-08; excluded and suspect contributors left out): 23 people took Unending Torment from Master Apothecary Faranell (2055) with 'Hissing Serum administered' x1; it ticked as they cast 1310681, the Hissing Serum's use. To 2026-11-15: 43 people ticked it in the Apothecarium, at a median of Undercity 44.90,62.89"
 			}
 		],
-		"note": "Unending Torment (97292) is step 5 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell's Hissing Serum is made from 97291's reagents. QuestieDB has no prerequisite. Unending Torment (97292): its one objective is to use the Hissing Serum (an event). The merged data had no objective."
+		"note": "Unending Torment (97292) is step 5 of the chain 97288 -> 97289 -> 97290 -> 97291 -> 97292: Faranell's Hissing Serum is made from 97291's reagents. QuestieDB has no prerequisite. Unending Torment (97292): its one objective is to use the Hissing Serum (an event), on the apparatus above Othmar's body in the Apothecarium, where players tick it; without that place, Lookup's step pointed at Faranell (#2389). The merged data had no objective."
 	},
 	"97903": {
 		"set": {
@@ -17026,5 +17045,325 @@
 			}
 		],
 		"note": "Camping 101: Engineering: the objective is to raise Engineering to 20 before the trainer takes it, not a talk with the trainer (#1952)."
+	},
+	"17": {
+		"set": {
+			"xp": 6231
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 6 people were given 6,231 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Uldaman Reagent Run rewards 6,231 XP on Forever; the merged data had 3,450, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"722": {
+		"set": {
+			"xp": 5665
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people were given 5,665 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Amulet of Secrets rewards 5,665 XP on Forever; the merged data had 3,150, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"1048": {
+		"set": {
+			"xp": 12617
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 12,617 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Into The Scarlet Monastery rewards 12,617 XP on Forever; the merged data had 5,150, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"1053": {
+		"set": {
+			"xp": 15759
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 10 people were given 15,759 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "In the Name of the Light rewards 15,759 XP on Forever; the merged data had 4,700, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"1360": {
+		"set": {
+			"xp": 6489
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people were given 6,489 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Reclaimed Treasures rewards 6,489 XP on Forever; the merged data had 3,600, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2198": {
+		"set": {
+			"xp": 5974
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people were given 5,974 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "The Shattered Necklace rewards 5,974 XP on Forever; the merged data had 3,300, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2240": {
+		"set": {
+			"xp": 7055
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people were given 7,055 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "The Hidden Chamber rewards 7,055 XP on Forever; the merged data had 3,900, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2278": {
+		"set": {
+			"xp": 8446
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 11 people were given 8,446 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "The Platinum Discs rewards 8,446 XP on Forever; the merged data had 4,200, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2342": {
+		"set": {
+			"xp": 7210
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people were given 7,210 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Reclaimed Treasures rewards 7,210 XP on Forever; the merged data had 3,600, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2398": {
+		"set": {
+			"xp": 566
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 10 people were given 566 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "The Lost Dwarves rewards 566 XP on Forever; the merged data had 315, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2768": {
+		"set": {
+			"xp": 12978
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 17 people were given 12,978 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Divino-matic Rod rewards 12,978 XP on Forever; the merged data had 6,300, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2770": {
+		"set": {
+			"xp": 14626
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 14 people were given 14,626 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Gahz'rilla rewards 14,626 XP on Forever; the merged data had 7,100, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2841": {
+		"set": {
+			"xp": 8446
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 15 people were given 8,446 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Rig Wars rewards 8,446 XP on Forever; the merged data had 6,550, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2846": {
+		"set": {
+			"xp": 12463
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 14 people were given 12,463 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Tiara of the Deep rewards 12,463 XP on Forever; the merged data had 6,050, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2865": {
+		"set": {
+			"xp": 8034
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 15 people were given 8,034 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Scarab Shells rewards 8,034 XP on Forever; the merged data had 3,900, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"2991": {
+		"set": {
+			"xp": 10815
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people were given 10,815 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Nekrum's Medallion rewards 10,815 XP on Forever; the merged data had 5,250, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3042": {
+		"set": {
+			"xp": 8034
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 9 people were given 8,034 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Troll Temper rewards 8,034 XP on Forever; the merged data had 3,900, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3341": {
+		"set": {
+			"xp": 9321
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 9,321 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Bring the End rewards 9,321 XP on Forever; the merged data had 4,300, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3373": {
+		"set": {
+			"xp": 5613
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people were given 5,613 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "The Essence of Eranikus rewards 5,613 XP on Forever; the merged data had 2,800, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3380": {
+		"set": {
+			"xp": 6746
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people were given 6,746 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "The Sunken Temple rewards 6,746 XP on Forever; the merged data had 3,650, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3446": {
+		"set": {
+			"xp": 9836
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people were given 9,836 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Into the Depths rewards 9,836 XP on Forever; the merged data had 4,900, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3447": {
+		"set": {
+			"xp": 12257
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people were given 12,257 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Secret of the Circle rewards 12,257 XP on Forever; the merged data had 6,100, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3527": {
+		"set": {
+			"xp": 10815
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 14 people were given 10,815 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "The Prophecy of Mosh'aru rewards 10,815 XP on Forever; the merged data had 5,250, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"3636": {
+		"set": {
+			"xp": 10506
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 10,506 XP for it at the turn-in, at levels where nothing is taken off (builds 70862, 70888, 70938)"
+		},
+		"note": "Bring the Light rewards 10,506 XP on Forever; the merged data had 4,300, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7028": {
+		"set": {
+			"xp": 10557
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 7 people were given 10,557 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Twisted Evils rewards 10,557 XP on Forever; the merged data had 5,250, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7041": {
+		"set": {
+			"xp": 10557
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people were given 10,557 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Vyletongue Corruption rewards 10,557 XP on Forever; the merged data had 5,250, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7044": {
+		"set": {
+			"xp": 6849
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 10 people were given 6,849 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Legends of Maraudon rewards 6,849 XP on Forever; the merged data had 3,400, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7046": {
+		"set": {
+			"xp": 11433
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 10 people were given 11,433 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "The Scepter of Celebras rewards 11,433 XP on Forever; the merged data had 5,700, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7064": {
+		"set": {
+			"xp": 12257
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 3 people were given 12,257 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Corruption of Earth and Seed rewards 12,257 XP on Forever; the merged data had 6,100, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7065": {
+		"set": {
+			"xp": 12257
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 4 people were given 12,257 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Corruption of Earth and Seed rewards 12,257 XP on Forever; the merged data had 6,100, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7066": {
+		"set": {
+			"xp": 11900
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 5 people were given 11,900 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "Seed of Life rewards 11,900 XP on Forever; the merged data had 6,100, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"7067": {
+		"set": {
+			"xp": 10969
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 10,969 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
+		},
+		"note": "The Pariah's Instructions rewards 10,969 XP on Forever; the merged data had 5,450, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
 	}
 }
