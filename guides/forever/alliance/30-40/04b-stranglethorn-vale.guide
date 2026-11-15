@@ -5,13 +5,18 @@ faction Alliance
 levels 35-36
 zone Stranglethorn Vale
 next forever/alliance/30-40/05-arathi-highlands
-pitch For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. Troll Witchery's Skullsplitter trolls are 39-42, so pull them one at a time.
+pitch For characters of 35 to 36, but several quests here are level 37-38: on purpose, for their experience. Sin'Dall is 37 and the water elementals 36-37: pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Since 2026-11-07 Stranglethorn's second loop, after Desolace (the first loop is 30-40/04, which takes its Booty Bay
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
+# Level tidy (0.4.0): Sin'Dall (Tiger Mastery, 188) and the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about
+# 36 instead of on the first loop at 33-34. Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's
+# Skullsplitter trolls (205, 39-42) are three and four levels over players here: 40-50/01-stranglethorn-vale takes both at
+# about 42 (Brother Nimetz offers Troll Witchery there once Kurzen's Mystery is handed in on this loop). Zimmix
+# Sputterspark's rescue (97329, 97331) is done in the Ruins of Zul'Kunda with the last tablets and handed in at Booty Bay.
 
 step Collin Mauren
   when complete 1078
@@ -39,7 +44,8 @@ step Rebel Camp
 
 step Nesingwary's Expedition
   tip South along the road: the hunters' tents stand just west of it.
-  accept 192                          -- Sir S. J. Erlgadin: the Shadowmaw Panthers prowl around Lake Nazferiti, after Kurzen's Compound
+  accept 188                          -- Ajeck Rouack: Sin'Dall, after the jungle ruins
+  accept 195                          -- Hemet Nesingwary: the Lashtail Raptors, with Sin'Dall
 
 step Bookie Herod
   when onquest 200
@@ -57,12 +63,17 @@ step Kurzen's Compound
 
 step Lake Nazferiti
   zone Stranglethorn Vale
-  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.
+  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.
   collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
-  kill 684 quest 192 @48.6,22.2 map 1434 -- Shadowmaw Panther
+
+step Sin'Dall and the Lashtail raptors
+  tip West from the lake: the Lashtail Raptors run in the jungle between the lake and the troll ruins, and Sin'Dall, the great tiger (37), lairs on the hilltop south-west of Nesingwary's camp, just above the ruins.
+  kill 686 quest 195                  -- Lashtail Raptor
+  collect 3879 quest 188              -- Paw of Sin'Dall
 
 step The jungle ruins
   tip West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.
+  tip Careful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them.
   collect 2005 quest 207.1            -- The First Troll Legend: Moon Over the Vale
   collect 2006 quest 207.2            -- The Second Troll Legend: Gri'lek the Wanderer; underwater
 
@@ -80,6 +91,13 @@ step The Ruins of Zul'Kunda
   complete 341 optional               -- Chapter III
   complete 342 optional               -- Chapter IV
 
+step Zimmix Sputterspark
+  tip Zimmix Sputterspark, a goblin, is caged in the ruins. Any Bloodscalp troll (34-37) can drop the Primitive Key; then lead him out of the ruins.
+  accept 97329                        -- Zimmix Sputterspark
+  collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
+  turnin 97329
+  accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
+
 step Rebel Camp
   tip East to the Rebel Camp, on the way back to Nesingwary's camp.
   turnin 329                          -- Lieutenant Doren
@@ -89,7 +107,6 @@ step Rebel Camp
   turnin 331                          -- Lieutenant Doren
   turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
   turnin 207                          -- Brother Nimetz
-  accept 205
 
 step Nesingwary's Expedition
   turnin 339 optional                 -- Barnil Stonepot
@@ -97,29 +114,15 @@ step Nesingwary's Expedition
   turnin 341 optional
   turnin 342 optional
   turnin 338 optional
-  turnin 192                          -- Sir S. J. Erlgadin
-  accept 196
-
-step Nesingwary's Expedition
-  when group 193
-  accept 193
+  turnin 195                          -- Hemet Nesingwary
+  accept 196                          -- Hemet Nesingwary: the Jungle Stalkers come in 40-50
+  turnin 188                          -- Ajeck Rouack
 
 # ---------------------------------------------------------------- South
 
 step Snapjaw Crocolisks
-  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins.
+  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to Booty Bay.
   collect 4104 quest 577              -- Snapjaw Crocolisk Skin
-
-step Level 36
-  when level<36
-  zone Stranglethorn Vale
-  tip Troll Witchery's Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
-  goto 40.2,27.2 map 1434 "Snapjaw Crocolisk"
-  level 36 grind 1152                 -- grind on Snapjaw Crocolisk
-
-step Skullsplitter trolls
-  tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
-  collect 2466 quest 205              -- Skullsplitter Fetish
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -129,6 +132,7 @@ step Booty Bay
   turnin 601                          -- Baron Revilgaz, upstairs in the tavern
   accept 602                          -- For Archmage Ansirem in Alterac Mountains
   turnin 213                          -- Kebok
+  turnin 97331                        -- Wharfmaster Lozgil, on the docks
   turnin 210                          -- Krazek, upstairs
   accept 627 optional -- Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.
   accept 600                          -- Crank Fizzlebub, inside

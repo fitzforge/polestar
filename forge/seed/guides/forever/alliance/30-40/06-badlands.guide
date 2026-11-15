@@ -15,6 +15,9 @@ next polestar-experimental/riverglades-alliance-1
 # The split is where Riverglades (Polestar Experimental) joins the route as a choice: Thelsamar has the Stoutlager Inn
 # bind and the Lakeshire flight, and Riverglades' first part (37-40) starts at Blackrock Pass, north of Lakeshire; its
 # last part hands back to 40-50/03-feralas (43+) or 40-50/01-stranglethorn-vale at Theramore.
+# Level tidy (0.4.0): Scrounging's scrap (733) comes from the Dustbelcher Ogres (38-39) west of Agmond's End, away from the
+# Maulers and Shamans (41-43) further south-west; Lotwil's last test, the Bracers of Rock Binding (712, Greater Rock
+# Elementals 42-44), is left out of the solo route, and with it Lucien Tosselwrench's trade (716), which needs it.
 
 step Into Badlands
   zone Badlands
@@ -66,10 +69,10 @@ step Agmond's End
 
 step Agmond's End: kill these as you meet them
   zone Badlands
-  tip The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.
+  tip The Dustbelcher Ogres (38-39) camp west of Agmond's End: they drop the scrap. Buzzards circle the plain to the east. Careful: the Maulers, Shamans and Wyrmhunters (40-43) camp further south-west: leave them.
   tip The battered skeleton lies at the edge of the Stonevault trogg camp; Murdaloc, Agmond's killer, walks among the Bonesnappers.
   tip Careful: Dustbelcher Lords are level 44-45. They use Battle Shout and Demoralizing Shout, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of Kargath.
-  collect 4630 quest 733              -- Scrap Metal
+  collect 4630 quest 733 @29.5,59.3 map 1418 -- Scrap Metal, from the Dustbelcher Ogres
   collect 3404 quest 703              -- Buzzard Wing
   collect 7847 quest 2500             -- Buzzard Gizzard
   accept 739                          -- Battered Dwarven Skeleton
@@ -87,7 +90,7 @@ step Lotwil Veriatus
   accept 710
 
 step Lesser Rock Elementals
-  tip The Lesser Rock Elementals wander the Dustbowl west of Lotwil; every rock elemental can drop Ghak's Rock Elemental Shards.
+  tip The Lesser Rock Elementals wander the Dustbowl west of Lotwil; every rock elemental can drop Ghak's Rock Elemental Shards. Careful: a Malevolent Mirage, a level 42 elite, drifts about the Dustbowl: give it a wide berth.
   collect 4626 quest 710              -- Small Stone Shard
   collect 7848 quest 2500             -- Rock Elemental Shard
 
@@ -119,28 +122,11 @@ step Theldurin the Lost
   accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
 
 step Rock Elementals
-  tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west.
+  tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west. Careful: a Malevolent Mirage, a level 42 elite, drifts about the Dustbowl: give it a wide berth.
   collect 4627 quest 711              -- Large Stone Slab
 
 step Lotwil Veriatus
   turnin 711
-  accept 712 optional
-
-step Bracers of Rock Binding
-  when onquest 712
-  tip South-west into the gulches: only the Greater Rock Elementals there drop the bracers.
-  collect 4628 quest 712              -- Bracers of Rock Binding
-
-step Lotwil Veriatus
-  when complete 712
-  turnin 712
-
-step Lucien Tosselwrench
-  when has 2868
-  zone Badlands
-  tip Lucien Tosselwrench, beside Lotwil, trades for Patterned Bronze Bracers, a blacksmith's craft: this step shows only when you carry a pair.
-  accept 716                          -- Lucien Tosselwrench, beside Lotwil
-  turnin 716
 
 step To Stoutlager Inn
   zone Loch Modan
