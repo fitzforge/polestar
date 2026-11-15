@@ -461,6 +461,25 @@ local function paint(class)
 	W.SetFramed(f.Close, "icon")
 end
 
+-- Keep the whole action readable inside the card. Measure afresh on each
+-- layout so a wider window or a shorter label restores the normal button.
+local function fitButton(b, width)
+	local label = b.Label
+	label:SetWidth(0)
+	label:SetWordWrap(false)
+	W.SetButtonText(b, label:GetText())
+	local height = Theme.Metric("buttonH", 28)
+	if b:GetWidth() > width then
+		local lineHeight = label:GetStringHeight()
+		b:SetWidth(width)
+		label:SetWidth(max(1, width - 2 * Theme.Metric("buttonPad", 16)))
+		label:SetWordWrap(true)
+		label:SetNonSpaceWrap(true)
+		height = height + label:GetStringHeight() - lineHeight
+	end
+	b:SetHeight(height)
+end
+
 function layout(width)
 	f:SetWidth(width)
 	local x = PAD + STRIPE + RING + 12
@@ -533,9 +552,12 @@ function layout(width)
 	-- with nothing to do (m.noAct) starts with Later.
 	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or (f.ShowMe:IsShown() and f.ShowMe) or nil
 	local row = { act }
-	local avail, total = width - 2 * PAD - STRIPE, act and act:GetWidth() or 0
+	local avail = width - 2 * PAD - STRIPE
+	if act then fitButton(act, avail) end
+	local total = act and act:GetWidth() or 0
 	for _, b in ipairs({ f.More, f.Later, f.Off }) do
 		if b:IsShown() then
+			fitButton(b, avail)
 			if #row > 0 then total = total + (row[#row] == act and 8 or 4) end
 			total = total + b:GetWidth()
 			row[#row + 1] = b
