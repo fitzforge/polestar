@@ -250,7 +250,7 @@ function ZA.Paint(a, uiMapID, focusX, focusY, index)
 	local w, h = a.psW, a.psH
 	local info, textures = artLayer(uiMapID)
 	local tiles, shapes = a.Tiles, a.Shapes
-	if a.Pic then a.Pic:Hide() end
+	if a.psPic then a.psPic:Hide() end
 	if not info then
 		for i = 1, #tiles do tiles[i]:Hide() end
 		for i = 1, #shapes do shapes[i]:Hide() end
@@ -325,11 +325,11 @@ function ZA.Picture(a, pic)
 	for i = 1, #a.Shapes do a.Shapes[i]:Hide() end
 	a.Band:Hide()
 	a.psCanvas = nil
-	local t = a.Pic
+	local t = a.psPic
 	if not t then
 		t = a.Canvas:CreateTexture(nil, "BACKGROUND")
 		t:SetAllPoints(a)
-		a.Pic = t
+		a.psPic = t
 	end
 	-- One texture-coordinate unit across is sw on screen, one down sh.
 	local sw, sh = 1 / (pic.r - pic.l), 1 / (pic.b - pic.t)

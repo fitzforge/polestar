@@ -999,7 +999,7 @@ fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_
 		end
 		local bm, ap = card("Blackmaw Hold"), card("Alcaz Prison")
 		local out = { bmArt = bm.psArt, bmBand = bm.Art.Band:IsShown(), bmStats = bm.Stats:GetText(),
-			apArt = ap.psArt, apBand = ap.Art.Band:IsShown(), apPic = ap.Art.Pic ~= nil and ap.Art.Pic:IsShown() }
+			apArt = ap.psArt, apBand = ap.Art.Band:IsShown(), apPic = ap.Art.psPic ~= nil and ap.Art.psPic:IsShown() }
 		Polestar.Dungeons.Open("blackmaw-hold")
 		local _, _, pg = DS.Frames()
 		out.bmSub, out.bmHeadBand = pg.Sub:GetText(), pg.Art.Band:IsShown()
