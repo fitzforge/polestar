@@ -28,6 +28,13 @@ gave units in play, collected by players and reviewed in the repository
 (#1448).
 Names taken: 179 quests, 144 NPCs, 18 objects.
 
+The web quest database, World of Warcraft: Forever pages
+--------------------------------------------------------
+Pages: the Chinese (simplified) list pages and tooltips
+Read: 2026-10-16 to 2026-10-16
+Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
+Names taken: 309 quests, 542 NPCs, 68 objects, 486 items, 1 quest objective.
+
 DingDB, the game database of Ding! by Yendi (@moust4ki)
 -------------------------------------------------------
 URL: https://github.com/moust4ki/DingGuideWoWForever
@@ -36,7 +43,7 @@ File: Ding/DB/CREDITS.md (sha256 d32ce3d857766e88d0afd94d39eb0d4e3317ccc5538a467
 File: Ding/DB/Locales/zhCN.lua (sha256 c159cf9b6e2f4aa644fde6afc801168faf44273a4358ff7859ef3be5f9139646)
 License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
 (THIRD_PARTY.md in the Polestar repository).
-Names taken: 4248 quests, 8016 NPCs, 876 objects, 11 items.
+Names taken: 4248 quests, 8015 NPCs, 876 objects, 11 items.
 DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
 beside this file.
 

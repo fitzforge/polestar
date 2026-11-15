@@ -20,6 +20,13 @@ Table: https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70450&locale=koKR
 The client's own strings: names only.
 Names taken: 23255 items, 30 instances, 342 encounters, 74 factions, 67 flight points.
 
+The web quest database, World of Warcraft: Forever pages
+--------------------------------------------------------
+Pages: the Korean list pages and tooltips
+Read: 2026-10-16 to 2026-10-16
+Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
+Names taken: 469 quests, 766 NPCs, 104 objects, 487 items, 1 quest objective.
+
 DingDB, the game database of Ding! by Yendi (@moust4ki)
 -------------------------------------------------------
 URL: https://github.com/moust4ki/DingGuideWoWForever
@@ -28,7 +35,7 @@ File: Ding/DB/CREDITS.md (sha256 d32ce3d857766e88d0afd94d39eb0d4e3317ccc5538a467
 File: Ding/DB/Locales/koKR.lua (sha256 8efe170a161c47ed64b1e4d0c9048773f6e2ce594906e95fa005c63940375f45)
 License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
 (THIRD_PARTY.md in the Polestar repository).
-Names taken: 4214 quests, 8066 NPCs, 861 objects, 11 items.
+Names taken: 4214 quests, 8065 NPCs, 861 objects, 11 items.
 DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
 beside this file.
 
