@@ -310,6 +310,21 @@ local function itemFrom(goal, itemId)
 	return goal
 end
 
+-- The step's line for an item no mob or object gives where the data places
+-- them, made by a profession (Rough Dynamite, Engineering: A Dynamite Plan,
+-- #2363 and #2445): which profession makes it, and that the Auction House
+-- sells it. nil when no profession makes it.
+local function madeLine(itemId, name)
+	local item = Codex().Item(itemId)
+	for _, src in ipairs(item and item.sources or {}) do
+		if src.type == "craft" and src.skillLine then
+			local prof = Lookup.ProfessionName and Lookup.ProfessionName(src.skillLine)
+			return format(L["%s: nothing drops it. It is made with %s, or bought at the Auction House."], name, prof and L[prof] or L["Profession"])
+		end
+	end
+	return nil
+end
+
 -- A Codex NPC that needs a group out in the world -> the compiled guides'
 -- `group` for a goal at it ({ kind = "elite", rank = 1 elite | 2 rare elite
 -- | 3 boss, lvl }, UI.GroupLine), else nil. One inside an instance is part
@@ -596,6 +611,7 @@ local function questStep(q, from, isTarget, opts)
 	local here = giver and giver.spawn or from
 	local event = nil
 	local talks = {} -- the NPCs of talk objectives, for the step's note
+	local made = {} -- the lines for items made by a profession, for the step's note
 	for oi, o in ipairs(q.objectives or {}) do
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
@@ -612,6 +628,13 @@ local function questStep(q, from, isTarget, opts)
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
+			if not s then
+				-- Nothing places a source: the objective's own place, where
+				-- players' recordings show it collected (A Dynamite Plan's
+				-- Rough Dynamite at Stormwind's auctioneers), and how it is had.
+				if o.map and o.x and o.y then s = o end
+				made[#made + 1] = madeLine(o.id, name)
+			end
 			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
 				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) or eliteMark(o) }, o.id), s), spawns)
 		elseif o.type == "talk" and o.id then
@@ -645,7 +668,7 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 or #talks > 0 then
+	if #order > 0 or #talks > 0 or #made > 0 then
 		local lines = {}
 		for i, inst in ipairs(order) do
 			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
@@ -655,6 +678,7 @@ local function questStep(q, from, isTarget, opts)
 		for _, who in ipairs(talks) do
 			lines[#lines + 1] = format(L["%s: click through what they say until the quest's line is done."], who)
 		end
+		for _, line in ipairs(made) do lines[#lines + 1] = line end
 		step.note = concat(lines, " ")
 	end
 	return step

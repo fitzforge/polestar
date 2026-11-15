@@ -7817,7 +7817,7 @@ guides.
 
 The pick-up guide is built in game (`addon/Polestar/Dungeons/Pickup.lua`):
 `Dungeons.PickupPlan(key, offer)` takes the page's quests that apply to the character
-(faction, race and class masks through `Lookup.QuestBlock`, the page's class
+(faction, race and class masks and a profession the character has not learned, through `Lookup.QuestBlock`, the page's class
 list), not done, not in the log (those are `carried`), not handed in at one
 talk (`direct`: the hand-in guide hands it in, #2241), not closed for good (a
 quest of the page's `closedBy` done or in the log: a breadcrumb whose quest is
@@ -7942,7 +7942,9 @@ NPC gives), per NPC a `talks` line is at (a talk goal on that line, before
 the turn-in place of its quest), per other follow-up giver (after the
 turn-ins it waits on) and per errand (a step titled with its quest, after the
 stop that gives it, before its turn-in),
-ordered by `Dungeons.OrderStops` with no fixed end (`CharState().dungeonHandin[key]`);
+ordered by `Dungeons.OrderStops` with no fixed end (`CharState().dungeonHandin[key]`) from where the
+player stands, or, inside the dungeon where the client gives no position, from its entrance (where the
+run ends: the givers nearest the way out first);
 the last step lists the rest as notes ("Not finished yet: …", "Turned in
 inside the dungeon: …"). Nothing routable: nil, "nothing", and
 `Dungeons.HandinText(plan)` says why in one line. `Dungeons.HandIn` puts the

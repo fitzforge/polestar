@@ -1171,6 +1171,7 @@ L["Lookup is turned off (Options > Discovery > Lookup)."] = "查询已关闭（�
 L["NPC"] = "NPC"
 L["First do the quest"] = "先做任务"
 L["%s: inside %s."] = "%s：在%s内。"
+L["%s: nothing drops it. It is made with %s, or bought at the Auction House."] = "%s：没有怪物掉落。可用%s制作，或在拍卖行购买。"
 L["Drop chance"] = "掉落几率"
 L["Enter"] = "进入"
 L["Choose this reward:"] = "选择此奖励："

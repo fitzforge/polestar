@@ -326,7 +326,10 @@ local function hasClass(list, class)
 	return false
 end
 
-local NOT_YOURS = { faction = true, race = true, class = true }
+-- Profession: a quest for a profession the character has not learned (The
+-- Demon Forge, Sweet Serenity: blacksmiths; The Spectral Chalice: miners)
+-- is offered only to one who has it (Lookup.QuestBlock, as #2118's follow-ups).
+local NOT_YOURS = { faction = true, race = true, class = true, profession = true }
 
 -- Whether a chain quest is an errand: nothing to do but talk (no
 -- objectives, and any standing it names already held), given (not by an
@@ -399,7 +402,7 @@ local function ledSide(key, pq)
 	return side or nil
 end
 
--- Why a page quest is not for this character (faction, race, class) | nil.
+-- Why a page quest is not for this character (faction, race, class, profession) | nil.
 -- The character's own faction decides, never the page's filter.
 local function notYours(key, pq, rec, p)
 	local Lk = LK()
@@ -939,6 +942,30 @@ local function collectGoal(d)
 	return goal
 end
 
+-- The items quest record `rec` asks for that an object at giver point g
+-- gives (Lookup.QuestStep's collect goals from an object, within AT_GIVER
+-- yards of the giver): Blueleaf Tubers' crate, owner's manual and command
+-- stick at Mebok Mizzyrix's feet in Ratchet (#2439), taken with the quest,
+-- before the run. -> { goal, ... }
+local AT_GIVER = 25 -- yards
+local function yards(a, b)
+	local W = ns.Compat.MapToWorld
+	local c1, x1, y1 = W(a.map, a.x, a.y, a.f)
+	local c2, x2, y2 = W(b.map, b.x, b.y, b.f)
+	if not (c1 and c2) or c1 ~= c2 then return nil end
+	return math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+end
+local function atGiver(rec, g)
+	local out = {}
+	if not (rec and g.kind ~= "drop" and located(g)) then return out end
+	local step = LK().QuestStep(rec, g)
+	for _, goal in ipairs(step and step.goals or {}) do
+		local d = goal.t == "collect" and goal.fromKind == "object" and located(goal) and yards(goal, g)
+		if d and d <= AT_GIVER then out[#out + 1] = goal end
+	end
+	return out
+end
+
 ---------------------------------------------------------------------------
 -- Stop order: the cheapest path from where the player stands through every
 -- stop to the entrance, a path with a fixed end (a greedy nearest-next walk
@@ -1284,7 +1311,10 @@ local function route(key, plan)
 				steps[#steps + 1] = step
 			end
 			if s.giver.kind == "drop" then step.goals[#step.goals + 1] = collectGoal(s.giver) end
-			for _, t in ipairs(s.accepts) do step.goals[#step.goals + 1] = acceptGoal(t.quest, t.rec, s.giver) end
+			for _, t in ipairs(s.accepts) do
+				step.goals[#step.goals + 1] = acceptGoal(t.quest, t.rec, s.giver)
+				for _, g in ipairs(atGiver(t.rec, s.giver)) do step.goals[#step.goals + 1] = g end
+			end
 			lastGiver = s.giverKey
 		else
 			local step = Lk.QuestStep(s.rec, s.inP or pos)

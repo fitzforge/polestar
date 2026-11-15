@@ -563,6 +563,80 @@ emit({ ups = ups, accepts = accepts, why = why or false, text = text or false })
 	assert_eq!(alchemist["why"], json!(false));
 }
 
+// The dungeons' profession quests (The Spectral Chalice in Blackrock Depths for miners, The Demon Forge and
+// Snakestone of the Shadow Huntress in Blackrock Spire and Sweet Serenity and Corruption in Stratholme for
+// blacksmiths): the pick-up guide took them for every character, though only one with that profession is
+// offered them. A page quest that asks for a profession the character has not learned is not theirs to take
+// (Lookup.QuestBlock "profession", as the follow-ups of #2118): not picked up; a blacksmith still picks it up.
+#[test]
+fn a_page_quest_that_asks_for_a_profession_the_character_has_not_learned_is_not_picked_up() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9045"] = sideless_npc(9045, "Lorax", 1413, 48, 32);
+	c["quests"]["90710"] = page_quest(90710, "The Demon Forge", Value::Null, 9045, 9045);
+	c["quests"]["90710"]["xp"] = json!(2500);
+	i["forever"]["quests"]["90710"] = json!({ "area": 209, "xp": 2500 });
+	let own = pack_of(&c, &i);
+	// Layout: title, level, minLevel, races, classes, faction, start, finish, startItem, pre, excl, objectives, zone,
+	// events, skill.
+	let records = format!(
+		"{}\nAddRecords(\"quests\", {{ [90710] = {{ \"The Demon Forge\", 24, 18, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, 164 }} }})\nPolestar.QuestDB.SetMeta({{}})\n",
+		forge_addontest::questdb::ADD_RECORDS_LUA
+	);
+	let warlock = run(&own, &format!("{records}{}", k(TAKE)), Opts { questdb: true, ..Default::default() }).remove(0);
+	assert!(!takes(&warlock, 90710), "no Blacksmithing: not picked up: {}", warlock["take"]);
+	let smith = run(&own, &format!("{records}stub.world.learnSkill(164, \"Blacksmithing\", 210, 225)\n{}", k(TAKE)), Opts { questdb: true, ..Default::default() }).remove(0);
+	assert!(takes(&smith, 90710), "a blacksmith picks it up: {}", smith["take"]);
+}
+
+// #2439 (Onrevax, Razorfen Kraul's pick-up guide): Blueleaf Tubers asks for a Crate with Holes, the Snufflenose
+// Owner's Manual and a Snufflenose Command Stick, each taken from an object at Mebok Mizzyrix's feet in Ratchet
+// (65 people's recordings tick those lines there), and the guide only said to take the quest, so players went into
+// the dungeon without them. An item objective of a page quest whose item comes from an object at the giver (within
+// a few yards) is collected in the giver's step, right after the accept; one found inside the dungeon is not.
+#[test]
+fn the_items_a_page_quest_needs_from_objects_at_its_giver_are_collected_with_the_accept_2439_blueleaf_tubers() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9070"] = sideless_npc(9070, "Mebok", 1421, 60, 40);
+	let object = |id: i32, name: &str, x: f64, y: f64| json!({ "id": id, "name": name, "spawns": [{ "map": 1421, "x": x, "y": y, "f": "e" }] });
+	c["objects"]["6100"] = object(6100, "Crate with Holes", 60.2, 40.1);
+	c["objects"]["6101"] = object(6101, "Far Crate", 70.0, 40.0);
+	let item = |id: i32, name: &str, object: i32| json!({ "id": id, "name": name, "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "object", "object": object, "chance": 100.0 }] });
+	c["items"]["8100"] = item(8100, "Crate With Holes", 6100);
+	c["items"]["8101"] = item(8101, "Far Thing", 6101);
+	c["items"]["8102"] = json!({ "id": 8102, "name": "Blueleaf Tuber", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	c["quests"]["90730"] = page_quest(90730, "Blueleaf Tubers", Value::Null, 9070, 9070);
+	c["quests"]["90730"]["xp"] = json!(2000);
+	c["quests"]["90730"]["objectives"] = json!([
+		{ "type": "item", "id": 8102, "count": 6, "text": "Blueleaf Tuber" },
+		{ "type": "item", "id": 8100, "count": 1, "text": "Crate With Holes" },
+		{ "type": "item", "id": 8101, "count": 1, "text": "Far Thing" },
+	]);
+	i["forever"]["quests"]["90730"] = json!({ "area": 209, "xp": 2000 });
+	let own = pack_of(&c, &i);
+	let out = run(
+		&own,
+		&k(r#"
+local out = {}
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if (g.t == "accept" and g.quest == 90730) or (g.t == "collect" and g.quest == 90730) then
+			verbs[#verbs + 1] = g.t .. ":" .. (g.item or g.quest) .. (g.x and ("@" .. g.x) or "")
+		end
+	end
+	if #verbs > 0 then out[#out + 1] = table.concat(verbs, " ") end
+end
+emit(out)"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out, json!(["accept:90730@60 collect:8100@60.2"]), "the crate at the giver's feet with the accept; neither the tubers inside nor the far crate");
+}
+
 // #2092 (Fyurie, Uldaman's pick-up guide): Indurium Ore pays six silver, no experience and no item, and the guide
 // reached it through the chain before it (Keeping Pace and Rizzle's Schematics at the Mirage Raceway, the step of
 // #2091). A page quest whose only reward is money is never picked up, nor the quests before it; one that pays
@@ -1910,6 +1984,43 @@ emit(describe(D.HandinGuide("{KEY}")))"#),
 	let mut goals: Vec<&str> = both.as_array().unwrap().iter().map(|s| text(&s["goals"])).collect();
 	goals.sort();
 	assert_eq!(goals, vec!["turnin:1013", "turnin:1014 accept:1016 turnin:1016"]);
+}
+
+// Fitz, 2026-11-15: after a run the hand-in route starts with the quest givers closest to where the player comes
+// out of the dungeon, then on in travel order, never in the page's quest order. Inside an instance the client
+// gives no position, so the route was planned from nowhere and kept the page's order: two hand-ins in the
+// Undercity first (the page's lower-level quests), then the one in Silverpine next to Shadowfang Keep's door.
+// With no position the route starts at the entrance (where the player comes out); in the Undercity's two
+// hand-ins stay together.
+#[test]
+fn after_the_run_the_hand_in_route_starts_with_the_givers_nearest_the_way_out_then_on_in_travel_order() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9060"] = sideless_npc(9060, "Undercity Ender", 1458, 66, 44);
+	c["npcs"]["9061"] = sideless_npc(9061, "Undercity Neighbour", 1458, 67, 45);
+	c["npcs"]["9062"] = sideless_npc(9062, "Silverpine Ender", 1421, 45, 66);
+	for (id, title, npc, level) in [(90720, "Far Errand", 9060, 20), (90721, "Next Door Errand", 9062, 24), (90722, "Far Errand Two", 9061, 21)] {
+		c["quests"][id.to_string()] = page_quest(id, title, Value::Null, npc, npc);
+		c["quests"][id.to_string()]["level"] = json!(level);
+		i["forever"]["quests"][id.to_string()] = json!({ "area": 209, "xp": 1000 });
+	}
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+local out = {}
+for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do if g.t == "turnin" then out[#out + 1] = g.quest end end
+end
+emit(out)"#);
+	let o = |at: Option<[i32; 3]>| Opts { at, done: vec![1098], log: vec![], ready: vec![90720, 90721, 90722], ..Default::default() };
+	let inside = run(&own, &script, o(None)).remove(0);
+	let door = run(&own, &script, o(Some([1421, 45, 67]))).remove(0);
+	for (out, at) in [(&inside, "inside the dungeon"), (&door, "at the entrance")] {
+		assert_eq!(out[0], 90721, "{at}: the giver by the dungeon's door first: {out}");
+		let mut rest: Vec<i64> = out.as_array().unwrap()[1..].iter().map(|v| v.as_i64().unwrap()).collect();
+		rest.sort();
+		assert_eq!(rest, vec![90720, 90722], "{at}: then the Undercity's two together: {out}");
+	}
 }
 
 #[test]
