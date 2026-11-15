@@ -511,6 +511,10 @@ end
 -- Every card drawn (its art -> what it shows), to paint again after the
 -- live repaint.
 local drawn = setmetatable({}, { __mode = "k" })
+-- While the cards on screen are drawn again in one go (the theme's listener
+-- below): a resolver's answer for the variant in use is put back once, after
+-- the last (repaint.live: the live skin's card was among them).
+local repaint
 
 local function paintCard(art, id, scheme, alone)
 	-- The palette: a scheme's card wears it on Polestar's own look.
@@ -541,7 +545,9 @@ local function draw(art, id, variant, scheme, alone)
 	local ok, err = pcall(paintCard, art, id, scheme, alone)
 	drawing.id, drawing.pal, previewing[id] = wasId, wasPal, wasVariant
 	-- A resolver's answer for the variant in use again.
-	if not alone and id == live and SKINS[id].resolve then resolve(id) end
+	if not alone and id == live and SKINS[id].resolve then
+		if repaint then repaint.live = id else resolve(id) end
+	end
 	if not ok then error(err, 0) end
 end
 
@@ -552,9 +558,12 @@ end
 
 -- After every live repaint (a setting, the skin, a variant, the UI scale):
 -- the cards on screen paint again in their own skins, each on its own (one
--- that fails leaves the others drawn), the others when they next show.
+-- that fails leaves the others drawn), the others when they next show. A
+-- dragged slider's repaints leave them to the refresh its end brings
+-- (Theme.OnChanged's full).
 Theme.OnChanged(function()
 	local failed
+	repaint = {}
 	for art in pairs(drawn) do
 		if art:IsVisible() then
 			local ok, err = pcall(redraw, art)
@@ -563,8 +572,11 @@ Theme.OnChanged(function()
 			art.psCardStale = true
 		end
 	end
+	local done = repaint
+	repaint = nil
+	if done.live and SKINS[done.live].resolve then resolve(done.live) end
 	if failed then error(failed, 0) end
-end)
+end, true)
 
 -- The skin picker's card (UI/Looks/Theme.lua): skin `id` drawn on `card` as
 -- it draws itself, the player's own colours over it; the live skin is left

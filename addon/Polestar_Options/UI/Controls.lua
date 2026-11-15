@@ -225,6 +225,9 @@ local function openPicker(self)
 		ColorPickerFrame:HookScript("OnHide", function()
 			local p = picking
 			picking = nil
+			-- What the wheel wrote live settles (ns.SettleLive): the layouts and
+			-- redraws it left for its end.
+			ns.SettleLive()
 			if p and not p.cancelled then
 				local c = ns.Get(p.path)
 				if type(c) == "table" then W.PushRecentColor(c) end
@@ -239,9 +242,11 @@ local function openPicker(self)
 	for i, p in ipairs(self.psLinked or {}) do linked[i] = ns.Get(p) end
 	local pick = { path = path }
 	picking = pick
+	-- The wheel's colours as it moves, written live (only what shows repaints
+	-- until it settles: the picker closing, or a moment without a change).
 	local function apply()
 		local nr, ng, nb = ColorPickerFrame:GetColorRGB()
-		swatchWrite(self, nr, ng, nb, self.psAlpha and pickerAlpha() or nil)
+		ns.Live(swatchWrite, self, nr, ng, nb, self.psAlpha and pickerAlpha() or nil)
 	end
 	ColorPickerFrame:SetupColorPickerAndShow({
 		r = r, g = g, b = b,

@@ -37,6 +37,25 @@ end
 
 local colored = setmetatable({}, { __mode = "k" }) -- region -> colour name
 local painters = setmetatable({}, { __mode = "k" }) -- object -> fn(object)
+-- The same regions by colour name (name -> { [region] = true }): a live
+-- repaint visits those in the colours it changed, not every one.
+local byName = {}
+local WEAK_KEYS = { __mode = "k" }
+
+local function file(region, name)
+	local was = colored[region]
+	if was == name then return end
+	if was then byName[was][region] = nil end
+	colored[region] = name
+	if name then
+		local set = byName[name]
+		if not set then
+			set = setmetatable({}, WEAK_KEYS)
+			byName[name] = set
+		end
+		set[region] = true
+	end
+end
 
 -- Colour a font string or texture by palette name, and keep it coloured
 -- through theme changes. alpha multiplies the palette alpha. A veiled
@@ -49,7 +68,7 @@ function W.Color(region, name, alpha)
 	if region.psMutedFrom and name ~= "textMuted" then
 		region.psMutedFrom, name = name, "textMuted"
 	end
-	colored[region] = name
+	file(region, name)
 	region.psAlpha = alpha
 	local r, g, b, a = Theme.Color(name)
 	a = region.psVeiled and 0 or (a or 1) * (alpha or 1)
@@ -64,7 +83,7 @@ end
 
 -- Stop following the theme (the caller colours the region itself).
 function W.Uncolor(region)
-	colored[region] = nil
+	file(region, nil)
 end
 
 -- Put a region's palette colour (and its W.Color alpha) back on: after a
@@ -86,17 +105,155 @@ function W.HoldColorAlpha(tex)
 	return tex
 end
 
--- Run fn(obj) now and on every theme change.
-function W.Painter(obj, fn)
+-- Painters that lay something out (W.Painter's full): object -> true.
+local fullPainters = setmetatable({}, { __mode = "k" })
+
+-- Run fn(obj) now and on every theme change. full: fn lays something out (a
+-- preview's band), so a live repaint (Theme.LiveChanged: a slider dragged)
+-- leaves it to the full refresh the change settles with.
+function W.Painter(obj, fn, full)
 	painters[obj] = fn
+	fullPainters[obj] = full and true or nil
 	fn(obj)
 	return obj
 end
 
-Theme.OnChanged(function()
-	for region, name in pairs(colored) do W.Color(region, name, region.psAlpha) end
-	for obj, fn in pairs(painters) do fn(obj) end
-end)
+-- (The repaint's machinery in a block of its own: this file is at Lua 5.1's
+-- 200 locals.)
+do
+	-- What a full refresh found hidden by a frame above it, painted when that
+	-- frame next shows (its own OnShow runs as it shows): its coloured regions
+	-- and its painters (frame -> { [object] = true }). An object hidden itself
+	-- is painted at once: its painter may be what shows it (a rim, a band).
+	local staleColor = setmetatable({}, WEAK_KEYS)
+	local stalePaint = setmetatable({}, WEAK_KEYS)
+	local staleHooked = setmetatable({}, WEAK_KEYS)
+
+	-- The frame hiding `o` (its nearest ancestor not shown) when its OnShow can
+	-- say it shows; true when one with no OnShow hides it; false when nothing
+	-- above it does. While a full pass runs, `walked` holds the answers for the
+	-- frames above what it paints.
+	local walked
+	local function hider(o)
+		local up = o.GetParent
+		local p = up and up(o)
+		if not p then return false end
+		local r = walked and walked[p]
+		if r == nil then
+			local shown = p.IsShown
+			if shown and not shown(p) then
+				r = p.HookScript and p or true
+			else
+				r = hider(p)
+			end
+			if walked then walked[p] = r end
+		end
+		return r
+	end
+
+	-- (A setting row's refresh waits the same way: staleRefresh, W.RefreshShown.)
+	local staleRefresh = setmetatable({}, WEAK_KEYS)
+	local function refreshRow(control) control:Refresh() end
+
+	local defer
+	local function showStale(frame)
+		local colors, paints, rows = staleColor[frame], stalePaint[frame], staleRefresh[frame]
+		staleColor[frame], stalePaint[frame], staleRefresh[frame] = nil, nil, nil
+		if colors then
+			for region in pairs(colors) do
+				local name = colored[region]
+				if name then defer(staleColor, region, nil, name) end
+			end
+		end
+		if paints then
+			for obj in pairs(paints) do
+				local fn = painters[obj]
+				if fn then defer(stalePaint, obj, fn) end
+			end
+		end
+		if rows then
+			for control in pairs(rows) do defer(staleRefresh, control, refreshRow) end
+		end
+	end
+
+	-- Paint obj (W.Color in colour `name`, else its painter fn) now when it
+	-- shows, else when the frame hiding it shows.
+	local function apply(obj, fn, name)
+		if name then W.Color(obj, name, obj.psAlpha) else fn(obj) end
+	end
+	function defer(stale, obj, fn, name)
+		local shown = obj.IsShown
+		if not shown or not shown(obj) then return apply(obj, fn, name) end
+		local frame = hider(obj)
+		if not frame or frame == true then return apply(obj, fn, name) end
+		local set = stale[frame]
+		if not set then
+			set = setmetatable({}, WEAK_KEYS)
+			stale[frame] = set
+			if not staleHooked[frame] then
+				staleHooked[frame] = true
+				frame:HookScript("OnShow", showStale)
+			end
+		end
+		set[obj] = true
+	end
+
+	-- A setting row refreshed now when it shows, else when the frame hiding it
+	-- shows (a hidden page's or a closed window's rows).
+	function W.RefreshShown(control) defer(staleRefresh, control, refreshRow) end
+
+	local walkMemo, shownNow = {}, {}
+	local function fullPass()
+		for region, name in pairs(colored) do defer(staleColor, region, nil, name) end
+		for obj, fn in pairs(painters) do defer(stalePaint, obj, fn) end
+	end
+
+	Theme.OnChanged(function()
+		local changed = Theme.LiveChanged and Theme.LiveChanged()
+		if changed then
+			-- A live repaint: the regions in a colour it changed (a name the
+			-- palette lacks reads its text colour), the painters of what shows.
+			local pal = Theme.Palette()
+			for name in pairs(changed) do
+				local set = byName[name]
+				if set then
+					for region in pairs(set) do W.Color(region, name, region.psAlpha) end
+				end
+			end
+			if changed.text then
+				for name, set in pairs(byName) do
+					if pal[name] == nil then
+						for region in pairs(set) do W.Color(region, name, region.psAlpha) end
+					end
+				end
+			end
+			for obj, fn in pairs(painters) do
+				if not fullPainters[obj] and (not obj.IsVisible or obj:IsVisible()) then fn(obj) end
+			end
+			return
+		end
+		-- A full refresh: what shows now, the rest as it shows.
+		walked = walkMemo
+		local ok, err = pcall(fullPass)
+		walked = nil
+		for k in pairs(walkMemo) do walkMemo[k] = nil end
+		-- A frame the pass found hidden that a painter showed on the way: what
+		-- waits on it, now.
+		local n = 0
+		for frame in pairs(staleColor) do
+			if frame:IsShown() then n = n + 1; shownNow[n] = frame end
+		end
+		for frame in pairs(stalePaint) do
+			if frame:IsShown() then n = n + 1; shownNow[n] = frame end
+		end
+		for i = 1, n do
+			local frame = shownNow[i]
+			shownNow[i] = nil
+			showStale(frame)
+		end
+		if not ok then error(err, 0) end
+	end)
+end
 
 -- One line by default, cut with an ellipsis at its width: that is how a
 -- single-line string stays single, not SetMaxLines(1). On a cold client start
@@ -465,10 +622,12 @@ function W.IconButton(parent, icon, size, tip, onClick, glyphSize)
 	b.Icon = g
 	W.Color(g, "icon")
 	b.psTip = tip
+	-- Its glyph and the plate a look frames it with: the skin's, so not on a
+	-- live repaint (colours alone: its glyph's is W.Color's).
 	W.Painter(b, function(self)
 		self.Icon:SetTexture(Theme.Media(Theme.Icon(self.psIconName)))
 		iconFrame(self)
-	end)
+	end, true)
 	b:SetScript("OnEnter", function(self)
 		if self:IsEnabled() then W.Color(self.Icon, self.psActive and "accent" or "iconHover") end
 		simpleTip(self)
@@ -930,8 +1089,33 @@ local function refreshList(list)
 	for i = 1, #list do list[i]:Refresh() end
 end
 
+-- A row hidden when every row refreshes waits for its next showing (its
+-- page, tab or window opened again) and refreshes then.
+local function refreshStale(control)
+	if control.psStale then
+		control.psStale = nil
+		control:Refresh()
+	end
+end
+
 function W.RefreshAll()
-	for _, list in pairs(bound) do refreshList(list) end
+	for _, list in pairs(bound) do
+		for i = 1, #list do
+			local control = list[i]
+			if control.HookScript and control.IsVisible and not control:IsVisible() then
+				if not control.psStale then
+					control.psStale = true
+					if not control.psStaleHooked then
+						control.psStaleHooked = true
+						control:HookScript("OnShow", refreshStale)
+					end
+				end
+			else
+				control.psStale = nil
+				control:Refresh()
+			end
+		end
+	end
 end
 
 ns.On("SETTING_CHANGED", function(path)
@@ -946,12 +1130,19 @@ ns.On("SETTING_CHANGED", function(path)
 		end
 		return
 	end
+	-- A live change (a drag) settles with a plain one: the rows bound to it
+	-- and those it may grey out wait for that (the dragged slider paints
+	-- its own thumb and value as it moves).
+	if ns.SettingLive and ns.SettingLive() then return end
 	refreshList(bound[path])
 	refreshList(dependents[path])
-	for control in pairs(conditional) do control:Refresh() end
+	-- Those greyed out by a rule: what shows now, the rest as it shows.
+	for control in pairs(conditional) do W.RefreshShown(control) end
 end)
 
-Theme.OnChanged(W.RefreshAll)
+-- Every row again after a full refresh (a live repaint's colours reach
+-- theirs through W.Color).
+Theme.OnChanged(W.RefreshAll, true)
 
 -- fn() after the font changes (ui.font, EllesmereUI's font): text that
 -- sized its row, column or control measures differently, so a window shown
@@ -969,7 +1160,7 @@ Theme.OnChanged(function()
 	if key == fontKey then return end
 	fontKey = key
 	for _, fn in ipairs(fontHandlers) do fn() end
-end)
+end, true)
 
 -- A grid row: label left, bound by the control and wrapping onto more lines
 -- rather than cut, a faint hairline underneath, the description as the
@@ -1129,21 +1320,23 @@ local function muteText(region, off)
 	end
 end
 
+-- A compact half's children at `alpha`, but its value box, swatch parts and
+-- dropdown (muteText keeps those legible) and inline extras.
+local function dimChildren(row, alpha, dropdown, ...)
+	local hit, hex, a = rawget(row, "ValueHit"), rawget(row, "Hex"), rawget(row, "Alpha")
+	for i = 1, select("#", ...) do
+		local child = select(i, ...)
+		if child ~= hit and child ~= hex and child ~= a and child ~= dropdown and not rawget(child, "psInline") then child:SetAlpha(alpha) end
+	end
+end
+
 -- An off compact half: its marks (track, slider, chip, box) at 40%, its
 -- texts (label, value, hex) in textMuted at full alpha, legible (4.5:1).
 local function dimCompact(row, enabled)
 	row:SetAlpha(1)
 	row.psOff = not enabled or nil
 	local dropdown = row.psChoices ~= nil and not rawget(row, "psCardBy") and rawget(row, "Button") or nil
-	local keep = {}
-	for _, k in ipairs({ "ValueHit", "Hex", "Alpha" }) do
-		local f = rawget(row, k)
-		if f then keep[f] = true end
-	end
-	if dropdown then keep[dropdown] = true end
-	for _, child in ipairs({ row:GetChildren() }) do
-		if not keep[child] and not rawget(child, "psInline") then child:SetAlpha(enabled and 1 or 0.4) end
-	end
+	dimChildren(row, enabled and 1 or 0.4, dropdown, row:GetChildren())
 	muteText(rawget(row, "Value"), not enabled)
 	muteText(dropdown and dropdown.Label, not enabled)
 	muteText(rawget(row, "Hex"), not enabled)
@@ -1721,13 +1914,30 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 		end
 		sliderPaint(row, value)
 		if userInput and not row.psRefreshing and W.Enabled(row) and sliderValue(row) ~= value then
-			if opts and opts.release then row.psPending = value else sliderWrite(row, value) end
+			if opts and opts.release then
+				row.psPending = value
+			elseif row.psDragging then
+				-- Each value of a drag is written live: what it changes shows
+				-- at once, the layouts and marks wait for the drag's end.
+				row.psLive = true
+				ns.Live(sliderWrite, row, value)
+			else
+				sliderWrite(row, value)
+			end
 		end
 	end)
-	s:HookScript("OnMouseDown", function() row.psDragging = true end)
-	s:HookScript("OnHide", function() row.psDragging = nil end)
-	s:SetScript("OnMouseUp", function()
+	-- The drag over: what it wrote live settles (ns.SettleLive).
+	local function dragEnd()
 		row.psDragging = nil
+		if row.psLive then
+			row.psLive = nil
+			ns.SettleLive()
+		end
+	end
+	s:HookScript("OnMouseDown", function() row.psDragging = true end)
+	s:HookScript("OnHide", dragEnd)
+	s:SetScript("OnMouseUp", function()
+		dragEnd()
 		if row.psPending ~= nil then
 			local v = row.psPending
 			row.psPending = nil

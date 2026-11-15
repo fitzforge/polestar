@@ -395,6 +395,8 @@ mod settings_essentials;
 mod settings_game;
 #[path = "settings-migration.rs"]
 mod settings_migration;
+#[path = "settings-perf.rs"]
+mod settings_perf;
 #[path = "settings-roundtrip.rs"]
 mod settings_roundtrip;
 #[path = "settings-smoke.rs"]

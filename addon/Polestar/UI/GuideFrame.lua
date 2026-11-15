@@ -3242,7 +3242,9 @@ GF.Part(function(GF)
 				return entries
 			end)
 		end
-		Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end)
+		-- Drawn anew after a full refresh; a live repaint (a slider dragged)
+		-- recolours its parts where they stand (W.Color).
+		Theme.OnChanged(function() if ns.IsLoggedIn() then GF.Render() end end, true)
 	end
 
 	---------------------------------------------------------------------------

@@ -501,9 +501,12 @@ function P.Band(parent, opts)
 	f:SetScript("OnShow", function(self)
 		if self.psDirty and self.psWidth then self:Layout(self.psWidth, self.psRoom) end
 	end)
+	-- A theme change lays the band out again; a live one (a slider dragged)
+	-- repaints its parts' colours where they stand and leaves the layout to
+	-- the full refresh the change settles with.
 	W.Painter(f.Ground, function()
 		if f:IsVisible() and f.psWidth then f:Layout(f.psWidth, f.psRoom) else f.psDirty = true end
-	end)
+	end, true)
 
 	function f:Layout(width, room)
 		self.psDirty = nil
@@ -593,12 +596,35 @@ end
 -- Whether frame f is a band (P.Band made it).
 function P.IsBand(f) return f ~= nil and bands[f] == true end
 
--- The settings a band lays itself out again on (its opts.watch).
+-- A live change (a slider dragged) of the guide window's own ground or of
+-- its opacity: the window copy on a band (its scene) takes it alone.
+local LIVE_SCENE = {
+	["guideWindow.bgOpacity"] = "ground", ["guideWindow.bgColor"] = "ground", ["ui.opacity"] = "alpha",
+}
+
+-- The settings a band lays itself out again on (its opts.watch). A theme
+-- setting's change has laid it out already (Theme.Refresh: its ground's
+-- painter), and a live one of a palette setting repainted its parts where
+-- they stand (Theme.LivePaints): neither lays it out again here.
 ns.On("SETTING_CHANGED", function(path)
+	local live = ns.SettingLive()
+	if type(path) == "string" and path ~= "" then
+		if live and Theme.LivePaints(path) then return end
+		if not live and Theme.IsLook(path) then return end
+	end
+	local scene = live and LIVE_SCENE[path]
 	for f in pairs(bands) do
 		local watch = f.psWatch
 		if watch and prefixMatch(watch, path) then
-			if f:IsVisible() and f.psWidth then f:Layout(f.psWidth, f.psRoom) else f.psDirty = true end
+			local copy = scene and rawget(f, "Scene") and f.Scene.Copy
+			if copy and f:IsVisible() then
+				if scene == "ground" then copy.ApplyGround() else copy.ApplyAlpha(false) end
+				f.psDirty = true
+			elseif f:IsVisible() and f.psWidth then
+				f:Layout(f.psWidth, f.psRoom)
+			else
+				f.psDirty = true
+			end
 		end
 	end
 end)
@@ -863,7 +889,10 @@ end
 -- most MAX of the body (`room`): a band as tall as its element and its
 -- parts, the element fitted to that room; a registered page's frame laid out
 -- for the width, shown whole at the scale that fits past it, its line under.
-function P.Place(win, view, t, width, room)
+-- fresh: after a setting's change, a band on screen that has laid itself out
+-- for this width and room since (its watch, the theme's refresh) is placed
+-- as it stands, not laid out once more.
+function P.Place(win, view, t, width, room, fresh)
 	if not (t and t.preview) or view.empty then
 		W.ShellPreview(win, nil)
 		return
@@ -878,7 +907,12 @@ function P.Place(win, view, t, width, room)
 	f:SetScale(1)
 	if bands[f] then
 		host.Line:Hide()
-		local ok, h = pcall(f.Layout, f, width, maxH)
+		local ok, h
+		if fresh and f:IsVisible() and not f.psDirty and f.psWidth == width and f.psRoom == maxH and f.psHeight then
+			ok, h = true, f.psHeight
+		else
+			ok, h = pcall(f.Layout, f, width, maxH)
+		end
 		if not ok then
 			report(h)
 			h = 0

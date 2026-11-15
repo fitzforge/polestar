@@ -924,7 +924,7 @@ local function newButton(name, kind, onEnter)
 	buildFace(b, kind)
 	paintFace(b)
 	local T = Theme()
-	if T and T.OnChanged then T.OnChanged(function() paintFace(b) end) end
+	if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(b)) then paintFace(b) end end) end
 
 	wire(b, onEnter)
 
@@ -2363,7 +2363,7 @@ do
 		buildRow(r)
 		paintLook(r)
 		local T = Theme()
-		if T and T.OnChanged then T.OnChanged(function() paintLook(r) end) end
+		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(r)) then paintLook(r) end end) end
 		wire(r, rowTooltip)
 		r:HookScript("PostClick", function(self, _, down)
 			if down or self.dragging then return end
@@ -2415,7 +2415,7 @@ do
 		buildMark(a)
 		paintLook(a)
 		local T = Theme()
-		if T and T.OnChanged then T.OnChanged(function() paintLook(a) end) end
+		if T and T.OnChanged then T.OnChanged(function() if not (T.LiveHidden and T.LiveHidden(a)) then paintLook(a) end end) end
 
 		wire(a, anchorTooltip)
 		a:SetScript("OnClick", function(self, which)
