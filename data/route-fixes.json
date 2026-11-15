@@ -3230,18 +3230,6 @@
 			{
 				"a": [
 					"turnin",
-					293
-				],
-				"b": [
-					"turnin",
-					1241
-				],
-				"faction": "Alliance",
-				"why": "Flow (2026-11-07, Alliance 20-30): Cleansing the Eye goes to Archbishop Benedictus in the Cathedral on 06-wetlands' Stormwind stop, which takes The Missing Diplomat from Thomas in the same building, instead of being carried to the end of 30-40/01-hillsbrad-foothills."
-			},
-			{
-				"a": [
-					"turnin",
 					98221
 				],
 				"b": [
@@ -10376,19 +10364,6 @@
 				"faction": "Alliance",
 				"why": "Alliance 1-30 audit (#1415, route review vW1): Moonbrook Espionage goes with The People's Militia part 2 onto 03-loch-modan's Moonbrook walk; Explosive Consultation (92748) is handed to Sprite Jumpsprocket on the Stormwind stop before the boat.",
 				"source": "route review 2026-11-08 (vW1)"
-			},
-			{
-				"a": [
-					"turnin",
-					275
-				],
-				"b": [
-					"turnin",
-					292
-				],
-				"faction": "Alliance",
-				"why": "Alliance 1-30 audit (#1415, route review vWL4): The Eye of Paleth goes to Glorin Steelbrow (Deepwater Tavern) on the Menethil stop before the boat to Auberdine, not on a walk of its own between the two shipwreck trips (backtrack 15 -> 17, 1,039 yd).",
-				"source": "route review 2026-11-08 (vWL4)"
 			},
 			{
 				"a": [

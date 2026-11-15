@@ -6782,7 +6782,9 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	assert.ok(!late.some(({ goal }) => [1026, 1035, 1046, 1022, 1140, 1031].includes(goal.quest)), '30-40/03 no longer carries the Ashenvale quests');
 	const hills = goals(HILLSBRAD_ALLIANCE);
 	assert.ok(!hills.some(({ goal }) => goal.quest === 97926), 'Thundris is not visited again for Making Do');
-	assert.ok(!hills.some(({ goal }) => goal.quest === 293), 'Cleansing the Eye is handed in on the 27-29 Wetlands trip');
+	// Level tidy 0.4.0: Lifting the Curse's chain (290 -> 292 -> 293) left 06-wetlands (Captain Halyndor 30 at a player's
+	// 28) for 30-40/01's Menethil stop at about 31, which hands Cleansing the Eye to Benedictus on its own Stormwind stop.
+	assert.ok(!wet.some(({ goal }) => [290, 292, 293].includes(goal.quest)), 'Lifting the Curse and its follow-ups are not in 06-wetlands');
 });
 
 // Town visits for one quest (2026-11-07, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back
@@ -9839,15 +9841,14 @@ test(`${LOCH_MODAN} / ${WESTFALL}: #1415: Old Murk-Eye and the murloc gills wher
 });
 
 // vWL4: Insane Druids (the Dor'Danil Barrow Den, Kayneth before and after) is optional (#1336 and #1341 promised its
-// barrow-entrance step publicly); The Eye of Paleth goes to Glorin on the Menethil stop before the boat; Trying Times
-// with Razormaw Needling at Howin; the Fen Creepers along the river.
-test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Glorin on the last Menethil stop, Trying Times at Howin, creepers on the river`, { skip }, () => {
+// barrow-entrance step publicly); Trying Times with Razormaw Needling at Howin; the Fen Creepers along the river.
+// (The Eye of Paleth, which this case also pinned to the last Menethil stop, moved to 30-40/01 with Lifting the Curse in
+// the 0.4.0 level tidy.)
+test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Trying Times at Howin, creepers on the river`, { skip }, () => {
 	const list = goals(WETLANDS);
 	const druids = list.filter(({ goal }) => goal.quest === 1012);
 	assert.ok(druids.length >= 5 && druids.find(({ goal }) => goal.t === 'accept').goal.optional, 'Insane Druids is there, its accept optional');
 	assert.ok(druids.filter(({ goal }) => goal.t !== 'accept').every(({ step }) => (step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1012))), 'its steps only for those who took it');
-	const glorin = list[at(list, 'turnin 292', is('turnin', 292))];
-	assert.equal(glorin.step, list[at(list, 'turnin 98221', is('turnin', 98221))].step, 'The Eye of Paleth on the Stoutfist stop');
 	assert.equal(list[at(list, 'accept 98246', is('accept', 98246))].step, list[at(list, 'accept 98245', is('accept', 98245))].step, 'Trying Times with Razormaw Needling');
 	const creepers = PLACES().find((p) => p.id === '610-wetlands-fen-creepers');
 	assert.ok(creepers.path && creepers.path.points[0][0] > 45, 'the creeper place starts on the river by Einar');
