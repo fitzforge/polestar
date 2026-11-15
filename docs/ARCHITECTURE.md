@@ -379,10 +379,10 @@ back and on a control whose category is not its page's.
 |---|---|
 | Skin & colours (`skin`) | Theme: Colour, Names and Frames (the skin, its variant `ui.skinVariants.*`, the accent, backgrounds, names' colours, frames and motion); EllesmereUI's accent |
 | Fonts & text size (`fonts`) | Theme: Text (fonts, sizes, outline, shadow, text colours); EllesmereUI's font (`ui.matchFont`) |
-| Guide window (`window`) | The Guide window page; Guide > Window but Dynamic Questing (what it shows, show and hide, pause, lock and growth); Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
+| Guide window (`window`) | The Guide window page (what it shows, when it hides, lock and growth); Guide > While you play but Dynamic Questing (show and hide, pause); Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
 | Arrow & map pins (`arrow`) | The Arrow and Map pins pages; Guide > Arrow & routes > Arrow and Other waypoints; the Map page (guide pins, quest markers, rares', dungeons' and travel's pins, NPC services, zones and coordinates); TomTom |
 | Route lines & travel (`routes`) | The Route lines page; Guide > Arrow & routes > Routes, Along the route, Getting around; Quality of Life > Travel; Trackers > Travel (flight timer, journey); Alerts & toasts > Transport alert; Shortest Path Forever |
-| Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > Window > Dynamic Questing; Questing > Quests; Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
+| Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > While you play > Dynamic Questing; Questing > Quests (the quests-new-in-Forever mark too); Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
 | Buttons, alerts & trackers (`hud`) | Buttons > Action buttons; Questing > Buttons; Alerts & toasts (Rare alert, Heads-up card, Class quest card); Trackers > Instances & XP, Party panel; Discovery > Rares; Quality of Life > Trackers & map |
 | Gear & rewards (`gear`) | Questing > Rewards & gear (and Talents); Quality of Life > Vendors (merchants, restock, bags, trainers); `talents.*` |
 | Dungeons & lookup (`dungeons`) | Discovery > Lookup and Dungeons; Dungeons in my route (`behavior.dungeons`) and Group quests (`behavior.groupQuests`); `dungeons.*` |
@@ -8545,6 +8545,7 @@ Polestar.RegisterOptions({
   jump = { tab = "Markers", section = "Quest markers" },   -- optional: a More link in the section's header, to that tab and section
   columns = { "World map", "Minimap" },                    -- optional: a caption over each half of the section's rows
   move = "flightTimer",                                     -- optional: a Move in the header for that frame (a mover key, below)
+  link = { text = "Lead:", page = "guidewindow", tab = "Window", to = "Look \226\128\186 Guide window" }, -- optional: a row over the tab's sections, `to` a link to that page's tab
   controls = {
     { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
@@ -8553,7 +8554,7 @@ Polestar.RegisterOptions({
       move = "launcher" },                                              -- optional: a Move on the row for that frame (below)
     { kind = "slider",   key = "qol.markerScale", label = "Size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
       release = true,                                                   -- optional: write when the drag ends
-      extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline before the control, right to left
+      extras = { { kind = "color", key = "qol.markerColor", label = "Colour", alpha = true },  -- inline after the control, left to right
                  { kind = "toggle", key = "qol.markerGlow", label = "Glow" } },               -- (a 20px chip; a small switch)
       more = { { kind = "toggle", key = "qol.markerOutline", label = "Outline" } } },        -- behind the row's cog, in its popup
     { kind = "dropdown", key = "gear.spec", label = "Weights", choices = { { value = "auto", label = "Automatic" }, ... } }, -- example key (the real one is gear.spec.<CLASS>)
@@ -9267,7 +9268,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   shows only once no group of the step is open after the focus (it names the
   next step's first person). The goals sit in a scroll area (`W.Scroll`)
   between the header and the tip: the window never grows past `ui.maxHeight`
-  of the screen's height (0.5; 0.3 to 0.9 in Options > Guide > Window, in
+  of the screen's height (0.5; 0.3 to 0.9 in Options > Guide window > Window, in
   the window's own units, so its scale and the UI scale count), the goals
   area giving up the difference (never below 72 px), the header, the tip
   and everything under the card staying whole. Past the cap the goals area

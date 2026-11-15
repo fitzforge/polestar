@@ -157,6 +157,8 @@ local PAGES = {
 	-- A section per addon Polestar works with.
 	integrations = { "quests", sections = { EllesmereUI = "skin", TomTom = "arrow", ["Shortest Path Forever"] = "routes" } },
 	gamepad = "window",
+	-- The update notices' switch (under Install), the guide window's.
+	about = "window",
 }
 
 -- Settings that go with another part than the section they sit in.

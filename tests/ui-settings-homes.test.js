@@ -12,7 +12,7 @@ const ALL = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', 'Quests/Quests.x
 	'QoL/QoL.xml', 'Lookup/Lookup.xml', 'Dungeons/Dungeons.xml', 'UI/UI.xml', 'Rares/Rares.xml'];
 
 // Opens the settings window, runs `script` (Lua, `O` the window, `homes`:
-// every registered control of a key as "page > tab > section") and returns what it emits.
+// every home of a key as "page > tab > section") and returns what it emits.
 function run(script) {
 	return runAddon({
 		stubs: ['stub_ui.lua'],
@@ -24,13 +24,9 @@ function run(script) {
 			UI.ShowOptions()
 			local function homes(key)
 				local out = {}
+				-- Every home, an extra or a cog's setting among them.
 				for _, c in ipairs(O.AllControls()) do
-					local function look(x)
-						if x.key == key then out[#out + 1] = c.page.key .. " > " .. tostring(c.tab or "") .. " > " .. tostring(c.section or "") end
-						for _, e in ipairs(x.extras or {}) do look(e) end
-						for _, m in ipairs(x.more or {}) do look(m) end
-					end
-					look(c)
+					if c.key == key then out[#out + 1] = c.page.key .. " > " .. tostring(c.tab or "") .. " > " .. tostring(c.section or "") end
 				end
 				return out
 			end
@@ -47,4 +43,41 @@ test('the quests-new-in-Forever mark sits with the quest log and tooltips, the u
 	assert.deepEqual(out.update, ['about >  > Install'], 'the update notices: About, with Install');
 	assert.equal(out.aboutRow, true, 'About shows the switch as a row');
 	assert.equal(out.aboutOn, true, 'on by default');
+});
+
+// The guide window's own settings: what it shows, when it hides and where it sits.
+const WINDOW_KEYS = ['ui.shown', 'ui.compact', 'ui.wholeStep', 'ui.maxHeight', 'ui.showNotes', 'ui.notesOpen', 'ui.upcoming',
+	'ui.upcomingOpen', 'ui.combat', 'ui.instance', 'ui.growUp', 'ui.barsBottom', 'ui.locked'];
+
+test('every guide-window setting has one home, on Look > Guide window', () => {
+	const out = run(`local out = {}
+		for _, k in ipairs({ ${WINDOW_KEYS.map((k) => JSON.stringify(k)).join(', ')} }) do out[k] = homes(k) end
+		local reset
+		for _, c in ipairs(O.AllControls()) do if c.label == Polestar.L["Reset position"] then reset = c.page.key .. " > " .. c.tab .. " > " .. c.section end end
+		emit({ homes = out, reset = reset })`);
+	for (const k of WINDOW_KEYS) {
+		assert.equal(out.homes[k].length, 1, `${k} has one home: ${out.homes[k].join(', ')}`);
+		assert.match(out.homes[k][0], /^guidewindow > /, `${k} on Look > Guide window: ${out.homes[k][0]}`);
+	}
+	assert.equal(out.reset, 'guidewindow > Window > Position', 'the window\'s Reset position with its lock');
+});
+
+test('Guide opens on While you play, and each page links to the other', () => {
+	const out = run(`UI.ShowOptions("guide")
+		local guide = { tab = O.view.psTab.name, cards = {} }
+		for _, card in ipairs(O.view.cards) do if card:IsShown() and card.psHeader then guide.cards[#guide.cards + 1] = card.psName end end
+		local link = O.view.XLink
+		guide.link = { shown = link ~= nil and link:IsShown(), text = link and link.Text:GetText(), to = link and link.Link.Label:GetText() }
+		link.Link:Click()
+		local landed = { page = O.page.key, tab = O.view.psTab.name }
+		local back = O.view.XLink
+		local look = { shown = back ~= nil and back:IsShown(), text = back and back.Text:GetText(), to = back and back.Link.Label:GetText() }
+		back.Link:Click()
+		emit({ guide = guide, landed = landed, look = look, back = { page = O.page.key, tab = O.view.psTab.name } })`);
+	assert.equal(out.guide.tab, 'While you play', 'Guide\'s first tab is While you play');
+	assert.deepEqual(out.guide.cards, ['Dynamic Questing', 'Show and hide', 'Pause', 'Position']);
+	assert.deepEqual(out.guide.link, { shown: true, text: 'What the window shows, when it hides and where it sits:', to: 'Look › Guide window' });
+	assert.deepEqual(out.landed, { page: 'guidewindow', tab: 'Window' }, 'the link opens Look > Guide window');
+	assert.deepEqual(out.look, { shown: true, text: 'Dynamic Questing, pause and the floating button:', to: 'Guiding › Guide' });
+	assert.deepEqual(out.back, { page: 'guide', tab: 'While you play' }, 'and its own link leads back');
 });
