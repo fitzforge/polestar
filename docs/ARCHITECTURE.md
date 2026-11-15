@@ -154,7 +154,7 @@ Messages:
 | `POLESTAR_PAUSED` | state ("armed" \| "inside" \| nil), why ("hand", "entered", "left", "expired", "window") | Core, `Polestar.SetPaused`: Polestar paused or resumed, or armed to inside (or into another instance); see "Pause" |
 | `SHOW_PICKER` | — | commands → UI |
 | `SHOW_OPTIONS` | section or nil, question or nil | commands (`/polestar ask <question>`: the question in the search box) → UI |
-| `SHOW_WELCOME` | page or nil | About's Install tile, the settings window's Install button and its search result, `/polestar install` (and `/polestar welcome`) → UI/Welcome.lua (Install) |
+| `SHOW_WELCOME` | page or nil | About's Install tile, the settings search's Install result, `/polestar install` (and `/polestar welcome`) → UI/Welcome.lua (Install) |
 | `SHOW_WHATSNEW` | — | About's "What's new", `/polestar whatsnew` → UI/WhatsNew.lua |
 | `WELCOME_CLOSED` | — | UI/Welcome.lua, Install closed (not stepped aside) → UI/WhatsNew.lua |
 | `SHOW_COPY` | title, text | `/polestar where` → UI/Copy.lua |
@@ -9905,9 +9905,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   character gets the welcome, the choices that are its own (the stat
   weights, kept per class) and the last page. The page set is fixed when a
   showing starts. Any close marks the account (and the character). About's
-  Install tile, the settings window's Install button (left of its search;
-  left out while the main column is under 780 wide),
-  the search's Install result (About, "install", "setup", "wizard", "first
+  Install tile, the settings search's Install result (About, "install", "setup", "wizard", "first
   run") and `/polestar install` (`/polestar welcome` too) open it with every
   page.
 - **What's new** (`UI/WhatsNew.lua`, frame `PolestarWhatsNew`, `SHOW_WHATSNEW`):

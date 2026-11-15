@@ -2561,7 +2561,6 @@ L["Install's pages: questing, groups and dungeons, your route and your look, a p
 L["set Polestar up again, a page at a time"] = "逐页重新设置 Polestar"
 L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = "逐页重新设置 Polestar：做任务、小队与地下城、你的路线、你的外观。每项选择立即生效。"
 L["What this version of Polestar changed for you."] = "此版本 Polestar 为你带来的变化。"
-L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
 L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = "升级指南可以带你完成路上的地下城，适合五人小队：在本来就会经过的地点接取任务，等级合适时带你到入口，之后再交还任务。跳过：单人路线。询问我：指南会在每个地下城询问。在“发现”中的“地下城”可单独更改某个地下城。"
 L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."] = "配置 %s 的所有设置都将恢复默认，账号中使用它的每个角色都会受影响。你的指南和进度会保留。"
 L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."] = "配置 %s 的所有设置都将恢复默认，使用它的职业的每个角色都会受影响。你的指南和进度会保留。"
@@ -4801,6 +4800,7 @@ L["/polestar perf: on, off, report or reset"] = "/polestar perf：on 开启、of
 L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "排查游戏卡顿，记录 Polestar 自身的运行耗时（on、off、report、reset）"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
 -- L["New"] = "新"
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "指南窗口在地下城和战场中隐藏。%s 可在选项 > 指南 > 窗口中更改。"
 -- L["In dungeons"] = "在地下城中"

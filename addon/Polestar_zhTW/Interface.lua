@@ -2561,7 +2561,6 @@ L["Install's pages: questing, groups and dungeons, your route and your look, a p
 L["set Polestar up again, a page at a time"] = "逐頁重新設定 Polestar"
 L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = "逐頁重新設定 Polestar：解任務、小隊與地城、你的路線、你的外觀。每項選擇立即生效。"
 L["What this version of Polestar changed for you."] = "此版本 Polestar 為你帶來的改變。"
-L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
 L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = "升級指南可以帶你完成路上的地城，適合五人小隊：在本來就會經過的地點接取任務，等級合適時帶你到入口，之後再繳交任務。跳過：單人路線。詢問我：指南會在每個地城詢問。可在「探索」的「地城」中單獨更改某個地城。"
 L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."] = "設定檔 %s 的所有設定都會恢復預設值，帳號中使用它的每個角色都會受影響。你的指南與進度會保留。"
 L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."] = "設定檔 %s 的所有設定都會恢復預設值，使用它的職業的每個角色都會受影響。你的指南與進度會保留。"
@@ -4801,6 +4800,7 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"
 -- L["New"] = "新"
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "指南視窗在地城與戰場中會隱藏。%s 可在「選項」>「指南」>「視窗」中更改。"
 -- L["In dungeons"] = "在地城中"

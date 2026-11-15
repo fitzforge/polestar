@@ -31,9 +31,9 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 
 local SH = W.SHELL
 -- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
--- Recorder's and About's tiles, HERO_H the About hero's height, INSTALL_ROOM the main column's width the
--- header's Install button needs beside the page's title; the window's own (BASE_W ... EDGE) with its size below.
-local SIZE = { GAP = 24, HERO_H = 96, INSTALL_ROOM = 780 }
+-- Recorder's and About's tiles, HERO_H the About hero's height; the window's own (BASE_W ... EDGE) with its
+-- size below.
+local SIZE = { GAP = 24, HERO_H = 96 }
 
 local O = {}
 UI.Options = O
@@ -4191,10 +4191,9 @@ local function applySize()
 	if win:GetWidth() == w and win:GetHeight() == h then return false end
 	win:SetSize(w, h)
 	W.ShellLayout(win)
-	-- The footer's thanks and the header's Install for the main column's new
-	-- width (a size change's own hook may run before the shell has measured it).
+	-- The footer's thanks for the main column's new width (a size change's own
+	-- hook may run before the shell has measured it).
 	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
-	if rawget(win, "PlaceInstall") then win.PlaceInstall() end
 	return true
 end
 
@@ -4342,27 +4341,9 @@ local function build()
 	nudge:Hide()
 	win.NavMore = nudge
 	win.NavScroll.psOnScroll = function(_, cur, range) nudge:SetShown(range > 0 and cur < range - 1) end
-	-- Install from the header, left of the search: the first run's setup,
-	-- again whenever the player wants it (UI/Welcome.lua over this window).
-	-- A window too narrow for it beside the page's title (under SIZE.INSTALL_ROOM
-	-- of main column) leaves it out: About and the search still have it.
-	win.Install = W.Button(win.Header, L["Install"], function() ns.Fire("SHOW_WELCOME") end, { ghost = true, icon = "palette" })
-	win.Install.psTip = L["Install"]
-	win.Install.psTipLines = { L["Set Polestar up again, a page at a time. Each choice works at once."] }
-	local function placeInstall()
-		local room = tonumber(rawget(win, "psMainW")) or 0
-		win.Install:SetShown(room >= SIZE.INSTALL_ROOM)
-		if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
-	end
-	if rawget(win, "psHeadTools") then
-		win.psHeadTools[#win.psHeadTools + 1] = win.Install
-		win.PlaceInstall = placeInstall
-		placeInstall()
-	end
-	win:HookScript("OnSizeChanged", function()
-		if rawget(win, "psHeadTools") then placeInstall() end
-		win.PlaceThanks()
-	end)
+	-- Install (UI/Welcome.lua) is on About ("Set Polestar up again") and in the
+	-- search, not in the header, where it read as installing the addon.
+	win:HookScript("OnSizeChanged", function() win.PlaceThanks() end)
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
 		-- A live change (a slider dragged) settles with a plain one: the marks, the

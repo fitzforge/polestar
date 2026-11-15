@@ -1509,7 +1509,6 @@ L["Install's pages: questing, groups and dungeons, your route and your look, a p
 L["set Polestar up again, a page at a time"] = "Polestar neu einrichten, eine Seite nach der anderen"
 L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen: Questen, Gruppen und Dungeons, deine Route, dein Aussehen. Jede Wahl wirkt sofort."
 L["What this version of Polestar changed for you."] = "Was diese Version von Polestar für dich geändert hat."
-L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
 L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = "Leveling-Guides können dich durch die Dungeons auf deinem Weg führen, für eine Fünfergruppe: Sie nehmen die Quests bei Halten an, die sie ohnehin machen, schicken dich mit der richtigen Stufe zum Eingang und geben die Quests danach ab. Überspringen: die Solo-Route. Frag mich: Der Guide fragt bei jedem Dungeon. Entdecken, Dungeons ändert einen davon."
 L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."] = "Jede Einstellung des Profils %s kehrt zu ihrem Standard zurück, für jeden Charakter des Accounts, der es nutzt. Deine Guides und dein Fortschritt bleiben erhalten."
 L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."] = "Jede Einstellung des Profils %s kehrt zu ihrem Standard zurück, für jeden Charakter der Klassen, die es nutzen. Deine Guides und dein Fortschritt bleiben erhalten."
@@ -4792,6 +4791,7 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
 -- L["New"] = "Neu"
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "Das Guide-Fenster blendet sich in Dungeons und Schlachtfeldern aus. %s Ändere das unter Optionen > Guide > Fenster."
 -- L["In dungeons"] = "In Dungeons"
