@@ -15551,8 +15551,8 @@
 			"evidence": "route level 42.5 (experimental route choices' model); 27 spawns 44+; recordings (2026-11-15): done by 9 people (median 43.68), 6 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|complete 92914|over",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|complete 92914|over",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "complete 92914",
 			"kind": "over",
 			"title": "The temple of Shen'dralas: the third pylon",
@@ -15566,8 +15566,8 @@
 			"evidence": "route level 43.2 (experimental route choices' model); Shard Guard 60-60 x10, Shen'dralar Scholar 60-60 x6, Pylon Protector 61-61 x17; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|complete 92914|elite",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|complete 92914|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "complete 92914",
 			"kind": "elite",
 			"title": "The temple of Shen'dralas: the third pylon",
@@ -15580,8 +15580,8 @@
 			"evidence": "route level 43.2 (experimental route choices' model); Shen'dralas Protector 60-60, Pylon Protector 61-61 x17; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|complete 92914|pack",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|complete 92914|pack",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "complete 92914",
 			"kind": "pack",
 			"title": "The temple of Shen'dralas: the third pylon",
@@ -15593,8 +15593,8 @@
 			"evidence": "route level 43.2 (experimental route choices' model); 34 spawns 45+; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|use 96018.2|elite",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|use 96018.2|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "use 96018.2",
 			"kind": "elite",
 			"title": "The western pylon: repair it",
@@ -15608,8 +15608,8 @@
 			"evidence": "route level 43.3 (experimental route choices' model); Nascent Pylon Protector 43-43, Corpsefeeder 45-45, Magram Necrokhan 45-45; recordings (2026-11-15): done by 4 people (median 43.8), 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|collect 99257.1|elite",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|collect 99257.1|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "collect 99257.1",
 			"kind": "elite",
 			"title": "The western pylon: repair it",
@@ -15623,8 +15623,8 @@
 			"evidence": "route level 43.3 (experimental route choices' model); Magram Necrokhan 45-45 x3, Nascent Pylon Protector 43-43 x3, Corpsefeeder 45-45 x4; recordings (2026-11-15): done by 2 people (median 43.94), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|kill 93362.1|over",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 93362.1|over",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "kill 93362.1",
 			"kind": "over",
 			"title": "The Forlorn Gardens",
@@ -15643,8 +15643,8 @@
 			"evidence": "route level 43.4 (experimental route choices' model); Shen'dralar Citizen 60-60 x13, Arondel 60-60 x10, Kerelle 60-60 x22, Shen'dralas Protector 60-60 x2, Maralus 60-60 x2, Jarael 60-60 x2, Melanori 60-60 x2, Naria 60-60 x6; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|kill 93362.1|elite",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 93362.1|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "kill 93362.1",
 			"kind": "elite",
 			"title": "The Forlorn Gardens",
@@ -15657,8 +15657,8 @@
 			"evidence": "route level 43.4 (experimental route choices' model); Shen'dralas Protector 60-60 x2, Nascent Pylon Protector 43-43; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|kill 93362.1|pack",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 93362.1|pack",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "kill 93362.1",
 			"kind": "pack",
 			"title": "The Forlorn Gardens",
@@ -15670,8 +15670,8 @@
 			"evidence": "route level 43.4 (experimental route choices' model); 59 spawns 45+; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|kill 93362.2|elite",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 93362.2|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "kill 93362.2",
 			"kind": "elite",
 			"title": "The Forlorn Gardens",
@@ -15683,8 +15683,8 @@
 			"evidence": "route level 43.4 (experimental route choices' model); Nascent Pylon Protector 43-43; recordings (2026-11-15): done by 2 people (median 43.87), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Alliance|kill 93362.3|elite",
-			"guide": "experimental/guides/shendralas.guide@Alliance",
+			"key": "forever/40-50/shendralas.guide@Alliance|kill 93362.3|elite",
+			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "kill 93362.3",
 			"kind": "elite",
 			"title": "The Forlorn Gardens",
@@ -15696,8 +15696,8 @@
 			"evidence": "route level 43.4 (experimental route choices' model); Nascent Pylon Protector 43-43; recordings (2026-11-15): done by 2 people (median 42.01), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|complete 92914|over",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|complete 92914|over",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "complete 92914",
 			"kind": "over",
 			"title": "The temple of Shen'dralas: the third pylon",
@@ -15711,8 +15711,8 @@
 			"evidence": "route level 45 (experimental route choices' model); Shard Guard 60-60 x10, Shen'dralar Scholar 60-60 x6, Pylon Protector 61-61 x17; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|complete 92914|elite",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|complete 92914|elite",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "complete 92914",
 			"kind": "elite",
 			"title": "The temple of Shen'dralas: the third pylon",
@@ -15725,8 +15725,8 @@
 			"evidence": "route level 45 (experimental route choices' model); Shen'dralas Protector 60-60, Pylon Protector 61-61 x17; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|complete 92914|pack",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|complete 92914|pack",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "complete 92914",
 			"kind": "pack",
 			"title": "The temple of Shen'dralas: the third pylon",
@@ -15738,8 +15738,8 @@
 			"evidence": "route level 45 (experimental route choices' model); 34 spawns 47+; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|use 96018.2|elite",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|use 96018.2|elite",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "use 96018.2",
 			"kind": "elite",
 			"title": "The western pylon: repair it",
@@ -15752,8 +15752,8 @@
 			"evidence": "route level 45.1 (experimental route choices' model); Corpsefeeder 45-45, Magram Necrokhan 45-45; recordings (2026-11-15): done by 4 people (median 43.8), 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|collect 99257.1|elite",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|collect 99257.1|elite",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "collect 99257.1",
 			"kind": "elite",
 			"title": "The western pylon: repair it",
@@ -15766,8 +15766,8 @@
 			"evidence": "route level 45.1 (experimental route choices' model); Magram Necrokhan 45-45 x3, Corpsefeeder 45-45 x4; recordings (2026-11-15): done by 2 people (median 43.94), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|kill 93362.1|over",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|kill 93362.1|over",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "kill 93362.1",
 			"kind": "over",
 			"title": "The Forlorn Gardens",
@@ -15786,8 +15786,8 @@
 			"evidence": "route level 45.3 (experimental route choices' model); Shen'dralar Citizen 60-60 x13, Arondel 60-60 x10, Kerelle 60-60 x22, Shen'dralas Protector 60-60 x2, Maralus 60-60 x2, Jarael 60-60 x2, Melanori 60-60 x2, Naria 60-60 x6; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|kill 93362.1|elite",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|kill 93362.1|elite",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "kill 93362.1",
 			"kind": "elite",
 			"title": "The Forlorn Gardens",
@@ -15799,8 +15799,8 @@
 			"evidence": "route level 45.3 (experimental route choices' model); Shen'dralas Protector 60-60 x2; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/shendralas.guide@Horde|kill 93362.1|pack",
-			"guide": "experimental/guides/shendralas.guide@Horde",
+			"key": "forever/40-50/shendralas.guide@Horde|kill 93362.1|pack",
+			"guide": "forever/40-50/shendralas.guide@Horde",
 			"goal": "kill 93362.1",
 			"kind": "pack",
 			"title": "The Forlorn Gardens",

@@ -1,5 +1,5 @@
 'use strict';
-// Polestar Experimental's Shen'dralas guide (experimental/guides/shendralas.guide), compiled with the
+// The Shen'dralas guide (guides/forever/40-50/shendralas.guide, both factions' route), compiled with the
 // reference data: the order players' recordings support, pinned so an edit can't undo it unseen.
 //
 // Needs data/forever (forge data build); skips without it.
@@ -19,7 +19,7 @@ let list;
 // The guide's goals in order, as { step, goal }.
 function goals() {
 	if (!list) {
-		const file = path.join(ROOT, 'experimental', 'guides', 'shendralas.guide');
+		const file = path.join(ROOT, 'guides', 'forever', '40-50', 'shendralas.guide');
 		const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], loadData(DATA));
 		assert.equal(guides.length, 1, 'the guide compiles');
 		list = guides[0].steps.flatMap((step) => step.goals.map((goal) => ({ step, goal })));
