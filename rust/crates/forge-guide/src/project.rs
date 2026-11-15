@@ -1265,10 +1265,12 @@ mod native {
 		let force = opts.force;
 		let mut project = compile_project(pack_dir, manifest, data, data_warnings, opts.include_drafts, opts.context);
 		project.diag.list.extend(extra);
-		// The extra packs' guides beside ours (read_extras): the experimental index, read only when a `next` line
-		// of ours names one, and the check that each zone is offered to every side it is for.
+		// The extra packs' guides beside ours (read_extras, in the folder that holds our guides' folder: the
+		// checkout's experimental/ for its guides/; none beside a fixture's or a writer's tree compiled with
+		// --guides): the experimental index, read only when a `next` line of ours names one, and the check that
+		// each zone is offered to every side it is for.
 		let ours = manifest.get("id").as_str() == Some("guides");
-		let extras = if ours { read_extras(root, data) } else { Vec::new() };
+		let extras = if ours { pack_dir.parent().map(|beside| read_extras(beside, data)).unwrap_or_default() } else { Vec::new() };
 		let offering = ours && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
 		let offers = if offering { experimental_index(&project.guides, &extras, data, &mut project.diag) } else { Vec::new() };
 		if ours {
