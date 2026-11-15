@@ -10021,7 +10021,12 @@ test('Alliance 30-40 audit: Stranglethorn\'s first loop hands in what it walks p
 	assert.equal(kaleb.goal.npc, 770, 'from Corporal Kaleb');
 	assert.ok(at(list, 'turnin 210', is('turnin', 210)) < at(list, 'fly Sentinel Hill', (g) => g.t === 'fly' && /Sentinel Hill/.test(g.location || '')), 'handed to Krazek on the first Booty Bay stop');
 	const grinds = list.filter(({ goal }) => goal.t === 'level').map(({ goal }) => goal.level);
-	assert.ok(grinds.length >= 3 && grinds.at(-1) === 34, `the top-up to 34 is split into short steps (${grinds})`);
+	// Level tidy (0.4.0): one short top-up to 33 on the Kurzen Jungle Fighters (32-33), before the elder tigers (34-35):
+	// recorded players there are at 34.3 (25th percentile), a level over the model, which the frozen level rule credits.
+	assert.deepEqual(grinds, [33], `one top-up, to 33 (${grinds})`);
+	const top = list.find(({ goal }) => goal.t === 'level').goal;
+	assert.ok(top.npc === 937 || top.grind === 937 || JSON.stringify(top).includes('937'), 'on the Kurzen Jungle Fighters');
+	assert.ok(list.findIndex(({ goal }) => goal.t === 'level') < at(list, 'kill 1085', (g) => g.t === 'kill' && g.npc === 1085), 'before the elder tigers');
 });
 
 test('Alliance 30-40 audit: Arathi hands in at Refuge Pointe on the way west, the Swamp of Sorrows ends at Watcher Biggs', { skip }, () => {

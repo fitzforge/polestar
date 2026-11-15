@@ -171,12 +171,10 @@ step Howin Kindfeather
   turnin 98230                        -- Howin Kindfeather
 
 step Menethil Harbor
-  turnin 98072                        -- James Halloran
-
-step First Mate Fitzsimmons
   zone Wetlands
-  tip First Mate Fitzsimmons sits in the Deepwater Tavern, south of the keep.
-  accept 290
+  tip James Halloran stands by the docks; First Mate Fitzsimmons sits in the Deepwater Tavern, south of the keep.
+  turnin 98072                        -- James Halloran
+  accept 290                          -- First Mate Fitzsimmons
 
 step Captain Halyndor
   zone Wetlands

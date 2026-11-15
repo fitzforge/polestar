@@ -13,8 +13,8 @@ next forever/alliance/30-40/02-desolace
 # Since 2026-11-07 Stranglethorn is done in two visits around Desolace: this first loop at 33-35, the second
 # (30-40/04b) at 35-36. Its Booty Bay and Rebel Camp quests up to 37 are taken here, where their givers stand.
 # Since the 0.3.7 audit: Bookie Herod's Records (200) are handed in and The Hidden Key (328) taken on this loop's Kurzen
-# stop, Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it, and the top-up to 34 is three short steps on
-# the loop's own quest mobs (Stranglethorn Tigers, Kurzen Jungle Fighters, raptors) instead of one block.
+# stop, and Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it. Level tidy (0.4.0): one top-up to 33.2 on
+# the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model.
 # Level tidy (0.4.0): Tiger Mastery's Sin'Dall (188, level 37) and Raptor Mastery's Lashtail Raptors (195, 35-36) are
 # hunted on the second loop (04b) at about 36, not here at 33-34. The hearthstone, bound in Booty Bay on the first stop,
 # is the way back there from Nesingwary's camp at the end of the jungle loop (#2419). Players who know the Stonetalon
@@ -64,12 +64,6 @@ step Stranglethorn Tigers
   tip The adult tigers prowl the hills just south and west of the camp.
   kill 682 quest 186                  -- Stranglethorn Tiger
 
-step Level 33.2
-  when level<33.2
-  tip The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
-  goto 30.8,11.2 map 1434 "Stranglethorn Tiger"
-  level 33.2 grind 682                 -- grind on Stranglethorn Tiger
-
 step Ajeck Rouack
   turnin 186
   accept 187                          -- The elder tigers come later, on the way back from the Rebel Camp
@@ -106,11 +100,11 @@ step Kurzen's Compound: kill these as you meet them
   kill 937 quest 203                  -- Kurzen Jungle Fighter
   collect 2634 quest 204.2            -- Venom Fern Extract, from a Kurzen Supplies crate
 
-step Level 33.6
-  when level<33.6
-  tip Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+step Level 33.2
+  when level<33.2
+  tip The elder tigers next are 34-35: short of 33.2? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
   goto 44.6,10.0 map 1434 "Kurzen Jungle Fighter"
-  level 33.6 grind 937                 -- grind on Kurzen Jungle Fighter
+  level 33.2 grind 937                 -- grind on Kurzen Jungle Fighter
 
 step Rebel Camp
   turnin 203                          -- Sergeant Yohwa
@@ -122,12 +116,6 @@ step Stranglethorn Vale: kill these as you meet them
   tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
   kill 1085 quest 187                 -- Elder Stranglethorn Tiger
   kill 685 quest 194                  -- Stranglethorn Raptor
-
-step Level 34
-  when level<34
-  tip Short of 34? Keep on the Stranglethorn Raptors in the clearings west of Nesingwary's camp until level 34: the elder tigers are 34-35. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
-  goto 25.8,16.1 map 1434 "Stranglethorn Raptor"
-  level 34 grind 685                   -- grind on Stranglethorn Raptor
 
 step Nesingwary's Expedition
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
@@ -172,14 +160,11 @@ step Stranglethorn Vale
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
   tip From Sentinel Hill the way leads south out of Westfall into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
-  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north.
+  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north, where Zimmix Sputterspark, a goblin, is caged: any Bloodscalp can drop his Primitive Key; then lead him out of the ruins.
+  accept 97329                        -- Zimmix Sputterspark, in the Bloodscalp ruins
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
   complete 578 @21.9,22.4             -- The haunted island
   collect 1519 quest 189              -- Bloodscalp Ear
-
-step Zimmix Sputterspark
-  tip Zimmix Sputterspark, a goblin, is caged in the Bloodscalp ruins north of the mine. Any Bloodscalp troll can drop the Primitive Key; then lead him out of the ruins.
-  accept 97329                        -- Zimmix Sputterspark
   collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
   turnin 97329
   accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
