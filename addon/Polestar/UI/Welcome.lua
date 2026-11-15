@@ -2608,7 +2608,9 @@ do
 						place(r, col * (LOOK_W + LOOK_GAP), y + row * (LOOK_H + LOOK_GAP))
 						if Theme.DrawSkinCard and r.psDrawn ~= ch.value then
 							r.psDrawn = ch.value
-							pcall(Theme.DrawSkinCard, r.Art, ch.value)
+							-- fit: the whole window shrunk to the thumbnail, not the
+							-- Theme page's crop at a legible scale.
+							pcall(Theme.DrawSkinCard, r.Art, ch.value, nil, true)
 						end
 						r:Show()
 						paintLookRow(r)

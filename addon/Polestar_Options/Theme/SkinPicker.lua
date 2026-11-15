@@ -353,7 +353,9 @@ end
 -- the window's GF.ApplySkin, GF.ApplyStyle, GF.RenderTabs, GF.PaintTab and
 -- paintRow dress them; in the middle of a card with even margins, or
 -- (`alone`) filling it.
-local function paintMini(p, w, h, alone)
+-- fit: a card too small for the least scale (Install's look thumbnails)
+-- shows the whole window shrunk to it, a picture, not a crop.
+local function paintMini(p, w, h, alone, fit)
 	local M = Theme.Metric
 	local pad = max(4, M("guidePad", 14))
 	local tabH, rowH = M("guideTabs", 28), M("guideRow", 24)
@@ -363,11 +365,17 @@ local function paintMini(p, w, h, alone)
 	local hearth = look == "hearth"
 	local game = Theme.GameSkin() and true or false
 	local win = p.win
-	local winH = tabH + PERSON_H + rowH + FOOT_H
+	-- The goal's row holds two lines, as the guide window's row grows when
+	-- its goal wraps ("Töte Kobold Worker" over "3/8"): the count stays whole,
+	-- and every miniature is the same height whether its look's font wraps
+	-- the line or not.
+	local _, goalSize = Theme.FontSpec("goal")
+	local goalH = max(rowH, floor((goalSize or 12) * 2.4 + 6.5))
+	local winH = tabH + PERSON_H + goalH + FOOT_H
 	win:SetSize(MINI_W, winH)
-	local margin = alone and 0 or MARGIN
-	local k = max(LEAST, min((w - 2 * margin) / MINI_W, (h - 2 * margin) / winH))
-	if alone then k = min(w / MINI_W, h / winH) end
+	local margin = alone and 0 or fit and 2 or MARGIN
+	local k = min((w - 2 * margin) / MINI_W, (h - 2 * margin) / winH)
+	if not (alone or fit) then k = max(LEAST, k) end
 	win:SetScale(k)
 	win:ClearAllPoints()
 	win:SetPoint("TOPLEFT", win:GetParent(), "TOPLEFT", floor((w - MINI_W * k) / 2 + 0.5) / k, -floor((h - winH * k) / 2 + 0.5) / k)
@@ -431,7 +439,7 @@ local function paintMini(p, w, h, alone)
 	-- The goal: its glyph, its line as the window writes it, the tick box in
 	-- the skin's paint; lit as the window lights the goal to do now.
 	local row = p.rows[1]
-	row:SetHeight(rowH)
+	row:SetHeight(goalH)
 	row.Mark:SetVertexColor(Theme.Color("accent"))
 	row.Icon:SetSize(icon, icon)
 	row.Icon:ClearAllPoints()
@@ -448,6 +456,7 @@ local function paintMini(p, w, h, alone)
 	row.Text:SetPoint("LEFT", row, "LEFT", textX, 0)
 	row.Text:SetPoint("RIGHT", row.Check, "LEFT", -4, 0)
 	local line = UI and UI.GoalLine and UI.GoalLine(GOAL) or (GOAL.verb .. " " .. GOAL.subject)
+	row.Text:SetWordWrap(true)
 	say(row.Text, "goal", line, "text")
 	-- The foot: the accent button at the right, the accents' dots left of
 	-- it, the progress in what is left (the game's status bar in Hearth and
@@ -524,7 +533,7 @@ local function paintCard(art, id, scheme, alone)
 	local w, h = art:GetWidth() or 0, art:GetHeight() or 0
 	if w < 40 or h < 30 then w, h = (W and W.CARD_W or 156) - 2, W and W.CARD_ART or 88 end
 	if not alone and not p.card then hookCard(art, p) end
-	paintMini(p, w, h, alone)
+	paintMini(p, w, h, alone, art.psCardFit)
 end
 
 -- Draw skin `id` (its `variant`; Polestar's own look in `scheme`) on `art`:
@@ -581,9 +590,11 @@ end, true)
 -- The skin picker's card (UI/Looks/Theme.lua): skin `id` drawn on `card` as
 -- it draws itself, the player's own colours over it; the live skin is left
 -- alone. `variant`: one of the skin's variants (its variant cards), else the
--- one in use. Drawn again on its own after every live repaint.
-function Theme.DrawSkinCard(card, id, variant)
+-- one in use. Drawn again on its own after every live repaint. fit: the
+-- whole window shrunk to a small card, never cropped (Install's looks).
+function Theme.DrawSkinCard(card, id, variant, fit)
 	if not SKINS[id] then return end
+	if type(card) == "table" then card.psCardFit = fit and true or nil end
 	draw(card, id, variant, nil)
 end
 
