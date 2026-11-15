@@ -2092,3 +2092,237 @@ fn between_the_range_and_the_floor_players_recorded_entries_set_neither_the_hub_
 	assert!(!strs(&out["card20"]).iter().any(|k| k == "wailing-caverns"), "and no card: {}", out["card20"]);
 	assert!(strs(&out["cardBest"]).iter().any(|k| k == "wailing-caverns"), "the card at its best-at level: {}", out["cardBest"]);
 }
+
+// ---------------------------------------------------------------------------
+// The dungeon line under a grind step (UI/DungeonToast.lua, DT.GrindLine; the guide window's card)
+// ---------------------------------------------------------------------------
+
+// A leveling guide whose first step grinds to 21 (a goto done, then `level 21`), its second a hand-in; the
+// level 20 Tauren has the fixture's Wailing Caverns attunement (need: each; 90003 and 90004 done), so Wailing Caverns
+// (17-24, best at 19, four Horde quests) fits; the Deadmines' one quest is the Alliance's. grindGuide(id, o):
+// o.faction, o.category, o.note (the step's tip), o.only (the step's), o.status (the level goal's).
+const GRIND: &str = r#"
+local DT, GF = Polestar.UI.DungeonToast, Polestar.UI.GuideFrame
+UnitLevel = function() return uistub.player.level end
+UnitFactionGroup = function() return uistub.player.faction, uistub.player.faction end
+done[90003], done[90004] = true, true
+local function G(t, f) f.t = t; return f end
+local function grindGuide(id, o)
+	o = o or {}
+	uistub.guides[id] = { id = id, pack = "guides", title = "The Barrens", faction = o.faction or "Horde", minLevel = 17, maxLevel = 23,
+		category = o.category or "Leveling", zone = 1413, zoneName = "The Barrens", author = "Polestar", version = 1, steps = {
+		{ title = "Level 21", note = o.note, only = o.only, goals = {
+			G("goto", { verb = "Go to", subject = "the Stagnant Oasis", subjectKind = "place", map = 1413, x = 55, y = 42, status = "done" }),
+			G("level", { verb = "Reach level", subject = "21", subjectKind = "level", level = 21, map = 1413, x = 55, y = 42, status = o.status or "active", xpLeft = 4200 }),
+		} },
+		{ title = "Crossroads", goals = {
+			G("turnin", { verb = "Turn in", subject = "Disciples of Naralex", subjectKind = "quest", quest = 870, npc = 3448, npcName = "Tonga Runetotem", map = 1413, x = 52, y = 31, status = "pending" }),
+		} },
+	} }
+	table.insert(uistub.order, id)
+end
+local function dungeonLine()
+	for _, l in ipairs(GF.lines) do if l:IsShown() and l.psKey == "dungeon" then return l end end
+end
+local function said()
+	local l = dungeonLine()
+	return l and l.Text:GetText() or false
+end
+local function show(id, step)
+	uistub.openTabs({ { id, step or 1 } }, 1)
+	Polestar.Set("ui.shown", true)
+	stub.advance(0.5)
+	GF.Render()
+end
+"#;
+
+const WC_LINE: &str = "Or run Wailing Caverns (17–24) with a group: 2 quests to pick up first.";
+
+// Fitz (0.4.0): "If we have to suggest a grinding step ... also say: hey, you can do a dungeon for some extra levels",
+// and "maybe do a dungeon WITH DUNGEON QUESTS, people are usually happy to do it". The line waits for the Codex
+// (never loads it: 7 MB), then sits right under the level goal's row with the dungeon glyph and a chevron that points
+// on, saying the quests to pick up first; hovered, its levels and zone; a click opens the dungeon's page in Dungeons
+// (its Quests tab) and nothing else: no Engine call (the step, the route and the arrow stay).
+#[test]
+fn a_grind_step_offers_a_dungeon_at_your_level_under_its_level_goal_and_a_click_opens_its_page_in_dungeons() {
+	let out = run(&format!(
+		r#"{GRIND}
+		grindGuide("t/grind")
+		show("t/grind")
+		local before = said()
+		Polestar.Codex.Load()
+		local l = dungeonLine()
+		local _, under = l:GetPoint(1)
+		emit({{ before = before, codex = Polestar.Codex.IsLoaded(), text = l.Text:GetText(), under = under and under.psGoal and under.psGoal.t or false,
+			icon = l.Icon:GetTexture() == Polestar.Theme.Media("icon-dungeon"), chevron = l.Chevron:GetTexture() == Polestar.Theme.Media("chevron-right") }})
+		stub.RunScript(l, "OnEnter")
+		local tip, shown = GameTooltip.lines, GameTooltip:IsShown()
+		stub.RunScript(l, "OnLeave")
+		emit({{ tip = tip, shown = shown, left = GameTooltip:IsShown() }})
+		local opened, open = {{}}, Polestar.Dungeons.Open
+		Polestar.Dungeons.Open = function(k) opened[#opened + 1] = k return true end
+		local calls = #uistub.calls
+		l:Click()
+		emit({{ opened = opened, engine = #uistub.calls - calls, step = Polestar.Engine.GetStepIndex(), still = said() }})"#
+	));
+	assert_eq!(out[0], json!({ "before": false, "codex": true, "text": WC_LINE, "under": "level", "icon": true, "chevron": true }));
+	assert_eq!(out[1], json!({ "tip": ["Wailing Caverns", "Levels 17–24  ·  The Barrens", "Click to see its quests in Dungeons"], "shown": true, "left": false }));
+	assert_eq!(out[2], json!({ "opened": ["wailing-caverns"], "engine": 0, "step": 1, "still": WC_LINE }), "a suggestion: no route change");
+}
+
+// Only an open `level` goal on the current step of a leveling guide: not the hand-in step, not a level goal already
+// reached (or covered by finished quests), not a class's own step, not a reputation guide's level goal.
+#[test]
+fn no_dungeon_line_on_other_steps_a_reached_level_a_class_step_or_outside_leveling_guides() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		grindGuide("t/grind")
+		grindGuide("t/done", {{ status = "done" }})
+		grindGuide("t/class", {{ only = {{ classes = {{ "DRUID" }} }} }})
+		grindGuide("t/rep", {{ category = "Reputation" }})
+		local out = {{}}
+		show("t/grind"); out.grind = said()
+		show("t/grind", 2); out.turnin = said()
+		show("t/done"); out.reached = said()
+		show("t/class"); out.classStep = said()
+		show("t/rep"); out.reputation = said()
+		show("t/grind"); out.back = said()
+		local E = Polestar.Engine
+		local v = E.GetStepView(1)
+		v.goals[2].handInFirst = true
+		out.covered = DT.GrindLine(E.GetGuide(), v, v.goals[2]) or false
+		emit(out)"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "grind": WC_LINE, "turnin": false, "reached": false, "classStep": false, "reputation": false, "back": WC_LINE, "covered": false })
+	);
+}
+
+// None when no dungeon fits the level now (under Wailing Caverns' floor 17, past its top 24; Blackmaw Hold 55-60 is
+// far off), when its attunement every player needs is missing, or when the dungeon heads-ups or the Dungeons
+// module are turned off; back when they are turned on again.
+#[test]
+fn no_dungeon_line_when_none_fits_the_level_one_cannot_be_entered_or_the_dungeon_heads_ups_are_off() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		grindGuide("t/grind")
+		show("t/grind")
+		local function at(n) local p = DT.GrindPick(n, "H", nil, nil) return p and p.key or false end
+		local out = {{ l14 = at(14), l16 = at(16), l17 = at(17), l24 = at(24), l25 = at(25), l40 = at(40), l57 = at(57) }}
+		-- Blackmaw Hold has no quests: the line says the climb instead.
+		out.noQuests = DT.GrindPick(57, "H", nil, nil).text
+		done[90003], done[90004] = nil, nil
+		out.noAttune = at(20)
+		done[90003], done[90004] = true, true
+		Polestar.Set("dungeons.headsUp", false); out.off = said()
+		Polestar.Set("dungeons.headsUp", true); out.on = said()
+		Polestar.Set("dungeons.enabled", false); out.dungeonsOff = said()
+		Polestar.Set("dungeons.enabled", true); out.dungeonsOn = said()
+		uistub.player.level = 25
+		stub.fire("PLAYER_LEVEL_UP", 25)
+		out.past = said()
+		emit(out)"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "l14": false, "l16": false, "l17": "wailing-caverns", "l24": "wailing-caverns", "l25": false, "l40": false, "l57": "blackmaw-hold",
+			"noQuests": "Or run Blackmaw Hold (55–60) with a group for a faster climb.", "noAttune": false, "off": false, "on": WC_LINE, "dungeonsOff": false, "dungeonsOn": WC_LINE, "past": false })
+	);
+}
+
+// Faction-correct: the Horde never gets the Deadmines (its one quest is the Alliance's): nothing at 26, past Wailing
+// Caverns' top; the Alliance gets Wailing Caverns while it fits with quests to pick up (the Deadmines suits 20 best
+// but its quest isn't offered yet), then the Deadmines at 26, on the window too. A dungeon the step's tip already
+// names comes first (the guide's own "run Wailing Caverns instead").
+#[test]
+fn the_dungeon_line_is_faction_correct_and_prefers_the_dungeon_the_steps_tip_names() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		local function at(n, side, note) local p = DT.GrindPick(n, side, nil, note) return p and p.key or false end
+		local horde = {{ at(17, "H"), at(20, "H"), at(26, "H") }}
+		-- The pick-up plan reads the character: an Alliance one for the Alliance's picks.
+		uistub.player.race, uistub.player.faction = "Human", "Alliance"
+		emit({{ horde = horde, alliance = {{ at(17, "A"), at(20, "A"), at(26, "A") }},
+			named = at(20, "A", "Short of 21? Or, with a group, run Wailing Caverns instead.") }})
+		uistub.player.level = 26
+		grindGuide("t/alliance", {{ faction = "Alliance" }})
+		show("t/alliance")
+		emit({{ alliance = said() }})"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "horde": ["wailing-caverns", "wailing-caverns", false], "alliance": ["wailing-caverns", "wailing-caverns", "deadmines"], "named": "wailing-caverns" })
+	);
+	assert_eq!(out[1], json!({ "alliance": "Or run The Deadmines (17–26) with a group: 1 quest to pick up first." }));
+}
+
+// Worked out when the step changes, not at each repaint: fifty repaints of the card (kills, a timed quest's clock)
+// read the dungeon list once and ask the pick-up plan once; the cached answer costs no memory; the line has no
+// OnUpdate. A level-up works it out again.
+#[test]
+fn the_dungeon_line_is_worked_out_once_per_step_and_level_not_at_each_repaint() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		grindGuide("t/grind")
+		local Dg = Polestar.Dungeons
+		local list, plan = Dg.List, Dg.PickupPlan
+		local n = {{ list = 0, plan = 0 }}
+		Dg.List = function(...) n.list = n.list + 1 return list(...) end
+		Dg.PickupPlan = function(...) n.plan = n.plan + 1 return plan(...) end
+		show("t/grind")
+		local first = {{ list = n.list, plan = n.plan, line = said() }}
+		for _ = 1, 50 do GF.Update(); GF.Refill() end
+		stub.advance(5)
+		local after = {{ list = n.list, plan = n.plan }}
+		local E = Polestar.Engine
+		local v, g = E.GetStepView(1), E.GetGuide()
+		DT.GrindLine(g, v, v.goals[2])
+		collectgarbage("collect")
+		local k0 = collectgarbage("count")
+		for _ = 1, 10000 do DT.GrindLine(g, v, v.goals[2]) end
+		local kib = collectgarbage("count") - k0
+		uistub.player.level = 21
+		stub.fire("PLAYER_LEVEL_UP", 21)
+		emit({{ first = first, after = after, kib = kib < 1, onUpdate = dungeonLine():GetScript("OnUpdate") ~= nil, levelUp = n.list }})"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "first": { "list": 1, "plan": 1, "line": WC_LINE }, "after": { "list": 1, "plan": 1 }, "kib": true, "onUpdate": false, "levelUp": 2 })
+	);
+}
+
+// Quests first, then the nearest givers (Fitz: "where quests start outside, prefer the dungeon whose quest givers are
+// nearest"): with quests to pick up for both Wailing Caverns and the Deadmines (plans written here, givers on one
+// continent), the Alliance 22 grinding at the origin gets the one whose nearest giver is closer, whichever that is;
+// one without quests comes after any with them, however near.
+#[test]
+fn of_the_dungeons_with_quests_the_line_prefers_the_one_whose_quest_givers_are_nearest_the_grind() {
+	let out = run(&format!(
+		r#"{GRIND}
+		Polestar.Codex.Load()
+		uistub.player.race, uistub.player.faction = "Human", "Alliance"
+		Polestar.Compat.MapToWorld = function(map, x, y) return 1, x, y end
+		local givers = {{}}
+		Polestar.Dungeons.PickupPlan = function(key)
+			local take = {{}}
+			for _, g in ipairs(givers[key] or {{}}) do take[#take + 1] = {{ giver = {{ map = 1440, x = g[1], y = g[2] }} }} end
+			return {{ take = take }}
+		end
+		local spot = {{ map = 1440, x = 0, y = 0 }}
+		local function at() local p = DT.GrindPick(22, "A", spot, nil) return p and (p.key .. ":" .. p.take) or false end
+		local out = {{}}
+		givers = {{ ["wailing-caverns"] = {{ {{ 50, 50 }}, {{ 40, 40 }} }}, deadmines = {{ {{ 10, 10 }} }} }}
+		out.deadminesNearer = at()
+		givers = {{ ["wailing-caverns"] = {{ {{ 50, 50 }}, {{ 3, 4 }} }}, deadmines = {{ {{ 10, 10 }} }} }}
+		out.cavernsNearer = at()
+		givers = {{ ["wailing-caverns"] = {{ {{ 80, 80 }} }}, deadmines = {{}} }}
+		out.onlyQuests = at()
+		emit(out)"#
+	));
+	assert_eq!(out[0], json!({ "deadminesNearer": "deadmines:1", "cavernsNearer": "wailing-caverns:2", "onlyQuests": "wailing-caverns:1" }));
+}

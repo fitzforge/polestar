@@ -17,7 +17,7 @@ local ok, err = ns.RegisterOptions({
 		{ kind = "toggle", key = "dungeons.enabled", label = ENCOUNTER_JOURNAL or L["Dungeons"],
 			help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
 		{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], child = true, disabled = function() return not ns.Get("dungeons.enabled") end,
-			help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] },
+			help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab. On a step that grinds to a level, a line under it names a dungeon at your level and its quests."] },
 	},
 })
 if not ok and geterrorhandler then geterrorhandler()(err) end
