@@ -66,6 +66,10 @@ local outleveled = {} -- guideId -> true, GUIDE_OUTLEVELED once per session
 
 local Engine = {}
 ns.Engine = Engine
+-- Levels past a guide's top (its `levels` max for the player's side) at which
+-- the guide window calls it outgrown (GUIDE_OUTLEVELED): most players run a
+-- little ahead of the route, so 2 past the top is still the guide's ground.
+Engine.OUTGROWN = 3
 
 -- The player's own word: goal skips, the current goal, header arrival, the
 -- saved view, state carried over pack updates. One table (Lua 5.1 caps a
@@ -4181,13 +4185,12 @@ function Own.catchUp(anchor, level)
 	return out
 end
 
--- In a guide the character is past (2 levels over its top, as the
--- out-levelled banner counts), going back is a detour: every grey or green
--- accept not taken yet is left out, unless at least CHAIN_WORTH quests from
--- yellow up need it, down the chain (The Tower of Althalaxx at 30: five
--- grey and green quests in Darkshore lead to four at 28 and 31 in
--- Ashenvale, so the chain stays). A quest in the log by the same rules,
--- kept once it only has to be handed in.
+-- In a guide the character is past (2 levels over its top), going back is a
+-- detour: every grey or green accept not taken yet is left out, unless at
+-- least CHAIN_WORTH quests from yellow up need it, down the chain (The Tower
+-- of Althalaxx at 30: five grey and green quests in Darkshore lead to four
+-- at 28 and 31 in Ashenvale, so the chain stays). A quest in the log by the
+-- same rules, kept once it only has to be handed in.
 Own.CHAIN_WORTH = 3
 function Own.catchUpPast(level)
 	local C = Compat()
@@ -9094,11 +9097,11 @@ local function evaluate()
 	Own.watchHearth()
 	Own.watchWait()
 	Own.progressQueue() -- a progress count that waited for this evaluation
-	-- Out-levelled: once per guide per session; for a guide the catch-up may
+	-- Out-levelled (Engine.OUTGROWN past the top): once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
 	local _, top = Guides.Levels(guide, player.faction)
-	if guide and top and (player.level or 1) >= top + 2 and not outleveled[guide.id] and not mayPass then
+	if guide and top and (player.level or 1) >= top + Engine.OUTGROWN and not outleveled[guide.id] and not mayPass then
 		outleveled[guide.id] = true
 		local suggested = Guides.Suggest()
 		-- The next guide instead of the level-best one while the guides between
