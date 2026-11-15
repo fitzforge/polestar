@@ -132,6 +132,20 @@
 		],
 		"note": "Children's Week: starts with Orphan Matron Battlewail (npc 14451) and ends with Orcish Orphan (npc 14444); as its giver the merged data also listed Ambassador Berrybuck (npc 271); as its ender the merged data also listed Ambassador Berrybuck (npc 271)."
 	},
+	"236": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#2148: a level 27 Dwarf Warrior at Watcher Dodds (888) in Duskwood saw Awaiting Word on the map but was not offered it"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans, the 9 full builds 1.60.1.70170 to 70450: 236 has no data, while Eight-Legged Menaces (245), from the same Watcher Dodds, is in all of them"
+			}
+		],
+		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: no live scan has it, QuestieDB's Forever store does not list it (only pfQuest does), and Wowhead's Forever database has no quest 236. The quest leaves the data, so the map stops marking Watcher Dodds with it."
+	},
 	"287": {
 		"set": {
 			"objectives": [
