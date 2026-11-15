@@ -366,6 +366,8 @@ step Cook Torka
 
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps.
+  collect 275716 quest 96822.2 @57.4,56.4
+  collect 275713 quest 96822.1 @59.4,56.4
   collect 275717 quest 96822.3 @56.6,53.0
   kill 3128 quest 784.1
   kill 3129 quest 784.2
@@ -380,12 +382,10 @@ step Level 7
   level 7 grind 3128               -- grind on Kul Tiras Sailor
 
 step Lieutenant Benedict
-  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope. The last of the raiders' gear lies below the keep on the way out.
+  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
   kill 3192 quest 784.3
   collect 4881 @59.3,57.6
   accept 830
-  collect 275713 quest 96822.1 @59.4,56.4
-  collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
   turnin 96822                        -- Turroc

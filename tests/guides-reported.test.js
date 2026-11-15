@@ -255,15 +255,6 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Sarkoth after the 
 	assert.ok(sarkoth < at(list, 'turnin 790 (Hana\'zua)', is('turnin', 790)), 'Hana\'zua takes the claw after Sarkoth');
 });
 
-// --- Durotar (level tidy 0.4.0): with the top-up to 7 before Lieutenant Benedict, For Honor's axe and bow at the foot
-// of the keep are picked up after him, on the way out to Razor Hill.
-for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the raiders' axe and bow after Lieutenant Benedict`, { skip }, () => {
-	const list = goals(DUROTAR);
-	const benedict = at(list, 'Lieutenant Benedict (784.3)', (g) => g.t === 'kill' && g.quest === 784 && g.oi === 3);
-	for (const oi of [1, 2]) assert.ok(benedict < at(list, `For Honor ${oi}`, (g) => g.t === 'collect' && g.quest === 96822 && g.oi === oi), `96822.${oi} after Benedict`);
-	assert.ok(at(list, 'level 7', (g) => g.t === 'level' && g.level === 7) < benedict, 'the top-up comes before Benedict');
-});
-
 // --- Level tidy 0.4.0: three field steps whose drops also come from higher mobs point at the low camp.
 test('Horde starts: level tidy: Strider Meat, Poison Water and Darkhound goals point at the low camps', { skip }, () => {
 	const near = (g, x, y) => g.x != null && Math.abs(g.x - x) < 0.6 && Math.abs(g.y - y) < 0.6;

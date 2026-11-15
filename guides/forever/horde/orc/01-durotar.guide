@@ -269,6 +269,8 @@ step Tiragarde Keep
   collect 4870 quest 791.1
   kill 3128 quest 784.1
   kill 3129 quest 784.2
+  collect 275713 quest 96822.1 @59.4,56.4
+  collect 275716 quest 96822.2 @57.4,56.4
 
 # Lieutenant Benedict (8) waits for 7: players reached him at 6.6-7.1, and the deaths at the keep
 # were at 6.8-7.7 (level tidy 0.4.0). The sailors around the keep are 5-6.
@@ -279,12 +281,10 @@ step Level 7
   level 7 grind 3128               -- grind on Kul Tiras Sailor
 
 step Lieutenant Benedict
-  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope. The last of the raiders' gear lies below the keep on the way out.
+  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
   kill 3192 quest 784.3               -- Upstairs
   collect 4881 @59.3,57.6             -- Upstairs
   accept 830
-  collect 275713 quest 96822.1 @59.4,56.4
-  collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
   tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
