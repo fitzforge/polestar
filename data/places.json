@@ -2,6 +2,26 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "621-westfall-oats-on-the-sack",
+			"quest": 151,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1436,
+				"x": 56.9,
+				"y": 20.7,
+				"frame": "era"
+			},
+			"note": "Handful of Oats (Poor Old Blanchy, #621, Xaden Ryan): the goal's point (56.8,19.1) stood about 50 yards from the nearest Sack of Oats, so the compiler made it a zone-wide search; it now sits on the Jansen Stead's nearest sack, at 56.92,20.65, beside the farm and Verna's turn-in.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 1528 Handful of Oats: from object 2724 Sack of Oats; objects.json 2724 spawns on map 1436, nearest to the Jansen Stead at 56.92,20.65"
+				}
+			],
+			"issue": 621
+		},
+		{
 			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
 			"quest": 565,
 			"objective": 4,

@@ -315,7 +315,7 @@ step Furlbrow's Wardrobe
   collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
 
 step The Jansen Stead
-  collect 1528 quest 151 @56.8,19.1           -- Sacks of Oats in the fields around the farm
+  collect 1528 quest 151 @56.9,20.7           -- Sacks of Oats in the fields around the farm
   collect 254546 quest 92742.1 @56.6,18.6     -- Fill the vial at the well
   turnin 64                                   -- Farmer Furlbrow
   turnin 151                                  -- Verna Furlbrow
