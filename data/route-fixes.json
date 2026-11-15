@@ -5457,6 +5457,18 @@
 			},
 			{
 				"a": [
+					"turnin",
+					1465
+				],
+				"b": [
+					"accept",
+					1387
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Centaur Bounty and Carved Centaur Totems are taken from Corporal Melkins and Captain Pentigast on 30-40/02's second Nijel's Point stop (Vahlarriel's, before the west), not on arrival: the Kolkar are the guide's last work, so the two ride the log through Sargeron one stop less. The totem quest is level 40 (its Kolkar are 33-36)."
+			},
+			{
+				"a": [
 					"task",
 					3361,
 					1

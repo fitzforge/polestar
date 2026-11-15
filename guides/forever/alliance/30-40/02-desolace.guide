@@ -26,8 +26,6 @@ step Nijel's Point
   turnin 1453                         -- Kreldig Ungor
   accept 1458
   accept 1454                         -- Kreldig Ungor: the wreck's chest lies below Azore's tower, on the way to Thunder Axe Fortress
-  accept 1387                         -- Corporal Melkins
-  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
   accept 1437                         -- Vahlarriel Demonslayer
 
 step Malem chest
@@ -54,6 +52,8 @@ step Nijel's Point
   turnin 1465
   accept 1438
   accept 97284                        -- Vahlarriel Demonslayer: the Burning Blade in Thunder Axe Fortress, where her search leads
+  accept 1387                         -- Corporal Melkins: the Kolkar are at the end of this guide
+  accept 93224                        -- Captain Pentigast, beside Corporal Melkins
 
 # ---------------------------------------------------------------- Thunder Axe Fortress
 
