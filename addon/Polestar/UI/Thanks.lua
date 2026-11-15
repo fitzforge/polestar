@@ -113,7 +113,9 @@ function T.HeaderLink(f)
 		-- The close button may have moved (the hub's details pane): the
 		-- scale control follows it first.
 		if tools then tools.Place() end
-		if tools and tools:IsShown() then
+		-- A scale on a line of its own (W.HeaderScale: the hub's narrowed
+		-- header in the game's looks) is not beside this one.
+		if tools and tools:IsShown() and not rawget(tools, "psOwnLine") then
 			b:SetPoint("RIGHT", tools, "LEFT", -16, 0)
 		elseif close and close:IsShown() and close:GetParent() == f.Header then
 			b:SetPoint("RIGHT", close, "LEFT", -10, 0)

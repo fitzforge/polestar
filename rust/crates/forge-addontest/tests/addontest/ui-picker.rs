@@ -1065,3 +1065,77 @@ fn every_rail_label_shows_on_the_hub_s_first_show_and_on_the_way_back_from_optio
 		}
 	}
 }
+
+// Reported in Latin American Spanish with the WoW Forever look: beside the details pane the header is 488 wide,
+// and "Agradecimiento especial a: <name>" with "Escala de los menús" left of it stood on one line over the title
+// "Todas las guías"; the "Recientes" tab ran under the faction filter. The game's looks have no close button of
+// their own, so the scale stays in that header: there it takes a line of its own under the thanks line, which
+// keeps the header's corner, and the title ends short of the scale. Tabs that would reach the filter give up
+// padding, then the filter too. The hub on Browse in `skin`: where the two stand, how far the title's text and
+// the tabs reach, where the filter starts.
+fn header_fit(skin: &str, before: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: before.into(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: format!(
+			"uistub.install()\nstub.login()\nlocal UI, P = Polestar.UI, Polestar.UI.Picker\nPolestar.Set(\"ui.skin\", \"{skin}\")\n{}",
+			r#"
+		Polestar.Credits = { supporters = { "Sample Supporter" }, contributors = {}, bugReporters = {} }
+		UI.ShowPicker()
+		P.SetView("browse")
+		local win, W = PolestarPicker, Polestar.Widgets
+		local mid = win:GetWidth() - win.Rail:GetWidth() - win.Sidebar:GetWidth() - 2 - P.details:GetWidth()
+		local scale, thanks = win.HeaderTools, win.ThanksLink
+		local function at(f)
+			local p, rel, rp, x, y = f:GetPoint(1)
+			return { p, rel == win.Header and "header" or rel == scale and "scale" or "other", rp, x, y }
+		end
+		local function x(f) return (select(4, f:GetPoint(1))) end
+		local tabsEnd, filterStart, laidOut = 0, mid, true
+		for _, t in ipairs(win.tabButtons) do
+			if t:IsShown() then
+				tabsEnd = math.max(tabsEnd, x(t) + t:GetWidth())
+				laidOut = laidOut and t:GetWidth() == math.floor(W.TextWidth(t.Label) + 40 + 0.5)
+			end
+		end
+		for _, b in ipairs(win.factionButtons) do filterStart = math.min(filterStart, mid + x(b) - b:GetWidth()) end
+		local _, onto, _, tx, ty = win.Title:GetPoint(2)
+		emit({
+			mid = mid, title = W.TextWidth(win.Title), cut = win.Title:IsTruncated(), titleEnd = { onto == scale, tx, ty },
+			scale = { shown = scale:IsShown(), at = at(scale) }, scaleWidth = scale:GetWidth(),
+			thanks = { shown = thanks:IsShown(), at = at(thanks) }, thanksHeight = thanks:GetHeight(),
+			tabsEnd = tabsEnd, filterStart = filterStart, laidOut = laidOut,
+		})"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn in_the_game_s_looks_the_header_s_scale_takes_a_line_under_the_thanks_line_and_the_tabs_end_before_the_faction_filter_in_every_locale() {
+	for locale in ["enUS", "deDE", "esES", "esMX", "frFR", "koKR", "ptBR", "ruRU", "zhCN", "zhTW"] {
+		let before = if locale == "enUS" { String::new() } else { format!("function GetLocale() return \"{locale}\" end\n{}", forge_addontest::shipped_strings(locale)) };
+		let looks: &[&str] = if locale == "enUS" || locale == "esMX" { &["forever", "blizzard", "classic"] } else { &["forever"] };
+		for &skin in looks {
+			let out = header_fit(skin, &before);
+			let n = |key: &str| out[key].as_f64().unwrap();
+			// The thanks line keeps the header's top right corner (the game's looks take Hearth's sizes: a 28
+			// pad); the scale has the next line down, under the thanks line's foot.
+			assert_eq!(out["thanks"], json!({ "shown": true, "at": ["RIGHT", "header", "TOPRIGHT", -28, -26] }), "{locale} {skin}: the thanks line");
+			assert_eq!(out["scale"], json!({ "shown": true, "at": ["TOPRIGHT", "header", "TOPRIGHT", -28, -40] }), "{locale} {skin}: the scale");
+			assert!(26.0 + n("thanksHeight") / 2.0 <= 40.0, "{locale} {skin}: the thanks line ends above the scale");
+			// The title, still 32 from the top, ends 16 short of the scale, and its text fits there.
+			assert_eq!(out["titleEnd"], json!([true, -16, 8]), "{locale} {skin}: the title's right edge");
+			assert_eq!(out["cut"], false, "{locale} {skin}: the title is cut short");
+			assert!(28.0 + n("title") + 16.0 <= n("mid") - 28.0 - n("scaleWidth"), "{locale} {skin}: the title's text reaches the scale");
+			// The tabs end before the faction filter. A row that fits is left as W.ShellTabs laid it out
+			// (English: every tab 40 past its label); one that did not has given up padding.
+			assert!(n("tabsEnd") <= n("filterStart"), "{locale} {skin}: the tabs end at {} and the filter starts at {}", out["tabsEnd"], out["filterStart"]);
+			if locale == "enUS" || locale == "esMX" {
+				assert_eq!(out["laidOut"], locale == "enUS", "{locale} {skin}: the tabs as they were laid out");
+			}
+		}
+	}
+}

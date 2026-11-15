@@ -23,7 +23,8 @@
 -- category). On Browse without a search a header folds its guides away and
 -- back (click, or A on a gamepad; its count stays), kept account-wide in
 -- ui.pickerCollapsed; opening the menu unfolds the open guide's folder. The faction filter sits at the
--- right of the tab row. The header says what the list holds ("Horde · 65
+-- right of the tab row; tabs that would run under it give up padding, then
+-- the filter too (P.FitTabRow). The header says what the list holds ("Horde · 65
 -- guides · 1 open", or the search's result count). The list runs to the
 -- window's bottom.
 -- Right: the selected guide's details: its zone's art from the client (the
@@ -1623,6 +1624,69 @@ local function paintSegments(filter)
 	end
 end
 
+-- The tabs (left) and the faction filter (right) share the tab row. With
+-- wide tabs (the game's looks: 40 past the label) and longer words than
+-- English (esMX "Recientes", "Alianza", "Todas") the last tab ran under the
+-- filter. When the tabs reach the filter, the two are set 12 apart: the tabs
+-- first come down to the house tab's 24 of padding, then tabs and filter
+-- give up padding alike (never under 16 and 10). Run after W.ShellTabs,
+-- which lays the tabs out anew each time; the filter's buttons are measured
+-- anew here (a new font too). A row that fits is left as it was laid out.
+function P.FitTabRow()
+	local TAB_GAP, SEG_GAP, SEG_PAD, BETWEEN = 4, 2, 20, 12
+	local edge = SH.pad - 12
+	local tabs, segs = {}, {}
+	-- How far the tabs run into the filter (under 0: the room between them).
+	local over = -(MID_W - 2 * edge)
+	for _, t in ipairs(win.tabButtons) do
+		if t:IsShown() then
+			local lw = t.Label:GetStringWidth()
+			tabs[#tabs + 1] = { b = t, lw = lw, pad = max(0, t:GetWidth() - lw), low = 16 }
+			over = over + t:GetWidth() + (#tabs > 1 and TAB_GAP or 0)
+		end
+	end
+	for i, b in ipairs(segButtons) do
+		local lw = b.Label:GetStringWidth()
+		segs[i] = { b = b, lw = lw, pad = SEG_PAD, low = 10 }
+		over = over + lw + SEG_PAD + (i > 1 and SEG_GAP or 0)
+	end
+	if #tabs > 0 and over > 0 then
+		over = over + BETWEEN
+		-- `list` gives up to `over` of its padding, none of its buttons
+		-- going under `low` (each its own without one).
+		local function give(list, low)
+			local room = 0
+			for _, e in ipairs(list) do room = room + max(0, e.pad - (low or e.low)) end
+			if room <= 0 then return end
+			local share = min(1, over / room)
+			for _, e in ipairs(list) do e.pad = e.pad - max(0, e.pad - (low or e.low)) * share end
+			over = over - room * share
+		end
+		give(tabs, 24)
+		if over > 0.5 then
+			local both = {}
+			for _, e in ipairs(tabs) do both[#both + 1] = e end
+			for _, e in ipairs(segs) do both[#both + 1] = e end
+			give(both)
+		end
+		local x = edge
+		for _, e in ipairs(tabs) do
+			e.b:SetWidth(floor(e.lw + e.pad + 0.5))
+			e.b:ClearAllPoints()
+			e.b:SetPoint("BOTTOMLEFT", win.TabRow, "BOTTOMLEFT", x, 0)
+			x = x + e.b:GetWidth() + TAB_GAP
+		end
+	end
+	local x = -edge
+	for i = #segs, 1, -1 do
+		local e = segs[i]
+		e.b:SetWidth(floor(e.lw + e.pad + 0.5))
+		e.b:ClearAllPoints()
+		e.b:SetPoint("RIGHT", win.TabRow, "RIGHT", x, 0)
+		x = x - e.b:GetWidth() - SEG_GAP
+	end
+end
+
 ---------------------------------------------------------------------------
 -- The hub (docs/SUITE.md "UI"): sections on a rail at the window's left
 -- (icon over label, from the 152 line down; Options at the rail's foot).
@@ -1823,6 +1887,7 @@ function P.Render()
 	for i, v in ipairs(VIEWS) do tabsList[i] = { key = v, label = VIEW_LABEL[v] } end
 	W.ShellTabs(win, tabsList, view, function(key) P.SetView(key) end)
 	paintSegments(filter)
+	P.FitTabRow()
 
 	local byId = headersById()
 	local tabs, active = tabsInfo()
