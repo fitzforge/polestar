@@ -258,6 +258,9 @@ const GLYPHS = {
 	resize: union(line(20, 9, 9, 20, 1.8), line(20, 15, 15, 20, 1.8)),
 	compact: union(line(5, 8, 19, 8, 2.4), line(5, 12, 19, 12, 2.4), line(5, 16, 13, 16, 2.4)),
 	reset: union(arc(12, 12.5, 7.2, -150, 160, 2.4), poly([[2.2, 4.4], [9.4, 6.2], [4.4, 11.4]])),
+	// New to the player (the settings' rows and sidebar): a ring, so it
+	// differs from the changed dot in shape as well as colour.
+	ring: ring(12, 12, 9, 6),
 	circle: (x, y) => Math.hypot(x - SIZE / 2, y - SIZE / 2) - (SIZE / 2 - 1),
 	// Options pages and shell controls.
 	window: subtract(box(12, 12, 9.4, 8.4, 2), union(box(12, 13.9, 7.2, 4.3, 0.6), dot(6.6, 6.4, 0.9), dot(9.4, 6.4, 0.9))),

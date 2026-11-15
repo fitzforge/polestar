@@ -2545,7 +2545,6 @@ L["Manual check-offs and skips, current guide, from your last quest progress on.
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "%s에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "현재 가이드에서 마지막 퀘스트 진행 지점부터 직접 체크한 항목과 건너뛴 단계가 지워집니다. 완료한 퀘스트는 그대로 완료 상태이며, 가이드는 그 퀘스트들이 가리키는 위치에 그대로 남습니다."
 L["Points to the current goal. Its look and colours are on the Arrow page."] = "현재 목표를 가리킵니다. 모양과 색은 화살표 페이지에 있습니다."
-L["New"] = "새 기능"
 L["Reset this section?"] = "이 항목을 초기화할까요?"
 L["Reset section"] = "항목 초기화"
 L["%d settings in %s go back to their defaults."] = "설정 %d개가 기본값으로 돌아갑니다 (%s)."
@@ -4804,6 +4803,13 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["New"] = "새 기능"
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "가이드 창은 던전과 전장에서 숨겨집니다. %s 설정 > 가이드 > 창에서 바꿀 수 있습니다."
+-- L["In dungeons"] = "던전 안에서"
+-- L["Upcoming steps"] = "이후 단계"
+-- L["Bar at the bottom"] = "하단에 막대 표시"
+-- L["Maximum height"] = "최대 높이"
+-- L["What it shows"] = "표시 내용"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
 -- L["Guide with Shortest Path Forever when it's installed"] = "설치 시 Shortest Path Forever로 가이드"

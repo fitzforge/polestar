@@ -3671,7 +3671,8 @@ end
 -- folded), a choice that folds or opens it (onSelect(key)); rows with
 -- `indent` sit under it, their glyph 12px further in. A row's `new` (a
 -- number) is an accent chip at its right edge, `changed` a 6px accent dot
--- (settings off their default there) before that.
+-- (settings off their default there) before that; `new = true` (new
+-- settings, no count) a 6px accent ring in that dot's place instead.
 --
 -- The rows live in their own scroll area, from 12px under the search down
 -- to the line of the main column's footer bar (SHELL.footer from the
@@ -3716,7 +3717,9 @@ local function navRow(b, item, on)
 	local edge = b.Dot:IsShown() and 6 or new and b.New:GetWidth() - 4 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) or 0
 	b.Changed:ClearAllPoints()
 	b.Changed:SetPoint("RIGHT", b, "RIGHT", -(pad + (edge > 0 and edge + 8 or 0)), 0)
-	b.Changed:SetShown(item.changed and not item.group and true or false)
+	local ring = item.new == true
+	b.Changed:SetTexture(Theme.Media(ring and "ring" or "circle"))
+	b.Changed:SetShown((ring or item.changed) and not item.group and true or false)
 	b.Chevron:SetShown(item.group and true or false)
 	b.Selected:SetShown(on)
 	b.Bar:SetShown(on)

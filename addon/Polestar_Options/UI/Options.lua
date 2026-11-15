@@ -1080,8 +1080,8 @@ end)
 
 ---------------------------------------------------------------------------
 -- New settings. A control's `new` (the release it came in: "0.3.8") puts a
--- New badge on its row, and its page's row in the sidebar counts them until
--- the page is opened. PolestarDB.optionsSeen[page key] holds the newest
+-- quiet accent ring in its row's gutter, and one on its page's row in the
+-- sidebar (no count) until the page is opened. PolestarDB.optionsSeen[page key] holds the newest
 -- release whose settings the player has seen on that page (account-wide,
 -- not a setting), and ["*"] the newest seen on every page: a fresh install's
 -- (core's UI/OptionsLoader.lua marks it true, the window's first opening
@@ -1152,7 +1152,7 @@ end
 -- Rows and sections (DESIGN.md "The Row Rule", "Body"). A section is a card
 -- across the body: a 36px header (its title; at the right, right to left,
 -- its on/off (the spec's `toggle`), Reset while a setting in it is off its
--- default, a New pill while it holds new settings) over rows of 36px, each
+-- default) over rows of 36px, each
 -- two halves split by a hairline (one half below HALVES_MIN, `wide` and
 -- picture cards across both). A half is a setting's label and control, its
 -- `extras` inline before the control and its `more` behind a cog; its help is
@@ -1533,6 +1533,13 @@ local function rowOf(view, c)
 	local bare = c.kind == "cards" and not view.psSearch and labelOf(c) == c.section
 	W.CompactRow(w, { tip = tipOf(c, view.psSearch), info = c.info, extras = extras, cog = cog or move,
 		height = view.psRowH, bare = bare })
+	-- New to the player: a 6px accent ring in the label's gutter, the changed
+	-- mark's place (markSections shows the one that applies).
+	if rowIsNew(c) and rawget(w, "ModDot") then
+		w.NewRing = W.Tex(w, "ARTWORK", "ring", "accent")
+		w.NewRing:SetSize(6, 6)
+		w.NewRing:SetPoint("CENTER", w.ModDot, "CENTER", 0, 0)
+	end
 	-- The pointer on the row, an extra or the cog: the tab's preview lights
 	-- the parts that setting changes and may show the part it draws
 	-- (f:Focus(key), optional); off them, the lights go out.
@@ -1617,7 +1624,7 @@ local function layoutRows(view, controls, top, x, width, whole)
 end
 
 -- Header widgets, right to left from the 16 edge: the toggle, Move, More,
--- Reset, New.
+-- Reset.
 local function placeHeader(card)
 	local x = 16
 	local function put(f)
@@ -1630,7 +1637,6 @@ local function placeHeader(card)
 	if card.Move:IsShown() then put(card.Move) end
 	if card.More:IsShown() then put(card.More) end
 	if card.Reset:IsShown() then put(card.Reset) end
-	if card.New:IsShown() then put(card.New) end
 end
 
 -- Open a page's tab with a section of it scrolled under the top of the body
@@ -1704,9 +1710,6 @@ local function cardOf(view, n)
 	-- A gamepad moves row to row: Y resets a row, the footer's Reset page the page.
 	card.Reset.psPadSkip = true
 	card.Reset:Hide()
-	card.New = W.Chip(card.Header)
-	W.SetChip(card.New, L["New"], "accent")
-	card.New:Hide()
 	card.More = moreLink(card)
 	-- The section's Move (its `move`): the frame the section sets.
 	card.Move = W.Button(card.Header, L["Move"], function()
@@ -1746,8 +1749,13 @@ local function columnsOf(card)
 	return c
 end
 
--- Show each card's Reset and New, and each cog's dot, as the settings stand.
+-- Show each card's Reset, each cog's dot and each row's new ring (none on a
+-- row off its default: its reset stands there), as the settings stand.
 local function markSections(view)
+	for _, w in pairs(view.cache or {}) do
+		local ring = rawget(w, "NewRing")
+		if ring then ring:SetShown(not rawget(w, "psModified")) end
+	end
 	for _, card in ipairs(view.cards or {}) do
 		if card:IsShown() and card.psSettings then
 			card.Reset:SetShown(card.psHeader and modifiedCount(card.psSettings) > 0)
@@ -1808,14 +1816,6 @@ local function layoutSections(view, groups, y, opts)
 		card.Rule:SetShown(header)
 		card.RowsTop = header and W.CARD_HEADER + 1 or 0
 		card.psToggle = t and toggleOf(view, t, card) or nil
-		-- The lead tab (Essentials) shows no New: its rows stand for settings
-		-- whose homes carry it.
-		local lead = s and s.psTab and s.psTab.lead
-		local new = false
-		if not lead then
-			for _, x in ipairs(g.settings or {}) do if rowIsNew(x) then new = true end end
-		end
-		card.New:SetShown(header and new)
 		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
 		card.Move:SetShown(header and not view.psSearch and s ~= nil and s.move ~= nil and ns.Movers ~= nil and ns.Movers.Unlock ~= nil)
 		if card.Move:IsShown() then card.Move:Refresh() end
@@ -3202,9 +3202,11 @@ local function navItems()
 			for _, p in ipairs(list) do
 				-- A folded group still shows the page on screen.
 				if not fold or p == current then
-					local n = pageNew(p)
+					-- One quiet mark a page: a ring while it holds settings new to the player, else a dot while one is off
+					-- its default; no count.
+					local new = pageNew(p) > 0
 					items[#items + 1] = { key = p.key, label = p.name, icon = p.icon, indent = true, dot = p.dot and p.dot() or nil,
-						new = n > 0 and n or nil, changed = pageChanged(p) or nil }
+						new = new or nil, changed = not new and pageChanged(p) or nil }
 				end
 			end
 		end
@@ -4150,7 +4152,7 @@ local function refreshMarks()
 	local items = navItems()
 	local sig = {}
 	for i, it in ipairs(items) do
-		sig[i] = (it.key or "") .. (it.changed and "*" or "") .. (it.new or "") .. (it.dot and "!" or "") .. (it.folded and "-" or "")
+		sig[i] = (it.key or "") .. (it.changed and "*" or "") .. (it.new and "+" or "") .. (it.dot and "!" or "") .. (it.folded and "-" or "")
 	end
 	sig = table.concat(sig, "|")
 	if sig ~= navSig then

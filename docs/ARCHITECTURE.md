@@ -8548,7 +8548,7 @@ Polestar.RegisterOptions({
   controls = {
     { kind = "toggle",   key = "qol.mapObjectives", label = "Objectives", help = "One line: the tooltip.",
       search = "map pins, icons, markers",                              -- optional: English words players may search with
-      new = "0.3.7",                                                    -- optional: the release it came in (the section's New pill)
+      new = "0.3.7",                                                    -- optional: the release it came in (a ring in the row's gutter)
       info = true,                                                      -- optional: an (i) after the label (1-2 a page at most)
       move = "launcher" },                                              -- optional: a Move on the row for that frame (below)
     { kind = "slider",   key = "qol.markerScale", label = "Size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
@@ -8586,8 +8586,7 @@ Polestar.RegisterOptions({
 **Layout** (DESIGN.md "The Row Rule"). A section is a card across the body:
 a 36px header with its title (heading) and, at the right, its `toggle` (a switch), a
 Reset link while one of its settings is off its default (more than three ask
-first, `O.ResetSection`) and a New pill while it holds settings new to the
-player. A reset can be taken back once: a row's right-click (every kit row
+first, `O.ResetSection`). A reset can be taken back once: a row's right-click (every kit row
 resets through `W.ResetSetting(path, get?, set?)`, which hands what it held to
 the listener `W.OnReset` installs), a section's Reset and Reset page keep what
 the settings held as stored, and a chip in the footer (in the thanks line's
@@ -8652,7 +8651,7 @@ the home control with that key (label, help, range, choices, extras,
 disabled, needs), found on first use (`O.HomeOf`; on its own page first),
 and keeps its own `page`, `tab`, `section`, `more`, `new`, `child` and every
 `ps*` field; fields given beside `ref` win (a shorter label). A reference
-with no home is not shown. Search, New pills and `O.AllControls()` count
+with no home is not shown. Search, new rings and `O.AllControls()` count
 homes only (`O.References()` lists the references); a reference's tooltip
 ends with its home's path, and over a whole page `O.Controls` maps a key to
 its home row. An Essentials section's `jump = { tab, section }` puts a
@@ -8744,14 +8743,16 @@ one setting through `W.ResetSetting` (so the footer's Undo offers it back), and 
 at its default. It is no gamepad stop of its own (`psPadSkip`): the gamepad's reset (Y) on the row does
 the same.
 
-**New settings.** A setting's `new` puts a New pill in its section's header
-(nothing on the row: its gutter is the changed dot's or the reset's), and its page's sidebar row counts the
-page's new settings until the page is opened:
+**New settings.** A setting's `new` puts a 6px accent ring in its row's
+gutter while the row is at its default (off it, the reset stands there), and
+its page's sidebar row carries one ring, no count, until the page is opened (a
+page with nothing new carries the changed dot instead, while one of its
+settings is off its default; never both):
 `PolestarDB.optionsSeen[page key]` keeps the newest `new` release seen there
 (account-wide, not a setting, so profiles and resets leave it). A fresh install
 sees nothing new: core's `UI/OptionsLoader.lua` starts its record as
 `{ ["*"] = true }`, and the window's first opening takes that as the newest
-`new` release among its settings, seen on every page. The pills keep
+`new` release among its settings, seen on every page. The rows' rings keep
 through the session the page is first opened in (they read the seen state as
 it was when the window first opened), and go the next.
 

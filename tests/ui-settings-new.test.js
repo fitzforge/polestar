@@ -1,8 +1,8 @@
 'use strict';
-// The settings window's New badges (addon/Polestar_Options/UI/Options.lua,
+// The settings window's new marks (addon/Polestar_Options/UI/Options.lua,
 // the seen record seeded by addon/Polestar/UI/OptionsLoader.lua): a setting
-// tagged with the release it came in counts on its page's row until the page
-// is opened. A fresh install has every setting there is from the start, so
+// tagged with the release it came in carries a ring on its row, and its page
+// one on its sidebar row until the page is opened. A fresh install has every setting there is from the start, so
 // nothing is new to it; an account from an older version still sees the
 // settings that came after it. Against the real addon's modules and the fakes
 // of tests/lua/stub_ui.lua.
@@ -51,4 +51,34 @@ test('an account from an older version still sees the settings that came after i
 	assert.ok(upgrade.new > 0, `the settings added since the version it had count as new (${upgrade.new})`);
 	const seenOld = newCounts('PolestarDB = { settings = {}, optionsSeen = { arrow = "0.3.8" } }');
 	assert.ok(seenOld.new > 0, 'a seen record from an older release keeps the newer settings new');
+});
+
+test('a new setting is a quiet ring on its row, its page one ring in the sidebar: no count, no pill', () => {
+	const out = runAddon({
+		stubs: ['stub_ui.lua'],
+		saved: { Polestar: 'PolestarDB = { settings = {} }' },
+		addons: [{ name: 'Polestar', files: ALL }],
+		script: `Polestar.UI.LoadOptions()
+			uistub.install()
+			stub.login()
+			local O = Polestar.UI.Options
+			Polestar.UI.ShowOptions("guide")
+			local function navRow(key)
+				for _, b in ipairs(PolestarOptions.navButtons) do if b:IsShown() and b.psKey == key then return b end end
+			end
+			local b = navRow("guidewindow")
+			local side = { count = b.New:IsShown(), mark = b.Changed:IsShown() and tostring(b.Changed:GetTexture()):match("[^\\\\/]+$") or false }
+			O.Select("guidewindow", Polestar.L["Window"])
+			local rows = O.Controls("guidewindow", Polestar.L["Window"])
+			local function ring(key) local r = rawget(rows[key], "NewRing") return r ~= nil and r:IsShown() end
+			local pill = false
+			for _, card in ipairs(O.view.cards) do if rawget(card, "New") and card.New:IsShown() then pill = true end end
+			emit({ side = side, padding = ring("guideWindow.padding"), scale = ring("ui.scale"), pill = pill,
+				opened = navRow("guidewindow").Changed:IsShown() and tostring(navRow("guidewindow").Changed:GetTexture()):match("[^\\\\/]+$") or false })`,
+	}).emitted[0];
+	assert.deepEqual(out.side, { count: false, mark: 'ring' }, 'the page\'s sidebar row: one ring, no count');
+	assert.equal(out.padding, true, 'a setting new since the account\'s version: a ring on its row');
+	assert.equal(out.scale, false, 'an older one: none');
+	assert.equal(out.pill, false, 'no New pill on the sections');
+	assert.equal(out.opened, false, 'opened, the page\'s ring goes');
 });
