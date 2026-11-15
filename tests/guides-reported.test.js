@@ -246,6 +246,51 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the southern Echo 
 	assert.ok(list[gate].goal.grind === 3121, 'the top-up is on the Durotar Tigers (7-8)');
 });
 
+// --- Durotar (level tidy 0.4.0): Sarkoth (4) was met at 2.6; he comes after the Vile Familiars, on the walk back to the Den.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Sarkoth after the Vile Familiars`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const sarkoth = at(list, "Sarkoth's Mangled Claw", (g) => g.t === 'collect' && g.quest === 790);
+	assert.ok(at(list, 'the Vile Familiars (792)', (g) => g.t === 'kill' && g.quest === 792) < sarkoth, 'the familiars come first');
+	assert.ok(at(list, 'the scorpid tails (789)', (g) => g.t === 'collect' && g.quest === 789) < sarkoth, 'the scorpid slope comes first');
+	assert.ok(sarkoth < at(list, 'turnin 790 (Hana\'zua)', is('turnin', 790)), 'Hana\'zua takes the claw after Sarkoth');
+});
+
+// --- Durotar (level tidy 0.4.0): with the top-up to 7 before Lieutenant Benedict, For Honor's axe and bow at the foot
+// of the keep are picked up after him, on the way out to Razor Hill.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the raiders' axe and bow after Lieutenant Benedict`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const benedict = at(list, 'Lieutenant Benedict (784.3)', (g) => g.t === 'kill' && g.quest === 784 && g.oi === 3);
+	for (const oi of [1, 2]) assert.ok(benedict < at(list, `For Honor ${oi}`, (g) => g.t === 'collect' && g.quest === 96822 && g.oi === oi), `96822.${oi} after Benedict`);
+	assert.ok(at(list, 'level 7', (g) => g.t === 'level' && g.level === 7) < benedict, 'the top-up comes before Benedict');
+});
+
+// --- Level tidy 0.4.0: three field steps whose drops also come from higher mobs point at the low camp.
+test('Horde starts: level tidy: Strider Meat, Poison Water and Darkhound goals point at the low camps', { skip }, () => {
+	const near = (g, x, y) => g.x != null && Math.abs(g.x - x) < 0.6 && Math.abs(g.y - y) < 0.6;
+	const cases = [
+		['forever/horde/skyborne/01-zephras-isle.guide', 92553, 2, 38.6, 43.6],
+		[MULGORE, 748, 2, 50.2, 67.0],
+		[MULGORE, 766, 3, 50.2, 67.0],
+		[MULGORE, 766, 1, 49.8, 65.3],
+		[MULGORE, 771, 2, 48.7, 64.5],
+		[TIRISFAL, 367, 1, 51.1, 50.5],
+		[TIRISFAL, 97558, 2, 51.1, 50.5],
+	];
+	for (const [guide, q, oi, x, y] of cases) {
+		const list = goals(guide);
+		const { goal } = list[at(list, `${q}.${oi}`, (g) => g.t === 'collect' && g.quest === q && g.oi === oi)];
+		assert.ok(near(goal, x, y), `${q}.${oi} points at ${x},${y} (got ${goal.x},${goal.y})`);
+	}
+});
+
+// --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye's poster stands beside Executor Zygand: read with his hand-in.
+test(`${TIRISFAL}: level tidy: Maggot Eye's poster with Executor Zygand on the last Brill stop`, { skip }, () => {
+	const list = goals(TIRISFAL);
+	const poster = at(list, 'accept 398', is('accept', 398));
+	assert.ok(poster < at(list, 'turnin 492 (the cellar)', is('turnin', 492)), 'the poster before the inn cellar');
+	assert.ok(poster < at(list, 'turnin 99142 (Holland)', is('turnin', 99142)), 'the poster before Holland on the way out');
+});
+
 // --- Durotar (level tidy 0.4.0): Fizzle Darkstorm (12) was fought in one step with the lizards at 10-11, before Misha.
 // The lizards, Rezlak and Misha come first, then Fizzle's camp just north of Misha's hut.
 for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Fizzle Darkstorm after the lizards, Rezlak and Misha`, { skip }, () => {

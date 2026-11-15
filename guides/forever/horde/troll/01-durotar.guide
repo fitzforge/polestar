@@ -69,15 +69,20 @@ step Hana'zua
 # Den for 5441 and 792 (c17 01-durotar:211-227, judge dup-trip).
 step Valley of Trials: kill these as you meet them
   zone Durotar
-  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
+  tip The Scorpid Workers roam the slope south of Hana'zua; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   collect 4862 quest 789.1
   collect 11583 quest 4402.1
-  collect 4905 quest 790.1
-  turnin 790
-  accept 804
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
+
+# Sarkoth (4) comes after the Vile Familiars: players met him at 2.6, two levels under him; after the
+# familiars they are 3 or more (level tidy 0.4.0). His slope is on the way back south to the Den.
+step Sarkoth
+  tip Sarkoth, a large scorpid (level 4), prowls the slope south of Hana'zua, on the way back to the Den.
+  collect 4905 quest 790.1
+  turnin 790                          -- Hana'zua
+  accept 804
 
 step Galgar
   tip Galgar stands just outside the Den's entrance.
@@ -277,8 +282,6 @@ step Tiragarde Keep
   collect 4870 quest 791.1
   kill 3128 quest 784.1
   kill 3129 quest 784.2
-  collect 275713 quest 96822.1 @59.4,56.4
-  collect 275716 quest 96822.2 @57.4,56.4
 
 # Lieutenant Benedict (8) waits for 7: players reached him at 6.6-7.1, and the deaths at the keep
 # were at 6.8-7.7 (level tidy 0.4.0). The sailors around the keep are 5-6.
@@ -289,10 +292,12 @@ step Level 7
   level 7 grind 3128               -- grind on Kul Tiras Sailor
 
 step Lieutenant Benedict
-  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
+  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope. The last of the raiders' gear lies below the keep on the way out.
   kill 3192 quest 784.3               -- Upstairs
   collect 4881 @59.3,57.6             -- Upstairs
   accept 830
+  collect 275713 quest 96822.1 @59.4,56.4
+  collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
   tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.

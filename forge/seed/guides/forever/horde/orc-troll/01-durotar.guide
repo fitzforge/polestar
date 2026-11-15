@@ -182,11 +182,21 @@ step Hana'zua
 # the Den hand-ins). Lazy Peons (5441) needs level 3: it is taken on the Den
 # return after the loop, not with Galgar's quest on the first visit (at 2.6 a
 # level-2 player was held at Foreman Thazz'ril, c19r).
-step Sarkoth
-  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
-  collect 4905 quest 790.1
+step Scorpids and cactus apples
+  tip The Scorpid Workers roam the slope south of Hana'zua; pick the Cactus Apples by the cactuses on the way.
   collect 4862 quest 789.1
   collect 11583 quest 4402.1
+
+step North end of the valley
+  tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
+  kill 3101 quest 792.1 only !Warlock
+  collect 6487 quest 1485.1 only Warlock
+
+# Sarkoth (4) comes after the Vile Familiars: players met him at 2.6, two levels under him; after the
+# familiars they are 3 or more (level tidy 0.4.0). His slope is on the way back south to the Den.
+step Sarkoth
+  tip Sarkoth, a large scorpid (level 4), prowls the slope south of Hana'zua, on the way back to the Den.
+  collect 4905 quest 790.1
 
 step Hana'zua
   turnin 790
@@ -198,11 +208,6 @@ step Galgar
   turnin 804                          -- Gornek
   turnin 789                          -- Gornek
   turnin 4402                         -- Galgar
-
-step North end of the valley
-  tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
-  kill 3101 quest 792.1 only !Warlock
-  collect 6487 quest 1485.1 only Warlock
 
 step Back at the Den
   turnin 792 only !Warlock            -- Zureetha Fargaze
@@ -361,8 +366,6 @@ step Cook Torka
 
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps.
-  collect 275716 quest 96822.2 @57.4,56.4
-  collect 275713 quest 96822.1 @59.4,56.4
   collect 275717 quest 96822.3 @56.6,53.0
   kill 3128 quest 784.1
   kill 3129 quest 784.2
@@ -377,10 +380,12 @@ step Level 7
   level 7 grind 3128               -- grind on Kul Tiras Sailor
 
 step Lieutenant Benedict
-  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
+  tip Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope. The last of the raiders' gear lies below the keep on the way out.
   kill 3192 quest 784.3
   collect 4881 @59.3,57.6
   accept 830
+  collect 275713 quest 96822.1 @59.4,56.4
+  collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
   turnin 96822                        -- Turroc

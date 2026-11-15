@@ -340,8 +340,8 @@ step Cold Hearth Manor: kill these as you meet them
   zone Tirisfal Glades
   tip Rotting Dead and Ravaged Corpses shamble through the fields just west of Brill; Decrepit Darkhounds roam there and on west along the road toward Gordo. Johaan wants their blood, Shelene their hides.
   collect 2855 quest 404.1
-  collect 2858 quest 367.1
-  collect 278243 quest 97558.2
+  collect 2858 quest 367.1 @51.1,50.5
+  collect 278243 quest 97558.2 @51.1,50.5
 
 step Bowen Brisboise
   when onquest 97961
@@ -570,10 +570,10 @@ step Brill
   accept 492
   accept 445                          -- Apothecary Johaan: for Renferrel at the Sepulcher
   turnin 371                          -- Executor Zygand
+  accept 398                          -- The Wanted poster beside Zygand
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
-  accept 398                          -- The Wanted poster by the inn
 
 # Maggot Eye (11) waits for this last Brill stop, at about 11.5: on the 7-8 north loop he was 3-4
 # levels up (level tidy 0.4.0). Garren's Haunt is a short way north on the walk west to Leonid.
