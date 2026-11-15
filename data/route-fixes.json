@@ -12067,14 +12067,14 @@
 			{
 				"a": [
 					"turnin",
-					354
+					371
 				],
 				"b": [
-					"task",
-					370
+					"accept",
+					354
 				],
-				"why": "#1046: as the pair before it, Deaths in the Family (and Speak with Sevren, which it opens) before the Scarlet camp",
-				"source": "#1046"
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): Deaths in the Family (11) sends you at Nissa, Gregor and Thurman Agamand (10) in Agamand Mills, which the route visited at 9 (players' 25th percentile 9.3-9.5). Coleman Farthing gives it on the last Brill stop after the Balnir Farmstead (about 11.5) and the three Agamands are fought on the walk west to Leonid, which passes the mills; Coleman and Magistrate Sevren (Speak with Sevren) take it on the final Brill stop. This replaces #1046's pair that handed it in before the Scarlet camp; The Haunted Mills and The Mills Overrun stay on the first Agamand Mills visit"
 			},
 			{
 				"a": [

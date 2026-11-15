@@ -299,7 +299,6 @@ step Coleman Farthing and Gretchen Dedmar
   when level>=7
   tip Still in the inn: from level 7 Coleman Farthing on the ground floor and Gretchen Dedmar upstairs offer their quests; below 7 they wait for the next Brill visit.
   accept 362                          -- Coleman Farthing, in the inn
-  accept 354
   accept 375                          -- Gretchen Dedmar, upstairs
 
 step Deathguard Linnea's camp
@@ -378,7 +377,6 @@ step Brill
   accept 374                          -- Deathguard Burgess
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
   accept 362                          -- Coleman Farthing, in the inn
-  accept 354
   accept 375                          -- Gretchen Dedmar, upstairs
   train class
 
@@ -443,14 +441,11 @@ step Magistrate Sevren
 # ---------------------------------------------------------------- Agamand Mills
 
 step Agamand Mills
-  tip Follow the road north-west to Agamand Mills. Devlin Agamand walks the graveyard south of the mills; Nissa, Gregor and Thurman Agamand haunt the mills themselves. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop A Letter to Yvette.
-  tip Careful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds.
+  tip Follow the road north-west to Agamand Mills. Devlin Agamand walks the graveyard south of the mills. Rattlecage and Cracked Skull Soldiers drop the ribs, Darkeye Bonecasters the skulls, and any of them may drop A Letter to Yvette. Nissa, Gregor and Thurman Agamand (10) in the mills wait for the walk west at the end.
+  tip Careful: Rotting undead and Darkeye Bonecasters near Devlin can join a fight as adds.
   collect 2831 quest 362.1            -- Devlin Agamand
   collect 3162 quest 426.1
   collect 3163 quest 426.2
-  collect 2828 quest 354.2            -- Nissa Agamand; upstairs
-  collect 2830 quest 354.3            -- Thurman Agamand
-  collect 2829 quest 354.1            -- Gregor Agamand
   collect 2839 optional               -- A Letter to Yvette, a rare drop
   accept 361 optional                 -- Only if the letter dropped
 
@@ -459,13 +454,10 @@ step Brill
   turnin 426                          -- Deathguard Dillinger
   accept 1819 only Warrior            -- Deathguard Dillinger
   turnin 362                          -- Coleman Farthing, in the inn
-  turnin 354
-  accept 355
   turnin 361 optional                 -- Yvette Farthing, in the inn
   accept 1881 only Mage               -- Cain Firesong: Anastasia Hartwell in the Undercity takes it
   accept 1478 only Warlock            -- Ageron Kargal: Carendin Halgar in the Undercity takes it
   train class
-  turnin 355                          -- Magistrate Sevren, in the town hall
   accept 96895                        -- Deathguard Terrence, if you were below 10 on the last Brill visit
 
 # ---------------------------------------------------------------- Class errands
@@ -561,6 +553,7 @@ step Brill
   turnin 371                          -- Executor Zygand
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
+  accept 354                          -- Coleman Farthing, in the inn
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
   accept 398                          -- The Wanted poster by the inn
 
@@ -571,10 +564,19 @@ step Maggot Eye
   tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
   collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
 
+# Deaths in the Family (11): Nissa, Gregor and Thurman Agamand (10) are fought on the walk west, at about
+# 11.5, not on the first Agamand Mills visit at 9 (level tidy 0.4.0). Coleman takes it on the last Brill stop.
+step Agamand Mills
+  tip West to Agamand Mills on the way to the Whispering Forest: Nissa, Gregor and Thurman Agamand haunt the mills.
+  tip Careful: Rotting undead and Darkeye Bonecasters near the Agamands can join a fight as adds.
+  collect 2828 quest 354.2            -- Nissa Agamand; upstairs
+  collect 2830 quest 354.3            -- Thurman Agamand
+  collect 2829 quest 354.1            -- Gregor Agamand
+
 # ---------------------------------------------------------------- Leonid, then on to the Barrens
 
 step Leonid Barthalomew the Revered
-  tip West from Garren's Haunt past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
+  tip West from Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
@@ -658,4 +660,7 @@ step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
   turnin 398                          -- Executor Zygand, in front of the inn
+  turnin 354                          -- Coleman Farthing, in the inn
+  accept 355
+  turnin 355                          -- Magistrate Sevren, in the town hall
   note The next guide walks south from Brill into Silverpine Forest.
