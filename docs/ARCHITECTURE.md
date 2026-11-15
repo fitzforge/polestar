@@ -8590,8 +8590,7 @@ Reset link while one of its settings is off its default (more than three ask
 first, `O.ResetSection`). A reset can be taken back once: a row's right-click (every kit row
 resets through `W.ResetSetting(path, get?, set?)`, which hands what it held to
 the listener `W.OnReset` installs), a section's Reset and Reset page keep what
-the settings held as stored, and a chip in the footer (in the thanks line's
-place) says what was reset with an Undo (`O.Undo`) for 10 s; a new reset takes
+the settings held as stored, and a chip in the footer says what was reset with an Undo (`O.Undo`) for 10 s; a new reset takes
 its place. Reset page (`O.ResetPage`) puts back every setting a control of the
 page writes, its row on screen or hidden by its `needs` (a section's Reset
 only the rows on screen), and calls `set(nil)` on its rows of state that is no
@@ -9081,7 +9080,8 @@ more of the sidebar lies below a chevron at its foot glides it to the bottom
 another (above, "Layout"). The footer has
 Reset page, Reload UI and Move frames (with `ns.Movers`: unlock mode) on the
 left; Close, the profile in use (with `ns.Profiles`: a menu of the profiles
-and Manage profiles) and "Special thanks to" on the right. Nothing of the
+and Manage profiles) on the right; "Special thanks to" is on About, under
+the credits. Nothing of the
 window is built before it first opens, a page tab only when first shown, and
 nothing runs while it is idle.
 
