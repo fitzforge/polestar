@@ -6793,7 +6793,9 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	// #1415: Selarin offers Trek to Ashenvale with no escort done (recordings: 17 people at 15-22), so it is taken on
 	// 03-darkshore-return's first Auberdine stop and handed to Raene on 06-ashenvale's first Astranaar stop.
 	// (06-wetlands keeps a hand-in to Raene only for a character still carrying it, `when onquest`, Alliance 20-30 audit.)
-	assert.ok(!wet.some(({ step, goal }) => goal.quest === 990 && !(step.when || []).some((p) => p.k === 'onquest' && !p.neg)), 'Trek to Ashenvale is no longer carried to 28');
+	// #1811: a player who missed Selarin there (she comes only for a few minutes) gets her offer again right after their
+	// own escort hand-in to Terenthis; that optional accept is the only other 990 goal before Raene's `when onquest` step.
+	assert.ok(!wet.some(({ step, goal, s }) => goal.quest === 990 && !(step.when || []).some((p) => p.k === 'onquest' && !p.neg) && !(goal.t === 'accept' && goal.optional && wet.some((e) => e.s === s && e.goal.t === 'turnin' && e.goal.quest === 994))), 'Trek to Ashenvale is no longer carried to 28');
 	const dret = goals(DARKSHORE_RETURN);
 	assert.equal(dret[at(dret, 'accept 990', is('accept', 990))].s, 1, 'taken on the first Auberdine stop of 03-darkshore-return');
 	const ash0 = goals(ASHENVALE);
@@ -12950,14 +12952,25 @@ test('A use before the line that collects for a quest is bound to that quest, in
 	assert.deepEqual(bare, []);
 });
 
-// 大地瓜 (#1089): Sentinel Selarin, who gives Trek to Ashenvale in Auberdine, was not beside Terenthis (killed, about to
-// respawn), so the arrow led to an empty spot. The step that takes the quest says she respawns shortly if she isn't there.
-test('Trek to Ashenvale (#1089): the step that takes it from Sentinel Selarin says she respawns if she is not there', { skip }, () => {
+// 大地瓜 (#1089), mrdick47 (#1811), CircusCyaneus (#2413): Sentinel Selarin, who gives Trek to Ashenvale in Auberdine,
+// was not beside Terenthis. She isn't killed and respawning: she stays only a few minutes, after someone hands in
+// Volcor's escort (caltman24 watched her come and leave about 5 minutes later; players' recordings: 19 of 27 players on
+// the 0.3.6+ route left the step without her quest, some after 12-45 minutes, and players who handed in the escort
+// themselves took it within 1-3 minutes). So every step that takes it says she comes and goes, never holds the player
+// (optional), and a second chance follows the player's own hand-in of Escape Through Force (994).
+test('Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort', { skip }, () => {
 	assert.equal(refData().npc(3694).name, 'Sentinel Selarin');
-	const silent = stepsHolding((g) => g.t === 'accept' && g.quest === 990)
-		.filter(({ step, goal }) => !/\brespawns?\b/i.test(notesOf(step, goal)))
-		.map(({ guide, step }) => `${guide} "${step.title}": accept 990 with no word that Selarin respawns`);
-	assert.deepEqual(silent, []);
+	const held = stepsHolding((g) => g.t === 'accept' && g.quest === 990);
+	assert.ok(held.length > 0, 'the route takes Trek to Ashenvale');
+	const bad = held
+		.filter(({ step, goal }) => !goal.optional || !/\b(few minutes|once she comes|comes)\b/i.test(notesOf(step, goal)) || /\brespawns?\b/i.test(notesOf(step, goal)))
+		.map(({ guide, step }) => `${guide} "${step.title}": accept 990 holds the step, or says she respawns, or doesn't say she comes and goes`);
+	assert.deepEqual(bad, []);
+	const afterEscort = held.filter(({ step, goal }) => {
+		const i = step.goals.indexOf(goal);
+		return i > 0 && step.goals[i - 1].t === 'turnin' && step.goals[i - 1].quest === 994;
+	});
+	assert.ok(afterEscort.some(({ guide }) => guide === ASHENVALE), '06-ashenvale offers it right after the escort hand-in to Terenthis');
 });
 
 // #1933: Thundering Hearts (97985) was in no Horde guide. Calder Gray gives it and takes it back in the Undercity's

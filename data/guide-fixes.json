@@ -389,14 +389,70 @@
 		{
 			"id": "1089-auberdine-selarin-respawns",
 			"faction": "Alliance",
-			"at": { "quest": 990, "goal": "accept" },
-			"tip": "From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin stands beside Terenthis by the flight master; if she isn't there, she has been killed and respawns shortly: wait a moment.",
-			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master; the reporter found her missing, then she respawned (#1089). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45, Terenthis's spot), so the tip says to wait instead of moving the point. Since 0.4.0 03-loch-modan's gryphon to Stormwind and boat are skipped by a player who hearths to Auberdine (bound there on the first Darkshore visit), so the tip names the inn as well as the dock.",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/03-darkshore-return" },
+			"tip": "From the dock (or the inn, if you used your Hearthstone), up to the north end of the village first (Thundris Windweaver, Alanndarian Nightsong by the moonwell, Archaeologist Hollee), then down the main street: the WANTED poster outside the inn, Terenthis at its east end, where the road leaves south. Sentinel Selarin (Trek to Ashenvale) is beside Terenthis only for a few minutes at a time: she comes shortly after someone hands in Volcor's escort and leaves again about 5 minutes later. If she isn't there, don't wait: the guide offers her quest again when you hand in Volcor's escort to Terenthis yourself.",
+			"note": "Trek to Ashenvale: Sentinel Selarin (npc 3694) stands beside Terenthis by Auberdine's flight master only for a few minutes at a time. She is not killed and respawning (#1089's first reading): she comes shortly after someone hands in Volcor's escort (Escape Through Force 994 / Stealth 995) and leaves about 5 minutes later (#1811, #2413). So her quest is optional (1811-selarin-optional: the step no longer holds a player while she is away), and the route offers it again right after the player's own escort hand-in (records 1811-selarin-after-escort-*). Her spot is right (players' recordings: 29 people opened her window at 38-40,43-45). Since 0.4.0 03-loch-modan's gryphon to Stormwind and boat are skipped by a player who hearths to Auberdine, so the tip names the inn as well as the dock.",
 			"source": [
-				{ "kind": "in-game-check", "ref": "#1089: missing, then respawned" },
-				{ "kind": "recording", "ref": "npc 3694 windows: 29 people at Darkshore 38-40,43-45" }
+				{ "kind": "in-game-check", "ref": "#1811 (caltman24, 0.3.7.2): standing on her spot, no Selarin; she came a few minutes later and was gone again after about 5 minutes. mrdick47 found her right after finishing the escort, after waiting about 10 minutes on a quiet realm" },
+				{ "kind": "recording", "ref": "03-darkshore-return step 1 on the 0.3.6+ route: 8 of 27 players took 990 there (1-32 minutes after reaching the step), 19 left the step without it (some after 12-45 minutes); 3 players on 0.3.4 who handed in the escort took 990 0.6-2.9 minutes later; npc 3694 windows: 32 people at Darkshore 38-40,43-45" }
 			],
-			"issue": 1089
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-optional",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept" },
+			"optional": true,
+			"note": "Trek to Ashenvale never holds a step: Sentinel Selarin is beside Terenthis only for a few minutes after an escort hand-in (#1811; evidence on 1089-auberdine-selarin-respawns).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#1811 (caltman24, 0.3.7.2): no Selarin on her spot; she came a few minutes later and left after about 5 minutes" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-ashenvale",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-ashenvale" },
+			"follows": { "quest": 994, "goal": "turnin" },
+			"note": "06-ashenvale's Auberdine stop, Volcor's escort (994) to Terenthis: a player who missed Sentinel Selarin on 03-darkshore-return's first Auberdine stop (she is there only for a few minutes after an escort hand-in, #1811) gets her offer right after their own hand-in. Raene Wolfrunner takes it on 06-wetlands' Astranaar stop (`when onquest 990`).",
+			"source": [
+				{ "kind": "recording", "ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later" },
+				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-ashenvale-tip",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-ashenvale" },
+			"tip": "Terenthis stands by the flight master, at the east end of the main street. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in. Then back west to the dock.",
+			"note": "The tip of 06-ashenvale's Terenthis step with Selarin's second offer (1811-selarin-after-escort-ashenvale).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-wetlands",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-wetlands" },
+			"follows": { "quest": 994, "goal": "turnin" },
+			"note": "06-wetlands' Auberdine stop (a player who still carries Volcor's escort hands it in here): Selarin's offer right after the hand-in, as on 06-ashenvale (1811-selarin-after-escort-ashenvale); Raene takes it on the Astranaar stop that follows the flight.",
+			"source": [
+				{ "kind": "recording", "ref": "3 players on 0.3.4 who handed in the escort took 990 from Selarin 0.6-2.9 minutes later" }
+			],
+			"issue": 1811
+		},
+		{
+			"id": "1811-selarin-after-escort-wetlands-tip",
+			"faction": "Alliance",
+			"at": { "quest": 990, "goal": "accept", "guide": "forever/alliance/06-wetlands" },
+			"tip": "Terenthis stands by the flight master. No Trek to Ashenvale yet? Give it a minute after the hand-in: Sentinel Selarin comes to Terenthis's side shortly after Volcor's escort is handed in.",
+			"note": "The tip of 06-wetlands' Auberdine step with Selarin's second offer (1811-selarin-after-escort-wetlands).",
+			"source": [
+				{ "kind": "in-game-check", "ref": "#1811: she arrived after an escort hand-in and left about 5 minutes later" }
+			],
+			"issue": 1811
 		},
 		{
 			"id": "westfall-goretusk-livers-background",
