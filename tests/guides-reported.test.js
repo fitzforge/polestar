@@ -246,6 +246,15 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the southern Echo 
 	assert.ok(list[gate].goal.grind === 3121, 'the top-up is on the Durotar Tigers (7-8)');
 });
 
+// --- Durotar (level tidy 0.4.0): Fizzle Darkstorm (12) was fought in one step with the lizards at 10-11, before Misha.
+// The lizards, Rezlak and Misha come first, then Fizzle's camp just north of Misha's hut.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Fizzle Darkstorm after the lizards, Rezlak and Misha`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const fizzle = at(list, 'Fizzle\'s Eye (806)', (g) => g.t === 'collect' && g.quest === 806);
+	for (const q of [816, 97282]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < fizzle, `${q} is handed in before Fizzle`);
+	assert.notEqual(list[fizzle].s, list[at(list, 'the lizards (97282)', (g) => g.t === 'collect' && g.quest === 97282)].s, 'Fizzle has a step of his own');
+});
+
 // --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
 // 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
 test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {

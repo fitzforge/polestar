@@ -464,12 +464,12 @@ step Rezlak
 step Thunder Ridge: kill these as you meet them
   zone Durotar
   tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, just west and south-west of Rezlak.
-  tip Fizzle holds the Burning Blade camp on Thunder Ridge, north-west of Razor Hill. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.
-  tip Careful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.
   tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 277665 quest 97282.1
-  kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
-  collect 4869 quest 806.1
+
+step Rezlak
+  when onquest 97282
+  turnin 97282
 
 step Misha Tor'kren
   tip Misha's hut stands south of the lizards. The crocolisks along the Southfury River to the west carry Kron's Amulet.
@@ -477,9 +477,14 @@ step Misha Tor'kren
   collect 4891 quest 816.1
   turnin 816
 
-step Rezlak
-  when onquest 97282
-  turnin 97282
+# Fizzle Darkstorm (12) comes after the lizards, Rezlak and Misha, as in the seed order: their quests
+# are handed in first, so his camp is met nearer 11 than 10.
+step Fizzle Darkstorm
+  tip Fizzle holds the Burning Blade camp on Thunder Ridge, just north of Misha's hut. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.
+  tip Careful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.
+  tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
+  kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
+  collect 4869 quest 806.1
 
 step Heglan Shadeeye
   tip Heglan stands on the shore east of Razor Hill. The trident, banner and dagger lie on the beach around him.

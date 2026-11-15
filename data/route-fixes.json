@@ -12279,6 +12279,18 @@
 			{
 				"a": [
 					"turnin",
+					816
+				],
+				"b": [
+					"task",
+					806
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Fizzle Darkstorm (12, his quest 12) and his linked Burning Blade cultists were fought at 10-11 (Troll players' 25th percentile 10.8; 13 deaths there, 6 to a higher mob) in one step with the lizards, before Misha. As in the seed order, the lizards, Rezlak's Stormy Potential and Misha's Lost But Not Forgotten come first, so his camp, just north of Misha's hut, is met with their experience"
+			},
+			{
+				"a": [
+					"turnin",
 					766
 				],
 				"b": [

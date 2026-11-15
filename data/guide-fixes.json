@@ -134,6 +134,17 @@
 			"issue": 1575
 		},
 		{
+			"id": "level-tidy-040-durotar-halikor-lizards",
+			"faction": "Horde",
+			"at": { "quest": 97282, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
+			"note": "Level tidy 0.4.0: the Thunder Ridge lizards (Stormy Potential) are a step of their own again, before Misha, with Fizzle Darkstorm after; Halikor (12, elite) patrols among the lizards, so the warning the Fizzle step carries (1575-durotar-halikor-fizzle) goes on the lizards' step too.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30); 3130 Thunder Lizard 39-41,27-31, 3131 Lightning Hide 39-44,24" }
+			],
+			"issue": 1575
+		},
+		{
 			"id": "1575-durotar-halikor-singed-scale",
 			"faction": "Horde",
 			"at": { "quest": 1498, "goal": "objective", "objective": 1 },
