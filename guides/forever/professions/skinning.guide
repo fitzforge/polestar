@@ -93,18 +93,18 @@ step Beasts 1-10: Zephras Isle (1-50)
   only Skyborne
   zone Zephras Isle
   tip Kill and skin Cloudrunner (6), Galestrider (5), Highlands Ursera (7), Hippogryph Protector (6), Hippogryph Youth (6), Juvenile Vuldren (1), Ornery Galestrider (8), Prideclaw (5), Scrawny Ursera (3), Shadowgale Shriekling (10), Shriekling Fledgling (8), Ursera Scavenger (4), Vuldren (6), Vuldren Alpha (10), Windsong Crawler (8) along the loop until Skinning 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points.
-  goto 39.4,53.6 live "Hippogryph Youth, Prideclaw" r 30
-  goto 35.9,55.8 live "Hippogryph Protector, Hippogryph Youth" r 30
-  goto 45.4,67.6 live "Prideclaw, Galestrider" r 30
-  goto 51.8,79.4 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 55.4,72.6 live "Ornery Galestrider, Vuldren Alpha" r 30
-  goto 58.0,63.8 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 39.2,53.9 live "Hippogryph Youth, Prideclaw" r 30
+  goto 38.4,45.6 live "Prideclaw, Galestrider" r 30
+  goto 42.2,48.4 live "Prideclaw, Vuldren" r 30
+  goto 44.8,39.4 live "Prideclaw, Galestrider" r 30
+  goto 49.0,52.8 live "Prideclaw, Galestrider" r 30
+  goto 45.9,59.9 live "Cloudrunner, Galestrider" r 30
+  goto 49.7,64.6 live "Prideclaw, Galestrider" r 30
   goto 53.1,61.6 live "Prideclaw, Highlands Ursera" r 30
-  goto 45.8,59.2 live "Galestrider, Cloudrunner" r 30
-  goto 49.1,52.7 live "Prideclaw, Galestrider" r 30
-  goto 43.3,48.4 live "Prideclaw, Vuldren" r 30
-  goto 44.1,39.8 live "Prideclaw, Galestrider" r 30
-  goto 39.7,45.6 live "Prideclaw, Galestrider" r 30
+  goto 57.9,63.3 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 55.9,72.3 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 51.5,79.9 live "Ornery Galestrider, Vuldren Alpha" r 30
+  goto 45.6,68.0 live "Prideclaw, Galestrider" r 30
   skill Skinning 50
 
 step Beasts 1-9: Durotar (1-50)
