@@ -21,9 +21,12 @@ next forever/alliance/40-50/02-badlands
 # it before they took My Kingdom for a Horse).
 # Offered only after another quest is handed in (players' recordings): From Seed to Sprout after Unsavory Plant
 # Food; Foal Play after My Kingdom for a Horse; Coyote Huntin' and Wheeler's Fleeing Steeds after Foal Play;
-# Rescue Roundup after Wheeler's Fleeing Steeds; Fit for a Princess after Apple of My Eye; Stepped Out after Fit for
-# a Princess; Song of the Strider after A Feast for Buzzards; A Few Furs for Friz after A Fur Trade; Watcher
-# Cornelius's Rog'mar errands once his first two hunts are handed in.
+# Rescue Roundup after Wheeler's Fleeing Steeds; Song of the Strider after A Feast for Buzzards; A Few Furs for Friz
+# after A Fur Trade; Watcher Cornelius's Rog'mar errands once his first two hunts are handed in. Apple of My Eye
+# (Tessa Dawnbright) and Wound Dressings (Brother Lowley) only once Saving Sunnyglade is handed in, and King of the
+# Wild Plains (Ombassa) only once Song of the Strider is (quest data; every recorded offer came after them). So
+# Farholde Keep gets a stop between Terral's Watch and the port: Ashe's and Brant's Sunnyglade hand-ins, then Tessa's
+# chain, whose Stepped Out opens Innkeeper Zizplink's quests in Powderfuse Port.
 # Elites, each behind a group choice: Snargl (40), Ombassa (41); the WANTED posters for Ghostmaw and Blademaster
 # Kaijo (42) are taken at the end, for part 2's ground.
 # Left out on purpose:
@@ -149,7 +152,6 @@ step Farholde Keep
   getfp "Farholde Keep" npc 257087      -- Gretchen Mayberry, at the western gate
   accept 95943                          -- Bertrand Ironbrow: Foreman's Plight
   accept 95156                          -- Ember Bladewhisper: Stuff 'Em and Stick 'Em
-  accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, which Sunnyglade's cultists and the pirates drop; hand it in on your way back later
   turnin 95148                          -- Demar Brant, in the keep
   accept 94613                          -- My Kingdom for a Horse
   accept 94877                          -- Saving Sunnyglade: for later in this guide
@@ -157,13 +159,6 @@ step Farholde Keep
   accept 94879                          -- Scraps of Knowledge, for later in this guide
   accept 95330                          -- Cassandra Wheeler, by the inn: Love Thy Neighbor, for Turner's Logging Camp later in this guide
   sethome "Farholde Keep" npc 257595   -- Barracks Master Harlan, at the inn
-
-step Tessa Dawnbright
-  tip Tessa Dawnbright stands west of the inn, by the orchard: the apples hang on the trees around it.
-  accept 95561                          -- Apple of My Eye
-  collect 271431 x6 quest 95561.1       -- Fresh Apple
-  turnin 95561
-  accept 95913                          -- Fit for a Princess
 
 step The cathedral
   tip Sister Rowland keeps the old cathedral at the south-west corner of Farholde Keep. The bats roost in its upper floor; Marla Bell hands out the holy candles beside it; the graves are in the chapel graveyard.
@@ -195,7 +190,6 @@ step Benjy Wheeler
 
 step The coyote den
   tip The coyotes den in the hills south of the farm: Sootfur, the big dark one, sits at the back of it; the Plains Coyotes around it drop the pelts.
-  collect 271432 x3 quest 95913.1       -- Coyote Pelt
   collect 265738 quest 94617.1          -- Sootfur's Pelt
 
 step The lost horse
@@ -217,21 +211,12 @@ step Terral's Watch
   accept 94924                          -- Hunting the Hunters
   accept 94925                          -- A Fur Trade
 
-step King of the Wild Plains
-  when group 95986
-  tip Ombassa, an elite lion (level 41), prowls the plains north of the tower: grouping up is advised.
-  accept 95986                          -- Watcher Cornelius
-
 step The plains
   tip The Rog'mar Poachers hunt the plains north of the tower; the Wildplains lions roam among them. A picked carcass lies in the grass east of the tower: its skull starts A Feast for Buzzards.
   tip Careful: Ghostmaw, an elite (level 42), hunts along the river west of the plains: keep an eye on the riverbank.
   accept 95983                          -- Picked Carcass: A Feast for Buzzards
   kill 259052 x12 quest 94924.1 @58.0,59.0  -- Rog'mar Poacher
   collect 266888 x8 quest 94925.1       -- Prized Lion Hide
-
-step Ombassa
-  when group 95986
-  collect 281052 quest 95986.1 @59.6,53.6  -- Ombassa's Hide
 
 step Terral's Watch
   turnin 94924                          -- Watcher Cornelius
@@ -242,17 +227,11 @@ step Terral's Watch
   accept 95064                          -- Preventative Measures: for later, at the Horde's training grounds north of Rog'mar
   accept 95426                          -- Rog'mar Supplies: for later, the same training grounds
 
-step Watcher Cornelius
-  when onquest 95986
-  turnin 95986
-
 step Farholde Keep
   tip South back to Farholde Keep.
   turnin 95156                          -- Ember Bladewhisper
   turnin 95943                          -- Bertrand Ironbrow
   accept 96009                          -- High Stakes: for Turner's Logging Camp later in this guide
-  turnin 95913                          -- Tessa Dawnbright
-  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port, keep it
 
 step WANTED: Ghostmaw
   when group 95991
@@ -296,7 +275,7 @@ step Sunnyglade
 
 step The Twilight cult
   tip The cultists fill the streets and fields of Sunnyglade. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.
-  tip Keep the Mageweave Cloth they drop if you took Brother Lowley's Wound Dressings. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
+  tip Keep the Mageweave Cloth they drop: Brother Lowley in Farholde Keep asks for twenty when you are back there. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
   tip Careful: Chogg'Zac, an elite ogre (level 41), walks the western streets of Sunnyglade, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.
   tip Ghostmaw, the river's elite (level 42), can wander up from the south-western fields: let him pass.
   kill 261711 x5 quest 95643.1 @47.7,50.6  -- Empowered Brute
@@ -367,8 +346,42 @@ step Terral's Watch
   accept 95066                          -- The Rog'mar Situation: for Demar Brant in Farholde Keep, keep it
   accept 96125                          -- In Need of Relief: for Dunston Willis in Bolder'ok, keep it
 
+step Farholde Keep
+  tip South across the plains to Farholde Keep: Ashe Amberhall and Demar Brant stand together in the keep at the east end, Ashe first, her news is what Brant's next orders wait on. With Sunnyglade saved, Tessa Dawnbright by the orchard and Brother Lowley by the barracks have work for you too.
+  turnin 94881                          -- Ashe Amberhall
+  turnin 94879
+  accept 94907                          -- A Small Favor: for later in this guide
+  turnin 94877                          -- Demar Brant
+  turnin 95066
+  accept 94886                          -- The Western Front: for later in this guide
+  accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, from Sunnyglade's cultists and the pirates; hand it in when you are back
+
+step Tessa Dawnbright
+  tip Tessa Dawnbright stands west of the inn, by the orchard: the apples hang on the trees around it.
+  accept 95561                          -- Apple of My Eye
+  collect 271431 x6 quest 95561.1       -- Fresh Apple
+  turnin 95561
+  accept 95913                          -- Fit for a Princess
+
+step Coyote pelts
+  tip The Plains Coyotes roam west and south-west of the keep, towards Wheeler's Grange.
+  collect 271432 x3 quest 95913.1       -- Coyote Pelt
+
+step Tessa Dawnbright
+  turnin 95913
+  accept 95961                          -- Stepped Out: for Gray Dawnbright in Powderfuse Port, keep it
+
+step King of the Wild Plains
+  when group 95986
+  tip Ombassa, an elite lion (level 41), prowls the plains north of Terral's Watch, on your way back north: grouping up is advised.
+  accept 95986                          -- Watcher Cornelius
+
+step Ombassa
+  when group 95986
+  collect 281052 quest 95986.1 @59.6,53.6  -- Ombassa's Hide
+
 step Sleebo Fizzlespout
-  tip Back north-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
+  tip North-east to Sleebo's workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.
   turnin 96063
   accept 96067                          -- Rock 'em and Sock 'em
   complete 96067 @68.2,48.6             -- the stress test: beat G45-B4G beside the workshop
@@ -539,15 +552,9 @@ step The meadows
   collect 271823 x20 quest 95975.1      -- Wildflower
 
 step Farholde Keep
-  tip South-west across the plains to Farholde Keep. Ashe Amberhall and Demar Brant stand together in the keep at the east end: Ashe first, her news is what Brant's next orders wait on.
-  turnin 94881                          -- Ashe Amberhall
-  turnin 94879
-  accept 94907                          -- A Small Favor: for later in this guide
+  tip South-west across the plains to Farholde Keep: Demar Brant in the keep at the east end.
   turnin 95059                          -- Demar Brant
-  turnin 94877
-  turnin 95066
   accept 95329                          -- Out in the Field: for Watcher Cornelius at Terral's Watch
-  accept 94886                          -- The Western Front: for later in this guide
 
 step Demar Brant
   when onquest 94885
@@ -619,6 +626,10 @@ step Terral's Watch
   turnin 94927                          -- Watcher Cornelius: Dunston Checks Out
   turnin 95329                          -- Out in the Field
 
+step Watcher Cornelius
+  when onquest 95986
+  turnin 95986
+
 step Turner's Logging Camp
   tip West across the river to Turner's Logging Camp: the Peasant Woodpiles around the camp give the wood bundles.
   tip Careful: Ghostmaw, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass.
@@ -667,8 +678,10 @@ step Bring Me His Head
   turnin 94890
   accept 94891                          -- News to Farholde: for Ashe Amberhall
 
-step Hearth to Farholde Keep
-  hearth "Farholde Keep"
+step Back to Farholde Keep
+  tip Your hearthstone is bound at Farholde Keep's inn: use it, or ride back south to the keep.
+  zone Riverglades
+  goto 63.0,83.0 "Farholde Keep"
 
 step Farholde Keep
   tip From the inn: Bertrand Ironbrow on the way in, then Demar Brant and Ashe Amberhall in the keep.

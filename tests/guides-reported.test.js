@@ -7307,7 +7307,7 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding t
 	const jartsam = stepOf('Jartsam', train(4753));
 	assert.ok(jartsam < stepOf('turnin 1477', is('turnin', 1477)), 'Night Elves ride from the first Stormwind stop, before Darkshire');
 	assert.ok(jartsam > stepOf('turnin 1271', is('turnin', 1271)), 'after the Stormwind stop');
-	for (const npc of [4772, 7954]) assert.ok(stepOf(`riding trainer ${npc}`, train(npc)) < stepOf('turnin 733', is('turnin', 733)), `riding ${npc} before the Badlands`);
+	for (const npc of [4772, 7954]) assert.ok(list.some(({ goal }) => train(npc)(goal)), `riding ${npc} on this guide, before the Riverglades and the Badlands`);
 	const last = stepOf('turnin 609', is('turnin', 609));
 	const sw = list.find(({ goal, s }) => s > last && goal.t === 'fly' && /Stormwind/.test(goal.location || ''));
 	const gotoBefore = list.filter(({ s, goal }) => s === sw.s && goal.t === 'goto')[0];
@@ -7919,13 +7919,17 @@ const HORDE_VOLUME = {
 	'forever/horde/50-60/06-silithus.guide': [5234, 5235, 5236, 5238], // the Bulwark cauldrons to Mission Accomplished!
 };
 
-// The guide and every guide its `next` leads to, in order.
+// The guide and every guide its `next` leads to, in order. A guide for both factions (forever/40-50/shendralas) goes
+// on to the start's faction's next guide, as the addon does.
 function chainFrom(guide) {
+	const side = (guide.match(/^forever\/(alliance|horde)\//) || [])[1];
 	const out = [];
 	for (let g = guide; g && !out.includes(g); ) {
 		out.push(g);
-		const next = compiled(g).next;
-		g = next ? `${String(Array.isArray(next) ? next[0] : next).replace(/\.guide$/, '')}.guide` : null;
+		const c = compiled(g);
+		const opts = [c.next, ...(c.nextChoices || [])].flat().filter(Boolean).map(String);
+		const next = opts.find((id) => !side || !/^forever\/(alliance|horde)\//.test(id) || id.startsWith(`forever/${side}/`));
+		g = next ? `${next.replace(/\.guide$/, '')}.guide` : null;
 		if (g && !fs.existsSync(path.join(OFFICIAL_DIR, g))) break;
 	}
 	return out;
@@ -9353,8 +9357,9 @@ test('alliance 40-60: final review: travel tips, notes and titles match where th
 	assert.doesNotMatch(supplies.goal.note || '', /Nethergarde/, 'so it is not "for Nethergarde Keep"');
 	const roetten = stv[at(stv, 'turnin 1467', is('turnin', 1467))];
 	assert.doesNotMatch(roetten.step.note || '', /Tram|next guide/, 'the Ironforge stop starts in Ironforge');
-	const sigrun = stv[at(stv, 'turnin 733', is('turnin', 733))];
-	assert.equal(sigrun.s, stv[at(stv, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
+	const badlands = goals('forever/alliance/40-50/02-badlands.guide');
+	const sigrun = badlands[at(badlands, 'turnin 733', is('turnin', 733))];
+	assert.equal(sigrun.s, badlands[at(badlands, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
 	assert.match(sigrun.step.note || '', /Badlands/, 'with the way in');
 	const feralas = goals('forever/alliance/40-50/03-feralas.guide');
 	const last = feralas[at(feralas, 'turnin 4281', is('turnin', 4281))];
@@ -12302,7 +12307,7 @@ test("jaff's report: a quest the route takes is handed in by a goal that holds",
 		assert.ok(t && !t.goal.optional, `${guide}: turnin ${q} is a goal that holds`);
 		assert.ok(!(t.step.when || []).some((p) => p.k === 'group' || (p.k === 'onquest' && !p.neg && ![p.q].flat().includes(q))), `${guide}: turnin ${q} is not behind another quest's or a group's condition`);
 	}
-	const stv = goals(A('40-50/01-stranglethorn-vale')).find(({ goal }) => is('accept', 706)(goal));
+	const stv = goals(A('40-50/02-badlands')).find(({ goal }) => is('accept', 706)(goal));
 	assert.ok(stv && stv.goal.optional, 'accept 706 (Fiery Blaze Enchantments, a rare drop) is optional');
 	for (const file of allGuides().filter((f) => f.startsWith('forever/alliance/'))) {
 		const list = goals(file);
