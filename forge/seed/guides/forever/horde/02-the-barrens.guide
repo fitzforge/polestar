@@ -329,10 +329,10 @@ step Regthar Deathgate
   accept 851                          -- Regthar Deathgate: Verog walks with the Kolkar at the Stagnant Oasis, later
 
 step The Dry Hills
-  tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
+  tip West to the Dry Hills. Any Witchwing harpy drops a talon: keep to the eastern slopes, where the Witchwing Harpies and Roguefeathers (14-15) nest; the Slayers and Windcallers (16-17) hold the western hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
   tip Careful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat.
   collect 5096 quest 903.1
-  collect 5064 quest 867.1
+  collect 5064 quest 867.1 @40.6,16.8
 
 step Samophlange
   tip The Control Console stands at the Venture Co. research site west of the Sludge Fen. Close the three valves around the drill, use the console again, then take the Console Key from Tinkerer Sniggles beside it.
