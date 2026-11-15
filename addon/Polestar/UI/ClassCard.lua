@@ -453,7 +453,7 @@ local function build()
 		TS.Attach("classcard", F, { titles = { F.Title }, bodies = { F.Head, F.Learn, F.Trip, F.Only, F.Accept.Text }, inline = true,
 			relayout = function()
 				if shown then paint(shown.class) end
-				if F:IsShown() and F.psCompact ~= nil then F.Only:SetShown(not (F.psCompact or F.psSlim) and look("note", true) ~= false) end
+				if F:IsShown() and F.psCompact ~= nil then F.Only:SetShown(not (F.psCompact or F.psSlim or F.psOther) and look("note", true) ~= false) end
 				local G2 = GF()
 				if G2 and G2.Layout and G2.frame and G2.frame:IsShown() then G2.Layout() end
 			end })
@@ -553,7 +553,9 @@ function CC.Fill(guide, index, view)
 	for _, part in ipairs({ F.Ring, F.Disc, F.Icon, F.Head, F.Title }) do part:SetShown(not slim) end
 	if slim then F.Learn:Hide(); F.Badge:Hide() end
 	F.Trip:SetShown(not (F.psCompact or slim))
-	F.Only:SetShown(not (F.psCompact or slim) and look("note", true) ~= false)
+	-- Not in another faction's guide (#2462): its banner says Polestar won't guide it, so no "just follow the guide".
+	F.psOther = ns.Guides.OtherFaction ~= nil and ns.Guides.OtherFaction(guide, p) ~= nil
+	F.Only:SetShown(not (F.psCompact or slim or F.psOther) and look("note", true) ~= false)
 	F.Accept:SetShown(fold ~= nil)
 	if fold then
 		local line

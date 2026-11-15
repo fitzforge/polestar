@@ -312,7 +312,10 @@ local OTHER_STARTS = "Leveling/other-starts"
 -- Same-titled guides in one list (#1358: the Dwarf's and the Gnome's "Dun
 -- Morogh (1-12)") say whose they are: their races where those differ, else
 -- their faction ("Zephras Isle (Horde)" beside the Alliance one). A title
--- with another level range needs nothing: the range tells them apart.
+-- with another level range needs nothing: the range tells them apart. A
+-- title that names its own guide's faction ("Defensive Stance and a Weapon
+-- (Alliance)", written for the two sides' twins) says it only when the other
+-- side's twin is in the same list (#2462: the menu lists one side's guides).
 -- list: guide headers -> { [guide] = shown title }
 local function racesOf(g)
 	if type(g.races) ~= "table" or #g.races == 0 then return nil end
@@ -323,16 +326,37 @@ local function racesOf(g)
 	return text
 end
 
+-- g's title without a closing "(<its own faction>)", English or the client's.
+local function baseTitle(g)
+	local t = g.title or g.id or ""
+	if type(g.faction) ~= "string" then return t end
+	for _, f in ipairs({ g.faction, ns.FactionName(g.faction) or g.faction }) do
+		local suffix = " (" .. f .. ")"
+		if #t > #suffix and t:sub(-#suffix) == suffix then return t:sub(1, -#suffix - 1) end
+	end
+	return t
+end
+
 function P.Titles(list)
-	local same = {}
+	local same, base, sides = {}, {}, {}
 	for _, g in ipairs(list) do
-		local k = (g.title or g.id or "") .. "\0" .. (g.minLevel or "") .. "-" .. (g.maxLevel or "")
+		base[g] = baseTitle(g)
+		local b = sides[base[g]] or {}
+		sides[base[g]] = b
+		b[g.faction or ""] = true
+		local k = base[g] .. "\0" .. (g.minLevel or "") .. "-" .. (g.maxLevel or "")
 		local s = same[k]
 		if not s then
 			s = {}
 			same[k] = s
 		end
 		s[#s + 1] = g
+	end
+	-- A twin whose other side is listed too keeps its whole title, whatever its range.
+	for _, g in ipairs(list) do
+		local n = 0
+		for _ in pairs(sides[base[g]]) do n = n + 1 end
+		if n > 1 and base[g] ~= (g.title or g.id or "") then base[g] = g.title or g.id end
 	end
 	local out = {}
 	for _, s in pairs(same) do
@@ -349,7 +373,8 @@ function P.Titles(list)
 		local byRace, byFaction = count(races) == #s, count(factions) == #s
 		for _, g in ipairs(s) do
 			local q = #s > 1 and ((byRace and racesOf(g)) or (byFaction and g.faction and ns.FactionName(g.faction))) or nil
-			out[g] = q and string.format(L["%s (%s)"], g.title or g.id, q) or (g.title or g.id)
+			if q and base[g] == (g.title or g.id) and base[g] ~= baseTitle(g) then q = nil end
+			out[g] = q and string.format(L["%s (%s)"], base[g], q) or base[g]
 		end
 	end
 	return out
@@ -1393,7 +1418,8 @@ local function renderDetails(byId, tabs, active)
 	local fav = P.IsFavorite(g.id)
 	W.SetIconState(d.Star, fav)
 	d.Star.psTip = fav and L["Remove from favourites"] or L["Add to favourites"]
-	d.Title:SetText(g.title or g.id)
+	-- Its own faction left out of the title, as on its row (P.Titles): the chips say it.
+	d.Title:SetText(baseTitle(g))
 
 	-- Chips: levels, what a leveling guide is worth in levels, experimental,
 	-- group content, faction, races, classes; on two lines at most.

@@ -45,6 +45,11 @@ function banner()
 	local B = GF.parts.banner
 	return B:IsShown() and B.Text:GetText() or false
 end
+-- The class quest card on the step on screen: shown, and its "Only you see this ... just follow the guide." note.
+function card()
+	local F = Polestar.UI.ClassCard and Polestar.UI.ClassCard.frame
+	return { shown = F ~= nil and F:IsShown(), note = F ~= nil and F:IsShown() and F.Only:IsShown() }
+end
 "#;
 
 fn run(before: &str, script: &str) -> Value {
@@ -126,8 +131,8 @@ fn search_and_lookup_s_curated_guides_never_offer_the_other_faction_s() {
 	assert_eq!(out, json!({ "search": ["forever/class/warrior/fire-hardened-armor"], "horde": false, "alliance": "forever/class/warrior/fire-hardened-armor" }));
 }
 
-// Opened anyway: the banner says whose guide it is and the arrow points nowhere; the character's own side's guide
-// routes as ever.
+// Opened anyway: the banner says whose guide it is, the arrow points nowhere and the class quest card does not say
+// "just follow the guide"; the character's own side's guide routes as ever.
 #[test]
 fn an_other_faction_guide_opened_anyway_says_whose_it_is_and_is_not_routed() {
 	let out = run(
@@ -135,14 +140,41 @@ fn an_other_faction_guide_opened_anyway_says_whose_it_is_and_is_not_routed() {
 		r#"
 		E.SetGuide("forever/class/warrior/brutal-armor"); stub.advance(0.6); GF.Layout()
 		local wp = E.GetWaypoint()
-		local r = { horde = { side = E.OtherFaction("forever/class/warrior/brutal-armor") or false, wp = wp ~= nil, banner = banner() } }
+		local r = { horde = { side = E.OtherFaction("forever/class/warrior/brutal-armor") or false, wp = wp ~= nil, banner = banner(), card = card() } }
 		E.SetGuide("forever/class/warrior/fire-hardened-armor"); stub.advance(0.6); GF.Layout()
-		r.alliance = { side = E.OtherFaction("forever/class/warrior/fire-hardened-armor") or false, wp = E.GetWaypoint() ~= nil, banner = banner() }
+		r.alliance = { side = E.OtherFaction("forever/class/warrior/fire-hardened-armor") or false, wp = E.GetWaypoint() ~= nil, banner = banner(), card = card() }
 		emit(r)"#,
 	);
 	assert_eq!(
 		out["horde"],
-		json!({ "side": "Horde", "wp": false, "banner": "This guide is for Horde characters. Polestar won't guide you through it." })
+		json!({ "side": "Horde", "wp": false, "banner": "This guide is for Horde characters. Polestar won't guide you through it.",
+			"card": { "shown": true, "note": false } })
 	);
-	assert_eq!(out["alliance"], json!({ "side": false, "wp": true, "banner": false }));
+	assert_eq!(out["alliance"], json!({ "side": false, "wp": true, "banner": false, "card": { "shown": true, "note": true } }));
+}
+
+// Two sides' twins written with their faction in the title ("Defensive Stance and a Weapon (Alliance)" and
+// "(Horde)"): the menu lists one, so its row and details drop the suffix; a list holding both keeps it.
+#[test]
+fn a_twin_s_own_faction_suffix_shows_only_beside_the_other_side_s_twin() {
+	let out = run(
+		"",
+		r#"
+		armor("forever/class/warrior/haggards-weapons", "Defensive Stance and a Weapon (Alliance)", "Alliance", 1433, 30, 40, 1679, 6978)
+		armor("forever/class/warrior/heirloom-weapon", "Defensive Stance and a Weapon (Horde)", "Horde", 1413, 45, 58, 1505, 6981)
+		local rows = {}
+		for _, e in ipairs(P.Entries("", "Class")) do if e.kind == "guide" then rows[#rows + 1] = e.title end end
+		table.sort(rows)
+		Polestar.UI.ShowPicker()
+		P.Select("forever/class/warrior/haggards-weapons")
+		local G = Polestar.Guides
+		local both = P.Titles({ G.Get("forever/class/warrior/haggards-weapons"), G.Get("forever/class/warrior/heirloom-weapon") })
+		emit({ rows = rows, details = P.details.Title:GetText(),
+			both = { both[G.Get("forever/class/warrior/haggards-weapons")], both[G.Get("forever/class/warrior/heirloom-weapon")] } })"#,
+	);
+	assert_eq!(
+		out,
+		json!({ "rows": ["Defensive Stance and a Weapon", "Fire Hardened Armor"], "details": "Defensive Stance and a Weapon",
+			"both": ["Defensive Stance and a Weapon (Alliance)", "Defensive Stance and a Weapon (Horde)"] })
+	);
 }
