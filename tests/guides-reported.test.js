@@ -13679,6 +13679,10 @@ test('Alliance level tidy 30-40: no solo quest sends players at mobs two levels 
 	const bad = g('06-badlands');
 	assert.ok(at(bad, 'accept 97617', is('accept', 97617)) < at(bad, 'accept 719', is('accept', 719)), '06: Dorgaron gives Safety Checks at the foot of the pass');
 	assert.ok(!bad.some(({ goal }) => goal.t === 'collect' && goal.item === 278404), "06: no Pristine Mattock among Agmond's End's Shamans and Murdaloc");
+	const badlands2 = goals('forever/alliance/40-50/02-badlands.guide');
+	const mattock = badlands2.findIndex(({ goal }) => goal.t === 'collect' && goal.item === 278404);
+	assert.ok(mattock >= 0 && badlands2[mattock].s === badlands2[at(badlands2, 'kill quest 739', (x) => x.t === 'kill' && x.quest === 739)].s, '40-50/02: the mattock with Murdaloc');
+	assert.ok(mattock < at(badlands2, 'turnin 97617', is('turnin', 97617)), '40-50/02: Dorgaron takes Safety Checks on the ride north');
 	for (const q of [662, 664, 665, 666]) {
 		for (const { step } of arathi.filter(({ goal }) => goal.quest === q)) assert.ok(whenOn(step, 'group', 665), `05: ${q} only on the Faldir's Cove group choice`);
 	}

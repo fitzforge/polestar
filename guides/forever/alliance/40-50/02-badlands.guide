@@ -11,6 +11,8 @@ next forever/40-50/shendralas
 # into this file.
 # Added here: Rhapsody's Kalimdor Kocktail (1452).
 # Opens with Hammertoe's Digsite and Garek, the Badlands stops that ended 40-50/01 before the Riverglades came between.
+# Safety Checks (97617), taken from Dorgaron on 30-40/06's Badlands loop: its Pristine Mattock lies at Agmond's End among
+# the Stonevault Shamans (40-41) beside Murdaloc (42), taken here with him, and Dorgaron takes the quest on the ride north.
 
 step Badlands
   zone Badlands
@@ -30,8 +32,10 @@ step Garek
 
 step Agmond's End
   zone Badlands
+  tip Dorgaron's Pristine Mattock lies in the middle of the Stonevault trogg camp, where Murdaloc walks.
   kill 2945 quest 739                 -- Murdaloc
   kill 2893 quest 739                 -- Stonevault Bonesnapper
+  collect 278404 quest 97617 @49.3,68.3 map 1418 -- Pristine Mattock
 
 step Valley of Fangs
   turnin 705                          -- Rigglefuzz: Blue Pearls from Stranglethorn
@@ -66,6 +70,11 @@ step Lethlor Ravine
 
 step Hammertoe's Digsite
   turnin 706 optional                 -- Sigrun Ironhew
+
+step Dorgaron
+  zone Badlands
+  tip Dorgaron camps at the foot of the pass into Loch Modan, on the way north.
+  turnin 97617                        -- Dorgaron
 
 # ---------------------------------------------------------------- Loch Modan
 
