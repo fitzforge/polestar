@@ -1103,7 +1103,7 @@ fn without_the_codex_pack_an_empty_state_that_says_where_to_get_the_release_leav
 }
 
 #[test]
-fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters() {
+fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_list() {
 	let out = run(r#"
 		stub.cascadeVisibility = true
 		Polestar.Dungeons.Open("wailing-caverns")
@@ -1122,20 +1122,16 @@ fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters()
 		P.SetCategory("All")
 		r.left = visible()
 		r.title = PolestarPicker.Title:GetAlpha()
-		r.filters = {}
-		for _, b in ipairs(PolestarPicker.factionButtons) do
-			b:Click()
-			local selected = Polestar.Get("ui.pickerFaction")
-			local count, valid = 0, true
-			for _, entry in ipairs((P.Entries(selected, "", "All"))) do
-				if entry.kind == "guide" then
-					count = count + 1
-					local f = entry.guide.faction
-					if selected ~= "All" and f and f ~= selected then valid = false end
-				end
+		-- The guide list, back: the character's side only (no faction filter of its own, #2462).
+		local count, valid, mine = 0, true, Polestar.UI.PlayerFaction()
+		for _, entry in ipairs((P.Entries("", "All"))) do
+			if entry.kind == "guide" then
+				count = count + 1
+				local f = entry.guide.faction
+				if f and f ~= mine then valid = false end
 			end
-			r.filters[#r.filters + 1] = { b.psKey, selected, b:IsVisible(), count > 0, valid }
 		end
+		r.guides = { count > 0, valid, PolestarPicker.factionButtons == nil }
 		P.ShowSection("Dungeons")
 		r.returned = visible()
 		P.ShowSection("Guides")
@@ -1149,12 +1145,7 @@ fn leaving_dungeons_removes_its_faction_buttons_and_restores_the_guide_filters()
 	assert_eq!(out["title"], 1, "the dungeon page must not leave the guide heading veiled");
 	assert_eq!(out["returned"], 3);
 	assert_eq!(out["leftAgain"], 0);
-	for filter in out["filters"].as_array().unwrap() {
-		assert_eq!(filter[0], filter[1]);
-		assert_eq!(filter[2], true);
-		assert_eq!(filter[3], true);
-		assert_eq!(filter[4], true);
-	}
+	assert_eq!(out["guides"], json!([true, true, true]));
 }
 
 #[test]

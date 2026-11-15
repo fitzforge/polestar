@@ -1393,7 +1393,7 @@ Polestar.UI.Picker.Select(DREADSTEED)`),
 			{ roots: GUIDE, script: `${NOT_YET_GUIDES}; uistub.openTabs({ { WATER, 1 } }, 1)` },
 			{
 				roots: PICKER,
-				script: pickerScene(`${NOT_YET_GUIDES}; Polestar.Set("ui.pickerFaction", "Horde"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
+				script: pickerScene(`${NOT_YET_GUIDES}; uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
 Polestar.UI.Picker.Select("forever/class/shaman/call-of-earth-horde")`),
 			},
 		],
@@ -1443,7 +1443,7 @@ Polestar.UI.Picker.Select("forever/class/warlock/impsys-request")`),
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`${CLASS_GUIDES}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
+				script: pickerScene(`${CLASS_GUIDES}; uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Class")
 Polestar.UI.Picker.Select("forever/class/warlock/incubus-horde")`),
 			},
 		],
@@ -1495,10 +1495,10 @@ stub.RunScript(d, "OnTextChanged", true)`,
 		file: 'schemes-picker.svg',
 		title: 'The guide menu in Dusk (default), Night, Graphite, and EllesmereUI with its purple accent',
 		panels: [
-			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
-			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "night"); ${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
-			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "graphite"); ${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
-			{ eui: true, roots: PICKER, script: pickerScene(`stub.setAccent(0.6, 0.48, 1); Polestar.Set("ui.scheme", "ellesmere"); ${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "night"); ${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`Polestar.Set("ui.scheme", "graphite"); ${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ eui: true, roots: PICKER, script: pickerScene(`stub.setAccent(0.6, 0.48, 1); Polestar.Set("ui.scheme", "ellesmere"); ${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
 		],
 	},
 	{
@@ -1738,7 +1738,7 @@ end`,
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+				script: pickerScene(`${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/alliance/02-westfall")`),
 			},
 		],
@@ -1754,7 +1754,7 @@ Polestar.UI.Picker.SetCollapsed("Leveling/Alliance/1", true); Polestar.UI.Picker
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`${TABS}; ${SPLIT_STARTS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+				script: pickerScene(`${TABS}; ${SPLIT_STARTS}; uistub.player.race, uistub.player.faction = "Skyborne", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/horde/skyborne/01-zephras-isle")`),
 			},
 		],
@@ -1806,12 +1806,12 @@ Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Favorites"); Polestar.
 		panels: [
 			{
 				roots: PICKER,
-				script: pickerScene(`Polestar.Set("ui.pickerFaction", "Horde"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
+				script: pickerScene(`uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling")
 Polestar.UI.Picker.Select("forever/horde/orc-troll/01-durotar")`),
 			},
 			{
 				roots: PICKER,
-				script: pickerScene(`uistub.openTabs({ { "forever/horde/04-the-barrens", 13 } }, 1); Polestar.Set("ui.pickerFaction", "Horde"); Polestar.UI.ShowPicker()
+				script: pickerScene(`uistub.openTabs({ { "forever/horde/04-the-barrens", 13 } }, 1); uistub.player.race, uistub.player.faction = "Orc", "Horde"; Polestar.UI.ShowPicker()
 Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/horde/04-the-barrens")`),
 			},
 		],
@@ -1820,7 +1820,7 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 		file: 'hub.svg',
 		title: 'The hub: sections on the rail (Guides, Lookup, Dungeons, Rares) with Options at its foot; the sidebar holds the wordmark, the search and the section\'s own index on one edge',
 		panels: [
-			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.Set("ui.pickerFaction", "All"); Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
+			{ roots: PICKER, script: pickerScene(`${TABS}; Polestar.UI.ShowPicker(); Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/alliance/02-westfall")`) },
 			{ codex: true, roots: PICKER, script: lookupScene('Polestar.Lookup.Show("saber")') },
 			{ dungeons: true, roots: PICKER, script: dungeonsScene('Polestar.Dungeons.Open()') },
 		],
