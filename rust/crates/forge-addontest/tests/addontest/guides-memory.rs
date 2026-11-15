@@ -145,10 +145,10 @@ emit({{ resident = resident, peak = peak, read = read, guides = guides, other = 
 	assert!(over.is_empty(), "over budget: {}", over.join(", "));
 }
 
-// The other faction's guides come in when the player asks for them (the guide menu's faction filter,
-// Guides.LoadFaction), and a saved tab of one brings them in at login.
+// The other faction's guides stay out: nothing asks for them (the guide menu lists the character's side only,
+// #2462); only a saved tab of one (from before) brings them in at login, to show whose guide it is.
 #[test]
-fn the_other_faction_s_part_loads_when_asked_for_or_when_a_saved_tab_needs_it() {
+fn the_other_faction_s_part_stays_out_unless_a_saved_tab_needs_it() {
 	let run = |saved: &str, script: &str| {
 		emitted(&RunAddon {
 			stubs: vec!["stub_world.lua", "stub_packs.lua"],
@@ -159,17 +159,12 @@ fn the_other_faction_s_part_loads_when_asked_for_or_when_a_saved_tab_needs_it() 
 			script: script.into(),
 		})
 	};
-	let asked = run(
+	let fresh = run(
 		"nil",
-		r#"local G = Polestar.Guides
-local before = G.Get("forever/alliance/02-westfall") ~= nil
-local fired = 0
-Polestar.On("GUIDES_REGISTERED", function() fired = fired + 1 end)
-local came = G.LoadFaction("Alliance")
-emit({ before = before, came = came, after = G.Get("forever/alliance/02-westfall") ~= nil, fired = fired,
-	again = G.LoadFaction("Alliance"), loads = stub.packLoads.Polestar_Guides_Alliance })"#,
+		r#"emit({ guide = Polestar.Guides.Get("forever/alliance/02-westfall") ~= nil, loads = stub.packLoads.Polestar_Guides_Alliance or 0,
+	loadFaction = Polestar.Guides.LoadFaction ~= nil })"#,
 	);
-	assert_eq!(asked[0], serde_json::json!({ "before": false, "came": true, "after": true, "fired": 1, "again": false, "loads": 1 }));
+	assert_eq!(fresh[0], serde_json::json!({ "guide": false, "loads": 0, "loadFaction": false }));
 	let saved = run(
 		r#"{ schema = 1, tabs = { "forever/alliance/02-westfall" }, activeTab = 1 }"#,
 		r#"emit({ loads = stub.packLoads.Polestar_Guides_Alliance or 0, guide = Polestar.Engine.GetGuide() and Polestar.Engine.GetGuide().id or false })"#,

@@ -94,6 +94,8 @@ mod engine_empty_stop;
 mod engine_enter;
 #[path = "engine-exact-points.rs"]
 mod engine_exact_points;
+#[path = "engine-faction-levels.rs"]
+mod engine_faction_levels;
 #[path = "engine-failed-quest.rs"]
 mod engine_failed_quest;
 #[path = "engine-feeders.rs"]
@@ -200,6 +202,8 @@ mod engine_when_upgrade;
 mod engine_while_here;
 #[path = "engine-zone-walk.rs"]
 mod engine_zone_walk;
+#[path = "faction-guides.rs"]
+mod faction_guides;
 #[path = "flight-map-notice.rs"]
 mod flight_map_notice;
 mod gamepad;
@@ -395,12 +399,16 @@ mod settings_effects;
 mod settings_essentials;
 #[path = "settings-game.rs"]
 mod settings_game;
+#[path = "settings-hover-perf.rs"]
+mod settings_hover_perf;
 #[path = "settings-migration.rs"]
 mod settings_migration;
 #[path = "settings-perf.rs"]
 mod settings_perf;
 #[path = "settings-roundtrip.rs"]
 mod settings_roundtrip;
+#[path = "settings-session.rs"]
+mod settings_session;
 #[path = "settings-smoke.rs"]
 mod settings_smoke;
 #[path = "skins-bundled.rs"]

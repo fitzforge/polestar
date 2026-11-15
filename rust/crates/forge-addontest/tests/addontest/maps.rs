@@ -202,6 +202,55 @@ fn no_flight_master_is_called_undiscovered_on_a_continent_without_a_flight_map_o
 	assert_eq!(out["seen"], "Flight master, not discovered");
 }
 
+// Arriving in Moonglade, on the addon's own travel data (Nav/TravelData.lua): Nighthaven's flight masters (Silva
+// Fil'naveth for the Alliance, Bunthen Plainswind for the Horde) fly Druids from their gossip and teach no flight
+// path, so no pin calls them a flight path to learn. A Druid's is green, with no "?", and its tooltip says known; any
+// other class gets none. Moonglade's flight path is Sindrayl's (Alliance) or Faustron's (Horde): amber with a "?"
+// until learnt. The character has opened a flight map on Kalimdor (#1795) and knows Rut'theran Village or Thunder
+// Bluff.
+fn moonglade_pins(race: &str, class: &str, class_name: &str, faction: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_maps.lua"],
+		before: format!(
+			"stub.maps.useWorld(); local w = stub.world; w.faction, w.race, w.raceName = \"{faction}\", \"{race}\", \"{race}\"; w.class, w.className = \"{class}\", \"{class_name}\""
+		),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		saved: vec![("Polestar".into(), TRAVEL_PINS.into())],
+		login: true,
+		script: r#"
+		local flags = Polestar.CharState().flags
+		flags.taxi, flags.taxiSeen = { [27] = true, [22] = true }, { [1] = true }
+		Polestar.Maps.RefreshTravelPins()
+		local out = {}
+		for _, p in ipairs(Polestar.Pins.GetLayer("maps.taxi") or {}) do
+			if p.map == 1450 then
+				local lines = {}
+				local t = {}
+				function t:SetText(s) lines[#lines + 1] = s end
+				function t:AddLine(s) lines[#lines + 1] = s end
+				function t:AddDoubleLine(l) lines[#lines + 1] = l end
+				p.tooltip(t)
+				out[#out + 1] = { id = p.nodeID, known = p.known, badge = p.badge or false, status = lines[2] }
+			end
+		end
+		emit(out)"#
+			.into(),
+	})
+	.remove(0)
+}
+
+#[test]
+fn nighthaven_s_druid_flight_masters_are_never_a_flight_path_to_learn_on_the_map() {
+	let pin = |id: u32, known: bool| {
+		json!({ "id": id, "known": known, "badge": if known { json!(false) } else { json!("?") },
+			"status": if known { "Flight master, known" } else { "Flight master, not discovered" } })
+	};
+	assert_eq!(moonglade_pins("NightElf", "DRUID", "Druid", "Alliance"), json!([pin(49, false), pin(62, true)]), "a Night Elf Druid");
+	assert_eq!(moonglade_pins("Human", "WARRIOR", "Warrior", "Alliance"), json!([pin(49, false)]), "an Alliance Warrior");
+	assert_eq!(moonglade_pins("Tauren", "DRUID", "Druid", "Horde"), json!([pin(63, true), pin(69, false)]), "a Tauren Druid");
+	assert_eq!(moonglade_pins("Tauren", "WARRIOR", "Warrior", "Horde"), json!([pin(69, false)]), "a Horde Warrior");
+}
+
 // ---------------------------------------------------------------------------
 // Flight timer
 // ---------------------------------------------------------------------------

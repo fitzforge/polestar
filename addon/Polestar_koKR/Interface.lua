@@ -1171,6 +1171,7 @@ L["Lookup is turned off (Options > Discovery > Lookup)."] = "찾아보기가 꺼
 L["NPC"] = "NPC"
 L["First do the quest"] = "먼저 할 퀘스트"
 L["%s: inside %s."] = "%s: %s 내부."
+L["%s: nothing drops it. It is made with %s, or bought at the Auction House."] = "%s: 드롭하는 대상이 없습니다. %s(으)로 제작하거나 경매장에서 구입합니다."
 L["Drop chance"] = "획득 확률"
 L["Enter"] = "입장"
 L["Choose this reward:"] = "이 보상 선택:"

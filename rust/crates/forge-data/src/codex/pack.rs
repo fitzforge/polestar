@@ -346,6 +346,11 @@ fn encode_object(rec: &V) -> Result<String, String> {
 		let f = rec.get("faction");
 		parts.push(format!("m{}", if f.truthy() { f.to_js_string() } else { String::new() }));
 	}
+	// The instance it lies in (Upper Blackrock Spire's Rookery Eggs): i<key>, last. A spawn group starts with a map
+	// number, so a reader before it reads no point from it.
+	if rec.get("instance").truthy() {
+		parts.push(format!("i{}", esc(&rec.get("instance"))));
+	}
 	Ok(parts.join(";"))
 }
 

@@ -574,7 +574,7 @@ A quest goal is never warned about: it stands where the quest is done.
 
 `levels` raises a guide's top level in its header (`levels 29-32` reads `levels 29-33` for
 `"levels": { "top": 33 }`): the writer ends the range where the route ends the guide, and the guide
-window calls a guide outgrown at its top + 2, so a top under the level players leave at offers them
+window calls a guide outgrown at its top + 3, so a top under the level players leave at offers them
 another guide too early. A top at or under the route's changes nothing. The anchor is the guide, not a
 goal: `"at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" }`.
 

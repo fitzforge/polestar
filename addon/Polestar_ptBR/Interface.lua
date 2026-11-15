@@ -1171,6 +1171,7 @@ L["Lookup is turned off (Options > Discovery > Lookup)."] = "A Consulta está de
 L["NPC"] = "PNJ"
 L["First do the quest"] = "Primeiro faça a missão"
 L["%s: inside %s."] = "%s: dentro de %s."
+L["%s: nothing drops it. It is made with %s, or bought at the Auction House."] = "%s: nada o deixa cair. É fabricado com %s ou comprado na casa de leilões."
 L["Drop chance"] = "Chance de saque"
 L["Enter"] = "Entrar"
 L["Choose this reward:"] = "Escolha esta recompensa:"

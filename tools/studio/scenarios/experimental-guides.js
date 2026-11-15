@@ -37,24 +37,23 @@ return GameTooltip and GameTooltip:IsShown() and "tooltip shown" or "NO tooltip"
 
 // The guide menu on Leveling, every folder folded but `open` (folder ids, P.FolderOf's; after the menu opens,
 // which unfolds the open guide's), `select` selected; the guide window and the arrow out of its frame.
-const MENU = (filter, open, select) => `local P = Polestar.UI.Picker
+const MENU = (open, select) => `local P = Polestar.UI.Picker
 if PolestarNavArrow then PolestarNavArrow:Hide() end
 if PolestarGuideFrame then PolestarGuideFrame:Hide() end
-Polestar.Set("ui.pickerFaction", ${JSON.stringify(filter)})
 Polestar.UI.ShowPicker()
 stub.advance(0.5)
 P.SetView("browse")
 P.SetCategory("Leveling")
 local keep = {}
 for _, id in ipairs(${JSON.stringify(open).replace('[', '{').replace(/]$/, '}')}) do keep[id] = true end
-for _, e in ipairs(P.Entries(${JSON.stringify(filter)}, "", "Leveling")) do
+for _, e in ipairs(P.Entries("", "Leveling")) do
 	if e.kind == "folder" then P.SetCollapsed(e.id, not keep[e.id]) end
 end
 P.Select(${JSON.stringify(select)})
 P.Render()
 stub.advance(0.5)
 local out, folder = {}, nil
-for _, e in ipairs(P.Entries(${JSON.stringify(filter)}, "", "Leveling")) do
+for _, e in ipairs(P.Entries("", "Leveling")) do
 	if e.kind == "folder" then folder = e.id end
 	if e.kind == "guide" and keep[folder] then
 		local g = e.guide
@@ -80,7 +79,7 @@ for _, o in ipairs(c and c.options or {}) do
 end
 return (PolestarRouteChoice and PolestarRouteChoice:IsShown() and "shown" or "NOT shown") .. ": " .. table.concat(out, " | ")`;
 
-// faction: its character and place, its menu shots (name -> { filter, open, select, title }) with the
+// faction: its character and place, its menu shots (name -> { open, select, title }) with the
 // Forever mark's tooltip on the selected row, and its choices (name -> { from, level, title }), in every
 // look; the default look's menus and choices at UI scales 0.64 and 1.5 too.
 function make({ title, character, place, menus, choices }) {
@@ -88,7 +87,7 @@ function make({ title, character, place, menus, choices }) {
 	for (const [look, [id, folder, variant]] of Object.entries(LOOKS)) {
 		const base = skins.pick(id, folder, variant);
 		for (const [name, m] of Object.entries(menus)) {
-			const menu = MENU(m.filter, m.open, m.select);
+			const menu = MENU(m.open, m.select);
 			shots[`${name}-${look}`] = { title: `${look}: ${m.title}`, lua: `${base}\n${menu}`, capture: ['PolestarPicker'] };
 			// The menu's script ends in its return: the tooltip's runs in its place.
 			const opened = menu.slice(0, menu.lastIndexOf('local out, folder'));
@@ -127,11 +126,11 @@ module.exports = make({
 	menus: {
 		'menu-3040-4050': {
 			title: 'Leveling, Horde 30-40 and 40-50: Riverglades (40-43) and Shen\'dralas (43-45) among our guides, Riverglades selected',
-			filter: 'Horde', open: ['Leveling/Horde/30', 'Leveling/Horde/40'], select: 'polestar-experimental/riverglades-horde-1',
+			open: ['Leveling/Horde/30', 'Leveling/Horde/40'], select: 'polestar-experimental/riverglades-horde-1',
 		},
 		'menu-4050-shendralas': {
 			title: "Leveling, Horde 40-50: Shen'dralas (43-45) among our guides, selected",
-			filter: 'Horde', open: ['Leveling/Horde/40'], select: 'polestar-experimental/shendralas',
+			open: ['Leveling/Horde/40'], select: 'polestar-experimental/shendralas',
 		},
 	},
 	choices: {

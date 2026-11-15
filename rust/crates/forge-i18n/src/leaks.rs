@@ -190,7 +190,6 @@ leaks.try("picker", function()
 		leaks.try("picker category " .. c, function() P.SetCategory(c); stub.advance(0.2); leaks.hover() end)
 	end
 	for _, v in ipairs({{ "list", "cards", "map", "grid" }}) do leaks.try("picker view " .. v, function() P.SetView(v); stub.advance(0.2); leaks.hover() end) end
-	for _, f in ipairs({{ "Horde", "Alliance" }}) do leaks.try("picker faction " .. f, function() Polestar.Set("ui.pickerFaction", f); UI.ShowPicker(); stub.advance(0.2); leaks.hover() end) end
 	for _, q in ipairs({{ "westfall", "hogger", "linen", "deadmines", "saber", "zzzz" }}) do leaks.try("picker search " .. q, function() leaks.typed(q); P.SetQuery(q); stub.advance(0.3); leaks.hover() end) end
 	for _, id in ipairs({}) do leaks.try("picker select " .. id, function() P.SetQuery(""); P.Select(id); stub.advance(0.2); leaks.hover() end) end
 end)"#,
@@ -773,8 +772,8 @@ pub fn run_scene(root: &Path, locale: &str, scene: &Scene, allow: &Allow, all: b
 		addons: addons.iter().map(|a| Addon::dir(a, root.join("addon").join(a))).collect(),
 		saved: scene.saved.clone(),
 		login: false,
-		// Both factions' guides, as before the faction parts (Polestar loads the other side's when asked).
-		script: format!("leaks.hookPolestar()\nleaks.scene(\"login\")\nstub.login()\nif Polestar and Polestar.Guides and Polestar.Guides.LoadFaction then Polestar.Guides.LoadFaction(\"All\") end\nstub.advance(1)\n{}\nleaks.dump()", scene.script),
+		// Both factions' guides, as before the faction parts (Polestar loads the other side's only for an old saved tab).
+		script: format!("leaks.hookPolestar()\nleaks.scene(\"login\")\nstub.login()\nif Polestar and Polestar.Data and Polestar.Data.Pack then for _, f in ipairs({{ \"Alliance\", \"Horde\" }}) do Polestar.Data.Pack(\"Polestar_Guides_\" .. f) end Polestar.Fire(\"GUIDES_REGISTERED\") end\nstub.advance(1)\n{}\nleaks.dump()", scene.script),
 	};
 	let out = run_addon_output(&opts)?;
 	for line in out.stdout.split('\n') {

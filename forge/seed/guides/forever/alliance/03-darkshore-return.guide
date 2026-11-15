@@ -200,7 +200,7 @@ step Moonglade
 step Dendrite Starblaze
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. No Moonglade flight path yet? Learn it from Sindrayl, south of the lake: the flight master in Nighthaven flies only Druids, from her gossip, and has none to learn.
   turnin 98393 only NightElf,Skyborne -- Dendrite Starblaze
   accept 98394 only NightElf
   turnin 6124 only NightElf,Skyborne                   -- Dendrite Starblaze
@@ -214,7 +214,7 @@ step Dendrite Starblaze
   when onquest 94914
   turnin 94914 only Skyborne                  -- Dendrite Starblaze: the welcome from Sheldras
 
-step Dendrite Starblaze
+step Sindrayl
   only Druid
   zone Moonglade
   getfp "Moonglade"

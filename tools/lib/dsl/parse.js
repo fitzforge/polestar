@@ -304,7 +304,8 @@ function parseGuide(text, file, diag) {
 				err(ln, `unknown header key "${toks[0].text}"`, `header keys: ${HEADER_KEYS.join(', ')}`);
 				continue;
 			}
-			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next';
+			// `levels` repeats only as one plain line plus one per faction (parseHeader checks).
+			const repeatable = kw === 'pro' || kw === 'con' || kw === 'reward' || kw === 'next' || kw === 'levels';
 			if (guide.lines[kw] && !repeatable) {
 				err(ln, `duplicate header key \`${kw}\` (first on line ${guide.lines[kw]})`);
 				continue;
@@ -431,6 +432,18 @@ function parseGuide(text, file, diag) {
 	for (const key of ['title', 'levels', 'zone']) {
 		if (!guide.lines[key]) err(guide.line, `missing required header \`${key}\``);
 	}
+	// `levels <min>-<max> <Faction>`: for a guide both factions play, each faction's range, or the plain one for the other.
+	const h = guide.header;
+	if (h.factionLevels) {
+		const at = guide.lines.levelsAt;
+		const first = Math.min(...Object.keys(h.factionLevels).map((f) => at[f]));
+		const both = !!(h.factionLevels.Alliance && h.factionLevels.Horde);
+		if (h.faction) err(first, `a guide for one faction (\`faction ${h.faction}\`) has one level range: write \`levels <min>-<max>\``);
+		else if (!h.levels && !both) {
+			const other = h.factionLevels.Alliance ? 'Horde' : 'Alliance';
+			err(first, `\`levels\` for one faction only: add \`levels <min>-<max> ${other}\`, or a plain \`levels <min>-<max>\` for ${other}`);
+		} else if (h.levels && both) err(at.plain, 'plain `levels` is unused: both factions have their own `levels <min>-<max> Alliance|Horde`');
+	}
 	if (!guide.steps.length) err(guide.line, 'guide has no steps');
 	for (const s of guide.steps) {
 		if (!s.goals.length) err(s.line, 'step has no goals');
@@ -554,12 +567,25 @@ function parseHeader(guide, kw, line, lex, ln, err, warn) {
 			return;
 		}
 		case 'levels': {
-			const m = /^(\d+)\s*-\s*(\d+)$/.exec(rest);
+			// `levels <min>-<max>`, or `levels <min>-<max> Alliance|Horde`: the levels the route brings that
+			// faction's characters here at, for a guide both factions play (checked after the header).
+			const m = /^(\d+)\s*-\s*(\d+)(?:\s+([A-Za-z]+))?$/.exec(rest);
 			if (!m || Number(m[1]) < 1 || Number(m[1]) > Number(m[2])) {
-				err(ln, `malformed levels "${rest}" (expected <min>-<max>, min ≤ max)`);
+				err(ln, `malformed levels "${rest}" (expected <min>-<max> [Alliance|Horde], min ≤ max)`);
 				return;
 			}
-			h.levels = { min: Number(m[1]), max: Number(m[2]) };
+			// Where each was given (`plain`, `Alliance`, `Horde`), for the checks after the header.
+			const at = (guide.lines.levelsAt = guide.lines.levelsAt || {});
+			let side = 'plain';
+			if (m[3]) {
+				side = FACTIONS[m[3].toLowerCase()];
+				if (!side) return err(ln, `\`levels\` names a faction: Alliance or Horde, not "${m[3]}"`);
+			}
+			if (at[side]) return err(ln, side === 'plain' ? `duplicate header key \`levels\` (first on line ${at[side]})` : `duplicate \`levels ... ${side}\` (first on line ${at[side]})`);
+			at[side] = ln;
+			const range = { min: Number(m[1]), max: Number(m[2]) };
+			if (side === 'plain') h.levels = range;
+			else (h.factionLevels = h.factionLevels || {})[side] = range;
 			return;
 		}
 		case 'zone': {

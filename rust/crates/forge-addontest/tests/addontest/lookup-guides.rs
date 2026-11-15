@@ -384,6 +384,39 @@ emit({ x = kill.x, y = kill.y, spread = kill.spread or false, spots = spots, arr
 	assert_eq!(out["arrow"], json!({ "kind": "kill", "x": 20, "y": 70 }), "the arrow takes the place the player stands at");
 }
 
+// #2363 and #2445 (Hydro, Shinzle: the Deadmines pick-up guide's A Dynamite Plan): "Collect Rough Dynamite" had
+// no place and no word on where to get it, so the arrow stayed on the quest's giver. No mob or object gives Rough
+// Dynamite: Engineering makes it, and players' recordings show it collected at Stormwind's auctioneers. A collect
+// goal for an item nothing drops takes the objective's recorded place (where players get it), and the step says
+// which profession makes it and that it can be bought at the Auction House.
+#[test]
+fn a_collect_goal_for_an_item_nothing_drops_goes_where_players_get_it_and_says_it_is_made_or_bought_2363() {
+	let mut c = ctx();
+	c.codex["quests"]["7030"] = json!({ "id": 7030, "title": "A Bolt Plan", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [{ "type": "item", "id": 8005, "count": 10, "text": "Lyra's Bolt", "map": c.home, "x": 61, "y": 70, "f": "e" }],
+		"pre": [], "preAny": [], "zone": c.home, "rewards": [], "choices": [] });
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let tail = format!("w.level = 20\nw.moveTo({}, 50, 50)", c.home);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &tail),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local id = Polestar.Lookup.Guide("quest", 7030)
+for _, s in ipairs(Polestar.Guides.Get(id).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "collect" and g.item == 8005 then emit({ x = g.x or false, y = g.y or false, note = s.note or false }) end
+	end
+end"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(json!({ "x": out[0]["x"], "y": out[0]["y"] }), json!({ "x": 61, "y": 70 }), "the place players get it: {}", out[0]);
+	assert_eq!(out[0]["note"], "Lyra's Bolt: nothing drops it. It is made with Tailoring, or bought at the Auction House.");
+}
+
 // #1996 (swork1, Dwarf Warrior 26 at Menethil Harbor): the pick-up guide for The Greenwarden (463), a breadcrumb to
 // Tramping Paws (276), sent him to First Mate Fitzsimmons with Tramping Paws done: the breadcrumb is closed for good,
 // so Fitzsimmons no longer offers it. The Codex carries the quests that close a quest (`closedBy`, packed as `c`);

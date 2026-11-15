@@ -40,9 +40,10 @@
 //              w world minLevel,maxLevel
 //   npc      level;levelMax;faction;flags(r e b);instance;roles;loot;<spawns>...[;t<subName>]
 //            spawns = map,f,x,y,x,y...   (one group per map); loot = item,item,...
-//   object   treasure(1|empty);loot;<spawns>...[;m<faction>]
-//            t/m tails contain no commas, so older spawn readers skip them.
+//   object   treasure(1|empty);loot;<spawns>...[;m<faction>][;i<instance>]
+//            t/m/i tails contain no commas, so older spawn readers skip them.
 //            m marks a mailbox; faction is A/H/AH, or empty when unknown/hostile.
+//            i: the instance key it lies in (Upper Blackrock Spire's Rookery Eggs), last.
 //   quest    level;minLevel;faction;races;classes;zone;startNpc;startObject;startItem;
 //            endNpc;endObject;pre;rewards;choices;preAny;<objective>...[;<rep>][;<xp>][;<skill>][;<parent>]
 //            objective = <k|i|o|e><id>,<count>,<text>[;p<map>,<x>,<y>,<f>]
@@ -242,7 +243,8 @@ function encodeNpc(rec) {
 }
 
 function encodeObject(rec) {
-	return [rec.treasure ? '1' : '', list(rec.loot), ...encodeSpawns(rec.spawns), ...(rec.mailbox ? ['m' + (rec.faction || '')] : [])].join(';');
+	return [rec.treasure ? '1' : '', list(rec.loot), ...encodeSpawns(rec.spawns), ...(rec.mailbox ? ['m' + (rec.faction || '')] : []),
+		...(rec.instance ? ['i' + esc(rec.instance)] : [])].join(';');
 }
 
 function encodeQuest(rec) {

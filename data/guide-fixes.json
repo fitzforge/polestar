@@ -1234,8 +1234,8 @@
 				"quest": 98393,
 				"goal": "turnin"
 			},
-			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it.",
-			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. No Moonglade flight path yet? Learn it from Sindrayl, south of the lake: the flight master in Nighthaven flies only Druids, from her gossip, and has none to learn.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added. Its flight path sentence names Sindrayl (npc 10897, taxi node 49, south of the lake): it said to learn the flight path in Nighthaven, where Silva Fil'naveth (npc 11800, taxi node 62) flies Druids to Rut'theran Village from her gossip and teaches no flight path.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -1244,6 +1244,10 @@
 				{
 					"kind": "client",
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				},
+				{
+					"kind": "client",
+					"ref": "TaxiNodes 62 Nighthaven, Moonglade: the Druids' own flight (Silva Fil'naveth, travel.json class DRUID), and 49 Moonglade (Sindrayl)"
 				}
 			],
 			"pr": 960
@@ -1322,7 +1326,7 @@
 				"quest": 5921,
 				"goal": "turnin"
 			},
-			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village, no flight path needed. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Learn Moonglade's flight path from Sindrayl, south of the lake, for later trips. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village from her gossip: hers is no flight path to learn. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
 			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
 			"source": [
 				{

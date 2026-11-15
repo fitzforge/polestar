@@ -356,9 +356,30 @@ pub fn extra_of(id: &str) -> Option<&'static str> {
 }
 
 /// The keys of an experimental index entry ([`experimental_index`]), in the order Guides.lua writes them.
-pub const INDEX_KEYS: [&str; 22] = [
-	"id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel", "topLevel", "zone", "zoneName", "pitch", "pros", "cons", "questIds", "joins", "start", "focus", "viaMap", "via",
-	"names", "written",
+pub const INDEX_KEYS: [&str; 23] = [
+	"id",
+	"pack",
+	"title",
+	"faction",
+	"races",
+	"classes",
+	"minLevel",
+	"maxLevel",
+	"factionLevels",
+	"topLevel",
+	"zone",
+	"zoneName",
+	"pitch",
+	"pros",
+	"cons",
+	"questIds",
+	"joins",
+	"start",
+	"focus",
+	"viaMap",
+	"via",
+	"names",
+	"written",
 ];
 
 /// A guide's `next` ids: its route choice's options, else its one `next`.
@@ -511,7 +532,7 @@ fn index_entry(g: &V, extras: &rustc_hash::FxHashMap<String, &V>, data: &Data) -
 	let loc = g.hidden("_localised");
 	let text = if loc.truthy() { loc } else { g.clone() };
 	let out = Obj::new();
-	for k in ["id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel"] {
+	for k in ["id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel", "factionLevels"] {
 		let v = text.get(k);
 		if !v.is_nullish() {
 			out.set(k, v);

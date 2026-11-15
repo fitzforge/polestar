@@ -66,6 +66,10 @@ local outleveled = {} -- guideId -> true, GUIDE_OUTLEVELED once per session
 
 local Engine = {}
 ns.Engine = Engine
+-- Levels past a guide's top (its `levels` max for the player's side) at which
+-- the guide window calls it outgrown (GUIDE_OUTLEVELED): most players run a
+-- little ahead of the route, so 2 past the top is still the guide's ground.
+Engine.OUTGROWN = 3
 
 -- The player's own word: goal skips, the current goal, header arrival, the
 -- saved view, state carried over pack updates. One table (Lua 5.1 caps a
@@ -123,8 +127,96 @@ local function stepApplies(step)
 	return Guides.Matches(step.only, player) and (step.when == nil or Own.whenHolds(step))
 end
 
+-- A quest is done when it is handed in (this session or flagged), or when a
+-- later quest of its chain is in the log or done (Own.chainPast): the game
+-- gave that one only to a character past this one, so its accept, its work
+-- and its hand-in are behind the player (Betrayed taken early in Orgrimmar and
+-- carried on to Ag'tor's part before the guide reached it, #2461).
 local function questDone(q)
-	return turnedIn[q] or Compat().IsQuestCompleted(q)
+	return turnedIn[q] or Compat().IsQuestCompleted(q) or Own.chainPast(q) ~= nil
+end
+
+-- The quests that prove quest q past for this character (Own.chainPast), from
+-- the loaded quest database: every quest whose prerequisites, followed back,
+-- lead to q (QuestDB.FollowUps, transitively). A follow-up counts only when
+-- this character can take it (faction, race, class) and it needs q itself:
+-- q among its `preAll`, or its one-of `pre` naming no other quest this
+-- character can take (a follow-up open after either side's lead-in proves
+-- neither for a character who could take both). Static per character and
+-- database: kept per quest, rebuilt when more quest chunks arrive. Without
+-- the database loaded, none.
+Own.NO_LATER = {}
+Own.LATER_MAX = 100 -- the most quests followed after one (the longest chain in the data has 65)
+Own.laterCache = { ids = nil, lists = {} }
+function Own.laterOf(q)
+	local Q = ns.QuestDB
+	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return Own.NO_LATER end
+	local cache, ids = Own.laterCache, Q.QuestIds()
+	if cache.ids ~= ids then
+		cache.ids, cache.lists, cache.ctx = ids, {}, Q.PlayerContext(Compat().GetPlayerInfo())
+	end
+	local list = cache.lists[q]
+	if list then return list end
+	list = {}
+	cache.lists[q] = list
+	local F, ctx = Q.F, cache.ctx
+	local function eligible(id)
+		local r = Q.QuestRecord(id)
+		return r ~= nil and Q.IsEligible(r, ctx)
+	end
+	local function needs(s, p)
+		local r = Q.QuestRecord(s)
+		if not (r and Q.IsEligible(r, ctx)) then return false end
+		for _, x in Q.Each(r[F.PRE_ALL]) do
+			if x == p then return true end
+		end
+		local named = false
+		for _, x in Q.Each(r[F.PRE]) do
+			if x == p then
+				named = true
+			elseif eligible(x) then
+				return false
+			end
+		end
+		return named
+	end
+	local seen, queue, head = { [q] = true }, { q }, 1
+	while queue[head] and #list < Own.LATER_MAX do
+		local p = queue[head]
+		head = head + 1
+		for _, s in ipairs(Q.FollowUps(p) or Own.NO_LATER) do
+			if not seen[s] and needs(s, p) then
+				seen[s] = true
+				list[#list + 1] = s
+				queue[#queue + 1] = s
+			end
+		end
+	end
+	return list
+end
+
+-- The later quest of q's chain (Own.laterOf) that is in the log or done, or
+-- nil. Read once per quest while the quest log and the database stay as they
+-- are (Own.logStamp: bumped by every quest event; no table per ask).
+Own.logStamp, Own.pastGen, Own.pastVal = 0, {}, {}
+function Own.chainPast(q)
+	local Q = ns.QuestDB
+	if not (Q and Q.IsLoaded and Q.IsLoaded()) then return nil end
+	local ids, stamp = Q.QuestIds(), Own.logStamp
+	if Own.pastIds ~= ids then Own.pastIds, Own.pastGen, Own.pastVal = ids, {}, {} end
+	if Own.pastGen[q] == stamp then return Own.pastVal[q] or nil end
+	local C, found = Compat(), false
+	for _, s in ipairs(Own.laterOf(q)) do
+		if turnedIn[s] or C.IsOnQuest(s) or C.IsQuestCompleted(s) then
+			found = s
+			break
+		end
+	end
+	Own.pastGen[q], Own.pastVal[q] = stamp, found
+	return found or nil
+end
+for _, event in ipairs({ "QUEST_LOG_UPDATE", "QUEST_ACCEPTED", "QUEST_TURNED_IN", "QUEST_REMOVED" }) do
+	ns.RegisterEvent(event, function() Own.logStamp = Own.logStamp + 1 end)
 end
 
 -- First blocking prerequisite of an `accept` the character still lacks, or
@@ -4053,7 +4145,8 @@ end
 -- once it only has to be handed in. Only for leveling guides, with "Skip grey
 -- quests" on.
 function Own.catchUp(anchor, level)
-	if guide.maxLevel and level >= guide.maxLevel + 2 then return Own.catchUpPast(level) end
+	local _, top = Guides.Levels(guide, player and player.faction)
+	if top and level >= top + 2 then return Own.catchUpPast(level) end
 	local out = {}
 	if anchor <= 1 then return out end
 	local C = Compat()
@@ -4092,13 +4185,12 @@ function Own.catchUp(anchor, level)
 	return out
 end
 
--- In a guide the character is past (2 levels over its top, as the
--- out-levelled banner counts), going back is a detour: every grey or green
--- accept not taken yet is left out, unless at least CHAIN_WORTH quests from
--- yellow up need it, down the chain (The Tower of Althalaxx at 30: five
--- grey and green quests in Darkshore lead to four at 28 and 31 in
--- Ashenvale, so the chain stays). A quest in the log by the same rules,
--- kept once it only has to be handed in.
+-- In a guide the character is past (2 levels over its top), going back is a
+-- detour: every grey or green accept not taken yet is left out, unless at
+-- least CHAIN_WORTH quests from yellow up need it, down the chain (The Tower
+-- of Althalaxx at 30: five grey and green quests in Darkshore lead to four
+-- at 28 and 31 in Ashenvale, so the chain stays). A quest in the log by the
+-- same rules, kept once it only has to be handed in.
 Own.CHAIN_WORTH = 3
 function Own.catchUpPast(level)
 	local C = Compat()
@@ -4290,7 +4382,8 @@ local function place()
 	-- login's pick, Start guide, a guide chained to), it then chains to the
 	-- next (evaluateLoaded); opened by the player or brought back by a reload,
 	-- it stays, finished.
-	local past = anyOut or (guide.maxLevel ~= nil and level >= guide.maxLevel)
+	local _, top = Guides.Levels(guide, player and player.faction)
+	local past = anyOut or (top ~= nil and level >= top)
 	local whole = catchUp and not start and not later and logReady and past
 	local through = whole and autoChain and Own.opened[guide.id]
 	local allDone = whole and Own.allQuestsDone(guide)
@@ -5640,7 +5733,9 @@ end
 -- step (no focus, e.g. viewed with Prev) has nothing to point at, even when
 -- optional goals are left open; nor has a Class guide the character cannot
 -- start yet (Own.startGate), or another race's starting zone the player has
--- not reached (Own.awayStart), on its live step. An along goal the player
+-- not reached (Own.awayStart), on its live step; nor, on any step, has a
+-- guide of the other faction (Engine.OtherFaction, #2462: its towns are the
+-- enemy's). An along goal the player
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
 -- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
@@ -5651,7 +5746,7 @@ end
 -- to the flight's end while the travel planner flies there (Own.flyAim), past
 -- the flight master it names.
 local function findWaypoint()
-	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
+	if not current or Guides.OtherFaction(guide, player) or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
 	if aim then
 		for g, goal in ipairs(goals) do
@@ -8028,7 +8123,7 @@ local function routeOptions(from)
 		local stub = g == nil and exp ~= nil and Guides.ExperimentalLoadable(id)
 		if stub then g = exp end
 		if g and Guides.GuideMatches(g, player) and Own.optionHolds(from, id) then
-			local top = exp and exp.topLevel or g.maxLevel
+			local top = exp and exp.topLevel or select(2, Guides.Levels(g, player.faction))
 			list[#list + 1] = { guide = g, outleveled = (top ~= nil and level >= top), exp = exp, stub = stub }
 		end
 	end
@@ -9002,10 +9097,11 @@ local function evaluate()
 	Own.watchHearth()
 	Own.watchWait()
 	Own.progressQueue() -- a progress count that waited for this evaluation
-	-- Out-levelled: once per guide per session; for a guide the catch-up may
+	-- Out-levelled (Engine.OUTGROWN past the top): once per guide per session; for a guide the catch-up may
 	-- pass whole for the player (Own.opened, autoChain), once it is placed.
 	local mayPass = placing and autoChain and Own.opened[guide and guide.id or ""] and ns.Get("behavior.skipGrey")
-	if guide and guide.maxLevel and (player.level or 1) >= guide.maxLevel + 2 and not outleveled[guide.id] and not mayPass then
+	local _, top = Guides.Levels(guide, player.faction)
+	if guide and top and (player.level or 1) >= top + Engine.OUTGROWN and not outleveled[guide.id] and not mayPass then
 		outleveled[guide.id] = true
 		local suggested = Guides.Suggest()
 		-- The next guide instead of the level-best one while the guides between
@@ -9447,9 +9543,10 @@ function Engine.GetRouteChoice(fromId)
 		if e and thenId and offered[thenId] and e.viaMap and not (here and here.map == e.viaMap) then
 			via = Compat().GetMapName and Compat().GetMapName(e.viaMap) or e.via
 		end
+		local lo, hi = Guides.Levels(g, player and player.faction)
 		local opt = {
 			id = g.id, title = g.title, zone = g.zone, zoneName = g.zoneName, focusX = focus and focus.x, focusY = focus and focus.y,
-			minLevel = g.minLevel, maxLevel = e and e.topLevel or g.maxLevel,
+			minLevel = lo, maxLevel = e and e.topLevel or hi,
 			pitch = g.pitch, pros = g.pros, cons = g.cons, seconds = o.seconds, quests = #quests, steps = #g.steps,
 			recommended = o == rec, chosen = g.id == chosenId, outleveled = o.outleveled, open = tabIndexOf(g.id) ~= nil,
 			experimental = e ~= nil or nil, newInForever = Own.mostlyNew(quests) or nil,
@@ -9923,7 +10020,8 @@ function Engine.FreshFor(g)
 	if not (g.category == nil or g.category == "Leveling") then return nil end
 	if not player then refreshPlayer() end
 	local lvl = player.level or 1
-	if type(g.maxLevel) == "number" and lvl >= g.maxLevel then return nil end
+	local _, top = Guides.Levels(g, player.faction)
+	if type(top) == "number" and lvl >= top then return nil end
 	local from = Guides.Get(f.from)
 	if not (from and Guides.GuideMatches(from, player)) then return nil end
 	-- Taken on the way: the accepts of the feeder steps the guide's plan put in.
@@ -13483,6 +13581,17 @@ function Engine.KeptItems()
 	return items
 end
 
+-- A guide of the other faction (Guides.OtherFaction: loaded from an import
+-- or an old saved tab; no menu, search, link or card offers one): the side
+-- it is for ("Horde"), for the guide window's notice. The arrow points
+-- nowhere in it (findWaypoint). nil for any guide of the character's side.
+function Engine.OtherFaction(id)
+	local g = id and Guides.Get(id)
+	if not g then return nil end
+	if not player then refreshPlayer() end
+	return Guides.OtherFaction(g, player)
+end
+
 -- Another race's starting zone the player has not reached (Own.awayStart),
 -- for the guide window's notice: { races, zone, zoneName }; nil once they
 -- are there (or it is under way), and for any other guide.
@@ -14968,7 +15077,7 @@ ns.OnLogin(function()
 		if suggested then Own.opened[suggested] = true end -- opened for the player
 		local g = suggested and Guides.Get(suggested)
 		local from = g and choiceOffering(suggested)
-		if from and routesTable()[from.id] == nil and (player.level or 1) <= (g.minLevel or 1) + 1 then offerFrom = from.id end
+		if from and routesTable()[from.id] == nil and (player.level or 1) <= (Guides.Levels(g, player.faction) or 1) + 1 then offerFrom = from.id end
 	end
 	if #ids == 0 then
 		persist()

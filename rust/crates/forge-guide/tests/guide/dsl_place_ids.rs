@@ -254,3 +254,49 @@ fn a_getfp_naming_no_npc_gets_its_taxi_nodes_flight_master_and_position_for_the_
 		]
 	);
 }
+
+// A class's own flight master (travel.json `class`: Nighthaven's Silva Fil'naveth and Bunthen Plainswind fly Druids
+// from their gossip only) teaches no flight path: no getfp resolves to one, by its town or by its npc, and its town is
+// no flight point a getfp may name. Moonglade's own flight masters, Sindrayl and Faustron, are the getfp's for each
+// side; a goal for both sides names its side with `only`.
+#[test]
+fn a_getfp_never_resolves_to_a_classs_own_flight_master() {
+	let dir = place_dir("class-flight", true, true, json!([]));
+	let moonglade = json!([
+		{ "id": 49, "name": "Moonglade", "short": "Moonglade", "map": 1450, "x": 47.91, "y": 67.11, "faction": 1, "npc": 10897, "npcName": "Sindrayl" },
+		{ "id": 62, "name": "Nighthaven, Moonglade", "short": "Nighthaven", "map": 1450, "x": 44.28, "y": 45.34, "faction": 1, "npc": 11800, "npcName": "Silva Fil'naveth", "class": "DRUID" },
+		{ "id": 63, "name": "Nighthaven, Moonglade", "short": "Nighthaven", "map": 1450, "x": 44.31, "y": 45.72, "faction": 2, "npc": 11798, "npcName": "Bunthen Plainswind", "class": "DRUID" },
+		{ "id": 69, "name": "Moonglade", "short": "Moonglade", "map": 1450, "x": 32.15, "y": 66.33, "faction": 2, "npc": 12740, "npcName": "Faustron" },
+	]);
+	std::fs::write(dir.join("travel.json"), format!("{}\n", json!({ "inns": [], "taxi": { "nodes": moonglade } }))).unwrap();
+	let spawn = |id: u32, name: &str, side: &str, x: f64, y: f64| json!({ "id": id, "name": name, "level": 60, "faction": side, "roles": ["flightmaster"], "spawns": { "1450": { "f": "e", "pts": [[x, y]] } } });
+	add_npcs(
+		&dir,
+		json!({
+			"10897": spawn(10897, "Sindrayl", "A", 48.1, 67.34),
+			"11800": spawn(11800, "Silva Fil'naveth", "A", 44.28, 45.34),
+			"11798": spawn(11798, "Bunthen Plainswind", "H", 44.31, 45.72),
+			"12740": spawn(12740, "Faustron", "H", 32.15, 66.33),
+		}),
+	);
+	let data = load_data(&dir).unwrap();
+	let none = |l: &str| json!([l, null, null, null, null, null, null]);
+	let alliance = compile_with(&guide_text(&["step Moonglade", "  getfp \"Moonglade\"", "  getfp \"Nighthaven\"", "  getfp \"Moonglade\" npc 11800"]), &data);
+	assert!(alliance.errors.is_empty(), "{}", alliance.text);
+	let m = masters(&alliance);
+	assert_eq!(m[0], json!(["Moonglade", 49, 10897, "Sindrayl", 1450, 48.1, 67.34]), "Moonglade's flight path is Sindrayl's");
+	assert_eq!(m[1], none("Nighthaven"), "Nighthaven's flight masters teach no flight path");
+	assert_eq!((m[2][1].clone(), m[2][2].clone()), (Value::Null, json!(11800)), "nor does Silva Fil'naveth, named by her npc");
+	assert!(
+		alliance.diag.sorted().iter().any(|d| d.message.starts_with("getfp \"Nighthaven\": no ")),
+		"a getfp naming Nighthaven warns: {}",
+		alliance.text
+	);
+	let both = "guide t/both\ntitle Both\nlevels 1-10\nzone Elwynn Forest\n\nstep Moonglade\n  getfp \"Moonglade\" only Alliance\n  getfp \"Moonglade\" only Horde\n";
+	let r = compile_with(both, &data);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(
+		masters(&r),
+		vec![json!(["Moonglade", 49, 10897, "Sindrayl", 1450, 48.1, 67.34]), json!(["Moonglade", 69, 12740, "Faustron", 1450, 32.15, 66.33])]
+	);
+}

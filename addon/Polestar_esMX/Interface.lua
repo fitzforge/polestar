@@ -275,6 +275,7 @@ L["Treasures"] = "Tesoros"
 -- Dungeons/Attune.lua
 L["%s drops it inside %s."] = "%s lo suelta dentro de %s."
 L["%s: inside %s."] = "%s: dentro de %s."
+L["%s: nothing drops it. It is made with %s, or bought at the Auction House."] = "%s: nada lo suelta. Se fabrica con %s o se compra en la casa de subastas."
 L["%s: %s"] = "%s: %s"
 L["Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths."] = "Permite que Lothos Levantagrietas, en la Montaña Roca Negra, te envíe al Núcleo de Magma; sin ello, entra a pie por las Profundidades de Roca Negra."
 L["Douses the Molten Core's runes; Majordomo Executus comes out only when every rune is doused. Duke Hydraxis hands it out once Hands of the Enemy is done."] = "Apaga las runas del Núcleo de Magma; el Mayordomo Ejecutus solo aparece cuando todas las runas están apagadas. El Duque Hydraxis lo entrega cuando completas Manos del enemigo."

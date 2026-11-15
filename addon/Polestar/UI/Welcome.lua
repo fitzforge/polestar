@@ -2449,9 +2449,10 @@ do
 		return Theme.SkinId and Theme.SkinId() or Theme.SkinKey()
 	end
 
-	-- Draws look `id` in the preview, with its name and line under it.
+	-- Draws look `id` in the preview, with its name and line under it (once:
+	-- a look already drawn there stays, its skin repainting it as it changes).
 	function previewLook(p, id)
-		if not (p.Preview and id) then return end
+		if not (p.Preview and id) or p.psPreviewed == id then return end
 		p.psPreviewed = id
 		local info = Theme.SkinInfo and Theme.SkinInfo(id)
 		p.PreviewName:SetText(info and info.name or id)
@@ -2463,6 +2464,36 @@ do
 		p.Preview.Art:SetShown(drawn and true or false)
 		p.Preview.Plain:SetShown(not drawn)
 		p.Preview.Plain:SetText(info and info.name or id)
+	end
+
+	-- Off a look's card the preview goes back to the look in use LOOK_GRACE
+	-- later, unless the pointer lands on another card first: crossing the gap
+	-- between two cards draws the next look once, without flashing back.
+	local LOOK_GRACE = 0.15
+	local function lookEntered(p, id)
+		p.psBackAt = nil
+		previewLook(p, id)
+	end
+	local function lookLeft(p)
+		p.psBackAt = GetTime() + LOOK_GRACE
+		if p.psBackWaiting then return end
+		p.psBackWaiting = true
+		if not p.psBack then
+			p.psBack = function()
+				p.psBackWaiting = nil
+				local at = p.psBackAt
+				if not at then return end
+				local left = at - GetTime()
+				if left > 0.001 then
+					p.psBackWaiting = true
+					C_Timer.After(left, p.psBack)
+					return
+				end
+				p.psBackAt = nil
+				if p:IsVisible() then previewLook(p, lookInUse()) end
+			end
+		end
+		C_Timer.After(LOOK_GRACE, p.psBack)
 	end
 
 	function paintLookRow(r)
@@ -2506,8 +2537,8 @@ do
 			previewLook(p, lookInUse())
 		end)
 		-- The pointer previews a look before it is picked.
-		r:HookScript("OnEnter", function(self) previewLook(p, self.psLook) end)
-		r:HookScript("OnLeave", function() previewLook(p, lookInUse()) end)
+		r:HookScript("OnEnter", function(self) lookEntered(p, self.psLook) end)
+		r:HookScript("OnLeave", function() lookLeft(p) end)
 		W.Painter(r, function(self) if self.psLook then paintLookRow(self) end end)
 		return r
 	end
@@ -2805,7 +2836,7 @@ PAGES[#PAGES + 1] = {
 		h.Corner:SetShown(painted)
 		h.Title:SetWidth(painted and CW or CW - 120)
 		h.Title:SetText(g and g.title or L["Choose your first guide"])
-		local lv = g and UI.LevelRange(g.minLevel, g.maxLevel)
+		local lv = g and UI.GuideLevels(g)
 		local chipW = 0
 		if lv then
 			chipW = W.SetChip(h.Chip, L["Levels"] .. " " .. lv, "accent") + 10

@@ -82,17 +82,20 @@ function O.ApplyPreset(list, value)
 	end
 	if not p then return end
 	local _, keys = unionOf(list)
-	for _, k in ipairs(keys) do
-		local def = ns.GetDefault(k)
-		if def ~= nil then
-			local want = p.set and p.set[k]
-			if want == nil then
-				if not same(ns.Get(k), def) then ns.Set(k, nil) end
-			elseif not same(ns.Get(k), want) then
-				ns.Set(k, copy(want))
+	-- One batch: the look and the window worked out again once (ns.Batch).
+	ns.Batch(function()
+		for _, k in ipairs(keys) do
+			local def = ns.GetDefault(k)
+			if def ~= nil then
+				local want = p.set and p.set[k]
+				if want == nil then
+					if not same(ns.Get(k), def) then ns.Set(k, nil) end
+				elseif not same(ns.Get(k), want) then
+					ns.Set(k, copy(want))
+				end
 			end
 		end
-	end
+	end)
 end
 
 -- A value as its control shows it: a slider's format, a choice's label,
@@ -127,11 +130,7 @@ local function valueText(c, v)
 end
 
 -- The home control of a setting (its row on a deep tab). -> spec | nil
-local function homeControl(key)
-	for _, c in ipairs(O.AllControls()) do
-		if c.key == key then return c end
-	end
-end
+local function homeControl(key) return O.HomeControl(key) end
 
 function O.PresetSummary(p)
 	if not (p.set and next(p.set)) then return p.help or L["Every setting here at its default."] end

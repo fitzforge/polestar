@@ -175,11 +175,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 		if (!it) return 'item';
 		return it.cls === ITEM_WEAPON ? 'weapon' : it.cls === ITEM_ARMOR ? 'armor' : 'item';
 	}
-	// A class spell (a spell some class's skill lines list), not a buff the
-	// turn-in casts (Call of Air's Swift Wind).
-	const classSpells = new Set();
-	for (const r of table('SkillLineAbility')) classSpells.add(Number(r.Spell));
-	const teaches = (s) => learned(s).length > 0 || classSpells.has(s);
+	// A class spell the quest's own class learns (a spell its skill lines
+	// list), not a buff the turn-in casts (Call of Air's Swift Wind; the
+	// priests' Blood of Morphaz casts the druids' Mark of the Wild, #2440).
+	// SkillLineAbility's ClassMask 0 (or -1) is every class.
+	const classSpells = new Map();
+	for (const r of table('SkillLineAbility')) {
+		const s = Number(r.Spell), m = Number(r.ClassMask) || 0;
+		classSpells.set(s, (classSpells.get(s) || 0) | (m > 0 ? m & ALL_CLASSES : ALL_CLASSES));
+	}
+	const teaches = (s, m) => learned(s).length > 0 || ((classSpells.get(s) || 0) & m) !== 0;
 	// A shaman's totem (Earth, Fire, Water, Air Totem: a reagent).
 	const isTotem = (i) => {
 		const it = items.get(i);
@@ -205,7 +210,7 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 		const r = {};
 		const t = tq[q];
 		const s = t && Number(t.rewardSpell);
-		if (s > 0 && teaches(s)) {
+		if (s > 0 && teaches(s, mask.get(q))) {
 			r.teach = s;
 			r.spell = resolve(s);
 		}

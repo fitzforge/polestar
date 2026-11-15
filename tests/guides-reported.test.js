@@ -26,6 +26,7 @@ const { writeTestPack } = require('./helpers/dsl');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
 const { tokeniseGuides } = require('../tools/lib/dsl/tokens');
+const { guideHeaders } = require('./helpers/guide-levels');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
 
@@ -2238,23 +2239,9 @@ test(`Bennistrov's report: This Land Was Their Land is taken only after Defeat N
 // over each start's classes) has Humans entering Westfall at 11.35, Darkshore at 15.27 and Loch Modan at 17.77,
 // and the other starts leaving them at up to 17.54, 19.38 and 21.61. The per-start levels come from the level sim
 // with locally calibrated parameters, so a test can't recompute them; these tests check the guides' own labels instead.
-const headers = () => Object.fromEntries(allGuides().flatMap((file) => {
-	const text = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
-	const id = /^guide (\S+)/m.exec(text);
-	const lv = /^levels (\d+)-(\d+)/m.exec(text);
-	const next = /^next (\S+)/m.exec(text);
-	return id && lv ? [[id[1], { file, min: +lv[1], max: +lv[2], next: next && next[1] }]] : [];
-}));
-
-test('every leveling guide starts at most one level above the end of each guide that leads into it', () => {
-	const all = headers();
-	const holes = [];
-	for (const [id, g] of Object.entries(all)) {
-		const n = g.next && all[g.next];
-		if (n && n.min > g.max + 1) holes.push(`${id} ends at ${g.max}, ${g.next} starts at ${n.min}`);
-	}
-	assert.deepEqual(holes, []);
-});
+// Each guide's levels per faction (tests/helpers/guide-levels.js); tests/guides-levels.test.js checks the hand-offs
+// and that every level has a guide on each side.
+const headers = () => guideHeaders(OFFICIAL_DIR);
 
 test('Alliance 12-21: Westfall, Darkshore and Loch Modan start where Humans enter them, within one level', () => {
 	const all = headers();
@@ -5190,27 +5177,54 @@ test("Erá's report (#948): the Rogue's Certificate of Thievery ends at Lucius, 
 
 // --- Found by Fitz (2026-11-06): after the Moonglade quests (Umber's Under the
 // Chitin Was..., 1185) the Silithus guide hearthed everyone to Cenarion Hold, flew
-// them to Rut'theran Village and sent them back into Moonglade for Nighthaven's
-// flight path, 600 yards from Umber. The flight path comes straight after Umber,
+// them to Rut'theran Village and sent them back into Moonglade for its flight
+// path, 600 yards from Umber. The flight path comes straight after Umber,
 // with no hearth or flight between, and its flight is the way on: straight to
 // Rut'theran Village, so neither the flight path's step nor Erelas Ambersky's
 // hand-in (4901) sends the player by Auberdine (its old way, the boat from there).
-test("Fitz's find (2026-11-06): after the Moonglade quests the Silithus guide takes Nighthaven's flight path without leaving Moonglade first", { skip }, () => {
+test("Fitz's find (2026-11-06): after the Moonglade quests the Silithus guide takes Moonglade's flight path without leaving Moonglade first", { skip }, () => {
 	const guide = 'forever/alliance/50-60/06-silithus.guide';
 	const list = goals(guide);
 	const umber = at(list, `${guide}: Umber's hand-in of 1185`, is('turnin', 1185));
 	const fp = list.findIndex(({ goal }, i) => i > umber && goal.t === 'getfp' && goal.location === 'Moonglade');
-	assert.ok(fp > umber, `${guide}: Nighthaven's flight path is learned after Umber`);
+	assert.ok(fp > umber, `${guide}: Moonglade's flight path is learned after Umber`);
 	for (const { goal, step } of list.slice(umber + 1, fp)) {
 		assert.ok(goal.t !== 'hearth' && goal.t !== 'fly', `${guide}: "${step.title}" ${goal.t}s out of Moonglade before its flight path`);
 		assert.ok(goal.map == null || goal.map === 1450, `${guide}: "${step.title}" leads to map ${goal.map}, not Moonglade`);
 	}
 	const hand = at(list, `${guide}: Erelas Ambersky's hand-in of 4901`, is('turnin', 4901));
-	assert.ok(hand > fp, `${guide}: Rut'theran Village comes after Nighthaven's flight path`);
+	assert.ok(hand > fp, `${guide}: Rut'theran Village comes after Moonglade's flight path`);
 	for (const { step } of [list[fp], list[hand]]) {
 		const tip = [].concat(step.note || []).join(' ');
 		assert.doesNotMatch(tip, /Auberdine/, `${guide}: "${step.title}" tip: ${tip}`);
 	}
+});
+
+// --- Fitz (0.4.0): "every time I go to Moonglade" the guides said to learn the
+// flight path in Nighthaven, where Silva Fil'naveth (Alliance) and Bunthen
+// Plainswind (Horde) only fly Druids from their gossip (travel.json class DRUID,
+// taxi nodes 62 and 63) and teach no flight path. Moonglade's flight path is
+// Sindrayl's (node 49, Alliance) or Faustron's (node 69, Horde). Every getfp in
+// Moonglade resolves to the one of its side, with the arrow on him, never to
+// Nighthaven's; a step tip that speaks of the flight path by Nighthaven names him.
+test("Fitz (0.4.0): Moonglade's flight path is Sindrayl's or Faustron's, never Nighthaven's Druid flight masters", { skip: skip || needs('travel.json') }, () => {
+	const master = { Alliance: [49, 10897, 'Sindrayl'], Horde: [69, 12740, 'Faustron'] };
+	let seen = 0;
+	for (const guide of allGuides()) {
+		for (const { step, goal } of goals(guide)) {
+			if (goal.t !== 'getfp' || !/moonglade|nighthaven/i.test(goal.location)) continue;
+			seen++;
+			const where = `${guide}: "${step.title}" getfp ${goal.location}`;
+			const sides = [goal.only, step.only].map((o) => o && o.factions).find(Boolean) || [];
+			const side = goal.node === 69 ? 'Horde' : 'Alliance';
+			assert.deepEqual([goal.node, goal.npc, goal.npcName], master[side], `${where}: Sindrayl or Faustron`);
+			assert.ok(!sides.length || sides.includes(side), `${where}: ${master[side][2]} serves ${side}, the goal is for ${sides}`);
+			assert.equal(goal.map, 1450, `${where}: the arrow points at him`);
+			const tip = [].concat(step.note || []).join(' ');
+			if (/flight path/i.test(tip) && /Nighthaven/.test(tip)) assert.match(tip, /Sindrayl|Faustron/, `${where}: tip: ${tip}`);
+		}
+	}
+	assert.ok(seen >= 6, `${seen} Moonglade flight path goals`);
 });
 
 // Final route review 0.3.6 (Alliance 40-60): Of Lost Honor (5845) needs Of Forgotten Memories (5781), whose

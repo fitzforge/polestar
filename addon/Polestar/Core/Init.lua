@@ -882,6 +882,8 @@ end
 local SETTLE = 0.25
 local liveDepth, liveAt, settleQueued = 0, 0, false
 local livePaths, liveOrder = {}, {}
+-- Settings written together (ns.Batch): the paths written, in order.
+local batched = { depth = 0, paths = {}, seen = {} }
 
 function ns.Set(path, value)
 	local keys = keysOf(path)
@@ -893,11 +895,50 @@ function ns.Set(path, value)
 	end
 	if value == lookup(defaults, keys) then value = nil end
 	node[keys[#keys]] = value
-	if liveDepth > 0 and not livePaths[path] then
-		livePaths[path] = true
-		liveOrder[#liveOrder + 1] = path
+	if liveDepth > 0 then
+		if not livePaths[path] then
+			livePaths[path] = true
+			liveOrder[#liveOrder + 1] = path
+		end
+	elseif livePaths[path] then
+		-- Written plainly after live writes (the colour picker's Cancel): this
+		-- change's own message announces the value, so its settle has nothing
+		-- left to tell (no second full refresh for the same value).
+		livePaths[path] = nil
+		for i = #liveOrder, 1, -1 do
+			if liveOrder[i] == path then table.remove(liveOrder, i) end
+		end
+	end
+	if batched.depth > 0 then
+		if not batched.seen[path] then
+			batched.seen[path] = true
+			batched.paths[#batched.paths + 1] = path
+		end
+		return
 	end
 	ns.Fire("SETTING_CHANGED", path, ns.Get(path))
+end
+
+-- fn(...) writing many settings at once (a page or a section put back to its
+-- defaults, their undo, a preset): each is written as fn sets it, and the
+-- listeners are told once at the end: the one setting's path when only one
+-- was written, else "" (every setting may have changed, as when a profile
+-- is switched), so the look, the window's rows and its preview are worked
+-- out again once, not once per setting.
+function ns.Batch(fn, ...)
+	batched.depth = batched.depth + 1
+	local ok, err = pcall(fn, ...)
+	batched.depth = batched.depth - 1
+	if batched.depth == 0 and #batched.paths > 0 then
+		local list = batched.paths
+		batched.paths, batched.seen = {}, {}
+		if #list == 1 then
+			ns.Fire("SETTING_CHANGED", list[1], ns.Get(list[1]))
+		else
+			ns.Fire("SETTING_CHANGED", "", nil)
+		end
+	end
+	if not ok then error(err, 0) end
 end
 
 function ns.SettingLive() return liveDepth > 0 end

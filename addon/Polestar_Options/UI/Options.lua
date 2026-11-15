@@ -42,6 +42,10 @@ local win
 local pages, pageList = {}, {} -- name -> page; ordered list
 local current, currentTab
 local query = ""
+-- The settings' indexes (one table: this file keeps Lua 5.1's spare locals):
+-- spec, the specs by key and the sections holding each (Index.get; nil after
+-- a registration); search, the words of every control (collect's).
+local Index = { search = { version = 0 } }
 local seq = 0
 -- The window out of the way without closing (O.Fold, O.Peek, Shift + the
 -- wheel; below): state = while it is folded to its header, { h, hidden =
@@ -135,7 +139,9 @@ local function dropViews(p)
 end
 
 local function add(spec, builtin)
+	Index.spec = nil
 	local p = pageOf(spec.page, spec.icon, spec.order, builtin, spec.key)
+	p.psNewList = nil
 	if spec.subtitle then p.subtitle = spec.subtitle end
 	if spec.custom then p.custom = spec.custom end
 	if spec.dot then p.dot = spec.dot end
@@ -155,6 +161,7 @@ local function add(spec, builtin)
 	-- preview, pinned over its rows (W.ShellPreview).
 	if spec.preview then tab.preview = spec.preview end
 	local s = sectionOf(tab, spec.section)
+	s.psOff = nil
 	-- jump = { tab, section }: a More link in the section's header that opens
 	-- that tab of the page and lights that section (Essentials).
 	if spec.jump then s.jump = spec.jump end
@@ -1209,17 +1216,6 @@ local function heldOff(c)
 	return false
 end
 
--- Whether a section holds a setting off its default, as
--- modifiedCount(sectionSettings(s)) > 0 says, without making the lists.
-local function sectionModified(s)
-	local t = s.toggle
-	if t and offDefault(t) and available(t) then return true end
-	for _, c in ipairs(s.controls) do
-		if (offDefault(c) or heldOff(c)) and available(c) then return true end
-	end
-	return false
-end
-
 -- Whether c or anything it holds, available or not, is off its default.
 local function anyOff(c)
 	if offDefault(c) then return true end
@@ -1234,6 +1230,36 @@ local function anyOff(c)
 		for _, m in ipairs(more) do
 			if anyOff(m) then return true end
 		end
+	end
+	return false
+end
+
+-- Whether a section holds a setting off its default, as
+-- modifiedCount(sectionSettings(s)) > 0 says, without making the lists. Only
+-- its controls holding a setting off its default can (anyOff), so those are
+-- kept per section (s.psOff), worked out again when one of the section's
+-- settings changes (O.SettingMoved) or every setting may have.
+local function sectionModified(s)
+	local off = s.psOff
+	if not off then
+		local toggle = s.toggle and offDefault(s.toggle) or false
+		for _, c in ipairs(s.controls) do
+			if anyOff(c) then
+				off = off or { toggle = toggle }
+				off[#off + 1] = c
+			end
+		end
+		-- (Most sections hold nothing off: one shared empty list for them.)
+		if not off then
+			Index.noneOff = Index.noneOff or { toggle = false }
+			off = toggle and { toggle = true } or Index.noneOff
+		end
+		s.psOff = off
+	end
+	if off.toggle and available(s.toggle) then return true end
+	for i = 1, #off do
+		local c = off[i]
+		if (offDefault(c) or heldOff(c)) and available(c) then return true end
 	end
 	return false
 end
@@ -1264,13 +1290,15 @@ end
 -- too, through its set(nil)); the footer offers to undo it.
 function O.ResetSection(controls)
 	local held = Undo.holdings(controls)
-	for _, c in ipairs(controls) do
-		if c.key and c.kind ~= "button" and c.kind ~= "binding" then
-			ns.Set(c.key, nil)
-		elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
-			c.set(nil)
+	ns.Batch(function()
+		for _, c in ipairs(controls) do
+			if c.key and c.kind ~= "button" and c.kind ~= "binding" then
+				if ns.GetStored(c.key) ~= nil then ns.Set(c.key, nil) end
+			elseif (c.kind == "toggle" or c.kind == "slider" or c.kind == "dropdown" or c.kind == "cards") and not c.key and c.set then
+				c.set(nil)
+			end
 		end
-	end
+	end)
 	local view = O.view
 	if view and view.cache then
 		for _, c in ipairs(controls) do
@@ -1371,8 +1399,42 @@ local function inlineRefresh(self)
 end
 
 -- Tell the preview on screen which setting the pointer is on: its frame's
--- optional f:Focus(key) (a preview that scrolls to the part it draws).
-function O.PreviewFocus(key) UI.Preview.Focus(O.view, key) end
+-- optional f:Focus(key) (a preview that scrolls to the part it draws). Off a
+-- row (nil) the lights go out FOCUS_GRACE later, unless the pointer lands on
+-- another row first: crossing the gap between two rows, columns or sections
+-- hands the lights over without them blinking out. One timer at a time, no
+-- closure per hover.
+do
+	local FOCUS_GRACE = 0.15
+	local offAt, offView, waiting
+	local function lightsOut()
+		waiting = nil
+		if not offAt then return end
+		local left = offAt - GetTime()
+		if left > 0.001 then
+			waiting = true
+			C_Timer.After(left, lightsOut)
+			return
+		end
+		local view = offView
+		offAt, offView = nil, nil
+		UI.Preview.Focus(view, nil)
+	end
+	function O.PreviewFocus(key)
+		if key == nil then
+			offAt, offView = GetTime() + FOCUS_GRACE, O.view
+			if not waiting then
+				waiting = true
+				C_Timer.After(FOCUS_GRACE, lightsOut)
+			end
+			return
+		end
+		-- A row of another tab: the one left goes dark now.
+		if offView and offView ~= O.view then UI.Preview.Focus(offView, nil) end
+		offAt, offView = nil, nil
+		UI.Preview.Focus(O.view, key)
+	end
+end
 
 -- A ghost Move for a row or a section's header whose setting places a frame
 -- (`move`, the frame's mover key in UI/Movers.lua): O.MoveFrame. Off while
@@ -1854,24 +1916,86 @@ end
 -- (UI.Preview); here, what it asks of the window.
 ---------------------------------------------------------------------------
 
--- The setting `key`'s control spec: on the page and tab on screen first,
--- then the page, then anywhere; a reference to a control on another tab
--- (c.ref) leads to that control itself. -> spec | nil
-function O.ControlByKey(key)
-	local best, rank
+-- The specs by key, built once (in page order) and again after a
+-- registration (add drops it): byKey[key] = { c, page, tab, ... } of every
+-- control holding the key (not a reference); home[key] = its home control
+-- (O.AllControls' first); sections[key] = the sections holding it.
+function Index.get()
+	if Index.spec then return Index.spec end
+	local byKey, home, sections = {}, {}, {}
 	for _, p in ipairs(pageList) do
 		for _, t in ipairs(p.tabs) do
 			for _, s in ipairs(t.sections) do
 				for _, c in ipairs(allSettings(s)) do
-					if c.key == key and available(c) and not rawget(c, "ref") then
-						local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
-						if not rank or r < rank then best, rank = c, r end
+					local key = c.key
+					if key ~= nil then
+						local of = sections[key]
+						if not of then
+							of = {}
+							sections[key] = of
+						end
+						if of[#of] ~= s then of[#of + 1] = s end
 					end
+					if key ~= nil and not rawget(c, "ref") then
+						local list = byKey[key]
+						if not list then
+							list = {}
+							byKey[key] = list
+						end
+						list[#list + 1] = c
+						list[#list + 1] = p
+						list[#list + 1] = t
+					end
+				end
+				for _, c in ipairs(homeSettings(s)) do
+					if c.key ~= nil and home[c.key] == nil then home[c.key] = c end
 				end
 			end
 		end
 	end
+	Index.spec = { byKey = byKey, home = home, sections = sections }
+	return Index.spec
+end
+
+-- A setting changed (live or not; "" or a section's name: every setting may
+-- have): the sections holding it work out again which of their controls are
+-- off their defaults (sectionModified).
+function O.SettingMoved(path)
+	local of = type(path) == "string" and path:find(".", 1, true) and Index.get().sections[path]
+	if of then
+		for i = 1, #of do of[i].psOff = nil end
+		return
+	end
+	for _, p in ipairs(pageList) do
+		for _, t in ipairs(p.tabs) do
+			for _, s in ipairs(t.sections) do s.psOff = nil end
+		end
+	end
+end
+ns.On("SETTING_CHANGED", O.SettingMoved)
+
+-- The setting `key`'s control spec: on the page and tab on screen first,
+-- then the page, then anywhere; a reference to a control on another tab
+-- (c.ref) leads to that control itself. -> spec | nil
+-- Asked on every hover of a preview's part: through the index.
+function O.ControlByKey(key)
+	local list = key ~= nil and Index.get().byKey[key]
+	if not list then return nil end
+	local best, rank
+	for i = 1, #list, 3 do
+		local c, p, t = list[i], list[i + 1], list[i + 2]
+		if available(c) then
+			local r = (p == current and t == currentTab) and 1 or (p == current and 2 or 3)
+			if not rank or r < rank then best, rank = c, r end
+		end
+	end
 	return best
+end
+
+-- The home control of setting `key` (its row on a deep tab, references
+-- aside, available or not). -> spec | nil
+function O.HomeControl(key)
+	return key ~= nil and Index.get().home[key] or nil
 end
 O.LabelOf = labelOf
 
@@ -2186,6 +2310,7 @@ local function searchTokens(c)
 	addWords(w, f, c.page and c.page.name, PLACE, true)
 	addWords(w, f, c.help, HELP, false)
 	c.psFind = s
+	Index.search.dirty = true
 	return s
 end
 
@@ -2464,12 +2589,111 @@ local function suggest(nw)
 	return out
 end
 
+-- The controls a query word may match at all, from an index of every
+-- control's words (built once per set of pages: add drops it, a label that
+-- changed builds it again): those with a word it matches (kindOf > 0) or one
+-- of its other forms or synonyms names whole (>= 3). A control without such
+-- a word scores 0 for a word it needs (scoreOf), so it is not scored at all.
+-- Each word's set is kept on its memo, across keystrokes. Index.prepare(nw)
+-- for a parsed query; Index.scoreHeld(c, c, nw) then puts the best of c and
+-- what it holds (its extras, what its cog holds, each while available) into
+-- Index.found (no closure or list per control).
+do
+	local S = Index.search
+	local function wordIndex()
+		if S.words and not S.dirty and S.built == Index.spec then return S.words end
+		local words, last = {}, {}
+		for _, p in ipairs(pageList) do
+			for _, t in ipairs(p.tabs) do
+				for _, s in ipairs(t.sections) do
+					for _, c in ipairs(allSettings(s)) do
+						for _, w in ipairs(searchTokens(c).words) do
+							if last[w] ~= c then
+								last[w] = c
+								local list = words[w]
+								if not list then
+									list = {}
+									words[w] = list
+								end
+								list[#list + 1] = c
+							end
+						end
+					end
+				end
+			end
+		end
+		S.words, S.dirty = words, false
+		S.built = Index.get()
+		S.version = S.version + 1
+		return words
+	end
+	local function candidatesOf(i)
+		local m = qwords[i]
+		local words = wordIndex()
+		if m.cands and m.candsVersion == S.version then return m.cands end
+		local set = {}
+		for t, list in pairs(words) do
+			local hit = kindOf(m, t) > 0
+			if not hit then
+				for _, forms in ipairs(qforms) do
+					local said = forms[i]
+					if said then
+						for _, sm in ipairs(said) do
+							if kindOf(sm, t) >= 3 then hit = true break end
+						end
+					end
+					if hit then break end
+				end
+			end
+			if hit then
+				for k = 1, #list do set[list[k]] = true end
+			end
+		end
+		m.cands, m.candsVersion = set, S.version
+		return set
+	end
+
+	local found, cands = {}, {}
+	Index.found = found
+	function Index.prepare(nw)
+		for i = 1, #cands do cands[i] = nil end
+		for i = 1, nw do cands[i] = not qfiller[i] and candidatesOf(i) or false end
+	end
+	local function matchable(x, nw)
+		for i = 1, nw do
+			local cs = cands[i]
+			if cs and not cs[x] then return false end
+		end
+		return true
+	end
+	local function scoreHeld(x, c, nw)
+		if matchable(x, nw) and (x == c or available(x)) then
+			local v, w, f = scoreOf(x, nw)
+			if v > found.score then found.score, found.words, found.via, found.fill = v, w or 0, x, f or 0 end
+		end
+		if x.extras then
+			for _, e in ipairs(x.extras) do
+				if matchable(e, nw) and available(e) then
+					local v, w, f = scoreOf(e, nw)
+					if v > found.score then found.score, found.words, found.via, found.fill = v, w or 0, e, f or 0 end
+				end
+			end
+		end
+		if x.more then
+			for _, m in ipairs(x.more) do scoreHeld(m, c, nw) end
+		end
+	end
+	Index.scoreHeld = scoreHeld
+end
+
 -- Every control the parsed query matches, grouped by page, tab and section
 -- (only: one page's), each control once (a setting shown on two pages, under
 -- the first), the best first in its group. -> groups (unsorted), count
 local function collect(nw, only)
 	local groups, count = {}, 0
 	for k in pairs(seen) do seen[k] = nil end
+	Index.prepare(nw)
+	local found = Index.found
 	local order = 0
 	for _, p in ipairs(pageList) do if not only or p == only then
 		for _, t in ipairs(p.tabs) do
@@ -2478,32 +2702,28 @@ local function collect(nw, only)
 				-- found by its words and by those of its extras and cog. A
 				-- reference (Essentials) is found at its home.
 				local list, best, fair
-				local cands = {}
-				if s.toggle and not rawget(s.toggle, "ref") then cands[1] = s.toggle end
-				for _, c in ipairs(s.controls) do
-					if not rawget(c, "ref") then cands[#cands + 1] = c end
-				end
-				for _, c in ipairs(cands) do
-					order = order + 1
-					if available(c) and not (c.key and seen[c.key]) then
-						local score, words, via, fill = 0, 0, nil, 0
-						eachSetting(c, function(x)
-							if x == c or available(x) then
-								local v, w, f = scoreOf(x, nw)
-								if v > score then score, words, via, fill = v, w or 0, x, f or 0 end
+				local n = #s.controls
+				for ci = (s.toggle and 0 or 1), n do
+					local c = ci == 0 and s.toggle or s.controls[ci]
+					if not rawget(c, "ref") then
+						order = order + 1
+						if available(c) and not (c.key and seen[c.key]) then
+							found.score, found.words, found.via, found.fill = 0, 0, nil, 0
+							Index.scoreHeld(c, c, nw)
+							local score, words, via, fill = found.score, found.words, found.via, found.fill
+							found.via = nil
+							if score > 0 then
+								if c.key then seen[c.key] = true end
+								-- psVia: an extra or a cog's setting that matched better than the row's own.
+								c.psScore, c.psOrder, c.psVia = score, order, via ~= c and via or nil
+								c.psCore = score - fill
+								-- Stopped by its section's on/off: after the ones that work.
+								c.psStopped = s.toggle ~= c and sectionOff(s)
+								list = list or {}
+								list[#list + 1] = c
+								if not best or score > best then best = score end
+								if not fair or words > fair then fair = words end
 							end
-						end)
-						if score > 0 then
-							if c.key then seen[c.key] = true end
-							-- psVia: an extra or a cog's setting that matched better than the row's own.
-							c.psScore, c.psOrder, c.psVia = score, order, via ~= c and via or nil
-							c.psCore = score - fill
-							-- Stopped by its section's on/off: after the ones that work.
-							c.psStopped = s.toggle ~= c and sectionOff(s)
-							list = list or {}
-							list[#list + 1] = c
-							if not best or score > best then best = score end
-							if not fair or words > fair then fair = words end
 						end
 					end
 				end
@@ -2865,35 +3085,39 @@ local function navState()
 	return db.optionsNav
 end
 
--- How many of c and what it holds (homeSettings': references aside) are new
--- since `seen` and available.
-local function newIn(c, seen)
-	local n = (not rawget(c, "ref") and c.new and newer(c.new, seen) and available(c)) and 1 or 0
-	local ex = c.extras
-	if ex then
-		for _, e in ipairs(ex) do
-			if not rawget(e, "ref") and e.new and newer(e.new, seen) and available(e) then n = n + 1 end
+-- The page's settings new since the player last opened it, its sections'
+-- toggles, its controls, their extras and what their cogs hold (references
+-- aside), each while available. -> count
+-- Only those marked new in some release can count, so they are listed once
+-- per page (p.psNewList; a registration drops it).
+function Index.newList(p)
+	local list = p.psNewList
+	if list then return list end
+	list = {}
+	local function put(x)
+		if not rawget(x, "ref") and x.new then list[#list + 1] = x end
+	end
+	local function walk(c)
+		put(c)
+		for _, e in ipairs(c.extras or {}) do put(e) end
+		for _, m in ipairs(c.more or {}) do walk(m) end
+	end
+	for _, t in ipairs(p.tabs) do
+		for _, s in ipairs(t.sections) do
+			if s.toggle then put(s.toggle) end
+			for _, c in ipairs(s.controls) do
+				if not rawget(c, "ref") then walk(c) end
+			end
 		end
 	end
-	local more = c.more
-	if more then
-		for _, m in ipairs(more) do n = n + newIn(m, seen) end
-	end
-	return n
+	p.psNewList = list
+	return list
 end
-
--- The page's settings new since the player last opened it. -> count
 local function pageNew(p)
 	local seenNow = seenTable()[p.key]
 	local n = 0
-	for _, t in ipairs(p.tabs) do
-		for _, s in ipairs(t.sections) do
-			local tg = s.toggle
-			if tg and not rawget(tg, "ref") and tg.new and newer(tg.new, seenNow) and available(tg) then n = n + 1 end
-			for _, c in ipairs(s.controls) do
-				if not rawget(c, "ref") then n = n + newIn(c, seenNow) end
-			end
-		end
+	for _, x in ipairs(Index.newList(p)) do
+		if newer(x.new, seenNow) and available(x) then n = n + 1 end
 	end
 	return n
 end
@@ -3183,8 +3407,8 @@ function O.Undo()
 			if not u.set then ns.Set(u.path, u.value) end
 		end
 	end
-	local I = ns.ThemeInternal
-	if I and I.batch then I.batch(put) else put() end
+	-- One batch: the look and the window worked out again once (ns.Batch).
+	ns.Batch(put)
 	-- State that is no setting repaints itself.
 	local view = O.view
 	for _, w in pairs(view and view.cache or {}) do
@@ -3238,13 +3462,20 @@ function O.ResetPage(p)
 			end
 		end
 	end
-	for _, key in ipairs(pageKeys(p)) do
-		local was = ns.GetStored(key)
-		if was ~= nil then held[#held + 1] = { path = key, value = was } end
-		ns.Set(key, nil)
-	end
-	-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
-	for _, c in ipairs(state) do c.set(nil) end
+	-- One batch: the look, the rows and the preview worked out again once at
+	-- its end (ns.Batch), not once per setting; a setting at its default
+	-- already is left alone.
+	ns.Batch(function()
+		for _, key in ipairs(pageKeys(p)) do
+			local was = ns.GetStored(key)
+			if was ~= nil then
+				held[#held + 1] = { path = key, value = was }
+				ns.Set(key, nil)
+			end
+		end
+		-- Toggles, sliders, dropdowns and cards of state that is no setting go back to their default too.
+		for _, c in ipairs(state) do c.set(nil) end
+	end)
 	for _, v in pairs(p.views or {}) do
 		for _, w in pairs(v.cache or {}) do
 			if w.psControl and not w.psControl.key and w.Refresh then w:Refresh() end

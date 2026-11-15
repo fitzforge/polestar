@@ -118,6 +118,62 @@ local function buildNamesPreview(view)
 	return f
 end
 
+-- The settings window's parts drawn in the accent: a region in the accent,
+-- at least half opaque; a frame's border or pill (a switch's track) by its
+-- frame. Found by walking the window, once for the tab on screen: kept until
+-- another tab shows or a setting or the look changes, so an accent row's
+-- hover lights them without walking every frame again. The gamepad's focus
+-- ring moves on its own and is looked at each time.
+local windowAccents
+do
+	local kept, out, seen, own = {}, {}, {}, {}
+	local keptView
+	local ar, ag, ab
+	local function regions(fr, list, ...)
+		for i = 1, select("#", ...) do
+			local r = (select(i, ...))
+			local cr, cg, cb, ca
+			if r:GetObjectType() == "FontString" then cr, cg, cb, ca = r:GetTextColor() else cr, cg, cb, ca = r:GetVertexColor() end
+			if cr and (ca or 1) >= 0.5 and r:IsShown() and math.abs(cr - ar) + math.abs(cg - ag) + math.abs(cb - ab) < 0.02 then
+				local part = own[r] and fr or r
+				if not seen[part] then
+					seen[part] = true
+					list[#list + 1] = part
+				end
+			end
+		end
+	end
+	local function walk(fr, list)
+		if not fr:IsVisible() or ns.UI.Preview.IsBand(fr) then return end
+		for k in pairs(own) do own[k] = nil end
+		for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
+		for _, t in ipairs(rawget(fr, "parts") or {}) do own[t] = true end
+		regions(fr, list, fr:GetRegions())
+		for i = 1, fr:GetNumChildren() do walk((select(i, fr:GetChildren())), list) end
+	end
+	local function forget() keptView = nil end
+	ns.On("SETTING_CHANGED", forget)
+	Theme.OnChanged(forget)
+	function windowAccents()
+		local O = ns.UI.Options
+		local view = O and O.view or false
+		ar, ag, ab = Theme.Accent()
+		if keptView ~= view then
+			for k in pairs(seen) do seen[k] = nil end
+			for i = #kept, 1, -1 do kept[i] = nil end
+			walk(PolestarOptions, kept)
+			keptView = view
+		end
+		local ring = _G.PolestarPadRing
+		if not (ring and ring:IsVisible()) then return kept end
+		for i = #out, 1, -1 do out[i] = nil end
+		for i = 1, #kept do out[i] = kept[i] end
+		walk(ring, out)
+		for i = #kept + 1, #out do seen[out[i]] = nil end
+		return out
+	end
+end
+
 -- A click on a part finds its setting; the pointer on a setting's row lights
 -- the parts it changes (the settings window's own, for what dresses it), on
 -- preview f: the guide window G (UI.GuideWindowScene, a copy of the window
@@ -183,35 +239,8 @@ function lightParts(f, G, heads, toast, card)
 	-- And every part of the settings window drawn in the accent as the row is
 	-- hovered (the emblem, the open page's row, the open tab's underline, the
 	-- sliders' fills, the switches that are on, chips, primary buttons, a
-	-- focused box's ring) and the gamepad's focus ring: a region in the
-	-- accent, at least half opaque; a frame's border by its frame.
+	-- focused box's ring) and the gamepad's focus ring: windowAccents below.
 	if win then
-		local P = ns.UI.Preview
-		local function windowAccents()
-			local out, seen, ar, ag, ab = {}, {}, Theme.Accent()
-			local function walk(fr)
-				if not fr:IsVisible() or P.IsBand(fr) then return end
-				-- A border's pieces or a pill's (a switch's track) by their frame.
-				local own = {}
-				for _, t in ipairs(rawget(fr, "psBorder") or {}) do own[t] = true end
-				for _, t in ipairs(rawget(fr, "parts") or {}) do own[t] = true end
-				for _, r in ipairs({ fr:GetRegions() }) do
-					local cr, cg, cb, ca
-					if r:GetObjectType() == "FontString" then cr, cg, cb, ca = r:GetTextColor() else cr, cg, cb, ca = r:GetVertexColor() end
-					if cr and (ca or 1) >= 0.5 and r:IsShown() and math.abs(cr - ar) + math.abs(cg - ag) + math.abs(cb - ab) < 0.02 then
-						local part = own[r] and fr or r
-						if not seen[part] then
-							seen[part] = true
-							out[#out + 1] = part
-						end
-					end
-				end
-				for _, c in ipairs({ fr:GetChildren() }) do walk(c) end
-			end
-			walk(win)
-			if _G.PolestarPadRing then walk(_G.PolestarPadRing) end
-			return out
-		end
 		f:LightEach("ui.accent", windowAccents, true)
 		f:LightEach("ui.classAccent", windowAccents, true)
 	end

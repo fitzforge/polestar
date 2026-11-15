@@ -261,10 +261,9 @@ local function chip(c, i)
 end
 
 -- The whole card, for its tooltip: the facts, the pitch, every pro and con,
--- the guide it goes on to (where the routes do not meet again).
-local function cardTip(c)
-	local o = c.psOption
-	if not o then return end
+-- the guide it goes on to (where the routes do not meet again). Its lines are
+-- made once per option and palette, not on every hover.
+local function tipLines(c, o)
 	local lines, parts = {}, {}
 	local lv = levelsText(o)
 	if lv then parts[#parts + 1] = lv end
@@ -281,7 +280,18 @@ local function cardTip(c)
 		if o.thenLevel then t = t .. SEP .. format(L["Level %d"], o.thenLevel) end
 		lines[#lines + 1] = { t, tr, tg, tb }
 	end
-	W.Tooltip(c, "ANCHOR_RIGHT", zoneOf(o), lines)
+	return lines
+end
+
+local function cardTip(c)
+	local o = c.psOption
+	if not o then return end
+	local pal, shown = Theme.Palette(), c.psShowThen and true or false
+	if c.psTipFor ~= o or c.psTipPal ~= pal or c.psTipThen ~= shown then
+		c.psTipLines, c.psTipTitle = tipLines(c, o), zoneOf(o)
+		c.psTipFor, c.psTipPal, c.psTipThen = o, pal, shown
+	end
+	W.Tooltip(c, "ANCHOR_RIGHT", c.psTipTitle, c.psTipLines)
 end
 
 local function artName(parent)

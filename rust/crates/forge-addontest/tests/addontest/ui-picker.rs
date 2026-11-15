@@ -100,23 +100,22 @@ fn a_lead_in_guide_is_listed_right_before_the_guide_it_hands_over_to() {
 		addBand("forever/alliance/05-the-zone", "The Zone", "Alliance", 12, 16)
 		addBand("forever/alliance/human/05-into-the-zone", "Into the Zone", "Alliance", 12, 12)
 		uistub.guides["forever/alliance/human/05-into-the-zone"].next = "forever/alliance/05-the-zone"
-		emit({ list = kinds(P.Entries("Alliance", "", "Leveling")) })"#);
+		emit({ list = kinds(P.Entries("", "Leveling")) })"#);
 	let list: Vec<&str> = out["list"].as_array().unwrap().iter().filter_map(|v| v.as_str()).collect();
 	let at = |t: &str| list.iter().position(|x| *x == t).unwrap_or_else(|| panic!("{t} listed: {list:?}"));
 	assert!(at("Into the Zone") < at("The Zone"), "the lead-in first: {list:?}");
 }
 
 #[test]
-fn browse_folders_by_faction_and_band_then_by_category_faction_filter_and_band_derivation() {
+fn browse_folders_by_faction_and_band_then_by_category_the_character_s_side_only_and_band_derivation() {
 	let out = run(r#"
-		local alliance = kinds(P.Entries("Alliance", "", "Leveling"))
-		local horde = kinds(P.Entries("Horde", ""))
-		local all = kinds(P.Entries("All", "", "Leveling"))
+		local alliance = kinds(P.Entries("", "Leveling"))
+		local everything = kinds(P.Entries("", "All"))
 		uistub.player.race, uistub.player.faction = "Scourge", "Horde"
-		emit({ alliance = alliance, all = all, horde = horde, undeadHorde = kinds(P.Entries("Horde", "", "Leveling")),
+		emit({ alliance = alliance, everything = everything, undeadHorde = kinds(P.Entries("", "Leveling")), undeadAll = kinds(P.Entries("", "All")),
 			bands = { { P.Band({ id = "forever/horde/30-40/01-desolace", minLevel = 12 }) }, { P.Band({ id = "a/b", minLevel = 44 }) }, { P.Band({ id = "a/b", minLevel = 29 }) } } })"#);
-	// Within a folder: faction, then minimum level, then id. On the player's own faction, a Human sees the other
-	// races' starts (Dun Morogh, Teldrassil, Zephras Isle) in their own folder after their levels 1-30.
+	// Within a folder: faction, then minimum level, then id. A Human sees the other Alliance races' starts (Dun
+	// Morogh, Teldrassil, Zephras Isle) in their own folder after their levels 1-30.
 	assert_eq!(
 		out["alliance"],
 		json!([
@@ -135,16 +134,16 @@ fn browse_folders_by_faction_and_band_then_by_category_faction_filter_and_band_d
 			"Feralas"
 		])
 	);
-	// The player's faction first; every faction and every race's guides when all are listed.
-	assert_eq!(starting_with_bracket(&out["all"]), json!(["[Alliance 1\u{2013}30 6]", "[Alliance 30\u{2013}40 1]", "[Alliance 40\u{2013}50 2]", "[Horde 1\u{2013}30 3]", "[Horde 30\u{2013}40 1]"]));
-	// The other faction lists all of its guides, races included.
-	assert_eq!(starting_with_bracket(&out["horde"]), json!(["[Horde 1\u{2013}30 3]", "[Horde 30\u{2013}40 1]", "[Professions 3]", "[Reputation 1]", "[Exploration 1]", "[Legacy 1]"]));
-	assert!(includes(&out["horde"], "Durotar"));
-	assert!(includes(&out["horde"], "Orgrimmar Reputation") && !includes(&out["horde"], "Stormwind Reputation"));
-	// An Undead on the Horde list: the Orc and Troll start is listed apart, the shared guides stay.
+	// #2462: never a guide of the other faction, in any category.
+	for horde in ["Durotar", "The Barrens", "Tirisfal Glades", "Desolace & Hillsbrad Foothills", "Orgrimmar Reputation"] {
+		assert!(!includes(&out["everything"], horde), "{horde} listed for an Alliance character");
+	}
+	assert!(includes(&out["everything"], "Stormwind Reputation") && includes(&out["everything"], "Cooking 1-300"));
+	// An Undead: the Horde list, the Orc and Troll start apart, the shared guides stay; no Alliance guide.
 	let undead = starting_with_bracket(&out["undeadHorde"]);
 	assert_eq!(undead, json!(["[Horde 1\u{2013}30 2]", "[Other starting zones 1]", "[Horde 30\u{2013}40 1]"]));
 	assert!(includes(&out["undeadHorde"], "Durotar") && includes(&out["undeadHorde"], "The Barrens"));
+	assert!(includes(&out["undeadAll"], "Orgrimmar Reputation") && !includes(&out["undeadAll"], "Stormwind Reputation") && !includes(&out["undeadAll"], "Horse"));
 	assert_eq!(out["bands"], json!([[30, 40], [40, 50], [1, 30]]));
 }
 
@@ -157,7 +156,7 @@ fn a_night_elf_sees_the_other_alliance_starts_under_other_starting_zones_but_no_
 			minLevel = 12, maxLevel = 15, category = "Leveling", zone = 0, zoneName = "Westfall", steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
 		table.insert(uistub.order, "forever/alliance/human/02-later")
 		local G = uistub.realGuides
-		emit({ alliance = kinds(P.Entries("Alliance", "", "Leveling")),
+		emit({ alliance = kinds(P.Entries("", "Leveling")),
 			other = { G.OtherStart(uistub.guides[uistub.elwynn], uistub.player), G.OtherStart(uistub.guides["forever/alliance/nightelf/01-teldrassil"], uistub.player),
 				G.OtherStart(uistub.guides["forever/horde/orc-troll/01-durotar"], uistub.player), G.OtherStart(uistub.guides["forever/alliance/human/02-later"], uistub.player) } })"#);
 	assert_eq!(
@@ -188,17 +187,20 @@ fn search_covers_titles_zones_categories_and_player_facing_race_names_typing_sel
 		UI.ShowPicker()
 		local function guides(q, cat)
 			local t = {}
-			for _, e in ipairs(P.Entries("All", q, cat)) do if e.kind == "guide" then t[#t + 1] = e.guide.title end end
+			for _, e in ipairs(P.Entries(q, cat)) do if e.kind == "guide" then t[#t + 1] = e.guide.title end end
 			return t
 		end
 		P.SetView("current")
 		P.SetQuery("elwynn")
 		local r = { view = P.View(), shown = lines(), selected = P.Selected(), title = PolestarPicker.Title:GetText(),
 			subtitle = PolestarPicker.Subtitle:GetText(), browseOn = tab("browse").psSelected }
-		emit({ r = r, multi = guides("elwynn riding"), reputation = guides("reputation"), upper = guides("PROFESSIONS"),
-			undead = guides("undead"), nightelf = guides("night elf"), profInLeveling = #guides("tailoring", "Leveling") })"#);
+		local r2 = { multi = guides("elwynn riding"), reputation = guides("reputation"), upper = guides("PROFESSIONS"),
+			nightelf = guides("night elf"), profInLeveling = #guides("tailoring", "Leveling") }
+		uistub.player.race, uistub.player.faction = "Scourge", "Horde"
+		r2.undead, r2.r = guides("undead"), r
+		emit(r2)"#);
 	assert_eq!(out["multi"], json!(["Horse"]), "every word must match: the zone and a keyword");
-	assert_eq!(out["reputation"], json!(["Stormwind Reputation", "Orgrimmar Reputation"]));
+	assert_eq!(out["reputation"], json!(["Stormwind Reputation"]), "the character's side only");
 	assert_eq!(out["upper"], json!(["Cooking 1-300", "First Aid 1-300", "Tailoring 1-300"]));
 	assert_eq!(out["undead"], json!(["Tirisfal Glades"]), "\"Scourge\" is found as Undead");
 	assert_eq!(out["nightelf"], json!(["Teldrassil"]));
@@ -365,28 +367,29 @@ fn the_hub_fits_every_section_on_the_rail_above_the_foot_import_options_every_ca
 }
 
 #[test]
-fn categories_left_out_without_a_guide_for_any_faction_muted_with_a_tip_when_empty_only_for_this_faction() {
+fn categories_left_out_without_a_guide_of_the_character_s_side_muted_when_none_is_for_this_character() {
 	let out = run(r#"
-		-- No Legacy guide at all; the only collectible (Horse) is Alliance only.
+		-- No Legacy guide at all; the only collectible (Horse) is Alliance only; the only Class guide is a Paladin's.
 		for i = #uistub.order, 1, -1 do
 			local g = uistub.guides[uistub.order[i]]
 			if g and g.category == "Legacy" then table.remove(uistub.order, i) end
 		end
-		uistub.openTabs(TABS, 1)
-		Polestar.Set("ui.pickerFaction", "Horde")
+		local id = "forever/class/paladin/test"
+		uistub.guides[id] = { id = id, pack = "guides", title = "Storm", category = "Class", folder = "Paladin", classes = { "PALADIN" }, minLevel = 22, maxLevel = 30,
+			steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
+		table.insert(uistub.order, id)
+		uistub.player.race, uistub.player.faction = "Orc", "Horde"
 		UI.ShowPicker()
 		P.SetCategory("All")
-		local collectibles = nav("Collectibles")
+		local class = nav("Class")
 		-- Empty: the muted text colour alone marks it (no fade on top).
-		local r, g, b = collectibles.Label:GetTextColor()
+		local r, g, b = class.Label:GetTextColor()
 		local mr, mg, mb = Polestar.Theme.Color("textMuted")
 		local muted = math.abs(r - mr) < 1e-6 and math.abs(g - mg) < 1e-6 and math.abs(b - mb) < 1e-6
-		emit({ cats = P.categories, legacy = nav("Legacy") ~= nil, collectibles = { collectibles.psTip, collectibles:GetAlpha(), collectibles.Count:IsShown(), muted },
-			leveling = nav("Leveling").psTip or false })"#);
-	assert_eq!(out["cats"], json!(["All", "Leveling", "Professions", "Reputation", "Exploration", "Collectibles", "Favorites"]));
+		emit({ cats = P.categories, legacy = nav("Legacy") ~= nil, class = { class.psTip or false, class:GetAlpha(), class.Count:IsShown(), muted } })"#);
+	assert_eq!(out["cats"], json!(["All", "Leveling", "Class", "Professions", "Reputation", "Exploration", "Favorites"]), "no Collectibles: its one guide is the Alliance's");
 	assert_eq!(out["legacy"], false);
-	assert_eq!(out["collectibles"], json!(["None for Horde; switch the filter to All.", 1, false, true]));
-	assert_eq!(out["leveling"], false);
+	assert_eq!(out["class"], json!([false, 1, false, true]));
 }
 
 #[test]
@@ -451,7 +454,6 @@ fn a_class_guide_s_details_carry_the_class_quest_heads_up_after_why() {
 			Heads = function(g) asked = g.id; return { quests = 6 } end,
 			HeadsLine = function(h) return h.quests == 6 and "Long chain: 6 quests across 4 zones" or nil end,
 		}
-		Polestar.Set("ui.pickerFaction", "All")
 		UI.ShowPicker()
 		P.Select(id)
 		emit({ asked = asked, facts = { P.detail.facts[1], P.detail.facts[2] } })
@@ -481,7 +483,6 @@ fn a_class_guide_s_details_lead_with_its_reward_item_and_spell_icons_quality_col
 		local tips = {}
 		GameTooltip.SetHyperlink = function(_, link) tips[#tips + 1] = link end
 		GameTooltip.SetSpellByID = function(_, spell) tips[#tips + 1] = "spell:" .. spell end
-		Polestar.Set("ui.pickerFaction", "All")
 		UI.ShowPicker()
 		P.Select(id)
 		local d = D()
@@ -557,7 +558,6 @@ fn reward_tiles_an_uncached_item_s_tooltip_fills_in_when_the_item_arrives_the_pa
 			return false
 		end
 		Polestar.Hooks.ItemClick("test", function(_, item) if IsAltKeyDown() then calls[#calls + 1] = "guide " .. item end end)
-		Polestar.Set("ui.pickerFaction", "All")
 		UI.ShowPicker()
 		P.Select(id)
 		local d = D()
@@ -631,26 +631,24 @@ fn load_guide_replaces_the_current_tab_open_in_new_tab_adds_one_double_click_and
 }
 
 #[test]
-fn from_the_guide_window_s_loading_opens_a_new_tab_faction_buttons_write_the_filter_no_tabs_api_no_new_tab_button() {
+fn from_the_guide_window_s_loading_opens_a_new_tab_no_faction_filter_no_tabs_api_no_new_tab_button() {
 	let out = run(r#"
 		uistub.openTabs(TABS, 1)
 		UI.ShowPicker({ newTab = true })
-		local r = { subtitle = PolestarPicker.Subtitle:GetText(), newTabMode = P.IsNewTabMode() }
-		for _, b in ipairs(PolestarPicker.factionButtons) do if b.psKey == "Horde" then b:Click() end end
-		r.filter = Polestar.Get("ui.pickerFaction")
+		local r = { subtitle = PolestarPicker.Subtitle:GetText(), newTabMode = P.IsNewTabMode(), filter = PolestarPicker.factionButtons ~= nil }
 		P.SetCategory("Leveling")
-		P.Select("forever/horde/orc-troll/01-durotar")
+		P.Select("forever/alliance/dwarf-gnome/01-dun-morogh")
 		r.primary = { load = D().Load.psPrimary or false, newTab = D().NewTab.psPrimary or false }
-		r.tip = rowFor("Durotar").psTip
-		stub.RunScript(rowFor("Durotar"), "OnDoubleClick", "LeftButton")
+		r.tip = rowFor("Dun Morogh").psTip
+		stub.RunScript(rowFor("Dun Morogh"), "OnDoubleClick", "LeftButton")
 		r.call = lastCall("OpenTab")
 		r.tabs = #select(1, Polestar.Engine.GetTabs())
 		emit(r)"#);
 	assert_eq!(
 		out,
 		json!({
-			"subtitle": "Pick a guide to open in a new tab.", "newTabMode": true, "filter": "Horde", "primary": { "load": false, "newTab": true },
-			"call": ["OpenTab", "forever/horde/orc-troll/01-durotar"], "tabs": 4,
+			"subtitle": "Pick a guide to open in a new tab.", "newTabMode": true, "filter": false, "primary": { "load": false, "newTab": true },
+			"call": ["OpenTab", "forever/alliance/dwarf-gnome/01-dun-morogh"], "tabs": 4,
 			"tip": "Double-click a guide or press Enter to open it in a new tab.",
 		})
 	);
@@ -883,7 +881,7 @@ fn current_lists_the_open_tabs_tab_and_progress_check_when_finished_recent_keeps
 	assert_eq!(out["first"], "forever/alliance/skyborne/01-zephras-isle");
 	assert_eq!(out["second"], "forever/legacy/legacy-challenges");
 	assert_eq!(out["unique"], true);
-	assert_eq!(out["rows"], 10);
+	assert_eq!(out["rows"], 7, "the 10 kept, less the Horde's Durotar, The Barrens and Orgrimmar Reputation (#2462)");
 }
 
 #[test]

@@ -123,8 +123,9 @@ end
 do
 	-- What a full refresh found hidden by a frame above it, painted when that
 	-- frame next shows (its own OnShow runs as it shows): its coloured regions
-	-- and its painters (frame -> { [object] = true }). An object hidden itself
-	-- is painted at once: its painter may be what shows it (a rim, a band).
+	-- and its painters (frame -> { [object] = true }), shown themselves or
+	-- not. An object hidden itself under frames that show is painted at once:
+	-- its painter may be what shows it (a rim, a band).
 	local staleColor = setmetatable({}, WEAK_KEYS)
 	local stalePaint = setmetatable({}, WEAK_KEYS)
 	local staleHooked = setmetatable({}, WEAK_KEYS)
@@ -155,24 +156,37 @@ do
 	local staleRefresh = setmetatable({}, WEAK_KEYS)
 	local function refreshRow(control) control:Refresh() end
 
+	-- What each waiting object waits on (stale table -> { [object] = frame }),
+	-- cleared as that frame shows: a full pass skips an object waiting already,
+	-- so one refresh paints what shows, not every region of every page built.
+	local waitOn = { [staleColor] = setmetatable({}, WEAK_KEYS), [stalePaint] = setmetatable({}, WEAK_KEYS),
+		[staleRefresh] = setmetatable({}, WEAK_KEYS) }
 	local defer
 	local function showStale(frame)
 		local colors, paints, rows = staleColor[frame], stalePaint[frame], staleRefresh[frame]
 		staleColor[frame], stalePaint[frame], staleRefresh[frame] = nil, nil, nil
 		if colors then
+			local w = waitOn[staleColor]
 			for region in pairs(colors) do
+				w[region] = nil
 				local name = colored[region]
 				if name then defer(staleColor, region, nil, name) end
 			end
 		end
 		if paints then
+			local w = waitOn[stalePaint]
 			for obj in pairs(paints) do
+				w[obj] = nil
 				local fn = painters[obj]
 				if fn then defer(stalePaint, obj, fn) end
 			end
 		end
 		if rows then
-			for control in pairs(rows) do defer(staleRefresh, control, refreshRow) end
+			local w = waitOn[staleRefresh]
+			for control in pairs(rows) do
+				w[control] = nil
+				defer(staleRefresh, control, refreshRow)
+			end
 		end
 	end
 
@@ -182,8 +196,10 @@ do
 		if name then W.Color(obj, name, obj.psAlpha) else fn(obj) end
 	end
 	function defer(stale, obj, fn, name)
-		local shown = obj.IsShown
-		if not shown or not shown(obj) then return apply(obj, fn, name) end
+		if not obj.IsShown then return apply(obj, fn, name) end
+		-- Hidden by a frame above it (whether shown itself or not): when that
+		-- frame shows. Hidden itself under frames that show: now (its painter
+		-- may be what shows it).
 		local frame = hider(obj)
 		if not frame or frame == true then return apply(obj, fn, name) end
 		local set = stale[frame]
@@ -196,16 +212,49 @@ do
 			end
 		end
 		set[obj] = true
+		local w = waitOn[stale]
+		if w then w[obj] = frame end
 	end
 
 	-- A setting row refreshed now when it shows, else when the frame hiding it
-	-- shows (a hidden page's or a closed window's rows).
-	function W.RefreshShown(control) defer(staleRefresh, control, refreshRow) end
+	-- shows (a hidden page's or a closed window's rows; one waiting already
+	-- stays as it is).
+	function W.RefreshShown(control)
+		if not waitOn[staleRefresh][control] then defer(staleRefresh, control, refreshRow) end
+	end
 
 	local walkMemo, shownNow = {}, {}
+
+	-- W.RefreshShown for every control of a set (control -> true), the frames
+	-- above them looked at once.
+	function W.RefreshShownAll(set)
+		walked = walkMemo
+		local w = waitOn[staleRefresh]
+		for control in pairs(set) do
+			if not w[control] then defer(staleRefresh, control, refreshRow) end
+		end
+		walked = nil
+		for k in pairs(walkMemo) do walkMemo[k] = nil end
+		-- A frame found hidden that a refresh on the way showed: its rows now.
+		local n = 0
+		for frame in pairs(staleRefresh) do
+			if frame:IsShown() then n = n + 1; shownNow[n] = frame end
+		end
+		for i = 1, n do
+			local frame = shownNow[i]
+			shownNow[i] = nil
+			showStale(frame)
+		end
+	end
+
 	local function fullPass()
-		for region, name in pairs(colored) do defer(staleColor, region, nil, name) end
-		for obj, fn in pairs(painters) do defer(stalePaint, obj, fn) end
+		local wc, wp = waitOn[staleColor], waitOn[stalePaint]
+		for region, name in pairs(colored) do
+			if not wc[region] then defer(staleColor, region, nil, name) end
+		end
+		for obj, fn in pairs(painters) do
+			if not wp[obj] then defer(stalePaint, obj, fn) end
+		end
 	end
 
 	Theme.OnChanged(function()
@@ -1090,6 +1139,13 @@ local function refreshList(list)
 	for i = 1, #list do list[i]:Refresh() end
 end
 
+-- The same when every setting may have changed (a profile switched, a page
+-- or section reset): the rows that show now, the rest as they show.
+local function refreshListShown(list)
+	if not list then return end
+	for i = 1, #list do W.RefreshShown(list[i]) end
+end
+
 -- A row hidden when every row refreshes waits for its next showing (its
 -- page, tab or window opened again) and refreshes then.
 local function refreshStale(control)
@@ -1122,12 +1178,13 @@ end
 ns.On("SETTING_CHANGED", function(path)
 	path = path or ""
 	if path == "" or not path:find(".", 1, true) then
-		-- A section (or everything) was reset.
+		-- A section (or everything) was reset: the rows that show now, the
+		-- rest as they show.
 		for p, list in pairs(bound) do
-			if path == "" or p:sub(1, #path + 1) == path .. "." then refreshList(list) end
+			if path == "" or p:sub(1, #path + 1) == path .. "." then refreshListShown(list) end
 		end
 		for p, list in pairs(dependents) do
-			if path == "" or p:sub(1, #path + 1) == path .. "." then refreshList(list) end
+			if path == "" or p:sub(1, #path + 1) == path .. "." then refreshListShown(list) end
 		end
 		return
 	end
@@ -1138,7 +1195,7 @@ ns.On("SETTING_CHANGED", function(path)
 	refreshList(bound[path])
 	refreshList(dependents[path])
 	-- Those greyed out by a rule: what shows now, the rest as it shows.
-	for control in pairs(conditional) do W.RefreshShown(control) end
+	W.RefreshShownAll(conditional)
 end)
 
 -- Every row again after a full refresh (a live repaint's colours reach
@@ -1376,16 +1433,30 @@ local function keptHeight(self)
 end
 
 -- A row's tooltip: at once, or for a compact half (psTipFn) 0.25s after the
--- cursor arrives (W.ShowRowTip), unless it has left by then.
-local TIP_DELAY = 0.25
+-- cursor arrives (W.ShowRowTip), unless it has left by then. One timer for
+-- every row (the pointer is on one row at a time): crossing rows re-aims it
+-- at the row under the pointer; a hover allocates nothing.
+local rowTip = { delay = 0.25 }
+local function rowTipDue()
+	rowTip.waiting = nil
+	local row = rowTip.row
+	if not (row and row.psHover) then return end
+	local left = rowTip.at - GetTime()
+	if left > 0.001 then
+		rowTip.waiting = true
+		C_Timer.After(left, rowTipDue)
+		return
+	end
+	rowTip.row = nil
+	W.ShowRowTip(row)
+end
 local function rowEnter(self)
 	if self.psTipFn then
 		self.psHover = true
-		local token = {}
-		self.psTipToken = token
-		C_Timer.After(TIP_DELAY, function()
-			if self.psHover and self.psTipToken == token then W.ShowRowTip(self) end
-		end)
+		rowTip.row, rowTip.at = self, GetTime() + rowTip.delay
+		if rowTip.waiting then return end
+		rowTip.waiting = true
+		C_Timer.After(rowTip.delay, rowTipDue)
 		return
 	end
 	simpleTip(self)
@@ -1551,11 +1622,17 @@ do
 	end
 
 	-- Hover, press and the gamepad's focus: each repaints the switch at once
-	-- (the press widens the knob over 100 ms).
+	-- (the press widens the knob over 100 ms). The pointer only lightens the
+	-- track: its tones are swapped and painted, nothing else (a hover is no
+	-- refresh: no height, marks or kit art).
 	local function switchHover(self, on)
 		self.psSwitchHover = on or nil
 		if not on and self.psPress and self.psPress > 0 then Anim.To(self.psSquish, "value", self.psPress, 0, PRESS, "out") end
-		if self.psToneOn then toggleRefresh(self) end
+		if not self.psToneOn or Theme.GameSkin() then return end
+		local enabled = W.Enabled(self)
+		local hover = (on or self.psPadFocus) and enabled or false
+		self.psToneOff, self.psToneOn = Theme.SwitchColors(false, hover, enabled), Theme.SwitchColors(true, hover, enabled)
+		W.SwitchPaint(self)
 	end
 	local function switchPress(self, down)
 		if down and not W.Enabled(self) then return end
