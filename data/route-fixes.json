@@ -3931,20 +3931,6 @@
 			},
 			{
 				"a": [
-					"task",
-					868,
-					0
-				],
-				"b": [
-					"task",
-					1824,
-					0
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Warriors gather the Twitching Antennae at the Field of Giants right after the eggs, at the same mounds south of Camp Taurajo at 21, and take them straight to Ruga; the antennae vanish 15 minutes after they drop (the thunderhawks after the hand-in since 0.3.8: pair turnin 1824 -> task 913)."
-			},
-			{
-				"a": [
 					"turnin",
 					907
 				],
@@ -4019,14 +4005,14 @@
 			{
 				"a": [
 					"turnin",
-					891
-				],
-				"b": [
-					"turnin",
 					905
 				],
+				"b": [
+					"accept",
+					891
+				],
 				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then clears the hold and walks Gilthares back to Ratchet, where 891, 898 and the horns are handed in, and flies to the Crossroads for the nests and the silver. Before, the escort ended in Ratchet and the walk turned straight back south-west past Northwatch to the same plains (a 1.1 km reversal), then walked to the Crossroads."
+				"why": "Horde 12-30 flow follow-up (2026-11-08): from Ratchet at 18-19 the walk goes south-west to the Raptor Grounds (Sergra's three nests, Mebok's horns) and the stolen silver north-west of Northwatch Hold, then the beach, and flies to the Crossroads for the nests and the silver. Horde level tidy (0.4.0): Northwatch Hold (Captain Fairmount 20 and her cannoneers 19, each with a healer and guards, 8 recorded deaths at 18-19) and Gilthares' escort come on the Ratchet stop after the Orgrimmar trip at about 21, so 891 is taken after the nests are handed in."
 			},
 			{
 				"a": [
@@ -4055,14 +4041,62 @@
 			{
 				"a": [
 					"turnin",
-					891
-				],
-				"b": [
-					"turnin",
 					888
 				],
+				"b": [
+					"accept",
+					891
+				],
 				"faction": "Horde",
-				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold. Gazlowe offers it at the end of the first Ratchet stop (14-15), right after the same beach's pirates; the walk went back down the beach for the crates and up to Gazlowe again (1.8 km, two reversals). Now the crates are taken on the walk from the silver's nest to Northwatch Hold at 18-19, and Gazlowe takes the booty when Gilthares' escort ends in Ratchet, before the flight to the Crossroads."
+				"why": "Horde 12-30 flow follow-up (2026-11-08): Stolen Booty's two crates lie at the south end of the beach camp, 400 yd north of Northwatch Hold, taken on the walk from the silver's nest at 18-19 and handed to Gazlowe on the way back into Ratchet. Horde level tidy (0.4.0): Northwatch Hold waits for the Ratchet stop at about 21 (level 20 targets with healers and guards), so the booty goes in first."
+			},
+			{
+				"a": [
+					"turnin",
+					881
+				],
+				"b": [
+					"accept",
+					865
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): Raptor Horns (level 18) was taken from Mebok on the first Ratchet stop at 16 (recorded 25th percentile 14.7 there) and its Scytheclaws (16-18) hunted on the first Dry Hills loop at 16-17; it is taken on the second Ratchet stop at about 18, with the horns from the Raptor Grounds on the walk south-west and, if still short, in Vrang's hills."
+			},
+			{
+				"a": [
+					"turnin",
+					881
+				],
+				"b": [
+					"accept",
+					895
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): WANTED: Baron Longshore (Baron 16, at the south end of the pirate camp) was taken on the first Ratchet stop at 14-16 (recorded 25th percentile 14.7); it is taken on the second Ratchet stop at about 18, and the Baron is killed beside Gazlowe's crates on that walk."
+			},
+			{
+				"a": [
+					"accept",
+					95774
+				],
+				"b": [
+					"accept",
+					891
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): The Guns of Northwatch (level 20) and Free From the Hold come on the Ratchet stop after the Orgrimmar trip (model 21.2), not on the walk past the hold at 18-19 (recorded 25th percentile 18.9; Fairmount 20 and her cannoneers 19 with healers and guards, 8 recorded deaths). Mankrik's Her Name Is Olgra is taken on the last Crossroads stop before that trip."
+			},
+			{
+				"a": [
+					"turnin",
+					549
+				],
+				"b": [
+					"accept",
+					868
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): Egg Hunt (level 22: the Silithid Mounds' Swarmers 21-22 and their swarms, 9 recorded deaths) was worked at 20.5 in forever/horde/02-the-barrens (recorded 25th percentile 20.8); it is taken from Korran on the Crossroads landing that opens forever/horde/04-the-barrens after Hillsbrad, the eggs on the road from Camp Taurajo south to Gann at about 25, Korran's hand-in with Thork's."
 			},
 			{
 				"a": [
@@ -6941,19 +6975,6 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 12-30 re-chain (2026-11-07): Ziz Fizziks is taken from Sputtervalve when Samophlange is handed to him; Ziz is on the Webwinder Path at the end of the same Barrens stay."
-			},
-			{
-				"a": [
-					"task",
-					868,
-					0
-				],
-				"b": [
-					"task",
-					913
-				],
-				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): the Silithid eggs lie in the Field of Giants (42.6-48.5,69.4-72.4), just south of the plains where Jorn's thunderhawks circle (44.8-50.1,60.1-67.0). Final route review (2026-11-08): no walk back into Camp Taurajo between the two; Jorn takes the wings on the way back north (overrides pair task 868 before turnin 913). Since 0.3.8 the eggs come first and the thunderhawks on the way back north, so a Warrior's antennae, at the same mounds as the eggs, reach Ruga before the 30-minute Trial at the Field of Giants runs out (pair turnin 1824 -> task 913)."
 			},
 			{
 				"a": [
@@ -11767,17 +11788,6 @@
 			{
 				"a": [
 					"turnin",
-					868
-				],
-				"b": [
-					"turnin",
-					1825
-				],
-				"why": "#1078: Warriors hand Speak with Thun'grim to Thun'grim, east of the Crossroads, on the last Crossroads loop; the guide put the hand-in in the Camp Taurajo step, a 2,300 yd walk there and back before Tatternack's hand-in"
-			},
-			{
-				"a": [
-					"turnin",
 					842
 				],
 				"b": [
@@ -13240,18 +13250,6 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-08, Hillsbrad 22): the bears and creepers for Elixir of Suffering roam the hills west of Tarren Mill on the way down to Hillsbrad Fields, where the lions for Mountain Lion Blood stand too (#1123). The route walked back up to Tarren Mill for Lydon's hand-in and Umpi's delivery between the hills and the fields, then down the same slope again; both go on the Tarren Mill stop after the fields, with Battle of Hillsbrad and Mountain Lion Blood, saving about 1,000 yd"
-			},
-			{
-				"a": [
-					"task",
-					868
-				],
-				"b": [
-					"turnin",
-					913
-				],
-				"faction": "Horde",
-				"why": "Final route review (2026-11-08, Barrens 21): Jorn Skyseer stands in Camp Taurajo; his thunderhawks circle just south of it and the Field of Giants' Silithid eggs lie just south of them. The route walked back into the camp to hand in Cry of the Thunderhawk between the hawks and the eggs, then south again and back north past him; the wings are handed in on the walk back north after the eggs (and the Warriors' antennae, Ruga beside him), saving about 600 yd"
 			},
 			{
 				"a": [

@@ -1458,7 +1458,7 @@ test(`${BARRENS}: a Warrior hands Speak with Thun'grim to Thun'grim on the last 
 	const accept = at(list, 'accept 1825', is('accept', 1825));
 	const turnin = at(list, 'turnin 1825', is('turnin', 1825));
 	assert.notEqual(list[turnin].s, list[accept].s, 'not in the Camp Taurajo step');
-	assert.ok(turnin > at(list, 'turnin 868', is('turnin', 868)), "after the flight back to the Crossroads (Korran's Egg Hunt)");
+	assert.ok(turnin > at(list, 'turnin 880', is('turnin', 880)), 'after the flight back to the Crossroads (Tonga\'s snapjaw shells)');
 	assert.ok(turnin > at(list, 'turnin 1824', is('turnin', 1824)), "after Ruga's hand-in at Camp Taurajo");
 });
 
@@ -1486,7 +1486,8 @@ test(`${BARRENS}: Trial at the Field of Giants: the antennae go straight to Ruga
 	const back = at(list, 'turnin 1824', is('turnin', 1824));
 	assert.ok(take < back, 'taken before it is handed in');
 	const work = list.slice(take + 1, back).filter(({ goal }) => ['kill', 'collect', 'interact', 'use'].includes(goal.t) && goal.quest !== 1824);
-	assert.deepEqual([...new Set(work.map(({ goal }) => goal.quest))], [868], "only the eggs, at the antennae's own mounds, while the trial runs");
+	// Since the 0.4.0 level tidy the Silithid eggs (Egg Hunt, level 22) are in 04-the-barrens at 25: nothing else runs with the trial.
+	assert.deepEqual([...new Set(work.map(({ goal }) => goal.quest))], [], 'only the antennae while the trial runs');
 	assert.ok(back < at(list, 'collect 5164 (Cry of the Thunderhawk)', (g) => g.t === 'collect' && g.item === 5164), 'the thunderhawks after the hand-in');
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	assert.ok(fixes.deliberate.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'turnin,1824' && `${p.b}` === 'task,913'), 'a record the build keeps');
@@ -5908,7 +5909,7 @@ test('The Barrens (Horde): Druids and Paladins train in Thunder Bluff in the Org
 	const as = (cls) => list.filter(({ step, goal }) => fits(step.only, cls) && fits(goal.only, cls));
 	for (const cls of ['DRUID', 'PALADIN']) {
 		const l = as(cls);
-		const egg = at(l, 'accept 868', is('accept', 868));
+		const egg = at(l, 'accept 95774', is('accept', 95774));
 		const ratchet = at(l, 'turnin 896', is('turnin', 896));
 		assert.ok(!l.slice(egg, ratchet).some(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar'), `${cls}: no flight to Orgrimmar`);
 		assert.ok(!l.some(({ goal }) => is('turnin', 3923)(goal) || is('accept', 3923)(goal)), `${cls}: Rilli Greasygob's errand is not taken`);
@@ -6875,15 +6876,19 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 // back; the Silithid eggs lie on the road south to Gann but were done on a walk back north from Gann, and Sulhasa's
 // Field to Clear (beside Gann) was taken after Blackthorn Ridge, whose plain holds its lizards and stalkers.
 test('forever/horde/02-the-barrens.guide, 04-the-barrens.guide: final route review: Ratchet in walking order, the eggs with Jorn\'s hunt, Field to Clear with Blackthorn Ridge', { skip }, () => {
-	// Horde 12-30 re-chain: the Ratchet stop before Northwatch and the Silithid eggs are in the Barrens' 15-21 stay
-	// (02), Gann Stonespire and Blackthorn Ridge in its 24-26 return (04).
+	// Horde 12-30 re-chain: the Ratchet stops are in the Barrens' 15-21 stay (02), Gann Stonespire and Blackthorn Ridge in
+	// its 24-26 return (04). Since the 0.4.0 level tidy Northwatch Hold waits for the Ratchet stop after the Orgrimmar trip
+	// (Fairmount 20), and the Silithid eggs (Egg Hunt, level 22) for 04's walk south from Camp Taurajo to Gann at 25.
 	const early = goals('forever/horde/02-the-barrens.guide');
 	const thalo = at(early, 'accept 891', is('accept', 891));
 	assert.ok(at(early, 'accept 1483', is('accept', 1483)) < thalo && at(early, 'turnin 819', is('turnin', 819)) < thalo, 'Sputtervalve and Drohn before Thalo\'thas');
-	const eggs = at(early, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	assert.ok(at(early, 'accept 95774', is('accept', 95774)) < thalo, 'Northwatch after the Orgrimmar trip (Mankrik\'s last Crossroads stop before it)');
 	const wings = at(early, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
-	assert.ok(eggs < wings && wings < at(early, 'turnin 913', is('turnin', 913)) && eggs < at(early, 'turnin 868', is('turnin', 868)), 'the eggs, then Jorn\'s thunderhawks on the way back north, before his hand-in and Korran (since 0.3.8: a Warrior\'s antennae share the eggs\' mounds)');
+	assert.ok(wings < at(early, 'turnin 913', is('turnin', 913)), 'Jorn\'s thunderhawks before his hand-in');
 	assert.ok(at(early, 'accept 865', is('accept', 865)) < at(early, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
+	const later = goals('forever/horde/04-the-barrens.guide');
+	const eggs = at(later, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	assert.ok(at(later, 'accept 868', is('accept', 868)) < eggs && eggs < at(later, 'accept 843', is('accept', 843)) && eggs < at(later, 'turnin 868', is('turnin', 868)), 'the eggs on the road south to Gann, Korran after');
 	const list = goals('forever/horde/04-the-barrens.guide');
 	const gann = at(list, 'accept 843', is('accept', 843));
 	assert.equal(list[at(list, 'accept 98093', is('accept', 98093))].s, list[gann].s, 'Sulhasa with Gann\'s first quest');
@@ -6963,23 +6968,23 @@ test(`${STONETALON}: thin-data audit: The Tortured Soul's step says to pull the 
 // shore walk to Ambermill passes), and texts that sent players the wrong way or to the wrong guide.
 test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after Hillsbrad Fields, the Decrepit Ferry on the shore walk; tips that match the route', { skip }, () => {
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
-	for (const [a, b] of [[['task', 868], ['turnin', 913]], [['task', 527], ['turnin', 496]], [['task', 91920], ['turnin', 438]], [['turnin', 438], ['task', 479]]]) {
+	for (const [a, b] of [[['task', 527], ['turnin', 496]], [['task', 91920], ['turnin', 438]], [['turnin', 438], ['task', 479]]]) {
 		assert.ok(fixes.overrides.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === `${a}` && `${p.b}` === `${b}`), `pair ${a} before ${b} is a record the build keeps`);
 	}
 	const barrens = goals(BARRENS);
 	const wings = at(barrens, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164);
-	const eggs = at(barrens, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
 	const jorn = at(barrens, 'turnin 913', is('turnin', 913));
-	// Since 0.3.8 the eggs come before the thunderhawks, so a Warrior's antennae (the same mounds) reach Ruga in time.
-	assert.ok(eggs < wings && wings < jorn, 'the eggs, the thunderhawks, then Jorn on the way back north');
-	assert.ok(!barrens.slice(eggs + 1, wings).some(({ goal }) => goal.npc === barrens[jorn].goal.npc), 'no walk back to Jorn between the eggs and the hawks');
+	// Since the 0.4.0 level tidy the eggs are in 04-the-barrens: the thunderhawks, then Jorn on the way back north.
+	assert.ok(wings < jorn, 'the thunderhawks, then Jorn on the way back north');
 	const warrior = barrens.filter(forClass('WARRIOR'));
 	assert.ok(warrior[at(warrior, 'turnin 1824', is('turnin', 1824))].s < warrior[at(warrior, 'collect 5164', (g) => g.t === 'collect' && g.item === 5164)].s, "Ruga's stop before the thunderhawks");
-	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. It is taken on
-	// the last Crossroads stop before the eggs: no other Crossroads hand-in between its accept and its work.
-	const egg = at(barrens, 'accept 868', is('accept', 868));
-	assert.equal(barrens[egg].s, barrens[at(barrens, 'turnin 4921', is('turnin', 4921))].s, 'Egg Hunt with Mankrik\'s Lost in Battle');
-	assert.ok(!barrens.slice(egg + 1, eggs).some(({ goal }) => goal.npc === barrens[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) between the accept and the eggs');
+	// Ingest 2026-11-08: 8 of 14 players abandoned Egg Hunt, taken at 17 and carried to the eggs at 21. Since the 0.4.0 level
+	// tidy it is taken on 04-the-barrens' opening Crossroads landing at 25: no other Crossroads stop between the accept and the eggs.
+	const later = goals('forever/horde/04-the-barrens.guide');
+	const egg = at(later, 'accept 868', is('accept', 868));
+	const eggs = at(later, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058);
+	assert.ok(!barrens.some(({ goal }) => goal.quest === 868), 'no Egg Hunt at 20-21');
+	assert.ok(!later.slice(egg + 1, eggs).some(({ goal }) => goal.npc === later[egg].goal.npc || goal.npc === 3338), 'no Crossroads stop (Korran, Sergra) between the accept and the eggs');
 	assert.match(barrens[at(barrens, 'accept 855', is('accept', 855))].step.note, /^West to Regthar/, 'Regthar is west of the Crossroads');
 	assert.doesNotMatch(barrens[at(barrens, 'accept 1512', is('accept', 1512))].goal.note, /end of this guide/, 'The Binding is on the next guide\'s Orgrimmar stop');
 	const hills = goals(HILLSBRAD_HORDE);
@@ -8034,7 +8039,7 @@ test('Horde quest volume: every added quest has its include record in the route 
 test('forever/horde/04-the-barrens.guide: Barrens carry-over: each Barrens stay accepts the quests it works, and 02 hands in Chen\'s keg before leaving', { skip }, () => {
 	const g02 = goals('forever/horde/02-the-barrens.guide');
 	const g04 = goals('forever/horde/04-the-barrens.guide');
-	for (const [here, other, qs] of [[g02, g04, [896, 876, 4921, 899, 858, 3281, 905, 851, 868]], [g04, g02, [893, 879, 1058, 843]]]) {
+	for (const [here, other, qs] of [[g02, g04, [896, 876, 4921, 899, 858, 3281, 905, 851]], [g04, g02, [893, 879, 1058, 843, 868]]]) {
 		for (const q of qs) {
 			assert.ok(!other.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `${q} accepted in one Barrens stay only`);
 			const a = here.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === q);

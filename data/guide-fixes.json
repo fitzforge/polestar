@@ -2025,8 +2025,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
-			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip.",
+			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the Silithid Mounds in the Field of Giants, south of Camp Taurajo, until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip. 0.4.0 level tidy: the eggs (Egg Hunt) moved to 04-the-barrens at 25, so the tip names the mounds itself.",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -4773,7 +4773,7 @@
 				"quest": 1824,
 				"goal": "accept"
 			},
-			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to Ruga; the thunderhawks after.",
+			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The antennae come first, at the Silithid Mounds south of the camp, then straight back to Ruga; the thunderhawks after.",
 			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit. Since 0.3.8 the thunderhawks come after the hand-in (route-fixes pair turnin 1824 -> task 913): with them before it, players' recordings on Polestar 0.3.5 and later show 6 accepts, 2 hand-ins, 2 fails and 2 abandons.",
 			"source": [
 				{
