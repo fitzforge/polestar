@@ -120,6 +120,19 @@ test('a `when taxi` step plays only while its flight path was learnt on the way,
 	assert.deepEqual(flights(`${learnt}step Walk\n  when !taxi "Crossroads"\n${fly}`), []);
 });
 
+// The honest play read every `when zone` as holding, so a `when !zone` step never played: the way into the
+// Riverglades and into Shen'dralas (`when !zone`, for players not there yet) was skipped and the zone's first
+// stop read as a zone change with no travel line. The predicate now reads the zone of the last place a line put
+// the player at.
+test('a `when zone` step plays only in that zone, `!zone` only outside it', { skip }, () => {
+	const boars = 'step Boars\n  kill 3098 @44.5,70.6\n\n';
+	const into = 'step Into the Barrens\n  when !zone "The Barrens"\n  zone The Barrens\n  goto 55,40 "Follow the road west into the Barrens"\n\n';
+	const zhevra = 'step Zhevra\n  zone The Barrens\n  kill 3242 @55,40\n';
+	assert.deepEqual(of(play(boars + into + zhevra), 'R1'), [], 'outside the Barrens the way in plays');
+	const there = 'step In the Barrens only\n  when zone "The Barrens"\n  zone The Barrens\n  goto 55,40 "Follow the road west into the Barrens"\n\n';
+	assert.match(of(play(boars + there + zhevra), 'R1')[0].reason, /Durotar to The Barrens/, 'a step for players in the Barrens is not played from Durotar');
+});
+
 test('R3: a collect needs a source in the data (An Apple Treat\'s applejack)', { skip }, () => {
 	const bad = play('step An Apple Treat\n  accept 91738\n  collect 247824 quest 91738.1\n', { persona: HUMAN });
 	assert.match(of(bad, 'R3')[0].reason, /Thunder Applejack: the data has no mob, object or vendor/);

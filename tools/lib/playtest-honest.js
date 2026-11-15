@@ -310,6 +310,10 @@ function whenHolds(w, when) {
 				ok = w.known.has(n ? n.id : p.name);
 				break;
 			}
+			case 'zone': // the zone of the last place a line put the player at; before any, the step plays either way
+				if (!w.pos || !p.name || typeof w.zoneName !== 'function') ok = !p.neg;
+				else ok = String(w.zoneName(w.pos.map)).toLowerCase() === String(p.name).toLowerCase();
+				break;
 			default: ok = true;
 		}
 		if (p.neg && p.k !== 'level') ok = !ok;
