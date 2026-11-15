@@ -6,6 +6,9 @@
 --               an estimate. On a continent no flight map has opened on yet
 --               for this character, one not known is amber but never called
 --               undiscovered: it may have been learnt before Polestar ran (#1795).
+--               A class's own flight master (Nighthaven's, which fly Druids
+--               from their gossip) has no flight path to learn: that class's
+--               pin is green, and no other character gets one.
 --   maps.docks  both ends of every boat, zeppelin, airship and the tram this faction
 --               may ride; the tooltip names where it goes, the ride and the
 --               rough wait.
@@ -58,19 +61,32 @@ end
 -- Tooltips
 ---------------------------------------------------------------------------
 
+-- A flight master this character may fly from: its faction's or a neutral
+-- one, never another class's own (node.class: Nighthaven's fly Druids only).
+local function usable(node, faction, class)
+	if node.class and node.class ~= class then return false end
+	return Maps.Allowed(node.faction, faction)
+end
+
+-- Known: learnt, or the class's own flight master, which has no flight path
+-- to learn (callers check `usable` first).
+local function has(node, known)
+	return known[node.id] or node.class ~= nil
+end
+
 -- Not known, on a continent no flight map has opened on yet (`seen` lacks it;
 -- nil `seen`: every continent has): the character may have it.
 local function unsure(node, known, seen)
-	return not known[node.id] and seen ~= nil and not seen[node.c]
+	return not has(node, known) and seen ~= nil and not seen[node.c]
 end
 
-local function taxiTooltip(node, data, faction, known, seen)
+local function taxiTooltip(node, data, faction, class, known, seen)
 	return function(tip)
 		tip:SetText(taxiName(node), rgb("text"))
 		local status, col = L["Flight master, known"], "success"
 		if unsure(node, known, seen) then
 			status, col = L["Flight master"], "textDim"
-		elseif not known[node.id] then
+		elseif not has(node, known) then
 			status, col = L["Flight master, not discovered"], "warning"
 		end
 		if node.faction == 3 then status = status .. " · " .. L["Neutral"] end
@@ -80,7 +96,7 @@ local function taxiTooltip(node, data, faction, known, seen)
 		local header = false
 		for i = 1, #legs - 1, 2 do
 			local dest = data.taxiById[legs[i]]
-			if dest and Maps.Allowed(dest.faction, faction) then
+			if dest and usable(dest, faction, class) then
 				if not header then
 					tip:AddLine(" ")
 					tip:AddLine(L["Flights from here"], rgb("textDim"))
@@ -90,9 +106,9 @@ local function taxiTooltip(node, data, faction, known, seen)
 				-- Drawn in the tooltip's font, the client's (an estimate: "≈", or "~" where it has none).
 				local approx = ns.Theme.Approx(GameTooltipText and GameTooltipText.GetFont and GameTooltipText:GetFont() or STANDARD_TEXT_FONT)
 				local t = secs and Maps.FormatTime(secs) or (approx .. Maps.FormatTime(Maps.LegSeconds(legs[i + 1])))
-				local r, g, b = rgb(known[dest.id] and "text" or "textMuted")
+				local r, g, b = rgb(has(dest, known) and "text" or "textMuted")
 				local name = taxiName(dest, true)
-				if not known[dest.id] and not unsure(dest, known, seen) then name = name .. " " .. L["(not discovered)"] end
+				if not has(dest, known) and not unsure(dest, known, seen) then name = name .. " " .. L["(not discovered)"] end
 				tip:AddDoubleLine(name, t, r, g, b, rgb("textDim"))
 			end
 		end
@@ -129,21 +145,22 @@ end
 
 ---------------------------------------------------------------------------
 -- Layer building (pure: everything comes in `o`)
---   o = { data = Nav.GetTravelData(), faction = 1|2|0, known = { [nodeID] = true }, bind = "Goldshire" | nil,
+--   o = { data = Nav.GetTravelData(), faction = 1|2|0, class = "DRUID" (the class token) | nil,
+--         known = { [nodeID] = true }, bind = "Goldshire" | nil,
 --         seen = { [continent] = true } (where a flight map has opened; nil: everywhere) }
 -- -> taxi, docks, inns (pin lists)
 ---------------------------------------------------------------------------
 
 function Maps.BuildTravelPins(o)
-	local data, faction, known, seen = o.data, o.faction or 0, o.known or {}, o.seen
+	local data, faction, class, known, seen = o.data, o.faction or 0, o.class, o.known or {}, o.seen
 	local taxi, docks, inns = {}, {}, {}
 	if type(data) ~= "table" then return taxi, docks, inns end
 	local knownCol, unknownCol = color("success"), color("warning")
 	for _, node in ipairs(data.taxi or {}) do
-		if Maps.Allowed(node.faction, faction) then
-			local isKnown = known[node.id] and true or false
+		if usable(node, faction, class) then
+			local isKnown = has(node, known) and true or false
 			local p = pinAt(node, "map:flightmaster", 15, isKnown and knownCol or unknownCol,
-				taxiTooltip(node, data, faction, known, seen), isKnown and 2 or 3)
+				taxiTooltip(node, data, faction, class, known, seen), isKnown and 2 or 3)
 			-- Not yet learned: in the warning colour, with a "?".
 			p.nodeID, p.known, p.badge = node.id, isKnown, not isKnown and "?" or nil
 			p.minimapSize = 14
@@ -195,9 +212,11 @@ function Maps.RefreshTravelPins()
 	local Pins, N = ns.Pins, ns.Nav
 	if not (Pins and Pins.SetLayer) then return end
 	local C = ns.Compat
+	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
 	local built = { Maps.BuildTravelPins({
 		data = N and N.GetTravelData and N.GetTravelData() or nil,
 		faction = Maps.Faction(),
+		class = info and info.class or nil,
 		known = N and N.GetKnownTaxiNodes and N.GetKnownTaxiNodes() or {},
 		seen = N and N.GetTaxiSeen and N.GetTaxiSeen() or nil,
 		bind = C and C.GetBindLocation and C.GetBindLocation() or nil,

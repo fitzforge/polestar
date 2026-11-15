@@ -412,9 +412,9 @@ step Rabine Saturna
 step Umber
   turnin 1185 direct
 
-step Nighthaven
+step Sindrayl
   zone Moonglade
-  tip Learn the flight path in Nighthaven.
+  tip Sindrayl, Moonglade's flight master, stands south of the lake, outside Nighthaven: learn the flight path from him. The flight master in Nighthaven itself flies only Druids, from her gossip, and has no flight path to learn.
   getfp "Moonglade"
 
 # ---------------------------------------------------------------- Teldrassil and Darnassus

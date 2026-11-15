@@ -1084,8 +1084,11 @@ Polestar compares IDs, or names the game gives in the same language:
 - `node`: on `getfp`, the taxi node of its flight master (`npc`), else of the
   one flight point (`travel.json`) of that name or town serving every faction
   the goal applies to (Booty Bay has one per faction, so a goal for both gets
-  none). In the game the goal is done once the flight map lists that node as
-  known.
+  none: write one goal per side, `only Alliance` and `only Horde`). Never a
+  class's own flight master (`travel.json` `class`: Nighthaven's fly Druids
+  from their gossip and teach no flight path), so `getfp "Nighthaven"` warns
+  and `getfp "Moonglade"` is Sindrayl's or Faustron's. In the game the goal is
+  done once the flight map lists that node as known.
 - `sethome` completes by its inn: `travel build` gives every inn its area,
   and binding at the innkeeper the goal names (or the innkeeper of the inn its
   location names) completes it.

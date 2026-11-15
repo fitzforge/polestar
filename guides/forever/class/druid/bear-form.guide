@@ -241,4 +241,5 @@ step Dendrite Starblaze
   tip Cast Teleport: Moonglade: it lands you beside the building where Dendrite Starblaze stands upstairs, in Nighthaven. Learn the Moonglade flight path while you are here (Faustron for the Horde, south-west of the lake; Sindrayl for the Alliance, south of it).
   turnin 94913 only Horde               -- Dendrite Starblaze
   turnin 94914 only Alliance
-  getfp "Moonglade"
+  getfp "Moonglade" npc 10897 only Alliance   -- Sindrayl
+  getfp "Moonglade" npc 12740 only Horde      -- Faustron
