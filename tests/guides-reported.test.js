@@ -2046,17 +2046,24 @@ test(`${TIRISFAL}: Fitz's report (#1046 follow-up): each Brill visit enters the 
 // quest log: clicking it with four Shiny Red Apples hands it in on the spot
 // and gives the Thunder Applejack, which Sergeant De Vries needs for An Apple
 // Treat. The still comes once, after Homer Stonefield sells the apples, and no
-// step waits on `when onquest 91736`, which never holds.
-test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries`, { skip }, () => {
+// step waits on `when onquest 91736`, which never holds. GrosGorey (#2312)
+// saw While Here offer An Apple Treat before collecting the Applejack: neither
+// quest has an accept window, so both must be direct hand-ins.
+test(`${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept`, { skip }, () => {
 	const { steps } = compiled(ELWYNN);
 	const has = (st, pred) => st.goals.some(pred);
 	const still = steps.map((st, i) => [st, i]).filter(([st]) => has(st, (g) => g.quest === 91736));
 	assert.equal(still.length, 1, 'one step for the still');
 	const [step, at] = still[0];
-	assert.ok(has(step, is('accept', 91736)) && has(step, is('turnin', 91736)) && has(step, (g) => g.t === 'collect' && g.item === 247824), 'the still hands in and gives the Applejack in that step');
-	for (const st of steps) assert.ok(!(st.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(91736)), 'no step waits for 91736 in the quest log');
+	assert.ok(has(step, is('turnin', 91736)) && has(step, (g) => g.t === 'collect' && g.item === 247824), 'the still hands in and gives the Applejack in that step');
+	for (const quest of [91736, 91738]) {
+		const mine = steps.flatMap((st) => st.goals).filter((g) => g.quest === quest);
+		assert.equal(mine.length, 1, `${quest}: one hand-in, with no accept or tracked objective`);
+		assert.ok(mine[0].t === 'turnin' && mine[0].direct, `${quest}: handed in without entering the quest log`);
+		for (const st of steps) assert.ok(!(st.when || []).some((p) => ['onquest', 'complete'].includes(p.k) && [].concat(p.q).includes(quest)), `${quest}: no condition waits on the quest log`);
+	}
 	const apples = steps.findIndex((st) => has(st, (g) => g.t === 'buy' && g.item === 4536));
-	const deVries = steps.findIndex((st) => has(st, is('accept', 91738)));
+	const deVries = steps.findIndex((st) => has(st, is('turnin', 91738)));
 	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
 });
 
@@ -2390,61 +2397,76 @@ test('forever/reputation/centaur-clans.guide: no accept comes before the guide w
 	}
 });
 
-// #1667 (devanpy, Orc Warlock 31, 0.3.6): Enchanted Gold Bloodrobe opens at 31 and sent him to the Burning Exiles
-// (38-39, fire elementals that resist fire) for the Smoldering Coal; he couldn't solo them. A step whose mobs' top level
-// is more than 2 above what the guide can have reached (its opening level, raised by its `level` holds and its accepts'
-// minimum levels) waits for that level first: the Lesser Infernal Stone (Lesser Infernals 36-37) at 35, the coal at 37.
-test('forever/class/warlock/enchanted-gold-bloodrobe.guide: no kill or drop comes before the guide waits for mobs at most 2 levels above (#1667)', { skip }, () => {
-	const G = 'forever/class/warlock/enchanted-gold-bloodrobe.guide';
+// Fitz's level rule (0.4.0), after #1667 (devanpy: Enchanted Gold Bloodrobe sent an Orc Warlock of 31 to the Burning
+// Exiles, 38-39) and Kapu's report (an Alliance Warrior of 21 sent from Fire Hardened Mail to Roogug, a level 28 elite
+// in Razorfen Kraul): a class guide never sends you to mobs, or hands you a quest to fight for, more than 1 level above
+// you. Every step that works a quest waits on its OWN `level` hold (the guide's opening level is the floor), so skipping
+// a waiting step never runs on into the next one; a timed quest's steps wait at its accept instead (the timer must not
+// run while the guide waits). The per-spot +0 for dense camps, casters and elites is the danger gate's (tools/lib/danger.js).
+// A group quest the guide splits into a `when group` step and a `when !group` solo way (the Rogues' Poisons towers, the
+// lead's call for 0.4.0: Poisons from 20 with a friend) is taken at the floor; its group step is the party's, and its
+// solo way waits on its own level like any other step.
+test('class guides: every step waits on its own level for mobs and quests at most 1 above it (Fitz\'s rule, #1667, Kapu)', { skip }, () => {
 	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
-	let reached = compiled(G).minLevel || 1;
-	const seen = {};
-	for (const { goal } of goals(G)) {
-		if (goal.t === 'level') reached = Math.max(reached, goal.level);
-		if (goal.t === 'accept') reached = Math.max(reached, goal.minLevel || 1);
-		const item = goal.t === 'collect' ? data.items[goal.item] : null;
-		// Real droppers only (a drop chance): Xizk Goodstitch "drops" the Fine Gold Thread he hands out (no chance).
-		const droppers = item && item.drops && !(item.vendors || []).length ? Object.entries(item.drops.npc || {}).filter(([, chance]) => typeof chance === 'number').map(([id]) => top(id)).filter(Boolean) : [];
-		const mob = goal.t === 'kill' ? top(goal.npc) : droppers.length ? Math.min(...droppers) : null;
-		if (!mob) continue;
-		seen[goal.item || goal.npc] = reached;
-		assert.ok(mob <= reached + 2, `${goal.t} ${goal.item || goal.npc}: mobs up to ${mob}, the guide waits only for ${reached}`);
-	}
-	assert.equal(seen[6990], 35, 'the Lesser Infernal Stone waits for 35');
-	assert.equal(seen[6991], 37, 'the Smoldering Coal waits for 37');
-	assert.equal(seen[6989], 31, 'the Hatefury vials wait for nothing past the opening 31');
-});
-
-// The #1667 sweep over every class guide: no kill or drop of mobs more than 4 levels above what the guide can have
-// reached by then (its opening level, its `level` holds, its accepts' minimum levels). The holds wait for the mobs' top
-// level less 2, or lower where players' recordings show it done lower (Old Fire-Eye at 22). Two steps are left as they
-// are, on purpose: Toxic Test (a single stab of a Devilsaur with the barb, no kill: the credit counts as it lands) and
-// the Venture Co. tower (Forever teaches Poisons through that chain at 20, and the tower is built for openers that kill
-// a drone in one blow).
-test('class guides: no kill or drop of mobs more than 4 levels above what the guide has reached (#1667 sweep)', { skip }, () => {
-	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
-	const LEFT = new Set(['forever/class/druid/bloodpetal-poison.guide 6498', 'forever/class/rogue/poisons-horde.guide 7310']);
-	const at = {};
+	const fights = (q) => ((data.quests[q] || {}).objectives || []).some((o) => ['kill', 'item', 'object'].includes(o.type));
 	for (const G of allGuides().filter((g) => g.startsWith('forever/class/'))) {
-		let reached = compiled(G).minLevel || 1;
-		for (const { step, goal } of goals(G)) {
-			if (goal.t === 'level') reached = Math.max(reached, goal.level);
-			if (goal.t === 'accept') reached = Math.max(reached, goal.minLevel || 1);
-			const item = goal.t === 'collect' ? data.items[goal.item] : null;
-			// Droppers with a real chance (1% or more): a quest giver "drops" the item he hands out, and a stray kobold
-			// drops an exile's charm one time in two hundred.
-			const droppers = item && item.drops && !(item.vendors || []).length ? Object.entries(item.drops.npc || {}).filter(([, chance]) => typeof chance === 'number' && chance >= 1).map(([id]) => top(id)).filter(Boolean) : [];
-			const mob = goal.t === 'kill' ? top(goal.npc) : droppers.length ? Math.min(...droppers) : null;
-			if (!mob) continue;
-			at[`${G} ${step.title}`] = reached;
-			if (LEFT.has(`${G} ${goal.npc || goal.item}`)) continue;
-			assert.ok(mob <= reached + 4, `${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, mobs up to ${mob}, the guide waits only for ${reached}`);
+		const floor = compiled(G).minLevel || 1;
+		const timedAt = {};
+		const groupChoice = new Set(compiled(G).steps.flatMap((s) => (s.when || []).filter((w) => w.k === 'group' && w.neg).map((w) => w.q)));
+		for (const step of compiled(G).steps) {
+			if ((step.when || []).some((w) => w.k === 'group' && !w.neg && groupChoice.has(w.q))) continue;
+			let own = Math.max(floor, ...step.goals.filter((g) => g.t === 'level').map((g) => g.level));
+			for (const goal of step.goals) if (goal.quest && timedAt[goal.quest] && goal.t !== 'accept') own = Math.max(own, timedAt[goal.quest]);
+			for (const goal of step.goals) {
+				const q = goal.quest && data.quests[goal.quest];
+				if (goal.t === 'accept' && q && fights(goal.quest) && !groupChoice.has(goal.quest)) assert.ok(q.level <= own + 1, `${G}, ${step.title}: accept ${goal.quest} (level ${q.level}) waits only for ${own}`);
+				if (q && !['accept', 'turnin'].includes(goal.t)) assert.ok(q.level <= own + 1, `${G}, ${step.title}: ${goal.t} for ${goal.quest} (level ${q.level}) waits only for ${own}`);
+				const item = goal.t === 'collect' ? data.items[goal.item] : null;
+				// Droppers with a real chance (1% or more): a quest giver "drops" the item he hands out.
+				const droppers = item && item.drops && !(item.vendors || []).length ? Object.entries(item.drops.npc || {}).filter(([, chance]) => typeof chance === 'number' && chance >= 1).map(([id]) => top(id)).filter(Boolean) : [];
+				// A kill objective on a side's own NPC is a heal or a talk (the priest robes' wounded guards); raid bosses
+				// (63, the game's boss sentinel) and anything at the level cap are past what a hold can wait for.
+				const friend = goal.t === 'kill' && data.npcs[goal.npc] && data.npcs[goal.npc].faction;
+				const mob = friend ? null : goal.t === 'kill' ? top(goal.npc) : droppers.length ? Math.min(...droppers) : null;
+				if (mob && mob < 63 && own < 60) assert.ok(mob <= own + 1, `${G}, ${step.title}: ${goal.t} ${goal.item || goal.npc}, mobs up to ${mob}, the step waits only for ${own}`);
+				if (goal.t === 'accept' && q && q.limit) timedAt[goal.quest] = own;
+			}
 		}
 	}
-	assert.equal(at['forever/class/warrior/whirlwind-weapon.guide The exiles of Arathi'], 37, 'the exiles wait for 37');
-	assert.equal(at['forever/class/warrior/whirlwind-weapon.guide The Summoning'], 38, 'Cyclonian waits for 38');
-	assert.equal(at['forever/class/paladin/lumina-windsinger.guide Old Fire-Eye'], 22, 'Old Fire-Eye waits for 22, as players did him');
-	assert.equal(at['forever/class/mage/celestial-orb.guide The Exorcism'], 38, 'the Demon of the Orb waits for 38');
+});
+
+// The lead's call (0.4.0): Rogues get Poisons from 20 with a friend. The chain opens at 20 with no hold up to the tower's
+// quest; the tower (Gallywix, a level 23 elite, drones 25; Klaven Mortwake, a level 26 elite, Sentries 24) is a group
+// choice, its solo way held at the tower's level.
+for (const [G, q, solo] of [['forever/class/rogue/poisons-horde.guide', 2478, 25], ['forever/class/rogue/poisons-alliance.guide', 2359, 24]]) test(`${G}: Poisons from 20 with a group; the tower solo waits for ${solo}`, { skip }, () => {
+	const steps = compiled(G).steps;
+	const held = (s) => Math.max(0, ...s.goals.filter((g) => g.t === 'level').map((g) => g.level));
+	const take = steps.findIndex((s) => s.goals.some((g) => g.t === 'accept' && g.quest === q));
+	assert.ok(take >= 0 && steps.slice(0, take + 1).every((s) => held(s) <= 20), `accept ${q} waits for no more than 20`);
+	const group = steps.filter((s) => (s.when || []).some((w) => w.k === 'group' && !w.neg && w.q === q));
+	const alone = steps.filter((s) => (s.when || []).some((w) => w.k === 'group' && w.neg && w.q === q));
+	assert.equal(group.length, 1, 'one group step for the tower');
+	assert.equal(alone.length, 1, 'one solo way for the tower');
+	assert.equal(held(group[0]), 0, 'the group step has no hold');
+	assert.equal(held(alone[0]), solo, `the solo way waits for ${solo}`);
+	assert.deepEqual(group[0].goals.filter((g) => g.quest === q).map((g) => `${g.t} ${g.item || g.npc}`), alone[0].goals.filter((g) => g.quest === q).map((g) => `${g.t} ${g.item || g.npc}`), 'both ways do the same objectives');
+});
+
+test('forever/class/warrior/fire-hardened-armor.guide: Kapu\'s report: Fire Hardened Mail is taken at 27, not at 20, and Roogug waits for 28', { skip }, () => {
+	const G = 'forever/class/warrior/fire-hardened-armor.guide';
+	const list = goals(G);
+	const held = (s) => Math.max(0, ...compiled(G).steps[s - 1].goals.filter((g) => g.t === 'level').map((g) => g.level));
+	const shield = list[at(list, 'turnin 1702', is('turnin', 1702))];
+	const mail = list[at(list, 'accept 1701', is('accept', 1701))];
+	assert.notEqual(mail.s, shield.s, 'the shield is handed out at 20-22, Fire Hardened Mail in a step of its own');
+	assert.ok(held(mail.s) >= 27, `Fire Hardened Mail (level 28) waits for 27 (waits for ${held(mail.s)})`);
+	const roogug = list.find(({ goal }) => goal.t === 'collect' && goal.item === 6841);
+	assert.ok(held(roogug.s) >= 28, `Roogug's step waits on its own level for 28 (waits for ${held(roogug.s)})`);
+	assert.ok(roogug.goal.group && roogug.goal.group.size === 5, 'Roogug is a group of five');
+	for (const item of [6838, 6839, 6840]) {
+		const { s } = list.find(({ goal }) => goal.t === 'collect' && goal.item === item);
+		assert.ok(held(s) >= 28, `collect ${item} waits on its own level for 28`);
+	}
 });
 
 // --- Southshore (never-seen check, 2026-11-08): 4 Alliance people passed Barkeep Kelly and none was offered Talk of the
@@ -6234,15 +6256,16 @@ test("Konky88's report (#1150): Valuable Vantages' three vials come before its h
 });
 
 // Erá's report (#1160): The Eye of Bhossca, C's second job, comes with C's letter in a capital city's mailbox at
-// level 30 (after the horn job), not at the quest data's 25. The guide, its correction and the class-quest
-// heads-up all wait for 30.
-test("Erá's report (#1160): The Eye of Bhossca waits for level 30", { skip }, () => {
+// level 30 (after the horn job), not at the quest data's 25: its correction and the class-quest heads-up go by 30.
+// The quest itself is level 35 (the Scarlet Monastery), so under Fitz's level rule (0.4.0) the guide holds its accept
+// at the Dead Drop for 34: the heads-up's guide opens with the "comes at 34" notice instead of sending you in at 30.
+test("Erá's report (#1160): The Eye of Bhossca opens at 30 and holds its level 35 quest for 34", { skip }, () => {
 	const guide = 'forever/class/rogue/the-eye-of-bhossca.guide';
 	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8'), /^levels 30-35$/m);
 	const list = goals(guide);
 	const accept = at(list, 'accept 78676', is('accept', 78676));
 	const gate = list.find(({ step, goal }) => step === list[accept].step && goal.t === 'level');
-	assert.equal(gate && gate.goal.level, 30, 'a level 30 gate before the Dead Drop');
+	assert.equal(gate && gate.goal.level, 34, 'a level 34 gate before the Dead Drop');
 	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
 	assert.equal(corrections[78676].set.minLevel, 30, 'the correction a data build applies');
 	assert.match(fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8'), /\[78676\] = \{ 30, /, 'the heads-up starts at 30');

@@ -757,3 +757,58 @@ fn t_1442_darkshore_s_follow_ups_for_a_night_elf_who_skipped_its_own_darkshore_a
 	let route = shipped_with("Alliance", "NightElf", "HUNTER", 17, NE_DARKSHORE_DONE, NE_DARKSHORE_LOG, "forever/alliance/03-darkshore", ALL_MINE);
 	assert!(lines(&route["feeders"]).is_empty() && ids(&route["hidden"]).is_empty(), "{route}");
 }
+
+// #2350 (0.4.0 upgrade sweep, Horde Stranglethorn 40-50 standing at its Grom'gol feeder step): a pack update
+// passed every feeder step behind the player's new place as one it added, and counted none as the player's
+// place, so the feeder step the player stood at, which the save's guide had planned in too, passed with its
+// quests. A feeder step the save had is the guide's own: it stays and holds the player there.
+const SAVE: &str = r#"
+E.SetGuide("test/07"); flush(); stub.advance(11)
+emit({ live = E.GetLiveStep(), title = E.GetStepView(E.GetLiveStep()).title })
+stub.fire("PLAYER_LOGOUT")
+local function ser(v)
+	if type(v) == "string" then return string.format("%q", v) end
+	if type(v) ~= "table" then return tostring(v) end
+	local parts = {}
+	for k, x in pairs(v) do
+		if type(x) ~= "function" then parts[#parts + 1] = "[" .. ser(k) .. "]=" .. ser(x) end
+	end
+	return "{" .. table.concat(parts, ",") .. "}"
+end
+emit({ save = "PolestarCharDB = " .. ser(PolestarCharDB) })
+"#;
+
+#[test]
+fn a_feeder_step_the_save_s_guide_had_stays_where_the_player_is_after_a_pack_update() {
+	// 6442 and 25 done, 6382 carried: the player is at the Night Run feeder step (Senani's accepts need 6383).
+	let before = "w.complete({ 6442, 25 })\n";
+	let first = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\nFUR = {{ {FAR} }}\n{GUIDES}\n{HELPERS}\n{SAVE}"),
+		..Default::default()
+	});
+	assert_eq!(first[0], json!({ "live": 3, "title": "Night Run" }), "{}", first[0]);
+	let save = first[1]["save"].as_str().expect("the save").to_string();
+	// The next pack: the same guides, a step added at the end of test/07 (an update of that guide).
+	let pack = TEST_PACK.replace(r#"version = "1""#, r#"version = "2""#);
+	let guides = GUIDES.replace(
+		r#"{ title = "Night Run", goals = { hand(23"#,
+		r#"{ title = "New ahead", goals = { acc(26, "Something New", nil, 60, 60) } },
+	{ title = "Night Run", goals = { hand(23"#,
+	);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}{before}"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), save)],
+		script: format!(
+			"{pack}\n{TEST_SOURCE}\nFUR = {{ {FAR} }}\n{guides}\n{HELPERS}\nstub.advance(11)\nemit({{ live = E.GetLiveStep(), status = E.GetStepView(3).status, shape = shape() }})"
+		),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["live"], 3, "still at Night Run: {out}");
+	assert_eq!(out["status"], "current", "{out}");
+}

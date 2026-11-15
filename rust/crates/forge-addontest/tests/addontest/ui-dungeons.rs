@@ -1592,6 +1592,187 @@ fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside
 	assert_eq!(out[1], json!({ "under": true, "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
 }
 
+// #2375: the pickup count can make one button wider than the entire card. Check the
+// complete label, not just row wrapping: clipping the text would hide the quest levels.
+#[test]
+fn the_heads_up_keeps_the_complete_pickup_count_button_inside_the_card() {
+	let out = run_with(
+		r#"
+		local CT = Polestar.UI.ClassToast
+		Polestar.Set("ui.textSize", 1.15)
+		Polestar.UI.GuideFrame.frame:SetWidth(280)
+		local label = "Pick up the quests (5 now · 2 from level 20)"
+		CT.ShowCard({ head = "LEVEL 17 · DUNGEON", title = "Wailing Caverns is open to you",
+			giver = "5 quests to pick up · Levels 17–22 · The Barrens", badge = "+1.4 LEVELS",
+			act = { label = label }, more = { label = "Open in Dungeons" }, off = { label = "Turn these off" } })
+		local f, b = CT.frame, CT.frame.Act
+		-- The card's padding each side, and the class stripe's width where the look draws it (the house look doesn't).
+		local stripe = f.Stripe:IsShown() and 4 or 0
+		emit({ label = b.Label:GetText(), bounded = b:GetWidth() <= f:GetWidth() - 28 - stripe,
+			complete = not b.Label:IsTruncated(), labelFits = b.Label:GetStringHeight() + 4 <= b:GetHeight(),
+			width = b:GetWidth(), height = b:GetHeight() })"#,
+		false,
+	);
+	assert_eq!(out[0]["label"], "Pick up the quests (5 now · 2 from level 20)");
+	assert_eq!(out[0]["bounded"], true, "the complete button must fit between the card's left and right padding: {}", out[0]);
+	assert_eq!(out[0]["complete"], true, "the count and level must remain readable: {}", out[0]);
+	assert_eq!(out[0]["labelFits"], true, "a wrapped label needs enough button height: {}", out[0]);
+}
+
+// The stub stores anchors rather than resolving screen coordinates. Resolve these
+// button/label rectangles relative to the card so the tests check their actual
+// occupied space, including centered labels and buttons beside a preceding row item.
+const TOAST_BOUNDS: &str = r#"
+local CT, T = Polestar.UI.ClassToast, Polestar.Theme
+local function buttonBounds()
+	local f, errors, rects, shown = CT.frame, {}, {}, {}
+	local fractions = { TOPLEFT = {0, 0}, TOP = {.5, 0}, TOPRIGHT = {1, 0}, LEFT = {0, .5}, CENTER = {.5, .5},
+		RIGHT = {1, .5}, BOTTOMLEFT = {0, 1}, BOTTOM = {.5, 1}, BOTTOMRIGHT = {1, 1} }
+	local function rect(o)
+		if rects[o] then return rects[o] end
+		if o == f then return { x = 0, y = 0, w = f:GetWidth(), h = f:GetHeight() } end
+		local w, h = o:GetWidth(), o:GetHeight()
+		if o:GetObjectType() == "FontString" then
+			if w <= 0 then w = o:GetUnboundedStringWidth() end
+			if h <= 0 then h = o:GetStringHeight() end
+		end
+		local point, rel, at, x, y = o:GetPoint(1)
+		local r, a, b = rect(rel), fractions[point], fractions[at]
+		local result = { x = r.x + r.w * b[1] + x - w * a[1], y = r.y + r.h * b[2] - y - h * a[2], w = w, h = h }
+		rects[o] = result
+		return result
+	end
+	for _, name in ipairs({ "Act", "Open", "ShowMe", "More", "Later", "Off" }) do
+		local b = f[name]
+		if b:IsShown() then
+			local r, label = rect(b), rect(b.Label)
+			local left = 14 + (f.Stripe:IsShown() and 4 or 0)
+			if r.x < left - .01 or r.x + r.w > f:GetWidth() - 14 + .01 or r.y < 0 or r.y + r.h > f:GetHeight() - 14 + .01 then
+				errors[#errors + 1] = name .. " outside card padding"
+			end
+			if b.Label:IsTruncated() or label.x < r.x - .01 or label.x + label.w > r.x + r.w + .01
+				or label.y < r.y - .01 or label.y + label.h > r.y + r.h + .01 or b.Label:GetStringHeight() + 4 > r.h then
+				errors[#errors + 1] = name .. " label does not fit"
+			end
+			for _, other in ipairs(shown) do
+				local q = rect(other)
+				if math.min(r.x + r.w, q.x + q.w) > math.max(r.x, q.x) + .01 and math.min(r.y + r.h, q.y + q.h) > math.max(r.y, q.y) + .01 then
+					errors[#errors + 1] = name .. " overlaps another button"
+				end
+			end
+			shown[#shown + 1] = b
+		end
+	end
+	return errors
+end
+"#;
+
+#[test]
+fn heads_up_action_and_secondary_buttons_keep_complete_labels_in_every_look_and_card_width() {
+	let out = run_with(
+		&format!(
+			r#"{TOAST_BOUNDS}
+			local w, cases, failures = Polestar.UI.GuideFrame.frame, 0, {{}}
+			-- Longer translations also have to fit the class quest's built-in actions.
+			Polestar.L["Open in a new tab"] = "Open this class quest guide in a new tab"
+			Polestar.L["Show me"] = "Show me the way to this class quest giver"
+			for _, skin in ipairs({{ "polestar", "halo", "hearth", "forever", "blizzard", "classic" }}) do
+				Polestar.Set("ui.skin", skin)
+				for _, scale in ipairs({{ .8, 1.15, 1.4 }}) do
+					Polestar.Set("ui.textSize", scale)
+					for _, width in ipairs({{ 260, 620 }}) do
+						w:SetWidth(width)
+						for _, kind in ipairs({{ "dungeon", "class-guide", "class-giver", "no-action" }}) do
+							local m = {{ head = "LEVEL 17 · DUNGEON", title = "Wailing Caverns is open to you", badge = "+1.4 LEVELS",
+								giver = "5 quests to pick up · Levels 17–22 · The Barrens", route = "Your route takes you there soon.",
+								more = {{ label = "Open these quests and rewards in Dungeons" }},
+								off = {{ label = "Turn off these dungeon heads-up reminders" }},
+								later = {{ label = "Remind me after I have finished these quests" }} }}
+							if kind == "dungeon" then m.act = {{ label = "Pick up the quests (5 now · 2 from level 20)" }}
+							elseif kind == "class-guide" then m.guideId = "class/druid"
+							elseif kind == "no-action" then m.noAct = true end
+							CT.ShowCard(m)
+							local errors = buttonBounds()
+							cases = cases + 1
+							if #errors > 0 then failures[#failures + 1] = {{ skin, scale, width, kind, errors }} end
+						end
+					end
+				end
+			end
+			emit({{ cases = cases, failures = failures }})"#
+		),
+		false,
+	);
+	assert_eq!(out[0]["cases"], 144);
+	assert_eq!(out[0]["failures"], json!({}), "each visible button and complete label must stay inside the full card, without overlaps");
+}
+
+#[test]
+fn heads_up_buttons_reflow_on_resize_and_reset_when_the_card_is_reused() {
+	let out = run_with(
+		&format!(
+			r#"{TOAST_BOUNDS}
+			local w = Polestar.UI.GuideFrame.frame
+			local label = "Pick up the quests (5 now · 2 from level 20)"
+			Polestar.Set("ui.textSize", 1.4)
+			w:SetWidth(260)
+			CT.ShowCard({{ head = "DUNGEON", title = "Wailing Caverns", act = {{ label = label }}, more = {{ label = "Open in Dungeons" }} }})
+			local f, states = CT.frame, {{}}
+			local function state()
+				states[#states + 1] = {{ width = f.Act:GetWidth(), height = f.Act:GetHeight(), cardHeight = f:GetHeight(), errors = buttonBounds() }}
+			end
+			state()
+			-- SetWidth does not dispatch OnSizeChanged in the stub; the client does.
+			w:SetWidth(620); stub.RunScript(w, "OnSizeChanged", 620, w:GetHeight()); state()
+			w:SetWidth(260); stub.RunScript(w, "OnSizeChanged", 260, w:GetHeight()); state()
+			-- A fresh model reuses the same button and must shed the old wrapped height.
+			CT.ShowCard({{ head = "UPDATE", title = "A new version", act = {{ label = "Open" }}, later = {{ label = "Got it" }} }})
+			state()
+			emit({{ states = states, label = f.Act.Label:GetText(), later = f.Later.Label:GetText(), same = f == CT.frame,
+				baseHeight = T.Metric("buttonH", 28) }})"#
+		),
+		false,
+	);
+	let states = out[0]["states"].as_array().unwrap();
+	for state in states {
+		assert_eq!(state["errors"], json!({}), "all resize/reuse states must fit: {state}");
+	}
+	assert!(states[0]["height"].as_f64().unwrap() > states[1]["height"].as_f64().unwrap(), "the long label wraps only at the narrow width: {states:?}");
+	assert!(states[0]["cardHeight"].as_f64().unwrap() > states[1]["cardHeight"].as_f64().unwrap(), "the card grows to contain the taller button and rows");
+	assert_eq!(states[0], states[2], "a second narrowing must not retain the wide dimensions");
+	assert_eq!(states[3]["height"], out[0]["baseHeight"], "a short replacement label restores the ordinary button height");
+	assert_eq!(out[0]["label"], "Open");
+	assert_eq!(out[0]["later"], "Got it");
+	assert_eq!(out[0]["same"], true);
+}
+
+#[test]
+fn wrapped_heads_up_buttons_keep_their_actions_and_dismissal_semantics() {
+	let out = run_with(
+		r#"
+		local CT, calls = Polestar.UI.ClassToast, {}
+		Polestar.UI.GuideFrame.frame:SetWidth(260)
+		Polestar.Set("ui.textSize", 1.4)
+		local m = { head = "DUNGEON", title = "Wailing Caverns" }
+		for _, key in ipairs({ "act", "more", "off", "later" }) do
+			local action = key
+			m[key] = { label = "Pick up the quests (5 now · 2 from level 20)", run = function(model)
+				calls[#calls + 1] = { action, model == m }
+			end }
+		end
+		CT.ShowCard(m)
+		local f = CT.frame
+		f.Act:Click(); f.More:Click()
+		local kept = f:IsShown() and CT.current == m
+		f.Off:Click()
+		local offHid = not f:IsShown() and CT.current == nil
+		CT.ShowCard(m); f.Later:Click()
+		emit({ calls = calls, kept = kept, offHid = offHid, laterHid = not f:IsShown() and CT.current == nil })"#,
+		false,
+	);
+	assert_eq!(out[0], json!({ "calls": [["act", true], ["more", true], ["off", true], ["later", true]], "kept": true, "offHid": true, "laterHid": true }));
+}
+
 // Fitz's design for #836, offered from one level below the quests' level (Fitz, 2026-11-10: the game gives many
 // 3-5 levels early, and the cards stacked up there). With Leaders of the Fang (914, Horde, level 22, the game gives
 // it from 18) not yet taken, 16 is below Wailing Caverns' range; from 17 to 20 one of its three quests still waits

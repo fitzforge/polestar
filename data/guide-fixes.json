@@ -2,6 +2,24 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "2282-darkcloud-arnak-navigation-warning",
+			"faction": "Horde",
+			"at": { "quest": 5147, "goal": "objective", "objective": 1 },
+			"tip": "Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.",
+			"note": "#2282: put the Great Lift warning first so it leads the collapsed step tip. The existing darkcloud-pinnacle-climb record describes the path and rope bridges from the canyon floor to Arnak's plateau. No coordinates are added: the authored Era entrance and the reporter's live map position are different frames. Keep the shared combat and escort advice; this is a warning while #2027 tracks the walking-map repair, not a change to the target or route.",
+			"source": { "kind": "in-game-check", "ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip" },
+			"issue": 2282
+		},
+		{
+			"id": "2282-darkcloud-lakota-navigation-warning",
+			"faction": "Horde",
+			"at": { "quest": 4904, "goal": "accept" },
+			"tip": "Great Lift detour warning: the arrow may miss the path up Darkcloud Pinnacle. If you are on the canyon floor, follow the path and rope bridges up Darkcloud Pinnacle. Lakota Windsong is held captive beside Arnak Grimtotem (29): clear the guards and Arnak first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way.",
+			"note": "#2282: carry the same warning and complete combat/escort advice at Lakota's pickup, including when the writer separates it from Arnak's objective or the route contains only Free at Last. Identical tips keep their current shared step unchanged apart from the warning. The canyon-floor directions do not send a player already on the plateau back down.",
+			"source": { "kind": "in-game-check", "ref": "#2282: TheBlackAbbot's Great Lift report and warning request (issuecomment-6893119864); shipped-navigation reproduction (issuecomment-6876523001); existing data/crossings.json darkcloud-pinnacle-climb and Lakota Windsong guide tip" },
+			"issue": 2282
+		},
+		{
 			"id": "2107-xabraxxis-demon-bag",
 			"faction": "Alliance",
 			"at": { "quest": 4763, "goal": "collect", "item": 12355 },
@@ -878,7 +896,7 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 91736,
-				"goal": "accept"
+				"goal": "turnin"
 			},
 			"tip": "The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.",
 			"note": "The still's quest is handed in the moment you click it with the apples; players who drank the Applejack found De Vries with nothing to offer.",
@@ -895,7 +913,7 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 91738,
-				"goal": "accept"
+				"goal": "turnin"
 			},
 			"tip": "Sergeant De Vries stands inside the barracks. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.",
 			"note": "Without the Applejack De Vries only opens his vendor window; with it the quest is handed in without an accept window.",
@@ -11026,6 +11044,48 @@
 					"ref": "players' recordings to 2026-11-14: A Simmering Storm in 39 recordings, Stormy Potential in 49"
 				}
 			]
+		},
+		{
+			"id": "2284-gregory-victor-triage-accept",
+			"faction": "Horde",
+			"at": {
+				"quest": 97539,
+				"goal": "accept"
+			},
+			"goalNote": "If Doctor Gregory Victor offers nothing, another player may be running his First Aid quest Triage: he can be busy for a few minutes. Wait, then talk to him again.",
+			"note": "#2284, #2266: two players at Hammerfall were not offered Silky Sutures. Players report the doctor offers and takes nothing for a few minutes while another player runs his First Aid quest Triage (6622), so the accept looks missing. Say why, and that it comes back.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2284: DoofusRoofus, a level 35 Horde Skyborne Rogue on client 70938, was not offered Silky Sutures by Doctor Gregory Victor at Hammerfall"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2266: a level 31 Orc Warlock on client 70938 at Hammerfall: Doctor Gregory Victor offered no quest"
+				}
+			],
+			"issue": 2284
+		},
+		{
+			"id": "2284-gregory-victor-triage-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 97539,
+				"goal": "turnin"
+			},
+			"goalNote": "If he won't take the silk, another player may be running Triage: wait a few minutes and talk to him again.",
+			"note": "#2284, #2266: the same Triage block on the hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2284: DoofusRoofus, a level 35 Horde Skyborne Rogue on client 70938, was not offered Silky Sutures by Doctor Gregory Victor at Hammerfall"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2266: a level 31 Orc Warlock on client 70938 at Hammerfall: Doctor Gregory Victor offered no quest"
+				}
+			],
+			"issue": 2284
 		}
 	]
 }

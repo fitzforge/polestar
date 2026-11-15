@@ -178,9 +178,10 @@ step A Donation of Runecloth
 
 step Undercity: Harbinger Balthazad
   zone Undercity
-  tip The level 55 to 60 quests pay in full. First the Bulwark: Harbinger Balthazad, by the Undercity's elevators, sends you there.
+  tip The level 55 to 60 quests pay in full. First the Bulwark: Harbinger Balthazad, by the Undercity's elevators, sends you there. Lady Sylvanas in the Royal Quarter gives The Champion of the Banshee Queen, an introduction to Nathanos Blightcaller: The Corpulent One, his last quest here, needs it handed in.
   level 55
   accept 5094                         -- A Call to Arms: The Plaguelands!, +10
+  accept 5961                         -- Lady Sylvanas Windrunner: The Champion of the Banshee Queen, +25
 
 step The Bulwark: Scarlet Diversions
   zone Tirisfal Glades
@@ -251,8 +252,9 @@ step The Bulwark: done
 
 step Nathanos Blightcaller
   zone Eastern Plaguelands
-  tip Nathanos Blightcaller, the Ranger Lord, keeps his camp on the western edge of the Eastern Plaguelands. His quests are level 58 to 60 and pay in full: 500 Undercity reputation.
+  tip Nathanos Blightcaller, the Ranger Lord, keeps his camp on the western edge of the Eastern Plaguelands. His quests are level 58 to 60 and pay in full: 525 Undercity reputation with Sylvanas's introduction.
   level 56
+  turnin 5961                         -- Nathanos Blightcaller
   accept 6042                         -- Un-Life's Little Annoyances, +100
   accept 6022                         -- To Kill With Purpose, +100
   accept 6133                         -- The Ranger Lord's Behest, +100
@@ -280,7 +282,7 @@ step Duskwing and Borelgore
   kill 11896 quest 6136.1             -- Borelgore
   turnin 6135                         -- Nathanos Blightcaller
   turnin 6136
-  note "Nathanos: 500 Undercity reputation. His Stratholme quests (The Crimson Courier, The Scarlet Oracle, Demetria, Ramstein) need a group."
+  note "Nathanos: 525 Undercity reputation with Sylvanas's introduction. His Stratholme quests (The Crimson Courier, The Scarlet Oracle, Demetria, Ramstein) need a group."
 
 step The Spider God (optional chain)
   label shadra

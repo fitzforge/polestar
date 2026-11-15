@@ -64,6 +64,7 @@ step Daphne Stilwell
   zone Westfall
   tip Daphne Stilwell's farmhouse stands on the south-west coast of Westfall, south of Moonbrook: take the path that runs south beside the Deadmines' back exit. When you take her quest, she walks from her orchard to the house and three waves of Defias Raiders (level 17-18) attack: three, then four, then five. Fight close to her so they do not swarm her, and heal her when she drops. You get time to eat and drink between waves, and she heals to full. If you or Daphne die, the quest fails: abandon it and take it again from her (she is back five minutes after dying). Players find it hard alone before about 24.
   turnin 1650                         -- Daphne Stilwell
+  level 24
   accept 1651
   complete 1651                       -- Protect Daphne Stilwell: three waves
   turnin 1651
@@ -80,50 +81,59 @@ step Duthorian Rall
 step Jordan Stilwell
   zone Dun Morogh
   tip Jordan Stilwell works outside the gates of Ironforge, not inside. He gives you Jordan's Weapon Notes: four parts, in any order. Keep the notes.
+  level 21
   turnin 1653                         -- Jordan Stilwell
   accept 1654
 
 step Bailor Stonehand
   zone Loch Modan
   tip Bailor Stonehand is downstairs in the house of Thelsamar that has a tailoring merchant outside. His quest only opens once you hold Jordan's.
+  level 21
   accept 1655                         -- Bailor Stonehand
 
 step Bailor's Ore
   zone Loch Modan
   tip The crate of ore sits outdoors in the middle of the Mo'grosh ogre camp in north-east Loch Modan, beside a big tree and a broken wagon, between the caves. The camp holds about fifteen Mo'grosh ogres, elite (level 18-19), who knock you down and come back after five minutes: grouping up is encouraged; at 20-22 it needs a group of about three. The crate is back two seconds after each loot, so every paladin in the group gets one.
+  level 21
   collect 6992 quest 1655.1           -- Bailor's Ore crate
 
 step Back to Bailor
   zone Loch Modan
   tip Bailor turns the ore into Jordan's Refined Ore Shipment, the part Jordan wants.
+  level 21
   turnin 1655 reward 6993             -- Bailor Stonehand
   collect 6993 quest 1654.2
 
 step Whitestone Oak Lumber
   zone Westfall
   tip The Deadmines is a group of five under Moonbrook; the instance portal is at the bottom of the Moonbrook mine. The Goblin Woodcarvers (elite, level 18-19) in the mast room with Sneed drop the lumber every time.
+  level 22
   goto 42.5,71.7 live "The Deadmines, in the Moonbrook mine"
   collect 6994 quest 1654.1 @42.5,71.7 live -- Goblin Woodcarvers, inside
 
 step Jordan's Smithing Hammer
   zone Silverpine Forest
   tip Shadowfang Keep is a dungeon for a group of five in the low to mid 20s, in southern Silverpine Forest, Horde land: a long trip for the Alliance, through the Wetlands, Arathi and Hillsbrad. The hammer lies on a crate across from the horses in the stables, early in the dungeon, at the far end of the courtyard before the ramp up; it is back five minutes after someone takes it.
+  level 22
   goto 44.8,67.8 live "Shadowfang Keep"
   collect 6895 quest 1654.3 @44.8,67.8 live -- Jordan's Hammer, inside
 
 step Thundris Windweaver
   zone Darkshore
   tip Thundris Windweaver is in Auberdine. Take his quest before you hunt naga: the Kor Gem never drops without it.
+  level 21
   accept 1442                         -- Thundris Windweaver
 
 step The Corrupted Kor Gem
   zone Ashenvale
   tip The Blackfathom naga in the flooded passages around the Blackfathom Deeps entrance, on Ashenvale's north-west coast, drop the Corrupted Kor Gem: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast Frost Nova up close. Some players report no drop while in a raid group.
+  level 22
   collect 6995 quest 1442.1
 
 step The Purified Kor Gem
   zone Darkshore
   tip Back to Thundris in Auberdine: he purifies the gem.
+  level 21
   turnin 1442 reward 7083             -- Thundris Windweaver
   collect 7083 quest 1654.4
 

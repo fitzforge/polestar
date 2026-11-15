@@ -280,6 +280,9 @@ read after login), and reads that from then on: a "buy water" step passed
 because the bags were full is stored as skipped and does not come back when
 the water runs out, and a step that applied stays done. The player can
 unskip such a step like any other; it then applies whatever its `when`.
+One failure is never stored: a `complete <quest>` that fails while the
+player carries the quest (a Wanted hand-in passed before the elite is dead)
+is checked again, and the step comes back once the quest is done.
 Resetting the guide's progress forgets the stored outcomes.
 
 While its `when` fails, a step counts as one that does not apply: like a step

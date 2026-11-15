@@ -556,6 +556,25 @@ local function factsOf(m)
 	return Theme.House("cardFacts") and m.facts or m.head
 end
 
+-- Keep the whole action readable inside the card. Measure afresh on each
+-- layout so a wider window or a shorter label restores the normal button.
+local function fitButton(b, width)
+	local label = b.Label
+	label:SetWidth(0)
+	label:SetWordWrap(false)
+	W.SetButtonText(b, label:GetText())
+	local height = Theme.Metric("buttonH", 28)
+	if b:GetWidth() > width then
+		local lineHeight = label:GetStringHeight()
+		b:SetWidth(width)
+		label:SetWidth(max(1, width - 2 * Theme.Metric("buttonPad", 16)))
+		label:SetWordWrap(true)
+		label:SetNonSpaceWrap(true)
+		height = height + label:GetStringHeight() - lineHeight
+	end
+	b:SetHeight(height)
+end
+
 -- The compact card: the ring, the title on one line and the action, then
 -- the card's menu when it has more to offer (its second button, its "stop
 -- these") and the close button; its other lines are the tooltip's
@@ -572,6 +591,8 @@ local function compactLayout(f, width)
 	for _, b in ipairs(f.SpellRow) do b:Hide() end
 	local act = (m.act and f.Act) or (m.guideId and f.Open) or f.ShowMe
 	for _, b in ipairs({ f.Act, f.Open, f.ShowMe }) do b:SetShown(b == act) end
+	-- The full card may have wrapped this button taller: back to one line.
+	fitButton(act, math.huge)
 	f.Extra:SetShown(m.more ~= nil or m.off ~= nil)
 	local h = max(CRING, act:GetHeight(), f.Close:GetHeight())
 	local mid = -(CPAD + h / 2)
@@ -713,10 +734,13 @@ function layout(f, width)
 	-- third one (`off`) beside the others, before Later.
 	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or (f.ShowMe:IsShown() and f.ShowMe) or nil
 	local row = { act }
-	local avail, total = width - 2 * PAD - stripe, act and act:GetWidth() or 0
+	local avail = width - 2 * PAD - stripe
+	if act then fitButton(act, avail) end
+	local total = act and act:GetWidth() or 0
 	local m = f.psModel
 	for _, b in ipairs(m and m.answers and { f.More, f.Off, f.Later } or { f.More, f.Later, f.Off }) do
 		if b:IsShown() then
+			fitButton(b, avail)
 			if #row > 0 then total = total + (row[#row] == act and 8 or 4) end
 			total = total + b:GetWidth()
 			row[#row + 1] = b

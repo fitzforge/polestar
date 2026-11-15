@@ -68,6 +68,7 @@ step Shenthul and Zando'zan
 step Wrenix the Wretched
   zone The Barrens
   tip Fly or walk to Ratchet on the Barrens coast. Wrenix stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an E.C.A.C. and Thieves' Tools (Pick Lock does not work without the tools in your bags).
+  level 17
   getfp "Ratchet" optional
   turnin 2382                                 -- Wrenix the Wretched
   accept 2381
@@ -76,6 +77,7 @@ step Wrenix the Wretched
 
 step Southsea Treasure
   tip Follow the coast south from Ratchet to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of The Jewel of the Southsea: it is empty, but opening it calls a giant level 50 Polly into the next room. Stay stealthed, put the E.C.A.C. on your action bar, target Polly and use it: the parrot shrinks to level 18. Kill it for the Southsea Treasure.
+  level 18
   collect 7968 quest 2381.1                   -- Southsea Treasure: Polly, after the E.C.A.C.
 
 step Back to Wrenix
@@ -93,6 +95,7 @@ step Mennet Carkad
   only Undead
   zone Undercity
   tip If you have no Thieves' Tools left, ask Estelle Gendry, the outfitter in the Rogues' Quarter.
+  level 19
   turnin 1998                                 -- Mennet Carkad, Rogues' Quarter
   accept 1999
 
@@ -100,6 +103,7 @@ step Ambermill
   only Undead
   zone Silverpine Forest
   tip The Kirin Tor keep their reports in walled Ambermill, in south-east Silverpine. Facing the town hall, take the building on the right: the Ambermill Strongbox is in a corner room upstairs (any Lockpicking opens it; the Thieves' Tools must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time.
+  level 20
   collect 7309 quest 1999.1                   -- Dalaran Status Report: Ambermill Strongbox
 
 step Back to Mennet

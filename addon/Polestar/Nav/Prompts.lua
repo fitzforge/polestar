@@ -150,6 +150,8 @@ local function pauseDropsGuide()
 end
 
 function Prompts.Wanted()
+	-- Travel keeps its current leg during flight, but its cast cannot be used there.
+	if ns.Compat.IsOnTaxi() then return nil end
 	if not ns.Get("nav.castPrompt") or not ns.Get("nav.arrow") or not ns.GuideWindowOn() or ns.ArrowHidden() or pauseDropsGuide() then return nil end
 	local kind, id = Prompts.ActionOf((currentLeg()))
 	if not kind or stepButtonHas(kind, id) then return nil end

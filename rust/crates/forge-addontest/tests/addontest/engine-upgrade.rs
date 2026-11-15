@@ -378,3 +378,42 @@ fn a_prerequisite_the_update_passed_far_away_drops_the_quest_that_needs_it_and_i
 	assert_eq!(out["hidden"], true);
 	assert_eq!(out["requires"].as_array().map_or(0, |a| a.len()), 0, "{shape:?}");
 }
+
+// #2350 (Redridge, 0.3.7 -> 0.3.7.2; every guide 0.4.0 changed): the save's step for 102's accept changed, and no
+// earlier release's steps (Core/LegacySteps.lua) list its goals. Read as all new, it held nothing, the player's
+// place went past it to the walk, and the update passed it behind them with 102 never taken: the Lakeshire
+// pick-ups, gone. A changed step whose old goals are unknown is no step the update added: it stays, and holds the
+// player there. What the update did add (108, between two kept steps) still passes.
+#[test]
+fn a_changed_step_whose_old_goals_no_release_lists_stays_open_where_the_player_is() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.replace("w.complete({ 100, 102 })\nw.onQuest(103, { { required = 5, fulfilled = 1 } }, \"Quest 103\")", "w.complete({ 100 })"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, "{}")),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 4, "at 102's accept, not taken yet: {out}");
+	assert_eq!(out["changed"], json!(["active", "active"]), "{out}");
+	assert_eq!(out["status"][1], "na", "108, added between kept steps, passes: {out}");
+}
+
+// #2350: what an update added behind the player that they have done shows done (the quest handed in), not as a
+// step that does not apply.
+#[test]
+fn what_an_update_added_behind_the_player_that_they_have_done_shows_done() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nstub.world.complete({{ 108, 109 }})"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{SCRIPT}"),
+	})
+	.remove(0);
+	assert_eq!(out["live"], 8, "{out}");
+	assert_eq!(out["status"][1], "done", "{out}");
+	assert_eq!(out["changed"], json!(["done", "done"]), "{out}");
+}
