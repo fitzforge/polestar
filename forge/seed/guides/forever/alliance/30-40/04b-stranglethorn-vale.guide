@@ -54,12 +54,12 @@ step Bookie Herod
   accept 328
 
 step Kurzen's Compound
-  tip Wendel Mathers, a cook, is caged at the compound's western edge. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. The Kurzen Elites and Subchiefs (35-37) carry the cage key; the fighter's uniform lies in the compound's eastern part. Pick up Green Hills pages as they drop.
+  tip Wendel Mathers, a cook, is caged at the compound's western edge. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. The Kurzen Subchiefs (35-36) and Elites (36-37) carry the cage key: at 35 take it from the Subchiefs and pull the Elites one at a time. The fighter's uniform lies in the compound's eastern part. Pick up Green Hills pages as they drop.
   tip Careful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb. Colonel Kurzen, an elite of 39-40, stands at the compound's north end: leave him be.
   accept 97047 @44.3,7.9 map 1434     -- Wendel Mathers, in his cage
   kill 938 quest 574.1 @46.3,7.8 map 1434 -- Kurzen Commando
   kill 941 quest 574.2 @46.4,7.9 map 1434 -- Kurzen Headshrinker, below ground
-  collect 216616 quest 97047          -- Compound Cage Key, from the Elites and Subchiefs
+  collect 216616 quest 97047          -- Compound Cage Key, from the Subchiefs (or the Elites)
   collect 216617 quest 97047 @50.0,8.0 map 1434 -- Kurzen Fighter's Uniform
   turnin 328                          -- Bookie Herod's Strongbox, below ground
   accept 329
