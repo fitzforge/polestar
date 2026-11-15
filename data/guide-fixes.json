@@ -7140,6 +7140,24 @@
 			]
 		},
 		{
+			"id": "levels-alliance-ungoro-top-51",
+			"faction": "Alliance",
+			"at": {
+				"goal": "levels",
+				"guide": "forever/alliance/40-50/07-un-goro-crater"
+			},
+			"levels": {
+				"top": 51
+			},
+			"note": "Un'Goro Crater (Alliance 40-50/07): with the Riverglades and Shen'dralas in the route the level model (rested experience, 28 race and class runs) brings players in at 49.9 and out at 51.6, after the top-up to 51 before Fire Plume Ridge: the header says 49-51. The 0.4.0 Alliance 40-60 headers are set to the levels the route plays each guide at, arrival to exit, not wider (02 45-45, 03 46-47, 04 47-48, 05 48-48, Burning Steppes 51-53, Winterspring 53-55, Western Plaguelands 55-57, Silithus 57-60; Felwood stays 52-53 for its 52.x top-ups); this record keeps the one top the route raises.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "the level model on players' recordings, rested experience: Alliance 40-50/07 49.88 -> 51.56"
+				}
+			]
+		},
+		{
 			"id": "razor-hill-taijin-letter-note",
 			"faction": "Horde",
 			"at": {

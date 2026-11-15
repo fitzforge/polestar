@@ -12221,7 +12221,8 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Discord: the guide says 
 // up front why its quests run higher and how hard the mobs hit (as Horde Hillsbrad & Arathi).
 test('Alliance Un\'Goro and Stranglethorn 35-36: the guide says why its quests run above its label', { skip }, () => {
 	for (const [file, lo, hi, levels] of [
-		['forever/alliance/40-50/07-un-goro-crater.guide', 49, 50, /51-53/],
+		// 0.4.0: the label follows the route's level model (arrival 49.9, the top-up to 51 before Fire Plume Ridge).
+		['forever/alliance/40-50/07-un-goro-crater.guide', 49, 51, /51-53/],
 		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 35, 36, /37-38/],
 	]) {
 		const g = compiled(file);
