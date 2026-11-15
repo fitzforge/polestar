@@ -50,6 +50,9 @@ ns.RegisterDefaults("behavior", {
 	whileHereTurninSeconds = 20, -- seconds of extra walking a hand-in may cost (0-60); an NPC in the town the player rests in counts whatever it costs
 	whileHereFlights = true, -- also a friendly flight master within the radius whose flight path the character has not learned (Own.hereFlights)
 	whileHereGather = false, -- also a spot within the radius where a herb, ore vein or fishing pool the character gathers can spawn (Own.hereGather, Core/Gather.lua)
+	whileHereVendors = true, -- also a merchant or repairer on the way when the route heads out with the bags nearly full or the gear worn (Own.hereVendor, #2344)
+	whileHereSellSlots = 4, -- ... sell when fewer bag slots are free than this or than the next steps' loot (0-16; 0: the loot alone)
+	whileHereRepairPercent = 30, -- ... repair when an equipped piece is under this share of its durability (0-90; 0: never)
 	whileHereSound = true, -- a soft chime for each line that appears, at least 5 s apart (UI/WhileHere.lua)
 	whileHereStepKey = true, -- the step key also targets the lines' mobs, after the step's own (QoL/Buttons.lua, Buttons.HereNames)
 })
@@ -7841,7 +7844,7 @@ local function updateTicker()
 	end
 	useActive()
 	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
-	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 end
+	if not need then need = Own.hereAllN > 0 or Own.hereOnN > 0 or Own.hereFlyN > 0 or Own.hereGatherN > 0 or Own.hereVendorN > 0 end
 	if need and not ticker then
 		ticker = ns.NewTicker(ARRIVAL_POLL, checkArrival)
 	elseif not need and ticker then
@@ -11844,6 +11847,7 @@ function Own.hereBuild()
 	local active = guide and live and logReady and ns.Get("behavior.whileHere")
 	Own.hereFlyBuild(active and pc or nil)
 	Own.hereGatherBuild(active and pc or nil)
+	Own.hereVendorBuild(active and pc or nil, live)
 	if active then
 		if not player then refreshPlayer() end
 		Own.hereTop = (player.level or 1) + Own.HERE_ABOVE
@@ -11989,6 +11993,9 @@ function Own.hereBuild()
 			i = i + 1
 		elseif cur.kind == "flight" and Own.hereFlyHolds(cur) then
 			-- A flight path line: while its flight master is a candidate (Own.hereFly).
+			i = i + 1
+		elseif (cur.kind == "sell" or cur.kind == "repair") and Own.hereVendorHolds(cur) then
+			-- A sell or repair reminder: while the bags or the gear still need it (Own.hereVendor).
 			i = i + 1
 		elseif cur.kind == "gather" and Own.hereGatherHolds(cur) then
 			-- A gathering spot line: while its kind of node is a candidate (Own.hereGather).
@@ -12454,7 +12461,7 @@ end
 -- only those are measured. True when a line the player had clicked went
 -- (the arrow goes back to the guide).
 function Own.hereTick(c, px, py)
-	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 and Own.hereGatherN == 0 then return false end
+	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 and Own.hereGatherN == 0 and Own.hereVendorN == 0 then return false end
 	-- On a taxi, boat or zeppelin, in an instance, hearthing or the live
 	-- step's escort: the lines shown hide and wait (Own.hereHeld), no new one
 	-- comes, nothing goes by distance or time, nothing counts as left. Back,
@@ -12530,6 +12537,7 @@ function Own.hereTick(c, px, py)
 		if not m.far and (m.c ~= c or (px - m.x) ^ 2 + (py - m.y) ^ 2 >= away) then m.far = true end
 	end
 	if Own.hereOnN >= Own.HERE_SHOW or Own.hereAllN == 0 then
+		Own.hereVendorTick(c, px, py, timedOnly)
 		Own.hereFlyTick(c, px, py, timedOnly)
 		Own.hereGatherTick(c, px, py, timedOnly)
 		return aimed
@@ -12596,7 +12604,9 @@ function Own.hereTick(c, px, py)
 			best.d = false
 		end
 	end
-	-- A flight master passed (Own.hereFlyTick), after the quest lines; then a gathering spot (Own.hereGatherTick).
+	-- A sell or repair reminder (Own.hereVendorTick), after the quest lines; then a flight master passed
+	-- (Own.hereFlyTick) and a gathering spot (Own.hereGatherTick).
+	Own.hereVendorTick(c, px, py, timedOnly)
 	Own.hereFlyTick(c, px, py, timedOnly)
 	Own.hereGatherTick(c, px, py, timedOnly)
 	return aimed
@@ -12605,17 +12615,21 @@ end
 -- Line e as a goal view (Engine.GetAlong's) of its later step with: `step`
 -- (its step: the copy measured to), `firstStep` (the earliest step holding
 -- the same objective, Own.hereGroups: the one the row names), `here` ("work" |
--- "turnin" | "take" | "flight"), `left`, `appeared` (a number new
+-- "turnin" | "take" | "flight" | "gather" | "sell" | "repair"), `left`, `appeared` (a number new
 -- for each line that appears: the minimap's ping), `yards` (to the next
 -- HERE_STEP), `hereText` (what to do: "Kill Kobold Vermin, 2 more", "Hand in
 -- X to Y"), `hereTitle` (a turn-in's quoted quest name in it: UI.HereText
 -- marks it), `later` (firstStep past the route's next AHEAD: "later in this
--- guide"); a flight path line's is Own.hereFlyView's. Kept on the line until
+-- guide"); a flight path line's is Own.hereFlyView's, a gathering spot's Own.hereGatherView's, a sell or repair
+-- line's Own.hereVendorView's. Kept on the line until
 -- its count changes.
 function Own.hereViewOf(e)
 	local v = e.view
 	if not v and e.kind == "flight" then
 		v = Own.hereFlyView(e)
+		e.view = v
+	elseif not v and (e.kind == "sell" or e.kind == "repair") then
+		v = Own.hereVendorView(e)
 		e.view = v
 	elseif not v and e.kind == "gather" then
 		v = Own.hereGatherView(e)
@@ -13194,6 +13208,352 @@ ns.On("GATHER_CHANGED", function()
 	Own.hereGatherBad = {}
 	Own.hereDirty = true
 	requestUpdate()
+end)
+
+---------------------------------------------------------------------------
+-- Sell and repair before heading out (#2344, Caliber's idea; behavior.whileHereVendors, on by default). When the
+-- route heads out (a live step that flies or hearths; else the waypoint VENDOR_OUT yards past the merchant or on
+-- another continent) and the bags are nearly full (fewer free slots than
+-- behavior.whileHereSellSlots or than the next steps' loot) or the gear is worn (an equipped piece under
+-- behavior.whileHereRepairPercent of its durability), the nearest friendly merchant or repairer on the way is a
+-- line of its own: "Sell before heading out: 3 free slots", "Repair before heading out: gear at 22%"; both needed,
+-- the repairer's line says both ("Repair and sell...") and no sell line comes beside it. Weighed as a hand-in is
+-- (Own.hereIn: the seconds out of the way of behavior.whileHereTurninSeconds, any detour in the town the player
+-- rests in, never past HERE_FAR; the walk check), after the quest lines, with the lines' blocks (combat, an
+-- instance, a taxi, a timed quest's clock), dismiss and expiry. Once per visit and kind: once it shows, or the
+-- player opens a merchant's window (the repair kind: one who repairs), that kind waits until the player has been
+-- VENDOR_AWAY yards from there (Own.hereVendorSpent), so a dismiss is for the visit; none while a merchant's
+-- window is open, nor when the route's own next steps sell (a `vendor` goal). A click leads the arrow to the NPC.
+-- The places are Nav/Nearby.lua's (the Codex's friendly vendors and repairers outside instances, the Codex loaded
+-- only once a reminder is needed, never in combat). The needs are read with each build (the bags: its
+-- BAG_UPDATE_DELAYED) and on UPDATE_INVENTORY_DURABILITY; the poll picks the nearest place only every
+-- HERE_REPICK yards moved and allocates nothing.
+---------------------------------------------------------------------------
+
+Own.VENDOR_STEP = -4 -- a sell or repair line's step: no guide step has it (Own.alongGoal reads none)
+Own.VENDOR_OUT = 250 -- yards between the merchant and the waypoint that make the route head out
+Own.VENDOR_AWAY = 400 -- yards from where a kind's reminder was spent before it may come again (the next town)
+Own.VENDOR_KINDS = { "repair", "sell" } -- the repairer's line first: it sells too
+Own.VENDOR_WORN = { 1, 3, 5, 6, 7, 8, 9, 10, 16, 17, 18 } -- equipment slots that wear: head to ranged
+Own.hereVendor, Own.hereVendorN = {}, 0 -- the candidates
+Own.hereVendorEntries = {} -- kind -> its candidate, kept across builds (a dismiss holds)
+Own.hereVendorSpent = {} -- kind -> { on, c, x, y }: shown or served this visit, and where the player stood
+Own.hereVendorItems = {} -- the loot count's items (reused)
+Own.hereVendorAt = false -- a merchant's window is open
+Own.hereVendorRetry = false -- the places were asked for in combat: again once it ends
+Own.hereVendorAway = false -- the live step flies or hearths: heading out with no waypoint too
+Own.hereVendorRepair = false -- the repair need at the last build (UPDATE_INVENTORY_DURABILITY builds again when it flips)
+Own.hereVendorFree, Own.hereVendorWant = nil, 0 -- the free bag slots and those wanted at the last build; nil: reminders off
+
+-- Kind's candidate, made once. Its goal is a verb of its own ("sell", "repair": no guide step holds it, no goal
+-- state ends it) placed at the NPC the line shows (Own.hereVendorPlace); `list`: the continent's places
+-- (Nearby.PlacesOn), `p` the one picked from pc, px, py; `free`, `want`, `worn`, `both`: the needs it says.
+function Own.hereVendorOf(kind)
+	local e = Own.hereVendorEntries[kind]
+	if not e then
+		local goal = { t = kind, text = "" }
+		-- g: the kind's place in VENDOR_KINDS (a goal index is a number wherever a waypoint goes, Nav/Walk.lua's too).
+		e = { s = Own.VENDOR_STEP, g = kind == "repair" and 1 or 2, goal = goal, kind = kind, left = 0, places = 1, npcs = false, seen = false, spot = false,
+			d = false, pick = 0, budget = 0, xp = false, soon = false, visit = false, detour = 0, town = false, near = false,
+			on = false, since = 0, yards = 0, serial = 0, view = false,
+			list = false, p = false, pc = false, px = 0, py = 0, free = 0, want = 0, worn = 100, both = false }
+		Own.hereVendorEntries[kind] = e
+	end
+	return e
+end
+
+-- The most worn equipped piece's share of its durability (0-100), or nil (nothing that wears).
+function Own.hereVendorWorn()
+	if not GetInventoryItemDurability then return nil end
+	local C, worn = Compat(), nil
+	for _, slot in ipairs(Own.VENDOR_WORN) do
+		local cur, max = GetInventoryItemDurability(slot)
+		cur, max = C.Readable(cur), C.Readable(max)
+		if type(cur) == "number" and type(max) == "number" and max > 0 then
+			local pct = cur / max * 100
+			if not worn or pct < worn then worn = pct end
+		end
+	end
+	return worn
+end
+
+-- What the bags and the gear need, from live step `live`: sell, repair, free slots, wanted, worn (Own.hereVendorWorn).
+-- Free slots: QoL's count (the bags that take any item); no bags read, no selling. Wanted: the setting, or the
+-- distinct items the open collect goals of the live step and the route's next AHEAD steps want that the bags hold
+-- none of (each takes a slot), whichever is more. Neither when those steps sell themselves (an open `vendor` goal).
+function Own.hereVendorNeeds(live)
+	local S = ns.QoL and ns.QoL.Space
+	local free, total = 0, 0
+	if S and S.Count then free, total = S.Count() end
+	local seen, C, loot = Own.hereVendorItems, Compat(), 0
+	for item in pairs(seen) do seen[item] = nil end
+	local steps, k = guide.steps, 0
+	for s = live, #steps do
+		if stepApplies(steps[s]) and not isSkipped(s) then
+			for g, goal in ipairs(steps[s].goals) do
+				local t = goal.t
+				if (t == "collect" or t == "vendor") and goalApplies(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then
+					if t == "vendor" then return false, false, free, 0, nil end
+					local item = goal.item
+					if item and not seen[item] and (C.GetItemCount(item) or 0) == 0 then seen[item], loot = true, loot + 1 end
+				end
+			end
+			k = k + 1
+			if k > Own.AHEAD then break end
+		end
+	end
+	local want = math.max(tonumber(ns.Get("behavior.whileHereSellSlots")) or 4, loot)
+	local worn = Own.hereVendorWorn()
+	local repair = worn ~= nil and worn < (tonumber(ns.Get("behavior.whileHereRepairPercent")) or 30)
+	return total > 0 and free < want, repair, free, want, worn
+end
+
+-- Own.hereVendor for continent c from live step `live` (c nil: none, Dynamic Questing off or no guide).
+function Own.hereVendorBuild(c, live)
+	local list, n = Own.hereVendor, 0
+	local near = c and ns.Get("behavior.whileHereVendors") and ns.Nav and ns.Nav.nearby
+	local sell, repair, free, want, worn = false, false, 0, 0, nil
+	if near then sell, repair, free, want, worn = Own.hereVendorNeeds(live) end
+	Own.hereVendorRetry, Own.hereVendorRepair, Own.hereVendorAway = false, repair, false
+	Own.hereVendorFree, Own.hereVendorWant = near and free or nil, want
+	if near and (sell or repair) then
+		for g, goal in ipairs(guide.steps[live].goals) do
+			if (goal.t == "fly" or goal.t == "hearth") and goalApplies(goal) and not goalDone(live, g, goal) then Own.hereVendorAway = true end
+		end
+	end
+	for _, kind in ipairs(Own.VENDOR_KINDS) do
+		if (kind == "repair" and repair) or (kind == "sell" and sell) then
+			local places, why = near.PlacesOn(kind == "repair" and "repair" or "vendor", c)
+			if places and #places > 0 then
+				local e = Own.hereVendorOf(kind)
+				if e.list ~= places then e.list, e.p, e.pc = places, false, false end
+				local both = kind == "repair" and sell
+				local pct = worn or 100
+				if e.on and (e.free ~= free or math.floor(e.worn) ~= math.floor(pct) or e.both ~= both) then
+					e.view = false
+					ns.Fire("WHILE_HERE_CHANGED")
+				end
+				e.free, e.want, e.worn, e.both = free, want, pct, both
+				e.budget = tonumber(ns.Get("behavior.whileHereTurninSeconds")) or 20
+				n = n + 1
+				list[n] = e
+			elseif why == "combat" then
+				Own.hereVendorRetry = true
+			end
+		end
+	end
+	for i = n + 1, #list do list[i] = nil end
+	Own.hereVendorN = n
+end
+
+-- Whether sell or repair line e is still a candidate (Own.hereBuild keeps it).
+function Own.hereVendorHolds(e)
+	for i = 1, Own.hereVendorN do
+		if Own.hereVendor[i] == e then return true end
+	end
+	return false
+end
+
+-- Kind's reminder spent for this visit, where the player stands.
+function Own.hereVendorSpend(kind)
+	local s = Own.hereVendorSpent[kind]
+	if not s then
+		s = {}
+		Own.hereVendorSpent[kind] = s
+	end
+	local c, x, y = Compat().GetPlayerWorldPosition()
+	s.on, s.c, s.x, s.y = true, c, x or 0, y or 0
+end
+
+-- Whether kind's reminder is spent for this visit: until the player is VENDOR_AWAY yards from where it was, or on
+-- another continent. Allocation-free.
+function Own.hereVendorSpentNow(kind, c, px, py)
+	local s = Own.hereVendorSpent[kind]
+	if not (s and s.on) then return false end
+	local away = Own.VENDOR_AWAY
+	if s.c ~= c or (px - s.x) ^ 2 + (py - s.y) ^ 2 >= away * away then s.on = false end
+	return s.on
+end
+
+-- Candidate e's nearest place within HERE_FAR yards in a straight line, picked again only once the player has
+-- moved HERE_REPICK yards (or changed continent), else false. Allocation-free.
+function Own.hereVendorPick(e, c, px, py)
+	local repick = Own.HERE_REPICK
+	if e.pc == c and (px - e.px) ^ 2 + (py - e.py) ^ 2 <= repick * repick then return e.p end
+	local list, far = e.list, Own.HERE_FAR * Own.HERE_FAR
+	local best, bestD = false, nil
+	for i = 1, #list do
+		local p = list[i]
+		local d = (p.wx - px) ^ 2 + (p.wy - py) ^ 2
+		if d <= far and (not bestD or d < bestD) then best, bestD = p, d end
+	end
+	e.p, e.pc, e.px, e.py = best, c, px, py
+	return best
+end
+
+-- Whether the route heads out from place p: a live step that flies or hearths (Own.hereVendorAway: its arrow may
+-- lead to the flight master in town), else the waypoint VENDOR_OUT yards past p or on another continent.
+function Own.hereVendorLeaving(p)
+	if Own.hereVendorAway then return true end
+	local tc, tx, ty = Own.hereHeading()
+	if not tc then return false end
+	local out = Own.VENDOR_OUT
+	return tc ~= p.c or (tx - p.wx) ^ 2 + (ty - p.wy) ^ 2 > out * out
+end
+
+-- Candidate e's goal at place p (its NPC, its point and its world point for the measures).
+function Own.hereVendorPlace(e, p)
+	local goal = e.goal
+	if goal.place == p then return end
+	goal.place, goal.map, goal.x, goal.y, goal.f, goal.z, goal.npc, goal.npcName = p, p.map, p.x, p.y, p.f, p.z, p.id, p.name
+	local w = worldOf[goal]
+	if not w then
+		w = {}
+		worldOf[goal] = w
+	end
+	w[1], w[2], w[3] = p.c, p.wx, p.wy
+end
+
+-- The poll's sell or repair line (Own.hereTick, after the quest lines): while fewer than HERE_SHOW lines show and
+-- no merchant's window is open, a kind not spent this visit (the sell kind not while a repairer's line that sells
+-- too shows) whose nearest place is in reach as a hand-in is, with the route heading out from there, shows once
+-- the walk there is no long way round (Own.hereMayShow; else checked again later, as a hand-in is). One at a time.
+-- Allocation-free.
+function Own.hereVendorTick(c, px, py, timedOnly)
+	if Own.hereVendorN == 0 or timedOnly or Own.hereVendorAt or Own.hereOnN >= Own.HERE_SHOW then return end
+	local on, covered = Own.hereOn, false
+	for j = 1, Own.hereOnN do
+		if on[j].kind == "repair" and on[j].both then covered = true end
+	end
+	for k = 1, Own.hereVendorN do
+		local e = Own.hereVendor[k]
+		if not e.on and not (covered and e.kind == "sell") and not Own.hereVendorSpentNow(e.kind, c, px, py)
+			and not Own.hereQuiet[e.goal] and Own.hereAgain(e) and not Own.hereMuted(e) then
+			local p = Own.hereVendorPick(e, c, px, py)
+			if p and Own.hereVendorLeaving(p) then
+				Own.hereVendorPlace(e, p)
+				local d = Own.hereDistance(e, c, px, py)
+				if d and Own.hereIn(e, d) and not Own.hereWalkWait(e, c, px, py, d) and Own.hereMayShow(e, d) then
+					Own.hereVendorShow(e, d)
+					return
+				end
+			end
+		end
+	end
+end
+
+-- Candidate e, d yards off, becomes a line: nearest first among those shown, after the route's next steps'; its
+-- kind spent for this visit.
+function Own.hereVendorShow(e, d)
+	local on, n = Own.hereOn, Own.hereOnN
+	local at = n + 1
+	for j = 1, n do
+		local o = on[j]
+		if not o.near and d < (o.d or math.huge) then
+			at = j
+			break
+		end
+	end
+	for j = n, at, -1 do on[j + 1] = on[j] end
+	on[at], Own.hereOnN = e, n + 1
+	Own.hereSerial = (Own.hereSerial or 0) + 1
+	e.on, e.since, e.serial, e.view, e.d = true, GetTime(), Own.hereSerial, false, d
+	e.yards = math.floor(d / Own.HERE_STEP + 0.5) * Own.HERE_STEP
+	-- What the arrow says, led there.
+	local goal = e.goal
+	goal.text = (e.kind == "repair" and L["Repair at %s"] or L["Sell at %s"]):format(goal.npcName or "")
+	Own.hereExpiredAt[goal], Own.hereMutes[goal] = nil, nil
+	Own.hereVendorSpend(e.kind)
+	Own.here = on[1]
+	ns.Fire("WHILE_HERE_CHANGED")
+end
+
+-- "3 free slots", "1 free slot", "bags full".
+function Own.hereVendorSlots(free)
+	if free <= 0 then return L["bags full"] end
+	if free == 1 then return L["1 free slot"] end
+	return L["%d free slots"]:format(free)
+end
+
+-- Sell or repair line e as Own.hereViewOf's view: what to do and why ("Sell before heading out: 3 free slots",
+-- "Repair before heading out: gear at 22%", "Repair and sell before heading out: gear at 22%, 3 free slots"), under
+-- it the NPC and their title.
+function Own.hereVendorView(e)
+	local goal, p = e.goal, e.goal.place
+	local v = { t = e.kind, step = e.s, index = e.g, here = e.kind, left = 0, appeared = e.serial, later = false, npc = goal.npc,
+		map = goal.map, x = goal.x, y = goal.y, f = goal.f, status = "active" }
+	local worn = math.floor(e.worn)
+	if e.kind == "repair" then
+		v.hereText = e.both and L["Repair and sell before heading out: gear at %d%%, %s"]:format(worn, Own.hereVendorSlots(e.free))
+			or L["Repair before heading out: gear at %d%%"]:format(worn)
+		v.hereTip = L["The guide heads out of town next and your gear is worn: repair it here before it breaks."]
+	else
+		v.hereText = L["Sell before heading out: %s"]:format(Own.hereVendorSlots(e.free))
+		v.hereTip = L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."]
+	end
+	local name = goal.npcName or ""
+	v.hereSub = (p and p.sub and p.sub ~= "") and ("%s (%s)"):format(name, p.sub) or name
+	v.text = v.hereText
+	return v
+end
+
+-- A merchant's window: the sell reminder is spent for this visit, the repair one too at a merchant who repairs;
+-- their lines go, and none comes while the window is open.
+ns.RegisterEvent("MERCHANT_SHOW", function()
+	Own.hereVendorAt = true
+	Own.hereVendorSpend("sell")
+	if CanMerchantRepair and Compat().Readable(CanMerchantRepair()) then Own.hereVendorSpend("repair") end
+	local aimed, i = false, 1
+	while i <= Own.hereOnN do
+		local e = Own.hereOn[i]
+		local s = (e.kind == "sell" or e.kind == "repair") and Own.hereVendorSpent[e.kind]
+		if s and s.on then
+			if Own.hereRemove(i, false) then aimed = true end
+		else
+			i = i + 1
+		end
+	end
+	if aimed then requestUpdate() end
+end)
+ns.RegisterEvent("MERCHANT_CLOSED", function() Own.hereVendorAt = false end)
+
+-- The gear's durability changed: a build when the repair need flips; a shown repair line says the new share.
+ns.RegisterEvent("UPDATE_INVENTORY_DURABILITY", function()
+	if not ns.Get("behavior.whileHereVendors") then return end
+	local worn = Own.hereVendorWorn()
+	local repair = worn ~= nil and worn < (tonumber(ns.Get("behavior.whileHereRepairPercent")) or 30)
+	if repair ~= Own.hereVendorRepair then
+		Own.hereDirty = true
+		requestUpdate()
+		return
+	end
+	local e = Own.hereVendorEntries.repair
+	if e and e.on and worn and math.floor(worn) ~= math.floor(e.worn) then
+		e.worn, e.view = worn, false
+		ns.Fire("WHILE_HERE_CHANGED")
+	end
+end)
+
+-- The bags changed (looted, sold): a build when the selling need flips, or a line that says the free slots shows.
+ns.RegisterEvent("BAG_UPDATE_DELAYED", function()
+	local was, want = Own.hereVendorFree, Own.hereVendorWant
+	if was == nil then return end
+	local S = ns.QoL and ns.QoL.Space
+	local free = S and S.Count and S.Count() or 0
+	if free == was then return end
+	local sell, repair = Own.hereVendorEntries.sell, Own.hereVendorEntries.repair
+	if (free < want) ~= (was < want) or (sell and sell.on) or (repair and repair.on and repair.both) then
+		Own.hereDirty = true
+		requestUpdate()
+	end
+end)
+
+-- The places were asked for in a fight (the Codex loads only out of it): again now.
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
+	if Own.hereVendorRetry then
+		Own.hereDirty = true
+		requestUpdate()
+	end
 end)
 
 ---------------------------------------------------------------------------

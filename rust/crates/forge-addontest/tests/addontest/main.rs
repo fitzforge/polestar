@@ -152,6 +152,8 @@ mod engine_review;
 mod engine_routes;
 #[path = "engine-sections.rs"]
 mod engine_sections;
+#[path = "engine-sell-repair.rs"]
+mod engine_sell_repair;
 #[path = "engine-skip-ahead.rs"]
 mod engine_skip_ahead;
 #[path = "engine-skip-undo.rs"]

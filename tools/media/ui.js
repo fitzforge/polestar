@@ -139,6 +139,28 @@ const GLYPHS = {
 		subtract(dot(15, 9.4, 6.6), dot(9, 14.6, 8.4)),
 		subtract(dot(9, 14.6, 6.6), ring(9, 14.6, 4.1, 1.3)),
 	),
+	// While you're here's sell and repair reminders: the signs the game shows for merchants and repairers (the
+	// merchant's tied coin bag, the repair anvil), drawn our way. The bag: a round sack, its neck tied and the
+	// cloth gathered above the tie, a coin before it.
+	'icon-sell': union(
+		subtract(
+			union(
+				dot(10.6, 14.6, 6.6),
+				poly([[8.4, 9], [12.8, 9], [15.4, 11.6], [5.8, 11.6]]),
+				box(10.6, 7.6, 3.2, 1.05, 0.5),
+				poly([[7, 2], [9.4, 3.4], [10.6, 2.2], [11.8, 3.4], [14.2, 2], [13, 5.8], [8.2, 5.8]]),
+			),
+			dot(17.4, 17.6, 5.6),
+		),
+		subtract(dot(17.4, 17.6, 4.2), ring(17.4, 17.6, 2.2, 1.1)),
+	),
+	// The anvil, its horn to the left, and a hammer striking it.
+	'icon-repair': union(
+		poly([[2.4, 12.6], [16.6, 12.6], [16.6, 15], [13.6, 17.2], [10.4, 17.2], [7.6, 15], [5, 15]]),
+		box(12, 18.8, 1.9, 1.8),
+		box(12, 21, 5.6, 1.3, 0.5),
+		rotate(union(box(14.6, 7, 4.8, 1.8, 0.4), line(14.6, 7, 14.6, -0.6, 1.9)), 42, 14.6, 7),
+	),
 	'icon-level': union(polyline([[6, 12.5], [12, 6.5], [18, 12.5]], 2.6), polyline([[6, 18.5], [12, 12.5], [18, 18.5]], 2.6)),
 	// The trip to a zone on the route choice's cards: a clock face, its hands at ten past.
 	'icon-clock': union(ring(12, 12.4, 8.4), line(12, 12.4, 12, 7.6, 2.4), line(12, 12.4, 15.6, 14.4, 2.4)),
