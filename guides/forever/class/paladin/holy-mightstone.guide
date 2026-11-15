@@ -55,6 +55,7 @@ step Brandur Ironhammer
 step Chillwind Camp
   zone Western Plaguelands
   tip Chillwind Camp is the Alliance camp at the south end of the Western Plaguelands, north of the Alterac foothills. Commander Ashlam Valorfist commands it; Argent Officer Pureheart stands in the same camp.
+  level 51
   turnin 8415                         -- Commander Ashlam Valorfist
   accept 8414
 
@@ -68,6 +69,7 @@ step The Argent Dawn Commission
 step Minion's Scourgestones
   zone Western Plaguelands
   tip Kill the Scourge of the Western Plaguelands with the Commission on: skeletons, ghouls and cultists (level 50-58) drop a Minion's Scourgestone about two kills in five. Sorrow Hill, just east of Chillwind Camp around Uther's Tomb, is the closest farm. Avoid the Flesh Golems that patrol the fields; Skeletal Guardians cast Cone of Cold and Arcane Explosion up close, Dark Summoners run for help at low health.
+  level 55
   collect 12840 quest 8414.1          -- Minion's Scourgestone x20
 
 step High Priest Thel'danis
@@ -79,12 +81,14 @@ step High Priest Thel'danis
 step Commander Ashlam Valorfist
   zone Western Plaguelands
   tip Back to Chillwind Camp. Ashlam needs the voodoo of the Sunken Temple's trolls for the stone.
+  level 51
   turnin 8416                         -- Commander Ashlam Valorfist
   accept 8418
 
 step The Sunken Temple
   zone Swamp of Sorrows
   tip The Temple of Atal'Hakkar, the Sunken Temple, lies in the Pool of Tears in eastern Swamp of Sorrows: go up the ruin's stairs, dive into the flooded hall and follow the stairs down to the portal. It is a dungeon for a group of five at about 50-55. Six elite troll minibosses (level 51-52) stand on the balconies around the temple's great round room, each behind a pack of elites on its side path. Each drops its feather every time: Gasher and Zul'Lor the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green; you need all six. Hukku calls guardians and throws Shadow Bolt Volleys, Mijan heals: kill them first.
+  level 51
   goto 69.9,53.6 "The Temple of Atal'Hakkar"
   collect 20606 quest 8418.1 @69.9,53.6 -- Amber Voodoo Feather x2: Gasher, Zul'Lor
   collect 20607 quest 8418.2 @69.9,53.6 -- Blue Voodoo Feather x2: Hukku, Mijan

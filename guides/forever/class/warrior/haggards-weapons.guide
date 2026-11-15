@@ -105,6 +105,7 @@ step Ironband's Compound
   only Dwarf,Gnome
   zone Dun Morogh
   tip Ironband's Compound lies in eastern Dun Morogh, below Helm's Bed Lake on its south side. Dark Iron Spies (level 8-10) stand along the way, far enough apart to pull one at a time. Ironband's Strongbox is in the basement of the southernmost house; Captain Beld (level 11) stands by it and charges on sight. The box always holds the ore and refills 15 minutes after opening.
+  level 11
   collect 6800 quest 1681.1                   -- Umbral Ore, from Ironband's Strongbox
 
 step Grey Iron Weapons

@@ -114,6 +114,7 @@ step The Defias Script
   only Human
   zone Elwynn Forest
   tip The Defias Rogue Wizards around the big stone tablet east of Henze carry the Defias Script: about one kill in two drops it, but some players need many kills. They respawn in three minutes.
+  level 13
   collect 6846 quest 1787.1 @74.16,52.0 -- Defias Script: Defias Rogue Wizards
 
 step Redemption
