@@ -3776,14 +3776,14 @@
 			{
 				"a": [
 					"turnin",
-					98095
+					549
 				],
 				"b": [
 					"accept",
 					1058
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Sun Rock Retreat and Stonetalon Peak (level 23-26)."
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Sun Rock Retreat and Stonetalon Peak (level 23-26). (Anchored on WANTED: Syndicate Personnel's hand-in, the last Tarren Mill stop, since the 0.4.0 level tidy left Valuable Vantages out.)"
 			},
 			{
 				"a": [
@@ -3824,26 +3824,62 @@
 			{
 				"a": [
 					"turnin",
-					98095
+					549
 				],
 				"b": [
 					"accept",
 					879
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before the southern Barrens' level 23-27 quests (Betrayal from Within, Weapons of Choice, Gann Stonespire)."
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before the southern Barrens' level 23-27 quests (Betrayal from Within, Weapons of Choice, Gann Stonespire). (Anchored on 549's hand-in since the 0.4.0 level tidy left Valuable Vantages out.)"
 			},
 			{
 				"a": [
 					"turnin",
-					98095
+					549
 				],
 				"b": [
 					"accept",
 					893
 				],
 				"faction": "Horde",
-				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Weapons of Choice (level 24)."
+				"why": "Horde 12-30 re-chain (2026-11-07): Hillsbrad at 22-24 comes before Weapons of Choice (level 24). (Anchored on 549's hand-in since the 0.4.0 level tidy left Valuable Vantages out.)"
+			},
+			{
+				"a": [
+					"turnin",
+					5064
+				],
+				"b": [
+					"accept",
+					529
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, agreed with the 30-40 slice): Battle of Hillsbrad part 3 (level 26: Blacksmith Verringtan 26 and his apprentices, a dense smithy with casters) was taken at 24 in 06-hillsbrad-foothills (recorded 25th percentile 24.3); it is taken on the Tarren Mill visit at about 30 in forever/horde/30-40/01-hillsbrad-foothills, before 532 (its follow-up), whose town hall stands beside the smithy."
+			},
+			{
+				"a": [
+					"turnin",
+					5064
+				],
+				"b": [
+					"accept",
+					567
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, agreed with the 30-40 slice): Dangerous! (level 28) was taken at 24 in 06-hillsbrad-foothills and carried to the 30 visit for its clerk and miner; the whole quest is taken on the 30-40/01 Tarren Mill visit, Kalaba and Wilkes with the fields and the smithy there."
+			},
+			{
+				"a": [
+					"turnin",
+					5064
+				],
+				"b": [
+					"accept",
+					509
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0, agreed with the 30-40 slice): Elixir of Agony (level 28; the Mudsnout gnolls 27-28 and their shamans around the blossoms, 6 recorded deaths) was worked at 25 in 06-hillsbrad-foothills; it is taken on the 30-40/01 Tarren Mill visit at about 30 and 513 goes to Faranell on that guide's closing Undercity stop."
 			},
 			{
 				"a": [
@@ -9907,6 +9943,18 @@
 			}
 		],
 		"skip": [
+			{
+				"q": 98095,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Valuable Vantages (level 25) puts its western vial on the peak top on the Alterac border (Alterac 38.6,94.8) among Ferocious Yetis 31-32 (camp 31, 10 spawns, 4 recorded deaths, 3 of them to a higher mob), at 26 in 06-hillsbrad-foothills (recorded 25th percentile 26.1). The 30-40 slice checked its Tarren Mill visit at about 30: still one or two levels under the yetis there, and no later Horde visit to Hillsbrad before 38. Left out of the solo route.",
+				"issue": ""
+			},
+			{
+				"q": 98094,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Scout Support only takes High Executor Darthalia's orders to Deathstalker Masoj above Dun Garok to open Valuable Vantages (98095, left out above); with Elixir of Agony's blossoms gone to the 30 visit too, the walk south from Durnholde would be for this delivery alone.",
+				"issue": ""
+			},
 			{
 				"q": 1150,
 				"faction": "Horde",

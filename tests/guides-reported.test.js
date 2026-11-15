@@ -1517,7 +1517,8 @@ test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tri
 test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 and 5 wait for the Tarren Mill visit at 32', { skip }, () => {
 	const early = goals('forever/horde/06-hillsbrad-foothills.guide');
 	assert.deepEqual(early.filter(({ goal }) => [532, 539].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing of parts 4 and 5 at 25-27');
-	assert.deepEqual(early.filter(({ goal }) => goal.quest === 567 && goal.t === 'kill').map(({ goal }) => goal.npc).sort(), [2449, 2451], "only Dangerous!'s Kalaba and Wilkes at 25-27");
+	// Since the 0.4.0 level tidy Dangerous! (level 28) waits for the 30-40 visit as a whole: Kalaba and Wilkes come with it.
+	assert.deepEqual(early.filter(({ goal }) => goal.quest === 567).map(({ goal }) => `${goal.t} ${goal.npc || ''}`), [], 'nothing of Dangerous! at 23-25');
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const idx = (what, pred) => at(list, what, pred);
 	const accept = idx('accept 532', is('accept', 532));
@@ -1731,7 +1732,8 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[[LOCH_MODAN, REDRIDGE], 98386, [89]],
 		[WESTFALL, 92745, [92742, 92744]],
 		[[WESTFALL, LOCH_MODAN], 92747, [92745, 92744]],
-		[HILLSBRAD_HORDE, 98094, [528]],
+		// Scout Support leads to Valuable Vantages, left out since the 0.4.0 level tidy (data/route-fixes.json skip).
+		[HILLSBRAD_HORDE, 98094, [528], true],
 		[SILVERPINE, 91920, [430]],
 		[SILVERPINE, 91921, [91920], true],
 		[HILLSBRAD_ALLIANCE, 98209, [98208], true],
@@ -6242,17 +6244,13 @@ test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked 
 
 // Konky88's report (#1150; soockee's #1051): Valuable Vantages was handed back to Deathstalker Masoj in the step
 // that took it, before its three vials were placed: the data had no objectives. The correction gives the three
-// lines with the peaks players placed them on; the guide places each vial, then hands it in on a later visit.
+// lines with the peaks players placed them on. Since the 0.4.0 level tidy the quest is left out of the solo route
+// (its western peak sits among Ferocious Yetis 31-32, five levels over Hillsbrad's 22-25 and still over at 30):
+// 'Every Horde route (#1051, #1150)' keeps guarding the vials-before-hand-in order should a guide take it again.
 test("Konky88's report (#1150): Valuable Vantages' three vials come before its hand-in, not in the step that takes it", { skip }, () => {
+	assert.equal(data.questObjectives(98095).length, 3, 'the three vial objectives are in the data');
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
-	const accept = at(list, 'accept 98095', is('accept', 98095));
-	const turnin = at(list, 'turnin 98095', is('turnin', 98095));
-	assert.notEqual(list[accept].s, list[turnin].s, 'not handed in in the step that takes it');
-	for (const oi of [1, 2, 3]) {
-		const vial = at(list, `objective 98095.${oi}`, (g) => g.quest === 98095 && g.oi === oi);
-		assert.ok(accept < vial && vial < turnin, `vial ${oi} between the accept and the hand-in`);
-		assert.ok(located(list[vial]), `vial ${oi} has a place`);
-	}
+	for (const q of [98094, 98095]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} left out at 23-25 (western peak yetis 31-32)`);
 });
 
 // Erá's report (#1160): The Eye of Bhossca, C's second job, comes with C's letter in a capital city's mailbox at
@@ -10544,15 +10542,13 @@ test('Horde Call of Fire: every Telf Joolam step sends the player up the mountai
 	assert.match(first, /trail climbs the mountain/, 'the Tauren Shaman is told about the trail');
 });
 
-// Final route review (0.3.6): Hillsbrad 22-24 after Durnholde Keep. Masoj (64.2,54.0) stands between the keep and the
-// Mudsnout Blossoms just south of him (63-66,60-63); the guide went to the blossoms first and back north to Masoj, then
-// south-east to the southern peak. Masoj first, then the blossoms, then the peak.
-test('Hillsbrad (Horde 22-24): Masoj before the Mudsnout Blossoms, the southern peak after them', { skip }, () => {
+// Final route review (0.3.6) put Masoj before the Mudsnout Blossoms and the southern peak after them. Since the 0.4.0
+// level tidy none of that loop is in Hillsbrad 22-25: Elixir of Agony (509, level 28, Mudsnout gnolls 27-28) goes with
+// Battle of Hillsbrad 529 and Dangerous! to the Tarren Mill visit at about 30, and Valuable Vantages is left out.
+test('Hillsbrad (Horde 22-25): the quests two or more levels over wait for the visit at 30', { skip }, () => {
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
-	const masoj = at(list, 'turnin 98094', is('turnin', 98094));
-	const blossoms = at(list, 'collect 3502', (g) => g.t === 'collect' && g.item === 3502);
-	const peak = at(list, 'the southern peak', (g) => g.t === 'use' && g.quest === 98095 && g.oi === 3);
-	assert.ok(masoj < blossoms && blossoms < peak, 'Masoj, the blossoms, then the southern peak');
+	for (const q of [509, 513, 529, 567, 98094, 98095]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} not taken at 23-25`);
+	for (const q of [527, 528, 546, 498, 549]) assert.ok(list.some(({ goal }) => is('turnin', q)(goal)), `${q} still done and handed in`);
 });
 
 // Final route review (0.3.6): Durotar Warlocks walked from Skull Rock into Orgrimmar for The Binding and back out to
