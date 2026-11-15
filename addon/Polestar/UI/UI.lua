@@ -57,7 +57,6 @@ ns.RegisterDefaults("ui", {
 	borderSize = 1, -- 1..4 physical pixels, growing outward
 	band = true, -- the starlit header band
 	shadow = true, -- the window drop shadow
-	pickerFaction = "auto", -- "auto" | "Alliance" | "Horde" | "All"
 	-- pickerCollapsed = { [folder id] = true }: the guide menu's Browse folders folded away (UI.Picker.IsCollapsed)
 	-- pos = { left, top } once the window has been moved
 })

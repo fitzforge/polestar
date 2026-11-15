@@ -134,22 +134,21 @@ function Lookup.CuratedGuide(kind, id)
 		return nil
 	end
 	local player = ns.Compat.GetPlayerInfo()
-	-- The suggestion source's guides first, then ours: one for this character,
-	-- else one for anyone.
+	-- The suggestion source's guides first, then ours: one this character can
+	-- follow, never another faction's, class's or race's (#2462).
 	local source = ns.Guides.SuggestSource()
 	local from = source == "guides" and { "guides" } or { source, "guides" }
 	local list = ns.Guides.List()
-	local fallback
 	for _, pack in ipairs(from) do
 		for _, h in ipairs(list) do
 			if h.pack == pack and type(h.id) == "string" and h.id:sub(1, #PREFIX) ~= PREFIX
-				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName))) then
-				if ns.Guides.GuideMatches(h, player) then return h.id end
-				fallback = fallback or h.id
+				and ((itemId and holds(h.collects, itemId)) or (spellName and keywordMatch(h.keywords, spellName)))
+				and ns.Guides.GuideMatches(h, player) then
+				return h.id
 			end
 		end
 	end
-	return fallback
+	return nil
 end
 
 ---------------------------------------------------------------------------

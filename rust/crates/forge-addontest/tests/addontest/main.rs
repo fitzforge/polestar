@@ -200,6 +200,8 @@ mod engine_when_upgrade;
 mod engine_while_here;
 #[path = "engine-zone-walk.rs"]
 mod engine_zone_walk;
+#[path = "faction-guides.rs"]
+mod faction_guides;
 #[path = "flight-map-notice.rs"]
 mod flight_map_notice;
 mod gamepad;

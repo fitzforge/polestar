@@ -78,6 +78,19 @@ local function guideMatches(g, player)
 end
 Guides.GuideMatches = guideMatches
 
+-- The side guide g is locked to when it is the other one's ("Horde" for an
+-- Alliance character's Horde guide): nil for a guide of the character's side
+-- or of both, and while their side is unknown. A character never sees such a
+-- guide offered (the guide menu, search, links, cards); one opened anyway (an
+-- import, an old saved tab) says so and is not routed (Engine.OtherFaction).
+local SIDES = { alliance = "Alliance", horde = "Horde" }
+function Guides.OtherFaction(g, player)
+	local side = type(g) == "table" and type(g.faction) == "string" and SIDES[g.faction:lower()]
+	local mine = type(player) == "table" and type(player.faction) == "string" and SIDES[player.faction:lower()]
+	if side and mine and side ~= mine then return side end
+	return nil
+end
+
 -- Another race's starting zone on the character's own side (Fitz,
 -- 2026-10-30): a leveling guide from level 1 locked to races the character
 -- is not, for their faction and class. GuideMatches turns it away like any
@@ -1490,7 +1503,8 @@ end
 -- leveling guides for one race in <pack addon>_<race file>. Once the pack's
 -- own files are done, the player's faction's part loads, then the player's
 -- race's (its baked legs name the faction's guides); the other faction's
--- only when asked for (Guides.LoadFaction). Their guides register into the
+-- only for a saved tab of one of its guides (Own.loadForSaved): the guide
+-- menu never lists them (Guides.OtherFaction). Their guides register into the
 -- pack. A load the faction (not known yet) or combat put off is done at
 -- login or after the fight.
 local FACTIONS = { "Alliance", "Horde" }
@@ -1537,24 +1551,14 @@ local function registering(fn)
 	return true
 end
 
--- Loads the faction parts of every pack that has them: `faction`'s
--- ("Alliance", "Horde"), or both for "All". Never in combat (Data.Pack; a
--- later call loads them).
-function Own.loadFactions(faction)
+-- Loads both faction parts of every pack that has them. Never in combat
+-- (Data.Pack; a later call loads them).
+function Own.loadFactions()
 	for _, r in ipairs(records) do
 		if r.addon and loaded[r.addon] and accepted(r) then
-			for _, f in ipairs(FACTIONS) do
-				if faction == "All" or f == faction then ns.Data.Pack(r.addon .. "_" .. f) end
-			end
+			for _, f in ipairs(FACTIONS) do ns.Data.Pack(r.addon .. "_" .. f) end
 		end
 	end
-end
-
--- Own.loadFactions for the player: a character holds its own faction's
--- guides only until the player asks for the other's (the guide menu's
--- faction filter). -> whether guides came in (GUIDES_REGISTERED has fired)
-function Guides.LoadFaction(faction)
-	return registering(function() Own.loadFactions(faction) end)
 end
 
 ns.RegisterEvent("ADDON_LOADED", function(_, name)
@@ -2059,9 +2063,10 @@ function Guides.FirstGuide()
 	return fitting[1]
 end
 
--- A saved tab of a guide no part has brought in (the other faction's,
--- opened from the guide menu): the parts of both factions come in, so the
--- tab is back where it was when the Engine restores the tabs.
+-- A saved tab of a guide no part has brought in (the other faction's, from
+-- before the guide menu listed only the character's side): the parts of both
+-- factions come in, so the tab is back where it was when the Engine restores
+-- the tabs; it says whose guide it is and is not routed (Engine.OtherFaction).
 function Own.loadForSaved()
 	local s = ns.CharState and ns.CharState()
 	if type(s) ~= "table" then return end
@@ -2074,7 +2079,7 @@ function Own.loadForSaved()
 	end
 	local missing = absent(s.guide)
 	for _, id in ipairs(type(s.tabs) == "table" and s.tabs or {}) do missing = missing or absent(id) end
-	if missing then Own.loadFactions("All") end
+	if missing then Own.loadFactions() end
 end
 
 ns.OnLogin(function()

@@ -9090,13 +9090,16 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   over one line per guide,
   `Title (min–max)`, in folders (a guide's `folder` when set, else leveling by
   faction and band, other guides by category); search also matches `folder`
-  and `keywords`. The faction filter (`ui.pickerFaction`, default this
-  character's) on the player's own faction lists only the guides this
-  character can follow (`Guides.GuideMatches`: no other race's or class's
-  guides), except the other races' starting zones of that faction
-  (`Guides.OtherStart`), which go in an "Other starting zones" folder right
-  after the player's levels 1–30; the other faction and All list every guide
-  in its usual folder. Right: the
+  and `keywords`. There is no faction filter (#2462): the menu lists only the
+  guides this character can follow (`Guides.GuideMatches`: never the other
+  faction's, nor another race's or class's), except the other races' starting
+  zones of their own faction (`Guides.OtherStart`), which go in an "Other
+  starting zones" folder right after the player's levels 1–30. Home's
+  suggestions, Recent, Favourites, search (`Core/Search.lua`) and Lookup's
+  curated guides keep to the character's side too (`Guides.OtherFaction`). A
+  guide of the other faction opened anyway (an import, an old saved tab)
+  shows the banner "This guide is for <faction> characters", never
+  dismissed, and the arrow points nowhere in it (`Engine.OtherFaction`). Right: the
   selected guide's zone art, facts (led by a guide's `reward` tiles and
   `why`, "Guide data"), progress, pitch, pros and cons, a favourite
   star, "Load guide" and "Open in new tab". Selecting never loads; the buttons,

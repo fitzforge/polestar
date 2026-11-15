@@ -5640,7 +5640,9 @@ end
 -- step (no focus, e.g. viewed with Prev) has nothing to point at, even when
 -- optional goals are left open; nor has a Class guide the character cannot
 -- start yet (Own.startGate), or another race's starting zone the player has
--- not reached (Own.awayStart), on its live step. An along goal the player
+-- not reached (Own.awayStart), on its live step; nor, on any step, has a
+-- guide of the other faction (Engine.OtherFaction, #2462: its towns are the
+-- enemy's). An along goal the player
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
 -- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
@@ -5651,7 +5653,7 @@ end
 -- to the flight's end while the travel planner flies there (Own.flyAim), past
 -- the flight master it names.
 local function findWaypoint()
-	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
+	if not current or Guides.OtherFaction(guide, player) or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
 	if aim then
 		for g, goal in ipairs(goals) do
@@ -13481,6 +13483,17 @@ function Engine.KeptItems()
 		if s then keep(goal.item, s) end
 	end
 	return items
+end
+
+-- A guide of the other faction (Guides.OtherFaction: loaded from an import
+-- or an old saved tab; no menu, search, link or card offers one): the side
+-- it is for ("Horde"), for the guide window's notice. The arrow points
+-- nowhere in it (findWaypoint). nil for any guide of the character's side.
+function Engine.OtherFaction(id)
+	local g = id and Guides.Get(id)
+	if not g then return nil end
+	if not player then refreshPlayer() end
+	return Guides.OtherFaction(g, player)
 end
 
 -- Another race's starting zone the player has not reached (Own.awayStart),

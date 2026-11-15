@@ -12,11 +12,11 @@ module.exports = require('./experimental-guides').make({
 	menus: {
 		'menu-3040-4050': {
 			title: "Leveling, Alliance 30-40 and 40-50: Riverglades (39-43) and Shen'dralas (43-45) among our guides, Riverglades selected",
-			filter: 'Alliance', open: ['Leveling/Alliance/30', 'Leveling/Alliance/40'], select: 'polestar-experimental/riverglades-alliance-1',
+			open: ['Leveling/Alliance/30', 'Leveling/Alliance/40'], select: 'polestar-experimental/riverglades-alliance-1',
 		},
 		'menu-5060': {
 			title: 'Leveling, Alliance 50-60: Mount Hyjal (57-59) among our guides, selected',
-			filter: 'Alliance', open: ['Leveling/Alliance/50'], select: 'polestar-experimental/hyjal-1',
+			open: ['Leveling/Alliance/50'], select: 'polestar-experimental/hyjal-1',
 		},
 	},
 	choices: {

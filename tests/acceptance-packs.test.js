@@ -170,8 +170,8 @@ test('beside ours: a row with its credits, its own picker entry, credits in the 
 		UI.ShowPicker()
 		local P = UI.Picker
 		P.SetCategory("pack:acceptance-good")
-		local picker = { nav = nav(), title = PolestarPicker.Title:GetText(), entries = titles(P.Entries("All", "", "pack:acceptance-good")),
-			leveling = titles(P.Entries("All", "", "Leveling")) }
+		local picker = { nav = nav(), title = PolestarPicker.Title:GetText(), entries = titles(P.Entries("", "pack:acceptance-good")),
+			leveling = titles(P.Entries("", "Leveling")) }
 		P.Select("acceptance-good/example")
 		local credits = shownText(P.details.Credits)
 		P.Select(${luaStr(WESTFALL)})

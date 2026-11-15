@@ -822,10 +822,10 @@ changes, read by Polestar 0.3.0 and later:
   <faction>` with the generated-folder marker, and their `Guides.lua` is
   written like the pack's. Polestar loads the player's faction's part once
   the pack's own files are in, before the player's race part (whose baked
-  legs, `Legs.lua`, name those guides); the other faction's only when the
-  guide menu's faction filter asks for it, or when a saved tab holds a guide
-  no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
-  own faction's guides and the factionless ones, not the other side's.
+  legs, `Legs.lua`, name those guides); the other faction's only when a saved
+  tab holds a guide no loaded part has (the guide menu never lists the other
+  side's guides). A character holds its own faction's guides and the
+  factionless ones, not the other side's.
 
 ## Format 10
 
