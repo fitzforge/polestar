@@ -724,6 +724,51 @@ fn nearby_the_nearest_spawn_of_each_friendly_npc_outside_instances_ranked_by_tra
 	assert_eq!(out[4], "Trainer Tess");
 }
 
+// Nearby's "Flight master" in Nighthaven: Silva Fil'naveth (11800, Alliance) and Bunthen Plainswind (11798, Horde)
+// carry the Codex's flightmaster role but fly Druids only, from their gossip (travel.json class DRUID, taxi nodes 62
+// and 63, each with its npc). Any other class standing beside them is sent to its side's own flight master
+// (Sindrayl, Faustron), a Druid to the nearer class one. First the addon's own travel data (Nav/TravelData.lua) names
+// the two by npc, then a small world: the grove's two class flight masters a few yards off, Sindrayl and Faustron
+// further away.
+fn nearby_flight(faction: &str, class: &str) -> Vec<Value> {
+	run(&format!(
+		r#"
+		local cls = N.TaxiNpcClass or function() end
+		emit({{ cls(11800) or false, cls(11798) or false, cls(10897) or false }})
+		N.RegisterTravelData({{ build = "test", taxi = {{
+			{{ 62, 0, 0, 0, 9000, 52, 50, 1, "Grove, Testshire", "DRUID", nil, 7 }},
+			{{ 63, 0, 0, -8, 9000, 52.4, 50, 2, "Grove, Testshire", "DRUID", nil, 8 }},
+			{{ 49, 0, 0, -600, 9000, 80, 50, 1, "Glade, Testshire" }},
+			{{ 69, 0, 0, 600, 9000, 20, 50, 2, "Glade, Testshire" }},
+		}} }}, true)
+		local npcs = {{
+			[7] = {{ id = 7, name = "Silva", faction = "A", spawns = {{ {{ map = 9000, x = 52, y = 50 }} }} }},
+			[8] = {{ id = 8, name = "Bunthen", faction = "H", spawns = {{ {{ map = 9000, x = 52.4, y = 50 }} }} }},
+			[9] = {{ id = 9, name = "Sindrayl", faction = "A", spawns = {{ {{ map = 9000, x = 80, y = 50 }} }} }},
+			[10] = {{ id = 10, name = "Faustron", faction = "H", spawns = {{ {{ map = 9000, x = 20, y = 50 }} }} }},
+		}}
+		Polestar.Codex = {{
+			IsLoaded = function() return true end,
+			Load = function() return true end,
+			WithRole = function(r) return r == "flightmaster" and {{ 7, 8, 9, 10 }} or r == "vendor" and {{ 9 }} or {{}} end,
+			Npc = function(id) return npcs[id] end,
+		}}
+		nav.faction, nav.class = "{faction}", "{class}"
+		N.nearby.Go("flight")
+		emit(label())
+	"#
+	))
+}
+
+#[test]
+fn nearby_flight_master_a_class_s_own_is_only_that_class_s_so_others_in_nighthaven_go_to_sindrayl_or_faustron() {
+	let real = json!(["DRUID", "DRUID", false]);
+	assert_eq!(nearby_flight("Alliance", "WARRIOR"), vec![real.clone(), json!("Sindrayl")], "an Alliance Warrior");
+	assert_eq!(nearby_flight("Horde", "WARRIOR"), vec![real.clone(), json!("Faustron")], "a Horde Warrior");
+	assert_eq!(nearby_flight("Alliance", "DRUID"), vec![real.clone(), json!("Silva")], "an Alliance Druid: hers, beside him");
+	assert_eq!(nearby_flight("Horde", "DRUID"), vec![real, json!("Bunthen")], "a Horde Druid");
+}
+
 // A French client whose names pack lands after the first /polestar near: the Codex then names its NPCs in
 // French (Codex drops its records on NAMES_LOADED), and so must the places Nearby kept.
 #[test]

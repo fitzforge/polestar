@@ -117,6 +117,7 @@ nearWalk.HOLD = nearWalk.CROSS * nearWalk.SLACK + nearWalk.PAD
 ---------------------------------------------------------------------------
 
 local taxi, taxiList, taxiByName, flights = {}, {}, {}, {}
+local npcClass = {} -- [npc] = class: a class's own flight master (Nighthaven's), from its taxi node
 local transports, inns, innByName, innByNpc, portals = {}, {}, {}, {}, {}
 local pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
 local pathCount = 0
@@ -181,7 +182,7 @@ local function withBoard(e, b)
 end
 
 local function clearData()
-	taxi, taxiList, taxiByName, flights = {}, {}, {}, {}
+	taxi, taxiList, taxiByName, flights, npcClass = {}, {}, {}, {}, {}
 	transports, inns, innByName, innByNpc, portals = {}, {}, {}, {}, {}
 	pathC, pathX, pathY, pathAdj, pathMap = {}, {}, {}, {}, {}
 	pathCount = 0
@@ -202,8 +203,10 @@ function Nav.RegisterTravelData(d, replace)
 		-- no Era frame (Rog'mar, Farholde Keep on the Riverglades).
 		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], t[11] ~= "l" and "e" or nil)
 		node.id, node.faction, node.short = t[1], t[8], shortName(t[9])
-		-- The one class that flies from it (the Druids' Nighthaven flight masters), else nil.
+		-- The one class that flies from it (the Druids' Nighthaven flight masters), else nil; then its flight
+		-- master's npc (t[12]), whom no other class may fly with.
 		node.class = t[10]
+		if t[10] and t[12] then npcClass[t[12]] = t[10] end
 		taxi[node.id] = node
 		taxiList[#taxiList + 1] = node
 		local key = lower(node.name)
@@ -394,6 +397,12 @@ end
 -- on hot paths (the Engine's flight steps), with no table built.
 function Nav.GetTaxiNode(id)
 	return id and taxi[id] or nil
+end
+
+-- The class alone a flight master flies (Nighthaven's Silva Fil'naveth and Bunthen Plainswind: "DRUID"), or nil:
+-- one any class of its side flies with.
+function Nav.TaxiNpcClass(npc)
+	return npc and npcClass[npc] or nil
 end
 
 ---------------------------------------------------------------------------
