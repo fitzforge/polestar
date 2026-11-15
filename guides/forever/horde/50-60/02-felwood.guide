@@ -10,54 +10,18 @@ next forever/horde/50-60/03-winterspring
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Left out: Little Pamela (5142).
-# Added here (0.3.6 flow pass, from 50-60/01): Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901),
-# in Terrordale just east of Tirion's house; the rest of the Eastern Plaguelands waits for 50-60/05.
+# Moved out (0.4.0 level tidy): Terrordale (6164, 5901's termites) to 50-60/05's Egan stop at about 56, Tirion's hunts
+# (5542-5544) to 50-60/05's ride past his house, Unfinished Business (6004) and The Wildlife Suffers Too (4985) to
+# 50-60/06's Plaguelands visit at about 58: their ground is level 54-56 and this guide starts about 53.
 
 step Mulgris Deepriver
   zone Western Plaguelands
   tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
   accept 4984                         -- Inside
 
-step Tirion Fordring
-  zone Eastern Plaguelands
-  tip Ride north along the eastern hills; Tirion lives in a small house by the Thondroril River, at the border with the Eastern Plaguelands.
-  accept 5542
-  accept 5543
-  accept 5544
-  note Tirion's hunts are in the Eastern Plaguelands: keep them for later.
-
-step Augustus the Touched
-  zone Eastern Plaguelands
-  tip Cross the river east into Terrordale, the ruined town in the north-west of the Eastern Plaguelands. Augustus sits in a hut at its edge.
-  accept 6164                         -- Inside
-
-step Terrordale: kill these as you meet them
-  zone Eastern Plaguelands
-  tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
-  tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
-  collect 15884 quest 6164 @17.4,31.1 -- Upstairs
-  collect 15043 quest 5901
-  collect 12840 x20 optional -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
-  note Keep Augustus' Receipt Book: Augustus takes it back on the Eastern Plaguelands guide's Terrordale stop.
-
-step Kirsta Deepshadow
-  zone Western Plaguelands
-  tip Ride back west over the river and on to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
-  accept 6004
-
-step Level 52.63
-  zone Western Plaguelands
-  when level<52.63
-  tip Top up here to level 52.63 before the hand-ins at Dalson's Tears: they take you to level 53. The Carrion Lurkers (52-53) west of the Scarlet camp are at your level; the Scarlet Mages and Knights (54-56) are higher. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 49.8,35.6 map 1422 "Carrion Lurker"
-  level 52.63 grind 1821               -- grind on Carrion Lurker
-
 step Diseased Wolves
-  tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.
+  tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east. Careful: the biggest are 54: pull them one at a time.
   kill 1817 quest 4984
-  kill 10605 quest 6004.1
-  kill 1831 quest 6004.2
-  kill 1833 quest 6004.4
 
 step Dalson's Tears farmhouse
   tip The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A Wandering Skeleton carries the outhouse key; Farmer Dalson comes out when you open the outhouse and carries the cabinet key.
@@ -67,32 +31,9 @@ step Dalson's Tears farmhouse
   turnin 5059 direct
   turnin 5060 direct
 
-step Level 53
-  when level<53
-  tip Top up here to level 53 before Mulgris sends you after the Diseased Grizzlies (55-56): the Carrion Lurkers (52-53) on the way from Dalson's Tears to the Writhing Haunt are at your level. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
-  goto 51.1,64.3 map 1422 "Carrion Lurker"
-  level 53 grind 1821                  -- grind on Carrion Lurker
-
 step Mulgris Deepriver
   turnin 4984                         -- Inside
-  accept 4985
-
-step Diseased Grizzlies
-  tip The bears roam the hills north and east of the Writhing Haunt.
-  kill 1816 quest 4985
-
-step Mulgris Deepriver
-  turnin 4985                         -- Inside
-  accept 4987
-  note Keep the branch: Nara Wildmane is in Thunder Bluff.
-
-step Scarlet Crusade
-  tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it.
-  kill 1833 quest 6004.4
-  kill 1831 quest 6004.2
-  kill 1826 quest 6004.3
-  kill 10605 quest 6004.1
-  level 53.24 grind 10605              -- grind on Scarlet Medic
+  note His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58.
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -108,9 +49,7 @@ step The Bulwark
   accept 5228
   turnin 5228                         -- Shadow Priestess Vandis
   accept 5229
-  turnin 5901                         -- Mickey Levine
-  accept 5902
-  note Derrington's watchtowers, Vandis' cauldron and Mickey's barrel are done on a later visit: keep them.
+  note Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them.
 
 step Level 53.34
   zone Western Plaguelands
@@ -198,24 +137,6 @@ step Captured Arko'narin
   when onquest 5202
   turnin 5202                         -- Captured Arko'narin, below ground
 
-step Rescue From Jaedenar
-  when available 5203
-  accept 5203 optional                -- Captured Arko'narin, below ground
-
-step Rescue From Jaedenar
-  when onquest 5203
-  tip Walk Arko'narin out of Shadow Hold and keep her alive until she is out of the cave.
-  complete 5203 @36.2,55.5 map 1448   -- Arko'narin, below ground
-
-step Jessir Moonbow
-  when onquest 5203
-  tip Back at the Emerald Sanctuary.
-  turnin 5203                         -- Jessir Moonbow
-
-step Jessir Moonbow
-  when available 5204
-  accept 5204 optional
-
 step Emerald Sanctuary
   turnin 5155                         -- Greta Mosshoof
   accept 5157
@@ -229,16 +150,6 @@ step The Jaedenar moonwell
   tip Back north to Jaedenar. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp.
   use 12922 quest 5157.1 @35.2,59.8 map 1448
   collect 12907 quest 5157 @35.2,59.8
-
-step Rakaiah
-  when onquest 5204
-  tip The succubus Rakaiah waits in the middle of Jaedenar, beside the Remains of Trey Lightforge.
-  kill 9518 quest 5204                -- Below ground
-  turnin 5204                         -- Remains of Trey Lightforge, below ground
-
-step The Remains of Trey Lightforge
-  when available 5385
-  accept 5385 optional                -- Remains of Trey Lightforge, below ground
 
 step Bloodvenom Post
   tip The Horde camp just north of Jaedenar.
@@ -305,10 +216,6 @@ step Emerald Sanctuary
   accept 5158
   turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
   note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
-
-step Jessir Moonbow
-  when onquest 5385
-  turnin 5385                         -- Jessir Moonbow
 
 step Overlord Ror
   tip Ror stands at the far south end of Deadwood Village.

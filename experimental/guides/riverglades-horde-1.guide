@@ -398,6 +398,9 @@ step The Bloodmaster's Ring: Snufflesnout and Chub'chob
 # - Shipping and Handling (95296) and I Know a Guy (95295): Friz's errands end in Tanaris and Booty Bay, and the
 #   second one sends you back here.
 # - Not My Circus (95982): ten Briny Seafood Stews, a cook's make; 2 of 25 recorded players handed it in.
+# - Admiral Lamora (95124) and See Ya, Scallywags! (95165): Lamora is level 45 among her crews, 3-4 over the player at
+#   the port (the level model about 41-42; recorded players at its accept, 25th percentile, 42). Unchecked Expansion and
+#   A Blast Ye Scurvy Dogs! (95122, 95123: Eastsea Raiders 44-45) are offered only once you are 43.
 
 step Powderfuse Port
   tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
@@ -452,19 +455,24 @@ step The Eastsea pirates
 step Powderfuse Port
   tip Back to the port, from the north pier west through the docks.
   turnin 95119                          -- Wharfmaster Whizzbuzz
-  accept 95122                          -- Unchecked Expansion
-  accept 95123                          -- A Blast Ye Scurvy Dogs!
   turnin 95254                          -- Fimbo Greasemitz
   turnin 95121
   turnin 95288                          -- Friz Frazzlespark
   accept 95293                          -- Smuggler's Special: for Captain Bentcoin at the pirates' camp
 
 step Wharfmaster Whizzbuzz
+  when level>=43
+  tip Whizzbuzz's next job sends you at the Eastsea raiders (44-45) dug in west of the camp: take it once you are 43.
+  accept 95122                          -- Unchecked Expansion
+  accept 95123                          -- A Blast Ye Scurvy Dogs!
+
+step Wharfmaster Whizzbuzz
   when onquest 95120
   turnin 95120
 
 step The pirates' second wave
-  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are level 44-45, a few levels above you here: pull them one at a time. Watch for Gul'gash on these cliffs.
+  when onquest 95122
+  tip North along the coast from the port: the Eastsea raiders (44-45) and bombardiers (43-44) have dug in on the slopes west of the buccaneers' camp, among their powder kegs: pull them one at a time. Watch for Gul'gash on these cliffs.
   kill 257915 x8 quest 95122.1          -- Eastsea Raider
   kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
   collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg
@@ -476,22 +484,15 @@ step Captain Bentcoin
 
 step Powderfuse Port
   tip Back to the port.
-  turnin 95122                          -- Wharfmaster Whizzbuzz
-  turnin 95123
-  accept 95165                          -- See Ya, Scallywags!
-  accept 95124                          -- Admiral Lamora
   turnin 95294                          -- Friz Frazzlespark
 
-step The pirates' ships
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
-  use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
-  kill 257861 quest 95124.1             -- Admiral Lamora
-  collect 268506 quest 95124.2          -- Lamora's Loot
-  use 268505 quest 95165.2 @90.6,29.6   -- the middle ship
-  use 268505 quest 95165.1 @88.3,25.8   -- the northern ship
+step Wharfmaster Whizzbuzz
+  when onquest 95122
+  turnin 95122                          -- Wharfmaster Whizzbuzz
+  turnin 95123
 
 step Rotflesh Mushrooms
-  tip West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.
+  tip West from the pirates' cliffs, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too.
   collect 268664 x8 quest 95261.2       -- Rotflesh Mushroom
 
 step Finish the Beast Entrails
@@ -502,8 +503,6 @@ step Finish the Beast Entrails
 step Powderfuse Port
   label argo
   tip Down to the port.
-  turnin 95165                          -- Wharfmaster Whizzbuzz
-  turnin 95124
   turnin 95261                          -- Argo Brinewhistle
   accept 95267 optional                 -- The Monster Surfaces: a big beast in the shallows south-west of the port, near Old Rot-Chum, the elite
 

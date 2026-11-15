@@ -4229,7 +4229,7 @@
 				"goal": "accept"
 			},
 			"level": 50,
-			"note": "March of the Silithid needs level 50. Azshara's top-up step (Haldarr satyrs) takes you to 50 (it was 49.93, which left the accept at 49.9).",
+			"note": "March of the Silithid needs level 50. Since the 0.4.0 level tidy Azshara has no top-up step for it (a grind for this one delivery): the accept in Orgrimmar is shown from level 50, and 50-60/04's Orgrimmar stop offers it again for everyone else.",
 			"source": [
 				{
 					"kind": "client",
@@ -4261,11 +4261,78 @@
 				"goal": "accept"
 			},
 			"level": 58,
-			"note": "Dearest Natalia needs level 58; Commander Mar'alith offers it on the Cenarion Hold stop at about 57.6. A top-up step on the Twilight cultists west of the hold, right before that stop, takes you to 58.",
+			"note": "Dearest Natalia needs level 58; Commander Mar'alith offers it on the second Cenarion Hold stop. Since the 0.4.0 tidy the top-up to 58 is on the Dredge Crushers on the way south-east to Ortell, before that stop.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "quest minimum and quest levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-ungoro-51",
+			"faction": "Horde",
+			"at": {
+				"quest": 4503,
+				"goal": "objective",
+				"objective": 2
+			},
+			"level": 51,
+			"note": "Un'Goro Crater (Horde 50-60/01): the first loop's Pterrordax and Bloodpetal Flayers are up to 52; when the crater is entered under 51, a top-up to 51 on the Bloodpetal Threshers (49-50) Larion wants, south-east of the refuge, comes first (only below 51).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-kromgrul-53",
+			"faction": "Horde",
+			"at": {
+				"quest": 3822,
+				"goal": "accept"
+			},
+			"level": 53,
+			"note": "Krom'Grul (54, alone in the caves of Dreadmaul Rock) on the Burning Steppes pass at about 52 (rested level model, 0.4.0 tidy): his quest is offered from level 53 only, with no top-up for it (the Burning Steppes has no later visit, and a top-up there was over a level).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-frenzied-hounds-56",
+			"faction": "Horde",
+			"at": {
+				"quest": 5542,
+				"goal": "objective",
+				"objective": 3
+			},
+			"level": 56,
+			"note": "The Frenzied Plaguehounds (57-58) of Northdale at about 55.5 (rested level model, 0.4.0 tidy): a top-up to 56 on the Noxious Plaguebats (54-56) on the way east, which Nathanos' Un-Life's Little Annoyances wants, comes first (only below 56).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-ortell-58",
+			"faction": "Horde",
+			"at": {
+				"quest": 8278,
+				"goal": "objective",
+				"objective": 3
+			},
+			"level": 58,
+			"note": "Ortell's Rock Stalkers (57-59) and the south of Silithus: a top-up to 58 on the Dredge Crushers (57-58) Windcaller Proudhorn wants, on the way south-east, comes first (only below 58); it also opens Dearest Natalia (8304, minimum 58), 0.4.0 tidy.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
 				}
 			]
 		},

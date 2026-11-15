@@ -17,8 +17,19 @@ step Orgrimmar
   turnin 4300                         -- Jes'rimon, the Cleft of Shadow
   sethome "Orgrimmar"
   accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
-  accept 3504                         -- Belgrom Rockmaul, Valley of Honor: carried from the first Azshara visit, else take it here for Ag'tor in Valormok
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Zilzibin Drumlore
+  when onquest 32
+  zone Orgrimmar
+  tip Zilzibin works in the Drag.
+  turnin 32
+
+step Zilzibin Drumlore
+  when available 4494
+  zone Orgrimmar
+  tip Only if March of the Silithid isn't done yet: Zilzibin works in the Drag. Pestlezugg takes it in Gadgetzan on the Eastern Plaguelands guide's way to Un'Goro.
+  accept 4494
 
 step Fly to Ratchet
   zone Orgrimmar
@@ -55,11 +66,17 @@ step Fly to Valormok
 # ---------------------------------------------------------------- Valormok
 
 step Valormok
-  turnin 3562                         -- Jediga
-  turnin 3563
-  turnin 3564
-  turnin 3504                         -- Ag'tor Bloodfist
-  accept 3505
+  accept 3517                         -- Jediga
+  accept 3505                         -- Ag'tor Bloodfist
+  accept 91568                        -- Izvi Gildfizz
+
+step Ruins of Eldarath: kill these as you meet them
+  zone Azshara
+  tip Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time.
+  collect 10540 quest 3517
+  collect 10538 quest 3517
+  collect 10541 quest 3517
+  collect 10539 quest 3517
 
 step Ruins of Eldarath
   when onquest 3568
@@ -67,11 +84,23 @@ step Ruins of Eldarath
   goto 35.0,55.0 "Ruins of Eldarath"
   complete 3568
 
+step Makrinni Burrowers
+  tip The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments.
+  collect 246684 quest 91568
+
+step Kim'jael
+  tip Ride north-east to the goblin's camp on the cliffs above the Bay of Storms, just north of the blood elves.
+  accept 3601
+
 step Thalassian Base Camp
-  tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms.
+  tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms. Kim'jael's four pieces of equipment lie in the crates around the camp.
   tip Careful: a Blackmaw Thrall, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side.
   kill 6199 quest 3505.1
   kill 6198 quest 3505.2 @56.2,29.9
+  collect 10717 quest 3601
+  collect 10715 quest 3601
+  collect 10718 quest 3601
+  collect 10722 quest 3601
 
 step Magus Rimtori's camp
   tip Rimtori's camp is at the east end of the base camp. Read the Kaldorei Tome of Summoning there, then kill the Magus.
@@ -81,10 +110,28 @@ step Magus Rimtori's camp
   accept 3506
   collect 10597 quest 3506            -- Magus Rimtori
 
+step Kim'jael
+  tip Back north-west to Kim'jael, then on west. His next errand, the rune in the Ruins of Eldarath, would bring you back here: skip it.
+  turnin 3601
+
 step Ag'tor Bloodfist
   tip Ride back west to Valormok.
   turnin 3506
   accept 3507
+  turnin 3517                         -- Jediga
+  turnin 91568                        -- Izvi Gildfizz
+  accept 3541
+  accept 3542
+  accept 3561
+  note Keep the deliveries for Jes'rimon and Andron Gant: you pass Orgrimmar and the Undercity next. Magatha's, in Thunder Bluff, is off this route: leave it.
+
+step Archmage Xylem
+  tip Xylem's tower stands on the cliff just north of Valormok; the path winds up its north side.
+  turnin 3561                         -- Upstairs
+  accept 3565
+
+step Jediga
+  turnin 3565
 
 step Fly to Orgrimmar
   zone Azshara
@@ -110,6 +157,7 @@ step Belgrom Rockmaul
   zone Orgrimmar
   tip Fly to Orgrimmar; Belgrom is in the Valley of Honor.
   turnin 3507
+  turnin 3541                         -- Jes'rimon, the Cleft of Shadow
 
 step Into Durotar
   zone Durotar
@@ -126,6 +174,11 @@ step Chemist Cuely
   accept 3569
   turnin 3569                         -- Thersa Windsong, beside him
   turnin 3570 direct
+
+step Andron Gant
+  zone Undercity
+  tip Andron Gant stands in the Rogues' Quarter.
+  turnin 3542
 
 step The Undercity
   zone Undercity
@@ -160,6 +213,7 @@ step The Bulwark
   zone Tirisfal Glades
   tip Ride east out of the Undercity along the road; the Bulwark guards the way into the Western Plaguelands.
   turnin 6029                         -- Argent Officer Garush
+  accept 5901                         -- Mickey Levine: the termites are in Terrordale, on the next guide
 
 step Western Plaguelands
   zone Western Plaguelands

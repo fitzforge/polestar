@@ -196,16 +196,8 @@ step Winterfall Runners
   collect 12829 quest 5087.1
 
 step Salfa
-  when complete 8464
-  turnin 8464                         -- only if still carried: the Eastern Plaguelands guide hands it in on its way through
-
-step Beads for Salfa
-  tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.
-  goto 31.6,36.6 "Frostfire Winterfall camp"
-  collect 21383 x5
-
-step Salfa
-  turnin 8469 direct
+  accept 8464
+  note Winterfall Activity's village is north-east of Everlook, on this guide's way back from Darkwhisper Gorge.
 
 step Meilosh
   when complete 6031
@@ -237,18 +229,30 @@ step Level 59.9
   goto 60.1,71.2 map 1452 "Rabid Shardtooth"
   level 59.9 grind 7446               -- grind on Rabid Shardtooth
 
+step Are We There, Yeti?
+  tip Ride north to Everlook.
+  kill 10978 quest 5163.1 @61.5,38.6 map 1452 "Scare Legacki with Umi's Mechanical Yeti"
+
+step Everlook
+  turnin 5163                         -- Umi Rumplesnicker
+
+step Winterfall Village
+  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall in the cave at the back is elite: stay out. Keep the Winterfall Spirit Beads they drop: Salfa takes five.
+  kill 7440 quest 8464.2
+  kill 7438 quest 8464.3
+  kill 7439 quest 8464.1
+  collect 21383 x5
+
 step Donova Snowden
-  tip Ride back west to Frostfire Hot Springs.
+  tip Ride back west along the road to Frostfire Hot Springs.
   turnin 4842
   turnin 5087                         -- Donova Snowden
   note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
 
-step Are We There, Yeti?
-  kill 10978 quest 5163.1 @61.5,38.6 map 1452 "Scare Legacki with Umi's Mechanical Yeti"
-
-step Everlook
-  tip Ride east along the road to Everlook.
-  turnin 5163                         -- Umi Rumplesnicker
+step Salfa
+  tip North of Donova, at the tunnel's Winterspring exit.
+  turnin 8464
+  turnin 8469 direct
 
 # ---------------------------------------------------------------- Level 60
 

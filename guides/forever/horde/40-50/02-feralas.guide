@@ -91,9 +91,12 @@ step Orgrimmar
 # Accepted here, finished later on the route: Screecher Spirits (3520,
 # Steamwheedle Port: the screechers on the next Feralas visit, Yeh'kinya at the
 # end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
-# around level 50, A Strange Request (3121), A Grim Discovery (2976) and The
+# around level 45 (40-50/03), A Strange Request (3121), A Grim Discovery (2976) and The
 # Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
 # Hinterlands, Improved Quality (7734) on the next Feralas visit.
+# 0.4.0 level tidy: WANTED: Caliph Scorpidsting (2781, Caliph 46 at about 44) is taken here and done on 40-50/04's
+# Tanaris visit; Stinglasher (7731, level 47 at about 45) is taken here and done on 40-50/03's Camp Mojache stop, with
+# Hadoken's report (7732) after it. The second water-pouch bounty (1878, 380 XP) is left out (#2394).
 #
 # Optional: Find OOX-22/FE! (2766) and Rescue OOX-22/FE! (2767): the distress
 # beacon drops about one kill in forty; the reward waits in Booty Bay.
@@ -315,10 +318,9 @@ step Gadgetzan
 
 step Noonshade Ruins: kill these as you meet them
   zone Tanaris
-  tip The bandits and thieves camp in the dunes east of Gadgetzan. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.
+  tip The bandits and thieves camp in the dunes east of Gadgetzan. Every Wastewander can carry a water pouch: Luglunket wants five.
   tip Careful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen.
   collect 8483 quest 1707.1
-  collect 8483 x10                      -- water pouches in your bags
   kill 5616 quest 1690.2
   kill 5618 quest 1690.1
 
@@ -332,7 +334,7 @@ step Gadgetzan
 step Steamwheedle Port
   tip Ride north-east to the goblin harbour on the coast.
   accept 8365                           -- Haughty Modiste
-  accept 2781 object 142122
+  accept 2781 object 142122             -- keep it: Caliph Scorpidsting (46) waits for your next Tanaris visit, around level 46
   accept 2875 object 142122
   accept 8366                           -- Security Chief Bilgewhizzle, inside
   turnin 2872                           -- Stoley, inside
@@ -342,7 +344,7 @@ step Steamwheedle Port
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
   tip South along the coast, the Southsea pirates hold the cove. Andre Firebeard and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.
-  tip Careful: Two or three pirates stand with Andre, and many more pirates from the town join the fight once it starts.
+  tip Careful: Two or three pirates stand with Andre (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.
   kill 7855 quest 8366.1
   collect 20519 quest 8365.1
   kill 7856 quest 8366.2
@@ -355,25 +357,21 @@ step Lost Rigger Cove: kill these as you meet them
 step Waterspring Field: kill these as you meet them
   zone Tanaris
   tip The shadow mages, rogues and assassins camp south-east of Gadgetzan.
-  tip South-east of Gadgetzan the Wastewander bandits camp in the dunes; Caliph stands in the eastern camp.
   tip Careful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.
-  tip Careful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them.
+  tip Careful: Caliph Scorpidsting (level 46) walks the eastern camp with two stealthed rogues: leave him for your next Tanaris visit, around level 46.
   kill 5617 quest 1691.3
   kill 5623 quest 1691.2
   kill 5615 quest 1691.1
-  collect 8723 quest 2781.1 @61.8,38.2
 
 step Steamwheedle Port
   tip Ride north-east back to the port: Stoley, the Haughty Modiste and the Security Chief take what Lost Rigger Cove gave you. Gadgetzan is west of it.
   turnin 8365                           -- Haughty Modiste
   turnin 2873                           -- Stoley, inside
-  accept 2874                           -- for Booty Bay, around level 50
+  accept 2874                           -- for Booty Bay, around level 45 (40-50/03)
   turnin 2875                           -- Security Chief Bilgewhizzle, inside
   turnin 8366
 
 step Gadgetzan
-  turnin 1878 direct
-  turnin 2781                           -- Chief Engineer Bilgewhizzle
   turnin 1691                           -- Chief Engineer Bilgewhizzle
   vendor nearest
 
@@ -461,9 +459,8 @@ step Camp Mojache
   accept 7731
 
 step The Writhing Deep
-  tip The Zukk'ash hive burrows into the hills south-east of the camp; Stinglasher waits in its deepest chamber.
+  tip The Zukk'ash hive burrows into the hills south-east of the camp. Stinglasher (47) waits in its deepest chamber: leave him for your next Feralas visit, around level 46-47.
   collect 18961 quest 7730.1
-  collect 18962 quest 7731.1 @75.6,60.9
 
 step Ruins of Isildien: kill these as you meet them
   zone Feralas
@@ -488,11 +485,9 @@ step Homing Robot OOX-22/FE
 
 step Camp Mojache
   turnin 7730                           -- Hadoken Swiftstrider
-  turnin 7731
   vendor nearest
   turnin 2822                           -- Jangdor Swiftstrider, inside
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
-  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
   turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   turnin 2979                           -- Rok Orhan
   accept 3002                           -- for Orgrimmar, around level 45
@@ -510,7 +505,6 @@ step Orgrimmar
   tip Fly to Orgrimmar. From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
   accept 3122
-  turnin 7732                           -- Zilzibin Drumlore, the Drag
   accept 649                            -- Dran Droffers, the Drag
   turnin 649                            -- Malton Droffers
   accept 650                            -- for the Hinterlands, around level 48

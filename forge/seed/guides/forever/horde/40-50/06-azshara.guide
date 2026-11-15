@@ -15,6 +15,13 @@ next forever/horde/50-60/01-un-goro-crater
 # Feralas ride for about a fifth of that).
 # Added here: Assisting Arch Druid Runetotem (3762), from Innkeeper Pala on the Thunder Bluff stop, handed to Hamuul
 # before Un'Goro Soil (3761). Left out: the Undercity copy (3784).
+# Level tidy (0.4.0): Zapped Giants, Fuel for the Zapping (7003, 7721) and Vengeance on the Northspring (3063), taken in
+# 40-50/03 where their giants and harpies (48-50) were 2-4 over the player, are done on this Feralas loop; Zorbin's next
+# two (7725, 7726: the same giants again, 550 XP each) are left out. The Dunemaul Compound (5863, Gor'marok 49) and
+# Thistleshrub Valley (3362, Rootshapers 49-50), taken in 40-50/04, are done at the Broken Pillar on the way to
+# Un'Goro and handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
+# (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
+# the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
@@ -36,7 +43,6 @@ step Booty Bay
   accept 3721 optional                -- Only once all three robots are home
   turnin 3721 optional
   turnin 580                          -- Whiskey Slim, in the inn
-  turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
   accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
 
 step The Bloodsail ships
@@ -111,8 +117,14 @@ step Zeppelin to Orgrimmar
 step Zilzibin Drumlore
   zone Orgrimmar
   when onquest 32
-  tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris, and its experience shortens the top-up to 50 in Azshara.
+  tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris.
   turnin 32                             -- Zilzibin Drumlore, the Drag
+
+step Zilzibin Drumlore
+  zone Orgrimmar
+  when onquest 7732
+  tip Zilzibin, in the Drag, takes Hadoken's report on the Zukk'ash from Feralas.
+  turnin 7732                           -- Zilzibin Drumlore, the Drag
 
 step Dran Droffers
   zone Orgrimmar
@@ -141,12 +153,6 @@ step Haldarr Encampment: kill these as you meet them
   kill 6126 quest 5536.2
   kill 6125 quest 5536.1
 
-step Level 50
-  when level<50
-  tip Top up here to level 50: March of the Silithid, from Zilzibin in Orgrimmar at the end of Azshara, needs it.
-  goto 20.1,62.0 map 1447 "Haldarr Satyr"
-  level 50 grind 6125               -- grind on Haldarr Satyr
-
 step Loh'atu
   tip Back to Loh'atu at the shrine; stay west of the Talrendis Point guards.
   turnin 5535
@@ -160,7 +166,6 @@ step Valormok
 
 step Valormok
   getfp "Valormok"
-  accept 3517                         -- Jediga
 
 step Undamaged Hippogryph Feathers
   tip The Thunderhead Hippogryphs fly over the hills just south of Valormok.
@@ -169,57 +174,6 @@ step Undamaged Hippogryph Feathers
 step Sanath Lim-yo
   when complete 3381
   turnin 3381
-
-# ---------------------------------------------------------------- Kim'jael
-
-step Kim'jael
-  tip Ride north-east to the goblin's camp on the cliffs above the Bay of Storms.
-  accept 3601
-
-step Thalassian Base Camp
-  tip The blood elves' camp lies just south of Kim'jael. His four pieces of equipment lie in the crates around the camp.
-  collect 10717 quest 3601
-  collect 10715 quest 3601
-  collect 10718 quest 3601
-  collect 10722 quest 3601
-
-step Kim'jael
-  turnin 3601
-  accept 5534
-
-# ---------------------------------------------------------------- Ruins of Eldarath
-
-step Ruins of Eldarath: kill these as you meet them
-  zone Azshara
-  tip Ride south-west to the ruins. The four tablets lie among the ruins, guarded by Spitelash naga; any Siren or Myrmidon can carry Kim'jael's rune.
-  collect 13815 quest 5534
-  collect 10540 quest 3517
-  collect 10538 quest 3517
-  collect 10541 quest 3517
-  collect 10539 quest 3517
-
-step Kim'jael
-  tip Back north-east to Kim'jael.
-  turnin 5534
-
-# ---------------------------------------------------------------- Valormok and Xylem
-
-step Jediga
-  tip Ride west back to Valormok.
-  turnin 3517
-  accept 3518
-  accept 3541
-  accept 3542
-  accept 3561
-  note Keep the deliveries for Magatha, Jes'rimon and Andron Gant: you pass Thunder Bluff, Orgrimmar and the Undercity later.
-
-step Archmage Xylem
-  tip Xylem's tower stands on the cliff just north of Valormok; the path winds up its north side.
-  turnin 3561                         -- Upstairs
-  accept 3565
-
-step Jediga
-  turnin 3565
 
 step Fly to Orgrimmar
   zone Azshara
@@ -232,19 +186,20 @@ step Fly to Orgrimmar
 step Orgrimmar
   zone Orgrimmar
   turnin 32                           -- Zilzibin Drumlore, the Drag: if you still carry it
-  accept 4494
-  turnin 3541                         -- Jes'rimon, the Cleft of Shadow
-  accept 3563
   accept 4300
   turnin 81                           -- Dran Droffers, the Drag
+
+step Zilzibin Drumlore
+  when level>=50
+  zone Orgrimmar
+  tip March of the Silithid needs level 50: Zilzibin, in the Drag, gives it from then on. Under 50, the Azshara guide at 55 offers it again.
+  accept 4494
 
 # ---------------------------------------------------------------- Orgrimmar
 
 step Orgrimmar
   zone Orgrimmar
-  accept 3504                         -- Belgrom Rockmaul, Valley of Honor
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  note Keep Jes'rimon's payment and Ag'tor's Betrayed: they go back to Valormok on a later visit.
 
 step Paladin trainer
   only Paladin
@@ -270,10 +225,8 @@ step Class trainer
 
 step Thunder Bluff
   zone Thunder Bluff
-  turnin 3518                         -- Magatha Grimtotem
-  accept 3562
   train class only Druid,Paladin
-  note Un'Goro Soil is gathered in the next guide; Magatha's payment goes back to Jediga later.
+  note Un'Goro Soil is gathered in the next guide.
 
 step Fly to Camp Mojache
   zone Thunder Bluff
@@ -320,32 +273,34 @@ step Witch Doctor Uzer'i
   turnin 3126
   accept 3127
 
-step Zorbin Fandazzle
-  turnin 7003
-  turnin 7721
-  accept 7725
-  accept 7726
-
 # ---------------------------------------------------------------- The Forgotten Coast
 
 step The Forgotten Coast: kill these as you meet them
   zone Feralas
-  tip The Sea Elementals and Sea Sprays wash along the shore around the dock.
+  tip Ride north-west to the Forgotten Coast. The Sea Elementals and Sea Sprays wash along the shore around Zorbin's dock.
   tip The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with Zorbin's Ultra-Shrinker first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.
   collect 9597 quest 3127
   use 9621 quest 3127.1 @39.9,22.2 map 1444
-  collect 18958 quest 7726
-  collect 18956 quest 7725
-  use 18904 quest 7725.1 @44.3,46.6 map 1444
+  collect 18958 quest 7721.1
+  collect 18956 quest 7003.1
+  use 18904 quest 7003.1 @40.1,38.6 map 1444
 
 step Zorbin Fandazzle
-  turnin 7725
-  turnin 7726
+  turnin 7003
+  turnin 7721
+
+step Northspring harpies
+  tip The Northspring harpies nest on the ridges in the far north-west, past the giants' hills. The Windcallers heal, so kill them first and pull one at a time.
+  kill 5362 quest 3063.1
+  kill 5363 quest 3063.2
+  kill 5364 quest 3063.3
+  kill 5366 quest 3063.4
 
 step Back to Camp Mojache
   turnin 3127                         -- Witch Doctor Uzer'i
   accept 3129
   turnin 3129
+  turnin 3063                         -- Talo Thornhoof
 
 step Fly to Gadgetzan
   zone Feralas
@@ -356,6 +311,7 @@ step Fly to Gadgetzan
 # ---------------------------------------------------------------- Gadgetzan
 
 step Gadgetzan
+  when onquest 4494
   zone Tanaris
   turnin 4494                         -- Alchemist Pestlezugg, inside
 
@@ -374,10 +330,23 @@ step Gadgetzan
   turnin 2661                         -- Marin Noggenfogger
   accept 2662
   turnin 2662
-  note Tran'rek's tar and Pestlezugg's samples come from Un'Goro Crater.
+  note Pestlezugg's samples come from Un'Goro Crater.
 
 step Marvon Rivetseeker
   tip Ride south along the road to the Broken Pillar; Marvon Rivetseeker camps beside it. From here the road west leads down into Un'Goro Crater, where the next guide starts.
   turnin 3380                         -- Marvon Rivetseeker
   accept 3444
   note Keep The Stone Circle: Marvon's chest is opened on a later visit.
+
+step The Dunemaul Compound
+  zone Tanaris
+  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, carried from your first Tanaris visit.
+  kill 5474 quest 5863.1
+  kill 5472 quest 5863.2
+  kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
+
+step Thistleshrub Valley
+  zone Tanaris
+  tip West of the compound the cactus creatures fill the valley, on the way to Un'Goro's ramp: Tran'rek's Gnarled Thistleshrubs and Rootshapers. Both quests go back to Gadgetzan on the next guide's first stop there.
+  kill 5490 quest 3362.1
+  kill 5485 quest 3362.2
