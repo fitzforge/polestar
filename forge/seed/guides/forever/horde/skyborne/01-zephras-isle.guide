@@ -53,17 +53,20 @@ step Rorian's errands
   train class only Shaman,Druid       -- Boro and Xyton, while you stand beside them
   accept 93552                        -- Dalia the Collector
 
-# Harvesting Windstones (4) is picked up on the slopes around the standing stones and handed to Dalia with the
-# village turn-ins, at 3, not on a loop of its own at 2 (level tidy 0.4.0).
+step Raw Windstones
+  tip The Raw Windstones are blue crystals on the slopes around the village.
+  collect 258772 quest 93552.1
+
+step Dalia the Collector
+  turnin 93552
+
 step The standing stones
   tip Yala Windwatcher stands at the Thendal Standing Stones, east of the village. Roiling Winds and Al'Aketh Converts gather just north of her. The Elemental Convergence is just north-east of her: cast your Skysight racial ability next to it.
-  tip The Raw Windstones are blue crystals on the slopes around the stones and the village: pick them up as you go.
   turnin 92464                        -- Yala Windwatcher
   accept 92465
   kill 251160 quest 92465.1
   kill 251143 quest 92465.2
   interact 460001 quest 92598.1 "Cast Skysight near the Elemental Convergence"
-  collect 258772 quest 93552.1
   turnin 92465
   accept 92469
 
@@ -74,7 +77,6 @@ step The Cirrusfly Queen
 step Thendal Village turn-ins
   turnin 92463                        -- Elatrell Featherlight
   turnin 92598                        -- Ventaari Brightwish
-  turnin 93552                        -- Dalia the Collector
   turnin 92469                        -- Rorian the Dayseeker
   accept 92471
   turnin 92482 only Hunter            -- Tai'ree Farsight, beside Rorian
