@@ -848,7 +848,9 @@ fn skins_a_window_repaints_from_the_house_style_to_halo_veil_no_fill_to_hearth_b
 	let house = json!({ "bg": true, "veil": false, "board": false, "ember": false, "border": true, "shadow": true });
 	assert_eq!(out["house"], house);
 	assert_eq!(out["halo"], json!({ "bg": false, "veil": true, "board": false, "ember": false, "border": false, "shadow": false }), "Halo: the soft veil alone");
-	assert_eq!((out["veilAlpha"].as_f64().unwrap() * 100.0).round() / 100.0, 0.84, "the big windows' veil");
+	// The big windows' veil (84 %) scaled by the window's opacity against its default 94 %: the settings window
+	// (W.Shell) is opaque whatever ui.bgOpacity says, so 0.84 / 0.94.
+	assert_eq!((out["veilAlpha"].as_f64().unwrap() * 100.0).round() / 100.0, 0.89, "the big windows' veil, at full opacity");
 	assert_eq!(
 		out["hearth"],
 		json!({ "bg": false, "veil": false, "board": true, "ember": true, "border": true, "shadow": true }),
