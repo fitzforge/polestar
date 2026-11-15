@@ -11,7 +11,7 @@ local hookedShows, hookedTips, hookedRested = {}, {}, {}
 local excluded = {}
 local dirty = true
 local schedule
-local SAGE_R, SAGE_G, SAGE_B = 156 / 255, 183 / 255, 167 / 255
+local SAGE_R, SAGE_G, SAGE_B = 91 / 255, 149 / 255, 80 / 255
 
 local function draw()
 	if not frame then return end
