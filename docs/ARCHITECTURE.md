@@ -10206,8 +10206,9 @@ was already built without it.
   verdicts call the same person, one vote per fact. Only facts go in, without
   who saw them: per NPC or object the items its loot windows held (NPC loot
   from a gathering skill left out), with the people who saw each, a chance
-  (the median of each person's own share of kills or loot windows) only when
-  `minVoters` people (or a vouched one) with 10 of their own back it, and
+  (the median of each person's own share of their loot windows of the
+  source; for a quest drop, of the windows its objective was open for) only
+  when `minVoters` people (or a vouched one) with 10 of their own back it, and
   `trusted` when `minVoters` people saw it, a vouched one did, or such a
   chance backs it; per NPC each item its merchant window listed, with its
   people and `trusted`; per quest the reward list its quest frames showed (a
