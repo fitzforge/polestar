@@ -157,7 +157,7 @@ step Abercrombie
   accept 133
 
 step Ghoul Ribs
-  tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.
+  tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. Mor'Ladim, an elite, wanders the graves: keep away from him.
   tip Careful: A Rotted One casts Summon Flesh Eating Worms as it dies, which brings extra adds.
   collect 884 quest 133
 
