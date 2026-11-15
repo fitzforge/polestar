@@ -284,19 +284,6 @@ test(`${TIRISFAL}: level tidy: the Cult of the Damned after the Balnir Farmstead
 	for (const q of [96897, 96898]) assert.ok(balnir < at(list, `the objective of ${q}`, (g) => (g.t === 'kill' || g.t === 'collect') && g.quest === q), `${q} after the Balnir Farmstead`);
 });
 
-// --- Tirisfal Glades (level tidy 0.4.0): Deaths in the Family's Agamands (10; quest 11) were fought at 9 on the first
-// Agamand Mills visit. Coleman gives it on the last Brill stop, the mills are passed on the walk west to Leonid.
-test(`${TIRISFAL}: level tidy: Deaths in the Family on the walk west to Leonid`, { skip }, () => {
-	const list = goals(TIRISFAL);
-	const take = at(list, 'accept 354', is('accept', 354));
-	assert.ok(at(list, 'turnin 371', is('turnin', 371)) < take, 'taken after the Balnir Farmstead hand-ins');
-	for (const oi of [1, 2, 3]) {
-		const g = at(list, `354.${oi}`, (x) => x.t === 'collect' && x.quest === 354 && x.oi === oi);
-		assert.ok(take < g && g < at(list, 'turnin 96899 (Leonid)', is('turnin', 96899)), `354.${oi} on the walk west to Leonid`);
-	}
-	assert.ok(at(list, 'turnin 354', is('turnin', 354)) < at(list, 'turnin 355', is('turnin', 355)), 'Speak with Sevren after it');
-});
-
 // --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye (11) was killed on Brill's north loop at 7-8 (players' 25th
 // percentile 8.1). The poster is read on the last Brill stop after the Balnir Farmstead, Garren's Haunt is on the
 // walk west to Leonid, and the paw goes to Executor Zygand on the final Brill stop.
@@ -7147,9 +7134,7 @@ test('forever/horde/undead/01-tirisfal-glades.guide: final route review: level-g
 	const accepts = (q) => list.map((e, i) => ({ ...e, i })).filter(({ goal }) => is('accept', q)(goal));
 	const renee = at(list, 'turnin 8', is('turnin', 8));
 	const linnea = at(list, 'turnin 359', is('turnin', 359));
-	// Deaths in the Family (354) left this list in the level tidy 0.4.0: it is taken on the last Brill stop, at about 11.5,
-	// for its Agamands (10) on the walk west to Leonid.
-	for (const [q, n, before] of [[95314, 7, renee], [362, 7, linnea], [375, 7, linnea], [96895, 10, linnea]]) {
+	for (const [q, n, before] of [[95314, 7, renee], [362, 7, linnea], [354, 7, linnea], [375, 7, linnea], [96895, 10, linnea]]) {
 		const [first, ...later] = accepts(q);
 		assert.ok(first.i < before && gate(first.step) && gate(first.step).n === n, `${q}: taken where the walk passes, from level ${n}`);
 		assert.ok(later.length >= 1 && !gate(later[0].step), `${q}: the later visit keeps the accept for players below ${n}`);
