@@ -1,13 +1,16 @@
 'use strict';
 // Chat commands anyone can type in the Polestar Discord: `!bug` (or `!bugs`)
-// answers with how to report a bug from the game. One answer per channel a
-// minute, so a burst of them posts one. Never in the #bugs forum or its
+// answers with how to report a bug from the game. Capped so it can't be
+// spammed: a channel gets it at most once every 10 minutes, a person can
+// call it once an hour, and the whole server gets at most 6 answers an hour;
+// past a cap the command is ignored silently. Never in the #bugs forum or its
 // threads: everything written there is copied to the issue.
 //
 //   const chat = createChat({ discord, forumId, log });
 //   chat.dispatch(type, d);   // every gateway event, beside the sync
 
-const COOLDOWN_MS = 60 * 1000;
+const HOUR_MS = 60 * 60 * 1000;
+const LIMITS = { channelMs: 10 * 60 * 1000, userMs: HOUR_MS, perHour: 6 };
 const COMMANDS = new Set(['!bug', '!bugs']);
 
 // The answer, in Discord's Markdown; <#id> shows as a link to the forum.
@@ -31,8 +34,10 @@ function bugHelp(forumId) {
 	].join('\n');
 }
 
-function createChat({ discord, forumId, log = console, now = Date.now }) {
-	const last = new Map(); // channel -> when it last got the answer
+function createChat({ discord, forumId, log = console, now = Date.now, limits = LIMITS }) {
+	const lastInChannel = new Map(); // channel -> when it last got the answer
+	const lastByUser = new Map(); // user -> when they last got an answer
+	let answers = []; // when each answer went out, the last hour's
 	const parents = new Map(); // channel -> its parent channel's id ('' for none)
 
 	async function parentOf(channel) {
@@ -48,9 +53,17 @@ function createChat({ discord, forumId, log = console, now = Date.now }) {
 		if (!COMMANDS.has((d.content || '').trim().toLowerCase())) return false;
 		if (d.channel_id === forumId || (await parentOf(d.channel_id)) === forumId) return false;
 		const t = now();
-		const prev = last.get(d.channel_id);
-		if (prev !== undefined && t - prev < COOLDOWN_MS) return false;
-		last.set(d.channel_id, t);
+		const user = d.author && d.author.id;
+		const recent = (map, key, ms) => map.has(key) && t - map.get(key) < ms;
+		answers = answers.filter((at) => t - at < HOUR_MS);
+		if (recent(lastInChannel, d.channel_id, limits.channelMs) || (user && recent(lastByUser, user, limits.userMs))
+			|| answers.length >= limits.perHour) {
+			log.info(`!bug ignored (cap) in ${d.channel_id} from ${user || '?'}`);
+			return false;
+		}
+		lastInChannel.set(d.channel_id, t);
+		if (user) lastByUser.set(user, t);
+		answers.push(t);
 		await discord.send(d.channel_id, bugHelp(forumId));
 		return true;
 	}
@@ -66,4 +79,4 @@ function createChat({ discord, forumId, log = console, now = Date.now }) {
 	};
 }
 
-module.exports = { createChat, bugHelp, COOLDOWN_MS };
+module.exports = { createChat, bugHelp, LIMITS };

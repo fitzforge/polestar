@@ -238,9 +238,12 @@ other: only the status tags moderators set mean a post was handled.
 
 Anyone who types `!bug` or `!bugs` (the whole message, any case) in a channel
 the bot can see gets how to report a bug from the game: the bug icon or
-`/polestar report`, Copy report, a new post in #bugs. One answer per channel
-a minute; never in the #bugs forum or its threads (everything there goes to
-the issue), and never to a bot or a webhook. The text is in `lib/chat.js`.
+`/polestar report`, Copy report, a new post in #bugs. Capped against spam: a
+channel gets it at most once every 10 minutes, a person can call it once an
+hour, and the server gets at most 6 answers an hour; past a cap it is ignored
+(logged as "!bug ignored (cap)"). Never in the #bugs forum or its threads
+(everything there goes to the issue), and never to a bot or a webhook. The
+text and the caps are in `lib/chat.js`.
 
 ## Closing from Discord
 

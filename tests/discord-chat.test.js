@@ -1,17 +1,18 @@
 'use strict';
 // The Discord bot's `!bug` command (tools/discord-bot/lib/chat.js): how to
-// report a bug, once a minute per channel, never inside the #bugs forum.
+// report a bug, capped against spam, never inside the #bugs forum.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { createChat, COOLDOWN_MS } = require('../tools/discord-bot/lib/chat');
+const { createChat, LIMITS } = require('../tools/discord-bot/lib/chat');
 const { fakeDiscord, quietLog, FORUM, GUILD } = require('./helpers/discord-fakes');
 
 const GENERAL = '1001';
+const HOUR = 60 * 60 * 1000;
 
 function setup() {
 	const discord = fakeDiscord();
-	discord.channels.set(GENERAL, { id: GENERAL, type: 0, name: 'general', guild_id: GUILD });
+	for (let i = 0; i < 10; i++) discord.channels.set(String(1001 + i), { id: String(1001 + i), type: 0, name: `chat-${i}`, guild_id: GUILD });
 	let t = 1_000_000;
 	const clock = { now: () => t, advance: (ms) => (t += ms) };
 	const chat = createChat({ discord, forumId: FORUM, log: quietLog, now: clock.now });
@@ -32,22 +33,41 @@ test('!bug and !bugs answer with how to report, linking the #bugs forum', async 
 });
 
 test('the command is matched whole and in any case', async () => {
-	const { discord, say, clock } = setup();
-	assert.equal(await say(GENERAL, '  !BUGS '), true);
-	clock.advance(COOLDOWN_MS);
+	const { discord, say } = setup();
 	for (const text of ['!bugsplat', 'my !bug', '!bug please', 'bug']) assert.equal(await say(GENERAL, text), false, text);
+	assert.equal(await say(GENERAL, '  !BUGS '), true);
 	assert.equal(discord.sent.length, 1);
 });
 
-test('one answer per channel a minute', async () => {
+test('a channel gets it at most once every 10 minutes', async () => {
 	const { discord, say, clock } = setup();
-	await say(GENERAL, '!bug');
-	assert.equal(await say(GENERAL, '!bug'), false);
-	clock.advance(COOLDOWN_MS - 1);
-	assert.equal(await say(GENERAL, '!bug'), false);
+	await say(GENERAL, '!bug', { author: { id: 'a' } });
+	assert.equal(await say(GENERAL, '!bug', { author: { id: 'b' } }), false, 'someone else, same channel');
+	clock.advance(LIMITS.channelMs - 1);
+	assert.equal(await say(GENERAL, '!bug', { author: { id: 'c' } }), false);
 	clock.advance(1);
-	assert.equal(await say(GENERAL, '!bug'), true);
+	assert.equal(await say(GENERAL, '!bug', { author: { id: 'd' } }), true);
 	assert.equal(discord.sent.length, 2);
+});
+
+test('a person can call it once an hour, in any channel', async () => {
+	const { discord, say, clock } = setup();
+	await say('1001', '!bug');
+	assert.equal(await say('1002', '!bug'), false, 'another channel');
+	clock.advance(HOUR - 1);
+	assert.equal(await say('1003', '!bug'), false);
+	clock.advance(1);
+	assert.equal(await say('1003', '!bug'), true);
+	assert.equal(discord.sent.length, 2);
+});
+
+test('the whole server gets at most 6 answers an hour', async () => {
+	const { discord, say, clock } = setup();
+	for (let i = 0; i < 6; i++) assert.equal(await say(String(1001 + i), '!bug', { author: { id: `p${i}` } }), true);
+	assert.equal(await say('1008', '!bug', { author: { id: 'p8' } }), false, 'the 7th in an hour');
+	clock.advance(HOUR);
+	assert.equal(await say('1009', '!bug', { author: { id: 'p9' } }), true, 'the next hour');
+	assert.equal(discord.sent.length, 7);
 });
 
 test('never in the #bugs forum or its threads, never to a bot or a webhook', async () => {
