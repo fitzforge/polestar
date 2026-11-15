@@ -973,6 +973,61 @@ fn map_the_entrance_on_its_zone_with_the_quest_givers_there() {
 	assert_eq!(out["blocks"], false, "the other tabs\u{2019} rows are hidden");
 }
 
+// Fitz, 2026-11-14 (the 50-60 band: "Missing game art for these zones"): Forever's Blackmaw Hold and The
+// Shaper's Terrace showed the bare night band and no zone. A dungeon whose door nobody has recorded takes the zone
+// the client's areas name it in (Blackmaw Hold: Azshara): its card and page paint that zone and name it, and the Map
+// tab says the door isn't known yet but where the dungeon lies. One with no zone at all (Alcaz Prison) wears its own
+// loading screen (Dungeons.Art), never the bare night band.
+#[test]
+fn a_dungeon_without_a_known_door_paints_its_zone_and_names_it_else_its_loading_screen_never_the_bare_band() {
+	let f = fixture("dungeons.json");
+	let mut codex = f["codex"].clone();
+	let mut inputs = f["inputs"].clone();
+	codex["instances"]["blackmaw-hold"]["map"] = json!(2974);
+	codex["instances"]["alcaz-prison"] =
+		json!({ "key": "alcaz-prison", "name": "Alcaz Prison", "kind": "dungeon", "forever": true, "areaId": null, "map": 2994, "entrance": null, "levels": [46, 48, 53], "bosses": [] });
+	let maps = inputs["client"]["instanceMaps"].as_array_mut().unwrap();
+	maps.push(json!({ "id": 2974, "name": "Blackmaw Hold", "raid": false, "players": null, "area": 16554, "areas": [1216, 16554], "inner": [16554], "zones": [16], "corpse": null }));
+	maps.push(json!({ "id": 2994, "name": "Alcaz Prison", "raid": false, "players": null, "area": null, "areas": [16620], "inner": [16620], "zones": [], "corpse": null }));
+	inputs["forever"]["zones"]["1447"] = json!({ "id": 1447, "name": "Azshara", "areaId": 16, "type": 3 });
+	let out = run_pack(
+		r#"
+		-- Azshara's painting: one art layer of 4x3 tiles; no other zone has art here.
+		C_Map = C_Map or {}
+		C_Map.GetMapArtLayers = function(id) if id == 1447 then return { { layerWidth = 1002, layerHeight = 668, tileWidth = 256, tileHeight = 256 } } end return {} end
+		C_Map.GetMapArtLayerTextures = function(id) if id == 1447 then local t = {} for i = 1, 12 do t[i] = 200 + i end return t end return {} end
+		Polestar.Dungeons.Open()
+		DS.SetFaction("All")
+		DS.SetBand("all")
+		local function card(name)
+			for _, c in ipairs(DS.cards) do if c:IsShown() and c.Name:GetText() == name then return c end end
+		end
+		local bm, ap = card("Blackmaw Hold"), card("Alcaz Prison")
+		local out = { bmArt = bm.psArt, bmBand = bm.Art.Band:IsShown(), bmStats = bm.Stats:GetText(),
+			apArt = ap.psArt, apBand = ap.Art.Band:IsShown(), apPic = ap.Art.psPic ~= nil and ap.Art.psPic:IsShown() }
+		Polestar.Dungeons.Open("blackmaw-hold")
+		local _, _, pg = DS.Frames()
+		out.bmSub, out.bmHeadBand = pg.Sub:GetText(), pg.Art.Band:IsShown()
+		DS.SetTab("map")
+		out.bmMap, out.bmNote = DS.Shown().map, pg.MapNote:GetText()
+		Polestar.Dungeons.Open("alcaz-prison")
+		DS.SetTab("map")
+		out.apMap, out.apNote, out.apHeadBand = DS.Shown().map, pg.MapNote:GetText(), pg.Art.Band:IsShown()
+		emit(out)"#,
+		Some(pack_of(&codex, &inputs)),
+	);
+	let out = &out[0];
+	assert_eq!((&out["bmArt"], &out["bmBand"]), (&json!("zone"), &json!(false)), "Blackmaw Hold's card: Azshara's painting");
+	assert!(out["bmStats"].as_str().unwrap().contains("Azshara"), "{}", out["bmStats"]);
+	assert!(out["bmSub"].as_str().unwrap().contains("Azshara"), "the page header names the zone: {}", out["bmSub"]);
+	assert_eq!(out["bmHeadBand"], false);
+	assert_eq!(out["bmMap"], "zone");
+	assert_eq!(out["bmNote"], "The entrance of this dungeon is not known yet; it lies in Azshara.");
+	assert_eq!((&out["apArt"], &out["apBand"], &out["apPic"]), (&json!("picture"), &json!(false), &json!(true)), "Alcaz Prison: its loading screen");
+	assert_eq!((&out["apMap"], &out["apHeadBand"]), (&json!("picture"), &json!(false)));
+	assert_eq!(out["apNote"], "The entrance of this dungeon is not known yet.");
+}
+
 #[test]
 fn speed_pages_reuse_pooled_frames_only_cards_in_view_are_painted_open_and_tab_switches_stay_fast() {
 	let out = run(r#"

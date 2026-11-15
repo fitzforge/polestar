@@ -1075,6 +1075,20 @@ local function hidePool(pool, from)
 	for i = from or 1, #pool do pool[i]:Hide() end
 end
 
+-- A dungeon's painting: its zone framed on the entrance, or the whole zone
+-- where only the zone is known (Forever's dungeons nobody has walked into
+-- yet), else its own loading screen (Dungeons.Art), so no dungeon shows the
+-- bare night band. -> "entrance" | "zone" | "picture" | nil
+local function paintDungeon(art, d, index)
+	local e = d.entrance
+	if ZoneArt.Paint(art, e and e.map or d.zone, e and e.x, e and e.y, index) then
+		return (e and e.map) and "entrance" or "zone"
+	end
+	local pic = D().Art and D().Art(d.key)
+	if pic and ZoneArt.Picture then return ZoneArt.Picture(art, pic) and "picture" end
+	return nil
+end
+
 -- Paint the cards in view (and one line past it); the rest wait.
 function DS.PaintVisible()
 	if not (home and home:IsShown()) then return end
@@ -1084,9 +1098,7 @@ function DS.PaintVisible()
 		local c = cards[i]
 		local key = c.psKey
 		if c.psPainted ~= key and c.psY < top + view + CARD_H and c.psY + CARD_H > top - CARD_H then
-			local d = c.psEntry
-			local e = d.entrance
-			c.psArt = ZoneArt.Paint(c.Art, e and e.map or d.zone, e and e.x, e and e.y, i)
+			c.psArt = paintDungeon(c.Art, c.psEntry, i)
 			c.psPainted = key
 			shown.painted = (shown.painted or 0) + 1
 		end
@@ -1155,7 +1167,8 @@ local function paintCard(c, d, f, plevel, key)
 	if lv then facts[#facts + 1] = lv end
 	local best = bestAtFact(d)
 	if best then facts[#facts + 1] = best end
-	if d.zoneName then facts[#facts + 1] = d.zoneName end
+	local zn = d.zoneName or (d.zone and mapName(d.zone))
+	if zn then facts[#facts + 1] = zn end
 	local n, a, h = questCount(d, f)
 	if f == "All" and a ~= h and a > 0 and h > 0 then
 		facts[#facts + 1] = format(L["%d Alliance, %d Horde quests"], a, h)
@@ -1291,8 +1304,8 @@ end
 local function pageHeader(d)
 	local art = pg.Art
 	local e = d.entrance
-	local painted = ZoneArt.Paint(art, e and e.map or d.zone, e and e.x, e and e.y, 1)
-	if painted and e and e.map then
+	local painted = paintDungeon(art, d, 1)
+	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
 		art.Entrance:Show()
 	else
@@ -1307,7 +1320,8 @@ local function pageHeader(d)
 	if lv then facts[#facts + 1] = format(L["Levels %s"], lv) end
 	local best = bestAtFact(d)
 	if best then facts[#facts + 1] = best end
-	local z = d.zoneName or (e and mapName(e.map))
+	local zm = (e and e.map) or d.zone
+	local z = d.zoneName or (zm and mapName(zm))
 	if z then facts[#facts + 1] = z end
 	if d.players then
 		facts[#facts + 1] = (d.playersMax and d.playersMax > d.players) and format(L["%d-%d players"], d.players, d.playersMax) or format(L["%d players"], d.players)
@@ -1928,18 +1942,23 @@ local function renderMap(key, d, f)
 	local art = pg.MapArt
 	local e = d.entrance
 	local side = SIDE[f]
-	local painted = e and ZoneArt.Paint(art, e.map, e.x, e.y, 1)
+	local painted = paintDungeon(art, d, 1)
 	art:Show()
 	pg.MapNote:Show()
 	local n = 0
-	if painted then
+	if painted == "entrance" then
 		placeOn(art.Entrance, art, e.x, e.y)
 		art.Entrance:Show()
-		-- The quest givers on the entrance's zone, one marker per giver.
+	else
+		art.Entrance:Hide()
+	end
+	if painted == "entrance" or painted == "zone" then
+		-- The quest givers on the zone shown, one marker per giver.
+		local zm = (e and e.map) or d.zone
 		local byGiver, order = {}, {}
 		for _, q in ipairs(D().Quests(key, side)) do
 			local s = startOf(q, e)
-			if s and s.map == e.map and s.x and s.y and not s.inside then
+			if s and s.map == zm and s.x and s.y and not s.inside then
 				local id = (s.kind or "") .. tostring(s.id or s.name)
 				local gq = byGiver[id]
 				if not gq then
@@ -1957,22 +1976,22 @@ local function renderMap(key, d, f)
 			g.psName, g.psLines = gq.point.name, gq.lines
 			g:Show()
 		end
-	else
-		art.Entrance:Hide()
-		if not e then ZoneArt.Paint(art, nil, nil, nil, 1) end
 	end
 	hidePool(givers, n + 1)
+	local text
 	if e then
 		local z = mapName(e.map) or d.zoneName or ""
-		local text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
-		if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
-		local warn = enemyWarning(d, f)
-		if warn then text = warn .. "\n" .. text end
-		pg.MapNote:SetText(text)
+		text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
+	elseif painted == "zone" then
+		text = format(L["The entrance of this dungeon is not known yet; it lies in %s."], d.zoneName or mapName(d.zone) or "")
 	else
-		pg.MapNote:SetText(L["The entrance of this dungeon is not known yet."])
+		text = L["The entrance of this dungeon is not known yet."]
 	end
-	shown.map, shown.givers = e and "entrance" or "none", n
+	if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
+	local warn = e and enemyWarning(d, f)
+	if warn then text = warn .. "\n" .. text end
+	pg.MapNote:SetText(text)
+	shown.map, shown.givers = painted or "none", n
 	return 24 + MAP_H + 14 + pg.MapNote:GetStringHeight() + 24
 end
 

@@ -7787,7 +7787,11 @@ the quest list's rewards, choice versus fixed as the list files them; XP from
 `--local-extras`, DungeonJournal's audited shareability; bosses in kill order
 with the quests tied to them (an encounter's boss carries its DungeonEncounter
 id, `encounter`, for its name in every language); entrances from the Codex, else the client's Map
-table (the corpse point, placed on its zone); and the page's `attunement`
+table (the corpse point, placed on its zone); the zone (`zone`, `zoneName`):
+the entrance's map, else, with no entrance, the zone map of the open-world
+areas the client's AreaTable names after the instance (Forever's Blackmaw
+Hold: area 1216 under Azshara; The Shaper's Terrace: 16985 under Un'Goro
+Crater), null when it names none (Alcaz Prison); and the page's `attunement`
 list (below). A quest Forever hands in at one talk, never in the log
 (`quests.json` `direct`: Pozzik's Indurium Ore), carries `direct` (#2241). No
 loot tables. The page also carries the instance's Map id
@@ -9202,7 +9206,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   step of the filter's side (state glyph, the quest in its difficulty colour
   or what drops it, its state, giver and zone or chance and instance; a click
   sets the arrow there); the other side's entries carry no state. Map: the entrance and
-  the quest givers on its zone painting. Blocks, rows, tiles, chips and cards
+  the quest givers on its zone painting. A dungeon whose entrance is not known
+  paints its page's `zone` (the Codex takes it from the client's AreaTable: an
+  open-world area of the instance's name, Forever's Blackmaw Hold in Azshara)
+  whole on its card, header and Map tab, names it in the facts, and the Map tab
+  says where it lies; one with no zone either wears its loading screen
+  (`Dungeons.Art`, through `ZoneArt.Picture`). Blocks, rows, tiles, chips and cards
   are pooled; quest states refresh on QUEST_ACCEPTED, QUEST_REMOVED,
   QUEST_TURNED_IN and PLAYER_LEVEL_UP, the Attunement tab also on
   BAG_UPDATE_DELAYED and UPDATE_FACTION. `UI.DungeonsSection` exposes
@@ -9232,6 +9241,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   shows past the painting's edges. Only the base and overlay tiles the band
   shows get a texture, from per-band pools. Used by the route choice cards
   and the menu; the night band stands in without the art.
+  `UI.ZoneArt.Picture(art, { file, l, r, t, b })` fills the band with a
+  picture instead (a dungeon's loading screen, the crop square on screen, the
+  band showing the picture's full width at its scale); the next `Paint`
+  replaces it. `tests/zone-art-coverage.test.js` checks every shipped guide's
+  zone, every recorded dungeon door's zone and the fixed paintings against
+  the maps the client paints, and that every dungeon has a loading screen.
 - **Community guides in the menu.** Our categories (Leveling, Professions, …)
   list only our guides; All, Favourites, Current, Recent and search cover every
   shown guide. A "Community guides" heading in the sidebar (a `W.ShellNav` heading

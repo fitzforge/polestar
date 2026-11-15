@@ -795,7 +795,8 @@ local function headText(k)
 end
 
 -- The band: where it is got (the best source with a place), or its own
--- map, else the night sky.
+-- map, else the night sky. A dungeon without a known entrance: the zone its
+-- page places it in (its own `map` is the instance's, no zone painting).
 local function bandMap(s, entity, list)
 	if s.kind == "zone" then return s.id end
 	if s.kind == "guide" then
@@ -806,6 +807,10 @@ local function bandMap(s, entity, list)
 		if row.map then return row.map, row.x, row.y end
 	end
 	if entity and type(entity.entrance) == "table" then return entity.entrance.map, entity.entrance.x, entity.entrance.y end
+	if s.kind == "instance" then
+		local d = ns.Dungeons and ns.Dungeons.Get and ns.Dungeons.Get(s.id)
+		return d and d.zone or nil
+	end
 	return entity and entity.map or nil
 end
 
@@ -867,6 +872,9 @@ local function renderDetails(loaded, reason)
 	-- The band.
 	local map, fx, fy = bandMap(s, entity, list)
 	d.psArt = ZoneArt.Paint(d.Art, map, fx, fy, skyIndex(keyOf(s.kind, s.id)))
+	-- A dungeon with no zone known: its loading screen (Dungeons.Art).
+	local pic = not d.psArt and s.kind == "instance" and ns.Dungeons and ns.Dungeons.Art and ns.Dungeons.Art(s.id)
+	if pic then d.psArt = ZoneArt.Picture(d.Art, pic) end
 	local icon = KIND[s.kind] and KIND[s.kind].item and itemIcon(s.id)
 	d.Icon:ClearAllPoints()
 	if icon then

@@ -352,7 +352,9 @@ fn sorted(set: &BTreeSet<i64>) -> Vec<f64> {
 	set.iter().map(|&x| x as f64).collect()
 }
 
-/// journal.js `instanceMapsOf(mapRows, areaRows)`.
+/// journal.js `instanceMapsOf(mapRows, areaRows)`. zones: the outdoor zone areas holding an area of
+/// the instance's name on its corpse point's continent, or on any open-world map (InstanceType 0)
+/// for a map without a corpse point (Forever's Blackmaw Hold in Azshara).
 pub fn instance_maps_of(map_rows: &[Row], area_rows: &[Row]) -> Vec<InstanceMap> {
 	let mut areas_by_map: FxHashMap<i64, Vec<i64>> = FxHashMap::default();
 	let mut area_names: FxHashMap<String, Vec<i64>> = FxHashMap::default();
@@ -370,6 +372,7 @@ pub fn instance_maps_of(map_rows: &[Row], area_rows: &[Row]) -> Vec<InstanceMap>
 			area_names.entry(n).or_default().push(id);
 		}
 	}
+	let world: FxHashSet<i64> = map_rows.iter().filter(|r| num0_s(r.get("InstanceType")) == 0.0).map(|r| num0_s(r.get("ID")) as i64).collect();
 	let mut out = Vec::new();
 	for r in map_rows {
 		let ty = num0_s(r.get("InstanceType"));
@@ -387,13 +390,18 @@ pub fn instance_maps_of(map_rows: &[Row], area_rows: &[Row]) -> Vec<InstanceMap>
 			areas.insert(at as i64);
 		}
 		let inner = sorted(&areas);
+		let corpse = (c >= 0.0 && (x != 0.0 || y != 0.0)).then_some(Corpse { c, x, y });
+		// An outdoor area: under a zone, on the corpse point's continent (any open-world map without one).
+		let outdoor = |row: &Row| {
+			let cont = num0_s(row.get("ContinentID"));
+			num0_s(row.get("ParentAreaID")) != 0.0 && if corpse.is_some() { cont == c } else { world.contains(&(cont as i64)) }
+		};
 		let mut zones = BTreeSet::new();
 		for &a in area_names.get(&super::util::jnorm_s(&name)).map(Vec::as_slice).unwrap_or(&[]) {
 			areas.insert(a);
-			if let Some(row) = area_row.get(&a) {
-				let parent = num0_s(row.get("ParentAreaID"));
-				if num0_s(row.get("ContinentID")) == c && parent != 0.0 {
-					zones.insert(parent as i64);
+			if let Some(&row) = area_row.get(&a) {
+				if outdoor(row) {
+					zones.insert(num0_s(row.get("ParentAreaID")) as i64);
 				}
 			}
 		}
@@ -407,7 +415,7 @@ pub fn instance_maps_of(map_rows: &[Row], area_rows: &[Row]) -> Vec<InstanceMap>
 			areas: sorted(&areas),
 			inner,
 			zones: sorted(&zones),
-			corpse: (c >= 0.0 && (x != 0.0 || y != 0.0)).then_some(Corpse { c, x, y }),
+			corpse,
 			finder: None,
 		});
 	}
