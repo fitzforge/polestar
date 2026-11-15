@@ -2441,6 +2441,7 @@ mod tests {
 			curated_vendors: V::Null,
 			entrances: Vec::new(),
 			entrance_table: V::Null,
+			levels_table: V::obj(),
 			rep_table: V::obj(),
 			attunement_table: V::Null,
 			journal_quests: Vec::new(),
