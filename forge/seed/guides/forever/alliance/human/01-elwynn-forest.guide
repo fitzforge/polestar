@@ -168,8 +168,8 @@ step Level 5.77
   when !group 91752
   when level<5.77
   tip If you skipped The Big Picture, grind here to level 5.77 to stay on the route's plan.
-  goto 41.7,78.0 map 1429 "Kobold Miner"
-  level 5.77 grind 40                 -- grind on Kobold Miner
+  goto 40.9,69.5 map 1429 "Stonetusk Boar"
+  level 5.77 grind 113                -- grind on Stonetusk Boar
 
 step Sam Sarsaparilla
   tip Sam Sarsaparilla camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, First Aid and blacksmithing in Goldshire.
@@ -406,9 +406,8 @@ step The bridge
   accept 91733                                -- Ormin Pelford
 
 step Downstream and Princess
-  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
+  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Young Forest Bears on the way; the Prowlers (level 9-10) wait for the walk back to Guard Thomas, after the logging camp and the mine. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
   collect 247813 quest 91733                  -- Waterlogged Saw
-  kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
   collect 1006 quest 88                       -- Brass Collar: Princess
   collect 247818 quest 91733                  -- Waterlogged Toolbox
@@ -428,14 +427,15 @@ step Level 8.85
   when !group 91740
   when level<8.85
   tip If you skipped Croaky's Head, grind here to level 8.85 to stay on the route's plan.
-  goto 78.1,62.1 map 1429 "Prowler"
-  level 8.85 grind 118                -- grind on Prowler
+  goto 65.1,64.4 map 1429 "Gray Forest Wolf"
+  level 8.85 grind 1922               -- grind on Gray Forest Wolf
 
 step Ormin Pelford
   turnin 91733
 
 step The Eastvale Logging Camp
   tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
+  tip Careful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to Stone Cairn Lake and the gnoll camps: keep clear of him when you see him coming.
   accept 83                                   -- Sara Timberlain, inside
   accept 5545                                 -- Supervisor Raelen
   accept 91732                                -- Hagar Lowe
@@ -601,8 +601,7 @@ step The Stonefield Farm
 
 step The Applejack Still
   tip The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.
-  accept 91736 optional                       -- Applejack Still
-  turnin 91736 optional
+  turnin 91736 direct optional                -- Applejack Still
   collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
 # ---------------------------------------------------------------- To Westfall
@@ -613,8 +612,7 @@ step Westbrook Garrison
   turnin 239                                  -- Deputy Rainer
   accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
   accept 11
-  accept 91738                                -- Sergeant De Vries: he wants your Thunder Applejack; inside
-  turnin 91738
+  turnin 91738 direct                         -- Sergeant De Vries: he wants your Thunder Applejack; inside
 
 step Forest's Edge
   zone Elwynn Forest

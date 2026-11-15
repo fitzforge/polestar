@@ -965,6 +965,39 @@
 			"issue": 820
 		},
 		{
+			"id": "level-tidy-elwynn-elmpaw",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5545,
+				"goal": "accept"
+			},
+			"tip": "Careful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to Stone Cairn Lake and the gnoll camps: keep clear of him when you see him coming.",
+			"note": "Level tidy (0.4.0): Elmpaw (npc 248299) is a level 12 elite whose 24 spawn points run from the Eastvale Logging Camp north to Stone Cairn Lake and the Riverpaw camps, where the route works at 9-10 alone; no step warned about him.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 248299 Elmpaw: level 12, rank elite, spawns 68-80,33-84 in Elwynn Forest"
+				}
+			]
+		},
+		{
+			"id": "level-tidy-teldrassil-xethorr",
+			"faction": "Alliance",
+			"at": {
+				"quest": 923,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Xethorr the Wicked, a level 12 elite, prowls the east edge of the Befouled Webwoods north-west of Dolanaar: if you are alone, keep clear of the webwoods and go round him.",
+			"note": "Level tidy (0.4.0): Twisted Hatred's webwoods and Xethorr are a group step, but every player walks from Dolanaar past the webwoods to the Wellspring River and the Oracle Glade at about 10; Xethorr (npc 272116, level 12 elite) walks their east edge.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 272116 Xethorr the Wicked: level 12, rank elite, spawns 49-50,40-52 in Teldrassil"
+				}
+			]
+		},
+		{
 			"id": "823-de-vries-apple-treat",
 			"faction": "Alliance",
 			"at": {
