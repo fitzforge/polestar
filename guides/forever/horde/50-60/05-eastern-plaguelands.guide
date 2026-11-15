@@ -17,6 +17,13 @@ next forever/horde/50-60/06-silithus
 # Darrowshire (5211), and the Marlene/Chromie chain (5152, 5153, 5154) to Brother Carlin (5210). Brother Carlin opens
 # Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first.
 
+step Tirion Fordring
+  zone Eastern Plaguelands
+  tip Ride east along the road into the Eastern Plaguelands. Tirion lives in a small house by the Thondroril River, just north of the road at the border; his three hunts are on this guide's ground.
+  accept 5542
+  accept 5543
+  accept 5544
+
 step Eastern Plaguelands
   zone Eastern Plaguelands
   goto 71.0,52.0 "Light's Hope Chapel"
@@ -160,6 +167,12 @@ step Light's Hope Chapel
 
 # ---------------------------------------------------------------- The south
 
+step Level 56
+  when level<56
+  tip Top up here to level 56 before Tirion's hunts and Carlin's villains (level 56-57 quests): the Plaguebats (53-55) over the fields south-west of the chapel are under your level. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
+  goto 53.4,74.8 map 1423 "Plaguebat"
+  level 56 grind 8600                  -- grind on Plaguebat
+
 step Eastern Plaguelands: kill these as you meet them
   zone Eastern Plaguelands
   tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground.
@@ -172,10 +185,8 @@ step Eastern Plaguelands: kill these as you meet them
 
 step Nathanos Blightcaller
   accept 6022
-  tip The Banshee Queen's champion holds the Marris Stead farmhouse, north of the Undercroft.
+  tip The Banshee Queen's champion holds the Marris Stead farmhouse, north of the Undercroft. His other hunts, in the north of the zone, wait for the next guide's Plaguelands trip.
   turnin 5961
-  accept 6042
-  accept 6133
 
 step Eastern Plaguelands: kill these as you meet them
   zone Eastern Plaguelands
@@ -185,36 +196,45 @@ step Eastern Plaguelands: kill these as you meet them
   kill 8600 quest 5543.1
 
 step Egan
-  tip Egan the ghost stands by a hut in Terrordale, in the north-west corner.
+  tip Egan the ghost stands by a hut in Terrordale, in the north-west corner; Augustus the Touched sits inside the hut.
   turnin 5281                         -- Inside
+  accept 6164                         -- Augustus, inside
+
+step Terrordale: kill these as you meet them
+  zone Eastern Plaguelands
+  tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
+  tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
+  tip Careful: Ziggurat Protectors (58, elite) guard the ziggurats north-east of Terrordale: take the mounds nearer the town and stay clear of them.
+  collect 15884 quest 6164 @17.4,31.1 -- Upstairs
+  collect 15043 quest 5901
+  collect 12840 x20 optional -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission
+
+step Augustus the Touched
   turnin 6164                         -- Inside
+  note Keep the termites: Mickey Levine at the Bulwark takes them on the next guide's ride into the Western Plaguelands.
+
+step Level 57
+  when level<57
+  tip Top up here to level 57 before the Frenzied Plaguehounds of Northdale (57-58): the Noxious Plaguebats (54-56) over the fields on the way east are under your level. Or, with a group, run the Blackrock Spire dungeon (Lower) instead.
+  goto 49.5,43.4 map 1423 "Noxious Plaguebat"
+  level 57 grind 8601                  -- grind on Noxious Plaguebat
 
 step Plaguewood: kill these as you meet them
   zone Eastern Plaguelands
-  tip Frenzied Plaguehounds and Monstrous Plaguebats share the fields around Northdale and Eastwall Tower, south of Zul'Mashar.
-  kill 8602 quest 6042.2
+  tip Frenzied Plaguehounds share the fields around Northdale and Eastwall Tower, south of Zul'Mashar.
   kill 8598 quest 5542.3
-  kill 8601 quest 6042.1
 
 # ---------------------------------------------------------------- The north
 
 step Eastern Plaguelands: kill these as you meet them
   zone Eastern Plaguelands
-  tip The high elf Rangers, Pathstriders and Woodsmen guard the lodge by Northpass Tower; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.
   tip The skull sits in the Pestilent Scar, among Blighted Horrors and Plague Monstrosities.
-  kill 8601 quest 6042.1
   collect 12956 quest 5181.1          -- Underwater
-
-step Pathstrider
-  kill 8565 quest 6133.1              -- Pathstrider walks around Quel'Lithien Lodge: look inside the circle on the map
-  kill 8564 quest 6133.2
-  kill 8563 quest 6133.3
-  collect 15847 quest 6133.4
 
 # ---------------------------------------------------------------- Corin's Crossing and back west
 
 step Corin's Crossing
-  tip Ride south from the lodge to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
+  tip Ride south to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
   tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
@@ -224,18 +244,7 @@ step Corin's Crossing
 
 step Nathanos Blightcaller
   tip Ride west to the Marris Stead.
-  turnin 6133
-  turnin 6042
   turnin 6022
-
-step Nathanos Blightcaller
-  when group 6135
-  accept 6135
-
-step Duskwing, Oh How I Hate Thee...
-  when group 6135
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Duskwing is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back.
-  collect 15850 quest 6135.1 @26.1,59.0 map 1423 live
 
 step Carlin Redpath
   turnin 5181
@@ -312,12 +321,6 @@ step Rabine Saturna
   accept 1124
   note Both quests lead to Silithus: keep them.
 
-step Salfa
-  zone Winterspring
-  when complete 8464
-  tip Back through the tunnel and take the Winterspring exit: Salfa stands right where it comes out.
-  turnin 8464
-
 step Winterspring
   zone Winterspring
   goto 31.3,45.2 "Donova Snowden"
@@ -333,14 +336,30 @@ step Donova Snowden
   accept 3912
   note Toxic Horrors are in Felwood, on a later trip: keep it.
 
+step Level 57
+  when level<57
+  tip Top up here to level 57 before the Moontouched Owlbeasts and Umi's yeti horns (57-58): the Ice Thistle Yetis (55-56) on the hills just south-east of Everlook are under your level. Or, with a group, run the Blackrock Spire dungeon (Lower) instead.
+  goto 52.5,33.8 map 1452 "Ice Thistle Yeti"
+  level 57 grind 7458                  -- grind on Ice Thistle Yeti
+
 step Moontouched Owlbeasts
   tip Ride east to Everlook and north out of it; the Moontouched Owlbeasts roam the hills of Frostsaber Rock's southern slopes. Pull them one at a time.
   tip Careful: Hailspite, level 60 elites, gather in the snowfields south-east of Everlook, where a few Moontouched Owlbeasts roam too: stay on the slopes north of town.
   kill 7453 quest 4741 @64.9,17.8
 
-step Winterspring
+step Umi Rumplesnicker
   zone Winterspring
-  goto 60.5,36.3 "Everlook"
+  tip In Everlook.
+  accept 977
+
+step Pristine Yeti Horns
+  tip The yeti hills start just south-east of Everlook. Only Matriarchs and Patriarchs drop horns: pull them one at a time.
+  collect 12367 quest 977             -- Below ground
+
+step Umi Rumplesnicker
+  turnin 977
+  accept 5163
+  note Umi's third prank targets goblins in Gadgetzan, Un'Goro and Everlook: keep it for later.
 
 step Fly to Gadgetzan
   zone Winterspring
@@ -358,6 +377,21 @@ step Sprinkle
   tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
   kill 7583 quest 5163.2 "Scare Sprinkle with Umi's Mechanical Yeti"
   use 12928 quest 5163.2 @51.1,26.9 map 1446
+
+step Gadgetzan
+  tip Back in town, two goblins have work for the Un'Goro loop of the next guide: Tran'rek beside the wind rider master, and Alchemist Pestlezugg in his shop.
+  accept 4504                         -- Tran'rek
+
+step Alchemist Pestlezugg
+  when onquest 4494
+  zone Tanaris
+  turnin 4494                         -- Inside: March of the Silithid, if you took it in Orgrimmar on the Azshara guide
+  accept 4496
+
+step Alchemist Pestlezugg
+  when available 4507
+  zone Tanaris
+  accept 4507                         -- Inside
 
 # ---------------------------------------------------------------- Tanaris
 

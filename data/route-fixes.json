@@ -5353,14 +5353,182 @@
 			{
 				"a": [
 					"turnin",
+					5051
+				],
+				"b": [
+					"accept",
+					5542
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Tirion Fordring's hunts (5542-5544, level 56) are taken on the Eastern Plaguelands guide's ride east past his hut at about 56, where their work is, instead of in the Felwood guide at 53 and carried five guides."
+			},
+			{
+				"a": [
+					"turnin",
+					5281
+				],
+				"b": [
+					"accept",
+					6164
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901) are done at the Eastern Plaguelands guide's Terrordale stop with Egan at about 56; Terrordale's undead are 54-56, over the Felwood guide's 53."
+			},
+			{
+				"a": [
+					"turnin",
+					6029
+				],
+				"b": [
+					"accept",
+					5901
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): A Plague Upon Thee (5901) is taken from Mickey Levine on the Azshara guide's Bulwark stop, one guide before its Terrordale termites, instead of in the Un'Goro guide."
+			},
+			{
+				"a": [
+					"turnin",
+					4511
+				],
+				"b": [
+					"accept",
+					6004
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Unfinished Business (6004, level 56: Scarlet Mages 55-56 and Knights 54-55 at the Northridge Lumber Camp) is taken from Kirsta on the Silithus guide's Western Plaguelands ride at about 58, with its follow-ups, instead of at 53."
+			},
+			{
+				"a": [
+					"turnin",
+					5233
+				],
+				"b": [
+					"accept",
+					4985
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): The Wildlife Suffers Too part 2 (4985, Diseased Grizzlies 55-56) is taken from Mulgris at the Writhing Haunt cauldron stop of the Silithus guide (about 59) instead of at 53."
+			},
+			{
+				"a": [
+					"turnin",
+					3913
+				],
+				"b": [
+					"accept",
+					4504
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Super Sticky (4504, Tar Lurkers and Lords 52-54 in a dense pit) and Pawn Captures Queen (4507) are taken at Gadgetzan on the Eastern Plaguelands guide's stop (about 57) and worked on the Silithus guide's Un'Goro loop, instead of from the Azshara 40-50 guide at 50."
+			},
+			{
+				"a": [
+					"turnin",
+					3913
+				],
+				"b": [
+					"accept",
+					4507
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): see Super Sticky (4504): Pawn Captures Queen is taken the visit before its Un'Goro work, not 22 hours earlier."
+			},
+			{
+				"a": [
+					"turnin",
+					1126
+				],
+				"b": [
+					"accept",
+					4501
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Beware of Pterrordax (4501, Frenzied Pterrordax 51-54 in dense flights) is taken from the sign at Marshal's Refuge on the Silithus guide's Un'Goro loop (about 59) instead of on arrival in the crater at 51."
+			},
+			{
+				"a": [
+					"turnin",
+					5085
+				],
+				"b": [
+					"accept",
+					977
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Umi's yeti horns (977: Ice Thistle Matriarchs and Patriarchs 56-58) are done on the Eastern Plaguelands guide's Everlook stop after its top-up to 57, instead of in the Winterspring guide at 55."
+			},
+			{
+				"a": [
+					"turnin",
+					5206
+				],
+				"b": [
+					"accept",
+					6042
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Nathanos' hunts Un-Life's Little Annoyances (6042, level 58) and The Ranger Lord's Behest (6133, level 60: Rangers 59-60) are taken on the Silithus guide's first Plaguelands trip and worked on its second ride east past Quel'Lithien Lodge and Northdale (about 59), instead of at 56."
+			},
+			{
+				"a": [
+					"turnin",
+					5206
+				],
+				"b": [
+					"accept",
+					6133
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): see Un-Life's Little Annoyances (6042)."
+			},
+			{
+				"a": [
+					"turnin",
 					8464
 				],
 				"b": [
 					"turnin",
-					5085
+					8469
 				],
 				"faction": "Horde",
-				"why": "Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide (Winterfall Village, about 55.4) and was handed in to Salfa only in the Felwood guide at about 59.7. Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring (27.7,34.5), which the Eastern Plaguelands guide rides out of on its way from Moonglade to Donova Snowden (564 yd on): the hand-in goes there, three levels earlier, with no detour. The Felwood guide keeps a hand-in only while it is still carried."
+				"why": "Horde 50-60 level tidy (0.4.0): Winterfall Activity (8464, level 58: Winterfall Village's Shamans and Ursas 56-58) is taken from Salfa on the last guide's Winterspring loop (about 59.7), worked on its way back west from Everlook and handed in to Salfa at the end, instead of at the Winterspring guide's 55. Beads for Salfa (8469) needs it handed in first, so the beads go to Salfa on that last stop."
+			},
+			{
+				"a": [
+					"turnin",
+					6133
+				],
+				"b": [
+					"accept",
+					6135
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Duskwing, Oh How I Hate Thee... (6135, group) is offered once Nathanos has The Ranger Lord's Behest (6133) back; with 6042 and 6133 on the Silithus guide's second Plaguelands ride, the group step follows their hand-in at the Marris Stead."
+			},
+			{
+				"a": [
+					"turnin",
+					3517
+				],
+				"b": [
+					"turnin",
+					3542
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Stealing Knowledge (3517: Spitelash naga 52-55 in the Ruins of Eldarath) moved from 40-50/06 (about 49) to the Azshara guide at about 55.5, with Xylem's delivery and payment beside Valormok; Jes'rimon's and Andron Gant's deliveries go in on that guide's Orgrimmar and Undercity stops."
+			},
+			{
+				"a": [
+					"accept",
+					3505
+				],
+				"b": [
+					"accept",
+					3601
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 level tidy (0.4.0): Kim'jael Indeed! (3601) is taken on the Azshara guide's Thalassian Base Camp trip (about 55.5) with Betrayed's blood elves, whose camp holds his crates, instead of at 50 (Blood Elves 51-55)."
 			}
 		],
 		"notes": [
@@ -9906,6 +10074,42 @@
 			}
 		],
 		"skip": [
+			{
+				"q": 4061,
+				"faction": "Horde",
+				"reason": "Horde 50-60 level tidy (0.4.0): The Rise of the Machines' War Reavers are 53-55 among the Thaurissan dwarves (7 spawns 53+, a recorded death) at the route's only Burning Steppes pass (model 52-53): 3 levels over at a dangerous spot, and no later Burning Steppes visit on the Horde route. Offered to the team (no later band passes the Steppes).",
+				"issue": "-"
+			},
+			{
+				"q": 4987,
+				"faction": "Horde",
+				"reason": "Horde 50-60 level tidy (0.4.0): The Wildlife Suffers Too part 2 (4985, Diseased Grizzlies 55-56) moved from the Felwood guide's Western Plaguelands start (53) to the Silithus guide's Writhing Haunt stop (about 59); Glyphed Oaken Branch, its follow-up for Nara Wildmane in Thunder Bluff, has no Thunder Bluff stop after that.",
+				"issue": "-"
+			},
+			{
+				"q": 5203,
+				"faction": "Horde",
+				"reason": "Horde 50-60 level tidy (0.4.0): Rescue From Jaedenar (level 55, an escort out of Shadow Hold's caster cave) and its follow-ups Retribution of the Light (5204, level 57, Rakaiah among Darkweavers and Warlocks) and The Remains of Trey Lightforge (5385) came at the Felwood guide's 53: 2-4 levels over. They start from a rare key drop; A Strange Red Key (5202) itself stays.",
+				"issue": "-"
+			},
+			{
+				"q": 5204,
+				"faction": "Horde",
+				"reason": "Horde 50-60 level tidy (0.4.0): see Rescue From Jaedenar (5203): level 57 at the Felwood guide's 53.",
+				"issue": "-"
+			},
+			{
+				"q": 5385,
+				"faction": "Horde",
+				"reason": "Horde 50-60 level tidy (0.4.0): see Rescue From Jaedenar (5203): follows Retribution of the Light (5204).",
+				"issue": "-"
+			},
+			{
+				"q": 3564,
+				"faction": "Horde",
+				"reason": "Horde 50-60 level tidy (0.4.0): Andron's Payment to Jediga goes back to Valormok, and Andron Gant's delivery (3542) is now handed in on the Azshara guide's Undercity stop, after its last Valormok visit; the route never returns to Azshara.",
+				"issue": "-"
+			},
 			{
 				"q": 212,
 				"faction": "Alliance",

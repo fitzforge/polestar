@@ -3157,7 +3157,8 @@ test('Horde 40-50: grind tips name a dungeon only when its run is in the same or
 });
 
 test('Horde 40-50/04: the Slag Pit plans come with the gorge sweep and go back on the first Thorium Point return (0.4.0 route audit)', { skip }, () => {
-	const list = goals(H40('04-tanaris'));
+	// The Searing Gorge is done in 50-60/01, between Kargath and Blackrock Mountain, since the 0.4.0 level tidy (its camps are 48-50).
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
 	const plans = at(list, 'the Secret Plans (7722)', (g) => g.t === 'collect' && g.quest === 7722);
 	const incendosaurs = at(list, 'the Incendosaurs (7727)', (g) => g.t === 'kill' && g.quest === 7727);
 	assert.equal(list[plans].s, list[incendosaurs].s, 'the plans are on the sweep step with the Incendosaurs');
@@ -3671,7 +3672,8 @@ test('#246: every goal with Tirion leads to Tirion Fordring at his hut, never to
 			assert.deepEqual(picked, { npc: 1855, map: 1423 }, `${guide} (step ${step.title}) ${goal.t} ${goal.quest}: Tirion Fordring on the Eastern Plaguelands' map`);
 		}
 	}
-	for (const guide of ['forever/alliance/50-60/04-western-plaguelands.guide', 'forever/horde/50-60/02-felwood.guide']) {
+	// Horde: since the 0.4.0 level tidy Tirion's hunts are taken on 50-60/05's ride east past his hut, where they are done.
+	for (const guide of ['forever/alliance/50-60/04-western-plaguelands.guide', 'forever/horde/50-60/05-eastern-plaguelands.guide']) {
 		for (const q of [5542, 5543, 5544]) assert.ok(found.includes(`${guide} accept ${q}`), `${guide} takes ${q} from Tirion`);
 	}
 });
@@ -6638,7 +6640,8 @@ test('forever/horde/40-50/03-feralas.guide: flow re-order: the Pool of Tears bef
 // Flow review, Horde 40-60 (#1166): Caught! is handed in at the outhouse right after its work (the guide came back to
 // the dig site at the end), and the Smithing Tuyere drops from the same Steamsmiths as the Thorium Plated Daggers.
 test('forever/horde/40-50/04-tanaris.guide: flow re-order: Caught! on the spot, the tuyere with the daggers', { skip }, () => {
-	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	// (In 50-60/01 since the 0.4.0 level tidy: the gorge's camps are 48-50.)
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
 	const caught = list[at(list, 'turnin 4449', is('turnin', 4449))];
 	assert.equal(caught.s, list[at(list, 'collect 4306 quest 4449', (g) => g.t === 'collect' && g.item === 4306)].s, 'handed in on the dig site step');
 	assert.ok(caught.s < list[at(list, 'accept 7728', is('accept', 7728))].s, 'before Thorium Point');
@@ -6652,7 +6655,11 @@ test('forever/horde/50-60/03-winterspring.guide: flow re-order: Salfa where the 
 	const list = goals('forever/horde/50-60/03-winterspring.guide');
 	const salfa = at(list, 'turnin 8465', is('turnin', 8465));
 	assert.ok(salfa < at(list, 'accept 3783', is('accept', 3783)), 'before Everlook');
-	assert.equal(list[salfa].s, list[at(list, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
+	// Winterfall Activity (8464: the village's Shamans and Ursas 56-58) waits for the last Winterspring loop since the
+	// 0.4.0 level tidy: taken from Salfa there, not here.
+	assert.ok(!list.some(({ goal }) => goal.quest === 8464), 'no Winterfall Activity at 55');
+	const fw = goals('forever/horde/50-60/07-felwood.guide');
+	assert.equal(fw[at(fw, 'accept 8464', is('accept', 8464))].goal.npc, 11556, 'taken from Salfa in 07');
 });
 
 // Flow review, Horde 40-60 (#1166): the flight lands in Ratchet, so Liv and Islen come first and the ride north ends
@@ -6669,9 +6676,12 @@ test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then t
 test('forever/horde/50-60/05-eastern-plaguelands.guide: flow re-order: Corin\'s Crossing before Nathanos, The Everlook Report at the Bulwark', { skip }, () => {
 	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const rot = at(list, 'collect 15447', (g) => g.t === 'collect' && g.item === 15447);
-	const nathanos = at(list, 'turnin 6133', is('turnin', 6133));
+	// Since the 0.4.0 level tidy Nathanos' northern hunts (6042, 6133: Pathstriders and Rangers 57-60) are handed in on the
+	// Silithus guide's second Plaguelands ride; To Kill With Purpose is the one left for this visit.
+	const nathanos = at(list, 'turnin 6022', is('turnin', 6022));
 	assert.ok(rot < nathanos, 'Corin\'s Crossing before Nathanos');
-	assert.equal(list[at(list, 'turnin 6022', is('turnin', 6022))].s, list[nathanos].s, 'To Kill With Purpose on the same visit');
+	const sil = goals('forever/horde/50-60/06-silithus.guide');
+	assert.equal(sil[at(sil, 'turnin 6042', is('turnin', 6042))].s, sil[at(sil, 'turnin 6133', is('turnin', 6133))].s, "Nathanos' two hunts on one visit");
 	// Since 0.3.7 the Bulwark and Felstone Farm close 50-60/04 (fresh start: 05 opens at Light's Hope Chapel's flight).
 	const az = goals('forever/horde/50-60/04-azshara.guide');
 	assert.ok(at(az, 'turnin 6029', is('turnin', 6029)) < at(az, 'turnin 5229', is('turnin', 5229)), 'the Bulwark on the way to Felstone Field');
@@ -7592,8 +7602,10 @@ test('forever/horde/40-50/04-tanaris.guide: final review: the lair before Tooga,
 	assert.ok(at(list, 'collect 8587', (g) => g.t === 'collect' && g.item === 8587) < escort, 'the insect parts before the escort');
 	const done = list[at(list, 'complete 1560', is('complete', 1560))].goal;
 	assert.deepEqual([done.map, Math.round(done.x), Math.round(done.y)], [1446, 67, 26], 'the escort points at Torta in the port');
-	const kalaran = at(list, 'accept 3441', is('accept', 3441));
-	for (const npc of [5846, 5844, 5854]) assert.ok(at(list, `kill ${npc}`, (g) => g.t === 'kill' && g.npc === npc) < kalaran, `${npc} on the ride from Thorium Point to Kalaran`);
+	// The Cauldron and Velarok are in 50-60/01 since the 0.4.0 level tidy.
+	const gorge = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	const kalaran = at(gorge, 'accept 3441', is('accept', 3441));
+	for (const npc of [5846, 5844, 5854]) assert.ok(at(gorge, `kill ${npc}`, (g) => g.t === 'kill' && g.npc === npc) < kalaran, `${npc} on the ride from Thorium Point to Kalaran`);
 	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
 	assert.ok(!compiled(file).steps.some((step) => /Kargath|next guide starts/.test(step.note || '')), 'no tip about Kargath or the next guide');
 });
@@ -7627,8 +7639,10 @@ test('forever/horde/50-60/01-un-goro-crater.guide: final review: Balthazad first
 	const scale = list[at(list, 'collect 11831', (g) => g.t === 'collect' && g.item === 11831)];
 	assert.ok(!/hive/i.test(scale.step.title) && !/silithid hive/.test(scale.step.note || ''), 'the pterrordax step is not titled or tipped for the hive');
 	assert.ok(!compiled(file).steps.some((step) => /Grom'gol/.test(step.note || '')), 'no Grom\'gol zeppelin in the tips');
-	const queen = at(list, 'accept 4507', is('accept', 4507));
-	assert.ok(!list[queen].step.goals.some((g) => g.t === 'note' && /Skip it/.test(g.text || '')), 'no skip note beside the accept');
+	// Pawn Captures Queen is taken on 50-60/05's Gadgetzan stop since the 0.4.0 level tidy, the visit before its Un'Goro loop.
+	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const queen = at(ep, 'accept 4507', is('accept', 4507));
+	assert.ok(!ep[queen].step.goals.some((g) => g.t === 'note' && /Skip it/.test(g.text || '')), 'no skip note beside the accept');
 });
 
 // Final route review, Horde 40-60: in from Tarren Mill at Sorrow Hill, the order rode north to Mulgris and back south
@@ -7641,7 +7655,8 @@ test('forever/horde/50-60/02-felwood.guide: final review: Marlene before Mulgris
 	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	assert.ok(ep.some(({ goal }) => is('turnin', 5152)(goal)), 'Marlene in the Eastern Plaguelands guide');
 	assert.ok(!list.some(({ goal }) => is('turnin', 5152)(goal)), 'not here');
-	assert.equal(list[0].goal.quest, 4984, 'Mulgris first');
+	// (Since the 0.4.0 level tidy a top-up to 53 for the wolves, only below 53, comes before him.)
+	assert.equal(list.find(({ goal }) => goal.quest).goal.quest, 4984, 'Mulgris first');
 	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
 	const fp = list[at(list, 'getfp Bloodvenom Post', (g) => g.t === 'getfp' && g.location === 'Bloodvenom Post')];
 	assert.equal(fp.s, list[at(list, 'accept 6162', is('accept', 6162))].s, 'with the Bloodvenom Post quests');
@@ -7718,7 +7733,7 @@ test('forever/horde/50-60/01-un-goro-crater.guide: no Tarren Mill landing for Ve
 	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
 	assert.ok(!list.some(({ goal }) => goal.quest === 2933), 'no Venom Bottles');
 	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && goal.location === 'Tarren Mill'), 'no flight to Tarren Mill');
-	const kargath = at(list, 'turnin 4061 at Kargath', is('turnin', 4061));
+	const kargath = at(list, 'turnin 3822 at Kargath', is('turnin', 3822));
 	const next = list.slice(kargath).find(({ goal }) => goal.t === 'fly');
 	assert.equal(next && next.goal.location, 'Undercity', 'the next flight after Kargath goes to the Undercity');
 });
@@ -7754,15 +7769,17 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: only Mages bind at Light
 // Horde 50-60 audit (0.4.0): Winterfall Activity (8464) is complete at the end of the Winterspring guide and waited for
 // the Felwood guide (about 59.7); Salfa stands where Timbermaw Hold's tunnel comes out into Winterspring, which the
 // Eastern Plaguelands guide rides out of from Moonglade to Donova Snowden. Handed in there, three levels earlier.
-test('forever/horde/50-60/05-eastern-plaguelands.guide: Winterfall Activity handed to Salfa on the way from Moonglade to Donova', { skip }, () => {
-	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
-	const salfa = at(list, 'turnin 8464', is('turnin', 8464));
-	assert.equal(list[salfa].goal.npc, 11556, 'Salfa');
-	assert.ok(at(list, 'turnin 1123', is('turnin', 1123)) < salfa, 'after Moonglade');
-	assert.ok(salfa < at(list, 'turnin 5085', is('turnin', 5085)), 'before Donova');
+// Since the 0.4.0 level tidy (the village's Shamans and Ursas are 56-58, over the Winterspring guide's 55) Winterfall
+// Activity is taken, worked and handed in on the last guide's Winterspring loop (about 59.7): nothing is carried.
+test('forever/horde/50-60/07-felwood.guide: Winterfall Activity on the last Winterspring loop, Salfa to Salfa', { skip }, () => {
+	for (const n of ['03-winterspring', '05-eastern-plaguelands']) assert.ok(!goals(`forever/horde/50-60/${n}.guide`).some(({ goal }) => goal.quest === 8464), `no Winterfall Activity in ${n}`);
 	const fw = goals('forever/horde/50-60/07-felwood.guide');
-	const late = fw[at(fw, 'turnin 8464', is('turnin', 8464))];
-	assert.ok((late.step.when || []).some((p) => p.k === 'complete' && !p.neg), 'the Felwood guide hands it in only while it is still carried');
+	const take = at(fw, 'accept 8464', is('accept', 8464));
+	const village = at(fw, 'kill 8464', (g) => g.t === 'kill' && g.quest === 8464);
+	const hand = at(fw, 'turnin 8464', is('turnin', 8464));
+	assert.ok(take < village && village < hand, 'Salfa, the village, Salfa');
+	assert.equal(fw[hand].goal.npc, 11556, 'Salfa');
+	assert.ok(hand < at(fw, 'turnin 8469', (g) => g.t === 'turnin' && g.quest === 8469), 'Beads for Salfa after it (8469 needs it handed in)');
 });
 
 
@@ -7927,7 +7944,8 @@ test('Horde 40-60: grind steps sit on mobs an open quest needs', { skip }, () =>
 	const cases = [
 		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 4120, "Irontree Woods (Talo's grizzlies and ravagers)", /^\s+level 54\.21\b/],
 		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 8461, 'Felpaw Village (Deadwood of the North)', /^\s+level 54\.54\b/],
-		['forever/horde/50-60/01-un-goro-crater.guide', 52, (g) => g.t === 'collect' && g.quest === 4300, 'the Marshlands ravasaurs (Bone-Bladed Weapons)', /^\s+level 52\b/],
+		// Since the 0.4.0 level tidy the crater opens with the top-up to 52 (Trappers and Gorishi 52-53), on Larion's Threshers.
+		['forever/horde/50-60/01-un-goro-crater.guide', 52, (g) => g.t === 'kill' && g.quest === 4145, "the Bloodpetal Threshers (Larion and Muigin)", /^\s+level 52\b/],
 	];
 	for (const [guide, lv, work, what, line] of cases) {
 		assert.ok(goals(guide).some(({ step, goal }) => goal.t === 'level' && goal.level === lv && step.goals.some(work)), `${guide}: the level ${lv} grind is in the step for ${what}`);
@@ -7962,11 +7980,12 @@ test('Horde 40-60 flow pass: givers and enders are visited when the route passes
 	// Since the fresh-start pass the Marshal's Refuge landing ends 50-60/05 (Valor's Rest and Southwind with it).
 	const epl = goals(H('50-60/05-eastern-plaguelands'));
 	const refuge = epl[at(epl, 'accept 4492', is('accept', 4492))].s;
-	// Beware of Pterrordax (level 50-51 pterrordax) is done on the first Un'Goro stay, where the route kills them for Shizzle.
-	const ug = goals(H('50-60/01-un-goro-crater'));
-	assert.ok(at(ug, 'accept 4501', is('accept', 4501)) < at(ug, 'turnin 4501', is('turnin', 4501)), 'Beware of Pterrordax in 50-60/01');
-	assert.equal(ug[at(ug, 'turnin 4501', is('turnin', 4501))].s, ug[at(ug, 'turnin 4503', is('turnin', 4503))].s, "with Shizzle's scales");
-	for (const n of ['50-60/05-eastern-plaguelands', '50-60/06-silithus']) assert.ok(!goals(H(n)).some(({ goal }) => goal.quest === 4501), `no Beware of Pterrordax in ${n}`);
+	// Beware of Pterrordax (Frenzied Pterrordax 51-54) is done on the Silithus guide's Un'Goro loop since the 0.4.0 level
+	// tidy: taken at the refuge sign and handed in to Spraggle on the same loop.
+	const sil1 = goals(H('50-60/06-silithus'));
+	assert.ok(at(sil1, 'accept 4501', is('accept', 4501)) < at(sil1, 'turnin 4501', is('turnin', 4501)), 'Beware of Pterrordax in 50-60/06');
+	assert.equal(sil1[at(sil1, 'turnin 4501', is('turnin', 4501))].s, sil1[at(sil1, 'turnin 4491', is('turnin', 4491))].s, 'with Ringo at Spraggle');
+	for (const n of ['50-60/01-un-goro-crater', '50-60/05-eastern-plaguelands']) assert.ok(!goals(H(n)).some(({ goal }) => goal.quest === 4501), `no Beware of Pterrordax in ${n}`);
 	assert.ok(at(epl, 'accept 4492', is('accept', 4492)) < at(epl, 'turnin 1124', is('turnin', 1124)), 'Lost! too');
 	assert.equal(epl[at(epl, 'turnin 3914', is('turnin', 3914))].s, refuge, "Linken's Sword to Linken on the same landing");
 	// The rest of the flow pass (0.3.7).
@@ -7974,7 +7993,7 @@ test('Horde 40-60 flow pass: givers and enders are visited when the route passes
 	before('40-50/01-stranglethorn-vale', ['turnin', 589], ['turnin', 196], 'the basilisks on the ride north from Booty Bay, handed in at Grom\'gol');
 	assert.ok(!az.some(({ goal }) => goal.quest === 589), 'no Singing Crystals left in 06');
 	before('40-50/04-tanaris', ['accept', 5863], ['turnin', 992], 'Gadgetzan on landing, before Sandsorrow Watch');
-	before('40-50/04-tanaris', ['turnin', 3442], ['turnin', 7729], 'Velarok on the way back north to Thorium Point');
+	before('50-60/01-un-goro-crater', ['turnin', 3442], ['turnin', 7729], 'Velarok on the way back north to Thorium Point');
 	before('50-60/03-winterspring', ['turnin', 5082], ['accept', 3783], 'Winterspring west to east');
 	assert.ok(!goals(H('50-60/03-winterspring')).some(({ goal }) => goal.quest === 6603), "no Everlook pointer to Donova");
 	const sil = goals(H('50-60/06-silithus'));
@@ -8005,11 +8024,12 @@ test('Horde 40-60 fresh start: the guides open at hubs that stand on their own',
 	const fer = g('40-50/03-feralas');
 	assert.ok(at(fer, 'accept 698', is('accept', 698)) < at(fer, 'turnin 698', is('turnin', 698)), "Dar's quests on the Stonard landing");
 	const az = g('50-60/04-azshara');
-	assert.ok(at(az, 'accept 3504', is('accept', 3504)) < at(az, 'turnin 3504', is('turnin', 3504)), 'Belgrom in Orgrimmar before Valormok');
+	assert.ok(!az.some(({ goal }) => goal.quest === 3504), '#2390: Betrayed starts at Ag\'tor (3505); Belgrom no longer offers 3504');
+	assert.ok(at(az, 'accept 3505', is('accept', 3505)) < at(az, 'turnin 3505', is('turnin', 3505)), '#2390: 3505 taken at Ag\'tor before the base camp');
 	assert.equal(az[az.length - 1].goal.quest, 5051, 'the Bulwark and Felstone Farm close the Azshara guide');
 	const epl = g('50-60/05-eastern-plaguelands');
 	assert.equal(epl.find(({ goal }) => goal.t === 'getfp').goal.location, "Light's Hope Chapel", "the Eastern Plaguelands guide opens at Light's Hope Chapel and learns its flight path");
-	assert.equal(epl.find(({ goal }) => goal.t === 'accept').goal.quest, 5281, 'its first accept is at the chapel');
+	assert.deepEqual(epl.filter(({ goal }) => goal.t === 'accept').slice(0, 4).map(({ goal }) => goal.quest), [5542, 5543, 5544, 5281], "Tirion's hunts on the ride east (where their work is), then the chapel");
 	assert.equal(g('50-60/06-silithus').find(({ goal }) => goal.t === 'accept').goal.quest, 8277, 'Silithus opens at Cenarion Hold');
 	const fel = g('50-60/02-felwood');
 	assert.ok(!fel.some(({ goal }) => [5402, 5403].includes(goal.quest)), "no Alliance Scourgestone turn-ins at Chillwind Camp");
@@ -8765,7 +8785,7 @@ test('Horde 40-60 accept levels: quests are taken where the route reaches their 
 	assert.ok(t50 >= 0 && t50 < at(azs, 'accept 4494', is('accept', 4494)), "Azshara's top-up reaches 50 before March of the Silithid");
 	const ung = g('50-60/01-un-goro-crater');
 	const top = ung.findIndex(({ goal }) => goal.t === 'level' && goal.level === 52);
-	assert.ok(top >= 0 && top < at(ung, 'accept 4061', is('accept', 4061)), "Un'Goro's top-up reaches 52 before The Rise of the Machines");
+	assert.ok(top >= 0 && top < at(ung, 'kill 4145.2', (x) => x.t === 'kill' && x.quest === 4145 && x.oi === 2), "Un'Goro's top-up reaches 52 before the Bloodpetal Trappers (52-53)");
 	const sil = g('50-60/06-silithus');
 	const t58 = sil.findIndex(({ goal }) => goal.t === 'level' && goal.level === 58);
 	assert.ok(t58 >= 0 && t58 < at(sil, 'accept 8304', is('accept', 8304)), 'a top-up to 58 before Dearest Natalia');
@@ -9401,11 +9421,11 @@ test('Horde 40-60 final review: tips point the way the route goes', { skip }, ()
 
 // Felwood & Western Plaguelands: the top-up to 52.63 ground on Northridge's Scarlet Mages, then walked on to Kirsta
 // Deepshadow on the hill above for Unfinished Business, which wants those Scarlets. Kirsta first: the grind counts.
-test('forever/horde/50-60/02-felwood.guide: final review: Kirsta before the Northridge top-up', { skip }, () => {
-	const list = goals('forever/horde/50-60/02-felwood.guide');
-	const top = list.findIndex(({ goal }) => goal.t === 'level' && goal.level === 52);
-	assert.ok(top >= 0, 'the top-up is in the guide');
-	assert.ok(at(list, 'accept 6004', is('accept', 6004)) < top, 'Unfinished Business before the Scarlet grind');
+test('forever/horde/50-60/06-silithus.guide: Kirsta before the Northridge Scarlets, no Scarlet grind in Felwood', { skip }, () => {
+	// Since the 0.4.0 level tidy Unfinished Business (Scarlet Mages 55-56) is done on the Silithus guide's Plaguelands ride.
+	assert.ok(!goals('forever/horde/50-60/02-felwood.guide').some(({ goal }) => goal.t === 'level' && goal.level === 52), 'no Scarlet top-up in 02');
+	const list = goals('forever/horde/50-60/06-silithus.guide');
+	assert.ok(at(list, 'accept 6004', is('accept', 6004)) < at(list, 'kill 6004', (g) => g.t === 'kill' && g.quest === 6004), 'Unfinished Business before the Scarlets');
 });
 
 // Winterspring ended in Orgrimmar taking the Wool, Silk and Mageweave donations, and the Azshara guide landed in
@@ -9418,7 +9438,8 @@ test('Horde 55-56 final review: the Orgrimmar cloth donations are handed in wher
 	for (const q of [7833, 7834, 7835, 7826, 7827, 7831]) assert.ok(ws[at(ws, `turnin ${q}`, is('turnin', q))].goal.direct, `${q} handed in on the Orgrimmar stop`);
 	const az = goals('forever/horde/50-60/04-azshara.guide');
 	assert.ok(!az.some(({ goal }) => [7833, 7834, 7835, 7836, 7826, 7827, 7831, 7824].includes(goal.quest)), 'no donation stop in the Azshara guide');
-	const between = az.slice(at(az, 'turnin 91904', is('turnin', 91904)) + 1, at(az, 'turnin 3562', is('turnin', 3562)));
+	// (Since the 0.4.0 level tidy the Valormok stop takes Stealing Knowledge from Jediga; the payments are gone with its deliveries.)
+	const between = az.slice(at(az, 'turnin 91904', is('turnin', 91904)) + 1, at(az, 'accept 3517', is('accept', 3517)));
 	assert.deepEqual(between.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => goal.location), ['Valormok'], 'one flight, the Crossroads to Valormok');
 	assert.ok(!between.some(({ goal }) => goal.map === 1454), 'no Orgrimmar stop between the crates and Valormok');
 });
@@ -10620,7 +10641,7 @@ test('Horde 45 and 53 Orgrimmar stops: Belgrom and Jes\'rimon take their ready h
 // Stonebridge". They are talk goals.
 test('Horde 40-60: listen and question objectives say Talk to, never Kill', { skip }, () => {
 	for (const [file, quest, npcs] of [
-		['forever/horde/40-50/04-tanaris.guide', 3441, [8479]],
+		['forever/horde/50-60/01-un-goro-crater.guide', 3441, [8479]],
 		['forever/horde/40-50/05-the-hinterlands.guide', 2784, [7572]],
 		['forever/horde/50-60/06-silithus.guide', 8304, [15171, 15170]],
 	]) {
@@ -11784,12 +11805,14 @@ test('Horde Plaguelands: Darrowshire at 56 in the Eastern Plaguelands guide, not
 	// The last step is Janice's (talk goals): with the Scarlet camp's `complete 5096` last, the addon's guide-end check
 	// (guides_end_early) saw the end done ahead while Janice's step was still live.
 	assert.equal(un.filter(({ goal }) => goal.quest).pop().goal.quest, 5023, '01 ends at Janice Felstone, after the Scarlet camp');
-	const fel = goals('forever/horde/50-60/02-felwood.guide');
-	const tirion = at(fel, 'accept 5542', is('accept', 5542));
-	const book = at(fel, 'collect 15884', (g) => g.t === 'collect' && g.quest === 6164);
-	const termites = at(fel, 'collect 15043', (g) => g.t === 'collect' && g.quest === 5901);
-	assert.ok(tirion < at(fel, 'accept 6164', is('accept', 6164)) && fel[book].s === fel[termites].s, 'Terrordale after Tirion');
-	assert.ok(termites < at(fel, 'turnin 5901', is('turnin', 5901)), 'the termites before the Bulwark hand-in');
+	// Terrordale (Augustus' book, the termites) is on 50-60/05's Egan stop since the 0.4.0 level tidy (its undead are
+	// 54-56), after Tirion's hut on the ride east; Mickey Levine takes the termites on 06's Bulwark stop.
+	const tep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const tirion = at(tep, 'accept 5542', is('accept', 5542));
+	const book = at(tep, 'collect 15884', (g) => g.t === 'collect' && g.quest === 6164);
+	const termites = at(tep, 'collect 15043', (g) => g.t === 'collect' && g.quest === 5901);
+	assert.ok(tirion < at(tep, 'accept 6164', is('accept', 6164)) && tep[book].s === tep[termites].s, 'Terrordale after Tirion');
+	assert.ok(goals('forever/horde/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 5901)(goal)), 'the termites to the Bulwark on the next guide');
 	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const fp = at(ep, 'getfp LHC', (g) => g.t === 'getfp' && /Light's Hope/.test(g.location || ''));
 	const pam = at(ep, 'turnin 5149', is('turnin', 5149));
@@ -12848,7 +12871,7 @@ test('forever/horde/06-hillsbrad-foothills.guide: Horde 21-30 audit: the fields 
 // reads "Searing Lava Spider slain" and every recorded objective tick is a kill of 5858. The Horde gorge step names
 // them so, in the guide and its seed.
 test('#2199: the Horde Searing Gorge step names the Searing Lava Spiders, in the guide and its seed', () => {
-	const rel = 'forever/horde/40-50/04-tanaris.guide';
+	const rel = 'forever/horde/50-60/01-un-goro-crater.guide';
 	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
 		const text = fs.readFileSync(file, 'utf8');
 		assert.match(text, /\n\s+tip The Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge\.\n/, `${file}: the tip names them`);
@@ -14031,8 +14054,8 @@ test('Horde grind top-ups stand on camps at most a level over the player (#2207)
 	for (const [guide, title, npc] of [
 		['forever/horde/07-ashenvale.guide', 'Level 29.49', 4100],
 		['forever/horde/30-40/02-thousand-needles.guide', 'Level 33', 4635],
-		['forever/horde/50-60/02-felwood.guide', 'Level 52.63', 1821],
-		['forever/horde/50-60/03-winterspring.guide', 'Level 55.04', 7458],
+		['forever/horde/50-60/02-felwood.guide', 'Level 53', 1815],
+		['forever/horde/50-60/03-winterspring.guide', 'Level 55', 7444],
 		['forever/horde/50-60/06-silithus.guide', 'Level 58', 11741],
 	]) {
 		const step = compiled(guide).steps.find((s) => s.title === title);
@@ -14040,13 +14063,10 @@ test('Horde grind top-ups stand on camps at most a level over the player (#2207)
 		const goal = step.goals.find((g) => g.t === 'level');
 		assert.equal(goal && goal.grind, npc, `${guide}: ${title} grinds on npc ${npc}`);
 	}
+	// Since the 0.4.0 level tidy Mulgris' Diseased Grizzlies (55-56) wait for the Silithus guide's Writhing Haunt stop (about 59).
 	const fel = compiled('forever/horde/50-60/02-felwood.guide').steps;
-	const bears = fel.find((s) => s.title === 'Diseased Grizzlies');
-	assert.ok(bears && !bears.goals.some((g) => g.t === 'level'), 'no top-up on the Diseased Grizzlies');
-	const lurkers = fel.find((s) => s.title === 'Level 53');
-	assert.equal(lurkers && (lurkers.goals.find((g) => g.t === 'level') || {}).grind, 1821, 'the level 53 top-up on the Carrion Lurkers');
-	const mulgris = fel.findIndex((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 4984));
-	assert.ok(fel.indexOf(lurkers) === mulgris - 1 && mulgris === fel.indexOf(bears) - 1, 'on the way to Mulgris, whose hand-in sends you to the bears');
+	assert.ok(!fel.some((s) => s.goals.some((g) => g.quest === 4985)), 'no Diseased Grizzlies in 02');
+	assert.ok(goals('forever/horde/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 4985)(goal)), 'handed in on the Silithus guide');
 });
 
 // #2311 (kaeldrin-gh, Human Warrior 22): "Complete The Rethban Gauntlet" had no place and nothing placed before it in
