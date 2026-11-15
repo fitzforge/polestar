@@ -106,6 +106,7 @@ step The Cape of Stranglethorn: kill these as you meet them
 
 step Witch Doctor Unbagwa
   tip Inland, Witch Doctor Unbagwa sits among the Mistvale gorillas. Any gorilla can drop a fang: hand him ten and stay by him, he calls three waves of gorillas, then Mokk.
+  tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
   collect 2799 x10                    -- Gorilla Fang
   turnin 349 direct                   -- Witch Doctor Unbagwa
   collect 2797 quest 348.1

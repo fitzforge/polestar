@@ -887,6 +887,22 @@
 			]
 		},
 		{
+			"id": "stv-unbagwa-gorilla-waves-careful",
+			"faction": "Horde",
+			"at": {
+				"quest": 349,
+				"goal": "turnin"
+			},
+			"tip": "Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.",
+			"note": "Stranglethorn Fever (349): handing Witch Doctor Unbagwa the ten fangs starts the event that Stranglethorn Fever's heart (348) needs: three waves of Mistvale gorillas and then Mokk the Savage attack, with little time between them. A player (Ice, on Polestar's Discord) found it hard alone; the step now says so before the hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "player report on Polestar's Discord (Ice): the gorilla waves come back to back and were hard to survive alone"
+				}
+			]
+		},
+		{
 			"id": "barrens-fizzule-flares-and-salute",
 			"faction": "Horde",
 			"at": {

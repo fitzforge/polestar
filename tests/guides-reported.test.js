@@ -3473,6 +3473,18 @@ test('Horde 40-50/06: no Meeting with the Master or its feathers at Valormok (#2
 	assert.ok(rf.skip.some((e) => e.q === 3381 && e.faction === 'Horde' && e.issue === '#2460'), 'the route fixes leave it out for the Horde');
 });
 
+// Ice's report (Discord): Witch Doctor Unbagwa's gorilla waves for Stranglethorn Fever come back to back, then Mokk,
+// and were hard alone. The step that hands him the fangs (Horde 40-50/03's Grom'gol stop) warns before it starts.
+test('Horde 40-50/03: the Stranglethorn Fever waves step warns of three back-to-back gorilla waves and Mokk', { skip }, () => {
+	const list = goals(H40('03-feralas'));
+	const hand = list[at(list, 'turnin 349', is('turnin', 349))];
+	const text = [hand.step.note, hand.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /Careful: three waves of gorillas/, 'the Careful tip on the hand-in step');
+	assert.match(text, /a friend makes it easy/, 'it says a friend makes it easy');
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	assert.ok(fixes.some((f) => f.at && f.at.quest === 349 && f.at.goal === 'turnin' && /three waves of gorillas/.test(f.tip || '')), 'and its record');
+});
+
 test('Horde 40-50/02: a character who knows Gadgetzan flies there instead of Freewind Post (#1976)', { skip }, () => {
 	// 30-40/02 learns Gadgetzan's flight path beside the Shimmering Flats; each way to Freewind Post has its twin.
 	const steps = compiled(H40('02-feralas')).steps;
