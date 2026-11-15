@@ -81,6 +81,51 @@ fn journal_json(inputs: &Value, codex: &Value) -> Value {
 	plain(&journal(inputs, codex))
 }
 
+#[test]
+fn maraudon_lists_rot_and_regret_with_its_existing_quest_facts() {
+	// #2430: the water comes from Maraudon, but the outdoor giver/ender and an item without
+	// an instance source do not place the quest there automatically. Facts from QuestieDB
+	// 4dbb82440a27856f8dccf57094a5d792cdc7cc9b, src/corrections/Forever/traces/
+	// foreverQuestTraces.lua and foreverQuestRelationTraces.lua (93404, 93594).
+	// The relation is upstream's observed prerequisite, not a new hard-coded unlock rule.
+	let mut c = codex();
+	c["instances"]["maraudon"] = json!({ "name": "Maraudon", "map": 349 });
+	c["quests"]["93404"] = json!({
+		"title": "Rot and Regret", "level": 49, "pre": [93594],
+		"start": { "npc": [254674] }, "end": { "npc": [254674] },
+		"objectives": [{ "type": "kill", "id": 254674 }, { "type": "item", "id": 258296 }]
+	});
+	c["quests"]["93594"] = json!({
+		"title": "Word of the Woods", "level": 43,
+		"start": { "npc": [254578] }, "end": { "npc": [254674] }
+	});
+	c["npcs"]["254674"] = json!({ "name": "Woodwyrd" });
+	c["items"]["258296"] = json!({ "name": "Vial of Earth Song Water" });
+	let mut i = inputs();
+	let before = journal_json(&i, &c);
+	assert_eq!(ids(&before["dungeons"]["maraudon"]["quests"]), json!([]));
+	let table: Value = serde_json::from_str(&std::fs::read_to_string(forge_addontest::run::root().join("data/codex/journal-quests.json")).unwrap()).unwrap();
+	i["journalQuests"] = table["quests"].clone();
+	let after = journal_json(&i, &c);
+	let page = &after["dungeons"]["maraudon"];
+	assert_eq!(ids(&page["quests"]), json!([93404]));
+	let q = page_quest(page, 93404);
+	assert_eq!(q["start"]["id"], 254674);
+	assert_eq!(q["finish"]["id"], 254674);
+	assert_eq!(
+		q["objectives"],
+		json!([
+			{ "k": "kill", "id": 254674, "name": "Woodwyrd" },
+			{ "k": "item", "id": 258296, "name": "Vial of Earth Song Water" }
+		])
+	);
+	assert_eq!(q["chain"], json!([93594]));
+	assert_eq!(page["chain"]["93594"]["title"], "Word of the Woods");
+	for key in before["dungeons"].as_object().unwrap().keys().filter(|k| *k != "maraudon") {
+		assert_eq!(after["dungeons"][key], before["dungeons"][key], "unrelated page {key}");
+	}
+}
+
 fn num(x: f64) -> Value {
 	if x.fract() == 0.0 && x.abs() < 1e15 {
 		json!(x as i64)
