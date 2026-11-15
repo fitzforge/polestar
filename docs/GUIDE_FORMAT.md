@@ -75,8 +75,8 @@ Every line before the first `step`.
 | `author` | no | default: the pack's author (`pack.json`) |
 | `version` | no | integer, default `1` |
 | `coords` | no | `era` (default) or `live`: the map frame of coordinates typed in this guide (`@x,y`, `goto`, `explore`). Era-frame ones compile with `f = "e"`; on a map without Era bounds they compile live. `record draft` writes `coords live`. |
-| `pitch` | no | one line selling the zone, shown on its card in the route choice window (required, as a warning, when the guide is a route option) |
-| `pro` / `con` | no | repeatable: one advantage / disadvantage per line, shown under the pitch. Keep them short, factual and true for every race that can choose the route. |
+| `pitch` | no | one short sentence about the zone, shown on its card in the route choice window: 60 characters at most, so it fits two lines (required, as a warning, when the guide is a route option) |
+| `pro` / `con` | no | repeatable: one advantage / disadvantage per line, shown under the pitch. The card shows the first 3 pros and the first con, each on one line: 38 characters at most (a longer one is cut; the card's tooltip has every one whole). Keep them short, plain, factual and true for every race that can choose the route. Our own route options write exactly 3 and 1 (tests/route-choice-copy.test.js). |
 
 A route choice, as excerpts of two guides' headers (a pack's Tirisfal guide
 offering our Barrens or its own Silverpine):

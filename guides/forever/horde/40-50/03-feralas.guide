@@ -5,7 +5,11 @@ faction Horde
 levels 45-47
 zone Feralas
 next forever/horde/40-50/04-tanaris
-pitch The Swamp of Sorrows, Dustwallow Marsh and Feralas at 45-47: Stonard's murloc shore, Brackenwall's dragon caves and Camp Mojache's harpies and yetis.
+pitch Swamp of Sorrows and Dustwallow first, then Feralas.
+pro Takes you to level 47
+pro Then on to Tanaris
+pro Stays on the main route
+con Three zones, lots of travel
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

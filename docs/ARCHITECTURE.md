@@ -2939,13 +2939,16 @@ Polestar.Engine.GuideFocus(id) -> x, y | nil       -- live-frame percent of wher
   unconditional option.
 - **UI** (`UI/RouteChoice.lua`, frame `PolestarRouteChoice`): one card per
   option. Each card opens on the zone's art (`UI.ZoneArt`, below) framed on
-  `focusX/focusY` (where the route starts), lightly desaturated, fading into
-  the card with the zone's name on it. Polestar ships no zone art; without the
-  API or art for the map, a stretch of the night band stands in. Straight
-  under the art, at the same y on every card, the stat row: levels (in text),
-  travel time and quest count. Then the state chip, the pitch, at most 3 pros
-  and 2 cons one line each (the full lists in the card's tooltip), on a grid
-  every card shares so rules and lists line up; the recommended card has the
+  `focusX/focusY` (where the route starts), lightly desaturated, inset in its
+  own hairline, with the zone's name on it and the ∞ mark after the name for
+  a zone that is mostly Forever's own (`newInForever`). Polestar ships no zone
+  art; without the API or art for the map, a stretch of the night band stands
+  in. Under the art one line of facts: levels (in text), travel time and
+  quest count. Then the chips (the state, "New in Forever"), the pitch, and
+  3 pros and 1 con one line each (the full lists in the card's tooltip), on a
+  grid every card shares so every row lines up; the header says where the
+  routes meet again (`joinsAt`) or which route comes back to another (an
+  option whose `thenId` is another option). The recommended card has the
   accent ring and the primary button; "From now on, take the recommended zone"
   sets `behavior.routeChoice`; "Decide later" and the header ✕ close. It
   waits out combat. The guide window's completed state and the out-levelled

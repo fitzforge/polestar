@@ -4,16 +4,15 @@ faction Alliance
 levels 39-43
 zone Riverglades
 coords live
-why Forever's new zone, an alpha route written from players' recordings.
+why About 90 quests in Forever's new zone, 39 to 43, from Farholde Keep.
 keywords riverglades, farholde, southern watch, turner's logging camp, wheeler's grange, terral's watch, sunnyglade, rog'mar, sleebo, powderfuse port, eastsea pirates, admiral lamora, bolder'ok, dunston, western front, sergeant riftan, marshal ryan, gelinda, cinderscale, experimental, alpha
 next forever/alliance/40-50/03-feralas when level>=43
 next forever/alliance/40-50/01-stranglethorn-vale when level<43
-pitch Forever's new zone, in through Blackrock Pass north of Lakeshire: the Alliance's Farholde Keep and about 90 quests from level 39, then on to Feralas, or to Stranglethorn Vale below level 43.
-pro One zone and one hub, Farholde Keep with its flight path and inn, in place of Desolace's south loop, and from level 43 also the Stranglethorn Vale and Badlands guides
-pro No sea crossing on the way in: Thelsamar's flight to Lakeshire, then a short ride north through Blackrock Pass
-con Experimental: written from players' recordings and not yet checked end to end in the game
-con Skips Desolace's south loop: quests left in your log for the guides it skips show at this guide's end, to keep or abandon
-con Elite camps, and a few quests that need a group (each behind a group choice)
+pitch A new Forever zone, a short ride from Lakeshire.
+pro One zone in place of up to three
+pro Farholde Keep: flight path and inn
+pro No boat: fly to Lakeshire, then ride
+con New guide: steps may still change
 
 # Polestar Experimental, Riverglades for the Alliance, part 1 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone (123 sessions to 2026-11-12) and Forever's quest data (the client's quest records,

@@ -5,7 +5,11 @@ faction Alliance
 levels 43-45
 zone Feralas
 next forever/alliance/40-50/04-tanaris
-pitch Feralas at 43-45 from Feathermoon Stronghold: the island's naga ruins, the Gordunni ogres and yetis of the mainland, the Isle of Dread and the Grimtotem camp.
+pitch Feathermoon's isle, ogres, yetis and the Isle of Dread.
+pro Two new flight paths for later
+pro Then on to Tanaris
+pro Stays on the main route
+con Boats to and from the island
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
