@@ -313,11 +313,13 @@ step Kirsta Deepshadow
   accept 6004
 
 step Scarlet Crusade
-  tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it.
+  tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it. Set Mickey's termite barrel down in the middle of the lumber mill while you are there.
   kill 1833 quest 6004.4
   kill 1831 quest 6004.2
   kill 1826 quest 6004.3
   kill 10605 quest 6004.1
+  turnin 5902
+  accept 6390
 
 step Kirsta Deepshadow
   turnin 6004
@@ -328,11 +330,6 @@ step Radley and Durgen
   tip Careful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight.
   kill 11613 quest 6023
   kill 11611 quest 6023
-
-step Northridge Lumber Camp
-  tip The lumber mill is right beside Radley: set Mickey's termite barrel down in the middle of it.
-  turnin 5902
-  accept 6390
 
 step Kirsta Deepshadow
   turnin 6023
@@ -530,18 +527,18 @@ step Tirion Fordring
   turnin 5845
   accept 5846
 
-step Hameya's mound
-  tip Ride south-east from Tirion to the Undercroft; the Mound of Dirt is just behind it.
-  turnin 6024
-
 step Nathanos Blightcaller
-  tip Nathanos stands in the Marris Stead farmhouse, just north of the mound.
+  tip Ride south-east from Tirion to the Marris Stead farmhouse.
   turnin 6042
   turnin 6133
 
 step Nathanos Blightcaller
   when group 6135
   accept 6135
+
+step Hameya's mound
+  tip The Mound of Dirt is just south, behind the Undercroft.
+  turnin 6024
 
 step Duskwing, Oh How I Hate Thee...
   when group 6135

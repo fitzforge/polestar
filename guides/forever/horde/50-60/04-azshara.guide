@@ -68,6 +68,7 @@ step Fly to Valormok
 step Valormok
   accept 3517                         -- Jediga
   accept 3505                         -- Ag'tor Bloodfist
+  accept 91568                        -- Izvi Gildfizz
 
 step Ruins of Eldarath: kill these as you meet them
   zone Azshara
@@ -82,6 +83,10 @@ step Ruins of Eldarath
   tip Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them.
   goto 35.0,55.0 "Ruins of Eldarath"
   complete 3568
+
+step Makrinni Burrowers
+  tip The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments.
+  collect 246684 quest 91568
 
 step Kim'jael
   tip Ride north-east to the goblin's camp on the cliffs above the Bay of Storms, just north of the blood elves.
@@ -114,6 +119,7 @@ step Ag'tor Bloodfist
   turnin 3506
   accept 3507
   turnin 3517                         -- Jediga
+  turnin 91568                        -- Izvi Gildfizz
   accept 3541
   accept 3542
   accept 3561

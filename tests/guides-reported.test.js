@@ -7998,7 +7998,10 @@ test('Horde 40-60 flow pass: givers and enders are visited when the route passes
 	assert.ok(!goals(H('50-60/03-winterspring')).some(({ goal }) => goal.quest === 6603), "no Everlook pointer to Donova");
 	const sil = goals(H('50-60/06-silithus'));
 	const barrel = at(sil, 'turnin 5902', is('turnin', 5902));
-	assert.ok(at(sil, 'kill 11613', (x) => x.t === 'kill' && x.npc === 11613) < barrel && barrel < at(sil, 'turnin 6023', is('turnin', 6023)), 'the termite barrel at Northridge with Radley');
+	// Since the 0.4.0 level tidy Kirsta's Scarlets (6004) are done here: the barrel goes into the lumber mill on that trip,
+	// still before Radley's hand-in to Kirsta (the flow audit's backtrack to the mill after Radley is gone).
+	assert.equal(sil[barrel].s, sil[at(sil, 'kill 6004', (x) => x.t === 'kill' && x.quest === 6004)].s, 'the termite barrel on the Northridge Scarlet trip');
+	assert.ok(barrel < at(sil, 'turnin 6023', is('turnin', 6023)), 'before Radley goes back to Kirsta');
 	assert.equal(sil[at(sil, 'turnin 6390', is('turnin', 6390))].s, sil[at(sil, 'turnin 5230', is('turnin', 5230))].s, 'Mickey on the next Bulwark stop');
 	const mound = at(sil, 'turnin 6024', is('turnin', 6024));
 	assert.ok(!sil.slice(at(sil, 'turnin 5845', is('turnin', 5845)), mound).some(({ goal }) => goal.t === 'goto'), "straight from Tirion to Hameya's mound");
