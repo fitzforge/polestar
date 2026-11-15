@@ -496,11 +496,11 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/class-quests.rs", "test": "only_the_quest_data_makes_a_class_quest_never_a_line_s_only" }
 		] },
 		"820": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries" },
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "the_applejack_still_s_apples_are_protected_from_the_guide_until_it_is_past_the_still_820" }
 		] },
 		"823": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries" }
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" }
 		] },
 		"825": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Zephras Isle: A Last Request's note and Skypriest Aanders count the objectives the game gives them (#825)" }
@@ -1051,8 +1051,7 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-unavailable.rs", "test": "t_1661_a_child_quest_whose_parent_is_not_in_the_log_and_that_the_route_no_longer_brings_is_passed" }
 		] },
 		"1667": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "forever/class/warlock/enchanted-gold-bloodrobe.guide: no kill or drop comes before the guide waits for mobs at most 2 levels above (#1667)" },
-			{ "node": "tests/guides-reported.test.js", "test": "class guides: no kill or drop of mobs more than 4 levels above what the guide has reached (#1667 sweep)" }
+			{ "node": "tests/guides-reported.test.js", "test": "class guides: every step waits on its own level for mobs and quests at most 1 above it (Fitz's rule, #1667, Kapu)" }
 		] },
 		"1674": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/travel-build.rs", "test": "from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone" }
@@ -1240,6 +1239,10 @@
 		] },
 		"2311": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2311: a complete that leads its step has a place for the arrow" }
+		] },
+		"2312": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept" },
+			{ "cargo": "forge", "target": "guide_direct_hand_ins", "file": "rust/crates/forge/tests/guide_direct_hand_ins.rs", "test": "applejack_corrections_remove_accepts_and_preserve_the_elwynn_route" }
 		] },
 		"2326": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "#2326: Feralas (Horde): the Screecher Spirits are talked to, after the bramble" }

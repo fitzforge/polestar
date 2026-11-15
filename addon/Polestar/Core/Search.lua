@@ -262,8 +262,9 @@ local function guideList()
 			if type(zone) == "string" and zone ~= h.zoneName then where[#where + 1] = fold(zone) end
 			if type(h.category) == "string" then where[#where + 1] = fold(h.category) end
 			local sublabel = zone or h.category
-			if h.minLevel and h.maxLevel then
-				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. h.minLevel .. "-" .. h.maxLevel
+			local lo, hi = G.Levels(h)
+			if lo and hi then
+				sublabel = (sublabel and (sublabel .. " \194\183 ") or "") .. lo .. "-" .. hi
 			end
 			guideIndex[#guideIndex + 1] = {
 				id = id, title = h.title, folded = fold(h.title), keys = keys, where = where, subtitle = sublabel,

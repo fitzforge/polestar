@@ -495,7 +495,8 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 				cx.err(ln, format!("unknown header key \"{}\"", toks[0].text), Some(&format!("header keys: {}", HEADER_KEYS.join(", "))));
 				continue;
 			}
-			let repeatable = matches!(kw_s, "pro" | "con" | "reward" | "next");
+			// `levels` repeats only as one plain line plus one per faction (parse_header checks).
+			let repeatable = matches!(kw_s, "pro" | "con" | "reward" | "next" | "levels");
 			let lines_o = guide.get("lines");
 			if lines_o.get(kw_s).truthy() && !repeatable {
 				cx.err(ln, format!("duplicate header key `{kw_s}` (first on line {})", lines_o.get(kw_s).to_js_string()), None);
@@ -661,6 +662,22 @@ pub fn parse_guide(text: &str, file: &str, diag: &mut Diagnostics) -> V {
 			cx.err(gline, format!("missing required header `{key}`"), None);
 		}
 	}
+	// `levels <min>-<max> <Faction>`: for a guide both factions play, each faction's range, or the plain one for the other.
+	let h = guide.get("header");
+	let by = h.get("factionLevels");
+	if by.truthy() {
+		let at = lines_o.get("levelsAt");
+		let first = by.keys().iter().map(|f| at.get(f).num()).fold(f64::INFINITY, f64::min);
+		let both = by.get("Alliance").truthy() && by.get("Horde").truthy();
+		if h.get("faction").truthy() {
+			cx.err(first, format!("a guide for one faction (`faction {}`) has one level range: write `levels <min>-<max>`", h.get("faction").to_js_string()), None);
+		} else if !h.get("levels").truthy() && !both {
+			let other = if by.get("Alliance").truthy() { "Horde" } else { "Alliance" };
+			cx.err(first, format!("`levels` for one faction only: add `levels <min>-<max> {other}`, or a plain `levels <min>-<max>` for {other}"), None);
+		} else if h.get("levels").truthy() && both {
+			cx.err(at.get("plain").num(), "plain `levels` is unused: both factions have their own `levels <min>-<max> Alliance|Horde`", None);
+		}
+	}
 	let steps = guide.get("steps").items();
 	if steps.is_empty() {
 		cx.err(gline, "guide has no steps", None);
@@ -818,16 +835,49 @@ fn parse_header(guide: &V, kw: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut 
 			push_to(&guide.get("lines"), key, ln);
 		}
 		"levels" => {
-			let m = re!(r"^([0-9]+){RE_WS}*-{RE_WS}*([0-9]+)$").captures(&rest);
+			// `levels <min>-<max>`, or `levels <min>-<max> Alliance|Horde`: the levels the route brings that
+			// faction's characters here at, for a guide both factions play (checked after the header).
+			let m = re!(r"^([0-9]+){RE_WS}*-{RE_WS}*([0-9]+)(?:{RE_WS}+([A-Za-z]+))?$").captures(&rest);
 			let ok = m.as_ref().filter(|m| {
 				let a = str_to_num(&m[1]);
 				!(a < 1.0 || a > str_to_num(&m[2]))
 			});
 			let Some(m) = ok else {
-				cx.err(ln, format!("malformed levels \"{rest}\" (expected <min>-<max>, min ≤ max)"), None);
+				cx.err(ln, format!("malformed levels \"{rest}\" (expected <min>-<max> [Alliance|Horde], min ≤ max)"), None);
 				return;
 			};
-			h.set("levels", obj! { "min" => str_to_num(&m[1]), "max" => str_to_num(&m[2]) });
+			// Where each was given (`plain`, `Alliance`, `Horde`), for the checks after the header.
+			let lines_o = guide.get("lines");
+			if !lines_o.get("levelsAt").truthy() {
+				lines_o.set("levelsAt", V::obj());
+			}
+			let at = lines_o.get("levelsAt");
+			let side = match m.get(3) {
+				None => "plain",
+				Some(s) => match faction(&s.as_str().to_lowercase()) {
+					Some(f) => f,
+					None => {
+						cx.err(ln, format!("`levels` names a faction: Alliance or Horde, not \"{}\"", s.as_str()), None);
+						return;
+					}
+				},
+			};
+			if at.get(side).truthy() {
+				let first = at.get(side).to_js_string();
+				let msg = if side == "plain" { format!("duplicate header key `levels` (first on line {first})") } else { format!("duplicate `levels ... {side}` (first on line {first})") };
+				cx.err(ln, msg, None);
+				return;
+			}
+			at.set(side, ln);
+			let range = obj! { "min" => str_to_num(&m[1]), "max" => str_to_num(&m[2]) };
+			if side == "plain" {
+				h.set("levels", range);
+				return;
+			}
+			if !h.get("factionLevels").truthy() {
+				h.set("factionLevels", V::obj());
+			}
+			h.get("factionLevels").set(side, range);
 		}
 		"zone" => {
 			if let Some(spec) = parse_zone_spec(line, lex, ln, cx) {

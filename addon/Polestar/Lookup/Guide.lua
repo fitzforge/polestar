@@ -32,7 +32,9 @@
 --       so the step says "Elite: group advised" (Rear Guard Patrol's Riptear,
 --       before the Ruins of Lordaeron's The Wrath of Rath'mael); so does an
 --       object's work among hostile elites, as the Codex build marks it
---       (Berard's Bookshelf in Pyrewood Village, #1778)
+--       (Berard's Bookshelf in Pyrewood Village, #1778). A kill the
+--       Codex marks with `useItem` (an item used on that NPC) is a use of
+--       that item, at the NPC's spawns; a tame stays a tame (#2468)
 --   Lookup.AcceptPre(goal, quest) -> goal
 --       an accept goal with the Codex quest's prerequisites as a compiled
 --       guide's accept carries them (all of `pre` as preAll, one of `preAny`
@@ -307,6 +309,21 @@ local function itemFrom(goal, itemId)
 		goal.fromAlso, goal.fromAlsoId = second.rec.name, second.id
 	end
 	return goal
+end
+
+-- The step's line for an item no mob or object gives where the data places
+-- them, made by a profession (Rough Dynamite, Engineering: A Dynamite Plan,
+-- #2363 and #2445): which profession makes it, and that the Auction House
+-- sells it. nil when no profession makes it.
+local function madeLine(itemId, name)
+	local item = Codex().Item(itemId)
+	for _, src in ipairs(item and item.sources or {}) do
+		if src.type == "craft" and src.skillLine then
+			local prof = Lookup.ProfessionName and Lookup.ProfessionName(src.skillLine)
+			return format(L["%s: nothing drops it. It is made with %s, or bought at the Auction House."], name, prof and L[prof] or L["Profession"])
+		end
+	end
+	return nil
 end
 
 -- A Codex NPC that needs a group out in the world -> the compiled guides'
@@ -595,22 +612,43 @@ local function questStep(q, from, isTarget, opts)
 	local here = giver and giver.spawn or from
 	local event = nil
 	local talks = {} -- the NPCs of talk objectives, for the step's note
+	local made = {} -- the lines for items made by a profession, for the step's note
 	for oi, o in ipairs(q.objectives or {}) do
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
 			local npc = C.Npc(o.id)
 			local target = (npc and npc.name) or o.text or npcName(o.id)
-			local s = npc and Lookup.Nearest(npc.spawns, here)
+			-- No placed NPC (a kill credit, Riverglades' "[DNT] Kill Credit"): the
+			-- objective's own place, where players' recordings show it ticking.
+			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, target)
 			end
-			goals[#goals + 1] = spawnSpots(at({ t = "kill", target = target, npc = o.id, tame = o.tame,
-				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }, s), npc and npc.spawns)
+			-- `useItem`: the item this kill is really a use of (Codex, from a
+			-- use-item-on-mob mechanic). The engine then says Use. A tame
+			-- (Taming the Beast) stays a kill the engine words as Tame.
+			local goal = { target = target, npc = o.id, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
+			if type(o.useItem) == "number" and o.useItem > 0 and not o.tame then
+				goal.t = "use"
+				goal.item = o.useItem
+				goal.itemName = itemName(o.useItem)
+			else
+				goal.t = "kill"
+				goal.tame = o.tame
+			end
+			goals[#goals + 1] = spawnSpots(at(goal, s), npc and npc.spawns)
 		elseif o.type == "item" and o.id then
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
 			if source then mark(s, name) end
+			if not s then
+				-- Nothing places a source: the objective's own place, where
+				-- players' recordings show it collected (A Dynamite Plan's
+				-- Rough Dynamite at Stormwind's auctioneers), and how it is had.
+				if o.map and o.x and o.y then s = o end
+				made[#made + 1] = madeLine(o.id, name)
+			end
 			goals[#goals + 1] = spawnSpots(at(itemFrom({ t = "collect", item = o.id, itemName = name,
 				quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(dropper) or eliteMark(o) }, o.id), s), spawns)
 		elseif o.type == "talk" and o.id then
@@ -618,7 +656,7 @@ local function questStep(q, from, isTarget, opts)
 			-- quest's objective line, so it holds the step until done.
 			local npc = C.Npc(o.id)
 			local who = (npc and npc.name) or o.text or npcName(o.id)
-			local s = npc and Lookup.Nearest(npc.spawns, here)
+			local s = (npc and Lookup.Nearest(npc.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("npc", o.id)
 				mark(s, who)
@@ -628,7 +666,7 @@ local function questStep(q, from, isTarget, opts)
 		elseif o.type == "object" and o.id then
 			local obj = C.Object(o.id)
 			local objName = (obj and obj.name) or o.text or (L["Object"] .. " " .. o.id)
-			local s = obj and Lookup.Nearest(obj.spawns, here)
+			local s = (obj and Lookup.Nearest(obj.spawns, here)) or ((o.map and o.x and o.y) and o or nil)
 			if not s and inside then
 				s = inside("object", o.id)
 				mark(s, objName)
@@ -644,7 +682,7 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 or #talks > 0 then
+	if #order > 0 or #talks > 0 or #made > 0 then
 		local lines = {}
 		for i, inst in ipairs(order) do
 			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
@@ -654,6 +692,7 @@ local function questStep(q, from, isTarget, opts)
 		for _, who in ipairs(talks) do
 			lines[#lines + 1] = format(L["%s: click through what they say until the quest's line is done."], who)
 		end
+		for _, line in ipairs(made) do lines[#lines + 1] = line end
 		step.note = concat(lines, " ")
 	end
 	return step

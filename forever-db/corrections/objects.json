@@ -173,6 +173,24 @@
 		],
 		"note": "The Altar of Hakkar stands inside the Sunken Temple (instance map 109)."
 	},
+	"175124": {
+		"set": {
+			"instances": [
+				229
+			]
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db gameobject: 271 Rookery Egg spawns, every one on map 229 (Blackrock Spire)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB: the object has no spawn outside an instance; Egg Freezing (4734) says to use the Eggscilloscope Prototype on an egg in the Rookery"
+			}
+		],
+		"note": "The Rookery Eggs of Egg Freezing and Egg Collection (Tinkee Steamboil, Flame Crest) lie inside Upper Blackrock Spire's Rookery (instance map 229). With no place and no instance the pick-up guides could not tell, and Scholomance's guide sent players through Upper Blackrock Spire for the key chain's eggs."
+	},
 	"148838": {
 		"set": {
 			"instances": [

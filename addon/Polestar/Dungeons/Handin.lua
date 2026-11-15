@@ -61,9 +61,10 @@
 -- turn-ins they wait on), one per follow-up's errand (a step of its own,
 -- titled with the quest, after the stop that gives it), and one per ender of
 -- a follow-up handed in on the way (after its errand, else after the stop
--- that gives it), in the order of Dungeons.OrderStops
--- from where the player stands, with no fixed end (kept per character as
--- CharState().dungeonHandin[key]). Stops at the same NPC in a row are one
+-- that gives it), in the order of Dungeons.OrderStops (the cheapest path
+-- through them, by travel time) from where the player stands, inside the
+-- dungeon from its entrance, where the run ends, with no fixed end (kept
+-- per character as CharState().dungeonHandin[key]). Stops at the same NPC in a row are one
 -- step. The last step lists the quests not handed in as notes.
 
 local ADDON, ns = ...
@@ -85,6 +86,18 @@ local function endPoint(e)
 	if not (e and e.spawn) then return nil end
 	local s = e.spawn
 	return { kind = e.npc and "npc" or "object", id = e.npc or e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f }
+end
+
+-- Where the route starts: where the player stands, else (inside the dungeon,
+-- where the client gives no position) its entrance, this character's side's,
+-- where the player comes out after the run. Without it the stops kept the
+-- page's quest order (Fitz, 2026-11-15: the givers nearest the way out first).
+local function startPoint(key)
+	local here = ns.PlayerPoint()
+	if here then return here end
+	local map, x, y, f = Dungeons.Entrance(key)
+	if map then return { map = map, x = x, y = y, f = f } end
+	return nil
 end
 
 local function pointKey(p) return p.kind .. p.id end
@@ -260,7 +273,7 @@ function Dungeons.HandinPlan(key)
 	if not d then return nil, "unknown" end
 	local Lk, C = LK(), ns.Codex
 	if not (Lk and Lk.QuestEnd and C) then return nil, "missing" end
-	local from = ns.PlayerPoint()
+	local from = startPoint(key)
 	local p = Lk.PlayerInfo()
 	local plan = { dungeon = d, hand = {}, unfinished = {}, inside = {}, unplaced = {}, errands = {} }
 	for _, pq in ipairs(Dungeons.Quests(key)) do
@@ -467,7 +480,7 @@ function Dungeons.HandinGuide(key)
 	if not plan then return nil, err end
 	if #plan.hand == 0 and #plan.errands == 0 then return nil, "nothing" end
 	local d = plan.dungeon
-	local from = ns.PlayerPoint()
+	local from = startPoint(key)
 	-- The errands of quests in the log, placed from where the player stands;
 	-- one that cannot be placed after all stays a "Not finished yet" note.
 	local p, placed = LK().PlayerInfo(), {}

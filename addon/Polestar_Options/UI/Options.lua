@@ -401,8 +401,8 @@ local BUILTIN = {
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
 			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
-			search = "teleport, portal, mage, druid, moonglade",
+		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
+			search = "teleport, portal, mage, druid, moonglade, shaman, astral recall",
 			child = true, disabled = function() return not ns.Get("nav.travel") end }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, sparkles, dots",
@@ -471,9 +471,10 @@ local BUILTIN = {
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
 		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
+		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
 		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
 			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
-			search = "experimental, alpha, new zones, riverglades, shen'dralas, mount hyjal, polestar experimental" },
+			search = "experimental, alpha, new zones, mount hyjal, polestar experimental" },
 		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
 		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
 			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],

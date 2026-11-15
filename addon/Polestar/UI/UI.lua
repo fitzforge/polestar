@@ -96,6 +96,12 @@ function UI.LevelRange(lo, hi)
 	return lo .. "\226\128\147" .. hi
 end
 
+-- Guide (or header) g's levels for the player's side, as LevelRange writes
+-- them (Guides.Levels: a guide both factions play may give each its own).
+function UI.GuideLevels(g)
+	return UI.LevelRange(ns.Guides.Levels(g))
+end
+
 -- Player-facing race names for the client's race files: the client's own
 -- name (ChrRaces, through C_CreatureInfo.GetRaceInfo) for the Era races, by
 -- their ChrRaces ID (the file alone is ambiguous: 23, Gilnean, is "Human" too).
@@ -177,7 +183,7 @@ function UI.GuideMeta(guide)
 	if cat ~= "Leveling" then parts[#parts + 1] = L[cat] end
 	local place = UI.GuidePlace(guide)
 	if place then parts[#parts + 1] = place end
-	local lv = UI.LevelRange(guide.minLevel, guide.maxLevel)
+	local lv = UI.GuideLevels(guide)
 	if lv then parts[#parts + 1] = L["Levels"] .. " " .. lv end
 	return table.concat(parts, "  \194\183  ")
 end
@@ -553,7 +559,7 @@ end
 -- Desolace (37–38)"; just the title (or id) when it has none.
 function UI.GuideLabel(g)
 	local title = g.title or g.id
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	local lv = UI.GuideLevels(g)
 	return lv and (title .. " (" .. lv .. ")") or title
 end
 

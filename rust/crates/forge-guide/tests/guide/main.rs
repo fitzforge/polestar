@@ -8,6 +8,7 @@ mod dsl_along;
 mod dsl_cast;
 mod dsl_enter;
 mod dsl_escort;
+mod dsl_faction_levels;
 mod dsl_farm;
 mod dsl_forever_maps;
 mod dsl_frames;

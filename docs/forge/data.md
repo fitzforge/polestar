@@ -613,9 +613,9 @@ Every travel-only step of the walk gets each condition (a string, or a list of t
 7836", "!complete 7824"]`) after its `only` and `when` lines; one it already has is not repeated. A
 record may set `at` and `when` both.
 
-**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, and the guide
-window calls a guide outgrown at its top + 2, but players leave it at 33 (players' recordings, four
-people) and half its quests are 32-33:
+**A guide's top level (`levels`).** Hillsbrad & Arathi (Horde 30-40/01) said 29-32, but players leave
+it at 33 (players' recordings, four people) and half its quests are 32-33, so its top is where they
+leave (the guide window calls a guide outgrown at its top + 3):
 
 ```json
 { "id": "levels-horde-hillsbrad-arathi-top-33", "at": { "goal": "levels", "guide": "forever/horde/30-40/01-hillsbrad-foothills" },

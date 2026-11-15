@@ -138,8 +138,8 @@ fn outlevelled_the_engine_suggests_the_next_guide_while_the_guides_between_hand_
 		local c = P.LeftBehind("test/c")
 		r.leftC, r.leftB = {}, P.LeftBehind("test/b").n
 		for i, q in ipairs(c.quests) do r.leftC[i] = q.quest end
-		-- Level 12: test/a (max 10) is outlevelled; the level-best guide is test/c, but test/b still hands in 44.
-		w.setLevel(12); flush(); flush()
+		-- Level 13: test/a (max 10) is outlevelled; the level-best guide is test/c, but test/b still hands in 44.
+		w.setLevel(13); flush(); flush()
 		r.fired = fired
 		emit(r)
 	"#);
@@ -209,13 +209,13 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
 }
 
-// Outlevelled at 12, the banner says what the jump to the suggested guide (test/b) leaves behind: 41, handed in
+// Outlevelled at 13, the banner says what the jump to the suggested guide (test/b) leaves behind: 41, handed in
 // later in test/a. Its first click asks; the second jumps.
 #[test]
 fn outlevelled_the_banner_says_the_finished_quests_left_here_and_its_jump_asks_once() {
 	let out = run(r#"
 		local GF = Polestar.UI.GuideFrame
-		w.setLevel(12); flush(); flush()
+		w.setLevel(13); flush(); flush()
 		GF.Render(); flush()
 		local B = GF.parts.banner
 		local function banner() return { plain(B.Text:GetText()), plain(B.Jump.Label:GetText()) } end

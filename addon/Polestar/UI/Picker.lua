@@ -278,7 +278,7 @@ end
 -- else from its first level (1-30, then by tens). -> low, high
 local function band(g)
 	for lo, hi in (g.id or ""):gmatch("/(%d+)%-(%d+)/") do return tonumber(lo), tonumber(hi) end
-	local lv = g.minLevel or 1
+	local lv = ns.Guides.Levels(g) or 1
 	if lv < 30 then return 1, 30 end
 	local lo = floor(lv / 10) * 10
 	return lo, lo + 10
@@ -344,7 +344,8 @@ function P.Titles(list)
 		local b = sides[base[g]] or {}
 		sides[base[g]] = b
 		b[g.faction or ""] = true
-		local k = base[g] .. "\0" .. (g.minLevel or "") .. "-" .. (g.maxLevel or "")
+		local lo, hi = ns.Guides.Levels(g)
+		local k = base[g] .. "\0" .. (lo or "") .. "-" .. (hi or "")
 		local s = same[k]
 		if not s then
 			s = {}
@@ -451,7 +452,7 @@ function P.Entries(q, cat)
 		if key[a] ~= key[b] then return key[a] < key[b] end
 		local fa, fb = rankOfFaction(fac[a], mine), rankOfFaction(fac[b], mine)
 		if fa ~= fb then return fa < fb end
-		local la, lb = a.minLevel or 0, b.minLevel or 0
+		local la, lb = G.Levels(a, mine) or 0, G.Levels(b, mine) or 0
 		if la ~= lb then return la < lb end
 		-- Same first level: a guide that hands over to the other comes first,
 		-- as it is played (a race's lead-in "(12)" before the shared "(12-16)").
@@ -584,7 +585,7 @@ local function nextFact(g, byId)
 	local function named(id)
 		local h = byId[id]
 		if not h then return nil end
-		local lv = UI.LevelRange(h.minLevel, h.maxLevel)
+		local lv = UI.GuideLevels(h)
 		return (h.title or id) .. (lv and (" (" .. lv .. ")") or "")
 	end
 	if type(g.nextChoices) == "table" then
@@ -691,7 +692,7 @@ local function suggestions(byId, tabs, openIndex)
 	local out, seen = {}, {}
 	local function add(id, followUp)
 		if #out >= SUGGEST_MAX or not id or seen[id] or not byId[id] or not ownSide(byId[id], player) then return end
-		if followUp and (openIndex[id] or (level and level + FOLLOW_REACH < (byId[id].minLevel or 1))) then return end
+		if followUp and (openIndex[id] or (level and level + FOLLOW_REACH < (G.Levels(byId[id], player and player.faction) or 1))) then return end
 		seen[id] = true
 		if guideState(id) == "done" then return end
 		out[#out + 1] = byId[id]
@@ -890,7 +891,7 @@ local function paintRow(r, g, note, width, title)
 	-- so they keep 4.5:1 there as on the plain ground.
 	W.Color(r.Range, sel and "textDim" or "textMuted")
 	W.Color(r.Note, sel and "textDim" or "textMuted")
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	local lv = UI.GuideLevels(g)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local expW = isExperimental(g) and (FOREVER_W + 4 + 4) or 0
 	r.Forever:SetShown(expW > 0)
@@ -1448,7 +1449,7 @@ local function renderDetails(byId, tabs, active)
 		local c = detailChip(n + 1)
 		if place(c, W.SetChip(c, text, kind)) then n = n + 1 end
 	end
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	local lv = UI.GuideLevels(g)
 	if lv then addChip(L["Levels"] .. " " .. lv, "accent") end
 	local xw = UI.LevelTip.Set(d.XP, g.category == "Leveling" and guideXP(g.id) or nil,
 		{ head = L["If you finish this guide"], need = L["You are level %d. Level %d is recommended for this guide; from there:"] })

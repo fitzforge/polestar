@@ -52,8 +52,10 @@ keeps the other side's lines). Two walks per branch:
   done where the walk first passes their spot, as a step there would be.
 - The **dynamic walk** (Dynamic Questing, `--dynamic 037`, the default) is a
   player who also takes the "While you're here" lines the addon shows: work of a
-  later step whose spawn area the walk comes near, hand-ins of finished quests
-  within the addon's budget, and the follow-ups an early hand-in's NPC gives.
+  later step whose spawn area the walk comes near (mobs at most 1 level above
+  the character, the addon's `HERE_MOBS_ABOVE`; `--dynamic 036`: 2, as 0.3.6
+  offered), hand-ins of finished quests within the addon's budget, and the
+  follow-ups an early hand-in's NPC gives.
   The tables are the dynamic walk's; the report shows both.
 
 The walk keeps a clock (7 yards a second on foot, flights at 30, 4 minutes for a
@@ -102,7 +104,7 @@ brackets in the report); a finding carries its share, the branches that meet it.
 |---|---|
 | Passed givers | A giver within 40 yards of the walk (the hub tier: 120) offering a quest the character can take then (level, prerequisites, not closed), that the guide takes later, after walking more than 150 yards away and at least 3 minutes later |
 | Passed enders | The ender of a finished quest within 40 yards of the walk, handed in later the same way |
-| Deferred work | The walk crosses a spawn area of a quest in the log (mobs at most 2 levels above) and the guide comes back for that objective later |
+| Deferred work | The walk crosses a spawn area of a quest in the log (mobs at most 1 level above the character, as While you're here offers them) and the guide comes back for that objective later |
 | Missed merges | As deferred work, for a quest not yet taken whose giver the walk had already passed |
 | Backtracks | A stop within 60 yards of one left less than 30 minutes before, after the walk went more than 150 yards away; **avoidable** when every goal there could have been done on the earlier visit (each one is a finding above) |
 | Hub revisits | A hub (3 or more quest NPCs within 120 yards) visited again within 20 minutes; avoidable as for backtracks |
