@@ -1202,6 +1202,20 @@ local function textWidth(fs, text)
 end
 W.TextWidth = textWidth
 
+-- A one-line name whole in `width` (a card's caption): its role's size when
+-- it fits, else a step smaller at a time down to `least` (0.75) of it; past
+-- that it is cut as before. A pixel kept spare: the client can draw a string
+-- a pixel wider than it measures. Kept through theme changes (Theme.SetFontScale).
+function W.FitText(fs, width, least)
+	if not Theme.SetFontScale then return end
+	local k = 1
+	Theme.SetFontScale(fs, nil)
+	while textWidth(fs) > width - 1 and k > (least or 0.75) + 0.01 do
+		k = k - 0.05
+		Theme.SetFontScale(fs, k)
+	end
+end
+
 -- Size a settings row (toggle, slider, dropdown, swatch, info) to `width`:
 -- its control takes what its text needs, the label the rest, on as many
 -- lines as it needs; the row grows past ROW_H when they do not fit in it.

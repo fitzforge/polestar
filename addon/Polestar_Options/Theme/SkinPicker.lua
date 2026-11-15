@@ -454,10 +454,18 @@ local function paintMini(p, w, h, alone, fit)
 	row.Check:SetChecked(false)
 	row.Text:ClearAllPoints()
 	row.Text:SetPoint("LEFT", row, "LEFT", textX, 0)
-	row.Text:SetPoint("RIGHT", row.Check, "LEFT", -4, 0)
+	-- A width, not a right anchor: a line too long for it breaks before its
+	-- count, whatever the client's break rules are, so the count starts the
+	-- second line whole ("3/8", never "3/" over "8").
+	local textW = MINI_W - textX - (pad - 3) - check - 4
+	row.Text:SetWidth(textW)
 	local line = UI and UI.GoalLine and UI.GoalLine(GOAL) or (GOAL.verb .. " " .. GOAL.subject)
 	row.Text:SetWordWrap(true)
 	say(row.Text, "goal", line, "text")
+	local fs = row.Text
+	if (fs.GetUnboundedStringWidth and fs:GetUnboundedStringWidth() or fs:GetStringWidth()) > textW then
+		fs:SetText((line:gsub(" +(|c%x%x%x%x%x%x%x%x%d+/%d+|r)$", "\n%1")))
+	end
 	-- The foot: the accent button at the right, the accents' dots left of
 	-- it, the progress in what is left (the game's status bar in Hearth and
 	-- the game's looks, else the house's line).

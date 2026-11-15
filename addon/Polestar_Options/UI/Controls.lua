@@ -653,11 +653,16 @@ local function cardsBelow(row, width, y)
 			card.Note:SetText(note)
 			-- The name takes what it needs; the note what is left, cut short
 			-- (whole in the tooltip), or none when that is too little to read.
+			-- A name without a note shown takes the whole line, shrunk to fit
+			-- it whole when it is longer (W.FitText): its measure can fall a
+			-- pixel short of what the client draws ("Оре..." for "Ореол").
 			local room = cw - 18
 			local nameW = min(room, math.ceil(textWidth(card.Name)))
-			card.Name:SetWidth(max(1, nameW))
 			local noteRoom = room - nameW - 8
-			card.Note:SetShown(note ~= "" and noteRoom >= 24)
+			local noted = note ~= "" and noteRoom >= 24
+			card.Name:SetWidth(max(1, noted and nameW or room))
+			if not noted and W.FitText then W.FitText(card.Name, room) end
+			card.Note:SetShown(noted)
 			card.Note:SetWidth(max(1, min(noteRoom, math.ceil(textWidth(card.Note)))))
 			card.psOff = cardOff(ch)
 			local lines = {}

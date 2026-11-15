@@ -1398,6 +1398,7 @@ do
 			F.Schemes[i] = c
 			c.psValue = ch.value
 			c.Name:SetText(ch.text)
+			W.FitText(c.Name, cw - 16)
 			c:SetSize(cw, ch_)
 			c.Side:SetHeight(SCHEME_INNER_H)
 			c.Ground:SetHeight(SCHEME_INNER_H)
@@ -2604,6 +2605,7 @@ do
 						F.Skins[i] = r
 						r.psLook = ch.value
 						r.Name:SetText(ch.text)
+						W.FitText(r.Name, LOOK_W - 12)
 						local col, row = (k - 1) % LOOK_COLS, floor((k - 1) / LOOK_COLS)
 						place(r, col * (LOOK_W + LOOK_GAP), y + row * (LOOK_H + LOOK_GAP))
 						if Theme.DrawSkinCard and r.psDrawn ~= ch.value then
