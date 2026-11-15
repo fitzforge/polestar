@@ -169,7 +169,7 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 	const branchRows = [];
 	for (const b of branchesOf(G, data.races, { faction, starts, classes })) {
 		const common = { race: b.race, cls: b.cls, faction: b.faction, guides: G, legs, data, longFly, dungeons, dungeonQuests };
-		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons, dungeonQuests) });
+		let w = new Walk({ ...common, chain: new Router(b.first, route, dungeons, dungeonQuests, { guides: G, faction: b.faction }) });
 		let r = analyse(w, data.quests, data.proj);
 		const bkey = `${b.start}/${b.cls}`;
 		let strict = null;

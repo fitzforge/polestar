@@ -102,14 +102,23 @@ function modes(opts) {
 	return 0;
 }
 
-// The before/after pairs: two files, or the files two --out-dir folders share.
+// The before/after pairs: two files, or the files two --out-dir folders share. A way to play the candidate adds (a
+// new route choice: its mode file is missing before) is compared with the shipped route without it, the same
+// dungeons (`riverglades-Alliance` with `skip-Alliance`, `run+riverglades-Alliance` with `run-Alliance`).
 function pairs(before, after) {
 	if (fs.statSync(before).isDirectory() !== fs.statSync(after).isDirectory()) throw new Error('gate: give two audit files or two folders');
 	if (!fs.statSync(before).isDirectory()) return [[path.basename(after, '.json'), before, after]];
 	const names = fs.readdirSync(after).filter((f) => f.endsWith('.json')).sort();
-	const missing = names.filter((f) => !fs.existsSync(path.join(before, f)));
+	const counterpart = (f) => {
+		if (fs.existsSync(path.join(before, f))) return f;
+		const cut = f.lastIndexOf('-');
+		const mode = f.slice(0, cut);
+		const plain = mode.startsWith('run-way+') ? 'run-way' : mode.startsWith('run+') ? 'run' : 'skip';
+		return `${plain}${f.slice(cut)}`;
+	};
+	const missing = names.filter((f) => !fs.existsSync(path.join(before, counterpart(f))));
 	if (missing.length) throw new Error(`gate: ${before} has no ${missing.join(', ')} (run modes on both trees with the same options)`);
-	return names.map((f) => [path.basename(f, '.json'), path.join(before, f), path.join(after, f)]);
+	return names.map((f) => [path.basename(f, '.json'), path.join(before, counterpart(f)), path.join(after, f)]);
 }
 
 function gate(opts, positional) {
@@ -122,7 +131,7 @@ function gate(opts, positional) {
 		const before = JSON.parse(fs.readFileSync(b, 'utf8'));
 		const after = JSON.parse(fs.readFileSync(a, 'utf8'));
 		const cut = label.lastIndexOf('-');
-		const [mode, faction] = before.mode ? [before.mode, before.faction] : [label.slice(0, cut), label.slice(cut + 1)];
+		const [mode, faction] = after.mode ? [after.mode, after.faction] : [label.slice(0, cut), label.slice(cut + 1)];
 		const res = compare(before, after, reasons, { mode, faction });
 		failed += res.fail.length;
 		results.push({ label, mode, faction, ...res, table: table(before, after, { dungeons: Boolean(after.dungeons) }) });
