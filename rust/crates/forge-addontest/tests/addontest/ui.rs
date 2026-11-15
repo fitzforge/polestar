@@ -776,7 +776,8 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 	assert_eq!(out["movedWhileLocked"], false);
 	let mut compact = out["compact"].clone();
 	compact.as_object_mut().unwrap().remove("h");
-	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 2, "foot": true }), "compact keeps the navigator, the focus's open goals and the progress bar");
+	// Three tabs open: the slim strip stays (compact_mode_with_several_tabs_keeps_a_slim_strip...).
+	assert_eq!(compact, json!({ "strip": true, "after": false, "tip": false, "rows": 2, "foot": true }), "compact keeps the navigator, the tabs, the focus's open goals and the progress bar");
 	assert!(f(&out["compact"]["h"]) < f(&out["h0"]), "compact mode is shorter");
 	assert_eq!(out["upcoming"], json!([4, 5, 7, 8]));
 	assert_eq!(out["afterToggle"], false);
@@ -1054,6 +1055,139 @@ fn a_tab_s_right_click_menu_has_choose_guide_it_makes_that_tab_active_and_opens_
 	assert_eq!(out["select"], json!(["SelectTab", 3]));
 	assert_eq!(out["picker"], true);
 	assert_eq!(out["newTab"], false, "the picked guide replaces the tab's guide instead of opening another tab");
+}
+
+// Compact mode hid the tab strip, and nothing else listed the open guides: players could neither see nor switch their
+// other tabs. With two guides or more open, compact mode keeps a slim strip (glyph and title, no levels, each tab's
+// close showing at rest, New tab at the strip's right end); with one guide it shows none, as before.
+#[test]
+fn compact_mode_with_several_tabs_keeps_a_slim_strip_that_lists_and_switches_them_one_tab_shows_none() {
+	let out = run(r#"
+		Polestar.Set("ui.compact", true)
+		uistub.openTabs(TABS, 1)
+		local strip = GF.parts.strip
+		local tabs = shownTabs()
+		local titles, ranges = {}, {}
+		for i, b in ipairs(tabs) do titles[i] = b.Label:IsShown() and b.Label:GetText() or false; ranges[i] = b.Range:IsShown() end
+		local b = tabs[2]
+		local close = { rest = b.Close:GetAlpha(), shown = b.Close:IsShown() }
+		stub.RunScript(b, "OnEnter")
+		close.hover = b.Close:GetAlpha()
+		stub.RunScript(b, "OnLeave")
+		close.left = b.Close:GetAlpha()
+		local point, rel, relPoint = strip.Add:GetPoint(1)
+		local three = { shown = strip:IsShown(), h = strip:GetHeight(), tabH = b:GetHeight(), n = #tabs, titles = titles, ranges = ranges,
+			close = close, full = GF.Metrics().tabH,
+			add = { shown = strip.Add:IsShown(), at = point .. " " .. relPoint, onStrip = rel == strip, h = strip.Add:GetHeight() } }
+		b:Click()
+		local switched = lastCall("SelectTab")
+		strip.Add:Click()
+		local picker = PolestarPicker:IsShown() and Polestar.UI.Picker.IsNewTabMode()
+		PolestarPicker:Hide()
+		shownTabs()[3].Close:Click()
+		local closed = lastCall("CloseTab")
+		shownTabs()[2].Close:Click()
+		local one = { shown = strip:IsShown(), title = GF.parts.nav.Title:IsShown() }
+		emit({ three = three, switched = switched, picker = picker, closed = closed, one = one })"#)
+	.remove(0);
+	let three = &out["three"];
+	assert_eq!(three["shown"], true, "the strip stays in compact mode with three tabs");
+	assert_eq!(three["n"], 3);
+	assert!(f(&three["h"]) >= 16.0 && f(&three["h"]) < f(&three["full"]) - 6.0, "slim: {} against {}", three["h"], three["full"]);
+	assert_eq!(three["tabH"], three["h"]);
+	assert_eq!(three["titles"], json!(["Elwynn Forest", "Tailoring 1-300", "Stormwind Reputation"]));
+	assert_eq!(three["ranges"], json!([false, false, false]), "no level range in the slim strip");
+	assert_eq!(three["add"], json!({ "shown": true, "at": "RIGHT BOTTOMRIGHT", "onStrip": true, "h": three["h"] }), "New tab at the strip's right end");
+	assert_eq!(three["close"]["shown"], true);
+	assert!(f(&three["close"]["rest"]) >= 0.5, "every tab's close shows clearly at rest: {}", three["close"]["rest"]);
+	assert_eq!(three["close"]["hover"], 1.0);
+	assert_eq!(three["close"]["left"], three["close"]["rest"]);
+	assert_eq!(out["switched"], json!(["SelectTab", 2]));
+	assert_eq!(out["picker"], true, "New tab opens the picker for a new tab");
+	assert_eq!(out["closed"], json!(["CloseTab", 3]));
+	assert_eq!(out["one"], json!({ "shown": false, "title": true }), "one tab: no strip, the navigator names the guide");
+}
+
+// Six tabs on the slim strip at the compact window's width: the titles truncate clear of each tab's close, and New
+// tab keeps its room at the right end.
+#[test]
+fn compact_mode_with_six_tabs_truncates_the_titles_before_the_close_and_new_tab() {
+	let out = run(r#"
+		Polestar.Set("ui.compact", true)
+		uistub.openTabs({ TABS[1], TABS[2], TABS[3], { "forever/alliance/03-darkshore", 1 }, { "forever/professions/cooking", 1 },
+			{ "forever/exploration/eastern-kingdoms-1-30", 1 } }, 1)
+		local strip = GF.parts.strip
+		local tabs, used, bad = shownTabs(), 1, {}
+		for i, b in ipairs(tabs) do
+			used = used + b:GetWidth()
+			-- The label ends clear of the close (27 from the tab's left to the label, the close's 20 at its right).
+			if b.Label:IsShown() and 27 + b.Label:GetWidth() > b:GetWidth() - 20 then bad[#bad + 1] = i end
+			if not b.Close:IsShown() then bad[#bad + 1] = "close " .. i end
+		end
+		emit({ n = #tabs, bad = table.concat(bad, ","), room = F:GetWidth() - used, add = strip.Add:GetWidth(), full = not strip.Add:IsEnabled() })"#)
+	.remove(0);
+	assert_eq!(out["n"], 6);
+	assert_eq!(out["bad"], "", "each title ends clear of its close, and every tab has one");
+	assert!(f(&out["room"]) >= f(&out["add"]), "New tab keeps its room: {} for {}", out["room"], out["add"]);
+	assert_eq!(out["full"], true, "six tabs is the limit: New tab is off");
+}
+
+#[test]
+fn outside_compact_mode_the_strip_is_unchanged_full_height_with_ranges_close_and_new_tab() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local strip, b = GF.parts.strip, shownTabs()[2]
+		emit({ h = strip:GetHeight(), full = GF.Metrics().tabH, range = b.Range:IsShown(), add = strip.Add:IsShown(), rest = b.Close:GetAlpha() })"#)
+	.remove(0);
+	assert_eq!(out["h"], out["full"]);
+	assert_eq!(out["range"], true);
+	assert_eq!(out["add"], true);
+	assert!(f(&out["rest"]) > 0.2, "the close rests faint: {}", out["rest"]);
+}
+
+// The window's menu lists the open tabs in any mode: with two or more, "Open tabs (N)" in New tab's place opens a
+// page of every guide open (the one in view checked), New tab and Reopen closed tab; a click switches.
+#[test]
+fn the_menu_lists_the_open_tabs_on_a_page_of_its_own_the_active_one_checked_a_click_switches() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local function rows()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do
+				if r:IsShown() then out[#out + 1] = { text = (r.Text:GetText() or ""):gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""), checked = r.Check:IsShown() } end
+			end
+			return out
+		end
+		GF.menuButton:Click()
+		local main = rows()
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and (r.Text:GetText() or ""):find("^Open tabs") then r:Click() break end end
+		local page = rows()
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and (r.Text:GetText() or ""):find("^Stormwind") then r:Click() break end end
+		local switched = lastCall("SelectTab")
+		uistub.openTabs({ TABS[1] }, 1)
+		GF.menuButton:Click()
+		local single = rows()
+		GF.menuButton:Click()
+		emit({ main = main, page = page, switched = switched, single = single })"#)
+	.remove(0);
+	let texts = |v: &Value| v.as_array().unwrap().iter().map(|r| r["text"].as_str().unwrap().to_string()).collect::<Vec<_>>();
+	let main = texts(&out["main"]);
+	assert_eq!(main[1], "Open tabs (3)  \u{203a}", "in New tab's place");
+	assert!(!main.contains(&"Open in new tab".to_string()));
+	assert_eq!(
+		out["page"],
+		json!([
+			{ "text": "Back", "checked": false },
+			{ "text": "Elwynn Forest  (1–13)", "checked": true },
+			{ "text": "Tailoring 1-300  (5–60)", "checked": false },
+			{ "text": "Stormwind Reputation  (12–60)", "checked": false },
+			{ "text": "Open in new tab", "checked": false }
+		])
+	);
+	assert_eq!(out["switched"], json!(["SelectTab", 3]));
+	let single = texts(&out["single"]);
+	assert_eq!(single[1], "Open in new tab", "one tab: the menu as before");
+	assert!(!single.iter().any(|t| t.starts_with("Open tabs")));
 }
 
 // A player on Discord asked how to close a guide tab: the strip's close button was invisible until hovered. It shows

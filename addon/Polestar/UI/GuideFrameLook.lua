@@ -10,11 +10,11 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The window's parts and sizes, handed over by the core (GF.Bind).
 	local F, strip, nav, card, person, after, along, upnext, grip, band
 	local banner, foot
-	local PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD, UP_TOGGLE
+	local PAD, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD, UP_TOGGLE
 	GF.Bind(function(p, m)
 		F, strip, nav, card, person, after, along, upnext = p.F, p.strip, p.nav, p.card, p.person, p.after, p.along, p.upnext
 		grip, band, banner, foot = p.grip, p.band, p.banner, p.foot
-		PAD, TAB_H, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD = m.PAD, m.TAB_H, m.NAV_H, m.PROG_H, m.ICON, m.TEXT_X, m.CHECK, m.ROW_PAD
+		PAD, NAV_H, PROG_H, ICON, TEXT_X, CHECK, ROW_PAD = m.PAD, m.NAV_H, m.PROG_H, m.ICON, m.TEXT_X, m.CHECK, m.ROW_PAD
 		UP_TOGGLE = m.UP_TOGGLE
 	end)
 
@@ -406,7 +406,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local skin = Theme.SkinKey()
 		skinShown = Theme.SkinId() .. "/" .. skin
 		Theme.Repaint(F)
-		strip:SetHeight(TAB_H)
+		strip:SetHeight(GF.StripH())
 		nav:SetHeight(NAV_H)
 		foot:SetHeight(PROG_H)
 		-- The navigator: ‹ › and the icon buttons at the skin's sizes.
@@ -509,7 +509,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		-- The tabs, painted again in the skin.
 		for _, b in ipairs(tabButtons) do
-			b:SetHeight(TAB_H)
+			b:SetHeight(GF.StripH())
 			GF.PaintTab(b)
 		end
 		-- Sized with the bar's text (guideWindow.barTextSize); Along the way's
