@@ -12267,6 +12267,18 @@
 			{
 				"a": [
 					"turnin",
+					815
+				],
+				"b": [
+					"accept",
+					96825
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): the prickly pears grow among the Razormane huts just west of Razor Hill, where Quilboars (6-7) and Scouts (7-8) killed 19 players at 6.3-6.9, 10 of them to a higher quilboar; the guide sent you there at 6 on a trip of its own from the first Razor Hill stop. Cook Torka gives it with Break a Few Eggs' hand-in after the south loop and the pears are picked in the same huts as Encroachment's quilboars and scouts, at 10; the fruit goes back to Torka with Encroachment"
+			},
+			{
+				"a": [
+					"turnin",
 					766
 				],
 				"b": [

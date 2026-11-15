@@ -241,7 +241,6 @@ step Razor Hill
 # ---------------------------------------------------------------- Razor Hill and the north
 
 step Razor Hill
-  accept 96825
   train Cooking npc 3191              -- Cook Torka: Camping 101 asks you to learn it
   complete 96655 @51.1,42.5
   turnin 96655
@@ -266,13 +265,6 @@ step Rawrk
   when complete 97903
   complete 97903 @54.17,41.93 map 1411
   turnin 97903                        -- Rawrk: Camping 101: First Aid
-
-step Prickly pears
-  tip The prickly pears grow among the quilboar huts just west of town.
-  collect 275718 quest 96825.1
-
-step Cook Torka
-  turnin 96825
 
 step Grunt Kor'ja
   only Troll,Priest
@@ -366,6 +358,7 @@ step Razor Hill
   accept 837                          -- Gar'Thok
   turnin 825                          -- Gar'Thok
   turnin 815                          -- Cook Torka
+  accept 96825                        -- Cook Torka
 
 step Level 10
   when level<10
@@ -430,7 +423,8 @@ step Telf Joolam
 
 step Razormane Grounds
   zone Durotar
-  tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
+  tip Quilboars and scouts hold the huts west of town, where the prickly pears grow; dustrunners and battleguards hold the camps farther west.
+  collect 275718 quest 96825.1
   kill 3111 quest 837.1
   kill 3112 quest 837.2
   kill 3113 quest 837.3
@@ -510,6 +504,7 @@ step Druid trainer
 step Razor Hill
   tip Back to Razor Hill: Gar'Thok, then Orgnil.
   turnin 837                          -- Gar'Thok
+  turnin 96825                        -- Cook Torka
   turnin 6062 only Hunter             -- Thotar
   accept 6083 only Hunter
   turnin 806                          -- Orgnil Soulscar
