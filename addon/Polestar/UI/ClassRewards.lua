@@ -159,7 +159,7 @@ ns.ClassRewards = {
 		{ kind = "weapon", show = "item", items = { 20083, 19991, 19992 }, choice = true, icon = 135125 },
 		{ kind = "armor", show = "item", items = { 19984, 20255, 19982 }, choice = true, icon = 133132 },
 		{ kind = "weapon", show = "item", items = { 20035, 20037, 20036 }, choice = true, icon = 135642 },
-		{ kind = "ability", show = "spell", spell = 9884, spellName = "Mark of the Wild", icon = 136078 },
+		{ kind = "armor", show = "item", items = { 19990, 20082, 20006 }, choice = true, icon = 133298 },
 		{ kind = "armor", show = "item", items = { 20699 }, itemNames = { "Cenarion Reservist's Legplates" }, icon = 134694 },
 		{ kind = "armor", show = "item", items = { 20700 }, itemNames = { "Cenarion Reservist's Legplates" }, icon = 134694 },
 		{ kind = "armor", show = "item", items = { 20702 }, itemNames = { "Cenarion Reservist's Legguards" }, icon = 134660 },

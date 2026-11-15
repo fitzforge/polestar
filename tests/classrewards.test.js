@@ -47,3 +47,22 @@ test('only the data\'s class limit makes a class quest: a class guide\'s errand 
 	assert.deepEqual(out.map((e) => e.q), [397]);
 	assert.deepEqual(starts.map((s) => s.q), [397]);
 });
+
+test('a buff the turn-in casts with another class\'s spell is no reward: the priests\' Blood of Morphaz casts Mark of the Wild (#2440)', () => {
+	const MOTW = 9884, CAT = 768;
+	const t = {
+		...tables,
+		SkillLineAbility: [{ Spell: MOTW, ClassMask: 1024 }, { Spell: CAT, ClassMask: 1024 }],
+		SpellName: [{ ID: MOTW, Name_lang: 'Mark of the Wild' }, { ID: CAT, Name_lang: 'Cat Form' }],
+	};
+	const quests = {
+		8257: { ...quest(8257, -202, 52, ROBE), classes: 16 }, // a Priest quest
+		20: { ...quest(20, -263, 20, BLADE), classes: 1024 }, // a Druid quest that teaches a druid spell
+	};
+	const tdb = { quests: { 8257: { rewardSpell: MOTW }, 20: { rewardSpell: CAT } } };
+	const { rewards, quests: out } = buildClassRewards({ quests, tdb, table: (n) => t[n] || [], guides: [], npcs: { 1: giver }, objects: {}, races });
+	const of = (q) => rewards[out.find((e) => e.q === q).reward - 1];
+	assert.equal(of(8257).spell, undefined, 'no Mark of the Wild on the priest card');
+	assert.deepEqual(of(8257).items, [ROBE]);
+	assert.equal(of(20).spell, CAT, 'a druid still learns Cat Form');
+});
