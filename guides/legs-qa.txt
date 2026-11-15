@@ -2,9 +2,9 @@ forever/alliance/02-westfall	step 22	0:-8702,382>-8689,326	detour 3.66x straight
 forever/alliance/02-westfall	step 23	0:-8613,383>-8550,720	detour 1.58x straight on leffe, no named passage
 forever/alliance/02-westfall	step 24	0:-8550,720>-8548,815	detour 1.83x straight on leffe, no named passage
 forever/alliance/02-westfall	step 53	0:-8517,862>-8346,514	detour 1.63x straight on grid, no named passage
-forever/alliance/02-westfall	step 58	0:-4823,-976>-4821,-937	detour 5.40x straight on grid, no named passage
-forever/alliance/02-westfall	step 60	0:-4804,-968>-4823,-976	no way on either map
-forever/alliance/02-westfall	step 61	0:-4823,-976>-4866,-1023	detour 5.33x straight on leffe, no named passage
+forever/alliance/02-westfall	step 58	0:-4822,-976>-4821,-937	detour 5.40x straight on grid, no named passage
+forever/alliance/02-westfall	step 60	0:-4804,-968>-4822,-976	no way on either map
+forever/alliance/02-westfall	step 61	0:-4822,-976>-4866,-1023	detour 5.32x straight on leffe, no named passage
 forever/alliance/03-darkshore-return	step 8	1:4678,601>4515,894	detour 1.63x straight on leffe, no named passage
 forever/alliance/03-darkshore-return	step 23	1:6342,557>8640,841	no way on either map
 forever/alliance/03-darkshore-return	step 24	1:8640,841>10156,2559	no way on either map
@@ -22,7 +22,7 @@ forever/alliance/03-darkshore	step 27	1:6657,728>7076,437	no way on either map
 forever/alliance/03-loch-modan	step 11	0:-4738,-3264>-5218,-3319	detour 1.70x straight on leffe, no named passage
 forever/alliance/03-loch-modan	step 16	0:-5695,-3812>-5622,-4249	detour 1.92x straight on leffe, no named passage
 forever/alliance/03-loch-modan	step 18	0:-5717,-4182>-5692,-4296	detour 2.94x straight on leffe, no named passage
-forever/alliance/03-loch-modan	step 25	0:-6087,-2876>-5878,-2642	no way on either map
+forever/alliance/03-loch-modan	step 25	0:-6074,-2870>-5878,-2642	no way on either map
 forever/alliance/03-loch-modan	step 26	0:-5878,-2642>-5843,-2635	detour 2.45x straight on grid, no named passage
 forever/alliance/03-loch-modan	step 28	0:-5422,-2929>-5506,-2433	detour 1.81x straight on grid, no named passage
 forever/alliance/03-loch-modan	step 36	0:-9444,-2238>-9352,-2207	detour 3.14x straight on leffe, no named passage
@@ -69,6 +69,7 @@ forever/alliance/06-wetlands	step 71	1:1613,-1457>1787,-1232	detour 1.77x straig
 forever/alliance/06-wetlands	step 84	0:-8550,720>-8511,860	detour 1.54x straight on leffe, no named passage
 forever/alliance/06-wetlands	step 86	0:-8346,384>-8578,881	detour 1.55x straight on leffe, no named passage
 forever/alliance/06-wetlands	step 87	0:-8578,881>-8799,828	detour 2.06x straight on leffe, no named passage
+forever/alliance/30-40/01-hillsbrad-foothills	step 5	0:-3656,-2602>-3876,-2664	detour 1.71x straight on grid, no named passage
 forever/alliance/30-40/01-hillsbrad-foothills	step 58	0:-8681,433>-8689,323	detour 2.11x straight on leffe, no named passage
 forever/alliance/30-40/01-hillsbrad-foothills	step 59	0:-8689,323>-8421,405	detour 2.28x straight on leffe, no named passage
 forever/alliance/30-40/01-hillsbrad-foothills	step 60	0:-8421,405>-8529,855	detour 1.67x straight on leffe, no named passage
@@ -86,6 +87,7 @@ forever/alliance/30-40/05-arathi-highlands	step 17	0:-8496,809>-8550,386	detour 
 forever/alliance/30-40/05-arathi-highlands	step 30	0:-926,-3857>-876,-3902	detour 5.12x straight on grid, no named passage
 forever/alliance/30-40/05-arathi-highlands	step 34	0:-1426,-3033>-1559,-3073	detour 3.22x straight on leffe, no named passage
 forever/alliance/30-40/05-arathi-highlands	step 54	0:634,-292>485,-213	detour 1.80x straight on grid, no named passage
+forever/alliance/30-40/05-arathi-highlands	step 55	0:485,-213>1193,-339	detour 1.55x straight on grid, no named passage
 forever/alliance/30-40/05-arathi-highlands	step 69	0:-4648,-1132>-4822,-1156	detour 1.64x straight on leffe, no named passage
 forever/alliance/30-40/06-badlands	step 4	0:-6608,-3417>-6452,-3398	detour 1.65x straight on leffe, no named passage
 forever/alliance/30-40/06b-desolace	step 2	0:-5422,-2929>-3901,-602	detour 1.94x straight on leffe, no named passage
@@ -238,12 +240,12 @@ forever/alliance/nightelf/02-darkshore	step 5	1:6425,601>6311,857	detour 1.51x s
 forever/alliance/nightelf/02-darkshore	step 6	1:6343,543>6277,610	detour 1.84x straight on leffe, no named passage
 forever/alliance/nightelf/02-darkshore	step 18	1:6749,49>6435,363	detour 1.56x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 2	2991:4037,1815>4023,1827	detour 1.83x straight on leffe, no named passage
-forever/alliance/skyborne/01-zephras-isle	step 3	2991:4020,1823>4064,1797	detour 2.81x straight on grid, no named passage
+forever/alliance/skyborne/01-zephras-isle	step 3	2991:4017,1812>4064,1797	detour 2.96x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 4	2991:4063,1802>4085,1892	detour 2.02x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 33	2991:3346,1801>3348,1823	detour 2.37x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 42	2991:3289,1758>3284,1731	detour 1.55x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 50	2991:3281,1715>3095,1606	detour 1.56x straight on leffe, no named passage
-forever/alliance/skyborne/01-zephras-isle	step 52	2991:2580,1952>2717,2035	detour 2.02x straight on leffe, no named passage
+forever/alliance/skyborne/01-zephras-isle	step 52	2991:2580,1952>2739,2003	detour 1.65x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 57	2991:2201,562>2119,551	no way on either map
 forever/alliance/skyborne/01-zephras-isle	step 59	2991:2008,541>2131,543	detour 1.93x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 61	2991:2262,858>2268,899	detour 2.17x straight on grid, no named passage
@@ -254,7 +256,6 @@ forever/alliance/skyborne/01-zephras-isle	step 77	2991:2668,348>1992,525	detour 
 forever/alliance/skyborne/01-zephras-isle	step 79	2991:2683,1062>2119,551	no way on either map
 forever/alliance/skyborne/01-zephras-isle	step 80	2991:2115,552>2172,672	detour 1.79x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 86	2991:2668,348>3502,799	detour 1.91x straight on leffe, no named passage
-forever/alliance/skyborne/01-zephras-isle	step 88	2991:3464,853>3502,799	detour 1.82x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 94	2991:3514,1230>3091,1083	detour 1.50x straight on leffe, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 95	2991:3089,605>3091,582	detour 3.72x straight on grid, no named passage
 forever/alliance/skyborne/01-zephras-isle	step 96	2991:3091,582>2991,65	no way on either map
@@ -270,7 +271,7 @@ forever/horde/02-the-barrens	step 101	1:8020,-2679>7991,-2681	detour 1.96x strai
 forever/horde/02-the-barrens	step 102	1:7991,-2681>8020,-2679	detour 1.96x straight on leffe, no named passage
 forever/horde/02-the-barrens	step 105	1:7361,-2395>8020,-2679	detour 1.51x straight on leffe, no named passage
 forever/horde/02-the-barrens	step 110	1:-920,-3684>-929,-3697	detour 1.52x straight on grid, no named passage
-forever/horde/02-the-barrens	step 133	1:-2402,-1904>-2547,-1884	detour 1.64x straight on leffe, no named passage
+forever/horde/02-the-barrens	step 133	1:-2402,-1904>-2548,-1889	detour 1.63x straight on leffe, no named passage
 forever/horde/03-silverpine-forest	step 2	1:1599,-4461>1775,-4483	detour 2.39x straight on grid, no named passage
 forever/horde/03-silverpine-forest	step 3	1:1775,-4483>1801,-4374	detour 4.48x straight on leffe, no named passage
 forever/horde/03-silverpine-forest	step 4	1:1801,-4374>1955,-4467	detour 1.61x straight on leffe, no named passage
@@ -378,7 +379,7 @@ forever/horde/50-60/02-felwood	step 11	0:1513,-1894>1517,-1955	detour 1.61x stra
 forever/horde/50-60/02-felwood	step 12	0:1517,-1955>1513,-1894	detour 1.61x straight on leffe, no named passage
 forever/horde/50-60/02-felwood	step 21	1:1847,-4403>1955,-4459	detour 2.23x straight on grid, no named passage
 forever/horde/50-60/02-felwood	step 22	1:1955,-4459>1849,-4360	detour 2.40x straight on grid, no named passage
-forever/horde/50-60/02-felwood	step 28	1:3724,-1025>4762,-584	no way on either map
+forever/horde/50-60/02-felwood	step 28	1:3619,-1188>4762,-584	no way on either map
 forever/horde/50-60/02-felwood	step 30	1:4790,-552>5007,-440	no way on either map
 forever/horde/50-60/02-felwood	step 44	1:7026,-2136>6822,-2083	detour 1.85x straight on grid, no named passage
 forever/horde/50-60/02-felwood	step 45	1:6822,-2083>6901,-2020	detour 1.99x straight on grid, no named passage
@@ -422,18 +423,17 @@ forever/horde/orc/01-durotar	step 83	1:287,-4725>479,-4659	detour 1.66x straight
 forever/horde/orc/01-durotar	step 88	1:2101,-4607>2090,-4824	detour 1.76x straight on leffe, no named passage
 forever/horde/orc/01-durotar	step 90	1:1598,-4460>1850,-4357	detour 2.45x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 2	2991:4037,1815>4023,1827	detour 1.83x straight on leffe, no named passage
-forever/horde/skyborne/01-zephras-isle	step 3	2991:4020,1823>4037,1815	detour 1.77x straight on leffe, no named passage
+forever/horde/skyborne/01-zephras-isle	step 3	2991:4017,1812>4037,1815	detour 1.62x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 4	2991:4063,1802>4052,1861	detour 2.42x straight on grid, no named passage
 forever/horde/skyborne/01-zephras-isle	step 11	2991:3989,2248>4023,1872	detour 1.57x straight on grid, no named passage
 forever/horde/skyborne/01-zephras-isle	step 36	2991:2998,1858>2871,1623	detour 1.63x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 37	2991:2956,1515>3269,1691	detour 1.52x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 38	2991:3281,1715>3095,1606	detour 1.56x straight on leffe, no named passage
-forever/horde/skyborne/01-zephras-isle	step 42	2991:2580,1952>2717,2035	detour 2.02x straight on leffe, no named passage
+forever/horde/skyborne/01-zephras-isle	step 42	2991:2580,1952>2739,2003	detour 1.65x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 45	2991:2690,1071>2119,551	no way on either map
 forever/horde/skyborne/01-zephras-isle	step 46	2991:2115,552>2201,562	detour 2.15x straight on grid, no named passage
-forever/horde/skyborne/01-zephras-isle	step 47	2991:2172,672>2131,654	detour 1.69x straight on leffe, no named passage
-forever/horde/skyborne/01-zephras-isle	step 48	2991:2131,654>2115,552	no way on either map
-forever/horde/skyborne/01-zephras-isle	step 59	2991:2243,778>2254,900	detour 1.84x straight on leffe, no named passage
+forever/horde/skyborne/01-zephras-isle	step 48	2991:2126,661>2115,552	no way on either map
+forever/horde/skyborne/01-zephras-isle	step 59	2991:2237,777>2172,672	detour 1.72x straight on grid, no named passage
 forever/horde/skyborne/01-zephras-isle	step 62	2991:2250,946>2263,918	detour 1.82x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 64	2991:1998,941>2115,552	no way on either map
 forever/horde/skyborne/01-zephras-isle	step 65	2991:2115,552>2172,672	detour 1.79x straight on grid, no named passage
@@ -443,7 +443,6 @@ forever/horde/skyborne/01-zephras-isle	step 74	2991:2045,988>2119,551	no way on 
 forever/horde/skyborne/01-zephras-isle	step 76	2991:2115,552>2172,672	detour 1.79x straight on grid, no named passage
 forever/horde/skyborne/01-zephras-isle	step 79	2991:3084,1088>2668,348	detour 1.63x straight on leffe, no named passage
 forever/horde/skyborne/01-zephras-isle	step 80	2991:2668,348>3502,799	detour 1.91x straight on leffe, no named passage
-forever/horde/skyborne/01-zephras-isle	step 82	2991:3464,853>3502,799	detour 1.82x straight on grid, no named passage
 forever/horde/skyborne/01-zephras-isle	step 89	2991:3089,605>3091,582	detour 3.72x straight on grid, no named passage
 forever/horde/skyborne/01-zephras-isle	step 90	2991:3091,582>2991,65	no way on either map
 forever/horde/skyborne/01-zephras-isle	step 91	2991:2976,71>1998,941	no way on either map
