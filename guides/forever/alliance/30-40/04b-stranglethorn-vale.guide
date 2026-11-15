@@ -5,13 +5,18 @@ faction Alliance
 levels 35-36
 zone Stranglethorn Vale
 next forever/alliance/30-40/05-arathi-highlands
-pitch For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. Troll Witchery's Skullsplitter trolls are 39-42, so pull them one at a time.
+pitch For characters of 35 to 36, but several quests here are level 37-38: on purpose, for their experience. Sin'Dall is 37 and the water elementals 36-37: pull them one at a time.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Since 2026-11-07 Stranglethorn's second loop, after Desolace (the first loop is 30-40/04, which takes its Booty Bay
 # quests). In from Duskwood at the north, down through the jungle, out at Booty Bay.
+# Level tidy (0.4.0): Sin'Dall (Tiger Mastery, 188) and the Lashtail Raptors (Raptor Mastery, 195) are hunted here at about
+# 36 instead of on the first loop at 33-34. Panther Mastery's Shadowmaw Panthers (192, 37-38) and Troll Witchery's
+# Skullsplitter trolls (205, 39-42) are three and four levels over players here: 40-50/01-stranglethorn-vale takes both at
+# about 42 (Brother Nimetz offers Troll Witchery there once Kurzen's Mystery is handed in on this loop). Wendel Mathers'
+# Cook in the Cage (97047) is worked with Special Forces in Kurzen's Compound; Captain Aransas takes 97048 at Booty Bay.
 
 step Collin Mauren
   when complete 1078
@@ -39,7 +44,8 @@ step Rebel Camp
 
 step Nesingwary's Expedition
   tip South along the road: the hunters' tents stand just west of it.
-  accept 192                          -- Sir S. J. Erlgadin: the Shadowmaw Panthers prowl around Lake Nazferiti, after Kurzen's Compound
+  accept 188                          -- Ajeck Rouack: Sin'Dall, after the jungle ruins
+  accept 195                          -- Hemet Nesingwary: the Lashtail Raptors, with Sin'Dall
 
 step Bookie Herod
   when onquest 200
@@ -48,21 +54,26 @@ step Bookie Herod
   accept 328
 
 step Kurzen's Compound
-  tip Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.
-  tip Careful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb.
+  tip Wendel Mathers, a cook, is caged at the compound's western edge. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. The Kurzen Subchiefs (35-36) and Elites (36-37) carry the cage key: at 35 take it from the Subchiefs and pull the Elites one at a time. The fighter's uniform lies in the compound's eastern part. Pick up Green Hills pages as they drop.
+  tip Careful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb. Colonel Kurzen, an elite of 39-40, stands at the compound's north end: leave him be.
+  accept 97047 @44.3,7.9 map 1434     -- Wendel Mathers, in his cage
   kill 938 quest 574.1 @46.3,7.8 map 1434 -- Kurzen Commando
   kill 941 quest 574.2 @46.4,7.9 map 1434 -- Kurzen Headshrinker, below ground
+  collect 216616 quest 97047          -- Compound Cage Key, from the Subchiefs (or the Elites)
+  collect 216617 quest 97047 @50.0,8.0 map 1434 -- Kurzen Fighter's Uniform
   turnin 328                          -- Bookie Herod's Strongbox, below ground
   accept 329
+  turnin 97047 @44.3,7.9 map 1434     -- Wendel Mathers, back at his cage on the way out
+  accept 97048                        -- For Captain Aransas in Booty Bay, at the end of this loop
 
 step Lake Nazferiti
   zone Stranglethorn Vale
-  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.
+  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.
   collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
-  kill 684 quest 192 @48.6,22.2 map 1434 -- Shadowmaw Panther
 
 step The jungle ruins
   tip West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.
+  tip Careful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them.
   collect 2005 quest 207.1            -- The First Troll Legend: Moon Over the Vale
   collect 2006 quest 207.2            -- The Second Troll Legend: Gri'lek the Wanderer; underwater
 
@@ -89,7 +100,11 @@ step Rebel Camp
   turnin 331                          -- Lieutenant Doren
   turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
   turnin 207                          -- Brother Nimetz
-  accept 205
+
+step Sin'Dall and the Lashtail raptors
+  tip From the Rebel Camp, past Nesingwary's camp to the hilltop south-west of it: Sin'Dall, the great tiger (37), lairs there, and the Lashtail Raptors run in the jungle around it. Then back to the hunters' tents.
+  kill 686 quest 195                  -- Lashtail Raptor
+  collect 3879 quest 188              -- Paw of Sin'Dall
 
 step Nesingwary's Expedition
   turnin 339 optional                 -- Barnil Stonepot
@@ -97,29 +112,15 @@ step Nesingwary's Expedition
   turnin 341 optional
   turnin 342 optional
   turnin 338 optional
-  turnin 192                          -- Sir S. J. Erlgadin
-  accept 196
-
-step Nesingwary's Expedition
-  when group 193
-  accept 193
+  turnin 195                          -- Hemet Nesingwary
+  accept 196                          -- Hemet Nesingwary: the Jungle Stalkers come in 40-50
+  turnin 188                          -- Ajeck Rouack
 
 # ---------------------------------------------------------------- South
 
 step Snapjaw Crocolisks
-  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins.
+  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to Booty Bay.
   collect 4104 quest 577              -- Snapjaw Crocolisk Skin
-
-step Level 36
-  when level<36
-  zone Stranglethorn Vale
-  tip Troll Witchery's Skullsplitter trolls are 39-42. Below 36? Keep killing the Snapjaw Crocolisks along the river until level 36. Or, with a group, run the Scarlet Monastery dungeon (Armory) or the Razorfen Downs dungeon instead.
-  goto 40.2,27.2 map 1434 "Snapjaw Crocolisk"
-  level 36 grind 1152                 -- grind on Snapjaw Crocolisk
-
-step Skullsplitter trolls
-  tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
-  collect 2466 quest 205              -- Skullsplitter Fetish
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -133,3 +134,4 @@ step Booty Bay
   accept 627 optional -- Krazek, upstairs: this optional quest needs four Lesser Bloodstone Ore. Mine Lesser Bloodstone Deposits in Arathi Highlands with Mining 75, or buy the ore at the Auction House or ask a miner friend. The kobolds do not drop it; skip this quest if you cannot get the ore.
   accept 600                          -- Crank Fizzlebub, inside
   accept 606                          -- "Sea Wolf" MacKinley, on the top floor
+  turnin 97048                        -- Captain Aransas

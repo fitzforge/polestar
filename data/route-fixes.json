@@ -5012,18 +5012,6 @@
 			},
 			{
 				"a": [
-					"task",
-					1078
-				],
-				"b": [
-					"turnin",
-					1175
-				],
-				"faction": "Alliance",
-				"why": "Alliance 30-40 audit (0.3.7, 2026-11-09): Retrieval for Mauren (1078, level 26): its Crystalized Scales also drop from the Saltstone Basilisks (Forever's item data, 20%) that 30-40/03's Mirage Raceway step kills for A Bump in the Road at 32; the route farmed them on gray basilisks (23-27) in Stonetalon at 35 instead."
-			},
-			{
-				"a": [
 					"turnin",
 					1078
 				],
@@ -5646,6 +5634,18 @@
 					93224
 				],
 				"why": "#1602: Captain Pentigast (66.7,10.9) stands beside Corporal Melkins (66.7,10.9) at Nijel's Point: both hand-ins on one stop."
+			},
+			{
+				"a": [
+					"turnin",
+					1465
+				],
+				"b": [
+					"accept",
+					1387
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Centaur Bounty and Carved Centaur Totems are taken from Corporal Melkins and Captain Pentigast on 30-40/02's second Nijel's Point stop (Vahlarriel's, before the west), not on arrival: the Kolkar are the guide's last work, so the two ride the log through Sargeron one stop less. The totem quest is level 40 (its Kolkar are 33-36)."
 			},
 			{
 				"a": [
@@ -7665,10 +7665,6 @@
 				"why": "#1542: Assassin's Contract starts from the contract (3668) that only the Shadowy Assassin (2434) drops: one stealthed mob on the edge of Southshore (players' recordings to 2026-11-10: seen by 5 people and killed by 4 in all, at spots spread from 47,62 to 55,54 on Hillsbrad's map). A required kill, collect and accept held the Southshore step of alliance/30-40/05-arathi-highlands until he showed up. Optional (take it if you spot him); the hand-in at Magistrate Henry Maleb stays a plain goal for whoever carries it."
 			},
 			{
-				"q": 523,
-				"why": "#1542: Baron's Demise follows Assassin's Contract (522), whose start drops only from the stealthed Shadowy Assassin; optional with it, so the route does not count on it. Its Strahnbrad objective and Southshore hand-in stay plain goals for whoever carries it."
-			},
-			{
 				"q": 4881,
 				"why": "Discord question (2026-11-09): Assassination Plot starts from the Assassination Note (12564), which only the Galak Messenger (10617) drops: one creature that walks a waypoint path about 1,300 yd long between the Galak camps of Thousand Needles (Forever's server data: MovementType 2, path 810106170, 66 nodes). Optional for the note and the accept (take it if you meet him); Kanati Greycloud's hand-in at Whitereach Post has its own step for whoever carries it, so it is never carried past."
 			},
@@ -8054,6 +8050,11 @@
 				"q": 105,
 				"size": 3,
 				"why": "#1791 sweep: Alas, Andorhal's Araj's Phylactery Shard (17114) comes only from Araj's Phylactery (object 177241) at Western Plaguelands 45.27,69.21, where Araj the Summoner (1852, elite 61) stands among Skeletal Warlords (1788, elite 56-57). A group quest on the Horde 50-60 route, accept to hand-in."
+			},
+			{
+				"q": 665,
+				"size": 2,
+				"why": "Alliance level tidy (0.4.0): Faldir's Cove at the end of 30-40/05-arathi-highlands, about 38 for players (recorded 25th percentile 38.3): Professor Phizzlethorpe's escort (665) is ambushed by two level 40 water elementals, and the Drowned Reef's Daggerspine naga (664: Raiders 38-39, Sorceresses 39-40) are where 11 of 18 recorded players died. The whole cove (663, 662, 664, 665, 666, 668, 669) is one group choice on that step; the route has no later Arathi visit."
 			}
 		]
 	},
@@ -8359,11 +8360,6 @@
 			{
 				"q": 1176,
 				"reason": "Alliance 30-40 re-order (2026-11-07): Load Lightening at the Mirage Raceway, at 33-34 on the Theramore crossing (30-40/03); left out at 30 for the level.",
-				"issue": "-"
-			},
-			{
-				"q": 1175,
-				"reason": "Alliance 30-40 re-order (2026-11-07): A Bump in the Road (the Saltstone basilisks, 30-35) at the Mirage Raceway, at 33-34 on the Theramore crossing (30-40/03); left out at 30 for the level.",
 				"issue": "-"
 			},
 			{
@@ -10093,6 +10089,105 @@
 				],
 				"reason": "Horde 40-50 route audit (0.4.0): Un'Goro Soil (3761) lists the three Assisting Arch Druid Runetotem quests (936, 3762, 3784, the capital innkeepers) as breadcrumbs or prerequisites, and 40-50/06 took it at Hamuul with none of them in its history (#2025's unclear-breadcrumb list, 06-azshara:271). No recorded player of 47 or more has asked Hamuul yet (every recorded Hamuul window lists 3761 as not offered, all from low-level characters). Innkeeper Pala stands in Thunder Bluff, the city of the same stop: 3762 is taken and handed to Hamuul before 3761, so the step works whether the pair is a breadcrumb or a prerequisite, and the breadcrumb is out of the log before its target (#2085). 470 XP, about a minute.",
 				"issue": "#2025"
+			},
+			{
+				"q": 290,
+				"after": [
+					"accept",
+					1132
+				],
+				"reason": "Alliance level tidy (0.4.0), agreed with the 12-30 slice: Lifting the Curse's Captain Halyndor (30) was met at about 28 in 06-wetlands (recorded 25th percentile 27.9). It is taken on 30-40/01-hillsbrad-foothills' Menethil stop at about 31, before the boat to Southshore, in place of most of that stop's top-up on the Bluegill murlocs.",
+				"issue": "-"
+			},
+			{
+				"q": 292,
+				"after": [
+					"turnin",
+					290
+				],
+				"reason": "Alliance level tidy (0.4.0): The Eye of Paleth comes from Intrepid's strongbox and goes to Glorin Steelbrow in Menethil's Deepwater Tavern on the same 30-40/01 stop.",
+				"issue": "-"
+			},
+			{
+				"q": 293,
+				"after": [
+					"turnin",
+					292
+				],
+				"reason": "Alliance level tidy (0.4.0): Cleansing the Eye goes from Glorin Steelbrow to Archbishop Benedictus, handed in on 30-40/01's own Stormwind stop (Cathedral of Light, with Bishop Farthing's 269).",
+				"issue": "-"
+			},
+			{
+				"q": 93429,
+				"after": [
+					"accept",
+					1389
+				],
+				"reason": "Swamp of Sorrows, #2416 (Yunra): Karana at the Harborage asks for ten Lost Ones, the mobs the route already kills in the Fallow Sanctuary for Draenethyst Crystals and The Lost Caravan (players' recordings: kills of Lost One Hunters, Muckdwellers and Seers count). Taken and handed in with Magtoor's quests.",
+				"issue": "#2416"
+			},
+			{
+				"q": 93430,
+				"after": [
+					"accept",
+					1389
+				],
+				"reason": "Swamp of Sorrows, #2416 (Yunra): Pelluk at the Harborage wants the Lucky Lure, which a Lost One Fisherman (35-36) drops on the Fallow Sanctuary's west side, on the route's way in (players' recordings: looted from a Lost One Fisherman). Taken and handed in with Magtoor's quests.",
+				"issue": "#2416"
+			},
+			{
+				"q": 505,
+				"after": [
+					"accept",
+					500
+				],
+				"reason": "Alliance level tidy (0.4.0): Syndicate Assassins' Footpads (32-33) and Thieves (33-34), with Syndicate Wizards (34-35) in the camp, were met at about 32 on 30-40/01's Southshore visit (recorded 25th percentile 32.8, 7 of 26 players died there). Magistrate Maleb's quest is taken on 30-40/05's first Southshore stop at about 37 and the camp is worked on the road north to Arathi; the documents (510, 511) are handed in on the return to Southshore before Strahnbrad, so Noble Deaths (512) is done on the same Alterac trip.",
+				"issue": "-"
+			},
+			{
+				"q": 97329,
+				"after": [
+					"accept",
+					189
+				],
+				"reason": "Alliance level tidy (0.4.0), quest volume: Where's the Key? (35, 2,750 XP): Zimmix Sputterspark is caged in the Bloodscalp ruins on Stranglethorn's north-west coast, where 30-40/04's Savage Coast step already hunts Bloodscalp trolls for Kebok's ears at about 34 (the route walked past him); any Bloodscalp drops the key (players' recordings: 40 records of it). It makes up part of the experience the guide lost when Sin'Dall and the Lashtails moved to the second loop.",
+				"issue": "-"
+			},
+			{
+				"q": 97331,
+				"after": [
+					"turnin",
+					97329
+				],
+				"reason": "Alliance level tidy (0.4.0), quest volume: Zimmix's Great Escape (35, 2,750 XP): lead Zimmix out of the ruins, then Wharfmaster Lozgil takes it on 30-40/04's second Booty Bay stop, with Kebok's ears.",
+				"issue": "-"
+			},
+			{
+				"q": 97047,
+				"after": [
+					"accept",
+					574
+				],
+				"reason": "Alliance level tidy (0.4.0): The Cook in the Cage (level 38, 2,850 XP) and Returning to Port (97048, 2,850 XP): Wendel Mathers is caged at the western edge of Kurzen's Compound, where 30-40/04b's Special Forces step works at about 36; the key drops from the compound's Elites and Subchiefs (35-37, one level over at most) and the uniform lies in its eastern part (players' recordings: about 50,8), and Captain Aransas is on the guide's Booty Bay stop. 150 players are recorded doing it.",
+				"issue": "-"
+			},
+			{
+				"q": 97048,
+				"after": [
+					"turnin",
+					97047
+				],
+				"reason": "Alliance level tidy (0.4.0): Returning to Port follows The Cook in the Cage and is handed to Captain Aransas on 30-40/04b's Booty Bay stop.",
+				"issue": "-"
+			},
+			{
+				"q": 97328,
+				"after": [
+					"accept",
+					194
+				],
+				"reason": "Alliance level tidy (0.4.0), quest volume: Anything of Value (35, 2,750 XP): the looted crate that starts it lies west of Nesingwary's camp, where 30-40/04 hunts the raptors (players' recordings: 31.5,12.8, 21 people, most on this guide at about 34.5), and the Stolen Shipments lie in the Bloodscalp ruins of Zul'Kunda, which the guide's Savage Coast step works for Kebok's ears and Zimmix; Wharfmaster Lozgil takes it with Zimmix's Great Escape on the second Booty Bay stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -10417,6 +10512,42 @@
 				"q": 2933,
 				"faction": "Horde",
 				"reason": "Horde 40-50 route audit (0.4.0), agreed with the 50-60 slice: Venom Bottles (level 43, 3,600 XP) is taken from the bottles in the Hinterlands' troll villages at about 49 (40-50/05), after the route's only pass through Tarren Mill, where Apothecary Lydon takes it. The next Tarren Mill visit was a landing on 50-60/01's flight at about 52.4 made for this hand-in alone, at a fifth of its experience (9 levels over). Left out; 50-60/01 flies Kargath to the Undercity direct.",
+				"issue": "-"
+			},
+			{
+				"q": 1175,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): A Bump in the Road needs six Saltstone Gazers (34-35), which hold the far south of the Shimmering Flats; players reach the Mirage Raceway at about 32-33 (30-40/03, recorded 25th percentile 33.0) and the route's next Raceway visit is at 45 (40-50/04), where the quest (level 33) is grey. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 537,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Dark Council asks for Nagaz (40), who stands with Syndicate Enforcers (39-40) in north-west Alterac, on 30-40/05's Alterac trip at about 38; the 40-50 route's Southshore stop (02-badlands, about 43) would need a Stormpike-Maleb errand and a Crushridge trip of its own for about 4,500 XP. Left out, with Further Mysteries (525), which only leads to it.",
+				"issue": "-"
+			},
+			{
+				"q": 525,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Further Mysteries only sends Stormpike's reply to Magistrate Maleb for Dark Council (537), which is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 551,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): the Ensorcelled Parchment lies in a worn wooden chest beside Nagaz (40) and his Syndicate guards in north-west Alterac, about two levels over players on 30-40/05's Alterac trip. Left out, with Stormpike's Deciphering (554).",
+				"issue": "-"
+			},
+			{
+				"q": 554,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Stormpike's Deciphering follows the Ensorcelled Parchment (551), which is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 523,
+				"faction": "Alliance",
+				"reason": "Alliance level tidy (0.4.0): Baron's Demise asks for Baron Vardus (40), who turns up in Strahnbrad's inn cellar or a Syndicate tent camp north of it, on 30-40/05's Alterac trip at about 38. Left out; Assassin's Contract (522), which leads to it, stays optional.",
 				"issue": "-"
 			}
 		],
@@ -14080,6 +14211,45 @@
 				"faction": "Alliance",
 				"why": "Forest Song is on the road from the Emerald Sanctuary back to Talrendis Point, ridden right after Arei's escort (Ancient Spirit): the quest is handed in to Kayneth Stillwind there instead of on a later Gadgetzan -> Talrendis Point -> Forest Song -> Talrendis Point detour between flights (about 1,400 yd and a landing).",
 				"source": "0.4.0 audit (route audit A2)"
+			},
+			{
+				"a": [
+					"turnin",
+					1459
+				],
+				"b": [
+					"accept",
+					188
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Tiger Mastery's Sin'Dall (37) was hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.7, 8 players died on that coast). Ajeck offers it on the second loop (30-40/04b) after Desolace, and Sin'Dall's hill, just south-west of Nesingwary's camp, is hunted at the end of that loop at about 36, after the Rebel Camp and before the hunters' hand-ins.",
+				"source": "Alliance level tidy 2026-11-15"
+			},
+			{
+				"a": [
+					"turnin",
+					1459
+				],
+				"b": [
+					"accept",
+					195
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (35-36) were hunted on Stranglethorn's first loop at about 34 (recorded 25th percentile 34.3). Hemet offers it on the second loop (30-40/04b), and the Lashtails run around Sin'Dall's hill, hunted with him at the end of that loop; Raptor Mastery (196) follows at the same hand-in.",
+				"source": "Alliance level tidy 2026-11-15"
+			},
+			{
+				"a": [
+					"task",
+					505
+				],
+				"b": [
+					"turnin",
+					634
+				],
+				"faction": "Alliance",
+				"why": "Alliance level tidy (0.4.0): the Syndicate camp on the Alterac border is worked on 30-40/05's road from Southshore to Arathi (about 1,300 yd more than the straight road), before Refuge Pointe's first stop.",
+				"source": "Alliance level tidy 2026-11-15"
 			}
 		]
 	}

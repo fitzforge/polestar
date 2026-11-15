@@ -58,6 +58,10 @@ step Bibbly F'utzbuckle
 step Kodo Graveyard
   tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.
   collect 13703 quest 5501            -- Kodo Bone
+
+step Hornizz Brimbuzzle
+  when group 6134
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Ghost-o-plasm Round Up's magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the Valley of Bones. Skip it if you are alone.
   accept 6134                         -- Hornizz Brimbuzzle
 
 step Flesh Picker
@@ -76,22 +80,30 @@ step Melizza Brimbuzzle
   complete 6132 @40.1,61.6            -- escort Melizza back toward the graveyard
 
 step Mannoroc Coven
-  tip The demons gather at the Mannoroc Coven in southern Desolace: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.
-  tip Careful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs.
-  collect 6251 quest 1466             -- Nether Wing
-  collect 6252 quest 1466             -- Doomwarder Blood
+  tip The demons gather at the Mannoroc Coven in southern Desolace. Nether Maidens (37-38) hold its north-west side and drop the wings; Doomwarder Captains (38) stand at the south end and drop the blood.
+  tip Careful: Nether Sorceresses (39-40) stand beside the Doomwarder Captains, and Lord Azrethoc, a level 40 elite, walks the coven's middle: pull the captains away from them. Most of the mobs here walk patrol routes, so you can easily pull extra mobs.
+  collect 6251 quest 1466 @50.5,74.3 map 1443 -- Nether Wing, from the Nether Maidens
+  collect 6252 quest 1466 @51.7,83.4 map 1443 -- Doomwarder Blood, from the Doomwarder Captains
 
 step The Valley of Bones
-  tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them.
+  tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields further east, with Magram Necromancers (42): pull the Ravagers to you, away from them.
   kill 11561 quest 261 @61.1,90.9 map 1443 -- Undead Ravager
+
+step The ghost magnets
+  when group 6134
+  tip Use the Crate of Ghost Magnets at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together.
   use 15848 quest 6134.1 @64.4,91.7 map 1443
   collect 15849 quest 6134 @64.4,91.7 map 1443 -- Ghost-o-plasm
 
 step Mannoroc Coven
-  collect 6250 quest 1466             -- Felhound Brain
+  tip Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. Lord Azrethoc (40, elite) walks among the Mage Hunters: pull them out to you.
+  collect 6250 quest 1466 @52.2,68.1 map 1443 -- Felhound Brain
 
 step Hornizz Brimbuzzle
   turnin 6132
+
+step Hornizz Brimbuzzle
+  when group 6134
   turnin 6134                         -- Hornizz Brimbuzzle
 
 step Azore Aldamort

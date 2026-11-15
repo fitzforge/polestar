@@ -357,8 +357,9 @@
 			"id": "alliance-swamp-of-sorrows-noboru-roams",
 			"faction": "Alliance",
 			"at": { "quest": 1389, "goal": "objective", "objective": 1 },
-			"tip": "East along the road to the Fallow Sanctuary. The Lost One mobs drop the crystals. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.",
-			"note": "Roaming-NPC sweep: the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392), so the tip says not to wait for him.",
+			"tip": "East along the road to the Fallow Sanctuary. The Draenethyst Crystals are the glowing blue crystals among the Lost Ones' tents: click them. Any Lost One counts for Karana, and the Lost One Fishermen on the sanctuary's west side carry Pelluk's Lucky Lure. Noboru the Cudgel walks a long path through the ruins: if you meet him, kill him, his cudgel starts a quest for Magtoor. Don't wait for him.",
+			"note": "Roaming-NPC sweep: the step waited on Noboru the Cudgel (5477), who walks a waypoint path through the ruins; his cudgel (6196) and Noboru the Cudgel (1392) are optional now (route-fixes deliberate.optional 1392), so the tip says not to wait for him. #2416 (Yunra, a level 37 Gnome Warlock on client 70938): the crystals are clicked from the blue crystal objects in the camps (the quest data's objective comes from the Draenethyst Crystals object), not dropped by the Lost Ones; Karana's (93429) and Pelluk's (93430) quests are worked on the same stop.",
+			"issue": 2416,
 			"source": [
 				{ "kind": "tdb", "ref": "creature 5477: MovementType 2, waypoint path 810054770 (56 nodes, 221 x 544 yd)" }
 			]
@@ -4420,43 +4421,6 @@
 			]
 		},
 		{
-			"id": "alliance-badlands-lotwil-bracers-optional-greater-elementals",
-			"faction": "Alliance",
-			"at": {
-				"quest": 712,
-				"goal": "accept"
-			},
-			"tip": "Lotwil's last test is optional: five Bracers of Rock Binding, which only the Greater Rock Elementals (42-44) in the south-western gulches drop, about one kill in five, well above your level. Take it only if you can handle them one at a time; otherwise hand in the slabs and move on.",
-			"note": "Final route review 0.3.5: the Alliance step at Lotwil (about 38.8) took Study of the Elements: Rock (712, level 42) and listed its bracers and hand-in with no word on where they drop. Only the Greater Rock Elementals (2736, 42-44) drop them, at x 1-17, y 74-90 of the Badlands; the Horde guide says so in its tip.",
-			"source": [
-				{
-					"kind": "pfquest",
-					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
-				},
-				{
-					"kind": "questie",
-					"ref": "npcs.json 2736 (Greater Rock Elemental) spawns on map 1418; quests.json 712 (level 42, 5 Bracers of Rock Binding)"
-				}
-			]
-		},
-		{
-			"id": "alliance-stv-troll-witchery-level-36",
-			"faction": "Alliance",
-			"at": {
-				"quest": 205,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 36,
-			"note": "Final route review 0.3.5 (Fitz: no step hides grinding): Troll Witchery's Skullsplitter Fetishes come from the Skullsplitter trolls (39-42, quest level 40) on 30-40/04b's southern leg, reached at about 35.9; the level model ground the rest of 35 there with no written step. A level 36 top-up on the Snapjaw Crocolisks (35) of the step before says so.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 205 level 40; npcs 667, 696, 780 (Skullsplitter Warrior, Axe Thrower, Mystic, 39-40) and 669, 670, 782, 784 (41-42)"
-				}
-			]
-		},
-		{
 			"id": "horde-4060-dearest-natalia-question-them",
 			"faction": "Horde",
 			"at": {
@@ -6001,11 +5965,11 @@
 			"id": "ba3040-stv-erlgadin-on-the-way-in",
 			"faction": "Alliance",
 			"at": {
-				"quest": 192,
+				"quest": 188,
 				"goal": "accept"
 			},
 			"tip": "South along the road: the hunters' tents stand just west of it.",
-			"note": "Review (0.3.6, 30-40/04b): Panther Mastery is taken at Nesingwary's on the way in from the Rebel Camp, so the Shadowmaw Panthers at Lake Nazferiti can be killed right after Kurzen's Compound (route-fixes pairs).",
+			"note": "Review (0.3.6, 30-40/04b): Nesingwary's camp is visited on the way in from the Rebel Camp. Since the 0.4.0 level tidy it gives Tiger Mastery (Sin'Dall, 188) and Raptor Mastery (Lashtails, 195) there, hunted on Sin'Dall's hill south-west of the camp after the Rebel Camp, at the end of the loop; Panther Mastery (192) moved to 40-50/01.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -6037,7 +6001,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it.",
+			"tip": "South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.",
 			"note": "Review (0.3.6, 30-40/04b): Venture Co. Geologist (1096) spawns 42-48,16-24 (two at 28,8); Shadowmaw Panther (684) 45-51,20-30 and 35-42,32-45. Both were listed on the north-west tablets' step, where there are none but two geologists (the Horde guide had the same fault, fixed in #1109).",
 			"source": [
 				{
@@ -6165,7 +6129,7 @@
 				"goal": "accept"
 			},
 			"tip": "A Shadowy Assassin lurks stealthed on the edge of Southshore, and few players find him. If you spot him, kill him and read the contract he carries: Magistrate Henry Maleb takes it. Don't wait for him: the rest of this step doesn't need him.",
-			"note": "#1542: the Southshore step waited on the Shadowy Assassin (2434), the only source of Assassin's Contract (3668, starts 522); his kill, the contract, 522 and Baron's Demise (523) are optional now (route-fixes deliberate.optional 522, 523), so the tip says not to wait for him.",
+			"note": "#1542: the Southshore step waited on the Shadowy Assassin (2434), the only source of Assassin's Contract (3668, starts 522); his kill, the contract and 522 are optional now (route-fixes deliberate.optional 522), so the tip says not to wait for him. Baron's Demise (523, Baron Vardus 40), which the contract leads to, is left out of the route since the 0.4.0 level tidy.",
 			"source": [
 				{
 					"kind": "recording",
@@ -11188,6 +11152,23 @@
 				}
 			],
 			"issue": 2284
+		},
+		{
+			"id": "2419-stranglethorn-booty-bay-bind-for-the-way-back",
+			"faction": "Alliance",
+			"at": {
+				"quest": 575,
+				"goal": "accept"
+			},
+			"tip": "Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop.",
+			"note": "#2419 (Onrevax): 30-40/04-stranglethorn-vale walks the length of the jungle to Booty Bay for its flight point and quests, then works them in the north and comes back; the step now says the inn bind is the way back from Nesingwary's camp (about 2,900 yd), so the arrow's hearth advice covers the return.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2419: Onrevax, a level 34 Human Paladin on client 70938, at Nesingwary's Expedition on the step down to Booty Bay: an arrow of about 2,900 yd for a trip the route repeats later"
+				}
+			],
+			"issue": 2419
 		}
 	]
 }

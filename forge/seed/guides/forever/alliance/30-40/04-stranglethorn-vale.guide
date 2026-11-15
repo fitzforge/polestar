@@ -13,8 +13,14 @@ next forever/alliance/30-40/02-desolace
 # Since 2026-11-07 Stranglethorn is done in two visits around Desolace: this first loop at 33-35, the second
 # (30-40/04b) at 35-36. Its Booty Bay and Rebel Camp quests up to 37 are taken here, where their givers stand.
 # Since the 0.3.7 audit: Bookie Herod's Records (200) are handed in and The Hidden Key (328) taken on this loop's Kurzen
-# stop, Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it, and the top-up to 34 is three short steps on
-# the loop's own quest mobs (Stranglethorn Tigers, Kurzen Jungle Fighters, elder tigers) instead of one block.
+# stop, and Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it. Level tidy (0.4.0): one top-up to 33.2 on
+# the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model.
+# Level tidy (0.4.0): Tiger Mastery's Sin'Dall (188, level 37) and Raptor Mastery's Lashtail Raptors (195, 35-36) are
+# hunted on the second loop (04b) at about 36, not here at 33-34. The hearthstone, bound in Booty Bay on the first stop,
+# is the way back there from Nesingwary's camp at the end of the jungle loop (#2419). Players who know the Stonetalon
+# Peak flight fly there from Auberdine instead of Astranaar, closer to Desolace (#2403); warlocks keep Astranaar.
+# Zimmix Sputterspark's rescue (97329, 97331) is done on the Savage Coast with Kebok's Bloodscalp ears and handed in to
+# Wharfmaster Lozgil on the second Booty Bay stop.
 
 step Fly to Darkshire
   zone Wetlands
@@ -58,12 +64,6 @@ step Stranglethorn Tigers
   tip The adult tigers prowl the hills just south and west of the camp.
   kill 682 quest 186                  -- Stranglethorn Tiger
 
-step Level 33.2
-  when level<33.2
-  tip The jungle's quests climb to 37 from here: short of 33.2? Keep on the Stranglethorn Tigers in the hills just south and west of the camp until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
-  goto 30.8,11.2 map 1434 "Stranglethorn Tiger"
-  level 33.2 grind 682                 -- grind on Stranglethorn Tiger
-
 step Ajeck Rouack
   turnin 186
   accept 187                          -- The elder tigers come later, on the way back from the Rebel Camp
@@ -100,11 +100,11 @@ step Kurzen's Compound: kill these as you meet them
   kill 937 quest 203                  -- Kurzen Jungle Fighter
   collect 2634 quest 204.2            -- Venom Fern Extract, from a Kurzen Supplies crate
 
-step Level 33.6
-  when level<33.6
-  tip Short of 33.6? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.6. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
+step Level 33.2
+  when level<33.2
+  tip The elder tigers next are 34-35: short of 33.2? Keep on the Kurzen Jungle Fighters and Medicine Men around the compound's outer edge until level 33.2. Or, with a group, run the Scarlet Monastery dungeon (Library) instead.
   goto 44.6,10.0 map 1434 "Kurzen Jungle Fighter"
-  level 33.6 grind 937                 -- grind on Kurzen Jungle Fighter
+  level 33.2 grind 937                 -- grind on Kurzen Jungle Fighter
 
 step Rebel Camp
   turnin 203                          -- Sergeant Yohwa
@@ -116,12 +116,7 @@ step Stranglethorn Vale: kill these as you meet them
   tip Careful: The raptor nest has young raptors that join the fight when you attack the adults.
   kill 1085 quest 187                 -- Elder Stranglethorn Tiger
   kill 685 quest 194                  -- Stranglethorn Raptor
-
-step Level 34
-  when level<34
-  tip The quests from here on are 37: if you are short of 34, keep on the elder tigers in the hills south-west of Nesingwary's camp until level 34. Or, with a group, run the Scarlet Monastery dungeon (Library or Armory) instead.
-  goto 33.2,18.7 map 1434 "Elder Stranglethorn Tiger"
-  level 34 grind 1085                  -- grind on Elder Stranglethorn Tiger
+  accept 97328 @31.5,12.8 map 1434    -- Thoroughly Scavenged Supplies, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, later in this loop
 
 step Nesingwary's Expedition
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
@@ -129,19 +124,13 @@ step Nesingwary's Expedition
   accept 340 optional
   accept 341 optional
   accept 342 optional
-  turnin 187                          -- Ajeck Rouack
-  accept 188
-  turnin 194                          -- Hemet Nesingwary
-  accept 195
-
-step Sin'Dall and the Lashtail raptors
-  tip Sin'Dall, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to Booty Bay.
-  kill 686 quest 195                  -- Lashtail Raptor
+  turnin 187                          -- Ajeck Rouack: Sin'Dall comes on the second loop (04b)
+  turnin 194                          -- Hemet Nesingwary: the Lashtails come on the second loop (04b)
 
 # ---------------------------------------------------------------- Booty Bay
 
 step Down to Booty Bay
-  tip Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape.
+  tip Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop.
   getfp "Booty Bay"
   accept 575                          -- Drizzlik, by the bank; inside
   accept 605                          -- Crank Fizzlebub, inside
@@ -172,11 +161,15 @@ step Stranglethorn Vale
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
   tip From Sentinel Hill the way leads south out of Westfall into Stranglethorn's north-west, to the Crystalvein Mine near the coast; the Crystal Spine Basilisks around it drop the shards.
-  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north.
+  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins of Zul'Kunda on the coast to the north, where Zimmix Sputterspark, a goblin, is caged (any Bloodscalp can drop his Primitive Key; then lead him out of the ruins) and the Stolen Shipments lie scattered.
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
   complete 578 @21.9,22.4             -- The haunted island
+  accept 97329                        -- Zimmix Sputterspark, in the Bloodscalp ruins
   collect 1519 quest 189              -- Bloodscalp Ear
-  collect 3879 quest 188              -- Paw of Sin'Dall
+  collect 277953 quest 97328 @24.8,13.0 map 1434 -- Stolen Shipment
+  collect 277957 quest 97329          -- Primitive Key, from the Bloodscalp trolls
+  turnin 97329
+  accept 97331                        -- For Wharfmaster Lozgil in Booty Bay, at the end of this loop
 
 step River crocolisks
   tip River Crocolisks swim the river by the Rebel Camp.
@@ -187,8 +180,6 @@ step Private Thorsen
   turnin 198 @38.0,3.4
 
 step Nesingwary's Expedition
-  turnin 195                          -- Hemet Nesingwary
-  turnin 188                          -- Ajeck Rouack
   complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
 
 step Booty Bay
@@ -198,6 +189,8 @@ step Booty Bay
   turnin 201                          -- Krazek, upstairs
   turnin 189                          -- Kebok, upstairs
   turnin 578                          -- Baron Revilgaz, upstairs in the tavern
+  turnin 97331                        -- Wharfmaster Lozgil, on the docks
+  turnin 97328                        -- Wharfmaster Lozgil
   accept 601                          -- Baron Revilgaz: the water elementals rise around the haunted island, on the northern loop
 
 # ---------------------------------------------------------------- Stormwind
@@ -227,8 +220,27 @@ step Boat to Auberdine
 
 # ---------------------------------------------------------------- To Desolace
 
-step Fly to Astranaar
+step Fly to Stonetalon Peak
+  when taxi "Stonetalon Peak"
+  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Druid
   zone Darkshore
+  tip You know the Stonetalon Peak flight: it lands closer to Desolace than Astranaar does. From the peak, follow the road south through the mountains to the Charred Vale.
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Stonetalon Peak"
+  zone Stonetalon Mountains
+
+step Fly to Astranaar
+  when !taxi "Stonetalon Peak"
+  zone Darkshore
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Astranaar"
+  zone Ashenvale
+
+step Fly to Astranaar
+  when taxi "Stonetalon Peak"
+  only Warlock
+  zone Darkshore
+  tip Warlocks fly to Astranaar for the Heartswood, on the way west.
   goto 36.4,45.6 "Auberdine flight master"
   fly "Astranaar"
   zone Ashenvale
