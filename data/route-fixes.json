@@ -2689,15 +2689,135 @@
 			},
 			{
 				"a": [
+					"turnin",
+					319
+				],
+				"b": [
 					"task",
 					313
 				],
-				"b": [
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Dun Morogh): the Grizzled Den's Elder Wendigos and Wendigo Shamans are level 8 and stand through the cave, and players reached the first den visit at a recorded 25th percentile of 6.3 (28 people died there, most to Wendigos). The den (the manes, Flintfire's shipments, Mountaineer Cornelius) is done once, after Brewnall's first visit, with Frosthowl's Sack of Fish (the route already went back into the den for it at about 9): the model has the den at about 8.2 now. The Grizzled Den goes to Pilot Stonegear on the east-bound depot stop, beside Pilot Bellowfiz's Return to Bellowfiz.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
 					"turnin",
-					317
+					315
+				],
+				"b": [
+					"task",
+					412
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Dun Morogh): Stocking Jetsteam (317) and The Grizzled Den (313) are both Steelgrill's Depot hand-ins at the two pilots standing side by side; the route walked to the depot for 317 alone after the boar and bear fields and came back after the den for 313 (dwarf/gnome 01-dun-morogh 'Steelgrill's Depot' after the fields on 0.3.4). The boars and bears are killed on the walk back from Rumbleshot's camp, both pilots take their quests on the one depot stop after the den and the Kharanos hand-ins, Razzle on the walk back west to Brewnall. The seed is re-cut for it."
+				"why": "Level tidy (0.4.0, Dun Morogh): the Leper Gnomes for Operation Recombobulation are level 8-10 and players reached them at a recorded 8.3; with the Grizzled Den moved after Brewnall they would come at about 7.6. They are worked on the Gnomeregan road after Brewnall's second visit (the model has it at about 9.1), on the way to Frostmane Hold, and Razzle takes the cogs on the walk back east through Kharanos.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					315
+				],
+				"b": [
+					"task",
+					287
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Dun Morogh): Frostmane Hold's Hideskinners are level 9-10 and stand in pairs in the Hold (22 people died there, 11 to a higher troll); players reached it at a recorded 8.3. The Hold comes after Brewnall's second visit and the Leper Gnomes, at about 9.2, south-west of the village on the way to Tundra MacGrann, and Senir takes the report on the walk back east through Kharanos.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					218
+				],
+				"b": [
+					"accept",
+					97277
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Coldridge Valley): Grund and Gozwin's Snow Leopard Prowler is level 6 and players took it at a recorded 4.8. It is done after Grik'nir and Grelin's hand-ins, from Anvilmar on the way north to the tunnel (the walk passes Anvilmar anyway), at about 5.4.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					307
+				],
+				"b": [
+					"task",
+					94466
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Shamans, Loch Modan): Call of Fire's Stonesplinter Seers are level 13-14 and its Tunnel Rat Geomancers 12-13; Shamans did them right after the tunnel at a recorded 12.2 (the model has Gnome Shamans at 11.5), and 11 people died there. The Fire Tar comes off the Geomancers at the Silver Stream Mine with Filthy Paws, and the Reagent Pouch from the Seers after the second Thelsamar stop, at about 13.5; then the Fire Spirit Stone and Bruegs, and Shamans walk to Ironforge instead of flying.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"task",
+					91723
+				],
+				"b": [
+					"task",
+					52,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Elwynn Forest): Protect the Frontier's Prowlers are level 9-10 and players reached the river step at a recorded 8.5 (19 died there). The Young Forest Bears (8-9) stay on the river step; the Prowlers are killed on the walk back to Guard Thomas after the logging camp and the Jasperlode Mine, at about 9.5, where the route already finished them.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"task",
+					456
+				],
+				"b": [
+					"task",
+					459
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Shadowglen): the Grells that carry the Fel Moss are level 2-3 and players start the field at level 1. The Young Nightsabers and Young Thistle Boars (1-2) around Aldrassil come first, then the Grells west of the tree, at about 2.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					930
+				],
+				"b": [
+					"task",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Teldrassil): Ursal the Mauler is level 12 among Gnarlpine of 9-11, and players reached him from the Oracle Glade at a recorded 10.8. He is hunted after Dolanaar and Lake Al'Ameth's hand-ins, at about 11.4, on the way back to Dolanaar again, where Athridas takes him; the walk is about the same length (Lake Al'Ameth to Ursal, then Dolanaar, instead of Ursal, Dolanaar, the lake and Dolanaar).",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"task",
+					2518
+				],
+				"b": [
+					"task",
+					98392,
+					3
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Teldrassil): Witchmother Arysa is level 12 and players reached the named harpies at a recorded 10.5; Lady Sathrah's step is at 11.3. Hatescreech and Gaedress (10) are taken first, then Lady Sathrah by Wellspring Lake, and Arysa on the way back south to the moonwell.",
+				"source": "level tidy 0.4.0"
+			},
+			{
+				"a": [
+					"turnin",
+					109
+				],
+				"b": [
+					"accept",
+					963
+				],
+				"faction": "Alliance",
+				"why": "Level tidy (0.4.0, Night Elf Darkshore): For Love Eternal's Anaya Dawnrunner is level 16 and Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5 (the model 12.9). The quest waits for 03-darkshore, after Westfall, where it is done at about 17; this undoes the #2025 move into nightelf/02-darkshore.",
+				"source": "level tidy 0.4.0"
 			},
 			{
 				"a": [

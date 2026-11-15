@@ -35,14 +35,12 @@ next forever/alliance/02-westfall
 #   visit, it went cold during the troll cave and Grik'nir. Grik'nir comes
 #   after Anvilmar, so the journal and "Bring Back the Mug" (3365; Nori's Mug
 #   does not expire) are handed in on one visit to Grelin's camp.
-# - "Grund and Gozwin" (97277, from level 4) is done from Anvilmar while still
-#   in the valley and handed in on the way south to the troll cave, and "The
-#   Adventurer" (96628) is taken from Thalos on the way out, so the route no
-#   longer returns to Coldridge after Rumbleshot. The level 4 spells are
-#   trained in Anvilmar first: with them the Snow Leopard Prowler (level 6)
-#   is safe at level 4 for every class (done before leaving Coldridge on
-#   every Dwarf and Gnome class in the beta; recorded on a Gnome Mage and a
-#   Dwarf Rogue, about 3 minutes each).
+# - "Grund and Gozwin" (97277, from level 4) is done from Anvilmar after
+#   Grik'nir, on the way north to the tunnel, and "The Adventurer" (96628) is
+#   taken from Thalos on the way out, so the route no longer returns to
+#   Coldridge after Rumbleshot. The Snow Leopard Prowler is level 6: the
+#   troll cave and Grelin's hand-ins come first, so the player meets it at
+#   about 5 (level tidy, 0.4.0; it was done at a recorded 4.8 before).
 # - Supplies to Tannok (2160) is taken from Hands Springsprocket at the
 #   tunnel when you leave Coldridge Valley, beside Thalos, not on the first
 #   trogg hunt: about 250 yards out of the way there, 20 at the tunnel.
@@ -57,6 +55,11 @@ next forever/alliance/02-westfall
 #   lake, the South Gate and the North Gate, then back west to Ironforge.
 #   With the east split around a hearth and a second Brewnall visit, the
 #   route walked it two or three times (c14, c15: about 5,000 yards more).
+# - The Grizzled Den is done once, after Brewnall's first visit, with
+#   Frosthowl's fish (level tidy, 0.4.0): its Elder Wendigos and Wendigo
+#   Shamans are level 8, and players reached the first visit at a recorded
+#   6.3. The Leper Gnomes (8-10) and Frostmane Hold (Hideskinners 9-10) come
+#   after Brewnall's second visit, at about 9, on the way to Tundra MacGrann.
 # - Quest chains now follow their prerequisites (QuestieDB 1.0.6): each
 #   follow-up is taken after the prerequisite's turn-in.
 #   - "Secure the Mountain" 98323 after 98319 (Cornelius), at Gretchen.
@@ -248,21 +251,14 @@ step Anvilmar
   tip The Scalding Mornbrew lasts five minutes: go straight north to Durnan Furcutter inside Anvilmar.
   turnin 3364                                 -- Durnan Furcutter, inside Anvilmar
   accept 3365                                 -- Durnan Furcutter
-  train class                                 -- Level 4 spells, before Gozwin's camp
+  train class                                 -- Level 4 spells
   turnin 1599 only Warlock                    -- Alamar Grimm: Summon Imp
   accept 94373 only Shaman                    -- Teo Hammerstorm, inside Anvilmar
   turnin 3361                                 -- Felix Whindlebolt, at the door on the way out
+  goto 26.93,80.03 live "The troll cave"
 
 # The troll cave's mouth, marked in game at 26.93,80.03 (PR #16); players
 # report it near 26,79 and Grik'nir in the cave near 30,80 (npc 808).
-step Grund and Gozwin
-  tip Grund Drokda stands by Felix at the door of Anvilmar. Gozwin's camp is in the hills just north-west; the Snow Leopard Prowler prowls around it.
-  accept 97277                                -- Grund Drokda
-  collect 277976 quest 97277                  -- Gozwin's Mechanic's Log, in the camp
-  kill 269075 quest 97277                     -- Snow Leopard Prowler
-  turnin 97277                                -- Grund Drokda
-  goto 26.93,80.03 live "The troll cave"
-
 step Grik'nir the Cold
   tip Grik'nir the Cold is inside the troll cave east of Grelin's camp, not on the hill above it: go in at the mouth and follow the tunnel to the back.
   collect 2004 quest 218                      -- Grelin Whitebeard's Journal
@@ -272,6 +268,13 @@ step Grelin Whitebeard
   accept 282
   turnin 3365                                 -- Nori Pridedrift, next to him
   collect 264356 quest 94373.1 only Shaman    -- Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp
+
+step Grund and Gozwin
+  tip Back north to Anvilmar on the way to the tunnel: Grund Drokda stands by Felix at its door. Gozwin's camp is in the hills just north-west; the Snow Leopard Prowler (level 6) prowls around it.
+  accept 97277                                -- Grund Drokda
+  collect 277976 quest 97277                  -- Gozwin's Mechanic's Log, in the camp
+  kill 269075 quest 97277                     -- Snow Leopard Prowler
+  turnin 97277                                -- Grund Drokda
 
 step Call of Earth
   only Shaman
@@ -329,21 +332,9 @@ step Steelgrill's Depot
 # ---------------------------------------------------------------- The Grizzled Den
 
 step Mountaineer Gretchen
-  tip Gretchen camps just outside the Grizzled Den, the wendigo cave south-west of Kharanos.
+  tip Gretchen camps just outside the Grizzled Den, the wendigo cave south-west of Kharanos. The den comes after Brewnall Village, once its level 8 Elder Wendigos and Shamans are no longer above you.
   turnin 98322                                -- Mountaineer Gretchen
   accept 98319
-  goto 42.57,54.68 live "The Grizzled Den"
-
-step The Grizzled Den
-  tip Flintfire's shipments lie on the cave floor, and Mountaineer Cornelius is missing somewhere inside.
-  collect 280413 quest 98321.1                -- Flintfire's Shipment
-  collect 2671 quest 313.1                    -- Wendigo Mane
-  goto 42.9,49.6 "Mountaineer Cornelius"
-  complete 98319
-
-step Mountaineer Gretchen
-  turnin 98319
-  accept 98323
 
 step Rumbleshot's Ammo
   tip The Ammo Crate sits next to Mountaineer Gretchen, south of the Grizzled Den; Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
@@ -362,12 +353,8 @@ step Kharanos and the depot
   complete 96629 @47.7,52.3
   turnin 96629                                -- Gremlock Pilsnor
   turnin 384                                  -- Ragnar Thunderbrew
-  turnin 98321                                -- Tognus Flintfire
-  turnin 98323                                -- Senir Whitebeard
-  accept 287                                  -- Senir Whitebeard
   turnin 317                                  -- Pilot Bellowfiz, at the depot
   accept 318
-  turnin 313                                  -- Pilot Stonegear, at the depot
   accept 412                                  -- Razzle Sprysprocket, by the depot
 
 # ---------------------------------------------------------------- Brewnall Village
@@ -379,21 +366,9 @@ step Brewnall Village
   accept 315
   accept 319
   accept 310                                  -- Marleth Barleybrew
-  kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold
-  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way
-  kill 1201 quest 319 optional                -- Snow Leopard, on the way
-  goto 25.1,50.94 live "Frostmane Hold"
 
-step Frostmane Hold
-  tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Ice Claw Bears, Elder Crag Boars and Snow Leopards you kill on the way count for Rejold. Kill Headhunters at its mouth and walk through to its far end.
-  kill 1123 quest 287                         -- Frostmane Headhunter
-  goto 21.3,54.2 "Frostmane Hold"
-  complete 287
-
-step Gnomes, bears and leopards
-  tip Leper Gnomes around Brewnall and the Gnomeregan road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake.
-  collect 3083 quest 412.1                    -- Restabilization Cog: Leper Gnomes
-  collect 3084 quest 412.2                    -- Gyromechanic Gear: Leper Gnomes
+step Brewnall: kill these as you meet them
+  tip Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake and Brewnall Village.
   kill 1196 quest 319                         -- Ice Claw Bear
   kill 1127 quest 319                         -- Elder Crag Boar
   kill 1201 quest 319                         -- Snow Leopard
@@ -402,22 +377,32 @@ step Rejold Barleybrew
   turnin 319
   accept 320
 
-step Frosthowl
+step The Grizzled Den
+  tip Back to the Grizzled Den, the wendigo cave south-west of Kharanos where Mountaineer Gretchen camps. Flintfire's shipments lie on the cave floor, Mountaineer Cornelius is missing deep inside, and Frosthowl (level 9) keeps the Sack of Fish at the back.
+  tip Careful: Wendigos, Elder Wendigos and Wendigo Shamans (up to level 8) stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks avoids this.
   goto 42.57,54.68 live "The Grizzled Den"
-  collect 280426 quest 98326.1                -- Sack of Fish
+  collect 280413 quest 98321.1                -- Flintfire's Shipment
+  collect 280426 quest 98326.1                -- Sack of Fish: Frosthowl, at the back
+  collect 2671 quest 313.1                    -- Wendigo Mane
+  goto 42.9,49.6 "Mountaineer Cornelius"
+  complete 98319
+
+step Mountaineer Gretchen
+  turnin 98319
+  accept 98323
 
 # ---------------------------------------------------------------- Back to Kharanos
 
 step Kharanos
-  tip Jarven Thunderbrew guards the Thunder Ale barrels in the distillery basement. Buy a Thunder Ale from Innkeeper Belm, click the guarded barrel, then hand the ale to Jarven from his quest window (there is no quest to accept); after that, the unguarded barrel takes the Barleybrew Scalder.
-  turnin 412                                  -- Razzle Sprysprocket
+  tip Senir stands by Eric's campfire in front of the Thunderbrew Distillery; Tognus Flintfire is in the cellar west of it. Jarven Thunderbrew guards the Thunder Ale barrels in the distillery basement. Buy a Thunder Ale from Innkeeper Belm, click the guarded barrel, then hand the ale to Jarven from his quest window (there is no quest to accept); after that, the unguarded barrel takes the Barleybrew Scalder.
+  turnin 98323                                -- Senir Whitebeard
+  accept 287                                  -- Senir Whitebeard
+  turnin 98321                                -- Tognus Flintfire
   buy 2686 x1 npc 1247                        -- Thunder Ale, from Innkeeper Belm in the distillery
   turnin 403 direct                           -- The Guarded Thunder Ale Barrel in the basement
   turnin 308 direct                           -- Jarven Thunderbrew, beside the barrel
   turnin 310                                  -- The Unguarded Thunder Ale Barrel in the distillery
   accept 311
-  turnin 287                                  -- Senir Whitebeard
-  accept 291                                  -- Senir Whitebeard: Senator Barin Redstone in Ironforge takes it
   train class
 
 # ---------------------------------------------------------------- Brewnall again
@@ -432,6 +417,18 @@ step Brewnall Village
   turnin 315                                  -- Rejold Barleybrew
   accept 413
 
+step The Gnomeregan road
+  tip Leper Gnomes wander the Gnomeregan road north of Brewnall Village and carry the cogs and gears. Frostmane Hold comes next, in the hills south-west of the village.
+  collect 3083 quest 412.1                    -- Restabilization Cog: Leper Gnomes
+  collect 3084 quest 412.2                    -- Gyromechanic Gear: Leper Gnomes
+  goto 25.1,50.94 live "Frostmane Hold"
+
+step Frostmane Hold
+  tip Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth and walk through to its far end.
+  kill 1123 quest 287                         -- Frostmane Headhunter
+  goto 21.3,54.2 "Frostmane Hold"
+  complete 287
+
 # ---------------------------------------------------------------- Old Icebeard
 
 step Tundra MacGrann
@@ -443,7 +440,10 @@ step Tundra MacGrann
 # ---------------------------------------------------------------- East through Kharanos
 
 step Kharanos
-  tip Back east through Kharanos: the class quests here wait for level 10.
+  tip Back east through Kharanos: Senir by Eric's campfire takes the Frostmane Hold report, and Razzle Sprysprocket the cogs and gears. The class quests here wait for level 10.
+  turnin 287                                  -- Senir Whitebeard
+  accept 291                                  -- Senir Whitebeard: Senator Barin Redstone in Ironforge takes it
+  turnin 412                                  -- Razzle Sprysprocket
   accept 6064 only Hunter                     -- Grif Wildheart, at the smithy
   accept 94449 only Shaman                    -- Ingrid Dunwald: Bruegs Kindleborn by the South Gate takes it
   level 10 only Priest
@@ -466,6 +466,7 @@ step Taming the Beast
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot: the whole east of Dun Morogh is one sweep from here.
   turnin 320                                  -- Pilot Bellowfiz
+  turnin 313                                  -- Pilot Stonegear, beside him
   accept 96408                                -- Beldin Steelgrill
 
 # ---------------------------------------------------------------- Misty Pine Refuge
