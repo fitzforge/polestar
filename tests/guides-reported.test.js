@@ -233,6 +233,82 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: tor's report: Securing the Lin
 	assert.ok(at(list, 'turnin 835', is('turnin', 835)) < at(list, 'turnin 806', is('turnin', 806)), '835 is done before 806 is handed in');
 });
 
+// --- Durotar (level tidy 0.4.0): the southern Echo Isles were worked straight off the coast at 8 (players'
+// 25th percentile 8.3), against Zalazane (10) and Voodoo and Hexed Trolls of 8-9 that killed 13 players there.
+// Kolkar Crag and its Sen'jin hand-ins come first, then a top-up to 9 before the southern isles.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the southern Echo Isles come after Kolkar Crag and a top-up to 9`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const isles = Math.min(at(list, 'the Loa idols (97225)', (g) => g.t === 'collect' && g.quest === 97225), at(list, "Zalazane's trolls (826)", (g) => g.t === 'kill' && g.quest === 826));
+	for (const q of [786, 99123, 818]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < isles, `${q} is handed in at Sen'jin before the southern isles`);
+	const gate = list.slice(0, isles).findLastIndex(({ goal }) => goal.t === 'level');
+	assert.ok(gate >= 0 && list[gate].goal.level >= 9, 'a top-up to 9 comes before the southern isles');
+	assert.ok(gate > at(list, 'turnin 786', is('turnin', 786)), 'the top-up is after Kolkar Crag');
+	assert.ok(list[gate].goal.grind === 3121, 'the top-up is on the Durotar Tigers (7-8)');
+});
+
+// --- Durotar (level tidy 0.4.0): Fizzle Darkstorm (12) was fought in one step with the lizards at 10-11, before Misha.
+// The lizards, Rezlak and Misha come first, then Fizzle's camp just north of Misha's hut.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Fizzle Darkstorm after the lizards, Rezlak and Misha`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const fizzle = at(list, 'Fizzle\'s Eye (806)', (g) => g.t === 'collect' && g.quest === 806);
+	for (const q of [816, 97282]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < fizzle, `${q} is handed in before Fizzle`);
+	assert.notEqual(list[fizzle].s, list[at(list, 'the lizards (97282)', (g) => g.t === 'collect' && g.quest === 97282)].s, 'Fizzle has a step of his own');
+});
+
+// --- Durotar (level tidy 0.4.0): Lieutenant Benedict (8) was killed at 6.6-7.1; a top-up to 7 on the sailors comes
+// after the keep's outskirts and before him.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: a top-up to 7 before Lieutenant Benedict`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const benedict = at(list, 'Benedict (784.3)', (g) => g.t === 'kill' && g.quest === 784 && g.npc === 3192);
+	const gate = list.slice(0, benedict).findLastIndex(({ goal }) => goal.t === 'level');
+	assert.ok(gate > at(list, 'the marines (784.2)', (g) => g.t === 'kill' && g.quest === 784 && g.npc === 3129), 'the top-up after the sailors and marines');
+	assert.ok(list[gate].goal.level >= 7 && list[gate].goal.grind === 3128, 'a top-up to 7 on the Kul Tiras Sailors');
+});
+
+// --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
+// 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
+test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {
+	const list = goals(MULGORE);
+	const back = at(list, 'turnin 745 (Sharing the Land)', is('turnin', 745));
+	for (const q of [743, 746, 760]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < at(list, "Herak's Head (99080)", (g) => g.t === 'collect' && g.quest === 99080), `${q} is handed in before the centaurs`);
+	assert.ok(back < at(list, 'the centaurs (99080)', (g) => g.t === 'kill' && g.quest === 99080), 'the centaurs after the Bloodhoof hand-ins');
+	assert.ok(back < at(list, 'the mine (764)', (g) => g.t === 'kill' && g.quest === 764), 'the mine after the Bloodhoof hand-ins');
+	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'accept 833 (Red Rocks)', is('accept', 833)), 'Baine takes the head before Red Rocks');
+});
+
+// --- Tirisfal Glades (level tidy 0.4.0): the cult's farm (cultists 10-12, quests 12) was done at 10 on the way out to the
+// Balnir Farmstead; it comes on the way back west, after the farmstead.
+test(`${TIRISFAL}: level tidy: the Cult of the Damned after the Balnir Farmstead`, { skip }, () => {
+	const list = goals(TIRISFAL);
+	const balnir = Math.max(...[356, 371, 369].map((q) => at(list, `the objective of ${q}`, (g) => (g.t === 'kill' || g.t === 'collect') && g.quest === q)));
+	for (const q of [96897, 96898]) assert.ok(balnir < at(list, `the objective of ${q}`, (g) => (g.t === 'kill' || g.t === 'collect') && g.quest === q), `${q} after the Balnir Farmstead`);
+});
+
+// --- Tirisfal Glades (level tidy 0.4.0): Deaths in the Family's Agamands (10; quest 11) were fought at 9 on the first
+// Agamand Mills visit. Coleman gives it on the last Brill stop, the mills are passed on the walk west to Leonid.
+test(`${TIRISFAL}: level tidy: Deaths in the Family on the walk west to Leonid`, { skip }, () => {
+	const list = goals(TIRISFAL);
+	const take = at(list, 'accept 354', is('accept', 354));
+	assert.ok(at(list, 'turnin 371', is('turnin', 371)) < take, 'taken after the Balnir Farmstead hand-ins');
+	for (const oi of [1, 2, 3]) {
+		const g = at(list, `354.${oi}`, (x) => x.t === 'collect' && x.quest === 354 && x.oi === oi);
+		assert.ok(take < g && g < at(list, 'turnin 96899 (Leonid)', is('turnin', 96899)), `354.${oi} on the walk west to Leonid`);
+	}
+	assert.ok(at(list, 'turnin 354', is('turnin', 354)) < at(list, 'turnin 355', is('turnin', 355)), 'Speak with Sevren after it');
+});
+
+// --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye (11) was killed on Brill's north loop at 7-8 (players' 25th
+// percentile 8.1). The poster is read on the last Brill stop after the Balnir Farmstead, Garren's Haunt is on the
+// walk west to Leonid, and the paw goes to Executor Zygand on the final Brill stop.
+test(`${TIRISFAL}: level tidy: Maggot Eye after the Balnir Farmstead, not on the north loop`, { skip }, () => {
+	const list = goals(TIRISFAL);
+	const paw = at(list, "Maggot Eye's Paw (398)", (g) => g.t === 'collect' && g.quest === 398);
+	for (const q of [371, 369, 356]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < paw, `${q} is handed in before Maggot Eye`);
+	assert.ok(at(list, 'turnin 368 (A New Plague)', is('turnin', 368)) < paw, 'the north loop and its murlocs come first');
+	assert.ok(paw < at(list, 'turnin 96899 (Leonid)', is('turnin', 96899)), 'Garren\'s Haunt on the walk west to Leonid');
+	assert.ok(at(list, 'turnin 398', is('turnin', 398)) > paw, 'Zygand takes the paw afterwards');
+});
+
 // --- Hand-overs (Onrevax, #337): a report an NPC gives you by hand names him,
 // so the target button and the step key have someone to target.
 
@@ -6847,7 +6923,10 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 		const telf = at(list, 'accept 1525', is('accept', 1525));
 		const pouch = at(list, 'collect 6652', (g) => g.t === 'collect' && g.item === 6652);
 		assert.ok(kranal < telf && telf < pouch, `${file}: Telf, then the pouch`);
-		assert.equal(list[pouch].s, list[at(list, 'kill 3117 quest 835', (g) => g.t === 'kill' && g.npc === 3117)].s, `${file}: the pouch in the Drygulch Ravine step`);
+		// Level tidy 0.4.0: the pouch's cultists (10-11) are fought on the walk north at the end (about 12), after
+		// Skull Rock, still in Drygulch Ravine by Dustwind Cave, not on the level-10 Drygulch loop.
+		assert.ok(yards(list[pouch].goal, list[at(list, 'kill 3117 quest 835', (g) => g.t === 'kill' && g.npc === 3117)].goal) < 400, `${file}: the pouch in Drygulch Ravine`);
+		assert.ok(pouch > at(list, 'turnin 827 (Skull Rock)', is('turnin', 827)), `${file}: the pouch on the walk north at the end`);
 	}
 	const barrens = goals('forever/horde/02-the-barrens.guide');
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
@@ -7071,7 +7150,9 @@ test('forever/horde/undead/01-tirisfal-glades.guide: final route review: level-g
 	const accepts = (q) => list.map((e, i) => ({ ...e, i })).filter(({ goal }) => is('accept', q)(goal));
 	const renee = at(list, 'turnin 8', is('turnin', 8));
 	const linnea = at(list, 'turnin 359', is('turnin', 359));
-	for (const [q, n, before] of [[95314, 7, renee], [362, 7, linnea], [354, 7, linnea], [375, 7, linnea], [96895, 10, linnea]]) {
+	// Deaths in the Family (354) left this list in the level tidy 0.4.0: it is taken on the last Brill stop, at about 11.5,
+	// for its Agamands (10) on the walk west to Leonid.
+	for (const [q, n, before] of [[95314, 7, renee], [362, 7, linnea], [375, 7, linnea], [96895, 10, linnea]]) {
 		const [first, ...later] = accepts(q);
 		assert.ok(first.i < before && gate(first.step) && gate(first.step).n === n, `${q}: taken where the walk passes, from level ${n}`);
 		assert.ok(later.length >= 1 && !gate(later[0].step), `${q}: the later visit keeps the accept for players below ${n}`);
