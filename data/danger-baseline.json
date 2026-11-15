@@ -15810,6 +15810,163 @@
 			],
 			"reason": "players meet Shen'dralar Citizen, Arondel, Kerelle, Shen'dralas Protector, Maralus, Jarael, Melanori, Naria only as neutral (the census), never hostile, and nobody died to them; the step's tip says to leave them be.",
 			"evidence": "route level 45.3 (experimental route choices' model); 59 spawns 47+; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1110.1|over",
+			"guide": "forever/alliance/30-40/03-ashenvale.guide",
+			"goal": "collect 1110.1",
+			"kind": "over",
+			"title": "Mirage Raceway: kill these as you meet them",
+			"level": 31.8,
+			"mobs": [
+				"Sparkleshell Snapper 34-35 x3"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the tip says the Sparkleshell Snappers (34-35) wander the whole flats and to hunt the Tortoises (30-31) and keep to the north half",
+			"evidence": "route level 31.8; Sparkleshell Snapper 34-35 x3; recordings (2026-11-15): done by 68 (median 34.06), deaths 1, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/03-ashenvale.guide|collect 1105.1|mixed",
+			"guide": "forever/alliance/30-40/03-ashenvale.guide",
+			"goal": "collect 1105.1",
+			"kind": "mixed",
+			"title": "Mirage Raceway: kill these as you meet them",
+			"level": 31.8,
+			"mobs": [
+				"Sparkleshell Snapper 34-35"
+			],
+			"reason": "the shells also drop from the Sparkleshell Tortoises (30-31) the tip sends players to; the Snappers (34-35) wander the flats and the tip says to leave them",
+			"evidence": "route level 31.8; Sparkleshell Snapper 34-35; recordings (2026-11-15): done by 68 (median 34.27), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 213.1|over",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 213.1",
+			"kind": "over",
+			"title": "Lake Nazferiti",
+			"level": 35.9,
+			"mobs": [
+				"Venture Co. Agent 39-39 x8"
+			],
+			"reason": "Venture Co. Agents (39) walk among the Geologists (34-36) who carry the crystals; the tip says to take the Geologists on the camps' edges one at a time",
+			"evidence": "route level 35.9; Venture Co. Agent 39-39 x8; recordings (2026-11-15): done by 61 (median 36.33), deaths 0, abandons 13"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 1396.3|pack",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "kill 1396.3",
+			"kind": "pack",
+			"title": "The western swamp",
+			"level": 36.5,
+			"mobs": [
+				"6 spawns 38+"
+			],
+			"reason": "the Swamp Jaguars (36-37) the quest asks for, at the route's 36.5; a pack of six spawns of 38 and over nearby",
+			"evidence": "route level 36.5; 6 spawns 38+; recordings (2026-11-15): done by 26 (median 37.76), deaths 2, abandons 0"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|collect 93430.1|rare",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "collect 93430.1",
+			"kind": "rare",
+			"title": "Fallow Sanctuary",
+			"level": 36.6,
+			"mobs": [
+				"Molt Thorn 42-42"
+			],
+			"reason": "a rare roaming the Swamp of Sorrows (Molt Thorn, a crocolisk) near the Fallow Sanctuary; the Lucky Lure comes from the Lost One Fishermen (35-36) on the sanctuary's west side",
+			"evidence": "route level 36.6; Molt Thorn 42-42; recordings (2026-11-15): done by 13 (median 37.97), deaths 1, abandons 1"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|over",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "over",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"Malevolent Mirage 42-42 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; Malevolent Mirage 42-42 x2; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|elite",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "elite",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"Malevolent Mirage 42-42 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; Malevolent Mirage 42-42 x2; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|rare",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "rare",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"7:XT 41-41",
+				"Anathemus 45-45"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; 7:XT 41-41, Anathemus 45-45; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 2500.1|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 2500.1",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"11 spawns 40+"
+			],
+			"reason": "a kill-as-you-meet-them step: the buzzards for the gizzards circle the plain east of Agmond's End; the Malevolent Mirage (42, elite) drifts across the Badlands and the steps' tips say to keep clear of it; the rares and the 40+ ogres are off the buzzards' plain",
+			"evidence": "route level 38.4; 11 spawns 40+; recordings (2026-11-15): done by 22 (median 41.04), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|kill 261.1|over",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "kill 261.1",
+			"kind": "over",
+			"title": "The Valley of Bones",
+			"level": 38.9,
+			"mobs": [
+				"Magram Necromancer 42-43 x2"
+			],
+			"reason": "the targets are the Undead Ravagers (37-38) on the bone fields' western edge; the step's tip names the Magram Necromancers (42) and the Necrokhans and Corpsefeeders (45, elite) further east and says to pull the Ravagers away from them",
+			"evidence": "route level 38.9; Magram Necromancer 42-43 x2; recordings (2026-11-15): done by 30 (median 37.26), deaths 5, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|use 6134.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "use 6134.1",
+			"kind": "elite",
+			"title": "The ghost magnets",
+			"level": 38.9,
+			"mobs": [
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "a group choice (when group 6134, route-fixes deliberate.group 6134): solo players skip Ghost-o-plasm Round Up; the step's tip names the Necrokhans and Corpsefeeders (45, elite) for the group",
+			"evidence": "route level 38.9; Magram Necrokhan 45-45; recordings (2026-11-15): done by 18 (median 39.75), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 6134.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 6134.1",
+			"kind": "elite",
+			"title": "The ghost magnets",
+			"level": 38.9,
+			"mobs": [
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "a group choice (when group 6134, route-fixes deliberate.group 6134): solo players skip Ghost-o-plasm Round Up; the step's tip names the Necrokhans and Corpsefeeders (45, elite) for the group",
+			"evidence": "route level 38.9; Magram Necrokhan 45-45; recordings (2026-11-15): done by 18 (median 39.75), deaths 8, abandons 2"
 		}
 	]
 }

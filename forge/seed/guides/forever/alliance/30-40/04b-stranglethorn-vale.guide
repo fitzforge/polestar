@@ -63,13 +63,8 @@ step Kurzen's Compound
 
 step Lake Nazferiti
   zone Stranglethorn Vale
-  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.
+  tip South from the compound to Lake Nazferiti: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps.
   collect 4106 quest 213 @44.5,20.5 map 1434 -- Tumbled Crystal
-
-step Sin'Dall and the Lashtail raptors
-  tip West from the lake: the Lashtail Raptors run in the jungle between the lake and the troll ruins, and Sin'Dall, the great tiger (37), lairs on the hilltop south-west of Nesingwary's camp, just above the ruins.
-  kill 686 quest 195                  -- Lashtail Raptor
-  collect 3879 quest 188              -- Paw of Sin'Dall
 
 step The jungle ruins
   tip West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.
@@ -107,6 +102,11 @@ step Rebel Camp
   turnin 331                          -- Lieutenant Doren
   turnin 574                          -- Sergeant Yohwa: the Commandos and Headshrinkers fell in the compound
   turnin 207                          -- Brother Nimetz
+
+step Sin'Dall and the Lashtail raptors
+  tip From the Rebel Camp, past Nesingwary's camp to the hilltop south-west of it: Sin'Dall, the great tiger (37), lairs there, and the Lashtail Raptors run in the jungle around it. Then back to the hunters' tents.
+  kill 686 quest 195                  -- Lashtail Raptor
+  collect 3879 quest 188              -- Paw of Sin'Dall
 
 step Nesingwary's Expedition
   turnin 339 optional                 -- Barnil Stonepot

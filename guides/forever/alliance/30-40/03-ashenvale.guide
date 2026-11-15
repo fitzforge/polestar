@@ -122,7 +122,7 @@ step Mirage Raceway
 
 step Mirage Raceway: kill these as you meet them
   zone Thousand Needles
-  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises the middle of the flats: they carry the shells too. Careful: the Saltstone Gazers (34-35), Sparkleshell Snappers (34-35) and Scorpid Terrors (33-34) hold the far south: keep to the north half.
+  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half.
   collect 5794 quest 1104                 -- Salty Scorpid Venom
   collect 5798 quest 1110                 -- Rocket Car Parts
   collect 5848 quest 1176                 -- Hollow Vulture Bone

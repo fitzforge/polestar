@@ -13549,11 +13549,14 @@ test(`${DESOLACE_SOUTH}: the Valley of Bones points away from the Shen'dralas el
 	const list = goals(DESOLACE_SOUTH);
 	const fight = list[at(list, 'kill 11561', (g) => g.t === 'kill' && g.quest === 261)];
 	assert.ok(fight.goal.map === 1443 && Math.hypot(fight.goal.x - 61.1, fight.goal.y - 90.9) < 1, `the Ravagers: the fields' western edge (got ${fight.goal.map} ${fight.goal.x},${fight.goal.y})`);
+	// Level tidy (0.4.0): Ghost-o-plasm Round Up is a group choice (route-fixes deliberate.group 6134, #2357's record); its
+	// magnets still point at the fields' eastern side for the group.
 	for (const [what, pred] of [['crate', (g) => g.t === 'use' && g.quest === 6134], ['ghost-o-plasm', (g) => g.t === 'collect' && g.quest === 6134]]) {
-		const { goal } = list[at(list, what, pred)];
+		const { goal, step } = list[at(list, what, pred)];
 		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 64.4, goal.y - 91.7) < 1, `${what}: the fields' eastern side (got ${goal.map} ${goal.x},${goal.y})`);
+		assert.ok(whenOn(step, 'group', 6134), `${what}: only on the group choice`);
 	}
-	assert.match([].concat(fight.step.note || []).join(' '), /Careful: Magram Necrokhans and Corpsefeeders \(45, elite\) walk the bone fields between the two arrows/);
+	assert.match([].concat(fight.step.note || []).join(' '), /Careful: Magram Necrokhans and Corpsefeeders \(45, elite\) walk the bone fields/);
 	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.some((f) => f.id === '2025-valley-of-bones-careful'), 'the tip, a record the build keeps');
 	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
 	for (const id of ['1575-desolace-alliance-undead-ravagers-west', '1575-desolace-alliance-ghost-magnets-east']) assert.ok(places.some((p) => p.id === id), `${id}: a record the build keeps`);
