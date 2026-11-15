@@ -303,10 +303,13 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 	// Polestar's experimental guides (experimental/guides beside guidesDir) too: each for its own faction, a guide for
 	// both once per side (its key then names the side: `experimental/guides/shendralas.guide@Horde`). Their levels
 	// come from the experimental route choices' model rows (a `mode` run of the level model, given in --levels).
+	// A leveling guide of the route for both factions (forever/40-50/shendralas: no `faction`, no `category`) is
+	// swept once per side the same way (`forever/40-50/shendralas.guide@Alliance`).
 	const expDir = path.join(guidesDir, '..', 'experimental', 'guides');
+	const shared = (file) => !/^(faction|category)\s/m.test(fs.readFileSync(file, 'utf8').split('\n# ')[0]);
 	const units = files.sort().map((file) => {
 		const rel = path.relative(guidesDir, file).split(path.sep).join('/');
-		return { file, rel, sides: rel.startsWith('forever/alliance/') ? ['Alliance'] : rel.startsWith('forever/horde/') ? ['Horde'] : [] };
+		return { file, rel, sides: rel.startsWith('forever/alliance/') ? ['Alliance'] : rel.startsWith('forever/horde/') ? ['Horde'] : shared(file) ? null : [] };
 	});
 	if (fs.existsSync(expDir)) {
 		for (const name of fs.readdirSync(expDir).filter((f) => f.endsWith('.guide')).sort()) units.push({ file: path.join(expDir, name), rel: `experimental/guides/${name}`, sides: null });

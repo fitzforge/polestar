@@ -4,7 +4,6 @@ faction Horde
 levels 42-44
 zone Feralas
 next forever/horde/40-50/03-feralas
-next polestar-experimental/shendralas
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
