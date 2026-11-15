@@ -3114,7 +3114,8 @@ test('Horde 40-50/01: the Green Hills chapters and Goblin Sponsorship are taken 
 });
 
 test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and every Stonard flight has a way in without its flight path (R17r)', { skip }, () => {
-	// The Riverglades route choice rejoins at Kargath (about 44) with no Stonard flight path.
+	// The Riverglades guide hands over at Kargath (about 45); a character who starts Feralas & Tanaris fresh in the
+	// Badlands may not know Stonard's flight path.
 	const whenOf = (step, k) => (step.when || []).filter((p) => p.k === k);
 	const opener = goals(H40('02-feralas')).filter(({ goal }) => goal.t === 'fly' && goal.location === "Grom'gol").slice(0, 2);
 	assert.equal(opener.length, 2, 'two ways to the Grom\'gol flight at the start');
@@ -12412,31 +12413,33 @@ test("mylons's report (#1893): the Cozzle's Footlocker step waits until Goblin S
 	assert.ok(onQuest.some((v) => /^collect 5852 /.test(v) && !/ (na|skipped)$/.test(v)), `with 1182, the blueprints: ${onQuest.join(', ')}`);
 });
 
-// Polestar Experimental's Riverglades guides (experimental/guides): two facts from players' recordings the route
-// stands on, read from the guide text so they hold without reference data.
+// The Riverglades guides: the Alliance's in Polestar Experimental (experimental/guides), the Horde's on the Horde
+// route since 0.4.0 (guides/forever/horde/40-50/01b-riverglades.guide). Facts from players' recordings the routes
+// stand on, read from the guide text so they hold without reference data.
 const RIVERGLADES = path.join(__dirname, '..', 'experimental', 'guides');
-const riverglades = () => fs.readdirSync(RIVERGLADES).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort();
+const RIVERGLADES_HORDE = path.join(__dirname, '..', 'guides', 'forever', 'horde', '40-50', '01b-riverglades.guide');
+const riverglades = () => [...fs.readdirSync(RIVERGLADES).filter((f) => /^riverglades-.*\.guide$/.test(f)).sort().map((f) => path.join(RIVERGLADES, f)), RIVERGLADES_HORDE];
 const codeOf = (line) => line.split('--')[0];
 
 // Hurley (Helping Hands), the lost horse (Rescue Roundup), Fuzzle (Biting the Hand), Dunston Willis (Dunston
 // Checks Out) and Jom-jom (Jom-jom's Escape) set off as soon as their quest is taken: recorded players who did
 // something else first failed Helping Hands at Turner's Logging Camp and took it again.
-test('Riverglades (experimental): an escort is taken and walked in one step, so its NPC never sets off without the player', () => {
+test('Riverglades: an escort is taken and walked in one step, so its NPC never sets off without the player', () => {
 	const ESCORTS = [94861, 94992, 94963, 94927, 94556];
 	const seen = new Set();
 	for (const f of riverglades()) {
-		for (const step of fs.readFileSync(path.join(RIVERGLADES, f), 'utf8').split(/\n(?=step\b)/)) {
+		for (const step of fs.readFileSync(f, 'utf8').split(/\n(?=step\b)/)) {
 			const lines = step.split('\n').map(codeOf);
 			for (const q of ESCORTS) {
 				const taken = lines.findIndex((l) => new RegExp(`^\\s+accept ${q}\\b`).test(l));
 				if (taken < 0) continue;
 				seen.add(q);
 				const walked = lines.findIndex((l) => new RegExp(`^\\s+complete ${q}\\b`).test(l));
-				assert.ok(walked > taken, `${f}: ${lines[0]}: escort ${q} is walked in the step that takes it`);
+				assert.ok(walked > taken, `${path.basename(f)}: ${lines[0]}: escort ${q} is walked in the step that takes it`);
 			}
 		}
 	}
-	assert.deepEqual([...seen].sort(), [...ESCORTS].sort(), 'every escort of the zone is in the pack');
+	assert.deepEqual([...seen].sort(), [...ESCORTS].sort(), 'every escort of the zone is in the guides');
 });
 
 // Demar Brant offers The Western Front, and Ashe Amberhall A Small Favor, only once Curious Trinkets and Scraps of
@@ -12452,8 +12455,8 @@ test("Riverglades (experimental): Ashe Amberhall's Sunnyglade hand-ins come befo
 	}
 });
 
-// A guide's steps as lists of code lines (comments cut).
-const rivergladesSteps = (file) => fs.readFileSync(path.join(RIVERGLADES, file), 'utf8').split(/\n(?=step\b)/).map((s) => s.split('\n').map(codeOf));
+// A guide's steps as lists of code lines (comments cut): an experimental guide's file name, or a path.
+const rivergladesSteps = (file) => fs.readFileSync(path.isAbsolute(file) ? file : path.join(RIVERGLADES, file), 'utf8').split(/\n(?=step\b)/).map((s) => s.split('\n').map(codeOf));
 const anyLine = (lines, re) => lines.some((l) => re.test(l));
 
 // Benjy Wheeler offers Freshwater Fiends before My Kingdom for a Horse (players' offer windows), and its Mudfin murlocs
@@ -12480,15 +12483,23 @@ test('Riverglades (experimental): an Alliance player going on to Feralas trains 
 	assert.ok(steps.some((l) => anyLine(l, /^\s+train class only Shaman\b/) && anyLine(l, /^\s+fly "Ironforge"/) && !questGated(l)), 'shamans train in Ironforge');
 });
 
-// The Horde route choice at the end of the Badlands guide (Kargath, about 40) offers the Riverglades: a character
-// there knows Kargath's flight path and rides in through Twilight's Shroud; the boat from Tanaris is for everyone
-// else (0.4.0 route audit, R17r).
-test('Riverglades (experimental): the Horde rides in from Kargath, the boat only for characters without its flight path', () => {
-	const steps = rivergladesSteps('riverglades-horde-1.guide');
+// 0.4.0: the Riverglades are the Horde route after Stranglethorn Vale & Swamp of Sorrows (the guide ends at the
+// Harborage, about 43): Stonard flies to Kargath, known since the Badlands, and the ride goes in through Twilight's
+// Shroud; the boat from Tanaris is for a character without Kargath's flight path (R17r). The Badlands no longer
+// offer the zone as a route choice.
+test('Riverglades (Horde route): after Stranglethorn Vale, flown in from Stonard by Kargath, the boat only without its flight path', () => {
+	const steps = rivergladesSteps(RIVERGLADES_HORDE);
 	const header = steps[0];
-	assert.ok(anyLine(header, /^levels 40-/), 'written for players arriving at about 40');
-	const foot = steps.findIndex((l) => anyLine(l, /^\s+when taxi "Kargath"/) && anyLine(l, /^\s+goto /));
-	assert.ok(foot > 0, 'a step rides in from Kargath');
+	assert.ok(anyLine(header, /^guide forever\/horde\/40-50\/01b-riverglades$/), 'a guide of the Horde route');
+	assert.ok(anyLine(header, /^next forever\/horde\/40-50\/02-feralas$/), 'Feralas & Tanaris next');
+	assert.ok(!anyLine(header, /^(pitch|pro|con) /), 'no route-choice card copy: it is the route');
+	const H = (n) => fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', 'horde', n), 'utf8').split('\n');
+	assert.deepEqual(H('30-40/06-badlands.guide').filter((l) => l.startsWith('next ')), ['next forever/horde/40-50/01-stranglethorn-vale'], 'the Badlands offer no choice');
+	assert.deepEqual(H('40-50/01-stranglethorn-vale.guide').filter((l) => l.startsWith('next ')), ['next forever/horde/40-50/01b-riverglades']);
+	const fly = steps.findIndex((l) => anyLine(l, /^\s+fly "Kargath"/));
+	assert.ok(fly > 0 && anyLine(steps[fly], /^\s+when zone "Swamp of Sorrows"/) && anyLine(steps[fly], /^\s+when taxi "Kargath"/), 'from the Swamp, the Kargath flight');
+	const foot = steps.findIndex((l) => anyLine(l, /^\s+when taxi "Kargath"/) && anyLine(l, /^\s+goto /) && !anyLine(l, /^\s+fly /));
+	assert.ok(foot > fly, 'then a step rides in from Kargath');
 	for (const re of [/^\s+fly "Freewind Post"/, /^\s+getfp "Gadgetzan"/, /Boat to Powderfuse Port/]) {
 		const i = steps.findIndex((l) => anyLine(l, re));
 		assert.ok(i > 0 && anyLine(steps[i], /^\s+when !taxi "Kargath"/), `${re}: only for characters without Kargath's flight path`);
@@ -12497,6 +12508,23 @@ test('Riverglades (experimental): the Horde rides in from Kargath, the boat only
 	assert.equal(sleebo.length, 2, "Gaseous Gold is taken on either way in");
 	const rogmar = steps.findIndex((l) => anyLine(l, /^\s+getfp "Rog'mar"/));
 	assert.ok(sleebo[1] > rogmar && anyLine(steps[sleebo[1]], /^\s+when available 96063\b/), "the foot way takes it after Rog'mar, once");
+});
+
+// The route's stops on either side of the zone carry its errands, each recorded taken and handed in by players:
+// Twice Misplaced Trust (97332) from Wharfmaster Lozgil on Booty Bay's docks and Report to Rog'mar (95141) from
+// Commander Aggro'gosh at Grom'gol, both on Stranglethorn's last visits, go to Whizzbuzz and Krom'rosh; On the Other
+// Side (95033, Tan'jani) and Shipping and Handling (95296, Friz) go to Camp Mojache and Steamwheedle Port, both on the
+// Feralas & Tanaris guide's way.
+test("Riverglades (Horde route): the zone's errands are taken and handed in at stops the route makes", () => {
+	const H = (n) => rivergladesSteps(path.join(__dirname, '..', 'guides', 'forever', 'horde', '40-50', n));
+	const stepOf = (steps, verb, q) => steps.find((l) => anyLine(l, new RegExp(`^\\s+${verb} ${q}\\b`)));
+	const stv = H('01-stranglethorn-vale.guide'), glades = rivergladesSteps(RIVERGLADES_HORDE), feralas = H('02-feralas.guide');
+	for (const [q, from, to, at] of [[97332, stv, glades, /^step (Booty Bay|Powderfuse Port)$/], [95141, stv, glades, /^step (Grom'gol Base Camp|Rog'mar)$/],
+		[95033, glades, feralas, /^step (Rog'mar|Camp Mojache)$/], [95296, glades, feralas, /^step (Powderfuse Port|Steamwheedle Port)$/]]) {
+		const take = stepOf(from, 'accept', q), give = stepOf(to, 'turnin', q);
+		assert.ok(take && at.test(take[0]), `${q} taken: ${take && take[0]}`);
+		assert.ok(give && at.test(give[0]), `${q} handed in: ${give && give[0]}`);
+	}
 });
 
 // #1984: Captain Garran Vimes never offers Vimes's Report (1288) after The Deserters (1287): at least 10 recorded

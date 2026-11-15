@@ -9903,6 +9903,42 @@
 				],
 				"reason": "Horde 40-50 route audit (0.4.0): Un'Goro Soil (3761) lists the three Assisting Arch Druid Runetotem quests (936, 3762, 3784, the capital innkeepers) as breadcrumbs or prerequisites, and 40-50/06 took it at Hamuul with none of them in its history (#2025's unclear-breadcrumb list, 06-azshara:271). No recorded player of 47 or more has asked Hamuul yet (every recorded Hamuul window lists 3761 as not offered, all from low-level characters). Innkeeper Pala stands in Thunder Bluff, the city of the same stop: 3762 is taken and handed to Hamuul before 3761, so the step works whether the pair is a breadcrumb or a prerequisite, and the breadcrumb is out of the log before its target (#2085). 470 XP, about a minute.",
 				"issue": "#2025"
+			},
+			{
+				"q": 97332,
+				"after": [
+					"accept",
+					2864
+				],
+				"reason": "Horde route 0.4.0, the Riverglades after Stranglethorn Vale & Swamp of Sorrows: Twice Misplaced Trust (level 41, 3,300 XP) is offered by Wharfmaster Lozgil on Booty Bay's docks and ends with Wharfmaster Whizzbuzz at Powderfuse Port (players' recordings: taken at Lozgil and handed in at Whizzbuzz). Taken on 40-50/01's last Booty Bay stop, beside Krazek's Gadgetzan errand, and handed in on 01b-riverglades' first Powderfuse Port stop: no walking of its own.",
+				"issue": "-"
+			},
+			{
+				"q": 95141,
+				"after": [
+					"turnin",
+					589
+				],
+				"reason": "Horde route 0.4.0, the Riverglades after Stranglethorn Vale & Swamp of Sorrows: Report to Rog'mar (level 38, offered from 36) is offered by Commander Aggro'gosh at Grom'gol and ends with Krom'rosh in Rog'mar (players' recordings: taken at Aggro'gosh and handed in at Krom'rosh). Taken on 40-50/01's last Grom'gol stop, beside Kin'weelay's hand-in, and handed in on 01b-riverglades' first Rog'mar stop.",
+				"issue": "-"
+			},
+			{
+				"q": 95033,
+				"after": [
+					"accept",
+					95951
+				],
+				"reason": "Horde route 0.4.0: On the Other Side (level 41, offered from 40) is Tan'jani's errand in Rog'mar for Witch Doctor Uzer'i at Camp Mojache (players' recordings: taken at Tan'jani, handed in at Uzer'i). With the Riverglades before Feralas & Tanaris, it is taken beside Fetch 'n' Fletch on 01b-riverglades' first Rog'mar stop and handed in on 40-50/02's first Camp Mojache stop, beside Uzer'i's own quest.",
+				"issue": "-"
+			},
+			{
+				"q": 95296,
+				"after": [
+					"turnin",
+					95294
+				],
+				"reason": "Horde route 0.4.0: Shipping and Handling (level 40) is Friz Frazzlespark's errand at Powderfuse Port for Wharfmaster Steamfizzle at Steamwheedle Port in Tanaris (players' recordings: taken at Friz, handed in at Steamfizzle). With the Riverglades before Feralas & Tanaris, it is taken on 01b-riverglades' last stop at Friz and handed in on 40-50/02's first Steamwheedle Port stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [

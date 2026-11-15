@@ -14369,8 +14369,8 @@
 			"evidence": "route level 42.2 (experimental route choices' model); 25 spawns 44+; recordings (2026-11-15): done by 8 people (median 43.75), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 96107.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 96107.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 96107.1",
 			"kind": "rare",
 			"title": "The plains and the marsh",
@@ -14382,8 +14382,8 @@
 			"evidence": "route level 39.7 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 18 people (median 40.24), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 96108.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 96108.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 96108.1",
 			"kind": "rare",
 			"title": "The vipers and the tallstriders",
@@ -14395,8 +14395,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 16 people (median 40.35), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 96104.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 96104.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 96104.1",
 			"kind": "elite",
 			"title": "The vipers and the tallstriders",
@@ -14408,8 +14408,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Cavalry Scout Alturin 45-45; recordings (2026-11-15): done by 17 people (median 40.3), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 96109.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 96109.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 96109.1",
 			"kind": "rare",
 			"title": "The lions",
@@ -14421,8 +14421,8 @@
 			"evidence": "route level 39.9 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 13 people (median 40.43), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94532.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94532.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94532.1",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -14434,8 +14434,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Scaldaron 43-43; recordings (2026-11-15): done by 12 people (median 40.68), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94532.2|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94532.2|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94532.2",
 			"kind": "elite",
 			"title": "The Bristle Hills",
@@ -14447,8 +14447,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Snargl 40-40; recordings (2026-11-15): done by 12 people (median 40.67), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94532.2|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94532.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94532.2",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -14460,8 +14460,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 12 people (median 40.67), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94532.3|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94532.3|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94532.3",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -14473,8 +14473,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Scaldaron 43-43 x2; recordings (2026-11-15): done by 12 people (median 40.67), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 94535.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 94535.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 94535.1",
 			"kind": "elite",
 			"title": "The Bristle Hills",
@@ -14486,8 +14486,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Snargl 40-40; recordings (2026-11-15): done by 12 people (median 40.84), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95792.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95792.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95792.1",
 			"kind": "rare",
 			"title": "The Cinderscale hollow",
@@ -14499,8 +14499,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Scaldaron 43-43 x11; recordings (2026-11-15): done by 16 people (median 41.39), 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95792.1|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95792.1|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95792.1",
 			"kind": "pack",
 			"title": "The Cinderscale hollow",
@@ -14512,8 +14512,8 @@
 			"evidence": "route level 40 (experimental route choices' model); 11 spawns 42+; recordings (2026-11-15): done by 16 people (median 41.39), 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95792.2|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95792.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95792.2",
 			"kind": "rare",
 			"title": "The Cinderscale hollow",
@@ -14525,8 +14525,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Scaldaron 43-43 x9; recordings (2026-11-15): done by 16 people (median 42.25), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95792.2|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95792.2|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95792.2",
 			"kind": "pack",
 			"title": "The Cinderscale hollow",
@@ -14538,8 +14538,8 @@
 			"evidence": "route level 40 (experimental route choices' model); 9 spawns 42+; recordings (2026-11-15): done by 16 people (median 42.25), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95934.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95934.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95934.1",
 			"kind": "rare",
 			"title": "The Cinderscale hollow",
@@ -14551,8 +14551,8 @@
 			"evidence": "route level 40 (experimental route choices' model); Scaldaron 43-43 x4; recordings (2026-11-15): done by 16 people (median 42.26), 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 93787.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 93787.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 93787.1",
 			"kind": "elite",
 			"title": "Meadowsbrook",
@@ -14564,8 +14564,8 @@
 			"evidence": "route level 40.4 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 15 people (median 38.8), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|use 94481.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|use 94481.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "use 94481.1",
 			"kind": "elite",
 			"title": "The training grounds",
@@ -14577,8 +14577,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 14 people (median 40.42), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94483.2|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94483.2|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94483.2",
 			"kind": "elite",
 			"title": "The river and the Farholde camp",
@@ -14590,8 +14590,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 14 people (median 39.1), 1 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94672.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94672.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94672.1",
 			"kind": "elite",
 			"title": "Sunnyglade",
@@ -14604,8 +14604,8 @@
 			"evidence": "route level 40.8 (experimental route choices' model); Chogg'Zac 41-41 x8, Executioner Morg 46-46; recordings (2026-11-15): done by 10 people (median 42.02), 3 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94672.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94672.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94672.1",
 			"kind": "rare",
 			"title": "Sunnyglade",
@@ -14617,8 +14617,8 @@
 			"evidence": "route level 40.8 (experimental route choices' model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 10 people (median 42.02), 3 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94672.2|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94672.2|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94672.2",
 			"kind": "elite",
 			"title": "Sunnyglade",
@@ -14631,8 +14631,8 @@
 			"evidence": "route level 40.8 (experimental route choices' model); Chogg'Zac 41-41, Ghostmaw 42-42; recordings (2026-11-15): done by 10 people (median 42.03), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94672.3|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94672.3|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94672.3",
 			"kind": "elite",
 			"title": "Sunnyglade",
@@ -14644,8 +14644,8 @@
 			"evidence": "route level 40.8 (experimental route choices' model); Chogg'Zac 41-41 x7; recordings (2026-11-15): done by 10 people (median 42.02), 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 94680.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 94680.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 94680.1",
 			"kind": "elite",
 			"title": "Sunnyglade",
@@ -14658,8 +14658,8 @@
 			"evidence": "route level 40.8 (experimental route choices' model); Chogg'Zac 41-41, Ghostmaw 42-42; recordings (2026-11-15): done by 10 people (median 42.03), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95424.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95424.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95424.1",
 			"kind": "rare",
 			"title": "The Twilight ogres' camp",
@@ -14671,8 +14671,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 9 people (median 42.81), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95424.2|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95424.2|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95424.2",
 			"kind": "elite",
 			"title": "The Twilight ogres' camp",
@@ -14684,8 +14684,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Scoutmaster Vargas 42-42 x2; recordings (2026-11-15): done by 9 people (median 42.81), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95424.2|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95424.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95424.2",
 			"kind": "rare",
 			"title": "The Twilight ogres' camp",
@@ -14697,8 +14697,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 9 people (median 42.81), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95425.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95425.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95425.1",
 			"kind": "rare",
 			"title": "The Twilight ogres' camp",
@@ -14710,8 +14710,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 9 people (median 42.82), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95882.1|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95882.1|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95882.1",
 			"kind": "over",
 			"title": "Scoutmaster Vargas",
@@ -14723,8 +14723,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49 x2; recordings (2026-11-15): done by 9 people (median 41.23), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95882.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95882.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95882.1",
 			"kind": "rare",
 			"title": "Scoutmaster Vargas",
@@ -14736,8 +14736,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49 x2; recordings (2026-11-15): done by 9 people (median 41.23), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95162.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95162.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95162.1",
 			"kind": "rare",
 			"title": "The paletusks",
@@ -14749,8 +14749,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 8 people (median 41.84), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94556|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94556|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94556",
 			"kind": "elite",
 			"title": "Jom-jom's Escape",
@@ -14764,8 +14764,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Buzzbeak 41-41, Chub'chob 45-45, Kronk 42-42; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94670|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94670|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94670",
 			"kind": "over",
 			"title": "The Bloodmaster's Ring: Buzzbeak",
@@ -14777,8 +14777,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Chub'chob 45-45 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94670|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94670|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94670",
 			"kind": "elite",
 			"title": "The Bloodmaster's Ring: Buzzbeak",
@@ -14795,8 +14795,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Bonegnaw 42-42 x3, Buzzbeak 41-41 x6, Chub'chob 45-45 x3, Kronk 42-42 x4, Mog'thar 43-43 x6, Snufflesnout 44-44 x6; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94670|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94670|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94670",
 			"kind": "pack",
 			"title": "The Bloodmaster's Ring: Buzzbeak",
@@ -14808,8 +14808,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94739|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94739|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94739",
 			"kind": "over",
 			"title": "The Bloodmaster's Ring: Kronk and Bonegnaw",
@@ -14821,8 +14821,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Chub'chob 45-45 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94739|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94739|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94739",
 			"kind": "elite",
 			"title": "The Bloodmaster's Ring: Kronk and Bonegnaw",
@@ -14839,8 +14839,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Bonegnaw 42-42 x3, Buzzbeak 41-41 x6, Chub'chob 45-45 x3, Kronk 42-42 x4, Mog'thar 43-43 x6, Snufflesnout 44-44 x6; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94739|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94739|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94739",
 			"kind": "pack",
 			"title": "The Bloodmaster's Ring: Kronk and Bonegnaw",
@@ -14852,8 +14852,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94962|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94962|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94962",
 			"kind": "over",
 			"title": "The Bloodmaster's Ring: Kronk and Bonegnaw",
@@ -14865,8 +14865,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Chub'chob 45-45 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94962|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94962|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94962",
 			"kind": "elite",
 			"title": "The Bloodmaster's Ring: Kronk and Bonegnaw",
@@ -14883,8 +14883,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Bonegnaw 42-42 x3, Buzzbeak 41-41 x6, Chub'chob 45-45 x3, Kronk 42-42 x4, Mog'thar 43-43 x6, Snufflesnout 44-44 x6; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94962|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94962|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94962",
 			"kind": "pack",
 			"title": "The Bloodmaster's Ring: Kronk and Bonegnaw",
@@ -14896,8 +14896,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94964|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94964|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94964",
 			"kind": "over",
 			"title": "The Bloodmaster's Ring: Mog'thar",
@@ -14909,8 +14909,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Chub'chob 45-45 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94964|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94964|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94964",
 			"kind": "elite",
 			"title": "The Bloodmaster's Ring: Mog'thar",
@@ -14927,8 +14927,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Bonegnaw 42-42 x3, Buzzbeak 41-41 x6, Chub'chob 45-45 x3, Kronk 42-42 x4, Mog'thar 43-43 x6, Snufflesnout 44-44 x6; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94964|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94964|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94964",
 			"kind": "pack",
 			"title": "The Bloodmaster's Ring: Mog'thar",
@@ -14940,8 +14940,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94965|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94965|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94965",
 			"kind": "over",
 			"title": "The Bloodmaster's Ring: Snufflesnout and Chub'chob",
@@ -14953,8 +14953,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Chub'chob 45-45 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94965|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94965|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94965",
 			"kind": "elite",
 			"title": "The Bloodmaster's Ring: Snufflesnout and Chub'chob",
@@ -14971,8 +14971,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Bonegnaw 42-42 x3, Buzzbeak 41-41 x6, Chub'chob 45-45 x3, Kronk 42-42 x4, Mog'thar 43-43 x6, Snufflesnout 44-44 x6; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94965|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94965|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94965",
 			"kind": "pack",
 			"title": "The Bloodmaster's Ring: Snufflesnout and Chub'chob",
@@ -14984,8 +14984,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 95063|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 95063|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 95063",
 			"kind": "over",
 			"title": "The Bloodmaster's Ring: Snufflesnout and Chub'chob",
@@ -14997,8 +14997,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Chub'chob 45-45 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 95063|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 95063|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 95063",
 			"kind": "elite",
 			"title": "The Bloodmaster's Ring: Snufflesnout and Chub'chob",
@@ -15015,8 +15015,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); Bonegnaw 42-42 x3, Buzzbeak 41-41 x6, Chub'chob 45-45 x3, Kronk 42-42 x4, Mog'thar 43-43 x6, Snufflesnout 44-44 x6; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 95063|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 95063|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 95063",
 			"kind": "pack",
 			"title": "The Bloodmaster's Ring: Snufflesnout and Chub'chob",
@@ -15028,8 +15028,8 @@
 			"evidence": "route level 41.3 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95261.1|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95261.1|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "over",
 			"title": "Beast Entrails as you go",
@@ -15041,8 +15041,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Powderfuse Bruiser 57-57 x2; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95261.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95261.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "elite",
 			"title": "Beast Entrails as you go",
@@ -15055,8 +15055,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Old Rot-Chum 42-42 x2, Ghostmaw 42-42; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95261.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95261.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "rare",
 			"title": "Beast Entrails as you go",
@@ -15068,8 +15068,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95121.2|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95121.2|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -15083,8 +15083,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Powderfuse Bruiser 57-57 x6, Gul'gash 49-49 x2, Admiral Lamora 45-45 x4; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95121.2|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95121.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -15096,8 +15096,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Gul'gash 49-49 x2; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95121.2|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95121.2|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -15109,8 +15109,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); 13 spawns 43+; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95254.1|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95254.1|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -15122,8 +15122,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Powderfuse Bruiser 57-57 x7; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95254.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95254.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -15135,8 +15135,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95254.1|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95254.1|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -15148,8 +15148,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); 8 spawns 43+; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95119.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95119.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95119.1",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -15161,8 +15161,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 42.09), 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95119.2|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95119.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95119.2",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -15174,8 +15174,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 26 people (median 42.09), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95288.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95288.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95288.1",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -15187,8 +15187,8 @@
 			"evidence": "route level 41.4 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 42.36), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95122.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95122.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95122.1",
 			"kind": "rare",
 			"title": "The pirates' second wave",
@@ -15200,8 +15200,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 23 people (median 42.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95123.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95123.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95123.1",
 			"kind": "elite",
 			"title": "The pirates' second wave",
@@ -15213,8 +15213,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Scoutmaster Vargas 42-42; recordings (2026-11-15): done by 22 people (median 42.74), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|use 95165.3|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|use 95165.3|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "use 95165.3",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -15226,8 +15226,8 @@
 			"evidence": "route level 42 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95124.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95124.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -15239,8 +15239,8 @@
 			"evidence": "route level 42 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95124.1|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95124.1|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "pack",
 			"title": "The pirates' ships",
@@ -15252,8 +15252,8 @@
 			"evidence": "route level 42 (experimental route choices' model); 8 spawns 43+; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|use 95165.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|use 95165.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "use 95165.1",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -15265,8 +15265,8 @@
 			"evidence": "route level 42 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.27), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 95261.2|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95261.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.2",
 			"kind": "rare",
 			"title": "Rotflesh Mushrooms",
@@ -15278,8 +15278,8 @@
 			"evidence": "route level 42 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 42.7), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 95601.2|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95601.2|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 95601.2",
 			"kind": "elite",
 			"title": "The ritual grounds",
@@ -15292,8 +15292,8 @@
 			"evidence": "route level 42.1 (experimental route choices' model); Ghostmaw 42-42, Chogg'Zac 41-41 x6; recordings (2026-11-15): done by 10 people (median 42.22), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 95602|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 95602|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 95602",
 			"kind": "elite",
 			"title": "The ritual grounds",
@@ -15305,8 +15305,8 @@
 			"evidence": "route level 42.1 (experimental route choices' model); Chogg'Zac 41-41 x5; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.1|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.1|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.1",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -15318,8 +15318,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Executioner Morg 46-46 x4; recordings (2026-11-15): done by 9 people (median 43.54), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.1|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.1",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -15333,8 +15333,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Twilight Enforcer 45-45 x4, Executioner Morg 46-46 x4, Overlord Kilgar 46-46; recordings (2026-11-15): done by 9 people (median 43.54), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.1",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -15347,8 +15347,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Kargra the Blind 46-46, Twilight Forgemaster 46-46; recordings (2026-11-15): done by 9 people (median 43.54), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.1|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.1|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.1",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -15360,8 +15360,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); 10 spawns 44+; recordings (2026-11-15): done by 9 people (median 43.54), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.2|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.2|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.2",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -15375,8 +15375,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Executioner Morg 46-46 x6, Twilight Forgemaster 46-46 x2, Overlord Kilgar 46-46 x2; recordings (2026-11-15): done by 9 people (median 43.55), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.2|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.2|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.2",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -15390,8 +15390,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Twilight Enforcer 45-45 x2, Executioner Morg 46-46 x6, Overlord Kilgar 46-46 x2; recordings (2026-11-15): done by 9 people (median 43.55), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.2|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.2",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -15403,8 +15403,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Twilight Forgemaster 46-46 x2; recordings (2026-11-15): done by 9 people (median 43.55), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.2|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.2|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.2",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -15416,8 +15416,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); 12 spawns 44+; recordings (2026-11-15): done by 9 people (median 43.55), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.3|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.3|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.3",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -15429,8 +15429,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Executioner Morg 46-46 x5; recordings (2026-11-15): done by 9 people (median 43.52), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.3|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.3|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.3",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -15444,8 +15444,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Executioner Morg 46-46 x5, Twilight Enforcer 45-45, Overlord Kilgar 46-46; recordings (2026-11-15): done by 9 people (median 43.52), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.3|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.3|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.3",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -15458,8 +15458,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Twilight Forgemaster 46-46, Kargra the Blind 46-46; recordings (2026-11-15): done by 9 people (median 43.52), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|kill 94745.3|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94745.3|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "kill 94745.3",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -15471,8 +15471,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); 9 spawns 44+; recordings (2026-11-15): done by 9 people (median 43.52), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 94748|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 94748|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 94748",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -15484,8 +15484,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Executioner Morg 46-46; recordings (2026-11-15): done by 0 people, 4 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|complete 95432|elite",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|complete 95432|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "complete 95432",
 			"kind": "elite",
 			"title": "The ogre mine",
@@ -15497,8 +15497,8 @@
 			"evidence": "route level 42.3 (experimental route choices' model); Twilight Enforcer 45-45; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 94768.1|target",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 94768.1|target",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 94768.1",
 			"kind": "target",
 			"title": "Bring Me His Head",
@@ -15510,8 +15510,8 @@
 			"evidence": "route level 42.5 (experimental route choices' model); Overlord Kilgar 46-46; recordings (2026-11-15): done by 9 people (median 43.68), 6 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 94768.1|over",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 94768.1|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 94768.1",
 			"kind": "over",
 			"title": "Bring Me His Head",
@@ -15524,8 +15524,8 @@
 			"evidence": "route level 42.5 (experimental route choices' model); Executioner Morg 46-46 x2, Twilight Forgemaster 46-46 x2; recordings (2026-11-15): done by 9 people (median 43.68), 6 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 94768.1|rare",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 94768.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 94768.1",
 			"kind": "rare",
 			"title": "Bring Me His Head",
@@ -15538,8 +15538,8 @@
 			"evidence": "route level 42.5 (experimental route choices' model); Twilight Forgemaster 46-46 x2, Kargra the Blind 46-46; recordings (2026-11-15): done by 9 people (median 43.68), 6 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-horde-1.guide|collect 94768.1|pack",
-			"guide": "experimental/guides/riverglades-horde-1.guide",
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 94768.1|pack",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
 			"goal": "collect 94768.1",
 			"kind": "pack",
 			"title": "Bring Me His Head",

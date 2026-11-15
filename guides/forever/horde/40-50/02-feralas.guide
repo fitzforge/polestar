@@ -338,6 +338,7 @@ step Steamwheedle Port
   turnin 2872                           -- Stoley, inside
   accept 2873
   accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
+  turnin 95296                          -- Wharfmaster Steamfizzle, on the pier: Friz's errand from the Riverglades, if you carry it
 
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
@@ -393,6 +394,7 @@ step Camp Mojache
   accept 2987                           -- Orwin Gizzmick
   turnin 2981                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   accept 2975                           -- Rok Orhan
+  turnin 95033                          -- Witch Doctor Uzer'i: Tan'jani's errand from the Riverglades, if you carry it
   accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 45
   accept 2822                           -- Jangdor Swiftstrider, inside
   sethome "Camp Mojache" npc 7737       -- Innkeeper Greul

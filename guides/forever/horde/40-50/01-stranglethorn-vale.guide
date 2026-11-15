@@ -4,12 +4,7 @@ title Stranglethorn Vale & Swamp of Sorrows
 faction Horde
 levels 39-43
 zone Stranglethorn Vale
-next forever/horde/40-50/02-feralas
-pitch Nesingwary's hunts and Booty Bay's pirates, then Stonard.
-pro Riding and level 40 training first
-pro Stonard flight path for later
-pro Stays on the main route
-con Spread over two zones, lots of travel
+next forever/horde/40-50/01b-riverglades
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -402,6 +397,7 @@ step Booty Bay
   turnin 621                            -- Crank Fizzlebub, inside
   turnin 209                            -- Kebok, upstairs
   accept 2864                           -- Krazek, upstairs: for Tran'rek in Gadgetzan
+  accept 97332                          -- Wharfmaster Lozgil, on the docks: a package for Powderfuse Port in the Riverglades, the next guide
 
 step Ironjaw Basilisks
   zone Stranglethorn Vale
@@ -411,6 +407,7 @@ step Ironjaw Basilisks
 step Grom'gol Base Camp
   tip Ride on north to Grom'gol.
   turnin 589                          -- Kin'weelay
+  accept 95141                          -- Commander Aggro'gosh: for Krom'rosh in Rog'mar, the Riverglades' Horde fort, in the next guide
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
