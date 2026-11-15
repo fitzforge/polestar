@@ -9996,18 +9996,6 @@
 				"issue": 1333
 			},
 			{
-				"q": 98095,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Valuable Vantages (level 25) puts its western vial on the peak top on the Alterac border (Alterac 38.6,94.8) among Ferocious Yetis 31-32 (camp 31, 10 spawns, 4 recorded deaths, 3 of them to a higher mob), at 26 in 06-hillsbrad-foothills (recorded 25th percentile 26.1). The 30-40 slice checked its Tarren Mill visit at about 30: still one or two levels under the yetis there, and no later Horde visit to Hillsbrad before 38. Left out of the solo route.",
-				"issue": ""
-			},
-			{
-				"q": 98094,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Scout Support only takes High Executor Darthalia's orders to Deathstalker Masoj above Dun Garok to open Valuable Vantages (98095, left out above); with Elixir of Agony's blossoms gone to the 30 visit too, the walk south from Durnholde would be for this delivery alone.",
-				"issue": ""
-			},
-			{
 				"q": 1151,
 				"faction": "Horde",
 				"reason": "Horde level tidy (0.4.0): Test of Strength (level 30) sends the player after Rok'Alim the Pounder, a lone elite on Highperch, west of Whitereach Post; Test of Endurance (1150) is done on the 30-40 guides' first Freewind visit at about 31, and Rok'Alim's cliffs are off that visit's walk. It was optional already.",
