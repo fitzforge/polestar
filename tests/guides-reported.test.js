@@ -276,6 +276,14 @@ test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after 
 	assert.ok(at(list, 'turnin 99080', is('turnin', 99080)) < at(list, 'accept 833 (Red Rocks)', is('accept', 833)), 'Baine takes the head before Red Rocks');
 });
 
+// --- Tirisfal Glades (level tidy 0.4.0): the cult's farm (cultists 10-12, quests 12) was done at 10 on the way out to the
+// Balnir Farmstead; it comes on the way back west, after the farmstead.
+test(`${TIRISFAL}: level tidy: the Cult of the Damned after the Balnir Farmstead`, { skip }, () => {
+	const list = goals(TIRISFAL);
+	const balnir = Math.max(...[356, 371, 369].map((q) => at(list, `the objective of ${q}`, (g) => (g.t === 'kill' || g.t === 'collect') && g.quest === q)));
+	for (const q of [96897, 96898]) assert.ok(balnir < at(list, `the objective of ${q}`, (g) => (g.t === 'kill' || g.t === 'collect') && g.quest === q), `${q} after the Balnir Farmstead`);
+});
+
 // --- Tirisfal Glades (level tidy 0.4.0): Maggot Eye (11) was killed on Brill's north loop at 7-8 (players' 25th
 // percentile 8.1). The poster is read on the last Brill stop after the Balnir Farmstead, Garren's Haunt is on the
 // walk west to Leonid, and the paw goes to Executor Zygand on the final Brill stop.

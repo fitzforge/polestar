@@ -12264,6 +12264,30 @@
 			},
 			{
 				"a": [
+					"task",
+					356
+				],
+				"b": [
+					"task",
+					96897
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): The Cult of the Damned and Remnants of War (12) send you at Dark Neophytes and Enforcers of 10-12 (casters; 13 players died there, 4 to a higher cultist). The farm, just south-east of Linnea's camp, was done on the way out at 10 (players' 25th percentile 10.9); it is now done on the way back west from the Balnir Farmstead (Rear Guard Patrol, the friars, the spiders), with its experience, before the hand-ins at Linnea's camp"
+			},
+			{
+				"a": [
+					"task",
+					356
+				],
+				"b": [
+					"task",
+					96898
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Tirisfal Glades): Remnants of War's crystal fragments lie among the same cultists, after the Balnir Farmstead (the record before)"
+			},
+			{
+				"a": [
 					"turnin",
 					816
 				],

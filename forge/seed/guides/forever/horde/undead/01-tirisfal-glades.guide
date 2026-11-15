@@ -525,16 +525,9 @@ step Hadric Harlson
   accept 96897
   accept 96898
 
-step Tirisfal Glades: kill these as you meet them
-  zone Tirisfal Glades
-  tip Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
-  collect 275851 quest 96898.1 @68.2,64.6
-  kill 275437 quest 96897.2 @68.2,64.6
-  kill 267006 quest 96897.1 @68.2,64.6
-
 step Balnir Farmstead: kill these as you meet them
   zone Tirisfal Glades
-  tip Follow the road east. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows: Linnea wants eight of each.
+  tip Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the Tomb Weed grows: Linnea wants eight of each.
   tip The Scarlet Friars camp just north-east of the graves; Captain Vachon stands among them.
   tip The spiders lurk in the woods at the far east end of the glades.
   kill 1529 quest 356.1
@@ -544,6 +537,15 @@ step Balnir Farmstead: kill these as you meet them
   kill 1538 quest 371.2
   kill 1664 quest 371.1
   collect 2872 quest 369.1
+
+# The cult's farm (Dark Neophytes and Enforcers 10-12, quests 12) comes on the way back west from the
+# Balnir Farmstead, with its experience, not on the way out (level tidy 0.4.0).
+step Tirisfal Glades: kill these as you meet them
+  zone Tirisfal Glades
+  tip On the way back west, the Cult of the Damned holds the farm just south-east of Deathguard Linnea's camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
+  collect 275851 quest 96898.1 @68.2,64.6
+  kill 275437 quest 96897.2 @68.2,64.6
+  kill 267006 quest 96897.1 @68.2,64.6
 
 step Deathguard Linnea's camp
   turnin 96897                        -- Hadric Harlson
