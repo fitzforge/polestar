@@ -5404,11 +5404,11 @@
 					5233
 				],
 				"b": [
-					"accept",
+					"task",
 					4985
 				],
 				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): The Wildlife Suffers Too part 2 (4985, Diseased Grizzlies 55-56) is taken from Mulgris at the Writhing Haunt cauldron stop of the Silithus guide (about 59) instead of at 53."
+				"why": "Horde 40-60 level tidy (0.4.0): The Wildlife Suffers Too part 2 (4985, Diseased Grizzlies 55-56) is taken from Mulgris on the Felwood guide's hand-in of part 1 (about 53), where the route stands beside him, and worked on the Silithus guide's Writhing Haunt stop (about 59)."
 			},
 			{
 				"a": [
@@ -5416,35 +5416,24 @@
 					3913
 				],
 				"b": [
-					"accept",
-					4504
-				],
-				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): Super Sticky (4504, Tar Lurkers and Lords 52-54 in a dense pit) and Pawn Captures Queen (4507) are taken at Gadgetzan on the Eastern Plaguelands guide's stop (about 57) and worked on the Silithus guide's Un'Goro loop, instead of from the Azshara 40-50 guide at 50."
-			},
-			{
-				"a": [
-					"turnin",
-					3913
-				],
-				"b": [
-					"accept",
+					"task",
 					4507
 				],
 				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): see Super Sticky (4504): Pawn Captures Queen is taken the visit before its Un'Goro work, not 22 hours earlier."
+				"why": "Horde 40-60 level tidy (0.4.0): Pawn Captures Queen (4507, the Gorishi Hive Queen) is taken from Pestlezugg on the Un'Goro guide's Gadgetzan stop, where Bungle in the Jungle is handed in, and worked on the Silithus guide's Un'Goro loop. Super Sticky (4504) stays in the Un'Goro guide: its tar drops from the Tar Beasts (50-51) and Creepers (51-52) too."
 			},
 			{
 				"a": [
 					"turnin",
-					1126
+					4284
 				],
 				"b": [
-					"accept",
-					4501
+					"task",
+					4501,
+					1
 				],
 				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): Beware of Pterrordax (4501, Frenzied Pterrordax 51-54 in dense flights) is taken from the sign at Marshal's Refuge on the Silithus guide's Un'Goro loop (about 59) instead of on arrival in the crater at 51."
+				"why": "Horde 40-60 level tidy (0.4.0): Beware of Pterrordax's Frenzied Pterrordax (51-54, 2-4 over the player on the crater's first loop at about 51) are killed on the pylon loop after J.D. Collie's crystals, at about 52, over the western cliffs by the Western Pylon; its plain Pterrordax (50-52) stay on the first loop and the quest is handed in to Spraggle with J.D. Collie's pylons."
 			},
 			{
 				"a": [
@@ -5452,11 +5441,11 @@
 					5085
 				],
 				"b": [
-					"accept",
+					"task",
 					977
 				],
 				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): Umi's yeti horns (977: Ice Thistle Matriarchs and Patriarchs 56-58) are done on the Eastern Plaguelands guide's Everlook stop after its top-up to 57, instead of in the Winterspring guide at 55."
+				"why": "Horde 40-60 level tidy (0.4.0): Umi's yeti horns (977: Ice Thistle Matriarchs and Patriarchs 56-58) are taken from Umi in the Winterspring guide at about 55, where the route stands beside her, and done on the Eastern Plaguelands guide's Everlook stop at about 57."
 			},
 			{
 				"a": [
@@ -5464,23 +5453,11 @@
 					5206
 				],
 				"b": [
-					"accept",
-					6042
-				],
-				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): Nathanos' hunts Un-Life's Little Annoyances (6042, level 58) and The Ranger Lord's Behest (6133, level 60: Rangers 59-60) are taken on the Silithus guide's first Plaguelands trip and worked on its second ride east past Quel'Lithien Lodge and Northdale (about 59), instead of at 56."
-			},
-			{
-				"a": [
-					"turnin",
-					5206
-				],
-				"b": [
-					"accept",
+					"task",
 					6133
 				],
 				"faction": "Horde",
-				"why": "Horde 50-60 level tidy (0.4.0): see Un-Life's Little Annoyances (6042)."
+				"why": "Horde 40-60 level tidy (0.4.0): The Ranger Lord's Behest (6133, level 60: Rangers 59-60) is taken from Nathanos on the Eastern Plaguelands guide's Marris Stead stop (about 56) and worked on the Silithus guide's second ride east past Quel'Lithien Lodge (about 59). Un-Life's Little Annoyances (6042: Plaguebats 54-58) stays on the Eastern Plaguelands guide's own visit."
 			},
 			{
 				"a": [
@@ -5529,6 +5506,102 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 50-60 level tidy (0.4.0): Kim'jael Indeed! (3601) is taken on the Azshara guide's Thalassian Base Camp trip (about 55.5) with Betrayed's blood elves, whose camp holds his crates, instead of at 50 (Blood Elves 51-55)."
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"task",
+					604
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): Stranglethorn's level 43-46 errands are taken where 40-50/01 passes their givers (41-42) and done on 40-50/03's Grom'gol zeppelin stop at about 45, where their mobs fit: Speaking with Gan'zulah (586; Skullsplitters 43-45 and Ana'thek 45), the Wild Shore (604, 576, 587; Bloodsail Deckhands 43-44, Elder Magi 44-45), Voodoo Dues (609; ghosts 43-44), Stranglethorn Fever (348; Mokk 44) and the naga coast (573, 617; Naga Explorers 43-44). Deliver to MacKinley (2874) is handed in on the same Booty Bay stop (#2353, #2102)."
+			},
+			{
+				"a": [
+					"turnin",
+					2874
+				],
+				"b": [
+					"task",
+					586
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): Speaking with Gan'zulah (586) is worked on 40-50/03's Grom'gol stop at about 45, not on 40-50/01's Zul'Mamwe loop at 41 (Skullsplitters 43-45, #2353)."
+			},
+			{
+				"a": [
+					"turnin",
+					3122
+				],
+				"b": [
+					"task",
+					7731
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): Stinglasher (7731, level 47) is taken at Camp Mojache in 40-50/02 at about 45 and killed on 40-50/03's Camp Mojache return at about 46-47; Hadoken's report (7732) goes to Zilzibin on 40-50/06's Orgrimmar stop."
+			},
+			{
+				"a": [
+					"accept",
+					379
+				],
+				"b": [
+					"task",
+					2781
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): WANTED: Caliph Scorpidsting (2781, Caliph 46) is taken from the poster in Steamwheedle Port in 40-50/02 at about 44 and done on 40-50/04's Tanaris visit at about 46."
+			},
+			{
+				"a": [
+					"accept",
+					3127
+				],
+				"b": [
+					"task",
+					3063
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): Zapped Giants, Fuel for the Zapping (7003, 7721; giants and elementals 47-49) and Vengeance on the Northspring (3063; harpies 48-50) are taken in 40-50/03 at about 46 and done on 40-50/06's Feralas loop at about 50."
+			},
+			{
+				"a": [
+					"accept",
+					3127
+				],
+				"b": [
+					"task",
+					7003
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): see the 3063 pair: Zorbin's giants wait for 40-50/06's Feralas loop at about 50."
+			},
+			{
+				"a": [
+					"turnin",
+					3380
+				],
+				"b": [
+					"task",
+					5863
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): The Dunemaul Compound (5863; Brutes 46-48, Gor'marok 49) and Thistleshrub Valley (3362; Rootshapers 49-50) are taken in Gadgetzan in 40-50/04 at about 45-46 and done at the Broken Pillar at the end of 40-50/06 (about 50), on the way into Un'Goro; both are handed in on 50-60/01's Gadgetzan stop."
+			},
+			{
+				"a": [
+					"turnin",
+					3380
+				],
+				"b": [
+					"task",
+					3362
+				],
+				"faction": "Horde",
+				"why": "Horde 40-60 level tidy (0.4.0): see the 5863 pair."
 			}
 		],
 		"notes": [
@@ -10431,6 +10504,54 @@
 				"q": 2933,
 				"faction": "Horde",
 				"reason": "Horde 40-50 route audit (0.4.0), agreed with the 50-60 slice: Venom Bottles (level 43, 3,600 XP) is taken from the bottles in the Hinterlands' troll villages at about 49 (40-50/05), after the route's only pass through Tarren Mill, where Apothecary Lydon takes it. The next Tarren Mill visit was a landing on 50-60/01's flight at about 52.4 made for this hand-in alone, at a fifth of its experience (9 levels over). Left out; 50-60/01 flies Kargath to the Undercity direct.",
+				"issue": "-"
+			},
+			{
+				"q": 1878,
+				"faction": "Horde",
+				"reason": "#2394 (Zack): the Noonshade step asked for ten water pouches while Water Pouch Bounty (1707) needs five, so the step never ticked for players who stopped at five. The second bounty (1878, 380 XP) needed the other five; left out, the step asks for 1707's five.",
+				"issue": "#2394"
+			},
+			{
+				"q": 3504,
+				"faction": "Horde",
+				"reason": "#2390 (Rohkin, Kazu): Belgrom Rockmaul no longer offers Betrayed (3504) on Forever. Players' recordings: Ag'tor Bloodfist (8576) offered Betrayed (3505) directly to 5 people at 49-52 with 3504 neither in their log nor done; Belgrom's windows (47 people) never offered 3504. The chain starts at 3505 from Ag'tor (corrections 3505 pre []).",
+				"issue": "#2390"
+			},
+			{
+				"q": 5534,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Kim'jael's \"Missing\" Equipment (level 53; Spitelash 50-55 with casters at Eldarath) at about 50 in 40-50/06 was 3 over the player. Kim'jael Indeed! (3601) moved to 50-60/04-azshara's Thalassian Base Camp; there Eldarath comes before the base camp, so its hand-in would be a ride back for one quest. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 7725,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Again With the Zapped Giants is level 55 and pays 550 XP; it needed a second loop over the same giants after Zapped Giants (7003), which is now done at 50 in 40-50/06. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 7726,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Refuel for the Zapping is level 55 and pays 550 XP; it needed a second loop over the same elementals after Fuel for the Zapping (7721), which is now done at 50 in 40-50/06. Left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3518,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Stealing Knowledge (3517; the Ruins of Eldarath's Spitelash camp is 50-55) moved from 40-50/06 at about 50 to 50-60/04-azshara. After that visit the route has no Thunder Bluff stop for every class, so the delivery to Magatha is left out.",
+				"issue": "-"
+			},
+			{
+				"q": 3562,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Magatha's Payment to Jediga needs the delivery to Magatha (3518), left out with Stealing Knowledge's move to 50-60/04-azshara.",
+				"issue": "-"
+			},
+			{
+				"q": 3563,
+				"faction": "Horde",
+				"reason": "Horde level tidy (0.4.0): Jes'rimon's Payment to Jediga: the delivery to Jes'rimon (3541) is now made on 50-60/04-azshara's Orgrimmar stop, after which the route never returns to Valormok for the payment. Left out.",
 				"issue": "-"
 			}
 		],

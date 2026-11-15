@@ -32,14 +32,8 @@ step Silithus: kill these as you meet them
   collect 20376 quest 8277.2
   collect 20373 quest 8277.1
 
-step Level 57
-  when level<57
-  tip Top up here to level 57 before the Twilight camp: its cultists and elementals are up to level 58. The Stonelash Scorpids (54-55) on the sands west of Cenarion Hold are under your level. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
-  goto 44.4,37.1 map 1451 "Stonelash Scorpid"
-  level 57 grind 11735                 -- grind on Stonelash Scorpid
-
 step Twilight Base Camp
-  tip The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too.
+  tip The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time.
   collect 20378 quest 8284.1
 
 step Cenarion Hold
@@ -169,17 +163,6 @@ step Marshal's Refuge
   zone Un'Goro Crater
   tip Through the pass and east along the northern cliffs to Marshal's Refuge. Spraggle Frock stands beside the flight master.
   accept 4492                         -- Spraggle Frock
-  accept 4501                         -- the wooden sign beside Spraggle Frock: the pterrordax fly over this loop
-
-step Lakkari Tar Pits
-  tip The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the Super Sticky Tar.
-  collect 11834 quest 4504
-
-step Un'Goro Crater: kill these as you meet them
-  zone Un'Goro Crater
-  tip Pterrordax fly over the east of the crater, Frenzied Pterrordax over the west: kill them as you ride the loop.
-  kill 9166 quest 4501.1
-  kill 9167 quest 4501.2
 
 step Krakle
   tip Krakle the goblin sits at Golakka Hot Springs, just east of the pylon.
@@ -243,7 +226,6 @@ step Escort Ringo
 
 step Marshal's Refuge
   turnin 4491                         -- Spraggle Frock
-  turnin 4501                         -- Spraggle Frock
 
 step Torwa Pathfinder
   turnin 4292
@@ -258,7 +240,6 @@ step Gadgetzan
   zone Tanaris
   tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
   turnin 2741 direct
-  turnin 4504                         -- Tran'rek, beside the wind rider master
 
 step Alchemist Pestlezugg
   when onquest 4496
@@ -448,11 +429,6 @@ step Pamela and the Undercroft
   tip Careful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.
   collect 14613 quest 5781.1
 
-step Nathanos Blightcaller
-  tip Nathanos holds the Marris Stead farmhouse, just north of the Undercroft. His two hunts are in the north of the Eastern Plaguelands, on this guide's second ride east.
-  accept 6042
-  accept 6133
-
 step Tirion Fordring
   zone Eastern Plaguelands
   tip Ride north-west to Tirion's hut.
@@ -468,12 +444,6 @@ step Alas, Andorhal
   zone Western Plaguelands
   tip Araj the Summoner (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from Araj's Phylactery there.
   collect 17114 quest 105.1 @45.3,69.2 map 1422
-
-step Level 59
-  when level<59
-  tip Top up here to level 59 before Quel'Lithien Lodge, on the ride east: Nathanos' Rangers there are level 59-60. The Temporal Parasites around Andorhal are under your level. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
-  goto 48.0,64.8 map 1422 "Temporal Parasite"
-  level 59 grind 10717                 -- grind on Temporal Parasite
 
 step Chromie
   zone Western Plaguelands
@@ -498,17 +468,11 @@ step Into Eastern Plaguelands
   goto 8.8,66.2 "Into Eastern Plaguelands"
 
 step Pathstrider
-  tip Ride north-east to Quel'Lithien Lodge by Northpass Tower: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Rangers reach 60: pull one at a time.
+  tip Ride north-east to Quel'Lithien Lodge by Northpass Tower: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last.
   kill 8565 quest 6133.1              -- Pathstrider walks around Quel'Lithien Lodge: look inside the circle on the map
   kill 8564 quest 6133.2
   kill 8563 quest 6133.3
   collect 15847 quest 6133.4
-
-step Plaguewood: kill these as you meet them
-  zone Eastern Plaguelands
-  tip Ride east from the lodge. Noxious Plaguebats fly over the fields of the north; Monstrous Plaguebats share the fields around Northdale and Eastwall Tower.
-  kill 8601 quest 6042.1
-  kill 8602 quest 6042.2
 
 step Eastern Plaguelands
   zone Eastern Plaguelands
@@ -529,7 +493,6 @@ step Tirion Fordring
 
 step Nathanos Blightcaller
   tip Ride south-east from Tirion to the Marris Stead farmhouse.
-  turnin 6042
   turnin 6133
 
 step Nathanos Blightcaller

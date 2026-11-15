@@ -14,20 +14,13 @@ next forever/horde/50-60/03-winterspring
 # (5542-5544) to 50-60/05's ride past his house, Unfinished Business (6004) and The Wildlife Suffers Too (4985) to
 # 50-60/06's Plaguelands visit at about 58: their ground is level 54-56 and this guide starts about 53.
 
-step Level 53
-  zone Western Plaguelands
-  when level<53
-  tip Top up here to level 53 before Mulgris' wolves (53-54): the Diseased Black Bears (51-52) in the woods south-west of Felstone Farm are under your level. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 33.9,60.5 map 1422 "Diseased Black Bear"
-  level 53 grind 1815                  -- grind on Diseased Black Bear
-
 step Mulgris Deepriver
   zone Western Plaguelands
   tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
   accept 4984                         -- Inside
 
 step Diseased Wolves
-  tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.
+  tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east. Careful: the biggest are 54: pull them one at a time.
   kill 1817 quest 4984
 
 step Dalson's Tears farmhouse
@@ -40,7 +33,7 @@ step Dalson's Tears farmhouse
 
 step Mulgris Deepriver
   turnin 4984                         -- Inside
-  note His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58.
+  accept 4985                         -- Inside: keep it, the Diseased Grizzlies (55-56) wait for the Silithus guide's Plaguelands visit at about 58
 
 step Tirisfal Glades
   zone Tirisfal Glades

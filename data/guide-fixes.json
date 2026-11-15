@@ -4172,7 +4172,7 @@
 				"goal": "accept"
 			},
 			"level": 50,
-			"note": "March of the Silithid needs level 50. Azshara's top-up step (Haldarr satyrs) takes you to 50 (it was 49.93, which left the accept at 49.9).",
+			"note": "March of the Silithid needs level 50. Since the 0.4.0 level tidy Azshara has no top-up step for it (a grind for this one delivery): the accept in Orgrimmar is shown from level 50, and 50-60/04's Orgrimmar stop offers it again for everyone else.",
 			"source": [
 				{
 					"kind": "client",
@@ -4213,23 +4213,6 @@
 			]
 		},
 		{
-			"id": "horde-50-60-tidy-ungoro-52",
-			"faction": "Horde",
-			"at": {
-				"quest": 4145,
-				"goal": "objective",
-				"objective": 2
-			},
-			"level": 52,
-			"note": "Un'Goro Crater (Horde 50-60/01) opens at about 49-51 (level model, 0.4.0 tidy): the western jungle's Bloodpetal Trappers (52-53) and the Slithering Scar's Gorishi (51-53) would be 2 levels over. A top-up to 52 on the Bloodpetal Flayers (51-52) Larion wants, at the foot of Fire Plume Ridge, comes first (only below 52).",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
 			"id": "horde-50-60-tidy-ungoro-51",
 			"faction": "Horde",
 			"at": {
@@ -4238,7 +4221,7 @@
 				"objective": 2
 			},
 			"level": 51,
-			"note": "Un'Goro Crater (Horde 50-60/01): the first loop's Pterrordax and Bloodpetal Flayers are up to 52; when the crater is entered under 51 (level model about 49.2 after the 40-50 tidy), a top-up to 51 on the Bloodpetal Threshers (49-50) Larion wants, south-east of the refuge, comes first (only below 51).",
+			"note": "Un'Goro Crater (Horde 50-60/01): the first loop's Pterrordax and Bloodpetal Flayers are up to 52; when the crater is entered under 51, a top-up to 51 on the Bloodpetal Threshers (49-50) Larion wants, south-east of the refuge, comes first (only below 51).",
 			"source": [
 				{
 					"kind": "client",
@@ -4251,11 +4234,10 @@
 			"faction": "Horde",
 			"at": {
 				"quest": 3822,
-				"goal": "objective",
-				"objective": 1
+				"goal": "accept"
 			},
 			"level": 53,
-			"note": "Krom'Grul (54) at about 52.9 on the Burning Steppes pass (level model, 0.4.0 tidy): a top-up to 53 on the Firegut Ogres (50-51) of Dreadmaul Rock comes before him (only below 53).",
+			"note": "Krom'Grul (54, alone in the caves of Dreadmaul Rock) on the Burning Steppes pass at about 52 (rested level model, 0.4.0 tidy): his quest is offered from level 53 only, with no top-up for it (the Burning Steppes has no later visit, and a top-up there was over a level).",
 			"source": [
 				{
 					"kind": "client",
@@ -4264,100 +4246,15 @@
 			]
 		},
 		{
-			"id": "horde-50-60-tidy-wpl-wolves-53",
-			"faction": "Horde",
-			"at": {
-				"quest": 4984,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 53,
-			"note": "The Diseased Wolves (53-54) open the Felwood & Western Plaguelands guide: a top-up to 53 on the Diseased Black Bears (51-52) by Felstone Farm comes first (only below 53), 0.4.0 tidy.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
-			"id": "horde-50-60-tidy-frostfire-55",
-			"faction": "Horde",
-			"at": {
-				"quest": 5082,
-				"goal": "objective",
-				"objective": 2
-			},
-			"level": 55,
-			"note": "Frostfire Hot Springs' Den Watchers (55-56), the Raging Owlbeasts (54-56) and the Ice Thistle Yetis (55-56) at the Winterspring guide's start (model about 54.4): a top-up to 55 on the Shardtooth Bears (53-54) around Donova comes first (only below 55), 0.4.0 tidy.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
-			"id": "horde-50-60-tidy-epl-south-56",
-			"faction": "Horde",
-			"at": {
-				"quest": 5542,
-				"goal": "objective",
-				"objective": 2
-			},
-			"level": 56,
-			"note": "Tirion's hunts south-west of Light's Hope Chapel (Plaguehounds 55-56, the camp to 57) at about 55.9: a top-up to 56 on the Plaguebats (53-55) comes first (only below 56), 0.4.0 tidy.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
-			"id": "horde-50-60-tidy-frenzied-hounds-57",
+			"id": "horde-50-60-tidy-frenzied-hounds-56",
 			"faction": "Horde",
 			"at": {
 				"quest": 5542,
 				"goal": "objective",
 				"objective": 3
 			},
-			"level": 57,
-			"note": "The Frenzied Plaguehounds (57-58) of Northdale at about 56.2: a top-up to 57 on the Noxious Plaguebats (54-56) on the way east comes first (only below 57), 0.4.0 tidy.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
-			"id": "horde-50-60-tidy-moontouched-57",
-			"faction": "Horde",
-			"at": {
-				"quest": 4741,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 57,
-			"note": "The Moontouched Owlbeasts (57-58) on the Eastern Plaguelands guide's Winterspring stop: a top-up to 57 on the Ice Thistle Yetis (55-56) comes first (only below 57), 0.4.0 tidy.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
-			"id": "horde-50-60-tidy-twilight-camp-57",
-			"faction": "Horde",
-			"at": {
-				"quest": 8284,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 57,
-			"note": "The Twilight Base Camp's cultists and elementals (up to 58) at the Silithus guide's start (model about 56.7): a top-up to 57 on the Stonelash Scorpids (54-55) west of Cenarion Hold comes first (only below 57), 0.4.0 tidy.",
+			"level": 56,
+			"note": "The Frenzied Plaguehounds (57-58) of Northdale at about 55.5 (rested level model, 0.4.0 tidy): a top-up to 56 on the Noxious Plaguebats (54-56) on the way east, which Nathanos' Un-Life's Little Annoyances wants, comes first (only below 56).",
 			"source": [
 				{
 					"kind": "client",
@@ -4375,23 +4272,6 @@
 			},
 			"level": 58,
 			"note": "Ortell's Rock Stalkers (57-59) and the south of Silithus: a top-up to 58 on the Dredge Crushers (57-58) Windcaller Proudhorn wants, on the way south-east, comes first (only below 58); it also opens Dearest Natalia (8304, minimum 58), 0.4.0 tidy.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
-				}
-			]
-		},
-		{
-			"id": "horde-50-60-tidy-quel-lithien-59",
-			"faction": "Horde",
-			"at": {
-				"quest": 6133,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 59,
-			"note": "Quel'Lithien Lodge's Rangers (59-60) on the Silithus guide's second Plaguelands ride: a top-up to 59 on the Temporal Parasites (55-57) by Andorhal comes first (only below 59), 0.4.0 tidy.",
 			"source": [
 				{
 					"kind": "client",

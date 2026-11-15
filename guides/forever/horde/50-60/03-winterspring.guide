@@ -18,6 +18,7 @@ step Into Winterspring
 step Salfa
   tip Salfa stands right at the Winterspring exit of Timbermaw Hold's tunnel, where you come out.
   turnin 8465
+  accept 8464                         -- keep it: Winterfall Village's Ursas (57-58) wait for the last guide's Winterspring loop
 
 step Donova Snowden
   tip Ride south from the tunnel: Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
@@ -26,15 +27,10 @@ step Donova Snowden
   accept 5082
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
 
-step Level 55
-  when level<55
-  tip Top up here to level 55 before the hot springs' furbolgs and owlbeasts (Donova's and Trull's quests are level 56): the Shardtooth Bears (53-54) on the slopes around Donova are under your level. Or, with a group, run the Blackrock Depths dungeon instead.
-  goto 30.2,47.2 map 1452 "Shardtooth Bear"
-  level 55 grind 7444                  -- grind on Shardtooth Bear
-
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
   tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
+  tip Careful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.
   kill 7442 quest 5082.1
   kill 7441 quest 5082.3
   kill 7440 quest 5082.2
@@ -53,7 +49,7 @@ step Donova Snowden
 # ---------------------------------------------------------------- Frostfire Hot Springs
 
 step Raging Owlbeasts
-  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
+  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook. Careful: the biggest are level 56: pull them one at a time.
   kill 7451 quest 4521.1
 
 step Winterspring
@@ -136,7 +132,7 @@ step Everlook
   accept 4809
 
 step Ice Thistle yetis
-  tip The yeti hills start just south-east of Everlook. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in.
+  tip The yeti hills start just south-east of Everlook. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.
   collect 12366 quest 3783
 
 step Chillwind chimaeras
@@ -145,8 +141,9 @@ step Chillwind chimaeras
 
 step Everlook
   turnin 3783                         -- Umi Rumplesnicker
+  accept 977                          -- Umi: keep it, the Pristine Yeti Horns come on the Eastern Plaguelands guide's Everlook stop at about 57
   turnin 4809                         -- Felnok Steelspring
-  note Umi's next prank, the Pristine Yeti Horns, waits for the Eastern Plaguelands guide's Everlook stop at about 57: the Matriarchs and Patriarchs are 56-58.
+  note The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop.
 
 step Fly to Camp Mojache
   zone Winterspring

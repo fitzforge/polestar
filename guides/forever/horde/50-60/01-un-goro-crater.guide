@@ -15,14 +15,16 @@ next forever/horde/50-60/02-felwood
 # (6164, A Plague Upon Thee's termites) is done on 50-60/05's Egan stop; Darrowshire, Light's Hope Chapel and the
 # Marlene/Chromie chain open 50-60/05 at about 56.
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
-# 0.4.0 level tidy (mobs 2+ over the player moved to visits at their level): Beware of Pterrordax (4501, Frenzied
-# Pterrordax 51-54) and Super Sticky (4504, tar elementals 52-54) to 50-60/06's Un'Goro loop; Pawn Captures Queen
-# (4507) is taken on 50-60/05's Gadgetzan stop; The Rise of the Machines (4061, War Reavers 53-55) is left out (no
-# later Burning Steppes visit). Top-ups to 51 on Larion's Threshers and to 52 on his Flayers open the crater (Trappers and Gorishi 52-53),
-# one to 53 comes before Krom'Grul (54). The Searing Gorge (Thorium Point, Velarok, the outhouse) comes here from
-# 40-50/04, between Kargath and Blackrock Mountain (its camps are 48-50). Bungle in the Jungle (4496) needs March of
-# the Silithid from 40-50/06 (level 50); without it, 50-60/04-06 take both later. The Jediga deliveries moved to
-# 50-60/04 (Andron Gant there).
+# 0.4.0 level tidy (mobs 2+ over the player done where they fit, the quests still taken where the route passes their
+# givers): Beware of Pterrordax's Frenzied Pterrordax (4501.2, 51-54) are killed on the pylon loop at about 52, its
+# Pterrordax (50-52) on the first loop; Pawn Captures Queen (4507) is worked on 50-60/06's Un'Goro loop; A Plague Upon
+# Thee (5901) on 50-60/05's Terrordale stop. Super Sticky (4504) stays on the first loop: its tar drops from the Tar
+# Beasts (50-51) and Creepers (51-52) too. The Rise of the Machines (4061, War Reavers 53-55) is left out (no later
+# Burning Steppes visit). A short top-up to 51 on Larion's Threshers (only below 51) opens the crater, in place of the
+# three small grinds it had; the Trappers and Gorishi (52-53) get Careful tips. Krom'Grul (3822, level 54 alone in his
+# caves) is offered from level 53, with no top-up for it. Bungle in the Jungle (4496) needs March of the Silithid from
+# 40-50/06 (level 50); without it, 50-60/04-06 take both later. The Jediga deliveries moved to 50-60/04 (Andron Gant
+# there).
 
 step Un'Goro Crater
   zone Un'Goro Crater
@@ -106,18 +108,23 @@ step Un'Goro Crater
 # ---------------------------------------------------------------- Marshal's Refuge
 
 step Into Un'Goro Crater
-  tip From Gadgetzan ride south-west past the Broken Pillar to the long ramp that winds down into Un'Goro Crater, then follow the crater's north wall to Marshal's Refuge, a camp in the cliff caves. Everyone here is neutral.
+  tip From the Broken Pillar ride west to the long ramp that winds down into Un'Goro Crater, then follow the crater's north wall to Marshal's Refuge, a camp in the cliff caves. Everyone here is neutral.
   getfp "Marshal's Refuge"
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
   accept 3882                         -- Spark Nilminer
   accept 3883                         -- Hol'anyee Marshal
   accept 3881                         -- Williden Marshal
   accept 4145                         -- Larion
+  accept 4501                         -- the wooden sign beside Spraggle Frock, by the flight master: the Frenzied Pterrordax (51-54) come on the pylon loop
 
 step Out of the refuge
   accept 4503                         -- Shizzle, at the refuge entrance
   accept 4243                         -- Karna Remtravel, just outside
   note From here on pick up every Power Crystal (blue, green, red, yellow) and every Un'Goro Soil pile you pass: 20 for Hamuul, and 5 more for Pestlezugg if you carry Bungle in the Jungle.
+
+step Lakkari Tar Pits
+  tip The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the Super Sticky Tar. Careful: the Lurkers reach 54 and the Tar Lords stand among them: take the Tar Beasts (50-51) and Creepers (51-52).
+  collect 11834 quest 4504
 
 step Level 51
   when level<51
@@ -129,8 +136,9 @@ step Level 51
 # ---------------------------------------------------------------- Loop 1: south and south-east
 
 step Pterrordax
-  tip Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle.
+  tip Pterrordax (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for Shizzle, and Spraggle's sign wants ten of them. Leave the Frenzied Pterrordax over the west for the pylon loop.
   collect 11831 quest 4503.2
+  kill 9166 quest 4501.1
 
 step Power Crystals and soil
   tip The crystal clusters stand all over the crater, many around Fire Plume Ridge. Take a few extra of each colour for the pylons.
@@ -140,19 +148,11 @@ step Power Crystals and soil
   collect 11184 quest 4284.4
 
 # ---------------------------------------------------------------- Loop 1: west and south-west
-step Level 52
-  when level<52
-  zone Un'Goro Crater
-  tip Top up here to level 52 before the western jungle and the Slithering Scar: their Bloodpetal Trappers and Gorishi are level 52-53. The Bloodpetal Flayers (51-52) around the foot of Fire Plume Ridge are the ones Larion wants. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 57.7,46.5 map 1449 "Bloodpetal Flayer"
-  kill 6510 quest 4145.3
-  level 52 grind 6510                  -- grind on Bloodpetal Flayer
-
 step Lakkari Tar Pits: kill these as you meet them
   zone Un'Goro Crater
   tip Ride south-west to Fire Plume Ridge, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.
-  tip South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales Shizzle wants. Ravasaurs hunt in packs in the south-west: their claws are for Jes'rimon, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.
-  tip Ride south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there.
+  tip South of the hot springs, Dinosaur Bones lie on the ground among the Stegodons and drop from the Diemetradons nearby, which also carry the scales Shizzle wants. Careful: the Stegodons are elites (52-53): pick the bones up around them, don't pull them; the Elder Diemetradons are 53-55, take the smaller ones. Ravasaurs hunt in packs in the south-west: their claws are for Jes'rimon, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.
+  tip Ride south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there. Careful: the biggest Trappers are 53: pull them one at a time.
   kill 6510 quest 4145.3
   collect 11114 quest 3882
   collect 11830 quest 4503.1
@@ -164,7 +164,7 @@ step Research Equipment
 
 step The Slithering Scar
   when onquest 4496
-  tip Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd.
+  tip Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd. The Hive Guards (54) and the Queen stand inside the hive: work the Workers and Wasps outside it.
   collect 11837 quest 4496.1
 
 step The Slithering Scar
@@ -265,8 +265,14 @@ step Western Pylon
   goto 23.9,59.2 "Western Crystal Pylon"
   interact 164956 quest 4288.1
 
+step Frenzied Pterrordax: kill these as you meet them
+  zone Un'Goro Crater
+  tip The Frenzied Pterrordax fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time.
+  kill 9167 quest 4501.2
+
 step J.D. Collie
-  tip Ride north back to Marshal's Refuge.
+  tip Ride north back to Marshal's Refuge: J.D. Collie below ground, Spraggle Frock beside the flight master.
+  turnin 4501                         -- Spraggle Frock, beside the flight master
   turnin 4285                         -- Below ground
   turnin 4287
   turnin 4288
@@ -280,9 +286,17 @@ step To Gadgetzan
 # ---------------------------------------------------------------- Gadgetzan
 
 step Gadgetzan
+  zone Tanaris
+  tip The hearth lands in Gadgetzan: Andi Lynn and Tran'rek take the Dunemaul Compound and Thistleshrub Valley, done on the way into the crater.
+  turnin 5863                         -- Andi Lynn
+  turnin 3362                         -- Tran'rek, beside the wind rider master
+  turnin 4504                         -- Tran'rek
+
+step Gadgetzan
   when onquest 4496
   zone Tanaris
   turnin 4496                         -- Alchemist Pestlezugg, inside
+  accept 4507                         -- Pestlezugg: keep it, the Gorishi queen waits for the Silithus guide's crater loop
 
 step Orgrimmar
   only Hunter,Shaman
@@ -320,97 +334,9 @@ step The WANTED poster
   tip For your Blackrock Depths run, next, on the way through Blackrock Mountain: the WANTED poster in Kargath wants the Anvilrage dwarves inside thinned out.
   accept 4081 object 164867           -- WANTED
 
-# ---------------------------------------------------------------- The Searing Gorge (from 40-50/04, 0.4.0 level tidy)
-
-step The Grimesilt Dig Site
+step Into the Searing Gorge
   zone Searing Gorge
-  tip Take the pass out of Kargath's west side into the Searing Gorge, then ride west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
-  accept 4449 object 173265             -- the Wooden Outhouse
-  kill 5839 quest 4449.1
-  collect 4306 quest 4449.2
-  turnin 4449 object 173265
-
-step Searing Gorge
-  zone Searing Gorge
-  goto 37.7,26.5 "Thorium Point"
-
-step Thorium Point
-  tip Ride north-west across the gorge; Thorium Point is the scaffolded camp in the north-west.
-  getfp "Thorium Point" npc 3305        -- Grisha
-  accept 7728 object 179827             -- The Wanted/Missing/Lost & Found board
-  accept 7729 object 179827
-  accept 7723                           -- Hansel Heavyhands
-  accept 7724
-  accept 7727
-  accept 7722                           -- Master Smith Burninate
-
-step The Cauldron's slavers and golems
-  zone Searing Gorge
-  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok.
-  kill 5846 quest 7729.1
-  kill 5844 quest 7729.2
-  kill 5854 quest 7723.1
-
-step Velarok Windblade
-  tip Velarok stands alone south of Thorium Point, at the edge of the Cauldron. Listen to his story.
-  accept 3441
-
-step Divine Retribution
-  talk 8479 quest 3441.1 @39.1,39.0 map 1427
-
-step Velarok Windblade
-  turnin 3441
-  accept 3442
-
-step Searing Gorge: kill these as you meet them
-  zone Searing Gorge
-  tip Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the Grimesilt Outhouse Key: keep it.
-  tip The Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
-  tip The Slag Pit opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.
-  tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
-  collect 11818 optional                -- Grimesilt Outhouse Key, a rare drop
-  collect 10509 quest 3442.1
-  collect 10511 quest 3442.2
-  kill 5858 quest 7724.1
-  kill 9318 quest 7727.1              -- Below ground
-  collect 18922 quest 7722.1 @40.5,35.7 -- Below ground: the plans, on the Slag Pit's upper ledge
-
-step Velarok Windblade
-  turnin 3442
-  accept 3443
-
-step Thorium Point
-  tip Ride back north to Thorium Point, just past Velarok.
-  turnin 7729
-  turnin 7727
-  turnin 7724
-  turnin 7723                           -- Hansel Heavyhands
-  turnin 7722                           -- Master Smith Burninate
-
-step The Steamsmiths' furnaces
-  tip The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a Thorium Plated Dagger, one in ten the Smithing Tuyere. Slaves, Slavers and Taskmasters carry daggers too.
-  collect 10551 quest 3443.1
-  collect 18959 quest 7728.1
-
-step Velarok Windblade
-  turnin 3443
-  note His next request needs the Symbol of Ragnaros from elite cultists: leave it.
-
-step Dark Iron Lookouts
-  tip The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the Lookout's Spyglass.
-  collect 18960 quest 7728.2
-
-step The Key to Freedom
-  tip Only with the Grimesilt Outhouse Key: back east to the Wooden Outhouse at the dig site.
-  accept 4451 optional
-  turnin 4451 optional object 173265
-
-step Thorium Point
-  turnin 7728                           -- Taskmaster Scrange
-
-step To Blackrock Mountain
-  zone Searing Gorge
-  tip From Thorium Point ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.
+  tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south across the gorge to the long bridge into Blackrock Mountain. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals.
   goto 34.8,83.0 "Bridge into Blackrock Mountain"
 
 step Blackrock Depths
@@ -435,15 +361,14 @@ step Flame Crest
 step Sha'ni Proudtusk
   tip Follow the cliffs south to Dreadmaul Rock, the Firegut ogres' hill. Sha'ni Proudtusk's remains lie at its foot.
   turnin 3821
+
+step Sha'ni Proudtusk
+  when level>=53
+  tip Only from level 53: her next errand is Krom'Grul (54), who walks the caves of Dreadmaul Rock among ogres of 50-53.
   accept 3822
 
-step Level 53
-  when level<53
-  tip Top up here to level 53 before Krom'Grul (54): the Firegut Ogres (50-51) on the slopes of Dreadmaul Rock are under your level; leave the Brutes and Ogre Mages by the caves for later. Or, with a group, run the Blackrock Depths dungeon instead.
-  goto 75.4,48.3 map 1428 "Firegut Ogre"
-  level 53 grind 7033                  -- grind on Firegut Ogre
-
 step Krom'Grul
+  when onquest 3822
   tip Krom'Grul walks the caves and mine tunnels of Dreadmaul Rock; if he isn't home, clear the ogres around the entrances until he comes back.
   collect 11058 quest 3822            -- Below ground
 
@@ -466,6 +391,10 @@ step Flame Crest
 step Kargath
   zone Badlands
   fly "Kargath"
+
+step Thal'trak Proudtusk
+  when onquest 3822
+  zone Badlands
   turnin 3822                         -- Thal'trak Proudtusk
 
 step Warlord Goretooth
@@ -511,11 +440,12 @@ step The Bulwark
   turnin 5094                         -- High Executor Derrington
   accept 5096
   turnin 5405 direct
+  accept 5901                         -- Mickey Levine: keep it, Terrordale's termite mounds wait for the Eastern Plaguelands guide
 # ---------------------------------------------------------------- Western Plaguelands
 
 step Scarlet forward camp
   zone Western Plaguelands
-  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner.
+  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
   goto 40.7,52.0
   interact 176088
   complete 5096
