@@ -24,6 +24,9 @@ pub const PACKED_FORMAT: u32 = 8;
 /// Format 9: the `wait` goal (a countdown in the step). An older Polestar refuses the pack as too new
 /// instead of refusing each guide with "unknown verb".
 pub const WAIT_FORMAT: u32 = 9;
+/// Format 11: a goal's `either` (one of a set in its step). An older Polestar would wait for every goal of
+/// the set, so a pack that uses it is written in a format of its own.
+pub const EITHER_FORMAT: u32 = 11;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -33,6 +36,7 @@ pub fn needs(format: u32) -> Option<&'static str> {
 		3 => "0.2.5",
 		4 => "0.2.6",
 		5..=9 => "0.3.0",
+		11 => "0.4.1",
 		_ => return None,
 	})
 }
@@ -77,11 +81,17 @@ fn uses_wait(g: &V) -> bool {
 	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("wait")))
 }
 
+/// A goal marked `either` needs format 11 (EITHER_FORMAT).
+fn uses_either(g: &V) -> bool {
+	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("either").truthy()))
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
 
-/// The format a pack's compiled guides need: WAIT_FORMAT when a guide has a `wait` goal,
+/// The format a pack's compiled guides need: EITHER_FORMAT when a goal is one of an `either` set,
+/// WAIT_FORMAT when a guide has a `wait` goal,
 /// MONEY_TASK_FORMAT when a guide
 /// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 /// `skipto`, WHEN_FORMAT when a step
@@ -89,6 +99,9 @@ fn has_keys(v: &V) -> bool {
 /// option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 /// LEGS_FORMAT (project.rs build_pack_files).
 pub fn format_for(guides: &[V]) -> u32 {
+	if guides.iter().any(uses_either) {
+		return EITHER_FORMAT;
+	}
 	if guides.iter().any(uses_wait) {
 		return WAIT_FORMAT;
 	}

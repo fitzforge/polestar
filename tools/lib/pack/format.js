@@ -16,7 +16,10 @@ const MONEY_TASK_FORMAT = 5;
 // Format 6 (read, no longer written): a guide's baked legs inline (`legs`). Format 7: baked
 // legs in the race parts' Legs.lua (Polestar.RegisterLegs; legs.json, forge guide bake).
 const LEGS_FORMAT = 7;
-const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0' };
+// Format 11: a goal's `either` (one of a set in its step). An older Polestar would wait for
+// every goal of the set, so a pack that uses it is written in a format of its own.
+const EITHER_FORMAT = 11;
+const NEEDS = { 1: '0.1.0', 2: '0.2.4', 3: '0.2.5', 4: '0.2.6', 5: '0.3.0', 6: '0.3.0', 7: '0.3.0', 11: '0.4.1' };
 
 // A step with `label` or `along` (an older Polestar would stop at an along step).
 const usesAlong = (s) => s.label !== undefined || s.along !== undefined;
@@ -37,13 +40,18 @@ const usesMoneyTask = (g) => (g.steps || []).some((s) =>
 	(s.goals || []).some((goal) => MONEY_TASK_VERBS.has(goal.t)) || needs5(s.when) || (Array.isArray(s.skipto) && s.skipto.length)) ||
 	Object.values(g.nextWhen || {}).some(needs5);
 
-// The format a pack's compiled guides need: MONEY_TASK_FORMAT when a guide
+// A goal marked `either` needs format 11 (EITHER_FORMAT).
+const usesEither = (g) => (g.steps || []).some((s) => (s.goals || []).some((goal) => goal.either));
+
+// The format a pack's compiled guides need: EITHER_FORMAT when a goal is one of an
+// `either` set, MONEY_TASK_FORMAT when a guide
 // uses money/task/enter/cast/abandon/destroy/die goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 // `skipto`, WHEN_FORMAT when a step
 // has `when`, `label` or `along`, a level goal has `frac`, or a `next`
 // option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 // LEGS_FORMAT (project.js buildPackFiles).
 function formatFor(guides) {
+	if ((guides || []).some(usesEither)) return EITHER_FORMAT;
 	if ((guides || []).some(usesMoneyTask)) return MONEY_TASK_FORMAT;
 	const uses = (guides || []).some((g) => (g.steps || []).some((s) => (Array.isArray(s.when) && s.when.length) || usesAlong(s)));
 	if (uses || (guides || []).some(usesLevelFrac)) return WHEN_FORMAT;
@@ -100,4 +108,4 @@ function placeholderLicense(license) {
 	return `Licensed under ${license}: ${LICENSE_PLACEHOLDER}.\n`;
 }
 
-module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };
+module.exports = { FORMAT, WHEN_FORMAT, MONEY_TASK_FORMAT, LEGS_FORMAT, EITHER_FORMAT, NEEDS, formatFor, PACK_ID_RE, FOLDER_RE, RESERVED_IDS, GENERATED_MARKER, LEGACY_GENERATED_MARKER, isGenerated, TOC_MARKER, TOC_TITLE_PREFIX, LEGACY_TOC_TITLE_PREFIX, LICENSE_PLACEHOLDER, ownsGuideId, defaultFolder, placeholderLicense };

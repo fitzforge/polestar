@@ -732,7 +732,11 @@ function validateGuides(guides, data, diag) {
 					// Exclusive quests (`excl`, Questie exclusiveTo): the game does not
 					// offer this one while one of them is in the log or done.
 					const mine = own.get(goal);
+					// The accepts of an `either` set are alternatives, of which the player
+					// takes one: an exclusive quest among them closes nothing.
+					const alternatives = goal.either ? new Set(step.goals.filter((o) => o !== goal && o.either && o.t === 'accept').map((o) => o.quest)) : null;
 					for (const e of q.excl || []) {
+						if (alternatives && alternatives.has(e)) continue;
 						if ((taken.get(e) || []).some((chars) => meets(chars, mine.chars))) {
 							diag.warn(file, ln, `quest ${questName(data, goal.quest, goal.title)} is not offered once ${questName(data, e)} is in the log or done, and the chain takes that quest earlier`);
 						}

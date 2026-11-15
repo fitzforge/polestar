@@ -344,7 +344,8 @@ end
 -- An accept the player ticked by hand still counts as the guide's accept: a
 -- tick never says the quest is in the log (#739), so its lines stay and the
 -- accept reopens (goalDone). An `optional` accept the player did not take is
--- the same: its turn-in holds only those who took the quest.
+-- the same: its turn-in holds only those who took the quest. So is an
+-- `either` accept, one of several the player picks from.
 -- Taking the quest brings the goals back.
 -- A `turnin ... direct` has no accept by definition: it is handed in from the
 -- giver's own window, so it is never orphaned. Nor is an `abandon`: a quest
@@ -360,7 +361,7 @@ local function orphaned(goal)
 	if not s then return false end
 	local skipped = ns.CharState().skipped[guide.id]
 	for _, a in ipairs(l.accepts[q] or NONE) do
-		if a.s <= s and not a.goal.optional and not (skipped and skipped[a.s])
+		if a.s <= s and not a.goal.optional and not a.goal.either and not (skipped and skipped[a.s])
 			and stepApplies(a.step) and Guides.Matches(a.goal.only, player) and not Own.barred(a.goal) and greyNeed(a.goal) ~= false then
 			return false
 		end
@@ -3003,6 +3004,8 @@ end
 goalDone = function(s, g, goal)
 	local t = goal.t
 	local C = Compat()
+	-- One of a set (`either`): done once any other goal of the set is.
+	if goal.either and Own.eitherDone(s, g) then return true end
 	if t ~= "accept" and checked(s, g) then return true end
 	local now = Own.passedNow[guide.id]
 	if now and now[Own.key(s, g)] then return true end
@@ -3171,6 +3174,36 @@ local function blocks(goal)
 	return goal.t ~= "note" and not goal.optional
 end
 
+-- `either` (format 11) marks a set of goals in a step, any one of which is
+-- enough: once one of them that applies to the character is done, the others
+-- count as done too, so the step never waits for more than one. Each of the
+-- others is asked by its own state only (Own.ownDone), never through the set
+-- again.
+function Own.eitherDone(s, g)
+	if Own.eitherIn[s] then return false end
+	local goals = guide.steps[s].goals
+	for j = 1, #goals do
+		local other = goals[j]
+		if j ~= g and other.either and goalApplies(other) and Own.ownDone(s, j, other) then return true end
+	end
+	return false
+end
+
+-- goalDone for goal g of step s by its own state, its `either` set aside:
+-- what to store for it (a latch), where the character's own quest progress
+-- is (placement), and what its set asks each member. Own.eitherIn marks the
+-- steps whose set is being asked, restored on every way out.
+Own.eitherIn = {}
+function Own.ownDone(s, g, goal)
+	if not goal.either then return goalDone(s, g, goal) end
+	local was = Own.eitherIn[s]
+	Own.eitherIn[s] = true
+	local ok, done, cur, max, label, kind = pcall(goalDone, s, g, goal)
+	Own.eitherIn[s] = was
+	if not ok then error(done, 0) end
+	return done, cur, max, label, kind
+end
+
 -- A `vendor` check-off beside other work of its step is a stop on the way,
 -- not work of its own: it holds the step only while no other goal that
 -- holds it applies to the character. A step of nothing but vendor
@@ -3298,7 +3331,7 @@ local function anchorStep(added)
 				if not goal.only and not goal.optional and isQuestGoal(goal) and goalApplies(goal)
 					and (goal.direct or (goal.quest and offered[goal.quest] and offered[goal.quest] <= s))
 					and not (added and Own.goalMoved(added, s, goal)) then
-					local done, cur = goalDone(s, g, goal)
+					local done, cur = Own.ownDone(s, g, goal)
 					if done or (goal.oi and (cur or 0) > 0) then return s end
 				end
 			end
@@ -3752,7 +3785,7 @@ local function latchPassed(from, to)
 			local flown = not Own.goalsDone(s) and Own.flightPassed(s)
 			for g, goal in ipairs(step.goals) do
 				if latchable(goal) and goalApplies(goal) and not checked(s, g)
-					and (goalDone(s, g, goal) or (flown and (goal.t == "goto" or goal.t == "fly"))) then
+					and (Own.ownDone(s, g, goal) or (flown and (goal.t == "goto" or goal.t == "fly"))) then
 					manualFor(guide.id, true)[s .. ":" .. g] = true
 				end
 			end
@@ -3776,7 +3809,7 @@ local function latchInStep(s, live)
 		local t = goal.t
 		-- An abandon latches on the live step only: on a step looked at ahead it
 		-- reads done for a quest not taken yet (Own.abandonedByGuide).
-		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait"))) and goalApplies(goal) and not checked(s, g) and goalDone(s, g, goal) then
+		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
 			manualFor(guide.id, true)[s .. ":" .. g] = true
 		end
 	end
@@ -7125,7 +7158,7 @@ function Own.allQuestsDone(g)
 		if Guides.Matches(step.only, player) then
 			for _, goal in ipairs(step.goals) do
 				local t = goal.t
-				if goal.quest and (t == "accept" or t == "turnin" or t == "complete") and not goal.optional
+				if goal.quest and (t == "accept" or t == "turnin" or t == "complete") and not goal.optional and not goal.either
 					and Guides.Matches(goal.only, player) then
 					any = true
 					if not questDone(goal.quest) then return false end
@@ -9848,6 +9881,8 @@ function Own.aheadOk(i, j, a, ready, near)
 	local q = a.quest
 	if not q then return false, "no quest" end
 	if a.optional then return false, "optional" end
+	-- One of several to pick from: the choice is made at its own step.
+	if a.either then return false, "either" end
 	if Own.goalSkipped(i, j) then return false, "goal skipped" end
 	if not goalApplies(a) then return false, "goal not for this character" end
 	if Own.groupPending(guide.steps[i]) then return false, "the group waits" end
@@ -10199,7 +10234,7 @@ function Own.hereBuild()
 				if s > live or back then
 					local g = idx[i + 1]
 					local on = C.IsOnQuest(q)
-					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional
+					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional and not goal.either
 						and (tonumber(goal.qlvl) or 0) <= topQ and (tonumber(goal.minLevel) or 0) <= level and not questDone(q) and not missingPre(goal)
 					if take then
 						if room == nil then room = Own.logRoom() >= 1 end
@@ -12728,6 +12763,7 @@ function Own.wantsFrom(from, verb, questID, span)
 				if Own.matchesVerb(goal, verb) and goal.quest == questID and questID ~= waits and goalApplies(goal)
 					and not Own.questSkipped(questID)
 					and not (verb == "direct" and goalDone(s, g, goal))
+					and not (verb == "accept" and goal.either and goalDone(s, g, goal))
 					and not (verb ~= "accept" and ns.Party and ns.Party.HoldsQuest(questID)) then
 					return true
 				end

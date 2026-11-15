@@ -975,6 +975,12 @@ function resolveGuide(ast, data, diag, opts = {}) {
 				use(goal.map);
 			}
 		}
+		// `either` marks a set: with one goal alone there is nothing to choose between.
+		const set = s.goals.filter((g) => g.either);
+		for (const g of set) {
+			if (g.optional) err(g.line, 'a goal cannot be both `either` and `optional`: an optional goal never holds its step', 'drop `optional`: once another `either` goal of the step is done, this one no longer holds it');
+		}
+		if (set.length === 1) err(set[0].line, '`either` needs a second `either` goal in its step: the step is done when any one of them is', 'mark every alternative `either`, or drop it');
 		if (s.loop) {
 			applyLoop(step, s, data, err);
 			const last = step.goals.findLast((goal) => goal.x !== undefined);
@@ -2110,6 +2116,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	}
 	if (g.r !== undefined) goal.r = g.r;
 	if (g.optional) goal.optional = true;
+	if (g.either) goal.either = true;
 	// `turnin ... direct`: handed in from the giver's window with no accept;
 	// its quest's level, as an accept's, for the engine's grey-quest skipping.
 	if (g.direct) {

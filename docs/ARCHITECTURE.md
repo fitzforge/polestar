@@ -1032,7 +1032,13 @@ Polestar.RegisterGuide({
 ```
 
 Goal fields. Common: `t` (verb), `text` (display override), `note`,
-`optional` (true = never blocks the step), `only` (same shape as step `only`),
+`optional` (true = never blocks the step), `either` (format 11: one of its
+step's set of alternatives; once one that applies to the character is done
+the others read done, `Own.eitherDone`, while latches, placement and the set
+itself ask each goal by its own state, `Own.ownDone`; an `either` accept is a
+choice as an `optional` one is, so its quest's later goals are `orphaned`
+for those who passed it over and `Own.wantsFrom` stops asking for it),
+`only` (same shape as step `only`),
 `map`, `x`, `y` (0–100), `f` (`"e"` = Era frame, absent = live), `r` (arrival
 radius in yards), `group` (group content, below). A goal placed at an NPC or
 object that spawns at several

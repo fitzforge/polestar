@@ -1258,7 +1258,17 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 					}
 					// Exclusive quests: the game does not offer this one while one of them is in the log or done.
 					let mine = &qg[own[&key(&goal)]];
+					// The accepts of an `either` set are alternatives, of which the player takes one: an exclusive
+					// quest among them closes nothing.
+					let alternatives: Vec<V> = if goal.get("either").truthy() {
+						step.get("goals").items().iter().filter(|o| !o.strict_eq(&goal) && o.get("either").truthy() && t_of(o) == "accept").map(|o| o.get("quest")).collect()
+					} else {
+						Vec::new()
+					};
 					for e in q.get("excl").items() {
+						if alternatives.iter().any(|a| a.strict_eq(&e)) {
+							continue;
+						}
 						if taken.get(&key(&e)).is_some_and(|l| l.iter().any(|chars| meets(chars, &mine.chars))) {
 							diag.warn(
 								&file,

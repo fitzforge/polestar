@@ -48,7 +48,8 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
-const COMMON = ['text', 'optional', 'only', 'group'];
+// `either`: one of a set in its step; the step is done when any one of the set is.
+const COMMON = ['text', 'optional', 'only', 'group', 'either'];
 // `frame` = the `era` / `live` modifiers: which map frame explicit coordinates are in.
 const COORDS = ['at', 'map', 'r', 'frame'];
 const MODS = {
@@ -57,8 +58,8 @@ const MODS = {
 	// `direct`: handed in straight from the NPC's window, with no accept.
 	turnin: [...COMMON, ...COORDS, 'npc', 'object', 'reward', 'choose', 'xp', 'money', 'direct'],
 	complete: [...COMMON, ...COORDS],
-	abandon: ['text', 'optional', 'only'],
-	destroy: ['text', 'optional', 'only'],
+	abandon: ['text', 'optional', 'only', 'either'],
+	destroy: ['text', 'optional', 'only', 'either'],
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
 	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
@@ -79,8 +80,8 @@ const MODS = {
 	// `grind <npcId>`: the mob a level is reached on; the arrow leads to its nearest spawn area.
 	level: [...COMMON, 'grind'],
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
-	money: ['text', 'optional', 'only'],
-	task: ['optional', 'only', ...COORDS],
+	money: ['text', 'optional', 'only', 'either'],
+	task: ['optional', 'only', 'either', ...COORDS],
 	note: ['optional', 'only', ...COORDS],
 	skill: [...COMMON, ...COORDS],
 	learn: [...COMMON, ...COORDS, 'npc', 'item', 'nearest'],
@@ -95,7 +96,7 @@ const MODS = {
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind', 'either'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -1076,6 +1077,11 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 			case 'optional':
 				if (!use('optional')) return null;
 				goal.optional = true;
+				i++;
+				continue;
+			case 'either':
+				if (!use('either')) return null;
+				goal.either = true;
 				i++;
 				continue;
 			case 'direct':
