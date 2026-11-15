@@ -129,6 +129,7 @@ step The temple: the Mana Sieve
 
 step The western pylon: repair it
   tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Then repair the pylon with the Pile of Pylon Parts (Repair and Recharge Pylon). Decrepit Pylon Protectors guard it.
+  tip Careful: the pylon stands at the edge of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.
   use 271882 quest 96018.2 @43.97,35.59 -- Pile of Pylon Parts: Repair and Recharge Pylon
   collect 286647 quest 99257.1 optional -- Depleted Crystal Heart, from the Decrepit Pylon Protectors
 
@@ -168,6 +169,7 @@ step Mithera
 
 step The Forlorn Gardens
   tip Rowdy Roses and Terrible Tulips grow all over the gardens; the Malevolent Marigolds keep to the northern part. Woodwyrd, the treant in the middle of the gardens, has a request of his own that needs water from Maraudon, a dungeon: this guide leaves it.
+  tip The Shen'dralar who wander the gardens are neutral, like the temple's guards: leave them be and pull the flowers away from them. Careful: Nascent Pylon Protectors (elites, 43) wander the zone's middle, the gardens too: keep clear of them.
   kill 254566 x4 quest 93362.1        -- Rowdy Rose
   kill 254567 x4 quest 93362.2        -- Terrible Tulip
   kill 254572 x20 quest 93362.3       -- Malevolent Marigold

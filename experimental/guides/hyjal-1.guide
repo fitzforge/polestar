@@ -209,6 +209,7 @@ step Slime ooze as you go
   along until crow-ooze
   background
   tip The Noxious Slimes crawl all over the scar's southern half, and not every one leaves ooze: kill the ones you pass from here on.
+  tip Careful: Awakened Fel Ash Slimes (elites, 58) ooze among the slimes: leave them be.
   collect 273008 x8 quest 95380.1       -- Fel-Slime Ooze
 
 step Felflick
@@ -439,6 +440,7 @@ step Osi Mistpaw
 
 step Bear berries
   tip The bear berries grow on the slopes around the burrow: a few on the hill north of Brerufa, most of them east of the burrow.
+  tip Careful: Grimroot, an elite treant (level 60), walks the slopes west of the burrow, around 16-20,58-66: give him room.
   loop
   goto 19.4,66.5
   goto 20.3,71.2
@@ -500,6 +502,7 @@ step Eluneth
 
 step Owl feathers
   tip The Hyjal Owls roost on the slopes between Eluneth and Barkskin Burrow: their feathers are for Elderwild.
+  tip Careful: Grimroot, the elite treant (level 60), walks the western slopes here: pull the owls away from his path.
   collect 253341 x9 quest 95027.1 only Alliance  -- Hyjal Owl Feather
   collect 253341 x9 quest 92609.1 only Horde
 
@@ -510,6 +513,7 @@ step Unmarked Grave
 
 step Mourning's Rest
   tip The Scourge hold the ruins of Mourning's Rest, east of Elderwild: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them. Burn the bone pile at the south-eastern end with the Survivor's Torch: the Scourge Reanimator that answers carries the amulet.
+  tip Careful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room.
   kill 249247 x3 quest 92449.1 only Alliance  -- Forgotten Soldier
   kill 249228 x12 quest 92449.2 only Alliance  -- Fleshflay Ravener
   kill 249247 x3 quest 95026.1 only Horde
@@ -766,6 +770,7 @@ step Renalard
 
 step Dae'gun
   tip Work west back through Dae'gun: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of Renalard and the rest in the western half: Renalard's tuft of fur, used on a demon, distracts it while you take them.
+  tip Careful: Doomguards (elites, 58-59) stand among the demons, and Doomguard Xarkul (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.
   kill 249229 x12 quest 95793.1         -- Felguard Sentinel
   collect 271220 x6 quest 92960.1       -- Ephemeral Essence
   collect 250775 x5 quest 92011.1 @51.5,37.0  -- Frayed Wire
@@ -797,6 +802,7 @@ step Bethra'zel and Maerion
 
 step Mazzogore
   tip South-west to Mazzogore the Weak, in the middle of Dae'gun: drain him with the eye too, then kill him.
+  tip Careful: Doomguards (elites, 58-59) stand around him: pull him out to you.
   kill 252457 quest 96003.2             -- Mazzogore the Weak
 
 step Elaena Moonwhisper

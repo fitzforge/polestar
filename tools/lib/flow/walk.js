@@ -609,7 +609,8 @@ class Walk {
 				this.itemN.set(src, Math.max(this.itemN.get(src), 1));
 			}
 		}
-		if (tt === 'turnin' && q != null && !this.turninAt.has(q)) this.turninAt.set(q, e.i);
+		// An `abandon` takes the quest out of the log as a hand-in does (no experience): the chain's end with it.
+		if ((tt === 'turnin' || tt === 'abandon') && q != null && !this.turninAt.has(q)) this.turninAt.set(q, e.i);
 		if (OBJ_TYPES.has(tt) && q != null) {
 			this.objLast.set(q, e);
 			this.played.add(okeyOf(go));
