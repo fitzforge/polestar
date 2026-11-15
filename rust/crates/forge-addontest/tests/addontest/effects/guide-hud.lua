@@ -30,15 +30,20 @@ local function drag()
 	return at
 end
 local function point(f) local p, _, rp, x, y = f:GetPoint(1); return { p, rp, r(x or 0), r(y or 0) } end
--- A drag on the arrow: whether it moves.
+-- A drag on the arrow (pressed, pulled, released: ns.DragWindow moves it from the first pixel): whether it moves.
+-- Its saved spot is put back after.
 local function arrowDrag()
 	local A = PolestarNavArrow
-	A.moving = nil
-	stub.RunScript(A, "OnDragStart", "LeftButton")
-	local moving = A.moving == true
-	A:StopMovingOrSizing()
-	A.moving = nil
-	return moving
+	local saved = Polestar.Get("nav.arrowPos")
+	local before = point(A)
+	stub.cursor = { 900, 500 }
+	stub.RunScript(A, "OnMouseDown", "LeftButton")
+	stub.cursor = { 960, 520 }
+	stub.advance(0.016)
+	stub.RunScript(A, "OnMouseUp", "LeftButton")
+	local after = point(A)
+	Polestar.Set("nav.arrowPos", saved)
+	return before[3] ~= after[3] or before[4] ~= after[4]
 end
 local LAUNCHER = { ["ui.launcher"] = true }
 return {
