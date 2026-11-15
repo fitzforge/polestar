@@ -1,8 +1,9 @@
 'use strict';
 // experimental-guides.js for the Alliance: a Human Warrior at Thelsamar. The guide menu's Leveling 30-40 and
 // 40-50 with Riverglades (39-43) and Shen'dralas (43-45), and 50-60 with Mount Hyjal (57-59); Choose your path
-// at the end of the Badlands (Thelsamar, about 39: Desolace or the Riverglades) and of the Badlands &
-// Hinterlands guide (about 43: Feralas or Shen'dralas).
+// at the end of the Badlands (Thelsamar, about 39: Desolace or the Riverglades), of the Badlands &
+// Hinterlands guide (about 43: Feralas or Shen'dralas) and of the Western Plaguelands guide (about 58:
+// Silithus or Mount Hyjal).
 
 module.exports = require('./experimental-guides').make({
 	title: "Experimental guides with ours (Alliance): the guide menu's Leveling bands with Riverglades, Shen'dralas and Mount Hyjal, and Choose your path at Thelsamar and after the Badlands & Hinterlands",
@@ -21,5 +22,6 @@ module.exports = require('./experimental-guides').make({
 	choices: {
 		'choice-badlands': { title: 'Choose your path at the end of the Badlands (Thelsamar, level 39): Desolace or the Riverglades', from: 'forever/alliance/30-40/06-badlands', level: 39 },
 		'choice-hinterlands': { title: "Choose your path at the end of the Badlands & Hinterlands (level 43): Feralas or Shen'dralas", from: 'forever/alliance/40-50/02-badlands', level: 43 },
+		'choice-wpl': { title: 'Choose your path at the end of the Western Plaguelands guide (level 58): Silithus or Mount Hyjal', from: 'forever/alliance/50-60/04-western-plaguelands', level: 58 },
 	},
 });

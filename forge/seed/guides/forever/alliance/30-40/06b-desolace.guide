@@ -5,7 +5,11 @@ faction Alliance
 levels 38-39
 zone Desolace
 next forever/alliance/40-50/01-stranglethorn-vale
-pitch Desolace's south at 38-39 from Nijel's Point: the Kodo Graveyard, the Mannoroc Coven's demons and Rackmore's treasure on the north-west coast.
+pitch Kodo bones, demons and lost treasure in south Desolace.
+pro Short: about one level of quests
+pro Then on to Stranglethorn Vale
+pro Stays on the main route
+con A long trip out to Kalimdor
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

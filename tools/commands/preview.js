@@ -739,27 +739,26 @@ const UNDEAD_CHOICE = routeScene('forever/horde/undead/01-tirisfal-glades', 'Tir
 	routeOption('horde/02-barrens.guide', { recommended: true, seconds: 610, quests: 43, zone: 1413, focusX: 51.5, focusY: 30.3 }),
 	routeOption('horde/02-silverpine.guide', { seconds: 140, quests: 40, zone: 1421, focusX: 42.8, focusY: 40.9 }),
 ], 'Hillsbrad Foothills');
-// The route choice's files: the window over the map pins (Nav), which draw
-// each route's start on its painting.
+// The route choice's files (with Nav: the guide window of the same scene
+// draws its map pins).
 const CHOICE_FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'Nav/Nav.xml', ...FILES.slice(2)];
 // A zone choice at the end of Feralas for a level 46 Horde character, as the
 // guides and the experimental guides' index write it: Tanaris, recommended,
 // or the detour through Desolace into Shen'dralas, one of Polestar's
 // experimental guides in a zone whose quests are mostly Forever's own (the
-// character has outlevelled it). The routes go on to different guides (no
-// joinsAt), so each card says which.
+// character has outlevelled it), which comes back to Tanaris: the header
+// says so.
 const ZONE_OPTIONS = [
 	{ id: 'forever/horde/40-50/04-tanaris', title: 'Tanaris & Searing Gorge', zoneName: 'Tanaris', minLevel: 46, maxLevel: 48, recommended: true,
 		seconds: 300, quests: 28, zone: 1446, focusX: 52.0, focusY: 28.4,
-		pitch: "Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.",
+		pitch: "Gadgetzan's camps, Tooga's escort, then Thorium Point.",
+		pros: ['Thorium Point on the way', 'Then on to the Hinterlands', 'Stays on the main route'], cons: ['Long runs across the desert'],
 		thenId: 'forever/horde/40-50/05-the-hinterlands', thenGuideTitle: 'The Hinterlands & Blasted Lands', thenLevel: 48 },
-	{ id: 'polestar-experimental/shendralas', title: "Shen'dralas (experimental)", zoneName: "Shen'dralas", minLevel: 42, maxLevel: 44, seconds: 780, quests: 11,
+	{ id: 'polestar-experimental/shendralas', title: "Shen'dralas", zoneName: "Shen'dralas", minLevel: 42, maxLevel: 44, seconds: 780, quests: 11,
 		zone: 2652, focusX: 21.2, focusY: 22.4, experimental: true, newInForever: true, outleveled: true, detour: 'Desolace',
-		pitch: "A detour south of Desolace into Shen'dralas: 11 quests around a fallen Highborne temple, for levels 41-45.",
-		pros: ['About 27,500 quest experience plus the kills', 'Brings you back to the main route where you left it',
-			'Its experience comes off the grinding the route asks for before level 50: about an hour sooner to 60'],
-		cons: ['Its quests are about on level at 43 and a few levels under you at 46', 'Elites walk the Valley of Bones: Corpsefeeders and Magram Necrokhans, level 45',
-			"Experimental: written from a handful of players' recordings"],
+		pitch: 'A fallen Highborne temple south of Desolace.',
+		pros: ['About 27,500 quest experience', 'Then back to the main route', 'Less grinding before level 50'],
+		cons: ['Level 45 elites in the Valley of Bones'],
 		thenId: 'forever/horde/40-50/04-tanaris', thenGuideTitle: 'Tanaris & Searing Gorge', thenLevel: 44 },
 ];
 const ZONE_CHOICE = routeScene('forever/horde/40-50/03-feralas', 'Feralas', ZONE_OPTIONS, null);
@@ -1276,7 +1275,7 @@ const SCENES = [
 	},
 	{
 		file: 'route-choice.svg',
-		title: "Choose your path: a zone choice after Feralas (Tanaris, or the detour into Shen'dralas, an experimental guide in a zone Forever added; each card says where its route goes on); an Undead after Tirisfal Glades, both routes meeting again in Hillsbrad Foothills; the guide window while the choice waits",
+		title: "Choose your path: a zone choice after Feralas (Tanaris, or the detour into Shen'dralas, an experimental guide in a zone Forever added, which the header says comes back to Tanaris); an Undead after Tirisfal Glades, both routes meeting again in Hillsbrad Foothills; the guide window while the choice waits",
 		panels: [
 			{ roots: ROUTE, files: CHOICE_FILES, script: ZONE_CHOICE },
 			{ roots: ROUTE, files: CHOICE_FILES, script: UNDEAD_CHOICE },
