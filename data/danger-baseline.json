@@ -11980,6 +11980,32 @@
 			"evidence": "route level 56.3; Duskwing 60-60; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 6164.1|over",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "collect 6164.1",
+			"kind": "over",
+			"title": "Terrordale: kill these as you meet them",
+			"level": 55.7,
+			"mobs": [
+				"Plagued Swine 60-60 x2"
+			],
+			"reason": "the Plagued Swine (60) of Terrordale's farms are neutral critters, not the goal's mobs: players' recordings meet them as neutral and never as hostile.",
+			"evidence": "route level 55.7 (Horde level model on the integrated route); Plagued Swine 60-60 x2; recordings (2026-11-15): npc 16117 seen neutral by 2 people, never hostile, never killed; the goal done by 1 people (median 54.48)"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 5901.1|over",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "collect 5901.1",
+			"kind": "over",
+			"title": "Terrordale: kill these as you meet them",
+			"level": 55.7,
+			"mobs": [
+				"Plagued Swine 60-60 x4"
+			],
+			"reason": "the Plagued Swine (60) of Terrordale's farms are neutral critters, not the goal's mobs: players' recordings meet them as neutral and never as hostile.",
+			"evidence": "route level 55.7 (Horde level model on the integrated route); Plagued Swine 60-60 x4; recordings (2026-11-15): npc 16117 seen neutral by 2 people, never hostile, never killed; the goal done by 2 people (median 54.49)"
+		},
+		{
 			"key": "forever/horde/50-60/06-silithus.guide|kill 8280.1|elite",
 			"guide": "forever/horde/50-60/06-silithus.guide",
 			"goal": "kill 8280.1",
@@ -15577,6 +15603,150 @@
 			"evidence": "route level 42.5 (experimental route choices' model); 27 spawns 44+; recordings (2026-11-15): done by 9 people (median 43.68), 6 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 93788.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "collect 93788.1",
+			"kind": "elite",
+			"title": "Turner's Logging Camp",
+			"level": 42.9,
+			"mobs": [
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42) and Cavalry Scout Alturin (45) are elites that roam the river and the road nearby, not the goal's mobs: the guide's river and road steps say to let them pass, and Ghostmaw's own quest is a group step. Players do it: 23 people, median level 40.52, where the model has 42.9.",
+			"evidence": "route level 42.9 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Ghostmaw 42-42; recordings (2026-11-15): done by 23 people (median 40.52), 1 people died there, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|use 95955.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "use 95955.1",
+			"kind": "elite",
+			"title": "The river and the Farholde camp",
+			"level": 43.4,
+			"mobs": [
+				"Cavalry Scout Alturin 45-45",
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42) and Cavalry Scout Alturin (45) are elites that roam the river and the road nearby, not the goal's mobs: the guide's river and road steps say to let them pass, and Ghostmaw's own quest is a group step. Players do it: 23 people, median level 40.89, where the model has 43.4.",
+			"evidence": "route level 43.4 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Cavalry Scout Alturin 45-45, Ghostmaw 42-42; recordings (2026-11-15): done by 23 people (median 40.89), 0 people died there, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|use 95955.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "use 95955.1",
+			"kind": "rare",
+			"title": "The river and the Farholde camp",
+			"level": 43.4,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash (49) is a rare elite, seldom up, and not the goal's mob: he walks the coast, and the coast steps' tips name him. Players do it: 23 people, median level 40.89, where the model has 43.4.",
+			"evidence": "route level 43.4 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Gul'gash 49-49; recordings (2026-11-15): done by 23 people (median 40.89), 0 people died there, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94483.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "kill 94483.1",
+			"kind": "elite",
+			"title": "The river and the Farholde camp",
+			"level": 43.4,
+			"mobs": [
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42) and Cavalry Scout Alturin (45) are elites that roam the river and the road nearby, not the goal's mobs: the guide's river and road steps say to let them pass, and Ghostmaw's own quest is a group step. Players do it: 20 people, median level 41.4, where the model has 43.4.",
+			"evidence": "route level 43.4 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Ghostmaw 42-42; recordings (2026-11-15): done by 20 people (median 41.4), 0 people died there, 3 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95992.1|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "collect 95992.1",
+			"kind": "rare",
+			"title": "Ghostmaw",
+			"level": 43.4,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash (49) is a rare elite, seldom up, and not the goal's mob: he walks the coast, and the coast steps' tips name him. Players do it: 19 people, median level 41.25, where the model has 43.4.",
+			"evidence": "route level 43.4 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Gul'gash 49-49; recordings (2026-11-15): done by 19 people (median 41.25), 2 people died there, 1 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 94672.3|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "kill 94672.3",
+			"kind": "rare",
+			"title": "Sunnyglade",
+			"level": 43.5,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash (49) is a rare elite, seldom up, and not the goal's mob: he walks the coast, and the coast steps' tips name him. Players do it: 17 people, median level 41.93, where the model has 43.5.",
+			"evidence": "route level 43.5 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Gul'gash 49-49; recordings (2026-11-15): done by 17 people (median 41.93), 5 people died there, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 94961.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "collect 94961.1",
+			"kind": "elite",
+			"title": "Sunnyglade",
+			"level": 43.5,
+			"mobs": [
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42) and Cavalry Scout Alturin (45) are elites that roam the river and the road nearby, not the goal's mobs: the guide's river and road steps say to let them pass, and Ghostmaw's own quest is a group step. Players do it: 42 people, median level 41.37, where the model has 43.5.",
+			"evidence": "route level 43.5 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Ghostmaw 42-42; recordings (2026-11-15): done by 42 people (median 41.37), 5 people died there, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95288.1|over",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "collect 95288.1",
+			"kind": "over",
+			"title": "The Eastsea pirates",
+			"level": 44.2,
+			"mobs": [
+				"Gul'gash 49-49 x2"
+			],
+			"reason": "Gul'gash (49) is a rare elite, seldom up, and not the goal's mob: he walks the coast, and the coast steps' tips name him. Players do it: 46 people, median level 42.33, where the model has 44.2.",
+			"evidence": "route level 44.2 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Gul'gash 49-49 x2; recordings (2026-11-15): done by 46 people (median 42.33), 1 people died there, 2 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|kill 95122.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "kill 95122.2",
+			"kind": "rare",
+			"title": "The pirates' second wave",
+			"level": 44.6,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash (49) is a rare elite, seldom up, and not the goal's mob: he walks the coast, and the coast steps' tips name him. Players do it: 44 people, median level 42.82, where the model has 44.6.",
+			"evidence": "route level 44.6 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Gul'gash 49-49; recordings (2026-11-15): done by 44 people (median 42.82), 0 people died there, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95124.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "collect 95124.2",
+			"kind": "rare",
+			"title": "The pirates' ships",
+			"level": 44.7,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash (49) is a rare elite, seldom up, and not the goal's mob: he walks the coast, and the coast steps' tips name him. Players do it: 36 people, median level 43.62, where the model has 44.7.",
+			"evidence": "route level 44.7 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Gul'gash 49-49; recordings (2026-11-15): done by 36 people (median 43.62), 2 people died there, 0 abandoned"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|use 95165.2|rare",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "use 95165.2",
+			"kind": "rare",
+			"title": "The pirates' ships",
+			"level": 44.7,
+			"mobs": [
+				"Gul'gash 49-49"
+			],
+			"reason": "Gul'gash (49) is a rare elite, seldom up, and not the goal's mob: he walks the coast, and the coast steps' tips name him. Players do it: 36 people, median level 43.62, where the model has 44.7.",
+			"evidence": "route level 44.7 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Gul'gash 49-49; recordings (2026-11-15): done by 36 people (median 43.62), 2 people died there, 0 abandoned"
+		},
+		{
 			"key": "forever/40-50/shendralas.guide@Alliance|complete 92914|over",
 			"guide": "forever/40-50/shendralas.guide@Alliance",
 			"goal": "complete 92914",
@@ -15836,6 +16006,21 @@
 			],
 			"reason": "players meet Shen'dralar Citizen, Arondel, Kerelle, Shen'dralas Protector, Maralus, Jarael, Melanori, Naria only as neutral (the census), never hostile, and nobody died to them; the step's tip says to leave them be.",
 			"evidence": "route level 45.3 (experimental route choices' model); 59 spawns 47+; recordings (2026-11-15): done by 2 people (median 43.84), 0 people died within 60 yd, 1 abandoned"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Horde|collect 99257.1|over",
+			"guide": "forever/40-50/shendralas.guide@Horde",
+			"goal": "collect 99257.1",
+			"kind": "over",
+			"title": "A Heart of Crystal",
+			"level": 47.2,
+			"mobs": [
+				"Shen'dralar Citizen 60-60 x2",
+				"Shen'dralar Scholar 60-60 x2",
+				"Shen'dralas Protector 60-60 x2"
+			],
+			"reason": "the Shen'dralar Citizens, Scholars and Protectors (60) are the temple's neutral folk (the guide's tips say to leave them be); the heart drops from the Decrepit Pylon Protectors (42-43) by the road north. Players do it: 6 people, median level 43.94, where the model has 47.2.",
+			"evidence": "route level 47.2 (Horde level model on the integrated route, the Riverglades after Stranglethorn Vale); Shen'dralar Citizen 60-60 x2, Shen'dralar Scholar 60-60 x2, Shen'dralas Protector 60-60 x2; recordings (2026-11-15): done by 6 people (median 43.94), 0 people died there, 1 abandoned"
 		}
 	]
 }
