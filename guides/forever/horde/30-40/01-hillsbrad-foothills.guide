@@ -386,11 +386,17 @@ step Tarren Mill
   turnin 539                          -- High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group
   turnin 567
   accept 533                          -- Krusk, inside: Infiltration, worked on the 38-39 visit (its Syndicate are 32-35)
+  note Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first Tarren Mill loop.
+
+step Voidglare, Bel'varil and Tallow
+  when level>=30
+  zone Hillsbrad Foothills
+  tip Magus Wordeen Voidglare and Keeper Bel'varil are inside the inn, Tallow just outside it. Their quests are offered from level 30; below it, the 38-39 guide's first Tarren Mill stop takes them.
   accept 544                          -- Magus Wordeen Voidglare, inside: Prison Break In, for the 38-39 visit (the Dalaran crater's traitors are 33-35)
   accept 93680                        -- Magus Wordeen Voidglare: Key to the City, with Prison Break In on the 38-39 visit
   accept 556                          -- Keeper Bel'varil, inside: Stone Tokens, with the crater on the 38-39 visit
   accept 676                          -- Tallow, outside the inn: the Boulderfist ogres (32-34) on the 38-39 Arathi visit
-  note Keep these five in your log: their camps are two to five levels over you now, and the 38-39 guide (Alterac and Arathi) works them on its first Tarren Mill loop and in Hammerfall.
+  note Keep these in your log: their camps are two to four levels over you now, and the 38-39 guide works them on its first Tarren Mill loop and in Hammerfall.
 
 step Melisara
   when dungeon "City of Dalaran"
