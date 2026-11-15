@@ -4,7 +4,7 @@ title Feralas & Tanaris
 faction Horde
 levels 43-45
 zone Feralas
-next forever/horde/40-50/03-feralas
+next forever/40-50/shendralas
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

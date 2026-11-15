@@ -11,10 +11,9 @@ next forever/alliance/40-50/03-feralas
 # Polestar Experimental, Shen'dralas for both factions (2026-11-12). Hand-written from players' recordings of
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
 # titles, levels and objectives and the client's tables for item and spell names. A detour for levels 41-45,
-# offered as a route choice. Horde: offered at the end of the Feralas & Tanaris guide (40-50/02, Orgrimmar, about
-# level 45; moved from the end of 40-50/03 in 0.4.0, where players were about 46.4 by the level model); in from
-# Shadowprey Village, out by the flight back to Orgrimmar, where the next Feralas guide picks up at the zeppelin
-# towers. Alliance: offered at the end of the Badlands guide (40-50/02,
+# offered as a route choice. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Orgrimmar,
+# about level 46 with the Riverglades before it); in from Shadowprey Village, out by the flight back to Orgrimmar,
+# where the next Feralas guide picks up at the zeppelin towers. Alliance: offered at the end of the Badlands guide (40-50/02,
 # Theramore, about level 43); in from Nijel's Point, out on the ride south into Feralas, where the Feralas guide
 # picks up at the Feathermoon boat.
 # Order: the Tattered Journal from the valley's necromancers; Mordent Evenshade's pylons (find the three, the
@@ -40,7 +39,7 @@ step Fly to Shadowprey Village
   only Horde
   when !zone "Shen'dralas"
   when !zone "Desolace"
-  tip Experimental route (alpha). It follows what players did in Shen'dralas and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip New in Forever: this guide follows what players did in Shen'dralas. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Shen'dralas lies south of Desolace, through the Valley of Bones, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to Orgrimmar first (from Grom'gol or the Undercity).
   fly "Shadowprey Village"
 
@@ -68,7 +67,7 @@ step Into the Valley of Bones
 
 step The Valley of Bones: a Tattered Journal
   zone Shen'dralas
-  tip Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip The Outcast Necromancers and the Magram Necromancers of the valley drop a Tattered Journal whose writer lives in Shen'dralas: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.
   collect 260347
   accept 93644
@@ -121,14 +120,14 @@ step The temple: the Mana Sieve
   accept 99257 optional               -- Historian Biraxas, if he offers it: a Decrepit Pylon Protector's heart, from the road north and the pylons
 
 step The western pylon: repair it
-  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Then repair the pylon with the Pile of Pylon Parts (Repair and Recharge Pylon). Decrepit Pylon Protectors guard it.
+  tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use Repair and Recharge Pylon on it, as players did to repair it.
   tip Careful: the pylon stands at the edge of the Valley of Bones, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.
-  use 271882 quest 96018.2 @43.97,35.59 -- Pile of Pylon Parts: Repair and Recharge Pylon
+  kill 252711 quest 96018.2 @43.97,35.59 -- Decrepit Pylon Protector, then Repair and Recharge Pylon on it
   collect 286647 quest 99257.1 optional -- Depleted Crystal Heart, from the Decrepit Pylon Protectors
 
 step Bristleback Retreat: repair the eastern pylon
-  tip East along the valley road to the eastern pylon and repair it the same way, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
-  use 271882 quest 96018.3 @73.4,23.91 -- Pile of Pylon Parts: Repair and Recharge Pylon
+  tip East along the valley road to the eastern pylon and repair it the same way, a Decrepit Pylon Protector first, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.
+  kill 252711 quest 96018.3 @73.4,23.91 -- Decrepit Pylon Protector, then Repair and Recharge Pylon on it
   collect 286647 quest 99257.1        -- Depleted Crystal Heart, from the Decrepit Pylon Protectors at either pylon
 
 step Evenshade's Overlook
@@ -181,9 +180,13 @@ step Historian Biraxas
   tip Shen'dralas is done: hearth, or ride back north through the Valley of Bones to Desolace.
   turnin 99257
 
-step Back to your route
+step Shadowprey Village
   only Horde
-  note Shen'dralas is done. Your next Feralas guide picks up in Orgrimmar, at the zeppelin towers outside the gate: ride back north through the Valley of Bones to Shadowprey Village and fly to Orgrimmar.
+  zone Desolace
+  tip Shen'dralas is done. Ride back north through the Valley of Bones and west along Desolace's southern edge to Shadowprey Village: the next guide picks up in Orgrimmar, at the zeppelin towers outside the gate.
+  goto 21.56,74.04 "Shadowprey Village flight master"
+  fly "Orgrimmar"
+  zone Orgrimmar
 
 step Back to your route
   only Alliance
