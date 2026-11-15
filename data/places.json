@@ -155,6 +155,82 @@
 			]
 		},
 		{
+			"id": "tidy040-tirisfal-duskbat-pelts-north-of-brill",
+			"quest": 375,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-duskbat-wings-north-of-brill",
+			"quest": 97558,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-scales-north-shore",
+			"quest": 368,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-skins-north-shore",
+			"quest": 97558,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
 			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
 			"quest": 565,
 			"objective": 4,

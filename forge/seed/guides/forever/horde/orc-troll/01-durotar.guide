@@ -192,20 +192,8 @@ step North end of the valley
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
-# Sarkoth (4) comes after the Vile Familiars: players met him at 2.6, two levels under him; after the
-# familiars they are 3 or more (level tidy 0.4.0). His slope is on the way back south to the Den.
-step Sarkoth
-  tip Sarkoth, a large scorpid (level 4), prowls the slope south of Hana'zua, on the way back to the Den.
-  collect 4905 quest 790.1
-
-step Hana'zua
-  turnin 790
-  accept 804
-  goto 42.4,68.6 "The Den"
-
 step Galgar
   tip Galgar stands just outside the Den's entrance.
-  turnin 804                          -- Gornek
   turnin 789                          -- Gornek
   turnin 4402                         -- Galgar
 
@@ -225,9 +213,21 @@ step Foreman Thazz'ril
   turnin 5441
   accept 6394
 
+# Sarkoth (4) waits for the first Den return: players met him at 2.6 on the scorpid slope, two levels under
+# him; with the familiars and the Den hand-ins they are 3 or more (level tidy 0.4.0). His slope west of the
+# Den and Hana'zua lie on the way north to the Burning Blade Coven.
+step Sarkoth
+  tip Sarkoth, a large scorpid (level 4), prowls the slope just west of the Den, below Hana'zua, on the way north to the Burning Blade Coven.
+  collect 4905 quest 790.1
+
+step Hana'zua
+  turnin 790
+  accept 804
+
 step Canaga Earthcaller
   only Shaman
-  tip Canaga stands just outside the Den.
+  tip Back to the Den: Gornek takes Sarkoth's claw and Canaga Earthcaller, just outside, has Call of Earth now that you are level 4.
+  turnin 804                          -- Gornek
   accept 1516                         -- Canaga Earthcaller
 
 # The Burning Blade Coven's mouth: players report it near 45,56, keep right
@@ -254,6 +254,7 @@ step Foreman Thazz'ril
 
 step Zureetha Fargaze
   turnin 794
+  turnin 804                          -- Gornek
   accept 805
   accept 96652                        -- the Lost Journal on the ground beside her
   train class

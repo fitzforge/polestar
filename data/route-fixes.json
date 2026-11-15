@@ -116,7 +116,7 @@
 					790
 				],
 				"faction": "Horde",
-				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Sarkoth is level 4 and players met him at 2.6 (25th percentile, 61 people), two levels under him; the Vile Familiars (3-4) were killed at 3.2. Sarkoth comes after the familiars, on the walk back south past Hana'zua (40.6,62.6) to the Den, at 3 or more. This replaces c13's together record (Sarkoth with the Scorpid Workers' tails): the workers stay on the first sweep of the slope, before the familiars, and the walk back to Sarkoth crosses their slope again"
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Sarkoth is level 4 and players met him at 2.6 (25th percentile, 61 people), two levels under him. He waits for the first return to the Den (the scorpid tails, cactus apples and familiars handed in), at 3 or more, and is fought on the way north to the Burning Blade Coven: his slope west of the Den, then Hana'zua (40.6,62.6); Gornek takes the claw on the Den stop after the Coven. This replaces c13's together record (Sarkoth with the Scorpid Workers' tails)"
 			},
 			{
 				"a": [
@@ -129,6 +129,30 @@
 				],
 				"faction": "Horde",
 				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): as the record before, for Warlocks, whose familiar quest is Vile Familiars (1485)"
+			},
+			{
+				"a": [
+					"turnin",
+					789
+				],
+				"b": [
+					"task",
+					790
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Sarkoth after the first Den return's hand-ins (see the records before)"
+			},
+			{
+				"a": [
+					"turnin",
+					790
+				],
+				"b": [
+					"accept",
+					1516
+				],
+				"faction": "Horde",
+				"why": "Level tidy 0.4.0 (Orc and Troll Durotar): Call of Earth needs level 4, which Shamans reach with Hana'zua's hand-in now that Sarkoth comes after the first Den return; they take it from Canaga with Sarkoth's claw to Gornek, back at the Den, before the Coven's Felstalkers"
 			},
 			{
 				"a": [

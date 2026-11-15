@@ -246,13 +246,15 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: the southern Echo 
 	assert.ok(list[gate].goal.grind === 3121, 'the top-up is on the Durotar Tigers (7-8)');
 });
 
-// --- Durotar (level tidy 0.4.0): Sarkoth (4) was met at 2.6; he comes after the Vile Familiars, on the walk back to the Den.
-for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Sarkoth after the Vile Familiars`, { skip }, () => {
+// --- Durotar (level tidy 0.4.0): Sarkoth (4) was met at 2.6; he waits for the first Den return's hand-ins and is fought
+// on the way north to the Burning Blade Coven.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: Sarkoth after the familiars and the first Den hand-ins`, { skip }, () => {
 	const list = goals(DUROTAR);
 	const sarkoth = at(list, "Sarkoth's Mangled Claw", (g) => g.t === 'collect' && g.quest === 790);
 	assert.ok(at(list, 'the Vile Familiars (792)', (g) => g.t === 'kill' && g.quest === 792) < sarkoth, 'the familiars come first');
-	assert.ok(at(list, 'the scorpid tails (789)', (g) => g.t === 'collect' && g.quest === 789) < sarkoth, 'the scorpid slope comes first');
+	for (const q of [789, 4402]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) < sarkoth, `${q} is handed in at the Den before Sarkoth`);
 	assert.ok(sarkoth < at(list, 'turnin 790 (Hana\'zua)', is('turnin', 790)), 'Hana\'zua takes the claw after Sarkoth');
+	assert.ok(at(list, 'turnin 790', is('turnin', 790)) < at(list, "Thazz'ril's Pick", (g) => g.t === 'collect' && g.quest === 6394), 'on the way to the Coven');
 });
 
 // --- Level tidy 0.4.0: three field steps whose drops also come from higher mobs point at the low camp.
@@ -266,6 +268,10 @@ test('Horde starts: level tidy: Strider Meat, Poison Water and Darkhound goals p
 		[MULGORE, 771, 2, 48.7, 64.5],
 		[TIRISFAL, 367, 1, 51.1, 50.5],
 		[TIRISFAL, 97558, 2, 51.1, 50.5],
+		[TIRISFAL, 375, 1, 60.5, 43.1],
+		[TIRISFAL, 97558, 1, 60.5, 43.1],
+		[TIRISFAL, 368, 1, 60.8, 28.4],
+		[TIRISFAL, 97558, 3, 60.8, 28.4],
 	];
 	for (const [guide, q, oi, x, y] of cases) {
 		const list = goals(guide);

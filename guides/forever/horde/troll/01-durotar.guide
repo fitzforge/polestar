@@ -76,14 +76,6 @@ step Valley of Trials: kill these as you meet them
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
-# Sarkoth (4) comes after the Vile Familiars: players met him at 2.6, two levels under him; after the
-# familiars they are 3 or more (level tidy 0.4.0). His slope is on the way back south to the Den.
-step Sarkoth
-  tip Sarkoth, a large scorpid (level 4), prowls the slope south of Hana'zua, on the way back to the Den.
-  collect 4905 quest 790.1
-  turnin 790                          -- Hana'zua
-  accept 804
-
 step Galgar
   tip Galgar stands just outside the Den's entrance.
   turnin 4402                         -- Galgar
@@ -101,10 +93,8 @@ step Druid trainer
   train class only Druid -- Sheal Runetotem in Mulgore; Valley of Trials has no druid trainer
 
 step Back to the Den
-  turnin 804                          -- Gornek, inside
   turnin 789                          -- Gornek
   turnin 1485 only Warlock            -- Ruzan
-  accept 1516 only Shaman -- Canaga Earthcaller
   turnin 792 only !Warlock            -- Zureetha Fargaze
   accept 1499 only Warlock
   turnin 1499 only Warlock            -- Zureetha Fargaze
@@ -117,6 +107,23 @@ step Lazy Peons
 step Foreman Thazz'ril
   turnin 5441
   accept 6394
+
+# Sarkoth (4) waits for the first Den return: players met him at 2.6 on the scorpid slope, two levels under
+# him; with the familiars and the Den hand-ins they are 3 or more (level tidy 0.4.0). His slope west of the
+# Den and Hana'zua lie on the way north to the Burning Blade Coven.
+step Sarkoth
+  tip Sarkoth, a large scorpid (level 4), prowls the slope just west of the Den, below Hana'zua, on the way north to the Burning Blade Coven.
+  collect 4905 quest 790.1
+  turnin 790                          -- Hana'zua
+  accept 804
+
+# Call of Earth (1516) needs level 4: Shamans take it from Canaga once Hana'zua's hand-in is in, back at the Den
+# with Sarkoth's claw, before the Coven, where the Felstalkers roam.
+step Canaga Earthcaller
+  only Shaman
+  tip Back to the Den: Gornek takes Sarkoth's claw and Canaga Earthcaller, just outside, has Call of Earth now that you are level 4.
+  turnin 804                          -- Gornek, inside
+  accept 1516                         -- Canaga Earthcaller
 
 # The Burning Blade Coven's mouth: players report it near 45,56, keep right
 # inside (quest 794); the pick lies past the first split, straight on, then
@@ -139,6 +146,7 @@ step Felstalker hooves
 
 step Zureetha Fargaze
   turnin 794
+  turnin 804                          -- Gornek, inside
   accept 805
   accept 96652                        -- the Lost Journal on the ground beside her
   train class

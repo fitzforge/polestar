@@ -391,18 +391,18 @@ step Deathguard Kel
 
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
-  tip Greater Duskbats fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings.
+  tip Greater Duskbats (6-7) fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.
   tip The Doom Weed grows in the graveyard fields just north of Brill, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.
   tip The Rot Hide Mongrels hold the hills further north, around Garren's Haunt. Leave Maggot Eye (level 11) in his hut for now: the guide comes back for him at the end.
-  tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene.
-  collect 2876 quest 375.1
-  collect 278242 quest 97558.1
+  tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene. Straight north of Brill the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by.
+  collect 2876 quest 375.1 @60.5,43.1
+  collect 278242 quest 97558.1 @60.5,43.1
   collect 13702 quest 5482.1
   kill 1941 quest 358.1
   collect 2834 quest 358.3
   kill 1675 quest 358.2               -- Rot Hide Mongrel walks around Garren's Haunt: look inside the circle on the map
-  collect 2859 quest 368.1
-  collect 278244 quest 97558.3
+  collect 2859 quest 368.1 @60.8,28.4
+  collect 278244 quest 97558.3 @60.8,28.4
 
 step Brill
   tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
