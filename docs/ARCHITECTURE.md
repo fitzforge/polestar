@@ -259,12 +259,18 @@ guide a pack update left as it was keeps everything as is, though its shape
 as planned for the character differs), `Own.noteAdded` notes what the update
 added (steps none of whose quest goals the old guide had there, goals it did
 not have or had only further on, and goals of a carried quest an earlier
-release had optional only: `required` in LegacySteps.lua), and the first
+release had optional only: `required` in LegacySteps.lua; a changed step
+whose goals no earlier release in LegacySteps.lua lists adds nothing in its
+stretch, as nothing tells what it had: read as all new, it hid quests never
+taken, #2350; a feeder step counts as added unless the save's guide had it
+planned in too), and the first
 placement with the quest log in passes what of it lies behind the player's
 place (`Own.passAdded`: the first step that holds for content the old guide
 had, by the step's own rule, `Own.holds`: a vendor check-off beside other
 work never holds it), as `gone` steps and goals that no longer apply; nothing shows as
-skipped. A quest the player carries whose remaining work is among them (its
+skipped, and what of it the player has done is not passed: it shows done (a
+step passes whole while work of it is open). An accept passed takes its
+quest's later goals with it (orphaned). A quest the player carries whose remaining work is among them (its
 hand-in ahead or not: a hand-in is no work, #1595) is
 noted `behind`: the guide window lists it under the step as "Still to do"
 (`Engine.GetBehind`; a click points the arrow, a right-click skips or
