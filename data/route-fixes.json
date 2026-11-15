@@ -10765,6 +10765,12 @@
 				"faction": "Horde",
 				"reason": "Horde level tidy (2026-11-15): Book of the Ancients (6027): Lord Kragaru (38) rises from the Serpent Statue on Ranazjar Isle at about 34 on 30-40/02 (recorded 25th percentile 34.2), four levels over, and no later Horde visit passes Azore's tower. Left out; Rackmore's chest beside the statue is still opened.",
 				"issue": "-"
+			},
+			{
+				"q": 3381,
+				"faction": "Horde",
+				"reason": "A Meeting with the Master is no longer a quest on Forever: Sanath Lim-yo's gossip teleports you to Archmage Xylem's tower for free, with no Undamaged Hippogryph Feathers asked (g4dz1n4's report, #2460). The quest data's era rules mark it removed, and no recorded player took or handed it in. Left out of the Horde Azshara guide (40-50/06) too.",
+				"issue": "#2460"
 			}
 		],
 		"revert": [

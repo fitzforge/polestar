@@ -2,7 +2,7 @@
 guide forever/horde/40-50/06-azshara
 title Azshara, Feralas & Stranglethorn Vale
 faction Horde
-levels 50-51
+levels 51-52
 zone Azshara
 next forever/horde/50-60/01-un-goro-crater
 
@@ -21,6 +21,7 @@ next forever/horde/50-60/01-un-goro-crater
 # Un'Goro and handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
 # (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
 # the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
+# Left out: A Meeting with the Master (3381): Sanath Lim-yo's teleport to Xylem's tower is free on Forever (#2460).
 
 step Swamp of Sorrows
   zone Swamp of Sorrows
@@ -155,18 +156,7 @@ step Loh'atu
 
 step Valormok
   tip Follow the road north to Valormok, the Horde camp.
-  accept 3381 optional                -- Sanath Lim-yo, at the east edge of the camp: no experience, only a teleport to Azshara Tower
-
-step Valormok
   getfp "Valormok"
-
-step Undamaged Hippogryph Feathers
-  tip The Thunderhead Hippogryphs fly over the hills just south of Valormok.
-  collect 10450 quest 3381 optional
-
-step Sanath Lim-yo
-  when complete 3381
-  turnin 3381
 
 step Fly to Orgrimmar
   zone Azshara

@@ -3463,6 +3463,16 @@ test('Horde 40-50/06: A Grim Discovery is handed in once, in 40-50/02, not asked
 	assert.ok(!goals(H40('06-azshara')).some(({ goal }) => is('turnin', 2976)(goal)), '06 has no second hand-in');
 });
 
+// g4dz1n4's report (#2460): A Meeting with the Master is no longer a quest on Forever (Sanath Lim-yo's teleport is
+// free). The Alliance guide left it out; the Horde Azshara guide asked for it too, with a feather hunt.
+test('Horde 40-50/06: no Meeting with the Master or its feathers at Valormok (#2460)', { skip }, () => {
+	const list = goals(H40('06-azshara'));
+	assert.ok(!list.some(({ goal }) => goal.quest === 3381), 'A Meeting with the Master is not in the guide');
+	assert.ok(list.some(({ goal }) => goal.t === 'getfp' && /Valormok/.test(goal.location || goal.name || JSON.stringify(goal))), "Valormok's flight path is still learnt");
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.skip.some((e) => e.q === 3381 && e.faction === 'Horde' && e.issue === '#2460'), 'the route fixes leave it out for the Horde');
+});
+
 test('Horde 40-50/02: a character who knows Gadgetzan flies there instead of Freewind Post (#1976)', { skip }, () => {
 	// 30-40/02 learns Gadgetzan's flight path beside the Shimmering Flats; each way to Freewind Post has its twin.
 	const steps = compiled(H40('02-feralas')).steps;
@@ -6921,11 +6931,7 @@ test('forever/horde/40-50/02-feralas.guide: flow re-order: one sweep from the Wr
 	const yetis = at(list, 'collect 8973 quest 2822', (g) => g.t === 'collect' && g.item === 8973);
 	const handIn = at(list, 'turnin 7730', is('turnin', 7730));
 	assert.ok(hive < ruins && ruins < yetis && yetis < handIn, 'the hive, the ruins, the yetis, then Mojache');
-	for (const q of [2980, 2822]) assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[handIn].s, `${q} on the same Mojache stop`);
-	// Stinglasher (47) waits for 40-50/03's Camp Mojache return at about 46-47 since the 0.4.0 level tidy.
-	assert.ok(!list.some(({ goal }) => goal.quest === 7731 && goal.t !== 'accept'), 'Stinglasher is only taken here');
-	const f3 = goals('forever/horde/40-50/03-feralas.guide');
-	assert.equal(f3[at(f3, 'collect 18962 quest 7731', (g) => g.t === 'collect' && g.item === 18962)].s + 1, f3[at(f3, 'turnin 7731', is('turnin', 7731))].s, 'Stinglasher, then Hadoken, on 03\'s Mojache return');
+	for (const q of [2980, 2822, 7731]) assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[handIn].s, `${q} on the same Mojache stop`);
 	assert.ok(!list.some(({ goal }) => goal.map === 1444 && goal.x != null && goal.x < 35), 'no ride to the Forgotten Coast');
 });
 
@@ -6939,8 +6945,8 @@ test('forever/horde/40-50/03-feralas.guide: flow re-order: the Pool of Tears bef
 	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
 	assert.equal(step(9589), step(9590), 'minerals and logs on one step');
 	assert.equal(step(9591), step(9592), 'sinew and fragments on one step');
-	// The Northspring harpies (48-50) are worked on 40-50/06's Feralas loop at about 50 since the 0.4.0 level tidy:
-	// the yetis come on the ride back from Rogue Vale, Talo's quest is taken here and handed in there.
+	// The Northspring harpies (48-50) are worked on 40-50/06's Feralas loop at about 51 since the 0.4.0 level tidy:
+	// the yetis come on the ride back from the coast, Talo's quest is taken here and handed in there.
 	const vale = at(list, 'talk 8612 quest 3520', (g) => g.t === 'talk' && g.quest === 3520);
 	const yetis = at(list, 'collect 18947 quest 7734', (g) => g.t === 'collect' && g.item === 18947);
 	const turnin = at(list, 'turnin 7734', is('turnin', 7734));
