@@ -213,7 +213,7 @@ step Booty Bay
   turnin 627 optional -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
   note Privateer Bloads' Akiris by the Bundle waits for the level-48 Booty Bay stop (its naga are 43-44): leave it for now.
-  turnin 669                          -- Fleet Master Seahorn, top floor
+  turnin 669 optional                 -- Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group
   accept 209                          -- Kebok, upstairs: the Skullsplitter trolls, on the northern loop
   note Crank Fizzlebub's Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now.
   note Seahorn's next errand goes back to Arathi: skip it.

@@ -10858,6 +10858,40 @@
 			"issue": 2396
 		},
 		{
+			"id": "stv-sunken-treasure-optional",
+			"faction": "Alliance",
+			"at": {
+				"quest": 669,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"optional": true,
+			"note": "Since the 0.4.0 level tidy Faldir's Cove (662-669) is a group choice on 30-40/05 (its naga and water elementals are 38-40 at 38), so a solo player arrives in Booty Bay without Sunken Treasure; its hand-in to Fleet Master Seahorn stays for the players who did it and never holds the step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "route-fixes deliberate.group 665 (Faldir's Cove group record); polestar playtest --honest: 'turn in Sunken Treasure: never accepted' on the solo route"
+				}
+			]
+		},
+		{
+			"id": "stv-sunken-treasure-note",
+			"faction": "Alliance",
+			"at": {
+				"quest": 669,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"goalNote": "Fleet Master Seahorn, top floor: Sunken Treasure, if you did Faldir's Cove with a group",
+			"note": "The goal note of the optional Sunken Treasure hand-in (stv-sunken-treasure-optional).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "route-fixes deliberate.group 665 (Faldir's Cove group record)"
+				}
+			]
+		},
+		{
 			"id": "stv-unbagwa-waves-careful",
 			"faction": "Alliance",
 			"at": {

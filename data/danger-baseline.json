@@ -16438,6 +16438,255 @@
 			],
 			"reason": "a pack of mobs a level or two above the player near the work, at about level 45 by the level model now that the zone is part of the route; players do it (done by 49 people (median level 41.8), 0 deaths, 2 abandoned)",
 			"evidence": "route level 45; 6 spawns 47+; recordings (2026-11-15): done by 49 people (median level 41.8), 0 deaths, 2 abandoned"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 97047.1|elite",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 97047.1",
+			"kind": "elite",
+			"title": "Kurzen's Compound",
+			"level": 35.8,
+			"mobs": [
+				"Colonel Kurzen 39-40"
+			],
+			"reason": "Colonel Kurzen (39-40, elite) stands at the compound's north end; the cage key comes from the Subchiefs and Elites at its western edge, and the step's Careful tip says to leave him be",
+			"evidence": "route level 35.8 (integrated Alliance route, rested level model); Colonel Kurzen 39-40; recordings (2026-11-15): done by 32 (median 36.89), deaths 2, abandons 6"
+		},
+		{
+			"key": "forever/alliance/30-40/04b-stranglethorn-vale.guide|collect 97047.1|pack",
+			"guide": "forever/alliance/30-40/04b-stranglethorn-vale.guide",
+			"goal": "collect 97047.1",
+			"kind": "pack",
+			"title": "Kurzen's Compound",
+			"level": 35.8,
+			"mobs": [
+				"6 spawns 37+"
+			],
+			"reason": "the compound's Elites and Commandos (35-37) stand close together; the step's tips say to take the key from the Subchiefs and pull the Elites one at a time",
+			"evidence": "route level 35.8 (integrated Alliance route, rested level model); 6 spawns 37+; recordings (2026-11-15): done by 32 (median 36.89), deaths 2, abandons 6"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94861|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "complete 94861",
+			"kind": "elite",
+			"title": "Hurley",
+			"level": 43,
+			"mobs": [
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42, elite) roams near Hurley's escort, a level under the player (43 by the level model now that the zone follows Stranglethorn)",
+			"evidence": "route level 43 (integrated Alliance route, rested level model); Ghostmaw 42-42; recordings (2026-11-15): done by 0 (median null), deaths 2, abandons 11"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94992|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "complete 94992",
+			"kind": "elite",
+			"title": "The lost horse",
+			"level": 43.2,
+			"mobs": [
+				"Ghostmaw 42-42"
+			],
+			"reason": "Ghostmaw (42, elite) roams the plains near the lost horse, a level under the player at 43",
+			"evidence": "route level 43.2 (integrated Alliance route, rested level model); Ghostmaw 42-42; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 3"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.1",
+			"kind": "rare",
+			"title": "The Twilight cult",
+			"level": 43.4,
+			"mobs": [
+				"Twilight Forgemaster 46-46"
+			],
+			"reason": "Twilight Forgemaster (46, rare) stands in the Twilight camp among the cultists the quest asks for; at 43.4 players do it (33 people, median 40.3)",
+			"evidence": "route level 43.4 (integrated Alliance route, rested level model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 33 (median 40.34), deaths 9, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94961.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94961.1",
+			"kind": "rare",
+			"title": "The Twilight cult",
+			"level": 43.4,
+			"mobs": [
+				"Twilight Forgemaster 46-46"
+			],
+			"reason": "the same Twilight Forgemaster (46, rare) in the Twilight camp; players do it (42 people, median 41.4)",
+			"evidence": "route level 43.4 (integrated Alliance route, rested level model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 42 (median 41.37), deaths 5, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4726.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4726.1",
+			"kind": "over",
+			"title": "Ruins of Thaurissan: kill these as you meet them",
+			"level": 52.5,
+			"mobs": [
+				"Blackrock Bootlegger 57-58 x2",
+				"Sulfuron Smuggler 57-58 x2"
+			],
+			"reason": "a kill-as-you-meet step around the Ruins of Thaurissan: two Blackrock Bootleggers and Sulfuron Smugglers (57-58) within reach of the relic points; the step's Careful tip says to take the relics at the ruins' edge and pull one at a time",
+			"evidence": "route level 52.5 (integrated Alliance route, rested level model); Blackrock Bootlegger 57-58 x2, Sulfuron Smuggler 57-58 x2; recordings (2026-11-15): done by 5 (median 52.23), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x2; recordings (2026-11-15): done by 12 (median 48.35), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x3"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x3; recordings (2026-11-15): done by 12 (median 48.61), deaths 2, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x3"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x3; recordings (2026-11-15): done by 12 (median 48.21), deaths 2, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x5"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x5; recordings (2026-11-15): done by 13 (median 48.66), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x5"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x5; recordings (2026-11-15): done by 13 (median 48.36), deaths 1, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.3|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.3",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x5"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x5; recordings (2026-11-15): done by 13 (median 48.46), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x2; recordings (2026-11-15): done by 13 (median 48.42), deaths 2, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.3|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.3",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the bloodmages' beasts at the 52.6 player; the data lists two to five Snickerfang Matriarch spawns of 60 near the points, and players did these quests at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Snickerfang Matriarch 60-60 x2; recordings (2026-11-15): done by 13 (median 48.42), deaths 2, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.3|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.3",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Vek'zol 55-55"
+			],
+			"reason": "Vek'zol (55, elite) walks the ridge around 39,32; the step's Careful tip names him and Calefactus and says to hunt somewhere else when one comes near",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Vek'zol 55-55; recordings (2026-11-15): done by 12 (median 49.18), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.2|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Vek'zol 55-55"
+			],
+			"reason": "Vek'zol (55, elite) walks the ridge around 39,32; the step's Careful tip names him and Calefactus and says to hunt somewhere else when one comes near",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Vek'zol 55-55; recordings (2026-11-15): done by 12 (median 48.62), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.1|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.1",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.6,
+			"mobs": [
+				"Vek'zol 55-55"
+			],
+			"reason": "Vek'zol (55, elite) walks the ridge around 39,32; the step's Careful tip names him and Calefactus and says to hunt somewhere else when one comes near",
+			"evidence": "route level 52.6 (integrated Alliance route, rested level model); Vek'zol 55-55; recordings (2026-11-15): done by 12 (median 48.43), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|kill 8464.1|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "kill 8464.1",
+			"kind": "elite",
+			"title": "Winterfall Village",
+			"level": 58.9,
+			"mobs": [
+				"High Chief Winterfall 59-59",
+				"Xandivious 62-62"
+			],
+			"reason": "High Chief Winterfall (59, elite) stays in the cave at the back of Winterfall Village and the step's tip says to stay out of it; the quest's Shaman, Den Watchers and Ursa (55-58) hold the village, at or under the 59 player",
+			"evidence": "route level 58.9 (integrated Alliance route, rested level model); High Chief Winterfall 59-59, Xandivious 62-62; recordings (2026-11-15): done by 1 (median 55.47), deaths 0, abandons 0"
 		}
 	]
 }
