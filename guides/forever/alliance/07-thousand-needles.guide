@@ -50,20 +50,13 @@ step Calor
   turnin 221
   accept 222
 
-step Nightbane Vile Fangs and the Insane Ghoul
-  tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery. The Insane Ghoul hides in the small crypt by the cemetery.
-  tip Careful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.
-  tip Careful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.
+step The Insane Ghoul
+  tip The Insane Ghoul hides in the small crypt by the Tranquil Gardens Cemetery, south of Darkshire. Calor's Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later.
   collect 1946 quest 177                  -- Mary's Looking Glass; inside
-  kill 206 quest 222                      -- Nightbane Vile Fang
-  kill 920 quest 222                      -- Nightbane Tainted One
 
 step Darkshire
   turnin 177                              -- Viktori Prism'Antras, inside
   accept 181
-  turnin 222                              -- Calor
-  accept 223
-  turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
   vendor nearest
 
 step Vul'Gol Ogre Mound: kill these as you meet them
@@ -116,6 +109,18 @@ step Back to Darkshire
   turnin 58                               -- Commander Althea Ebonlocke
   turnin 1244                             -- Watcher Backus walks around Darkshire: look inside the circle on the map
   accept 1245                             -- For Elling Trias in Stormwind, in the next guide
+
+step Nightbane Vile Fangs and Tainted Ones
+  tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery.
+  tip Careful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.
+  tip Careful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.
+  kill 206 quest 222                      -- Nightbane Vile Fang
+  kill 920 quest 222                      -- Nightbane Tainted One
+
+step Calor and Jonathan Carevin
+  turnin 222                              -- Calor
+  accept 223
+  turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
 
 step Viktori Prism'Antras
   tip Viktori's house stands at the east end of town, on the way to the flight master.

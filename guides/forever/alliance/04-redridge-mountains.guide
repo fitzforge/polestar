@@ -258,7 +258,7 @@ step Abercrombie
 
 step Raven Hill Cemetery: kill these as you meet them
   zone Duskwood
-  tip The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. Mor'Ladim, an elite, wanders the graves: keep away from him.
+  tip The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends (23-25) walk its southern half and carry the fingers; for the fangs, Flesh Eaters (24-25) drop the most, so leave the Bone Chewers, Plague Spreaders and Fetid Corpses (26-30) further in alone. Mor'Ladim, an elite, wanders the graves: keep away from him.
   collect 1129 quest 101                  -- Ghoul Fang
   collect 2378 quest 101                  -- Skeleton Finger
 

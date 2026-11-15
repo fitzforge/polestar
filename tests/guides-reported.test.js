@@ -293,10 +293,9 @@ const CAVES = [
 	...DUN_MOROGHS.flatMap((guide) => [
 		// The troll cave's mouth as marked in game (thmastin, PR #16); players' reports put it near 26,79.
 		{ cave: 'the Coldridge troll cave', guide, target: (g) => g.t === 'collect' && g.item === 2004, mouth: { map: 1426, x: 26.93, y: 80.03 } },
-		// The Grizzled Den's mouth as marked in game (thmastin); Flintfire's shipments lie inside.
+		// The Grizzled Den's mouth as marked in game (thmastin); Flintfire's shipments lie inside. Since the level tidy
+		// (0.4.0) Frosthowl's fish, at the back of the same den, is taken on this one visit (no second visit from Brewnall).
 		{ cave: 'the Grizzled Den', guide, target: (g) => g.t === 'collect' && g.item === 280413, mouth: { map: 1426, x: 42.57, y: 54.68 } },
-		// Frosthowl, at the back of the same den, on the second visit from Brewnall.
-		{ cave: 'the Grizzled Den (Frosthowl)', guide, target: (g) => g.t === 'collect' && g.item === 280426, mouth: { map: 1426, x: 42.57, y: 54.68 } },
 		// Frostmane Hold's mouth as marked in game (thmastin); its Headhunters guard the way in.
 		{ cave: 'Frostmane Hold', guide, target: (g) => g.t === 'kill' && g.quest === 287, mouth: { map: 1426, x: 25.1, y: 50.94 } },
 	]),
@@ -777,8 +776,9 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Gr
 	const mug = at(list, 'turnin 3365 (Bring Back the Mug)', is('turnin', 3365));
 	assert.ok(griknir < journal && griknir < mug, 'both are handed in after Grik\'nir');
 	assert.equal(list[journal].step, list[mug].step, 'the journal and the mug are handed in on one visit to Grelin\'s camp');
-	// Grund and Gozwin is done in the valley, before the troll cave, not on a return after Rumbleshot.
-	assert.ok(at(list, 'turnin 97277 (Grund and Gozwin)', is('turnin', 97277)) < griknir, 'Grund and Gozwin is handed in before the troll cave');
+	// Grund and Gozwin is done in the valley, not on a return after Rumbleshot. Since the level tidy (0.4.0) it
+	// comes after the troll cave (its Snow Leopard Prowler is level 6), from Anvilmar on the way to the tunnel.
+	assert.ok(at(list, 'turnin 97277 (Grund and Gozwin)', is('turnin', 97277)) < at(list, 'turnin 282 (Thalos)', is('turnin', 282)), 'Grund and Gozwin is handed in before the tunnel out of the valley');
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: The Adventurer is taken from Thalos at the tunnel and turned in at Eric before The Great Outdoors`, { skip }, () => {
@@ -1018,8 +1018,9 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Th
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: kills on the way are counted on the way and finished after`, { skip }, () => {
 	const list = goals(DUN_MOROGH);
 	for (const [quest, npc, along, name] of [
+		// A Favor for Evershine's bears were also counted on the walk to Frostmane Hold; since the level tidy (0.4.0)
+		// the Hold comes after Brewnall's second visit, and the bears are a step of their own on the first.
 		[99160, 276003, (g) => g.t === 'collect' && g.quest === 99162, "Rime's Wrath's elementals, with Treacherous Cold's rifles"],
-		[319, 1196, (g) => g.t === 'goto' && g.text === 'Frostmane Hold', "A Favor for Evershine's bears, on the walk to Frostmane Hold"],
 	]) {
 		const kills = list.filter(({ goal }) => (goal.t === 'kill' || goal.t === 'collect') && goal.quest === quest && goal.npc === npc);
 		const early = kills.find(({ goal }) => goal.optional);
@@ -2938,6 +2939,18 @@ test(`${THOUSAND_NEEDLES}: the Darkshire stop finishes at Sirra Von'Indi before 
 	assert.ok(grave > lastSirra && grave > at(list, 'turnin 252', is('turnin', 252)) && list[grave].s === list[at(list, 'turnin 58', is('turnin', 58))].s, 'Althea\'s Weathered Grave hand-in with The Night Watch, after Sirra');
 });
 
+// Level tidy 0.4.0: Worgen in the Woods (222) sent players at Nightbane Tainted Ones (30-31) on 07's first loop south
+// of Darkshire, at 29 (recordings: 25th percentile 29.8; 5 people died there). Its kills now come after the west loop
+// and Lord Ello's hand-in, right before the flight out, with Calor's hand-in and 223 on the way back to the flight master.
+test(`${THOUSAND_NEEDLES}: level tidy 0.4.0: Worgen in the Woods is hunted at the end of the Duskwood visit`, { skip }, () => {
+	const list = goals(THOUSAND_NEEDLES);
+	const tainted = at(list, 'kill 920 for 222', (g) => g.t === 'kill' && g.quest === 222 && g.npc === 920);
+	assert.ok(tainted > at(list, 'turnin 252', is('turnin', 252)), 'after Lord Ello\'s hand-in');
+	assert.ok(tainted > at(list, 'turnin 323', is('turnin', 323)), 'after the west loop (Sven)');
+	assert.ok(at(list, 'turnin 223', is('turnin', 223)) > tainted && at(list, 'turnin 223', is('turnin', 223)) < at(list, 'fly Menethil', (g) => g.t === 'fly'), 'Calor and Carevin before the flight');
+	assert.ok(at(list, 'collect 1946 for 177', (g) => g.t === 'collect' && g.item === 1946) < at(list, 'accept 181', is('accept', 181)), 'the Insane Ghoul stays on the first loop (181 is done at the ogre mound)');
+});
+
 // The sweep for #1348: a Bronze Tube is never a buy that holds a step (every vendor of it keeps one or two),
 // and a goal that must get one sends the player to the Stormwind Auction House, not to a vendor.
 test('Every guide (#1348): no Bronze Tube buy holds a step; a required tube comes from the Auction House', { skip }, () => {
@@ -4300,26 +4313,30 @@ test(`${WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jans
 // Route review (2026-11-08, W3; #1415): the loop's two long "kill these as you meet them" lists (twelve goals,
 // then five) made players flip between the two steps to find what came next (the most frequent manual moves on
 // 0.3.4, 32 people). The same walk is now one target per step in walking order: the Defias fields, Molsen Farm's
-// well, its Harvest Watchers, the gnoll hills, the murloc coast, Furlbrow's Wardrobe, the Jansen Stead. The
-// livers, the vulture meat and the bandanas, which drop all over the loop, are worked in the background with a
+// well, the gnoll hills, the murloc coast, Furlbrow's Wardrobe, the Jansen Stead, then the Harvest Watchers.
+// Level tidy 0.4.0: the Harvest Watchers (14-15) came right after the well, where players were at 13 (recordings:
+// 25th percentile 13.3, 18 people died there); their biggest field lies between the Jansen Stead and Saldean's Farm,
+// so they are killed on the walk back south, after the loop's other quests, at about 14 (25th percentile 14.3-14.5).
+// The livers, the vulture meat and the bandanas, which drop all over the loop, are worked in the background with a
 // finish step before their hand-in.
 test(`${WESTFALL}: flow audit: one north loop, one target per step in walking order, Saldean's handed in once on the way back`, { skip }, () => {
 	const list = working(goals(WESTFALL));
 	const collects = (item) => (g) => g.t === 'collect' && g.item === item;
 	const paws = at(list, 'the Gnoll Paws', collects(725));
 	for (const [what, item] of [['the Goretusk Snouts', 731], ['the Okra', 732]]) {
-		const i = at(list, what, collects(item));
-		assert.ok(i < paws, `${what} before the north hills`);
 		assert.ok(list.filter(({ goal }) => collects(item)(goal)).length === 1, `${what} listed once`);
 	}
+	assert.ok(at(list, 'the Goretusk Snouts', collects(731)) < paws, 'the Goretusk Snouts before the north hills');
+	const watchers = at(list, 'the Harvest Watchers', (g) => g.t === 'kill' && g.quest === 9);
+	assert.equal(list[at(list, 'the Okra', collects(732))].step, list[watchers].step, 'the Okra with the Harvest Watchers');
 	const order = [
 		['the Defias Trappers', (g) => g.t === 'kill' && g.quest === 12 && g.npc === 504],
 		["Molsen Farm's well", collects(254547)],
-		['the Harvest Watchers', (g) => g.t === 'kill' && g.quest === 9],
 		['the Gnoll Paws', collects(725)],
 		['the murloc gills', collects(254548)],
 		["Furlbrow's Wardrobe", collects(841)],
 		['the oats', collects(1528)],
+		['the Harvest Watchers', (g) => g.t === 'kill' && g.quest === 9],
 	].map(([what, pred]) => [what, at(list, what, pred)]);
 	order.forEach(([what, i], k) => k && assert.ok(i > order[k - 1][1] && list[i].step !== list[order[k - 1][1]].step, `${what} in its own step after ${order[k - 1][0]}`));
 	const steps = compiled(WESTFALL).steps;
@@ -4330,7 +4347,7 @@ test(`${WESTFALL}: flow audit: one north loop, one target per step in walking or
 		const finish = at(list, `the finish step of ${item}`, collects(item));
 		assert.ok(finish < at(list, `turnin ${quest}`, is('turnin', quest)), `item ${item} has a finish step before quest ${quest}'s hand-in`);
 	}
-	const oats = order.at(-1)[1];
+	const oats = order.at(-2)[1];
 	const saldean = list[at(list, 'turnin 9', is('turnin', 9))].step;
 	for (const q of [9, 92909, 38, 22]) {
 		const i = at(list, `turnin ${q}`, is('turnin', q));
@@ -6372,17 +6389,19 @@ test(`${ELWYNN}: flow re-order: Milly's Harvest at Milly, Garrick's head on the 
 
 // Coldridge and Kharanos: the Dwarf guide took the five-minute Scalding Mornbrew before the troll whelps and
 // Felix's parts, and both starts walked to Steelgrill's Depot for Stocking Jetsteam alone, then came back after
-// the Grizzled Den for The Grizzled Den. Now the Mornbrew is the last thing taken at Grelin's camp before Anvilmar,
-// and both pilots take their quests on one depot stop after the den.
+// the Grizzled Den for The Grizzled Den. Now the Mornbrew is the last thing taken at Grelin's camp before Anvilmar.
+// Since the level tidy (0.4.0) the den comes after Brewnall (its Elder Wendigos and Shamans are level 8), so The
+// Grizzled Den is handed to Pilot Stonegear on the depot stop that already hands Return to Bellowfiz to the pilot
+// beside him: still no depot stop of its own.
 for (const guide of DUN_MOROGHS) {
-	test(`${guide}: flow re-order: the Mornbrew taken last at Grelin's camp, one depot stop for both pilots`, { skip }, () => {
+	test(`${guide}: flow re-order: the Mornbrew taken last at Grelin's camp, no depot stop for one pilot`, { skip }, () => {
 		const list = goals(guide);
 		const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
 		const brew = idx('accept', 3364);
 		assert.ok(idx('turnin', 182) < brew, 'the whelps are handed in before the Mornbrew is taken');
 		assert.ok(list.slice(brew + 1, idx('turnin', 3364)).every(({ goal }) => !['kill', 'collect'].includes(goal.t)), 'no field work while the Mornbrew cools');
-		assert.equal(list[idx('turnin', 317)].s, list[idx('turnin', 313)].s, 'Stocking Jetsteam and The Grizzled Den on one depot stop');
-		assert.ok(at(list, 'the Wendigo Manes', (g) => g.t === 'collect' && g.item === 2671) < idx('turnin', 317), 'after the den');
+		assert.equal(list[idx('turnin', 320)].s, list[idx('turnin', 313)].s, 'Return to Bellowfiz and The Grizzled Den on one depot stop');
+		assert.ok(at(list, 'the Wendigo Manes', (g) => g.t === 'collect' && g.item === 2671) < idx('turnin', 313), 'after the den');
 	});
 }
 
@@ -6866,7 +6885,9 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	assert.ok(!late.some(({ goal }) => [1026, 1035, 1046, 1022, 1140, 1031].includes(goal.quest)), '30-40/03 no longer carries the Ashenvale quests');
 	const hills = goals(HILLSBRAD_ALLIANCE);
 	assert.ok(!hills.some(({ goal }) => goal.quest === 97926), 'Thundris is not visited again for Making Do');
-	assert.ok(!hills.some(({ goal }) => goal.quest === 293), 'Cleansing the Eye is handed in on the 27-29 Wetlands trip');
+	// Level tidy 0.4.0: Lifting the Curse's chain (290 -> 292 -> 293) left 06-wetlands (Captain Halyndor 30 at a player's
+	// 28) for 30-40/01's Menethil stop at about 31, which hands Cleansing the Eye to Benedictus on its own Stormwind stop.
+	assert.ok(!wet.some(({ goal }) => [290, 292, 293].includes(goal.quest)), 'Lifting the Curse and its follow-ups are not in 06-wetlands');
 });
 
 // Town visits for one quest (2026-11-07, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back
@@ -6881,7 +6902,9 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	// #1415: Selarin offers Trek to Ashenvale with no escort done (recordings: 17 people at 15-22), so it is taken on
 	// 03-darkshore-return's first Auberdine stop and handed to Raene on 06-ashenvale's first Astranaar stop.
 	// (06-wetlands keeps a hand-in to Raene only for a character still carrying it, `when onquest`, Alliance 20-30 audit.)
-	assert.ok(!wet.some(({ step, goal }) => goal.quest === 990 && !(step.when || []).some((p) => p.k === 'onquest' && !p.neg)), 'Trek to Ashenvale is no longer carried to 28');
+	// #1811: a player who missed Selarin there (she comes only for a few minutes) gets her offer again right after their
+	// own escort hand-in to Terenthis; that optional accept is the only other 990 goal before Raene's `when onquest` step.
+	assert.ok(!wet.some(({ step, goal, s }) => goal.quest === 990 && !(step.when || []).some((p) => p.k === 'onquest' && !p.neg) && !(goal.t === 'accept' && goal.optional && wet.some((e) => e.s === s && e.goal.t === 'turnin' && e.goal.quest === 994))), 'Trek to Ashenvale is no longer carried to 28');
 	const dret = goals(DARKSHORE_RETURN);
 	assert.equal(dret[at(dret, 'accept 990', is('accept', 990))].s, 1, 'taken on the first Auberdine stop of 03-darkshore-return');
 	const ash0 = goals(ASHENVALE);
@@ -6895,11 +6918,19 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(wetStep('turnin', 1029) < wetStep('accept', 1045) && wetStep('accept', 1045) < wetStep('turnin', 1046), 'two Astranaar stops: before Krolg and at the end of the Ashenvale trip');
 	const ash = goals(ASHENVALE);
 	const ashStep = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
-	// Alliance 12-30 bracket review 0.3.6: the walk from Dal Bloodclaw's camp to Ilkrud runs through Astranaar, so Raene's and
-	// Pelturas's ready hand-ins go in on that pass; the last stop, needed anyway for the flight, is Shindrell's alone.
-	for (const q of [1025, 1054, 1034]) {
-		assert.ok(ashStep('turnin', q) > ash[at(ash, 'collect 5544 (Dal Bloodclaw)', (g) => g.t === 'collect' && g.item === 5544)].s && ashStep('turnin', q) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, `${q} handed in on the pass through Astranaar between Dal Bloodclaw and Ilkrud`);
+	// Alliance 12-30 bracket review 0.3.6: the walk back west to Ilkrud runs through Astranaar, so Pelturas's ready hand-in
+	// goes in on that pass; the last stop, needed anyway for the flight, is Shindrell's alone.
+	assert.ok(ashStep('turnin', 1034) > ashStep('turnin', 1024) && ashStep('turnin', 1034) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, '1034 handed in on the pass through Astranaar between Shael\'dryn and Ilkrud');
+	// Level tidy 0.4.0: the Foulweald's Den Watcher and Ursas (24-25) and Dal Bloodclaw (25) were 2 over players here
+	// (recordings: 25th percentile 23.3-23.5). Raene gives both on 06-wetlands' Astranaar stop for 1029 at about 29: the
+	// Foulweald on the way to Krolg, Dal on the way back from Maestra's Post, both handed in with 1046.
+	assert.ok(!ash.some(({ goal }) => [1025, 1054].includes(goal.quest)), 'An Aggressive Defense and Culling the Threat are not in 06-ashenvale');
+	for (const q of [1025, 1054]) {
+		assert.equal(wetStep('accept', q), wetStep('turnin', 1029), `${q} taken on Raene's 1029 stop`);
+		assert.equal(wetStep('turnin', q), wetStep('turnin', 1046), `${q} handed in with 1046 on the last Astranaar stop`);
 	}
+	assert.ok(wetStep('turnin', 1029) < wet[at(wet, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s && wet[at(wet, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s < wetStep('turnin', 1030), 'the Foulweald on the way to Krolg');
+	assert.ok(wetStep('turnin', 1140) < wet[at(wet, 'Dal Bloodclaw', (g) => g.t === 'collect' && g.item === 5544)].s, 'Dal Bloodclaw after Maestra\'s Post');
 	assert.ok(ashStep('turnin', 1008) > ash[at(ash, 'collect 5490 (Wrathtail Heads)', (g) => g.t === 'collect' && g.item === 5490)].s, 'The Zoram Strand handed to Shindrell on the last stop, by the flight master');
 	assert.equal(ashStep('turnin', 294), ashStep('accept', 295), 'Ormer\'s second quest taken with the first hand-in');
 	assert.ok(!ash.some(({ goal }) => goal.quest === 343), 'no walk into Stormwind Keep for Speaking of Fortitude');
@@ -9921,20 +9952,35 @@ test(`${LOCH_MODAN} / ${WESTFALL}: #1415: Old Murk-Eye and the murloc gills wher
 });
 
 // vWL4: Insane Druids (the Dor'Danil Barrow Den, Kayneth before and after) is optional (#1336 and #1341 promised its
-// barrow-entrance step publicly); The Eye of Paleth goes to Glorin on the Menethil stop before the boat; Trying Times
-// with Razormaw Needling at Howin; the Fen Creepers along the river.
-test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Glorin on the last Menethil stop, Trying Times at Howin, creepers on the river`, { skip }, () => {
+// barrow-entrance step publicly); Trying Times with Razormaw Needling at Howin; the Fen Creepers along the river.
+// (The Eye of Paleth, which this case also pinned to the last Menethil stop, moved to 30-40/01 with Lifting the Curse in
+// the 0.4.0 level tidy.)
+test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Trying Times at Howin, creepers on the river`, { skip }, () => {
 	const list = goals(WETLANDS);
 	const druids = list.filter(({ goal }) => goal.quest === 1012);
 	assert.ok(druids.length >= 5 && druids.find(({ goal }) => goal.t === 'accept').goal.optional, 'Insane Druids is there, its accept optional');
 	assert.ok(druids.filter(({ goal }) => goal.t !== 'accept').every(({ step }) => (step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(1012))), 'its steps only for those who took it');
-	const glorin = list[at(list, 'turnin 292', is('turnin', 292))];
-	assert.equal(glorin.step, list[at(list, 'turnin 98221', is('turnin', 98221))].step, 'The Eye of Paleth on the Stoutfist stop');
 	assert.equal(list[at(list, 'accept 98246', is('accept', 98246))].step, list[at(list, 'accept 98245', is('accept', 98245))].step, 'Trying Times with Razormaw Needling');
 	const creepers = PLACES().find((p) => p.id === '610-wetlands-fen-creepers');
 	assert.ok(creepers.path && creepers.path.points[0][0] > 45, 'the creeper place starts on the river by Einar');
 	const kill = list[at(list, 'kill 1040', (g) => g.t === 'kill' && g.quest === 275)];
 	assert.ok(nearestYards(kill.goal, 1437, 40.6, 32.9) < 150, `the creepers lead along the river (${kill.goal.x},${kill.goal.y})`);
+});
+
+// Level tidy 0.4.0: Geltharis (The Branch of Cenarius, 1031) and the three Insane Druids (1012) are level 32, three
+// over a player at 06-wetlands' Xavian and Forest Song stretch (recordings: 25th percentile about 29). No later visit
+// fits them, so both are group choices: their offers never hold a step, and their work waits for "Do it with a group".
+test(`${WETLANDS}: level tidy 0.4.0: The Branch of Cenarius and Insane Druids are group choices, never solo work at 29`, { skip }, () => {
+	const list = goals(WETLANDS);
+	const grouped = (step, q) => (step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q));
+	for (const q of [1031, 1012]) {
+		const mine = list.filter(({ goal }) => goal.quest === q);
+		assert.ok(mine.length > 0, `${q} is in the guide`);
+		assert.ok(mine.filter(({ goal }) => goal.t === 'accept').every(({ goal }) => goal.optional), `${q}: the accept is optional`);
+		const work = mine.filter(({ goal }) => goal.t !== 'accept' && goal.t !== 'turnin');
+		assert.ok(work.length > 0 && work.every(({ step }) => grouped(step, q)), `${q}: its objectives are on the group branch`);
+		assert.ok(mine.filter(({ goal }) => goal.t === 'turnin').every(({ step }) => grouped(step, q) || (step.when || []).some((p) => p.k === 'complete' && !p.neg)), `${q}: handed in only after the group work`);
+	}
 });
 
 // #1386 sweep (Plan line, 0.3.7): a Night Elf Druid loading 06-wetlands fresh without Trial of the Sea Lion (272) was
@@ -13038,14 +13084,25 @@ test('A use before the line that collects for a quest is bound to that quest, in
 	assert.deepEqual(bare, []);
 });
 
-// 大地瓜 (#1089): Sentinel Selarin, who gives Trek to Ashenvale in Auberdine, was not beside Terenthis (killed, about to
-// respawn), so the arrow led to an empty spot. The step that takes the quest says she respawns shortly if she isn't there.
-test('Trek to Ashenvale (#1089): the step that takes it from Sentinel Selarin says she respawns if she is not there', { skip }, () => {
+// 大地瓜 (#1089), mrdick47 (#1811), CircusCyaneus (#2413): Sentinel Selarin, who gives Trek to Ashenvale in Auberdine,
+// was not beside Terenthis. She isn't killed and respawning: she stays only a few minutes, after someone hands in
+// Volcor's escort (caltman24 watched her come and leave about 5 minutes later; players' recordings: 19 of 27 players on
+// the 0.3.6+ route left the step without her quest, some after 12-45 minutes, and players who handed in the escort
+// themselves took it within 1-3 minutes). So every step that takes it says she comes and goes, never holds the player
+// (optional), and a second chance follows the player's own hand-in of Escape Through Force (994).
+test('Trek to Ashenvale (#1089, #1811): Sentinel Selarin comes and goes; her quest never holds a step and is offered again after the escort', { skip }, () => {
 	assert.equal(refData().npc(3694).name, 'Sentinel Selarin');
-	const silent = stepsHolding((g) => g.t === 'accept' && g.quest === 990)
-		.filter(({ step, goal }) => !/\brespawns?\b/i.test(notesOf(step, goal)))
-		.map(({ guide, step }) => `${guide} "${step.title}": accept 990 with no word that Selarin respawns`);
-	assert.deepEqual(silent, []);
+	const held = stepsHolding((g) => g.t === 'accept' && g.quest === 990);
+	assert.ok(held.length > 0, 'the route takes Trek to Ashenvale');
+	const bad = held
+		.filter(({ step, goal }) => !goal.optional || !/\b(few minutes|once she comes|comes)\b/i.test(notesOf(step, goal)) || /\brespawns?\b/i.test(notesOf(step, goal)))
+		.map(({ guide, step }) => `${guide} "${step.title}": accept 990 holds the step, or says she respawns, or doesn't say she comes and goes`);
+	assert.deepEqual(bad, []);
+	const afterEscort = held.filter(({ step, goal }) => {
+		const i = step.goals.indexOf(goal);
+		return i > 0 && step.goals[i - 1].t === 'turnin' && step.goals[i - 1].quest === 994;
+	});
+	assert.ok(afterEscort.some(({ guide }) => guide === ASHENVALE), '06-ashenvale offers it right after the escort hand-in to Terenthis');
 });
 
 // #1933: Thundering Hearts (97985) was in no Horde guide. Calder Gray gives it and takes it back in the Undercity's
@@ -13946,21 +14003,68 @@ test(`${TELDRASSIL}: The Red Crystal is taken on the first Auberdine stop, with 
 	assert.ok(at(ne, 'accept 4811', is('accept', 4811)) < at(ne, 'crystal', (g) => g.quest === 4811 && g.t === 'interact'), 'Night Elf Darkshore keeps the accept before the crystal');
 });
 
-// Alliance 1-12 route feel (0.4.0, #2025): Night Elf Darkshore walked through Ameth'Aran, where Anaya Dawnrunner
-// walks, with For Love Eternal (963) left to 03-darkshore, which came back to the ruins for her pendant at about 17.
-// Cerellean Whiteclaw stands where the pier meets the shore: the quest is taken there at the start, the pendant on
-// the first Ameth'Aran visit (quest 16, from level 11; players' recordings: 8 people took the pendant under 15,
-// none died to her) and the hand-in on the way to the boat.
-test(`${NE_DARKSHORE}: For Love Eternal is taken on the pier, done in Ameth'Aran and handed in on the way to the boat`, { skip }, () => {
-	const list = goals(NE_DARKSHORE).filter(nightElf);
-	const take = at(list, 'accept 963', is('accept', 963));
-	const pendant = at(list, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
-	const give = at(list, 'turnin 963', is('turnin', 963));
-	assert.ok(take < pendant && pendant < give, 'taken, done, handed in');
-	assert.ok(list[pendant].step.goals.some(is('turnin', 953)), "on the first Ameth'Aran visit, with Sentinel Tysha's turn-in");
-	assert.match(list[pendant].goal.note || '', /Anaya Dawnrunner, level 16/, 'warns about her level');
-	const boat = list.findIndex(({ step }) => step.title === 'Boat to Stormwind Harbor');
-	assert.ok(give < boat && list.slice(give, boat).every(({ goal }) => goal.t !== 'accept'), 'handed in on the way to the boat');
+// Level tidy (0.4.0): For Love Eternal's (963) Anaya Dawnrunner is level 16, and Night Elf Darkshore reaches
+// Ameth'Aran at about 13 (recorded 25th percentile 13.5): 3 levels above the player. The quest stays with
+// 03-darkshore, which hands it in at about 17; Night Elf Darkshore no longer takes it (this replaces the #2025
+// case that took it on the pier).
+test(`${NE_DARKSHORE}: For Love Eternal waits for 03-darkshore, where Anaya Dawnrunner (16) is at the player's level`, { skip }, () => {
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	assert.ok(!ne.some(({ goal }) => goal.quest === 963), 'no For Love Eternal goal in Night Elf Darkshore');
+	const shared = goals(DARKSHORE);
+	const take = at(shared, 'accept 963', is('accept', 963));
+	const pendant = at(shared, 'collect 5382', (g) => g.t === 'collect' && g.item === 5382);
+	assert.ok(take < pendant && pendant < at(shared, 'turnin 963', is('turnin', 963)), '03-darkshore takes, does and hands it in');
+});
+
+// Level tidy (0.4.0), Dun Morogh: the Snow Leopard Prowler (6) came at a recorded 4.8, the Grizzled Den's Elder
+// Wendigos and Shamans (8) at 6.3, the Leper Gnomes (8-10) and Frostmane Hold's Hideskinners (9-10) at 8.3, and
+// Call of Fire's Stonesplinter Seers (13-14) right after the tunnel at 12. Grund comes after Grik'nir, the den once
+// after Brewnall with Frosthowl's fish, the gnomes and the Hold after Brewnall's second visit, and the Shamans' Fire
+// Tar and Reagent Pouch after the Silver Stream Mine.
+for (const guide of DUN_MOROGHS) {
+	test(`${guide}: level tidy: Gozwin, the Grizzled Den, the Leper Gnomes, Frostmane Hold and Call of Fire at the player's level`, { skip }, () => {
+		const list = goals(guide);
+		const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+		assert.ok(idx('turnin', 218) < idx('accept', 97277), 'Grund and Gozwin after The Stolen Journal');
+		const manes = at(list, 'the Wendigo Manes', (g) => g.t === 'collect' && g.item === 2671);
+		assert.ok(idx('turnin', 319) < manes, 'the den after Brewnall\'s first visit');
+		assert.equal(list[manes].s, list[at(list, 'Sack of Fish', (g) => g.t === 'collect' && g.item === 280426)].s, 'one den visit, with Frosthowl');
+		assert.ok(list.filter(({ goal }) => goal.t === 'collect' && goal.item === 2671).length === 1, 'the den is entered once');
+		for (const [what, pred] of [['the cogs', (g) => g.t === 'collect' && g.item === 3083], ['the Headhunters', (g) => g.t === 'kill' && g.quest === 287]]) {
+			assert.ok(idx('turnin', 315) < at(list, what, pred), `${what} after Brewnall's second visit`);
+		}
+		const mine = idx('collect', 307);
+		const shaman = list.filter(({ goal }) => goal.quest === 94466 && goal.t === 'collect');
+		assert.equal(shaman.length, 2, 'the Fire Tar and the Reagent Pouch');
+		for (const e of shaman) assert.ok(list.indexOf(e) > mine, `Call of Fire's ${e.goal.item} after the Silver Stream Mine's crates`);
+	});
+}
+
+// Level tidy (0.4.0), Elwynn Forest: the grind top-ups named Kobold Miners (6-7) at 5.77 and Prowlers (9-10) at
+// 8.85, and the river step sent players at the Prowlers at a recorded 8.5. The grinds are on Stonetusk Boars (5-6)
+// and Gray Forest Wolves (7-8), and the Prowlers wait for the walk back to Guard Thomas.
+test(`${ELWYNN}: level tidy: grinds at the player's level, the Prowlers on the walk back to Guard Thomas`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const grind = (title) => list.find(({ step, goal }) => step.title === title && goal.t === 'level');
+	assert.equal(grind('Level 5.77').goal.note, 'grind on Stonetusk Boar');
+	assert.equal(grind('Level 8.85').goal.note, 'grind on Gray Forest Wolf');
+	const prowlers = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 52 && goal.npc === 118);
+	assert.equal(prowlers.length, 1, 'the Prowlers in one step');
+	assert.ok(list.indexOf(prowlers[0]) > at(list, 'turnin 91723', is('turnin', 91723)), 'after the Jasperlode Mine, with Guard Thomas');
+	assert.match(JSON.stringify(list[at(list, 'accept 5545', is('accept', 5545))].step), /Elmpaw/, 'the logging camp warns about Elmpaw, a level 12 elite');
+});
+
+// Level tidy (0.4.0), Teldrassil: the Grells (2-3) came in one field step with the level 1 beasts, Ursal (12)
+// at a recorded 10.8 and Witchmother Arysa (12) at 10.5. The Grells come after The Balance of Nature's kills,
+// Ursal after Lake Al'Ameth, and Arysa after Lady Sathrah.
+test(`${TELDRASSIL}: level tidy: the Grells, Ursal and Witchmother Arysa at the player's level`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const moss = at(list, 'Fel Moss', (g) => g.t === 'collect' && g.item === 3297);
+	assert.ok(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 456).every((e) => list.indexOf(e) < moss && e.s < list[moss].s), 'the beasts first, in their own step');
+	assert.ok(at(list, 'turnin 930', is('turnin', 930)) < at(list, 'kill Ursal', (g) => g.t === 'kill' && g.quest === 486), 'Ursal after Lake Al\'Ameth');
+	assert.ok(at(list, 'Silvery Spinnerets', (g) => g.t === 'collect' && g.item === 8344) < at(list, "Arysa's Amulet", (g) => g.t === 'collect' && g.item === 280834), 'Arysa after Lady Sathrah');
+	const rage = at(list, 'kill Rageclaw', (g) => g.t === 'kill' && g.quest === 2561);
+	assert.ok(list[rage].s > list[at(list, 'relic 3408', (g) => g.t === 'collect' && g.item === 3408)].s, 'Rageclaw in a step of his own, after the relics');
 });
 
 // 0.4.0 route-feel audit (Alliance Felwood): the route reaches Xavaric at the far end of Jadefire Run for his Flute;
