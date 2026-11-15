@@ -121,8 +121,11 @@ const LOADED: f64 = 2148.0;
 /// rows is that and about 5 %. Then the search answering questions (#2178), +15 (4,363 to 4,378 with the base rows,
 /// 2026-11-13, on its own base).
 /// 0.4.0's round 5 merged together: 4,801 with the base's rows on 2026-11-14; the budget with the base's rows is that
-/// and about 5 %: 5,042.
-const OPENED: f64 = 4947.0;
+/// and about 5 %: 5,042. Then the settings' speed work (fix/settings-hover-040: the settings' indexes by key and
+/// of every control's words, the cached lists behind the sidebar's marks, and their code): 5,050 with the base's
+/// rows on 2026-11-15; the budget with the base's rows is that and about 5 % (size budgets follow the measure in
+/// 0.4.0, Fitz, 2026-11-15): 5,300.
+const OPENED: f64 = 5205.0;
 /// Peak, 3,964 KiB (1,190 on 2026-11-10; 2,359 with the Look pages): the files that moved in compile with the
 /// collector stopped (+1,000, to 3,365), then the pages' (+430, their files' compile with the collector stopped),
 /// then the hero previews' (+150, the same), then the Buttons and single-alert scenes and the Accent lights'

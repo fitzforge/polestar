@@ -1108,11 +1108,25 @@ end
 -- the game's tooltip (W.Tooltip's, Gear's) take this: the palette's colour
 -- where it reads at 4.5:1 on that ground, else moved toward the look's paper
 -- (a light look's panel, a dark look's text) until it does, as Nav's lines
--- over the world are. -> r, g, b
+-- over the world are. Worked out once per palette and colour (every
+-- tooltip line asks). -> r, g, b
 Theme.TIP_GROUND = { 0.09, 0.09, 0.19 }
-function Theme.TipColor(name)
-	local pal = Theme.Palette()
-	return liftTo(Theme.TIP_GROUND, isLight(pal) and pal.panel or pal.text, pal[name] or pal.text)
+do
+	local lifted = setmetatable({}, { __mode = "k" })
+	function Theme.TipColor(name)
+		local pal = Theme.Palette()
+		local byName = lifted[pal]
+		if not byName then
+			byName = {}
+			lifted[pal] = byName
+		end
+		local c = byName[name]
+		if not c then
+			c = { liftTo(Theme.TIP_GROUND, isLight(pal) and pal.panel or pal.text, pal[name] or pal.text) }
+			byName[name] = c
+		end
+		return c[1], c[2], c[3]
+	end
 end
 
 -- A ground tinted by the accent: `share` of the accent mixed into the
@@ -1832,16 +1846,22 @@ end
 
 -- Outlined text with a hard shadow, legible over any terrain (the guide
 -- window's transparent mode); on = "thick" for the thick outline. Survives
--- theme changes.
+-- theme changes. Asked again for the same outline, the string stays as it is
+-- (a font change repaints every string itself: Theme.Refresh).
 function Theme.SetOutline(fs, on)
-	outlined[fs] = on == "thick" and "thick" or (on and true or nil)
+	local want = on == "thick" and "thick" or (on and true or nil)
+	if outlined[fs] == want and fonted[fs] ~= nil then return end
+	outlined[fs] = want
 	if fonted[fs] then paintFont(fs, fonted[fs]) end
 end
 
 -- One string's own size against its role's (a surface's text size setting),
--- kept through theme changes; nil or 1 for the role's.
+-- kept through theme changes; nil or 1 for the role's (the same size again
+-- leaves it as it is).
 function Theme.SetFontScale(fs, k)
-	scaled[fs] = (type(k) == "number" and k > 0 and k ~= 1) and k or nil
+	local want = (type(k) == "number" and k > 0 and k ~= 1) and k or nil
+	if scaled[fs] == want and fonted[fs] ~= nil then return end
+	scaled[fs] = want
 	if fonted[fs] then paintFont(fs, fonted[fs]) end
 end
 
@@ -2845,12 +2865,79 @@ end
 local livePending, liveFrame, liveRun = false, nil, nil
 local liveChanged -- the palette names the live repaint running changed
 
-local function repaintAll()
-	switchSkin()
-	for sky in pairs(bands) do paintBand(sky) end
-	for frame, kind in pairs(skinned) do paint(frame, kind) end
-	if fontsMoved() then
-		for fs, role in pairs(fonted) do paintFont(fs, role) end
+-- A full refresh paints the skinned frames that show; one hidden by a frame
+-- above it (another page of the settings, a closed window), shown itself or
+-- not, is painted when that frame next shows (its OnShow), as Widgets' full
+-- pass waits with its colours and painters. One hidden itself under frames
+-- that show is painted at once: its paint may be what a later Show relies on.
+local repaintAll
+do
+	local paintWhenShown
+	local weak = { __mode = "k" }
+	local stale = setmetatable({}, weak) -- hiding frame -> { [skinned frame] = true }
+	local hooked = setmetatable({}, weak)
+	local walked -- while a refresh runs: frame -> its hider (false: none)
+	local function hider(o)
+		local up = o.GetParent
+		local p = up and up(o)
+		if not p then return false end
+		local r = walked and walked[p]
+		if r == nil then
+			local shown = p.IsShown
+			if shown and not shown(p) then
+				r = p.HookScript and p or true
+			else
+				r = hider(p)
+			end
+			if walked then walked[p] = r end
+		end
+		return r
+	end
+	-- What a waiting frame waits on, and its parent then (skipped by the next
+	-- refresh while that frame is still hidden and the parent the same).
+	local waitOn, waitParent = setmetatable({}, weak), setmetatable({}, weak)
+	local function showStale(h)
+		local set = stale[h]
+		if not set then return end
+		stale[h] = nil
+		for frame in pairs(set) do
+			waitOn[frame] = nil
+			local kind = skinned[frame]
+			if kind then paintWhenShown(frame, kind) end
+		end
+	end
+	function paintWhenShown(frame, kind)
+		if not frame.IsShown then return paint(frame, kind) end
+		local h = hider(frame)
+		if not h or h == true then return paint(frame, kind) end
+		local set = stale[h]
+		if not set then
+			set = setmetatable({}, weak)
+			stale[h] = set
+			if not hooked[h] then
+				hooked[h] = true
+				h:HookScript("OnShow", showStale)
+			end
+		end
+		set[frame] = true
+		waitOn[frame], waitParent[frame] = h, frame:GetParent()
+	end
+	local function paintSkinned()
+		for frame, kind in pairs(skinned) do
+			local h = waitOn[frame]
+			if not (h and not h:IsShown() and waitParent[frame] == frame:GetParent()) then paintWhenShown(frame, kind) end
+		end
+	end
+	function repaintAll()
+		switchSkin()
+		for sky in pairs(bands) do paintBand(sky) end
+		walked = {}
+		local ok, err = pcall(paintSkinned)
+		walked = nil
+		if not ok then error(err, 0) end
+		if fontsMoved() then
+			for fs, role in pairs(fonted) do paintFont(fs, role) end
+		end
 	end
 end
 
