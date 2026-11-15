@@ -2396,18 +2396,23 @@ test('forever/reputation/centaur-clans.guide: no accept comes before the guide w
 // you. Every step that works a quest waits on its OWN `level` hold (the guide's opening level is the floor), so skipping
 // a waiting step never runs on into the next one; a timed quest's steps wait at its accept instead (the timer must not
 // run while the guide waits). The per-spot +0 for dense camps, casters and elites is the danger gate's (tools/lib/danger.js).
+// A group quest the guide splits into a `when group` step and a `when !group` solo way (the Rogues' Poisons towers, the
+// lead's call for 0.4.0: Poisons from 20 with a friend) is taken at the floor; its group step is the party's, and its
+// solo way waits on its own level like any other step.
 test('class guides: every step waits on its own level for mobs and quests at most 1 above it (Fitz\'s rule, #1667, Kapu)', { skip }, () => {
 	const top = (id) => data.npcs[id] && (data.npcs[id].levelMax || data.npcs[id].level);
 	const fights = (q) => ((data.quests[q] || {}).objectives || []).some((o) => ['kill', 'item', 'object'].includes(o.type));
 	for (const G of allGuides().filter((g) => g.startsWith('forever/class/'))) {
 		const floor = compiled(G).minLevel || 1;
 		const timedAt = {};
+		const groupChoice = new Set(compiled(G).steps.flatMap((s) => (s.when || []).filter((w) => w.k === 'group' && w.neg).map((w) => w.q)));
 		for (const step of compiled(G).steps) {
+			if ((step.when || []).some((w) => w.k === 'group' && !w.neg && groupChoice.has(w.q))) continue;
 			let own = Math.max(floor, ...step.goals.filter((g) => g.t === 'level').map((g) => g.level));
 			for (const goal of step.goals) if (goal.quest && timedAt[goal.quest] && goal.t !== 'accept') own = Math.max(own, timedAt[goal.quest]);
 			for (const goal of step.goals) {
 				const q = goal.quest && data.quests[goal.quest];
-				if (goal.t === 'accept' && q && fights(goal.quest)) assert.ok(q.level <= own + 1, `${G}, ${step.title}: accept ${goal.quest} (level ${q.level}) waits only for ${own}`);
+				if (goal.t === 'accept' && q && fights(goal.quest) && !groupChoice.has(goal.quest)) assert.ok(q.level <= own + 1, `${G}, ${step.title}: accept ${goal.quest} (level ${q.level}) waits only for ${own}`);
 				if (q && !['accept', 'turnin'].includes(goal.t)) assert.ok(q.level <= own + 1, `${G}, ${step.title}: ${goal.t} for ${goal.quest} (level ${q.level}) waits only for ${own}`);
 				const item = goal.t === 'collect' ? data.items[goal.item] : null;
 				// Droppers with a real chance (1% or more): a quest giver "drops" the item he hands out.
@@ -2421,6 +2426,23 @@ test('class guides: every step waits on its own level for mobs and quests at mos
 			}
 		}
 	}
+});
+
+// The lead's call (0.4.0): Rogues get Poisons from 20 with a friend. The chain opens at 20 with no hold up to the tower's
+// quest; the tower (Gallywix, a level 23 elite, drones 25; Klaven Mortwake, a level 26 elite, Sentries 24) is a group
+// choice, its solo way held at the tower's level.
+for (const [G, q, solo] of [['forever/class/rogue/poisons-horde.guide', 2478, 25], ['forever/class/rogue/poisons-alliance.guide', 2359, 24]]) test(`${G}: Poisons from 20 with a group; the tower solo waits for ${solo}`, { skip }, () => {
+	const steps = compiled(G).steps;
+	const held = (s) => Math.max(0, ...s.goals.filter((g) => g.t === 'level').map((g) => g.level));
+	const take = steps.findIndex((s) => s.goals.some((g) => g.t === 'accept' && g.quest === q));
+	assert.ok(take >= 0 && steps.slice(0, take + 1).every((s) => held(s) <= 20), `accept ${q} waits for no more than 20`);
+	const group = steps.filter((s) => (s.when || []).some((w) => w.k === 'group' && !w.neg && w.q === q));
+	const alone = steps.filter((s) => (s.when || []).some((w) => w.k === 'group' && w.neg && w.q === q));
+	assert.equal(group.length, 1, 'one group step for the tower');
+	assert.equal(alone.length, 1, 'one solo way for the tower');
+	assert.equal(held(group[0]), 0, 'the group step has no hold');
+	assert.equal(held(alone[0]), solo, `the solo way waits for ${solo}`);
+	assert.deepEqual(group[0].goals.filter((g) => g.quest === q).map((g) => `${g.t} ${g.item || g.npc}`), alone[0].goals.filter((g) => g.quest === q).map((g) => `${g.t} ${g.item || g.npc}`), 'both ways do the same objectives');
 });
 
 test('forever/class/warrior/fire-hardened-armor.guide: Kapu\'s report: Fire Hardened Mail is taken at 27, not at 20, and Roogug waits for 28', { skip }, () => {
