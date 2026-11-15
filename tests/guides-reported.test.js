@@ -6827,11 +6827,19 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(wetStep('turnin', 1029) < wetStep('accept', 1045) && wetStep('accept', 1045) < wetStep('turnin', 1046), 'two Astranaar stops: before Krolg and at the end of the Ashenvale trip');
 	const ash = goals(ASHENVALE);
 	const ashStep = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
-	// Alliance 12-30 bracket review 0.3.6: the walk from Dal Bloodclaw's camp to Ilkrud runs through Astranaar, so Raene's and
-	// Pelturas's ready hand-ins go in on that pass; the last stop, needed anyway for the flight, is Shindrell's alone.
-	for (const q of [1025, 1054, 1034]) {
-		assert.ok(ashStep('turnin', q) > ash[at(ash, 'collect 5544 (Dal Bloodclaw)', (g) => g.t === 'collect' && g.item === 5544)].s && ashStep('turnin', q) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, `${q} handed in on the pass through Astranaar between Dal Bloodclaw and Ilkrud`);
+	// Alliance 12-30 bracket review 0.3.6: the walk back west to Ilkrud runs through Astranaar, so Pelturas's ready hand-in
+	// goes in on that pass; the last stop, needed anyway for the flight, is Shindrell's alone.
+	assert.ok(ashStep('turnin', 1034) > ashStep('turnin', 1024) && ashStep('turnin', 1034) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, '1034 handed in on the pass through Astranaar between Shael\'dryn and Ilkrud');
+	// Level tidy 0.4.0: the Foulweald's Den Watcher and Ursas (24-25) and Dal Bloodclaw (25) were 2 over players here
+	// (recordings: 25th percentile 23.3-23.5). Raene gives both on 06-wetlands' Astranaar stop for 1029 at about 29: the
+	// Foulweald on the way to Krolg, Dal on the way back from Maestra's Post, both handed in with 1046.
+	assert.ok(!ash.some(({ goal }) => [1025, 1054].includes(goal.quest)), 'An Aggressive Defense and Culling the Threat are not in 06-ashenvale');
+	for (const q of [1025, 1054]) {
+		assert.equal(wetStep('accept', q), wetStep('turnin', 1029), `${q} taken on Raene's 1029 stop`);
+		assert.equal(wetStep('turnin', q), wetStep('turnin', 1046), `${q} handed in with 1046 on the last Astranaar stop`);
 	}
+	assert.ok(wetStep('turnin', 1029) < wet[at(wet, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s && wet[at(wet, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s < wetStep('turnin', 1030), 'the Foulweald on the way to Krolg');
+	assert.ok(wetStep('turnin', 1140) < wet[at(wet, 'Dal Bloodclaw', (g) => g.t === 'collect' && g.item === 5544)].s, 'Dal Bloodclaw after Maestra\'s Post');
 	assert.ok(ashStep('turnin', 1008) > ash[at(ash, 'collect 5490 (Wrathtail Heads)', (g) => g.t === 'collect' && g.item === 5490)].s, 'The Zoram Strand handed to Shindrell on the last stop, by the flight master');
 	assert.equal(ashStep('turnin', 294), ashStep('accept', 295), 'Ormer\'s second quest taken with the first hand-in');
 	assert.ok(!ash.some(({ goal }) => goal.quest === 343), 'no walk into Stormwind Keep for Speaking of Fortitude');

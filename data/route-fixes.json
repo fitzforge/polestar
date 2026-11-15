@@ -3242,6 +3242,54 @@
 			{
 				"a": [
 					"turnin",
+					1029
+				],
+				"b": [
+					"accept",
+					1025
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Ashenvale): An Aggressive Defense's Foulweald Den Watcher and Ursas (24-25) and Culling the Threat's Dal Bloodclaw (25) were 2 over players on 06-ashenvale (players' recordings, 0.3.7+: 25th percentile 23.3-23.5 at those steps, and no later step of that guide reaches 24). Raene gives both on 06-wetlands' Astranaar stop for her next part (1029 -> 1030) at about 29, where the quests still pay full XP: the Foulweald on the walk to Krolg, Dal Bloodclaw on the walk from Maestra's Post back to Astranaar, both handed in on the last Astranaar stop with 1046."
+			},
+			{
+				"a": [
+					"turnin",
+					1029
+				],
+				"b": [
+					"accept",
+					1054
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Ashenvale): see the pair before (turnin 1029 -> accept 1025): Culling the Threat is taken on the same Astranaar stop at about 29."
+			},
+			{
+				"a": [
+					"task",
+					1025
+				],
+				"b": [
+					"turnin",
+					1030
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Ashenvale): the Foulweald (53,61) lies on 06-wetlands' walk from Astranaar south-east to Krolg (50.8,75), about 300 yd off the straight line."
+			},
+			{
+				"a": [
+					"turnin",
+					1140
+				],
+				"b": [
+					"task",
+					1054
+				],
+				"faction": "Alliance",
+				"why": "Level tidy 0.4.0 (Ashenvale): Dal Bloodclaw's Thistlefur camp (39.6,36.3) lies between Maestra's Post (26,38) and Astranaar (36.6,49.6), about 650 yd more than the road, on 06-wetlands' last walk back to Astranaar's flight master."
+			},
+			{
+				"a": [
+					"turnin",
 					98221
 				],
 				"b": [

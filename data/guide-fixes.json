@@ -6284,15 +6284,15 @@
 			"id": "astranaar-pass-hand-ins-split",
 			"faction": "Alliance",
 			"at": {
-				"quest": 1025,
+				"quest": 1034,
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
 			"split": {
 				"title": "Astranaar",
-				"tip": "South from Dal Bloodclaw's camp, Astranaar is on the way west: Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it."
+				"tip": "Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn."
 			},
-			"note": "06-ashenvale: after Dal Bloodclaw's camp, north of Astranaar, the route walks south-west through Astranaar to Ilkrud Magthrull with Raene Wolfrunner's hand-ins (1025, 1054) and Pelturas Whitemoon's (1034) ready. They are cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit.",
+			"note": "06-ashenvale: after Shael'dryn, the route walks back west through Astranaar to Ilkrud Magthrull with Pelturas Whitemoon's hand-in (1034) ready. It is cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit; since the 0.4.0 level tidy Raene's Foulweald and Dal Bloodclaw quests (1025, 1054) are on 06-wetlands' Ashenvale trip, so the pass follows Shael'dryn's step.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6304,22 +6304,21 @@
 			"id": "astranaar-pass-hand-ins-step",
 			"faction": "Alliance",
 			"at": {
-				"quest": 1025,
+				"quest": 1034,
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
 			"step": {
 				"after": {
-					"quest": 1054,
-					"goal": "objective",
-					"objective": 1
+					"quest": 1024,
+					"goal": "turnin"
 				}
 			},
-			"note": "06-ashenvale: the Astranaar hand-ins cut off the last stop (astranaar-pass-hand-ins-split) go right after Dal Bloodclaw's step, on the walk through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit.",
+			"note": "06-ashenvale: the Astranaar hand-in cut off the last stop (astranaar-pass-hand-ins-split) goes right after Shael'dryn's step, on the walk back west through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit, re-anchored in the 0.4.0 level tidy.",
 			"source": [
 				{
 					"kind": "questie",
-					"ref": "quest 1054 objective Dal Bloodclaw's Skull; enders Raene Wolfrunner (3691), Pelturas Whitemoon (3894)"
+					"ref": "quest 1024 ender Shael'dryn; 1034 ender Pelturas Whitemoon (3894)"
 				}
 			]
 		},

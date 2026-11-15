@@ -436,10 +436,19 @@ step Astranaar
   tip Raene Wolfrunner and Maliynn are in the inn; Pelturas Whitemoon is inside the building just south of it.
   turnin 1029                         -- Raene Wolfrunner
   accept 1030
+  accept 1025                         -- Raene Wolfrunner: An Aggressive Defense, the Foulweald on the way to Krolg
+  accept 1054                         -- Raene Wolfrunner: Culling the Threat, Dal Bloodclaw on the way back from Maestra's Post
   turnin 98027                        -- Maliynn, in the inn
   turnin 1035                         -- Pelturas Whitemoon, inside the building south of the inn
 
 # ---------------------------------------------------------------- Krolg
+
+step The Foulweald
+  tip On the way south-east to Krolg: the Foulweald furbolgs live in the woods south of the road, south-east of Astranaar. The Den Watcher and the Ursas guard the den.
+  kill 3746 quest 1025                    -- Foulweald Den Watcher
+  kill 3749 quest 1025                    -- Foulweald Ursa
+  kill 3750 quest 1025                    -- Foulweald Totemic
+  kill 3743 quest 1025                    -- Foulweald Warrior
 
 step Krolg
   tip Krolg, a furbolg untouched by the corruption, sits south of the road below Mystral Lake. Use Dartol's Rod of Transformation near him first: he only speaks to you in furbolg form.
@@ -477,9 +486,16 @@ step Delgren the Purifier
   tip North to Maestra's Post.
   turnin 1140
 
+step Dal Bloodclaw
+  tip From Maestra's Post, east to the Thistlefur camp north of Astranaar: Dal Bloodclaw leads the furbolgs there. Then south to Astranaar.
+  tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
+  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
+
 step Astranaar
-  tip South-east along the road to Astranaar: Raene Wolfrunner in the inn, the flight master at the west end.
+  tip South from Dal Bloodclaw's camp to Astranaar: Raene Wolfrunner in the inn, the flight master at the west end.
   turnin 1046                         -- Raene Wolfrunner
+  turnin 1025                         -- Raene Wolfrunner
+  turnin 1054                         -- Raene Wolfrunner
 
 step Fly to Auberdine
   zone Ashenvale
