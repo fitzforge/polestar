@@ -1294,9 +1294,11 @@ Warnings:
   earlier in the chain, not yet turned in or abandoned): the game does not
   offer it until the breadcrumb is handed in
 - a non-`optional` `accept` never turned in later in the guide or the guides
-  after it, checked for every route choice; when a next guide's race or class
-  leaves out the characters still holding the quest, the warning says so (its
-  turn-ins do not count for them)
+  after it, checked for every route choice; each character goes on only
+  through the next guides it can follow (a guide for both factions with one
+  `next` per faction hands each faction to its own), and when no next guide's
+  race, class or faction takes the characters still holding the quest, the
+  warning says so (its turn-ins do not count for them)
 - `complete` on a quest with no objectives: the turn-in is the action; use `turnin`
 - a `turnin` whose quest's objectives ask for an item the world gives (a drop,
   an object, a vendor or a container; not one the quest or an NPC hands over)
