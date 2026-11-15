@@ -705,6 +705,13 @@ function applyLoop(step, s, data, err) {
 	step.goals = step.goals.filter((g) => g.t !== 'goto');
 }
 
+// The levels a guide's header spans: its plain `levels` and every `levels <min>-<max> <Faction>` together. -> [min, max] | null
+function guideLevels(h) {
+	const ranges = [h.levels, ...Object.values(h.factionLevels || {})].filter(Boolean);
+	if (!ranges.length) return null;
+	return [Math.min(...ranges.map((r) => r.min)), Math.max(...ranges.map((r) => r.max))];
+}
+
 function onlyOf(c) {
 	if (!c) return undefined;
 	const o = {};
@@ -750,9 +757,16 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	setIf(guide, 'faction', h.faction);
 	setIf(guide, 'races', h.races);
 	setIf(guide, 'classes', h.classes);
-	if (h.levels) {
-		guide.minLevel = h.levels.min;
-		guide.maxLevel = h.levels.max;
+	// `levels <min>-<max> <Faction>` (parse.js): each faction's range in `factionLevels`, the plain one standing in for a
+	// faction without its own; minLevel/maxLevel span them all (what a Polestar that reads no `factionLevels` shows).
+	const levels = guideLevels(h);
+	if (levels) [guide.minLevel, guide.maxLevel] = levels;
+	if (h.factionLevels) {
+		guide.factionLevels = {};
+		for (const f of ['Alliance', 'Horde']) {
+			const r = h.factionLevels[f] || h.levels;
+			if (r) guide.factionLevels[f] = { min: r.min, max: r.max };
+		}
 	}
 	guide.category = canonicalCategory(h.category, ast, warn);
 	setIf(guide, 'folder', h.folder);
@@ -921,7 +935,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		const stepZone = resolveZone(s.zone || (s.goals[0] && s.goals[0].zone));
 		// The factions the step is for, narrowed by its races as a goal's (a `taxi` predicate's flight master), when asked.
 		const stepSides = () => smartSides(sidesFor([h.faction ? [h.faction] : null, s.only && s.only.factions]), applicable([headLayer, s.only]));
-		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, h.levels ? [h.levels.min, h.levels.max] : null, data, warn, stepSides));
+		setIf(step, 'when', resolveWhen(s.when, stepZone ? stepZone.id : null, levels, data, warn, stepSides));
 		setIf(step, 'label', s.label);
 		setIf(step, 'along', s.along);
 		setIf(step, 'section', s.section);
