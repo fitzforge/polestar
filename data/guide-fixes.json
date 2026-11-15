@@ -870,6 +870,23 @@
 			]
 		},
 		{
+			"id": "zephras-desperate-times-both-leaders",
+			"faction": "Horde",
+			"at": {
+				"quest": 92640,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Valennia asks you to hear out both leaders: Ayessa Dawnsinger of the Horde and Elaadrin Evengale of the Alliance. Elaadrin's name shows red to you, but he talks to you all the same, and the quest needs both.",
+			"note": "Desperate Times (92640) has three talk objectives for both factions: Valennia Stormfist, Ayessa Dawnsinger (the Horde's leader) and Elaadrin Evengale (the Alliance's). The Horde Skyborne guide's talk to Elaadrin looked like a goal at the other faction's NPC; players' recordings show it is part of the quest: every Horde character who finished it ticked line 3 at Elaadrin's window, though he shows hostile to them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 92640: 12 Horde people ticked line 3 at Elaadrin Evengale's (252475) window and 11 line 2 at Ayessa Dawnsinger's (251968); 10 Alliance people both; npc 252475 seen hostile by 14 people, friendly by 13"
+				}
+			]
+		},
+		{
 			"id": "barrens-fizzule-flares-and-salute",
 			"faction": "Horde",
 			"at": {

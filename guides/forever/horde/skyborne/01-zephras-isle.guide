@@ -561,8 +561,9 @@ step Unfortunate News
   accept 92640
 
 step Desperate Times
+  tip Valennia asks you to hear out both leaders: Ayessa Dawnsinger of the Horde and Elaadrin Evengale of the Alliance. Elaadrin's name shows red to you, but he talks to you all the same, and the quest needs both.
   talk 252383 quest 92640.1 -- Upstairs
-  talk 251968 quest 92640.2
+  talk 251968 quest 92640.2           -- Ayessa Dawnsinger
   talk 252475 quest 92640.3 @66.59,79.92 -- Elaadrin Evengale
   turnin 92640                        -- Valennia Stormfist
   accept 93065

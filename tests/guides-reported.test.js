@@ -1018,6 +1018,17 @@ test(`Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaad
 	}
 });
 
+// Desperate Times asks every Skyborne for both leaders, whatever their side: Horde players talk to Elaadrin Evengale,
+// who shows hostile to them (recordings: 12 Horde people ticked his line). The Horde guide says so, so the red name
+// doesn't look like the guide sending them to the other faction.
+test('Zephras Isle (Horde): Desperate Times says the quest needs both leaders, the Alliance one included', { skip }, () => {
+	const list = goals('forever/horde/skyborne/01-zephras-isle.guide');
+	const elaadrin = at(list, 'Elaadrin', (g) => g.t === 'talk' && g.quest === 92640 && g.npc === 252475);
+	const text = [list[elaadrin].step.note, list[elaadrin].step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /red to you/, 'the step says Elaadrin shows red but talks');
+	assert.match(text, /needs both/, 'the step says the quest needs both leaders');
+});
+
 test(`Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to`, { skip }, () => {
 	data = data || loadData(DATA);
 	// The Cult of the Damned counts Dark Neophytes and Dark Enforcers only.
