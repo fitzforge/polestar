@@ -27,7 +27,7 @@ return {
 	["Copper & Poor Copper: {zone:1426} (1-50)"] = "Kupfer & Poor Copper: {zone:1426} (1-50)",
 
 	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Baue unterwegs jedes dieser Vorkommen ab: {object:656332} (1, orange), {object:656333} (1, orange). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 50 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 60 Vorkommen für diese 49 Punkte.",
 
 	-- Step 5: Copper: Zephras Isle (1-50)
@@ -68,9 +68,9 @@ return {
 	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "Kupfer & Poor Copper: {zone:1426} (50-65) Forts.",
 
 	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {zone:1438} Teldrassil
 	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} & {object:656333}: {zone:1438} (50-65), Fortsetzung",
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Baue unterwegs jedes dieser Vorkommen ab: {object:656332} (1, gelb), {object:656333} (1, gelb). Lauf die Wegpunkte im Kreis ab, bis {skill:186} 65 erreicht ist. Schmilz an einer Esse, wenn deine Taschen voll sind: {spell:2657} (orange bis 25, grau ab 70) bringt ebenfalls Punkte. Gebietsstufe 1-10. Rechne mit etwa 80 Vorkommen für diese 15 Punkte.",
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.

@@ -84,10 +84,10 @@ return {
 	["Use the {item:5185} at the moonwell"] = "在月亮井使用{item:5185}",
 
 	-- Step 11: Tenaron Stormgrip
-	-- {area:256} Aldrassil · {object:654846} Lost Journal (no name in this language: may be words)
+	-- {area:256} Aldrassil · {object:654846} Lost Journal
 	["Back to the top of {area:256}. The {object:654846} lies beside him."] = "回到{area:256}顶端。{object:654846}就在他旁边。",
 	["Upstairs"] = "在楼上",
-	-- {object:654846} Lost Journal (no name in this language: may be words)
+	-- {object:654846} Lost Journal
 	["{object:654846}, upstairs"] = "{object:654846}：在楼上",
 	-- {npc:3595} Shanda · {area:256} Aldrassil · {npc:3600} Laurna Morninglight · {area:186} Dolanaar
 	["{npc:3595}, the priest trainer, on the second level of {area:256} on the way down: {npc:3600} in {area:186} takes it"] = "牧师训练师{npc:3595}，在下楼途中{area:256}的第二层：交给{area:186}的{npc:3600}",

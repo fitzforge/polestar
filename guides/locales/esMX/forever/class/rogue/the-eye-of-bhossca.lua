@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "El buzón secreto de C",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "El siguiente trabajo de C llega por carta: cuando tengas nivel 30 y hayas hecho el trabajo del cuerno, visita cualquier capital y la carta de C llega al buzón; recién entonces {object:410369}, cerca de {area:204}, en el sur de Bosque de Argénteos justo al sur de {area:236}, lo ofrece. Los datos de la misión dicen nivel mínimo 25, pero los jugadores reciben la carta, y el trabajo, a nivel 30.",
 
 	-- Step 2: The Scarlet Monastery
@@ -25,7 +25,7 @@ return {
 
 	-- Step 3: Back to the dead drop
 	["Back to the dead drop"] = "Regresa al buzón secreto",
-	-- {object:410369} Dead Drop
+	-- {object:410369} Dead Drop (no name in this language: may be words)
 	["Place the eye in the {object:410369} near Pyrewood. Check a capital mailbox for C's payment letter on your next planned city visit, then return here for the reward quest. The payment may not be available immediately; do not repeat the infiltration just because the reward has not appeared."] = "Deja el ojo en {object:410369} cerca de Piroleña. Revisa el buzón de una capital en tu próxima visita planeada para ver la carta de pago de C, y luego vuelve aquí para la misión de recompensa. Puede que el pago no esté disponible enseguida; no repitas la infiltración solo porque la recompensa todavía no apareció.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

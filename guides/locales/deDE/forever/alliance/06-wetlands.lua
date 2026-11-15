@@ -312,9 +312,9 @@ return {
 	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "Das Lager der Verlassenen liegt im Wald südlich von {area:2358}.\nRostige Truhen liegen rund um die Shadethicket-Furbolglager westlich der Verlassenen; öffne sie, bis eine den Knauf enthält.\nVorsicht: Nicht-Elite-Verlassene von etwa Stufe 28-30 bewachen das Lager. Einige von ihnen sind getarnt, und die am Tisch greifen oft gemeinsam an.",
 
 	-- Step 57: Fallen Sky Lake
-	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
+	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant (no name in this language: may be words)
 	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "Das {npc:3931} läuft am Ufer von {quest:1035} entlang, südwestlich der Truhen; der {object:669176} liegt nördlich des Sees, auf dem Weg dorthin.\nVorsicht: Weitere Mobs, einige davon unter Wasser, stehen in der Nähe der Insel. Räum sie zuerst weg, damit sie nicht in den Kampf eingreifen, wenn du das Orakel ziehst.",
-	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
+	-- {object:669176} Gleaming Crescent Pendant (no name in this language: may be words) · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: für {npc:3961} in {area:415}",
 
 	-- Step 58: Satyrnaar

@@ -403,7 +403,7 @@ return {
 
 	-- Step 82: The Fire Spirit Stone
 	["The Fire Spirit Stone"] = "A Pedra do Espírito de Fogo",
-	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember · {object:61934} Brazier of the Dormant Flame
+	-- {npc:257808} Braldir Ashmantle · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember · {object:61934} Brazier of the Dormant Flame (no name in this language: may be words)
 	["{npc:257808} gives you the {item:6636}. Climb to the peak above his camp, drink the Sapta beside the Spirit Stone and defeat the {npc:5893}, then place its {item:6655} in the {object:61934}, atop the Shrine of Eternal Flame."] = "{npc:257808} lhe dá a {item:6636}. Suba ao pico acima do acampamento dele, beba a Sapta ao lado da Pedra Espiritual e derrote a {npc:5893}, depois coloque a {item:6655} dela no {object:61934}, no alto do Santuário da Chama Eterna.",
 	-- {item:6636} Fire Sapta
 	["{item:6636}, beside the Spirit Stone"] = "{item:6636}, ao lado da Pedra Espiritual",
@@ -483,9 +483,9 @@ return {
 	["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}, o mestre de grifos onde você pousou",
 
 	-- Step 94: Tinker Town
-	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)
+	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages (no name in this language: may be words) · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)
 	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "A leste da {object:32372}, até {object:171524}: {object:660964} ficam junto à caixa de correio de lá. A partir daqui, o guia dá uma volta pela cidade: ao norte até {object:32383}, a oeste até {object:32362}, ao sul pelo Commons até {object:171709}, a leste por {object:32359} e de volta a {object:171524} para pegar o metrô.",
-	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
+	-- {object:660964} Misplaced Packages (no name in this language: may be words) · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}, perto da caixa de correio na {object:171524}",
 
 	-- Step 95: Forlorn Cavern

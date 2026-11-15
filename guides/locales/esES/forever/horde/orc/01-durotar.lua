@@ -88,7 +88,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "Los acechadores viles recorren la ladera bajo la cueva, en el lado norte del valle.",
 
 	-- Step 16: Back to the Den
-	-- {object:654925} Lost Journal
+	-- {object:654925} Lost Journal (no name in this language: may be words)
 	["the {object:654925} on the ground beside her"] = "{object:654925}, en el suelo a su lado",
 
 	-- Step 17: Call of Earth
@@ -137,28 +137,28 @@ return {
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: para {npc:5943}",
 
 	-- Step 24: Camping 101: Skinning
-	-- {npc:265809} Brakk · {npc:7088} Thuwd
-	["{npc:265809}: for {npc:7088}"] = "{npc:265809}: para {npc:7088}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Thuwd"] = "",
 
 	-- Step 25: Camping 101: Leatherworking
-	-- {npc:265809} Brakk · {npc:3365} Karolek
-	["{npc:265809}: for {npc:3365}"] = "{npc:265809}: para {npc:3365}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Karolek"] = "",
 
 	-- Step 26: Camping 101: Tailoring
-	-- {npc:265809} Brakk · {npc:2855} Snang
-	["{npc:265809}: for {npc:2855}"] = "{npc:265809}: para {npc:2855}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Snang"] = "",
 
 	-- Step 27: Camping 101: Herbalism
-	-- {npc:265809} Brakk · {npc:3404} Jandi
-	["{npc:265809}: for {npc:3404}"] = "{npc:265809}: para {npc:3404}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jandi"] = "",
 
 	-- Step 28: Camping 101: Enchanting
-	-- {npc:265809} Brakk · {npc:11066} Jhag
-	["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jhag"] = "",
 
 	-- Step 29: Camping 101: Alchemy
-	-- {npc:265809} Brakk · {npc:11046} Whuut
-	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Whuut"] = "",
 
 	-- Step 30: Razor Hill
 	-- {npc:266940} Turroc
@@ -387,4 +387,10 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Con {skill:202} aprendida, {npc:265809} también ofrece su Acampada 101: la recoge {npc:11025}, en {area:362}.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Con {skill:333} aprendido, {npc:265809} también ofrece su Acampada 101: la recoge {npc:11066}, en {zone:1454} (siguiente guía).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Con {skill:393} aprendido, {npc:265809} también ofrece su Acampada 101: la recoge {npc:7088}, en {zone:1454} (siguiente guía).",
+	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
+	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",
+	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: para {npc:2855}",
+	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: para {npc:3365}",
+	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: para {npc:3404}",
+	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: para {npc:7088}",
 }

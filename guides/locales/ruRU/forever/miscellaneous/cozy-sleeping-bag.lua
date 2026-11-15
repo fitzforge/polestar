@@ -47,13 +47,13 @@ return {
 	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "Путь из зоны {zone:1413} в Когтистые горы проходит через {area:1702}, а дорога дальше к холмам – мимо мест {area:2539} и {area:460}: все это заставы Орды. Лучше зайдите с севера. Если у вас есть маршрут полета ({area:467}), летите туда и идите по дороге на юг. Иначе летите сюда: {area:415}, и идите на юго-запад: {area:1276}, туннель из зоны {zone:1440} в Когтистые горы.",
 
 	-- Step 7: Stonetalon Mountains
-	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
 	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
 	["Path into the hills"] = "",
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "",
-	-- {object:424012} Mound of Dirt
+	-- {object:424012} Mound of Dirt (no name in this language: may be words)
 	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
 
 	-- Step 9: Tarren Mill on the way

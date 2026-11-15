@@ -228,7 +228,7 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "Merodeadores, {npc:3452} y {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
 	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Los merodeadores de la sabana están al oeste y al norte del Cruce. {quest:876} dirige a las arpías Alabruja del extremo noroeste. Luego {npc:3338} te da el {item:10327}: sóplalo junto a los huesos de kodo de {object:147524}, al norte del pueblo, y mata al león blanco.",
 
@@ -328,7 +328,7 @@ return {
 	["{quest:4721}: 300 {faction:76} reputation."] = "{quest:4721}: 300 de reputación con {faction:76}.",
 
 	-- Step 54: Belgrom Rockmaul: Betrayed
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave · {quest:3504} Betrayed
 	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} está en {object:172958}, afuera de {object:173084}. Las dos primeras misiones de {quest:3504} son de nivel 53 y también pagan completo a 60, como toda misión en Forever.",
 
 	-- Step 55: Valormok

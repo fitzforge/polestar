@@ -32,9 +32,9 @@ return {
 	["Speak with the {quest:5929}"] = "Fale com o {quest:5929}",
 
 	-- Step 7: The Moonkin Stone
-	-- {object:177525} Moonkin Stone
+	-- {object:177525} Moonkin Stone (no name in this language: may be words)
 	["The {object:177525}"] = "A {object:177525}",
-	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
+	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone (no name in this language: may be words) · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "Voe de {area:702} para {area:442}. A {object:177525} fica dentro da caverna luniscante mais perto, a leste da vila: a do norte, entre duas cavernas pequenas de pedras empilhadas onde a estrada de {area:442} encontra a estrada principal norte-sul. Luniscantes (nível 11-13) ficam do lado de fora e a caverna está vazia: passe de fininho por eles. Use a {item:15208} junto à pedra: Lunagarra (nível 12-13) vem andando até você e fica três minutos. Mate-a, depois fale com o {npc:12144} que aparece e peça a força do corpo e do coração dela: a conversa é que conta. A Lunagarra de outro druida também dá o espírito para você.",
 
 	-- Step 8: Body and Heart
@@ -58,7 +58,7 @@ return {
 	["Speak with the {quest:5930}"] = "Fale com o {quest:5930}",
 
 	-- Step 13: The Moonkin Stone
-	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
+	-- {object:177525} Moonkin Stone (no name in this language: may be words) · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
 	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "A {object:177525} fica em {zone:1413}, logo a sudoeste de {area:378}, junto à estrada que sai de {zone:1412}. Cabeças-de-trovão de nível 20 andam por perto: limpe o caminho antes. Use o {item:15710} junto à pedra: Lunagarra (nível 12-13) aparece por três minutos. Mate-a, depois fale com o {npc:12144} que aparece e peça a força do corpo e do coração dela: a conversa é que conta. Morreu na luta? A Lunagarra fica junto à pedra: volte correndo e termine o serviço.",
 
 	-- Step 14: Body and Heart

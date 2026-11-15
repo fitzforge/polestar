@@ -88,7 +88,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "Les Traqueurs corrompus parcourent la pente sous la grotte, du côté nord de la vallée.",
 
 	-- Step 16: Back to the Den
-	-- {object:654925} Lost Journal
+	-- {object:654925} Lost Journal (no name in this language: may be words)
 	["the {object:654925} on the ground beside her"] = "le {object:654925} par terre à côté d'elle",
 
 	-- Step 17: Call of Earth
@@ -137,28 +137,28 @@ return {
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809} : pour {npc:5943}",
 
 	-- Step 24: Camping 101: Skinning
-	-- {npc:265809} Brakk · {npc:7088} Thuwd
-	["{npc:265809}: for {npc:7088}"] = "{npc:265809} : pour {npc:7088}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Thuwd"] = "",
 
 	-- Step 25: Camping 101: Leatherworking
-	-- {npc:265809} Brakk · {npc:3365} Karolek
-	["{npc:265809}: for {npc:3365}"] = "{npc:265809} : pour {npc:3365}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Karolek"] = "",
 
 	-- Step 26: Camping 101: Tailoring
-	-- {npc:265809} Brakk · {npc:2855} Snang
-	["{npc:265809}: for {npc:2855}"] = "{npc:265809} : pour {npc:2855}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Snang"] = "",
 
 	-- Step 27: Camping 101: Herbalism
-	-- {npc:265809} Brakk · {npc:3404} Jandi
-	["{npc:265809}: for {npc:3404}"] = "{npc:265809} : pour {npc:3404}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jandi"] = "",
 
 	-- Step 28: Camping 101: Enchanting
-	-- {npc:265809} Brakk · {npc:11066} Jhag
-	["{npc:265809}: for {npc:11066}"] = "{npc:265809} : pour {npc:11066}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jhag"] = "",
 
 	-- Step 29: Camping 101: Alchemy
-	-- {npc:265809} Brakk · {npc:11046} Whuut
-	["{npc:265809}: for {npc:11046}"] = "{npc:265809} : pour {npc:11046}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Whuut"] = "",
 
 	-- Step 30: Razor Hill
 	-- {npc:266940} Turroc
@@ -400,6 +400,12 @@ return {
 	-- ["{item:4892} along the way to {area:367}"] = "{item:4892} sur le chemin de {area:367}",
 	-- ["{item:4892} on the way"] = "{item:4892} en chemin",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809} campe juste au sud de {area:362}. Asseyez-vous près de son feu de camp (/sit) jusqu'à ce que l'effet {spell:1229451} apparaisse.",
+	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809} : pour {npc:11046}",
+	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809} : pour {npc:11066}",
+	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809} : pour {npc:2855}",
+	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809} : pour {npc:3365}",
+	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809} : pour {npc:3404}",
+	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809} : pour {npc:7088}",
 	-- ["{npc:266849} along the way to {area:362}"] = "{npc:266849} sur le chemin de {area:362}",
 	-- ["{npc:266850} along the way to {area:362}"] = "{npc:266850} sur le chemin de {area:362}",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} ({zone:1411}) ; {area:362} n'a pas de maître des mages",

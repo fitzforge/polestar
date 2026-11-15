@@ -11,7 +11,7 @@ return {
 	["A robe at 15 for Horde mages, from the {zone:1458} and {zone:1421}."] = "호드 마법사를 위한 15레벨 로브, {zone:1458}와(과) {zone:1421}에서.",
 
 	-- Step 1: Uthel'nay (Orgrimmar)
-	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
+	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {object:172961} Valley of Spirits · {zone:1420} Tirisfal Glades
 	["{npc:7311} is one of {zone:1454}'s mage trainers, in {object:173161} in the {object:172961}. Then take the zeppelin to {zone:1420} from the tower outside {zone:1454}'s main gate."] = "{npc:7311}은(는) {zone:1454}의 마법사 상급자 중 하나로, {object:172961}의 {object:173161}에 있습니다. 그런 다음 {zone:1454} 정문 밖 탑에서 비행선을 타고 {zone:1420}(으)로 가세요.",
 
 	-- Step 2: Cain Firesong (Brill)

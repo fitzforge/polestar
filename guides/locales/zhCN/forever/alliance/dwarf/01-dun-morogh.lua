@@ -506,9 +506,9 @@ return {
 	["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}，落地处的狮鹫管理员",
 
 	-- Step 96: Tinker Town
-	-- {object:32372} Great Forge · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {object:171709} High Seat · {object:32359} Military Ward
+	-- {object:32372} Great Forge · {object:171524} Tinker Town · {object:660964} Misplaced Packages (no name in this language: may be words) · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {object:171709} High Seat · {object:32359} Military Ward
 	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "从 {object:32372} 向东进入 {object:171524}：{object:660964} 在那里的邮箱旁。接下来按指南绕城一圈：向北到 {object:32383}，向西到 {object:32362}，向南穿过平民区到 {object:171709}，再向东穿过 {object:32359}，回到 {object:171524} 乘坐地铁。",
-	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
+	-- {object:660964} Misplaced Packages (no name in this language: may be words) · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}，在{object:171524}的邮箱旁",
 
 	-- Step 97: Forlorn Cavern

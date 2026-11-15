@@ -47,13 +47,13 @@ return {
 	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "{zone:1413}进入石爪山脉的路要经过{area:1702}，继续通往山区的道路则经过{area:2539}和{area:460}：全是部落据点。改从北边进入。如果有{area:467}的飞行路线，就飞过去再沿道路向南走。否则飞往{area:415}，向西南步行到{area:1276}，也就是从{zone:1440}通往石爪山脉的隧道。",
 
 	-- Step 7: Stonetalon Mountains
-	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
 	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "下一个藏身处位于 {zone:1442} 中部、{area:460} 西北方山丘中的小营地。从向西上山的小路离开主路，沿小路到达营地；{object:424005} 就在帐篷旁的箱子上。",
 	["Path into the hills"] = "上山小径",
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "向北一百步",
-	-- {object:424012} Mound of Dirt
+	-- {object:424012} Mound of Dirt (no name in this language: may be words)
 	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "向北穿过营地，小心沿陡坡下到下方岩台上的{object:424012}。跳偏只会滑到下面：贴着崖壁绕路走回上方即可。",
 
 	-- Step 9: Tarren Mill on the way

@@ -42,7 +42,7 @@ return {
 	["{npc:6266} stands by {npc:6251}'s tower on the hill above {area:392}, behind the engineers' hut. She takes the robe, then sends the gold bar to {npc:2670} in {area:35}."] = "{npc:6266} 站在 {area:392} 上方山坡上、工程师小屋后面的 {npc:6251} 高塔旁。她会收下长袍，然后让你把金锭送给 {area:35} 的 {npc:2670}。",
 
 	-- Step 7: Xizk Goodstitch
-	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities (no name in this language: may be words) · {item:3577} Gold Bar
+	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities · {item:3577} Gold Bar
 	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "从 {area:392} 出发的船驶往 {area:35}。{npc:2670} 在镇内上层经营 {object:59851}。将 {item:3577} 交给他；他稍后会纺好线。",
 
 	-- Step 8: Back to Menara Voidrender

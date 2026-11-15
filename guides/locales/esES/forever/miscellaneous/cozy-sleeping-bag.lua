@@ -47,13 +47,13 @@ return {
 	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "La entrada de {zone:1413} a Sierra Espolón pasa por {area:1702}, y el camino que sigue hacia las colinas pasa por {area:2539} y {area:460}: todos puestos de la Horda. Entra por el norte. Con la ruta de vuelo de {area:467}, vuela allí y sigue el camino al sur. Si no, vuela a {area:415} y camina al suroeste hasta {area:1276}, el túnel de {zone:1440} a Sierra Espolón.",
 
 	-- Step 7: Stonetalon Mountains
-	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
 	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
 	["Path into the hills"] = "",
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "",
-	-- {object:424012} Mound of Dirt
+	-- {object:424012} Mound of Dirt (no name in this language: may be words)
 	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
 
 	-- Step 9: Tarren Mill on the way

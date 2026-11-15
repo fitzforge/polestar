@@ -122,8 +122,8 @@ return {
 	-- Step 23: Theramore Expeditionary Force to Exalted
 	-- {faction:2799} Theramore Expeditionary Force
 	["{faction:2799} to Exalted"] = "{faction:2799} bis Ehrfürchtig",
-	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271936} Guerrilla's Jagged Mace · {item:271932} Insurgent's Manifesto
-	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "Von Respektvoll bis Ehrfürchtig sind es 21000 Ruf, die Hälfte des Aufstiegs. Respektvoll öffnet die Waffen für die Stufen 28, 38, 48 und 58: {item:271924} (Zweihandaxt), {item:271928} (Dolch), {item:271936} und {item:271932} (Nebenhand), 1g44s bis 37g15s.",
+	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
+	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Revered rewards"] = "{npc:263569}: Belohnungen bei Respektvoll",
 
@@ -132,4 +132,7 @@ return {
 	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:271940}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276504} comes from a short questline that Exalted opens here."] = "Ehrfürchtig gibt den Vermächtnispunkt „Master of Darkspear Islands“ und öffnet die Epics: Handschuhe in Platte, Kette, Leder und Stoff für die Stufen 50 und 60 ({item:271940}, Gloves, Handguards und Handwraps, 3g94s bis 15g16s) und Schultern der Stufe 60 in jeder Rüstungsart ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads und Shoulderguards, 9g44s bis 16g86s). Das {item:276504} stammt aus einer kurzen Questreihe, die Ehrfürchtig hier öffnet.",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Exalted rewards"] = "{npc:263569}: Belohnungen bei Ehrfürchtig",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "Von Respektvoll bis Ehrfürchtig sind es 21000 Ruf, die Hälfte des Aufstiegs. Respektvoll öffnet die Waffen für die Stufen 28, 38, 48 und 58: {item:271924} (Zweihandaxt), {item:271928} (Dolch), {item:271936} und {item:271932} (Nebenhand), 1g44s bis 37g15s.",
 }

@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: The shrine of An'she and Mu'sha
 	["The shrine of An'she and Mu'sha"] = "Der Schrein von An'she und Mu'sha",
-	-- {object:660739} Ritual Fire
+	-- {object:660739} Ritual Fire (no name in this language: may be words)
 	["The incense burns out in ten minutes: run straight east along the southern hills to the {object:660739}."] = "Der Weihrauch brennt in zehn Minuten ab: Lauf an den südlichen Hügeln entlang direkt nach Osten zum {object:660739}.",
 
 	-- Step 8: Grull Hawkwind

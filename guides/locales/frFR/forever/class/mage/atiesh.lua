@@ -39,9 +39,9 @@ return {
 	-- Step 5: Atiesh, Hand of Sargeras
 	-- {npc:16387} Atiesh
 	["{npc:16387}, Hand of Sargeras"] = "{npc:16387}, Main de Sargeras",
-	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane (no name in this language: may be words) · {object:181206} Consecrated Earth (no name in this language: may be words) · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
+	-- {area:2279} Stratholme · {zone:1423} Eastern Plaguelands · {object:175433} Festival Lane · {object:181206} Consecrated Earth · {npc:16387} Atiesh · {spell:17466} Unholy Aura · {spell:28342} Breath of Sargeras
 	["Take the befouled staff to {area:2279}, the dungeon at the north end of {zone:1423}, through the main gate. On {object:175433} find the patch of {object:181206} with a small white flame on it, stand on it and use the staff: {npc:16387}, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his {spell:17466} hurts everyone and cannot be dispelled (shadow resistance helps), his {spell:28342} curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup."] = "Apportez le bâton souillé à {area:2279}, le donjon à l'extrémité nord des {zone:1423}, par la porte principale. Dans l'allée du Festival, trouvez la parcelle de Terre consacrée où brûle une petite flamme blanche, placez-vous dessus et utilisez le bâton : {npc:16387}, Main de Sargeras (boss de niveau 63), apparaît. Venez avec un groupe solide : son {spell:17466} blesse tout le monde et ne peut pas être dissipé (la résistance à l'Ombre aide), sa malédiction {spell:28342} doit être retirée immédiatement, et le Désarmement d'un guerrier lui fait lâcher son épée, qu'un joueur de mêlée peut ramasser et utiliser contre lui. Il reste jusqu'à deux heures et demie, vous pouvez donc vous regrouper.",
-	-- {object:181206} Consecrated Earth (no name in this language: may be words) · {area:2279} Stratholme
+	-- {object:181206} Consecrated Earth · {area:2279} Stratholme
 	["the befouled staff, on the {object:181206} inside {area:2279}"] = "le bâton souillé, sur la Terre consacrée à l'intérieur de {area:2279}",
 
 	-- Step 6: The Greatstaff

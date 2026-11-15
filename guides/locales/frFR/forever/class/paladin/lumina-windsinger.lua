@@ -23,9 +23,9 @@ return {
 	-- Step 3: The pyre on Fenris Isle
 	-- {area:172} Fenris Isle
 	["The pyre on {area:172}"] = "Le bûcher de {area:172}",
-	-- {area:172} Fenris Isle · {area:228} Sepulcher · {object:566037} Charred Remains
+	-- {area:172} Fenris Isle · {area:228} Sepulcher · {object:566037} Charred Remains (no name in this language: may be words)
 	["{area:172} lies in the lake north-east of the {area:228}. The gnolls' pyre, with the {object:566037}, is on its shore: click the remains to hand in, and click them again for the next quest. The body is a tauren's, not the elf's."] = "L'{area:172} se trouve dans le lac au nord-est du {area:228}. Le bûcher des gnolls, avec les {object:566037}, est sur sa rive : cliquez sur les restes pour rendre la quête, puis cliquez de nouveau dessus pour la quête suivante. Le corps est celui d'un tauren, pas celui de l'elfe.",
-	-- {object:566037} Charred Remains
+	-- {object:566037} Charred Remains (no name in this language: may be words)
 	["from the {object:566037}"] = "sur {object:566037}",
 
 	-- Step 4: Fenris Keep

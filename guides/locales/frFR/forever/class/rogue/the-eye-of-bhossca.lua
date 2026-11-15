@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "La boîte aux lettres de C",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "La prochaine mission de C arrive par lettre : une fois au niveau 30 et la mission du cor faite, rendez-vous dans n'importe quelle capitale et la lettre de C arrive dans la boîte aux lettres ; c'est seulement alors que l'{object:410369} près de {area:204}, dans le sud de Silverpine juste au sud de {area:236}, la propose. Les données de quête indiquent un minimum de 25, mais les joueurs reçoivent la lettre, et la mission, au niveau 30.",
 
 	-- Step 2: The Scarlet Monastery
@@ -25,7 +25,7 @@ return {
 
 	-- Step 3: Back to the dead drop
 	["Back to the dead drop"] = "Retour à la boîte aux lettres",
-	-- {object:410369} Dead Drop
+	-- {object:410369} Dead Drop (no name in this language: may be words)
 	["Place the eye in the {object:410369} near Pyrewood. Check a capital mailbox for C's payment letter on your next planned city visit, then return here for the reward quest. The payment may not be available immediately; do not repeat the infiltration just because the reward has not appeared."] = "Déposez l'œil dans la {object:410369} près de Bois-du-Bûcher. Vérifiez une boîte aux lettres de capitale pour la lettre de paiement de C lors de votre prochaine visite prévue en ville, puis revenez ici pour la quête de récompense. Le paiement peut ne pas être disponible tout de suite ; ne refaites pas l'infiltration simplement parce que la récompense n'est pas encore apparue.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

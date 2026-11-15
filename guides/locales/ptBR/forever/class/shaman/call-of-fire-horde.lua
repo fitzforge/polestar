@@ -79,9 +79,9 @@ return {
 	["{item:6636}, beside the {object:63674}"] = "{item:6636}, ao lado do {object:63674}",
 
 	-- Step 15: The Brazier of the Dormant Flame
-	-- {object:61934} Brazier of the Dormant Flame
+	-- {object:61934} Brazier of the Dormant Flame (no name in this language: may be words)
 	["The {object:61934}"] = "{object:61934}",
-	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
+	-- {object:61934} Brazier of the Dormant Flame (no name in this language: may be words) · {item:277329} Torch of Eternal Flame
 	["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "Clique em {object:61934}, no platô, com a tocha nas suas bolsas, para colocar a brasa, e depois clique uma segunda vez: a próxima missão não abre sozinha. Ela entrega {item:277329} acesa a você.",
 
 	-- Step 16: Kranal Fiss

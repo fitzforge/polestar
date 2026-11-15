@@ -36,7 +36,7 @@ return {
 	["Grizzled Scalps"] = "불곰 가죽",
 
 	-- Step 6: The Master's Glaive
-	-- {object:12666} Twilight Tome · {npc:3584} Therylune · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
+	-- {object:12666} Twilight Tome (no name in this language: may be words) · {npc:3584} Therylune · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다. {quest:948}의 퀘스트는 구덩이 바닥에서 {item:5251}을(를) 사용하십시오: {object:10076}이(가) 나타나며, 퀘스트는 그 그릇에 제출합니다.",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
@@ -47,9 +47,9 @@ return {
 	["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "신도나 암살단원이 {item:5352}을(를) 떨어뜨렸을 때만: 오른쪽 클릭하십시오",
 	-- {object:10076} Scrying Bowl
 	["The {object:10076}"] = "{object:10076}",
-	-- {object:12666} Twilight Tome
+	-- {object:12666} Twilight Tome (no name in this language: may be words)
 	["The {object:12666}"] = "{object:12666}",
-	-- {object:12666} Twilight Tome · {quest:949} The Twilight Camp
+	-- {object:12666} Twilight Tome (no name in this language: may be words) · {quest:949} The Twilight Camp
 	["The {object:12666}, once it has {quest:949}"] = "",
 	-- {item:279279} Peerless Eye
 	-- plural, as words: Twilight Disciples = {npc:2338} Twilight Disciple

@@ -13,7 +13,7 @@ return {
 	-- Step 1: The Strange Orb
 	-- {object:409289} Strange Orb (no name in this language: may be words)
 	["The {object:409289}"] = "{object:409289}",
-	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth
+	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
 	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "Montez au sommet de la {area:444}, dans le nord de {zone:1439}. Les Fanatiques de la Rive noire alentour sont faciles (niveau 16-17), mais quatre Anéantisseurs de la Rive noire (niveau 28-29) se tiennent dans la tour sur le chemin de l'orbe : chacun appelle un marcheur du Vide et lance {spell:686} à distance. Aux niveaux 22-25, venez avec un ou deux amis, attirez-les un par un et placez-vous derrière un mur pour qu'ils viennent à vous. Fouillez {object:409289} au sommet : il vous donne {item:209748} ; faites un clic droit dessus pour lancer la quête. Gardez l'orbe dans vos sacs jusqu'à la {object:409311} : trois quêtes suivantes en ont besoin.",
 	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
@@ -47,11 +47,11 @@ return {
 	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "Le {area:435} se trouve dans le sud-est d'{zone:1440}, à l'est d'{area:431} (un camp de la Horde : contournez-le). Les Flagellantes de Mannoroc, Infernaux incendiaires, Gangregardes et Molosses de la Légion (niveau 29-30, non élites) laissent tomber les Granules de Mannoroth ; il vous en faut 12. En dessous du niveau 27 environ, ils sont durs en solo : venez avec un autre joueur ou plus tard. Les Gangregardes vous renversent, les Flagellantes lancent {spell:686} et {spell:348}, les Infernaux gardent un bouclier de feu. Ils réapparaissent en cinq minutes.",
 
 	-- Step 8: The Spear of Mannoroth
-	-- {object:409311} Spear of Mannoroth
+	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	["The {object:409311}"] = "{object:409311}",
-	-- {object:409311} Spear of Mannoroth · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb
+	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb (no name in this language: may be words)
 	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "La {object:409311} se dresse à l'extrémité est du {area:435}. Rendez les granules à la lance avec {item:209748} dans vos sacs : l'orbe se brise, et l'{object:409315} à côté lance la dernière quête.",
-	-- {object:409315} Shattered Orb
+	-- {object:409315} Shattered Orb (no name in this language: may be words)
 	["from the {object:409315}"] = "sur l'{object:409315}",
 
 	-- Step 9: Return to Delgren

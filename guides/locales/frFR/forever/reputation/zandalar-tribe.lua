@@ -27,7 +27,7 @@ return {
 	["{item:19707}; any of the nine colours does"] = "{item:19707} ; n'importe laquelle des neuf couleurs convient",
 
 	-- Step 3: A Bijou for Zanza
-	-- {object:180367} Altar of Zanza (no name in this language: may be words) · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
+	-- {object:180367} Altar of Zanza · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
 	["Destroy one bijou at the {object:180367}, the stone altar on the west side of {area:3357} (right-click the bijou there), then tell {npc:15070}: 150 reputation and an extra {item:19858}, once. From then on every bijou you destroy at the altar pays 75 reputation and a token, and every set of three coins {npc:15070} takes pays 25 and a token. They never stop counting."] = "Détruisez un bijou à l'autel de Zanza, l'autel de pierre sur le côté ouest de l'{area:3357} (clic droit sur le bijou à cet endroit), puis prévenez {npc:15070} : 150 de réputation et une {item:19858} en plus, une seule fois. Ensuite, chaque bijou détruit à l'autel rapporte 75 de réputation et une marque, et chaque lot de trois pièces que prend {npc:15070} rapporte 25 et une marque. Ils comptent toujours.",
 
 	-- Step 4: Friendly: your class necklace

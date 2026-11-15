@@ -88,7 +88,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "Os Espreitadores Vis vagam pela encosta abaixo da caverna, no lado norte do vale.",
 
 	-- Step 16: Back to the Den
-	-- {object:654925} Lost Journal
+	-- {object:654925} Lost Journal (no name in this language: may be words)
 	["the {object:654925} on the ground beside her"] = "o {object:654925} no chão ao lado dela",
 
 	-- Step 17: Call of Earth
@@ -137,28 +137,28 @@ return {
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: para {npc:5943}",
 
 	-- Step 24: Camping 101: Skinning
-	-- {npc:265809} Brakk · {npc:7088} Thuwd
-	["{npc:265809}: for {npc:7088}"] = "{npc:265809}: para {npc:7088}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Thuwd"] = "",
 
 	-- Step 25: Camping 101: Leatherworking
-	-- {npc:265809} Brakk · {npc:3365} Karolek
-	["{npc:265809}: for {npc:3365}"] = "{npc:265809}: para {npc:3365}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Karolek"] = "",
 
 	-- Step 26: Camping 101: Tailoring
-	-- {npc:265809} Brakk · {npc:2855} Snang
-	["{npc:265809}: for {npc:2855}"] = "{npc:265809}: para {npc:2855}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Snang"] = "",
 
 	-- Step 27: Camping 101: Herbalism
-	-- {npc:265809} Brakk · {npc:3404} Jandi
-	["{npc:265809}: for {npc:3404}"] = "{npc:265809}: para {npc:3404}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jandi"] = "",
 
 	-- Step 28: Camping 101: Enchanting
-	-- {npc:265809} Brakk · {npc:11066} Jhag
-	["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jhag"] = "",
 
 	-- Step 29: Camping 101: Alchemy
-	-- {npc:265809} Brakk · {npc:11046} Whuut
-	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Whuut"] = "",
 
 	-- Step 30: Razor Hill
 	-- {npc:266940} Turroc
@@ -393,5 +393,11 @@ return {
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Com {skill:333} aprendido, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:11066}, em {zone:1454} (próximo guia).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Com {skill:393} aprendida, {npc:265809} também oferece a Introdução ao acampamento dessa profissão: entregue-a a {npc:7088}, em {zone:1454} (próximo guia).",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "{npc:265809} acampa logo ao sul de {area:362}. Sente na fogueira dele (/sit) até aparecer o bônus {spell:1229451}.",
+	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
+	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",
+	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: para {npc:2855}",
+	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: para {npc:3365}",
+	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: para {npc:3404}",
+	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: para {npc:7088}",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} em {zone:1411}; {area:362} não tem instrutor de mago",
 }

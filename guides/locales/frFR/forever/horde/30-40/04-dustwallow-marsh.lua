@@ -152,7 +152,7 @@ return {
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["Head south-east to the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge. Use the {item:15848} at the arrow to draw the Magrami Spectres: they drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "Allez vers le sud-est jusqu'aux champs d'ossements de {area:2657}, où rôdent des Ravageurs morts-vivants, à la limite sud de {zone:1443}. Utilisez la {item:15848} à la flèche pour attirer les Spectres magrami : ils laissent tomber l'ectoplasme.\nAttention : des Nécrokhans magram et des Mange-cadavres (45, élites) parcourent les champs d'ossements juste à l'ouest de la flèche, bien au-dessus de vous : utilisez la caisse à la flèche, du côté est de la vallée, et attirez les spectres loin d'eux.",
 
 	-- Step 32: Hornizz Brimbuzzle

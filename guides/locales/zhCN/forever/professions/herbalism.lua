@@ -9,15 +9,15 @@ return {
 	-- Step 1: Learn Herbalism
 	-- {skill:182} Herbalism
 	["Learn {skill:182}"] = "学习{skill:182}",
-	-- {skill:182} Herbalism · {spell:2383} Find Herbs · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {item:11584} Cactus Apple Surprise · {item:247841} Wild Harvest · {item:277113} Apprentice's Herb Pouch · {spell:1229705} Incense Candle
+	-- {skill:182} Herbalism · {spell:2383} Find Herbs · {object:656160} Wilted Peacebloom · {object:656161} Stunted Silverleaf · {item:11584} Cactus Apple Surprise · {item:247841} Wild Harvest · {item:277113} Apprentice's Herb Pouch · {spell:1229705} Incense Candle
 	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} at any level (10c), and so does the Junior Herbalism Trainer in each starting area; the arrow picks the nearest. Turn on {spell:2383} (spellbook, General tab) so herbs show on the minimap. Forever's starting areas also have {object:656160} and {object:656161} (skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247841} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors sell the {item:277113}, a four-slot bag for herbs (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:182}: hand it in to the herbalism trainer it names once you reach skill 20, for the {spell:1229705} recipe."] = "本阵营的任意 {skill:182} 训练师都能在任何角色等级教授初级 {skill:182}（10铜币），各起始地区的初级草药学训练师也一样；箭头会选择最近的一位。开启 {spell:2383}（法术书的综合分页），让草药显示在微缩地图上。无限服起始地区还有 {object:656160} 和 {object:656161}（技能1）。各起始地区最初一小时内的任务（鼠辈泛滥、寒脊山谷的送信任务、森林守护者、高尔加的 {item:11584}、一件琐事、玛拉的遗愿）会提供奖励 {item:247841}：阅读后增加2点技能，最高可到15。杂货商出售 {item:277113}，这是四格草药包（25铜币）。如果你曾为“广阔天地”坐在起始地区的营火旁，那里的露营向导还会提供露营 101：{skill:182}：技能达到20后，将其交还给任务指定的草药学训练师，获得 {spell:1229705} 配方。",
 
 	-- Step 2: Peacebloom & Silverleaf: Elwynn Forest (1-50)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf · {object:656160} Wilted Peacebloom · {item:2449} Earthroot · {skill:182} Herbalism
 	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "沿途遇到的 {item:2447}（1，橙色）、{item:765}（1，橙色）、{object:656161}（1，橙色）、{object:656160}（1，橙色）和 {item:2449}（15 起）都采，沿路径点循环，直到 {skill:182} 50。地区等级 1-10。提升这 49 点预计需要采约 60 株草药。",
 
 	-- Step 4: Peacebloom & Silverleaf: Teldrassil (1-50)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf · {object:656160} Wilted Peacebloom · {item:2449} Earthroot · {skill:182} Herbalism
 	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "采集沿途每一株 {item:2447}（1，橙色）、{item:765}（1，橙色）、{object:656161}（1，橙色，稀有）、{object:656160}（1，橙色）、{item:2449}（15起可采），沿路径点循环，直到 {skill:182} 达到50。地区等级1—10。提升这49点预计需采集约60株草药。",
 
 	-- Step 5: Peacebloom & Silverleaf: Zephras Isle (1-50)
@@ -25,7 +25,7 @@ return {
 	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-15. Expect about 60 herbs for these 49 points."] = "采集沿途每一株 {item:2447}（1，橙色）、{item:765}（1，橙色）、{item:2449}（15起可采），沿路径点循环，直到 {skill:182} 达到50。地区等级1—15。提升这49点预计需采集约60株草药。",
 
 	-- Step 7: Peacebloom & Silverleaf: Mulgore (1-50)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf · {object:656160} Wilted Peacebloom · {item:2449} Earthroot · {skill:182} Herbalism
 	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange, rare), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "采集沿途所有 {item:2447}（技能 1，橙色）、{item:765}（技能 1，橙色）、矮小的银叶草（技能 1，橙色，稀有）、枯萎的宁神花（技能 1，橙色，稀有）、{item:2449}（技能 15 起），沿路径点循环采集，直到 {skill:182} 达到 50。地区等级为 1-10 级。提升这 49 点预计需要采集约 60 株草药。",
 
 	-- Step 9: Journeyman Herbalism

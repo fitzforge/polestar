@@ -304,11 +304,11 @@ return {
 	["142 {item:4304} for {item:7933} and {item:7945}: {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this."] = "142 {item:4304} para {item:7933} e {item:7945}: {skill:393}: feras de nível 38-50. Esfole {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} e {npc:5296} aqui (nível 38-50); o guia de {skill:393} traça essa rota.",
 
 	-- Step 58: Aquamarine
-	-- {item:7909} Aquamarine · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
+	-- {item:7909} Aquamarine · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit (no name in this language: may be words)
 	["19 {item:7909} for {quest:7654}: {item:7909} turns up in about one {object:2047} or {object:123309} in 500: keep the ones you find while mining."] = "19 {item:7909} para {quest:7654}: {item:7909} aparece em cerca de um {object:2047} ou {object:123309} em 500: guarde os que encontrar ao minerar.",
 
 	-- Step 59: Star Ruby
-	-- {item:7910} Star Ruby · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
+	-- {item:7910} Star Ruby · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit (no name in this language: may be words)
 	["19 {item:7910} for {quest:7654}: {item:7910} turns up in about one {object:2047} or {object:123309} in 143: keep the ones you find while mining."] = "19 {item:7910} para {quest:7654}: {item:7910} aparece em cerca de um {object:2047} ou {object:123309} em 143: guarde os que encontrar ao minerar.",
 
 	-- Step 60: Solid Stone (Alliance)

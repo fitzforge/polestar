@@ -27,7 +27,7 @@ return {
 	["{item:19707}; any of the nine colours does"] = "{item:19707}；九种颜色中的任意一种都可以。",
 
 	-- Step 3: A Bijou for Zanza
-	-- {object:180367} Altar of Zanza (no name in this language: may be words) · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
+	-- {object:180367} Altar of Zanza · {area:3357} Yojamba Isle · {npc:15070} Vinchaxa · {item:19858} Zandalar Honor Token
 	["Destroy one bijou at the {object:180367}, the stone altar on the west side of {area:3357} (right-click the bijou there), then tell {npc:15070}: 150 reputation and an extra {item:19858}, once. From then on every bijou you destroy at the altar pays 75 reputation and a token, and every set of three coins {npc:15070} takes pays 25 and a token. They never stop counting."] = "在{object:180367}摧毁一颗宝石，那是{area:3357}西侧的石祭坛（在那里右键点击宝石），然后告诉{npc:15070}：一次性奖励150声望和一个额外的{item:19858}。此后每在祭坛摧毁一颗宝石，都奖励75声望和一枚奖章；{npc:15070}每收取一组三枚硬币，则奖励25声望和一枚奖章。这些奖励永远有效。",
 
 	-- Step 4: Friendly: your class necklace

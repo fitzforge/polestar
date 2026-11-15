@@ -47,13 +47,13 @@ return {
 	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "Von {zone:1413} aus führt der Weg ins Steinkrallengebirge durch {area:1702}, und die Straße weiter zu den Hügeln kommt an {area:2539} und {area:460} vorbei: alles Posten der Horde. Komm stattdessen von Norden. Mit der Flugroute nach {area:467} flieg dorthin und folge der Straße nach Süden. Sonst flieg nach {area:415} und geh nach Südwesten zum {area:1276}, dem Tunnel von {zone:1440} ins Steinkrallengebirge.",
 
 	-- Step 7: Stonetalon Mountains
-	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
 	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "Das nächste Versteck ist ein kleines Lager in den Hügeln nordwestlich von {area:460}, mitten im {zone:1442}. Verlasse die Straße dort, wo ein Pfad nach Westen in die Hügel führt, und folge ihm zum Lager; das {object:424005} liegt auf einer Kiste neben dem Zelt.",
 	["Path into the hills"] = "Pfad in die Hügel",
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "Hundert Schritte nach Norden",
-	-- {object:424012} Mound of Dirt
+	-- {object:424012} Mound of Dirt (no name in this language: may be words)
 	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Geh durch das Lager nach Norden und lass dich vorsichtig den steilen Hang hinab zum {object:424012} auf dem Vorsprung darunter. Ein verfehlter Sprung lässt dich nur hinunterrutschen: Halte dich an der Klippe und geh wieder hinauf.",
 
 	-- Step 9: Tarren Mill on the way

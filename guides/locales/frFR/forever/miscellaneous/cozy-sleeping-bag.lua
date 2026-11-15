@@ -47,13 +47,13 @@ return {
 	["{zone:1413}' way into Stonetalon runs through {area:1702}, and the road on to the hills passes {area:2539} and {area:460}: all Horde posts. Come in from the north instead. With the {area:467} flight path, fly there and follow the road south. Otherwise fly to {area:415} and walk south-west to the {area:1276}, the tunnel from {zone:1440} into Stonetalon."] = "L'entrée des {zone:1413} vers les Serres-Rocheuses passe par {area:1702}, et la route vers les collines passe par {area:2539} et le {area:460} : que des postes de la Horde. Arrivez plutôt par le nord. Si vous avez le trajet aérien du {area:467}, prenez un vol jusque-là et suivez la route vers le sud. Sinon, prenez un vol pour {area:415} et marchez vers le sud-ouest jusqu'au {area:1276}, le tunnel qui mène de {zone:1440} aux Serres-Rocheuses.",
 
 	-- Step 7: Stonetalon Mountains
-	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter (no name in this language: may be words)
 	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "La cachette suivante est un petit camp dans les collines au nord-ouest de {area:460}, au milieu de {zone:1442}. Quittez la route là où un sentier monte vers l'ouest dans les collines et suivez-le jusqu'au camp ; {object:424005} est posé sur une caisse à côté de la tente.",
 	["Path into the hills"] = "Sentier vers les collines",
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "Cent pas vers le nord",
-	-- {object:424012} Mound of Dirt
+	-- {object:424012} Mound of Dirt (no name in this language: may be words)
 	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Traversez le camp vers le nord et descendez prudemment la pente raide jusqu'au {object:424012} sur la corniche en contrebas. Un saut raté vous fait seulement glisser : longez la falaise et remontez à pied.",
 
 	-- Step 9: Tarren Mill on the way

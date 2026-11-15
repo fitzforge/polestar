@@ -180,10 +180,10 @@ return {
 	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Remontez la côte vers le nord, puis enfoncez-vous dans les terres jusqu'à la tour en ruine d'{area:2405} : {npc:11863} attend à l'intérieur. Les praires et les nagas de la côte viendront après {area:599}, en une seule marche vers le nord jusqu'à {area:2406}.",
 
 	-- Step 34: Thunder Axe Fortress
-	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words) · {npc:11876} Demon Spirit · {item:13542} Demon Box
+	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {quest:5381} Hand of Iruxos · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "Allez vers l'est jusqu'à {area:599}. Affaiblissez un cultiste de la Lame ardente, puis utilisez la {item:6436} sur lui avant qu'il ne meure pour remplir une {item:6435}. Le {npc:13019} se tient au dernier étage de la forteresse avec le Sceptre. Les cultistes laissent aussi parfois tomber une {item:20310} (1-5 %) ; si vous en obtenez une, lisez-la. {quest:5381} : nettoyez le centre du plus grand bâtiment, puis utilisez la {item:14523} sur le {object:176581} rouge qui s'y trouve. Un {npc:11876} (37) en sort : tuez-le pour la {item:13542}.",
 	["On the top floor"] = "Au dernier étage",
-	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
+	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
 	["{item:14523}, on the {object:176581}"] = "{item:14523}, sur le {object:176581}",
 
 	-- Step 35: Ethel Rethor
@@ -217,9 +217,9 @@ return {
 	-- Step 39: The Book of the Ancients
 	-- {quest:6027} Book of the Ancients
 	["The {quest:6027}"] = "Le {quest:6027}",
-	-- {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients · {object:177786} Rackmore's Chest
+	-- {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients · {object:177786} Rackmore's Chest
 	["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Nagez jusqu'à {area:2406}, au large de la pointe nord, et utilisez la {item:15766} sur la {object:177673} : {npc:12369} (38) surgit ; tuez-le pour obtenir le {quest:6027}. Il est bien plus fort que vous : reposez-vous d'abord. {object:177786} se trouve sur le rivage à côté de la statue : ouvrez-le avec les deux clés.",
-	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
+	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, sur la {object:177673}",
 
 	-- Step 40: Azore Aldamort

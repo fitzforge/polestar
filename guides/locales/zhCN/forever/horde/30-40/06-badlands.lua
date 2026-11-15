@@ -9,7 +9,7 @@ return {
 	-- Step 1: Into the Badlands
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "进入{zone:1418}",
-	-- {object:2673} Thandol Span (no name in this language: may be words) · {zone:1437} Wetlands · {object:1668} Dun Algaz · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
+	-- {object:2673} Thandol Span · {zone:1437} Wetlands · {object:1668} Dun Algaz · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
 	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "前往阿拉希南缘的大桥{object:2673}，过桥后沿路向南穿过{zone:1437}，经{object:1668}隧道进入{zone:1432}。{area:144}是{zone:1432}中部道路上的矮人城镇，守卫会攻击部落：到镇前离开大路，从西侧山丘绕过去。道路从{zone:1432}南侧通往{zone:1418}，沿路前往{area:1877}的地精营地。",
 
 	-- Step 2: Valley of Fangs

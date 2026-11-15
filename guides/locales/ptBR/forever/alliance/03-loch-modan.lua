@@ -304,9 +304,9 @@ return {
 	["{item:1381}: the {npc:550}"] = "{item:1381}: o {npc:550}",
 
 	-- Step 54: Half Pendant of Aquatic Endurance
-	-- {area:113} Gold Coast Quarry · {object:177790} Strange Lockbox
+	-- {area:113} Gold Coast Quarry · {object:177790} Strange Lockbox (no name in this language: may be words)
 	["Druids on Trial of the Sea Lion: from the {area:113}, west to the shore and north along it. The {object:177790} lies on the sea floor off the coast (about 18,33); then back south along the coast to the lighthouse."] = "Druidas na Missão do Leão Marinho: de {area:113}, siga para oeste até a costa e para o norte ao longo dela. O {object:177790} fica no fundo do mar, ao largo da costa (por volta de 18,33); depois volte para o sul pela costa até o farol.",
-	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
+	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox (no name in this language: may be words)
 	["{item:15882}: the {object:177790}"] = "{item:15882}: o {object:177790}",
 
 	-- Step 55: Westfall Lighthouse

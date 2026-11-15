@@ -150,29 +150,28 @@ return {
 	-- Step 32: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "{area:246} 的奴隶贩子和傀儡",
-	-- {area:1446} Thorium Point
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok."] = "从{area:1446}向南骑入大熔炉：黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶，重型作战傀儡在Velarok下方的坑底巡逻。",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "",
 
 	-- Step 33: Velarok Windblade
-	["Velarok Windblade"] = "Velarok Windblade",
-	-- {area:1446} Thorium Point
-	["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Velarok独自站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
+	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "",
 
 	-- Step 36: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427}：沿途击杀以下目标",
-	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
-	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5857} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在Velarok下方的大熔炉巡逻，掉落油；其间游荡的熔岩元素和炽热元素掉落心脏。黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶；奴隶贩子可能掉落{item:11818}，记得保留。\n灼热熔岩蜘蛛在峡谷西南部的高地和熔岩池一带游荡。\n{area:1443}的入口在大熔炉北部。熏火龙在里面的熔岩池中游动，将它们引到池边。秘密计划在矿坑上方的平台上。\n注意：黑铁奴隶贩子（45-46级）被引到时会向15码内的盟友求援，可在最远15码外施放投网，并在近战中使用撕裂。",
+	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
+	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}，稀有掉落",
 	-- {area:1443} The Slag Pit
 	["Below ground: the plans, on the {area:1443}'s upper ledge"] = "在地下：图纸在{area:1443}的上层岩架上",
 
 	-- Step 38: Thorium Point
-	-- {area:1446} Thorium Point
-	["Ride back north to {area:1446}, just past Velarok."] = "向北骑行返回{area:1446}，经过Velarok后不远就到。",
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "",
 
 	-- Step 39: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "黑铁锻造师的熔炉",
@@ -208,12 +207,15 @@ return {
 	-- ["Greater Lava Spiders"] = "灼热熔岩蜘蛛",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "重型作战傀儡在卡拉然下方的大熔炉里巡逻，掉落傀儡之油；在它们中间漂荡的熔岩元素和炽热元素掉落烈焰之心。黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶；黑铁奴隶贩子可能掉落{item:11818}：留着它。",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在卡拉然下方的大熔炉巡逻，会掉落油；其间游荡的熔岩元素和炽热元素掉落心脏。黑铁工头和黑铁奴隶贩子在各条小路上驱赶奴隶；奴隶贩子可能掉落 {item:11818}：保留它。\n灼热熔岩蜘蛛在峡谷西南部的高地和熔岩池一带游荡。\n{area:1443} 的入口位于大熔炉北部。熏火龙在其中的熔岩池里游动：将它们引到池边。秘密计划在矿坑上方的平台上。\n注意：黑铁奴隶贩子（45—46级）被引到时会向15码内的盟友求援，可在最远15码外投网，并在近战中使用撕裂。",
+	-- ["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "重型作战傀儡在Velarok下方的大熔炉巡逻，掉落油；其间游荡的熔岩元素和炽热元素掉落心脏。黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶；奴隶贩子可能掉落{item:11818}，记得保留。\n灼热熔岩蜘蛛在峡谷西南部的高地和熔岩池一带游荡。\n{area:1443}的入口在大熔炉北部。熏火龙在里面的熔岩池中游动，将它们引到池边。秘密计划在矿坑上方的平台上。\n注意：黑铁奴隶贩子（45-46级）被引到时会向15码内的盟友求援，可在最远15码外施放投网，并在近战中使用撕裂。",
 	-- ["Kalaran Windblade"] = "卡拉然·温布雷",
 	-- ["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "卡拉然独自站在{area:1446}南边，大熔炉的边缘。听他讲他的故事。",
 	-- ["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}."] = "仅当你有定位器时：OOX-17/TN在谢申克所在巢穴的东南边。护送它向北前往{area:977}；它的奖励在{area:35}的奥格索普那里。",
+	-- ["Ride back north to {area:1446}, just past Velarok."] = "向北骑行返回{area:1446}，经过Velarok后不远就到。",
 	-- ["Ride back north to {area:1446}."] = "向北骑行返回 {area:1446}。",
 	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "向北骑回{area:1446}。留在这里：下一个指南从飞往{area:75}开始。",
 	-- ["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran."] = "从 {area:1446} 向南骑行进入大熔炉：黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶，重型作战傀儡在卡拉然下方的坑底巡逻。",
+	-- ["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok."] = "从{area:1446}向南骑入大熔炉：黑铁工头和黑铁奴隶贩子在小路上驱赶奴隶，重型作战傀儡在Velarok下方的坑底巡逻。",
 	-- ["Ride south-west to {area:976}."] = "向西南骑往{area:976}。",
 	-- ["South down the road again."] = "再次沿道路向南。",
 	-- ["South-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp."] = "在加基森东南，废土强盗在沙丘里扎营；{npc:7847}站在东边的营地里。",
@@ -224,6 +226,8 @@ return {
 	-- ["The Steamsmiths' furnaces"] = "黑铁锻造师的熔炉",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "前往{area:35}的船停靠在{area:392}的码头，就在飞行管理员所在山丘的下方。",
 	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "镇中心的{object:142071}机器：蛋在{zone:1444}南部，大约50级时",
+	-- ["Velarok Windblade"] = "Velarok Windblade",
+	-- ["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Velarok独自站在{area:1446}南边的大熔炉边缘。听他讲述故事。",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "在营地西边，仙人掌生物占满了山谷；只有灌木露水收集者携带露水腺。{zone:1446}的大多数怪物都可能掉落OOX-17/TN定位器，但很少见：如果看到就留着。",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "向西，森提帕尔虫群聚集在它们的巢穴周围；任何一只都会掉落森提帕尔昆虫肢体。",
 	-- ["the {object:150075} in the square"] = "广场上的{object:150075}",

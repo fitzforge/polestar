@@ -31,7 +31,7 @@ return {
 	-- Step 5: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:3024} and {npc:4721} stand a short walk east of him."] = "{npc:2995}, le maître des coursiers du vent, se tient sur le plateau central : prenez son trajet aérien si vous ne l'avez pas. {npc:3024} et {npc:4721} se tiennent à quelques pas à l'est de lui.",
-	-- {npc:3024} Tah Winterhoof · {object:667362} Mirkweed · {area:464} Mirkfallon Lake
+	-- {npc:3024} Tah Winterhoof · {object:667362} Mirkweed (no name in this language: may be words) · {area:464} Mirkfallon Lake
 	["{npc:3024}: the {object:667362} grows in {area:464}, by Sun Rock"] = "{npc:3024} : le {object:667362} pousse dans le {area:464}, près de Roche-Soleil",
 	-- {npc:4721} Zangen Stonehoof · {zone:1440} Ashenvale
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721} : la fiole vient d'{zone:1440}, guide suivant",
@@ -217,7 +217,7 @@ return {
 	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "Les Graines de Gaea se trouvent dans l'herbe autour de la rive sud du {area:464}, au nord du Roc-Soleil.\nAttention : les Fièrailes autour du lac peuvent attaquer en groupe lié.",
 
 	-- Step 43: Mirkweed
-	-- {object:667362} Mirkweed · {area:464} Mirkfallon Lake
+	-- {object:667362} Mirkweed (no name in this language: may be words) · {area:464} Mirkfallon Lake
 	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
 	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "Le {object:667362} pousse au fond du {area:464}, au large de la même rive sud : plongez jusqu'aux plantes et aux Tas d'obscurcie séchée ; les deux donnent des cosses. Surveillez votre souffle.",
 

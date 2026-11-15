@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Angerfang Encampment
-	-- {object:671518} Tattered Spellbook · {npc:2104} Captain Stoutfist
+	-- {object:671518} Tattered Spellbook (no name in this language: may be words) · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518}: para {npc:2104}",
 
 	-- Step 2: Angerfang Encampment
-	-- {area:1036} Angerfang Encampment · {object:671518} Tattered Spellbook
+	-- {area:1036} Angerfang Encampment · {object:671518} Tattered Spellbook (no name in this language: may be words)
 	["South-east from Menethil to the Dragonmaw's {area:1036}: the first catapult stands on the way, and the {object:671518} lies in the camp."] = "Al sureste desde Menethil, hasta {area:1036} de los Faucedraco: la primera catapulta está de camino y {object:671518} está en el campamento.",
 
 	-- Step 4: Defeat Nek'rosh

@@ -328,7 +328,7 @@ return {
 	["{quest:4721}: 300 {faction:76} reputation."] = "{quest:4721}: 300 Ruf bei {faction:76}.",
 
 	-- Step 54: Belgrom Rockmaul: Betrayed
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave · {quest:3504} Betrayed
 	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay in full at 60 too, as every quest does in Forever."] = "{npc:4485} steht im {object:172958} vor der {object:173084}. Die ersten beiden {quest:3504}-Quests sind Stufe 53 und werden auch auf 60 voll ausgezahlt, wie jede Quest in Forever.",
 
 	-- Step 55: Valormok

@@ -103,7 +103,7 @@ return {
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "",
 
 	-- Step 15: Tiragarde Keep
-	-- {area:362} Razor Hill · {npc:3192} Lieutenant Benedict · {object:3239} Benedict's Chest · {item:4881} Aged Envelope · {quest:830} The Admiral's Orders · {item:4870} Canvas Scraps
+	-- {area:362} Razor Hill · {npc:3192} Lieutenant Benedict · {object:3239} Benedict's Chest (no name in this language: may be words) · {item:4881} Aged Envelope · {quest:830} The Admiral's Orders · {item:4870} Canvas Scraps
 	["The keep is south of {area:362} on the coast. {npc:3192} is in the keep's only building; his key opens {object:3239} on the roof, and the {item:4881} inside starts {quest:830}. The sailors and marines drop the {item:4870}."] = "",
 
 	-- Step 16: Razormane Grounds and the Echo Isles

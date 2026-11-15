@@ -31,7 +31,7 @@ return {
 	-- Step 5: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:3024} and {npc:4721} stand a short walk east of him."] = "와이번 조련사 {npc:2995}은(는) 중앙 언덕에 있습니다. 비행 경로가 없다면 얻으세요. {npc:3024}와(과) {npc:4721}은(는) 그의 동쪽으로 조금 걸어간 곳에 있습니다.",
-	-- {npc:3024} Tah Winterhoof · {object:667362} Mirkweed · {area:464} Mirkfallon Lake
+	-- {npc:3024} Tah Winterhoof · {object:667362} Mirkweed (no name in this language: may be words) · {area:464} Mirkfallon Lake
 	["{npc:3024}: the {object:667362} grows in {area:464}, by Sun Rock"] = "{npc:3024}: {object:667362}은(는) 해바위 야영지 옆 {area:464}에서 자랍니다",
 	-- {npc:4721} Zangen Stonehoof · {zone:1440} Ashenvale
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721}: 약병은 다음 가이드에서 {zone:1440}에서 얻습니다",
@@ -217,7 +217,7 @@ return {
 	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "",
 
 	-- Step 43: Mirkweed
-	-- {object:667362} Mirkweed · {area:464} Mirkfallon Lake
+	-- {object:667362} Mirkweed (no name in this language: may be words) · {area:464} Mirkfallon Lake
 	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
 	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "{object:667362}은(는) 같은 남쪽 기슭 앞, {area:464} 바닥에서 자랍니다. 물속으로 들어가 식물과 마른 수렁풀 더미를 찾으세요. 둘 다 꼬투리를 줍니다. 호흡에 주의하세요.",
 

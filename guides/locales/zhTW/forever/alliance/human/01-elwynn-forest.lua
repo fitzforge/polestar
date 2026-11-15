@@ -37,7 +37,7 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books (no name in this language: may be words)
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
 	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "沿著小路向北前往礦坑。狗頭人勞工聚集在礦坑外；山谷中的每個狗頭人都可能掉落{object:83763}。",
 
@@ -63,7 +63,7 @@ return {
 	["Defias Thugs camp in the clearing east of the Abbey and along the valley's east side."] = "迪菲亞暴徒在修道院東邊的空地及山谷東側紮營。",
 	-- plural, as words: Red Burlap Bandanas = {item:752} Red Burlap Bandana
 	["Red Burlap Bandanas"] = "紅色粗麻面罩",
-	-- {item:6785} Powers of the Void · {object:83763} Stolen Books
+	-- {item:6785} Powers of the Void · {object:83763} Stolen Books (no name in this language: may be words)
 	["{item:6785}: the {object:83763} in the Defias camp"] = "{item:6785}：迪菲亞營地裡的{object:83763}",
 
 	-- Step 9: Deputy Willem
@@ -234,7 +234,7 @@ return {
 	-- Step 45: Elwynn Forest: kill these as you meet them
 	-- {zone:1429} Elwynn Forest
 	["{zone:1429}: kill these as you meet them"] = "",
-	-- {object:694855} Overgrown Duskweed
+	-- {object:694855} Overgrown Duskweed (no name in this language: may be words)
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855}生長在葡萄園和斯通菲爾德農場周圍的田野；附近的石牙野豬提供血液。\n石牙野豬在葡萄園和農場之間吃草。",
 	-- {item:286215} Vial of Animal Blood

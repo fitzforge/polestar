@@ -483,9 +483,9 @@ return {
 	["{npc:1573}, the gryphon master where you landed"] = "{npc:1573}, der Greifenmeister, wo du gelandet bist",
 
 	-- Step 94: Tinker Town
-	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)
+	-- {object:32372} Great Forge (no name in this language: may be words) · {object:171524} Tinker Town · {object:660964} Misplaced Packages (no name in this language: may be words) · {object:32383} Forlorn Cavern · {object:32362} Mystic Ward (no name in this language: may be words) · {object:171709} High Seat · {object:32359} Military Ward (no name in this language: may be words)
 	["East from the {object:32372} into {object:171524}: the {object:660964} lie by its mailbox. From here the guide goes once round the city: north to the {object:32383}, west to the {object:32362}, south through the Commons to the {object:171709}, east through the {object:32359} and back to {object:171524} for the tram."] = "Östlich von der {object:32372} in die {object:171524}: Die {object:660964} liegen an ihrem Briefkasten. Von hier aus geht der Guide einmal um die Stadt: nach Norden zur {object:32383}, nach Westen zum {object:32362}, nach Süden durch die Commons zum {object:171709}, nach Osten durch den {object:32359} und zurück zur {object:171524} für die Tram.",
-	-- {object:660964} Misplaced Packages · {object:171524} Tinker Town
+	-- {object:660964} Misplaced Packages (no name in this language: may be words) · {object:171524} Tinker Town
 	["{object:660964}, by the mailbox in {object:171524}"] = "{object:660964}, beim Briefkasten in {object:171524}",
 
 	-- Step 95: Forlorn Cavern

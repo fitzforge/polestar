@@ -42,7 +42,7 @@ return {
 	["{npc:6266} stands by {npc:6251}'s tower on the hill above {area:392}, behind the engineers' hut. She takes the robe, then sends the gold bar to {npc:2670} in {area:35}."] = "{npc:6266} se tient près de la tour de {npc:6251}, sur la colline au-dessus de {area:392}, derrière la cabane des ingénieurs. Elle prend la robe, puis vous envoie porter la barre d'or à {npc:2670}, à {area:35}.",
 
 	-- Step 7: Xizk Goodstitch
-	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities (no name in this language: may be words) · {item:3577} Gold Bar
+	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities · {item:3577} Gold Bar
 	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "Le bateau de {area:392} va à {area:35}. {npc:2670} tient la boutique de couture « Un tailleur pour les cités » à un étage supérieur de la ville. Donnez-lui la {item:3577} ; il filera le fil plus tard.",
 
 	-- Step 8: Back to Menara Voidrender

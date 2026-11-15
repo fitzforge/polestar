@@ -48,7 +48,7 @@ return {
 	-- Step 6: Northshire: Echo Ridge, Garrick Padfoot and the vineyard
 	-- {npc:103} Garrick Padfoot
 	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "",
-	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
+	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books (no name in this language: may be words)
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
 	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "",
 
@@ -62,7 +62,7 @@ return {
 
 	-- Step 9: Northshire: last hand-in
 	["Northshire: last hand-in"] = "",
-	-- {object:563442} Kobold Tracks
+	-- {object:563442} Kobold Tracks (no name in this language: may be words)
 	["{object:563442}, east of the abbey"] = "",
 
 	-- Step 10: Northshire: the books end in Goldshire

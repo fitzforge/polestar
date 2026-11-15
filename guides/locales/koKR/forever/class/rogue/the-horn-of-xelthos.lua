@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "C의 비밀 보관함",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369}은(는) 은빛소나무 숲 남쪽, {area:236} 남쪽의 {area:204} 바로 바깥 집 안에 있는 상자입니다. 열어서 C의 쪽지를 읽으십시오. 이 임무는 파티 없이 혼자 해야 합니다.",
 
 	-- Step 2: Veenix
@@ -30,7 +30,7 @@ return {
 
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "비밀 보관함으로 돌아가기",
-	-- {object:410369} Dead Drop
+	-- {object:410369} Dead Drop (no name in this language: may be words)
 	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

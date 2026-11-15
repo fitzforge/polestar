@@ -150,29 +150,28 @@ return {
 	-- Step 32: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "die Sklavenhalter und Golems von {area:246}",
-	-- {area:1446} Thorium Point
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
-	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok."] = "Reite von {area:1446} nach Süden in den Kessel: Die Dark Iron Taskmasters und Slavers treiben die Sklaven auf den Pfaden an, und die Heavy War Golems patrouillieren am Boden unterhalb von Velarok.",
+	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}."] = "",
 
 	-- Step 33: Velarok Windblade
-	["Velarok Windblade"] = "Velarok Windblade",
-	-- {area:1446} Thorium Point
-	["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Velarok steht allein südlich von {area:1446}, am Rand des Kessels. Hör dir seine Geschichte an.",
+	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "",
 
 	-- Step 36: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: Töte diese, sobald sie dir begegnen",
-	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
-	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5857} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
-	["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Heavy War Golems patrouillieren im Kessel unterhalb von Velarok und lassen das Öl fallen; die Magma und Blazing Elementals, die zwischen ihnen umhertreiben, lassen die Herzen fallen. Die Dark Iron Taskmasters und Slavers treiben die Sklaven auf den Pfaden an; ein Slaver kann {item:11818} fallen lassen: Behalte ihn.\nDie Searing Lava Spiders streifen über die Plateaus und Lavatümpel im Südwesten der Schlucht.\n{area:1443} öffnet sich im Norden des Kessels. Incendosaurs schwimmen in seinen Lavatümpeln: Zieh sie an den Rand. Die geheimen Pläne liegen auf dem oberen Sims der Grube.\nVorsicht: Dark Iron Slavers (Stufe 45-46) rufen beim Pullen Verbündete im Umkreis von 15 yd zu Hilfe, wirken Netz aus bis zu 15 yd und benutzen Zerreißen im Nahkampf.",
+	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
+	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Blazing Elementals = {npc:5850} Blazing Elemental · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Searing Lava Spiders = {npc:5858} Searing Lava Spider · Incendosaurs = {npc:9318} Incendosaur · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
+	["Heavy War Golems patrol the Cauldron below {npc:8479} and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}, seltene Beute",
 	-- {area:1443} The Slag Pit
 	["Below ground: the plans, on the {area:1443}'s upper ledge"] = "Unter der Erde: die Pläne, auf dem oberen Sims von {area:1443}",
 
 	-- Step 38: Thorium Point
-	-- {area:1446} Thorium Point
-	["Ride back north to {area:1446}, just past Velarok."] = "Reite zurück nach Norden zu {area:1446}, direkt hinter Velarok.",
+	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
+	["Ride back north to {area:1446}, just past {npc:8479}."] = "",
 
 	-- Step 39: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "Die Öfen der Dampfschmiede",
@@ -207,9 +206,12 @@ return {
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Weiter südlich liegt die Ausrüstung von Junior Surveyor Scrimshank am Eingang eines Baus der Centipaar.",
 	-- ["Greater Lava Spiders"] = "Große Lavaspinnen",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Schwere Kriegsgolems patrouillieren im Kessel unter Kalaran und lassen das Öl fallen; die Magmaelementare und Lodernden Elementare zwischen ihnen lassen die Herzen fallen. Die Zuchtmeister und Sklavenhändler der Dunkeleisenzwerge treiben die Sklaven auf den Wegen an; ein Sklavenhändler kann {item:11818} fallen lassen: Behalte ihn.",
+	-- ["Heavy War Golems patrol the Cauldron below Velarok and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it.\nThe Searing Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.\n{area:1443} opens in the north of the Cauldron. Incendosaurs swim in its lava pools: pull them to the edge. The secret plans lie on the pit's upper ledge.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "Heavy War Golems patrouillieren im Kessel unterhalb von Velarok und lassen das Öl fallen; die Magma und Blazing Elementals, die zwischen ihnen umhertreiben, lassen die Herzen fallen. Die Dark Iron Taskmasters und Slavers treiben die Sklaven auf den Pfaden an; ein Slaver kann {item:11818} fallen lassen: Behalte ihn.\nDie Searing Lava Spiders streifen über die Plateaus und Lavatümpel im Südwesten der Schlucht.\n{area:1443} öffnet sich im Norden des Kessels. Incendosaurs schwimmen in seinen Lavatümpeln: Zieh sie an den Rand. Die geheimen Pläne liegen auf dem oberen Sims der Grube.\nVorsicht: Dark Iron Slavers (Stufe 45-46) rufen beim Pullen Verbündete im Umkreis von 15 yd zu Hilfe, wirken Netz aus bis zu 15 yd und benutzen Zerreißen im Nahkampf.",
 	-- ["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Kalaran steht allein südlich von {area:1446}, am Rand des Kessels. Hör dir seine Geschichte an.",
 	-- ["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}."] = "Nur mit dem Notsignalgeber: OOX-17/TN sitzt südöstlich von Scrimshanks Bau. Eskortiere ihn nach Norden nach {area:977}; seine Belohnung wartet bei Oglethorpe in {area:35}.",
+	-- ["Ride back north to {area:1446}, just past Velarok."] = "Reite zurück nach Norden zu {area:1446}, direkt hinter Velarok.",
 	-- ["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "Reite zurück nach Norden zur {area:1446}. Bleib hier: Der nächste Guide beginnt mit dem Flug nach {area:75}.",
+	-- ["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Velarok."] = "Reite von {area:1446} nach Süden in den Kessel: Die Dark Iron Taskmasters und Slavers treiben die Sklaven auf den Pfaden an, und die Heavy War Golems patrouillieren am Boden unterhalb von Velarok.",
 	-- ["Ride south-west to {area:976}."] = "Reite nach Südwesten nach {area:976}.",
 	-- ["South down the road again."] = "Wieder die Straße hinunter nach Süden.",
 	-- ["South-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp."] = "Südöstlich von Gadgetzan lagern die Banditen der Wüstenläufer in den Dünen; {npc:7847} steht im östlichen Lager.",
@@ -220,6 +222,8 @@ return {
 	-- ["The Steamsmiths' furnaces"] = "Die Öfen der Dampfschmiede",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "Das Boot nach {area:35} legt am Pier von {area:392} an, unterhalb des Hügels des Flugmeisters.",
 	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "Die Maschine {object:142071} mitten in der Stadt: Das Ei liegt im südlichen {zone:1444}, etwa auf Stufe 50",
+	-- ["Velarok Windblade"] = "Velarok Windblade",
+	-- ["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "Velarok steht allein südlich von {area:1446}, am Rand des Kessels. Hör dir seine Geschichte an.",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one."] = "Westlich des Truppenlagers füllen die Kakteenwesen das Tal; nur die Disteltausammler tragen eine Taudrüse. Die meisten Mobs in {zone:1446} können selten den OOX-17/TN-Notsignalgeber fallen lassen: Behalte ihn, wenn du einen siehst.",
 	-- ["West, the Centipaar insects swarm around their hives; any of them drops the parts."] = "Im Westen schwärmen die Insekten der Centipaar um ihre Baue; jedes kann die Teile fallen lassen.",
 	-- ["the {object:150075} in the square"] = "der {object:150075} auf dem Platz",

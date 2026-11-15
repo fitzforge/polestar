@@ -28,9 +28,9 @@ return {
 	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
 	-- Step 5: Half Pendant of Aquatic Endurance
-	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
+	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox (no name in this language: may be words)
 	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn."] = "Voe até {area:108} e vá para noroeste até a costa: {object:177790} está no fundo do mar perto da praia. Depois siga para leste pela estrada, por Elwynn.",
-	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
+	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox (no name in this language: may be words)
 	["{item:15882}: the {object:177790}"] = "{item:15882}: o {object:177790}",
 
 	-- Step 6: Elwynn Forest

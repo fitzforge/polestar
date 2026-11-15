@@ -42,7 +42,7 @@ return {
 	["{npc:6266} stands by {npc:6251}'s tower on the hill above {area:392}, behind the engineers' hut. She takes the robe, then sends the gold bar to {npc:2670} in {area:35}."] = "{npc:6266} está junto a la torre de {npc:6251}, en la colina sobre {area:392}, detrás de la choza de los ingenieros. Recibe la túnica y luego manda la barra de oro a {npc:2670} en {area:35}.",
 
 	-- Step 7: Xizk Goodstitch
-	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities (no name in this language: may be words) · {item:3577} Gold Bar
+	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities · {item:3577} Gold Bar
 	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "El barco de {area:392} navega a {area:35}. {npc:2670} atiende {object:59851} en un nivel superior del pueblo. Dale {item:3577}; él hilará el hilo después.",
 
 	-- Step 8: Back to Menara Voidrender

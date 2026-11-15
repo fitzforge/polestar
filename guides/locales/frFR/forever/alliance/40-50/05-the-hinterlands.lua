@@ -41,7 +41,7 @@ return {
 	-- Step 7: Ironforge inn
 	-- {area:1537} Ironforge
 	["{area:1537} inn"] = "Auberge d'{area:1537}",
-	-- {object:26486} Stonefire Tavern (no name in this language: may be words) · {zone:1427} Searing Gorge · {area:144} Thelsamar
+	-- {object:26486} Stonefire Tavern · {zone:1427} Searing Gorge · {area:144} Thelsamar
 	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "Liez votre pierre de foyer à {object:26486} : le guide de la {zone:1427} commence par un retour ici avec la pierre de foyer, puis le griffon vers {area:144}.",
 
 	-- Step 8: Tram to Stormwind

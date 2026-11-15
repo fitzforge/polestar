@@ -56,9 +56,9 @@ return {
 	["{item:6636}, beside the statue"] = "{item:6636}, ao lado da estátua",
 
 	-- Step 9: The Brazier of the Dormant Flame
-	-- {object:61934} Brazier of the Dormant Flame
+	-- {object:61934} Brazier of the Dormant Flame (no name in this language: may be words)
 	["The {object:61934}"] = "{object:61934}",
-	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
+	-- {object:61934} Brazier of the Dormant Flame (no name in this language: may be words) · {item:277329} Torch of Eternal Flame
 	["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "Clique em {object:61934}, no alto do santuário, com a tocha nas suas bolsas, para colocar a brasa, e depois clique de novo para a próxima missão: {item:277329} acesa.",
 
 	-- Step 10: Bruegs Kindleborn

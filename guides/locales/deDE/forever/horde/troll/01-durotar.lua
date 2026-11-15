@@ -82,7 +82,7 @@ return {
 	["Felstalkers roam the slope below the cave, on the valley's north side."] = "Teufelspirscher streifen über den Hang unterhalb der Höhle, auf der Nordseite des Tals.",
 
 	-- Step 17: Zureetha Fargaze
-	-- {object:654925} Lost Journal
+	-- {object:654925} Lost Journal (no name in this language: may be words)
 	["the {object:654925} on the ground beside her"] = "{object:654925} neben ihr auf dem Boden",
 	-- {npc:3707} Ken'jai · {npc:3706} Tai'jin · {area:362} Razor Hill
 	["{npc:3707}, the priest trainer at the Den: for {npc:3706} in {area:362}"] = "{npc:3707}, der Priesterlehrer am Höhlenbau: für {npc:3706} in {area:362}",
@@ -133,28 +133,28 @@ return {
 	["{npc:265809}: for {npc:5943}"] = "{npc:265809}: für {npc:5943}",
 
 	-- Step 25: Camping 101: Skinning
-	-- {npc:265809} Brakk · {npc:7088} Thuwd
-	["{npc:265809}: for {npc:7088}"] = "{npc:265809}: für {npc:7088}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Thuwd"] = "",
 
 	-- Step 26: Camping 101: Leatherworking
-	-- {npc:265809} Brakk · {npc:3365} Karolek
-	["{npc:265809}: for {npc:3365}"] = "{npc:265809}: für {npc:3365}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Karolek"] = "",
 
 	-- Step 27: Camping 101: Tailoring
-	-- {npc:265809} Brakk · {npc:2855} Snang
-	["{npc:265809}: for {npc:2855}"] = "{npc:265809}: für {npc:2855}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Snang"] = "",
 
 	-- Step 28: Camping 101: Herbalism
-	-- {npc:265809} Brakk · {npc:3404} Jandi
-	["{npc:265809}: for {npc:3404}"] = "{npc:265809}: für {npc:3404}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jandi"] = "",
 
 	-- Step 29: Camping 101: Enchanting
-	-- {npc:265809} Brakk · {npc:11066} Jhag
-	["{npc:265809}: for {npc:11066}"] = "{npc:265809}: für {npc:11066}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Jhag"] = "",
 
 	-- Step 30: Camping 101: Alchemy
-	-- {npc:265809} Brakk · {npc:11046} Whuut
-	["{npc:265809}: for {npc:11046}"] = "{npc:265809}: für {npc:11046}",
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Whuut"] = "",
 
 	-- Step 31: Razor Hill
 	-- {npc:266940} Turroc
@@ -397,6 +397,12 @@ return {
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Wenn du {skill:393} erlernt hast, bietet {npc:265809} auch sein Camping 101 an: {npc:7088} in {zone:1454} (nächster Guide) nimmt es entgegen.",
 	-- ["{npc:12430} kneels behind the rocks just off the road south of {area:362}, on your way to the keep. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count."] = "{npc:12430} kniet hinter den Felsen direkt neben der Straße südlich von {area:362}, auf deinem Weg zur Festung. Wirke Geringes Heilen (Rang 2) auf sie, dann Machtwort: Seelenstärke: Rang 1 von Geringes Heilen zählt nicht.",
 	-- ["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the Boosted Rest buff appears. With a profession learned, {npc:265809} also offers its Camping 101, which its trainer takes: in {area:362} or in {zone:1454} at the start of the next guide."] = "{npc:265809} lagert direkt südlich von {area:362}. Setz dich an sein Lagerfeuer (/sit), bis der Buff Verbesserter Ruhebonus erscheint. Wenn du einen Beruf gelernt hast, bietet {npc:265809} auch sein Camping 101 an, das sein Lehrer abnimmt: in {area:362} oder in {zone:1454} am Anfang des nächsten Guides.",
+	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: für {npc:11046}",
+	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: für {npc:11066}",
+	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: für {npc:2855}",
+	-- ["{npc:265809}: for {npc:3365}"] = "{npc:265809}: für {npc:3365}",
+	-- ["{npc:265809}: for {npc:3404}"] = "{npc:265809}: für {npc:3404}",
+	-- ["{npc:265809}: for {npc:7088}"] = "{npc:265809}: für {npc:7088}",
 	-- ["{npc:3171}: Tame Beast"] = "{npc:3171}: Wildtier zähmen",
 	-- ["{npc:3352}: Beast Training"] = "{npc:3352}: Wildtierausbildung",
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, neben {npc:3139}: {item:16606}",

@@ -62,7 +62,7 @@ return {
 
 	-- Step 9: Northshire: last hand-in
 	["Northshire: last hand-in"] = "Villanorte: última entrega",
-	-- {object:563442} Kobold Tracks
+	-- {object:563442} Kobold Tracks (no name in this language: may be words)
 	["{object:563442}, east of the abbey"] = "{object:563442}, al este de la abadía",
 
 	-- Step 10: Northshire: the books end in Goldshire

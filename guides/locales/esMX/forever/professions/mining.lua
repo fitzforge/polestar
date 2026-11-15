@@ -27,7 +27,7 @@ return {
 	["Copper & Poor Copper: {zone:1426} (1-50)"] = "Cobre y Cobre pobre: {zone:1426} (1-50)",
 
 	-- Step 4: Chunk of Amber & Large Chunk of Amber: Teldrassil (1-50)
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every {object:656332} (1, orange), {object:656333} (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Extrae cada nodo de {object:656332} (1, naranja) y {object:656333} (1, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 50. Funde en una forja cuando se llenen tus bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de la zona: 1-10. Cuenta con unos 60 nodos para estos 49 puntos.",
 
 	-- Step 5: Copper: Zephras Isle (1-50)
@@ -68,9 +68,9 @@ return {
 	["Copper & Poor Copper: {zone:1426} (50-65) cont."] = "Cobre y Cobre pobre: {zone:1426} (50-65) (cont.)",
 
 	-- Step 12: Chunk of Amber & Large Chunk of Amber: Teldrassil (50-65) cont.
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {zone:1438} Teldrassil
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {zone:1438} Teldrassil
 	["{object:656332} & {object:656333}: {zone:1438} (50-65) cont."] = "{object:656332} y {object:656333}: {zone:1438} (50-65) cont.",
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper
+	-- {object:656332} Chunk of Amber (no name in this language: may be words) · {object:656333} Large Chunk of Amber (no name in this language: may be words) · {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every {object:656332} (1, yellow), {object:656333} (1, yellow) node you pass and circle the waypoints until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points."] = "Extrae cada nodo de {object:656332} (1, amarillo) y {object:656333} (1, amarillo) que encuentres y recorre los puntos de ruta hasta {skill:186} 65. Funde en una forja cuando se llenen tus bolsas: {spell:2657} (naranja hasta 25, gris a 70) también da puntos. Nivel de la zona: 1-10. Cuenta con unos 80 nodos para estos 15 puntos.",
 
 	-- Step 13: Copper: Zephras Isle (50-65) cont.
@@ -167,7 +167,7 @@ return {
 	-- Step 28: Mithril & Dark Iron: Searing Gorge (230-245)
 	-- {object:147516} Dark Iron (no name in this language: may be words) · {zone:1427} Searing Gorge
 	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Mitril y {object:147516}: {zone:1427} (230-245)",
-	-- {object:147516} Dark Iron (no name in this language: may be words) · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
+	-- {object:147516} Dark Iron (no name in this language: may be words) · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge · {area:1584} Blackrock Depths
 	["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "Extrae cada nodo de Oro (155, verde), Mitril (175, verde), {object:147516} (230, naranja), Veraplata (230, naranja) que encuentres y recorre los puntos de ruta hasta {skill:186} 245. Desde aquí fundir no da puntos (las fundiciones superiores son grises en cuanto las aprendes): funde para fabricar o vender, o vende el mineral. {item:11099} solo se funde en {object:174824} de {area:1584} (8 minerales por barra). Nivel de la zona: 43-50. Cuenta con unos 40 nodos para estos 15 puntos.",
 	-- {object:147516} Dark Iron (no name in this language: may be words)
 	["Mithril, {object:147516}"] = "Mitril, {object:147516}",

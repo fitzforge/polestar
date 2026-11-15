@@ -16,7 +16,7 @@ return {
 	["{npc:331}, the Master Mage, stands in the Wizard's Sanctum in {zone:1453}'s {object:2101}; Dink in {zone:1455} gives the same quest."] = "大法師{npc:331}站在{zone:1453}{object:2101}的法師塔裡；{zone:1455}的丁克也提供同一個任務。",
 
 	-- Step 2: Magecraft (Orgrimmar)
-	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
+	-- {npc:7311} Uthel'nay · {zone:1454} Orgrimmar · {object:173161} Darkbriar Lodge · {npc:4567} Pierce Shackleton · {zone:1458} Undercity · {npc:3047} Archmage Shymm · {zone:1456} Thunder Bluff
 	["{npc:7311}, one of {zone:1454}'s mage trainers in {object:173161}, gives it; so do {npc:4567} in the {zone:1458} and {npc:3047} in {zone:1456}."] = "{zone:1454}位於{object:173161}的法師訓練師之一{npc:7311}會提供它；{zone:1458}的{npc:4567}和{zone:1456}的{npc:3047}也會。",
 
 	-- Step 3: Sanath Lim-yo

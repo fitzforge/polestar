@@ -192,7 +192,7 @@ return {
 
 	-- Step 49: Hippogryph nests
 	["Hippogryph nests"] = "角鷹獸巢穴",
-	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic
+	-- {area:2522} Ruins of Isildien · {object:142071} Egg-O-Matic (no name in this language: may be words)
 	["The hippogryph nests are on the hills to the south, around the {area:2522}; each holds an egg for the {object:142071}."] = "角鷹獸巢穴位於南邊的山丘上，在{area:2522}周圍；每個巢裡都有一顆要給{object:142071}的蛋。",
 
 	-- Step 51: Sprite Darters
@@ -230,7 +230,7 @@ return {
 	-- Step 62: Gadgetzan
 	-- {npc:7876} Tran'rek
 	["{npc:7876}, beside the wind rider master"] = "{npc:7876}，在雙足飛龍管理員旁",
-	-- {object:142071} Egg-O-Matic
+	-- {object:142071} Egg-O-Matic (no name in this language: may be words)
 	["The {object:142071}, in the middle of town"] = "{object:142071}，在城鎮中央",
 	-- {npc:7876} Tran'rek · {zone:1449} Un'Goro Crater
 	["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "{npc:7876}的焦油和匹斯特蘇格的樣本都來自{zone:1449}。",

@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "Cs toter Briefkasten",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "{object:410369} ist eine Truhe in einem Haus direkt vor {area:204} im südlichen Silberwald, südlich von {area:236}. Öffne sie und lies Cs Notiz: Der Auftrag muss allein erledigt werden, außerhalb jeder Gruppe.",
 
 	-- Step 2: Veenix
@@ -30,7 +30,7 @@ return {
 
 	-- Step 4: Back to the dead drop
 	["Back to the dead drop"] = "Zurück zum toten Briefkasten",
-	-- {object:410369} Dead Drop
+	-- {object:410369} Dead Drop (no name in this language: may be words)
 	["Open the {object:410369} again, the chest outside Pyrewood you took the job from, and hand in the horn there. C's payment is a second hand-in at the same chest, with nothing to accept first, and it may not be there right away: players have waited from a quarter of an hour to two hours. Check a capital mailbox for C's follow-up letter on your next planned city visit, then return to this chest for it. Do not repeat the dungeon just because the payment is not yet offered."] = "Öffne {object:410369} erneut, die Truhe außerhalb von Pyrewood, bei der du den Auftrag angenommen hast, und gib dort das Horn ab. Die Zahlung von C ist eine zweite Abgabe an derselben Truhe, ohne dass du vorher etwas annehmen musst, und sie ist vielleicht nicht sofort da: Spieler haben zwischen einer Viertelstunde und zwei Stunden gewartet. Sieh bei deinem nächsten geplanten Stadtbesuch im Briefkasten einer Hauptstadt nach dem Folgebrief von C und kehre dann dafür zu dieser Truhe zurück. Wiederhole den Dungeon nicht nur, weil die Zahlung noch nicht angeboten wird.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

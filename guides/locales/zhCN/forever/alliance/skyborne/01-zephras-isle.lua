@@ -284,9 +284,9 @@ return {
 
 	-- Step 62: The missing scholar
 	["The missing scholar"] = "失踪的学者",
-	-- {object:581822} Bloodstained Satchel · {area:16638} Valanaar
+	-- {object:581822} Bloodstained Satchel (no name in this language: may be words) · {area:16638} Valanaar
 	["The {object:581822} lies by the path west of {area:16638}."] = "{object:581822}位于{area:16638}以西的小路旁。",
-	-- {object:581822} Bloodstained Satchel
+	-- {object:581822} Bloodstained Satchel (no name in this language: may be words)
 	["The {object:581822}"] = "{object:581822}",
 
 	-- Step 63: Gustberry Lowlands
@@ -487,7 +487,7 @@ return {
 	["{npc:259084}, inside"] = "{npc:259084}：在屋内",
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
 	["{npc:270459}, beside {npc:259084}: for {npc:5504} in {zone:1453}"] = "{npc:270459}，在{npc:259084}身旁：前往{zone:1453}找{npc:5504}",
-	-- {object:631299} Skyborne Portal to Stormwind (no name in this language: may be words)
+	-- {object:631299} Skyborne Portal to Stormwind
 	["{object:631299}, inside"] = "{object:631299}：在屋内",
 
 	-- Step 103: Stormwind flight master

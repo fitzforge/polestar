@@ -33,7 +33,7 @@ return {
 	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "Lord Grayson bendice el incensario y lo convierte en el {item:18752} para {area:2627}.",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
 	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "{area:2627} está en el extremo noroeste de {zone:1423}, al oeste de las puertas de {area:2279}. Párate dentro de una mancha verde brillante en el suelo (un {object:179747}; algunas están dentro de las casas en ruinas) y usa el {item:18752}: se levantan hasta tres espíritus de Valle del Terror (nivel 59-60) y atacan. Su {spell:7713} baja todas tus estadísticas un 30%: pelea contra ellos de uno en uno y usa {spell:2878}. Las manchas vuelven rápido; varios paladines pueden trabajar uno al lado del otro.",
 	-- {item:18752} Exorcism Censer

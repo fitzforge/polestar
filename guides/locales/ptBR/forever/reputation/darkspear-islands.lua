@@ -122,8 +122,8 @@ return {
 	-- Step 23: Theramore Expeditionary Force to Exalted
 	-- {faction:2799} Theramore Expeditionary Force
 	["{faction:2799} to Exalted"] = "{faction:2799} até Exaltado",
-	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271936} Guerrilla's Jagged Mace · {item:271932} Insurgent's Manifesto
-	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "De Reverenciado a Exaltado são 21000 de reputação, metade da subida. Reverenciado abre as armas para os níveis 28, 38, 48 e 58: {item:271924} (machado de duas mãos), {item:271928} (adaga), {item:271936} e {item:271932} (mão secundária), 1g44s a 37g15s.",
+	-- {item:271924} Rebels' Rugged Reaper · {item:271928} Clever Expeditionary's Spellblade · {item:271932} Insurgent's Manifesto
+	["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), Guerrilla's Jagged Mace and {item:271932} (off-hand), 1g44s to 37g15s."] = "",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Revered rewards"] = "{npc:263569}: recompensas de Reverenciado",
 
@@ -132,4 +132,7 @@ return {
 	["Exalted gives the Legacy Point \"Master of Darkspear Islands\" and opens the epics: gloves in plate, mail, leather and cloth for levels 50 and 60 ({item:271940}, Gloves, Handguards and Handwraps, 3g94s to 15g16s) and level 60 shoulders in every armor type ({item:271955}, Shoulders, Spaulders, Mantle, Epaulets, Shoulderpads and Shoulderguards, 9g44s to 16g86s). The {item:276504} comes from a short questline that Exalted opens here."] = "Exaltado dá o Ponto de Legado “Mestre das Ilhas Lançanegra” e abre os épicos: luvas de placas, malha, couro e tecido para os níveis 50 e 60 ({item:271940}, Manoplas, Luvas de Malha, Luvas e Luvas de Tecido, 3g94s a 15g16s) e ombreiras de nível 60 em todos os tipos de armadura ({item:271955}, Ombreiras, Espaldares, Dragonas, Ombreiras de Malha, Ombreiras de Couro e Ombreiras de Tecido, 9g44s a 16g86s). {item:276504} vem de uma curta linha de missões que Exaltado abre aqui.",
 	-- {npc:263569} Bryanna Embreeze
 	["{npc:263569}: Exalted rewards"] = "{npc:263569}: recompensas de Exaltado",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons for levels 28, 38, 48 and 58: {item:271924} (two-handed axe), {item:271928} (dagger), {item:271936} and {item:271932} (off-hand), 1g44s to 37g15s."] = "De Reverenciado a Exaltado são 21000 de reputação, metade da subida. Reverenciado abre as armas para os níveis 28, 38, 48 e 58: {item:271924} (machado de duas mãos), {item:271928} (adaga), {item:271936} e {item:271932} (mão secundária), 1g44s a 37g15s.",
 }

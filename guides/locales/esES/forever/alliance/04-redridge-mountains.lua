@@ -102,9 +102,9 @@ return {
 	["{npc:888} stands south of the road, at the {area:245}."] = "{npc:888} está al sur del camino, en {area:245}.",
 
 	-- Step 17: Raven Hill
-	-- {quest:163} Raven Hill · {object:673515} Memory of Valor · {npc:288} Jitters
+	-- {quest:163} Raven Hill · {object:673515} Memory of Valor (no name in this language: may be words) · {npc:288} Jitters
 	["Continue west to {quest:163}. The {object:673515} glows by the ruined house south of the road; {npc:288} hides in the house at the west end of the village."] = "",
-	-- {item:281046} Raven Hill Tome · {object:673515} Memory of Valor
+	-- {item:281046} Raven Hill Tome · {object:673515} Memory of Valor (no name in this language: may be words)
 	["{item:281046}, from the {object:673515}"] = "{item:281046}, del {object:673515}",
 	-- {npc:272} Chef Grual · {area:42} Darkshire
 	["for {npc:272} in {area:42}"] = "",

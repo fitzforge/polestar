@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: C's dead drop
 	["C's dead drop"] = "O ponto de entrega de C",
-	-- {object:410369} Dead Drop · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
+	-- {object:410369} Dead Drop (no name in this language: may be words) · {area:204} Pyrewood Village · {area:236} Shadowfang Keep
 	["C's next job comes by letter: once you are level 30 and have done the horn job, visit any capital city and C's letter arrives in the mailbox; only then does the {object:410369} near {area:204}, in southern Silverpine just south of {area:236}, offer it. The quest data lists a minimum of 25, but players get the letter, and the job, at 30."] = "A próxima missão de C vem por carta: quando você estiver no nível 30 e tiver feito a missão do chifre, visite qualquer capital e a carta de C chega na caixa de correio; só então {object:410369}, perto de {area:204}, no sul de Pinhaprata, logo ao sul de {area:236}, a oferece. Os dados da missão listam um mínimo de 25, mas os jogadores recebem a carta, e a missão, no 30.",
 
 	-- Step 2: The Scarlet Monastery
@@ -25,7 +25,7 @@ return {
 
 	-- Step 3: Back to the dead drop
 	["Back to the dead drop"] = "De volta ao ponto de entrega",
-	-- {object:410369} Dead Drop
+	-- {object:410369} Dead Drop (no name in this language: may be words)
 	["Place the eye in the {object:410369} near Pyrewood. Check a capital mailbox for C's payment letter on your next planned city visit, then return here for the reward quest. The payment may not be available immediately; do not repeat the infiltration just because the reward has not appeared."] = "Coloque o olho em {object:410369} perto de Lenhardente. Olhe a caixa de correio de uma capital, na sua próxima visita planejada à cidade, para ver a carta de pagamento de C, e volte aqui para a missão de recompensa. O pagamento pode não estar disponível na hora; não repita a infiltração só porque a recompensa ainda não apareceu.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
