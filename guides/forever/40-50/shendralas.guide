@@ -48,7 +48,6 @@ step Fly to Nijel's Point
   only Alliance
   when !zone "Shen'dralas"
   when !zone "Desolace"
-  tip Experimental route (alpha). It follows what players did in Shen'dralas and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Shen'dralas lies south of Desolace, through the Valley of Bones, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from Menethil Harbor to Theramore first.
   fly "Nijel's Point"
 

@@ -5,16 +5,14 @@ faction Alliance
 levels 38-39
 zone Badlands
 next forever/alliance/30-40/06b-desolace
-next polestar-experimental/riverglades-alliance-1
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Split 2026-11-13 (0.4.0 route audit, Refs #2025): this guide is the Badlands loop, ending in Thelsamar with Ghak
 # Healtouch's hand-in; Desolace's south loop that used to follow it is 30-40/06b-desolace, the default next guide.
-# The split is where Riverglades (Polestar Experimental) joins the route as a choice: Thelsamar has the Stoutlager Inn
-# bind and the Lakeshire flight, and Riverglades' first part (37-40) starts at Blackrock Pass, north of Lakeshire; its
-# last part hands back to 40-50/03-feralas (43+) or 40-50/01-stranglethorn-vale at Theramore.
+# The Riverglades come later in the route (40-50/01b-riverglades, after Stranglethorn Vale), at the level of their port
+# and Western Front.
 
 step Into Badlands
   zone Badlands

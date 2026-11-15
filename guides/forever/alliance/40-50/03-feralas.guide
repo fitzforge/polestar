@@ -18,10 +18,12 @@ con Boats to and from the island
 # Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
 
 step Into The Barrens
+  when !turnedin 93394
   zone The Barrens
   goto 49.5,78.4 "Into The Barrens"
 
 step Thalanaar flight master
+  when !turnedin 93394
   zone Feralas
   goto 89.5,45.9 "Thalanaar flight master"
   getfp "Thalanaar"
@@ -110,9 +112,16 @@ step Feathermoon Stronghold
   accept 7733
 
 step Fly to Thalanaar
+  when taxi "Thalanaar"
   zone Feralas
   goto 30.3,43.3 "Feathermoon flight master"
   fly "Thalanaar"
+
+step Back to the coast
+  when !taxi "Thalanaar"
+  zone Feralas
+  tip You came into Feralas from Shen'dralas, so Thalanaar's flight path is still to learn: take the boat back to the coast and ride east along the road; you pick up the flight path when this guide ends at Thalanaar.
+  goto 43.3,42.7 "The Forgotten Coast"
 
 step Feralas
   zone Feralas
@@ -208,3 +217,9 @@ step Thalanaar
   when onquest 4281
   tip Ride north-east to the night elf outpost on the Thousand Needles border.
   turnin 4281                         -- Falfindel Waywarder walks around Thalanaar: look inside the circle on the map
+
+step Thalanaar flight master
+  when !taxi "Thalanaar"
+  zone Feralas
+  goto 89.5,45.9 "Thalanaar flight master"
+  getfp "Thalanaar"

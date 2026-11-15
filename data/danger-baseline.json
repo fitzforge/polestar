@@ -13203,8 +13203,8 @@
 			"evidence": "route level 59.5 (experimental route choices' model); Hyjal Sentinel 60-60, Blackthorne Courier 60-60 x2, Blackthorne Priest 60-60 x3, Ghansurok 61-61; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.1",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -13216,8 +13216,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Scaldaron 43-43; recordings (2026-11-15): done by 14 people (median 40.41), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.2",
 			"kind": "elite",
 			"title": "The Bristle Hills",
@@ -13229,8 +13229,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Snargl 40-40; recordings (2026-11-15): done by 14 people (median 40.41), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.2",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -13242,8 +13242,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Twilight Forgemaster 46-46; recordings (2026-11-15): done by 14 people (median 40.41), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.3|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.3",
 			"kind": "over",
 			"title": "The Bristle Hills",
@@ -13256,8 +13256,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Cinderscale Warrior 41-42 x5, Scaldaron 43-43 x2; recordings (2026-11-15): done by 14 people (median 40.54), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.3|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.3",
 			"kind": "rare",
 			"title": "The Bristle Hills",
@@ -13269,8 +13269,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Scaldaron 43-43 x2; recordings (2026-11-15): done by 14 people (median 40.54), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94678.3|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94678.3",
 			"kind": "pack",
 			"title": "The Bristle Hills",
@@ -13282,8 +13282,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); 7 spawns 40+; recordings (2026-11-15): done by 14 people (median 40.54), 0 people died within 60 yd, 2 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94931.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94931.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94931.1",
 			"kind": "elite",
 			"title": "The Bristle Hills",
@@ -13295,8 +13295,8 @@
 			"evidence": "route level 38.8 (experimental route choices' model); Snargl 40-40 x3; recordings (2026-11-15): done by 14 people (median 41.19), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94614.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94614.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94614.2",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13308,8 +13308,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 21 people (median 40.56), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94842.3|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94842.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94842.3",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13321,8 +13321,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 19 people (median 40.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94842.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94842.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94842.1",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13334,8 +13334,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 19 people (median 40.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94842.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94842.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94842.2",
 			"kind": "elite",
 			"title": "Meadowsbrook and the river",
@@ -13347,8 +13347,8 @@
 			"evidence": "route level 38.9 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 18 people (median 42.02), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95603.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95603.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95603.1",
 			"kind": "over",
 			"title": "The cathedral",
@@ -13360,8 +13360,8 @@
 			"evidence": "route level 39.3 (experimental route choices' model); Abbot Schuncke 53-53 x2; recordings (2026-11-15): done by 20 people (median 40.47), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95603.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95603.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95603.1",
 			"kind": "elite",
 			"title": "The cathedral",
@@ -13373,8 +13373,8 @@
 			"evidence": "route level 39.3 (experimental route choices' model); Abbot Schuncke 53-53 x2; recordings (2026-11-15): done by 20 people (median 40.47), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94924.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94924.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94924.1",
 			"kind": "elite",
 			"title": "The plains",
@@ -13386,8 +13386,8 @@
 			"evidence": "route level 39.5 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 22 people (median 40.97), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95643.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95643.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95643.1",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13400,8 +13400,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41 x15, Ghostmaw 42-42 x2; recordings (2026-11-15): done by 19 people (median 41.71), 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95643.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95643.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95643.2",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13413,8 +13413,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41 x16; recordings (2026-11-15): done by 19 people (median 41.71), 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 95642|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 95642|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 95642",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13427,8 +13427,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41 x5, Ghostmaw 42-42; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94877.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94877.2",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13440,8 +13440,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 21 people (median 41.31), 6 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94877.3|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94877.3",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13453,8 +13453,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 21 people (median 41.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94961.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94961.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94961.1",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13466,8 +13466,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Executioner Morg 46-46; recordings (2026-11-15): done by 26 people (median 41.34), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94881.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94881.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94881.1",
 			"kind": "elite",
 			"title": "The Twilight cult",
@@ -13479,8 +13479,8 @@
 			"evidence": "route level 39.8 (experimental route choices' model); Chogg'Zac 41-41; recordings (2026-11-15): done by 21 people (median 41.3), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95064.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95064.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95064.1",
 			"kind": "elite",
 			"title": "The Rog'mar training grounds",
@@ -13493,8 +13493,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Blademaster Kaijo 42-42, Ghostmaw 42-42 x2; recordings (2026-11-15): done by 16 people (median 42.29), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95426.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95426.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95426.1",
 			"kind": "over",
 			"title": "The Rog'mar training grounds",
@@ -13506,8 +13506,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Rog'mar Grunt 55-55 x2; recordings (2026-11-15): done by 16 people (median 42.29), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95912.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95912.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95912.1",
 			"kind": "over",
 			"title": "Blademaster Kaijo",
@@ -13519,8 +13519,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Rog'mar Grunt 55-55 x4; recordings (2026-11-15): done by 13 people (median 41.63), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95984.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95984.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95984.1",
 			"kind": "elite",
 			"title": "The tallstriders and the marsh",
@@ -13532,8 +13532,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Komuk 45-45; recordings (2026-11-15): done by 17 people (median 41.34), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95984.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95984.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95984.1",
 			"kind": "rare",
 			"title": "The tallstriders and the marsh",
@@ -13545,8 +13545,8 @@
 			"evidence": "route level 40.3 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 17 people (median 41.34), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95121.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95121.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -13560,8 +13560,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Powderfuse Bruiser 57-57 x6, Gul'gash 49-49 x2, Admiral Lamora 45-45 x4; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95121.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95121.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -13573,8 +13573,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49 x2; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95121.2|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95121.2|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95121.2",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -13586,8 +13586,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); 15 spawns 42+; recordings (2026-11-15): done by 36 people (median 40.73), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95988.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95988.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95988.1",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -13599,8 +13599,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Powderfuse Bruiser 57-57 x6; recordings (2026-11-15): done by 13 people (median 42.65), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95988.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95988.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95988.1",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -13612,8 +13612,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 13 people (median 42.65), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95988.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95988.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95988.1",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -13625,8 +13625,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); 11 spawns 42+; recordings (2026-11-15): done by 13 people (median 42.65), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95254.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "over",
 			"title": "The crawlers and Trapclaw",
@@ -13638,8 +13638,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Powderfuse Bruiser 57-57 x7; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95254.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "rare",
 			"title": "The crawlers and Trapclaw",
@@ -13651,8 +13651,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95254.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95254.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95254.1",
 			"kind": "pack",
 			"title": "The crawlers and Trapclaw",
@@ -13664,8 +13664,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); 10 spawns 42+; recordings (2026-11-15): done by 30 people (median 41.43), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95119.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95119.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95119.1",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -13677,8 +13677,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 42.09), 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95119.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95119.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95119.2",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -13690,8 +13690,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 26 people (median 42.09), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95288.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95288.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95288.1",
 			"kind": "rare",
 			"title": "The Eastsea pirates",
@@ -13703,8 +13703,8 @@
 			"evidence": "route level 40.6 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 42.36), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "over",
 			"title": "Beast Entrails as you go",
@@ -13716,8 +13716,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Powderfuse Bruiser 57-57 x2; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "elite",
 			"title": "Beast Entrails as you go",
@@ -13731,8 +13731,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Komuk 45-45, Old Rot-Chum 42-42 x2, Ghostmaw 42-42; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.1",
 			"kind": "rare",
 			"title": "Beast Entrails as you go",
@@ -13744,8 +13744,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 27 people (median 41.72), 1 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95122.1|target",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.1|target",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95122.1",
 			"kind": "target",
 			"title": "The pirates' second wave",
@@ -13757,8 +13757,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Eastsea Raider 44-45; recordings (2026-11-15): done by 23 people (median 42.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95122.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95122.1",
 			"kind": "rare",
 			"title": "The pirates' second wave",
@@ -13770,8 +13770,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 23 people (median 42.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95122.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95122.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95122.2",
 			"kind": "over",
 			"title": "The pirates' second wave",
@@ -13783,8 +13783,8 @@
 			"evidence": "route level 41 (experimental route choices' model); Eastsea Raider 44-45 x3; recordings (2026-11-15): done by 24 people (median 42.66), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|use 95165.3|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.3|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "use 95165.3",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -13796,8 +13796,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95124.1|target",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95124.1|target",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "target",
 			"title": "The pirates' ships",
@@ -13809,8 +13809,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Admiral Lamora 45-45; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95124.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95124.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -13822,8 +13822,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 95124.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 95124.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 95124.1",
 			"kind": "pack",
 			"title": "The pirates' ships",
@@ -13835,8 +13835,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); 8 spawns 43+; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95124.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95124.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95124.2",
 			"kind": "over",
 			"title": "The pirates' ships",
@@ -13848,8 +13848,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Admiral Lamora 45-45 x4; recordings (2026-11-15): done by 20 people (median 43.29), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|use 95165.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "use 95165.2",
 			"kind": "over",
 			"title": "The pirates' ships",
@@ -13861,8 +13861,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Admiral Lamora 45-45 x4; recordings (2026-11-15): done by 20 people (median 43.28), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|use 95165.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|use 95165.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "use 95165.1",
 			"kind": "rare",
 			"title": "The pirates' ships",
@@ -13874,8 +13874,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 43.27), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 95261.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 95261.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 95261.2",
 			"kind": "rare",
 			"title": "Rotflesh Mushrooms",
@@ -13887,8 +13887,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Gul'gash 49-49; recordings (2026-11-15): done by 20 people (median 42.7), 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96126.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96126.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96126.1",
 			"kind": "over",
 			"title": "Gronok's Key",
@@ -13900,8 +13900,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Chub'chob 45-45 x7; recordings (2026-11-15): done by 13 people (median 43), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96126.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96126.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96126.1",
 			"kind": "elite",
 			"title": "Gronok's Key",
@@ -13917,8 +13917,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); Bonegnaw 42-42 x4, Snufflesnout 44-44 x4, Chub'chob 45-45 x7, Kronk 42-42 x5, Mog'thar 43-43 x6; recordings (2026-11-15): done by 13 people (median 43), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96126.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96126.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96126.1",
 			"kind": "pack",
 			"title": "Gronok's Key",
@@ -13930,8 +13930,8 @@
 			"evidence": "route level 41.2 (experimental route choices' model); 25 spawns 43+; recordings (2026-11-15): done by 13 people (median 43), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 96009.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 96009.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 96009.1",
 			"kind": "elite",
 			"title": "Turner's Logging Camp",
@@ -13943,8 +13943,8 @@
 			"evidence": "route level 41.7 (experimental route choices' model); Ghostmaw 42-42; recordings (2026-11-15): done by 18 people (median 42.1), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -13957,8 +13957,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -13971,8 +13971,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -13985,8 +13985,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Kargra the Blind 46-46; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.1",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -13998,8 +13998,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 11 spawns 43+; recordings (2026-11-15): done by 11 people (median 43.59), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14013,8 +14013,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x3, Twilight Forgemaster 46-46 x2, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14027,8 +14027,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x3, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14041,8 +14041,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x2, Kargra the Blind 46-46; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.2|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.2|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.2",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -14054,8 +14054,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 11 spawns 43+; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14068,8 +14068,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Kargra the Blind 46-46 x2; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14081,8 +14081,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14095,8 +14095,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46 x5, Kargra the Blind 46-46 x2; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 94889.3|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94889.3|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 94889.3",
 			"kind": "pack",
 			"title": "The Twilight camps",
@@ -14108,8 +14108,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 13 spawns 43+; recordings (2026-11-15): done by 12 people (median 43.57), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94888|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94888|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94888",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14121,8 +14121,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46 x3; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94888|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94888|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94888",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14136,8 +14136,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46, Overlord Kilgar 46-46 x3, Twilight Enforcer 45-45; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94888|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94888|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94888",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14150,8 +14150,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46, Kargra the Blind 46-46; recordings (2026-11-15): done by 0 people, 9 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94907|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94907|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94907",
 			"kind": "over",
 			"title": "The Twilight camps",
@@ -14163,8 +14163,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Kargra the Blind 46-46 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94907|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94907|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94907",
 			"kind": "elite",
 			"title": "The Twilight camps",
@@ -14176,8 +14176,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Enforcer 45-45; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94907|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94907|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94907",
 			"kind": "rare",
 			"title": "The Twilight camps",
@@ -14190,8 +14190,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46, Kargra the Blind 46-46 x3; recordings (2026-11-15): done by 0 people, 2 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94887|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94887|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94887",
 			"kind": "elite",
 			"title": "Marshal Ryan",
@@ -14204,8 +14204,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46, Executioner Morg 46-46; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|complete 94887|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|complete 94887|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "complete 94887",
 			"kind": "rare",
 			"title": "Marshal Ryan",
@@ -14217,8 +14217,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Kargra the Blind 46-46; recordings (2026-11-15): done by 0 people, 0 people died within 60 yd, 1 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "over",
 			"title": "The ogre mine",
@@ -14232,8 +14232,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46 x8, Executioner Morg 46-46 x5, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "elite",
 			"title": "The ogre mine",
@@ -14247,8 +14247,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Overlord Kilgar 46-46 x8, Executioner Morg 46-46 x5, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "rare",
 			"title": "The ogre mine",
@@ -14261,8 +14261,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Twilight Forgemaster 46-46, Kargra the Blind 46-46; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.1",
 			"kind": "pack",
 			"title": "The ogre mine",
@@ -14274,8 +14274,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 21 spawns 43+; recordings (2026-11-15): done by 10 people (median 43.77), 8 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.2|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.2|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.2",
 			"kind": "over",
 			"title": "The ogre mine",
@@ -14288,8 +14288,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x4, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.2|elite",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.2|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.2",
 			"kind": "elite",
 			"title": "The ogre mine",
@@ -14302,8 +14302,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); Executioner Morg 46-46 x4, Twilight Enforcer 45-45 x3; recordings (2026-11-15): done by 10 people (median 43.77), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|kill 96015.2|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 96015.2|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "kill 96015.2",
 			"kind": "pack",
 			"title": "The ogre mine",
@@ -14315,8 +14315,8 @@
 			"evidence": "route level 41.8 (experimental route choices' model); 9 spawns 43+; recordings (2026-11-15): done by 10 people (median 43.77), 1 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|target",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|target",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "target",
 			"title": "Bring Me His Head",
@@ -14328,8 +14328,8 @@
 			"evidence": "route level 42.2 (experimental route choices' model); Overlord Kilgar 46-46; recordings (2026-11-15): done by 8 people (median 43.75), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|over",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "over",
 			"title": "Bring Me His Head",
@@ -14342,8 +14342,8 @@
 			"evidence": "route level 42.2 (experimental route choices' model); Twilight Forgemaster 46-46 x2, Executioner Morg 46-46 x2; recordings (2026-11-15): done by 8 people (median 43.75), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|rare",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "rare",
 			"title": "Bring Me His Head",
@@ -14356,8 +14356,8 @@
 			"evidence": "route level 42.2 (experimental route choices' model); Twilight Forgemaster 46-46 x2, Kargra the Blind 46-46; recordings (2026-11-15): done by 8 people (median 43.75), 5 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "experimental/guides/riverglades-alliance-1.guide|collect 94890.1|pack",
-			"guide": "experimental/guides/riverglades-alliance-1.guide",
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94890.1|pack",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
 			"goal": "collect 94890.1",
 			"kind": "pack",
 			"title": "Bring Me His Head",
