@@ -107,7 +107,7 @@ fn route_choice_opens_one_card_per_zone_its_facts_at_one_height_across_cards_cap
 	assert_eq!(out["otherTag"], false);
 	assert_eq!(out["pros"], json!(["Compact", "Quiet"]));
 	assert_eq!(out["cons"], "Long runs");
-	assert_eq!(out["bShown"], json!({ "pros": 3, "cons": 2 }), "at most 3 pros and 2 cons on the card, one line each");
+	assert_eq!(out["bShown"], json!({ "pros": 3, "cons": 2 }), "at most 3 pros and 2 cons on the card");
 	let tip = out["tip"].as_array().unwrap();
 	assert!(tip.iter().any(|l| is_match(text(l), "Group finder")) && tip.iter().any(|l| is_match(text(l), "Kill-stealing")), "the full lists are in the tooltip");
 	assert!(tip.iter().any(|l| text(l) == "10–20  ·  ≈10 min away  ·  57 quests"), "the facts whole in the tooltip: {tip:?}");
@@ -117,6 +117,44 @@ fn route_choice_opens_one_card_per_zone_its_facts_at_one_height_across_cards_cap
 	assert_eq!(out["ring"], json!([true, false]), "the recommended card's accent outline");
 	assert_eq!(out["button"], "Level in Silverpine Forest");
 	assert_eq!(out["sameHeight"], true);
+}
+
+// A long pro or con wraps instead of being cut, the next bullet below it; the cons and both cards' "Then" lines and
+// buttons still line up. A window taller than the screen (a large UI scale) shrinks to fit it.
+#[test]
+fn long_pros_and_cons_wrap_the_cards_stay_aligned_and_a_window_taller_than_the_screen_shrinks_to_fit() {
+	let out = run(r#"
+		local long = "One zone and one hub, Farholde Keep with its flight path and inn, in place of Desolace's south loop"
+		CHOICES.badlands.options[2].pros = { long, "Short" }
+		CHOICES.badlands.options[2].cons = { "Experimental: written from players' recordings and not yet checked end to end in the game" }
+		Polestar.Fire("ROUTE_CHOICE", "badlands")
+		local F = PolestarRouteChoice
+		local s, r = cardFor("stv"), cardFor("riverglades")
+		local function y(region) local _, _, _, _, py = region:GetPoint(1) return py end
+		local p1 = r.Pros[1].Text
+		local out = {
+			wrapped = p1:GetStringHeight() > s.Pros[1].Text:GetStringHeight(), cut = p1:IsTruncated(), text = p1:GetText(),
+			below = y(r.Pros[2].Text) - y(p1) <= -(p1:GetStringHeight()), consCut = r.Cons[1].Text:IsTruncated(),
+			consY = { y(s.Cons[1].Text), y(r.Cons[1].Text) }, sameHeight = s:GetHeight() == r:GetHeight(),
+			thenY = { y(s.Then), y(r.Then) }, goY = { y(s.Go), y(r.Go) }, scale = F:GetScale(),
+		}
+		RC.Hide()
+		UIParent.height = 600
+		Polestar.Fire("ROUTE_CHOICE", "badlands")
+		out.small = { scale = F:GetScale(), fits = F:GetHeight() * F:GetScale() <= 600 - 32 + 0.01 }
+		UIParent.height = 1080
+		emit(out)"#);
+	assert_eq!(out["wrapped"], true, "the long pro takes more than one line: {out}");
+	assert_eq!(out["cut"], false);
+	assert_eq!(out["consCut"], false);
+	assert_eq!(out["below"], true, "the next pro starts below the wrapped one");
+	assert_eq!(out["consY"][0], out["consY"][1], "cons start on the same line");
+	assert_eq!(out["sameHeight"], true);
+	assert_eq!(out["thenY"][0], out["thenY"][1], "the Then lines line up");
+	assert_eq!(out["goY"][0], out["goY"][1], "the buttons line up");
+	assert_eq!(out["scale"], 1.0, "on a 1080 screen it fits as it is");
+	assert!(out["small"]["scale"].as_f64().unwrap() < 1.0, "{out}");
+	assert_eq!(out["small"]["fits"], true, "shrunk to fit a short screen: {out}");
 }
 
 #[test]

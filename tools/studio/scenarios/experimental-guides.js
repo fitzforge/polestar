@@ -80,9 +80,9 @@ for _, o in ipairs(c and c.options or {}) do
 end
 return (PolestarRouteChoice and PolestarRouteChoice:IsShown() and "shown" or "NOT shown") .. ": " .. table.concat(out, " | ")`;
 
-// faction: its character and place, its menu shots (name -> { filter, open, select, title }) and the
-// Forever mark's tooltip on the selected row, in every look, and its choices (name -> { from, level,
-// title }), in the default look; the default look's menus and choices at UI scales 0.64 and 1.5 too.
+// faction: its character and place, its menu shots (name -> { filter, open, select, title }) with the
+// Forever mark's tooltip on the selected row, and its choices (name -> { from, level, title }), in every
+// look; the default look's menus and choices at UI scales 0.64 and 1.5 too.
 function make({ title, character, place, menus, choices }) {
 	const shots = {};
 	for (const [look, [id, folder, variant]] of Object.entries(LOOKS)) {
@@ -98,9 +98,9 @@ function make({ title, character, place, menus, choices }) {
 				shots[`${name}-${look}-${s}`] = { title: `${look} at UI scale ${s}: ${m.title}`, lua: `${base}\n${SCALE(s)}\n${menu}`, capture: ['PolestarPicker'] };
 			}
 		}
-		if (look !== 'polestar') continue;
 		for (const [name, c] of Object.entries(choices)) {
 			shots[`${name}-${look}`] = { title: `${look}: ${c.title}`, lua: `${base}\n${CHOICE(c.from, c.level)}`, capture: ['PolestarRouteChoice'] };
+			if (look !== 'polestar') continue;
 			for (const s of ['0.64', '1.5']) {
 				shots[`${name}-${look}-${s}`] = { title: `${look} at UI scale ${s}: ${c.title}`, lua: `${base}\n${SCALE(s)}\n${CHOICE(c.from, c.level)}`, capture: ['PolestarRouteChoice'] };
 			}
