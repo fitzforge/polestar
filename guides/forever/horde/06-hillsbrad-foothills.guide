@@ -145,6 +145,7 @@ step The Sepulcher
   fly "The Sepulcher"
   turnin 516                          -- Shadow Priest Allister
   turnin 95981                        -- Shadow Priest Allister
+  turnin 479                          -- Shadow Priest Allister: Ambermill's pendants
 
 step Hadrec and Dalar
   when dungeon "Shadowfang Keep"

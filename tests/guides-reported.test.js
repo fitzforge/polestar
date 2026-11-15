@@ -1853,16 +1853,15 @@ test(`${WETLANDS}: Bennistrov's report (#1354): Bolvar's A Friend of the Family 
 test(`${SILVERPINE}: one Sepulcher stop after the south loop; the level 19-21 quests on the ride to Hillsbrad, no Fenris Isle at 12-15`, { skip }, () => {
 	const list = goals(SILVERPINE);
 	const stop = list[at(list, 'accept 91921 (Return to Quinn (Again))', is('accept', 91921))].s;
-	for (const [t, q] of [['turnin', 479], ['turnin', 91920], ['turnin', 422]]) {
+	for (const [t, q] of [['turnin', 91920], ['turnin', 422], ['turnin', 439]]) {
 		assert.equal(list[at(list, `${t} ${q}`, is(t, q))].s, stop, `${t} ${q} on the Sepulcher stop after the south loop`);
 	}
-	const eyes = at(list, 'the murloc eyes (91920)', (g) => g.quest === 91920 && g.t === 'collect');
-	const pendants = at(list, 'the Dalaran Pendants (479)', (g) => g.quest === 479 && g.t === 'collect');
-	assert.deepEqual(list.slice(eyes, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional && goal.npc != null).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between the shore and Ambermill');
-	assert.deepEqual(list.filter(({ goal }) => [443, 460, 461, 493, 516, 95981].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Fenris Isle, and the level 19-21 quests wait for the ride to Hillsbrad');
+	// Since the 0.4.0 level tidy Ambermill (479: Mages with Serpents, Conjurors 17-18, Ataeric 22) waits for the ride at 22.
+	assert.deepEqual(list.filter(({ goal }) => [443, 460, 461, 479, 493, 516, 95981].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Fenris Isle, no Ambermill, and the level 19-21 quests wait for the ride to Hillsbrad');
 	const ride = goals(STONETALON);
 	const sep = ride[at(ride, 'accept 493', is('accept', 493))].s;
-	for (const q of [516, 95981]) assert.equal(ride[at(ride, `accept ${q}`, is('accept', q))].s, sep, `${q} on the ride's Sepulcher stop`);
+	for (const q of [516, 95981, 479]) assert.equal(ride[at(ride, `accept ${q}`, is('accept', q))].s, sep, `${q} on the ride's Sepulcher stop`);
+	assert.equal(goals(HILLSBRAD_HORDE).filter(({ goal }) => is('turnin', 479)(goal)).length, 1, 'Ambermill handed to Allister when the Hillsbrad guide flies back to the Sepulcher');
 	assert.deepEqual(compiled(SILVERPINE).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
 });
 
@@ -5819,7 +5818,7 @@ test('Silverpine Forest and the Barrens (Horde): the band\'s dangerous steps say
 	for (const [guide, title, re] of [
 		[SILVERPINE, 'Border Crossings', /Dalaran Apprentices \(13\)/],
 		[SILVERPINE, 'The Dead Field', /Nightlash \(14\) rises/],
-		[SILVERPINE, 'Ambermill', /Dalaran Serpent \(15\).*Archmage Ataeric \(22\)/],
+		[STONETALON, 'Ambermill', /Dalaran Serpent \(15\).*Archmage Ataeric \(22\)/], // since the 0.4.0 level tidy on the ride at 22
 		[BARRENS, 'The Disruption Ends', /Chol'aruk \(20, elite\)/],
 		[BARRENS, 'Twitching Antennae', /Silithid Harvester \(24, rare\)/],
 		[BARRENS, 'The Stormrage Barrow Dens', /Territorial Terrans \(level 60\)/],
@@ -6994,8 +6993,9 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	assert.deepEqual(hills.slice(bears + 1, farmers).filter(({ goal }) => ['accept', 'turnin'].includes(goal.t)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Tarren Mill stop between the bears and the fields');
 	const pine = goals(SILVERPINE);
 	const ferry = at(pine, 'turnin 438', is('turnin', 438));
-	assert.ok(at(pine, 'collect 730', (g) => g.t === 'collect' && g.item === 730) < ferry && ferry < at(pine, 'collect 3354', (g) => g.t === 'collect' && g.item === 3354), 'the boat between the murlocs and Ambermill');
-	assert.equal(pine[at(pine, 'turnin 439', is('turnin', 439))].s, pine[at(pine, 'turnin 479', is('turnin', 479))].s, 'Rot Hide Clues on the Sepulcher stop after Ambermill');
+	// Since the 0.4.0 level tidy Ambermill waits for the ride at 22: the boat on the shore walk after the murlocs, then the Sepulcher.
+	assert.ok(at(pine, 'collect 730', (g) => g.t === 'collect' && g.item === 730) < ferry, 'the boat after the murlocs');
+	assert.equal(pine[at(pine, 'turnin 439', is('turnin', 439))].s, pine[at(pine, 'turnin 91920', is('turnin', 91920))].s, 'Rot Hide Clues on the Sepulcher stop after the shore');
 	assert.doesNotMatch(goals(TIRISFAL).find(({ goal }) => is('accept', 86784)(goal)).goal.note, /walks/, 'Bartholomew stays beside Dillinger (#1046)');
 	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /forever\/horde\/02-the-barrens/, 'the Cat Form trip is in the Barrens 15-21 guide');
 	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28.9');

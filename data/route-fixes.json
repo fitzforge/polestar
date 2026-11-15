@@ -3776,6 +3776,18 @@
 			{
 				"a": [
 					"turnin",
+					6641
+				],
+				"b": [
+					"accept",
+					479
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy (0.4.0): Ambermill Investigations (level 16) was worked at 14-15 in 03-silverpine-forest (recorded 25th percentile 15.1): its Mages fight beside Dalaran Serpents, Conjurors (17-18) stand among them and 5 of 14 recorded players died there. Shadow Priest Allister gives it on the Sepulcher stop of the ride to Hillsbrad at 22, the pendants come on the roads around Ambermill that Watching the Roads walks, and he takes it on the Hillsbrad guide's flight back to the Sepulcher."
+			},
+			{
+				"a": [
+					"turnin",
 					549
 				],
 				"b": [

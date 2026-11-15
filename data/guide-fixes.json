@@ -321,8 +321,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
-			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22.",
+			"tip": "On the roads around Ambermill, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
+			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22. 0.4.0 level tidy: Ambermill Investigations moved to the ride through Silverpine at 22 (05-stonetalon-mountains), on the roads Watching the Roads already walks, so the tip no longer starts from the ferry.",
 			"source": {
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-13: deaths on 03-silverpine-forest's Ambermill step, killers 1914, 2540, 1912; npcs.json levels"

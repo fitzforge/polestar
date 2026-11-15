@@ -131,6 +131,7 @@ step The Sepulcher
   fly "The Sepulcher"
   turnin 516                          -- Shadow Priest Allister
   turnin 95981                        -- Shadow Priest Allister
+  turnin 479                          -- Shadow Priest Allister: Ambermill's pendants
 
 step Fly to the Undercity
   zone Silverpine Forest
