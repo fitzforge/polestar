@@ -442,7 +442,8 @@ const OBJECT_KEYS_SIM: [&str; 5] = ["id", "name", "roles", "spawns", "instances"
 const QUEST_KEYS: [&str; 20] =
 	["id", "title", "level", "minLevel", "races", "classes", "start", "end", "pre", "excl", "next", "objectives", "objectiveText", "zone", "xp", "xpSamples", "rewards", "skill", "event", "source"];
 const FACTION_KEYS: [&str; 5] = ["id", "name", "side", "parent", "source"];
-pub(crate) const MIN_KILLS: f64 = 10.0;
+/// Loot windows of a source a player needs before their share counts toward a trusted drop chance.
+pub(crate) const MIN_WINDOWS: f64 = 10.0;
 const ENTRANCE_RADIUS: f64 = 1.5;
 const FULL_XP_LEVELS: f64 = 5.0;
 
@@ -681,8 +682,9 @@ struct Overlay<'a> {
 	faction_parent: IndexMap<i64, Ballot>,
 	faction_side: IndexMap<i64, Ballot>,
 	// finds, counted per player index (`ci`; one player's numbers never pool with another's)
-	kills: FxHashMap<i64, IndexMap<usize, f64>>,
+	/// source -> player index -> its loot windows (a drop chance's samples, [`drop_chance`]).
 	windows: [FxHashMap<i64, IndexMap<usize, f64>>; 2],
+	quest_loot: QuestLoot,
 	/// source -> item -> player index -> loot windows holding the item.
 	loots: [IndexMap<i64, IndexMap<i64, IndexMap<usize, f64>>>; 2],
 	found: [IndexMap<i64, ByMap>; 2],
@@ -1180,6 +1182,7 @@ impl<'a> Overlay<'a> {
 				for i in &list {
 					seen.insert(pos_int(&i.get("item")).unwrap());
 				}
+				self.quest_loot.window(k, id, ci, ev, &seen);
 				for item in seen {
 					*self.loots[k].entry(id).or_default().entry(item).or_default().entry(ci).or_insert(0.0) += 1.0;
 					self.item_entry(item, &V::Undef);
@@ -1231,8 +1234,9 @@ impl<'a> Overlay<'a> {
 		}
 	}
 
-	/// A creature the player killed: its level and rank, where it died (fills spawns only) and
-	/// the kill count behind its drop chances.
+	/// A creature the player saw die: its level and rank, and where it died (fills spawns only). A
+	/// death the Recorder names need not be the player's own kill (someone else's kill of a creature
+	/// they targeted, a group member's), so drop chances count loot windows, not these.
 	fn slain(&mut self, npc: i64, ev: &V) {
 		self.stats.recorded_kills += 1;
 		if !self.unit(npc, ev) {
@@ -1240,9 +1244,6 @@ impl<'a> Overlay<'a> {
 		}
 		if let Some(c) = coord(ev) {
 			push_point(&mut self.killed, npc, &c);
-		}
-		if !ev.get("denied").truthy() {
-			*self.kills.entry(npc).or_default().entry(self.ci).or_insert(0.0) += 1.0;
 		}
 	}
 
@@ -1312,16 +1313,18 @@ impl<'a> Overlay<'a> {
 	fn apply_finds(&mut self) {
 		let db = self.db;
 		let mut chances = 0;
+		let samples = std::mem::take(&mut self.quest_loot).finish();
 		for kind in ["npc", "object"] {
 			let k = k_ix(kind);
 			for (&id, m) in &self.loots[k] {
-				let of_by = drop_samples(kind == "npc", self.windows[k].get(&id), self.kills.get(&id));
-				for (&item, n_by) in m {
+				let windows = &self.windows[k][&id];
+				for (&item, held) in m {
 					let it = db.items.get(&item.to_string());
 					if !it.truthy() {
 						continue;
 					}
-					let Some(dc) = drop_chance(&of_by, n_by, self.min, |c| self.contributors[*c].clone()) else { continue };
+					let (of_by, n_by) = samples.of(k, id, item, windows, held);
+					let Some(dc) = drop_chance(of_by, n_by, self.min, |c| self.contributors[*c].clone()) else { continue };
 					if !it.get("drops").truthy() {
 						let d = Obj::new();
 						d.set("npc", Obj::new());
@@ -1564,25 +1567,153 @@ pub(crate) struct DropChance {
 	pub of: f64,
 }
 
-/// Each player's kills of the source (or loot windows, the more of the two), or its loot windows
-/// of an object. `K` keys a player: the data build's player index, the Codex snapshot's own.
-pub(crate) fn drop_samples<K: Eq + Hash + Clone>(npc: bool, windows: Option<&IndexMap<K, f64>>, kills: Option<&IndexMap<K, f64>>) -> IndexMap<K, f64> {
-	let mut of_by = windows.cloned().unwrap_or_default();
-	if npc {
-		for (who, &n) in kills.into_iter().flatten() {
-			let of = of_by.entry(who.clone()).or_insert(0.0);
-			*of = of.max(n);
-		}
-	}
-	of_by
+/// An item objective: (quest, objective index), as a `drop`'s `wanted` and an item's tick name it.
+type Objective = (i64, i64);
+
+/// One kind of loot window, counted: the source's kind ([`k_ix`]) and id, the player, the item
+/// objectives open when it opened, the items it held and the objectives it ticked.
+#[derive(PartialEq, Eq, Hash)]
+struct Window {
+	k: usize,
+	id: i64,
+	who: usize,
+	open: Box<[Objective]>,
+	items: Box<[i64]>,
+	ticks: Box<[Objective]>,
 }
 
-/// From [`MIN_KILLS`] of their own, `min` players (or a vouched one) make a trusted chance that
-/// replaces another source's; otherwise the chance only fills a gap. Either way it is the median
-/// of each player's chance. `name` gives the player a key stands for ([`trusted`] reads names).
+/// The loot windows behind the drops that fall only for a quest that wants them (Large Candle, for
+/// Kobold Candles). A player's share of every loot window of the source undercounts such a drop by
+/// all the windows they opened off the quest, so a quest drop's chance counts only the windows its
+/// objective was open for (the Recorder's `wanted`, docs/RECORDING.md). An objective's item is the
+/// one its ticks name most (a tick can land on another item of the window); a drop is a quest drop
+/// when more than half of the windows that held it had one of its objectives open (Hops, which every
+/// Thistle Boar drops, stays a drop like any other). A window that ticked an objective held its
+/// item, even when fast loot had taken it before the window was read.
+#[derive(Default)]
+pub(crate) struct QuestLoot {
+	/// objective -> item -> windows whose tick named the item.
+	tick_items: FxHashMap<Objective, FxHashMap<i64, f64>>,
+	/// Windows with an objective open -> how many.
+	windows: FxHashMap<Window, f64>,
+	/// item -> windows holding it, every window.
+	held: FxHashMap<i64, f64>,
+}
+
+type Samples = IndexMap<usize, f64>;
+
+/// What a drop chance counts ([`drop_chance`]), per player: the loot windows of the source and those
+/// of them that held the item; for a quest drop, only the windows its objective was open for.
+pub(crate) struct DropSamples {
+	/// (kind, source, quest drop) -> per player, the windows counted and those holding it.
+	quest: FxHashMap<(usize, i64, i64), (Samples, Samples)>,
+	quest_drops: FxHashSet<i64>,
+	none: Samples,
+}
+
+impl DropSamples {
+	/// The samples of `item` from source `id` (kind `k`), given every loot window of the source per
+	/// player (`windows`) and those that held the item (`held`).
+	pub(crate) fn of<'a>(&'a self, k: usize, id: i64, item: i64, windows: &'a Samples, held: &'a Samples) -> (&'a Samples, &'a Samples) {
+		if !self.quest_drops.contains(&item) {
+			return (windows, held);
+		}
+		self.quest.get(&(k, id, item)).map_or((&self.none, &self.none), |(of, n)| (of, n))
+	}
+}
+
+impl QuestLoot {
+	/// A `drop` of source `id` (kind `k`) that `who` opened, with `items` its held items.
+	pub(crate) fn window(&mut self, k: usize, id: i64, who: usize, ev: &V, items: &IndexSet<i64>) {
+		let objective = |o: &V| Some((pos_int(&o.get("q"))?, pos_int(&o.get("oi"))?));
+		let mut ticks: Vec<Objective> = Vec::new();
+		for i in ev.get("items").items() {
+			if let (Some(item), Some(o)) = (pos_int(&i.get("item")), objective(&i)) {
+				*self.tick_items.entry(o).or_default().entry(item).or_default() += 1.0;
+				ticks.push(o);
+			}
+		}
+		for &item in items {
+			*self.held.entry(item).or_default() += 1.0;
+		}
+		let mut open: Vec<Objective> = ev.get("wanted").items().iter().filter_map(objective).collect();
+		if open.is_empty() {
+			return;
+		}
+		open.sort_unstable();
+		open.dedup();
+		ticks.sort_unstable();
+		ticks.dedup();
+		let mut held: Vec<i64> = items.iter().copied().collect();
+		held.sort_unstable();
+		*self.windows.entry(Window { k, id, who, open: open.into(), items: held.into(), ticks: ticks.into() }).or_default() += 1.0;
+	}
+
+	/// What every drop chance counts: a quest drop, only the windows its objective was open for
+	/// (none at a source no such window came from); any other drop, every window.
+	pub(crate) fn finish(self) -> DropSamples {
+		// The objective's item: the one most of its ticks name (a tie names none).
+		let mut objectives_of: FxHashMap<i64, Vec<Objective>> = FxHashMap::default();
+		for (o, by) in &self.tick_items {
+			let top = by.values().copied().fold(0.0, f64::max);
+			let mut best = by.iter().filter(|(_, n)| **n == top);
+			if let (Some((&item, _)), None) = (best.next(), best.next()) {
+				objectives_of.entry(item).or_default().push(*o);
+			}
+		}
+		let item_of: FxHashMap<Objective, i64> = objectives_of.iter().flat_map(|(&item, os)| os.iter().map(move |&o| (o, item))).collect();
+		// The items a window held while one of their objectives was open: its own, and the item of
+		// every objective it ticked.
+		let held_open = |w: &Window| -> IndexSet<i64> {
+			let mut out: IndexSet<i64> = IndexSet::new();
+			for &item in w.items.iter().chain(w.ticks.iter().filter_map(|o| item_of.get(o))) {
+				if objectives_of.get(&item).is_some_and(|os| os.iter().any(|o| w.open.contains(o))) {
+					out.insert(item);
+				}
+			}
+			out
+		};
+		let mut on: FxHashMap<i64, f64> = FxHashMap::default();
+		let mut recovered: FxHashMap<i64, f64> = FxHashMap::default();
+		for (w, &n) in &self.windows {
+			for item in held_open(w) {
+				*on.entry(item).or_default() += n;
+				if !w.items.contains(&item) {
+					*recovered.entry(item).or_default() += n;
+				}
+			}
+		}
+		let quest: FxHashSet<i64> = on
+			.iter()
+			.filter(|(item, n)| {
+				let all = self.held.get(item).copied().unwrap_or(0.0) + recovered.get(item).copied().unwrap_or(0.0);
+				**n * 2.0 > all
+			})
+			.map(|(&item, _)| item)
+			.collect();
+		let mut samples: FxHashMap<(usize, i64, i64), (Samples, Samples)> = FxHashMap::default();
+		for (w, &n) in &self.windows {
+			let held = held_open(w);
+			let wanted: IndexSet<i64> = w.open.iter().filter_map(|o| item_of.get(o)).copied().filter(|item| quest.contains(item)).collect();
+			for item in wanted {
+				let (of_by, n_by) = samples.entry((w.k, w.id, item)).or_default();
+				*of_by.entry(w.who).or_insert(0.0) += n;
+				if held.contains(&item) {
+					*n_by.entry(w.who).or_insert(0.0) += n;
+				}
+			}
+		}
+		DropSamples { quest: samples, quest_drops: quest, none: Samples::new() }
+	}
+}
+
+/// From [`MIN_WINDOWS`] loot windows of their own, `min` players (or a vouched one) make a trusted
+/// chance that replaces another source's; otherwise the chance only fills a gap. Either way it is
+/// the median of each player's chance. `name` gives the player a key stands for ([`trusted`] reads
+/// names).
 pub(crate) fn drop_chance<K: Eq + Hash>(of_by: &IndexMap<K, f64>, n_by: &IndexMap<K, f64>, min: usize, name: impl Fn(&K) -> String) -> Option<DropChance> {
 	let all: Vec<&K> = of_by.iter().filter(|(_, of)| **of > 0.0).map(|(c, _)| c).collect();
-	let strong: Vec<&K> = all.iter().copied().filter(|c| of_by[*c] >= MIN_KILLS).collect();
+	let strong: Vec<&K> = all.iter().copied().filter(|c| of_by[*c] >= MIN_WINDOWS).collect();
 	let backers: IndexSet<String> = strong.iter().map(|c| name(c)).collect();
 	let trust = trusted(&backers, min);
 	let group = if trust { strong } else { all };
@@ -2025,8 +2156,8 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 		factions_seen: IndexMap::new(),
 		faction_parent: IndexMap::new(),
 		faction_side: IndexMap::new(),
-		kills: FxHashMap::default(),
 		windows: Default::default(),
+		quest_loot: QuestLoot::default(),
 		loots: Default::default(),
 		found: Default::default(),
 		killed: IndexMap::new(),
@@ -2580,15 +2711,12 @@ mod tests {
 		}
 	}
 
-	/// `n` kills of `npc`, `drops` of them dropping `item`.
+	/// `n` kills of `npc`, each looted, `drops` of the loot windows holding `item`.
 	fn loot(npc: i64, item: i64, n: usize, drops: usize) -> Vec<String> {
 		(0..n)
 			.flat_map(|i| {
-				let mut e = vec![format!(r#"{{"t":{i},"e":"kill","npc":{npc},"cls":"normal"}}"#)];
-				if i < drops {
-					e.push(format!(r#"{{"t":{i},"e":"drop","npc":{npc},"items":[{{"item":{item},"count":1}}]}}"#));
-				}
-				e
+				let items = if i < drops { format!(r#"{{"item":{item},"count":1}}"#) } else { String::new() };
+				[format!(r#"{{"t":{i},"e":"kill","npc":{npc},"cls":"normal"}}"#), format!(r#"{{"t":{i},"e":"drop","npc":{npc},"items":[{items}]}}"#)]
 			})
 			.collect()
 	}
@@ -2597,7 +2725,7 @@ mod tests {
 	const ZOMBIE: &str = r#"{"1501":{"id":1501,"name":"Mindless Zombie","spawns":{}}}"#;
 
 	#[test]
-	fn a_drop_chance_from_another_source_needs_three_players_with_enough_kills() {
+	fn a_drop_chance_from_another_source_needs_three_players_with_enough_loot_windows() {
 		let chance = |recs: &[Recording]| {
 			let t = Tables::new("{}", ZOMBIE, LINEN);
 			t.apply(recs);
@@ -2605,7 +2733,7 @@ mod tests {
 		};
 		assert_eq!(chance(&from(&[A], &loot(1501, 2589, 12, 12))), Some(5.0));
 		assert_eq!(chance(&from(&[A, B], &loot(1501, 2589, 12, 12))), Some(5.0));
-		// Three players, each under MIN_KILLS of their own: not trusted, however many kills together.
+		// Three players, each under MIN_WINDOWS of their own: not trusted, however many windows together.
 		assert_eq!(chance(&from(&[A, B, C], &loot(1501, 2589, 6, 6))), Some(5.0));
 		assert_eq!(chance(&from(&[A, B, C], &loot(1501, 2589, 12, 12))), Some(100.0));
 	}
