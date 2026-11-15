@@ -8601,10 +8601,23 @@ shows on a continent other than 0 and 1. Recorded `inst` fields add to them.
   the 1.12 table), so level-ups inside a step count in full.
 
 Per step: passes, median/p75 time, XP, XP/hr, combat share (the rest is
-mostly travel), deaths, turn-ins, travel yards (completed taxi and transport
-rides, and jumps faster than 40 yd/s, excluded), revisits. Transport samples
-do not bridge the walking positions before and after a trip. A missing end
-event does not hide later movement; ride time and XP still count normally.
+mostly travel), deaths, turn-ins, estimated travel yards (completed taxi trips,
+transport-only samples, and jumps faster than 40 yd/s, excluded), revisits. Transport samples
+do not bridge the walking positions before and after a trip. A ride ends
+after five still ticks, which can follow a walk ashore: inside a completed
+ride, consecutive readable `pos` samples with positive own speed retain a
+leg if its displacement fits the larger observed speed over that interval,
+allowing the recorder's coordinate, time and speed rounding. A zero or
+unreadable speed/position, or a step snapshot without own-speed evidence,
+breaks that trail. Taxi samples remain excluded,
+including inside an overlapping ride. This is an estimate, not a detected
+disembark: sparse samples cannot distinguish walking ashore from all walking
+aboard. Speed changes, independently rounded chunk clocks and the first/last
+unsampled leg can undercount.
+A missing end event does not hide later movement. A known chunk gap without
+enough session headers to locate its boundary disables transport matching
+for that session, preserving its earlier estimate. Ride time and XP still
+count normally.
 Per guide: time (completed runs), levels gained,
 XP/hr. Then three lists: slowest steps by XP/hr; steps at least twice and
 2 minutes over the guide's median step time (compiled packs carry no time
