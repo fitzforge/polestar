@@ -3115,3 +3115,79 @@ emit(take)"#),
 	.remove(0);
 	assert_eq!(out, json!([1740]));
 }
+
+// #2535, #2539, #2543 (Fyurie, Night Elf Warrior 51, Blackrock Depths' pick-up guide): The True Masters' step said
+// "Kill Ragged John", a friendly NPC whose story the player hears through his dialogue. With the objective a talk in
+// the Codex (the data build's talk rule: no count, friendly to every side that takes the quest), the step says
+// "Talk to Ragged John", the step's note says to click through his dialogue, and the target key lists him as an NPC
+// to talk to, never a mob to kill. The same NPC as a kill objective (0.4.0's Codex) still reads "Kill".
+#[test]
+fn a_pick_up_guide_step_for_a_story_from_a_friendly_npc_says_talk_to_not_kill_2543() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	let npc = |id: i32, name: &str, x: i32, y: i32| {
+		json!({
+			"id": id, "name": name, "level": 30, "levelMax": null, "faction": "AH", "rare": false, "elite": false, "boss": false,
+			"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": x, "y": y, "f": "e" }],
+		})
+	};
+	c["npcs"]["90710"] = npc(90710, "Marshal Maxwell", 40, 40);
+	c["npcs"]["90711"] = npc(90711, "Ragged John", 60, 60);
+	let quest = |id: i32, title: &str, pre: &[i32], objectives: Value| {
+		json!({
+			"id": id, "title": title, "level": 25, "minLevel": 18, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [90710], "object": [], "item": [] }, "end": { "npc": [90710], "object": [] },
+			"objectives": objectives, "pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	let story = |kind: &str| json!([{ "type": kind, "id": 90711, "count": 1, "text": "Ragged John" }]);
+	c["quests"]["90703"] = quest(90703, "The Dungeon Quest", &[90701], json!([{ "type": "item", "id": 90521, "count": 1, "text": "Gem of Test" }]));
+	i["forever"]["quests"]["90703"] = json!({ "area": 209 });
+	let script = k(r#"
+local E, B = Polestar.Engine, Polestar.QoL.Buttons
+Polestar.Set("qol.guideNameTarget", true) -- clicking a guide name targets it (opt in)
+D.PickUp("{KEY}")
+local g = E.GetGuide()
+local out = {}
+for s, step in ipairs(g.steps) do
+	for gi, goal in ipairs(step.goals) do
+		if goal.quest == 90701 and goal.npc == 90711 then
+			local view = E.GetStepView(s)
+			out.t, out.text, out.note = goal.t, view.goals[gi].text, step.note or false
+			local raw = {}
+			for j, x in ipairs(step.goals) do raw[j] = x end
+			local names, verbs = B.TargetNames({ goals = { view.goals[gi] } }, { goal })
+			out.targets = {}
+			for j, n in ipairs(names or {}) do out.targets[#out.targets + 1] = n .. ":" .. tostring(verbs and verbs[j]) end
+			local _, _, kind = B.GuideNameMacro(view.goals[gi], goal)
+			out.macroKind = kind or false
+		end
+	end
+end
+local page = Polestar.Lookup.QuestStep(Polestar.Codex.Quest(90701))
+for _, goal in ipairs(page and page.goals or {}) do
+	if goal.npc == 90711 then out.page = goal.t end
+end
+emit(out)"#);
+	let run_with = |kind: &str| {
+		let mut c = c.clone();
+		c["quests"]["90701"] = quest(90701, "The True Masters", &[], story(kind));
+		run(&pack_of(&c, &i), &script, Opts { whole: true, ..Default::default() }).remove(0)
+	};
+	let talk = run_with("talk");
+	assert_eq!(talk["t"], "talk", "{talk}");
+	assert!(talk["text"].as_str().is_some_and(|t| t.starts_with("Talk to Ragged John")), "{talk}");
+	assert_eq!(talk["note"], "Ragged John: click through what they say until the quest's line is done.");
+	assert!(arr_strs(&talk["targets"]).iter().all(|t| !t.ends_with(":kill")), "never on the target key's mob list: {talk}");
+	assert_eq!(talk["macroKind"], "npc", "a click on his name targets him as an NPC, not a mob");
+	assert_eq!(talk["page"], "talk", "the quest's Lookup page says Talk to as well");
+	let kill = run_with("kill");
+	assert_eq!(kill["t"], "kill", "0.4.0's Codex shape: {kill}");
+	assert!(kill["text"].as_str().is_some_and(|t| t.starts_with("Kill Ragged John")), "{kill}");
+	assert_eq!(kill["page"], "kill");
+}
+
+fn arr_strs(v: &Value) -> Vec<String> {
+	v.as_array().map(|a| a.iter().filter_map(|x| x.as_str().map(str::to_string)).collect()).unwrap_or_default()
+}
