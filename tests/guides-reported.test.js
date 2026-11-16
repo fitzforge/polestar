@@ -3441,8 +3441,9 @@ test('Horde 40-50/06: Stonard flies straight to Booty Bay, and Nimboya is passed
 	assert.ok(seahorn < nimboya && nimboya < zeppelin, 'Booty Bay, then Nimboya, then the zeppelin');
 });
 
-test('Horde 40-50/06: A Grim Discovery is handed in once, in 40-50/02, not asked for again in Orgrimmar', { skip }, () => {
-	assert.ok(goals(H40('02-feralas')).some(({ goal }) => is('turnin', 2976)(goal)), '02 hands it to Belgrom');
+// Since the 0.4.0 audit the Orgrimmar stop after Feralas opens 40-50/03 (the flight from Shen'dralas lands there).
+test('Horde 40-50/06: A Grim Discovery is handed in once, on the Orgrimmar stop after Feralas, not asked for again in Orgrimmar', { skip }, () => {
+	assert.ok(goals(H40('03-feralas')).some(({ goal }) => is('turnin', 2976)(goal)), '03 hands it to Belgrom');
 	assert.ok(!goals(H40('06-azshara')).some(({ goal }) => is('turnin', 2976)(goal)), '06 has no second hand-in');
 });
 
@@ -7912,10 +7913,11 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the sinew w
 	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Tarren Mill/.test(goal.text || goal.note || '')), 'no note about the next guide flying to Tarren Mill');
 });
 
-// Final route review, Horde 40-60: Zukk'ash Report is ready on the Orgrimmar stop that ends the Feralas guide, which
-// passes Zilzibin Drumlore; it was carried to the Azshara guide's Orgrimmar stop.
-test('forever/horde/40-50/02-feralas.guide: final review: Zukk\'ash Report on the Orgrimmar stop that ends the guide', { skip }, () => {
-	const list = goals('forever/horde/40-50/02-feralas.guide');
+// Final route review, Horde 40-60: Zukk'ash Report is ready on the Orgrimmar stop after the Feralas guide, which
+// passes Zilzibin Drumlore; it was carried to the Azshara guide's Orgrimmar stop. Since the 0.4.0 audit that stop opens
+// 40-50/03 (the flight from Shen'dralas lands in Orgrimmar).
+test('forever/horde/40-50/03-feralas.guide: final review: Zukk\'ash Report on the Orgrimmar stop after Feralas', { skip }, () => {
+	const list = goals('forever/horde/40-50/03-feralas.guide');
 	const report = list[at(list, 'turnin 7732', is('turnin', 7732))];
 	assert.equal(report.s, list[at(list, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru\'s hand-in, in Orgrimmar');
 	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7732)(goal)), 'not carried to the Azshara guide');
@@ -11002,7 +11004,7 @@ test('Desolace, both sides: the Book of the Ancients uses the Gem of the Serpent
 // ender. A Grim Discovery (2976) went to Belgrom in the Valley of Honor five levels later, and Bone-Bladed Weapons
 // (4300, ravasaur claws from Un'Goro) to Jes'rimon three levels later, though the route trains in Orgrimmar first.
 test('Horde 45 and 53 Orgrimmar stops: Belgrom and Jes\'rimon take their ready hand-ins on the way through', { skip }, () => {
-	const fer = goals('forever/horde/40-50/02-feralas.guide');
+	const fer = goals('forever/horde/40-50/03-feralas.guide');
 	const grim = fer[at(fer, 'turnin 2976', is('turnin', 2976))].s;
 	assert.equal(grim, fer[at(fer, 'turnin 7732', is('turnin', 7732))].s, 'Belgrom on the Orgrimmar stop after Feralas');
 	assert.equal(grim, fer[at(fer, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru, same stop');

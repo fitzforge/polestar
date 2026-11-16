@@ -43,6 +43,7 @@ step Booty Bay
   accept 3721 optional                -- Only once all three robots are home
   turnin 3721 optional
   turnin 580                          -- Whiskey Slim, in the inn
+  turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor: Stoley's shipment from Tanaris
   accept 608                          -- Fleet Master Seahorn, on the balcony of the same building
 
 step The Bloodsail ships

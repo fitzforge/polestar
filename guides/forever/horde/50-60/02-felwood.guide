@@ -35,6 +35,13 @@ step Mulgris Deepriver
   turnin 4984                         -- Inside
   note His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58.
 
+step Level 53.34
+  zone Western Plaguelands
+  when level<53.34
+  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. The Scarlet Medics camp on the way from Dalson's Tears to the Bulwark. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  goto 40.5,51.8 map 1422 "Scarlet Medic"
+  level 53.34 grind 10605              -- grind on Scarlet Medic
+
 step Tirisfal Glades
   zone Tirisfal Glades
   goto 83.2,68.5 "The Bulwark"
@@ -50,13 +57,6 @@ step The Bulwark
   turnin 5228                         -- Shadow Priestess Vandis
   accept 5229
   note Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them.
-
-step Level 53.34
-  zone Western Plaguelands
-  when level<53.34
-  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
-  goto 40.5,51.8 map 1422 "Scarlet Medic"
-  level 53.34 grind 10605              -- grind on Scarlet Medic
 
 step Tirisfal Glades
   zone Tirisfal Glades
@@ -113,6 +113,7 @@ step Emerald Sanctuary
   accept 5155                         -- Greta Mosshoof
   accept 8460                         -- Grazle, at the south edge of the camp
   accept 4102                         -- Maybess Riverbreeze, on the west side of the camp
+  accept 86577                        -- Kelek Skykeeper: A Sampling of Putrescence, the organs of Felwood's bears and wolves
 
 step Deadwood Village
   tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
@@ -167,10 +168,16 @@ step Shatter Scar Vale
   kill 9878 quest 5156.1
   kill 9879 quest 5156.2
 
+step Statue of Malorne
+  tip The Statue of Malorne stands just south of the vale, by the road north: its bauble starts a quest for Winna Hazzard at Bloodvenom Post.
+  accept 86612 object 661778 @42.0,47.3 -- Statue of Malorne
+
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are Kelek's. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
+  collect 277958 quest 86577.1        -- Putrescent Bear Organs, from the Angerclaw bears
+  collect 277959 quest 86577.2        -- Putrescent Wolf Organs, from the Felpaw wolves
   level 54.21 grind 8957               -- grind on Angerclaw Grizzly
 
 step Irontree Woods
@@ -215,6 +222,7 @@ step Emerald Sanctuary
   turnin 5157                         -- Greta Mosshoof
   accept 5158
   turnin 4102                         -- Maybess Riverbreeze, on the west side of the Sanctuary
+  turnin 86577                        -- Kelek Skykeeper
   note Keep Seeking Spiritual Aid: Islen Waterseer is in the Barrens.
 
 step Overlord Ror
@@ -223,7 +231,7 @@ step Overlord Ror
 
 step Level 54.7
   when level<54.7
-  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post : they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
   level 54.7 grind 7155               -- grind on Deadwood Pathfinder
 
@@ -238,6 +246,7 @@ step Bloodvenom Post
   tip Ride north up the road again.
   turnin 6162                         -- Dreka'Sur
   turnin 4505
+  turnin 86612                        -- Winna Hazzard: the Stag Lord's Bauble
   accept 4506
 
 step Winna's kitten

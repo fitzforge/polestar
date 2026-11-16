@@ -5631,26 +5631,50 @@
 			{
 				"a": [
 					"turnin",
-					2874
+					95141
 				],
 				"b": [
 					"task",
 					604
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): Stranglethorn's level 43-46 errands are taken where 40-50/01 passes their givers (41-42) and done on 40-50/03's Grom'gol zeppelin stop at about 45, where their mobs fit: Speaking with Gan'zulah (586; Skullsplitters 43-45 and Ana'thek 45), the Wild Shore (604, 576, 587; Bloodsail Deckhands 43-44, Elder Magi 44-45), Voodoo Dues (609; ghosts 43-44), Stranglethorn Fever (348; Mokk 44) and the naga coast (573, 617; Naga Explorers 43-44). Deliver to MacKinley (2874) is handed in on the same Booty Bay stop (#2353, #2102)."
+				"why": "Horde 40-60 level tidy (0.4.0): Stranglethorn's level 43-46 errands are taken where 40-50/01 passes their givers (41-42) and done on 40-50/02's Grom'gol stop at about 45, after the Riverglades (Report to Rog'mar, 95141), where their mobs fit: Speaking with Gan'zulah (586; Skullsplitters 43-45 and Ana'thek 45), the Wild Shore (604, 576, 587; Bloodsail Deckhands 43-44, Elder Magi 44-45), Voodoo Dues (609; ghosts 43-44), Zanzil's Secret (621; Zanzil's camps 43-44), Stranglethorn Fever (348; Mokk 44) and the naga coast (573, 617; Naga Explorers 43-44), in one sweep south from Grom'gol to Booty Bay (#2353, #2102). 40-50/02 lands at Grom'gol from Kargath anyway, so the old Grom'gol zeppelin stop in 40-50/03 at about 47 and its carry through the Riverglades and Feralas go."
 			},
 			{
 				"a": [
 					"turnin",
-					2874
+					95141
 				],
 				"b": [
 					"task",
 					586
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): Speaking with Gan'zulah (586) is worked on 40-50/03's Grom'gol stop at about 45, not on 40-50/01's Zul'Mamwe loop at 41 (Skullsplitters 43-45, #2353)."
+				"why": "Horde 40-60 level tidy (0.4.0): Speaking with Gan'zulah (586) is worked on 40-50/02's Grom'gol stop at about 45, after the Riverglades, not on 40-50/01's Zul'Mamwe loop at 41 (Skullsplitters 43-45, #2353)."
+			},
+			{
+				"a": [
+					"turnin",
+					95141
+				],
+				"b": [
+					"task",
+					621
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: Zanzil's Secret (621): Zanzil's camps are Witch Doctors and Naga of 43-44 (casters, packed), two over the player on 40-50/01's loop at about 42. Its mixture is taken on 40-50/02's Grom'gol stop at about 45, with the ghost pirates beside the camps, and Crank Fizzlebub takes it on that stop's Booty Bay call; 40-50/01's extra Booty Bay flight for it goes."
+			},
+			{
+				"a": [
+					"turnin",
+					95141
+				],
+				"b": [
+					"accept",
+					586
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: Speaking with Gan'zulah (level 46, from 30) is taken at the Bubbling Cauldron in Grom'gol on 40-50/02's landing from Kargath, right before its Skullsplitters, instead of on 40-50/01's cauldron stop at about 40.4 and carried through the Riverglades (about five hours): the route stands at the cauldron both times."
 			},
 			{
 				"a": [
@@ -5867,6 +5891,30 @@
 				],
 				"faction": "Horde",
 				"why": "Horde 0.4.0 audit: Sar'theris Strand lies on the way from Thunder Axe Fortress back west and south to Shadowprey, where Taiga and Drulzegar both take their quests back."
+			},
+			{
+				"a": [
+					"turnin",
+					3161
+				],
+				"b": [
+					"task",
+					3362
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are killed on 40-50/04's second trip south, after Marvon's hand-in, about a level later than the first pass (two over there); the first pass takes only Marin's dew glands and Tooga, and Tran'rek takes the quest on the last Gadgetzan stop."
+			},
+			{
+				"a": [
+					"turnin",
+					93362
+				],
+				"b": [
+					"turnin",
+					3121
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: 40-50/02 ends at Camp Mojache and rides north into Desolace for Shen'dralas instead of flying to Orgrimmar and back out to Shadowprey Village; Orgrimmar's hand-ins (Neeru, Zilzibin, Belgrom, Uthel'nay) come on the flight there after Shen'dralas, at the start of 40-50/03: one Kalimdor flight fewer."
 			},
 			{
 				"a": [
@@ -8170,7 +8218,7 @@
 			},
 			{
 				"q": 624,
-				"why": "Final route review (2026-11-07, Horde Stranglethorn 39-43): Cortello's Riddle starts from a scroll on the Bloodsail ships off the Wild Shore, crewed by pirates of 42-45, at the route's level 41; optional with a warning, and its later parts (625, 626) only for players who have it"
+				"why": "Final route review (2026-11-07, Horde Stranglethorn 39-43): Cortello's Riddle starts from a scroll on the Bloodsail ships off the Wild Shore, crewed by pirates of 42-45 with captains of 45-48, at the route's level 41; a group step since the 0.4.0 audit (`when group 624`, three or more over a solo player), and its later parts (625, 626) only for players who have it"
 			},
 			{
 				"q": 625,
@@ -10384,6 +10432,114 @@
 				],
 				"reason": "Horde 0.4.0 audit: Soothing Turtle Bisque (level 31, from 28, 2,500 XP) from Christoph Jeffcoat, who stands in Tarren Mill and sells its Soothing Spices himself; the Turtle Meat drops from the Snapjaws (29) that line the river from Tarren Mill south to the Mudsnout gnolls, the walk 30-40/01 makes first. It is taken on the first Tarren Mill stop and handed in on the stop after the Azurelode Mine, with Darthalia's. It replaces part of the Level 32 top-up in 30-40/02 (players at about 29.5-30 here).",
 				"issue": "-"
+			},
+			{
+				"q": 4289,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					4290
+				],
+				"reason": "Horde 0.4.0 audit: The Apes of Un'Goro (level 55, from 47, 5,650 XP) from Torwa Pathfinder on 50-60/01's first Torwa stop; the gorilla pelts on the pylon loop's north-east plateau (gorillas 50-53, at most one over at about 52.5), handed back to Torwa on the Marshlands leg the loop makes anyway. Taken at 58.7 on 50-60/06's return it gave no level where it was needed. Players' recordings: 8 Horde accepts at Torwa, the pelts on the same plateau.",
+				"issue": "-"
+			},
+			{
+				"q": 87492,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					4290
+				],
+				"reason": "Horde 0.4.0 audit: Uncanny Crystal (level 55, from 50, 5,650 XP, new in Forever) from Torwa Pathfinder; the Damaged Blue Crystal lies at 66.3,75.2, a short ride west of his camp, beside the Threshadon carcass 50-60/01 already visits, and he takes it on the next Torwa stop. Players' recordings: 7 accepts at Torwa, the crystal picked up at 66.1-66.3,75.0-75.2 and handed back to Torwa.",
+				"issue": "-"
+			},
+			{
+				"q": 87494,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit: Microcrystal Contamination (level 55, 5,650 XP, new in Forever) starts from a Crystal Infused Scale that Un'Goro's ravasaurs and Diemetradons drop (players' recordings: 10 Horde starts all over the crater, 11 hand-ins at Torwa); optional on 50-60/01's ravasaur step, handed in at Torwa on either of the guide's Torwa stops.",
+				"issue": "-"
+			},
+			{
+				"q": 86577,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					4102
+				],
+				"reason": "Horde 0.4.0 audit: A Sampling of Putrescence (level 55, 5,650 XP, new in Forever) from Kelek Skykeeper at the Emerald Sanctuary: the bear and wolf organs drop from the Angerclaw bears and Felpaw wolves 50-60/02 hunts in Irontree Woods for Talo; taken on the first Sanctuary stop and handed in on the second. Players' recordings: 3 Horde players took it at Kelek and handed it in there.",
+				"issue": "-"
+			},
+			{
+				"q": 86612,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit: Stag Lord's Bauble (level 55, 2,800 XP, new in Forever) starts at the Statue of Malorne (Felwood 42.0,47.3), by the road north past Shatter Scar Vale, and ends with Winna Hazzard at Bloodvenom Post, a stop 50-60/02 makes after it. Players' recordings (one Horde player): taken at the statue and handed in to Winna, as Forever's quest data has it.",
+				"issue": "-"
+			},
+			{
+				"q": 91497,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					3505
+				],
+				"reason": "Horde 0.4.0 audit: on Forever, Betrayed (3505) ends at the Kaldorei Tome of Summoning and the Sin'dorei Tome beside it offers Seals of the Sin'dorei (91497, level 53, 5,250 XP): the seals of the Thalassian Base Camp's three officers (53). Its chain An Explosive Gambit (91500, Magus Rimtori's head, to Ag'tor), Revenge Exacted (91531, Ag'tor to Belgrom in Orgrimmar) and the two Sin'dorei Tome deliveries (91538 to Jediga, 91547 to Zevrost) follow, all on stops 50-60/04 makes. Forever's quest data (3505's next is 91497) and players' recordings (the whole chain, Tome to Ag'tor, Jediga, Belgrom and Zevrost) agree.",
+				"issue": "-"
+			},
+			{
+				"q": 91500,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					91497
+				],
+				"reason": "Horde 0.4.0 audit: see 91497.",
+				"issue": "-"
+			},
+			{
+				"q": 91531,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					91500
+				],
+				"reason": "Horde 0.4.0 audit: see 91497.",
+				"issue": "-"
+			},
+			{
+				"q": 91538,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					91497
+				],
+				"reason": "Horde 0.4.0 audit: see 91497.",
+				"issue": "-"
+			},
+			{
+				"q": 91547,
+				"faction": "Horde",
+				"after": [
+					"turnin",
+					91538
+				],
+				"reason": "Horde 0.4.0 audit: see 91497.",
+				"issue": "-"
+			},
+			{
+				"q": 91569,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					91568
+				],
+				"reason": "Horde 0.4.0 audit: Blue Gold (level 53, 3,950 XP, new in Forever) from Izvi Gildfizz in Valormok, beside Highborne Treasure (91568): the Mana-Siphoning Wand drops from the Blood Elf Arcanists of the Thalassian Base Camp, which 50-60/04 works for Betrayed. Players' recordings: taken at Izvi, the wand at the base camp, handed back to Izvi.",
+				"issue": "-"
+			},
+			{
+				"q": 86746,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit: The Legashi Threat (level 53, 5,250 XP, new in Forever) from Ekkal (Azshara 42.0,38.9), on 50-60/04's road between Valormok and the north-east; the Legashi satyrs (51-52) hold the hills north of the Thalassian Base Camp. Taken on the way out and handed in on the way back west. Players' recordings: taken and handed in at Ekkal, the satyrs killed at 56-59,19-23.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -10852,6 +11008,18 @@
 				"q": 98095,
 				"faction": "Horde",
 				"reason": "Horde 0.4.0 audit: Valuable Vantages' western vial goes on the Alterac peak (38.6,94.8), where 33 of the 34 recorded players placed it, among Ferocious Yetis (31-32) and Mountain Lions and Hulking Mountain Lions (32-34): two to four levels over players at about 29.5 on 30-40/01, with 4 recorded deaths there. No later Horde guide passes the peak. Left out (2,000 XP); the walk to the three peaks and back to Masoj goes with it.",
+				"issue": "-"
+			},
+			{
+				"q": 3506,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit: on Forever, Betrayed (3505) is handed in at the Kaldorei Tome of Summoning and the Sin'dorei Tome beside it offers Seals of the Sin'dorei (91497); no recorded player took or handed in Betrayed's old second part (3506), while players did the Sin'dorei chain. Left out with its follow-up (3507), which 91497-91531 replace.",
+				"issue": "-"
+			},
+			{
+				"q": 3507,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit: see 3506.",
 				"issue": "-"
 			}
 		],

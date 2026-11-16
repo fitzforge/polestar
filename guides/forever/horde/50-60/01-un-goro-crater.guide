@@ -174,17 +174,24 @@ step The Slithering Scar
 step Stegodons and ravasaurs
   collect 11116 optional              -- A Mangled Journal, a rare drop
   accept 3884 optional                -- Use the Mangled Journal to start it
+  collect 280459 optional             -- Crystal Infused Scale, a rare drop from the ravasaurs and Diemetradons
+  accept 87494 item 280459 optional   -- Use the scale to start Microcrystal Contamination, for Torwa
 
 step Torwa Pathfinder
   tip Torwa camps in the south-east corner of the crater.
   accept 4290
+  accept 87492                        -- Torwa: Uncanny Crystal, a short ride west of his camp
+  accept 4289                         -- Torwa: The Apes of Un'Goro, the gorillas of the north-east plateau on the pylon loop
+  turnin 87494 optional
 
 step Fresh Threshadon Carcass
-  tip North of Torwa, a dead Threshadon lies by the water.
+  tip North of Torwa, a dead Threshadon lies by the water. The Damaged Blue Crystal lies on the ground a short ride west of Torwa's camp.
   collect 11504 quest 4290
+  collect 280417 quest 87492 @66.3,75.2
 
 step Torwa Pathfinder
   turnin 4290
+  turnin 87492
   accept 4291
 
 step Lar'korwi Mates
@@ -241,8 +248,11 @@ step Northern Pylon
   interact 164955 quest 4285.1
 
 step Gorillas
-  tip The gorillas live on the north-east plateau. Stay out of the deepest cave: U'cha lives there.
+  tip The gorillas live on the north-east plateau: Torwa wants two pelts of each kind, and the Thunderers (52-53) are the biggest. Stay out of the deepest cave: U'cha lives there.
   turnin 4243                         -- A-Me 01, the robot on the plateau; below ground
+  collect 11478 quest 4289.1          -- Un'Goro Gorilla Pelt
+  collect 11479 quest 4289.2          -- Un'Goro Stomper Pelt
+  collect 11480 quest 4289.3          -- Un'Goro Thunderer Pelt
   note A-Me 01 then wants a Mithril Casing, an Engineering item. Skip it unless you have one.
 
 step Un'Goro Crater: kill these as you meet them
@@ -259,6 +269,11 @@ step Eastern Pylon
 step The Marshlands
   tip Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.
   collect 11477 quest 4300
+
+step Torwa Pathfinder
+  tip Torwa's camp is in the south-east corner, a short ride from the Marshlands.
+  turnin 4289
+  turnin 87494 optional
 
 step Western Pylon
   tip Cross the south of the crater to the pylon on the western cliffs.
@@ -452,4 +467,4 @@ step Janice Felstone
   accept 5021                         -- Upstairs
   turnin 5021                         -- Janice's Parcel, beside the house; inside
   accept 5023
-  note Keep the parcel: Royal Overseer Bauhaus is in the Undercity. Keep A Plague Upon Thee: its termite mounds are in Terrordale, on the next guide's ride to Tirion. The next guide starts with Mulgris Deepriver by the Writhing Haunt, south-east of here.
+  note Keep the parcel: Royal Overseer Bauhaus is in the Undercity. The next guide starts with Mulgris Deepriver by the Writhing Haunt, south-east of here.

@@ -69,6 +69,7 @@ step Valormok
   accept 3517                         -- Jediga
   accept 3505                         -- Ag'tor Bloodfist
   accept 91568                        -- Izvi Gildfizz
+  accept 91569                        -- Izvi Gildfizz: Blue Gold, a wand from the blood elves' arcanists
 
 step Ruins of Eldarath: kill these as you meet them
   zone Azshara
@@ -88,12 +89,16 @@ step Makrinni Burrowers
   tip The Makrinni Burrowers (50-51) dig in the sands just east of the ruins, on the way north-east; they and the buried caches there give up the Highborne Treasure Fragments.
   collect 246684 quest 91568
 
+step Ekkal
+  tip On north-east across the middle of Azshara: Ekkal camps by the road.
+  accept 86746                        -- Ekkal: The Legashi Threat, the satyrs north of the blood elves' camp
+
 step Kim'jael
   tip Ride north-east to the goblin's camp on the cliffs above the Bay of Storms, just north of the blood elves.
   accept 3601
 
 step Thalassian Base Camp
-  tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms. Kim'jael's four pieces of equipment lie in the crates around the camp.
+  tip The blood elves camp on the cliffs in the north-east, by the Bay of Storms. Kim'jael's four pieces of equipment lie in the crates around the camp; the Blood Elf Arcanists carry Izvi's wand.
   tip Careful: a Blackmaw Thrall, a level 55-57 elite, stands at the west edge of the camp: work the blood elves from its east side.
   kill 6199 quest 3505.1
   kill 6198 quest 3505.2 @56.2,29.9
@@ -101,32 +106,58 @@ step Thalassian Base Camp
   collect 10715 quest 3601
   collect 10718 quest 3601
   collect 10722 quest 3601
+  collect 246680 quest 91569.1        -- Mana-Siphoning Wand, from the Blood Elf Arcanists
 
 step Magus Rimtori's camp
-  tip Rimtori's camp is at the east end of the base camp. Read the Kaldorei Tome of Summoning there, then kill the Magus.
-  tip Careful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead.
+  tip Rimtori's camp is at the east end of the base camp. Read the Kaldorei Tome of Summoning there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers.
   complete 3505 @59.53,31.47 map 1447 era
   turnin 3505                         -- Kaldorei Tome of Summoning
-  accept 3506
-  collect 10597 quest 3506            -- Magus Rimtori
+  accept 91497                        -- Sin'dorei Tome of Summoning: Seals of the Sin'dorei
+
+step Seals of the Sin'dorei
+  tip Each of the camp's three officers (53) carries a seal: Magister Hawkhelm at its western end, Lieutenant Suncrest in the middle, Ranger Lydrea at its eastern end.
+  collect 246725 quest 91497.1        -- Seal of the Warden, from Lieutenant Suncrest
+  collect 246721 quest 91497.2        -- Seal of the Warrior, from Magister Hawkhelm
+  collect 246722 quest 91497.3        -- Seal of the Ranger, from Ranger Lydrea
+
+step Magus Rimtori
+  tip Back to the Sin'dorei Tome: hand in the seals, then use it to call Magus Rimtori.
+  tip Careful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead.
+  turnin 91497                        -- Sin'dorei Tome of Summoning
+  accept 91500                        -- An Explosive Gambit
+  collect 10597 quest 91500.1         -- Head of Magus Rimtori
+  accept 91538                        -- Sin'dorei Tome of Summoning: for Jediga in Valormok
+
+step The Legashi satyrs
+  tip The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: Ekkal wants five of each kind.
+  kill 6200 quest 86746.1             -- Legashi Satyr
+  kill 6201 quest 86746.2             -- Legashi Rogue
+  kill 6202 quest 86746.3             -- Legashi Hellcaller
 
 step Kim'jael
   tip Back north-west to Kim'jael, then on west. His next errand, the rune in the Ruins of Eldarath, would bring you back here: skip it.
   turnin 3601
 
+step Ekkal
+  tip South-west along the road: Ekkal takes the satyrs.
+  turnin 86746
+
 step Ag'tor Bloodfist
   tip Ride back west to Valormok.
-  turnin 3506
-  accept 3507
+  turnin 91500                        -- Ag'tor Bloodfist
+  accept 91531                        -- Ag'tor: Revenge Exacted, for Belgrom in Orgrimmar
   turnin 3517                         -- Jediga
+  turnin 91538                        -- Jediga
+  accept 91547                        -- Jediga: the tome goes to Zevrost in Orgrimmar
   turnin 91568                        -- Izvi Gildfizz
+  turnin 91569                        -- Izvi Gildfizz
   accept 3541
   accept 3542
   accept 3561
-  note Keep the deliveries for Jes'rimon and Andron Gant: you pass Orgrimmar and the Undercity next. Magatha's, in Thunder Bluff, is off this route: leave it.
+  note Keep the deliveries for Jes'rimon, Andron Gant, Belgrom and Zevrost: you pass Orgrimmar and the Undercity next. Magatha's, in Thunder Bluff, is off this route: leave it.
 
 step Archmage Xylem
-  tip Xylem's tower stands on the cliff just north of Valormok; the path winds up its north side.
+  tip Xylem's tower stands on the cliff just north of Valormok: Sanath Lim-yo, in Valormok, teleports you up for free (talk to him); otherwise the path winds up its north side.
   turnin 3561                         -- Upstairs
   accept 3565
 
@@ -155,8 +186,9 @@ step Orgrimmar
 
 step Belgrom Rockmaul
   zone Orgrimmar
-  tip Fly to Orgrimmar; Belgrom is in the Valley of Honor.
-  turnin 3507
+  tip Fly to Orgrimmar; Belgrom is in the Valley of Honor, Zevrost and Jes'rimon in the Cleft of Shadow.
+  turnin 91531                        -- Belgrom Rockmaul
+  turnin 91547                        -- Zevrost, the Cleft of Shadow
   turnin 3541                         -- Jes'rimon, the Cleft of Shadow
 
 step Into Durotar

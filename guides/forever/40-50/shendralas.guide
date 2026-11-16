@@ -12,9 +12,10 @@ next forever/alliance/40-50/03-feralas
 # Polestar Experimental, Shen'dralas for both factions (2026-11-12). Hand-written from players' recordings of
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
 # titles, levels and objectives and the client's tables for item and spell names. A detour for levels 41-45,
-# offered as a route choice. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Orgrimmar,
-# about level 46 with the Riverglades before it); in from Shadowprey Village, out by the flight back to Orgrimmar,
-# where the next Feralas guide picks up at the zeppelin towers. Alliance: offered at the end of the Badlands guide (40-50/02,
+# offered as a route choice. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Camp Mojache,
+# about level 47 with the Riverglades before it); in by the ride north from Camp Mojache into Desolace's south (a
+# fresh starter flies to Shadowprey Village), out by the flight from Shadowprey (or the hearth to Camp Mojache) to
+# Orgrimmar, where the next Feralas guide starts with Orgrimmar's hand-ins. Alliance: offered at the end of the Badlands guide (40-50/02,
 # Theramore, about level 43); in from Nijel's Point, out on the ride south into Feralas, where the Feralas guide
 # picks up at the Feathermoon boat.
 # Order: the Tattered Journal from the valley's necromancers; Mordent Evenshade's pylons (find the three, the
@@ -36,10 +37,18 @@ next forever/alliance/40-50/03-feralas
 #   two, was hostile to every player who met him.
 # - Corpsefeeder's Carapace (93574, from an elite) and Forlorn Necklace (93609, no known source).
 
+step North into Desolace
+  only Horde
+  when zone "Feralas"
+  tip New in Forever: this guide follows what players did in Shen'dralas. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
+  tip Shen'dralas lies south of Desolace, through the Valley of Bones, and has no flight path of its own. From Camp Mojache ride north-west on the road past Dire Maul and on north into Desolace: the road comes out on Desolace's southern edge.
+  goto 43.0,96.0 map 1443 "Desolace, where the road from Feralas comes in"
+
 step Fly to Shadowprey Village
   only Horde
   when !zone "Shen'dralas"
   when !zone "Desolace"
+  when !zone "Feralas"
   tip New in Forever: this guide follows what players did in Shen'dralas. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.
   tip Shen'dralas lies south of Desolace, through the Valley of Bones, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to Orgrimmar first (from Grom'gol or the Undercity).
   zone Orgrimmar
@@ -59,7 +68,7 @@ step Into the Valley of Bones
   only Horde
   when !zone "Shen'dralas"
   zone Shen'dralas
-  tip Ride east from Shadowprey Village along Desolace's southern edge, past Gelkis Village: the Valley of Bones opens there into Shen'dralas.
+  tip Ride east along Desolace's southern edge (from Shadowprey Village: past Gelkis Village): the Valley of Bones opens there into Shen'dralas.
   enter "Shen'dralas" @21.2,22.4
 
 step Into the Valley of Bones
@@ -185,7 +194,7 @@ step Historian Biraxas
 step Shadowprey Village
   only Horde
   zone Desolace
-  tip Shen'dralas is done. Ride back north through the Valley of Bones and west along Desolace's southern edge to Shadowprey Village: the next guide picks up in Orgrimmar, at the zeppelin towers outside the gate.
+  tip Shen'dralas is done. Ride back north through the Valley of Bones and west along Desolace's southern edge to Shadowprey Village: the next guide picks up in Orgrimmar, with the Feralas guide's hand-ins. Your hearthstone is bound at Camp Mojache: if it is ready, hearth there and fly to Orgrimmar from Camp Mojache instead.
   goto 21.56,74.04 "Shadowprey Village flight master"
   fly "Orgrimmar"
   zone Orgrimmar

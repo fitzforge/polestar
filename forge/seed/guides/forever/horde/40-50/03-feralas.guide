@@ -16,11 +16,31 @@ con Three zones, lots of travel
 # into this file.
 # Added here: Errand for Apothecary Zinge (232), Cortello's Riddle (626), Continued Threat (1428).
 # Level tidy (0.4.0): Stranglethorn's level 43-46 work, taken in 40-50/01 at 41-42 where its mobs ran 2-4 levels over
-# the player (#2353, #2102), is done here on the Grom'gol zeppelin stop at about 47: Gan'zulah and the Fate of Yenniku
-# (586, 588), the Singing Crystals (589), Mok'thardin's last enchantment and Akiris (573, 617, the naga coast),
-# Stranglethorn Fever (349/348, Mokk 44), Voodoo Dues (609) and the Wild Shore (604, 576, 587); Deliver to MacKinley
-# (2874) is handed in on the same Booty Bay stop. Vengeance on the Northspring (3063) is taken here and done on
-# 40-50/06's Feralas loop at about 51: its harpies are 48-50.
+# the player (#2353, #2102), is done on 40-50/02's Grom'gol stop at about 45, right after the Riverglades: this guide
+# only passes Grom'gol between the zeppelin and the flight to Stonard. Vengeance on the Northspring (3063) is taken
+# here and done on 40-50/06's Feralas loop at about 51: its harpies are 48-50.
+# Orgrimmar first: the flight from Shadowprey after Shen'dralas lands there, so the Feralas guide's Orgrimmar hand-ins
+# (Neeru, Zilzibin, Belgrom, Uthel'nay) and training come on this stop; 40-50/02 rides from Camp Mojache straight into
+# Shen'dralas instead of flying to Orgrimmar and back out to Shadowprey.
+
+# ---------------------------------------------------------------- Orgrimmar
+
+step Orgrimmar
+  zone Orgrimmar
+  tip From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
+  turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
+  accept 3122
+  turnin 7732                           -- Zilzibin Drumlore, the Drag
+  accept 649                            -- Dran Droffers, the Drag
+  turnin 649                            -- Malton Droffers
+  accept 650                            -- for the Hinterlands, around level 50
+  turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Orgrimmar
+  zone Orgrimmar
+  when onquest 3002
+  turnin 3002                           -- Uthel'nay, Valley of Spirits
 
 step Zeppelin to Undercity
   zone Durotar
@@ -55,90 +75,10 @@ step Zeppelin to Grom'gol
   zone Tirisfal Glades
   goto 61.8,59.2 "Zeppelin to Grom'gol"
 
-# ---------------------------------------------------------------- Stranglethorn Vale
-
-step Zul'Mamwe
-  zone Stranglethorn Vale
-  tip The zeppelin lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Booty Bay's pirates, the naga coast and Mokk, before the flight to Stonard. Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins; Gan'zulah's head is with the chief in the camp below ground.
-  kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
-  kill 781 quest 586.2
-  kill 783 quest 586.3
-  collect 3909 quest 586.4 @44.3,45.0 -- Below ground
-
-step Grom'gol Base Camp
-  tip Back west to Grom'gol.
-  turnin 586                          -- the Bubbling Cauldron
-  accept 588                          -- the Bubbling Cauldron again: Yenniku's fate
-  turnin 588                          -- Kin'weelay
-  accept 589                          -- Kin'weelay: the basilisks bask beside the road south, on the ride to Booty Bay
-
-step Ironjaw Basilisks
-  zone Stranglethorn Vale
-  tip Ride south along the road towards Booty Bay; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often.
-  collect 3911 quest 589              -- Below ground
-
-step Booty Bay
-  zone Stranglethorn Vale
-  tip Ride on south into Booty Bay: MacKinley on the top floor.
-  turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor: Stoley's shipment from Tanaris
-
-step The Wild Shore
-  zone Stranglethorn Vale
-  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
-  collect 3920 quest 604.2
-  collect 3921 quest 604.3
-  collect 3897 quest 576.1
-  collect 3910 quest 587.1
-  kill 1563 quest 604.1
-
-step Booty Bay
-  tip Back through town on the way north. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50.
-  turnin 604                          -- Fleet Master Seahorn
-  turnin 576                          -- Dizzy One-Eye
-  turnin 587                          -- Deeg, on the top floor
-
-step The Cape of Stranglethorn: kill these as you meet them
-  zone Stranglethorn Vale
-  tip Ride north out of Booty Bay and follow the coast: the naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them.
-  collect 4029 quest 617.1
-  kill 1907 quest 573.1
-  collect 737 quest 573.2 @29.0,61.9
-
-step Witch Doctor Unbagwa
-  tip Inland, Witch Doctor Unbagwa sits among the Mistvale gorillas. Any gorilla can drop a fang: hand him ten and stay by him, he calls three waves of gorillas, then Mokk.
-  tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
-  collect 2799 x10                    -- Gorilla Fang
-  turnin 349 direct                   -- Witch Doctor Unbagwa
-  collect 2797 quest 348.1
-
-step Pirate ghosts
-  tip The three ghostly pirates haunt the jungle north-east of Mistvale, beside Zanzil's camps: Maury and Jon-Jon stand together, Chucky further east.
-  kill 2537 @40.0,58.2
-  collect 3926 quest 609.3
-  kill 2535 @35.3,51.3
-  collect 3924 quest 609.1
-  kill 2536 @34.9,51.8
-  collect 3925 quest 609.2
-
-step Booty Bay
-  tip Ride back south to Booty Bay.
-  turnin 617                          -- Privateer Bloads
-  turnin 348                          -- Fin Fizracket
-  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
-
-step Fly to Grom'gol
-  zone Stranglethorn Vale
-  goto 26.8,77.0 "Booty Bay flight master"
-  fly "Grom'gol"
-
-step Grom'gol Base Camp
-  tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then the flight on to Stonard.
-  turnin 589                          -- Kin'weelay
-  turnin 573                          -- Far Seer Mok'thardin
-
 step Fly to Stonard
   when taxi "Stonard"
   zone Stranglethorn Vale
+  tip The zeppelin lands at Grom'gol: Stranglethorn's errands are done (40-50/02), so fly straight on to Stonard.
   goto 32.5,29.3 "Grom'gol flight master"
   fly "Stonard"
   zone Swamp of Sorrows
@@ -217,6 +157,8 @@ step Stonard
 
 step To Camp Mojache
   zone Feralas
+  tip Hearth to Camp Mojache: your hearthstone is still bound there from the Feralas & Tanaris guide.
+  hearth "Camp Mojache"
   goto 74.8,45.2 "Camp Mojache"
 
 step Camp Mojache

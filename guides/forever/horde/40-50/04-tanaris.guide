@@ -91,8 +91,8 @@ step Trenton Lighthammer
 # Flow: Camp Mojache (where the previous guide ends) -> fly Gadgetzan
 # (bind) -> Sandsorrow Watch -> Gadgetzan -> Caliph Scorpidsting -> Marvon
 # Rivetseeker -> the Noxious Lair -> Dunemaul Compound -> Thistleshrub
-# Valley -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
-# Scrimshank's gear (OOX-17/TN if you found its beacon) -> Tanaris Field
+# Valley (Marin's dew glands) -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
+# Thistleshrub Valley (Tran'rek's Rootshapers, 49-50, a level later) -> Scrimshank's gear (OOX-17/TN if you found its beacon) -> Tanaris Field
 # Sampling -> Gadgetzan -> the boat from Steamwheedle Port to Powderfuse Port
 # and the ride into the Searing Gorge by its eastern pass -> the Grimesilt Dig
 # Site -> Thorium Point (flight path) -> Velarok Windblade and the Cauldron
@@ -163,10 +163,8 @@ step The Noxious Lair
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
   tip West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in Tanaris can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.
-  tip Careful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: pull the Rootshapers (49-50) one at a time.
-  kill 5490 quest 3362.1
+  tip Careful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave Tran'rek's Gnarled Thistleshrubs and Rootshapers for the second trip south, a level later.
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
-  kill 5485 quest 3362.2
   collect 8428 quest 2605.1 @29.2,66.1
 
 step Tooga's escort
@@ -189,7 +187,7 @@ step Gadgetzan
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
   accept 2606
-  turnin 3362                           -- Tran'rek
+  note Keep Tran'rek's Thistleshrub Valley: its Rootshapers (49-50) come on the second trip south.
   turnin 2606                           -- Sprinkle
   accept 2641                           -- the Violet Tragan grows in the Hinterlands, around level 48
   turnin 82                             -- Alchemist Pestlezugg, inside
@@ -198,6 +196,12 @@ step Gadgetzan
 
 step Marvon Rivetseeker
   turnin 3161
+
+step Thistleshrub Valley
+  zone Tanaris
+  tip West from Marvon to Thistleshrub Valley: the Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's. They wander a lot: pull them one at a time, then ride south-east to Scrimshank's hive.
+  kill 5490 quest 3362.1
+  kill 5485 quest 3362.2
 
 step Scrimshank's gear
   tip Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.
@@ -221,6 +225,7 @@ step Tanaris Field Sampling
 
 step Gadgetzan
   turnin 654                            -- Chief Engineer Bilgewhizzle
+  turnin 3362                           -- Tran'rek
   accept 864                            -- for Apothecary Zinge in the Undercity, around level 52
   turnin 10                             -- Senior Surveyor Fizzledowser
   accept 110

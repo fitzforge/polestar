@@ -130,7 +130,7 @@ step Dearest Natalia
 
 step Twilight Base Camp
   when onquest 8318
-  tip Collect twenty Encrypted Twilight Texts from the cultists here, ten for Bor Wildmane and ten for Ortell.
+  tip Collect twenty Encrypted Twilight Texts from the cultists here, ten for Bor Wildmane and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60).
   collect 20404 quest 8318.1
   collect 20404 x20                   -- ten for each quest: Bor Wildmane takes his ten before Ortell
 
@@ -193,18 +193,10 @@ step Pawn Captures Queen
 step Torwa Pathfinder
   accept 4292
   note Keep the bait: Lar'korwi is level 56, and the second loop passes his lair.
-  accept 4289
 
 step Lar'korwi
   tip Lar'korwi's lair is just south of the pylon. Use Torwa's bait there; Lar'korwi is level 56 and hits hard, so start at full health.
   collect 11510 quest 4292
-
-step Un'Goro Crater: kill these as you meet them
-  zone Un'Goro Crater
-  tip Careful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds.
-  collect 11478 quest 4289            -- Below ground
-  collect 11479 quest 4289            -- Below ground
-  collect 11480 quest 4289            -- Below ground
 
 step Marshal's Refuge
   zone Un'Goro Crater
@@ -230,7 +222,6 @@ step Marshal's Refuge
 step Torwa Pathfinder
   turnin 4292
   note Torwa now asks for U'cha's pelt, back in the north-east cave: skip it.
-  turnin 4289
 
 step Tanaris
   zone Tanaris
@@ -295,6 +286,7 @@ step Kirsta Deepshadow
 
 step Scarlet Crusade
   tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it. Set Mickey's termite barrel down in the middle of the lumber mill while you are there.
+  tip Careful: a Fallen Hero, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the Western Plaguelands: give it room.
   kill 1833 quest 6004.4
   kill 1831 quest 6004.2
   kill 1826 quest 6004.3

@@ -17,6 +17,10 @@ next forever/horde/50-60/06-silithus
 # Darrowshire (5211), and the Marlene/Chromie chain (5152, 5153, 5154) to Brother Carlin (5210). Brother Carlin opens
 # Heroes and Villains of Darrowshire (5168, 5181), so the chain comes first.
 
+step Into Eastern Plaguelands
+  zone Eastern Plaguelands
+  goto 8.8,66.2 "Into Eastern Plaguelands"
+
 step Tirion Fordring
   zone Eastern Plaguelands
   tip Ride east along the road into the Eastern Plaguelands. Tirion lives in a small house by the Thondroril River, just north of the road at the border; his three hunts are on this guide's ground.
@@ -93,6 +97,7 @@ step Chromie
 
 step The Annals of Darrowshire
   tip The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one.
+  tip Careful: a Fallen Hero, a level 58-59 elite, can stand in Andorhal, as at many other spots of the Western Plaguelands: give it room.
   collect 12900 quest 5154 @43.4,69.5
 
 step Chromie
@@ -200,7 +205,7 @@ step Terrordale: kill these as you meet them
   zone Eastern Plaguelands
   tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
   tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
-  tip Careful: Ziggurat Protectors (58, elite) guard the ziggurats north-east of Terrordale: take the mounds nearer the town and stay clear of them.
+  tip Careful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them.
   collect 15884 quest 6164 @17.4,31.1 -- Upstairs
   collect 15043 quest 5901
   collect 12840 x20 optional -- Minion's Scourgestones: the Terrordale undead drop them while you wear the Argent Dawn Commission

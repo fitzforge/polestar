@@ -237,11 +237,10 @@ step Everlook
   turnin 5163                         -- Umi Rumplesnicker
 
 step Winterfall Village
-  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall in the cave at the back is elite: stay out. Keep the Winterfall Spirit Beads they drop: Salfa takes five.
+  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall (59, elite) and Xandivious (62) are in the cave at the back: stay out.
   kill 7440 quest 8464.2
   kill 7438 quest 8464.3
   kill 7439 quest 8464.1
-  collect 21383 x5
 
 step Donova Snowden
   tip Ride back west along the road to Frostfire Hot Springs.
@@ -252,6 +251,13 @@ step Donova Snowden
 step Salfa
   tip North of Donova, at the tunnel's Winterspring exit.
   turnin 8464
+
+step Beads for Salfa
+  tip Salfa takes the beads only once Winterfall Activity is handed in: any Winterfall furbolg can carry them, and the camps just south of Salfa are the closest.
+  goto 31.6,36.6 "Frostfire Winterfall camp"
+  collect 21383 x5
+
+step Salfa
   turnin 8469 direct
 
 # ---------------------------------------------------------------- Level 60
