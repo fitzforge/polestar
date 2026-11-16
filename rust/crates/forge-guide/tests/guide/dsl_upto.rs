@@ -37,10 +37,7 @@ fn a_part_that_is_the_whole_of_the_objective_is_a_warning_the_goal_is_the_object
 	let text = guide_text(&["step One", "  accept 7", "  kill 6 quest 7.1 upto 10"]);
 	let r = compile(&text);
 	assert!(r.errors.is_empty(), "{}", r.text);
-	assert_eq!(
-		r.warned("upto"),
-		[format!("test.guide:{}: `upto 10` is the whole of quest 7.1 (x10): the goal is done with the objective, as without it", line_of(&text, "kill 6 quest 7.1 upto 10"))]
-	);
+	assert_eq!(r.warned("upto"), [format!("test.guide:{}: `upto 10` is the whole of quest 7.1 (x10): the goal is done with the objective, as without it", line_of(&text, "kill 6 quest 7.1 upto 10"))]);
 	assert_eq!(goals(&r)[1]["upto"], 10);
 }
 
