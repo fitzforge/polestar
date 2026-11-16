@@ -367,8 +367,8 @@ step Shen'dar Village again
   turnin 93318                                -- Danarii Bellowveil
 
 step Fendaal Windstone
-  tip Careful: the Al'Aketh Assassins (9-10) stand close together: pull them one at a time.
   tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  tip Careful: the Al'Aketh Assassins (9-10) stand close together: pull them one at a time.
   accept 98512                                -- Fendaal Windstone
   kill 254626 quest 98512.1
   turnin 98512                                -- Fendaal Windstone
@@ -551,6 +551,8 @@ step Desperate times
   complete 94568 @66.17,76.51
   turnin 94568
   accept 92640
+
+step Desperate Times
   tip Valennia asks you to hear out both leaders: Elaadrin Evengale of the Alliance and Ayessa Dawnsinger of the Horde. Ayessa's name shows red to you, but she talks to you all the same, and the quest needs both.
   talk 252383 quest 92640.1           -- Upstairs
   talk 251968 quest 92640.2 @59.15,79.73 map 2521 live -- Ayessa Dawnsinger
