@@ -315,6 +315,9 @@
 			{ "node": "tests/guides-caves.test.js", "test": "Onrevax (#392): the Whispering Elixir bottles are in the basement under Shadowvale's ruined house" },
 			{ "seed": "Onrevax (#392): the Whispering Elixir bottles are in the basement" }
 		] },
+		"394": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "corrections give dungeon quests their Forever XP over the Classic QuestXP (#394)" }
+		] },
 		"395": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides" },
 			{ "seed": "Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standing Our Ground lead to each objective, in both guides" }
@@ -354,6 +357,9 @@
 		] },
 		"453": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in" }
+		] },
+		"462": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "MgM's report: the corrections leave Nalpak and Verna Furlbrow as the only givers, not the mailboxes (#462)" }
 		] },
 		"504": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "Trouble in the Valley (#504): the step at Corporal Adamore's camp says his marines come together" }
@@ -455,6 +461,9 @@
 		"688": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/gamepad.rs", "test": "with_the_gamepad_interface_a_quest_button_binds_in_the_interface_s_own_binding_context_and_the_other_bindings_stay" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "secure_buttons_key_label_names_the_key_that_runs_it_in_play_from_the_gamepad_module" }
+		] },
+		"703": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#703: quests whose objectives are away from the giver lead to each objective" }
 		] },
 		"776": { "tests": [
 			{ "cargo": "polestar-recording", "target": "lib", "file": "rust/crates/polestar-recording/src/install.rs", "test": "a_picked_install_is_the_same_folder_as_the_found_one" },
@@ -672,6 +681,11 @@
 		"1026": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_quest_the_codex_gives_no_side_whose_follow_up_is_the_alliance_s_is_never_in_a_horde_pick_up_1026_in_search_of_thaelrid" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_quest_the_codex_gives_no_side_takes_the_quest_database_s_the_horde_never_picks_up_an_alliance_quest_from_a_giver_of_no_faction_1026" }
+		] },
+		"1031": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/profiles.rs", "test": "export_then_import_round_trips_exactly_with_and_without_the_client_s_encoder" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/profiles.rs", "test": "an_apply_s_undo_puts_the_profile_back_or_takes_the_new_profile_away" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/profiles.rs", "test": "a_malformed_or_hostile_string_is_refused_and_changes_nothing" }
 		] },
 		"1053": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "a_turn_in_set_in_the_barrens_walked_to_from_thunder_bluffs_flight_master_arrives_beside_hamuul_runetotem_never_back_to_the_lift_1053" },
