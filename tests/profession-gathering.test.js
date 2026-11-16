@@ -115,6 +115,15 @@ test('a zone\'s rare kind (under a twentieth of the nodes) never leads or names 
 	assert.ok(atRareSpot(R.loop(few, project, { radius: 40, cover: 1, rare: rareKinds({}, few) })));
 });
 
+test('a zone whose nodes all turn grey inside a band is never picked for it: Teldrassil\'s Amber for Mining 65-125', () => {
+	const { coversTop } = require('../tools/lib/professions/gathering/build');
+	const amber = [{ name: 'Large Chunk of Amber', req: 1 }, { name: 'Chunk of Amber', req: 1 }];
+	assert.equal(coversTop(amber, { from: 1, to: 65 }), true, 'green at 64: Amber takes a Night Elf to 65');
+	assert.equal(coversTop(amber, { from: 65, to: 125 }), false, 'grey from 101: no point between 101 and 125');
+	assert.equal(coversTop([...amber, { name: 'Tin Vein', req: 65 }], { from: 65, to: 125 }), true, 'one Tin Vein (green at 124) is enough');
+	assert.equal(coversTop([{ name: 'Iron Deposit', req: 125 }], { from: 65, to: 125 }), false, 'nor a zone of nodes the band cannot reach yet');
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.
@@ -277,4 +286,34 @@ test('generated profession guides are up to date and compile', { skip: hasData ?
 	const sources = Object.entries(files).map(([name, text]) => ({ file: `guides/forever/professions/${name}`, source: `forever/professions/${name}`, text }));
 	const { diag } = compileSources(sources, ctx.data);
 	assert.deepEqual(diag.errors.map(format), []);
+});
+
+test("the Fishing guide names each band's cooking recipes with their sellers, buys one only by the water, and says what Darkshore Grouper and Oily Blackmouth are for (#1883)", { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context, money } = require('../tools/lib/professions/gathering/common');
+	const fishing = require('../tools/lib/professions/gathering/fishing');
+	const ctx = context(DATA);
+	const text = fishing.render(ctx);
+	const cook = ctx.data.professionNamed('Cooking');
+	const recipes = [6325, 6326, 6328, 6368, 6330, 6369];
+	for (const item of recipes) {
+		const m = cook.materials[item];
+		assert.ok(text.includes(`${m.name} for the `), `${m.name} is named`);
+		assert.ok(text.includes(`, ${money(m.buy)}: `), `${m.name}'s price, ${money(m.buy)}`);
+	}
+	// A recipe is bought only where a seller of it stands by a band's water: an optional goal on that fishing step.
+	let buys = 0;
+	for (const s of text.split('\nstep ').slice(1)) {
+		for (const [, item, npc, optional] of s.matchAll(/\n {2}buy (\d+) x1 npc (\d+)( optional)?/g)) {
+			if (!recipes.includes(Number(item))) continue;
+			buys++;
+			const title = s.split('\n')[0];
+			assert.ok(optional, `${title}: the recipe is an optional buy`);
+			assert.ok(title.startsWith('Fishing: '), `${title}: a band's fishing step`);
+			const v = cook.materials[item].vendors;
+			assert.ok([...(v.Alliance || []), ...(v.Horde || [])].includes(Number(npc)), `${title}: ${npc} sells ${item}`);
+		}
+	}
+	assert.ok(buys > 0, 'some band fishes beside a recipe seller');
+	assert.match(text, /Darkshore Grouper bites only here: eat it as it is\. Gubber Blump \(Darkshore\) takes 6 for The Family and the Fishing Pole, which gives the Blump Family Fishing Pole\./);
+	assert.match(text, /Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it \(Alchemy 80\); keep it to sell or trade\./);
 });

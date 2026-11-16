@@ -108,6 +108,8 @@ The data builders, one at a time (forge build's data stage runs the ones it need
   names         Names.lua in addon/Polestar_<locale>, the data's names per language  [<locale>... --offline --no-questie
                 --no-tables --build --sources --ding --pfquest --guides --questdb --codex --travel
                 --chokepoints --out --root --json]
+  subzones      Subzones.lua in addon/Polestar_<locale>, the walking maps' subzone names per language
+                [<locale>... --offline --sources --data --nav --out --root]
   talents       build|check addon/Polestar/Talents/Builds.lua  [--root --plans --out --sources --build --offline]
   maps          build: Maps/ZoneLevels.lua [--data --lua]; overlays: UI/ZoneArtOverlays.lua
                 [--build --sources --offline --lua]
@@ -121,7 +123,7 @@ The data builders, one at a time (forge build's data stage runs the ones it need
   travel        travel.json, TravelData.lua, FlightPaths.lua  [--root --data --recordings --sources --grid <dir>|none
                 --crossings --build --forever-build --json --lua --flight-lua --travel-addon]
   codex         data/forever/codex and the Polestar_Codex pack  [--root --data --sources --addons --build --out --pack
-                --local-extras --recordings <dir> (rewrites data/codex/recorded.json first)]
+                --local-extras --recordings <dir> (rewrites data/codex/recorded.json first) --verdicts <verdict.json>]
   gear          Forever.lua, SpecData.lua and gear/report.json  [--root --addons --wowsims --built-at]
   professions   professions.json  [--root --data --sources --build --out]
   sim-inputs    the sources the simulator's world reads (Map, AreaTable, QuestXP, object facts...)  --out <dir>
@@ -143,7 +145,9 @@ describes it (TOC, Pack.lua, MapFrames.lua, Guides.lua, LICENSE-DATA.txt, and LI
 lint: every compile check without writing anything; with a cached simulator world also the solo policy.
 The pack is the one in <dir> (or --pack), else the nearest folder holding a pack.json (this one or a
 parent), else our guides/. Another pack is checked with our guides as context and written to
-<pack>/dist/<folder>/; ours to <checkout>/addon/<folder>/. Nothing is written when there are errors (unless
+<pack>/dist/<folder>/; ours to <checkout>/addon/<folder>/, and so is Polestar's own experimental pack
+(experimental/, checked with our guides as context, into addon/Polestar_Experimental/: load on demand,
+docs/PACK_FORMAT.md \"Polestar's own extra packs\"). Nothing is written when there are errors (unless
 --force), nor without reference data: the command then stops with one error, unless --no-data.
 
 options (compile and lint):
@@ -246,13 +250,15 @@ fn help(name: &str) -> Option<String> {
        {}
        {}
        {}
+       {}
        {}",
 			judge::USAGE,
 			judge::REPORT_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::CHECK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::SEED_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
 			judge::STATUS_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
-			judge::FEEDBACK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: ")
+			judge::FEEDBACK_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: "),
+			judge::DOORS_USAGE.lines().next().unwrap_or("").trim_start_matches("usage: ")
 		),
 		"sim" => SIM_HELP.to_string(),
 		"walks" => WALKS_HELP.to_string(),

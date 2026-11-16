@@ -27,16 +27,16 @@ return {
 	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, Catedral da Luz",
 
 	-- Step 5: The Tome of Divinity
-	-- {npc:6171} Duthorian Rall · {item:6775} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6171} stands inside the Cathedral of Light. He hands you the {item:6775}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} fica dentro da Catedral da Luz. Ele entrega o {item:6775}: clique com o botão direito nele nas bolsas para começar a próxima missão. Se o livro disser que a missão já foi feita, destrua e peça outra cópia a {npc:6171}. Leve 10 {item:2589} para a próxima etapa, se tiver.",
-	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775}"] = "Clique com o botão direito no {item:6775}",
+	-- {npc:6171} Duthorian Rall · {quest:2998} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6171} stands inside the Cathedral of Light. He hands you the {quest:2998}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} fica dentro da Catedral da Luz. Ele entrega o {quest:2998}: clique com o botão direito nele nas bolsas para começar a próxima missão. Se o livro disser que a missão já foi feita, destrua e peça outra cópia a {npc:6171}. Leve 10 {item:2589} para a próxima etapa, se tiver.",
+	-- {quest:2998} Tome of Divinity
+	["Right-click the {quest:2998}"] = "Clique com o botão direito no {quest:2998}",
 
 	-- Step 6: Stephanie Turner
 	-- {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth · {zone:1436} Westfall
 	["{npc:6174} stands at a corner in the middle of the {object:2096}, outside a general goods store. She wants 10 {item:2589}: humanoids drop it (Riverpaw gnolls in {zone:1436} about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the {object:2096}."] = "{npc:6174} fica numa esquina no meio do {object:2096}, em frente a uma loja de artigos gerais. Ela quer 10 {item:2589}: humanoides deixam cair (gnolls Pata Molhada em {zone:1436} mais ou menos um sim, um não; Défias e kobolds um pouco menos), ou compre na Casa de Leilões a poucos passos, no {object:2096}.",
 	-- {item:2589} Linen Cloth
-	["{item:2589} x10"] = "{item:2589} x10",
+	["{item:2589} x10: humanoids, or the Auction House"] = "{item:2589} x10: humanoides ou a Casa de Leilões",
 
 	-- Step 7: The Symbol of Life
 	-- {item:6866} Symbol of Life
@@ -70,15 +70,15 @@ return {
 	["{npc:6179}, upstairs in the {object:32386}"] = "{npc:6179}, no andar de cima do {object:32386}",
 
 	-- Step 14: The Tome of Divinity
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6916} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} fica no andar de cima do {object:32386}, na {object:32362}: pegue a rampa nos fundos do salão. Ela entrega o {item:6916}: clique nele com o botão direito nas bolsas para começar a próxima missão. Se o livro disser que a missão já foi feita, destrua-o e peça um novo exemplar a {npc:6179}. Leve 10 {item:2589} para a próxima etapa, se tiver.",
-	-- {item:6916} Tome of Divinity
-	["Right-click the {item:6916}"] = "Clique com o botão direito no {item:6916}",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {quest:2997} Tome of Divinity · {item:2589} Linen Cloth
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {quest:2997}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} fica no andar de cima do {object:32386}, na {object:32362}: pegue a rampa nos fundos do salão. Ela entrega o {quest:2997}: clique nele com o botão direito nas bolsas para começar a próxima missão. Se o livro disser que a missão já foi feita, destrua-o e peça um novo exemplar a {npc:6179}. Leve 10 {item:2589} para a próxima etapa, se tiver.",
+	-- {quest:2997} Tome of Divinity
+	["Right-click the {quest:2997}"] = "Clique com o botão direito no {quest:2997}",
 
 	-- Step 15: John Turner
-	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {npc:1245} Kogan Forgestone · {area:131} Kharanos
+	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1432} Loch Modan
 	-- plural, as words: Dark Iron Ambushers = {npc:1981} Dark Iron Ambusher
-	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it ({npc:1245} in {area:131} every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} anda pelo anel de fora da praça central, passando pelo portão da frente, pelo banco e pela Casa de Leilões. Ele quer 10 {item:2589}: humanoides deixam cair ({npc:1245}, em {area:131}, toda vez; Emboscadores Ferro Negro mais ou menos duas vezes a cada cinco), ou compre na Casa de Leilões do anel dele.",
+	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it (in {zone:1432} the Dark Iron Ambushers, Tunnel Rat kobolds and Stonesplinter troggs about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} anda pelo anel de fora da praça central, passando pelo portão da frente, pelo banco e pela Casa de Leilões. Ele quer 10 {item:2589}: humanoides deixam cair (em {zone:1432}, Emboscadores Ferro Negro, kobolds Ratatúnel e troggs Lascapedra mais ou menos duas vezes a cada cinco), ou compre na Casa de Leilões do anel dele.",
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk
@@ -101,4 +101,7 @@ return {
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption
 	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "De volta ao {object:32386}: {npc:6178} pega o texto, {npc:6179} ensina {spell:7328} a você.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{item:2589} x10"] = "{item:2589} x10",
 }

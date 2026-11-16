@@ -1,6 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Dungeons.lua"/>
 	<Script file="Pickup.lua"/>
+	<Script file="Mark.lua"/>
 	<Script file="Handin.lua"/>
 	<Script file="Attune.lua"/>
 	<Script file="XP.lua"/>

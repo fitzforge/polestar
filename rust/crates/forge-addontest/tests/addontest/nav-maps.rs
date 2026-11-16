@@ -124,6 +124,27 @@ fn the_walking_maps_pack_json_names_the_grid_the_cells_the_format_and_every_file
 	assert!(meta.lines().any(|l| l == "\tcells = 128,"));
 }
 
+// #2244: each language folder names the walking maps' areas as its client names the subzone there (Subzones.lua,
+// `forge data subzones`), only rows the maps carry: a re-pack that drops rows without that rebuild shows here.
+#[test]
+fn the_language_folders_name_only_areas_the_walking_maps_carry() {
+	let area = Regex::new(r#"^\t\t\[(\d+)\] = ""#).unwrap();
+	let mut ids = std::collections::BTreeSet::new();
+	for map in [0, 1, 2991] {
+		let text = read(&nav().join(format!("Nav/Nav{map}.lua")));
+		let block = &text[text.find("\tareaNames = {").unwrap()..];
+		let block = &block[..block.find("\n\t},").unwrap()];
+		ids.extend(block.lines().filter_map(|l| area.captures(l)).map(|c| c[1].parse::<i64>().unwrap()));
+	}
+	for l in forge_guide::locales::LOCALE_CODES {
+		let text = read(&addons_dir().join(forge_guide::toc::language_addon(l)).join("Subzones.lua"));
+		let named: Vec<i64> = text.lines().filter_map(|line| line.split_once('\t')).map(|(id, _)| id.parse().unwrap()).collect();
+		assert!(named.len() > 500, "{l}: {} rows named", named.len());
+		let stale: Vec<&i64> = named.iter().filter(|id| !ids.contains(id)).collect();
+		assert!(stale.is_empty(), "{l}: rows the walking maps no longer carry (run forge data subzones): {stale:?}");
+	}
+}
+
 #[test]
 fn security_l12_the_license_names_cillian_berragans_copyright_and_every_file_that_says_it_adapts_his_code() {
 	let license = read(&root().join("LICENSE"));
@@ -650,6 +671,45 @@ emit(got)"#,
 	assert!(got["street"]["yards"].as_f64().unwrap() < 1200.0, "through the city ({})", got["street"]);
 }
 
+// #1890: in Stormwind's Dwarven District the cell's base surface (its largest piece) is a roof (z 112) over the street
+// (96, 102, indoor city), and 2 yd under the street lies the ground the city was built over (94, steep, not indoor),
+// joined to the world only far away. A point without a height starts from each surface at a distinct height: the roof
+// and the buried ground, the street within 10 yd of that one, so never tried. A walk to Westfall came out at 19,225
+// yd for a 3,465-yd walk; the same with the end there. In the point's own cell, the street takes the buried ground's
+// place.
+#[test]
+fn issue_1890_a_point_without_a_height_starts_from_the_street_not_the_ground_buried_under_it_the_dwarven_district_walks_to_westfall_through_the_city() {
+	let (_tmp, addon) = keep_ns();
+	let got = run(
+		r#"
+local Path, G = Polestar_NavEngine, stub.navNs.PathGrid
+local DWARVEN, WESTFALL = { x = -8387.6, y = 692.6 }, { x = -11456.8, y = 273.9 }
+local function walk(from, to)
+	local pts = Path.FindSync(0, from, to)
+	local yards = 0
+	for i = 2, #(pts or {}) do yards = yards + math.sqrt((pts[i].x - pts[i - 1].x) ^ 2 + (pts[i].y - pts[i - 1].y) ^ 2) end
+	return pts and math.floor(yards + 0.5) or false
+end
+local out = { from = walk(DWARVEN, WESTFALL), to = walk(WESTFALL, DWARVEN), floors = {} }
+local st = G.State(0)
+local k, lc = G.locate(st, DWARVEN.x, DWARVEN.y)
+local c = G.grid(st, k)
+out.base = G.zOf(c, lc)
+local first, count = G.floorsOf(c, lc)
+for n = first, first + count - 1 do
+	out.floors[#out.floors + 1] = math.floor(G.zOf(c, n) + 0.5) .. ":" .. G.CLS[string.byte(c.kind, n + 1)] % 8
+end
+emit(out)"#,
+		"",
+		vec![addon],
+	);
+	assert_eq!(got["base"], 112, "the cell's base surface: the roof");
+	assert_eq!(got["floors"], json!(["94:3", "96:5", "102:5"]), "the buried ground (steep) 2 yd under the street (indoor city)");
+	let (from, to) = (got["from"].as_f64().unwrap(), got["to"].as_f64().unwrap());
+	assert!(from < 4000.0, "from the Dwarven District to Westfall through the city ({from:.0} yd)");
+	assert!(to < 4000.0, "and back ({to:.0} yd)");
+}
+
 /// The packed graph strings of a map (Nav<map>_*.lua's data.packed.graph[k] blocks: zlib, as base64 or, with the
 /// metadata's `blocks = "zlib"`, as the bytes themselves; in Polestar_Nav/Nav or the map's part addon).
 fn graph_fields(map: u32) -> Vec<(usize, Vec<u8>)> {
@@ -930,6 +990,43 @@ emit({ diffs = diffs, full = full, bounded = bounded, both = both })"#,
 	assert!(got["both"].as_i64().unwrap() >= 12, "enough walks on the maps: {got}");
 	let (f, b) = (got["full"].as_i64().unwrap(), got["bounded"].as_i64().unwrap());
 	assert!(b <= f, "no more work than the full search: {b} against {f}");
+}
+
+// A walk searched from a start without a height (the walking floor not known yet) starts from every surface at its
+// spot. Its first point carries the height of the start node the search kept, as every other point carries its own,
+// so the arrow's smoothing (Nav/Follow.lua) can straighten from it: 0.3.7 left it out, and 58% of the paths whose
+// first corner turned more than 45° kept it for that alone. A height given is kept as given.
+#[test]
+fn a_walk_from_a_start_without_a_height_starts_at_the_height_of_the_surface_it_was_searched_from() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local got = {}
+-- the Barrens by the Crossroads: two places players stood, 113 yd apart
+local from, to = { x = -390, y = -2421 }, { x = -395.5, y = -2533.9 }
+Path.Find(1, from, to, function(points) got.n, got.first = points and #points or 0, points and points[1].z end, { profile = "Horde" })
+drain()
+-- the surfaces at the start (its cluster decoded by the search)
+local heights = {}
+local n = Path.SurfacesAt(1, from.x, from.y, heights) or 0
+got.surfaces, got.near = n, false
+for i = 1, n do
+	if type(got.first) == "number" and math.abs(heights[i] - got.first) <= 10 then got.near = true end
+end
+got.wanted = heights[1]
+Path.Find(1, { x = from.x, y = from.y, z = heights[1] }, to, function(points) got.given = points and points[1].z end, { profile = "Horde" })
+drain()
+emit(got)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert!(got["n"].as_i64().unwrap() >= 2, "a walk is found: {got}");
+	assert!(got["first"].is_number(), "the first point has a height: {got}");
+	assert!(got["surfaces"].as_i64().unwrap() >= 1 && got["near"] == true, "within the grid's ZTOL of a surface at the start: {got}");
+	assert_eq!(got["given"], got["wanted"], "a height given is kept: {got}");
 }
 
 // A walk that goes round a town of the other faction says so (job.avoided, display only): across Hillsbrad west to

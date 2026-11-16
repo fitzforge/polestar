@@ -54,6 +54,10 @@ return {
 	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
 	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
+	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
+	["Flight path here: {area:16724} ({npc:257087})."] = "이곳의 비행 경로: {area:16724} ({npc:257087}).",
+	-- {area:16743} Rog'mar
+	["Flight path here: {area:16743} (Grakna)."] = "이곳의 비행 경로: {area:16743} (그라크나).",
 
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "이곳에서 발견할 지역은 11곳, 36-43레벨입니다.",
@@ -70,7 +74,7 @@ return {
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
 	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
-	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "",
+	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "또는 {zone:1454}나 {zone:1458}에서 비행선을 타고 {area:117}(으)로 가십시오.",
 	-- {area:35} Booty Bay
 	["Flight path here: {area:35} (Gyll)."] = "이곳의 비행 경로: {area:35} (가일).",
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
@@ -88,6 +92,5 @@ return {
 	-- ["Fly to {area:42} (or {zone:1453}) and take the road south out of {zone:1431} into northern {zone:1434}."] = "{area:42}(또는 {zone:1453})(으)로 비행한 뒤 남쪽 길로 {zone:1431}을(를) 빠져나가 {zone:1434} 북부로 가십시오.",
 	-- ["Go back north into {zone:1431} and follow its road east through {zone:1430} (level 50+ creatures off the road) into the {zone:1435}."] = "북쪽 {zone:1431}(으)로 돌아가 길을 따라 동쪽으로 {zone:1430}을(를) 지나(길 밖에는 50레벨 이상 몹) {zone:1435}(으)로 가십시오.",
 	-- ["Picks up in {zone:1424}, where the 1-30 guide leaves the Horde and passes the Alliance. 15 areas to discover here, levels 27-39."] = "1-30 가이드가 호드를 남겨 두고 얼라이언스가 지나가는 {zone:1424}에서 이어집니다. 이곳에서 발견할 지역은 15곳, 27-39레벨입니다.",
-	-- ["Take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "{zone:1454} 또는 {zone:1458}에서 비행선을 타고 {area:117}(으)로 가십시오.",
 	-- ["The {zone:2548} lie east of the {zone:1418} and the {zone:1428}: the way in is the fork east off the {zone:1433} road (a ship also runs from {zone:1446} to {area:16727}, the neutral goblin port on its coast). {area:17780} is an ogre clan's outdoor dungeon."] = "{zone:2548}은(는) {zone:1418}와(과) {zone:1428}의 동쪽에 있습니다. {zone:1433} 길에서 동쪽으로 갈라지는 길로 들어가십시오({zone:1446}에서 해안의 중립 고블린 항구 {area:16727}(으)로 가는 배도 있습니다). {area:17780}은(는) 오우거 부족의 야외 던전입니다.",
 }

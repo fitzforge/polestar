@@ -14,8 +14,8 @@ return {
 	["{npc:4568} stands in the {zone:1458}'s {object:36082}. Orcs and Trolls use {spell:3563} or take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} se trouve dans le {object:36082} de {zone:1458}. Les orcs et les trolls utilisent {spell:3563} ou prennent le zeppelin d'{zone:1454} à {zone:1420} pour la rejoindre.",
 
 	-- Step 2: Deino
-	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
-	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Prenez le zeppelin pour {zone:1454} (ou utilisez {spell:3567}, qui vous dépose à l'étage supérieur du pavillon Darkbriar). {npc:5885} se tient avec les maîtres des mages à l'étage inférieur du pavillon Darkbriar, dans {object:172961}. Elle vous remet {item:7269}.",
+	-- {zone:1454} Orgrimmar · {spell:3567} Teleport: Orgrimmar · {object:173161} Darkbriar Lodge · {npc:5885} Deino · {object:172961} Valley of Spirits · {item:7269} Deino's Flask
+	["Take the zeppelin to {zone:1454} (or use {spell:3567}, which lands you on the upper floor of {object:173161}). {npc:5885} stands with the mage trainers on the lower floor of {object:173161} in the {object:172961}. She hands you {item:7269}."] = "Prenez le zeppelin pour {zone:1454} (ou utilisez {spell:3567}, qui vous dépose à l'étage supérieur du {object:173161}). {npc:5885} se tient avec les maîtres des mages à l'étage inférieur du {object:173161}, dans la {object:172961}. Elle vous remet la {item:7269}.",
 
 	-- Step 3: The Xavian Waterfall
 	-- {object:174797} Xavian Waterfall (no name in this language: may be words)
@@ -37,7 +37,7 @@ return {
 
 	-- Step 6: Kil'hala
 	-- {npc:3484} Kil'hala
-	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "",
+	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "{npc:3484}, un tailleur troll, travaille à la Croisée. La robe donne intelligence, endurance et esprit ; la tunique plus d'intelligence et d'endurance mais pas d'esprit.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A robe or a tunic for Undead and Troll mages in their late 20s."] = "Une robe ou une tunique pour les mages morts-vivants et trolls, vers la fin des niveaux 20.",
@@ -46,6 +46,5 @@ return {
 	-- ["Take the zeppelin to {zone:1454}. {npc:5885} is one of {zone:1454}'s mage trainers."] = "Prenez le zeppelin pour {zone:1454}. {npc:5885} est l'un des maîtres des mages d'{zone:1454}.",
 	-- ["The {quest:1945}, dryads, gather near the {area:426} in central {zone:1440}."] = "Les {quest:1945}, des dryades, se rassemblent près de {area:426}, au centre d'{zone:1440}.",
 	-- ["{npc:3484}, a troll tailor, works at the {area:380}."] = "{npc:3484}, un tailleur troll, travaille à {area:380}.",
-	-- ["{npc:3484}, a troll tailor, works at the {area:380}. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "{npc:3484}, un tailleur troll, travaille à la {area:380}. La robe donne intelligence, endurance et esprit ; la tunique plus d'intelligence et d'endurance mais pas d'esprit.",
 	-- ["{npc:4568} stands in the {zone:1458}'s {object:36082}. Trolls take the zeppelin from {zone:1454} to {zone:1420} for her."] = "{npc:4568} se trouve dans le {object:36082} de {zone:1458}. Les trolls prennent le zeppelin d'{zone:1454} à {zone:1420} pour la rejoindre.",
 }

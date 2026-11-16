@@ -12,7 +12,7 @@ const { tmpdir } = require('./helpers/tmp');
 const { needs } = require('./helpers/data');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone } = require('../tools/lib/playtest');
+const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -26,6 +26,40 @@ const hasLua = (() => {
 const skip = needs('quests.json') || (!hasLua && 'no Lua 5.1');
 
 const lines = (out) => out.split('\n').filter(Boolean);
+
+test('invalid explicit worker counts fail before loading reference data', async () => {
+	for (const workers of [-1, 0, 1.5, Infinity, NaN]) {
+		await assert.rejects(playtest({ workers }), /worker count must be a positive integer/, String(workers));
+	}
+});
+
+test('invalid POLESTAR_PLAY_WORKERS fails the command instead of silently skipping plays', { skip: !hasLua && 'no Lua 5.1' }, () => {
+	for (const value of ['-1', '0', '1.5', 'Infinity', 'NaN', 'nope', '', ' ']) {
+		const r = polestar(['playtest', '--pack', path.join(PACKS, 'plays')], { env: { POLESTAR_PLAY_WORKERS: value } });
+		assert.equal(r.status, 1, `${JSON.stringify(value)}: ${r.stdout}\n${r.stderr}`);
+		assert.match(r.stderr, /worker count must be a positive integer/, value);
+	}
+});
+
+test('valid worker settings reach the data checks; an explicit count wins and honest play needs no workers', async () => {
+	const saved = process.env.POLESTAR_PLAY_WORKERS;
+	const dataDir = tmpdir();
+	const check = async (options = {}) => assert.equal((await playtest({ dataDir, ...options })).dataMissing, true);
+	try {
+		delete process.env.POLESTAR_PLAY_WORKERS;
+		await check();
+		for (const value of ['1', '2']) {
+			process.env.POLESTAR_PLAY_WORKERS = value;
+			await check();
+		}
+		process.env.POLESTAR_PLAY_WORKERS = '-1';
+		await check({ workers: 1 });
+		await check({ honest: true });
+	} finally {
+		if (saved === undefined) delete process.env.POLESTAR_PLAY_WORKERS;
+		else process.env.POLESTAR_PLAY_WORKERS = saved;
+	}
+});
 
 test('a guide starts with the prerequisites its accepts need that the guides chaining into it turn in for the character done, those they leave for it only to hand in in the log, and those it works in the log with their objectives open', () => {
 	const step = (goals, only) => ({ only, goals });
@@ -58,6 +92,15 @@ test('the chain credits a turn-in behind `when group` only when the play answers
 	const who = { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' };
 	assert.deepEqual(chainDone([a, b], b, who), { done: [10, 12], carried: [], open: [] }, 'skip by default');
 	assert.deepEqual(chainDone([a, b], b, who, 'do'), { done: [10, 11], carried: [], open: [] });
+});
+
+test('the chain credits a turn-in behind `when dungeon` only for a chosen dungeon (by name or map id); `when !dungeon` only for one not chosen', () => {
+	const a = { id: 'a', next: 'b', steps: [{ when: [{ k: 'dungeon', name: 'The Deadmines', map: 36 }], goals: [{ t: 'turnin', quest: 11 }] }, { when: [{ k: 'dungeon', name: 'The Deadmines', map: 36, neg: true }], goals: [{ t: 'turnin', quest: 12 }] }] };
+	const b = { id: 'b', steps: [{ goals: [{ t: 'accept', quest: 21, pre: [11] }, { t: 'accept', quest: 22, pre: [12] }] }] };
+	const who = { race: 'Human', faction: 'Alliance', cls: 'WARRIOR' };
+	assert.deepEqual(chainDone([a, b], b, who), { done: [12], carried: [], open: [] }, 'none chosen by default: the solo route');
+	for (const chosen of [['Deadmines'], ['The Deadmines'], ['36'], 'all']) assert.deepEqual(chainDone([a, b], b, who, 'skip', dungeonPicker(chosen)), { done: [11], carried: [], open: [] }, String(chosen));
+	assert.deepEqual(chainDone([a, b], b, who, 'skip', dungeonPicker(['Wailing Caverns'])), { done: [12], carried: [], open: [] });
 });
 
 test('--group takes do or skip; anything else is refused', async () => {

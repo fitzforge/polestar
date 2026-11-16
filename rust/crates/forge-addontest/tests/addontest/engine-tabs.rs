@@ -364,7 +364,7 @@ fn a_tab_whose_guide_an_update_reworked_follows_the_quests_in_the_log_to_their_g
 	assert_eq!(json!([open["tabs"], open["said"]]), json!([["test/zone05", "test/zone04"], ""]), "never a second tab of a guide");
 }
 
-// The fresh-start sweep (EngineReview036, 0.3.6): a /reload with no update moved an Alliance 35 tab from
+// The fresh-start sweep (0.3.6): a /reload with no update moved an Alliance 35 tab from
 // Stranglethorn Vale to Arathi Highlands ("changed in this update"). The saved shape and step keys are the
 // guide as planned for the character (feeders in, quests waiting on earlier guides left out: other step keys),
 // so against the guide as registered they read reworked. A save stamped with the pack's own version saw no
@@ -374,4 +374,81 @@ fn a_reload_with_no_update_never_moves_a_tab_however_its_planned_steps_differ() 
 	let saved = saved_tabs(r#""test/zone05""#, "{ 1, 2, 3, 4 }").replace("activeTab = 1,", r#"activeTab = 1, shapeVersions = { ["test/zone05"] = "1" },"#);
 	let out = run_reworked(&[1087, 6282, 216], &saved);
 	assert_eq!(json!([out["tabs"], out["said"]]), json!([["test/zone05"], ""]), "{out}");
+}
+
+// A report: after a relog the guide list forgot which guides were finished (Darkshore 21-23 read "Started"
+// until it was opened again): completion was only remembered for the session. A guide finished in play is
+// recorded in CharState().guideDone, so its check stays after a reload.
+#[test]
+fn a_guide_finished_in_play_stays_done_in_the_guide_list_after_a_reload() {
+	let first = run(
+		"",
+		None,
+		r#"
+			E.SetGuide("test/lvl"); flush()
+			stub.world.accept(783, {}, "A Threat Within"); flush()
+			stub.world.turnIn(783); flush()
+			local r = { open = E.GetGuideState("test/lvl"), done = PolestarCharDB.guideDone["test/lvl"] or false }
+			E.CloseTab(1); flush()
+			r.closed = E.GetGuideState("test/lvl")
+			emit(r)
+		"#,
+	);
+	assert_eq!(first, json!({ "open": "done", "done": true, "closed": "done" }));
+
+	let saved = r#"PolestarCharDB = { schema = 1, tabs = { "test/cook" }, activeTab = 1, guideDone = { ["test/lvl"] = true }, flags = { started = { ["test/lvl"] = true } } }"#;
+	let reload = run("", Some(saved), r#"flush(); emit({ state = E.GetGuideState("test/lvl"), tabs = ids() })"#);
+	assert_eq!(reload["state"], "done", "the check survives a reload: {reload}");
+	assert_eq!(reload["tabs"], json!({ "tabs": ["test/cook"], "active": 1 }));
+}
+
+// The same for a guide that is no leveling guide (a class guide): the guide list's "done" is for every guide.
+#[test]
+fn a_class_guide_finished_in_play_stays_done_after_a_reload() {
+	let first = run(
+		"",
+		None,
+		r#"
+			E.SetGuide("test/warrior"); flush()
+			stub.world.accept(1684, {}, "Elanaria"); flush()
+			stub.world.turnIn(1684); flush()
+			local r = { open = E.GetGuideState("test/warrior"), done = PolestarCharDB.guideDone["test/warrior"] or false }
+			E.CloseTab(1); flush()
+			r.closed = E.GetGuideState("test/warrior")
+			emit(r)
+		"#,
+	);
+	assert_eq!(first, json!({ "open": "done", "done": true, "closed": "done" }));
+
+	let saved = r#"PolestarCharDB = { schema = 1, tabs = { "test/cook" }, activeTab = 1, guideDone = { ["test/warrior"] = true }, flags = { started = { ["test/warrior"] = true } } }"#;
+	let reload = run("", Some(saved), r#"flush(); emit(E.GetGuideState("test/warrior"))"#);
+	assert_eq!(reload, "done", "the check survives a reload: {reload}");
+}
+
+// Reset guide progress forgets the saved finish with the check-offs and skips (it is the guide list's check).
+#[test]
+fn reset_guide_progress_forgets_the_saved_finish() {
+	let first = run(
+		"",
+		None,
+		r#"
+			E.SetGuide("test/lvl"); flush()
+			stub.world.accept(783, {}, "A Threat Within"); flush()
+			stub.world.turnIn(783); flush()
+			local r = { before = PolestarCharDB.guideDone["test/lvl"] or false }
+			E.ResetProgress(); flush()
+			r.after = PolestarCharDB.guideDone["test/lvl"] or false
+			emit(r)
+		"#,
+	);
+	assert_eq!(first, json!({ "before": true, "after": false }));
+}
+
+// A save from before CharState().guideDone: a leveling guide's saved end (guideEnds, 0.3.6 on) is its finish,
+// so the guide list checks it after a reload without it being opened again.
+#[test]
+fn a_leveling_guide_with_a_saved_end_is_done_after_a_reload() {
+	let saved = r#"PolestarCharDB = { schema = 1, tabs = { "test/cook" }, activeTab = 1, guideEndsV = 2, guideEnds = { ["test/lvl"] = true } }"#;
+	let out = run("", Some(saved), r#"flush(); emit({ state = E.GetGuideState("test/lvl"), done = PolestarCharDB.guideDone["test/lvl"] or false })"#);
+	assert_eq!(out, json!({ "state": "done", "done": false }));
 }

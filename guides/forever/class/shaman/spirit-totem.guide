@@ -77,26 +77,30 @@ step The four elements
 step Bath'rah the Windwatcher
   zone Alterac Mountains
   tip Bath'rah camps in the ruins of the east of Alterac Mountains: from Tarren Mill follow the river east of town north into the hills.
+  level 51
   turnin 8410                                 -- Bath'rah the Windwatcher
   accept 8412
 
 step Spider eye and bear claw
   zone Western Plaguelands
   tip Eight of each. Fly or ride to the Bulwark and on to the west edge of the Western Plaguelands, north-west of Chillwind Camp: the Venom Mist Lurkers (level 50-51, they poison) give the Bloodshot Spider Eye and the Diseased Black Bears (level 51-52, Infected Wound) the Thick Black Claw, one kill in five each; the two Carrion Vultures there drop either. The bigger Diseased Grizzlies and Plague Lurkers further east almost never drop them. A few bears and lurkers also roam south-east of Brill in Tirisfal.
+  level 52
   collect 20610 x8 quest 8412.1               -- Bloodshot Spider Eye
   collect 20611 x8 quest 8412.2               -- Thick Black Claw
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains
+  level 51
   turnin 8412                                 -- Bath'rah the Windwatcher
   accept 8413
 
 step The Sunken Temple
   zone Swamp of Sorrows
   tip A five-player dungeon: needs a group of five, about level 50-55. Fly to Stonard and ride east. The Sunken Temple (Temple of Atal'Hakkar) stands in the middle of the Pool of Tears: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. Two feathers of each colour, one from each of six elite troll mini-bosses (level 51-52) on the balconies around the temple's great round room, every kill, and each player on the quest loots their own: Gasher and Zul'Lor the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Mijan heals the others (Renew, a Healing Ward): kill him first; Hukku summons guardians and throws Shadow Bolt Volleys.
-  collect 20606 x2 quest 8413.1 @69.9,53.6    -- Amber Voodoo Feather: Gasher, Zul'Lor
-  collect 20607 x2 quest 8413.2 @69.9,53.6    -- Blue Voodoo Feather: Hukku, Mijan
-  collect 20608 x2 quest 8413.3 @69.9,53.6    -- Green Voodoo Feather: Zolo, Loro
+  level 51
+  collect 20606 x2 quest 8413.1 @69.9,53.6 group 5 -- Amber Voodoo Feather: Gasher, Zul'Lor
+  collect 20607 x2 quest 8413.2 @69.9,53.6 group 5 -- Blue Voodoo Feather: Hukku, Mijan
+  collect 20608 x2 quest 8413.3 @69.9,53.6 group 5 -- Green Voodoo Feather: Zolo, Loro
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains

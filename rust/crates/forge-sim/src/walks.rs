@@ -72,7 +72,7 @@ const NO_ZONE: u32 = u32::MAX;
 
 /// The rule that a walk from one zone into another passes a known zone crossing (World::crossings:
 /// data/crossings.json, Carbonite's zone connections and the ways added to them, and the grid's open
-/// borders): Rev14H1 (Thunder Bluff over the ridge into Desolace), Rev14A1 (Theramore along the coast
+/// borders): the c14 reviews (Thunder Bluff over the ridge into Desolace; Theramore along the coast
 /// to Gadgetzan). Zones joined by an open border are one zone here. A crossing is a disc around the
 /// middle of its two ends (radius: half the yards between them and the larger end radius), where a
 /// walk over that border passes. A pair between two zones whose walk (the store's, else the straight

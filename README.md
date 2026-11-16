@@ -187,11 +187,21 @@ Players publish their own routes for Polestar as community guides on
 [polestar.guide](https://polestar.guide/community), and the
 [Polestar Client](https://polestar.guide/client) installs them and keeps them
 up to date ([Community guides](#community-guides)). Each new character's
-first login opens a short welcome: a hello and what Polestar does; on the
-account's first character, quest automation, the guide at login and the color
-scheme, then the route style (Fastest, Balanced or Roads, with a line on what
-each does); then the guide Polestar suggests for that character, the Discord
-and community guides (`/polestar welcome` shows it again).
+first login opens **Install**, a short setup a page at a time: a hello and
+what Polestar does; on the account's first character, Questing (quest
+automation, grey quests, the guide at login, the stat weights gear advice
+uses), Targeting (the target button, which lists your step's mobs and NPCs
+so a click targets one, the list following the button with no switch of its
+own; Simple target button for the single square button and who it targets;
+its mark and ping),
+Groups (group quests), Your route (Fastest, Balanced or Roads, and the route
+line) and Your look (Polestar's looks, the game's and the skins, with a
+preview, and the colour scheme); a later character gets only its own choice,
+its class's stat weights. Every choice works the moment you make it, Skip
+install keeps everything as it is, and the last page names the guide
+Polestar suggests and where everything is in Settings. `/polestar install`,
+About's Install and the Install button in the settings window's header open
+it again; the settings search finds it too.
 
 > [!NOTE]
 > **Beta.** Every guide compiles, lints and plays to the end in a simulator
@@ -358,7 +368,7 @@ site walks through every step.
 ## Polestar Client
 
 The [Polestar Client](https://polestar.guide/client) is a small desktop app for
-Windows, macOS and Linux (beta, 0.1.6). It finds WoW: Forever on your
+Windows, macOS and Linux (beta, 0.1.7). It finds WoW: Forever on your
 computer and:
 
 - **installs and updates Polestar's addons**: Polestar, the Recorder and
@@ -379,7 +389,7 @@ computer and:
   info").
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
-[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.6);
+[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.7);
 its source is in [apps/client](apps/client).
 
 <p align="center">
@@ -406,6 +416,9 @@ its source is in [apps/client](apps/client).
 - **Skip a quest.** Right-click a quest's line, Skip this quest: the guide
   drops it and the quests that follow from it, in every guide, and the
   banner's Undo brings them back. Skip, at the top, passes the whole step.
+- **Show in quest log.** Right-click a quest's line, or a While you're here
+  line, and pick Show in quest log: the game's quest log opens at that
+  quest (after the fight, in combat).
 - **Abandoned a quest by mistake?** The guide stays on its step, greys out
   that quest's goals and points the arrow back at its giver, and asks: go
   back for it, or skip it and what follows. "When you abandon a guide
@@ -441,16 +454,16 @@ its source is in [apps/client](apps/client).
   objective whose quest is already in your log (12 vermin as much as one
   chest), a "While you're here" panel under the step lists it, up to three
   at once; done now, that step is done or shorter when you get there. Click
-  one for the arrow, right-click it to leave it around there (twice: for the
-  rest of the zone). A quest ready to hand in shows the same way when its
-  NPC is in the town you're in or a few seconds out of your way (20 by
-  default; Options, Guide, Window, Dynamic Questing, "Hand-ins: how far out
-  of your way"), and at that NPC it also takes the quests the next steps
-  need ("Hand in … then take …: saves a trip back"). Pick-ups count too:
-  walk near someone who gives a quest your guide takes later, anywhere in
-  the guide you have loaded, and a row says "Take “<quest>” from <NPC>:
-  saves a trip back"; talking to an NPC whose quest comes in the next few
-  steps takes it without moving the guide.
+  one for the arrow, right-click it to see its quest in the quest log or to
+  leave it around there (twice: for the rest of the zone). A quest ready to
+  hand in shows the same way when its NPC is in the town you're in or a few
+  seconds out of your way (20 by default; Options, Guide, Window, Dynamic
+  Questing, "Hand-ins: how far out of your way"), and at that NPC it also
+  takes the quests the next steps need ("Hand in … then take …: saves a trip
+  back"). Pick-ups count too: walk near someone who gives a quest your guide
+  takes later, anywhere in the guide you have loaded, and a row says "Take
+  “<quest>” from <NPC>: saves a trip back"; talking to an NPC whose quest
+  comes in the next few steps takes it without moving the guide.
 - **Group quests are your call.** At a quest a guide marks as a group quest,
   the guide window asks: Skip it keeps to the solo route, Do it with a group
   takes it on. "Group quests" (Options, Guide, Automation) can answer them
@@ -526,6 +539,16 @@ its source is in [apps/client](apps/client).
   arrow, its travel button and its arrival sound. Opening a Polestar window
   (the guides, the options, their key bindings) brings Polestar back. In a
   fight the action buttons go or come back when it ends.
+- **Pause** (the guide window's menu, the minimap button's menu, Options,
+  Guide, Window, the **Pause the guide** key binding or `/polestar pause`):
+  on your way to a dungeon and inside, the arrow, the guide window and its
+  nudges step aside, and Polestar resumes by itself when you leave the
+  dungeon alive (a wipe and the run back keep it paused). The Spirit Healer's
+  resurrection counts as leaving alive, so pause again for the run back.
+  Your guide keeps up with your quest log meanwhile; a point you pick and the
+  way back to your corpse still show. `/polestar resume` or opening the guide
+  window ends it early. Under it in Options, the step's map pins and the quest
+  automation can pause too. This character only.
 
 </details>
 
@@ -657,25 +680,37 @@ guides you there instead.
   under **Map** in the options; the arrow's target, its route and the
   regions the guide step's mobs and objects spawn in (shaded on the world map
   and the minimap) always show.
-- **NPC services and mailboxes** on zone and city maps (Map, Rares & travel,
-  NPC services; off by default): class trainers and mailboxes, with repair,
+- **NPC services and mailboxes** on zone and city maps (Map > Rares, travel &
+  zones > NPC services; off by default): class trainers and mailboxes, with repair,
   vendors, bankers, profession trainers, weapon masters and the rest one
   click away. A click sets the arrow there.
 - **A world map without fog of war**, with coordinates and zone level ranges.
-- **The step's item glows in your bags** (and in Baganator): the carcass, the
+- **The step's item glows in your bags** (and in Baganator and BagSmith): the carcass, the
   seeds or the horn the step uses or has you collect.
 - **Hide the game's quest tracker** (Options, Questing; off by default).
-- **The Target button** (Options, Questing, Buttons; bindable): targets the
-  step's mobs by name, or the NPCs it sends you to when it has no mob, the
-  arrow's goal first and the next name on each click. Its icon shows what
-  you do with the one it targets next (a speech bubble, ! or ? for an NPC, a
-  sword or a bag for a mob, a skull for an elite, rare or boss, or their face
-  once you have seen them), with the name beside it in green, red or gold
-  and small icons for the names after it.
-- **Mark what they target** (Options, Questing, Buttons; off by default): the
-  target button and the step key put a raid icon on the mob or NPC they
-  target — a skull and a star by default, configurable — and pressing again
-  never takes an icon off. Either can be set to "A new one each press", so the
+- **The target list** shows the step's mobs (or, with no mob, the NPCs it
+  sends you to) with their portraits, what they drop for the step and your
+  progress on its goal (3/8); click a name to target that one, or press the
+  target button's key binding for the first one close by. A row's click marks
+  and pings as the target button does. A row turns green while its mob is
+  close. The list goes with the target button: it shows while the target
+  button is on (Settings, Questing, Buttons, Targeting, or the Install's
+  Targeting page) and has no switch of its own. It stands beside the target
+  button, or under it when the buttons line up in a row, and takes the
+  Buttons page's look. The small Polestar mark in the button's place moves the
+  buttons; left-click it to fold the list to one row showing the mob that is
+  close, right-click it for its settings; in Quick Keybind Mode, hover it to
+  bind the target button's key. **Simple target button** (Settings, Questing,
+  Buttons, Targeting) keeps only the button, which moves to the next name on
+  each click. Its icon shows what you do with the one it targets next (a
+  speech bubble, ! or ? for an NPC, a sword or a bag for a mob, a skull for an
+  elite, rare or boss, or their face once you have seen them), with the name
+  beside it in green, red or gold and small icons for the names after it.
+- **Mark what they target** (Options, Questing, Buttons; on by default): the
+  target button, a target list row's click and the step key put a raid icon
+  on the mob or NPC they target — a skull on an enemy and a star on a friendly
+  NPC by default, configurable — and pressing again never takes an icon off.
+  Pinging it for your group is a separate switch, off by default. Either can be set to "A new one each press", so the
   last few targets keep theirs. Your party sees the icons. In a party you
   don't lead, only a mob or NPC with no icon yet gets one, so a mark someone
   else placed stays; in a raid it marks only when you lead or assist.
@@ -691,8 +726,8 @@ guides you there instead.
   again when it closes. The window's Okay keeps the keys (for this character
   only if you tick its box), Cancel drops them. Nothing changes in a fight.
 - **Key bindings** (Options > Keybindings): all of Polestar's, the
-  Recorder's included, have a **Polestar** section of their own, and
-  searching "polestar" there finds them.
+  Recorder's included, have a **Polestar** section of their own, and the
+  Options search finds each one by its name.
 
 </details>
 
@@ -782,19 +817,41 @@ runs solo or in a raid.
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
   for your spec at your level, from stat weights per spec (detected from your
-  talent points) and level band.
+  talent points) and level band, with health, mana, haste, expertise and
+  armor penetration worked out from the game's formulas at your level
+  ([how each weight is made](docs/gear-weights.md)). Forever's ratings (crit,
+  hit, haste, expertise, armor penetration, dodge, parry, block) count at the
+  game's rating per 1%. The line under it says which weights it scored with
+  and where they came from ("Scored for Arcane, from your talents"). Click a
+  turn-in step's reward pick, or the line beside the game's reward panel
+  heading, to choose other weights (Settings > Questing > Rewards & gear >
+  Stat weights); `/polestar gear spec` shows how Automatic read your talents.
+- **With Forever Leveling BiS installed**, gear advice takes its answers
+  through its public API while Stat weights is on Automatic: from its version
+  1.2.9 its gains (in its own score points, "+6.1 (+8%) upgrade"), scores and
+  the spec it scores for ("Scored by Forever Leveling BiS (Arms)"); before
+  that, its upgrade arrows in your bags. Turn it off under Gear advice ("Use
+  Forever Leveling BiS when installed").
 - **On the game's reward panel** every choice that is an upgrade gets a green
   arrow, the one to take is framed, and a coin marks the one that sells for
   most. Turn-in goals name the best reward, and a quest you are about to accept
   shows its reward when it is an upgrade.
 - **In your bags** every item that is an upgrade gets the same green arrow,
-  in the game's bags, in Baganator and in EllesmereUI Bags. With Pawn
+  in the game's bags, in Baganator, BagSmith and EllesmereUI Bags. With Pawn
   installed, "Leave bag arrows to Pawn" hides Polestar's.
 - **Your own stat weights**: paste a Pawn scale string (Options, Questing,
   Rewards & gear, or `/polestar gear import`) and choose it under Stat weights
   as "Custom: <name>". It replaces the built-in weights at every level. One
   window lists your scales for every class: use, rename, export or delete
   them, change their weights, and start one from a built-in spec.
+- **Adjust the built-in weights**: Options, Questing, Rewards & gear, **Adjust
+  weights** (or `/polestar gear adjust`) lists your spec's weights. Change any
+  stat, or add one; a changed stat is marked with a dot and can go back on its
+  own (its reset button names the default), and **Revert to default** puts
+  every weight of the spec back. A change
+  is kept as a share of the default, so it carries over when Polestar's
+  defaults change, and the spec reads "(adjusted)" in the menu and on
+  tooltips.
 
 </details>
 
@@ -854,6 +911,9 @@ each section says what is missing.
 - **EllesmereUI** (Options, Integrations): Polestar follows its accent and font by default through
   its public skinning API, and where its Quality of Life or Friends module
   does the same job as a Polestar toggle, the toggle starts off.
+- **ErgoBars** offers the same skinning API: without EllesmereUI, Polestar
+  follows its accent, and its panel color and font when you pick them, the
+  same way.
 
 </details>
 
@@ -958,11 +1018,11 @@ details, LB / RB look at the previous and next step, Y minimizes the window,
 and B gives the gamepad back to the game.
 
 Every Polestar window you open (the guide menu with Lookup and Dungeons, the
-options, the welcome, the route choice, the report and copy windows, the
+options, Install, the route choice, the report and copy windows, the
 drop-down menus) answers the gamepad while it is open: the D-pad moves the
 focus (an accent ring), A selects, B closes or goes back, LB / RB change tabs
 or pages, left / right adjust a slider or a drop-down, Y puts a setting back
-to its default. A window that opens by itself (the welcome on a new
+to its default. A window that opens by itself (Install on a new
 character, the choice of where to level next) takes no button until you press
 the Browse the guide button, which its bar shows. A bar under the window lists
 the buttons no button on screen shows; B sits on the window's close button.
@@ -1003,8 +1063,8 @@ steps and detours, the steps to fix first.
 
 ### Slash commands
 
-`/polestar` (or `/pole`) shows or hides the guide window; settings live in
-`/polestar options`, grouped by what you came to do: Guide, Appearance, Map,
+`/polestar` (or `/pole`, `/ps`) shows or hides the guide window; settings live in
+`/polestar options` (or `/ps options`, or right-click the game menu's Polestar button), grouped by what you came to do: Guide, Appearance, Map,
 Questing, Discovery, Quality of Life, Integrations (settings for other addons
 Polestar works with, such as Questie, shown while they are installed), Guide
 packs, Gamepad, Recorder and About, with a search that finds any setting.
@@ -1025,6 +1085,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `hide` | Hide everything Polestar shows, or bring it back, as a click on the minimap button does; `hide arrow` turns **Keep the arrow when hidden** on or off |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
+| `ask <question>` | Open the settings on the answer to a question in your own words (`/ps ask how do I hide the arrow?`): the question in the search box and the settings it finds under it |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
 | `skip` | Skip the step shown, for good (the window offers Undo) |
 | `status` | Current guide and step |
@@ -1036,12 +1097,14 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**) or Polestar is hidden, these commands, `way` and `near` say so |
+| `unlock`, `lock` | Move Polestar's frames: a box over the guide window, the arrow, the buttons, the alerts and the trackers to drag where you want them, with a grid and snapping; arrow keys nudge the one you clicked, right-click puts one back. `unlock` again, `lock`, Escape or a fight locks them |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
 | `party [debug]` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need); `debug` prints what party sync sends and hears, for a report |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |
+| `gear adjust` | Open the window that changes your spec's built-in stat weights |
 | `instances [clear]` | Instance limits, runs and lockouts |
 | `dungeons [name]` | Open Dungeons, or a dungeon's page |
 | `lookup [search]` | Open Lookup, optionally searching |
@@ -1052,11 +1115,13 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `packs` | Open Options > Community guides |
 | `import` | Open the Import page: paste a shared guide string to save it without installing an addon; `import clear` or `import delete` to remove it |
 | `gamepad` | Open Options > Gamepad: button names and key bindings |
-| `welcome` | Show the welcome again |
+| `install` | Set Polestar up again, a page at a time (Install) |
+| `welcome` | Opens Install, as `install` does |
 | `where` | Print your map and position as guide lines (`zone map <id>`, `goto x,y live`), in a box to copy |
 | `report` | Report a problem with the step on screen (the guide window's bug button) |
 | `update` | Show the update card when a newer Polestar is out (else whether this one is the newest, when Polestar Client says so) |
 | `discord` | The invite to the Polestar Discord, to copy |
+| `memory` | Each Polestar addon's memory as the game counts it, before and after a full garbage collection: the game's figure includes garbage not yet collected, the figure after is what Polestar keeps (for a report) |
 | `debug` | Toggle debug output |
 
 The Recorder has its own: `/psrec on | off | ui | mark <text> | trail on
@@ -1454,7 +1519,10 @@ permission; his map files are not part of the addon.
 7: guide packs produced by Polestar's compiler and import strings produced by
 its tools, including the reference data they place in them, may be
 distributed under terms of the author's choice (not guide text copied from
-Polestar's own guides, nor Polestar's code).
+Polestar's own guides, nor Polestar's code), and a second one for skin
+addons: an addon that changes Polestar's look only through the documented
+Skin API ([docs/skins/](docs/skins/README.md)) may be licensed as its author
+chooses.
 
 <p align="center"><img src="docs/assets/emblem.svg" width="28" alt=""></p>
 

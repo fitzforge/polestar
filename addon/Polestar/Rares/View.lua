@@ -481,9 +481,15 @@ local function hideBody()
 	detail.EmptyNote:Hide()
 end
 
-local function band(title, sub, map, x, y)
+-- A rare or treasure no source places anywhere (28 rares in the Codex, Capo
+-- the Mean among them): the world map (Azeroth, uiMap 947), dimmed, rather
+-- than the bare night band.
+local WORLD, DIM = 947, { 0.5, 0.5, 0.55 }
+
+local function band(title, sub, map, x, y, nowhere)
 	local d = detail
-	d.psArt = ZoneArt.Paint(d.Art, map, x, y, #(title or "") + 1)
+	d.Art.psTint = nowhere and DIM or nil
+	d.psArt = ZoneArt.Paint(d.Art, nowhere and WORLD or map, x, y, #(title or "") + 1)
 	d.Title:SetText(title or "")
 	d.Sub:SetText(sub or "")
 	d.Title:SetWidth(d.psW - DPAD * 2)
@@ -726,7 +732,7 @@ local function renderEntity(key, w)
 	local zone = spawn and mapName(spawn.map)
 	if zone then facts[#facts + 1] = zone end
 	if entry and entry.t then facts[#facts + 1] = format(L["seen %s"], Rares.AgoText(entry.t, now)) end
-	band(name, concat(facts, DOT), spawn and spawn.map, spawn and spawn.x, spawn and spawn.y)
+	band(name, concat(facts, DOT), spawn and spawn.map, spawn and spawn.x, spawn and spawn.y, spawn == nil)
 	detail.psSpawn, detail.psName, detail.psKey = spawn, name, key
 	actions(spawn ~= nil and ns.Nav ~= nil, rec ~= nil and ns.Lookup ~= nil, Rares.IsIgnored(key))
 	shown.name, shown.facts = name, concat(facts, DOT)

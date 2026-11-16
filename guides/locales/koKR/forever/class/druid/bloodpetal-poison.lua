@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "",
+	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "50레벨에 운고로 경험치와 치유 물약 두 개. Forever에서는 클래식의 아이템 선택이 사라졌을 수 있습니다.",
 
 	-- Step 1: Loganaar
 	-- {spell:18960} Teleport: Moonglade · {npc:12042} Loganaar · {area:2361} Nighthaven · {npc:3033} Turak Runetotem · {npc:4217} Mathrengyl Bearwalker · {zone:1453} Stormwind
-	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "",
+	["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer ({npc:3033}, {npc:4217} or Theridran in {zone:1453}) offers the same quest."] = "{spell:18960}을(를) 시전하세요. {npc:12042}은(는) {area:2361}에 서 있습니다. 직업 상급자({npc:3033}, {npc:4217} 또는 {zone:1453}의 테리드란)도 같은 퀘스트를 줍니다.",
 
 	-- Step 2: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
@@ -47,8 +47,6 @@ return {
 	["{npc:9619}: the old item choice may be gone, count on the experience"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cast {spell:18960}. {npc:12042} stands in {area:2361}; your class trainer offers the same quest."] = "{spell:18960}을(를) 시전하세요. {npc:12042}은(는) {area:2361}에 서 있습니다. 직업 상급자도 같은 퀘스트를 줍니다.",
-	-- ["Experience in Un'Goro at 50 and two healing potions; Forever removed the Classic item choice."] = "50레벨에 운고로 경험치와 치유 물약 두 개. Forever에서는 클래식의 아이템 선택이 사라졌습니다.",
 	-- ["The Gorishi wasps, workers and reavers of the hive in the south of the crater drop the stings; the Bloodpetal Sprouts that give the {item:22434} grow all over the crater's western half."] = "분화구 남쪽 벌집의 병정 고리쉬, 일꾼 고리쉬, 갈퀴발톱 고리쉬가 독침을 떨어뜨립니다. {item:22434}을(를) 주는 붉은꽃잎 씨앗은 분화구 서쪽 절반 곳곳에 자랍니다.",
 	-- ["Use the {item:22432} on a {npc:6498}. Devilsaurs are elite (level 54-55) and roam the crater: grouping up is advised."] = "{npc:6498}에게 {item:22432}을(를) 사용하세요. 데빌사우루스는 정예(54-55레벨)이며 분화구를 돌아다닙니다. 파티를 권장합니다.",
 	-- ["{area:1477} lies in the {area:74} in the {zone:1435}. {npc:8580} guards the bottom of the temple: a dungeon boss, so bring a group."] = "{area:1477}은(는) {zone:1435}의 {area:74}에 있습니다. {npc:8580}이(가) 사원 아래층을 지킵니다. 던전 우두머리이니 파티를 데려가세요.",

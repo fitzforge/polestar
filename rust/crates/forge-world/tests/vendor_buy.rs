@@ -1,5 +1,5 @@
 //! A quest item a friendly vendor sells near the giver is bought there, not farmed from a rare drop
-//! (RevA1, c13: Look to the Stars' Bronze Tube was placed as a 1.9 % drop in Stonetalon while
+//! (c13 review: Look to the Stars' Bronze Tube was placed as a 1.9 % drop in Stonetalon while
 //! Herble sells it beside Viktori in Darkshire).
 
 use forge_core::Faction;

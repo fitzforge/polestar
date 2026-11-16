@@ -30,11 +30,11 @@ return {
 
 	-- Step 4: Zaldimar Wefhellt (Goldshire)
 	-- {npc:328} Zaldimar Wefhellt · {area:87} Goldshire · {npc:5497} Jennea Cannon · {zone:1453} Stormwind · {quest:1879} Speak with Bink · {area:131} Kharanos · {quest:1861} Mirror Lake · {npc:5144} Bink
-	["At 10 {npc:328}, the {area:87} mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {quest:1879}, the {area:131} trainer's errand; {quest:1861} and {npc:5144}'s Gizmonitor shut out each other, so you get one staff or orb."] = "",
+	["At 10 {npc:328}, the {area:87} mage trainer, upstairs in the Lion's Pride Inn, sends you to {npc:5497} in {zone:1453}. Taking it shuts out {quest:1879}, the {area:131} trainer's errand; {quest:1861} and {npc:5144}'s Gizmonitor shut out each other, so you get one staff or orb."] = "10级时，{area:87} 的法师训练师 {npc:328} 位于狮王之傲旅店楼上，会派你前往 {zone:1453} 找 {npc:5497}。接取后就无法接取 {quest:1879}，也就是 {area:131} 训练师交办的差事；{quest:1861} 与 {npc:5144} 的法师文档存储器任务互斥，因此只能获得一件法杖或宝珠。",
 
 	-- Step 5: Magis Sparkmantle (Kharanos)
 	-- {npc:1228} Magis Sparkmantle · {area:131} Kharanos · {area:2102} Thunderbrew Distillery · {npc:5144} Bink · {zone:1455} Ironforge · {quest:1860} Speak with Jennea · {area:87} Goldshire · {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake · {npc:328} Zaldimar Wefhellt
-	["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {quest:1860}, the {area:87} trainer's errand; {npc:5144}'s Gizmonitor and {npc:5497}'s {quest:1861} shut out each other, so you get one staff or orb. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "",
+	["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {quest:1860}, the {area:87} trainer's errand; {npc:5144}'s Gizmonitor and {npc:5497}'s {quest:1861} shut out each other, so you get one staff or orb. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "10级时，位于 {area:2102} 的 {area:131} 法师训练师 {npc:1228} 会派你前往 {zone:1455} 找 {npc:5144}。接取后就无法接取 {quest:1860}，也就是 {area:87} 训练师交办的差事；{npc:5144} 的法师文档存储器任务与 {npc:5497} 的 {quest:1861} 互斥，因此只能获得一件法杖或宝珠。（若侏儒接了 {area:87} 中 {npc:328} 的任务，则按 {quest:1861} 的步骤进行；若人类接了这里的任务，则按法师文档存储器的步骤进行。）",
 
 	-- Step 6: Jennea Cannon
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5497} Jennea Cannon · {item:7207} Jennea's Flask · {quest:1861} Mirror Lake

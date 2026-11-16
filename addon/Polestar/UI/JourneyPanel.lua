@@ -20,7 +20,9 @@
 -- (Nav.IsOverride: "Guide me to the entrance", a map click), the header has
 -- an x, "Back to the guide" (Nav.BackToGuide): the point lets go and the
 -- journey ends (#1686). Off with nav.journeySteps, collapsed with
--- nav.journeyOpen = false, never in compact mode.
+-- nav.journeyOpen = false, never in compact mode. How many legs it lists and
+-- whether their numbers show: trackers.journey.rows, .numbers (Options >
+-- Trackers > Journey).
 --
 -- Reads Nav.GetRoute() (legs, current index; leg.kind, label, seconds,
 -- yards, step, lift, side, transport, to, hubs: a walk entering the other
@@ -61,7 +63,7 @@ local MAX_ROWS = 8
 local MORE_H = 20
 
 local GLYPH = {
-	walk = "icon-goto", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", tram = "icon-boat",
+	walk = "icon-goto", fly = "icon-fly", boat = "icon-boat", zeppelin = "icon-boat", airship = "icon-boat", tram = "icon-boat",
 	lift = "icon-lift", portal = "icon-explore", hearth = "icon-hearth", teleport = "icon-use",
 }
 local STEP_GLYPH = {
@@ -70,7 +72,7 @@ local STEP_GLYPH = {
 }
 -- How a leg reads when the planner gave it no caption (never "Unknown").
 local STEP_TEXT = {
-	walk = L["Walk to %s"], fly = L["Fly to %s"], boat = L["Boat to %s"], zeppelin = L["Zeppelin to %s"],
+	walk = L["Walk to %s"], fly = L["Fly to %s"], boat = L["Boat to %s"], zeppelin = L["Zeppelin to %s"], airship = L["Airship to %s"],
 	tram = L["Tram to %s"], lift = L["Lift to %s"], portal = L["Portal to %s"], hearth = L["Hearth to %s"],
 	teleport = L["Teleport to %s"],
 }
@@ -409,6 +411,10 @@ local function row(i)
 	r.Time:SetWidth(TIME_W)
 	r.Time:SetPoint("RIGHT", r, "TOPRIGHT", -PAD, -ROW_H / 2)
 	r.Sub = text(r, "small", "textDim")
+	-- Wrapped at the panel's width, the row as tall as it needs (subHeight): "durchschnittliche Wartezeit 0:15 ·
+	-- Fahrt 0:10" in German was cut short in a narrow window.
+	r.Sub:SetWordWrap(true)
+	r.Sub:SetJustifyV("TOP")
 	r.Sub:SetPoint("TOPLEFT", r.Text, "BOTTOMLEFT", 0, -2)
 	r:SetScript("OnClick", rowClick)
 	r:SetScript("OnEnter", rowEnter)
@@ -418,6 +424,12 @@ local function row(i)
 end
 
 local function open() return ns.Get("nav.journeyOpen") and true or false end
+
+-- The room under a step for its line at the width the panel gave it: one line's, or as many as its text wraps to.
+local function subHeight(r)
+	local h = r.Sub:GetStringHeight()
+	return h > SUB_H and ceil(h) + 2 or SUB_H
+end
 
 local function build()
 	local G = GF()
@@ -487,11 +499,22 @@ end
 -- Painting
 ---------------------------------------------------------------------------
 
+-- How many legs it lists and whether their numbers show (Options > Trackers
+-- > Journey: trackers.journey.rows, .numbers).
+local function journeyLook(prop, fallback)
+	local TR = UI.Trackers
+	local v = TR and TR.Get("journey", prop)
+	if v == nil then return fallback end
+	return v
+end
+
 -- Labels, glyphs and colours: only when the steps themselves change.
 local function fillStructure(legs, ci)
 	local p = JP.Rows(legs, ci)
 	local n = p.n
-	local shown = n > MAX_ROWS and MAX_ROWS or n
+	local most = math.max(1, math.floor(tonumber(journeyLook("rows", MAX_ROWS)) or MAX_ROWS))
+	local shown = n > most and most or n
+	local numbers = journeyLook("numbers", true) ~= false
 	for i = 1, shown do
 		local leg = legs[p.first[i]]
 		local r = row(i)
@@ -499,6 +522,7 @@ local function fillStructure(legs, ci)
 		r.psCurrent = current
 		r.psLeg = p.first[i]
 		r.Num:SetFormattedText("%d", p.num[i])
+		r.Num:SetShown(numbers)
 		r.Icon:SetTexture(Theme.Media(glyphOf(leg)))
 		r.Text:SetText(JP.StepText(leg))
 		r.Bar:SetShown(current)
@@ -524,7 +548,8 @@ local function fillStructure(legs, ci)
 	shownLegs, shownCi, shownN = legs, ci, #legs
 end
 
--- Times only: once a second and on transit news. Never changes a height.
+-- Times only: once a second and on transit news. Never changes a height (a line under a step that wraps anew
+-- lays the panel out again, JP.Refresh).
 local function fillTimes()
 	setTime(head.Time, view.total)
 	local yd = view.yards
@@ -543,6 +568,34 @@ end
 local function relayout()
 	local G = GF()
 	if G and G.Layout then G.Layout() end
+end
+
+-- The panel's shape at its last layout (JP.Layout): open, and open, the height of each row shown in order and
+-- whether the "more" line shows.
+local laid = { open = nil, n = 0, more = false, h = {} }
+
+-- The shape laid out still holds: the panel open or closed as then and, open, the same rows at the same heights (a
+-- line under a step at the height the layout gives it) and the same "more" line. Then the window needs no new
+-- layout: a new plan of the same shape (each replan on a split walk) only repaints the rows. The lines under the
+-- steps are put at those heights, as the layout would.
+local function unmoved()
+	local isOpen = open()
+	if laid.open ~= isOpen then return false end
+	if not isOpen then return true end
+	local k = 0
+	for i = 1, #rows do
+		local r = rows[i]
+		if r:IsShown() then
+			k = k + 1
+			if laid.h[k] ~= (r.Sub:IsShown() and ROW_H + subHeight(r) or r:GetHeight()) then return false end
+		end
+	end
+	if k ~= laid.n or more:IsShown() ~= laid.more then return false end
+	for i = 1, #rows do
+		local r = rows[i]
+		if r:IsShown() and r.Sub:IsShown() then r:SetHeight(ROW_H + subHeight(r)) end
+	end
+	return true
 end
 
 -- Bring the panel up to date. force: repaint the structure too (settings,
@@ -591,7 +644,12 @@ function JP.Refresh(force)
 		end
 	end
 	fillTimes()
-	if changed or not had then relayout() end
+	-- A line under a step that now wraps to more or fewer lines: laid out again.
+	for i = 1, #rows do
+		local r = rows[i]
+		if r:IsShown() and r.Sub:IsShown() and r:GetHeight() ~= ROW_H + subHeight(r) then changed = true end
+	end
+	if (changed or not had) and not (had and unmoved()) then relayout() end
 	if F:IsVisible() then JP.StartTicker() end
 end
 
@@ -602,6 +660,7 @@ function JP.Layout(width)
 	local isOpen = open()
 	list:SetShown(isOpen)
 	if not isOpen then
+		laid.open = false
 		F:SetHeight(HEAD_H)
 		return HEAD_H
 	end
@@ -610,17 +669,22 @@ function JP.Layout(width)
 	dest:SetPoint("LEFT", list, "TOPLEFT", TEXT_X, -(DEST_H / 2 - 2))
 	local y = DEST_H
 	local textW = width - (TEXT_X + 22) - PAD - TIME_W - 8
+	local k = 0
 	for i = 1, #rows do
 		local r = rows[i]
 		if r:IsShown() then
 			r.Text:SetWidth(textW)
 			r.Sub:SetWidth(textW + TIME_W)
+			if r.Sub:IsShown() then r:SetHeight(ROW_H + subHeight(r)) end
 			r:ClearAllPoints()
 			r:SetPoint("TOPLEFT", list, "TOPLEFT", 0, -y)
 			r:SetPoint("TOPRIGHT", list, "TOPRIGHT", 0, -y)
+			k = k + 1
+			laid.h[k] = r:GetHeight()
 			y = y + r:GetHeight()
 		end
 	end
+	laid.open, laid.n, laid.more = true, k, more:IsShown()
 	if more:IsShown() then
 		more:ClearAllPoints()
 		more:SetPoint("LEFT", list, "TOPLEFT", TEXT_X + 22, -(y + MORE_H / 2))
@@ -694,19 +758,8 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "nav.journeyOpen" then
 		JP.Refresh()
 		relayout()
-	elseif path == "" or type(path) == "string" and (path == "nav" or path:find("^nav%.")) then
+	elseif path == "" or type(path) == "string" and (path == "nav" or path:find("^nav%.") or path == "trackers" or path:find("^trackers%.journey%.")) then
 		JP.Refresh(true)
 	end
 end)
 Theme.OnChanged(function() if guideShown() then JP.Refresh(true) end end)
-
-if ns.Nav and ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
-			ns.Nav.HandoffOption({ kind = "toggle", key = "nav.journeySteps", label = L["Show the journey"],
-				help = L["The route's steps in the guide window with a time for each, counting down: walks, lifts, boats and flights. Click the current step to skip it."] }),
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
-end

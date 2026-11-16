@@ -9,26 +9,16 @@ return {
 	-- Step 1: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Voler jusqu'aux {area:1638}",
-	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638} first: two of its elders give quests worked on this guide's and the next guide's walks."] = "Volez d'abord jusqu'aux {area:1638} : deux de ses anciens donnent des quêtes réalisées pendant les trajets de ce guide et du suivant.",
-	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
+	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:3419} Apothecary Zamah
+	["Fly to {area:1638} (without its flight path the arrow goes by {area:378} and {zone:1412}): two of its elders give quests worked on this guide's and the next guide's walks, and {npc:3419} takes Lydon's toxin."] = "Volez jusqu'aux {area:1638} (sans ce trajet aérien, la flèche passe par le {area:378} et {zone:1412}) : deux de ses anciens donnent des quêtes réalisées pendant les trajets de ce guide et du suivant, et l'{npc:3419} prend la toxine de Lydon.",
 
-	-- Step 3: Fly to Camp Taurajo
-	-- {area:378} Camp Taurajo
-	["Fly to {area:378}"] = "Voler jusqu'au {area:378}",
-	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["{zone:1456} first: two of its elders give quests worked on this guide's and the next guide's walks. Fly to {area:378}; from there it is a walk west into {zone:1412} and north to the bluffs."] = "D'abord les {zone:1456} : deux de ses anciens donnent des quêtes réalisées pendant les trajets de ce guide et du suivant. Volez jusqu'au {area:378} ; de là, marchez vers l'ouest jusqu'en {zone:1412}, puis vers le nord jusqu'aux pitons.",
+	-- Step 2: Apothecary Zamah
+	-- {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:2995} Tal
+	["{npc:3419} stands in the {area:2197}, the caves under {area:1640}, west of {npc:2995}."] = "L'{npc:3419} se tient dans les {area:2197}, les grottes sous {area:1640}, à l'ouest de {npc:2995}.",
+	-- {npc:3419} Apothecary Zamah · {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad · {area:461} Windshear Crag
+	["{npc:3419}: the {item:5638} goes on the {object:19594} at {area:461}, on this guide's Windshear trip"] = "{npc:3419} : le {item:5638} se place sur la {object:19594} à {area:461}, lors de l'expédition de ce guide au pic Tondevent",
 
-	-- Step 4: To Thunder Bluff
-	-- {zone:1456} Thunder Bluff
-	["To {zone:1456}"] = "Vers les {zone:1456}",
-	-- {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {zone:1456} Thunder Bluff
-	["From {area:378} follow the road west through the gate into {zone:1412}, then north past {area:222} to {zone:1456}; a lift at the foot of the bluffs takes you up."] = "Depuis le {area:378}, suivez la route vers l'ouest et passez la porte vers {zone:1412}, puis allez au nord après {area:222} jusqu'aux {zone:1456} ; un ascenseur au pied des pitons vous fait monter.",
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456}'s central rise"] = "Le plateau central des {zone:1456}",
-
-	-- Step 5: Thunder Bluff
+	-- Step 3: Thunder Bluff
 	-- {npc:2995} Tal · {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof
 	["{npc:2995}, the wind rider master, stands on the central rise: take his flight path if you don't have it. {npc:3024} and {npc:4721} stand a short walk east of him."] = "{npc:2995}, le maître des coursiers du vent, se tient sur le plateau central : prenez son trajet aérien si vous ne l'avez pas. {npc:3024} et {npc:4721} se tiennent à quelques pas à l'est de lui.",
 	-- {npc:3024} Tah Winterhoof · {object:667362} Mirkweed · {area:464} Mirkfallon Lake
@@ -36,117 +26,33 @@ return {
 	-- {npc:4721} Zangen Stonehoof · {zone:1440} Ashenvale
 	["{npc:4721}: the phial comes from {zone:1440}, next guide"] = "{npc:4721} : la fiole vient d'{zone:1440}, guide suivant",
 
-	-- Step 6: Fly to Crossroads
-	["Fly to Crossroads"] = "",
-	-- {npc:2995} Tal · {zone:1456} Thunder Bluff
-	["Fly to the Crossroads from the wind rider master: {npc:2995} on {zone:1456}'s central rise."] = "Volez jusqu'à la Croisée depuis le maître des coursiers du vent : {npc:2995}, sur le plateau central des {zone:1456}.",
-
-	-- Step 7: Seereth Stonebreak
-	-- {npc:4049} Seereth Stonebreak
-	["Follow the road west past Regthar's bunkers: {npc:4049} camps beside it at the edge of Stonetalon."] = "Suivez la route vers l'ouest après les bunkers de Regthar : {npc:4049} campe à côté, à l'orée des Serres-Rocheuses.",
-	-- {npc:4049} Seereth Stonebreak · {npc:4074} XT:9 · {npc:4073} XT:4 · {npc:4201} Ziz Fizziks
-	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way up"] = "{npc:4049} : {npc:4074} et {npc:4073} errent à l'est de {npc:4201}, sur le chemin de la montée",
-
-	-- Step 8: The road west
-	["The road west"] = "",
-	-- {npc:4049} Seereth Stonebreak
-	["The road west past {npc:4049}'s camp"] = "La route de l'ouest après le camp de {npc:4049}",
-
-	-- Step 9: Malaka'jin
-	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
-	["Follow the road west past Regthar's bunkers and {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "Suivez la route vers l'ouest après les bunkers de Regthar et le camp de {npc:4049} jusqu'aux Serres-Rocheuses : {npc:3995} attend sous terre à {area:2539}, au pied de {area:1076}.",
-	-- {npc:3995} Witch Doctor Jin'Zil
-	["{npc:3995}, below ground"] = "{npc:3995}, sous terre",
-
-	-- Step 10: Shredding Machines
-	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:4074} XT:9 · {npc:4073} XT:4
-	["Up the {area:1076} to {npc:4201}' hut, then east along the road toward {area:461}: {npc:4074} patrols the road just east of the fork, {npc:4073} the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them."] = "Montez {area:1076} jusqu'à la hutte de {npc:4201}, puis allez vers l'est par la route en direction de {area:461} : {npc:4074} patrouille sur la route juste à l'est de l'embranchement, {npc:4073} sur les pentes plus au nord-est, sous l'escarpement. Ce sont deux robots déchiqueteurs solitaires ; ils se déplacent, suivez donc la route jusqu'à les croiser.",
-
-	-- Step 11: Sun Rock Retreat
-	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat · {npc:4073} XT:4
-	["Up the {area:1076} past {npc:4201} and west to {area:460}; coming from {npc:4073}, back west past Ziz's hut."] = "Montez {area:1076} après {npc:4201}, puis allez vers l'ouest jusqu'à {area:460} ; si vous venez de {npc:4073}, revenez vers l'ouest en passant la hutte de Ziz.",
-	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
-	["{npc:11862}: {npc:12736} at Zoram'gar, next guide"] = "",
-	-- {npc:11860} Maggran Earthbinder · {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["{npc:11860}: {npc:12576} is at the {area:1718}, later in this guide"] = "",
-	-- {npc:11860} Maggran Earthbinder
-	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
-	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860} : Héliolites lumineuses ({item:277936}) sur les harpies Rougefurie",
-	-- {npc:4198} Braelyn Firehand
-	["{npc:4198}, outside the gate"] = "{npc:4198}, devant la porte",
-
-	-- Step 12: Tammra Windfield
-	-- {npc:11864} Tammra Windfield
-	["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864} se tient près du feu de camp à l'intérieur de Roche-Soleil : la nouvelle de Makaba selon laquelle Kaya est vivante lui est destinée.",
-
-	-- Step 13: Gaea Seeds
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
-	["Gaea Seeds"] = "Graines de Gaea ({item:16205})",
-	-- {area:464} Mirkfallon Lake
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
-	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "Les Graines de Gaea se trouvent dans l'herbe autour de la rive sud du {area:464}, au nord du Roc-Soleil.\nAttention : les Fièrailes autour du lac peuvent attaquer en groupe lié.",
-
-	-- Step 14: Mirkweed
-	-- {object:667362} Mirkweed · {area:464} Mirkfallon Lake
-	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
-	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "Le {object:667362} pousse au fond du {area:464}, au large de la même rive sud : plongez jusqu'aux plantes et aux Tas d'obscurcie séchée ; les deux donnent des cosses. Surveillez votre souffle.",
-
-	-- Step 15: Stonetalon Mountains: kill these as you meet them
-	-- {zone:1442} Stonetalon Mountains
-	["{zone:1442}: kill these as you meet them"] = "{zone:1442} : tuez-les au passage",
-	-- {area:467} Stonetalon Peak
-	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
-	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "Suivez la route vers le nord en direction du {area:467}. Des Coursiers à ramure ({npc:4018}) paissent en chemin ; Bêtes de sève ({npc:4020}), Coureurs crépusculaires ({npc:4067}) et Dragons-faë ({npc:4016}) parcourent les bois sous le pic, et les druides cénariens tiennent le bosquet là-bas.",
-
-	-- Step 16: Sun Rock Retreat
-	-- {npc:4198} Braelyn Firehand · {zone:1440} Ashenvale
-	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "La quête suivante de {npc:4198}, Ordanus, se trouve du côté Alliance d'{zone:1440}. Passez-la.",
-
-	-- Step 17: The Charred Vale: kill these as you meet them
-	-- {area:465} The Charred Vale
-	["{area:465}: kill these as you meet them"] = "{area:465} : tuez-les au passage",
-	-- {area:465} The Charred Vale · {item:16312} Incendrites
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
-	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south."] = "Au sud-ouest de Roche-Soleil s'étend le {area:465}. Plantez les Graines de Gaea dans les monticules de terre au fond de la vallée ; les élémentaires de feu lâchent {item:16312}. Harpies et Embusquées Rougefurie nichent au nord, Tueuses et Volplumes au sud.",
-	-- {item:277936} Glittering Sunstone
-	["{item:277936}, from any Bloodfury harpy"] = "{item:277936}, sur n'importe quelle harpie Rougefurie",
-	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
-	["Gaea Dirt Mounds"] = "Monticules de poussière de Gaea ({object:177929})",
-
-	-- Step 18: Sun Rock Retreat
-	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
-	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}, à côté de {npc:11862}",
-	-- {npc:11862} Tsunaman
-	["{npc:11862}, up on the ledge"] = "{npc:11862}, en haut sur la corniche",
-
-	-- Step 19: Malaka'jin
-	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
-	["Head back down the {area:1076} to {area:2539}."] = "Redescendez {area:1076} jusqu'à {area:2539}.",
-
-	-- Step 20: Seereth Stonebreak
-	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak · {area:378} Camp Taurajo
-	["East along the road from {area:2539} to {npc:4049}'s camp, on the way to {area:378}."] = "Vers l'est par la route depuis {area:2539} jusqu'au camp de {npc:4049}, sur le chemin du {area:378}.",
-
-	-- Step 21: To Camp Taurajo
+	-- Step 4: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["To {area:378}"] = "",
+	["Fly to {area:378}"] = "Voler jusqu'au {area:378}",
+	-- {area:378} Camp Taurajo · {npc:2995} Tal · {zone:1456} Thunder Bluff
+	["Fly to {area:378}: {npc:2995} on {zone:1456}'s central rise, or the Crossroads' wind rider master if you start this guide there."] = "Volez jusqu'au {area:378} : {npc:2995}, sur le plateau central des {zone:1456}, ou le maître des coursiers du vent de la Croisée si vous commencez ce guide là-bas.",
 
-	-- Step 22: Camp Taurajo
-	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak · {area:378} Camp Taurajo
-	["From {area:2539} follow the road east to {npc:4049}'s camp, then south-east across the plains to {area:378}."] = "Depuis {area:2539}, suivez la route vers l'est jusqu'au camp de {npc:4049}, puis allez au sud-est à travers les plaines jusqu'au {area:378}.",
+	-- Step 5: Camp Taurajo
+	-- {area:378} Camp Taurajo · {npc:3433} Tatternack Steelforge · {npc:3387} Jorn Skyseer · {npc:3430} Mangletooth
+	["The flight lands at {area:378}'s wind rider master. {npc:3433} stands at the north edge of the camp, {npc:3387} and {npc:3430} (in the cage) in the middle."] = "Le vol atterrit chez le maître des coursiers du vent du {area:378}. {npc:3433} se tient au bord nord du camp, {npc:3387} et {npc:3430} (dans la cage) au milieu.",
 	-- {npc:3433} Tatternack Steelforge
 	["{npc:3433}, at the north edge of the camp"] = "{npc:3433}, au bord nord du camp",
 	-- {npc:3430} Mangletooth
 	["{npc:3430}, in the cage"] = "{npc:3430}, dans la cage",
 
-	-- Step 23: Grunt Logmar
+	-- Step 6: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "",
+	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "{npc:5911} se tient près du maître de vol. Son {npc:268623} (23) est un élite : il est conseillé de se grouper ; les deux Encroaching Soldiers n'en sont pas.",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
-	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "",
+	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911} : les soldats et le camp du pillard juste à l'est de {npc:3341}, sur le chemin du sud",
 
-	-- Step 25: Brine
+	-- Step 7: Field of Giants
+	-- {npc:3341} Gann Stonespire · {area:390} Field of Giants
+	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
+	["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "Au sud du camp Taurajo, sur la route de {npc:3341}, les Antres des silithides parsèment le {area:390} ; les œufs s'y trouvent, et des Grouillants silithides en sortent pour les défendre.\nAttention : les Grouillants silithides de la zone libèrent de nombreux petits monstres qui interrompent les sorts ; les boucliers de dégâts comme Épines les tuent en un coup.",
+
+	-- Step 9: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}, on the way to {area:359}."] = "La hutte de {npc:5899} se dresse sur la crête au-dessus du point d'eau des hurans, au sud de {area:378}, sur la route de {area:359}.",
 	-- {npc:5899} Brine · {area:272} Tarren Mill
@@ -154,100 +60,220 @@ return {
 	-- {npc:5899} Brine · {zone:1440} Ashenvale
 	["{npc:5899}: the blue waterskin is filled in {zone:1440}, next guide"] = "{npc:5899} : l'outre bleue se remplit dans {zone:1440}, au guide suivant",
 
-	-- Step 26: Gann Stonespire
+	-- Step 10: Gann Stonespire
 	-- {npc:3341} Gann Stonespire · {area:359} Bael Modan · {npc:14242} Sulhasa
-	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "",
+	["{npc:3341} walks the road south toward {area:359}, between about 46,75 and 46,81: if he isn't at the arrow, follow the road until you meet him. {npc:14242} sits up in the tree just east of the road at 47.9,77.5."] = "{npc:3341} parcourt la route vers le sud en direction de {area:359}, entre environ 46,75 et 46,81 : s'il n'est pas à la flèche, suivez la route jusqu'à le rencontrer. {npc:14242} est perché dans l'arbre juste à l'est de la route, en 47.9,77.5.",
 	-- {npc:3341} Gann Stonespire · {area:1701} Blackthorn Ridge
 	["{npc:3341} walks around {area:1701}: look inside the circle on the map"] = "{npc:3341} se promène autour de {area:1701} : cherchez dans le cercle sur la carte",
 	-- {npc:14242} Sulhasa · {npc:3341} Gann Stonespire
 	["{npc:14242}, up in the tree just east of {npc:3341}"] = "{npc:14242}, dans l'arbre juste à l'est de {npc:3341}",
 
-	-- Step 27: Wrongly Blamed, Justly Corrected
+	-- Step 11: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "",
+	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "À quelques pas à l'est de l'arbre de {npc:14242}, un petit camp : deux Encroaching Soldiers et le {npc:268623} pour Logmar. Le {npc:268623} est un élite : il est conseillé de se grouper.",
 
-	-- Step 28: Bael Modan
+	-- Step 12: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
 	["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone.\nCareful: Excavators (level 21-22) and Foremen (level 22-23) run off for help once they fall to 15% health, so more dwarves can join the fight."] = "Au sud de Gann, les nains de Bael'dun creusent à {area:359}. Des Excavateurs et des Contremaîtres travaillent dans la fosse ; le {npc:3392} (26) porte le journal : attirez-le seul.\nAttention : les Excavateurs (niveau 21-22) et les Contremaîtres (niveau 22-23) fuient chercher de l'aide une fois à 15 % de vie, d'autres nains peuvent donc rejoindre le combat.",
 	-- {npc:3375} Bael'dun Foreman · {area:359} Bael Modan
 	["{npc:3375} walks around {area:359}: look inside the circle on the map"] = "{npc:3375} se promène autour de {area:359} : cherchez dans le cercle sur la carte",
 
-	-- Step 29: Blackthorn Ridge
+	-- Step 13: Blackthorn Ridge
 	-- {area:1701} Blackthorn Ridge · {npc:3436} Kuz · {npc:3434} Nak · {npc:3435} Lok Orcbane · {npc:5859} Hagg Taurenbane · {quest:885} Washte Pawne · {spell:1752} Sinister Strike
 	-- plural, as words: Razormane Stalkers = {npc:3457} Razormane Stalker
-	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "",
+	["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "À l'ouest de Gann, les Tranchecrin tiennent la {area:1701}. {npc:3436} est à l'est, {npc:3434} au sud, {npc:3435} à l'extrémité ouest. Lok (25) et les Frénétiques Tranchecrin (24-25) ont quelques niveaux de plus que vous ; {npc:5859}, un élite rare, parcourt parfois la crête : laissez-le. Les Guides Tranchecrin et Traqueurs Tranchecrin laissent le Poignard de Tranchecrin, les Prophètes Tranchecrin la Baguette Tranchecrin carbonisée, les Frénétiques le Bouclier Tranchecrin. {quest:885}, une serpent des vents rouge et rare, survole la crête : sa plume lance une quête.\nAttention : les Traqueurs Tranchecrin se déplacent camouflés et frappent avec {spell:1752} : ils peuvent se joindre à un combat sans prévenir.",
 
-	-- Step 30: Field to Clear
+	-- Step 14: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
-	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker
-	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp."] = "",
+	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker · Qiraji Lieutenants = {npc:15806} Qiraji Lieutenant
+	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "En revenant vers l'est jusqu'à {npc:3341} : des Hecklefang Stalkers et des lézards {npc:3238} parcourent la plaine entre la crête et son camp. Attention : des Lieutenants qiraji (28, élites) se tiennent parfois dans cette plaine : passez loin d'eux.",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "{npc:4128} se promène autour de {area:1156} : cherchez dans le cercle sur la carte",
 
-	-- Step 32: Bael'dun fortress
+	-- Step 16: Bael'dun fortress
 	["Bael'dun fortress"] = "Forteresse de Bael'dun",
+	-- {npc:3414} General Twinbraid
 	-- plural, as words: Bael'dun Soldiers = {npc:3376} Bael'dun Soldier
-	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "Les Soldats, les Fusiliers et les Officiers de Bael'dun gardent la forteresse du côté est des fouilles ; les trois objets viennent d'eux.\nAttention : les Fusiliers (niveau 24-25) utilisent Tir de 5 à 30 m, ceux qui sont proches peuvent donc rejoindre un combat à distance.",
+	["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them. {npc:3414} (30) and his Officers stand on the bottom floor: work the soldiers and riflemen on the upper levels and keep away from him.\nCareful: Riflemen (level 24-25) Shoot from 5-30 yd, so nearby ones can join a fight from range."] = "Les Soldats, les Fusiliers et les Officiers de Bael'dun gardent la forteresse du côté est des fouilles ; les trois objets viennent d'eux. {npc:3414} (30) et ses Officiers se tiennent à l'étage inférieur : occupez-vous des soldats et des fusiliers aux étages supérieurs et restez loin de lui.\nAttention : les Fusiliers (niveau 24-25) utilisent Tir de 5 à 30 m, ceux qui sont proches peuvent donc rejoindre un combat à distance.",
 
-	-- Step 34: The flying machine
+	-- Step 18: The flying machine
 	["The flying machine"] = "La machine volante",
 	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
 	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "La machine volante des nains repose sur sa plateforme dans le site de fouilles. Utilisez dessus le {item:5021} que {npc:3341} vous a donné.",
 
-	-- Step 36: Great Lift
-	-- {area:1718} Great Lift
-	["The top of the {area:1718}"] = "",
+	-- Step 20: To Camp Taurajo
+	-- {area:378} Camp Taurajo
+	["To {area:378}"] = "Vers le {area:378}",
+	-- {area:378} Camp Taurajo
+	["North up the road to {area:378}: your hearthstone takes you there if it is ready."] = "Remontez la route vers le nord jusqu'au {area:378} : votre Pierre de foyer vous y emmène si elle est prête.",
 
-	-- Step 37: Great Lift
-	-- {npc:12576} Grish Longrunner · {area:1718} Great Lift
-	["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "Au sud-ouest de Bael Modan, {npc:12576} attend en haut de {area:1718}.",
-
-	-- Step 38: The Great Lift
-	-- {area:1718} Great Lift
-	["The {area:1718}"] = "{area:1718}",
-	-- {npc:10079} Brave Moonhorn · {area:1718} Great Lift · {npc:12576} Grish Longrunner
-	["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "",
-	-- {npc:10079} Brave Moonhorn
-	["{npc:10079}, at the top of the lift"] = "{npc:10079}, en haut de l'élévateur",
-
-	-- Step 41: Grunt Logmar
+	-- Step 22: Grunt Logmar
 	-- {npc:5911} Grunt Logmar
-	["{npc:5911}, beside the flight master"] = "",
+	["{npc:5911}, beside the flight master"] = "{npc:5911}, à côté du maître de vol",
 
-	-- Step 42: Fly to Crossroads
+	-- Step 23: Fly to Crossroads
+	["Fly to Crossroads"] = "Prendre un vol pour la Croisée",
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "Maître de vol du {area:378}",
 
-	-- Step 43: The Crossroads
+	-- Step 24: The Crossroads
 	-- {npc:3429} Thork
 	["{npc:3429}, at the top of the tower"] = "{npc:3429}, en haut de la tour",
+	-- {npc:3428} Korran
+	["{npc:3428}, west of the north gate"] = "{npc:3428}, à l'ouest de la porte nord",
 
-	-- Step 44: Fly to Ratchet
+	-- Step 25: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Voler jusqu'à {area:392}",
-	["Crossroads flight master"] = "",
+	["Crossroads flight master"] = "Maître de vol de la Croisée",
 
-	-- Step 45: Sputtervalve
-	-- {npc:3442} Sputtervalve
-	["{npc:3442} stands beside the flight master you land at."] = "{npc:3442} se tient à côté du maître de vol où vous atterrissez.",
+	-- Step 26: Sputtervalve
+	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
+	["{npc:3442} stands beside the flight master you land at. His new orders go back to {npc:4201} on the {area:1076}, later in this guide."] = "{npc:3442} se tient à côté du maître de vol où vous atterrissez. Ses nouveaux ordres sont à rapporter à {npc:4201} sur {area:1076}, plus loin dans ce guide.",
 	-- {npc:3442} Sputtervalve · {quest:1094} Further Instructions · {npc:4201} Ziz Fizziks
 	["{npc:3442}: {quest:1094}, from {npc:4201}"] = "{npc:3442} : {quest:1094}, de la part de {npc:4201}",
+	-- {npc:3442} Sputtervalve · {npc:4201} Ziz Fizziks · {area:1076} Webwinder Path
+	["{npc:3442}: for {npc:4201}, on the way up the {area:1076}"] = "{npc:3442} : pour {npc:4201}, en montant {area:1076}",
 
-	-- Step 46: Merchant Coast
+	-- Step 27: Mebok Mizzyrix
+	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix
+	["{area:718} quests still in your log: {npc:3446} stands beside the WANTED poster, Bigglefuzz on the dock by the flight master."] = "Quêtes de {area:718} encore dans votre journal : {npc:3446} se tient à côté de l'affiche AVIS DE RECHERCHE, Bigglefuzz sur le quai près du maître de vol.",
+
+	-- Step 28: Crane Operator Bigglefuzz
+	-- {npc:3665} Crane Operator Bigglefuzz
+	["{npc:3665}, on the dock"] = "{npc:3665}, sur le quai",
+
+	-- Step 29: Merchant Coast
 	-- {quest:874} Mahren Skyseer · {area:392} Ratchet
-	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "",
+	["{quest:874} camps on the shore just north of {area:392}'s flight master."] = "{quest:874} campe sur le rivage juste au nord du maître de vol de {area:392}.",
 
-	-- Step 47: Isha Awak
+	-- Step 30: Isha Awak
 	-- {quest:873} Isha Awak · {area:391} Merchant Coast · {npc:3388} Mahren Skyseer
 	["{quest:873}, a big threshadon, swims in the shallows off the {area:391}, east of {npc:3388}."] = "{quest:873}, un grand battrodon, nage dans les hauts-fonds au large de {area:391}, à l'est de {npc:3388}.",
 
+	-- Step 32: Seereth Stonebreak
+	-- {npc:4049} Seereth Stonebreak
+	["Follow the road west past Regthar's bunkers: {npc:4049} camps beside it at the edge of Stonetalon."] = "Suivez la route vers l'ouest après les bunkers de Regthar : {npc:4049} campe à côté, à l'orée des Serres-Rocheuses.",
+	-- {npc:4049} Seereth Stonebreak · {npc:4074} XT:9 · {npc:4073} XT:4 · {npc:4201} Ziz Fizziks
+	["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way back down from Sun Rock"] = "{npc:4049} : {npc:4074} et {npc:4073} errent à l'est de {npc:4201}, sur le chemin du retour depuis le Roc-Soleil",
+
+	-- Step 33: The road west
+	["The road west"] = "La route de l'ouest",
+	-- {npc:4049} Seereth Stonebreak
+	["The road west past {npc:4049}'s camp"] = "La route de l'ouest après le camp de {npc:4049}",
+
+	-- Step 34: Malaka'jin
+	-- {npc:4049} Seereth Stonebreak · {npc:3995} Witch Doctor Jin'Zil · {area:2539} Malaka'jin · {area:1076} Webwinder Path
+	["Follow the road on west past {npc:4049}'s camp into Stonetalon: {npc:3995} waits below ground in {area:2539}, at the foot of the {area:1076}."] = "Continuez sur la route vers l'ouest après le camp de {npc:4049} jusqu'aux Serres-Rocheuses : {npc:3995} attend sous terre à {area:2539}, au pied de {area:1076}.",
+	-- {npc:3995} Witch Doctor Jin'Zil
+	["{npc:3995}, below ground"] = "{npc:3995}, sous terre",
+
+	-- Step 35: Ziz Fizziks
+	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:3442} Sputtervalve
+	["Up the {area:1076} to {npc:4201}' hut, where the road forks east to {area:461}: {npc:3442}'s orders are for him."] = "Montez {area:1076} jusqu'à la hutte de {npc:4201}, là où la route bifurque vers l'est en direction de {area:461} : les ordres de {npc:3442} sont pour lui.",
+	-- {npc:4201} Ziz Fizziks
+	["{npc:4201}, inside"] = "{npc:4201}, à l'intérieur",
+	-- {npc:4201} Ziz Fizziks · {npc:4202} Gerenzo Wrenchwhistle · {area:461} Windshear Crag
+	["{npc:4201}: {npc:4202}, at the top of the Venture Co. tower on {area:461}"] = "{npc:4201} : {npc:4202}, en haut de la tour de la KapitalRisk sur {area:461}",
+	-- {npc:4202} Gerenzo Wrenchwhistle · {npc:4049} Seereth Stonebreak · {area:461} Windshear Crag
+	["Keep {npc:4202} (27) and {npc:4049}'s robots: {area:461} comes in one trip on the way back down from Sun Rock."] = "Gardez {npc:4202} (27) et les robots de {npc:4049} : {area:461} se fait en une seule fois, sur le chemin du retour depuis le Roc-Soleil.",
+
+	-- Step 36: Sun Rock Retreat
+	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
+	["On up the {area:1076} from {npc:4201}' hut to {area:460}."] = "Remontez le {area:1076} depuis la hutte de {npc:4201} jusqu'à {area:460}.",
+	-- {npc:11862} Tsunaman · {npc:12736} Je'neu Sancrea
+	["{npc:11862}: {npc:12736} at Zoram'gar, next guide"] = "{npc:11862} : {npc:12736} à Zoram'gar, guide suivant",
+	-- {npc:11860} Maggran Earthbinder · {area:1718} Great Lift · {zone:1441} Thousand Needles
+	["{npc:11860}: Grish is at the {area:1718}, on the next guide's way into {zone:1441}"] = "{npc:11860} : Grish est au {area:1718}, sur le chemin du prochain guide vers {zone:1441}",
+	-- {npc:11860} Maggran Earthbinder
+	-- plural, as words: Glittering Sunstones = {item:277936} Glittering Sunstone
+	["{npc:11860}: Glittering Sunstones from the Bloodfury harpies"] = "{npc:11860} : Héliolites lumineuses ({item:277936}) sur les harpies Rougefurie",
+	-- {npc:4198} Braelyn Firehand
+	["{npc:4198}, outside the gate"] = "{npc:4198}, devant la porte",
+
+	-- Step 37: Tammra Windfield
+	-- {npc:11864} Tammra Windfield
+	["{npc:11864} stands by the bonfire inside Sun Rock: Makaba's news that Kaya is alive is for her."] = "{npc:11864} se tient près du feu de camp à l'intérieur de Roche-Soleil : la nouvelle de Makaba selon laquelle Kaya est vivante lui est destinée.",
+
+	-- Step 38: Gaea Seeds
+	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
+	["Gaea Seeds"] = "Graines de Gaea ({item:16205})",
+	-- {area:464} Mirkfallon Lake
+	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed
+	["The Gaea Seeds lie in the grass around the southern shore of {area:464}, north of Sun Rock.\nCareful: Pridewings around the lake can aggro as a linked group."] = "Les Graines de Gaea se trouvent dans l'herbe autour de la rive sud du {area:464}, au nord du Roc-Soleil.\nAttention : les Fièrailes autour du lac peuvent attaquer en groupe lié.",
+
+	-- Step 39: Mirkweed
+	-- {object:667362} Mirkweed · {area:464} Mirkfallon Lake
+	-- plural, as words: Dried Mirkweed Piles = {object:667364} Dried Mirkweed Pile
+	["The {object:667362} grows on the bottom of {area:464}, off the same southern shore: dive to the plants and the Dried Mirkweed Piles; both give pods. Watch your breath."] = "Le {object:667362} pousse au fond du {area:464}, au large de la même rive sud : plongez jusqu'aux plantes et aux Tas d'obscurcie séchée ; les deux donnent des cosses. Surveillez votre souffle.",
+
+	-- Step 40: Stonetalon Mountains: kill these as you meet them
+	-- {zone:1442} Stonetalon Mountains
+	["{zone:1442}: kill these as you meet them"] = "{zone:1442} : tuez-les au passage",
+	-- {area:467} Stonetalon Peak
+	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
+	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "Suivez la route vers le nord en direction du {area:467}. Des Coursiers à ramure ({npc:4018}) paissent en chemin ; Bêtes de sève ({npc:4020}), Coureurs crépusculaires ({npc:4067}) et Dragons-faë ({npc:4016}) parcourent les bois sous le pic, et les druides cénariens tiennent le bosquet là-bas.",
+
+	-- Step 41: Sun Rock Retreat
+	-- {npc:4198} Braelyn Firehand · {zone:1440} Ashenvale
+	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {zone:1440}. Skip it."] = "La quête suivante de {npc:4198}, Ordanus, se trouve du côté Alliance d'{zone:1440}. Passez-la.",
+
+	-- Step 42: The Charred Vale: kill these as you meet them
+	-- {area:465} The Charred Vale
+	["{area:465}: kill these as you meet them"] = "{area:465} : tuez-les au passage",
+	-- {area:465} The Charred Vale · {item:16312} Incendrites
+	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed · Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
+	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "Au sud-ouest de Roche-Soleil s'étend le {area:465}. Plantez les Graines de Gaea dans les monticules de terre au fond de la vallée ; les élémentaires de feu lâchent {item:16312}. Harpies et Embusquées Rougefurie nichent au nord, Tueuses et Volplumes au sud. Attention : les Destructeurs ardents, les Basilics cramoisis et les Sorcières des tempêtes Rougefurie sont ici de niveau 27 et le fond de la vallée est bondé : attirez-les un par un et restez sur ses bords.",
+	-- {item:277936} Glittering Sunstone
+	["{item:277936}, from any Bloodfury harpy"] = "{item:277936}, sur n'importe quelle harpie Rougefurie",
+	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
+	["Gaea Dirt Mounds"] = "Monticules de poussière de Gaea ({object:177929})",
+
+	-- Step 43: Sun Rock Retreat
+	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
+	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}, à côté de {npc:11862}",
+	-- {npc:11862} Tsunaman
+	["{npc:11862}, up on the ledge"] = "{npc:11862}, en haut sur la corniche",
+
+	-- Step 44: Shredding Machines
+	-- {area:1076} Webwinder Path · {npc:4201} Ziz Fizziks · {area:461} Windshear Crag · {npc:4074} XT:9 · {npc:4073} XT:4
+	["Back down the {area:1076} to {npc:4201}' hut, then east along the road toward {area:461}: {npc:4074} patrols the road just east of the fork, {npc:4073} the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them."] = "Redescendez le {area:1076} jusqu'à la hutte de {npc:4201}, puis allez vers l'est par la route en direction de {area:461} : {npc:4074} patrouille sur la route juste à l'est de l'embranchement, {npc:4073} sur les pentes plus au nord-est, sous l'escarpement. Ce sont deux robots déchiqueteurs solitaires ; ils se déplacent, suivez donc la route jusqu'à les croiser.",
+
+	-- Step 45: Gerenzo Wrenchwhistle
+	-- {area:461} Windshear Crag · {npc:4073} XT:4 · {quest:1096} Gerenzo Wrenchwhistle
+	["On east to {area:461}, past where {npc:4073} roams: {quest:1096} (27) stands at the top of the Venture Co. tower. Clear the Venture Co. on the way up. His Mechanical Arm is for Ziz."] = "Continuez vers l'est jusqu'à {area:461}, au-delà de la zone où erre {npc:4073} : la cible de {quest:1096} (27) se tient en haut de la tour de la KapitalRisk. Éliminez les membres de la KapitalRisk en montant. Son Bras mécanique est pour Ziz.",
+	-- {item:5736} Gerenzo's Mechanical Arm · {quest:1096} Gerenzo Wrenchwhistle
+	["{item:5736}, from {quest:1096}"] = "{item:5736}, sur {quest:1096}",
+
+	-- Step 46: The Flying Machine Airport
+	-- {object:19594} Venture Co. Copter Pad · {npc:4202} Gerenzo Wrenchwhistle · {item:5638} Toxic Fogger · {zone:1456} Thunder Bluff
+	["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "La {object:19594} est la plateforme juste au sud-est de la tour de {npc:4202} : placez-y le {item:5638} de Zamah. Zamah le reprend lors de l'arrêt aux {zone:1456} du prochain guide.",
+	-- {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad
+	["Place the {item:5638} on the {object:19594}"] = "Placez le {item:5638} sur la {object:19594}",
+
+	-- Step 47: Ziz Fizziks
+	-- {npc:4201} Ziz Fizziks · {area:2539} Malaka'jin
+	["Back west to {npc:4201}' hut, on the way down to {area:2539}."] = "Retournez à l'ouest jusqu'à la hutte de {npc:4201}, en descendant vers {area:2539}.",
+
+	-- Step 48: Malaka'jin
+	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
+	["On down the {area:1076} to {area:2539}."] = "Continuez à descendre {area:1076} jusqu'à {area:2539}.",
+
+	-- Step 49: Seereth Stonebreak
+	-- {area:2539} Malaka'jin · {npc:4049} Seereth Stonebreak
+	["East along the road from {area:2539} to {npc:4049}'s camp."] = "Vers l'est par la route depuis {area:2539} jusqu'au camp de {npc:4049}.",
+	-- {area:2897} Zoram'gar Outpost · {area:378} Camp Taurajo
+	["The next guide flies to {area:2897}: hearth to {area:378} if your hearthstone is ready, or walk on east to the Crossroads' flight master."] = "Le guide suivant prend un vol pour l'{area:2897} : utilisez votre Pierre de foyer pour le {area:378} si elle est prête, ou continuez à pied vers l'est jusqu'au maître de vol de la Croisée.",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A short walk north of {npc:4073}, {quest:1096} (27) stands at the top of the Venture Co. tower on {area:461}: clear the Venture Co. on the way up. His Mechanical Arm is for Ziz."] = "À quelques pas au nord de {npc:4073}, {quest:1096} (27) se tient en haut de la tour de la KapitalRisk sur {area:461} : éliminez la KapitalRisk en montant. Son Bras mécanique est pour Ziz.",
 	-- ["Assist {npc:261366}: stay by him when {npc:261367} and the {area:21} marines come up the ridge"] = "Aidez {npc:261366} : restez près de lui quand {npc:261367} et les soldats de marine de {area:21} montent la crête",
 	-- ["At the {object:147538}: summons {quest:882}"] = "À l'arbre mort : invoque {quest:882}",
 	-- ["Back to the {area:380}"] = "Retour à {area:380}",
 	-- ["Back to {area:17}"] = "Retour dans les {area:17}",
 	-- ["Back to {area:380}"] = "Retour à la {area:380}",
+	-- ["Back west to {npc:4201}' hut, on the way to Sun Rock."] = "Retournez à l'ouest jusqu'à la hutte de {npc:4201}, sur le chemin du Repaire du Roc-Soleil.",
 	-- ["Bristleback camps"] = "Camps Dos-hirsute",
 	-- ["Bruuz"] = "Bruuz",
 	-- ["Cast {spell:18960}"] = "Lancez {spell:18960}",
@@ -264,14 +290,17 @@ return {
 	-- ["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "Volez jusqu'à {area:1637} pour apprendre vos rangs de niveau 20. {npc:3354} est dans la {object:172958}, {npc:5892} dans la {object:172957}.",
 	-- ["Fly to {area:1637} to train."] = "Volez jusqu'à {area:1637} pour vous entraîner.",
 	-- ["Fly to {area:1638} and train your level 20 ranks: {npc:3033} is on {area:1639}."] = "Volez jusqu'aux {area:1638} et apprenez vos rangs de niveau 20 : {npc:3033} est sur la {area:1639}.",
+	-- ["Fly to {area:1638} first: two of its elders give quests worked on this guide's and the next guide's walks."] = "Volez d'abord jusqu'aux {area:1638} : deux de ses anciens donnent des quêtes réalisées pendant les trajets de ce guide et du suivant.",
 	-- ["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "Volez jusqu'aux {area:1638} pour vous entraîner : {npc:3033} est sur la {area:1639}.",
-	-- ["Fly to {area:380}"] = "Prendre un vol pour {area:380}",
 	-- ["Follow the {area:458} south to {area:378}."] = "Suivez la {area:458} vers le sud jusqu'au {area:378}.",
+	-- ["From {area:2539} follow the road east to {npc:4049}'s camp, then south-east across the plains to {area:378}."] = "Depuis {area:2539}, suivez la route vers l'est jusqu'au camp de {npc:4049}, puis allez au sud-est à travers les plaines jusqu'au {area:378}.",
+	-- ["From {area:378} follow the road west through the gate into {zone:1412}, then north past {area:222} to {zone:1456}; a lift at the foot of the bluffs takes you up."] = "Depuis le {area:378}, suivez la route vers l'ouest et passez la porte vers {zone:1412}, puis allez au nord après {area:222} jusqu'aux {zone:1456} ; un ascenseur au pied des pitons vous fait monter.",
+	-- ["From {npc:4201}' hut east along the road toward {area:461}: {npc:4074} patrols the road just east of the fork, {npc:4073} the slopes further north-east below the crag. Both are lone shredder robots; they roam, so follow the road until you meet them."] = "Depuis la hutte de {npc:4201}, allez vers l'est par la route en direction de {area:461} : {npc:4074} patrouille sur la route juste à l'est de l'embranchement, {npc:4073} sur les pentes plus au nord-est, sous l'escarpement. Ce sont deux robots déchiqueteurs solitaires ; ils se déplacent, suivez donc la route jusqu'à les croiser.",
 	-- ["He gives you the {item:15826}"] = "Il vous donne le {item:15826}",
 	-- ["He offers {quest:1838} next (1838, level 30): it needs {area:1717} and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide {quest:1838} covers it."] = "Il propose ensuite {quest:1838} (1838, niveau 30) : elle demande {area:1717} et vous envoie partout en Kalimdor et dans les Royaumes de l'Est. Le guide de classe Guerrier {quest:1838} la couvre.",
+	-- ["Head back down the {area:1076} to {area:2539}."] = "Redescendez {area:1076} jusqu'à {area:2539}.",
 	-- ["Head north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Allez vers le nord depuis la {area:380} jusqu'au {area:384} et remplissez la {item:15842} au bassin du pic de Brume-funeste, puis retournez voir {npc:3448} à la {area:380}. Pas d'{skill:182} ? {npc:3490}, à côté de lui, vend de la {item:2449}, trois à la fois jusqu'à ce qu'il se réapprovisionne.",
 	-- ["Hearth to the {area:380}"] = "Pierre de foyer vers {area:380}",
-	-- ["Hearth to {area:378}"] = "Pierre de foyer vers le {area:378}",
 	-- ["If you skipped {quest:92706}, grind here to level 19.43 to stay on the route's plan."] = "Si vous avez passé {quest:92706}, tuez des monstres ici jusqu'au niveau 19.43 pour rester dans le plan de la route.",
 	-- ["Inside"] = "À l'intérieur",
 	-- ["Keep it: the {object:107045} is beside {area:272}"] = "Gardez-la : le {object:107045} est à côté d'{area:272}",
@@ -290,6 +319,7 @@ return {
 	-- ["South of Camp Taurajo the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head."] = "Au sud du Camp Taurajo, les Antres des silithides parsèment le {area:390} ; les œufs y sont, et des Grouillants silithides sortent pour les défendre. Les Moissonneurs silithides sont rares : si vous en voyez un, tuez-le pour sa tête.",
 	-- ["South of Camp Taurajo the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "Au sud du camp Taurajo, les Antres des silithides parsèment le {area:390} ; les œufs s'y trouvent, et des Grouillants silithides en sortent pour les défendre. Les Moissonneurs silithides sont rares : si vous en voyez un, tuez-le pour sa tête.\nAttention : les Grouillants silithides de la zone libèrent de nombreux petits monstres qui interrompent les sorts ; les boucliers de dégâts comme Épines les tuent en un coup.",
 	-- ["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone."] = "Au sud de Gann, les nains de Bael'dun creusent à {area:359}. Les Excavateurs de Bael'dun et Contremaîtres de Bael'dun travaillent la fosse ; {npc:3392} (26) porte le journal : attirez-le seul.",
+	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "Au sud-ouest de Bael Modan, {npc:12576} attend en haut de {area:1718}.",
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "Restez camouflé : {npc:7287} porte la clé de la tour ; Gallywix et son coffret sont au sommet. Gallywix est élite : il est conseillé de se grouper.",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "Les Faucheurs solécaille chassent dans les plaines au sud de {area:380}, autour du {area:1697} ; ils laissent les cornes. Rendez-les lors de votre prochain passage à {area:392}.",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}.\nEast across the plains toward the coast: the stolen silver lies in a raptor nest north-west of {area:385}."] = "Les Faucheurs solécaille chassent dans les plaines au sud de la {area:380}, autour de {area:1697} ; ils lâchent les cornes. Rendez-les lors de votre prochain passage à {area:392}.\nVers l'est à travers les plaines, en direction de la côte : l'argent volé se trouve dans un nid de raptors au nord-ouest de {area:385}.",
@@ -312,11 +342,12 @@ return {
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:209797} (élite de niveau 20) demande un groupe de 2. Passez-le si vous êtes seul : la route vous fait regagner cette expérience en tuant des monstres.",
 	-- ["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "Les Faucons-tonnerre des nuages tournoient au-dessus des mêmes plaines au sud du camp.",
 	-- ["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard, roams among them: his Tailspike starts a quest."] = "Les Têtes-tonnerre paissent dans les plaines juste au sud du {area:378}. {quest:884}, un lézard-tonnerre bleu, erre parmi eux : sa pointe caudale lance une quête.",
+	-- ["To {zone:1456}"] = "Vers les {zone:1456}",
 	-- ["Twitching Antennae"] = "Antennes frémissantes",
 	-- ["Twitching Antennae from the silithid"] = "Antennes frémissantes des silithides",
 	-- ["Upstairs"] = "À l'étage",
 	-- ["Venture Co. tower"] = "Tour de la KapitalRisk",
-	-- ["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest."] = "À l'ouest de {npc:3341}, les Tranchecrin tiennent la {area:1701}. {npc:3436} est à l'est, {npc:3434} au sud, {npc:3435} à l'extrémité ouest. Lok (25) et les Frénétiques Tranchecrin (24-25) ont quelques niveaux de plus que vous ; {npc:5859}, un élite rare, parcourt parfois la crête : laissez-le. Les Guides Tranchecrin et Traqueurs Tranchecrin laissent le Poignard de Tranchecrin, les Prophètes Tranchecrin la Baguette Tranchecrin carbonisée, les Frénétiques le Bouclier Tranchecrin. Les lézards {npc:3238} et les Traqueuses Jappecroc errent dans la plaine entre Gann et la crête. {quest:885}, une serpent des vents rouge et rare, survole la crête : sa plume lance une quête.",
+	-- ["West from {npc:4201}' hut to {area:460}."] = "Vers l'ouest depuis la hutte de {npc:4201} jusqu'à {area:460}.",
 	-- ["West of Gann, the Razormane hold {area:1701}. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with {spell:1752}, so they can join a fight without warning."] = "À l'ouest de Gann, les Tranchecrin tiennent {area:1701}. {npc:3436} est du côté est, {npc:3434} au sud, {npc:3435} à l'extrémité ouest. Lok (25) et les Frénétiques (24-25) ont quelques niveaux de plus que vous ; {npc:5859}, un élite rare, parcourt parfois la crête : laissez-le. Les Éclaireurs et les Traqueurs lâchent le Poignardeur, les Voyants la Baguette, les Frénétiques le Bouclier de guerre. Des lézards {npc:3238} et des Traqueuses Jappecroc parcourent la plaine entre {npc:3341} et la crête. {quest:885}, un serpent des vents rouge rare, survole la crête : sa plume lance une quête.\nAttention : les Traqueurs Tranchecrin se déplacent camouflés et frappent avec {spell:1752}, ils peuvent donc rejoindre un combat sans prévenir.",
 	-- ["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}."] = "Le Pilote Wizzlecrank sort du camp avec son déchiqueteur : restez avec lui et tuez tout ce qui l'attaque. {npc:3442} le récupère à {area:392}.",
 	-- ["Wizzlecrank drives his shredder out of the camp: stay with him and kill whatever attacks him. {npc:3442} takes it in {area:392}.\nCareful: The route leads west and climbs a ramp. Once you reach the top, two Venture Company mobs ambush you."] = "Wizzlecrank sort du camp avec son déchiqueteur : restez avec lui et tuez tout ce qui l'attaque. {npc:3442} le récupère à {area:392}.\nAttention : la route mène vers l'ouest et monte une rampe. Une fois en haut, deux monstres de la KapitalRisk vous tendent une embuscade.",
@@ -326,7 +357,6 @@ return {
 	-- ["{area:1697}: kill these as you meet them"] = "{area:1697} : tuez-les au passage",
 	-- ["{area:17}: kill these as you meet them"] = "{area:17} : tuez-les au passage",
 	-- ["{area:263} of Shadow is the canyon under the {object:172982}."] = "{area:263} de l'Ombre est le canyon sous la {object:172982}.",
-	-- ["{area:380} flight master"] = "Maître de vol de la {area:380}",
 	-- ["{area:385}, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now."] = "{area:385}, sur la côte plus au sud. Les Soldats de marine de Theramore et les Protectrices de Theramore (15-16) laissent les médailles ; {npc:3393} (20) et les deux canonniers (19) se tiennent dans le donjon et sur ses remparts, c'est pourquoi le fort attend jusqu'ici.",
 	-- ["{area:385}, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; {npc:3393} (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.\nCareful: Each named target is linked to a healer and guards, and Fairmount has three extra marines with her. Killing the healer first makes the fight easier."] = "{area:385}, sur la côte plus au sud. Les Soldats de marine de Theramore et les Préservateurs (15-16) lâchent les médailles ; la {npc:3393} (20) et les deux canonniers (19) se tiennent dans le donjon et sur ses remparts, et c'est à cause d'eux que le fort attend jusqu'à maintenant.\nAttention : chaque cible nommée est liée à un soigneur et à des gardes, et Fairmount a trois soldats de marine en plus avec elle. Tuer d'abord le soigneur facilite le combat.",
 	-- ["{area:385}: kill these as you meet them"] = "{area:385} : tuez-les au passage",
@@ -364,6 +394,7 @@ return {
 	-- ["{npc:3442}, beside the wind rider master. Keep it: {quest:1483} is in Stonetalon, later"] = "{npc:3442}, à côté du maître des coursiers du vent. Gardez-la : {quest:1483} se fait aux Serres-Rocheuses, plus tard",
 	-- ["{npc:3453}, on the dock"] = "{npc:3453}, sur le quai",
 	-- ["{npc:3465} is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to {area:392}."] = "{npc:3465} est enchaîné dans le fort. Parlez-lui pour lancer l'escorte et restez près de lui : des soldats de Theramore attaquent à la sortie. Il vous ramène à {area:392}.",
+	-- ["{npc:4049}: {npc:4074} and {npc:4073} roam east of {npc:4201}, on the way up"] = "{npc:4049} : {npc:4074} et {npc:4073} errent à l'est de {npc:4201}, sur le chemin de la montée",
 	-- ["{npc:4197} lives in {area:2539}, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "{npc:4197} vit à {area:2539}, le village troll juste à l'entrée des Serres-Rocheuses, au bout de la route qui part vers l'ouest depuis {npc:3389}.",
 	-- ["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "{npc:5875} se tient dans la {object:172960}. Utilisez {item:6626} sur le cercle d'invocation et battez la succube pour la lier.",
 	-- ["{npc:5878} camps beside the road east of the {area:380}."] = "{npc:5878} campe au bord de la route à l'est de {area:380}.",
@@ -380,5 +411,8 @@ return {
 	-- ["{quest:882}, a big Sunscale raptor, hunts the plains north of the road from {area:392} to the {area:380}."] = "{quest:882}, un grand raptor solécaille, chasse dans les plaines au nord de la route de {area:392} à {area:380}.",
 	-- ["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the {area:380}, and be ready when he arrives."] = "{quest:882}, un grand raptor solécaille, ne vient que sur une proie fraîche : ramassez une {item:10338} sur un zhévra, puis utilisez-la à l'arbre mort au nord-ouest de {area:392}, au nord de la route de la {area:380}, et tenez-vous prêt quand il arrive.",
 	-- ["{zone:1454} class quests"] = "Quêtes de classe d'{zone:1454}",
+	-- ["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
+	-- ["{zone:1456} first: two of its elders give quests worked on this guide's and the next guide's walks. Fly to {area:378}; from there it is a walk west into {zone:1412} and north to the bluffs, and {zone:1456}'s flight path brings you straight back to {area:378}, where the southern {zone:1413} begin."] = "D'abord les {zone:1456} : deux de ses anciens donnent des quêtes réalisées pendant les trajets de ce guide et du suivant. Volez jusqu'au {area:378} ; de là, marchez vers l'ouest jusqu'en {zone:1412}, puis vers le nord jusqu'aux pitons, et le trajet aérien des {zone:1456} vous ramène directement au {area:378}, là où commence le sud des {zone:1413}.",
 	-- ["{zone:1456} flight master"] = "Maître de vol des {zone:1456}",
+	-- ["{zone:1456}'s central rise"] = "Le plateau central des {zone:1456}",
 }

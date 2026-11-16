@@ -167,8 +167,10 @@ pub fn public_build_options(root: &Path, sources: &Path, questie: bool, empty_co
 	o.corrections = empty_corrections.to_path_buf();
 	o.questie = if questie { crate::questie::detect_questie() } else { None };
 	let defs = o.sources.join("wowdbdefs");
-	o.forever_source = match forge_gamedata::find_install() {
-		Some(w) if defs.join("definitions").is_dir() => Source::Client { wow: w, product: "wow_classic_beta".into(), defs },
+	// The installed Forever client (`wowf`, else the old beta `wow_classic_beta`), else wago.tools.
+	let client = forge_gamedata::find_install().and_then(|w| forge_gamedata::casc::forever_build(&w).ok().flatten().map(|b| (w, b.product)));
+	o.forever_source = match client {
+		Some((wow, product)) if defs.join("definitions").is_dir() => Source::Client { wow, product, defs },
 		_ => Source::Wago,
 	};
 	o

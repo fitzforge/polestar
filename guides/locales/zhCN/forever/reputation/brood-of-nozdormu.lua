@@ -158,8 +158,8 @@ return {
 	["{npc:15624}: 25 (and 25 Cenarion Circle)"] = "{npc:15624}：25声望（另有25点塞纳里奥议会声望）",
 
 	-- Step 26: Keeper Remulos
-	-- {quest:8735} The Nightmare's Corruption · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} 需要从四座梦魇之龙传送门各获得一块碎片：{zone:1440}、{zone:1444} 和 {zone:1425} 传送门处的精英龙人（各5%），以及 {zone:1431} 的 {npc:15625}。这是团队内容。",
+	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} 需要从四座{npc:235289}传送门各获得一块碎片：{zone:1440}、{zone:1444} 和 {zone:1425} 传送门处的精英龙人（各5%），以及 {zone:1431} 的 {npc:15625}。这是团队内容。",
 	["10 (and 100 Cenarion Circle)"] = "10 点声望（另有 100 点塞纳里奥议会声望）",
 
 	-- Step 27: The Ashenvale portal

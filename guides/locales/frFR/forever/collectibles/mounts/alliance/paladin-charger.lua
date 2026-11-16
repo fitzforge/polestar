@@ -11,8 +11,8 @@ return {
 	["Your epic mount at 60, summoned at will: the faster step up from the Warhorse."] = "Votre monture épique au niveau 60, invoquée à volonté : l'étape plus rapide après le Cheval de guerre.",
 
 	-- Step 1: Lord Grayson Shadowbreaker (Ironforge)
-	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7638} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Au niveau 60, {npc:5149}, dans {object:32362}, vous envoie voir {quest:7638} à la cathédrale de la Lumière de {zone:1453}.",
+	-- {npc:5149} Brandur Ironhammer · {object:32362} Mystic Ward · {quest:7670} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
+	["At 60 {npc:5149} in the {object:32362} sends you to {quest:7670} in {zone:1453}'s Cathedral of Light."] = "Au niveau 60, {npc:5149}, dans {object:32362}, vous envoie voir {quest:7670} à la cathédrale de la Lumière de {zone:1453}.",
 
 	-- Step 2: Lord Grayson Shadowbreaker
 	-- {spell:23214} Summon Charger · {area:2279} Stratholme · {area:2057} Scholomance · {item:14047} Runecloth · {item:8836} Arthas' Tears · {npc:6171} Duthorian Rall
@@ -33,9 +33,9 @@ return {
 	["Lord Grayson blesses the censer into the {item:18752} for {area:2627}."] = "Le seigneur Grayson bénit l'encensoir, qui devient l'{item:18752}, pour {area:2627}.",
 
 	-- Step 5: Exorcising Terrordale
-	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit (no name in this language: may be words) · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
+	-- {area:2627} Terrordale · {zone:1423} Eastern Plaguelands · {area:2279} Stratholme · {object:179747} Terrordale Haunting Spirit · {item:18752} Exorcism Censer · {spell:7713} Wailing Dead · {spell:2878} Turn Undead
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "{area:2627} se trouve à l'extrême nord-ouest des {zone:1423}, à l'ouest des portes de {area:2279}. Placez-vous dans une tache verte lumineuse au sol (un esprit hanteur de Val-Terreur ; certaines sont dans les maisons en ruine) et utilisez l'{item:18752} : jusqu'à trois Esprits de Val-Terreur (niveau 59-60) s'élèvent et attaquent. Leur {spell:7713} réduit toutes vos caractéristiques de 30 % : combattez-les un par un et utilisez {spell:2878}. Les taches reviennent vite ; plusieurs paladins peuvent travailler côte à côte.",
+	["{area:2627} lies in the far north-west of the {zone:1423}, west of the {area:2279} gates. Stand inside a green glowing patch on the ground (a {object:179747}; some are inside the ruined houses) and use the {item:18752}: up to three Terrordale Spirits (level 59-60) rise and attack. Their {spell:7713} lowers all your stats by 30%: fight them one at a time and use {spell:2878}. The patches come back quickly; several paladins can work side by side."] = "{area:2627} se trouve à l'extrême nord-ouest des {zone:1423}, à l'ouest des portes de {area:2279}. Placez-vous dans une tache verte lumineuse au sol (un {object:179747} ; certaines sont dans les maisons en ruine) et utilisez l'{item:18752} : jusqu'à trois Esprits de Val-Terreur (niveau 59-60) s'élèvent et attaquent. Leur {spell:7713} réduit toutes vos caractéristiques de 30 % : combattez-les un par un et utilisez {spell:2878}. Les taches reviennent vite ; plusieurs paladins peuvent travailler côte à côte.",
 	-- {item:18752} Exorcism Censer
 	["{item:18752}, inside a green patch"] = "{item:18752}, dans une tache verte",
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
@@ -119,6 +119,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["An {item:12800} comes from Thorium veins, a {item:18335} from the elites of the {zone:1422}, both rarely: the Auction House is the usual source."] = "{item:12800} provient des filons de thorium, {item:18335} des élites de {zone:1422}, tous deux rarement : l'hôtel des ventes est la source habituelle.",
 	-- ["Arcanite Bars: the Auction House"] = "Barres d'arcanite : l'hôtel des ventes",
+	-- ["At 60 {npc:5149} in the {object:32362} sends you to {quest:7638} in {zone:1453}'s Cathedral of Light."] = "Au niveau 60, {npc:5149}, dans {object:32362}, vous envoie voir {quest:7638} à la cathédrale de la Lumière de {zone:1453}.",
 	-- ["Bring 150 gold for {npc:1416} along with the materials."] = "Apportez 150 pièces d'or pour {npc:1416} avec les matériaux.",
 	-- ["Supply Crates, inside"] = "Caisses de fournitures, à l'intérieur",
 	-- ["Terrordale Spirits"] = "Esprits de Val-Terreur ({npc:14564})",

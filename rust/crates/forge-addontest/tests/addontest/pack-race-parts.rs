@@ -6,7 +6,7 @@
 
 use forge_addontest::dsl::{build_pack, write_pack_dir};
 use forge_addontest::tmp::TempDir;
-use forge_addontest::{emitted, is_match, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use forge_guide::project::{Built, FileContent};
 use serde_json::{json, Value};
 use std::path::Path;
@@ -140,4 +140,44 @@ fn a_race_part_keeps_each_guide_s_steps_as_one_source_string_with_its_count_the_
 	assert!(!is_match(part, r"\tsteps = \{"));
 	assert!(is_match(part, r#"if Polestar\.PartWants\(\{ "WARRIOR" \}\) then register\(\) end"#));
 	assert!(is_match(text(&r, "Guides.lua"), r"\t\t\tsteps = \{"), "the pack's own guides are as before");
+}
+
+// 0.4.0: the Horde's Riverglades left the experimental pack for our route (forever/horde/40-50/01b-riverglades), and
+// guides/retired.json retires its old id, polestar-experimental/riverglades-horde-1. A character saved on the old id
+// opens the route's Riverglades guide where they stand in the zone, and the guide that fits them elsewhere.
+fn riverglades_successor(map: u32, level: u32) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!(
+			r#"local w = stub.world
+w.race, w.raceName, w.class, w.className, w.faction = "Orc", "Orc", "WARRIOR", "Warrior", "Horde"
+w.addMap(1434, {{ name = "Stranglethorn Vale", c = 0, left = 3000, right = 0, top = -9000, bottom = -12000 }})
+w.addMap(2548, {{ name = "Riverglades", c = 0, left = 0, right = -3000, top = -6000, bottom = -9000 }})
+w.setLevel({level})
+w.moveTo({map}, 50, 50)"#
+		),
+		addons: vec![Addon::name("Polestar")],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, tabs = { "polestar-experimental/riverglades-horde-1" }, activeTab = 1 }"#.into())],
+		script: format!(
+			r#"{TEST_PACK}
+{TEST_SOURCE}
+Polestar.RegisterGuide({{ id = "test/stv", pack = "test", title = "Stranglethorn Vale", faction = "Horde", minLevel = 39, maxLevel = 43, zone = 1434,
+	zoneName = "Stranglethorn Vale", next = "test/riverglades", steps = {{ {{ goals = {{ {{ t = "accept", quest = 1, title = "Jungle", map = 1434, x = 30, y = 30 }} }} }} }} }})
+Polestar.RegisterGuide({{ id = "test/riverglades", pack = "test", title = "Riverglades", faction = "Horde", minLevel = 40, maxLevel = 45, zone = 2548,
+	zoneName = "Riverglades", steps = {{ {{ goals = {{ {{ t = "accept", quest = 2, title = "Rog'mar", map = 2548, x = 50, y = 20 }} }} }} }} }})
+Polestar.RetireGuides("test", {{ "polestar-experimental/riverglades-horde-1" }})
+stub.login()
+local g = Polestar.Engine.GetGuide()
+emit({{ guide = g and g.id or false, retired = Polestar.Guides.IsRetired("polestar-experimental/riverglades-horde-1") }})"#
+		),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn a_saved_tab_of_the_experimental_riverglades_opens_the_route_s_riverglades_guide_in_the_zone() {
+	assert_eq!(riverglades_successor(2548, 42), json!({ "guide": "test/riverglades", "retired": true }), "in the Riverglades: its guide");
+	assert_eq!(riverglades_successor(2548, 40), json!({ "guide": "test/riverglades", "retired": true }), "from level 40, where the old guide started");
+	assert_eq!(riverglades_successor(1434, 41), json!({ "guide": "test/stv", "retired": true }), "elsewhere: the guide that fits there");
 }

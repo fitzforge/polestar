@@ -6,7 +6,7 @@
 //!                                     map and faction tables, the Forever build's the data build reads
 //!                                     without a client, QuestXP; and (`builders`) the tables of the
 //!                                     other builders (itemdb, the Codex, professions, travel, the
-//!                                     pinned builds talents and map overlays read)
+//!                                     pinned builds talents, map overlays and subzone names read)
 //!   pfQuest/                          the pfQuest checkout at [`PFQUEST_COMMIT`]
 //!   eg-link/<commit12>/               the EG Link output at its pinned commit (index + datasets)
 //!   forever-vo/<commit12>/capture.json
@@ -252,7 +252,8 @@ fn dedupe(v: Vec<&'static str>) -> Vec<&'static str> {
 }
 
 /// Pinned builds and their tables: the QuestXP table (`data`); with `builders` the Codex's Era item
-/// tables, the talent trees, the map overlays and both quest tables of the "New in Forever" ids.
+/// tables, the talent trees, the map overlays, both quest tables of the "New in Forever" ids and the
+/// walking maps' subzone names' tables in English (`forge data subzones` fetches each language's itself).
 pub fn pinned_tables(data: bool, builders: bool) -> Vec<(&'static str, Vec<&'static str>)> {
 	let mut era: Vec<&'static str> = if data { vec!["QuestXP"] } else { Vec::new() };
 	let mut out = Vec::new();
@@ -262,6 +263,7 @@ pub fn pinned_tables(data: bool, builders: bool) -> Vec<(&'static str, Vec<&'sta
 		out.push((crate::worldmap::OVERLAYS_BUILD, crate::worldmap::OVERLAY_TABLES.to_vec()));
 		out.push((crate::newquests::ERA_BUILD, crate::newquests::TABLES.to_vec()));
 		out.push((crate::newquests::FOREVER_BUILD, crate::newquests::TABLES.to_vec()));
+		out.push((crate::subzones::BUILD, crate::subzones::TABLES.to_vec()));
 	}
 	out.insert(0, (crate::players::QUESTXP_BUILD, dedupe(era)));
 	out
@@ -345,8 +347,8 @@ fn raw_json(http: &Http, file: &Path, url: &str, log: &dyn Fn(&str)) -> Result<(
 	Ok((forge_guide::js::parse_json(&text)?, fetched))
 }
 
-/// The EG Link output at its pinned commit: data/index.json and every listed dataset of the Forever
-/// product. -> files fetched
+/// The EG Link output at its pinned commit: data/index.json, every listed dataset of the Forever product and
+/// the live client's objective positions (players::EG_POSITIONS, for `forge record learn`). -> files fetched
 pub fn eglink(http: &Http, sources: &Path, log: &dyn Fn(&str)) -> Result<usize, String> {
 	let commit = crate::players::EG_COMMIT;
 	let dir = sources.join("eg-link").join(&commit[..12]);
@@ -362,6 +364,13 @@ pub fn eglink(http: &Http, sources: &Path, log: &dyn Fn(&str)) -> Result<usize, 
 				continue;
 			}
 			let rel = format!("{product}/{build}/{d}.json");
+			n += usize::from(raw_json(http, &dir.join(&rel), &url(&rel), log)?.1);
+		}
+	}
+	let (product, dataset) = crate::players::EG_POSITIONS;
+	for (build, sets) in index.get("products").get(product).entries() {
+		if sets.get(dataset).truthy() {
+			let rel = format!("{product}/{build}/{dataset}.json");
 			n += usize::from(raw_json(http, &dir.join(&rel), &url(&rel), log)?.1);
 		}
 	}

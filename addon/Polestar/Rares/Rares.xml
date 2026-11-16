@@ -3,6 +3,5 @@
 	<Script file="Detect.lua"/>
 	<Script file="Pins.lua"/>
 	<Script file="Toast.lua"/>
-	<Script file="Options.lua"/>
 	<Script file="View.lua"/>
 </Ui>

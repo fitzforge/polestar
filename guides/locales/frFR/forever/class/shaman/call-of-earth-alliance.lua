@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Archaic Rune
 	-- {quest:94373} Call of Earth · {quest:98581} Archaic Rune · {npc:658} Sten Stoutarm · {area:132} Coldridge Valley · {quest:179} Dwarven Outfitters · {npc:257446} Teo Hammerstorm · {area:77} Anvilmar
-	["Teo's {quest:94373} needs the {quest:98581} handed in first: {npc:658}, where you entered {area:132}, gives it to Dwarf shamans after his {quest:179}. Bring it up the road to {npc:257446} inside {area:77}."] = "",
+	["Teo's {quest:94373} needs the {quest:98581} handed in first: {npc:658}, where you entered {area:132}, gives it to Dwarf shamans after his {quest:179}. Bring it up the road to {npc:257446} inside {area:77}."] = "La quête {quest:94373} de Teo exige d'avoir d'abord rendu {quest:98581} : {npc:658}, là où vous êtes entré dans {area:132}, la donne aux chamans nains après sa quête {quest:179}. Apportez-la en remontant la route jusqu'à {npc:257446}, à l'intérieur de {area:77}.",
 
 	-- Step 2: Teo Hammerstorm
 	-- {npc:257446} Teo Hammerstorm · {area:77} Anvilmar · {area:132} Coldridge Valley · {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {npc:258113} Ingrid Dunwald · {area:131} Kharanos · {quest:94373} Call of Earth

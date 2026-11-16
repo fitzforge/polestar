@@ -5,12 +5,17 @@
 -- with gear advice off, or with gear.hideForPawn on and Pawn installed). An
 -- item that fits an empty slot and is worth nothing under the weights, but no
 -- loss, gets the arrow too (Gear.FillsEmptySlot), as the tooltip's "upgrade
--- (empty slot)" says. The verdict is this character's.
+-- (empty slot)" says. The verdict is this character's. While Forever
+-- Leveling BiS's answers apply (installed, Stat weights on Automatic,
+-- gear.useFlbis on): from its API version 2, Gear.IsUpgrade's answer from its
+-- gains (GetGain: an upgrade for this character now, whatever its own Bag
+-- upgrades switch says); with version 1 alone, its own bag arrow's answer
+-- (IsUpgrade, Gear.FLB.BagUpgrade).
 --
 --   Gear.Bags.IsUpgrade(link) -> bool   -- the verdict an arrow shows
 --   Gear.Bags.Redraw()                  -- repaint the shown bags now
 --
--- Three bag views:
+-- Four bag views:
 --   * The client's bags (Blizzard_UIPanels_Game Mainline ContainerFrame.lua,
 --     which Forever loads): each container frame's UpdateItems is post-hooked
 --     on the frame itself (ContainerFrameMixin's functions are copied onto
@@ -24,9 +29,9 @@
 --     under the search overlay (4), so a bag search dims it with the icon.
 --     Nothing is written into the button's table: arrows are kept here by
 --     button.
---   * Baganator: a corner widget (top-left, first), the way Baganator shows
---     Pawn's arrow; it hides and places the arrow itself. Registered as this
---     file loads when Baganator is in, else when it loads.
+--   * Baganator and BagSmith: a corner widget (top-left, first), the way
+--     Baganator shows Pawn's arrow. Each addon hides and places it, and is
+--     registered when this file loads or when that addon loads.
 --   * EllesmereUI Bags (EllesmereUIBags), which replaces the client's bag
 --     frames, so there is nothing to hook: it runs the painters registered with
 --     EUI_Bags.RegisterItemOverlayIcon(name, fn(button, data)) on every slot it
@@ -54,7 +59,7 @@ Gear.Bags = Bags
 local BADGE = 20 -- the arrow texture's size, as on the reward panel
 local LAYER = 3 -- OVERLAY sublevel: over IconOverlay2, under searchOverlay
 local REDRAW = 0.2 -- seconds: GEAR_UPDATED repaints at most this often
-local WIDGET = "polestar_upgrade" -- Baganator corner widget id
+local WIDGET = "polestar_upgrade" -- bag addon corner widget id
 
 -- Pawn draws its own arrows on bag items: gear.hideForPawn leaves the bags to
 -- it while Pawn is installed and enabled. None while Polestar is hidden.
@@ -66,6 +71,13 @@ end
 
 function Bags.IsUpgrade(link)
 	if type(link) ~= "string" or not Bags.IsOn() then return false end
+	-- Forever Leveling BiS's own arrow while its answers apply (Gear.UsesFLB)
+	-- and it has no gains to give (its API version 1): its "no" stands too, as
+	-- while its Bag upgrades switch is off.
+	if Gear.UsesFLB and Gear.UsesFLB(1) and not Gear.UsesFLB(2) then
+		local up = Gear.FLB.BagUpgrade(link)
+		if up ~= nil then return up end
+	end
 	return (Gear.IsUpgrade(link) or Gear.FillsEmptySlot(link)) and true or false
 end
 
@@ -82,7 +94,7 @@ local function paint(t)
 end
 
 local arrows = setmetatable({}, { __mode = "k" }) -- item button -> arrow texture (the client's bags)
-local widgets = setmetatable({}, { __mode = "k" }) -- arrow textures made for Baganator
+local widgets = setmetatable({}, { __mode = "k" }) -- arrow textures made for bag addons
 
 ---------------------------------------------------------------------------
 -- The client's bags
@@ -148,23 +160,24 @@ hookBags()
 ns.OnLogin(hookBags)
 
 ---------------------------------------------------------------------------
--- Baganator
+-- Baganator and BagSmith
 ---------------------------------------------------------------------------
 
-local baganator = false
+local registeredBags = {}
 
-local function baganatorAPI()
-	local B = _G.Baganator
+local function cornerAPI(name)
+	local B = _G[name]
 	local API = type(B) == "table" and B.API
 	if type(API) == "table" and API.RegisterCornerWidget then return API end
 	return nil
 end
 
-local function registerBaganator()
-	if baganator then return true end
-	local API = baganatorAPI()
+local function registerBag(name)
+	if registeredBags[name] then return true end
+	local API = cornerAPI(name)
 	if not API then return false end
-	baganator = true
+	registeredBags[name] = true
+	local options = name == "BagSmith" and { listRows = true } or nil
 	API.RegisterCornerWidget(L["Polestar"], WIDGET, function(_, details)
 		return Bags.IsUpgrade(type(details) == "table" and details.itemLink or nil)
 	end, function(button)
@@ -174,17 +187,21 @@ local function registerBaganator()
 		paint(t)
 		widgets[t] = true
 		return t
-	end, { corner = "top_left", priority = 1 })
+	end, { corner = "top_left", priority = 1 }, nil, options)
 	return true
 end
 
 local function onAddonLoaded(_, name)
-	if name == "Baganator" and registerBaganator() then
+	if name ~= "Baganator" and name ~= "BagSmith" then return end
+	registerBag(name)
+	if registeredBags.Baganator and registeredBags.BagSmith then
 		ns.UnregisterEvent("ADDON_LOADED", onAddonLoaded)
 	end
 end
 
-if not registerBaganator() then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
+registerBag("Baganator")
+registerBag("BagSmith")
+if not (registeredBags.Baganator and registeredBags.BagSmith) then ns.RegisterEvent("ADDON_LOADED", onAddonLoaded) end
 
 ---------------------------------------------------------------------------
 -- EllesmereUI Bags
@@ -262,10 +279,17 @@ function Bags.Redraw()
 	for button, link in pairs(painted) do
 		if button:IsVisible() then markEllesmere(button, link or nil) end
 	end
-	local API = baganator and baganatorAPI()
-	if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)) then
-		local reasons = Baganator.Constants and Baganator.Constants.RefreshReason
-		API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
+	for name in pairs(registeredBags) do
+		local API = cornerAPI(name)
+		if API and API.RequestItemButtonsRefresh and (not API.IsCornerWidgetActive or API.IsCornerWidgetActive(WIDGET)) then
+			local B = _G[name]
+			local reasons = name == "Baganator" and B.Constants and B.Constants.RefreshReason
+			if name == "BagSmith" then
+				API.RequestItemButtonsRefresh()
+			else
+				API.RequestItemButtonsRefresh(reasons and reasons.ItemWidgets and { reasons.ItemWidgets } or nil)
+			end
+		end
 	end
 end
 

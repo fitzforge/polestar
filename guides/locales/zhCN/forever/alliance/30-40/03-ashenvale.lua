@@ -25,12 +25,14 @@ return {
 
 	-- Step 4: Deepwater Tavern
 	-- {quest:1248} The Missing Diplomat · {npc:4963} Mikhail
-	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "",
+	["Tapoke Jahn (34) slips out of the tavern once you take {quest:1248}: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from {npc:4963}."] = "接取{quest:1248}后，“干柴”塔伯克·贾恩（34级）会溜出酒馆：紧跟着他。他会在屋外攻击你，并有一名同伙加入；重伤后他会投降。跟丢就会导致任务失败：放弃任务，再向{npc:4963}重新接取。",
 
 	-- Step 5: Waterlogged Chest
 	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "飞翔鱼鹰号的残骸在城堡南侧浅水区。",
 
 	-- Step 6: Lightforge Ingots
+	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
+	["Lightforge Ingots"] = "{item:2702}",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "米奈希尔港西南方海滩上的蓝腮鱼人带着锭。",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702}：在水下",
@@ -50,7 +52,7 @@ return {
 	-- {quest:1132} Fiora Longears
 	["{quest:1132}, inside the inn in the north of town"] = "{quest:1132}，在镇子北部的旅店里",
 	-- {npc:4456} Fiora Longears · {area:415} Astranaar
-	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "",
+	["{npc:4456}'s next errand goes to {area:415}, off this route: leave it."] = "{npc:4456}的后续差事要去{area:415}，不在本路线内：跳过。",
 	-- {quest:1132} Fiora Longears · {zone:1441} Thousand Needles
 	["{quest:1132}: the wyverns are in {zone:1441}, later in this guide"] = "{quest:1132}：双足飞龙在{zone:1441}，本指南稍后会去",
 
@@ -72,13 +74,13 @@ return {
 
 	-- Step 13: Highperch
 	-- {area:485} Great Lift · {zone:1441} Thousand Needles · {area:482} Highperch
-	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。",
+	["Down the {area:485} into {zone:1441}, then west to the wyverns' cliffs at {area:482}. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills."] = "乘{area:485}下到{zone:1441}，再向西前往{area:482}的双足飞龙悬崖。那里所有双足飞龙都可能掉落毒囊。小心：在平台上等升降梯与平台齐平后再踏上去，并一直站到它停下；旁边的落差会摔死人。",
 
 	-- Step 14: Thousand Needles
 	-- {area:484} Freewind Post
 	["East through the canyons. {area:484}, a Horde camp with guards, sits on the mesa here: keep to the canyon floor and give the foot of its lifts a wide berth."] = "向东穿过峡谷。{area:484}是一座有卫兵的部落营地，位于这里的台地上：沿着峡谷底部走，远离它升降梯的底部。",
 	-- {area:482} Highperch
-	["The canyons east of {area:482}"] = "",
+	["The canyons east of {area:482}"] = "{area:482}东边的峡谷",
 
 	-- Step 16: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -90,11 +92,14 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240}：沿途击杀以下目标",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Sparkleshell Snappers = {npc:4143} Sparkleshell Snapper · Saltstone Gazers = {npc:4150} Saltstone Gazer · Scorpid Terrors = {npc:4139} Scorpid Terror
+	["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Tortoises (30-31) the middle of the flats: hunt them for the shells. Careful: Sparkleshell Snappers (34-35) wander the whole flats, and the Saltstone Gazers (34-35) and Scorpid Terrors (33-34) hold the far south: leave them and keep to the north half."] = "{object:19868}散落在整片盐滩上。恐蝎劫掠者和盐湖食腐鹫在北半部游荡，盐壳龟（30-31级）在盐滩中部：猎杀它们获取龟壳。注意：盐壳钳嘴龟（34-35级）在整片盐滩游荡，盐石凝视者（34-35级）和恐蝎（33-34级）占据最南端：别惹它们，待在北半部。",
+	-- {item:5795} Hardened Tortoise Shell
+	-- plural, as words: Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise
+	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}，盐壳龟掉落",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "",
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "水晶鳞片，盐石蜥蜴掉落：为{zone:1453}的{npc:4078}收集八片",
 
 	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -102,13 +107,13 @@ return {
 
 	-- Step 19: Into Tanaris
 	-- {zone:1446} Tanaris
-	["Into {zone:1446}"] = "",
+	["Into {zone:1446}"] = "进入{zone:1446}",
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "",
+	["From the raceway follow the road south out of the {area:439} into {zone:1446}."] = "从赛道沿道路向南，离开{area:439}，进入{zone:1446}。",
 
 	-- Step 20: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:7823} Bera Stonehammer
-	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "",
+	["{area:976} is a short walk down the road; keep to it. {npc:7823}, the Alliance flight master, stands inside the walls."] = "沿道路走一小段就到{area:976}，不要离开道路。联盟飞行管理员{npc:7823}在城墙内。",
 
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
@@ -117,7 +122,7 @@ return {
 
 	-- Step 22: Theramore
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
-	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北部，Captain Vimes在{area:514}；{npc:4941}也站在镇内。",
+	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456}在镇子北部，盖兰·维米斯队长在{area:514}；{npc:4941}也站在镇内。",
 
 	-- Step 23: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -132,7 +137,6 @@ return {
 	-- ["From {area:608}"] = "从{area:608}出发",
 	-- ["Geltharis"] = "加萨里斯",
 	-- ["Insane druids"] = "发狂的德鲁伊",
-	-- ["Lightforge Ingots"] = "{item:2702}",
 	-- ["Melyria and {npc:3901}"] = "哨兵梅丽瑞亚·霜影和{npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "生锈的箱子散落在被遗忘者营地西边的沼泽兽营地周围；逐个打开，直到找到剑柄。",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "从{area:442}的码头乘船前往{area:150}。",
@@ -156,5 +160,6 @@ return {
 	-- ["{npc:3970}: for {npc:1480} in Menethil, at the end of this guide"] = "{npc:3970}：交给米奈希尔港的{npc:1480}，在本指南结尾",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。",
 	-- ["{npc:5082}, {npc:4963} and Tapoke Jahn are all at Menethil's inn; {npc:4962} fights you when you talk to {npc:4963}, but gives up once beaten. {npc:1480} stands a short walk north-east of the inn."] = "{npc:5082}、{npc:4963}和{npc:4962} Jahn都在米奈希尔港的旅店里；你和{npc:4963}交谈时Tapoke会和你打，但被打败后就会放弃。{npc:1480}在旅店东北方不远处。",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers and Salt Flats Scavengers roam the north half, Sparkleshell Snappers (tortoises) the whole flats. Saltstone Basilisks and Crystalhides hold the middle; the Gazers (34-35) only the far south."] = "{object:19868}遍布整片平原。恐蝎劫掠者和盐湖食腐鹫出没于北半部，盐壳钳嘴龟（乌龟）则遍布平原。盐石蜥蜴和盐石水晶蜥蜴在中部；盐石凝视者（34-35级）只在最南端。",
 	-- ["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交给{area:415}的{npc:3961}",
 }

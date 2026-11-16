@@ -16,9 +16,8 @@ return {
 
 	-- Step 4: Summon Warhorse
 	-- {npc:6171} Duthorian Rall · {quest:1661} The Tome of Nobility · {spell:13819} Summon Warhorse
-	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "",
+	["{npc:6171} stands in the Cathedral of Light. At 40 he offers {quest:1661}: accept it and hand it straight back to learn {spell:13819}. Paladins do not buy a horse."] = "{npc:6171}은(는) 빛의 대성당에 있습니다. 40레벨에 {quest:1661}을(를) 주니, 수락하고 곧바로 제출하면 {spell:13819}을(를) 배웁니다. 성기사는 말을 구매하지 않습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:5149} in the {object:32362} sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the tram from {zone:1455} to {zone:1453}."] = "40레벨에 {object:32362}의 {npc:5149}이(가) {zone:1453} 빛의 대성당의 {npc:6171}에게 보냅니다. {zone:1455}에서 {zone:1453}까지는 깊은굴 지하철을 타십시오.",
-	-- ["{npc:6171} stands in the Cathedral of Light. Turning in the {item:6779} teaches {spell:13819}; Paladins do not buy a mount."] = "{npc:6171}은(는) 빛의 대성당에 있습니다. {item:6779}을(를) 제출하면 {spell:13819}을(를) 배웁니다. 성기사는 탈것을 구매하지 않습니다.",
 }

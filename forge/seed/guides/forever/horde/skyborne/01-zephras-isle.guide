@@ -126,7 +126,7 @@ step Windshaper Boro
 # ---------------------------------------------------------------- Shen'dar Village
 
 step Shen'dar Village
-  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side.
+  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side. With a profession learned, Raan also offers its Camping 101: its trainer stands in the village.
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
@@ -140,6 +140,43 @@ step Shen'dar Village
   complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
   turnin 96101                        -- Raan Wildwind
   accept 96646
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  tip Mendalass Tattermend takes it once your Skinning skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97971                        -- Raan Wildwind
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  tip Naleeia Tattermend takes it once your First Aid skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97965                        -- Raan Wildwind
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  tip Indari Sunseam takes it once your Leatherworking skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97969                        -- Raan Wildwind
+
+step Camping 101: Mining
+  when skill Mining 1
+  tip Messana Crestwind takes it once your Mining skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97970                        -- Raan Wildwind
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  tip Nyassa Swiftdraught takes it once your Alchemy skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97963                        -- Raan Wildwind
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  tip Aedi Thriceforged takes it once your Blacksmithing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97964                        -- Raan Wildwind
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  tip Fenn Fairweather takes it once your Fishing skill is 20: gather or craft until then, the guide carries on meanwhile.
+  accept 97967                        -- Raan Wildwind
+
+step Shen'dar Village
   turnin 92514                        -- Constable Aonda
   accept 92517
   accept 92516                        -- Teeri Wellwind
@@ -151,14 +188,56 @@ step Shen'dar Village
   turnin 96646                        -- Zerril Softbreeze
   accept 92553                        -- Zerril Softbreeze
 
+step Mendalass Tattermend
+  when onquest 97971
+  when complete 97971
+  complete 97971 @43.29,43.37 map 2521 live
+  turnin 97971                        -- Mendalass Tattermend
+
+step Naleeia Tattermend
+  when onquest 97965
+  when complete 97965
+  complete 97965 @43.08,46.31 map 2521 live
+  turnin 97965                        -- Naleeia Tattermend
+
+step Indari Sunseam
+  when onquest 97969
+  when complete 97969
+  complete 97969 @44.68,44.52 map 2521 live
+  turnin 97969                        -- Indari Sunseam
+
+step Messana Crestwind
+  when onquest 97970
+  when complete 97970
+  complete 97970 @44.77,44.56 map 2521 live
+  turnin 97970                        -- Messana Crestwind
+
+step Nyassa Swiftdraught
+  when onquest 97963
+  when complete 97963
+  complete 97963 @43.69,43.42 map 2521 live
+  turnin 97963                        -- Nyassa Swiftdraught
+
+step Aedi Thriceforged
+  when onquest 97964
+  when complete 97964
+  complete 97964 @44.88,44.37 map 2521 live
+  turnin 97964                        -- Aedi Thriceforged
+
+step Fenn Fairweather
+  when onquest 97967
+  when complete 97967
+  complete 97967 @45.02,48.44 map 2521 live
+  turnin 97967                        -- Fenn Fairweather
+
 step Shen'dar Village: kill these as you meet them
   zone Zephras Isle
   tip Prideclaws and Galestriders share the meadows around Shen'dar Village; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the Strider Meat for Zerril.
   collect 6889 quest 92553.1 @42.1,39.4
-  collect 5469 quest 92553.2
+  collect 5469 quest 92553.2 @38.6,43.6
 
 step Shen'dar Village hand-ins
-  tip Zerril, Teeri, Taleen, Danarii and Constable Aonda all stand in Shen'dar Village. If you are still short of Strider Meat, the Galestriders graze just south of the village.
+  tip Zerril, Teeri, Taleen, Danarii and Constable Aonda all stand in Shen'dar Village. If you are still short of Strider Meat, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher.
   turnin 92553                        -- Zerril Softbreeze
 
 step Shen'dar Highlands: kill these as you meet them
@@ -475,8 +554,9 @@ step Unfortunate News
   accept 92640
 
 step Desperate Times
+  tip Valennia asks you to hear out both leaders: Ayessa Dawnsinger of the Horde and Elaadrin Evengale of the Alliance. Elaadrin's name shows red to you, but he talks to you all the same, and the quest needs both.
   talk 252383 quest 92640.1 -- Upstairs
-  talk 251968 quest 92640.2
+  talk 251968 quest 92640.2           -- Ayessa Dawnsinger
   talk 252475 quest 92640.3 @66.59,79.92 -- Elaadrin Evengale
   turnin 92640                        -- Valennia Stormfist
   accept 93065
@@ -600,9 +680,6 @@ step Valanaar
   accept 93090
   turnin 94896                        -- Ealaane Nimbuswalker
   turnin 94897
-
-step Valanaar
-  when onquest 94491
   turnin 94491                        -- Lotheluum Starbreeze
 
 step Valanaar
@@ -678,11 +755,17 @@ step Ansekhwa
 
 step Into Mulgore
   zone Mulgore
-  goto 42.1,20.2 "Into Mulgore"
+  tip Take Thunder Bluff's west lift down: the road at its foot runs south-east across Mulgore to the Barrens.
+  goto 37.6,33.0 "Into Mulgore"
 
 step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
+
+step Camp Taurajo
+  zone The Barrens
+  tip The road from Mulgore meets the Gold Road at Camp Taurajo: Omusa Thunderhorn, the wind rider master, stands beside Kirge Sternhorn on your way north to the Crossroads.
+  getfp "Camp Taurajo" npc 10378      -- Omusa Thunderhorn
 
 step The Crossroads
   zone The Barrens

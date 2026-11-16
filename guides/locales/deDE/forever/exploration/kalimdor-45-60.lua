@@ -84,8 +84,11 @@ return {
 	["9 areas to discover here. Its creatures are level 54-60."] = "Hier gibt es 9 Gebiete zu entdecken. Die Kreaturen dort sind Stufe 54-60.",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "{zone:2482} erreichst du von {zone:1452} aus durch die {area:2256} im Süden. Es ist das Endgame-Levelgebiet von Forever.",
+	-- {area:16849} Summit of Eternity · {npc:41861} Fayran Elthas · {area:16853} Tainted Foothills
+	["Flight paths here: {area:16849} ({npc:41861}), {area:16853} (Bluebell)."] = "Flugrouten hier: {area:16849} ({npc:41861}), {area:16853} (Bluebell).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["9 areas to discover here."] = "Hier gibt es 9 Gebiete zu entdecken.",
+	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: Teleport: {zone:1450}). {area:2361} is neutral."] = "Nimm den Tunnel der {area:1769} im nördlichen {zone:1448} hindurch nach {zone:1450} (Druiden: Teleportieren: {zone:1450}). {area:2361} ist neutral.",
 	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451} liegt westlich des {zone:1449}. {area:3425} ist neutral.",
 }

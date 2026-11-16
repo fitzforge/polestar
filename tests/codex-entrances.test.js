@@ -8,6 +8,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { instanceFacts, buildInstances, chooseEntrance, loadEntranceTable } = require('../tools/lib/codex/instances');
 const { emitPack } = require('../tools/lib/codex/pack');
+const { isSourceCitation } = require('../tools/lib/codex/web');
 
 // Westfall's live frame: world x north / y west -> map percent.
 const WESTFALL = { c: 0, left: 2000, right: -1000, top: -9000, bottom: -12000 };
@@ -34,7 +35,7 @@ test('the curated table: one entry per instance, each placed on a zone map with 
 	for (const e of entries) {
 		assert.ok(Number.isInteger(e.map) && e.map > 0, `${e.key}: uiMap id`);
 		assert.ok(e.x > 0 && e.x < 100 && e.y > 0 && e.y < 100, `${e.key}: map percent`);
-		assert.match(e.source, /^https:\/\//, `${e.key}: source URL`);
+		assert.ok(typeof e.source === 'string' ? /^https:\/\//.test(e.source) : isSourceCitation(e.source), `${e.key}: a source URL or a source cited the corrections' way`);
 		assert.ok(e.note, `${e.key}: note`);
 	}
 });
@@ -91,4 +92,14 @@ test('pack: the Alliance way in follows the entrance', () => {
 	const codex = { meta: { schema: 1 }, items: {}, npcs: {}, objects: {}, quests: {}, instances: { 'city-of-dalaran': inst }, zones: {}, factions: {}, spells: {}, frames: {} };
 	const text = Object.values(emitPack(codex, { version: '0', build: 'test' })).join('\n');
 	assert.match(text, /1416,85,592,,,1416,147,630/);
+});
+
+// #1832: The Drowned City's way in is where players' recordings enter it: Sunken Hollow, due west of Grom'gol.
+test("the curated table: The Drowned City's way in is where players enter it, at Sunken Hollow west of Grom'gol (#1832)", () => {
+	const d = loadEntranceTable()['the-drowned-city'];
+	assert.ok(d, 'an entry for the Forever dungeon');
+	assert.equal(d.instance, 2970, 'the client Map id players enter');
+	assert.deepEqual([d.map, d.x, d.y], [1434, 21.6, 27.7], 'Stranglethorn Vale, where players enter');
+	assert.equal(d.source.kind, 'recording', 'cited from players\' recordings');
+	assert.ok(isSourceCitation(d.source));
 });

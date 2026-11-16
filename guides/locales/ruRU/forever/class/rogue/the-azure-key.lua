@@ -14,7 +14,7 @@ return {
 	-- {quest:8233} A Simple Request
 	["{quest:8233} (Alliance)"] = "{quest:8233} (Альянс)",
 	-- {npc:918} Osborne the Night Man · {zone:1453} Stormwind · {object:2100} Old Town · {zone:1457} Darnassus · {npc:5165} Hulfdan Blackbeard · {zone:1455} Ironforge
-	["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} in {zone:1455}."] = "",
+	["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} in {zone:1455}."] = "На 50-м уровне его дает {npc:918} ({zone:1453}, {object:2100}); а также Сиарна ({zone:1457}) и {npc:5165} ({zone:1455}).",
 
 	-- Step 2: A Simple Request (Horde)
 	-- {quest:8233} A Simple Request
@@ -58,7 +58,6 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alliance fly to {area:3137}, Horde to {area:1237}. The Timbermaw Shamans in {zone:1447}'s northern hills drop the bag, about one in thirty."] = "Альянс летит сюда: {area:3137}, Орда – сюда: {area:1237}. Сумка падает с шаманов из племени Древобрюхов в северных холмах ({zone:1447}), примерно с одного из тридцати.",
-	-- ["At 50 {npc:918} in {zone:1453}'s {object:2100} has it; so do Syurna in {zone:1457} and {npc:5165} and Fenthwick in {zone:1455}."] = "На 50-м уровне его дает {npc:918} ({zone:1453}, {object:2100}); а также Сиарна ({zone:1457}), {npc:5165} и Иззаспинс ({zone:1455}).",
 	-- ["Morphaz, a green drake, is an elite boss deep in the {area:1417}, a level 50 dungeon: bring a group of five. The temple stands in the {area:74}; swim down to the entrance. Horde: fly to {area:75}; Alliance: fly to {area:1438} and ride on."] = "Морфаз, зеленый дракон, – элитный босс в глубине подземелья 50-го уровня ({area:1417}): возьмите группу из пяти человек. Храм стоит здесь: {area:74}; спуститесь вплавь ко входу. Орда: летите сюда: {area:75}; Альянс: летите сюда: {area:1438} – и езжайте дальше.",
 	-- ["Ravenholdt reputation and experience at 50; Forever removed the Classic item choice."] = "Репутация у Черного Ворона и опыт на 50-м уровне; Forever убрал выбор предмета из Classic.",
 	-- ["The Forest Oozes of southern {zone:1447} drop the fragments."] = "Фрагменты падают с лесных слизнюков на юге зоны {zone:1447}.",

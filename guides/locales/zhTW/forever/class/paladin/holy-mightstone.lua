@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "",
+	["A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever."] = "一次性使用的石頭，可在10分鐘內大幅提升你對不死生物的戰力；舊的物品選擇在Forever中可能已經沒有了。",
 
 	-- Step 1: Lord Grayson Shadowbreaker
 	-- {npc:928} Lord Grayson Shadowbreaker · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge
@@ -64,7 +64,6 @@ return {
 	["Back to Ashlam in {area:3197}: he forges the {item:20620}. Look at the reward window before you hand in: Classic also offered the {item:20505}, the {item:20504} or the {item:20512}, and Forever's notes say that choice may be gone. Use the stone before a fight against undead ({area:2279}, {area:2057}): it lasts ten minutes and is gone after one use."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone."] = "一次性使用的石頭，可在10分鐘內大幅提升你對不死生物的戰力；舊的可選獎勵已經移除。",
 	-- ["The Scourge throughout the {zone:1422} drop Minion's Scourgestones."] = "{zone:1422}各處的天譴軍團會掉落爪牙的天譴石。",
 	-- ["{area:1477} lies in the {area:74} in eastern {zone:1435}. Inside, Gasher and {npc:5716} drop the {item:20606}, Hukku and Mijan the Blue, Zolo and Loro the Green."] = "{area:1477}位於{zone:1435}東部的{area:74}。在裡面，加什爾和{npc:5716}會掉落{item:20606}，胡庫和米杉掉落藍色的，祖羅和洛若爾掉落綠色的。",
 	-- ["{item:20606}, inside"] = "{item:20606}，在裡面",

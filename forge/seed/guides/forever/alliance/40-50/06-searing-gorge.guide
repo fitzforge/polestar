@@ -1,6 +1,6 @@
 # Searing Gorge from Thorium Point, Alliance 47 to 49 (consensus visit 55).
 # Flow: Thelsamar -> the Badlands -> Thorium Point (flight path, hub) -> Zamael and Velarok -> the Cauldron
-# (golems and elementals, then the Dark Iron dwarves) -> the Greater Lava Spiders in the south-west -> Velarok
+# (golems and elementals, then the Dark Iron dwarves) -> the Searing Lava Spiders in the south-west -> Velarok
 # -> the Slag Pit -> Thorium Point -> the Grimesilt Dig Site -> Dorius' escort to Dustfire Valley -> hearth to
 # Thelsamar.
 # Order changes against the simulator, same quest set:
@@ -43,7 +43,8 @@ step Thorium Point
   accept 7722                         -- Master Smith Burninate
 
 step Zamael Lunthistle
-  tip The night elf stands alone west of Thorium Point. Hear his story.
+  when group 3377
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Zamael Lunthistle stands inside the Twilight camp at Firewatch Ridge, west of Thorium Point, among Twilight Fire Guards, Idolaters and Geomancers (level 48-49 elites), with Highlord Mastrogonde (level 51, rare elite) beside him: Prayer to Elune needs a group of 4. Skip it if you are alone.
   accept 3377
   turnin 3377
 
@@ -75,9 +76,9 @@ step Dark Iron dwarves
   collect 11818 x1 optional           -- Grimesilt Outhouse Key
   accept 4451 optional
 
-step Greater Lava Spiders
+step Searing Lava Spiders
   tip The spiders roam the plateaus and lava pools in the south-west of the gorge.
-  kill 5858 quest 7724                -- Greater Lava Spider
+  kill 5858 quest 7724                -- Searing Lava Spider
 
 step Velarok Windblade
   turnin 3443
@@ -99,7 +100,7 @@ step Thorium Point
 
 step The Grimesilt outhouse
   tip Ride east across the Cauldron to the Grimesilt Dig Site in the south-east. The prisoner in the wooden outhouse wants 15 Silk Cloth and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one.
-  turnin 4451 optional
+  turnin 4451
   accept 4449
   kill 5839 quest 4449                -- Dark Iron Geologist
   collect 4306 x15 quest 4449         -- Silk Cloth
@@ -111,7 +112,24 @@ step Dorius Stonetender
   accept 3367
   complete 3367
   turnin 3367                         -- Singed Letter
-  accept 3368                         -- For Curator Thorius in Ironforge, later
+  accept 3368                         -- For Curator Thorius in Ironforge, at the end of this guide
+
+step Hall of Explorers
+  zone Ironforge
+  accept 3448                         -- Historian Karnik
+  turnin 3368                         -- Curator Thorius
+  accept 4512                         -- Laris Geardawdle: the oozes are in Felwood, keep it
+
+step Mystic Ward
+  turnin 3448                         -- Tymor
+  accept 3449                         -- Four rune rubbings in Azshara: keep it
+  accept 3450
+
+step Xiggs Fuselighter
+  tip Xiggs waits in the Military Ward.
+  turnin 3450
+  accept 3451
+  turnin 3451
 
 step Thelsamar
   zone Loch Modan

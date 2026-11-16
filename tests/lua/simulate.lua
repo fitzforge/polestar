@@ -71,7 +71,8 @@ local function act(i, g, r)
 		end
 	elseif q and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then w.finish(q) end
-	elseif (t == "collect" or t == "buy") and g.item then
+	-- An auction goal: bought at the Auction House, a bag count as a buy is.
+	elseif (t == "collect" or t == "buy" or t == "auction") and g.item then
 		w.addItem(g.item, (g.progress and g.progress.max) or 1)
 	elseif t == "goto" then
 		w.moveTo(g.map, g.x, g.y)

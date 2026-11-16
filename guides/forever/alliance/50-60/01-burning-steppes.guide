@@ -18,6 +18,11 @@ next forever/alliance/50-60/02-felwood
 
 # ---------------------------------------------------------------- Azshara
 
+step Into Azshara
+  tip From Astranaar, ride east along the road past Forest Song into Azshara: Shadowsong Shrine lies just over the border, in Azshara's south-west corner.
+  goto 96.3,51.4 map 1440 "East along the road to Shadowsong Shrine"
+  zone Azshara
+
 step Shadowsong Shrine
   zone Azshara
   tip The shrine lies in the south-west corner of Azshara, south of Talrendis Point.
@@ -27,12 +32,37 @@ step Shadowsong Shrine
   kill 6116 quest 5535.1              -- Highborne Apparition
   kill 6117 quest 5535.2              -- Highborne Lichling
 
+step Talrendis Point
+  zone Azshara
+  tip Just north-east of the shrine: Commander Truesong and Berdun Cliffbrew keep the Alliance camp at Talrendis Point.
+  accept 88807                        -- Commander Truesong: Slay the Spitelash
+  accept 89001                        -- Berdun Cliffbrew: Home on the Range
+
+step Mosshoof Runners
+  tip The Mosshoof Runners (45-47) graze the hills north of Talrendis Point, on the way to the satyrs.
+  collect 238463 quest 89001          -- Mosshoof Hide
+
 step Azshara: kill these as you meet them
   zone Azshara
-  tip The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it.
+  tip The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it. Sentinel Keldara Sunblade is held in the satyrs' camp: free her and walk her out.
   kill 6127 quest 5536.3              -- Haldarr Felsworn
   kill 6126 quest 5536.2              -- Haldarr Trickster
   kill 6125 quest 5536.1              -- Haldarr Satyr
+  accept 88857                        -- Sentinel Keldara Sunblade, in the camp
+  complete 88857                      -- Help her escape the camp
+
+step The western shore
+  tip The Spitelash Warriors (46-47) and Screamers (47-48) hold the western shore north-east of the satyrs.
+  kill 6190 quest 88807               -- Spitelash Warrior
+  kill 6193 quest 88807               -- Spitelash Screamer
+
+step Talrendis Point
+  tip Back south-west to Talrendis Point.
+  turnin 88807                        -- Commander Truesong
+  turnin 88857
+  accept 88809                        -- Commander Truesong: Preserving Eldarath, the relics drop from the naga of the top-up ahead
+  accept 92345                        -- Commander Truesong: Beneath Nordrassil, for Mathrengyl Bearwalker in Darnassus, keep it
+  turnin 89001                        -- Berdun Cliffbrew
 
 step Shadowsong Shrine
   turnin 5535                         -- Loh'atu
@@ -51,10 +81,44 @@ step Ogtinc
   turnin 8254                         -- Ogtinc
   accept 8255
 
+step Sanath Lim-yo
+  zone Azshara
+  only Mage
+  tip Get off your mount before you talk to Sanath: he teleports you up to Archmage Xylem's tower on the cliff above his camp.
+  turnin 8250                         -- Sanath Lim-yo
+
+step Archmage Xylem
+  zone Azshara
+  only Mage
+  tip The apprentice at the top of the tower sends you back down.
+  accept 8251                         -- The blood elves are at the Thalassian Base Camp, on the way to Kim'jael
+
+step The Ruins of Eldarath
+  tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's runes stand among the ruins: use his Drawing Kit on each. The naga here are the ones the top-up below asks for, so these kills count towards it.
+  collect 10563 quest 3449.1          -- Rune of Beth'Amara
+  collect 10564 quest 3449.2          -- Rune of Jin'yael
+  collect 10565 quest 3449.3          -- Rune of Markri
+
+step Level 51.3 on the way north
+  when level<51.3
+  tip Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between Sanath's camp and the north: the blood elves at Kim'jael's camp are 51-53. Or, with a group, run the Sunken Temple dungeon instead.
+  goto 46.5,54.5 map 1447 "Spitelash Myrmidon"
+  level 51.3 grind 6196                -- grind on Spitelash Myrmidon
+
+step Lord Sarthiss
+  tip The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. Lord Sarthiss (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone.
+  collect 280608 quest 88809.1        -- Eldarath Relic
+  collect 280610 quest 88809.2        -- Lord Sarthiss' Head
+
+step Ekkal
+  tip Ekkal camps by the road north to Kim'jael: his satyrs are in Kim'jael's camp.
+  accept 86746
+
 step Mosshoof Coursers
   zone Azshara
   only Priest
   tip The nearest Mosshoof Coursers graze the hills north-east of the Bear's Head, toward the Legashi Encampment; a larger herd roams the open ground to the south.
+  tip Careful: the Mosshoof Coursers are 52-53, a level or two over you here: pull them one at a time from the herd's edge.
   collect 20027 quest 8255.1          -- Healthy Courser Gland
 
 step Azshara
@@ -69,28 +133,9 @@ step Ogtinc
   turnin 8255                         -- Ogtinc
   accept 8256
 
-step Sanath Lim-yo
-  zone Azshara
-  tip Sanath Lim-yo wants two Undamaged Hippogryph Feathers from the Thunderhead hippogryphs around his camp, the ones you top up on here: about one in three carries one.
-  accept 3381
-  collect 10450 quest 3381.1
-  turnin 3381
-  level 50.56 grind 6375               -- grind on Thunderhead Hippogryph
-
-step Sanath Lim-yo
-  zone Azshara
-  only Mage
-  tip Get off your mount before you talk to Sanath: he teleports you up to Archmage Xylem's tower on the cliff above his camp.
-  turnin 8250                         -- Sanath Lim-yo
-
-step Archmage Xylem
-  zone Azshara
-  only Mage
-  tip The apprentice at the top of the tower sends you back down.
-  accept 8251                         -- The blood elves are at the Thalassian Base Camp, on the way to Kim'jael
-
 step Kim'jael
   tip Kim'jael camps at the Legashi Encampment in the north; his equipment lies all over the Thalassian Base Camp just south-east of him.
+  tip Careful: the Blood Elf Surveyors are 51-52 and the Reclaimers 52-53, with Magister Hawkhelm (53) among them: take the equipment from the camp's edge and pull the elves one at a time.
   accept 3601
   collect 10717 quest 3601.1          -- Kim'Jael's Compass
   collect 10715 quest 3601.2          -- Kim'Jael's Scope
@@ -99,12 +144,11 @@ step Kim'jael
   collect 20028 quest 8251.1 only Mage -- Glittering Dust, from the blood elf surveyors and reclaimers
   turnin 3601
   accept 5534
+  tip Ekkal's satyrs, rogues and hellcallers (51-53) are the Legashi around Kim'jael's camp; the Legashi Soulstealers, Hellraisers and Blackguards (53) further east are not part of it: stay west of them.
+  kill 6200 quest 86746.1
+  kill 6201 quest 86746.2
+  kill 6202 quest 86746.3
   level 50.65 grind 6196               -- grind on Spitelash Myrmidon
-
-step The Ruins of Eldarath
-  tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's four runes stand among the ruins: use his Drawing Kit on each.
-  collect 10563 quest 3449.1          -- Rune of Beth'Amara
-  level 50.69 grind 6196               -- grind on Spitelash Myrmidon
 
 step The Shattered Strand
   collect 13815 quest 5534.1
@@ -112,11 +156,9 @@ step The Shattered Strand
 step Kim'jael
   turnin 5534
 
-step The Ruins of Eldarath
-  collect 10564 quest 3449.2          -- Rune of Jin'yael
-  level 50.8 grind 6196               -- grind on Spitelash Myrmidon
-  collect 10565 quest 3449.3          -- Rune of Markri
-  level 50.85 grind 6196               -- grind on Spitelash Myrmidon
+step Ekkal
+  tip On the road back south, Ekkal takes the satyrs.
+  turnin 86746
 
 step Rubbing: Rune of Sael'hai
   collect 10566 quest 3449.4          -- Rune of Sael'hai
@@ -157,15 +199,14 @@ step Ravencrest Monument
   turnin 3449
   accept 3461
 
-step To Stoutlager Inn
-  zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
+step Talrendis Point
+  tip Back to Truesong at Talrendis Point before you hearth.
+  turnin 88809
 
-step Fly to Ironforge
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar flight master"
-  fly "Ironforge"
+step To Ironforge
   zone Ironforge
+  tip Your Hearthstone is set at Ironforge (the Hinterlands guide binds it there): hearth back to the inn.
+  goto 18.15,51.45 "Ironforge inn"
 
 # ---------------------------------------------------------------- Ironforge
 
@@ -179,20 +220,28 @@ step Royal Historian Archesonus
   accept 3702
   talk 8879 quest 3702.1
   turnin 3702
+
+step Royal Historian Archesonus
+  when group 3701
+  zone Ironforge
+  tip The Smoldering Ruins of Thaurissan is a group quest at this level: its relics stand among War Reavers and Firewalkers of 53-55, with Thauris Balgarr (57) close by, two to five over you, and the route has no later Burning Steppes visit. Grouping up is encouraged, look for people to do it with. Skip it if you are alone.
   accept 3701                         -- The relics are in the Burning Steppes: keep it
 
 step Fly to Aerie Peak
+  when group 2944
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Aerie Peak"
   zone The Hinterlands
 
-# ---------------------------------------------------------------- The Hinterlands and the Western Plaguelands
+step Fly to Southshore
+  when !group 2944
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
 
-step Wildkin feathers
-  zone The Hinterlands
-  tip The Wildkin Feathers lie on the ground across the Hinterlands, south and east of Aerie Peak, where the owlbeasts roam; the mobs here are well below you now.
-  collect 10819 quest 3661                    -- Wildkin Feather
+# ---------------------------------------------------------------- The Hinterlands and the Western Plaguelands
 
 step The Super Snapper FX
   when group 2944
@@ -201,15 +250,18 @@ step The Super Snapper FX
   collect 9330 quest 2944.1 @80.4,58.2 map 1425 group 2
   use 9328 quest 2944.1 @80.4,58.2 map 1425
 
-step The Hinterlands
-  zone The Hinterlands
-  goto 11.1,46.1 "Aerie Peak"
-
 step Fly to Southshore
+  when group 2944
   zone The Hinterlands
   goto 11.1,46.1 "Aerie Peak flight master"
   fly "Southshore"
   zone Hillsbrad Foothills
+
+step Orphan Matron Aria
+  zone Alterac Mountains
+  tip Ride north from Southshore into Alterac and west to the walls of Dalaran: Orphan Matron Aria stands outside them. Her quest goes to Lieutenant Connar in Nethergarde Keep, where this guide flies later.
+  goto 21.6,73.2 "Orphan Matron Aria"
+  accept 96797
 
 step Western Plaguelands
   zone Western Plaguelands
@@ -235,7 +287,7 @@ step Chillwind Camp
   turnin 5092                         -- Commander Ashlam Valorfist
   accept 5215
   turnin 5215                         -- High Priestess MacDonnell
-  accept 5216
+  accept 5216                         -- keep it: the Felstone Field cauldron waits for the Winterspring guide's Chillwind stop, at about 55
 
 step Janice Felstone
   tip Janice's ghost wanders by the farmhouse of Felstone Field, west of Dalson's Tears; her parcel lies inside.
@@ -243,69 +295,74 @@ step Janice Felstone
   turnin 5021                         -- Janice's Parcel, inside
   accept 5022                         -- For Stormwind: keep it
 
-step Felstone Field cauldron
-  tip Cauldron Lord Bilemaw guards the cauldron in Felstone Field, west of Andorhal.
-  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
-  turnin 5216                         -- Scourge Cauldron
-  accept 5217
-
-step Chillwind Camp
-  turnin 5217                         -- High Priestess MacDonnell
-
 step Fly to Morgan's Vigil
+  when taxi "Morgan's Vigil"
   zone Western Plaguelands
   goto 43.0,85.1 "Chillwind Camp flight master"
   fly "Morgan's Vigil"
   zone Burning Steppes
+
+step Fly to Lakeshire
+  when !taxi "Morgan's Vigil"
+  zone Western Plaguelands
+  goto 43.0,85.1 "Chillwind Camp flight master"
+  fly "Lakeshire"
+  zone Redridge Mountains
+
+step Morgan's Vigil flight master
+  when !taxi "Morgan's Vigil"
+  zone Burning Steppes
+  tip Ride east out of Lakeshire and up the pass into the Burning Steppes: Morgan's Vigil stands at the top.
+  getfp "Morgan's Vigil"
 
 step Morgan's Vigil
   zone Burning Steppes
   tip Morgan's Vigil sits in the south-east of the Steppes, at the top of the pass up from Redridge.
   accept 3823
 
+step Level 52 at Dreadmaul Rock
+  when level<52
+  tip Top up first to level 52 on the Firegut Ogres (50-51) on the near side of Dreadmaul Rock, north of the Vigil: the Brutes on its east side are 52-53. Or, with a group, run the Sunken Temple dungeon instead.
+  goto 78.7,44.7 map 1428 "Firegut Ogre"
+  level 52 grind 7033                 -- grind on Firegut Ogre
+
 step Dreadmaul Rock
   tip The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.
+  tip Careful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of Dreadmaul Rock: pull the ogres on the rock itself and look around before each pull.
   kill 7034 quest 3823.1              -- Firegut Ogre Mage, below ground
   kill 7033 quest 3823.2              -- Firegut Ogre
   kill 7035 quest 3823.3              -- Firegut Brute
-  level 51 grind 7033                 -- grind on Firegut Ogre: Oralius gives FIFTY! YEP! from level 51
 
 # ---------------------------------------------------------------- Morgan's Vigil
 
 step Morgan's Vigil
   zone Burning Steppes
-  accept 4283                         -- Oralius: the Blackrock orcs drop the medallions, keep it open all through the Steppes
   turnin 3823                         -- Oralius
-  accept 3824
-
-step Level 52
-  when level<52
-  tip Top up here to level 52 on the ogres of Dreadmaul Rock, on the way to Flame Crest: the hand-ins there take you to level 53. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
-  goto 78.7,44.7 map 1428 "Firegut Ogre Mage"
-  level 52 grind 7034               -- grind on Firegut Ogre Mage
+  note Oralius' next tasks (Gor'tesh, and fifty Blackrock Medallions) send you among the Blackrock orcs of 55-58 at the foot of Blackrock Mountain: skip them.
 
 # ---------------------------------------------------------------- Flame Crest and the Ruins of Thaurissan
 
 step Flame Crest
   tip Follow the road west, then climb north to the goblin camp on Flame Crest.
   accept 4726                         -- Tinkee Steamboil
-  accept 4296                         -- Maxwort Uberglint
 
 step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
-  tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered.
-  tip Read the tablet in the Dark Iron camp among the ruins, south-west of Flame Crest, to copy the transcript.
   tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
-  interact 153556 quest 3701.1        -- Thaurissan Relic
+  tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
   collect 12283 quest 4726.1
-  collect 11467 quest 4283.1
-  use 12284 quest 4726.1 @72.4,28.2 map 1428
-  collect 11470 quest 4296.1
+  use 12284 quest 4726.1 @81.0,28.0 map 1428
+
+step Ruins of Thaurissan
+  when group 3701
+  when onquest 3701
+  tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered. Take the ones on the ruins' southern edge, nearest Flame Crest.
+  tip Careful: the ruins' War Reavers and Thaurissan Firewalkers are 53-55, and Thauris Balgarr (57) holds the Dark Iron camp south-west of Flame Crest: take the relics at the edge of the ruins, pull one at a time, and keep away from the camp.
+  interact 153556 quest 3701.1        -- Thaurissan Relic
 
 step Flame Crest
   turnin 4726                         -- Tinkee Steamboil
   accept 4808                         -- Ends with Felnok Steelspring in Everlook, Winterspring: keep it
-  turnin 4296                         -- Maxwort Uberglint
 
 step Cyrus Therepentous
   when turnedin 3481
@@ -334,32 +391,14 @@ step Cyrus Therepentous
 step Level 52.08
   when !group 4023
   when level<52.08
-  tip If you skipped A Taste of Flame, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon or the Maraudon dungeon instead.
+  tip If you skipped A Taste of Flame, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the Sunken Temple dungeon instead.
   goto 89.6,51.2 map 1428 "Ember Worg"
   level 52.08 grind 9690               -- grind on Ember Worg
-
-# ---------------------------------------------------------------- Blackrock Stronghold
-
-step Blackrock Stronghold
-  tip Gor'tesh and the Blackrock orcs hold the camps and the stronghold at the foot of Blackrock Mountain, west of Flame Crest. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.
-  tip Careful: Gor'tesh has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling.
-  collect 11467 quest 4283.1          -- Blackrock Medallion; inside
-  collect 11080 quest 3824.1          -- Gor'tesh
 
 # ---------------------------------------------------------------- Back to the Vigil
 
 step Morgan's Vigil
   tip Ride back east along the road to the Vigil.
-  turnin 4283                         -- Oralius
-  turnin 3824
-  accept 3825
-
-step Dreadmaul Rock
-  tip Climb to the top of Dreadmaul Rock and plant the head in the soft dirt mound.
-  interact 160840 quest 3825.1        -- Soft Dirt Mound
-
-step Morgan's Vigil
-  turnin 3825                         -- Oralius
   vendor nearest
 
 step Fly to Nethergarde Keep
@@ -372,6 +411,8 @@ step Fly to Nethergarde Keep
 
 step Ambassador Ardalan
   tip Ardalan is inside Nethergarde Keep.
+  turnin 96797                        -- Lieutenant Connar
+  accept 87295                        -- Bernie Heisten: Deflective Surface, the scales come from the basilisks ahead
   accept 2783 @67.6,19.3 map 1419
 
 step Swamp of Sorrows
@@ -386,20 +427,66 @@ step Fallen Hero of the Horde
   talk 7572 quest 2801.1 @34.3,66.1
   turnin 2801
 
+step Back to the Blasted Lands
+  zone Blasted Lands
+  goto 50.6,14.2 "Bloodmages' camp"
+
+step Blasted Lands: kill these as you meet them
+  zone Blasted Lands
+  tip Ride back south into the Blasted Lands for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and Black Slayer vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.
+  tip Careful: two elites roam here: Calefactus the Unleashed (50) in the middle of the zone around 44,34, and Vek'zol (55) on the ridge around 39,32. When you see one, hunt somewhere else.
+  collect 8396 quest 2585
+  collect 8396 quest 2601
+  collect 8396 quest 2603             -- Vulture Gizzard
+  collect 8392 quest 2581             -- Blasted Boar Lung
+  collect 8392 quest 2583
+  collect 8392 quest 2585
+  collect 8394 quest 2601             -- Basilisk Brain
+  collect 8394 quest 2583
+  collect 8391 quest 2581             -- Snickerfang Jowl
+  collect 8391 quest 2603
+  collect 8393 quest 2581             -- Scorpok Pincer
+  collect 8393 quest 2583
+  collect 8393 quest 2585
+  collect 280181 quest 87295.1        -- Redstone Basilisk Scale
+
 step Blasted Lands
   zone Blasted Lands
   goto 52.0,35.7 "Rise of the Defiler"
 
 step Kum'isha the Collector
-  tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.
+  tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.
   tip Careful: Felcular, Razelikh the Defiler and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds Razelikh's Tear, Flames of Chaos and then Enrage at 15%.
+  tip Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him.
   accept 3501                         -- Kum'isha the Collector walks around here: look inside the circle on the map
   collect 10593 quest 3501.1
   turnin 3501
 
-step To Stoutlager Inn
+step The bloodmages
+  tip Ride north to the bloodmages' camp beside the road into the Blasted Lands.
+  turnin 2601                         -- Bloodmage Lynnore
+  turnin 2603
+  turnin 2581                         -- Bloodmage Drazial
+  turnin 2583
+  turnin 2585
+  note The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it.
+
+step Bernie Heisten
+  tip Back to Bernie Heisten in Nethergarde Keep before you hearth.
+  turnin 87295
+
+step To Ironforge
+  zone Ironforge
+  tip Hearth back to Ironforge's inn.
+  goto 18.15,51.45 "Ironforge inn"
+
+step Fly to Thelsamar
+  when group 3181
+  when onquest 3181
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Thelsamar"
   zone Loch Modan
-  goto 35.5,48.4 "Stoutlager Inn"
 
 step Loch Modan
   when group 3181
@@ -412,11 +499,8 @@ step Mountaineer Pebblebitty
   turnin 3181
   accept 3182
 
-step Loch Modan
-  zone Loch Modan
-  goto 33.9,50.8 "Thelsamar"
-
 step Fly to Ironforge
+  when group 3181
   zone Loch Modan
   goto 33.9,50.8 "Thelsamar flight master"
   fly "Ironforge"
@@ -432,6 +516,7 @@ step Ironforge
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Royal Historian Archesonus
+  when onquest 3701
   zone Ironforge
   tip Archesonus stands beside King Magni in the High Seat: the relics you read in the Steppes are his.
   turnin 3701
@@ -458,6 +543,13 @@ step Rut'theran Village
   accept 978                          -- The wildkin are in Winterspring: keep it
 
 step Portal to Darnassus
+  when onquest 3764,162,92345
+  zone Teldrassil
+  goto 55.9,89.3 "Portal to Darnassus"
+
+step Portal to Darnassus
+  only Druid
+  when !onquest 3764
   zone Teldrassil
   goto 55.9,89.3 "Portal to Darnassus"
 
@@ -467,7 +559,22 @@ step Darnassus
   turnin 3764                         -- Jenal, in the Cenarion Enclave
   train class only Druid              -- Ironforge has no druid trainer
 
+step Mathrengyl Bearwalker
+  when onquest 92345
+  zone Darnassus
+  tip Mathrengyl Bearwalker is upstairs in the druids' building of the Cenarion Enclave: go in by its south door.
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
+  turnin 92345                        -- Mathrengyl Bearwalker, upstairs
+
+step Gracina Spiritmight
+  when onquest 162
+  zone Darnassus
+  tip Gracina Spiritmight stands beside Tyrande in the Temple of the Moon, in the south of the city.
+  turnin 162                          -- Gracina Spiritmight: Rise of the Silithid, from Gadgetzan
+  accept 4493                         -- For Alchemist Pestlezugg in Gadgetzan, on the Western Plaguelands guide: keep it
+
 step Portal to Teldrassil
+  when zone "Darnassus"
   zone Darnassus
   goto 29.1,41.2 "Portal to Teldrassil"
 

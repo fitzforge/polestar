@@ -197,6 +197,14 @@ function fakeGitHub(repo = 'fitzforge/polestar') {
 		async releases() {
 			return releases;
 		},
+		// GitHub's releases/latest: `latest` when a test sets it (null: none),
+		// else the last published release that is no draft or prerelease.
+		latest: undefined,
+		async latestRelease() {
+			if (this.latest !== undefined) return this.latest;
+			const full = releases.filter((r) => !r.draft && !r.prerelease);
+			return full.sort((a, b) => String(a.published_at || '').localeCompare(String(b.published_at || ''))).pop() || null;
+		},
 		async timeline(n) {
 			return structuredClone(timelines.get(n) || []);
 		},

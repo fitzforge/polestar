@@ -214,10 +214,39 @@ const fn align8(n: usize) -> usize {
 /// The file's bytes for `header` (an object; contentId and sections are replaced) and `sections`,
 /// laid out as binfile.js writeBin does; returns (bytes, contentId).
 pub fn encode(header: &Map<String, Value>, sections: &[Section]) -> (Vec<u8>, String) {
+	let streams: Vec<Stream> = sections.iter().map(Stream::of).collect();
+	let mut out = Vec::new();
+	let content_id = encode_to(&mut out, header, &streams).expect("psbn: writing to memory");
+	(out, content_id)
+}
+
+/// A section written in pieces ([`encode_to`]): its type, its length in elements and in bytes, and
+/// `emit`, which hands its little-endian bytes to the sink in order, whole, each time it is called (twice:
+/// once for the content id, once for the file).
+pub struct Stream<'a> {
+	pub name: String,
+	pub kind: Kind,
+	pub len: usize,
+	pub bytes: usize,
+	pub emit: Box<dyn Fn(&mut dyn FnMut(&[u8])) + 'a>,
+}
+
+impl<'a> Stream<'a> {
+	/// A section already in memory.
+	pub fn of(s: &'a Section) -> Self {
+		Stream { name: s.name.clone(), kind: s.kind, len: s.len, bytes: s.bytes.len(), emit: Box::new(move |out: &mut dyn FnMut(&[u8])| out(&s.bytes)) }
+	}
+}
+
+/// [`encode`]'s file, written to `w` as each section emits it: no section's bytes, and not the file's,
+/// are held at once (a walk store's sections are generated from the store twice instead). -> contentId.
+pub fn encode_to(w: &mut dyn std::io::Write, header: &Map<String, Value>, sections: &[Stream]) -> std::io::Result<String> {
 	let mut h = forge_core::key::ContentHasher::new();
 	for s in sections {
 		h.update(format!("{}:{}:{}\n", s.name, s.kind.name(), s.len).as_bytes());
-		h.update(&s.bytes);
+		(s.emit)(&mut |b: &[u8]| {
+			h.update(b);
+		});
 	}
 	let mut rest = header.clone();
 	rest.remove("contentId");
@@ -240,7 +269,7 @@ pub fn encode(header: &Map<String, Value>, sections: &[Section]) -> (Vec<u8>, St
 		let mut next = Map::new();
 		for s in sections {
 			next.insert(s.name.clone(), serde_json::json!([s.kind.name(), at, s.len]));
-			at = align8(at + s.bytes.len());
+			at = align8(at + s.bytes);
 		}
 		if next == layout {
 			break;
@@ -248,16 +277,28 @@ pub fn encode(header: &Map<String, Value>, sections: &[Section]) -> (Vec<u8>, St
 		layout = next;
 	}
 	let head = head_of(&layout);
-	let size = sections.iter().map(|s| layout[&s.name][1].as_u64().unwrap() as usize + s.bytes.len()).max().unwrap_or(0).max(12 + head.len());
-	let mut out = Vec::with_capacity(size);
-	out.extend_from_slice(&MAGIC.to_le_bytes());
-	out.extend_from_slice(&VERSION.to_le_bytes());
-	out.extend_from_slice(&(head.len() as u32).to_le_bytes());
-	out.extend_from_slice(&head);
+	w.write_all(&MAGIC.to_le_bytes())?;
+	w.write_all(&VERSION.to_le_bytes())?;
+	w.write_all(&(head.len() as u32).to_le_bytes())?;
+	w.write_all(&head)?;
+	let mut pos = 12 + head.len();
 	for s in sections {
 		let at = layout[&s.name][1].as_u64().unwrap() as usize;
-		out.resize(at, 0);
-		out.extend_from_slice(&s.bytes);
+		w.write_all(&[0u8; 8][..at - pos])?;
+		let (mut written, mut err) = (0usize, None);
+		(s.emit)(&mut |b: &[u8]| {
+			if err.is_none() {
+				err = w.write_all(b).err();
+			}
+			written += b.len();
+		});
+		if let Some(e) = err {
+			return Err(e);
+		}
+		if written != s.bytes {
+			return Err(std::io::Error::new(std::io::ErrorKind::InvalidData, format!("psbn section {}: {written} bytes emitted, {} laid out", s.name, s.bytes)));
+		}
+		pos = at + written;
 	}
-	(out, content_id)
+	Ok(content_id)
 }

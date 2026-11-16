@@ -686,11 +686,11 @@ end
 fn rare_card_target_button_targets_the_rare_by_its_full_name_and_pings_it_where_the_client_has_ping() {
 	let plain = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]";
 	let out = run_card("SLASH_PING1 = \"/ping\"", &format!("{SPOT_THUROS}emit(card())\nemit(R.Toast.TargetMacro({{ kind = \"rare\", name = \"Bad\\n/run X()\" }}) or false)"));
-	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]") }));
+	assert_eq!(out[0], json!({ "shown": true, "enabled": true, "secure": true, "over": true, "tip": false, "macro": format!("{plain}\n/ping [@target]\n/tm [@target,harm,nodead] !8") }));
 	assert_eq!(out[1], json!(false), "a name with a line break never becomes a macro");
-	// A client without the command: no ping line.
+	// A client without the command: no ping line (the mark is on by default).
 	let out = run_card("SLASH_PING1 = nil", &format!("{SPOT_THUROS}emit(card().macro)"));
-	assert_eq!(out[0], json!(plain));
+	assert_eq!(out[0], json!(format!("{plain}\n/tm [@target,harm,nodead] !8")));
 }
 
 #[test]
@@ -718,7 +718,7 @@ emit(card().macro)"#
 		),
 	);
 	let ping = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
-	assert_eq!(out[0], json!(ping), "marking is off by default");
+	assert_eq!(out[0], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")), "marking is on by default");
 	assert_eq!(out[1], json!(format!("{ping}\n/tm [@target,harm,nodead] !8")));
 	assert_eq!(out[2], json!(format!("{ping}\n/tm [@target,harm,nodead] ~8")));
 	assert_eq!(out[3], json!(ping));
@@ -749,8 +749,9 @@ stub.inCombat = true
 emit(card().tip)"#
 		),
 	);
-	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]";
-	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]";
+	// Mark target is on by default: the skull follows the ping.
+	let thuros = "/cleartarget [nocombat]\n/targetexact Thuros Lightfingers\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
+	let narg = "/cleartarget [nocombat]\n/targetexact Narg the Taskmaster\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	let keyed = "The card can't target during a fight. Use the rare button or its key (sT).";
 	assert_eq!(out[0], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "points": 0, "macro": thuros, "tip": keyed }));
 	assert_eq!(out[1], json!({ "shown": true, "enabled": false, "secure": false, "over": false, "macro": thuros, "tip": keyed }), "a card that appears in a fight keeps the old macro, unarmed");
@@ -771,6 +772,104 @@ emit({ PolestarRareToast.Target:IsShown(), PolestarRareCardTarget:IsShown() })"#
 	);
 	assert_eq!(out[0], json!([false, false]));
 	assert_eq!(out[1], json!([false, false]));
+}
+
+#[test]
+fn rare_card_a_rare_first_seen_without_its_name_has_no_target_button_until_a_later_sighting_names_it() {
+	// A rare the Codex doesn't know (Forever-only; the id is a stand-in) whose vignette first gives no name (#2254).
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+local f, s = PolestarRareToast, PolestarRareCardTarget
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown() })
+-- Seen again inside the cooldown, now with its name: the same card takes it, no second alert or sound.
+-- 4 s: Detect looks at one vignette (or unit GUID) at most once per 3 s (DEBOUNCE), so a name readable
+-- sooner reaches the card at the next event after that.
+stub.advance(4)
+U.vignette("V9", { npc = 990001, name = "Bjorn", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, sounds = #stub.sounds, name = f.Name:GetText(), target = f.Target:IsShown(), secure = s:IsShown(),
+	macro = s:GetAttribute("macrotext") })
+-- A later alert for it, past the cooldown, starts from the name seen.
+stub.advance(11 * 60)
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, name = got[#got].name, unnamed = got[#got].unnamed or false })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Unknown rare", "target": false, "secure": false }));
+	assert_eq!(out[1]["n"], 1);
+	assert_eq!(out[1]["sounds"], 1);
+	assert_eq!(out[1]["name"], "Bjorn");
+	assert_eq!(out[1]["target"], true);
+	assert_eq!(out[1]["secure"], true);
+	assert!(out[1]["macro"].as_str().unwrap().contains("/targetexact Bjorn"), "{:?}", out[1]["macro"]);
+	assert_eq!(out[2], json!({ "n": 2, "name": "Bjorn", "unnamed": false }));
+}
+
+#[test]
+fn a_unit_the_client_still_calls_unknown_alerts_unnamed_and_keeps_unknown_out_of_the_history_and_the_rare_list() {
+	// UnitName gives the client's UNKNOWNOBJECT placeholder for a creature it hasn't cached yet (#2254 review).
+	let out = run(r#"
+UNKNOWNOBJECT = "Unknown"
+local U = stub.rares
+U.unit("nameplate1", { npc = 990003, name = "Unknown", level = 10, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+local f = PolestarRareToast
+emit({ n = #got, name = f.Name:GetText(), unnamed = got[1].unnamed or false, seen = R.History()["rare:990003"].name or false,
+	nearby = #R.Nearby() })
+-- 4 s on (the per-GUID debounce), targeted with its name: the card takes it.
+stub.advance(4)
+U.unit("target", { npc = 990003, name = "Bjorn", level = 10, class = "rare" })
+stub.fire("PLAYER_TARGET_CHANGED")
+emit({ n = #got, name = f.Name:GetText(), seen = R.History()["rare:990003"].name, nearby = R.Nearby()[1] })"#);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Unknown rare", "unnamed": true, "seen": false, "nearby": 0 }));
+	assert_eq!(out[1], json!({ "n": 1, "name": "Bjorn", "seen": "Bjorn", "nearby": "Bjorn" }));
+}
+
+#[test]
+fn rare_card_an_unnamed_card_named_in_a_fight_shows_target_disabled_until_the_fight_ends() {
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+local f, s = PolestarRareToast, PolestarRareCardTarget
+stub.qol.combat(true)
+stub.advance(4)
+U.vignette("V9", { npc = 990001, name = "Bjorn", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), enabled = f.Target:IsEnabled() and true or false,
+	secure = s:IsShown() })
+stub.qol.combat(false)
+emit({ enabled = f.Target:IsEnabled() and true or false, secure = s:IsShown(), macro = s:GetAttribute("macrotext") })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 1, "name": "Bjorn", "target": true, "enabled": false, "secure": false }));
+	assert_eq!(out[1]["enabled"], true);
+	assert_eq!(out[1]["secure"], true);
+	assert!(out[1]["macro"].as_str().unwrap().contains("/targetexact Bjorn"), "{:?}", out[1]["macro"]);
+}
+
+#[test]
+fn rare_card_another_rare_s_name_leaves_an_unnamed_card_alone() {
+	let out = run_card(
+		"",
+		r#"
+local U = stub.rares
+-- Rocklance alerts first, so a later sighting of it falls inside its cooldown and alerts nothing.
+U.vignette("V8", { npc = 990002, name = "Rocklance", map = 1429, x = 89, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V8", true)
+U.vignette("V9", { npc = 990001, map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V9", true)
+stub.advance(4)
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V8", true)
+local f = PolestarRareToast
+emit({ n = #got, name = f.Name:GetText(), target = f.Target:IsShown(), unnamed = R.Toast.Current().unnamed or false })"#,
+	);
+	assert_eq!(out[0], json!({ "n": 2, "name": "Unknown rare", "target": false, "unnamed": true }));
 }
 
 // Where a frame is on screen, from its anchors (stub frames keep them, the stub lays nothing out): offsets and
@@ -851,7 +950,7 @@ end
 emit(out)"#
 		),
 	);
-	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]";
+	let macro_ = "/cleartarget [nocombat]\n/targetexact Rocklance\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8";
 	for (i, case) in out[0].as_array().unwrap().iter().enumerate() {
 		assert_eq!(case["first"], true, "case {i}: the click lands on the secure overlay where the card's Target button shows");
 		assert_eq!(case["moved"], true, "case {i}: and still after the card moved");
@@ -1300,4 +1399,40 @@ Polestar.Set("rares.founder", false)
 emit({ before, #R.Nearby() })"#,
 	);
 	assert_eq!(later[0], json!([1, 0]));
+}
+
+// The alert card drags as Polestar's windows do (Polestar.DragWindow): from the first pixel, by exactly the
+// pointer's travel at its scale; the drop is saved as { point, x, y } on the card's own point (the top), in whole
+// units.
+#[test]
+fn the_rare_alert_follows_the_pointer_and_saves_its_spot_on_its_own_point() {
+	let out = run(r#"
+Polestar.Codex.Load()
+Polestar.Fire("RARE_SPOTTED", R.AlertOf({ source = "vignette", kind = "treasure", id = 2843, name = "Battered Chest" }, { map = 1429, x = 79.6, y = 55.7 }, true))
+-- Once its arrival has settled (Anim moves it in).
+stub.advance(1)
+local f = PolestarRareToast
+f:SetScale(1.2)
+f.x, f.y = 700, 800
+local s, left0, top0 = f:GetEffectiveScale(), f:GetLeft(), f:GetTop()
+local function near(a, b) return math.abs(a - b) < 1e-9 end
+stub.cursor = { 900, 500 }
+stub.RunScript(f, "OnMouseDown", "LeftButton")
+stub.cursor = { 901, 500 }
+stub.advance(0.02)
+local p, _, rp, x, y = f:GetPoint(1)
+local first = p == "TOPLEFT" and rp == "BOTTOMLEFT" and near(x, left0 + 1 / s) and near(y, top0)
+stub.cursor = { 940, 470 }
+stub.advance(0.02)
+p, _, rp, x, y = f:GetPoint(1)
+local follows = near(x, left0 + 40 / s) and near(y, top0 - 30 / s)
+stub.RunScript(f, "OnMouseUp", "LeftButton")
+local saved = Polestar.Get("rares.toastPoint")
+local k = UIParent:GetEffectiveScale() / s
+local wx = math.floor(f:GetLeft() + f:GetWidth() / 2 - UIParent:GetWidth() * k / 2 + 0.5)
+local wy = math.floor(f:GetBottom() + f:GetHeight() - UIParent:GetHeight() * k + 0.5)
+emit({ first = first, follows = follows, saved = saved, want = { "TOP", wx, wy } })"#);
+	assert_eq!(out[0]["first"], true, "from the first pixel");
+	assert_eq!(out[0]["follows"], true, "by exactly the pointer's travel, at the card's scale");
+	assert_eq!(out[0]["saved"], out[0]["want"], "saved on its own point, in whole units");
 }

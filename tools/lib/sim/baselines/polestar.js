@@ -7,6 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { compileProject } = require('../../dsl/project');
 const { CLASSES, RACES } = require('../../game/races');
+const { LEVEL_XP } = require('../../game/xp');
 
 const MAX_ENUMERATED = 2000;
 const ANY_CLASS_MIN = 8; // a class list this long came from a negation (`!Druid`)
@@ -41,15 +42,50 @@ function target(goal) {
 	return null;
 }
 
+// The dungeons a played character chose (`when dungeon`, Options' "Dungeons in
+// leveling guides"): null or [] none (the solo route), 'all', or map ids and
+// names ("Wailing Caverns", 36). -> chosen(p) for a compiled `when dungeon`.
+function dungeonPicker(dungeons) {
+	if (dungeons === 'all') return () => true;
+	const norm = (s) => String(s).trim().toLowerCase().replace(/^the\s+/, '');
+	const set = new Set([].concat(dungeons || []).map(norm));
+	return (p) => (p.map != null && set.has(String(p.map))) || (p.name != null && set.has(norm(p.name)));
+}
+
+// The group quests a played character does (`when group`, the addon's answer
+// to "do this group quest?"): null or [] none (a solo player), 'all', or quest
+// ids. -> grouped(q) for a compiled `when group`.
+function groupPicker(groups) {
+	if (groups === 'all') return () => true;
+	const set = new Set([].concat(groups || []).map(Number));
+	return (q) => set.has(Number(q));
+}
+
+// A step's `when dungeon` and `when group` predicates hold for the character:
+// a `when dungeon` step only for a chosen dungeon (ctx.chosen), `when !dungeon`
+// only for one not chosen; a `when group` step only for a group quest the
+// character does (ctx.grouped), `when !group` only for one it skips. Other
+// `when` predicates are the play's (not modelled here).
+function whenHolds(step, ctx) {
+	return !(step.when || []).some((p) => (p.k === 'dungeon' && ctx.chosen(p) === !!p.neg) || (p.k === 'group' && ctx.grouped(p.q) === !!p.neg));
+}
+
+// A `level` goal's checkpoint: its level and the XP into it (`level 28.9` is 90%
+// of level 28's XP, reached as the addon counts it: XP / XPMax >= frac; the
+// epsilon keeps 0.34 x 167100 = 56814.00000000001 at 56814).
+function levelEvent(goal) {
+	return { t: 'level', level: goal.level, xp: goal.frac ? Math.ceil(goal.frac * LEVEL_XP[goal.level] - 1e-6) : null };
+}
+
 function guideEvents(g, ctx) {
 	const events = [{ t: 'guide', title: g.title, zone: g.zoneName || null, levels: g.minLevel != null ? [g.minLevel, g.maxLevel ?? g.minLevel] : null, id: g.id }];
 	for (const step of g.steps || []) {
-		if (!onlyHolds(step.only, ctx)) continue;
+		if (!onlyHolds(step.only, ctx) || !whenHolds(step, ctx)) continue;
 		const seen = new Set();
 		for (const goal of step.goals || []) {
 			if (!onlyHolds(goal.only, ctx)) continue;
 			let e = null;
-			if (goal.t === 'level') e = { t: 'level', level: goal.level, xp: null };
+			if (goal.t === 'level') e = levelEvent(goal);
 			else if (goal.quest == null) continue;
 			else if (goal.t === 'accept' || goal.t === 'turnin') e = { t: goal.t, q: goal.quest, ...target(goal) };
 			else {
@@ -101,7 +137,13 @@ function firstFor(guides, rFile, { anyRace = false } = {}) {
 // default chain comes first (`prefix`, its guide ids): the race's starting
 // guide, then `next` (else the first route choice), up to and including the
 // guide whose maxLevel reaches the pack chain's first level.
-function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, race, cls = null, quests = null, maxPaths = MAX_ENUMERATED, pack = null } = {}) {
+// `dungeons` (dungeonPicker): the dungeons the character chose; their `when
+// dungeon` steps are played and their `when !dungeon` steps left out (none by
+// default: the solo route). Price the runs with the sim's 'dungeons' family.
+// `groups` (groupPicker): the group quests the character does; their `when
+// group` steps are played and their `when !group` steps left out (none by
+// default: a solo player skips them).
+function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, race, cls = null, quests = null, maxPaths = MAX_ENUMERATED, pack = null, dungeons = null, groups = null } = {}) {
 	const rFile = raceFile(race);
 	// A one-side race implies its faction; Skyborne (both sides) needs one given.
 	const sides = Object.keys((RACES[lower(race).replace(/[\s_-]/g, '')] || {}).sides || {});
@@ -119,7 +161,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		guides = [...compiled.guides.filter((g) => !packGuides.has(g.id)), ...p.guides];
 	}
 	const clsFile = cls ? (CLASSES[lower(cls)] || {}).file || String(cls).toUpperCase() : null;
-	const ctx = { faction: fac, race: rFile, cls: clsFile };
+	const ctx = { faction: fac, race: rFile, cls: clsFile, chosen: dungeonPicker(dungeons), grouped: groupPicker(groups) };
 
 	const leveling = guides.filter((g) => g.category === 'Leveling' && (!g.faction || g.faction === fac));
 	const byId = new Map(leveling.map((g) => [g.id, g]));
@@ -143,6 +185,10 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		const list = g.nextChoices && g.nextChoices.length ? g.nextChoices : g.next ? [g.next] : [];
 		return list.filter((id) => byId.has(id));
 	};
+	// The guide's way on for this faction: its default `next` when that is one of ours, else its first option this
+	// faction follows (a leveling guide for both factions, such as forever/40-50/shendralas, lists each side's next
+	// guide; the addon goes on by the character's faction).
+	const nextOf = (g) => (g.next && byId.has(g.next) ? g.next : options(g)[0]);
 
 	// Graph of everything reachable from the start guide.
 	const nodes = [];
@@ -152,7 +198,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		const g = byId.get(queue[i]);
 		nodes.push({ id: g.id, title: g.title, levels: g.minLevel != null ? [g.minLevel, g.maxLevel ?? g.minLevel] : null, zone: g.zoneName || null });
 		for (const to of options(g)) {
-			edges.push({ from: g.id, to, default: to === g.next });
+			edges.push({ from: g.id, to, default: to === nextOf(g) });
 			if (!reach.has(to)) {
 				reach.add(to);
 				queue.push(to);
@@ -196,7 +242,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 		const out = [];
 		for (let i = 0; i + 1 < ids.length; i++) {
 			const g = byId.get(ids[i]);
-			if (ids[i + 1] !== g.next) out.push({ from: ids[i], to: ids[i + 1] });
+			if (ids[i + 1] !== nextOf(g)) out.push({ from: ids[i], to: ids[i + 1] });
 		}
 		return out;
 	};
@@ -204,7 +250,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 
 	// Default: follow `next` until it ends or would revisit a guide.
 	const defIds = [start.id];
-	for (let g = start; g.next && byId.has(g.next) && !defIds.includes(g.next); g = byId.get(g.next)) defIds.push(g.next);
+	for (let g = start; nextOf(g) && !defIds.includes(nextOf(g)); g = byId.get(nextOf(g))) defIds.push(nextOf(g));
 
 	// Complete paths through the choices (no guide twice), counted up to the cap.
 	let count = 0;
@@ -252,7 +298,7 @@ function loadPolestarRoutes({ guidesDir, dataDir, data = null, faction = null, r
 				const ids = [...prefix, o];
 				const seen = new Set(ids);
 				for (let cur = byId.get(o); ; ) {
-					const nx = cur.next && byId.has(cur.next) && !seen.has(cur.next) ? cur.next : options(cur).find((x) => !seen.has(x));
+					const nx = nextOf(cur) && !seen.has(nextOf(cur)) ? nextOf(cur) : options(cur).find((x) => !seen.has(x));
 					if (!nx) break;
 					ids.push(nx);
 					seen.add(nx);

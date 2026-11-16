@@ -8,12 +8,15 @@
 // its DungeonJournal facts stay local (THIRD_PARTY.md), so a quest only it
 // knows needs its title (and `lvl`) in the guide. The instances (group
 // content) come from the cached client tables in the `sources` folder beside
-// the data folder (data/sources for data/forever), when there is one.
+// the data folder (data/sources for data/forever), when there is one; data
+// read from a Forever client build does not load without that build's tables
+// there (data/pinned.js).
 
 const fs = require('node:fs');
 const path = require('node:path');
 const SOLO = require('../sim/solo');
 const { loadAreas } = require('../data/areas');
+const { checkPinnedTables } = require('../data/pinned');
 
 const FILES = ['quests', 'npcs', 'objects', 'items', 'zones', 'map-frames', 'meta'];
 const OPTIONAL = ['professions', 'factions', 'trainers', 'races', 'travel', 'spawnz'];
@@ -63,9 +66,17 @@ function loadData(dir) {
 			raw[name] = {};
 		}
 	}
+	// Data read from a Forever client build loads only with that build's tables
+	// beside it (data/pinned.js): without them guides would compile with spell
+	// names as words and places without their area.
+	checkPinnedTables(raw.meta, dir);
 	raw.instances = SOLO.loadInstances(path.join(dir, '..', 'sources'));
 	raw.areas = loadAreas(path.join(dir, '..', 'sources'));
-	return new Data(raw, { dir, missing });
+	const data = new Data(raw, { dir, missing });
+	// data/goal-heights.json beside the data folder (its own parent: data/forever may link elsewhere): heights.js pointHeight.
+	const heights = path.join(path.dirname(path.resolve(dir).replace(/[\\/]+$/, '')), 'goal-heights.json');
+	data.goalHeights = fs.existsSync(heights) ? JSON.parse(fs.readFileSync(heights, 'utf8')).points || null : null;
+	return data;
 }
 
 function lowerKey(s) {

@@ -85,6 +85,41 @@ pub fn read_build_info(install: &Path) -> Result<Vec<BuildInfo>, String> {
 		.collect())
 }
 
+/// The WoW: Forever client products, in the order [`forever_build`] prefers them: the live client
+/// `wowf` (folder `_forever_`), then the old beta and test product `wow_classic_beta`
+/// (`_classic_beta_`). A build of either holds the same tables.
+pub const FOREVER_PRODUCTS: [&str; 2] = ["wowf", "wow_classic_beta"];
+
+/// The Forever row among `.build.info` rows: `wowf` when listed, else `wow_classic_beta`; None
+/// when neither is.
+pub fn pick_forever(rows: &[BuildInfo]) -> Option<&BuildInfo> {
+	FOREVER_PRODUCTS.iter().find_map(|p| rows.iter().find(|r| r.product == *p))
+}
+
+/// The Forever build installed in `install` ([`pick_forever`] of its `.build.info`); Ok(None) when
+/// it lists no Forever product.
+pub fn forever_build(install: &Path) -> Result<Option<BuildInfo>, String> {
+	Ok(pick_forever(&read_build_info(install)?).cloned())
+}
+
+/// The Forever product to open in `install` ([`forever_build`]), or why there is none: the
+/// products its `.build.info` lists instead.
+pub fn forever_product(install: &Path) -> Result<String, String> {
+	let rows = read_build_info(install)?;
+	match pick_forever(&rows) {
+		Some(r) => Ok(r.product.clone()),
+		None => {
+			let have: Vec<String> = rows.iter().map(|b| format!("{} {}", b.product, b.version)).collect();
+			Err(format!(
+				"{}: no WoW: Forever client ({}) in its .build.info (have: {})",
+				install.display(),
+				FOREVER_PRODUCTS.join(" or "),
+				if have.is_empty() { "nothing".into() } else { have.join(", ") }
+			))
+		}
+	}
+}
+
 /// `key = value` lines of a config file.
 fn read_config(data: &Path, key: &str) -> Result<FxHashMap<String, String>, String> {
 	if key.len() < 4 {

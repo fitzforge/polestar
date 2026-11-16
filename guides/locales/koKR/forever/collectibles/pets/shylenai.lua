@@ -12,13 +12,10 @@ return {
 
 	-- Step 1: Shylenai
 	-- {npc:8665} Shylenai · {area:1659} Craftsmen's Terrace · {zone:1457} Darnassus · {item:280803} Eagle Owl
-	["{npc:8665}, the owl trainer, stands on the {area:1659} in {zone:1457}, beside the food and general goods vendors. She sells three owls (50s each); the {item:280803} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:8665}, the owl trainer, stands on the {area:1659} in {zone:1457}, beside the food and general goods vendors. She sells three owls (50s each); the {item:280803} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "부엉이 조련사 {npc:8665}은(는) {zone:1457}의 {area:1659}에서 음식 상인과 잡화 상인 옆에 서 있습니다. 그녀는 부엉이 세 종류를 판매합니다(각 50실버). {item:280803}은(는) Forever에 새로 추가되었습니다. 애완동물 아이템을 사용하면 해당 동물을 배우며, 목표는 그 후에도 체크된 상태로 남습니다.",
 	-- {item:8500} Great Horned Owl
 	["{item:8500}, 50s"] = "{item:8500}, 50실버",
 	-- {item:8501} Hawk Owl
 	["{item:8501}, 50s"] = "{item:8501}, 50실버",
 	["50s"] = "50실버",
-
-	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["{npc:8665} sells three owls in {zone:1457} (50s each); the {item:280803} is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:8665}이(가) {zone:1457}에서 부엉이 세 종류를 판매합니다(각 50실버). {item:280803}은(는) Forever에 새로 추가되었습니다. 애완동물 아이템을 사용하면 해당 동물을 배우며, 목표는 그 후에도 체크된 상태로 남습니다.",
 }

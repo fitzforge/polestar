@@ -98,6 +98,15 @@ function sameAudience(a, b) {
 	return true;
 }
 
+// A guide that carries on another's chain as a job of its own (C's second job, The Eye of Bhossca, after The Horn of
+// Xelthos: 78676 needs 78307 since QuestieDB 1.1.1) is no split when every step of it that works the chain waits on a
+// quest the other guide hands in (`when turnedin`): it opens only once the first guide is done.
+function sequel(later, earlier, chain) {
+	const handedIn = new Set(earlier.ast.steps.flatMap((s) => s.goals.filter((g) => g.verb === 'turnin' && g.quest).map((g) => g.quest)));
+	const works = later.ast.steps.filter((s) => s.goals.some((g) => g.quest && quests[g.quest] && quests[g.quest].classes && root(g.quest) === chain));
+	return works.length > 0 && works.every((s) => (s.when || []).some((w) => w.k === 'turnedin' && !w.neg && handedIn.has(w.q)));
+}
+
 test('no goal is split: two Class guides one character sees never share a quest chain', { skip }, () => {
 	load();
 	const chainsOf = (g) => new Set([...g.quests].filter((q) => quests[q] && quests[q].classes).map(root));
@@ -106,10 +115,18 @@ test('no goal is split: two Class guides one character sees never share a quest 
 		for (let j = i + 1; j < GUIDES.length; j++) {
 			const a = GUIDES[i], b = GUIDES[j];
 			if (!sameAudience(a, b)) continue;
-			const shared = [...sets.get(a.rel)].filter((c) => sets.get(b.rel).has(c));
+			const shared = [...sets.get(a.rel)].filter((c) => sets.get(b.rel).has(c) && !sequel(a, b, c) && !sequel(b, a, c));
 			assert.deepEqual(shared, [], `${a.rel} and ${b.rel} share a chain`);
 		}
 	}
+});
+
+test('The Eye of Bhossca follows The Horn of Xelthos: every step waits on the horn job\'s payment (78307)', { skip }, () => {
+	load();
+	const eye = byRel('forever/class/rogue/the-eye-of-bhossca.guide');
+	const horn = byRel('forever/class/rogue/the-horn-of-xelthos.guide');
+	assert.ok(horn.quests.has(78307), 'the horn guide hands in 78307');
+	assert.ok(sequel(eye, horn, root(78676)), 'the eye guide opens only once 78307 is handed in');
 });
 
 test('the mount chains are routed whole: the Dreadsteed\'s twelve quests and the Charger\'s chain', { skip }, () => {
@@ -207,4 +224,16 @@ test('every chain the level-up heads-up can offer opens a Class guide for each r
 		}
 	}
 	assert.deepEqual(missing, []);
+});
+
+// QuestieDB 1.0.14 brought Terror of the Desert Skies (78830) as a Hunter quest (its Season of Discovery import) with
+// no prerequisite, so the heads-up offered it to Hunters at 26 with no guide for it. On Forever every class takes it,
+// after the drawing quest of the same name (78823): players' recordings have a Rogue and a Shaman taking it once they
+// handed the drawing to Hemet Nesingwary, and the server files it under the Badlands, not a class (corrections, 78830).
+test('Terror of the Desert Skies is no class quest and waits for the Primitive Drawing, so the heads-up offers no chain without a guide', { skip: needs('quests.json') }, () => {
+	load();
+	const q = quests[78830];
+	assert.ok(q, 'quest 78830 is in the data');
+	assert.ok(!q.classes, `78830 has no class limit (classes ${q.classes})`);
+	assert.deepEqual(q.pre, [78823], '78830 waits for the drawing quest, 78823');
 });

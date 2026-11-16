@@ -2,9 +2,10 @@
 //! (behavior.guideEnd "ask"; Engine, Own.noteEnd / Own.endDoneAhead): the guides compiled from guides/ with
 //! the reference data (data/forever; skipped with a note without it), loaded by the full addon on the stub
 //! world. Per guide one character it serves (its first race and class, at its first level and first located
-//! goal), and one more of a class its last step is only for. The last step is the last one for everyone: a
-//! class's or a race's own steps after it (Own.forSome: Cat Form at the end of The Barrens for Druids) are no
-//! end; done ahead first, they must not end the guide (`own`). With the live step left early, only the last
+//! goal; at a higher level when its last step takes a quest that needs it, see below), and one more of a class
+//! its last step is only for. The last step is the last one for everyone: a class's or a race's own steps after
+//! it (Own.forSome: Cat Form at the end of The Barrens for Druids) are no end; done ahead first, they must not
+//! end the guide (`own`). With the live step left early, only the last
 //! applicable step's goals are done the way the game does them (quest state, the level, bags, flight paths
 //! from the flight map, position for goto and explore, the zone text for a flight's landing, the named NPC's
 //! window for train, vendor and talk; a vendor beside other work is left alone, Own.sideVendor); then
@@ -229,6 +230,18 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 				}
 			}
 		}
+		// A last step for everyone that takes a quest from a higher level than the guide's first (Silverpine Forest,
+		// 12-15, ends on Zor Lonetree's The Spirits of Stonetalon, from 13) is the engine's last step all the same,
+		// while at the guide's first level its accept reads unavailable and the check would take the step before it
+		// as the last: the character starts at the level those accepts need.
+		let need = steps.last().filter(|last| last.get("only").is_nullish()).map_or(0.0, |last| {
+			last.get("goals")
+				.items()
+				.iter()
+				.filter(|x| s(x, "t") == "accept" && s(x, "optional") != "true" && x.get("only").is_nullish())
+				.filter_map(|x| data.quests.get(&s(x, "quest")).get("minLevel").as_num())
+				.fold(0.0, f64::max)
+		});
 		let first = steps.iter().flat_map(|st| st.get("goals").items()).find(|x| !x.get("map").is_nullish() && !x.get("x").is_nullish());
 		let faction = if faction == "undefined" {
 			if race == "Orc" || race == "Troll" || race == "Tauren" || race == "Scourge" {
@@ -241,7 +254,8 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 		};
 		for class in classes {
 			let raw = s(g, "minLevel");
-			let level = if raw == "undefined" { "1".to_string() } else { raw };
+			let first_level = if raw == "undefined" { 1.0 } else { raw.parse::<f64>().unwrap_or(1.0) };
+			let level = first_level.max(need).to_string();
 			let start = first.as_ref().map(|x| format!("w.moveTo({}, {}, {})", s(x, "map"), s(x, "x"), s(x, "y"))).unwrap_or_default();
 			let race_name = if race == "Scourge" { "Undead".to_string() } else { race.clone() };
 			let before = format!(

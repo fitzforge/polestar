@@ -52,7 +52,7 @@ return {
 	-- Step 10: The Barrens (1/4)
 	["25 areas to discover here, levels 10-33."] = "이곳에서 발견할 지역은 25곳, 레벨 10-33입니다.",
 	-- {zone:1413} The Barrens · {area:1702} Honor's Stand · {area:380} The Crossroads · {area:378} Camp Taurajo · {area:392} Ratchet
-	["The road east out of south-eastern Stonetalon comes down into the {zone:1413} at {area:1702}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "",
+	["The road east out of south-eastern Stonetalon comes down into the {zone:1413} at {area:1702}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "돌발톱 산맥 남동부에서 동쪽으로 나가는 길은 {area:1702}에서 {zone:1413}(으)로 내려옵니다. {area:380}와(과) {area:378}은(는) 호드 마을이고, {area:392}은(는) 중립 항구입니다.",
 	-- {area:392} Ratchet
 	["Flight path here: {area:392} (Bragok)."] = "이곳의 비행 경로: {area:392} (브라고크).",
 	-- {area:378} Camp Taurajo
@@ -80,7 +80,7 @@ return {
 	-- Step 16: Mulgore (1/2)
 	["16 areas to discover here, levels 5-10."] = "이곳에서 발견할 지역은 16곳, 레벨 5-10입니다.",
 	-- {zone:1413} The Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {zone:1456} Thunder Bluff
-	["Go back west across the {zone:1413}; the road west from {area:378} climbs through the only pass into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "",
+	["Go back west across the {zone:1413}; the road west from {area:378} climbs through the only pass into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "{zone:1413}을(를) 가로질러 서쪽으로 돌아가세요. {area:378}에서 서쪽 길이 유일한 고개를 넘어 {zone:1412}입니다. 타우렌 지역이며 {area:222}와(과) {zone:1456}에 경비병이 있습니다.",
 
 	-- Step 17: Mulgore (2/2)
 	-- {zone:1456} Thunder Bluff
@@ -91,7 +91,7 @@ return {
 	-- Step 18: Thousand Needles (1/2)
 	["9 areas to discover here, levels 24-35."] = "이곳에서 발견할 지역은 9곳, 레벨 24-35입니다.",
 	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:485} Great Lift · {zone:1441} Thousand Needles · {area:484} Freewind Post
-	["Leave {zone:1412} by the same pass and ride south through the {zone:1413} to the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "",
+	["Leave {zone:1412} by the same pass and ride south through the {zone:1413} to the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "같은 고개로 {zone:1412}을(를) 나가 {zone:1413}을(를) 지나 남쪽 {area:485}까지 가서 {zone:1441}(으)로 내려가세요. {area:484}은(는) 호드 마을입니다.",
 
 	-- Step 19: Thousand Needles (2/2)
 	-- {area:484} Freewind Post
@@ -108,15 +108,15 @@ return {
 	-- {area:814} Southfury River · {zone:1411} Durotar · {zone:1413} The Barrens · {area:385} Northwatch Hold
 	["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "{area:814}의 다리를 건너 {zone:1411}에서 서쪽의 {zone:1413}으로 가세요. 동쪽의 {area:385}은(는) 얼라이언스 요새입니다.",
 	-- {area:392} Ratchet · {area:378} Camp Taurajo · {npc:10378} Omusa Thunderhorn
-	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "",
+	["Flight paths here: {area:392} (Bragok), Crossroads (Devrak), {area:378} ({npc:10378})."] = "이곳의 비행 경로: {area:392} (브라고크), 크로스로드 (데브락), {area:378} ({npc:10378}).",
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The road west from {area:378} climbs through the only pass into {zone:1412}."] = "",
+	["The road west from {area:378} climbs through the only pass into {zone:1412}."] = "{area:378}에서 서쪽 길이 유일한 고개를 넘어 {zone:1412}입니다.",
 
 	-- Step 28: Stonetalon Mountains (1/2)
 	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:1702} Honor's Stand · {zone:1442} Stonetalon Mountains · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak
-	["Leave {zone:1412} by the same pass, ride north through the {zone:1413} and west at {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "",
+	["Leave {zone:1412} by the same pass, ride north through the {zone:1413} and west at {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "같은 고개로 {zone:1412}을(를) 나가 {zone:1413}을(를) 지나 북쪽으로 가다가 {area:1702}에서 서쪽 {zone:1442}(으)로 가세요. {area:460}은(는) 호드 마을이고, 북쪽의 {area:467}은(는) 얼라이언스 지역입니다.",
 	-- {area:460} Sun Rock Retreat
 	["Flight path here: {area:460} (Tharm)."] = "이곳의 비행 경로: {area:460} (타름).",
 
@@ -163,11 +163,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Flight path here: {zone:1456} (Tal)."] = "이곳의 비행 경로: {zone:1456} (탈).",
-	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "이곳의 비행 경로: {area:392} (브라고크), {area:380} (데브락), {area:378} ({npc:10378}).",
-	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "{zone:1413} 남부에서 {area:485}을(를) 타고 {zone:1441}(으)로 내려가세요. {area:484}은(는) 호드 마을입니다.",
-	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "{zone:1413}으로 돌아가 서쪽의 {area:1702}을(를) 지나 {zone:1442}(으)로 가세요. {area:460}은(는) 호드 마을이고, 북쪽의 {area:467}은(는) 얼라이언스 지역입니다.",
-	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "{zone:1413}을(를) 가로질러 서쪽으로 돌아가세요. {area:378}에서 서쪽 길을 오르면 {zone:1412}입니다. 타우렌 지역이며 {area:222}와(과) {zone:1456}에 경비병이 있습니다.",
-	-- ["The road west from {area:378} climbs into {zone:1412}."] = "{area:378}에서 서쪽 길을 오르면 {zone:1412}입니다.",
 	-- ["The {area:485}"] = "{area:485}",
-	-- ["Walk east out of Stonetalon (or south out of {zone:1440}) into the {zone:1413}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "돌발톱 산맥에서 동쪽으로(또는 {zone:1440}에서 남쪽으로) 걸어 {zone:1413}으로 가세요. {area:380}와(과) {area:378}은(는) 호드 마을이고, {area:392}은(는) 중립 항구입니다.",
 }

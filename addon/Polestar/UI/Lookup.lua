@@ -92,6 +92,7 @@ local FALLBACK_KINDS = {
 local SOURCE_ICON = {
 	vendor = "icon-vendor", drop = "icon-kill", object = "icon-interact", quest = "icon-accept", gift = "icon-talk", craft = "icon-craft",
 	rep = "icon-rep", pvp = "icon-achieve", container = "icon-use", world = "icon-explore",
+	flight = "icon-fly", inn = "icon-sethome", middle = "icon-explore",
 }
 
 -- The client's colours, for a client (or preview) without the API.
@@ -259,14 +260,10 @@ local function paintName(fs, k, quality)
 	end
 end
 
+-- An amount of copper in the client's coin symbols (ns.MoneyText), nil for none.
 function LK.Money(copper)
 	if type(copper) ~= "number" or copper <= 0 then return nil end
-	local g, s, c = floor(copper / 10000), floor(copper / 100) % 100, copper % 100
-	local parts = {}
-	if g > 0 then parts[#parts + 1] = g .. L["g"] end
-	if s > 0 then parts[#parts + 1] = s .. L["s"] end
-	if c > 0 then parts[#parts + 1] = c .. L["c"] end
-	return table.concat(parts, " ")
+	return ns.MoneyText(copper)
 end
 
 function LK.Travel(seconds)
@@ -551,6 +548,9 @@ function LK.Activate()
 		LK.Guide(sourceSel)
 	elseif details and details.psPrimaryAction then
 		details.psPrimaryAction()
+	elseif sel.kind == "zone" and not (LK.detail and LK.detail.primary) then
+		-- A continent or a battleground: nothing to guide to, and the note says so.
+		return
 	else
 		LK.Guide(nil)
 	end
@@ -641,10 +641,7 @@ local function buildDetails()
 	d.Art = ZoneArt.Create(d, DETAIL_W, ART_H, "panel")
 	d.Art.psZoom = 1.5
 	d.Art:SetPoint("TOPLEFT", d, "TOPLEFT", 0, 0)
-	d.Art:EnableMouse(true)
-	d.Art:RegisterForDrag("LeftButton")
-	d.Art:SetScript("OnDragStart", function() shell:StartMoving() end)
-	d.Art:SetScript("OnDragStop", function() shell:StopMovingOrSizing() end)
+	ns.DragWindow(d.Art, shell)
 	-- The icon in a dark well with a hairline in the quality colour, the
 	-- name beside it and a muted line under the name.
 	d.Well = CreateFrame("Frame", nil, d.Art.Over)
@@ -738,7 +735,7 @@ local function factsFor(s, entity, list)
 	if k == "guide" then
 		local g = guideHeader(s.id) or {}
 		add(L["Category"], g and UI.Category and L[UI.Category(g)])
-		add(L["Levels"], UI.LevelRange(g.minLevel, g.maxLevel))
+		add(L["Levels"], UI.GuideLevels(g))
 		add(L["Faction"], ns.FactionName(g.faction) or L["Both factions"])
 		if g.stepCount or g.steps then add(L["Steps"], tostring(g.stepCount or #g.steps)) end
 		return out
@@ -798,7 +795,8 @@ local function headText(k)
 end
 
 -- The band: where it is got (the best source with a place), or its own
--- map, else the night sky.
+-- map, else the night sky. A dungeon without a known entrance: the zone its
+-- page places it in (its own `map` is the instance's, no zone painting).
 local function bandMap(s, entity, list)
 	if s.kind == "zone" then return s.id end
 	if s.kind == "guide" then
@@ -809,6 +807,10 @@ local function bandMap(s, entity, list)
 		if row.map then return row.map, row.x, row.y end
 	end
 	if entity and type(entity.entrance) == "table" then return entity.entrance.map, entity.entrance.x, entity.entrance.y end
+	if s.kind == "instance" then
+		local d = ns.Dungeons and ns.Dungeons.Get and ns.Dungeons.Get(s.id)
+		return d and d.zone or nil
+	end
 	return entity and entity.map or nil
 end
 
@@ -870,6 +872,9 @@ local function renderDetails(loaded, reason)
 	-- The band.
 	local map, fx, fy = bandMap(s, entity, list)
 	d.psArt = ZoneArt.Paint(d.Art, map, fx, fy, skyIndex(keyOf(s.kind, s.id)))
+	-- A dungeon with no zone known: its loading screen (Dungeons.Art).
+	local pic = not d.psArt and s.kind == "instance" and ns.Dungeons and ns.Dungeons.Art and ns.Dungeons.Art(s.id)
+	if pic then d.psArt = ZoneArt.Picture(d.Art, pic) end
 	local icon = KIND[s.kind] and KIND[s.kind].item and itemIcon(s.id)
 	d.Icon:ClearAllPoints()
 	if icon then
@@ -959,7 +964,8 @@ local function renderDetails(loaded, reason)
 		end
 		d.Secondary.psAction = function() LK.OpenGuide(s.id, true) end
 		note = g and g.pitch or nil
-	elseif s.kind == "zone" then
+	elseif s.kind == "zone" and not (list and #list > 0) then
+		-- A continent or a battleground: no flight master, inn or middle to go to.
 		note = L["Zones have no sources. Search for what is in them."]
 	elseif blocked then
 		note = STATUS_NOTE[status]
@@ -975,7 +981,11 @@ local function renderDetails(loaded, reason)
 		note = MOUNT_NOTE
 	elseif best then
 		primary = L["Guide me"]
-		note = format(L["Builds a guide to %s, the best source for you, and opens it in a new tab."], list[best].label or "?")
+		if s.kind == "zone" then
+			note = format(L["Builds a guide to %s, the quickest of these to reach, and opens it in a new tab."], list[best].label or "?")
+		else
+			note = format(L["Builds a guide to %s, the best source for you, and opens it in a new tab."], list[best].label or "?")
+		end
 	elseif list and #list > 0 then
 		primary, enabled = L["Guide me"], false
 		note = L["No source is open to this character yet. Pick one above to be guided anyway."]
@@ -1021,7 +1031,7 @@ local function renderDetails(loaded, reason)
 
 	-- Sources.
 	local rowsShown = {}
-	if list and s.kind ~= "zone" then
+	if list and (s.kind ~= "zone" or #list > 0) then
 		d.Head.Text:SetText(headText(s.kind))
 		d.Head.Count:SetText(#list > 0 and tostring(#list) or "")
 		d.Head:ClearAllPoints()

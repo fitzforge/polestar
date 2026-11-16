@@ -89,6 +89,7 @@ step Cliffspring Falls
   only NightElf,Skyborne,Alliance
   zone Darkshore
   tip Head north-east from Auberdine to Cliffspring Falls. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the Empty Cliffspring Falls Sampler (not the Empty Sampling Tube of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight.
+  level 16
   use 15844 quest 6122.1 @54.9,33.3       -- Empty Cliffspring Falls Sampler, at the cave mouth
   collect 15845 quest 6122.1            -- Filled Cliffspring Falls Sampler
 
@@ -170,6 +171,7 @@ step Tonga Runetotem
 step Earthroot and Kodo Horns
   only Tauren,Skyborne,Horde
   tip Every Lost Barrens Kodo (level 14-15) drops a horn, but they are few and wander: search the far north near the Sludge Fen and the oases, above all the Stagnant Oasis south-east of the Crossroads. They charge from range and stomp. Herbalists find Earthroot all over the northern Barrens.
+  level 15
   collect 15852 x5 quest 6128.2         -- Kodo Horn
   collect 2449 x5 quest 6128.1          -- Earthroot
 

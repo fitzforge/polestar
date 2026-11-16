@@ -174,7 +174,8 @@ fn t_1596_optional_work_and_other_classes_steps_keep_the_walk() {
 
 // The shipped guide (addon/Polestar_Guides_Horde) on the real addon, with Redrett's quest log from the report:
 // 2841 0/2, 567 2/4, 515 0/3, 4542 done, 6681 0/1; every quest of the guide before the walk up done, every flight
-// path in it known; standing in Camp Taurajo.
+// path in it known; standing in Camp Taurajo. Since the 0.4.0 Horde route the Tear of the Moons is left out of the
+// guide (#1333), so the first step with work for him after the walk is Freewind Post's, where 4542 is handed in.
 #[test]
 fn t_1596_redrett_on_the_shipped_ashenvale_passes_the_thunder_bluff_walk() {
 	let dir = forge_addontest::run::addons_dir();
@@ -193,11 +194,11 @@ stub.login(); stub.advance(0.25)
 Polestar.Set("behavior.autoAccept", false)
 E.SetGuide("forever/horde/07-ashenvale"); stub.advance(0.25)
 local g = E.GetGuide()
-local tb, tear
+local tb, fw
 for i, step in ipairs(g.steps) do
 	local goal = step.goals[1]
 	if not tb and step.title == "Thunder Bluff" and #step.goals == 1 and goal.t == "goto" then tb = i end
-	for _, x in ipairs(step.goals) do if x.t == "accept" and x.quest == 857 then tear = tear or i end end
+	for _, x in ipairs(step.goals) do if tb and i > tb and x.t == "turnin" and x.quest == 4542 then fw = fw or i end end
 end
 local done, taxi = {}, Polestar.CharState().flags
 taxi.taxi = {}
@@ -211,7 +212,7 @@ stub.world.complete(done)
 stub.world.moveTo(1413, 44.53, 58.97); stub.world.setZone("The Barrens", "Camp Taurajo")
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.25)
 if E.GetStepIndex() < tb then E.SkipUpTo(tb); stub.advance(0.25) end
-emit({ tb = tb, tear = tear, at = E.GetStepIndex() })
+emit({ tb = tb, fw = fw, at = E.GetStepIndex() })
 "#;
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -221,8 +222,8 @@ emit({ tb = tb, tear = tear, at = E.GetStepIndex() })
 		..Default::default()
 	})
 	.remove(0);
-	assert!(out["tb"].is_u64() && out["tear"].is_u64(), "{out}");
-	assert_eq!(out["at"], out["tear"], "the walk up to Thunder Bluff passes; the Tear of the Moons leads: {out}");
+	assert!(out["tb"].is_u64() && out["fw"].is_u64(), "{out}");
+	assert_eq!(out["at"], out["fw"], "the walk up to Thunder Bluff passes; Freewind Post's hand-in of 4542 leads: {out}");
 }
 
 // The same live step after a reload (0.3.7 skip-ahead gate). Passing a stop stores the `when` that failed there as

@@ -1,6 +1,6 @@
-//! `forge release version`: sets package.json, guides/pack.json and every addon TOC, changing nothing
-//! else; names a file that disagrees; refuses a bad version or a file without a version to set. And the
-//! checkout itself: every addon TOC and guides/pack.json carry package.json's version.
+//! `forge release version`: sets package.json, guides/pack.json, experimental/pack.json and every addon
+//! TOC, changing nothing else; names a file that disagrees; refuses a bad version or a file without a
+//! version to set. And the checkout itself: every addon TOC and both manifests carry package.json's version.
 
 use std::path::{Path, PathBuf};
 use std::process::Command;
@@ -95,13 +95,37 @@ fn version_names_a_manifest_that_disagrees_and_refuses_one_without_a_version() {
 	assert!(read(&root, "addon/Polestar/Polestar.toc").contains("\n## Version: 0.1.0\n"));
 }
 
-/// The checkout: every addon TOC and guides/pack.json (compile writes its version into
-/// Polestar_Guides.toc) carry package.json's version.
+/// Polestar's experimental pack (experimental/pack.json, built into Polestar_Experimental) follows the
+/// release's version as our guides' manifest does.
+#[test]
+fn version_sets_and_checks_the_experimental_pack_json_too() {
+	let root = fake_root("experimental");
+	let r = root.to_string_lossy().into_owned();
+	std::fs::create_dir_all(root.join("experimental")).unwrap();
+	let file = root.join("experimental/pack.json");
+	std::fs::write(&file, "{\n\t\"id\": \"polestar-experimental\",\n\t\"author\": \"Polestar\",\n\t\"version\": \"0.1.0\"\n}\n").unwrap();
+	let set = forge(&["0.2.0", "--root", &r]);
+	assert_eq!(set.status, 0, "{}", set.stderr);
+	assert!(set.stdout.contains("version 0.2.0: package.json, guides/pack.json, experimental/pack.json and 3 addon TOCs"), "{}", set.stdout);
+	assert_eq!(read(&root, "experimental/pack.json"), "{\n\t\"id\": \"polestar-experimental\",\n\t\"author\": \"Polestar\",\n\t\"version\": \"0.2.0\"\n}\n");
+	std::fs::write(&file, read(&root, "experimental/pack.json").replace("0.2.0", "0.1.9")).unwrap();
+	let shown = forge(&["--root", &r]);
+	assert_eq!(shown.status, 1);
+	assert!(shown.stderr.contains("experimental/pack.json: version 0.1.9"), "{}", shown.stderr);
+}
+
+/// The checkout: every addon TOC, guides/pack.json (compile writes its version into Polestar_Guides.toc)
+/// and, when the checkout has the experimental guides, experimental/pack.json (into
+/// Polestar_Experimental.toc) carry package.json's version.
 #[test]
 fn the_checkout_carries_one_version_everywhere() {
 	let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../../..").canonicalize().unwrap();
 	let files = forge_release::version::files(&repo, &repo.join("addon"));
-	assert!(files.manifest.is_some());
+	let mut want = vec![repo.join("guides/pack.json")];
+	if repo.join("experimental/pack.json").exists() {
+		want.push(repo.join("experimental/pack.json"));
+	}
+	assert_eq!(files.manifests, want);
 	let (_, wrong) = forge_release::version::check(&files).unwrap();
 	assert!(wrong.is_empty(), "{wrong:?}");
 }

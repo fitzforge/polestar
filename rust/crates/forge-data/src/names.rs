@@ -9,12 +9,16 @@
 //!
 //! Sources, per id, the first one with a name that is no English name winning (names_sources.rs):
 //!   1. The Forever client's own tables in that language (items, map, encounter, faction, taxi).
-//!   2. The web quest database's Forever pages in that language, only what is cached: the only source
-//!      for the names of Forever's own quests, NPCs and objects.
-//!   3. DingDB (pinned), whose base data comes from QuestieDB, so --no-questie leaves it out.
-//!   4. pfQuest's db/<locale>, for the names DingDB lacks.
+//!   2. The names the Forever client showed players (data/i18n/names-observed/<locale>.json): the server's
+//!      own names, collected from the client's cache and from names learned in play, reviewed in the
+//!      repository. The server's name is the true one, so it comes before every source below.
+//!   3. The web quest database's Forever pages in that language, only what is cached: for the names of
+//!      Forever's own quests, NPCs and objects the client showed nobody yet.
+//!   4. DingDB (pinned), whose base data comes from QuestieDB, so --no-questie leaves it out.
+//!   5. pfQuest's db/<locale>, for the names DingDB lacks.
 //!
-//! Only the ids Polestar's data names are kept: the compiled guides (addon/Polestar_Guides/Guides.lua),
+//! Only the ids Polestar's data names are kept: the compiled guides (addon/Polestar_Guides/Guides.lua, its
+//! faction parts and Polestar Experimental's addon/Polestar_Experimental/Guides.lua),
 //! the quest database (addon/Polestar_QuestDB), the Codex's data (data/forever/codex), the travel data's
 //! flight points (addon/Polestar/Nav/TravelData.lua) and the lifts' objects (Polestar_Nav's
 //! Chokepoints.lua).
@@ -28,11 +32,11 @@ use forge_guide::locales::locale as locale_info;
 use regex::Regex;
 
 use crate::lua::lua_to_value;
-use crate::names_sources::{self as src, ClientNames, PfNames, WebNames};
+use crate::names_sources::{self as src, ClientNames, ObservedNames, PfNames, WebNames};
 pub use crate::names_sources::{clean, ding_pin, Ding, Names, Pin, NAME_KINDS};
 
 pub const PACK_KINDS: [&str; 9] = ["quest", "npc", "object", "item", "map", "encounter", "faction", "taxi", "objective"];
-pub const SOURCE_KEYS: [&str; 4] = ["wago", "web", "ding", "pfquest"];
+pub const SOURCE_KEYS: [&str; 5] = ["wago", "observed", "web", "ding", "pfquest"];
 const COMMAND: &str = "forge data names";
 const OBJECTIVE: usize = 8;
 const ENCOUNTER: usize = 5;
@@ -53,12 +57,12 @@ end
 return { quest = list(__ids.quest), npc = list(__ids.npc), object = list(__ids.object), item = list(__ids.item) }"#;
 
 /// Every compiled guide's goals, candidates, reagents and rewards: the keys quest, npc, object and item,
-/// the quests of pre, preAll and closedBy (one id or a list) and of preTitles (its keys), the prose's
+/// the quests of pre, preAll, closedBy and crumbs (one id or a list) and of preTitles (its keys), the prose's
 /// {kind:id} tokens (names), and a collect's sources (fromId, fromAlsoId, of kind fromKind).
 const GUIDE_WALK: &str = r#"
 __ids = { quest = {}, npc = {}, object = {}, item = {} }
 local KIND = { quest = "quest", npc = "npc", object = "object", item = "item" }
-local QUESTS = { pre = true, preAll = true, closedBy = true }
+local QUESTS = { pre = true, preAll = true, closedBy = true, crumbs = true }
 local function add(kind, v) if type(v) == "number" then __ids[kind][v] = true end end
 local function walk(t)
   for k, v in pairs(t) do
@@ -79,7 +83,8 @@ local function walk(t)
   add(from, t.fromId)
   add(from, t.fromAlsoId)
 end
-Polestar = { RegisterGuide = function(g) if type(g) == "table" then walk(g) end return true end, RetireGuides = function() end }
+Polestar = { RegisterGuide = function(g) if type(g) == "table" then walk(g) end return true end, RetireGuides = function() end,
+  RegisterExperimental = function(list) if type(list) == "table" then walk(list) end end }
 "#;
 
 /// The quest database's ids: the "\n<id>\t" lines of each kind's LuaChunks text (Q.AddChunk).
@@ -136,12 +141,17 @@ pub fn used_ids(guides: &Path, questdb: &Path, codex: &Path) -> Result<UsedIds, 
 	if c_files.iter().any(|f| !f.exists()) {
 		return Err(format!("the Codex data is not built (no {}): run forge data codex, or pass --codex <data/forever/codex folder>", c_files[0].display()));
 	}
-	// Polestar's own pack keeps each faction's guides in a part beside it (Polestar_Guides_Alliance, _Horde).
+	// Polestar's own pack keeps each faction's guides in a part beside it (Polestar_Guides_Alliance, _Horde), and
+	// Polestar Experimental's guides (the route choices' new zones) in their own folder beside it.
 	let parts: Vec<PathBuf> = match (guides.parent(), guides.file_name()) {
 		(Some(dir), Some(file)) => {
 			let folder = dir.file_name().map(|f| f.to_string_lossy().into_owned()).unwrap_or_default();
 			let up = dir.parent().unwrap_or(Path::new("."));
-			forge_guide::project::FACTION_PARTS.iter().map(|f| up.join(forge_guide::project::part_addon(&folder, f)).join(file)).filter(|p| p.exists()).collect()
+			let mut parts: Vec<PathBuf> = forge_guide::project::FACTION_PARTS.iter().map(|f| up.join(forge_guide::project::part_addon(&folder, f)).join(file)).collect();
+			if folder == "Polestar_Guides" {
+				parts.push(up.join("Polestar_Experimental").join(file));
+			}
+			parts.into_iter().filter(|p| p.exists()).collect()
 		}
 		_ => Vec::new(),
 	};
@@ -313,6 +323,19 @@ fn usable(s: &str) -> bool {
 	!s.is_empty() && !PLACEHOLDER.is_match(s)
 }
 
+/// Whether a name fits the script of its language: a Korean, Chinese or Russian name with Latin letters and
+/// none of the language's own is another language's (the web data once named a koKR NPC in Portuguese,
+/// "Cavalo de Guerra Descarnado Ocre"), and the English shows instead. A name of no letters fits any.
+fn fits_script(locale: &str, s: &str) -> bool {
+	let own: fn(char) -> bool = match locale {
+		"koKR" => |c| matches!(c, '\u{AC00}'..='\u{D7A3}' | '\u{1100}'..='\u{11FF}' | '\u{3130}'..='\u{318F}'),
+		"zhCN" | "zhTW" => |c| matches!(c, '\u{4E00}'..='\u{9FFF}' | '\u{3400}'..='\u{4DBF}' | '\u{F900}'..='\u{FAFF}'),
+		"ruRU" => |c| matches!(c, '\u{0400}'..='\u{04FF}'),
+		_ => return true,
+	};
+	s.chars().any(own) || !s.chars().any(|c| c.is_ascii_alphabetic() || matches!(c, '\u{00C0}'..='\u{024F}'))
+}
+
 /// English names to tell a translation from a string left in English, per pack kind.
 pub type English = [HashMap<i64, HashSet<String>>; 9];
 
@@ -333,7 +356,7 @@ pub struct Built {
 	/// The ids whose every name is English.
 	pub english: [BTreeSet<i64>; 9],
 	/// Per kind, the names each source gave (SOURCE_KEYS order).
-	pub from: [[usize; 4]; 9],
+	pub from: [[usize; 5]; 9],
 }
 
 impl Built {
@@ -349,18 +372,22 @@ pub struct Inputs<'a> {
 	/// With enUS among its locales.
 	pub pf: &'a BTreeMap<String, PfNames>,
 	pub wago: Option<&'a BTreeMap<String, src::KindNames>>,
+	/// The names the client showed players, per language.
+	pub observed: Option<&'a BTreeMap<String, ObservedNames>>,
 	pub web: Option<&'a BTreeMap<String, WebNames>>,
 	pub english: &'a English,
 }
 
 /// Per id the first source with a name that is no English name wins, so any real translation beats a
 /// string some source left in English; an id whose names are all English gets none (the English shows
-/// anyway). A name with a placeholder marker is none.
+/// anyway). A name with a placeholder marker is none, and so is one in another script ([`fits_script`]):
+/// an id whose other names are English is still one named as in English, and one with no other name has none.
 pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 	let mut out = BTreeMap::new();
 	let en = i.pf.get("enUS");
 	for &locale in locales {
 		let w = i.wago.and_then(|m| m.get(locale));
+		let o = i.observed.and_then(|m| m.get(locale));
 		let h = i.web.and_then(|m| m.get(locale));
 		let d = i.ding.and_then(|m| m.get(locale));
 		let p = i.pf.get(locale);
@@ -387,18 +414,25 @@ pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 					}
 				}
 				let candidates: Vec<(usize, Option<&String>)> = if k == OBJECTIVE {
-					vec![(1, h.and_then(|h| h.objective.get(&id))), (3, pf_of(p, k, id))]
+					vec![(2, h.and_then(|h| h.objective.get(&id))), (4, pf_of(p, k, id))]
 				} else {
-					vec![(0, wk.and_then(|m| m.get(&id))), (1, h.and_then(|h| h.names.get(k)).and_then(|m| m.get(&id))), (2, d.and_then(|d| d.get(k)).and_then(|m| m.get(&id))), (3, pf_of(p, k, id))]
+					let seen = o.and_then(|o| o.names.get(k)).and_then(|m| m.get(&id));
+					vec![
+						(0, wk.and_then(|m| m.get(&id))),
+						(1, seen),
+						(2, h.and_then(|h| h.names.get(k)).and_then(|m| m.get(&id))),
+						(3, d.and_then(|d| d.get(k)).and_then(|m| m.get(&id))),
+						(4, pf_of(p, k, id)),
+					]
 				};
 				let named: Vec<(usize, String)> = candidates.into_iter().map(|(s, v)| (s, v.map(|v| text(v)).unwrap_or_default())).filter(|(_, v)| usable(v)).collect();
-				match named.iter().find(|(_, v)| !english.contains(v)) {
+				match named.iter().find(|(_, v)| !english.contains(v) && fits_script(locale, v)) {
 					Some((s, v)) => {
 						b.names[k].insert(id, v.clone());
 						b.from[k][*s] += 1;
 					}
 					None => {
-						if !named.is_empty() {
+						if named.iter().any(|(_, v)| english.contains(v)) {
 							b.english[k].insert(id);
 						}
 					}
@@ -416,6 +450,8 @@ pub fn build_names(locales: &[&str], i: &Inputs) -> BTreeMap<String, Built> {
 pub struct Sources<'a> {
 	/// The client tables' (product, build) and URLs.
 	pub wago: Option<(&'a [(&'static str, String)], &'a [String])>,
+	/// None unless some language has names the client showed.
+	pub observed: Option<&'a BTreeMap<String, ObservedNames>>,
 	/// None unless some language's web names were cached.
 	pub web: Option<&'a BTreeMap<String, WebNames>>,
 	pub ding: Option<&'a Ding>,
@@ -428,6 +464,9 @@ pub fn source_label(s: &Sources) -> String {
 	let mut parts = Vec::new();
 	if let Some((builds, _)) = s.wago {
 		parts.push(format!("the client's tables ({}, wago.tools)", builds.iter().map(|b| b.1.as_str()).collect::<Vec<_>>().join(", ")));
+	}
+	if s.observed.is_some() {
+		parts.push("the names the client showed players".into());
 	}
 	if s.web.is_some() {
 		parts.push("the web quest database".into());
@@ -499,6 +538,16 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 		out.push(format!("Names taken: {}.", counts(0)));
 		out.push(String::new());
 	}
+	if let Some(seen) = s.observed.and_then(|o| o.get(locale)).filter(|o| !o.is_empty()) {
+		out.push("Names the World of Warcraft: Forever client showed players".into());
+		out.push("----------------------------------------------------------".into());
+		out.push(format!("File: data/i18n/names-observed/{locale}.json in the Polestar repository"));
+		out.push("The server's own names, read from the client's cache and from the names it".into());
+		out.push("gave units in play, collected by players and reviewed in the repository".into());
+		out.push(format!("({}).", seen.refs.iter().map(|r| format!("#{r}")).collect::<Vec<_>>().join(", ")));
+		out.push(format!("Names taken: {}.", counts(1)));
+		out.push(String::new());
+	}
 	if let Some(wh) = s.web.and_then(|w| w.get(locale)) {
 		out.push("The web quest database, World of Warcraft: Forever pages".into());
 		out.push("--------------------------------------------------------".into());
@@ -507,7 +556,7 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 			out.push(format!("Read: {} to {}", first.chars().take(10).collect::<String>(), last.chars().take(10).collect::<String>()));
 		}
 		out.push("Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.".into());
-		out.push(format!("Names taken: {}.", counts(1)));
+		out.push(format!("Names taken: {}.", counts(2)));
 		out.push(String::new());
 	}
 	if let Some(d) = s.ding {
@@ -521,7 +570,7 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 		}
 		out.push("License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission".into());
 		out.push("(THIRD_PARTY.md in the Polestar repository).".into());
-		out.push(format!("Names taken: {}.", counts(2)));
+		out.push(format!("Names taken: {}.", counts(3)));
 		out.push("DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md".into());
 		out.push("beside this file.".into());
 		out.push(String::new());
@@ -538,7 +587,7 @@ pub fn license_text(locale: &str, built: &Built, s: &Sources) -> Result<String, 
 	}
 	out.push(format!("Files: db/{locale}/{{quests,units,objects,items}}.lua"));
 	out.push("License: MIT".into());
-	out.push(format!("Names taken: {} (the ones the sources above lack).", counts(3)));
+	out.push(format!("Names taken: {} (the ones the sources above lack).", counts(4)));
 	if let Some(dir) = s.pf_dir {
 		let notice = crate::pfquest::check_license(dir)?.notice;
 		if !notice.is_empty() {
@@ -611,10 +660,10 @@ pub struct Written {
 }
 
 /// Writes each language with names into its language folder addons_dir/Polestar_<locale>, leaving our
-/// guides' Texts.lua and the interface strings (Interface.lua) there alone: the names' files the folder
-/// no longer gets are removed, and those of a language left without any (the folder too once it holds
-/// neither). The retired
-/// Polestar_Names_<locale> folder (before 0.3.0) is removed.
+/// guides' Texts.lua, the interface strings (Interface.lua) and the walking maps' subzone names
+/// (Subzones.lua, `forge data subzones`) there alone: the names' files the folder no longer gets are
+/// removed, and those of a language left without any (the folder too once it holds none of those). The
+/// retired Polestar_Names_<locale> folder (before 0.3.0) is removed.
 pub fn write_names_addons(out: &BTreeMap<String, Built>, addons_dir: &Path, meta: &Meta, s: &Sources) -> Result<Vec<Written>, String> {
 	let mut written = Vec::new();
 	fn io(p: &Path) -> impl Fn(std::io::Error) -> String + '_ {
@@ -634,7 +683,7 @@ pub fn write_names_addons(out: &BTreeMap<String, Built>, addons_dir: &Path, meta
 			}
 		}
 		if files.is_empty() {
-			if dir.is_dir() && !dir.join("Texts.lua").exists() && !dir.join(forge_guide::toc::INTERFACE_FILE).exists() {
+			if dir.is_dir() && !forge_guide::toc::LANGUAGE_FILES.iter().any(|f| dir.join(f).exists()) {
 				std::fs::remove_dir_all(&dir).map_err(io(&dir))?;
 			}
 			continue;
@@ -683,6 +732,8 @@ pub struct Options {
 	pub no_tables: bool,
 	pub build: Option<String>,
 	pub sources: PathBuf,
+	/// The names the client showed players, one <locale>.json each (default data/i18n/names-observed).
+	pub observed: PathBuf,
 	/// Some: a folder the user named (used as it is).
 	pub ding: Option<PathBuf>,
 	/// The DingDB pin (ding_pin()).
@@ -709,6 +760,7 @@ impl Options {
 			no_tables: false,
 			build: None,
 			sources: root.join("data/sources"),
+			observed: root.join("data/i18n/names-observed"),
 			ding: None,
 			pin: ding_pin(),
 			pfquest: None,
@@ -785,8 +837,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Report, String> {
 			}
 		}
 	}
+	let observed: BTreeMap<String, ObservedNames> = wanted.iter().map(|l| Ok((l.to_string(), src::load_observed_names(&o.observed, l)?))).collect::<Result<_, String>>()?;
 	let web: BTreeMap<String, WebNames> = wanted.iter().map(|l| Ok((l.to_string(), src::load_web_names(&o.sources, l)?))).collect::<Result<_, String>>()?;
-	let built = build_names(&wanted, &Inputs { ids: &ids, ding: ding_names.as_ref(), pf: &pf, wago: tables.as_ref().map(|t| &t.names), web: Some(&web), english: &english });
+	let built = build_names(&wanted, &Inputs { ids: &ids, ding: ding_names.as_ref(), pf: &pf, wago: tables.as_ref().map(|t| &t.names), observed: Some(&observed), web: Some(&web), english: &english });
 	if tables.is_some() {
 		for l in &wanted {
 			for kind in ["map", "faction", "taxi"] {
@@ -799,8 +852,10 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Report, String> {
 		}
 	}
 	let web_used = web.values().any(|w| w.fetched.is_some());
+	let observed_used = observed.values().any(|o| !o.is_empty());
 	let sources = Sources {
 		wago: tables.as_ref().map(|t| (t.builds.as_slice(), t.urls.as_slice())),
+		observed: observed_used.then_some(&observed),
 		web: web_used.then_some(&web),
 		ding: ding.as_ref(),
 		pf_dir: Some(&pf_info.dir),
@@ -876,7 +931,7 @@ impl Report {
 	/// The text report, one line each.
 	pub fn lines(&self, cwd: &Path) -> Vec<String> {
 		const WORDS: [&str; 9] = ["quest", "NPC", "object", "item", "instance", "encounter", "faction", "flight point", "quest objective"];
-		const SOURCE_WORDS: [&str; 4] = ["client tables", "the web quest database", "DingDB", "pfQuest"];
+		const SOURCE_WORDS: [&str; 5] = ["client tables", "names the client showed", "the web quest database", "DingDB", "pfQuest"];
 		let plural = |n: usize, w: &str| format!("{n} {w}{}", if n == 1 { "" } else { "s" });
 		let id_line = |c: &[Option<usize>]| c.iter().enumerate().filter_map(|(k, n)| n.map(|n| plural(n, WORDS[k]))).collect::<Vec<_>>().join(", ");
 		let mut out = Vec::new();
@@ -906,7 +961,7 @@ impl Report {
 				out.push(format!("{l}: no names; no folder"));
 				continue;
 			};
-			let from: Vec<String> = (0..4).map(|s| format!("{} {}", SOURCE_WORDS[s], (0..9).map(|k| b.from[k][s]).sum::<usize>())).collect();
+			let from: Vec<String> = (0..SOURCE_KEYS.len()).map(|s| format!("{} {}", SOURCE_WORDS[s], (0..9).map(|k| b.from[k][s]).sum::<usize>())).collect();
 			let sizes: Vec<Option<usize>> = b.names.iter().map(|m| Some(m.len())).collect();
 			let dir = pathdiff(&w.dir, cwd);
 			out.push(format!(

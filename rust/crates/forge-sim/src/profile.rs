@@ -40,13 +40,16 @@ pub struct Profile {
 	/// The character's group families the route may take (route::prepare sets it from the game
 	/// data; Run::set_groups; crate::group).
 	pub groups: Option<std::sync::Arc<crate::group::Groups>>,
+	/// The breadcrumbs and the quests they lead to (route::prepare sets it from the game data;
+	/// Run::set_crumbs): a target is held back while its breadcrumb is in the log.
+	pub crumbs: Option<std::sync::Arc<crate::run::Crumbs>>,
 }
 
 impl Profile {
 	/// The gate's model: v1's evaluator as the judge runs it (classFactor prior 1, training in
 	/// the per-level overhead).
 	pub fn gate() -> Profile {
-		Profile { name: "gate", class_factor: 1.0, train_stops: false, plan: None, rare: None, rides: None, spots: None, groups: None }
+		Profile { name: "gate", class_factor: 1.0, train_stops: false, plan: None, rare: None, rides: None, spots: None, groups: None, crumbs: None }
 	}
 
 	fn factors(f: forge_core::Faction) -> Vec<f64> {
@@ -55,15 +58,35 @@ impl Profile {
 
 	pub fn average(f: forge_core::Faction) -> Profile {
 		let v = Profile::factors(f);
-		Profile { name: "avg", class_factor: v.iter().sum::<f64>() / v.len() as f64, train_stops: true, plan: None, rare: None, rides: None, spots: None, groups: None }
+		Profile { name: "avg", class_factor: v.iter().sum::<f64>() / v.len() as f64, train_stops: true, plan: None, rare: None, rides: None, spots: None, groups: None, crumbs: None }
 	}
 
 	pub fn slow(f: forge_core::Faction) -> Profile {
-		Profile { name: "slow", class_factor: Profile::factors(f).into_iter().fold(f64::MIN, f64::max), train_stops: true, plan: None, rare: None, rides: None, spots: None, groups: None }
+		Profile {
+			name: "slow",
+			class_factor: Profile::factors(f).into_iter().fold(f64::MIN, f64::max),
+			train_stops: true,
+			plan: None,
+			rare: None,
+			rides: None,
+			spots: None,
+			groups: None,
+			crumbs: None,
+		}
 	}
 
 	pub fn fast(f: forge_core::Faction) -> Profile {
-		Profile { name: "fast", class_factor: Profile::factors(f).into_iter().fold(f64::MAX, f64::min), train_stops: true, plan: None, rare: None, rides: None, spots: None, groups: None }
+		Profile {
+			name: "fast",
+			class_factor: Profile::factors(f).into_iter().fold(f64::MAX, f64::min),
+			train_stops: true,
+			plan: None,
+			rare: None,
+			rides: None,
+			spots: None,
+			groups: None,
+			crumbs: None,
+		}
 	}
 
 	/// The three profiles the shared route is scored over.
@@ -95,7 +118,7 @@ pub const LEFT_VALLEY_YD: f64 = 500.0;
 pub const TOWN_MERGE_YD: f64 = 600.0;
 
 /// Per town (world point): the yards a training there costs the race's classes it has no trainer
-/// for (RevTroll: Razor Hill has no Mage trainer; RevNightElf: Goldshire no Hunter or Druid): each
+/// for (the start-zone reviews: Razor Hill has no Mage trainer; Goldshire no Hunter or Druid): each
 /// such class's share (1 / the race's classes) of a round trip to the nearest hub with its trainer
 /// in the town's region (straight yards). A town's trainers are its hubs within TOWN_MERGE_YD on its
 /// map (a starting valley's own hub only). A class with no trainer in the town's region is
