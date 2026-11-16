@@ -7551,9 +7551,12 @@ test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note 
 // not being level 24". Ashenvale Outrunners (level 24, its Outrunners 23-24) was the first Ashenvale step at 21, then
 // (0.3.6) the step after Ruul's hand-in at 22-23, still 1-1.5 levels under it on the level model. 0.3.7:
 // it waits for the second Ashenvale visit at 26, at Kuray'bin's lumber camp between Torek's assault and Sharptalon's
-// woods, and is handed in on the spot before Splintertree.
+// woods, and is handed in on the spot before Splintertree. (#2580: a player who takes it from Kuray'bin on the first
+// visit anyway gets its kills and hand-in there, behind `when onquest 6503`; the route itself still doesn't take it.)
 test(`${STONETALON}: Discord reports: Ashenvale Outrunners waits for the 26 Ashenvale visit, taken by Torek and Sharptalon`, { skip }, () => {
-	assert.ok(!goals(STONETALON).some(({ goal }) => goal.quest === 6503), 'not on the first Ashenvale visit at 21');
+	const first = goals(STONETALON).filter(({ goal }) => goal.quest === 6503);
+	assert.ok(!first.some(({ goal }) => goal.t === 'accept'), 'not taken on the first Ashenvale visit at 21');
+	assert.ok(first.every(({ step }) => (step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(6503))), 'its lines there only for whoever carries it');
 	const list = goals(ASHENVALE_HORDE);
 	const torek = at(list, 'accept 6544', is('accept', 6544));
 	const take = at(list, 'accept 6503', is('accept', 6503));
@@ -11984,7 +11987,7 @@ test('Horde Stranglethorn 40: Locating the Lost City after the legend, the reef 
 	const legend = at(stv, 'turnin 95748', is('turnin', 95748));
 	const acc = at(stv, 'accept 95770', is('accept', 95770));
 	assert.equal(stv[acc].s, stv[legend].s, 'taken on the stop that hands the legend in');
-	const reef = at(stv, 'the Vile Reef goto', (g) => g.t === 'goto' && g.map === 1434 && Math.abs(g.x - 21.8) < 1 && Math.abs(g.y - 27.6) < 1);
+	const reef = at(stv, 'the Vile Reef goal', (g) => (g.t === 'goto' || is('complete', 95770)(g)) && g.map === 1434 && Math.abs(g.x - 21.8) < 1 && Math.abs(g.y - 27.6) < 1);
 	assert.ok(stv[reef].s > stv[acc].s, 'the cavern entrance under the Vile Reef after the accept');
 	assert.ok(stv[reef].step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(95770)), 'only with the quest in the log');
 	assert.ok(reef < at(stv, 'kill 687', (x) => x.t === 'kill' && x.npc === 687), 'before the jungle stalkers south of the camp');
