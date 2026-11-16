@@ -62,7 +62,7 @@ return {
 	["{spell:3918} to 35"] = "{spell:3918} hasta 35",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918} es naranja a 1 (amarillo 20, verde 30, gris 40): unas 46 fabricaciones hasta 35. Cada una lleva 1 {item:2835}. Una {item:2835} por fabricación; {item:2835} sale con el {item:2770} de las vetas de cobre.",
+	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918} es naranja a 1 (amarillo 20, verde 30, gris 40): unas 46 fabricaciones hasta 35. Cada una lleva 1 {item:2835}. Una {item:2835} por fabricación; {item:2835} sale con el {item:2770} de los filones de cobre.",
 
 	-- Step 13: Engineering recipes at 35
 	-- {skill:202} Engineering

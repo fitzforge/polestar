@@ -11,7 +11,7 @@ return {
 	["{item:8705} in {zone:1444}"] = "{item:8705} en {zone:1444}",
 	-- {zone:1444} Feralas · {area:1108} Forgotten Coast
 	-- plural, as words: Coast Crawl Snapclaws = {npc:5327} Coast Crawl Snapclaw · Sprite Dragons = {npc:5276} Sprite Dragon
-	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "Cada robot empieza con una baliza de socorro que sueltan los enemigos de su zona, más o menos una muerte de cada 40 a 100 según los datos de Classic. En {zone:1444} los mejores son las pinzas y los videntes de las profundidades de la costa (niveles 43-45) en {area:1108} y los dragones duende (47-48), alrededor del 2,5%; los ogros, arpías, naga y Totem Siniestro la sueltan alrededor del 1%. Puedes saquearla desde el nivel 40.",
+	["Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In {zone:1444} the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the {area:1108} and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40."] = "Cada robot empieza con una baliza de socorro que sueltan los enemigos de su zona, más o menos una muerte de cada 40 a 100 según los datos de Classic. En {zone:1444} los mejores son los quebradores y videnistas Reptacostas (niveles 43-45) en {area:1108} y los duendes dragón (47-48), alrededor del 2,5%; los ogros, arpías, naga y Tótem Siniestro la sueltan alrededor del 1%. Puedes saquearla desde el nivel 40.",
 
 	-- Step 2: Rescue OOX-22/FE
 	["Rescue OOX-22/FE"] = "Rescata a OOX-22/FE",
@@ -24,7 +24,7 @@ return {
 	["{item:8623} in {zone:1446}"] = "{item:8623} en {zone:1446}",
 	-- {zone:1446} Tanaris
 	-- plural, as words: Treasure Hunting Pirates = {npc:7899} Treasure Hunting Pirate · Ground Pounders = {npc:9396} Ground Pounder
-	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "Los enemigos de {zone:1446} sueltan la baliza de OOX-17/TN más o menos una muerte de cada 50 a 150. Los mejores: los piratas cazatesoros y los bucaneros de la costa sur (44-45) y los golpeasuelos del norte (41-43), alrededor del 2%. Puedes saquearla desde el nivel 43.",
+	["{zone:1446} mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43."] = "Los enemigos de {zone:1446} sueltan la baliza de OOX-17/TN más o menos una muerte de cada 50 a 150. Los mejores: los piratas cazatesoros y los bucaneros de la costa sur (44-45) y los aporreadores de tierra del norte (41-43), alrededor del 2%. Puedes saquearla desde el nivel 43.",
 
 	-- Step 4: Rescue OOX-17/TN
 	["Rescue OOX-17/TN"] = "Rescata a OOX-17/TN",
@@ -36,13 +36,13 @@ return {
 	-- {item:8704} OOX-09/HL Distress Beacon · {zone:1425} Hinterlands
 	["{item:8704} in the {zone:1425}"] = "{item:8704} en {zone:1425}",
 	-- {zone:1425} Hinterlands
-	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "La mayoría de los enemigos de {zone:1425} sueltan la baliza de OOX-09/HL más o menos una vez cada 100 muertes: lobos Crines de Plata, lechúcicos, elfos de Vallealto, trols Secacorteza y Vilrama. Puedes saquearla desde el nivel 43.",
+	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "La mayoría de los enemigos de {zone:1425} sueltan la baliza de OOX-09/HL más o menos una vez cada 100 muertes: lobos Crines de Plata, lechubestias, elfos de Vallealto, trols Secacorteza y Vilrama. Puedes saquearla desde el nivel 43.",
 
 	-- Step 6: Rescue OOX-09/HL
 	["Rescue OOX-09/HL"] = "Rescata a OOX-09/TI",
 	-- {area:351} Skulk Rock
 	-- plural, as words: Marauding Owlbeasts = {npc:7808} Marauding Owlbeast · Vilebranch Ambushers = {npc:7809} Vilebranch Ambusher
-	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL espera en la isla más grande del lago al oeste de {area:351}. Su escolta hasta la orilla, más allá del Acantilado del Mirador, tiene dos emboscadas de tres: lechúcicos merodeadores, y luego emboscadores Vilrama; el robot te avisa justo antes de cada una.",
+	["OOX-09/HL waits on the largest island of the lake west of {area:351}. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each."] = "OOX-09/HL espera en la isla más grande del lago al oeste de {area:351}. Su escolta hasta la orilla, más allá del Acantilado del Mirador, tiene dos emboscadas de tres: lechubestias merodeadoras, y luego emboscadores Vilrama; el robot te avisa justo antes de cada una.",
 	["Escort OOX-09/HL"] = "Escolta a OOX-09/TI",
 
 	-- Step 7: Oglethorpe Obnoticus in Booty Bay
