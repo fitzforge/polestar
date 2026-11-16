@@ -34,7 +34,7 @@ return {
 
 	-- Step 4: Simone the Inconspicuous
 	-- {npc:14527} Simone the Inconspicuous · {spell:19878} Track Demons · {npc:14533} Simone the Seductress · {spell:421} Chain Lightning · {spell:3034} Viper Sting · {spell:23205} Temptress' Kiss
-	["{npc:14527}, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use {spell:19878}. Talk to her and she becomes {npc:14533}, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her {spell:421} hits hard, so drain her mana with {spell:3034} (a 15-second cooldown on Forever) and keep her busy; her {spell:23205} cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free."] = "{npc:14527}是一名帶著狼的巨魔，沿一條長路線行走，從安戈洛西部的湖泊出發，最遠可到環形山南部；用{spell:19878}找她。與她交談後她會變成{npc:14533}，她的狼普雷舍斯也會變成魔犬。四者中最難的一個：先冰凍陷阱定住普雷舍斯，把西蒙妮拉到遠處開怪；或者把普雷舍斯風箏走、先殺掉它，讓西蒙妮脫戰復位後再單獨對付她。她的{spell:421}傷害很高，所以用{spell:3034}抽乾她的法力（Forever 中15秒冷卻）並不斷干擾她；她的{spell:23205}會降低你的遠端攻強，所以改用近戰解決她。在普雷舍斯掙脫之前拾取她的頭顱。",
+	["{npc:14527}, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use {spell:19878}. Talk to her and she becomes {npc:14533}, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her {spell:421} hits hard, so drain her mana with {spell:3034} (a 15-second cooldown on Forever) and keep her busy; her {spell:23205} cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free."] = "{npc:14527}是一名帶著狼的食人妖，沿一條長路線行走，從安戈洛西部的湖泊出發，最遠可到環形山南部；用{spell:19878}找她。與她交談後她會變成{npc:14533}，她的狼普雷舍斯也會變成魔犬。四者中最難的一個：先冰凍陷阱定住普雷舍斯，把西蒙妮拉到遠處開怪；或者把普雷舍斯風箏走、先殺掉它，讓西蒙妮脫戰復位後再單獨對付她。她的{spell:421}傷害很高，所以用{spell:3034}抽乾她的法力（Forever 中15秒冷卻）並不斷干擾她；她的{spell:23205}會降低你的遠端攻強，所以改用近戰解決她。在普雷舍斯掙脫之前拾取她的頭顱。",
 
 	-- Step 5: Franklin the Friendly
 	-- {npc:14529} Franklin the Friendly · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {npc:14534} Klinfran the Crazed · {spell:3043} Scorpid Sting · {spell:23257} Demonic Frenzy · {spell:19801} Tranquilizing Shot · {spell:2974} Wing Clip · {spell:2973} Raptor Strike
@@ -51,7 +51,7 @@ return {
 	-- Step 8: Onyxia
 	["Onyxia"] = "奧妮克希亞",
 	-- {area:2159} Onyxia's Lair · {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {item:18705} Mature Black Dragon Sinew
-	["Onyxia is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}; she returns once a week. She drops one {item:18705} in about two kills of five, lootable without the quest, so only one hunter per kill gets it: settle who first."] = "奧妮克希亞是{area:2159}的40人團隊副本首領，那裡是{zone:1445}南部{area:511}中的一處洞穴；她每週重新整理一次。她約每五次擊殺中有兩次掉落一個{item:18705}，沒有任務也能拾取，所以每次只有一名獵人能拿到：先商量好歸屬。",
+	["Onyxia is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}; she returns once a week. She drops one {item:18705} in about two kills of five, lootable without the quest, so only one hunter per kill gets it: settle who first."] = "奧妮克希亞是{area:2159}的40人團隊副本首領，那裡是{zone:1445}南部{area:511}中的一處洞穴；她每週重新出現一次。她約每五次擊殺中有兩次掉落一個{item:18705}，沒有任務也能拾取，所以每次只有一名獵人能拿到：先商量好歸屬。",
 	-- {item:18705} Mature Black Dragon Sinew
 	["{item:18705}, from Onyxia"] = "{item:18705}，來自奧妮克希亞",
 
@@ -68,7 +68,7 @@ return {
 
 	-- Step 11: Azuregos
 	-- {item:18704} Mature Blue Dragon Sinew · {npc:6109} Azuregos · {zone:1447} Azshara · {area:2245} Mazthoril · {area:2255} Everlook · {zone:1452} Winterspring
-	["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, stands in southern {zone:1447}, returns only every two to four days and drops it nearly every kill. The elite Cobalt dragonkin in and around {area:2245}, the cave south of {area:2255} in {zone:1452}, drop it about once in 200 kills; Manaclaw there a little more often. Skip the rest of this guide if you do not want the quiver."] = "哈斯塔特的箭袋需要{item:18704}。{npc:6109}是一名團隊副本世界首領，站在{zone:1447}南部，每兩到四天才重新整理一次，幾乎每次必掉。{area:2245}（{zone:1452}中{area:2255}南邊的洞穴）內及其周邊的精英鈷藍龍類約每200次擊殺掉落一次；那裡的法力之爪掉落略多。如果不需要箭袋，可以跳過本篇攻略的其餘內容。",
+	["Hastat's quiver needs the {item:18704}. {npc:6109}, a world boss for a raid, stands in southern {zone:1447}, returns only every two to four days and drops it nearly every kill. The elite Cobalt dragonkin in and around {area:2245}, the cave south of {area:2255} in {zone:1452}, drop it about once in 200 kills; Manaclaw there a little more often. Skip the rest of this guide if you do not want the quiver."] = "哈斯塔特的箭袋需要{item:18704}。{npc:6109}是需要團隊討伐的世界首領，站在{zone:1447}南部，每兩到四天才重新出現一次，幾乎每次必掉。{area:2245}（{zone:1452}中{area:2255}南邊的洞穴）內及其周邊的精英鈷藍龍類約每200次擊殺掉落一次；那裡的法力之爪掉落略多。如果不需要箭袋，可以跳過本篇攻略的其餘內容。",
 	-- {item:18704} Mature Blue Dragon Sinew · {npc:6109} Azuregos
 	["{item:18704}, from {npc:6109}"] = "{item:18704}，來自{npc:6109}",
 

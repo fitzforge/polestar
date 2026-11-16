@@ -148,7 +148,7 @@ return {
 	-- {npc:2487} Fleet Master Seahorn · {quest:669} Sunken Treasure · {area:327} Faldir's Cove
 	["{npc:2487}, top floor: {quest:669}, if you did {area:327} with a group"] = "{npc:2487}，頂樓：{quest:669}，如果你和小隊打過{area:327}",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "{npc:737}，在樓上：劈顱巨魔，在北部環線上",
+	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "{npc:737}，在樓上：劈顱食人妖，在北部環線上",
 	-- {npc:2498} Crank Fizzlebub · {area:35} Booty Bay
 	["{npc:2498}, inside: keep it, Zanzil's village (43-44) waits for the level-48 {area:35} stop"] = "{npc:2498}，在裡面：先留著，贊吉爾的村莊（43-44）等到48級回{area:35}時再處理",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "海角的下一個任務會回到阿拉希：跳過。",
@@ -269,7 +269,7 @@ return {
 	["{area:103}: kill these as you meet them"] = "{area:103}：遇到就殺",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "劈顱者巨魔佔據著礦場以東的廢墟；其中任何一個都可能掉獠牙，他們的黑豹必掉。\n沿路向東北前往{area:310}的風險投資公司營地；礦工、勘測員和工頭掉落水晶。\n注意：潛行的影顎黑豹和荊棘谷母虎在營地周圍活動。",
+	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "劈顱食人妖佔據著礦場以東的廢墟；其中任何一個都可能掉獠牙，他們的黑豹必掉。\n沿路向東北前往{area:310}的風險投資公司營地；礦工、勘測員和工頭掉落水晶。\n注意：潛行的影顎黑豹和荊棘谷母虎在營地周圍活動。",
 
 	-- Step 48: Raptor Mastery
 	-- {npc:730} Tethis

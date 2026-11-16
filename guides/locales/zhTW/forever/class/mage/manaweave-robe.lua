@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
-	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}: climb the spiral ramp and take the portal near the top. The {item:7247} and the {item:7308} lie on the table behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:5497}站在巫師聖殿頂端，即{object:2101}的紫色高塔：沿螺旋坡道爬到頂上，用靠近頂部的傳送門。{item:7247}和{item:7308}放在她身後的桌上（被人拿走後都會在5分鐘後重新整理）。兩者最後都要交上去，所以都留著。",
+	["{npc:5497} stands at the top of the Wizard's Sanctum, the violet tower of the {object:2101}: climb the spiral ramp and take the portal near the top. The {item:7247} and the {item:7308} lie on the table behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them."] = "{npc:5497}站在巫師聖殿頂端，即{object:2101}的紫色高塔：沿螺旋坡道爬到頂上，用靠近頂部的傳送門。{item:7247}和{item:7308}放在她身後的桌上（被人拿走後都會在5分鐘後重新出現）。兩者最後都要交上去，所以都留著。",
 
 	-- Step 4: The Blue Recluse
 	-- {object:2169} The Blue Recluse · {object:2101} Mage Quarter · {item:7308} Cantation of Manifestation · {spell:122} Frost Nova · {item:7247} Chest of Containment Coffers · {item:7292} Filled Containment Coffer
@@ -45,7 +45,7 @@ return {
 	-- {area:149} Silver Stream Mine
 	["The {area:149}"] = "{area:149}",
 	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {zone:1432} Loch Modan · {area:149} Silver Stream Mine · {area:144} Thelsamar · {object:271} Miners' League Crates
-	["Take the {area:2257} to {zone:1455}, then the road east through the South Gate tunnel into {zone:1432}. The {area:149} is at the north end of the loch, north of {area:144}; Tunnel Rat kobolds hold it. The gems come only from the tall stacked {object:271} (the cursor shows a cog over them; single boxes hold nothing): every crate gives one, there are fourteen and they come back after 3 to 5 minutes. You may have to go as deep as the end chamber for six. The same crates serve the dwarves' Filthy Paws quest."] = "乘{area:2257}到{zone:1455}，然後沿路向東，穿過南門隧道進入{zone:1432}。{area:149}在湖的北端、{area:144}以北；隧道鼠狗頭人佔據那裡。寶石只來自堆疊的{object:271}（滑鼠指標移到上面會顯示齒輪；單個箱子什麼都沒有）：每個木箱給一顆，共十四個，3到5分鐘後重新整理。為了六顆，你可能得深入到最後面的房間。同樣的木箱也用於矮人的“骯髒的爪子”任務。",
+	["Take the {area:2257} to {zone:1455}, then the road east through the South Gate tunnel into {zone:1432}. The {area:149} is at the north end of the loch, north of {area:144}; Tunnel Rat kobolds hold it. The gems come only from the tall stacked {object:271} (the cursor shows a cog over them; single boxes hold nothing): every crate gives one, there are fourteen and they come back after 3 to 5 minutes. You may have to go as deep as the end chamber for six. The same crates serve the dwarves' Filthy Paws quest."] = "乘{area:2257}到{zone:1455}，然後沿路向東，穿過南門隧道進入{zone:1432}。{area:149}在湖的北端、{area:144}以北；隧道鼠狗頭人佔據那裡。寶石只來自堆疊的{object:271}（滑鼠指標移到上面會顯示齒輪；單個箱子什麼都沒有）：每個木箱給一顆，共十四個，3到5分鐘後重新出現。為了六顆，你可能得深入到最後面的房間。同樣的木箱也用於矮人的“骯髒的爪子”任務。",
 
 	-- Step 8: Wynne Larson
 	-- {zone:1453} Stormwind · {npc:1309} Wynne Larson · {object:23296} Larson Clothiers · {object:2101} Mage Quarter

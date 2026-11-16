@@ -125,7 +125,7 @@ return {
 	["Level 59.9"] = "59.9級",
 	-- {zone:1452} Winterspring · {area:2249} Frostwhisper Gorge · {area:1769} Timbermaw Hold · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "在{zone:1452}交任務之前，在這裡補到59.9級：那些任務會把你帶到60級。{area:2249}的狂怒碎牙（59級）就在奇異源頭以北，經驗比{area:1769}邊的熊怪高得多。或者組隊去刷{area:2057}副本或{area:2279}副本。",
+	["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "在{zone:1452}交任務之前，在這裡補到59.9級：那些任務會把你帶到60級。{area:2249}的狂怒碎牙（59級）就在奇異源頭以北，經驗比{area:1769}邊的熊怪高得多。或者組隊去刷{area:2057}地城或{area:2279}地城。",
 	-- {npc:7446} Rabid Shardtooth
 	["grind on {npc:7446}"] = "刷{npc:7446}",
 

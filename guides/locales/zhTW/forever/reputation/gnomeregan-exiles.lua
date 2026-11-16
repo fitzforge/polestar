@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可選：{area:131}西南的矮人和侏儒新手山谷，60級時30分鐘約1,150點聲望。{npc:658}和{npc:713}站在{area:77}。Forever 裡這些舊任務任何等級都足額給分。跳過這一步就跳過這個點。",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,150 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可選：{area:131}西南的矮人和地精新手山谷，60級時30分鐘約1,150點聲望。{npc:658}和{npc:713}站在{area:77}。Forever 裡這些舊任務任何等級都足額給分。跳過這一步就跳過這個點。",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -41,9 +41,9 @@ return {
 
 	-- Step 5: Coldridge: Grelin Whitebeard and the troll cave
 	-- {npc:786} Grelin Whitebeard
-	["Coldridge: {npc:786} and the troll cave"] = "寒脊山谷：{npc:786}和巨魔洞",
+	["Coldridge: {npc:786} and the troll cave"] = "寒脊山谷：{npc:786}和食人妖洞",
 	-- {npc:786} Grelin Whitebeard · {area:77} Anvilmar
-	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "{npc:786}在{area:77}以南紮營，就在巨魔洞口；手記在洞穴深處。",
+	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "{npc:786}在{area:77}以南紮營，就在食人妖洞口；手記在洞穴深處。",
 
 	-- Step 6: Coldridge: the hot Mornbrew
 	["Coldridge: the hot Mornbrew"] = "寒脊山谷：滾燙的晨釀",
@@ -66,7 +66,7 @@ return {
 	-- {area:131} Kharanos
 	["{area:131}: the hills and the depot"] = "{area:131}：山丘與補給站",
 	-- {area:131} Kharanos · {area:136} Grizzled Den · {area:133} Gnomeregan
-	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "野豬和熊在{area:131}周圍遊蕩；溫迪戈住在小鎮西南的{area:136}；{area:133}路上的麻風侏儒帶著齒輪和零件；朗布林肖特的彈藥在他的營地、小鎮西邊。",
+	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "野豬和熊在{area:131}周圍遊蕩；溫迪戈住在小鎮西南的{area:136}；{area:133}路上的麻風地精帶著齒輪和零件；朗布林肖特的彈藥在他的營地、小鎮西邊。",
 
 	-- Step 10: Kharanos: back in town
 	-- {area:131} Kharanos
@@ -76,7 +76,7 @@ return {
 	-- {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{area:131}: Brewnall and {quest:287}"] = "{area:131}：布瑞恩諾爾和{quest:287}",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
-	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374}站在{area:131}西北湖邊{area:137}旁；{quest:287}在它西邊的巨魔洞。",
+	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374}站在{area:131}西北湖邊{area:137}旁；{quest:287}在它西邊的食人妖洞。",
 	["walk to the back of the cave"] = "走到洞穴深處",
 
 	-- Step 12: Kharanos: last hand-in
@@ -101,7 +101,7 @@ return {
 
 	-- Step 16: A Donation of Silk
 	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
-	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306}由23到40級的人形怪掉落：{zone:1437}的龍喉、奧特蘭克和阿拉希的辛迪加、荊棘谷的巨魔。",
+	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306}由23到40級的人形怪掉落：{zone:1437}的龍喉、奧特蘭克和阿拉希的辛迪加、荊棘谷的食人妖。",
 
 	-- Step 17: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
@@ -145,7 +145,7 @@ return {
 
 	-- Step 25: Blackrock Mountain: Overmaster Pyron
 	-- {area:254} Blackrock Mountain · {zone:1428} Burning Steppes · {quest:4262} Overmaster Pyron · {area:1584} Blackrock Depths
-	["{area:254} stands in the west of the {zone:1428}. {quest:4262}, a fire elemental, walks the lava paths inside it, near the door of {area:1584} but outside the dungeon: at 60 you take him alone."] = "{area:254}位於{zone:1428}西部。{quest:4262}，一個火元素，在裡面的熔岩路徑上走動，靠近{area:1584}門口但在副本外：60級時可以單挑他。",
+	["{area:254} stands in the west of the {zone:1428}. {quest:4262}, a fire elemental, walks the lava paths inside it, near the door of {area:1584} but outside the dungeon: at 60 you take him alone."] = "{area:254}位於{zone:1428}西部。{quest:4262}，一個火元素，在裡面的熔岩路徑上走動，靠近{area:1584}門口但在地城外：60級時可以單挑他。",
 
 	-- Step 26: Morgan's Vigil: hand in
 	-- {area:2418} Morgan's Vigil
@@ -155,7 +155,7 @@ return {
 	-- {quest:7812} Additional Runecloth
 	["{quest:7812} to Honored"] = "{quest:7812}到尊敬",
 	-- {quest:7812} Additional Runecloth · {item:14047} Runecloth · {npc:9616} Laris Geardawdle · {npc:9561} Jalinda Sprig · {zone:1426} Dun Morogh · {npc:4077} Gaxim Rustfizzle · {object:171524} Tinker Town · {area:133} Gnomeregan
-	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s {area:133} dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7812}：20塊{item:14047}換50點聲望，可重複。前四次捐贈之後，人類、矮人或暗夜精靈處在友善 700/6,000，離崇敬還差5,300：106次交付，2,120塊{item:14047}（侏儒起點高900：88次；空裔從中立 2,000 開始，差6,400：128次，做了“探索聯盟”後再少兩次）。上面{npc:9616}和{npc:9561}的任務能減掉8次；你每做過一個{zone:1426}任務點再減10到26次。在丹莫羅以外諾莫瑞根給得很少：{npc:4077}在石爪山的任務（約500）和{object:171524}的{area:133}副本任務。每次城市聲望收益還會給另外三個聯盟城市四分之一（此處不計）。把所有{item:14047}一次交清。",
+	["{quest:7812}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Night Elf stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Gnomes start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). {npc:9616}'s and {npc:9561}'s quests above take 8 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. Outside Dun Morogh Gnomeregan pays little: {npc:4077}'s quests in Stonetalon (about 500) and {object:171524}'s {area:133} dungeon quests. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7812}：20塊{item:14047}換50點聲望，可重複。前四次捐贈之後，人類、矮人或夜精靈處在友善 700/6,000，離崇敬還差5,300：106次交付，2,120塊{item:14047}（地精起點高900：88次；空裔從中立 2,000 開始，差6,400：128次，做了“探索聯盟”後再少兩次）。上面{npc:9616}和{npc:9561}的任務能減掉8次；你每做過一個{zone:1426}任務點再減10到26次。在丹莫羅以外諾莫瑞根給得很少：{npc:4077}在石爪山的任務（約500）和{object:171524}的{area:133}地城任務。每次城市聲望收益還會給另外三個聯盟城市四分之一（此處不計）。把所有{item:14047}一次交清。",
 
 	-- Step 28: Additional Runecloth to Revered
 	-- {quest:7812} Additional Runecloth

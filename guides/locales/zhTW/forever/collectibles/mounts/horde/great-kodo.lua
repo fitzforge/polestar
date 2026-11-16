@@ -21,7 +21,7 @@ return {
 	-- {spell:18995} Kodo Riding
 	["{spell:18995} for other races"] = "其他種族所需的{spell:18995}",
 	-- {spell:18995} Kodo Riding · {skill:762} Riding · {npc:3690} Kar Stormsinger · {faction:81} Thunder Bluff
-	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "任何部落種族都能買這些科多獸，但騎乘還需要{spell:18995}，只有牛頭人隨{skill:762}獲得。其他種族在與{faction:81}達到崇拜後，{npc:3690}才會教（雷霆崖聲望指南里有說明）。在此之前，不要給這個角色買科多獸。",
+	["Any Horde race can buy these kodos, but riding one also takes {spell:18995}, which only Tauren get with {skill:762}. {npc:3690} teaches it to other races once they are Exalted with {faction:81} (the Thunder Bluff Reputation guide shows the way). Until then, don't buy a kodo for this character."] = "任何部落種族都能買這些科多獸，但騎乘還需要{spell:18995}，只有牛頭人隨{skill:762}獲得。其他種族在與{faction:81}達到崇拜後，{npc:3690}才會教（雷霆崖聲望指南裡有說明）。在此之前，不要給這個角色買科多獸。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

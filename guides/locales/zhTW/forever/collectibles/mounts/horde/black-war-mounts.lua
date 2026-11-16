@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Raider Bork
 	-- {npc:12796} Raider Bork · {area:2917} Hall of Legends · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
-	["{npc:12796} sells the mounts by the {area:2917} in {zone:1454}'s {object:172958}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Orcs ride the wolf, Trolls the raptor, Tauren the kodo, Undead the skeletal warhorse. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "{npc:12796}在{zone:1454}的{object:172958}中{area:2917}旁出售坐騎，和其他榮譽軍需官在一起。Forever 客戶端標價每匹100金。每種坐騎還需要對應種族的騎術：獸人騎狼，巨魔騎迅猛龍，牛頭人騎科多獸，亡靈騎骷髏戰馬。天裔或選擇其他種族坐騎的人，須先從對應訓練師處學會該騎術（與那種族的城市達到崇拜）。",
+	["{npc:12796} sells the mounts by the {area:2917} in {zone:1454}'s {object:172958}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Orcs ride the wolf, Trolls the raptor, Tauren the kodo, Undead the skeletal warhorse. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "{npc:12796}在{zone:1454}的{object:172958}中{area:2917}旁出售坐騎，和其他榮譽軍需官在一起。Forever 客戶端標價每匹100金。每種坐騎還需要對應種族的騎術：獸人騎狼，食人妖騎迅猛龍，牛頭人騎科多獸，亡靈騎骷髏戰馬。天裔或選擇其他種族坐騎的人，須先從對應訓練師處學會該騎術（與那種族的城市達到崇拜）。",
 	-- {npc:14329} Black War Wolf · {spell:825} Wolf Riding
 	["{npc:14329}, {spell:825}, 100g"] = "{npc:14329}，{spell:825}，100金",
 	-- {npc:14330} Black War Raptor · {spell:10861} Raptor Riding

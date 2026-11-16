@@ -54,7 +54,7 @@ return {
 	-- Step 9: The Lost Caravan
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	-- plural, as words: Lost Ones = {npc:254797} Lost One
-	["The wrecked caravan's chest lies at the north end of the {area:76}, beside {npc:5391}'s cage.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "損毀車隊的箱子在{area:76}北端、{npc:5391}的籠子旁。\n注意：營地到處是38級左右的失落者。它們以2-3只連組行動，其中許多是施法者，且重新整理很快。",
+	["The wrecked caravan's chest lies at the north end of the {area:76}, beside {npc:5391}'s cage.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "損毀車隊的箱子在{area:76}北端、{npc:5391}的籠子旁。\n注意：營地到處是38級左右的失落者。它們以2-3只連組行動，其中許多是施法者，且重新出現很快。",
 
 	-- Step 10: Galen Goodward
 	-- {npc:5391} Galen Goodward

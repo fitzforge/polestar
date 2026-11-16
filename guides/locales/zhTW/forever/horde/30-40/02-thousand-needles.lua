@@ -127,7 +127,7 @@ return {
 
 	-- Step 23: Mirage Raceway
 	-- {area:2240} Mirage Raceway
-	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "{area:2240}的地精和侏儒是中立的，向兩個陣營提供任務。",
+	["The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "{area:2240}的哥布林和地精是中立的，向兩個陣營提供任務。",
 	-- {npc:4452} Kravel Koalbeard · {quest:5762} Hemet Nesingwary
 	["{npc:4452}'s crate for {quest:5762} in Stranglethorn, later on the route"] = "{npc:4452}的箱子要交給荊棘谷的{quest:5762}，在路線後面",
 
@@ -224,7 +224,7 @@ return {
 
 	-- Step 43: Shadowprey Village
 	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西到海岸邊的巨魔村，路上避開{area:606}。{npc:268705}站在村子正北的小路上。\n在 Forever 裡{npc:268705}可能不在這裡：如果{npc:268705}不給{quest:97265}，跳過。",
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "向西到海岸邊的食人妖村，路上避開{area:606}。{npc:268705}站在村子正北的小路上。\n在 Forever 裡{npc:268705}可能不在這裡：如果{npc:268705}不給{quest:97265}，跳過。",
 	-- {npc:268705} Aka'rai · {area:603} Sargeron
 	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "{npc:268705}：{area:603}的憎怒薩特，本指南稍後",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
@@ -277,7 +277,7 @@ return {
 	-- Step 51: Sargeron
 	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
-	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "向東經過{area:599}，沿北邊的山丘前往{area:603}的薩特廢墟。為了{npc:268705}，遇到的每一種都殺掉；暗影潛伏者無形無蹤。\n注意：憎怒盜賊重新整理時會使用隱藏，所以在你發現它們之前一直處於潛行狀態。",
+	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "向東經過{area:599}，沿北邊的山丘前往{area:603}的薩特廢墟。為了{npc:268705}，遇到的每一種都殺掉；暗影潛伏者無形無蹤。\n注意：憎怒盜賊出現時會使用隱藏，所以在你發現它們之前一直處於潛行狀態。",
 	-- {npc:4671} Hatefury Trickster
 	["{npc:4671}, on the way south"] = "{npc:4671}，在南下的路上",
 

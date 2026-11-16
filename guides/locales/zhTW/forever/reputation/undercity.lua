@@ -199,7 +199,7 @@ return {
 	-- {quest:2936} The Spider God
 	["{quest:2936} (optional chain)"] = "{quest:2936}（可選任務鏈）",
 	-- {zone:1425} Hinterlands · {area:272} Tarren Mill · {area:367} Sen'jin Village · {area:978} Zul'Farrak · {faction:68} Undercity · {quest:2937} Summoning Shadra · {quest:2938} Venom to the Undercity · {quest:2933} Venom Bottles
-	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "{zone:1425}、{area:272}、{area:367}、{area:978}和{faction:68}一帶的六個任務：600點{faction:68}和225點暗矛巨魔聲望。{quest:2937}和{quest:2938}是55級，60級足額給400；在它們之前的四個是43到45級，也足額給。加上跑路大概留90分鐘。{quest:2933}放在{zone:1425}西部枯木村落的桌上：點一個就能開始。",
+	["Six quests across the {zone:1425}, {area:272}, {area:367}, {area:978} and the {faction:68}: 600 {faction:68} and 225 Darkspear reputation. {quest:2937} and {quest:2938} are level 55 and pay 400 in full at 60; the four before them are level 43 to 45 and pay in full too. Allow about 90 minutes with the travel. The {quest:2933} stand on the tables of the Witherbark village in the west of the {zone:1425}: click one to start."] = "{zone:1425}、{area:272}、{area:367}、{area:978}和{faction:68}一帶的六個任務：600點{faction:68}和225點暗矛食人妖聲望。{quest:2937}和{quest:2938}是55級，60級足額給400；在它們之前的四個是43到45級，也足額給。加上跑路大概留90分鐘。{quest:2933}放在{zone:1425}西部枯木村落的桌上：點一個就能開始。",
 
 	-- Step 34: Shadra'Alor: an Undamaged Venom Sac
 	-- {area:353} Shadra'Alor · {quest:2934} Undamaged Venom Sac
@@ -225,7 +225,7 @@ return {
 	-- {area:978} Zul'Farrak · {object:142715} Tablet of Theka
 	["{area:978}: the {object:142715}"] = "{area:978}：{object:142715}",
 	-- {area:978} Zul'Farrak · {zone:1446} Tanaris · {npc:7272} Theka the Martyr · {object:142715} Tablet of Theka
-	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978}是{zone:1446}北部的44到54級地下城；60級可以單刷清路，也可以組隊。精英巨魔{npc:7272}守著副本里的墓穴：殺掉他，閱讀那裡的{object:142715}。",
+	["{area:978} is a level 44 to 54 dungeon in northern {zone:1446}; a level 60 can clear the way alone, or bring a group. {npc:7272}, an elite troll, guards his tomb in the instance: kill him and read the {object:142715} there."] = "{area:978}是{zone:1446}北部的44到54級地城；60級可以單刷清路，也可以組隊。精英食人妖{npc:7272}守著地城裡的墓穴：殺掉他，閱讀那裡的{object:142715}。",
 	-- {object:142715} Tablet of Theka
 	["read the {object:142715}"] = "閱讀{object:142715}",
 

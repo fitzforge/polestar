@@ -54,7 +54,7 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "{zone:1434}令狀顧客",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顧客：旅店頂樓的“海狼”麥金利、地精傳送器的工程師{npc:7853}，以及{npc:2663}。{npc:14508}站在{area:1741}，位於{object:3202}以南約800碼；{npc:261961}在荊棘谷北部。顧客不顯示任務標記：照樣右鍵點選他們。",
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35}有三位顧客：旅店頂樓的“海狼”麥金利、哥布林傳送器的工程師{npc:7853}，以及{npc:2663}。{npc:14508}站在{area:1741}，位於{object:3202}以南約800碼；{npc:261961}在荊棘谷北部。顧客不顯示任務標記：照樣右鍵點選他們。",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "{item:3485}，75點聲望",
 	-- {item:7506} Gnomish Universal Remote

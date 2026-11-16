@@ -206,7 +206,7 @@ return {
 	-- {area:373} Scuttle Coast
 	["{area:373}: kill these as you meet them"] = "{area:373}：遇到就殺",
 	-- {area:362} Razor Hill
-	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "侏儒工具箱在{area:362}以東和東南沿岸的殘骸裡。沿海岸向南到森金村。\n龍蝦人和衝浪蟹分佈在森金村東北的海灘上。",
+	["The gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin.\nMakrura and surf crawlers line the beaches north-east of Sen'jin."] = "地精工具箱在{area:362}以東和東南沿岸的殘骸裡。沿海岸向南到森金村。\n龍蝦人和衝浪蟹分佈在森金村東北的海灘上。",
 	["Underwater"] = "在水下",
 
 	-- Step 42: Sen'jin Village

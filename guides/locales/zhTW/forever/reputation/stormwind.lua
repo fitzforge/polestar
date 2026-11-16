@@ -151,7 +151,7 @@ return {
 	-- {area:717} Stockade
 	["{area:717}: two quests"] = "{area:717}：兩個任務",
 	-- {area:717} Stockade · {faction:72} Stormwind · {object:2101} Mage Quarter · {npc:1719} Warden Thelwater · {npc:1721} Nikova Raskol · {object:2100} Old Town · {npc:1696} Targorr the Dread · {npc:859} Guard Berton · {area:69} Lakeshire · {npc:1663} Dextren Ward · {npc:270} Councilman Millstipe · {area:42} Darkshire · {npc:639} Edwin VanCleef · {area:1581} Deadmines
-	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可選：{area:717}是{faction:72}的監獄，{object:2101}運河裡的副本。60級單人十分鐘就能清完：300點聲望。{npc:1719}站在門口，{npc:1721}在{object:2100}。城外還有兩個{area:717}任務，各100點，路過時順帶：{area:69}的{npc:859}給的“因果迴圈……”（{npc:1696}）和{area:42}的{npc:270}給的“罪與罰”（{npc:1663}）。（“監獄暴動”再多100點，得先從{area:1581}的{npc:639}拿到未寄出的信。）Forever 裡這些舊任務任何等級都足額給分。跳過這一步就跳過這個點。",
+	["Optional: the {area:717} is {faction:72}'s prison, a dungeon in the canals of the {object:2101}. At 60 you clear it alone in ten minutes: 300 reputation. {npc:1719} stands at the gate, {npc:1721} in {object:2100}. Two more {area:717} quests start outside the city, 100 each, if you pass by: What Comes Around... ({npc:1696}) from {npc:859} in {area:69} and Crime and Punishment ({npc:1663}) from {npc:270} in {area:42}. (The Stockade Riots, 100 more, needs the Unsent Letter from {npc:639} in the {area:1581} first.) Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可選：{area:717}是{faction:72}的監獄，{object:2101}運河裡的地城。60級單人十分鐘就能清完：300點聲望。{npc:1719}站在門口，{npc:1721}在{object:2100}。城外還有兩個{area:717}任務，各100點，路過時順帶：{area:69}的{npc:859}給的“因果迴圈……”（{npc:1696}）和{area:42}的{npc:270}給的“罪與罰”（{npc:1663}）。（“監獄暴動”再多100點，得先從{area:1581}的{npc:639}拿到未寄出的信。）Forever 裡這些舊任務任何等級都足額給分。跳過這一步就跳過這個點。",
 
 	-- Step 25: Inside the Stockade
 	-- {area:717} Stockade
@@ -166,7 +166,7 @@ return {
 
 	-- Step 27: A Donation of Silk
 	-- {item:4306} Silk Cloth · {area:94} Raven Hill
-	["{item:4306} drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's {area:94}, Stranglethorn's trolls."] = "{item:4306}由23到40級人形生物掉落：奧特蘭克和阿拉希的辛迪加、暮色森林{area:94}的迪菲亞、荊棘谷的巨魔。",
+	["{item:4306} drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's {area:94}, Stranglethorn's trolls."] = "{item:4306}由23到40級人形生物掉落：奧特蘭克和阿拉希的辛迪加、暮色森林{area:94}的迪菲亞、荊棘谷的食人妖。",
 
 	-- Step 28: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {zone:1446} Tanaris · {zone:1444} Feralas · {zone:1418} Badlands

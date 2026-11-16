@@ -19,7 +19,7 @@ return {
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}，在旅店樓上",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
-	["{npc:10219} (Night Elves have it from {zone:1438})"] = "{npc:10219}（暗夜精靈從{zone:1438}那裡就能接到）",
+	["{npc:10219} (Night Elves have it from {zone:1438})"] = "{npc:10219}（夜精靈從{zone:1438}那裡就能接到）",
 	-- {npc:10216} Gubber Blump
 	["{npc:10216}, on the pier"] = "{npc:10216}，在碼頭上",
 

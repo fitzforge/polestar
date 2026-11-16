@@ -31,7 +31,7 @@ return {
 	["{npc:1343}: {npc:1416}'s package"] = "{npc:1343}：{npc:1416}的包裹",
 
 	-- Step 6: Silver Stream Mine
-	["East along the hills to the mine: the Miners' League crates sit in its tunnels among the Tunnel Rat kobolds."] = "沿山丘向東到礦洞：礦工聯盟的箱子放在坑道里，混在隧道鼠狗頭人中間。",
+	["East along the hills to the mine: the Miners' League crates sit in its tunnels among the Tunnel Rat kobolds."] = "沿山丘向東到礦洞：礦工聯盟的箱子放在坑道裡，混在隧道鼠狗頭人中間。",
 	-- {item:2640} Miners' Gear
 	["{item:2640}, from the crates; below ground"] = "{item:2640}，出自箱子；在地下",
 

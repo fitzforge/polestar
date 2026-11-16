@@ -100,7 +100,7 @@ return {
 
 	-- Step 19: Skypriest Faladiel
 	-- {npc:268602} Skypriest Faladiel · {area:16638} Valanaar · {area:16629} Shrine of Akir · {area:17675} East Pylon Watchtower
-	["{npc:268602} (level 10, a turncoat Windshaper with a single spawn) holds the farm north-east past {area:16638}, just south of the {area:16629}, on the hill west of the falls north of the {area:17675}. Kill him and take his heart."] = "{npc:268602}（10級，變節的塑風者，只有一個重新整理點）佔著{area:16638}東北邊的那座農場，就在{area:16629}以南、{area:17675}以北瀑布西側的山丘上。殺掉他，取他的心臟。",
+	["{npc:268602} (level 10, a turncoat Windshaper with a single spawn) holds the farm north-east past {area:16638}, just south of the {area:16629}, on the hill west of the falls north of the {area:17675}. Kill him and take his heart."] = "{npc:268602}（10級，變節的塑風者，只有一個重生點）佔著{area:16638}東北邊的那座農場，就在{area:16629}以南、{area:17675}以北瀑布西側的山丘上。殺掉他，取他的心臟。",
 
 	-- Step 20: Olariaan Swiftburn
 	-- {npc:268592} Olariaan Swiftburn

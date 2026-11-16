@@ -65,7 +65,7 @@ return {
 	-- Step 10: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
-	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿丘陵向北。{npc:3650}在{quest:954}的廢墟里等候；野生格里爾和邪惡小精靈遍佈其中，東邊是德塞利爾薩特。{object:17183}在廢墟以西的路旁；去他那邊的海岸上有一件{quest:4723}。",
+	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿丘陵向北。{npc:3650}在{quest:954}的廢墟裡等候；野生格里爾和邪惡小精靈遍佈其中，東邊是德塞利爾薩特。{object:17183}在廢墟以西的路旁；去他那邊的海岸上有一件{quest:4723}。",
 	-- plural, as words: Grell Earrings = {item:5336} Grell Earring
 	["Grell Earrings"] = "劣魔耳環",
 	-- {item:5338} Ancient Moonstone Seal

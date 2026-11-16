@@ -35,7 +35,7 @@ return {
 
 	-- Step 8: Revantusk Village
 	-- {quest:7849} Separation Anxiety · {quest:7845} Kidnapped Elder Torntusk! · {quest:7850} Dark Vessels · {area:354} Jintha'Alor · {npc:14736} Primal Torntusk · {npc:14731} Lard
-	["{quest:7849}, {quest:7845} and {quest:7850} are group quests: they send you into {area:354}, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.\n{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "{quest:7849}、{quest:7845}和{quest:7850}都是組隊任務：要你進入{area:354}，那裡的巨魔是精英（46-50級）。三人以上組隊再接；獨自一人就跳過，路線會讓你刷怪把經驗補回來。\n{npc:14736}站在旅店頂上，在{npc:14731}上方：往上走，箭頭分不清樓層。",
+	["{quest:7849}, {quest:7845} and {quest:7850} are group quests: they send you into {area:354}, whose trolls are elite (46-50). Take them with a group of three or more; skip them if you are alone, the route has you grind the experience back.\n{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "{quest:7849}、{quest:7845}和{quest:7850}都是組隊任務：要你進入{area:354}，那裡的食人妖是精英（46-50級）。三人以上組隊再接；獨自一人就跳過，路線會讓你刷怪把經驗補回來。\n{npc:14736}站在旅店頂上，在{npc:14731}上方：往上走，箭頭分不清樓層。",
 
 	-- Step 9: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
@@ -89,7 +89,7 @@ return {
 	-- Step 18: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
 	-- {area:351} Skulk Rock · {area:307} The Overlook Cliffs · {area:35} Booty Bay
-	["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "只有帶著求救信標才行：機器人停在{area:351}以西的河源處。護送它向東到{area:307}之外的海岸；獎勵在{area:35}的奧格索普那裡領。\n注意：護送過程中會刷出兩次伏擊：先是三隻野生梟獸，然後是三隻巨魔。每次之前機器人都會停下並說它感到危險。路上的軟泥怪、潛行的狼和一隻大烏龜可能加入戰鬥，而且即使事先清過也會重新整理。",
+	["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "只有帶著求救信標才行：機器人停在{area:351}以西的河源處。護送它向東到{area:307}之外的海岸；獎勵在{area:35}的奧格索普那裡領。\n注意：護送過程中會刷出兩次伏擊：先是三隻野生梟獸，然後是三隻食人妖。每次之前機器人都會停下並說它感到危險。路上的軟泥怪、潛行的狼和一隻大烏龜可能加入戰鬥，而且即使事先清過也會重新出現。",
 
 	-- Step 19: Gilveradin Sunchaser's camp
 	-- {npc:6986} Dran Droffers · {zone:1454} Orgrimmar

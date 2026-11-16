@@ -14,10 +14,10 @@ return {
 
 	-- Step 1: The Manor, Ravenholdt
 	-- {item:17126} Elegant Letter · {area:275} Durnholde Keep · {npc:6707} Fahrad
-	["Rogues from level 24: ask your class trainer in a capital \"May I have it, please?\" for the {item:17126}, and read it. The path up to the manor starts in the hills north of {area:275}. In the tunnel on the way lies a chest: do not open it (an elite guard jumps out), just walk past it to earn the Rite of Cunning. {npc:6707} waits on the manor's balcony."] = "24級起的盜賊：在主城的職業訓練師那裡說“請把它給我好嗎？”來索要{item:17126}，然後閱讀它。通往莊園的路從{area:275}北面的丘陵開始。途中隧道里有個箱子：不要開啟（會跳出一個精英守衛），直接走過去就能獲得“狡詐儀式”。{npc:6707}在莊園的陽臺上等你。",
+	["Rogues from level 24: ask your class trainer in a capital \"May I have it, please?\" for the {item:17126}, and read it. The path up to the manor starts in the hills north of {area:275}. In the tunnel on the way lies a chest: do not open it (an elite guard jumps out), just walk past it to earn the Rite of Cunning. {npc:6707} waits on the manor's balcony."] = "24級起的盜賊：在主城的職業訓練師那裡說“請把它給我好嗎？”來索要{item:17126}，然後閱讀它。通往莊園的路從{area:275}北面的丘陵開始。途中隧道裡有個箱子：不要開啟（會跳出一個精英守衛），直接走過去就能獲得“狡詐儀式”。{npc:6707}在莊園的陽臺上等你。",
 	-- {item:17126} Elegant Letter
 	["{item:17126}, from your class trainer"] = "{item:17126}，來自你的職業訓練師",
-	["walk past the trapped chest in the tunnel"] = "走過隧道里那個有陷阱的箱子",
+	["walk past the trapped chest in the tunnel"] = "走過隧道裡那個有陷阱的箱子",
 	-- {npc:6707} Fahrad
 	["{npc:6707}: 100 reputation"] = "{npc:6707}：100點聲望",
 
@@ -76,7 +76,7 @@ return {
 	["{quest:6701} to Friendly"] = "{quest:6701} 到友善",
 	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
 	-- plural, as words: Syndicate Prowlers = {npc:2588} Syndicate Prowler
-	["Neutral to Friendly is 3,000 reputation; the quests above pay 700 of it. Any {npc:6766} on the path takes {quest:6701}, 100 reputation each, until you reach Friendly: 23 emblems after the quests. Pick the pockets of Syndicate humans; they never drop emblems when killed. The Arathi camps pay best: Syndicate Prowlers and Conjurors carry one about a quarter of the time. Kill what you have robbed so the next ones respawn fresh."] = "從中立到友善是3,000點聲望；上面的任務給了其中700點。路上任何{npc:6766}都收{quest:6701}，每枚徽記100點，直到你達到友善：做完任務後還需23枚徽記。去扒辛迪加人類的口袋；殺死他們永遠不會掉徽記。阿拉希的營地收益最好：辛迪加遊蕩者和咒術師約有四分之一攜帶徽記。把扒過的怪殺掉，好讓下一批重新整理。",
+	["Neutral to Friendly is 3,000 reputation; the quests above pay 700 of it. Any {npc:6766} on the path takes {quest:6701}, 100 reputation each, until you reach Friendly: 23 emblems after the quests. Pick the pockets of Syndicate humans; they never drop emblems when killed. The Arathi camps pay best: Syndicate Prowlers and Conjurors carry one about a quarter of the time. Kill what you have robbed so the next ones respawn fresh."] = "從中立到友善是3,000點聲望；上面的任務給了其中700點。路上任何{npc:6766}都收{quest:6701}，每枚徽記100點，直到你達到友善：做完任務後還需23枚徽記。去扒辛迪加人類的口袋；殺死他們永遠不會掉徽記。阿拉希的營地收益最好：辛迪加遊蕩者和咒術師約有四分之一攜帶徽記。把扒過的怪殺掉，好讓下一批重新出現。",
 	-- {item:17124} Syndicate Emblem
 	["{item:17124}: pickpocket Syndicate"] = "{item:17124}：扒辛迪加的口袋",
 	-- {npc:6766} Ravenholdt Guard

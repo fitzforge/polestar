@@ -28,7 +28,7 @@ return {
 
 	-- Step 5: Mor'zul Bloodbringer
 	-- {quest:7562} Mor'zul Bloodbringer · {npc:14437} Gorzeeki Wildeyes · {area:255} Altar of Storms · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {npc:14522} Ur'dan · {area:2057} Scholomance · {area:2577} Dire Maul
-	["{quest:7562} and his goblin {npc:14437} camp on the hill across the road from the {area:255}, in the far north-west of the {zone:1428}, west of {area:254}. The chain is long: about 420 gold in {npc:14437}'s and {npc:14522}'s goods, a pile of crafted materials, the {area:2057} and {area:2577}. Start buying or gathering the materials of the next steps now."] = "{quest:7562}和他的地精{npc:14437}在{area:255}對面路邊的山丘上紮營，位於{zone:1428}最西北、{area:254}以西。任務鏈很長：{npc:14437}和{npc:14522}的商品約需420金，還有一堆製作材料、{area:2057}和{area:2577}。現在就開始購買或收集後續步驟的材料吧。",
+	["{quest:7562} and his goblin {npc:14437} camp on the hill across the road from the {area:255}, in the far north-west of the {zone:1428}, west of {area:254}. The chain is long: about 420 gold in {npc:14437}'s and {npc:14522}'s goods, a pile of crafted materials, the {area:2057} and {area:2577}. Start buying or gathering the materials of the next steps now."] = "{quest:7562}和他的哥布林{npc:14437}在{area:255}對面路邊的山丘上紮營，位於{zone:1428}最西北、{area:254}以西。任務鏈很長：{npc:14437}和{npc:14522}的商品約需420金，還有一堆製作材料、{area:2057}和{area:2577}。現在就開始購買或收集後續步驟的材料吧。",
 
 	-- Step 6: Raging Beast's Blood
 	-- {zone:1452} Winterspring · {area:2250} Owl Wing Thicket · {area:2242} Hidden Grove

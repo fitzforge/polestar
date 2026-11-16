@@ -51,7 +51,7 @@ return {
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
 	["Bloodscalp Tusks"] = "血頂獠牙",
 	-- {area:117} Grom'gol Base Camp · {area:123} Bal'lal Ruins
-	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "你需要30根獠牙。荊棘谷西北部的每個血頂巨魔（33-37級）約三殺掉一根，所以預計要殺80個左右：{area:117}以北和西北的營地與廢墟，以及海岸{area:123}周圍。它們在血量低於30%時會狂暴，戰士會繳械；5分鐘內能回來。",
+	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "你需要30根獠牙。荊棘谷西北部的每個血頂食人妖（33-37級）約三殺掉一根，所以預計要殺80個左右：{area:117}以北和西北的營地與廢墟，以及海岸{area:123}周圍。它們在血量低於30%時會狂暴，戰士會繳械；5分鐘內能回來。",
 
 	-- Step 11: The exiles of Arathi
 	["The exiles of Arathi"] = "阿拉希的流放者",

@@ -31,9 +31,9 @@ return {
 
 	-- Step 6: Witherbark trolls and the Bolt Charged Bramble
 	-- {item:7272} Bolt Charged Bramble
-	["Witherbark trolls and the {item:7272}"] = "枯木巨魔與{item:7272}",
+	["Witherbark trolls and the {item:7272}"] = "枯木食人妖與{item:7272}",
 	-- {area:321} Hammerfall · {item:7273} Witherbark Totem Stick · {area:336} Circle of Outer Binding · {item:7272} Bolt Charged Bramble
-	["The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of {area:321}; every kind of them drops a {item:7273} about two times in five: you need ten. Then go to the {area:336} (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the {item:7272} forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more."] = "枯木巨魔（30-36級）佔據阿拉希東南部和{area:321}以南的村莊，各種類都有約五分之二的機率掉落{item:7273}：你需要十個。然後去{area:336}（外圈，不是內圈）。三隻元素生物（33-39級）圍著中央石柱：一次拉一隻，先把它們清掉。站在中央石旁使用圖騰棍；約十秒後石上會形成{item:7272}：點選它。若在拾取前死亡，荊棘和棍子都會消失，需要再湊十個。",
+	["The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of {area:321}; every kind of them drops a {item:7273} about two times in five: you need ten. Then go to the {area:336} (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the {item:7272} forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more."] = "枯木食人妖（30-36級）佔據阿拉希東南部和{area:321}以南的村莊，各種類都有約五分之二的機率掉落{item:7273}：你需要十個。然後去{area:336}（外圈，不是內圈）。三隻元素生物（33-39級）圍著中央石柱：一次拉一隻，先把它們清掉。站在中央石旁使用圖騰棍；約十秒後石上會形成{item:7272}：點選它。若在拾取前死亡，荊棘和棍子都會消失，需要再湊十個。",
 	-- {area:336} Circle of Outer Binding
 	["at the middle stone of the {area:336}"] = "在{area:336}的中央石旁",
 

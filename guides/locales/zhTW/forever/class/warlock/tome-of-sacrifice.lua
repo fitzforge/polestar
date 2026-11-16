@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Satyr Blood
 	-- {area:2577} Dire Maul · {area:2518} Lariss Pavilion · {item:18249} Crescent Key · {zone:1444} Feralas
-	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "野生薩特（55-57級，精英）遍佈{area:2577}東翼的扭木區：帶上五人小隊。五分之四會掉一份血液，但它們兩小時內不重新整理，一次全清可能湊不夠十五份；重置後再刷一趟。{area:2518}的後門需要{item:18249}，它就在這一翼掉落；在有人拿到之前，從{zone:1444}中部{area:2577}的正門進入。",
+	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "野生薩特（55-57級，精英）遍佈{area:2577}東翼的扭木區：帶上五人小隊。五分之四會掉一份血液，但它們兩小時內不重新出現，一次全清可能湊不夠十五份；重置後再刷一趟。{area:2518}的後門需要{item:18249}，它就在這一翼掉落；在有人拿到之前，從{zone:1444}中部{area:2577}的正門進入。",
 	-- {item:18603} Satyr Blood
 	["{item:18603}, from the Wildspawn inside"] = "{item:18603}，來自副本內的野生薩特",
 

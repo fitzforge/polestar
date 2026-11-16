@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Gakin's Summons (Gnomes)
 	-- {quest:1717} Gakin's Summons
-	["{quest:1717} (Gnomes)"] = "{quest:1717}（侏儒）",
+	["{quest:1717} (Gnomes)"] = "{quest:1717}（地精）",
 	-- {npc:6120} Lago Blackwrench · {zone:1455} Ironforge · {object:32383} Forlorn Cavern · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind · {area:2257} Deeprun Tram
 	["At 20 {npc:6120}, the warlock trainer in {zone:1455}'s {object:32383}, sends you to {npc:6122} in {zone:1453}. Take the {area:2257}."] = "20級時，{zone:1455}的{object:32383}裡的術士訓練師{npc:6120}派你去{zone:1453}的{npc:6122}處。乘坐{area:2257}。",
 

@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Ravenholdt Manor
 	-- {area:272} Tarren Mill · {area:271} Southshore · {area:275} Durnholde Keep · {spell:1846} Detect Traps · {area:3486} Ravenholdt Manor · {npc:6707} Fahrad · {npc:13936} Ravenholdt
-	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "部落飛往{area:272}，聯盟飛往{area:271}。通往莊園的小徑很難發現：起點在{area:275}以北、{area:272}以東的高地背後，爬上山丘後拐兩次到達一條小隧道。隧道里有個箱子：不要開啟。在箱子旁施放{spell:1846}並走近，這就是狡詐儀式（5分鐘後可再次使用）。開啟箱子會召來米爾頓，一名32級左右的精英盜賊。穿過隧道就是{area:3486}：{npc:6707}在樓上屋內。不要攻擊莊園裡的任何人：會損失{npc:13936}聲望。",
+	["Horde fly to {area:272}, Alliance to {area:271}. The trail to the manor is hard to see: it starts behind the plateau north of {area:275}, east of {area:272}, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast {spell:1846} near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies {area:3486}: {npc:6707} is upstairs inside. Do not attack anyone at the manor: it costs {npc:13936} reputation."] = "部落飛往{area:272}，聯盟飛往{area:271}。通往莊園的小徑很難發現：起點在{area:275}以北、{area:272}以東的高地背後，爬上山丘後拐兩次到達一條小隧道。隧道裡有個箱子：不要開啟。在箱子旁施放{spell:1846}並走近，這就是狡詐儀式（5分鐘後可再次使用）。開啟箱子會召來米爾頓，一名32級左右的精英盜賊。穿過隧道就是{area:3486}：{npc:6707}在樓上屋內。不要攻擊莊園裡的任何人：會損失{npc:13936}聲望。",
 	-- {spell:1846} Detect Traps
 	["Rite of Cunning: {spell:1846} beside the tunnel chest"] = "狡詐儀式：在隧道箱子旁使用{spell:1846}",
 
@@ -62,7 +62,7 @@ return {
 
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds
-	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "沒有籌碼她不會開口。她的藏匿物在城堡附近一棟房子的樓上：拿走{item:275709}。如果已經被開啟過，就等它重新整理。",
+	["She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the {item:275709}. If it is already open, wait for it to come back."] = "沒有籌碼她不會開口。她的藏匿物在城堡附近一棟房子的樓上：拿走{item:275709}。如果已經被開啟過，就等它重新出現。",
 	-- {item:275709} Stolen Funds
 	["{item:275709}: Anastasia's Stash"] = "{item:275709}：阿納斯塔西婭的藏匿物",
 

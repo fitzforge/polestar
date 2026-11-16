@@ -56,7 +56,7 @@ return {
 	["The {item:6846}"] = "{item:6846}",
 	-- {npc:6172} Henze Faulk · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "在{npc:6172}以東那座大石板周圍，迪菲亞流氓巫師身上帶著{item:6846}：約兩次擊殺掉一個，但有些玩家殺了很多次才出。三分鐘重新整理。",
+	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "在{npc:6172}以東那座大石板周圍，迪菲亞流氓巫師身上帶著{item:6846}：約兩次擊殺掉一個，但有些玩家殺了很多次才出。三分鐘重新出現。",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}：迪菲亞流浪巫師",
@@ -94,7 +94,7 @@ return {
 	-- {item:6847} Dark Iron Script
 	["The {item:6847}"] = "{item:6847}",
 	-- {item:6847} Dark Iron Script
-	["The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the {item:6847}. They run for help at low health: finish them or step back. They respawn in three minutes."] = "黑鐵間諜（9-11級，共十二個）在湖下方的小屋周圍潛行，就在納姆以南；從他所在的山丘能看見它們。約兩次擊殺掉一個{item:6847}。它們低血量時會逃跑求援：殺掉它們或者後退。三分鐘重新整理。",
+	["The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the {item:6847}. They run for help at low health: finish them or step back. They respawn in three minutes."] = "黑鐵間諜（9-11級，共十二個）在湖下方的小屋周圍潛行，就在納姆以南；從他所在的山丘能看見它們。約兩次擊殺掉一個{item:6847}。它們低血量時會逃跑求援：殺掉它們或者後退。三分鐘重新出現。",
 	-- {item:6847} Dark Iron Script
 	["{item:6847}: Dark Iron Spies"] = "{item:6847}：黑鐵間諜",
 

@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Lieutenant Karter
 	-- {npc:12783} Lieutenant Karter · {zone:1453} Stormwind · {object:2100} Old Town · {area:2918} Champions' Hall
-	["{npc:12783} sells the mounts in {zone:1453}'s {object:2100} by the {area:2918}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Humans ride the steed, Night Elves the tiger, Gnomes the battlestrider, Dwarves the ram. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "{npc:12783}在{zone:1453}的{object:2100}裡、{area:2918}旁出售坐騎，就在其他榮譽軍需官旁邊。Forever客戶端標價每種100金。每種還都需要對應種族的騎術：人類騎戰馬，暗夜精靈騎虎，侏儒騎機械陸行鳥，矮人騎山羊。天裔或任何選擇其他種族坐騎的人，須先在該種族訓練師處學會對應騎術（需該種族主城崇拜）。",
+	["{npc:12783} sells the mounts in {zone:1453}'s {object:2100} by the {area:2918}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Humans ride the steed, Night Elves the tiger, Gnomes the battlestrider, Dwarves the ram. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "{npc:12783}在{zone:1453}的{object:2100}裡、{area:2918}旁出售坐騎，就在其他榮譽軍需官旁邊。Forever客戶端標價每種100金。每種還都需要對應種族的騎術：人類騎戰馬，夜精靈騎虎，地精騎機械陸行鳥，矮人騎山羊。天裔或任何選擇其他種族坐騎的人，須先在該種族訓練師處學會對應騎術（需該種族主城崇拜）。",
 	-- {npc:14332} Black War Steed · {spell:824} Horse Riding
 	["{npc:14332}, {spell:824}, 100g"] = "{npc:14332}，{spell:824}，100金",
 	-- {spell:22723} Black War Tiger · {spell:828} Tiger Riding

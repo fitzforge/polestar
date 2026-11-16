@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Grazle
 	-- {faction:576} Timbermaw Hold · {npc:11554} Grazle · {npc:15395} Nafien · {npc:11556} Salfa · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
-	["{faction:576} starts at Hostile (2,500 of 3,000), so its furbolgs attack you in their tunnels; {npc:11554}, {npc:15395} and {npc:11556} talk to everyone. {npc:11554} waits by the road in the south of {zone:1448}, near the {area:2479}. Every Deadwood and Winterfall furbolg you kill gives 5 reputation up to the last point of Honored, so the quests below pay twice. The Legacy perk Diplomat adds up to 10% to every gain."] = "{faction:576}從中立開始就是敵對（3,000點中已有2,500），所以它的熊怪會在隧道里攻擊你；{npc:11554}、{npc:15395}和{npc:11556}則與所有人交談。{npc:11554}在{zone:1448}南部的路邊等候，靠近{area:2479}。你殺的每個死木和冬泉熊怪都給5點聲望，直到尊敬的最後一刻，所以下面的任務會付雙份。傳承專長“外交家”會讓每次獲得的聲望最多增加10%。",
+	["{faction:576} starts at Hostile (2,500 of 3,000), so its furbolgs attack you in their tunnels; {npc:11554}, {npc:15395} and {npc:11556} talk to everyone. {npc:11554} waits by the road in the south of {zone:1448}, near the {area:2479}. Every Deadwood and Winterfall furbolg you kill gives 5 reputation up to the last point of Honored, so the quests below pay twice. The Legacy perk Diplomat adds up to 10% to every gain."] = "{faction:576}從中立開始就是敵對（3,000點中已有2,500），所以它的熊怪會在隧道裡攻擊你；{npc:11554}、{npc:15395}和{npc:11556}則與所有人交談。{npc:11554}在{zone:1448}南部的路邊等候，靠近{area:2479}。你殺的每個死木和冬泉熊怪都給5點聲望，直到尊敬的最後一刻，所以下面的任務會付雙份。傳承專長“外交家”會讓每次獲得的聲望最多增加10%。",
 
 	-- Step 2: Deadwood Village
 	-- {zone:1448} Felwood · {item:21377} Deadwood Headdress Feather · {npc:9464} Overlord Ror · {npc:14342} Ragepaw
@@ -37,7 +37,7 @@ return {
 	-- {npc:15395} Nafien
 	["Back to {npc:15395}"] = "返回{npc:15395}",
 	-- {quest:8460} Timbermaw Ally
-	["These quests and their kills bring you just past Unfriendly (500 from the start). If {quest:8460} paid you less (at level 60 in Classic: 30), kill about 40 more northern Deadwood. From Unfriendly the Timbermaw in the tunnel leave you alone."] = "這些任務及其擊殺會把你剛好帶過冷淡（從開始算500點）。如果{quest:8460}給你的較少（經典舊世60級時為30點），就再殺約40只北邊死木熊怪。達到冷淡後，隧道里的木喉就不會再攻擊你。",
+	["These quests and their kills bring you just past Unfriendly (500 from the start). If {quest:8460} paid you less (at level 60 in Classic: 30), kill about 40 more northern Deadwood. From Unfriendly the Timbermaw in the tunnel leave you alone."] = "這些任務及其擊殺會把你剛好帶過冷淡（從開始算500點）。如果{quest:8460}給你的較少（經典舊世60級時為30點），就再殺約40只北邊死木熊怪。達到冷淡後，隧道裡的木喉就不會再攻擊你。",
 
 	-- Step 7: Salfa
 	-- {zone:1452} Winterspring · {npc:11556} Salfa
@@ -45,7 +45,7 @@ return {
 
 	-- Step 8: Winterfall Village
 	-- {area:2244} Winterfall Village · {zone:1452} Winterspring · {area:2255} Everlook · {item:21383} Winterfall Spirit Beads · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall
-	["{area:2244} lies in the east of {zone:1452}, just past {area:2255}. Keep every {item:21383} you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. {npc:10199} (rare) and {npc:10738}, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas."] = "{area:2244}在{zone:1452}東部，就在{area:2255}過去一點。拾到的每串{item:21383}都留著（之後每串10點聲望）。薩滿、巢穴守望者和巨熊共享重新整理點，所以把村子裡的熊怪全部殺掉，才能讓你需要的那些出現；村子西南的山脊上還有更多巨熊走動。{npc:10199}（稀有）和洞穴深處的{npc:10738}給25點，直到崇拜。聯盟：冬刃豹訓練師的《冬泉入侵》也需要同樣的薩滿和巨熊。",
+	["{area:2244} lies in the east of {zone:1452}, just past {area:2255}. Keep every {item:21383} you loot (10 reputation each later). The Shamans, Den Watchers and Ursas share their spawn points, so kill every furbolg in the village to make the ones you need appear; more Ursas walk the ridge just south-west of the village. {npc:10199} (rare) and {npc:10738}, in the cave at the back, give 25 until Exalted. Alliance: the Wintersaber Trainers' Winterfall Intrusion asks for the same Shamans and Ursas."] = "{area:2244}在{zone:1452}東部，就在{area:2255}過去一點。拾到的每串{item:21383}都留著（之後每串10點聲望）。薩滿、巢穴守望者和巨熊共享重生點，所以把村子裡的熊怪全部殺掉，才能讓你需要的那些出現；村子西南的山脊上還有更多巨熊走動。{npc:10199}（稀有）和洞穴深處的{npc:10738}給25點，直到崇拜。聯盟：冬刃豹訓練師的《冬泉入侵》也需要同樣的薩滿和巨熊。",
 	-- {npc:10199} Grizzle Snowpaw
 	["{npc:10199}, rare"] = "{npc:10199}，稀有",
 	-- {npc:10738} High Chief Winterfall
@@ -77,7 +77,7 @@ return {
 	-- Step 12: Winterfall Ritual Totem
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda
 	-- plural, as words: Mana Potions = {item:3827} Mana Potion
-	["The Winterfall furbolgs rarely drop a {quest:8471} (3-4%). {npc:11558} takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions."] = "冬泉熊怪很少掉落{quest:8471}（3-4%）。{npc:11558}也在隧道里收：150點聲望，外加三瓶強效治療藥水和三瓶強效法力藥水。",
+	["The Winterfall furbolgs rarely drop a {quest:8471} (3-4%). {npc:11558} takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions."] = "冬泉熊怪很少掉落{quest:8471}（3-4%）。{npc:11558}也在隧道裡收：150點聲望，外加三瓶強效治療藥水和三瓶強效法力藥水。",
 
 	-- Step 13: Neutral to Friendly
 	["Neutral to Friendly"] = "中立到友善",
@@ -85,7 +85,7 @@ return {
 
 	-- Step 14: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {item:13484} Recipe: Transmute Earth to Water · {item:22392} Formula: Enchant 2H Weapon - Agility · {item:20253} Pattern: Warbear Harness · {item:15065} Warbear Woolies · {quest:6031} Runecloth · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
-	["{npc:11557} stands in the tunnel, near its {zone:1448} mouth. From Friendly he sells: {item:13484} (1 gold 50 silver), {item:22392} (2 gold 50 silver), {item:20253} (1 gold 60 silver) and {item:15065} (2 gold). He also takes 30 {quest:6031} once for 100 reputation and a choice of shoulders or gauntlets, and Tailors with skill 290 can bring him 2 {item:14342} for 100 more and the {item:15802} pattern."] = "{npc:11557}站在隧道里，靠近{zone:1448}一側的入口。從友善起他出售：{item:13484}（1金50銀）、{item:22392}（2金50銀）、{item:20253}（1金60銀）和{item:15065}（2金）。他還會一次性收下30個{quest:6031}，給100點聲望和護肩或護手任選其一；技能290的裁縫可以帶2塊{item:14342}給他，換100點聲望和{item:15802}圖樣。",
+	["{npc:11557} stands in the tunnel, near its {zone:1448} mouth. From Friendly he sells: {item:13484} (1 gold 50 silver), {item:22392} (2 gold 50 silver), {item:20253} (1 gold 60 silver) and {item:15065} (2 gold). He also takes 30 {quest:6031} once for 100 reputation and a choice of shoulders or gauntlets, and Tailors with skill 290 can bring him 2 {item:14342} for 100 more and the {item:15802} pattern."] = "{npc:11557}站在隧道裡，靠近{zone:1448}一側的入口。從友善起他出售：{item:13484}（1金50銀）、{item:22392}（2金50銀）、{item:20253}（1金60銀）和{item:15065}（2金）。他還會一次性收下30個{quest:6031}，給100點聲望和護肩或護手任選其一；技能290的裁縫可以帶2塊{item:14342}給他，換100點聲望和{item:15802}圖樣。",
 
 	-- Step 15: Runecloth for Meilosh
 	-- {quest:6031} Runecloth · {npc:11557} Meilosh
@@ -115,7 +115,7 @@ return {
 	-- Step 19: Revered to Exalted
 	["Revered to Exalted"] = "崇敬到崇拜",
 	-- {npc:15395} Nafien · {npc:11554} Grazle · {npc:11556} Salfa · {npc:14342} Ragepaw · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall · {npc:11557} Meilosh · {item:19204} Pattern: Heavy Timbermaw Boots · {item:19049} Timbermaw Brawlers · {skill:165} Leatherworking · {item:19050} Mantle of the Timbermaw · {skill:197} Tailoring
-	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "擊殺在尊敬結束處停止。崇敬到崇拜是21,000點：420次上交，2,100根羽毛和念珠。羽毛交給隧道里的{npc:15395}或南邊的{npc:11554}，念珠交給{npc:11556}，每次五個。那些有名有姓的熊怪（羅爾、血牙、{npc:14342}、{npc:10199}、{npc:10738}）仍然計數。崇敬後可在{npc:11557}處購買，每張4金：{item:19204}和{item:19049}（{skill:165}）以及{item:19050}（{skill:197}）。",
+	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "擊殺在尊敬結束處停止。崇敬到崇拜是21,000點：420次上交，2,100根羽毛和念珠。羽毛交給隧道裡的{npc:15395}或南邊的{npc:11554}，念珠交給{npc:11556}，每次五個。那些有名有姓的熊怪（羅爾、血牙、{npc:14342}、{npc:10199}、{npc:10738}）仍然計數。崇敬後可在{npc:11557}處購買，每張4金：{item:19204}和{item:19049}（{skill:165}）以及{item:19050}（{skill:197}）。",
 	-- {quest:8467} Feathers for Nafien
 	["{quest:8467}: 5 feathers, 50 reputation"] = "{quest:8467}：5根羽毛，50點聲望",
 	-- {quest:8466} Feathers for Grazle
@@ -125,7 +125,7 @@ return {
 
 	-- Step 20: The Root of All Evil
 	-- {npc:11555} Gorn One Eye · {npc:11557} Meilosh · {quest:8481} The Root of All Evil · {item:21144} Demon Summoning Torch · {npc:10738} High Chief Winterfall · {npc:15623} Xandivious · {item:21326} Defender of the Timbermaw
-	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "崇拜時，{npc:11555}在隧道里、{npc:11557}旁邊，給你{quest:8481}：把他的{item:21144}插在{npc:10738}的洞口，並擊敗惡魔{npc:15623}（62級，精英：帶隊伍去）。獎勵是{item:21326}，一枚召喚木喉盟友的飾品，外加200點聲望。",
+	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "崇拜時，{npc:11555}在隧道裡、{npc:11557}旁邊，給你{quest:8481}：把他的{item:21144}插在{npc:10738}的洞口，並擊敗惡魔{npc:15623}（62級，精英：帶隊伍去）。獎勵是{item:21326}，一枚召喚木喉盟友的飾品，外加200點聲望。",
 
 	-- Step 21: Xandivious
 	-- {area:2244} Winterfall Village · {npc:15623} Xandivious

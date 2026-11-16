@@ -34,7 +34,7 @@ return {
 	-- Step 5: The Eye of Shadow
 	-- {item:18665} The Eye of Shadow · {npc:12397} Lord Kazzak · {zone:1419} Blasted Lands
 	-- plural, as words: Doomguard Commanders = {npc:12396} Doomguard Commander
-	["The splinter needs {item:18665} as well. {npc:12397}, a world boss in the {zone:1419} (a raid), always drops it; Manahounds and Doomguard Commanders there drop it rarely (about 3% and 2%), the Hederine of Winterspring hardly ever. It can be traded: check the Auction House first."] = "碎塊還需要{item:18665}。{npc:12397}是{zone:1419}的世界首領（團隊副本），必定掉落；那裡的法力犬和末日守衛指揮官很少掉落（約3%和2%），冬泉谷的赫達林幾乎不掉。它可以交易：先去拍賣行看看。",
+	["The splinter needs {item:18665} as well. {npc:12397}, a world boss in the {zone:1419} (a raid), always drops it; Manahounds and Doomguard Commanders there drop it rarely (about 3% and 2%), the Hederine of Winterspring hardly ever. It can be traded: check the Auction House first."] = "碎塊還需要{item:18665}。{npc:12397}是{zone:1419}的世界首領（需要團隊討伐），必定掉落；那裡的法力犬和末日守衛指揮官很少掉落（約3%和2%），冬泉谷的赫達林幾乎不掉。它可以交易：先去拍賣行看看。",
 
 	-- Step 6: Benediction
 	-- {item:18659} Splinter of Nordrassil · {item:18646} The Eye of Divinity · {item:18665} The Eye of Shadow · {item:18608} Benediction

@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Defias Dockmaster
 	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire · {spell:921} Pick Pocket · {spell:2070} Sap
-	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "{npc:6846}（10級，地精）在{area:797}的碼頭小屋幹活，那裡是艾爾文森林南緣的河邊，{area:87}以南。潛行進去從背後{spell:921}他：日程表永遠不會從他屍體上掉落。不要用{spell:2070}起手，也別直接開打：他會叫來三波保鏢。避開屋裡的壁爐，它們會把你燒出潛行。他死亡後2到5分鐘重新整理。",
+	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "{npc:6846}（10級，哥布林）在{area:797}的碼頭小屋幹活，那裡是艾爾文森林南緣的河邊，{area:87}以南。潛行進去從背後{spell:921}他：日程表永遠不會從他屍體上掉落。不要用{spell:2070}起手，也別直接開打：他會叫來三波保鏢。避開屋裡的壁爐，它們會把你燒出潛行。他死亡後2到5分鐘重新出現。",
 	-- {spell:921} Pick Pocket · {npc:6846} Defias Dockmaster · {item:7675} Defias Shipping Schedule
 	["{spell:921} the {npc:6846} for the {item:7675}"] = "對{npc:6846}使用{spell:921}，拿到{item:7675}",
 

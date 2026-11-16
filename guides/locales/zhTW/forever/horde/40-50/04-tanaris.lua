@@ -108,7 +108,7 @@ return {
 
 	-- Step 22: Scrimshank's gear
 	["Scrimshank's gear"] = "謝申克的設備",
-	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初級勘測員斯克林克的裝備躺在森提帕巢穴的入口。\n注意：一隻蟲子守著裝備。隧道里有很多蟲子巡邏，有些是50級，所以戰鬥常會拉到額外的增援。",
+	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "再往南，初級勘測員斯克林克的裝備躺在森提帕巢穴的入口。\n注意：一隻蟲子守著裝備。隧道裡有很多蟲子巡邏，有些是50級，所以戰鬥常會拉到額外的增援。",
 	["Below ground"] = "地下",
 
 	-- Step 23: OOX-17/TN

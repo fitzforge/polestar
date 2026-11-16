@@ -10,7 +10,7 @@ return {
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "進入{zone:1418}",
 	-- {object:2673} Thandol Span · {zone:1437} Wetlands · {object:1668} Dun Algaz · {zone:1432} Loch Modan · {area:144} Thelsamar · {zone:1418} Badlands · {area:1877} Valley of Fangs
-	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "前往{object:2673}，那是阿拉希南緣的大橋，過橋後沿路向南穿過{zone:1437}，進入{object:1668}隧道到{zone:1432}。{area:144}是{zone:1432}中部路邊的矮人鎮，鎮上的衛兵會攻擊部落：在到鎮子之前離開道路，從它西邊的丘陵繞過去。道路從{zone:1432}向南進入{zone:1418}；沿路走到{area:1877}的地精營地。",
+	["Head for the {object:2673}, the great bridge at Arathi's southern edge, cross it and follow the road south through the {zone:1437} to the {object:1668} tunnel into {zone:1432}. {area:144}, the dwarf town on the road in the middle of {zone:1432}, has guards who attack the Horde: leave the road before it and pass the town on the hills to its west. The road leaves {zone:1432} to the south into the {zone:1418}; follow it to the goblin camp in the {area:1877}."] = "前往{object:2673}，那是阿拉希南緣的大橋，過橋後沿路向南穿過{zone:1437}，進入{object:1668}隧道到{zone:1432}。{area:144}是{zone:1432}中部路邊的矮人鎮，鎮上的衛兵會攻擊部落：在到鎮子之前離開道路，從它西邊的丘陵繞過去。道路從{zone:1432}向南進入{zone:1418}；沿路走到{area:1877}的哥布林營地。",
 
 	-- Step 2: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats

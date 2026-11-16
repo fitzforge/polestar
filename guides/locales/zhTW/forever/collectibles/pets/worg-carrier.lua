@@ -16,7 +16,7 @@ return {
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}: Halycon's pups"] = "{area:1583}下層：哈萊孔的小狼",
 	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "小狼在黑石塔下層（五人隊，55-60級），不是上層：它們跟著巨狼哈萊孔，在{npc:10584}的食人魔之後的副本深處。在狼群死光前，對一隻活著的{npc:10221}使用籠子。受到傷害會打斷施法，所以讓坦克拉住小狼，你從側面籠住一隻。盜賊或德魯伊可以潛進去，從角落籠住一隻，然後消失。",
+	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "小狼在黑石塔下層（五人隊，55-60級），不是上層：它們跟著巨狼哈萊孔，在{npc:10584}的食人魔之後的地城深處。在狼群死光前，對一隻活著的{npc:10221}使用籠子。受到傷害會打斷施法，所以讓坦克拉住小狼，你從側面籠住一隻。盜賊或德魯伊可以潛進去，從角落籠住一隻，然後消失。",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583}下層",
 

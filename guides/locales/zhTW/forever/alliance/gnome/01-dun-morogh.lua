@@ -499,7 +499,7 @@ return {
 	-- {item:6775} Tome of Divinity
 	["The {item:6775}"] = "{item:6775}",
 	-- {object:32383} Forlorn Cavern · {object:32362} Mystic Ward · {npc:5149} Brandur Ironhammer · {npc:6179} Tiza Battleforge · {npc:6178} Muiredon Battleforge · {object:32386} Hall of Mysteries · {npc:6175} John Turner · {item:2589} Linen Cloth · {zone:1426} Dun Morogh
-	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "從{object:32383}向西進入{object:32362}：{npc:5149}、{npc:6179}和{npc:6178}在{object:32386}內，蒂薩和穆裡頓在樓上：樓梯起點就在{npc:5149}東北邊。乞丐{npc:6175}在城中游蕩。他要十塊{item:2589}：{zone:1426}的穴居人和巨魔會掉落，拍賣行也有出售。",
+	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "從{object:32383}向西進入{object:32362}：{npc:5149}、{npc:6179}和{npc:6178}在{object:32386}內，蒂薩和穆裡頓在樓上：樓梯起點就在{npc:5149}東北邊。乞丐{npc:6175}在城中游蕩。他要十塊{item:2589}：{zone:1426}的穴居人和食人妖會掉落，拍賣行也有出售。",
 
 	-- Step 96: Narm Faulk
 	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life

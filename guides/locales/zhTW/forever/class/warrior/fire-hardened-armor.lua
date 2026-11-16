@@ -99,11 +99,11 @@ return {
 
 	-- Step 19: Klockmort Spannerspan
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
-	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "從{zone:1453}乘{area:2257}到{zone:1455}。侏儒鐵匠{quest:1704}在{object:171524}工程訓練師附近幹活。他要20個{item:6848}。",
+	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "從{zone:1453}乘{area:2257}到{zone:1455}。地精鐵匠{quest:1704}在{object:171524}工程訓練師附近幹活。他要20個{item:6848}。",
 
 	-- Step 20: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "{quest:1708}生長在{area:150}正南的海底，魚人小屋和一條沉船旁：那裡有八株，港口東南兩株，每株3分鐘重新整理，所以湊到20株要等重新整理。魚人會在水下撒網：留意呼吸，{item:5996}能消除這個風險。",
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "{quest:1708}生長在{area:150}正南的海底，魚人小屋和一條沉船旁：那裡有八株，港口東南兩株，每株3分鐘重新出現，所以湊到20株要等重新出現。魚人會在水下撒網：留意呼吸，{item:5996}能消除這個風險。",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
 	["{item:6848}, from {quest:1708}"] = "{item:6848}，來自{quest:1708}",
 

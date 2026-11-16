@@ -41,7 +41,7 @@ return {
 
 	-- Step 7: Bailor's Ore
 	-- {zone:1432} Loch Modan
-	["The crate of ore sits outdoors in the middle of the Mo'grosh ogre camp in north-east {zone:1432}, beside a big tree and a broken wagon, between the caves. The camp holds about fifteen Mo'grosh ogres, elite (level 18-19), who knock you down and come back after five minutes: grouping up is encouraged; at 20-22 it needs a group of about three. The crate is back two seconds after each loot, so every paladin in the group gets one."] = "礦石箱露天放在{zone:1432}東北部莫格羅什食人魔營地的中央，在一棵大樹和一輛破車旁，位於洞穴之間。營地約有十五個莫格羅什食人魔，精英（18-19級），會把你擊倒並在五分鐘後回來：建議組隊；20-22級時大約需要三人小隊。每次拾取後兩秒箱子就會重新整理，所以隊伍裡每個聖騎士都能拿到一個。",
+	["The crate of ore sits outdoors in the middle of the Mo'grosh ogre camp in north-east {zone:1432}, beside a big tree and a broken wagon, between the caves. The camp holds about fifteen Mo'grosh ogres, elite (level 18-19), who knock you down and come back after five minutes: grouping up is encouraged; at 20-22 it needs a group of about three. The crate is back two seconds after each loot, so every paladin in the group gets one."] = "礦石箱露天放在{zone:1432}東北部莫格羅什食人魔營地的中央，在一棵大樹和一輛破車旁，位於洞穴之間。營地約有十五個莫格羅什食人魔，精英（18-19級），會把你擊倒並在五分鐘後回來：建議組隊；20-22級時大約需要三人小隊。每次拾取後兩秒箱子就會重新出現，所以隊伍裡每個聖騎士都能拿到一個。",
 	-- {object:92420} Bailor's Ore
 	["{object:92420} crate"] = "{object:92420}箱子",
 
@@ -74,7 +74,7 @@ return {
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
-	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "{zone:1440}西北海岸{area:2797}入口周圍的水淹通道里，黑淵納迦掉落{item:6995}：潮汐女祭司（20-21級）、神諭者（21-22級）和海巫（23-24級），約每兩隻掉一個。你不需要進入副本。它們全是精英：建議組隊；玩家們通常一次單挑一隻，但很困難。它們會自療，殘血時跑去求援，有些旁邊站著薩特，海巫會近身施放{spell:122}。有玩家反映在團隊中不掉落。",
+	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "{zone:1440}西北海岸{area:2797}入口周圍的水淹通道裡，黑淵納迦掉落{item:6995}：潮汐女祭司（20-21級）、神諭者（21-22級）和海巫（23-24級），約每兩隻掉一個。你不需要進入副本。它們全是精英：建議組隊；玩家們通常一次單挑一隻，但很困難。它們會自療，殘血時跑去求援，有些旁邊站著薩特，海巫會近身施放{spell:122}。有玩家反映在團隊中不掉落。",
 
 	-- Step 13: The Purified Kor Gem
 	-- {item:7083} Purified Kor Gem

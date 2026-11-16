@@ -53,7 +53,7 @@ return {
 	-- {area:16724} Farholde Keep · {area:16743} Rog'mar
 	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "本段有14個區域可探索，等級36-44。飛行點：東南的{area:16724}（聯盟）、中部的{area:16743}（部落）。",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
-	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "從{zone:1418}南部經過{area:345}，有一條路向下通往{area:16685}旁的{zone:2548}。（{zone:2548}也可從赤脊山北部經{area:2417}進入，還有一艘船從{zone:1446}的{area:977}開往其海岸上的中立地精港口{area:16727}。）{area:17780}是一個食人魔氏族的野外副本。",
+	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "從{zone:1418}南部經過{area:345}，有一條路向下通往{area:16685}旁的{zone:2548}。（{zone:2548}也可從赤脊山北部經{area:2417}進入，還有一艘船從{zone:1446}的{area:977}開往其海岸上的中立哥布林港口{area:16727}。）{area:17780}是一個食人魔氏族的野外地城。",
 	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
 	["Flight path here: {area:16724} ({npc:257087})."] = "此處的飛行路線：{area:16724}（{npc:257087}）。",
 	-- {area:16743} Rog'mar

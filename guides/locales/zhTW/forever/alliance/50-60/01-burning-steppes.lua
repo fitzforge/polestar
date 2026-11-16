@@ -188,7 +188,7 @@ return {
 	["{area:197}: kill these as you meet them"] = "{area:197}：遇到就殺",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髏撕掠者和流涎食屍鬼在營地北面的田野遊蕩；這裡的天災怪都會掉落天災石。\n注意：這些亡靈從很遠就能發現你，拉怪時附近的亡靈會加入戰鬥。\n注意：{npc:10411}（3個重新整理點，15分鐘重新整理）脫離戰鬥後會隱形，戰鬥一開始就會呼叫石翼石像鬼。",
+	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髏撕掠者和流涎食屍鬼在營地北面的田野遊蕩；這裡的天災怪都會掉落天災石。\n注意：這些亡靈從很遠就能發現你，拉怪時附近的亡靈會加入戰鬥。\n注意：{npc:10411}（3個重生點，15分鐘重新出現）脫離戰鬥後會隱形，戰鬥一開始就會呼叫石翼石像鬼。",
 
 	-- Step 44: Chillwind Camp
 	["Ride back south to the camp."] = "向南騎回營地。",

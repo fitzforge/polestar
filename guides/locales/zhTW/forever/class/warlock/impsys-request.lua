@@ -49,7 +49,7 @@ return {
 	-- {npc:14470} Impsy
 	["{npc:14470} again"] = "再次找{npc:14470}",
 	-- {npc:14470} Impsy · {item:20609} Voodoo Feathers · {area:1417} Sunken Temple
-	["{npc:14470} now wants six {item:20609} from the {area:1417}: a dungeon run."] = "{npc:14470}現在要六個來自{area:1417}的{item:20609}：得下一趟副本。",
+	["{npc:14470} now wants six {item:20609} from the {area:1417}: a dungeon run."] = "{npc:14470}現在要六個來自{area:1417}的{item:20609}：得下一趟地城。",
 
 	-- Step 10: The Sunken Temple
 	-- {area:1417} Sunken Temple

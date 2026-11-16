@@ -130,7 +130,7 @@ return {
 	["The Scarlet attack plans"] = "血色十字軍的攻擊計畫",
 	-- {area:812} Venomweb Vale
 	-- plural, as words: Scarlet Zealots = {npc:1537} Scarlet Zealot
-	["The Scarlet Zealots (level 8-9), Friars (9-10) and Tarnished around {area:812} carry the attack plans. They run for help at low health and respawn in five minutes."] = "{area:812}周圍的血色狂熱者（8-9級）、血色修士（9-10級）和鏽濁成員身上帶著進攻計劃。它們血量低時會逃跑呼救，五分鐘後重新整理。",
+	["The Scarlet Zealots (level 8-9), Friars (9-10) and Tarnished around {area:812} carry the attack plans. They run for help at low health and respawn in five minutes."] = "{area:812}周圍的血色狂熱者（8-9級）、血色修士（9-10級）和鏽濁成員身上帶著進攻計劃。它們血量低時會逃跑呼救，五分鐘後重新出現。",
 
 	-- Step 23: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption

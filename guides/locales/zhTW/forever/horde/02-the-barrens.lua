@@ -173,7 +173,7 @@ return {
 
 	-- Step 37: Echeyakee
 	-- {quest:881} Echeyakee
-	["South-east on the way back to the Crossroads: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "回十字路口途中向東南：{quest:881}是一頭白獅，在鋼鬃營地北邊的平原上游蕩。\n注意：薩凡納女獵手在巢穴周圍遊蕩。它們重新整理很快，經常和{quest:881}一起加入戰鬥，所以吹響號角之前先把它們清掉。\n這裡的陽鱗迅猛龍也算在頭的數量裡。",
+	["South-east on the way back to the Crossroads: {quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn.\nSunscale raptors here count toward the heads."] = "回十字路口途中向東南：{quest:881}是一頭白獅，在鋼鬃營地北邊的平原上游蕩。\n注意：薩凡納女獵手在巢穴周圍遊蕩。它們重新出現很快，經常和{quest:881}一起加入戰鬥，所以吹響號角之前先把它們清掉。\n這裡的陽鱗迅猛龍也算在頭的數量裡。",
 
 	-- Step 38: Finish the Raptor Heads
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
@@ -580,7 +580,7 @@ return {
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "在野豬人的水源裝滿{item:7766}",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
-	["Keep it: the {object:107045} is beside {area:272}, on the {area:287} guide"] = "留著它：{object:107045}就在{area:272}旁，{area:287}指南里會用到",
+	["Keep it: the {object:107045} is beside {area:272}, on the {area:287} guide"] = "留著它：{object:107045}就在{area:272}旁，{area:287}指南裡會用到",
 
 	-- Step 132: Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -629,7 +629,7 @@ return {
 
 	-- Step 142: Malaka'jin
 	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
-	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "從{npc:4049}沿路向西進入石爪山。巨魔村莊{area:2539}就在峽谷入口處。",
+	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "從{npc:4049}沿路向西進入石爪山。食人妖村莊{area:2539}就在峽谷入口處。",
 	-- {npc:12816} Xen'Zilla · {area:1076} Webwinder Path
 	["{npc:12816}: the spiders along the {area:1076}"] = "{npc:12816}：{area:1076}沿途的蜘蛛",
 

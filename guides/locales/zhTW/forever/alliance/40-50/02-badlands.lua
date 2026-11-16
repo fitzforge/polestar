@@ -70,7 +70,7 @@ return {
 
 	-- Step 16: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "穿過山口回去：石窟穴居人在{zone:1418}北緣、{area:1517}外面挖洞。雕花甕和紫紅色蘑菇叢就在他們的洞穴和隧道里，在副本外面。",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "穿過山口回去：石窟穴居人在{zone:1418}北緣、{area:1517}外面挖洞。雕花甕和紫紅色蘑菇叢就在他們的洞穴和隧道裡，在地城外面。",
 	-- {item:8047} Magenta Fungus Cap
 	["{item:8047}; below ground"] = "{item:8047}：在地下",
 	-- {object:2743} Carved Stone Urn

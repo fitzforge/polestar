@@ -83,7 +83,7 @@ return {
 
 	-- Step 13: Narain Soothfancy
 	-- {npc:11811} Narain Soothfancy · {area:976} Gadgetzan · {zone:1421} Silverpine Forest · {zone:1446} Tanaris · {npc:8125} Dirge Quikcleave
-	["{npc:11811}, a goblin seer, lives in a hut north-east of {area:976}. He sends you three ways at once: to Stewvul's crate in {zone:1421}, to an island off the south coast of {zone:1446}, and to {npc:8125} in {area:976}."] = "{npc:11811}是個地精先知，住在{area:976}東北的一座小屋裡。他一次派你走三條路：去{zone:1421}斯圖沃的箱子、去{zone:1446}南海岸外的島嶼，以及去{area:976}的{npc:8125}。",
+	["{npc:11811}, a goblin seer, lives in a hut north-east of {area:976}. He sends you three ways at once: to Stewvul's crate in {zone:1421}, to an island off the south coast of {zone:1446}, and to {npc:8125} in {area:976}."] = "{npc:11811}是個哥布林先知，住在{area:976}東北的一座小屋裡。他一次派你走三條路：去{zone:1421}斯圖沃的箱子、去{zone:1446}南海岸外的島嶼，以及去{area:976}的{npc:8125}。",
 
 	-- Step 14: Stewvul's crate
 	["Stewvul's crate"] = "斯圖沃的箱子",

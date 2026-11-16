@@ -56,7 +56,7 @@ return {
 	-- {area:718} Wailing Caverns
 	["The {area:718}' cave"] = "{area:718}的洞穴",
 	-- {area:387} Lushwater Oasis · {area:718} Wailing Caverns
-	["The scrolls lie underground, in the cave below {area:387} by the {area:718} entrance, not inside the dungeon. Go in at the cave mouth in the oasis and follow the cave down; the arrow points at the scrolls from the surface."] = "卷軸在地下，位於{area:387}下方、{area:718}入口旁的洞穴裡，不在副本內。從綠洲的洞口進去，沿洞穴向下走；箭頭會從地面指向卷軸。",
+	["The scrolls lie underground, in the cave below {area:387} by the {area:718} entrance, not inside the dungeon. Go in at the cave mouth in the oasis and follow the cave down; the arrow points at the scrolls from the surface."] = "卷軸在地下，位於{area:387}下方、{area:718}入口旁的洞穴裡，不在地城內。從綠洲的洞口進去，沿洞穴向下走；箭頭會從地面指向卷軸。",
 	-- {area:387} Lushwater Oasis
 	["Cave mouth at {area:387}"] = "{area:387}的洞口",
 
@@ -83,7 +83,7 @@ return {
 	["Inside the first tower of the ogre fort at {area:1357}, in the middle of the zone."] = "區域中部{area:1357}食人魔堡壘的第一座塔內。",
 
 	-- Step 18: Arathi Highlands
-	["Beside a tent entrance in the troll village in south-eastern Arathi."] = "阿拉希東南部巨魔村莊的一座帳篷入口旁。",
+	["Beside a tent entrance in the troll village in south-eastern Arathi."] = "阿拉希東南部食人妖村莊的一座帳篷入口旁。",
 
 	-- Step 19: Stranglethorn Vale
 	-- {area:310} Crystalvein Mine
@@ -94,7 +94,7 @@ return {
 
 	-- Step 21: Swamp of Sorrows
 	-- {area:1477} Temple of Atal'Hakkar
-	["On the top walkway of the {area:1477}, outside the dungeon."] = "副本外{area:1477}的頂層走廊。",
+	["On the top walkway of the {area:1477}, outside the dungeon."] = "地城外{area:1477}的頂層走廊。",
 
 	-- Step 23: Thousand Needles
 	-- {area:2097} Darkcloud Pinnacle
@@ -119,14 +119,14 @@ return {
 
 	-- Step 28: The Hinterlands
 	-- {area:353} Shadra'Alor · {zone:1425} The Hinterlands
-	["In the troll ruins of {area:353}, in the south of the {zone:1425}."] = "在{zone:1425}南部的{area:353}巨魔廢墟內。",
+	["In the troll ruins of {area:353}, in the south of the {zone:1425}."] = "在{zone:1425}南部的{area:353}食人妖廢墟內。",
 
 	-- Step 29: Searing Gorge
 	["On a table inside a tent near the middle of the zone."] = "區域中部附近一座帳篷內的桌子上。",
 
 	-- Step 30: Blackrock Mountain
 	-- {area:254} Blackrock Mountain · {npc:8888} Franclorn Forgewright · {npc:14387} Lothos Riftwaker
-	["Inside {area:254}, not in a dungeon: the book lies on the altar in {npc:8888}'s tomb, near {npc:14387}. The waypoint marks the mountain."] = "在{area:254}內，不在副本里：書放在{npc:8888}陵墓的祭壇上，{npc:14387}附近。路徑點標的是那座山。",
+	["Inside {area:254}, not in a dungeon: the book lies on the altar in {npc:8888}'s tomb, near {npc:14387}. The waypoint marks the mountain."] = "在{area:254}內，不在地城裡：書放在{npc:8888}陵墓的祭壇上，{npc:14387}附近。路徑點標的是那座山。",
 
 	-- Step 32: Azshara
 	-- {area:1236} Haldarr Encampment · {zone:1447} Azshara
@@ -151,7 +151,7 @@ return {
 	-- {zone:1422} Western Plaguelands
 	["Level 60 books: {zone:1422}"] = "60級書籍：{zone:1422}",
 	-- {item:228141} Necromancy 101 · {area:2298} Caer Darrow · {area:2057} Scholomance · {item:228132} Undead Potatoes · {area:199} Felstone Field
-	["Eight more books lie in level 55-60 zones; the mage trainers beside the librarians take them, not the librarians. {item:228141} lies on a table in the ruined keep on {area:2298}, above {area:2057} (outside the dungeon); {item:228132} at {area:199}."] = "還有八本書在55-60級區域；收書的是圖書館員旁的法師訓練師，不是圖書館員。{item:228141}在{area:2298}廢棄城堡的一張桌子上，{area:2057}上方（副本外）；{item:228132}在{area:199}。",
+	["Eight more books lie in level 55-60 zones; the mage trainers beside the librarians take them, not the librarians. {item:228141} lies on a table in the ruined keep on {area:2298}, above {area:2057} (outside the dungeon); {item:228132} at {area:199}."] = "還有八本書在55-60級區域；收書的是圖書館員旁的法師訓練師，不是圖書館員。{item:228141}在{area:2298}廢棄城堡的一張桌子上，{area:2057}上方（地城外）；{item:228132}在{area:199}。",
 
 	-- Step 38: Level 60 books: Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
@@ -175,7 +175,7 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Level 60 books: {area:254}"] = "60級書籍：{area:254}",
 	-- {item:228133} Magma or Lava? · {area:254} Blackrock Mountain · {area:1584} Blackrock Depths · {area:2717} Molten Core
-	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "{item:228133}在{area:254}內，位於{area:2717}任務釋出者之後通往{area:1584}的礦道里。路徑點標的是那座山。",
+	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "{item:228133}在{area:254}內，位於{area:2717}任務釋出者之後通往{area:1584}的礦道裡。路徑點標的是那座山。",
 
 	-- Step 42: The level 60 books: Jennea Cannon
 	-- {npc:5497} Jennea Cannon

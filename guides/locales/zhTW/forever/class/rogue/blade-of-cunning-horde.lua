@@ -29,7 +29,7 @@ return {
 
 	-- Step 5: Tazan's Key
 	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel · {spell:1804} Pick Lock
-	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "{quest:1859}會把揹包還給你：現在開啟它。{npc:6466}（12級）跪在{object:172982}旅店的老闆身旁；潛行上去偷他的口袋拿{item:7208}（別殺他：鑰匙幾乎不掉）。玩家經常殺他，所以你可能要等他重新整理，最長5分鐘。然後對揹包裡的{item:7209}使用鑰匙。如果你已學會{spell:1804}，也可以直接撬開揹包的鎖。",
+	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained {spell:1804}, you can pick the satchel's lock instead."] = "{quest:1859}會把揹包還給你：現在開啟它。{npc:6466}（12級）跪在{object:172982}旅店的老闆身旁；潛行上去偷他的口袋拿{item:7208}（別殺他：鑰匙幾乎不掉）。玩家經常殺他，所以你可能要等他重新出現，最長5分鐘。然後對揹包裡的{item:7209}使用鑰匙。如果你已學會{spell:1804}，也可以直接撬開揹包的鎖。",
 	-- {item:7208} Tazan's Key
 	["Pick Pocket Gamon for {item:7208}"] = "從加摩爾身上偷取{item:7208}",
 	-- {item:7209} Tazan's Satchel
@@ -53,7 +53,7 @@ return {
 
 	-- Step 9: Astor Hadren
 	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
-	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497}（13級）在{area:228}與{zone:1458}之間的大路上來回走，位於{area:228}以北。他看上去像個友善的旅人，頭上沒有任務標記。與他交談，兩個回答選項都點一遍：他就會轉為敵對。殺掉他拿信件（必掉）。打他時離守衛遠一點，守衛可能搶走擊殺而且不掉落；每次擊殺只有一名盜賊能拿到信。他死後5分鐘重新整理。",
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497}（13級）在{area:228}與{zone:1458}之間的大路上來回走，位於{area:228}以北。他看上去像個友善的旅人，頭上沒有任務標記。與他交談，兩個回答選項都點一遍：他就會轉為敵對。殺掉他拿信件（必掉）。打他時離守衛遠一點，守衛可能搶走擊殺而且不掉落；每次擊殺只有一名盜賊能拿到信。他死後5分鐘重新出現。",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad

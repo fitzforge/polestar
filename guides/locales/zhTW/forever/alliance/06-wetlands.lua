@@ -325,7 +325,7 @@ return {
 
 	-- Step 58: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
-	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "可選：{npc:3848}還給{quest:1012}，去{area:432}深處殺三個32級的德魯伊，那是個怪物重新整理很快的潛行洞穴，完事再回去找她。這個等級對你偏高：只有組隊、或者想要額外經驗時才接；指南不需要它。",
+	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "可選：{npc:3848}還給{quest:1012}，去{area:432}深處殺三個32級的德魯伊，洞裡的怪物會潛行，重生得很快，完事再回去找她。這個等級對你偏高：只有組隊、或者想要額外經驗時才接；指南不需要它。",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}，在東邊幾步之處",
 
@@ -336,7 +336,7 @@ return {
 	-- Step 60: Insane druids
 	["Insane druids"] = "發狂的德魯伊",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
-	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "三個德魯伊都在{area:432}裡，彼此分開：從洞口進去，在被遺忘者營地以南，不要從他們上方翻山過去。{npc:3940}在東側廳堂，{npc:3941}在最深處東北端，{npc:3942}在西端。\n注意：洞裡怪物多、重新整理快，還有潛行的亡靈和巡邏，所以經常會有額外的怪加入戰鬥。",
+	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "三個德魯伊都在{area:432}裡，彼此分開：從洞口進去，在被遺忘者營地以南，不要從他們上方翻山過去。{npc:3940}在東側廳堂，{npc:3941}在最深處東北端，{npc:3942}在西端。\n注意：洞裡怪物多、重新出現快，還有潛行的亡靈和巡邏，所以經常會有額外的怪加入戰鬥。",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
 	["{npc:3940}, inside {area:432}"] = "{npc:3940}，在{area:432}內",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den

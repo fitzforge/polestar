@@ -31,7 +31,7 @@ return {
 	-- Step 4: The City of Dalaran
 	["The City of Dalaran"] = "達拉然城",
 	-- {quest:92457} Starving Arcane · {npc:246020} Shade of the Archmage · {npc:246748} Archmage Modera · {item:251961} Arcane Mote · {faction:2740} Kirin Tor
-	["The City of Dalaran is a dungeon for levels 28 to 33: go in through the sewers with the key Modera gave you. The arcane elementals throughout the city count for {quest:92457}. The {npc:246020}, the last boss, waits in the Purple Parlor above the Violet Citadel (a portal by {npc:246748} in the Citadel takes you up) and drops the {item:251961}. Beta players saw every kill in the dungeon pay {faction:2740} reputation, the bosses the most. Group of five advised below level 35."] = "“達拉然城”是28到33級的副本：用茉德拉給你的鑰匙從下水道進入。城中各處的奧術元素都計入{quest:92457}。最後的首領{npc:246020}在紫羅蘭城堡上方的紫色會客廳等待（城堡裡{npc:246748}旁有傳送門送你上去），並掉落{item:251961}。測試服玩家看到副本里每次擊殺都給{faction:2740}聲望，首領給得最多。35級以下建議五人隊。",
+	["The City of Dalaran is a dungeon for levels 28 to 33: go in through the sewers with the key Modera gave you. The arcane elementals throughout the city count for {quest:92457}. The {npc:246020}, the last boss, waits in the Purple Parlor above the Violet Citadel (a portal by {npc:246748} in the Citadel takes you up) and drops the {item:251961}. Beta players saw every kill in the dungeon pay {faction:2740} reputation, the bosses the most. Group of five advised below level 35."] = "“達拉然城”是28到33級的地城：用茉德拉給你的鑰匙從下水道進入。城中各處的奧術元素都計入{quest:92457}。最後的首領{npc:246020}在紫羅蘭城堡上方的紫色會客廳等待（城堡裡{npc:246748}旁有傳送門送你上去），並掉落{item:251961}。測試服玩家看到地城裡每次擊殺都給{faction:2740}聲望，首領給得最多。35級以下建議五人隊。",
 	-- {item:251961} Arcane Mote · {npc:246020} Shade of the Archmage
 	["{item:251961}, from the {npc:246020}"] = "{item:251961}，來自{npc:246020}",
 
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: City of Dalaran runs to Friendly
 	["City of Dalaran runs to Friendly"] = "刷“達拉然城”到友善",
-	["The quests leave a non-Skyborne at about 320 of the 3,000 Friendly needs. The rest comes from kills in the City of Dalaran dungeon: run it until Friendly. How much each kill pays is not in the game's data; the bosses pay the most. At 60 you clear it alone."] = "這些任務只能讓非天裔角色達到友善所需3,000點中的約320點。其餘來自“達拉然城”副本的擊殺：一直刷到友善。每次擊殺給多少不在遊戲資料裡；首領給得最多。60級時你可以單刷。",
+	["The quests leave a non-Skyborne at about 320 of the 3,000 Friendly needs. The rest comes from kills in the City of Dalaran dungeon: run it until Friendly. How much each kill pays is not in the game's data; the bosses pay the most. At 60 you clear it alone."] = "這些任務只能讓非天裔角色達到友善所需3,000點中的約320點。其餘來自“達拉然城”地城的擊殺：一直刷到友善。每次擊殺給多少不在遊戲資料裡；首領給得最多。60級時你可以單刷。",
 
 	-- Step 11: Archmage Alvareaux: the Azure recipes
 	-- {npc:32287} Archmage Alvareaux
@@ -68,7 +68,7 @@ return {
 
 	-- Step 12: City of Dalaran runs to Exalted
 	["City of Dalaran runs to Exalted"] = "刷“達拉然城”到崇拜",
-	["Nothing is sold at Honored or Revered in the game's data. Friendly to Exalted is 39,000 reputation, all from City of Dalaran kills. In Classic most dungeon kills stop paying at Honored or Revered; whether these do is not known yet."] = "遊戲資料裡，尊敬或崇敬時沒有出售任何東西。友善到崇拜是39,000點聲望，全部來自“達拉然城”的擊殺。經典舊世裡大多數副本擊殺在尊敬或崇敬時就停止給聲望；這些是否會停尚不清楚。",
+	["Nothing is sold at Honored or Revered in the game's data. Friendly to Exalted is 39,000 reputation, all from City of Dalaran kills. In Classic most dungeon kills stop paying at Honored or Revered; whether these do is not known yet."] = "遊戲資料裡，尊敬或崇敬時沒有出售任何東西。友善到崇拜是39,000點聲望，全部來自“達拉然城”的擊殺。經典舊世裡大多數地城擊殺在尊敬或崇敬時就停止給聲望；這些是否會停尚不清楚。",
 
 	-- Step 13: The Kirin Tor Tabard
 	-- {item:285327} Kirin Tor Tabard

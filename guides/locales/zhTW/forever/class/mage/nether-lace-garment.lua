@@ -37,7 +37,7 @@ return {
 
 	-- Step 6: Kil'hala
 	-- {npc:3484} Kil'hala
-	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "巨魔裁縫{npc:3484}在十字路口工作。長袍提供智力、耐力和精神；外衣提供更多智力和耐力，但沒有精神。",
+	["{npc:3484}, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit."] = "食人妖裁縫{npc:3484}在十字路口工作。長袍提供智力、耐力和精神；外衣提供更多智力和耐力，但沒有精神。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Satyrs hold the ruins of {area:429} in eastern {zone:1440}. {spell:9052} at the bottom of the highest waterfall."] = "薩特佔據了{zone:1440}東部的{area:429}廢墟。在最高瀑布的底部{spell:9052}。",

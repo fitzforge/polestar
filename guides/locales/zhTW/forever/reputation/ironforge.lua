@@ -27,7 +27,7 @@ return {
 
 	-- Step 2: Coldridge Valley
 	-- {area:131} Kharanos · {npc:658} Sten Stoutarm · {npc:713} Balir Frosthammer · {area:77} Anvilmar
-	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可選：{area:131}西南的矮人和侏儒新手山谷，60級時30分鐘約1,100點聲望。{npc:658}和{npc:713}站在{area:77}。Forever 裡這些舊任務任何等級都足額給分。跳過這一步就跳過這個點。",
+	["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. Forever pays these old quests in full at any level. Skip this step to skip the hub."] = "可選：{area:131}西南的矮人和地精新手山谷，60級時30分鐘約1,100點聲望。{npc:658}和{npc:713}站在{area:77}。Forever 裡這些舊任務任何等級都足額給分。跳過這一步就跳過這個點。",
 
 	-- Step 3: Coldridge: wolves, troggs and Felix Whindlebolt's things
 	-- {npc:8416} Felix Whindlebolt
@@ -41,9 +41,9 @@ return {
 
 	-- Step 5: Coldridge: Grelin Whitebeard and the troll cave
 	-- {npc:786} Grelin Whitebeard
-	["Coldridge: {npc:786} and the troll cave"] = "寒脊山谷：{npc:786}和巨魔洞",
+	["Coldridge: {npc:786} and the troll cave"] = "寒脊山谷：{npc:786}和食人妖洞",
 	-- {npc:786} Grelin Whitebeard · {area:77} Anvilmar
-	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "{npc:786}在{area:77}以南紮營，就在巨魔洞口；手記在洞穴深處。",
+	["{npc:786} camps south of {area:77}, at the mouth of the troll cave; the journal lies at the back of the cave."] = "{npc:786}在{area:77}以南紮營，就在食人妖洞口；手記在洞穴深處。",
 
 	-- Step 6: Coldridge: the hot Mornbrew
 	["Coldridge: the hot Mornbrew"] = "寒脊山谷：滾燙的晨釀",
@@ -66,7 +66,7 @@ return {
 	-- {area:131} Kharanos
 	["{area:131}: the hills and the depot"] = "{area:131}：山丘與補給站",
 	-- {area:131} Kharanos · {area:136} Grizzled Den · {area:133} Gnomeregan
-	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "野豬和熊在{area:131}周圍遊蕩；溫迪戈住在小鎮西南的{area:136}；{area:133}路上的麻風侏儒帶著齒輪和零件；朗布林肖特的彈藥在他的營地、小鎮西邊。",
+	["The boars and bears roam around {area:131}; the wendigos live in the {area:136} south-west of town; the leper gnomes at the {area:133} road carry the cogs and gears; Rumbleshot's ammo lies at his camp west of town."] = "野豬和熊在{area:131}周圍遊蕩；溫迪戈住在小鎮西南的{area:136}；{area:133}路上的麻風地精帶著齒輪和零件；朗布林肖特的彈藥在他的營地、小鎮西邊。",
 
 	-- Step 10: Kharanos: back in town
 	-- {area:131} Kharanos
@@ -76,7 +76,7 @@ return {
 	-- {area:131} Kharanos · {quest:287} Frostmane Hold
 	["{area:131}: Brewnall and {quest:287}"] = "{area:131}：布瑞恩諾爾和{quest:287}",
 	-- {npc:1374} Rejold Barleybrew · {area:137} Brewnall Village · {area:131} Kharanos · {quest:287} Frostmane Hold
-	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374}站在{area:131}西北湖邊{area:137}旁；{quest:287}在它西邊的巨魔洞。",
+	["{npc:1374} stands by {area:137} on the lake north-west of {area:131}; {quest:287} is the troll cave west of it."] = "{npc:1374}站在{area:131}西北湖邊{area:137}旁；{quest:287}在它西邊的食人妖洞。",
 	["walk to the back of the cave"] = "走到洞穴深處",
 
 	-- Step 12: Kharanos: last hand-in
@@ -101,7 +101,7 @@ return {
 
 	-- Step 16: A Donation of Silk
 	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
-	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306}由23到40級的人形怪掉落：{zone:1437}的龍喉、奧特蘭克和阿拉希的辛迪加、荊棘谷的巨魔。",
+	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306}由23到40級的人形怪掉落：{zone:1437}的龍喉、奧特蘭克和阿拉希的辛迪加、荊棘谷的食人妖。",
 
 	-- Step 17: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas
@@ -125,7 +125,7 @@ return {
 	-- {area:252} Blackrock Stronghold
 	["Thaurissan and {area:252}"] = "索瑞森與{area:252}",
 	-- {area:251} Flame Crest · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {item:11467} Blackrock Medallion · {npc:9177} Oralius · {item:14047} Runecloth · {quest:7806} Additional Runecloth
-	["The Thaurissan relics are the carved stones in the ruins around {area:251}, west along the road: click twelve of them. {npc:9176} and the Blackrock orcs and worgs hold the camps at the foot of {area:254}, further west; each may drop a {item:11467} (about one kill in three), and {npc:9177} wants fifty. The orcs are level 50 and up, so they drop {item:14047} too: keep it for {quest:7806}."] = "索瑞森的遺物是沿路向西{area:251}周圍廢墟里的雕刻石，點選其中十二塊。{npc:9176}和黑石獸人、座狼佔據更西邊{area:254}腳下的營地；它們每個都可能掉落{item:11467}（約三次殺一隻），而{npc:9177}要五十個。獸人是50級及以上，所以也會掉{item:14047}：留著給{quest:7806}。",
+	["The Thaurissan relics are the carved stones in the ruins around {area:251}, west along the road: click twelve of them. {npc:9176} and the Blackrock orcs and worgs hold the camps at the foot of {area:254}, further west; each may drop a {item:11467} (about one kill in three), and {npc:9177} wants fifty. The orcs are level 50 and up, so they drop {item:14047} too: keep it for {quest:7806}."] = "索瑞森的遺物是沿路向西{area:251}周圍廢墟裡的雕刻石，點選其中十二塊。{npc:9176}和黑石獸人、座狼佔據更西邊{area:254}腳下的營地；它們每個都可能掉落{item:11467}（約三次殺一隻），而{npc:9177}要五十個。獸人是50級及以上，所以也會掉{item:14047}：留著給{quest:7806}。",
 
 	-- Step 22: Morgan's Vigil: hand in
 	-- {area:2418} Morgan's Vigil
@@ -148,7 +148,7 @@ return {
 	-- {quest:7806} Additional Runecloth
 	["{quest:7806} to Honored"] = "{quest:7806}到尊敬",
 	-- {quest:7806} Additional Runecloth · {item:14047} Runecloth · {zone:1426} Dun Morogh · {faction:47} Ironforge · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:150} Menethil Harbor · {zone:1437} Wetlands · {zone:1459} Alterac Valley
-	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7806}：20塊{item:14047}換50點聲望，可重複。前四次捐贈之後，人類、暗夜精靈或侏儒處在友善 700/6,000，離崇敬還差5,300：106次交付，2,120塊{item:14047}（矮人起點高900：88次；空裔從中立 2,000 開始，差6,400：128次，做了“探索聯盟”後再少兩次）。上面52-59級的任務能減掉12次；你每做過一個{zone:1426}任務點再減10到26次。還有更多工點給{faction:47}，只要等級差不低於5級就足額：{zone:1432}的{area:144}（共約3,500）和{zone:1437}的{area:150}（約2,500）。51級起{zone:1459}的一次性任務再加約1,900。每次城市聲望收益還會給另外三個聯盟城市四分之一（此處不計）。把所有{item:14047}一次交清。",
+	["{quest:7806}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Night Elf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Dwarves start 900 higher: 88 turn-ins; Skyborne start at Neutral 2,000, so 6,400 away: 128, two fewer after Exploring the Alliance). The level 52-59 quests above take 12 turn-ins off; each {zone:1426} hub you did takes 10 to 26 more off. More hubs pay {faction:47}, in full while they are no more than 5 levels below you: {area:144} in {zone:1432} (about 3,500 in all) and {area:150} in the {zone:1437} (about 2,500). From level 51 {zone:1459}'s one-time quests add about 1,900. Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7806}：20塊{item:14047}換50點聲望，可重複。前四次捐贈之後，人類、夜精靈或地精處在友善 700/6,000，離崇敬還差5,300：106次交付，2,120塊{item:14047}（矮人起點高900：88次；空裔從中立 2,000 開始，差6,400：128次，做了“探索聯盟”後再少兩次）。上面52-59級的任務能減掉12次；你每做過一個{zone:1426}任務點再減10到26次。還有更多工點給{faction:47}，只要等級差不低於5級就足額：{zone:1432}的{area:144}（共約3,500）和{zone:1437}的{area:150}（約2,500）。51級起{zone:1459}的一次性任務再加約1,900。每次城市聲望收益還會給另外三個聯盟城市四分之一（此處不計）。把所有{item:14047}一次交清。",
 
 	-- Step 26: Additional Runecloth to Revered
 	-- {quest:7806} Additional Runecloth

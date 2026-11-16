@@ -102,7 +102,7 @@ return {
 	-- Step 16: Tarren Mill
 	-- {area:272} Tarren Mill
 	["Hearth back to {area:272}: your hearthstone is bound there."] = "用爐石回{area:272}：你的爐石綁在那裡。",
-	["The magus offers a dungeon errand next: leave it."] = "那位魔導師接下來提供的是一個地下城差事：別接。",
+	["The magus offers a dungeon errand next: leave it."] = "那位魔導師接下來提供的是一個地城差事：別接。",
 
 	-- Step 17: Thoradin's Wall
 	-- {area:1057} Thoradin's Wall
@@ -221,7 +221,7 @@ return {
 
 	-- Step 37: Faldir's Cove
 	-- {npc:2766} Lolo the Lookout
-	["Head south to the goblins' cove on the southern coast. {npc:2766} keeps watch on the cliff above it."] = "向南前往南部海岸的地精海灣。{npc:2766}在海灣上方的懸崖上瞭望。",
+	["Head south to the goblins' cove on the southern coast. {npc:2766} keeps watch on the cliff above it."] = "向南前往南部海岸的哥布林海灣。{npc:2766}在海灣上方的懸崖上瞭望。",
 
 	-- Step 38: Professor Phizzlethorpe
 	["Escort the professor up the hill to the cave above the cove and guard him while he works. Two level 40 water elementals ambush him there, and they are immune to frost. Hold them at the cave mouth, away from him: if the fight happens inside the cave, he joins in instead of working and more elementals keep coming."] = "護送教授上山，到海灣上方的洞穴，在他工作時守護他。兩隻40級水元素會在那裡伏擊他，且免疫冰霜。把它們擋在洞口、遠離他：如果戰鬥發生在洞內，他會參戰而不工作，還會不斷有更多水元素出現。",

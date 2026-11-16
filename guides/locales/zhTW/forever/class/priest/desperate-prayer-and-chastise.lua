@@ -26,7 +26,7 @@ return {
 
 	-- Step 3: Desperate Prayer: Nara Meideros
 	-- {zone:1453} Stormwind · {npc:11397} Nara Meideros · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge · {npc:376} High Priestess Laurena
-	["At 10 in {zone:1453}, {npc:11397}, the priest trainer in the Park (the night elf quarter on the city's west side), hands you a {quest:5634} letter for {npc:11406} in {zone:1455}. {npc:376} in the Cathedral has none for Dwarves."] = "10級時在{zone:1453}，公園（城市西側的暗夜精靈區）裡的牧師訓練師{npc:11397}會給你一封給{zone:1455}的{npc:11406}的{quest:5634}信件。大教堂裡的{npc:376}沒有給矮人的。",
+	["At 10 in {zone:1453}, {npc:11397}, the priest trainer in the Park (the night elf quarter on the city's west side), hands you a {quest:5634} letter for {npc:11406} in {zone:1455}. {npc:376} in the Cathedral has none for Dwarves."] = "10級時在{zone:1453}，公園（城市西側的夜精靈區）裡的牧師訓練師{npc:11397}會給你一封給{zone:1455}的{npc:11406}的{quest:5634}信件。大教堂裡的{npc:376}沒有給矮人的。",
 	-- {npc:11397} Nara Meideros · {quest:5634} Desperate Prayer
 	["{npc:11397}: take her {quest:5634} letter"] = "{npc:11397}：拿她的{quest:5634}信件",
 

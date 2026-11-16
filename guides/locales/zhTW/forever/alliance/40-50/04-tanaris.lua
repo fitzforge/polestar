@@ -141,7 +141,7 @@ return {
 	-- Step 25: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "騎馬向東南前往{area:985}。{npc:7847}站在廢土營地南部的中央：先清掉他周圍。\n注意：兩名潛行的廢土盜賊跟著他移動。在他的重新整理營地，兩名暗法師及其僕從距離很近，能加入與他的戰鬥。在塔樓外則可以不受他們干擾地打他。",
+	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "騎馬向東南前往{area:985}。{npc:7847}站在廢土營地南部的中央：先清掉他周圍。\n注意：兩名潛行的廢土盜賊跟著他移動。在他出現的營地，兩名暗法師及其僕從距離很近，能加入與他的戰鬥。在塔樓外則可以不受他們干擾地打他。",
 
 	-- Step 27: Fly to Auberdine
 	-- {area:442} Auberdine

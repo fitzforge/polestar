@@ -25,7 +25,7 @@ return {
 	["Iceclaw Bear Pendants"] = "冰爪熊吊墜",
 	-- {area:77} Anvilmar
 	-- plural, as words: Frostmane Troll Whelps = {npc:706} Frostmane Troll Whelp · Frostmane Novices = {npc:946} Frostmane Novice · Frostbolts = {spell:116} Frostbolt
-	["The Frostmane Troll Whelps (level 3-4) hold the snowy slopes west and south-west of {area:77}, and the Frostmane Novices (level 3-4, they throw Frostbolts from range) camp south of it. Both carry the pendants; they respawn in about three minutes."] = "霜鬃巨魔幼崽（3-4級）佔據{area:77}西邊和西南的雪坡，霜鬃新兵（3-4級，會遠端投擲寒冰箭）紮營在其南邊。兩者都攜帶吊墜；約三分鐘重新整理。",
+	["The Frostmane Troll Whelps (level 3-4) hold the snowy slopes west and south-west of {area:77}, and the Frostmane Novices (level 3-4, they throw Frostbolts from range) camp south of it. Both carry the pendants; they respawn in about three minutes."] = "霜鬃食人妖幼崽（3-4級）佔據{area:77}西邊和西南的雪坡，霜鬃新兵（3-4級，會遠端投擲寒冰箭）紮營在其南邊。兩者都攜帶吊墜；約三分鐘重新出現。",
 
 	-- Step 4: Teo Hammerstorm
 	-- {area:77} Anvilmar · {item:6635} Earth Sapta

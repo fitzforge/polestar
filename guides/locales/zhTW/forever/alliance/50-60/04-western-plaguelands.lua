@@ -396,7 +396,7 @@ return {
 
 	-- Step 95: Krakle
 	-- {zone:1451} Silithus · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "從{zone:1451}進來，{area:543}就在環形山裡側：地精{npc:10302}坐在水邊。",
+	["Coming in from {zone:1451}, {area:543} is just inside the crater: {npc:10302} the goblin sits by the water."] = "從{zone:1451}進來，{area:543}就在環形山裡側：哥布林{npc:10302}坐在水邊。",
 
 	-- Step 96: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater

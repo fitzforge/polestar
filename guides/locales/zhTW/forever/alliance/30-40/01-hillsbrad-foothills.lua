@@ -53,7 +53,7 @@ return {
 
 	-- Step 12: Dun Modr
 	-- {area:205} Dun Modr · {npc:1071} Longbraid the Grim · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
-	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "沿路向北到{area:205}。{npc:1071}和{npc:1075}一起站在路東側的矮人營地裡；它西邊的{object:147516}廢墟里全是精英。",
+	["North along the road to {area:205}. {npc:1071} and {npc:1075} stand together in the dwarves' camp on the east side of the road; the {object:147516} ruins west of it are full of elites."] = "沿路向北到{area:205}。{npc:1071}和{npc:1075}一起站在路東側的矮人營地裡；它西邊的{object:147516}廢墟裡全是精英。",
 
 	-- Step 13: Captive Fire Elemental
 	-- {npc:271481} Captive Fire Elemental · {object:147516} Dark Iron · {npc:1364} Balgaras the Foul · {npc:1072} Roggo Harlbarrow
@@ -152,7 +152,7 @@ return {
 	-- Step 32: Level 30.8
 	["Level 30.8"] = "30.8級",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
-	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "跳過了{quest:474}還差30.8級？去米奈希爾以南的海岸殺藍鰓魚人，直到30.8級。或者組隊去刷{area:133}副本或{area:796}副本（墓地）。",
+	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "跳過了{quest:474}還差30.8級？去米奈希爾以南的海岸殺藍鰓魚人，直到30.8級。或者組隊去刷{area:133}地城或{area:796}地城（墓地）。",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "刷{npc:1418}",
 

@@ -34,7 +34,7 @@ return {
 
 	-- Step 5: Magis Sparkmantle (Kharanos)
 	-- {npc:1228} Magis Sparkmantle · {area:131} Kharanos · {area:2102} Thunderbrew Distillery · {npc:5144} Bink · {zone:1455} Ironforge · {quest:1860} Speak with Jennea · {area:87} Goldshire · {npc:5497} Jennea Cannon · {quest:1861} Mirror Lake · {npc:328} Zaldimar Wefhellt
-	["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {quest:1860}, the {area:87} trainer's errand; {npc:5144}'s Gizmonitor and {npc:5497}'s {quest:1861} shut out each other, so you get one staff or orb. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "10級時，{area:131}的法師訓練師{npc:1228}（在{area:2102}裡）會把你派去{zone:1455}找{npc:5144}。接下它就放棄了{area:87}訓練師的差事{quest:1860}；{npc:5144}的小裝置和{npc:5497}的{quest:1861}互斥，所以你只能拿到法杖或寶珠之一。（在{area:87}接了{npc:328}任務的侏儒改走{quest:1861}那幾步；接了這條的人類走小裝置那幾步。）",
+	["At 10 {npc:1228}, the {area:131} mage trainer in the {area:2102}, sends you to {npc:5144} in {zone:1455}. Taking it shuts out {quest:1860}, the {area:87} trainer's errand; {npc:5144}'s Gizmonitor and {npc:5497}'s {quest:1861} shut out each other, so you get one staff or orb. (A Gnome who took {npc:328}'s quest in {area:87} instead follows the {quest:1861} steps; a Human who took this one, the Gizmonitor steps.)"] = "10級時，{area:131}的法師訓練師{npc:1228}（在{area:2102}裡）會把你派去{zone:1455}找{npc:5144}。接下它就放棄了{area:87}訓練師的差事{quest:1860}；{npc:5144}的小裝置和{npc:5497}的{quest:1861}互斥，所以你只能拿到法杖或寶珠之一。（在{area:87}接了{npc:328}任務的地精改走{quest:1861}那幾步；接了這條的人類走小裝置那幾步。）",
 
 	-- Step 6: Jennea Cannon
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:5497} Jennea Cannon · {item:7207} Jennea's Flask · {quest:1861} Mirror Lake
@@ -62,7 +62,7 @@ return {
 	-- Step 10: Bink's Toolbox
 	-- {area:133} Gnomeregan
 	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome
-	["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "沿路向西前往{area:133}。入口正北有兩座小屋；工具箱在較高、靠東的那座，也就是帶升降機的小屋：一樓的一隻灰色小盒子，一半在升降機旁的桌子下面。麻風侏儒（8級）看守著小屋：一隻一隻拉。工具箱只有一個，被人開啟後要15分鐘才會重新出現，所以如果它不見了就在附近等。",
+	["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "沿路向西前往{area:133}。入口正北有兩座小屋；工具箱在較高、靠東的那座，也就是帶升降機的小屋：一樓的一隻灰色小盒子，一半在升降機旁的桌子下面。麻風地精（8級）看守著小屋：一隻一隻拉。工具箱只有一個，被人開啟後要15分鐘才會重新出現，所以如果它不見了就在附近等。",
 
 	-- Step 11: Back to Bink
 	-- {npc:5144} Bink
@@ -75,5 +75,5 @@ return {
 	["{npc:256507}'s wand (optional)"] = "{npc:256507}的魔杖（可選）",
 	-- {npc:256507} Belann Windwood · {area:16638} Valanaar · {zone:2521} Zephras Isle · {npc:252373} Anathamaas Aetherwind · {item:262668} Wind-Infused Bough · {area:16636} Falaath Village · {item:263430} Windbough Wand
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit {area:16638} on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of {area:16636}, for the {item:263430}. It does not shut out the staff or the orb."] = "{npc:256507}的任務也向人類和侏儒法師開放，只要你有一天到訪天裔的家園{zone:2521}上的{area:16638}：鎮上的法師訓練師{npc:252373}會讓你去找隔壁的{npc:256507}，他要一個來自{area:16636}以南風石陣旁地面的{item:262668}，用來換{item:263430}。它不會關閉法杖或寶珠任務。",
+	["{npc:256507}'s quest is open to Human and Gnome mages too, if you ever visit {area:16638} on {zone:2521}, the Skyborne home: {npc:252373}, the town's mage trainer, sends you to {npc:256507} next door, who wants a {item:262668} from the ground by the Windstone Formations south of {area:16636}, for the {item:263430}. It does not shut out the staff or the orb."] = "{npc:256507}的任務也向人類和地精法師開放，只要你有一天到訪天裔的家園{zone:2521}上的{area:16638}：鎮上的法師訓練師{npc:252373}會讓你去找隔壁的{npc:256507}，他要一個來自{area:16636}以南風石陣旁地面的{item:262668}，用來換{item:263430}。它不會關閉法杖或寶珠任務。",
 }

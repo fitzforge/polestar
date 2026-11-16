@@ -35,7 +35,7 @@ return {
 
 	-- Step 6: Tattered Manuscript
 	-- {area:484} Freewind Post
-	["The centaur cave opens in the cliffs north of {area:484}. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out."] = "半人馬的洞穴在{area:484}以北的崖壁上。進去後每個岔路都往右，穿過小瀑布旁的水池，開啟靠牆在大箱子旁邊的小黑箱：大的那個是錯的。只有接了任務才能開啟它。出來時半人馬會在你身後重新整理。",
+	["The centaur cave opens in the cliffs north of {area:484}. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out."] = "半人馬的洞穴在{area:484}以北的崖壁上。進去後每個岔路都往右，穿過小瀑布旁的水池，開啟靠牆在大箱子旁邊的小黑箱：大的那個是錯的。只有接了任務才能開啟它。出來時半人馬會在你身後重新出現。",
 	-- {item:6997} Tattered Manuscript · {object:92423} Damaged Chest
 	["{item:6997}, in the {object:92423}"] = "{item:6997}，在{object:92423}裡",
 

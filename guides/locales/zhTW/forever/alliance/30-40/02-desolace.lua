@@ -20,7 +20,7 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "憎怒薩特佔據著{area:603}的廢墟，位於{area:608}以東。\n注意：憎怒盜賊重新整理時處於潛行狀態，憎怒欺詐者的攻擊附帶毒性效果。",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "憎怒薩特佔據著{area:603}的廢墟，位於{area:608}以東。\n注意：憎怒盜賊出現時處於潛行狀態，憎怒欺詐者的攻擊附帶毒性效果。",
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress

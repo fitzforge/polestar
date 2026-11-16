@@ -47,7 +47,7 @@ return {
 	["Twisted Air Totems"] = "扭曲風之圖騰",
 	-- {area:2408} Shadowprey Village · {zone:1443} Desolace · {spell:9654} Jumping Lightning
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
-	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "五個畸變空氣圖騰。{zone:1443}西部{area:2408}以北和東北的瑪洛丁半人馬（36-40級）攜帶它們；斥候幾乎每兩次擊殺就掉一個。馴獸者會撒網和繳械，逐風者會治療，風暴者會投擲{spell:9654}：一次拉一個。重新整理約五分鐘。",
+	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "五個畸變空氣圖騰。{zone:1443}西部{area:2408}以北和東北的瑪洛丁半人馬（36-40級）攜帶它們；斥候幾乎每兩次擊殺就掉一個。馴獸者會撒網和繳械，逐風者會治療，風暴者會投擲{spell:9654}：一次拉一個。重新出現約五分鐘。",
 
 	-- Step 13: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
@@ -61,7 +61,7 @@ return {
 	["Twisted Fire Totems"] = "扭曲火焰圖騰",
 	-- {area:338} Angor Fortress · {zone:1418} Badlands · {npc:3560} Healing Ward
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem · Fire Nova Totems = {npc:5879} Fire Nova Totem
-	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "五個畸變火焰圖騰。{zone:1418}中{area:338}以南的石穹穴居怪（碎顱者、碎骨者和薩滿，37-41級）攜帶它們；薩滿會放下火焰新星圖騰和一個{npc:3560}，碎骨者受傷時會逃跑求援。重新整理約五分鐘。",
+	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "五個畸變火焰圖騰。{zone:1418}中{area:338}以南的石穹穴居怪（碎顱者、碎骨者和薩滿，37-41級）攜帶它們；薩滿會放下火焰新星圖騰和一個{npc:3560}，碎骨者受傷時會逃跑求援。重新出現約五分鐘。",
 
 	-- Step 15: Twisted Earth Totems
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem

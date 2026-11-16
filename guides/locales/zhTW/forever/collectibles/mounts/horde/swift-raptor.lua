@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中級{skill:762}",
 	-- {npc:7953} Xar'Ti · {npc:7952} Zjolnir · {area:367} Sen'jin Village · {zone:1411} Durotar · {skill:762} Riding · {faction:530} Darkspear Trolls
-	["{npc:7953} and {npc:7952}'s raptors are in {area:367} on the {zone:1411} coast. At 60 {npc:7953} teaches Journeyman {skill:762} to Trolls for 1,000g (10% less at Honored with {faction:530}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift raptor costs 200g here."] = "{npc:7953}和{npc:7952}的迅猛龍在{zone:1411}海岸的{area:367}。60級時{npc:7953}以1000金向巨魔傳授中級{skill:762}（{faction:530}尊敬時優惠10%）；據暴雪說法，學成後附帶坐騎。其他種族在本種族的騎術訓練師處學習。這裡每頭迅捷迅猛龍售價200金。",
+	["{npc:7953} and {npc:7952}'s raptors are in {area:367} on the {zone:1411} coast. At 60 {npc:7953} teaches Journeyman {skill:762} to Trolls for 1,000g (10% less at Honored with {faction:530}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift raptor costs 200g here."] = "{npc:7953}和{npc:7952}的迅猛龍在{zone:1411}海岸的{area:367}。60級時{npc:7953}以1000金向食人妖傳授中級{skill:762}（{faction:530}尊敬時優惠10%）；據暴雪說法，學成後附帶坐騎。其他種族在本種族的騎術訓練師處學習。這裡每頭迅捷迅猛龍售價200金。",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "騎術訓練師{npc:7953}",
 
@@ -21,7 +21,7 @@ return {
 	-- {spell:10861} Raptor Riding
 	["{spell:10861} for other races"] = "{spell:10861}（其他種族）",
 	-- {spell:10861} Raptor Riding · {skill:762} Riding · {npc:7953} Xar'Ti · {faction:530} Darkspear Trolls
-	["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "任何部落種族都能購買這些迅猛龍，但騎乘還需要{spell:10861}，它只有巨魔能隨{skill:762}一併獲得。其他種族需在{faction:530}達到崇拜後由{npc:7953}傳授（暗矛巨魔聲望指南有詳細方法）。在此之前，別給這個角色買迅猛龍。",
+	["Any Horde race can buy these raptors, but riding one also takes {spell:10861}, which only Trolls get with {skill:762}. {npc:7953} teaches it to other races once they are Exalted with {faction:530} (the Darkspear Trolls Reputation guide shows the way). Until then, don't buy a raptor for this character."] = "任何部落種族都能購買這些迅猛龍，但騎乘還需要{spell:10861}，它只有食人妖能隨{skill:762}一併獲得。其他種族需在{faction:530}達到崇拜後由{npc:7953}傳授（暗矛食人妖聲望指南有詳細方法）。在此之前，別給這個角色買迅猛龍。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

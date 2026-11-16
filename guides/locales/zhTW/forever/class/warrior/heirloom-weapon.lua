@@ -72,7 +72,7 @@ return {
 
 	-- Step 12: Deathguard Dillinger
 	-- {area:159} Brill · {quest:1818} Speak with Dillinger · {npc:2131} Austil de Mon · {npc:5810} Uzzek
-	["Dillinger stands by the graveyard on {area:159}'s west edge. An Orc, Troll, Tauren or Skyborne who took {quest:1818} from {npc:2131} instead of {npc:5810}'s road is led through {area:159} from here."] = "迪林格站在{area:159}西緣的墓地旁。獸人、巨魔、牛頭人或天裔如果在{npc:2131}那裡接了{quest:1818}而不是走{npc:5810}的路線，就會從這裡被引導穿過{area:159}。",
+	["Dillinger stands by the graveyard on {area:159}'s west edge. An Orc, Troll, Tauren or Skyborne who took {quest:1818} from {npc:2131} instead of {npc:5810}'s road is led through {area:159} from here."] = "迪林格站在{area:159}西緣的墓地旁。獸人、食人妖、牛頭人或天裔如果在{npc:2131}那裡接了{quest:1818}而不是走{npc:5810}的路線，就會從這裡被引導穿過{area:159}。",
 
 	-- Step 13: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver

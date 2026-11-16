@@ -44,7 +44,7 @@ return {
 	["Motes of Mannoroth"] = "瑪諾洛斯微粒",
 	-- {area:435} Demon Fall Canyon · {zone:1440} Ashenvale · {area:431} Splintertree Post · {spell:686} Shadow Bolt · {spell:348} Immolate
 	-- plural, as words: Mannoroc Lashers = {npc:11697} Mannoroc Lasher · Searing Infernals = {npc:6073} Searing Infernal · Legion Hounds = {npc:6071} Legion Hound
-	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "{area:435}位於{zone:1440}東南、{area:431}以東（部落營地：繞過去）。瑪諾洛克鞭笞者、灼熱的地獄火、惡魔衛士和軍團獵犬（29-30級，非精英）掉落瑪諾洛斯微粒；你需要12個。低於約27級時單人會很難：帶另一名玩家或以後再來。惡魔衛士會把你擊倒，鞭笞者施放{spell:686}和{spell:348}，地獄火保持火焰護盾。它們五分鐘重新整理。",
+	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "{area:435}位於{zone:1440}東南、{area:431}以東（部落營地：繞過去）。瑪諾洛克鞭笞者、灼熱的地獄火、惡魔衛士和軍團獵犬（29-30級，非精英）掉落瑪諾洛斯微粒；你需要12個。低於約27級時單人會很難：帶另一名玩家或以後再來。惡魔衛士會把你擊倒，鞭笞者施放{spell:686}和{spell:348}，地獄火保持火焰護盾。它們五分鐘重新出現。",
 
 	-- Step 8: The Spear of Mannoroth
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)

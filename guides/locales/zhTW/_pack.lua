@@ -24,6 +24,6 @@ return {
 	["Raid"] = "團隊",
 	["Reputation · Battlegrounds"] = "聲望 · 戰場",
 	["Reputation · Cities"] = "聲望 · 主城",
-	["Reputation · Raids and dungeons"] = "聲望 · 團隊與地下城",
+	["Reputation · Raids and dungeons"] = "聲望 · 團隊與地城",
 	["Reputation · World"] = "聲望 · 世界",
 }

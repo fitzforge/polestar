@@ -21,7 +21,7 @@ return {
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1413} Barrens · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6294} Krom Stoutarm · {zone:1455} Ironforge
-	["{area:392} is a neutral goblin port on the {zone:1413} coast: the boat from {area:35} docks there. {npc:6251} stands on the hill above the town, behind the engineers' hut, by his little tower; {npc:6266} and two acolytes are with him. He sends you to {npc:6294} in {zone:1455}."] = "{area:392}是{zone:1413}海岸上的中立地精港口：從{area:35}來的船在那裡停靠。{npc:6251}站在鎮上方的小山上，工程師小屋後面、他的小塔旁；{npc:6266}和兩個助手跟他在一起。他派你去{zone:1455}的{npc:6294}那裡。",
+	["{area:392} is a neutral goblin port on the {zone:1413} coast: the boat from {area:35} docks there. {npc:6251} stands on the hill above the town, behind the engineers' hut, by his little tower; {npc:6266} and two acolytes are with him. He sends you to {npc:6294} in {zone:1455}."] = "{area:392}是{zone:1413}海岸上的中立哥布林港口：從{area:35}來的船在那裡停靠。{npc:6251}站在鎮上方的小山上，工程師小屋後面、他的小塔旁；{npc:6266}和兩個助手跟他在一起。他派你去{zone:1455}的{npc:6294}那裡。",
 
 	-- Step 4: Krom Stoutarm
 	-- {npc:6294} Krom Stoutarm · {object:32356} Hall of Explorers · {quest:1758} Tome of the Cabal · {area:287} Hillsbrad · {zone:1441} Thousand Needles
@@ -35,7 +35,7 @@ return {
 
 	-- Step 6: Tattered Manuscript
 	-- {area:484} Freewind Post
-	["The centaur cave opens in the cliffs north of {area:484}, a Horde town: keep clear of its guards. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out."] = "半人馬洞穴開在{area:484}以北的峭壁裡，那是部落城鎮：避開它的衛兵。進洞後每個岔路都向右，穿過小瀑布旁的水池，開啟靠牆、在一個大箱子旁邊的小暗箱：大的那個是錯的。只有做任務時你才能開啟它。出來時，半人馬會在你身後重新整理。",
+	["The centaur cave opens in the cliffs north of {area:484}, a Horde town: keep clear of its guards. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out."] = "半人馬洞穴開在{area:484}以北的峭壁裡，那是部落城鎮：避開它的衛兵。進洞後每個岔路都向右，穿過小瀑布旁的水池，開啟靠牆、在一個大箱子旁邊的小暗箱：大的那個是錯的。只有做任務時你才能開啟它。出來時，半人馬會在你身後重新出現。",
 	-- {item:6997} Tattered Manuscript · {object:92423} Damaged Chest
 	["{item:6997}, in the {object:92423}"] = "{item:6997}，在{object:92423}裡",
 

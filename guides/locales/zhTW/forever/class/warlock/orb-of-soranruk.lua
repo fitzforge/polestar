@@ -11,12 +11,12 @@ return {
 
 	-- Step 1: Doan Karhan
 	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep
-	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "{npc:6247}與{npc:6244}一起紮營，帳篷就在{zone:1413}南部{area:378}東北不遠處。聯盟術士從{area:392}或塞拉摩過來；部落術士則從十字路口向南走。他要的是兩個副本里的碎片：在去{area:2797}和{area:236}之前先接任務。",
+	["{npc:6247} camps beside {npc:6244}, at a tent just north-east of {area:378} in the southern {zone:1413}. Alliance warlocks reach him from {area:392} or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your {area:2797} and {area:236} runs."] = "{npc:6247}與{npc:6244}一起紮營，帳篷就在{zone:1413}南部{area:378}東北不遠處。聯盟術士從{area:392}或塞拉摩過來；部落術士則從十字路口向南走。他要的是兩個地城裡的碎片：在去{area:2797}和{area:236}之前先接任務。",
 
 	-- Step 2: Blackfathom Deeps
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {area:414} Zoram Strand · {npc:4832} Twilight Lord Kelris · {npc:4829} Aku'mai
 	-- plural, as words: Twilight Acolytes = {npc:4809} Twilight Acolyte
-	["{area:2797} (level 24-32, a group of five) opens in the ruins on the north-west coast of {zone:1440}, under the water at {area:414}. The Twilight Acolytes (level 24-25, elite, healers) stand in the last halls, around {npc:4832} and the altar before {npc:4829}; each one drops a fragment, but only three spawn in a run and they do not come back for two hours, so one run covers one warlock: kill them first, before they heal the rest."] = "{area:2797}（24-32級，五人小隊）的入口在{zone:1440}西北海岸的廢墟中，位於{area:414}的水下。暮光侍僧（24-25級，精英，治療者）守在最後幾個廳堂，圍繞{npc:4832}以及{npc:4829}前的祭壇；每隻都會掉一塊碎片，但一趟只刷三隻，且兩小時內不會重新整理，所以一趟只夠一個術士：先殺掉它們，別讓它們治療其他怪物。",
+	["{area:2797} (level 24-32, a group of five) opens in the ruins on the north-west coast of {zone:1440}, under the water at {area:414}. The Twilight Acolytes (level 24-25, elite, healers) stand in the last halls, around {npc:4832} and the altar before {npc:4829}; each one drops a fragment, but only three spawn in a run and they do not come back for two hours, so one run covers one warlock: kill them first, before they heal the rest."] = "{area:2797}（24-32級，五人小隊）的入口在{zone:1440}西北海岸的廢墟中，位於{area:414}的水下。暮光侍僧（24-25級，精英，治療者）守在最後幾個廳堂，圍繞{npc:4832}以及{npc:4829}前的祭壇；每隻都會掉一塊碎片，但一趟只刷三隻，且兩小時內不會重新出現，所以一趟只夠一個術士：先殺掉它們，別讓它們治療其他怪物。",
 	-- plural, as words: Soran'ruk Fragments = {item:6914} Soran'ruk Fragment · Twilight Acolytes = {npc:4809} Twilight Acolyte
 	["Soran'ruk Fragments, from the Twilight Acolytes inside"] = "索蘭魯克碎片，來自裡面的暮光侍僧",
 

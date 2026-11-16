@@ -14,7 +14,7 @@ return {
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "開鎖練習",
 	-- {object:129127} Gallywix's Lockbox · {spell:1804} Pick Lock · {npc:3401} Shenthul · {object:172960} Cleft of Shadow · {item:5060} Thieves' Tools · {area:392} Ratchet
-	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "塔樓任務最後的{object:129127}需要約70-75點開鎖。如果不會，就找{object:172960}裡的蓋斯特或{npc:3401}學習{spell:1804}，帶上{item:5060}，去撬潮汐剃刀號中層甲板上的海盜保險箱——那是{area:392}以南一艘擱淺的海盜船：重新整理很快。你的開鎖上限每級提高5點。",
+	["{object:129127} at the end of the tower job needs Lockpicking of about 70-75. Train {spell:1804} from Gest or {npc:3401} in the {object:172960} if you lack it, carry {item:5060}, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of {area:392}: they come back fast. Your cap rises 5 per level."] = "塔樓任務最後的{object:129127}需要約70-75點開鎖。如果不會，就找{object:172960}裡的蓋斯特或{npc:3401}學習{spell:1804}，帶上{item:5060}，去撬潮汐剃刀號中層甲板上的海盜保險箱——那是{area:392}以南一艘擱淺的海盜船：重新出現很快。你的開鎖上限每級提高5點。",
 	["Tide Razor"] = "潮汐剃刀號",
 	["Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor"] = "開鎖技能約75：撬開潮汐剃刀號上的海盜保險箱",
 

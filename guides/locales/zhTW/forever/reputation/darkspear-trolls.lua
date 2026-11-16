@@ -24,7 +24,7 @@ return {
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363}（可選任務點）",
 	-- {area:363} Valley of Trials · {zone:1454} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever 裡這些舊任務任何等級都足額給分。{area:363}是其中最好的：25分鐘約1,400點{zone:1454}和1,400點暗矛巨魔聲望。{npc:3143}在大棚屋“洞穴”裡等著，{npc:10176}站在外面。",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {zone:1454} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever 裡這些舊任務任何等級都足額給分。{area:363}是其中最好的：25分鐘約1,400點{zone:1454}和1,400點暗矛食人妖聲望。{npc:3143}在大棚屋“洞穴”裡等著，{npc:10176}站在外面。",
 	-- {npc:3144} Eitrigg · {zone:1454} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {zone:1454}: {quest:787}, +50"] = "{npc:3144}，在{zone:1454}：{quest:787}，+50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -68,7 +68,7 @@ return {
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367}（可選任務點）",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {zone:1454} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever 裡這些舊任務任何等級都足額給分。{area:367}和{area:368}：25分鐘約625點{zone:1454}和650點暗矛巨魔聲望。{npc:3188}和{npc:3304}站在棚屋旁，{npc:3194}在水邊，{npc:7953}在村子以南。",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 625 {zone:1454} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever 裡這些舊任務任何等級都足額給分。{area:367}和{area:368}：25分鐘約625點{zone:1454}和650點暗矛食人妖聲望。{npc:3188}和{npc:3304}站在棚屋旁，{npc:3194}在水邊，{npc:7953}在村子以南。",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
 	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}，+100：需要洞穴裡的{quest:805}",
 
@@ -98,7 +98,7 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362}（可選任務點）",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {zone:1454} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "Forever 裡這些舊任務任何等級都足額給分。{area:362}和{zone:1411}北部：80分鐘約1,650點{zone:1454}和1,650點暗矛巨魔聲望。{npc:3142}和{npc:3139}站在鎮子中間，{npc:3191}在兵營旁，{npc:3147}和圖洛克在邊上。",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,650 {zone:1454} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and Turroc at the edges."] = "Forever 裡這些舊任務任何等級都足額給分。{area:362}和{zone:1411}北部：80分鐘約1,650點{zone:1454}和1,650點暗矛食人妖聲望。{npc:3142}和{npc:3139}站在鎮子中間，{npc:3191}在兵營旁，{npc:3147}和圖洛克在邊上。",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}，+100：需要森金的{quest:823}",
 
@@ -121,7 +121,7 @@ return {
 	-- Step 18: The wreck
 	["The wreck"] = "沉船",
 	-- {area:372} Tiragarde Keep
-	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "失事的船在{area:372}以東的淺灘裡。開啟侏儒工具箱。",
+	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "失事的船在{area:372}以東的淺灘裡。開啟地精工具箱。",
 	-- {npc:3139} Gar'Thok · {area:362} Razor Hill
 	["back at {npc:3139} in {area:362}"] = "回到{area:362}的{npc:3139}處",
 
@@ -198,7 +198,7 @@ return {
 	-- Step 33: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "黑石山，組隊前往",
 	-- {area:1583} Blackrock Spire · {faction:530} Darkspear Trolls · {area:340} Kargath · {zone:1418} Badlands · {quest:4903} Warlord's Command · {npc:3144} Eitrigg · {zone:1458} Undercity · {area:978} Zul'Farrak · {zone:1425} Hinterlands
-	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "《為了部落！》（雷德之首，{area:1583}）和《黑石之王》（奈法利安之首）給每個部落城市200點，包括{faction:530}。{zone:1418}的{area:340}開啟雷德任務鏈：{quest:4903}、{npc:3144}的“智慧”，然後是《為了部落！》。組隊去的時候順便接。{zone:1458}指南里的蜘蛛之神任務鏈（{area:978}和{zone:1425}）路上給225點暗矛聲望。",
+	["For The Horde! (Rend's head, {area:1583}) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city, the {faction:530} included. {area:340} in the {zone:1418} starts the Rend chain: {quest:4903}, {npc:3144}'s Wisdom, then For The Horde!. Take them when your group goes. The Spider God chain of the {zone:1458} guide ({area:978} and the {zone:1425}) pays 225 Darkspear on the way."] = "《為了部落！》（雷德之首，{area:1583}）和《黑石之王》（奈法利安之首）給每個部落城市200點，包括{faction:530}。{zone:1418}的{area:340}開啟雷德任務鏈：{quest:4903}、{npc:3144}的“智慧”，然後是《為了部落！》。組隊去的時候順便接。{zone:1458}指南裡的蜘蛛之神任務鏈（{area:978}和{zone:1425}）路上給225點暗矛聲望。",
 	-- {npc:9077} Warlord Goretooth · {quest:4903} Warlord's Command
 	["{npc:9077}: {quest:4903}, a group of five"] = "{npc:9077}：{quest:4903}，五人小隊",
 
@@ -206,7 +206,7 @@ return {
 	-- {quest:7837} Additional Runecloth
 	["{quest:7837} to Honored"] = "{quest:7837}到尊敬",
 	-- {quest:7837} Additional Runecloth · {item:14047} Runecloth
-	["{quest:7837}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (a troll starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne at Neutral 2,000 first needs 20 more to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7837}：20張{item:14047}換50點聲望，可無限重複。友善到尊敬是6000點：120次交付，2400張{item:14047}，再減去任務已給的（巨魔從友善1000點開始：100次交付；亡靈或天裔從中立2000點開始，需先多交20次才到友善）。身上每攢夠20張就連續交掉。",
+	["{quest:7837}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (a troll starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne at Neutral 2,000 first needs 20 more to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7837}：20張{item:14047}換50點聲望，可無限重複。友善到尊敬是6000點：120次交付，2400張{item:14047}，再減去任務已給的（食人妖從友善1000點開始：100次交付；亡靈或天裔從中立2000點開始，需先多交20次才到友善）。身上每攢夠20張就連續交掉。",
 
 	-- Step 35: Additional Runecloth to Revered
 	-- {quest:7837} Additional Runecloth

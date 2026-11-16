@@ -113,7 +113,7 @@ return {
 	-- {item:11000} Shadowforge Key
 	["The {item:11000}"] = "{item:11000}",
 	-- {npc:12944} Lokhtos Darkbargainer · {npc:8888} Franclorn Forgewright · {area:1445} Blackrock Mountain · {npc:9056} Fineous Darkvire · {area:1584} Blackrock Depths · {item:10999} Ironfel · {item:11000} Shadowforge Key
-	["Optional, and it saves every later trip to {npc:12944} the Ring of Law fight. {npc:8888} is a ghost in the middle of {area:1445}: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after {npc:9056} in {area:1584}, who always drops {item:10999}; place it on {npc:8888}'s monument in the Shrine of Thaurissan and the {item:11000} falls out. {area:1584} is a five-player dungeon: group up."] = "可選，但能省掉以後每次去{npc:12944}時的“法律之環”戰鬥。{npc:8888}是{area:1445}中央的幽靈：只有死者才能看見他，所以在山裡死掉，以靈魂狀態走到他的墓前。他會派你去{area:1584}找{npc:9056}，後者必定掉落{item:10999}；把它放到索瑞森神殿裡{npc:8888}的紀念碑上，{item:11000}就會掉出來。{area:1584}是五人副本：請組隊。",
+	["Optional, and it saves every later trip to {npc:12944} the Ring of Law fight. {npc:8888} is a ghost in the middle of {area:1445}: only the dead see him, so die in the mountain and walk to his tomb as a spirit. He sends you after {npc:9056} in {area:1584}, who always drops {item:10999}; place it on {npc:8888}'s monument in the Shrine of Thaurissan and the {item:11000} falls out. {area:1584} is a five-player dungeon: group up."] = "可選，但能省掉以後每次去{npc:12944}時的“法律之環”戰鬥。{npc:8888}是{area:1445}中央的幽靈：只有死者才能看見他，所以在山裡死掉，以靈魂狀態走到他的墓前。他會派你去{area:1584}找{npc:9056}，後者必定掉落{item:10999}；把它放到索瑞森神殿裡{npc:8888}的紀念碑上，{item:11000}就會掉出來。{area:1584}是五人地城：請組隊。",
 	-- {npc:8888} Franclorn Forgewright
 	["{npc:8888}, as a ghost"] = "{npc:8888}，以靈魂狀態",
 	-- {item:10999} Ironfel · {npc:9056} Fineous Darkvire · {area:1584} Blackrock Depths

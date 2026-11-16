@@ -36,7 +36,7 @@ return {
 	-- {item:8704} OOX-09/HL Distress Beacon · {zone:1425} Hinterlands
 	["{item:8704} in the {zone:1425}"] = "{zone:1425}的{item:8704}",
 	-- {zone:1425} Hinterlands
-	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "{zone:1425}的大多數怪物約100殺掉一次OOX-09/HL的信標：銀鬃狼、貓頭鷹獸、高谷精靈、枯木和邪枝巨魔。43級起就能拾取。",
+	["Most {zone:1425} mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43."] = "{zone:1425}的大多數怪物約100殺掉一次OOX-09/HL的信標：銀鬃狼、貓頭鷹獸、高谷精靈、枯木和邪枝食人妖。43級起就能拾取。",
 
 	-- Step 6: Rescue OOX-09/HL
 	["Rescue OOX-09/HL"] = "拯救OOX-09/HL",

@@ -335,7 +335,7 @@ return {
 
 	-- Step 89: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
-	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "哈米亞藏在{area:2273}東北角的苔蘚剝皮者巨魔中。\n小心：通往{area:2273}路上的巨魔是57-59級。他們低血量時會逃跑並呼救，所以常常帶來額外的怪。",
+	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "哈米亞藏在{area:2273}東北角的苔蘚剝皮者食人妖中。\n小心：通往{area:2273}路上的食人妖是57-59級。他們低血量時會逃跑並呼救，所以常常帶來額外的怪。",
 
 	-- Step 91: Nathanos Blightcaller
 	-- {npc:1855} Tirion Fordring · {area:2260} Marris Stead

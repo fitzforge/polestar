@@ -8,18 +8,18 @@
 return {
 	-- Guide
 	["Imp (Horde)"] = "小鬼（部落）",
-	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "1-4級獲得你的第一個惡魔：小鬼，獸人和巨魔還可獲得一把新手刀劍或法杖。",
+	["Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls."] = "1-4級獲得你的第一個惡魔：小鬼，獸人和食人妖還可獲得一把新手刀劍或法杖。",
 
 	-- Step 1: Ruzan (Orcs and Trolls)
 	-- {npc:5765} Ruzan
-	["{npc:5765} (Orcs and Trolls)"] = "{npc:5765}（獸人與巨魔）",
+	["{npc:5765} (Orcs and Trolls)"] = "{npc:5765}（獸人與食人妖）",
 	-- {item:9579} Tainted Parchment · {item:282346} Tainted Tablet · {npc:5765} Ruzan · {area:363} Valley of Trials
 	-- plural, as words: Vile Familiar Heads = {item:6487} Vile Familiar Head
-	["Your first letter ({item:9579} for Orcs, {item:282346} for Trolls, from Gornek after Cutting Teeth) points you to Nartok, the warlock trainer in the Den. {npc:5765} stands just outside the Den in the {area:363} and asks for six Vile Familiar Heads."] = "你的第一封信（獸人是{item:9579}，巨魔是{item:282346}，完成前置任務後由格奈克給你）指向巢穴裡的術士訓練師納托克。{npc:5765}就站在巢穴外{area:363}，要六顆邪惡魔僕頭顱。",
+	["Your first letter ({item:9579} for Orcs, {item:282346} for Trolls, from Gornek after Cutting Teeth) points you to Nartok, the warlock trainer in the Den. {npc:5765} stands just outside the Den in the {area:363} and asks for six Vile Familiar Heads."] = "你的第一封信（獸人是{item:9579}，食人妖是{item:282346}，完成前置任務後由格奈克給你）指向巢穴裡的術士訓練師納托克。{npc:5765}就站在巢穴外{area:363}，要六顆邪惡魔僕頭顱。",
 
 	-- Step 2: Vile Familiars
 	-- {quest:1485} Vile Familiars · {area:365} Burning Blade Coven
-	["The {quest:1485} (level 3-4) swarm the {area:365}, the cave north of the Den, inside and around its mouth. Almost every kill drops a head (80%), so about eight kills does it; they throw small fireballs, so pull them one at a time. They respawn in just over three minutes. Other classes hunt the same imps for their own {quest:1485} quest."] = "{quest:1485}中要求的魔僕（3-4級）成群盤踞在{area:365}，也就是巢穴北邊的洞穴，洞內和洞口周圍都有。幾乎每隻都掉頭顱（80%），所以大約八隻就夠了；它們會扔小火球，所以一次拉一隻。三分鐘多一點就會重新整理。其他職業也會為了自己的{quest:1485}任務獵殺同樣的魔僕。",
+	["The {quest:1485} (level 3-4) swarm the {area:365}, the cave north of the Den, inside and around its mouth. Almost every kill drops a head (80%), so about eight kills does it; they throw small fireballs, so pull them one at a time. They respawn in just over three minutes. Other classes hunt the same imps for their own {quest:1485} quest."] = "{quest:1485}中要求的魔僕（3-4級）成群盤踞在{area:365}，也就是巢穴北邊的洞穴，洞內和洞口周圍都有。幾乎每隻都掉頭顱（80%），所以大約八隻就夠了；它們會扔小火球，所以一次拉一隻。三分鐘多一點就會重新出現。其他職業也會為了自己的{quest:1485}任務獵殺同樣的魔僕。",
 	-- plural, as words: Vile Familiar Heads = {item:6487} Vile Familiar Head
 	["Vile Familiar Heads"] = "邪惡魔僕頭顱",
 

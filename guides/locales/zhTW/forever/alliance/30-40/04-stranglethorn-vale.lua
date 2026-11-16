@@ -83,7 +83,7 @@ return {
 	-- Step 16: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}：沿途擊殺以下目標",
-	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "注意：巨魔營地緊鄰老虎區域，亂拉怪會引來巨魔加入戰鬥。\n注意：迅猛龍巢穴裡的幼龍會在你攻擊成年龍時加入戰鬥。",
+	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "注意：食人妖營地緊鄰老虎區域，亂拉怪會引來食人妖加入戰鬥。\n注意：迅猛龍巢穴裡的幼龍會在你攻擊成年龍時加入戰鬥。",
 
 	-- Step 17: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn

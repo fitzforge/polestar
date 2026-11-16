@@ -30,7 +30,7 @@ return {
 
 	-- Step 4: Fenris Keep
 	-- {quest:91862} Lumina Windsinger · {area:235} Fenris Keep · {item:267412} Fenris Isle Key · {npc:1944} Rot Hide Bruiser
-	["{quest:91862} is caged in the basement of {area:235}, at the north end of the isle. The Rot Hide gnolls (level 18-19) fill the keep: they pull in big groups across floors and players report very fast respawns, so clear a path and keep moving. Any of them can carry the {item:267412} (often the first kill); the rare {npc:1944} (22) and Snarlmane (23) can too. If her cage is empty, another player is escorting her: wait for her to come back."] = "{quest:91862}被關在{area:235}地下室的籠子裡，位於島的最北端。腐皮豺狼人（18-19級）遍佈城堡：它們會跨樓層拉一大群，玩家反映重新整理極快，所以清理出一條路並保持移動。它們任何一個都可能攜帶{item:267412}（常常是第一個擊殺）；稀有的{npc:1944}（22級）和咆哮鬃（23級）也會。若籠子是空的，說明另一名玩家正在護送她：等她回來。",
+	["{quest:91862} is caged in the basement of {area:235}, at the north end of the isle. The Rot Hide gnolls (level 18-19) fill the keep: they pull in big groups across floors and players report very fast respawns, so clear a path and keep moving. Any of them can carry the {item:267412} (often the first kill); the rare {npc:1944} (22) and Snarlmane (23) can too. If her cage is empty, another player is escorting her: wait for her to come back."] = "{quest:91862}被關在{area:235}地下室的籠子裡，位於島的最北端。腐皮豺狼人（18-19級）遍佈城堡：它們會跨樓層拉一大群，玩家反映重新出現極快，所以清理出一條路並保持移動。它們任何一個都可能攜帶{item:267412}（常常是第一個擊殺）；稀有的{npc:1944}（22級）和咆哮鬃（23級）也會。若籠子是空的，說明另一名玩家正在護送她：等她回來。",
 	-- {item:267412} Fenris Isle Key
 	["{item:267412}, from the Rot Hide gnolls"] = "{item:267412}，來自腐皮豺狼人",
 
@@ -52,7 +52,7 @@ return {
 
 	-- Step 7: A Moon-Kissed Blade
 	-- {npc:259620} Lumina Windsinger · {quest:95140} Old Fire-Eye · {npc:248840} Trevan Rol
-	["At 20 {npc:259620} asks for a blade that can kill {quest:95140}. Talk to {npc:248840} beside her for his Weapon Notes, which list the parts, and keep them: he wants them back with the parts. Three parts, in any order: two from dungeons (a group of five each) and a gem from elite naga outside a third."] = "20級時，{npc:259620}想要一把能殺死{quest:95140}的劍。找她身旁的{npc:248840}領取他的武器筆記，上面列有零件，請保管好：他要和零件一起收回。共三個零件，順序不限：兩個來自副本（各需五人小隊），一顆寶石來自第三個副本外的精英納迦。",
+	["At 20 {npc:259620} asks for a blade that can kill {quest:95140}. Talk to {npc:248840} beside her for his Weapon Notes, which list the parts, and keep them: he wants them back with the parts. Three parts, in any order: two from dungeons (a group of five each) and a gem from elite naga outside a third."] = "20級時，{npc:259620}想要一把能殺死{quest:95140}的劍。找她身旁的{npc:248840}領取他的武器筆記，上面列有零件，請保管好：他要和零件一起收回。共三個零件，順序不限：兩個來自地城（各需五人小隊），一顆寶石來自第三個地城外的精英納迦。",
 	-- {item:267454} Trevan's Weapon Notes · {npc:248840} Trevan Rol
 	["{item:267454}: talk to {npc:248840}"] = "{item:267454}：與{npc:248840}交談",
 
@@ -60,14 +60,14 @@ return {
 	-- {item:267361} Enchanted Silver Ingot
 	["The {item:267361}"] = "{item:267361}",
 	-- {area:236} Shadowfang Keep · {npc:4275} Archmage Arugal
-	["{area:236} is the dungeon in south Silverpine, for a group of five in the low to mid 20s. The ingot sits on the table next to {npc:4275} at the very end. A friend's cleared instance works: walk in and run to the table."] = "{area:236}是銀松森林南部的副本，適合20級初中期的五人小隊。錠放在最深處{npc:4275}旁的桌上。朋友已清過的副本也行：直接走進去跑到桌前。",
+	["{area:236} is the dungeon in south Silverpine, for a group of five in the low to mid 20s. The ingot sits on the table next to {npc:4275} at the very end. A friend's cleared instance works: walk in and run to the table."] = "{area:236}是銀松森林南部的地城，適合20級初中期的五人小隊。錠放在最深處{npc:4275}旁的桌上。朋友已清過的地城也行：直接走進去跑到桌前。",
 	-- {item:267361} Enchanted Silver Ingot
 	["{item:267361}, on Arugal's table"] = "{item:267361}，在阿魯高的桌上",
 
 	-- Step 9: Whitestone Oak Lumber
 	-- {area:1581} The Deadmines · {area:20} Moonbrook · {zone:1436} Westfall · {zone:1458} Undercity · {object:3202} Grom'gol · {zone:1434} Stranglethorn Vale · {zone:1431} Duskwood
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
-	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581}在{zone:1436}的{area:20}下方，那是聯盟地盤：五個人，大約17-24級。從{zone:1458}坐飛艇到{zone:1434}的{object:3202}，再往北穿過{zone:1431}進入{zone:1436}。入口就是{area:20}的礦洞。斯尼德桅杆房裡的地精木雕工（精英，18-19級）每次都掉木材。",
+	["{area:1581} lies under {area:20} in {zone:1436}, Alliance land: a group of five at about 17-24. From the {zone:1458} take the zeppelin to {object:3202} in {zone:1434} and go north through {zone:1431} into {zone:1436}. The way in is the {area:20} mine. The Goblin Woodcarvers (elite, level 18-19) in Sneed's mast room drop the lumber every time."] = "{area:1581}在{zone:1436}的{area:20}下方，那是聯盟地盤：五個人，大約17-24級。從{zone:1458}坐飛艇到{zone:1434}的{object:3202}，再往北穿過{zone:1431}進入{zone:1436}。入口就是{area:20}的礦洞。斯尼德桅杆房裡的哥布林木雕工（精英，18-19級）每次都掉木材。",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}，在{area:20}礦坑內",
 	-- plural, as words: Goblin Woodcarvers = {npc:641} Goblin Woodcarver
@@ -81,7 +81,7 @@ return {
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
-	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "納迦站在佐拉姆加正北方{area:2797}入口周圍被水淹沒的廢墟和通道里：不必進入副本（副本里第一批納迦也會掉寶石）。潮汐女祭司（20-21級）、神諭者（21-22級）和海妖（23-24級）掉落{item:6995}，約二分之一。全是精英：建議組隊。有玩家逐個單挑，頗有難度；三人小隊則很輕鬆。它們會自我治療，低血量時逃跑求援，海妖還會近身施放{spell:122}。有玩家反映在團隊中不掉落。",
+	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "納迦站在佐拉姆加正北方{area:2797}入口周圍被水淹沒的廢墟和通道裡：不必進入副本（副本裡第一批納迦也會掉寶石）。潮汐女祭司（20-21級）、神諭者（21-22級）和海妖（23-24級）掉落{item:6995}，約二分之一。全是精英：建議組隊。有玩家逐個單挑，頗有難度；三人小隊則很輕鬆。它們會自我治療，低血量時逃跑求援，海妖還會近身施放{spell:122}。有玩家反映在團隊中不掉落。",
 
 	-- Step 12: The Purified Kor Gem
 	-- {item:272448} Purified Kor Gem

@@ -107,7 +107,7 @@ return {
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
 	["Elder Stranglethorn Tigers"] = "老年荊棘谷猛虎",
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
-	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "老年荊棘谷猛虎（34-35級）在營地西南的丘陵遊蕩。注意：巨魔營地離老虎的地盤很近，拉怪不小心就會有巨魔加入戰鬥。",
+	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "老年荊棘谷猛虎（34-35級）在營地西南的丘陵遊蕩。注意：食人妖營地離老虎的地盤很近，拉怪不小心就會有食人妖加入戰鬥。",
 
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "向北回到營地。",

@@ -20,7 +20,7 @@ return {
 	["Felstalker Hooves"] = "惡魔獵犬蹄",
 	-- {area:365} Burning Blade Coven · {npc:3102} Felstalker
 	-- plural, as words: Felstalkers = {npc:3102} Felstalker · Vile Familiars = {npc:3101} Vile Familiar
-	["Felstalkers (level 3-4) prowl the slope below the {area:365}, the cave in the north of the valley, and just inside its mouth among the Vile Familiars. Nearly every {npc:3102} drops a hoof (four kills in five); they respawn in a little over three minutes."] = "惡魔獵犬（3-4級）在山谷北部洞穴{area:365}下方的斜坡上游蕩，也出現在洞口內側的邪惡魔寵之間。幾乎每隻{npc:3102}都會掉落一隻蹄子（五次擊殺有四次）；它們三分鐘多一點重新整理。",
+	["Felstalkers (level 3-4) prowl the slope below the {area:365}, the cave in the north of the valley, and just inside its mouth among the Vile Familiars. Nearly every {npc:3102} drops a hoof (four kills in five); they respawn in a little over three minutes."] = "惡魔獵犬（3-4級）在山谷北部洞穴{area:365}下方的斜坡上游蕩，也出現在洞口內側的邪惡魔寵之間。幾乎每隻{npc:3102}都會掉落一隻蹄子（五次擊殺有四次）；它們三分鐘多一點重新出現。",
 
 	-- Step 3: Canaga Earthcaller
 	-- {npc:5887} Canaga Earthcaller · {quest:1462} Earth Sapta
@@ -56,7 +56,7 @@ return {
 	-- Step 8: Ritual Salve
 	-- {area:358} Brambleblade Ravine · {spell:403} Lightning Bolt
 	-- plural, as words: Bristleback Shamans = {npc:2953} Bristleback Shaman
-	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "刺背薩滿（3-4級）站在營地東邊{area:358}的野豬人棚屋之間，偶爾會扔{spell:403}。五次擊殺有四次掉落藥膏；它們約四分鐘重新整理。",
+	["The Bristleback Shamans (level 3-4) stand among the quilboar huts of {area:358}, east of the camp, and throw the odd {spell:403}. Four kills in five drop a salve; they respawn in about four minutes."] = "刺背薩滿（3-4級）站在營地東邊{area:358}的野豬人棚屋之間，偶爾會扔{spell:403}。五次擊殺有四次掉落藥膏；它們約四分鐘重新出現。",
 
 	-- Step 9: Seer Ravenfeather
 	-- {area:221} Camp Narache · {quest:1462} Earth Sapta

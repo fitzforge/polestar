@@ -24,7 +24,7 @@ return {
 	-- {area:363} Valley of Trials
 	["{area:363} (optional hub)"] = "{area:363}（可選據點）",
 	-- {area:363} Valley of Trials · {faction:76} Orgrimmar · {npc:3143} Gornek · {npc:10176} Kaltunk
-	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever 裡這些舊任務任何等級都足額給分。{area:363}是其中最好的：25分鐘約1,400點{faction:76}和1,400點暗矛巨魔聲望。{npc:3143}在大棚屋“洞穴”裡等著，{npc:10176}站在外面。",
+	["Forever pays these old quests in full at any level. The {area:363} is the best of them: about 1,400 {faction:76} and 1,400 Darkspear reputation in 25 minutes. {npc:3143} waits in the Den, the big hut; {npc:10176} stands outside it."] = "Forever 裡這些舊任務任何等級都足額給分。{area:363}是其中最好的：25分鐘約1,400點{faction:76}和1,400點暗矛食人妖聲望。{npc:3143}在大棚屋“洞穴”裡等著，{npc:10176}站在外面。",
 	-- {npc:3144} Eitrigg · {faction:76} Orgrimmar · {quest:787} The New Horde
 	["{npc:3144}, in {faction:76}: {quest:787}, +50"] = "{npc:3144}，在{faction:76}：{quest:787}，+50",
 	-- {npc:5765} Ruzan · {quest:792} Vile Familiars
@@ -68,7 +68,7 @@ return {
 	-- {area:367} Sen'jin Village
 	["{area:367} (optional hub)"] = "{area:367}（可選據點）",
 	-- {area:367} Sen'jin Village · {area:368} Echo Isles · {faction:76} Orgrimmar · {npc:3188} Master Gadrin · {npc:3304} Master Vornal · {npc:3194} Vel'rin Fang · {npc:7953} Xar'Ti
-	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever 裡這些舊任務任何等級都足額給分。{area:367}和{area:368}：25分鐘約700點{faction:76}和650點暗矛巨魔聲望。{npc:3188}和{npc:3304}站在棚屋旁，{npc:3194}在水邊，{npc:7953}在村子以南。",
+	["Forever pays these old quests in full at any level. {area:367} and the {area:368}: about 700 {faction:76} and 650 Darkspear reputation in 25 minutes. {npc:3188} and {npc:3304} stand by the huts, {npc:3194} near the water, {npc:7953} south of the village."] = "Forever 裡這些舊任務任何等級都足額給分。{area:367}和{area:368}：25分鐘約700點{faction:76}和650點暗矛食人妖聲望。{npc:3188}和{npc:3304}站在棚屋旁，{npc:3194}在水邊，{npc:7953}在村子以南。",
 	-- {quest:97225} Forgotten Loa Idols · {quest:805} Report to Sen'jin Village
 	["{quest:97225}, +100: needs {quest:805} from the Den"] = "{quest:97225}，+100：需要洞穴裡的{quest:805}",
 
@@ -129,7 +129,7 @@ return {
 	-- {area:362} Razor Hill
 	["{area:362} (optional hub)"] = "{area:362}（可選據點）",
 	-- {area:362} Razor Hill · {zone:1411} Durotar · {faction:76} Orgrimmar · {npc:3142} Orgnil Soulscar · {npc:3139} Gar'Thok · {npc:3191} Cook Torka · {npc:3147} Furl Scornbrow · {npc:266940} Turroc
-	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "Forever 裡這些舊任務任何等級都足額給分。{area:362}和{zone:1411}北部：80分鐘約1,800點{faction:76}和1,650點暗矛巨魔聲望。{npc:3142}和{npc:3139}站在鎮子中間，{npc:3191}在兵營旁，{npc:3147}和{npc:266940}在邊上。",
+	["Forever pays these old quests in full at any level. {area:362} and north {zone:1411}: about 1,800 {faction:76} and 1,650 Darkspear reputation in 80 minutes. {npc:3142} and {npc:3139} stand in the middle of the town, {npc:3191} by the barracks, {npc:3147} and {npc:266940} at the edges."] = "Forever 裡這些舊任務任何等級都足額給分。{area:362}和{zone:1411}北部：80分鐘約1,800點{faction:76}和1,650點暗矛食人妖聲望。{npc:3142}和{npc:3139}站在鎮子中間，{npc:3191}在兵營旁，{npc:3147}和{npc:266940}在邊上。",
 	-- {quest:806} Dark Storms · {quest:823} Report to Orgnil
 	["{quest:806}, +100: needs {quest:823} from Sen'jin"] = "{quest:806}，+100：需要森金村的{quest:823}",
 
@@ -152,7 +152,7 @@ return {
 	-- Step 23: The wreck
 	["The wreck"] = "沉船",
 	-- {area:372} Tiragarde Keep
-	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "沉船在{area:372}以東的淺灘。開啟侏儒工具箱。",
+	["The wrecked ship lies in the shallows east of {area:372}. Open the Gnomish Toolboxes."] = "沉船在{area:372}以東的淺灘。開啟地精工具箱。",
 	-- {npc:3139} Gar'Thok · {area:362} Razor Hill
 	["back at {npc:3139} in {area:362}"] = "回到{area:362}的{npc:3139}處",
 
@@ -352,7 +352,7 @@ return {
 	-- Step 57: Blackrock Mountain, with a group
 	["Blackrock Mountain, with a group"] = "黑石山，組隊前往",
 	-- {area:340} Kargath · {zone:1418} Badlands · {faction:76} Orgrimmar · {area:1584} Blackrock Depths · {area:1583} Blackrock Spire · {quest:4724} The Pack Mistress · {item:12652} Bijou's Reconnaissance Report · {quest:4903} Warlord's Command · {npc:3144} Eitrigg
-	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "{zone:1418}的{area:340}會發放{area:1584}和{area:1583}的{faction:76}任務，都是58到60級且全額獎勵：“命懸一線”和“行動：殺死安格弗將軍”（各150），{quest:4724}和{item:12652}（各100），{quest:4903}（150），{npc:3144}的智慧（100）以及“為了部落！”（雷德之首，給所有部落城市200）。這些是副本任務：隨隊前往時接。",
+	["{area:340} in the {zone:1418} hands out {faction:76} quests for {area:1584} and {area:1583}, all level 58 to 60 and paid in full: Precarious Predicament and Operation: Death to Angerforge (150 each), {quest:4724} and {item:12652} (100 each), {quest:4903} (150), {npc:3144}'s Wisdom (100) and For The Horde! (Rend's head, 200 to every Horde city). These are dungeon quests: take them when your group goes."] = "{zone:1418}的{area:340}會發放{area:1584}和{area:1583}的{faction:76}任務，都是58到60級且全額獎勵：“命懸一線”和“行動：殺死安格弗將軍”（各150），{quest:4724}和{item:12652}（各100），{quest:4903}（150），{npc:3144}的智慧（100）以及“為了部落！”（雷德之首，給所有部落城市200）。這些是地城任務：隨隊前往時接。",
 	-- {npc:9077} Warlord Goretooth · {quest:4903} Warlord's Command
 	["{npc:9077}: {quest:4903}, +150, a group of five"] = "{npc:9077}：{quest:4903}，+150，五人小隊",
 	-- {npc:9081} Galamav the Marksman · {quest:4724} The Pack Mistress

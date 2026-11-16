@@ -40,7 +40,7 @@ return {
 
 	-- Step 6: Vejrek
 	-- {quest:1678} Vejrek · {area:135} Frostmane Hold · {spell:71} Defensive Stance · {spell:6343} Thunder Clap
-	["{quest:1678} (level 11, a lone troll) waits at his hut on a hill south of {area:135}, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of {area:135} is the wrong one. He fights in {spell:71} and sunders your armor; {spell:6343} slows him. His head always drops; he returns about 8 minutes after dying."] = "{quest:1678}（11級，落單的巨魔）在{area:135}以南一座山丘上的小屋中等候，靠近山脈、在一段短斜坡頂端，周圍沒有其他巨魔；{area:135}前部的小屋不是他。他會切姿態{spell:71}並破你的甲；{spell:6343}能減速他。他的頭必掉；死後約8分鐘回來。",
+	["{quest:1678} (level 11, a lone troll) waits at his hut on a hill south of {area:135}, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of {area:135} is the wrong one. He fights in {spell:71} and sunders your armor; {spell:6343} slows him. His head always drops; he returns about 8 minutes after dying."] = "{quest:1678}（11級，落單的食人妖）在{area:135}以南一座山丘上的小屋中等候，靠近山脈、在一段短斜坡頂端，周圍沒有其他食人妖；{area:135}前部的小屋不是他。他會切姿態{spell:71}並破你的甲；{spell:6343}能減速他。他的頭必掉；死後約8分鐘回來。",
 
 	-- Step 7: Tormus Deepforge
 	-- {npc:6114} Muren Stormpike · {spell:71} Defensive Stance · {quest:1680} Tormus Deepforge · {object:32372} Great Forge · {zone:1455} Ironforge
@@ -48,7 +48,7 @@ return {
 
 	-- Step 8: Ironband's Compound
 	-- {quest:1681} Ironband's Compound · {zone:1426} Dun Morogh · {area:212} Helm's Bed Lake · {object:85562} Ironband's Strongbox · {npc:6124} Captain Beld
-	["{quest:1681} lies in eastern {zone:1426}, below {area:212} on its south side. Dark Iron Spies (level 8-10) stand along the way, far enough apart to pull one at a time. {object:85562} is in the basement of the southernmost house; {npc:6124} (level 11) stands by it and charges on sight. The box always holds the ore and refills 15 minutes after opening."] = "{quest:1681}在{zone:1426}東部、{area:212}南側下方。黑鐵間諜（8-10級）沿途站著，彼此距離夠遠，可以一次拉一隻。{object:85562}在最南邊房屋的地下室裡；{npc:6124}（11級）站在旁邊，一看到你就衝過來。箱子裡必有礦石，開啟後15分鐘重新整理。",
+	["{quest:1681} lies in eastern {zone:1426}, below {area:212} on its south side. Dark Iron Spies (level 8-10) stand along the way, far enough apart to pull one at a time. {object:85562} is in the basement of the southernmost house; {npc:6124} (level 11) stands by it and charges on sight. The box always holds the ore and refills 15 minutes after opening."] = "{quest:1681}在{zone:1426}東部、{area:212}南側下方。黑鐵間諜（8-10級）沿途站著，彼此距離夠遠，可以一次拉一隻。{object:85562}在最南邊房屋的地下室裡；{npc:6124}（11級）站在旁邊，一看到你就衝過來。箱子裡必有礦石，開啟後15分鐘重新出現。",
 	-- {item:6800} Umbral Ore · {object:85562} Ironband's Strongbox
 	["{item:6800}, from {object:85562}"] = "{item:6800}，來自{object:85562}",
 
@@ -70,7 +70,7 @@ return {
 	-- {area:442} Auberdine
 	["Elunite under {area:442}"] = "{area:442}下方的艾露恩礦石",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {npc:6133} Shade of Elura
-	["Take the boat from {area:702} to {area:442}. The wreck lies underwater just south of {area:442}'s southern pier, where the Menethil boat docks. Open Crates of Elunite on the sea floor around the wreck, by a huge sunken turtle, toward the beach and under the pier until you have eight; every crate holds ore and comes back in 3-5 minutes. The grey {npc:6133} (level 11) drifts around the middle of the wreck and always drops the medallion: target it when you see it, so you can find it after surfacing for air. Watch your breath; Threshers can join in."] = "從{area:702}坐船到{area:442}。殘骸在水下，就在{area:442}南碼頭以南、米奈希爾船隻停靠的地方。在殘骸周圍的海底開啟艾露恩礦石箱，直到湊夠八個：箱子分佈在巨大的沉沒海龜旁、靠近沙灘處和碼頭下方；每個箱子都有礦石，3-5分鐘重新整理。灰色的{npc:6133}（11級）在殘骸中部漂游，必掉徽章：看到它就選中，這樣浮上水面換氣後還能找到它。注意呼吸；鯊魚可能會加入。",
+	["Take the boat from {area:702} to {area:442}. The wreck lies underwater just south of {area:442}'s southern pier, where the Menethil boat docks. Open Crates of Elunite on the sea floor around the wreck, by a huge sunken turtle, toward the beach and under the pier until you have eight; every crate holds ore and comes back in 3-5 minutes. The grey {npc:6133} (level 11) drifts around the middle of the wreck and always drops the medallion: target it when you see it, so you can find it after surfacing for air. Watch your breath; Threshers can join in."] = "從{area:702}坐船到{area:442}。殘骸在水下，就在{area:442}南碼頭以南、米奈希爾船隻停靠的地方。在殘骸周圍的海底開啟艾露恩礦石箱，直到湊夠八個：箱子分佈在巨大的沉沒海龜旁、靠近沙灘處和碼頭下方；每個箱子都有礦石，3-5分鐘重新出現。灰色的{npc:6133}（11級）在殘骸中部漂游，必掉徽章：看到它就選中，這樣浮上水面換氣後還能找到它。注意呼吸；鯊魚可能會加入。",
 	-- {item:6808} Elunite Ore
 	["{item:6808}, from Crates of Elunite"] = "{item:6808}，來自艾露恩礦石箱",
 	-- {item:6809} Elura's Medallion · {npc:6133} Shade of Elura
@@ -86,7 +86,7 @@ return {
 
 	-- Step 17: Bartleby
 	-- {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2100} Old Town · {quest:1638} A Warrior's Training · {npc:5480} Ilsa Corbin · {zone:1453} Stormwind
-	["{npc:6089} and {npc:6090} are in the Pig and Whistle tavern in {object:2100}; {npc:6090} is the drunk at the far end of the bar. {npc:6090} (level 10) hits harder than his level, so start at full health; he gives up at low health instead of dying. If he wins, he disappears for about three minutes: keep the quest and talk to him again when he is back. A Dwarf, Gnome or Night Elf who took {quest:1638} from {npc:5480} instead of their home road is led through {zone:1453} from here."] = "{npc:6089}和{npc:6090}在{object:2100}的豬與哨子酒館裡；{npc:6090}是酒吧最裡端的醉漢。{npc:6090}（10級）攻擊力超出其等級，所以滿血開打；他殘血時會認輸而不是死亡。如果他贏了，他會消失約三分鐘：留著任務，等他回來再談。矮人、侏儒或暗夜精靈若從{npc:5480}處接了{quest:1638}而非本族路線，會從這裡被引導穿過{zone:1453}。",
+	["{npc:6089} and {npc:6090} are in the Pig and Whistle tavern in {object:2100}; {npc:6090} is the drunk at the far end of the bar. {npc:6090} (level 10) hits harder than his level, so start at full health; he gives up at low health instead of dying. If he wins, he disappears for about three minutes: keep the quest and talk to him again when he is back. A Dwarf, Gnome or Night Elf who took {quest:1638} from {npc:5480} instead of their home road is led through {zone:1453} from here."] = "{npc:6089}和{npc:6090}在{object:2100}的豬與哨子酒館裡；{npc:6090}是酒吧最裡端的醉漢。{npc:6090}（10級）攻擊力超出其等級，所以滿血開打；他殘血時會認輸而不是死亡。如果他贏了，他會消失約三分鐘：留著任務，等他回來再談。矮人、地精或夜精靈若從{npc:5480}處接了{quest:1638}而非本族路線，會從這裡被引導穿過{zone:1453}。",
 
 	-- Step 18: Marshal Haggard
 	-- {npc:294} Marshal Haggard · {area:88} Eastvale Logging Camp
@@ -94,7 +94,7 @@ return {
 
 	-- Step 19: Dead-tooth Jack
 	-- {npc:6093} Dead-Tooth Jack · {item:6783} Dead-tooth's Key · {object:85563} Dead-tooth's Strongbox · {item:6782} Marshal Haggard's Badge
-	["{npc:6093} (level 11) camps in the far south-east of Elwynn. A guard stands beside him and Defias and wolves are spread around the camp (now and then a rarer guard too): clear them one at a time, then kill Jack. He always drops {item:6783}; open {object:85563} in the crates by him for {item:6782}. Jack returns 3 minutes after dying, the box 1 minute after opening."] = "{npc:6093}（11級）在艾爾文森林最東南角紮營。一名衛兵站在他旁邊，迪菲亞和狼散佈在營地周圍（偶爾還有更稀有的衛兵）：一次清一個，然後殺傑克。他必掉{item:6783}；開啟他旁邊箱子裡的{object:85563}可獲得{item:6782}。傑克死後3分鐘回來，箱子開啟後1分鐘重新整理。",
+	["{npc:6093} (level 11) camps in the far south-east of Elwynn. A guard stands beside him and Defias and wolves are spread around the camp (now and then a rarer guard too): clear them one at a time, then kill Jack. He always drops {item:6783}; open {object:85563} in the crates by him for {item:6782}. Jack returns 3 minutes after dying, the box 1 minute after opening."] = "{npc:6093}（11級）在艾爾文森林最東南角紮營。一名衛兵站在他旁邊，迪菲亞和狼散佈在營地周圍（偶爾還有更稀有的衛兵）：一次清一個，然後殺傑克。他必掉{item:6783}；開啟他旁邊箱子裡的{object:85563}可獲得{item:6782}。傑克死後3分鐘回來，箱子開啟後1分鐘重新出現。",
 	-- {npc:6093} Dead-Tooth Jack
 	["from {npc:6093}"] = "來自{npc:6093}",
 	-- {item:6782} Marshal Haggard's Badge · {object:85563} Dead-tooth's Strongbox

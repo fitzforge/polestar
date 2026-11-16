@@ -21,7 +21,7 @@ return {
 
 	-- Step 2: The Slaughtered Lamb (Gnomes)
 	-- {quest:1715} The Slaughtered Lamb
-	["{quest:1715} (Gnomes)"] = "{quest:1715}（侏儒）",
+	["{quest:1715} (Gnomes)"] = "{quest:1715}（地精）",
 	-- {npc:6120} Lago Blackwrench · {zone:1455} Ironforge · {object:32383} Forlorn Cavern · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:171524} Tinker Town
 	["At 10 {npc:6120}, the warlock trainer in {zone:1455}'s {object:32383}, sends you to {npc:6122} in {zone:1453}. Take the {area:2257} from {object:171524}. If {npc:6120} does not offer it, go to {npc:6122} anyway: he still gives you the next quest."] = "10級時，{zone:1455}的{object:32383}裡的術士訓練師{npc:6120}會讓你去找{zone:1453}的{npc:6122}。從{object:171524}乘{area:2257}過去。如果{npc:6120}沒有給你任務，也直接去找{npc:6122}：他照樣會給你下一個任務。",
 
@@ -31,7 +31,7 @@ return {
 
 	-- Step 4: Surena Caledon
 	-- {npc:881} Surena Caledon · {area:62} Brackwell Pumpkin Patch · {npc:473} Morgan the Collector
-	["{npc:881} (level 9) is inside the farmhouse at the {area:62}, south-east Elwynn near the Redridge road. {npc:473} (level 10) and a warrior stand with her and join the fight; Morgan gouges and goes for your imp, so keep him Feared. Put your damage over time on {npc:881} first, Fear the others, and loot her choker before you finish them: it stays yours even if you die after. She throws fireballs from range and is back three minutes after she dies. Have the quest before you kill her, or the choker does not drop."] = "{npc:881}（9級）在{area:62}的農舍裡，位於艾爾文森林東南、靠近赤脊山道路。{npc:473}（10級）和一名戰士與她站在一起，會加入戰鬥；摩根會鑿擊並攻擊你的小鬼，所以讓他一直處於恐懼狀態。先給{npc:881}上持續傷害，恐懼其他人，在解決他們之前先拾取她的項圈：即便之後你死了，項圈也歸你。她從遠處扔火球，死後三分鐘重新整理。殺她之前要先接到任務，否則項圈不會掉落。",
+	["{npc:881} (level 9) is inside the farmhouse at the {area:62}, south-east Elwynn near the Redridge road. {npc:473} (level 10) and a warrior stand with her and join the fight; Morgan gouges and goes for your imp, so keep him Feared. Put your damage over time on {npc:881} first, Fear the others, and loot her choker before you finish them: it stays yours even if you die after. She throws fireballs from range and is back three minutes after she dies. Have the quest before you kill her, or the choker does not drop."] = "{npc:881}（9級）在{area:62}的農舍裡，位於艾爾文森林東南、靠近赤脊山道路。{npc:473}（10級）和一名戰士與她站在一起，會加入戰鬥；摩根會鑿擊並攻擊你的小鬼，所以讓他一直處於恐懼狀態。先給{npc:881}上持續傷害，恐懼其他人，在解決他們之前先拾取她的項圈：即便之後你死了，項圈也歸你。她從遠處扔火球，死後三分鐘重新出現。殺她之前要先接到任務，否則項圈不會掉落。",
 
 	-- Step 5: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {spell:14868} Curse of Agony · {spell:348} Immolate
