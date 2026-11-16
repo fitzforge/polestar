@@ -57,7 +57,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `background` | On an `along until` step: its goals are slow, zone-wide collections (a low drop rate, the mobs all along the route) worked over the whole stay; each quest objective needs a finish step, a plain step working it, before the step that hands its quest in |
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals without `@x,y` (at least two, one map) |
+| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact and skill goals without `@x,y`, or with none of those for the NPC of its accept, turnin and talk goals (at least two, one map) |
 
 ## Goals
 

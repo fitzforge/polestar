@@ -5929,6 +5929,15 @@ function Own.isField(goal)
 	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and not goal.candidates and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
 end
 
+-- A goal a `loop` step placed on its points though it is no field goal: a
+-- `skill` on a gathering round, or the accept, turnin or talk of an NPC who
+-- walks (`spread` over the loop's `spots`). Its points are searched one after
+-- another as a field goal's are: a dwell at one moves the arrow to the next.
+Own.SEARCH = { skill = true, accept = true, turnin = true, talk = true }
+function Own.isSearch(goal)
+	return Own.SEARCH[goal.t] == true and goal.spread == true and goal.spots ~= nil
+end
+
 -- The grind after goal g (a goto) in group grp of step s that the arrow takes
 -- instead: open, and with only notes, optional, done or not applicable goals
 -- between them (another goto or open work keeps the goto). Nil when none.
@@ -7867,7 +7876,7 @@ local function checkArrival()
 	-- arrow on (Spots, "Dwell"): to its next spot, or, with every place left, to
 	-- the step's nearest other field goal (below).
 	local wg = waypoint and guide and current and waypoint.stepIndex == current and guide.steps[current].goals[waypoint.goalIndex]
-	if wg and Own.isField(wg) and Own.dwelt(current, waypoint.goalIndex, wg, c, px, py) then
+	if wg and (Own.isField(wg) or Own.isSearch(wg)) and Own.dwelt(current, waypoint.goalIndex, wg, c, px, py) then
 		if wg.spots then Spots.repick(wg, c, px, py, "dwell") end
 		hit = true
 	end

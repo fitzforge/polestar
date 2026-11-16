@@ -1407,12 +1407,15 @@ object, up to 40; a creature at up to 8 places, none in a camp or walking
 about; #1944) carries each point as a spot of radius 0 and no `n` instead:
 exact points (GUIDE_FORMAT, "Spawn areas", Points). A `loop` step's
 goals carry its `goto` points instead, in order, with `spread = true` and no
-`n` or alternatives (compile-time: `resolve.js` applyLoop). A kill, collect or
-interact bound to a quest objective that players' recordings place
-(`data/recorded/quests.json`) takes its places from the trusted recorded spots
-(an area of a spot's own size, no `n` where no spawn of the target lies in it;
-GUIDE_FORMAT, "Spawn areas", Recorded). That pass is forge's (forge-guide
-resolve.rs `recorded_areas`) only: the node tests' JS compile
+`n` or alternatives (compile-time: `resolve.js` applyLoop): its kill, collect,
+interact and skill goals, or with none of those its accept, turnin and talk
+goals. A skill, accept, turnin or talk goal with them is no field goal, but
+the dwell moves the arrow along its points all the same (`Own.isSearch`). A
+kill, collect or interact bound to a quest objective that players' recordings
+place (`data/recorded/quests.json`) takes its places from the trusted recorded
+spots (an area of a spot's own size, no `n` where no spawn of the target lies
+in it; GUIDE_FORMAT, "Spawn areas", Recorded). That pass is forge's
+(forge-guide resolve.rs `recorded_areas`) only: the node tests' JS compile
 (`tools/lib/dsl`) has none and keeps the data's places, so a node test of a
 goal's places reads them without the recordings; the forge-judge seeds (the
 reported gate) compile with forge and check what ships. `x`/`y` stay the
