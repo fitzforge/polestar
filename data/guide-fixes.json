@@ -1081,6 +1081,30 @@
 			"issue": 823
 		},
 		{
+			"id": "2561-de-vries-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91738,
+				"goal": "turnin",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"split": {
+				"title": "Sergeant De Vries"
+			},
+			"note": "#2561 (twisted, 0.4.0): An Apple Treat (91738) is handed in only while the bags hold the Thunder Applejack (247824), and its hand-in shared the Westbrook Garrison step with Deputy Rainer's quests, so a player who reached the garrison without the Applejack (the still skipped, the guide placed past it, the Applejack drunk) stood on a hand-in Sergeant De Vries never offers. The hand-in is a step of its own (this record), shown only while the Applejack is in the bags (`when has 247824` in the seed's step, as Look to the Stars' `when has 4371`, #2243). The Applejack Still's step shows only with four Shiny Red Apples in the bags and An Apple Treat not handed in (`when has 4536 x4`, `when !turnedin 91738` in the seed).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-15: 30 people handed in 91738 at De Vries, every one after a hand-in of 91736 at the still; 8 people on the Human Elwynn guide talked to De Vries before they had an Applejack to give and got only his shop; 2 used the Applejack (cast with item 247824) right after the still; the still takes apples again (91736 handed in up to three times by one character)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2561: a Human Paladin at 14 on 0.4.0 stood 2 yd from De Vries on 'Hand in An Apple Treat' and the quest never appeared"
+				}
+			],
+			"issue": 2561
+		},
+		{
 			"id": "820-stonefield-apples",
 			"faction": "Alliance",
 			"at": {
@@ -11280,6 +11304,147 @@
 				}
 			],
 			"issue": 2243
+		},
+		{
+			"id": "2561-sweep-tanaris-water-pouches",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1691,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"split": {
+				"title": "Chief Engineer Bilgewhizzle"
+			},
+			"note": "#2561's sweep (a hand-in the giver takes straight from the bags, never in the log, with no gate on carrying what it asks for): Water Pouch Bounty (1878) shared Gadgetzan's step with More Wastewander Justice (1691), so a player without five Wastewander Water Pouches stood on a hand-in Spigot Operator Luglunket never offers. Bilgewhizzle's hand-in is a step of its own (this record) and 1878's step shows only with the pouches in the bags (`when has 8483 x5` in the seed's step).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1878 objectives: 5 Wastewander Water Pouches (8483), handed in at Spigot Operator Luglunket with no accept"
+				}
+			],
+			"issue": 2561
+		},
+		{
+			"id": "2561-sweep-unbagwa-heart-of-mokk",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"split": {
+				"title": "Unbagwa's ritual"
+			},
+			"note": "#2561's sweep: Stranglethorn Fever (349) is handed to Witch Doctor Unbagwa straight from the bags with ten Gorilla Fangs, and Mokk the Savage, whose heart Fin Fizracket's quest (348) asks for, comes only from that ritual. The hand-in's step shows only with the fangs in the bags (`when has 2799 x10` in the seed), and the heart is a step of its own after it (this record), shown once 349 is handed in (`when turnedin 349` in the seed): the fangs go on the hand-in, so one step holding both would be passed before Mokk comes.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 349 objectives: 10 Gorilla Fangs (2799), handed in at Witch Doctor Unbagwa with no accept; quest 348 objective Heart of Mokk (2797)"
+				}
+			],
+			"issue": 2561
+		},
+		{
+			"id": "2561-sweep-chillwind-invaders-scourgestones",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5403,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"split": {
+				"title": "Argent Officer Pureheart"
+			},
+			"note": "#2561's sweep: the Minion's (5402, 20 stones) and Invader's Scourgestones (5403, 10 stones) are handed in straight from the bags and shared Chillwind Camp's step with High Priestess MacDonnell's quests, so a player short of stones stood on hand-ins Argent Officer Pureheart never offers. Each stone hand-in is a step of its own, shown only with its stones in the bags (`when has 12840 x20`, `when has 12841 x10` in the seed); this record cuts 5403's off 5402's.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 5402 objectives: 20 Minion's Scourgestones (12840); quest 5403: 10 Invader's Scourgestones (12841); both handed in at Argent Officer Pureheart with no accept"
+				}
+			],
+			"issue": 2561
+		},
+		{
+			"id": "2561-sweep-chillwind-macdonnell",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5220,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"split": {
+				"title": "High Priestess MacDonnell"
+			},
+			"note": "#2561's sweep: High Priestess MacDonnell's hand-in and accept (5220, 5222) are a step of their own after the Scourgestone hand-ins (2561-sweep-chillwind-invaders-scourgestones), so they hold the route whatever stones the player carries.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 5220 ender High Priestess MacDonnell; quests 5402, 5403 ender Argent Officer Pureheart"
+				}
+			],
+			"issue": 2561
+		},
+		{
+			"id": "2561-sweep-gadgetzan-egg-o-matic",
+			"faction": "Horde",
+			"at": {
+				"quest": 2741,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "The Egg-O-Matic"
+			},
+			"note": "#2561's sweep: The Super Egg-O-Matic (2741) is handed in at the Egg-O-Matic straight from the bags with the Hippogryph Egg (8564), and shared Gadgetzan's step with Sprinkle's, Tran'rek's and Marin Noggenfogger's quests, so a player without the egg stood on a hand-in the machine never offers. Its hand-in is a step of its own (this record; the hearth bind goes before it), shown only with the egg in the bags (`when has 8564` on the guide's step), and Marin's quests the step after (2561-sweep-gadgetzan-marin).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 2741 objectives: 1 Hippogryph Egg (8564), handed in at the Egg-O-Matic with no accept"
+				}
+			],
+			"issue": 2561
+		},
+		{
+			"id": "2561-sweep-gadgetzan-marin",
+			"faction": "Horde",
+			"at": {
+				"quest": 2661,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/06-azshara"
+			},
+			"split": {
+				"title": "Marin Noggenfogger"
+			},
+			"note": "#2561's sweep: Marin Noggenfogger's hand-ins and accept (2661, 2662) are a step of their own after the Egg-O-Matic's (2561-sweep-gadgetzan-egg-o-matic), so they hold the route whether or not the player carries the egg.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 2661 ender Marin Noggenfogger; 2741 ender the Egg-O-Matic"
+				}
+			],
+			"issue": 2561
+		},
+		{
+			"id": "2561-sweep-bashana-morrowgrain",
+			"faction": "Horde",
+			"at": {
+				"quest": 3804,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"split": {
+				"title": "Bashana Runetotem"
+			},
+			"note": "#2561's sweep: Morrowgrain to Thunder Bluff (3804) is handed to Bashana Runetotem straight from the bags with ten Morrowgrain, which the guide grows only as an option (`collect 11040 x10 optional`), yet its hand-in was required on her step, so a player without the grain stood on a hand-in she never offers. The hand-in is a step of its own (this record), shown only with the ten Morrowgrain in the bags (`when has 11040 x10` on the guide's step).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 3804 objectives: 10 Morrowgrain (11040), handed in at Bashana Runetotem with no accept"
+				}
+			],
+			"issue": 2561
 		},
 		{
 			"id": "h4050-danger-tip-2975",
