@@ -7483,17 +7483,30 @@
 			"evidence": "route level 22.9; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 45 people (median 25.34), 4 died within 60 yd, 5 abandoned. Forever's spawn data puts Kirin Tor Guards (55) at the fields' northern edge; players' recordings: 26 Horde people met them as hostile there, north of the farms; the people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were at the Dalaran crater)"
 		},
 		{
-			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 527.3|over",
+			"key": "forever/horde/06-hillsbrad-foothills.guide|kill 527.2|over",
 			"guide": "forever/horde/06-hillsbrad-foothills.guide",
-			"goal": "kill 527.3",
+			"goal": "kill 527.2",
 			"kind": "over",
 			"title": "Hillsbrad Fields",
-			"level": 22.9,
+			"level": 22.7,
 			"mobs": [
 				"Kirin Tor Guard 55-55 x2"
 			],
 			"reason": "warned at the step: its tip names Kirin Tor Guard",
-			"evidence": "route level 22.9; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 43 people (median 25.46), 6 died within 60 yd, 5 abandoned. Forever's spawn data puts Kirin Tor Guards (55) at the fields' northern edge; players' recordings: 26 Horde people met them as hostile there, north of the farms; the people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were at the Dalaran crater)"
+			"evidence": "route level 22.7; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 60 people (median 25.34), 3 died within 60 yd, 6 abandoned. Forever's spawn data puts Kirin Tor Guards (55) at the fields' northern edge; players' recordings: 26 Horde people met them as hostile there, north of the farms; the people who died in the fields were killed by farmers, farmhands and a bear where the killer is known (the 8 recorded deaths to Kirin Tor Guards were at the Dalaran crater)"
+		},
+		{
+			"key": "forever/horde/06-hillsbrad-foothills.guide|collect 546.1|over",
+			"guide": "forever/horde/06-hillsbrad-foothills.guide",
+			"goal": "collect 546.1",
+			"kind": "over",
+			"title": "Hillsbrad Fields: kill these as you meet them",
+			"level": 23.9,
+			"mobs": [
+				"Kirin Tor Guard 55-55 x2"
+			],
+			"reason": "warned at the step: its tip names Kirin Tor Guard",
+			"evidence": "route level 23.9; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 52 people (median 26.15), 17 died within 60 yd, 4 abandoned. Players' recordings: 20 deaths of 15 Horde people around the peasants' fields, none to a Kirin Tor Guard: Hillsbrad Councilman 8, Hillsbrad Footman 5, Hillsbrad Peasant 2, Citizen Wilkes 1, Magistrate Burnside 1, 3 unknown; the step's tip warns of the fleeing peasants' adds from the town hall and of the Kirin Tor Guards north of the fields"
 		},
 		{
 			"key": "forever/horde/07-ashenvale.guide|kill 96259.1|elite",
@@ -8068,17 +8081,17 @@
 			"evidence": "route level 29.4; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 45 people (median 25.34), 4 people died within 60 yd, 5 abandoned"
 		},
 		{
-			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 527.3|over",
+			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|kill 527.2|over",
 			"guide": "forever/horde/30-40/01-hillsbrad-foothills.guide",
-			"goal": "kill 527.3",
+			"goal": "kill 527.2",
 			"kind": "over",
 			"title": "Hillsbrad Fields",
-			"level": 29.4,
+			"level": 29.1,
 			"mobs": [
 				"Kirin Tor Guard 55-55 x2"
 			],
 			"reason": "warned at the step: its tip names Kirin Tor Guard (players met it as hostile)",
-			"evidence": "route level 29.4; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 43 people (median 25.46), 6 people died within 60 yd, 5 abandoned"
+			"evidence": "route level 29.1; Kirin Tor Guard 55-55 x2; recordings (2026-11-13): done by 60 people (median 25.34), 3 people died within 60 yd, 6 abandoned"
 		},
 		{
 			"key": "forever/horde/30-40/01-hillsbrad-foothills.guide|collect 544.2|elite",
