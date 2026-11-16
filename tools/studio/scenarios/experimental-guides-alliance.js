@@ -11,7 +11,7 @@ module.exports = require('./experimental-guides').make({
 	menus: {
 		'menu-5060': {
 			title: 'Leveling, Alliance 50-60: Mount Hyjal (57-59) among our guides, selected',
-			filter: 'Alliance', open: ['Leveling/Alliance/50'], select: 'polestar-experimental/hyjal-1',
+			open: ['Leveling/Alliance/50'], select: 'polestar-experimental/hyjal-1',
 		},
 	},
 	choices: {

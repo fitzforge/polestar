@@ -32,7 +32,7 @@ return {
 
 	-- Step 6: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
-	["Lightforge Ingots"] = "",
+	["Lightforge Ingots"] = "Lichtschmiedeblöcke",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Die Murlocs der Blaukiemen am Strand südwestlich von Menethil tragen die Blöcke.",
 	-- {item:2702} Lightforge Ingot
 	["{item:2702}; underwater"] = "{item:2702}; unter Wasser",
@@ -133,7 +133,6 @@ return {
 	-- ["From {area:608}"] = "Start: {area:608}",
 	-- ["Geltharis"] = "Geltharis",
 	-- ["Insane druids"] = "Wahnsinnige Druiden",
-	-- ["Lightforge Ingots"] = "Lichtschmiedeblöcke",
 	-- ["Melyria and {npc:3901}"] = "Melyria und {npc:3901}",
 	-- ["Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel."] = "Rostige Truhen stehen rund um die Furbolglager des Schattendickichts westlich der Verlassenen; öffne sie, bis eine den Knauf enthält.",
 	-- ["Take the boat to {area:150} from {area:442}'s docks."] = "{area:150}: Nimm das Boot vom Steg in {area:442}.",

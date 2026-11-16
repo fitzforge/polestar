@@ -94,6 +94,8 @@ mod engine_empty_stop;
 mod engine_enter;
 #[path = "engine-exact-points.rs"]
 mod engine_exact_points;
+#[path = "engine-faction-levels.rs"]
+mod engine_faction_levels;
 #[path = "engine-failed-quest.rs"]
 mod engine_failed_quest;
 #[path = "engine-feeders.rs"]
@@ -200,6 +202,8 @@ mod engine_when_upgrade;
 mod engine_while_here;
 #[path = "engine-zone-walk.rs"]
 mod engine_zone_walk;
+#[path = "faction-guides.rs"]
+mod faction_guides;
 #[path = "flight-map-notice.rs"]
 mod flight_map_notice;
 mod gamepad;

@@ -66,8 +66,8 @@ fn has(v: &Value, s: &str) -> bool {
 #[test]
 fn our_categories_list_only_our_guides_all_lists_both() {
 	let out = run(r#"
-		emit({ leveling = titles(P.Entries("All", "", "Leveling")), professions = titles(P.Entries("All", "", "Professions")),
-			all = titles(P.Entries("All", "", "All")) })"#);
+		emit({ leveling = titles(P.Entries("", "Leveling")), professions = titles(P.Entries("", "Professions")),
+			all = titles(P.Entries("", "All")) })"#);
 	assert_eq!(out["leveling"], json!(["[Leveling 1–30]", "Westfall"]));
 	assert_eq!(out["professions"], json!(["[Professions]", "Cooking"]));
 	for t in ["Westfall", "Cooking", "Joe's Barrens", "Joe's Redridge", "Joe's Tailoring", "Night Run"] {
@@ -77,7 +77,7 @@ fn our_categories_list_only_our_guides_all_lists_both() {
 
 #[test]
 fn a_pack_s_entry_lists_its_guides_grouped_by_its_folders_categories_and_bands() {
-	let out = run(r#"emit({ joe = titles(P.Entries("All", "", "pack:joe")) })"#);
+	let out = run(r#"emit({ joe = titles(P.Entries("", "pack:joe")) })"#);
 	assert_eq!(out["joe"], json!(["[Leveling 1–30]", "Joe's Barrens", "Joe's Redridge", "[Night routes]", "Night Run", "[Professions]", "Joe's Tailoring"]));
 }
 
@@ -89,7 +89,7 @@ fn the_community_guides_heading_and_one_entry_per_shown_pack_title_author_hiding
 		local shown = { nav = nav(), title = PolestarPicker.Title:GetText(), joe = rowFor("Joe's Barrens") ~= nil }
 		G.SetPackShown("joe", false)
 		emit({ shown = shown, hidden = { nav = nav(), category = P.Category(), joe = rowFor("Joe's Barrens") ~= nil,
-			all = titles(P.Entries("All", "", "All")) } })"#);
+			all = titles(P.Entries("", "All")) } })"#);
 	let nav = out["shown"]["nav"].as_array().unwrap();
 	assert_eq!(json!(&nav[nav.len() - 2..]), json!(["# Community guides", "Joe's Routes  ·  Joe"]));
 	assert_eq!(out["shown"]["title"], "Joe's Routes");

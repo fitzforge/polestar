@@ -326,7 +326,7 @@ testing (alpha). It is built from `experimental/` in the checkout
   one `Polestar.RegisterExperimental({ ... })` call (Core/Guides.lua), an
   entry per offered guide, in id order, with its header as its guide
   registers it (`id`, `pack`, `title`, `faction`, `races`, `classes`,
-  `minLevel`, `maxLevel`, `zone`, `zoneName`, `pitch`, `pros`, `cons` and the
+  `minLevel`, `maxLevel`, `factionLevels`, `zone`, `zoneName`, `pitch`, `pros`, `cons` and the
   `names`/`written` those texts use) and its route until it hands back to one
   of ours: `topLevel` (the highest `maxLevel` on the way), `questIds` (its
   accepts, each once; another faction's lines and a dungeon run's steps,
@@ -586,7 +586,8 @@ Guide keys (the compiler writes them in this order):
 | `faction` | no | `"Alliance"` or `"Horde"`; absent: either |
 | `races` | no | list of race file names (`"Human"`, `"Scourge"`, `"NightElf"`, …); absent: any |
 | `classes` | no | list of class file names (`"WARRIOR"`, …); absent: any |
-| `minLevel`, `maxLevel` | no | numbers |
+| `minLevel`, `maxLevel` | no | numbers; with `factionLevels`, the span of both sides' ranges |
+| `factionLevels` | no | a guide both factions play with each side's own levels (GUIDE_FORMAT, "Levels per faction"): `{ Alliance = { min = 45, max = 46 }, Horde = { min = 47, max = 48 } }`. Polestar 0.4.0 reads the player's side's range wherever it uses a guide's levels (`Guides.Levels`); an older Polestar loads the pack and reads `minLevel`/`maxLevel`, so no new format (an import string carrying it needs 0.4.0, whose import reads the key). A side without its `min`/`max` numbers refuses the guide |
 | `category` | no | `"Leveling"` (default), `"Class"`, `"Professions"`, `"Reputation"`, `"Legacy"`, `"Exploration"`, `"Collectibles"`, `"Miscellaneous"`, `"Dungeons"`; the compiler passes another name through with a warning |
 | `folder` | no | the guide menu folder |
 | `keywords` | no | list of extra search words |
@@ -822,10 +823,10 @@ changes, read by Polestar 0.3.0 and later:
   <faction>` with the generated-folder marker, and their `Guides.lua` is
   written like the pack's. Polestar loads the player's faction's part once
   the pack's own files are in, before the player's race part (whose baked
-  legs, `Legs.lua`, name those guides); the other faction's only when the
-  guide menu's faction filter asks for it, or when a saved tab holds a guide
-  no loaded part has (`Polestar.Guides.LoadFaction`). A character holds its
-  own faction's guides and the factionless ones, not the other side's.
+  legs, `Legs.lua`, name those guides); the other faction's only when a saved
+  tab holds a guide no loaded part has (the guide menu never lists the other
+  side's guides). A character holds its own faction's guides and the
+  factionless ones, not the other side's.
 
 ## Format 10
 

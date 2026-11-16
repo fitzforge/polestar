@@ -570,17 +570,37 @@ fn a_next_guide_whose_races_leave_out_the_characters_says_why_its_turnins_do_not
 	assert_eq!(w[0].line as usize, line_of(&one, "  accept 7"));
 	assert_eq!(w[0].message, "quest 7 (Kobold Camp Cleanup) is accepted but never turned in later in this guide or a guide after it for some of the characters it applies to (\"t/two\" is for Dwarf only, so its turn-ins do not count)");
 	assert_eq!(w[0].hint.as_deref(), Some("turn it in later in this guide, or pick a `next` guide these characters can follow, or make the accept `optional` when the player may leave it"));
-	// Per route: the route through a Dwarf guide says so; a plain miss does not.
+	// A route choice: each character goes on only through the options it can follow, so a Dwarf-only option's
+	// turn-in counts for the Dwarves and leaves no one else out while another option takes them.
 	let choice = text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/two, t/three"]);
 	let split = compile_map(&[
 		("1.guide", &choice),
 		("2.guide", &text("t/two", &["step S", "  turnin 7"], &["race Dwarf", "pitch Two"])),
 		("3.guide", &text("t/three", &["step S", "  turnin 7"], &["pitch Three"])),
 	]);
+	assert_eq!(only(&split.warnings, "never turned in"), Vec::<String>::new());
+	// One `next` per kind of character (a guide for both factions handing each to its own next guide, as
+	// Shen'dralas does): each route counts for its own characters, and a miss on one names only that route.
+	let each = text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/two", "next t/three"]);
+	let human = text("t/two", &["step S", "  turnin 7"], &["race Human", "pitch Two"]);
+	let fine = compile_map(&[("1.guide", &each), ("2.guide", &human), ("3.guide", &text("t/three", &["step S", "  turnin 7"], &["race Dwarf", "pitch Three"]))]);
+	assert_eq!(only(&fine.warnings, "never turned in"), Vec::<String>::new());
+	let missed = compile_map(&[("1.guide", &each), ("2.guide", &human), ("3.guide", &text("t/three", &["step S", "  level 2"], &["race Dwarf", "pitch Three"]))]);
 	assert_eq!(
-		only(&split.warnings, "never turned in"),
-		vec![format!("1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/two\" for some of the characters it applies to (it is for Dwarf only, so its turn-ins do not count)", line_of(&choice, "  accept 7"))]
+		only(&missed.warnings, "never turned in"),
+		vec![format!(
+			"1.guide:{}: quest 7 (Kobold Camp Cleanup) is accepted but never turned in on the route through \"t/three\" for some of the characters it applies to",
+			line_of(&each, "  accept 7")
+		)]
 	);
+	// Deeper on the route too: a guide for both kinds in between hands each to its own.
+	let deep = compile_map(&[
+		("1.guide", &text("t/one", &["step S", "  accept 7"], &["race Human, Dwarf", "next t/mid"])),
+		("2.guide", &text("t/mid", &["step S", "  level 2"], &["race Human, Dwarf", "next t/two", "next t/three"])),
+		("3.guide", &human),
+		("4.guide", &text("t/three", &["step S", "  turnin 7"], &["race Dwarf", "pitch Three"])),
+	]);
+	assert_eq!(only(&deep.warnings, "never turned in"), Vec::<String>::new());
 	let lone = compile(&guide_text(&["step S", "  accept 7"]));
 	assert_eq!(
 		diags(lone.diag.warnings(), "never turned in")[0].hint.as_deref(),

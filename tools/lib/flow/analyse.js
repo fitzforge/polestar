@@ -11,7 +11,7 @@
 //   dungeon excursions       stops there only for dungeon steps, with their cost
 
 const { WALK_YPS, dist, parseSpots, pyRound } = require('./data');
-const { HUB, NEAR, STOP_YD, SAMPLE_YD, OBJ_TYPES, NEUTRAL, Counter, list, truthy, minBy } = require('./walk');
+const { HUB, NEAR, STOP_YD, SAMPLE_YD, OBJ_TYPES, NEUTRAL, WH_MOBS_ABOVE, Counter, list, truthy, minBy } = require('./walk');
 
 const AWAY = 150.0;          // the walk left the place in between
 const LATER_S = 180.0;       // at least 3 min of clock later
@@ -278,7 +278,7 @@ function analyse(w, quests, proj) {
 			if (dist(p, ap) > r) continue;
 			const q = E[k].goal.quest;
 			const L = j > 0 ? E[j - 1].level : 1;
-			if (lvl && lvl > L + 2) continue;
+			if (lvl && lvl > L + WH_MOBS_ABOVE) continue;   // a camp While you're here would not offer
 			if (inLog(q, j)) {
 				objPass.set(k, { j, kind: 'deferred', pos: ap });
 			} else if (acc.has(q) && acc.get(q) > j && acceptable(q, j)) {

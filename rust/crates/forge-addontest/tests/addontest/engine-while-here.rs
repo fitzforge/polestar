@@ -126,6 +126,36 @@ fn open_work_of_every_later_step_for_quests_in_the_log_qualifies_whatever_is_lef
 	);
 }
 
+// Fitz's level rule: never send a solo player at mobs 2 or more levels above them; 1 above is fine. A line's mobs (a
+// spot's `lvl`, else the goal's) may be at most HERE_MOBS_ABOVE (1) over the player, so a quest carried for later is
+// not offered back at a camp 2 over as the route passes it. The quest's own level may be 2 over (HERE_ABOVE): a
+// level-7 quest whose mobs are 6 is a fine line at 5, and so is the pick-up of a level-7 quest. Level 5 here: step 7's
+// ogres (quest 51), step 3's candles in two spawn areas, step 5's accept of 106.
+#[test]
+fn a_carried_quests_camp_two_levels_up_is_not_offered_one_level_up_is_whatever_the_quests_own_level() {
+	let spots = "spots = { { x = 52.0, y = 35.1, r = 15, n = 3 }, { x = 53.0, y = 36.0, r = 10, n = 2 } }";
+	let row = |edits: &[(&str, &str)]| {
+		let guide = edits.iter().fold(GUIDE.replace("ESCORT", ""), |g, (from, to)| g.replace(from, to));
+		let out = run_guide(&guide, "test/here", "emit(cands())");
+		out[0].as_str().unwrap().split(' ').map(str::to_owned).collect::<Vec<_>>()
+	};
+	let has = |rows: &[String], step: &str| rows.iter().any(|r| r.starts_with(step));
+	let ogres = |lvl: &str| row(&[("oi = 1, lvl = 9,", &format!("oi = 1, {lvl}"))]);
+	assert!(!has(&ogres("lvl = 7,"), "7:"), "ogres 2 over: no line: {:?}", ogres("lvl = 7,"));
+	assert!(has(&ogres("lvl = 6,"), "7:1:work:1"), "ogres 1 over: the line: {:?}", ogres("lvl = 6,"));
+	assert!(has(&ogres("qlvl = 7, lvl = 6,"), "7:1:work:1"), "a quest 2 over, its ogres 1 over: the line: {:?}", ogres("qlvl = 7, lvl = 6,"));
+	// A spot's own level counts for that spot: both spawn areas 2 over, none; one of them 1 over, the line.
+	let candles = |a: &str, b: &str| {
+		row(&[(spots, &format!("spots = {{ {{ x = 52.0, y = 35.1, r = 15, n = 3, lvl = {a} }}, {{ x = 53.0, y = 36.0, r = 10, n = 2, lvl = {b} }} }}"))])
+	};
+	assert!(!has(&candles("7", "7"), "3:"), "both candle spots 2 over: no line: {:?}", candles("7", "7"));
+	assert!(has(&candles("7", "6"), "3:1:work:2"), "one candle spot 1 over: the line: {:?}", candles("7", "6"));
+	// The pick-up of a quest 2 over stays a line (the quest's level alone makes no camp dangerous); 3 over does not.
+	let accept = |qlvl: &str| row(&[("qlvl = 9, map = 1429, x = 47.5, y = 35.5", &format!("qlvl = {qlvl}, map = 1429, x = 47.5, y = 35.5"))]);
+	assert!(has(&accept("7"), "5:1:take"), "a pick-up 2 over: the line: {:?}", accept("7"));
+	assert!(!has(&accept("8"), "5:"), "a pick-up 3 over: no line: {:?}", accept("8"));
+}
+
 // A guide that leaves Elwynn and comes back: 1 (live) the wolves far off at 60,60 · 2 candles as you go (an along
 // step, not listed yet) · 3 to Westfall · 4 a murloc for 50 in Westfall at the same map coordinates as the player
 // stands in Elwynn · 5 hearth · 6 the vermin, back in Elwynn · 7 accept 106 · 8 bandits for 88 (not in the log) ·

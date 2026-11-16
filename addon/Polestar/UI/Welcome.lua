@@ -2836,7 +2836,7 @@ PAGES[#PAGES + 1] = {
 		h.Corner:SetShown(painted)
 		h.Title:SetWidth(painted and CW or CW - 120)
 		h.Title:SetText(g and g.title or L["Choose your first guide"])
-		local lv = g and UI.LevelRange(g.minLevel, g.maxLevel)
+		local lv = g and UI.GuideLevels(g)
 		local chipW = 0
 		if lv then
 			chipW = W.SetChip(h.Chip, L["Levels"] .. " " .. lv, "accent") + 10

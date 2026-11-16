@@ -22,7 +22,8 @@ const NEUTRAL = new Set(['goto', 'note', 'fly', 'level', 'die', 'vendor', 'buy',
 
 // Dynamic Questing, as addon/Polestar/Core/Engine.lua (Own.HERE_*; behavior.whileHere* defaults)
 const WH_RADIUS = 180.0;                 // behavior.whileHereRadius, to a spawn spot's centre
-const WH_ABOVE = 2;                      // Own.HERE_ABOVE
+const WH_MOBS_ABOVE = 1;                 // Own.HERE_MOBS_ABOVE: a line's mobs at most this many levels over the player
+const WH_ABOVE_036 = 2;                  // 0.3.6 Own.HERE_ABOVE, for mobs too
 const WH_VERBS = new Set(['kill', 'collect', 'interact', 'use']);
 const WH_TURNIN_036 = 30.0;              // 0.3.6 Own.HERE_TURNIN
 const WH_TOWN = 100.0, WH_FAR = 250.0, WH_SOON = 2, WH_XP = 2;         // 0.3.7 (#1393)
@@ -713,7 +714,7 @@ class Walk {
 		if (this.dynBlocked()) return [];
 		const out = [];
 		const L = this.L;
-		const top = L + WH_ABOVE;
+		const top = L + (this.dyn === '036' ? WH_ABOVE_036 : WH_MOBS_ABOVE);
 		for (const c of this.whGoals.get(gid) || []) {
 			if (c.si <= si) continue;
 			const go = c.go;
@@ -952,6 +953,6 @@ class Walk {
 }
 
 module.exports = {
-	NEAR, HUB, STOP_YD, SAMPLE_YD, OBJ_TYPES, NEUTRAL, truthy, list, Counter, applies, whenOk, Router, dungeonOf, okeyOf,
+	NEAR, HUB, STOP_YD, SAMPLE_YD, OBJ_TYPES, NEUTRAL, WH_MOBS_ABOVE, truthy, list, Counter, applies, whenOk, Router, dungeonOf, okeyOf,
 	circleEnter, segDist, minBy, Walk,
 };

@@ -331,8 +331,14 @@ local function decodeNpc(group, id, s)
 	}
 end
 
+-- An object record: treasure;loot;spawn groups...[;z<heights>][;m<faction>][;i<instance>] (the instance an
+-- object lies in, last: Upper Blackrock Spire's Rookery Eggs).
 local function decodeObject(group, id, s)
 	local t, n = split(s, ";")
+	local instance
+	if n >= 3 and sub(t[n], 1, 1) == "i" then
+		instance, n = unesc(sub(t[n], 2)), n - 1
+	end
 	local mailbox, faction
 	if n >= 3 and (t[n] == "m" or t[n] == "mA" or t[n] == "mH" or t[n] == "mAH") then
 		mailbox, faction = true, sub(t[n], 2)
@@ -341,7 +347,7 @@ local function decodeObject(group, id, s)
 	end
 	local heights
 	heights, n = heightsField(t, n)
-	return { id = id, name = nameOf(group, id), treasure = t[1] == "1", mailbox = mailbox,
+	return { id = id, name = nameOf(group, id), treasure = t[1] == "1", mailbox = mailbox, instance = instance,
 		faction = faction, loot = numbers(t[2]), spawns = decodeSpawns(t, 3, n, heights) }
 end
 
@@ -381,6 +387,11 @@ local function decodeQuest(group, id, s)
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
 			if o then o.tame = true end
+		elseif lead == "a" then
+			-- The kill objective before it is done by using this item on the
+			-- NPC (the Codex build's useItem, #2468): a<item>.
+			local o = rec.objectives[#rec.objectives]
+			if o then o.useItem = tonumber(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
 			local o = rec.objectives[#rec.objectives]

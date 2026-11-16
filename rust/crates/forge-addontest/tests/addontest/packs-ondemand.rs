@@ -444,14 +444,14 @@ end
 -- The guide menu's experimental guides under `cat`, sorted, comma-joined, each with its folder.
 local function menu(cat)
 	local out = {}
-	for _, e in ipairs(Picker.Entries("All", "", cat)) do
+	for _, e in ipairs(Picker.Entries("", cat)) do
 		if e.kind == "guide" and G.IsExperimental(e.guide) then out[#out + 1] = e.guide.id .. "@" .. e.folder.id end
 	end
 	table.sort(out)
 	return table.concat(out, ",")
 end
 UI.ShowOptions("guidepacks")
-local _, _, counts = Picker.Entries("All", "", "All")
+local _, _, counts = Picker.Entries("", "All")
 local first = G.Pack(ID).guides[1]
 local out = { row = rowOf("Polestar_Experimental") ~= false, loads = stub.packLoads.Polestar_Experimental or 0, leveling = menu("Leveling"),
 	packEntry = menu("pack:" .. ID), countLeveling = counts.Leveling or 0, countPack = counts["pack:" .. ID] or 0,

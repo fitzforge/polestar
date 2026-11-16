@@ -6,9 +6,9 @@
 -- Left: the hub rail (sections, Options at its foot; below), then the
 -- sidebar: the search under the wordmark, then the categories with their
 -- icons and counts (All, Leveling, Professions, Reputation, Exploration,
--- Legacy, Collectibles, Miscellaneous, Favorites). A category with no guide for any faction
--- is left out; one empty only for this faction fades and says how to reach
--- its guides. Dungeons have their own hub section, not a category.
+-- Legacy, Collectibles, Miscellaneous, Favorites). A category with no guide at all
+-- is left out; one with none for this character fades. Dungeons have their own
+-- hub section, not a category.
 -- Middle: tabs (Home: Continue cards for the open tabs, one row of them,
 -- the active tab first, then the most recently used, with "Show all (N)"
 -- for the rest, and the suggested guides; Browse: the last category or the
@@ -22,9 +22,11 @@
 -- headers (leveling by faction and band: "Horde 30-40"; the rest by
 -- category). On Browse without a search a header folds its guides away and
 -- back (click, or A on a gamepad; its count stays), kept account-wide in
--- ui.pickerCollapsed; opening the menu unfolds the open guide's folder. The faction filter sits at the
--- right of the tab row. The header says what the list holds ("Horde · 65
--- guides · 1 open", or the search's result count). The list runs to the
+-- ui.pickerCollapsed; opening the menu unfolds the open guide's folder. Only
+-- the character's own side is ever listed (Guides.OtherFaction; no faction
+-- filter, #2462): Browse, search, Home's suggestions and Recent alike. The
+-- header says what the list holds ("Horde · 65 guides · 1 open", or the
+-- search's result count). The list runs to the
 -- window's bottom.
 -- Right: the selected guide's details: its zone's art from the client (the
 -- night band without it) with the title on it, chips (levels, on a leveling
@@ -89,7 +91,7 @@ P.RECENT_MAX = RECENT_MAX
 
 local win, details
 local factCache = {} -- guide id -> { quests, zones } (guideFacts)
-local folderPool, rowPool, cardPool, segButtons = {}, {}, {}, {}
+local folderPool, rowPool, cardPool = {}, {}, {}
 local query = ""
 local questContext -- { id, query, steps = { [guideId] = matching steps } }
 local category = "All"
@@ -98,7 +100,6 @@ local newTabMode = false
 local visibleIds = {} -- guide ids in the middle pane, top to bottom (arrow keys)
 local allCards = false -- "Show all (N)": every open tab's card, not one row; this session
 
-local FACTIONS = { "Alliance", "Horde", "All" }
 local VIEWS = { "home", "browse", "current", "recent" }
 local VIEW_LABEL = { home = L["Home"], browse = L["Browse"], current = L["Current"], recent = L["Recent"] }
 
@@ -167,10 +168,20 @@ local function categoryLess(a, b)
 	return a < b
 end
 
-local function factionFilter()
-	local f = ns.Get("ui.pickerFaction")
-	if f == "auto" or f == nil then f = UI.PlayerFaction() or "All" end
-	return f
+-- The character, for what the menu may list (Guides.GuideMatches,
+-- Guides.OtherFaction); nil while Compat has none.
+local function playerInfo()
+	local C = ns.Compat
+	if not (C and C.GetPlayerInfo) then return nil end
+	local ok, info = pcall(C.GetPlayerInfo)
+	return ok and type(info) == "table" and info or nil
+end
+
+-- Whether guide header g is of the character's side (or both): no list in the
+-- menu holds another side's guide, whatever brought it in.
+local function ownSide(g, player)
+	local G = ns.Guides
+	return not (g and G and G.OtherFaction and G.OtherFaction(g, player or playerInfo()))
 end
 
 ---------------------------------------------------------------------------
@@ -267,7 +278,7 @@ end
 -- else from its first level (1-30, then by tens). -> low, high
 local function band(g)
 	for lo, hi in (g.id or ""):gmatch("/(%d+)%-(%d+)/") do return tonumber(lo), tonumber(hi) end
-	local lv = g.minLevel or 1
+	local lv = ns.Guides.Levels(g) or 1
 	if lv < 30 then return 1, 30 end
 	local lo = floor(lv / 10) * 10
 	return lo, lo + 10
@@ -301,7 +312,10 @@ local OTHER_STARTS = "Leveling/other-starts"
 -- Same-titled guides in one list (#1358: the Dwarf's and the Gnome's "Dun
 -- Morogh (1-12)") say whose they are: their races where those differ, else
 -- their faction ("Zephras Isle (Horde)" beside the Alliance one). A title
--- with another level range needs nothing: the range tells them apart.
+-- with another level range needs nothing: the range tells them apart. A
+-- title that names its own guide's faction ("Defensive Stance and a Weapon
+-- (Alliance)", written for the two sides' twins) says it only when the other
+-- side's twin is in the same list (#2462: the menu lists one side's guides).
 -- list: guide headers -> { [guide] = shown title }
 local function racesOf(g)
 	if type(g.races) ~= "table" or #g.races == 0 then return nil end
@@ -312,16 +326,38 @@ local function racesOf(g)
 	return text
 end
 
+-- g's title without a closing "(<its own faction>)", English or the client's.
+local function baseTitle(g)
+	local t = g.title or g.id or ""
+	if type(g.faction) ~= "string" then return t end
+	for _, f in ipairs({ g.faction, ns.FactionName(g.faction) or g.faction }) do
+		local suffix = " (" .. f .. ")"
+		if #t > #suffix and t:sub(-#suffix) == suffix then return t:sub(1, -#suffix - 1) end
+	end
+	return t
+end
+
 function P.Titles(list)
-	local same = {}
+	local same, base, sides = {}, {}, {}
 	for _, g in ipairs(list) do
-		local k = (g.title or g.id or "") .. "\0" .. (g.minLevel or "") .. "-" .. (g.maxLevel or "")
+		base[g] = baseTitle(g)
+		local b = sides[base[g]] or {}
+		sides[base[g]] = b
+		b[g.faction or ""] = true
+		local lo, hi = ns.Guides.Levels(g)
+		local k = base[g] .. "\0" .. (lo or "") .. "-" .. (hi or "")
 		local s = same[k]
 		if not s then
 			s = {}
 			same[k] = s
 		end
 		s[#s + 1] = g
+	end
+	-- A twin whose other side is listed too keeps its whole title, whatever its range.
+	for _, g in ipairs(list) do
+		local n = 0
+		for _ in pairs(sides[base[g]]) do n = n + 1 end
+		if n > 1 and base[g] ~= (g.title or g.id or "") then base[g] = g.title or g.id end
 	end
 	local out = {}
 	for _, s in pairs(same) do
@@ -338,7 +374,8 @@ function P.Titles(list)
 		local byRace, byFaction = count(races) == #s, count(factions) == #s
 		for _, g in ipairs(s) do
 			local q = #s > 1 and ((byRace and racesOf(g)) or (byFaction and g.faction and ns.FactionName(g.faction))) or nil
-			out[g] = q and string.format(L["%s (%s)"], g.title or g.id, q) or (g.title or g.id)
+			if q and base[g] == (g.title or g.id) and base[g] ~= baseTitle(g) then q = nil end
+			out[g] = q and string.format(L["%s (%s)"], base[g], q) or base[g]
 		end
 	end
 	return out
@@ -366,51 +403,45 @@ local function rankOfFaction(f, mine)
 	return FACTION_ORDER[f] or 4
 end
 
--- filter: faction ("Alliance" | "Horde" | "All"); q: search text; cat: a
--- category, "Favorites" or "All". On the player's own faction only the
--- guides this character can follow are listed (none for other classes, nor
--- other races' but their starting zones: those, Guides.OtherStart, go in an
--- "Other starting zones" folder after the player's own levels 1-30); the
--- other faction and "All" list every guide.
+-- q: search text; cat: a category, "Favorites" or "All". Only the guides
+-- this character can follow are listed: none of the other faction's (#2462),
+-- other classes' or other races', but their own side's starting zones (those,
+-- Guides.OtherStart, go in an "Other starting zones" folder after the
+-- player's own levels 1-30). Favourites keep to the character's side.
 -- -> entries { kind = "folder", text, count, id } | { kind = "guide", guide,
 --    title (Titles), folder (the folder entry) },
 --    number of guides listed, { [category] = matching guides, Favorites = n }
 --    (before the category filter)
-function P.Entries(filter, q, cat)
-	local G, C = ns.Guides, ns.Compat
+function P.Entries(q, cat)
+	local G = ns.Guides
 	local list = G and G.List and G.List() or {}
 	q = (q or ""):lower():gsub("^%s+", ""):gsub("%s+$", "")
 	cat = cat or "All"
 	local mine = UI.PlayerFaction()
-	local player
-	if filter == mine and G and G.GuideMatches and C and C.GetPlayerInfo then
-		local ok, info = pcall(C.GetPlayerInfo)
-		if ok and type(info) == "table" then player = info end
-	end
+	local player = playerInfo()
 	local favs = uiState().favoriteGuides
 	local counts, picked, other = { Favorites = 0 }, {}, {}
 	for _, g in ipairs(list) do
 		local hit = matches(g, q)
-		if hit and favs[g.id] then
+		local side = ownSide(g, player)
+		if hit and side and favs[g.id] then
 			counts.Favorites = counts.Favorites + 1
 			if cat == "Favorites" then picked[#picked + 1] = g end
 		end
-		local okFaction = filter == "All" or g.faction == nil or g.faction == filter
-		if okFaction and player and not G.GuideMatches(g, player) then
-			if G.OtherStart and G.OtherStart(g, player) then other[g] = true else okFaction = false end
+		local fits = side
+		if fits and player and G.GuideMatches and not G.GuideMatches(g, player) then
+			if G.OtherStart and G.OtherStart(g, player) then other[g] = true else fits = false end
 		end
-		if okFaction and hit then
+		if fits and hit then
 			local c = bucketOf(g)
 			counts[c] = (counts[c] or 0) + 1
 			if cat == "All" or c == cat then picked[#picked + 1] = g end
 		end
 	end
-	-- An experimental guide for both factions sits in the band of the faction
-	-- the list shows (the player's own under "All").
-	local side = (filter == "Alliance" or filter == "Horde") and filter or mine
+	-- An experimental guide for both factions sits in the player's side's band.
 	local key, label, fid, fac = {}, {}, {}, {}
 	for _, g in ipairs(picked) do
-		fac[g] = g.faction or (isExperimental(g) and side or nil)
+		fac[g] = g.faction or (isExperimental(g) and mine or nil)
 		if other[g] then
 			label[g], key[g], fid[g] = L["Other starting zones"], string.format("%02d0001~", CATEGORY_RANK.Leveling), OTHER_STARTS
 		else
@@ -421,7 +452,7 @@ function P.Entries(filter, q, cat)
 		if key[a] ~= key[b] then return key[a] < key[b] end
 		local fa, fb = rankOfFaction(fac[a], mine), rankOfFaction(fac[b], mine)
 		if fa ~= fb then return fa < fb end
-		local la, lb = a.minLevel or 0, b.minLevel or 0
+		local la, lb = G.Levels(a, mine) or 0, G.Levels(b, mine) or 0
 		if la ~= lb then return la < lb end
 		-- Same first level: a guide that hands over to the other comes first,
 		-- as it is played (a race's lead-in "(12)" before the shared "(12-16)").
@@ -444,9 +475,9 @@ function P.Entries(filter, q, cat)
 end
 
 -- The id of the Browse folder a guide is listed under (every category, no
--- search, the faction filter as set), or nil where it is not listed.
+-- search), or nil where it is not listed.
 function P.FolderOf(id)
-	for _, e in ipairs((P.Entries(factionFilter(), "", "All"))) do
+	for _, e in ipairs((P.Entries("", "All"))) do
 		if e.kind == "guide" and e.guide.id == id then return e.folder.id end
 	end
 	return nil
@@ -554,7 +585,7 @@ local function nextFact(g, byId)
 	local function named(id)
 		local h = byId[id]
 		if not h then return nil end
-		local lv = UI.LevelRange(h.minLevel, h.maxLevel)
+		local lv = UI.GuideLevels(h)
 		return (h.title or id) .. (lv and (" (" .. lv .. ")") or "")
 	end
 	if type(g.nextChoices) == "table" then
@@ -655,16 +686,13 @@ end
 local FOLLOW_REACH = 1 -- levels below a follow-up's minimum at which it shows
 
 local function suggestions(byId, tabs, openIndex)
-	local G, C = ns.Guides, ns.Compat
-	local level
-	if C and C.GetPlayerInfo then
-		local ok, info = pcall(C.GetPlayerInfo)
-		if ok and type(info) == "table" then level = info.level end
-	end
+	local G = ns.Guides
+	local player = playerInfo()
+	local level = player and player.level
 	local out, seen = {}, {}
 	local function add(id, followUp)
-		if #out >= SUGGEST_MAX or not id or seen[id] or not byId[id] then return end
-		if followUp and (openIndex[id] or (level and level + FOLLOW_REACH < (byId[id].minLevel or 1))) then return end
+		if #out >= SUGGEST_MAX or not id or seen[id] or not byId[id] or not ownSide(byId[id], player) then return end
+		if followUp and (openIndex[id] or (level and level + FOLLOW_REACH < (G.Levels(byId[id], player and player.faction) or 1))) then return end
 		seen[id] = true
 		if guideState(id) == "done" then return end
 		out[#out + 1] = byId[id]
@@ -863,7 +891,7 @@ local function paintRow(r, g, note, width, title)
 	-- so they keep 4.5:1 there as on the plain ground.
 	W.Color(r.Range, sel and "textDim" or "textMuted")
 	W.Color(r.Note, sel and "textDim" or "textMuted")
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	local lv = UI.GuideLevels(g)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local expW = isExperimental(g) and (FOREVER_W + 4 + 4) or 0
 	r.Forever:SetShown(expW > 0)
@@ -1391,7 +1419,8 @@ local function renderDetails(byId, tabs, active)
 	local fav = P.IsFavorite(g.id)
 	W.SetIconState(d.Star, fav)
 	d.Star.psTip = fav and L["Remove from favourites"] or L["Add to favourites"]
-	d.Title:SetText(g.title or g.id)
+	-- Its own faction left out of the title, as on its row (P.Titles): the chips say it.
+	d.Title:SetText(baseTitle(g))
 
 	-- Chips: levels, what a leveling guide is worth in levels, experimental,
 	-- group content, faction, races, classes; on two lines at most.
@@ -1420,7 +1449,7 @@ local function renderDetails(byId, tabs, active)
 		local c = detailChip(n + 1)
 		if place(c, W.SetChip(c, text, kind)) then n = n + 1 end
 	end
-	local lv = UI.LevelRange(g.minLevel, g.maxLevel)
+	local lv = UI.GuideLevels(g)
 	if lv then addChip(L["Levels"] .. " " .. lv, "accent") end
 	local xw = UI.LevelTip.Set(d.XP, g.category == "Leveling" and guideXP(g.id) or nil,
 		{ head = L["If you finish this guide"], need = L["You are level %d. Level %d is recommended for this guide; from there:"] })
@@ -1668,17 +1697,21 @@ end
 -- Render
 ---------------------------------------------------------------------------
 
--- The categories: one with no guide for any faction is left out (one empty
--- only for this faction stays, faded by ShellNav).
+-- The categories: one with no guide of the character's side is left out (one
+-- with none for this character stays, faded by ShellNav).
 local function navItems(counts, total)
 	local exists, packs, seen = {}, {}, {}
+	local player = playerInfo()
+	-- Another side's guide (an old saved tab's) makes no category or pack.
 	for _, g in ipairs(ns.Guides and ns.Guides.List and ns.Guides.List() or {}) do
-		local r = packOf(g)
-		if not r then
-			exists[categoryOf(g)] = true
-		elseif not seen[r.id] then
-			seen[r.id] = true
-			packs[#packs + 1] = r
+		if ownSide(g, player) then
+			local r = packOf(g)
+			if not r then
+				exists[categoryOf(g)] = true
+			elseif not seen[r.id] then
+				seen[r.id] = true
+				packs[#packs + 1] = r
+			end
 		end
 	end
 	local items = { { key = "All", label = L["All guides"], icon = "compact", count = total } }
@@ -1701,30 +1734,6 @@ local function navItems(counts, total)
 		if not it.heading then P.categories[#P.categories + 1] = it.key end
 	end
 	return items
-end
-
--- A category empty only under this faction says how to reach its guides.
-local function navTips(filter)
-	for _, b in ipairs(win.navButtons) do
-		local tip
-		if b:IsShown() and b.psEmpty and query == "" and filter ~= "All" and b.psKey ~= "Favorites" then
-			tip = string.format(L["None for %s; switch the filter to All."], ns.FactionName(filter))
-		end
-		b.psTip = tip
-		if tip and not b.psPickerTip then
-			b.psPickerTip = true
-			b:HookScript("OnEnter", W.SimpleTip)
-			b:HookScript("OnLeave", W.HideTip)
-		end
-	end
-end
-
-local function paintSegments(filter)
-	for _, b in ipairs(segButtons) do
-		local on = b.psKey == filter
-		b.Selected:SetShown(on)
-		W.Color(b.Label, on and "text" or "textMuted")
-	end
 end
 
 ---------------------------------------------------------------------------
@@ -1803,7 +1812,6 @@ local function sectionLayout(s)
 	local on = s ~= nil
 	details:SetShown(not on)
 	win.Content:SetShown(not on)
-	for _, b in ipairs(segButtons) do b:SetShown(not on) end
 	win.Header:ClearAllPoints()
 	win.Header:SetPoint("TOPLEFT", win.Main, "TOPLEFT", 0, 0)
 	win.Header:SetPoint("TOPRIGHT", win.Main, "TOPRIGHT", on and 0 or -DETAIL_W, 0)
@@ -1884,15 +1892,10 @@ function P.Render()
 	sectionLayout(active)
 	if active then
 		sectionNav(active)
-		navTips("All")
 		renderSection(active)
 		return
 	end
 	for _, s in ipairs(sections) do if s.psFrame then s.psFrame:Hide() end end
-	local filter = factionFilter()
-	-- The other faction's guides come in when the filter asks for them
-	-- (Guides.LoadFaction): their load fires GUIDES_REGISTERED, which renders.
-	if filter ~= UI.PlayerFaction() and ns.Guides and ns.Guides.LoadFaction and ns.Guides.LoadFaction(filter) then return end
 	-- A pack entry whose pack was hidden or holds no guides, or a category no
 	-- shown guide is in (its pack was switched off): back to All.
 	if category:sub(1, #PACK) == PACK then
@@ -1909,15 +1912,13 @@ function P.Render()
 		end
 		if not shown then category = "All" end
 	end
-	local entries, n, counts = P.Entries(filter, query, view == "browse" and category or "All")
+	local entries, n, counts = P.Entries(query, view == "browse" and category or "All")
 	local total = 0
 	for c, k in pairs(counts) do if c ~= "Favorites" then total = total + k end end
 	W.ShellNav(win, navItems(counts, total), view == "browse" and category or nil, function(key) P.SetCategory(key) end)
-	navTips(filter)
 	local tabsList = {}
 	for i, v in ipairs(VIEWS) do tabsList[i] = { key = v, label = VIEW_LABEL[v] } end
 	W.ShellTabs(win, tabsList, view, function(key) P.SetView(key) end)
-	paintSegments(filter)
 
 	local byId = headersById()
 	local tabs, active = tabsInfo()
@@ -1932,7 +1933,9 @@ function P.Render()
 			subtitle = n == 1 and string.format(L["1 result for \226\128\156%s\226\128\157"], query)
 				or string.format(L["%d results for \226\128\156%s\226\128\157"], n, query)
 		else
-			local parts = { filter == "All" and L["All factions"] or ns.FactionName(filter), n == 1 and L["1 guide"] or string.format(L["%d guides"], n) }
+			local parts = { n == 1 and L["1 guide"] or string.format(L["%d guides"], n) }
+			local mine = UI.PlayerFaction()
+			if mine then table.insert(parts, 1, ns.FactionName(mine)) end
 			local open = tabs and #tabs or 0
 			if open > 0 then parts[#parts + 1] = string.format(L["%d open"], open) end
 			subtitle = table.concat(parts, DOT)
@@ -2061,10 +2064,11 @@ function P.Render()
 	else
 		-- The tabs the player closed, newest first (Engine.ClosedTabs): opened
 		-- again, each comes back at the step it was on. Then the last guides loaded.
-		local E, shut, listed = ns.Engine, {}, {}
+		-- Only the character's side: an old tab or load of another side's guide stays out (#2462).
+		local E, shut, listed, player = ns.Engine, {}, {}, playerInfo()
 		for _, c in ipairs(E and E.ClosedTabs and E.ClosedTabs() or {}) do
 			local g = byId[c.guideId]
-			if g then
+			if g and ownSide(g, player) then
 				shut[#shut + 1] = g
 				listed[g.id] = true
 			end
@@ -2075,7 +2079,10 @@ function P.Render()
 			for _, g in ipairs(shut) do row(g, nil, shown[g]) end
 		end
 		local recent = {}
-		for _, id in ipairs(P.Recent()) do if byId[id] and not listed[id] then recent[#recent + 1] = byId[id] end end
+		for _, id in ipairs(P.Recent()) do
+			local g = byId[id]
+			if g and not listed[id] and ownSide(g, player) then recent[#recent + 1] = g end
+		end
 		if #recent > 0 then
 			if #shut > 0 then y = y + 10 end
 			folder(L["Recently loaded"], #recent)
@@ -2244,35 +2251,6 @@ local function build()
 	win.Footer:SetPoint("BOTTOMRIGHT", main, "BOTTOMRIGHT", -DETAIL_W, 0)
 	W.ShellFooter(win, nil, nil)
 
-	-- The faction filter, at the right of the tab row, centred in it; its
-	-- right edge mirrors the first tab's left (SH.pad - 12).
-	local x = -(SH.pad - 12)
-	for i = #FACTIONS, 1, -1 do
-		local f = FACTIONS[i]
-		local b = CreateFrame("Button", nil, win.TabRow)
-		b:SetHeight(24)
-		b.psKey = f
-		W.Hover(b)
-		b.Selected = W.Fill(b, "panelAlt", "BACKGROUND", 0)
-		b.Label = W.Text(b, "small", "textMuted")
-		b.Label:SetPoint("CENTER", b, "CENTER", 0, 0)
-		b.Label:SetText(f == "All" and L["All"] or ns.FactionName(f))
-		b:SetWidth(floor(b.Label:GetStringWidth() + 20 + 0.5))
-		b:SetPoint("RIGHT", win.TabRow, "RIGHT", x, 0)
-		b:SetScript("OnClick", function(self) ns.Set("ui.pickerFaction", self.psKey) end)
-		b.psTip = L["Faction filter"]
-		x = x - b:GetWidth() - 2
-		segButtons[i] = b
-	end
-	win.factionButtons = segButtons
-	-- The tabs end 8 short of it (W.ShellTabs: the game looks' wider tabs give
-	-- up their padding before they would run under it).
-	win.psTabRoom = function()
-		local filter = -2
-		for _, b in ipairs(segButtons) do filter = filter + b:GetWidth() + 2 end
-		return MID_W - 2 * (SH.pad - 12) - filter - 8
-	end
-
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)
 	-- A gamepad moves through the hub (UI/Gamepad.lua): LB / RB step the
@@ -2321,7 +2299,7 @@ function UI.ShowPicker(opts)
 	-- the suggestion.
 	local byId = headersById()
 	local sel = P.Selected()
-	if not (sel and byId[sel]) then
+	if not (sel and byId[sel] and ownSide(byId[sel])) then
 		sel = nil
 		local tabs, active = tabsInfo()
 		if tabs and active and tabs[active] then sel = tabs[active].guideId end
@@ -2362,11 +2340,6 @@ function P.ShowQuest(id)
 	UI.ShowPicker()
 	P.ShowSection("Guides")
 	P.SetCategory("All")
-	-- The filter is account-wide: only lift one that hides this character's
-	-- faction, and back to "auto" so an alt of the other faction is not left
-	-- filtered to this one.
-	local filter = factionFilter()
-	if filter ~= "All" and filter ~= UI.PlayerFaction() then ns.Set("ui.pickerFaction", "auto") end
 	local name = UI.QuestTitle(id) or (ns.Names and ns.Names.Quest(id))
 	questContext = { id = id, query = name or tostring(id), steps = {} }
 	P.SetQuery(questContext.query)
@@ -2381,15 +2354,7 @@ ns.On("GUIDE_CHANGED", function(id)
 	P.Render()
 end)
 ns.On("SETTING_CHANGED", function(path)
-	if path == "ui.pickerFaction" or path == "ui.pickerCollapsed" or path == "" or path == "ui" then P.Render() end
-end)
--- The filter is account-wide: a character of the other faction logging in
--- after "Horde" or "Alliance" was picked would open on the wrong side's
--- guides. Back to "auto" (this character's faction) at login; "All" stays.
-ns.OnLogin(function()
-	local f = ns.Get("ui.pickerFaction")
-	local mine = UI.PlayerFaction()
-	if mine and (f == "Alliance" or f == "Horde") and f ~= mine then ns.Set("ui.pickerFaction", "auto") end
+	if path == "ui.pickerCollapsed" or path == "" or path == "ui" then P.Render() end
 end)
 local function guidesChanged()
 	factCache = {}

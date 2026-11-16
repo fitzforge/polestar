@@ -1409,7 +1409,11 @@ goals carry its `goto` points instead, in order, with `spread = true` and no
 interact bound to a quest objective that players' recordings place
 (`data/recorded/quests.json`) takes its places from the trusted recorded spots
 (an area of a spot's own size, no `n` where no spawn of the target lies in it;
-GUIDE_FORMAT, "Spawn areas", Recorded). `x`/`y` stay the
+GUIDE_FORMAT, "Spawn areas", Recorded). That pass is forge's (forge-guide
+resolve.rs `recorded_areas`) only: the node tests' JS compile
+(`tools/lib/dsl`) has none and keeps the data's places, so a node test of a
+goal's places reads them without the recordings; the forge-judge seeds (the
+reported gate) compile with forge and check what ships. `x`/`y` stay the
 default point. `z` (optional, 0.2.4) is the height of the NPC or object the
 goal's `x`/`y` stands for (the compiler's, from `spawnz.json`: GUIDE_FORMAT,
 "Heights"); a spot and a smart target's candidate may carry their own `z`
@@ -1819,7 +1823,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   about N% of this guide's quest XP follows on from X", "Open X" opens it in
   a new tab; taken or dismissed, gone for that guide for the session).
 - **Out-levelled guides.** When the player's level exceeds the active guide's
-  `maxLevel` by 2 or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
+  top (`maxLevel`, or their side's `factionLevels` one: `Guides.Levels`) by
+  `Engine.OUTGROWN` (3) or more, the Engine fires `GUIDE_OUTLEVELED(guideId,
   suggestedId)` once per guide per session, once the guide is placed (a
   catch-up may pass it whole first); the UI offers the jump. While the
   guides between the active one and the level-best suggestion still hand in
@@ -2011,8 +2016,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   already (an open goal for the same objective in a listed along step,
   background goals included, `Own.hereShown`, or a pinned quest: Along the
   way lists them; a later along step not listed yet counts like any step),
-  not an objective the live step works itself, with mobs at most
-  `HERE_ABOVE` levels over the player, whatever is left (no size cap: the
+  not an objective the live step works itself, with mobs (a spot's `lvl`,
+  else the goal's) at most `HERE_MOBS_ABOVE` (1) level over the player
+  (Fitz's rule: never send a solo player at mobs 2 or more levels above
+  them; a quest carried for later is not offered back at a camp 2 over as
+  the route passes it), whatever is left (no size cap: the
   player is there already). One objective is one line however many steps
   hold it (`Own.hereGroups`, by `Own.hereKey`: the quest's objective `oi`,
   else the item collected or the mob killed; Fitz, 0.3.6: Raptor Horns read
@@ -2085,7 +2093,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   group question in the step, no `optional` accept, a `group` (elite,
   dungeon) one only after the player said "do", the quest not skipped,
   closed, dropped by an `abandon` of the guide, below its `minLevel` or more
-  than `HERE_ABOVE` (2) levels over the character (`qlvl`), the log keeping
+  than `HERE_ABOVE` (2) levels over the character (`qlvl`: the quest's own
+  level alone makes no camp dangerous, so it keeps the wider margin), the log keeping
   `LOG_SPARE` (2) slots free (`Own.logRoom`, of `Compat.GetLogCap`: Forever's
   client answers 0 to `GetMaxNumQuestsCanAccept`, and its log holds 40), and
   a timed quest (`limit`) only in the route's next `AHEAD` (5) steps and when
@@ -2426,6 +2435,17 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   instead. Passed while the player looks at another step (Prev, Next,
   Goto), it waits for their return to the live step (`Own.skipQueue`), so no
   quest is passed over unsaid. Placement at load never fires it.
+- **Quests past by their chain** (#2461). A quest counts as done (Engine's
+  `questDone`: its accept, objectives and hand-in, and as a prerequisite) when
+  it is handed in, or when a later quest of its chain is in the log or done
+  (`Own.chainPast`): the loaded quest database's follow-ups of it
+  (`QuestDB.FollowUps`, transitively) that this character can take (faction,
+  race, class) and that need it, in `preAll` or as a one-of `pre` naming no
+  other quest this character can take. So a chain taken early (Betrayed in
+  Orgrimmar, carried on to Ag'tor before the guide's step) never holds the
+  route. Without the database loaded nothing is inferred (it is never loaded
+  for this). The follow-up lists are kept per quest (`Own.laterOf`), the
+  answer once per quest per evaluation.
 - **Quests the player skipped** (`Engine.SkipQuest`, a quest's line
   right-clicked in the guide window: Skip this quest): saved per character
   by quest id (`skippedQuests`), so in every guide. Until the quest is done,
@@ -3247,7 +3267,7 @@ same rules (`"log"`): left out while not done, kept once it only has to be
 handed in. Left out (`Own.leftOut[guideId]`, for the session; each
 placement works it out again), an accept no longer applies, with its turn-in
 and objectives; taking the quest by hand brings it back. In a guide the
-character is past (`maxLevel` + 2, as the out-levelled banner counts) going
+character is past (`maxLevel` + 2) going
 back is a detour: every grey or green accept not taken yet is left out,
 anywhere in the guide, unless at least `Own.CHAIN_WORTH` (3) accepts from
 yellow up need it down the chain (`Own.catchUpPast`); a quest in the log
@@ -6896,8 +6916,10 @@ flight timer and the instance tracker are set under Quality of Life.
   observations within 10 world yards share one icon at an original point;
   the other physical mailboxes keep their own pins. Codex spawn frame tags
   are retained for coordinate projection and navigation. Optional escaped
-  `t<title>` NPC and `m<faction>` mailbox tails extend the packed records;
-  older readers skip these comma-free fields, and older packs stay readable.
+  `t<title>` NPC, `m<faction>` mailbox and `i<instance>` object tails (the
+  instance an object lies in: the pick-up guides leave out a prerequisite that
+  uses one) extend the packed records; older readers skip these comma-free
+  fields, and older packs stay readable.
   Reads run in batches of 100 outside combat, the first time the world map
   opens with the layer on (at once when its minimap icons are on), never at
   login, so the Codex stays unloaded until then; filters reuse the records
@@ -7817,7 +7839,7 @@ guides.
 
 The pick-up guide is built in game (`addon/Polestar/Dungeons/Pickup.lua`):
 `Dungeons.PickupPlan(key, offer)` takes the page's quests that apply to the character
-(faction, race and class masks through `Lookup.QuestBlock`, the page's class
+(faction, race and class masks and a profession the character has not learned, through `Lookup.QuestBlock`, the page's class
 list), not done, not in the log (those are `carried`), not handed in at one
 talk (`direct`: the hand-in guide hands it in, #2241), not closed for good (a
 quest of the page's `closedBy` done or in the log: a breadcrumb whose quest is
@@ -7942,7 +7964,9 @@ NPC gives), per NPC a `talks` line is at (a talk goal on that line, before
 the turn-in place of its quest), per other follow-up giver (after the
 turn-ins it waits on) and per errand (a step titled with its quest, after the
 stop that gives it, before its turn-in),
-ordered by `Dungeons.OrderStops` with no fixed end (`CharState().dungeonHandin[key]`);
+ordered by `Dungeons.OrderStops` with no fixed end (`CharState().dungeonHandin[key]`) from where the
+player stands, or, inside the dungeon where the client gives no position, from its entrance (where the
+run ends: the givers nearest the way out first);
 the last step lists the rest as notes ("Not finished yet: …", "Turned in
 inside the dungeon: …"). Nothing routable: nil, "nothing", and
 `Dungeons.HandinText(plan)` says why in one line. `Dungeons.HandIn` puts the
@@ -9090,13 +9114,16 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   over one line per guide,
   `Title (min–max)`, in folders (a guide's `folder` when set, else leveling by
   faction and band, other guides by category); search also matches `folder`
-  and `keywords`. The faction filter (`ui.pickerFaction`, default this
-  character's) on the player's own faction lists only the guides this
-  character can follow (`Guides.GuideMatches`: no other race's or class's
-  guides), except the other races' starting zones of that faction
-  (`Guides.OtherStart`), which go in an "Other starting zones" folder right
-  after the player's levels 1–30; the other faction and All list every guide
-  in its usual folder. Right: the
+  and `keywords`. There is no faction filter (#2462): the menu lists only the
+  guides this character can follow (`Guides.GuideMatches`: never the other
+  faction's, nor another race's or class's), except the other races' starting
+  zones of their own faction (`Guides.OtherStart`), which go in an "Other
+  starting zones" folder right after the player's levels 1–30. Home's
+  suggestions, Recent, Favourites, search (`Core/Search.lua`) and Lookup's
+  curated guides keep to the character's side too (`Guides.OtherFaction`). A
+  guide of the other faction opened anyway (an import, an old saved tab)
+  shows the banner "This guide is for <faction> characters", never
+  dismissed, and the arrow points nowhere in it (`Engine.OtherFaction`). Right: the
   selected guide's zone art, facts (led by a guide's `reward` tiles and
   `why`, "Guide data"), progress, pitch, pros and cons, a favourite
   star, "Load guide" and "Open in new tab". Selecting never loads; the buttons,
@@ -10539,7 +10566,7 @@ was already built without it.
 ```
 quests.json   { "<id>": { id, title, level, minLevel, races, classes, start: { npc: [], object: [], item: [] },
                           end: { npc: [], object: [] }, pre: [ids], excl: [ids], next, objectives: [
-                          { type: "kill"|"item"|"object"|"event"|"talk", id, count, text } ], objectiveText, zone, xp,
+                          { type: "kill"|"item"|"object"|"event"|"talk", id, count, text, useItem? } ], objectiveText, zone, xp,
                           rewards?: { items: [ids], choices: [ids], money }, source: [] } }   (rewards: recorded only;
               count: the objective text's, else pfQuest's, else CMaNGOS classic-db quest_template's for the same id or the
               quest's one objective of that kind, else null; rust/crates/forge-data/src/merge.rs)

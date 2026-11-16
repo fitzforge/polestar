@@ -356,9 +356,30 @@ pub fn extra_of(id: &str) -> Option<&'static str> {
 }
 
 /// The keys of an experimental index entry ([`experimental_index`]), in the order Guides.lua writes them.
-pub const INDEX_KEYS: [&str; 22] = [
-	"id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel", "topLevel", "zone", "zoneName", "pitch", "pros", "cons", "questIds", "joins", "start", "focus", "viaMap", "via",
-	"names", "written",
+pub const INDEX_KEYS: [&str; 23] = [
+	"id",
+	"pack",
+	"title",
+	"faction",
+	"races",
+	"classes",
+	"minLevel",
+	"maxLevel",
+	"factionLevels",
+	"topLevel",
+	"zone",
+	"zoneName",
+	"pitch",
+	"pros",
+	"cons",
+	"questIds",
+	"joins",
+	"start",
+	"focus",
+	"viaMap",
+	"via",
+	"names",
+	"written",
 ];
 
 /// A guide's `next` ids: its route choice's options, else its one `next`.
@@ -511,7 +532,7 @@ fn index_entry(g: &V, extras: &rustc_hash::FxHashMap<String, &V>, data: &Data) -
 	let loc = g.hidden("_localised");
 	let text = if loc.truthy() { loc } else { g.clone() };
 	let out = Obj::new();
-	for k in ["id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel"] {
+	for k in ["id", "pack", "title", "faction", "races", "classes", "minLevel", "maxLevel", "factionLevels"] {
 		let v = text.get(k);
 		if !v.is_nullish() {
 			out.set(k, v);
@@ -1265,10 +1286,12 @@ mod native {
 		let force = opts.force;
 		let mut project = compile_project(pack_dir, manifest, data, data_warnings, opts.include_drafts, opts.context);
 		project.diag.list.extend(extra);
-		// The extra packs' guides beside ours (read_extras): the experimental index, read only when a `next` line
-		// of ours names one, and the check that each zone is offered to every side it is for.
+		// The extra packs' guides beside ours (read_extras, in the folder that holds our guides' folder: the
+		// checkout's experimental/ for its guides/; none beside a fixture's or a writer's tree compiled with
+		// --guides): the experimental index, read only when a `next` line of ours names one, and the check that
+		// each zone is offered to every side it is for.
 		let ours = manifest.get("id").as_str() == Some("guides");
-		let extras = if ours { read_extras(root, data) } else { Vec::new() };
+		let extras = if ours { pack_dir.parent().map(|beside| read_extras(beside, data)).unwrap_or_default() } else { Vec::new() };
 		let offering = ours && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
 		let offers = if offering { experimental_index(&project.guides, &extras, data, &mut project.diag) } else { Vec::new() };
 		if ours {

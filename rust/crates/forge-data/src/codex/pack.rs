@@ -346,6 +346,11 @@ fn encode_object(rec: &V) -> Result<String, String> {
 		let f = rec.get("faction");
 		parts.push(format!("m{}", if f.truthy() { f.to_js_string() } else { String::new() }));
 	}
+	// The instance it lies in (Upper Blackrock Spire's Rookery Eggs): i<key>, last. A spawn group starts with a map
+	// number, so a reader before it reads no point from it.
+	if rec.get("instance").truthy() {
+		parts.push(format!("i{}", esc(&rec.get("instance"))));
+	}
 	Ok(parts.join(";"))
 }
 
@@ -388,6 +393,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		}
 		if o.get("tame").truthy() {
 			parts.push("t".into());
+		}
+		// The item the kill objective before it is really a use of (merge.rs `use_item_on`, #2468):
+		// a<item>. An older reader skips it (no objective kind is a).
+		let use_item = o.get("useItem");
+		if use_item.truthy() {
+			parts.push(format!("a{}", num(&use_item)?));
 		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");

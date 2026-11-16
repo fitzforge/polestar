@@ -39,7 +39,7 @@ pub fn header(lang: &str, command: &str, sources: &str) -> String {
 
 // ------------------------------------------------------------ emit.js
 
-pub const GUIDE_KEYS: [&str; 30] = [
+pub const GUIDE_KEYS: [&str; 31] = [
 	"id",
 	"pack",
 	"title",
@@ -48,6 +48,7 @@ pub const GUIDE_KEYS: [&str; 30] = [
 	"classes",
 	"minLevel",
 	"maxLevel",
+	"factionLevels",
 	"category",
 	"folder",
 	"keywords",
@@ -606,6 +607,13 @@ fn step_lines(steps: &V, ind: &str, shared: &Shared) -> Vec<String> {
 	out
 }
 
+/// A guide's `factionLevels` (`levels <min>-<max> <Faction>`): each faction's range, Alliance first.
+fn faction_levels(v: &V) -> String {
+	let parts: Vec<String> =
+		["Alliance", "Horde"].iter().filter(|f| v.get(f).truthy()).map(|f| format!("{f} = {{ min = {}, max = {} }}", scalar(&v.get(f).get("min"), 2), scalar(&v.get(f).get("max"), 2))).collect();
+	format!("{{ {} }}", parts.join(", "))
+}
+
 /// `deferred` (a race part's guide, docs/PACK_FORMAT.md "Race parts"): the
 /// steps as one source string (`stepsSrc`, `return { ... }`, run on first
 /// read) with `stepCount`, and the guide registers only for a character of
@@ -666,6 +674,8 @@ fn emit_guide(guide: &V, source_rel: &V, deferred: bool, packed: bool) -> String
 			out.push("\t\t\tsteps = {".into());
 			out.extend_from_slice(&lines[1..lines.len() - 1]);
 			out.push("\t\t\t},".into());
+		} else if k == "factionLevels" {
+			out.push(format!("\t\t\tfactionLevels = {},", faction_levels(&v)));
 		} else if k == "fresh" {
 			out.push(format!("\t\t\tfresh = {},", inline(&v, &Keys::Fixed(&FRESH_KEYS), 2)));
 		} else if k == "nextWhen" {
@@ -772,6 +782,8 @@ pub fn guide_data(guide: &V) -> V {
 				})
 				.collect();
 			out.set("steps", V::from(steps));
+		} else if k == "factionLevels" {
+			out.set(k, data_inline(&v, &Keys::Sorted, 2));
 		} else if k == "fresh" {
 			out.set(k, data_inline(&v, &Keys::Fixed(&FRESH_KEYS), 2));
 		} else if k == "nextWhen" {
@@ -1023,6 +1035,7 @@ pub fn emit_experimental(entries: &[V]) -> String {
 					format!("{{ {} }}", parts.join(", "))
 				}
 				"start" | "focus" => inline(&v, &Keys::Fixed(&POINT_KEYS), 2),
+				"factionLevels" => faction_levels(&v),
 				_ if v.is_arr() => list(&v, None, 2),
 				_ => scalar(&v, 2),
 			};
