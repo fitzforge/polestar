@@ -5370,7 +5370,8 @@ test('Alliance 40-60: listening and questioning are talk goals, the yeti scares 
 
 // Final route review 0.3.6 (Alliance 40-60): tips that sent the player the wrong way or to the wrong place. Linken
 // stands in Marshal's Refuge (npc 8737 at 44.66,8.1), not by the tar pits west of it; the Hive'Ashi tower is in
-// Southwind Village, south-west of Layo Starstrike, not east; A-Me 01 (67.7,16.8) is east of the northern pylon.
+// Southwind Village, south-west of Layo Starstrike, not east; A-Me 01 (67.7,16.8) is east of the northern pylon (since
+// the 0.4.0 fix round, A-Me 01 is found on the Western Plaguelands guide's Un'Goro visit, right after that pylon).
 // Cortello's scroll (object 2554) lies inside one of the three Bloodsail ships among 42-45 crews at about level 42:
 // optional, as on the Horde side, under its own title instead of "The Bloodsail captains", who come at 48.
 test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-Me 01, Cortello\'s scroll)', { skip }, () => {
@@ -5383,7 +5384,10 @@ test('Alliance 40-60: tips point the right way (Linken, the Hive\'Ashi tower, A-
 	assert.match(linken, /back of the refuge/);
 	assert.doesNotMatch(linken, /Tar Pits/);
 	assert.match(tipOf(wpl, (g) => g.t === 'collect' && g.item === 17346), /south-west/);
-	assert.match(tipOf('forever/alliance/40-50/07-un-goro-crater.guide', is('turnin', 4243)), /^Ride east/);
+	const wplList = goals(wpl);
+	const ame = wplList[at(wplList, 'turnin 4243', is('turnin', 4243))];
+	assert.match([].concat(ame.step.note || []).join(' '), /^Ride east/);
+	assert.equal(ame.s, wplList[at(wplList, 'the Northern Pylon', (g) => g.quest === 4285 && g.t === 'interact')].s + 1, 'A-Me 01 right after the northern pylon');
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	const scroll = stv[at(stv, 'accept 624', is('accept', 624))];
 	assert.ok(scroll.goal.optional, '624 optional');
@@ -7258,13 +7262,14 @@ test('forever/alliance/40-50/03-feralas.guide: flow re-order: Lord Shalzaru clos
 });
 
 // Flow review (2026-11-07): Alliance Un'Goro rode from Torwa to Marshal's Refuge and only came back south-east for the
-// Lar'korwi glands and the wrecked raft, which lie just west of Torwa at the foot of the ramp.
+// Lar'korwi glands and the wrecked raft, which lie just west of Torwa at the foot of the ramp. Since the 0.4.0 fix round
+// Karna's A-Me 01 waits for the later Un'Goro visit, so the ride north is measured by the first refuge stop (Muigin).
 test("forever/alliance/40-50/07-un-goro-crater.guide: flow re-order: the Lar'korwi glands and the wrecked raft on arrival, before the ride north", { skip }, () => {
 	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const glands = stepOf('the glands (4291)', (g) => g.t === 'collect' && g.quest === 4291);
-	const karna = stepOf('accept 4243', is('accept', 4243));
-	assert.ok(glands < karna, 'the glands before Karna');
+	const refuge = stepOf('accept 4141', is('accept', 4141));
+	assert.ok(glands < refuge, 'the glands before the ride north to the refuge');
 	assert.equal(stepOf('turnin 3844', is('turnin', 3844)), glands, 'the raft with the glands');
 	assert.equal(glands, stepOf('turnin 4290', is('turnin', 4290)) + 1, 'right after Torwa');
 });
@@ -7449,9 +7454,13 @@ test('forever/alliance/40-50/06-searing-gorge.guide: final review: Dorius taken 
 });
 
 // Final route review, Alliance 40-60: the pylon loop clockwise as the seed has it (the order crossed the crater from
-// the north-east to the south-west and back east); Ironforge round the ring: Tymor before Archesonus.
+// the north-east to the south-west and back east); Ironforge round the ring: Tymor before Archesonus. Since the 0.4.0
+// fix round the pylons and the expedition's crate, hive and bones are worked on the Western Plaguelands guide's Un'Goro
+// visit (about 57; their mobs are 51-55): the loop runs one way round there.
 test("forever/alliance/40-50/07-un-goro-crater.guide: final review: the pylon loop one way round, Ironforge in walking order", { skip }, () => {
-	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const first = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	assert.ok(!first.some(({ goal }) => [4287, 4288, 3881, 3882, 3883].includes(goal.quest)), 'no pylon or expedition work on the first visit');
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const loop = [
 		stepOf('the crate', (g) => g.t === 'collect' && g.quest === 3881 && g.item === 11113),
@@ -9434,7 +9443,9 @@ test('forever/alliance/50-60/06-silithus.guide: final review: travel tips and no
 // Keep, keep it" though Watchmaster Sorigal in Darkshire takes it a few steps later; the Ironforge stop opened with
 // the tram ride already taken and said the next guide flies to Thelsamar (this one does); Sigrun Ironhew's dig was two
 // steps with the way in on the second; Feralas said you end at the dock with Thalanaar still to come; Felwood said
-// to ride out of Astranaar on its second stop; Un'Goro's "Bind and train" binds nowhere.
+// to ride out of Astranaar on its second stop; Un'Goro's "Bind and train" binds nowhere. Since the 0.4.0 fix round
+// Scrounging (733) is handed to Sigrun on 30-40/06, where it is taken (40-50/02 handed it in a second time): the
+// Badlands guide's one Sigrun stop is Fiery Blaze Enchantments' accept, with the way in.
 test('alliance 40-60: final review: travel tips, notes and titles match where the player is', { skip }, () => {
 	const texts = ({ step, goal }) => [step.note || '', goal.note || '', goal.t === 'note' ? goal.text : ''].join(' ');
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
@@ -9444,9 +9455,12 @@ test('alliance 40-60: final review: travel tips, notes and titles match where th
 	const roetten = stv[at(stv, 'turnin 1467', is('turnin', 1467))];
 	assert.doesNotMatch(roetten.step.note || '', /Tram|next guide/, 'the Ironforge stop starts in Ironforge');
 	const badlands = goals('forever/alliance/40-50/02-badlands.guide');
-	const sigrun = badlands[at(badlands, 'turnin 733', is('turnin', 733))];
-	assert.equal(sigrun.s, badlands[at(badlands, 'accept 706', is('accept', 706))].s, 'one stop at Sigrun Ironhew');
-	assert.match(sigrun.step.note || '', /Badlands/, 'with the way in');
+	assert.ok(!badlands.some(({ goal }) => goal.quest === 733), 'no second Scrounging hand-in');
+	const b30 = goals('forever/alliance/30-40/06-badlands.guide');
+	assert.ok(at(b30, 'accept 733', is('accept', 733)) < at(b30, 'turnin 733', is('turnin', 733)), 'Scrounging taken and handed in on 30-40/06');
+	const sigrun = badlands.filter(({ goal }) => goal.quest === 706 && goal.t === 'accept');
+	assert.equal(sigrun.length, 1, 'one stop at Sigrun Ironhew');
+	assert.match(sigrun[0].step.note || '', /Badlands/, 'with the way in');
 	const feralas = goals('forever/alliance/40-50/03-feralas.guide');
 	const last = feralas[at(feralas, 'turnin 4281', is('turnin', 4281))];
 	assert.ok(!feralas.some((e) => e.s < last.s && /You end at/.test(texts(e))), 'no "you end here" before Thalanaar');
@@ -10006,6 +10020,7 @@ test(`${WETLANDS}: #1415 (vWL4): Insane Druids optional, Trying Times at Howin, 
 // Level tidy 0.4.0: Geltharis (The Branch of Cenarius, 1031) and the three Insane Druids (1012) are level 32, three
 // over a player at 06-wetlands' Xavian and Forest Song stretch (recordings: 25th percentile about 29). No later visit
 // fits them, so both are group choices: their offers never hold a step, and their work waits for "Do it with a group".
+// Fix round 1 (0.4.0): a solo player who took either anyway is told to abandon it, on a step only for the solo branch.
 test(`${WETLANDS}: level tidy 0.4.0: The Branch of Cenarius and Insane Druids are group choices, never solo work at 29`, { skip }, () => {
 	const list = goals(WETLANDS);
 	const grouped = (step, q) => (step.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(q));
@@ -10013,8 +10028,10 @@ test(`${WETLANDS}: level tidy 0.4.0: The Branch of Cenarius and Insane Druids ar
 		const mine = list.filter(({ goal }) => goal.quest === q);
 		assert.ok(mine.length > 0, `${q} is in the guide`);
 		assert.ok(mine.filter(({ goal }) => goal.t === 'accept').every(({ goal }) => goal.optional), `${q}: the accept is optional`);
-		const work = mine.filter(({ goal }) => goal.t !== 'accept' && goal.t !== 'turnin');
+		const work = mine.filter(({ goal }) => !['accept', 'turnin', 'abandon'].includes(goal.t));
 		assert.ok(work.length > 0 && work.every(({ step }) => grouped(step, q)), `${q}: its objectives are on the group branch`);
+		const drop = mine.filter(({ goal }) => goal.t === 'abandon');
+		assert.ok(drop.every(({ goal, step }) => goal.optional && (step.when || []).some((p) => p.k === 'group' && p.neg && [].concat(p.q).includes(q))), `${q}: the abandon only on the solo branch`);
 		assert.ok(mine.filter(({ goal }) => goal.t === 'turnin').every(({ step }) => grouped(step, q) || (step.when || []).some((p) => p.k === 'complete' && !p.neg)), `${q}: handed in only after the group work`);
 	}
 });
@@ -13852,15 +13869,22 @@ test(`${DESOLACE_SOUTH}: the Valley of Bones points away from the Shen'dralas el
 // Hinterlands guide went on Ironforge -> Stormwind -> Lakeshire -> Morgan's Vigil (a flight path only) -> Thelsamar (a
 // bind only) -> Menethil -> boat -> Auberdine -> Darnassus -> boat -> Stormwind. Now Darnassus comes first, from
 // Gadgetzan by the flight to Auberdine, then the boat to Menethil and Aerie Peak; Favored of Elune? (3661), taken in
-// Rut'theran, has its Wildkin Feathers picked up in the Hinterlands visit; the hearth is set in Ironforge.
+// Rut'theran, has its Wildkin Feathers picked up in the Hinterlands visit; the hearth is set in Ironforge. Since the
+// 0.4.0 fix round the Noxious Lair chain (Centipaar 48-50) is worked on the Un'Goro guide's Gadgetzan landing at about
+// 49.5, so Rise of the Silithid (162) goes to Gracina on the next Darnassus stop, at the end of the Burning Steppes guide.
 test('Tanaris and the Hinterlands (Alliance 45-48): Darnassus before the Hinterlands, the feathers in the Hinterlands, the hearth in Ironforge (0.4.0 audit)', { skip }, () => {
 	const tan = goals('forever/alliance/40-50/04-tanaris.guide');
 	const flyAub = at(tan, 'fly Auberdine', (g) => g.t === 'fly' && g.location === 'Auberdine');
-	for (const [t, q] of [['turnin', 2939], ['turnin', 3022], ['accept', 3661], ['turnin', 2972], ['turnin', 4267], ['turnin', 162], ['accept', 3764]]) {
+	for (const [t, q] of [['turnin', 2939], ['turnin', 3022], ['accept', 3661], ['turnin', 2972], ['turnin', 4267], ['accept', 3764]]) {
 		const i = at(tan, `${t} ${q}`, is(t, q));
 		assert.ok(i > flyAub, `${t} ${q} after the flight to Auberdine`);
 		assert.ok(i < at(tan, 'accept 2989', is('accept', 2989)), `${t} ${q} before Aerie Peak`);
 	}
+	assert.ok(!tan.some(({ goal }) => goal.quest === 162), 'no Noxious Lair chain at about 47');
+	const ug = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	assert.ok(at(ug, 'accept 162', is('accept', 162)) >= 0, 'Rise of the Silithid taken on the Un\'Goro guide\'s Gadgetzan landing');
+	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(at(bs, 'turnin 162', is('turnin', 162)) > at(bs, 'Portal to Darnassus', (g) => g.t === 'goto' && /Darnassus/.test(g.text || g.label || '')), 'and handed to Gracina on the Burning Steppes guide\'s Darnassus stop');
 	assert.ok(!tan.some(({ goal }) => goal.t === 'fly' && goal.location === 'Theramore'), 'no flight back to Theramore');
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	const feathers = at(hin, 'collect 10819', (g) => g.t === 'collect' && g.quest === 3661);
@@ -13907,11 +13931,14 @@ test('Stranglethorn Vale (Alliance 40): every race takes the Booty Bay boat from
 
 // 0.4.0 route audit (redo of a 0.3.7 grind fix), Alliance 49-50: Un'Goro's written grind ("Level 49.51" and the in-step
 // top-ups to 49.6 and 49.79) sat before Marshal's Refuge, whose hand-ins cover it (up to 26.8k XP to go, 32.4k ready).
-// One "Level 49.79" now follows the refuge's hand-ins, for whoever is still short.
+// One "Level 49.79" now follows the refuge's hand-ins, for whoever is still short. Since the 0.4.0 fix round the
+// refuge's last hand-ins on this first visit are J.D. Collie's crystals and Muigin's petals (Making Sense of It waits for
+// the later Un'Goro visit).
 test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's Refuge's hand-ins (0.4.0 audit)", { skip }, () => {
 	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	const grind = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'level' && goal.level === 49);
-	const refuge = at(list, 'turnin 4321', is('turnin', 4321));
+	assert.ok(!list.some(({ goal }) => goal.quest === 4321), 'Making Sense of It on the later visit');
+	const refuge = Math.max(at(list, 'turnin 4141', is('turnin', 4141)), at(list, 'turnin 4284', is('turnin', 4284)));
 	assert.ok(grind.length >= 1, 'a level 49 top-up');
 	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up to 49.x comes after the refuge\'s hand-ins');
 });
@@ -13932,12 +13959,15 @@ test("Bennistrov's report (#1999): Feralas never sends you to the Rage Scar yeti
 
 
 // 0.4.0 route audit (F5): the first Booty Bay loop runs at about 40 against level 40-43 Bloodsail casters; players died
-// in the camp and on the Wild Shore (4 people, 9 deaths in players' recordings). Both steps warn.
+// in the camp and on the Wild Shore (4 people, 9 deaths in players' recordings). Both steps warn. Since the 0.4.0 fix
+// round the Wild Shore's charts and orders wait for the Hinterlands guide's Booty Bay leg (about 48), where those
+// casters are under the player: the step there still names them.
 test('Stranglethorn Vale (Alliance 40): the Bloodsail camp and the Wild Shore warn of the 40-43 casters (0.4.0 audit)', { skip }, () => {
 	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	for (const [what, pred] of [['collect 4027', (g) => g.t === 'collect' && g.quest === 610], ['kill 1563', (g) => g.t === 'kill' && g.quest === 604]]) {
-		assert.match(JSON.stringify(list[at(list, what, pred)].step), /Careful: the [^"]*4[0-3]/, `${what}: a heads-up`);
-	}
+	assert.match(JSON.stringify(list[at(list, 'collect 4027', (g) => g.t === 'collect' && g.quest === 610)].step), /Careful: the [^"]*4[0-3]/, 'collect 4027: a heads-up');
+	assert.ok(!list.some(({ goal }) => goal.quest === 604 && goal.t !== 'accept'), 'no Wild Shore work at about 40');
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	assert.match(JSON.stringify(hin[at(hin, 'kill 1563', (g) => g.t === 'kill' && g.quest === 604)].step), /Swashbucklers \(4[0-3]-4[0-3]\)/, 'kill 1563: the casters named where they are worked');
 });
 
 // 0.4.0 route audit (F14, the #1508/#1518 pattern): the way from Ironforge to Thelsamar at the end of the Stranglethorn
