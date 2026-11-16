@@ -8840,7 +8840,12 @@ test('Alliance 40-60 order: the first Western Plaguelands stop before the Burnin
 	const A = (g) => `forever/alliance/${g}.guide`;
 	const bs = goals(A('50-60/01-burning-steppes'));
 	const pos = (list, t, q) => at(list, `${t} ${q}`, is(t, q));
-	assert.ok(pos(bs, 'turnin', 5217) < pos(bs, 'accept', 3823), 'the cauldron at Felstone Field before Morgan\'s Vigil');
+	// Fix round 2 (0.4.0): Felstone Field's cauldron (Bilemaw 53, Jabbering Ghouls 54) is taken here and done from the
+	// Winterspring guide's Chillwind stop at about 55.6, before MacDonnell's next cauldron quest.
+	assert.ok(pos(bs, 'accept', 5216) < pos(bs, 'accept', 3823), 'the cauldron quest taken at Chillwind Camp before Morgan\'s Vigil');
+	assert.ok(!bs.some(({ goal }) => goal.quest === 5216 && goal.t !== 'accept'), 'the cauldron is not worked at 51-52');
+	const ws3 = goals(A('50-60/03-winterspring'));
+	assert.ok(pos(ws3, 'turnin', 5217) < pos(ws3, 'accept', 5219), 'the cauldron done from the Winterspring guide\'s Chillwind stop, before Dalson\'s Tears');
 	// The Wildkin Feathers (3661) are collected in 40-50/05's Hinterlands loop since the 0.4.0 audit (B26): 01 flies
 	// Ironforge -> Southshore straight to Chillwind Camp.
 	assert.ok(!bs.some(({ goal }) => goal.t === 'collect' && goal.quest === 3661), 'no feather stop in the Burning Steppes guide');
@@ -9493,9 +9498,9 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: the nort
 	const fly = list.findIndex((e, i) => i > last && e.goal.t === 'fly');
 	assert.ok(at(list, 'turnin 208', is('turnin', 208)) < last, 'Big Game Hunter before Booty Bay');
 	assert.ok(at(list, 'collect 3877', (g) => g.t === 'collect' && g.quest === 197) < last, 'Tethis before Booty Bay');
-	const ups = list.filter(({ goal, step }) => goal.t === 'level' && (step.when || []).some((w) => w.k === 'group' && [w.q].flat().some((q) => [193, 197, 208].includes(q))));
-	assert.equal(ups.length, 1, 'one solo top-up for the Nesingwary hunts');
-	for (const e of ups) assert.ok(list.indexOf(e) < last, `top-up to ${e.goal.level} before Booty Bay`);
+	// Fix round 2 (0.4.0): Stranglethorn has no solo top-up any more: the one top-up of 40-50 Alliance's start is to
+	// 44.4 on the Riverglades' first Eastsea camp, right before the pirates' second wave (see the Alliance 42-44 case).
+	assert.ok(!list.some(({ goal }) => goal.t === 'level'), 'no top-up in Stranglethorn');
 	assert.ok(!list.slice(last, fly).some(({ goal }) => goal.t === 'level'), 'no grind between Booty Bay and the flight');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.pairs;
 	assert.ok(rf.some((p) => p.a[0] === 'turnin' && p.a[1] === 208 && p.b[0] === 'turnin' && p.b[1] === 611), 'a route-fixes pair keeps it');
@@ -9752,7 +9757,7 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 		assert.ok(!list.some(({ goal }) => goal.t === 'level' && /priest/i.test(JSON.stringify(goal.only))), `${file}: no Priest level wait`);
 		const take = at(list, `${file}: accept ${own}`, is('accept', own));
 		assert.equal(list[take].s, step(list, 'turnin', own), `${file}: ${own} taken and handed in on one step`);
-		assert.match(JSON.stringify(list[take].step.zone || ''), /Ironforge/, `${file}: ${own} in Ironforge`);
+		assert.equal(list[take].goal.map, 1455, `${file}: ${own} in Ironforge`);
 	}
 	for (const side of ['alliance', 'horde']) {
 		gated(`forever/${side}/skyborne/01-zephras-isle.guide`, 94003, 10, 'Warrior');
@@ -10448,17 +10453,20 @@ test('Alliance 47-48: everyone flies from Nethergarde to Booty Bay for MacKinley
 	assert.ok(fly < a && a < c && b < Math.min(...kills) && Math.max(...kills) < c, 'Booty Bay, the captains, Booty Bay');
 });
 
-test('Alliance 42: the solo top-up for the skipped Nesingwary hunts grinds the Skullsplitter trolls whose tusks Kebok wants (reviewer: the grind block before Booty Bay)', { skip }, () => {
+// Fix round 2 (0.4.0): the Stranglethorn top-ups (42.16 on the Skullsplitters for the skipped Nesingwary hunts, 42.16 on
+// the basilisks, 42.46 in Dustwallow) sat before nothing in the jungle that needed them; they are one top-up to 44.4 on
+// the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43), right before the second wave (43-45). The
+// reviewer's point holds: no grind block before Booty Bay.
+test('Alliance 42-44: the solo top-up for the skipped Nesingwary hunts is one Riverglades top-up before the pirates\' second wave (reviewer: the grind block before Booty Bay)', { skip }, () => {
 	const g = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	const bb = at(g, 'turnin 611', is('turnin', 611));
-	const tusks = at(g, 'collect tusks', (x) => x.t === 'collect' && x.quest === 209);
-	const hunts = Math.max(at(g, 'turnin 193', is('turnin', 193)), at(g, 'turnin 208', is('turnin', 208)));
-	const tops = g.slice(0, bb).map((e, i) => ({ ...e, i })).filter(({ goal, i }) => goal.t === 'level' && i > at(g, 'turnin 196', is('turnin', 196)));
-	assert.equal(tops.length, 2, 'the solo top-up and one fallback for players who did some of the hunts');
-	const [solo, rest] = tops;
-	assert.ok(solo.i < tusks, 'the solo top-up comes before the tusks are done');
-	for (const q of [193, 197, 208]) assert.ok((solo.step.when || []).some((p) => p.k === 'group' && p.neg && [p.q].flat().includes(q)), `solo only: !group ${q}`);
-	assert.ok(rest.i > hunts && !(rest.step.when || []).some((p) => p.k === 'group'), 'the fallback comes after the hunts, for anyone still short');
+	assert.ok(!g.some(({ goal }) => goal.t === 'level'), 'no grind block in Stranglethorn');
+	const rg = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const tops = rg.map((e, i) => ({ ...e, i })).filter(({ goal }) => goal.t === 'level');
+	assert.equal(tops.length, 1, 'one top-up in the Riverglades');
+	const [top] = tops;
+	assert.ok(top.goal.level >= 44 && top.goal.grind === 257901, 'to 44.4 on the Eastsea Buccaneers (41-42)');
+	assert.ok(top.i < at(rg, 'kill 257915', (x) => x.t === 'kill' && x.npc === 257915), 'right before the second wave');
+	assert.ok(!(top.step.when || []).some((p) => p.k === 'group'), 'for anyone short of it');
 });
 
 test('Alliance Un\'Goro, second visit: the Scent of Lar\'korwi, the Bait and The Apes of Un\'Goro are one Torwa stop', { skip }, () => {

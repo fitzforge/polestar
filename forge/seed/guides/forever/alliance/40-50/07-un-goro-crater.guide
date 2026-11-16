@@ -175,6 +175,12 @@ step Marshal's Refuge
   turnin 4503                         -- Shizzle
   level 50 only Priest,Mage
 
+step Level 49.79
+  when level<49.79
+  tip Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater.
+  goto 56.6,35.0 map 1449 "Bloodpetal Thresher"
+  level 49.79 grind 6511               -- grind on Bloodpetal Thresher
+
 step Fly to Astranaar
   only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid
   zone Un'Goro Crater

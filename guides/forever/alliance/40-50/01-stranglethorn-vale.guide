@@ -376,7 +376,7 @@ step Hemet Nesingwary
   turnin 208
 
 step Booty Bay
-  tip Ride south down the road to Booty Bay.
+  tip Follow the road south to Booty Bay.
   turnin 611                          -- Baron Revilgaz
   turnin 209                          -- Kebok, upstairs
   turnin 600                          -- Crank Fizzlebub
@@ -514,7 +514,7 @@ step Watcher Biggs
 
 step The sunken temple
   zone Swamp of Sorrows
-  tip Ride east; the Tangled Horrors along the way also drop the essays. Search the edge of the Pool of Tears, where the temple's ruins break the water.
+  tip Head east; the Tangled Horrors along the way also drop the essays. Search the edge of the Pool of Tears, where the temple's ruins break the water.
   goto 70.2,45.2
   complete 1448 @70.2,45.2
 
