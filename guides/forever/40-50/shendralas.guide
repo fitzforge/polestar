@@ -1,7 +1,7 @@
 guide forever/40-50/shendralas
 title Shen'dralas
 levels 45-46 Alliance
-levels 47-48 Horde
+levels 46-46 Horde
 zone Shen'dralas
 coords live
 why About a dozen quests on a short trip into Forever's new zone (about 45-46 for the Alliance, 47 for the Horde), then on to Feralas.
@@ -13,7 +13,7 @@ next forever/alliance/40-50/03-feralas
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
 # titles, levels and objectives and the client's tables for item and spell names. Its quests are 41-45; on both
 # routes it comes at the levels the header gives each side. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Camp Mojache,
-# about level 47 with the Riverglades before it); in by the ride north from Camp Mojache into Desolace's south (a
+# about level 46 with the Riverglades before it); in by the ride north from Camp Mojache into Desolace's south (a
 # fresh starter flies to Shadowprey Village), out by the flight from Shadowprey (or the hearth to Camp Mojache) to
 # Orgrimmar, where the next Feralas guide starts with Orgrimmar's hand-ins. Alliance: offered at the end of the Badlands guide (40-50/02,
 # Theramore, about level 43); in from Nijel's Point, out on the ride south into Feralas, where the Feralas guide
