@@ -1087,11 +1087,15 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 		return None;
 	}
 	// The region: the spots at the goal's places (else the one nearest its point), grown spot by spot. The author's
-	// point at a spawn of a target that stands at several places, inside a spot that holds it (holds), is that
-	// place: the spots of its other places are alternatives, never grown into one zone-wide search (#621).
+	// point at a place of a target that stands at several places, at a spot that holds it (holds), is that place:
+	// the spots of its other places are alternatives, never grown into one zone-wide search (#621). "At a place" is
+	// within SPAWN_CHECK_YARDS of a spawn (the lint's own threshold for explicit coordinates) and "at a spot" within
+	// RECORDED_MISS_YARDS of its edge, as for the spots at the goal's places: a route's or a record's point sits in
+	// the middle of a camp, rarely on one spawn (#385's bears west of Tarren Mill, #340's Blackrock camp).
 	let edge = |s: &Spot| from(s, x, y) - radius(s);
 	let mut region: Vec<usize> = if elsewhere { (0..rec.len()).min_by(|&a, &b| ord(edge(&rec[a]) - edge(&rec[b]))).into_iter().collect() } else { local };
-	let placed = author && !elsewhere && pts.len() > 1 && at_spawn(x, y) && region.iter().any(|&i| holds(&rec[i]) && from(&rec[i], x, y) <= radius(&rec[i]) + SPOT_MIN_RADIUS);
+	let at_place = pts.iter().any(|p| distance(data, map, px(p), py(p), x, y) <= SPAWN_CHECK_YARDS);
+	let placed = author && !elsewhere && pts.len() > 1 && at_place && region.iter().any(|&i| holds(&rec[i]) && from(&rec[i], x, y) <= radius(&rec[i]) + RECORDED_MISS_YARDS);
 	let mut k = 0;
 	while k < region.len() && !placed {
 		let a = &rec[region[k]];
@@ -1141,7 +1145,9 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 		.chain(still.iter().map(|s| (num(s, "x"), num(s, "y"))))
 		.map(|(cx, cy)| V::from(vec![V::from(cx), V::from(cy)]))
 		.collect();
-	let spread = centres.len() > 1 && extent90(&centres, &data.frame(map)) > SPREAD_YARDS;
+	// (The author's place is held as the place even when players' spot about it is wider than SPREAD_YARDS: #385's
+	// bears are killed over 350 yd of hills, and the step leads to its camp, not over them all.)
+	let spread = !placed && centres.len() > 1 && extent90(&centres, &data.frame(map)) > SPREAD_YARDS;
 	let (areas, rest) = own.split_at(own.len().min(if spread { SPREAD_CAP } else { SPOT_CAP }));
 	let area = |s: &Spot, alt: bool| -> V {
 		let o = obj! { "x" => s.x, "y" => s.y, "r" => radius(s) };

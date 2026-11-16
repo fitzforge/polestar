@@ -302,7 +302,9 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/codex.rs", "test": "mergecodex_a_guard_recorded_on_a_city_map_and_on_the_zone_that_holds_it_is_placed_in_the_city_382" }
 		] },
 		"385": { "tests": [
-			{ "node": "tests/guides-reported.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" }
+			{ "node": "tests/guides-reported.test.js", "test": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
+			{ "seed": "Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone" },
+			{ "cargo": "forge-guide", "target": "guide", "file": "rust/crates/forge-guide/tests/guide/recorded_areas.rs", "test": "an_author_s_point_in_a_camp_near_a_spawn_a_well_backed_spot_holds_stays_the_place_385" }
 		] },
 		"390": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/qol.rs", "test": "death_resurrection_sickness_is_forever_s_ten_minutes_from_level_11_or_what_the_game_last_gave_at_that_level_390" }
