@@ -597,8 +597,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 					add_s(&mut keys, &k.to_js_string());
 				}
 			}
+			// An item an NPC drops or an object holds inside one instance only, and nowhere outside: the
+			// Horn of Xelthos in Shadowfang Keep's Ornamented Chest, Jordan's Hammer there (the #2560 sweep).
 			if o.get("type").as_str() == Some("item") && !outside.contains(&oid) {
-				for k in item_links.get(&oid).into_iter().flatten() {
+				for k in item_links.get(&oid).into_iter().flatten().chain(item_object_instances.get(&oid).into_iter().flatten()) {
 					add_s(&mut keys, k);
 				}
 			}
@@ -1040,6 +1042,33 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 				}
 			}
 		}
+		// A cited row's `inside` (journal-quests.json): the quest is picked up (`start`) or handed in (`finish`)
+		// inside this instance at someone the data has not placed, so no rule above can tell: Alcaz Prison's
+		// prisoners and Kor'kron, whom players' recordings see only as a window inside (#2560). A giver or ender
+		// the data places outside stays, with a warning.
+		for r in inp.journal_quests.iter().filter(|r| r.get("instance").as_str() == Some(k.as_str())) {
+			let Some(q) = quests.iter().find(|q| q.get("id").strict_eq(&r.get("quest"))) else { continue };
+			for part in r.get("inside").items() {
+				let part = part.to_js_string();
+				let p = q.get(&part);
+				if !p.truthy() {
+					let o = Obj::new();
+					for f in ["kind", "id", "name", "map", "x", "y", "f"] {
+						o.set(f, V::Null);
+					}
+					o.set("inside", true);
+					q.set(&part, V::Obj(o));
+				} else if p.get("map").is_nullish() && p.get("kind").as_str() != Some("item") {
+					p.set("inside", true);
+				} else {
+					warnings.push(format!("journal-quests.json: quest {} has its {part} outside {k}; its row's inside is left out", kstr(&q.get("id"))));
+					continue;
+				}
+				if part == "start" {
+					q.set("inside", true);
+				}
+			}
+		}
 		// A quest Forever hands in at one talk, never in the log (quests.json `direct`: Pozzik's Indurium Ore, the
 		// Sparklematic 5200): nothing to pick up before the run; the hand-in guide hands it in after (#2241).
 		for q in &quests {
@@ -1247,7 +1276,8 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 
 /// `loadJournalQuests()`: journal-quests.json rows (a malformed row throws); a row's `source` is a
 /// URL, a web quest database citation (`super::is_web_citation`) or a source cited the corrections'
-/// way, such as players' recordings (`super::is_source_citation`).
+/// way, such as players' recordings (`super::is_source_citation`). A row's optional `inside` lists
+/// `start` and/or `finish`: where the quest is picked up or handed in inside the instance.
 pub fn load_journal_quests(text: &str) -> Result<Vec<V>, String> {
 	let rows = forge_guide::js::parse_json(text)?.get("quests").items();
 	static URL: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^https?://").unwrap());
@@ -1255,7 +1285,9 @@ pub fn load_journal_quests(text: &str) -> Result<Vec<V>, String> {
 		let q = r.get("quest");
 		let src = r.get("source");
 		let cited = if let Some(s) = src.as_str() { URL.is_match(s) } else { super::is_web_citation(&src) || super::is_source_citation(&src) };
-		if !(q.is_num() && forge_guide::js::is_integer(q.num())) || !r.get("instance").is_str() || !cited {
+		let ins = r.get("inside");
+		let inside_ok = ins.is_undef() || (ins.is_arr() && !ins.items().is_empty() && ins.items().iter().all(|p| matches!(p.as_str(), Some("start" | "finish"))));
+		if !(q.is_num() && forge_guide::js::is_integer(q.num())) || !r.get("instance").is_str() || !cited || !inside_ok {
 			return Err(format!("journal-quests.json: bad row {}", forge_guide::js::stringify(r, None)));
 		}
 	}
@@ -1541,6 +1573,18 @@ mod tests {
 			r#"{ "kind": "recording", "ref": "x", "note": "extra" }"#,
 		] {
 			assert!(load_journal_quests(&row(bad)).is_err(), "{bad}");
+		}
+	}
+
+	// #2560: a row may say the quest is picked up and/or handed in inside the instance; nothing else.
+	#[test]
+	fn a_rows_inside_lists_start_and_or_finish_2560() {
+		let with = |inside: &str| format!(r#"{{ "quests": [{{ "quest": 96335, "instance": "alcaz-prison", "source": {{ "kind": "recording", "ref": "6 people" }}, "inside": {inside}, "note": "n" }}] }}"#);
+		for ok in [r#"["start"]"#, r#"["finish"]"#, r#"["start", "finish"]"#] {
+			assert!(load_journal_quests(&with(ok)).is_ok(), "{ok}");
+		}
+		for bad in ["[]", r#"["giver"]"#, "true", r#""start""#] {
+			assert!(load_journal_quests(&with(bad)).is_err(), "{bad}");
 		}
 	}
 

@@ -7834,7 +7834,9 @@ pack as `Dungeons1.lua` (a summary table per dungeon for the list, and the page
 as Lua source compiled only when opened): the quests QuestieDB files under the
 instance's areas (the areas on the instance's map and the outdoor areas of its
 name, as the solo filter's instance classification reads them,
-`tools/lib/sim/solo.js`), whose objectives or starting item point into it,
+`tools/lib/sim/solo.js`), whose objectives or starting item point into it
+(an objective item an NPC drops or an object holds inside one instance only:
+the Horn of Xelthos in Shadowfang Keep's Ornamented Chest),
 that Forever's dungeon and raid quest lists place in it (`quests.json`'s
 `web.zone`, counted only when QuestieDB's Forever store has the quest,
 which keeps out `<UNUSED>`, `<NYI>` and retired quests), whose start item drops
@@ -7854,7 +7856,12 @@ Felvine; The Drowned City's quests for items the data places on no mob or
 object inside, from players' recordings of their objectives inside; Rituals
 of Power's book, an object only in the Scarlet Monastery), each row cited by
 a URL, Forever's quest data, or a source the way the corrections cite one
-(`{ kind, ref }`). Each quest has giver and ender and their positions, its objective
+(`{ kind, ref }`). A row's `inside` (`start`, `finish` or both) says the quest
+is picked up or handed in inside at someone the data has not placed (Alcaz
+Prison's prisoner and Kor'kron, whom players' recordings meet only as a window
+inside): the page's giver or ender is then an unnamed point inside, which the
+card names "inside the dungeon", and a start inside makes the quest one
+picked up inside. Each quest has giver and ender and their positions, its objective
 facts (`objectives`: kind, NPC, item or object id, count and the English
 name; the escorts' and events' text), composed at run time into our own
 objective line in the client's language (`Dungeons.ObjectiveText`:
