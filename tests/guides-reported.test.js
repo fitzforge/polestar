@@ -7452,7 +7452,7 @@ test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren
 	// Luca and left Prompt Potion Runner for a visit thirty levels later.
 	// Since the Horde 12-30 re-chain this Undercity visit, Sylvanas with it, is at the end of the Silverpine stay (03).
 	const uc = goals('forever/horde/03-silverpine-forest.guide');
-	const sylvanas = uc[at(uc, 'Sylvanas', (g) => g.t === 'kill' && g.npc === 10181)].step;
+	const sylvanas = uc[at(uc, 'Sylvanas', (g) => g.t === 'talk' && g.npc === 10181)].step;
 	assert.ok(!/Crossroads/.test(sylvanas.note || ''), 'no Crossroads in the Undercity tip');
 	assert.ok(at(uc, 'accept 97891', is('accept', 97891)) < at(uc, 'turnin 97891', is('turnin', 97891)), 'Prompt Potion Runner taken and handed in');
 	assert.equal(uc[at(uc, 'turnin 97891', is('turnin', 97891))].s, uc[at(uc, 'turnin 441', is('turnin', 441))].s, 'on the one Undercity stop, with Raleigh');
@@ -11489,8 +11489,9 @@ test('Horde Darrowshire: Defenders of Darrowshire after Uncle Carlin', { skip },
 	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const acc = at(ep, 'accept 5211', is('accept', 5211));
 	assert.ok(at(ep, 'turnin 5241', is('turnin', 5241)) < acc, 'Uncle Carlin handed in before Defenders of Darrowshire is taken');
-	assert.ok(acc < at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211), 'taken before the spirits');
-	const spirits = at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211);
+	// The spirits are freed by talking to them (#2543: a talk objective, no longer a kill).
+	assert.ok(acc < at(ep, 'the spirits', (g) => g.t === 'talk' && g.quest === 5211), 'taken before the spirits');
+	const spirits = at(ep, 'the spirits', (g) => g.t === 'talk' && g.quest === 5211);
 	assert.ok(spirits < at(ep, 'turnin 5211', is('turnin', 5211)), 'spirits before the hand-in');
 	assert.equal(ep[at(ep, 'turnin 5211', is('turnin', 5211))].s, ep[at(ep, 'turnin 5181', is('turnin', 5181))].s, 'with Villains of Darrowshire');
 });
