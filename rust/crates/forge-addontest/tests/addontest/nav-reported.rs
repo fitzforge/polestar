@@ -529,3 +529,17 @@ fn desolace_the_walk_from_the_road_to_gurda_wildmane_goes_up_the_north_slope_not
 		}
 	}
 }
+
+// The city sweep (0.4.1, #2028): every guide goal in the capitals walked from its city's flight master. Three NPCs
+// whose spawn height stands a few yards beside or under the surfaces of their own cell (a bar, a counter, a balcony's
+// steps) were walked to nowhere at their height, and without it over the city's roof: Gwenna Firebrew, the Stonefire
+// Tavern's innkeeper (Ironforge 18.64,51.76, 502), Nissa Firestone (the Great Forge, 55.09,58.26, 512.5) and Connor
+// Rivers (Stormwind's Mage Quarter, 105.2). The router settles such a goal on the surface nearest its height a few
+// cells away that walks to the city, so the walk is found at the NPC's height, both ways.
+#[test]
+fn ironforge_and_stormwind_npcs_beside_their_cells_surfaces_are_walked_to_at_their_height() {
+	let ironforge_fm = Pt { c: 0, x: -4821.1, y: -1152.4, z: Some(502.3) };
+	joined_both_ways(ironforge_fm, Pt { c: 0, x: -4842.3, y: -861.0, z: Some(502.0) }, Some("Alliance"), "Gwenna Firebrew");
+	joined_both_ways(ironforge_fm, Pt { c: 0, x: -4876.6, y: -1149.2, z: Some(512.5) }, Some("Alliance"), "Nissa Firestone");
+	joined_both_ways(Pt { c: 0, x: -8835.8, y: 490.1, z: Some(109.7) }, Pt { c: 0, x: -9102.3, y: 834.7, z: Some(105.2) }, Some("Alliance"), "Connor Rivers");
+}

@@ -524,8 +524,12 @@ local function endpoint(st, swim, mult, tree, k, node, back)
 	search(st, k, swim, mult, node, tree, nil, targets, left, back)
 end
 -- An endpoint on a rooftop or ledge the grid cannot leave moves to the nearest node that reaches an entrance,
--- down a ledge but never up one or onto another level.
-local function settle(st, swim, mult, tree, k, node, back)
+-- down a ledge but never up one or onto another level. With `want` (the height the point was asked at: an NPC's
+-- spawn), the cells within SNAP are tried in order of their distance plus twice their surface's gap to it (as snap
+-- weighs them), so a point whose own cell holds only a counter, a table or a stair's piece above the floor it stands
+-- on finds that floor a few cells away before RETRIES runs out (0.4.1: the Stonefire Tavern's innkeeper, 5 yd under
+-- the bar's surfaces round her, was walked to over the mountain above Ironforge). Without it, ring by ring as before.
+local function settle(st, swim, mult, tree, k, node, back, want)
 	local C = st.C
 	endpoint(st, swim, mult, tree, k, node, back)
 	local function connected()
@@ -544,6 +548,42 @@ local function settle(st, swim, mult, tree, k, node, back)
 	local h = zOf(grid(st, k), node)
 	local cell = cellOf(st, k, node)
 	local lx, ly = floor(cell / C), cell % C
+	if want then
+		local cands = {}
+		for r = 1, SNAP do
+			for dx = -r, r do
+				for dy = -r, r do
+					local x, y = lx + dx, ly + dy
+					if (dx == r or dx == -r or dy == r or dy == -r) and x >= 0 and y >= 0 and x < C and y < C then
+						local near = standing(st, k, x * C + y, want)
+						local z = near and zOf(grid(st, k), near)
+						if near and z - h <= ZTOL and z - h >= -DROP then
+							cands[#cands + 1] = { near, sqrt(dx * dx + dy * dy) * st.cs + 2 * abs(z - want), #cands }
+						end
+					end
+				end
+			end
+		end
+		table.sort(cands, function(a, b)
+			if a[2] ~= b[2] then
+				return a[2] < b[2]
+			end
+			return a[3] < b[3]
+		end)
+		for _, c in ipairs(cands) do
+			if tries >= RETRIES then
+				return node
+			end
+			if not reached(tree, c[1]) then
+				tries, node = tries + 1, c[1]
+				endpoint(st, swim, mult, tree, k, node, back)
+				if connected() then
+					return node
+				end
+			end
+		end
+		return node
+	end
 	for r = 1, SNAP do
 		for dx = -r, r do
 			for dy = -r, r do
@@ -605,13 +645,14 @@ local ENDTREES, TREE_NODES = 4, 65536
 -- st.endTrees may hold more than ENDTREES while one runs. A batch (FindMany) pins its source's only: of its targets
 -- it keeps the costs.
 local runStamp, pin = 0, nil
-local function connect(st, swim, mult, k, node, back)
+-- want: the height the point was asked at (settle's), when it has one.
+local function connect(st, swim, mult, k, node, back, want)
 	nodesOf(st, k)
 	local key = k .. ":" .. node .. ":" .. swim .. ":" .. (mult and mult.tag or "") .. (back and ":b" or "")
 	local entry = st.ends[key]
 	if not entry then
 		local tree = Tree()
-		node = settle(st, swim, mult, tree, k, node, back)
+		node = settle(st, swim, mult, tree, k, node, back, want)
 		local edges, yards = connections(st, tree, k)
 		entry = { node = node, edges = edges, yards = yards, tree = tree }
 		-- A handful of local trees removes repeated endpoint searches without retaining a continent's grids.
@@ -741,7 +782,7 @@ local function connectPoint(st, swim, mult, k, node, h, floors, back)
 	local ends, merged, via, yards = {}, {}, {}, {}
 	for _, start in ipairs(surfaces(st, k, node, h, floors)) do
 		-- The entry itself: its tree may go to the pool before the caller reads it (connect).
-		local _, edges, _, edgeYards, entry = connect(st, swim, mult, k, start, back)
+		local _, edges, _, edgeYards, entry = connect(st, swim, mult, k, start, back, h)
 		ends[#ends + 1] = entry
 		for id, cost in pairs(edges) do
 			if not merged[id] or cost < merged[id] then
@@ -759,8 +800,9 @@ end
 -- The trees are the job's own (trees.B, in its scratch): searches are sliced and take turns, and one job's tree must
 -- never be rewritten under another's paused search or traced by its refinement.
 -- A surface whose tree is complete and met no entrance is a rock top or ledge: like connectPoint, it goes through
--- connect, which moves it to a node that reaches one (settle), and that connection joins the starts.
-local function connectWithin(st, swim, mult, k, nodes, R)
+-- connect, which moves it to a node that reaches one (settle, toward `h`, the start's height when it has one), and
+-- that connection joins the starts.
+local function connectWithin(st, swim, mult, k, nodes, R, h)
 	local targets, left = {}, 0
 	for _, id in ipairs(nodesOf(st, k)) do
 		local e = entrance(st, id)
@@ -777,7 +819,7 @@ local function connectWithin(st, swim, mult, k, nodes, R)
 		local edges, edgeYards = connections(st, tree, k)
 		local entry
 		if whole and next(edges) == nil then
-			local _, _, _, _, settled = connect(st, swim, mult, k, n)
+			local _, _, _, _, settled = connect(st, swim, mult, k, n, nil, h)
 			entry, edges, edgeYards = settled, settled.edges, settled.yards
 		else
 			entry = { node = n, edges = edges, yards = edgeYards, tree = tree }
@@ -1160,7 +1202,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			tries = tries + 1
 			local met
 			starts, source, sourceVia, sourceYards, complete, met =
-				connectWithin(st, swim, mult, sk, surfaces(st, sk, sc, from.z, from.floors), R)
+				connectWithin(st, swim, mult, sk, surfaces(st, sk, sc, from.z, from.floors), R, from.z)
 			if complete and not met then
 				-- (a start no entrance joins: the full connection moves it, as before)
 				R = nil
