@@ -3010,6 +3010,43 @@ fn t_1834_with_tomtom_s_arrow_tomtom_is_handed_booty_bays_flight_master_for_the_
 	assert!(dl < 0.3, "in Grom'gol it is the target: {landed}");
 }
 
+/// #2156 (Joogz, Orc Shaman 34) / #2377 (DJ, Tauren Hunter 34): Horde players bound for Gnomeregan were flown to
+/// Hammerfall and walked through Dun Morogh, though Scooty's Transpolyporter in Booty Bay puts a player carrying the
+/// Goblin Transponder (9173, from Gnomer-gooooone!) on the Train Depot's pad by Gnomeregan's back door. A Troll at
+/// Scooty (Stranglethorn 27.60,77.44), Booty Bay, Grom'gol, Hammerfall and Orgrimmar known, guided to Gnomeregan's
+/// door (Dun Morogh 24.3,39.8): `transponder` puts the item in the bags. The route's legs, "kind|label".
+fn gnomeregan_from_booty_bay(transponder: bool) -> Vec<String> {
+	let script = format!(
+		r#"
+		w.faction = "Horde"
+		w.race, w.raceName = "Troll", "Troll"
+		w.setLevel(34)
+		Polestar.CharState().flags.taxi = {{ [17] = true, [18] = true, [20] = true, [23] = true }}
+		Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}
+		{}
+		local _, bx, by = C.MapToWorld(1434, 27.60, 77.44)
+		place(1434, bx, by, nil)
+		N.SetTarget(1426, 24.3, 39.8, "Enter Gnomeregan")
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local route = {{}}
+		for i = ci or 1, legs and #legs or 0 do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label end
+		emit({{ route = route }})"#,
+		if transponder { "w.addItem(9173, 1)" } else { "" }
+	);
+	strs(&run(&script, true)["route"])
+}
+
+#[test]
+fn issue_2156_with_the_goblin_transponder_the_way_to_gnomeregan_from_booty_bay_is_scootys_transpolyporter() {
+	skip_unless_ready!();
+	let route = gnomeregan_from_booty_bay(true);
+	assert!(route.iter().any(|l| l == "portal|Take the portal to Gnomeregan"), "the Transpolyporter: {}", route.join(", "));
+	assert!(!route.iter().any(|l| l.starts_with("fly|")), "no flight to Hammerfall: {}", route.join(", "));
+	let without = gnomeregan_from_booty_bay(false);
+	assert!(!without.iter().any(|l| l.starts_with("portal|")), "no Goblin Transponder, no Transpolyporter: {}", without.join(", "));
+}
+
 /// #1242 (joshvette001) / #1829 (derschroeb): on the way to the Deeprun Tram in Stormwind, the arrow led up into the
 /// Keep's Royal Gallery. The tram's Stormwind end lies down its building in the Dwarven District, past the door
 /// (66.47,34.03 on the game's map), under the gallery; the walking grid let the walk from the street south of the door
