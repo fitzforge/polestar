@@ -40,6 +40,9 @@ pub const BUFF_REP_FORMAT: u32 = 11;
 /// Format 11 also: the `deposit` and `equip` goals and the `equipped` and `indoors` when predicates. An older
 /// Polestar refuses the pack as too new instead of refusing each guide with "unknown verb" or "bad when".
 pub const DEPOSIT_EQUIP_FORMAT: u32 = 11;
+/// Format 11 also: an objective goal's `upto` (part of the objective's count). An older Polestar would hold the
+/// step until the whole objective is done.
+pub const UPTO_FORMAT: u32 = 11;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -145,14 +148,20 @@ fn uses_deposit_equip(g: &V) -> bool {
 	}) || g.get("nextWhen").values().iter().any(needs_worn)
 }
 
+/// A goal with `upto` needs format 11 (UPTO_FORMAT).
+fn uses_upto(g: &V) -> bool {
+	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| !goal.get("upto").is_undef()))
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
 
-/// The format a pack's compiled guides need: format 11 (EITHER_FORMAT, BUFF_REP_FORMAT, DEPOSIT_EQUIP_FORMAT) when
-/// a goal is one of an `either` set, or a guide uses a `buff`, `deposit` or `equip` goal, a `rep` goal's points or a
-/// `rep`, `buff`, `equipped` or `indoors` predicate, format 10 (TAXI_FORMAT, MATERIALS_FORMAT) when a guide has a
-/// `taxi` predicate, an `auction` goal or a `gather` collect, WAIT_FORMAT when a guide has a `wait` goal,
+/// The format a pack's compiled guides need: format 11 (EITHER_FORMAT, UPTO_FORMAT, BUFF_REP_FORMAT,
+/// DEPOSIT_EQUIP_FORMAT) when a goal is one of an `either` set or has `upto`, or a guide uses a `buff`, `deposit`
+/// or `equip` goal, a `rep` goal's points or a `rep`, `buff`, `equipped` or `indoors` predicate, format 10
+/// (TAXI_FORMAT, MATERIALS_FORMAT) when a guide has a `taxi` predicate, an `auction` goal or a `gather` collect,
+/// WAIT_FORMAT when a guide has a `wait` goal,
 /// MONEY_TASK_FORMAT when a guide
 /// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 /// `skipto`, WHEN_FORMAT when a step
@@ -162,6 +171,9 @@ fn has_keys(v: &V) -> bool {
 pub fn format_for(guides: &[V]) -> u32 {
 	if guides.iter().any(uses_either) {
 		return EITHER_FORMAT;
+	}
+	if guides.iter().any(uses_upto) {
+		return UPTO_FORMAT;
 	}
 	if guides.iter().any(uses_buff_rep) {
 		return BUFF_REP_FORMAT;

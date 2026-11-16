@@ -64,14 +64,15 @@ const MODS = {
 	deposit: ['text', 'optional', 'only', 'either', ...COORDS, 'count'],
 	// `equip <item>`: wear the item; with `off`, take it off.
 	equip: ['text', 'optional', 'only', 'either', ...COORDS, 'off'],
-	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
+	// `upto <N>`: on a quest objective goal, done at N of the objective's count (the rest is a later step's).
+	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'upto'],
 	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
 	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
-	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere', 'gather'],
+	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest', 'anywhere', 'gather', 'upto'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
-	talk: [...COMMON, ...COORDS, 'gossip', 'quest'],
-	interact: [...COMMON, ...COORDS, 'quest'],
-	use: [...COMMON, ...COORDS, 'quest'],
+	talk: [...COMMON, ...COORDS, 'gossip', 'quest', 'upto'],
+	interact: [...COMMON, ...COORDS, 'quest', 'upto'],
+	use: [...COMMON, ...COORDS, 'quest', 'upto'],
 	sethome: [...COMMON, ...COORDS, 'npc'],
 	hearth: [...COMMON],
 	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).
@@ -106,8 +107,8 @@ const MODS = {
 	wait: ['text', 'optional', 'only'],
 };
 const VERBS = Object.keys(MODS);
-const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'gather', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind', 'either', 'off'];
+const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', upto: 'upto <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]', grind: 'grind <npcId>' };
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'anywhere', 'gather', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip', 'grind', 'either', 'off', 'upto'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -1159,6 +1160,14 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				goal.direct = true;
 				i++;
 				continue;
+			case 'upto': {
+				if (!use('upto')) return null;
+				const v = intArg(i + 1, 'count');
+				if (v === null) return null;
+				goal.upto = v;
+				i += 2;
+				continue;
+			}
 			case 'gossip': {
 				if (!use('gossip')) return null;
 				const v = intArg(i + 1, 'gossip option id');

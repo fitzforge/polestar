@@ -73,12 +73,12 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `abandon <quest> ["Title"]` | Drop a quest from the log; done once it is out, the quest's `accept` stays done (Polestar 0.3.0) | no place modifiers, no `group` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (Polestar 0.3.0) | no place modifiers, no `group` |
 | `deposit <item> ["Name"]` | Put an item in the bank; done once the bags hold none, or with `x<N>` once the bank holds N (Polestar 0.4.1) | `xN`, no `group` |
-| `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
-| `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere`, `gather` |
+| `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN`, `upto` |
+| `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere`, `gather`, `upto` |
 | `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
-| `talk <npc>` | Speak to an NPC; with `quest Q.O` it is that quest objective ("Speak with …"), counted by the quest log | `gossip`, `quest` |
-| `interact <object>` | Click a game object | `quest` |
-| `use <item> ["Name"]` | Use an item | `quest` |
+| `talk <npc>` | Speak to an NPC; with `quest Q.O` it is that quest objective ("Speak with …"), counted by the quest log | `gossip`, `quest`, `upto` |
+| `interact <object>` | Click a game object | `quest`, `upto` |
+| `use <item> ["Name"]` | Use an item | `quest`, `upto` |
 | `sethome "<Location>"` / `sethome nearest` | Bind the hearthstone at an inn (`polestar find --kind inn`) | `npc` |
 | `hearth "<Location>"` | Use the hearthstone; done on landing there | no place modifiers |
 | `die "<Graveyard>" @x,y` | A deathskip: die and take the resurrection at that graveyard's Spirit Healer (the coordinates); done back alive there. The pack then needs Polestar 0.3.0 | `@x,y` required |
@@ -124,6 +124,7 @@ After the arguments, in any order.
 | `npc <id>` / `object <id>` / `item <id>` | Which NPC, object or item, when the data knows several; on `collect`, the NPC who hands the item over, for an item nothing drops (a quest report given in a gossip window) |
 | `quest <id>.<n>` | The quest objective this goal counts, numbered as `polestar find <id> --kind quest` lists them (`quest <id>` alone lets the data pick) |
 | `x<N>` | How many: kills, items, purchases, crafts |
+| `upto <N>` | On a goal with `quest <id>.<n>`: done at N of the objective's count; the rest is a later step's (Polestar 0.4.1) |
 | `"text"` | Right after an id: the name or title, for content missing from the data; later: the text players see |
 | `lvl <N>` | On `accept`: the level the quest needs |
 | `optional` | Never holds the step |
@@ -179,9 +180,9 @@ outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
 `when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with
-a `when taxi` predicate, Polestar 0.4.0; with `either`, a `buff`, `deposit` or
-`equip` goal, points on a `rep` goal, or a `when rep`, `when buff`, `when
-equipped` or `when indoors` predicate, Polestar 0.4.1.
+a `when taxi` predicate, Polestar 0.4.0; with `either`, `upto`, a `buff`,
+`deposit` or `equip` goal, points on a `rep` goal, or a `when rep`, `when
+buff`, `when equipped` or `when indoors` predicate, Polestar 0.4.1.
 
 ## Lint errors that come up most
 

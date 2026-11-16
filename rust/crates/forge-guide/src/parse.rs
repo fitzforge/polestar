@@ -75,14 +75,15 @@ pub const MODS: [(&str, &[&str]); 36] = [
 	("deposit", &["text", "optional", "only", "either", "at", "map", "r", "frame", "count"]),
 	// `equip <item>`: wear the item; with `off`, take it off.
 	("equip", &["text", "optional", "only", "either", "at", "map", "r", "frame", "off"]),
-	("kill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count"]),
+	// `upto <N>`: on a quest objective goal, done at N of the objective's count (the rest is a later step's).
+	("kill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count", "upto"]),
 	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
 	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
-	("collect", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere", "gather"]),
+	("collect", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count", "nearest", "anywhere", "gather", "upto"]),
 	("goto", &["text", "optional", "only", "group", "either", "map", "r", "frame"]),
-	("talk", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "gossip", "quest"]),
-	("interact", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest"]),
-	("use", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest"]),
+	("talk", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "gossip", "quest", "upto"]),
+	("interact", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
+	("use", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "quest", "upto"]),
 	("sethome", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc"]),
 	("hearth", &["text", "optional", "only", "group", "either"]),
 	// `die "<Graveyard>" @x,y`: die and take the Spirit Healer's resurrection there (a deathskip).
@@ -133,6 +134,7 @@ fn mod_label(m: &str) -> &str {
 		"count" => "xN",
 		"text" => "\"text\"",
 		"until" => "until <N>",
+		"upto" => "upto <N>",
 		"criteria" => "criteria <n>",
 		"frame" => "era`/`live",
 		"xp" => "xp <N>",
@@ -142,9 +144,9 @@ fn mod_label(m: &str) -> &str {
 		_ => m,
 	}
 }
-pub const MOD_WORDS: [&str; 26] = [
+pub const MOD_WORDS: [&str; 27] = [
 	"map", "npc", "object", "item", "quest", "r", "lvl", "optional", "only", "until", "criteria", "era", "live", "nearest", "anywhere", "gather", "reward", "choose", "xp", "money", "group", "direct",
-	"gossip", "grind", "either", "off",
+	"gossip", "grind", "either", "off", "upto",
 ];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN: f64 = 2.0;
@@ -1576,6 +1578,13 @@ fn parse_goal(verb: &str, line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Opti
 				use_!("direct");
 				goal.set("direct", true);
 				i += 1;
+				continue;
+			}
+			"upto" => {
+				use_!("upto");
+				let v = int_arg(i + 1, "count", cx)?;
+				goal.set("upto", v);
+				i += 2;
 				continue;
 			}
 			"gossip" => {

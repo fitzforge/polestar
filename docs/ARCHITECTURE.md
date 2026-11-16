@@ -1517,6 +1517,10 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `achieve` | `achievement`, `achievementName` | `criteria` (index) | achievement (or that criterion) completed |
 
 Objective index `oi` is 1-based, matching `C_QuestLog.GetQuestObjectives`.
+An objective goal's `upto` (format 11) is the part of that line's count the
+goal is done at (`objectiveState`: done at `upto` or once the line is
+finished, its progress running to `upto`; a line counting `upto` or less is
+read as without it).
 Field names `npc`, `object`, `item`, `quest` always hold numeric IDs.
 Objective goals also carry the quest's `title`; `accept` carries `minLevel`
 from the data when the author gave none, `qlvl` (quest level), `limit` (a

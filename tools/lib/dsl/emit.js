@@ -21,7 +21,7 @@ const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 
 const GOAL_KEYS = [
 	't', 'class', 'zone', 'spell', 'spellName', 'off', 'faction', 'factionName', 'standing', 'points', 'achievement', 'achievementName', 'criteria',
 	// `gather` (a `collect … gather`, true or { max, min, rank, skill, skillLine }) follows count: the item's gather way.
-	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'gather', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill', 'yellow', 'grey',
+	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'gather', 'oi', 'upto', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill', 'yellow', 'grey',
 	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'parent', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'either', 'only', 'profLine', 'profName', 'profRank', 'note',
 	'from', 'fromKind', 'fromRank', 'fromFaction', 'fromAlso', 'fromId', 'fromAlsoId', 'fromNpcs', 'fromNpcsAt', 'candidates', 'rewards', 'group', 'direct', 'escort',
 	// Quest work handed in only by a later guide of the chain: that guide's id (validate.js, markCarried).

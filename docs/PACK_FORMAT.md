@@ -870,14 +870,15 @@ A profession guide's materials (GUIDE_FORMAT.md, "Materials"):
 
 ## Format 11
 
-Format 10 with a goal's **`either`**, the **`buff`**, **`deposit`** and
-**`equip`** goals, a `rep` goal's **`points`** and the **`rep`**,
-**`buff`**, **`equipped`** and **`indoors`** `when` predicates (on a step, a
-`skipto` or a `next` option). Polestar 0.4.1 and later read it. The compiler
-writes a pack in format 11 only when its guides use one of them: an older
-Polestar would wait for every goal of an `either` set, refuse a guide with
-the others ("unknown verb", "bad when") or count a `rep` goal done at the
-start of its standing, so they need a format of their own.
+Format 10 with a goal's **`either`**, an objective goal's **`upto`**, the
+**`buff`**, **`deposit`** and **`equip`** goals, a `rep` goal's **`points`**
+and the **`rep`**, **`buff`**, **`equipped`** and **`indoors`** `when`
+predicates (on a step, a `skipto` or a `next` option). Polestar 0.4.1 and
+later read it. The compiler writes a pack in format 11 only when its guides
+use one of them: an older Polestar would wait for every goal of an `either`
+set, hold a step until the whole objective is done, refuse a guide with the
+others ("unknown verb", "bad when") or count a `rep` goal done at the start
+of its standing, so they need a format of their own.
 
 `either = true` on a goal: the goal is one of its step's set. Once any goal
 of the set that applies to the character is done, the others count as done.
@@ -923,6 +924,15 @@ the guide. Polestar equips nothing.
 
 ```lua
 { when = { { k = "equipped", neg = true, item = 6256 }, { k = "indoors", neg = true } }, goals = { { t = "equip", item = 6256, itemName = "Fishing Pole" } } }
+```
+
+`upto = N` on a goal with `quest` and `oi`: the goal is done once the quest
+log's line counts N (or is finished), and its progress runs to N; a line
+whose own count is N or less is read as without it. Not a number: the guide
+is refused.
+
+```lua
+{ t = "kill", quest = 7, title = "Kobold Camp Cleanup", target = "Kobold Vermin", npc = 6, count = 10, oi = 1, upto = 4 }
 ```
 
 ## Import strings
@@ -1006,9 +1016,9 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
   (the `wait` goal) by 0.3.0 and later, format 10 (the `taxi` when
   predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later,
-  and format 11 (a goal's `either`, the `buff`, `deposit` and `equip` goals, a
-  `rep` goal's `points`, the `rep`, `buff`, `equipped` and `indoors` when
-  predicates) by 0.4.1 and later.
+  and format 11 (a goal's `either`, an objective goal's `upto`, the `buff`,
+  `deposit` and `equip` goals, a `rep` goal's `points`, the `rep`, `buff`,
+  `equipped` and `indoors` when predicates) by 0.4.1 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

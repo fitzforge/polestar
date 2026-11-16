@@ -222,6 +222,7 @@ Modifiers, in any order after the positional arguments:
 | `npc <id>` / `object <id>` / `item <id>` | Explicit entity (e.g. which quest giver). |
 | `quest <id>` / `quest <id>.<objective>` | Quest objective link (1-based objective, numbered in the order the game's quest log lists them; `polestar find <quest id>` prints them). |
 | `x<N>` | Count. |
+| `upto <N>` | On a `kill`, `collect`, `talk`, `interact` or `use` goal with `quest`: the goal is done at N of the objective's count, and the guide window counts toward N. For an objective worked in several places, a step each: see "Part of an objective". Pack format 11. |
 | `"text"` | Display text override (for `goto`: the label). A quoted token directly after the entity id of `kill`, `talk`, `interact`, `train` or `vendor` (like `collect`/`use`/`buy`) names that entity instead, for new Forever content missing from the data. |
 | `r <yards>` | Arrival radius (`goto`, default 8). |
 | `lvl <N>` | Minimum level shown on an `accept`. |
@@ -568,9 +569,10 @@ upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when know
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
 (docs/PACK_FORMAT.md). A `when taxi` predicate writes format 10 (Polestar
-0.4.0 and later); a goal marked `either`, a `when rep`, `when buff`, `when
-equipped` or `when indoors` predicate, a `buff`, `deposit` or `equip` goal and
-a `rep` goal with points write format 11 (Polestar 0.4.1 and later).
+0.4.0 and later); a goal marked `either` or with `upto`, a `when rep`, `when
+buff`, `when equipped` or `when indoors` predicate, a `buff`, `deposit` or
+`equip` goal and a `rep` goal with points write format 11 (Polestar 0.4.1
+and later).
 
 ## Along the way
 
@@ -719,6 +721,31 @@ taken while both are of one set.
 
 A pack with `either` is written in pack format 11 (Polestar 0.4.1 and
 later): an older Polestar would wait for every goal of the set.
+## Part of an objective
+
+A quest objective is one line of the quest log, and a goal with `quest Q.O`
+is done when that line is. Some lines are worked in two places with other
+steps between them: four of the ten kobolds at the camp by the road, the
+rest at the mine after the hand-in next door. `upto <N>` ends a goal at N of
+the line's count, so each place gets a step and the route moves on between
+them:
+
+```
+step The camp by the road
+  kill 6 quest 7.1 upto 4 @47.6,35.1
+
+step The mine
+  kill 6 quest 7.1 @52.3,26.8
+```
+
+The first goal reads 0/4 and is done at four kills (or more: a player who
+killed seven there has it done too); the second counts the whole line,
+4/10 on arrival. `upto` goes on a goal that counts a quest objective
+(`quest Q.O`, or `quest Q` where the data finds the line); on any other goal
+it is an error. A part that is the whole of the line's count is the
+objective itself, and lint says so. A pack with `upto` is written in pack
+format 11 (Polestar 0.4.1 and later): an older Polestar would hold the step
+until the whole objective is done.
 
 ## Sections
 
@@ -1374,6 +1401,8 @@ Errors:
 - a `skipto` line without a label, `when` and one predicate
 - a single `either` goal in a step (a set is two or more), or a goal that is
   both `either` and `optional`
+- `upto` on a goal that counts no quest objective, or without a count of 1
+  or more
 - `background` on a step without `along until <label>`, or a quest objective
   in a `background` step with no finish step (a later step, not an along one,
   working the same objective) before the step that hands its quest in
@@ -1416,6 +1445,8 @@ Errors:
 Warnings:
 - a `when rep` naming by its id a faction the data lacks (by name it is an
   error: the standing is read by id)
+- an `upto` that is the whole of its objective's count (the goal is done
+  with the objective, as without it)
 - a `when` predicate naming a quest or item the data lacks, a zone not in
   `zones.json`, a bind location no inn has, or a subzone that names no single
   area; a step whose `when level` leaves none of the guide's levels, or that
