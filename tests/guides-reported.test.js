@@ -2322,6 +2322,17 @@ test(`${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after th
 	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
 });
 
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): Shhh! We're Hunting Kobolds (91772) had its six Kobold Tracks
+// only in the accept's note, so after Tordrin the window went on to Marshal Dughan's hand-in. The tracks are a goal of
+// the accept's step, on the road to Goldshire.
+test(`${ELWYNN}: Shhh! We're Hunting Kobolds counts the Kobold Tracks before the hand-in to Marshal Dughan`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const accept = at(list, 'accept 91772', is('accept', 91772));
+	const tracks = at(list, 'interact 563442 (91772.1)', (g) => g.t === 'interact' && g.quest === 91772 && g.object === 563442);
+	assert.equal(list[tracks].s, list[accept].s, "in the accept's step");
+	assert.ok(accept < tracks && tracks < at(list, 'turnin 91772', is('turnin', 91772)), 'accept, the tracks, then the hand-in');
+});
+
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
 // step (players' recordings; 12 deaths in the archive by #977). His head stays an
 // optional extra (#221), collected only in the steps for players who group for it
