@@ -488,3 +488,21 @@ fn duskwood_the_walk_to_zzarc_vul_goes_in_by_the_vulgol_ogre_mounds_entrance_194
 	let yards = yards_of(&pts);
 	assert!(yards < 350.0, "the walk in is {yards:.0} yd");
 }
+
+// #2331 (Logan), Wetlands, the Water Totem's Call of Water: from the road (48.00,39.13) the arrow pointed straight at
+// Hervdana Saegrund (65.80,76.50) over the mountain. Her ledge above the Dun Algaz road was joined to nothing on the
+// walking maps, so every walk to her came back with no way; players walk up to her from the road to the north. A grid
+// join puts that way in: the walk from the reporter's spot, and from Menethil Harbor, is found and ends at her.
+#[test]
+fn wetlands_the_walk_to_hervdana_saegrund_is_found_from_the_road_and_from_menethil_harbor_2331() {
+	let hervdana = world(1437, 65.80, 76.50);
+	for (from, what) in [(world(1437, 48.00, 39.13), "the reporter's spot"), (world(1437, 10.80, 59.60), "Menethil Harbor")] {
+		let got = walk(from, hervdana, Some("Alliance"));
+		assert!(truthy(&got), "the engine finds a walk from {what} to Hervdana Saegrund");
+		let pts = points(&got);
+		let last = pts[pts.len() - 1];
+		let gap = (last.0 - hervdana.x).hypot(last.1 - hervdana.y);
+		assert!(gap < 10.0, "the walk from {what} ends {gap:.1} yd from her");
+	}
+	joined_both_ways(world(1437, 64.50, 74.90), hervdana, Some("Alliance"), "Hervdana Saegrund's ledge");
+}
