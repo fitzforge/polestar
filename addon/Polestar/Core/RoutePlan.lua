@@ -538,9 +538,26 @@ function Plan.OffRoute(id)
 	return out
 end
 
-for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
+for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
 	ns.On(event, Plan.Invalidate)
 end
+-- TABS_CHANGED comes after every step update of a tab (each goal ticked: a
+-- kill that counts), not only when a tab opens, closes or takes another
+-- guide. The tabs' live steps (elsewhere) follow each one; the routes
+-- (build) and chain quests only the guides in the tabs, so they are kept
+-- while the same guides are open: rebuilding them walks every registered
+-- guide (firstOf), which made each kill stutter (#2555).
+local tabGuides = {}
+ns.On("TABS_CHANGED", function(list)
+	local G, now = ns.Guides, {}
+	for i, t in ipairs(type(list) == "table" and list or {}) do now[i] = G.Get(t.guideId) or false end
+	local same = #now == #tabGuides
+	for i = 1, #now do
+		if now[i] ~= tabGuides[i] then same = false; break end
+	end
+	tabGuides = now
+	if same then others = nil else Plan.Invalidate() end
+end)
 -- "Dungeons in my route" (behavior.dungeons; a profile switch changes every setting).
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then Plan.Invalidate() end

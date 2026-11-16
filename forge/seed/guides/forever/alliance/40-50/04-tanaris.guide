@@ -127,7 +127,10 @@ step Noonshade Ruins
   collect 8483 x5 -- Wastewander Water Pouch
 
 step Gadgetzan
+  when has 8483 x5
   turnin 1878 direct -- Spigot Operator Luglunket
+
+step Chief Engineer Bilgewhizzle
   turnin 1691                         -- Chief Engineer Bilgewhizzle
 
 step The pool by Sandsorrow Watch
