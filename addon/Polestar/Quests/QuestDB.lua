@@ -682,6 +682,32 @@ function Q.StartedBy(itemID)
 	return startedBy[itemID]
 end
 
+-- All known quests that start from, request, or use an item. Built only when
+-- bag marks ask, and rebuilt if more quest chunks arrive.
+local itemQuests, itemQuestsOf
+function Q.ItemQuests(itemID)
+	local ids = Q.QuestIds()
+	if itemQuestsOf ~= ids then
+		itemQuests, itemQuestsOf = {}, ids
+		local function add(item, quest)
+			if not item then return end
+			local list = itemQuests[item]
+			if not list then list = {}; itemQuests[item] = list end
+			if list[#list] ~= quest then list[#list + 1] = quest end
+		end
+		for _, q in ipairs(ids) do
+			local rec = data.quests[q]
+			for _, item in Each(rec and rec[QUEST_START_ITEM]) do add(item, q) end
+			for _, item in Each(rec and rec[QUEST_ITEMS]) do add(item, q) end
+			local obj = rec and rec[QUEST_OBJ]
+			if type(obj) == "table" then
+				for i, kind in pairs(obj) do if i % 3 == 1 and kind == 2 then add(obj[i + 1], q) end end
+			end
+		end
+	end
+	return itemQuests[itemID]
+end
+
 ---------------------------------------------------------------------------
 -- Client calls Compat does not offer (reported as contract gaps)
 ---------------------------------------------------------------------------
