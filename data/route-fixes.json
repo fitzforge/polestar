@@ -4390,18 +4390,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					1108
-				],
-				"b": [
-					"accept",
-					1183
-				],
-				"faction": "Horde",
-				"why": "Horde 30-40/40-50 audit (0.4.0): Goblin Sponsorship (1183, Baron Revilgaz to Pozzik at the Mirage Raceway, 700 XP) is taken on 40-50/01-stranglethorn-vale's first Booty Bay stop, after the Badlands (1108), instead of on 30-40/03's second Booty Bay stop at 36, from where it rode in the quest log through four guides to Pozzik at 43."
-			},
-			{
-				"a": [
 					"accept",
 					97926
 				],
@@ -5894,15 +5882,15 @@
 			},
 			{
 				"a": [
-					"turnin",
-					3161
+					"task",
+					5863
 				],
 				"b": [
 					"task",
 					3362
 				],
 				"faction": "Horde",
-				"why": "Horde 0.4.0 audit: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are killed on 40-50/04's second trip south, after Marvon's hand-in, about a level later than the first pass (two over there); the first pass takes only Marin's dew glands and Tooga, and Tran'rek takes the quest on the last Gadgetzan stop."
+				"why": "Horde 0.4.0 audit, round 2: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) were still two over the players on 40-50/04's second trip south (level model 48.5-48.6), and that trip rode 3.3 km back out to the valley for them. They are killed on 40-50/06's Broken Pillar stop, right after the Dunemaul Compound (5863) and on the way west to Un'Goro's ramp, at about 51; Tran'rek takes the quest with Andi Lynn's on 50-60/01's Gadgetzan stop. The level model's route time is the same within a minute."
 			},
 			{
 				"a": [
@@ -9804,21 +9792,21 @@
 				"issue": "-"
 			},
 			{
-				"q": 1182,
+				"q": 1063,
 				"after": [
 					"turnin",
-					1181
+					1062
 				],
-				"reason": "Flow and quest volume (0.3.6, Horde 30-40/03): Baron Revilgaz offers Goblin Sponsorship's third part (level 37, from 29, 2,850 XP) on the Booty Bay stop where the boat from Ratchet lands. Foreman Cozzle (38) and Cozzle's Footlocker stand in the Venture Co. house on Lake Nazferiti, where the guide works the geologists for Hostile Takeover; Revilgaz takes the blueprints on the second Booty Bay stop. Loot data: Cozzle's Key 100% from Foreman Cozzle, the blueprints 100% from the footlocker; a recorded Undead Paladin finished it at 35.",
+				"reason": "Horde 0.4.0 audit, round 2: The Elder Crone chain (1063, 1064, 1065, 1066, 1067, 1086; 7,915 XP, levels 18-23, all at or under the players) is taken from Seereth Stonebreak with 1062's hand-in at the end of 02-the-barrens and done on stops the route makes: 05 flies back from Zoram'gar by Thunder Bluff (Magatha, Zamah) on its way to Orgrimmar, 06 takes Lydon's vials from the Syndicate Shadow Mages (21-22) on its Durnholde walk, 04's Thunder Bluff stop hands in Lydon's toxin and takes the Toxic Fogger, placed on the Venture Co. Copter Pad beside Gerenzo's tower on 04's Windshear trip, and 07's Thunder Bluff stop hands it in. Level model: route about 20 minutes shorter, the 12-30 band ends about 0.2 level higher.",
 				"issue": "-"
 			},
 			{
-				"q": 1183,
+				"q": 97328,
 				"after": [
 					"turnin",
-					1182
+					187
 				],
-				"reason": "Delivery (0.3.6): Baron Revilgaz's next errand goes to Pozzik at the Mirage Raceway, which forever/horde/40-50/02-feralas passes on the way to Tanaris; taken on 30-40/03's second Booty Bay stop with 1182's hand-in.",
+				"reason": "Horde 0.4.0 audit, round 2: Anything of Value (97328, from the Thoroughly Scavenged Supplies west of Nesingwary's camp), Where's the Key? and Zimmix's Great Escape (97329, 97331, Zimmix Sputterspark at Zul'Kunda's east edge; new in Forever, 8,250 XP together) are done on 30-40/03's walk west to the Savage Coast, among the Bloodscalp Scouts, Hunters and Mystics (34-35) that drop his key; Wharfmaster Lozgil takes 97328 and 97331 on the Booty Bay stop, before the top-up to 35. The Stolen Shipments' point is where players pick them (players' recordings: 38 people at 24.25,12.24). Level model: the band's grind about 45 minutes shorter. Twice Misplaced Trust (97332) follows from Lozgil on 40-50/01's first Booty Bay stop and goes to Wharfmaster Whizzbuzz on 40-50/01b's first Powderfuse Port stop.",
 				"issue": "-"
 			},
 			{
@@ -10290,15 +10278,6 @@
 				"issue": "-"
 			},
 			{
-				"q": 1186,
-				"after": [
-					"turnin",
-					1183
-				],
-				"reason": "Horde 30-40/40-50 seam (0.3.6; Horde): Goblin Sponsorship part 5 (1183, Baron Revilgaz's blueprints, taken on Horde 30-40/03's second Booty Bay stop) goes to Pozzik on 40-50/02's Mirage Raceway stop, and his The Eighteenth Pilot (1186, 285 XP) is a word with Razzeric beside him. Razzeric's Tweaking (1187) is left out: its Gizmorium crate lies in south Tanaris and goes back to the Raceway, off the loop.",
-				"issue": "-"
-			},
-			{
 				"q": 97538,
 				"reason": "Horde 12-30 bracket review (0.3.6, 2026-11-10, measured): Pigments for Paints (Forever, level 26, from 20, 2100 XP) from Tah Winterhoof (3024, Thunder Bluff 54.1,47.0) on 04-the-barrens' new Thunder Bluff stop (06's Thunder Bluff step for Druids); its 30 Mirkweed Pods come from the Mirkweed on the floor of Mirkfallon Lake (objects 667362/667364, 46.9-50.0,37.3-42.7) beside 04's Gaea Seeds shore, handed in on 07-ashenvale's Thunder Bluff stop. Players' recordings: 14 accepts at Tah, 8 people 30/30 and handed in; Forever's quest data agrees. Travel (travel route): Orgrimmar to Malaka'jin by Thunder Bluff 13:45 with its flight path / 20:56 without (Camp Taurajo and Mulgore) vs 8:40 direct; knowing the path saves 4:20 on 07's Zoram'gar to Skywatcher leg. With The Sacred Flame, 7,590 XP for about 8 min (flight path) / 15.5 min (without) of travel plus about 19 min on objectives, against 34 min of grind at the calibrated rate (sim 18.9k XP/h at 28, x1.4).",
 				"issue": "-"
@@ -10425,7 +10404,6 @@
 			},
 			{
 				"q": 7321,
-				"faction": "Horde",
 				"after": [
 					"accept",
 					509
@@ -10435,7 +10413,6 @@
 			},
 			{
 				"q": 4289,
-				"faction": "Horde",
 				"after": [
 					"accept",
 					4290
@@ -10445,7 +10422,6 @@
 			},
 			{
 				"q": 87492,
-				"faction": "Horde",
 				"after": [
 					"accept",
 					4290
@@ -10455,29 +10431,25 @@
 			},
 			{
 				"q": 87494,
-				"faction": "Horde",
 				"reason": "Horde 0.4.0 audit: Microcrystal Contamination (level 55, 5,650 XP, new in Forever) starts from a Crystal Infused Scale that Un'Goro's ravasaurs and Diemetradons drop (players' recordings: 10 Horde starts all over the crater, 11 hand-ins at Torwa); optional on 50-60/01's ravasaur step, handed in at Torwa on either of the guide's Torwa stops.",
 				"issue": "-"
 			},
 			{
 				"q": 86577,
-				"faction": "Horde",
 				"after": [
 					"accept",
-					4102
+					5156
 				],
 				"reason": "Horde 0.4.0 audit: A Sampling of Putrescence (level 55, 5,650 XP, new in Forever) from Kelek Skykeeper at the Emerald Sanctuary: the bear and wolf organs drop from the Angerclaw bears and Felpaw wolves 50-60/02 hunts in Irontree Woods for Talo; taken on the first Sanctuary stop and handed in on the second. Players' recordings: 3 Horde players took it at Kelek and handed it in there.",
 				"issue": "-"
 			},
 			{
 				"q": 86612,
-				"faction": "Horde",
 				"reason": "Horde 0.4.0 audit: Stag Lord's Bauble (level 55, 2,800 XP, new in Forever) starts at the Statue of Malorne (Felwood 42.0,47.3), by the road north past Shatter Scar Vale, and ends with Winna Hazzard at Bloodvenom Post, a stop 50-60/02 makes after it. Players' recordings (one Horde player): taken at the statue and handed in to Winna, as Forever's quest data has it.",
 				"issue": "-"
 			},
 			{
 				"q": 91497,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					3505
@@ -10487,7 +10459,6 @@
 			},
 			{
 				"q": 91500,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					91497
@@ -10497,7 +10468,6 @@
 			},
 			{
 				"q": 91531,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					91500
@@ -10507,7 +10477,6 @@
 			},
 			{
 				"q": 91538,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					91497
@@ -10517,7 +10486,6 @@
 			},
 			{
 				"q": 91547,
-				"faction": "Horde",
 				"after": [
 					"turnin",
 					91538
@@ -10527,7 +10495,6 @@
 			},
 			{
 				"q": 91569,
-				"faction": "Horde",
 				"after": [
 					"accept",
 					91568
@@ -10537,7 +10504,6 @@
 			},
 			{
 				"q": 86746,
-				"faction": "Horde",
 				"reason": "Horde 0.4.0 audit: The Legashi Threat (level 53, 5,250 XP, new in Forever) from Ekkal (Azshara 42.0,38.9), on 50-60/04's road between Valormok and the north-east; the Legashi satyrs (51-52) hold the hills north of the Thalassian Base Camp. Taken on the way out and handed in on the way back west. Players' recordings: taken and handed in at Ekkal, the satyrs killed at 56-59,19-23.",
 				"issue": "-"
 			}
@@ -11020,6 +10986,12 @@
 				"q": 3507,
 				"faction": "Horde",
 				"reason": "Horde 0.4.0 audit: see 3506.",
+				"issue": "-"
+			},
+			{
+				"q": 1182,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit, round 2: Goblin Sponsorship part 4 (1182, 2,850 XP) needs Foreman Cozzle's key from inside the Venture Co. house on Lake Nazferiti: Cozzle is 38 and the Venture Co. Agents (39, new in Forever) stand in and around the house, four and five over the players on 30-40/03 (level model 33.6; recorded players killed Cozzle at a 25th percentile of 35.7). No later Horde stop passes the house (40-50/01's Venture Co. mine is the southern one), so the errand and its follow-ups (1183, 1186) are left out of the solo route.",
 				"issue": "-"
 			}
 		],

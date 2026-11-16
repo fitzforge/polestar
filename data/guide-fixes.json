@@ -4477,7 +4477,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: their camps are crowded, with Venture Co. Agents (39) among the geologists (36-38): pull from the camps' edges, one at a time.",
+			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them.",
 			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp.",
 			"source": [
 				{
@@ -11227,6 +11227,104 @@
 				{
 					"kind": "client",
 					"ref": "npcs 3051 Supervisor Fizsprocket 12, 2978 Venture Co. Worker 8-9"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-freewind-level-29-before-korran",
+			"faction": "Horde",
+			"at": {
+				"quest": 1145,
+				"goal": "accept"
+			},
+			"level": 29,
+			"note": "Horde 0.4.0 audit, round 2: Korran's The Swarm Grows (1145) is offered from level 29, on the 30-40 Hillsbrad guide's first stop at the Crossroads; the level model ends 07-ashenvale at 28.85 (with the Elder Crone chain), so a player who doesn't reach 29 got a second Crossroads flight from Orgrimmar in the next guide. The top-up sits at the end of 07-ashenvale, on the Pesterhide Snarlers (28-29) below Freewind Post, about 0.15 level; it shows Blackfathom Deeps, the guide's own dungeon run, as the group choice.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1145 minLevel 29 in Forever's quest data; npc 4249 Pesterhide Snarler 28-29"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-azurelode-level-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 544,
+				"goal": "accept"
+			},
+			"level": 30,
+			"note": "Horde 0.4.0 audit, round 2: Magus Wordeen Voidglare's quests on 30-40/01's last Tarren Mill stop and Alliance Relations (1431) on 30-40/02's first Orgrimmar stop are offered from level 30; the level model reaches them at about 29.5 without grinding, so the Alliance Relations chain (1431-1436, about 10,200 XP) was lost. The top-up sits at the Azurelode Mine (Hillsbrad Miners and Foremen, 26-28) right before that last Tarren Mill stop and shows the City of Dalaran dungeon as the group choice; Alliance Relations itself shows only from level 30.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests 544 and 1431 minLevel 30 in Forever's quest data; npcs 2269 Hillsbrad Miner 26-27, 2503 Hillsbrad Foreman 27-28"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-alliance-relations-from-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 1431,
+				"goal": "accept"
+			},
+			"when": "level>=30",
+			"note": "Horde 0.4.0 audit, round 2: Craven Drok offers Alliance Relations from level 30 (Forever's quest data, minLevel 30). Its step shows only from 30, so a player under it isn't sent to him; Takata's and Maurin's steps in Desolace wait for the quest in the log.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1431 minLevel 30 in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-stv-level-35-after-booty-bay",
+			"faction": "Horde",
+			"at": {
+				"quest": 629,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 35,
+			"note": "Horde 0.4.0 audit, round 2: 30-40/03's top-up to 35 comes after the Booty Bay round trip, whose hand-ins (about 17,000 XP with Zimmix's quests) came after it before; the Vile Reef and Zul'Kunda's Bloodscalp Headhunters (36-37) follow. Level model: the top-up shrinks from 0.72 level (180 minutes) to about 0.4. Stranglethorn's grind steps name no dungeon: the route runs none nearby.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 1085 Elder Stranglethorn Tiger 34-35, 671 Bloodscalp Headhunter 36-37"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-felwood-level-54-irontree",
+			"faction": "Horde",
+			"at": {
+				"quest": 8461,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 54,
+			"note": "Horde 0.4.0 audit, round 2: Felwood had seven top-ups to fractional levels (53.34 to 54.87; about 13 hours in the level model), the first in the Scarlet camp of Western Plaguelands (Medics, Invokers and Festering Ghouls up to 55, two over the players). Two whole-level steps replace them with the same route time: 54 on the Angerclaw Grizzlies and Felpaw Ravagers (51-52) of Irontree Woods before Felpaw Village (Den Watchers 53-54, Deadwood Avengers 54-55), and 55 at the end of the guide before Winterspring. Both name Blackrock Depths and the Sunken Temple as the group choice.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 8957 Angerclaw Grizzly 51-52, 8961 Felpaw Ravager 51-52, 7156 Deadwood Den Watcher 53-54, 7157 Deadwood Avenger 54-55"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-felwood-level-55-before-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 3908,
+				"goal": "turnin"
+			},
+			"level": 55,
+			"note": "Horde 0.4.0 audit, round 2: see h-audit-040-r2-felwood-level-54-irontree. The second whole-level top-up is the last step of 50-60/02-felwood, on the Jaedenar Hounds (50-51) south of Bloodvenom Post, before Winterspring's quests (55-58).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npc 7125 Jaedenar Hound 50-51"
 				}
 			]
 		}

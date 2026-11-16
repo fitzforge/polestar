@@ -1715,7 +1715,9 @@ test('forever/horde/30-40/03-stranglethorn-vale.guide: no Green Hills chapters o
 	assert.deepEqual(list.filter(({ goal }) => goal.t === 'accept' && [338, 339, 340, 341, 342, 1183].includes(goal.quest)).map(({ goal }) => goal.quest), [], 'none accepted at 35');
 	assert.deepEqual(list.filter(({ goal }) => goal.t === 'collect' && [338, 339, 340, 341, 342].includes(goal.quest)).length, 0, 'no page goals for chapters not in the log');
 	at(list, 'turnin 583 (Welcome to the Jungle, which the chapters need)', is('turnin', 583));
-	at(list, 'turnin 1182 (Revilgaz)', is('turnin', 1182));
+	// Since the Horde 0.4.0 audit (round 2) Goblin Sponsorship part 4 (1182) is left out of the solo route: Foreman
+	// Cozzle (38) and the Venture Co. Agents (39) keep the key four and five levels over players here.
+	assert.ok(!list.some(({ goal }) => [1182, 1183].includes(goal.quest)), 'no Goblin Sponsorship part 4 or 5 here');
 });
 
 // #1976 (TriageNav) and the Horde 30-40/40-50 audit (0.4.0): Gadgetzan's flight path is learned on the way back
@@ -1892,7 +1894,6 @@ test('forever/horde/30-40: the steps warn of the high mobs the danger gate finds
 		['01-hillsbrad-foothills', 527, ['Kirin Tor Guard']],
 		['05-arathi-highlands', 544, ['Arcane Sentries', 'Kirin Tor Guards']],
 		['03-stranglethorn-vale', 213, ['Venture Co. Agents']],
-		['03-stranglethorn-vale', 1182, ['Venture Co. Agents']],
 		['05-arathi-highlands', 545, ['Arcane Sentries', 'Kirin Tor Guards']],
 		['06-badlands', 2258, ['Malevolent Mirage'], 7847],
 		['06-badlands', 711, ['Malevolent Mirage']],
@@ -3376,9 +3377,9 @@ test('Horde 40-50/01: the Green Hills chapters and Goblin Sponsorship are taken 
 		assert.ok(when(take, 'has').length >= 3, `${q}: only with its pages in the bags`);
 		assert.ok(list.some((e) => is('turnin', q)(e.goal) && e.s === take.s), `${q}: handed in on the spot`);
 	}
-	const gob = list[at(list, 'accept 1183 (Baron Revilgaz)', is('accept', 1183))];
-	assert.ok(when(gob, 'turnedin').some((p) => [p.q].flat().includes(1182)), '1183 only after Cozzle\'s footlocker was handed in');
-	assert.ok(at(list, 'accept 1183', is('accept', 1183)) < at(list, 'turnin 595 (the cove, after the first Booty Bay stop)', is('turnin', 595)), 'on the first Booty Bay stop');
+	// Since the Horde 0.4.0 audit (round 2) Goblin Sponsorship part 4 (1182) is left out of the solo route, and its
+	// part 5 (1183) with it.
+	assert.ok(!list.some(({ goal }) => [1182, 1183].includes(goal.quest)), 'no Goblin Sponsorship part 4 or 5');
 });
 
 test('Horde 40-50: Feralas & Tanaris opens from Stonard or from Kargath, and every Stonard flight has a way in without its flight path (R17r)', { skip }, () => {
@@ -8296,8 +8297,7 @@ test('Horde 40-60: grind steps sit on mobs an open quest needs', { skip }, () =>
 	// 52-53, on the way to Mulgris before them: the danger gate's grind rule, #2207, wants a camp at most a level over
 	// the player, and the quest mobs nearby, the wolves (53-54) and the bears, are both higher.)
 	const cases = [
-		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 4120, "Irontree Woods (Talo's grizzlies and ravagers)", /^\s+level 54\.21\b/],
-		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 8461, 'Felpaw Village (Deadwood of the North)', /^\s+level 54\.54\b/],
+		['forever/horde/50-60/02-felwood.guide', 54, (g) => g.t === 'kill' && g.quest === 4120, "Irontree Woods (Talo's grizzlies and ravagers)", /^\s+level 54\b/],
 		// Since the 0.4.0 level tidy the crater opens with a short top-up to 51 (Pterrordax and Flayers up to 52), on Larion's Threshers.
 		['forever/horde/50-60/01-un-goro-crater.guide', 51, (g) => g.t === 'kill' && g.quest === 4145, "the Bloodpetal Threshers (Larion and Muigin)", /^\s+level 51\b/],
 	];
@@ -8380,7 +8380,11 @@ test('Horde 40-60 fresh start: the guides open at hubs that stand on their own',
 	const g = (n) => goals(H(n));
 	const stv = g('40-50/01-stranglethorn-vale');
 	assert.equal(stv[at(stv, 'accept 598', is('accept', 598))].s, stv[at(stv, 'turnin 584', is('turnin', 584))].s, 'Split Bone Necklace on the later Grom\'gol stop');
-	assert.equal(stv[at(stv, 'accept 209', is('accept', 209))].s, stv[at(stv, 'turnin 600', is('turnin', 600))].s, 'Skullsplitter Tusks on the second Booty Bay stop');
+	// Horde 0.4.0 audit (round 2): Kebok offers the tusks on the first Booty Bay stop to a player who handed in Bloodscalp
+	// Ears (the route's players); the second stop keeps it for one who starts here.
+	const tusks = stv.filter(({ goal }) => is('accept', 209)(goal));
+	assert.equal(tusks.at(-1).s, stv[at(stv, 'turnin 600', is('turnin', 600))].s, 'Skullsplitter Tusks on the second Booty Bay stop');
+	assert.ok(tusks.slice(0, -1).every(({ step }) => (step.when || []).some((p) => p.k === 'turnedin' && [p.q].flat().includes(189))), 'an earlier take only after Bloodscalp Ears');
 	const fer = g('40-50/03-feralas');
 	assert.ok(at(fer, 'accept 698', is('accept', 698)) < at(fer, 'turnin 698', is('turnin', 698)), "Dar's quests on the Stonard landing");
 	const az = g('50-60/04-azshara');
@@ -9459,12 +9463,18 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 // Final route review for 0.3.5 (Horde 30-32): the level 31 top-up said Hammerfall's quests start at 31
 // (they are offered from 29-30; the top-up kept their 32-36 levels within reach), and the level 30 top-up
 // by Tarren Mill had no dungeon to run instead of the yetis. Since the level tidy (2026-11-15) Hammerfall's quests
-// and Tarren Mill's 33-36 quests come on the 38-39 visit, so Hillsbrad at 30 has no top-up at all: nothing in it is
-// above the level its own quests bring you to.
+// and Tarren Mill's 33-36 quests come on the 38-39 visit; Hillsbrad keeps one top-up, to 30, for the quests offered
+// from 30 on its last Tarren Mill stop and the next guide's first (Horde 0.4.0 audit, round 2).
 test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the City of Dalaran', { skip }, () => {
 	data = data || loadData(DATA);
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	assert.equal(goals(guide).filter(({ goal }) => goal.t === 'level').length, 0, 'no top-up in Hillsbrad');
+	// Horde 0.4.0 audit (round 2): one top-up to 30 at the Azurelode Mine, right before the last Tarren Mill stop, so
+	// Voidglare's quests there and Alliance Relations in the next guide's Orgrimmar (both offered from 30) are open.
+	const tops = goals(guide).filter(({ goal }) => goal.t === 'level');
+	assert.deepEqual(tops.map(({ goal }) => goal.level), [30], 'one top-up in Hillsbrad, to 30');
+	const tip = [tops[0].step.note, tops[0].step.tip].flat().filter(Boolean).join(' ');
+	assert.match(tip, /offered from level 30/, 'it says why');
+	assert.match(tip, /City of Dalaran/, 'it offers the City of Dalaran');
 	const arathi = goals('forever/horde/30-40/05-arathi-highlands.guide');
 	for (const q of [655, 672, 677, 97539]) {
 		assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);
@@ -9948,8 +9958,10 @@ test('Horde 50-60: every grind step offers the dungeons at its level', { skip },
 		});
 	}
 	// 0.3.7 folded six stand-alone top-ups into the quest steps beside them (the test below checks those tips); the 0.4.0
-	// level tidy dropped the Felwood guide's 52.63 and 53 and the Winterspring guide's 55.04 (seven left in 50-60).
-	assert.ok(n >= 7, `the grind steps are found (${n})`);
+	// level tidy dropped the Felwood guide's 52.63 and 53 and the Winterspring guide's 55.04 (seven left in 50-60), and
+	// the Horde 0.4.0 audit (round 2) made Felwood's fractional top-ups two whole levels: 54 in the Irontree Woods quest
+	// step (checked by "grind steps sit on mobs an open quest needs") and a stand-alone 55 (six left).
+	assert.ok(n >= 6, `the grind steps are found (${n})`);
 });
 
 test('Image of Archmage Modera is met at the Kirin Tor camp in Silverpine Forest, never by the Dalaran sewer entrance in Alterac (#1305)', { skip }, () => {
@@ -11784,18 +11796,20 @@ test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk 
 	const bb = at(list, 'turnin 1180', is('turnin', 1180));
 	const gromgol = at(list, "getfp Grom'gol", (g) => g.t === 'getfp' && /Grom'gol/.test(g.location || ''));
 	for (const q of [1181, 575, 605, 213, 189, 201]) assert.ok(at(list, `accept ${q}`, is('accept', q)) < gromgol, `${q} taken in Booty Bay before the walk north`);
-	assert.ok(bb < gromgol && at(list, 'accept 1182', is('accept', 1182)) < gromgol, 'Lozgil and Revilgaz on the first Booty Bay stop');
+	assert.ok(bb < gromgol, 'Lozgil and Revilgaz on the first Booty Bay stop');
+	// Since the Horde 0.4.0 audit (round 2) Goblin Sponsorship part 4 (1182: Foreman Cozzle 38 and the Venture Co.
+	// Agents 39 at about 34) is left out of the solo route.
+	assert.ok(!list.some(({ goal }) => goal.quest === 1182), 'no Cozzle errand');
 	const flights = list.filter(({ goal }) => goal.t === 'fly' && /Booty Bay/.test(goal.location || ''));
 	assert.equal(flights.length, 1, 'one flight to Booty Bay, for the hand-ins');
-	const blueprints = at(list, 'blueprints', (g) => g.t === 'collect' && g.item === 5852);
-	assert.ok(blueprints < at(list, 'turnin 1182', is('turnin', 1182)), 'footlocker, then Revilgaz');
 	// Since the 0.4.0 audit Goblin Sponsorship's last part (1183, to Pozzik at 43) is taken on the 40-50 guide's first
 	// Booty Bay stop, not carried from here through four guides.
 	assert.ok(!list.some(({ goal }) => is('accept', 1183)(goal)), '1183 is not taken at 36');
 	const h04 = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
 	assert.ok(!h04.some(({ goal }) => [1178, 1111, 1180].includes(goal.quest)), 'Dustwallow\'s Ratchet stop keeps only Mebok');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
-	for (const q of [1180, 1182, 1183]) assert.ok(rf.include.some((e) => e.q === q), `a route-fix include keeps ${q}`);
+	assert.ok(rf.include.some((e) => e.q === 1180), 'a route-fix include keeps 1180');
+	assert.ok(rf.skip.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix skip leaves out 1182');
 });
 
 // Review (0.3.6, Alliance 30-40): Sully Balloo's Letter (637), Sara Balloo's Plea (683) and MacKreel's Moonshine (647) are
@@ -11976,21 +11990,22 @@ test('Horde Felwood 53: Cleansing Felwood taken and handed in on the Sanctuary s
 	assert.equal(fw[tin].s, fw[at(fw, 'turnin 5156', is('turnin', 5156))].s, "with Taronn's hand-in");
 	const ror = at(fw, 'collect 15879', (g) => g.t === 'collect' && g.quest === 6162);
 	const grind = fw.findIndex(({ goal }) => goal.t === 'level' && goal.grind === 7155);
-	assert.ok(tin < ror && fw[grind].s === fw[ror].s + 1, 'Ror, then the Deadwood top-up right after');
+	assert.ok(tin < ror, 'Ror after the hand-in');
+	// Horde 0.4.0 audit (round 2): the guide's top-ups are two whole levels (54 in Irontree Woods, 55 at its end); the
+	// Deadwood top-up after Ror is gone.
+	assert.equal(grind, -1, 'no Deadwood top-up');
 });
 
 // Seam Horde 30-40/40-50 (0.3.6, with the 30-40 owner): Baron Revilgaz's Goblin Sponsorship part 5 (1183, taken on
 // Horde 30-40/03's second Booty Bay stop) goes to Pozzik on 40-50/02's Mirage Raceway stop; The Eighteenth Pilot
 // (1186) is a word with Razzeric beside him. Razzeric's Tweaking (1187) sends you to south Tanaris and back: left out.
 test('Horde Raceway 43: Goblin Sponsorship to Pozzik and The Eighteenth Pilot on the Raceway stop', { skip }, () => {
+	// Since the Horde 0.4.0 audit (round 2) Goblin Sponsorship part 4 (1182) is left out of the solo route, so its
+	// parts 5 and 6 (1183 to Pozzik, 1186 to Razzeric) are not routed either.
 	const fl = goals('forever/horde/40-50/02-feralas.guide');
-	const poz = at(fl, 'turnin 1183', is('turnin', 1183));
-	const take = at(fl, 'accept 1186', is('accept', 1186));
-	const raz = at(fl, 'turnin 1186', is('turnin', 1186));
-	const stop = fl[at(fl, 'accept 1190', is('accept', 1190))].s;
-	assert.ok(poz < take && take < raz, 'Pozzik, then Razzeric');
-	for (const i of [poz, take, raz]) assert.equal(fl[i].s, stop, 'on the Raceway stop');
-	assert.ok(!fl.some(({ goal }) => is('accept', 1187)(goal)), "Razzeric's Tweaking is not routed");
+	for (const q of [1183, 1186, 1187]) assert.ok(!fl.some(({ goal }) => goal.quest === q), `${q} is not routed`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.skip.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix skip leaves out 1182');
 });
 
 // Horde 12-30 bracket review (0.3.6, measured): Thunder Bluff at the start of the Barrens & Stonetalon guide gives
@@ -12810,6 +12825,13 @@ test("mylons's report (#1893): the Cozzle's Footlocker step waits until Goblin S
 	const rec = fixes.find((f) => f.issue === 1893);
 	assert.ok(rec, 'the gate is a guide-fixes record');
 	assert.deepEqual([rec.faction, rec.at, rec.when], ['Horde', { quest: 1182, goal: 'objective', objective: 1 }, 'onquest 1182']);
+	// Since the Horde 0.4.0 audit (round 2) Goblin Sponsorship part 4 is left out of the solo route (Foreman Cozzle 38
+	// and the Venture Co. Agents 39 at about 34): with no Cozzle step, the record stays for a build that brings it back.
+	if (!goals(guide).some(({ goal }) => goal.quest === 1182)) {
+		const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+		assert.ok(rf.skip.some((e) => e.q === 1182 && e.faction === 'Horde'), 'Goblin Sponsorship part 4 is a route-fixes skip');
+		return;
+	}
 	// The key's line shares the anchored objective's step, so the step's gate holds it too.
 	const list = goals(guide);
 	const blueprints = list[at(list, 'collect 5852 quest 1182', (g) => g.t === 'collect' && g.item === 5852 && g.quest === 1182)];
@@ -12944,8 +12966,8 @@ test('Riverglades (Horde route): after Stranglethorn Vale, flown in from Stonard
 // The route's stops on either side of the zone carry its errands, each recorded taken and handed in by players:
 // Report to Rog'mar (95141) from Commander Aggro'gosh on Stranglethorn's last Grom'gol stop goes to Krom'rosh; On
 // the Other Side (95033, Tan'jani) and Shipping and Handling (95296, Friz) go to Camp Mojache and Steamwheedle Port,
-// both on the Feralas & Tanaris guide's way. Twice Misplaced Trust (97332) stays out: Lozgil offers it only after
-// two Stranglethorn quests the route doesn't take (players' recordings).
+// both on the Feralas & Tanaris guide's way. Twice Misplaced Trust (97332) follows Lozgil's two Stranglethorn quests,
+// which the route takes since the Horde 0.4.0 audit (round 2).
 test("Riverglades (Horde route): the zone's errands are taken and handed in at stops the route makes", () => {
 	const H = (n) => rivergladesSteps(path.join(__dirname, '..', 'guides', 'forever', 'horde', '40-50', n));
 	const stepOf = (steps, verb, q) => steps.find((l) => anyLine(l, new RegExp(`^\\s+${verb} ${q}\\b`)));
@@ -12956,7 +12978,12 @@ test("Riverglades (Horde route): the zone's errands are taken and handed in at s
 		assert.ok(take && at.test(take[0]), `${q} taken: ${take && take[0]}`);
 		assert.ok(give && at.test(give[0]), `${q} handed in: ${give && give[0]}`);
 	}
-	assert.ok(!stepOf(stv, 'accept', 97332), 'Twice Misplaced Trust is not taken');
+	// Since the Horde 0.4.0 audit (round 2) the route does Anything of Value and Zimmix's Great Escape in the 30-40
+	// Stranglethorn guide, so Lozgil's Twice Misplaced Trust (97332) is taken on the first Booty Bay stop and handed to
+	// Wharfmaster Whizzbuzz on the first Powderfuse Port stop.
+	const tw = stepOf(stv, 'accept', 97332), tg = stepOf(glades, 'turnin', 97332);
+	assert.ok(tw && /^step Booty Bay$/.test(tw[0]), `Twice Misplaced Trust taken in Booty Bay: ${tw && tw[0]}`);
+	assert.ok(tg && /^step Wharfmaster Whizzbuzz$/.test(tg[0]), `and handed in to Whizzbuzz: ${tg && tg[0]}`);
 });
 
 // Clugfist offers Might Makes Right and Unworthy Champion (95424, 95425) only after Land of Giants (95420): all 17
