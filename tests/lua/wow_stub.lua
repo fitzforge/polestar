@@ -1239,14 +1239,17 @@ function C_AddOns.GetAddOnMetadata(name, field)
 end
 function C_AddOns.GetNumAddOns() return #stub.addons end
 -- -> name, title, notes, loadable, reason, security, updateAvailable. An
--- addon that loads on demand gives reason "DEMAND_LOADED" before LoadAddOn and
--- reads as loadable, as the client gives it (none once loaded).
+-- addon that loads on demand, not loaded yet, reads as not loadable with
+-- reason "DEMAND_LOADED" ("DEP_DEMAND_LOADED": one it depends on loads on
+-- demand), as the client gives it: Blizzard_AddOnList draws such an addon as
+-- loadable for that reason alone and shows ADDON_DEMAND_LOADED as its status.
+-- None and loadable once loaded.
 function C_AddOns.GetAddOnInfo(key)
 	local a = addonEntry(key)
 	if not a then return nil, nil, nil, false, "MISSING", nil, false end
 	local reason = a.reason
-	if reason == "DEMAND_LOADED" and stub.addonsLoaded[a.name] then reason = nil end
-	return a.name, a.title or a.name, a.notes, reason == nil or reason == "DEMAND_LOADED", reason, "INSECURE", false
+	if (reason == "DEMAND_LOADED" or reason == "DEP_DEMAND_LOADED") and stub.addonsLoaded[a.name] then reason = nil end
+	return a.name, a.title or a.name, a.notes, reason == nil, reason, "INSECURE", false
 end
 -- ## LoadOnDemand: 1 (an entry with demand = true, or reason "DEMAND_LOADED").
 function C_AddOns.IsAddOnLoadOnDemand(name)

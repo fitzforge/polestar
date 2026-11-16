@@ -910,16 +910,18 @@ emit({ ran = table.concat(ran, ","), hooks = table.concat(T.SkinSurfaces().hooks
 
 // Installed skin addons (## X-Polestar-Skin): listed whether loaded or not. One that loads on demand loads at login
 // when the saved skin is its own, when the player picks one of its skins, and when the settings list the skins;
-// one the client will not load is listed with the client's reason and never loaded.
+// one the client will not load is listed with the client's reason and never loaded. The client gives an addon that
+// loads on demand, before it loads, as not loadable with reason DEMAND_LOADED (DEP_DEMAND_LOADED when one it depends
+// on loads on demand): that is no reason it cannot load (the 0.4.0 preview listed none of the bundled skins).
 #[test]
 fn installed_skin_addons_are_listed_and_load_on_demand_when_saved_picked_or_listed() {
 	let out = emitted(&RunAddon {
 		before: r##"
 stub.addons = {
 	{ name = "Polestar" },
-	{ name = "Test_Ember", title = "Ember" },
-	{ name = "Test_Glass", title = "Glass", notes = "A glass skin." },
-	{ name = "Test_Mist", title = "Mist" },
+	{ name = "Test_Ember", title = "Ember", reason = "DEMAND_LOADED" },
+	{ name = "Test_Glass", title = "Glass", notes = "A glass skin.", reason = "DEMAND_LOADED" },
+	{ name = "Test_Mist", title = "Mist", reason = "DEP_DEMAND_LOADED" },
 	{ name = "Test_Off", title = "Off", reason = "DISABLED" },
 	{ name = "Test_Plain", title = "Plain" },
 }
