@@ -7,7 +7,8 @@
 // rule (tests/lint-timed.test.js); the Fargodeep Mine and Blackfathom Deeps
 // mouths are in tests/guides-caves.test.js.
 //
-// Needs data/forever (forge data build); skips without it.
+// Needs data/forever (forge data build); skips without it, except the
+// header-only Lookup regression, which uses a small display-data fixture.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -23,6 +24,7 @@ const { DATA, SOURCES } = require('../tools/lib/paths');
 const { loadWeb } = require('../tools/lib/codex/web');
 const { runAddon } = require('./helpers/lua');
 const { writeTestPack } = require('./helpers/dsl');
+const { writeCodexPack } = require('./helpers/codex');
 const { buildSimPack, playGuide, SIMULATE } = require('../tools/lib/playtest');
 const { makeProjector, dist } = require('../tools/lib/route/geo');
 const { tokeniseGuides } = require('../tools/lib/dsl/tokens');
@@ -99,6 +101,84 @@ for (const [verb, quest] of [['accept', 98393], ['turnin', 98397]]) {
 			}
 		} finally {
 			fs.rmSync(pack.dir, { recursive: true, force: true });
+		}
+	});
+}
+
+// This regression needs no local reference build: compile the actual headers,
+// whose index Lookup uses, with one inert step. Display names and zone ids are
+// from the checked-in guide packs; quest mechanics are not part of this fixture.
+const TOTEMS = [[5175, 'earth'], [5176, 'fire'], [5177, 'water'], [5178, 'air']];
+function totemHeaders() {
+	const items = Object.fromEntries([
+		[5175, 'Earth Totem'], [5176, 'Fire Totem'], [5177, 'Water Totem'], [5178, 'Air Totem'],
+		[6637, 'Water Sapta'], [263412, 'Totem of Charged Flames'],
+		[280607, "Lightning's Grasp"], [280605, "Tidebringer's Claw"],
+		[280604, 'Rage of the Storm'], [280696, "Elementalist's Guard"],
+	].map(([id, name]) => [id, { id, name }]));
+	const zones = Object.fromEntries([
+		[1426, 'Dun Morogh'], [1411, 'Durotar'], [1413, 'The Barrens'],
+		[1455, 'Ironforge'], [1454, 'Orgrimmar'],
+	].map(([id, name]) => [id, { id, name }]));
+	const headerData = new Data({ items, zones });
+	const sources = TOTEMS.flatMap(([, element]) => ['alliance', 'horde'].map((side) => {
+		const file = path.join(OFFICIAL_DIR, `forever/class/shaman/call-of-${element}-${side}.guide`);
+		const text = fs.readFileSync(file, 'utf8');
+		const firstStep = text.search(/^step(?:\s|$)/m);
+		assert.ok(firstStep > 0, `${file}: the authored header ends before the steps`);
+		return { file, text: text.slice(0, firstStep) + 'step\n  note Header lookup test\n' };
+	}));
+	const { guides, diag } = compileSources(sources, headerData);
+	assert.deepEqual(diag.sorted(), []);
+	assert.equal(guides.length, 8);
+	return { guides, headerData };
+}
+
+for (const [side, race] of [['Alliance', 'Dwarf'], ['Horde', 'Orc']]) {
+	test(`${side} Shaman totems: item Lookup opens the authored class guide (#2331, Logan)`, () => {
+		const { guides, headerData } = totemHeaders();
+		const pack = writeTestPack(guides, headerData);
+		// A real serialized Codex pack lets the public action load normally.
+		// It intentionally has no totem records: this tests curated selection,
+		// not the generated quest chain or its unavailable Forever-only facts.
+		const codex = writeCodexPack(require('./fixtures/codex/lookup.json'));
+		try {
+			const [opened, fallback] = runAddon({
+				stubs: ['stub_world.lua', 'stub_encoding.lua'],
+				before: `local w = stub.world
+					w.race, w.raceName, w.faction = "${race}", "${race}", "${side}"
+					w.class, w.className, w.classID, w.level = "SHAMAN", "Shaman", 7, 30
+					${codex.stubLua}`,
+				addons: ['Polestar', { name: 'Polestar_Guides', files: pack.scripts }],
+				login: true,
+				script: `local L, E, G = Polestar.Lookup, Polestar.Engine, Polestar.Guides
+					local result = {}
+					for _, item in ipairs({5175, 5176, 5177, 5178}) do
+						local id, reason = L.Guide("item", item)
+						result[#result + 1] = { opened = id or false, reason = reason or false,
+							active = E.GetGuide() and E.GetGuide().id or false }
+					end
+					emit(result)
+					-- Manual browsing already falls back to a guide for another class.
+					stub.world.class, stub.world.className, stub.world.classID = "WARRIOR", "Warrior", 1
+					local curated = L.CuratedGuide("item", 5177)
+					local id = L.Guide("item", 5177)
+					emit({ curated = curated or false, opened = id or false,
+						matches = curated and G.GuideMatches(G.Get(curated), Polestar.Compat.GetPlayerInfo()) or false,
+						active = E.GetGuide() and E.GetGuide().id or false })`,
+			}).emitted;
+			assert.deepEqual(opened.map((r) => r.opened), TOTEMS.map(([, element]) => `forever/class/shaman/call-of-${element}-${side.toLowerCase()}`));
+			for (const row of opened) assert.equal(row.active, row.opened, 'the selected guide is active');
+			for (const [item, element] of TOTEMS) for (const faction of ['alliance', 'horde']) {
+				assert.deepEqual(guides.find((g) => g.id.endsWith(`call-of-${element}-${faction}`)).collects, [item], 'only the primary totem is indexed');
+			}
+			assert.equal(fallback.matches, false);
+			assert.ok(fallback.curated);
+			assert.equal(fallback.opened, fallback.curated, 'existing manual fallback remains available');
+			assert.equal(fallback.active, fallback.opened);
+		} finally {
+			fs.rmSync(pack.dir, { recursive: true, force: true });
+			codex.cleanup();
 		}
 	});
 }
