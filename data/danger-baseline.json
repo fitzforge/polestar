@@ -2329,6 +2329,19 @@
 			"evidence": "route level 36.6; Lost One Chieftain 39-39; recordings (2026-11-11): done by 4 people at 37-39 (median 39), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 93429|rare",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "kill 93429",
+			"kind": "rare",
+			"title": "Fallow Sanctuary",
+			"level": 36.1,
+			"mobs": [
+				"Lost One Chieftain 39-39 x2"
+			],
+			"reason": "Blood of My Blood's new kill line (round 3: the quest had no objective in the data) on the same Fallow Sanctuary step and camp as the reviewed Draenethyst Crystals row; a rare (not elite) near the goal, which players do: 12 of the 13 recorded people who took it finished it",
+			"evidence": "route level 36.1; Lost One Chieftain 39-39 (rare, not elite); recordings (to 2026-11-16, quest 93429): 13 people took it, 12 finished at 36-38 (median 37), 0 abandoned; the gate counts 1 death within 60 yd"
+		},
+		{
 			"key": "forever/alliance/30-40/05-arathi-highlands.guide|collect 1421.1|rare",
 			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
 			"goal": "collect 1421.1",
