@@ -18182,13 +18182,6 @@ do
 					},
 				},
 				{
-					title = "{quest:96102}",
-					when = { { k = "skill", n = 1, name = "Tailoring", skillLine = 197 }, { k = "knows", neg = true, spell = 1229504 } },
-					goals = {
-						{ t = "accept", quest = 96102, title = "Camping 101: Tailoring", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2161, 96655 }, closedBy = { 96057, 97925, 97937, 97950, 97961, 97972, 97973 }, endNpcs = { 2855 }, xp = 270, preTitles = { [2161] = "A Peon's Burden", [95998] = "The Great Outdoors", [96057] = "Camping 101: Tailoring", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [96655] = "Camping 101: Cooking", [97925] = "Camping 101: Tailoring", [97937] = "Camping 101: Tailoring", [97950] = "Camping 101: Tailoring", [97961] = "Camping 101: Tailoring", [97972] = "Camping 101: Tailoring", [97973] = "Camping 101: Tailoring" }, map = 1411, x = 52.02, y = 47.31, f = "e", profLine = 197, profName = "Tailoring", profRank = 1, note = "{npc:265809}: for Snang" },
-					},
-				},
-				{
 					title = "{quest:97905}",
 					when = { { k = "skill", n = 1, name = "Herbalism", skillLine = 182 }, { k = "knows", neg = true, spell = 1229705 } },
 					goals = {
@@ -18252,6 +18245,13 @@ do
 					goals = {
 						{ t = "complete", quest = 97903, title = "Camping 101: First Aid", map = 1411, x = 54.17, y = 41.93, f = "e", profLine = 129, profName = "First Aid", profRank = 1, objs = { { text = "Raise your first aid skill to 20", count = 1 } } },
 						{ t = "turnin", quest = 97903, title = "Camping 101: First Aid", npc = 5943, npcName = "Rawrk", map = 1411, x = 54.17, y = 41.93, z = 10.6, f = "e", profLine = 129, profName = "First Aid", profRank = 1, note = "{npc:5943}: {quest:97903}" },
+					},
+				},
+				{
+					title = "{quest:96102}",
+					when = { { k = "skill", n = 1, name = "Tailoring", skillLine = 197 }, { k = "knows", neg = true, spell = 1229504 } },
+					goals = {
+						{ t = "accept", quest = 96102, title = "Camping 101: Tailoring", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2161, 96655 }, closedBy = { 96057, 97925, 97937, 97950, 97961, 97972, 97973 }, endNpcs = { 2855 }, xp = 270, preTitles = { [2161] = "A Peon's Burden", [95998] = "The Great Outdoors", [96057] = "Camping 101: Tailoring", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [96655] = "Camping 101: Cooking", [97925] = "Camping 101: Tailoring", [97937] = "Camping 101: Tailoring", [97950] = "Camping 101: Tailoring", [97961] = "Camping 101: Tailoring", [97972] = "Camping 101: Tailoring", [97973] = "Camping 101: Tailoring" }, map = 1411, x = 52.02, y = 47.31, f = "e", profLine = 197, profName = "Tailoring", profRank = 1, note = "{npc:265809}: for Snang" },
 					},
 				},
 				{
@@ -21295,13 +21295,6 @@ do
 					},
 				},
 				{
-					title = "{quest:96102}",
-					when = { { k = "skill", n = 1, name = "Tailoring", skillLine = 197 }, { k = "knows", neg = true, spell = 1229504 } },
-					goals = {
-						{ t = "accept", quest = 96102, title = "Camping 101: Tailoring", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2161, 96655 }, closedBy = { 96057, 97925, 97937, 97950, 97961, 97972, 97973 }, endNpcs = { 2855 }, xp = 270, preTitles = { [2161] = "A Peon's Burden", [95998] = "The Great Outdoors", [96057] = "Camping 101: Tailoring", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [96655] = "Camping 101: Cooking", [97925] = "Camping 101: Tailoring", [97937] = "Camping 101: Tailoring", [97950] = "Camping 101: Tailoring", [97961] = "Camping 101: Tailoring", [97972] = "Camping 101: Tailoring", [97973] = "Camping 101: Tailoring" }, map = 1411, x = 52.02, y = 47.31, f = "e", profLine = 197, profName = "Tailoring", profRank = 1, note = "{npc:265809}: for Snang" },
-					},
-				},
-				{
 					title = "{quest:97905}",
 					when = { { k = "skill", n = 1, name = "Herbalism", skillLine = 182 }, { k = "knows", neg = true, spell = 1229705 } },
 					goals = {
@@ -21367,6 +21360,13 @@ do
 					goals = {
 						{ t = "complete", quest = 97903, title = "Camping 101: First Aid", map = 1411, x = 54.17, y = 41.93, f = "e", profLine = 129, profName = "First Aid", profRank = 1, objs = { { text = "Raise your first aid skill to 20", count = 1 } } },
 						{ t = "turnin", quest = 97903, title = "Camping 101: First Aid", npc = 5943, npcName = "Rawrk", map = 1411, x = 54.17, y = 41.93, z = 10.6, f = "e", profLine = 129, profName = "First Aid", profRank = 1, note = "{npc:5943}: {quest:97903}" },
+					},
+				},
+				{
+					title = "{quest:96102}",
+					when = { { k = "skill", n = 1, name = "Tailoring", skillLine = 197 }, { k = "knows", neg = true, spell = 1229504 } },
+					goals = {
+						{ t = "accept", quest = 96102, title = "Camping 101: Tailoring", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, preAll = { 2161, 96655 }, closedBy = { 96057, 97925, 97937, 97950, 97961, 97972, 97973 }, endNpcs = { 2855 }, xp = 270, preTitles = { [2161] = "A Peon's Burden", [95998] = "The Great Outdoors", [96057] = "Camping 101: Tailoring", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [96655] = "Camping 101: Cooking", [97925] = "Camping 101: Tailoring", [97937] = "Camping 101: Tailoring", [97950] = "Camping 101: Tailoring", [97961] = "Camping 101: Tailoring", [97972] = "Camping 101: Tailoring", [97973] = "Camping 101: Tailoring" }, map = 1411, x = 52.02, y = 47.31, f = "e", profLine = 197, profName = "Tailoring", profRank = 1, note = "{npc:265809}: for Snang" },
 					},
 				},
 				{

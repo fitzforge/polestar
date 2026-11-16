@@ -9406,6 +9406,8 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 		['forever/alliance/skyborne/01-zephras-isle.guide', 96101, [97963, 97964, 97965, 97967, 97969, 97970, 97971, 97973, 98286]],
 	];
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	// Eric Brighthammer offers Blacksmithing only once Supplies to Tannok is handed in: its step follows that stop.
+	const waitsFor = { 96044: 2160 };
 	for (const [guide, sit, quests] of sets) {
 		const list = goals(guide);
 		const sat = at(list, `${guide}: turnin ${sit}`, is('turnin', sit));
@@ -9418,8 +9420,9 @@ test('Alliance starting zones: profession Camping 101s from the campfire, for th
 			const when = (i) => [].concat(list[i].step.when || []);
 			assert.ok(when(take).some((w) => w.k === 'skill' && !w.neg), `${guide}: ${q} is offered only with the profession`);
 			assert.ok(when(give).some((w) => w.k === 'onquest' && !w.neg && [].concat(w.q).includes(q)), `${guide}: ${q}'s hand-in shows only with the quest in the log`);
-			const between = list.slice(sat + 1, take);
-			assert.ok(between.every(({ step }) => step === list[sat].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly`);
+			const from = waitsFor[q] ? at(list, `${guide}: turnin ${waitsFor[q]}`, is('turnin', waitsFor[q])) : sat;
+			const between = list.slice(from + 1, take);
+			assert.ok(between.every(({ step }) => step === list[from].step || [].concat(step.when || []).some((w) => w.k === 'skill')), `${guide}: ${q}'s step follows the campfire step directly (or the stop its giver waits for)`);
 		}
 	}
 });
@@ -15146,4 +15149,21 @@ test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), 
 	const tip = [pool.step.note, pool.step.tip].flat().filter(Boolean).join(' ');
 	assert.match(tip, /tap it/, 'says to tap the pool');
 	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
+});
+
+// Camping 101 accepts and their givers' prerequisites: Eric Brighthammer offers Blacksmithing (96044) only once
+// Supplies to Tannok (2160) is handed in, Brakk offers Tailoring (96102) only once A Peon's Burden (2161) and
+// Camping 101: Cooking (96655) are (players' recordings). A Camping step placed before those hand-ins was
+// passed with the quest not offered, and the guide never came back to it.
+test('Start zones: a Camping 101 accept comes after the hand-ins its giver waits for', { skip }, () => {
+	const cases = [...DUN_MOROGHS.map((g) => [g, 96044, [2160]]), ...DUROTARS.map((g) => [g, 96102, [2161, 96655]])];
+	for (const [guide, quest, pres] of cases) {
+		const list = goals(guide);
+		const take = at(list, `accept ${quest}`, is('accept', quest));
+		for (const pre of pres) {
+			assert.ok(at(list, `turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${pre} is handed in before ${quest} is taken`);
+		}
+		const hand = list.findIndex(({ goal }) => is('turnin', quest)(goal));
+		assert.ok(hand < 0 || take < hand, `${guide}: ${quest} is taken before its hand-in`);
+	}
 });
