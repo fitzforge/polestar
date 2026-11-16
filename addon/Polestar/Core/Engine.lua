@@ -8423,8 +8423,12 @@ function Own.trainerOnRoute(list, tier)
 	local rough = {}
 	for order, c in ipairs(list) do
 		if tier[c] == tier[list[1]] then
-			local d, leg = Own.routeDetour(here, pts, c, ns.DirectTravelCost)
-			if d then rough[#rough + 1] = { c = c, d = d, leg = leg, order = order } end
+			-- When the character already stands in the same map as a trainer of their class (list[1]),
+			-- candidates on other maps cannot beat the local trainer on straight-line detours across mountains (#2602).
+			if here.map ~= list[1].map or c.map == here.map then
+				local d, leg = Own.routeDetour(here, pts, c, ns.DirectTravelCost)
+				if d then rough[#rough + 1] = { c = c, d = d, leg = leg, order = order } end
+			end
 		end
 	end
 	table.sort(rough, function(x, y)

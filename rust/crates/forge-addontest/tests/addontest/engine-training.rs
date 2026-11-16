@@ -74,6 +74,12 @@ Polestar.RegisterGuide({ id = "test/trains-far", pack = "test", title = "Trains 
 	{ goals = { { t = "train", class = true, candidates = { { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.8, y = 31.4, f = "e", faction = "H", classes = { "WARRIOR" } } } } } },
 	{ goals = { { t = "level", level = 20 } } },
 } })
+-- Ironforge to Stormwind via Tram: step 1 in Ironforge, step 2 in Stormwind (#2602).
+Polestar.RegisterGuide({ id = "test/tram", pack = "test", title = "Tram to Stormwind", faction = "Alliance", minLevel = 1, maxLevel = 20, steps = {
+	{ goals = { { t = "accept", quest = 6662, title = "Me Brother, Nipsy", map = 1455, x = 78.0, y = 51.4 } } },
+	{ goals = { { t = "turnin", quest = 6662, title = "Me Brother, Nipsy", map = 1453, x = 64.5, y = 7.5 } } },
+	{ goals = { { t = "level", level = 20 } } },
+} })
 "#;
 
 const EVENTS: &str = r#"
@@ -497,4 +503,22 @@ fn with_no_guide_stop_within_10_steps_the_advice_is_the_planner_s_trainer_the_re
 	let none = run(Some(&on_guide("test/barrens", 10)), "", ADVICE);
 	assert_eq!(none["steps"], false, "{none}");
 	assert_eq!(none["trainer"], none["planner"], "{none}");
+}
+
+// A Dwarf Shaman at level 14 in Ironforge Tinker Town (following step 94 Tram to Stormwind)
+// is sent to Eldrun Stormbreaker in Ironforge, never across the mountains to Coldridge Valley (#2602).
+#[test]
+fn a_dwarf_shaman_in_ironforge_heading_to_stormwind_picks_ironforge_trainer_not_coldridge_2602() {
+	let world = r#"
+		local w = stub.world
+		w.addMap(1455, { name = "Ironforge", c = 0, left = -713.591, right = -1504.216, top = -4569.241, bottom = -5096.846 })
+		w.addMap(1426, { name = "Dun Morogh", c = 0, left = 1802.083, right = -3122.917, top = -3877.083, bottom = -7160.417 })
+		w.addMap(1453, { name = "Stormwind City", c = 0, left = 1380.971, right = 36.701, top = -8278.851, bottom = -9175.205 })
+		w.race, w.raceName, w.faction, w.class, w.level = "Dwarf", "Dwarf", "Alliance", "SHAMAN", 14
+		w.moveTo(1455, 70.99, 44.09)
+	"#;
+	let out = run(Some(&on_guide("test/tram", 12)), world, ADVICE);
+	// 258098 Eldrun Stormbreaker (Ironforge), 257446 Teo Hammerstorm (Coldridge Valley).
+	assert_eq!(out["trainer"], 258098, "Eldrun Stormbreaker in Ironforge, not Teo across the mountain: {out}");
+	assert_eq!(out["dueNpc"], 258098, "reminder names Eldrun: {out}");
 }
