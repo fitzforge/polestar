@@ -388,6 +388,22 @@ test(`${STONETALON}: A Void Path shows the Eye of Kilrogg's objective before its
 	assert.equal(list[work].s, list[turnin].s, 'in the hand-in step');
 });
 
+// Jackal's report (#2580): Kuray'bin stands where the "Into Ashenvale" walk ends and offers Ashenvale Outrunners
+// (6503), which the route leaves for the next Ashenvale guide; a player who took it anyway had no line for the nine
+// Outrunners, only a hand-in once they were dead. Whoever carries it gets the kills and the hand-in right after
+// Splintertree Post (`when onquest 6503`); nobody else sees them.
+test(`${STONETALON}: Jackal's report (#2580): Ashenvale Outrunners taken at Kuray'bin gets its kills, only for whoever carries it`, { skip }, () => {
+	const list = goals(STONETALON);
+	assert.ok(!list.some(({ goal }) => is('accept', 6503)(goal)), 'the route still leaves it for the next Ashenvale visit');
+	const kills = at(list, 'kill 12856 (6503.1)', (g) => g.t === 'kill' && g.quest === 6503 && g.npc === 12856);
+	const turnin = at(list, 'turnin 6503', is('turnin', 6503));
+	assert.ok(at(list, 'turnin 6382', is('turnin', 6382)) < kills && kills < turnin, 'after Splintertree Post: the kills, then Kuray\'bin');
+	assert.ok(turnin < at(list, 'accept 98251', is('accept', 98251)), 'before the walk west to Va\'xug');
+	for (const i of [kills, turnin]) {
+		assert.ok((list[i].step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(6503)), `${list[i].goal.t}: only while 6503 is in the log`);
+	}
+});
+
 test(`${STONETALON}: the Warsong update goals name the scouts who hand them over, from the data`, { skip }, () => {
 	const list = goals(STONETALON);
 	// The Warsong Reports (6543) is left out since the final route review (route-fixes skip); holds if a build takes it.
