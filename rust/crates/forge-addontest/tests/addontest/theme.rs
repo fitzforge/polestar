@@ -1618,11 +1618,21 @@ fn settings_from_before_the_guide_text_size_keep_the_guide_window_s_text_at_the_
 	let fresh = run_with(script, "");
 	assert_eq!(fresh["guide"], 1);
 	assert_eq!(fresh["marked"], true, "a fresh install is marked too, so a general size set later is not copied");
-	let strings = run(r#"
+	// The profile strings are the settings' addon's (Polestar_Options/Core/ProfileStrings.lua), and their
+	// envelope needs the client's encoding (stub_encoding.lua), as in profiles.rs.
+	let strings = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua", "stub_encoding.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "../Polestar_Options/Core/ProfileStrings.lua"])],
+		script: r#"uistub.install()
+		stub.login()
 		local P = Polestar.Profiles
 		local before = P.Import(P.Pack('{"format":1,"migrations":[],"settings":{"ui.textSize":1.3}}'))
 		local after = P.Import(P.Pack('{"format":1,"migrations":["guideTextSize"],"settings":{"ui.textSize":1.3}}'))
-		emit({ before = before.settings, after = after.settings })"#);
+		emit({ before = before.settings, after = after.settings })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
 	assert_eq!(strings["before"], json!({ "ui.textSize": 1.3, "ui.guideTextSize": 1.3 }), "a profile string from before it too");
 	assert_eq!(strings["after"], json!({ "ui.textSize": 1.3 }));
 }
