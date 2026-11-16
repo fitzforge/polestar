@@ -363,7 +363,7 @@ step Thunder Bluff
   when onquest 1195,97538,1086
   tip Into Thunder Bluff by a lift: Tal, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet.
   getfp "Thunder Bluff" npc 2995      -- Tal
-  kill 3057 quest 93739.3 "Talk to Cairne Bloodhoof" only Skyborne optional -- Speak with Cairne Bloodhoof, in Thunder Bluff: Exploring the Horde
+  talk 3057 quest 93739.3 "Talk to Cairne Bloodhoof" only Skyborne optional -- Speak with Cairne Bloodhoof, in Thunder Bluff: Exploring the Horde
 
 step Zangen Stonehoof
   zone Thunder Bluff

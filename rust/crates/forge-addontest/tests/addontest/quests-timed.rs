@@ -342,6 +342,38 @@ fn a_timed_quest_the_route_hands_in_gets_no_off_route_row() {
 	assert!(!s(&out["row"]).contains("doesn't go there"), "{}", out["row"]);
 }
 
+// Every fight's end catches the off-route rows up (GuideFrameWindow.lua, PLAYER_REGEN_ENABLED -> GF.HereChanged). With
+// no While-here panel before or after, nothing moved: the window is not laid out again (perf sweep: a full layout on
+// every combat exit). A row that came in the fight still comes after it, and lays the window out.
+#[test]
+fn a_fights_end_with_no_while_here_panel_lays_nothing_out_and_a_row_held_through_it_still_comes() {
+	let out = run(
+		600,
+		&format!(
+			"{OFF_ROUTE}{}",
+			r#"
+		local n = 0
+		local layout = GF.Layout
+		GF.Layout = function(...) n = n + 1; return layout(...) end
+		local r = { before = here() }
+		stub.fire("PLAYER_REGEN_DISABLED"); stub.fire("PLAYER_REGEN_ENABLED")
+		r.quiet = { n, here() }
+		stub.fire("PLAYER_REGEN_DISABLED")
+		w.accept(853, {}, "Apothecary Zamah"); stub.advance(1.1)
+		r.combat = here()
+		n = 0
+		stub.fire("PLAYER_REGEN_ENABLED")
+		r.after = { n, here() }
+		emit(r)"#
+		),
+	);
+	assert_eq!(out["before"], "", "no While-here panel to start with");
+	assert_eq!(out["quiet"], serde_json::json!([0, ""]), "a fight's end with no panel before or after lays nothing out");
+	assert_eq!(out["combat"], "", "no row comes in combat");
+	assert!(out["after"][0].as_i64().unwrap() >= 1, "the row coming after the fight lays the window out: {}", out["after"]);
+	assert!(s(&out["after"][1]).starts_with("Apothecary Zamah"), "{}", out["after"]);
+}
+
 // 3F-C7 (0.3.8): Nori's delivery, with a walk out to the farm (80,80) on the route before Durnan's hand-in (20,60). The
 // route's way to Durnan (to the farm first: about 9 minutes) gets in after a 5-minute timer runs out while the way
 // straight there (2:30) makes it: the hand-in is pulled forward, the arrow leads to Durnan ahead of the farm, and the

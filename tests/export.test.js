@@ -154,6 +154,17 @@ test('importString refuses a text over the cap and a payload over the cap, as th
 	assert.match(r.error, /bytes of guide data; Polestar reads 262144 at most/);
 });
 
+test('importString keeps a long note in written and names the cap of a names value (#2523)', () => {
+	const manifest = { id: 'yendi', license: 'MIT' };
+	const key = `Ask {npc:1} about the ${'long road '.repeat(60)}`;
+	const words = `Ask Deputy Will about the ${'long road '.repeat(60)}`;
+	const guide = (names, written) => ({ id: 'yendi/notes', title: 'Notes', names, written, steps: [{ note: key, goals: [{ t: 'level', level: 2 }] }] });
+	const ok = importString(guide({ 'npc:1': 'Deputy Willem' }, { [key]: words }), { manifest, data: null });
+	assert.equal(ok.error, undefined);
+	const named = importString(guide({ 'npc:1': 'A'.repeat(LIMITS.names + 1) }, { [key]: words }), { manifest, data: null });
+	assert.match(named.error, /guide\.names\.npc:1 is longer than 128 bytes/);
+});
+
 test('importString refuses a guide whose spots, predicates, jumps, reagents, sources, quest lists or names pass their caps, as the addon would', () => {
 	const manifest = { id: 'yendi', license: 'MIT' };
 	const when = { k: 'level', n: 2 };

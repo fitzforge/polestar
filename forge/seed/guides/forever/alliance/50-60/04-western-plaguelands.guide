@@ -58,9 +58,15 @@ step Dalson's Tears
 # ---------------------------------------------------------------- The cauldrons
 
 step Chillwind Camp
+  when has 12840 x20
   tip Ride back south to the camp.
   turnin 5402 direct -- Argent Officer Pureheart
+
+step Argent Officer Pureheart
+  when has 12841 x10
   turnin 5403 direct
+
+step High Priestess MacDonnell
   turnin 5220                         -- High Priestess MacDonnell
   accept 5222
 
@@ -372,6 +378,7 @@ step Wandering Shay
   turnin 2845                         -- Rockbiter
 
 step Gregan Brewspewer
+  when has 11242
   tip Back to Gregan's camp, just south-east of Rockbiter: the Evoroot buys three Videre Elixirs. Keep them: Donova takes one, and Gaeriyan in Gadgetzan shows himself only to someone who has drunk one.
   turnin 4041 direct
   collect 11243 quest 3909.1          -- Videre Elixir

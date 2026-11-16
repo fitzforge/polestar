@@ -218,11 +218,15 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- and after at the same height lays out only itself and repaints the
 	-- strings' shades (the Transparent look's); nothing else in the window reads
 	-- the list. A panel that came, went or changed height lays out the window.
+	-- No panel before or after (every fight's end asks, GuideFrameWindow.lua):
+	-- nothing moved, nothing to lay out.
 	function GF.HereChanged()
 		if not F or GF.State() ~= "steps" or not GF.View() then return end
 		local here = GF.here
-		local was = here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and here:GetHeight()
+		local hidden = not here:IsShown()
+		local was = not hidden and not Anim.IsRunning(here.Body, "alpha") and here:GetHeight()
 		GF.FillHere(Engine())
+		if hidden and not here:IsShown() then return end
 		if was and here:IsShown() and not Anim.IsRunning(here.Body, "alpha") and GF.LayoutHere(F:GetWidth()) == was then
 			GF.PaintShades()
 			return

@@ -2669,6 +2669,44 @@ fn readers_of_one_moment_share_a_step_view_and_any_change_gives_a_fresh_one() {
 	assert_eq!(out["tick"], json!(["active", "done"]), "a tick shows at once in the next shared read: {out}");
 }
 
+// The Quality of Life refreshes of one frame (QoL.Coalesce: the bag glow, the buttons...) share the step view the
+// first builds (#2555: a kill built one per refresh), and it reads as a fresh view; another timer of Polestar's
+// between two of them starts a new moment, so the second builds its own. Each refresh still runs once per frame,
+// in the order asked.
+#[test]
+fn the_quality_of_life_refreshes_of_one_frame_share_a_step_view() {
+	let out = run1(Run {
+		full: true,
+		script: r#"
+			local w, QoL = stub.world, Polestar.QoL
+			w.accept(783, {}, "A Threat Within"); flush()
+			local got, order, fresh = {}, {}, true
+			local function statuses(v)
+				local s = {}
+				for _, g in ipairs(v.goals) do s[#s + 1] = tostring(g.status) .. ":" .. tostring(g.text) end
+				return table.concat(s, "|")
+			end
+			local function reader(name)
+				return QoL.Coalesce(function()
+					order[#order + 1] = name
+					got[name] = QoL.CurrentStep()
+					if statuses(got[name]) ~= statuses(E.GetStepView(E.GetStepIndex())) then fresh = false end
+				end)
+			end
+			local a, b, c = reader("a"), reader("b"), reader("c")
+			a(); b(); a(); stub.advance(0.02)
+			local r = { shared = got.a ~= nil and got.a == got.b }
+			got = {}
+			a(); Polestar.After(0, function() end); c(); stub.advance(0.02)
+			r.timer = got.a ~= nil and got.c ~= nil and got.a ~= got.c
+			r.order, r.fresh = table.concat(order), fresh
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out, json!({ "shared": true, "timer": true, "order": "abac", "fresh": true }), "{out}");
+}
+
 // The guide window's progress count without the frame's spike (Engine.ProgressSoon): after a change the count runs
 // over the next frames, 40 steps a frame, and lands with GetProgress's numbers; then it is kept for the evaluation. A
 // change half way starts it again on the new state.
