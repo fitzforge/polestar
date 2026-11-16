@@ -2284,8 +2284,13 @@ test(`${TIRISFAL}: Fitz's report (#1046 follow-up): each Brill visit enters the 
 // Treat. The still comes once, after Homer Stonefield sells the apples, and no
 // step waits on `when onquest 91736`, which never holds. GrosGorey (#2312)
 // saw While Here offer An Apple Treat before collecting the Applejack: neither
-// quest has an accept window, so both must be direct hand-ins.
-test(`${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after the Stonefield apples, with no early accept`, { skip }, () => {
+// quest has an accept window, so both must be direct hand-ins. twisted (#2561,
+// 0.4.0) stood beside De Vries on a hand-in he never offered: the Applejack
+// was not in the bags (players' recordings: the still skipped, the Applejack
+// drunk, the guide placed past the still). The hand-in is a step of its own,
+// shown only while the Applejack is in the bags, and the still's step only
+// with four apples and An Apple Treat still to do.
+test(`${ELWYNN}: Applejack reports (#820, #823, #2312, #2561): direct hand-ins after the Stonefield apples, with no early accept`, { skip }, () => {
 	const { steps } = compiled(ELWYNN);
 	const has = (st, pred) => st.goals.some(pred);
 	const still = steps.map((st, i) => [st, i]).filter(([st]) => has(st, (g) => g.quest === 91736));
@@ -2301,6 +2306,16 @@ test(`${ELWYNN}: Applejack reports (#820, #823, #2312): direct hand-ins after th
 	const apples = steps.findIndex((st) => has(st, (g) => g.t === 'buy' && g.item === 4536));
 	const deVries = steps.findIndex((st) => has(st, is('turnin', 91738)));
 	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
+	const gate = (st) => st.when || [];
+	const holds = (st, item, n) => gate(st).some((p) => p.k === 'has' && !p.neg && p.item === item && (p.n || 1) === n);
+	assert.ok(holds(step, 4536, 4), 'the still shows only with four Shiny Red Apples in the bags');
+	assert.ok(gate(step).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(91738)), 'and only while An Apple Treat is still to do');
+	const dv = steps[deVries];
+	assert.ok(holds(dv, 247824, 1), "De Vries' step shows only with the Thunder Applejack in the bags");
+	assert.deepEqual(dv.goals.map((g) => `${g.t} ${g.quest}`), ['turnin 91738'], "the hand-in is De Vries' step alone");
+	const rainer = steps.findIndex((st) => has(st, is('turnin', 239)));
+	assert.ok(rainer >= 0 && rainer < deVries && !gate(steps[rainer]).some((p) => p.k === 'has'), "Deputy Rainer's quests hold the route whatever the bags hold");
+	for (const pred of [is('accept', 109), is('accept', 11)]) assert.ok(has(steps[rainer], pred), "Rainer's accepts stay on his step");
 });
 
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream

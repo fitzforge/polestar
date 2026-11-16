@@ -1081,6 +1081,30 @@
 			"issue": 823
 		},
 		{
+			"id": "2561-de-vries-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91738,
+				"goal": "turnin",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"split": {
+				"title": "Sergeant De Vries"
+			},
+			"note": "#2561 (twisted, 0.4.0): An Apple Treat (91738) is handed in only while the bags hold the Thunder Applejack (247824), and its hand-in shared the Westbrook Garrison step with Deputy Rainer's quests, so a player who reached the garrison without the Applejack (the still skipped, the guide placed past it, the Applejack drunk) stood on a hand-in Sergeant De Vries never offers. The hand-in is a step of its own (this record), shown only while the Applejack is in the bags (`when has 247824` in the seed's step, as Look to the Stars' `when has 4371`, #2243). The Applejack Still's step shows only with four Shiny Red Apples in the bags and An Apple Treat not handed in (`when has 4536 x4`, `when !turnedin 91738` in the seed).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-15: 30 people handed in 91738 at De Vries, every one after a hand-in of 91736 at the still; 8 people on the Human Elwynn guide talked to De Vries before they had an Applejack to give and got only his shop; 2 used the Applejack (cast with item 247824) right after the still; the still takes apples again (91736 handed in up to three times by one character)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#2561: a Human Paladin at 14 on 0.4.0 stood 2 yd from De Vries on 'Hand in An Apple Treat' and the quest never appeared"
+				}
+			],
+			"issue": 2561
+		},
+		{
 			"id": "820-stonefield-apples",
 			"faction": "Alliance",
 			"at": {

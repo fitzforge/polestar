@@ -989,6 +989,7 @@ ns.LegacyStepsLoad = function() return {
 	},
 	["forever/alliance/human/01-elwynn-forest"] = {
 		required = "accept:91752,accept:91758,accept:91772,accept:91775,collect:91752,collect:91775,turnin:91752,turnin:91758,turnin:91772,turnin:91775",
+		[88982647] = "turnin:239,accept:109,accept:11,turnin:91738",
 		[201008020] = "turnin:54,accept:62,accept:47,turnin:2158,sethome:295,accept:60",
 		[255287883] = "collect:99130",
 		[317755789] = "accept:91738,turnin:91738",
