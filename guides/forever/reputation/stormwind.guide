@@ -89,7 +89,15 @@ step Northshire: back at the abbey
   turnin 18
   accept 6
   accept 3903
+
+step Northshire: the Nibbled-On Book
+  when done sw-northshire
+  when has 247834
+  tip Right-click the Nibbled-On Book a kobold dropped: it starts its quest.
   accept 91741 item 247834
+
+step Northshire: Brother Paxton's books
+  when done sw-northshire
   turnin 91741
   accept 92124
   turnin 92124
