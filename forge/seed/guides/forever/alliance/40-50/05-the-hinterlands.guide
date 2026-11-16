@@ -168,9 +168,13 @@ step Gorilla hills
   collect 2799 x10 -- Gorilla Fang
 
 step Unbagwa's ritual
+  when has 2799 x10
   tip Hand in the fangs and stay: three waves of gorillas come, Mokk the Savage last.
   tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
   turnin 349 direct -- Witch Doctor Unbagwa, inside Spirit Den
+
+step Unbagwa's ritual
+  when turnedin 349
   collect 2797 quest 348              -- Heart of Mokk
 
 step Booty Bay

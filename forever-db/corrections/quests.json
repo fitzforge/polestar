@@ -146,6 +146,29 @@
 		],
 		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's quest data does not list it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
 	},
+	"273": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Find Huldar, Miran, and Saean",
+					"map": 1432,
+					"f": "e",
+					"x": 51.16,
+					"y": 68.96
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 9 people ran Resupplying the Excavation; the game lists one line, the event \"Find Huldar, Miran, and Saean\", and no other"
+			}
+		],
+		"note": "Resupplying the Excavation: the only objective is finding Huldar, Miran and Saean; the data also listed a kill of a hidden firework credit the game has no line for."
+	},
 	"287": {
 		"set": {
 			"objectives": [
@@ -840,13 +863,31 @@
 	},
 	"1560": {
 		"set": {
-			"escort": true
+			"escort": true,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Lead Tooga to Torta",
+					"map": 1446,
+					"f": "e",
+					"x": 66.58,
+					"y": 25.67
+				}
+			]
 		},
-		"source": {
-			"kind": "tdb",
-			"ref": "quest_template: follow objective, PARTY_ACCEPT flag, 30 minute timer"
-		},
-		"note": "Tooga's Quest (Tanaris; Tooga gives it, Torta takes it) is an escort: you lead Tooga back to Torta within 30 minutes (the world DB's quest text, timer and PARTY_ACCEPT flag). Its objective is a kill objective in quests.json and no text says escort, so the guide compiler's escort rule misses it. Both Tanaris guides route it."
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template: follow objective, PARTY_ACCEPT flag, 30 minute timer"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 9 people ran Tooga's Quest; the game lists one line, the event \"Lead Tooga to Torta\""
+			}
+		],
+		"note": "Tooga's Quest (Tanaris; Tooga gives it, Torta takes it) is an escort: you lead Tooga back to Torta within 30 minutes (the world DB's quest text, timer and PARTY_ACCEPT flag). No text says escort, so the guide compiler's escort rule missed it. Both Tanaris guides route it. Its one objective line is the event \"Lead Tooga to Torta\", at Torta; the merged data listed it as a kill of Torta."
 	},
 	"1661": {
 		"set": {
@@ -1007,6 +1048,29 @@
 		},
 		"note": "Corrupted Songflower: starts with Corrupted Songflower (object 171942) and ends with Corrupted Songflower (object 171942); as its giver the merged data also listed Corrupted Songflower (object 164886); as its ender the merged data also listed Corrupted Songflower (object 164886)."
 	},
+	"2843": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 7853,
+					"count": 1,
+					"text": "Scooty"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 32 people ran Gnomer-gooooone!; its one line is the event \"Goblin Transponder\", completed by Scooty's work, never by a kill"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: no creature requirement, completed by an event"
+			}
+		],
+		"note": "Gnomer-gooooone!: Scooty calibrates the Goblin Transponder while the player waits by him; nothing is killed."
+	},
 	"2861": {
 		"set": {
 			"start": {
@@ -1131,6 +1195,25 @@
 		],
 		"note": "The Spider God: ends with Master Gadrin (npc 3188); as its ender the merged data also listed Tablet of Theka (object 142715). It rewards 9,991 XP on Forever, not the Classic 4,850 (Forever raised dungeon quest XP, #394)."
 	},
+	"3321": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 7804,
+					"count": 1,
+					"text": "Trenton Lighthammer"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: no creature requirement, completed by an event"
+			}
+		],
+		"note": "Did You Lose This?: Trenton Lighthammer finishes his work while the player waits by him; nothing is killed."
+	},
 	"3505": {
 		"set": {
 			"pre": [],
@@ -1224,6 +1307,25 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "Membership Card Renewal: starts with Tinkmaster Overspark (npc 7944) and ends with Tinkmaster Overspark (npc 7944); as its giver the merged data also listed Oglethorpe Obnoticus (npc 7406); as its ender the merged data also listed Oglethorpe Obnoticus (npc 7406)."
+	},
+	"3982": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 9020,
+					"count": 1,
+					"text": "Commander Gor'shak"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: no creature requirement, completed by an event"
+			}
+		],
+		"note": "What Is Going On?: the player speaks with Commander Gor'shak and defends him from the guards who come; Gor'shak, friendly to the Horde, is never killed."
 	},
 	"4113": {
 		"set": {
@@ -1670,6 +1772,25 @@
 		},
 		"note": "Seal of Ascension: starts with Scarshield Infiltrator (npc 10299) and ends with Scarshield Infiltrator (npc 10299); as its giver the merged data also listed Vaelan (npc 10296); as its ender the merged data also listed Vaelan (npc 10296)."
 	},
+	"4866": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 9563,
+					"count": 1,
+					"text": "Ragged John"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: no creature requirement, completed by an event"
+			}
+		],
+		"note": "Mother's Milk: the player fights Mother Smolderweb, then returns to Ragged John with her poison; Ragged John, friendly to both sides, is never killed."
+	},
 	"4901": {
 		"set": {
 			"escort": true
@@ -1737,6 +1858,25 @@
 			"ref": "players' caches (EG Link): races"
 		},
 		"note": "Aquatic Form (Druid Aquatic Form, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while Trial of the Sea Lion (272) before it already allows Skyborne, so Skyborne druids stopped halfway."
+	},
+	"5211": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 11064,
+					"count": 15,
+					"text": "Darrowshire Spirit"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: the 15 Darrowshire Spirits are counted by a credit the server gives when one is freed"
+			}
+		],
+		"note": "Defenders of Darrowshire: each Darrowshire Spirit is freed by talking to it, not killed."
 	},
 	"5321": {
 		"set": {
@@ -1944,6 +2084,44 @@
 			"ref": "creature_questender/gameobject_questender"
 		},
 		"note": "In Dreams: ends with Lord Tirion Fordring (npc 12126); as its ender the merged data also listed Tirion Fordring (npc 1855)."
+	},
+	"6001": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 12144,
+					"count": 1,
+					"text": "Lunaclaw Spirit"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 15 people ran Body and Heart (Alliance); its one line is the event \"Face Lunaclaw and earn the strength of body and heart it possesses.\", never ticked by a kill of the Lunaclaw Spirit"
+			}
+		],
+		"note": "Body and Heart: after Lunaclaw is defeated the player speaks with the Lunaclaw Spirit; the spirit is never killed."
+	},
+	"6002": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 12144,
+					"count": 1,
+					"text": "Lunaclaw Spirit"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 9 people ran Body and Heart (Horde); its one line is the event \"Face Lunaclaw and earn the strength of body and heart it possesses.\", never ticked by a kill of the Lunaclaw Spirit"
+			}
+		],
+		"note": "Body and Heart: after Lunaclaw is defeated the player speaks with the Lunaclaw Spirit; the spirit is never killed."
 	},
 	"6066": {
 		"set": {
@@ -2250,6 +2428,35 @@
 			"ref": "creature_queststarter/gameobject_queststarter"
 		},
 		"note": "Cenarion Aid: starts with Brother Joshua (npc 5489), Ur'kyo (npc 6018) and High Priest Rohan (npc 11406); as its giver the merged data also listed Malakai Cross (npc 3045)."
+	},
+	"8286": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 15192,
+					"count": 1,
+					"text": "Anachronos"
+				},
+				{
+					"type": "event",
+					"id": 3986,
+					"count": null,
+					"text": "Discover the Brood of Nozdormu.",
+					"map": 1446,
+					"f": "e",
+					"x": 64.6,
+					"y": 50.42
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "cmangos",
+				"ref": "classic-db quest_template: no creature requirement, completed by an event"
+			}
+		],
+		"note": "What Tomorrow Brings: Anachronos is found and spoken to in the Caverns of Time, not killed."
 	},
 	"8417": {
 		"set": {
@@ -3173,6 +3380,43 @@
 		},
 		"note": "Necromancy 101: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
 	},
+	"91294": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 246389,
+					"count": 1,
+					"text": "Hilda the Breaker"
+				},
+				{
+					"type": "talk",
+					"id": 246393,
+					"count": 1,
+					"text": "Jorin Croge"
+				},
+				{
+					"type": "talk",
+					"id": 246394,
+					"count": 1,
+					"text": "Ander Solliden"
+				},
+				{
+					"type": "talk",
+					"id": 246378,
+					"count": 1,
+					"text": "Danitha Morr"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 22 people ran Touring the Grounds; its four lines (\"Speak with Hilda the Breaker\", \"Speak with Jorin Croge\", ...) each ticked as that resident's window opened, never on a kill"
+			}
+		],
+		"note": "Touring the Grounds: the four residents of Bandarion Keep are talks; the data counted them as kills."
+	},
 	"91317": {
 		"set": {
 			"objectives": [
@@ -3798,6 +4042,25 @@
 		],
 		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
 	},
+	"93016": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 253471,
+					"count": 1,
+					"text": "Speak with Mordent Evenshade"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 10 people ran A Brief History Lesson; its line \"Speak with Mordent Evenshade\" ticked as his (253471) window opened for all 10, with no kill"
+			}
+		],
+		"note": "A Brief History Lesson: Mordent Evenshade is spoken to, not killed."
+	},
 	"93065": {
 		"set": {
 			"objectives": [
@@ -3908,6 +4171,43 @@
 			}
 		],
 		"note": "Buying Friendship: Gelkis (Alliance) is offered once Carved Centaur Totems (93224) is handed in; the merged data had no prerequisite."
+	},
+	"93739": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 3230,
+					"count": 1,
+					"text": "Nazgrel"
+				},
+				{
+					"type": "talk",
+					"id": 10540,
+					"count": 1,
+					"text": "Vol'jin"
+				},
+				{
+					"type": "talk",
+					"id": 3057,
+					"count": 1,
+					"text": "Cairne Bloodhoof"
+				},
+				{
+					"type": "talk",
+					"id": 10181,
+					"count": 1,
+					"text": "Lady Sylvanas Windrunner"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 11 people ran Exploring the Horde; each of its four lines (\"Obtain Instructions from Nazgrel\", ...) ticked as that leader's window opened (Nazgrel 11, Vol'jin 10, Cairne Bloodhoof 10, Lady Sylvanas Windrunner 9 people), never on a kill"
+			}
+		],
+		"note": "Exploring the Horde: the four leaders are talks; the data counted them as kills."
 	},
 	"93797": {
 		"set": {
@@ -4189,6 +4489,43 @@
 		],
 		"note": "A Last Request (Zephras Isle) lists the Bloody Note first, then Skypriest Aanders, then Raani's feather and the Shadowsong signet. The merged data had the note and Aanders the other way round, so `quest 93927.1` named Aanders and the guide's note goal followed Aanders' quest-log line: it stayed open after the note was read (#825)."
 	},
+	"93963": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 275491,
+					"count": 1,
+					"text": "Randal Emerson"
+				},
+				{
+					"type": "talk",
+					"id": 7937,
+					"count": 1,
+					"text": "High Tinker Mekkatorque"
+				},
+				{
+					"type": "talk",
+					"id": 2784,
+					"count": 1,
+					"text": "King Magni Bronzebeard"
+				},
+				{
+					"type": "talk",
+					"id": 7999,
+					"count": 1,
+					"text": "Tyrande Whisperwind"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 5 people ran Exploring the Alliance; each of its four lines (\"Receive Instructions from Randal Emerson\", ...) ticked as that leader's window opened, never on a kill"
+			}
+		],
+		"note": "Exploring the Alliance: the four leaders are talks; the data counted them as kills."
+	},
 	"94369": {
 		"set": {
 			"objectives": [
@@ -4358,6 +4695,14 @@
 			],
 			"preAny": [
 				96204
+			],
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 259620,
+					"count": 1,
+					"text": "Lumina Windsinger"
+				}
 			]
 		},
 		"source": [
@@ -4368,9 +4713,13 @@
 			{
 				"kind": "eg",
 				"ref": "EG Link: The Windshaper's Wrath (96204) leads on to The Debt (95034) in the quest's series"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 12 people ran The Debt; its line \"Speak with Lumina Windsinger\" ticked as her (259620) window opened for all 12, with no kill"
 			}
 		],
-		"note": "The Lumina Windsinger chain (Undead Paladins): The Debt (95034) follows The Windshaper's Wrath (96204), handed in to Lumina Windsinger (npc 259620). The merged data had no prerequisite."
+		"note": "The Lumina Windsinger chain (Undead Paladins): The Debt (95034) follows The Windshaper's Wrath (96204), handed in to Lumina Windsinger (npc 259620). The merged data had no prerequisite. Lumina Windsinger is spoken to, not killed."
 	},
 	"95036": {
 		"set": {
@@ -4602,6 +4951,25 @@
 			"ref": "players' caches (EG Link): objectives Copper Bar 2840 x12, then Toughened Boar Hide 267416 x4"
 		},
 		"note": "The Quarry's Smith (Dun Morogh, blacksmiths) asks for 12 Copper Bars, then 4 Toughened Boar Hides, so the hide is objective 2. The merged data listed only the hide, so `quest 95217.1` named it. Found by TP1186 in #727."
+	},
+	"95321": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 260857,
+					"count": 1,
+					"text": "Tazzik"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 27 people ran Tazzik's Dues; its line \"Tazzik confronted\" ticked as Tazzik's (260857) window opened for 16 of them and on no kill of him"
+			}
+		],
+		"note": "Tazzik's Dues: confronting Tazzik in Steamwheedle Port is a talk; the data counted it as a kill."
 	},
 	"95495": {
 		"set": {
@@ -5235,6 +5603,24 @@
 			],
 			"preAny": [
 				91862
+			],
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 248755,
+					"count": 1,
+					"text": "Lumina Windsinger"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": null,
+					"text": "Escort Lumina Windsinger to safety",
+					"map": 1421,
+					"f": "e",
+					"x": 65.7,
+					"y": 29.7
+				}
 			]
 		},
 		"source": [
@@ -5245,9 +5631,13 @@
 			{
 				"kind": "factoruide",
 				"ref": "pre_any 91862"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 12 people ran The Windshaper's Wrath; its line, the event \"Escort Lumina Windsinger to safety\", never ticked on a kill of her"
 			}
 		],
-		"note": "The Lumina Windsinger chain (Undead Paladins): her The Windshaper's Wrath (96204) follows her Lumina Windsinger (91862). The merged data had no prerequisite."
+		"note": "The Lumina Windsinger chain (Undead Paladins): her The Windshaper's Wrath (96204) follows her Lumina Windsinger (91862). The merged data had no prerequisite. The escort starts as you talk to Lumina Windsinger in her cage: the data listed her as a kill."
 	},
 	"96243": {
 		"set": {
@@ -5793,6 +6183,241 @@
 			"ref": "players' in-game recordings since launch: the game lists two objectives at the accept, and the quest completes with those two"
 		},
 		"note": "The Cult of the Damned: the game counts Dark Neophytes and Dark Enforcers only; the data's third objective, Decrepit Darkhounds, is not one (#859)."
+	},
+	"96982": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 267226,
+					"count": 1,
+					"text": "Grey Riding Kodo"
+				},
+				{
+					"type": "talk",
+					"id": 267227,
+					"count": 1,
+					"text": "Brown Riding Kodo"
+				},
+				{
+					"type": "talk",
+					"id": 267216,
+					"count": 1,
+					"text": "White Riding Kodo"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): the other six mount-choice quests (96989, 96994, 96996, 96997, 97017, 97046: 21 people) tick each mount's line as its window opens, never on a kill"
+			}
+		],
+		"note": "Your First Riding Kodo: each mount is inspected through its window, a talk; the data counted them as kills."
+	},
+	"96989": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 267291,
+					"count": 1,
+					"text": "Emerald Riding Raptor"
+				},
+				{
+					"type": "talk",
+					"id": 267297,
+					"count": 1,
+					"text": "Turquoise Riding Raptor"
+				},
+				{
+					"type": "talk",
+					"id": 267298,
+					"count": 1,
+					"text": "Violet Riding Raptor"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 3 people ran Your First Riding Raptor; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			}
+		],
+		"note": "Your First Riding Raptor: each mount is inspected through its window, a talk; the data counted them as kills."
+	},
+	"96994": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 267299,
+					"count": 1,
+					"text": "Brown Riding Wolf"
+				},
+				{
+					"type": "talk",
+					"id": 267300,
+					"count": 1,
+					"text": "Dire Riding Wolf"
+				},
+				{
+					"type": "talk",
+					"id": 267301,
+					"count": 1,
+					"text": "Timber Riding Wolf"
+				},
+				{
+					"type": "talk",
+					"id": 267302,
+					"count": 1,
+					"text": "Black Riding Wolf"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 2 people ran Your First Riding Wolf; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			}
+		],
+		"note": "Your First Riding Wolf: each mount is inspected through its window, a talk; the data counted them as kills."
+	},
+	"96996": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 267304,
+					"count": 1,
+					"text": "Empyrean Galestrider"
+				},
+				{
+					"type": "talk",
+					"id": 267305,
+					"count": 1,
+					"text": "Stormy Galestrider"
+				},
+				{
+					"type": "talk",
+					"id": 267306,
+					"count": 1,
+					"text": "Umber Galestrider"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 5 people ran Your First Riding Galestrider; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			}
+		],
+		"note": "Your First Riding Galestrider: each mount is inspected through its window, a talk; the data counted them as kills."
+	},
+	"96997": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 267357,
+					"count": 1,
+					"text": "Red Skeletal Horse"
+				},
+				{
+					"type": "talk",
+					"id": 267364,
+					"count": 1,
+					"text": "Brown Skeletal Horse"
+				},
+				{
+					"type": "talk",
+					"id": 267358,
+					"count": 1,
+					"text": "Blue Skeletal Horse"
+				},
+				{
+					"type": "talk",
+					"id": 267354,
+					"count": 1,
+					"text": "Black Skeletal Horse"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 4 people ran A Steed in Death as They Were in Life; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			}
+		],
+		"note": "A Steed in Death as They Were in Life: each mount is inspected through its window, a talk; the data counted them as kills."
+	},
+	"97017": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 267474,
+					"count": 1,
+					"text": "White Ram"
+				},
+				{
+					"type": "talk",
+					"id": 267473,
+					"count": 1,
+					"text": "Brown Ram"
+				},
+				{
+					"type": "talk",
+					"id": 267475,
+					"count": 1,
+					"text": "Gray Ram"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 4 people ran Your First Riding Ram; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			}
+		],
+		"note": "Your First Riding Ram: each mount is inspected through its window, a talk; the data counted them as kills."
+	},
+	"97046": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 267688,
+					"count": 1,
+					"text": "Unpainted Mechanostrider"
+				},
+				{
+					"type": "talk",
+					"id": 267684,
+					"count": 1,
+					"text": "Green Mechanostrider"
+				},
+				{
+					"type": "talk",
+					"id": 267687,
+					"count": 1,
+					"text": "Blue Mechanostrider"
+				},
+				{
+					"type": "talk",
+					"id": 267683,
+					"count": 1,
+					"text": "Red Mechanostrider"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 3 people ran Your First Mechanostrider; each mount's line (its name) ticked as that mount's window opened, never on a kill"
+			}
+		],
+		"note": "Your First Mechanostrider: each mount is inspected through its window, a talk; the data counted them as kills."
 	},
 	"97130": {
 		"set": {
@@ -8229,6 +8854,14 @@
 			],
 			"preAny": [
 				90902
+			],
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 246152,
+					"count": 1,
+					"text": "Shari Stilwell"
+				}
 			]
 		},
 		"source": [
@@ -8239,9 +8872,13 @@
 			{
 				"kind": "tdb",
 				"ref": "quest_template_addon PrevQuestID 91208"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 28 people ran Continue Your Training; its one line, \"Report to Shari Stilwell in Brill\", ticked for 27 of them as Shari Stilwell's (246152) window opened, with no kill of her"
 			}
 		],
-		"note": "The Forsaken Paladin's Continue Your Training (91209) comes with Coming to Terms (91208) from Aramis Hammerhand in Deathknell: it is offered once Rediscovering the Light (90902) is handed in, alongside 91208, not after it. The merged data read the world database's link to 91208 as a hand-in first, which every player's accept contradicts."
+		"note": "The Forsaken Paladin's Continue Your Training (91209) comes with Coming to Terms (91208) from Aramis Hammerhand in Deathknell: it is offered once Rediscovering the Light (90902) is handed in, alongside 91208, not after it. The merged data read the world database's link to 91208 as a hand-in first, which every player's accept contradicts. Reporting to Shari Stilwell is a talk with her; the data counted it as a kill."
 	},
 	"1962": {
 		"set": {
@@ -12254,7 +12891,7 @@
 		"set": {
 			"objectives": [
 				{
-					"type": "kill",
+					"type": "talk",
 					"id": 260931,
 					"count": 1,
 					"text": "Clubtoe"
@@ -12286,9 +12923,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' offer windows to 2026-11-11: 5 characters were not offered it before Twilight Missives (94680) was handed in, and were offered it after"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 17 people ran Digging for Answers; its line \"Twilight miner convinced\" ticked as Clubtoe's (260931) window opened for 15 of them"
 			}
 		],
-		"note": "Digging for Answers (94727), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees). It is offered only after Twilight Missives (94680) is handed in: players were not offered it before and were offered it right after, and the quest record of the one before names it as the next quest."
+		"note": "Digging for Answers (94727), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees). It is offered only after Twilight Missives (94680) is handed in: players were not offered it before and were offered it right after, and the quest record of the one before names it as the next quest. Convincing the miner is a talk with Clubtoe, not a kill."
 	},
 	"94733": {
 		"set": {
@@ -12815,7 +13456,7 @@
 			},
 			"objectives": [
 				{
-					"type": "kill",
+					"type": "talk",
 					"id": 257250,
 					"count": 1,
 					"text": "Marshal Ryan"
@@ -12830,9 +13471,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 6 people accepted it, 2 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded and suspect contributors left out): 29 people ran Saving Marshal Ryan; its line \"Marshal Ryan found\" ticked as his (257250) window opened for 10 of them and on no kill"
 			}
 		],
-		"note": "Saving Marshal Ryan (94887), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Marshal Ryan (257250), where players handed it in (the quest's own text names it)."
+		"note": "Saving Marshal Ryan (94887), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Marshal Ryan (257250), where players handed it in (the quest's own text names it). Finding Marshal Ryan is a talk with him, not a kill."
 	},
 	"94888": {
 		"set": {

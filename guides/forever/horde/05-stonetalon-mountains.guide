@@ -119,6 +119,7 @@ step Va'xug Firefure
 
 step A Void Path
   tip Steer Va'xug's Eye of Kilrogg out of the ravine to the main road within four minutes; if the channel breaks, ask Va'xug again.
+  complete 98252
   turnin 98252 @38.2,58.1             -- Eye of Kilrogg, on the road
 
 # ---------------------------------------------------------------- Zoram'gar Outpost

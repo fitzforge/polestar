@@ -209,6 +209,68 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
 }
 
+// A kill that ticks an objective (#2555): the client's burst (the quest log three times, the objective, XP, loot)
+// is one evaluation, one step update and one tab update, and the row above is drawn again from the route plan as
+// it stands: the plan is not rebuilt, so no walk over every registered guide (Guides.List from RoutePlan). A quest
+// finished in the burst still joins the row. A tab opened in the background (other guides open) builds it afresh.
+#[test]
+fn a_kill_burst_repaints_the_carried_row_without_rebuilding_the_route_plan() {
+	let out = run(r#"
+		local GF, G = Polestar.UI.GuideFrame, Polestar.Guides
+		GF.Render(); flush()
+		local count = { plan = 0, STEP_UPDATED = 0, STEP_CHANGED = 0, TABS_CHANGED = 0 }
+		local list = G.List
+		G.List = function(...)
+			if debug.getinfo(2, "S").source:find("RoutePlan.lua", 1, true) then count.plan = count.plan + 1 end
+			return list(...)
+		end
+		for _, msg in ipairs({ "STEP_UPDATED", "STEP_CHANGED", "TABS_CHANGED" }) do
+			Polestar.On(msg, function() count[msg] = count[msg] + 1 end)
+		end
+		local function kill(finish)
+			stub.fire("PLAYER_REGEN_DISABLED")
+			stub.advance(1)
+			stub.fire("CHAT_MSG_COMBAT_XP_GAIN", "Young Wolf dies, you gain 120 experience.")
+			w.setXP((w.xp or 0) + 120)
+			local o = w.log[33].objectives[1]
+			w.progress(33, 1, o.numFulfilled + 1)
+			if finish then w.finish(42) end
+			stub.fire("QUEST_LOG_UPDATE")
+			stub.fire("PLAYER_REGEN_ENABLED")
+			stub.fire("LOOT_READY", true)
+			stub.fire("LOOT_CLOSED")
+			stub.fire("BAG_UPDATE", 0)
+			stub.fire("BAG_UPDATE_DELAYED")
+			stub.fire("QUEST_LOG_UPDATE")
+			flush(); flush()
+		end
+		local function row()
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then return plain(x.Text:GetText()) end
+			end
+		end
+		local r = { kills = {} }
+		for k = 1, 3 do
+			for key in pairs(count) do count[key] = 0 end
+			kill(k == 3)
+			r.kills[k] = { count.plan, count.STEP_UPDATED, count.STEP_CHANGED, count.TABS_CHANGED, row() }
+		end
+		count.plan = 0
+		E.OpenTab("test/c", false); flush()
+		local carried = #Polestar.RoutePlan.Carried()
+		r.tab = { E.GetGuide().id, E.TabIds()["test/c"] == true, count.plan > 0, carried }
+		G.List = list
+		emit(r)
+	"#);
+	let kills = out["kills"].as_array().unwrap();
+	for k in &kills[..2] {
+		assert_eq!(k, &json!([0, 1, 0, 1, "1 finished quest to hand in elsewhere (800 XP)"]), "{out}");
+	}
+	assert_eq!(kills[2].as_array().unwrap()[..4], json!([0, 1, 0, 1]).as_array().unwrap()[..], "{out}");
+	assert!(is_match(text(&kills[2][4]), r"^2 finished quests to hand in elsewhere \(\d{1,3}(,\d{3})* XP\)$"), "{out}");
+	assert_eq!(out["tab"], json!(["test/a", true, true, 2]), "{out}");
+}
+
 // Outlevelled at 13, the banner says what the jump to the suggested guide (test/b) leaves behind: 41, handed in
 // later in test/a. Its first click asks; the second jumps.
 #[test]
