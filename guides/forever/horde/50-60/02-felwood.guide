@@ -35,13 +35,6 @@ step Mulgris Deepriver
   turnin 4984                         -- Inside
   note His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58.
 
-step Level 53.34
-  zone Western Plaguelands
-  when level<53.34
-  tip Top up here to level 53.34 before the hand-ins at Jaedenar: they take you to level 54. The Scarlet Medics camp on the way from Dalson's Tears to the Bulwark. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
-  goto 40.5,51.8 map 1422 "Scarlet Medic"
-  level 53.34 grind 10605              -- grind on Scarlet Medic
-
 step Tirisfal Glades
   zone Tirisfal Glades
   goto 83.2,68.5 "The Bulwark"
@@ -110,16 +103,15 @@ step Emerald Sanctuary
   zone Felwood
   tip The druids' camp is just past the border.
   accept 5156                         -- Taronn Redfeather
+  accept 86577                        -- Kelek Skykeeper, beside Taronn: A Sampling of Putrescence, the organs of Felwood's bears and wolves
   accept 5155                         -- Greta Mosshoof
   accept 8460                         -- Grazle, at the south edge of the camp
   accept 4102                         -- Maybess Riverbreeze, on the west side of the camp
-  accept 86577                        -- Kelek Skykeeper: A Sampling of Putrescence, the organs of Felwood's bears and wolves
 
 step Deadwood Village
-  tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and Jaedenar want it. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
+  tip The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your Timbermaw Hold reputation; keep the headdress feathers.
   kill 7153 quest 8460.1
   kill 7154 quest 8460.3
-  level 53.92 grind 7153               -- grind on Deadwood Warrior
   kill 7155 quest 8460.2
 
 step Southern Jaedenar
@@ -173,16 +165,16 @@ step Statue of Malorne
   accept 86612 object 661778 @42.0,47.3 -- Statue of Malorne
 
 step Irontree Woods
-  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are Kelek's. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at Bloodvenom Post and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Follow the road north-east to Irontree Woods. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a Blood Amber; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are Kelek's.
+  tip Felpaw Village's Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at Timbermaw Hold, the Emerald Sanctuary and Bloodvenom Post that follow take you most of the way to 55. Or, with a group, run the Sunken Temple dungeon or the Blackrock Depths dungeon instead.
   kill 8957 quest 4120.1
   kill 8961 quest 4120.2
   collect 277958 quest 86577.1        -- Putrescent Bear Organs, from the Angerclaw bears
   collect 277959 quest 86577.2        -- Putrescent Wolf Organs, from the Felpaw wolves
-  level 54.21 grind 8957               -- grind on Angerclaw Grizzly
+  level 54 grind 8957                 -- grind on Angerclaw Grizzly
 
 step Irontree Woods
   collect 11503 quest 4102            -- Below ground
-  level 54.3 grind 7101               -- grind on Warpwood Shredder
 
 step Felpaw Village
   tip The Deadwood furbolg village just west of the tunnel. Chieftain Bloodmaw (56) stands among them. Meilosh, a friendly furbolg, sits at the north end of the village.
@@ -194,15 +186,13 @@ step Nafien
   accept 8461
 
 step Felpaw Village
-  tip Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
-  tip Below level 54.54, keep fighting the Deadwood here after Nafien's count: the hand-ins at Timbermaw Hold and the Emerald Sanctuary take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  tip Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
   tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59.
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
   collect 20741                       -- Deadwood Ritual Totem
   accept 8470
-  level 54.54 grind 7156               -- grind on Deadwood Den Watcher
 
 step Nafien
   turnin 8461
@@ -229,12 +219,6 @@ step Overlord Ror
   tip Ror stands at the far south end of Deadwood Village.
   collect 15879 quest 6162 @48.2,94.3
 
-step Level 54.7
-  when level<54.7
-  tip Top up here to level 54.7 before the hand-ins at Bloodvenom Post: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 46.3,89.4 map 1448 "Deadwood Pathfinder"
-  level 54.7 grind 7155               -- grind on Deadwood Pathfinder
-
 step The Jadefire moonwell
   tip Ride back south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill Winna's flasket there.
   use 12566 quest 4505.1 @32.3,66.6 map 1448
@@ -257,8 +241,8 @@ step Winna's kitten
 step Winna Hazzard
   turnin 4506
 
-step Level 54.87
-  when level<54.87
-  tip Top up here to level 54.87 before the hand-ins in Winterspring: they take you to level 55. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+step Level 55
+  when level<55
+  tip Winterspring's quests are 55-58. Below 55 after Winna's hand-ins? The Jaedenar Hounds (50-51) prowl the woods around Jaedenar, a short ride south of Bloodvenom Post: kill them until level 55. This is a long top-up for a player who follows only this route. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
   goto 38.3,61.7 map 1448 "Jaedenar Hound"
-  level 54.87 grind 7125               -- grind on Jaedenar Hound
+  level 55 grind 7125                 -- grind on Jaedenar Hound

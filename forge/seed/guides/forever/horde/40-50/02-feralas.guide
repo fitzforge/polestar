@@ -86,6 +86,7 @@ step Zul'Mamwe
   zone Stranglethorn Vale
   tip Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.
   tip Ana'thek the Cruel (45) carries the Broken Armor for Speaking with Gan'zulah: he walks the south-western ruins with two guards and sometimes stands in a small cave there. Pull the guards first.
+  tip Careful: Mogh the Undying, an elite troll (level 44), stands in the southern ruins around 47.7,44.3: pull the headhunters and berserkers away from him.
   kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
   kill 781 quest 586.2
   kill 783 quest 586.3
@@ -106,7 +107,7 @@ step Ironjaw Basilisks
 step Pirate ghosts and Zanzil's camps
   zone Stranglethorn Vale
   tip On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. Maury and Jon-Jon stand together, Chucky further east. Every one of Zanzil's followers can carry the mixture.
-  tip Careful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time.
+  tip Careful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. Zanzil the Outcast (46) himself stands in the southern camp around 39.6,58.6, a few steps from Chucky's ghost: pull Chucky out to the north or east before you fight him.
   kill 2537 @40.0,58.2
   collect 3926 quest 609.3
   kill 2535 @35.3,51.3

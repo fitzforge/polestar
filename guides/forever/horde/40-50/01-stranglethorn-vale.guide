@@ -38,7 +38,7 @@ step Undercity trainers
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
 step Riding at 40
-  only Undead,Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  only Undead,Warrior,Paladin,Rogue,Priest,Mage
   zone Tirisfal Glades
   when level>=40
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Grom'gol zeppelin.
@@ -83,6 +83,7 @@ step Booty Bay
   turnin 213                          -- Kebok
   turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
   accept 1181
+  accept 97332                          -- Wharfmaster Lozgil: Twice Misplaced Trust, after Zimmix's rescue; the package goes to Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades guide
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
   turnin 669
@@ -92,10 +93,10 @@ step Booty Bay
   vendor nearest
   accept 595                            -- First Mate Crazz
 
-step Baron Revilgaz
-  when turnedin 1182
-  tip Baron Revilgaz, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the Mirage Raceway, on the way to Tanaris around level 43.
-  accept 1183                           -- Baron Revilgaz
+step Kebok
+  when turnedin 189
+  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
+  accept 209                            -- Kebok, upstairs
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -299,7 +300,7 @@ step Grom'gol
   accept 95770 npc 2519                 -- Kin'weelay: the cavern entrance under the Vile Reef, west of the camp
 
 step Riding at 40
-  only Orc
+  only Orc,!Warlock
   zone Orgrimmar
   when level>=40
   when !skill Riding 1
@@ -307,7 +308,7 @@ step Riding at 40
   train 4752                            -- Kildar, riding trainer
 
 step Riding at 40
-  only Troll
+  only Troll,!Warlock
   zone Durotar
   when level>=40
   when !skill Riding 1
@@ -323,7 +324,7 @@ step Riding at 40
   train 3690                            -- Kar Stormsinger, riding trainer
 
 step Riding at 40
-  only Skyborne
+  only Skyborne,!Warlock
   zone Zephras Isle
   when level>=40
   when !skill Riding 1
@@ -331,12 +332,18 @@ step Riding at 40
   train 265756                          -- Genn Fairweather, riding trainer, at the Fairweather Stables in Valanaar
 
 step Riding at 40
-  only Undead
+  only Undead,!Warlock
   zone Tirisfal Glades
   when level>=40
   when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Swamp of Sorrows guide passes the Undercity again at about 47.
   train 4773                            -- Velma Warnam, riding trainer
+
+step Your mount at 40
+  only Warlock
+  when level>=40
+  tip Warlocks don't buy riding: your mount is the Felsteed, from your class quest. Zevrost in Orgrimmar's Cleft of Shadow starts it and Strahad Farsan in Ratchet teaches it, both on the Feralas guide's Orgrimmar stop at about 44.
+  note "Felsteed: Zevrost in Orgrimmar, then Strahad Farsan in Ratchet, on the Feralas guide's Orgrimmar stop."
 
 step The Vile Reef
   zone Stranglethorn Vale
@@ -370,16 +377,27 @@ step Booty Bay
   accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 45
   vendor nearest
 
+step Kebok
+  when complete 209
+  tip Kebok, upstairs, takes the tusks now if you already have all eighteen.
+  turnin 209                            -- Kebok, upstairs
+
 step The Bloodsail ships
   when group 624
   tip The scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
   collect 4056 "Cortello's Riddle"
   accept 624                            -- for a later stop in the Swamp of Sorrows
 
+step Fly to Grom'gol
+  zone Stranglethorn Vale
+  tip Fly back to Grom'gol: Zul'Mamwe's Skullsplitters are just east of it.
+  goto 26.8,77.0 "Booty Bay flight master"
+  fly "Grom'gol"
+
 step Zul'Mamwe
   zone Stranglethorn Vale
-  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: Ana'thek the Cruel (45) walks the south-western ruins with two guards; Speaking with Gan'zulah's last piece, his Broken Armor, waits for your Stranglethorn stop at about 45.
-  goto 45.4,36.2 "Skullsplitter warriors"
+  tip From Grom'gol head east to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: Ana'thek the Cruel (45) walks the south-western ruins with two guards; Speaking with Gan'zulah's last piece, his Broken Armor, waits for your Stranglethorn stop at about 45.
+  goto 45.06,34.07 "Skullsplitter warriors"
   collect 1524 quest 209.1 @45.4,36.2 map 1434 era
   collect 3908 quest 585.3
 

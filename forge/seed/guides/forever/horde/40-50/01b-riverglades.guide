@@ -28,9 +28,10 @@ next forever/horde/40-50/02-feralas
 # Picked up on the way here: Report to Rog'mar (95141, Commander Aggro'gosh at Grom'gol, in the Stranglethorn Vale
 # guide). Taken here for the next guide: On the Other Side (95033, Tan'jani, for Camp Mojache) and Shipping and
 # Handling (95296, Friz, for Steamwheedle Port), both on the Feralas & Tanaris guide's way.
+# Twice Misplaced Trust (97332): Wharfmaster Lozgil in Booty Bay offers it after Anything of Value (97328) and
+#   Zimmix's Great Escape (97331), both done in the 30-40 Stranglethorn guide; the Stranglethorn Vale guide's first
+#   Booty Bay stop takes it and Wharfmaster Whizzbuzz takes it on the first port stop here.
 # Left out on purpose:
-# - Twice Misplaced Trust (97332): Wharfmaster Lozgil in Booty Bay offers it only after Anything of Value (97328) and
-#   Zimmix's Great Escape (97331) (players' recordings), which the route doesn't take; While-you're-here hands it in.
 # - Hail the Dragonslayer (95936): it starts from the head of Scaldaron, a rare elite drake in the Cinderscale
 #   hollow.
 # - Finding Tan'jani (95143), from Hammerfall in the Arathi Highlands: this guide doesn't assume you carry it;
@@ -148,6 +149,7 @@ step King of the Wild Plains
 
 step The lions
   tip The Wildplains lions roam the plains just south of Rog'mar.
+  tip Careful: Ombassa, an elite lion (level 41), prowls the same plains around 59.6,53.2: keep an eye out for him and pull the lions away from where he walks.
   collect 266888 x6 quest 96109.1       -- Prized Lion Hide
 
 step Ombassa
@@ -336,7 +338,7 @@ step Clubtoe
   accept 95427                          -- Twilight No More!
 
 step Chogg'Zac
-  tip Careful: Chogg'Zac, the two-headed ogre at the western edge of Sunnyglade, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. Clugfist's quests in Bolder'ok wait on this one: skip him and Land of Giants and the Bolder'ok quests after it go with him.
+  tip Careful: Chogg'Zac, the two-headed ogre at the western edge of Sunnyglade, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. Clugfist's quests in Bolder'ok wait on this one: skip him and Land of Giants, the Bolder'ok quests and Da'grosh's camp in the west go with him (about 21,000 XP); the guide then leaves them out.
   collect 265750 quest 95427.2 optional @44.9,51.0  -- Chogg's Head
   collect 265751 quest 95427.1 optional @44.9,51.0  -- Zac's Head
 
@@ -396,7 +398,10 @@ step Jom-jom's Escape
 step Bolder'ok
   tip Back to Clugfist on his hill. Jezap Jinglesprocket runs the Bloodmaster's Ring just below it.
   turnin 94556                          -- Clugfist
-  turnin 95424
+
+step Clugfist
+  when turnedin 95420
+  turnin 95424                          -- Clugfist
   turnin 95425
   accept 95428                          -- Clugfist's Decree: for Krom'rosh in Rog'mar, later in this guide
   accept 94668                          -- Bloodmaster's Ring
@@ -460,6 +465,11 @@ step Powderfuse Port
   accept 95118                          -- Wharfmaster Whizzbuzz: Saltwater Savages
   accept 95119                          -- Unfriendly Competition
 
+step Wharfmaster Whizzbuzz
+  when onquest 97332
+  tip Wharfmaster Whizzbuzz on the north pier takes Lozgil's Twice Reordered Package.
+  turnin 97332                          -- Wharfmaster Whizzbuzz
+
 step WANTED: Old Rot-Chum
   when group 95120
   tip Old Rot-Chum is an elite (level 42) on the south shore: grouping up is advised.
@@ -515,7 +525,8 @@ step Wharfmaster Whizzbuzz
   turnin 95120
 
 step The pirates' second wave
-  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They are level 44-45: pull them one at a time. Watch for Gul'gash on these cliffs.
+  tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for Gul'gash on these cliffs.
+  tip Careful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them.
   kill 257915 x8 quest 95122.1          -- Eastsea Raider
   kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
   collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg
@@ -535,7 +546,8 @@ step Powderfuse Port
   accept 95296                          -- Friz: Shipping and Handling, for Wharfmaster Steamfizzle at Steamwheedle Port in the Feralas & Tanaris guide
 
 step The pirates' ships
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Careful: Admiral Lamora is level 45, a level or two over you here: clear the deck around her first and come in with full health.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
   collect 268506 quest 95124.2          -- Lamora's Loot
@@ -587,6 +599,7 @@ step Argo Brinewhistle
 #   zone through Twilight's Shroud instead.
 
 step Rog'mar
+  when onquest 95428
   tip Back to Rog'mar from the port, where your Hearthstone is set. Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
   turnin 95428                          -- Krom'rosh: Clugfist's Decree
   accept 94744                          -- The Wayward Warrior: for Da'grosh, west of Sunnyglade
@@ -596,6 +609,7 @@ step Neza Bloodsnout
   turnin 95882
 
 step Da'grosh
+  when onquest 94744
   tip West from Rog'mar through Sunnyglade and on up the valley towards Twilight's Shroud: Da'grosh, Krom'rosh's wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.
   turnin 94744                          -- Da'grosh
   accept 95431                          -- Rumblings of Discontent
@@ -603,11 +617,13 @@ step Da'grosh
   accept 94748                          -- Break Their Chains
 
 step Crag'rog
+  when onquest 95431
   tip Crag'rog, a Bolder'ok ogre, hides in the cave west of Da'grosh's camp.
   turnin 95431                          -- Crag'rog
   accept 95432                          -- Rise Up!
 
 step The Twilight camps
+  when onquest 94745,94748
   tip The cult's camps fill the valley south and west of Da'grosh. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
   kill 256795 x8 quest 94745.1          -- Twilight Fanatic
   kill 256797 x8 quest 94745.2          -- Twilight Corrupter
@@ -615,14 +631,17 @@ step The Twilight camps
   complete 94748 @29.4,40.5             -- free five captive Rog'mar Scouts
 
 step The ogre mine
+  when onquest 95432
   tip North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.
   tip Careful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in.
   complete 95432 @26.9,34.9             -- recruit five Ogre Miners
 
 step Crag'rog
+  when onquest 95432
   turnin 95432
 
 step Da'grosh
+  when onquest 94745,94748
   turnin 94745
   turnin 94748
 

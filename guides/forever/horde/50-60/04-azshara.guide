@@ -12,9 +12,13 @@ next forever/horde/50-60/05-eastern-plaguelands
 
 # ---------------------------------------------------------------- Orgrimmar
 
+step Jes'rimon
+  zone Orgrimmar
+  when onquest 4300
+  turnin 4300                         -- Jes'rimon, the Cleft of Shadow
+
 step Orgrimmar
   zone Orgrimmar
-  turnin 4300                         -- Jes'rimon, the Cleft of Shadow
   sethome "Orgrimmar"
   accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -115,7 +119,8 @@ step Magus Rimtori's camp
   accept 91497                        -- Sin'dorei Tome of Summoning: Seals of the Sin'dorei
 
 step Seals of the Sin'dorei
-  tip Each of the camp's three officers (53) carries a seal: Magister Hawkhelm at its western end, Lieutenant Suncrest in the middle, Ranger Lydrea at its eastern end.
+  tip Each of the camp's three officers (53) carries a seal: Lieutenant Suncrest in the middle of the camp, Ranger Lydrea at its eastern end, and Magister Hawkhelm, who walks its western half: take him on the east side of his walk, where the arrow points.
+  tip Careful: the Blackmaw Thrall, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east.
   collect 246725 quest 91497.1        -- Seal of the Warden, from Lieutenant Suncrest
   collect 246721 quest 91497.2        -- Seal of the Warrior, from Magister Hawkhelm
   collect 246722 quest 91497.3        -- Seal of the Ranger, from Ranger Lydrea

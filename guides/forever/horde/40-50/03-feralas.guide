@@ -273,10 +273,16 @@ step Rogue Vale screechers
 
 step The Forgotten Coast: kill these as you meet them
   zone Feralas
-  tip Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with Zorbin's Ultra-Shrinker first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north.
-  collect 18958 quest 7721.1
+  tip The Sea Sprays (47-48) wash along the shore just south of the dock: they drop the Water Elemental Cores as well as the Sea Elementals (48-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with Zorbin's Ultra-Shrinker first, and shrunken they lose their elite strength. Leave the Land Walkers and Cliff Giants (48-50) of the northern hills for your next Feralas visit.
+  tip The Ultra-Shrinker lasts two hours: hand both quests back to Zorbin before you leave the coast.
+  collect 18958 quest 7721.1 @44.94,48.6 map 1444 -- Water Elemental Core, from the Sea Sprays
+  use 18904 quest 7003.1 @44.12,49.08 map 1444 -- Zorbin's Ultra-Shrinker, on the Wave and Deep Striders in the water
   collect 18956 quest 7003.1
-  use 18904 quest 7003.1 @40.1,38.6 map 1444
+
+step Zorbin Fandazzle
+  tip Back to Zorbin on the dock.
+  turnin 7003
+  turnin 7721
 
 step Rage Scar yetis
   tip On the way back south-east from the coast, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.

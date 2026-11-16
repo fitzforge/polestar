@@ -182,7 +182,10 @@ step Torwa Pathfinder
   accept 4290
   accept 87492                        -- Torwa: Uncanny Crystal, a short ride west of his camp
   accept 4289                         -- Torwa: The Apes of Un'Goro, the gorillas of the north-east plateau on the pylon loop
-  turnin 87494 optional
+
+step Torwa Pathfinder
+  when onquest 87494
+  turnin 87494                        -- Torwa: Microcrystal Contamination, if the scale dropped
 
 step Fresh Threshadon Carcass
   tip North of Torwa, a dead Threshadon lies by the water. The Damaged Blue Crystal lies on the ground a short ride west of Torwa's camp.
@@ -273,7 +276,10 @@ step The Marshlands
 step Torwa Pathfinder
   tip Torwa's camp is in the south-east corner, a short ride from the Marshlands.
   turnin 4289
-  turnin 87494 optional
+
+step Torwa Pathfinder
+  when onquest 87494
+  turnin 87494                        -- Torwa: Microcrystal Contamination, if the scale dropped
 
 step Western Pylon
   tip Cross the south of the crater to the pylon on the western cliffs.
@@ -302,8 +308,9 @@ step To Gadgetzan
 
 step Gadgetzan
   zone Tanaris
-  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound, done on the way into the crater.
+  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound and Tran'rek Thistleshrub Valley, both done on the way into the crater.
   turnin 5863                         -- Andi Lynn
+  turnin 3362                         -- Tran'rek
   turnin 4504                         -- Tran'rek
 
 step Gadgetzan

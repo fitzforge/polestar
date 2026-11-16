@@ -17,8 +17,8 @@ next forever/horde/50-60/01-un-goro-crater
 # before Un'Goro Soil (3761). Left out: the Undercity copy (3784).
 # Level tidy (0.4.0): Vengeance on the Northspring (3063), taken in 40-50/03 where its harpies (48-50) are 2 over the
 # player, is done on this Feralas loop, after Zorbin's second round of giants. The Dunemaul Compound (5863, Gor'marok
-# 49), taken in 40-50/04, is done at the Broken Pillar on the way to
-# Un'Goro and handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
+# 49), taken in 40-50/04, is done at the Broken Pillar on the way to Un'Goro, and Thistleshrub Valley (3362, Rootshapers
+# 49-50, taken in 40-50/04 too) just west of it; both are handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
 # (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
 # the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
 # Left out: A Meeting with the Master (3381): Sanath Lim-yo's teleport to Xylem's tower is free on Forever (#2460).
@@ -334,3 +334,9 @@ step The Dunemaul Compound
   kill 5474 quest 5863.1
   kill 5472 quest 5863.2
   kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
+
+step Thistleshrub Valley
+  zone Tanaris
+  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop, with Andi Lynn's.
+  kill 5490 quest 3362.1 @29.65,66.4
+  kill 5485 quest 3362.2 @29.69,66.35

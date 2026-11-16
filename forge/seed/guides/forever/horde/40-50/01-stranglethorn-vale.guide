@@ -37,7 +37,7 @@ step Undercity trainers
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
 
 step Riding at 40
-  only Undead,Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  only Undead,Warrior,Paladin,Rogue,Priest,Mage
   zone Tirisfal Glades
   when level>=40
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Velma Warnam in Brill, a short ride north of the zeppelin towers, with Zachariah Post's skeletal horses (20 gold each) beside her. Ride back to the towers for the Grom'gol zeppelin.
@@ -82,6 +82,7 @@ step Booty Bay
   turnin 213                          -- Kebok
   turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
   accept 1181
+  accept 97332                          -- Wharfmaster Lozgil: Twice Misplaced Trust, after Zimmix's rescue; the package goes to Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades guide
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
   turnin 669
@@ -91,10 +92,10 @@ step Booty Bay
   vendor nearest
   accept 595                            -- First Mate Crazz
 
-step Baron Revilgaz
-  when turnedin 1182
-  tip Baron Revilgaz, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the Mirage Raceway, on the way to Tanaris around level 43.
-  accept 1183                           -- Baron Revilgaz
+step Kebok
+  when turnedin 189
+  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
+  accept 209                            -- Kebok, upstairs
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -303,7 +304,7 @@ step Grom'gol
   accept 95770 npc 2519                 -- Kin'weelay: the cavern entrance under the Vile Reef, west of the camp
 
 step Riding at 40
-  only Orc
+  only Orc,!Warlock
   zone Orgrimmar
   when level>=40
   when !skill Riding 1
@@ -311,7 +312,7 @@ step Riding at 40
   train 4752                            -- Kildar, riding trainer
 
 step Riding at 40
-  only Troll
+  only Troll,!Warlock
   zone Durotar
   when level>=40
   when !skill Riding 1
@@ -327,7 +328,7 @@ step Riding at 40
   train 3690                            -- Kar Stormsinger, riding trainer
 
 step Riding at 40
-  only Skyborne
+  only Skyborne,!Warlock
   zone Zephras Isle
   when level>=40
   when !skill Riding 1
@@ -335,12 +336,18 @@ step Riding at 40
   train 265756                          -- Genn Fairweather, riding trainer, at the Fairweather Stables in Valanaar
 
 step Riding at 40
-  only Undead
+  only Undead,!Warlock
   zone Tirisfal Glades
   when level>=40
   when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount, and the Riverglades after Stranglethorn are a long walk without one. Take the zeppelin from Grom'gol's tower to the Undercity's towers: Velma Warnam teaches the Forsaken in Brill, a short ride north, with Zachariah Post's skeletal horses (20 gold each). Then the zeppelin back to Grom'gol. Short of gold? Skip this step: the Swamp of Sorrows guide passes the Undercity again at about 47.
   train 4773                            -- Velma Warnam, riding trainer
+
+step Your mount at 40
+  only Warlock
+  when level>=40
+  tip Warlocks don't buy riding: your mount is the Felsteed, from your class quest. Zevrost in Orgrimmar's Cleft of Shadow starts it and Strahad Farsan in Ratchet teaches it, both on the Feralas guide's Orgrimmar stop at about 44.
+  note "Felsteed: Zevrost in Orgrimmar, then Strahad Farsan in Ratchet, on the Feralas guide's Orgrimmar stop."
 
 step The Vile Reef
   when onquest 95770

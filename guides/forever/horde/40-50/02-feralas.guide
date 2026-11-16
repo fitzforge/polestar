@@ -38,6 +38,7 @@ step Zul'Mamwe
   zone Stranglethorn Vale
   tip Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.
   tip Ana'thek the Cruel (45) carries the Broken Armor for Speaking with Gan'zulah: he walks the south-western ruins with two guards and sometimes stands in a small cave there. Pull the guards first.
+  tip Careful: Mogh the Undying, an elite troll (level 44), stands in the southern ruins around 47.7,44.3: pull the headhunters and berserkers away from him.
   kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
   kill 781 quest 586.2
   kill 783 quest 586.3
@@ -58,7 +59,7 @@ step Ironjaw Basilisks
 step Pirate ghosts and Zanzil's camps
   zone Stranglethorn Vale
   tip On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. Maury and Jon-Jon stand together, Chucky further east. Every one of Zanzil's followers can carry the mixture.
-  tip Careful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time.
+  tip Careful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. Zanzil the Outcast (46) himself stands in the southern camp around 39.6,58.6, a few steps from Chucky's ghost: pull Chucky out to the north or east before you fight him.
   kill 2537 @40.0,58.2
   collect 3926 quest 609.3
   kill 2535 @35.3,51.3
@@ -205,9 +206,10 @@ step Orgrimmar
   accept 3631 only Warlock              -- Zevrost, Cleft of Shadow
 
 step Riding at 40
-  only Orc,Skyborne
+  only Orc,Skyborne,!Warlock
   zone Orgrimmar
   when level>=40
+  when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Kildar teaches Orcs in the Valley of Honor, by Ogunaro Wolfrunner's kennel. Skyborne learn it from Genn Fairweather at the Fairweather Stables in Valanaar on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each.
   train 4752 only Orc optional          -- Kildar, riding trainer
   note "Wolves: Ogunaro Wolfrunner, beside Kildar." only Orc
@@ -218,9 +220,10 @@ step Belgrom Rockmaul
   accept 2981
 
 step Riding at 40
-  only Troll
+  only Troll,!Warlock
   zone Durotar
   when level>=40
+  when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Xar'Ti in Sen'jin Village, a short ride south of Orgrimmar down the Durotar road, with Zjolnir's raptors (20 gold each) beside him. Ride back to Orgrimmar's flight master afterwards.
   train 7953 optional                   -- Xar'Ti, riding trainer
   note "Raptors: Zjolnir, beside Xar'Ti in Sen'jin Village."
@@ -235,6 +238,8 @@ step Fly to Thunder Bluff
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
   when level>=40
+  when !skill Riding 1
+  label tauren-riding
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Thunder Bluff"
 
@@ -247,13 +252,13 @@ step Thunder Bluff
 step Mulgore
   only Tauren
   zone Mulgore
-  when level>=40
+  when done tauren-riding
   goto 46.8,62.0 "Bloodhoof Village" live
 
 step Riding at 40
   only Tauren
   zone Mulgore
-  when level>=40
+  when done tauren-riding
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Kar Stormsinger in Bloodhoof Village, with Harb Clawhoof's kodos (20 gold each) beside him. Ride back up to Thunder Bluff's flight master afterwards.
   train 3690 optional                   -- Kar Stormsinger, riding trainer
   note "Kodos: Harb Clawhoof, beside Kar Stormsinger in Bloodhoof Village."
@@ -278,7 +283,7 @@ step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   when !taxi "Gadgetzan"
   zone Thunder Bluff
-  when level>=40
+  when done tauren-riding
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Freewind Post"
   zone Thousand Needles
@@ -287,7 +292,7 @@ step Fly to Gadgetzan
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   when taxi "Gadgetzan"
   zone Thunder Bluff
-  when level>=40
+  when done tauren-riding
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Gadgetzan"
   zone Tanaris
@@ -339,7 +344,7 @@ step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
   when !taxi "Gadgetzan"
   zone Orgrimmar
-  when level<40
+  when !done tauren-riding
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
@@ -348,7 +353,7 @@ step Fly to Gadgetzan
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
   when taxi "Gadgetzan"
   zone Orgrimmar
-  when level<40
+  when !done tauren-riding
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Gadgetzan"
   zone Tanaris
@@ -376,9 +381,6 @@ step Mirage Raceway
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1190                           -- Pozzik
-  turnin 1183                           -- Pozzik: the Fuel Regulator Blueprints from Baron Revilgaz, if you carry them
-  accept 1186
-  turnin 1186                           -- Razzeric, beside Pozzik
   turnin 1191 direct
   turnin 1190                           -- Rizzle's Unguarded Plans
   accept 1194
