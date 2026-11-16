@@ -2331,6 +2331,84 @@ test('forever/horde/50-60/06-silithus.guide: the Egg-O-Matic stop shows only wit
 	assert.ok((egg[0].when || []).some((p) => p.k === 'has' && !p.neg && p.item === 8564 && (p.n || 1) === 1), 'shown only with the Hippogryph Egg in the bags');
 });
 
+// #2561's sweep, the whole class: a hand-in the giver takes straight from the
+// bags (`turnin ... direct`, never in the log) can only be done with what the
+// quest asks for in the bags, and nothing in the quest log tells the guide
+// whether they are. A required one holds the route there, so its step must
+// either gather the items itself before the hand-in or show only while the
+// bags hold them (`when has <item> xN`); work that shared its step and holds
+// the route for everyone moves to a step of its own. Each fixed stop is
+// pinned below (with the work that must still hold), and every guide is
+// checked for the class.
+function directNeeds(quest) {
+	const out = new Map();
+	for (const o of data.quests[quest].objectives || []) if (o.type === 'item' && o.id) out.set(o.id, o.count || 1);
+	return out;
+}
+// Why step `st`'s required direct hand-in `goal` may sit there without its items, or null.
+function directStuck(st, goal) {
+	const before = st.goals.slice(0, st.goals.indexOf(goal));
+	for (const [item, n] of directNeeds(goal.quest)) {
+		const gated = (st.when || []).some((p) => p.k === 'has' && !p.neg && p.item === item && (p.n || 1) >= n);
+		const gathered = before.some((g) => (g.t === 'collect' || g.t === 'buy') && g.item === item && !g.optional);
+		if (!gated && !gathered) return `item ${item} x${n}: neither gathered in the step nor a \`when has\``;
+	}
+	return null;
+}
+for (const [guide, quest, items, also, keep] of [
+	['forever/alliance/40-50/04-tanaris.guide', 1878, { 8483: 5 }, [], [['turnin', 1691]]],
+	['forever/alliance/40-50/05-the-hinterlands.guide', 349, { 2799: 10 }, [], []],
+	['forever/alliance/50-60/04-western-plaguelands.guide', 5402, { 12840: 20 }, [], [['turnin', 5220], ['accept', 5222]]],
+	['forever/alliance/50-60/04-western-plaguelands.guide', 5403, { 12841: 10 }, [], [['turnin', 5220], ['accept', 5222]]],
+	['forever/alliance/50-60/04-western-plaguelands.guide', 4041, { 11242: 1 }, ['collect 11243'], []],
+	['forever/alliance/50-60/06-silithus.guide', 8469, { 21383: 5 }, [], []],
+	['forever/horde/40-50/06-azshara.guide', 2741, { 8564: 1 }, [], [['turnin', 2641], ['accept', 4504], ['turnin', 2661], ['accept', 2662], ['turnin', 2662]]],
+	['forever/horde/50-60/03-winterspring.guide', 4041, { 11242: 1 }, ['collect 11243'], []],
+	['forever/horde/50-60/07-felwood.guide', 5887, { 11515: 6 }, [], []],
+	['forever/horde/50-60/07-felwood.guide', 8469, { 21383: 5 }, [], []],
+	['forever/class/warrior/whirlwind-weapon.guide', 1714, { 4479: 8, 4480: 8, 4481: 8 }, ['level', 'collect 6851'], []],
+	['forever/collectibles/pets/bitter-baitling.guide', 8193, { 19807: 40 }, ['collect 274026'], []],
+	['forever/horde/50-60/03-winterspring.guide', 3804, { 11040: 10 }, [], [['turnin', 3782], ['turnin', 3786]]],
+]) {
+	test(`${guide}: hand-in ${quest} straight from the bags shows only while they hold what it asks for (#2561 sweep)`, { skip }, () => {
+		const { steps } = compiled(guide);
+		const at = steps.filter((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === quest));
+		assert.equal(at.length, 1, `one hand-in of ${quest}`);
+		const [st] = at;
+		assert.ok(st.goals.find((g) => g.quest === quest && g.t === 'turnin').direct, `${quest} is handed in straight from the bags`);
+		for (const [item, n] of Object.entries(items)) {
+			assert.ok((st.when || []).some((p) => p.k === 'has' && !p.neg && p.item === Number(item) && (p.n || 1) === n), `"${st.title}" shows only with ${n} of item ${item} in the bags`);
+		}
+		// Nothing else holds the step but what the hand-in itself gives (its reward taken as a goal) or a level.
+		const rest = st.goals.filter((g) => !(g.t === 'turnin' && g.quest === quest)).map((g) => (g.t === 'level' ? 'level' : `${g.t} ${g.item || g.quest}`));
+		assert.deepEqual(rest, also, `"${st.title}" holds only the hand-in`);
+		for (const [t, q] of keep) {
+			const other = steps.find((s) => s.goals.some(is(t, q)));
+			assert.ok(other && other !== st && !(other.when || []).some((p) => p.k === 'has'), `${t} ${q} still holds the route for everyone`);
+		}
+	});
+}
+test(`forever/alliance/40-50/05-the-hinterlands.guide: Mokk's heart waits for Unbagwa's ritual, its hand-in done (#2561 sweep)`, { skip }, () => {
+	const { steps } = compiled('forever/alliance/40-50/05-the-hinterlands.guide');
+	const ritual = steps.findIndex((st) => st.goals.some(is('turnin', 349)));
+	const heart = steps.findIndex((st) => st.goals.some((g) => g.t === 'collect' && g.item === 2797));
+	assert.ok(heart > ritual, 'the heart comes after the fangs are handed in');
+	assert.ok((steps[heart].when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(349)), 'and only once Unbagwa has them: Mokk comes from his ritual');
+});
+test('Every guide: no required hand-in straight from the bags can hold the route without its items (#2561 sweep)', { skip }, () => {
+	const bad = [];
+	for (const guide of allGuides()) {
+		for (const st of compiled(guide).steps) {
+			for (const goal of st.goals) {
+				if (goal.t !== 'turnin' || !goal.direct || goal.optional || !data.quests[goal.quest]) continue;
+				const why = directStuck(st, goal);
+				if (why) bad.push(`${guide} "${st.title}" turnin ${goal.quest}: ${why}`);
+			}
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
 // step (players' recordings; 12 deaths in the archive by #977). His head stays an
 // optional extra (#221), collected only in the steps for players who group for it
@@ -11767,10 +11845,13 @@ test('Horde 40-50: The Super Egg-O-Matic is taken in Tanaris at 47 and finished 
 	assert.ok(fray < egg && egg < uzeri, 'the nests right after the hippogryphs, before Camp Mojache');
 	assert.ok((az[egg].step.when || []).some((p) => p.k === 'available' && !p.neg), 'the nests only while the Egg-O-Matic takes an egg');
 	const tin = az[at(az, 'turnin 2741', is('turnin', 2741))];
-	// The Gadgetzan stop is split in steps (Pestlezugg's `when available` accept is its own step since the E1 sweep):
-	// the hand-in is on the stop that hands March of the Silithid to Pestlezugg, at most two steps after it.
+	// The Gadgetzan stop is split in steps (Pestlezugg's `when available` accept is its own step since the E1 sweep,
+	// the Egg-O-Matic's hand-in its own since #2561's sweep): the hand-in is on the stop that hands March of the
+	// Silithid to Pestlezugg, at most three steps after it, with no travel in between.
 	const march = az[at(az, 'turnin 4494', is('turnin', 4494))];
-	assert.ok(tin.s >= march.s && tin.s - march.s <= 2, 'on the Gadgetzan stop');
+	assert.ok(tin.s >= march.s && tin.s - march.s <= 3, 'on the Gadgetzan stop');
+	const between = compiled('forever/horde/40-50/06-azshara.guide').steps.slice(march.s - 1, tin.s);
+	assert.ok(between.every((st) => !st.goals.some((g) => ['fly', 'goto', 'hearth'].includes(g.t))), 'no travel between Pestlezugg and the Egg-O-Matic');
 	const epl = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	assert.ok(!epl.some(({ goal }) => is('accept', 2741)(goal)), '50-60/05 no longer takes it');
 	assert.ok(!epl.some(({ goal }) => goal.t === 'collect' && goal.item === 8564), 'no nests step in 50-60/05');
@@ -14895,13 +14976,17 @@ test('Alliance 50-60/02: Xavaric killed when the route reaches him for the Flute
 // 0.4.0 route-feel audit (Alliance Western Plaguelands): the Dalson's Tears cauldron (Target: Dalson's Tears, 5219)
 // stands beside the farmhouse the route works on its first stop there; Return to Chillwind Camp (5220) was walked past
 // there and taken 30 min later on a ride out from the camp. Now it is done with the farm and handed in on the same
-// return to the camp as the scourgestones.
+// return to the camp as the scourgestones (since #2561's sweep each stone hand-in is a step of its own, shown only
+// with its stones in the bags, and MacDonnell's the step right after them, with no travel in between).
 test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return to Chillwind Camp on the next camp stop', { skip }, () => {
 	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const p = (t, q) => at(wpl, `${t} ${q}`, is(t, q));
 	assert.equal(wpl[p('turnin', 5219)].s, wpl[p('turnin', 5060)].s, 'the cauldron with the farm\'s cabinet');
 	assert.ok(p('turnin', 5060) < p('turnin', 5219) && p('turnin', 5219) < p('accept', 5220), 'after the cabinet');
-	assert.equal(wpl[p('turnin', 5220)].s, wpl[p('turnin', 5403)].s, 'handed in with the scourgestones');
+	const stones = wpl[p('turnin', 5402)].s;
+	assert.ok(p('turnin', 5403) < p('turnin', 5220) && wpl[p('turnin', 5220)].s - stones <= 2, 'handed in with the scourgestones');
+	const camp = compiled('forever/alliance/50-60/04-western-plaguelands.guide').steps.slice(stones - 1, wpl[p('turnin', 5220)].s);
+	assert.ok(camp.every((st) => !st.goals.some((g) => ['fly', 'goto', 'hearth'].includes(g.t))), 'on the same camp stop: no travel in between');
 	assert.equal(wpl[p('accept', 5222)].s, wpl[p('turnin', 5220)].s, 'Target: Writhing Haunt taken there');
 	assert.ok(p('turnin', 5220) < p('turnin', 5097), 'before the watchtowers\' hand-in');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
