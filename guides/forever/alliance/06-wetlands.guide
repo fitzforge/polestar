@@ -164,6 +164,10 @@ step Menethil Harbor
   accept 281                              -- Karl Boran, on the pier north of the inn
   accept 471                              -- James Halloran, by the docks
   accept 98208                            -- Sylessa Duskwhisper, beside James Halloran by the docks
+
+step Harlo Barnaby
+  zone Wetlands
+  when !turnedin 304
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
 
 step James Halloran
