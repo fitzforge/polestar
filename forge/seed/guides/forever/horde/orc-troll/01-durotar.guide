@@ -253,11 +253,11 @@ step Foreman Thazz'ril
   turnin 6394
 
 step Zureetha Fargaze
-  turnin 794
   turnin 804 only !Shaman           -- Gornek
+  train class
+  turnin 794
   accept 805
   accept 96652                        -- the Lost Journal on the ground beside her
-  train class
 
 step Call of Earth
   only Shaman
@@ -417,6 +417,13 @@ step Makrura and crawlers
   collect 4887 quest 818.1
   collect 4888 quest 818.2
 
+step Sen'jin Village
+  turnin 818                          -- Master Vornal
+
+step Vel'rin Fang
+  when complete 817
+  turnin 817                          -- Vel'rin Fang
+
 # Kolkar Crag before the Echo Isles: Zalazane (10) and the Voodoo and Hexed
 # Trolls (8-9) are met at 9, not at 8 (level tidy 0.4.0).
 step Kolkar Crag
@@ -431,7 +438,6 @@ step Kolkar Crag
 step Sen'jin Village
   turnin 786                          -- Lar Prowltusk
   turnin 99123                        -- Master Vornal
-  turnin 818                          -- Master Vornal
 
 step Bloodtalon Matriarch
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
@@ -567,6 +573,12 @@ step Misha Tor'kren
   accept 816
   collect 4891 quest 816.1
   turnin 816
+
+step Level 11
+  when level<11
+  tip Top up here to level 11 before Fizzle Darkstorm (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut.
+  goto 39.6,29.2 map 1411 "Thunder Lizard"
+  level 11 grind 3130               -- grind on Thunder Lizard
 
 step Fizzle Darkstorm
   tip Fizzle holds the Burning Blade camp on Thunder Ridge, north-west of Razor Hill. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.

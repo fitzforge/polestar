@@ -367,6 +367,12 @@ step Galak centaurs
 
 # ---------------------------------------------------------------- The Venture Co. Mine
 
+step Level 11
+  when level<11
+  tip Top up here to level 11 before the mine: Supervisor Fizsprocket is 12. The Venture Co. Workers (8-9) in the hills outside it count for The Venture Co. too.
+  goto 59.2,47.8 map 1412 "Venture Co. Worker"
+  level 11 grind 2978               -- grind on Venture Co. Worker
+
 step The Venture Co. Mine
   tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
   tip Careful: the goblins stand close together in the tunnels and Supervisor Fizsprocket is level 12: clear the way one pull at a time.

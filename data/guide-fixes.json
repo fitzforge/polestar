@@ -11166,6 +11166,69 @@
 					"ref": "npc levels in Forever's creature data: Arnak Grimtotem 29"
 				}
 			]
+		},
+		{
+			"id": "h-audit-040-tirisfal-pumpkins-level-6",
+			"faction": "Horde",
+			"at": {
+				"quest": 365,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 6,
+			"note": "Horde 0.4.0 audit: the Tirisfal Pumpkins grow among Tirisfal Farmers (6-7), with Scarlet Warriors (6-7) at the field's edges and the rare Farmer Solliden (8) in the field. The pumpkins stay on the road in from Deathknell (#1046); a top-up to 6 on the Decrepit Darkhounds (5-6) east of the farm comes first, so the camp is at most one over. The level model reaches the step at 6.4 (no grind); a quarter of recorded players were under 6 there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): pumpkins picked at a 25th percentile of 5.85, 51 people; 4 deaths at the fields, 1 to a Scarlet Warrior 7"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 1934 Tirisfal Farmer 6-7, 1535 Scarlet Warrior 6-7, 1936 Farmer Solliden 8, 1547 Decrepit Darkhound 5-6"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-durotar-fizzle-level-11",
+			"faction": "Horde",
+			"at": {
+				"quest": 806,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 11,
+			"note": "Horde 0.4.0 audit (Orc and Troll Durotar): Fizzle Darkstorm (12) and his imp (12) hold the Burning Blade camp on Thunder Ridge. A top-up to 11 on the Thunder Lizards (9-10) west of Misha's hut comes first, so he is at most one over. The level model reaches the step at 11.9 (no grind); a quarter of recorded Trolls were under 11 there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Fizzle's camp at a 25th percentile of 10.8 (Troll, 13 people) and 11.2 (Orc, 26); 13 people died at the camp, 6 of them to Fizzle or his imp"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3203 Fizzle Darkstorm 12, 3130 Thunder Lizard 9-10"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-mulgore-venture-mine-level-11",
+			"faction": "Horde",
+			"at": {
+				"quest": 764,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 11,
+			"note": "Horde 0.4.0 audit (Mulgore): Supervisor Fizsprocket (12) stands at the back of the Venture Co. Mine. The mine now comes after northern Mulgore and the Galak centaurs; a top-up to 11 on the Venture Co. Workers (8-9) in the hills outside it comes first, so he is at most one over. The level model reaches the step at 11.2 (no grind).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): the mine at a 25th percentile of 9.8 on the earlier route (11 people), 6 deaths in the mine, none to a higher mob"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3051 Supervisor Fizsprocket 12, 2978 Venture Co. Worker 8-9"
+				}
+			]
 		}
 	]
 }

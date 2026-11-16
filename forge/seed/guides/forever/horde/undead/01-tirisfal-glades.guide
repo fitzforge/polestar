@@ -146,9 +146,15 @@ step Solliden Farmstead
   accept 8                            -- Calvin Montague
   accept 365                          -- Deathguard Simmer
 
+step Level 6
+  when level<6
+  tip Top up here to level 6 before the pumpkins: the Tirisfal Farmers and Scarlet Warriors in the fields are 6-7. The Decrepit Darkhounds (5-6) roam the hills just east of the farm.
+  goto 40.0,54.0 map 1420 "Decrepit Darkhound"
+  level 6 grind 1547               -- grind on Decrepit Darkhound
+
 step Tirisfal Pumpkins
   tip The pumpkins grow in the Scarlet-held fields just north-west of the farmhouse.
-  tip Careful: Farmers stand close to the pumpkins, so you can pull more than one at once. Scarlet mobs are found around the edges of the farm and a bit to the northwest.
+  tip Careful: Farmers stand close to the pumpkins, so you can pull more than one at once. Scarlet mobs are found around the edges of the farm and a bit to the northwest. Farmer Solliden (8, rare) walks the field.
   collect 2846 quest 365.1
 
 step Gordo

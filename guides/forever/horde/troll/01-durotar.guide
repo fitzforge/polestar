@@ -145,15 +145,16 @@ step Felstalker hooves
   collect 6640 quest 1516.1
 
 step Zureetha Fargaze
-  turnin 794
+  tip Inside the Den first (Gornek, your trainer, Ken'jai), then Zureetha and Canaga at the entrance, and Foreman Thazz'ril last, east of the Den on the way to Ukor.
   turnin 804 only !Shaman           -- Gornek, inside
+  train class
+  accept 5649 only Troll,Priest       -- Ken'jai, the priest trainer at the Den: for Tai'jin in Razor Hill
+  turnin 794
   accept 805
   accept 96652                        -- the Lost Journal on the ground beside her
-  train class
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
-  turnin 6394
-  accept 5649 only Troll,Priest       -- Ken'jai, the priest trainer at the Den: for Tai'jin in Razor Hill
+  turnin 6394                         -- Foreman Thazz'ril
 
 step Call of Earth
   only Shaman
@@ -331,6 +332,14 @@ step Scuttle Coast: kill these as you meet them
   collect 4887 quest 818.1            -- Underwater
   collect 4890 quest 815.1
 
+step Sen'jin Village
+  tip Through Sen'jin on the way west to Kolkar Crag: Master Vornal takes the eyes and mucus now.
+  turnin 818                          -- Master Vornal
+
+step Vel'rin Fang
+  when complete 817
+  turnin 817                          -- Vel'rin Fang
+
 step Kolkar Crag
   tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
   accept 99123 @46.3,78.7
@@ -344,7 +353,6 @@ step Sen'jin Village
   tip Back east to Sen'jin on the way to the Echo Isles.
   turnin 786                          -- Lar Prowltusk
   turnin 99123                        -- Master Vornal
-  turnin 818                          -- Master Vornal
 
 step Bloodtalon Matriarch
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there; Durotar Tigers roam the isle and the shore south of Sen'jin.
@@ -502,6 +510,12 @@ step Misha Tor'kren
   accept 816                          -- Inside
   collect 4891 quest 816.1
   turnin 816
+
+step Level 11
+  when level<11
+  tip Top up here to level 11 before Fizzle Darkstorm (12) and his imp: the Thunder Lizards (9-10) graze on the ridge just west of Misha's hut.
+  goto 39.6,29.2 map 1411 "Thunder Lizard"
+  level 11 grind 3130               -- grind on Thunder Lizard
 
 # Fizzle Darkstorm (12) comes after the lizards, Rezlak and Misha, as in the seed order: their quests
 # are handed in first, so his camp is met nearer 11 than 10.
