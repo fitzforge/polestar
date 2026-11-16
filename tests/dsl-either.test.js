@@ -75,3 +75,16 @@ test('format 11: a guide with an `either` goal, read by Polestar 0.4.1 and later
 	assert.equal(formatFor(compile(guideText(['step One', '  accept 783', '  accept 7'])).guides), FORMAT);
 	assert.equal(formatFor(compile(guideText(['step One', '  task "A"', '  task "B"'])).guides), MONEY_TASK_FORMAT);
 });
+
+test("the route planner's goal editor writes `either` and offers it on every verb that takes it", () => {
+	const { goalFields, formatGoal, verbSchema } = require('../tools/lib/planner/goalfmt');
+	const { parseGuide } = require('../tools/lib/dsl/parse');
+	const { Diagnostics } = require('../tools/lib/dsl/diag');
+	const written = (text) => formatGoal(goalFields(parseGuide(guideText(['step One', `  ${text}`, '  accept 7 either']), 'x', new Diagnostics()).steps[0].goals[0]));
+	assert.equal(written('accept 783 either'), 'accept 783 either');
+	assert.equal(written('collect 769 either x4 optional "Any meat" only Human'), 'collect 769 x4 "Any meat" optional either only Human');
+	assert.equal(written('task "Take the boat" either'), 'task "Take the boat" either');
+	const { verbs } = verbSchema();
+	assert.ok(verbs.accept.modifiers.some((m) => m.key === 'either' && m.type === 'bool' && m.mod === 'either'));
+	assert.ok(!verbs.note.modifiers.some((m) => m.key === 'either'));
+});
