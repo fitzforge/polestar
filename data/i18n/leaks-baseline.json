@@ -37162,6 +37162,13 @@
 				],
 				"english": "Rotting Dwarf Corpse"
 			},
+			"npc:239822": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Commander Truesong"
+			},
 			"npc:246016": {
 				"reason": "no-source",
 				"scenes": [
@@ -37283,6 +37290,20 @@
 				],
 				"english": "[DNT] Kill Credit: Place Explosives"
 			},
+			"npc:253527": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Kog'thug the Brave"
+			},
+			"npc:254674": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd"
+			},
 			"npc:255391": {
 				"reason": "no-source",
 				"scenes": [
@@ -37304,6 +37325,13 @@
 				],
 				"english": "Tidemistress Ca'zass"
 			},
+			"npc:256102": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Crest of Lordaeron"
+			},
 			"npc:256236": {
 				"reason": "no-source",
 				"scenes": [
@@ -37318,6 +37346,20 @@
 					"rares"
 				],
 				"english": "Reginald Holmsby"
+			},
+			"npc:256795": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Fanatic"
+			},
+			"npc:256797": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Corrupter"
 			},
 			"npc:256830": {
 				"reason": "no-source",
@@ -37350,6 +37392,13 @@
 				],
 				"english": "Mad Marrius"
 			},
+			"npc:258023": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Sergeant Riftan"
+			},
 			"npc:258032": {
 				"reason": "no-source",
 				"scenes": [
@@ -37357,6 +37406,13 @@
 					"rares"
 				],
 				"english": "Twilight Forgemaster"
+			},
+			"npc:258652": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Thrall"
 			},
 			"npc:258905": {
 				"reason": "no-source",
@@ -37586,12 +37642,26 @@
 				],
 				"english": "Sergeant Danneth"
 			},
+			"npc:268423": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zalfan Moonshadow"
+			},
 			"npc:271181": {
 				"reason": "no-source",
 				"scenes": [
 					"guides"
 				],
 				"english": "Eye of Kilrogg"
+			},
+			"npc:271293": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Twilight Thrall"
 			},
 			"npc:271336": {
 				"reason": "no-source",
@@ -37613,6 +37683,13 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
+			},
+			"npc:272737": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit"
 			},
 			"npc:277182": {
 				"reason": "same-as-english",
@@ -37712,6 +37789,13 @@
 					"guide"
 				],
 				"english": "Molsen Farm Water Well"
+			},
+			"object:614679": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Crest of Lordaeron"
 			},
 			"object:616860": {
 				"reason": "no-source",
@@ -38349,6 +38433,13 @@
 				],
 				"english": "Tyrant of the Hive"
 			},
+			"npc:227853": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Pix Xizzix"
+			},
 			"npc:228619": {
 				"reason": "no-source",
 				"scenes": [
@@ -38362,6 +38453,13 @@
 					"dungeons"
 				],
 				"english": "Rotting Dwarf Corpse"
+			},
+			"npc:239822": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Commander Truesong"
 			},
 			"npc:243046": {
 				"reason": "no-source",
@@ -38691,6 +38789,13 @@
 				],
 				"english": "[DNT] Kill Credit: Place Explosives"
 			},
+			"npc:253527": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Kog'thug the Brave"
+			},
 			"npc:253576": {
 				"reason": "no-source",
 				"scenes": [
@@ -38711,6 +38816,13 @@
 					"guides"
 				],
 				"english": "Vayn Moongaze"
+			},
+			"npc:254674": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Woodwyrd"
 			},
 			"npc:255183": {
 				"reason": "no-source",
@@ -38839,6 +38951,27 @@
 				],
 				"english": "Huey Sunnydale"
 			},
+			"npc:256795": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Fanatic"
+			},
+			"npc:256797": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Corrupter"
+			},
+			"npc:256799": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Champion"
+			},
 			"npc:256830": {
 				"reason": "no-source",
 				"scenes": [
@@ -38884,6 +39017,13 @@
 					"guides"
 				],
 				"english": "Teo Hammerstorm"
+			},
+			"npc:257558": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Demar Brant"
 			},
 			"npc:257591": {
 				"reason": "no-source",
@@ -38941,6 +39081,13 @@
 					"guides"
 				],
 				"english": "Hervdana Saegrund"
+			},
+			"npc:258652": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Twilight Thrall"
 			},
 			"npc:258905": {
 				"reason": "no-source",
@@ -39318,6 +39465,20 @@
 				],
 				"english": "Va'xug Firefure"
 			},
+			"npc:268423": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Zalfan Moonshadow"
+			},
+			"npc:268425": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "Ranath Nightstride"
+			},
 			"npc:268592": {
 				"reason": "no-source",
 				"scenes": [
@@ -39405,6 +39566,13 @@
 				],
 				"english": "Eye of Kilrogg"
 			},
+			"npc:271293": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit: Twilight Thrall"
+			},
 			"npc:271322": {
 				"reason": "no-source",
 				"scenes": [
@@ -39488,6 +39656,13 @@
 					"dungeons"
 				],
 				"english": "Vitrix"
+			},
+			"npc:272737": {
+				"reason": "no-source",
+				"scenes": [
+					"dungeons"
+				],
+				"english": "[DNT] Kill Credit"
 			},
 			"npc:273017": {
 				"reason": "no-source",
