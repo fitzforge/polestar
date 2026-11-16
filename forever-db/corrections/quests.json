@@ -4012,7 +4012,15 @@
 	},
 	"92753": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Explosives placed"
+				}
+			]
 		},
 		"source": [
 			{
@@ -4022,9 +4030,13 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 48 people ran Destruction in Deadmines; the quest log lists one line, \"Explosives placed\" (\"Explosifs placés\", \"Sprengsätze platziert\", \"Explosivos colocados\" on French, German and Spanish clients), and half of its 38 recorded ticks came with the player's own cast of spell 1258822"
 			}
 		],
-		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Its one objective is planting the explosives by the forge, in the quest log's words \"Explosives placed\"; the quest record names it by the invisible credit NPC 253370, \"[DNT] Kill Credit: Place Explosives\", which no player should read (#2614)."
 	},
 	"92819": {
 		"set": {
@@ -10226,6 +10238,59 @@
 		],
 		"note": "Crown of the Earth is open to every Alliance race: Forever's server sets no race limit (players' caches). QuestieDB 1.0.14 narrowed it to Night Elf (up to 1.0.13: the Alliance), which closed it to Human, Dwarf, Gnome and Alliance Skyborne."
 	},
+	"98067": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Cenarion Hold depths entrance",
+					"map": 1457,
+					"f": "e",
+					"x": 33.39,
+					"y": 16.77
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Darnassus Bank",
+					"map": 1457,
+					"f": "e",
+					"x": 41.04,
+					"y": 43.55
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Craftsman's Terrace Inn",
+					"map": 1457,
+					"f": "e",
+					"x": 66.46,
+					"y": 15.35
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "City Gate",
+					"map": 1457,
+					"f": "e",
+					"x": 89.14,
+					"y": 34.76
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 35 people ran Eyes of the Sentinels; the quest log lists four lines in this order, \"Cenarion Hold depths entrance\", \"Darnassus Bank\", \"Craftsman's Terrace Inn\" and \"City Gate\" (the same four in German, French, Spanish, Korean and Chinese on those clients), and 127 of its 128 recorded ticks came with the player's own cast of spell 1306608, not a kill"
+			}
+		],
+		"note": "Eyes of the Sentinels (98067, Darnassus): the four places Sentinel Dalia Sunblade sends you to set Sentinel Owls, each an objective the quest record names by an invisible credit NPC called just \"Credit\" (270418 to 270421), which no player should read (#2614). The quest log's own words for them, in order, each placed at its credit's spot (where the Teldrassil guide uses the Lunar Pendant)."
+	},
 	"98284": {
 		"set": {
 			"races": 8589934770,
@@ -13069,10 +13134,14 @@
 			},
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 272737,
+					"type": "event",
+					"id": null,
 					"count": 5,
-					"text": "[DNT] Kill Credit"
+					"text": "Rog'mar Scout rescued",
+					"map": 2548,
+					"f": "l",
+					"x": 27.6,
+					"y": 40.5
 				}
 			]
 		},
@@ -13084,9 +13153,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 3 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 16 people ran Break Their Chains; the quest log lists one line, \"Rog'mar Scout rescued\" x5, and its ticks come with the player's own cast of spell 1277271, not a kill"
 			}
 		],
-		"note": "Break Their Chains (94748), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Da'grosh (258570), where players handed it in (the quest's own text names it)."
+		"note": "Break Their Chains (94748), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Da'grosh (258570), where players handed it in (the quest's own text names it). The objective is freeing five captive scouts, in the quest log's words \"Rog'mar Scout rescued\"; the quest record names it by the invisible credit NPC 272737, \"[DNT] Kill Credit\", which no player should read (#2614). Placed at that credit's spot."
 	},
 	"94768": {
 		"set": {
@@ -13488,10 +13561,14 @@
 			},
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 272737,
+					"type": "event",
+					"id": null,
 					"count": 5,
-					"text": "[DNT] Kill Credit"
+					"text": "Farholde Scouts rescued",
+					"map": 2548,
+					"f": "l",
+					"x": 27.6,
+					"y": 40.5
 				}
 			]
 		},
@@ -13503,9 +13580,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 7 people accepted it, 4 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 28 people ran No Soldier Left Behind; the quest log lists one line, \"Farholde Scouts rescued\" x5 (\"Éclaireurs de Fort-Lointain sauvés\" on French clients), and its ticks come with the player's own cast of spell 1277271, not a kill"
 			}
 		],
-		"note": "No Soldier Left Behind (94888), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Sergeant Riftan (258023), where players handed it in (the quest's own text names it)."
+		"note": "No Soldier Left Behind (94888), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree); its ender, Sergeant Riftan (258023), where players handed it in (the quest's own text names it). The objective is freeing five captive scouts, in the quest log's words \"Farholde Scouts rescued\"; the quest record names it by the invisible credit NPC 272737, \"[DNT] Kill Credit\", which no player should read (#2614: the guide said \"Kill [DNT] Kill Credit\"). Placed at that credit's spot."
 	},
 	"94889": {
 		"set": {
@@ -13612,9 +13693,9 @@
 			"objectives": [
 				{
 					"type": "kill",
-					"id": 271293,
+					"id": 258652,
 					"count": 1,
-					"text": "[DNT] Kill Credit: Twilight Thrall"
+					"text": "Twilight Thrall captured"
 				}
 			]
 		},
@@ -13626,9 +13707,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 9 people accepted it, 4 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 37 people ran A Small Favor; the quest log lists one line, \"Twilight Thrall captured\" (\"Esclave du Crépuscule capturé\" on French clients), and 25 of its 25 recorded ticks came as the player killed a Twilight Thrall (258652)"
 			}
 		],
-		"note": "A Small Favor (94907), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree)."
+		"note": "A Small Favor (94907), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree). The objective is the Twilight Thrall (258652) the player summons from a conduit and defeats for Ashe's soulstone, in the quest log's words \"Twilight Thrall captured\"; the quest record names it by the invisible credit NPC 271293, \"[DNT] Kill Credit: Twilight Thrall\", which no player should read (#2614)."
 	},
 	"94923": {
 		"set": {
@@ -14430,10 +14515,14 @@
 			},
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 266883,
+					"type": "event",
+					"id": null,
 					"count": 10,
-					"text": "[DNT] Kill Credit Young Paletusk"
+					"text": "Young Paletusk returned",
+					"map": 2548,
+					"f": "l",
+					"x": 72.4,
+					"y": 39.5
 				}
 			],
 			"title": "Drive Them Back",
@@ -14457,9 +14546,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 5 people accepted it, 5 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 19 people ran Drive Them Back; the quest log lists one line, \"Young Paletusk returned\" x10, and its ticks come with the player's own cast of spell 1289718, not a kill"
 			}
 		],
-		"note": "Drive Them Back (95163), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees); its ender, Na'zok (256728), where players handed it in (the quest's own text names it)."
+		"note": "Drive Them Back (95163), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees); its ender, Na'zok (256728), where players handed it in (the quest's own text names it). The objective is herding ten Young Paletusks home with the Swineherd's Staff the quest hands over, in the quest log's words \"Young Paletusk returned\"; the quest record names it by the invisible credit NPC 266883, \"[DNT] Kill Credit Young Paletusk\", which no player should read (#2614). Placed at that credit's spot."
 	},
 	"95183": {
 		"set": {
@@ -14804,9 +14897,9 @@
 			"objectives": [
 				{
 					"type": "talk",
-					"id": 260417,
+					"id": 260995,
 					"count": 5,
-					"text": "[DNT] Kill Credit: Ogre Miner"
+					"text": "Ogre Miners recruited"
 				}
 			]
 		},
@@ -14818,9 +14911,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' recordings to 2026-11-11: 3 people accepted it, 3 handed it in"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 16 people ran Rise Up!; the quest log lists one line, \"Ogre Miners recruited\" x5, and each of its 75 recorded ticks came with an Ogre Miner's (260995) window open"
 			}
 		],
-		"note": "Rise Up! (95432), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree)."
+		"note": "Rise Up! (95432), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (players' recordings agree). The objective is talking to five Ogre Miners (260995), in the quest log's words \"Ogre Miners recruited\"; the quest record names it by the invisible credit NPC 260417, \"[DNT] Kill Credit: Ogre Miner\", which no player should read (#2614)."
 	},
 	"95433": {
 		"set": {
@@ -14999,10 +15096,14 @@
 		"set": {
 			"objectives": [
 				{
-					"type": "kill",
-					"id": 272603,
+					"type": "event",
+					"id": null,
 					"count": 5,
-					"text": "[DNT] Kill Credit"
+					"text": "Twilight Ritual Circle destroyed",
+					"map": 2548,
+					"f": "l",
+					"x": 47.9,
+					"y": 49.8
 				}
 			],
 			"title": "Sickening Lights",
@@ -15025,9 +15126,13 @@
 			{
 				"kind": "recording",
 				"ref": "players' offer windows to 2026-11-11: 4 characters were not offered it before Digging for Answers (94727) was handed in, and were offered it after"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-16 (excluded contributors left out): 17 people ran Sickening Lights; the quest log lists one line, \"Twilight Ritual Circle destroyed\" x5, and its ticks come with the player's own cast of spell 1287234, not a kill"
 			}
 		],
-		"note": "Sickening Lights (95602), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees)."
+		"note": "Sickening Lights (95602), a Forever quest of the Riverglades: its title, levels, side, XP and objectives as the game's own quest record gives them (QuestieDB 1.0.14 agrees). The objective is destroying five Twilight Ritual Circles, in the quest log's words \"Twilight Ritual Circle destroyed\"; the quest record names it by the invisible credit NPC 272603, \"[DNT] Kill Credit\", which no player should read (#2614). Placed at that credit's spot."
 	},
 	"95615": {
 		"set": {
