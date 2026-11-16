@@ -10475,11 +10475,13 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	assert.ok(sp('turnin 1124', is('turnin', 1124)) < sp('accept 8277', is('accept', 8277)), 'Layo where the pass comes out, before Cenarion Hold');
 	assert.equal(sp('accept 9415', is('accept', 9415)), sp('accept 8277', is('accept', 8277)), 'Torrig on the first Cenarion Hold stop');
 	assert.equal(sp('accept 8284', is('accept', 8284)), sp('accept 8277', is('accept', 8277)), 'Larksbane on the first Cenarion Hold stop');
-	// Bor Wildmane's Secret Communication (minimum level 57) waits for the second stop: the level model is just under 57 on the first.
-	assert.ok(sp('accept 8318', is('accept', 8318)) > sp('accept 8277', is('accept', 8277)), 'Bor Wildmane on the second Cenarion Hold stop');
+	// Bor Wildmane's Secret Communication (minimum level 57): the level model is just under 57 on this guide's Cenarion
+	// Hold stops, so since the 0.4.0 fix round he gives it on the Silithus guide's first Cenarion Hold stop (about 58).
+	assert.ok(!wpl.some(({ goal }) => goal.quest === 8318), 'no Secret Communication under level 57');
 	const si = goals('forever/alliance/50-60/06-silithus.guide');
 	const ss = (what, pred) => si[at(si, what, pred)].s;
 	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8282', is('accept', 8282)), 'Mar\'alith on the first Cenarion Hold stop');
+	assert.equal(ss('accept 8318', is('accept', 8318)), ss('accept 8278', is('accept', 8278)), 'Bor Wildmane on the first Cenarion Hold stop of the Silithus guide');
 });
 
 // --- Class guide audit (0.3.7) ----------------------------------------------------------------------

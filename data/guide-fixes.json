@@ -6712,10 +6712,10 @@
 				"guide": "forever/alliance/50-60/06-silithus"
 			},
 			"follows": {
-				"quest": 8282,
+				"quest": 8281,
 				"goal": "accept"
 			},
-			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's Cenarion Hold arrival (06, about 58.4), with Noggle's Lost Satchel, where its texts and hand-in are; on the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it.",
+			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's first Cenarion Hold stop (06, about 58), with Beetix's and Windcaller Proudhorn's quests, so the route doesn't walk past him; its texts drop at the Twilight dig after the next stop there, where he takes it back. On the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it.",
 			"source": [
 				{
 					"kind": "questie",
