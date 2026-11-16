@@ -210,6 +210,13 @@ test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gon
 	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
 });
 
+// #2466: the Ancient Egg's world point is inside both The Hinterlands' and Arathi Highlands' map frames, and it was
+// read in Arathi's (81.3,26.2), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Players loot it
+// in The Hinterlands.
+test('The Ancient Egg lies in The Hinterlands, where players loot it, not on Arathi Highlands\' map (#2466)', () => {
+	assert.deepEqual(corrections.objects[175889].set.spawns, { 1425: { f: 'e', pts: [[57.48, 86.69]] } });
+});
+
 // #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
 // The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
 // North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.

@@ -496,6 +496,32 @@
 		],
 		"note": "Henrig Lonebrow's Journal (object 19861), which starts Lonebrow's Journal (1100), lies at Thousand Needles 31.29,28.05 (map 1441), in Darkcloud Pinnacle. The merged data had the old spot 30.73,24.35, about 110 yd north (and the same spot read in the Barrens' map frame, 43.5,93.1), so the Razorfen Kraul pick-up guide's collect step pointed there. Replaces both."
 	},
+	"175889": {
+		"set": {
+			"spawns": {
+				"1425": {
+					"f": "e",
+					"pts": [
+						[
+							57.48,
+							86.69
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings: The Ancient Egg's (4787) objective is done at The Hinterlands 57.48,86.69 (map 1425), 5 people on builds 70888 and 70938 (data/recorded/quests.json, trusted); 6 people loot item 12402 from this object (data/codex/recorded.json)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2466: the reporter was sent to Arathi Highlands 81.30,26.20 (map 1417) for it"
+			}
+		],
+		"note": "The Ancient Egg (object 175889), which holds the egg for The Ancient Egg (4787), lies in The Hinterlands at 57.48,86.69 (map 1425), in the south. Its world point (-762,-3793.5) is inside two map frames, The Hinterlands' and Arathi Highlands', and it was read in Arathi's, the smaller one, as 81.3,26.2 (map 1417), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Sets the one spawn, on The Hinterlands' map."
+	},
 	"19019": {
 		"addSpawns": {
 			"1413": {
