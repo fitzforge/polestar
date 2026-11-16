@@ -16887,6 +16887,214 @@
 			],
 			"reason": "a group-choice step (`when group 93584`): its tip names the elite Outrunners, Priests, the Courier, Ve'han Talongrasp and Ghansurok",
 			"evidence": "route level 59.5 (Alliance route after fix round 1, rested level model, Mount Hyjal option); Blackthorne Priest 60-60, Blackthorne Courier 60-60, Jereman 60-60; recordings (2026-11-15): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/30-40/04-stranglethorn-vale.guide|complete 578|over",
+			"guide": "forever/alliance/30-40/04-stranglethorn-vale.guide",
+			"goal": "complete 578",
+			"kind": "over",
+			"title": "The Savage Coast",
+			"level": 33.5,
+			"mobs": [
+				"Lesser Water Elemental 36-37 x3"
+			],
+			"reason": "an area trigger at the haunted island's edge (21.9,22.4): the step's tip says just reach its edge and leave, and names the Lesser Water Elementals (36-37); 27 players' recorded hand-ins of 578 at a 25th percentile of 35.3, no recorded death to the elementals",
+			"evidence": "route level 33.5 (Alliance route after fix round 2, level model without grinding before an accept); Lesser Water Elemental 36-37 x3; recordings (2026-11-16): done by 0 (median null), deaths 2, abandons 4"
+		},
+		{
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|collect 662.4|pack",
+			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
+			"goal": "collect 662.4",
+			"kind": "pack",
+			"title": "The Drowned Reef: kill these as you meet them",
+			"level": 36.9,
+			"mobs": [
+				"8 spawns 38+"
+			],
+			"reason": "a kill-as-you-meet step at the Drowned Reef: the level model (no grinding before an accept) puts players at 36.9 there, players' recordings at 39.2 (31 people, 2 deaths); Faldir's Cove's naga camp itself is a group stop the pitch and tip name",
+			"evidence": "route level 36.9 (Alliance route after fix round 2, level model without grinding before an accept); 8 spawns 38+; recordings (2026-11-16): done by 31 (median 39.21), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 1108.1|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 1108.1",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"16 spawns 39+"
+			],
+			"reason": "Agmond's End's trogg camp: the step's Careful tip names the Stonevault Bonesnappers (39-40) and Shamans (40-41) and says to pull from the camp's edge, one at a time; the level model puts players at 37.8, their recordings at 40.8 (32 people, 2 deaths)",
+			"evidence": "route level 37.8 (Alliance route after fix round 2, level model without grinding before an accept); 16 spawns 39+; recordings (2026-11-16): done by 32 (median 40.85), deaths 2, abandons 2"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|kill 739.2|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "kill 739.2",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"13 spawns 39+"
+			],
+			"reason": "Agmond's End's trogg camp: the step's Careful tip names the Stonevault Bonesnappers (39-40) and Shamans (40-41) and says to pull from the camp's edge, one at a time; the level model puts players at 37.8, their recordings at 40.9 (26 people, 2 deaths)",
+			"evidence": "route level 37.8 (Alliance route after fix round 2, level model without grinding before an accept); 13 spawns 39+; recordings (2026-11-16): done by 26 (median 40.88), deaths 2, abandons 3"
+		},
+		{
+			"key": "forever/alliance/30-40/06-badlands.guide|collect 97617.1|pack",
+			"guide": "forever/alliance/30-40/06-badlands.guide",
+			"goal": "collect 97617.1",
+			"kind": "pack",
+			"title": "Agmond's End: kill these as you meet them",
+			"level": 37.8,
+			"mobs": [
+				"16 spawns 39+"
+			],
+			"reason": "Agmond's End's trogg camp: the step's Careful tip names the Stonevault Bonesnappers (39-40) and Shamans (40-41) and says to pull from the camp's edge, one at a time; the Pristine Mattock itself waits for the 40-50 Badlands visit",
+			"evidence": "route level 37.8 (Alliance route after fix round 2, level model without grinding before an accept); 16 spawns 39+; recordings (2026-11-16): done by 4 (median 40.71), deaths 2, abandons 1"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94678.3|elite",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94678.3",
+			"kind": "elite",
+			"title": "The Bristle Hills",
+			"level": 41,
+			"mobs": [
+				"Snargl 40-40"
+			],
+			"reason": "Snargl (40, elite) roams the Bristle Hills' south-western camps; the step's Careful tip says to pull the gnolls away from him and his own quest is a group choice; players' recordings: done at a median of 40.6 by 31 people, no deaths",
+			"evidence": "route level 41 (Alliance route after fix round 2, level model without grinding before an accept); Snargl 40-40; recordings (2026-11-16): done by 31 (median 40.55), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|kill 94877.1|over",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "kill 94877.1",
+			"kind": "over",
+			"title": "The Twilight cult",
+			"level": 41.8,
+			"mobs": [
+				"Executioner Morg 46-46 x2"
+			],
+			"reason": "Sunnyglade's cultists (37-41) are the step's targets; Executioner Morg (46) stands among them and the step's tips name the town's elite (Chogg'Zac) and say to pull the cultists out towards you; players' recordings: done at a median of 40.3 by 33 people",
+			"evidence": "route level 41.8 (Alliance route after fix round 2, level model without grinding before an accept); Executioner Morg 46-46 x2; recordings (2026-11-16): done by 33 (median 40.34), deaths 5, abandons 0"
+		},
+		{
+			"key": "forever/alliance/40-50/01b-riverglades.guide|collect 94881.1|rare",
+			"guide": "forever/alliance/40-50/01b-riverglades.guide",
+			"goal": "collect 94881.1",
+			"kind": "rare",
+			"title": "The Twilight cult",
+			"level": 41.8,
+			"mobs": [
+				"Twilight Forgemaster 46-46"
+			],
+			"reason": "Sunnyglade's cultists (37-41) drop the charms; the Twilight Forgemaster (46, rare) stands among them and the step's tips say to pull the cultists out towards you; players' recordings: done at a median of 40.8 by 34 people",
+			"evidence": "route level 41.8 (Alliance route after fix round 2, level model without grinding before an accept); Twilight Forgemaster 46-46; recordings (2026-11-16): done by 34 (median 40.82), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 87295.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 87295.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 52.2,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x2"
+			],
+			"reason": "the Redstone Basilisks' slopes, the same point as the bloodmages' basilisk quests (baselined): the data lists two Snickerfang Matriarch spawns of 60 near it, and players did the bloodmages' quests there at about 48 (12-13 people, 1-2 deaths)",
+			"evidence": "route level 52.2 (Alliance route after fix round 2, level model without grinding before an accept); Snickerfang Matriarch 60-60 x2; recordings (2026-11-16): done by 1 (median 47.35), deaths 2, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 95027.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 95027.1",
+			"kind": "rare",
+			"title": "Owl feathers",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 92449.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 92449.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x7; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 92449.1|pack",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 92449.1",
+			"kind": "pack",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"7 spawns 60+"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); 7 spawns 60+; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|kill 92449.2|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "kill 92449.2",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x5; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 90865.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 90865.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x3"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x3; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 90702.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 90702.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x5; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "experimental/guides/hyjal-1.guide|collect 92591.1|rare",
+			"guide": "experimental/guides/hyjal-1.guide",
+			"goal": "collect 92591.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 58.5,
+			"mobs": [
+				"Death Wailer 61-61 x4"
+			],
+			"reason": "Death Wailers (61, rare elites) drift over the western slopes and Mourning's Rest; the step's Careful tip names them and says to give them a wide berth (the Mount Hyjal option's level model reaches here at 58.5)",
+			"evidence": "route level 58.5 (Alliance route after fix round 2, level model without grinding before an accept, Mount Hyjal option); Death Wailer 61-61 x4; recordings (2026-11-16): done by 0 (median null), deaths 0, abandons 0"
 		}
 	]
 }
