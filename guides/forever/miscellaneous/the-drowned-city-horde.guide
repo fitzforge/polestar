@@ -24,40 +24,45 @@ why Every Horde quest of the Drowned City in one run, lead-ins included.
 # Commander Aggro'gosh's 95773 Enemies in the Water opens once 95748 is handed
 # in, and his 95776 The Only Good Brinescale... (Var'Taka) follows it.
 # Mazu'kon in Mulgore gives 96774 Ancient Gurubashi Idol; the idol drops from
-# Deathless Marrow only for a character on the quest, so he comes before the
+# Deathless Marrow only while the quest is in the log, so he comes before the
 # run. Krazek in Booty Bay gives both factions 95789 Shady Saltseers and 95791
 # The Saltseer Captain, from level 34.
 #
-# Inside: the data has no place inside the dungeon for its bosses, tablets or
-# pearls, so those goals stand at the entrance (@21.8,27.6, Sunken Hollow, the
-# point forever/horde/40-50/01-stranglethorn-vale uses) with `group 5`, and
-# the tips lead the way. Locating the Lost City (95770) points there too.
-# Arrival is a `goto` labelled "Sunken Hollow" (the area's name): done on
-# entering the cave, or once the work inside is done.
+# Inside: nothing in the data places the tablets or the bosses inside the
+# dungeon, so the run is one step holding all of its goals, in no order, at
+# the entrance (@21.8,27.6, Sunken Hollow, the point
+# forever/horde/40-50/01-stranglethorn-vale uses) with `group 5`. Locating the
+# Lost City (95770) points there too. Arrival is a `goto` labelled "Sunken
+# Hollow" (the area's name): done on entering the cavern, or once the work
+# inside is done.
 #
 # Sources (facts only):
 # - Quests, NPCs, items, objects and rewards: data/forever (QuestieDB Forever).
-# - The entrance and Min'loth: players' recordings, as 0.4.0 holds them. They
-#   entered the instance at a mean of 21.61,27.65 (data/codex/entrances.json)
-#   and completed 95770 at 21.7-22.0,27.1-28.1 (forever-db corrections), so
-#   21.8,27.6 serves both. Min'loth's loot came from npc 260243
-#   (data/codex/recorded.json), one of five npcs of that name in the data.
-# - Place names outside: the client's world map areas (Ruins of Zul'Kunda for
-#   object 52, The Vile Reef for the Tablet Shard's tablet).
-# - The way through the dungeon (the first tablet past Zul'Alai at a skull
-#   totem, the second by Var'Taka in the naga wing, the third by Captain
-#   Dreadrise in the pirates' plaza, the fourth by Min'loth; the Glowing Pearls
-#   by Var'Taka and by Dreadrise that open the barrier to Deathless Marrow):
-#   players' written accounts of their runs, November 2026 (Output Lag's
-#   walkthrough).
-# INGAME: the tablet spots, the pearls and the order inside come from those
-# accounts only; check them on a run.
+#   The idol is a quest item there (`questItem`, item class 12), which drops
+#   only while its quest is in the log. The objective texts of 95748, 95775 and
+#   95787 name a hide and charcoal for the rubbings, but there is no such item:
+#   each rubbing is the loot of its tablet.
+# - Players' recordings, as 0.4.0 holds them: they entered the instance at
+#   Sunken Hollow, at a mean of 21.61,27.65 and at levels 35 to 42
+#   (data/codex/entrances.json), and completed 95770 at 21.7-22.0,27.1-28.1,
+#   under the Vile Reef (forever-db corrections), so 21.8,27.6 serves both.
+#   They looted the four
+#   rubbings from four tablets (objects 642943-642946) and the idol from
+#   Deathless Marrow (data/codex/recorded.json).
+# - The dungeon's size and levels: the client's group finder (five players,
+#   levels 35 to 42).
+# - Places outside: the client's world map areas (Ruins of Zul'Kunda for
+#   object 52, The Vile Reef for the Tablet Shard's tablet) and the heights of
+#   the two tablets' spawns in data/forever (the reef's on the sea floor, about
+#   70 yards down; Zul'Kunda's on the hill, about 50 yards up).
+# INGAME: where in the dungeon do the four tablets and the bosses stand?
+#   Nothing in the data places them; a run with this guide can.
 
 step Kin'weelay
   accept 629
 
 step The Vile Reef
-  tip The tablet, Gri'lek the Wanderer, lies on the sea floor among the sunken ruins of the Vile Reef, west of Grom'gol. Mind your breath.
+  tip The tablet, Gri'lek the Wanderer, lies on the sea floor of the Vile Reef, west of Grom'gol. Mind your breath.
   collect 4094 quest 629.1
 
 step Kin'weelay
@@ -65,7 +70,7 @@ step Kin'weelay
   accept 95748
 
 step Fall of Gurubashi
-  tip In the Ruins of Zul'Kunda, the troll ruins on the hill north along the coast from the Vile Reef. Make the rubbing with the hide and charcoal, and keep them in your bags: the tablets in the Drowned City need them too.
+  tip In the Ruins of Zul'Kunda, on the hill north of the Vile Reef. Click the tablet for the rubbing.
   collect 2007 quest 95748.1
 
 step Grom'gol Base Camp
@@ -74,7 +79,7 @@ step Grom'gol Base Camp
   accept 95773
 
 step The Lost City's entrance
-  tip Brinescale Skirmishers swim all over the Vile Reef, and each can drop a trident. South-west of the sunken ruins where the Tablet Shard lay, a large stone tablet on the sea floor marks the mouth of an underwater cave, Sunken Hollow: swimming up to it finds the Lost City.
+  tip Brinescale Skirmishers around the Vile Reef drop the tridents. The cavern entrance the quest asks for is under the reef, in Sunken Hollow: due west of Grom'gol and south-west of the reef's tablet.
   collect 270305 x10 quest 95773.1
   complete 95770 @21.8,27.6
 
@@ -91,38 +96,25 @@ step Krazek
 
 step Mazu'kon
   zone Mulgore
-  tip Northern Mulgore. A long trip, but the idol only drops for characters on his quest.
+  tip Northern Mulgore. A long trip, but the idol only drops while his quest is in your log.
   accept 96774
 
 step To the Drowned City
   zone Stranglethorn Vale
-  tip A dungeon for five players of level 35 to 40. Gather your group at the cave first, as the group finder won't take you there. Dive into Sunken Hollow behind the big tablet, south-west of the Vile Reef's sunken ruins; the portal is inside. Water breathing helps.
+  tip A dungeon for five players of level 35 to 42. Meet your group at its entrance in Sunken Hollow, under the Vile Reef due west of Grom'gol. Water breathing helps.
   goto 21.8,27.6 "Sunken Hollow" r 25
 
-step First tablet
-  tip Up the slope past the crabs and makrura, Zul'Alai waits on a hill; he enrages near death. Past him, climb the big staircase: the first tablet stands down to your left, at the foot of a skull totem.
+step The Drowned City
+  tip Click each of the four tablets for its rubbing. Deathless Marrow drops the idol; the Saltseer Murderers, Cultists, Manhunters and Coroners drop the artifacts.
   collect 270308 quest 95775.1 @21.8,27.6 group 5
-
-step Var'Taka
-  tip The left wing off the central pool belongs to the naga. Var'Taka fights beside two Brinescale Priestesses who heal him; the pillars on the stairs break their line of sight. The second tablet stands beside him. Afterwards click the Glowing Pearl nearby: it is one of the two that open the barrier deeper in.
-  kill 258924 quest 95776.1 @21.8,27.6 group 5
   collect 270309 quest 95775.2 @21.8,27.6 group 5
-
-step Captain Dreadrise
-  tip The right wing is the Saltseer pirates' plaza by their wrecked ship. Clear the crew before the captain: every Saltseer can drop a Voodoo-Infused Artifact, and Krazek wants three Coroners dead. The third tablet stands near Captain Dreadrise. When he is down, click the second Glowing Pearl.
-  collect 270333 x10 quest 95789.1 @21.8,27.6 optional -- With several players on this quest the pirates may run out before everyone has ten: a second run finishes it.
-  kill 260353 x3 quest 95791.2 @21.8,27.6 group 5
-  kill 260042 quest 95791.1 @21.8,27.6 group 5
   collect 270310 quest 95775.3 @21.8,27.6 group 5
-
-step Deathless Marrow
-  tip With both pearls used, the barrier to the west is gone. Deathless Marrow waits behind it at an altar and keeps calling up adds: kill the boss, not the adds. He drops the Ancient Gurubashi Idol.
-  collect 276894 quest 96774.1 @21.8,27.6 group 5
-
-step Min'loth the Serpent
-  tip Take the passage behind Deathless Marrow down the long hall. The fourth tablet stands near Min'loth, the last boss: make the rubbing before you pull him and check that it counted. At no health he turns into a serpent and heals in full.
   collect 270311 quest 95775.4 @21.8,27.6 group 5
-  kill 260243 @21.8,27.6 optional group 5
+  kill 258924 quest 95776.1 @21.8,27.6 group 5
+  kill 260042 quest 95791.1 @21.8,27.6 group 5
+  kill 260353 x3 quest 95791.2 @21.8,27.6 group 5
+  collect 276894 quest 96774.1 @21.8,27.6 group 5
+  collect 270333 x10 quest 95789.1 @21.8,27.6 optional -- The guide does not wait for all ten: Krazek takes the quest whenever you have them.
 
 step Grom'gol Base Camp
   turnin 95775
@@ -131,7 +123,7 @@ step Grom'gol Base Camp
 
 step Krazek
   turnin 95791
-  turnin 95789 optional -- Still short of artifacts? Krazek takes it after another run through the pirates.
+  turnin 95789 optional -- Once you have the ten artifacts.
 
 step Master Gadrin
   zone Durotar

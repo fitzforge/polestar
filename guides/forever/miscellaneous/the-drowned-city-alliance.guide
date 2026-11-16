@@ -13,50 +13,51 @@ reward item 279883 279884
 why Every Alliance quest of the Drowned City in one run, lead-ins included.
 
 # The Drowned City's Alliance quests in one guide: the lead-in at the Rebel
-# Camp in northern Stranglethorn, the pick-ups in Southshore, Dalaran City and
+# Camp in northern Stranglethorn, the pick-ups in Southshore, Dalaran and
 # Booty Bay, one run through the dungeon, then the hand-ins. Steps already
 # done are passed over, so the guide picks up wherever the chain stands.
 #
 # The chain: Sergeant Yohwa's 203 The Second Rebellion and 204 Bad Medicine ->
-# Brother Nimetz's 207 Kurzen's Mystery (four tablet rubbings: objects 54 and
-# 52 in the Ruins of Zul'Kunda, 58 on the sea floor of the Vile Reef, the
-# tablet of the Horde's 629, and 57 in the Bal'lal Ruins) -> 205 Troll
-# Witchery -> 95786 An Acquaintance in Southshore, to Loremaster Dibbs. He
-# gives 95787 Take Two With Water (the four rubbings
-# inside, items 270308-270311, as the Horde's 95775) and 95788 Magics of the
-# Drowned City (five I'lalai Fetishes from the city's undead trolls), then
-# 95799 Findings for the Explorer's League (Historian Karnik, Ironforge) and
-# 95798 The Web of Magic (Abra Cadabra, Dalaran City). Archmage Timear in
-# Dalaran City gives 97130 Ancient Gurubashi Secrets from level 34; the idol
-# drops from Deathless Marrow only for a character on the quest, so he comes
-# before the run. Krazek in Booty Bay gives both factions 95789 Shady
-# Saltseers and 95791 The Saltseer Captain, from level 34. No Alliance quest
-# asks for Var'Taka, but the Glowing Pearl beside him is one of the two that
-# open the way to Deathless Marrow, so he is an optional kill.
+# Brother Nimetz's 207 Kurzen's Mystery (the legends of four tablets: objects
+# 54 and 52 in the Ruins of Zul'Kunda, 58 on the sea floor of the Vile Reef,
+# the tablet of the Horde's 629, and 57 in the Bal'lal Ruins) -> 205 Troll
+# Witchery (its Skullsplitters are level 39 to 42) -> 95786 An Acquaintance in
+# Southshore, to Loremaster Dibbs. He gives 95787 Take Two With Water (the
+# four rubbings inside, items 270308-270311, as the Horde's 95775) and 95788
+# Magics of the Drowned City (five I'lalai Fetishes), then 95799 Findings for
+# the Explorer's League (Historian Karnik, Ironforge) and 95798 The Web of
+# Magic (Abra Cadabra, Dalaran). Archmage Timear in Dalaran gives 97130
+# Ancient Gurubashi Secrets from level 34; the idol drops from Deathless
+# Marrow only while the quest is in the log, so he comes before the run.
+# Krazek in Booty Bay gives both factions 95789 Shady Saltseers and 95791 The
+# Saltseer Captain, from level 34.
 #
-# Inside: as in forever/miscellaneous/the-drowned-city-horde, the goals stand
-# at the entrance (@21.8,27.6, Sunken Hollow) with `group 5` and the tips
-# lead the way. The fetishes are an `along` goal for the whole run, until the
-# hand-in to Dibbs.
+# Inside: as in forever/miscellaneous/the-drowned-city-horde, the run is one
+# step holding all of its goals, in no order, at the entrance (@21.8,27.6,
+# Sunken Hollow) with `group 5`. The fetishes are an `along` goal for the
+# whole run, until the hand-in to Dibbs.
 #
 # Sources (facts only):
-# - Quests, NPCs, items, objects and rewards: data/forever (QuestieDB Forever).
-# - The entrance and Min'loth (npc 260243): players' recordings, as 0.4.0
-#   holds them; see forever/miscellaneous/the-drowned-city-horde.
-# - Place names outside: the client's world map areas, for the tablets'
-#   spawns in data/forever.
-# - The way through the dungeon: players' written accounts of their runs,
-#   November 2026 (Output Lag's walkthrough).
-# INGAME: the tablet spots, the pearls and the order inside come from those
-# accounts only; check them on a run.
+# - Quests, NPCs, items, objects and rewards: data/forever (QuestieDB Forever),
+#   where the idol is a quest item; the hide and charcoal of the rubbing
+#   quests' objective texts are no item (see
+#   forever/miscellaneous/the-drowned-city-horde).
+# - The entrance, the dungeon's levels and what its tablets and Deathless
+#   Marrow give: players' recordings, as 0.4.0 holds them, and the client's
+#   group finder (see forever/miscellaneous/the-drowned-city-horde).
+# - Places outside: the client's world map areas for the spawns in
+#   data/forever, and the tablets' heights there (Gri'lek's on the sea floor,
+#   the Zul'Kunda two on the hill).
+# INGAME: where in the dungeon do the four tablets and the bosses stand?
+#   Nothing in the data places them; a run with this guide can.
 
 step Sergeant Yohwa
   tip At the Rebel Camp in northern Stranglethorn.
   accept 203
   accept 204
 
-step Kurzen's camp
-  tip East of the Rebel Camp. The medicine men, headshrinkers and witch doctors drop the remedies; the Venom Fern Extract is in the Kurzen Supplies.
+step Kurzen's Compound
+  tip South-east of the Rebel Camp. The medicine men, headshrinkers and witch doctors drop the remedies; the Venom Fern Extract is in the Kurzen Supplies.
   kill 937 x15 quest 203.1
   collect 2633 x7 quest 204.1
   collect 2634 quest 204.2
@@ -75,11 +76,11 @@ step Fall of Gurubashi
   collect 2007 quest 207.3
 
 step Gri'lek the Wanderer
-  tip The Second Troll Legend, south along the coast: the tablet lies on the sea floor among the sunken ruins of the Vile Reef. Mind your breath.
+  tip The Second Troll Legend, further south: the tablet lies on the sea floor of the Vile Reef. Mind your breath.
   collect 2006 quest 207.2
 
 step Moon Over the Vale
-  tip The First Troll Legend, in the Bal'lal Ruins on the shore north-east of the reef.
+  tip The First Troll Legend, in the Bal'lal Ruins north-east of the reef.
   collect 2005 quest 207.1
 
 step Rebel Camp
@@ -87,7 +88,7 @@ step Rebel Camp
   accept 205
 
 step Skullsplitter trolls
-  tip The Skullsplitter mystics and witch doctors in the middle of Stranglethorn drop the fetishes.
+  tip The Skullsplitter mystics and witch doctors in the middle of Stranglethorn drop the fetishes. They are level 39 to 42: bring help, or come back at level 38 or higher.
   collect 2466 x4 quest 205.1
 
 step Brother Nimetz
@@ -96,14 +97,14 @@ step Brother Nimetz
 
 step Loremaster Dibbs
   zone Hillsbrad Foothills
-  tip In Southshore. Keep the hide and charcoal he gives you in your bags: the rubbings in the Drowned City need them.
+  tip In Southshore.
   turnin 95786
   accept 95787
   accept 95788
 
 step Archmage Timear
   zone Alterac Mountains
-  tip In Dalaran City. He gives this from level 34.
+  tip In Dalaran. He gives this from level 34.
   accept 97130
 
 step Krazek
@@ -113,41 +114,27 @@ step Krazek
   accept 95791
 
 step To the Drowned City
-  tip A dungeon for five players of level 35 to 40. Gather your group at the cave first, as the group finder won't take you there. Dive into Sunken Hollow behind the big tablet, south-west of the Vile Reef's sunken ruins; the portal is inside. Grom'gol, the Horde's camp, lies east of the reef: keep clear of its guards. Water breathing helps.
+  tip A dungeon for five players of level 35 to 42. Meet your group at its entrance in Sunken Hollow, under the Vile Reef: due west of Grom'gol and south-west of the reef's tablet. Grom'gol is the Horde's camp: keep clear of its guards. Water breathing helps.
   goto 21.8,27.6 "Sunken Hollow" r 25
 
 step I'lalai Fetishes
   along until dibbs
-  collect 270343 x5 quest 95788.1 @21.8,27.6 group 5 -- The undead trolls of the city drop them: Risen Sentries and Profane Necromancers.
+  collect 270343 x5 quest 95788.1 @21.8,27.6 group 5 -- Risen Sentries, Profane Necromancers and Undying Offerings drop them.
 
-step First tablet
-  tip Up the slope past the crabs and makrura, Zul'Alai waits on a hill; he enrages near death. Past him, climb the big staircase: the first tablet stands down to your left, at the foot of a skull totem. The undead trolls from here on drop the I'lalai Fetishes.
+step The Drowned City
+  tip Click each of the four tablets for its rubbing. Deathless Marrow drops the idol; the Saltseer Murderers, Cultists, Manhunters and Coroners drop the artifacts.
   collect 270308 quest 95787.1 @21.8,27.6 group 5
-
-step Var'Taka
-  tip The left wing off the central pool belongs to the naga. Var'Taka fights beside two Brinescale Priestesses who heal him; the pillars on the stairs break their line of sight. The second tablet stands beside him. No Alliance quest asks for him, but after he dies click the Glowing Pearl nearby: it is one of the two that open the barrier deeper in.
   collect 270309 quest 95787.2 @21.8,27.6 group 5
-  kill 258924 @21.8,27.6 optional group 5 -- For the Glowing Pearl beside him.
-
-step Captain Dreadrise
-  tip The right wing is the Saltseer pirates' plaza by their wrecked ship. Clear the crew before the captain: every Saltseer can drop a Voodoo-Infused Artifact, and Krazek wants three Coroners dead. The third tablet stands near Captain Dreadrise. When he is down, click the second Glowing Pearl.
-  collect 270333 x10 quest 95789.1 @21.8,27.6 optional -- With several players on this quest the pirates may run out before everyone has ten: a second run finishes it.
-  kill 260353 x3 quest 95791.2 @21.8,27.6 group 5
-  kill 260042 quest 95791.1 @21.8,27.6 group 5
   collect 270310 quest 95787.3 @21.8,27.6 group 5
-
-step Deathless Marrow
-  tip With both pearls used, the barrier to the west is gone. Deathless Marrow waits behind it at an altar and keeps calling up adds: kill the boss, not the adds. He drops the Ancient Gurubashi Idol.
-  collect 276894 quest 97130.1 @21.8,27.6 group 5
-
-step Min'loth the Serpent
-  tip Take the passage behind Deathless Marrow down the long hall. The fourth tablet stands near Min'loth, the last boss: make the rubbing before you pull him and check that it counted. At no health he turns into a serpent and heals in full.
   collect 270311 quest 95787.4 @21.8,27.6 group 5
-  kill 260243 @21.8,27.6 optional group 5
+  kill 260042 quest 95791.1 @21.8,27.6 group 5
+  kill 260353 x3 quest 95791.2 @21.8,27.6 group 5
+  collect 276894 quest 97130.1 @21.8,27.6 group 5
+  collect 270333 x10 quest 95789.1 @21.8,27.6 optional -- The guide does not wait for all ten: Krazek takes the quest whenever you have them.
 
 step Krazek
   turnin 95791
-  turnin 95789 optional -- Still short of artifacts? Krazek takes it after another run through the pirates.
+  turnin 95789 optional -- Once you have the ten artifacts.
 
 step Loremaster Dibbs
   label dibbs
@@ -162,7 +149,7 @@ step Archmage Timear
   turnin 97130
 
 step Abra Cadabra
-  tip In Dalaran City.
+  tip In Dalaran.
   turnin 95798
 
 step Historian Karnik
