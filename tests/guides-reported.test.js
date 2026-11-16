@@ -7105,6 +7105,31 @@ test("Fyurie's report (#1550): Favor for Krazek never holds the route, while Myz
 	assert.ok(!motes.goal.optional, 'collecting the Motes of Myzrael still holds the step');
 });
 
+// shacklef00rd's tests from #2305, pinned to 0.4.0's fix (#2335): the group question. A player who answers "Skip it"
+// never sees Zamael's steps, so nothing required (not even the hand-in of a Prayer to Elune already in the log) pulls
+// him back into the Twilight camp; one who answers "Do it with a group" sees real goals, so the arrow leads him there.
+test("Edet's report (#2300): Prayer to Elune never requires the elite camp, even with the quest already held", { skip }, () => {
+	const grouped = ({ step }) => (step.when || []).some((p) => p.k === 'group' && !p.neg && [p.q].flat().includes(3377));
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const prayer = list.filter(({ goal }) => goal.quest === 3377);
+	assert.deepEqual(prayer.map(({ goal }) => goal.t), ['accept', 'talk', 'turnin'], 'keep the quest available');
+	assert.ok(prayer.every(grouped), 'pickup, talk and hand-in all wait for the group answer: "Skip it" hides them, carried quest or not');
+	assert.ok(prayer.every(({ goal }) => !goal.optional), 'for a player who chose the group, each goal holds its step, so the arrow leads there');
+	assert.deepEqual(list.filter(({ goal }) => goal.npc === 8436 && !grouped({ step: list.find((e) => e.goal === goal).step })).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no other goal sends anyone to Zamael');
+	const { goal: talk } = prayer[1];
+	assert.deepEqual([talk.npc, talk.oi, talk.map, talk.x, talk.y], [8436, 1, 1427, 29.6, 26.3], 'keep the real talk target and coordinates');
+	for (const [verb, quest] of [['kill', 7724], ['accept', 3441], ['talk', 3441], ['turnin', 3441]]) {
+		const e = list[at(list, `${verb} ${quest}`, is(verb, quest))];
+		assert.ok(!e.goal.optional && !grouped(e), `${verb} ${quest} remains required for everyone`);
+	}
+});
+
+test("Edet's report (#2300): the route records keep the elite-camp quest a group quest, and available", () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.deliberate.group.some((r) => r.q === 3377 && r.size === 4), 'a build writes the group question for it');
+	assert.ok(!fixes.overrides.skip.some((r) => r.q === 3377), 'the quest remains available for players who choose to do it');
+});
+
 // Flow re-order (2026-11-07): Alliance Arathi took the tusks and pouches from the few Witherbark west of
 // Refuge Pointe and made a second trip to Witherbark Village for the knife.
 test(`${ARATHI}: flow re-order: Worth Its Weight in Gold in one visit to Witherbark Village`, { skip }, () => {
