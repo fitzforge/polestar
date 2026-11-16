@@ -997,6 +997,7 @@ ns.LegacyStepsLoad = function() return {
 		[201008020] = "turnin:54,accept:62,accept:47,turnin:2158,sethome:295,accept:60",
 		[255287883] = "collect:99130",
 		[317755789] = "accept:91738,turnin:91738",
+		[327428575] = "turnin:91752,accept:91758,turnin:91758,accept:91772",
 		[590999073] = "accept:109,accept:11",
 		[627859209] = "turnin:91751,train:,turnin:112,turnin:39,turnin:76,accept:239,accept:114,accept:1097,accept:94774,accept:1860,accept:94792,accept:1685",
 		[644608932] = "collect:91733,kill:52,kill:52,collect:91733,collect:91733",
