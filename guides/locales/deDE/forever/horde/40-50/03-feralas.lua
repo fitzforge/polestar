@@ -67,7 +67,7 @@ return {
 
 	-- Step 12: The Forbidding Sea: kill these as you meet them
 	-- {area:2403} The Forbidding Sea
-	["{area:2403}: kill these as you meet them"] = "",
+	["{area:2403}: kill these as you meet them"] = "{area:2403}: Töte diese, wenn du ihnen begegnest",
 	-- plural, as words: Monstrous Crawlers = {npc:1088} Monstrous Crawler
 	["The snappers line the strand south of the post.\nThe Monstrous Crawlers walk the beaches of the east coast, few and far between: kill every one you see, the ones on the ride down from the pool too."] = "",
 	["Underwater"] = "",
@@ -87,7 +87,7 @@ return {
 
 	-- Step 19: To Camp Mojache
 	-- {area:1099} Camp Mojache
-	["To {area:1099}"] = "",
+	["To {area:1099}"] = "Zum {area:1099}",
 
 	-- Step 20: Camp Mojache
 	-- {zone:1425} Hinterlands
@@ -95,9 +95,9 @@ return {
 
 	-- Step 21: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
-	["Fly to {area:496}"] = "",
+	["Fly to {area:496}"] = "Flieg nach {area:496}",
 	-- {area:1099} Camp Mojache
-	["{area:1099} flight master"] = "",
+	["{area:1099} flight master"] = "Flugmeister in {area:1099}",
 
 	-- Step 22: Brackenwall Village
 	-- {npc:4500} Overlord Mok'Morokk · {npc:4502} Tharg · {npc:4501} Draz'Zilb · {area:511} Wyrmbog
@@ -107,7 +107,7 @@ return {
 
 	-- Step 23: Dustwallow Marsh
 	-- {object:2555} Musty Scroll
-	["The {object:2555}"] = "",
+	["The {object:2555}"] = "{object:2555}",
 
 	-- Step 24: The Musty Scroll
 	-- {object:2555} Musty Scroll
@@ -115,11 +115,11 @@ return {
 	-- {object:2555} Musty Scroll
 	["the {object:2555}"] = "{object:2555}",
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "In {area:498}",
 
 	-- Step 25: The Dragonmurk: kill these as you meet them
 	-- {area:510} The Dragonmurk
-	["{area:510}: kill these as you meet them"] = "",
+	["{area:510}: kill these as you meet them"] = "{area:510}: Töte diese, wenn du ihnen begegnest",
 	-- {area:511} Wyrmbog
 	["East through the {area:511}: the Firemane scouts and ash tails roam its northern edge with the Searing hatchlings and whelps; the scalebanes guard the dragon caves further south-east. Mok'Morokk's snuff, grog and strongbox lie in the dragonkin camps."] = "",
 	-- {npc:4329} Firemane Scout · {area:510} The Dragonmurk
@@ -149,7 +149,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Flieg zum {area:1099}",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Flugmeister in {area:496}",
 
 	-- Step 32: Sprite darters and forest walkers
 	["Sprite darters and forest walkers"] = "Grimmlingflitzer und Waldgänger",
@@ -172,7 +172,7 @@ return {
 
 	-- Step 36: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: Töte diese, wenn du ihnen begegnest",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	["Sea elementals and sea sprays wash along the shore around the dock. Zap the giants with {item:18904} first: shrunken, they lose their elite strength. Shore striders wade in the water; the land walkers and cliff giants roam the hills further north."] = "Meereselementare und Meeresschauer spülen um den Steg am Ufer entlang. Schrumpfe die Riesen zuerst mit {item:18904}: Geschrumpft verlieren sie ihre Elitestärke. Uferschreiter waten im Wasser; die Landgänger und Klippenriesen streifen weiter nördlich durch die Hügel.",
 

@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Flieg nach {area:415}",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Flugmeister in {area:702}",
 
 	-- Step 2: Felwood
 	-- {area:2479} Emerald Sanctuary
@@ -104,7 +104,7 @@ return {
 
 	-- Step 21: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
-	["{area:2618}: kill these as you meet them"] = "",
+	["{area:2618}: kill these as you meet them"] = "{area:2618}: Töte diese, wenn du ihnen begegnest",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} ist das Satyrtal im Nordwesten, mit {npc:10648} an seinem hinteren Ende. Er lässt {quest:939} fallen; jeder Jadefeuersatyr kann {item:11674} fallen lassen.",
 

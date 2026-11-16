@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Ashenvale
 	-- {zone:1440} Ashenvale
-	["Into {zone:1440}"] = "",
+	["Into {zone:1440}"] = "Nach {zone:1440}",
 	-- {area:431} Splintertree Post
 	["The road north to {area:431}"] = "",
 
@@ -88,7 +88,7 @@ return {
 	-- {area:431} Splintertree Post · {area:1637} Orgrimmar
 	["Out of the inn to the {area:431} flight master and fly to {area:1637}."] = "Raus aus dem Gasthaus zum Flugmeister von {area:431} und flieg nach {area:1637}.",
 	-- {area:431} Splintertree Post
-	["{area:431} flight master"] = "",
+	["{area:431} flight master"] = "Flugmeister in {area:431}",
 
 	-- Step 16: Druid trainer
 	["Druid trainer"] = "",

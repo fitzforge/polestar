@@ -25,7 +25,7 @@ return {
 
 	-- Step 6: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Flieg nach {area:431}",
 
 	-- Step 7: Felwood
 	-- {area:2479} Emerald Sanctuary

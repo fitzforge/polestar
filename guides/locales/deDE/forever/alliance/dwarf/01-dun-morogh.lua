@@ -67,7 +67,7 @@ return {
 
 	-- Step 10: Coldridge Valley: kill these as you meet them
 	-- {area:132} Coldridge Valley
-	["{area:132}: kill these as you meet them"] = "",
+	["{area:132}: kill these as you meet them"] = "{area:132}: Töte diese, wenn du ihnen begegnest",
 	-- {npc:786} Grelin Whitebeard
 	-- plural, as words: Frostmane Troll Whelps = {npc:706} Frostmane Troll Whelp
 	["Frostmane Troll Whelps fill the slopes south and east of {npc:786}'s camp."] = "Trollwelpen der Frostmane füllen die Hänge südlich und östlich von {npc:786}s Lager.",
@@ -162,7 +162,7 @@ return {
 	-- {npc:6806} Tannok Frosthammer
 	["{npc:6806}, inside"] = "",
 	-- {npc:1226} Maxan Anvol
-	["{npc:1226}, upstairs"] = "",
+	["{npc:1226}, upstairs"] = "{npc:1226}, oben",
 	-- {npc:1226} Maxan Anvol · {npc:12427} Mountaineer Dolf · {area:131} Kharanos
 	["{npc:1226}: heal {npc:12427} south of {area:131}"] = "{npc:1226}: Heile {npc:12427} südlich von {area:131}",
 	["Last: some classes' trainers stand outside"] = "Zuletzt: Die Lehrer einiger Klassen stehen draußen",
@@ -230,7 +230,7 @@ return {
 	["{npc:1699}: Camping 101 asks you to learn it; below ground"] = "",
 	-- {npc:1226} Maxan Anvol · {item:16605} Friar's Robes of the Light
 	["{npc:1226}, upstairs: {item:16605}"] = "{npc:1226}, im Obergeschoss: {item:16605}",
-	["Upstairs"] = "",
+	["Upstairs"] = "Oben",
 
 	-- Step 40: Kharanos and the depot
 	-- {area:131} Kharanos
@@ -238,7 +238,7 @@ return {
 	-- {npc:1269} Razzle Sprysprocket · {area:131} Kharanos
 	["The pilots stand at the depot; {npc:1269} is on the road back west, north of {area:131}."] = "",
 	-- {npc:1377} Pilot Stonegear
-	["{npc:1377}, beside him"] = "",
+	["{npc:1377}, beside him"] = "{npc:1377}, neben ihm",
 	-- {npc:1269} Razzle Sprysprocket
 	["{npc:1269}, on the way back; below ground"] = "",
 
@@ -263,7 +263,7 @@ return {
 
 	-- Step 43: Gnomeregan: kill these as you meet them
 	-- {area:133} Gnomeregan
-	["{area:133}: kill these as you meet them"] = "",
+	["{area:133}: kill these as you meet them"] = "{area:133}: Töte diese, wenn du ihnen begegnest",
 	-- {area:133} Gnomeregan
 	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome · Ice Claw Bears = {npc:1196} Ice Claw Bear · Elder Crag Boars = {npc:1127} Elder Crag Boar · Snow Leopards = {npc:1201} Snow Leopard
 	["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "Lepragnome um Brewnall und an der Straße nach {area:133} tragen die Zahnräder und Getriebe. Eisklauenbären, Alte Klippeneber und Schneeleoparden streifen durch die Hügel um den See.",
@@ -309,7 +309,7 @@ return {
 	-- {npc:258113} Ingrid Dunwald · {npc:257597} Bruegs Kindleborn
 	["{npc:258113}: {npc:257597} by the South Gate takes it"] = "{npc:258113}: {npc:257597} beim Südtor nimmt sie an",
 	-- {npc:1226} Maxan Anvol · {npc:11406} High Priest Rohan · {zone:1455} Ironforge
-	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "",
+	["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "{npc:1226}: {npc:11406} in {zone:1455} nimmt sie an",
 
 	-- Step 51: Steelgrill's Depot
 	-- {area:131} Kharanos · {zone:1426} Dun Morogh
@@ -331,7 +331,7 @@ return {
 
 	-- Step 56: Misty Pine Refuge: kill these as you meet them
 	-- {area:138} Misty Pine Refuge
-	["{area:138}: kill these as you meet them"] = "",
+	["{area:138}: kill these as you meet them"] = "{area:138}: Töte diese, wenn du ihnen begegnest",
 	-- {quest:99160} Rime's Wrath
 	-- plural, as words: Minor Ice Elementals = {npc:276003} Minor Ice Elemental
 	["The three rifles lie in the snow around the frozen lake by the refuge. Minor Ice Elementals drift around the lake and along the way: kill them as you go for {quest:99160}.\nFinish off the Minor Ice Elementals around the small lake just west of the refuge if you are still short."] = "",
@@ -453,7 +453,7 @@ return {
 	-- {npc:1572} Thorgrum Borrelson
 	["{npc:1572}, the gryphon master"] = "{npc:1572}, der Greifenmeister",
 	-- {npc:1572} Thorgrum Borrelson · {npc:4256} Golnir Bouldertoe · {zone:1455} Ironforge
-	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "",
+	["{npc:1572}: for {npc:4256} in {zone:1455}"] = "{npc:1572}: für {npc:4256} in {zone:1455}",
 
 	-- Step 90: The west hills and the Algaz Station
 	-- {area:925} Algaz Station
@@ -473,7 +473,7 @@ return {
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
 	["{item:3174}: Forest Lurkers"] = "",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
-	["{npc:5413} in {zone:1453} takes it"] = "",
+	["{npc:5413} in {zone:1453} takes it"] = "{npc:5413} in {zone:1453} nimmt sie an",
 
 	-- Step 91: Silver Stream Mine
 	["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "",
@@ -482,7 +482,7 @@ return {
 
 	-- Step 92: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "Zurück zum {area:925}",
 
 	-- Step 93: Thelsamar
 	-- {area:144} Thelsamar · {npc:1340} Mountaineer Kadrell
@@ -588,7 +588,7 @@ return {
 
 	-- Step 112: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Flugmeister: {zone:1453}",
 
 	-- Step 113: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District

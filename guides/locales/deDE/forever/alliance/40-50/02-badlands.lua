@@ -30,7 +30,7 @@ return {
 
 	-- Step 7: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "Nach {zone:1432}",
 
 	-- Step 8: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
@@ -38,7 +38,7 @@ return {
 
 	-- Step 9: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "Nach {zone:1418}",
 
 	-- Step 10: Badlands
 	-- {area:1517} Uldaman
@@ -75,7 +75,7 @@ return {
 	-- {npc:3980} Raleigh the Devout
 	["{npc:3980} preaches by the inn."] = "",
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980}, upstairs"] = "",
+	["{npc:3980}, upstairs"] = "{npc:3980}, oben",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "Raleighs nächster Auftrag ist im {area:796}: Überspring ihn.",
 
@@ -106,9 +106,9 @@ return {
 
 	-- Step 22: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Flieg nach {area:150}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Flugmeister in {area:348}",
 
 	-- Step 24: Theramore
 	["Theramore"] = "Theramore",
@@ -123,7 +123,7 @@ return {
 
 	-- Step 25: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "In {area:498}",
 
 	-- Step 26: Theramore flight master
 	["Theramore flight master"] = "",

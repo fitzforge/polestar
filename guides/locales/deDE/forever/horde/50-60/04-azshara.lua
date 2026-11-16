@@ -63,7 +63,7 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Flugmeister in {area:1237}",
 
 	-- Step 13: Paladin trainer
 	["Paladin trainer"] = "",
@@ -80,7 +80,7 @@ return {
 
 	-- Step 16: Into Durotar
 	-- {zone:1411} Durotar
-	["Into {zone:1411}"] = "",
+	["Into {zone:1411}"] = "Nach {zone:1411}",
 
 	-- Step 17: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -119,7 +119,7 @@ return {
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
 
 	-- Step 29: Janice Felstone
-	["Upstairs"] = "",
+	["Upstairs"] = "Oben",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Beide Spenden von {item:14047} gibst du später auf der Route ab: Fang an, {item:14047} zu sammeln.",

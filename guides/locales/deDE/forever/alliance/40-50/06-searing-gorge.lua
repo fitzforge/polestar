@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
-	["Into {zone:1427}"] = "",
+	["Into {zone:1427}"] = "Nach {zone:1427}",
 
 	-- Step 3: Searing Gorge
 	["The Grimesilt outhouse"] = "Das Grimesilt-Nebengebäude",
@@ -135,7 +135,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {area:1446} Thorium Point
-	["{area:1446} flight master"] = "",
+	["{area:1446} flight master"] = "Flugmeister in {area:1446}",
 
 	-- Step 38: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood

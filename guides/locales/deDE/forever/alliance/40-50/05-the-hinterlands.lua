@@ -27,7 +27,7 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "Flieg nach {area:1537}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Flugmeister in {area:348}",
 
 	-- Step 5: Class trainer
 	["Class trainer"] = "Klassenlehrer",
@@ -38,17 +38,17 @@ return {
 
 	-- Step 8: Fly to Lakeshire
 	-- {area:69} Lakeshire
-	["Fly to {area:69}"] = "",
+	["Fly to {area:69}"] = "Flieg nach {area:69}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Flugmeister: {zone:1453}",
 
 	-- Step 9: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "",
+	["{area:2418} flight master"] = "Flugmeister in {area:2418}",
 
 	-- Step 10: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "",
+	["Fly to {area:144}"] = "Flieg nach {area:144}",
 
 	-- Step 11: Thelsamar
 	-- {zone:1427} Searing Gorge · {area:144} Thelsamar
@@ -56,7 +56,7 @@ return {
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Flieg nach {area:150}",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "Flugmeister in {area:144}",
 
@@ -90,13 +90,13 @@ return {
 
 	-- Step 25: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Flieg nach {area:442}",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Flugmeister in {area:702}",
 
 	-- Step 26: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Schiff nach {area:17203}",
 
 	-- Step 27: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -115,7 +115,7 @@ return {
 	-- {npc:8022} Thadius Grimshade · {item:9471} Nekrum's Medallion · {area:978} Zul'Farrak
 	["{npc:8022}' next task, {item:9471}, is a {area:978} quest: skip it."] = "Die nächste Aufgabe von {npc:8022}, {item:9471}, ist eine Quest für {area:978}: Überspring sie.",
 	-- {npc:5385} Watcher Mahar Ba
-	["{npc:5385}, upstairs"] = "",
+	["{npc:5385}, upstairs"] = "{npc:5385}, oben",
 
 	-- Step 32: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
@@ -131,7 +131,7 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Flieg nach {area:35}",
 	-- {area:1438} Nethergarde Keep
-	["{area:1438} flight master"] = "",
+	["{area:1438} flight master"] = "Flugmeister in {area:1438}",
 
 	-- Step 35: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",

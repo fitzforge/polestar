@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Lehrer in {zone:1454}",
 	["Train while you are in the city."] = "",
 
 	-- Step 4: Searn Firewarder
@@ -55,11 +55,11 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Flieg zum {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Flugmeister: {zone:1456}",
 
 	-- Step 11: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Flugmeister in {area:392}",
 
 	-- Step 13: Prate Cloudseer
 	-- {npc:5905} Prate Cloudseer
@@ -97,7 +97,7 @@ return {
 
 	-- Step 20: Shimmering Flats: kill these as you meet them
 	-- {area:439} Shimmering Flats
-	["{area:439}: kill these as you meet them"] = "",
+	["{area:439}: kill these as you meet them"] = "{area:439}: Töte diese, wenn du ihnen begegnest",
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger
 	["East onto the flats. The Saltstone Basilisks (30-31) sun themselves north-west of it; the Sparkleshell tortoises crowd round a half-buried ship in the north-east, and the Salt Flats Scavengers and Vultures circle the eastern flats. Every vulture drops a bone, about one tortoise in three a shell.\nCareful: Scavengers and Vultures use Execute when your health is low; the Snappers (34-35) hit hardest of the tortoises."] = "",
 	-- {object:19868} Rocket Car Rubble
@@ -135,7 +135,7 @@ return {
 	-- {area:460} Sun Rock Retreat
 	["Fly to {area:460}"] = "Flieg nach {area:460}",
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Flugmeister in {area:484}",
 
 	-- Step 26: Scrabblescrew's Camp
 	-- {zone:1443} Desolace · {npc:11596} Smeed Scrabblescrew
@@ -184,7 +184,7 @@ return {
 	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "",
 	["On the top floor"] = "",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal (no name in this language: may be words)
-	["{item:14523}, on the {object:176581}"] = "",
+	["{item:14523}, on the {object:176581}"] = "{item:14523}, an {object:176581}",
 
 	-- Step 34: Ethel Rethor
 	-- {npc:11863} Azore Aldamort
@@ -216,7 +216,7 @@ return {
 
 	-- Step 38: The Book of the Ancients
 	-- {quest:6027} Book of the Ancients
-	["The {quest:6027}"] = "",
+	["The {quest:6027}"] = "{quest:6027}",
 	-- {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words) · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients · {object:177786} Rackmore's Chest
 	["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Schwimm vor der äußersten Nordspitze hinaus zur {area:2406} und benutze den {item:15766} an der {object:177673}: {npc:12369} (38) erhebt sich; töte ihn für das {quest:6027}. Er ist deutlich stärker als du: Ruh dich vorher voll aus. {object:177786} steht am Ufer neben der Statue: Öffne sie mit beiden Schlüsseln.",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue (no name in this language: may be words)
