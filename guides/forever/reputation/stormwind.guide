@@ -421,7 +421,7 @@ step Stormwind Keep
   tip Highlord Bolvar Fordragon holds court in Stormwind Keep with Lady Katrana Prestor at his side: speak with her for the second of his quests.
   turnin 4184                         -- Highlord Bolvar Fordragon
   accept 4185
-  kill 1749 quest 4185.1 "Speak with Lady Katrana Prestor"
+  talk 1749 quest 4185.1 "Speak with Lady Katrana Prestor"
   turnin 4185
   accept 4186                         -- The True Masters, +100
 
