@@ -5,7 +5,7 @@ folder The Drowned City
 faction Horde
 levels 35-40
 zone Stranglethorn Vale
-keywords Drowned City, I'lalai, Sunken Hollow, Vile Reef, Grom'gol, Kin'weelay, Aggro'gosh, Krazek, Mazu'kon, Gadrin, Var'Taka, Dreadrise, Deathless Marrow, Min'loth, Saltseer, Brinescale, tablet, rubbing, dungeon
+keywords Drowned City, I'lalai, Sunken Hollow, Vile Reef, Grom'gol, Kin'weelay, Aggro'gosh, Krazek, Mazu'kon, Gadrin, Zul'Alai, Var'Taka, Dreadrise, Deathless Marrow, Min'loth, Saltseer, Brinescale, tablet, rubbing, barrier, dungeon
 reward item 279885 279886 279887
 reward item 279888 279889
 reward item 279882 279930
@@ -29,12 +29,11 @@ why Every Horde quest of the Drowned City in one run, lead-ins included.
 # The Saltseer Captain, from level 34.
 #
 # Inside: nothing in the data places the tablets or the bosses inside the
-# dungeon, so the run is one step holding all of its goals, in no order, at
-# the entrance (@21.8,27.6, Sunken Hollow, the point
-# forever/horde/40-50/01-stranglethorn-vale uses) with `group 5`. Locating the
-# Lost City (95770) points there too. Arrival is a `goto` labelled "Sunken
-# Hollow" (the area's name): done on entering the cavern, or once the work
-# inside is done.
+# dungeon, so their goals stand at the entrance (@21.8,27.6, Sunken Hollow,
+# the point forever/horde/40-50/01-stranglethorn-vale uses) with `group 5`,
+# and the steps follow a run of my own. Locating the Lost City (95770) points
+# there too. Arrival is a `goto` labelled "Sunken Hollow" (the area's name):
+# done on entering the cavern, or once the work inside is done.
 #
 # Sources (facts only):
 # - Quests, NPCs, items, objects and rewards: data/forever (QuestieDB Forever).
@@ -48,14 +47,26 @@ why Every Horde quest of the Drowned City in one run, lead-ins included.
 #   under the Vile Reef (forever-db corrections), so 21.8,27.6 serves both.
 #   They looted the four rubbings from four tablets (objects 642943-642946)
 #   and the idol from Deathless Marrow (data/codex/recorded.json).
-# - The dungeon's size and levels: the client's group finder (five players,
-#   levels 35 to 42).
+# - A run of my own on 2026-11-15 (Horde, five players), recorded with
+#   Polestar's recorder and shared with Polestar Client:
+#   - the way in: swimming due west from the shore west of Grom'gol;
+#   - the bosses in this order: Zul'Alai, Var'Taka, Captain Dreadrise, the
+#     Deathless Guardians (where Deathless Marrow dropped the idol), Min'loth;
+#   - the creatures killed on the way to each;
+#   - each tablet's loot: the first soon after Zul'Alai, the second soon after
+#     Var'Taka, the third among the pirates before Captain Dreadrise, the
+#     fourth after Min'loth had died, and it still counted;
+#   - Disrupt Barrier (spells 1291448 and 1299337) cast right after Var'Taka
+#     died and again after Captain Dreadrise;
+#   - eight artifacts from one pass through the pirates, short of ten.
+# - The dungeon's size, levels and encounters: the client's group finder (five
+#   players, levels 35 to 42) and its DungeonEncounter table.
 # - Places outside: the client's world map areas (Ruins of Zul'Kunda for
 #   object 52, The Vile Reef for the Tablet Shard's tablet) and the heights of
 #   the two tablets' spawns in data/forever (the reef's on the sea floor, about
 #   70 yards down; Zul'Kunda's on the hill, about 50 yards up).
-# INGAME: where in the dungeon do the four tablets and the bosses stand?
-#   Nothing in the data places them; a run with this guide can.
+# INGAME: where exactly do the tablets and the barrier stand inside? The
+#   recorder has no positions in the dungeon.
 
 step Kin'weelay
   accept 629
@@ -100,20 +111,33 @@ step Mazu'kon
 
 step To the Drowned City
   zone Stranglethorn Vale
-  tip A dungeon for five players of level 35 to 42. Meet your group at its entrance in Sunken Hollow, under the Vile Reef due west of Grom'gol. Water breathing helps.
+  tip A dungeon for five players of level 35 to 42. Meet your group at its entrance in Sunken Hollow, under the Vile Reef: from the shore west of Grom'gol, swim due west. Water breathing helps.
   goto 21.8,27.6 "Sunken Hollow" r 25
 
-step The Drowned City
-  tip Click each of the four tablets for its rubbing. Deathless Marrow drops the idol; the Saltseer Murderers, Cultists, Manhunters and Coroners drop the artifacts.
+step First tablet
+  tip Past the Makrura Snappers and Chasm Crawlers waits Zul'Alai, the first boss. The first tablet comes soon after him: click it for the rubbing.
   collect 270308 quest 95775.1 @21.8,27.6 group 5
-  collect 270309 quest 95775.2 @21.8,27.6 group 5
-  collect 270310 quest 95775.3 @21.8,27.6 group 5
-  collect 270311 quest 95775.4 @21.8,27.6 group 5
+
+step Var'Taka
+  tip Brinescale Explorers and Sorceresses guard the way to Var'Taka, the second boss. The second tablet is close to him. Once he is dead, disrupt the barrier close to where he fell; you do it once more after Captain Dreadrise.
   kill 258924 quest 95776.1 @21.8,27.6 group 5
+  collect 270309 quest 95775.2 @21.8,27.6 group 5
+
+step Captain Dreadrise
+  tip The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time.
   kill 260042 quest 95791.1 @21.8,27.6 group 5
   kill 260353 x3 quest 95791.2 @21.8,27.6 group 5
+  collect 270310 quest 95775.3 @21.8,27.6 group 5
+  collect 270333 x10 quest 95789.1 @21.8,27.6 optional -- One pass through the pirates may give fewer than ten: Krazek takes the quest whenever you have them.
+
+step Deathless Marrow
+  tip Past the Champions of the Deep, Deathless Marrow fights with his guardians. He drops the idol.
   collect 276894 quest 96774.1 @21.8,27.6 group 5
-  collect 270333 x10 quest 95789.1 @21.8,27.6 optional -- The guide does not wait for all ten: Krazek takes the quest whenever you have them.
+
+step Min'loth the Serpent
+  tip The last boss. The fourth tablet is near him, and its rubbing still counts after he dies.
+  collect 270311 quest 95775.4 @21.8,27.6 group 5
+  kill 260243 @21.8,27.6 optional group 5
 
 step Grom'gol Base Camp
   turnin 95775
