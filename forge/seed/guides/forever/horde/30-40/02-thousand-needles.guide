@@ -16,6 +16,9 @@ next forever/horde/30-40/03-stranglethorn-vale
 # Left out: Bodyguard for Hire (5821), Gelkis Alliance (1368), Bone Collector (5501).
 # Claim Rackmore's Treasure (6161) is taken at Rackmore's Log by Azore's tower on the one walk north along the coast.
 # Hate the Hatefury is optional (#1314): nobody has been recorded taking it, and Aka'rai was never seen, even by players passing her spot.
+# Catch-up (#2635): a character who skipped forever/horde/07-ashenvale arrives without Dorn's Test of Faith
+# (1149), so his Test of Endurance (1150) would be hidden. For that character the guide does it first on the
+# Freewind stop (`when !turnedin 1149`): a jump off the planks beside Dorn, full XP at 30.
 
 # The Shimmering Flats at 30-33, then Desolace's 33-36 quests at 33-34. Desolace's 37-40 quests
 # (Melizza and the ghost-o-plasm, Taiga's portals and Hand of Iruxos, the centaur totems, Drulzegar's
@@ -168,6 +171,16 @@ step Prate Cloudseer
   tip Prate Cloudseer hides in a small cave in the canyon wall north-east of the post, on the way east.
   turnin 1531                         -- Prate Cloudseer: your Air Totem
   note Prate also starts Elemental Aid (Razorfen Kraul), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde.
+
+step Dorn Plainstalker
+  when !turnedin 1149
+  zone Thousand Needles
+  tip You missed Dorn's Test of Faith, from the 27-29 guide: it comes first now. It takes a minute and opens his Test of Endurance in this guide.
+  tip Dorn Plainstalker waits on the mesa just north-east of Freewind Post, across the rope bridges.
+  tip For the Test of Faith, walk off the end of the planks beside him: you land safely.
+  accept 1149                         -- Dorn Plainstalker
+  complete 1149
+  turnin 1149                         -- Dorn Plainstalker
 
 step Dorn Plainstalker
   zone Thousand Needles
