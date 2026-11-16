@@ -135,6 +135,11 @@ function fits(only, { race, faction, cls }) {
 	return group(only.classes, cls) && group(only.races, race) && group(only.factions, faction);
 }
 
+// Guide headers use a singular faction; their race/class lists match `only`.
+function guideFits(guide, persona) {
+	return fits(guide, persona) && (!guide.faction || guide.faction.toUpperCase() === persona.faction.toUpperCase());
+}
+
 class World {
 	constructor(data, persona, kb, known = null) {
 		this.data = data;
@@ -334,6 +339,7 @@ function playChain(chain, data, persona, { kb = null, report = null, groups = 's
 }
 
 function playGuide(w, g, reporting) {
+	if (!guideFits(g, w.persona)) return;
 	const { data } = w;
 	const file = (g._ast && g._ast.file) || g.id;
 	const astSteps = (g._ast && g._ast.steps) || [];
@@ -809,7 +815,8 @@ function startRouteNodes(starts, data, persona, root, groups, chosen, memo) {
 }
 
 // Play every chain holding a guide of `play` (ids) as each of its personas,
-// each side's chains (chains(guides, side)) as that side's personas only
+// each side's chains (chains(guides, side)) as that side's personas only.
+// `personas` receives the root guide and the chain (classes sampled across it).
 // -> findings of those guides, by file and line.
 function honestPlay(guides, data, personas, { kb = null, play = null, groups = 'skip', chosen = null } = {}) {
 	const report = play ? new Set(play) : null;
@@ -820,7 +827,7 @@ function honestPlay(guides, data, personas, { kb = null, play = null, groups = '
 		const starts = all.filter((c) => minLevel(c[0]) <= 1 && c[0].races && c[0].races.length);
 		for (const chain of all) {
 			if (report && !chain.some((g) => report.has(g.id))) continue;
-			for (const persona of personas(chain[0])) {
+			for (const persona of personas(chain[0], chain)) {
 				if (persona.faction !== side) continue;
 				const known = startRouteNodes(starts, data, persona, chain[0], groups, chosen, memo);
 				for (const f of playChain(chain, data, persona, { kb, report, groups, chosen, known })) out.push({ ...f, race: persona.race, cls: persona.cls });
@@ -835,4 +842,4 @@ function findingLines(f) {
 	return [`${f.rule} ${f.severity} ${f.file}:${f.line} (${f.race} ${f.cls ? f.cls[0] + f.cls.slice(1).toLowerCase() : ''}) step ${f.step}${f.title ? ` "${f.title}"` : ''}: ${f.reason}`, `  repair: ${f.repair}`];
 }
 
-module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, loadKb, findingLines, KB_FILE, START_NODES, taxiNodes, taxiNode };
+module.exports = { honestPlay, playChain, chains, goalLines, whenHolds, fits, guideFits, loadKb, findingLines, KB_FILE, START_NODES, taxiNodes, taxiNode };
