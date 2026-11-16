@@ -33,6 +33,10 @@ pub const MATERIALS_FORMAT: u32 = 10;
 /// Format 11, read by Polestar 0.4.1: a goal's `either` (one of a set in its step). An older Polestar would wait
 /// for every goal of the set, so a pack that uses it is written in a format of its own.
 pub const EITHER_FORMAT: u32 = 11;
+/// Format 11 also: the `buff` goal, a `rep` goal's `points` and the `rep` and `buff` when predicates. An older
+/// Polestar refuses the pack as too new instead of refusing each guide with "unknown verb" or "bad when", or
+/// counting a `rep` goal done at the start of its standing.
+pub const BUFF_REP_FORMAT: u32 = 11;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -105,11 +109,28 @@ fn uses_either(g: &V) -> bool {
 	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("either").truthy()))
 }
 
+// A `buff` goal, a `rep` goal with points, or a `rep` or `buff` predicate (on a step, a `skipto` or a `next`
+// option) needs format 11 (BUFF_REP_FORMAT).
+const FORMAT11_WHEN: [&str; 2] = ["rep", "buff"];
+
+fn needs11(list: &V) -> bool {
+	list.items().iter().any(|p| in_set(&FORMAT11_WHEN, &p.get("k")))
+}
+
+fn uses_buff_rep(g: &V) -> bool {
+	g.get("steps").items().iter().any(|s| {
+		s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("buff") || (goal.get("t").as_str() == Some("rep") && goal.get("points").truthy()))
+			|| needs11(&s.get("when"))
+			|| s.get("skipto").items().iter().any(|k| in_set(&FORMAT11_WHEN, &k.get("when").get("k")))
+	}) || g.get("nextWhen").values().iter().any(needs11)
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
 
-/// The format a pack's compiled guides need: EITHER_FORMAT when a goal is one of an `either` set, format 10
+/// The format a pack's compiled guides need: format 11 (EITHER_FORMAT, BUFF_REP_FORMAT) when a goal is one of an
+/// `either` set, or a guide uses a `buff` goal, a `rep` goal's points or a `rep` or `buff` predicate, format 10
 /// (TAXI_FORMAT, MATERIALS_FORMAT) when a guide has a `taxi` predicate, an `auction` goal or a `gather` collect,
 /// WAIT_FORMAT when a guide has a `wait` goal,
 /// MONEY_TASK_FORMAT when a guide
@@ -121,6 +142,9 @@ fn has_keys(v: &V) -> bool {
 pub fn format_for(guides: &[V]) -> u32 {
 	if guides.iter().any(uses_either) {
 		return EITHER_FORMAT;
+	}
+	if guides.iter().any(uses_buff_rep) {
+		return BUFF_REP_FORMAT;
 	}
 	if guides.iter().any(|g| uses_taxi(g) || uses_materials(g)) {
 		return TAXI_FORMAT;

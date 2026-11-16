@@ -1141,6 +1141,13 @@ function Own.predicateHolds(p)
 	elseif k == "knows" then
 		-- IsPlayerSpell too: Forever's spellbook check says no for weapon skills.
 		ok = C.IsSpellKnown(p.spell) or C.IsPlayerSpell(p.spell) == true
+	elseif k == "rep" then
+		ok = Own.standingAtLeast(p.faction, p.standing, p.points)
+	elseif k == "buff" then
+		local has = C.PlayerHasAura and C.PlayerHasAura(p.spell)
+		-- The client will not say: neither `buff` nor `!buff` holds.
+		if has == nil then return false end
+		ok = has
 	elseif k == "group" then
 		local answer = Own.groupAnswer(p.q)
 		-- Unanswered: the step applies either way, and waits (Own.groupPending).
@@ -1149,6 +1156,18 @@ function Own.predicateHolds(p)
 	end
 	if p.neg then return not ok end
 	return ok
+end
+
+-- Whether the standing with `faction` is `standing` (1 Hated .. 8 Exalted) or
+-- higher; with `points`, that many points into that standing, or any higher
+-- standing. A faction the character has not met is below every standing.
+function Own.standingAtLeast(faction, standing, points)
+	local fn = Compat().GetFactionStanding
+	if not fn then return false end
+	local now, value, barMin = fn(faction)
+	if not now then return false end
+	if now ~= standing then return now > standing end
+	return not points or ((value or 0) - (barMin or 0)) >= points
 end
 
 -- Whether predicate p of a step's `when` does not hold now. A
@@ -2508,6 +2527,7 @@ local function isManual(goal)
 	if t == "skill" then return not supports("skill") end
 	if t == "learn" then return not supports("spell") end
 	if t == "rep" then return not supports("faction") end
+	if t == "buff" then return not supports("aura") end
 	if t == "achieve" then return not supports("achievement") end
 	if t == "craft" then return craftMode(goal) == "manual" end
 	return false
@@ -3004,6 +3024,7 @@ local function latchable(goal)
 	return t == "goto" or t == "explore" or t == "die" or t == "sethome" or t == "hearth" or t == "fly" or t == "getfp" or t == "enter"
 		or t == "buy" or t == "auction" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
 		or (t == "train" and goal.class == true) or t == "money" or t == "destroy" or t == "wait" or t == "abandon"
+		or t == "buff"
 end
 
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].
@@ -3614,7 +3635,12 @@ local function repState(goal)
 	if not fn then return false end
 	local standing, value, barMin, barMax = fn(goal.faction)
 	if not standing then return false end
-	local done = standing >= goal.standing
+	local done = Own.standingAtLeast(goal.faction, goal.standing, goal.points)
+	-- Points inside the goal's standing: the count runs toward them.
+	if goal.points and standing == goal.standing then
+		local cur = (value or barMin or 0) - (barMin or 0)
+		return done, cur < goal.points and cur or goal.points, goal.points, standingName(standing), "rep"
+	end
 	if barMax and barMin and barMax > barMin then
 		return done, (value or barMin) - barMin, barMax - barMin, standingName(standing), "rep"
 	end
@@ -4020,6 +4046,12 @@ function Own.goalDoneLive(s, g, goal)
 		return skillState(goal, goal.level)
 	elseif t == "cast" then
 		return false -- ticked by the cast itself (Own.latchCast) or the player
+	elseif t == "buff" then
+		-- The aura is on the player; `off`: it is gone.
+		if isManual(goal) then return false end
+		local has = C.PlayerHasAura(goal.spell)
+		if has == nil then return false end
+		return has ~= (goal.off == true)
 	elseif t == "learn" then
 		if isManual(goal) then return false end
 		return C.IsSpellKnown(goal.spell)
@@ -4706,7 +4738,7 @@ local function latchInStep(s, live)
 		local t = goal.t
 		-- An abandon latches on the live step only: on a step looked at ahead it
 		-- reads done for a quest not taken yet (Own.abandonedByGuide).
-		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
+		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
 			manualFor(guide.id, true)[s .. ":" .. g] = true
 		end
 	end
@@ -5170,7 +5202,12 @@ local function describe(goal, s)
 		end
 		return L["Craft"], N.Spell(goal.spell) or goal.spellName, "spell", detail
 	elseif t == "rep" then
+		if goal.points then
+			return L["Reach %d points into %s with"]:format(goal.points, standingName(goal.standing)), N.Faction(goal.faction) or goal.factionName, "faction", nil
+		end
 		return L["Reach %s with"]:format(standingName(goal.standing)), N.Faction(goal.faction) or goal.factionName, "faction", nil
+	elseif t == "buff" then
+		return goal.off and L["Lose"] or L["Gain"], N.Spell(goal.spell) or goal.spellName, "spell", nil
 	elseif t == "explore" then
 		local mapName = C.GetMapName(goal.map)
 		if place or goal.text then return L["Explore"], place or goal.text, "area", mapName end
@@ -14746,6 +14783,28 @@ end
 
 local function onUpdateEvent() requestUpdate() end
 
+-- Whether guide g has a `buff` goal or a `buff` predicate (on a step or a jump), worked out once.
+Own.auraGuides = setmetatable({}, { __mode = "k" })
+function Own.asksAuras(g)
+	local asks = Own.auraGuides[g]
+	if asks ~= nil then return asks end
+	asks = false
+	for _, step in ipairs(g.steps) do
+		for _, goal in ipairs(step.goals) do
+			if goal.t == "buff" then asks = true end
+		end
+		for _, p in ipairs(step.when or NONE) do
+			if p.k == "buff" then asks = true end
+		end
+		for _, k in ipairs(step.skipto or NONE) do
+			if k.when and k.when.k == "buff" then asks = true end
+		end
+		if asks then break end
+	end
+	Own.auraGuides[g] = asks
+	return asks
+end
+
 -- Every name below is declared in Forever's API documentation; RegisterEvent
 -- skips any a client build does not know.
 for _, event in ipairs({
@@ -14766,6 +14825,14 @@ for _, event in ipairs({
 }) do
 	ns.RegisterEvent(event, onUpdateEvent)
 end
+-- The player's auras (`buff` goals, `when buff`): only while a tab's guide asks about one.
+ns.RegisterEvent("UNIT_AURA", function(_, unit)
+	if unit ~= "player" then return end
+	for i = 1, #tabs do
+		local g = tabs[i].guide
+		if g and Own.asksAuras(g) then return requestUpdate() end
+	end
+end)
 -- The quest database says which quest collects count the bags (Own.bagCollect).
 ns.On("QUESTDB_LOADED", onUpdateEvent)
 -- The Hearthstone's cooldown started, ended or the bind moved (QoL/Hearth.lua).

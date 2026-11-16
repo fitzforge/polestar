@@ -97,6 +97,8 @@ const CASES: &[Case] = &[
 	goal("learn-spellname", "learn needs spellName", r"spell 999999 is not in data", r#"{ t = "learn", spell = 999999 }"#),
 	goal("cast-spell", "cast needs spell", r"`cast` needs a spell id", r#"{ t = "cast", spellName = "Basic Campfire" }"#),
 	goal("cast-spellname", "cast needs spellName", r"spell 999999 is not in data", r#"{ t = "cast", spell = 999999 }"#),
+	goal("buff-spell", "buff needs spell", r"`buff` needs a spell id", r#"{ t = "buff", spellName = "Mark of the Wild" }"#),
+	goal("buff-spellname", "buff needs spellName", r"spell 999999 is not in data", r#"{ t = "buff", spell = 999999 }"#),
 	goal("craft-spell", "craft needs spell", r"`craft` needs a spell id", r#"{ t = "craft", spellName = "Linen Bandage" }"#),
 	goal("craft-spellname", "craft needs spellName", r"spell 999999 is not in data", r#"{ t = "craft", spell = 999999 }"#),
 	goal("rep-faction", "rep needs faction", r#"unknown faction "Made Up""#, r#"{ t = "rep", factionName = "Made Up", standing = 5 }"#),

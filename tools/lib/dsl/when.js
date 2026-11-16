@@ -26,18 +26,41 @@
 //                                             the route waits at the step until they answer
 //   [!]knows <spell>                          the character knows the spell (spellbook or recipe)
 //   [!]taxi "<Flight point>"                  the character knows that flight path
-// value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label? }; `q` is a list for onquest.
+//   [!]rep <Faction> <Standing>[+<points>]    the standing with the faction is that or higher; with
+//                                             points, that many points into the standing or higher
+//   [!]buff <spell>                           the character has that aura (a buff or a debuff)
+// value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label?, faction?, standing?, points? }; `q` is a list for onquest.
 
 const { levelPoint } = require('../game/xp');
 const { readMoney } = require('./money');
 
 const INT_RE = /^\d+$/;
-const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group', 'knows', 'taxi'];
+const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group', 'knows', 'taxi', 'rep', 'buff'];
+// The standings, as the `rep` goal and predicate name them (1 Hated .. 8 Exalted).
+const STANDINGS = { hated: 1, hostile: 2, unfriendly: 3, neutral: 4, friendly: 5, honored: 6, revered: 7, exalted: 8 };
+// "Revered", "7", "Revered+12000" -> { value, points? } | { error } | null (not a standing at all).
+// Points count from the start of the standing (the reputation bar's own number).
+function readStandingText(text) {
+	const m = /^([A-Za-z]+|\d+)(?:\+(\d+))?$/.exec(String(text || ''));
+	if (!m) return null;
+	const word = m[1].toLowerCase();
+	let value;
+	if (Object.hasOwn(STANDINGS, word)) value = STANDINGS[word];
+	else if (INT_RE.test(m[1])) {
+		value = Number(m[1]);
+		if (value < 1 || value > 8) return { error: `standing ${m[1]} is out of range (1-8, or Hated..Exalted)` };
+	} else return null;
+	if (m[2] === undefined) return { value };
+	const points = Number(m[2]);
+	if (points < 1) return { error: 'points inside a standing start at 1: write the standing alone for its start' };
+	if (value === 8 && points > 999) return { error: 'Exalted has 999 points at most' };
+	return { value, points };
+}
 // A step label, as parse.js reads `label <name>`.
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 const QUEST_ONE = new Set(['complete', 'turnedin', 'available', 'group']);
 const PLACE = new Set(['zone', 'subzone', 'bound']);
-const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi "<Flight point>"`;
+const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi "<Flight point>", [!]rep <Faction> <Standing>[+<points>], [!]buff <spell>`;
 
 // A name written quoted or bare: `"Razor Hill"` or `Razor Hill`.
 function nameOf(text) {
@@ -125,6 +148,26 @@ function parseWhen(rest) {
 		value.spell = Number(args);
 		return { value };
 	}
+	if (kind === 'buff') {
+		if (!INT_RE.test(args) || Number(args) <= 0) return { error: '`buff` needs a spell id: buff <spell>' };
+		value.spell = Number(args);
+		return { value };
+	}
+	if (kind === 'rep') {
+		const usage = '`rep` needs a faction and a standing: rep <Faction> <Standing>[+<points>] or rep <factionId> <Standing>';
+		const r = /^(?:"((?:[^"\\]|\\.)*)"|([^"]+?))\s+(\S+)$/.exec(args);
+		const faction = r && (r[1] !== undefined ? r[1].replace(/\\(["\\])/g, '$1') : r[2]).trim();
+		const s = r && readStandingText(r[3]);
+		if (!faction || !s) return { error: usage, hint: 'standings: Hated, Hostile, Unfriendly, Neutral, Friendly, Honored, Revered, Exalted, or 1-8' };
+		if (s.error) return { error: s.error };
+		// Hated and up always holds: nothing stands below it.
+		if (s.value === 1 && !s.points) return { error: '`rep <Faction> Hated` always holds: Hated is the lowest standing' };
+		if (r[1] === undefined && INT_RE.test(faction)) value.faction = Number(faction);
+		else value.name = faction;
+		value.standing = s.value;
+		if (s.points) value.points = s.points;
+		return { value };
+	}
 	// zone, subzone, bound, dungeon, taxi
 	const name = nameOf(args);
 	if (!name) return { error: `\`${kind}\` needs a name: ${kind} "<${kind === 'bound' ? 'Location' : kind === 'taxi' ? 'Flight point' : 'Name'}>"` };
@@ -142,4 +185,4 @@ function levelRange(p) {
 	return [p.n, 60];
 }
 
-module.exports = { parseWhen, levelRange, PLACE, KINDS };
+module.exports = { STANDINGS, readStandingText, parseWhen, levelRange, PLACE, KINDS };

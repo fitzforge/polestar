@@ -401,6 +401,8 @@ hold:
 | `"cooldown"` | `item` or `spell` (format 5) | the item or spell is on cooldown for more than the global cooldown (1.5 s) |
 | `"knows"` | `spell` (format 5) | the character knows the spell (`Compat.IsSpellKnown`, else `Compat.IsPlayerSpell`) |
 | `"taxi"` | `name`; optional `node` (format 10) | the character knows that flight path ([Format 10](#format-10)) |
+| `"rep"` | `faction` (the faction's id), `standing` (1 Hated .. 8 Exalted); optional `name`, `points` (format 11) | the standing with the faction is `standing` or higher (`Compat.GetFactionStanding`); with `points`, that many points into `standing`, or any higher standing. A faction the character has not met is below every standing |
+| `"buff"` | `spell` (format 11) | the player has the aura of that spell id, a buff or a debuff (`Compat.PlayerHasAura`); while the client refuses to say, neither `buff` nor `!buff` holds |
 | `"group"` | `q` (format 5) | the player answered "do it" for that group quest (`CharState().groupQuests[q] == "do"`); unanswered, the step applies and is not done, so the route waits there; refused in `nextWhen` and `skipto` |
 
 ```lua
@@ -866,10 +868,13 @@ A profession guide's materials (GUIDE_FORMAT.md, "Materials"):
 
 ## Format 11
 
-Format 5 with a goal's **`either`**. Polestar 0.4.1 and later read it. The
-compiler writes a pack in format 11 only when a guide of it uses one: an
-older Polestar would read such a guide and wait for every goal of the set,
-so it needs a format of its own.
+Format 10 with a goal's **`either`**, the **`buff`** goal, a `rep` goal's
+**`points`** and the **`rep`** and **`buff`** `when` predicates (on a step, a
+`skipto` or a `next` option). Polestar 0.4.1 and later read it. The compiler
+writes a pack in format 11 only when its guides use one of them: an older
+Polestar would wait for every goal of an `either` set, refuse a guide with
+the others ("unknown verb", "bad when") or count a `rep` goal done at the
+start of its standing, so they need a format of their own.
 
 `either = true` on a goal: the goal is one of its step's set. Once any goal
 of the set that applies to the character is done, the others count as done.
@@ -879,6 +884,24 @@ quest's later goals apply only while it is in the log or handed in. An
 
 ```lua
 { title = "Volcor", goals = { { t = "accept", quest = 994, title = "Escape Through Force", either = true }, { t = "accept", quest = 995, title = "Escape Through Stealth", either = true } } }
+```
+
+`buff` goal: `{ t = "buff", spell = <spellId>, spellName = "<Name>" }`. Done
+while the player has the aura of that spell id (`Compat.PlayerHasAura`), and
+latched once its live step had it or the route has moved past it. With `off
+= true` it is done while the aura is gone. May have coordinates, which only
+point the arrow. On a client without an aura API the goal is the player's to
+tick. A goal without a numeric `spell` or a string `spellName`, or with an
+`off` that is not `true`, refuses the guide.
+
+`points` on a `rep` goal: `{ t = "rep", faction = 576, factionName =
+"Timbermaw Hold", standing = 4, points = 1500 }` is done at 1500 points into
+Neutral or at any higher standing; while the character is at that standing
+the goal's progress counts toward the points. `points` that is not a number
+of 1 or more, or on another verb, refuses the guide.
+
+```lua
+{ when = { { k = "rep", name = "Argent Dawn", faction = 529, standing = 6 }, { k = "buff", neg = true, spell = 1126 } }, goals = { ... } }
 ```
 
 ## Import strings
@@ -962,7 +985,8 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
   (the `wait` goal) by 0.3.0 and later, format 10 (the `taxi` when
   predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later,
-  and format 11 (a goal's `either`) by 0.4.1 and later.
+  and format 11 (a goal's `either`, the `buff` goal, a `rep` goal's `points`,
+  the `rep` and `buff` when predicates) by 0.4.1 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

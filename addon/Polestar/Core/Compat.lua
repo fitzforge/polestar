@@ -1090,6 +1090,8 @@ local SKILL_LINES = {
 }
 Compat.SKILL_LINES = SKILL_LINES
 
+local AURA_FILTERS = { "HELPFUL", "HARMFUL" }
+
 function Compat.Supports(feature)
 	if feature == "skill" then
 		return (C_SkillInfo and (C_SkillInfo.GetSkillLineInfoByID or C_SkillInfo.GetSkillLineInfo)
@@ -1103,6 +1105,29 @@ function Compat.Supports(feature)
 		return (C_MapExplorationInfo and C_MapExplorationInfo.GetExploredAreaIDsAtPosition) and true or false
 	elseif feature == "achievement" then
 		return GetAchievementInfo and true or false
+	elseif feature == "aura" then
+		return ((C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID) or UnitAura) and true or false
+	end
+	return false
+end
+
+-- Whether the player has the aura of that spell (a buff or a debuff), by spell id;
+-- nil when the client will not say (the call is refused: QoL/Rest.lua reads its aura the same way).
+function Compat.PlayerHasAura(spellID)
+	if not spellID then return false end
+	if C_UnitAuras and C_UnitAuras.GetPlayerAuraBySpellID then
+		local ok, aura = pcall(C_UnitAuras.GetPlayerAuraBySpellID, spellID)
+		if not ok then return nil end
+		return type(aura) == "table"
+	end
+	if UnitAura then
+		for _, filter in ipairs(AURA_FILTERS) do
+			for i = 1, 255 do
+				local name, _, _, _, _, _, _, _, _, id = UnitAura("player", i, filter)
+				if not name then break end
+				if id == spellID then return true end
+			end
+		end
 	end
 	return false
 end

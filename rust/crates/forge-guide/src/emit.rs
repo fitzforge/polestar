@@ -78,21 +78,27 @@ pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "w
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
 /// `taxi` predicate's flight master, sits where no other predicate has a value).
-pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
+pub const WHEN_KEYS: [&str; 22] = [
+	"k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent", "faction", "standing", "points",
+];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 86] = [
+pub const GOAL_KEYS: [&str; 88] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
 	"zone",
 	"spell",
 	"spellName",
+	// A `buff` goal the other way round: done while the aura is gone (format 11).
+	"off",
 	"faction",
 	"factionName",
 	"standing",
+	// Points inside a `rep` goal's standing (format 11).
+	"points",
 	"achievement",
 	"achievementName",
 	"criteria",

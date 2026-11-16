@@ -1409,6 +1409,7 @@ VERB_ICON.gather = VERB_ICON.collect
 -- merchant's coin bag and the repairer's anvil and hammer, drawn as our glyphs.
 VERB_ICON.sell = MEDIA .. "UI\\icon-sell"
 VERB_ICON.repair = MEDIA .. "UI\\icon-repair"
+VERB_ICON.buff = VERB_ICON.use
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)

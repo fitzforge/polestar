@@ -12,13 +12,14 @@ const STEP_KEYS = ['title', 'note', 'image', 'label', 'only', 'when', 'along', '
 // A step's picture: its path in the pack's addon folder (no extension) and its size in pixels.
 const IMAGE_KEYS = ['file', 'w', 'h'];
 // A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order.
-const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 'label', 'area', 'node', 'map', 'skillLine', 'minLevel', 'pre', 'preAll', 'closedBy', 'parent'];
+// `faction`, `standing` and `points` (a `rep` predicate) come last: no other predicate has them.
+const WHEN_KEYS = ['k', 'neg', 'op', 'n', 'frac', 'q', 'item', 'spell', 'name', 'label', 'area', 'node', 'map', 'skillLine', 'minLevel', 'pre', 'preAll', 'closedBy', 'parent', 'faction', 'standing', 'points'];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
 const GOAL_KEYS = [
-	't', 'class', 'zone', 'spell', 'spellName', 'faction', 'factionName', 'standing', 'achievement', 'achievementName', 'criteria',
+	't', 'class', 'zone', 'spell', 'spellName', 'off', 'faction', 'factionName', 'standing', 'points', 'achievement', 'achievementName', 'criteria',
 	// `gather` (a `collect … gather`, true or { max, min, rank, skill, skillLine }) follows count: the item's gather way.
 	'quest', 'title', 'target', 'npc', 'npcName', 'object', 'objName', 'item', 'itemName', 'count', 'gather', 'oi', 'skill', 'skillLine', 'rank', 'rankMax', 'level', 'frac', 'grind', 'money', 'untilSkill', 'yellow', 'grey',
 	'reagents', 'location', 'minLevel', 'qlvl', 'pre', 'preAll', 'closedBy', 'parent', 'preTitles', 'text', 'node', 'area', 'map', 'x', 'y', 'z', 'f', 'r', 'spots', 'spread', 'optional', 'either', 'only', 'profLine', 'profName', 'profRank', 'note',

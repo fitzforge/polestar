@@ -5,6 +5,7 @@ mod common;
 mod compile_pack;
 mod dsl_abandon_destroy;
 mod dsl_along;
+mod dsl_buff_rep;
 mod dsl_cast;
 mod dsl_either;
 mod dsl_enter;

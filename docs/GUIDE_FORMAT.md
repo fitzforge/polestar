@@ -175,8 +175,9 @@ A step must contain at least one goal.
 | `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). |
 | `learn` | `<spellId> ["Name"]` | Learn a recipe or spell (trainer or recipe item); name from `professions.json`, else, for a spell a skill line teaches (a class spell, a talent; a profession's recipe still needs `professions.json`), from the client's spell tables of the data's build. A trainer-taught spell points at every trainer of its rank (a smart target; `npc <id>` fixes one); `learn <spellId> nearest` for a recipe sold by vendors sends the player to the closest own-faction vendor of the recipe item. |
 | `cast` | `<spellId> ["Name"]` | Cast a spell (a campfire, a class teleport, a racial): done when the player's own cast of that spell succeeds while the goal is open, in the step the guide is at or an along step listed under it; a cast before that does not count, and the tick is kept. Name from `professions.json` (a recipe), else give it: a spell in neither is an error. |
+| `buff` | `<spellId> ["Name"]` | Have an aura (a buff or a debuff) on the character: a blessing, an elixir's effect, a disguise a quest hands out. Done while the aura of that spell id is on the player, and kept once its step had it, so an aura that runs out before the step's other goals are done does not reopen it. With `off` the goal is the other way round: done while the aura is gone (wait out Resurrection Sickness, click a disguise off). The name is the client's for a spell its tables know, else give it: a spell in neither is an error. Coordinates only point the arrow. On a client that cannot read auras the player ticks it. Pack format 11. |
 | `craft` | `<spellId> ["Name"]` | Craft a recipe; `x<N>` crafts, or `until <N>` = until the recipe's profession reaches N. |
-| `rep` | `<Faction> <Standing>` | Reach a standing (`Neutral`, `Friendly`, `Honored`, `Revered`, `Exalted`) with a faction named in `factions.json`, or `rep <factionId> <Standing>`. |
+| `rep` | `<Faction> <Standing>[+<points>]` | Reach a standing (`Hated`, `Hostile`, `Unfriendly`, `Neutral`, `Friendly`, `Honored`, `Revered`, `Exalted`, or 1-8) with a faction named in `factions.json`, or `rep <factionId> <Standing>`. `+<points>` asks for that many points into the standing, as the reputation bar counts them (`rep "Timbermaw Hold" Neutral+1500`: 1500/3000 into Neutral, or any higher standing); the guide window counts toward them. Points need pack format 11. |
 | `explore` | `<x>,<y> ["Area"]` | Discover the map area at those coordinates (current zone). |
 | `achieve` | `<achievementId> ["Name"]` | Complete an achievement / Legacy Challenge; `criteria <n>` targets one criterion. |
 
@@ -226,6 +227,7 @@ Modifiers, in any order after the positional arguments:
 | `optional` | Never blocks the step. |
 | `gather [<Profession> <rank>] [levels <min>-<max>]` | `collect` only: this bag count is the item's gather way in a profession guide (see "Materials"). `gather Mining 1`: it takes that profession at that rank (Herbalism for a herb, Mining to smelt a bar, Skinning for leather, Enchanting for dust; quoted for two words: `gather "First Aid" 1`); `gather levels 15-30`: it drops from mobs of those levels as the player levels (cloth, meat). Either, both (the profession first) or neither. |
 | `either` | One of a set: the step's goals marked `either` are alternatives, and the step is done when any one of them is. See "One of several". Pack format 11. |
+| `off` | `buff`: the goal is the other way round, done while the aura is gone. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
 | `era` / `live` | Map frame of this goal's typed coordinates, overriding `coords`. |
@@ -287,6 +289,8 @@ step Back to Gornek
 | `cooldown item <item>`, `cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside: `when !cooldown item 6948` while the Hearthstone is ready. Polestar looks again when the cooldown runs out |
 | `knows <spell>` | the character knows the spell: in the spellbook, or a profession recipe learned. `when !knows 100` is for the step that trains Charge, so a character who has it passes on |
 | `taxi "<Flight point>"` | the character knows that flight path, named as for `getfp` (the town, or the flight point's full name). `when taxi "Ironforge"` is for the flight a character with the Ironforge flight path takes, `when !taxi "Ironforge"` for the walk the others take. Polestar counts a flight path known once it has seen it on the flight map, on the world map's flight points or learnt ("New flight path discovered"); before that the character reads as not knowing it, so make the `!taxi` way one that works for everyone |
+| `rep <Faction> <Standing>[+<points>]` | the standing with the faction is that or higher, the faction and standing written as for the `rep` goal (`when rep "Argent Dawn" Honored`); with points, that many points into the standing or any higher one (`when !rep "Timbermaw Hold" Neutral+1500`). A faction the character has not met is below every standing |
+| `buff <spell>` | the character has the aura of that spell id, a buff or a debuff (`when !buff 1126` while the blessing is not on) |
 | `group <quest>` | the player chose to do that group quest; `!group` holds when they chose to skip it. Until they answer, the route waits at the step and asks (see "Group quests" below); not on a `next` line or a `skipto` |
 
 `!` in front of any predicate but `level` turns it around: `!onquest 788`
@@ -442,6 +446,30 @@ the outcome is stored once the route has passed the step: a sword step
 skipped because the character wore something better does not come back
 later. The item id is checked against the data, as for `has`.
 
+**Reputation and auras.** `when rep <Faction> <Standing>` is for a step
+that depends on a standing: a hand-in a faction takes only from Friendly, a
+grind that is over once a standing is reached. A `skipto` takes it too, to
+jump past a grind already done, and so does a `next` option. `when buff
+<spell>` is for a step that depends on an effect on the character: ask for
+the blessing only `when !buff` of it, sit a debuff out only `when buff` of
+it. Both are read live, and Polestar looks again when a standing or the
+character's auras change.
+
+```
+step Until Timbermaw Hold tolerates you
+  when !rep "Timbermaw Hold" Unfriendly
+  rep "Timbermaw Hold" Unfriendly
+
+step Wait out the sickness
+  when buff 15007
+  buff 15007 "Resurrection Sickness" off
+```
+
+The faction is checked against the data as for the `rep` goal: a name the
+data does not know is an error and needs the faction's id (`when rep 576
+Unfriendly`), because Polestar reads a standing by id. A spell id is not
+checked.
+
 **Professions and cooldowns.** `when skill <Profession> <N>` is for a step
 only some characters can do: one with Herbalism picks herbs on the way, one
 below a rank works on it. `when cooldown item <item>` or `cooldown spell
@@ -536,7 +564,9 @@ upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when know
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
 (docs/PACK_FORMAT.md). A `when taxi` predicate writes format 10 (Polestar
-0.4.0 and later), a goal marked `either` format 11 (Polestar 0.4.1 and later).
+0.4.0 and later); a goal marked `either`, a `when rep` or `when buff`
+predicate, a `buff` goal and a `rep` goal with points write format 11
+(Polestar 0.4.1 and later).
 
 ## Along the way
 
@@ -1380,6 +1410,8 @@ Errors:
   as `elite`, unless the goal was already reported as elite
 
 Warnings:
+- a `when rep` naming by its id a faction the data lacks (by name it is an
+  error: the standing is read by id)
 - a `when` predicate naming a quest or item the data lacks, a zone not in
   `zones.json`, a bind location no inn has, or a subzone that names no single
   area; a step whose `when level` leaves none of the guide's levels, or that
@@ -1680,10 +1712,18 @@ step Linen Bandage (1-40)
 
 ```
   rep Stormwind Friendly optional
+  rep "Timbermaw Hold" Neutral+1500   -- 1500 points into Neutral
   achieve 6 "Level 10" optional
 ```
 
 `achieve` always needs the achievement's quoted name.
+
+### Effects on the character: `buff`
+
+```
+  buff 1126 "Mark of the Wild"               -- ask a Druid before the fight
+  buff 15007 "Resurrection Sickness" off     -- wait until it wears off
+```
 
 ### Class- and race-only steps
 

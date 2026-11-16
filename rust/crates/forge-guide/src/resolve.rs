@@ -2316,8 +2316,39 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn F
 					w.set("spell", p.get("spell"));
 				}
 			}
-			"knows" => {
+			"knows" | "buff" => {
 				w.set("spell", p.get("spell"));
+			}
+			"rep" => {
+				// The engine reads a standing by faction id: a name must be one the data knows.
+				let where_ = if data.has_factions { "" } else { " (factions.json missing)" };
+				if !p.get("faction").is_undef() {
+					let f = data.faction(&p.get("faction"));
+					w.set("faction", p.get("faction"));
+					if f.truthy() && f.get("name").truthy() {
+						w.set("name", f.get("name").to_js_string());
+					} else {
+						r.warn(&ln, format!("faction {} is not in data{} (new Forever content?)", p.get("faction"), where_), None);
+					}
+				} else {
+					let found = data.faction_named(&p.get("name").to_js_string());
+					if found.truthy() {
+						let f = found.get("faction");
+						w.set("name", f.get("name").to_js_string());
+						w.set("faction", f.get("id"));
+						if found.get("ambiguous").truthy() {
+							let ids: Vec<V> = found.get("ambiguous").items().iter().map(|x| x.get("id")).collect();
+							r.warn(&ln, format!("faction \"{}\" matches ids {}; using {} (write `rep <factionId> <Standing>` to choose)", p.get("name"), join(&ids, ", "), f.get("id")), None);
+						}
+					} else {
+						w.set("name", p.get("name"));
+						r.err(&ln, format!("unknown faction \"{}\"{}; give its id: `rep <factionId> <Standing>`", p.get("name"), where_), None);
+					}
+				}
+				w.set("standing", p.get("standing"));
+				if p.get("points").truthy() {
+					w.set("points", p.get("points"));
+				}
 			}
 			"dungeon" => {
 				w.set("name", p.get("name"));
@@ -3249,6 +3280,24 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					progress_of(ctx, &goal.get("skillLine")).set("target", g.get("level"));
 				}
 			}
+			"buff" => {
+				// An aura: its name from the client's spell tables, else the author's.
+				let name: V = if g.get("spellName").truthy() {
+					g.get("spellName")
+				} else if let Some(taught) = taught_spell_name(data, &g.get("spell")) {
+					taught.into()
+				} else {
+					V::Null
+				};
+				if !name.truthy() {
+					r.err(&ln, format!("spell {} is not in data; give its name: `buff {} \"Name\"`", g.get("spell"), g.get("spell")), None);
+				}
+				goal.set("spell", g.get("spell"));
+				goal.set("spellName", or_undef(name));
+				if g.get("off").truthy() {
+					goal.set("off", true);
+				}
+			}
 			"cast" => {
 				let found = data.recipe(&g.get("spell"));
 				let name: V = if g.get("spellName").truthy() {
@@ -3757,6 +3806,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 	}
 	if !g.get("r").is_undef() {
 		goal.set("r", g.get("r"));
+	}
+	if g.get("points").truthy() {
+		goal.set("points", g.get("points"));
 	}
 	if g.get("optional").truthy() {
 		goal.set("optional", true);

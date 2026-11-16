@@ -25,9 +25,10 @@
 --   w.learnRecipe(2330)                    -- profession recipe (NEW_RECIPE_LEARNED)
 --   w.cast(818)                            -- the player casts a spell (UNIT_SPELLCAST_SUCCEEDED)
 --   w.setRep(72, "Stormwind", 5, 1500, 3000, 9000)  -- standing, value, barMin, barMax (UPDATE_FACTION)
+--   w.setAura(1126, true)                  -- the player gains an aura, or with false loses it (UNIT_AURA)
 --   w.addArea(1429, 40, 30, 60, 50, 87)    -- explorable rect (percent) -> areaID; w.explore(87)
 --   w.addAchievement(9001, "Legacy: ...", { { "Kill 10", 10 }, ... }); w.criteria(9001, 1, 4)
---   w.unsupport("skill"|"spell"|"faction"|"explore"|"achievement")  -- remove that client API
+--   w.unsupport("skill"|"spell"|"faction"|"explore"|"achievement"|"aura")  -- remove that client API
 --
 -- Client-driven chains work like in game: AcceptQuest() accepts the open
 -- quest, Select*Quest opens its detail/progress panel, CompleteQuest() opens
@@ -64,6 +65,7 @@ local world = {
 	spells = {}, -- spellbook spells
 	recipes = {}, -- learned profession recipes
 	factions = {}, -- factionID -> { name, standing, value, barMin, barMax }
+	auras = {}, -- spellID -> true: the player's buffs and debuffs
 	areas = {}, -- { map, x1, y1, x2, y2, id }
 	explored = {}, -- areaID -> true
 	achievements = {}, -- id -> { name, completed, criteria = { { text, cur, max, completed } } }
@@ -319,6 +321,11 @@ function world.setRep(id, name, standing, value, barMin, barMax)
 	fire("UPDATE_FACTION")
 end
 
+function world.setAura(id, on)
+	world.auras[id] = on and true or nil
+	fire("UNIT_AURA", "player")
+end
+
 function world.addArea(map, x1, y1, x2, y2, id)
 	table.insert(world.areas, { map = map, x1 = x1, y1 = y1, x2 = x2, y2 = y2, id = id })
 end
@@ -360,6 +367,7 @@ function world.unsupport(feature)
 	elseif feature == "faction" then C_Reputation, GetFactionInfoByID = nil, nil
 	elseif feature == "explore" then C_MapExplorationInfo = nil
 	elseif feature == "achievement" then GetAchievementInfo, GetAchievementNumCriteria, GetAchievementCriteriaInfo = nil, nil, nil
+	elseif feature == "aura" then C_UnitAuras, UnitAura = nil, nil
 	end
 end
 
@@ -722,6 +730,12 @@ function C_Reputation.GetFactionDataByID(id)
 		atWarWith = false, canToggleAtWar = false, isChild = false, isHeader = false, isHeaderWithRep = false,
 		isCollapsed = false, isWatched = false, hasBonusRepGain = false, canSetInactive = false, isAccountWide = false,
 	}
+end
+
+C_UnitAuras = {}
+function C_UnitAuras.GetPlayerAuraBySpellID(id)
+	if not world.auras[id] then return nil end
+	return { spellId = id, name = "Aura " .. id, isHelpful = true }
 end
 
 C_MapExplorationInfo = {}
