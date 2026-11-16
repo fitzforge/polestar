@@ -6024,32 +6024,50 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
 the guide window menu's **Hand in completed quests** and `/polestar handin`
 both use it. The player starts the route explicitly. It considers the
 whole quest log, including quests outside the current zone and leveling
-guide, but only quests the client reports ready to hand in. It adds no
-follow-up accepts or unfinished objectives.
+guide. It takes quests the client reports ready, and plain deliveries
+whose client and Codex records both have no objectives. Failed quests are
+excluded. It adds no follow-up accepts or unfinished objectives. The menu
+action is disabled when nothing is eligible.
+
+Its turn-in goals set `currentLog = true`, a runtime guide-goal flag valid
+only on `turnin`. Such a goal completes when the quest leaves the log,
+independently of previous completion flags or check-offs. Quest history
+used by prerequisites and `turnedin` predicates is unchanged; Core does
+not recognize a particular generated guide's ID.
 
 The generated guide, `lookup/handins/ready`, groups quests at a shared
 ender. `Lookup/HandinRoute.lua` supplies a quick provisional order using
-direct-distance estimates from the player's position. It then checks
-travel costs across frames through `Nav.EstimateTravel`: at most four
-budgeted calls per 50 ms slice, respecting the navigation planner's busy
-response. The final stop-order search uses `Dungeons.PlanStops` with a
-cooperative pause callback, yielding at four-millisecond boundaries. Other
-callers of `PlanStops` remain synchronous.
+direct-distance estimates from the player's position. It refines a sparse
+set of travel costs: the player to each stop, and each stop to its two
+nearest neighbors and its provisional successor. Other pairs use the
+direct-distance approximation. `Nav.EstimateTravelCooperative` runs the
+real transport planner with a yielding CPU clock; suspended time does not
+consume the search's CPU allowance. It does not consume the public API's
+estimate budget or short-lived cache. The final stop-order search uses
+`Dungeons.PlanStops` with the same cooperative clock. Existing synchronous
+callers keep their behavior. The job targets three milliseconds of work
+per 50 ms slice, with a maximum of four new estimates per slice. These are
+cooperative checkpoints, not a hard real-time bound on individual client
+API calls or helpers. If registered travel data changes while work is
+suspended, the job discards the old search and costs before resuming and
+finishes with an approximate order that still includes every stop.
 
 The refined estimates use the travel planner's available connections;
 neither order guarantees the fastest route or establishes that every
 location is reachable. If the cost checks have not finished after 30
-seconds, the guide keeps all its provisional stops and explains that the
-estimates are incomplete; starting it again retries. Quests whose hand-in
-location is unknown are named instead of being assigned an invented
-waypoint. After a completed estimate pass, hand-ins without a known travel
-route are listed separately.
+seconds, the guide orders with the costs gathered so far and explains that
+the estimates are incomplete. Every stop with a known destination keeps
+its turn-in goal and waypoint, including when its incoming travel estimate
+is missing; such a stop carries an explanatory note. Quests whose hand-in
+location itself is unknown remain named in a separate manual step instead
+of being assigned an invented waypoint.
 
 `Start()` opens the guide and shows the guide window; another call replans
 in the same tab. It returns the guide id on success, or `nil, reason` and a
-message when it cannot start. While the guide is open, changes in quest
-progress refresh its remaining hand-ins without switching away from the
-player's active tab. This route uses the existing guide and navigation
+message when it cannot start. While the guide is open, changes to the set
+of ready quests refresh its remaining hand-ins without switching away from
+the player's active tab. Ordinary objective progress does not republish
+an unchanged guide. This route uses the existing guide and navigation
 controls and does not enable automatic quest actions.
 
 ## Dungeons — dungeon quest journal, pick-up and hand-in guides

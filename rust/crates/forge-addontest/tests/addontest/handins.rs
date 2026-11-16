@@ -10,6 +10,9 @@ const ID: &str = "lookup/handins/ready";
 #[path = "handins-routing.rs"]
 mod routing;
 
+#[path = "handins-readiness.rs"]
+mod readiness;
+
 fn codex() -> Value {
 	let mut c = fixture("lookup.json");
 	c["quests"] = json!({});
@@ -363,7 +366,7 @@ fn closing_an_inactive_handin_tab_then_reopening_it_restarts_cancelled_planning(
 		None,
 		r#"
 local calls, busy = 0, true
-Polestar.Nav = { EstimateTravel = function()
+Polestar.Nav = { EstimateTravelCooperative = function()
 	calls = calls + 1
 	if busy then return nil, 'busy' end
 	return 30

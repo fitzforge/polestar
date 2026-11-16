@@ -1467,7 +1467,7 @@ fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_
 fn the_menu_offers_completed_quest_hand_ins_beside_cleanup_and_only_starts_on_click_even_without_a_guide() {
 	let out = run(r#"
 		local starts = 0
-		Polestar.Handins = { Start = function() starts = starts + 1 return "lookup/handins/ready" end }
+		Polestar.Handins = { Ready = function() return { 77 } end, Start = function() starts = starts + 1 return "lookup/handins/ready" end }
 		Polestar.RoutePlan.Unneeded = function() return { { quest = 77, title = "Stray", status = "unplanned" } } end
 		local function pick()
 			GF.menuButton:Click()
@@ -1495,6 +1495,41 @@ fn the_menu_offers_completed_quest_hand_ins_beside_cleanup_and_only_starts_on_cl
 		assert_eq!(out[key]["after"], before + 1, "one click starts the route once");
 		assert_eq!(out[key]["closed"], true);
 	}
+}
+
+#[test]
+fn the_menu_disables_completed_quest_hand_ins_when_no_eligible_quests_remain() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local starts, ready = 0, {}
+		Polestar.Handins = {
+			Ready = function() return ready end,
+			Start = function() starts = starts + 1 return "lookup/handins/ready" end,
+		}
+		local function pick()
+			GF.menuButton:Click()
+			local action
+			for _, r in ipairs(PolestarMenu.rows) do
+				if r:IsShown() and r.Text:GetText() == "Hand in completed quests" then action = r end
+			end
+			assert(action, "the hand-in action stays discoverable")
+			local disabled = action.psItem.disabled and true or false
+			action:Click()
+			local closed = not PolestarMenu:IsShown()
+			W.HideMenu()
+			return { disabled = disabled, starts = starts, closed = closed }
+		end
+		local empty = pick()
+		ready = { 77 }
+		local eligible = pick()
+		ready = {}
+		emit({ empty = empty, eligible = eligible, cleared = pick(), guide = Polestar.Engine.GetGuide().id, step = Polestar.Engine.GetStepIndex() })"#)
+	.remove(0);
+	assert_eq!(out["empty"], json!({ "disabled": true, "starts": 0, "closed": false }));
+	assert_eq!(out["eligible"], json!({ "disabled": false, "starts": 1, "closed": true }));
+	assert_eq!(out["cleared"], json!({ "disabled": true, "starts": 1, "closed": false }), "availability is checked again each time the menu opens");
+	assert_eq!(out["guide"], "forever/alliance/human/01-elwynn-forest");
+	assert_eq!(out["step"], 3, "checking availability and disabled clicks preserve the current guide step");
 }
 
 // The catch-up (GUIDE_PLACED, fired for a guide just opened): the window shows each step before the one placed

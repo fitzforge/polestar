@@ -1,0 +1,55 @@
+//! Delivery readiness and unchanged-log event handling for the live hand-in route.
+
+use super::{codex, run, run_with};
+use serde_json::json;
+
+#[test]
+fn unflagged_deliveries_need_no_client_or_codex_objectives_and_must_not_be_failed() {
+	let mut data = codex();
+	data["quests"]["7108"]["objectives"] = json!([{ "type":"kill", "id":5001, "count":1 }]);
+	let out = run_with(
+		&data,
+		"w.onQuest(7101,{}); w.onQuest(7102,{1}); w.onQuest(7108,{}); w.onQuest(7109,{}); w.onQuest(7120,{})\nfunction C_QuestLog.ReadyForTurnIn() return false end\nfunction C_QuestLog.IsComplete() return false end",
+		None,
+		r#"
+local ready = H.Ready()
+local id = H.Start(); settle()
+emit({ready=ready, quests=ids(Polestar.Guides.Get(id)), wants=E.WantsQuest('turnin',7101)})
+"#,
+	);
+	assert_eq!(out["ready"], json!([7101]), "only the known delivery with no remaining work is eligible");
+	assert_eq!(out["quests"], json!([7101]));
+	assert_eq!(out["wants"], true);
+}
+
+#[test]
+fn an_empty_or_unfinished_log_does_not_load_codex_to_inspect_readiness() {
+	for before in ["", "w.onQuest(7108,{1})"] {
+		let out = run(
+			before,
+			None,
+			r#"
+local loads, load = 0, C_AddOns.LoadAddOn
+C_AddOns.LoadAddOn = function(name) if name == 'Polestar_Codex' then loads = loads + 1 end; return load(name) end
+emit({ready=H.Ready(), loads=loads})
+"#,
+		);
+		assert_eq!(out, json!({"ready":{}, "loads":0}));
+	}
+}
+
+#[test]
+fn ordinary_progress_without_a_new_ready_quest_does_not_republish_the_guide() {
+	let out = run(
+		"w.onQuest(7101,{}); w.onQuest(7108,{10})",
+		None,
+		r#"
+local id = H.Start(); settle()
+local initial, publishes = Polestar.Guides.Get(id), 0
+Polestar.On('PACKS_CHANGED', function() publishes = publishes + 1 end)
+for progress=1,4 do w.progress(7108,1,progress); settle() end
+emit({publishes=publishes, same=initial==Polestar.Guides.Get(id), quests=ids(E.GetGuide())})
+"#,
+	);
+	assert_eq!(out, json!({"publishes":0, "same":true, "quests":[7101]}));
+}

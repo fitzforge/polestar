@@ -11,12 +11,22 @@ local GID = Lookup.GuideId(KIND, ID)
 local current, pending
 local turned = {}
 
+local function finished(id)
+	local C = ns.Compat
+	if C.IsQuestReadyForTurnIn(id) then return true end
+	if C.GetQuestObjectives(id) ~= nil then return false end
+	-- Some clients never mark a plain delivery complete. Require the Codex
+	-- to confirm there are no objectives; missing log data alone is not proof.
+	local rec = ns.Codex and ns.Codex.Quest(id)
+	return rec ~= nil and #(rec.objectives or {}) == 0
+end
+
 function Handins.Ready()
 	local ids, seen, C = {}, {}, ns.Compat
 	for id, untilTime in pairs(turned) do if untilTime <= GetTime() then turned[id] = nil end end
 	for _, id in ipairs(C.GetLogQuests()) do
 		if not seen[id] and not (turned[id] and turned[id] > GetTime())
-			and C.IsQuestReadyForTurnIn(id) and not C.IsQuestFailed(id) then
+			and not C.IsQuestFailed(id) and finished(id) then
 			ids[#ids + 1], seen[id] = id, true
 		end
 	end
@@ -68,7 +78,7 @@ local function collect(ids)
 		end
 	end
 	p.order = ns.HandinRoute.Order(p.stops, p.from)
-	p.refining = p.from ~= nil and #p.stops > 0 and ns.Nav and ns.Nav.EstimateTravel ~= nil
+	p.refining = p.from ~= nil and #p.stops > 0 and ns.Nav and ns.Nav.EstimateTravelCooperative ~= nil
 	return p
 end
 
@@ -78,31 +88,28 @@ local function render(p)
 		local s = p.stops[i]
 		local at, goals = s.at, {}
 		for _, q in ipairs(s.quests) do
-			local g = { t = "turnin", quest = q.id, title = q.title, map = at.map, x = at.x, y = at.y, f = at.f, z = at.z }
+			local g = { t = "turnin", quest = q.id, title = q.title, currentLog = true, map = at.map, x = at.x, y = at.y, f = at.f, z = at.z }
 			if at.kind == "npc" then g.npc, g.npcName = at.id, at.name else g.object, g.objName = at.id, at.name end
 			goals[#goals + 1] = g
 		end
-		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals }
+		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals,
+			note = p.uncertain and p.uncertain[i] and L["Travel time to this hand-in is unknown. Its location is still shown."] or nil }
 	end
 	local notes = {}
 	for _, q in ipairs(p.unplaced) do
 		notes[#notes + 1] = { t = "note", text = (L["Where it is turned in is not known: %s"]):format(ns.Quoted(q.title)) }
 	end
-	for _, i in ipairs(p.unreachable or {}) do
-		for _, q in ipairs(p.stops[i].quests) do
-			notes[#notes + 1] = { t = "note", text = (L["No travel route is known for this hand-in: %s"]):format(ns.Quoted(q.title)) }
-		end
-	end
 	if #notes > 0 then
 		-- A note-only step is considered finished by the guide engine. Keep
 		-- the remaining errands visible until the player deals with them.
-		table.insert(notes, 1, { t = "task", text = L["Hand in these quests manually, or retry when their routes are known."] })
-		steps[#steps + 1] = { title = L["Hand-ins without a known route"], goals = notes }
+		table.insert(notes, 1, { t = "task", text = L["Hand in these quests manually; their locations are not known."] })
+		steps[#steps + 1] = { title = L["Hand-ins without a known location"], goals = notes }
 	end
 	if #steps == 0 then steps[1] = note(L["No quests in your log are ready to hand in."]) end
 	if p.refining then steps[1].note = L["Refining the travel order. Travel times are estimates."] end
 	if p.partial then
-		steps[1].note = L["Travel estimates are incomplete. This is an approximate order; choose Hand in completed quests again to retry."]
+		local warning = L["Travel estimates are incomplete. The order uses the estimates available and approximate distances."]
+		steps[1].note = steps[1].note and (steps[1].note .. " " .. warning) or warning
 	end
 	return { title = L["Hand in completed quests"], steps = steps }
 end
@@ -136,8 +143,8 @@ local function refine()
 		-- Remember cancellation so that the next refresh restarts the job.
 		if signature(Handins.Ready()) ~= plan.signature then plan.cancelled = true; return false end
 		return true
-	end, function(order, unreachable, partial)
-		plan.order, plan.unreachable, plan.refining, plan.partial = order or plan.order, unreachable, false, partial
+	end, function(order, uncertain, partial)
+		plan.order, plan.uncertain, plan.refining, plan.partial = order or plan.order, uncertain, false, partial
 		publish()
 	end)
 end

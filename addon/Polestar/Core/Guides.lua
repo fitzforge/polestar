@@ -426,6 +426,7 @@ local function checkGoal(goal)
 	if goal.oi ~= nil and not (isNum(goal.oi) and goal.oi >= 1) then return "bad objective index" end
 	if goal.count ~= nil and not isNum(goal.count) then return "bad count" end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
+	if goal.currentLog ~= nil and (goal.currentLog ~= true or goal.t ~= "turnin") then return "bad currentLog" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
 	if goal.t == "level" and goal.frac ~= nil and not isFrac(goal.frac) then return "bad frac" end
 	for _, key in ipairs(KEYS.goalNumbers) do

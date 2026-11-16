@@ -72,6 +72,8 @@ mod engine_carried;
 mod engine_cast;
 #[path = "engine-catchup.rs"]
 mod engine_catchup;
+#[path = "engine-current-log.rs"]
+mod engine_current_log;
 #[path = "engine-die.rs"]
 mod engine_die;
 #[path = "engine-dwell.rs"]

@@ -3,6 +3,9 @@
 use super::{codex, run, run_with, ID};
 use serde_json::json;
 
+#[path = "handins-travel.rs"]
+mod travel;
+
 #[test]
 fn a_busy_navigation_budget_yields_and_closing_the_route_cancels_its_work() {
 	let out = run(
@@ -10,8 +13,8 @@ fn a_busy_navigation_budget_yields_and_closing_the_route_cancels_its_work() {
 		None,
 		r#"
 local calls, frames, budgeted = 0, {}, true
-Polestar.Nav = { EstimateTravel = function(from, to, budget)
-	calls = calls + 1; budgeted = budgeted and budget == true
+Polestar.Nav = { EstimateTravelCooperative = function(from, to, budget)
+	calls = calls + 1; budgeted = budgeted and type(budget) == "function"
 	frames[GetTime()] = (frames[GetTime()] or 0) + 1
 	return nil, 'busy'
 end }
@@ -41,8 +44,8 @@ fn navigation_orders_worldwide_stops_by_directed_travel_time_from_the_player() {
 		None,
 		r#"
 local fromPlayer, budgeted = false, true
-Polestar.Nav = { EstimateTravel = function(from, to, budget)
-	budgeted = budgeted and budget == true
+Polestar.Nav = { EstimateTravelCooperative = function(from, to, budget)
+	budgeted = budgeted and type(budget) == "function"
 	if not from then fromPlayer = true; return to.map == 9003 and 20 or 200 end
 	if from.map == 9003 and to.map == 9001 then return 20 end
 	if from.map == 9001 and to.map == 9002 then return 20 end
@@ -63,22 +66,27 @@ emit({order=order, fromPlayer=fromPlayer, budgeted=budgeted, active=E.GetGuide()
 }
 
 #[test]
-fn an_unreachable_recipient_is_reported_instead_of_kept_on_a_fictional_route() {
+fn a_missing_travel_estimate_keeps_the_known_recipient_and_its_waypoint() {
 	let out = run(
 		"w.onQuest(7101,{}); w.onQuest(7103,{})",
 		None,
 		r#"
-Polestar.Nav = { EstimateTravel = function(from, to)
+Polestar.Nav = { EstimateTravelCooperative = function(from, to)
 	if to.map == 9003 then return nil end
 	return 30
 end }
 local id = H.Start(); stub.advance(4)
 local g = Polestar.Guides.Get(id)
-emit({ids=ids(g), notes=notes(g)})
+local waypoint, warning
+for _,s in ipairs(g.steps) do for _,goal in ipairs(s.goals) do
+	if goal.quest == 7103 then waypoint, warning = {goal.map,goal.x,goal.y}, s.note end
+end end
+emit({ids=ids(g), warning=warning or '', waypoint=waypoint})
 "#,
 	);
-	assert_eq!(out["ids"], json!([7101]));
-	assert!(out["notes"].as_str().unwrap().contains("Island Parcel"));
+	assert_eq!(out["ids"], json!([7101, 7103]));
+	assert_eq!(out["waypoint"], json!([9003, 35, 65]));
+	assert!(out["warning"].as_str().unwrap().contains("unknown"));
 }
 
 #[test]
@@ -100,9 +108,9 @@ fn forty_distinct_handins_are_all_covered_without_exceeding_the_per_frame_budget
 		None,
 		r#"
 local calls, frames, budgeted = 0, {}, true
-Polestar.Nav = { EstimateTravel = function(from, to, budget)
+Polestar.Nav = { EstimateTravelCooperative = function(from, to, budget)
 	calls = calls + 1; frames[GetTime()] = (frames[GetTime()] or 0) + 1
-	budgeted = budgeted and budget == true
+	budgeted = budgeted and type(budget) == "function"
 	return 30 + math.abs((from and from.x or 50) - to.x)
 end }
 local id = H.Start(); stub.advance(26)
@@ -114,7 +122,7 @@ emit({quests=ids(g), maximum=maximum, calls=calls, budgeted=budgeted, finished=g
 	);
 	assert_eq!(out["quests"], json!((7201..=7240).collect::<Vec<_>>()));
 	assert!(out["maximum"].as_u64().unwrap() <= 4, "navigation work must yield between bounded batches");
-	assert!((40..=1640).contains(&out["calls"].as_u64().unwrap()));
+	assert!((40..=160).contains(&out["calls"].as_u64().unwrap()));
 	assert_eq!(out["budgeted"], true);
 	assert_eq!(out["finished"], true, "the entire route refinement completes before its deadline");
 }
@@ -126,7 +134,7 @@ fn a_navigation_timeout_keeps_unestimated_handins_and_explains_the_incomplete_es
 		None,
 		r#"
 local calls = 0
-Polestar.Nav = { EstimateTravel = function() calls = calls + 1; return nil, 'busy' end }
+Polestar.Nav = { EstimateTravelCooperative = function() calls = calls + 1; return nil, 'busy' end }
 local id = H.Start(); stub.advance(31)
 local g, ended = Polestar.Guides.Get(id), calls
 stub.advance(3)
@@ -138,12 +146,39 @@ emit({quests=ids(g), explanation=notes(g) .. ' ' .. (g.steps[1].note or ''), end
 	assert_eq!(out["ended"], out["after"], "the expired planning job stops making requests");
 }
 
+#[test]
+fn a_partial_pass_uses_completed_travel_estimates_to_improve_the_final_order() {
+	let out = run(
+		"for _,q in ipairs({7101,7103,7104}) do w.onQuest(q,{}) end",
+		None,
+		r#"
+local calls = 0
+Polestar.Nav = { EstimateTravelCooperative = function(from, to)
+	calls = calls + 1
+	if not from then return to.map == 9003 and 1 or 99999 end
+	return nil, 'busy'
+end }
+local id = H.Start(); stub.advance(31)
+local g, order, ended = Polestar.Guides.Get(id), {}, calls
+for _,s in ipairs(g.steps) do for _,goal in ipairs(s.goals) do
+	if goal.t == 'turnin' then order[#order+1] = goal.quest end
+end end
+stub.advance(2)
+emit({order=order, quests=ids(g), note=g.steps[1].note or '', ended=ended, after=calls})
+"#,
+	);
+	assert_eq!(out["order"][0], 7103, "the cheap first trip discovered before timeout must still improve the route");
+	assert_eq!(out["quests"], json!([7101, 7103, 7104]));
+	assert!(out["note"].as_str().unwrap().contains("incomplete"));
+	assert_eq!(out["ended"], out["after"]);
+}
+
 // Each budget check consumes five synthetic milliseconds, making the real planner suspend.
 // Observe pause calls at its explicit cooperation boundary; the algorithm and publishing stay real.
 const COOPERATIVE_NAV: &str = r#"
 local estimates, pauses, pauseFrames, clock = 0, 0, {}, 0
 debugprofilestop = function() clock = clock + 5; return clock end
-Polestar.Nav = { EstimateTravel = function(from, to)
+Polestar.Nav = { EstimateTravelCooperative = function(from, to)
 	estimates = estimates + 1
 	if not from then return to.map == 9003 and 20 or 200 end
 	if from.map == 9003 and to.map == 9001 then return 20 end
@@ -159,8 +194,8 @@ Polestar.Dungeons.PlanStops = function(stops, from, finish, travel, pause)
 	end)
 end
 local id = H.Start()
-for _=1,40 do if estimates >= 9 then break end; stub.advance(0.05) end
-assert(estimates == 9, 'all directed travel estimates must be collected before testing optimizer work')
+for _=1,400 do if estimates >= 9 then break end; stub.advance(0.05) end
+assert(estimates == 9, 'all three-stop travel estimates must be collected before testing optimizer work')
 stub.advance(0.05)
 "#;
 
@@ -211,7 +246,7 @@ fn a_ready_set_change_that_reverts_before_debounce_still_restarts_cancelled_plan
 		None,
 		r#"
 local calls, busy = 0, true
-Polestar.Nav = { EstimateTravel = function()
+Polestar.Nav = { EstimateTravelCooperative = function()
 	calls = calls + 1
 	if busy then return nil, 'busy' end
 	return 30

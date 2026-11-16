@@ -1902,11 +1902,13 @@ function dumpPanel(panel, prelude) {
 	if (panel.levels) before.push(levelsStub());
 	if (panel.dungeons) before.push(dungeonsStub());
 	if (panel.rares) before.push(raresStub());
+	// UI-only scenes have no quest log; match Compat's empty-table contract.
+	const installUI = panel.stubs ? '' : 'uistub.install()\nPolestar.Compat.GetLogQuests = function() return {} end\n';
 	const { emitted } = runAddon({
 		stubs: panel.stubs || ['stub_ui.lua'],
 		before: before.join('\n'),
 		addons: [{ name: 'Polestar', files: panel.files || FILES }, ...(panel.addons || [])],
-		script: `${panel.stubs ? '' : 'uistub.install()\n'}stub.login()\n${panel.script}\nstub.advance(1)\npreview.emit()`,
+		script: `${installUI}stub.login()\n${panel.script}\nstub.advance(1)\npreview.emit()`,
 	});
 	const dump = emitted[emitted.length - 1];
 	if (!dump || !dump.objects) throw new Error('preview: the scene emitted no frames');

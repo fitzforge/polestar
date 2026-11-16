@@ -4312,7 +4312,7 @@ local function openMenu(button)
 		-- No step on screen (a finished guide): nothing to skip, as with the navigator's Skip.
 		{ text = L["Skip this step"], icon = "skip", disabled = not (hasGuide and E.GetStepIndex and E.GetStepIndex()), onClick = function() GF.SkipStep() end },
 		{ text = L["Report a problem"], icon = "bug", onClick = function() UI.ShowReport() end },
-		{ text = L["Hand in completed quests"], icon = "icon-turnin", disabled = not (ns.Handins and ns.Handins.Start), onClick = function() ns.Handins.Start() end },
+		{ text = L["Hand in completed quests"], icon = "icon-turnin", disabled = not (ns.Handins and ns.Handins.Start and ns.Handins.Ready and #ns.Handins.Ready() > 0), onClick = function() ns.Handins.Start() end },
 		{ separator = true },
 	}
 	-- Pin the shown step's quests in the log as along the way, or unpin them (#644).
