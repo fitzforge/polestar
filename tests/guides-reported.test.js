@@ -5123,6 +5123,17 @@ emit(out)`,
 	assert.equal(horde.length, 0, 'Horde get none');
 });
 
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): The Windshaper's Wrath (96204) is an escort whose step held
+// only its accept, so the window went from the accept to the hand-in at the Sepulcher. The step waits for the escort.
+test("forever/class/paladin/lumina-windsinger.guide: Free Lumina waits for the escort before the hand-in", { skip }, () => {
+	const list = goals('forever/class/paladin/lumina-windsinger.guide');
+	const accept = at(list, 'accept 96204', is('accept', 96204));
+	const escort = at(list, 'complete 96204', is('complete', 96204));
+	assert.equal(list[escort].s, list[accept].s, "in the accept's step");
+	assert.equal(list[escort].goal.escort, true, 'marked as an escort');
+	assert.ok(escort < at(list, 'turnin 96204', is('turnin', 96204)), 'before the hand-in');
+});
+
 // #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
 // on to the hills past Malaka'jin and Sun Rock Retreat. Players' recordings of Stepping Stones (79192, Alliance):
 // about 40 runs, most entering Stonetalon from the Barrens at 83.5,97, 7 people dead at Honor's Stand (one of them
