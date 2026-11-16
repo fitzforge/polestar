@@ -5687,7 +5687,8 @@
 			"40-50/01 -> 01b -> 02 (fix round 1, 0.4.0): the Stranglethorn guide ends in Ironforge; the Riverglades guide flies Ironforge -> Lakeshire; Ghak's mushrooms (17) are taken at the Thelsamar landing the Riverglades guide ends with. 40-50/02 no longer opens on a second hand-in of Scrounging (733), which 30-40/06 takes. Mudsprocket's three Wyrmbog quests (98205, 98215, 98231) are at the end of 40-50/02 after Theramore: on 40-50/03 they were behind `when zone \"Dustwallow Marsh\"`, which the route (from Shen'dralas) never met. Hand edits.",
 			"Mount Hyjal hand-off (fix round 1, 0.4.0): 50-60/04 learns Moonglade's flight path on its Rabine Saturna stop; the Mount Hyjal guide's log is lighter by the Summit's five group quests. Hand edits.",
 			"50-60/04 (fix round 1, 0.4.0): the Sorrow Hill and Writhing Haunt scourgestone lines say the stones drop only while the Argent Dawn Commission is worn; Moonglade's flight path is learnt from Sindrayl on the Rabine Saturna stop (the Mount Hyjal option flies there; 'Fly to Moonglade' failed in 13 of 13 honest playtest runs), and the step after it says to hearth to Ratchet, where the guide bound. Hand edits.",
-			"Fix round 1 (0.4.0): Teldrassil's Twisted Hatred (98403) is accepted in its own `when group 98403` step, like its work; Druids get Sentinel Selarin's offer (990) on 03-darkshore-return's Druid Auberdine stop with the same wait-or-change-layer tip as the other two stops; the Badlands' Buzzard Gizzard (7847) points at the Starving Buzzards (35-37, 15%) north of Hammertoe's Digsite and the Agmond's End line says the Buzzards there drop it rarely (players went to the Giant Buzzards, 39-41). Hand edits."
+			"Fix round 1 (0.4.0): Teldrassil's Twisted Hatred (98403) is accepted in its own `when group 98403` step, like its work; Druids get Sentinel Selarin's offer (990) on 03-darkshore-return's Druid Auberdine stop with the same wait-or-change-layer tip as the other two stops; the Badlands' Buzzard Gizzard (7847) points at the Starving Buzzards (35-37, 15%) north of Hammertoe's Digsite and the Agmond's End line says the Buzzards there drop it rarely (players went to the Giant Buzzards, 39-41). Hand edits.",
+			"Alliance 40-50 fix round 2 (0.4.0): Snuff and Dizzy's Eye (587, 576) point at the Bloodsail camp north of Booty Bay (28.0,70.5; Raiders and Mages 39-41) instead of the Wild Shore's 41-45 pirates; Un'Goro's petals at the Lashers and Threshers (56.6,35.0; 48-50), the soil at the north-eastern dirt piles (55.6,28.7) and J.D. Collie's crystals at the tar pits' north-eastern edge (54.1,18.1), away from the Flayers, Trappers and oozes (51-54). Stranglethorn's three top-ups (42.16 at Zul'Mamwe, 42.16 on the basilisks, 42.46 in Dustwallow) are replaced by one top-up to 44.4 on the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43) before the pirates' second wave (43-45): the level model puts the same content at the same levels, and the top-up sits right before the content that needs it. Un'Goro's 49.79 top-up (Pterrordax 50-52, shown only to players under the plan) and Azshara's 50.4 top-up (Highborne Apparitions 45-46, four under the player) are gone. Riverglades: In Need of Relief (96125) is taken on Watcher Cornelius's first hand-in stop and Out in the Field (95329) on the Saving Sunnyglade hand-in, where their givers stand; Claire's catalyst is filled first on the Sunnyglade step. Hand edits."
 		],
 		"never": [
 			{
@@ -14086,42 +14087,42 @@
 			},
 			{
 				"a": [
-					"turnin",
-					2874
-				],
-				"b": [
 					"accept",
 					617
 				],
+				"b": [
+					"task",
+					587
+				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50): Akiris by the Bundle, Zanzil's Secret, Voodoo Dues and Stranglethorn Fever are taken on the level-48 Booty Bay stop, where they are done, not on the first Stranglethorn visit at 41: carried from there through the Riverglades they held the quest log at 36.",
-				"source": "Alliance level tidy 2026-11-16"
+				"why": "Alliance fix round 2 (0.4.0): Akiris by the Bundle, Zanzil's Secret and Voodoo Dues are taken where the first Stranglethorn visit passes their givers in Booty Bay (0-35 yd) and done on the level-48 Booty Bay stop: carried through the Riverglades the log peaks at about 33. Stranglethorn Fever (minimum level 40) stays on the level-48 stop.",
+				"source": "Alliance fix round 2 2026-11-16"
 			},
 			{
 				"a": [
-					"turnin",
-					2874
-				],
-				"b": [
 					"accept",
 					621
 				],
+				"b": [
+					"task",
+					587
+				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50): Zanzil's Secret is taken on the level-48 Booty Bay stop with Akiris by the Bundle (pair above).",
-				"source": "Alliance level tidy 2026-11-16"
+				"why": "Alliance fix round 2 (0.4.0): Zanzil's Secret is taken on the first Booty Bay stop with Akiris by the Bundle (pair above).",
+				"source": "Alliance fix round 2 2026-11-16"
 			},
 			{
 				"a": [
-					"turnin",
-					2874
-				],
-				"b": [
 					"accept",
 					609
 				],
+				"b": [
+					"task",
+					205
+				],
 				"faction": "Alliance",
-				"why": "Level tidy 0.4.0 (Alliance 40-50): Voodoo Dues is taken on the level-48 Booty Bay stop with Akiris by the Bundle (pair above).",
-				"source": "Alliance level tidy 2026-11-16"
+				"why": "Alliance fix round 2 (0.4.0): Voodoo Dues is taken from MacKinley on the Booty Bay stop after the gorilla hills, where Shaky's errand is handed to him (pair above).",
+				"source": "Alliance fix round 2 2026-11-16"
 			},
 			{
 				"a": [

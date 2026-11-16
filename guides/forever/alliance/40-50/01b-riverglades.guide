@@ -231,6 +231,7 @@ step Terral's Watch
   accept 94928                          -- A Few Furs for Friz: for Powderfuse Port, keep it
   accept 95984                          -- Song of the Strider: for later, where the tallstriders graze by Sleebo's workshop; keep it
   accept 95064                          -- Preventative Measures: for later, at the Horde's training grounds north of Rog'mar
+  accept 96125                          -- In Need of Relief: for Dunston Willis in Bolder'ok, keep it
   accept 95426                          -- Rog'mar Supplies: for later, the same training grounds
 
 step Farholde Keep
@@ -284,9 +285,9 @@ step The Twilight cult
   tip Keep the Mageweave Cloth they drop: Brother Lowley in Farholde Keep asks for twenty when you are back there. Now and then a cultist drops the Field Marshal's Log: right-click it to start the quest.
   tip Careful: Chogg'Zac, an elite ogre (level 41), walks the western streets of Sunnyglade, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.
   tip Ghostmaw, the river's elite (level 42), can wander up from the south-western fields: let him pass.
+  complete 95642 @47.8,50.0             -- fill the Crystal Catalyst at the ritual circles
   kill 261711 x5 quest 95643.1 @47.7,50.6  -- Empowered Brute
   kill 262169 x5 quest 95643.2 @47.3,50.0  -- Twilight Ritualist
-  complete 95642 @47.8,50.0             -- fill the Crystal Catalyst at the ritual circles
   collect 266424 x5 quest 94879.1       -- Twilight Page
   kill 256952 x8 quest 94877.1          -- Twilight Raider
   kill 254560 x8 quest 94877.2          -- Twilight Shadowmancer
@@ -350,7 +351,6 @@ step Terral's Watch
   turnin 95064
   turnin 95426
   accept 95066                          -- The Rog'mar Situation: for Demar Brant in Farholde Keep, keep it
-  accept 96125                          -- In Need of Relief: for Dunston Willis in Bolder'ok, keep it
 
 step Farholde Keep
   tip South across the plains to Farholde Keep: Ashe Amberhall and Demar Brant stand together in the keep at the east end, Ashe first, her news is what Brant's next orders wait on. With Sunnyglade saved, Tessa Dawnbright by the orchard and Brother Lowley by the barracks have work for you too.
@@ -358,6 +358,7 @@ step Farholde Keep
   turnin 94879
   accept 94907                          -- A Small Favor: for later in this guide
   turnin 94877                          -- Demar Brant
+  accept 95329                          -- Out in the Field: for Watcher Cornelius at Terral's Watch, keep it
   turnin 95066
   accept 94886                          -- The Western Front: for later in this guide
   accept 96081 optional                 -- Brother Lowley: twenty Mageweave Cloth, from Sunnyglade's cultists and the pirates; hand it in when you are back
@@ -484,6 +485,12 @@ step Beast Entrails as you go
   tip Careful: Old Rot-Chum (elite, 42), Komuk (a Horde elite, 45) and Ghostmaw (elite, 42) range over the zone's wilds: take your beasts away from them.
   collect 268632 x15 quest 95261.1      -- Beast Entrails
 
+step Level 44.4 on the Eastsea pirates
+  when level<44.4
+  tip Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. Gul'gash, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the Uldaman dungeon instead.
+  goto 82.5,42.5 map 2548 "Eastsea Buccaneer"
+  level 44.4 grind 257901               -- grind on Eastsea Buccaneer
+
 step The pirates' second wave
   tip North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. They stand close together: pull them one at a time. Gul'gash, a rare elite of level 49, roams these cliffs and the beach below: if you see him, keep well away.
   kill 257915 x8 quest 95122.1          -- Eastsea Raider
@@ -560,7 +567,6 @@ step The meadows
 step Farholde Keep
   tip South-west across the plains to Farholde Keep: Demar Brant in the keep at the east end.
   turnin 95059                          -- Demar Brant
-  accept 95329                          -- Out in the Field: for Watcher Cornelius at Terral's Watch
 
 step Demar Brant
   when onquest 94885
