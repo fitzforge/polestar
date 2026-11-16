@@ -77,6 +77,6 @@ test('quest buying offers cached auction items and prices only what is still nee
 	assert.deepEqual(emitted, [
 		{ rows: [[769, 4, 'market', 'Auctionator estimate: 1s 40c']], total: 'Estimated total for remaining quest items: 1s 40c', turtle: false },
 		{ rows: [[3712, 7, 'market', 'Auctionator estimate: 14s 70c'], [769, 4, 'market', 'Auctionator estimate: 1s 40c']], total: 'Estimated total for remaining quest items: 16s 10c', turtle: true },
-		{ rows: [[3712, 7, 'market', '≈ 4s (5 still unpriced)'], [769, 4, 'market', 'Auctionator estimate: 1s 40c']], total: 'Partial quest estimate: 5s 40c (1 items without a full quote)', turtle: true },
+		{ rows: [[3712, 7, 'market', '≈ 4s (5 still unpriced)'], [769, 4, 'market', 'Auctionator estimate: 1s 40c']], total: 'Partial estimate for remaining quest items: 5s 40c', turtle: true },
 	]);
 });

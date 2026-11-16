@@ -445,7 +445,7 @@ function AU.Layout()
 		if quoted == 0 then
 			total = L["No cached prices for the remaining quest items."]
 		elseif incomplete > 0 then
-			total = format(L["Partial quest estimate: %s (%d items without a full quote)"], ns.MoneyText(cost), incomplete)
+			total = format(L["Partial estimate for remaining quest items: %s"], ns.MoneyText(cost))
 		else
 			total = format(L["Estimated total for remaining quest items: %s"], ns.MoneyText(cost))
 		end
