@@ -312,8 +312,15 @@ step Gadgetzan
   turnin 2641                         -- Sprinkle
   accept 2661
   accept 4504                         -- Tran'rek, beside the wind rider master
-  turnin 2741 direct -- The Egg-O-Matic, in the middle of town
   sethome "Gadgetzan"
+
+step The Egg-O-Matic
+  zone Tanaris
+  when has 8564
+  turnin 2741 direct -- The Egg-O-Matic, in the middle of town
+
+step Marin Noggenfogger
+  zone Tanaris
   turnin 2661                         -- Marin Noggenfogger
   accept 2662
   turnin 2662

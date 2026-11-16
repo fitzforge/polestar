@@ -308,6 +308,28 @@ version throughout.
    test that pins it (`tests/reported-gate.test.js` checks every test named
    there exists).
 
+   Then the levels guard: every leveling guide's `levels` header says the
+   levels the route brings a player there (per faction where a guide is
+   shared). `data/route-levels.json` holds each guide's arrival and exit
+   from the level model; refresh it from the same model runs the danger
+   gate read, then run its test:
+
+   ```sh
+   node tools/route-levels.js --levels <Alliance.json>,<Horde.json>
+   node --test tests/route-levels.test.js
+   ```
+
+   The refresh prints every guide whose arrival or exit moved by half a
+   level or more. A header passes when its first level is the arrival
+   floored or rounded and its last the exit floored or rounded (57.7 reads
+   57 or 58). A failing guide gets its header fixed by hand (in the guide
+   and its `forge/seed/` copy, with its pitch if the pitch quotes the range,
+   `guides/GENERATED.json` and `forge/seed/SEED.json` rehashed, `forge guide
+   check-generated` clean), or, when the header is right for players on
+   other evidence, a `keep` row with the reason. On a release candidate fix
+   only the guides the test names; never rewrite every header at once.
+   Commit the refreshed snapshot with the release.
+
 4. Pack and check the archives:
 
    ```sh
