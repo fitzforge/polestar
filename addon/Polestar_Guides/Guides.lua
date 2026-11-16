@@ -7,32 +7,43 @@ do
 			id = "forever/40-50/shendralas",
 			pack = "guides",
 			title = "{zone:2652}",
-			minLevel = 43,
-			maxLevel = 45,
+			minLevel = 45,
+			maxLevel = 46,
+			factionLevels = { Alliance = { min = 45, max = 46 }, Horde = { min = 46, max = 46 } },
 			category = "Leveling",
 			keywords = { "shen'dralas", "shendralas", "valley of bones", "evenshade's overlook", "forlorn gardens", "bristleback retreat", "pylons", "desolace" },
-			why = "About a dozen quests on a short trip into Forever's new zone, 43 to 45, then back to {zone:1444}.",
+			why = "About a dozen quests on a short trip into Forever's new zone (about 45-46 for the Alliance, 47 for the Horde), then on to {zone:1444}.",
 			zone = 2652,
 			zoneName = "Shen'dralas",
 			next = "forever/horde/40-50/03-feralas",
 			nextChoices = { "forever/horde/40-50/03-feralas", "forever/alliance/40-50/03-feralas" },
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1108"] = "Forgotten Coast", ["area:1116"] = "Feathermoon Stronghold", ["area:150"] = "Menethil Harbor", ["area:16651"] = "Shen'dralas", ["area:16677"] = "Bristleback Retreat", ["area:16678"] = "Evenshade's Overlook", ["area:2100"] = "Maraudon", ["area:2408"] = "Shadowprey Village", ["area:2657"] = "Valley of Bones", ["area:405"] = "Desolace", ["area:604"] = "Magram Village", ["area:606"] = "Gelkis Village", ["area:608"] = "Nijel's Point", ["item:255656"] = "Pylon Fragment", ["item:255657"] = "Pylon Shard", ["item:255662"] = "Mana Sieve", ["item:271882"] = "Pile of Pylon Parts", ["npc:11559"] = "Outcast Necromancer", ["npc:252711"] = "Decrepit Pylon Protector", ["npc:253272"] = "Magram Necromancer", ["npc:253274"] = "Magram Necrokhan", ["npc:253471"] = "Mordent Evenshade", ["npc:253527"] = "Kog'thug the Brave", ["npc:254566"] = "Rowdy Rose", ["npc:254567"] = "Terrible Tulip", ["npc:254572"] = "Malevolent Marigold", ["npc:254578"] = "Mithera", ["npc:254656"] = "Magister Kirandis", ["npc:254674"] = "Woodwyrd", ["npc:255385"] = "Liranne", ["npc:255486"] = "Historian Biraxas", ["npc:255560"] = "Magram Guardian", ["npc:255561"] = "Gelkis Guardian", ["npc:264149"] = "Unstable Mana Rift", ["npc:276401"] = "Nascent Pylon Protector", ["object:3202"] = "Grom'gol", ["quest:92914"] = "Strange Pylons", ["quest:93016"] = "A Brief History Lesson", ["quest:93341"] = "Forlorn Gardens", ["quest:93568"] = "Partially Digested Collar", ["quest:93644"] = "Tattered Journal", ["quest:96018"] = "Powering the Pylons", ["quest:99257"] = "A Heart of Crystal", ["spell:1289727"] = "Repair and Recharge Pylon", ["zone:1444"] = "Feralas", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity", ["zone:2652"] = "Shen'dralas" },
+			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "Forgotten Coast", ["area:1116"] = "Feathermoon Stronghold", ["area:150"] = "Menethil Harbor", ["area:1637"] = "Orgrimmar", ["area:16651"] = "Shen'dralas", ["area:16677"] = "Bristleback Retreat", ["area:16678"] = "Evenshade's Overlook", ["area:2100"] = "Maraudon", ["area:2408"] = "Shadowprey Village", ["area:2577"] = "Dire Maul", ["area:2657"] = "Valley of Bones", ["area:405"] = "Desolace", ["area:604"] = "Magram Village", ["area:606"] = "Gelkis Village", ["area:608"] = "Nijel's Point", ["item:255656"] = "Pylon Fragment", ["item:255657"] = "Pylon Shard", ["item:255662"] = "Mana Sieve", ["npc:11559"] = "Outcast Necromancer", ["npc:252711"] = "Decrepit Pylon Protector", ["npc:253272"] = "Magram Necromancer", ["npc:253274"] = "Magram Necrokhan", ["npc:253471"] = "Mordent Evenshade", ["npc:253527"] = "Kog'thug the Brave", ["npc:254566"] = "Rowdy Rose", ["npc:254567"] = "Terrible Tulip", ["npc:254572"] = "Malevolent Marigold", ["npc:254578"] = "Mithera", ["npc:254656"] = "Magister Kirandis", ["npc:254674"] = "Woodwyrd", ["npc:255385"] = "Liranne", ["npc:255486"] = "Historian Biraxas", ["npc:255560"] = "Magram Guardian", ["npc:255561"] = "Gelkis Guardian", ["npc:264149"] = "Unstable Mana Rift", ["npc:276401"] = "Nascent Pylon Protector", ["object:3202"] = "Grom'gol", ["quest:92914"] = "Strange Pylons", ["quest:93016"] = "A Brief History Lesson", ["quest:93341"] = "Forlorn Gardens", ["quest:93568"] = "Partially Digested Collar", ["quest:93644"] = "Tattered Journal", ["quest:96018"] = "Powering the Pylons", ["quest:99257"] = "A Heart of Crystal", ["spell:1289727"] = "Repair and Recharge Pylon", ["zone:1444"] = "Feralas", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity", ["zone:2652"] = "Shen'dralas" },
 			written = { ["Back west along the valley road and south to {npc:253471}. {quest:93016} asks you to hear him out: talk to him once more, then hand it in."] = "Back west along the valley road and south to Mordent. A Brief History Lesson asks you to hear him out: talk to him once more, then hand it in.", ["The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around {npc:253471}'s overlook: one of them carries the heart Biraxas wants."] = "The nearest Decrepit Pylon Protectors stand by the road north, from the middle of the zone up to the western pylon, and around Mordent's overlook: one of them carries the heart Biraxas wants.", ["{npc:253471} sends you for the {item:255662}, kept inside the temple beside {npc:255486}. {quest:96018} asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north."] = "Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.", ["{npc:253471} wants a fragment and a shard of the pylons back from {area:405}'s two centaur villages: {area:604} lies just beyond the valley's northern way out.\nCareful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village."] = "Mordent wants a fragment and a shard of the pylons back from Desolace's two centaur villages: Magram Village lies just beyond the valley's northern way out.\nCareful: if you have killed Magram or Gelkis centaurs, that clan's guards may attack you when you walk into its village." },
 			steps = {
 				{
-					title = "Fly to {area:2408}",
-					note = "Experimental route (alpha). It follows what players did in {zone:2652} and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458}).",
+					title = "North into {area:405}",
+					note = "New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. From {area:1099} ride north-west on the road past {area:2577} and on north into {area:405}: the road comes out on {area:405}'s southern edge.",
 					only = { factions = { "Horde" } },
-					when = { { k = "zone", neg = true, name = "Shen'dralas", area = 16651 }, { k = "zone", neg = true, name = "Desolace", area = 405 } },
+					when = { { k = "zone", name = "Feralas", area = 357 } },
 					goals = {
+						{ t = "goto", text = "{area:405}, where the road from {zone:1444} comes in", map = 1443, x = 43, y = 96 },
+					},
+				},
+				{
+					title = "Fly to {area:2408}",
+					note = "New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458}).",
+					only = { factions = { "Horde" } },
+					when = { { k = "zone", neg = true, name = "Shen'dralas", area = 16651 }, { k = "zone", neg = true, name = "Desolace", area = 405 }, { k = "zone", neg = true, name = "Feralas", area = 357 } },
+					goals = {
+						{ t = "goto", text = "{zone:1454} flight master", map = 1454, x = 45.3, y = 63.7 },
 						{ t = "fly", location = "Shadowprey Village", node = 38, area = 2408 },
 					},
 				},
 				{
 					title = "Fly to {area:608}",
-					note = "{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from {area:150} to Theramore first.",
+					note = "Experimental route (alpha). It follows what players did in {zone:2652} and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from {area:150} to Theramore first.",
 					only = { factions = { "Alliance" } },
 					when = { { k = "zone", neg = true, name = "Shen'dralas", area = 16651 }, { k = "zone", neg = true, name = "Desolace", area = 405 } },
 					goals = {
@@ -41,7 +52,7 @@ do
 				},
 				{
 					title = "Into the {area:2657}",
-					note = "Ride east from {area:2408} along {area:405}'s southern edge, past {area:606}: the {area:2657} opens there into {area:16651}.",
+					note = "Ride east along {area:405}'s southern edge (from {area:2408}: past {area:606}): the {area:2657} opens there into {area:16651}.",
 					only = { factions = { "Horde" } },
 					when = { { k = "zone", neg = true, name = "Shen'dralas", area = 16651 } },
 					goals = {
@@ -59,7 +70,7 @@ do
 				},
 				{
 					title = "The {area:2657}: a {quest:93644}",
-					note = "Experimental route (alpha): if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.",
+					note = "New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe Outcast Necromancers and the Magram Necromancers of the valley drop a {quest:93644} whose writer lives in {zone:2652}: players got it within a few kills. The Magram centaurs leave you be until you attack; the Magram Necrokhans among them (level 45) are elites: leave them be.\nThe Gelkis and Magram centaurs have {area:2657} quest chains of their own, worth about 20,000 to 30,000 more experience, but each chain asks for Honored with its clan. The two clans are rivals, so work for one of them: the Gelkis and Magram Centaur Reputation guide, under Reputation, shows how.",
 					goals = {
 						{ t = "collect", item = 260347, itemName = "Tattered Journal", map = 2652, x = 31.14, y = 5.1, spotsPacked = "34,8.4,,74,47;29.2,26.7,,130,54;41,30.2,,67,43;49.8,25.6,,73,37;58.4,19.3,,65,12;66.4,23,,40,5;60.1,35.2,,48,14;58.1,49.5,,55,31;64.8,60,,41,3;60.9,73.5,,56,7;46.5,42.8,,95,38;38.9,45.2,,57,3;34.4,15,,59,44,1;34.5,21.8,,61,51,1;35.1,28.1,,67,60,1;33.8,32.4,,50,16,1;46.1,33.1,,64,50,1;49.2,31.4,,54,24,1;55.8,23.4,,60,40,1;48.9,36.8,,45,14,1;59.6,26.1,,67,38,1;62.6,23.5,,45,14,1;41.9,54.7,,52,9,1;51.4,47.7,,91,20,1;60,43,,51,14,1;52.9,55.8,,58,14,1;56.1,54.3,,76,29,1;61.5,53.3,,55,5,1;59.8,57.3,,55,31,1;58.1,65.8,,83,19,1;57.2,72,,60,20,1", spread = true, lvl = 43, from = "Magram Necromancer", fromKind = "npc", fromId = 253272, fromNpcs = { { npc = 253272, npcName = "Magram Necromancer" } } },
 						{ t = "accept", quest = 93644, title = "Tattered Journal", item = 260347, itemName = "Tattered Journal", qlvl = 45 },
@@ -139,16 +150,16 @@ do
 				},
 				{
 					title = "The western pylon: repair it",
-					note = "North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Then repair the pylon with the {item:271882} ({spell:1289727}). Decrepit Pylon Protectors guard it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.",
+					note = "North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Decrepit Pylon Protectors guard it: kill one beside the pylon, then use {spell:1289727} on it, as players did to repair it.\nCareful: the pylon stands at the edge of the {area:2657}, where Magram Necrokhans and Corpsefeeders (elites, level 45) walk, and Nascent Pylon Protectors (elites, 43) wander the road. Pull the Decrepit Pylon Protectors away from them before you repair it.",
 					goals = {
-						{ t = "use", quest = 96018, title = "Powering the Pylons", item = 271882, itemName = "Pile of Pylon Parts", oi = 2, map = 2652, x = 43.97, y = 35.59, note = "{item:271882}: {spell:1289727}" },
+						{ t = "kill", quest = 96018, title = "Powering the Pylons", target = "Decrepit Pylon Protector", npc = 252711, count = 1, oi = 2, map = 2652, x = 43.97, y = 35.59, spotsPacked = "43.97,35.59,,161,68;46.3,31.6,,44,19,1;48.6,36.4,,40,9,1;46.3,41.9,,69,14,1;38.1,45,,40,4,1;53.1,37.1,,40,1,1;34.9,24.5,,64,3,1;60.7,23.8,,40,1,1;47,65.9,,40,1,1;68,25.2,,80,5,1;71.8,23.2,,68,22,1;73.1,25.7,,40,4,1;76.1,22.5,,63,27,1", lvl = 43, note = "{npc:252711}, then {spell:1289727} on it" },
 					},
 				},
 				{
 					title = "{area:16677}: repair the eastern pylon",
-					note = "East along the valley road to the eastern pylon and repair it the same way, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.",
+					note = "East along the valley road to the eastern pylon and repair it the same way, a {npc:252711} first, coming in from the west: {npc:253527} (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.",
 					goals = {
-						{ t = "use", quest = 96018, title = "Powering the Pylons", item = 271882, itemName = "Pile of Pylon Parts", oi = 3, map = 2652, x = 73.4, y = 23.91, note = "{item:271882}: {spell:1289727}" },
+						{ t = "kill", quest = 96018, title = "Powering the Pylons", target = "Decrepit Pylon Protector", npc = 252711, count = 1, oi = 3, map = 2652, x = 73.4, y = 23.91, spotsPacked = "73.4,23.91,,122,53;68,25.2,,80,5,1;60.7,23.8,,40,1,1;53.1,37.1,,40,1,1;48.6,36.4,,40,9,1;46.3,31.6,,44,19,1;45.6,35.5,,43,36,1;46.3,41.9,,69,14,1;42.2,30.7,,84,32,1;38.1,45,,40,4,1;47,65.9,,40,1,1;34.9,24.5,,64,3,1", lvl = 43, note = "{npc:252711}, then {spell:1289727} on it" },
 					},
 				},
 				{
@@ -206,10 +217,10 @@ do
 				},
 				{
 					title = "{npc:254578}",
-					note = "{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711}, a short ride back up the road north. Otherwise {zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}'s flight points ({area:2408} for the Horde, {area:608} for the Alliance).",
+					note = "{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north.",
 					goals = {
 						{ t = "turnin", quest = 93362, title = "What They've Done to My Peonies", npc = 254578, npcName = "Mithera", map = 2652, x = 53.32, y = 76.02 },
-						{ t = "accept", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", qlvl = 43, pre = { 93394 }, preTitles = { [93394] = "Meeting the Magister" }, map = 2652, x = 46, y = 78.22, optional = true },
+						{ t = "accept", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", qlvl = 43, pre = { 93394 }, preTitles = { [93394] = "Meeting the Magister" }, map = 2652, x = 46, y = 78.22 },
 					},
 				},
 				{
@@ -221,16 +232,18 @@ do
 				},
 				{
 					title = "{npc:255486}",
-					note = "{zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}.",
+					note = "{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there.",
 					goals = {
 						{ t = "turnin", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", map = 2652, x = 46, y = 78.22 },
 					},
 				},
 				{
-					title = "Back to your route",
+					title = "{area:2408}",
+					note = "{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead.",
 					only = { factions = { "Horde" } },
 					goals = {
-						{ t = "note", text = "{zone:2652} is done. Your next {zone:1444} guide picks up in {zone:1454}, at the zeppelin towers outside the gate: ride back north through the {area:2657} to {area:2408} and fly to {zone:1454}." },
+						{ t = "goto", text = "{area:2408} flight master", map = 1443, x = 21.56, y = 74.04 },
+						{ t = "fly", location = "Orgrimmar", node = 23, area = 1637 },
 					},
 				},
 				{
@@ -17039,7 +17052,7 @@ do
 					title = "{quest:93224}",
 					note = "The Kolkar centaurs (level 30-33) in the camps along the eastern road, south of {area:608}, drop the totems, and so do the Magram and the Maraudine. Bring five back, then take your clan's Buying Friendship (Gelkis below; the Magram's instead for the Magram).",
 					goals = {
-						{ t = "collect", quest = 93224, title = "Carved Centaur Totems", item = 254432, itemName = "Carved Centaur Totem", count = 5, oi = 1, map = 1443, x = 69.5, y = 44, z = 91.3, f = "e", spotsPacked = "70.82,42.47,89.5,104,22,,33;69.4,47.9,,34,4,,32;73.55,49.75,,54,6,,33;71.1,49.7,,56,6,1,33;68.4,51.4,,45,5,1,35;34.43,56.26,,102,,1", only = { factions = { "Alliance" } }, note = "{item:254432}: Kolkar centaurs", fromNpcs = { { npc = 4633, npcName = "Kolkar Scout" }, { npc = 4632, npcName = "Kolkar Centaur" }, { npc = 4636, npcName = "Kolkar Battle Lord" }, { npc = 4634, npcName = "Kolkar Mauler" }, { npc = 4637, npcName = "Kolkar Destroyer" }, { npc = 4635, npcName = "Kolkar Windchaser" }, { npc = 12976, npcName = "Kolkar Waylayer" }, { npc = 12977, npcName = "Kolkar Ambusher" } }, fromNpcsAt = "4,6,3,2,1,5;2,1,6;3,6,5;3,1,4,6,5;2,1,7,8;" },
+						{ t = "collect", quest = 93224, title = "Carved Centaur Totems", item = 254432, itemName = "Carved Centaur Totem", count = 5, oi = 1, map = 1443, x = 69.5, y = 44, z = 91.3, f = "e", spotsPacked = "70.82,42.47,89.5,104,22,,33;69.4,47.9,,34,4,,32;71.1,49.7,,56,6,1,33;73.6,47,90,58,9,1,33;68.4,51.4,,45,5,1,35;74,50.2,91.8,61,8,1,33;34.43,56.26,,102,,1", only = { factions = { "Alliance" } }, note = "{item:254432}: Kolkar centaurs", fromNpcs = { { npc = 4633, npcName = "Kolkar Scout" }, { npc = 4632, npcName = "Kolkar Centaur" }, { npc = 4636, npcName = "Kolkar Battle Lord" }, { npc = 4634, npcName = "Kolkar Mauler" }, { npc = 4637, npcName = "Kolkar Destroyer" }, { npc = 4635, npcName = "Kolkar Windchaser" }, { npc = 12976, npcName = "Kolkar Waylayer" }, { npc = 12977, npcName = "Kolkar Ambusher" } }, fromNpcsAt = "4,6,3,2,1,5;2,1,6;3,1,4,6,5;6,3,4;2,1,7,8;3,5,6;" },
 						{ t = "collect", quest = 93225, title = "Carved Centaur Totems", item = 254432, itemName = "Carved Centaur Totem", count = 5, oi = 1, map = 1443, x = 69.5, y = 44, z = 91.3, f = "e", spotsPacked = "69.5,44,91.3,132,13,,35;69,41.9,,28,2,1,31;71.6,41.9,89.5,30,4,1;69.4,47.9,,34,4,1,32;69.7,40,,66,6,1,32;73.3,43.1,90.6,54,5,1;72.6,40.2,91.1,16,2,1,32;71.1,49.7,,56,6,1;73.6,47,90,58,9,1;68.4,51.4,,45,5,1,35;74,50.2,91.8,61,8,1", lvl = 33, only = { factions = { "Horde" } }, note = "{item:254432}: Kolkar centaurs", fromNpcs = { { npc = 4633, npcName = "Kolkar Scout" }, { npc = 4632, npcName = "Kolkar Centaur" }, { npc = 4636, npcName = "Kolkar Battle Lord" }, { npc = 4634, npcName = "Kolkar Mauler" }, { npc = 4637, npcName = "Kolkar Destroyer" }, { npc = 4635, npcName = "Kolkar Windchaser" }, { npc = 12976, npcName = "Kolkar Waylayer" }, { npc = 12977, npcName = "Kolkar Ambusher" } }, fromNpcsAt = "4,2,1,6,3,5,7,8;2,1;3,4,6;2,1,6;1,6,2;3,4,6,5;4,6;3,1,4,6,5;6,3,4;2,1,7,8;3,5,6" },
 						{ t = "turnin", quest = 93224, title = "Carved Centaur Totems", npc = 5396, npcName = "Captain Pentigast", map = 1443, x = 66.66, y = 10.93, z = 163.1, f = "e", only = { factions = { "Alliance" } } },
 						{ t = "turnin", quest = 93225, title = "Carved Centaur Totems", npc = 5412, npcName = "Gurda Wildmane", map = 1443, x = 56.29, y = 59.68, z = 90, f = "e", only = { factions = { "Horde" } } },
@@ -19688,14 +19701,14 @@ Polestar.RegisterExperimental({
 		title = "{area:616}",
 		faction = "Alliance",
 		minLevel = 57,
-		maxLevel = 59,
-		topLevel = 59,
+		maxLevel = 60,
+		topLevel = 60,
 		zone = 2482,
 		zoneName = "Mount Hyjal",
 		pitch = "A new Forever zone south of {zone:1452}.",
 		pros = { "About 350,000 quest experience", "No boat: {area:2255} is a flight away", "Two flight paths inside the zone" },
 		cons = { "Elites roam, a few group quests" },
-		questIds = { 96833, 94479, 95568, 95569, 96796, 93747, 93759, 92594, 92008, 91754, 91755, 91923, 95611, 90487, 91770, 95766, 92959, 95317, 95320, 95318, 95319, 95380, 96262, 95378, 95379, 96435, 96255, 96322, 95316, 91881, 96321, 96131, 92612, 96209, 95006, 93773, 92009, 92011, 96930, 92171, 96931, 92702, 92064, 96559, 93383, 93952, 92111, 93831, 91697, 93826, 93825, 93827, 92591, 92449, 95027, 90865, 90702, 92100, 90750, 91688, 95218, 94832, 96077, 96550, 93615, 96979, 96145, 96939, 96978, 92015, 92014, 96992, 93617, 92317, 96957, 96296, 92500, 91883, 92147, 96252, 96991, 96964, 92593, 92960, 95793, 96959, 92335, 96971, 96003, 97009, 96025, 92017, 92533, 93584, 93407, 93197, 92328, 90647, 92169 },
+		questIds = { 96833, 94479, 95568, 95569, 96796, 93747, 93759, 92594, 92008, 91754, 91755, 91923, 95611, 90487, 91770, 95766, 92959, 95317, 95320, 95318, 95319, 95380, 96262, 95378, 95379, 96435, 96255, 96322, 95316, 91881, 96321, 96131, 92612, 96209, 95006, 93773, 92009, 92011, 96930, 92171, 96931, 92702, 92064, 96559, 93383, 93952, 92111, 93831, 91697, 93826, 93825, 93827, 92591, 92449, 95027, 90865, 90702, 92100, 90750, 91688, 95218, 94832, 96077, 96550, 93615, 96979, 96145, 96939, 96978, 92015, 92014, 96992, 93617, 92317, 96957, 96296, 92500, 91883, 92147, 96252, 96991, 96964, 92593, 92960, 95793, 96959, 92335, 96971, 96003, 97009, 96025, 93197, 92017, 92533, 93584, 93407, 92328, 90647, 92169 },
 		joins = { "forever/alliance/50-60/06-silithus" },
 		start = { map = 1452, x = 61.36, y = 38.83, f = "e" },
 		focus = { map = 2482, x = 85.5, y = 73.2 },
