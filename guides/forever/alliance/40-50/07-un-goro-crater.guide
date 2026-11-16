@@ -5,7 +5,7 @@ faction Alliance
 levels 49-50
 zone Un'Goro Crater
 next forever/alliance/50-60/01-burning-steppes
-pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones, the hive and Shizzle's scales wait for the later Un'Goro visit at about 56.
+pitch For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -15,10 +15,13 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 # 48-50, two over players on the Tanaris guide at about 47; Rise of the Silithid goes to Gracina on the Burning Steppes
 # guide's Darnassus stop).
 # Fix round 1 (0.4.0): this first Un'Goro visit takes Torwa, the raft, Muigin's petals and the power crystals at
-# 49-50, with no top-up to 51; the pylons (4285, 4287, 4288), Shizzle's Flyer (4503), the bones and the expedition
-# (3881, 3882, 3883) and A-Me 01 (4243) are taken and done on the Western Plaguelands guide's Un'Goro visit at about 57:
-# their Frenzied Pterrordax (51-54), Elder Diemetradons (53-55), Glutinous Oozes (52-54) and Gorishi (51-54) were two
-# to four over players here.
+# 49-50, with no top-up to 51; the pylons (4285, 4287, 4288), the bones and the expedition (3881, 3882, 3883) and
+# A-Me 01 (4243) are taken and done on the Western Plaguelands guide's Un'Goro visit at about 57: their Frenzied
+# Pterrordax (51-54), Elder Diemetradons (53-55), Glutinous Oozes (52-54) and Gorishi (51-54) were two to four over
+# players here. Fix round 2 (0.4.0): Shizzle's Flyer (4503) is done here after all, on the Fledgling Pterrordax
+# (48-50) and Young Diemetradons (49-50) of the eastern jungle the petals already take you to; The Scent of
+# Lar'korwi (4291) goes back to Torwa on the way from the raft instead of riding the log to the next visit; the
+# Azshara top-up to 50.4 is gone (the next guide's Azshara top-up is on mobs at your level).
 
 step Fly to Menethil Harbor
   zone Ironforge
@@ -131,43 +134,46 @@ step Lar'korwi Mates and the raft
   collect 11116 x1 optional           -- A Mangled Journal
   accept 3884 optional
 
+step Torwa Pathfinder
+  tip Back east to Torwa with the glands.
+  turnin 4291
+
 step Marshal's Refuge
-  tip Ride west back to the refuge.
+  tip Ride north-west to the refuge.
   tip Give the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and Un'Goro Dirt Pile you pass from here on.
   accept 4141                         -- Muigin
+  accept 4503                         -- Shizzle: his scales come from the young beasts of the eastern jungle
   getfp "Marshal's Refuge"            -- Gryfe
   turnin 3884 optional                -- Williden Marshal
   turnin 3845                         -- Linken, at the back of the refuge
   accept 3908                         -- Ends with Donova Snowden in Winterspring: keep it
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
-  note Shizzle, Spark Nilminer, Hol'anyee Marshal, Williden Marshal and Karna Remtravel have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56.
+  note Spark Nilminer, Hol'anyee Marshal, Williden Marshal and Karna Remtravel have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56.
 
 # ---------------------------------------------------------------- The eastern jungle and the crystals
 
 step Fire Plume Ridge and the eastern jungle
   tip Ride east into the eastern jungle: Bloodpetal Lashers and Threshers (48-50) drop the petals and Un'Goro Soil. Crystal clusters stand all over the crater, many around the foot of Fire Plume Ridge: take a few extra of each colour.
   tip Careful: the Living Blazes (54-55) walk the top of Fire Plume Ridge, and the Bloodpetal Flayers and Trappers (51-53) hold the jungle's south: take your crystals from the ridge's foot and your petals in the north.
-  collect 11316 quest 4141            -- Bloodpetal
-  collect 11018 quest 3764            -- Un'Goro Soil
+  tip Shizzle's scales: the Fledgling Pterrordax (48-50) glide over the north-east of the jungle and the Young Diemetradons (49-50) graze beside them. There are only ten of those: the bigger Diemetradons (51-52) further south-west are a level or two over you, so stay north-east.
+  collect 11316 quest 4141 @56.6,35.0 -- Bloodpetal, from the Lashers and Threshers
+  collect 11018 quest 3764 @55.6,28.7 -- Un'Goro Soil, from the dirt piles
+  collect 11831 quest 4503 @57.7,35.3 -- Webbed Pterrordax Scale, Fledgling Pterrordax
+  collect 11830 quest 4503 @58.1,33.9 -- Webbed Diemetradon Scale, Young Diemetradon
 
 step Lakkari Tar Pits
   tip The Tar Beasts (50-51) wallow at the pits' edge; the Tar Lords (53-54) further in: take the crystals around the edge.
-  collect 11184 quest 4284            -- Blue Power Crystal
-  collect 11185 quest 4284            -- Green Power Crystal
-  collect 11186 quest 4284            -- Red Power Crystal
-  collect 11188 quest 4284            -- Yellow Power Crystal
+  collect 11184 quest 4284 @54.1,18.1 -- Blue Power Crystal
+  collect 11185 quest 4284 @54.1,18.1 -- Green Power Crystal
+  collect 11186 quest 4284 @54.1,18.1 -- Red Power Crystal
+  collect 11188 quest 4284 @54.1,18.1 -- Yellow Power Crystal
 
 step Marshal's Refuge
   turnin 4284                         -- J.D. Collie, below ground
   turnin 4141                         -- Muigin
   accept 4142                         -- For Gregan Brewspewer in Feralas: keep it
+  turnin 4503                         -- Shizzle
   level 50 only Priest,Mage
-
-step Level 49.79
-  when level<49.79
-  tip Still short of level 49.79 after the refuge's hand-ins? Top up on the Pterrordax on the slopes east of Marshal's Refuge before you leave the crater.
-  goto 57.0,10.2 map 1449 "Pterrordax"
-  level 49.79 grind 9166               -- grind on Pterrordax
 
 step Fly to Astranaar
   only Warrior,Paladin,Hunter,Rogue,Shaman,Warlock,Druid
@@ -205,10 +211,3 @@ step Fly to Astranaar
   zone Darkshore
   goto 36.4,45.6 "Auberdine flight master"
   fly "Astranaar"
-
-step Level 50.4
-  zone Azshara
-  when level<50.4
-  tip Top up here to level 50.4 before the hand-ins at Talrendis Point: they take you to level 51.
-  goto 17.0,69.4 map 1447 "Highborne Apparition"
-  level 50.4 grind 6116               -- grind on Highborne Apparition

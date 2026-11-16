@@ -10938,8 +10938,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop Shizzle's scales.",
-			"note": "Un'Goro's Northern Pylon (4285) and Shizzle's Flyer (4503) are done on the Western Plaguelands guide's Un'Goro visit at about 57 since fix round 1 (0.4.0): the Frenzied Pterrordax (51-54) around the pylon were three over players at the first visit's 51.",
+			"tip": "The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle.",
+			"note": "Un'Goro's Northern Pylon (4285) is done on the Western Plaguelands guide's Un'Goro visit at about 57 since fix round 1 (0.4.0): the Frenzied Pterrordax (51-54) around the pylon were three over players at the first visit's 51. Shizzle's Flyer (4503) moved back to the first visit in fix round 2, on the Fledgling Pterrordax and Young Diemetradons (48-50) of the eastern jungle.",
 			"source": [
 				{
 					"kind": "client",

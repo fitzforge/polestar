@@ -14939,6 +14939,32 @@
 				"faction": "Alliance",
 				"why": "Alliance level tidy (0.4.0): Safety Checks' Pristine Mattock lies among Agmond's End's Stonevault Shamans (40-41) beside Murdaloc (42), one to three over players on 30-40/06 (about 38.5): it is taken with Murdaloc on 40-50/02's Badlands visit, which hands the quest to Dorgaron on its ride north to Loch Modan.",
 				"source": "Alliance level tidy 2026-11-16"
+			},
+			{
+				"a": [
+					"task",
+					4503
+				],
+				"b": [
+					"turnin",
+					4141
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 2 (0.4.0): Shizzle's Flyer is done on the first Un'Goro visit (40-50/07, about 50): the Fledgling Pterrordax (48-50) and Young Diemetradons (49-50) of the eastern jungle drop the same scales, at the player's level, on the step that takes Muigin's petals, and it goes back to Shizzle with the petals. At about 57 on the Western Plaguelands guide's visit it took some 80 kills of mobs five to eight under the player. Level model: route 1.85 h faster.",
+				"source": "Alliance fix round 2 2026-11-16"
+			},
+			{
+				"a": [
+					"turnin",
+					4291
+				],
+				"b": [
+					"accept",
+					4141
+				],
+				"faction": "Alliance",
+				"why": "Alliance 40-50 fix round 2 (0.4.0): The Scent of Lar'korwi goes back to Torwa from the raft on the first Un'Goro visit, at about 50, instead of riding the log for 29 hours through five guides to the second visit's Torwa stop.",
+				"source": "Alliance fix round 2 2026-11-16"
 			}
 		]
 	}
