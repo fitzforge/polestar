@@ -3575,3 +3575,117 @@ fn t_2470_from_the_windbreak_graveyard_the_walk_to_a_corpse_in_the_screeching_ca
 	// 0.4.0's maps: about 1,720 yd across the canyons; a walk round through Tanaris is several times that.
 	assert!(f(&out["corpse"]["yards"]) < 2200.0, "it stays in Thousand Needles: {out}");
 }
+
+// The border sweep (#1543, #2048; a measuring tool, not a check: `--ignored`). NAV_SWEEP_GOALS names a JSON file of
+// guide goals, each { id, faction, level, c, gx, gy, tmap, tx, ty, tf, tz, cand = [[x, y] x 8] } (the 8 points 250 yd
+// round the goal); NAV_SWEEP_OUT where the results go (JSON); NAV_SWEEP_THREADS how many runs at once (default 4),
+// NAV_SWEEP_LIMIT the most starts (default all). A goal's start is its first candidate in another zone than the goal
+// (Nav.danger.ZoneAt, the walking maps' zone field) standing on the walking maps' ground; from there the player
+// follows the arrow as FOLLOW_ARROW does, walking only (flight maps seen on both continents, none listing a flight
+// path), for up to 240 s. Each result: { id, arrived, stalled, left, flips, keys }.
+#[test]
+#[ignore]
+fn border_sweep() {
+	skip_unless_ready!();
+	let (Ok(goals), Ok(out_file)) = (std::env::var("NAV_SWEEP_GOALS"), std::env::var("NAV_SWEEP_OUT")) else {
+		eprintln!("skipped: NAV_SWEEP_GOALS and NAV_SWEEP_OUT name the goals and the results");
+		return;
+	};
+	let threads: usize = std::env::var("NAV_SWEEP_THREADS").ok().and_then(|v| v.parse().ok()).unwrap_or(4);
+	let limit: usize = std::env::var("NAV_SWEEP_LIMIT").ok().and_then(|v| v.parse().ok()).unwrap_or(usize::MAX);
+	let goals: Value = serde_json::from_str(&std::fs::read_to_string(&goals).unwrap()).unwrap();
+	let tmp = TempDir::new("polestar-border-sweep-");
+	let lua_file = |name: &str, v: &Value| {
+		let p = tmp.path().join(name);
+		std::fs::write(&p, format!("return {}", forge_addontest::run::lua_value(v))).unwrap();
+		p.to_string_lossy().to_string()
+	};
+	// The starts, in one run.
+	let gfile = lua_file("goals.lua", &goals);
+	let picked = run(
+		&format!(
+			r#"
+		local G = stub.navNs.PathGrid
+		local function ground(c, x, y, h)
+			local st = G.State(c)
+			local k, lc
+			if st then k, lc = G.locate(st, x, y) end
+			if not k then return nil end
+			local n = G.snap(st, k, lc, x, y, h)
+			return n and G.zOf(G.grid(st, k), n) or nil
+		end
+		-- Both continents' parts loaded (the client loads a part where the player stands).
+		C_AddOns.LoadAddOn("Polestar_Nav_EK")
+		C_AddOns.LoadAddOn("Polestar_Nav_Kalimdor")
+		stub.advance(1)
+		local out, seen = {{}}, {{ goals = 0, zoned = 0 }}
+		for _, g in ipairs(dofile({gfile})) do
+			local gz = N.danger.ZoneAt(g.c, g.gx, g.gy)
+			seen.goals = seen.goals + 1
+			if gz then seen.zoned = seen.zoned + 1 end
+			for k, p in ipairs(gz and g.cand or {{}}) do
+				local z = N.danger.ZoneAt(g.c, p[1], p[2])
+				local h = z and z ~= gz and ground(g.c, p[1], p[2], nil)
+				if h then
+					out[#out + 1] = {{ id = (g.id .. " /" .. k), faction = g.faction, level = g.level, c = g.c, x = p[1], y = p[2], z = h,
+						zone = z, goalZone = gz, tmap = g.tmap, tx = g.tx, ty = g.ty, tf = g.tf, tz = g.tz }}
+					break
+				end
+			end
+		end
+		emit({{ starts = out, seen = seen }})"#,
+			gfile = lua_string(&gfile)
+		),
+		true,
+	);
+	eprintln!("border sweep: goals {}", picked["seen"]);
+	let mut starts: Vec<Value> = picked["starts"].as_array().cloned().unwrap_or_default();
+	starts.truncate(limit);
+	eprintln!("border sweep: {} starts", starts.len());
+	let chunks: Vec<Vec<Value>> = starts.chunks(20).map(|c| c.to_vec()).collect();
+	let next = std::sync::atomic::AtomicUsize::new(0);
+	let results = std::sync::Mutex::new(Vec::<Value>::new());
+	std::thread::scope(|s| {
+		for _ in 0..threads {
+			s.spawn(|| loop {
+				let i = next.fetch_add(1, std::sync::atomic::Ordering::SeqCst);
+				let Some(chunk) = chunks.get(i) else { break };
+				let sfile = lua_file(&format!("chunk{i}.lua"), &Value::Array(chunk.clone()));
+				let out = run(
+					&[
+						FOLLOW_ARROW,
+						&format!(
+							r#"
+		local out = {{}}
+		for _, s in ipairs(dofile({sfile})) do
+			N.ClearTarget()
+			w.faction = s.faction
+			if s.faction == "Horde" then w.race, w.raceName = "Orc", "Orc" else w.race, w.raceName = "Human", "Human" end
+			w.setLevel(s.level)
+			Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}
+			place(s.zone, s.x, s.y, s.z)
+			stub.advance(1)
+			N.Sample()
+			N.SetTarget(s.tmap, s.tx, s.ty, "Goal", s.tf, nil, s.tz)
+			local r = follow(s.c, s.x, s.y, s.z, 240)
+			r.id = s.id
+			out[#out + 1] = r
+		end
+		emit(out)"#,
+							sfile = lua_string(&sfile)
+						),
+					]
+					.concat(),
+					true,
+				);
+				results.lock().unwrap().extend(out.as_array().cloned().unwrap_or_default());
+			});
+		}
+	});
+	let results = results.into_inner().unwrap();
+	std::fs::write(&out_file, serde_json::to_string(&results).unwrap()).unwrap();
+	let arrived = results.iter().filter(|r| r["arrived"].as_f64().is_some()).count();
+	let stalled = results.iter().filter(|r| r["stalled"].as_f64().is_some()).count();
+	let flips: f64 = results.iter().map(|r| r["flips"].as_f64().unwrap_or(0.0)).sum();
+	eprintln!("border sweep: {} starts, {arrived} arrived, {stalled} stalled, {flips} flips -> {out_file}", results.len());
+}
