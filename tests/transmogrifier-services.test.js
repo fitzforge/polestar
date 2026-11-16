@@ -5,9 +5,23 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { runAddon } = require('./helpers/lua');
+const { loadPublicCorrections } = require('../tools/lib/data/corrections');
 
-test('legacy Codex transmogrifiers feed faction-safe POIs and Nearby services', () => {
+test('Codex leaves NPCs without transmogrifier data out of the service', () => {
+	runAddon({
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Lookup/Codex.lua'] }],
+		script: `
+local C = Polestar.Codex
+C.Register("meta", { sources = {} })
+C.Register("npc", "\\n270513\\t\\tSpellweaver Thaldris", "\\n270513\\t20;20;A;;;;;9000,l,550,500", 270513, 270513)
+assert(#C.Npc(270513).roles == 0, "the NPC record has no service role")
+assert(#C.WithRole("transmogrifier") == 0, "the role index has no transmogrifiers")`,
+	});
+});
+
+test('Codex transmogrifier roles feed faction-safe POIs and Nearby services', () => {
 	assert.ok(fs.existsSync(path.join(__dirname, '..', 'addon', 'Polestar', 'Media', 'Map', 'icon-transmog.tga')));
+	const thaldrisRoles = loadPublicCorrections().npcs[270513].set.roles;
 	const [result] = runAddon({
 		stubs: ['stub_world.lua', 'stub_maps.lua'],
 		before: 'stub.maps.useWorld(); stub.maps.place(0, 0); stub.world.faction = "Alliance"',
@@ -21,12 +35,12 @@ C.Register("npc", "\\n" .. [[
 270581\t\tFyrenz Vishonar
 270582\t\tMon'ye]], "\\n" .. [[
 7\t20;20;A;;;vendor;;9000,l,700,500
-270513\t20;20;A;;;;;9000,l,550,500
+270513\t20;20;A;;;${thaldrisRoles.join(',')};;9000,l,550,500
 270581\t20;20;A;;;transmogrifier;;9000,l,500,500
-270582\t20;20;H;;;;;9000,l,520,500]], 7, 270582)
+270582\t20;20;H;;;transmogrifier;;9000,l,520,500]], 7, 270582)
 C.Register("role", "\\n" .. [[
 vendor\t\t7
-transmogrifier\t\t270581]])
+transmogrifier\t\t270513,270581,270582]])
 local ids = C.WithRole("transmogrifier")
 local source = M.ServiceSource()
 local enemy = source.read(270582) == nil
@@ -55,7 +69,7 @@ for _, id in ipairs(horde.ids) do
 end
 local hordePins = M.BuildServicePins(hordeRecords)
 local hordeNear = Near.Find("transmogrifier")
-emit({ids = ids, roles = C.Npc(270513).roles, noDuplicate = #C.Npc(270581).roles == 1,
+emit({ids = ids, roles = C.Npc(270513).roles,
   enemy = enemy, before = before, pins = #pins,
   first = pins[1] and pins[1].category, icon = pins[1] and pins[1].icon,
   nearby = found and found.id, reason = reason, alias = alias,
@@ -65,7 +79,6 @@ emit({ids = ids, roles = C.Npc(270513).roles, noDuplicate = #C.Npc(270581).roles
 	}).emitted;
 	assert.deepEqual(result.ids, [270513, 270581, 270582]);
 	assert.deepEqual(result.roles, ['transmogrifier']);
-	assert.equal(result.noDuplicate, true);
 	assert.equal(result.enemy, true);
 	assert.equal(result.before, 0);
 	assert.equal(result.pins, 2);

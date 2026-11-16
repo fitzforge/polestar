@@ -2738,6 +2738,24 @@
 		],
 		"note": "Genn Fairweather is a stable master (the title under the name reads \"Stablemaster and Riding Trainer\"), but the merged data had no stable master role for this Forever NPC, so Nearby's stable master search passed over it and named one on another continent (#2010). It keeps its repair, trainer and vendor roles."
 	},
+	"270513": {
+		"set": {
+			"roles": [
+				"transmogrifier"
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "Pinned QuestieDB Forever data, npc 270513: subName \"Transmogrifier\""
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.2 Forever, npc 270513: npcFlags includes 0x20000000"
+			}
+		],
+		"note": "Spellweaver Thaldris serves as a transmogrifier, as his NPC title and the newer quest data's flag show. The pinned data lacks that flag, so the Codex would omit him from service markers and Nearby Services."
+	},
 	"278863": {
 		"set": {
 			"spawns": {}
