@@ -4187,14 +4187,14 @@
 			{
 				"a": [
 					"turnin",
-					6143
+					6142
 				],
 				"b": [
 					"accept",
 					581
 				],
 				"faction": "Horde",
-				"why": "Horde 30-40 re-order (2026-11-07): Desolace's 33-36 quests (34-35) come before Stranglethorn (36-37)."
+				"why": "Horde 30-40 re-order (2026-11-07): Desolace's 33-36 quests (34-35) come before Stranglethorn (36-37). Since the 0.4.0 audit Other Fish to Fry (6143) is on the second Desolace visit; Mai'Lahii's clams (6142) close the first."
 			},
 			{
 				"a": [
@@ -5830,7 +5830,43 @@
 					5381
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15): the Hand of Iruxos (5381) brings out a Demon Spirit (37) at Thunder Axe Fortress, met at about 34 on the first Desolace visit (players' recordings: 7 deaths there). Taiga gives it on that visit's Shadowprey stop and it is carried; the crystal comes on 30-40/04's second visit at about 38, after Dustwallow: Thunder Axe is walked from Ghost Walker Post, and Taiga's Portals of the Legion (5581) follow it on the same visit."
+				"why": "Horde level tidy (2026-11-15): the Hand of Iruxos (5381) brings out a Demon Spirit (37) at Thunder Axe Fortress, met at about 34 on the first Desolace visit (players' recordings: 7 deaths there). The crystal comes on 30-40/04's second visit at about 38, after Dustwallow: Thunder Axe is walked from Ghost Walker Post, and Taiga's Portals of the Legion (5581) follow it on the same visit. Horde 0.4.0 audit: Taiga gives it on that visit's Shadowprey stop, no longer on the first visit's (a 3-guide carry for nothing)."
+			},
+			{
+				"a": [
+					"turnin",
+					1323
+				],
+				"b": [
+					"accept",
+					5381
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: Hand of Iruxos is taken from Taiga on 30-40/04's Shadowprey landing, where its crystal is worked on the same visit; taken on 30-40/02's first Shadowprey stop it was carried for three guides and sat in the log beside the crystal at 34."
+			},
+			{
+				"a": [
+					"turnin",
+					1323
+				],
+				"b": [
+					"accept",
+					6143
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: Other Fish to Fry (6143) wants Slitherblade Myrmidons (34-35) whose Sea Witches and Oracles (34-36, casters) share Sar'theris Strand: at about 33 on the first Desolace visit they were two over. Drulzegar gives it on 30-40/04's Shadowprey landing at about 37-38, and the strand is walked from Thunder Axe Fortress back to Shadowprey on that visit."
+			},
+			{
+				"a": [
+					"task",
+					5381
+				],
+				"b": [
+					"task",
+					6143
+				],
+				"faction": "Horde",
+				"why": "Horde 0.4.0 audit: Sar'theris Strand lies on the way from Thunder Axe Fortress back west and south to Shadowprey, where Taiga and Drulzegar both take their quests back."
 			},
 			{
 				"a": [
@@ -10338,6 +10374,16 @@
 				],
 				"reason": "Horde route 0.4.0: Shipping and Handling (level 40) is Friz Frazzlespark's errand at Powderfuse Port for Wharfmaster Steamfizzle at Steamwheedle Port in Tanaris (players' recordings: taken at Friz, handed in at Steamfizzle). With the Riverglades before Feralas & Tanaris, it is taken on 01b-riverglades' last stop at Friz and handed in on 40-50/02's first Steamwheedle Port stop.",
 				"issue": "-"
+			},
+			{
+				"q": 7321,
+				"faction": "Horde",
+				"after": [
+					"accept",
+					509
+				],
+				"reason": "Horde 0.4.0 audit: Soothing Turtle Bisque (level 31, from 28, 2,500 XP) from Christoph Jeffcoat, who stands in Tarren Mill and sells its Soothing Spices himself; the Turtle Meat drops from the Snapjaws (29) that line the river from Tarren Mill south to the Mudsnout gnolls, the walk 30-40/01 makes first. It is taken on the first Tarren Mill stop and handed in on the stop after the Azurelode Mine, with Darthalia's. It replaces part of the Level 32 top-up in 30-40/02 (players at about 29.5-30 here).",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -10795,6 +10841,18 @@
 				"faction": "Horde",
 				"reason": "A Meeting with the Master is no longer a quest on Forever: Sanath Lim-yo's gossip teleports you to Archmage Xylem's tower for free, with no Undamaged Hippogryph Feathers asked (g4dz1n4's report, #2460). The quest data's era rules mark it removed, and no recorded player took or handed it in. Left out of the Horde Azshara guide (40-50/06) too.",
 				"issue": "#2460"
+			},
+			{
+				"q": 98094,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit: Scout Support only leads to Valuable Vantages (98095), left out below; on its own it is a walk to Deathstalker Masoj for 1,000 XP.",
+				"issue": "-"
+			},
+			{
+				"q": 98095,
+				"faction": "Horde",
+				"reason": "Horde 0.4.0 audit: Valuable Vantages' western vial goes on the Alterac peak (38.6,94.8), where 33 of the 34 recorded players placed it, among Ferocious Yetis (31-32) and Mountain Lions and Hulking Mountain Lions (32-34): two to four levels over players at about 29.5 on 30-40/01, with 4 recorded deaths there. No later Horde guide passes the peak. Left out (2,000 XP); the walk to the three peaks and back to Masoj goes with it.",
+				"issue": "-"
 			}
 		],
 		"revert": [

@@ -195,9 +195,16 @@ step Nesingwary's camp
   turnin 194                          -- Hemet Nesingwary
   accept 195
 
+step Level 35
+  when level<35
+  zone Stranglethorn Vale
+  tip The Lashtail Raptors (35-36) on the way to Grom'gol and Booty Bay's and Grom'gol's next quests are 35-38. Still below 35 after Hemet's hand-in? The Elder Stranglethorn Tigers (34-35) roam the hills south of Nesingwary's camp, on your way: kill them until level 35.
+  goto 31.8,19.2 map 1434 "Elder Stranglethorn Tigers"
+  level 35 grind 1085                 -- grind on Elder Stranglethorn Tiger
+
 step Lashtail Raptors
   zone Stranglethorn Vale
-  tip On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh. Careful: the 36s can be two over you: pull them one at a time.
+  tip On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh. Careful: the 36s can still be one over you: pull them one at a time.
   kill 686 quest 195 @32.4,23.2 map 1434
   kill 686 quest 568
 
@@ -209,13 +216,6 @@ step Grom'gol
   turnin 581                          -- Nimboya
   accept 582
   accept 570                          -- Far Seer Mok'thardin: the Shadowmaw claws and the tigress fang come at the end of this guide
-
-step Level 35
-  when level<35
-  zone Stranglethorn Vale
-  tip Booty Bay's and Grom'gol's next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Elder Stranglethorn Tigers (34-35) roam the hills north of Grom'gol, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher.
-  goto 31.8,19.2 map 1434 "Elder Stranglethorn Tigers"
-  level 35 grind 1085                 -- grind on Elder Stranglethorn Tiger
 
 step Fly to Booty Bay
   zone Stranglethorn Vale

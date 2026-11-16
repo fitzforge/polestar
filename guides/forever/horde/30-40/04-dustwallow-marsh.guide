@@ -27,9 +27,10 @@ next forever/horde/30-40/05-arathi-highlands
 # Rest Inn -> Brackenwall Village (flight path) -> Reethe -> Witch Hill (Stinky) -> the Mirefin
 # murlocs -> Swamplight Manor -> the spiders and venomspitters -> Brackenwall -> Swamplight
 # Manor -> the Theramore docks -> Brackenwall -> fly to Ratchet (Stinky's Mebok;
-# Warriors: The Affray on Fray Island) -> fly to Shadowprey Village (Taiga's Hand of Iruxos) -> Ghost
-# Walker Post (Gurda, Felgur) -> the Valley of Spears (Melizza) -> Hornizz -> Ghost Walker Post ->
-# Thunder Axe Fortress -> Shadowprey (Taiga) -> Mannoroc Coven -> the Valley of Bones -> Hornizz ->
+# Warriors: The Affray on Fray Island) -> fly to Shadowprey Village (Taiga's Hand of Iruxos, Drulzegar's
+# Other Fish to Fry) -> Ghost Walker Post (Gurda, Felgur) -> the Valley of Spears (Melizza) -> Hornizz ->
+# Ghost Walker Post -> Thunder Axe Fortress -> Sar'theris Strand (the Slitherblade, 34-36, at 37-38: they
+# were two over on the first visit at 33) -> Shadowprey (Taiga, Drulzegar) -> Mannoroc Coven -> the Valley of Bones -> Hornizz ->
 # hearth to Shadowprey -> fly to Orgrimmar (Belgrom, Hunter and Shaman training),
 # where the next guide takes the Undercity zeppelin.
 #
@@ -156,7 +157,7 @@ step Swamp Eye Jarl
   turnin 1203 optional
 
 step The Theramore Docks
-  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer.
+  tip South-east from the manor to Theramore Isle: the Captain's Footlocker lies on the sea floor off the docks on the isle's east side. Swim in and out and keep off the piers and the town: Theramore's guards are level 53-57, and a death here is a long run back from the spirit healer. Young Murk Threshers (40-41) circle in the water around the docks: grab the footlocker and swim straight out.
   collect 5882 quest 1202.1 @71.5,51.2 map 1445 -- Underwater
 
 step Brackenwall Village
@@ -196,6 +197,12 @@ step The Affray
   complete 1719 @68.6,48.7 map 1413
   turnin 1719                         -- Klannoc Macleod: Berserker Stance
 
+step Ratchet flight master
+  zone The Barrens
+  only Warrior
+  tip Back north along the coast to Ratchet's flight master.
+  goto 63.1,37.1 "Ratchet flight master"
+
 # ---------------------------------------------------------------- Desolace, the second visit
 
 step Fly to Shadowprey Village
@@ -206,8 +213,9 @@ step Fly to Shadowprey Village
 
 step Shadowprey Village
   zone Desolace
-  tip Taiga Wisemane stands in the village.
+  tip Taiga Wisemane and Drulzegar Skraghook stand in the village.
   accept 5381                         -- Taiga Wisemane: the Hand of Iruxos, at Thunder Axe Fortress later on this visit
+  accept 6143                         -- Drulzegar Skraghook: the Slitherblade of Sar'theris Strand, on the way back from Thunder Axe Fortress
 
 step Ghost Walker Post
   zone Desolace
@@ -246,10 +254,18 @@ step Thunder Axe Fortress
   use 14523 quest 5381.1 @55.0,26.7 map 1443 -- Demon Pick, on the Hand of Iruxos Crystal
   collect 13542 quest 5381
 
+step Sar'theris Strand
+  zone Desolace
+  tip West from the fortress to the coast at Sar'theris Strand: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range.
+  kill 4714 quest 6143.1
+  kill 4711 quest 6143.2
+  kill 4712 quest 6143.3
+
 step Shadowprey Village
   zone Desolace
-  tip West to Shadowprey: Taiga takes the box and sends you to Mannoroc Coven with it.
+  tip South down the coast to Shadowprey: Taiga takes the box and sends you to Mannoroc Coven with it; Drulzegar takes the naga.
   turnin 5381                         -- Taiga Wisemane
+  turnin 6143                         -- Drulzegar Skraghook
   accept 5581
 
 step Portals of the Legion
@@ -273,6 +289,7 @@ step Hornizz Brimbuzzle
 step Shadowprey
   zone Desolace
   tip Hearth to Shadowprey: your hearthstone is still bound there.
+  hearth "Shadowprey Village"
   turnin 5581                         -- Taiga Wisemane
 
 # ---------------------------------------------------------------- Orgrimmar

@@ -1805,9 +1805,8 @@ test('forever/horde/30-40/04-dustwallow-marsh.guide: Questioning Reethe comes on
 });
 
 // Level tidy (2026-11-15): from the Mudsnout blossoms (Hillsbrad 64,61) the straight line to Hillsbrad's smithy crosses
-// Southshore, whose guards (55) stand at 47-55,49-62. The walk now goes by the northern vial's peak (Valuable Vantages,
-// Hillsbrad 71.6,30.2), north-east of the town, and Lydon takes the blossoms with Darthalia's Battle of Hillsbrad on the
-// Tarren Mill stop after the smithy.
+// Southshore, whose guards (55) stand at 47-55,49-62. The walk now goes back north along the river, north-east of the
+// town, and Lydon takes the blossoms with Darthalia's Battle of Hillsbrad on the Tarren Mill stop after the smithy.
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: from the Mudsnout blossoms to the smithy north of Southshore', { skip }, () => {
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const blossoms = at(list, 'collect 3502', (g) => g.t === 'collect' && g.quest === 509);
@@ -1819,21 +1818,18 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: from the Mudsnout blosso
 });
 
 // Level tidy (2026-11-15): Masoj's Scout Support and Valuable Vantages (98094, 98095, level 25) left the 22-25 Hillsbrad
-// guide (the western peak's yetis, 30-32, were five over there) and come at 30 in this guide: Darthalia's orders on the
-// 529 stop, Masoj and the southern peak with the blossoms, the northern peak on the way west, the western peak with
-// Helcular's Rod, and the hand-in on the way back from the mine.
-test('forever/horde/30-40/01-hillsbrad-foothills.guide: Masoj\'s three vials on the walks the guide already makes', { skip }, () => {
+// guide (the western peak's yetis, 30-32, were five over there). Horde 0.4.0 audit: at 30 the western vial's peak
+// (Alterac 38.6,94.8, where 33 of the 34 recorded players placed it) is still among Ferocious Yetis (31-32) and Mountain Lions
+// (32-34), so both are left out of this guide too. Soothing Turtle Bisque (7321) comes in their place: Christoph
+// Jeffcoat on the first Tarren Mill stop, the Snapjaws (29) on the river walk south, the hand-in after the mine.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: no vials among the western peak\'s yetis; Soothing Turtle Bisque on the river walk', { skip }, () => {
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const i = (what, pred) => at(list, what, pred);
-	const vial = (n) => i(`vial ${n}`, (g) => g.t === 'use' && g.quest === 98095 && g.oi === n);
-	assert.ok(i('accept 98094', is('accept', 98094)) < i('turnin 98094', is('turnin', 98094)));
-	assert.ok(i('turnin 98094', is('turnin', 98094)) < i('collect 3502', (g) => g.t === 'collect' && g.quest === 509), 'Masoj before the blossoms');
-	assert.ok(vial(3) < vial(2) && vial(2) < i('kill 2404', (g) => g.t === 'kill' && g.quest === 529), 'south and north peaks before the smithy');
-	const rod = i('collect 3708', (g) => g.t === 'collect' && g.quest === 552);
-	assert.ok(rod < vial(1) && vial(1) < i('kill 2335', (g) => g.t === 'kill' && g.npc === 2335), 'the western peak with the rod, before the town hall');
-	assert.ok(i('kill 2305', (g) => g.t === 'kill' && g.npc === 2305) < i('turnin 98095', is('turnin', 98095)) && i('turnin 98095', is('turnin', 98095)) < i('turnin 539', is('turnin', 539)), 'Masoj on the way back from the mine');
-	const step = list[vial(3)].step;
-	assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /Dun Garok Rifleman \(29-30, elite\)/, 'the southern peak names the elite below it');
+	for (const q of [98094, 98095]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} left out (western peak yetis 31-32)`);
+	const meat = i('collect 3712', (g) => g.t === 'collect' && g.item === 3712);
+	assert.ok(i('accept 7321', is('accept', 7321)) < meat && meat < i('collect 3502', (g) => g.t === 'collect' && g.quest === 509), 'the meat on the river walk south, before the blossoms');
+	assert.ok(i('kill 2305', (g) => g.t === 'kill' && g.npc === 2305) < i('turnin 7321', is('turnin', 7321)), 'handed in after the mine');
+	assert.equal(list[i('turnin 7321', is('turnin', 7321))].s, list[i('turnin 539', is('turnin', 539))].s, 'on the Tarren Mill stop with Darthalia');
 });
 
 // Level tidy (2026-11-15): the Shimmering Flats' silithid dig (Invaders 34-35) and the Gazers (34-35) came first on the

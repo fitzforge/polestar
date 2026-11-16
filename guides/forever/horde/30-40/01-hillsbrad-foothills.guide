@@ -11,10 +11,13 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Swarm Grows (1145, 1146), and from the 22-25 Hillsbrad guide Battle of Hillsbrad
-# (529), Dangerous! (567), Elixir of Agony (509, 513), Scout Support and Valuable Vantages (98094,
-# 98095).
+# (529), Dangerous! (567), Elixir of Agony (509, 513); Soothing Turtle Bisque (7321, Christoph
+# Jeffcoat in Tarren Mill: the Snapjaws (29) of the river south of Tarren Mill drop the meat, and he
+# sells the spices).
 # Left out: Regthar Deathgate (1361), To Steal From Thieves (1164), Helcular's Revenge's second part
-# (553), Elixir of Agony's alchemy part (515, 517, 524).
+# (553), Elixir of Agony's alchemy part (515, 517, 524), Scout Support and Valuable Vantages (98094,
+# 98095: the western vial goes on the Alterac peak among Ferocious Yetis 31-32 and Mountain Lions
+# 32-34, two to four over players at about 29.5; 33 of the 34 recorded players placed it on that top).
 
 # Horde 30-40 in the order the zones' quest levels fit (2026-11-07 re-order; level tidy 2026-11-15):
 # Hillsbrad's 26-31 quests at 30-31, the Shimmering Flats and Desolace at 33-36, Stranglethorn at
@@ -34,15 +37,14 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # among the Mountain and Giant Yetis (32-34) and Frostmaw (37), and it ends at Helcular's grave in
 # Southshore's graveyard, between level 55 guards (#1925).
 # In their place, quests at your level from the 22-25 Hillsbrad guide (agreed with its slice):
-# Battle of Hillsbrad 529 (the smithy), Dangerous! (567, from the poster), Lydon's Elixir of
-# Agony (509, the Mudsnout blossoms; 513 goes to Faranell on the Undercity stop at the end) and
-# Masoj's three vials (98094, 98095: the western peak's yetis are 30-32, two levels over at 24).
+# Battle of Hillsbrad 529 (the smithy), Dangerous! (567, from the poster) and Lydon's Elixir of
+# Agony (509, the Mudsnout blossoms; 513 goes to Faranell on the Undercity stop at the end).
 #
 # Flow: Freewind Post (where the previous guide ends) -> fly to the Crossroads (Korran) ->
-# Orgrimmar (Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill -> Masoj, the
-# Mudsnout blossoms and the southern peak south of it -> the northern peak -> west to Hillsbrad's
-# smithy -> Tarren Mill (Darthalia, Lydon) -> the yeti caves, the western peak and the town hall ->
-# Tarren Mill -> the Azurelode Mine -> Masoj -> Tarren Mill -> fly to the
+# Orgrimmar (Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill -> south along the
+# river (Snapjaws) to the Mudsnout blossoms -> north-east of Southshore and west to Hillsbrad's
+# smithy -> Tarren Mill (Darthalia, Lydon) -> the yeti caves and the town hall -> Tarren Mill -> the
+# Azurelode Mine -> Tarren Mill -> fly to the
 # Undercity (Faranell, training), where the next guide takes the Orgrimmar zeppelin.
 #
 # Catch-up (#1660): a character who skipped forever/horde/06-hillsbrad-foothills arrives without
@@ -201,10 +203,12 @@ step Fly to Tarren Mill
 
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip The Dangerous! poster hangs by the inn; Apothecary Lydon stands inside it. Novice Thaivand stands in the town.
+  tip The Dangerous! poster hangs by the inn; Apothecary Lydon stands inside it. Novice Thaivand stands in the town. Christoph Jeffcoat, the cook by the inn, wants turtle meat and sells the spices for it.
   accept 567                          -- Dangerous!, the poster by the inn
   accept 509                          -- Apothecary Lydon, inside
   accept 552                          -- Novice Thaivand: Helcular's Rod, from the yetis on the way to the town hall
+  accept 7321                         -- Christoph Jeffcoat: Soothing Turtle Bisque, the Snapjaws of the river south of town
+  buy 3713 npc 2393                   -- Soothing Spices, from Christoph Jeffcoat
 
 # ---------------------------------------------------------------- Catch-up: the Battle of Hillsbrad and The Rescue
 
@@ -253,10 +257,6 @@ step High Executor Darthalia
   zone Hillsbrad Foothills
   accept 529                          -- High Executor Darthalia
 
-step High Executor Darthalia
-  zone Hillsbrad Foothills
-  accept 98094 npc 2215               -- High Executor Darthalia: orders for Deathstalker Masoj, south of Tarren Mill on the way to the blossoms
-
 step Durnholde Keep
   when !turnedin 498
   zone Hillsbrad Foothills
@@ -270,28 +270,22 @@ step Krusk
   tip Back to Tarren Mill.
   turnin 498                          -- Krusk, inside
 
-# ---------------------------------------------------------------- South: Masoj and the Mudsnout gnolls
+# ---------------------------------------------------------------- South: the river and the Mudsnout gnolls
 
-step Deathstalker Masoj
+step The river south of Tarren Mill: kill these as you meet them
   zone Hillsbrad Foothills
-  tip South from Tarren Mill: Masoj hides on the hillside above Dun Garok, on the way down to the blossoms.
-  turnin 98094 npc 270438 @64.2,54.0  -- Deathstalker Masoj
-  accept 98095                        -- Deathstalker Masoj: three vials on three peaks, back to him on the way from the mine
+  tip South from Tarren Mill along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above Southshore. Some of them carry Turtle Meat.
+  collect 3712 quest 7321.1 @67.8,28.0 map 1424 -- Turtle Meat, from the Snapjaws
 
 step Mudsnout Blossoms
   zone Hillsbrad Foothills
-  tip Just south of Masoj, the Mudsnout gnolls (26-28) camp in the hills; the blossoms grow among their tents. The Shamans heal and call their friends: pull them first.
+  tip South of the river's bend, the Mudsnout gnolls (26-28) camp in the hills above Dun Garok; the blossoms grow among their tents. The Shamans heal and call their friends: pull them first.
   collect 3502 quest 509 @64.2,61.4 map 1424 -- Mudsnout Blossoms
 
-step The southern peak
+step North of Southshore
   zone Hillsbrad Foothills
-  tip South-east of the blossoms, the hilltop above Dun Garok: use a vial at the top. Careful: a Dun Garok Rifleman (29-30, elite) stands on the slope below it, on the keep's side: climb from the north-west and keep away from the keep.
-  use 279395 quest 98095.3 @74.1,73.4 live
-
-step The northern peak
-  zone Hillsbrad Foothills
-  tip North up the eastern hills to the peak south-east of Tarren Mill: use a vial at the top. From there the way west to Hillsbrad town passes well north of Southshore (its guards are 55).
-  use 279395 quest 98095.2 @71.6,30.2 live
+  tip From the blossoms, back north along the river and then west to Hillsbrad town, well north of Southshore (its guards are 55).
+  goto 60.0,42.0 map 1424 "North of Southshore"
 
 # ---------------------------------------------------------------- The smithy and the fields
 
@@ -319,11 +313,6 @@ step Helcular's Rod
   zone Hillsbrad Foothills
   tip West of Tarren Mill, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but they hit hard and come in pairs.
   collect 3708 quest 552 @44.5,29.4
-
-step The western peak
-  zone Alterac Mountains
-  tip From the caverns climb the mountain to the west, right up to its top on the Alterac border: the western vial goes there, not on the lower slope. Careful: the same yetis (30-32) and a Hulking Mountain Lion (33-34) roam the slopes: pull them one at a time.
-  use 279395 quest 98095.1 @38.6,94.8 map 1416 live
 
 step Town hall
   zone Hillsbrad Foothills
@@ -370,19 +359,17 @@ step Azurelode Mine
   kill 2450 quest 567.3
   kill 2305 quest 539.1               -- Inside Azurelode Mine
 
-step North of Southshore
+step Finish the Turtle Meat
+  when onquest 7321
+  when !has 3712 x10
   zone Hillsbrad Foothills
-  tip East from the mine, passing north of Southshore (its guards are 55).
-  goto 50.0,45.0 map 1424 "North of Southshore"
-
-step Deathstalker Masoj
-  zone Hillsbrad Foothills
-  tip On east to Masoj on the hillside above Dun Garok.
-  turnin 98095                        -- Deathstalker Masoj
+  tip Still short of ten Turtle Meat? The Snapjaws line the river east of Tarren Mill, on your way back from the mine.
+  collect 3712 quest 7321.1 @68.0,24.0 map 1424
 
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip North up the road to Tarren Mill.
+  tip North-east back to Tarren Mill, passing well north of Southshore (its guards are 55).
+  turnin 7321                         -- Christoph Jeffcoat
   turnin 539                          -- High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group
   turnin 567
   accept 533                          -- Krusk, inside: Infiltration, worked on the 38-39 visit (its Syndicate are 32-35)
