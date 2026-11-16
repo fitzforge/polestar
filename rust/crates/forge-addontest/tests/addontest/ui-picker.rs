@@ -115,18 +115,18 @@ fn browse_folders_by_faction_and_band_then_by_category_the_character_s_side_only
 		emit({ alliance = alliance, everything = everything, undeadHorde = kinds(P.Entries("", "Leveling")), undeadAll = kinds(P.Entries("", "All")),
 			bands = { { P.Band({ id = "forever/horde/30-40/01-desolace", minLevel = 12 }) }, { P.Band({ id = "a/b", minLevel = 44 }) }, { P.Band({ id = "a/b", minLevel = 29 }) } } })"#);
 	// Within a folder: faction, then minimum level, then id. A Human sees the other Alliance races' starts (Dun
-	// Morogh, Teldrassil, Zephras Isle) in their own folder after their levels 1-30.
+	// Morogh, Teldrassil, Zephras Isle) in their own folder, the first of Leveling (Fitz, 0.4.0).
 	assert_eq!(
 		out["alliance"],
 		json!([
-			"[Alliance 1\u{2013}30 3]",
-			"Elwynn Forest",
-			"Westfall",
-			"Darkshore",
 			"[Other starting zones 3]",
 			"Dun Morogh",
 			"Teldrassil",
 			"Zephras Isle",
+			"[Alliance 1\u{2013}30 3]",
+			"Elwynn Forest",
+			"Westfall",
+			"Darkshore",
 			"[Alliance 30\u{2013}40 1]",
 			"Desolace",
 			"[Alliance 40\u{2013}50 2]",
@@ -141,7 +141,7 @@ fn browse_folders_by_faction_and_band_then_by_category_the_character_s_side_only
 	assert!(includes(&out["everything"], "Stormwind Reputation") && includes(&out["everything"], "Cooking 1-300"));
 	// An Undead: the Horde list, the Orc and Troll start apart, the shared guides stay; no Alliance guide.
 	let undead = starting_with_bracket(&out["undeadHorde"]);
-	assert_eq!(undead, json!(["[Horde 1\u{2013}30 2]", "[Other starting zones 1]", "[Horde 30\u{2013}40 1]"]));
+	assert_eq!(undead, json!(["[Other starting zones 1]", "[Horde 1\u{2013}30 2]", "[Horde 30\u{2013}40 1]"]));
 	assert!(includes(&out["undeadHorde"], "Durotar") && includes(&out["undeadHorde"], "The Barrens"));
 	assert!(includes(&out["undeadAll"], "Orgrimmar Reputation") && !includes(&out["undeadAll"], "Stormwind Reputation") && !includes(&out["undeadAll"], "Horse"));
 	assert_eq!(out["bands"], json!([[30, 40], [40, 50], [1, 30]]));
@@ -162,14 +162,14 @@ fn a_night_elf_sees_the_other_alliance_starts_under_other_starting_zones_but_no_
 	assert_eq!(
 		out["alliance"],
 		json!([
-			"[Alliance 1\u{2013}30 3]",
-			"Teldrassil",
-			"Westfall",
-			"Darkshore",
 			"[Other starting zones 3]",
 			"Dun Morogh",
 			"Elwynn Forest",
 			"Zephras Isle",
+			"[Alliance 1\u{2013}30 3]",
+			"Teldrassil",
+			"Westfall",
+			"Darkshore",
 			"[Alliance 30\u{2013}40 1]",
 			"Desolace",
 			"[Alliance 40\u{2013}50 2]",
@@ -179,6 +179,74 @@ fn a_night_elf_sees_the_other_alliance_starts_under_other_starting_zones_but_no_
 	);
 	// Own race's start, the other faction's start and a later race part are no other starting zone.
 	assert_eq!(out["other"], json!([true, false, false, false]));
+}
+
+// Fitz, 0.4.0: Shen'dralas, a guide for both factions with each side's levels, sat in a "Leveling 40-50" folder of
+// its own after the bands, at no side's levels. It sits in the character's band, at that side's levels, where the
+// route plays it: the Alliance's after the Badlands guide that hands over to it and before Feralas (all three at 45).
+const FOREVER_ZONES: &str = r#"
+	addBand("forever/alliance/40-50/01b-riverglades", "Riverglades", "Alliance", 41, 43)
+	addBand("forever/horde/40-50/01b-riverglades", "Riverglades", "Horde", 41, 43)
+	addBand("forever/horde/40-50/03-feralas", "Feralas", "Horde", 46, 48)
+	addBand("forever/40-50/shendralas", "Shen'dralas", nil, 45, 47)
+	local glades, shen = uistub.guides["forever/alliance/40-50/01b-riverglades"], uistub.guides["forever/40-50/shendralas"]
+	glades.zone, uistub.guides["forever/horde/40-50/01b-riverglades"].zone, shen.zone = 2548, 2548, 2652
+	shen.factionLevels = { Alliance = { min = 45, max = 46 }, Horde = { min = 46, max = 47 } }
+	shen.next, shen.nextChoices = "forever/horde/40-50/03-feralas", { "forever/horde/40-50/03-feralas", "forever/alliance/40-50/03-feralas" }
+	local badlands, feralas = uistub.guides["forever/alliance/40-50/02-badlands"], uistub.guides["forever/alliance/40-50/03-feralas"]
+	badlands.minLevel, badlands.maxLevel, badlands.next, feralas.minLevel = 45, 46, "forever/40-50/shendralas", 45
+"#;
+
+#[test]
+fn a_guide_for_both_factions_sits_in_the_character_s_band_in_route_order_at_that_side_s_levels() {
+	let out = run(&format!(
+		r#"{FOREVER_ZONES}
+		local alliance = kinds(P.Entries("", "Leveling"))
+		local aLevels = UI.GuideLevels(shen)
+		uistub.player.race, uistub.player.faction, uistub.player.class = "Orc", "Horde", "WARRIOR"
+		emit({{ alliance = alliance, aLevels = aLevels, horde = kinds(P.Entries("", "Leveling")), hLevels = UI.GuideLevels(shen) }})"#
+	));
+	let alliance: Vec<&str> = out["alliance"].as_array().unwrap().iter().filter_map(|v| v.as_str()).collect();
+	let band = alliance.iter().position(|x| x.starts_with("[Alliance 40")).expect("an Alliance 40-50 band");
+	assert_eq!(alliance[band..], ["[Alliance 40\u{2013}50 4]", "Riverglades", "Badlands & The Hinterlands", "Shen'dralas", "Feralas"]);
+	assert_eq!(out["aLevels"], json!("45\u{2013}46"));
+	let horde: Vec<&str> = out["horde"].as_array().unwrap().iter().filter_map(|v| v.as_str()).collect();
+	let band = horde.iter().position(|x| x.starts_with("[Horde 40")).expect("a Horde 40-50 band");
+	assert_eq!(horde[band..], ["[Horde 40\u{2013}50 3]", "Riverglades", "Shen'dralas", "Feralas"]);
+	assert_eq!(out["hLevels"], json!("46\u{2013}47"));
+	assert!(!alliance.iter().chain(horde.iter()).any(|x| x.starts_with("[Leveling")), "no folder of its own: {alliance:?} {horde:?}");
+}
+
+// Fitz, 0.4.0: the Riverglades and Shen'dralas lost the Forever mark when they left the experimental pack for the
+// route. Every guide in one of Forever's new zones carries it on its row (its tooltip says no "experimental") and a
+// "Forever" chip in its details; a guide elsewhere carries neither.
+#[test]
+fn every_guide_in_forever_s_new_zones_carries_the_forever_mark_on_its_row_and_a_forever_chip_in_its_details() {
+	let out = run(&format!(
+		r#"{FOREVER_ZONES}
+		UI.ShowPicker()
+		P.SetCategory("Leveling")
+		local tip
+		local W = Polestar.Widgets
+		local realTip = W.Tooltip
+		W.Tooltip = function(_, _, title, lines) tip = {{ title, lines[1] }} end
+		local marks = {{}}
+		for _, t in ipairs({{ "Riverglades", "Shen'dralas", "Badlands & The Hinterlands", "Westfall" }}) do marks[t] = rowFor(t).Forever:IsShown() end
+		rowFor("Riverglades").Forever:GetScript("OnEnter")(rowFor("Riverglades").Forever)
+		W.Tooltip = realTip
+		local function chips(title)
+			rowFor(title):Click()
+			local out = {{}}
+			for _, c in ipairs(D().Chips) do if c:IsShown() then out[#out + 1] = c.Text:GetText() end end
+			return out
+		end
+		emit({{ marks = marks, tip = tip, glades = chips("Riverglades"), shen = chips("Shen'dralas"), badlands = chips("Badlands & The Hinterlands") }})"#
+	));
+	assert_eq!(out["marks"], json!({ "Riverglades": true, "Shen'dralas": true, "Badlands & The Hinterlands": false, "Westfall": false }));
+	assert_eq!(out["tip"], json!(["New in Forever", "This zone is new in Forever."]));
+	assert_eq!(out["glades"], json!(["Levels 41\u{2013}43", "Forever", "Alliance"]));
+	assert_eq!(out["shen"], json!(["Levels 45\u{2013}46", "Forever", "Both factions"]));
+	assert_eq!(out["badlands"], json!(["Levels 45\u{2013}46", "Alliance"]));
 }
 
 #[test]

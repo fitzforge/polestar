@@ -68,7 +68,8 @@ fn our_categories_list_only_our_guides_all_lists_both() {
 	let out = run(r#"
 		emit({ leveling = titles(P.Entries("", "Leveling")), professions = titles(P.Entries("", "Professions")),
 			all = titles(P.Entries("", "All")) })"#);
-	assert_eq!(out["leveling"], json!(["[Leveling 1–30]", "Westfall"]));
+	// Our guide for both factions sits in the character's band (Fitz, 0.4.0: Shen'dralas).
+	assert_eq!(out["leveling"], json!(["[Alliance 1–30]", "Westfall"]));
 	assert_eq!(out["professions"], json!(["[Professions]", "Cooking"]));
 	for t in ["Westfall", "Cooking", "Joe's Barrens", "Joe's Redridge", "Joe's Tailoring", "Night Run"] {
 		assert!(has(&out["all"], t), "All lists {t}");

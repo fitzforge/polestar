@@ -730,6 +730,9 @@ function Guides.OtherStart(g, player) return uistub.realGuides.OtherStart(g, pla
 function Guides.OtherFaction(g, player) return uistub.realGuides.OtherFaction(g, player) end
 -- A guide's levels for the player's side (uistub.player.faction): the real registry's rule.
 function Guides.Levels(g, faction) return uistub.realGuides.Levels(g, faction or uistub.player.faction) end
+-- Experimental guides and guides in Forever's new zones (the Forever mark): the real registry's rules.
+function Guides.IsExperimental(g) return uistub.realGuides.IsExperimental(g) end
+function Guides.InForeverZone(g) return uistub.realGuides.InForeverZone(g) end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)

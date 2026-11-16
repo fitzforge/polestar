@@ -1739,6 +1739,19 @@ function Guides.IsExperimental(g)
 	return type(g) == "table" and g.pack ~= nil and Guides.NEVER_SUGGESTED[g.pack] == true
 end
 
+-- Forever's own new zones on the leveling route, by uiMapID: Mount Hyjal,
+-- the Riverglades and Shen'dralas. Our zone data has no "new in Forever"
+-- flag, so this short list says it; add a zone here when Forever opens one.
+Guides.FOREVER_ZONES = { [2482] = true, [2548] = true, [2652] = true }
+
+-- Is guide (or header) g set in one of Forever's new zones (FOREVER_ZONES),
+-- or one of our experimental guides (all written for those zones)? The guide
+-- menu gives it the Forever mark.
+function Guides.InForeverZone(g)
+	if type(g) ~= "table" then return false end
+	return Guides.FOREVER_ZONES[g.zone] == true or Guides.IsExperimental(g)
+end
+
 -- Shown guides whose route choice (`nextChoices`) offers `id` now (an
 -- option with `when` only while it holds: Engine.RouteOffered), in
 -- registration order; never one of a NEVER_SUGGESTED pack.

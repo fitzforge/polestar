@@ -73,20 +73,20 @@ fn a_browse_folder_s_header_folds_its_guides_away_and_back_its_count_and_chevron
 		local home = shownIn(isFolder)
 		emit({ foldable = #home > 0 and home[1]:IsEnabled(), chevron = #home > 0 and home[1].Chevron:IsShown() })"#);
 	let open = json!([
-		"[Alliance 1\u{2013}30 3 v]",
-		"Elwynn Forest (1\u{2013}13)",
-		"Westfall (12\u{2013}17)",
-		"Darkshore (16\u{2013}21)",
 		"[Other starting zones 3 v]",
 		"Dun Morogh (1\u{2013}13)",
 		"Teldrassil (1\u{2013}11)",
-		"Zephras Isle (1\u{2013}15)"
+		"Zephras Isle (1\u{2013}15)",
+		"[Alliance 1\u{2013}30 3 v]",
+		"Elwynn Forest (1\u{2013}13)",
+		"Westfall (12\u{2013}17)",
+		"Darkshore (16\u{2013}21)"
 	]);
 	assert_eq!(out[0], json!({ "pane": open, "chevron": "chevron-down", "tip": "Collapse", "pad": "Collapse" }));
 	assert_eq!(
 		out[1],
 		json!({
-			"pane": ["[Alliance 1\u{2013}30 3 >]", "[Other starting zones 3 v]", "Dun Morogh (1\u{2013}13)", "Teldrassil (1\u{2013}11)", "Zephras Isle (1\u{2013}15)"],
+			"pane": ["[Other starting zones 3 v]", "Dun Morogh (1\u{2013}13)", "Teldrassil (1\u{2013}11)", "Zephras Isle (1\u{2013}15)", "[Alliance 1\u{2013}30 3 >]"],
 			"chevron": "chevron-right", "tip": "Expand", "pad": "Expand", "collapsed": true,
 		})
 	);
@@ -115,9 +115,9 @@ fn folded_folders_are_kept_account_wide_by_an_id_that_holds_in_every_language_an
 		emit(r)"#);
 	let out = &out[0];
 	assert_eq!(out["saved"], json!({ "Leveling/other-starts": true }), "in the account's settings, not the character's");
-	assert_eq!(out["pane"], json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"]));
+	assert_eq!(out["pane"], json!(["[Other starting zones 3 >]", "[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)"]));
 	assert_eq!(out["ids"], json!(["Leveling/Horde/1", "Leveling/other-starts"]));
-	assert_eq!(out["horde"], json!(["[Horde 1\u{2013}30 2 v]", "Tirisfal Glades (1\u{2013}13)", "The Barrens (12\u{2013}17)", "[Other starting zones 1 >]"]));
+	assert_eq!(out["horde"], json!(["[Other starting zones 1 >]", "[Horde 1\u{2013}30 2 v]", "Tirisfal Glades (1\u{2013}13)", "The Barrens (12\u{2013}17)"]));
 }
 
 #[test]
@@ -141,8 +141,8 @@ fn opening_the_menu_unfolds_the_folder_of_the_open_guide_and_leaves_the_others_a
 		r.refolded = P.IsCollapsed("Leveling/Alliance/1")
 		emit(r)"#);
 	let out = &out[0];
-	assert_eq!(out["closed"], json!(["[Alliance 1\u{2013}30 3 >]", "[Other starting zones 3 >]"]));
-	assert_eq!(out["open"], json!(["[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)", "[Other starting zones 3 >]"]));
+	assert_eq!(out["closed"], json!(["[Other starting zones 3 >]", "[Alliance 1\u{2013}30 3 >]"]));
+	assert_eq!(out["open"], json!(["[Other starting zones 3 >]", "[Alliance 1\u{2013}30 3 v]", "Elwynn Forest (1\u{2013}13)", "Westfall (12\u{2013}17)", "Darkshore (16\u{2013}21)"]));
 	assert_eq!(out["saved"], json!({ "Leveling/other-starts": true }));
 	assert_eq!(out["refolded"], true);
 }
@@ -185,7 +185,7 @@ fn guides_of_one_title_and_level_range_say_whose_they_are_by_race_else_by_factio
 		Polestar.CharState().ui.recentGuides = { "forever/alliance/dwarf-gnome/01-dun-morogh", gnome.id }
 		P.SetView("recent")
 		emit({ recent = pane() })"#);
-	assert_eq!(out[0]["alliance"], json!(["Darkshore", "Darkshore", "Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle"]), "the Horde Zephras Isle is not listed");
+	assert_eq!(out[0]["alliance"], json!(["Dun Morogh (Dwarf)", "Dun Morogh (Gnome)", "Zephras Isle", "Darkshore", "Darkshore"]), "the Horde Zephras Isle is not listed");
 	assert_eq!(out[0]["both"], json!(["Zephras Isle (Alliance)", "Zephras Isle (Horde)"]));
 	let rows = out[0]["rows"].as_array().unwrap();
 	assert!(rows.contains(&json!("Dun Morogh (Dwarf) (1\u{2013}13)")) && rows.contains(&json!("Dun Morogh (Gnome) (1\u{2013}13)")), "{rows:?}");

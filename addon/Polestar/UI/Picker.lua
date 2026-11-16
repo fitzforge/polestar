@@ -141,6 +141,13 @@ local function isExperimental(g)
 	return G and G.IsExperimental and G.IsExperimental(g) or false
 end
 
+-- A guide in one of Forever's new zones (Guides.InForeverZone): the Forever
+-- mark on its row and a "Forever" chip in its details.
+local function inForeverZone(g)
+	local G = ns.Guides
+	return G and G.InForeverZone and G.InForeverZone(g) or false
+end
+
 -- Where a guide is listed: its pack's entry, else its category.
 local function bucketOf(g)
 	local r = packOf(g)
@@ -403,11 +410,21 @@ local function rankOfFaction(f, mine)
 	return FACTION_ORDER[f] or 4
 end
 
+-- Does guide a hand over to guide b: its `next`, or one of its route
+-- choices (a shared guide offers each side's next guide)?
+local function handsTo(a, b)
+	if a.next == b.id then return true end
+	for _, id in ipairs(type(a.nextChoices) == "table" and a.nextChoices or {}) do
+		if id == b.id then return true end
+	end
+	return false
+end
+
 -- q: search text; cat: a category, "Favorites" or "All". Only the guides
 -- this character can follow are listed: none of the other faction's (#2462),
 -- other classes' or other races', but their own side's starting zones (those,
--- Guides.OtherStart, go in an "Other starting zones" folder after the
--- player's own levels 1-30). Favourites keep to the character's side.
+-- Guides.OtherStart, go in an "Other starting zones" folder, the first of
+-- Leveling). Favourites keep to the character's side.
 -- -> entries { kind = "folder", text, count, id } | { kind = "guide", guide,
 --    title (Titles), folder (the folder entry) },
 --    number of guides listed, { [category] = matching guides, Favorites = n }
@@ -438,12 +455,15 @@ function P.Entries(q, cat)
 			if cat == "All" or c == cat then picked[#picked + 1] = g end
 		end
 	end
-	-- An experimental guide for both factions sits in the player's side's band.
+	-- A leveling guide for both factions (Shen'dralas, an experimental one)
+	-- sits in the player's side's band, at that side's levels.
 	local key, label, fid, fac = {}, {}, {}, {}
 	for _, g in ipairs(picked) do
-		fac[g] = g.faction or (isExperimental(g) and mine or nil)
+		-- A community pack's guide for both keeps its own "Leveling" band.
+		local ours = categoryOf(g) == "Leveling" and packOf(g) == nil
+		fac[g] = g.faction or ((ours or isExperimental(g)) and mine or nil)
 		if other[g] then
-			label[g], key[g], fid[g] = L["Other starting zones"], string.format("%02d0001~", CATEGORY_RANK.Leveling), OTHER_STARTS
+			label[g], key[g], fid[g] = L["Other starting zones"], string.format("%02d!", CATEGORY_RANK.Leveling), OTHER_STARTS
 		else
 			label[g], key[g], fid[g] = folderOf(g, mine, fac[g])
 		end
@@ -455,9 +475,10 @@ function P.Entries(q, cat)
 		local la, lb = G.Levels(a, mine) or 0, G.Levels(b, mine) or 0
 		if la ~= lb then return la < lb end
 		-- Same first level: a guide that hands over to the other comes first,
-		-- as it is played (a race's lead-in "(12)" before the shared "(12-16)").
-		if a.next == b.id then return true end
-		if b.next == a.id then return false end
+		-- as it is played (a race's lead-in "(12)" before the shared "(12-16)";
+		-- Badlands, Shen'dralas, then Feralas, all at 45).
+		if handsTo(a, b) then return true end
+		if handsTo(b, a) then return false end
 		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
 		return (a.title or "") < (b.title or "")
 	end)
@@ -796,12 +817,15 @@ local function rowDoubleClick(self)
 	P.LoadSelected()
 end
 
--- The Forever mark on an experimental guide's row: under the cursor it says
--- what the guide is, and the row keeps its hover wash; a click on it is the
--- row's.
+-- The Forever mark on the row of a guide in Forever's new zones: under the
+-- cursor it says what the zone is (and that an experimental guide is a work
+-- in progress), and the row keeps its hover wash; a click on it is the row's.
 local function foreverEnter(self)
 	self:GetParent():LockHighlight()
-	W.Tooltip(self, "ANCHOR_RIGHT", L["New in Forever"], { L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."] })
+	local g = self:GetParent().psGuide
+	local text = isExperimental(g) and L["This zone is new in Forever. Its guide is experimental and still a work in progress: thanks for trying it."]
+		or L["This zone is new in Forever."]
+	W.Tooltip(self, "ANCHOR_RIGHT", L["New in Forever"], { text })
 end
 local function foreverLeave(self)
 	self:GetParent():UnlockHighlight()
@@ -837,8 +861,8 @@ local function guideRow(i)
 	r.Title:SetPoint("LEFT", r, "LEFT", TEXT_X, 0)
 	r.Range = W.Text(r, "body", "textMuted")
 	r.Range:SetPoint("LEFT", r.Title, "RIGHT", 5, 0)
-	-- One of Polestar's experimental guides: the Forever mark after the range,
-	-- in its own gold as quest texts show it (Guides.IsExperimental).
+	-- A guide in one of Forever's new zones: the Forever mark after the
+	-- range, in its own gold as quest texts show it (Guides.InForeverZone).
 	r.Forever = CreateFrame("Button", nil, r)
 	r.Forever:SetSize(FOREVER_W + 4, FOREVER_BOX)
 	r.Forever:SetPoint("LEFT", r.Range, "RIGHT", 4, 0)
@@ -893,7 +917,7 @@ local function paintRow(r, g, note, width, title)
 	W.Color(r.Note, sel and "textDim" or "textMuted")
 	local lv = UI.GuideLevels(g)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
-	local expW = isExperimental(g) and (FOREVER_W + 4 + 4) or 0
+	local expW = inForeverZone(g) and (FOREVER_W + 4 + 4) or 0
 	r.Forever:SetShown(expW > 0)
 	local groupW = g.group == true and (W.SetChip(r.Group, L["Group"], "dungeon") + 6) or 0
 	r.Group:SetShown(groupW > 0)
@@ -1422,8 +1446,9 @@ local function renderDetails(byId, tabs, active)
 	-- Its own faction left out of the title, as on its row (P.Titles): the chips say it.
 	d.Title:SetText(baseTitle(g))
 
-	-- Chips: levels, what a leveling guide is worth in levels, experimental,
-	-- group content, faction, races, classes; on two lines at most.
+	-- Chips: levels, what a leveling guide is worth in levels, Forever's new
+	-- zone, experimental, group content, faction, races, classes; on two
+	-- lines at most.
 	local y = ART_H + 16
 	local n, x, line, full = 0, DPAD, 0, false
 	local function place(c, w)
@@ -1459,6 +1484,7 @@ local function renderDetails(byId, tabs, active)
 		local _, _, _, cx = d.XP:GetPoint(1)
 		d.XP.psTipX = DPAD - (cx or DPAD)
 	end
+	if inForeverZone(g) then addChip(L["Forever"]) end
 	if isExperimental(g) then addChip(L["Experimental"], "experimental") end
 	if g.group == true then addChip(L["Group"], "dungeon") end
 	addChip(ns.FactionName(g.faction) or L["Both factions"])
