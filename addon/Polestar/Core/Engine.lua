@@ -3332,6 +3332,11 @@ end
 -- that item still needed.
 function Own.sectionDemand(n, k, untilOnly)
 	local plan = Own.sectionPlan()
+	-- The memo lives for one evaluation pass (generation), recalculated when step outcomes change.
+	if plan.memoGen ~= generation then
+		plan.memo = {}
+		plan.memoGen = generation
+	end
 	local key = (untilOnly and "u" or "") .. n .. ":" .. k
 	local memo = plan.memo[key]
 	if memo then return memo end
@@ -3508,6 +3513,11 @@ end
 function Engine.RefreshMaterials()
 	Own.wayCache = setmetatable({}, { __mode = "k" })
 	Own.matPlaces = setmetatable({}, { __mode = "k" })
+	-- Clear before the next evaluation (RequestUpdate does not evaluate immediately).
+	for _, p in pairs(Own.sectionPlans) do
+		p.memo = {}
+		p.memoGen = nil
+	end
 	Engine.RequestUpdate()
 end
 
@@ -14803,6 +14813,10 @@ function Engine.ResetProgress()
 	state.guideDone[id] = nil
 	Own.endOpen[id], Own.lastOpen[id] = nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
+	for _, p in pairs(Own.sectionPlans) do
+		p.memo = {}
+		p.memoGen = nil
+	end
 	evaluate()
 end
 
