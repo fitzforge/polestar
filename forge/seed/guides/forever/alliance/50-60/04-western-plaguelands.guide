@@ -624,7 +624,7 @@ step The crater
 step Torwa Pathfinder
   zone Un'Goro Crater
   tip Torwa camps at the foot of the ramp into the crater.
-  turnin 4291
+  turnin 4291 optional                -- The Scent of Lar'korwi, if you still carry it from the first visit
   accept 4292
   accept 4289                         -- The pelts come from the gorillas on Ironstone Plateau
   turnin 87494 optional               -- Microcrystal Contamination, if a ravasaur dropped the scale since the first visit

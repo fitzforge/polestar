@@ -18,6 +18,11 @@ next forever/alliance/50-60/02-felwood
 
 # ---------------------------------------------------------------- Azshara
 
+step Into Azshara
+  tip From Astranaar, ride east along the road past Forest Song into Azshara: Shadowsong Shrine lies just over the border, in Azshara's south-west corner.
+  goto 96.3,51.4 map 1440 "East along the road to Shadowsong Shrine"
+  zone Azshara
+
 step Shadowsong Shrine
   zone Azshara
   tip The shrine lies in the south-west corner of Azshara, south of Talrendis Point.
@@ -260,6 +265,7 @@ step Fly to Southshore
 step Orphan Matron Aria
   zone Alterac Mountains
   tip Ride north from Southshore into Alterac and west to the walls of Dalaran: Orphan Matron Aria stands outside them. Her quest goes to Lieutenant Connar in Nethergarde Keep, where this guide flies later.
+  goto 21.6,73.2 "Orphan Matron Aria"
   accept 96797
 
 step Western Plaguelands
@@ -551,9 +557,15 @@ step Portal to Darnassus
 step Darnassus
   zone Darnassus
   tip The portal in Rut'theran Village leads up to Darnassus: Jenal waits in the Cenarion Enclave, in the north of the city.
-  turnin 92345                        -- Mathrengyl Bearwalker, in the Cenarion Enclave
   turnin 3764                         -- Jenal, in the Cenarion Enclave
   train class only Druid              -- Ironforge has no druid trainer
+
+step Mathrengyl Bearwalker
+  when onquest 92345
+  zone Darnassus
+  tip Mathrengyl Bearwalker is upstairs in the druids' building of the Cenarion Enclave: go in by its south door.
+  goto 35.8,11.6 "Mathrengyl Bearwalker"
+  turnin 92345                        -- Mathrengyl Bearwalker, upstairs
 
 step Gracina Spiritmight
   when onquest 162
