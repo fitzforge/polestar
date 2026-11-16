@@ -2329,9 +2329,9 @@
 			"evidence": "route level 36.6; Lost One Chieftain 39-39; recordings (2026-11-11): done by 4 people at 37-39 (median 39), 0 people died within 60 yd, 0 abandoned"
 		},
 		{
-			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 93429|rare",
+			"key": "forever/alliance/30-40/05-arathi-highlands.guide|kill 93429.1|rare",
 			"guide": "forever/alliance/30-40/05-arathi-highlands.guide",
-			"goal": "kill 93429",
+			"goal": "kill 93429.1",
 			"kind": "rare",
 			"title": "Fallow Sanctuary",
 			"level": 36.1,
@@ -16937,6 +16937,34 @@
 			],
 			"reason": "the step's tip names the Corpsefeeder (45, elite) on the road and Kog'thug's guards, and says to come in from the west; the elites are under the 46.2 player",
 			"evidence": "route level 46.2 (Alliance route after fix round 1, rested level model); Corpsefeeder 45-45 x2, Magram Necrokhan 45-45; recordings (2026-11-15): done by 10 (median 44.52), deaths 3, abandons 0"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Horde|kill 96018.2|elite",
+			"guide": "forever/40-50/shendralas.guide@Horde",
+			"goal": "kill 96018.2",
+			"kind": "elite",
+			"title": "The western pylon: repair it",
+			"level": 46.2,
+			"mobs": [
+				"Magram Necrokhan 45-45 x4",
+				"Corpsefeeder 45-45 x3"
+			],
+			"reason": "the Horde's side of the Alliance row above (the guide is the same for both): the step's Careful tip names the Magram Necrokhans and Corpsefeeders (45, elites) and says to pull the Decrepit Pylon Protectors away from them; they are under the 46.2 player",
+			"evidence": "route level 46.2 (integrated Horde route, rested level model); Magram Necrokhan 45-45 x4, Corpsefeeder 45-45 x3; recordings (2026-11-16): done by 10 (median 44.51), deaths 4, abandons 0"
+		},
+		{
+			"key": "forever/40-50/shendralas.guide@Horde|kill 96018.3|elite",
+			"guide": "forever/40-50/shendralas.guide@Horde",
+			"goal": "kill 96018.3",
+			"kind": "elite",
+			"title": "Bristleback Retreat: repair the eastern pylon",
+			"level": 46.2,
+			"mobs": [
+				"Corpsefeeder 45-45 x2",
+				"Magram Necrokhan 45-45"
+			],
+			"reason": "the Horde's side of the Alliance row above: the step's tip names the Corpsefeeder (45, elite) on the road and Kog'thug's guards, and says to come in from the west; the elites are under the 46.2 player",
+			"evidence": "route level 46.2 (integrated Horde route, rested level model); Corpsefeeder 45-45 x2, Magram Necrokhan 45-45; recordings (2026-11-16): done by 10 (median 44.52), deaths 3, abandons 0"
 		},
 		{
 			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 98233.1|over",
