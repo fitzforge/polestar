@@ -14814,25 +14814,32 @@ end
 
 local function onUpdateEvent() requestUpdate() end
 
--- Whether guide g has a `buff` goal or a `buff` predicate (on a step or a jump), worked out once.
-Own.auraGuides = setmetatable({}, { __mode = "k" })
-function Own.asksAuras(g)
-	local asks = Own.auraGuides[g]
-	if asks ~= nil then return asks end
-	asks = false
+-- What guide g asks about that only a few guides do, worked out once: `buff` (a
+-- `buff` goal or predicate), `equip` (an `equip` goal or `when equipped`),
+-- `deposit` (a `deposit` goal), `indoors` (`when indoors`), on a step or a jump.
+-- -> { kind = true, ... }
+local ASKED_GOAL = { buff = "buff", equip = "equip", deposit = "deposit" }
+local ASKED_WHEN = { buff = "buff", equipped = "equip", indoors = "indoors" }
+Own.askedBy = setmetatable({}, { __mode = "k" })
+function Own.asks(g)
+	local asks = Own.askedBy[g]
+	if asks then return asks end
+	asks = {}
 	for _, step in ipairs(g.steps) do
 		for _, goal in ipairs(step.goals) do
-			if goal.t == "buff" then asks = true end
+			local kind = ASKED_GOAL[goal.t]
+			if kind then asks[kind] = true end
 		end
 		for _, p in ipairs(step.when or NONE) do
-			if p.k == "buff" then asks = true end
+			local kind = ASKED_WHEN[p.k]
+			if kind then asks[kind] = true end
 		end
 		for _, k in ipairs(step.skipto or NONE) do
-			if k.when and k.when.k == "buff" then asks = true end
+			local kind = k.when and ASKED_WHEN[k.when.k]
+			if kind then asks[kind] = true end
 		end
-		if asks then break end
 	end
-	Own.auraGuides[g] = asks
+	Own.askedBy[g] = asks
 	return asks
 end
 
@@ -14849,8 +14856,6 @@ for _, event in ipairs({
 	"LEARNED_SPELL_IN_SKILL_LINE", "SPELLS_CHANGED", "NEW_RECIPE_LEARNED",
 	-- rep
 	"UPDATE_FACTION", "CHAT_MSG_COMBAT_FACTION_CHANGE",
-	-- equip, deposit, `when indoors`
-	"PLAYER_EQUIPMENT_CHANGED", "PLAYERBANKSLOTS_CHANGED", "ZONE_CHANGED_INDOORS", "MINIMAP_UPDATE_ZOOM",
 	-- explore
 	"MAP_EXPLORATION_UPDATED",
 	-- achieve (and Legacy Challenges)
@@ -14858,14 +14863,23 @@ for _, event in ipairs({
 }) do
 	ns.RegisterEvent(event, onUpdateEvent)
 end
--- The player's auras (`buff` goals, `when buff`): only while a tab's guide asks about one.
-ns.RegisterEvent("UNIT_AURA", function(_, unit)
-	if unit ~= "player" then return end
+-- Events only a few guides ask about: an update only while a tab's guide does.
+local function askedUpdate(kind)
 	for i = 1, #tabs do
 		local g = tabs[i].guide
-		if g and Own.asksAuras(g) then return requestUpdate() end
+		if g and Own.asks(g)[kind] then return requestUpdate() end
 	end
+end
+-- The player's auras (`buff` goals, `when buff`).
+ns.RegisterEvent("UNIT_AURA", function(_, unit)
+	if unit == "player" then askedUpdate("buff") end
 end)
+-- `equip` goals and `when equipped`; `deposit` goals; `when indoors`.
+ns.RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() askedUpdate("equip") end)
+ns.RegisterEvent("PLAYERBANKSLOTS_CHANGED", function() askedUpdate("deposit") end)
+for _, event in ipairs({ "ZONE_CHANGED_INDOORS", "MINIMAP_UPDATE_ZOOM" }) do
+	ns.RegisterEvent(event, function() askedUpdate("indoors") end)
+end
 -- The quest database says which quest collects count the bags (Own.bagCollect).
 ns.On("QUESTDB_LOADED", onUpdateEvent)
 -- The Hearthstone's cooldown started, ended or the bind moved (QoL/Hearth.lua).
