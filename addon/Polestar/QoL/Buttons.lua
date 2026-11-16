@@ -53,7 +53,13 @@
 --     column, under it in a row (buttons.layout), and the rare button moves
 --     along the set to clear them (Buttons.Offsets, Buttons.ListRect); they
 --     take the Buttons page's look like the buttons (kinds "targetRow" and
---     "targetMark" for a skin's actionButton hook).
+--     "targetMark" for a skin's actionButton hook). qol.targetListStyle
+--     makes them smaller (TL.STYLES): slim rows with a small face, the name
+--     and count, names only, or the portraits alone as tiles, stacked or
+--     side by side, each with how many are left and the close one's name
+--     beside it (under a strip's tile). qol.targetPortraits "flat"
+--     shows 2D faces instead of the 3D models: the game's flat portrait once
+--     seen close, an icon for what you do until then.
 --   Step key: no button on screen, only a binding: the first open goal it can
 --     act on, in guide order (a use goal's item, a hearth goal's Hearthstone,
 --     a kill or collect's mobs, an NPC goal's NPC by name), else the quest
@@ -127,6 +133,30 @@ local PORTRAIT_CAP = 16
 -- for the rows (Buttons.TargetInfo).
 local TL = { MAX = 8, W = 208, H = 30, GAP = 2, FACE = 26, ANCHOR = 22, NEAR = 0.3, FLASH = 0.7,
 	rows = {}, info = {}, cap = MAX_NAMES }
+-- The list's looks (qol.targetListStyle): a row's size and its portrait's.
+-- slim: a shorter row with a smaller face, the name and count (the item
+-- line is in the tooltip); tile: the portrait alone, with how many are left
+-- in its corner and its name in the tooltip (and beside it while it is
+-- close, with qol.targetCloseName); across: the tiles side by side instead
+-- of stacked.
+TL.STYLES = {
+	full = { W = TL.W, H = TL.H, FACE = TL.FACE },
+	slim = { W = 150, H = 20, FACE = 18, slim = true },
+	column = { W = 32, H = 32, FACE = 30, tile = true },
+	strip = { W = 32, H = 32, FACE = 30, tile = true, across = true },
+	-- names: a slim row with no face at all (the green wash and edge still
+	-- say one is close).
+	names = { W = 150, H = 20, FACE = 18, slim = true, noFace = true },
+}
+function TL.style() return TL.STYLES[ns.Get("qol.targetListStyle")] or TL.STYLES.full end
+-- A tile whose goal is done: it greys out, and being close no longer turns
+-- it green (no wash, flash or green edge).
+function TL.tileDone(r)
+	local st = r.psStyle
+	local p = st and st.tile and r.info and r.info.progress
+	local cur, max = p and tonumber(p.cur), p and tonumber(p.max)
+	return cur and max and max > 0 and cur >= max or false
+end
 
 local Buttons = {}
 QoL.Buttons = Buttons
@@ -275,7 +305,7 @@ local function paintBorder(b, hover)
 		end
 		return
 	end
-	if b.closeUnit or b.psNear then
+	if (b.closeUnit or b.psNear) and not TL.tileDone(b) then
 		-- A target list row with one close enough to target (psNear: a
 		-- preview's): a green edge, thicker than the border, with the border
 		-- off too.
@@ -333,8 +363,10 @@ function Buttons.ListRect(n, side)
 	n = tonumber(n) or 0
 	if n < 1 then return nil end
 	side = side or TL.side()
-	local h, w, g = Buttons.Size("target") / 2, TL.W, num("buttons.spacing", 0, 40, 8)
-	local tall = n * TL.H + (n - 1) * TL.GAP
+	local st = TL.style()
+	local h, w, g = Buttons.Size("target") / 2, st.W, num("buttons.spacing", 0, 40, 8)
+	local tall = n * st.H + (n - 1) * TL.GAP
+	if st.across then w, tall = n * st.W + (n - 1) * TL.GAP, st.H end
 	local up = TL.up()
 	local y0, y1
 	if side == "right" or side == "left" then
@@ -376,11 +408,25 @@ function Buttons.PlaceList(t, mark, rows, scale, side)
 	local up = TL.up()
 	local edge, far = up and "BOTTOM" or "TOP", up and "TOP" or "BOTTOM"
 	local dy = up and 1 or -1
+	-- The style the rows take with their size (secure, as the size is): a
+	-- row's text and face follow the style it was sized for (TL.layout), so
+	-- a style changed in a fight waits for its end as a whole.
+	local st = TL.style()
+	local back = side == "left" or side == "belowLeft"
 	for i = 1, #rows do
 		local r = rows[i]
 		if scale then r:SetScale(scale) end
+		r.psStyle, r.psSide, r.psUp = st, side, up
+		r:SetSize(st.W, st.H)
+		TL.layout(r)
 		r:ClearAllPoints()
-		if i > 1 then
+		if i > 1 and st.across then
+			if back then
+				r:SetPoint("RIGHT", rows[i - 1], "LEFT", -TL.GAP, 0)
+			else
+				r:SetPoint("LEFT", rows[i - 1], "RIGHT", TL.GAP, 0)
+			end
+		elseif i > 1 then
 			r:SetPoint(edge, rows[i - 1], far, 0, dy * TL.GAP)
 		elseif side == "right" then
 			r:SetPoint(edge .. "LEFT", t, edge .. "RIGHT", g, 0)
@@ -1965,7 +2011,61 @@ do
 		color(r.Mark, (r.closeUnit or r.psNear) and "success" or (tone == "success" and "textDim" or "danger"))
 		local p = r.info and r.info.progress
 		local cur, max = p and tonumber(p.cur), p and tonumber(p.max)
-		color(r.Count, cur and max and max > 0 and cur >= max and "success" or "text")
+		local done = cur and max and max > 0 and cur >= max or false
+		color(r.Count, done and "success" or "text")
+		-- A tile: a bar in its kind's colour (green while close, grey once
+		-- done), its count white on the badge, a finished one's face (and
+		-- model) and crosshair greyed; while close and not finished, its name
+		-- beside or under it (TL.layout places it): a finished one needs
+		-- no finding.
+		local tile = r.psStyle and r.psStyle.tile or false
+		local near = (r.closeUnit or r.psNear) and true or false
+		r.Bar:SetShown(tile)
+		r.Badge:SetShown(tile and (r.Count:GetText() or "") ~= "")
+		if tile then
+			color(r.Bar, done and "textDim" or near and "success" or tone)
+			color(r.Count, "text")
+			local named = near and not done and QoL.On("targetCloseName") and r.applied ~= nil
+			r.Name:SetShown(named)
+			r.NameBg:SetShown(named)
+		else
+			r.Name:Show()
+			r.NameBg:Hide()
+		end
+		-- A finished tile keeps a dim crosshair, so a face not loaded yet
+		-- still leaves the tile marked.
+		local grey = tile and done
+		if grey then color(r.Mark, "textDim") end
+		-- No crosshair with names only or behind a 2D portrait's icon (the
+		-- icon takes the crosshair's colours: green while close).
+		local st = r.psStyle
+		r.Mark:SetShown(not ((st and st.noFace) or r.face == "icon"))
+		if r.face == "icon" then
+			local look2 = r.looks and r.applied and r.looks[r.applied]
+			local _, t2 = Buttons.TargetLook(look2 and look2[1], r.applied, look2 and look2[2], look2 and look2[3])
+			color(r.Face, near and not grey and "success" or t2)
+		end
+		r.Mark:SetAlpha(grey and 0.45 or 1)
+		if r.Face.SetDesaturated then r.Face:SetDesaturated(grey) end
+		r.Face:SetAlpha(grey and 0.45 or 1)
+		if r.Flat.SetDesaturated then r.Flat:SetDesaturated(grey) end
+		r.Flat:SetAlpha(grey and 0.45 or 1)
+		r.Dim:SetShown(grey)
+		-- Done wins over close: no green over a greyed tile (a goal finished
+		-- with its mob close takes the green off at once).
+		if grey and r.Near:IsShown() then
+			r.Near:Hide()
+			if r.psPulse then r.psPulse:Stop() end
+			r.Flash:Hide()
+		elseif near and not grey and not r.Near:IsShown() then
+			r.Near:Show()
+		end
+		if grey ~= (r.psGrey or false) then
+			r.psGrey = grey
+			paintBorder(r, r.psHover)
+		end
+		-- (A preview's plain row has no model.)
+		if type(r.Model) == "table" then r.Model:SetAlpha(grey and 0.45 or 1) end
 	end
 
 	-- Faces: the creature's model by id once the client has the creature in
@@ -2000,7 +2100,7 @@ do
 	-- A row's green state (near): the wash, the green edge (paintBorder) and,
 	-- turning green with flash set, one flash, unless motion is reduced.
 	local function setNear(r, near, flash)
-		if near then
+		if near and not TL.tileDone(r) then
 			r.Near:Show()
 			if flash and r.psPulse and not ns.Get("ui.reduceMotion") then
 				r.Flash:Show()
@@ -2058,22 +2158,56 @@ do
 			r.near = near
 			setNear(r, near, true)
 		end
+		-- Names only (no face) and 2D portraits (qol.targetPortraits "flat")
+		-- draw no model.
+		local st = r.psStyle or TL.STYLES.full
+		local flat = ns.Get("qol.targetPortraits") == "flat"
+		-- 2D: the game's flat portrait of one seen close (the target or a
+		-- nameplate), learned while the row names it, in any style, drawn once
+		-- per name (not again on every health change); a new name forgets it.
+		if flat and unit and SetPortraitTexture and r.flatOf ~= r.applied then
+			SetPortraitTexture(r.Flat, unit, true)
+			r.flatOf = r.applied
+		elseif r.flatOf ~= r.applied then
+			r.flatOf = nil
+		end
+		local learned = flat and not st.noFace and r.flatOf ~= nil
+		r.Flat:SetShown(learned)
 		local drawn
-		if r.npc and m.SetCreature then
+		if r.npc and m.SetCreature and not (st.noFace or flat) then
 			drawn = paintModel(r, m, near)
 		else
 			m:Hide()
 			m.drawn = nil
 		end
-		if drawn then
+		if st.noFace then
+			r.face = nil
+			r.Face:SetTexture(nil)
+		elseif flat then
+			-- The learned portrait, else the icon for what you do with it.
+			r.Face:SetTexture(nil)
+			if learned then
+				r.face = "flat"
+			else
+				local look = r.looks and r.applied and r.looks[r.applied]
+				local glyph = Buttons.TargetLook(look and look[1], r.applied, look and look[2], look and look[3])
+				r.face = "icon"
+				r.Face:SetTexture(media(glyph))
+			end
+		elseif drawn then
+			r.face = "model"
 			r.Face:SetTexture(nil)
 		elseif unit and SetPortraitTexture then
 			-- No model (yet): the close mob's own portrait.
+			r.face = unit
 			SetPortraitTexture(r.Face, unit, true)
 			r.Face:SetVertexColor(1, 1, 1, 1)
 		else
+			r.face = nil
 			r.Face:SetTexture(nil)
 		end
+		-- The crosshair follows whether an icon stands in for the face.
+		paintTones(r)
 		return drawn == false
 	end
 
@@ -2134,6 +2268,7 @@ do
 		end
 	end
 	local paintFacesSoon = QoL.Coalesce(paintFaces)
+	TL.paintFacesSoon = paintFacesSoon
 	for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED", "UNIT_NAME_UPDATE" }) do
 		ns.RegisterEvent(event, paintFacesSoon)
 	end
@@ -2165,27 +2300,109 @@ do
 		r.npc = (look and look[2]) or (r.info and r.info.npc) or nil
 		r.Name:SetText(r.applied or "")
 		r.Note:SetText(note or "")
-		paintTones(r)
-		r.Name:ClearAllPoints()
-		if note then
-			r.Name:SetPoint("BOTTOMLEFT", r.Face, "RIGHT", 6, 1)
-		else
-			r.Name:SetPoint("LEFT", r.Face, "RIGHT", 6, 0)
+		TL.layout(r)
+	end
+
+	-- A tile's count: how many are left ("6" of 4/10); none once done, or
+	-- for a goal of one.
+	local function leftText(info)
+		local p = info and info.progress
+		local cur, max = p and tonumber(p.cur), p and tonumber(p.max)
+		if not (cur and max and max > 1 and cur < max) then return nil end
+		return tostring(max - cur)
+	end
+
+	local function role(fs, k)
+		if fs.psRole ~= k then
+			fs.psRole = k
+			font(fs, k)
 		end
 	end
 
-	local function paintCount(r)
-		local text = r.applied and countText(r.info)
-		r.Count:SetText(text or "")
-		paintTones(r)
-		if text then
-			r.Name:SetPoint("RIGHT", r.Count, "LEFT", -6, 0)
-			r.Note:SetPoint("RIGHT", r.Count, "LEFT", -6, 0)
-		else
-			r.Name:SetPoint("RIGHT", r, "RIGHT", -6, 0)
-			r.Note:SetPoint("RIGHT", r, "RIGHT", -6, 0)
+	-- A row's regions laid out for the style it was sized for (r.psStyle,
+	-- set with its size by Buttons.PlaceList; full before that), its count
+	-- with them. Plain regions: it runs in a fight too, after every change of
+	-- the row's text or count.
+	local function layout(r)
+		local st = r.psStyle or TL.STYLES.full
+		local face, mark, name, note, count = r.Face, r.Mark, r.Name, r.Note, r.Count
+		local noFace = st.noFace or false
+		face:SetShown(not noFace)
+		-- Into or out of names only: the faces again (the model, or none).
+		if r.psNoFace ~= noFace then
+			r.psNoFace = noFace
+			if TL.paintFacesSoon and r.psLive then TL.paintFacesSoon() end
 		end
+		face:SetSize(st.FACE, st.FACE)
+		mark:SetSize(st.FACE, st.FACE)
+		face:ClearAllPoints()
+		mark:ClearAllPoints()
+		name:ClearAllPoints()
+		count:ClearAllPoints()
+		-- A tile's face fills it: the green wash and flash go over the face
+		-- (and its model), on the frame above it; a row's stay its ground.
+		r.Over:SetFrameLevel(r:GetFrameLevel() + 2)
+		local host = st.tile and r.Over or r
+		if r.Near:GetParent() ~= host then
+			r.Near:SetParent(host)
+			r.Flash:SetParent(host)
+		end
+		r.Near:SetDrawLayer(st.tile and "ARTWORK" or "BACKGROUND", st.tile and 5 or 1)
+		r.Flash:SetDrawLayer(st.tile and "ARTWORK" or "BACKGROUND", st.tile and 6 or 2)
+		if st.tile then
+			face:SetPoint("CENTER", r, "CENTER", 0, 0)
+			mark:SetPoint("CENTER", r, "CENTER", 0, 0)
+			note:Hide()
+			role(count, "small")
+			count:SetText(r.applied and leftText(r.info) or "")
+			count:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -3, 5)
+			-- The close one's name: beside a column's tile, away from the
+			-- button; under a strip's, reaching away from the button.
+			role(name, "small")
+			local back = r.psSide == "left" or r.psSide == "belowLeft"
+			if st.across then
+				-- On the strip's far side from the buttons: above it when the
+				-- list stands over a row of them (buttons.listUp).
+				local over = r.psUp and (r.psSide == "below" or r.psSide == "belowLeft")
+				local a, b, y = over and "BOTTOM" or "TOP", over and "TOP" or "BOTTOM", over and 6 or -6
+				if back then
+					name:SetPoint(a .. "RIGHT", r, b .. "RIGHT", 0, y)
+				else
+					name:SetPoint(a .. "LEFT", r, b .. "LEFT", 0, y)
+				end
+			elseif back then
+				name:SetPoint("RIGHT", r, "LEFT", -8, 0)
+			else
+				name:SetPoint("LEFT", r, "RIGHT", 8, 0)
+			end
+		else
+			local gap, pad = st.slim and 4 or 6, st.slim and 1 or 2
+			face:SetPoint("LEFT", r, "LEFT", pad, 0)
+			mark:SetPoint("LEFT", r, "LEFT", pad, 0)
+			role(name, st.slim and "small" or "body")
+			if noFace then gap = gap + 1 end
+			role(count, st.slim and "small" or "number")
+			count:SetText(r.applied and countText(r.info) or "")
+			count:SetPoint("RIGHT", r, "RIGHT", -gap, 0)
+			note:SetShown(not st.slim)
+			if noFace then
+				name:SetPoint("LEFT", r, "LEFT", gap, 0)
+			elseif not st.slim and (note:GetText() or "") ~= "" then
+				name:SetPoint("BOTTOMLEFT", face, "RIGHT", gap, 1)
+			else
+				name:SetPoint("LEFT", face, "RIGHT", gap, 0)
+			end
+			local counted = (count:GetText() or "") ~= ""
+			name:SetPoint("RIGHT", counted and count or r, counted and "LEFT" or "RIGHT", -gap, 0)
+			note:SetPoint("RIGHT", counted and count or r, counted and "LEFT" or "RIGHT", -gap, 0)
+		end
+		r.Badge:ClearAllPoints()
+		r.Badge:SetPoint("TOPLEFT", count, "TOPLEFT", -2, 0)
+		r.Badge:SetPoint("BOTTOMRIGHT", count, "BOTTOMRIGHT", 1, -1)
+		paintTones(r)
 	end
+	TL.layout = layout
+	local paintCount = layout
 
 	paintCounts = function()
 		for i = 1, #TL.rows do paintCount(TL.rows[i]) end
@@ -2338,6 +2555,13 @@ do
 		face:SetSize(TL.FACE, TL.FACE)
 		face:SetPoint("LEFT", r, "LEFT", 2, 0)
 		r.Face = face
+		-- The 2D portrait learned for the row's name (qol.targetPortraits
+		-- "flat"): a texture of its own, so switching to 3D or names only and
+		-- back keeps it while the row names the same one.
+		local flat = r:CreateTexture(nil, "ARTWORK", nil, 1)
+		flat:SetAllPoints(face)
+		flat:Hide()
+		r.Flat = flat
 
 		-- Over the crosshair: a creature whose model is not drawn leaves it seen.
 		-- Kept while hidden (the list, UIParent): a hidden model drops what it
@@ -2349,6 +2573,15 @@ do
 			model:Hide()
 			r.Model = model
 		end
+
+		-- Over the model (a child frame sits above its parent's regions, and
+		-- this one above the model too): the count, and a tile's bar, badge,
+		-- dimming and green wash, which a face filling the tile would cover.
+		-- A plain frame: it takes no clicks and may change in a fight.
+		local over = CreateFrame("Frame", nil, r)
+		over:SetAllPoints(r)
+		over:SetFrameLevel(r:GetFrameLevel() + 2)
+		r.Over = over
 
 		local hl = r:CreateTexture(nil, "HIGHLIGHT")
 		hl:SetTexture(media("white"))
@@ -2362,7 +2595,7 @@ do
 		r.Name = name
 
 		-- The goal's have/need count, at the row's right edge.
-		local count = r:CreateFontString(nil, "OVERLAY")
+		local count = over:CreateFontString(nil, "OVERLAY")
 		font(count, "number")
 		count:SetJustifyH("RIGHT")
 		count:SetPoint("RIGHT", r, "RIGHT", -6, 0)
@@ -2375,9 +2608,38 @@ do
 		note:SetPoint("TOPLEFT", face, "RIGHT", 6, -1)
 		note:SetPoint("RIGHT", r, "RIGHT", -6, 0)
 		r.Note = note
+		-- A tile's parts (TL.STYLES' tile looks): the bar in its kind's colour
+		-- along its foot, the badge under the count, the ground under the
+		-- close one's name. Shown by paintTones.
+		local bar = over:CreateTexture(nil, "ARTWORK", nil, 7)
+		bar:SetTexture(media("white"))
+		bar:SetPoint("BOTTOMLEFT", r, "BOTTOMLEFT", 1, 1)
+		bar:SetPoint("BOTTOMRIGHT", r, "BOTTOMRIGHT", -1, 1)
+		bar:SetHeight(3)
+		bar:Hide()
+		r.Bar = bar
+		local badge = over:CreateTexture(nil, "ARTWORK", nil, 7)
+		badge:SetTexture(media("white"))
+		badge:SetVertexColor(0, 0, 0, 0.85)
+		badge:Hide()
+		r.Badge = badge
+		-- A finished tile's face, model included, darkened.
+		local dim = over:CreateTexture(nil, "ARTWORK", nil, 4)
+		dim:SetTexture(media("white"))
+		dim:SetVertexColor(0, 0, 0, 0.5)
+		dim:SetAllPoints(face)
+		dim:Hide()
+		r.Dim = dim
+		local nameBg = r:CreateTexture(nil, "BACKGROUND", nil, 3)
+		nameBg:SetTexture(media("white"))
+		nameBg:SetPoint("TOPLEFT", name, "TOPLEFT", -5, 4)
+		nameBg:SetPoint("BOTTOMRIGHT", name, "BOTTOMRIGHT", 5, -4)
+		nameBg:Hide()
+		r.NameBg = nameBg
+
 		-- What a skin's actionButton hook gets (Skin API 2; skinParts).
 		r.psSkinParts = { ground = bg, icon = face, highlight = hl, label = name, count = count, note = note,
-			crosshair = mark, wash = near, flash = flash }
+			crosshair = mark, wash = near, flash = flash, bar = bar, badge = badge }
 	end
 
 	-- The Polestar mark's face: ground, the logo, the hover wash, and the key
@@ -2428,6 +2690,7 @@ do
 		if r.psKind == "targetRow" then
 			color(r.Near, "success", TL.NEAR)
 			color(r.Flash, "success", TL.FLASH)
+			color(r.NameBg, "scrim", 0.85)
 			color(r.Note, "textDim")
 			paintTones(r)
 		else
@@ -3326,9 +3589,13 @@ ns.On("WAYPOINT_CHANGED", refreshSoon)
 ns.On("SETTING_CHANGED", function(path)
 	if not itemButton or type(path) ~= "string" then return end
 	local all = path == ""
-	if PLACE_KEYS[path] or path == "qol.buttonTextSide" or path == "qol" or path == "buttons" or all then
+	if PLACE_KEYS[path] or path == "qol.buttonTextSide" or path == "qol.targetListStyle" or path == "qol" or path == "buttons" or all then
 		place()
 	end
+	-- (And a whole profile's or section's change: path "" or "qol".)
+	local section = path == "" or path == "qol"
+	if path == "qol.targetCloseName" or section then TL.paintLooks() end
+	if (path == "qol.targetPortraits" or section) and TL.paintFacesSoon then TL.paintFacesSoon() end
 	if path:sub(1, 8) == "buttons." or path == "buttons" or path == "ui.reduceMotion" or path == "ui" or all then
 		for i = 1, #set do
 			paintFace(set[i])

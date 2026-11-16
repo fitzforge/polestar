@@ -562,6 +562,8 @@ const TARGET = ['PolestarTargetButton', 'PolestarPreviewTargetArea'];
 const TARGET_LIST = ['PolestarTargetAnchor', 'PolestarTargetRow1', 'PolestarTargetRow2', 'PolestarTargetRow3', 'PolestarTargetRow4', 'PolestarTargetRow5', 'PolestarPreviewTargetArea'];
 // A kill and a collect with their counts, the Candle's dropper with its item.
 const KOBOLD_COUNTS = '{ { t = "kill", target = "Kobold Vermin", progress = { cur = 3, max = 10, kind = "count" } }, { t = "collect", item = 950, itemName = "Candle", npc = 300, npcName = "Kobold Laborer", progress = { cur = 8, max = 8, kind = "count" } } }';
+// The tigers with their counts: the elite's one-off kill, 4 of 10 and 7 of 10.
+const TIGER_COUNTS = '{ { t = "kill", target = "Elder Stranglethorn Tiger", group = { kind = "elite", rank = 1 }, progress = { cur = 0, max = 1, kind = "count" } }, { t = "kill", target = "Stranglethorn Tiger", progress = { cur = 4, max = 10, kind = "count" } }, { t = "kill", target = "Young Stranglethorn Tiger", progress = { cur = 10, max = 10, kind = "count" } } }';
 // A Stranglethorn Tiger alive on nameplate1: its row turns green.
 const TIGER_CLOSE = 'local exists, unitName = UnitExists, UnitName; UnitExists = function(u) if u == "nameplate1" then return true end return exists and exists(u) end; UnitIsDead = function() return false end; UnitIsPlayer = function(u) return u == "player" end; UnitName = function(u) if u == "nameplate1" then return "Stranglethorn Tiger" end return unitName(u) end';
 // Six more pages from third-party modules, in the game font: the list
@@ -2100,6 +2102,20 @@ local r = b.Chains[1]; r:GetScript("OnEnter")(r)`) },
 			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(GIVERS, { list: true }) },
 			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: 'PolestarTargetAnchor:Click("LeftButton")' }) },
 			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGERS, { list: true, extra: `Polestar.Set("buttons.layout", "row"); ${TIGER_CLOSE}` }) },
+		],
+	},
+	{
+		file: 'target-list-compact.svg',
+		title: "The target list's compact styles: slim rows (a small face, name and count); portraits in a column, each with how many are left and the close tiger named beside it, a finished goal greyed; portraits in a row; the strip under the target button with the buttons in a row; names only; 2D portraits (icons until one is seen, the close tiger's flat face) in full rows and a column",
+		backdrop: 'terrain',
+		panels: [
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(KOBOLD_COUNTS, { list: true, extra: 'Polestar.Set("qol.targetListStyle", "slim")' }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "column"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(KOBOLD_COUNTS, { list: true, extra: 'Polestar.Set("qol.targetListStyle", "strip")' }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "strip"); Polestar.Set("buttons.layout", "row"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "names"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetPortraits", "flat"); ${TIGER_CLOSE}` }) },
+			{ files: MODULE_FILES, roots: TARGET_LIST, script: targetScene(TIGER_COUNTS, { list: true, extra: `Polestar.Set("qol.targetListStyle", "column"); Polestar.Set("qol.targetPortraits", "flat"); ${TIGER_CLOSE}` }) },
 		],
 	},
 ];
