@@ -2,10 +2,10 @@
 guide forever/alliance/30-40/05-arathi-highlands
 title Arathi Highlands, Alterac Mountains & Swamp of Sorrows
 faction Alliance
-levels 36-38
+levels 35-37
 zone Arathi Highlands
 next forever/alliance/30-40/06-badlands
-pitch For characters of 36 to 38. Faldir's Cove, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone.
+pitch For characters of 35 to 37. Faldir's Cove, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never

@@ -10511,8 +10511,10 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	const sp = (what, pred) => wpl[at(wpl, what, pred)].s;
 	assert.ok(sp('turnin 978', is('turnin', 978)) < sp('accept 1047', is('accept', 1047)), 'Erelas before the portal up to Darnassus');
 	assert.ok(sp('turnin 1124', is('turnin', 1124)) < sp('accept 8277', is('accept', 8277)), 'Layo where the pass comes out, before Cenarion Hold');
-	assert.equal(sp('accept 9415', is('accept', 9415)), sp('accept 8277', is('accept', 8277)), 'Torrig on the first Cenarion Hold stop');
-	assert.equal(sp('accept 8284', is('accept', 8284)), sp('accept 8277', is('accept', 8277)), 'Larksbane on the first Cenarion Hold stop');
+	// Fix round 2 (0.4.0): Torrig and Larksbane are taken on the Silithus guide's first Cenarion Hold stop, a stop the
+	// route makes anyway where their work and hand-ins are, instead of here: carried from here they rode through Mount
+	// Hyjal, whose quest log reached 36-37 (asserted with the Silithus guide below).
+	for (const q of [9415, 8284]) assert.ok(!wpl.some(({ goal }) => is('accept', q)(goal)), `${q} not carried from here`);
 	// Bor Wildmane's Secret Communication (minimum level 57): the level model is just under 57 on this guide's Cenarion
 	// Hold stops, so since the 0.4.0 fix round he gives it on the Silithus guide's first Cenarion Hold stop (about 58).
 	assert.ok(!wpl.some(({ goal }) => goal.quest === 8318), 'no Secret Communication under level 57');
@@ -10523,6 +10525,8 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	// route walk past him and come back for it).
 	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8278', is('accept', 8278)), 'Mar\'alith on the first Cenarion Hold stop');
 	assert.equal(ss('accept 8318', is('accept', 8318)), ss('accept 8278', is('accept', 8278)), 'Bor Wildmane on the first Cenarion Hold stop of the Silithus guide');
+	assert.equal(ss('accept 9415', is('accept', 9415)), ss('accept 8278', is('accept', 8278)), 'Torrig on the first Cenarion Hold stop of the Silithus guide');
+	assert.equal(ss('accept 8284', is('accept', 8284)), ss('accept 8278', is('accept', 8278)), 'Larksbane on the first Cenarion Hold stop of the Silithus guide');
 });
 
 // --- Class guide audit (0.3.7) ----------------------------------------------------------------------
@@ -12281,9 +12285,9 @@ test('forever/horde/30-40/01-hillsbrad-foothills.guide: Discord: the guide says 
 test('Alliance Un\'Goro and Stranglethorn 35-36: the guide says why its quests run above its label', { skip }, () => {
 	for (const [file, lo, hi, levels] of [
 		// 0.4.0: the label follows the route's level model, arrival to exit (fix round 1: the first Un'Goro visit 49.31 ->
-		// 50.40, Stranglethorn's second visit 35.73 -> 36.58).
+		// 50.40; fix round 2, the model without accept-time grinding: Stranglethorn's second visit 35.03 -> 35.90).
 		['forever/alliance/40-50/07-un-goro-crater.guide', 49, 50, /51-53/],
-		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 35, 37, /37-38/],
+		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 35, 36, /37-38/],
 	]) {
 		const g = compiled(file);
 		assert.deepEqual([g.minLevel, g.maxLevel], [lo, hi], `${file}: the label stays the route's character levels`);
@@ -13716,8 +13720,10 @@ test("forever/alliance/30-40/04-stranglethorn-vale.guide: the Kurzen's Compound 
 // pitch says the level 40 quests are there on purpose and how to take their fights.
 test(`${ARATHI}: the pitch says why its quests run above its label`, { skip }, () => {
 	const g = compiled(ARATHI);
-	assert.match(g.pitch || '', /36 to 38.*Faldir's Cove.*group stop/, g.pitch);
-	assert.equal(g.maxLevel, 38, 'the label stays');
+	// Fix round 2 (0.4.0): the level model without accept-time grinding plays it at 35.9-37.4: labelled 35-37, and the
+	// pitch still says why its level 40 quests are there.
+	assert.match(g.pitch || '', /35 to 37.*Faldir's Cove.*group stop/, g.pitch);
+	assert.equal(g.maxLevel, 37, 'the label is the levels the route plays it at');
 });
 
 // Alliance level tidy (0.4.0): never sent at mobs two or more levels over the player. The 30-40 spots that were:
