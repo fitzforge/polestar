@@ -265,6 +265,13 @@ test('a `buff` goal, a `buff … off` goal and a `rep` goal with points play thr
 	for (const r of results) assert.equal(r.ok, true, JSON.stringify(r));
 });
 
+test('a `deposit` goal, with and without a count, and an `equip` goal on and off play through: the player banks the item and wears the other', { skip }, async () => {
+	const pack = commandPack({ pack: path.join(PACKS, 'banked') });
+	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });
+	assert.ok(results.length > 0);
+	for (const r of results) assert.equal(r.ok, true, JSON.stringify(r));
+});
+
 test('level goals inside a level play through: the player gets that share of the level\'s XP', { skip }, async () => {
 	const pack = commandPack({ pack: path.join(PACKS, 'halflevel') });
 	const { results } = await playtest({ dir: pack.dir, manifest: pack.manifest, classes: ['WARRIOR'], contextDir: pack.contextDir, contextDataDir: pack.contextDataDir });

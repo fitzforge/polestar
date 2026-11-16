@@ -1511,6 +1511,8 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `craft` | `spell`, `spellName` | `item`/`itemName` (created), `count`, `untilSkill`, `skillLine`, `reagents = { { item, itemName, count } }` | skill ≥ `untilSkill` if set, else created-item count ≥ `count`, else manual |
 | `buff` | `spell`, `spellName` | `off`, `map`, `x`, `y` | the player has the aura of `spell` (`Compat.PlayerHasAura`; with `off`, has it not), latched in its live step; manual where the client has no aura API. `UNIT_AURA` for the player updates only while a tab's guide asks about an aura (`Own.asksAuras`) |
 | `rep` | `faction`, `factionName`, `standing` (1–8) | `points` | standing ≥ `standing` (`Own.standingAtLeast`); with `points`, that many points into `standing` or any higher standing, the progress counting toward them |
+| `deposit` | `item`, `itemName` | `count`, `map`, `x`, `y` | the bags hold none of `item`, latched within its live step (never on a step ahead); with `count`, the bank holds that many (`Compat.GetItemCount(item, true)` less the bags'), the progress counting them. `PLAYERBANKSLOTS_CHANGED` updates |
+| `equip` | `item`, `itemName` | `off`, `map`, `x`, `y` | the player wears `item` (`Compat.IsItemEquipped`; with `off`, wears it not), latched in its live step; manual where the client cannot say. `PLAYER_EQUIPMENT_CHANGED` updates |
 | `explore` | `map`, `x`, `y` | `text` (area name) | area at that point explored; else arrival (latched) |
 | `achieve` | `achievement`, `achievementName` | `criteria` (index) | achievement (or that criterion) completed |
 
@@ -1933,7 +1935,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   `Own.standingAtLeast`, by faction id, with points inside the standing; a
   faction not met is below every standing), an aura on the player (`buff`:
   `Compat.PlayerHasAura`; while the client refuses to say, neither `buff` nor
-  `!buff` holds), and the player's
+  `!buff` holds), whether an item is worn (`equipped`:
+  `Compat.IsItemEquipped`) or the character is indoors (`indoors`:
+  `Compat.IsIndoors`; `ZONE_CHANGED_INDOORS` and `MINIMAP_UPDATE_ZOOM`
+  update), neither holding either way while the client cannot say, and the
+  player's
   answer at a group quest (`Own.groupAnswer`:
   `CharState().groupQuests[q]`, "do" or "skip", set by `Engine.AnswerGroup`
   from the guide window's banner or Options, Discovery, Group quests;

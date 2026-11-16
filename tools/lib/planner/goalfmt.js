@@ -31,7 +31,7 @@ const NUM_TEXT = /^-?\d+(?:\.\d+)?$/;
 const POSITIONAL_ID = {
 	npc: ['kill', 'talk', 'train', 'vendor'],
 	object: ['interact'],
-	item: ['collect', 'use', 'destroy', 'buy', 'auction'],
+	item: ['collect', 'use', 'destroy', 'buy', 'auction', 'deposit', 'equip'],
 };
 const QUEST_POSITIONAL = ['accept', 'turnin', 'complete', 'abandon'];
 const XY_POSITIONAL = ['goto', 'explore'];
@@ -188,6 +188,8 @@ function positionalTokens(verb, f) {
 		case 'destroy':
 		case 'buy':
 		case 'auction':
+		case 'deposit':
+		case 'equip':
 			id('item');
 			name('itemName');
 			break;
@@ -277,7 +279,7 @@ function positionalTokens(verb, f) {
 // key]): a "text" label written there would read as that name.
 const NAME_SLOT = {
 	accept: ['quest', 'title'], turnin: ['quest', 'title'], complete: ['quest', 'title'], kill: ['npc', 'target'],
-	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], auction: ['item', 'itemName'], talk: ['npc', 'npcName'],
+	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], auction: ['item', 'itemName'], deposit: ['item', 'itemName'], equip: ['item', 'itemName'], talk: ['npc', 'npcName'],
 	interact: ['object', 'objName'], train: ['npc', 'npcName'], vendor: ['npc', 'npcName'], learn: ['spell', 'spellName'],
 	craft: ['spell', 'spellName'], buff: ['spell', 'spellName'], achieve: ['achievement', 'achievementName'],
 };
@@ -437,6 +439,8 @@ POSITIONAL.destroy = POSITIONAL.collect;
 POSITIONAL.abandon = POSITIONAL.accept;
 POSITIONAL.buy = POSITIONAL.collect;
 POSITIONAL.auction = POSITIONAL.collect;
+POSITIONAL.deposit = POSITIONAL.collect;
+POSITIONAL.equip = POSITIONAL.collect;
 POSITIONAL.explore = POSITIONAL.goto;
 POSITIONAL.craft = POSITIONAL.learn;
 POSITIONAL.cast = POSITIONAL.learn;
@@ -470,7 +474,7 @@ const MODIFIER_FIELDS = {
 	xp: [fld('rewardXp', 'int', 'XP')],
 	money: [fld('rewardMoney', 'money', 'Money (copper)')],
 	direct: [fld('direct', 'bool', 'Handed in without an accept')],
-	off: [fld('off', 'bool', 'Gone (the aura no longer on the player)')],
+	off: [fld('off', 'bool', 'Gone (the aura no longer on the player, the item no longer worn)')],
 	group: [fld('group', 'group', 'Group')],
 	text: [fld('text', 'text', 'Label')],
 	optional: [fld('optional', 'bool', 'Optional')],

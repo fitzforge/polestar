@@ -504,6 +504,10 @@ function playGoal(w, g, x, gi, find, explicitNpc, along = false) {
 			// `auction`: bought at the Auction House, a bag count as `buy` is.
 			w.give(x.item, x.count || 1);
 			return;
+		case 'deposit':
+			// Into the bank: what the goal counts, else all the bags hold.
+			w.take(x.item, x.count || w.bags.get(x.item) || 0);
+			return;
 		case 'accept':
 			return accept(w, x, gi, find, explicitNpc, prior);
 		case 'turnin':

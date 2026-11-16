@@ -26,9 +26,11 @@
 --   w.cast(818)                            -- the player casts a spell (UNIT_SPELLCAST_SUCCEEDED)
 --   w.setRep(72, "Stormwind", 5, 1500, 3000, 9000)  -- standing, value, barMin, barMax (UPDATE_FACTION)
 --   w.setAura(1126, true)                  -- the player gains an aura, or with false loses it (UNIT_AURA)
+--   w.deposit(4306)                        -- the bags' stack of an item goes into the bank
+--   w.equip(6256, true)                    -- the player wears an item, or with false takes it off
 --   w.addArea(1429, 40, 30, 60, 50, 87)    -- explorable rect (percent) -> areaID; w.explore(87)
 --   w.addAchievement(9001, "Legacy: ...", { { "Kill 10", 10 }, ... }); w.criteria(9001, 1, 4)
---   w.unsupport("skill"|"spell"|"faction"|"explore"|"achievement"|"aura")  -- remove that client API
+--   w.unsupport("skill"|"spell"|"faction"|"explore"|"achievement"|"aura"|"equipment")  -- remove that client API
 --
 -- Client-driven chains work like in game: AcceptQuest() accepts the open
 -- quest, Select*Quest opens its detail/progress panel, CompleteQuest() opens
@@ -66,6 +68,8 @@ local world = {
 	recipes = {}, -- learned profession recipes
 	factions = {}, -- factionID -> { name, standing, value, barMin, barMax }
 	auras = {}, -- spellID -> true: the player's buffs and debuffs
+	bank = {}, -- itemID -> count held in the bank
+	equipped = {}, -- itemID -> true: worn
 	areas = {}, -- { map, x1, y1, x2, y2, id }
 	explored = {}, -- areaID -> true
 	achievements = {}, -- id -> { name, completed, criteria = { { text, cur, max, completed } } }
@@ -326,6 +330,19 @@ function world.setAura(id, on)
 	fire("UNIT_AURA", "player")
 end
 
+function world.deposit(id)
+	world.bank[id] = (world.bank[id] or 0) + (world.items[id] or 0)
+	world.items[id] = nil
+	fire("BAG_UPDATE", 0)
+	fire("BAG_UPDATE_DELAYED")
+	fire("PLAYERBANKSLOTS_CHANGED", 1)
+end
+
+function world.equip(id, on)
+	world.equipped[id] = on and true or nil
+	fire("PLAYER_EQUIPMENT_CHANGED", 16, not on)
+end
+
 function world.addArea(map, x1, y1, x2, y2, id)
 	table.insert(world.areas, { map = map, x1 = x1, y1 = y1, x2 = x2, y2 = y2, id = id })
 end
@@ -368,6 +385,7 @@ function world.unsupport(feature)
 	elseif feature == "explore" then C_MapExplorationInfo = nil
 	elseif feature == "achievement" then GetAchievementInfo, GetAchievementNumCriteria, GetAchievementCriteriaInfo = nil, nil, nil
 	elseif feature == "aura" then C_UnitAuras, UnitAura = nil, nil
+	elseif feature == "equipment" then C_Item.IsEquippedItem, IsEquippedItem = nil, nil
 	end
 end
 
@@ -486,6 +504,8 @@ function world.itemArrives(id)
 	if it then it.uncached = nil end
 	fire("GET_ITEM_INFO_RECEIVED", id, true)
 end
+function C_Item.IsEquippedItem(id) return world.equipped[id] == true end
+IsEquippedItem = C_Item.IsEquippedItem
 
 ---------------------------------------------------------------------------
 -- Client API: maps

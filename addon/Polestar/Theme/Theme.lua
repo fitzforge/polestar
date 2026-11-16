@@ -1410,6 +1410,8 @@ VERB_ICON.gather = VERB_ICON.collect
 VERB_ICON.sell = MEDIA .. "UI\\icon-sell"
 VERB_ICON.repair = MEDIA .. "UI\\icon-repair"
 VERB_ICON.buff = VERB_ICON.use
+VERB_ICON.equip = VERB_ICON.use
+VERB_ICON.deposit = VERB_ICON.collect
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)

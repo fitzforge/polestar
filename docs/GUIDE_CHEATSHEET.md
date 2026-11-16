@@ -121,6 +121,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `auction <item> ["Name"]` | Buy `xN` at the Auction House: the arrow leads to the nearest auctioneer of the player's faction. In a profession guide it applies while the player buys that material (needs Polestar 0.4.0) | `auction 4306 x10` |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (needs Polestar 0.3.0) | `money 1s` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (needs Polestar 0.3.0) | `destroy 6948 "Hearthstone"` |
+| `deposit <item> ["Name"]` | Put the item in the bank: done once the bags hold none, or with `x<N>` once the bank holds N (needs Polestar 0.4.1) | `deposit 750 x8` |
 | `wait <seconds> ["text"]` | A countdown that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (needs Polestar 0.3.0) | `wait 30 "the boat docks"` |
 | `task "<text>"` | Something Polestar cannot see: the player ticks it, and it holds the step until then unless `optional` (needs Polestar 0.3.0) | `task "Tame a Venomtail Scorpid"` |
 
@@ -133,6 +134,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `learn <spell> ["Name"]` | Learn a recipe; from a trainer, or with `nearest` from the closest vendor of its recipe | `learn 3276` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (needs Polestar 0.3.0) | `cast 818 "Basic Campfire"` |
 | `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it (needs Polestar 0.4.1) | `buff 1126 "Mark of the Wild"` |
+| `equip <item> ["Name"]` | Wear the item; kept once the step had it (needs Polestar 0.4.1) | `equip 750` |
 | `craft <spell> ["Name"]` | Craft a recipe, `x<N>` times | `craft 3275 x5` |
 | `until <N>` | On `craft`: until the profession reaches N | `craft 3275 until 40` |
 | `section <Profession> <from>-<to>` | In column 0: a skill range as the heading over the steps after it; the guide starts at the range the player's skill is in, and asks only for the materials still needed in it (GUIDE_FORMAT, "Sections") | `section Mining 1-65` |
@@ -186,6 +188,8 @@ the outcome stays.
 | `when taxi "<Flight point>"` | the character knows that flight path, named as for `getfp`; one Polestar has not seen learnt or on a flight map counts as unknown (needs Polestar 0.4.0) | `when !taxi "Ironforge"` |
 | `when rep <Faction> <Standing>[+<points>]` | the standing with the faction is that or higher, or that many points into it (needs Polestar 0.4.1) | `when !rep Stormwind Honored` |
 | `when buff <spell>` | the character has the aura of that spell, a buff or a debuff (needs Polestar 0.4.1) | `when !buff 1126` |
+| `when equipped <item>` | the character wears the item (needs Polestar 0.4.1) | `when !equipped 750` |
+| `when indoors` | the character is in a cave, a mine or a building (needs Polestar 0.4.1) | `when !indoors` |
 | `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps
@@ -201,7 +205,7 @@ the outcome stays.
 |---|---|---|
 | `optional` | After a goal: the step can be finished without it | `kill 299 optional` |
 | `either` | After two or more goals of a step: any one of them finishes the step (needs Polestar 0.4.1) | `task "Take the boat" either` |
-| `off` | After a `buff` goal: done while the aura is gone | `buff 15007 "Resurrection Sickness" off` |
+| `off` | After a `buff` or `equip` goal: done while the aura is gone or the item is not worn | `buff 15007 "Resurrection Sickness" off` |
 | `group [N]` | After a goal: it needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it | `kill 299 group 3` |
 
 ## Handing over with `next`

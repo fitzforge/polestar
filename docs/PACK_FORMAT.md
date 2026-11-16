@@ -403,6 +403,8 @@ hold:
 | `"taxi"` | `name`; optional `node` (format 10) | the character knows that flight path ([Format 10](#format-10)) |
 | `"rep"` | `faction` (the faction's id), `standing` (1 Hated .. 8 Exalted); optional `name`, `points` (format 11) | the standing with the faction is `standing` or higher (`Compat.GetFactionStanding`); with `points`, that many points into `standing`, or any higher standing. A faction the character has not met is below every standing |
 | `"buff"` | `spell` (format 11) | the player has the aura of that spell id, a buff or a debuff (`Compat.PlayerHasAura`); while the client refuses to say, neither `buff` nor `!buff` holds |
+| `"equipped"` | `item` (format 11) | the player wears the item (`Compat.IsItemEquipped`); while the client cannot say, neither `equipped` nor `!equipped` holds |
+| `"indoors"` | nothing more (format 11) | the player is indoors (`Compat.IsIndoors`); while the client cannot say, neither holds |
 | `"group"` | `q` (format 5) | the player answered "do it" for that group quest (`CharState().groupQuests[q] == "do"`); unanswered, the step applies and is not done, so the route waits there; refused in `nextWhen` and `skipto` |
 
 ```lua
@@ -868,8 +870,9 @@ A profession guide's materials (GUIDE_FORMAT.md, "Materials"):
 
 ## Format 11
 
-Format 10 with a goal's **`either`**, the **`buff`** goal, a `rep` goal's
-**`points`** and the **`rep`** and **`buff`** `when` predicates (on a step, a
+Format 10 with a goal's **`either`**, the **`buff`**, **`deposit`** and
+**`equip`** goals, a `rep` goal's **`points`** and the **`rep`**,
+**`buff`**, **`equipped`** and **`indoors`** `when` predicates (on a step, a
 `skipto` or a `next` option). Polestar 0.4.1 and later read it. The compiler
 writes a pack in format 11 only when its guides use one of them: an older
 Polestar would wait for every goal of an `either` set, refuse a guide with
@@ -902,6 +905,24 @@ of 1 or more, or on another verb, refuses the guide.
 
 ```lua
 { when = { { k = "rep", name = "Argent Dawn", faction = 529, standing = 6 }, { k = "buff", neg = true, spell = 1126 } }, goals = { ... } }
+```
+
+`deposit` goal: `{ t = "deposit", item = <itemId>, itemName = "<Name>" }`.
+Done once the bags hold none of the item, latched within its live step as a
+`destroy` is (not on a step ahead: an item not in the bags yet is not an
+item put in the bank). With `count = N` it is done once the bank holds N of
+the item (the count with the bank less the bags'), and its progress counts
+them. Polestar reads the counts and moves nothing.
+
+`equip` goal: `{ t = "equip", item = <itemId>, itemName = "<Name>" }`. Done
+while the player wears the item (`Compat.IsItemEquipped`), and latched once
+its live step had it or the route has moved past it. With `off = true` it is
+done while the item is not worn. A client that cannot say makes it the
+player's to tick. An `off` that is not `true`, or on another verb, refuses
+the guide. Polestar equips nothing.
+
+```lua
+{ when = { { k = "equipped", neg = true, item = 6256 }, { k = "indoors", neg = true } }, goals = { { t = "equip", item = 6256, itemName = "Fishing Pole" } } }
 ```
 
 ## Import strings
@@ -985,8 +1006,9 @@ or nothing (equal or lower). Imported guides are listed in the guide menu as
   faction parts, Polestar's own pack only) by 0.3.0 and later, format 9
   (the `wait` goal) by 0.3.0 and later, format 10 (the `taxi` when
   predicate, the `auction` goal and a `collect`'s `gather`) by 0.4.0 and later,
-  and format 11 (a goal's `either`, the `buff` goal, a `rep` goal's `points`,
-  the `rep` and `buff` when predicates) by 0.4.1 and later.
+  and format 11 (a goal's `either`, the `buff`, `deposit` and `equip` goals, a
+  `rep` goal's `points`, the `rep`, `buff`, `equipped` and `indoors` when
+  predicates) by 0.4.1 and later.
 - A pack in a format this Polestar does not read registers nothing; the
   Community guides page shows it as `too-new` with "Needs Polestar <version> or
   newer." (rule 5).

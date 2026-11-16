@@ -2249,7 +2249,8 @@ fn resolve_when(list: &V, zone_id: &V, levels: Option<(f64, f64)>, sides: &dyn F
 					r.warn(&ln, format!("item {} is not in data (new Forever content?)", p.get("item")), None);
 				}
 			}
-			"upgrade" => {
+			"indoors" => {}
+			"upgrade" | "equipped" => {
 				w.set("item", p.get("item"));
 				if have_items && !data.item(&p.get("item")).truthy() {
 					r.warn(&ln, format!("item {} is not in data (new Forever content?)", p.get("item")), None);
@@ -3101,6 +3102,21 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			"destroy" => {
 				goal.set("item", g.get("item"));
 				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+			}
+			"deposit" => {
+				// Into the bank: until the bags hold none, or with `xN` until the bank holds N.
+				goal.set("item", g.get("item"));
+				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if !g.get("count").is_undef() {
+					goal.set("count", g.get("count"));
+				}
+			}
+			"equip" => {
+				goal.set("item", g.get("item"));
+				goal.set("itemName", or_undef(require_name(r, "item", &g.get("item"), &g.get("itemName"), "Item name")));
+				if g.get("off").truthy() {
+					goal.set("off", true);
+				}
 			}
 			"talk" => {
 				goal.set("npc", g.get("npc"));

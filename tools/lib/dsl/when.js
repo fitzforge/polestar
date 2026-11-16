@@ -29,13 +29,15 @@
 //   [!]rep <Faction> <Standing>[+<points>]    the standing with the faction is that or higher; with
 //                                             points, that many points into the standing or higher
 //   [!]buff <spell>                           the character has that aura (a buff or a debuff)
+//   [!]equipped <item>                        the character wears the item
+//   [!]indoors                                the character is indoors (a cave, a mine, a building)
 // value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label?, faction?, standing?, points? }; `q` is a list for onquest.
 
 const { levelPoint } = require('../game/xp');
 const { readMoney } = require('./money');
 
 const INT_RE = /^\d+$/;
-const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group', 'knows', 'taxi', 'rep', 'buff'];
+const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group', 'knows', 'taxi', 'rep', 'buff', 'equipped', 'indoors'];
 // The standings, as the `rep` goal and predicate name them (1 Hated .. 8 Exalted).
 const STANDINGS = { hated: 1, hostile: 2, unfriendly: 3, neutral: 4, friendly: 5, honored: 6, revered: 7, exalted: 8 };
 // "Revered", "7", "Revered+12000" -> { value, points? } | { error } | null (not a standing at all).
@@ -60,7 +62,7 @@ function readStandingText(text) {
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 const QUEST_ONE = new Set(['complete', 'turnedin', 'available', 'group']);
 const PLACE = new Set(['zone', 'subzone', 'bound']);
-const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi "<Flight point>", [!]rep <Faction> <Standing>[+<points>], [!]buff <spell>`;
+const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>, [!]taxi "<Flight point>", [!]rep <Faction> <Standing>[+<points>], [!]buff <spell>, [!]equipped <item>, [!]indoors`;
 
 // A name written quoted or bare: `"Razor Hill"` or `Razor Hill`.
 function nameOf(text) {
@@ -146,6 +148,15 @@ function parseWhen(rest) {
 	if (kind === 'knows') {
 		if (!INT_RE.test(args) || Number(args) <= 0) return { error: '`knows` needs a spell id: knows <spell>' };
 		value.spell = Number(args);
+		return { value };
+	}
+	if (kind === 'indoors') {
+		if (args) return { error: '`indoors` takes nothing after it' };
+		return { value };
+	}
+	if (kind === 'equipped') {
+		if (!INT_RE.test(args) || Number(args) <= 0) return { error: '`equipped` needs one item id: equipped <item>' };
+		value.item = Number(args);
 		return { value };
 	}
 	if (kind === 'buff') {

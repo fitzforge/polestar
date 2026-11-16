@@ -60,6 +60,10 @@ const MODS = {
 	complete: [...COMMON, ...COORDS],
 	abandon: ['text', 'optional', 'only', 'either'],
 	destroy: ['text', 'optional', 'only', 'either'],
+	// `deposit <item> [xN]`: put the item in the bank (until the bags hold none, or the bank holds N).
+	deposit: ['text', 'optional', 'only', 'either', ...COORDS, 'count'],
+	// `equip <item>`: wear the item; with `off`, take it off.
+	equip: ['text', 'optional', 'only', 'either', ...COORDS, 'off'],
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
 	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
 	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
@@ -706,6 +710,8 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 		case 'collect':
 		case 'use':
 		case 'destroy':
+		case 'deposit':
+		case 'equip':
 		case 'buy':
 		case 'auction': {
 			if (!t) return err(ln, `\`${verb}\` needs an item id`), -1;

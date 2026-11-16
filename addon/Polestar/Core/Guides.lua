@@ -183,6 +183,8 @@ local REQUIRED = {
 	complete = { quest = isNum, title = isStr },
 	abandon = { quest = isNum, title = isStr },
 	destroy = { item = isNum, itemName = isStr },
+	deposit = { item = isNum, itemName = isStr },
+	equip = { item = isNum, itemName = isStr },
 	kill = { target = isStr },
 	collect = { item = isNum, itemName = isStr },
 	["goto"] = { map = isNum, x = isNum, y = isNum },
@@ -306,6 +308,11 @@ local function checkWhen(list)
 			-- A faction id, a standing (1 Hated .. 8 Exalted) and points inside it (format 11).
 			if not (isNum(p.faction) and isNum(p.standing) and p.standing >= 1 and p.standing <= 8) then return false end
 			if p.points ~= nil and not (isNum(p.points) and p.points >= 1) then return false end
+		elseif k == "equipped" then
+			-- An item id (format 11).
+			if not isNum(p.item) then return false end
+		elseif k == "indoors" then
+			-- Nothing more (format 11).
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -510,9 +517,9 @@ local function checkGoal(goal)
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
 	-- `either` (format 11): one of its step's set.
 	if goal.either ~= nil and goal.either ~= true then return "bad either" end
-	-- Points inside a `rep` goal's standing, and a `buff` goal's `off` (format 11).
+	-- Points inside a `rep` goal's standing, and a `buff` or `equip` goal's `off` (format 11).
 	if goal.points ~= nil and not (goal.t == "rep" and isNum(goal.points) and goal.points >= 1) then return "bad points" end
-	if goal.off ~= nil and not (goal.t == "buff" and goal.off == true) then return "bad off" end
+	if goal.off ~= nil and not ((goal.t == "buff" or goal.t == "equip") and goal.off == true) then return "bad off" end
 	if goal.t == "level" and goal.frac ~= nil and not isFrac(goal.frac) then return "bad frac" end
 	for _, key in ipairs(KEYS.goalNumbers) do
 		if goal[key] ~= nil and not isNum(goal[key]) then return "bad " .. key end

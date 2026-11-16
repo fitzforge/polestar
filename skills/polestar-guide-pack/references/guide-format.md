@@ -72,6 +72,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `complete <quest> ["Title"]` | Finish every objective of a quest with nothing more specific to track | |
 | `abandon <quest> ["Title"]` | Drop a quest from the log; done once it is out, the quest's `accept` stays done (Polestar 0.3.0) | no place modifiers, no `group` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (Polestar 0.3.0) | no place modifiers, no `group` |
+| `deposit <item> ["Name"]` | Put an item in the bank; done once the bags hold none, or with `x<N>` once the bank holds N (Polestar 0.4.1) | `xN`, no `group` |
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
 | `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest`, `anywhere`, `gather` |
 | `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
@@ -96,6 +97,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `learn <spell> ["Name"]` | Learn a recipe or spell | `npc`, `item`, `nearest` |
 | `cast <spellId> ["Name"]` | Cast that spell while the goal is open (Polestar 0.3.0); name it unless it is a recipe in the data | coordinates |
 | `buff <spellId> ["Name"]` | Have that aura (a buff or a debuff) on the character; kept once the step had it. With `off`: done while it is gone. Name it unless the client's spell tables know it (Polestar 0.4.1) | `off` |
+| `equip <item> ["Name"]` | Wear an item; kept once the step had it. With `off`: done while it is not worn (Polestar 0.4.1) | `off`, no `group` |
 | `craft <spell> ["Name"]` | Craft a recipe | `xN`, `until` |
 | `rep <Faction> <Standing>[+<points>]` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id; `+<points>` that many points into it, as the reputation bar counts them (Polestar 0.4.1) | |
 | `explore <x>,<y> ["Area"]` | Discover the map area there | `map`, `r`, `era` / `live` only |
@@ -126,7 +128,7 @@ After the arguments, in any order.
 | `lvl <N>` | On `accept`: the level the quest needs |
 | `optional` | Never holds the step |
 | `either` | One of a set: the step is done when any one of its `either` goals is (two or more, none `optional`). A quest taken as one of them holds its later steps only for those who took it (Polestar 0.4.1) |
-| `off` | On `buff`: done while the aura is gone |
+| `off` | On `buff`: done while the aura is gone; on `equip`: while the item is not worn |
 | `group [N]` | Needs a group (of N players, 2-40); the guide window says so. Elites, dungeon and raid quests are found from the data without it |
 | `only <condition>, ...` | The goal is only for matching characters |
 | `nearest` | The closest vendor, trainer or drop place, picked in game |
@@ -170,14 +172,16 @@ character knows that flight path, named as for `getfp`; one Polestar has not
 seen yet counts as unknown, so make the `!taxi` way work for everyone),
 `rep <Faction> <Standing>[+<points>]` (the standing with the faction is that
 or higher, or that many points into it), `buff <spell>` (the character has
-that aura); `!` in front of any but
+that aura), `equipped <item>` (the character wears the item), `indoors` (in a
+cave, a mine or a building); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
 `when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
 `when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0; with
-a `when taxi` predicate, Polestar 0.4.0; with `either`, a `buff` goal, points
-on a `rep` goal, or a `when rep` or `when buff` predicate, Polestar 0.4.1.
+a `when taxi` predicate, Polestar 0.4.0; with `either`, a `buff`, `deposit` or
+`equip` goal, points on a `rep` goal, or a `when rep`, `when buff`, `when
+equipped` or `when indoors` predicate, Polestar 0.4.1.
 
 ## Lint errors that come up most
 

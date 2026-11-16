@@ -63,7 +63,7 @@ pub const STEP_KEYS: [&str; 10] = ["zone", "only", "tip", "image", "when", "labe
 
 // COMMON = text optional only group either (`either`: one of a set in its step); COORDS = at map r frame (`frame` = the `era` / `live` modifiers).
 /// The modifiers each verb takes, in the JS object's order (VERBS is the verbs in this order).
-pub const MODS: [(&str, &[&str]); 34] = [
+pub const MODS: [(&str, &[&str]); 36] = [
 	("accept", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "object", "item", "lvl"]),
 	// `reward`/`choose`/`xp`/`money`: what the turn-in pays, shown on the goal.
 	// `direct`: handed in straight from the NPC's window, with no accept.
@@ -71,6 +71,10 @@ pub const MODS: [(&str, &[&str]); 34] = [
 	("complete", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
 	("abandon", &["text", "optional", "only", "either"]),
 	("destroy", &["text", "optional", "only", "either"]),
+	// `deposit <item> [xN]`: put the item in the bank (until the bags hold none, or the bank holds N).
+	("deposit", &["text", "optional", "only", "either", "at", "map", "r", "frame", "count"]),
+	// `equip <item>`: wear the item; with `off`, take it off.
+	("equip", &["text", "optional", "only", "either", "at", "map", "r", "frame", "off"]),
 	("kill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "quest", "count"]),
 	// `gather [<Profession> <rank>] [levels <min>-<max>]`: this bag count is its item's gather way (a profession
 	// guide's material, which the section's `auction` goal buys instead when the player chooses to buy it).
@@ -113,9 +117,9 @@ pub const MODS: [(&str, &[&str]); 34] = [
 	("wait", &["text", "optional", "only"]),
 ];
 /// Object.keys(MODS).
-pub const VERBS: [&str; 34] = [
-	"accept", "turnin", "complete", "abandon", "destroy", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train", "buy", "auction",
-	"vendor", "level", "money", "task", "note", "skill", "learn", "cast", "craft", "buff", "rep", "explore", "achieve", "wait",
+pub const VERBS: [&str; 36] = [
+	"accept", "turnin", "complete", "abandon", "destroy", "deposit", "equip", "kill", "collect", "goto", "talk", "interact", "use", "sethome", "hearth", "die", "getfp", "fly", "enter", "train",
+	"buy", "auction", "vendor", "level", "money", "task", "note", "skill", "learn", "cast", "craft", "buff", "rep", "explore", "achieve", "wait",
 ];
 
 /// `MODS[verb]` (own properties only).
@@ -1024,7 +1028,7 @@ fn parse_positional(verb: &str, goal: &V, toks: &[Tok], line: &[u16], lex: &Lex,
 			}
 			Some(i)
 		}
-		"collect" | "use" | "destroy" | "buy" | "auction" => {
+		"collect" | "use" | "destroy" | "deposit" | "equip" | "buy" | "auction" => {
 			if t.is_none() {
 				fail!(format!("`{verb}` needs an item id"));
 			}

@@ -1307,6 +1307,12 @@ function resolveWhen(list, zoneId, levels, data, warn, sides, err) {
 				if (p.points) w.points = p.points;
 				break;
 			}
+			case 'indoors':
+				break;
+			case 'equipped':
+				w.item = p.item;
+				if (haveItems && !data.item(p.item)) warn(p.line, `item ${p.item} is not in data (new Forever content?)`);
+				break;
 			case 'dungeon': {
 				w.name = p.name;
 				const run = dungeonNamed(data, p.name);
@@ -1781,6 +1787,19 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 		case 'destroy': {
 			goal.item = g.item;
 			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
+			break;
+		}
+		case 'deposit': {
+			// Into the bank: until the bags hold none, or with `xN` until the bank holds N.
+			goal.item = g.item;
+			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
+			if (g.count !== undefined) goal.count = g.count;
+			break;
+		}
+		case 'equip': {
+			goal.item = g.item;
+			goal.itemName = requireName('item', g.item, g.itemName, 'Item name') || undefined;
+			if (g.off) goal.off = true;
 			break;
 		}
 		case 'talk': {

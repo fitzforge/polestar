@@ -8,6 +8,7 @@ mod dsl_along;
 mod dsl_buff_rep;
 mod dsl_cast;
 mod dsl_either;
+mod dsl_deposit_equip;
 mod dsl_enter;
 mod dsl_escort;
 mod dsl_faction_levels;

@@ -1148,6 +1148,12 @@ function Own.predicateHolds(p)
 		-- The client will not say: neither `buff` nor `!buff` holds.
 		if has == nil then return false end
 		ok = has
+	elseif k == "equipped" or k == "indoors" then
+		local is
+		if k == "indoors" then is = C.IsIndoors and C.IsIndoors() else is = C.IsItemEquipped and C.IsItemEquipped(p.item) end
+		-- The client will not say: the predicate holds neither way.
+		if is == nil then return false end
+		ok = is
 	elseif k == "group" then
 		local answer = Own.groupAnswer(p.q)
 		-- Unanswered: the step applies either way, and waits (Own.groupPending).
@@ -2528,6 +2534,7 @@ local function isManual(goal)
 	if t == "learn" then return not supports("spell") end
 	if t == "rep" then return not supports("faction") end
 	if t == "buff" then return not supports("aura") end
+	if t == "equip" then return not supports("equipment") end
 	if t == "achieve" then return not supports("achievement") end
 	if t == "craft" then return craftMode(goal) == "manual" end
 	return false
@@ -3024,7 +3031,7 @@ local function latchable(goal)
 	return t == "goto" or t == "explore" or t == "die" or t == "sethome" or t == "hearth" or t == "fly" or t == "getfp" or t == "enter"
 		or t == "buy" or t == "auction" or (t == "collect" and (not goal.quest or Own.bagCollect(goal))) or (t == "craft" and craftMode(goal) == "count")
 		or (t == "train" and goal.class == true) or t == "money" or t == "destroy" or t == "wait" or t == "abandon"
-		or t == "buff"
+		or t == "buff" or t == "equip" or t == "deposit"
 end
 
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].
@@ -3986,6 +3993,18 @@ function Own.goalDoneLive(s, g, goal)
 		return not C.IsOnQuest(goal.quest)
 	elseif t == "destroy" then
 		return (C.GetItemCount(goal.item) or 0) == 0
+	elseif t == "deposit" then
+		-- In the bank: with a count, the bank holds that many; without, the bags hold none.
+		local bags = C.GetItemCount(goal.item) or 0
+		if not goal.count then return bags == 0 end
+		local banked = (C.GetItemCount(goal.item, true) or 0) - bags
+		return banked >= goal.count, banked < goal.count and banked or goal.count, goal.count
+	elseif t == "equip" then
+		-- The item is worn; `off`: it is not.
+		if isManual(goal) then return false end
+		local worn = C.IsItemEquipped(goal.item)
+		if worn == nil then return false end
+		return worn ~= (goal.off == true)
 	elseif t == "money" then
 		return C.GetMoney() >= (goal.money or 0)
 	elseif t == "sethome" then
@@ -4172,7 +4191,7 @@ end
 local function isBagCount(goal)
 	return goal.t == "buy" or goal.t == "auction" or (goal.t == "collect" and (not goal.quest or Own.bagCollect(goal)))
 		or (goal.t == "craft" and craftMode(goal) == "count") or goal.t == "money"
-		or goal.t == "abandon" or goal.t == "destroy"
+		or goal.t == "abandon" or goal.t == "destroy" or goal.t == "deposit"
 end
 
 -- Quest goals checked live from the quest log.
@@ -4737,8 +4756,9 @@ local function latchInStep(s, live)
 	for g, goal in ipairs(step.goals) do
 		local t = goal.t
 		-- An abandon latches on the live step only: on a step looked at ahead it
-		-- reads done for a quest not taken yet (Own.abandonedByGuide).
-		if ((isBagCount(goal) and (live or t ~= "abandon")) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
+		-- reads done for a quest not taken yet (Own.abandonedByGuide). So does a
+		-- deposit: the item not in the bags yet is not an item put in the bank.
+		if ((isBagCount(goal) and (live or (t ~= "abandon" and t ~= "deposit"))) or (live and (t == "fly" or t == "hearth" or t == "enter" or t == "wait" or t == "buff" or t == "equip"))) and goalApplies(goal) and not checked(s, g) and Own.ownDone(s, g, goal) then
 			manualFor(guide.id, true)[s .. ":" .. g] = true
 		end
 	end
@@ -5123,6 +5143,10 @@ local function describe(goal, s)
 		return L["Wait"], goal.text or L["%d seconds"]:format(tonumber(goal.seconds) or 0), "text", nil
 	elseif t == "destroy" then
 		return L["Destroy"], N.Item(goal.item) or goal.itemName, "item", nil
+	elseif t == "deposit" then
+		return L["Put in the bank"], N.Item(goal.item) or goal.itemName, "item", nil
+	elseif t == "equip" then
+		return goal.off and L["Take off"] or L["Equip"], N.Item(goal.item) or goal.itemName, "item", nil
 	elseif t == "kill" then
 		-- `tame`: kill credit for taming the beast (a Lookup guide's Taming the Beast).
 		return goal.tame and L["Tame"] or L["Kill"], N.Npc(goal.npc) or goal.target, "npc", goal.quest and fmt(L["for %s"], ns.Quoted(questTitle(goal))) or nil
@@ -14818,6 +14842,8 @@ for _, event in ipairs({
 	"LEARNED_SPELL_IN_SKILL_LINE", "SPELLS_CHANGED", "NEW_RECIPE_LEARNED",
 	-- rep
 	"UPDATE_FACTION", "CHAT_MSG_COMBAT_FACTION_CHANGE",
+	-- equip, deposit, `when indoors`
+	"PLAYER_EQUIPMENT_CHANGED", "PLAYERBANKSLOTS_CHANGED", "ZONE_CHANGED_INDOORS", "MINIMAP_UPDATE_ZOOM",
 	-- explore
 	"MAP_EXPLORATION_UPDATED",
 	-- achieve (and Legacy Challenges)

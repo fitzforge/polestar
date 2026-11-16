@@ -157,6 +157,8 @@ A step must contain at least one goal.
 | `interact` | `<objectId>` | Click a game object. |
 | `use` | `<itemId> ["Item name"]` | |
 | `destroy` | `<itemId> ["Item name"]` | Delete an item from the bags (a start-zone Hearthstone to free a slot, a quest item that is no use any more). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. The guide window reads "Destroy Hearthstone". Pack format 5. |
+| `deposit` | `<itemId> ["Item name"]` | Put an item in the bank (something a later guide needs, to free the bags until then). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. With `xN` it counts the bank instead: done once the bank holds N of the item. The guide window reads "Put in the bank Linen Cloth". Give it `@x,y` at a banker for the arrow. Polestar only counts: the player moves the items. Pack format 11. |
+| `equip` | `<itemId> ["Item name"]` | Wear an item (a fishing pole before the pond, a quest's disguise). Done while the item is worn, and kept once its step had it. With `off` it is done while the item is not worn. Polestar only looks: the player puts it on. On a client that cannot say what is worn the player ticks it. Pack format 11. |
 | `sethome` | `"Location"` or `nearest` | Inn location as the game names it (the bind location it reports), e.g. `"Goldshire"`. Without `npc` the compiler names the inn's innkeeper, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. `sethome nearest` binds at the nearest own-faction inn when the step comes up. Lint warns about a location no inn has (`polestar find --kind inn`). Completes on every client language: binding at the inn's innkeeper, or a bind location the client names as the inn's area (see "Places by ID"). A player with "Set your home at the guide's inn" on (Quality of Life, Travel; off by default) has Polestar bind and confirm when they talk to that innkeeper (for `nearest`, any innkeeper the compiler listed for it), never at another inn. |
 | `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Arriving any other way counts too (a flight that lands there), but not while a flight passes over it. The Hearthstone and quest item buttons are hidden during a flight. Lint warns about any other name. A step with nothing but `hearth` is not shown: hearthing is no step of its own, the guide moves on to the next step, and the arrow's route there takes the Hearthstone when it saves a long haul (the trip without it at least 3 minutes, at least 2 saved), wherever the Hearthstone is bound. Beside other goals, while the Hearthstone is on cooldown (or not in the bags), the goal says how long until it is ready and the arrow leads to that inn on foot, so a "Hearthstone on cooldown?" note is not needed. Where Polestar knows the trip there (walks, flights and boats as the arrow plans them), it says whether to set off now (the trip takes no longer than the wait) or wait for the Hearthstone, and with the Hearthstone ready but the trip under 8 minutes or saving under 5, it suggests travelling there and keeping the Hearthstone, the arrow leading the way. Bound at another inn (as `sethome` tells, from the inns Polestar knows), the goal says where it is bound first, and the arrow leads to the step's inn the same way. None of this holds the step: arriving checks the goal off either way. |
 | `die` | `"Graveyard"` | A deathskip: die on purpose, release and take the Spirit Healer's resurrection at that graveyard (the name is what the guide window shows). Needs `@x,y` at the graveyard's Spirit Healer, which lint checks against the healers' spawns; the arrow leads there. Done once the player is back alive within 40 yards of it, never as a ghost standing there. Only for players who turned on "Use deathskips" (Options, Automation, Guides; off by default, and always off on a Hardcore character): for everyone else the goal does not apply, its step passes and the next step's travel takes them there, so the guide must read right without it. A guide that uses it is written in pack format 5. |
@@ -227,7 +229,7 @@ Modifiers, in any order after the positional arguments:
 | `optional` | Never blocks the step. |
 | `gather [<Profession> <rank>] [levels <min>-<max>]` | `collect` only: this bag count is the item's gather way in a profession guide (see "Materials"). `gather Mining 1`: it takes that profession at that rank (Herbalism for a herb, Mining to smelt a bar, Skinning for leather, Enchanting for dust; quoted for two words: `gather "First Aid" 1`); `gather levels 15-30`: it drops from mobs of those levels as the player levels (cloth, meat). Either, both (the profession first) or neither. |
 | `either` | One of a set: the step's goals marked `either` are alternatives, and the step is done when any one of them is. See "One of several". Pack format 11. |
-| `off` | `buff`: the goal is the other way round, done while the aura is gone. |
+| `off` | `buff` and `equip`: the goal is the other way round, done while the aura is gone or the item is not worn. |
 | `group [N]` | Needs a group, of `N` players (2–40) when given (`kill 1234 group 3`, `accept 7583 group 5`). The guide window says "Group of 3 advised" (or "Group advised") under the goal. Overrides what the compiler derives: see "Group content". |
 | `only <cond>[,<cond>...]` | Goal applies only to matching characters. |
 | `era` / `live` | Map frame of this goal's typed coordinates, overriding `coords`. |
@@ -291,6 +293,8 @@ step Back to Gornek
 | `taxi "<Flight point>"` | the character knows that flight path, named as for `getfp` (the town, or the flight point's full name). `when taxi "Ironforge"` is for the flight a character with the Ironforge flight path takes, `when !taxi "Ironforge"` for the walk the others take. Polestar counts a flight path known once it has seen it on the flight map, on the world map's flight points or learnt ("New flight path discovered"); before that the character reads as not knowing it, so make the `!taxi` way one that works for everyone |
 | `rep <Faction> <Standing>[+<points>]` | the standing with the faction is that or higher, the faction and standing written as for the `rep` goal (`when rep "Argent Dawn" Honored`); with points, that many points into the standing or any higher one (`when !rep "Timbermaw Hold" Neutral+1500`). A faction the character has not met is below every standing |
 | `buff <spell>` | the character has the aura of that spell id, a buff or a debuff (`when !buff 1126` while the blessing is not on) |
+| `equipped <item>` | the character wears the item (`when !equipped 6256` for the step that says to take the Fishing Pole in hand). While the client cannot say, neither `equipped` nor `!equipped` holds |
+| `indoors` | the character is indoors, as the game says it: in a cave, a mine or a building (`when indoors` for the step that leads back out). While the client cannot say, neither holds |
 | `group <quest>` | the player chose to do that group quest; `!group` holds when they chose to skip it. Until they answer, the route waits at the step and asks (see "Group quests" below); not on a `next` line or a `skipto` |
 
 `!` in front of any predicate but `level` turns it around: `!onquest 788`
@@ -564,9 +568,9 @@ upgrade`, `when done`, `when skill`, `when cooldown`, `when group` or `when know
 predicate (above) writes format 5 (Polestar 0.3.0 and later), because 0.2.6 knows `when` but
 not those predicates; `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals also need format 5
 (docs/PACK_FORMAT.md). A `when taxi` predicate writes format 10 (Polestar
-0.4.0 and later); a goal marked `either`, a `when rep` or `when buff`
-predicate, a `buff` goal and a `rep` goal with points write format 11
-(Polestar 0.4.1 and later).
+0.4.0 and later); a goal marked `either`, a `when rep`, `when buff`, `when
+equipped` or `when indoors` predicate, a `buff`, `deposit` or `equip` goal and
+a `rep` goal with points write format 11 (Polestar 0.4.1 and later).
 
 ## Along the way
 
@@ -1723,6 +1727,15 @@ step Linen Bandage (1-40)
 ```
   buff 1126 "Mark of the Wild"               -- ask a Druid before the fight
   buff 15007 "Resurrection Sickness" off     -- wait until it wears off
+```
+
+### In hand and in the bank: `equip`, `deposit`
+
+```
+  equip 6256 "Fishing Pole"           -- in hand before the pond
+  equip 6256 "Fishing Pole" off       -- and the weapon back afterwards
+  deposit 2589 x40                    -- forty Linen Cloth, kept for later
+  deposit 6256                        -- the pole, if you carry it
 ```
 
 ### Class- and race-only steps
