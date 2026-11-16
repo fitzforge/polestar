@@ -30,6 +30,7 @@ step Kerlonian Evershade
   tip Careful: Scripted ambushes of three mobs each attack along the road.
   accept 5321                                 -- Kerlonian Evershade
   goto 44.4,76.4 "Kerlonian Evershade"
+  complete 5321
   note Escort Kerlonian south along the road to his bag at the southern edge of Darkshore, then go on to Liladris at Maestra's Post.
 
 step Ashenvale

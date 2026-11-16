@@ -5251,6 +5251,22 @@ test(`${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken fr
 	assert.equal(list[accept].goal.npc, 11218, 'from Kerlonian Evershade');
 });
 
+// A player's report (2026-11-16): right after taking The Sleeper Has Awakened (5321), the guide window sent them
+// on to Maestra's Post and the hand-in, with the escort not done. The Kerlonian step held the accept, a goto at his
+// spot and a note, so it was done on the accept; the escort was a goal nowhere. The step now waits for the escort
+// (`complete 5321`), which leads to his bag on the road south, and the hand-in comes after it.
+test(`${ASHENVALE}: Kerlonian's step waits for the escort before the hand-in at Maestra's Post`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const accept = at(list, 'accept 5321 (Kerlonian Evershade)', is('accept', 5321));
+	const escort = at(list, 'complete 5321', is('complete', 5321));
+	const turnin = at(list, 'turnin 5321', is('turnin', 5321));
+	assert.ok(accept < escort && escort < turnin, 'accept, the escort, then the hand-in');
+	assert.equal(list[escort].s, list[accept].s, "in Kerlonian's own step");
+	const { goal } = list[escort];
+	assert.equal(goal.escort, true, 'marked as an escort');
+	assert.ok(goal.map === 1439 && Math.hypot(goal.x - 41.6, goal.y - 89.9) < 1, `leads to his bag in southern Darkshore (${goal.map} ${goal.x},${goal.y})`);
+});
+
 // A bare `complete` that opens its step has no place of its own and nothing
 // placed before it, so the arrow showed nothing until the quest was done
 // (#303's leftovers; #632 and #646 place the Horde ones). Each now leads to
