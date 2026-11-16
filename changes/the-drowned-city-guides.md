@@ -6,5 +6,5 @@ section: players
   (from Kin'weelay at Grom'gol, or from the Rebel Camp to Loremaster Dibbs in
   Southshore), Krazek's quests in Booty Bay and the idol quest (Mazu'kon in
   Mulgore, Archmage Timear in Dalaran), one run through the dungeon boss by
-  boss, with its four tablets and the barrier, then every hand-in. (thanks
-  creazy231)
+  boss, with its four tablets and the barrier, then every hand-in (thanks
+  creazy231, #2453).
