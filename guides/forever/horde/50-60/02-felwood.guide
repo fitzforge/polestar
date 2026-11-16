@@ -121,15 +121,6 @@ step Southern Jaedenar
   kill 7115 quest 5155.3
   kill 7112 quest 5155.4
 
-step A Strange Red Key
-  when has 13140
-  tip A Blood Red Key dropped: use it to start the quest, then free Arko'narin from her cage in Shadow Hold, the cave at the north end of Jaedenar.
-  accept 5202 optional
-
-step Captured Arko'narin
-  when onquest 5202
-  turnin 5202                         -- Captured Arko'narin, below ground
-
 step Emerald Sanctuary
   turnin 5155                         -- Greta Mosshoof
   accept 5157
@@ -243,6 +234,6 @@ step Winna Hazzard
 
 step Level 55
   when level<55
-  tip Winterspring's quests are 55-58. Below 55 after Winna's hand-ins? The Jaedenar Hounds (50-51) prowl the woods around Jaedenar, a short ride south of Bloodvenom Post: kill them until level 55. This is a long top-up for a player who follows only this route. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
-  goto 38.3,61.7 map 1448 "Jaedenar Hound"
-  level 55 grind 7125                 -- grind on Jaedenar Hound
+  tip Winterspring's quests are 55-58. Below 55 after Winna's hand-ins? Felpaw Village's Deadwood furbolgs (53-55) are at your level and on your way north to Timbermaw Hold's tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the Blackrock Depths dungeon or the Sunken Temple dungeon instead.
+  goto 61.5,10.5 map 1448 "Felpaw Village"
+  level 55 grind 7157                 -- grind on Deadwood Avenger

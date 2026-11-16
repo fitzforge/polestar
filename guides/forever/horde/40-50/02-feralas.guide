@@ -170,15 +170,15 @@ step Orgrimmar
 # Class quests: Warlocks pick up the Felsteed (3631, 4490) in Orgrimmar and
 # Ratchet on the way in, as in the earlier Feralas guide.
 #
-# Class training: Orgrimmar at about 42.5 and 44 for everyone but Druids and
-# Paladins, who fly to Thunder Bluff at 42.5. Riding at 40: each race's own
+# Class training: Orgrimmar at about 44.5 for everyone but Druids and
+# Paladins, who fly to Thunder Bluff then. Riding at 40: each race's own
 # riding trainer (Kildar in Orgrimmar for Orcs, Genn Fairweather on Zephras Isle for Skyborne, Xar'Ti in
 # Sen'jin Village, Kar Stormsinger in Bloodhoof Village, Velma Warnam in
 # Brill), all optional.
 #
 # Zul'Farrak (`when dungeon "Zul'Farrak"`, dungeons in the route): for a character who runs it, Tran'rek's Scarab
 # Shells (2865, after Tran'rek, 2864, handed in on the Gadgetzan stop) and Trenton Lighthammer's Troll Temper (3042)
-# are taken on the Gadgetzan stop at about 44; the run is in 40-50/04-tanaris.
+# are taken on the Gadgetzan stop at about 45; the run is in 40-50/04-tanaris.
 #
 # Accepted here, finished later on the route: Screecher Spirits (3520,
 # Steamwheedle Port: the screechers on the next Feralas visit, Yeh'kinya at the
@@ -252,13 +252,15 @@ step Thunder Bluff
 step Mulgore
   only Tauren
   zone Mulgore
-  when done tauren-riding
+  when level>=40
+  when !skill Riding 1
   goto 46.8,62.0 "Bloodhoof Village" live
 
 step Riding at 40
   only Tauren
   zone Mulgore
-  when done tauren-riding
+  when level>=40
+  when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Kar Stormsinger in Bloodhoof Village, with Harb Clawhoof's kodos (20 gold each) beside him. Ride back up to Thunder Bluff's flight master afterwards.
   train 3690 optional                   -- Kar Stormsinger, riding trainer
   note "Kodos: Harb Clawhoof, beside Kar Stormsinger in Bloodhoof Village."

@@ -11,7 +11,7 @@ next forever/horde/50-60/02-felwood
 # into this file.
 # Added here: Yuka Screwspigot (4324).
 # Moved out (0.3.6 flow pass): the Eastern Plaguelands and Darrowshire (Augustus, Terrordale, Light's Hope Chapel,
-# Pamela's doll, Zaeldarr, Marlene and Chromie): their ground is level 54-57 and this guide ends about 52.4. Terrordale
+# Pamela's doll, Zaeldarr, Marlene and Chromie): their ground is level 54-57 and this guide ends about 52.8. Terrordale
 # (6164, A Plague Upon Thee's termites) is done on 50-60/05's Egan stop; Darrowshire, Light's Hope Chapel and the
 # Marlene/Chromie chain open 50-60/05 at about 56.
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
@@ -57,7 +57,7 @@ step Un'Goro Crater
 # - Dropped: The Mighty U'cha (4301): U'cha lives in the north-east cave and
 #   Torwa in the south-east corner, so it costs two extra crossings of the
 #   crater for 5,650 XP.
-# - Grind: the top-up to 52 opens the crater (see the note at the top).
+# - Grind: the top-up to 51 opens the crater (see the note at the top).
 # - Bungle in the Jungle (4496) is turned in when the hearth lands in Gadgetzan
 #   instead of on a later Tanaris visit.
 # - The Kargath bind is dropped (replaced unused); the Light's Hope Chapel
@@ -81,7 +81,7 @@ step Un'Goro Crater
 #   Undercity, Harbinger Balthazad beside the bat master first.
 #
 # Blackrock Depths (`when dungeon "Blackrock Depths"`, dungeons in the route): for a character who runs it,
-# Kargath's WANTED poster gives KILL ON SIGHT: Dark Iron Dwarves (4081) on the first Kargath stop, at about 51; the
+# Kargath's WANTED poster gives KILL ON SIGHT: Dark Iron Dwarves (4081) on the first Kargath stop, at about 52.5; the
 # run follows on the way through Blackrock Mountain to the Burning Steppes (the portal is down the walkways from
 # the bridge the route crosses), and Warlord Goretooth takes it on the last Kargath stop (`when complete`). Left
 # out: its follow-up poster (4082, offered once 4081 is handed in), Thunderheart's quests (3906 first: Overmaster

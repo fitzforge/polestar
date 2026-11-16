@@ -136,6 +136,15 @@ step A Final Blow
   collect 13207 quest 5242.3          -- Below ground
   collect 11515 x6 -- Corrupted Soul Shards from the cultists, Salve via Hunting
 
+step A Strange Red Key
+  when has 13140
+  tip A Blood Red Key dropped: the Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires of Shadow Hold carry one now and then. Use it to start the quest, then free Arko'narin from her cage in the cave's south end on your way out.
+  accept 5202 optional
+
+step Captured Arko'narin
+  when onquest 5202
+  turnin 5202                         -- Captured Arko'narin, below ground
+
 step Maybess Riverbreeze
   when available 5887
   tip On the way back south to Greta, Maybess takes the shards on the west side of the Sanctuary.

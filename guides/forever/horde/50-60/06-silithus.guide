@@ -54,8 +54,8 @@ step The Spirits of Southwind
 
 step Level 57
   when level<57
-  tip The Dredge Crushers (57-58) of the south-east are two over you below 57. First top up to 57 on the Dredge Strikers (55-56) on the sands east of Cenarion Hold, away from the Silithid Darters of the northern sands. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
-  goto 66.3,31.3 map 1451 "Dredge Striker"
+  tip The Dredge Crushers (57-58) of the south-east are two over you below 57. First top up to 57 on the Dredge Strikers (55-56) on the sands east of Cenarion Hold, where Sand Skitterers and Stonelash Scorpids (54-56) roam among them, away from the Silithid Darters of the northern sands. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
+  goto 64.5,41.0 map 1451 "Dredge Strikers"
   level 57 grind 11740                 -- grind on Dredge Striker
 
 step Level 58

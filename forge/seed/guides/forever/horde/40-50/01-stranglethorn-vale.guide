@@ -18,8 +18,8 @@ next forever/horde/40-50/01b-riverglades
 # 40-50/02's Grom'gol stop at about 45, after the Riverglades, where their mobs fit (here they ran 2-4 over the player,
 # #2353, #2102): Speaking with Gan'zulah (586), Mok'thardin's Enchantment and Akiris (573, 617), Stranglethorn Fever
 # (348), Voodoo Dues (609), Zanzil's Secret (621, Zanzil's camps 43-44) and the Wild Shore (604, 576, 587); Skullsplitter
-# Tusks (209) and Krazek's Tran'rek (2864) are handed in and taken on that stop's Booty Bay call too, so this guide makes
-# no Booty Bay flight of its own for them.
+# Tusks (209), taken on this guide's Booty Bay stops, is handed in on that stop's Booty Bay call, where Krazek's
+# Tran'rek (2864) is taken, so this guide makes no Booty Bay flight of its own for them.
 # Riding at 40: the Grom'gol stop after Zul'Kunda (about 41) offers each race's riding trainer by zeppelin, before the
 # Riverglades, a zone you cross on foot otherwise.
 
@@ -345,7 +345,7 @@ step Riding at 40
 step Your mount at 40
   only Warlock
   when level>=40
-  tip Warlocks don't buy riding: your mount is the Felsteed, from your class quest. Zevrost in Orgrimmar's Cleft of Shadow starts it and Strahad Farsan in Ratchet teaches it, both on the Feralas guide's Orgrimmar stop at about 44.
+  tip Warlocks don't buy riding: your mount is the Felsteed, from your class quest. Zevrost in Orgrimmar's Cleft of Shadow starts it and Strahad Farsan in Ratchet teaches it, both on the Feralas guide's Orgrimmar stop at about 45.
   note "Felsteed: Zevrost in Orgrimmar, then Strahad Farsan in Ratchet, on the Feralas guide's Orgrimmar stop."
 
 step The Vile Reef

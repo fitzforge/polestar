@@ -659,7 +659,7 @@ step Agama'gor
   accept 883 optional
 
 step Level 20
-  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  only Warrior,Rogue,Priest,Shaman,Warlock
   when level<20
   zone The Barrens
   tip Orgrimmar's level 20 class quests come right after the Crossroads, and they are offered only from 20. Still short of 20? The Bristleback Geomancers (19-20) hold Agama'gor around you: kill them until level 20. Or, with a group, run the Wailing Caverns dungeon instead.

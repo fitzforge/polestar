@@ -11254,11 +11254,11 @@
 				"goal": "accept"
 			},
 			"level": 30,
-			"note": "Horde 0.4.0 audit, round 2: Magus Wordeen Voidglare's quests on 30-40/01's last Tarren Mill stop and Alliance Relations (1431) on 30-40/02's first Orgrimmar stop are offered from level 30; the level model reaches them at about 29.5 without grinding, so the Alliance Relations chain (1431-1436, about 10,200 XP) was lost. The top-up sits at the Azurelode Mine (Hillsbrad Miners and Foremen, 26-28) right before that last Tarren Mill stop and shows the City of Dalaran dungeon as the group choice; Alliance Relations itself shows only from level 30.",
+			"note": "Horde 0.4.0 audit, rounds 2 and 4: Magus Wordeen Voidglare's quests on 30-40/01's last Tarren Mill stop and Alliance Relations (1431) on 30-40/02's first Orgrimmar stop are offered from level 30; the level model reaches them at about 29.5 without grinding, so the Alliance Relations chain (1431-1436, about 10,200 XP) was lost. The top-up sits right after the Azurelode Mine, before that last Tarren Mill stop. Round 4: it grinds on the Torn Fin Muckdwellers and Coastrunners (28-30, about 26 spawns) on the coast south of the mine instead of the mine's ten Foremen (27-28, two under the player), and names the Excavation Site in the Wetlands as the group choice: the Codex puts its floor at 28.2, while the City of Dalaran's is 31.5, two over the player at 29.5.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "quests 544 and 1431 minLevel 30 in Forever's quest data; npcs 2269 Hillsbrad Miner 26-27, 2503 Hillsbrad Foreman 27-28"
+					"ref": "quests 544 and 1431 minLevel 30 in Forever's quest data; npcs 2374 Torn Fin Muckdweller 28-29, 2375 Torn Fin Coastrunner 29-30, 2503 Hillsbrad Foreman 27-28; Codex journal dungeon floors"
 				}
 			]
 		},
@@ -11320,11 +11320,11 @@
 				"goal": "turnin"
 			},
 			"level": 55,
-			"note": "Horde 0.4.0 audit, round 2: see h-audit-040-r2-felwood-level-54-irontree. The second whole-level top-up is the last step of 50-60/02-felwood, on the Jaedenar Hounds (50-51) south of Bloodvenom Post, before Winterspring's quests (55-58).",
+			"note": "Horde 0.4.0 audit, rounds 2 and 4: see h-audit-040-r2-felwood-level-54-irontree. The second whole-level top-up is the last step of 50-60/02-felwood, before Winterspring's quests (55-58). Round 4: it grinds on Felpaw Village's Deadwood furbolgs (Den Watchers and Shamans 53-54, Avengers 54-55; the level model reaches it at about 54.4) on the road north to Timbermaw Hold's tunnel, which the next guide takes, instead of the Jaedenar Hounds (50-51) back south: mobs at the player's level give more experience per kill, and the kills raise the Timbermaw reputation the tunnel's furbolgs check.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "npc 7125 Jaedenar Hound 50-51"
+					"ref": "npcs 7156 Deadwood Den Watcher 53-54, 7157 Deadwood Avenger 54-55, 7158 Deadwood Shaman 53-54, 7125 Jaedenar Hound 50-51"
 				}
 			]
 		},
@@ -11336,12 +11336,81 @@
 				"goal": "turnin"
 			},
 			"level": 20,
-			"only": "Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock",
-			"note": "Horde 0.4.0 audit, round 2: the Barrens guide's Orgrimmar stop takes the level 20 class quests (Sorek's 1823, Searn's 1528, Shenthul's 2460, Gan'rul's 1507, the Priest's 5646), each offered from level 20; the level model reaches it at 19.6-19.8 on some branches, where the trainer refuses them. A top-up to 20 on the Bristleback Geomancers (19-20) at Agama'gor, the stop before the Crossroads, holds those classes back; Wailing Caverns is the group choice. Recorded players were past 20 there (25th percentile 21.0 at Lost in Battle's hand-in, 23 people).",
+			"only": "Warrior,Rogue,Priest,Shaman,Warlock",
+			"note": "Horde 0.4.0 audit, rounds 2 and 4: the Barrens guide's Orgrimmar stop takes the level 20 class quests (Sorek's 1823, Searn's 1528, Shenthul's 2460, Gan'rul's 1507, the Priest's 5646 and 5680), each offered from level 20; the level model reaches it at 19.6-19.8 on some branches, where the trainer refuses them. A top-up to 20 on the Bristleback Geomancers (19-20) at Agama'gor, the stop before the Crossroads, holds those classes back; Wailing Caverns is the group choice. Hunters and Mages have no level 20 quest on that stop, only training, so the top-up doesn't hold them (round 4: it cost them 77-110 level-model minutes for nothing). Recorded players were past 20 there (25th percentile 21.0 at Lost in Battle's hand-in, 23 people).",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "quests 1823, 1528, 2460, 1507 and 5646 minLevel 20 in Forever's quest data; npc 3263 Bristleback Geomancer 19-20"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-zimmix-northern-ruins",
+			"faction": "Horde",
+			"at": {
+				"quest": 97328,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of Zimmix, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by Zimmix first, and pull one at a time if you go north.",
+			"note": "Horde 0.4.0 audit, round 4: Zimmix and the southern Stolen Shipments (24.25,12.24) are among the Bloodscalp Scouts, Hunters and Mystics (34-35); the northern cluster (24.94,9.59, where 30 of 44 recorded players also picked) is 16-60 yd from Berserkers, Headhunters (36-37) and Witch Doctors (37). The level model reaches the step at about 34.1.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 597 Bloodscalp Berserker 36-37, 671 Bloodscalp Headhunter 36-37, 660 Bloodscalp Witch Doctor 37; object 661518 Stolen Shipment places in forever-db corrections"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-alliance-relations-takata",
+			"faction": "Horde",
+			"at": {
+				"quest": 1432,
+				"goal": "turnin"
+			},
+			"split": {
+				"title": "Takata Steelblade"
+			},
+			"note": "Horde 0.4.0 audit, round 4: Alliance Relations (1432) is taken in Orgrimmar only from level 30 (its step's `when level>=30`), so Takata Steelblade's hand-in at Ghost Walker Post is a step of its own (this split), which the guide shows only with the quest in the log (`when onquest 1432` on that step; a `when` record would land on the whole post step before the split); Felgur and Nataka's goals stay on the post's step, and Takata's and Maurin's follow-ups (1433-1435) a step after it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1431 minLevel 30, 1432 pre 1431 in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-alliance-relations-takata-and-maurin",
+			"faction": "Horde",
+			"at": {
+				"quest": 1433,
+				"goal": "accept"
+			},
+			"split": {
+				"title": "Takata and Maurin"
+			},
+			"note": "Horde 0.4.0 audit, round 4: see h-audit-040-r4-alliance-relations-takata.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests 1433, 1434 pre 1432 in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-bring-me-his-head-after-carving-a-path",
+			"faction": "Horde",
+			"at": {
+				"quest": 94768,
+				"goal": "accept"
+			},
+			"when": "turnedin 94745",
+			"note": "Horde 0.4.0 audit, round 4: Da'grosh offers Bring Me His Head only after Carving a Path (94745) and Break Their Chains (94748), which the Riverglades guide shows only to players who did Chogg'Zac; a player who skipped him and chose group content was sent to Da'grosh for a quest he wouldn't offer.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 94768 pre 94745, 94748 in Forever's quest data"
 				}
 			]
 		}

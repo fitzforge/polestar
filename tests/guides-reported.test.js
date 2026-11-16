@@ -8094,6 +8094,22 @@ test("forever/horde/50-60/04-azshara.guide: level tidy: Kim'jael's rune on a sho
 	assert.ok(turnin < at(list, 'turnin 91500', is('turnin', 91500)), 'before Valormok');
 });
 
+// Horde level tidy, round 4 (0.4.0): the Blood Red Key drops only in Shadow Hold (Jaedenar Enforcers, Darkweavers,
+// Warlocks, Legionnaires, Ulathek), and Arko'narin's cage stands among Legionnaires (55): 50-60/02 at 53 sent a player
+// who strayed north into the cave for a hand-in. 50-60/07 clears Shadow Hold at about 59.7: the key is taken and
+// handed in there, after A Final Blow's bosses and before Greta.
+test('Horde Felwood: A Strange Red Key on the 59-60 Shadow Hold visit, not at 53', { skip }, () => {
+	const early = goals('forever/horde/50-60/02-felwood.guide');
+	assert.ok(!early.some(({ goal }) => goal.quest === 5202), '02 (about 53) never sends you to the cage');
+	const list = goals('forever/horde/50-60/07-felwood.guide');
+	const take = at(list, 'accept 5202', is('accept', 5202));
+	const cage = at(list, 'turnin 5202', is('turnin', 5202));
+	assert.ok(list[take].step.when.some((p) => p.k === 'has'), 'only with the key');
+	assert.ok(list[cage].step.when.some((p) => p.k === 'onquest'), 'the cage only with the quest');
+	assert.ok(at(list, 'kill 9860', (g) => g.t === 'kill' && g.npc === 9860) < take, 'after the Shadow Hold bosses');
+	assert.ok(take < cage && cage < at(list, 'turnin 5242', is('turnin', 5242)), 'handed in before the ride back to Greta');
+});
+
 // Horde 50-60 audit (0.4.0): Venom Bottles (2933, level 43) was handed in to Apothecary Lydon at about 52.4, which gives
 // 20% of its experience (about 720 XP), and the flight from Kargath landed at Tarren Mill only for it. It is out of
 // the route (taken in neither guide); the flight from Kargath goes straight to the Undercity.
@@ -9481,17 +9497,20 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 // (they are offered from 29-30; the top-up kept their 32-36 levels within reach), and the level 30 top-up
 // by Tarren Mill had no dungeon to run instead of the yetis. Since the level tidy (2026-11-15) Hammerfall's quests
 // and Tarren Mill's 33-36 quests come on the 38-39 visit; Hillsbrad keeps one top-up, to 30, for the quests offered
-// from 30 on its last Tarren Mill stop and the next guide's first (Horde 0.4.0 audit, round 2).
-test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers the City of Dalaran', { skip }, () => {
+// from 30 on its last Tarren Mill stop and the next guide's first (Horde 0.4.0 audit, round 2). Round 4: the dungeon
+// it offers is one whose floor fits the player there (the Excavation Site, 28.2; the City of Dalaran's is 31.5), and
+// it grinds on the Torn Fin murlocs (28-30) on the coast below the mine, not the mine's Foremen (27-28).
+test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers a dungeon at its level', { skip }, () => {
 	data = data || loadData(DATA);
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	// Horde 0.4.0 audit (round 2): one top-up to 30 at the Azurelode Mine, right before the last Tarren Mill stop, so
+	// Horde 0.4.0 audit (round 2): one top-up to 30 after the Azurelode Mine, right before the last Tarren Mill stop, so
 	// Voidglare's quests there and Alliance Relations in the next guide's Orgrimmar (both offered from 30) are open.
 	const tops = goals(guide).filter(({ goal }) => goal.t === 'level');
 	assert.deepEqual(tops.map(({ goal }) => goal.level), [30], 'one top-up in Hillsbrad, to 30');
 	const tip = [tops[0].step.note, tops[0].step.tip].flat().filter(Boolean).join(' ');
 	assert.match(tip, /offered from level 30/, 'it says why');
-	assert.match(tip, /City of Dalaran/, 'it offers the City of Dalaran');
+	assert.match(tip, /run the Excavation Site dungeon/, 'it offers the Excavation Site, whose floor (28.2) is under the player');
+	assert.ok(data.npcs[tops[0].goal.grind].level >= 28, 'its camp is at the player\'s level, not the mine\'s Foremen (27-28)');
 	const arathi = goals('forever/horde/30-40/05-arathi-highlands.guide');
 	for (const q of [655, 672, 677, 97539]) {
 		assert.ok(data.quests[q].minLevel <= 30, `${q} is offered below 31`);

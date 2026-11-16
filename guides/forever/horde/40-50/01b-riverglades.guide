@@ -13,7 +13,7 @@ next forever/horde/40-50/02-feralas
 # recordings of the zone (123 sessions to 2026-11-12) and Forever's quest data (the client's quest records,
 # QuestieDB 1.0.16 and EG Link) for titles, levels, objectives and places.
 # Order: the way in on foot from Kargath through Twilight's Shroud (after the Stranglethorn Vale & Swamp of Sorrows
-# guide, about level 43: a flight from Stonard to Kargath, then Rog'mar first and Sleebo's workshop), or by the goblin
+# guide, about level 42: a flight from Stonard to Kargath, then Rog'mar first and Sleebo's workshop), or by the goblin
 # boat from Tanaris for a character without Kargath's flight path (Powderfuse Port, Sleebo's workshop, then Rog'mar);
 # Rog'mar (flight path, inn), Neza Bloodsnout's three hunts on the plains with Sleebo's marsh on the first one, a western loop
 # (Turner's Logging Camp, the Bristle Hills, Gelinda Coppergleam's Cinderscale hollow, Meadowsbrook) and the hearth
@@ -647,6 +647,7 @@ step Da'grosh
 
 step Bring Me His Head
   when group 94768
+  when turnedin 94745
   tip Overlord Kilgar is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised.
   accept 94768                          -- Da'grosh
   collect 265837 quest 94768.1 @26.1,43.9  -- Kilgar's Head

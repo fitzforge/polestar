@@ -418,7 +418,7 @@ step Freewind Post
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  note Jandia's two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at 31.
+  note Jandia's two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30.
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -452,7 +452,7 @@ step Dorn Plainstalker
   complete 1149
   turnin 1149
   accept 1150                         -- Dorn Plainstalker: Grenka Bloodscreech, in the harpy den west of the post
-  note Test of Endurance (Grenka Bloodscreech, 31) waits for the next Freewind visit, at 31: keep it.
+  note Test of Endurance (Grenka Bloodscreech, 31) waits for the next Freewind visit, at about 30: keep it.
 
 step Freewind Post
   turnin 4841                         -- Cliffwatcher Longhorn
@@ -535,7 +535,7 @@ step Freewind Post
   accept 98070                        -- Jandia, inside the inn
   accept 98069                        -- Jandia
   vendor nearest optional
-  note Keep Jandia's two harpy quests and Dorn's Test of Endurance: Roguefeather Den comes with the next Freewind visit, at 31, with the Mirage Raceway's quests.
+  note Keep Jandia's two harpy quests and Dorn's Test of Endurance: Roguefeather Den comes with the next Freewind visit, at about 30, with the Mirage Raceway's quests.
 
 step Level 29
   when level<29

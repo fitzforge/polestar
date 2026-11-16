@@ -198,12 +198,13 @@ step The Savage Coast: kill these as you meet them
 step Zimmix Sputterspark
   zone Stranglethorn Vale
   tip Zimmix Sputterspark is held at the east edge of the Ruins of Zul'Kunda; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his Primitive Key. Then lead him out of the ruins: Wharfmaster Lozgil in Booty Bay takes the news and the shipments.
+  tip Careful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of Zimmix, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by Zimmix first, and pull one at a time if you go north.
   accept 97329 @23.46,12.79           -- Zimmix Sputterspark
   collect 277953 quest 97328.1 @24.25,12.24 -- Stolen Shipments, in the ruins
   collect 277957 quest 97329.1        -- Primitive Key, from the Bloodscalp Scouts, Hunters and Mystics
   turnin 97329
   accept 97331
-  complete 97331                      -- Escort Zimmix out of the ruins
+  note Escort Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe.
 
 step Nesingwary's camp
   turnin 194                          -- Hemet Nesingwary

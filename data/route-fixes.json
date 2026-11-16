@@ -9827,7 +9827,7 @@
 					"turnin",
 					1178
 				],
-				"reason": "Quest volume (0.3.6, Horde 30-40 to 40-50 seam): Goblin Sponsorship (level 37, from 29, 700 XP) is Gazlowe's next errand on the 30-40/03 Ratchet stop that hands in 1178; the boat lands beside Wharfmaster Lozgil in Booty Bay, and Baron Revilgaz's 1181 (290 XP) and 1182 (Cozzle's footlocker at Lake Nazferiti, 2,850 XP, where 03 works the geologists) follow in the same town; 1183 goes to Pozzik on 40-50/02's Raceway stop. Giver, ender and level agree in every source (page, EG, Questie, collector XP). No walk added.",
+				"reason": "Quest volume (0.3.6, Horde 30-40 to 40-50 seam): Goblin Sponsorship (level 37, from 29, 700 XP) is Gazlowe's next errand on the 30-40/03 Ratchet stop that hands in 1178; the boat lands beside Wharfmaster Lozgil in Booty Bay, and Baron Revilgaz's 1181 (290 XP) follows in the same town. Giver, ender and level agree in every source (page, EG, Questie, collector XP). No walk added.",
 				"issue": "-"
 			},
 			{
@@ -14678,6 +14678,32 @@
 				],
 				"faction": "Horde",
 				"why": "Horde level tidy, round 3 (0.4.0): Kim'jael's rune comes off the Spitelash at the northern edge of the Ruins of Eldarath, south of Kim'jael, and goes back to him before the road south-west, so Ekkal (on that road, 42.0,38.9) takes the satyrs on the way home to Valormok and the road is ridden once.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"task",
+					5242
+				],
+				"b": [
+					"accept",
+					5202
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy, round 4 (0.4.0): the Blood Red Key that starts A Strange Red Key drops only from Shadow Hold's Jaedenar Enforcers, Darkweavers, Warlocks and Legionnaires and Ulathek (52-57, about 3% each; Forever's quest data), and Captured Arko'narin's cage stands among three Legionnaires (55) in the cave's south end. 50-60/02 at about 53 never sends the player into the cave (its Jaedenar quests are the southern camp's), so the key fired there only for a player who strayed north and then sent him two levels up for a hand-in; 50-60/07 clears Shadow Hold for A Final Blow at about 59.7, so the key is taken and handed in there, on the way out.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5202
+				],
+				"b": [
+					"turnin",
+					5242
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy, round 4 (0.4.0): Arko'narin's cage is in Shadow Hold, so A Strange Red Key is handed in on the way out of the cave, before the ride back to Greta Mosshoof (see the pair before).",
 				"source": "review"
 			},
 			{

@@ -327,8 +327,15 @@ step Ghost Walker Post
   tip Felgur stands in the post, Nataka Longhorn up on its rise; Takata Steelblade and Maurin Bonesplitter wait on the rise west of it, above the Kodo Graveyard.
   accept 1365                         -- Felgur Twocuts
   turnin 5361                         -- Nataka Longhorn, up on the rise
+
+step Takata Steelblade
+  when onquest 1432
+  zone Desolace
   turnin 1432                         -- Takata Steelblade
-  accept 1433
+
+step Takata and Maurin
+  zone Desolace
+  accept 1433                         -- Takata Steelblade
   accept 1434
   turnin 1433                         -- Maurin Bonesplitter
   accept 1435

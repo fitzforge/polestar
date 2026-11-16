@@ -351,9 +351,9 @@ step Azurelode Mine
 step Level 30
   when level<30
   zone Hillsbrad Foothills
-  tip Magus Wordeen Voidglare's quests on the next Tarren Mill stop and Alliance Relations in Orgrimmar, the next guide's first stop, are offered from level 30. Short of 30? Keep killing the Hillsbrad Miners and Foremen (26-28) in the Azurelode Mine until level 30. Or, with a group, run the City of Dalaran dungeon instead.
-  goto 29.7,55.4 map 1424 "Hillsbrad Foremen"
-  level 30 grind 2503                 -- grind on Hillsbrad Foreman
+  tip Magus Wordeen Voidglare's quests on the next Tarren Mill stop and Alliance Relations in Orgrimmar, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the Azurelode Mine, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the Wetlands) instead.
+  goto 29.5,71.5 map 1424 "Torn Fin murlocs"
+  level 30 grind 2375                 -- grind on Torn Fin Coastrunner
 
 step Finish the Turtle Meat
   when onquest 7321
