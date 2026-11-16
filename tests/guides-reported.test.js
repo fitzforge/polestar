@@ -5238,6 +5238,8 @@ test("forever/class/paladin/lumina-windsinger.guide: Free Lumina waits for the e
 	assert.equal(list[escort].s, list[accept].s, "in the accept's step");
 	assert.equal(list[escort].goal.escort, true, 'marked as an escort');
 	assert.ok(escort < at(list, 'turnin 96204', is('turnin', 96204)), 'before the hand-in');
+	const { goal } = list[escort];
+	assert.ok(goal.map === 1421 && Math.hypot(goal.x - 65.7, goal.y - 29.7) < 1, `leads where the escort ends (${goal.map} ${goal.x},${goal.y})`);
 });
 
 // #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
