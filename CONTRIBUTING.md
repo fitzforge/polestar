@@ -290,23 +290,22 @@ maintainer regenerates those after merging your PR.
 | Branch | Holds |
 |---|---|
 | `main` | The latest release, what players have. It moves only when a release is made. |
-| `next` | The next release (the repository's default branch). Every pull request goes here, unless a development branch is open (below). |
-| `dev-<version>` | While one is open (now `dev-041`, for 0.4.1): the coming feature release, built up while patch releases are still made from `next`. |
+| `next` | Everything for coming releases (the repository's default branch). **Every pull request goes here.** |
+| `release/<version>` | A feature release being tested, cut from `next` when it freezes (for example `release/0.4.1`). Only fixes for that release go in. |
+| `hotfix/<version>` | An urgent fix to what players have, cut from the latest release's tag (for example `hotfix/0.4.0.2` from `v0.4.0.1`). |
 
 Pull requests go to **`next`**: guide fixes, the addon, the tools, the data
-builds, translations, new guides and route refreshes. Never to `main`; the
-`Base branch` check fails those. `main` moves only when a release is made:
-it is fast-forwarded to `next` and tagged. A patch release is just a version
-bump (`x.y.Z`) from `next`, sooner than a feature release.
-docs/RELEASING.md has the release side.
+builds, translations, new guides, new features and route refreshes. Never to
+`main`; the `Base branch` check fails those. `next` keeps taking pull requests
+while a release is tested: the freeze happens on its `release/` branch, not on
+`next`.
 
-**While a development branch is open** (`dev-041` now), new features and
-guide-format changes go to it, and fixes to the released version go to
-`next`. The maintainers merge `next` into the development branch after every
-patch release, so it never falls behind; the development branch goes to
-`next` as a whole when its release is made. Both are on GitHub and take
-changes only through a pull request with green CI, so you can always base new
-work on what is there.
+The `release/` and `hotfix/` branches are the maintainers'. A fix found while
+a release is tested goes to its `release/` branch, and an urgent fix for
+players goes to a `hotfix/` branch; a maintainer asks you on your pull request
+when that applies. When a release or a hotfix ships, `main` moves to it, it is
+tagged, and the branch is merged back into `next`, so nothing is lost.
+docs/RELEASING.md has the release side.
 
 **Once your pull request is merged, don't push to it again,** not even a
 rebase: GitHub shows it as merged because your exact commits are in the base

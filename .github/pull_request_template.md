@@ -1,4 +1,4 @@
-<!-- Base branch: next, or the open development branch (dev-041) for a new feature; never main. See CONTRIBUTING.md, "Branches". -->
+<!-- Base branch: next, never main (release/ and hotfix/ branches only when a maintainer asks). See CONTRIBUTING.md, "Branches". -->
 
 ## Issues
 

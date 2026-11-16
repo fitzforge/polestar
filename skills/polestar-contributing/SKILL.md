@@ -77,15 +77,16 @@ the issue first. CONTRIBUTING.md, "Before you start", is the long form.
 
 ## Which branch
 
-Pull requests go to **`next`**, the repository's default branch, unless a
-development branch is open: then new features and guide-format changes go to
-it (now `dev-041`, for 0.4.1) and fixes to the released version go to `next`.
-Never to `main`; the `Base branch` check fails those. CONTRIBUTING.md,
-"Branches", is the long form.
+Every pull request goes to **`next`**, the repository's default branch.
+Never to `main`; the `Base branch` check fails those. `release/<version>`
+(a release being tested) and `hotfix/<version>` (an urgent fix, cut from the
+live release's tag) are the maintainers' branches: use one only when a
+maintainer asks on your pull request. CONTRIBUTING.md, "Branches", is the
+long form.
 
-- Never push to `main`, `next` or a `dev-` branch directly.
-- A patch release is just a smaller, sooner release from `next` (version
-  bump `x.y.Z`).
+- Never push to `main`, `next`, a `release/` or a `hotfix/` branch directly.
+- A patch release is cut by the maintainer from the live release's tag on a
+  `hotfix/` branch, then merged back into `next`.
 - Once a pull request is merged, never push to it again, not even a rebase:
   it shows as merged because its exact commits are in the base branch. A
   follow-up is a new pull request.
