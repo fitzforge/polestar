@@ -37,11 +37,52 @@ local function cmd(text)
 	return "|c" .. Theme.Hex("text") .. text .. "|r"
 end
 
+-- A zone by its map ID in the client's language (Forever's new zones have
+-- no name of Polestar's own to translate).
+local function zone(id, english)
+	return ns.Compat.GetMapName(id) or english
+end
+
 -- The releases' notes, newest first. Each note: its glyph and colour, its
 -- heading and its line (a function, so the commands it names take the
 -- theme's colours when shown), and the setting it is about when it has one
 -- (`setting`, a settings key: the note opens the settings on it).
 local NOTES = {
+	{
+		version = "0.4.0",
+		notes = {
+			{ glyph = "icon-forever", color = "accent", head = L["Two new zones in your route"], text = function()
+				return L["%s and %s are now part of the 1 to 60 route, for both factions."]:format(zone(2548, "Riverglades"), zone(2652, "Shen'dralas"))
+			end },
+			{ glyph = "guides", color = "accent", head = L["Safer, smoother routes"], text = function()
+				return L["Every zone reviewed: less walking back, less grinding, fewer mobs well above your level."]
+			end },
+			{ glyph = "icon-dungeon", color = "accent", head = L["A dungeon instead of a grind"], text = function()
+				return L["Grind steps suggest a dungeon that fits you now, with the game's own level ranges."]
+			end },
+			{ glyph = "icon-turnin", color = "accent", head = L["Finished quests stay found"], text = function()
+				return L["Handed in where the route passes their NPC; when a guide ends, it says what carries on."]
+			end },
+			{ glyph = "sliders", color = "accent", head = L["A new settings window"], text = function()
+				return L["Live previews, search that answers questions, Undo, and a short %s for new characters."]:format(L["Install"])
+			end },
+			{ glyph = "palette", color = "accent", head = L["New and rebuilt skins"], setting = "ui.skin", text = function()
+				return L["Nine new skins; %s, %s, %s and %s rebuilt, arrow and all."]:format(L["WoW Forever"], L["Blizzard"], L["Classic"], L["Hearth"])
+			end },
+			{ glyph = "qol-target", color = "accent", head = L["A target list"], setting = "qol.targetRows", text = function()
+				return L["The target button lists the step's mobs and what they drop; click one to target it."]
+			end },
+			{ glyph = "icon-repair", color = "accent", head = L["Small helpers"], setting = "behavior.whileHereVendors", text = function()
+				return L["Sell and repair reminders before you leave town; compact mode now has tabs."]
+			end },
+			{ glyph = "icon-talk", color = "accent", head = L["Fully translated"], text = function()
+				return L["In 9 languages, now with German and Latin American Spanish guides. Thanks, translators!"]
+			end },
+			{ glyph = "check", color = "success", head = L["Fixes from your reports"], text = function()
+				return L["Caves, cities, flights and more. Found something off? Type %s."]:format(cmd("/polestar report"))
+			end },
+		},
+	},
 	{
 		version = "0.3.7",
 		notes = {
