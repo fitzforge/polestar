@@ -94,6 +94,23 @@ fn run_before(before: &str, script: &str) -> Value {
 }
 
 #[test]
+fn the_finished_list_can_include_every_ready_quest_without_a_selected_route() {
+	let out = run(r#"
+		local function quests(all)
+			local out = {}
+			for _, c in ipairs(Polestar.RoutePlan.Carried(all) or {}) do out[#out + 1] = c.quest end
+			return out
+		end
+		local advisory, all = quests(false), quests(true)
+		while #E.GetTabs() > 0 do E.CloseTab(1) end
+		emit({ advisory = advisory, all = all, withoutGuide = quests(true) })
+	"#);
+	assert_eq!(out["advisory"], json!([40]), "the off-route reminder keeps its meaning");
+	assert_eq!(out["all"], json!([40, 41, 44, 45]), "the requested hand-in list includes this route, later guides and carried quests");
+	assert_eq!(out["withoutGuide"], json!([40, 41, 44, 45]), "ready quests do not depend on a selected leveling guide");
+}
+
+#[test]
 fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_while_here() {
 	let out = run(r#"
 		local r = {}
@@ -110,7 +127,7 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		F.Switch:Click()
 		r.room = { plain(F.Title:GetText()), plain(F.rows[1].Title:GetText()), plain(F.rows[1].Why:GetText()), F.rows[1].Abandon:IsShown(), F.GuideMe:IsShown(),
 			plain(F.Switch.Label:GetText()) }
-		-- Guide me: a hand-in guide, one stop at Dughan.
+		-- Guide me: Dughan, then the other finished quests whose enders are unknown.
 		F.GuideMe:Click(); flush()
 		local g = E.GetGuide()
 		r.guide = { g.id, g.steps[1].title, g.steps[1].goals[1].t, g.steps[1].goals[1].quest, #g.steps }
@@ -118,13 +135,13 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 	"#);
 	assert_eq!(out["carried"], json!([[40, "unplanned", true, 800]]), "{out}");
 	assert_eq!(out["here"], json!([[-2, 40, "Hand in “A Fishy Peril” to Marshal Dughan", "Not handed in on the route ahead"]]), "{out}");
-	assert_eq!(out["switch"], json!([true, "Finished quests you're still carrying (1)"]), "{out}");
+	assert_eq!(out["switch"], json!([true, "Finished quests you're still carrying (4)"]), "{out}");
 	assert_eq!(
 		out["room"],
 		json!(["Finished quests you're still carrying", "A Fishy Peril", "Grey: no XP any more  ·  Marshal Dughan, Elwynn Forest", true, true, "Make room in your quest log"]),
 		"{out}"
 	);
-	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 2]), "{out}");
 }
 
 // LeftBehind counts the hand-ins placed on this route before the guide jumped to (41 in test/a, 44 in test/b),

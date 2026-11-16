@@ -73,7 +73,7 @@ function measure(mode)
 	end
 	return { height = F:GetHeight(), screen = UIParent:GetHeight(), rows = rows, inList = inList, widths = widths,
 		scrolls = list ~= nil and list.psContent ~= nil and list.psContent > list:GetHeight(),
-		switch = F.Switch:IsShown() and F.Switch:GetParent() == F, guideMe = F.GuideMe:GetParent() == F }
+		switch = F.Switch:IsShown() and F.Switch:GetParent() == F, guideMe = F.GuideMe:IsShown() and F.GuideMe:GetParent() == F }
 end"#,
 			script,
 		]
@@ -123,4 +123,65 @@ emit({ title = r.Title:GetText(), cut = r.Title:IsTruncated() or r.Why:IsTruncat
 	assert_eq!(out["tip"][0], format!("{LONG} (finished)"), "{out}");
 	assert_eq!(out["tip"][1], "Самонаводящийся робот КПХ-9/HL, Внутренние земли Хинтерленда", "{out}");
 	assert_eq!(out["title"], json!(format!("{LONG} (finished)")), "{out}");
+}
+
+#[test]
+fn guide_me_uses_all_finished_quests_and_opens_the_existing_guide_even_without_known_locations() {
+	let out = run(
+		768,
+		r#"local starts, allCalls = 0, 0
+Polestar.RoutePlan.Carried = function(all)
+	assert(all == true, "the quest room must include finished quests already on a route")
+	allCalls = allCalls + 1
+	return { { quest = 9005, title = "Finished quest" } }
+end
+Polestar.RoutePlan.Ender = function() return nil end
+Polestar.Handins.Start = function() starts = starts + 1; return "lookup/carried/log" end
+local room = measure()
+local carried = measure("carried")
+local before, hint, why = starts, F.Hint:GetText(), F.rows[1].Why:GetText()
+F.GuideMe:Click()
+emit({ room = room, carried = carried, before = before, starts = starts, allCalls = allCalls,
+	hint = hint, why = why, shown = F:IsShown() })"#,
+	);
+	assert_eq!(out["room"]["switch"], true, "the existing Make room path reaches all finished quests: {out}");
+	assert_eq!(out["carried"]["rows"], 1, "{out}");
+	assert_eq!(out["carried"]["guideMe"], true, "unknown locations still allow a manual hand-in guide: {out}");
+	assert_eq!(out["before"], 0, "listing quests does not start a guide: {out}");
+	assert_eq!(out["starts"], 1, "Guide me delegates once to the shared planner: {out}");
+	assert_eq!(out["allCalls"], 2, "both the switch and carried list request every finished quest: {out}");
+	assert_eq!(out["why"], "Where it is turned in is not known", "{out}");
+	assert_eq!(out["shown"], false, "the window closes after the guide opens: {out}");
+	assert!(!out["hint"].as_str().unwrap().contains("route ahead never hands"), "the list includes quests on routes: {out}");
+}
+
+#[test]
+fn guide_me_preserves_the_planners_error_message_and_keeps_the_window_open() {
+	let out = run(
+		768,
+		r#"local printed, failures = {}, {}
+Polestar.Print = function(text) printed[#printed + 1] = text end
+for _, why in ipairs({ "tabs", "combat", "nothing" }) do
+	Polestar.Handins.Start = function() Polestar.Print("Planner: " .. why); return nil, why end
+	measure("carried")
+	F.GuideMe:Click()
+	failures[#failures + 1] = F:IsShown()
+end
+emit({ printed = printed, shown = failures })"#,
+	);
+	assert_eq!(out["printed"], json!(["Planner: tabs", "Planner: combat", "Planner: nothing"]), "the UI must not replace or duplicate the planner's error: {out}");
+	assert_eq!(out["shown"], json!([true, true, true]), "{out}");
+}
+
+#[test]
+fn the_finished_list_has_an_empty_log_message_and_no_guide_action_when_nothing_is_ready() {
+	let out = run(
+		768,
+		r#"Polestar.RoutePlan.Carried = function(all) assert(all == true); return {} end
+local carried = measure("carried")
+emit({ carried = carried, hint = F.Hint:GetText() })"#,
+	);
+	assert_eq!(out["carried"]["rows"], 0, "{out}");
+	assert_eq!(out["carried"]["guideMe"], false, "{out}");
+	assert_eq!(out["hint"], "No quests in your log are ready to hand in.", "{out}");
 }

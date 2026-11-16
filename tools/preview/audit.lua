@@ -46,9 +46,6 @@ preview.entryExtra = function(o, e)
 	if m ~= nil then e.mouse = m end
 	if rawget(o, "hitInsets") then e.hitInsets = o.hitInsets end
 	if rawget(o, "enabled") == false then e.disabled = true end
-	-- Menu rows keep their inactive state on the item, not Button:Disable().
-	local item = rawget(o, "psItem")
-	if type(item) == "table" and item.disabled then e.disabled = true end
 	local icon = rawget(o, "psIconName")
 	if type(icon) == "string" then e.icon = icon end
 	if rawget(o, "psTabClose") then e.tabClose = true end

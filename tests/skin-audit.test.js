@@ -108,18 +108,3 @@ test('the audit reports each kind of breakage a probe makes', { timeout: 5 * 60 
 	const missed = DETECTORS.filter((d) => !findings.some((f) => f.surface === d.surface.key && f.check === d.check && `${f.where}: ${f.detail}`.includes(d.match)));
 	assert.deepEqual(missed.map((d) => `${d.surface.key}: no ${d.check} finding`), [], findings.map(line).join('\n'));
 });
-
-test('disabled menu actions keep their inactive state in the audit', async () => {
-	const surface = {
-		...PROBE('disabled-menu', `Polestar.Widgets.ShowMenu(GF.menuButton, {
-	{ text = "Audit disabled action", disabled = true, onClick = function() error("disabled action ran") end },
-	{ text = "Audit enabled action", onClick = function() end },
-})
-assert(PolestarMenu.rows[1].psItem.disabled, "missing disabled menu action")
-assert(not PolestarMenu.rows[2].psItem.disabled, "enabled menu action was disabled")`, ['PolestarMenu']),
-		targets: ['PolestarMenu'],
-	};
-	const { findings, runs } = await audit({ looks: LOOKS.filter((l) => l.id === 'polestar'), surfaces: [surface], scales: [1] });
-	assert.equal(runs.length, 1);
-	assert.deepEqual(findings.map(line), []);
-});

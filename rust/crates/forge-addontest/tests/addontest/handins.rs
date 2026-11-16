@@ -5,7 +5,7 @@ use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts};
 use forge_addontest::{emitted, lua_value, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const ID: &str = "lookup/handins/ready";
+const ID: &str = "lookup/carried/log";
 
 #[path = "handins-routing.rs"]
 mod routing;
@@ -282,7 +282,7 @@ fn a_saved_route_waits_for_the_quest_log_then_restores_ready_quests() {
 		r#"
 local before = tabIds()
 w.onQuest(7101, {}); w.onQuest(7103, {}); stub.fire('QUEST_LOG_UPDATE'); settle()
-emit({before=before, after=tabIds(), ids=ids(Polestar.Guides.Get('lookup/handins/ready'))})
+emit({before=before, after=tabIds(), ids=ids(Polestar.Guides.Get('lookup/carried/log'))})
 "#,
 	);
 	assert_eq!(out["before"], json!([ID]));
@@ -354,9 +354,17 @@ emit({first=first, again=action()})
 }
 
 #[test]
-fn the_handin_command_opens_the_route_through_the_real_command_dispatcher() {
-	let out = run("w.onQuest(7101,{})", None, "Polestar.RunCommand('handin'); settle(); emit({tabs=tabIds(), active=E.GetGuide().id, quests=ids(E.GetGuide())})");
-	assert_eq!(out, json!({"tabs":[ID], "active":ID, "quests":[7101]}));
+fn the_existing_carried_planner_is_the_only_finished_quest_guide() {
+	let out = run(
+		"w.onQuest(7101,{})",
+		None,
+		r#"
+local id = L.Guide('carried', 'log'); settle()
+local duplicate = L.BuildGuide('handins', 'ready')
+emit({tabs=tabIds(), active=E.GetGuide().id, title=E.GetGuide().title, quests=ids(E.GetGuide()), duplicate=duplicate ~= nil})
+"#,
+	);
+	assert_eq!(out, json!({"tabs":[ID], "active":ID, "title":"Hand in your finished quests", "quests":[7101], "duplicate":false}));
 }
 
 #[test]

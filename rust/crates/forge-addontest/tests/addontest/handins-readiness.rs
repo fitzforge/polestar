@@ -4,6 +4,25 @@ use super::{codex, run, run_with};
 use serde_json::json;
 
 #[test]
+fn a_new_unknown_recipient_does_not_inherit_an_earlier_manual_steps_checkoff() {
+	let out = run(
+		"w.onQuest(7106,{})",
+		None,
+		r#"
+H.Start(); settle()
+E.ToggleGoal(1,1); settle()
+local checked = E.GetTabs()[1].complete == true
+w.abandon(7106); w.onQuest(7105,{}); stub.fire('QUEST_LOG_UPDATE'); settle()
+emit({checked=checked, live=E.GetLiveStep() or false, complete=E.GetTabs()[1].complete == true, notes=notes(E.GetGuide())})
+"#,
+	);
+	assert_eq!(out["checked"], true, "the earlier manual step was checked off");
+	assert_eq!(out["live"], 1, "a different unknown hand-in must be visible again");
+	assert_eq!(out["complete"], false);
+	assert!(out["notes"].as_str().unwrap().contains("Hostile Recipient"));
+}
+
+#[test]
 fn unflagged_deliveries_need_no_client_or_codex_objectives_and_must_not_be_failed() {
 	let mut data = codex();
 	data["quests"]["7108"]["objectives"] = json!([{ "type":"kill", "id":5001, "count":1 }]);

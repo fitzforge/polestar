@@ -2608,11 +2608,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   character's side nearest the player (`Lookup.QuestEnd`). The guide
   window's "Still to do" list gives them one row, "N finished quests to hand
   in elsewhere (X XP)", and Make room shows a "Finished quests you're still
-  carrying (N)" button while there are any; either opens
-  `UI.ShowQuestRoom("carried")`: each quest
+  carrying (N)" button for all finished quests; either opens
+  `UI.ShowQuestRoom("carried")`, whose `RoutePlan.Carried(true)` includes
+  every ready quest even without a selected route: each quest
   with who takes it in and where, an Abandon button on a grey one, and
   Guide me (the Lookup planner kind `carried`, `lookup/carried/log`: one
-  stop per ender, nearest first). While you're here hands them in too
+  stop per ender, ordered by estimated travel time; see "Completed quests
+  across the quest log"). While you're here hands stranded quests in too
   (Engine `Own.hereStranded`, after `Own.hereGroups`): a finished quest no
   step of the loaded guide from the live one on hands in, whose ender
   stands on the player's map, is a hand-in line
@@ -7828,14 +7830,19 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
 
 ### Completed quests across the quest log
 
-`addon/Polestar/Lookup/Handins.lua` provides `Polestar.Handins.Start()`:
-the guide window menu's **Hand in completed quests** and `/polestar handin`
-both use it. The player starts the route explicitly. It considers the
+`addon/Polestar/Lookup/Handins.lua` builds the existing `carried` planner's
+**Hand in your finished quests** guide. The quest room's **Guide me** uses
+`Polestar.Handins.Start()` to open it explicitly. `/polestar questlog` opens
+the quest room even when its cleanup list is empty; its finished-quest
+button reaches this guide. It considers the
 whole quest log, including quests outside the current zone and leveling
-guide. It takes quests the client reports ready, and plain deliveries
+guide. `RoutePlan.Ready()` selects quests the client reports ready, and plain deliveries
 whose client and Codex records both have no objectives. Failed quests are
-excluded. It adds no follow-up accepts or unfinished objectives. The menu
-action is disabled when nothing is eligible.
+excluded. It adds no follow-up accepts or unfinished objectives. The quest
+room offers Guide me for every nonempty finished list, including one whose
+hand-in locations are all unknown. The existing off-route reminder keeps
+using `RoutePlan.Carried()`; the quest room and planner use the all-ready
+selection without depending on the active guide's route.
 
 Its turn-in goals set `currentLog = true`, a runtime guide-goal flag valid
 only on `turnin`. Such a goal completes when the quest leaves the log,
@@ -7843,8 +7850,9 @@ independently of previous completion flags or check-offs. Quest history
 used by prerequisites and `turnedin` predicates is unchanged; Core does
 not recognize a particular generated guide's ID.
 
-The generated guide, `lookup/handins/ready`, groups quests at a shared
-ender. `Lookup/HandinRoute.lua` supplies a quick provisional order using
+The generated guide keeps its existing ID, `lookup/carried/log`, and groups
+quests at a shared ender from `RoutePlan.Ender`. `Lookup/HandinRoute.lua`
+supplies a quick provisional order using
 direct-distance estimates from the player's position. It refines a sparse
 set of travel costs: the player to each stop, and each stop to its two
 nearest neighbors and its provisional successor. Other pairs use the

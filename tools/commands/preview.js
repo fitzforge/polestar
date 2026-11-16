@@ -2116,13 +2116,6 @@ function panelBefore(panel, prelude) {
 	if (panel.levels) before.push(levelsStub());
 	if (panel.dungeons) before.push(dungeonsStub());
 	if (panel.rares) before.push(raresStub());
-	// UI-only scenes have no quest log; match Compat's empty-table contract
-	// in both preview dumps and the skin audit that shares this prelude.
-	if (!panel.stubs) before.push(`local install = uistub.install
-function uistub.install(opts)
-	install(opts)
-	Polestar.Compat.GetLogQuests = function() return {} end
-end`);
 	return before.join('\n');
 }
 
