@@ -281,15 +281,15 @@ step The Zhevra
 
 step Ratchet
   zone The Barrens
-  tip Follow the road south-east to Ratchet on the coast.
+  tip Follow the road south-east to Ratchet on the coast: Gazlowe and Wrenix at the north end of town, Sputtervalve and Bragok, Mebok and the WANTED poster, then Wharfmaster Dizzywig on the dock on the way out south.
   accept 887                          -- Gazlowe, upstairs
   accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
   getfp "Ratchet" only Orc,Skyborne,Tauren,Troll,Undead -- Bragok, beside Sputtervalve
-  turnin 1492                         -- Wharfmaster Dizzywig, on the dock
-  accept 896                          -- Wharfmaster Dizzywig: the emerald comes from the Boulder Lode Mine, later
   accept 865                          -- Mebok Mizzyrix, beside the WANTED poster: the Sunscale raptors come on the next Ratchet stop, at 18
   accept 895                          -- The WANTED poster: Baron Longshore comes on the next Ratchet stop too
+  turnin 1492                         -- Wharfmaster Dizzywig, on the dock
+  accept 896                          -- Wharfmaster Dizzywig: the emerald comes from the Boulder Lode Mine, later
   note Keep Mebok's Raptor Horns and Baron Longshore for the next Ratchet stop, at 18: Scytheclaws you meet on the plains before then drop the horns too.
 
 step The Barrens: kill these as you meet them
@@ -1154,6 +1154,7 @@ step Seereth Stonebreak
   zone The Barrens
   tip East along the road to Seereth and Makaba's camp, on the way back out of Stonetalon.
   turnin 1062                         -- Seereth Stonebreak
+  accept 1063                         -- Seereth Stonebreak: The Elder Crone, Magatha in Thunder Bluff, on the next guide's way back from Zoram'gar
   turnin 6629                         -- Makaba Flathoof
   turnin 6523                         -- Makaba Flathoof
   accept 6401                         -- Makaba Flathoof: keep it, Tammra Windfield at Sun Rock Retreat in the Barrens & Stonetalon guide

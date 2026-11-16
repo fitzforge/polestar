@@ -79,32 +79,12 @@ next forever/horde/07-ashenvale
 # Class quests: Shamans hand the red waterskin to Brine south of Camp Taurajo (Call of Water 1536)
 # and take the blue one for Ashenvale (1534).
 
-# ---------------------------------------------------------------- The Crossroads and Thunder Bluff
+# ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
-  only Tauren,Skyborne
   when !onquest 97538
-  tip Fly to Thunder Bluff: two of its elders give quests worked on this guide's and the next guide's walks.
+  tip Fly to Thunder Bluff (without its flight path the arrow goes by Camp Taurajo and Mulgore): two of its elders give quests worked on this guide's and the next guide's walks, and Apothecary Zamah takes Lydon's toxin.
   fly "Thunder Bluff"
-
-step Fly to Thunder Bluff
-  only Paladin
-  when !onquest 97538
-  tip Fly to Thunder Bluff: two of its elders give quests worked on this guide's and the next guide's walks.
-  fly "Thunder Bluff"
-
-step Fly to Camp Taurajo
-  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
-  when !onquest 97538
-  tip Thunder Bluff next: two of its elders give quests worked on this guide's and the next guide's walks. Fly to Camp Taurajo; from there it is a walk west into Mulgore and north to the bluffs, and Thunder Bluff's flight path brings you straight back to Camp Taurajo, where the southern Barrens begin.
-  fly "Camp Taurajo"
-
-step To Thunder Bluff
-  only Orc,Troll,Undead,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid
-  zone Thunder Bluff
-  when !onquest 97538
-  tip From Camp Taurajo follow the road west through the gate into Mulgore, then north past Bloodhoof Village to Thunder Bluff; a lift at the foot of the bluffs takes you up.
-  goto 47.0,49.8 "Thunder Bluff's central rise"
 
 step Thunder Bluff
   zone Thunder Bluff
@@ -113,6 +93,13 @@ step Thunder Bluff
   getfp "Thunder Bluff" npc 2995      -- Tal
   accept 97538                        -- Tah Winterhoof: the Mirkweed grows in Mirkfallon Lake, by Sun Rock
   accept 1195 optional                -- Zangen Stonehoof: the phial comes from Ashenvale, next guide
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  when onquest 1067
+  tip Apothecary Zamah stands in the Pools of Vision, the caves under Spirit Rise, west of Tal.
+  turnin 1067                         -- Apothecary Zamah
+  accept 1086                         -- Apothecary Zamah: the Toxic Fogger goes on the Venture Co. Copter Pad at Windshear Crag, on this guide's Windshear trip
 
 step Fly to Camp Taurajo
   tip Fly to Camp Taurajo: Tal on Thunder Bluff's central rise, or the Crossroads' wind rider master if you start this guide there.
@@ -283,7 +270,7 @@ step Seereth Stonebreak
   zone The Barrens
   when turnedin 1062
   tip Follow the road west past Regthar's bunkers: Seereth Stonebreak camps beside it at the edge of Stonetalon.
-  accept 1068                         -- Seereth Stonebreak: XT:9 and XT:4 roam east of Ziz Fizziks, on the way up
+  accept 1068                         -- Seereth Stonebreak: XT:9 and XT:4 roam east of Ziz Fizziks, on the way back down from Sun Rock
 
 step The road west
   zone The Barrens
@@ -375,6 +362,12 @@ step Gerenzo Wrenchwhistle
   when onquest 1096
   tip On east to Windshear Crag, past where XT:4 roams: Gerenzo Wrenchwhistle (27) stands at the top of the Venture Co. tower. Clear the Venture Co. on the way up. His Mechanical Arm is for Ziz.
   collect 5736 quest 1096 @64.5,40.3  -- Gerenzo's Mechanical Arm, from Gerenzo Wrenchwhistle
+
+step The Flying Machine Airport
+  zone Stonetalon Mountains
+  when onquest 1086
+  tip The Venture Co. Copter Pad is the platform just south-east of Gerenzo's tower: place Zamah's Toxic Fogger on it. Zamah takes it back on the next guide's Thunder Bluff stop.
+  complete 1086 @66.44,45.46          -- Place the Toxic Fogger on the Venture Co. Copter Pad
 
 step Ziz Fizziks
   zone Stonetalon Mountains

@@ -1087,6 +1087,7 @@ step Seereth Stonebreak
   zone The Barrens
   tip East along the road to Seereth and Makaba's camp, on the way back out of Stonetalon.
   turnin 1062                         -- Seereth Stonebreak
+  accept 1063                         -- Seereth Stonebreak: The Elder Crone, Magatha in Thunder Bluff, on the next guide's way back from Zoram'gar
   turnin 6629                         -- Makaba Flathoof
   turnin 6523                         -- Makaba Flathoof
   accept 6401                         -- Makaba Flathoof: keep it, Tammra Windfield at Sun Rock Retreat in the Barrens & Stonetalon guide
