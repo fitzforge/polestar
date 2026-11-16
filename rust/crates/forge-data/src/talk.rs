@@ -20,8 +20,39 @@ use crate::factions::{ALLIANCE_RACES, HORDE_RACES};
 /// Words of an objective text that make it something other than a talk (a fight, a use, an
 /// escort), matched as whole words, any case.
 const NOT_TALK: &[&str] = &[
-	"kill", "slay", "slain", "defeat", "subdue", "beat", "duel", "fight", "engage", "destroy", "attack", "use", "using", "apply", "throw", "toss", "capture", "heal", "resurrect", "place",
-	"mark", "feed", "scare", "free", "summon", "tame", "perform", "emote", "escort", "accompany", "protect", "defend", "lead",
+	"kill",
+	"slay",
+	"slain",
+	"defeat",
+	"subdue",
+	"beat",
+	"duel",
+	"fight",
+	"engage",
+	"destroy",
+	"attack",
+	"use",
+	"using",
+	"apply",
+	"throw",
+	"toss",
+	"capture",
+	"heal",
+	"resurrect",
+	"place",
+	"mark",
+	"feed",
+	"scare",
+	"free",
+	"summon",
+	"tame",
+	"perform",
+	"emote",
+	"escort",
+	"accompany",
+	"protect",
+	"defend",
+	"lead",
 ];
 
 /// Skyborne's race bits above the 32-bit mask: 2^32 the High Order (Alliance), 2^33 the
@@ -126,7 +157,10 @@ mod tests {
 		);
 		assert_eq!(changed, vec!["3702"]);
 		// A Horde quest's kill of an Alliance NPC stays a kill.
-		let (changed, _) = run(r#"{"1":{"races":8589934770,"objectiveText":"Slay him.","objectives":[{"type":"kill","id":8879,"count":null}]},"2":{"races":8589934770,"objectiveText":"Find him.","objectives":[{"type":"kill","id":8879,"count":null}]}}"#, r#"{"8879":{"faction":"A"}}"#);
+		let (changed, _) = run(
+			r#"{"1":{"races":8589934770,"objectiveText":"Slay him.","objectives":[{"type":"kill","id":8879,"count":null}]},"2":{"races":8589934770,"objectiveText":"Find him.","objectives":[{"type":"kill","id":8879,"count":null}]}}"#,
+			r#"{"8879":{"faction":"A"}}"#,
+		);
 		assert!(changed.is_empty());
 		// A quest both sides take keeps the kill of an NPC only one side is friendly with.
 		let (changed, _) = run(r#"{"1":{"races":0,"objectiveText":"Find him.","objectives":[{"type":"kill","id":8879,"count":null}]}}"#, r#"{"8879":{"faction":"A"}}"#);
@@ -136,7 +170,13 @@ mod tests {
 	#[test]
 	fn kills_fights_uses_and_escorts_stay() {
 		let npcs = r#"{"1":{"faction":"AH"},"2":{}}"#;
-		for text in ["Defeat Calvin Montague in Deathknell.", "Beat Bartleby, then talk to him.", "Use the Frostwolf Muzzle when you are near it.", "Defend Gor'shak.", "Perform the Shattered Salute on Shenthul."] {
+		for text in [
+			"Defeat Calvin Montague in Deathknell.",
+			"Beat Bartleby, then talk to him.",
+			"Use the Frostwolf Muzzle when you are near it.",
+			"Defend Gor'shak.",
+			"Perform the Shattered Salute on Shenthul.",
+		] {
 			let (changed, _) = run(&format!(r#"{{"5":{{"objectiveText":"{text}","objectives":[{{"type":"kill","id":1,"count":null}}]}}}}"#), npcs);
 			assert!(changed.is_empty(), "{text}");
 		}
