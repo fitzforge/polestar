@@ -158,7 +158,6 @@ step Stonard
 step To Camp Mojache
   zone Feralas
   tip Hearth to Camp Mojache: your hearthstone is still bound there from the Feralas & Tanaris guide.
-  hearth "Camp Mojache"
   goto 74.8,45.2 "Camp Mojache"
 
 step Camp Mojache

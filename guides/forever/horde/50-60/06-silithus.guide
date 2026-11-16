@@ -52,6 +52,12 @@ step Hive in the Tower
 step The Spirits of Southwind
   collect 22201 quest 5527.1          -- Inside
 
+step Level 57
+  when level<57
+  tip The Dredge Crushers (57-58) of the south-east are two over you below 57. First top up to 57 on the Dredge Strikers (55-56) on the sands north of Cenarion Hold. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.
+  goto 54.8,28.7 map 1451 "Dredge Striker"
+  level 57 grind 11740                 -- grind on Dredge Striker
+
 step Level 58
   when level<58
   tip Top up here to level 58 before Ortell's Rock Stalkers (57-59) and the south; Commander Mar'alith's Dearest Natalia, back at Cenarion Hold, needs level 58 too. The Dredge Crushers (57-58) on the way south-east are the ones Windcaller Proudhorn wants: leave the Twilight cultists around them be. Or, with a group, run the Blackrock Spire dungeon (Lower) or the Scholomance dungeon instead.

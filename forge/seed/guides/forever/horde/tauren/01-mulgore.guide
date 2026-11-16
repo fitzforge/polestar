@@ -230,7 +230,7 @@ step Poison Water
   collect 4759 quest 748.2 @50.2,67.0 -- Plainstrider Talon
   collect 4806 quest 766.3 @50.2,67.0 -- Plainstrider Scale
   collect 4804 quest 766.1 @49.8,65.3
-  collect 4809 quest 771.2 @50.2,66.4
+  collect 4809 quest 771.2 @48.7,64.5
   collect 4808 quest 771.1                    -- Well Stone, 170 yd east
 
 step Bloodhoof Village

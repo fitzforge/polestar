@@ -585,7 +585,6 @@ step Homing Robot OOX-22/FE
 step Camp Mojache
   turnin 7730                           -- Hadoken Swiftstrider
   turnin 7731
-  vendor nearest
   turnin 2822                           -- Jangdor Swiftstrider, inside
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
   accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar

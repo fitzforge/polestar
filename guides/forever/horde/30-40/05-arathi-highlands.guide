@@ -107,7 +107,7 @@ step Alterac Mountains
 step The Dalaran crater
   zone Alterac Mountains
   tip From the south, walk up into the camp below the violet dome of Dalaran. Ricter, Alina and Dermot (33-34) stand together in the camp, Kegan Darkmar (35) a little west of them; each carries one Bloodstone piece. The Shield Guards and Theurgists (31-33) around them drop the Worn Stone Tokens: the ones on the camp's west side are furthest from the Guard's road.
-  tip Careful: a Kirin Tor Guard (55) patrols the road that comes down into the camp from the north-east and walks right up to the traitors; he attacks the Horde on sight and has killed many players here. Watch for him, let him walk back up the road, then pull the traitors. Many of the camp's guards stand in linked pairs and others patrol alone. Arcane Sentries (55, elite) and Kirin Tor Enforcers (55) stand around the violet dome itself: keep to the camp below the rim.
+  tip Careful: Kirin Tor Guards (55) attack the Horde on sight, and one of them patrols the road that comes down into the camp from the north-east and walks right up to the traitors: he has killed many players here. Watch for him, let him walk back up the road, then pull the traitors. Many of the camp's guards stand in linked pairs and others patrol alone. Arcane Sentries (55, elite) and Kirin Tor Enforcers (55) stand around the violet dome itself: keep to the camp below the rim.
   collect 3691 quest 544.1            -- Dermot
   collect 3689 quest 544.2            -- Ricter
   collect 3690 quest 544.3            -- Alina
@@ -154,7 +154,6 @@ step Old Dalaran Ruins: kill these as you meet them
 step Tarren Mill
   zone Hillsbrad Foothills
   tip Hearth back to Tarren Mill: your hearthstone is bound there.
-  hearth "Tarren Mill"
   turnin 506                          -- Krusk, inside
   turnin 557                          -- Keeper Bel'varil, inside
   turnin 545                          -- Magus Wordeen Voidglare, inside

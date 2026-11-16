@@ -4,15 +4,15 @@ levels 45-46 Alliance
 levels 47-48 Horde
 zone Shen'dralas
 coords live
-why About a dozen quests on a short trip into Forever's new zone, 43 to 45, then back to Feralas.
+why About a dozen quests on a short trip into Forever's new zone (about 45-46 for the Alliance, 47 for the Horde), then on to Feralas.
 keywords shen'dralas, shendralas, valley of bones, evenshade's overlook, forlorn gardens, bristleback retreat, pylons, desolace
 next forever/horde/40-50/03-feralas
 next forever/alliance/40-50/03-feralas
 
 # Polestar Experimental, Shen'dralas for both factions (2026-11-12). Hand-written from players' recordings of
 # the zone (99 sessions, 56 people, most of them passing through below level 40), with Forever's quest data for
-# titles, levels and objectives and the client's tables for item and spell names. A detour for levels 41-45,
-# offered as a route choice. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Camp Mojache,
+# titles, levels and objectives and the client's tables for item and spell names. Its quests are 41-45; on both
+# routes it comes at the levels the header gives each side. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Camp Mojache,
 # about level 47 with the Riverglades before it); in by the ride north from Camp Mojache into Desolace's south (a
 # fresh starter flies to Shadowprey Village), out by the flight from Shadowprey (or the hearth to Camp Mojache) to
 # Orgrimmar, where the next Feralas guide starts with Orgrimmar's hand-ins. Alliance: offered at the end of the Badlands guide (40-50/02,

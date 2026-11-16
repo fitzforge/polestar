@@ -154,7 +154,6 @@ step Old Dalaran Ruins: kill these as you meet them
 step Tarren Mill
   zone Hillsbrad Foothills
   tip Hearth back to Tarren Mill: your hearthstone is bound there.
-  hearth "Tarren Mill"
   turnin 506                          -- Krusk, inside
   turnin 557                          -- Keeper Bel'varil, inside
   turnin 545                          -- Magus Wordeen Voidglare, inside

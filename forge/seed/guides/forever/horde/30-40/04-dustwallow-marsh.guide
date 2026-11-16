@@ -289,7 +289,6 @@ step Hornizz Brimbuzzle
 step Shadowprey
   zone Desolace
   tip Hearth to Shadowprey: your hearthstone is still bound there.
-  hearth "Shadowprey Village"
   turnin 5581                         -- Taiga Wisemane
 
 # ---------------------------------------------------------------- Orgrimmar

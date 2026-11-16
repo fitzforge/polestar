@@ -339,14 +339,16 @@ step Riding at 40
   train 4773                            -- Velma Warnam, riding trainer
 
 step The Vile Reef
+  zone Stranglethorn Vale
   when onquest 95770
   when !complete 95770
   tip Locating the Lost City: west of Grom'gol, swim out over the Vile Reef and dive to the cavern entrance in the reef; the quest completes as you find it. Leave the cavern for now: the jungle stalkers are south along the coast.
-  complete 95770 @21.8,27.6 map 1434   -- the Drowned City's entrance, underwater
+  goto 21.8,27.6 map 1434 "the Drowned City's entrance, underwater"
 
 # ---------------------------------------------------------------- South to Booty Bay
 
 step Jungle stalkers
+  zone Stranglethorn Vale
   tip The stalker raptors hunt the jungle south of Grom'gol, out towards the west coast.
   tip Careful: the Jungle Stalkers (40-41) are thick here: pull one at a time and rest between fights.
   kill 687 quest 196.1
@@ -375,6 +377,7 @@ step The Bloodsail ships
   accept 624                            -- for a later stop in the Swamp of Sorrows
 
 step Zul'Mamwe
+  zone Stranglethorn Vale
   tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: Ana'thek the Cruel (45) walks the south-western ruins with two guards; Speaking with Gan'zulah's last piece, his Broken Armor, waits for your Stranglethorn stop at about 45.
   goto 45.4,36.2 "Skullsplitter warriors"
   collect 1524 quest 209.1 @45.4,36.2 map 1434 era
@@ -480,7 +483,7 @@ step Noboru the Cudgel
   accept 1392
 
 step Draenethyst crystals
-  tip Ride north-east to the Fallow Sanctuary. The crystals stand along the way up to Galen Goodward's cage.
+  tip Head north-east to the Fallow Sanctuary. The crystals stand along the way up to Galen Goodward's cage.
   collect 6071 x6 quest 1389.1          -- Draenethyst Crystals
 
 step Galen's Escape
@@ -493,6 +496,6 @@ step Galen's Strongbox
   turnin 1393
 
 step The Harborage
-  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
+  tip Head west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
   turnin 1392                           -- Magtoor
   turnin 1389
