@@ -310,6 +310,16 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: level tidy: a top-up to 7 befo
 	assert.ok(list[gate].goal.level >= 7 && list[gate].goal.grind === 3128, 'a top-up to 7 on the Kul Tiras Sailors');
 });
 
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): Sparring Match (99108) was an accept and a hand-in at Krang
+// Stonehoof with the Novice Warriors only in the tip, so the window went straight to "Turn in". The kills are a goal.
+test(`${MULGORE}: Sparring Match counts the Novice Warriors between the accept and the hand-in`, { skip }, () => {
+	const list = goals(MULGORE);
+	const accept = at(list, 'accept 99108', is('accept', 99108));
+	const kills = at(list, 'kill 10721 (99108.1)', (g) => g.t === 'kill' && g.quest === 99108 && g.npc === 10721);
+	const turnin = at(list, 'turnin 99108', is('turnin', 99108));
+	assert.ok(accept < kills && kills < turnin, 'accept, the Novice Warriors, then the hand-in');
+});
+
 // --- Mulgore (level tidy 0.4.0): the Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket
 // 12) were worked at 9; they come after northern Mulgore and its Bloodhoof hand-ins, at about 11.
 test(`${MULGORE}: level tidy: the Galak centaurs and the Venture Co. Mine after the northern Mulgore hand-ins`, { skip }, () => {
@@ -365,6 +375,17 @@ test(`${TIRISFAL}: yiliev0's report (#674): Gordo's report is searched for along
 	const at_ = (s) => ({ map: goal.map, x: s.x, y: s.y });
 	assert.ok(yards(at_(spots[0]), spawn) >= 300, `the search starts at Brill's end of his road, not at his spawn: ${JSON.stringify(spots[0])}`);
 	assert.ok(yards(at_(spots[spots.length - 1]), spawn) <= 30, 'and ends at his spawn');
+});
+
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): A Void Path (98252) had the Eye of Kilrogg's flight to the
+// road only in the tip, so the window showed the hand-in alone. The step lists the objective before it.
+test(`${STONETALON}: A Void Path shows the Eye of Kilrogg's objective before its hand-in`, { skip }, () => {
+	const list = goals(STONETALON);
+	const accept = at(list, 'accept 98252', is('accept', 98252));
+	const work = at(list, 'complete 98252', is('complete', 98252));
+	const turnin = at(list, 'turnin 98252', is('turnin', 98252));
+	assert.ok(accept < work && work < turnin, 'accept, the objective, then the hand-in');
+	assert.equal(list[work].s, list[turnin].s, 'in the hand-in step');
 });
 
 test(`${STONETALON}: the Warsong update goals name the scouts who hand them over, from the data`, { skip }, () => {
@@ -1063,6 +1084,25 @@ test(`Visur's report (#859): no guide asks for a kill the game's objectives do n
 			assert.notEqual(o.type, 'talk', `${guide}: ${goal.quest}.${goal.oi} is a talk to ${o.text}, not a kill`);
 		}
 	}
+});
+
+// Fyurie's reports (#2535, #2539, #2543, Blackrock Depths' pick-up guide): stories heard from friendly NPCs said
+// "Kill". The data build's talk rule (forge-data talk.rs) and forever-db corrections type them as talks, so the
+// Codex, the quest database and every guide say "Talk to"; 273's phantom kill and 1560's "Kill Torta" are gone.
+test('#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills', { skip }, () => {
+	data = data || loadData(DATA);
+	const kind = (q, i) => ((data.quests[q] || {}).objectives || [])[i - 1]?.type;
+	for (const [q, i, npc] of [[3702, 1, 8879], [4185, 1, 1749], [4224, 1, 9563], [3441, 1, 8479], [3453, 1, 8479], [4022, 2, 9459],
+		[4001, 1, 9021], [4342, 1, 9021], [93016, 1, 253471], [93739, 1, 3230], [91294, 4, 246378], [5211, 1, 11064], [96989, 3, 267298]]) {
+		assert.equal(kind(q, i), 'talk', `${q}.${i}`);
+		assert.equal(data.quests[q].objectives[i - 1].id, npc, `${q}.${i} is a talk to ${npc}`);
+	}
+	assert.equal(kind(4022, 1), 'item', 'A Taste of Flame keeps its molt');
+	assert.deepEqual(data.quests[273].objectives.map((o) => o.type), ['event'], 'Resupplying the Excavation: the game lists only its event');
+	assert.deepEqual(data.quests[1560].objectives.map((o) => o.type), ['event'], "Tooga's Quest is the escort to Torta");
+	assert.deepEqual(data.quests[96204].objectives.map((o) => o.type), ['talk', 'event'], "The Windshaper's Wrath: talk to Lumina, then the escort");
+	// Fights stay kills: the NPC turns hostile and gives in.
+	for (const q of [590, 1447, 1640]) assert.equal(kind(q, 1), 'kill', `${q}`);
 });
 
 test(`EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads "Tame", not "Kill", in every guide`, { skip }, () => {
@@ -2436,6 +2476,17 @@ test('Every guide: no required hand-in straight from the bags can hold the route
 		}
 	}
 	assert.deepEqual(bad, []);
+});
+
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): Shhh! We're Hunting Kobolds (91772) had its six Kobold Tracks
+// only in the accept's note, so after Tordrin the window went on to Marshal Dughan's hand-in. The tracks are a goal of
+// the accept's step, on the road to Goldshire.
+test(`${ELWYNN}: Shhh! We're Hunting Kobolds counts the Kobold Tracks before the hand-in to Marshal Dughan`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const accept = at(list, 'accept 91772', is('accept', 91772));
+	const tracks = at(list, 'interact 563442 (91772.1)', (g) => g.t === 'interact' && g.quest === 91772 && g.object === 563442);
+	assert.equal(list[tracks].s, list[accept].s, "in the accept's step");
+	assert.ok(accept < tracks && tracks < at(list, 'turnin 91772', is('turnin', 91772)), 'accept, the tracks, then the hand-in');
 });
 
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
@@ -5207,6 +5258,19 @@ emit(out)`,
 	assert.equal(horde.length, 0, 'Horde get none');
 });
 
+// Hand-in sweep (2026-11-16, after Kerlonian's escort): The Windshaper's Wrath (96204) is an escort whose step held
+// only its accept, so the window went from the accept to the hand-in at the Sepulcher. The step waits for the escort.
+test("forever/class/paladin/lumina-windsinger.guide: Free Lumina waits for the escort before the hand-in", { skip }, () => {
+	const list = goals('forever/class/paladin/lumina-windsinger.guide');
+	const accept = at(list, 'accept 96204', is('accept', 96204));
+	const escort = at(list, 'complete 96204', is('complete', 96204));
+	assert.equal(list[escort].s, list[accept].s, "in the accept's step");
+	assert.equal(list[escort].goal.escort, true, 'marked as an escort');
+	assert.ok(escort < at(list, 'turnin 96204', is('turnin', 96204)), 'before the hand-in');
+	const { goal } = list[escort];
+	assert.ok(goal.map === 1421 && Math.hypot(goal.x - 65.7, goal.y - 29.7) < 1, `leads where the escort ends (${goal.map} ${goal.x},${goal.y})`);
+});
+
 // #1813 (Alliance, Cozy Sleeping Bag): the Barrens' way into Stonetalon runs through Honor's Stand, and the road
 // on to the hills past Malaka'jin and Sun Rock Retreat. Players' recordings of Stepping Stones (79192, Alliance):
 // about 40 runs, most entering Stonetalon from the Barrens at 83.5,97, 7 people dead at Honor's Stand (one of them
@@ -5365,6 +5429,22 @@ test(`${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken fr
 	assert.ok(accept < turnin, 'accept at the Grove, then the hand-in at Maestra\'s Post');
 	assert.ok(!(list[accept].step.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(5321)), 'the step does not wait for 5321 in the quest log');
 	assert.equal(list[accept].goal.npc, 11218, 'from Kerlonian Evershade');
+});
+
+// A player's report (2026-11-16): right after taking The Sleeper Has Awakened (5321), the guide window sent them
+// on to Maestra's Post and the hand-in, with the escort not done. The Kerlonian step held the accept, a goto at his
+// spot and a note, so it was done on the accept; the escort was a goal nowhere. The step now waits for the escort
+// (`complete 5321`), which leads to his bag on the road south, and the hand-in comes after it.
+test(`${ASHENVALE}: Kerlonian's step waits for the escort before the hand-in at Maestra's Post`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	const accept = at(list, 'accept 5321 (Kerlonian Evershade)', is('accept', 5321));
+	const escort = at(list, 'complete 5321', is('complete', 5321));
+	const turnin = at(list, 'turnin 5321', is('turnin', 5321));
+	assert.ok(accept < escort && escort < turnin, 'accept, the escort, then the hand-in');
+	assert.equal(list[escort].s, list[accept].s, "in Kerlonian's own step");
+	const { goal } = list[escort];
+	assert.equal(goal.escort, true, 'marked as an escort');
+	assert.ok(goal.map === 1439 && Math.hypot(goal.x - 41.6, goal.y - 89.9) < 1, `leads to his bag in southern Darkshore (${goal.map} ${goal.x},${goal.y})`);
 });
 
 // A bare `complete` that opens its step has no place of its own and nothing
@@ -7568,7 +7648,7 @@ test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren
 	// Luca and left Prompt Potion Runner for a visit thirty levels later.
 	// Since the Horde 12-30 re-chain this Undercity visit, Sylvanas with it, is at the end of the Silverpine stay (03).
 	const uc = goals('forever/horde/03-silverpine-forest.guide');
-	const sylvanas = uc[at(uc, 'Sylvanas', (g) => g.t === 'kill' && g.npc === 10181)].step;
+	const sylvanas = uc[at(uc, 'Sylvanas', (g) => g.t === 'talk' && g.npc === 10181)].step;
 	assert.ok(!/Crossroads/.test(sylvanas.note || ''), 'no Crossroads in the Undercity tip');
 	assert.ok(at(uc, 'accept 97891', is('accept', 97891)) < at(uc, 'turnin 97891', is('turnin', 97891)), 'Prompt Potion Runner taken and handed in');
 	assert.equal(uc[at(uc, 'turnin 97891', is('turnin', 97891))].s, uc[at(uc, 'turnin 441', is('turnin', 441))].s, 'on the one Undercity stop, with Raleigh');
@@ -11605,8 +11685,9 @@ test('Horde Darrowshire: Defenders of Darrowshire after Uncle Carlin', { skip },
 	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const acc = at(ep, 'accept 5211', is('accept', 5211));
 	assert.ok(at(ep, 'turnin 5241', is('turnin', 5241)) < acc, 'Uncle Carlin handed in before Defenders of Darrowshire is taken');
-	assert.ok(acc < at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211), 'taken before the spirits');
-	const spirits = at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211);
+	// The spirits are freed by talking to them (#2543: a talk objective, no longer a kill).
+	assert.ok(acc < at(ep, 'the spirits', (g) => g.t === 'talk' && g.quest === 5211), 'taken before the spirits');
+	const spirits = at(ep, 'the spirits', (g) => g.t === 'talk' && g.quest === 5211);
 	assert.ok(spirits < at(ep, 'turnin 5211', is('turnin', 5211)), 'spirits before the hand-in');
 	assert.equal(ep[at(ep, 'turnin 5211', is('turnin', 5211))].s, ep[at(ep, 'turnin 5181', is('turnin', 5181))].s, 'with Villains of Darrowshire');
 });
@@ -15270,4 +15351,26 @@ test('Alliance 40-50 reports: Jarl\'s spices bought before the hand-in (#1917), 
 	const tip = [pool.step.note, pool.step.tip].flat().filter(Boolean).join(' ');
 	assert.match(tip, /tap it/, 'says to tap the pool');
 	assert.match(tip, /Scarabs/, 'warns of the Scarabs');
+});
+
+// #2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby stops offering Fall of Dun Modr (472) once A Grim Task (304) is handed
+// in, and no prerequisite, exclusive group or breadcrumb in the quest data says so. The accept shared the Menethil
+// Harbor step, which then waited on a quest nobody could take. It is a step of its own, shown only while A Grim Task
+// is not handed in; every other Menethil goal stays where it was, ungated. The Dun Modr hand-in (30-40/01) needs no
+// gate: a hand-in of a quest never taken does not apply.
+test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in', { skip }, () => {
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	const grim = (step) => (step.when || []).some((p) => p.k === 'turnedin' && p.neg && [p.q].flat().includes(304));
+	const harlo = wet[at(wet, 'accept 472', is('accept', 472))];
+	assert.ok(grim(harlo.step), 'accept 472 only while 304 is not handed in');
+	assert.deepEqual(wet.filter(({ s }) => s === harlo.s).map(({ goal }) => `${goal.t} ${goal.quest}`), ['accept 472'], 'Harlo\'s step holds Fall of Dun Modr alone');
+	const menethil = wet[at(wet, 'accept 288', is('accept', 288))];
+	assert.equal(menethil.s + 1, harlo.s, 'right after the Menethil Harbor step');
+	for (const q of [288, 289, 464, 98221, 281, 471, 98208]) {
+		const e = wet[at(wet, `accept ${q}`, is('accept', q))];
+		assert.equal(e.s, menethil.s, `accept ${q} stays on the Menethil Harbor step`);
+		assert.ok(!grim(e.step), `accept ${q} is not gated on A Grim Task`);
+	}
+	const hills = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
 });

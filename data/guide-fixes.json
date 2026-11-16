@@ -6799,6 +6799,30 @@
 			]
 		},
 		{
+			"id": "2563-harlo-fall-of-dun-modr-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 472,
+				"goal": "accept",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"split": {
+				"title": "Harlo Barnaby"
+			},
+			"note": "#2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby no longer offers Fall of Dun Modr (472) once A Grim Task (304, Longbraid the Grim's quest at Dun Modr) is handed in, and the game's quest data links the two in no way the guide can see (no prerequisite, exclusive group or breadcrumb), so the Menethil Harbor step waited on an accept nobody could take: Harlo's window without it leaves the goal open. The accept is a step of its own (this record), shown only while A Grim Task is not handed in (`when !turnedin 304` in the seed's step). The route never takes A Grim Task, so a player who follows it still gets the quest; the hand-in at Longbraid on 30-40/01-hillsbrad-foothills' Dun Modr stop already reads as not applying when Fall of Dun Modr was never taken.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2563: a player reports that Harlo Barnaby stops offering Fall of Dun Modr after A Grim Task is handed in"
+				},
+				{
+					"kind": "tdb",
+					"ref": "quest_template_addon 472 and 304: PrevQuestID, NextQuestID, ExclusiveGroup and BreadcrumbForQuestId all 0"
+				}
+			],
+			"issue": 2563
+		},
+		{
 			"id": "cenarion-hold-secret-communication-second-stop",
 			"faction": "Alliance",
 			"at": {

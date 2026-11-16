@@ -242,7 +242,7 @@ step Corin's Crossing
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
   tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
-  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
+  talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 15447 x7
   complete 6022
 
