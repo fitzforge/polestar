@@ -501,9 +501,11 @@ end
 -- giver's own window. It is orphaned the same way through the quest it waits
 -- on (its `parent`, which the giver wants in the log, or its `pre`/`preAll`),
 -- when this guide accepts that quest and the character neither has it, nor
--- has done it, nor takes it at or before that step (Own.acceptMissing):
--- Unbagwa offers Stranglethorn Fever (349) only to one carrying Fin
--- Fizracket's (348). Taking that quest brings the goal back. Nor is an
+-- has done it, nor takes it at or before that step (Own.acceptMissing), or,
+-- as a plain turn-in's quest, when no accept of this guide brings it and the
+-- character neither has it nor has done it (Own.needMissing): Unbagwa offers
+-- Stranglethorn Fever (349) only to one carrying Fin Fizracket's (348, taken
+-- on the guide before his). Taking that quest brings the goal back. Nor is an
 -- `abandon` ever orphaned: a quest the character does not have is already
 -- off the log, so it is done, and taking the quest later must not bring the
 -- step back.
@@ -524,21 +526,28 @@ function Own.acceptMissing(q, s, l)
 	return true
 end
 
+-- A quest a `turnin ... direct` waits on is missing (Own.directOrphaned).
+function Own.needMissing(p, s, l)
+	if l.accepts[p] then return Own.acceptMissing(p, s, l) end
+	local C = Compat()
+	return not (C.IsOnQuest(p) or questDone(p))
+end
+
 function Own.directOrphaned(goal, s, l)
 	local C, q = Compat(), goal.quest
 	if C.IsOnQuest(q) or questDone(q) then return false end
 	local parent = tonumber(goal.parent)
-	if parent and Own.acceptMissing(parent, s, l) then return true end
+	if parent and Own.needMissing(parent, s, l) then return true end
 	if type(goal.preAll) == "table" then
 		for _, p in ipairs(goal.preAll) do
-			if Own.acceptMissing(p, s, l) then return true end
+			if Own.needMissing(p, s, l) then return true end
 		end
 	end
 	-- `pre`: any one of them opens it, so all must be missing.
 	local any = goal.pre
 	if type(any) ~= "table" or #any == 0 then return false end
 	for _, p in ipairs(any) do
-		if not Own.acceptMissing(p, s, l) then return false end
+		if not Own.needMissing(p, s, l) then return false end
 	end
 	return true
 end
