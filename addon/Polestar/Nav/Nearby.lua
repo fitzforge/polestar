@@ -17,6 +17,8 @@
 --   Nearby.Near(kind, yards) -> place, yards | nil, reason   the nearest one in the player's zone
 --       within `yards` in a straight line, without the planner's estimate (the auction house
 --       reminder, UI/AuctionBuys.lua); reason as Find's, or "none"
+--   Nearby.PlacesOn(kind, c) -> places | nil, reason   every spawn of a kind on continent c, with
+--       world c, wx, wy (the Engine's sell and repair reminders measure them); reason as Find's
 --   Nearby.Rank(places, here, estimate) -> place, seconds   pure, for the tests
 --   place = { id, name, map, x, y, f, z? }   z: the class trainer's height (Core/ClassTrainers.lua);
 --           the Codex's places carry none
@@ -485,6 +487,26 @@ function Nearby.Near(key, yards)
 	end
 	if not best then return nil, "none" end
 	return best, bestD
+end
+
+-- Every spawn of a kind on continent c (world c, wx, wy each): the list, made
+-- once per kind and continent until the index is dropped | nil, reason (as
+-- Find's). For a check that measures them itself (Engine's sell and repair
+-- reminders, While you're here): the Codex's friendly NPCs outside instances.
+function Nearby.PlacesOn(key, c)
+	key = ALIAS[key] or key
+	local kind = BY_KEY[key]
+	if not kind then return nil, "kind" end
+	local at = "on:" .. key .. ":" .. tostring(c)
+	if index[at] then return index[at] end
+	local places, why = candidates(kind)
+	if not places then return nil, why end
+	local list = {}
+	for _, p in ipairs(places) do
+		if p.c == c then list[#list + 1] = p end
+	end
+	index[at] = list
+	return list
 end
 
 local function kindLabel(key, line)
