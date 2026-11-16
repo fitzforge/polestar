@@ -1,5 +1,81 @@
 # Changelog
 
+## 0.4.0.1 (2026-11-16)
+
+### For players
+
+- While you're here no longer offers a goal its own step needs an item for
+  first, such as a footlocker that opens with a key the step takes from its
+  owner, or a summon that needs its bait: the line waits until the item is
+  in your bags (thanks HumiD).
+- Quests you finish by talking to a friendly NPC (hearing a story, asking for
+  advice, showing an item, picking a mount) say "Talk to" instead of "Kill"
+  everywhere: the pick-up guides (Blackrock Depths' The True Masters and
+  The Smoldering Ruins of Thaurissan), quest pages, pinned quests and the
+  guides. The NPC gets a "Talk to" line on its tooltip and no skull on its
+  nameplate or the map. 88 objectives in 61 quests were affected. Resupplying
+  the Excavation no longer lists an extra kill, and Tooga's Quest is the
+  escort it is, not "Kill Torta" (#2535, #2539, #2543, thanks Fyurie).
+- Elwynn Forest: Sergeant De Vries' An Apple Treat is a step of its own that
+  shows only while you carry the Thunder Applejack, and the Applejack Still's
+  step only with four Shiny Red Apples in your bags, so the guide never waits
+  at De Vries for a quest he can't give you. If you get the Applejack later,
+  "While you're here" offers the hand-in when you pass him (thanks twisted).
+- Hand-ins taken straight from your bags now show only while you carry what
+  they ask for, so a skipped or lost item never holds the guide at a giver who
+  won't take anything: Water Pouch Bounty in Tanaris, Stranglethorn Fever's
+  fangs for Witch Doctor Unbagwa, the Scourgestones at Chillwind Camp, the
+  Evoroot for The Videre Elixir, Beads for Salfa, The Super Egg-O-Matic in the
+  Horde Azshara guide, Salve via Hunting in Felwood, Morrowgrain to Thunder
+  Bluff at Bashana Runetotem, Essence of the Exile in the Warrior Whirlwind
+  guide and Master Angler in the Bitter Baitling guide. Once you have them,
+  "While you're here" offers the hand-in as you pass the giver.
+- Horde Silithus: the Gadgetzan stop for The Super Egg-O-Matic shows only
+  while you carry the Hippogryph Egg, so a player without one is no longer
+  held there.
+- Wetlands: Harlo Barnaby's Fall of Dun Modr is a step of its own that shows
+  only until A Grim Task is handed in, so a player who already did Longbraid
+  the Grim's quest at Dun Modr is no longer held in Menethil Harbor for a
+  quest Harlo won't give (thanks Kiber_Mazai and petllama).
+- Leaving combat no longer lays the whole guide window out again when the
+  "While you're here" panel has nothing to show before or after the fight,
+  which took a short hitch off the end of every fight (thanks fekz).
+- The guide no longer sends you to hand in a quest whose work it never
+  asked for. Kerlonian Evershade's step in Darkshore now waits for his escort
+  and points to his bag on the road south before it sends you on to Liladris
+  Moonriver at Maestra's Post; the same goes for Lumina Windsinger's escort
+  in the Paladin's Lumina Windsinger guide. The Kobold Tracks for Shhh! We're
+  Hunting Kobolds in Elwynn Forest, the Novice Warriors for Sparring Match in
+  Mulgore and the Eye of Kilrogg for A Void Path in Ashenvale are listed as
+  goals before their hand-ins too.
+- An import string whose guide has a long note that names someone in the
+  author's own words imports again (notes like that stopped at about 128
+  characters), and a string with a text that really is too long now names
+  the limit that applies to it.
+- The game no longer stutters after each kill that counts for a quest
+  (#2555). The guide window's "finished quests to hand in elsewhere" row
+  worked out the whole route again on every quest update; it now keeps it
+  until the guides you have open change. The bag glow and the item buttons
+  also share one look at the step after a quest update instead of each
+  building their own. A kill costs Polestar less time than it did before
+  0.4.0.
+- From level 40 until you learn to ride, looting coins no longer redraws the
+  guide window each time: the riding reminder's balance is redrawn only when
+  your gold figure changes.
+- The travel planner and the map position no longer work on a run speed or a
+  position the game keeps secret (in some fights and places): the game blocked
+  those reads and logged them against Polestar (#2533).
+
+### For contributors
+
+- The README, addon/README.md, docs/README.md and the CurseForge
+  description describe 0.4.0: the Riverglades and Shen'dralas in both routes
+  with every leveling guide's levels per faction (README, "The route, guide
+  by guide"), Mount Hyjal as an Experimental guide, the routes tuned by hand
+  since 0.4.0 ("How the routes are made"), the nine skins and the game's
+  looks, the settings window, Install and Profiles, the new slash commands,
+  and every addon folder and file the release ships.
+
 ## 0.4.0 (2026-11-16)
 
 ### For players

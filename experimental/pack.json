@@ -2,7 +2,7 @@
 	"id": "polestar-experimental",
 	"title": "Polestar Experimental",
 	"author": "Polestar",
-	"version": "0.4.0",
+	"version": "0.4.0.1",
 	"license": "GPL-3.0-only",
 	"notes": "Part of Polestar: experimental guides for Forever's new zones (alpha), listed with Polestar's own guides.",
 	"source": "Written from players' recordings of the zone and Forever's quest data"
