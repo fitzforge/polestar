@@ -6092,8 +6092,8 @@ do
 						{ t = "turnin", quest = 95350, title = "Welcome to Azeroth", npc = 4949, npcName = "Thrall", map = 1454, x = 31.73, y = 37.82, z = 43, f = "e", note = "{npc:4949}, inside Grommash Hold" },
 						{ t = "accept", quest = 98024, title = "Journey to the Crossroads", npc = 4949, npcName = "Thrall", minLevel = 7, qlvl = 13, pre = { 95350 }, preTitles = { [95350] = "Welcome to Azeroth" }, map = 1454, x = 31.73, y = 37.82, z = 43, f = "e", note = "{npc:4949}: keep it, Thork at the Crossroads in the {zone:1413} guide" },
 						{ t = "accept", quest = 93739, title = "Exploring the Horde", npc = 4949, npcName = "Thrall", minLevel = 7, qlvl = 13, pre = { 95350 }, preTitles = { [95350] = "Welcome to Azeroth" }, map = 1454, x = 31.73, y = 37.82, z = 43, f = "e", optional = true, note = "{npc:4949}: {quest:93739}, a tour of the Horde's leaders" },
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Nazgrel", npc = 3230, count = 1, oi = 1, text = "Talk to {npc:3230}", map = 1454, x = 32.3, y = 35.75, z = 40.9, f = "e", optional = true, note = "Speak with {npc:3230}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Vol'jin", npc = 10540, count = 1, oi = 2, text = "Talk to {npc:10540}", map = 1454, x = 34.34, y = 36.33, z = 41, f = "e", optional = true, note = "Speak with {npc:10540}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 3230, npcName = "Nazgrel", oi = 1, text = "Talk to {npc:3230}", map = 1454, x = 32.3, y = 35.75, z = 40.9, f = "e", optional = true, note = "Speak with {npc:3230}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 10540, npcName = "Vol'jin", oi = 2, text = "Talk to {npc:10540}", map = 1454, x = 34.34, y = 36.33, z = 41, f = "e", optional = true, note = "Speak with {npc:10540}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
 					},
 				},
 				{
@@ -6373,7 +6373,7 @@ do
 					note = "{npc:10181} holds court in the {object:36126}.",
 					only = { races = { "Skyborne" } },
 					goals = {
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Lady Sylvanas Windrunner", npc = 10181, count = 1, oi = 4, text = "Talk to {npc:10181}", map = 1458, x = 58.05, y = 91.79, z = -57.2, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:10181}, in the {object:36126}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 10181, npcName = "Lady Sylvanas Windrunner", oi = 4, text = "Talk to {npc:10181}", map = 1458, x = 58.05, y = 91.79, z = -57.2, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:10181}, in the {object:36126}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
 					},
 				},
 				{
@@ -8201,7 +8201,7 @@ do
 					when = { { k = "onquest", q = { 1195, 97538, 1086 } } },
 					goals = {
 						{ t = "getfp", npc = 2995, npcName = "Tal", location = "Thunder Bluff", node = 22, area = 1638, map = 1456, x = 47, y = 49.83, z = 177, f = "e" },
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Cairne Bloodhoof", npc = 3057, count = 1, oi = 3, text = "Talk to {npc:3057}", map = 1456, x = 60.3, y = 51.68, z = 163.9, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:3057}, in {area:1638}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 3057, npcName = "Cairne Bloodhoof", oi = 3, text = "Talk to {npc:3057}", map = 1456, x = 60.3, y = 51.68, z = 163.9, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:3057}, in {area:1638}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
 					},
 				},
 				{
@@ -13494,7 +13494,7 @@ do
 					note = "{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too.",
 					goals = {
 						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 30, y = 65, f = "e", spotsPacked = "30,65,,15,1;29.5,60.5,,15,1;30,70,,15,1;31.8,74.2,9,15,1", escort = true },
-						{ t = "complete", quest = 1560, title = "Tooga's Quest", map = 1446, x = 66.58, y = 25.67, f = "e", escort = true, objs = { { text = "Torta", count = 1 } } },
+						{ t = "complete", quest = 1560, title = "Tooga's Quest", map = 1446, x = 66.58, y = 25.67, f = "e", escort = true, objs = { { text = "Lead Tooga to Torta", count = 1 } } },
 					},
 				},
 				{
@@ -16393,7 +16393,7 @@ do
 					note = "Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}.",
 					goals = {
 						{ t = "goto", text = "{area:2264}", area = 2264, map = 1423, x = 52.3, y = 58.2 },
-						{ t = "kill", quest = 5211, title = "Defenders of Darrowshire", target = "Darrowshire Spirit", npc = 11064, count = 15, oi = 1, text = "Free Darrowshire Spirits: talk to them", map = 1423, x = 51.72, y = 58.32, spotsPacked = "53.4,56.8,,76,4;57.5,31.4,,74,8;69.6,46.8,,47,1;75,33.9,,47,1;36.3,16.8,,51,3;32.1,27.5,,51,4;23.3,21.8,,47,2;21.4,29.6,,47,1;18.5,14.3,,47,2;11.1,25.4,,47,1;27.9,53.7,,47,2;34.1,42,,47,2;52.7,54.8,,47,1,1;52.2,62.1,,51,3,1;66.4,42,,47,1,1;68.1,38.9,,47,1,1;32.1,46.6,,56,4,1;72,35,,47,2,1;36.2,25.9,,47,1,1;36.1,20.8,,47,2,1;30.8,22.6,,47,2,1;26.8,26.3,,52,3,1;31.4,17.1,,47,2,1;21.5,25.4,,47,3,1;14.1,24.9,,67,5,1", spread = true, lvl = 57 },
+						{ t = "talk", quest = 5211, title = "Defenders of Darrowshire", npc = 11064, npcName = "Darrowshire Spirit", oi = 1, text = "Free Darrowshire Spirits: talk to them", map = 1423, x = 51.72, y = 58.32, spotsPacked = "53.4,56.8,,76,4;57.5,31.4,,74,8;69.6,46.8,,47,1;75,33.9,,47,1;36.3,16.8,,51,3;32.1,27.5,,51,4;23.3,21.8,,47,2;21.4,29.6,,47,1;18.5,14.3,,47,2;11.1,25.4,,47,1;27.9,53.7,,47,2;34.1,42,,47,2;52.7,54.8,,47,1,1;52.2,62.1,,51,3,1;66.4,42,,47,1,1;68.1,38.9,,47,1,1;32.1,46.6,,56,4,1;72,35,,47,2,1;36.2,25.9,,47,1,1;36.1,20.8,,47,2,1;30.8,22.6,,47,2,1;26.8,26.3,,52,3,1;31.4,17.1,,47,2,1;21.5,25.4,,47,3,1;14.1,24.9,,67,5,1" },
 						{ t = "collect", item = 15447, itemName = "Living Rot", count = 7, map = 1423, x = 51.72, y = 58.32, z = 73.8, spotsPacked = "51.4,58.7,,79,15;54.3,56.2,,45,6,,57;38,25.7,121.6,40,1;31.5,24.4,143.7,40,1,,56;26.8,23.8,,63,5;25,19.5,,40,2,,57;27.9,17.1,,40,2;21.4,21,141.8,40,1,,57;21.8,26.7,120.2,40,1;23,31.7,102.9,40,1;17.8,14,135.7,40,1;34.8,14.5,149.7,40,1;53.5,59.1,73.7,54,10,1;52.1,55.3,,71,11,1;52.1,61.7,79.9,50,9,1;36.3,27.7,,59,4,1;36.9,17.7,130.9,40,1,1;29.5,25,,40,2,1;31.1,21.5,133.1,40,1,1;32.8,18.4,,50,3,1,57;28.2,21.7,,40,2,1;30.1,18.9,,40,4,1;32.3,14.3,150.1,53,5,1;20.7,24.4,,40,3,1;22.9,18.1,,40,3,1;18.1,21.3,,40,2,1;19.2,12.1,162.4,40,1,1", spread = true, lvl = 58, from = "Gibbering Ghoul", fromKind = "npc", fromAlso = "Hate Shrieker", fromId = 8531, fromAlsoId = 8541, fromNpcs = { { npc = 8531, npcName = "Gibbering Ghoul" }, { npc = 8541, npcName = "Hate Shrieker" }, { npc = 8538, npcName = "Unseen Servant" }, { npc = 8543, npcName = "Stitched Horror" }, { npc = 8525, npcName = "Scourge Warder" }, { npc = 8526, npcName = "Dark Caster" } }, fromNpcsAt = "2,6,3,4,1,5;1,2,3,6;4;5;4;2,5;4,5;2;4;4;4;4;2,3,4,5,6;2,6,1,3,4;2,1,4,5,6;4;4;4;4;2,5;4;4,2;4,2;4;2,4,5;4;4" },
 						{ t = "complete", quest = 6022, title = "To Kill With Purpose", objs = { { text = "Coagulated Rot", count = 1 } }, startItem = 15454, startItemName = "Mortar and Pestle" },
 					},
