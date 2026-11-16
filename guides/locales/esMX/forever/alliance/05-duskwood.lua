@@ -33,7 +33,7 @@ return {
 	["Gooey Spider Legs"] = "Patas de araña pegajosas",
 	-- {npc:311} Sven Yorgen
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
-	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "Las reclusas carroñeras acechan en el bosque de camino al oeste, y las telarácnidas venenosas, telarácnidas venenosas pigmeas y reclusas verdes andan justo al sur del campamento de {npc:311}: cualquiera puede soltar una pata.",
+	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "Los ermitaños carroñeros acechan en el bosque de camino al oeste, y las telarácnidas venenosas, telarácnidas venenosas pigmeas y ermitañas verdes andan justo al sur del campamento de {npc:311}: cualquiera puede soltar una pata.",
 
 	-- Step 8: Back to Darkshire
 	-- {area:42} Darkshire

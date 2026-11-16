@@ -311,7 +311,7 @@ return {
 	["{area:16626}: kill these as you meet them"] = "{area:16626}: mata a estos según te los encuentres",
 	-- {quest:92683} Flutterfly Dust · {npc:250929} Malfunctioning Cyclone Construct
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple · Hungry Bandits = {npc:252802} Hungry Bandit · Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "Las Tormanzanas maduras y los Hungry Bandits están en el huerto junto a la granja, {quest:92683} en los campos al noreste, y Ornery Zancavientos por todas partes. {npc:250929} está en el campo al noreste de la granja.",
+	["Ripe Stormapples and Hungry Bandits are in the orchard by the farm, {quest:92683} in the fields north-east of it, Ornery Galestriders all around. The {npc:250929} stands in the field north-east of the farm."] = "Las Tormanzanas maduras y los bandidos hambrientos están en el huerto junto a la granja, {quest:92683} en los campos al noreste, y Zancavientos malhumorados por todas partes. {npc:250929} está en el campo al noreste de la granja.",
 
 	-- Step 67: Aamelia Windfield again
 	-- {npc:252800} Aamelia Windfield

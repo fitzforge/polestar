@@ -105,7 +105,7 @@ return {
 	-- Step 19: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:29} Trial of the Lake · {area:442} Auberdine
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} está en el piso de arriba de su edificio en {area:2361}: sube por adentro, la flecha no distingue los pisos. Las baratijas del santuario están en los recipientes del fondo de {area:656}, debajo de {area:2361}: lleva una al {area:2362}, en el noroeste, úsala ahí y habla con {npc:11799}. {quest:29} tiene tiempo límite: nada de teletransportes ni piedra de hogar hasta que {npc:11799} la tenga. Luego vuela de vuelta a {area:442} desde {area:2361}.",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. {quest:29} runs on a timer: no teleport or Hearthstone until {npc:11799} has it. Then fly back to {area:442} from {area:2361}."] = "{npc:11802} está en el piso de arriba de su edificio en {area:2361}: sube por adentro, la flecha no distingue los pisos. Los adornos de altar están en los recipientes del fondo de {area:656}, debajo de {area:2361}: lleva una al {area:2362}, en el noroeste, úsala ahí y habla con {npc:11799}. {quest:29} tiene tiempo límite: nada de teletransportes ni piedra de hogar hasta que {npc:11799} la tenga. Luego vuela de vuelta a {area:442} desde {area:2361}.",
 	-- {quest:6122} The Principal Source · {area:445} Cliffspring Falls
 	["{quest:6122}: fill the sampler at {area:445}"] = "{quest:6122}: llena el muestreador en {area:445}",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -152,7 +152,7 @@ return {
 	["The bay wrecks"] = "Los naufragios de la bahía",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
-	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "Dos naufragios están en el fondo del mar, en la bahía al norte de {area:442}; cada uno tiene una caja fuerte. Los reptadores de arrecife y los reptadores de la marea incrustados ocupan esta orilla.\nCuidado: Los múrlocs de dentro de los naufragios están muy juntos y son rápidos. Suelen atravesar las paredes y agujeros del casco nadando, así que normalmente atraerás múrlocs de más.",
+	["Two wrecks lie on the sea floor in the bay north of {area:442}; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.\nCareful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs."] = "Dos naufragios están en el fondo del mar, en la bahía al norte de {area:442}; cada uno tiene una caja fuerte. Los reptadores de arrecife y los reptadores de marea escamados ocupan esta orilla.\nCuidado: Los múrlocs de dentro de los naufragios están muy juntos y son rápidos. Suelen atravesar las paredes y agujeros del casco nadando, así que normalmente atraerás múrlocs de más.",
 	-- {item:12191} Silver Dawning's Lockbox
 	["{item:12191}; underwater"] = "{item:12191}; bajo el agua",
 	-- {item:12192} Mist Veil's Lockbox
@@ -181,7 +181,7 @@ return {
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
 	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "La cueva está al sur de las cascadas: los Boletos rudos ({item:5271}) crecen por toda ella y {item:5270}, al fondo. {npc:6788} tiene su guarida en las colinas al sur de las cascadas.",
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks; below ground"] = "Tallos de escaber; bajo tierra",
+	["Scaber Stalks; below ground"] = "Boletos rudos; bajo tierra",
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "{item:5270}; bajo tierra",
 

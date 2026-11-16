@@ -85,10 +85,10 @@ return {
 
 	-- Step 17: Mountain Buzzards
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards"] = "Zopilotes montañeses",
+	["Mountain Buzzards"] = "Águilas ratoneras monteses",
 	-- {quest:257} A Hunter's Boast
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Los zopilotes montañeses sobrevuelan las colinas al oeste y al sur del refugio, de vuelta hacia la excavación. {quest:257} dura 15 minutos.",
+	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Las águilas ratoneras monteses sobrevuelan las colinas al oeste y al sur del refugio, de vuelta hacia la excavación. {quest:257} dura 15 minutos.",
 
 	-- Step 18: Daryl the Youngling
 	["12 minutes"] = "12 minutos",
@@ -168,7 +168,7 @@ return {
 	-- Step 33: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Desde el puente, ve al norte hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} sobre él. Los magos renegados Defias de alrededor llevan {item:6846}.",
+	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Desde el puente, ve al norte hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} sobre él. Los zahoríes bribones de Defias de alrededor llevan {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Usa {item:6866} en {npc:6172}",
 	-- {item:6846} Defias Script

@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
-	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Las arañas Niebla Negra anidan alrededor de la cueva del noroeste del pantano; todas las arañas sueltan ojos.\nCuidado: Los acechadores Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es común atraer de más; atraer objetivos sueltos desde el borde exterior lo reduce.",
+	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Las arañas Niebla Negra anidan alrededor de la cueva del noroeste del pantano; todas las arañas sueltan ojos.\nCuidado: Los rondadores Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es común atraer de más; atraer objetivos sueltos desde el borde exterior lo reduce.",
 
 	-- Step 7: Mudcrush Durtfeet
 	["Head south to the giant's hut in the middle of the marsh."] = "Ve al sur hasta la choza del gigante en medio del pantano.",
@@ -172,7 +172,7 @@ return {
 	-- Step 30: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "Piratas Velasangre: mata a estos según te los encuentres",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todos los Velasangre sueltan rapé y uno de ellos lleva el ojo de {npc:2493}: consíguelos de los asaltantes y magos (39-41) del campamento Velasangre de la playa, justo al norte del pueblo, donde encontraste la carta. Deja el campamento de {area:43}, al sur del pueblo (brujos y espadachines 41-43), para la visita de nivel 48.",
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "Todos los Velasangre sueltan pizcas de tabaco y uno de ellos lleva el ojo de {npc:2493}: consíguelos de los asaltantes y magos (39-41) del campamento Velasangre de la playa, justo al norte del pueblo, donde encontraste la carta. Deja el campamento de {area:43}, al sur del pueblo (brujos y espadachines 41-43), para la visita de nivel 48.",
 
 	-- Step 31: Booty Bay
 	-- {npc:2486} Fin Fizracket · {npc:1514} Mokk the Savage · {area:35} Booty Bay

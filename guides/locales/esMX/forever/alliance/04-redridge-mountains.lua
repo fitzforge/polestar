@@ -43,7 +43,7 @@ return {
 	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "En el camino al este, pasando {area:91}, ve al norte desde el puente hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} sobre él. Los magos renegados Defias de alrededor llevan {item:6846}.",
+	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "En el camino al este, pasando {area:91}, ve al norte desde el puente hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} sobre él. Los zahoríes bribones de Defias de alrededor llevan {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Usa {item:6866} en {npc:6172}",
 	-- {item:6846} Defias Script
@@ -121,7 +121,7 @@ return {
 	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders are the small spiders, and few: most crawl along the {area:1097} west of {quest:163}, fewer up north towards {npc:311}'s camp; they drop the venom too. Every ghoul of the cemetery's northern half can drop a fang. Wolves and the bigger spiders share the {zone:1436} border, so pull with care."] = "Los lobos temibles rabiosos recorren el bosque alrededor del cementerio y de {npc:289}, y los lobos temibles famélicos las colinas al noreste de él. Las telarácnidas venenosas pigmeas son las arañas pequeñas, y son pocas: la mayoría anda por {area:1097} al oeste de {quest:163}, y menos al norte, hacia el campamento de {npc:311}; también sueltan el veneno. Cualquier necrófago de la mitad norte del cementerio puede soltar un colmillo. Los lobos y las arañas más grandes comparten la frontera con {zone:1436}, así que atrae con cuidado.",
 	-- {item:1130} Vial of Spider Venom
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Venom Web Spiders = {npc:217} Venom Web Spider · Green Recluses = {npc:569} Green Recluse
-	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: telarácnidas venenosas pigmeas, telarácnidas venenosas y reclusas verdes",
+	["{item:1130}: Pygmy Venom Web Spiders, Venom Web Spiders and Green Recluses"] = "{item:1130}: telarácnidas venenosas pigmeas, telarácnidas venenosas y ermitañas verdes",
 	-- {item:2251} Gooey Spider Leg · {npc:272} Chef Grual · {area:42} Darkshire
 	["{item:2251}: keep the ones these spiders drop, for {npc:272} in {area:42}"] = "{item:2251}: guarda las que suelten estas arañas, para {npc:272} en {area:42}",
 
@@ -202,7 +202,7 @@ return {
 	-- Step 33: Alther's Mill
 	-- {quest:98386} Alther's Mill
 	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula · Tarantula Eggs = {object:673101} Tarantula Egg
-	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "Las tarántulas grandes andan por las laderas alrededor de {quest:98386}, al noreste del lago; sus huevos de tarántula están en el suelo entre ellas: haz clic en seis.",
+	["Greater Tarantulas crawl on the slopes around {quest:98386}, north-east of the lake; their Tarantula Eggs lie on the ground among them: click six."] = "Las tarántulas superiores andan por las laderas alrededor de {quest:98386}, al noreste del lago; sus huevos de tarántula están en el suelo entre ellas: haz clic en seis.",
 
 	-- Step 34: Blackrock camps
 	["Blackrock camps"] = "Campamentos Roca Negra",
@@ -233,7 +233,7 @@ return {
 	-- Step 39: Stonewatch Keep
 	-- {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
-	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "El bastión está junto a la torre. {npc:334} (élite) espera en la sala de arriba del bastión con dos guardias y un dragón; los lanzasombras Roca Negra (élite) y los centinelas están en su lado oeste, así que atráelos de a uno al entrar, y pégate a la pared derecha al entrar en su sala para no atraerlo de golpe. Élite: agrúpate si puedes.",
+	["The keep stands beside the tower. {npc:334} (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can."] = "El bastión está junto a la torre. {npc:334} (élite) espera en la sala de arriba del bastión con dos guardias y un dragón; los nigromantes Roca Negra (élite) y los centinelas están en su lado oeste, así que atráelos de a uno al entrar, y pégate a la pared derecha al entrar en su sala para no atraerlo de golpe. Élite: agrúpate si puedes.",
 
 	-- Step 40: Yowler
 	-- {area:95} Redridge Canyons · {area:997} Render's Valley · {npc:518} Yowler

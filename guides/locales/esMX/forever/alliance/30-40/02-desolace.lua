@@ -20,7 +20,7 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Los sátiros Odio Feroz ocupan las ruinas de {area:603}, al este de {area:608}.\nCuidado: Los pícaros Odio Feroz aparecen en sigilo, y los embaucadores Odio Feroz envenenan con sus ataques.",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Los sátiros Odio Feroz ocupan las ruinas de {area:603}, al este de {area:608}.\nCuidado: Los pícaros Odio Feroz aparecen en sigilo, y los tramposos Odio Feroz envenenan con sus ataques.",
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
@@ -73,7 +73,7 @@ return {
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Usa {item:13892} de {npc:11596} en un kodo anciano, moribundo o {npc:4702}: se convierte en un kodo domado que te sigue. Llévalo caminando hasta el campamento de {npc:11596}; allí, habla con el kodo: eso lo cuenta y te deja domar el siguiente. Cinco kodos, de a uno; los kodos ancianos también sueltan los pellejos, y los azotadores Scorpashi que cazan alrededor del cementerio llevan el veneno.",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Usa {item:13892} de {npc:11596} en un kodo envejecido, moribundo o {npc:4702}: se convierte en un kodo domado que te sigue. Llévalo caminando hasta el campamento de {npc:11596}; allí, habla con el kodo: eso lo cuenta y te deja domar el siguiente. Cinco kodos, de a uno; los kodos ancianos también sueltan los pellejos, y los azotadores Scorpashi que cazan alrededor del cementerio llevan el veneno.",
 	-- {npc:4702} Ancient Kodo
 	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "en un kodo viejo, moribundo o {npc:4702} en el cementerio; no lo mates",
 	-- {npc:11596} Smeed Scrabblescrew

@@ -166,10 +166,10 @@ return {
 
 	-- Step 30: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "Trepadores del pantano a lo largo del río",
+	["Fen Creepers along the river"] = "Trepadores del cubil a lo largo del río",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Al noroeste desde {npc:2093} hasta el río: los trepadores del pantano se esconden en sus pozas y a lo largo de sus orillas, todo el camino al oeste hasta {area:1024}. Avanza al oeste por él hasta tener doce, luego vuelve al este con {npc:1244}.\nCuidado: Fuera de combate, los trepadores del pantano usan Sigilo de vez en cuando, así que están ocultos y cuesta verlos.",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Al noroeste desde {npc:2093} hasta el río: los trepadores del cubil se esconden en sus pozas y a lo largo de sus orillas, todo el camino al oeste hasta {area:1024}. Avanza al oeste por él hasta tener doce, luego vuelve al este con {npc:1244}.\nCuidado: Fuera de combate, los trepadores del cubil usan Sigilo de vez en cuando, así que están ocultos y cuesta verlos.",
 
 	-- Step 31: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands
@@ -319,7 +319,7 @@ return {
 	-- Step 57: Satyrnaar
 	-- {area:430} Satyrnaar · {area:2358} Forest Song · {object:19901} Circle of Imprisonment · {object:673431} Kurothel's Knapsack (no name in this language: may be words) · {item:281014} Vine-Wrapped Scroll · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Al norte del lago, hasta el campamento sátiro de {area:430}, justo al oeste de {area:2358}: allí está {object:19901}, y {object:673431} está a su lado con {item:281014}.\nCuidado: los pícaros Almizcle Vil de {area:428} suelen ir en sigilo, y en {area:430} hay sátiros lanzadores de hechizos.",
+	["North from the lake to the satyr camp of {area:430}, just west of {area:2358}: the {object:19901} stands in it, and {object:673431} lies beside it with the {item:281014}.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "Al norte del lago, hasta el campamento sátiro de {area:430}, justo al oeste de {area:2358}: allí está {object:19901}, y {object:673431} está a su lado con {item:281014}.\nCuidado: los pícaros Putredor de {area:428} suelen ir en sigilo, y en {area:430} hay sátiros lanzadores de hechizos.",
 	-- {item:281014} Vine-Wrapped Scroll · {object:673431} Kurothel's Knapsack (no name in this language: may be words)
 	["{item:281014}, from {object:673431}"] = "{item:281014}, de {object:673431}",
 
@@ -354,7 +354,7 @@ return {
 	-- Step 66: The Howling Vale
 	-- {area:419} Howling Vale · {npc:3792} Terrowulf Packlord
 	-- plural, as words: Terrowulf Fleshrippers = {npc:3789} Terrowulf Fleshripper
-	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "Toma el túnel hacia {area:419}; el tomo está en las ruinas de su extremo oeste. Cuidado: los Desgarracarnes y Tejesombras Terrolobo (28-30) están en grupos cerrados alrededor del tomo, y {npc:3792}, un raro de nivel 32, recorre el valle. Atrae a los lobos de uno en uno desde el túnel y deja pasar primero al Señor de la Manada.",
+	["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "Toma el túnel hacia {area:419}; el tomo está en las ruinas de su extremo oeste. Cuidado: los desgarradores y tejesombras Luporror (28-30) están en grupos cerrados alrededor del tomo, y {npc:3792}, un raro de nivel 32, recorre el valle. Atrae a los lobos de uno en uno desde el túnel y deja pasar primero al Señor de la Manada.",
 
 	-- Step 67: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon

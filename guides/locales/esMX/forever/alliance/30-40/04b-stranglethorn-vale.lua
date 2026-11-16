@@ -68,7 +68,7 @@ return {
 
 	-- Step 10: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
-	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "La isla embrujada está justo frente a la costa, al oeste de la segunda tablilla: los elementales de agua menores surgen del agua a su alrededor.",
+	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "La isla embrujada está justo frente a la costa, al oeste de la segunda tablilla: los elementales de agua inferiores surgen del agua a su alrededor.",
 
 	-- Step 11: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
