@@ -2224,6 +2224,7 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 				kb.change("trainers", forge_guide::js::str_to_num(&id), "trainer", V::Null, classes, "tdb");
 				bump(&tdb_report, "trainersAdded", 1.0);
 			}
+			set_trainer_tops(&t2, &tdb.get("trainerTop"));
 			trainers = Some(V::Obj(t2));
 		}
 		let tt = tdb.get("training");
@@ -3543,6 +3544,20 @@ pub fn mechanics_source() -> V {
 	V::Obj(o)
 }
 
+/// trainers.json's entries (`trainers`, a copy of the file read in) take `top`, the highest level a trainer's
+/// sniffed lists teach (the TDB extract's `trainerTop`, #2477: the starting areas' trainers stop at 6), which
+/// ClassTrainers.lua passes to the engine. Each entry changed is a copy: the entries are shared with the file
+/// read in, against which the build decides whether to write it.
+fn set_trainer_tops(trainers: &Obj, tops: &V) {
+	for (id, top) in tops.entries() {
+		if let (Some(o), true) = (trainers.get(&id).as_obj(), top.num() > 0.0) {
+			let o = o.spread();
+			o.set("top", top);
+			trainers.set_str(id.clone(), o);
+		}
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	#[test]
@@ -3556,6 +3571,15 @@ mod tests {
 		assert!(names[1].starts_with("Factoruide"));
 		assert!(kb_credits(&|_| false, true, true, true).is_empty());
 		assert!(kb_credits(&used, false, false, false).is_empty());
+	}
+
+	#[test]
+	fn trainers_take_the_level_their_sniffed_lists_stop_at_and_the_file_read_in_keeps_its_own_2477() {
+		let read: V = forge_guide::js::parse_json(r#"{"911":{"id":911,"classes":["WARRIOR"]},"913":{"id":913,"classes":["WARRIOR"]}}"#).unwrap();
+		let t2 = read.as_obj().unwrap().spread();
+		set_trainer_tops(&t2, &forge_guide::js::parse_json(r#"{"911":6,"913":60,"5":6}"#).unwrap());
+		assert_eq!(stringify(&V::Obj(t2), None), r#"{"911":{"id":911,"classes":["WARRIOR"],"top":6},"913":{"id":913,"classes":["WARRIOR"],"top":60}}"#);
+		assert_eq!(stringify(&read, None), r#"{"911":{"id":911,"classes":["WARRIOR"]},"913":{"id":913,"classes":["WARRIOR"]}}"#, "the file read in is left as it was");
 	}
 
 	use super::*;
