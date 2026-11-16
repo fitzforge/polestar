@@ -1265,6 +1265,9 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs", "test": "a_pick_up_guide_step_for_a_story_from_a_friendly_npc_says_talk_to_not_kill_2543" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "a_talk_objective_keeps_its_line_says_talk_to_on_the_npc_and_puts_no_skull_on_it_2543" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/quests.rs", "test": "a_pinned_quest_s_talk_line_is_built_as_a_talk_to_its_npc_2543" }
+		] },
+		"2563": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, only while A Grim Task is not handed in" }
 		] }
 	},
 	"seedDrift": {}
