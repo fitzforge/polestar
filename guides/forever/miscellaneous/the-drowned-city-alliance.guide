@@ -21,16 +21,16 @@ why Every Alliance quest of the Drowned City in one run, lead-ins included.
 # Brother Nimetz's 207 Kurzen's Mystery (the legends of four tablets: objects
 # 54 and 52 in the Ruins of Zul'Kunda, 58 on the sea floor of the Vile Reef,
 # the tablet of the Horde's 629, and 57 in the Bal'lal Ruins) -> 205 Troll
-# Witchery (its Skullsplitters are level 39 to 42) -> 95786 An Acquaintance in
-# Southshore, to Loremaster Dibbs. He gives 95787 Take Two With Water (the
-# four rubbings inside, items 270308-270311, as the Horde's 95775) and 95788
-# Magics of the Drowned City (five I'lalai Fetishes), then 95799 Findings for
-# the Explorer's League (Historian Karnik, Ironforge) and 95798 The Web of
-# Magic (Abra Cadabra, Dalaran). Archmage Timear in Dalaran gives 97130
-# Ancient Gurubashi Secrets from level 34; the idol drops from Deathless
-# Marrow only while the quest is in the log, so he comes before the run.
-# Krazek in Booty Bay gives both factions 95789 Shady Saltseers and 95791 The
-# Saltseer Captain, from level 34.
+# Witchery (its Skullsplitters are level 39 to 42, so its step waits for 39)
+# -> 95786 An Acquaintance in Southshore, to Loremaster Dibbs. He gives 95787
+# Take Two With Water (the four rubbings inside, items 270308-270311, as the
+# Horde's 95775) and 95788 Magics of the Drowned City (five I'lalai Fetishes),
+# then 95799 Findings for the Explorer's League (Historian Karnik, Ironforge)
+# and 95798 The Web of Magic (Abra Cadabra, Dalaran). Archmage Timear in
+# Dalaran gives 97130 Ancient Gurubashi Secrets from level 34; the idol drops
+# from Deathless Marrow only while the quest is in the log, so he comes before
+# the run. Krazek in Booty Bay gives both factions 95789 Shady Saltseers and
+# 95791 The Saltseer Captain, from level 34.
 #
 # Inside: as in forever/miscellaneous/the-drowned-city-horde, the goals stand
 # at the entrance (@21.8,27.6, Sunken Hollow) with `group 5`, and the steps
@@ -91,7 +91,8 @@ step Rebel Camp
   accept 205
 
 step Skullsplitter trolls
-  tip The Skullsplitter mystics and witch doctors in the middle of Stranglethorn drop the fetishes. They are level 39 to 42: bring help, or come back at level 38 or higher.
+  tip The Skullsplitter mystics (level 39 to 40) and witch doctors (41 to 42) in the middle of Stranglethorn drop the fetishes.
+  level 39
   collect 2466 x4 quest 205.1
 
 step Brother Nimetz
