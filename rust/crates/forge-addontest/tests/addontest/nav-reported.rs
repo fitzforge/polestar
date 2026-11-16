@@ -535,12 +535,18 @@ fn desolace_the_walk_from_the_road_to_gurda_wildmane_goes_up_the_north_slope_not
 // steps) were walked to nowhere at their height, and without it over the city's roof: Gwenna Firebrew, the Stonefire
 // Tavern's innkeeper (Ironforge 18.64,51.76, 502), Nissa Firestone (the Great Forge, 55.09,58.26, 512.5) and Connor
 // Rivers (Stormwind's Mage Quarter, 105.2). The router settles such a goal on the surface nearest its height a few
-// cells away that walks to the city, so the walk is found at the NPC's height, both ways.
+// cells away that walks to the city, so the walk to them is found at the NPC's height (Gwenna's and Connor's both
+// ways; a walk from Nissa's spot still settles on the ledge beside her, as starts do).
 #[test]
 fn ironforge_and_stormwind_npcs_beside_their_cells_surfaces_are_walked_to_at_their_height() {
 	let ironforge_fm = Pt { c: 0, x: -4821.1, y: -1152.4, z: Some(502.3) };
 	joined_both_ways(ironforge_fm, Pt { c: 0, x: -4842.3, y: -861.0, z: Some(502.0) }, Some("Alliance"), "Gwenna Firebrew");
-	joined_both_ways(ironforge_fm, Pt { c: 0, x: -4876.6, y: -1149.2, z: Some(512.5) }, Some("Alliance"), "Nissa Firestone");
+	let nissa = Pt { c: 0, x: -4876.6, y: -1149.2, z: Some(512.5) };
+	let got = walk(ironforge_fm, nissa, Some("Alliance"));
+	assert!(truthy(&got), "the engine finds a walk from Ironforge's flight master to Nissa Firestone");
+	let pts = points(&got);
+	let last = pts[pts.len() - 1];
+	assert!(last.2.is_some_and(|z| (z - 512.5).abs() < 5.0) && (last.0 - nissa.x).hypot(last.1 - nissa.y) < 10.0, "the walk ends at Nissa Firestone");
 	joined_both_ways(Pt { c: 0, x: -8835.8, y: 490.1, z: Some(109.7) }, Pt { c: 0, x: -9102.3, y: 834.7, z: Some(105.2) }, Some("Alliance"), "Connor Rivers");
 }
 

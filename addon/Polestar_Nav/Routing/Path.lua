@@ -524,11 +524,14 @@ local function endpoint(st, swim, mult, tree, k, node, back)
 	search(st, k, swim, mult, node, tree, nil, targets, left, back)
 end
 -- An endpoint on a rooftop or ledge the grid cannot leave moves to the nearest node that reaches an entrance,
--- down a ledge but never up one or onto another level. With `want` (the height the point was asked at: an NPC's
--- spawn), the cells within SNAP are tried in order of their distance plus twice their surface's gap to it (as snap
--- weighs them), so a point whose own cell holds only a counter, a table or a stair's piece above the floor it stands
--- on finds that floor a few cells away before RETRIES runs out (0.4.1: the Stonefire Tavern's innkeeper, 5 yd under
--- the bar's surfaces round her, was walked to over the mountain above Ironforge). Without it, ring by ring as before.
+-- down a ledge but never up one or onto another level: ring by ring, RETRIES cells at most. A point asked at a height
+-- (`want`: an NPC's spawn, the player's floor) has a second order too: the cells within SNAP by their distance plus
+-- twice their surface's gap to that height (as snap weighs them), RETRIES more. A goal (`back`) tries that order
+-- first: one whose own cell holds only a counter, a table or a stair's piece above the floor the NPC stands on finds
+-- that floor a few cells away (0.4.1: the Stonefire Tavern's innkeeper, 5 yd under the bar's surfaces round her, was
+-- walked to over the mountain above Ironforge; Nissa Firestone's ring settled on a ledge whose entrance leads
+-- nowhere). A start (the player, on the floor Walk.lua follows) tries the rings first, as before, the other order
+-- only when they find nothing.
 local function settle(st, swim, mult, tree, k, node, back, want)
 	local C = st.C
 	endpoint(st, swim, mult, tree, k, node, back)
@@ -544,11 +547,39 @@ local function settle(st, swim, mult, tree, k, node, back, want)
 	if connected() then
 		return node
 	end
-	local tries = 0
+	local start = node
 	local h = zOf(grid(st, k), node)
 	local cell = cellOf(st, k, node)
 	local lx, ly = floor(cell / C), cell % C
-	if want then
+	-- Ring by ring: the node settled (true), or the last one tried (false).
+	local function rings()
+		local tries, at = 0, start
+		for r = 1, SNAP do
+			for dx = -r, r do
+				for dy = -r, r do
+					if tries >= RETRIES then
+						return at, false
+					end
+					local x, y = lx + dx, ly + dy
+					local ring = dx == r or dx == -r or dy == r or dy == -r
+					if ring and x >= 0 and y >= 0 and x < C and y < C then
+						local near = standing(st, k, x * C + y, h)
+						local rise = near and zOf(grid(st, k), near) - h
+						if near and rise <= ZTOL and rise >= -DROP and not reached(tree, near) then
+							tries, at = tries + 1, near
+							endpoint(st, swim, mult, tree, k, at, back)
+							if connected() then
+								return at, true
+							end
+						end
+					end
+				end
+			end
+		end
+		return at, false
+	end
+	-- By distance and height gap to want: the node settled, or nil.
+	local function nearest()
 		local cands = {}
 		for r = 1, SNAP do
 			for dx = -r, r do
@@ -570,43 +601,40 @@ local function settle(st, swim, mult, tree, k, node, back, want)
 			end
 			return a[3] < b[3]
 		end)
+		local tries = 0
 		for _, c in ipairs(cands) do
 			if tries >= RETRIES then
-				return node
+				return nil
 			end
 			if not reached(tree, c[1]) then
-				tries, node = tries + 1, c[1]
-				endpoint(st, swim, mult, tree, k, node, back)
+				tries = tries + 1
+				endpoint(st, swim, mult, tree, k, c[1], back)
 				if connected() then
-					return node
-				end
-			end
-		end
-		return node
-	end
-	for r = 1, SNAP do
-		for dx = -r, r do
-			for dy = -r, r do
-				if tries >= RETRIES then
-					return node
-				end
-				local x, y = lx + dx, ly + dy
-				local ring = dx == r or dx == -r or dy == r or dy == -r
-				if ring and x >= 0 and y >= 0 and x < C and y < C then
-					local near = standing(st, k, x * C + y, h)
-					local rise = near and zOf(grid(st, k), near) - h
-					if near and rise <= ZTOL and rise >= -DROP and not reached(tree, near) then
-						tries, node = tries + 1, near
-						endpoint(st, swim, mult, tree, k, node, back)
-						if connected() then
-							return node
-						end
-					end
+					return c[1]
 				end
 			end
 		end
 	end
-	return node
+	if want and back then
+		local found = nearest()
+		if found then
+			return found
+		end
+		endpoint(st, swim, mult, tree, k, start, back)
+	end
+	local at, ok = rings()
+	if ok or not want or back then
+		return at
+	end
+	-- (the tree holds the last ring try's search: the start's own is searched again for `reached`)
+	endpoint(st, swim, mult, tree, k, start, back)
+	local found = nearest()
+	if found then
+		return found
+	end
+	-- (none: as the rings left it, its tree searched again)
+	endpoint(st, swim, mult, tree, k, at, back)
+	return at
 end
 
 -- Both APIs connect endpoints with the same local search. Connections are outward at both ends, as in the
