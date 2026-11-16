@@ -144,7 +144,7 @@
 				"ref": "EG Link live quest scans, builds 1.60.1.70888 (collected 10 to 13 November) and 70938 (13 to 15 November): 236 has no data, while Eight-Legged Menaces (245), from the same Watcher Dodds, is in both (as in the beta builds 70170 to 70450)"
 			}
 		],
-		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's quest data does not list it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
+		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's own quest list does not have it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
 	},
 	"273": {
 		"set": {
@@ -3301,7 +3301,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
+				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8905 and no 84147"
 			},
 			{
 				"kind": "questie",
@@ -3315,7 +3315,7 @@
 		"source": [
 			{
 				"kind": "tdb",
-				"ref": "Forever server data (forever-tdb 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
+				"ref": "Forever server data (world database dump 2026-10-14): the quest table has An Earnest Proposition 8908 and no 84150"
 			},
 			{
 				"kind": "questie",
