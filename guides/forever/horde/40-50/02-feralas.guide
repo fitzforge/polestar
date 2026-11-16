@@ -69,6 +69,7 @@ step Pirate ghosts and Zanzil's camps
   collect 4016 quest 621.1
 
 step Witch Doctor Unbagwa
+  when onquest 348
   tip West into Mistvale: Witch Doctor Unbagwa sits among the gorillas. Any gorilla can drop a fang: hand him ten and stay by him, he calls three waves of gorillas, then Mokk.
   tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
   collect 2799 x10                    -- Gorilla Fang
