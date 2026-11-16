@@ -7,8 +7,7 @@ section: players
   beasts are picked up where the route passes their givers and done on the
   route's later visit to the same place, where their mobs are at your level.
   Feralas no longer sends you to Lord Shalzaru, Zorbin's zapped giants or the
-  Rage Scar yetis (thanks Bennistrov), and adds Mudsprocket's three Wyrmbog
-  quests on the ride out of Dustwallow Marsh. Short top-ups come right before
+  Rage Scar yetis (thanks Bennistrov). Short top-ups come right before
   Dreadmaul Rock's Brutes, Un'Goro's crater camps, Kim'jael's blood elves and
   Winterspring's Frostfire camp. The Blackrock Stronghold quests (Gor'tesh,
   FIFTY! YEP!) and Corin's Crossing, whose mobs are 55-60, are left out.
