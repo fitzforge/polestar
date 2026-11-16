@@ -43,6 +43,7 @@ pub mod stats;
 pub mod subzones;
 pub mod tables;
 pub mod talents;
+pub mod talk;
 pub mod tdb;
 pub mod trainers;
 pub mod travel;

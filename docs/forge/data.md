@@ -241,6 +241,14 @@ The build goes in layers. A later layer wins over an earlier one:
 Spawn points are thinned to at most 24 per NPC or object per map (`--cap N`), spread evenly over
 the area they cover.
 
+Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
+show) as a creature objective, like a kill, and the Classic server's database gives it no count. Before the
+corrections, a kill objective whose count no source knows, whose NPC is friendly to every side that can take
+the quest, and whose quest text asks for no fight, use, emote or escort becomes `talk` (count 1)
+(`forge-data/src/talk.rs`). The Codex packs it as `s`, the quest database as kind 5, and the guides, Lookup and
+pinned quests say "Talk to". Talks the rule can't see (a known count, an NPC with no side in the data) are
+corrections with players' recordings behind them (#2543).
+
 ### What it writes
 
 Without `--kb`, `data/forever/` gets:
