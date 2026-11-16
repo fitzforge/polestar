@@ -57,6 +57,8 @@ pins[1].onClick("LeftButton")
 local pinTarget = Polestar.Nav.GetTarget()
 local alias = Near.Go("transmog")
 local nearTarget = Polestar.Nav.GetTarget()
+Near.Command("")
+local usage = stub.messages[#stub.messages]
 local button
 for _, item in ipairs(Near.MenuItems()) do if item.key == "transmogrifier" then button = item.label end end
 stub.world.faction = "Horde"
@@ -72,7 +74,7 @@ local hordeNear = Near.Find("transmogrifier")
 emit({ids = ids, roles = C.Npc(270513).roles,
   enemy = enemy, before = before, pins = #pins,
   first = pins[1] and pins[1].category, icon = pins[1] and pins[1].icon,
-  nearby = found and found.id, reason = reason, alias = alias,
+  nearby = found and found.id, reason = reason, alias = alias, usage = usage,
   pinX = pinTarget and pinTarget.x, nearX = nearTarget and nearTarget.x, button = button,
   hordePins = #hordePins, hordeId = hordePins[1] and hordePins[1].id,
   hordeNear = hordeNear and hordeNear.id})`,
@@ -86,6 +88,7 @@ emit({ids = ids, roles = C.Npc(270513).roles,
 	assert.equal(result.icon, 'map:transmog');
 	assert.equal(result.nearby, 270581, JSON.stringify(result));
 	assert.equal(result.alias, true);
+	assert.match(result.usage, /\| stable \| transmog$/);
 	assert.equal(result.pinX, 55);
 	assert.equal(result.nearX, 50);
 	assert.equal(result.button, 'Transmogrifier');
