@@ -2395,6 +2395,16 @@ test(`forever/alliance/40-50/05-the-hinterlands.guide: Mokk's heart waits for Un
 	assert.ok(heart > ritual, 'the heart comes after the fangs are handed in');
 	assert.ok((steps[heart].when || []).some((p) => p.k === 'turnedin' && !p.neg && [].concat(p.q).includes(349)), 'and only once Unbagwa has them: Mokk comes from his ritual');
 });
+test('forever/horde/50-60/05-eastern-plaguelands.guide: Gaeriyan waits for Meet at the Grave and the Videre Elixir (#2561 sweep)', { skip }, () => {
+	// The elixir comes only from Gregan's Evoroot hand-in, gated on the Evoroot since #2561's sweep: without it the
+	// Gaeriyan step (drink the elixir) must not hold the route.
+	const { steps } = compiled('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const st = steps.find((s) => s.goals.some((g) => g.t === 'use' && g.item === 11243));
+	assert.ok(st && st.goals.some(is('turnin', 3912)), 'the elixir is drunk on the Gaeriyan step');
+	const when = st.when || [];
+	assert.ok(when.some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(3912)), 'only with Meet at the Grave in the log');
+	assert.ok(when.some((p) => p.k === 'has' && !p.neg && p.item === 11243), 'and the Videre Elixir in the bags');
+});
 test('Every guide: no required hand-in straight from the bags can hold the route without its items (#2561 sweep)', { skip }, () => {
 	const bad = [];
 	for (const guide of allGuides()) {
