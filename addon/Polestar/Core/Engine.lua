@@ -323,7 +323,7 @@ function Own.chainOf(g)
 				elseif not Own.optionClosed(cur, id) then
 					if cur.nextWhen and cur.nextWhen[id] then open[#open + 1] = { from = cur, id = id } end
 					local nxt = Guides.Get(id)
-					if nxt then queue[#queue + 1] = nxt else unknown = true end
+					if nxt then queue[#queue + 1] = nxt elseif not Guides.OtherSidePart(cur, id) then unknown = true end
 				end
 			end
 		end

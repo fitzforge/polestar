@@ -1584,6 +1584,25 @@ function Own.loadFactions()
 	end
 end
 
+-- Whether `next` option `id` of guide `from` is the other side's guide in
+-- its pack's faction part this character does not load: the pack keeps each
+-- faction's guides in a part and loads the player's (loadParts), and a guide
+-- both factions play names one `next` per faction (Shen'dralas hands each
+-- side to its own Feralas). With the player's part in and the other's not,
+-- an option of the pack no part registered is the other side's: a route
+-- walking on skips it, as it skips a loaded guide of the other faction,
+-- rather than call the route "not loaded".
+function Guides.OtherSidePart(from, id)
+	if type(from) ~= "table" or type(id) ~= "string" or guides[id] or not ownsId(from.pack, id) then return false end
+	local r = packs[from.pack]
+	local mine = ns.Compat.GetPlayerFaction()
+	if not (r and r.addon and mine and loaded[r.addon .. "_" .. mine]) then return false end
+	for _, f in ipairs(FACTIONS) do
+		if f ~= mine and not loaded[r.addon .. "_" .. f] then return true end
+	end
+	return false
+end
+
 ns.RegisterEvent("ADDON_LOADED", function(_, name)
 	loadingRefused = nil
 	if type(name) ~= "string" then return end

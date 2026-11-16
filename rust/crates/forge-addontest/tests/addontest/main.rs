@@ -393,6 +393,8 @@ mod riding;
 mod route_experimental;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "route-plan-sides.rs"]
+mod route_plan_sides;
 #[path = "settings-coverage.rs"]
 mod settings_coverage;
 #[path = "settings-effects.rs"]
