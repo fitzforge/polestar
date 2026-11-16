@@ -2305,10 +2305,11 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	if (g.optional) goal.optional = true;
 	if (g.either) goal.either = true;
 	// `turnin ... direct`: handed in from the giver's window with no accept;
-	// its quest's level, as an accept's, for the engine's grey-quest skipping.
+	// carry its minimum level and quest level for eligibility and grey-quest skipping.
 	if (g.direct) {
 		goal.direct = true;
 		const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
+		if (q && Number(q.minLevel) > 0) goal.minLevel = Number(q.minLevel);
 		if (q && Number(q.level) > 0) goal.qlvl = Number(q.level);
 		// What its giver waits on, as for an accept: the engine lets the goal go when the guide's accept of
 		// that quest is skipped or never taken (Stranglethorn Fever 349 wants Fin Fizracket's 348 in the log).
