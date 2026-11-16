@@ -17439,5 +17439,21 @@
 			"ref": "players' in-game recordings (to 2026-11-15; excluded and suspect contributors left out): 8 people were given 10,969 XP for it at the turn-in, at levels where nothing is taken off (builds 70888, 70938)"
 		},
 		"note": "The Pariah's Instructions rewards 10,969 XP on Forever; the merged data had 5,450, the Classic value. Forever raised dungeon quest XP (as for Crime and Punishment, #394), and the Dungeons tab and Lookup showed the Classic number."
+	},
+	"809": {
+		"set": {
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-16; excluded contributors left out): 41 runs of Ak'Zeloth by 30 people, none with an objective line at the accept or after it"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives: none for 809; Destroy the Demon Seed (object 3525) is The Demon Seed's (924)"
+			}
+		],
+		"note": "Ak'Zeloth is Neeru Fireblade's errand to speak with Ak'Zeloth: it has no objectives. The merged data gave it The Demon Seed's (924) objective, Destroy the Demon Seed, so a guide's hand-in looked like work never done."
 	}
 }
