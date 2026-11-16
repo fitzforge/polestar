@@ -159,7 +159,7 @@ for (const [side, race] of [['Alliance', 'Dwarf'], ['Horde', 'Orc']]) {
 							active = E.GetGuide() and E.GetGuide().id or false }
 					end
 					emit(result)
-					-- Manual browsing already falls back to a guide for another class.
+					-- Another class gets none of them: 0.4.0 never offers a guide of another class (#2462).
 					stub.world.class, stub.world.className, stub.world.classID = "WARRIOR", "Warrior", 1
 					local curated = L.CuratedGuide("item", 5177)
 					local id = L.Guide("item", 5177)
@@ -172,10 +172,8 @@ for (const [side, race] of [['Alliance', 'Dwarf'], ['Horde', 'Orc']]) {
 			for (const [item, element] of TOTEMS) for (const faction of ['alliance', 'horde']) {
 				assert.deepEqual(guides.find((g) => g.id.endsWith(`call-of-${element}-${faction}`)).collects, [item], 'only the primary totem is indexed');
 			}
-			assert.equal(fallback.matches, false);
-			assert.ok(fallback.curated);
-			assert.equal(fallback.opened, fallback.curated, 'existing manual fallback remains available');
-			assert.equal(fallback.active, fallback.opened);
+			assert.equal(fallback.curated, false, 'a Warrior is never sent to a Shaman guide (#2462)');
+			assert.notEqual(fallback.opened, `forever/class/shaman/call-of-water-${side.toLowerCase()}`);
 		} finally {
 			fs.rmSync(pack.dir, { recursive: true, force: true });
 			codex.cleanup();
