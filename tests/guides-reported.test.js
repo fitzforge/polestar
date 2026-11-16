@@ -1065,6 +1065,25 @@ test(`Visur's report (#859): no guide asks for a kill the game's objectives do n
 	}
 });
 
+// Fyurie's reports (#2535, #2539, #2543, Blackrock Depths' pick-up guide): stories heard from friendly NPCs said
+// "Kill". The data build's talk rule (forge-data talk.rs) and forever-db corrections type them as talks, so the
+// Codex, the quest database and every guide say "Talk to"; 273's phantom kill and 1560's "Kill Torta" are gone.
+test('#2535 #2539 #2543: stories heard from friendly NPCs are talks in the data, not kills', { skip }, () => {
+	data = data || loadData(DATA);
+	const kind = (q, i) => ((data.quests[q] || {}).objectives || [])[i - 1]?.type;
+	for (const [q, i, npc] of [[3702, 1, 8879], [4185, 1, 1749], [4224, 1, 9563], [3441, 1, 8479], [3453, 1, 8479], [4022, 2, 9459],
+		[4001, 1, 9021], [4342, 1, 9021], [93016, 1, 253471], [93739, 1, 3230], [91294, 4, 246378], [5211, 1, 11064], [96989, 3, 267298]]) {
+		assert.equal(kind(q, i), 'talk', `${q}.${i}`);
+		assert.equal(data.quests[q].objectives[i - 1].id, npc, `${q}.${i} is a talk to ${npc}`);
+	}
+	assert.equal(kind(4022, 1), 'item', 'A Taste of Flame keeps its molt');
+	assert.deepEqual(data.quests[273].objectives.map((o) => o.type), ['event'], 'Resupplying the Excavation: the game lists only its event');
+	assert.deepEqual(data.quests[1560].objectives.map((o) => o.type), ['event'], "Tooga's Quest is the escort to Torta");
+	assert.deepEqual(data.quests[96204].objectives.map((o) => o.type), ['talk', 'event'], "The Windshaper's Wrath: talk to Lumina, then the escort");
+	// Fights stay kills: the NPC turns hostile and gives in.
+	for (const q of [590, 1447, 1640]) assert.equal(kind(q, 1), 'kill', `${q}`);
+});
+
 test(`EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads "Tame", not "Kill", in every guide`, { skip }, () => {
 	// The data counts the tame as kill credit on the beast, so the goal stays
 	// a `kill` tracking the objective; its text is what the guide window shows.
@@ -7433,7 +7452,7 @@ test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren
 	// Luca and left Prompt Potion Runner for a visit thirty levels later.
 	// Since the Horde 12-30 re-chain this Undercity visit, Sylvanas with it, is at the end of the Silverpine stay (03).
 	const uc = goals('forever/horde/03-silverpine-forest.guide');
-	const sylvanas = uc[at(uc, 'Sylvanas', (g) => g.t === 'kill' && g.npc === 10181)].step;
+	const sylvanas = uc[at(uc, 'Sylvanas', (g) => g.t === 'talk' && g.npc === 10181)].step;
 	assert.ok(!/Crossroads/.test(sylvanas.note || ''), 'no Crossroads in the Undercity tip');
 	assert.ok(at(uc, 'accept 97891', is('accept', 97891)) < at(uc, 'turnin 97891', is('turnin', 97891)), 'Prompt Potion Runner taken and handed in');
 	assert.equal(uc[at(uc, 'turnin 97891', is('turnin', 97891))].s, uc[at(uc, 'turnin 441', is('turnin', 441))].s, 'on the one Undercity stop, with Raleigh');
@@ -11470,8 +11489,9 @@ test('Horde Darrowshire: Defenders of Darrowshire after Uncle Carlin', { skip },
 	const ep = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
 	const acc = at(ep, 'accept 5211', is('accept', 5211));
 	assert.ok(at(ep, 'turnin 5241', is('turnin', 5241)) < acc, 'Uncle Carlin handed in before Defenders of Darrowshire is taken');
-	assert.ok(acc < at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211), 'taken before the spirits');
-	const spirits = at(ep, 'the spirits', (g) => g.t === 'kill' && g.quest === 5211);
+	// The spirits are freed by talking to them (#2543: a talk objective, no longer a kill).
+	assert.ok(acc < at(ep, 'the spirits', (g) => g.t === 'talk' && g.quest === 5211), 'taken before the spirits');
+	const spirits = at(ep, 'the spirits', (g) => g.t === 'talk' && g.quest === 5211);
 	assert.ok(spirits < at(ep, 'turnin 5211', is('turnin', 5211)), 'spirits before the hand-in');
 	assert.equal(ep[at(ep, 'turnin 5211', is('turnin', 5211))].s, ep[at(ep, 'turnin 5181', is('turnin', 5181))].s, 'with Villains of Darrowshire');
 });
