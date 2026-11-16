@@ -10484,6 +10484,12 @@
 				"faction": "Alliance",
 				"reason": "Alliance starts fix round 2 (0.4.0): Gnome Priests take High Priestess Mims' own Confounding Flash (94817, minimum level 10) and hand it straight back on the Ironforge Mystic Ward stop, which the level model reaches at about 13.6, in place of Maxan Anvol's letter (94824), which made them wait in Kharanos for level 10 (about 17 minutes in the level model). A player's recording shows Mims' own quest taken and handed in at 13.",
 				"issue": "-"
+			},
+			{
+				"q": 95737,
+				"faction": "Alliance",
+				"reason": "Alliance 12-30 fix round 2 (0.4.0): Seeking Caitlin (1,250 XP, talk only, minimum level 24) is taken from Llana beside Astranaar's flight master on 06-wetlands' last Ashenvale stop (about 29.3) and handed to Caitlin Grassman beside Menethil's inn on the way from the boat to the flight master: no walk added. Players' recordings: 28 accepts, 26 hand-ins.",
+				"issue": "-"
 			}
 		],
 		"skip": [
