@@ -390,8 +390,25 @@ function Compat.IsQuestFailed(questID)
 	return QL.IsFailed(questID) and true or false
 end
 
+-- A quest's lines, read once per moment (ns.Moment, Core/Init.lua: the same
+-- number in the same frame means nothing Polestar knows of has changed, so
+-- neither has the log): a step's view, an evaluation or the arrival poll asks
+-- for the same quest once per goal on its line. The lines are read-only for
+-- every caller (one table per quest per moment, no longer one per call).
+local objMemo, objAt, objMoment = {}, nil, nil
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
+	local now, moment = GetTime and GetTime(), ns.Moment and ns.Moment()
+	local memo = now ~= nil and moment ~= nil and questID ~= nil
+	if memo then
+		if now ~= objAt or moment ~= objMoment then
+			for q in pairs(objMemo) do objMemo[q] = nil end
+			objAt, objMoment = now, moment
+		end
+		local hit = objMemo[questID]
+		if hit ~= nil then return hit or nil end
+		objMemo[questID] = false
+	end
 	local raw = C_QuestLog.GetQuestObjectives(questID)
 	if type(raw) ~= "table" or #raw == 0 then return nil end
 	local out = {}
@@ -410,6 +427,7 @@ function Compat.GetQuestObjectives(questID)
 		end
 		out[i] = { text = o.text or "", type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
+	if memo then objMemo[questID] = out end
 	return out
 end
 

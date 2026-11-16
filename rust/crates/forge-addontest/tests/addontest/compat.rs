@@ -150,6 +150,42 @@ fn issue_1952_an_unfinished_objective_never_reads_full() {
 	assert_eq!(out, json!({ "skill": [0, 1, false], "cloth": [6, 6] }));
 }
 
+// A step's view, an evaluation and the arrival poll each ask for the same quest's lines once per goal on it (a kill
+// step of four lines asked four times per poll, a table per line each time: the idle arrival poll's garbage, perf
+// sweep). Inside one moment (ns.Moment: no game event, timer or message in between, the same frame) the client is
+// asked once and every reader gets the same lines; anything that can change the log starts a new moment.
+#[test]
+fn quest_objectives_are_read_from_the_client_once_per_moment() {
+	let out = run(r#"
+		local calls, have = 0, 3
+		C_QuestLog.GetQuestObjectives = function(q)
+			calls = calls + 1
+			if q ~= 1 then return {} end
+			return { { text = "Kobold Vermin slain: " .. have .. "/10", type = "monster", finished = false, numFulfilled = have, numRequired = 10 } }
+		end
+		local r = {}
+		local a, b = C.GetQuestObjectives(1), C.GetQuestObjectives(1)
+		local none1, none2 = C.GetQuestObjectives(2), C.GetQuestObjectives(2)
+		r.moment = { a == b, none1 == nil and none2 == nil, calls }
+		have = 4
+		stub.fire("QUEST_LOG_UPDATE")
+		r.event = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		have = 5
+		Polestar.Fire("POLESTAR_TEST_MESSAGE")
+		r.message = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		have = 6
+		stub.advance(0.05)
+		r.frame = { C.GetQuestObjectives(1)[1].numFulfilled, calls }
+		r.nilQuest = C.GetQuestObjectives(nil) == nil
+		emit(r)
+	"#);
+	assert_eq!(out["moment"], json!([true, true, 2]), "one client read per quest in a moment, the same lines to every reader");
+	assert_eq!(out["event"], json!([4, 3]), "a game event starts a new moment: read again");
+	assert_eq!(out["message"], json!([5, 4]), "so does a message");
+	assert_eq!(out["frame"], json!([6, 5]), "and the next frame");
+	assert_eq!(out["nilQuest"], true);
+}
+
 // Each change the client makes to a quest (its objectives done, a failure, a hand-in or an abandon) comes with
 // QUEST_LOG_UPDATE, as in game; the walk over the log is kept until then.
 #[test]
