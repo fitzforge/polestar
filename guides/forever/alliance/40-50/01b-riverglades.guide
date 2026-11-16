@@ -743,6 +743,7 @@ step Shaman trainer
   train class only Shaman
 
 step Leave Stormwind
+  when taxi "Thelsamar"
   when zone "Stormwind City"
   zone Stormwind City
   tip The next guide starts in the Badlands, south of Loch Modan: fly to Thelsamar. Stormwind's gryphon master stands in the Trade District.
@@ -750,7 +751,15 @@ step Leave Stormwind
   fly "Thelsamar"
   zone Loch Modan
 
+step Loch Modan
+  when !taxi "Thelsamar"
+  when !zone "Loch Modan"
+  zone Loch Modan
+  tip No flight path to Thelsamar yet: go to Ironforge (by the Deeprun Tram from Stormwind), ride out of its gates east through Dun Morogh and the tunnel into Loch Modan, and on along the road to Thelsamar.
+  goto 35.5,48.4 "Thelsamar"
+
 step Fly to Thelsamar
+  when taxi "Thelsamar"
   when !zone "Loch Modan"
   tip The next guide starts in the Badlands, south of Loch Modan: fly to Thelsamar.
   fly "Thelsamar"

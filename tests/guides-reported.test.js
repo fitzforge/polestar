@@ -13942,12 +13942,18 @@ test('Stranglethorn Vale (Alliance 40): the Bloodsail camp and the Wild Shore wa
 
 // 0.4.0 route audit (F14, the #1508/#1518 pattern): the way from Ironforge to Thelsamar at the end of the Stranglethorn
 // guide went by race (Humans, Night Elves, Skyborne fly; Dwarves and Gnomes ride). It goes by the flight path the
-// character knows, and whoever just rode out to Dun Morogh's riding trainers rides on through the tunnel.
+// character knows, and whoever just rode out to Dun Morogh's riding trainers rides on through the tunnel. Since the 0.4.0
+// fix round the Stranglethorn guide ends in Ironforge (Ghak's mushrooms are taken where the Riverglades guide's flight to
+// Thelsamar lands), so the way to Thelsamar is the Riverglades guide's last leg: by the known flight path there too.
 test('Stranglethorn Vale (Alliance 42): Ironforge to Thelsamar by the known flight path, not by race (0.4.0 audit)', { skip }, () => {
-	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
-	const fly = list[at(list, 'fly Thelsamar', (g) => g.t === 'fly' && g.location === 'Thelsamar')];
-	assert.ok(!fly.step.only, 'the flight is for every race');
-	assert.ok((fly.step.when || []).some((w) => w.k === 'taxi' && !w.neg), 'the flight needs the flight path');
+	assert.ok(!goals('forever/alliance/40-50/01-stranglethorn-vale.guide').some(({ goal }) => goal.t === 'fly' && goal.location === 'Thelsamar'), 'no Thelsamar trip and back in Stranglethorn');
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const flights = list.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Thelsamar');
+	assert.ok(flights.length > 0, 'the Riverglades guide flies to Thelsamar');
+	for (const fly of flights) {
+		assert.ok(!fly.step.only, 'the flight is for every race');
+		assert.ok((fly.step.when || []).some((w) => w.k === 'taxi' && !w.neg), 'the flight needs the flight path');
+	}
 	const rides = list.filter(({ step, goal }) => step.title === 'Loch Modan' && goal.t === 'goto');
 	assert.ok(rides.some(({ step }) => (step.when || []).some((w) => w.k === 'taxi' && w.neg)), 'a ride for whoever lacks the flight path');
 	assert.ok(rides.every(({ step }) => !step.only), 'no race split');
