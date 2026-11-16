@@ -13,7 +13,9 @@
 --   Materials.SetMode(guideId, mode), Materials.SetWay(guideId, item, way | nil) -> true | false
 --     (MATERIALS_CHANGED, guideId; Gather all and Buy all clear the picks, Mix keeps them)
 --   Materials.BuyRows() -> the running guide's materials to buy, for the shopping list at the Auction House
---   Materials.Search(item, count) -> true: the game's buy view of item at the open Auction House, count filled in
+--   Materials.AuctionFrame() -> the open Auction House frame, or nil
+--   Materials.CanSearch() -> whether the open Auction House supports a search
+--   Materials.Search(item, count) -> true: opens a native or Auctionator search for the item and quantity
 --   Materials.ToAuctionator(title, list) -> true: Auctionator's shopping list of { { item, name, count } }
 --   Materials.Have(item) -> total, parts { bags, bank, mail, coming, alts = { { name, count } }, altsCounted }
 --   Materials.Stored(item) -> bank, mail, coming: this character's, out of the bags
@@ -558,9 +560,27 @@ end
 local searching = {} -- item -> the count to fill in when its listings come
 local keyWait -- an item whose auction key the client is still loading
 
-function Materials.AuctionOpen()
-	local F = AuctionHouseFrame
-	return F and F.IsShown and F:IsShown() and C_AuctionHouse and C_AuctionHouse.MakeItemKey and true or false
+local function shown(frame)
+	return frame and frame.IsShown and frame:IsShown()
+end
+
+function Materials.AuctionFrame()
+	if shown(AuctionHouseFrame) then return AuctionHouseFrame end
+	if shown(AuctionFrame) then return AuctionFrame end
+end
+
+local function nativeSearch()
+	return shown(AuctionHouseFrame) and AuctionHouseFrame.SelectBrowseResult and C_AuctionHouse
+		and C_AuctionHouse.MakeItemKey and C_AuctionHouse.GetItemKeyInfo
+end
+
+local function auctionatorSearch()
+	local api = Auctionator and Auctionator.API and Auctionator.API.v1
+	return api and api.MultiSearchAdvanced
+end
+
+function Materials.CanSearch()
+	return not not (nativeSearch() or (Materials.AuctionFrame() and auctionatorSearch()))
 end
 
 local function openItem(item)
@@ -575,10 +595,16 @@ local function openItem(item)
 end
 
 function Materials.Search(item, count)
-	if type(item) ~= "number" or not (Materials.AuctionOpen() and AuctionHouseFrame.SelectBrowseResult) then return false end
-	searching[item] = max(1, count or 1)
-	openItem(item)
-	return true
+	if type(item) ~= "number" or not Materials.AuctionFrame() then return false end
+	count = max(1, count or 1)
+	if nativeSearch() then
+		searching[item] = count
+		openItem(item)
+		return true
+	end
+	local search, name = auctionatorSearch(), Compat.GetItemName(item)
+	if not (search and name) then return false end
+	return (pcall(search, CALLER, { { searchString = name, isExact = true, quantity = count } }))
 end
 
 -- A stackable's listings (COMMODITY_SEARCH_RESULTS_UPDATED): priced per unit, cheapest first; then the count to buy
@@ -600,7 +626,7 @@ ns.RegisterEvent("COMMODITY_SEARCH_RESULTS_UPDATED", function(_, item)
 	local event = M and M.Event and M.Event.CommoditiesQuantitySelectionChanged
 	if event and F and F.TriggerEvent then
 		ns.After(0, function()
-			if Materials.AuctionOpen() then F:TriggerEvent(event, want) end
+			if nativeSearch() then F:TriggerEvent(event, want) end
 		end)
 	end
 end)
@@ -622,7 +648,7 @@ ns.RegisterEvent("ITEM_SEARCH_RESULTS_UPDATED", function(_, key)
 end)
 
 ns.RegisterEvent("ITEM_KEY_ITEM_INFO_RECEIVED", function(_, item)
-	if keyWait and Compat.Readable(item) == keyWait and Materials.AuctionOpen() then openItem(keyWait) end
+	if keyWait and Compat.Readable(item) == keyWait and nativeSearch() then openItem(keyWait) end
 end)
 
 ns.RegisterEvent("AUCTION_HOUSE_CLOSED", function()

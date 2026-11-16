@@ -4,9 +4,9 @@
 -- a guide opens, a reminder in a town with an auction house, and a list.
 -- Contract: docs/ARCHITECTURE.md, "Auction house buys".
 --
--- What is asked for: every `collect` goal of the running guide that is for
--- this character (Engine.Applies) and serves a quest, from the live step on,
--- and before it while its quest is in the log (its hand-in is still ahead).
+-- What is asked for: applicable `collect`, `complete` and `turnin` goals
+-- of the running guide, from the live step on and before it while their quest
+-- is in the log. Complete and turn-in goals use the quest's item objectives.
 -- The quest is the goal's own, else the first one within LOOKAHEAD steps
 -- whose objectives (the quest database) ask for the item. Left out: optional
 -- goals, a goal naming the NPC who hands the item over, quests done or
@@ -19,8 +19,8 @@
 --
 -- An item is an auction house buy when it is all of:
 --   1. Tradeable: the client says it is no Quest item (class 12) and binds
---      neither when picked up nor as a quest item (bindType 1 or 4). An item
---      the client has not loaded yet is asked for and judged when it comes.
+--      only on equip or use, if at all. An item the client has not loaded
+--      yet is asked for and judged when it comes.
 --   2. Sold by no merchant: the guide has no `buy` goal for it (the route
 --      buys it there: QoL/Buy.lua, QoL/Restock.lua) and the quest database
 --      names no vendor for it, whoever's side or stock.
@@ -68,7 +68,7 @@ AB.AT_AUCTIONEER = 40 -- yards: a goal this close to an auctioneer sends the pla
 local MAX_DROPPERS = 8 -- forge data questdb keeps an item's 8 best droppers
 local LOOKAHEAD = 40 -- steps searched for the quest a quest-less collect serves
 local QUEST_CLASS = 12
-local BIND_ON_PICKUP, BIND_QUEST = 1, 4
+local TRADEABLE_BIND = { [0] = true, [2] = true, [3] = true } -- unbound, bind on equip or use
 -- Trade goods (class 7) picked from nodes: herbs (subclass 9) with Herbalism
 -- (skill line 182), metal and stone (7) with Mining (186).
 local GATHER = { [9] = 182, [7] = 186 }
@@ -161,7 +161,7 @@ local function tradeable(id)
 		Cp.RequestItem(id)
 		return nil
 	end
-	return bind ~= BIND_ON_PICKUP and bind ~= BIND_QUEST
+	return TRADEABLE_BIND[bind] == true
 end
 
 -- Whether an auctioneer the Codex knows stands within AT_AUCTIONEER yards of
@@ -300,7 +300,8 @@ local cache = {} -- scope -> { list, pending }: those of them still short
 
 local function judge(scope)
 	local cands, pending = {}, false
-	if not AB.On() then return cands, pending end
+	local M = ns.Materials
+	if not AB.On() or (M and M.SelfFound and M.SelfFound()) then return cands, pending end
 	-- The quest database still to load (at login, or after a fight): asked again once it runs.
 	if not Q.IsLoaded() then return cands, Q.IsWanted() end
 	local Cp, E = C(), ns.Engine
@@ -323,13 +324,23 @@ local function judge(scope)
 			w.itemName = w.itemName or goal.itemName
 		end
 	end
-	local covered, buys = {}, {}
+	local buys = {}
 	-- Per quest the running guide has goals for: true while every one of them
 	-- is optional (an `optional` goal or step: Dustwallow's Jarl Needs a Blade,
 	-- taken only by a player who already carries the sword, #2553), false once
 	-- one is not. A quest of the log the guide only takes as optional is no
 	-- auction house buy.
 	local optionalOnly = {}
+	local function wantObjectives(q)
+		local obj = objectives(objs, q)
+		if not obj then return end
+		for k = 1, #obj, 3 do
+			local id = obj[k + 1]
+			if obj[k] == 2 and type(id) == "number" and open(q, id) then
+				want(id, q, obj[k + 2] or 1)
+			end
+		end
+	end
 	local g = E and E.GetGuide and E.GetGuide()
 	local steps = g and type(g.steps) == "table" and g.steps
 	local live = steps and E.GetLiveStep and E.GetLiveStep()
@@ -338,7 +349,7 @@ local function judge(scope)
 			local goals = steps[s].goals
 			for i = 1, goals and #goals or 0 do
 				local goal = goals[i]
-				if goal.t == "buy" and type(goal.item) == "number" then buys[goal.item] = true end
+				if goal.t == "buy" and type(goal.item) == "number" and E.Applies(s, i) then buys[goal.item] = true end
 				local q = goal.quest
 				if type(q) == "number" and optionalOnly[q] ~= false then
 					optionalOnly[q] = (goal.optional or steps[s].optional) and true or false
@@ -349,26 +360,24 @@ local function judge(scope)
 			local goals = steps[s].goals
 			for i = 1, goals and #goals or 0 do
 				local goal = goals[i]
-				local id = goal.item
-				if goal.t == "collect" and type(id) == "number" and not goal.optional and not goal.npc then
-					local q = goal.quest or questFor(objs, steps, s, id)
-					if q and (s >= live or Cp.IsOnQuest(q)) and open(q, id) and E.Applies(s, i) then
+				if not goal.optional then
+					local id, q = goal.item, goal.quest
+					local collect = goal.t == "collect" and type(id) == "number" and not goal.npc
+					local allItems = goal.t == "complete" or goal.t == "turnin"
+					if collect and not q then q = questFor(objs, steps, s, id) end
+					if (collect or allItems) and q and (s >= live or Cp.IsOnQuest(q)) and E.Applies(s, i) then
+						if allItems then
+							wantObjectives(q)
+						elseif open(q, id) then
 							want(id, q, tonumber(goal.count) or objectiveCount(objs, q, id) or 1, goal)
+						end
 					end
 				end
 			end
 		end
 	end
 	if scope == "all" then
-		for _, q in ipairs(Cp.GetLogQuests()) do
-			local obj = not covered[q] and not optionalOnly[q] and objectives(objs, q)
-			if obj then
-				for k = 1, #obj, 3 do
-					local id = obj[k + 1]
-					if obj[k] == 2 and type(id) == "number" and open(q, id) then want(id, q, obj[k + 2] or 1, nil) end
-				end
-			end
-		end
+		for _, q in ipairs(Cp.GetLogQuests()) do if not optionalOnly[q] then wantObjectives(q) end end
 	end
 	for _, id in ipairs(order) do
 		local w = wants[id]

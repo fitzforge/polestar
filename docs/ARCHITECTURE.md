@@ -6383,9 +6383,10 @@ Polestar.Nav.nearby.Near(kind, yards) -> place, yards | nil, reason   -- the nea
 Polestar.Compat.ItemKind(itemID) -> classID, subclassID ; ItemBinding(itemID) -> bindType | nil (not cached)
 ```
 
-What is asked for: every `collect` goal of the running guide that is for
-this character (`Engine.Applies`) and serves a quest, from the live step on,
-and before it while its quest is in the log (the hand-in is still ahead).
+What is asked for: applicable `collect`, `complete` and `turnin` goals
+of the running guide, from the live step on and before it while their quest
+is in the log. Complete and turn-in goals use the quest's item objectives
+from the quest database. Self-Found characters have no auction buys.
 The quest is the goal's own, else the first quest within 40 steps whose
 objectives ask for the item. Optional goals, goals naming the NPC who hands
 the item over, quests done or skipped, and quests that hand the item over
@@ -6400,9 +6401,8 @@ bags, the bank, the mail and what was bought and is on its way;
 The rule. An item is an auction house buy when it is all of:
 
 1. **Tradeable**: the client says it is no Quest item (class 12) and binds
-   neither when picked up nor as a quest item (bindType 1 or 4). An item the
-   client has not cached is asked for (`GET_ITEM_INFO_RECEIVED`) and judged
-   when it arrives. Bind on equip and bind on use items trade.
+   only on equip or use, if at all. An item the client has not cached is
+   asked for (`GET_ITEM_INFO_RECEIVED`) and judged when it arrives.
 2. **Sold by no merchant**: the guide has no `buy` goal for it (the route
    buys it there, `QoL/Buy.lua`; Restock tops up the rest), and the quest
    database names no vendor for it, whatever the vendor's side or stock.
@@ -6460,8 +6460,8 @@ to be dismissed:
   The Codex is loaded for it only in a rest area with something to buy.
 - **The list** (`PolestarAuctionBuys`, built on first use, registered with
   the gamepad, Escape closes it): a scrolling row per item with its icon, remaining count, quests, and cached
-  quote. The quest total flags incomplete quotes or quantities. The active
-  collect row offers the list as an optional purchase. Show
+  quote. The quest total flags incomplete quotes or quantities. Open guide
+  rows for eligible item objectives offer the list as an optional purchase. Show
   me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
   the running profession guide's materials to buy (`Materials.BuyRows`: their
   way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
@@ -6469,9 +6469,9 @@ to be dismissed:
   house buys (N)" while there are any) and `/polestar ah`. At the Auction
   House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
   group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
-  row then has a Search (`Materials.Search`: the game's own buy view of the
-  item, the count filled in; the player presses Buy), and Show me the auction
-  house goes.
+  row offers a search when supported. `Materials.Search` opens the native
+  buy view or an exact Auctionator search with the missing quantity. Show me
+  the auction house goes while the Auction House is open.
 
 The heads-up card itself is registered with the gamepad as a window that
 showed on its own: it waits for the focus binding, then the D-pad walks its

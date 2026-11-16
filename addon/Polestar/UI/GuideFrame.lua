@@ -3574,6 +3574,7 @@ GF.Part(function(GF)
 		ns.On("GUIDE_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_CHANGED", whenReady(GF.Render))
 		ns.On("STEP_UPDATED", whenReady(GF.Update))
+		ns.On("AUCTION_BUYS_CHANGED", whenReady(GF.Refill))
 		ns.On("PARTY_PROGRESS", whenReady(GF.Update))
 		-- A finished guide's card counts the quests in the log (GF.EndQuestLines):
 		-- one taken, handed in or abandoned paints it afresh. Only on that card.
