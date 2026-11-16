@@ -58,7 +58,7 @@ return {
 
 	-- Step 14: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "Arañas de lava superiores",
+	["Searing Lava Spiders"] = "Arañas de lava abrasadoras",
 	-- {npc:8436} Zamael Lunthistle · {npc:8479} Velarok Windblade
 	["The spiders roam the plateaus and lava pools south of {npc:8436}, on the way to {npc:8479}."] = "Las arañas recorren las mesetas y pozas de lava al sur de {npc:8436}, de camino a {npc:8479}.",
 
