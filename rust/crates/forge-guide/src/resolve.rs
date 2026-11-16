@@ -328,8 +328,10 @@ fn source_npcs(data: &Data, first: &V, sources: &[V]) -> V {
 /// share targets, while separate centaur camps stay apart (#1616). The spot's own sources (radius + 1 yd)
 /// lead, then other kinds linked through eligible NPC spawns within STRAY_YARDS. Only emitted when a source
 /// was missing from `fromNpcs`; its original order and caps stay. If the expanded mapping exceeds the text
-/// cap, retain the local mapping.
-fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
+/// cap, retain the local mapping. `linked` (None: every source): the sources an area may add. A hand-placed
+/// point passes the droppers at the point: the author chose that camp over the others, so a chain of spawns
+/// must not bring the others back (Hillsbrad's 32-34 yetis beside the Foothill Caverns, #1695).
+fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V, linked: Option<&[V]>) {
 	let spots = goal.get("spots").items();
 	if spots.len() < 2 || !data.map_size(map).truthy() {
 		return;
@@ -365,6 +367,7 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 		})
 		.collect();
 	let local = pack_spot_npcs(&initial, &mobs, &at);
+	let links: Vec<bool> = mobs.iter().map(|m| linked.is_none_or(|l| l.iter().any(|s| s.get("kind").as_str() == Some("npc") && s.get("id").strict_eq(&m.0)))).collect();
 	let pts: Vec<V> = mobs.iter().flat_map(|m| m.2.iter().cloned()).collect();
 	let owners: Vec<usize> = mobs.iter().enumerate().flat_map(|(i, m)| m.2.iter().map(move |_| i)).collect();
 	let areas = spawn_areas(&pts, &data.frame(map));
@@ -382,7 +385,7 @@ fn spot_npcs(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
 					counts[owners[p]] += 1;
 				}
 			}
-			let mut extra: Vec<(usize, usize)> = counts.into_iter().enumerate().filter(|&(i, n)| n > 0 && !at[si].iter().any(|&(j, _)| i == j)).collect();
+			let mut extra: Vec<(usize, usize)> = counts.into_iter().enumerate().filter(|&(i, n)| n > 0 && links[i] && !at[si].iter().any(|&(j, _)| i == j)).collect();
 			extra.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
 			at[si].iter().copied().chain(extra).collect()
 		})
@@ -3701,7 +3704,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				set_if(&goal, "fromNpcs", source_npcs(data, &c, &picked.get("sources").items()));
 				// A `loop` step's goals take its gotos as their spots (apply_loop).
 				if !ctx.loop_ {
-					spot_npcs(data, &goal, &srcs, &pmap, &pf);
+					spot_npcs(data, &goal, &srcs, &pmap, &pf, None);
 				}
 			}
 		} else if explicit && !goal.get("x").is_undef() {
@@ -3769,7 +3772,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				let own = point_sources(data, &sources, &gmap, &gf, gx, gy, near);
 				let first = own.first().cloned().unwrap_or_default();
 				set_if(&goal, "fromNpcs", source_npcs(data, &first, &own));
-				spot_npcs(data, &goal, &sources, &gmap, &gf);
+				spot_npcs(data, &goal, &sources, &gmap, &gf, Some(&own));
 			}
 		}
 	} else if recorded && explicit && !goal.get("x").is_undef() {

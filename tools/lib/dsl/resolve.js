@@ -208,7 +208,11 @@ function sourceNpcs(data, first, sources) {
 // kinds linked through eligible NPC spawns within STRAY_YARDS. Only emitted
 // when a source was missing from `fromNpcs`; its original order and caps stay.
 // If the expanded mapping exceeds the text cap, retain the local mapping.
-function spotNpcs(data, goal, sources, map, f) {
+// `linked` (default: every source): the sources an area may add. A
+// hand-placed point passes the droppers at the point: the author chose that
+// camp over the others, so a chain of spawns must not bring the others back
+// (Hillsbrad's 32-34 yetis beside the Foothill Caverns, #1695).
+function spotNpcs(data, goal, sources, map, f, linked) {
 	const spots = goal.spots || [];
 	if (spots.length < 2 || !data.mapSize(map)) return;
 	const mobs = [];
@@ -229,6 +233,7 @@ function spotNpcs(data, goal, sources, map, f) {
 		return here.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
 	});
 	const local = packSpotNpcs(initial, mobs, at);
+	const links = mobs.map((m) => !linked || linked.some((s) => s && s.kind === 'npc' && s.id === m.id));
 	const pts = mobs.flatMap((m) => m.pts);
 	const owners = mobs.flatMap((m, i) => m.pts.map(() => i));
 	const areas = spawnAreas(pts, data.frame(map));
@@ -239,7 +244,7 @@ function spotNpcs(data, goal, sources, map, f) {
 			for (const p of area) counts[owners[p]]++;
 		}
 		const localIds = new Set(at[si].map(([i]) => i));
-		const extra = counts.map((n, i) => [i, n]).filter(([i, n]) => n > 0 && !localIds.has(i));
+		const extra = counts.map((n, i) => [i, n]).filter(([i, n]) => n > 0 && links[i] && !localIds.has(i));
 		extra.sort((a, b) => b[1] - a[1] || a[0] - b[0]);
 		return [...at[si], ...extra];
 	});
@@ -2242,7 +2247,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			if (v === 'collect' && goal.npc === undefined) {
 				const own = pointSources(data, sources, goal.map, goal.f, goal.x, goal.y, near);
 				setIf(goal, 'fromNpcs', sourceNpcs(data, own[0], own));
-				spotNpcs(data, goal, sources, goal.map, goal.f);
+				spotNpcs(data, goal, sources, goal.map, goal.f, own);
 			}
 		}
 	}
