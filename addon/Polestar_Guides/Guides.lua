@@ -43,7 +43,7 @@ do
 				},
 				{
 					title = "Fly to {area:608}",
-					note = "Experimental route (alpha). It follows what players did in {zone:2652} and may still have rough spots: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from {area:150} to Theramore first.",
+					note = "New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the boat from {area:150} to Theramore first.",
 					only = { factions = { "Alliance" } },
 					when = { { k = "zone", neg = true, name = "Shen'dralas", area = 16651 }, { k = "zone", neg = true, name = "Desolace", area = 405 } },
 					goals = {
@@ -217,10 +217,10 @@ do
 				},
 				{
 					title = "{npc:254578}",
-					note = "{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711}, a short ride back up the road north. Otherwise {zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}'s flight points ({area:2408} for the Horde, {area:608} for the Alliance).",
+					note = "{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north.",
 					goals = {
 						{ t = "turnin", quest = 93362, title = "What They've Done to My Peonies", npc = 254578, npcName = "Mithera", map = 2652, x = 53.32, y = 76.02 },
-						{ t = "accept", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", qlvl = 43, pre = { 93394 }, preTitles = { [93394] = "Meeting the Magister" }, map = 2652, x = 46, y = 78.22, optional = true },
+						{ t = "accept", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", qlvl = 43, pre = { 93394 }, preTitles = { [93394] = "Meeting the Magister" }, map = 2652, x = 46, y = 78.22 },
 					},
 				},
 				{
@@ -232,7 +232,7 @@ do
 				},
 				{
 					title = "{npc:255486}",
-					note = "{zone:2652} is done: hearth, or ride back north through the {area:2657} to {area:405}.",
+					note = "{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there.",
 					goals = {
 						{ t = "turnin", quest = 99257, title = "A Heart of Crystal", npc = 255486, npcName = "Historian Biraxas", map = 2652, x = 46, y = 78.22 },
 					},
@@ -9562,7 +9562,7 @@ do
 			zoneName = "Ironforge",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:108"] = "Sentinel Hill", ["area:186"] = "Dolanaar", ["area:320"] = "Refuge Pointe", ["area:321"] = "Hammerfall", ["area:976"] = "Gadgetzan", ["area:977"] = "Steamwheedle Port", ["item:12184"] = "Raptor Flesh", ["item:12205"] = "White Spider Meat", ["item:12207"] = "Giant Egg", ["item:12210"] = "Roast Raptor", ["item:12218"] = "Monster Omelet", ["item:12228"] = "Recipe: Roast Raptor", ["item:13931"] = "Nightfin Soup", ["item:13932"] = "Poached Sunscale Salmon", ["item:159"] = "Refreshing Spring Water", ["item:16072"] = "Expert Cookbook", ["item:16110"] = "Recipe: Monster Omelet", ["item:17222"] = "Spider Sausage", ["item:2672"] = "Stringy Wolf Meat", ["item:2673"] = "Coyote Meat", ["item:2674"] = "Crawler Meat", ["item:2677"] = "Boar Ribs", ["item:2678"] = "Mild Spices", ["item:2692"] = "Hot Spices", ["item:279981"] = "Basic Campfire Kit", ["item:279982"] = "Iron Oven", ["item:3173"] = "Bear Meat", ["item:3682"] = "Recipe: Curiously Tasty Omelet", ["item:3685"] = "Raptor Egg", ["item:3713"] = "Soothing Spices", ["item:3731"] = "Lion Meat", ["item:3735"] = "Recipe: Hot Lion Chops", ["item:4470"] = "Simple Wood", ["item:4471"] = "Flint and Tinder", ["item:4536"] = "Shiny Red Apple", ["item:5465"] = "Small Spider Leg", ["item:5469"] = "Strider Meat", ["item:5470"] = "Thunder Lizard Tail", ["item:5472"] = "Kaldorei Spider Kabob", ["item:5477"] = "Strider Stew", ["item:5479"] = "Crispy Lizard Tail", ["item:5486"] = "Recipe: Strider Stew", ["item:5488"] = "Recipe: Crispy Lizard Tail", ["item:5503"] = "Clam Meat", ["item:5523"] = "Small Barnacled Clam", ["item:5525"] = "Boiled Clams", ["item:6290"] = "Brilliant Smallfish", ["item:6888"] = "Herb Baked Egg", ["item:6889"] = "Small Egg", ["item:6890"] = "Smoked Bear Meat", ["item:6892"] = "Recipe: Smoked Bear Meat", ["item:724"] = "Goretusk Liver Pie", ["item:733"] = "Westfall Stew", ["item:769"] = "Chunk of Boar Meat", ["item:7973"] = "Big-mouth Clam", ["item:7974"] = "Zesty Clam Meat", ["item:8932"] = "Alterac Swiss", ["npc:1018"] = "Highland Razormaw", ["npc:1019"] = "Elder Razormaw", ["npc:1125"] = "Crag Boar", ["npc:1126"] = "Large Crag Boar", ["npc:1189"] = "Black Bear Patriarch", ["npc:1191"] = "Mangy Mountain Boar", ["npc:14123"] = "Steeljaw Snapper", ["npc:1547"] = "Decrepit Darkhound", ["npc:1548"] = "Cursed Darkhound", ["npc:1995"] = "Strigid Owl", ["npc:235"] = "Salma Saldean", ["npc:2384"] = "Starving Mountain Lion", ["npc:2407"] = "Hulking Mountain Lion", ["npc:250874"] = "Vuldren Alpha", ["npc:2560"] = "Highland Thrasher", ["npc:2810"] = "Hammon Karwn", ["npc:2821"] = "Keena", ["npc:2929"] = "Savage Owlbeast", ["npc:2959"] = "Prairie Stalker", ["npc:2960"] = "Prairie Wolf Alpha", ["npc:3099"] = "Dire Mottled Boar", ["npc:3239"] = "Thunderhead", ["npc:3246"] = "Fleeting Plainstrider", ["npc:3399"] = "Zamja", ["npc:340"] = "Kendor Kabonka", ["npc:3489"] = "Zargh", ["npc:3812"] = "Clattering Crawler", ["npc:3814"] = "Spined Crawler", ["npc:3944"] = "Wrathtail Priestess", ["npc:5159"] = "Daryl Riknussun", ["npc:6286"] = "Zarrin", ["npc:8125"] = "Dirge Quikcleave", ["npc:8137"] = "Gikkix", ["npc:830"] = "Sand Crawler", ["npc:833"] = "Coyote Packleader", ["npc:834"] = "Coyote", ["object:29784"] = "Basic Campfire", ["quest:6610"] = "Clamlette Surprise", ["skill:185"] = "Cooking", ["spell:2538"] = "Charred Wolf Meat", ["spell:2540"] = "Roasted Boar Meat", ["spell:2541"] = "Coyote Steak", ["spell:2544"] = "Crab Cake", ["spell:2546"] = "Dry Pork Ribs", ["spell:3376"] = "Curiously Tasty Omelet", ["spell:3398"] = "Hot Lion Chops", ["zone:1411"] = "Durotar", ["zone:1412"] = "Mulgore", ["zone:1413"] = "The Barrens", ["zone:1417"] = "Arathi Highlands", ["zone:1420"] = "Tirisfal Glades", ["zone:1424"] = "Hillsbrad Foothills", ["zone:1425"] = "The Hinterlands", ["zone:1426"] = "Dun Morogh", ["zone:1429"] = "Elwynn Forest", ["zone:1432"] = "Loch Modan", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1438"] = "Teldrassil", ["zone:1439"] = "Darkshore", ["zone:1445"] = "Dustwallow Marsh", ["zone:1446"] = "Tanaris", ["zone:1453"] = "Stormwind", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge" },
+			names = { ["area:108"] = "Sentinel Hill", ["area:186"] = "Dolanaar", ["area:320"] = "Refuge Pointe", ["area:321"] = "Hammerfall", ["area:976"] = "Gadgetzan", ["area:977"] = "Steamwheedle Port", ["item:12184"] = "Raptor Flesh", ["item:12205"] = "White Spider Meat", ["item:12207"] = "Giant Egg", ["item:12210"] = "Roast Raptor", ["item:12218"] = "Monster Omelet", ["item:12228"] = "Recipe: Roast Raptor", ["item:13931"] = "Nightfin Soup", ["item:13932"] = "Poached Sunscale Salmon", ["item:159"] = "Refreshing Spring Water", ["item:16072"] = "Expert Cookbook", ["item:16110"] = "Recipe: Monster Omelet", ["item:17222"] = "Spider Sausage", ["item:2672"] = "Stringy Wolf Meat", ["item:2673"] = "Coyote Meat", ["item:2674"] = "Crawler Meat", ["item:2677"] = "Boar Ribs", ["item:2678"] = "Mild Spices", ["item:2692"] = "Hot Spices", ["item:279981"] = "Basic Campfire Kit", ["item:279982"] = "Iron Oven", ["item:3173"] = "Bear Meat", ["item:3682"] = "Recipe: Curiously Tasty Omelet", ["item:3685"] = "Raptor Egg", ["item:3713"] = "Soothing Spices", ["item:3731"] = "Lion Meat", ["item:3735"] = "Recipe: Hot Lion Chops", ["item:4470"] = "Simple Wood", ["item:4471"] = "Flint and Tinder", ["item:4536"] = "Shiny Red Apple", ["item:5465"] = "Small Spider Leg", ["item:5469"] = "Strider Meat", ["item:5470"] = "Thunder Lizard Tail", ["item:5472"] = "Kaldorei Spider Kabob", ["item:5477"] = "Strider Stew", ["item:5479"] = "Crispy Lizard Tail", ["item:5486"] = "Recipe: Strider Stew", ["item:5488"] = "Recipe: Crispy Lizard Tail", ["item:5503"] = "Clam Meat", ["item:5523"] = "Small Barnacled Clam", ["item:5525"] = "Boiled Clams", ["item:6290"] = "Brilliant Smallfish", ["item:6888"] = "Herb Baked Egg", ["item:6889"] = "Small Egg", ["item:6890"] = "Smoked Bear Meat", ["item:6892"] = "Recipe: Smoked Bear Meat", ["item:724"] = "Goretusk Liver Pie", ["item:733"] = "Westfall Stew", ["item:769"] = "Chunk of Boar Meat", ["item:7973"] = "Big-mouth Clam", ["item:7974"] = "Zesty Clam Meat", ["item:8932"] = "Alterac Swiss", ["npc:1018"] = "Highland Razormaw", ["npc:1019"] = "Elder Razormaw", ["npc:1125"] = "Crag Boar", ["npc:1126"] = "Large Crag Boar", ["npc:1189"] = "Black Bear Patriarch", ["npc:1191"] = "Mangy Mountain Boar", ["npc:14123"] = "Steeljaw Snapper", ["npc:1547"] = "Decrepit Darkhound", ["npc:1548"] = "Cursed Darkhound", ["npc:1995"] = "Strigid Owl", ["npc:235"] = "Salma Saldean", ["npc:2384"] = "Starving Mountain Lion", ["npc:2407"] = "Hulking Mountain Lion", ["npc:250874"] = "Vuldren Alpha", ["npc:2560"] = "Highland Thrasher", ["npc:2810"] = "Hammon Karwn", ["npc:2821"] = "Keena", ["npc:2929"] = "Savage Owlbeast", ["npc:2959"] = "Prairie Stalker", ["npc:2960"] = "Prairie Wolf Alpha", ["npc:3099"] = "Dire Mottled Boar", ["npc:3239"] = "Thunderhead", ["npc:3246"] = "Fleeting Plainstrider", ["npc:3399"] = "Zamja", ["npc:340"] = "Kendor Kabonka", ["npc:3489"] = "Zargh", ["npc:3812"] = "Clattering Crawler", ["npc:3814"] = "Spined Crawler", ["npc:3944"] = "Wrathtail Priestess", ["npc:5159"] = "Daryl Riknussun", ["npc:6286"] = "Zarrin", ["npc:8125"] = "Dirge Quikcleave", ["npc:8137"] = "Gikkix", ["npc:830"] = "Sand Crawler", ["npc:833"] = "Coyote Packleader", ["object:29784"] = "Basic Campfire", ["quest:6610"] = "Clamlette Surprise", ["skill:185"] = "Cooking", ["spell:2538"] = "Charred Wolf Meat", ["spell:2540"] = "Roasted Boar Meat", ["spell:2541"] = "Coyote Steak", ["spell:2544"] = "Crab Cake", ["spell:2546"] = "Dry Pork Ribs", ["spell:3376"] = "Curiously Tasty Omelet", ["spell:3398"] = "Hot Lion Chops", ["zone:1411"] = "Durotar", ["zone:1412"] = "Mulgore", ["zone:1413"] = "The Barrens", ["zone:1417"] = "Arathi Highlands", ["zone:1420"] = "Tirisfal Glades", ["zone:1424"] = "Hillsbrad Foothills", ["zone:1425"] = "The Hinterlands", ["zone:1426"] = "Dun Morogh", ["zone:1429"] = "Elwynn Forest", ["zone:1432"] = "Loch Modan", ["zone:1436"] = "Westfall", ["zone:1437"] = "Wetlands", ["zone:1438"] = "Teldrassil", ["zone:1439"] = "Darkshore", ["zone:1445"] = "Dustwallow Marsh", ["zone:1446"] = "Tanaris", ["zone:1453"] = "Stormwind", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge" },
 			sections = { { skill = "Cooking", skillLine = 185, from = 1, to = 50 }, { skill = "Cooking", skillLine = 185, from = 50, to = 130 }, { skill = "Cooking", skillLine = 185, from = 130, to = 175 }, { skill = "Cooking", skillLine = 185, from = 175, to = 225 }, { skill = "Cooking", skillLine = 185, from = 225, to = 300 } },
 			steps = {
 				{
@@ -9786,7 +9786,7 @@ do
 					only = { races = { "Human", "Skyborne" }, factions = { "Alliance" } },
 					section = 2,
 					goals = {
-						{ t = "collect", item = 2673, itemName = "Coyote Meat", count = 40, gather = { max = 12, min = 10 }, note = "{npc:834} (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points", candidates = { { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 40.9, y = 26.5, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 3 }, { npc = 834, npcName = "Coyote", map = 1429, x = 17.2, y = 74.8, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 2 }, { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 30.5, y = 37.3, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 2 }, { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 33.2, y = 30.9, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 2 }, { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 36.3, y = 35, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 2 }, { npc = 834, npcName = "Coyote", map = 1429, x = 17.6, y = 78.5, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1429, x = 19.7, y = 84, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 30.8, y = 39.3, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 35.4, y = 42.2, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 36.4, y = 26, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 41.2, y = 26.4, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 } } },
+						{ t = "collect", item = 2673, itemName = "Coyote Meat", count = 40, gather = { max = 12, min = 10 }, note = "Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points", candidates = { { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 40.9, y = 26.5, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 3 }, { npc = 834, npcName = "Coyote", map = 1429, x = 17.2, y = 74.8, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 2 }, { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 30.5, y = 37.3, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 2 }, { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 33.2, y = 30.9, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 2 }, { npc = 833, npcName = "Coyote Packleader", map = 1436, x = 36.3, y = 35, f = "e", faction = "A", lvl = { min = 11, max = 12 }, rate = 0.511, spawns = 2 }, { npc = 834, npcName = "Coyote", map = 1429, x = 17.6, y = 78.5, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1429, x = 19.7, y = 84, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 30.8, y = 39.3, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 35.4, y = 42.2, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 36.4, y = 26, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 }, { npc = 834, npcName = "Coyote", map = 1436, x = 41.2, y = 26.4, f = "e", faction = "A", lvl = { min = 10, max = 11 }, rate = 0.541, spawns = 1 } } },
 					},
 				},
 				{
@@ -19690,6 +19690,7 @@ Polestar.RetireGuides("guides", {
 	"forever/horde/orc-troll/02-the-barrens",
 	"forever/horde/orc/02-the-barrens",
 	"forever/horde/troll/02-the-barrens",
+	"polestar-experimental/riverglades-alliance-1",
 	"polestar-experimental/riverglades-horde-1",
 	"polestar-experimental/shendralas",
 })
@@ -19701,40 +19702,19 @@ Polestar.RegisterExperimental({
 		title = "{area:616}",
 		faction = "Alliance",
 		minLevel = 57,
-		maxLevel = 59,
-		topLevel = 59,
+		maxLevel = 60,
+		topLevel = 60,
 		zone = 2482,
 		zoneName = "Mount Hyjal",
 		pitch = "A new Forever zone south of {zone:1452}.",
 		pros = { "About 350,000 quest experience", "No boat: {area:2255} is a flight away", "Two flight paths inside the zone" },
 		cons = { "Elites roam, a few group quests" },
-		questIds = { 96833, 94479, 95568, 95569, 96796, 93747, 93759, 92594, 92008, 91754, 91755, 91923, 95611, 90487, 91770, 95766, 92959, 95317, 95320, 95318, 95319, 95380, 96262, 95378, 95379, 96435, 96255, 96322, 95316, 91881, 96321, 96131, 92612, 96209, 95006, 93773, 92009, 92011, 96930, 92171, 96931, 92702, 92064, 96559, 93383, 93952, 92111, 93831, 91697, 93826, 93825, 93827, 92591, 92449, 95027, 90865, 90702, 92100, 90750, 91688, 95218, 94832, 96077, 96550, 93615, 96979, 96145, 96939, 96978, 92015, 92014, 96992, 93617, 92317, 96957, 96296, 92500, 91883, 92147, 96252, 96991, 96964, 92593, 92960, 95793, 96959, 92335, 96971, 96003, 97009, 96025, 92017, 92533, 93584, 93407, 93197, 92328, 90647, 92169 },
+		questIds = { 96833, 94479, 95568, 95569, 96796, 93747, 93759, 92594, 92008, 91754, 91755, 91923, 95611, 90487, 91770, 95766, 92959, 95317, 95320, 95318, 95319, 95380, 96262, 95378, 95379, 96435, 96255, 96322, 95316, 91881, 96321, 96131, 92612, 96209, 95006, 93773, 92009, 92011, 96930, 92171, 96931, 92702, 92064, 96559, 93383, 93952, 92111, 93831, 91697, 93826, 93825, 93827, 92591, 92449, 95027, 90865, 90702, 92100, 90750, 91688, 95218, 94832, 96077, 96550, 93615, 96979, 96145, 96939, 96978, 92015, 92014, 96992, 93617, 92317, 96957, 96296, 92500, 91883, 92147, 96252, 96991, 96964, 92593, 92960, 95793, 96959, 92335, 96971, 96003, 97009, 96025, 93197, 92017, 92533, 93584, 93407, 92328, 90647, 92169 },
 		joins = { "forever/alliance/50-60/06-silithus" },
 		start = { map = 1452, x = 61.36, y = 38.83, f = "e" },
 		focus = { map = 2482, x = 85.5, y = 73.2 },
 		viaMap = 1452,
 		via = "Winterspring",
 		names = { ["area:2255"] = "Everlook", ["area:616"] = "Mount Hyjal", ["zone:1452"] = "Winterspring" },
-	},
-	{
-		id = "polestar-experimental/riverglades-alliance-1",
-		pack = "polestar-experimental",
-		title = "{zone:2548}",
-		faction = "Alliance",
-		minLevel = 39,
-		maxLevel = 43,
-		topLevel = 43,
-		zone = 2548,
-		zoneName = "Riverglades",
-		pitch = "A new Forever zone, a short ride from {area:69}.",
-		pros = { "One zone in place of up to three", "{area:16724}: flight path and inn", "No boat: fly to {area:69}, then ride" },
-		cons = { "New guide: steps may still change" },
-		questIds = { 95147, 94678, 95148, 94679, 94842, 94931, 94999, 94923, 94614, 94857, 94843, 94861, 95943, 95156, 96081, 94613, 94877, 94881, 94879, 95561, 95913, 95603, 95613, 95615, 94615, 94617, 94618, 94992, 94924, 94925, 95986, 95983, 94928, 95984, 95064, 95426, 95961, 95991, 95912, 94961, 95642, 95643, 94829, 94885, 95562, 94884, 94963, 94858, 96063, 95066, 96125, 96067, 95288, 95059, 95988, 95121, 95254, 95118, 95119, 95120, 95260, 95261, 95122, 95123, 95957, 95975, 95293, 95294, 95165, 95124, 96126, 94927, 95267, 94907, 95329, 94886, 94887, 96082, 96083, 96084, 96009, 95330, 95792, 95934, 94888, 94889, 96015, 94892, 94890, 94891, 94893, 94894 },
-		joins = { "forever/alliance/40-50/03-feralas", "forever/alliance/40-50/01-stranglethorn-vale" },
-		start = { map = 1433, x = 44.8, y = 8.9 },
-		focus = { map = 2548, x = 16, y = 68.5 },
-		viaMap = 1433,
-		via = "Redridge Mountains",
-		names = { ["area:16724"] = "Farholde Keep", ["area:69"] = "Lakeshire", ["zone:2548"] = "Riverglades" },
 	},
 })
