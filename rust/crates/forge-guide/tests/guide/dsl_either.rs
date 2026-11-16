@@ -30,10 +30,7 @@ fn either_marks_the_goals_of_a_step_that_are_alternatives_and_the_others_are_not
 #[test]
 fn a_set_is_two_goals_or_more_none_of_them_optional() {
 	let alone = guide_text(&["step One", "  accept 783 either", "  accept 7"]);
-	assert_eq!(
-		compile(&alone).errors,
-		[format!("test.guide:{}: `either` needs a second `either` goal in its step: the step is done when any one of them is", line_of(&alone, "accept 783 either"))]
-	);
+	assert_eq!(compile(&alone).errors, [format!("test.guide:{}: `either` needs a second `either` goal in its step: the step is done when any one of them is", line_of(&alone, "accept 783 either"))]);
 	let optional = guide_text(&["step One", "  accept 783 either optional", "  accept 7 either"]);
 	assert_eq!(
 		compile(&optional).errors,
