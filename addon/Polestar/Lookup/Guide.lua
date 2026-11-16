@@ -845,7 +845,9 @@ builders.craft = function(ctx, row)
 	local name = Lookup.ProfessionName(line) or L["Profession"]
 	local C = Codex()
 	local trainer = row.trainer and C.Npc(row.trainer)
-	local goals = {}
+	-- The trainer's place: the row's own unless the row leads to a recipe (row.trainerAt).
+	local trainerAt = row.trainerAt or row
+	local steps, goals, note = {}, {}, nil
 	local rank, maxRank = ns.Compat.GetSkillRank(line)
 	local need = src.skill or 1
 	local r = rankFor(need)
@@ -853,7 +855,7 @@ builders.craft = function(ctx, row)
 		local g = { t = "train", skillLine = line, skill = name, rank = r }
 		if trainer then
 			g.npc, g.npcName = trainer.id, trainer.name
-			at(g, row)
+			at(g, trainerAt)
 		end
 		goals[#goals + 1] = g
 	end
@@ -862,14 +864,27 @@ builders.craft = function(ctx, row)
 	end
 	if not ns.Compat.IsSpellKnown(spell) then
 		local g = { t = "learn", spell = spell, spellName = ctx.name, skillLine = line }
-		if trainer then
+		local recipe = row.recipe
+		if recipe then
+			-- A recipe item teaches it (#2505): the steps to the recipe from its own
+			-- best source (Sources' recipeRow) unless it is in the bags, then its use.
+			local recipeName = itemName(recipe)
+			local rrow = row.recipeRow
+			local build = rrow and rrow.guideable and builders[rrow.type]
+			if build and ns.Compat.GetItemCount(recipe) < 1 then
+				local more = build({ kind = "recipe", id = recipe, name = recipeName, entity = C.Item(recipe), player = ctx.player, from = ctx.from }, rrow)
+				for _, s in ipairs(more or {}) do steps[#steps + 1] = s end
+			end
+			note = format(L["Use %s to learn it."], recipeName)
+		elseif trainer then
 			g.npc, g.npcName = trainer.id, trainer.name
-			at(g, row)
+			at(g, trainerAt)
 		end
 		goals[#goals + 1] = g
 	end
 	goals[#goals + 1] = { t = "craft", spell = spell, spellName = ctx.name, item = ctx.id, itemName = ctx.name, count = 1, skillLine = line }
-	return { { title = L[name], goals = goals } }
+	steps[#steps + 1] = { title = L[name], goals = goals, note = note }
+	return steps
 end
 
 builders.rep = function(ctx, row)

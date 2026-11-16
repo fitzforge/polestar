@@ -319,6 +319,27 @@ fn a_target_an_item_calls_up_use_the_item_then_speak_to_it_2326() {
 	.remove(0);
 	assert!(note.as_str().unwrap_or("").contains("Vale Spirit: use Spirit Bramble to call it up."), "{note}");
 }
+
+// #2505 (kaigltv, Hot Wolf Ribs): every recipe went to the profession trainer, though most are taught by a recipe
+// item (Recipe: Hot Wolf Ribs is sold in Feralas and Desolace). A craft a recipe item teaches goes to that recipe's
+// own best source first (its vendor here), then the profession's steps with the recipe's use; once the recipe is
+// in the bags, the vendor step is left out.
+#[test]
+fn a_craft_a_recipe_item_teaches_buy_the_recipe_first_then_learn_and_craft_2505() {
+	let c = ctx();
+	assert_plays(
+		&c,
+		"item",
+		8019,
+		json!([
+			{ "title": "Mira Saddler", "goals": "goto buy" },
+			{ "title": "Tailoring", "goals": "train skill learn craft" },
+		]),
+		"",
+	);
+	assert_plays(&c, "item", 8019, json!([{ "title": "Tailoring", "goals": "train skill learn craft" }]), "w.addItem(8020, 1)");
+}
+
 #[test]
 fn a_reputation_reward_reach_the_standing_then_buy_it_from_the_quartermaster() {
 	let c = ctx();
