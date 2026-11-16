@@ -71,10 +71,10 @@ step Grom'gol
 # Relations, training) -> fly to Ratchet (Gazlowe, Dizzywig) -> boat to Booty Bay (flight
 # path, the vale's quests) -> the road north to Grom'gol (flight path) -> Nesingwary's camp,
 # the river (Krazek's investigation) -> young tigers and panthers and the Bloodscalp trolls ->
-# Nesingwary -> tigers, panthers, the Venture Co. geologists and Cozzle's footlocker ->
-# Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors and Bloodscalp village ->
-# Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol -> the Vile
-# Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
+# Nesingwary -> tigers, panthers and the Venture Co. geologists ->
+# Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors, Bloodscalp village and Zimmix
+# at Zul'Kunda -> Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol
+# (top-up to 35 if needed) -> the Vile Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
 # the Mosh'Ogg camp -> Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
 # Before 0.3.6's last pass the guide came in by zeppelin and walked from Nesingwary's camp all
 # the way down the vale to Booty Bay for its quests and flight path (2,900 yd), then flew back.
@@ -98,6 +98,13 @@ step Grom'gol
 #
 # Not taken: Marg Speaks (1261): Marg's note is offered only after The Troll Witchdoctor
 # (1240), which is turned in at Grom'gol in forever/horde/40-50/01-stranglethorn-vale.
+# Goblin Sponsorship part 4 (1182, 2,850 XP): Foreman Cozzle (38) keeps the key inside the Venture Co. house
+# on Lake Nazferiti, with Venture Co. Agents (39) in and around it, four and five levels over players here
+# (level model 33.6; recorded players killed him at a 25th percentile of 35.7). No later Horde stop passes the
+# house (40-50/01's Venture Co. mine is the southern one), so the errand is left out of the solo route.
+# Anything of Value, Where's the Key? and Zimmix's Great Escape (97328, 97329, 97331) are done on the walk
+# west from Nesingwary's camp, among the Bloodscalp Scouts, Hunters and Mystics (34-35) of Zul'Kunda, and
+# handed in to Wharfmaster Lozgil on the Booty Bay stop, before the top-up to 35.
 
 # ---------------------------------------------------------------- Nesingwary's camp
 
@@ -164,13 +171,6 @@ step Stranglethorn Vale: kill these as you meet them
   collect 4106 quest 213
   kill 736 quest 191
 
-step Cozzle's Footlocker
-  zone Stranglethorn Vale
-  when onquest 1182
-  tip Foreman Cozzle (38) is inside the Venture Co. house on Lake Nazferiti's west shore, among the geologists: his key opens Cozzle's Footlocker in the same house, which holds the blueprints for Baron Revilgaz. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in.
-  collect 5851 x1 "Cozzle's Key" @42.6,18.4 map 1434 -- from Foreman Cozzle
-  collect 5852 quest 1182 @43.3,20.3 map 1434 -- Fuel Regulator Blueprints, in Cozzle's Footlocker
-
 step Nesingwary's camp
   turnin 191                          -- Sir S. J. Erlgadin
   accept 192                          -- The Shadowmaw Panthers come much later, by Grom'gol
@@ -186,6 +186,11 @@ step Nesingwary's camp
   turnin 187                          -- Ajeck Rouack
   accept 188                          -- Ajeck Rouack: Sin'Dall (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale
 
+step Thoroughly Scavenged Supplies
+  zone Stranglethorn Vale
+  tip On the walk west from Nesingwary's camp, a pile of Thoroughly Scavenged Supplies lies by the path: it starts Anything of Value, whose Stolen Shipments lie in the Ruins of Zul'Kunda on the coast ahead.
+  accept 97328 object 661516 @31.5,12.85 map 1434
+
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
   tip West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.
@@ -195,13 +200,23 @@ step The Savage Coast: kill these as you meet them
   collect 1519 quest 189
   kill 685 quest 194
 
+step Zimmix Sputterspark
+  zone Stranglethorn Vale
+  tip Zimmix Sputterspark is held at the east edge of the Ruins of Zul'Kunda; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his Primitive Key. Then lead him out of the ruins: Wharfmaster Lozgil in Booty Bay takes the news and the shipments.
+  accept 97329 @23.46,12.79           -- Zimmix Sputterspark
+  collect 277953 quest 97328.1 @24.25,12.24 -- Stolen Shipments, in the ruins
+  collect 277957 quest 97329.1        -- Primitive Key, from the Bloodscalp Scouts, Hunters and Mystics
+  turnin 97329
+  accept 97331
+  complete 97331                      -- Escort Zimmix out of the ruins
+
 step Nesingwary's camp
   turnin 194                          -- Hemet Nesingwary
   accept 195
 
 step Lashtail Raptors
   zone Stranglethorn Vale
-  tip On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh. Careful: the 36s can be two over you: pull them one at a time.
+  tip On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh. Careful: the 36s can be two over you: pull them one at a time. Carnivorous Weeds (36-38) are rooted in the jungle south of the raptors: walk around them.
   kill 686 quest 195 @32.4,23.2 map 1434
   kill 686 quest 568
 
@@ -211,13 +226,6 @@ step Grom'gol
   turnin 568                          -- Commander Aggro'gosh
   accept 569
   accept 570                          -- Far Seer Mok'thardin: the Shadowmaw claws and the tigress fang come at the end of this guide
-
-step Level 35
-  when level<35
-  zone Stranglethorn Vale
-  tip Booty Bay's and Grom'gol's next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Elder Stranglethorn Tigers (34-35) roam the hills north of Grom'gol, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher.
-  goto 31.8,19.2 map 1434 "Elder Stranglethorn Tigers"
-  level 35 grind 1085                 -- grind on Elder Stranglethorn Tiger
 
 step Fly to Booty Bay
   zone Stranglethorn Vale
@@ -233,6 +241,8 @@ step Booty Bay
   turnin 213                          -- Kebok, upstairs
   turnin 189                          -- Kebok
   turnin 201                          -- Krazek, upstairs
+  turnin 97328                        -- Wharfmaster Lozgil, on the pier: the Stolen Shipments
+  turnin 97331                        -- Wharfmaster Lozgil: Zimmix is safe
 
 step Fly to Grom'gol
   zone Stranglethorn Vale

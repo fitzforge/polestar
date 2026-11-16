@@ -74,6 +74,7 @@ step Zeppelin to Orgrimmar
   goto 60.7,58.8 "Zeppelin to Orgrimmar"
 
 step Alliance Relations
+  when level>=30
   zone Orgrimmar
   tip The zeppelin lands at the tower outside Orgrimmar's main gate. Craven Drok walks the Drag: if he isn't at the arrow, look along its streets to the south-west. Keldran stands in the Valley of Spirits on the west side of the city.
   accept 1431                         -- Craven Drok: offered from level 30
@@ -232,8 +233,8 @@ step Shimmering Flats: kill these as you meet them
   kill 4147 quest 1175.1 @75.7,57.3 map 1441
   collect 5795 quest 1105 @74.7,56.4 map 1441 -- Hardened Tortoise Shell, from the Sparkleshell Tortoises of the western flats
   collect 5848 quest 1176 @87.9,65.4 map 1441 -- Hollow Vulture Bone
-  collect 5798 quest 1110             -- Rocket Car Rubble, all over the northern flats
-  collect 5794 quest 1104             -- Salt Flat Venom, from the Scorpid Reavers of the north half
+  collect 5798 quest 1110 @74.7,56.4 map 1441 -- Rocket Car Rubble, all over the northern flats: pick it on the western flats, away from the Snappers
+  collect 5794 quest 1104 @74.7,56.4 map 1441 -- Salt Flat Venom, from the Scorpid Reavers of the north half
 
 step Mirage Raceway
   zone Thousand Needles

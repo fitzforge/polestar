@@ -79,9 +79,7 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # Skyborne: Exploring the Horde (93739) is handed to Thrall on the Orgrimmar stop, optional.
 #
 # Hearthstone: it stays bound at Freewind Post (forever/horde/07-ashenvale's bind); this guide sets none.
-# The next guide's travel from the Undercity to Freewind Post then goes by Hearthstone: the travel sweep
-# measured 4.8 minutes saved per branch over the chain (two Freewind hearths in the next guide against one
-# Tarren Mill hearth here).
+# The next guide leaves the Undercity by zeppelin for Orgrimmar.
 
 # ---------------------------------------------------------------- To Orgrimmar
 
@@ -203,10 +201,9 @@ step Fly to Tarren Mill
 
 step Tarren Mill
   zone Hillsbrad Foothills
-  tip The Dangerous! poster hangs by the inn; Apothecary Lydon stands inside it. Novice Thaivand stands in the town. Christoph Jeffcoat, the cook by the inn, wants turtle meat and sells the spices for it.
+  tip The Dangerous! poster hangs by the inn; Apothecary Lydon stands inside it. Christoph Jeffcoat, the cook by the inn, wants turtle meat and sells the spices for it.
   accept 567                          -- Dangerous!, the poster by the inn
   accept 509                          -- Apothecary Lydon, inside
-  accept 552                          -- Novice Thaivand: Helcular's Rod, from the yetis on the way to the town hall
   accept 7321                         -- Christoph Jeffcoat: Soothing Turtle Bisque, the Snapjaws of the river south of town
   buy 3713 npc 2393                   -- Soothing Spices, from Christoph Jeffcoat
 
@@ -306,6 +303,7 @@ step Tarren Mill
   accept 532
   turnin 509                          -- Apothecary Lydon, inside
   accept 513                          -- for Master Apothecary Faranell, on the Undercity stop at the end of this guide
+  accept 552                          -- Novice Thaivand, in the town: Helcular's Rod, from the yetis on the way to the town hall
 
 # ---------------------------------------------------------------- The yeti caves and the town hall
 
@@ -358,6 +356,13 @@ step Azurelode Mine
   kill 2269 quest 539.2
   kill 2450 quest 567.3
   kill 2305 quest 539.1               -- Inside Azurelode Mine
+
+step Level 30
+  when level<30
+  zone Hillsbrad Foothills
+  tip Magus Wordeen Voidglare's quests on the next Tarren Mill stop and Alliance Relations in Orgrimmar, the next guide's first stop, are offered from level 30. Short of 30? Keep killing the Hillsbrad Miners and Foremen (26-28) in the Azurelode Mine until level 30. Or, with a group, run the City of Dalaran dungeon instead.
+  goto 29.7,55.4 map 1424 "Hillsbrad Foremen"
+  level 30 grind 2503                 -- grind on Hillsbrad Foreman
 
 step Finish the Turtle Meat
   when onquest 7321
