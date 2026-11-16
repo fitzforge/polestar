@@ -106,7 +106,7 @@ return {
 	-- Step 14: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Primero despide al reptador (clic derecho en el retrato de la mascota, {spell:2641}). Los Galestriders malhumorados pastan en {area:16626}, los campos a poca distancia al oeste y suroeste de {area:16638}.",
+	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Primero despide al reptador (clic derecho en el retrato de la mascota, {spell:2641}). Los Zancavientos malhumorados pastan en {area:16626}, los campos a poca distancia al oeste y suroeste de {area:16638}.",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "Usa {item:15908} sobre un Galestrider vivo",
 	-- {npc:251707} Ornery Galestrider

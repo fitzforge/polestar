@@ -36,7 +36,7 @@ return {
 	-- Step 4: Ornery Galestrider
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
-	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Primero despide al reptador (clic derecho en el retrato de la mascota, {spell:2641}). Los Galestriders malhumorados pastan en {area:16626}, los campos a poca distancia al oeste y suroeste de {area:16638}.",
+	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Primero despide al reptador (clic derecho en el retrato de la mascota, {spell:2641}). Los Zancavientos malhumorados pastan en {area:16626}, los campos a poca distancia al oeste y suroeste de {area:16638}.",
 	-- {item:15908} Taming Rod
 	["Use the {item:15908} on a living galestrider"] = "Usa {item:15908} sobre un Galestrider vivo",
 	-- {npc:251707} Ornery Galestrider
@@ -127,7 +127,7 @@ return {
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire
 	["{npc:251507} in {area:87}"] = "{npc:251507} en {area:87}",
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {npc:258930} Isaac Chan · {zone:2521} Zephras Isle
-	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "A nivel 10 ve con {npc:251507}, la instructora de cazadores que está con los demás instructores junto a la Posada Orgullo de León en {area:87}; {npc:258930}, el instructor de mascotas, está a su lado. Skyborne: esto es para quien salió de {zone:2521} sin domar; enseña lo mismo.",
+	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "A nivel 10 ve con {npc:251507}, la instructora de cazadores que está con los demás instructores junto a la Posada Orgullo de León en {area:87}; {npc:258930}, el instructor de mascotas, está a su lado. Cielonatos: esto es para quien salió de {zone:2521} sin domar; enseña lo mismo.",
 	-- {npc:251507} Josephine Carson · {item:15908} Taming Rod
 	["{npc:251507}: the first {item:15908}"] = "{npc:251507}: la primera {item:15908}",
 

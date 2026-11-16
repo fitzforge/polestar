@@ -252,7 +252,7 @@ return {
 
 	-- Step 43: Lakeshire: Solomon again
 	-- {area:69} Lakeshire
-	["{area:69}: Solomon again"] = "{area:69}: Solomon otra vez",
+	["{area:69}: Solomon again"] = "{area:69}: Solomón otra vez",
 	-- {area:1584} Blackrock Depths · {npc:9023} Marshal Windsor · {faction:72} Stormwind · {area:1583} Blackrock Spire · {npc:11878} Nathanos Blightcaller · {zone:1423} Eastern Plaguelands · {area:2057} Scholomance
 	["With a group the chain goes on into {area:1584}: {npc:9023}, Jail Break! and The Great Masquerade back in {faction:72} pay about 750 {faction:72} more, Maxwell's Mission (Lower {area:1583}) 250, Delivery to Ridgewell 135. Order Must Be Restored ({npc:11878} in the {zone:1423}) pays 200, The Key to {area:2057} 200; Onyxia's head 400 and Nefarian's 200 when the raids open."] = "Con un grupo, la cadena sigue en {area:1584}: {npc:9023}, ¡Fuga de la prisión! y La gran mascarada, de vuelta en {faction:72}, pagan unos 750 más con {faction:72}, La misión de Maxwell ({area:1583} inferior) 250, Entrega para Ridgewell 135. Hay que restaurar el orden ({npc:11878} en {zone:1423}) paga 200, La llave de {area:2057} 200; la cabeza de Onyxia 400 y la de Nefarian 200 cuando abran las bandas.",
 

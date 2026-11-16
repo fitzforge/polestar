@@ -399,7 +399,7 @@ return {
 	-- Step 82: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Troggs Rompecantos",
 	-- {area:923} Stonesplinter Valley
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Al norte del puesto, al oeste del camino: los troggs y exploradores Rompecantos acampan en las colinas. Ambos sueltan los dientes de piedra de trogg.\nCuidado: Headsplitter, un trogg de nivel 15, recorre {area:923} entre los troggs de nivel 11-12: encárgate de los campamentos de su borde norte, cerca del puesto, y mantente lejos de él.",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Al norte del puesto, al oeste del camino: los troggs y exploradores Rompecantos acampan en las colinas. Ambos sueltan los dientes de piedra de trogg.\nCuidado: Partecabezas, un trogg de nivel 15, recorre {area:923} entre los troggs de nivel 11-12: encárgate de los campamentos de su borde norte, cerca del puesto, y mantente lejos de él.",
 
 	-- Step 83: Back to the tunnel post
 	["Back to the tunnel post"] = "De vuelta al puesto del túnel",

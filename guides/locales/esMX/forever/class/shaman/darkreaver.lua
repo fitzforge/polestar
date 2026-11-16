@@ -13,7 +13,7 @@ return {
 
 	-- Step 1: Sagorne Creststrider
 	-- {npc:13417} Sagorne Creststrider · {object:172957} Valley of Wisdom
-	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "A nivel 58, {npc:13417}, el instructor de chamanes en {object:172957}, te pide dos diamantes raros; todos los chamanes de la Horda van con él. Skyborne: la página de la misión en Forever la lista solo para orcos, taurens y trols: pregunta antes de comprar los diamantes.",
+	["At 58 {npc:13417}, the shaman trainer in the {object:172957}, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds."] = "A nivel 58, {npc:13417}, el instructor de chamanes en {object:172957}, te pide dos diamantes raros; todos los chamanes de la Horda van con él. Cielonatos: la página de la misión en Forever la lista solo para orcos, taurens y trols: pregunta antes de comprar los diamantes.",
 
 	-- Step 2: Two diamonds
 	["Two diamonds"] = "Dos diamantes",

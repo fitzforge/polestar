@@ -111,7 +111,7 @@ return {
 
 	-- Step 22: Sen'jin Village
 	-- {area:367} Sen'jin Village · {area:362} Razor Hill
-	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Sigue el camino al este fuera del valle hasta {area:367}, en la costa.\nCuidado: Ukorsbane (8) es élite y anda entre las arañas Sombracresta en el campamento al sur de {area:362}: atrae a las arañas lejos de él.",
+	["Follow the road east out of the valley to {area:367} on the coast.\nCareful: Ukorsbane (8) is elite and walks among the Ridgeshade spiders in the camp south of {area:362}: pull the spiders away from him."] = "Sigue el camino al este fuera del valle hasta {area:367}, en la costa.\nCuidado: Ukorterror (8) es élite y anda entre las arañas Sombracresta en el campamento al sur de {area:362}: atrae a las arañas lejos de él.",
 	-- {npc:266881} Pa'zula
 	-- plural, as words: Hexed Pendants = {item:275724} Hexed Pendant
 	["{npc:266881}: enchanters only, the residue is disenchanted from Hexed Pendants"] = "{npc:266881}: solo encantadores; el residuo se obtiene desencantando Colgantes embrujados ({item:275724})",

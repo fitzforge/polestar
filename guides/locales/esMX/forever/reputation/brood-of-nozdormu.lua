@@ -249,7 +249,7 @@ return {
 	-- Step 40: Revered to Exalted
 	["Revered to Exalted"] = "De Reverenciado a Exaltado",
 	-- {npc:15727} C'Thun · {quest:8801} C'Thun's Legacy · {npc:15379} Caelestrasz
-	["Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with {npc:15727}'s 2,500 a week. {npc:15727}'s eye starts {quest:8801} for {npc:15379} (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker."] = "De Reverenciado a Exaltado son 21.000: 21 artefactos o 42 insignias, con los 2.500 de {npc:15727} por semana. El ojo de {npc:15727} inicia {quest:8801} para {npc:15379} (200, y 200 con el Círculo Cenarion). En Exaltado, Anachronos da el último anillo: el Protector de Kalimdor, el Conquistador qiraji o el Gran Invocador.",
+	["Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with {npc:15727}'s 2,500 a week. {npc:15727}'s eye starts {quest:8801} for {npc:15379} (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker."] = "De Reverenciado a Exaltado son 21.000: 21 artefactos o 42 insignias, con los 2.500 de {npc:15727} por semana. El ojo de {npc:15727} inicia {quest:8801} para {npc:15379} (200, y 200 con el Círculo Cenarion). En Exaltado, Anacronos da el último anillo: el Protector de Kalimdor, el Conquistador qiraji o el Gran Invocador.",
 
 	-- Step 41: The Exalted ring
 	["The Exalted ring"] = "El anillo de Exaltado",

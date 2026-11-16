@@ -139,13 +139,13 @@ return {
 	["{area:16624}: kill these as you meet them"] = "{area:16624}: mata a estos según te los encuentres",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
-	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Los garraorgullo y los Galestriders comparten los prados alrededor de {area:16624}; los Galestriders pastan más justo al oeste. Sueltan tanto los Huevos pequeños como {item:5469} para {npc:251905}.",
+	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Los leozarpas y los Zancavientos comparten los prados alrededor de {area:16624}; los Zancavientos pastan más justo al oeste. Sueltan tanto los Huevos pequeños como {item:5469} para {npc:251905}.",
 
 	-- Step 31: Shen'dar Village hand-ins
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "Entregas en {area:16624}",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} y {npc:251523} están todos en {area:16624}. Si todavía te falta {item:5469}, los Galestriders pastan justo al oeste de la aldea; los campamentos Al'Aketh al sur y sureste de ella son uno o dos niveles más altos.",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} y {npc:251523} están todos en {area:16624}. Si todavía te falta {item:5469}, los Zancavientos pastan justo al oeste de la aldea; los campamentos Al'Aketh al sur y sureste de ella son uno o dos niveles más altos.",
 
 	-- Step 32: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -297,7 +297,7 @@ return {
 	-- Step 62: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Galestriders malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Zancavientos malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Doma un {npc:251707}",
 	-- {npc:250874} Vuldren Alpha

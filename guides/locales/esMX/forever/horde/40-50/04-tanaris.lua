@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Gadgetzan
 	-- {area:978} Zul'Farrak · {area:979} Sandsorrow Watch · {npc:7407} Chief Engineer Bilgewhizzle · {quest:2768} Divino-matic Rod · {quest:2864} Tran'rek
-	["For your {area:978} run, after {area:979}: {npc:7407}, by the water tower, wants his {quest:2768} back; {quest:2864} his scarab shells and Trenton Lighthammer Troll Temper, if you have not taken those yet."] = "Para tu recorrido por {area:978}, después de {area:979}: {npc:7407}, junto a la torre de agua, quiere de vuelta su {quest:2768}; {quest:2864}, sus caparazones de escarabajo, y Trenton Lighthammer, temple de trol, si todavía no las tomaste.",
+	["For your {area:978} run, after {area:979}: {npc:7407}, by the water tower, wants his {quest:2768} back; {quest:2864} his scarab shells and Trenton Lighthammer Troll Temper, if you have not taken those yet."] = "Para tu recorrido por {area:978}, después de {area:979}: {npc:7407}, junto a la torre de agua, quiere de vuelta su {quest:2768}; {quest:2864}, sus caparazones de escarabajo, y Trenton Mazaligera, temple de trol, si todavía no las tomaste.",
 
 	-- Step 6: Sandsorrow Watch
 	-- {item:8584} Untapped Dowsing Widget

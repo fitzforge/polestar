@@ -72,7 +72,7 @@ return {
 
 	-- Step 12: Deathguard Dillinger
 	-- {area:159} Brill · {quest:1818} Speak with Dillinger · {npc:2131} Austil de Mon · {npc:5810} Uzzek
-	["Dillinger stands by the graveyard on {area:159}'s west edge. An Orc, Troll, Tauren or Skyborne who took {quest:1818} from {npc:2131} instead of {npc:5810}'s road is led through {area:159} from here."] = "Dillinger está junto al cementerio del borde oeste de {area:159}. Un orco, trol, tauren o Skyborne que tomó {quest:1818} de {npc:2131} en vez del camino de {npc:5810} sigue por {area:159} desde aquí.",
+	["Dillinger stands by the graveyard on {area:159}'s west edge. An Orc, Troll, Tauren or Skyborne who took {quest:1818} from {npc:2131} instead of {npc:5810}'s road is led through {area:159} from here."] = "Dillinger está junto al cementerio del borde oeste de {area:159}. Un orco, trol, tauren o Cielonato que tomó {quest:1818} de {npc:2131} en vez del camino de {npc:5810} sigue por {area:159} desde aquí.",
 
 	-- Step 13: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver

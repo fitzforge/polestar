@@ -279,7 +279,7 @@ return {
 	-- {item:3658} Recovered Tome
 	["{item:3658}: Crushridge ogres"] = "{item:3658}: ogros Aplastacresta",
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase · {quest:540} Preserving Knowledge
-	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}: {object:1760}, junto a Muckrake (40, élite): consíguelo con un grupo o abandona {quest:540}; adentro",
+	["{item:3659}: the {object:1760}, beside Muckrake (40, elite): get it with a group, or abandon {quest:540}; inside"] = "{item:3659}: {object:1760}, junto a Rastrazo (40, élite): consíguelo con un grupo o abandona {quest:540}; adentro",
 
 	-- Step 58: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser

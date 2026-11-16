@@ -107,7 +107,7 @@ return {
 
 	-- Step 23: Sheldras Moontree
 	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {spell:18960} Teleport: Moonglade
-	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "El portal Skyborne te lleva a {zone:1453}. {npc:5504} es el instructor de druidas de la ciudad (la flecha lo señala); te enseña {spell:18960} con la siguiente misión (queda en tu libro de hechizos, pestaña Equilibrio).",
+	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you {spell:18960} with the next quest (it stays in your spellbook, Balance tab)."] = "El portal Cielonato te lleva a {zone:1453}. {npc:5504} es el instructor de druidas de la ciudad (la flecha lo señala); te enseña {spell:18960} con la siguiente misión (queda en tu libro de hechizos, pestaña Equilibrio).",
 
 	-- Step 24: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade · {npc:12740} Faustron · {npc:10897} Sindrayl

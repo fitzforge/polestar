@@ -340,7 +340,7 @@ return {
 	-- {area:88} Eastvale Logging Camp
 	["The {area:88}"] = "{area:88}",
 	-- {area:86} Stone Cairn Lake
-	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "El campamento está al noreste del puente. Los fardos de madera están alrededor del campamento y en el bosque al norte.\nCuidado: Elmpaw, un gnoll élite de nivel 12, recorre el bosque y las colinas desde el campamento maderero al norte hasta {area:86} y los campamentos gnoll: aléjate de él cuando lo veas venir.",
+	["The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.\nCareful: Elmpaw, a level 12 elite gnoll, walks the woods and hills from the logging camp north to {area:86} and the gnoll camps: keep clear of him when you see him coming."] = "El campamento está al noreste del puente. Los fardos de madera están alrededor del campamento y en el bosque al norte.\nCuidado: Patolmo, un gnoll élite de nivel 12, recorre el bosque y las colinas desde el campamento maderero al norte hasta {area:86} y los campamentos gnoll: aléjate de él cuando lo veas venir.",
 	-- {npc:278} Sara Timberlain
 	["{npc:278}, inside"] = "{npc:278}, adentro",
 
