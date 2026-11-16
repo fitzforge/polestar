@@ -135,7 +135,7 @@ step Northshire Abbey
   accept 91758
   turnin 91758                                -- Tordrin Sternblade
   accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
-  interact 563442 x6 quest 91772.1
+  interact 563442 quest 91772.1
 
 step Level 5.48
   when !group 91752
