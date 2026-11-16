@@ -613,6 +613,7 @@ local function questStep(q, from, isTarget, opts)
 	local event = nil
 	local talks = {} -- the NPCs of talk objectives, for the step's note
 	local made = {} -- the lines for items made by a profession, for the step's note
+	local summons = {} -- the lines for targets an item calls up (#2326), for the step's note
 	for oi, o in ipairs(q.objectives or {}) do
 		local count = o.count or 1
 		if o.type == "kill" and o.id then
@@ -625,19 +626,35 @@ local function questStep(q, from, isTarget, opts)
 				s = inside("npc", o.id)
 				mark(s, target)
 			end
-			-- `useItem`: the item this kill is really a use of (Codex, from a
-			-- use-item-on-mob mechanic). The engine then says Use. A tame
-			-- (Taming the Beast) stays a kill the engine words as Tame.
-			local goal = { target = target, npc = o.id, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
-			if type(o.useItem) == "number" and o.useItem > 0 and not o.tame then
-				goal.t = "use"
-				goal.item = o.useItem
-				goal.itemName = itemName(o.useItem)
-			else
-				goal.t = "kill"
-				goal.tame = o.tame
+			-- `summonItem`: the item that calls the target up (Codex, from a
+			-- summon-by-item mechanic, #2326): its use first, then the target,
+			-- spoken to when it is friendly (the Screecher Spirit), else killed.
+			local summon = type(o.summonItem) == "number" and o.summonItem > 0 and not o.tame and o.summonItem
+			if summon then
+				local use = { t = "use", item = summon, itemName = itemName(summon), quest = q.id, oi = oi, count = count, title = q.title }
+				goals[#goals + 1] = spawnSpots(at(use, s), npc and npc.spawns)
+				summons[#summons + 1] = format(L["%s: use %s to call it up."], target, use.itemName)
 			end
-			goals[#goals + 1] = spawnSpots(at(goal, s), npc and npc.spawns)
+			local friendly = summon and npc and type(npc.faction) == "string" and npc.faction ~= ""
+				and Lookup.SideOK(npc.faction, Lookup.PlayerInfo())
+			if friendly then
+				goals[#goals + 1] = at({ t = "talk", npc = o.id, npcName = target, quest = q.id, oi = oi, title = q.title }, s)
+				talks[#talks + 1] = target
+			else
+				-- `useItem`: the item this kill is really a use of (Codex, from a
+				-- use-item-on-mob mechanic). The engine then says Use. A tame
+				-- (Taming the Beast) stays a kill the engine words as Tame.
+				local goal = { target = target, npc = o.id, quest = q.id, oi = oi, count = count, title = q.title, group = eliteGroup(npc) }
+				if not summon and type(o.useItem) == "number" and o.useItem > 0 and not o.tame then
+					goal.t = "use"
+					goal.item = o.useItem
+					goal.itemName = itemName(o.useItem)
+				else
+					goal.t = "kill"
+					goal.tame = o.tame
+				end
+				goals[#goals + 1] = spawnSpots(at(goal, s), npc and npc.spawns)
+			end
 		elseif o.type == "item" and o.id then
 			local name = (C.Name("item", o.id)) or o.text or itemName(o.id)
 			local s, source, spawns, dropper = itemSpot(o.id, here, inside)
@@ -682,11 +699,12 @@ local function questStep(q, from, isTarget, opts)
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
-	if #order > 0 or #talks > 0 or #made > 0 then
+	if #order > 0 or #talks > 0 or #made > 0 or #summons > 0 then
 		local lines = {}
 		for i, inst in ipairs(order) do
 			lines[i] = format(L["%s: inside %s."], concat(within[inst], ", "), inst)
 		end
+		for _, line in ipairs(summons) do lines[#lines + 1] = line end
 		-- A talk objective ticks only once the NPC's dialogue is gone through
 		-- (#1590, Neeru Fireblade's several pages for Hidden Enemies).
 		for _, who in ipairs(talks) do

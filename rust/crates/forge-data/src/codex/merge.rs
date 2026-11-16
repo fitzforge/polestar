@@ -427,7 +427,7 @@ fn finalize_sources(cands: &[&Cand], npc_level: &dyn Fn(&V) -> Option<(f64, f64)
 	kept
 }
 
-fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>) -> V {
+fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>, summon_item: Option<f64>) -> V {
 	let out = Obj::new();
 	out.set("type", o.get("type"));
 	let nn = |v: V| if v.is_nullish() { V::Null } else { v };
@@ -439,6 +439,13 @@ fn objective_of(o: &V, escort: bool, tame: bool, use_item: Option<f64>) -> V {
 	} else if o.get("type").as_str() == Some("kill") {
 		if let Some(item) = use_item {
 			out.set("useItem", item);
+		}
+	}
+	// The item that calls its target up (summon_item_for, #2326): the Screecher Spirit rises from a dead Vale
+	// Screecher only with Yeh'kinya's Bramble.
+	if o.get("type").as_str() == Some("kill") && !tame {
+		if let Some(item) = summon_item {
+			out.set("summonItem", item);
 		}
 	}
 	let fin = |v: V| matches!(v, V::Num(n) if n.is_finite());
@@ -509,6 +516,19 @@ fn use_item_on(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<f64> {
 		}
 	}
 	None
+}
+
+/// The item that calls a kill objective's target up (#2326): a `summon-by-item` kind the mechanics drive,
+/// with a params entry for this NPC and its item (Screecher Spirits: Yeh'kinya's Bramble calls the Screecher
+/// Spirit up from a dead Vale Screecher). None for any other kill.
+fn summon_item_for(mechanics: &V, quest_id: f64, npc: Option<f64>) -> Option<f64> {
+	let npc = npc.filter(|n| *n > 0.0 && n.fract() == 0.0)?;
+	let e = mechanics_entry(mechanics, quest_id);
+	let drives = e.get("kinds").items().iter().any(|k| k.get("kind").as_str() == Some("summon-by-item") && k.get("drives").truthy());
+	if !drives {
+		return None;
+	}
+	e.get("params").items().iter().find(|p| p.get("kind").as_str() == Some("summon-by-item") && int(&p.get("npc")) == Some(npc)).and_then(|p| whole_id(&p.get("item")))
 }
 
 pub struct Merged {
@@ -2099,8 +2119,10 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				.iter()
 				.filter(|o| matches!(o.get("type").as_str(), Some("kill" | "item" | "object" | "event" | "talk")))
 				.map(|o| {
-					let use_item = if !tame && o.get("type").as_str() == Some("kill") { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
-					objective_of(o, escort, tame, use_item)
+					let kill = !tame && o.get("type").as_str() == Some("kill");
+					let use_item = if kill { use_item_on(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					let summon_item = if kill { summon_item_for(&inputs.mechanics, idf, int(&o.get("id"))) } else { None };
+					objective_of(o, escort, tame, use_item, summon_item)
 				})
 				.collect();
 			if learned.truthy() {
@@ -2473,6 +2495,28 @@ mod tests {
 		assert!(obj("88003").get("tame").truthy());
 		assert!(obj("88003").get("useItem").is_nullish(), "a tame stays a tame");
 		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
+	}
+
+	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
+	// with its params' item and NPC): the kill objective keeps summonItem; a kind that does not drive, or params for
+	// another NPC, leave it as it was.
+	#[test]
+	fn a_kill_of_a_target_an_item_calls_up_keeps_summon_item_2326() {
+		let quests = r#"{
+			"3520": { "id": 3520, "title": "Screecher Spirits", "objectives": [{ "type": "kill", "id": 8612, "count": 3, "text": "Screecher Spirit" }] },
+			"88005": { "id": 88005, "title": "Not driven", "objectives": [{ "type": "kill", "id": 8612, "count": 1 }] },
+			"88006": { "id": 88006, "title": "Other NPC", "objectives": [{ "type": "kill", "id": 1, "count": 1 }] }
+		}"#;
+		let mechanics = r#"{ "quests": {
+			"3520": { "kinds": [{ "kind": "summon-by-item", "confidence": "high", "drives": true }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612 }] },
+			"88005": { "kinds": [{ "kind": "summon-by-item", "confidence": "medium", "drives": false }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612 }] },
+			"88006": { "kinds": [{ "kind": "summon-by-item", "confidence": "high", "drives": true }], "params": [{ "kind": "summon-by-item", "item": 10699, "npc": 8612 }] }
+		} }"#;
+		let codex = merge_codex(&inputs(quests, mechanics));
+		let obj = |id: &str| codex.quests.get(id).get("objectives").at(0);
+		assert_eq!(obj("3520").get("summonItem").num(), 10699.0);
+		assert!(obj("88005").get("summonItem").is_nullish(), "a kind that does not drive");
+		assert!(obj("88006").get("summonItem").is_nullish(), "the item calls up another NPC");
 	}
 
 	#[test]

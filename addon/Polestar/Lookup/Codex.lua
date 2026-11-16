@@ -394,6 +394,12 @@ local function decodeQuest(group, id, s)
 			if o then o.useItem = tonumber(sub(f, 2)) end
 		elseif lead == "p" then
 			-- Where the objective before it is done (an event's area): p<map>,<x>,<y>,<f>.
+		elseif lead == "m" then
+			-- The kill objective before it is of a target this item calls up
+			-- (the Codex build's summonItem, #2326: Yeh'kinya's Bramble on a dead
+			-- Vale Screecher calls up the Screecher Spirit): m<item>.
+			local o = rec.objectives[#rec.objectives]
+			if o then o.summonItem = tonumber(sub(f, 2)) end
 			local o = rec.objectives[#rec.objectives]
 			local _, _, map, x, y, fac = find(f, "^p(%d+),(%-?%d+),(%-?%d+),(%a*)$")
 			if o and map then

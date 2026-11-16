@@ -400,6 +400,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 		if use_item.truthy() {
 			parts.push(format!("a{}", num(&use_item)?));
 		}
+		// The item that calls the kill objective's target up (merge.rs `summon_item_for`, #2326): m<item>.
+		// An older reader skips it (no objective kind is m).
+		let summon = o.get("summonItem");
+		if summon.truthy() {
+			parts.push(format!("m{}", num(&summon)?));
+		}
 		// The hostile elites at an object's work, per side (elites.rs): w<side><rank>,<lvl>.
 		let el = o.get("elites");
 		for side in ["A", "H"] {

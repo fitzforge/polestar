@@ -110,6 +110,13 @@ fn ctx() -> Ctx {
 	codex["quests"]["7010"] = json!({ "id": 7010, "title": "Creepers in the Marsh", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
 		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
 		"objectives": [{ "type": "kill", "id": 5014, "count": 6, "text": "Marsh Creeper" }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
+	// #2326: a friendly spirit an item calls up (Screecher Spirits' shape): use the item, then speak to it.
+	codex["npcs"]["5015"] = json!({ "id": 5015, "name": "Vale Spirit", "level": 1, "levelMax": 1, "faction": "AH", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [],
+		"spawns": [{ "map": home, "x": 30, "y": 60, "f": "e" }] });
+	codex["items"]["8021"] = json!({ "id": 8021, "name": "Spirit Bramble", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [] });
+	codex["quests"]["7011"] = json!({ "id": 7011, "title": "Spirits of the Vale", "level": 18, "minLevel": 15, "faction": "A", "races": null, "classes": null,
+		"start": { "npc": [5008], "object": [], "item": [] }, "end": { "npc": [5008], "object": [] },
+		"objectives": [{ "type": "kill", "id": 5015, "count": 3, "text": "Vale Spirit", "summonItem": 8021 }], "pre": [], "preAny": [], "zone": home, "rewards": [], "choices": [] });
 	let mut frames: Vec<(i64, Value)> = codex["frames"].as_object().unwrap().iter().map(|(k, f)| (k.parse::<i64>().unwrap(), f.clone())).collect();
 	frames.sort_by_key(|(id, _)| *id);
 	let maps = frames
@@ -292,6 +299,26 @@ fn a_craft_learn_the_profession_at_its_trainer_skill_up_learn_the_recipe_craft()
 	assert_plays(&c, "item", 8005, json!([{ "title": "Tailoring", "goals": "learn craft" }]), r#"w.learnSkill(197, "Tailoring", 120, 150)"#);
 }
 
+// #2326 (Stompsville, Zul'Farrak's pick-up guide): Screecher Spirits read "Kill Screecher Spirit", though the spirit
+// rises only from Yeh'kinya's Bramble used on a dead Vale Screecher, and it is spoken to, never killed. A target the
+// Codex says an item calls up (summonItem) is the item's use, then a talk when it is friendly; the step says so.
+#[test]
+fn a_target_an_item_calls_up_use_the_item_then_speak_to_it_2326() {
+	let c = ctx();
+	assert_plays(&c, "quest", 7011, json!([{ "title": "Spirits of the Vale", "goals": "accept use talk turnin" }]), "");
+	let note = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\n", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"stub.login()
+			local id = Polestar.Lookup.Guide("quest", 7011)
+			emit(Polestar.Guides.Get(id).steps[1].note or false)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(note.as_str().unwrap_or("").contains("Vale Spirit: use Spirit Bramble to call it up."), "{note}");
+}
 #[test]
 fn a_reputation_reward_reach_the_standing_then_buy_it_from_the_quartermaster() {
 	let c = ctx();
