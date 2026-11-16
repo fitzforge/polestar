@@ -12241,6 +12241,23 @@
 					"ref": "quest 87492 objective ticks at 66.1-66.3,74.9-75.3 (Un'Goro Crater), 7 people"
 				}
 			]
+		},
+		{
+			"id": "ungoro-shizzle-scales-young-beasts-and-diemetradons",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4503,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Shizzle's scales: the Fledgling Pterrordax (48-50) glide over the north-east of the jungle and the Young Diemetradons (49-50) graze beside them. There are only ten of those: the Diemetradons (51) on the jungle's western edge, a short way west of the Threshers, drop the scales too. They are a level over you: take them one at a time.",
+			"note": "40-50/07 (fix round 3, 0.4.0): Shizzle's Flyer wants 8 Webbed Diemetradon Scales, a 20% drop from Young Diemetradons (49, 10 spawns over 58-72,20-39), Diemetradons (51) and Elder Diemetradons (53); about 40 kills on ten young beasts is a wait for respawns. The level model plays this step at about 49.7, so the Diemetradons on the jungle's western edge (52.8,31.8 and 54.5,28.5, the nearest to the step's point) are a level over the player: the tip sends players to them as well.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "item 11830 drops at 20% from npcs 9162 Young Diemetradon (49), 9163 Diemetradon (51), 9164 Elder Diemetradon (53); npc 9162 has 10 spawns on map 1449"
+				}
+			]
 		}
 	]
 }
