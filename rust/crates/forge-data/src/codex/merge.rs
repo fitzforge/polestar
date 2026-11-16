@@ -2349,7 +2349,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			ref_npcs.insert(n.num().to_bits());
 		}
 		for o in q.get("objectives").items() {
-			if o.get("type").as_str() == Some("kill") && o.get("id").truthy() {
+			if matches!(o.get("type").as_str(), Some("kill" | "talk")) && o.get("id").truthy() {
 				ref_npcs.insert(o.get("id").num().to_bits());
 			}
 		}

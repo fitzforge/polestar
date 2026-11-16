@@ -235,6 +235,7 @@ step Tanaris
 
 step Gadgetzan
   zone Tanaris
+  when has 8564
   tip Fly to Gadgetzan. Still carrying The Super Egg-O-Matic? The machine stands in the middle of town.
   turnin 2741 direct
 

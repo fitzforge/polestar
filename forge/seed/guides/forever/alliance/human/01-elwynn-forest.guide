@@ -135,6 +135,7 @@ step Northshire Abbey
   accept 91758
   turnin 91758                                -- Tordrin Sternblade
   accept 91772                                -- his kobold tracker shows the kobolds to click on the road to Goldshire
+  interact 563442 quest 91772.1
 
 step Level 5.48
   when !group 91752
@@ -602,6 +603,8 @@ step The Stonefield Farm
   buy 4536 x4 npc 894                         -- Shiny Red Apples, from Homer Stonefield, for the Applejack Still
 
 step The Applejack Still
+  when has 4536 x4
+  when !turnedin 91738
   tip The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.
   turnin 91736 direct optional                -- Applejack Still
   collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
@@ -614,6 +617,10 @@ step Westbrook Garrison
   turnin 239                                  -- Deputy Rainer
   accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill
   accept 11
+
+step Sergeant De Vries
+  zone Elwynn Forest
+  when has 247824
   turnin 91738 direct                         -- Sergeant De Vries: he wants your Thunder Applejack; inside
 
 step Forest's Edge

@@ -447,6 +447,34 @@ fn riding_money_stops_firing_after_onresolve_is_called() {
 	assert_eq!(out[1], 0, "silent after resolve");
 }
 
+// The banner reads the balance in whole gold against whole-gold prices: copper that leaves the gold figure as it was
+// (a looted mob's coins) repaints nothing, a gold figure that moves repaints once (perf sweep: each RIDING_MONEY lays
+// the guide window out).
+#[test]
+fn riding_money_fires_only_when_the_gold_figure_changes() {
+	let out = run_qol(
+		r#"
+		local count = 0
+		Polestar.On("RIDING_MONEY", function() count = count + 1 end)
+		q.money = 512345
+		levelUp(40)
+		stub.fire("PLAYER_MONEY"); stub.runTimers()
+		emit(count)
+		for _, c in ipairs({ 512432, 512519, 519999 }) do q.money = c; stub.fire("PLAYER_MONEY") end
+		stub.runTimers()
+		emit(count)
+		q.money = 520010; stub.fire("PLAYER_MONEY"); stub.runTimers()
+		emit(count)
+		q.money = 999999; stub.fire("PLAYER_MONEY"); q.money = 1000000; stub.fire("PLAYER_MONEY"); stub.runTimers()
+		emit(count)
+	"#,
+	);
+	assert_eq!(out[0], 1, "the first change paints the balance");
+	assert_eq!(out[1], 1, "copper inside the same gold repaints nothing");
+	assert_eq!(out[2], 2, "a new gold figure repaints");
+	assert_eq!(out[3], 4, "each gold step repaints, the one that makes 100 g affordable included");
+}
+
 // ---- Class routing (RIDING_DUE carries correct trainer) ----------------------
 
 #[test]

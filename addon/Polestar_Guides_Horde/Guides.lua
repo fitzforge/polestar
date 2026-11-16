@@ -596,6 +596,7 @@ do
 						{ t = "level", level = 21 },
 						{ t = "turnin", quest = 91862, title = "Lumina Windsinger", npc = 248755, npcName = "Lumina Windsinger", map = 1421, x = 65.55, y = 23.27, f = "e" },
 						{ t = "accept", quest = 96204, title = "The Windshaper's Wrath", npc = 248755, npcName = "Lumina Windsinger", minLevel = 18, qlvl = 22, pre = { 91862 }, preTitles = { [91862] = "Lumina Windsinger" }, map = 1421, x = 65.55, y = 23.27, f = "e", escort = true },
+						{ t = "complete", quest = 96204, title = "The Windshaper's Wrath", map = 1421, x = 65.7, y = 29.7, f = "e", escort = true, objs = { { text = "Lumina Windsinger", count = 1 }, { text = "Escort Lumina Windsinger to safety", count = 1 } } },
 					},
 				},
 				{
@@ -6099,8 +6100,8 @@ do
 						{ t = "turnin", quest = 95350, title = "Welcome to Azeroth", npc = 4949, npcName = "Thrall", map = 1454, x = 31.73, y = 37.82, z = 43, f = "e", note = "{npc:4949}, inside Grommash Hold" },
 						{ t = "accept", quest = 98024, title = "Journey to the Crossroads", npc = 4949, npcName = "Thrall", minLevel = 7, qlvl = 13, pre = { 95350 }, preTitles = { [95350] = "Welcome to Azeroth" }, map = 1454, x = 31.73, y = 37.82, z = 43, f = "e", note = "{npc:4949}: keep it, Thork at the Crossroads in the {zone:1413} guide" },
 						{ t = "accept", quest = 93739, title = "Exploring the Horde", npc = 4949, npcName = "Thrall", minLevel = 7, qlvl = 13, pre = { 95350 }, preTitles = { [95350] = "Welcome to Azeroth" }, map = 1454, x = 31.73, y = 37.82, z = 43, f = "e", optional = true, note = "{npc:4949}: {quest:93739}, a tour of the Horde's leaders" },
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Nazgrel", npc = 3230, count = 1, oi = 1, text = "Talk to {npc:3230}", map = 1454, x = 32.3, y = 35.75, z = 40.9, f = "e", optional = true, note = "Speak with {npc:3230}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Vol'jin", npc = 10540, count = 1, oi = 2, text = "Talk to {npc:10540}", map = 1454, x = 34.34, y = 36.33, z = 41, f = "e", optional = true, note = "Speak with {npc:10540}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 3230, npcName = "Nazgrel", oi = 1, text = "Talk to {npc:3230}", map = 1454, x = 32.3, y = 35.75, z = 40.9, f = "e", optional = true, note = "Speak with {npc:3230}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 10540, npcName = "Vol'jin", oi = 2, text = "Talk to {npc:10540}", map = 1454, x = 34.34, y = 36.33, z = 41, f = "e", optional = true, note = "Speak with {npc:10540}, in Grommash Hold", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
 					},
 				},
 				{
@@ -6380,7 +6381,7 @@ do
 					note = "{npc:10181} holds court in the {object:36126}.",
 					only = { races = { "Skyborne" } },
 					goals = {
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Lady Sylvanas Windrunner", npc = 10181, count = 1, oi = 4, text = "Talk to {npc:10181}", map = 1458, x = 58.05, y = 91.79, z = -57.2, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:10181}, in the {object:36126}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 10181, npcName = "Lady Sylvanas Windrunner", oi = 4, text = "Talk to {npc:10181}", map = 1458, x = 58.05, y = 91.79, z = -57.2, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:10181}, in the {object:36126}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
 					},
 				},
 				{
@@ -7108,6 +7109,7 @@ do
 					title = "{quest:98252}",
 					note = "Steer {npc:267214}'s {npc:271181} out of the ravine to the main road within four minutes; if the channel breaks, ask {npc:267214} again.",
 					goals = {
+						{ t = "complete", quest = 98252, title = "A Void Path", group = { kind = "raid", map = 2832, name = "Nightmare Grove" }, objs = { { text = "Eye of Kilrogg guided to the road", count = 1 } } },
 						{ t = "turnin", quest = 98252, title = "A Void Path", npc = 271181, npcName = "Eye of Kilrogg", map = 1440, x = 38.2, y = 58.1, f = "e", note = "{npc:271181}, on the road", group = { kind = "raid", map = 2832, name = "Nightmare Grove" } },
 					},
 				},
@@ -8208,7 +8210,7 @@ do
 					when = { { k = "onquest", q = { 1195, 97538, 1086 } } },
 					goals = {
 						{ t = "getfp", npc = 2995, npcName = "Tal", location = "Thunder Bluff", node = 22, area = 1638, map = 1456, x = 47, y = 49.83, z = 177, f = "e" },
-						{ t = "kill", quest = 93739, title = "Exploring the Horde", target = "Cairne Bloodhoof", npc = 3057, count = 1, oi = 3, text = "Talk to {npc:3057}", map = 1456, x = 60.3, y = 51.68, z = 163.9, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:3057}, in {area:1638}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
+						{ t = "talk", quest = 93739, title = "Exploring the Horde", npc = 3057, npcName = "Cairne Bloodhoof", oi = 3, text = "Talk to {npc:3057}", map = 1456, x = 60.3, y = 51.68, z = 163.9, f = "e", optional = true, only = { races = { "Skyborne" } }, note = "Speak with {npc:3057}, in {area:1638}: {quest:93739}", carriedTo = "forever/horde/30-40/01-hillsbrad-foothills" },
 					},
 				},
 				{
@@ -13501,7 +13503,7 @@ do
 					note = "{npc:5955} waits in the valley. Walk him all the way to his wife {npc:6015} in {area:977}, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. {npc:8579} stands in the port too.",
 					goals = {
 						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 30, y = 65, f = "e", spotsPacked = "30,65,,15,1;29.5,60.5,,15,1;30,70,,15,1;31.8,74.2,9,15,1", escort = true },
-						{ t = "complete", quest = 1560, title = "Tooga's Quest", map = 1446, x = 66.58, y = 25.67, f = "e", escort = true, objs = { { text = "Torta", count = 1 } } },
+						{ t = "complete", quest = 1560, title = "Tooga's Quest", map = 1446, x = 66.58, y = 25.67, f = "e", escort = true, objs = { { text = "Lead Tooga to Torta", count = 1 } } },
 					},
 				},
 				{
@@ -14146,7 +14148,7 @@ do
 			next = "forever/horde/50-60/01-un-goro-crater",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "The Forgotten Coast", ["area:117"] = "Grom'gol Base Camp", ["area:1235"] = "Shadowsong Shrine", ["area:1236"] = "Haldarr Encampment", ["area:1237"] = "Valormok", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1938"] = "Broken Pillar", ["area:2522"] = "Ruins of Isildien", ["area:3137"] = "Talrendis Point", ["area:35"] = "Booty Bay", ["area:378"] = "Camp Taurajo", ["area:43"] = "Wild Shore", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["item:18904"] = "Zorbin's Ultra-Shrinker", ["item:3985"] = "Monogrammed Sash", ["item:4098"] = "Carefully Folded Note", ["npc:11276"] = "Azshara Sentinel", ["npc:11548"] = "Loh'atu", ["npc:11758"] = "Andi Lynn", ["npc:12046"] = "Gor'marok the Ravager", ["npc:14637"] = "Zorbin Fandazzle", ["npc:246344"] = "Alodan the Hopeful", ["npc:2487"] = "Fleet Master Seahorn", ["npc:2491"] = "Whiskey Slim", ["npc:2497"] = "Nimboya", ["npc:2500"] = "Captain Hecklebury Smotts", ["npc:2519"] = "Kin'weelay", ["npc:2546"] = "Fleet Master Firallon", ["npc:2548"] = "Captain Keelhaul", ["npc:2550"] = "Captain Stillwater", ["npc:2594"] = "Sprogger", ["npc:2634"] = "Princess Poobah", ["npc:3033"] = "Turak Runetotem", ["npc:5278"] = "Sprite Darter", ["npc:5300"] = "Frayfeather Hippogryph", ["npc:5357"] = "Land Walker", ["npc:5358"] = "Cliff Giant", ["npc:5461"] = "Sea Elemental", ["npc:5462"] = "Sea Spray", ["npc:5490"] = "Gnarled Thistleshrub", ["npc:5594"] = "Alchemist Pestlezugg", ["npc:5769"] = "Arch Druid Hamuul Runetotem", ["npc:6117"] = "Highborne Lichling", ["npc:6746"] = "Innkeeper Pala", ["npc:6986"] = "Dran Droffers", ["npc:7010"] = "Zilzibin Drumlore", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7584"] = "Wandering Forest Walker", ["npc:7771"] = "Marvon Rivetseeker", ["npc:7776"] = "Talo Thornhoof", ["npc:7876"] = "Tran'rek", ["npc:8115"] = "Witch Doctor Uzer'i", ["npc:818"] = "Mai'Zoth", ["object:142071"] = "Egg-O-Matic", ["object:2076"] = "Bubbling Cauldron", ["object:3202"] = "Grom'gol", ["quest:3362"] = "Thistleshrub Valley", ["quest:3444"] = "The Stone Circle", ["quest:3761"] = "Un'Goro Soil", ["quest:4494"] = "March of the Silithid", ["quest:5863"] = "The Dunemaul Compound", ["quest:591"] = "The Mind's Eye", ["quest:592"] = "Saving Yenniku", ["quest:8552"] = "The Monogrammed Sash", ["zone:1412"] = "Mulgore", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:1447"] = "Azshara", ["zone:1448"] = "Felwood", ["zone:1449"] = "Un'Goro Crater", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff" },
+			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "The Forgotten Coast", ["area:117"] = "Grom'gol Base Camp", ["area:1235"] = "Shadowsong Shrine", ["area:1236"] = "Haldarr Encampment", ["area:1237"] = "Valormok", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1938"] = "Broken Pillar", ["area:2522"] = "Ruins of Isildien", ["area:3137"] = "Talrendis Point", ["area:35"] = "Booty Bay", ["area:378"] = "Camp Taurajo", ["area:43"] = "Wild Shore", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["item:18904"] = "Zorbin's Ultra-Shrinker", ["item:3985"] = "Monogrammed Sash", ["item:4098"] = "Carefully Folded Note", ["npc:11276"] = "Azshara Sentinel", ["npc:11548"] = "Loh'atu", ["npc:11758"] = "Andi Lynn", ["npc:12046"] = "Gor'marok the Ravager", ["npc:14637"] = "Zorbin Fandazzle", ["npc:246344"] = "Alodan the Hopeful", ["npc:2487"] = "Fleet Master Seahorn", ["npc:2491"] = "Whiskey Slim", ["npc:2497"] = "Nimboya", ["npc:2500"] = "Captain Hecklebury Smotts", ["npc:2519"] = "Kin'weelay", ["npc:2546"] = "Fleet Master Firallon", ["npc:2548"] = "Captain Keelhaul", ["npc:2550"] = "Captain Stillwater", ["npc:2594"] = "Sprogger", ["npc:2634"] = "Princess Poobah", ["npc:3033"] = "Turak Runetotem", ["npc:5278"] = "Sprite Darter", ["npc:5300"] = "Frayfeather Hippogryph", ["npc:5357"] = "Land Walker", ["npc:5358"] = "Cliff Giant", ["npc:5461"] = "Sea Elemental", ["npc:5462"] = "Sea Spray", ["npc:5490"] = "Gnarled Thistleshrub", ["npc:5594"] = "Alchemist Pestlezugg", ["npc:5769"] = "Arch Druid Hamuul Runetotem", ["npc:6117"] = "Highborne Lichling", ["npc:6746"] = "Innkeeper Pala", ["npc:6986"] = "Dran Droffers", ["npc:7010"] = "Zilzibin Drumlore", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7564"] = "Marin Noggenfogger", ["npc:7584"] = "Wandering Forest Walker", ["npc:7771"] = "Marvon Rivetseeker", ["npc:7776"] = "Talo Thornhoof", ["npc:7876"] = "Tran'rek", ["npc:8115"] = "Witch Doctor Uzer'i", ["npc:818"] = "Mai'Zoth", ["object:142071"] = "Egg-O-Matic", ["object:2076"] = "Bubbling Cauldron", ["object:3202"] = "Grom'gol", ["quest:3362"] = "Thistleshrub Valley", ["quest:3444"] = "The Stone Circle", ["quest:3761"] = "Un'Goro Soil", ["quest:4494"] = "March of the Silithid", ["quest:5863"] = "The Dunemaul Compound", ["quest:591"] = "The Mind's Eye", ["quest:592"] = "Saving Yenniku", ["quest:8552"] = "The Monogrammed Sash", ["zone:1412"] = "Mulgore", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:1447"] = "Azshara", ["zone:1448"] = "Felwood", ["zone:1449"] = "Un'Goro Crater", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff" },
 			written = { ["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "Keep The Stone Circle: Marvon's chest is opened on a later visit.", ["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}."] = "On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris.", ["{quest:4494} needs level 50: {npc:7010}, in the Drag, gives it from then on. Under 50, the {zone:1447} guide at 55 offers it again."] = "March of the Silithid needs level 50: Zilzibin, in the Drag, gives it from then on. Under 50, the Azshara guide at 55 offers it again." },
 			fresh = { from = "forever/horde/40-50/03-feralas", share = 73, xp = 122571, needs = { 3123, 589, 32, 648, 836, 2641, 604, 2767 } },
 			steps = {
@@ -14550,8 +14552,19 @@ do
 						{ t = "turnin", quest = 2641, title = "Sprinkle's Secret Ingredient", npc = 7583, npcName = "Sprinkle", map = 1446, x = 51.06, y = 26.87, z = 8.6, f = "e" },
 						{ t = "accept", quest = 2661, title = "Delivery for Marin", npc = 7583, npcName = "Sprinkle", minLevel = 44, qlvl = 49, pre = { 2641 }, preTitles = { [2641] = "Sprinkle's Secret Ingredient" }, map = 1446, x = 51.06, y = 26.87, z = 8.6, f = "e" },
 						{ t = "accept", quest = 4504, title = "Super Sticky", npc = 7876, npcName = "Tran'rek", minLevel = 48, qlvl = 54, map = 1446, x = 51.57, y = 26.76, z = 8.8, f = "e", note = "{npc:7876}, beside the wind rider master" },
-						{ t = "turnin", quest = 2741, title = "The Super Egg-O-Matic", object = 142071, objName = "Egg-O-Matic", qlvl = 60, map = 1446, x = 52.39, y = 26.97, z = 9.4, f = "e", note = "The {object:142071}, in the middle of town", direct = true },
 						{ t = "sethome", npc = 7733, npcName = "Innkeeper Fizzgrimble", location = "Gadgetzan", area = 976, map = 1446, x = 52.51, y = 27.91, z = 8.8, f = "e" },
+					},
+				},
+				{
+					title = "The {object:142071}",
+					when = { { k = "has", n = 1, item = 8564 } },
+					goals = {
+						{ t = "turnin", quest = 2741, title = "The Super Egg-O-Matic", object = 142071, objName = "Egg-O-Matic", qlvl = 60, map = 1446, x = 52.39, y = 26.97, z = 9.4, f = "e", note = "The {object:142071}, in the middle of town", direct = true },
+					},
+				},
+				{
+					title = "{npc:7564}",
+					goals = {
 						{ t = "turnin", quest = 2661, title = "Delivery for Marin", npc = 7564, npcName = "Marin Noggenfogger", map = 1446, x = 51.81, y = 28.66, z = 9.8, f = "e" },
 						{ t = "accept", quest = 2662, title = "Noggenfogger Elixir", npc = 7564, npcName = "Marin Noggenfogger", minLevel = 44, qlvl = 49, pre = { 2661 }, preTitles = { [2661] = "Delivery for Marin" }, map = 1446, x = 51.81, y = 28.66, z = 9.8, f = "e" },
 						{ t = "turnin", quest = 2662, title = "Noggenfogger Elixir", npc = 7564, npcName = "Marin Noggenfogger", map = 1446, x = 51.81, y = 28.66, z = 9.8, f = "e" },
@@ -15590,6 +15603,7 @@ do
 				{
 					title = "{quest:3909}",
 					note = "Back south to {npc:7775}. Keep the elixir and don't drink it yet: it kills you, and that is how you meet Gaeriyan by {area:976} later.",
+					when = { { k = "has", n = 1, item = 11242 } },
 					goals = {
 						{ t = "turnin", quest = 4041, title = "The Videre Elixir", npc = 7775, npcName = "Gregan Brewspewer", qlvl = 52, parent = 3909, map = 1444, x = 45.12, y = 25.57, z = 62.8, f = "e", direct = true },
 						{ t = "collect", quest = 3909, title = "The Videre Elixir", item = 11243, itemName = "Videre Elixir", count = 1, oi = 1, map = 1444, x = 45.12, y = 25.57, z = 62.8, f = "e", note = "{item:11243}, {npc:7775}'s reward", from = "Gregan Brewspewer", fromKind = "npc", fromFaction = "AH", fromId = 7775, fromNpcs = { { npc = 7775, npcName = "Gregan Brewspewer" } }, carriedTo = "forever/horde/50-60/05-eastern-plaguelands" },
@@ -15638,6 +15652,12 @@ do
 						{ t = "complete", quest = 3786, title = "Morrowgrain Research", optional = true, objs = { { text = "Morrowgrain", count = 10 } }, startItem = 11020, startItemName = "Evergreen Pouch" },
 						{ t = "turnin", quest = 3786, title = "Morrowgrain Research", npc = 9087, npcName = "Bashana Runetotem", map = 1456, x = 71.06, y = 34.19, z = 159.3, f = "e" },
 						{ t = "collect", item = 11040, itemName = "Morrowgrain", count = 10, optional = true },
+					},
+				},
+				{
+					title = "{npc:9087}",
+					when = { { k = "has", n = 10, item = 11040 } },
+					goals = {
 						{ t = "turnin", quest = 3804, title = "Morrowgrain to Thunder Bluff", npc = 9087, npcName = "Bashana Runetotem", qlvl = 55, pre = { 3786 }, map = 1456, x = 71.06, y = 34.19, z = 159.3, f = "e", direct = true },
 					},
 				},
@@ -16400,7 +16420,7 @@ do
 					note = "Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}.",
 					goals = {
 						{ t = "goto", text = "{area:2264}", area = 2264, map = 1423, x = 52.3, y = 58.2 },
-						{ t = "kill", quest = 5211, title = "Defenders of Darrowshire", target = "Darrowshire Spirit", npc = 11064, count = 15, oi = 1, text = "Free Darrowshire Spirits: talk to them", map = 1423, x = 51.72, y = 58.32, spotsPacked = "53.4,56.8,,76,4;57.5,31.4,,74,8;69.6,46.8,,47,1;75,33.9,,47,1;36.3,16.8,,51,3;32.1,27.5,,51,4;23.3,21.8,,47,2;21.4,29.6,,47,1;18.5,14.3,,47,2;11.1,25.4,,47,1;27.9,53.7,,47,2;34.1,42,,47,2;52.7,54.8,,47,1,1;52.2,62.1,,51,3,1;66.4,42,,47,1,1;68.1,38.9,,47,1,1;32.1,46.6,,56,4,1;72,35,,47,2,1;36.2,25.9,,47,1,1;36.1,20.8,,47,2,1;30.8,22.6,,47,2,1;26.8,26.3,,52,3,1;31.4,17.1,,47,2,1;21.5,25.4,,47,3,1;14.1,24.9,,67,5,1", spread = true, lvl = 57 },
+						{ t = "talk", quest = 5211, title = "Defenders of Darrowshire", npc = 11064, npcName = "Darrowshire Spirit", oi = 1, text = "Free Darrowshire Spirits: talk to them", map = 1423, x = 51.72, y = 58.32, spotsPacked = "53.4,56.8,,76,4;57.5,31.4,,74,8;69.6,46.8,,47,1;75,33.9,,47,1;36.3,16.8,,51,3;32.1,27.5,,51,4;23.3,21.8,,47,2;21.4,29.6,,47,1;18.5,14.3,,47,2;11.1,25.4,,47,1;27.9,53.7,,47,2;34.1,42,,47,2;52.7,54.8,,47,1,1;52.2,62.1,,51,3,1;66.4,42,,47,1,1;68.1,38.9,,47,1,1;32.1,46.6,,56,4,1;72,35,,47,2,1;36.2,25.9,,47,1,1;36.1,20.8,,47,2,1;30.8,22.6,,47,2,1;26.8,26.3,,52,3,1;31.4,17.1,,47,2,1;21.5,25.4,,47,3,1;14.1,24.9,,67,5,1" },
 						{ t = "collect", item = 15447, itemName = "Living Rot", count = 7, map = 1423, x = 51.72, y = 58.32, z = 73.8, spotsPacked = "51.4,58.7,,79,15;54.3,56.2,,45,6,,57;38,25.7,121.6,40,1;31.5,24.4,143.7,40,1,,56;26.8,23.8,,63,5;25,19.5,,40,2,,57;27.9,17.1,,40,2;21.4,21,141.8,40,1,,57;21.8,26.7,120.2,40,1;23,31.7,102.9,40,1;17.8,14,135.7,40,1;34.8,14.5,149.7,40,1;53.5,59.1,73.7,54,10,1;52.1,55.3,,71,11,1;52.1,61.7,79.9,50,9,1;36.3,27.7,,59,4,1;36.9,17.7,130.9,40,1,1;29.5,25,,40,2,1;31.1,21.5,133.1,40,1,1;32.8,18.4,,50,3,1,57;28.2,21.7,,40,2,1;30.1,18.9,,40,4,1;32.3,14.3,150.1,53,5,1;20.7,24.4,,40,3,1;22.9,18.1,,40,3,1;18.1,21.3,,40,2,1;19.2,12.1,162.4,40,1,1", spread = true, lvl = 58, from = "Gibbering Ghoul", fromKind = "npc", fromAlso = "Hate Shrieker", fromId = 8531, fromAlsoId = 8541, fromNpcs = { { npc = 8531, npcName = "Gibbering Ghoul" }, { npc = 8541, npcName = "Hate Shrieker" }, { npc = 8538, npcName = "Unseen Servant" }, { npc = 8543, npcName = "Stitched Horror" }, { npc = 8525, npcName = "Scourge Warder" }, { npc = 8526, npcName = "Dark Caster" } }, fromNpcsAt = "2,6,3,4,1,5;1,2,3,6;4;5;4;2,5;4,5;2;4;4;4;4;2,3,4,5,6;2,6,1,3,4;2,1,4,5,6;4;4;4;4;2,5;4;4,2;4,2;4;2,4,5;4;4" },
 						{ t = "complete", quest = 6022, title = "To Kill With Purpose", objs = { { text = "Coagulated Rot", count = 1 } }, startItem = 15454, startItemName = "Mortar and Pestle" },
 					},
@@ -16999,6 +17019,7 @@ do
 				{
 					title = "{area:976}",
 					note = "Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town.",
+					when = { { k = "has", n = 1, item = 8564 } },
 					goals = {
 						{ t = "turnin", quest = 2741, title = "The Super Egg-O-Matic", object = 142071, objName = "Egg-O-Matic", qlvl = 60, map = 1446, x = 52.39, y = 26.97, z = 9.4, f = "e", direct = true },
 					},
@@ -17618,7 +17639,7 @@ do
 				{
 					title = "{npc:9529}",
 					note = "On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary.",
-					when = { { k = "available", q = 5887, minLevel = 48, pre = { 4102 } } },
+					when = { { k = "available", q = 5887, minLevel = 48, pre = { 4102 } }, { k = "has", n = 6, item = 11515 } },
 					goals = {
 						{ t = "turnin", quest = 5887, title = "Salve via Hunting", npc = 9529, npcName = "Maybess Riverbreeze", qlvl = 55, pre = { 4102 }, map = 1448, x = 46.75, y = 83.13, z = 246.1, f = "e", direct = true },
 					},
@@ -17794,6 +17815,7 @@ do
 				},
 				{
 					title = "{npc:11556}",
+					when = { { k = "has", n = 5, item = 21383 } },
 					goals = {
 						{ t = "turnin", quest = 8469, title = "Beads for Salfa", npc = 11556, npcName = "Salfa", qlvl = 56, pre = { 8464 }, map = 1452, x = 27.73, y = 34.5, z = 586.1, f = "e", direct = true },
 					},
@@ -20275,6 +20297,7 @@ do
 						{ t = "accept", quest = 99079, title = "Longwalker Malah", npc = 3222, npcName = "Brave Wildrunner", minLevel = 4, qlvl = 9, map = 1412, x = 46.68, y = 63.83, z = -8, spotsPacked = "46.59,62.1,,113,1", note = "{npc:3222} walks around {area:222}: look inside the circle on the map" },
 						{ t = "accept", quest = 748, title = "Poison Water", npc = 2948, npcName = "Mull Thunderhorn", minLevel = 4, qlvl = 5, map = 1412, x = 47.52, y = 63.58, z = -6.4 },
 						{ t = "accept", quest = 99108, title = "Sparring Match", npc = 3063, npcName = "Krang Stonehoof", minLevel = 4, qlvl = 6, map = 1412, x = 48.35, y = 63.74, z = -9 },
+						{ t = "kill", quest = 99108, title = "Sparring Match", target = "Novice Warrior", npc = 10721, count = 3, oi = 1, map = 1412, x = 48.45, y = 63.72, z = -9.2, spotsPacked = "48.7,63.7,-9.3,15,3", lvl = 5 },
 						{ t = "turnin", quest = 99108, title = "Sparring Match", npc = 3063, npcName = "Krang Stonehoof", map = 1412, x = 48.35, y = 63.74, z = -9 },
 						{ t = "accept", quest = 761, title = "Swoop Hunting", npc = 2947, npcName = "Harken Windtotem", minLevel = 4, qlvl = 6, map = 1412, x = 47.67, y = 62.68, z = -5.4 },
 						{ t = "accept", quest = 745, title = "Sharing the Land", npc = 2993, npcName = "Baine Bloodhoof", minLevel = 1, qlvl = 8, map = 1412, x = 46.67, y = 63.38, z = -7.9 },
