@@ -30,7 +30,7 @@
 //!     pre / preAll  blocking prerequisites (forge-guide prereqs, breadcrumbs
 //!               dropped): one of `pre` must be done, and every one of `preAll`
 //!     objectives  flat triples kind, id, count: kind 1 kill (npc), 2 item, 3 object,
-//!                 4 event (id = 1-based group in `events`, count nil)
+//!                 4 event (id = 1-based group in `events`, count nil), 5 talk (npc)
 //!     events    flat quads map, frame, x, y (frame 0 Era, 1 live)
 //!     skill     required profession skill line; holiday: event id (never "available")
 //!   npcs[id]    = { name, map, frame, n, x1, y1, r1, ..., map, frame, n, ... }
@@ -323,6 +323,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 				Some("item") => 2,
 				Some("object") => 3,
 				Some("event") => 4,
+				// A talk to an NPC keeps its line's place, so later lines keep the quest log's numbers.
+				Some("talk") => 5,
 				_ => continue,
 			};
 			if kind == 4 {
@@ -342,7 +344,7 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			let Some(oid) = finite(&ob.get("id")) else { continue };
 			objectives.extend([Val::Num(kind as f64), Val::Num(oid), num_or_nil(&ob.get("count"))]);
 			match kind {
-				1 => want_npc.insert(oid as i64),
+				1 | 5 => want_npc.insert(oid as i64),
 				2 => want_item.insert(oid as i64),
 				_ => want_object.insert(oid as i64),
 			};
