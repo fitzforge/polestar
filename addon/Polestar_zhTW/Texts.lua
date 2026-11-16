@@ -3608,6 +3608,7 @@ t.guides["forever/horde/30-40/01-hillsbrad-foothills"] = (function() return {
 		["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "在塔倫米爾東南方。德盧爾和{npc:2238}被鎖在城堡庭院的建築裡：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩道鎖。",
 		["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "達拉然城是五人地城，約28到33級，位於紫色的穹頂之下。沒有{item:277507}的話，就從巨坑西北方的下水道管道進去：箭頭會帶你去那裡。\n裡面：{npc:247126}是{npc:2278}要的。下水道裡的{npc:268743}會給你「投機教育」，並在那裡收回。",
 		["The smithy"] = "鐵匠鋪",
+		["Torn Fin murlocs"] = "碎鰭魚人",
 		["Town hall"] = "市政廳",
 		["Train"] = "訓練",
 		["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "趁你在{zone:1458}時學習：訓練師都在{object:36070}、{object:36073}和{object:36082}（聖騎士：{npc:260093}）。",
@@ -4050,7 +4051,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 } end)()
 t.guides["forever/horde/50-60/02-felwood"] = (function() return {
-		["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "掉落了{item:13140}：用它開始任務，然後從{area:1763}北端的洞穴{area:1770}的籠子裡釋放{npc:11018}。",
 		["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "向北回到{area:1763}。在南方營地中央的腐化月井裝滿葛瑞塔的水壺。",
 		["Below ground"] = "地下",
 		["Class trainer"] = "職業訓練師",

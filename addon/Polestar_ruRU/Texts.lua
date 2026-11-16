@@ -3947,6 +3947,7 @@ t.guides["forever/horde/30-40/01-hillsbrad-foothills"] = (function() return {
 		["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "К юго-востоку от Мельницы Таррен. Друлл и {npc:2238} прикованы в постройках во дворе крепости: {npc:2427} носит {item:3467}, а {npc:2428} – {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.",
 		["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "Город Даларан – подземелье для группы из пяти игроков, примерно 28-33-й уровень, под фиолетовым куполом. Без предмета {item:277507} входите через канализационную трубу к северо-западу от кратера: туда ведет стрелка.\nВнутри: {npc:247126} нужен NPC {npc:2278}. {npc:268743} в канализации дает задание «Opportunistic Education» и принимает его там же.",
 		["The smithy"] = "Кузница",
+		["Torn Fin murlocs"] = "Мурлоки из племени Рваного Плавника",
 		["Town hall"] = "Ратуша",
 		["Train"] = "Обучение",
 		["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "Обучитесь, пока вы здесь ({zone:1458}): учителя – здесь: {object:36070}, {object:36073} и {object:36082} (паладины: {npc:260093}).",
@@ -4402,7 +4403,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 } end)()
 t.guides["forever/horde/50-60/02-felwood"] = (function() return {
-		["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Выпал предмет {item:13140}: используйте его, чтобы начать задание, затем освободите персонажа {npc:11018} из клетки ({area:1770} – пещера в северной части места {area:1763}).",
 		["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "Назад на север сюда: {area:1763}. Наполните флягу Греты у оскверненного лунного колодца в центре южного лагеря.",
 		["Below ground"] = "Под землей",
 		["Class trainer"] = "Учитель классовых навыков",

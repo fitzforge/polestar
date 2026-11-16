@@ -3611,6 +3611,7 @@ t.guides["forever/horde/30-40/01-hillsbrad-foothills"] = (function() return {
 		["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "타렌 밀농장 남동쪽입니다. 드럴과 {npc:2238}은(는) 요새 안뜰 건물에 사슬로 묶여 있습니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 둘을 처치한 다음 자물쇠 두 개를 모두 여세요.",
 		["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "달라란 시는 보랏빛 돔 아래에 있는 약 28~33레벨 5인 파티용 던전입니다. {item:277507}이(가) 없다면 분화구 북서쪽의 하수관으로 들어가십시오. 화살표가 그곳으로 안내합니다.\n내부: {npc:247126}은(는) {npc:2278}의 퀘스트 대상입니다. 하수도의 {npc:268743}이(가) 'Opportunistic Education'을 주며, 그곳에서 다시 받습니다.",
 		["The smithy"] = "대장간",
+		["Torn Fin murlocs"] = "너덜지느러미멀록",
 		["Town hall"] = "마을 회관",
 		["Train"] = "기술 배우기",
 		["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "{zone:1458}에 있는 동안 기술을 배우세요. 상급자는 {object:36070}, {object:36073}, {object:36082}에 있습니다(성기사: {npc:260093}).",
@@ -4052,7 +4053,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 } end)()
 t.guides["forever/horde/50-60/02-felwood"] = (function() return {
-		["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "{item:13140}을(를) 얻었다면: 사용해 퀘스트를 시작한 뒤, {area:1763} 북쪽 끝 동굴인 {area:1770}의 우리에서 {npc:11018}을(를) 풀어 주세요.",
 		["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "북쪽의 {area:1763}(으)로 돌아가세요. 남쪽 야영지 한가운데의 오염된 달샘에서 그레타의 수통을 채우세요.",
 		["Below ground"] = "지하",
 		["Class trainer"] = "직업 전문가",

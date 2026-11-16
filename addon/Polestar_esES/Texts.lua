@@ -3604,6 +3604,7 @@ t.guides["forever/horde/30-40/01-hillsbrad-foothills"] = (function() return {
 		["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "Al sureste del Molino Tarren. Drull y {npc:2238} están encadenados en los edificios del patio de la fortaleza: {npc:2427} lleva la {item:3467} y {npc:2428}, la {item:3499}, ambos dentro de la fortaleza. Mátalos y luego abre ambos candados.",
 		["The City of Dalaran is a dungeon for a group of five, about levels 28 to 33, under the violet dome. Without the {item:277507}, go in through the sewer pipe north-west of the crater: the arrow leads there.\nInside: {npc:247126} is {npc:2278}'s. {npc:268743}, in the sewer, gives Opportunistic Education and takes it back there."] = "La Ciudad de Dalaran es una mazmorra para un grupo de cinco, de nivel 28 a 33 más o menos, bajo la cúpula violeta. Sin la {item:277507}, entra por la tubería de la alcantarilla al noroeste del cráter: la flecha te lleva allí.\nDentro: {npc:247126} es para {npc:2278}. {npc:268743}, en la alcantarilla, da Opportunistic Education y la recoge allí mismo.",
 		["The smithy"] = "La herrería",
+		["Torn Fin murlocs"] = "Múrlocs Rompeanca",
 		["Town hall"] = "Ayuntamiento",
 		["Train"] = "Entrena",
 		["Train while you are in the {zone:1458}: the trainers stand in the {object:36070}, the {object:36073} and the {object:36082} (Paladins: {npc:260093})."] = "Entrena mientras estés en {zone:1458}: los instructores están en {object:36070}, {object:36073} y {object:36082} (paladines: {npc:260093}).",
@@ -4044,7 +4045,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 } end)()
 t.guides["forever/horde/50-60/02-felwood"] = (function() return {
-		["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Cayó una {item:13140}: úsala para iniciar la misión y luego libera a {npc:11018} de su jaula en {area:1770}, la cueva al norte de {area:1763}.",
 		["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "De vuelta al norte a {area:1763}. Llena la cantimplora de Greta en la poza de la luna corrupta en el centro del campamento sur.",
 		["Below ground"] = "Bajo tierra",
 		["Class trainer"] = "Instructor de clase",
