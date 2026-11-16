@@ -206,6 +206,17 @@ function Compat.GetPlayerUnitPosition()
 	return x, y, type(z) == "number" and z ~= 0 and z or nil, instance
 end
 
+-- The player's run speed in yd/s (GetUnitSpeed's second value), or nil while
+-- the client keeps it secret or does not say: the travel planner's arithmetic
+-- on a secret speed was blocked and logged as Polestar's taint (#2533).
+function Compat.GetRunSpeed()
+	if not GetUnitSpeed then return nil end
+	local ok, _, run = pcall(GetUnitSpeed, "player")
+	if not ok then return nil end
+	run = readable(run)
+	return type(run) == "number" and run or nil
+end
+
 -- A spell's cooldown as GetTime start and duration; 0, 0 when it is ready
 -- or the client keeps it secret.
 function Compat.GetSpellCooldown(spellID)
@@ -981,27 +992,31 @@ function Compat.GetContinentMap(uiMapID)
 	return result or nil
 end
 
-function Compat.GetPlayerMapPosition()
+-- A unit's position on its best map (map, x and y in 0-100); nil where the
+-- client does not say or keeps the map or the position secret (#2533: the
+-- percent was worked out on a secret value, which the client blocks and logs
+-- as Polestar's taint).
+local function mapPosition(unit)
 	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then return nil end
-	local map = C_Map.GetBestMapForUnit("player")
+	local map = readable(C_Map.GetBestMapForUnit(unit))
 	if not map then return nil end
-	local pos = C_Map.GetPlayerMapPosition(map, "player")
+	local pos = C_Map.GetPlayerMapPosition(map, unit)
+	if isSecret(pos) then return nil end
 	local x, y = xyOf(pos)
-	if not x or not y or (x == 0 and y == 0) then return nil end
+	x, y = readable(x), readable(y)
+	if type(x) ~= "number" or type(y) ~= "number" or (x == 0 and y == 0) then return nil end
 	return map, x * 100, y * 100
+end
+
+function Compat.GetPlayerMapPosition()
+	return mapPosition("player")
 end
 
 -- Where a party unit stands on its best map, as GetPlayerMapPosition gives
 -- it (map, x and y in 0-100); nil where the client does not say (an
 -- instance, a member out of the world, a client without party positions).
 function Compat.GetUnitMapPosition(unit)
-	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then return nil end
-	local map = C_Map.GetBestMapForUnit(unit)
-	if not map then return nil end
-	local pos = C_Map.GetPlayerMapPosition(map, unit)
-	local x, y = xyOf(pos)
-	if not x or not y or (x == 0 and y == 0) then return nil end
-	return map, x * 100, y * 100
+	return mapPosition(unit)
 end
 
 -- The zone (Enum.UIMapType.Zone = 3) a unit is in: its best map, climbed

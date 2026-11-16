@@ -422,6 +422,41 @@ fn secret_unit_values_read_as_unknown_instead_of_throwing() {
 	assert_eq!(out, json!({ "npc": false, "target": 197, "faction": "Neutral", "race": "Human" }));
 }
 
+// #2533: a player's taint log named Polestar for arithmetic on secret values: the travel planner's run speed
+// (GetUnitSpeed) and the map position worked out into percent. Both read as unknown now, never touched.
+#[test]
+fn a_secret_run_speed_or_map_position_reads_as_unknown_and_is_never_worked_on_2533() {
+	let out = run(r#"
+		-- A secret value throws when added to, compared or indexed, as in the client.
+		local function boom() error("secret touched") end
+		local SECRET = setmetatable({}, { __add = boom, __sub = boom, __mul = boom, __div = boom, __eq = boom,
+			__lt = boom, __le = boom, __index = boom, __tostring = function() return "secret" end })
+		function issecretvalue(v) return rawequal(v, SECRET) end
+		local speed, xy, map, vector = 7, nil, 1429, false
+		function GetUnitSpeed(unit) return 0, speed, 7, 4.7 end
+		C_Map.GetBestMapForUnit = function() return map end
+		C_Map.GetPlayerMapPosition = function()
+			if vector then return SECRET end
+			return { x = xy and xy[1] or 0.5, y = xy and xy[2] or 0.25 }
+		end
+		local r = { readable = { C.GetRunSpeed(), { C.GetPlayerMapPosition() }, { C.GetUnitMapPosition("party1") } } }
+		speed = SECRET
+		r.speed = C.GetRunSpeed() or false
+		speed, xy = 7, { SECRET, 0.25 }
+		r.x = C.GetPlayerMapPosition() == nil
+		xy, map = nil, SECRET
+		r.map = C.GetUnitMapPosition("party1") == nil
+		map, vector = 1429, true
+		r.vector = C.GetPlayerMapPosition() == nil
+		emit(r)
+	"#);
+	assert_eq!(out["readable"], json!([7, [1429, 50, 25], [1429, 50, 25]]), "readable values pass through as before");
+	assert_eq!(out["speed"], false, "a secret run speed is unknown");
+	assert_eq!(out["x"], true, "a secret coordinate is no position");
+	assert_eq!(out["map"], true, "a secret map is no position");
+	assert_eq!(out["vector"], true, "a secret position vector is never indexed");
+}
+
 #[test]
 fn c3_nav_qa_the_world_map_opens_through_c_map_openworldmap_when_the_client_has_it_the_global_opener_only_as_a_fallback_never_in_combat() {
 	let out = run(r#"
