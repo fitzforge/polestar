@@ -2,7 +2,7 @@
 guide forever/horde/03-silverpine-forest
 title Silverpine Forest
 faction Horde
-levels 12-15
+levels 13-14
 zone Silverpine Forest
 next forever/horde/02-the-barrens
 
@@ -28,8 +28,8 @@ next forever/horde/02-the-barrens
 # Brill (Terrence, Johaan) and Hadric's cultists by the zeppelin towers ->
 # the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
-# Quinn, the murloc eyes on the shore -> south along the lake shore past the Decrepit Ferry to
-# Ambermill -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
+# Quinn, the murloc eyes on the shore -> south along the lake shore to the Decrepit Ferry ->
+# the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
 # the Undercity (flight path; Raleigh, Zinge) -> zeppelin to Orgrimmar: the city's own
 # quests, training. The guide ends in the Valley of Wisdom.
 #
@@ -69,9 +69,10 @@ next forever/horde/02-the-barrens
 # Dropped: A Recipe For Death (447): its Skittering Blood comes only from the
 # spiders in the north-west hills, off every walk. Rot Hide Origins (444) and Hidden Enemies
 # (5726): the route never turns them in. Wand to Bethor (491): its turn-in comes at level 56.
-# The Weaver (480): it opens only once Ambermill Investigations (479) is handed in, after the
-# Ambermill loop, so it needs a second walk back to Ambermill, and Archmage Ataeric is level 22
-# among the Dalaran casters in the middle of the town.
+# Ambermill Investigations (479) and The Weaver (480): Ambermill's Mages fight beside Dalaran Serpents, Conjurors
+# (17-18) stand among them and Archmage Ataeric is level 22 in the middle of the town, two to seven levels over the
+# player here (5 of 14 recorded players died there). Allister gives 479 again on the Sepulcher stop of the ride to
+# Hillsbrad at 22 (forever/horde/05-stonetalon-mountains), whose roads pass Ambermill (0.4.0 level tidy).
 # The Engraved Ring (440) stays (c17 review): Magistrate Sevren is in Brill, on the road from
 # Silverpine to the zeppelin towers.
 #
@@ -381,7 +382,7 @@ step The Sepulcher
   turnin 429
   accept 430
   turnin 482                          -- Shadow Priest Allister
-  accept 479                          -- Ambermill comes later, down the lake shore
+  note Allister's Ambermill Investigations is for the ride through Silverpine at 22; leave it.
 
 # ---------------------------------------------------------------- North again, then the lake shore
 
@@ -398,22 +399,17 @@ step Vile Fin murlocs
   tip Follow the lake shore south-east from the Yoricks' house: the Vile Fin Shredders and Tidehunters along it drop the murloc eyes.
   collect 730 quest 91920.1 @61.1,14.5
 
-# ---------------------------------------------------------------- South to Ambermill
+# ---------------------------------------------------------------- South to the ferry
 
-# The lake shore -> the Decrepit Ferry -> Ambermill -> back up the road to the Sepulcher: Wild Eyes
-# and Rot Hide Clues wait for that Sepulcher stop with Ambermill's pendants.
+# The lake shore -> the Decrepit Ferry -> back up the road to the Sepulcher: Wild Eyes
+# and Rot Hide Clues wait for that Sepulcher stop.
 step The Decrepit Ferry
-  tip Follow the lake shore south from the murlocs: the Corpse Laden Boat lies at the ferry landing, on the way to Ambermill.
+  tip Follow the lake shore south from the murlocs: the Corpse Laden Boat lies at the ferry landing.
   turnin 438
   accept 439
 
-step Ambermill
-  tip Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.
-  collect 3354 quest 479.1            -- Dalaran Pendant
-
 step The Sepulcher
-  tip Back north-west up the road to the Sepulcher.
-  turnin 479                          -- Shadow Priest Allister
+  tip From the ferry back west up the road to the Sepulcher.
   turnin 91920                        -- Apothecary Renferrel
   accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   turnin 422                          -- Dalar Dawnweaver, just north of Allister

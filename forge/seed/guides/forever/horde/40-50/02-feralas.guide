@@ -1,10 +1,9 @@
 guide forever/horde/40-50/02-feralas
 title Feralas & Tanaris
 faction Horde
-levels 42-44
+levels 43-46
 zone Feralas
-next forever/horde/40-50/03-feralas
-next polestar-experimental/shendralas
+next forever/40-50/shendralas
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 33-38, levels 42.5-44: Tanaris, Feralas, then the way back east.
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
@@ -75,6 +74,96 @@ step Fly to Grom'gol
   zone Swamp of Sorrows
   tip Ride back north-west from Misty Reed Post to Stonard and fly to Grom'gol.
   fly "Grom'gol"
+
+# ---------------------------------------------------------------- Stranglethorn Vale
+
+step Grom'gol Base Camp
+  zone Stranglethorn Vale
+  tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the zeppelin to Orgrimmar. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
+  accept 586                          -- the Bubbling Cauldron: Speaking with Gan'zulah
+
+step Zul'Mamwe
+  zone Stranglethorn Vale
+  tip Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.
+  tip Ana'thek the Cruel (45) carries the Broken Armor for Speaking with Gan'zulah: he walks the south-western ruins with two guards and sometimes stands in a small cave there. Pull the guards first.
+  tip Careful: Mogh the Undying, an elite troll (level 44), stands in the southern ruins around 47.7,44.3: pull the headhunters and berserkers away from him.
+  kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
+  kill 781 quest 586.2
+  kill 783 quest 586.3
+  collect 3909 quest 586.4            -- Ana'thek the Cruel
+
+step Grom'gol Base Camp
+  tip Back west to Grom'gol.
+  turnin 586                          -- the Bubbling Cauldron
+  accept 588                          -- the Bubbling Cauldron again: Yenniku's fate
+  turnin 588                          -- Kin'weelay
+  accept 589                          -- Kin'weelay: the basilisks bask beside the road south, on the ride to Booty Bay
+
+step Ironjaw Basilisks
+  zone Stranglethorn Vale
+  tip Ride south along the road towards Booty Bay; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often.
+  collect 3911 quest 589              -- Below ground
+
+step Pirate ghosts and Zanzil's camps
+  zone Stranglethorn Vale
+  tip On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. Maury and Jon-Jon stand together, Chucky further east. Every one of Zanzil's followers can carry the mixture.
+  tip Careful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. Zanzil the Outcast (46) himself stands in the southern camp around 39.6,58.6, a few steps from Chucky's ghost: pull Chucky out to the north or east before you fight him.
+  kill 2537 @40.0,58.2
+  collect 3926 quest 609.3
+  kill 2535 @35.3,51.3
+  collect 3924 quest 609.1
+  kill 2536 @34.9,51.8
+  collect 3925 quest 609.2
+  collect 4016 quest 621.1
+
+step Witch Doctor Unbagwa
+  tip West into Mistvale: Witch Doctor Unbagwa sits among the gorillas. Any gorilla can drop a fang: hand him ten and stay by him, he calls three waves of gorillas, then Mokk.
+  tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
+  collect 2799 x10                    -- Gorilla Fang
+  turnin 349 direct                   -- Witch Doctor Unbagwa
+  collect 2797 quest 348.1
+
+step The Cape of Stranglethorn: kill these as you meet them
+  zone Stranglethorn Vale
+  tip West to the coast: the naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them. Then follow the coast south to Booty Bay.
+  collect 4029 quest 617.1
+  kill 1907 quest 573.1
+  collect 737 quest 573.2 @29.0,61.9
+
+step Booty Bay
+  zone Stranglethorn Vale
+  tip In Booty Bay: Privateer Bloads on the docks, Fin Fizracket by the inn, Crank Fizzlebub inside it, MacKinley, Kebok and Krazek upstairs.
+  turnin 617                          -- Privateer Bloads
+  turnin 348                          -- Fin Fizracket
+  turnin 621                          -- Crank Fizzlebub, inside
+  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+  turnin 209                          -- Kebok, upstairs
+  accept 2864                         -- Krazek, upstairs: for Tran'rek in Gadgetzan, later in this guide
+
+step The Wild Shore
+  zone Stranglethorn Vale
+  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
+  collect 3920 quest 604.2
+  collect 3921 quest 604.3
+  collect 3897 quest 576.1
+  collect 3910 quest 587.1
+  kill 1563 quest 604.1
+
+step Booty Bay
+  tip Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50.
+  turnin 604                          -- Fleet Master Seahorn
+  turnin 576                          -- Dizzy One-Eye
+  turnin 587                          -- Deeg, on the top floor
+
+step Fly to Grom'gol
+  zone Stranglethorn Vale
+  goto 26.8,77.0 "Booty Bay flight master"
+  fly "Grom'gol"
+
+step Grom'gol Base Camp
+  tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then the zeppelin tower.
+  turnin 589                          -- Kin'weelay
+  turnin 573                          -- Far Seer Mok'thardin
 
 step Zeppelin to Orgrimmar
   zone Stranglethorn Vale
@@ -175,6 +264,7 @@ step Steamwheedle Port
   turnin 2872                           -- Stoley
   accept 2873
   accept 8366                           -- Security Chief Bilgewhizzle
+  turnin 95296                          -- Wharfmaster Steamfizzle, on the pier: Friz's errand from the Riverglades, if you carry it
 
 step Lost Rigger Cove
   tip South along the coast, the Southsea pirates hold the cove. Andre Firebeard and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.
@@ -213,6 +303,7 @@ step Camp Mojache
   accept 2973                           -- Krueg Skullsplitter
   accept 2975                           -- Rok Orhan
   accept 2987                           -- Orwin Gizzmick
+  turnin 95033                          -- Witch Doctor Uzer'i: Tan'jani's errand from the Riverglades, if you carry it
   accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 45
   accept 2822                           -- Jangdor Swiftstrider
 

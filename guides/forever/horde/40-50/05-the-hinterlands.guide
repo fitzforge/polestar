@@ -2,7 +2,7 @@
 guide forever/horde/40-50/05-the-hinterlands
 title The Hinterlands & Blasted Lands
 faction Horde
-levels 48-50
+levels 49-50
 zone The Hinterlands
 next forever/horde/40-50/06-azshara
 
@@ -76,6 +76,7 @@ step Revantusk Village
 step The Overlook Cliffs: kill these as you meet them
   zone The Hinterlands
   tip The big turtles crawl along the beaches north of the village, and Whiskey Slim's bottles of port lie on the same beaches, from the village up to the Overlook Cliffs: pick them up as you go. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
+  tip Careful: the biggest Saltwater Snapjaws are 50: pull them one at a time.
   kill 2505 quest 7815.1
   collect 3900 x12 quest 580.1          -- Pupellyverbos Port, on the beaches
   collect 8704 optional                 -- OOX-09/HL Distress Beacon, a rare drop
@@ -307,7 +308,7 @@ step Serpent's Coil: kill these as you meet them
   zone Blasted Lands
   tip The five quests share the same parts: gather them all in one sweep. West of the road the Black Slayer vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.
   tip East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.
-  tip Careful: Scorpok Stingers use Venom Sting; Clack the Reaver adds Knockdown.
+  tip Careful: Scorpok Stingers (50-51) use Venom Sting; Clack the Reaver adds Knockdown. Pull the Stingers one at a time.
   collect 8393 x1 quest 2581.3
   collect 8393 x2 quest 2583.2
   collect 8393 x3 quest 2585.1

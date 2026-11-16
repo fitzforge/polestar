@@ -802,7 +802,8 @@ fn tirion_hut(ctx: &Ctx, c: &mut Check) {
 			}
 		}
 	}
-	for guide in ["forever/alliance/50-60/04-western-plaguelands.guide", "forever/horde/50-60/02-felwood.guide"] {
+	// Horde: since the 0.4.0 level tidy Tirion's hunts are taken on 50-60/05's ride east past his hut, where they are done.
+	for guide in ["forever/alliance/50-60/04-western-plaguelands.guide", "forever/horde/50-60/05-eastern-plaguelands.guide"] {
 		for q in [5542, 5543, 5544] {
 			if !c.ok(found.contains(&format!("{guide} accept {q}")), &format!("{guide} takes {q} from Tirion")) {
 				return;

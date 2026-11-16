@@ -1131,6 +1131,23 @@
 		],
 		"note": "The Spider God: ends with Master Gadrin (npc 3188); as its ender the merged data also listed Tablet of Theka (object 142715). It rewards 9,991 XP on Forever, not the Classic 4,850 (Forever raised dungeon quest XP, #394)."
 	},
+	"3505": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-15, 7,917 sessions): Ag'tor Bloodfist (8576) offered Betrayed (3505) in 7 windows to 5 people, levels 49-52 (Troll, Undead, Skyborne), none with Betrayed (3504) in the log or done; Belgrom Rockmaul (4485) never offered 3504 in 81 windows to 47 people"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2390: Rohkin, a level 52 Troll Warlock on client 70938, was not offered Betrayed (3504) by Belgrom Rockmaul; Kazu: the chain now starts at Ag'tor Bloodfist in Azshara"
+			}
+		],
+		"note": "Betrayed (Azshara) starts at Ag'tor Bloodfist in Valormok on Forever: no letter from Belgrom Rockmaul first (3504 is not offered any more). Issue #2390."
+	},
 	"3525": {
 		"set": {
 			"start": {

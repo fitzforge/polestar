@@ -233,14 +233,14 @@ step Uthan Stillwater
   turnin 97932                        -- Uthan Stillwater: Camping 101: Fishing
 
 step Poison Water
-  tip Prairie Wolves and Adult Plainstriders roam the plains around the village.
+  tip Prairie Wolves, Wiry Swoops and Adult Plainstriders roam the plains around the village; the plains just south of it, toward the well, hold them without the Elder Plainstriders (8-9) and Prairie Wolf Alphas (9-10) that roam farther out.
   collect 4758 quest 748.1            -- Prairie Wolf Paw
   collect 4769 quest 761.1
   collect 4807 quest 766.4
-  collect 4759 quest 748.2            -- Plainstrider Talon
-  collect 4806 quest 766.3            -- Plainstrider Scale
-  collect 4804 quest 766.1
-  collect 4809 quest 771.2
+  collect 4759 quest 748.2 @50.2,67.0 -- Plainstrider Talon
+  collect 4806 quest 766.3 @50.2,67.0 -- Plainstrider Scale
+  collect 4804 quest 766.1 @49.8,65.3
+  collect 4809 quest 771.2 @48.7,64.5
   collect 4808 quest 771.1                    -- Well Stone, 170 yd east
 
 step Bloodhoof Village
@@ -309,30 +309,6 @@ step Mull Thunderhorn
   turnin 759
   accept 760
 
-step Morin Cloudstalker
-  tip Back south-east to the Winterhoof Water Well.
-  turnin 751                          -- Morin Cloudstalker walks around here: look inside the circle on the map
-  accept 764
-  accept 765
-
-step Galak centaurs
-  tip The Galak centaurs camp on the plains east of the well; Herak leads them.
-  kill 2967 quest 99080.1             -- Galak Centaur
-  kill 2968 quest 99080.2             -- Galak Outrunner
-  collect 286075 quest 99080.3        -- Herak's Head
-
-# ---------------------------------------------------------------- The Venture Co. Mine
-
-step The Venture Co. Mine
-  tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
-  goto 64.9,43.3 "The Venture Co. Mine"
-  kill 2978 quest 764.1
-  kill 2979 quest 764.2
-  collect 4819 quest 765.1
-  collect 281031 optional             -- Below ground
-  accept 98424 optional
-  complete 98424
-
 # ---------------------------------------------------------------- Northern Mulgore
 
 step Wildmane Water Well
@@ -366,8 +342,6 @@ step Bloodhoof Village
   turnin 743                          -- Ruul Eagletalon
   turnin 746
   turnin 745                          -- Baine Bloodhoof
-  turnin 99080
-  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
   turnin 760                          -- Mull Thunderhorn
   accept 98435                        -- Mull Thunderhorn, for Hamuul in Thunder Bluff
 
@@ -386,11 +360,50 @@ step Yaw Sharpmane
   turnin 6088                         -- Tame Beast
   accept 6089
 
+# The Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket 12) come after
+# northern Mulgore and the Bloodhoof hand-ins, at about 11 instead of 9 (level tidy 0.4.0).
 step Morin Cloudstalker
   zone Mulgore
+  tip South-east to the Winterhoof Water Well.
+  turnin 751                          -- Morin Cloudstalker walks around here: look inside the circle on the map
+  accept 764
+  accept 765
+
+step Galak centaurs
+  tip The Galak centaurs camp on the plains east of the well; Herak leads them.
+  kill 2967 quest 99080.1             -- Galak Centaur
+  kill 2968 quest 99080.2             -- Galak Outrunner
+  collect 286075 quest 99080.3        -- Herak's Head
+
+# ---------------------------------------------------------------- The Venture Co. Mine
+
+step Level 11
+  when level<11
+  tip Top up here to level 11 before the mine: Supervisor Fizsprocket is 12. The Venture Co. Workers (8-9) in the hills outside it count for The Venture Co. too.
+  goto 59.2,47.8 map 1412 "Venture Co. Worker"
+  level 11 grind 2978               -- grind on Venture Co. Worker
+
+step The Venture Co. Mine
+  tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
+  tip Careful: the goblins stand close together in the tunnels and Supervisor Fizsprocket is level 12: clear the way one pull at a time.
+  goto 64.9,43.3 "The Venture Co. Mine"
+  kill 2978 quest 764.1
+  kill 2979 quest 764.2
+  collect 4819 quest 765.1
+  collect 281031 optional             -- Below ground
+  accept 98424 optional
+  complete 98424
+
+step Morin Cloudstalker
+  zone Mulgore
+  tip Back south to the Winterhoof Water Well.
   turnin 764                          -- Morin Cloudstalker walks around here: look inside the circle on the map
   turnin 765
   turnin 98424 optional
+
+step Bloodhoof Village
+  turnin 99080                        -- Baine Bloodhoof
+  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
 
 step Red Rocks
   tip Head north to Red Rocks, east of Thunder Bluff. Lorekeeper Raintotem stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the Ancestral Spirit waits on top.

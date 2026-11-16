@@ -2,7 +2,7 @@
 guide forever/horde/50-60/03-winterspring
 title Winterspring
 faction Horde
-levels 55-56
+levels 55-55
 zone Winterspring
 next forever/horde/50-60/04-azshara
 
@@ -18,7 +18,6 @@ step Into Winterspring
 step Salfa
   tip Salfa stands right at the Winterspring exit of Timbermaw Hold's tunnel, where you come out.
   turnin 8465
-  accept 8464
 
 step Donova Snowden
   tip Ride south from the tunnel: Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
@@ -30,10 +29,10 @@ step Donova Snowden
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
   tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
+  tip Careful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.
   kill 7442 quest 5082.1
   kill 7441 quest 5082.3
   kill 7440 quest 5082.2
-  kill 7440 quest 8464.2
   kill 7450 quest 4521.2
   collect 12771                       -- Empty Firewater Flask: about one Winterfall furbolg in ten carries one; keep killing them until it drops
   accept 5083
@@ -49,7 +48,7 @@ step Donova Snowden
 # ---------------------------------------------------------------- Frostfire Hot Springs
 
 step Raging Owlbeasts
-  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook.
+  tip Raging Owlbeasts roam the hills north of Lake Kel'Theril, by the road between Frostfire Hot Springs and Everlook. Careful: the biggest are level 56: pull them one at a time.
   kill 7451 quest 4521.1
 
 step Winterspring
@@ -132,38 +131,18 @@ step Everlook
   accept 4809
 
 step Ice Thistle yetis
-  tip The yeti hills start just south-east of Everlook. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in.
+  tip The yeti hills start just south-east of Everlook. Every yeti drops fur: work the Ice Thistle Yetis (55-56) and leave the Matriarchs and Patriarchs (56-58), whose horns come on a later visit.
   collect 12366 quest 3783
-
-step Umi Rumplesnicker
-  turnin 3783
-  accept 977
-
-step Level 55.04
-  when level<55.04
-  tip Top up here to level 55.04 before the hand-ins at Everlook: they take you to level 56. The Ice Thistle Yetis (55-56) are the lowest here; the Matriarchs and Patriarchs (56-58) hit harder. Or, with a group, run the Blackrock Depths dungeon or the Blackrock Spire dungeon (Lower) instead.
-  goto 67.3,42.4 map 1452 "Ice Thistle Yeti"
-  level 55.04 grind 7458               -- grind on Ice Thistle Yeti
-
-step Pristine Yeti Horns
-  tip Matriarchs and Patriarchs hit hard: pull them one at a time.
-  collect 12367 quest 977             -- Below ground
 
 step Chillwind chimaeras
   tip The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
   collect 12444 quest 4809
 
-step Umi Rumplesnicker
-  turnin 977
-  accept 5163
-  note Umi's third prank targets goblins in Gadgetzan and Un'Goro: keep it for later.
-  turnin 4809
-
-step Winterfall Village
-  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall in the cave at the back is elite: stay out.
-  kill 7440 quest 8464.2
-  kill 7438 quest 8464.3
-  kill 7439 quest 8464.1
+step Everlook
+  turnin 3783                         -- Umi Rumplesnicker
+  accept 977                          -- Umi: keep it, the Pristine Yeti Horns come on the Eastern Plaguelands guide's Everlook stop at about 57
+  turnin 4809                         -- Felnok Steelspring
+  note The Matriarchs and Patriarchs that carry Umi's horns are 56-58: leave them for that later stop.
 
 step Fly to Camp Mojache
   zone Winterspring
@@ -209,7 +188,6 @@ step Elder Rise
   accept 3782                         -- Arch Druid Hamuul Runetotem
   turnin 1000
   accept 1123
-  turnin 4987                         -- Nara Wildmane
   train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
   note Rabine Saturna waits in Moonglade: keep it for later.
 

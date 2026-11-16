@@ -110,13 +110,13 @@ fn step_view(ctx: &Ctx, c: &mut Check, guide: &str, who: &Who, s: usize, before:
 }
 
 /// Guide files compiled together with the reference data (buildSimPack's compileSources) -> the
-/// guides and the number of errors.
-fn compile_set(ctx: &Ctx, files: &[String]) -> (Vec<V>, usize) {
+/// guides and the errors' messages.
+fn compile_set(ctx: &Ctx, files: &[String]) -> (Vec<V>, Vec<String>) {
 	let sources: Vec<Source> =
 		files.iter().map(|f| Source { file: ctx.guides.join(f).to_string_lossy().into_owned(), source: f.clone(), text: std::fs::read_to_string(ctx.guides.join(f)).unwrap_or_default() }).collect();
 	let mut diag = Diagnostics::new();
 	let out = compile_sources(&sources, &ctx.data, &mut diag, &CompileOpts { pack: None, author: None, context: None, pack_dir: None });
-	(out.guides, diag.errors().len())
+	(out.guides, diag.errors().iter().map(|d| d.message.clone()).collect())
 }
 
 /// A pack of compiled guides read by the engine, and the index of guide file `file` in it.
@@ -167,9 +167,11 @@ fn tonumber(v: &V) -> Option<f64> {
 // ---------------------------------------------------------------------------------------- Mulgore
 
 fn sharing_the_land(ctx: &Ctx, c: &mut Check) {
-	let files: Vec<String> = ctx.all_guides().into_iter().filter(|f| f.starts_with("forever/horde/")).collect();
+	// The Horde route runs through the shared Shen'dralas guide; its Alliance `next` has no guide in this pack.
+	let files: Vec<String> = ctx.all_guides().into_iter().filter(|f| f.starts_with("forever/horde/") || f == "forever/40-50/shendralas.guide").collect();
 	let (compiled, errors) = compile_set(ctx, &files);
-	c.eq(errors, 0, "pack.diag.errors");
+	let errors: Vec<String> = errors.into_iter().filter(|m| !m.starts_with("`next` points to unknown guide \"forever/alliance/")).collect();
+	c.eq(errors, Vec::new(), "pack.diag.errors");
 	let guides: Vec<Guide> = compiled.iter().map(Guide::read).collect();
 	let wd = WorldData::from_data(&ctx.data);
 	let Some(gi) = pack_index(&guides, MULGORE) else {

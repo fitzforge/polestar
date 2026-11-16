@@ -2,6 +2,235 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "tidy040-barrens-harpy-raiders-east-slopes",
+			"quest": 867,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1413,
+				"x": 40.6,
+				"y": 16.8,
+				"frame": "era"
+			},
+			"note": "Harpy Raiders (867): every Witchwing drops the talons, and the goal toured the whole Dry Hills, whose western hills hold the Slayers (16), Windcallers (17) and the two stealthed Ambushers (17) around players at 15 (recorded 25th percentile 15.8, 61 people). The Witchwing Harpies (14) and Roguefeathers (15) nest on the eastern slopes: the arrow points at their densest spot, seven spawns within 40 yd and none of the 16-17s (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 5064 Witchwing Talon: dropped by 3276-3280; npcs.json spawns on map 1413: 3276 (14) and 3277 (15) at 39.9-41.9,14.3-19.7, 3278 (16) at 37.2-40.2,10.6-17.6, 3279 (17) at 37.6-38.2,15.6-16.5, 3280 (17) at 37.8-40.8,10.5-17.8"
+				}
+			],
+			"issue": 1980
+		},
+		{
+			"id": "tidy040-zephras-strider-meat-west-of-shendar",
+			"quest": 92553,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 2521,
+				"x": 38.6,
+				"y": 43.6,
+				"frame": "live"
+			},
+			"note": "Restocking the Larders (92553): the Galestriders (5-6) are the only Strider Meat droppers, spread over 310 spawns on the isle; without a point the goal led south of Shen'dar Village among the Al'Aketh Warriors and Stormcallers and Living Lightning (7-8) and the Highlands Ursera (7-8) around players at 6 (recorded 25th percentile 6.28, 18 people). The arrow points at the Galestriders west of the village (37.5-39.2,41.5-45.4), with none of the 7-8s near (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc Galestrider spawns on map 2521 at 37.5-39.2,41.5-45.4 (10+); Al'Aketh Warrior 40.5-42.4,62-64.1, Al'Aketh Stormcaller and Living Lightning 45.4-48.9,50.7-58.7, Highlands Ursera 42.5-45.9,59-69"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-plainstrider-talons-south-of-bloodhoof",
+			"quest": 748,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 50.2,
+				"y": 67.0,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-plainstrider-scales-south-of-bloodhoof",
+			"quest": 766,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 50.2,
+				"y": 67.0,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-wolf-hearts-south-of-bloodhoof",
+			"quest": 766,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 49.8,
+				"y": 65.3,
+				"frame": "era"
+			},
+			"note": "Poison Water and Mazzranache, Bloodhoof's first loop at about 6 (recorded 25th percentile 6.3, 25 people): without a point the goal led among the Elder Plainstriders (8-9), Prairie Wolf Alphas (9-10) and Taloned Swoops (8-10) around the village, 2-4 levels over. The arrow points at the plains just south of Bloodhoof, toward the well, where the same drops come from the 5-8s only (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1412 (live frame): Adult Plainstrider 2956 (6-8), Prairie Wolf 2958 (5-6), Wiry Swoop 2969 (5-7) south of Bloodhoof Village toward the Winterhoof Water Well; Elder Plainstrider 2957 (8-9), Prairie Wolf Alpha 2960 (9-10) and Taloned Swoop 2971 (8-10) none within 40 yd"
+				}
+			]
+		},
+		{
+			"id": "tidy040-mulgore-ambercorn-south-of-bloodhoof",
+			"quest": 771,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1412,
+				"x": 48.7,
+				"y": 64.5,
+				"frame": "era"
+			},
+			"note": "Rite of Vision's Ambercorn on Bloodhoof's first loop at about 6: the goal led to an Ambercorn among Flatland Cougars, Venture Co. Taskmasters (7-8) and a Prairie Wolf Alpha (9-10). The arrow points at the Ambercorn just south of the village, on the way to the well, with no mob of 8 or more within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "objects.json 2912 Ambercorn spawns on map 1412; npcs.json spawns of every hostile npc of level 8+ none within 40 yd of 47.7,67.0 (live frame)"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-darkhound-blood-west-of-brill",
+			"quest": 367,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 51.1,
+				"y": 50.5,
+				"frame": "era"
+			},
+			"note": "Cold Hearth Manor's step west of Brill at about 6.5 (recorded 25th percentile 6.6, 61 people): without a point the goal led among the Ravenous Darkhounds (9-10), Cursed Darkhounds (7-8) and Foothills Duskbats (12-13). The Decrepit Darkhounds (5-6) drop the blood and the hides too: the arrow points at them just west of Brill, with none of the 8+ within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Decrepit Darkhound 1547 (5-6) at 49-51,47-59; Cursed Darkhound 1548 (7-8), Ravenous Darkhound 1549 (9-10), Foothills Duskbat (12-13) none within 40 yd of 51.1,50.5"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-darkhound-hides-west-of-brill",
+			"quest": 97558,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 51.1,
+				"y": 50.5,
+				"frame": "era"
+			},
+			"note": "Cold Hearth Manor's step west of Brill at about 6.5 (recorded 25th percentile 6.6, 61 people): without a point the goal led among the Ravenous Darkhounds (9-10), Cursed Darkhounds (7-8) and Foothills Duskbats (12-13). The Decrepit Darkhounds (5-6) drop the blood and the hides too: the arrow points at them just west of Brill, with none of the 8+ within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Decrepit Darkhound 1547 (5-6) at 49-51,47-59; Cursed Darkhound 1548 (7-8), Ravenous Darkhound 1549 (9-10), Foothills Duskbat (12-13) none within 40 yd of 51.1,50.5"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-duskbat-pelts-north-of-brill",
+			"quest": 375,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-duskbat-wings-north-of-brill",
+			"quest": 97558,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.5,
+				"y": 43.1,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 7 (recorded 25th percentile 7.2, 54 people): the Greater Duskbats (6-7) and Vampiric Duskbats (8-9) both drop the pelts and the wings; the arrow points at the Greater Duskbats north of Brill, with no Vampiric Duskbat within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Greater Duskbat 1553 (6-7) at 36.5-71.0,36.6-65.9; Vampiric Duskbat 1554 (8-9) none within 40 yd of 60.5,43.1"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-scales-north-shore",
+			"quest": 368,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
+			"id": "tidy040-tirisfal-murloc-skins-north-shore",
+			"quest": 97558,
+			"objective": 3,
+			"faction": "Horde",
+			"at": {
+				"map": 1420,
+				"x": 60.8,
+				"y": 28.4,
+				"frame": "era"
+			},
+			"note": "Brill's north loop at about 8 at the shore (recorded 25th percentile 8.2-8.8, 50 people): every Vile Fin drops the scales and the Minor Oracles (8-9) and Muckdwellers (9-10) the skins; the arrow points at the shore straight north of Brill, where Puddlejumpers (7-8) and Minor Oracles stand with no Muckdweller or Attacker within 40 yd (0.4.0 level tidy).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns on map 1420: Vile Fin Puddlejumper 1543 (7-8), Minor Oracle 1544 (8-9) around 58-62,27-29; Muckdweller 1545 (9-10) and Attacker 250283 (9-11) none within 40 yd of 60.8,28.4"
+				}
+			]
+		},
+		{
 			"id": "1575-hillsbrad-alliance-yeti-fur-caverns",
 			"quest": 565,
 			"objective": 4,

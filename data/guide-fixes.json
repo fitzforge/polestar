@@ -134,6 +134,17 @@
 			"issue": 1575
 		},
 		{
+			"id": "level-tidy-040-durotar-halikor-lizards",
+			"faction": "Horde",
+			"at": { "quest": 97282, "goal": "objective", "objective": 1 },
+			"tip": "Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.",
+			"note": "Level tidy 0.4.0: the Thunder Ridge lizards (Stormy Potential) are a step of their own again, before Misha, with Fizzle Darkstorm after; Halikor (12, elite) patrols among the lizards, so the warning the Fizzle step carries (1575-durotar-halikor-fizzle) goes on the lizards' step too.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 266852 Halikor 12 rank elite, 20 spawn points on Thunder Ridge (Durotar 39,25-30); 3130 Thunder Lizard 39-41,27-31, 3131 Lightning Hide 39-44,24" }
+			],
+			"issue": 1575
+		},
+		{
 			"id": "1575-durotar-halikor-singed-scale",
 			"faction": "Horde",
 			"at": { "quest": 1498, "goal": "objective", "objective": 1 },
@@ -321,8 +332,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Keep south along the shore from the ferry to Ambermill. Protectors guard the outskirts and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
-			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22.",
+			"tip": "On the roads around Ambermill, step into the town's outskirts: Protectors guard them and Mages the town; both drop pendants. Careful: each Mage (15) fights with a Dalaran Serpent (15) beside it: pull one Mage at a time from the outskirts. Stay out of the middle, where Archmage Ataeric (22) stands.",
+			"note": "0.4.0 audit: Ambermill's Dalaran Mages (1914, level 15) fight beside Dalaran Serpents (2540, level 15). Players' recordings, Polestar 0.3.6 and later: 5 of 14 people died on the Ambermill step (median 15.1), to Mages, Serpents and Protectors (1912, level 14); Archmage Ataeric (2120) is level 22. 0.4.0 level tidy: Ambermill Investigations moved to the ride through Silverpine at 22 (05-stonetalon-mountains), on the roads Watching the Roads already walks, so the tip no longer starts from the ferry.",
 			"source": {
 				"kind": "recording",
 				"ref": "players' in-game recordings to 2026-11-13: deaths on 03-silverpine-forest's Ambermill step, killers 1914, 2540, 1912; npcs.json levels"
@@ -857,6 +868,57 @@
 					"ref": "quests.json 95349 objective text: take the skycutter ship from Zephras Isle to Mulgore and speak with Alana Stormwalker when you arrive; npcs.json 259119 Alaana Stormwalker at Mulgore 33.4,22.5"
 				}
 			]
+		},
+		{
+			"id": "zephras-desperate-times-both-leaders",
+			"faction": "Horde",
+			"at": {
+				"quest": 92640,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Valennia asks you to hear out both leaders: Ayessa Dawnsinger of the Horde and Elaadrin Evengale of the Alliance. Elaadrin's name shows red to you, but he talks to you all the same, and the quest needs both.",
+			"note": "Desperate Times (92640) has three talk objectives for both factions: Valennia Stormfist, Ayessa Dawnsinger (the Horde's leader) and Elaadrin Evengale (the Alliance's). The Horde Skyborne guide's talk to Elaadrin looked like a goal at the other faction's NPC; players' recordings show it is part of the quest: every Horde character who finished it ticked line 3 at Elaadrin's window, though he shows hostile to them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 92640: 12 Horde people ticked line 3 at Elaadrin Evengale's (252475) window and 11 line 2 at Ayessa Dawnsinger's (251968); 10 Alliance people both; npc 252475 seen hostile by 14 people, friendly by 13"
+				}
+			]
+		},
+		{
+			"id": "stv-unbagwa-gorilla-waves-careful",
+			"faction": "Horde",
+			"at": {
+				"quest": 349,
+				"goal": "turnin"
+			},
+			"tip": "Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.",
+			"note": "Stranglethorn Fever (349): handing Witch Doctor Unbagwa the ten fangs starts the event that Stranglethorn Fever's heart (348) needs: three waves of Mistvale gorillas and then Mokk the Savage attack, with little time between them. A player (Ice, on Polestar's Discord) found it hard alone; the step now says so before the hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "player report on Polestar's Discord (Ice): the gorilla waves come back to back and were hard to survive alone"
+				}
+			]
+		},
+		{
+			"id": "2479-barrens-verog-from-the-kolkar",
+			"faction": "Horde",
+			"at": {
+				"quest": 851,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Verog doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the Stagnant Oasis, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test Tonga's seeds at the bubbling fissure on the oasis' east bank while you are there.",
+			"note": "#2479 (Corey): the tip said Verog walks among the Kolkar, so players waited for him to wander by. He appears after Kolkar centaurs are killed at the Stagnant Oasis (data/mechanics-public.json 851).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-15: 76 Verog the Dervish (3395) kills by 61 people; 63 came within ten minutes of a Kolkar kill, a median of 25 seconds after the last one"
+				}
+			],
+			"issue": 2479
 		},
 		{
 			"id": "barrens-fizzule-flares-and-salute",
@@ -2029,8 +2091,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the same mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
-			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip.",
+			"tip": "The antennae vanish fifteen minutes after they drop: kill the Silithid Swarmers and Creepers at the Silithid Mounds in the Field of Giants, south of Camp Taurajo, until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo, before the thunderhawks. Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds; Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds. A Silithid Harvester (24, rare) also wanders the mounds: leave it.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after). Since 0.3.8 the antennae come right after the eggs at the same mounds and the thunderhawks after the hand-in (route-fixes pair turnin 1824 -> task 913). 0.4.0 audit: the tip also carries the Swarmers' and Creepers' warning and names the Silithid Harvester (level 24, rare) that wanders the mounds (danger-at-the-spot gate; recordings: 6 people did it, 1 death, 4 abandons), so the step keeps one tip. 0.4.0 level tidy: the eggs (Egg Hunt) moved to 04-the-barrens at 25, so the tip names the mounds itself.",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -2145,11 +2207,11 @@
 			"id": "ashenvale-zoramgar-already-there",
 			"faction": "Horde",
 			"at": {
-				"quest": 6462,
+				"quest": 6442,
 				"goal": "accept"
 			},
 			"tip": "Learn the flight path here while you pick up the outpost's quests.",
-			"note": "The Horde Stonetalon guide walks across Ashenvale to Zoram'gar Outpost (the step before, Marukai) and learns its flight path in this step; the seed tip \"Fly from Ratchet to Zoram'gar Outpost\" named a flight to a path not learned yet, from a town the player is not in.",
+			"note": "The Horde Stonetalon guide walks across Ashenvale to Zoram'gar Outpost and learns its flight path in this step; the seed tip \"Fly from Ratchet to Zoram'gar Outpost\" named a flight to a path not learned yet, from a town the player is not in. (Anchored on Marukai's Naga at the Zoram Strand since the 0.4.0 level tidy moved Troll Charm to the 26 visit, #2372.)",
 			"source": [
 				{
 					"kind": "client",
@@ -2344,6 +2406,48 @@
 				}
 			],
 			"pr": 1077
+		},
+		{
+			"id": "level-tidy-040-durotar-echo-isles-level-9",
+			"faction": "Horde",
+			"at": {
+				"quest": 97225,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 9,
+			"note": "Level tidy 0.4.0 (Orc and Troll Durotar): the southern Echo Isles hold Voodoo and Hexed Trolls of 8-9 and Zalazane (10). After Kolkar Crag and its Sen'jin hand-ins players arrive at about 8.8; a top-up to 9 on the Durotar Tigers (7-8) between the northern and the southern isles makes sure no one meets the trolls at 8. The level-10 top-up before Razor Hill's Conscript of the Horde absorbs it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Echo Isles objectives ticked at a 25th percentile of 8.3 (Orc, 31 people) and 8.1 (Troll, 15); 13 people died there at levels 6.7-8.8, 8 of them to a troll above their level"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3206 Voodoo Troll and 3207 Hexed Troll 8-9, 3205 Zalazane 10, 3121 Durotar Tiger 7-8; quests 826 (10), 808 and 97225 (9)"
+				}
+			]
+		},
+		{
+			"id": "level-tidy-040-durotar-benedict-level-7",
+			"faction": "Horde",
+			"at": {
+				"quest": 784,
+				"goal": "objective",
+				"objective": 3
+			},
+			"level": 7,
+			"note": "Level tidy 0.4.0 (Orc and Troll Durotar): Lieutenant Benedict (8) stands at the top of Tiragarde Keep among the Kul Tiras Marines (6-7). Players killed him at 6.6-7.1 and the keep's deaths were at 6.8-7.7; with the prickly pears moved to Encroachment, the keep is reached a little lower still. The outskirts, sailors and marines are a step of their own, then a top-up to 7 on the Kul Tiras Sailors (5-6) around the keep, then Benedict and his chest.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Benedict's kill ticked at a 25th percentile of 7.09 (Orc, 33 people) and 6.85 (Troll, 14); 7 people died at the keep at 6.8-12.9, 3 to marines of 7"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3192 Lieutenant Benedict 8, 3129 Kul Tiras Marine 6-7, 3128 Kul Tiras Sailor 5-6 (Durotar 56-60,51-59)"
+				}
+			]
 		},
 		{
 			"id": "1077-durotar-quilboar-in-the-razormane-grounds-step",
@@ -4030,7 +4134,8 @@
 				"goal": "accept"
 			},
 			"tip": "On the way back north-east to Splintertree: Sharptalon prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest. Careful: Sharptalon is a level 31 nightsaber and hits hard: pull her alone, away from the Outrunners.",
-			"note": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon (12676) a level 31 nightsaber. Players' recordings: 51 people killed her, most at 27, 3 died near her; 0.3.7+ players took the claw at a median 28.4. The tip gives her level.",
+			"when": "level>=30",
+			"note": "Horde 21-30 audit (0.4.0, Discord report relayed on #2025): Sharptalon's Claw (2) is a level 30 quest and Sharptalon (12676) a level 31 nightsaber. Players' recordings: 51 people killed her, most at 27, 3 died near her; 0.3.7+ players took the claw at a median 28.4. The tip gives her level. Horde 0.4.0 audit: the route passes her at about 27.6 (level model), four levels under her, so her step shows only from level 30; Senani's hand-in step already waits for the quest in the log.",
 			"source": [
 				{
 					"kind": "recording",
@@ -4153,22 +4258,6 @@
 			"pr": 1218
 		},
 		{
-			"id": "horde-4060-accept-gan-zulah-41",
-			"faction": "Horde",
-			"at": {
-				"quest": 586,
-				"goal": "accept"
-			},
-			"level": 41,
-			"note": "Speaking with Gan'zulah (level 46) sends you to Skullsplitters of 41-43; the route reaches the Bubbling Cauldron at about 40.9, so the Zul'Kunda step before it (the Bloodscalp chiefs' heads) has you reach 41 on the Bloodscalps there. Written as a level goal on that step, not a hidden grind before the accept.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest minimum and quest levels in Forever's quest data"
-				}
-			]
-		},
-		{
 			"id": "horde-4060-accept-march-of-the-silithid-50",
 			"faction": "Horde",
 			"at": {
@@ -4176,7 +4265,7 @@
 				"goal": "accept"
 			},
 			"level": 50,
-			"note": "March of the Silithid needs level 50. Azshara's top-up step (Haldarr satyrs) takes you to 50 (it was 49.93, which left the accept at 49.9).",
+			"note": "March of the Silithid needs level 50. Since the 0.4.0 level tidy Azshara has no top-up step for it (a grind for this one delivery): the accept in Orgrimmar is shown from level 50, and 50-60/04's Orgrimmar stop offers it again for everyone else.",
 			"source": [
 				{
 					"kind": "client",
@@ -4208,11 +4297,78 @@
 				"goal": "accept"
 			},
 			"level": 58,
-			"note": "Dearest Natalia needs level 58; Commander Mar'alith offers it on the Cenarion Hold stop at about 57.6. A top-up step on the Twilight cultists west of the hold, right before that stop, takes you to 58.",
+			"note": "Dearest Natalia needs level 58; Commander Mar'alith offers it on the second Cenarion Hold stop. Since the 0.4.0 tidy the top-up to 58 is on the Dredge Crushers on the way south-east to Ortell, before that stop.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "quest minimum and quest levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-ungoro-51",
+			"faction": "Horde",
+			"at": {
+				"quest": 4503,
+				"goal": "objective",
+				"objective": 2
+			},
+			"level": 51,
+			"note": "Un'Goro Crater (Horde 50-60/01): the first loop's Pterrordax and Bloodpetal Flayers are up to 52; when the crater is entered under 51, a top-up to 51 on the Bloodpetal Threshers (49-50) Larion wants, south-east of the refuge, comes first (only below 51).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-kromgrul-53",
+			"faction": "Horde",
+			"at": {
+				"quest": 3822,
+				"goal": "accept"
+			},
+			"level": 53,
+			"note": "Krom'Grul (54, alone in the caves of Dreadmaul Rock) on the Burning Steppes pass at about 52 (rested level model, 0.4.0 tidy): his quest is offered from level 53 only, with no top-up for it (the Burning Steppes has no later visit, and a top-up there was over a level).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-frenzied-hounds-56",
+			"faction": "Horde",
+			"at": {
+				"quest": 5542,
+				"goal": "objective",
+				"objective": 3
+			},
+			"level": 56,
+			"note": "The Frenzied Plaguehounds (57-58) of Northdale at about 55.5 (rested level model, 0.4.0 tidy): a top-up to 56 on the Noxious Plaguebats (54-56) on the way east, which Nathanos' Un-Life's Little Annoyances wants, comes first (only below 56).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
+				}
+			]
+		},
+		{
+			"id": "horde-50-60-tidy-ortell-58",
+			"faction": "Horde",
+			"at": {
+				"quest": 8278,
+				"goal": "objective",
+				"objective": 3
+			},
+			"level": 58,
+			"note": "Ortell's Rock Stalkers (57-59) and the south of Silithus: a top-up to 58 on the Dredge Crushers (57-58) Windcaller Proudhorn wants, on the way south-east, comes first (only below 58); it also opens Dearest Natalia (8304, minimum 58), 0.4.0 tidy.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "NPC and quest levels in Forever's data; the level model's route levels"
 				}
 			]
 		},
@@ -4240,7 +4396,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the graveyard and walk the tamed kodo back to Smeed. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time.",
+			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo in the graveyard and walk the tamed kodo back to Smeed. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: leave the kodo skulls on the ground alone: opening one raises a Kodo Apparition (37-38) that hits hard.",
 			"note": "Kodo Roundup: each tamed kodo counts once you talk to it at Smeed's camp; until then the Kombobulator can't tame another (a 5 minute debuff), so the five are one at a time. The tip said only 'five times'. #1458 (Fyurie): the objective is written as the Kombobulator use plus a talk to the tamed kodo at Smeed's camp (5561.1), not a kill, and the tip sits on that goal.",
 			"source": [
 				{
@@ -4250,6 +4406,10 @@
 				{
 					"kind": "recording",
 					"ref": "players' in-game recordings of Kodo Roundup (5561): each of the five ticks of 'Kodos Tamed' came with a window of the tamed kodo (npc 4700, 4701, 4702) at Smeed's camp"
+				},
+				{
+					"kind": "questie",
+					"ref": "level tidy (2026-11-15): Kodo Apparition (11521, level 37-38) has no spawns of its own; it rises when a player opens a kodo skull for Bone Collector (5501, not on the Horde route), so the route's kodo taming meets it only by a skull opened by mistake"
 				}
 			],
 			"issue": 1234
@@ -4317,7 +4477,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists, who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: their camps are crowded, with Venture Co. Agents (39) among the geologists (36-38): pull from the camps' edges, one at a time.",
+			"tip": "Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them.",
 			"note": "Final route review 0.3.5: the Horde step put the Stranglethorn Tigers and Panthers east of Nesingwary's camp along the lake shore. Their spawns: tigers (682) x 28-48, y 8-18, median 36,14, around and south of the camp (35.6,10.6); panthers (736) median 30,13, west and south-west of it. The step's Tumbled Crystals come from the Venture Co. Geologists (1096) at 42-46,16-24, by the lake south-east of the camp.",
 			"source": [
 				{
@@ -4777,7 +4937,7 @@
 				"quest": 1824,
 				"goal": "accept"
 			},
-			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to Ruga; the thunderhawks after.",
+			"tip": "Warriors: take Trial at the Field of Giants from Ruga Ragetotem now: it runs for 30 minutes from the accept. The antennae come first, at the Silithid Mounds south of the camp, then straight back to Ruga; the thunderhawks after.",
 			"note": "Trial at the Field of Giants (Warrior) runs for 30 minutes; the Barrens guide took it on the first Camp Taurajo stop, before the thunder lizards, Jorn, the thunderhawks and the eggs. It is taken on Jorn's stop (route-fixes pairs) and the tip names the limit. Since 0.3.8 the thunderhawks come after the hand-in (route-fixes pair turnin 1824 -> task 913): with them before it, players' recordings on Polestar 0.3.5 and later show 6 accepts, 2 hand-ins, 2 fails and 2 abandons.",
 			"source": [
 				{
@@ -5162,7 +5322,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh.",
+			"tip": "On your way back south to Grom'gol, the Lashtail Raptors (35-36) hunt the jungle between the camp and Grom'gol: they count for Hemet and for Commander Aggro'gosh. Careful: the 36s can be two over you: pull them one at a time.",
 			"note": "Horde 30-40 audit (2026-11-09): the Lashtail Raptors (686, 30-39,19-28) lie between Nesingwary's camp and Grom'gol; Raptor Mastery and The Defense of Grom'gol take them on that walk, and Aggro'gosh takes 568 on the Grom'gol stop before the Booty Bay flight (the flow audit's deferred Lashtail kills).",
 			"source": {
 				"kind": "pfquest",
@@ -5205,7 +5365,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them.",
+			"tip": "East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for Drizzlik. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them; the 38s can be two over you: pull them one at a time and leave the Elders alone.",
 			"note": "Horde 30-40 audit (2026-11-09): the Shadowmaw Panthers (684) and Stranglethorn Tigresses (772) spawn at 35-51,20-45, east of the Mosh'Ogg hills; the panthers' own step after this one repeated the same ground and is folded in. One tip for the step (writer's stealth warning kept).",
 			"source": {
 				"kind": "pfquest",
@@ -5235,7 +5395,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "The Mosh'Ogg ogres camp in the hills just east of Grom'gol, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time.",
+			"tip": "The Mosh'Ogg ogres camp in the hills just east of Grom'gol, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time. Careful: the 37s can be two over you: take them from the camp's western edge, never two together.",
 			"note": "Horde 30-40 audit (2026-11-09): The Defense of Grom'gol (569) asks for 10 Mosh'Ogg Brutes (1142) and 5 Witch Doctors (1144); the tip said one of each.",
 			"source": [
 				{
@@ -5312,8 +5472,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge.",
-			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34. Since Valik's report (2026-11-09): Henchman Valik's reward for the stout is the Syndicate Missive itself (535's reward item 3601; 2 of the 5 recorded Infiltration completions ticked at his camp), so the drop is the fallback. Danger-at-the-spot sweep (#1575, #1695): the step came at the guide's start, at a route level of 29.4, among about 80 spawns of 32-35 Syndicate; players' recordings show 4 people dying there at about 32 to the Footpads, so the tip says to pull singly. Since 0.3.7 (#1466) Valik and this step come on the way back from Southshore, at about 31-32: still under the camps, so the warning stays.",
+			"tip": "Only if Valik's missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one.",
+			"note": "Horde 30-40 audit (2026-11-09): the tip gave the Syndicate Footpads and Thieves as 32-33; the data has Footpad 2240 at 32-33 and Thief 2241 at 33-34. Since Valik's report (2026-11-09): Henchman Valik's reward for the stout is the Syndicate Missive itself (535's reward item 3601; 2 of the 5 recorded Infiltration completions ticked at his camp), so the drop is the fallback. Danger-at-the-spot sweep (#1575, #1695): players' recordings show 4 people dying there at about 32 to the Footpads. Level tidy (2026-11-15): Infiltration now comes on the 38-39 visit (30-40/05), five levels over the camp, so the pull-singly warning is gone.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -5337,8 +5497,8 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "South-west, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills west of Tarren Mill; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs.",
-			"note": "Horde 30-40 audit (2026-11-09): Cave Yeti 2248 is 30-31 and Ferocious Yeti 2249 31-32; the tip said 30-31 for both. #1695: the rod's goal now points at the caverns (places.json 1695-helcular-rod-foothill-caverns), and the tip says to stay there rather than farm the northern cave's 32-34 yetis.",
+			"tip": "West of Tarren Mill, the Cave and Ferocious Yetis (30-32) fill the Foothill Caverns in the hills; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but they hit hard and come in pairs.",
+			"note": "Horde 30-40 audit (2026-11-09): Cave Yeti 2248 is 30-31 and Ferocious Yeti 2249 31-32; the tip said 30-31 for both. #1695: the rod's goal now points at the caverns (places.json 1695-helcular-rod-foothill-caverns), and the tip says to stay there rather than farm the northern cave's 32-34 yetis. Level tidy (2026-11-15): the rod stays on the route at 30-31 (the caverns' yetis are at most one level over), taken on the way from Tarren Mill to the town hall.",
 			"source": {
 				"kind": "pfquest",
 				"ref": "npcs.json 2248 level 30-31, 2249 level 31-32"
@@ -5358,27 +5518,6 @@
 				"kind": "pfquest",
 				"ref": "npcs.json 2271 level 31-32, 2272 level 32-33"
 			}
-		},
-		{
-			"id": "horde-3040-shindigger-kegs-dun-garok",
-			"faction": "Horde",
-			"at": {
-				"quest": 517,
-				"goal": "objective",
-				"objective": 1
-			},
-			"tip": "The Kegs of Shindigger Stout stand in the cellar of Dun Garok, the dwarven keep south-east of Southshore, beside Captain Ironhill (32); every dwarf there is elite (28-32).",
-			"note": "Horde 30-40 audit (2026-11-09): the tip put the Kegs of Shindigger Stout at 'the Syndicate camp on the south-east coast'. The keg object 1727 spawns at Hillsbrad 71.5-72.7,79.8-81.2, inside Dun Garok, where Captain Ironhill (2304, elite 32) and the elite Mountaineers, Riflemen and Priests (2344-2346, 28-30) stand; the two recorded loots of the keg were at 71.6,80.7.",
-			"source": [
-				{
-					"kind": "pfquest",
-					"ref": "objects.json 1727 spawns; npcs.json 2304, 2344-2346 rank 1 at Hillsbrad 68-73,75-81"
-				},
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings to 2026-11-09: 2 people looted the keg (3517) at Hillsbrad 71.6,80.7"
-				}
-			]
 		},
 		{
 			"id": "horde-3040-boulderfist-camp-south",
@@ -6013,32 +6152,6 @@
 					"ref": "data/forever/npcs.json Rebel Camp NPCs"
 				}
 			]
-		},
-		{
-			"id": "1575-flame-of-uzel-danger",
-			"faction": "Horde",
-			"at": {
-				"quest": 553,
-				"goal": "objective",
-				"objective": 3
-			},
-			"tip": "Careful: Giant and Mountain Yetis (32-34) stand around the flame, often in pairs, and Frostmaw, a rare yeti (37), roams nearby. At 30-31 they are over your level: pull the yetis one at a time from the cave mouth before you use the Rod, and watch for Frostmaw before you go in.",
-			"note": "Helcular's Revenge (553): the Flame of Uzel's cave in the hills north of the Foothill Caverns is reached at about 30-31 on the 29-33 Hillsbrad guide, and the mobs at the flame are higher. Players' recordings (13 charges of 553.3, recorded on the Alterac map at 37.5,66.3-67.3, the same spot as Hillsbrad 41.7,6.4 across the zone border) show Giant Yetis 2251 (33-34) and Mountain Yetis 2250 (32-33) at the flame, pulled in pairs, and the rare Frostmaw 4504 (37) nearby (6 of those runs); the one recorded death there followed a two-yeti pull. Crushridge ogres were seen near the flame by one person in the whole archive (Tincho's report among them) and Skhowl by one, so the tip leaves them out. A caution, not a route change: the 38-39 Alterac visit never goes back to Southshore's graveyard for the hand-in, and the other two flames are in the caverns earlier in this guide. First case of the danger-at-the-spot check (#1575).",
-			"source": [
-				{
-					"kind": "in-game-check",
-					"ref": "#1575: Tincho's report on Discord (0.3.6), level 30.8 at the Flame of Uzel with a level 35 Crushridge ogre beside it"
-				},
-				{
-					"kind": "tdb",
-					"ref": "creature spawns within 45 yd of gameobject 1770 (Flame of Uzel, 263.4,-267.7): 2251 Giant Yeti x3 (level 33), 2452 Skhowl (rare, 36); npc levels 2252 Crushridge Ogre 34-35, 2253 Crushridge Brute 35"
-				},
-				{
-					"kind": "recording",
-					"ref": "rec.py, 2026-11-10: 13 runs of 553.3; hostiles within 4 map units of the charge (Alterac 37.5,66.8), 10 min before to 3 min after: 2251 (17 sightings by people, killed by 7), 2250 (11, killed by 3), 4504 Frostmaw (6, killed by 3); 1 death after a 2251+2250 pull; archive-wide within 6 units: 2252 by 1 person, 2253 by none, 2452 by 1"
-				}
-			],
-			"issue": 1575
 		},
 		{
 			"id": "1676-barrens-ratchet-flight-for-its-quests",
@@ -6962,43 +7075,6 @@
 			]
 		},
 		{
-			"id": "horde-3040-elixir-of-agony-undercity-with-the-elixir",
-			"faction": "Horde",
-			"at": {
-				"quest": 515,
-				"goal": "accept",
-				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
-			},
-			"split": {
-				"title": "Master Apothecary Faranell",
-				"tip": "With a Lesser Troll's Blood Elixir in your bags, Master Apothecary Faranell offers Elixir of Agony in the Apothecarium; Apothecary Lydon takes the elixir in Tarren Mill."
-			},
-			"note": "Elixir of Agony (515) needs a Lesser Troll's Blood Elixir (item 3388), an Alchemy item no vendor sells. Hillsbrad 30-40's opening Undercity stop offers it in a step of its own, shown only to a character carrying one (the step's `when has 3388`, a guide line no record form carries); the Hillsbrad 22-25 guide no longer takes it (route-fixes pair 1145 -> 515).",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 515 objective: item 3388 Lesser Troll's Blood Elixir; no vendor in items.json"
-				}
-			]
-		},
-		{
-			"id": "horde-3040-elixir-of-agony-undercity-optional",
-			"faction": "Horde",
-			"at": {
-				"quest": 515,
-				"goal": "accept",
-				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
-			},
-			"optional": true,
-			"note": "Elixir of Agony's accept on Hillsbrad 30-40's Undercity stop never holds the route: only a character carrying a Lesser Troll's Blood Elixir takes it.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest 515 objective: item 3388 Lesser Troll's Blood Elixir; no vendor in items.json"
-				}
-			]
-		},
-		{
 			"id": "levels-alliance-wetlands-hillsbrad-top-33",
 			"faction": "Alliance",
 			"at": {
@@ -7170,26 +7246,6 @@
 				}
 			],
 			"issue": 1866
-		},
-		{
-			"id": "hillsbrad-helcular-grave-from-the-north",
-			"faction": "Horde",
-			"at": {
-				"quest": 553,
-				"goal": "turnin"
-			},
-			"tip": "Head east to Southshore's graveyard, on the north-east edge of the town: Helcular's grave lies among the others. Come at it from the north, down the slope above the town. Southshore Guards (55) stand at the graveyard's north-west corner and south-east of the grave: walk in between them, hand the quest in and leave the way you came.",
-			"note": "Helcular's Revenge (553): the grave (52.8,53.4) lies inside the walking maps' Southshore hub. Players' recordings: of 21 people who lit the three flames, 14 handed it in at the grave (52.70-52.91,53.10-53.39), all of them reaching the graveyard from the north (about 48-56,48-49); 2 abandoned it near there and 5 runs end before the hand-in; 1 person died north-east of the graveyard (53.9,48.0). The guide step adds a goto north of the graveyard (53.4,48.8, in its seed copy too) and the tip names the guard posts.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "rec.py quest 553 and the hand-in spots (to 2026-11-12): 31 runs by 25 people, 14 hand-ins at 52.70-52.91,53.10-53.39 on map 1424, 4 abandons (2 after the flames)"
-				},
-				{
-					"kind": "questie",
-					"ref": "QuestieDB Forever spawns (data/forever npcs.json) of Southshore Guard (2386) on map 1424: 51.88,50.5 and 52.26,51.17 north-west of the grave, 53.92,54.19 and 54.73,53.79 south-east of it"
-				}
-			]
 		},
 		{
 			"id": "1867-camping-96044",
@@ -11090,6 +11146,273 @@
 				}
 			],
 			"issue": 2284
+		},
+		{
+			"id": "h-audit-040-thousand-needles-level-28-before-lakota",
+			"faction": "Horde",
+			"at": {
+				"quest": 4904,
+				"goal": "accept"
+			},
+			"level": 28,
+			"note": "Horde 0.4.0 audit: the top-up below Darkcloud Pinnacle asked for 28.9, a leftover of the old harpy-den grind (Roguefeather Den left this guide). Arnak Grimtotem (29) and Lakota's ambushers are at most one over a player of 28, and the level model reaches the step at 28.6-28.8 (about 45 minutes of grinding to 28.9, about 2 hours for a solo player without the group quests); recorded players were at 29.1 there (25th percentile, 41 people). The step now asks for 28.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Lakota Windsong's escort taken at a 25th percentile of 29.1, 41 people"
+				},
+				{
+					"kind": "client",
+					"ref": "npc levels in Forever's creature data: Arnak Grimtotem 29"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-tirisfal-pumpkins-level-6",
+			"faction": "Horde",
+			"at": {
+				"quest": 365,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 6,
+			"note": "Horde 0.4.0 audit: the Tirisfal Pumpkins grow among Tirisfal Farmers (6-7), with Scarlet Warriors (6-7) at the field's edges and the rare Farmer Solliden (8) in the field. The pumpkins stay on the road in from Deathknell (#1046); a top-up to 6 on the Decrepit Darkhounds (5-6) east of the farm comes first, so the camp is at most one over. The level model reaches the step at 6.4 (no grind); a quarter of recorded players were under 6 there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): pumpkins picked at a 25th percentile of 5.85, 51 people; 4 deaths at the fields, 1 to a Scarlet Warrior 7"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 1934 Tirisfal Farmer 6-7, 1535 Scarlet Warrior 6-7, 1936 Farmer Solliden 8, 1547 Decrepit Darkhound 5-6"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-durotar-fizzle-level-11",
+			"faction": "Horde",
+			"at": {
+				"quest": 806,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 11,
+			"note": "Horde 0.4.0 audit (Orc and Troll Durotar): Fizzle Darkstorm (12) and his imp (12) hold the Burning Blade camp on Thunder Ridge. A top-up to 11 on the Thunder Lizards (9-10) west of Misha's hut comes first, so he is at most one over. The level model reaches the step at 11.9 (no grind); a quarter of recorded Trolls were under 11 there.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): Fizzle's camp at a 25th percentile of 10.8 (Troll, 13 people) and 11.2 (Orc, 26); 13 people died at the camp, 6 of them to Fizzle or his imp"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3203 Fizzle Darkstorm 12, 3130 Thunder Lizard 9-10"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-mulgore-venture-mine-level-11",
+			"faction": "Horde",
+			"at": {
+				"quest": 764,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 11,
+			"note": "Horde 0.4.0 audit (Mulgore): Supervisor Fizsprocket (12) stands at the back of the Venture Co. Mine. The mine now comes after northern Mulgore and the Galak centaurs; a top-up to 11 on the Venture Co. Workers (8-9) in the hills outside it comes first, so he is at most one over. The level model reaches the step at 11.2 (no grind).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (0.4.0 data refresh): the mine at a 25th percentile of 9.8 on the earlier route (11 people), 6 deaths in the mine, none to a higher mob"
+				},
+				{
+					"kind": "client",
+					"ref": "npcs 3051 Supervisor Fizsprocket 12, 2978 Venture Co. Worker 8-9"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-freewind-level-29-before-korran",
+			"faction": "Horde",
+			"at": {
+				"quest": 1145,
+				"goal": "accept"
+			},
+			"level": 29,
+			"note": "Horde 0.4.0 audit, round 2: Korran's The Swarm Grows (1145) is offered from level 29, on the 30-40 Hillsbrad guide's first stop at the Crossroads; the level model ends 07-ashenvale at 28.85 (with the Elder Crone chain), so a player who doesn't reach 29 got a second Crossroads flight from Orgrimmar in the next guide. The top-up sits at the end of 07-ashenvale, on the Pesterhide Snarlers (28-29) below Freewind Post, about 0.15 level; it shows Blackfathom Deeps, the guide's own dungeon run, as the group choice.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1145 minLevel 29 in Forever's quest data; npc 4249 Pesterhide Snarler 28-29"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-azurelode-level-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 544,
+				"goal": "accept"
+			},
+			"level": 30,
+			"note": "Horde 0.4.0 audit, rounds 2 and 4: Magus Wordeen Voidglare's quests on 30-40/01's last Tarren Mill stop and Alliance Relations (1431) on 30-40/02's first Orgrimmar stop are offered from level 30; the level model reaches them at about 29.5 without grinding, so the Alliance Relations chain (1431-1436, about 10,200 XP) was lost. The top-up sits right after the Azurelode Mine, before that last Tarren Mill stop. Round 4: it grinds on the Torn Fin Muckdwellers and Coastrunners (28-30, about 26 spawns) on the coast south of the mine instead of the mine's ten Foremen (27-28, two under the player), and names the Excavation Site in the Wetlands as the group choice: the Codex puts its floor at 28.2, while the City of Dalaran's is 31.5, two over the player at 29.5.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests 544 and 1431 minLevel 30 in Forever's quest data; npcs 2374 Torn Fin Muckdweller 28-29, 2375 Torn Fin Coastrunner 29-30, 2503 Hillsbrad Foreman 27-28; Codex journal dungeon floors"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-alliance-relations-from-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 1431,
+				"goal": "accept"
+			},
+			"when": "level>=30",
+			"note": "Horde 0.4.0 audit, round 2: Craven Drok offers Alliance Relations from level 30 (Forever's quest data, minLevel 30). Its step shows only from 30, so a player under it isn't sent to him; Takata's and Maurin's steps in Desolace wait for the quest in the log.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1431 minLevel 30 in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-stv-level-35-after-booty-bay",
+			"faction": "Horde",
+			"at": {
+				"quest": 629,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 35,
+			"note": "Horde 0.4.0 audit, round 2: 30-40/03's top-up to 35 comes after the Booty Bay round trip, whose hand-ins (about 17,000 XP with Zimmix's quests) came after it before; the Vile Reef and Zul'Kunda's Bloodscalp Headhunters (36-37) follow. Level model: the top-up shrinks from 0.72 level (180 minutes) to about 0.4. Stranglethorn's grind steps name no dungeon: the route runs none nearby.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 1085 Elder Stranglethorn Tiger 34-35, 671 Bloodscalp Headhunter 36-37"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-felwood-level-54-irontree",
+			"faction": "Horde",
+			"at": {
+				"quest": 8461,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 54,
+			"note": "Horde 0.4.0 audit, round 2: Felwood had seven top-ups to fractional levels (53.34 to 54.87; about 13 hours in the level model), the first in the Scarlet camp of Western Plaguelands (Medics, Invokers and Festering Ghouls up to 55, two over the players). Two whole-level steps replace them with the same route time: 54 on the Angerclaw Grizzlies and Felpaw Ravagers (51-52) of Irontree Woods before Felpaw Village (Den Watchers 53-54, Deadwood Avengers 54-55), and 55 at the end of the guide before Winterspring. Both name Blackrock Depths and the Sunken Temple as the group choice.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 8957 Angerclaw Grizzly 51-52, 8961 Felpaw Ravager 51-52, 7156 Deadwood Den Watcher 53-54, 7157 Deadwood Avenger 54-55"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-felwood-level-55-before-winterspring",
+			"faction": "Horde",
+			"at": {
+				"quest": 3908,
+				"goal": "turnin"
+			},
+			"level": 55,
+			"note": "Horde 0.4.0 audit, rounds 2 and 4: see h-audit-040-r2-felwood-level-54-irontree. The second whole-level top-up is the last step of 50-60/02-felwood, before Winterspring's quests (55-58). Round 4: it grinds on Felpaw Village's Deadwood furbolgs (Den Watchers and Shamans 53-54, Avengers 54-55; the level model reaches it at about 54.4) on the road north to Timbermaw Hold's tunnel, which the next guide takes, instead of the Jaedenar Hounds (50-51) back south: mobs at the player's level give more experience per kill, and the kills raise the Timbermaw reputation the tunnel's furbolgs check.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 7156 Deadwood Den Watcher 53-54, 7157 Deadwood Avenger 54-55, 7158 Deadwood Shaman 53-54, 7125 Jaedenar Hound 50-51"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r2-barrens-level-20-before-orgrimmar",
+			"faction": "Horde",
+			"at": {
+				"quest": 877,
+				"goal": "turnin"
+			},
+			"level": 20,
+			"only": "Warrior,Rogue,Priest,Shaman,Warlock",
+			"note": "Horde 0.4.0 audit, rounds 2 and 4: the Barrens guide's Orgrimmar stop takes the level 20 class quests (Sorek's 1823, Searn's 1528, Shenthul's 2460, Gan'rul's 1507, the Priest's 5646 and 5680), each offered from level 20; the level model reaches it at 19.6-19.8 on some branches, where the trainer refuses them. A top-up to 20 on the Bristleback Geomancers (19-20) at Agama'gor, the stop before the Crossroads, holds those classes back; Wailing Caverns is the group choice. Hunters and Mages have no level 20 quest on that stop, only training, so the top-up doesn't hold them (round 4: it cost them 77-110 level-model minutes for nothing). Recorded players were past 20 there (25th percentile 21.0 at Lost in Battle's hand-in, 23 people).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests 1823, 1528, 2460, 1507 and 5646 minLevel 20 in Forever's quest data; npc 3263 Bristleback Geomancer 19-20"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-zimmix-northern-ruins",
+			"faction": "Horde",
+			"at": {
+				"quest": 97328,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of Zimmix, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by Zimmix first, and pull one at a time if you go north.",
+			"note": "Horde 0.4.0 audit, round 4: Zimmix and the southern Stolen Shipments (24.25,12.24) are among the Bloodscalp Scouts, Hunters and Mystics (34-35); the northern cluster (24.94,9.59, where 30 of 44 recorded players also picked) is 16-60 yd from Berserkers, Headhunters (36-37) and Witch Doctors (37). The level model reaches the step at about 34.1.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 597 Bloodscalp Berserker 36-37, 671 Bloodscalp Headhunter 36-37, 660 Bloodscalp Witch Doctor 37; object 661518 Stolen Shipment places in forever-db corrections"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-alliance-relations-takata",
+			"faction": "Horde",
+			"at": {
+				"quest": 1432,
+				"goal": "turnin"
+			},
+			"split": {
+				"title": "Takata Steelblade"
+			},
+			"note": "Horde 0.4.0 audit, round 4: Alliance Relations (1432) is taken in Orgrimmar only from level 30 (its step's `when level>=30`), so Takata Steelblade's hand-in at Ghost Walker Post is a step of its own (this split), which the guide shows only with the quest in the log (`when onquest 1432` on that step; a `when` record would land on the whole post step before the split); Felgur and Nataka's goals stay on the post's step, and Takata's and Maurin's follow-ups (1433-1435) a step after it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 1431 minLevel 30, 1432 pre 1431 in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-alliance-relations-takata-and-maurin",
+			"faction": "Horde",
+			"at": {
+				"quest": 1433,
+				"goal": "accept"
+			},
+			"split": {
+				"title": "Takata and Maurin"
+			},
+			"note": "Horde 0.4.0 audit, round 4: see h-audit-040-r4-alliance-relations-takata.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests 1433, 1434 pre 1432 in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "h-audit-040-r4-bring-me-his-head-after-carving-a-path",
+			"faction": "Horde",
+			"at": {
+				"quest": 94768,
+				"goal": "accept"
+			},
+			"when": "turnedin 94745",
+			"note": "Horde 0.4.0 audit, round 4: Da'grosh offers Bring Me His Head only after Carving a Path (94745) and Break Their Chains (94748), which the Riverglades guide shows only to players who did Chogg'Zac; a player who skipped him and chose group content was sent to Da'grosh for a quest he wouldn't offer.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 94768 pre 94745, 94748 in Forever's quest data"
+				}
+			]
 		}
 	]
 }

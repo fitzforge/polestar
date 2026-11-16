@@ -2,10 +2,9 @@
 guide forever/horde/40-50/02-feralas
 title Feralas & Tanaris
 faction Horde
-levels 43-45
+levels 43-46
 zone Feralas
-next forever/horde/40-50/03-feralas
-next polestar-experimental/shendralas
+next forever/40-50/shendralas
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -14,19 +13,109 @@ next polestar-experimental/shendralas
 # Rizzle's Schematics (1194).
 
 step Fly to Grom'gol
-  when zone "Swamp of Sorrows"
-  zone Swamp of Sorrows
-  goto 46.1,54.7 "Stonard flight master"
-  fly "Grom'gol"
-  zone Stranglethorn Vale
-
-step Fly to Grom'gol
   when zone "Badlands"
   zone Badlands
   tip Coming from the Riverglades: Kargath's flight master stands at the foot of the fortress.
   goto 4.1,44.9 "Kargath flight master"
   fly "Grom'gol"
   zone Stranglethorn Vale
+
+step Fly to Grom'gol
+  when zone "Swamp of Sorrows"
+  zone Swamp of Sorrows
+  goto 46.1,54.7 "Stonard flight master"
+  fly "Grom'gol"
+  zone Stranglethorn Vale
+
+# ---------------------------------------------------------------- Stranglethorn Vale
+
+step Grom'gol Base Camp
+  zone Stranglethorn Vale
+  tip The flight lands at Grom'gol. Stranglethorn's harder errands, carried from your first visit, fit you now: the Skullsplitter chief, Zanzil's camps, Booty Bay's pirates, the naga coast and Mokk, before the zeppelin to Orgrimmar. The Bubbling Cauldron beside Nimboya has the Skullsplitter chief's quest.
+  accept 586                          -- the Bubbling Cauldron: Speaking with Gan'zulah
+
+step Zul'Mamwe
+  zone Stranglethorn Vale
+  tip Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.
+  tip Ana'thek the Cruel (45) carries the Broken Armor for Speaking with Gan'zulah: he walks the south-western ruins with two guards and sometimes stands in a small cave there. Pull the guards first.
+  tip Careful: Mogh the Undying, an elite troll (level 44), stands in the southern ruins around 47.7,44.3: pull the headhunters and berserkers away from him.
+  kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
+  kill 781 quest 586.2
+  kill 783 quest 586.3
+  collect 3909 quest 586.4            -- Ana'thek the Cruel
+
+step Grom'gol Base Camp
+  tip Back west to Grom'gol.
+  turnin 586                          -- the Bubbling Cauldron
+  accept 588                          -- the Bubbling Cauldron again: Yenniku's fate
+  turnin 588                          -- Kin'weelay
+  accept 589                          -- Kin'weelay: the basilisks bask beside the road south, on the ride to Booty Bay
+
+step Ironjaw Basilisks
+  zone Stranglethorn Vale
+  tip Ride south along the road towards Booty Bay; the basilisks bask on the rocks east of it in the middle of the jungle. Their shards drop often.
+  collect 3911 quest 589              -- Below ground
+
+step Pirate ghosts and Zanzil's camps
+  zone Stranglethorn Vale
+  tip On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. Maury and Jon-Jon stand together, Chucky further east. Every one of Zanzil's followers can carry the mixture.
+  tip Careful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. Zanzil the Outcast (46) himself stands in the southern camp around 39.6,58.6, a few steps from Chucky's ghost: pull Chucky out to the north or east before you fight him.
+  kill 2537 @40.0,58.2
+  collect 3926 quest 609.3
+  kill 2535 @35.3,51.3
+  collect 3924 quest 609.1
+  kill 2536 @34.9,51.8
+  collect 3925 quest 609.2
+  collect 4016 quest 621.1
+
+step Witch Doctor Unbagwa
+  tip West into Mistvale: Witch Doctor Unbagwa sits among the gorillas. Any gorilla can drop a fang: hand him ten and stay by him, he calls three waves of gorillas, then Mokk.
+  tip Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.
+  collect 2799 x10                    -- Gorilla Fang
+  turnin 349 direct                   -- Witch Doctor Unbagwa
+  collect 2797 quest 348.1
+
+step The Cape of Stranglethorn: kill these as you meet them
+  zone Stranglethorn Vale
+  tip West to the coast: the naga explorers wade along the shore and carry the reed bundles; the Holy Spring bubbles in the hills just east of them. Then follow the coast south to Booty Bay.
+  collect 4029 quest 617.1
+  kill 1907 quest 573.1
+  collect 737 quest 573.2 @29.0,61.9
+
+step Booty Bay
+  zone Stranglethorn Vale
+  tip In Booty Bay: Privateer Bloads on the docks, Fin Fizracket by the inn, Crank Fizzlebub inside it, MacKinley, Kebok and Krazek upstairs.
+  turnin 617                          -- Privateer Bloads
+  turnin 348                          -- Fin Fizracket
+  turnin 621                          -- Crank Fizzlebub, inside
+  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+  turnin 209                          -- Kebok, upstairs
+  accept 2864                         -- Krazek, upstairs: for Tran'rek in Gadgetzan, later in this guide
+
+step The Wild Shore
+  zone Stranglethorn Vale
+  tip South of Booty Bay the Bloodsail swashbucklers camp on the Wild Shore; the charts and the orders lie in their tents and in the rowboat beside the larger camp. Any Bloodsail can carry snuff and Dizzy's eye, so keep killing until you have both.
+  collect 3920 quest 604.2
+  collect 3921 quest 604.3
+  collect 3897 quest 576.1
+  collect 3910 quest 587.1
+  kill 1563 quest 604.1
+
+step Booty Bay
+  tip Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50.
+  turnin 604                          -- Fleet Master Seahorn
+  turnin 576                          -- Dizzy One-Eye
+  turnin 587                          -- Deeg, on the top floor
+
+step Fly to Grom'gol
+  zone Stranglethorn Vale
+  goto 26.8,77.0 "Booty Bay flight master"
+  fly "Grom'gol"
+
+step Grom'gol Base Camp
+  tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then the zeppelin tower.
+  turnin 589                          -- Kin'weelay
+  turnin 573                          -- Far Seer Mok'thardin
 
 step Zeppelin to Orgrimmar
   zone Stranglethorn Vale
@@ -40,8 +129,11 @@ step Orgrimmar
 # Checked by lint, not play-tested on Forever yet. Era + known Forever quests
 # only.
 #
-# Flow: the Harborage (where the previous guide ends) -> ride to Stonard, fly
-# to Grom'gol -> zeppelin to Orgrimmar (training, riding; Druids and Paladins:
+# Flow: Kargath (where the Riverglades end) -> fly to Grom'gol -> Stranglethorn's
+# 43-46 errands carried from 40-50/01 in one sweep south (Zul'Mamwe, Grom'gol, the
+# basilisks, the ghost pirates and Zanzil's camps, Unbagwa and Mokk, the naga coast,
+# Booty Bay, the Wild Shore, Booty Bay) -> fly Grom'gol -> zeppelin to Orgrimmar
+# (training, riding; Druids and Paladins:
 # Thunder Bluff for training; Warlocks: Ratchet for the Felsteed) -> fly
 # Freewind Post -> Gadgetzan (flight path) -> eastern
 # Wastewander camps -> Gadgetzan -> Steamwheedle Port -> Lost Rigger Cove ->
@@ -51,8 +143,8 @@ step Orgrimmar
 # Mojache -> Grimtotem camp and the Woodpaw battle map -> Mojache -> one
 # sweep west: the Writhing Deep, the southern Gordunni ruins and, with the
 # distress beacon, OOX-22/FE's escort from Feral Scar Vale -> Mojache (every
-# hand-in) -> fly Orgrimmar (Ripple Recovery, training) -> zeppelin
-# to Grom'gol -> fly Stonard, where the next guide starts.
+# hand-in) -> fly Orgrimmar (Ripple Recovery, training) -> Shen'dralas, then the
+# Undercity and the Swamp of Sorrows in the next guides.
 #
 # Deviations from the simulator's order:
 # - Tanaris: Gadgetzan's two bounty quests are done in the camps east and
@@ -78,22 +170,25 @@ step Orgrimmar
 # Class quests: Warlocks pick up the Felsteed (3631, 4490) in Orgrimmar and
 # Ratchet on the way in, as in the earlier Feralas guide.
 #
-# Class training: Orgrimmar at about 42.5 and 44 for everyone but Druids and
-# Paladins, who fly to Thunder Bluff at 42.5. Riding at 40: each race's own
+# Class training: Orgrimmar at about 44.5 for everyone but Druids and
+# Paladins, who fly to Thunder Bluff then. Riding at 40: each race's own
 # riding trainer (Kildar in Orgrimmar for Orcs, Genn Fairweather on Zephras Isle for Skyborne, Xar'Ti in
 # Sen'jin Village, Kar Stormsinger in Bloodhoof Village, Velma Warnam in
 # Brill), all optional.
 #
 # Zul'Farrak (`when dungeon "Zul'Farrak"`, dungeons in the route): for a character who runs it, Tran'rek's Scarab
 # Shells (2865, after Tran'rek, 2864, handed in on the Gadgetzan stop) and Trenton Lighthammer's Troll Temper (3042)
-# are taken on the Gadgetzan stop at about 44; the run is in 40-50/04-tanaris.
+# are taken on the Gadgetzan stop at about 45; the run is in 40-50/04-tanaris.
 #
 # Accepted here, finished later on the route: Screecher Spirits (3520,
 # Steamwheedle Port: the screechers on the next Feralas visit, Yeh'kinya at the
 # end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
-# around level 50, A Strange Request (3121), A Grim Discovery (2976) and The
+# around level 51 (40-50/06), A Strange Request (3121), A Grim Discovery (2976) and The
 # Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
 # Hinterlands, Improved Quality (7734) on the next Feralas visit.
+# 0.4.0 level tidy: the second water-pouch bounty (1878, 380 XP) is left out (#2394). With the Riverglades before this
+# guide you arrive at about 45, so WANTED: Caliph Scorpidsting (2781, Caliph 46) and Stinglasher (7731, level 47) are
+# done here, on the visits that take them.
 #
 # Optional: Find OOX-22/FE! (2766) and Rescue OOX-22/FE! (2767): the distress
 # beacon drops about one kill in forty; the reward waits in Booty Bay.
@@ -111,9 +206,10 @@ step Orgrimmar
   accept 3631 only Warlock              -- Zevrost, Cleft of Shadow
 
 step Riding at 40
-  only Orc,Skyborne
+  only Orc,Skyborne,!Warlock
   zone Orgrimmar
   when level>=40
+  when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Kildar teaches Orcs in the Valley of Honor, by Ogunaro Wolfrunner's kennel. Skyborne learn it from Genn Fairweather at the Fairweather Stables in Valanaar on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each.
   train 4752 only Orc optional          -- Kildar, riding trainer
   note "Wolves: Ogunaro Wolfrunner, beside Kildar." only Orc
@@ -124,9 +220,10 @@ step Belgrom Rockmaul
   accept 2981
 
 step Riding at 40
-  only Troll
+  only Troll,!Warlock
   zone Durotar
   when level>=40
+  when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Xar'Ti in Sen'jin Village, a short ride south of Orgrimmar down the Durotar road, with Zjolnir's raptors (20 gold each) beside him. Ride back to Orgrimmar's flight master afterwards.
   train 7953 optional                   -- Xar'Ti, riding trainer
   note "Raptors: Zjolnir, beside Xar'Ti in Sen'jin Village."
@@ -141,6 +238,8 @@ step Fly to Thunder Bluff
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
   when level>=40
+  when !skill Riding 1
+  label tauren-riding
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Thunder Bluff"
 
@@ -154,12 +253,14 @@ step Mulgore
   only Tauren
   zone Mulgore
   when level>=40
+  when !skill Riding 1
   goto 46.8,62.0 "Bloodhoof Village" live
 
 step Riding at 40
   only Tauren
   zone Mulgore
   when level>=40
+  when !skill Riding 1
   tip Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is Kar Stormsinger in Bloodhoof Village, with Harb Clawhoof's kodos (20 gold each) beside him. Ride back up to Thunder Bluff's flight master afterwards.
   train 3690 optional                   -- Kar Stormsinger, riding trainer
   note "Kodos: Harb Clawhoof, beside Kar Stormsinger in Bloodhoof Village."
@@ -184,7 +285,7 @@ step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   when !taxi "Gadgetzan"
   zone Thunder Bluff
-  when level>=40
+  when done tauren-riding
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Freewind Post"
   zone Thousand Needles
@@ -193,7 +294,7 @@ step Fly to Gadgetzan
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   when taxi "Gadgetzan"
   zone Thunder Bluff
-  when level>=40
+  when done tauren-riding
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Gadgetzan"
   zone Tanaris
@@ -245,7 +346,7 @@ step Fly to Freewind Post
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
   when !taxi "Gadgetzan"
   zone Orgrimmar
-  when level<40
+  when !done tauren-riding
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Freewind Post"
   zone Thousand Needles
@@ -254,7 +355,7 @@ step Fly to Gadgetzan
   only Tauren,Warrior,Hunter,Rogue,Priest,Shaman,Mage
   when taxi "Gadgetzan"
   zone Orgrimmar
-  when level<40
+  when !done tauren-riding
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Gadgetzan"
   zone Tanaris
@@ -282,9 +383,6 @@ step Mirage Raceway
   tip The road from Freewind Post to Tanaris runs past the Mirage Raceway on the Shimmering Flats: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 1137                           -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
   accept 1190                           -- Pozzik
-  turnin 1183                           -- Pozzik: the Fuel Regulator Blueprints from Baron Revilgaz, if you carry them
-  accept 1186
-  turnin 1186                           -- Razzeric, beside Pozzik
   turnin 1191 direct
   turnin 1190                           -- Rizzle's Unguarded Plans
   accept 1194
@@ -315,10 +413,9 @@ step Gadgetzan
 
 step Noonshade Ruins: kill these as you meet them
   zone Tanaris
-  tip The bandits and thieves camp in the dunes east of Gadgetzan. Every Wastewander can carry a water pouch: keep ten, five for each of Luglunket's bounties.
+  tip The bandits and thieves camp in the dunes east of Gadgetzan. Every Wastewander can carry a water pouch: Luglunket wants five.
   tip Careful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen.
   collect 8483 quest 1707.1
-  collect 8483 x10                      -- water pouches in your bags
   kill 5616 quest 1690.2
   kill 5618 quest 1690.1
 
@@ -338,11 +435,12 @@ step Steamwheedle Port
   turnin 2872                           -- Stoley, inside
   accept 2873
   accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
+  turnin 95296                          -- Wharfmaster Steamfizzle, on the pier: Friz's errand from the Riverglades, if you carry it
 
 step Lost Rigger Cove: kill these as you meet them
   zone Tanaris
   tip South along the coast, the Southsea pirates hold the cove. Andre Firebeard and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.
-  tip Careful: Two or three pirates stand with Andre, and many more pirates from the town join the fight once it starts.
+  tip Careful: Two or three pirates stand with Andre (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first.
   kill 7855 quest 8366.1
   collect 20519 quest 8365.1
   kill 7856 quest 8366.2
@@ -367,12 +465,11 @@ step Steamwheedle Port
   tip Ride north-east back to the port: Stoley, the Haughty Modiste and the Security Chief take what Lost Rigger Cove gave you. Gadgetzan is west of it.
   turnin 8365                           -- Haughty Modiste
   turnin 2873                           -- Stoley, inside
-  accept 2874                           -- for Booty Bay, around level 50
+  accept 2874                           -- for Booty Bay, around level 51 (40-50/06)
   turnin 2875                           -- Security Chief Bilgewhizzle, inside
   turnin 8366
 
 step Gadgetzan
-  turnin 1878 direct
   turnin 2781                           -- Chief Engineer Bilgewhizzle
   turnin 1691                           -- Chief Engineer Bilgewhizzle
   vendor nearest
@@ -393,6 +490,7 @@ step Camp Mojache
   accept 2987                           -- Orwin Gizzmick
   turnin 2981                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   accept 2975                           -- Rok Orhan
+  turnin 95033                          -- Witch Doctor Uzer'i: Tan'jani's errand from the Riverglades, if you carry it
   accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 45
   accept 2822                           -- Jangdor Swiftstrider, inside
   sethome "Camp Mojache" npc 7737       -- Innkeeper Greul
@@ -462,12 +560,14 @@ step Camp Mojache
 
 step The Writhing Deep
   tip The Zukk'ash hive burrows into the hills south-east of the camp; Stinglasher waits in its deepest chamber.
+  tip Careful: Stinglasher is level 47: clear the hive around him and pull him alone at full health.
   collect 18961 quest 7730.1
   collect 18962 quest 7731.1 @75.6,60.9
 
 step Ruins of Isildien: kill these as you meet them
   zone Feralas
   tip Ride west from the hive to the ogre ruins below Feral Scar Vale. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.
+  tip Careful: the Mage-Lords (45-46) and the Shamans cast from range and the ruins are packed: pull one at a time from the edge.
   kill 5234 quest 2980.3              -- Gordunni Mauler walks around Ruins of Isildien: look inside the circle on the map
   kill 5240 quest 2980.2
   kill 5236 quest 2980.1
@@ -489,35 +589,10 @@ step Homing Robot OOX-22/FE
 step Camp Mojache
   turnin 7730                           -- Hadoken Swiftstrider
   turnin 7731
-  vendor nearest
   turnin 2822                           -- Jangdor Swiftstrider, inside
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
   accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
   turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   turnin 2979                           -- Rok Orhan
-  accept 3002                           -- for Orgrimmar, around level 45
-
-step Fly to Orgrimmar
-  zone Feralas
-  goto 75.4,44.3 "Camp Mojache flight master"
-  fly "Orgrimmar"
-  zone Orgrimmar
-
-# ---------------------------------------------------------------- Back east
-
-step Orgrimmar
-  zone Orgrimmar
-  tip Fly to Orgrimmar. From the flight master: the Cleft of Shadow, then the Drag, then the Valley of Honor.
-  turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
-  accept 3122
-  turnin 7732                           -- Zilzibin Drumlore, the Drag
-  accept 649                            -- Dran Droffers, the Drag
-  turnin 649                            -- Malton Droffers
-  accept 650                            -- for the Hinterlands, around level 48
-  turnin 2976                           -- Belgrom Rockmaul, Valley of Honor
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Orgrimmar
-  zone Orgrimmar
-  when onquest 3002
-  turnin 3002                           -- Uthel'nay, Valley of Spirits
+  accept 3002                           -- for Orgrimmar, after Shen'dralas
+  note Shen'dralas is next, a ride north from Camp Mojache into Desolace: keep your Orgrimmar hand-ins (Neeru, Zilzibin, Belgrom, Uthel'nay) for the flight there after it.

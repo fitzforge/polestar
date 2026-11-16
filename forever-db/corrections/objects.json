@@ -684,5 +684,80 @@
 			}
 		],
 		"note": "The Filled Containment Coffers (object 103574) that Investigate the Alchemist Shop (1960) asks for stand in the Undercity at 53.4-54.1,70.9-75.2. The merged data had the object with no place, so the Undercity mage quest's collect step had nowhere to point. Stormwind's coffers for Investigate the Blue Recluse (1920) are not added: two people looted them, too few for a correction."
+	},
+	"2912": {
+		"addSpawns": {
+			"1412": {
+				"f": "e",
+				"pts": [
+					[
+						44.84,
+						56.74
+					],
+					[
+						46.89,
+						70.11
+					],
+					[
+						44.43,
+						71.76
+					],
+					[
+						48.89,
+						68.61
+					],
+					[
+						50.35,
+						64.18
+					],
+					[
+						50.18,
+						66.25
+					],
+					[
+						44.3,
+						54.14
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings on builds 70790 and 70938: Rite of Vision (771) objective 2, the Ambercorn, ticked for 21 people (16 counted) on the plains south of Bloodhoof; the points below are their pickup spots, 4-5 people each at the first four, 2 at the last three, all 1.7-3.7 map units from the nearest Ambercorn in the merged data"
+			}
+		],
+		"note": "Ambercorn (object 2912), the acorns Rite of Vision (771) asks for, is picked by players at seven places on the plains south of Bloodhoof Village in Mulgore that the merged data doesn't list (its 24 Mulgore spawns lie elsewhere; only 2 of the 9 recorded pickup spots are within 1 unit of one). The recorded spots are added, so the guide's point on the plains (#15, #282) and the compiled pickup area sit by the acorns (#289)."
+	},
+	"661518": {
+		"set": {
+			"name": "Stolen Shipment"
+		},
+		"addSpawns": {
+			"1434": {
+				"f": "e",
+				"pts": [
+					[
+						24.25,
+						12.24
+					],
+					[
+						24.94,
+						9.59
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings on builds 70862 and 70938: Anything of Value (97328), 8 Stolen Shipments, collected by 44 people (40 counted) in the Ruins of Zul'Kunda, Stranglethorn Vale, in two clusters: 38 people around 24.25,12.24 and 30 around 24.94,9.59"
+			},
+			{
+				"kind": "questie",
+				"ref": "items.json 277953 Stolen Shipment: dropped by object 661518, which the merged data has no entry for"
+			}
+		],
+		"note": "The Stolen Shipments (object 661518) that Anything of Value (97328) asks for lie in the Ruins of Zul'Kunda; the merged data had the item's object with no entry, so no step or While-here line could point at it. The two places are where players pick them."
 	}
 }

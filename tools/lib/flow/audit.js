@@ -360,7 +360,7 @@ function runAudit(compiled, dataDir, opts = {}, log = () => {}) {
 
 // The experimental route choices a faction's leveling guides offer (`next` options in Polestar Experimental) and the
 // compiled guides hold (compile the experimental pack too), as [label, guide id]: "riverglades" for
-// polestar-experimental/riverglades-horde-1.
+// polestar-experimental/riverglades-alliance-1.
 function routeChoices(compiled, faction) {
 	const have = new Set(compiled.guides.map((g) => g.id));
 	const out = new Map();
