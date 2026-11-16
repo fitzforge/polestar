@@ -180,7 +180,10 @@ local function registerBag(name)
 	API.RegisterCornerWidget(ns.L["Polestar quest leftovers"], RED_WIDGET, function(_, details)
 		return isOn() and type(details) == "table" and Q.IsObsoleteQuestItem(details.itemID) or false
 	end, function(button)
-		local frame = CreateFrame("Frame", nil, button)
+		-- Made with no parent, then put on the button: a CreateFrame under a game
+		-- frame taints it (the gamepad interface's hook, tests/lua/wow_stub.lua).
+		local frame = CreateFrame("Frame")
+		frame:SetParent(button)
 		frame:SetSize(1, 1)
 		borderFor(button, bagBorders, frame)
 		return frame

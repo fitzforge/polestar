@@ -27,7 +27,7 @@ fn run(before: &str, script: &str) -> Vec<Value> {
 }
 
 #[test]
-fn bagsmith_registers_all_four_widgets_once_before_or_after_polestar_with_list_rows() {
+fn bagsmith_registers_all_five_widgets_once_before_or_after_polestar_with_list_rows() {
 	for late in [false, true] {
 		let script = format!(
 			r#"
@@ -47,7 +47,7 @@ emit(result)
 			if late { API } else { "" }
 		);
 		let out = run(if late { "" } else { API }, &script);
-		assert_eq!(out[0], 4);
+		assert_eq!(out[0], 5);
 		for (id, corner, width) in
 			[("polestar_upgrade", "top_left", 20.0), ("polestar_quest_needed", "top_right", 16.0), ("polestar_step_item", "bottom_left", 19.2), ("polestar_kept_item", "top_left", 14.0)]
 		{
@@ -56,6 +56,11 @@ emit(result)
 			assert_eq!(out[1][id]["texture"], true);
 			assert!((out[1][id]["width"].as_f64().unwrap() - width).abs() < 0.001);
 		}
+		// The leftover quest item's red border (#2528): a 1x1 anchor frame on the button, its border drawn around the slot.
+		let leftover = &out[1]["polestar_quest_leftover"];
+		assert_eq!(leftover["list"], true);
+		assert_eq!(leftover["corner"], "top_left");
+		assert!((leftover["width"].as_f64().unwrap() - 1.0).abs() < 0.001);
 	}
 }
 
@@ -77,7 +82,7 @@ emit({{baganatorRegistrations, registrations}})
 "#
 		),
 	);
-	assert_eq!(out[0], json!([4, 4]));
+	assert_eq!(out[0], json!([5, 5]));
 }
 
 #[test]
