@@ -9525,6 +9525,9 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 		["{item:6291}: the Auction House, or the pool; the knife takes it"] = "{item:6291} : l'hôtel des ventes, ou le bassin ; le couteau s'en sert",
 		["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} se cache, camouflé, sur la mesa principale des {zone:1456}, au sud de son bassin : marchez là où pointe la flèche jusqu'à voir sa silhouette. Il vous remet le {item:206159}. La quête s'ouvre au niveau 4, mais la mine abrite des Ouvriers de la KapitalRisk (niveau 8-9), des Contremaîtres (9-10) et {npc:3051} (12) : allez-y au niveau 9 ou 10.",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "Trolls Skullsplitter",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "110 {item:2447} pour {item:5997} et {spell:2331} (dont 28 pour la tranche 75-150 : ramassez-les tous maintenant) : {skill:182} : {item:2447} (compétence 1). Le meilleur coin de {item:2447} dans {zone:1411} est indiqué.",
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "110 {item:2447} pour {item:5997} et {spell:2331} (dont 28 pour la tranche 75-150 : ramassez-les tous maintenant) : {skill:182} : {item:2447} (compétence 1). Le meilleur coin de {item:2447} dans {zone:1412} est indiqué.",

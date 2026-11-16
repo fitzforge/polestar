@@ -6432,6 +6432,9 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 		["{item:206157}, from the {object:403041}"] = "{item:206157}: из {object:403041}",
 		["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} скрывается в незаметности на главной горе {zone:1456}, к югу от пруда: идите туда, куда указывает стрелка, пока не появится его силуэт. Он выдаст вам {item:206159}. Задание доступно с 4-го уровня, но в руднике находятся рабочие Торговой компании (уровень 8-9), надсмотрщики (9-10) и {npc:3051} (12): идите на 9-10-м уровне.",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "Тролли из племени Дробителей Черепов",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["Artisan {skill:171}"] = "{skill:171}: Искусник",
 		["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "Вернитесь к учителю ({skill:171}): {spell:3171} (с 90).",

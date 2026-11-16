@@ -9525,6 +9525,9 @@ t.guides["forever/miscellaneous/stalk-with-the-earthmother"] = (function() retur
 		["{item:6291}: the Auction House, or the pool; the knife takes it"] = "{item:6291}: la casa de subastas, o el estanque; el cuchillo lo usa",
 		["{npc:205729} hides in stealth on the main mesa of {zone:1456}, south of its pool: walk to where the arrow points until his outline shows. He hands you the {item:206159}. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and {npc:3051} (12): go at 9 or 10."] = "{npc:205729} se esconde en sigilo en la meseta principal de {zone:1456}, al sur de su estanque: camina hasta donde apunta la flecha hasta que se vea su silueta. Te da el {item:206159}. La misión se abre en el nivel 4, pero en la mina hay trabajadores de la Compañía de Ventura (nivel 8-9), supervisores (9-10) y {npc:3051} (12): ve a nivel 9 o 10.",
 } end)()
+t.guides["forever/miscellaneous/the-drowned-city-alliance"] = (function() return {
+		["Skullsplitter trolls"] = "Trols Machacacráneos",
+} end)()
 t.guides["forever/professions/alchemy"] = (function() return {
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1411} is marked."] = "110 {item:2447} para {item:5997} y {spell:2331} (28 de ellos para 75-150: recógelos todos ahora): {skill:182}: {item:2447} (habilidad 1). Está marcada la zona más densa de {item:2447} en {zone:1411}.",
 		["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1). The densest patch of {item:2447} in {zone:1412} is marked."] = "110 {item:2447} para {item:5997} y {spell:2331} (28 de ellos para 75-150: recógelos todos ahora): {skill:182}: {item:2447} (habilidad 1). Está marcada la zona más densa de {item:2447} en {zone:1412}.",
