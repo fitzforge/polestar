@@ -302,10 +302,11 @@ function classPersonas(data, guide, personas) {
 	return added;
 }
 
-// The guide id of a .guide text (its `guide` line) and its `next` ids.
+// The guide id of a .guide text (its `guide` line) and its `next` ids: every `next` line (a guide both
+// factions play names each side's next guide on its own line), each without its `when` predicate.
 function headerLinks(text) {
 	const id = (text.match(/^guide\s+(\S+)/m) || [])[1];
-	const next = ((text.match(/^next\s+(.+)$/m) || [])[1] || '').split(/[\s,]+/).filter(Boolean);
+	const next = [...text.matchAll(/^next\s+(.+)$/gm)].flatMap((m) => m[1].split(/\s+when\s/)[0].split(/[\s,]+/)).filter(Boolean);
 	return { id, next };
 }
 
