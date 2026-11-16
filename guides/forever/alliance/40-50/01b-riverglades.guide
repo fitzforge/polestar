@@ -33,6 +33,12 @@ next forever/alliance/40-50/02-badlands
 # - The Sharpest of Blades (95184): eight Solid Sharpening Stones, a blacksmith's make; 3 of 16 recorded players
 #   handed it in.
 
+step Ironforge flight master
+  when zone "Dun Morogh"
+  zone Ironforge
+  tip The Stranglethorn guide leaves Dwarves and Gnomes at their riding trainer in Dun Morogh: ride back west into Ironforge, where the flight to Lakeshire leaves from the gryphon master.
+  goto 55.9,47.9 "Ironforge flight master"
+
 step Into the Riverglades
   when !zone "Riverglades"
   tip Fly from Ironforge to Lakeshire in Redridge, then follow the road north out of town and up through Blackrock Pass: it comes down into the western Riverglades by the Bristle Hills.
