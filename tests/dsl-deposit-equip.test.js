@@ -72,3 +72,19 @@ test('format 11: a guide with either goal or either predicate, read by Polestar 
 	assert.equal(formatFor(step({ skipto: [{ to: 'end', when: { k: 'indoors', neg: true } }] })), 11);
 	assert.equal(formatFor([{ steps: [{ goals: [{ t: 'accept', quest: 1 }] }], nextWhen: { 'a/b': [{ k: 'equipped', item: 1 }] } }]), 11);
 });
+
+test("the route planner's goal editor writes the `deposit` and `equip` goals and `off`", () => {
+	const { goalFields, formatGoal, verbSchema } = require('../tools/lib/planner/goalfmt');
+	const { parseGuide } = require('../tools/lib/dsl/parse');
+	const { Diagnostics } = require('../tools/lib/dsl/diag');
+	const written = (text) => formatGoal(goalFields(parseGuide(guideText(['step Bank', `  ${text}`]), 'x', new Diagnostics()).steps[0].goals[0]));
+	assert.equal(written('deposit 750 x15 @47.6,35.1'), 'deposit 750 @47.6,35.1 x15');
+	assert.equal(written('deposit 750 "Tough Wolf Meat" optional'), 'deposit 750 "Tough Wolf Meat" optional');
+	assert.equal(written('equip 750 optional off'), 'equip 750 off optional');
+	assert.equal(formatGoal({ verb: 'equip', item: '750', text: 'Put it on', optional: true }), 'equip 750 optional "Put it on"');
+	const { verbs } = verbSchema();
+	assert.deepEqual(verbs.deposit.positional.map((p) => p.key), ['item', 'itemName']);
+	assert.ok(verbs.deposit.modifiers.some((m) => m.key === 'count'));
+	assert.ok(verbs.equip.modifiers.some((m) => m.key === 'off' && m.type === 'bool' && m.mod === 'off'));
+	assert.ok(!verbs.deposit.modifiers.some((m) => m.key === 'off'));
+});

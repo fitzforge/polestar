@@ -30,7 +30,7 @@ const NUM_TEXT = /^-?\d+(?:\.\d+)?$/;
 const POSITIONAL_ID = {
 	npc: ['kill', 'talk', 'train', 'vendor'],
 	object: ['interact'],
-	item: ['collect', 'use', 'destroy', 'buy'],
+	item: ['collect', 'use', 'destroy', 'buy', 'deposit', 'equip'],
 };
 const QUEST_POSITIONAL = ['accept', 'turnin', 'complete', 'abandon'];
 const XY_POSITIONAL = ['goto', 'explore'];
@@ -185,6 +185,8 @@ function positionalTokens(verb, f) {
 		case 'use':
 		case 'destroy':
 		case 'buy':
+		case 'deposit':
+		case 'equip':
 			id('item');
 			name('itemName');
 			break;
@@ -271,7 +273,7 @@ function positionalTokens(verb, f) {
 // key]): a "text" label written there would read as that name.
 const NAME_SLOT = {
 	accept: ['quest', 'title'], turnin: ['quest', 'title'], complete: ['quest', 'title'], kill: ['npc', 'target'],
-	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], talk: ['npc', 'npcName'],
+	collect: ['item', 'itemName'], use: ['item', 'itemName'], buy: ['item', 'itemName'], deposit: ['item', 'itemName'], equip: ['item', 'itemName'], talk: ['npc', 'npcName'],
 	interact: ['object', 'objName'], train: ['npc', 'npcName'], vendor: ['npc', 'npcName'], learn: ['spell', 'spellName'],
 	craft: ['spell', 'spellName'], achieve: ['achievement', 'achievementName'],
 };
@@ -310,6 +312,7 @@ function formatGoal(fields) {
 	if (f.rewardXp !== undefined) push('xp', `xp ${f.rewardXp}`);
 	if (f.rewardMoney !== undefined) push('money', `money ${moneyText(f.rewardMoney)}`);
 	if (f.direct && verb === 'turnin') push('direct', 'direct');
+	if (f.off) push('off', 'off');
 	if (f.group) push('group', f.group.size !== undefined ? `group ${f.group.size}` : 'group');
 	const label = f.text !== undefined && !XY_POSITIONAL.includes(verb) && !TEXT_POSITIONAL.has(verb) ? quote(f.text) : null;
 	if (f.optional) push('optional', 'optional');
@@ -416,6 +419,8 @@ POSITIONAL.use = POSITIONAL.collect;
 POSITIONAL.destroy = POSITIONAL.collect;
 POSITIONAL.abandon = POSITIONAL.accept;
 POSITIONAL.buy = POSITIONAL.collect;
+POSITIONAL.deposit = POSITIONAL.collect;
+POSITIONAL.equip = POSITIONAL.collect;
 POSITIONAL.explore = POSITIONAL.goto;
 POSITIONAL.craft = POSITIONAL.learn;
 POSITIONAL.cast = POSITIONAL.learn;
@@ -441,13 +446,14 @@ const MODIFIER_FIELDS = {
 	xp: [fld('rewardXp', 'int', 'XP')],
 	money: [fld('rewardMoney', 'money', 'Money (copper)')],
 	direct: [fld('direct', 'bool', 'Handed in without an accept')],
+	off: [fld('off', 'bool', 'Taken off (the item no longer worn)')],
 	group: [fld('group', 'group', 'Group')],
 	text: [fld('text', 'text', 'Label')],
 	optional: [fld('optional', 'bool', 'Optional')],
 	only: [fld('onlyText', 'text', 'Only for')],
 };
 // Modifier order of the schema = the order formatGoal writes them.
-const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'group', 'text', 'optional', 'only'];
+const MOD_ORDER = ['at', 'map', 'r', 'frame', 'npc', 'object', 'item', 'quest', 'count', 'lvl', 'grind', 'until', 'criteria', 'nearest', 'anywhere', 'choose', 'reward', 'xp', 'money', 'direct', 'off', 'group', 'text', 'optional', 'only'];
 
 function verbSchema() {
 	const verbs = {};
