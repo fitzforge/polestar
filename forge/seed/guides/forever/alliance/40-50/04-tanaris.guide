@@ -78,6 +78,7 @@ step Steamwheedle Port
   accept 2875 object 142122           -- The Wanted poster beside him
   accept 2781 object 142122           -- The same poster: Caliph comes much later, after Gadgetzan
   accept 8366                         -- Security Chief Bilgewhizzle, inside
+  accept 97530                        -- Security Chief Bilgewhizzle: Dunemaul Dues, the bangles come from the ogres on your way south
   turnin 2872                         -- Stoley, in the port's tavern; inside
   accept 2873
 
@@ -184,6 +185,7 @@ step Rhapsody's Kalimdor Kocktail
 step Dunemaul Compound
   tip Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.
   tip Why the grind to 47: Tooga waits at the edge of the Thistleshrub Valley (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside.
+  collect 278186 quest 97530          -- Brilliantly Polished Bangle, from any Dunemaul ogre
   level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
 step Tooga's escort
@@ -193,6 +195,10 @@ step Tooga's escort
   turnin 1560                         -- Torta
   accept 97540                        -- Tooga, beside her: Oasis
   turnin 97540
+
+step Steamwheedle Port
+  tip From Torta, Steamwheedle Port is just west along the shore.
+  turnin 97530                        -- Security Chief Bilgewhizzle, inside
 
 # ---------------------------------------------------------------- The south
 

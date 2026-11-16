@@ -87,6 +87,7 @@ step The courier's boat
 
 step Gordunni ogres
   tip Ride east to the Gordunni camp in the hills south-east of the yeti valley: Warlocks and Shaman hold the camp, Brutes wander the slopes around it and further north.
+  tip Careful: the Gordunni Shaman are 44-45 and the Warlocks 43-44, casters a level or two over you here: pull them one at a time from the camp's edge, and take the Brutes (42-43) on the slopes first.
   kill 5236 quest 2982                -- Gordunni Shaman
   kill 5232 quest 2982                -- Gordunni Brute
   kill 5240 quest 2982                -- Gordunni Warlock

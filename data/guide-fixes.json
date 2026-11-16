@@ -11811,6 +11811,23 @@
 			]
 		},
 		{
+			"id": "feralas-gordunni-casters-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2982,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the Gordunni Shaman are 44-45 and the Warlocks 43-44, casters a level or two over you here: pull them one at a time from the camp's edge, and take the Brutes (42-43) on the slopes first.",
+			"note": "40-50/03 (fix round 2, 0.4.0): the Gordunni camp at about 43-46 for the player (players' recordings 25th percentile 43.2, 6 people); the round-1 decision kept the camp with a Careful tip, which was never written.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs 5236 Gordunni Shaman 44-45, 5240 Gordunni Warlock 43-44, 5232 Gordunni Brute 42-43"
+				}
+			]
+		},
+		{
 			"id": "zulkunda-second-loop-careful",
 			"faction": "Alliance",
 			"at": {

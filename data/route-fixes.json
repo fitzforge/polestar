@@ -10503,6 +10503,12 @@
 				"faction": "Alliance",
 				"reason": "Alliance 12-30 fix round 2 (0.4.0): Seeking Caitlin (1,250 XP, talk only, minimum level 24) is taken from Llana beside Astranaar's flight master on 06-wetlands' last Ashenvale stop (about 29.3) and handed to Caitlin Grassman beside Menethil's inn on the way from the boat to the flight master: no walk added. Players' recordings: 28 accepts, 26 hand-ins.",
 				"issue": "-"
+			},
+			{
+				"q": 97530,
+				"faction": "Alliance",
+				"reason": "Alliance 40-50 fix round 2 (0.4.0): Dunemaul Dues (4,200 XP, level 47) is taken from Security Chief Bilgewhizzle on 40-50/04's first Steamwheedle Port stop, its bangle drops from every Dunemaul ogre of the compound's south end, where the guide already grinds, and it goes back to him from Torta, about 60 yd away, after Tooga's escort. Players' recordings: 7 accepts, 6 hand-ins at 46.3-47.8.",
+				"issue": "-"
 			}
 		],
 		"skip": [
