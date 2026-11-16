@@ -37,7 +37,7 @@ return {
 	-- Step 6: Enchanted Coral
 	-- {area:1221} Ruins of Eldarath · {area:1237} Valormok · {area:1223} Temple of Zin-Malor · {npc:7864} Lingering Highborne
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren · Spitelash Screamers = {npc:6193} Spitelash Screamer
-	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the {area:1221} and the bay east of {area:1237}, often three together, and a few stand inside the {area:1223}; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "",
+	["The Spitelash Sirens (level 50-52) walk the ruins and beaches around the {area:1221} and the bay east of {area:1237}, often three together, and a few stand inside the {area:1223}; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. {npc:7864} ghosts wander the ruins: watch your back."] = "怒鱗海妖（50-52級）在{area:1221}周圍的廢墟和海灘，以及{area:1237}以東的海灣遊蕩，常常三隻一起，還有幾隻站在{area:1223}裡；每隻約四分之一機率掉落一塊珊瑚。怒鱗尖嘯者長相幾乎一樣，但從不掉落。殺掉那裡的其他納迦會讓海妖在它們的位置上重新整理。{npc:7864}幽靈在廢墟中游蕩：小心背後。",
 
 	-- Step 7: Archmage Xylem again
 	-- {npc:8379} Archmage Xylem
@@ -48,7 +48,7 @@ return {
 	-- Step 8: Morphaz
 	["Morphaz"] = "摩弗拉斯",
 	-- {area:1477} The Temple of Atal'Hakkar · {area:1417} Sunken Temple · {area:74} Pool of Tears · {npc:5710} Jammal'an the Prophet · {npc:5711} Ogom the Wretched · {spell:12533} Acid Breath · {spell:11019} Wing Flap
-	["{area:1477}, the {area:1417}, lies in the {area:74}: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, {spell:12533} and {spell:11019}) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "",
+	["{area:1477}, the {area:1417}, lies in the {area:74}: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to {npc:5710} and {npc:5711} in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, {spell:12533} and {spell:11019}) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear."] = "{area:1477}，即{area:1417}，位於{area:74}：登上臺階進入沉沒的建築，向下遊過它，沿通道一路下到傳送門。五人隊伍，50-54級。你到達時莫法茲不會等在那裡。先殺掉上層環廊平臺上的六個巨魔守衛（50-52級精英）；這會開啟通往獻祭之池中{npc:5710}和{npc:5711}的下行通道（入口左側的坡道）。賈瑪蘭一死，兩條綠龍——韋弗和夢鐮——就會出來並在池中巡邏：一次拉一隻。兩條都死後，莫法茲（52級精英，{spell:12533}和{spell:11019}）和哈扎斯會同時出現且無法分開，所以兩個都要打。碎片必定掉落。50級的獵人、牧師和盜賊也需要莫法茲：他們組一隊可以共用一次通關。",
 	-- {item:20085} Arcane Shard
 	["{item:20085}: Morphaz"] = "{item:20085}：摩弗拉斯",
 
@@ -56,7 +56,7 @@ return {
 	-- {item:20085} Arcane Shard
 	["The {item:20085}"] = "{item:20085}",
 	-- {zone:1447} Azshara · {npc:8395} Sanath Lim-yo · {item:20037} Arcane Crystal Pendant · {item:20036} Fire Ruby · {item:20035} Glacial Spike
-	["Back to {zone:1447}, {npc:8395} and the tower. Look at the reward window before you hand in: Classic offered the {item:20037}, the {item:20036} or the {item:20035}, and Forever's notes say the choice may be gone."] = "",
+	["Back to {zone:1447}, {npc:8395} and the tower. Look at the reward window before you hand in: Classic offered the {item:20037}, the {item:20036} or the {item:20035}, and Forever's notes say the choice may be gone."] = "回到{zone:1447}的{npc:8395}和塔。交任務前先看獎勵視窗：經典舊世提供{item:20037}、{item:20036}或{item:20035}，而Forever的說明稱那個選擇可能已經取消。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {zone:1447}, {npc:8395} and the tower."] = "回到{zone:1447}，找{npc:8395}並上塔。",

@@ -20,11 +20,11 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "憎怒薩特佔據著{area:603}的廢墟，位於{area:608}以東。\n注意：憎怒盜賊重新整理時處於潛行狀態，憎怒欺詐者的攻擊附帶毒性效果。",
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}：{area:599}的燃燒之刃，她的搜尋指向那裡",
 	-- {npc:5752} Corporal Melkins
 	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}：科卡爾半人馬在本指南的最後",
 	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
@@ -45,7 +45,7 @@ return {
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644}躲在{area:608}西南方火刃的要塞裡。",
-	["Inside"] = "",
+	["Inside"] = "在裡面",
 
 	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
@@ -53,15 +53,15 @@ return {
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
 	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "她的哥哥{npc:5643}（36級）和燃刃氏族教徒（30-33級）一起在要塞裡走動：單獨把他拉出來。{npc:13019}把權杖放在要塞的主建築裡。{npc:5642}要你在途中每種教徒各殺四個。",
 	-- {item:6767} Tyranis' Pendant
-	["{item:6767}; inside"] = "",
+	["{item:6767}; inside"] = "{item:6767}；室內",
 	-- {quest:5741} Sceptre of Light
-	["{quest:5741}; on the top floor"] = "",
+	["{quest:5741}; on the top floor"] = "{quest:5741}；頂樓",
 
 	-- Step 10: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "護送{npc:5644}",
 	-- {npc:5644} Dalinda Malem
-	["{npc:5644}, inside"] = "",
+	["{npc:5644}, inside"] = "{npc:5644}，室內",
 	["Out of Thunder Axe Fortress"] = "離開雷斧堡壘",
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "帶{npc:5644}走出要塞；離開要塞後她就會自行離去。指南結尾時在{area:608}向{npc:5642}繳交。",
@@ -73,11 +73,11 @@ return {
 	-- Step 12: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo
 	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
-	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "",
+	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702}: it becomes a tamed kodo that follows you. Walk it back to {npc:11596}'s camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "對年老的、垂死的或{npc:4702}使用{npc:11596}給的{item:13892}：它會變成一隻被馴服的科多獸跟著你。把它帶回{npc:11596}的營地；在那裡和科多獸對話：這算它一隻，並讓你可以馴服下一隻。五隻科多獸，一次一隻；年老的科多獸也會掉皮，墓地周圍遊蕩的毒蠍鞭笞者帶著毒液。",
 	-- {npc:4702} Ancient Kodo
-	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "",
+	["on an Aged, Dying or {npc:4702} in the graveyard; don't kill it"] = "對墓地裡的年老的、垂死的或{npc:4702}使用；別把它殺了",
 	-- {npc:11596} Smeed Scrabblescrew
-	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
+	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "被馴服的科多獸，在{npc:11596}的營地：和它對話，五次",
 
 	-- Step 14: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
@@ -91,11 +91,11 @@ return {
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:608} Nijel's Point
-	["{area:608} flight master"] = "",
+	["{area:608} flight master"] = "{area:608}飛行管理員",
 
 	-- Step 17: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "乘船前往{area:17203}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Escort the caravan"] = "護送車隊",

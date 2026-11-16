@@ -8,184 +8,184 @@
 return {
 	-- Guide
 	-- plural, as words: Library Books = {object:386691} Library Book
-	["Library Books"] = "",
-	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "",
+	["Library Books"] = "圖書館藏書",
+	["Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand."] = "世界各地散落著書籍和卷軸：每本交給圖書館都可獲得經驗，交夠10本、20本和25本後可分別獲得一條項鍊、一枚戒指和一件副手物品。",
 
 	-- Step 1: Elwynn Forest
 	-- {area:91} Tower of Azora · {area:87} Goldshire
-	["Halfway up the {area:91}, east of {area:87}. Nothing hostile inside."] = "",
+	["Halfway up the {area:91}, east of {area:87}. Nothing hostile inside."] = "{area:91}半山腰，{area:87}以東。裡面沒有敵人。",
 
 	-- Step 2: Westfall
 	-- {area:20} Moonbrook · {area:108} Sentinel Hill
-	["Two books: one in a house at {area:20}, one at {area:108} (Alliance only)."] = "",
-	["Rumi of Gnomeregan"] = "",
+	["Two books: one in a house at {area:20}, one at {area:108} (Alliance only)."] = "兩本書：一本在{area:20}的一間屋子裡，一本在{area:108}（僅聯盟）。",
+	["Rumi of Gnomeregan"] = "諾莫瑞根的魯米",
 
 	-- Step 3: Duskwood
 	-- {area:2098} Dawning Wood Catacombs · {zone:1431} Duskwood
-	["The spellbook lies in the {area:2098}, the crypt in north-western {zone:1431}. Undead fill it; a corpse run works if you are low."] = "",
+	["The spellbook lies in the {area:2098}, the crypt in north-western {zone:1431}. Undead fill it; a corpse run works if you are low."] = "法術書在{area:2098}，即{zone:1431}西北的陵墓。裡面全是亡靈；等級低就跑屍進去。",
 
 	-- Step 5: Loch Modan
 	-- {area:144} Thelsamar · {area:108} Sentinel Hill
-	["Scrolls in the Mo'grosh ogre cave in the north-east. The ogres in the cave are level 18-19 elites: grouping up is advised. (Rumi of Gnomeregan also lies in {area:144}, if you missed it at {area:108}.)"] = "",
+	["Scrolls in the Mo'grosh ogre cave in the north-east. The ogres in the cave are level 18-19 elites: grouping up is advised. (Rumi of Gnomeregan also lies in {area:144}, if you missed it at {area:108}.)"] = "卷軸在東北的莫格羅什食人魔洞穴裡。洞裡的食人魔是18-19級精英：建議組隊。（《諾莫瑞根的魯米》也放在{area:144}，如果你在{area:108}漏掉了它。）",
 
 	-- Step 6: Wetlands
 	-- {area:118} Whelgar's Excavation Site · {zone:1437} Wetlands
-	["At {area:118}, the dig in the middle of the {zone:1437}."] = "",
+	["At {area:118}, the dig in the middle of the {zone:1437}."] = "在{area:118}，{zone:1437}中部的挖掘場。",
 
 	-- Step 7: Silverpine Forest
 	-- {area:233} Ambermill
-	["At {area:233}, the mage village in south-eastern Silverpine."] = "",
+	["At {area:233}, the mage village in south-eastern Silverpine."] = "在{area:233}，銀松森林東南部的法師村。",
 
 	-- Step 8: Tirisfal Glades
 	-- {area:159} Brill
-	["On a shelf in {area:159}'s apothecary."] = "",
+	["On a shelf in {area:159}'s apothecary."] = "在{area:159}藥劑店的架子上。",
 
 	-- Step 9: Darkshore
 	-- {area:443} Ruins of Mathystra · {zone:1439} Darkshore
-	["Down the stairs at the {area:443} in northern {zone:1439}."] = "",
+	["Down the stairs at the {area:443} in northern {zone:1439}."] = "在{zone:1439}北部的{area:443}，沿樓梯下去。",
 
 	-- Step 10: Stonetalon Mountains
 	-- {area:2537} Grimtotem Post
-	["On a barrel in a tent at {area:2537}, in the far south-east of the zone."] = "",
+	["On a barrel in a tent at {area:2537}, in the far south-east of the zone."] = "區域東南角{area:2537}帳篷裡的桶上。",
 
 	-- Step 11: The Barrens
 	-- {area:382} Sludge Fen · {object:407566} Goblin Tome (no name in this language: may be words) · {area:392} Ratchet
-	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "",
+	["Two books: the manual in the control room at the top of the oil rig at the {area:382}, and the {object:407566} beside Gazlowe in {area:392}."] = "兩本書：手冊在{area:382}鑽井平臺頂部的控制室，{object:407566}在{area:392}加茲魯維旁邊。",
 
 	-- Step 12: The Wailing Caverns' cave
 	-- {area:718} Wailing Caverns
-	["The {area:718}' cave"] = "",
+	["The {area:718}' cave"] = "{area:718}的洞穴",
 	-- {area:387} Lushwater Oasis · {area:718} Wailing Caverns
-	["The scrolls lie underground, in the cave below {area:387} by the {area:718} entrance, not inside the dungeon. Go in at the cave mouth in the oasis and follow the cave down; the arrow points at the scrolls from the surface."] = "",
+	["The scrolls lie underground, in the cave below {area:387} by the {area:718} entrance, not inside the dungeon. Go in at the cave mouth in the oasis and follow the cave down; the arrow points at the scrolls from the surface."] = "卷軸在地下，位於{area:387}下方、{area:718}入口旁的洞穴裡，不在副本內。從綠洲的洞口進去，沿洞穴向下走；箭頭會從地面指向卷軸。",
 	-- {area:387} Lushwater Oasis
-	["Cave mouth at {area:387}"] = "",
+	["Cave mouth at {area:387}"] = "{area:387}的洞口",
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "",
+	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在牆邊的石板，就在前往法師訓練師的路上。使用它即可拿到書。",
 
 	-- Step 14: The library: first books
-	["The library: first books"] = "",
+	["The library: first books"] = "圖書館：第一批書",
 	-- {npc:211033} Garion Wendell · {object:2101} Mage Quarter
-	["Hand in the books so far. {npc:211033} keeps the library at the top of the Wizard's Sanctum in the {object:2101}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "",
+	["Hand in the books so far. {npc:211033} keeps the library at the top of the Wizard's Sanctum in the {object:2101}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "把目前找到的書交掉。{npc:211033}在{object:2101}巫師聖殿頂層管理圖書館。書在你揹包裡時，他會給出對應的任務：一次接一個、交一個，這樣任務日誌不會佔滿。沒找到的書就跳過。",
 
 	-- Step 15: The library: first books (Horde)
-	["The library: first books (Horde)"] = "",
+	["The library: first books (Horde)"] = "圖書館：第一批書（部落）",
 	-- {npc:211022} Owen Thadd · {object:36082} Magic Quarter
-	["Hand in the books so far. {npc:211022} keeps the library in the {object:36082}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "",
+	["Hand in the books so far. {npc:211022} keeps the library in the {object:36082}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "把目前找到的書交掉。{npc:211022}在{object:36082}裡管理圖書館。書在你揹包裡時，他會給出對應的任務：一次接一個、交一個，這樣任務日誌不會佔滿。沒找到的書就跳過。",
 
 	-- Step 16: Friend of the Library
 	-- {quest:78150} Friend of the Library · {item:277203} Scholarly Pendant · {item:277204} Erudite's Amulet
-	["With 10 different books handed in, the librarian offers {quest:78150}: a choice of two necklaces ({item:277203} or {item:277204}). Take it when it appears."] = "",
+	["With 10 different books handed in, the librarian offers {quest:78150}: a choice of two necklaces ({item:277203} or {item:277204}). Take it when it appears."] = "交滿10種不同的書後，圖書館員會提供{quest:78150}：兩條項鍊二選一（{item:277203}或{item:277204}）。出現時就接。",
 
 	-- Step 17: Alterac Mountains
 	-- {area:1357} Gallows' Corner
-	["Inside the first tower of the ogre fort at {area:1357}, in the middle of the zone."] = "",
+	["Inside the first tower of the ogre fort at {area:1357}, in the middle of the zone."] = "區域中部{area:1357}食人魔堡壘的第一座塔內。",
 
 	-- Step 18: Arathi Highlands
-	["Beside a tent entrance in the troll village in south-eastern Arathi."] = "",
+	["Beside a tent entrance in the troll village in south-eastern Arathi."] = "阿拉希東南部巨魔村莊的一座帳篷入口旁。",
 
 	-- Step 19: Stranglethorn Vale
 	-- {area:310} Crystalvein Mine
-	["On a bench beside the {area:310} entrance, in the middle of the zone."] = "",
+	["On a bench beside the {area:310} entrance, in the middle of the zone."] = "區域中部{area:310}入口旁的長椅上。",
 
 	-- Step 20: Badlands
-	["Inside a crypt near the middle of the zone, reached from the path to its south."] = "",
+	["Inside a crypt near the middle of the zone, reached from the path to its south."] = "區域中部的一座陵墓內，從南面的小路進去。",
 
 	-- Step 21: Swamp of Sorrows
 	-- {area:1477} Temple of Atal'Hakkar
-	["On the top walkway of the {area:1477}, outside the dungeon."] = "",
+	["On the top walkway of the {area:1477}, outside the dungeon."] = "副本外{area:1477}的頂層走廊。",
 
 	-- Step 23: Thousand Needles
 	-- {area:2097} Darkcloud Pinnacle
-	["Inside a hut on the {area:2097} mesa."] = "",
+	["Inside a hut on the {area:2097} mesa."] = "在{area:2097}臺地的一座小屋內。",
 
 	-- Step 24: Dustwallow Marsh
-	["On the ground at the eastern side of the murloc camp in north-eastern Dustwallow."] = "",
+	["On the ground at the eastern side of the murloc camp in north-eastern Dustwallow."] = "塵泥沼澤東北部魚人營地東側的地面上。",
 
 	-- Step 25: The library: second books
-	["The library: second books"] = "",
+	["The library: second books"] = "圖書館：第二批書",
 	-- {npc:211033} Garion Wendell · {object:2101} Mage Quarter
-	["Hand in this part's books. {npc:211033} keeps the library at the top of the Wizard's Sanctum in the {object:2101}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "",
+	["Hand in this part's books. {npc:211033} keeps the library at the top of the Wizard's Sanctum in the {object:2101}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "把這一部分的書交掉。{npc:211033}在{object:2101}巫師聖殿頂層管理圖書館。書在你揹包裡時，他會給出對應的任務：一次接一個、交一個，這樣任務日誌不會佔滿。沒找到的書就跳過。",
 
 	-- Step 26: The library: second books (Horde)
-	["The library: second books (Horde)"] = "",
+	["The library: second books (Horde)"] = "圖書館：第二批書（部落）",
 	-- {npc:211022} Owen Thadd · {object:36082} Magic Quarter
-	["Hand in this part's books. {npc:211022} keeps the library in the {object:36082}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "",
+	["Hand in this part's books. {npc:211022} keeps the library in the {object:36082}. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find."] = "把這一部分的書交掉。{npc:211022}在{object:36082}裡管理圖書館。書在你揹包裡時，他會給出對應的任務：一次接一個、交一個，這樣任務日誌不會佔滿。沒找到的書就跳過。",
 
 	-- Step 27: Greater Friend of the Library
 	-- {npc:211033} Garion Wendell · {quest:79536} Greater Friend of the Library · {item:281634} Field Researcher's Loop · {item:281635} Philanthropist's Ring
-	["From level 20, with 20 different books handed in, {npc:211033} offers {quest:79536}: {item:281634} or {item:281635}."] = "",
+	["From level 20, with 20 different books handed in, {npc:211033} offers {quest:79536}: {item:281634} or {item:281635}."] = "從20級起，交滿20種不同的書後，{npc:211033}會提供{quest:79536}：{item:281634}或{item:281635}。",
 
 	-- Step 28: The Hinterlands
 	-- {area:353} Shadra'Alor · {zone:1425} The Hinterlands
-	["In the troll ruins of {area:353}, in the south of the {zone:1425}."] = "",
+	["In the troll ruins of {area:353}, in the south of the {zone:1425}."] = "在{zone:1425}南部的{area:353}巨魔廢墟內。",
 
 	-- Step 29: Searing Gorge
-	["On a table inside a tent near the middle of the zone."] = "",
+	["On a table inside a tent near the middle of the zone."] = "區域中部附近一座帳篷內的桌子上。",
 
 	-- Step 30: Blackrock Mountain
 	-- {area:254} Blackrock Mountain · {npc:8888} Franclorn Forgewright · {npc:14387} Lothos Riftwaker
-	["Inside {area:254}, not in a dungeon: the book lies on the altar in {npc:8888}'s tomb, near {npc:14387}. The waypoint marks the mountain."] = "",
+	["Inside {area:254}, not in a dungeon: the book lies on the altar in {npc:8888}'s tomb, near {npc:14387}. The waypoint marks the mountain."] = "在{area:254}內，不在副本里：書放在{npc:8888}陵墓的祭壇上，{npc:14387}附近。路徑點標的是那座山。",
 
 	-- Step 32: Azshara
 	-- {area:1236} Haldarr Encampment · {zone:1447} Azshara
-	["On a crate in the {area:1236}, in the far west of {zone:1447}."] = "",
+	["On a crate in the {area:1236}, in the far west of {zone:1447}."] = "{zone:1447}最西邊{area:1236}裡的木箱上。",
 
 	-- Step 33: Tanaris
-	["On a bookshelf in the middle building of the pirate camp on the eastern coast."] = "",
+	["On a bookshelf in the middle building of the pirate camp on the eastern coast."] = "東海岸海盜營地中間建築的書架上。",
 
 	-- Step 34: The library: third books
-	["The library: third books"] = "",
+	["The library: third books"] = "圖書館：第三批書",
 
 	-- Step 35: The library: third books (Horde)
-	["The library: third books (Horde)"] = "",
+	["The library: third books (Horde)"] = "圖書館：第三批書（部落）",
 
 	-- Step 36: The second Greater Friend of the Library
 	-- {quest:79536} Greater Friend of the Library
-	["The second {quest:79536}"] = "",
+	["The second {quest:79536}"] = "第二次{quest:79536}",
 	-- {npc:211033} Garion Wendell · {quest:79536} Greater Friend of the Library · {item:277254} Truthseeker's Bow · {item:277258} Crest of Elucidation · {item:277260} Researcher's Night Light
-	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "",
+	["From level 35, with 25 different books handed in, {npc:211033} offers the second {quest:79536}: {item:277254}, {item:277258} or {item:277260} (level 40 to equip)."] = "達到35級並交還25本不同的書後，{npc:211033}會提供第二次{quest:79536}：{item:277254}、{item:277258}或{item:277260}（40級可裝備）。",
 
 	-- Step 37: Level 60 books: Western Plaguelands
 	-- {zone:1422} Western Plaguelands
-	["Level 60 books: {zone:1422}"] = "",
+	["Level 60 books: {zone:1422}"] = "60級書籍：{zone:1422}",
 	-- {item:228141} Necromancy 101 · {area:2298} Caer Darrow · {area:2057} Scholomance · {item:228132} Undead Potatoes · {area:199} Felstone Field
-	["Eight more books lie in level 55-60 zones; the mage trainers beside the librarians take them, not the librarians. {item:228141} lies on a table in the ruined keep on {area:2298}, above {area:2057} (outside the dungeon); {item:228132} at {area:199}."] = "",
+	["Eight more books lie in level 55-60 zones; the mage trainers beside the librarians take them, not the librarians. {item:228141} lies on a table in the ruined keep on {area:2298}, above {area:2057} (outside the dungeon); {item:228132} at {area:199}."] = "還有八本書在55-60級區域；收書的是圖書館員旁的法師訓練師，不是圖書館員。{item:228141}在{area:2298}廢棄城堡的一張桌子上，{area:2057}上方（副本外）；{item:228132}在{area:199}。",
 
 	-- Step 38: Level 60 books: Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Level 60 books: {zone:1423}"] = "",
+	["Level 60 books: {zone:1423}"] = "60級書籍：{zone:1423}",
 	-- {item:228135} A Study of the Light · {area:2268} Light's Hope Chapel · {item:228138} The Knight and the Lady · {area:2264} Corin's Crossing · {area:2279} Stratholme · {item:228140} Scourge: Undead Menace or Misunderstood? · {area:2277} Plaguewood
-	["{item:228135} is inside {area:2268}. {item:228138} lies at {area:2264}; other copies lie elsewhere in the zone (one by the {area:2279} gates), and you can take only one. {item:228140} is on a table in {area:2277}: wait for the patrolling elite to clear the creatures beside it and walk on."] = "",
+	["{item:228135} is inside {area:2268}. {item:228138} lies at {area:2264}; other copies lie elsewhere in the zone (one by the {area:2279} gates), and you can take only one. {item:228140} is on a table in {area:2277}: wait for the patrolling elite to clear the creatures beside it and walk on."] = "{item:228135}在{area:2268}內。{item:228138}在{area:2264}；其他副本在區域別處（一處在{area:2279}大門旁），而你只能拿一本。{item:228140}在{area:2277}的一張桌子上：等巡邏精英把旁邊的生物清掉，然後走過去。",
 
 	-- Step 39: Level 60 books: Timbermaw Hold
 	-- {area:1769} Timbermaw Hold
-	["Level 60 books: {area:1769}"] = "",
+	["Level 60 books: {area:1769}"] = "60級書籍：{area:1769}",
 	-- {item:228134} Northern Kalimdor - A Comprehensive Guide · {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1452} Winterspring
-	["{item:228134} lies inside the {area:1769} tunnel between {zone:1448} and {zone:1452}."] = "",
+	["{item:228134} lies inside the {area:1769} tunnel between {zone:1448} and {zone:1452}."] = "{item:228134}在{zone:1448}與{zone:1452}之間{area:1769}通道內。",
 
 	-- Step 40: Level 60 books: Everlook
 	-- {area:2255} Everlook
-	["Level 60 books: {area:2255}"] = "",
+	["Level 60 books: {area:2255}"] = "60級書籍：{area:2255}",
 	-- {item:228136} Ka-Boom! · {area:2255} Everlook
-	["{item:228136} sits on a shelf behind the alchemy supplier in {area:2255}."] = "",
+	["{item:228136} sits on a shelf behind the alchemy supplier in {area:2255}."] = "{item:228136}放在{area:2255}鍊金供應商身後的架子上。",
 
 	-- Step 41: Level 60 books: Blackrock Mountain
 	-- {area:254} Blackrock Mountain
-	["Level 60 books: {area:254}"] = "",
+	["Level 60 books: {area:254}"] = "60級書籍：{area:254}",
 	-- {item:228133} Magma or Lava? · {area:254} Blackrock Mountain · {area:1584} Blackrock Depths · {area:2717} Molten Core
-	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "",
+	["{item:228133} lies inside {area:254}, in the mine passage towards {area:1584} beyond the {area:2717} quest giver. The waypoint marks the mountain."] = "{item:228133}在{area:254}內，位於{area:2717}任務釋出者之後通往{area:1584}的礦道里。路徑點標的是那座山。",
 
 	-- Step 42: The level 60 books: Jennea Cannon
 	-- {npc:5497} Jennea Cannon
-	["The level 60 books: {npc:5497}"] = "",
+	["The level 60 books: {npc:5497}"] = "60級書籍：{npc:5497}",
 	-- {npc:5497} Jennea Cannon · {npc:211033} Garion Wendell · {item:228132} Undead Potatoes · {item:228138} The Knight and the Lady · {item:228140} Scourge: Undead Menace or Misunderstood?
-	["{npc:5497}, the mage trainer beside {npc:211033} in the Wizard's Sanctum, takes the level 60 books: she offers each book's quest while the book is in your bags. Hand in {item:228132}, {item:228138} and {item:228140} the same way (their quests are not in Polestar's data yet)."] = "",
+	["{npc:5497}, the mage trainer beside {npc:211033} in the Wizard's Sanctum, takes the level 60 books: she offers each book's quest while the book is in your bags. Hand in {item:228132}, {item:228138} and {item:228140} the same way (their quests are not in Polestar's data yet)."] = "{npc:5497}是巫師聖殿裡{npc:211033}旁的法師訓練師，收60級的書：書在揹包裡時她會給出對應的任務。{item:228132}、{item:228138}和{item:228140}也照同樣方式交（它們的任務還不在Polestar的資料裡）。",
 
 	-- Step 43: The level 60 books: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe
-	["The level 60 books: {npc:7825}"] = "",
+	["The level 60 books: {npc:7825}"] = "60級書籍：{npc:7825}",
 	-- {npc:7825} Oran Snakewrithe · {npc:211022} Owen Thadd · {object:36082} Magic Quarter
-	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "",
+	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}在{object:36082}裡{npc:211022}旁邊，收60級的書：書在揹包裡時會給出對應任務。一次接一個、交一個（Polestar還無法為部落追蹤這些任務）。",
 }

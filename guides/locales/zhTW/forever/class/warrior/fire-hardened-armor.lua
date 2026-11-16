@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Fire Hardened Armor"] = "火焰淬煉護甲",
-	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "",
+	["Starts now at 20 with a shield; a hauberk at 28, then a coif, leggings and gauntlets from three smiths."] = "現在20級就能接到，先給一面盾；28級給胸甲，然後從三個鐵匠那裡拿頭巾、護腿和手套。",
 
 	-- Step 1: Yorus Barleybrew (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {quest:1698} Yorus Barleybrew
@@ -28,7 +28,7 @@ return {
 
 	-- Step 5: The Rethban Gauntlet
 	-- {npc:6166} Yorus Barleybrew · {spell:8553} Barleybrew Scalder · {area:98} Rethban Caverns · {area:69} Lakeshire
-	["You have one hour, and {npc:6166}'s {spell:8553} leaves you drunk for 8-10 minutes. Run north-west into the {area:98}, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into {area:69}). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "",
+	["You have one hour, and {npc:6166}'s {spell:8553} leaves you drunk for 8-10 minutes. Run north-west into the {area:98}, keeping close to the cliff wall to miss most gnoll packs, and go in as far as the first fork; then come back to {npc:6166} (from the ridge you can jump down into {area:69}). Dying and releasing your spirit fails the quest: abandon it and {npc:6166} gives it again."] = "你有一個小時，而{npc:6166}的{spell:8553}會讓你醉酒8-10分鐘。向西北跑進{area:98}，貼著崖壁走以避開大多數豺狼人群，一直進入到第一個岔路；然後回到{npc:6166}（從山脊上可以直接跳進{area:69}）。死亡並釋放靈魂會導致任務失敗：放棄任務，{npc:6166}會再給你一次。",
 	-- {area:98} Rethban Caverns
 	["The {area:98}"] = "{area:98}",
 	-- {area:98} Rethban Caverns
@@ -74,7 +74,7 @@ return {
 
 	-- Step 12: Grimand Elmore
 	-- {npc:1416} Grimand Elmore · {object:28027} Dwarven District · {npc:5413} Furen Longbeard · {quest:1705} Burning Blood · {item:6845} Burning Rock
-	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "",
+	["{npc:1416} keeps the weapon shop in the north-west of the {object:28027}, a short walk from {npc:5413}. He wants 20 {quest:1705} and the {item:6845}."] = "{npc:1416}在{object:28027}西北角經營武器店，離{npc:5413}只幾步路。他要20個{quest:1705}和{item:6845}。",
 
 	-- Step 13: Burning Blood
 	-- {zone:1431} Duskwood · {area:42} Darkshire · {quest:1705} Burning Blood · {spell:3427} Infected Wound
@@ -90,7 +90,7 @@ return {
 
 	-- Step 16: Mathiel
 	-- {quest:1703} Mathiel · {area:1660} Warrior's Terrace · {zone:1457} Darnassus · {quest:1710} Sunscorched Shells
-	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "",
+	["{quest:1703} works on the south side of the {area:1660} in {zone:1457}. He wants 20 {quest:1710}."] = "{quest:1703}在{zone:1457}的{area:1660}南側幹活。他要20個{quest:1710}。",
 
 	-- Step 17: Sunscorched Shells
 	-- {area:482} Highperch · {zone:1441} Thousand Needles
@@ -99,13 +99,13 @@ return {
 
 	-- Step 19: Klockmort Spannerspan
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind · {zone:1455} Ironforge · {quest:1704} Klockmort Spannerspan · {object:171524} Tinker Town · {item:6848} Searing Coral
-	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "",
+	["Ride the {area:2257} from {zone:1453} to {zone:1455}. {quest:1704}, a gnome smith, works in {object:171524} near the engineering trainers. He wants 20 {item:6848}."] = "從{zone:1453}乘{area:2257}到{zone:1455}。侏儒鐵匠{quest:1704}在{object:171524}工程訓練師附近幹活。他要20個{item:6848}。",
 
 	-- Step 20: Iron Coral
 	-- {quest:1708} Iron Coral · {area:150} Menethil Harbor · {item:5996} Draught of Water Breathing
-	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "",
+	["The {quest:1708} grows on the sea floor just south of {area:150}, by the murloc huts and a wrecked boat: eight there and two south-east of the harbor, each back in 3 minutes, so you will wait for respawns to reach 20. The murlocs can net you underwater: watch your breath, and a {item:5996} removes the risk."] = "{quest:1708}生長在{area:150}正南的海底，魚人小屋和一條沉船旁：那裡有八株，港口東南兩株，每株3分鐘重新整理，所以湊到20株要等重新整理。魚人會在水下撒網：留意呼吸，{item:5996}能消除這個風險。",
 	-- {item:6848} Searing Coral · {quest:1708} Iron Coral
-	["{item:6848}, from {quest:1708}"] = "",
+	["{item:6848}, from {quest:1708}"] = "{item:6848}，來自{quest:1708}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A hauberk at 28, a coif, leggings or gauntlets by race, and a shield on the way."] = "28級的鎖甲衫、依種族而定的頭巾、護腿或護手，以及途中的一面盾牌。",

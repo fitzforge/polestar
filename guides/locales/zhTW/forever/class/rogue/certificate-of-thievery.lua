@@ -20,7 +20,7 @@ return {
 
 	-- Step 3: Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard · {object:32383} Forlorn Cavern · {area:2257} Deeprun Tram · {zone:1453} Stormwind
-	["{npc:5165} is in the house with a shady dealer outside, in the {object:32383}, down the stairs. Then fly or take the {area:2257} to {zone:1453}."] = "",
+	["{npc:5165} is in the house with a shady dealer outside, in the {object:32383}, down the stairs. Then fly or take the {area:2257} to {zone:1453}."] = "{npc:5165}在門口有可疑商人的那間房子裡，位於{object:32383}，沿樓梯下去。然後飛往或乘{area:2257}到{zone:1453}。",
 
 	-- Step 4: Erion Shadewhisper (Dolanaar)
 	-- {npc:3599} Jannok Breezesong · {area:186} Dolanaar · {quest:2259} Erion Shadewhisper · {zone:1457} Darnassus
@@ -28,19 +28,19 @@ return {
 
 	-- Step 5: Erion Shadewhisper
 	-- {npc:4214} Erion Shadewhisper · {area:1658} Cenarion Enclave · {area:702} Rut'theran Village · {area:442} Auberdine · {area:17203} Stormwind Harbor
-	["{npc:4214} stands in the {area:1658}. Then the boat from {area:702} to {area:442}, and the boat from {area:442} to {area:17203}."] = "",
+	["{npc:4214} stands in the {area:1658}. Then the boat from {area:702} to {area:442}, and the boat from {area:442} to {area:17203}."] = "{npc:4214}站在{area:1658}。然後從{area:702}乘船到{area:442}，再從{area:442}乘船到{area:17203}。",
 
 	-- Step 6: Renzik "The Shiv"
 	-- {npc:6946} Renzik "The Shiv" · {quest:2300} SI:7 · {object:2100} Old Town · {spell:1804} Pick Lock · {npc:13283} Lord Tony Romano
-	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "",
+	["{npc:6946} stands upstairs in the {quest:2300} building in {object:2100}, behind the rogue trainers. Before you leave: if you lack {spell:1804}, {npc:13283} in the {quest:2300} building teaches it; Lockpicking is the test of the next quest."] = "{npc:6946}站在{object:2100}的{quest:2300}建築樓上，在盜賊訓練師身後。離開前：如果你沒有{spell:1804}，{quest:2300}建築裡的{npc:13283}會教你；開鎖是下一個任務的考核內容。",
 
 	-- Step 7: Lucius
 	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {npc:6966} Lucius · {item:5060} Thieves' Tools · {npc:3090} Gerald Crawley · {spell:1804} Pick Lock
-	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "",
+	["Head east through {zone:1429} into Redridge, or fly to {area:69}. {npc:6966} stands on a crate on one of the {area:69} docks, south of town; he gives you {item:5060} with the job ({npc:3090} in {area:69} sells more). {spell:1804} does not work without the tools in your bags."] = "向東穿過{zone:1429}進入赤脊山，或飛往{area:69}。{npc:6966}站在{area:69}某處碼頭的一個木箱上，在小鎮南邊；他會給你{item:5060}和任務（{area:69}的{npc:3090}還有更多賣）。揹包裡沒有工具時{spell:1804}無法使用。",
 
 	-- Step 8: Alther's Mill
 	-- {quest:2282} Alther's Mill · {area:69} Lakeshire · {object:121264} Lucius's Lockbox
-	["{quest:2282} stands east of {area:69}, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until {object:121264} opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75."] = "",
+	["{quest:2282} stands east of {area:69}, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until {object:121264} opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75."] = "{quest:2282}位於{area:69}以東、路邊的高處；黑石獸人在附近遊蕩。裡面的練習鎖箱幾乎立刻重新整理：反覆開鎖，直到{object:121264}為你開啟（約25點開鎖技能）。你的開鎖上限每級提升5點，所以等級低時可能卡住。有些箱子帶陷阱（比如冰凍陷阱）；技能照樣會漲。在Forever伺服器，20級的蜘蛛會在箱子附近遊蕩：先清掉它們，或者帶上朋友。鎖箱裡始終放著信物，使用後兩秒就回來。在還能漲技能時繼續練：下一個職業任務需要約75點。",
 
 	-- Step 9: Back to Lucius
 	-- {npc:6966} Lucius

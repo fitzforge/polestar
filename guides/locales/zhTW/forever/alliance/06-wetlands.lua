@@ -8,43 +8,43 @@
 return {
 	-- Step 1: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "施放{spell:18960}",
 
 	-- Step 2: Trial of the Sea Lion
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。兩半墜飾都在包裡時，站到湖西北岸的{area:2362}旁，用一半把它們合起來，然後去找{area:2361}的{npc:11802}。{npc:11802}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}：在{area:2362}合成兩半",
 
 	-- Step 3: Aquatic Form
 	-- {quest:5061} Aquatic Form · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village
-	["Take {quest:5061} from {npc:11802}, upstairs in his building. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}."] = "",
+	["Take {quest:5061} from {npc:11802}, upstairs in his building. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}."] = "從他那棟樓樓上的{npc:11802}處接{quest:5061}。然後{area:2361}的{npc:11800}會把德魯伊直接飛到{area:702}。",
 
 	-- Step 5: Mathrengyl Bearwalker
 	-- {area:1658} Cenarion Enclave · {area:442} Auberdine · {area:150} Menethil Harbor
-	["Take the portal up to the {area:1658}, then fly back to {area:442} for the boat to {area:150}."] = "",
+	["Take the portal up to the {area:1658}, then fly back to {area:442} for the boat to {area:150}."] = "乘傳送門上去到{area:1658}，然後飛回{area:442}乘船前往{area:150}。",
 
 	-- Step 7: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "飛往{area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442}飛行管理員",
 
 	-- Step 8: Into Darnassus
 	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "",
+	["Into {zone:1457}"] = "進入{zone:1457}",
 
 	-- Step 11: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "搭船前往{area:150}",
 	-- {area:442} Auberdine · {area:150} Menethil Harbor
-	["Take the boat from {area:442}'s dock to {area:150}."] = "",
+	["Take the boat from {area:442}'s dock to {area:150}."] = "從{area:442}的碼頭乘船前往{area:150}。",
 
 	-- Step 12: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
 	-- {zone:1453} Stormwind City
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
 	-- Step 13: Menethil Harbor
 	-- {npc:1239} First Mate Fitzsimmons
@@ -52,17 +52,17 @@ return {
 	-- {item:2594} Flagon of Dwarven Honeymead · {npc:1464} Innkeeper Helbrek
 	["{item:2594}, from {npc:1464}"] = "{item:2594}，向{npc:1464}購買",
 	-- {npc:2104} Captain Stoutfist
-	["{npc:2104}, by the keep; on the top floor"] = "",
+	["{npc:2104}, by the keep; on the top floor"] = "{npc:2104}，要塞旁；在頂層",
 	-- {npc:2104} Captain Stoutfist · {quest:98221} From the Ashes · {area:1036} Angerfang Encampment
-	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "",
+	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "{npc:2104}：{quest:98221}，{area:1036}裡的進攻計劃",
 	-- {npc:1242} Karl Boran
 	["{npc:1242}, on the pier north of the inn"] = "{npc:1242}，在旅店北邊的碼頭上",
 	-- {npc:2094} James Halloran
-	["{npc:2094}, by the docks"] = "",
+	["{npc:2094}, by the docks"] = "{npc:2094}，碼頭旁",
 	-- {npc:270844} Sylessa Duskwhisper · {npc:2094} James Halloran
 	["{npc:270844}, beside {npc:2094} by the docks"] = "{npc:270844}，在碼頭邊的{npc:2094}旁邊",
 	-- {npc:2097} Harlo Barnaby · {npc:1071} Longbraid the Grim · {area:205} Dun Modr
-	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "",
+	["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}，北門旁：{npc:1071}會在30-40/01-希爾斯布萊德丘陵的{area:205}站收下它",
 
 	-- Step 14: James Halloran
 	-- {area:17732} Excavation Site: Wetlands · {npc:2094} James Halloran
@@ -75,20 +75,20 @@ return {
 	-- Step 16: The Bluegill hovels
 	["The Bluegill hovels"] = "藍腮魚人小屋",
 	-- {area:1022} Bluegill Marsh · {object:261} Damaged Crate · {object:142151} Sealed Barrel · {object:259} Half-buried Barrel
-	["Follow the coast north out of Menethil into {area:1022}. Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "",
+	["Follow the coast north out of Menethil into {area:1022}. Three containers in the murloc hovels, south to north: the {object:261}, then the {object:142151}, then the {object:259} at the north end."] = "沿海岸向北出米奈希爾進入{area:1022}。魚人小屋裡的三個容器，從南到北：{object:261}，然後是{object:142151}，最後是北端的{object:259}。",
 
 	-- Step 17: The Lost Fleet: kill these as you meet them
 	-- {area:1039} The Lost Fleet
-	["{area:1039}: kill these as you meet them"] = "",
+	["{area:1039}: kill these as you meet them"] = "{area:1039}：遇到就殺",
 	-- {npc:1159} First Mate Snellig
 	-- plural, as words: Cursed Sailors = {npc:1157} Cursed Sailor · Cursed Marines = {npc:1158} Cursed Marine · Giant Wetlands Crocolisks = {npc:2089} Giant Wetlands Crocolisk · Fen Creepers = {npc:1040} Fen Creeper
-	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "",
+	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "沿海岸向北前往沉船。被詛咒的水手在沙灘上走動，被詛咒的水兵在甲板上；{npc:1159}站在船頭的沙灘上。巨型溼地鱷魚潛伏在它北邊的海岸。\n小心：沼澤爬行者潛行藏在靠近鬼船的河流分叉處，會加入戰鬥。",
 	-- {npc:1158} Cursed Marine · {npc:270589} Nightveiled Rotheap
 	["{npc:1158}; careful: {npc:270589}, a level 31 elite, roams this coast"] = "{npc:1158}；小心：{npc:270589}，31級精英，在這片海岸遊蕩",
 
 	-- Step 18: Menethil Harbor
 	-- {npc:2094} James Halloran · {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist · {npc:1239} First Mate Fitzsimmons
-	["In from the north: {npc:2094} by the docks, {npc:1242} on the pier, {npc:2104} in the keep, then {npc:1239} in the inn."] = "",
+	["In from the north: {npc:2094} by the docks, {npc:1242} on the pier, {npc:2104} in the keep, then {npc:1239} in the inn."] = "從北邊進來：{npc:2094}在碼頭旁，{npc:1242}在棧橋上，{npc:2104}在要塞，然後{npc:1239}在旅店。",
 	-- {npc:270844} Sylessa Duskwhisper
 	["{npc:270844}, beside him"] = "{npc:270844}，在他旁邊",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
@@ -96,22 +96,22 @@ return {
 	-- {npc:1242} Karl Boran · {npc:2104} Captain Stoutfist
 	["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}：給城堡裡的{npc:2104}",
 	-- {npc:2104} Captain Stoutfist
-	["{npc:2104}, on the top floor"] = "",
+	["{npc:2104}, on the top floor"] = "{npc:2104}，在頂層",
 	-- {object:2117} Stormwind Keep
 	["For Bolvar Fordragon in {object:2117}: keep it"] = "給{object:2117}的伯瓦爾·弗塔根公爵：先留著",
 
 	-- Step 19: Raptor valley
 	["Raptor valley"] = "迅猛龍山谷",
 	-- {quest:295} Ormer's Revenge
-	["Follow the road east: the bigger raptors for {quest:295} hunt in the valley just west of the excavation site."] = "",
+	["Follow the road east: the bigger raptors for {quest:295} hunt in the valley just west of the excavation site."] = "沿路向東：{quest:295}要用的更大迅猛龍在挖掘場西邊的山谷裡捕獵。",
 
 	-- Step 20: Whelgar's Excavation Site
 	-- {npc:1078} Ormer Ironbraid · {npc:1077} Prospector Whelgar
-	["The excavation site sits on the hill south of the road: {npc:1078} at the top, {npc:1077} below ground."] = "",
+	["The excavation site sits on the hill south of the road: {npc:1078} at the top, {npc:1077} below ground."] = "挖掘場位於路南的山丘上：{npc:1078}在頂上，{npc:1077}在地下。",
 
 	-- Step 21: Whelgar's Excavation Site: kill these as you meet them
 	-- {area:118} Whelgar's Excavation Site
-	["{area:118}: kill these as you meet them"] = "",
+	["{area:118}: kill these as you meet them"] = "{area:118}：遇到就殺",
 	-- {npc:1353} Sarltooth · {object:331} Loose Soil
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
 	["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: work around them; don't pull them."] = "文物就在挖掘場裡。{npc:1353}是一隻大型刺喉龍，在挖掘場西邊的迅猛龍山谷徘徊。\n戈阿茲守衛者（精英，32級）站在文物和{object:331}之間：繞開牠們，不要拉到。",
@@ -123,57 +123,57 @@ return {
 	["{npc:1078} and Whelgar"] = "{npc:1078}與維爾加",
 	-- {npc:1077} Prospector Whelgar · {item:279993} Titanic Keystone
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "",
+	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}，地下：{item:279993}，出自精英戈阿茲守衛",
 
 	-- Step 23: Goaz Warders
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["Goaz Warders"] = "",
+	["Goaz Warders"] = "戈阿茲守衛",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "",
+	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "戈阿茲守衛就守在威爾加營地以西：站到其中一隻旁邊使用他給你的{item:279996}。\n{npc:270892}是精英：建議組隊。",
 
 	-- Step 24: Prospector Whelgar
 	["Below ground"] = "地下",
 
 	-- Step 25: Prospector Whelgar
 	-- {item:279996} Goaz Stone · {zone:1437} Wetlands · {area:205} Dun Modr
-	["A new {item:279996}, for the four titan watchers around the {zone:1437}; below ground. Their hearts drop from level 32 elites on the {area:205} visit"] = "",
+	["A new {item:279996}, for the four titan watchers around the {zone:1437}; below ground. Their hearts drop from level 32 elites on the {area:205} visit"] = "新增的{item:279996}，用於{zone:1437}周圍的四個泰坦守望者；地下。它們的心臟由{area:205}之行的32級精英掉落",
 
 	-- Step 26: Angerfang Encampment
 	-- {zone:1455} Ironforge · {npc:2091} Chieftain Nek'rosh · {quest:98221} From the Ashes
-	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "",
+	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "從發掘場向北進入龍喉營地：點選四組進攻計劃。{zone:1455}的計劃在營地西端，另外三組更靠東。精英{npc:2091}單獨站在東南邊：{quest:98221}不需要他。",
 	-- {item:3337} Dragonmaw War Banner
-	["{item:3337}: the camp's Raiders and Swamprunners"] = "",
+	["{item:3337}: the camp's Raiders and Swamprunners"] = "{item:3337}：營地裡的劫掠者和沼澤奔行者",
 
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:277} Fire Taboo · {zone:1437} Wetlands
-	["Follow the road east to the {area:1025}; {npc:1244} stands by the river. {quest:277}'s flint came with you from your last {zone:1437} visit."] = "",
+	["Follow the road east to the {area:1025}; {npc:1244} stands by the river. {quest:277}'s flint came with you from your last {zone:1437} visit."] = "沿路向東到{area:1025}；{npc:1244}站在河邊。{quest:277}的燧石是你上次{zone:1437}之行帶過來的。",
 
 	-- Step 28: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
-	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "",
+	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "{npc:270637}在沼奔者群中紮營，就在{npc:1244}以西。",
 	-- {area:1038} Dragonmaw Gates · {zone:1437} Wetlands
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor
-	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "鐮顎龍門齒：出自{area:1038}旁的迅猛龍，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
 	-- {quest:98246} Trying Times
-	["{quest:98246}: the Razormaw eggs, on the same loop"] = "",
+	["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：裂齒龍蛋，同一趟環線",
 
 	-- Step 29: Einar Stonegrip
 	-- {npc:270637} Howin Kindfeather · {npc:2093} Einar Stonegrip
-	["East from {npc:270637}: {npc:2093} stands beside the road."] = "",
+	["East from {npc:270637}: {npc:2093} stands beside the road."] = "從{npc:270637}向東：{npc:2093}站在路邊。",
 	-- {npc:2093} Einar Stonegrip · {npc:2094} James Halloran
-	["{npc:2093}: for {npc:2094} in Menethil"] = "",
+	["{npc:2093}: for {npc:2094} in Menethil"] = "{npc:2093}：交給米奈希爾的{npc:2094}",
 
 	-- Step 30: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "",
+	["Fen Creepers along the river"] = "沿河的沼澤爬行者",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "從{npc:2093}向西北到河邊：沼澤爬行者藏在水塘裡和沿岸，一直往西到{area:1024}。沿河向西打到十二隻，再向東回到{npc:1244}。\n注意：脫離戰鬥時，沼澤爬行者會不時施放潛行，所以它們處於潛行狀態，很難發現。",
 
 	-- Step 31: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}，一隻精英迅猛龍，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
 
 	-- Step 32: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:260808} Highland Horror
@@ -198,11 +198,11 @@ return {
 	-- Step 35: Captain Stoutfist
 	-- {area:150} Menethil Harbor · {area:2104} Deepwater Tavern · {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep · {npc:2094} James Halloran
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "如果你把爐石綁在{area:2104}，就用爐石回到{area:150}，或沿道路往西走：{npc:2104}在{area:2103}頂樓，{npc:2094}在前往船的路上的碼頭邊。",
-	["On the top floor"] = "",
+	["On the top floor"] = "頂層",
 	-- {zone:1437} Wetlands
-	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "",
+	["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "龍喉投石車，見30-40/01-希爾斯布萊德丘陵的{zone:1437}環線",
 	-- {npc:2094} James Halloran
-	["{npc:2094}, by the docks, on the way to the boat"] = "",
+	["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}，碼頭旁，去坐船的路上",
 
 	-- Step 36: Level 28
 	["Level 28"] = "28級",
@@ -218,7 +218,7 @@ return {
 
 	-- Step 38: Boat to Auberdine
 	-- {area:442} Auberdine
-	["The boat to {area:442} leaves from the far end of Menethil's western pier."] = "",
+	["The boat to {area:442} leaves from the far end of Menethil's western pier."] = "去{area:442}的船從米奈希爾西側棧橋的盡頭出發。",
 
 	-- Step 39: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
@@ -228,9 +228,9 @@ return {
 
 	-- Step 40: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:3649} stands at the north end of {area:442}."] = "",
+	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649}站在{area:442}的北端。",
 	-- {area:442} Auberdine
-	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "",
+	["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "亞歷克斯頓的回信，如果你還帶著（這條路線在 03-darkshore-return 第一次停{area:442}時就交了）",
 
 	-- Step 41: Auberdine
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin
@@ -246,19 +246,19 @@ return {
 
 	-- Step 43: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "飛往{area:415}",
 
 	-- Step 44: Shindrell Swiftfire
 	-- {npc:3845} Shindrell Swiftfire · {npc:3970} Llana · {area:415} Astranaar
 	["{npc:3845} and {npc:3970} stand by {area:415}'s flight master."] = "{npc:3845}和{npc:3970}站在{area:415}的飛行管理員旁邊。",
 	-- {quest:4581} Kayneth Stillwind · {area:2358} Forest Song
-	["For {quest:4581} at {area:2358}"] = "",
+	["For {quest:4581} at {area:2358}"] = "用於{area:2358}的{quest:4581}",
 	-- {npc:3970} Llana · {quest:95737} Seeking Caitlin · {npc:1480} Caitlin Grassman · {area:150} Menethil Harbor
 	["{npc:3970}: {quest:95737}, for {npc:1480} in {area:150}"] = "{npc:3970}：{quest:95737}，交給{area:150}的{npc:1480}",
 
 	-- Step 45: Astranaar
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside"] = "",
+	["{npc:3894}, inside"] = "{npc:3894}，室內",
 
 	-- Step 46: Raene Wolfrunner
 	-- {npc:3691} Raene Wolfrunner
@@ -270,7 +270,7 @@ return {
 	-- {npc:3901} Illiyana
 	["Melyria and {npc:3901}"] = "梅麗瑞亞與{npc:3901}",
 	-- {area:415} Astranaar
-	["The two stand together at the western end of the road, south-west of {area:415}."] = "",
+	["The two stand together at the western end of the road, south-west of {area:415}."] = "兩人並肩站在路的西端，{area:415}西南。",
 
 	-- Step 48: Therysil
 	-- {npc:3585} Therysil · {area:416} Shrine of Aessina · {npc:3901} Illiyana
@@ -306,13 +306,13 @@ return {
 
 	-- Step 55: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
-	["{area:432}: kill these as you meet them"] = "",
+	["{area:432}: kill these as you meet them"] = "{area:432}：遇到就殺",
 	-- {area:2358} Forest Song
-	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
+	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遺忘者的營地位於{area:2358}南邊的森林裡。\n生鏽的箱子散落在被遺忘者西邊的暗影林熊怪營地周圍；開啟它們，直到其中一個藏有劍柄。\n小心：約28-30級的非精英被遺忘者守衛著營地。其中一些處於潛行狀態，桌子周圍的那幾個常常會一起引到。",
 
 	-- Step 56: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
-	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
+	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "{npc:3931}在{quest:1035}岸邊走動，位於箱子西南；{object:669176}在湖的北邊，順路可拿。\n小心：島附近還有其他怪，有些在水下。先把它們清掉，免得拉先知時加入戰鬥。",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}：交給{area:415}的{npc:3961}",
 
@@ -325,24 +325,24 @@ return {
 
 	-- Step 58: Kayneth Stillwind
 	-- {npc:3848} Kayneth Stillwind · {quest:1012} Insane Druids · {area:432} The Dor'Danil Barrow Den
-	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "",
+	["Optional: {npc:3848} also offers {quest:1012}, three level 32 druids deep in {area:432}, a cave of quickly respawning, stealthed mobs, and back to her afterwards. It is above your level here: take it only if you are grouped or want the extra XP; the guide doesn't need it."] = "可選：{npc:3848}還給{quest:1012}，去{area:432}深處殺三個32級的德魯伊，那是個怪物重新整理很快的潛行洞穴，完事再回去找她。這個等級對你偏高：只有組隊、或者想要額外經驗時才接；指南不需要它。",
 	-- {npc:221269} Maseara Autumnmoon
 	["{npc:221269}, a few steps east"] = "{npc:221269}，在東邊幾步之處",
 
 	-- Step 59: The Dor'Danil Barrow Den's entrance
 	-- {area:432} The Dor'Danil Barrow Den
-	["{area:432}'s entrance"] = "",
+	["{area:432}'s entrance"] = "{area:432}的入口",
 
 	-- Step 60: Insane druids
 	["Insane druids"] = "發狂的德魯伊",
 	-- {area:432} The Dor'Danil Barrow Den · {npc:3940} Taneel Darkwood · {npc:3941} Uthil Mooncall · {npc:3942} Mavoris Cloudsbreak
-	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
+	["The three druids are inside {area:432}, apart from each other: go in at its mouth, south of the Forsaken camp, not over the hill above them. {npc:3940} is in the eastern halls, {npc:3941} deepest down at the north-east end and {npc:3942} at the western end.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "三個德魯伊都在{area:432}裡，彼此分開：從洞口進去，在被遺忘者營地以南，不要從他們上方翻山過去。{npc:3940}在東側廳堂，{npc:3941}在最深處東北端，{npc:3942}在西端。\n注意：洞裡怪物多、重新整理快，還有潛行的亡靈和巡邏，所以經常會有額外的怪加入戰鬥。",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
-	["{npc:3940}, inside {area:432}"] = "",
+	["{npc:3940}, inside {area:432}"] = "{npc:3940}，在{area:432}內",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
-	["{npc:3941}, inside {area:432}"] = "",
+	["{npc:3941}, inside {area:432}"] = "{npc:3941}，在{area:432}內",
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
-	["{npc:3942}, inside {area:432}"] = "",
+	["{npc:3942}, inside {area:432}"] = "{npc:3942}，在{area:432}內",
 
 	-- Step 62: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
@@ -358,15 +358,15 @@ return {
 
 	-- Step 67: Astranaar
 	-- {npc:3691} Raene Wolfrunner · {npc:3961} Maliynn · {npc:3894} Pelturas Whitemoon
-	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "",
+	["{npc:3691} and {npc:3961} are in the inn; {npc:3894} is inside the building just south of it."] = "{npc:3691}和{npc:3961}在旅店裡；{npc:3894}在旅店正南的那棟建築裡。",
 	-- {npc:3691} Raene Wolfrunner · {quest:1025} An Aggressive Defense · {npc:3897} Krolg
 	["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}：{quest:1025}，前往{npc:3897}途中的腐木熊怪",
 	-- {npc:3691} Raene Wolfrunner · {quest:1054} Culling the Threat · {npc:3987} Dal Bloodclaw · {area:413} Maestra's Post
 	["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}：{quest:1054}，從{area:413}回來的路上解決{npc:3987}",
 	-- {npc:3961} Maliynn
-	["{npc:3961}, in the inn"] = "",
+	["{npc:3961}, in the inn"] = "{npc:3961}，在旅店裡",
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside the building south of the inn"] = "",
+	["{npc:3894}, inside the building south of the inn"] = "{npc:3894}，在旅店以南的建築裡",
 
 	-- Step 68: The Foulweald
 	["The Foulweald"] = "汙林熊怪",
@@ -388,13 +388,13 @@ return {
 
 	-- Step 71: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
-	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "",
+	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696}和他的衛兵在{npc:3897}東邊紮營。\n小心：狼和蜘蛛在營地附近遊蕩，會加入戰鬥。有些狼成對出現。",
 	-- {item:5388} Ran Bloodtooth's Skull · {npc:3696} Ran Bloodtooth
-	["{item:5388}, from {npc:3696}"] = "",
+	["{item:5388}, from {npc:3696}"] = "{item:5388}，來自{npc:3696}",
 
 	-- Step 73: Melyria and Illiyana
 	-- {npc:3897} Krolg · {area:416} Shrine of Aessina · {npc:3901} Illiyana
-	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "",
+	["West from {npc:3897} along the southern hills to the {area:416}: Melyria and {npc:3901} stand together by it."] = "從{npc:3897}沿南邊的山丘向西到{area:416}：梅莉婭和{npc:3901}一起站在它旁邊。",
 
 	-- Step 74: Illiyana
 	-- {npc:3901} Illiyana
@@ -420,7 +420,7 @@ return {
 
 	-- Step 78: Delgren the Purifier
 	-- {area:413} Maestra's Post
-	["North to {area:413}."] = "",
+	["North to {area:413}."] = "向北到{area:413}。",
 
 	-- Step 79: Dal Bloodclaw
 	-- {area:413} Maestra's Post · {area:415} Astranaar · {npc:3987} Dal Bloodclaw
@@ -434,7 +434,7 @@ return {
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "飛往{area:442}",
 	-- {area:415} Astranaar
-	["{area:415} flight master"] = "",
+	["{area:415} flight master"] = "{area:415}飛行管理員",
 
 	-- Step 83: Caitlin Grassman
 	-- {npc:1480} Caitlin Grassman
@@ -444,9 +444,9 @@ return {
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "飛往{area:1537}",
 	-- {npc:1571} Shellei Brondir
-	["{npc:1571} is the flight master by Menethil's inn."] = "",
+	["{npc:1571} is the flight master by Menethil's inn."] = "{npc:1571}是米奈希爾旅店旁的飛行管理員。",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150}飛行管理員",
 
 	-- Step 86: High Explorer Magellas
 	-- {quest:98824} Prehistoric Prism · {npc:5387} High Explorer Magellas · {object:32356} Hall of Explorers · {object:32372} Great Forge

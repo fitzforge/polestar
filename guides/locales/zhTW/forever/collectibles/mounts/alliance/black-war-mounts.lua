@@ -12,19 +12,19 @@ return {
 	-- Step 1: PvP rank 11
 	["PvP rank 11"] = "PvP軍階11",
 	-- {spell:1299382} Rank Points · {skill:762} Riding
-	["{spell:1299382} come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. {skill:762} one at full speed needs Journeyman {skill:762} (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman {skill:762}."] = "",
+	["{spell:1299382} come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. {skill:762} one at full speed needs Journeyman {skill:762} (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman {skill:762}."] = "{spell:1299382}來自戰場、PvP任務和賽季每週任務，每週有上限；達到指揮官（軍銜11級）可解鎖黑色戰爭坐騎。角色面板的“玩家對玩家”標籤頁顯示你的軍銜和可購買物品。全速騎乘需要{skill:762}，而且必須學會中級{skill:762}（60級）。Polestar讀不到你的軍銜，所以這一步要等到60級且學會中級{skill:762}。",
 
 	-- Step 2: Lieutenant Karter
 	-- {npc:12783} Lieutenant Karter · {zone:1453} Stormwind · {object:2100} Old Town · {area:2918} Champions' Hall
-	["{npc:12783} sells the mounts in {zone:1453}'s {object:2100} by the {area:2918}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Humans ride the steed, Night Elves the tiger, Gnomes the battlestrider, Dwarves the ram. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "",
+	["{npc:12783} sells the mounts in {zone:1453}'s {object:2100} by the {area:2918}, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Humans ride the steed, Night Elves the tiger, Gnomes the battlestrider, Dwarves the ram. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city)."] = "{npc:12783}在{zone:1453}的{object:2100}裡、{area:2918}旁出售坐騎，就在其他榮譽軍需官旁邊。Forever客戶端標價每種100金。每種還都需要對應種族的騎術：人類騎戰馬，暗夜精靈騎虎，侏儒騎機械陸行鳥，矮人騎山羊。天裔或任何選擇其他種族坐騎的人，須先在該種族訓練師處學會對應騎術（需該種族主城崇拜）。",
 	-- {npc:14332} Black War Steed · {spell:824} Horse Riding
-	["{npc:14332}, {spell:824}, 100g"] = "",
+	["{npc:14332}, {spell:824}, 100g"] = "{npc:14332}，{spell:824}，100金",
 	-- {spell:22723} Black War Tiger · {spell:828} Tiger Riding
-	["{spell:22723}, {spell:828}, 100g"] = "",
+	["{spell:22723}, {spell:828}, 100g"] = "{spell:22723}，{spell:828}，100金",
 	-- {item:18243} Black Battlestrider · {spell:10907} Mechanostrider Piloting
-	["{item:18243}, {spell:10907}, 100g"] = "",
+	["{item:18243}, {spell:10907}, 100g"] = "{item:18243}，{spell:10907}，100金",
 	-- {item:18244} Black War Ram · {spell:826} Ram Riding
-	["{item:18244}, {spell:826}, 100g"] = "",
+	["{item:18244}, {spell:826}, 100g"] = "{item:18244}，{spell:826}，100金",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["100g"] = "100金",

@@ -21,9 +21,9 @@ return {
 
 	-- Step 3: Defias Dockmaster
 	-- {npc:6846} Defias Dockmaster · {area:797} Jerod's Landing · {area:87} Goldshire · {spell:921} Pick Pocket · {spell:2070} Sap
-	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "",
+	["The {npc:6846} (level 10, a goblin) works in the dock house at {area:797}, on the river at Elwynn's southern edge, south of {area:87}. Stealth in and {spell:921} him from behind: the schedule never drops from his corpse. Do not open with {spell:2070} or a fight: he calls in three waves of bodyguards. Keep away from the fireplaces in the house; they burn you out of stealth. He is back 2 to 5 minutes after a death."] = "{npc:6846}（10級，地精）在{area:797}的碼頭小屋幹活，那裡是艾爾文森林南緣的河邊，{area:87}以南。潛行進去從背後{spell:921}他：日程表永遠不會從他屍體上掉落。不要用{spell:2070}起手，也別直接開打：他會叫來三波保鏢。避開屋裡的壁爐，它們會把你燒出潛行。他死亡後2到5分鐘重新整理。",
 	-- {spell:921} Pick Pocket · {npc:6846} Defias Dockmaster · {item:7675} Defias Shipping Schedule
-	["{spell:921} the {npc:6846} for the {item:7675}"] = "",
+	["{spell:921} the {npc:6846} for the {item:7675}"] = "對{npc:6846}使用{spell:921}，拿到{item:7675}",
 
 	-- Step 4: Back to Mathias Shaw
 	["Back to Mathias Shaw"] = "回到馬迪亞斯·肖爾那裡",
@@ -36,11 +36,11 @@ return {
 
 	-- Step 6: Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard · {object:32383} Forlorn Cavern · {zone:1455} Ironforge
-	["{npc:5165} is in the {object:32383}, the rogue quarter in the north of {zone:1455}: go into the building with a shady dealer outside and down the stairs."] = "",
+	["{npc:5165} is in the {object:32383}, the rogue quarter in the north of {zone:1455}: go into the building with a shady dealer outside and down the stairs."] = "{npc:5165}在{object:32383}，即{zone:1455}北部的盜賊區：走進門外有個鬼祟商人的那棟建築，下樓。",
 
 	-- Step 7: Onin MacHammar
 	-- {area:133} Gnomeregan · {npc:6886} Onin MacHammar · {npc:1211} Leper Gnome
-	["Head west to {area:133}. Beside the road to its entrance stands a wooden spiral tower: {npc:6886} waits stealthed on the top platform, next to a level 10 {npc:1211}, so you only see him up close."] = "",
+	["Head west to {area:133}. Beside the road to its entrance stands a wooden spiral tower: {npc:6886} waits stealthed on the top platform, next to a level 10 {npc:1211}, so you only see him up close."] = "向西前往{area:133}。通往入口的路邊立著一座木製螺旋塔：{npc:6886}潛行等在頂層平臺上，旁邊有一隻10級的{npc:1211}，所以只有靠近才能看見他。",
 
 	-- Step 8: Back to Hulfdan Blackbeard
 	-- {npc:5165} Hulfdan Blackbeard
@@ -52,13 +52,13 @@ return {
 
 	-- Step 10: Syurna
 	-- {zone:1457} Darnassus · {npc:4163} Syurna · {area:1658} Cenarion Enclave
-	["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "",
+	["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "向西前往{zone:1457}。{npc:4163}在{area:1658}的地下：下去的路口在大德魯伊樹左側那棵分叉樹腳下，靠近夜刃豹訓練師。她的地圖示記顯示在地面以上。",
 
 	-- Step 11: Sethir the Ancient
 	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade · {spell:2983} Sprint
 	["{npc:6909} (level 12 satyr) lives out on a great branch north of the {area:264}: go through the V-shaped gap in the wall north of the glade and out along the branch. Pick his pocket for the journal; killing him does not give it, and a fight brings out three Minions of Sethir. He walks between the main branch and a side branch: wait stealthed at the far end of the main branch and pick him from behind when he comes back. Then {spell:2983} away. He is back 8 1/2 minutes after a death."] = "",
 	-- {item:7737} Sethir's Journal
-	["Pick Pocket Sethir the Ancient for {item:7737}"] = "",
+	["Pick Pocket Sethir the Ancient for {item:7737}"] = "對遠古者塞希爾使用搜尋，獲得{item:7737}",
 
 	-- Step 12: Back to Syurna
 	-- {npc:4163} Syurna

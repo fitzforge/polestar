@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:444} Tower of Althalaxx
-	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "",
+	["Starts now at 22 at the {area:444}; its mobs are 28-30, so go nearer 30 or with a friend. Alliance only for now."] = "現在22級就能在{area:444}接到；裡面的怪是28-30級，所以接近30級再去，或者帶個朋友。目前只有聯盟能做。",
 
 	-- Step 1: The Strange Orb
 	-- {object:409289} Strange Orb (no name in this language: may be words)
@@ -21,7 +21,7 @@ return {
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["{npc:3663} stands at {area:413} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "",
+	["{npc:3663} stands at {area:413} in western {zone:1440}, south of the {zone:1439} road. He sends you to {zone:1453} with the orb."] = "{npc:3663}站在{zone:1440}西部的{area:413}，在{zone:1439}道路以南。他讓你帶著法球前往{zone:1453}。",
 
 	-- Step 3: Katherine the Pure
 	-- {npc:5492} Katherine the Pure
@@ -29,12 +29,12 @@ return {
 
 	-- Step 4: Ursula Deline
 	-- {npc:5495} Ursula Deline · {object:2101} Mage Quarter · {object:2164} Slaughtered Lamb · {item:209778} Summoner's Salt
-	["{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb."] = "",
+	["{npc:5495}, the warlock trainer, is in the {object:2101}'s warlock sanctum, down in the {object:2164}'s cellar. She wants 14 {item:209778} to read the orb."] = "術士訓練師{npc:5495}在{object:2101}的術士聖所裡，位於{object:2164}的地下室。她需要14個{item:209778}來解讀法球。",
 
 	-- Step 5: Summoner's Salt
 	-- {item:209778} Summoner's Salt · {area:69} Lakeshire · {npc:334} Gath'Ilzogg
 	-- plural, as words: Blackrock Summoners = {npc:4463} Blackrock Summoner · Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
-	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of {area:69} drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "",
+	["The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the {item:209778}; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of {area:69} drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is {npc:334} (26): stay in the north-west."] = "黑石召喚者、勇士和追蹤者（22-25級，非精英）在赤脊山西北部紮營，掉落{item:209778}；你需要14個。兩個精英黑石暗影法師（22-23級）站在營地東端的洞口：繞開他們拉怪。{area:69}以東的黑石營地也掉這種鹽，但那裡的暗影法師、哨兵和獵人是精英（21-24級），{npc:334}（26級）也是：留在西北部。",
 
 	-- Step 6: Back to Ursula Deline
 	-- {npc:5495} Ursula Deline
@@ -44,7 +44,7 @@ return {
 	["Motes of Mannoroth"] = "瑪諾洛斯微粒",
 	-- {area:435} Demon Fall Canyon · {zone:1440} Ashenvale · {area:431} Splintertree Post · {spell:686} Shadow Bolt · {spell:348} Immolate
 	-- plural, as words: Mannoroc Lashers = {npc:11697} Mannoroc Lasher · Searing Infernals = {npc:6073} Searing Infernal · Legion Hounds = {npc:6071} Legion Hound
-	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "",
+	["{area:435} is in south-east {zone:1440}, east of {area:431} (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast {spell:686} and {spell:348}, Infernals keep a fire shield up. They respawn in five minutes."] = "{area:435}位於{zone:1440}東南、{area:431}以東（部落營地：繞過去）。瑪諾洛克鞭笞者、灼熱的地獄火、惡魔衛士和軍團獵犬（29-30級，非精英）掉落瑪諾洛斯微粒；你需要12個。低於約27級時單人會很難：帶另一名玩家或以後再來。惡魔衛士會把你擊倒，鞭笞者施放{spell:686}和{spell:348}，地獄火保持火焰護盾。它們五分鐘重新整理。",
 
 	-- Step 8: The Spear of Mannoroth
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)

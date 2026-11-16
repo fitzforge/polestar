@@ -18,7 +18,7 @@ return {
 
 	-- Step 2: Alaana Stormwalker
 	-- {quest:96136} Call of Air · {npc:259119} Alaana Stormwalker · {zone:1412} Mulgore · {zone:1456} Thunder Bluff · {npc:5906} Xanis Flameweaver
-	["At 30 Skyborne shamans get their own {quest:96136}. {npc:259119} waits where the airship from Zephras Isle lands, in northern {zone:1412} beside {zone:1456}. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, head up to {npc:5906} in {zone:1456} (next step): the trainers' {quest:96136} is open to Skyborne and gives the same totem."] = "",
+	["At 30 Skyborne shamans get their own {quest:96136}. {npc:259119} waits where the airship from Zephras Isle lands, in northern {zone:1412} beside {zone:1456}. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, head up to {npc:5906} in {zone:1456} (next step): the trainers' {quest:96136} is open to Skyborne and gives the same totem."] = "30級時，天裔薩滿可以接取自己的{quest:96136}。{npc:259119}在{zone:1412}北部、{zone:1456}旁等待，那裡是來自澤弗拉斯島的飛艇降落處。你的30級空氣圖騰需要普雷特·望雲給的空氣圖騰。如果她這裡沒有你的任務，就去{zone:1456}的{npc:5906}那裡（下一步）：訓練師的{quest:96136}對天裔開放，給的是同一個圖騰。",
 
 	-- Step 3: Xanis Flameweaver
 	-- {npc:5906} Xanis Flameweaver · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {npc:5905} Prate Cloudseer · {zone:1441} Thousand Needles · {spell:10596} Nature Resistance · {npc:5892} Searn Firewarder · {quest:1532} Call of Air · {zone:1454} Orgrimmar
@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Prate Cloudseer
 	-- {area:484} Freewind Post · {npc:5905} Prate Cloudseer
-	["Fly to {area:484}. {npc:5905} stands on a ledge above a cave mouth in the canyon wall north-east of the post, not inside the cave: climb the slope beside it. She also gives you an hour of faster attacks and running."] = "",
+	["Fly to {area:484}. {npc:5905} stands on a ledge above a cave mouth in the canyon wall north-east of the post, not inside the cave: climb the slope beside it. She also gives you an hour of faster attacks and running."] = "飛往{area:484}。{npc:5905}站在哨站東北峽谷壁上一個洞口上方的平臺上，不在洞裡：從旁邊的斜坡爬上去。她還會給你一小時的攻擊和奔跑加速。",
 
 	-- Step 5
 	-- {npc:5905} Prate Cloudseer · {item:5178} Air Totem
@@ -47,39 +47,39 @@ return {
 	["Twisted Air Totems"] = "扭曲風之圖騰",
 	-- {area:2408} Shadowprey Village · {zone:1443} Desolace · {spell:9654} Jumping Lightning
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
-	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "",
+	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "五個畸變空氣圖騰。{zone:1443}西部{area:2408}以北和東北的瑪洛丁半人馬（36-40級）攜帶它們；斥候幾乎每兩次擊殺就掉一個。馴獸者會撒網和繳械，逐風者會治療，風暴者會投擲{spell:9654}：一次拉一個。重新整理約五分鐘。",
 
 	-- Step 13: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
 	["Twisted Water Totems"] = "扭曲水之圖騰",
 	-- {area:496} Brackenwall Village · {zone:1445} Dustwallow Marsh
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
-	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "",
+	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "五個畸變水圖騰。{zone:1445}北部{area:496}東北的泥鰭魚人（35-38級）攜帶它們。",
 
 	-- Step 14: Twisted Fire Totems
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem
 	["Twisted Fire Totems"] = "扭曲火焰圖騰",
 	-- {area:338} Angor Fortress · {zone:1418} Badlands · {npc:3560} Healing Ward
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem · Fire Nova Totems = {npc:5879} Fire Nova Totem
-	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "",
+	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "五個畸變火焰圖騰。{zone:1418}中{area:338}以南的石穹穴居怪（碎顱者、碎骨者和薩滿，37-41級）攜帶它們；薩滿會放下火焰新星圖騰和一個{npc:3560}，碎骨者受傷時會逃跑求援。重新整理約五分鐘。",
 
 	-- Step 15: Twisted Earth Totems
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem
 	["Twisted Earth Totems"] = "扭曲大地圖騰",
 	-- {area:75} Stonard · {zone:1435} Swamp of Sorrows
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem · The Lost Ones = {npc:256028} The Lost One
-	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "",
+	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "五個畸變大地圖騰。{zone:1435}中{area:75}以北和東北的失落者（魚人，34-39級）攜帶它們；大多數受傷時會逃跑求援。",
 
 	-- Step 17: The steam pools
 	["The steam pools"] = "蒸氣池",
 	-- {npc:5905} Prate Cloudseer · {item:268582} Corrupted Totems · {area:484} Freewind Post · {npc:216474} Ravaging Tempest · {item:212792} Eye of the Tempest
-	["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "",
+	["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905}把{item:268582}交給你。在{area:484}西北的蒸汽池放上{item:268582}，召喚被腐蝕的元素，然後是{npc:216474}；儀式進行時鋼鬃野豬人會加入戰鬥。這是組隊任務：至少帶一兩個朋友。{item:212792}大約每兩次擊殺掉落一次，隊裡每個人都能拾取。",
 	-- {item:212792} Eye of the Tempest · {npc:216474} Ravaging Tempest
 	["{item:212792}, from the {npc:216474}"] = "{item:212792}，來自{npc:216474}",
 
 	-- Step 19: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {zone:1416} Alterac Mountains · {area:272} Tarren Mill · {item:280607} Lightning's Grasp · {item:280605} Tidebringer's Claw · {item:280604} Rage of the Storm · {item:280696} Elementalist's Guard
-	["{npc:6176} camps in the ruins in the east of {zone:1416}: from {area:272} follow the river east of town north into the hills. Pick your weapon: {item:280607}, {item:280605} or {item:280604}; the {item:280696} shield comes with it."] = "",
+	["{npc:6176} camps in the ruins in the east of {zone:1416}: from {area:272} follow the river east of town north into the hills. Pick your weapon: {item:280607}, {item:280605} or {item:280604}; the {item:280696} shield comes with it."] = "{npc:6176}在{zone:1416}東部的廢墟紮營：從{area:272}沿鎮子東邊的河向北進入丘陵。任選武器：{item:280607}、{item:280605}或{item:280604}；還會附帶{item:280696}盾牌。",
 	-- {npc:6176} Bath'rah the Windwatcher · {item:280696} Elementalist's Guard
 	["{npc:6176}: the {item:280696} and your weapon"] = "{npc:6176}：{item:280696}和你的武器",
 

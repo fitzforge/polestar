@@ -12,13 +12,13 @@ return {
 	["{area:1581}: Defias Pirates"] = "{area:1581}：迪菲亞海盜",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "",
+	["{area:1581} is a group of five at level 17-26, under {area:20}: go in at the {area:20} mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too."] = "{area:1581}是17-26級的五人副本，位於{area:20}地下：從{area:20}的礦洞進入，沿隧道走到副本傳送門。最深處船上及其周圍的迪菲亞海盜（精英，19-20級）約每30次擊殺掉落一次鸚鵡，所以要做好刷幾趟的準備；等級遠超該副本的角色可以單刷。籠子可以交易：也去拍賣行看看。",
 	-- {area:1581} The Deadmines · {area:20} Moonbrook
 	["{area:1581}, in the {area:20} mine"] = "{area:1581}，在{area:20}礦坑內",
 	-- {area:1581} The Deadmines
 	["{area:1581} portal, at the bottom of the mine"] = "{area:1581}傳送門，在礦坑底部",
 	-- plural, as words: Defias Pirates = {npc:657} Defias Pirate
-	["Defias Pirates, on the ship"] = "",
+	["Defias Pirates, on the ship"] = "迪菲亞海盜，在船上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Defias Pirates"] = "迪菲亞海盜",

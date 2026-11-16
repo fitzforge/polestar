@@ -31,7 +31,7 @@ return {
 
 	-- Step 5: Azshara: kill these as you meet them
 	-- {zone:1447} Azshara
-	["{zone:1447}: kill these as you meet them"] = "",
+	["{zone:1447}: kill these as you meet them"] = "{zone:1447}：沿途擊殺以下目標",
 	-- {npc:222478} Sentinel Keldara Sunblade
 	["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it. {npc:222478} is held in the satyrs' camp: free her and walk her out."] = "精靈貴族的鬼魂在神殿周圍的遺跡中出沒；哈達爾薩特佔據神殿北邊不遠處的營地。{npc:222478}被關在薩特營地裡：救出她並護送她離開。",
 	-- {npc:222478} Sentinel Keldara Sunblade
@@ -57,12 +57,12 @@ return {
 
 	-- Step 11: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem
-	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "",
+	["Get off your mount before you talk to {npc:8395}: he teleports you up to {npc:8379}'s tower on the cliff above his camp."] = "和{npc:8395}說話前先下坐騎：他會把你傳送到他營地上方懸崖上{npc:8379}的塔裡。",
 
 	-- Step 12: Archmage Xylem
-	["The apprentice at the top of the tower sends you back down."] = "",
+	["The apprentice at the top of the tower sends you back down."] = "塔頂的學徒會把你送回去。",
 	-- {area:1220} Thalassian Base Camp · {npc:8420} Kim'jael
-	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "",
+	["The blood elves are at the {area:1220}, on the way to {npc:8420}"] = "血精靈在{area:1220}，就在去{npc:8420}的路上",
 
 	-- Step 13: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
@@ -76,7 +76,7 @@ return {
 	-- plural, as words: Spitelash Myrmidons = {npc:6196} Spitelash Myrmidon
 	["Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between {npc:8395}'s camp and the north: the blood elves at {npc:8420}'s camp are 51-53. Or, with a group, run the {area:1417} dungeon instead."] = "在{npc:8395}營地與北邊之間的遺跡中擊殺惡鞭侍從（50-51級），補到51.3級：{npc:8420}營地的血精靈是51-53級。或者，有小隊的話，改打{area:1417}地城。",
 	-- {npc:6196} Spitelash Myrmidon
-	["grind on {npc:6196}"] = "",
+	["grind on {npc:6196}"] = "刷{npc:6196}",
 
 	-- Step 15: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
@@ -99,7 +99,7 @@ return {
 	-- plural, as words: Blood Elf Surveyors = {npc:6198} Blood Elf Surveyor · Legashi Soulstealers = {npc:236867} Legashi Soulstealer
 	["{npc:8420} camps at the {area:1219} in the north; his equipment lies all over the {area:1220} just south-east of him.\nCareful: the Blood Elf Surveyors are 51-52 and the Reclaimers 52-53, with {npc:6647} (53) among them: take the equipment from the camp's edge and pull the elves one at a time.\n{npc:235903}'s satyrs, rogues and hellcallers (51-53) are the Legashi around {npc:8420}'s camp; the Legashi Soulstealers, Hellraisers and Blackguards (53) further east are not part of it: stay west of them."] = "{npc:8420}在北邊的{area:1219}紮營；他的裝備散落在他東南方不遠的{area:1220}各處。\n小心：血精靈勘測員是51-52級，收復者是52-53級，其中還有{npc:6647}（53級）：從營地邊緣拿裝備，一次拉一個精靈。\n{npc:235903}要的薩特、盜賊和地獄召喚者（51-53級）是{npc:8420}營地周圍的萊加希族；更東邊的萊加希竊魂者、地獄喚醒者和黑衛士（53級）不在任務內：待在他們西邊。",
 	-- {item:20028} Glittering Dust
-	["{item:20028}, from the blood elf surveyors and reclaimers"] = "",
+	["{item:20028}, from the blood elf surveyors and reclaimers"] = "{item:20028}，來自血精靈勘測員和收復者",
 
 	-- Step 23: Ekkal
 	-- {npc:235903} Ekkal
@@ -111,20 +111,20 @@ return {
 
 	-- Step 25: Sanath Lim-yo
 	-- {npc:8395} Sanath Lim-yo
-	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "",
+	["Ride back west to {npc:8395}'s camp and get off your mount: he teleports you up to Xylem again."] = "向西騎回{npc:8395}的營地並下坐騎：他會再把你傳送到克希雷姆那裡。",
 
 	-- Step 27: The Temple of Zin-Malor
 	-- {area:1223} Temple of Zin-Malor
-	["The {area:1223}"] = "",
+	["The {area:1223}"] = "{area:1223}",
 	-- {area:1223} Temple of Zin-Malor · {npc:8395} Sanath Lim-yo
 	-- plural, as words: Spitelash Sirens = {npc:6195} Spitelash Siren
-	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "",
+	["The Spitelash Sirens wander the ruins and the beach around the {area:1223}, just south of {npc:8395}. Only the Sirens carry the coral, not the Screamers."] = "恨鱗海妖在{area:1223}周圍的廢墟和海灘遊蕩，就在{npc:8395}以南。只有海妖帶著珊瑚，尖嘯者沒有。",
 
 	-- Step 28: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back up through {npc:8395}'s teleport."] = "",
+	["Back up through {npc:8395}'s teleport."] = "再次透過{npc:8395}的傳送上去。",
 	-- {area:1417} Sunken Temple
-	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "",
+	["Xylem's last task, Destroy Morphaz, is in the {area:1417}: skip it."] = "克希雷姆的最後一個任務“消滅莫法茲”在{area:1417}：跳過。",
 
 	-- Step 30: Ravencrest Monument
 	-- {zone:1447} Azshara · {npc:8392} Pilot Xiggs Fuselighter · {item:10444} Standard Issue Flare Gun
@@ -155,7 +155,7 @@ return {
 
 	-- Step 36: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "飛往{area:348}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 
@@ -169,7 +169,7 @@ return {
 
 	-- Step 39: Fly to Southshore
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348}飛行管理員",
 
 	-- Step 40: Orphan Matron Aria
 	-- {area:271} Southshore · {area:279} Dalaran · {npc:34365} Orphan Matron Aria · {npc:266524} Lieutenant Connar · {area:1438} Nethergarde Keep
@@ -177,18 +177,18 @@ return {
 
 	-- Step 41: Western Plaguelands
 	-- {area:271} Southshore · {area:3197} Chillwind Camp
-	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "",
+	["Ride north from {area:271} up the road through Alterac to {area:3197}."] = "從{area:271}沿路向北騎行，穿過奧特蘭克前往{area:3197}。",
 
 	-- Step 42: Chillwind Camp
 	-- {npc:10838} Commander Ashlam Valorfist
-	["{npc:10838} stands in the middle of the camp."] = "",
+	["{npc:10838} stands in the middle of the camp."] = "{npc:10838}站在營地中央。",
 
 	-- Step 43: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	["{area:197}: kill these as you meet them"] = "",
+	["{area:197}: kill these as you meet them"] = "{area:197}：遇到就殺",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "",
+	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "骷髏撕掠者和流涎食屍鬼在營地北面的田野遊蕩；這裡的天災怪都會掉落天災石。\n注意：這些亡靈從很遠就能發現你，拉怪時附近的亡靈會加入戰鬥。\n注意：{npc:10411}（3個重新整理點，15分鐘重新整理）脫離戰鬥後會隱形，戰鬥一開始就會呼叫石翼石像鬼。",
 
 	-- Step 44: Chillwind Camp
 	["Ride back south to the camp."] = "向南騎回營地。",
@@ -200,15 +200,15 @@ return {
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}的鬼魂在{area:200}西邊{area:199}的農舍旁徘徊；她的包裹就在屋裡。",
 	["Upstairs"] = "樓上",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, inside"] = "",
+	["{object:175894}, inside"] = "{object:175894}，室內",
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "給{zone:1453}：保留此任務",
 
 	-- Step 46: Fly to Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
-	["Fly to {area:2418}"] = "",
+	["Fly to {area:2418}"] = "飛往{area:2418}",
 	-- {area:3197} Chillwind Camp
-	["{area:3197} flight master"] = "",
+	["{area:3197} flight master"] = "{area:3197}飛行管理員",
 
 	-- Step 47: Fly to Lakeshire
 	-- {area:69} Lakeshire
@@ -216,13 +216,13 @@ return {
 
 	-- Step 48: Morgan's Vigil flight master
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} flight master"] = "",
+	["{area:2418} flight master"] = "{area:2418}飛行管理員",
 	-- {area:69} Lakeshire · {zone:1428} Burning Steppes · {area:2418} Morgan's Vigil
 	["Ride east out of {area:69} and up the pass into the {zone:1428}: {area:2418} stands at the top."] = "向東騎出{area:69}，沿山口上行進入{zone:1428}：{area:2418}就在頂端。",
 
 	-- Step 49: Morgan's Vigil
 	-- {area:2418} Morgan's Vigil
-	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "",
+	["{area:2418} sits in the south-east of the Steppes, at the top of the pass up from Redridge."] = "{area:2418}位於燃燒平原東南部，在從赤脊山上來那條山道的頂端。",
 
 	-- Step 50: Level 52 at Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
@@ -238,7 +238,7 @@ return {
 	-- plural, as words: Escaped Core Hounds = {npc:227746} Escaped Core Hound
 	["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "火腹巨魔佔據摩根的崗哨北邊的巨石，火腹蠻兵在它的東側。\n小心：逃脫的熔火惡犬（60級）在燃燒平原遊蕩，有幾隻在{area:249}西邊和南邊的山坡上：就在巨石上拉巨魔，每次拉怪前先看看四周。",
 	-- {npc:7034} Firegut Ogre Mage
-	["{npc:7034}, below ground"] = "",
+	["{npc:7034}, below ground"] = "{npc:7034}，地下",
 
 	-- Step 52: Morgan's Vigil
 	-- {npc:9177} Oralius · {npc:9176} Gor'tesh · {area:254} Blackrock Mountain
@@ -251,7 +251,7 @@ return {
 
 	-- Step 54: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
-	["{area:250}: kill these as you meet them"] = "",
+	["{area:250}: kill these as you meet them"] = "{area:250}：遇到就殺",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
 	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}東邊山坡上的{npc:7047}快死時對它使用{item:12284}，然後拾取它留下的精華。\n小心：一隻{npc:8981}（56級，稀有）在小龍附近的山坡上走動，周圍的{npc:7040}和龍人都是精英：對邊緣的小龍使用採集器，每次拉怪前先看看四周。",
 
@@ -273,14 +273,14 @@ return {
 
 	-- Step 59: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "這些是精英怪：建議組隊，找人一起做。{npc:9461}是54級精英：大多數職業在56級可以單挑，但你可能需要幫助。如果你獨自一人就跳過：路線會讓你把經驗刷回來。",
 
 	-- Step 61: Level 52.08
-	["Level 52.08"] = "",
+	["Level 52.08"] = "52.08級",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "",
 	-- {npc:9690} Ember Worg
-	["grind on {npc:9690}"] = "",
+	["grind on {npc:9690}"] = "刷{npc:9690}",
 
 	-- Step 62: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "沿著道路向東騎回摩根的崗哨。",
@@ -319,7 +319,7 @@ return {
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
 	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%.\nCareful: {npc:247015}, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him."] = "收藏家庫米沙在{area:2517}等你，就是要塞西南方的山丘。路上的{zone:1419}怪物會掉落不完美的德萊尼水晶碎片；把你有的都交給她。從要塞沿著道路直接前往她的山丘，再從原路離開。\n小心：菲庫拉、{npc:7664}和伊利法都是60級精英。拉瑟萊克會施放{spell:2691}、{spell:8255}和殘殺，血量下降時還會加上{object:141891}、{spell:10854}，並在15%時狂怒。\n小心：55級精英{npc:247015}站在庫米沙的山丘旁（約50,35）和西邊（約39,32），周圍的恐槌和暗誓營地是53-55級：在從要塞過來的路上向怪物收集碎片，不要在他旁邊打。",
 	-- {npc:7363} Kum'isha the Collector
-	["{npc:7363} walks around here: look inside the circle on the map"] = "",
+	["{npc:7363} walks around here: look inside the circle on the map"] = "{npc:7363}在這附近走動：看地圖上的圓圈內",
 
 	-- Step 71: The bloodmages
 	["The bloodmages"] = "血法師",
@@ -355,9 +355,9 @@ return {
 
 	-- Step 83: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "飛往{area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "{area:442}飛行管理員",
 
 	-- Step 84: Rut'theran Village
 	-- {zone:1452} Winterspring

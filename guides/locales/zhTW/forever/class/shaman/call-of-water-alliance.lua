@@ -46,27 +46,27 @@ return {
 
 	-- Step 10: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {area:146} Stonewrought Dam · {item:7810} Vial of Purest Water · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water · {zone:1436} Westfall
-	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "",
+	["Back to {npc:258043} by {area:146} with the {item:7810}. He hands you the {item:6637} and the {item:7811}: keep both for {zone:1436}."] = "帶著{item:7810}回到{area:146}旁的{npc:258043}處。他會交給你{item:6637}和{item:7811}：兩樣都留著，去{zone:1436}要用。",
 	-- {npc:258043} Norric Lochthane · {item:6637} Water Sapta
 	["{npc:258043}: your {item:6637}"] = "{npc:258043}：你的{item:6637}",
 
 	-- Step 11: Lost the Water Sapta?
 	-- {quest:94616} Water Sapta
-	["Lost the {quest:94616}?"] = "",
+	["Lost the {quest:94616}?"] = "把{quest:94616}弄丟了？",
 	-- {quest:94616} Water Sapta · {npc:258043} Norric Lochthane · {zone:1436} Westfall
-	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "",
+	["Only if the {quest:94616} is gone from your bags: {npc:258043} gives you another before you leave for {zone:1436}."] = "只有當{quest:94616}從揹包裡消失時才需要：出發去{zone:1436}前，{npc:258043}會再給你一份。",
 	-- {npc:258043} Norric Lochthane · {quest:94616} Water Sapta
-	["{npc:258043}: a new {quest:94616}"] = "",
+	["{npc:258043}: a new {quest:94616}"] = "{npc:258043}：新的{quest:94616}",
 
 	-- Step 12: Stendel's Pond
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:919} Stendel's Pond · {object:619896} Forgotten Shrine · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova · {item:7811} Remaining Drops of Purest Water · {npc:258043} Norric Lochthane · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water
-	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "",
+	["Fly to {area:108} and head south to {area:20}: {area:919} and the {object:619896} lie just north of it. Drink the {item:6637} by the shrine to see the {npc:5894} (level 22, {spell:8056} and {spell:122}; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the {item:7811} on the {object:619896} (this, not {npc:258043}, ends the quest). Click the shrine again: the {npc:5895} rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the {item:7813}."] = "飛往{area:108}，再向南到{area:20}：{area:919}和{object:619896}就在它北邊。在神龕旁喝下{item:6637}，就能看到{npc:5894}（22級，會施放{spell:8056}和{spell:122}；只有一個重新整理點，被殺後三分鐘回來），擊敗它拿到護腕（必掉），然後把護腕和{item:7811}放到{object:619896}上（結束任務的是這一步，不是{npc:258043}）。再次點選神龕：{npc:5895}會浮現在旁邊；離開前先和它交談（如果它消失了，就放棄任務，在神龕處重新接取）。它會給你{item:7813}。",
 	-- {npc:5895} Minor Manifestation of Water
 	["{npc:5895}, beside the shrine"] = "{npc:5895}，在神龕旁邊",
 
 	-- Step 13: Norric Lochthane
 	-- {npc:258043} Norric Lochthane · {item:7813} Shard of Water · {item:5177} Water Totem
-	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "",
+	["Back to {npc:258043} with the {item:7813}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "帶著{item:7813}回到{npc:258043}處。把{item:5177}永久留在揹包裡：每個水圖騰都要用它。",
 	-- {npc:258043} Norric Lochthane · {spell:5394} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:258043}: {spell:5394} and your {item:5177}"] = "{npc:258043}：{spell:5394}和你的{item:5177}",
 

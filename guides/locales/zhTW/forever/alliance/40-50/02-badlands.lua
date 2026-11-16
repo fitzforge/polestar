@@ -10,7 +10,7 @@ return {
 	-- {npc:1470} Ghak Healtouch · {area:144} Thelsamar · {area:1517} Uldaman · {zone:1418} Badlands
 	["{npc:1470} is below ground in {area:144}, by the inn, where the flight lands. His mushrooms grow in the {area:1517} dig at the {zone:1418}' northern edge, on this guide's loop back north."] = "{npc:1470}在{area:144}的地下，旅店旁邊，就在飛行降落處。他要的蘑菇長在{zone:1418}北緣的{area:1517}挖掘場，在本指南向北折返的路線上。",
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, below ground"] = "",
+	["{npc:1470}, below ground"] = "{npc:1470}：在地下",
 
 	-- Step 3: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {zone:1418} Badlands · {npc:2860} Sigrun Ironhew
@@ -54,15 +54,15 @@ return {
 
 	-- Step 12: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "進入{zone:1432}",
 
 	-- Step 13: Ironband's Excavation Site
 	-- {zone:1432} Loch Modan
-	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "",
+	["Ride north through the pass into {zone:1432} and east along the south shore to Ironband's camp."] = "向北騎穿過山口進入{zone:1432}，再沿南岸向東到鐵帶的營地。",
 
 	-- Step 14: Into Badlands
 	-- {zone:1418} Badlands
-	["Into {zone:1418}"] = "",
+	["Into {zone:1418}"] = "進入{zone:1418}",
 
 	-- Step 15: Badlands
 	-- {area:1517} Uldaman
@@ -70,22 +70,22 @@ return {
 
 	-- Step 16: The Uldaman dig
 	-- {area:1517} Uldaman · {zone:1418} Badlands
-	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "",
+	["Back through the pass: the Stonevault troggs dig outside {area:1517} at the {zone:1418}' northern edge. The carved urns and the magenta mushroom clusters sit in their caves and tunnels, outside the dungeon itself."] = "穿過山口回去：石窟穴居人在{zone:1418}北緣、{area:1517}外面挖洞。雕花甕和紫紅色蘑菇叢就在他們的洞穴和隧道里，在副本外面。",
 	-- {item:8047} Magenta Fungus Cap
-	["{item:8047}; below ground"] = "",
+	["{item:8047}; below ground"] = "{item:8047}：在地下",
 	-- {object:2743} Carved Stone Urn
-	["{object:2743}; below ground"] = "",
+	["{object:2743}; below ground"] = "{object:2743}：在地下",
 
 	-- Step 17: Back to Loch Modan
 	-- {zone:1432} Loch Modan
-	["Back to {zone:1432}"] = "",
+	["Back to {zone:1432}"] = "返回{zone:1432}",
 
 	-- Step 18: Ironband's Excavation Site
 	["Ride back north to Ironband's camp."] = "向北騎回鐵環挖掘場的營地。",
 
 	-- Step 19: Thelsamar
 	-- {area:144} Thelsamar
-	["Ride west along the loch to {area:144}."] = "",
+	["Ride west along the loch to {area:144}."] = "沿湖向西騎到{area:144}。",
 
 	-- Step 20: Fly to Southshore
 	-- {area:271} Southshore
@@ -95,9 +95,9 @@ return {
 
 	-- Step 21: Southshore
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980} preaches by the inn."] = "",
+	["{npc:3980} preaches by the inn."] = "{npc:3980}在旅店旁佈道。",
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980}, upstairs"] = "",
+	["{npc:3980}, upstairs"] = "{npc:3980}，樓上",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "虔誠的萊雷恩的下一個差事在{area:796}：跳過它。",
 
@@ -109,9 +109,9 @@ return {
 	-- {area:271} Southshore · {zone:1425} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
 	["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路從{area:271}往東北騎進{zone:1425}；{area:348}就在邊界後方。{npc:5635}在頂層主持，{quest:1450}照料獅鷲棲所，{npc:7884}站在旅店旁。",
 	-- {quest:1450} Gryphon Master Talonaxe
-	["{quest:1450}, inside"] = "",
+	["{quest:1450}, inside"] = "{quest:1450}，室內",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}，室內",
 
 	-- Step 25: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -132,18 +132,18 @@ return {
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飛往{area:150}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "{area:348}飛行管理員",
 
 	-- Step 30: Theramore
 	["Theramore"] = "塞拉摩島",
 	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
+	["{npc:4944}, on the top floor"] = "{npc:4944}，頂樓",
 	-- {npc:4794} Morgan Stern
-	["{npc:4794}, inside"] = "",
+	["{npc:4794}, inside"] = "{npc:4794}，室內",
 
 	-- Step 31: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "在{area:498}內部",
 
 	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "泥鏈營地",
@@ -167,7 +167,7 @@ return {
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "術士：{quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "",
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "從塞拉摩向北騎進{zone:1413}，前往{area:392}；如果知道飛行路線也可以直接飛。{npc:6251}在銀行旁的房子裡教學。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飛往{area:392}；{npc:6251}在銀行旁的房子裡授課。之後飛回塞拉摩島。",

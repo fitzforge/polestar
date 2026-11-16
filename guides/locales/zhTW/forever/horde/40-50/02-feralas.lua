@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Fly to Grom'gol
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "{area:75}飛行管理員",
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
@@ -68,10 +68,10 @@ return {
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2486} Fin Fizracket · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "在{area:35}：{npc:2494}在碼頭上，{npc:2486}在旅店旁，{npc:2498}在旅店裡，麥金利、{npc:737}和{npc:773}在樓上。",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}，室內",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}，樓上",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}, later in this guide"] = "{npc:773}，在樓上：用於本指南稍後在{area:976}的{quest:2864}",
 
@@ -84,7 +84,7 @@ return {
 	-- Step 12: Booty Bay
 	["Back into town. The ships' captains, Seahorn's next request, are for your Stranglethorn stop at about 50."] = "回到鎮上。船長們是希爾霍恩的下一個請求，留到你大約50級回荊棘谷時再做。",
 	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "",
+	["{npc:2488}, on the top floor"] = "{npc:2488}，在頂層",
 
 	-- Step 13: Fly to Grom'gol
 	-- {area:35} Booty Bay
@@ -100,7 +100,7 @@ return {
 
 	-- Step 16: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454}中部",
 
 	-- Step 18: Riding at 40
 	["Riding at 40"] = "40級騎術",
@@ -115,7 +115,7 @@ return {
 
 	-- Step 20: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
-	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "",
+	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "騎術需要40級，花費100金；學會即獲得坐騎。每個種族向本族的訓練師學習：你的是{area:367}的{npc:7953}，沿{zone:1411}大道從{zone:1454}向南騎一小段就到，旁邊是佐爾尼爾的迅猛龍（每隻20金）。之後騎回{zone:1454}的飛行管理員那裡。",
 	-- {npc:7953} Xar'Ti
 	["{npc:7953}, riding trainer"] = "騎術訓練師{npc:7953}",
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
@@ -143,7 +143,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "飛往{area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 27: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -153,11 +153,11 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "前往{area:392}學地獄戰馬",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "",
+	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "從{zone:1454}飛往{area:392}；{npc:6251}站在碼頭上方的山丘上。",
 
 	-- Step 31: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392}飛行管理員",
 
 	-- Step 37: Gadgetzan
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
@@ -171,11 +171,11 @@ return {
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
 	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，來自 {zone:1418} 的馬特克",
 
 	-- Step 40: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "前往{area:976}",
 
 	-- Step 41: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
@@ -183,7 +183,7 @@ return {
 
 	-- Step 43: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}：遇到就殺",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "強盜和竊賊在{area:976}東邊的沙丘上紮營。每個廢土敵人都可能帶著水袋：魯葛蘭克要五個。\n小心：廢土遊蕩者（43-44級）會潛行移動，可能在你沒察覺時接近。",
@@ -191,9 +191,9 @@ return {
 	-- Step 45: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "向東北騎往海岸上的哥布林港口。",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}，在屋裡",
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}，在屋裡",
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
 	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}：尖嘯者住在{zone:1444}，下次造訪{zone:1444}時",
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
@@ -201,21 +201,21 @@ return {
 
 	-- Step 46: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}：遇到就殺",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "沿著海岸往南，南海海盜佔據著海灣。{npc:7883}和被偷的貨物在海灣盡頭的碼頭上。任何海盜都可能掉落帽子，南海綁匪最常掉。\n小心：{npc:7883}（45級）身邊站著兩三個海盜，戰鬥一開始，城裡還會有更多海盜加入：先把他的護衛從他身邊拉開。",
 	["Upstairs"] = "樓上",
 
 	-- Step 47: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
-	["{area:985}: kill these as you meet them"] = "",
+	["{area:985}: kill these as you meet them"] = "{area:985}：遇到就殺",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "廢土暗法師、盜賊和刺客在{area:976}東南方紮營。\n加基森東南方，廢土強盜在沙丘裡紮營；{npc:7847}在東邊的營地。\n注意：廢土盜賊脫戰時一直保持潛行，所以你在營地開打時可能有隱藏的盜賊加入。\n注意：兩名潛行的廢土盜賊無論他走到哪都跟著。在他的重新整理營地，兩名暗法師及其僕從離得很近，會加入戰鬥。在瞭望塔那邊可以單獨打他。",
 
 	-- Step 48: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
-	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "",
+	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "向東北騎回港口：{npc:7881}、{npc:15165}和保安隊長會收下{area:1336}給你的東西。{area:976}在它西邊。",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 51 (40-50/06)"] = "給{area:35}，約51級時（40-50/06）",
 
@@ -225,13 +225,13 @@ return {
 
 	-- Step 52: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
-	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "",
+	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777}在{area:1099}一帶走動：檢視地圖上的圓圈範圍",
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}：如果你帶著{npc:263190}從{zone:2548}託付的差事",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
 	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}：給{zone:1454}，約45級時",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}，在屋裡",
 
 	-- Step 53: Gordunni Outpost
 	-- {npc:222233} Ohk'zi
@@ -247,7 +247,7 @@ return {
 
 	-- Step 56: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
-	["{zone:1444}: kill these as you meet them"] = "",
+	["{zone:1444}: kill these as you meet them"] = "{zone:1444}：沿途遇到就擊殺",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "小精龍在莫沙徹營地西邊的樹林上空飛舞；幾乎每一隻都會掉落翅膀。木爪突擊隊員帶領著西南方的營地：在一小時內殺掉他們。\n小心：大多數突擊隊員待在小帳篷營地裡，身邊有2-4隻其他豺狼人會一起參戰，還有其他豺狼人在營地之間巡邏。",
 
 	-- Step 58: Grimtotem camp
@@ -269,27 +269,27 @@ return {
 
 	-- Step 62: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
-	["{area:2522}: kill these as you meet them"] = "",
+	["{area:2522}: kill these as you meet them"] = "{area:2522}：遇到就殺",
 	-- {area:1105} Feral Scar Vale
 	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.\nCareful: the Mage-Lords (45-46) and the Shamans cast from range and the ruins are packed: pull one at a time from the edge."] = "從蟲巢向西騎往{area:1105}下方的食人魔遺跡。裡面滿是戈杜尼薩滿、術士和虐待者；南端的戈杜尼大法師帶著寶珠。\n小心：大法師（45-46級）和薩滿會遠程施法，遺跡裡敵人密集：從邊緣一次拉一隻。",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
-	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
+	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234}在{area:2522}一帶走動：檢視地圖上的圓圈範圍",
 
 	-- Step 63: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
-	["{area:1105} yetis"] = "",
+	["{area:1105} yetis"] = "{area:1105}的雪人",
 	-- {area:1105} Feral Scar Vale
-	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "",
+	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在廢墟西北，雪人在{area:1105}築巢；那裡的每個雪人都可能掉落厚重的雪人皮。",
 
 	-- Step 64: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "僅當你有定位器時：{zone:1444}的任何野獸、豺狼人或食人魔都可能掉落它，大約每殺一百隻掉一個；使用它開始任務。機器人在{area:1105}北側的一個小山洞裡，就在廢墟西北不遠。護送它到{area:1108}的碼頭；途中會有雪人和猩猩伏擊你。它的獎勵在{area:35}，留到之後再去領取。\n小心：護送過程中會出現三次伏擊，機器人每次都會提前警告你。第一次是3只雪人，就在機器人離開山洞、爬向道路之後。第二次是3只猩猩，在沿懸崖延伸的小路上。第三次是大約4個豺狼人，其中一個是施法者，在路線轉向碼頭的地方。",
 
 	-- Step 65: Camp Mojache
 	-- {zone:1444} Feralas
-	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "",
+	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "狂怒疤痕雪人，下次來{zone:1444}時",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
-	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
+	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}：為{zone:1454}的{npc:7010}",
 	-- {zone:1454} Orgrimmar · {zone:2652} Shen'dralas
 	["for {zone:1454}, after {zone:2652}"] = "給{zone:1454}，在{zone:2652}之後",
 	-- {zone:2652} Shen'dralas · {area:1099} Camp Mojache · {zone:1443} Desolace · {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {npc:7311} Uthel'nay

@@ -26,13 +26,13 @@ return {
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools · {spell:1804} Pick Lock
-	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an {item:7970} and {item:5060} ({spell:1804} does not work without the tools in your bags)."] = "",
+	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an {item:7970} and {item:5060} ({spell:1804} does not work without the tools in your bags)."] = "飛往或走到{zone:1413}海岸的{area:392}。{npc:7161}站在銀行附近的一間小棚子裡，在碼頭前面上坡左轉。他身旁的精巧裝置會發放任務所需工具：拿一個{item:7970}和{item:5060}（包裡沒有工具時{spell:1804}無法使用）。",
 
 	-- Step 5: Southsea Treasure
 	-- {area:392} Ratchet · {object:123462} The Jewel of the Southsea · {npc:7168} Polly · {item:7970} E.C.A.C. · {item:7968} Southsea Treasure
-	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "",
+	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "從{area:392}沿海岸向南走到第一艘擱淺的海盜船“潮汐剃刀號”，從船頭登船。中層甲板上的海盜保險箱重新整理很快：一直開鎖練到開鎖技能30左右（有幾個箱子帶冰霜新星陷阱或會把你變成老鼠；變成老鼠也能繼續開鎖）。只要還給技能點就繼續練：20級的製毒任務最後要開一個需要約75點開鎖的箱子，而這些箱子是最近的練習物件。然後下到最底層船艙，撬開{object:123462}的鎖：箱子是空的，但開啟它會在隔壁房間召出一隻巨大的50級{npc:7168}。保持潛行，把{item:7970}放到動作條上，選中{npc:7168}並使用：鸚鵡會縮成18級。殺掉它拾取{item:7968}。",
 	-- {item:7968} Southsea Treasure · {npc:7168} Polly · {item:7970} E.C.A.C.
-	["{item:7968}: {npc:7168}, after the {item:7970}"] = "",
+	["{item:7968}: {npc:7168}, after the {item:7970}"] = "{item:7968}：{npc:7168}，使用{item:7970}之後",
 
 	-- Step 6: Back to Wrenix the Wretched
 	-- {npc:7161} Wrenix the Wretched
@@ -46,11 +46,11 @@ return {
 
 	-- Step 8: Mennet Carkad
 	-- {item:5060} Thieves' Tools · {npc:6566} Estelle Gendry · {object:36073} Rogues' Quarter
-	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "",
+	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "如果{item:5060}用完了，找{object:36073}裡的供應商{npc:6566}。",
 
 	-- Step 9: Ambermill
 	-- {area:233} Ambermill · {object:103815} Ambermill Strongbox · {item:5060} Thieves' Tools
-	["The Kirin Tor keep their reports in walled {area:233}, in south-east Silverpine. Facing the town hall, take the building on the right: the {object:103815} is in a corner room upstairs (any Lockpicking opens it; the {item:5060} must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time."] = "",
+	["The Kirin Tor keep their reports in walled {area:233}, in south-east Silverpine. Facing the town hall, take the building on the right: the {object:103815} is in a corner room upstairs (any Lockpicking opens it; the {item:5060} must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time."] = "肯瑞託把報告存放在銀松森林東南部帶圍牆的{area:233}。面對市政廳，走右邊那棟建築：{object:103815}在樓上的拐角房間裡（任何開鎖技能都能開；{item:5060}必須在揹包裡）。三名19-20級的法系怪守著那層樓且能看破潛行，其中一個會進出保險箱房間：掐好時機，或者逐個擊破。",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad

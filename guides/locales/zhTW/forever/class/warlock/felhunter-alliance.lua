@@ -21,41 +21,41 @@ return {
 
 	-- Step 3: Strahad Farsan
 	-- {area:392} Ratchet · {zone:1413} Barrens · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {npc:6266} Menara Voidrender · {npc:6294} Krom Stoutarm · {zone:1455} Ironforge
-	["{area:392} is a neutral goblin port on the {zone:1413} coast: the boat from {area:35} docks there. {npc:6251} stands on the hill above the town, behind the engineers' hut, by his little tower; {npc:6266} and two acolytes are with him. He sends you to {npc:6294} in {zone:1455}."] = "",
+	["{area:392} is a neutral goblin port on the {zone:1413} coast: the boat from {area:35} docks there. {npc:6251} stands on the hill above the town, behind the engineers' hut, by his little tower; {npc:6266} and two acolytes are with him. He sends you to {npc:6294} in {zone:1455}."] = "{area:392}是{zone:1413}海岸上的中立地精港口：從{area:35}來的船在那裡停靠。{npc:6251}站在鎮上方的小山上，工程師小屋後面、他的小塔旁；{npc:6266}和兩個助手跟他在一起。他派你去{zone:1455}的{npc:6294}那裡。",
 
 	-- Step 4: Krom Stoutarm
 	-- {npc:6294} Krom Stoutarm · {object:32356} Hall of Explorers · {quest:1758} Tome of the Cabal · {area:287} Hillsbrad · {zone:1441} Thousand Needles
-	["{npc:6294} is in the library of the {object:32356}. He wants two lost pieces of the {quest:1758}: one on the {area:287} coast, one in {zone:1441}."] = "",
+	["{npc:6294} is in the library of the {object:32356}. He wants two lost pieces of the {quest:1758}: one on the {area:287} coast, one in {zone:1441}."] = "{npc:6294}在{object:32356}的圖書館裡。他要{quest:1758}中遺失的兩塊碎片：一塊在{area:287}海岸，一塊在{zone:1441}。",
 
 	-- Step 5: Moldy Tome
 	-- {area:271} Southshore
-	["The tome is a small grey-blue book lying in the sand of a murloc camp on the shore south-west of {area:271}, near the water's edge. Six or seven murlocs guard it and more lurk underwater: they come in groups, so Fear one and keep your voidwalker on the rest. Walk down to the water to click it; from the hillside the crates block the cursor."] = "",
+	["The tome is a small grey-blue book lying in the sand of a murloc camp on the shore south-west of {area:271}, near the water's edge. Six or seven murlocs guard it and more lurk underwater: they come in groups, so Fear one and keep your voidwalker on the rest. Walk down to the water to click it; from the hillside the crates block the cursor."] = "那本書是一本灰藍色的小書，躺在{area:271}西南海岸一處魚人營地的沙地上，靠近水邊。六七隻魚人守著它，水下還藏著一批：它們成群出現，所以恐懼一隻，讓虛空行者對付其餘的。走到水邊才能點它；從山坡上點會被木箱擋住游標。",
 	-- {item:6931} Moldy Tome · {quest:1802} Tome of the Cabal
-	["{item:6931}, from the {quest:1802} on the sand"] = "",
+	["{item:6931}, from the {quest:1802} on the sand"] = "{item:6931}，來自沙灘上的{quest:1802}",
 
 	-- Step 6: Tattered Manuscript
 	-- {area:484} Freewind Post
-	["The centaur cave opens in the cliffs north of {area:484}, a Horde town: keep clear of its guards. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out."] = "",
+	["The centaur cave opens in the cliffs north of {area:484}, a Horde town: keep clear of its guards. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out."] = "半人馬洞穴開在{area:484}以北的峭壁裡，那是部落城鎮：避開它的衛兵。進洞後每個岔路都向右，穿過小瀑布旁的水池，開啟靠牆、在一個大箱子旁邊的小暗箱：大的那個是錯的。只有做任務時你才能開啟它。出來時，半人馬會在你身後重新整理。",
 	-- {item:6997} Tattered Manuscript · {object:92423} Damaged Chest
 	["{item:6997}, in the {object:92423}"] = "{item:6997}，在{object:92423}裡",
 
 	-- Step 7: Back to Krom Stoutarm
 	-- {npc:6294} Krom Stoutarm
-	["Back to {npc:6294}"] = "",
+	["Back to {npc:6294}"] = "回到{npc:6294}",
 	-- {npc:6294} Krom Stoutarm · {item:7006} Reconstructed Tome · {npc:6251} Strahad Farsan
-	["{npc:6294} pieces the tome together and gives you the {item:7006}: keep it, {npc:6251} takes it with the rods."] = "",
+	["{npc:6294} pieces the tome together and gives you the {item:7006}: keep it, {npc:6251} takes it with the rods."] = "{npc:6294}把書拼好，交給你{item:7006}：留著它，{npc:6251}會和法杖一起收走。",
 
 	-- Step 8: Rods of Channeling
 	["Rods of Channeling"] = "導能魔棒",
 	-- {area:1036} Angerfang Encampment · {area:150} Menethil Harbor · {area:836} Dun Algaz
-	["The Dragonmaw hold {area:1036} in the hills east of the road from {area:150} to {area:836}. Only the casters drop the rods, four kills in five: the Bonewarders (level 27, with skeleton pets) and Shadowwarders (28). A steep path north of the central spirit healer leads up into the camp past most of the warriors."] = "",
-	["Rods of Channeling, from the Dragonmaw casters"] = "",
+	["The Dragonmaw hold {area:1036} in the hills east of the road from {area:150} to {area:836}. Only the casters drop the rods, four kills in five: the Bonewarders (level 27, with skeleton pets) and Shadowwarders (28). A steep path north of the central spirit healer leads up into the camp past most of the warriors."] = "龍喉獸人佔據著{area:1036}，在從{area:150}到{area:836}的路東丘陵中。只有施法者會掉法杖，約五次擊殺掉四根：白骨看守者（27級，帶骷髏寵物）和暗影看守者（28級）。中央靈魂醫者以北的一條陡峭小路能繞過大部分戰士，直上營地。",
+	["Rods of Channeling, from the Dragonmaw casters"] = "導能法杖，由龍喉施法者掉落",
 
 	-- Step 9: The Binding
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet · {quest:1804} Tome of the Cabal · {quest:1795} The Binding
-	["Back to {npc:6251} in {area:392}. When you accept, he draws the summoning circle and his acolytes channel a greater circle over it: wait inside the tower until both are done. Then use the {quest:1804} on the circle. The felhunter (level 30, not elite) silences and eats mana, and it vanishes after two minutes: have your voidwalker out, open with your damage over time at once and let the voidwalker tank. If you die or it wins, abandon {quest:1795} and take it again from {npc:6251}. Keep the tome: {npc:6251} takes it back."] = "",
+	["Back to {npc:6251} in {area:392}. When you accept, he draws the summoning circle and his acolytes channel a greater circle over it: wait inside the tower until both are done. Then use the {quest:1804} on the circle. The felhunter (level 30, not elite) silences and eats mana, and it vanishes after two minutes: have your voidwalker out, open with your damage over time at once and let the voidwalker tank. If you die or it wins, abandon {quest:1795} and take it again from {npc:6251}. Keep the tome: {npc:6251} takes it back."] = "回到{area:392}找{npc:6251}。接受任務後，他會畫出召喚法陣，他的助手們會在上面引導一個更大的法陣：在塔裡等到兩個法陣都完成。然後在法陣上使用{quest:1804}。地獄犬（30級，非精英）會沉默並吸取法力，兩分鐘後消失：先放出你的虛空行者，立刻掛上持續傷害，讓虛空行者負責扛。如果你死了或它贏了，放棄{quest:1795}，再從{npc:6251}那裡重新接。留著那本書：{npc:6251}會把它收回去。",
 	-- {quest:1804} Tome of the Cabal
-	["{quest:1804}, on the circle"] = "",
+	["{quest:1804}, on the circle"] = "{quest:1804}，在法陣上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:6251} in {area:392}. Use the {quest:1804} on the summoning circle beside him and defeat the felhunter to bind it."] = "返回{area:392}找{npc:6251}。對他身旁的召喚法陣使用{quest:1804}，擊敗地獄獵犬以束縛牠。",

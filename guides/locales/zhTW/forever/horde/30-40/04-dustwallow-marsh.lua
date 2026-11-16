@@ -12,24 +12,24 @@ return {
 
 	-- Step 2: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454}中部",
 
 	-- Step 3: Orgrimmar
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}，給「沼澤之眼」加爾",
 	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {area:720} Fray Island
-	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "",
+	["{npc:3354}, {object:172958}: for {area:720}, later in this guide (offered from level 30)"] = "{npc:3354}，{object:172958}：交給{area:720}，本指南稍後（30級起可接）",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "飛往十字路口",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}的飛行管理員",
 
 	-- Step 5: Korran
 	-- {npc:3428} Korran
-	["{npc:3428} stands beside the Crossroads flight master."] = "",
+	["{npc:3428} stands beside the Crossroads flight master."] = "{npc:3428}站在十字路口飛行管理員旁邊。",
 	-- {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["for {npc:4485} in {zone:1454}, at the end of this guide"] = "",
+	["for {npc:4485} in {zone:1454}, at the end of this guide"] = "交給{zone:1454}的{npc:4485}，在本指南末尾",
 
 	-- Step 6: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -62,11 +62,11 @@ return {
 	-- {object:20985} Loose Dirt
 	["{object:20985}, beside the manor"] = "{object:20985}，在莊園旁",
 	-- {quest:1218} Soothing Spices · {zone:1454} Orgrimmar
-	["{quest:1218}, if you did not buy them in {zone:1454}"] = "",
+	["{quest:1218}, if you did not buy them in {zone:1454}"] = "{quest:1218}，如果你沒在{zone:1454}買的話",
 
 	-- Step 14: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
-	["{area:496}: kill these as you meet them"] = "",
+	["{area:496}: kill these as you meet them"] = "{area:496}：遇到這些就殺",
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "向西穿過沼澤回去。蕨牆村北邊山脊上的暗牙潛伏者（36-37級）和暗牙毒液噴吐者（37-38級）會掉落毒囊。塞拉摩間諜（35-36級）在同一片樹林裡潛行：牠們處於潛行狀態，要仔細看。\n暗霧蜘蛛聚集在蕨牆村西北方的洞穴口；每一種都會掉落眼睛。在外圍打，那裡是蜘蛛和隱士蛛（35-37級）：更深處的潛伏者和織絲蛛（37-39級）比你高兩三級。\n小心：暗牙潛伏者（36-37級）在非戰鬥時會潛行，戰鬥中會施放毒素。\n小心：同一區域潛行的蜘蛛看到你就會攻擊。\n小心：暗霧潛伏者會潛行移動，戰鬥中會使用毒素。蜘蛛站得很近，很容易引來額外的怪；從外圍單拉可以減少這種情況。",
 
@@ -93,10 +93,10 @@ return {
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike · {npc:4926} Krog
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} and {npc:4926} in the village."] = "帶著頭顱向西回到蕨牆村：{npc:4503}站在村莊南緣、道路進村的地方，{npc:4791}和{npc:4926}在村裡。",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol
-	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "",
+	["For {npc:2519} at {object:3202}, in forever/horde/40-50/01-stranglethorn-vale"] = "交給{object:3202}的{npc:2519}，在（forever/horde/40-50/01-stranglethorn-vale）指南中",
 
 	-- Step 20: Level 36
-	["Level 36"] = "",
+	["Level 36"] = "36級",
 	-- {zone:1443} Desolace
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "{zone:1443}的最後幾個任務是36-39級。繳交完蕨牆村的任務後還不到36級？村莊東邊河岸的塵泥鱷魚（35-36級）是最近且符合你等級的怪：擊殺牠們直到36級。",
@@ -109,7 +109,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飛往{area:392}",
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "{area:496}飛行管理員",
 
 	-- Step 22: Ratchet
 	-- {npc:3446} Mebok Mizzyrix
@@ -117,17 +117,17 @@ return {
 
 	-- Step 23: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
-	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "",
+	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "從{area:392}沿海岸向南到{area:720}。{npc:6236}站在競技場旁：踏上鐵柵格開始戰鬥；挑戰者會一個個上來，最後是{npc:6238}（33級）。",
 
 	-- Step 24: Ratchet flight master
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392}飛行管理員",
 	-- {area:392} Ratchet
 	["Back north along the coast to {area:392}'s flight master."] = "沿著海岸往北回到{area:392}的飛行管理員。",
 
 	-- Step 25: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "飛往{area:2408}",
 	-- {area:2408} Shadowprey Village · {area:392} Ratchet
 	["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "從你旁邊的飛行管理員飛往{area:2408}：{area:392}的，如果你在{area:392}沒有事要辦，就用蕨牆村的。",
 
@@ -152,7 +152,7 @@ return {
 
 	-- Step 29: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在山谷西端的瑪拉多營地；救出她並護送她到山谷以東。\n小心：指令碼刷出的隊伍是仇恨聯動的，而且只在護送期間出現，所以無法事先清掉，也不能一隻只拉。出發前把路上的普通半人馬清掉確實有幫助。",
 
 	-- Step 30: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -178,7 +178,7 @@ return {
 	-- Step 35: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
+	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向東到{area:602}。包裡帶著{npc:11624}給的{quest:5381}時，開啟惡魔傳送門的法陣：會出來一個{npc:11937}（38-39級）；殺掉它就能關上那個傳送門。一共六個門。注意：地獄火、末日守衛和燃燒之刃召喚者常在多個門附近走動，可能加入戰鬥；先清掉附近的怪，或者把守衛往別處拉，比如拉向集會的中央湖。",
 
 	-- Step 36: The Valley of Bones
 	-- {area:2657} Valley of Bones
@@ -192,12 +192,12 @@ return {
 	["North-west to the goblin camp on the west side of the {area:596}, back past {area:602}: keep west of the Magram's village."] = "向西北返回，經過{area:602}，前往{area:596}西側的哥布林營地：保持在瑪格拉姆村莊西邊。",
 
 	-- Step 38: Shadowprey
-	["Shadowprey"] = "",
+	["Shadowprey"] = "暗影村",
 	["Hearth to Shadowprey: your hearthstone is still bound there."] = "用爐石回葬影村：你的爐石仍綁定在那裡。",
 
 	-- Step 39: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
+	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "從{area:2408}飛往{area:1638}，在{area:1639}找{npc:3033}訓練，再從那裡飛往{zone:1454}。",
 
 	-- Step 40: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -207,25 +207,25 @@ return {
 
 	-- Step 41: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "回到{area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 42: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}."] = "",
+	["{npc:4485} stands in the {object:172958}."] = "{npc:4485}站在{object:172958}。",
 
 	-- Step 43: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
-	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "",
+	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "{npc:3412}的工坊在{npc:4485}旁的{object:172958}裡：如果你跑過{area:133}，就在這裡交{quest:2841}。",
 
 	-- Step 44: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "{zone:1454}的訓練師",
 	-- {zone:1458} Undercity
-	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "",
+	["Train while you are in the city; everyone else trains in the {zone:1458}, next."] = "趁在城裡時訓練；其他人下一站在{zone:1458}訓練。",
 	-- {zone:1458} Undercity
-	["The next guide takes the {zone:1458} zeppelin from the tower outside the main gate."] = "",
+	["The next guide takes the {zone:1458} zeppelin from the tower outside the main gate."] = "下一份指南會在正門外的塔樓乘上前往{zone:1458}的飛艇。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Darkfang spiders"] = "暗牙蜘蛛",

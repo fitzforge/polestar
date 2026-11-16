@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Alterac Mountains (1/2)
 	-- {zone:1416} Alterac Mountains · {zone:1424} Hillsbrad Foothills · {zone:1434} Stranglethorn Vale
-	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "",
+	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "從{zone:1424}以北的{zone:1416}開始，到{zone:1434}結束。本段有15個區域可探索，等級27-39。",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "單一角色探索整張世界地圖是一項Forever傳承挑戰（1點帳號共用傳承點數）。",
 	-- {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1416} Alterac Mountains
 	["Fly to {area:271} in {zone:1424} and walk north into the {zone:1416}."] = "飛往{zone:1424}的{area:271}，向北走進{zone:1416}。",
@@ -51,9 +51,9 @@ return {
 
 	-- Step 7: Riverglades (1/2)
 	-- {area:16724} Farholde Keep · {area:16743} Rog'mar
-	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
+	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "本段有14個區域可探索，等級36-44。飛行點：東南的{area:16724}（聯盟）、中部的{area:16743}（部落）。",
 	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
-	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
+	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "從{zone:1418}南部經過{area:345}，有一條路向下通往{area:16685}旁的{zone:2548}。（{zone:2548}也可從赤脊山北部經{area:2417}進入，還有一艘船從{zone:1446}的{area:977}開往其海岸上的中立地精港口{area:16727}。）{area:17780}是一個食人魔氏族的野外副本。",
 	-- {area:16724} Farholde Keep · {npc:257087} Gretchen Mayberry
 	["Flight path here: {area:16724} ({npc:257087})."] = "此處的飛行路線：{area:16724}（{npc:257087}）。",
 	-- {area:16743} Rog'mar
@@ -62,7 +62,7 @@ return {
 	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "這裡有11個區域要發現，等級36-43。",
 	-- {zone:1435} Swamp of Sorrows · {zone:2548} Riverglades · {area:16725} Wheeler's Grange · {area:16737} Bristle Hills
-	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "",
+	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "{zone:1435}位於{zone:2548}以南：從{area:16725}向南游過去，或走{area:16737}以南的赤脊山隘口。",
 	-- {area:75} Stonard
 	["{area:75} is the Horde town."] = "{area:75}是部落城鎮。",
 	-- {area:75} Stonard
@@ -72,7 +72,7 @@ return {
 	-- {area:35} Booty Bay · {area:392} Ratchet
 	["27 areas to discover here, levels 30-50. {area:35} at the southern tip is a neutral goblin port with a boat to {area:392}."] = "這裡有27個區域要發現，等級30-50。南端的{area:35}是中立哥布林港口，有船開往{area:392}。",
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
-	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
+	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "從{zone:1435}向西騎出，穿過{zone:1430}（路外有50級以上的怪物），進入{zone:1431}，再沿路向南進入{zone:1434}北部。",
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
 	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "或從{zone:1454}或{zone:1458}搭飛艇前往{area:117}。",
 	-- {area:35} Booty Bay

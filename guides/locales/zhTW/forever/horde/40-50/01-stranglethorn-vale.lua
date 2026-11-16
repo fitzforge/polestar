@@ -37,7 +37,7 @@ return {
 
 	-- Step 6: Grom'gol Base Camp
 	-- {npc:2519} Kin'weelay · {npc:1061} Gan'zulah
-	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "",
+	["{npc:2519}: the legend lies in Zul'Kunda, where this guide goes for {npc:1061}"] = "{npc:2519}：傳說在祖爾昆達，本指南會為{npc:1061}去那裡",
 
 	-- Step 7: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -50,29 +50,29 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飛往{area:35}",
 	-- {object:3202} Grom'gol
-	["{object:3202} flight master"] = "",
+	["{object:3202} flight master"] = "{object:3202}飛行管理員",
 
 	-- Step 10: Booty Bay
 	-- {area:35} Booty Bay
 	["Gringer, the flight master, waits on {area:35}'s upper deck. The quest givers stand on the boardwalks around the harbour and in the inn."] = "飛行管理員格林格在{area:35}的上層平台等著。任務給予者站在港口周圍的木棧道上和旅店裡。",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "",
+	["{npc:2495}: the Snapjaw skins gathered earlier; inside"] = "{npc:2495}：之前收集的鉗嘴鱷皮；在裡面",
 	-- {npc:2495} Drizzlik · {npc:2635} Elder Saltwater Crocolisk · {object:3202} Grom'gol
 	["{npc:2495}: the {npc:2635} suns on the coast between Zul'Kunda and {object:3202}, later on this loop"] = "{npc:2495}：{npc:2635}在祖昆達廢墟和{object:3202}之間的海岸上曬太陽，在這趟路線稍後會遇到",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the docks: Gazlowe's letter, if you carry it"] = "{npc:4631}，在碼頭上：如果你帶著加茲魯維的信",
 	-- {npc:4631} Wharfmaster Lozgil · {quest:97332} Twice Misplaced Trust · {npc:259961} Wharfmaster Whizzbuzz · {area:16727} Powderfuse Port · {zone:2548} Riverglades
 	["{npc:4631}: {quest:97332}, after Zimmix's rescue; the package goes to {npc:259961} at {area:16727}, in the {zone:2548} guide"] = "{npc:4631}：{quest:97332}，在救出辛米克斯之後；包裹要交給{zone:2548}指南中{area:16727}的{npc:259961}",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”麥金利，在頂層",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, on the balcony beside MacKinley"] = "{npc:2496}，在麥金利旁邊的陽台上",
-	["Inside"] = "",
+	["Inside"] = "在裡面",
 
 	-- Step 11: Kebok
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop."] = "樓上的{npc:737}現在有下一個差事：劈顱獠牙來自祖瑪維的食人妖，在這趟路線稍後會去。",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}，樓上",
 
 	-- Step 12: Bloodsail Correspondence
 	-- {area:35} Booty Bay
@@ -125,7 +125,7 @@ return {
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {object:3202} Grom'gol · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
 	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "遠征隊營地西邊，血頂酋長{npc:1061}和{npc:1062}一起站在祖昆達廢墟中。先清掉他們的守衛，再把他們拉過來。\n在祖昆達廢墟和{object:3202}之間的海岸上，一隻{npc:2635}（38級精英）與普通鱷魚共用重生點：如果牠在就擊殺牠，並為{npc:2495}取下牠的皮。",
 	-- {object:52} Fall of Gurubashi
-	["from the {object:52}, in the ruins"] = "",
+	["from the {object:52}, in the ruins"] = "來自{object:52}，在廢墟里",
 
 	-- Step 29: Grom'gol
 	-- {object:2076} Bubbling Cauldron · {npc:2497} Nimboya
@@ -133,7 +133,7 @@ return {
 	-- {npc:2497} Nimboya · {zone:1425} Hinterlands
 	["{npc:2497}: for the {zone:1425}, around level 48"] = "{npc:2497}：給{zone:1425}，約48級",
 	-- {npc:2519} Kin'weelay
-	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "",
+	["{npc:2519}: the trophy skulls stand in the Skullsplitter ruins, later on this loop"] = "{npc:2519}：戰利品頭骨在碎顱巨魔的廢墟里，本環線後段",
 	-- {npc:2519} Kin'weelay · {area:104} Vile Reef
 	["{npc:2519}: the cavern entrance under the {area:104}, west of the camp"] = "{npc:2519}：洞穴入口在營地西邊的{area:104}底下",
 
@@ -189,13 +189,13 @@ return {
 	-- {area:35} Booty Bay
 	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "向南前往{area:35}。「病鬼」菲力浦在碼頭上等著。",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
-	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
+	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}，在旅店裡：他的酒瓶衝到{zone:1425}海岸上，大約48級",
 	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
 	["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}：{quest:348}（40級起可接），溫巴格瓦的部分在{zone:1444}指南的{object:3202}停留點",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "",
+	["{npc:737}, upstairs: the tusks come from the Skullsplitters, later on this loop"] = "{npc:737}，在樓上：獠牙來自碎顱巨魔，本環線後段",
 	-- {zone:1446} Tanaris
-	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "",
+	["MacKinley, on the top floor: for Stoley in {zone:1446}"] = "麥金利，在頂層：為{zone:1446}的斯托利",
 	["MacKinley: keep it, the ghost pirates (43-44) wait for your Stranglethorn stop at about 45"] = "麥金利：留著，幽靈海盜（43-44）等約45級的荊棘谷停留點再打",
 	-- {npc:2495} Drizzlik · {item:4105} Elder Crocolisk Skin
 	["{npc:2495}, inside: the {item:4105}"] = "{npc:2495}，在屋內：{item:4105}",
@@ -227,7 +227,7 @@ return {
 
 	-- Step 42: Balia'mah Ruins: kill these as you meet them
 	-- {area:127} Balia'mah Ruins
-	["{area:127}: kill these as you meet them"] = "",
+	["{area:127}: kill these as you meet them"] = "{area:127}：遇到就殺",
 	-- {object:3202} Grom'gol
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一批祖瑪維顱骨堆在劈顱戰士營地北邊不遠的小廢墟中。\n最後一批顱骨在往西走一小段的廢墟裡，就在回{object:3202}的路上。",
 
@@ -264,11 +264,11 @@ return {
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "向東前往道路南邊蘆葦叢中的{area:75}。",
 	-- {npc:5591} Dar
-	["{npc:5591}, inside"] = "",
+	["{npc:5591}, inside"] = "{npc:5591}，在裡面",
 	-- {npc:1442} Helgrum the Swift
-	["{npc:1442}, upstairs"] = "",
+	["{npc:1442}, upstairs"] = "{npc:1442}，樓上",
 	-- {npc:1443} Fel'zerul
-	["{npc:1443}, on the top floor"] = "",
+	["{npc:1443}, on the top floor"] = "{npc:1443}，在頂層",
 
 	-- Step 59: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "鹽齒鱷魚",

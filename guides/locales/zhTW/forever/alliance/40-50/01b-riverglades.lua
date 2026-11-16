@@ -525,10 +525,10 @@ return {
 
 	-- Step 110: Stormwind flight master
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
 	-- Step 111: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "薩滿訓練師",
 	-- {zone:2548} Riverglades · {zone:1453} Stormwind · {zone:1418} Badlands · {zone:1425} Hinterlands · {area:1537} Ironforge · {area:144} Thelsamar
 	["No shaman trainer stands in the {zone:2548} or in {zone:1453}, and the {zone:1418} & {zone:1425} guide passes none: fly to {area:1537} and train there; {area:144} is a short flight on."] = "{zone:2548}和{zone:1453}都沒有薩滿訓練師，{zone:1418}與{zone:1425}指南途中也沒有：飛往{area:1537}訓練；從那裡再飛一小段就到{area:144}。",
 
