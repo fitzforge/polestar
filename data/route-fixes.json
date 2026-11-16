@@ -10518,6 +10518,15 @@
 				"q": 86746,
 				"reason": "Horde 0.4.0 audit: The Legashi Threat (level 53, 5,250 XP, new in Forever) from Ekkal (Azshara 42.0,38.9), on 50-60/04's road between Valormok and the north-east; the Legashi satyrs (51-52) hold the hills north of the Thalassian Base Camp. Taken on the way out and handed in on the way back west. Players' recordings: taken and handed in at Ekkal, the satyrs killed at 56-59,19-23.",
 				"issue": "-"
+			},
+			{
+				"q": 5534,
+				"after": [
+					"turnin",
+					3601
+				],
+				"reason": "Horde level tidy, round 3 (0.4.0): Kim'jael's \"Missing\" Equipment (level 53, 6,550 XP) is taken with Kim'jael Indeed!'s hand-in on 50-60/04's Thalassian Base Camp trip (about 55.9). Some Rune drops from the Spitelash Sirens and Myrmidons (50-52), which reach the northern edge of the Ruins of Eldarath (about 47,44), 800 yd south of Kim'jael: a short ride there and back before the road west, about 2.5 minutes mounted plus the kills. Players' recordings: the rune looted off Sirens (6195) and Myrmidons (6196), handed in at Kim'jael.",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -10903,12 +10912,6 @@
 				"faction": "Horde",
 				"reason": "#2390 (Rohkin, Kazu): Belgrom Rockmaul no longer offers Betrayed (3504) on Forever. Players' recordings: Ag'tor Bloodfist (8576) offered Betrayed (3505) directly to 5 people at 49-52 with 3504 neither in their log nor done; Belgrom's windows (47 people) never offered 3504. The chain starts at 3505 from Ag'tor (corrections 3505 pre []).",
 				"issue": "#2390"
-			},
-			{
-				"q": 5534,
-				"faction": "Horde",
-				"reason": "Horde level tidy (0.4.0): Kim'jael's \"Missing\" Equipment (level 53; Spitelash 50-55 with casters at Eldarath) at about 50 in 40-50/06 was 3 over the player. Kim'jael Indeed! (3601) moved to 50-60/04-azshara's Thalassian Base Camp; there Eldarath comes before the base camp, so its hand-in would be a ride back for one quest. Left out.",
-				"issue": "-"
 			},
 			{
 				"q": 3518,
@@ -14662,6 +14665,19 @@
 				],
 				"faction": "Horde",
 				"why": "Flow, Horde 50-60/02 (0.3.6 flow pass): with the Eastern Plaguelands moved out of 50-60/01, Augustus' Receipt Book (6164) and A Plague Upon Thee's termites (5901) are done in Terrordale, a river east of Tirion's house, on 02's Tirion stop; Augustus takes the book back on 05's Terrordale stop.",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					5534
+				],
+				"b": [
+					"turnin",
+					86746
+				],
+				"faction": "Horde",
+				"why": "Horde level tidy, round 3 (0.4.0): Kim'jael's rune comes off the Spitelash at the northern edge of the Ruins of Eldarath, south of Kim'jael, and goes back to him before the road south-west, so Ekkal (on that road, 42.0,38.9) takes the satyrs on the way home to Valormok and the road is ridden once.",
 				"source": "review"
 			},
 			{

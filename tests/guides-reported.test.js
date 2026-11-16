@@ -8078,6 +8078,22 @@ test('forever/horde/50-60/04-azshara.guide: final review: no level 16 Prompt Pot
 	assert.ok(at(list, 'turnin 3568', is('turnin', 3568)) >= 0, 'the Apothecarium stop stays');
 });
 
+// Horde level tidy, round 3 (0.4.0): Kim'jael's "Missing" Equipment (5534, 6,550 XP) was left out because Eldarath
+// comes before the base camp. Its rune drops from the Spitelash at the ruins' northern edge, about 800 yd south of
+// Kim'jael: taken with Kim'jael Indeed!'s hand-in, the rune there, back to Kim'jael, then Ekkal on the road home.
+test("forever/horde/50-60/04-azshara.guide: level tidy: Kim'jael's rune on a short ride from his camp", { skip }, () => {
+	const list = goals('forever/horde/50-60/04-azshara.guide');
+	const handin = at(list, 'turnin 3601', is('turnin', 3601));
+	const accept = at(list, 'accept 5534', is('accept', 5534));
+	assert.equal(list[accept].step, list[handin].step, "taken with Kim'jael Indeed!'s hand-in");
+	const rune = at(list, 'collect 13815', (g) => g.t === 'collect' && g.item === 13815 && g.quest === 5534);
+	const { goal } = list[rune];
+	assert.ok(goal.map === 1447 && Math.abs(goal.x - 47.5) < 2 && Math.abs(goal.y - 44.5) < 2, "the Ruins of Eldarath's northern edge");
+	const turnin = at(list, 'turnin 5534', is('turnin', 5534));
+	assert.ok(rune < turnin && turnin < at(list, 'turnin 86746', is('turnin', 86746)), "back to Kim'jael before Ekkal");
+	assert.ok(turnin < at(list, 'turnin 91500', is('turnin', 91500)), 'before Valormok');
+});
+
 // Horde 50-60 audit (0.4.0): Venom Bottles (2933, level 43) was handed in to Apothecary Lydon at about 52.4, which gives
 // 20% of its experience (about 720 XP), and the flight from Kargath landed at Tarren Mill only for it. It is out of
 // the route (taken in neither guide); the flight from Kargath goes straight to the Undercity.

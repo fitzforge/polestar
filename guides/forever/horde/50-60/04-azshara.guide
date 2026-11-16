@@ -140,8 +140,17 @@ step The Legashi satyrs
   kill 6202 quest 86746.3             -- Legashi Hellcaller
 
 step Kim'jael
-  tip Back north-west to Kim'jael, then on west. His next errand, the rune in the Ruins of Eldarath, would bring you back here: skip it.
+  tip Back north-west to Kim'jael.
   turnin 3601
+  accept 5534
+
+step Ruins of Eldarath: Some Rune
+  tip Ride south to the northern edge of the Ruins of Eldarath. The Spitelash Sirens and Myrmidons (50-52) there carry Kim'jael's rune; it doesn't drop often, so work your way along the edge until it does.
+  collect 13815 quest 5534.1 @47.5,44.5
+
+step Kim'jael
+  tip Back north to Kim'jael with the rune, then south-west along the road.
+  turnin 5534
 
 step Ekkal
   tip South-west along the road: Ekkal takes the satyrs.
