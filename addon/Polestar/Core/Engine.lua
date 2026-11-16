@@ -2030,6 +2030,8 @@ function Own.feederPlan(g)
 						end
 						if ch then
 							ch.deps[#ch.deps + 1] = d
+							d.chains = d.chains or {}
+							d.chains[#d.chains + 1] = ch
 						else
 							d.whole = false
 						end
@@ -2112,69 +2114,93 @@ function Own.feederPlan(g)
 		end
 		return n
 	end
-	table.sort(list, function(a, b)
-		local na, nb = opens(a), opens(b)
-		if na ~= nb then return na > nb end
-		return a.order < b.order
-	end)
 	-- Chain by chain: its steps go in when they are local and, done before
 	-- the first accept they open (U), cost at most FEED_LOCAL from where the
 	-- guide and the steps already put in go before that (Own.feedCost). Each
 	-- goes after the step of g before U nearest it, in order; a source step
 	-- another chain put in already takes this chain's goals too.
-	local gaps, placed, placedAt, cost = {}, {}, {}, 0
-	for _, ch in ipairs(list) do
-		local mine = ch.ok and opens(ch) > 0 and stepsOf(ch.quests)
-		if mine and local_(mine) then
-			local U = #g.steps + 1
-			for _, d in ipairs(ch.deps) do
-				if d.s < U then U = d.s end
-			end
-			local near, fresh = {}, {}
-			for s = 1, U - 1 do
-				if ptOf[s] then near[#near + 1] = ptOf[s] end
-			end
-			for _, st in pairs(placed) do
-				local pt = Own.feedPoint(st.goals)
-				if pt then near[#near + 1] = pt end
-			end
-			-- Nothing placed before it: the guide's own place at that accept.
-			if #near == 0 and pointAt[U] then near[1] = pointAt[U] end
-			for _, st in ipairs(mine) do
-				if not placed[st.key] then fresh[#fresh + 1] = st end
-			end
-			local c = Own.feedCost(near, fresh)
-			if c <= Own.FEED_LOCAL then
-				cost, ch.inserted = cost + c, true
-				local last = 0
+	local gaps, placed, placedAt, cost
+	local function place()
+		gaps, placed, placedAt, cost = {}, {}, {}, 0
+		for _, ch in ipairs(list) do ch.inserted = nil end
+		table.sort(list, function(a, b)
+			local na, nb = opens(a), opens(b)
+			if na ~= nb then return na > nb end
+			return a.order < b.order
+		end)
+		for _, ch in ipairs(list) do
+			local mine = ch.ok and opens(ch) > 0 and stepsOf(ch.quests)
+			if mine and local_(mine) then
+				local U = #g.steps + 1
+				for _, d in ipairs(ch.deps) do
+					if d.s < U then U = d.s end
+				end
+				local near, fresh = {}, {}
+				for s = 1, U - 1 do
+					if ptOf[s] then near[#near + 1] = ptOf[s] end
+				end
+				for _, st in pairs(placed) do
+					local pt = Own.feedPoint(st.goals)
+					if pt then near[#near + 1] = pt end
+				end
+				-- Nothing placed before it: the guide's own place at that accept.
+				if #near == 0 and pointAt[U] then near[1] = pointAt[U] end
 				for _, st in ipairs(mine) do
-					local p = placed[st.key]
-					if p then
-						for _, goal in ipairs(st.goals) do p.has[goal] = true end
-						p.goals = {}
-						for _, goal in ipairs(p.step.goals) do
-							if p.has[goal] then p.goals[#p.goals + 1] = goal end
+					if not placed[st.key] then fresh[#fresh + 1] = st end
+				end
+				local c = Own.feedCost(near, fresh)
+				if c <= Own.FEED_LOCAL then
+					cost, ch.inserted = cost + c, true
+					local last = 0
+					for _, st in ipairs(mine) do
+						local p = placed[st.key]
+						if p then
+							for _, goal in ipairs(st.goals) do p.has[goal] = true end
+							p.goals = {}
+							for _, goal in ipairs(p.step.goals) do
+								if p.has[goal] then p.goals[#p.goals + 1] = goal end
+							end
+							if placedAt[st.key] > last then last = placedAt[st.key] end
+						else
+							local pt = Own.feedPoint(st.goals)
+							-- A step of this guide an update passed comes back just before
+							-- the quest that needs it: on the way, never a step back.
+							if st.d == 0 and U - 1 > last then last = U - 1 end
+							local best, bestJ = nil, last
+							for j = last, U - 1 do
+								local q = pointAt[j > 0 and j or 1]
+								local d = pt and q and ns.DirectTravelCost(pt, q)
+								if d and (not best or d < best) then best, bestJ = d, j end
+							end
+							placed[st.key], placedAt[st.key] = st, bestJ
+							gaps[bestJ] = gaps[bestJ] or {}
+							table.insert(gaps[bestJ], st)
+							last = bestJ
 						end
-						if placedAt[st.key] > last then last = placedAt[st.key] end
-					else
-						local pt = Own.feedPoint(st.goals)
-						-- A step of this guide an update passed comes back just before
-						-- the quest that needs it: on the way, never a step back.
-						if st.d == 0 and U - 1 > last then last = U - 1 end
-						local best, bestJ = nil, last
-						for j = last, U - 1 do
-							local q = pointAt[j > 0 and j or 1]
-							local d = pt and q and ns.DirectTravelCost(pt, q)
-							if d and (not best or d < best) then best, bestJ = d, j end
-						end
-						placed[st.key], placedAt[st.key] = st, bestJ
-						gaps[bestJ] = gaps[bestJ] or {}
-						table.insert(gaps[bestJ], st)
-						last = bestJ
 					end
 				end
 			end
 		end
+	end
+	-- An accept opens only with the chain of every root it lacks put in: when
+	-- one of them stayed out (too far, another zone), the chains put in for it
+	-- open nothing (Split Bone Necklace: Bloody Bone Necklace's chain without
+	-- The Vile Reef's). Placed again without such an accept until it holds.
+	for _ = 1, #list + 1 do
+		place()
+		local again = false
+		for _, ch in ipairs(list) do
+			if ch.inserted then
+				for _, d in ipairs(ch.deps) do
+					if d.whole then
+						for _, c in ipairs(d.chains or NONE) do
+							if not c.inserted then d.whole, again = false, true break end
+						end
+					end
+				end
+			end
+		end
+		if not again then break end
 	end
 	-- Left out: the accepts of the chains not put in, with their quests' goals.
 	-- (Kept on the way: what needed a step an update passed, `onWay`.)
